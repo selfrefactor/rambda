@@ -1,4 +1,4 @@
-const R = require("./compose")
+const R = require("./ramda")
 
 const add = (a,b)=>{
 	if(b === undefined){
@@ -90,15 +90,24 @@ const flatten = arr => {
 }
 
 const drop = (dropNumber, arr) => {
-  const arrClone = arr
+  if(arr === undefined){
+    return holder => drop(dropNumber, holder)
+  }else{
+    const arrClone = arr
 
-  return arrClone.slice(dropNumber)
+    return arrClone.slice(dropNumber)
+  }
 }
 
 const dropLast = (dropNumber, arr) => {
-  const arrClone = arr
+  if(arr === undefined){
 
-  return arrClone.slice(0, -dropNumber)
+    return holder => dropLast(dropNumber, holder)
+  }else{
+    const arrClone = arr
+
+    return arrClone.slice(0, -dropNumber)
+  }
 }
 
 const head = arr => dropLast(arr.length - 1, arr)
@@ -170,6 +179,7 @@ module.exports.drop = drop
 module.exports.dropLast = dropLast
 module.exports.filter = filter
 module.exports.flatten = flatten
+module.exports.flip = R.flip
 module.exports.head = head
 module.exports.init = init
 module.exports.join = join
