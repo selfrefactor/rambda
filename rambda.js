@@ -159,6 +159,14 @@ const subtract = (a,b)=>{
   }
 }
 
+const sortBy = (fn,arr) =>{
+	if(arr===undefined){
+  	return holder => sortBy(fn,holder)
+  }else{
+  	return arr.sort(fn)
+  }
+}
+
 const split = (glue,str) =>{
 	if(str===undefined){
   	return holder => split(glue,holder)
@@ -167,11 +175,19 @@ const split = (glue,str) =>{
   }
 }
 
-const splitEvery = (glue,str) =>{
-	if(str===undefined){
-  	return holder => split(glue,holder)
+const splitEvery = (num,a) =>{
+	if(a===undefined){
+  	return holder => splitEvery(num,holder)
   }else{
-  	return str.split(glue)
+    num = num > 1 ?
+      num :
+      1
+  	const willReturn = []
+    let counter = 0
+    while(counter<a.length){
+      willReturn.push(a.slice(counter, counter += num))
+    }
+    return willReturn
   }
 }
 
@@ -283,7 +299,9 @@ module.exports.last = last
 module.exports.map = map
 module.exports.prepend = prepend
 module.exports.range = range
+module.exports.sortBy = sortBy
 module.exports.split = split
+module.exports.splitEvery = splitEvery
 module.exports.subtract = subtract
 module.exports.tail = tail
 module.exports.take = take

@@ -157,11 +157,35 @@ describe("common cases", () => {
     ).toEqual([0,1,2,3,4,5,6,7,8,9])
   })
 
+  it("sortBy",()=>{
+    expect(
+      R.sortBy(
+        (a,b)=> a>b
+      )(["foo","bar","baz"])
+    ).toEqual(["bar", "baz", "foo"])
+
+    expect(
+      R.sortBy(
+        (a,b)=> a-b
+      )([2,3,1])
+    ).toEqual([1,2,3])
+  })
+
   it("split",()=>{
     expect(
       R.split(
         "|"
       )("foo|bar|baz")
+    ).toEqual(["foo","bar","baz"])
+  })
+
+  it("splitEvery",()=>{
+    expect(
+      R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7])
+    ).toEqual([[1, 2, 3], [4, 5, 6], [7]])
+
+    expect(
+      R.splitEvery(3, 'foobarbaz')
     ).toEqual(["foo","bar","baz"])
   })
 
