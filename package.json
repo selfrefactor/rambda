@@ -1,0 +1,29 @@
+{
+  "name": "rambda",
+  "version": "0.1.0",
+  "description": "Lightweight alternative to Ramda",
+  "main": "rambda.min.js",
+  "scripts": {
+    "test": "jest",
+    "de": "git add . --all&&git commit -m update&&git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfrefactor/rambda.git"
+  },
+  "keywords": [
+    "ramda",
+    "fp",
+    "functional",
+    "utility"
+  ],
+  "author": "self_refactor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/selfrefactor/rambda/issues"
+  },
+  "homepage": "https://github.com/selfrefactor/rambda#readme",
+  "devDependencies": {
+    "jest": "^18.1.0"
+  }
+}
