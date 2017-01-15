@@ -171,7 +171,7 @@ const tail = arr => drop(1, arr)
 
 const type = a => {
   let b = R.compose(
-    filter(val=>a instance of val)
+    filter(val=>a instanceof val)
   )([Array, Number])
   console.log(b)
   return ""
@@ -198,6 +198,16 @@ const uniq = arr => {
 }
 
 const update = (newValue,index,arr)=>{
+  if(index === undefined){
+    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
+  }else if(arr === undefined){
+    return holder => update(newValue,index, holder)
+  }else{
+    return arr.fill(newValue,index, index+1)
+  }
+}
+
+const updateB = (newValue,index,arr)=>{
   if(index === undefined){
     return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
   }else if(arr === undefined){
