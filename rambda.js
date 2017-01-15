@@ -167,11 +167,53 @@ const split = (glue,str) =>{
   }
 }
 
+const splitEvery = (glue,str) =>{
+	if(str===undefined){
+  	return holder => split(glue,holder)
+  }else{
+  	return str.split(glue)
+  }
+}
+
 const tail = arr => drop(1, arr)
+
+const take = (takeNumber, arr) => {
+  if(arr === undefined){
+    return holder => take(takeNumber, holder)
+  }else{
+    const arrClone = arr
+
+    return arrClone.slice(0,takeNumber)
+  }
+}
+
+const takeLast = (takeNumber, arr) => {
+  if(arr === undefined){
+
+    return holder => dropLast(takeNumber, holder)
+  }else{
+    const arrClone = arr
+    takeNumber = takeNumber > arrClone.length ?
+      arrClone.length :
+      takeNumber
+
+    return arrClone.slice(arrClone.length - takeNumber)
+  }
+}
 
 const toLower = a => a.toLowerCase()
 
 const toUpper = a => a.toUpperCase()
+
+const test = (regex, str) =>{
+  if(str === undefined){
+    return holder => test(regex, holder)
+  }else{
+    return str.search(regex) === -1 ?
+      false :
+      true
+  }
+}
 
 const type = a => {
   if(a === null){
@@ -244,6 +286,9 @@ module.exports.range = range
 module.exports.split = split
 module.exports.subtract = subtract
 module.exports.tail = tail
+module.exports.take = take
+module.exports.takeLast = takeLast
+module.exports.test = test
 module.exports.toLower = toLower
 module.exports.toUpper = toUpper
 module.exports.type = type
