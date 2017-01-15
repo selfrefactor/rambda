@@ -1,20 +1,20 @@
 const R = require("./")
 const Ramda = require("ramda")
-
-var Benchmark = require('benchmark')
-var suite = new Benchmark.Suite;
+const Benchmark = require('benchmark')
 const benchmarks = require('beautify-benchmark')
 
-suite.add('Rambda#add', function() {
+add = new Benchmark.Suite
+
+add.add('Rambda#add', ()=>{
   R.add(1)(1)
 })
-.add('R.add', function() {
+.add('R.add', () => {
   Ramda.add(1)(1)
 })
-.on('cycle', function(event) {
+.on('cycle', event => {
   benchmarks.add(event.target)
 })
-.on('complete', function() {
+.on('complete', ()=>{
   benchmarks.log()
 })
-.run({ 'async': false });
+.run()
