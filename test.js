@@ -1,4 +1,4 @@
-const Ramda = require("ramda")
+const Ramda = require("./r")
 const R = require("./rambda")
 
 describe("common cases", () => {
@@ -165,9 +165,25 @@ describe("common cases", () => {
     ).toEqual(["foo","bar","baz"])
   })
 
+  it("toLower",()=>{
+    expect(
+      R.toLower("FOO|BAR|BAZ")
+    ).toEqual("foo|bar|baz")
+  })
+
+  it("toUpper",()=>{
+    expect(
+      R.compose(
+        R.join(""),
+        R.map(R.toUpper),
+        R.split(""),
+      )("foo|bar|baz")
+    ).toEqual("FOO|BAR|BAZ")
+  })
+
   it("type",()=>{
     expect(
-      R.type({a:1,b:2,c:3})
+      R.type({})
     ).toEqual("Object")
 
     expect(
@@ -175,8 +191,24 @@ describe("common cases", () => {
     ).toEqual("Number")
 
     expect(
-      R.type([1])
+      R.type(false)
+    ).toEqual("Boolean")
+
+    expect(
+      R.type("foo")
+    ).toEqual("String")
+
+    expect(
+      R.type(null)
+    ).toEqual("Null")
+
+    expect(
+      R.type([])
     ).toEqual("Array")
+
+    expect(
+      R.type(/\s/g)
+    ).toEqual("RegExp")
   })
 
   it("values",()=>{

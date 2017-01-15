@@ -169,17 +169,27 @@ const split = (glue,str) =>{
 
 const tail = arr => drop(1, arr)
 
+const toLower = a => a.toLowerCase()
+
+const toUpper = a => a.toUpperCase()
+
 const type = a => {
-  if(a.splice!== undefined){
-    return "Array"
-  }else if(a*1 === a){
-    return "Number"
-  }else if(a === null){
+  if(a === null){
     return "Null"
+  }else if(a.splice!== undefined){
+    return "Array"
+  }else if(a.freeze !== undefined){
+    return "Object"
+  }else if(typeof(a)==="boolean"){
+    return "Boolean"
+  } else if(typeof(a) === "number"){
+    return "Number"
+  }else if(typeof(a) === "string"){
+    return "String"
   } else if(a === undefined){
     return "Undefined"
-  } else if(!!a === a){
-    return "Boolean"
+  }else if(a instanceof RegExp){
+    return "RegExp"
   }
   return "Object"
 }
@@ -234,6 +244,8 @@ module.exports.range = range
 module.exports.split = split
 module.exports.subtract = subtract
 module.exports.tail = tail
+module.exports.toLower = toLower
+module.exports.toUpper = toUpper
 module.exports.type = type
 module.exports.values = values
 module.exports.uniq = uniq
