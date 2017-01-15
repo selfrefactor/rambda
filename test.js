@@ -60,10 +60,10 @@ describe("common cases", () => {
     ).toEqual([ 1, 2, [ 3 ], 4 ])
   })
 
-  it("flip",()=>{
+  it("works with Ramda's flip",()=>{
     expect(
       R.compose(
-        R.map(R.flip(R.subtract)(10)),
+        R.map(Ramda.flip(R.subtract)(10)),
         R.adjust(R.add(1),0)
       )([0,2,3,4,5,6,7,8,9])
     ).toEqual([-9, -8, -7, -6, -5, -4, -3, -2, -1])
@@ -165,5 +165,22 @@ describe("common cases", () => {
     ).toEqual(["foo","bar","baz"])
   })
 
+  it("uniq",()=>{
+    expect(
+      R.uniq([1,2,3,3,3,1,2,0])
+    ).toEqual([1,2,3,0])
+  })
+
+  it("uniq",()=>{
+    expect(
+      R.uniq([1,2,3,3,3,1,2,0])
+    ).toEqual([1,2,3,0])
+  })
+
+  it("update",()=>{
+    expect(
+      R.update(3)(1)([1,2,3])
+    ).toEqual([1,3,3])
+  })
 
 })

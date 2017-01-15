@@ -2,7 +2,7 @@
   "name": "rambda",
   "version": "0.1.2",
   "description": "Lightweight alternative to Ramda",
-  "main": "rambda.min.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "cover": "jest --coverage",
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/selfrefactor/rambda#readme",
   "devDependencies": {
-    "jest": "^18.1.0"
+    "jest": "^18.1.0",
+    "ramda": "*"
   }
 }

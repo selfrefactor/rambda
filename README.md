@@ -3,31 +3,73 @@
 
 # Rambda
 
-Partial copy of *Ramda* using only *R.compose* and plain Javascript functions.
+Partial copy of *Ramda* using *Ramda.compose* and plain Javascript functions.
 
 ## Argumentation
-The main issue with *Ramda* is its size. Custom build and minification solve the issue only partially.
+I admire *Ramda* but most of the time I use only small part of what it offers.
 
-## What is included?
+But even when I create custom **Ramda** build, I still am not completely happy with the size.
+
+## Example use
+```
+const R = require("rambda")
+const result = R.compose(
+  R.flatten,
+  R.filter(val => val>2),
+  R.flatten,
+)([ [1], [2], [3], 4])
+console.log(result) // => [3,4]
+```
+
+## Differences between Rambda and Ramda
+
+Rambda's method are not compatible with **Ramda.__**.
+
+In some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
+
+Also Rambda's **flatten** works only for the first 3 levels of nesting.
+
+## Methods
 
 #### compose
-  Just passing minified version of Ramda's compose method
+  Just passing Ramda's compose method
 
-#### flatten
-  Flattens nested arrays. Work only for the first 3 levels of nesting
+#### add
 
-#### head
+#### adjust
 
-Same implenentation as *Ramda's* ***head*** method, except it is not auto-curried.
+#### any
 
-This description applies also for the following **Rambda** methods:
+#### append
 
-#### init
-
-#### tail
-
-#### last
+#### contains
 
 #### drop
 
 #### dropLast
+
+#### filter
+
+#### flatten
+
+#### head
+
+#### init
+
+#### join
+
+#### last
+
+#### map
+
+#### prepend
+
+#### range
+
+#### split
+
+#### subtract
+
+#### tail
+#### uniq
+#### update

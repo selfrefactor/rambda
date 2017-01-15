@@ -1,4 +1,4 @@
-const R = require("./ramda")
+const R = require("./compose")
 
 const add = (a,b)=>{
 	if(b === undefined){
@@ -169,17 +169,44 @@ const split = (glue,str) =>{
 
 const tail = arr => drop(1, arr)
 
+const uniq = arr => {
+  const holder = []
+  return arr.filter(val=>{
+    if(holder.includes(val)){
+      return false
+    }else{
+      holder.push(val)
+      return true
+    }
+  })
+}
+
+const update = (newValue,index,arr)=>{
+  if(index === undefined){
+    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
+  }else if(arr === undefined){
+    return holder => update(newValue,index, holder)
+  }else{
+    return arr.map((val,key)=>{
+      if(key===index){
+        return newValue
+      }else{
+        return val
+      }
+    })
+  }
+}
+
 module.exports.add = add
 module.exports.adjust = adjust
 module.exports.any = any
 module.exports.append = append
-module.exports.compose = R.compose
 module.exports.contains = contains
+module.exports.compose = R.compose
 module.exports.drop = drop
 module.exports.dropLast = dropLast
 module.exports.filter = filter
 module.exports.flatten = flatten
-module.exports.flip = R.flip
 module.exports.head = head
 module.exports.init = init
 module.exports.join = join
@@ -190,3 +217,5 @@ module.exports.range = range
 module.exports.split = split
 module.exports.subtract = subtract
 module.exports.tail = tail
+module.exports.uniq = uniq
+module.exports.update = update
