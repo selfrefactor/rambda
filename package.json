@@ -5,6 +5,7 @@
   "main": "rambda.min.js",
   "scripts": {
     "test": "jest",
+    "cover": "jest --coverage",
     "de": "git add . --all&&git commit -m update&&git push"
   },
   "repository": {

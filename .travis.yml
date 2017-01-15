@@ -1,0 +1,15 @@
+before_script:
+  - "npm i"
+env:
+  global:
+    - "TIMEOUT =150000"
+  matrix:
+    - BUILD='default'
+sudo: true
+language: node_js
+node_js:
+  - 7.4.0
+script:
+  - "npm run cover"
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
