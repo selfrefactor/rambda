@@ -1,5 +1,5 @@
 const R = require("./rambda")
-const Ramda = require("ramda")
+const Ramda = require("./ramda.min.js")
 const Benchmark = require('benchmark')
 const benchmarks = require('beautify-benchmark')
 
