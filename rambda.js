@@ -170,11 +170,18 @@ const split = (glue,str) =>{
 const tail = arr => drop(1, arr)
 
 const type = a => {
-  let b = R.compose(
-    filter(val=>a instanceof val)
-  )([Array, Number])
-  console.log(b)
-  return ""
+  if(a.splice!== undefined){
+    return "Array"
+  }else if(a*1 === a){
+    return "Number"
+  }else if(a === null){
+    return "Null"
+  } else if(a === undefined){
+    return "Undefined"
+  } else if(!!a === a){
+    return "Boolean"
+  }
+  return "Object"
 }
 
 const values = obj => {
@@ -204,22 +211,6 @@ const update = (newValue,index,arr)=>{
     return holder => update(newValue,index, holder)
   }else{
     return arr.fill(newValue,index, index+1)
-  }
-}
-
-const updateB = (newValue,index,arr)=>{
-  if(index === undefined){
-    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
-  }else if(arr === undefined){
-    return holder => update(newValue,index, holder)
-  }else{
-    return arr.map((val,key)=>{
-      if(key===index){
-        return newValue
-      }else{
-        return val
-      }
-    })
   }
 }
 

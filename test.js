@@ -165,6 +165,20 @@ describe("common cases", () => {
     ).toEqual(["foo","bar","baz"])
   })
 
+  it("type",()=>{
+    expect(
+      R.type({a:1,b:2,c:3})
+    ).toEqual("Object")
+
+    expect(
+      R.type(1)
+    ).toEqual("Number")
+
+    expect(
+      R.type([1])
+    ).toEqual("Array")
+  })
+
   it("values",()=>{
     expect(
       R.values({a:1,b:2,c:3})
