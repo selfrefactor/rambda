@@ -10,22 +10,24 @@ The main issue with *Ramda* is its size. Custom build and minification solve the
 
 ## What is included?
 
-### compose
+#### compose
   Just passing minified version of Ramda's compose method
 
-### flatten
+#### flatten
   Flattens nested arrays. Work only for the first 3 levels of nesting
 
-### head - same as Ramda's *head* method, except it is not auto-curried.
+#### head
 
-The same description applies for the following methods:
+Same implenentation as *Ramda's* ***head*** method, except it is not auto-curried.
 
-### init
+This description applies also for the following **Rambda** methods:
 
-### tail
+#### init
 
-### last
+#### tail
 
-### drop
+#### last
 
-### dropLast
+#### drop
+
+#### dropLast
