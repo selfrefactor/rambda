@@ -165,10 +165,10 @@ describe("common cases", () => {
     ).toEqual(["foo","bar","baz"])
   })
 
-  it("uniq",()=>{
+  it("values",()=>{
     expect(
-      R.uniq([1,2,3,3,3,1,2,0])
-    ).toEqual([1,2,3,0])
+      R.values({a:1,b:2,c:3})
+    ).toEqual([1,2,3])
   })
 
   it("uniq",()=>{

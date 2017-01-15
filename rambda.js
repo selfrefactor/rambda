@@ -169,6 +169,22 @@ const split = (glue,str) =>{
 
 const tail = arr => drop(1, arr)
 
+const type = a => {
+  let b = R.compose(
+    filter(val=>a instance of val)
+  )([Array, Number])
+  console.log(b)
+  return ""
+}
+
+const values = obj => {
+  const willReturn = []
+  for(key in obj){
+    willReturn.push(obj[key]);
+  }
+  return willReturn
+}
+
 const uniq = arr => {
   const holder = []
   return arr.filter(val=>{
@@ -217,5 +233,7 @@ module.exports.range = range
 module.exports.split = split
 module.exports.subtract = subtract
 module.exports.tail = tail
+module.exports.type = type
+module.exports.values = values
 module.exports.uniq = uniq
 module.exports.update = update
