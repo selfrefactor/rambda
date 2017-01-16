@@ -33,199 +33,160 @@ Also Rambda's **flatten** works only for the first 3 levels of nesting.
 
 #### compose
 
-  Just passing Ramda's compose method
+Just passing Ramda's compose method
 
-  #### add
+#### add
 
+[link to Ramda's docs for add method](http://ramdajs.com/docs/#add)
 
-      [link to Ramda's docs for add method](http://ramdajs.com/docs/#add)
+#### adjust
 
-  #### adjust
+[link to Ramda's docs for adjust method](http://ramdajs.com/docs/#adjust)
 
+#### any
 
-      [link to Ramda's docs for adjust method](http://ramdajs.com/docs/#adjust)
+[link to Ramda's docs for any method](http://ramdajs.com/docs/#any)
 
-  #### any
+#### append
 
+[link to Ramda's docs for append method](http://ramdajs.com/docs/#append)
 
-      [link to Ramda's docs for any method](http://ramdajs.com/docs/#any)
+#### contains
 
-  #### append
+[link to Ramda's docs for contains method](http://ramdajs.com/docs/#contains)
 
+#### drop
 
-      [link to Ramda's docs for append method](http://ramdajs.com/docs/#append)
+[link to Ramda's docs for drop method](http://ramdajs.com/docs/#drop)
 
-  #### contains
+#### dropLast
 
+[link to Ramda's docs for dropLast method](http://ramdajs.com/docs/#dropLast)
 
-      [link to Ramda's docs for contains method](http://ramdajs.com/docs/#contains)
+#### filter
 
-  #### drop
+[link to Ramda's docs for filter method](http://ramdajs.com/docs/#filter)
 
+#### flatten
 
-      [link to Ramda's docs for drop method](http://ramdajs.com/docs/#drop)
+[link to Ramda's docs for flatten method](http://ramdajs.com/docs/#flatten)
 
-  #### dropLast
+#### head
 
+[link to Ramda's docs for head method](http://ramdajs.com/docs/#head)
 
-      [link to Ramda's docs for dropLast method](http://ramdajs.com/docs/#dropLast)
+#### init
 
-  #### filter
+[link to Ramda's docs for init method](http://ramdajs.com/docs/#init)
 
+#### join
 
-      [link to Ramda's docs for filter method](http://ramdajs.com/docs/#filter)
+[link to Ramda's docs for join method](http://ramdajs.com/docs/#join)
 
-  #### flatten
+#### last
 
+[link to Ramda's docs for last method](http://ramdajs.com/docs/#last)
 
-      [link to Ramda's docs for flatten method](http://ramdajs.com/docs/#flatten)
+#### length
 
-  #### head
+[link to Ramda's docs for length method](http://ramdajs.com/docs/#length)
 
+#### map
 
-      [link to Ramda's docs for head method](http://ramdajs.com/docs/#head)
+[link to Ramda's docs for map method](http://ramdajs.com/docs/#map)
 
-  #### init
+#### omit
 
+[link to Ramda's docs for omit method](http://ramdajs.com/docs/#omit)
 
-      [link to Ramda's docs for init method](http://ramdajs.com/docs/#init)
+#### path
 
-  #### join
+[link to Ramda's docs for path method](http://ramdajs.com/docs/#path)
 
+#### prepend
 
-      [link to Ramda's docs for join method](http://ramdajs.com/docs/#join)
+[link to Ramda's docs for prepend method](http://ramdajs.com/docs/#prepend)
 
-  #### last
+#### pick
 
+[link to Ramda's docs for pick method](http://ramdajs.com/docs/#pick)
 
-      [link to Ramda's docs for last method](http://ramdajs.com/docs/#last)
+#### prop
 
-  #### length
+[link to Ramda's docs for prop method](http://ramdajs.com/docs/#prop)
 
+#### propEq
 
-      [link to Ramda's docs for length method](http://ramdajs.com/docs/#length)
+[link to Ramda's docs for propEq method](http://ramdajs.com/docs/#propEq)
 
-  #### map
+#### range
 
+[link to Ramda's docs for range method](http://ramdajs.com/docs/#range)
 
-      [link to Ramda's docs for map method](http://ramdajs.com/docs/#map)
+#### repeat
 
-  #### omit
+[link to Ramda's docs for repeat method](http://ramdajs.com/docs/#repeat)
 
+#### replace
 
-      [link to Ramda's docs for omit method](http://ramdajs.com/docs/#omit)
+[link to Ramda's docs for replace method](http://ramdajs.com/docs/#replace)
 
-  #### path
+#### sort
 
+[link to Ramda's docs for sort method](http://ramdajs.com/docs/#sort)
 
-      [link to Ramda's docs for path method](http://ramdajs.com/docs/#path)
+#### sortBy
 
-  #### prepend
+[link to Ramda's docs for sortBy method](http://ramdajs.com/docs/#sortBy)
 
+#### split
 
-      [link to Ramda's docs for prepend method](http://ramdajs.com/docs/#prepend)
+[link to Ramda's docs for split method](http://ramdajs.com/docs/#split)
 
-  #### pick
+#### splitEvery
 
+[link to Ramda's docs for splitEvery method](http://ramdajs.com/docs/#splitEvery)
 
-      [link to Ramda's docs for pick method](http://ramdajs.com/docs/#pick)
+#### subtract
 
-  #### prop
+[link to Ramda's docs for subtract method](http://ramdajs.com/docs/#subtract)
 
+#### tail
 
-      [link to Ramda's docs for prop method](http://ramdajs.com/docs/#prop)
+[link to Ramda's docs for tail method](http://ramdajs.com/docs/#tail)
 
-  #### propEq
+#### take
 
+[link to Ramda's docs for take method](http://ramdajs.com/docs/#take)
 
-      [link to Ramda's docs for propEq method](http://ramdajs.com/docs/#propEq)
+#### takeLast
 
-  #### range
+[link to Ramda's docs for takeLast method](http://ramdajs.com/docs/#takeLast)
 
+#### test
 
-      [link to Ramda's docs for range method](http://ramdajs.com/docs/#range)
+[link to Ramda's docs for test method](http://ramdajs.com/docs/#test)
 
-  #### repeat
+#### toLower
 
+[link to Ramda's docs for toLower method](http://ramdajs.com/docs/#toLower)
 
-      [link to Ramda's docs for repeat method](http://ramdajs.com/docs/#repeat)
+#### toUpper
 
-  #### replace
+[link to Ramda's docs for toUpper method](http://ramdajs.com/docs/#toUpper)
 
+#### type
 
-      [link to Ramda's docs for replace method](http://ramdajs.com/docs/#replace)
+[link to Ramda's docs for type method](http://ramdajs.com/docs/#type)
 
-  #### sort
+#### values
 
+[link to Ramda's docs for values method](http://ramdajs.com/docs/#values)
 
-      [link to Ramda's docs for sort method](http://ramdajs.com/docs/#sort)
+#### uniq
 
-  #### sortBy
+[link to Ramda's docs for uniq method](http://ramdajs.com/docs/#uniq)
 
+#### update
 
-      [link to Ramda's docs for sortBy method](http://ramdajs.com/docs/#sortBy)
-
-  #### split
-
-
-      [link to Ramda's docs for split method](http://ramdajs.com/docs/#split)
-
-  #### splitEvery
-
-
-      [link to Ramda's docs for splitEvery method](http://ramdajs.com/docs/#splitEvery)
-
-  #### subtract
-
-
-      [link to Ramda's docs for subtract method](http://ramdajs.com/docs/#subtract)
-
-  #### tail
-
-
-      [link to Ramda's docs for tail method](http://ramdajs.com/docs/#tail)
-
-  #### take
-
-
-      [link to Ramda's docs for take method](http://ramdajs.com/docs/#take)
-
-  #### takeLast
-
-
-      [link to Ramda's docs for takeLast method](http://ramdajs.com/docs/#takeLast)
-
-  #### test
-
-
-      [link to Ramda's docs for test method](http://ramdajs.com/docs/#test)
-
-  #### toLower
-
-
-      [link to Ramda's docs for toLower method](http://ramdajs.com/docs/#toLower)
-
-  #### toUpper
-
-
-      [link to Ramda's docs for toUpper method](http://ramdajs.com/docs/#toUpper)
-
-  #### type
-
-
-      [link to Ramda's docs for type method](http://ramdajs.com/docs/#type)
-
-  #### values
-
-
-      [link to Ramda's docs for values method](http://ramdajs.com/docs/#values)
-
-  #### uniq
-
-
-      [link to Ramda's docs for uniq method](http://ramdajs.com/docs/#uniq)
-
-  #### update
-
-
-      [link to Ramda's docs for update method](http://ramdajs.com/docs/#update)
+[link to Ramda's docs for update method](http://ramdajs.com/docs/#update)

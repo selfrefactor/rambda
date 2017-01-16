@@ -45,11 +45,11 @@ const methods = [
 
 const willSave = R.compose(
   R.join("\n\n"),
+  R.map(val => val.trim()),
   R.map(val=>{
     return `#### ${val}
 
-
-    [link to Ramda's docs for ${val} method](http://ramdajs.com/docs/#${val})`
+[link to Ramda's docs for ${val} method](http://ramdajs.com/docs/#${val})`
   })
 )(methods)
 
