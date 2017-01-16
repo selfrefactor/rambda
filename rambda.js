@@ -132,6 +132,20 @@ const map = (fn,arr) =>{
 
 const last = arr => arr[ arr.length - 1 ]
 
+const omit = (keys,obj)=>{
+  if(obj===undefined){
+    return holder => omit(keys,holder)
+  }else{
+    const willReturn = {}
+    for(key in obj){
+      if(!keys.includes(key)){
+        willReturn[key] = obj[key];
+      }
+    }
+    return willReturn
+  }
+}
+
 const prepend = (val,arr)=>{
 	if(arr === undefined){
   	return holder => prepend(val,holder)
@@ -139,6 +153,28 @@ const prepend = (val,arr)=>{
   	const clone = arr
     clone.push(val)
   	return clone
+  }
+}
+
+const pick = (keys,obj)=>{
+  if(obj===undefined){
+    return holder => pick(keys,holder)
+  }else{
+    const willReturn = {}
+    for(key in obj){
+      if(keys.includes(key)){
+        willReturn[key] = obj[key];
+      }
+    }
+    return willReturn
+  }
+}
+
+const prop = (key,obj)=>{
+  if(obj===undefined){
+    return holder => prop(key,holder)
+  }else{
+    return obj[key]
   }
 }
 
@@ -342,7 +378,10 @@ module.exports.init = init
 module.exports.join = join
 module.exports.last = last
 module.exports.map = map
+module.exports.omit = omit
 module.exports.prepend = prepend
+module.exports.pick = pick
+module.exports.prop = prop
 module.exports.propEq = propEq
 module.exports.range = range
 module.exports.repeat = repeat

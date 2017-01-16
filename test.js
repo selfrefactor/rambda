@@ -148,6 +148,42 @@ describe("common cases", () => {
     ).toEqual( [1, 0, 2, 0, 3,0])
   })
 
+  it("a",()=>{
+    expect(
+      true
+    ).toEqual( true)
+  })
+
+  it("omit",()=>{
+    expect(
+      R.omit(
+        ["a","c"]
+      )({a:"foo",b:"bar",c:"baz"})
+    ).toEqual({b:"bar"})
+  })
+
+  it("pick",()=>{
+    expect(
+      R.pick(
+        ["a","c"]
+      )({a:"foo",b:"bar",c:"baz"})
+    ).toEqual({a:"foo",c:"baz"})
+  })
+
+  it("prop",()=>{
+    expect(
+      R.prop(
+        "foo"
+      )({foo:"baz"})
+    ).toEqual("baz")
+
+    expect(
+      R.prop(
+        "bar"
+      )({foo:"baz"})
+    ).toEqual(undefined)
+  })
+
   it("propEq",()=>{
     expect(
       R.propEq(
