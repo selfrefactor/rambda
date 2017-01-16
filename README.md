@@ -6,15 +6,15 @@
 Partial copy of *Ramda* using *Ramda.compose* and plain Javascript functions.
 
 ## Argumentation
+
 I admire *Ramda* but most of the time I use only small part of what it offers.
 
-But even when I create custom **Ramda** build, I still am not completely happy with the size.
+But even when I create custom **Ramda** build, I still am not completely happy with its size.
 
 ## Example use
 ```
 const R = require("rambda")
 const result = R.compose(
-  R.flatten,
   R.filter(val => val>2),
   R.flatten,
 )([ [1], [2], [3], 4])
@@ -22,20 +22,25 @@ console.log(result) // => [3,4]
 ```
 
 ## Differences between Rambda and Ramda
+Rambda shadows only small part of the Ramda's API. A few things to note:
 
-- Rambda's method are not compatible with **Ramda.__**.
+- Rambda's methods are not compatible with the placeholder **Ramda.__**.
 
-Note that in some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
-
-- Rambda's **flatten** works within the first 3 levels of nesting
+In some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does
 
-## Methods
+## Benchmark
 
-#### compose
+Performance was not the main reason for this library, it is side effect.
 
-Just passing Ramda's compose method
+The benchmark coverage is small.
+
+Its current status:
+
+[!Screen]("inc/screen.png")
+
+## API
 
 #### add
 
@@ -52,6 +57,12 @@ Just passing Ramda's compose method
 #### append
 
 [link to Ramda's docs for append method](http://ramdajs.com/docs/#append)
+
+#### compose
+
+Just passing the original compose method of Ramda
+
+[link to Ramda's docs for compose method](http://ramdajs.com/docs/#compose)
 
 #### contains
 

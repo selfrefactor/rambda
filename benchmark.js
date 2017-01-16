@@ -4,63 +4,21 @@ const Benchmark = require('benchmark')
 const benchmarks = require('beautify-benchmark')
 
 const add = new Benchmark.Suite
+const adjust = new Benchmark.Suite
 const equals = new Benchmark.Suite
 const type = new Benchmark.Suite
 const update = new Benchmark.Suite
+const firstExample = new Benchmark.Suite
+const secondExample = new Benchmark.Suite
 
 const options = {
-  add: false,
-  equals: false,
-  type: false,
-  update: false,
+  add: true,
+  adjust: true,
+  equals: true,
+  type: true,
+  update: true,
   first: true,
-  test: false
-}
-
-if(options.test){
-  add.add('1', ()=>{
-    const a = []
-    const b = a instanceof Array
-  })
-  .add('2', () => {
-    const a = []
-    const b = a.splice !==undefined
-  })
-  .on('cycle', event => {
-    benchmarks.add(event.target)
-  })
-  .on('complete', ()=>{
-    benchmarks.log()
-  })
-  .run()
-}
-
-if(options.first){
-  add.add('Rambda', ()=>{
-    R.compose(
-        R.dropLast(2),
-        R.flatten,
-        R.flatten,
-        R.filter(val => val > 1),
-        R.flatten
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-  })
-  .add('Ramda', () => {
-    Ramda.compose(
-        Ramda.dropLast(2),
-        Ramda.flatten,
-        Ramda.flatten,
-        Ramda.filter(val => val > 1),
-        Ramda.flatten
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-  })
-  .on('cycle', event => {
-    benchmarks.add(event.target)
-  })
-  .on('complete', ()=>{
-    benchmarks.log()
-  })
-  .run()
+  second: true
 }
 
 if(options.add){
@@ -79,9 +37,25 @@ if(options.add){
   .run()
 }
 
+if(options.adjust){
+  adjust.add('Rambda#adjust', ()=>{
+    R.adjust(val=>val+1, 0)
+  })
+  .add('Ramda', () => {
+    Ramda.adjust(val=>val+1, 0)
+  })
+  .on('cycle', event => {
+    benchmarks.add(event.target)
+  })
+  .on('complete', ()=>{
+    benchmarks.log()
+  })
+  .run()
+}
+
 if(options.equals){
 
-  add.add('Rambda#equals', ()=>{
+  equals.add('Rambda#equals', ()=>{
     R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:1 } } })
   })
   .add('Ramda', () => {
@@ -112,6 +86,7 @@ if(options.update){
   })
   .run()
 }
+
 if(options.type){
 
   type.add('Rambda#type', ()=>{
@@ -119,6 +94,58 @@ if(options.type){
   })
   .add('Ramda', () => {
     Ramda.type([1,2,3])
+  })
+  .on('cycle', event => {
+    benchmarks.add(event.target)
+  })
+  .on('complete', ()=>{
+    benchmarks.log()
+  })
+  .run()
+}
+
+if(options.first){
+  firstExample.add('Rambda#firstExample', ()=>{
+    R.compose(
+        R.join("|"),
+        R.dropLast(2),
+        R.flatten,
+        R.filter(val => val > 1),
+        R.flatten
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+  })
+  .add('Ramda#firstExample', () => {
+    Ramda.compose(
+        Ramda.join("|"),
+        Ramda.dropLast(2),
+        Ramda.flatten,
+        Ramda.filter(val => val > 1),
+        Ramda.flatten
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+  })
+  .on('cycle', event => {
+    benchmarks.add(event.target)
+  })
+  .on('complete', ()=>{
+    benchmarks.log()
+  })
+  .run()
+}
+
+if(options.second){
+  secondExample.add('Rambda#secondExample', ()=>{
+    R.compose(
+        R.last,
+        R.map(R.subtract(10)),
+        R.adjust(R.add(1), 0)
+      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
+  })
+  .add('Ramda#secondExample', () => {
+    Ramda.compose(
+        Ramda.last,
+        Ramda.map(Ramda.subtract(10)),
+        Ramda.adjust(Ramda.add(1), 0)
+      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
   })
   .on('cycle', event => {
     benchmarks.add(event.target)

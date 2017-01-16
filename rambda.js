@@ -1,4 +1,4 @@
-const R = require("./compose")
+const R = require("./_inc/compose")
 
 const add = (a, b) => {
   if (b === undefined) {
@@ -83,14 +83,15 @@ const findIndex = (fn, arr) => {
 
 const flatten = arr => {
   let willReturn = []
-    for(let i = 0; i < arr.length; i++) {
-        if(Array.isArray(arr[i])) {
-            willReturn = willReturn.concat(flatten(arr[i]));
-        } else {
-            willReturn.push(arr[i]);
-        }
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[ i ])) {
+      willReturn = willReturn.concat(flatten(arr[ i ]))
+    } else {
+      willReturn.push(arr[ i ])
     }
-    return willReturn
+  }
+
+  return willReturn
 }
 
 const drop = (dropNumber, arr) => {
