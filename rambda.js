@@ -425,8 +425,6 @@ const type = a => {
     return "Null"
   } else if (Array.isArray(a)) {
     return "Array"
-  } else if (a.freeze !== undefined) {
-    return "Object"
   } else if (typeof a === "boolean") {
     return "Boolean"
   } else if (typeof a === "number") {

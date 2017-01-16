@@ -98,6 +98,14 @@ describe("common cases", () => {
     ).toBeFalsy()
 
     expect(
+      R.equals({ x:{a:1, b:2} }, { x:{b:2, a:1, c:3} })
+    ).toBeFalsy()
+
+    expect(
+      R.equals({ a:1, b:2 }, { b:3, a:1 })
+    ).toBeFalsy()
+
+    expect(
       R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:1 } } })
     ).toBeTruthy()
 
@@ -130,7 +138,7 @@ describe("common cases", () => {
     ).toBeTruthy()
 
     expect(
-      R.equals(false, null)
+      R.equals(false)(null)
     ).toBeFalsy()
   })
 
@@ -191,6 +199,10 @@ describe("common cases", () => {
     expect(
       R.indexOf(3, [ 1, 2, 3, 4 ])
     ).toEqual(2)
+
+    expect(
+      R.indexOf(1)([ 1, 2, 3, 4 ])
+    ).toEqual(0)
   })
 
   it("init/tail", () => {
@@ -244,6 +256,12 @@ describe("common cases", () => {
     ).toEqual([ "ar", "az" ])
 
     expect(
+      R.match(
+        /a./g
+      )("foo")
+    ).toEqual([])
+
+    expect(
       () => { R.match(/a./g, null) }
     ).toThrow()
   })
@@ -279,6 +297,12 @@ describe("common cases", () => {
         [ "foo", "bar", "baz" ]
       )({ foo:{ bar:{ baz:"yes" } } })
     ).toEqual("yes")
+
+    expect(
+      R.path(
+        [ "foo", "bar", "baz" ]
+      )(null)
+    ).toEqual(undefined)
 
     expect(
       R.path(
@@ -322,6 +346,10 @@ describe("common cases", () => {
         "foo",
         "bar"
       )({ foo:"baz" })
+    ).toBeFalsy()
+
+    expect(
+      R.propEq("foo")("bar")({ foo:"baz" })
     ).toBeFalsy()
   })
 
@@ -403,7 +431,7 @@ describe("common cases", () => {
     ).toEqual([ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7 ] ])
 
     expect(
-      R.splitEvery(3, "foobarbaz")
+      R.splitEvery(3)("foobarbaz")
     ).toEqual([ "foo", "bar", "baz" ])
   })
 
@@ -413,7 +441,7 @@ describe("common cases", () => {
     ).toEqual([ "foo" ])
 
     expect(
-      R.take(3, "rambda")
+      R.take(3)("rambda")
     ).toEqual("ram")
   })
 
@@ -437,7 +465,7 @@ describe("common cases", () => {
     ).toBeTruthy()
 
     expect(
-      R.test(/^y/, "xyz")
+      R.test(/^y/)("xyz")
     ).toBeFalsy()
   })
 
@@ -491,6 +519,10 @@ describe("common cases", () => {
     expect(
       R.type(/\s/g)
     ).toEqual("RegExp")
+
+    expect(
+      R.type(undefined)
+    ).toEqual("Undefined")
   })
 
   it("values", () => {
