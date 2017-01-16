@@ -1,65 +1,67 @@
 const R = require("./compose")
 
-const add = (a,b)=>{
-	if(b === undefined){
-  	return c => add(a,c)
-  }else{
-  	return a + b
+const add = (a, b) => {
+  if (b === undefined) {
+    return c => add(a, c)
   }
+
+  return a + b
 }
 
-const adjust = (fn,index,arr)=>{
-  if(index === undefined){
-    return (indexHolder, arrHolder) => adjust(fn,indexHolder, arrHolder)
-  }else if(arr === undefined){
-    return holder => adjust(fn,index, holder)
-  }else{
-    return arr.map((val,key)=>{
-      if(key===index){
-        return fn(arr[index])
-      }else{
-        return val
-      }
-    })
+const adjust = (fn, index, arr) => {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => adjust(fn, index, holder)
   }
+
+  return arr.map((val, key) => {
+    if (key === index) {
+      return fn(arr[ index ])
+    }
+
+    return val
+  })
 }
 
-const any = (fn,arr) =>{
-	if(arr===undefined){
-  	return holder => any(fn,holder)
-  }else{
-  	let flag = false
-  arr.map(val=>{
-  	if(fn(val)===true){
-    	flag = true
+const any = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => any(fn, holder)
+  }
+
+  let flag = false
+  arr.map(val => {
+    if (fn(val) === true) {
+      flag = true
     }
   })
+
   return flag
-  }
 }
 
-const append = (val,arr)=>{
-	if(arr === undefined){
-  	return holder => append(val,holder)
-  }else{
+const append = (val, arr) => {
+  if (arr === undefined) {
+  	return holder => append(val, holder)
+  } else {
   	const clone = arr
   	clone.unshift(val)
+
     return clone
   }
 }
 
-const contains = (val,arr) =>{
-  if(arr===undefined){
-    return holder => contains(val,holder)
-  }else{
-    return any(value=>val===value,arr)
+const contains = (val, arr) => {
+  if (arr === undefined) {
+    return holder => contains(val, holder)
+  } else {
+    return any(value => val === value, arr)
   }
 }
 
-const filter = (fn,arr) =>{
-	if(arr===undefined){
-  	return holder => filter(fn,holder)
-  }else{
+const filter = (fn, arr) => {
+  if (arr === undefined) {
+  	return holder => filter(fn, holder)
+  } else {
   	return arr.filter(fn)
   }
 }
@@ -90,9 +92,9 @@ const flatten = arr => {
 }
 
 const drop = (dropNumber, arr) => {
-  if(arr === undefined){
+  if (arr === undefined) {
     return holder => drop(dropNumber, holder)
-  }else{
+  } else {
     const arrClone = arr
 
     return arrClone.slice(dropNumber)
@@ -100,10 +102,9 @@ const drop = (dropNumber, arr) => {
 }
 
 const dropLast = (dropNumber, arr) => {
-  if(arr === undefined){
-
+  if (arr === undefined) {
     return holder => dropLast(dropNumber, holder)
-  }else{
+  } else {
     const arrClone = arr
 
     return arrClone.slice(0, -dropNumber)
@@ -114,160 +115,186 @@ const head = arr => dropLast(arr.length - 1, arr)
 
 const init = arr => dropLast(1, arr)
 
-const join = (glue,arr) =>{
-	if(arr===undefined){
-  	return holder => join(glue,holder)
-  }else{
+const join = (glue, arr) => {
+  if (arr === undefined) {
+  	return holder => join(glue, holder)
+  } else {
   	return arr.join(glue)
   }
 }
 
-const map = (fn,arr) =>{
-	if(arr===undefined){
-  	return holder => map(fn,holder)
-  }else{
+const map = (fn, arr) => {
+  if (arr === undefined) {
+  	return holder => map(fn, holder)
+  } else {
   	return arr.map(fn)
   }
 }
 
 const last = arr => arr[ arr.length - 1 ]
 
-const omit = (keys,obj)=>{
-  if(obj===undefined){
-    return holder => omit(keys,holder)
-  }else{
+const length = arr => arr.length
+
+const omit = (keys, obj) => {
+  if (obj === undefined) {
+    return holder => omit(keys, holder)
+  } else {
     const willReturn = {}
-    for(key in obj){
-      if(!keys.includes(key)){
-        willReturn[key] = obj[key];
+    for (key in obj) {
+      if (!keys.includes(key)) {
+        willReturn[ key ] = obj[ key ]
       }
     }
+
     return willReturn
   }
 }
 
-const prepend = (val,arr)=>{
-	if(arr === undefined){
-  	return holder => prepend(val,holder)
-  }else{
+const path = (pathArr, obj) => {
+  if (obj === undefined) {
+    return holder => path(pathArr, holder)
+  } else {
+    let holder = obj
+    let counter = 0
+    while (counter < pathArr.length) {
+      if (holder == null) {
+        return undefined
+      }
+      holder = holder[ pathArr[ counter ] ]
+      counter++
+    }
+
+    return holder
+  }
+}
+
+const prepend = (val, arr) => {
+  if (arr === undefined) {
+  	return holder => prepend(val, holder)
+  } else {
   	const clone = arr
     clone.push(val)
-  	return clone
+
+    return clone
   }
 }
 
-const pick = (keys,obj)=>{
-  if(obj===undefined){
-    return holder => pick(keys,holder)
-  }else{
+const pick = (keys, obj) => {
+  if (obj === undefined) {
+    return holder => pick(keys, holder)
+  } else {
     const willReturn = {}
-    for(key in obj){
-      if(keys.includes(key)){
-        willReturn[key] = obj[key];
+    for (key in obj) {
+      if (keys.includes(key)) {
+        willReturn[ key ] = obj[ key ]
       }
     }
+
     return willReturn
   }
 }
 
-const prop = (key,obj)=>{
-  if(obj===undefined){
-    return holder => prop(key,holder)
-  }else{
-    return obj[key]
+const prop = (key, obj) => {
+  if (obj === undefined) {
+    return holder => prop(key, holder)
+  } else {
+    return obj[ key ]
   }
 }
 
-const propEq = (key,val, obj)=>{
-  if(val===undefined){
-    return (valHolder,objHolder)=>propEq(key, valHolder, objHolder)
-  }else if(obj === undefined){
-    return holder => propEq(key,val, holder)
-  }else{
-    return obj[key] === val
+const propEq = (key, val, obj) => {
+  if (val === undefined) {
+    return (valHolder, objHolder) => propEq(key, valHolder, objHolder)
+  } else if (obj === undefined) {
+    return holder => propEq(key, val, holder)
+  } else {
+    return obj[ key ] === val
   }
 }
 
 const range = (start, end) => {
   const willReturn = []
   for (let i = start; i < end; i++) {
-    willReturn.push(i);
+    willReturn.push(i)
   }
 
   return willReturn
 }
 
-const repeat = (a, num) =>{
-  if(num === undefined){
+const repeat = (a, num) => {
+  if (num === undefined) {
     return holder => repeat(a, holder)
-  }else{
-    const willReturn = range(0,num)
+  } else {
+    const willReturn = range(0, num)
+
     return willReturn.fill(a)
   }
 }
 
-const replace = (regex, replacer,str) => {
-  if(replacer === undefined){
+const replace = (regex, replacer, str) => {
+  if (replacer === undefined) {
     return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
-  }else if(str === undefined){
+  } else if (str === undefined) {
     return holder => replace(regex, replacer, holder)
-  }else{
+  } else {
     return str.replace(regex, replacer)
   }
 }
 
-const subtract = (a,b)=>{
-	if(b === undefined){
-  	return c => subtract(a,c)
-  }else{
+const subtract = (a, b) => {
+  if (b === undefined) {
+  	return c => subtract(a, c)
+  } else {
   	return a - b
   }
 }
 
-const sort = (fn,arr) =>{
-	if(arr===undefined){
-  	return holder => sort(fn,holder)
-  }else{
+const sort = (fn, arr) => {
+  if (arr === undefined) {
+  	return holder => sort(fn, holder)
+  } else {
     const arrClone = arr
 
   	return arrClone.sort(fn)
   }
 }
 
-const sortBy = (fn,arr) =>{
-	if(arr===undefined){
-  	return holder => sortBy(fn,holder)
-  }else{
+const sortBy = (fn, arr) => {
+  if (arr === undefined) {
+  	return holder => sortBy(fn, holder)
+  } else {
     const arrClone = arr
 
-  	return arrClone.sort((a,b)=>{
-      const fnA = fn(a)
-      const fnB = fn(b)
-      return fnA < fnB ? -1 : fnA > fnB ? 1 : 0
-    })
+  	return arrClone.sort((a, b) => {
+    const fnA = fn(a)
+    const fnB = fn(b)
+
+    return fnA < fnB ? -1 : fnA > fnB ? 1 : 0
+  })
   }
 }
 
-const split = (glue,str) =>{
-	if(str===undefined){
-  	return holder => split(glue,holder)
-  }else{
+const split = (glue, str) => {
+  if (str === undefined) {
+  	return holder => split(glue, holder)
+  } else {
   	return str.split(glue)
   }
 }
 
-const splitEvery = (num,a) =>{
-	if(a===undefined){
-  	return holder => splitEvery(num,holder)
-  }else{
+const splitEvery = (num, a) => {
+  if (a === undefined) {
+  	return holder => splitEvery(num, holder)
+  } else {
     num = num > 1 ?
       num :
       1
   	const willReturn = []
     let counter = 0
-    while(counter<a.length){
+    while (counter < a.length) {
       willReturn.push(a.slice(counter, counter += num))
     }
+
     return willReturn
   }
 }
@@ -275,20 +302,19 @@ const splitEvery = (num,a) =>{
 const tail = arr => drop(1, arr)
 
 const take = (takeNumber, arr) => {
-  if(arr === undefined){
+  if (arr === undefined) {
     return holder => take(takeNumber, holder)
-  }else{
+  } else {
     const arrClone = arr
 
-    return arrClone.slice(0,takeNumber)
+    return arrClone.slice(0, takeNumber)
   }
 }
 
 const takeLast = (takeNumber, arr) => {
-  if(arr === undefined){
-
+  if (arr === undefined) {
     return holder => dropLast(takeNumber, holder)
-  }else{
+  } else {
     const arrClone = arr
     takeNumber = takeNumber > arrClone.length ?
       arrClone.length :
@@ -302,10 +328,10 @@ const toLower = a => a.toLowerCase()
 
 const toUpper = a => a.toUpperCase()
 
-const test = (regex, str) =>{
-  if(str === undefined){
+const test = (regex, str) => {
+  if (str === undefined) {
     return holder => test(regex, holder)
-  }else{
+  } else {
     return str.search(regex) === -1 ?
       false :
       true
@@ -313,53 +339,57 @@ const test = (regex, str) =>{
 }
 
 const type = a => {
-  if(a === null){
+  if (a === null) {
     return "Null"
-  }else if(a.splice!== undefined){
+  } else if (a.splice !== undefined) {
     return "Array"
-  }else if(a.freeze !== undefined){
+  } else if (a.freeze !== undefined) {
     return "Object"
-  }else if(typeof(a)==="boolean"){
+  } else if (typeof a === "boolean") {
     return "Boolean"
-  } else if(typeof(a) === "number"){
+  } else if (typeof a === "number") {
     return "Number"
-  }else if(typeof(a) === "string"){
+  } else if (typeof a === "string") {
     return "String"
-  } else if(a === undefined){
+  } else if (a === undefined) {
     return "Undefined"
-  }else if(a instanceof RegExp){
+  } else if (a instanceof RegExp) {
     return "RegExp"
   }
+
   return "Object"
 }
 
 const values = obj => {
   const willReturn = []
-  for(key in obj){
-    willReturn.push(obj[key]);
+  for (key in obj) {
+    willReturn.push(obj[ key ])
   }
+
   return willReturn
 }
 
 const uniq = arr => {
   const holder = []
-  return arr.filter(val=>{
-    if(holder.includes(val)){
+
+  return arr.filter(val => {
+    if (holder.includes(val)) {
       return false
-    }else{
+    } else {
       holder.push(val)
+
       return true
     }
   })
 }
 
-const update = (newValue,index,arr)=>{
-  if(index === undefined){
-    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
-  }else if(arr === undefined){
-    return holder => update(newValue,index, holder)
-  }else{
-    return arr.fill(newValue,index, index+1)
+const update = (newValue, index, arr) => {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => update(newValue, indexHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => update(newValue, index, holder)
+  } else {
+    return arr.fill(newValue, index, index + 1)
   }
 }
 
@@ -377,8 +407,10 @@ module.exports.head = head
 module.exports.init = init
 module.exports.join = join
 module.exports.last = last
+module.exports.length = length
 module.exports.map = map
 module.exports.omit = omit
+module.exports.path = path
 module.exports.prepend = prepend
 module.exports.pick = pick
 module.exports.prop = prop

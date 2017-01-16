@@ -139,6 +139,12 @@ describe("common cases", () => {
     ).toEqual("z")
   })
 
+  it("length",()=>{
+    expect(
+      R.length("foo")
+    ).toEqual(3)
+  })
+
   it("prepend",()=>{
     expect(
       R.compose(
@@ -160,6 +166,20 @@ describe("common cases", () => {
         ["a","c"]
       )({a:"foo",b:"bar",c:"baz"})
     ).toEqual({b:"bar"})
+  })
+
+  it("path",()=>{
+    expect(
+      R.path(
+        ["foo","bar","baz"]
+      )({foo:{bar:{baz:"yes"}}})
+    ).toEqual("yes")
+
+    expect(
+      R.path(
+        ["foo","bar","baz"]
+      )({foo:{bar:"baz"}})
+    ).toEqual(undefined)
   })
 
   it("pick",()=>{
