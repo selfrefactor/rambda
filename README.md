@@ -38,7 +38,7 @@ The benchmark coverage is small.
 
 Its current status:
 
-[!Screen]("/_inc/screen.png")
+[!Screen](/_inc/screen.png)
 
 ## API
 
