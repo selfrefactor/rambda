@@ -1,155 +1,155 @@
 #### add
 
-[link to Ramda's docs for add method](http://ramdajs.com/docs/#add)
+<a href="http://ramdajs.com/docs/#add" target="_blank">link to Ramda's docs for add method</a>
 
 #### adjust
 
-[link to Ramda's docs for adjust method](http://ramdajs.com/docs/#adjust)
+<a href="http://ramdajs.com/docs/#adjust" target="_blank">link to Ramda's docs for adjust method</a>
 
 #### any
 
-[link to Ramda's docs for any method](http://ramdajs.com/docs/#any)
+<a href="http://ramdajs.com/docs/#any" target="_blank">link to Ramda's docs for any method</a>
 
 #### append
 
-[link to Ramda's docs for append method](http://ramdajs.com/docs/#append)
+<a href="http://ramdajs.com/docs/#append" target="_blank">link to Ramda's docs for append method</a>
 
 #### contains
 
-[link to Ramda's docs for contains method](http://ramdajs.com/docs/#contains)
+<a href="http://ramdajs.com/docs/#contains" target="_blank">link to Ramda's docs for contains method</a>
 
 #### drop
 
-[link to Ramda's docs for drop method](http://ramdajs.com/docs/#drop)
+<a href="http://ramdajs.com/docs/#drop" target="_blank">link to Ramda's docs for drop method</a>
 
 #### dropLast
 
-[link to Ramda's docs for dropLast method](http://ramdajs.com/docs/#dropLast)
+<a href="http://ramdajs.com/docs/#dropLast" target="_blank">link to Ramda's docs for dropLast method</a>
 
 #### filter
 
-[link to Ramda's docs for filter method](http://ramdajs.com/docs/#filter)
+<a href="http://ramdajs.com/docs/#filter" target="_blank">link to Ramda's docs for filter method</a>
 
 #### flatten
 
-[link to Ramda's docs for flatten method](http://ramdajs.com/docs/#flatten)
+<a href="http://ramdajs.com/docs/#flatten" target="_blank">link to Ramda's docs for flatten method</a>
 
 #### head
 
-[link to Ramda's docs for head method](http://ramdajs.com/docs/#head)
+<a href="http://ramdajs.com/docs/#head" target="_blank">link to Ramda's docs for head method</a>
 
 #### init
 
-[link to Ramda's docs for init method](http://ramdajs.com/docs/#init)
+<a href="http://ramdajs.com/docs/#init" target="_blank">link to Ramda's docs for init method</a>
 
 #### join
 
-[link to Ramda's docs for join method](http://ramdajs.com/docs/#join)
+<a href="http://ramdajs.com/docs/#join" target="_blank">link to Ramda's docs for join method</a>
 
 #### last
 
-[link to Ramda's docs for last method](http://ramdajs.com/docs/#last)
+<a href="http://ramdajs.com/docs/#last" target="_blank">link to Ramda's docs for last method</a>
 
 #### length
 
-[link to Ramda's docs for length method](http://ramdajs.com/docs/#length)
+<a href="http://ramdajs.com/docs/#length" target="_blank">link to Ramda's docs for length method</a>
 
 #### map
 
-[link to Ramda's docs for map method](http://ramdajs.com/docs/#map)
+<a href="http://ramdajs.com/docs/#map" target="_blank">link to Ramda's docs for map method</a>
 
 #### omit
 
-[link to Ramda's docs for omit method](http://ramdajs.com/docs/#omit)
+<a href="http://ramdajs.com/docs/#omit" target="_blank">link to Ramda's docs for omit method</a>
 
 #### path
 
-[link to Ramda's docs for path method](http://ramdajs.com/docs/#path)
+<a href="http://ramdajs.com/docs/#path" target="_blank">link to Ramda's docs for path method</a>
 
 #### prepend
 
-[link to Ramda's docs for prepend method](http://ramdajs.com/docs/#prepend)
+<a href="http://ramdajs.com/docs/#prepend" target="_blank">link to Ramda's docs for prepend method</a>
 
 #### pick
 
-[link to Ramda's docs for pick method](http://ramdajs.com/docs/#pick)
+<a href="http://ramdajs.com/docs/#pick" target="_blank">link to Ramda's docs for pick method</a>
 
 #### prop
 
-[link to Ramda's docs for prop method](http://ramdajs.com/docs/#prop)
+<a href="http://ramdajs.com/docs/#prop" target="_blank">link to Ramda's docs for prop method</a>
 
 #### propEq
 
-[link to Ramda's docs for propEq method](http://ramdajs.com/docs/#propEq)
+<a href="http://ramdajs.com/docs/#propEq" target="_blank">link to Ramda's docs for propEq method</a>
 
 #### range
 
-[link to Ramda's docs for range method](http://ramdajs.com/docs/#range)
+<a href="http://ramdajs.com/docs/#range" target="_blank">link to Ramda's docs for range method</a>
 
 #### repeat
 
-[link to Ramda's docs for repeat method](http://ramdajs.com/docs/#repeat)
+<a href="http://ramdajs.com/docs/#repeat" target="_blank">link to Ramda's docs for repeat method</a>
 
 #### replace
 
-[link to Ramda's docs for replace method](http://ramdajs.com/docs/#replace)
+<a href="http://ramdajs.com/docs/#replace" target="_blank">link to Ramda's docs for replace method</a>
 
 #### sort
 
-[link to Ramda's docs for sort method](http://ramdajs.com/docs/#sort)
+<a href="http://ramdajs.com/docs/#sort" target="_blank">link to Ramda's docs for sort method</a>
 
 #### sortBy
 
-[link to Ramda's docs for sortBy method](http://ramdajs.com/docs/#sortBy)
+<a href="http://ramdajs.com/docs/#sortBy" target="_blank">link to Ramda's docs for sortBy method</a>
 
 #### split
 
-[link to Ramda's docs for split method](http://ramdajs.com/docs/#split)
+<a href="http://ramdajs.com/docs/#split" target="_blank">link to Ramda's docs for split method</a>
 
 #### splitEvery
 
-[link to Ramda's docs for splitEvery method](http://ramdajs.com/docs/#splitEvery)
+<a href="http://ramdajs.com/docs/#splitEvery" target="_blank">link to Ramda's docs for splitEvery method</a>
 
 #### subtract
 
-[link to Ramda's docs for subtract method](http://ramdajs.com/docs/#subtract)
+<a href="http://ramdajs.com/docs/#subtract" target="_blank">link to Ramda's docs for subtract method</a>
 
 #### tail
 
-[link to Ramda's docs for tail method](http://ramdajs.com/docs/#tail)
+<a href="http://ramdajs.com/docs/#tail" target="_blank">link to Ramda's docs for tail method</a>
 
 #### take
 
-[link to Ramda's docs for take method](http://ramdajs.com/docs/#take)
+<a href="http://ramdajs.com/docs/#take" target="_blank">link to Ramda's docs for take method</a>
 
 #### takeLast
 
-[link to Ramda's docs for takeLast method](http://ramdajs.com/docs/#takeLast)
+<a href="http://ramdajs.com/docs/#takeLast" target="_blank">link to Ramda's docs for takeLast method</a>
 
 #### test
 
-[link to Ramda's docs for test method](http://ramdajs.com/docs/#test)
+<a href="http://ramdajs.com/docs/#test" target="_blank">link to Ramda's docs for test method</a>
 
 #### toLower
 
-[link to Ramda's docs for toLower method](http://ramdajs.com/docs/#toLower)
+<a href="http://ramdajs.com/docs/#toLower" target="_blank">link to Ramda's docs for toLower method</a>
 
 #### toUpper
 
-[link to Ramda's docs for toUpper method](http://ramdajs.com/docs/#toUpper)
+<a href="http://ramdajs.com/docs/#toUpper" target="_blank">link to Ramda's docs for toUpper method</a>
 
 #### type
 
-[link to Ramda's docs for type method](http://ramdajs.com/docs/#type)
+<a href="http://ramdajs.com/docs/#type" target="_blank">link to Ramda's docs for type method</a>
 
 #### values
 
-[link to Ramda's docs for values method](http://ramdajs.com/docs/#values)
+<a href="http://ramdajs.com/docs/#values" target="_blank">link to Ramda's docs for values method</a>
 
 #### uniq
 
-[link to Ramda's docs for uniq method](http://ramdajs.com/docs/#uniq)
+<a href="http://ramdajs.com/docs/#uniq" target="_blank">link to Ramda's docs for uniq method</a>
 
 #### update
 
-[link to Ramda's docs for update method](http://ramdajs.com/docs/#update)
+<a href="http://ramdajs.com/docs/#update" target="_blank">link to Ramda's docs for update method</a>

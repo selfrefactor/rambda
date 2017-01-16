@@ -49,7 +49,7 @@ const willSave = R.compose(
   R.map(val=>{
     return `#### ${val}
 
-[link to Ramda's docs for ${val} method](http://ramdajs.com/docs/#${val})`
+<a href="http://ramdajs.com/docs/#${val}" target="_blank">link to Ramda's docs for ${val} method</a>`
   })
 )(methods)
 
