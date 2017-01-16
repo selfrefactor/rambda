@@ -13,6 +13,7 @@ But even when I create custom **Ramda** build, I still am not completely happy w
 
 ## Example use
 ```
+// npm i rambda
 const R = require("rambda")
 const result = R.compose(
   R.filter(val => val>2),
