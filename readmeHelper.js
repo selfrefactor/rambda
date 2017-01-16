@@ -49,8 +49,8 @@ const willSave = R.compose(
   R.map(val=>{
     return `#### ${val}
 
-<a href="http://ramdajs.com/docs/#${val}" target="_blank">link to Ramda's docs for ${val} method</a>`
+[link to Ramda's docs for ${val} method](http://ramdajs.com/docs/#${val})`
   })
 )(methods)
 
-fs.writeFileSync("a.txt",willSave)
+fs.writeFileSync("methods.txt",willSave)
