@@ -2,46 +2,80 @@ const Ramda = require("ramda")
 const R = require("./rambda")
 
 describe("common cases", () => {
-
-  it("add/adjust",()=>{
-    expect(
-      R.adjust(R.add(1))(1)([1,2,3])
-    ).toEqual([1,3,3])
-  })
-
-  it("any/subtract",()=>{
+  it("works with Ramda's flip", () => {
     expect(
       R.compose(
-        R.any(val=>val<5),
+        R.map(Ramda.flip(R.subtract)(10)),
+        R.adjust(R.add(1), 0)
+      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
+    ).toEqual([ -9, -8, -7, -6, -5, -4, -3, -2, -1 ])
+  })
+
+  it("add/adjust", () => {
+    expect(
+      R.adjust(R.add(1))(1)([ 1, 2, 3 ])
+    ).toEqual([ 1, 3, 3 ])
+  })
+
+  it("any/subtract", () => {
+    expect(
+      R.compose(
+        R.any(val => val < 5),
         R.map(R.subtract(10)),
-        R.adjust(R.add(1),0)
-      )([0,2,3,4,5,6,7,8,9])
+        R.adjust(R.add(1), 0)
+      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
     ).toBeTruthy()
   })
 
-  it("append",()=>{
+  it("append", () => {
     expect(
       R.compose(
         R.flatten,
         R.map(R.append(0))
-      )([[1],[2],[3]])
-    ).toEqual( [0, 1, 0, 2, 0, 3])
+      )([ [ 1 ], [ 2 ], [ 3 ] ])
+    ).toEqual([ 0, 1, 0, 2, 0, 3 ])
   })
 
-  it("contains",()=>{
+  it("contains", () => {
     expect(
       R.compose(
         R.contains(2),
         R.flatten,
         R.map(R.append(0))
-      )([[1],[2],[3]])
+      )([ [ 1 ], [ 2 ], [ 3 ] ])
     ).toBeTruthy()
   })
 
-  it("equals",()=>{
+  it("drop", () => {
     expect(
-      R.equals([1, 2, 3], [1, 2, 3])
+      R.compose(
+        R.drop(2),
+        R.flatten,
+        R.filter(val => val > 1),
+        R.flatten,
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+    ).toEqual([ 4 ])
+  })
+
+  it("dropLast", () => {
+    expect(
+      R.compose(
+        R.dropLast(2),
+        R.flatten,
+        R.filter(val => val > 1),
+        R.flatten,
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+    ).toEqual([ 2 ])
+  })
+
+  it("equals", () => {
+    expect(
+      R.equals([ 1, 2, 3 ], [ 1, 2, 3 ])
     ).toBeTruthy()
+
+    expect(
+      R.equals([ 1, 2, 3 ], [ 1, 2 ])
+    ).toBeFalsy()
 
     expect(
       R.equals(1, 1)
@@ -52,55 +86,87 @@ describe("common cases", () => {
     ).toBeFalsy()
 
     expect(
-      R.equals({},{})
+      R.equals({}, {})
     ).toBeTruthy()
 
     expect(
-      R.equals({a:1,b:2},{b:2,a:1})
+      R.equals({ a:1, b:2 }, { b:2, a:1 })
     ).toBeTruthy()
 
     expect(
-      R.equals({a:1,b:2},{b:2,a:1,c:3})
+      R.equals({ a:1, b:2 }, { b:2, a:1, c:3 })
     ).toBeFalsy()
 
     expect(
-      R.equals({a:{b:{c:1}}},{a:{b:{c:1}}})
+      R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:1 } } })
     ).toBeTruthy()
 
     expect(
-      R.equals({a:{}}, {a:{}})
+      R.equals({ a:{} }, { a:{} })
     ).toBeTruthy()
+
+    expect(
+      R.equals("", "")
+    ).toBeTruthy()
+
+    expect(
+      R.equals("foo", "foo")
+    ).toBeTruthy()
+
+    expect(
+      R.equals("foo", "bar")
+    ).toBeFalsy()
+
+    expect(
+      R.equals(0, false)
+    ).toBeTruthy()
+
+    expect(
+      R.equals(/\s/g, /\s/g)
+    ).toBeTruthy()
+
+    expect(
+      R.equals(/\s/g, null)
+    ).toBeFalsy()
+
+    expect(
+      R.equals(null, null)
+    ).toBeTruthy()
+
+    expect(
+      R.equals(false, null)
+    ).toBeFalsy()
   })
 
-  it("filter",()=>{
+  it("filter", () => {
     expect(
       R.compose(
         R.flatten,
-        R.filter(val=>val>2),
+        R.filter(val => val > 2),
         R.flatten,
-      )([[1],[2],[3],4])
-    ).toEqual([3,4])
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+    ).toEqual([ 3, 4 ])
   })
 
-    it("find",()=>{
-      expect(
-        R.find(R.propEq('a', 2))([{a: 1}, {a: 2}, {a: 3}])
-      ).toEqual({a: 2})
+  it("find", () => {
+    expect(
+        R.find(R.propEq("a", 2))([ { a: 1 }, { a: 2 }, { a: 3 } ])
+      ).toEqual({ a: 2 })
 
-      expect(
-        R.find(R.propEq('a', 4))([{a: 1}, {a: 2}, {a: 3}])
+    expect(
+        R.find(R.propEq("a", 4))([ { a: 1 }, { a: 2 }, { a: 3 } ])
       ).toEqual(undefined)
-    })
+  })
 
-    it("findIndex",()=>{
-      expect(
-        R.findIndex(R.propEq('a', 2))([{a: 1}, {a: 2}, {a: 3}])
+  it("findIndex", () => {
+    expect(
+        R.findIndex(R.propEq("a", 2))([ { a: 1 }, { a: 2 }, { a: 3 } ])
       ).toEqual(1)
 
-      expect(
-        R.findIndex(R.propEq('a', 4))([{a: 1}, {a: 2}, {a: 3}])
+    expect(
+        R.findIndex(R.propEq("a", 4))([ { a: 1 }, { a: 2 }, { a: 3 } ])
       ).toEqual(-1)
-    })
+  })
 
   it("flatten", () => {
     expect(
@@ -114,52 +180,21 @@ describe("common cases", () => {
     ).toEqual([ 1, 2, [ 3 ], 4 ])
   })
 
-  it("works with Ramda's flip",()=>{
-    expect(
-      R.compose(
-        R.map(Ramda.flip(R.subtract)(10)),
-        R.adjust(R.add(1),0)
-      )([0,2,3,4,5,6,7,8,9])
-    ).toEqual([-9, -8, -7, -6, -5, -4, -3, -2, -1])
-  })
-
-  it("drop",()=>{
-    expect(
-      R.compose(
-        R.drop(2),
-        R.flatten,
-        R.filter(val=>val>1),
-        R.flatten,
-      )([[1],[2],[3],4])
-    ).toEqual([4])
-  })
-
-  it("dropLast",()=>{
-    expect(
-      R.compose(
-        R.dropLast(2),
-        R.flatten,
-        R.filter(val=>val>1),
-        R.flatten,
-      )([[1],[2],[3],4])
-    ).toEqual([2])
-  })
-
-  it("head",()=>{
+  it("head", () => {
     expect(
       R.compose(
         R.head,
         R.flatten,
-        R.filter(val=>val>1),
+        R.filter(val => val > 1),
         R.flatten,
-      )([[1],[2],[3],4])
-    ).toEqual([2])
+      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+    ).toEqual([ 2 ])
   })
 
-  it("indexOf",()=>{
+  it("indexOf", () => {
     expect(
-      R.indexOf(3, [1,2,3,4])
-    ).toEqual( 2)
+      R.indexOf(3, [ 1, 2, 3, 4 ])
+    ).toEqual(2)
   })
 
   it("init/tail", () => {
@@ -172,251 +207,251 @@ describe("common cases", () => {
     ).toEqual([ 2, 3 ])
   })
 
-  it("join",()=>{
+  it("join", () => {
     expect(
       R.join(
         "|"
-      )(["foo","bar","baz"])
+      )([ "foo", "bar", "baz" ])
     ).toEqual("foo|bar|baz")
   })
 
-  it("map",()=>{
-    expect(
-      R.compose(
-        val => val.reverse(),
-        R.map(R.subtract(10)),
-        R.adjust(R.add(1),0)
-      )([0,2,3,4,5,6,7,8,9])
-    ).toEqual([1,2,3,4,5,6,7,8,9])
-  })
-
-  it("last",()=>{
+  it("last", () => {
     expect(
       R.compose(
         R.last,
         R.map(R.last)
-      )(["foo","bar","baz"])
+      )([ "foo", "bar", "baz" ])
     ).toEqual("z")
   })
 
-  it("length",()=>{
+  it("length", () => {
     expect(
       R.length("foo")
     ).toEqual(3)
   })
 
-  it("match",()=>{
+  it("map", () => {
+    expect(
+      R.compose(
+        val => val.reverse(),
+        R.map(R.subtract(10)),
+        R.adjust(R.add(1), 0)
+      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
+    ).toEqual([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
+  })
+
+  it("match", () => {
     expect(
       R.match(
         /a./g
       )("foo bar baz")
-    ).toEqual(["ar","az"])
+    ).toEqual([ "ar", "az" ])
 
     expect(
-      () =>{ R.match(/a./g, null) }
+      () => { R.match(/a./g, null) }
     ).toThrow()
   })
 
-  it("merge",()=>{
+  it("merge", () => {
     expect(
       R.merge(
-        {foo:"bar", bar:"bar"}
-      )({bar:"baz"})
-    ).toEqual({foo:"bar", bar:"baz"})
+        { foo:"bar", bar:"bar" }
+      )({ bar:"baz" })
+    ).toEqual({ foo:"bar", bar:"baz" })
   })
 
-  it("omit",()=>{
+  it("omit", () => {
     expect(
       R.omit(
-        ["a","c"]
-      )({a:"foo",b:"bar",c:"baz"})
-    ).toEqual({b:"bar"})
+        [ "a", "c" ]
+      )({ a:"foo", b:"bar", c:"baz" })
+    ).toEqual({ b:"bar" })
   })
 
-  it("prepend",()=>{
+  it("prepend", () => {
     expect(
       R.compose(
         R.flatten,
         R.map(R.prepend(0))
-      )([[1],[2],[3]])
-    ).toEqual( [1, 0, 2, 0, 3,0])
+      )([ [ 1 ], [ 2 ], [ 3 ] ])
+    ).toEqual([ 1, 0, 2, 0, 3, 0 ])
   })
 
-  it("path",()=>{
+  it("path", () => {
     expect(
       R.path(
-        ["foo","bar","baz"]
-      )({foo:{bar:{baz:"yes"}}})
+        [ "foo", "bar", "baz" ]
+      )({ foo:{ bar:{ baz:"yes" } } })
     ).toEqual("yes")
 
     expect(
       R.path(
-        ["foo","bar","baz"]
-      )({foo:{bar:"baz"}})
+        [ "foo", "bar", "baz" ]
+      )({ foo:{ bar:"baz" } })
     ).toEqual(undefined)
   })
 
-  it("pick",()=>{
+  it("pick", () => {
     expect(
       R.pick(
-        ["a","c"]
-      )({a:"foo",b:"bar",c:"baz"})
-    ).toEqual({a:"foo",c:"baz"})
+        [ "a", "c" ]
+      )({ a:"foo", b:"bar", c:"baz" })
+    ).toEqual({ a:"foo", c:"baz" })
   })
 
-  it("prop",()=>{
+  it("prop", () => {
     expect(
       R.prop(
         "foo"
-      )({foo:"baz"})
+      )({ foo:"baz" })
     ).toEqual("baz")
 
     expect(
       R.prop(
         "bar"
-      )({foo:"baz"})
+      )({ foo:"baz" })
     ).toEqual(undefined)
   })
 
-  it("propEq",()=>{
+  it("propEq", () => {
     expect(
       R.propEq(
         "foo",
         "bar"
-      )({foo:"bar"})
+      )({ foo:"bar" })
     ).toBeTruthy()
 
     expect(
       R.propEq(
         "foo",
         "bar"
-      )({foo:"baz"})
+      )({ foo:"baz" })
     ).toBeFalsy()
   })
 
-  it("range",()=>{
+  it("range", () => {
     expect(
       R.range(
         0,
         10
       )
-    ).toEqual([0,1,2,3,4,5,6,7,8,9])
+    ).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
   })
 
-  it("repeat",()=>{
+  it("repeat", () => {
     expect(
       R.replace(/\s/g)("|")("foo bar baz")
     ).toEqual("foo|bar|baz")
   })
 
-  it("replace",()=>{
+  it("replace", () => {
     expect(
-      R.repeat('foo', 3)
-    ).toEqual(["foo","foo","foo"])
+      R.repeat("foo", 3)
+    ).toEqual([ "foo", "foo", "foo" ])
 
     expect(
       R.repeat({}, 3)
-    ).toEqual([{},{},{}])
+    ).toEqual([ {}, {}, {} ])
   })
 
-  it("sort",()=>{
+  it("sort", () => {
     expect(
       R.sort(
-        (a,b)=> a>b
-      )(["foo","bar","baz"])
-    ).toEqual(["bar", "baz", "foo"])
+        (a, b) => a > b
+      )([ "foo", "bar", "baz" ])
+    ).toEqual([ "bar", "baz", "foo" ])
 
     expect(
       R.sort(
-        (a,b)=> a-b
-      )([2,3,1])
-    ).toEqual([1,2,3])
+        (a, b) => a - b
+      )([ 2, 3, 1 ])
+    ).toEqual([ 1, 2, 3 ])
   })
 
-  it("sortBy",()=>{
+  it("sortBy", () => {
     const sortByNameCaseInsensitive = R.sortBy(
       R.compose(
         R.toLower,
-        Ramda.prop('name')
+        Ramda.prop("name")
       )
     )
     const alice = {
-      name: 'ALICE',
-      age: 101
-    };
+      name: "ALICE",
+      age: 101,
+    }
     const bob = {
-      name: 'Bob',
-      age: -10
-    };
+      name: "Bob",
+      age: -10,
+    }
     const clara = {
-      name: 'clara',
-      age: 314.159
-    };
-    const people = [clara, bob, alice];
+      name: "clara",
+      age: 314.159,
+    }
+    const people = [ clara, bob, alice ]
     expect(
       sortByNameCaseInsensitive(people)
-    ).toEqual( [alice, bob, clara])
+    ).toEqual([ alice, bob, clara ])
   })
 
-  it("split",()=>{
+  it("split", () => {
     expect(
       R.split(
         "|"
       )("foo|bar|baz")
-    ).toEqual(["foo","bar","baz"])
+    ).toEqual([ "foo", "bar", "baz" ])
   })
 
-  it("splitEvery",()=>{
+  it("splitEvery", () => {
     expect(
-      R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7])
-    ).toEqual([[1, 2, 3], [4, 5, 6], [7]])
+      R.splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])
+    ).toEqual([ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7 ] ])
 
     expect(
-      R.splitEvery(3, 'foobarbaz')
-    ).toEqual(["foo","bar","baz"])
+      R.splitEvery(3, "foobarbaz")
+    ).toEqual([ "foo", "bar", "baz" ])
   })
 
-  it("take",()=>{
+  it("take", () => {
     expect(
-      R.take(1, ['foo', 'bar', 'baz'])
-    ).toEqual(['foo'])
+      R.take(1, [ "foo", "bar", "baz" ])
+    ).toEqual([ "foo" ])
 
     expect(
-      R.take(3, 'rambda')
+      R.take(3, "rambda")
     ).toEqual("ram")
   })
 
-  it("takeLast",()=>{
+  it("takeLast", () => {
     expect(
-      R.takeLast(1, ['foo', 'bar', 'baz'])
-    ).toEqual(['baz'])
+      R.takeLast(1, [ "foo", "bar", "baz" ])
+    ).toEqual([ "baz" ])
 
     expect(
-      R.takeLast(10, ['foo', 'bar', 'baz'])
-    ).toEqual(['foo', 'bar', 'baz'])
+      R.takeLast(10, [ "foo", "bar", "baz" ])
+    ).toEqual([ "foo", "bar", "baz" ])
 
     expect(
-      R.takeLast(3, 'rambda')
+      R.takeLast(3, "rambda")
     ).toEqual("bda")
   })
 
-  it("test",()=>{
+  it("test", () => {
     expect(
-      R.test(/^x/, 'xyz')
+      R.test(/^x/, "xyz")
     ).toBeTruthy()
 
     expect(
-      R.test(/^y/, 'xyz')
+      R.test(/^y/, "xyz")
     ).toBeFalsy()
   })
 
-  it("toLower",()=>{
+  it("toLower", () => {
     expect(
       R.toLower("FOO|BAR|BAZ")
     ).toEqual("foo|bar|baz")
   })
 
-  it("toUpper",()=>{
+  it("toUpper", () => {
     expect(
       R.compose(
         R.join(""),
@@ -426,7 +461,13 @@ describe("common cases", () => {
     ).toEqual("FOO|BAR|BAZ")
   })
 
-  it("type",()=>{
+  it("trim", () => {
+    expect(
+      R.trim(" foo ")
+    ).toEqual("foo")
+  })
+
+  it("type", () => {
     expect(
       R.type({})
     ).toEqual("Object")
@@ -456,22 +497,21 @@ describe("common cases", () => {
     ).toEqual("RegExp")
   })
 
-  it("values",()=>{
+  it("values", () => {
     expect(
-      R.values({a:1,b:2,c:3})
-    ).toEqual([1,2,3])
+      R.values({ a:1, b:2, c:3 })
+    ).toEqual([ 1, 2, 3 ])
   })
 
-  it("uniq",()=>{
+  it("uniq", () => {
     expect(
-      R.uniq([1,2,3,3,3,1,2,0])
-    ).toEqual([1,2,3,0])
+      R.uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])
+    ).toEqual([ 1, 2, 3, 0 ])
   })
 
-  it("update",()=>{
+  it("update", () => {
     expect(
-      R.update(3)(1)([1,2,3])
-    ).toEqual([1,3,3])
+      R.update(3)(1)([ 1, 2, 3 ])
+    ).toEqual([ 1, 3, 3 ])
   })
-
 })
