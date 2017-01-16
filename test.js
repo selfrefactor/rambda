@@ -157,18 +157,49 @@ describe("common cases", () => {
     ).toEqual([0,1,2,3,4,5,6,7,8,9])
   })
 
-  it("sortBy",()=>{
+  it("replace",()=>{
     expect(
-      R.sortBy(
+      R.replace(/\s/g)("|")("foo bar baz")
+    ).toEqual("foo|bar|baz")
+  })
+
+  it("sort",()=>{
+    expect(
+      R.sort(
         (a,b)=> a>b
       )(["foo","bar","baz"])
     ).toEqual(["bar", "baz", "foo"])
 
     expect(
-      R.sortBy(
+      R.sort(
         (a,b)=> a-b
       )([2,3,1])
     ).toEqual([1,2,3])
+  })
+
+  it("sortBy",()=>{
+    const sortByNameCaseInsensitive = R.sortBy(
+      R.compose(
+        R.toLower,
+        Ramda.prop('name')
+      )
+    )
+    const alice = {
+      name: 'ALICE',
+      age: 101
+    };
+    const bob = {
+      name: 'Bob',
+      age: -10
+    };
+    const clara = {
+      name: 'clara',
+      age: 314.159
+    };
+    const people = [clara, bob, alice];
+    expect(
+      sortByNameCaseInsensitive(people)
+    ).toEqual( [alice, bob, clara])
   })
 
   it("split",()=>{

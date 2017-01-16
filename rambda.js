@@ -151,6 +151,16 @@ const range = (start, end) => {
   return willReturn
 }
 
+const replace = (regex, replacer,str) => {
+  if(replacer === undefined){
+    return (rHolder, sHolder) => replace(regex, rHolder, sHolder)
+  }else if(str === undefined){
+    return holder => replace(regex, replacer, holder)
+  }else{
+    return str.replace(regex, replacer)
+  }
+}
+
 const subtract = (a,b)=>{
 	if(b === undefined){
   	return c => subtract(a,c)
@@ -159,11 +169,27 @@ const subtract = (a,b)=>{
   }
 }
 
+const sort = (fn,arr) =>{
+	if(arr===undefined){
+  	return holder => sort(fn,holder)
+  }else{
+    const arrClone = arr
+
+  	return arrClone.sort(fn)
+  }
+}
+
 const sortBy = (fn,arr) =>{
 	if(arr===undefined){
   	return holder => sortBy(fn,holder)
   }else{
-  	return arr.sort(fn)
+    const arrClone = arr
+
+  	return arrClone.sort((a,b)=>{
+      const fnA = fn(a)
+      const fnB = fn(b)
+      return fnA < fnB ? -1 : fnA > fnB ? 1 : 0
+    })
   }
 }
 
@@ -274,7 +300,7 @@ const uniq = arr => {
 
 const update = (newValue,index,arr)=>{
   if(index === undefined){
-    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
+    return (iHolder, aHolder) => update(newValue,iHolder, aHolder)
   }else if(arr === undefined){
     return holder => update(newValue,index, holder)
   }else{
@@ -299,6 +325,8 @@ module.exports.last = last
 module.exports.map = map
 module.exports.prepend = prepend
 module.exports.range = range
+module.exports.replace = replace
+module.exports.sort = sort
 module.exports.sortBy = sortBy
 module.exports.split = split
 module.exports.splitEvery = splitEvery
