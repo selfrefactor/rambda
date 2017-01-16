@@ -142,6 +142,16 @@ const prepend = (val,arr)=>{
   }
 }
 
+const propEq = (key,val, obj)=>{
+  if(val===undefined){
+    return (valHolder,objHolder)=>propEq(key, valHolder, objHolder)
+  }else if(obj === undefined){
+    return holder => propEq(key,val, holder)
+  }else{
+    return obj[key] === val
+  }
+}
+
 const range = (start, end) => {
   const willReturn = []
   for (let i = start; i < end; i++) {
@@ -162,7 +172,7 @@ const repeat = (a, num) =>{
 
 const replace = (regex, replacer,str) => {
   if(replacer === undefined){
-    return (rHolder, sHolder) => replace(regex, rHolder, sHolder)
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
   }else if(str === undefined){
     return holder => replace(regex, replacer, holder)
   }else{
@@ -309,7 +319,7 @@ const uniq = arr => {
 
 const update = (newValue,index,arr)=>{
   if(index === undefined){
-    return (iHolder, aHolder) => update(newValue,iHolder, aHolder)
+    return (indexHolder, arrHolder) => update(newValue,indexHolder, arrHolder)
   }else if(arr === undefined){
     return holder => update(newValue,index, holder)
   }else{
@@ -333,6 +343,7 @@ module.exports.join = join
 module.exports.last = last
 module.exports.map = map
 module.exports.prepend = prepend
+module.exports.propEq = propEq
 module.exports.range = range
 module.exports.repeat = repeat
 module.exports.replace = replace

@@ -148,6 +148,22 @@ describe("common cases", () => {
     ).toEqual( [1, 0, 2, 0, 3,0])
   })
 
+  it("propEq",()=>{
+    expect(
+      R.propEq(
+        "foo",
+        "bar"
+      )({foo:"bar"})
+    ).toBeTruthy()
+
+    expect(
+      R.propEq(
+        "foo",
+        "bar"
+      )({foo:"baz"})
+    ).toBeFalsy()
+  })
+
   it("range",()=>{
     expect(
       R.range(
@@ -167,6 +183,10 @@ describe("common cases", () => {
     expect(
       R.repeat('foo', 3)
     ).toEqual(["foo","foo","foo"])
+
+    expect(
+      R.repeat({}, 3)
+    ).toEqual([{},{},{}])
   })
 
   it("sort",()=>{
