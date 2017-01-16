@@ -38,6 +38,40 @@ describe("common cases", () => {
     ).toBeTruthy()
   })
 
+  it("equals",()=>{
+    expect(
+      R.equals([1, 2, 3], [1, 2, 3])
+    ).toBeTruthy()
+
+    expect(
+      R.equals(1, 1)
+    ).toBeTruthy()
+
+    expect(
+      R.equals("1", 1)
+    ).toBeFalsy()
+
+    expect(
+      R.equals({},{})
+    ).toBeTruthy()
+
+    expect(
+      R.equals({a:1,b:2},{b:2,a:1})
+    ).toBeTruthy()
+
+    expect(
+      R.equals({a:1,b:2},{b:2,a:1,c:3})
+    ).toBeFalsy()
+
+    expect(
+      R.equals({a:{b:{c:1}}},{a:{b:{c:1}}})
+    ).toBeTruthy()
+
+    expect(
+      R.equals({a:{}}, {a:{}})
+    ).toBeTruthy()
+  })
+
   it("filter",()=>{
     expect(
       R.compose(
@@ -47,6 +81,26 @@ describe("common cases", () => {
       )([[1],[2],[3],4])
     ).toEqual([3,4])
   })
+
+    it("find",()=>{
+      expect(
+        R.find(R.propEq('a', 2))([{a: 1}, {a: 2}, {a: 3}])
+      ).toEqual({a: 2})
+
+      expect(
+        R.find(R.propEq('a', 4))([{a: 1}, {a: 2}, {a: 3}])
+      ).toEqual(undefined)
+    })
+
+    it("findIndex",()=>{
+      expect(
+        R.findIndex(R.propEq('a', 2))([{a: 1}, {a: 2}, {a: 3}])
+      ).toEqual(1)
+
+      expect(
+        R.findIndex(R.propEq('a', 4))([{a: 1}, {a: 2}, {a: 3}])
+      ).toEqual(-1)
+    })
 
   it("flatten", () => {
     expect(
@@ -102,6 +156,12 @@ describe("common cases", () => {
     ).toEqual([2])
   })
 
+  it("indexOf",()=>{
+    expect(
+      R.indexOf(3, [1,2,3,4])
+    ).toEqual( 2)
+  })
+
   it("init/tail", () => {
     expect(
       R.compose(
@@ -145,19 +205,24 @@ describe("common cases", () => {
     ).toEqual(3)
   })
 
-  it("prepend",()=>{
+  it("match",()=>{
     expect(
-      R.compose(
-        R.flatten,
-        R.map(R.prepend(0))
-      )([[1],[2],[3]])
-    ).toEqual( [1, 0, 2, 0, 3,0])
+      R.match(
+        /a./g
+      )("foo bar baz")
+    ).toEqual(["ar","az"])
+
+    expect(
+      () =>{ R.match(/a./g, null) }
+    ).toThrow()
   })
 
-  it("a",()=>{
+  it("merge",()=>{
     expect(
-      true
-    ).toEqual( true)
+      R.merge(
+        {foo:"bar", bar:"bar"}
+      )({bar:"baz"})
+    ).toEqual({foo:"bar", bar:"baz"})
   })
 
   it("omit",()=>{
@@ -166,6 +231,15 @@ describe("common cases", () => {
         ["a","c"]
       )({a:"foo",b:"bar",c:"baz"})
     ).toEqual({b:"bar"})
+  })
+
+  it("prepend",()=>{
+    expect(
+      R.compose(
+        R.flatten,
+        R.map(R.prepend(0))
+      )([[1],[2],[3]])
+    ).toEqual( [1, 0, 2, 0, 3,0])
   })
 
   it("path",()=>{

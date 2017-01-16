@@ -23,11 +23,13 @@ console.log(result) // => [3,4]
 
 ## Differences between Rambda and Ramda
 
-Rambda's method are not compatible with **Ramda.__**.
+- Rambda's method are not compatible with **Ramda.__**.
 
-In some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
+Note that in some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
 
-Also Rambda's **flatten** works only for the first 3 levels of nesting.
+- Rambda's **flatten** works within the first 3 levels of nesting
+
+- Rambda's **equals** is basic copy of **Ramda.equals**
 
 ## Methods
 

@@ -66,6 +66,22 @@ const filter = (fn, arr) => {
   }
 }
 
+const find = (fn, arr) =>{
+  if(arr === undefined){
+    return holder => find(fn, holder)
+  }
+
+  return arr.find(fn)
+}
+
+const findIndex = (fn, arr) =>{
+  if(arr === undefined){
+    return holder => findIndex(fn, holder)
+  }
+
+  return arr.findIndex(fn)
+}
+
 const flatten = arr => {
   const willReturn = []
   arr.map(val => {
@@ -111,7 +127,76 @@ const dropLast = (dropNumber, arr) => {
   }
 }
 
+const equals = (a,b)=>{
+  if(b === undefined){
+
+    return holder => equals(a,holder)
+  }else if (a === b) {
+
+    return a !== 0 || 1 / a === 1 / b
+  }
+  const aType = type(a)
+  if(aType !== type(b)){
+
+    return false
+  }
+
+  if(aType==="Array"){
+    const aClone = a
+    const bClone = b
+    return aClone.sort().toString() === aClone.sort().toString()
+  }
+
+  if(aType==="Object"){
+    const aKeys = Object.keys(a)
+    if(aKeys.length === Object.keys(b).length){
+      if(aKeys.length === 0){
+        return true
+      }
+      let flag = true
+      aKeys.map(val=>{
+        if(flag){
+          const aValType = type(a[val])
+          const bValType = type(b[val])
+          if(aValType===bValType){
+            if(aValType === "Object"){
+              if(Object.keys(a[val]).length===Object.keys(b[val]).length){
+                if(Object.keys(a[val]).length !== 0){
+                  if(!equals(a[val], b[val])){
+                    flag = false
+                  }
+                }
+              }else{
+                flag = false
+              }
+            }else{
+              if(!equals(a[val], b[val])){
+                flag = false
+              }
+            }
+
+          }else{
+            flag = false
+          }
+
+        }
+      })
+      return flag
+    }
+  }
+
+  return false
+}
+
 const head = arr => dropLast(arr.length - 1, arr)
+
+const indexOf = (question, arr) =>{
+  if(arr === undefined){
+    return holder => indexOf(question, holder)
+  }
+
+  return arr.indexOf(question)
+}
 
 const init = arr => dropLast(1, arr)
 
@@ -134,6 +219,25 @@ const map = (fn, arr) => {
 const last = arr => arr[ arr.length - 1 ]
 
 const length = arr => arr.length
+
+const match = (regex, str) =>{
+  if(str === undefined){
+    return holder => match(regex, holder)
+  }
+  const willReturn =  str.match(regex)
+
+  return willReturn === null ?
+    [] :
+    willReturn
+}
+
+const merge = (obj, newProps) =>{
+  if(newProps === undefined){
+    return holder => merge(obj, holder)
+  }
+
+  return Object.assign({}, obj, newProps)
+}
 
 const omit = (keys, obj) => {
   if (obj === undefined) {
@@ -397,22 +501,28 @@ module.exports.add = add
 module.exports.adjust = adjust
 module.exports.any = any
 module.exports.append = append
-module.exports.contains = contains
 module.exports.compose = R.compose
+module.exports.contains = contains
 module.exports.drop = drop
 module.exports.dropLast = dropLast
+module.exports.equals = equals
 module.exports.filter = filter
+module.exports.find = find
+module.exports.findIndex = findIndex
 module.exports.flatten = flatten
 module.exports.head = head
+module.exports.indexOf = indexOf
 module.exports.init = init
 module.exports.join = join
 module.exports.last = last
 module.exports.length = length
 module.exports.map = map
+module.exports.match = match
+module.exports.merge = merge
 module.exports.omit = omit
 module.exports.path = path
-module.exports.prepend = prepend
 module.exports.pick = pick
+module.exports.prepend = prepend
 module.exports.prop = prop
 module.exports.propEq = propEq
 module.exports.range = range
@@ -430,6 +540,6 @@ module.exports.test = test
 module.exports.toLower = toLower
 module.exports.toUpper = toUpper
 module.exports.type = type
-module.exports.values = values
 module.exports.uniq = uniq
 module.exports.update = update
+module.exports.values = values
