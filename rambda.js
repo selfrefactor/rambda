@@ -82,28 +82,15 @@ const findIndex = (fn, arr) => {
 }
 
 const flatten = arr => {
-  const willReturn = []
-  arr.map(val => {
-    if (val instanceof Array) {
-      val.map(value => {
-        if (value instanceof Array) {
-          value.map(lastValue => {
-            if (lastValue instanceof Array) {
-              willReturn.push(...lastValue)
-            } else {
-              willReturn.push(lastValue)
-            }
-          })
+  let willReturn = []
+    for(let i = 0; i < arr.length; i++) {
+        if(Array.isArray(arr[i])) {
+            willReturn = willReturn.concat(flatten(arr[i]));
         } else {
-          willReturn.push(value)
+            willReturn.push(arr[i]);
         }
-      })
-    } else {
-      willReturn.push(val)
     }
-  })
-
-  return willReturn
+    return willReturn
 }
 
 const drop = (dropNumber, arr) => {
@@ -139,7 +126,7 @@ const equals = (a, b) => {
     const aClone = a
     const bClone = b
 
-    return aClone.sort().toString() === aClone.sort().toString()
+    return aClone.sort().toString() === bClone.sort().toString()
   }
 
   if (aType === "Object") {
@@ -435,7 +422,7 @@ const trim = str => str.trim()
 const type = a => {
   if (a === null) {
     return "Null"
-  } else if (a.splice !== undefined) {
+  } else if (Array.isArray(a)) {
     return "Array"
   } else if (a.freeze !== undefined) {
     return "Object"
@@ -528,7 +515,7 @@ module.exports.takeLast = takeLast
 module.exports.test = test
 module.exports.toLower = toLower
 module.exports.toUpper = toUpper
-module.exports.trip = trim
+module.exports.trim = trim
 module.exports.type = type
 module.exports.uniq = uniq
 module.exports.update = update

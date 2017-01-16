@@ -29,7 +29,7 @@ Note that in some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda
 
 - Rambda's **flatten** works within the first 3 levels of nesting
 
-- Rambda's **equals** is basic copy of **Ramda.equals**
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does
 
 ## Methods
 

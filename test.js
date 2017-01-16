@@ -119,11 +119,7 @@ describe("common cases", () => {
 
     expect(
       R.equals(0, false)
-    ).toBeTruthy()
-
-    expect(
-      R.equals(/\s/g, /\s/g)
-    ).toBeTruthy()
+    ).toBeFalsy()
 
     expect(
       R.equals(/\s/g, null)
@@ -177,7 +173,7 @@ describe("common cases", () => {
     ).toEqual([ 1, 2, 3, 4 ])
     expect(
       R.flatten([ 1, [ 2, [ [ [ 3 ] ] ] ], [ 4 ] ])
-    ).toEqual([ 1, 2, [ 3 ], 4 ])
+    ).toEqual([ 1, 2,  3 , 4 ])
   })
 
   it("head", () => {
