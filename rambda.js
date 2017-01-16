@@ -145,10 +145,19 @@ const prepend = (val,arr)=>{
 const range = (start, end) => {
   const willReturn = []
   for (let i = start; i < end; i++) {
-    willReturn.push(i)
+    willReturn.push(i);
   }
 
   return willReturn
+}
+
+const repeat = (a, num) =>{
+  if(num === undefined){
+    return holder => repeat(a, holder)
+  }else{
+    const willReturn = range(0,num)
+    return willReturn.fill(a)
+  }
 }
 
 const replace = (regex, replacer,str) => {
@@ -325,6 +334,7 @@ module.exports.last = last
 module.exports.map = map
 module.exports.prepend = prepend
 module.exports.range = range
+module.exports.repeat = repeat
 module.exports.replace = replace
 module.exports.sort = sort
 module.exports.sortBy = sortBy

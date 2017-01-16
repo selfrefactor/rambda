@@ -157,10 +157,16 @@ describe("common cases", () => {
     ).toEqual([0,1,2,3,4,5,6,7,8,9])
   })
 
-  it("replace",()=>{
+  it("repeat",()=>{
     expect(
       R.replace(/\s/g)("|")("foo bar baz")
     ).toEqual("foo|bar|baz")
+  })
+
+  it("replace",()=>{
+    expect(
+      R.repeat('foo', 3)
+    ).toEqual(["foo","foo","foo"])
   })
 
   it("sort",()=>{
