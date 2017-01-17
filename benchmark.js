@@ -373,7 +373,7 @@ if (options.indexOf) {
 }
 
 const init = new Benchmark.Suite
-options.init = true
+options.init = false
 
 if (options.init) {
   const holder = [1,2,3,4]
@@ -385,6 +385,26 @@ if (options.init) {
   })
   .add("Lodash", () => {
     _.initial(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const initString = new Benchmark.Suite
+options.initString = true
+
+if (options.initString) {
+  const holder = "foo"
+  initString.add("Rambda#init when string", () => {
+    R.init(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.init(holder)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
