@@ -306,7 +306,7 @@ if (options.flatten) {
 }
 
 const head = new Benchmark.Suite
-options.head = true
+options.head = false
 
 if (options.head) {
   const holder = [1,2,3,4]
@@ -329,7 +329,7 @@ if (options.head) {
 }
 
 const headString = new Benchmark.Suite
-options.headString = true
+options.headString = false
 
 if (options.headString) {
   const holder = ""
@@ -349,11 +349,11 @@ if (options.headString) {
 }
 
 const indexOf = new Benchmark.Suite
-options.indexOf = false
+options.indexOf = true
 
 if (options.indexOf) {
   const holder = [1,2,3,4]
-  const a =
+  const a = 4
   indexOf.add("Rambda#indexOf", () => {
     R.indexOf(a)(holder)
   })
