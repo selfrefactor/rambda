@@ -1,4 +1,4 @@
-const R = require("./")
+const R = require("./rambda")
 const Ramda = require("ramda")
 const _ = require("lodash")
 const Benchmark = require("benchmark")
@@ -349,7 +349,7 @@ if (options.headString) {
 }
 
 const indexOf = new Benchmark.Suite
-options.indexOf = true
+options.indexOf = false
 
 if (options.indexOf) {
   const holder = [1,2,3,4]
@@ -371,6 +371,31 @@ if (options.indexOf) {
   })
   .run()
 }
+
+const init = new Benchmark.Suite
+options.init = true
+
+if (options.init) {
+  const holder = [1,2,3,4]
+  init.add("Rambda#init", () => {
+    R.init(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.init(holder)
+  })
+  .add("Lodash", () => {
+    _.initial(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+
 
 
 if (options.update) {

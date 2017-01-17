@@ -220,6 +220,26 @@ describe("common cases", () => {
         R.flatten
       )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])
     ).toEqual([ 2, 3 ])
+
+    expect(
+      R.init([])
+    ).toEqual([])
+
+    expect(
+      R.init([1])
+    ).toEqual([])
+
+    expect(
+      R.init("foo")
+    ).toEqual("fo")
+
+    expect(
+      R.init("f")
+    ).toEqual("")
+
+    expect(
+      R.init("")
+    ).toEqual("")
   })
 
   it("join", () => {
