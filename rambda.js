@@ -119,11 +119,12 @@ const findIndex = (fn, arr) => {
   const length = arr.length
   let index = 0
 
-  while ( ++index < length ) {
-    if (fn(arr[index])) {
+  while (++index < length) {
+    if (fn(arr[ index ])) {
       return index
     }
   }
+
   return -1
 }
 
@@ -217,10 +218,11 @@ const equals = (a, b) => {
 }
 
 const head = a => {
-  if( typeof a === "string"){
-    return a[0] || ""
+  if (typeof a === "string") {
+    return a[ 0 ] || ""
   }
-  return a[0]
+
+  return a[ 0 ]
 }
 
 const indexOf = (question, arr) => {
@@ -228,7 +230,16 @@ const indexOf = (question, arr) => {
     return holder => indexOf(question, holder)
   }
 
-  return arr.indexOf(question)
+  let index = -1
+  const length = arr.length
+
+  while (++index < length) {
+    if (arr[ index ] === question) {
+      return index
+    }
+  }
+
+  return -1
 }
 
 const init = arr => dropLast(1, arr)

@@ -355,10 +355,10 @@ if (options.indexOf) {
   const holder = [1,2,3,4]
   const a = 4
   indexOf.add("Rambda#indexOf", () => {
-    R.indexOf(a)(holder)
+    R.indexOf(a,holder)
   })
   .add("Ramda", () => {
-    Ramda.indexOf(a)(holder)
+    Ramda.indexOf(a,holder)
   })
   .add("Lodash", () => {
     _.indexOf(holder, a)
