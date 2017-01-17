@@ -1,4 +1,4 @@
-const R = require("./")
+const R = require("./rambda")
 const Ramda = require("ramda")
 const _ = require("lodash")
 const Benchmark = require("benchmark")
@@ -6,11 +6,11 @@ const benchmarks = require("beautify-benchmark")
 
 const add = new Benchmark.Suite
 const adjust = new Benchmark.Suite
+const append = new Benchmark.Suite
 const any = new Benchmark.Suite
 const flatten = new Benchmark.Suite
 const filter = new Benchmark.Suite
 const compose = new Benchmark.Suite
-const contains = new Benchmark.Suite
 const equals = new Benchmark.Suite
 const find = new Benchmark.Suite
 const type = new Benchmark.Suite
@@ -20,18 +20,19 @@ const firstExample = new Benchmark.Suite
 const secondExample = new Benchmark.Suite
 
 const options = {
-  add: true,
-  adjust: true,
-  any: true,
-  compose: true,
-  equals: true,
-  filter: true,
-  find: true,
+  add: false,
+  adjust: false,
+  append: false,
+  any: false,
+  compose: false,
+  equals: false,
+  filter: false,
+  find: false,
   first: false,
-  flatten: true,
+  flatten: false,
   second: false,
-  type: true,
-  update: true,
+  type: false,
+  update: false,
 }
 
 if (options.add) {
@@ -78,6 +79,104 @@ if (options.any) {
   })
   .add("Lodash.some", () => {
     _.some([ 1, 2, 3, 4 ], val => val > 2)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+if (options.append) {
+  append.add("Rambda#append", () => {
+    R.append(0)([ 1, 2, 3, 4 ])
+  })
+  .add("Ramda", () => {
+    Ramda.append(0)([ 1, 2, 3, 4 ])
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+if (options.compose) {
+  compose.add("Rambda#compose", () => {
+    R.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+  })
+  .add("Ramda", () => {
+    Ramda.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+  })
+  .add("Lodash.flowRight", () => {
+    _.flowRight(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const contains = new Benchmark.Suite
+options.contains = false
+
+if (options.contains) {
+  const holder = [1,2,3,4]
+  const a = 2
+  contains.add("Rambda#contains", () => {
+    R.contains(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.contains(a)(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const drop = new Benchmark.Suite
+options.drop = false
+
+if (options.drop) {
+  const holder = [1,2,3,4]
+  const a = 3
+  drop.add("Rambda#drop", () => {
+    R.drop(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.drop(a)(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const dropLast = new Benchmark.Suite
+options.dropLast = false
+
+if (options.dropLast) {
+  const holder = [1,2,3,4]
+  const a = 3
+  dropLast.add("Rambda#dropLast", () => {
+    R.dropLast(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.dropLast(a)(holder)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
@@ -145,15 +244,20 @@ if (options.find) {
   .run()
 }
 
-if (options.flatten) {
-  flatten.add("Rambda#flatten", () => {
-    R.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
+const findIndex = new Benchmark.Suite
+options.findIndex = true
+
+if (options.findIndex) {
+  const holder = [1,2,3,4]
+  const a = val => val === 3
+  append.add("Rambda#findIndex", () => {
+    R.findIndex(a,holder)
   })
   .add("Ramda", () => {
-    Ramda.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
+    Ramda.findIndex(a,holder)
   })
   .add("Lodash", () => {
-    _.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
+    _.findIndex(holder, a)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
@@ -164,15 +268,15 @@ if (options.flatten) {
   .run()
 }
 
-if (options.compose) {
-  compose.add("Rambda#compose", () => {
-    R.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+if (options.flatten) {
+  flatten.add("Rambda#flatten", () => {
+    R.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
   })
   .add("Ramda", () => {
-    Ramda.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+    Ramda.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
   })
-  .add("Lodash.flowRight", () => {
-    _.flowRight(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+  .add("Lodash", () => {
+    _.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
   })
   .on("cycle", event => {
     benchmarks.add(event.target)

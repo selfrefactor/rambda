@@ -116,7 +116,15 @@ const findIndex = (fn, arr) => {
     return holder => findIndex(fn, holder)
   }
 
-  return arr.findIndex(fn)
+  const length = arr.length
+  let index = 0
+
+  while ( ++index < length ) {
+    if (fn(arr[index])) {
+      return index
+    }
+  }
+  return -1
 }
 
 const flatten = (ary, ret) => {

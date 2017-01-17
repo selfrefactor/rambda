@@ -54,7 +54,7 @@ describe("common cases", () => {
         R.filter(val => val > 1),
         R.flatten,
       )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 4 ])
+    ).toEqual([ 4 ]) 
   })
 
   it("dropLast", () => {

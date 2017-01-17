@@ -2,7 +2,9 @@
 logs
 *.log
 npm-debug.log*
-
+b.js
+template.js
+templateLodash.js
 # Runtime data
 pids
 *.pid
