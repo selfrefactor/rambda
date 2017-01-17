@@ -54,7 +54,7 @@ describe("common cases", () => {
         R.filter(val => val > 1),
         R.flatten,
       )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 4 ]) 
+    ).toEqual([ 4 ])
   })
 
   it("dropLast", () => {
@@ -188,11 +188,18 @@ describe("common cases", () => {
     expect(
       R.compose(
         R.head,
-        R.flatten,
         R.filter(val => val > 1),
         R.flatten,
       )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 2 ])
+    ).toEqual(2)
+
+    expect(
+      R.head([ 1  ,  2 ,  3 , 4 ])
+    ).toEqual( 1 )
+
+    expect(R.head("")).toEqual("")
+
+    expect(R.head("foo")).toEqual("f")
   })
 
   it("indexOf", () => {

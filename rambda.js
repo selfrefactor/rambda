@@ -216,7 +216,12 @@ const equals = (a, b) => {
   return false
 }
 
-const head = arr => dropLast(arr.length - 1, arr)
+const head = a => {
+  if( typeof a === "string"){
+    return a[0] || ""
+  }
+  return a[0]
+}
 
 const indexOf = (question, arr) => {
   if (arr === undefined) {

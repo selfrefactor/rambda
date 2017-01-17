@@ -35,6 +35,24 @@ const options = {
   update: false,
 }
 
+if(0){
+  firstExample.add("1", () => {
+    const a = ""
+    const b = typeof a === "string"
+  })
+  .add("2", () => {
+    const a = ""
+    const b = a.bold !== undefined
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
 if (options.add) {
   add.add("Rambda#add", () => {
     R.add(1, 1)
@@ -245,7 +263,7 @@ if (options.find) {
 }
 
 const findIndex = new Benchmark.Suite
-options.findIndex = true
+options.findIndex = false
 
 if (options.findIndex) {
   const holder = [1,2,3,4]
@@ -286,6 +304,74 @@ if (options.flatten) {
   })
   .run()
 }
+
+const head = new Benchmark.Suite
+options.head = true
+
+if (options.head) {
+  const holder = [1,2,3,4]
+  head.add("Rambda#head", () => {
+    R.head(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.head(holder)
+  })
+  .add("Lodash", () => {
+    _.head(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const headString = new Benchmark.Suite
+options.headString = true
+
+if (options.headString) {
+  const holder = ""
+  headString.add("Rambda#head when string", () => {
+    R.head(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.head(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const indexOf = new Benchmark.Suite
+options.indexOf = false
+
+if (options.indexOf) {
+  const holder = [1,2,3,4]
+  const a =
+  indexOf.add("Rambda#indexOf", () => {
+    R.indexOf(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.indexOf(a)(holder)
+  })
+  .add("Lodash", () => {
+    _.indexOf(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
 
 if (options.update) {
   update.add("Rambda#update", () => {
