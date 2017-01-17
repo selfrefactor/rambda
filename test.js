@@ -174,7 +174,7 @@ describe("common cases", () => {
 
   it("flatten", () => {
     expect(
-      R.flatten([ 1, 2, 3, [ 4 ] ])
+      R.flatten([ 1, 2, 3, [ [ [ [ [ 4 ] ] ] ] ] ])
     ).toEqual([ 1, 2, 3, 4 ])
     expect(
       R.flatten([ 1, [ 2, [ [ 3 ] ] ], [ 4 ] ])

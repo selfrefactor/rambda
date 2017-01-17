@@ -1,5 +1,3 @@
-const R = require("./_inc/compose")
-
 const add = (a, b) => {
   if (b === undefined) {
     return c => add(a, c)
@@ -29,14 +27,15 @@ const any = (fn, arr) => {
     return holder => any(fn, holder)
   }
 
-  let flag = false
-  arr.map(val => {
-    if (fn(val) === true) {
-      flag = true
+  let counter = 0
+  while (counter < arr.length) {
+    if (fn(arr[ counter ])) {
+      return true
     }
-  })
+    counter++
+  }
 
-  return flag
+  return false
 }
 
 const append = (val, arr) => {
@@ -47,6 +46,30 @@ const append = (val, arr) => {
   clone.unshift(val)
 
   return clone
+}
+
+const isFunction = value => typeof value === "function"
+
+function compose () {
+  const funcs = arguments
+  let length = funcs.length
+
+  while (length--) {
+    if (!isFunction(funcs[ length ])) {
+      throw new TypeError
+    }
+  }
+
+  return function () {
+    let args = arguments
+    const len = funcs.length
+
+    while (length--) {
+      args = [ funcs[ len ].apply(this, args) ]
+    }
+
+    return args[ 0 ]
+  }
 }
 
 const contains = (val, arr) => {
@@ -62,7 +85,22 @@ const filter = (fn, arr) => {
     return holder => filter(fn, holder)
   }
 
-  return arr.filter(fn)
+  let index = -1
+  let resIndex = 0
+  const length = arr === null ?
+    0 :
+    arr.length
+
+  const willReturn = []
+
+  while (++index < length) {
+    const value = arr[ index ]
+    if (fn(value)) {
+      willReturn[ resIndex++ ] = value
+    }
+  }
+
+  return willReturn
 }
 
 const find = (fn, arr) => {
@@ -81,17 +119,19 @@ const findIndex = (fn, arr) => {
   return arr.findIndex(fn)
 }
 
-const flatten = arr => {
-  let willReturn = []
-  for (let i = 0; i < arr.length; i++) {
-    if (Array.isArray(arr[ i ])) {
-      willReturn = willReturn.concat(flatten(arr[ i ]))
+const flatten = (ary, ret) => {
+  ret = ret === undefined ?
+    [] :
+    ret
+  for (let i = 0; i < ary.length; i++) {
+    if (Array.isArray(ary[ i ])) {
+      flatten(ary[ i ], ret)
     } else {
-      willReturn.push(arr[ i ])
+      ret.push(ary[ i ])
     }
   }
 
-  return willReturn
+  return ret
 }
 
 const drop = (dropNumber, arr) => {
@@ -476,7 +516,7 @@ module.exports.add = add
 module.exports.adjust = adjust
 module.exports.any = any
 module.exports.append = append
-module.exports.compose = R.compose
+module.exports.compose = compose
 module.exports.contains = contains
 module.exports.drop = drop
 module.exports.dropLast = dropLast

@@ -3,13 +3,15 @@
 
 # Rambda
 
-Partial copy of *Ramda* using *Ramda.compose* and plain Javascript functions.
+Faster alternative to **Ramda** in just 6kB
 
 ## Argumentation
 
-I admire *Ramda* but most of the time I use only small part of what it offers.
+I admire ***Ramda*** as it is great library in what it does, but I used only small part of what it offers.
 
-But even when I create custom **Ramda** build, I still am not completely happy with its size.
+I wanted to optimize the size of my bundle, but already developed Ramda habits.
+
+This lead me to the idea to recreate the funtionality of some Ramda methods and export that as library.
 
 ## Example use
 ```
@@ -33,174 +35,590 @@ In some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is test
 
 ## Benchmark
 
-Performance was not the main reason for this library, it is side effect.
+![Screen](/screen.png)
 
-The benchmark coverage is small.
+## Disclaimer
 
-Its current status:
-
-![Screen](/_inc/screen.png)
+- Documentation of the methods below is scraped from Ramda's website and could be removed in the future, if requested from Ramda's side.
 
 ## API
 
 #### add
 
-[link to Ramda's docs for add method](http://ramdajs.com/docs/#add)
+- Adds two values.
+
+```javascript
+R.add(2, 3);       //=>  5
+R.add(7)(10);      //=> 17
+```
 
 #### adjust
 
-[link to Ramda's docs for adjust method](http://ramdajs.com/docs/#adjust)
+- Applies a function to the value at the given index of an array, returning a
+new copy of the array with the element at the given index replaced with the
+result of the function application.
+
+```javascript
+R.adjust(R.add(10), 1, [0, 1, 2]);     //=> [0, 11, 2]
+R.adjust(R.add(10))(1)([0, 1, 2]);     //=> [0, 11, 2]
+```
 
 #### any
 
-[link to Ramda's docs for any method](http://ramdajs.com/docs/#any)
+- Returns true if at least one of elements of the list match the predicate,
+false otherwise.
+Dispatches to the any method of the second argument, if present.
+Acts as a transducer if a transformer is given in list position.
+
+```javascript
+var lessThan0 = R.flip(R.lt)(0);
+var lessThan2 = R.flip(R.lt)(2);
+R.any(lessThan0)([1, 2]); //=> false
+R.any(lessThan2)([1, 2]); //=> true
+```
 
 #### append
 
-[link to Ramda's docs for append method](http://ramdajs.com/docs/#append)
+- Returns a new list containing the contents of the given list, followed by
+the given element.
 
-#### compose
-
-Just passing the original compose method of Ramda
-
-[link to Ramda's docs for compose method](http://ramdajs.com/docs/#compose)
+```javascript
+R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+R.append('tests', []); //=> ['tests']
+R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+```
 
 #### contains
 
-[link to Ramda's docs for contains method](http://ramdajs.com/docs/#contains)
+- Returns true if the specified value is equal, in R.equals terms, to at
+least one element of the given list; false otherwise.
+
+```javascript
+R.contains(3, [1, 2, 3]); //=> true
+R.contains(4, [1, 2, 3]); //=> false
+R.contains([42], [[42]]); //=> true
+```
 
 #### drop
 
-[link to Ramda's docs for drop method](http://ramdajs.com/docs/#drop)
+- Returns all but the first n elements of the given list, string, or
+transducer/transformer (or object with a drop method).
+Dispatches to the drop method of the second argument, if present.
+
+```javascript
+R.drop(1, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
+R.drop(2, ['foo', 'bar', 'baz']); //=> ['baz']
+R.drop(3, ['foo', 'bar', 'baz']); //=> []
+R.drop(4, ['foo', 'bar', 'baz']); //=> []
+R.drop(3, 'ramda');               //=> 'da'
+```
 
 #### dropLast
 
-[link to Ramda's docs for dropLast method](http://ramdajs.com/docs/#dropLast)
+- Returns a list containing all but the last n elements of the given list.
+
+```javascript
+R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+R.dropLast(2, ['foo', 'bar', 'baz']); //=> ['foo']
+R.dropLast(3, ['foo', 'bar', 'baz']); //=> []
+R.dropLast(4, ['foo', 'bar', 'baz']); //=> []
+R.dropLast(3, 'ramda');               //=> 'ra'
+```
+
+#### equals
+
+- Returns true if its arguments are equivalent, false otherwise. Handles
+cyclical data structures.
+Dispatches symmetrically to the equals methods of both arguments, if
+present.
+
+```javascript
+R.equals(1, 1); //=> true
+R.equals(1, '1'); //=> false
+R.equals([1, 2, 3], [1, 2, 3]); //=> true
+
+var a = {}; a.v = a;
+var b = {}; b.v = b;
+R.equals(a, b); //=> true
+```
 
 #### filter
 
-[link to Ramda's docs for filter method](http://ramdajs.com/docs/#filter)
+- Takes a predicate and a "filterable", and returns a new filterable of the
+same type containing the members of the given filterable which satisfy the
+given predicate.
+Dispatches to the filter method of the second argument, if present.
+Acts as a transducer if a transformer is given in list position.
+
+```javascript
+var isEven = n => n % 2 === 0;
+
+R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+
+R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
+```
+
+#### find
+
+- Returns the first element of the list which matches the predicate, or
+undefined if no element matches.
+Dispatches to the find method of the second argument, if present.
+Acts as a transducer if a transformer is given in list position.
+
+```javascript
+var xs = [{a: 1}, {a: 2}, {a: 3}];
+R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+R.find(R.propEq('a', 4))(xs); //=> undefined
+```
+
+#### findIndex
+
+- Returns the index of the first element of the list which matches the
+predicate, or -1 if no element matches.
+Dispatches to the findIndex method of the second argument, if present.
+Acts as a transducer if a transformer is given in list position.
+
+```javascript
+var xs = [{a: 1}, {a: 2}, {a: 3}];
+R.findIndex(R.propEq('a', 2))(xs); //=> 1
+R.findIndex(R.propEq('a', 4))(xs); //=> -1
+```
 
 #### flatten
 
-[link to Ramda's docs for flatten method](http://ramdajs.com/docs/#flatten)
+- Returns a new list by pulling every item out of it (and all its sub-arrays)
+and putting them in a new array, depth-first.
+
+```javascript
+R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+```
 
 #### head
 
-[link to Ramda's docs for head method](http://ramdajs.com/docs/#head)
+- Returns the first element of the given list or string. In some libraries
+this function is named first.
+
+```javascript
+R.head(['fi', 'fo', 'fum']); //=> 'fi'
+R.head([]); //=> undefined
+
+R.head('abc'); //=> 'a'
+R.head(''); //=> ''
+```
+
+#### indexOf
+
+- Returns the position of the first occurrence of an item in an array, or -1
+if the item is not included in the array. R.equals is used to determine
+equality.
+
+```javascript
+R.indexOf(3, [1,2,3,4]); //=> 2
+R.indexOf(10, [1,2,3,4]); //=> -1
+```
 
 #### init
 
-[link to Ramda's docs for init method](http://ramdajs.com/docs/#init)
+- Returns all but the last element of the given list or string.
+
+```javascript
+R.init([1, 2, 3]);  //=> [1, 2]
+R.init([1, 2]);     //=> [1]
+R.init([1]);        //=> []
+R.init([]);         //=> []
+
+R.init('abc');  //=> 'ab'
+R.init('ab');   //=> 'a'
+R.init('a');    //=> ''
+R.init('');     //=> ''
+```
 
 #### join
 
-[link to Ramda's docs for join method](http://ramdajs.com/docs/#join)
+- Returns a string made by inserting the separator between each element and
+concatenating all the elements into a single string.
+
+```javascript
+var spacer = R.join(' ');
+spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
+R.join('|', [1, 2, 3]);    //=> '1|2|3'
+```
 
 #### last
 
-[link to Ramda's docs for last method](http://ramdajs.com/docs/#last)
+- Returns the last element of the given list or string.
+
+```javascript
+R.last(['fi', 'fo', 'fum']); //=> 'fum'
+R.last([]); //=> undefined
+
+R.last('abc'); //=> 'c'
+R.last(''); //=> ''
+```
 
 #### length
 
-[link to Ramda's docs for length method](http://ramdajs.com/docs/#length)
+- Returns the number of elements in the array by returning list.length.
+
+```javascript
+R.length([]); //=> 0
+R.length([1, 2, 3]); //=> 3
+```
 
 #### map
 
-[link to Ramda's docs for map method](http://ramdajs.com/docs/#map)
+- Takes a function and
+a functor,
+applies the function to each of the functor's values, and returns
+a functor of the same shape.
+Ramda provides suitable map implementations for Array and Object,
+so this function may be applied to [1, 2, 3] or {x: 1, y: 2, z: 3}.
+Dispatches to the map method of the second argument, if present.
+Acts as a transducer if a transformer is given in list position.
+Also treats functions as functors and will compose them together.
+
+```javascript
+var double = x => x * 2;
+
+R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+
+R.map(double, {x: 1, y: 2, z: 3}); //=> {x: 2, y: 4, z: 6}
+```
+
+#### match
+
+- Tests a regular expression against a String. Note that this function will
+return an empty array when there are no matches. This differs from
+String.prototype.match
+which returns null when there are no matches.
+
+```javascript
+R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+R.match(/a/, 'b'); //=> []
+R.match(/a/, null); //=> TypeError: null does not have a method named "match"
+```
+
+#### merge
+
+- Create a new object with the own properties of the first object merged with
+the own properties of the second object. If a key exists in both objects,
+the value from the second object will be used.
+
+```javascript
+R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+//=> { 'name': 'fred', 'age': 40 }
+
+var resetToDefault = R.merge(R.__, {x: 0});
+resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
+```
 
 #### omit
 
-[link to Ramda's docs for omit method](http://ramdajs.com/docs/#omit)
+- Returns a partial copy of an object omitting the keys specified.
+
+```javascript
+R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+```
 
 #### path
 
-[link to Ramda's docs for path method](http://ramdajs.com/docs/#path)
+- Retrieve the value at a given path.
 
-#### prepend
-
-[link to Ramda's docs for prepend method](http://ramdajs.com/docs/#prepend)
+```javascript
+R.path(['a', 'b'], {a: {b: 2}}); //=> 2
+R.path(['a', 'b'], {c: {b: 2}}); //=> undefined
+```
 
 #### pick
 
-[link to Ramda's docs for pick method](http://ramdajs.com/docs/#pick)
+- Returns a partial copy of an object containing only the keys specified. If
+the key does not exist, the property is ignored.
+
+```javascript
+R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+```
+
+#### prepend
+
+- Returns a new list with the given element at the front, followed by the
+contents of the list.
+
+```javascript
+R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+```
 
 #### prop
 
-[link to Ramda's docs for prop method](http://ramdajs.com/docs/#prop)
+- Returns a function that when supplied an object returns the indicated
+property of that object, if it exists.
+
+```javascript
+R.prop('x', {x: 100}); //=> 100
+R.prop('x', {}); //=> undefined
+```
 
 #### propEq
 
-[link to Ramda's docs for propEq method](http://ramdajs.com/docs/#propEq)
+- Returns true if the specified object property is equal, in R.equals
+terms, to the given value; false otherwise.
+
+```javascript
+var abby = {name: 'Abby', age: 7, hair: 'blond'};
+var fred = {name: 'Fred', age: 12, hair: 'brown'};
+var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
+var alois = {name: 'Alois', age: 15, disposition: 'surly'};
+var kids = [abby, fred, rusty, alois];
+var hasBrownHair = R.propEq('hair', 'brown');
+R.filter(hasBrownHair, kids); //=> [fred, rusty]
+```
 
 #### range
 
-[link to Ramda's docs for range method](http://ramdajs.com/docs/#range)
+- Returns a list of numbers from from (inclusive) to to (exclusive).
+
+```javascript
+R.range(1, 5);    //=> [1, 2, 3, 4]
+R.range(50, 53);  //=> [50, 51, 52]
+```
 
 #### repeat
 
-[link to Ramda's docs for repeat method](http://ramdajs.com/docs/#repeat)
+- Returns a fixed list of size n containing a specified identical value.
+
+```javascript
+R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
+
+var obj = {};
+var repeatedObjs = R.repeat(obj, 5); //=> [{}, {}, {}, {}, {}]
+repeatedObjs[0] === repeatedObjs[1]; //=> true
+```
 
 #### replace
 
-[link to Ramda's docs for replace method](http://ramdajs.com/docs/#replace)
+- Replace a substring or regex match in a string with a replacement.
+
+```javascript
+R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
+
+// Use the "g" (global) flag to replace all occurrences:
+R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+```
 
 #### sort
 
-[link to Ramda's docs for sort method](http://ramdajs.com/docs/#sort)
+- Returns a copy of the list, sorted according to the comparator function,
+which should accept two values at a time and return a negative number if the
+first value is smaller, a positive number if it's larger, and zero if they
+are equal. Please note that this is a copy of the list. It does not
+modify the original.
+
+```javascript
+var diff = function(a, b) { return a - b; };
+R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+```
 
 #### sortBy
 
-[link to Ramda's docs for sortBy method](http://ramdajs.com/docs/#sortBy)
+- Sorts the list according to the supplied function.
+
+```javascript
+var sortByFirstItem = R.sortBy(R.prop(0));
+var sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
+var pairs = [[-1, 1], [-2, 2], [-3, 3]];
+sortByFirstItem(pairs); //=> [[-3, 3], [-2, 2], [-1, 1]]
+var alice = {
+  name: 'ALICE',
+  age: 101
+};
+var bob = {
+  name: 'Bob',
+  age: -10
+};
+var clara = {
+  name: 'clara',
+  age: 314.159
+};
+var people = [clara, bob, alice];
+sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
+```
 
 #### split
 
-[link to Ramda's docs for split method](http://ramdajs.com/docs/#split)
+- Splits a string into an array of strings based on the given
+separator.
+
+```javascript
+var pathComponents = R.split('/');
+R.tail(pathComponents('/usr/local/bin/node')); //=> ['usr', 'local', 'bin', 'node']
+
+R.split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
+```
 
 #### splitEvery
 
-[link to Ramda's docs for splitEvery method](http://ramdajs.com/docs/#splitEvery)
+- Splits a collection into slices of the specified length.
+
+```javascript
+R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); //=> [[1, 2, 3], [4, 5, 6], [7]]
+R.splitEvery(3, 'foobarbaz'); //=> ['foo', 'bar', 'baz']
+```
 
 #### subtract
 
-[link to Ramda's docs for subtract method](http://ramdajs.com/docs/#subtract)
+- Subtracts its second argument from its first argument.
+
+```javascript
+R.subtract(10, 8); //=> 2
+
+var minus5 = R.subtract(R.__, 5);
+minus5(17); //=> 12
+
+var complementaryAngle = R.subtract(90);
+complementaryAngle(30); //=> 60
+complementaryAngle(72); //=> 18
+```
 
 #### tail
 
-[link to Ramda's docs for tail method](http://ramdajs.com/docs/#tail)
+- Returns all but the first element of the given list or string (or object
+with a tail method).
+Dispatches to the slice method of the first argument, if present.
+
+```javascript
+R.tail([1, 2, 3]);  //=> [2, 3]
+R.tail([1, 2]);     //=> [2]
+R.tail([1]);        //=> []
+R.tail([]);         //=> []
+
+R.tail('abc');  //=> 'bc'
+R.tail('ab');   //=> 'b'
+R.tail('a');    //=> ''
+R.tail('');     //=> ''
+```
 
 #### take
 
-[link to Ramda's docs for take method](http://ramdajs.com/docs/#take)
+- Returns the first n elements of the given list, string, or
+transducer/transformer (or object with a take method).
+Dispatches to the take method of the second argument, if present.
+
+```javascript
+R.take(1, ['foo', 'bar', 'baz']); //=> ['foo']
+R.take(2, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+R.take(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+R.take(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+R.take(3, 'ramda');               //=> 'ram'
+
+var personnel = [
+  'Dave Brubeck',
+  'Paul Desmond',
+  'Eugene Wright',
+  'Joe Morello',
+  'Gerry Mulligan',
+  'Bob Bates',
+  'Joe Dodge',
+  'Ron Crotty'
+];
+
+var takeFive = R.take(5);
+takeFive(personnel);
+//=> ['Dave Brubeck', 'Paul Desmond', 'Eugene Wright', 'Joe Morello', 'Gerry Mulligan']
+```
 
 #### takeLast
 
-[link to Ramda's docs for takeLast method](http://ramdajs.com/docs/#takeLast)
+- Returns a new list containing the last n elements of the given list.
+If n > list.length, returns a list of list.length elements.
+
+```javascript
+R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
+R.takeLast(2, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
+R.takeLast(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+R.takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+R.takeLast(3, 'ramda');               //=> 'mda'
+```
 
 #### test
 
-[link to Ramda's docs for test method](http://ramdajs.com/docs/#test)
+- Determines whether a given string matches a given regular expression.
+
+```javascript
+R.test(/^x/, 'xyz'); //=> true
+R.test(/^y/, 'xyz'); //=> false
+```
 
 #### toLower
 
-[link to Ramda's docs for toLower method](http://ramdajs.com/docs/#toLower)
+- The lower case version of a string.
+
+```javascript
+R.toLower('XYZ'); //=> 'xyz'
+```
 
 #### toUpper
 
-[link to Ramda's docs for toUpper method](http://ramdajs.com/docs/#toUpper)
+- The upper case version of a string.
+
+```javascript
+R.toUpper('abc'); //=> 'ABC'
+```
+
+#### trim
+
+- Removes (strips) whitespace from both ends of the string.
+
+```javascript
+R.trim('   xyz  '); //=> 'xyz'
+R.map(R.trim, R.split(',', 'x, y, z')); //=> ['x', 'y', 'z']
+```
 
 #### type
 
-[link to Ramda's docs for type method](http://ramdajs.com/docs/#type)
+- Gives a single-word string description of the (native) type of a value,
+returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
+attempt to distinguish user Object types any further, reporting them all as
+'Object'.
 
-#### values
-
-[link to Ramda's docs for values method](http://ramdajs.com/docs/#values)
+```javascript
+R.type({}); //=> "Object"
+R.type(1); //=> "Number"
+R.type(false); //=> "Boolean"
+R.type('s'); //=> "String"
+R.type(null); //=> "Null"
+R.type([]); //=> "Array"
+R.type(/[A-z]/); //=> "RegExp"
+```
 
 #### uniq
 
-[link to Ramda's docs for uniq method](http://ramdajs.com/docs/#uniq)
+- Returns a new list containing only one copy of each element in the original
+list. R.equals is used to determine equality.
+
+```javascript
+R.uniq([1, 1, 2, 1]); //=> [1, 2]
+R.uniq([1, '1']);     //=> [1, '1']
+R.uniq([[42], [42]]); //=> [[42]]
+```
 
 #### update
 
-[link to Ramda's docs for update method](http://ramdajs.com/docs/#update)
+- Returns a new copy of the array with the element at the provided index
+replaced with the given value.
+
+```javascript
+R.update(1, 11, [0, 1, 2]);     //=> [0, 11, 2]
+R.update(1)(11)([0, 1, 2]);     //=> [0, 11, 2]
+```
+
+#### values
+
+- Returns a list of all the enumerable own properties of the supplied object.
+Note that the order of the output array is not guaranteed across different
+JS platforms.
+
+```javascript
+R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+```
