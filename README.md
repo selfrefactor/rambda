@@ -3,7 +3,7 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 7kB
+Faster alternative to **Ramda** in just 6kB
 
 ## Argumentation
 
