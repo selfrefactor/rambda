@@ -62,9 +62,9 @@ function compose () {
 
   return function () {
     let args = arguments
-    const len = funcs.length
+    let len = funcs.length
 
-    while (length--) {
+    while (len--) {
       args = [ funcs[ len ].apply(this, args) ]
     }
 
