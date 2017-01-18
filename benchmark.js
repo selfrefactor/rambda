@@ -396,7 +396,7 @@ if (options.init) {
 }
 
 const initString = new Benchmark.Suite
-options.initString = true
+options.initString = false
 
 if (options.initString) {
   const holder = "foo"
@@ -415,8 +415,52 @@ if (options.initString) {
   .run()
 }
 
+const last = new Benchmark.Suite
+options.last = false
 
+if (options.last) {
+  const holder = [1,2,3,4]
+  last.add("Rambda#last", () => {
+    R.last(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.last(holder)
+  })
+  .add("Lodash", () => {
+    _.last(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
+const map = new Benchmark.Suite
+options.map = true
+
+if (options.map) {
+  const holder = [1,2,3,4]
+  const a = val => val +2
+  map.add("Rambda#map", () => {
+    R.map(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.map(a,holder)
+  })
+  .add("Lodash", () => {
+    _.map(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 if (options.update) {
   update.add("Rambda#update", () => {

@@ -285,7 +285,15 @@ const map = (fn, arr) => {
     return holder => map(fn, holder)
   }
 
-  return arr.map(fn)
+  let index = -1
+  const length = arr.length;
+  const willReturn = Array(length);
+
+  while (++index < length) {
+    willReturn[index] = fn(arr[index])
+  }
+  
+  return willReturn
 }
 
 const last = arr => arr[ arr.length - 1 ]
