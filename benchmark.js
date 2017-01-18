@@ -789,7 +789,7 @@ if (options.split) {
 }
 
 const splitEvery = new Benchmark.Suite
-options.splitEvery = true
+options.splitEvery = false
 
 if (options.splitEvery) {
   splitEvery.add("Rambda#splitEvery", () => {
@@ -808,10 +808,10 @@ if (options.splitEvery) {
 }
 
 const splitEveryString = new Benchmark.Suite
-options.splitEveryString = true
+options.splitEveryString = false
 
 if (options.splitEveryString) {
-  splitEveryString.add("Rambda#splitEvery when string", () => {
+  splitEveryString.add("Rambda#splitEvery when String", () => {
     R.splitEvery(3)("foobarbazy")
   })
   .add("Ramda", () => {
@@ -825,6 +825,55 @@ if (options.splitEveryString) {
   })
   .run()
 }
+
+const take = new Benchmark.Suite
+options.take = true
+
+if (options.take) {
+  const holder = [1,2,3,4]
+  const a = 2
+  take.add("Rambda#take", () => {
+    R.take(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.take(a,holder)
+  })
+  .add("Lodash", () => {
+    _.take(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const takeString = new Benchmark.Suite
+options.takeString = false
+
+if (options.takeString) {
+  const holder = "foobarbaz"
+  const a = 7
+  takeString.add("Rambda#take when String", () => {
+    R.take(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.take(a)(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+
+
+
 
 
 if (options.update) {
