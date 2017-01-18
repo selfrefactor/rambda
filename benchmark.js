@@ -248,7 +248,7 @@ options.findIndex = true
 if (options.findIndex) {
   const holder = [1,2,3,4]
   const a = val => val === 3
-  append.add("Rambda.findIndex", () => {
+  findIndex.add("Rambda.findIndex", () => {
     R.findIndex(a,holder)
   })
   .add("Ramda", () => {
@@ -517,7 +517,7 @@ if (options.omit) {
 }
 
 const prepend = new Benchmark.Suite
-options.prepend = true
+options.prepend = false
 
 if (options.prepend) {
   const holder = ["bar","baz"]
@@ -881,7 +881,7 @@ options.takeLastString = true
 if (options.takeLastString) {
   const holder = "foobarbaz"
   const a = 5
-  takeLast.add("Rambda#takeLast when String", () => {
+  takeLastString.add("Rambda#takeLast when String", () => {
     R.takeLast(a,holder)
   })
   .add("Ramda", () => {
