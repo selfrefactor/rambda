@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/selfrefactor/ils.svg?branch=master)](https://travis-ci.org/selfrefactor/rambda)
-[![Codecov](https://img.shields.io/codecov/c/github/selfrefactor/ils.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 
 # Rambda
 
