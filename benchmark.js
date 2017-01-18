@@ -676,7 +676,7 @@ if (options.range) {
 }
 
 const repeat = new Benchmark.Suite
-options.repeat = true
+options.repeat = false
 
 if (options.repeat) {
   const holder = 10
@@ -699,6 +699,27 @@ if (options.repeat) {
   .run()
 }
 
+const replace = new Benchmark.Suite
+options.replace = false
+
+if (options.replace) {
+  replace.add("Rambda#replace", () => {
+    R.replace(/\s/g,"|","foo bar baz")
+  })
+  .add("Ramda", () => {
+    Ramda.replace(/\s/g,"|","foo bar baz")
+  })
+  .add("Lodash", () => {
+    _.replace("foo bar baz",/\s/g,"|")
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 
