@@ -76,8 +76,8 @@ const contains = (val, arr) => {
   if (arr === undefined) {
     return holder => contains(val, holder)
   }
-
-  return any(value => val === value, arr)
+  
+  return arr.includes(val)
 }
 
 const filter = (fn, arr) => {
@@ -292,7 +292,7 @@ const map = (fn, arr) => {
   while (++index < length) {
     willReturn[index] = fn(arr[index])
   }
-  
+
   return willReturn
 }
 
@@ -323,6 +323,7 @@ const omit = (keys, obj) => {
   if (obj === undefined) {
     return holder => omit(keys, holder)
   }
+
   const willReturn = {}
   for (key in obj) {
     if (!keys.includes(key)) {

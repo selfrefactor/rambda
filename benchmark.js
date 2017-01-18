@@ -143,16 +143,19 @@ if (options.compose) {
 }
 
 const contains = new Benchmark.Suite
-options.contains = false
+options.contains = true
 
 if (options.contains) {
   const holder = [1,2,3,4]
-  const a = 2
+  const a = 4
   contains.add("Rambda#contains", () => {
-    R.contains(a)(holder)
+    R.contains(a,holder)
   })
   .add("Ramda", () => {
-    Ramda.contains(a)(holder)
+    Ramda.contains(a,holder)
+  })
+  .add("Lodash.includes", () => {
+    _.includes(holder, a)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
@@ -510,7 +513,7 @@ if (options.merge) {
 }
 
 const omit = new Benchmark.Suite
-options.omit = true
+options.omit = false
 
 if (options.omit) {
   const holder = { a:"foo", b:"bar", c:"baz" }
