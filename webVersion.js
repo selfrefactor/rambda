@@ -1,1 +1,689 @@
-(function(d){var e={};function __webpack_require__(f){if(e[f])return e[f].exports;var g=e[f]={i:f,l:!1,exports:{}};d[f].call(g.exports,g,g.exports,__webpack_require__);g.l=!0;return g.exports;}__webpack_require__.m=d;__webpack_require__.c=e;__webpack_require__.i=function(h){return h;};__webpack_require__.d=function(j,k,l){if(!__webpack_require__.o(j,k)){Object.defineProperty(j,k,{configurable:!1,enumerable:!0,get:l});}};__webpack_require__.n=function(m){var n=m&&m.__esModule?function getDefault(){return m['default'];}:function getModuleExports(){return m;};__webpack_require__.d(n,'a',n);return n;};__webpack_require__.o=function(o,p){return Object.prototype.hasOwnProperty.call(o,p);};__webpack_require__.p="";return __webpack_require__(__webpack_require__.s=0);})([function(q,r){const add=(a,b)=>{if(b===void 0){return c=>add(a,c);}return a+b;},adjust=(s,t,u)=>{if(t===void 0){return(v,w)=>adjust(s,v,w);}else if(u===void 0){return x=>adjust(s,t,x);}return u.map((y,z)=>{if(z===t){return s(u[t]);}return y;});},any=(A,B)=>{if(B===void 0){return C=>any(A,C);}let D=0;while(D<B.length){if(A(B[D])){return!0;}D++;}return!1;},append=(E,F)=>{if(F===void 0){return G=>append(E,G);}const H=F;H.unshift(E);return H;},isFunction=I=>typeof I==="function";function compose(){const J=arguments;let K=J.length;while(K--){if(!isFunction(J[K])){throw new TypeError();}}return function(){let L=arguments,M=J.length;while(M--){L=[J[M].apply(this,L)];}return L[0];};}const contains=(N,O)=>{if(O===void 0){return P=>contains(N,P);}return any(Q=>N===Q,O);},filter=(R,S)=>{if(S===void 0){return T=>filter(R,T);}let U=-1,V=0;const W=S===null?0:S.length,X=[];while(++U<W){const Y=S[U];if(R(Y)){X[V++]=Y;}}return X;},find=(Z,a1)=>{if(a1===void 0){return b1=>find(Z,b1);}return a1.find(Z);},findIndex=(fn,d1)=>{if(d1===void 0){return e1=>findIndex(fn,e1);}const f1=d1.length;let g1=0;while(++g1<f1){if(fn(d1[g1])){return g1;}}return-1;},flatten=(h1,i1)=>{i1=i1===void 0?[]:i1;for(let i=0;i<h1.length;i++){if(Array.isArray(h1[i])){flatten(h1[i],i1);}else{i1.push(h1[i]);}}return i1;},drop=(j1,k1)=>{if(k1===void 0){return l1=>drop(j1,l1);}const m1=k1;return m1.slice(j1);},dropLast=(n1,o1)=>{if(o1===void 0){return p1=>dropLast(n1,p1);}const q1=o1;return q1.slice(0,-n1);},equals=(a,b)=>{if(b===void 0){return r1=>equals(a,r1);}else if(a===b){return a!==0||1/a===1/b;}const s1=type(a);if(s1!==type(b)){return!1;}if(s1==="Array"){const t1=a,u1=b;return t1.sort().toString()===u1.sort().toString();}if(s1==="Object"){const v1=Object.keys(a);if(v1.length===Object.keys(b).length){if(v1.length===0){return!0;}let w1=!0;v1.map(x1=>{if(w1){const y1=type(a[x1]),z1=type(b[x1]);if(y1===z1){if(y1==="Object"){if(Object.keys(a[x1]).length===Object.keys(b[x1]).length){if(Object.keys(a[x1]).length!==0){if(!equals(a[x1],b[x1])){w1=!1;}}}else{w1=!1;}}else if(!equals(a[x1],b[x1])){w1=!1;}}else{w1=!1;}}});return w1;}}return!1;},head=a=>{if(typeof a==="string"){return a[0]||"";}return a[0];},indexOf=(A1,B1)=>{if(B1===void 0){return C1=>indexOf(A1,C1);}let D1=-1;const E1=B1.length;while(++D1<E1){if(B1[D1]===A1){return D1;}}return-1;},baseSlice=(F1,G1,H1)=>{let I1=-1,J1=F1.length;if(G1<0){G1=-G1>J1?0:J1+G1;}H1=H1>J1?J1:H1;if(H1<0){H1+=J1;}J1=G1>H1?0:H1-G1>>>0;G1>>>=0;const K1=Array(J1);while(++I1<J1){K1[I1]=F1[I1+G1];}return K1;},init=a=>{if(typeof a==="string"){return a.slice(0,-1);}return a.length?baseSlice(a,0,-1):[];},join=(L1,M1)=>{if(M1===void 0){return N1=>join(L1,N1);}return M1.join(L1);},map=(fn,P1)=>{if(P1===void 0){return Q1=>map(fn,Q1);}return P1.map(fn);},last=R1=>R1[R1.length-1],length=S1=>S1.length,match=(T1,U1)=>{if(U1===void 0){return V1=>match(T1,V1);}const W1=U1.match(T1);return W1===null?[]:W1;},merge=(X1,Y1)=>{if(Y1===void 0){return Z1=>merge(X1,Z1);}return Object.assign({},X1,Y1);},omit=(a2,b2)=>{if(b2===void 0){return c2=>omit(a2,c2);}const d2={};for(key in b2){if(!a2.includes(key)){d2[key]=b2[key];}}return d2;},path=(e2,f2)=>{if(f2===void 0){return g2=>path(e2,g2);}let h2=f2,i2=0;while(i2<e2.length){if(h2===null){return void 0;}h2=h2[e2[i2]];i2++;}return h2;},prepend=(j2,k2)=>{if(k2===void 0){return l2=>prepend(j2,l2);}const m2=k2;m2.push(j2);return m2;},pick=(n2,o2)=>{if(o2===void 0){return p2=>pick(n2,p2);}const q2={};for(key in o2){if(n2.includes(key)){q2[key]=o2[key];}}return q2;},prop=(r2,s2)=>{if(s2===void 0){return t2=>prop(r2,t2);}return s2[r2];},propEq=(u2,v2,w2)=>{if(v2===void 0){return(x2,y2)=>propEq(u2,x2,y2);}else if(w2===void 0){return z2=>propEq(u2,v2,z2);}return w2[u2]===v2;},range=(A2,B2)=>{const C2=[];for(let i=A2;i<B2;i++){C2.push(i);}return C2;},repeat=(a,D2)=>{if(D2===void 0){return E2=>repeat(a,E2);}const F2=range(0,D2);return F2.fill(a);},replace=(G2,H2,I2)=>{if(H2===void 0){return(J2,K2)=>replace(G2,J2,K2);}else if(I2===void 0){return L2=>replace(G2,H2,L2);}return I2.replace(G2,H2);},subtract=(a,b)=>{if(b===void 0){return c=>subtract(a,c);}return a-b;},sort=(fn,N2)=>{if(N2===void 0){return O2=>sort(fn,O2);}const P2=N2;return P2.sort(fn);},sortBy=(fn,R2)=>{if(R2===void 0){return S2=>sortBy(fn,S2);}const T2=R2;return T2.sort((a,b)=>{const U2=fn(a),V2=fn(b);return U2<V2?-1:U2>V2?1:0;});},split=(W2,X2)=>{if(X2===void 0){return Y2=>split(W2,Y2);}return X2.split(W2);},splitEvery=(Z2,a)=>{if(a===void 0){return a3=>splitEvery(Z2,a3);}Z2=Z2>1?Z2:1;const b3=[];let c3=0;while(c3<a.length){b3.push(a.slice(c3,c3+=Z2));}return b3;},tail=d3=>drop(1,d3),take=(e3,f3)=>{if(f3===void 0){return g3=>take(e3,g3);}const h3=f3;return h3.slice(0,e3);},takeLast=(i3,j3)=>{if(j3===void 0){return k3=>dropLast(i3,k3);}const l3=j3;i3=i3>l3.length?l3.length:i3;return l3.slice(l3.length-i3);},toLower=a=>a.toLowerCase(),toUpper=a=>a.toUpperCase(),test=(m3,n3)=>{if(n3===void 0){return o3=>test(m3,o3);}return n3.search(m3)===-1?!1:!0;},trim=p3=>p3.trim(),type=a=>{if(a===null){return"Null";}else if(Array.isArray(a)){return"Array";}else if(typeof a==="boolean"){return"Boolean";}else if(typeof a==="number"){return"Number";}else if(typeof a==="string"){return"String";}else if(a===void 0){return"Undefined";}else if(a instanceof RegExp){return"RegExp";}return"Object";},values=q3=>{const r3=[];for(key in q3){r3.push(q3[key]);}return r3;},uniq=s3=>{const t3=[];return s3.filter(u3=>{if(t3.includes(u3)){return!1;}t3.push(u3);return!0;});},update=(v3,w3,x3)=>{if(w3===void 0){return(y3,z3)=>update(v3,y3,z3);}else if(x3===void 0){return A3=>update(v3,w3,A3);}return x3.fill(v3,w3,w3+1);};q.exports.add=add;q.exports.adjust=adjust;q.exports.any=any;q.exports.append=append;q.exports.compose=compose;q.exports.contains=contains;q.exports.drop=drop;q.exports.dropLast=dropLast;q.exports.equals=equals;q.exports.filter=filter;q.exports.find=find;q.exports.findIndex=findIndex;q.exports.flatten=flatten;q.exports.head=head;q.exports.indexOf=indexOf;q.exports.init=init;q.exports.join=join;q.exports.last=last;q.exports.length=length;q.exports.map=map;q.exports.match=match;q.exports.merge=merge;q.exports.omit=omit;q.exports.path=path;q.exports.pick=pick;q.exports.prepend=prepend;q.exports.prop=prop;q.exports.propEq=propEq;q.exports.range=range;q.exports.repeat=repeat;q.exports.replace=replace;q.exports.sort=sort;q.exports.sortBy=sortBy;q.exports.split=split;q.exports.splitEvery=splitEvery;q.exports.subtract=subtract;q.exports.tail=tail;q.exports.take=take;q.exports.takeLast=takeLast;q.exports.test=test;q.exports.toLower=toLower;q.exports.toUpper=toUpper;q.exports.trim=trim;q.exports.type=type;q.exports.uniq=uniq;q.exports.update=update;q.exports.values=values;}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports) {
+
+const add = (a, b) => {
+  if (b === undefined) {
+    return c => add(a, c)
+  }
+
+  return a + b
+}
+
+const adjust = (fn, index, arr) => {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => adjust(fn, index, holder)
+  }
+
+  return arr.map((val, key) => {
+    if (key === index) {
+      return fn(arr[ index ])
+    }
+
+    return val
+  })
+}
+
+const any = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => any(fn, holder)
+  }
+
+  let counter = 0
+  while (counter < arr.length) {
+    if (fn(arr[ counter ])) {
+      return true
+    }
+    counter++
+  }
+
+  return false
+}
+
+const append = (val, arr) => {
+  if (arr === undefined) {
+    return holder => append(val, holder)
+  }
+  const clone = arr
+  clone.unshift(val)
+
+  return clone
+}
+
+const isFunction = value => typeof value === "function"
+
+function compose () {
+  const funcs = arguments
+  let length = funcs.length
+
+  while (length--) {
+    if (!isFunction(funcs[ length ])) {
+      throw new TypeError
+    }
+  }
+
+  return function () {
+    let args = arguments
+    let len = funcs.length
+
+    while (len--) {
+      args = [ funcs[ len ].apply(this, args) ]
+    }
+
+    return args[ 0 ]
+  }
+}
+
+const contains = (val, arr) => {
+  if (arr === undefined) {
+    return holder => contains(val, holder)
+  }
+
+  return any(value => val === value, arr)
+}
+
+const filter = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => filter(fn, holder)
+  }
+
+  let index = -1
+  let resIndex = 0
+  const length = arr === null ?
+    0 :
+    arr.length
+
+  const willReturn = []
+
+  while (++index < length) {
+    const value = arr[ index ]
+    if (fn(value)) {
+      willReturn[ resIndex++ ] = value
+    }
+  }
+
+  return willReturn
+}
+
+const find = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => find(fn, holder)
+  }
+
+  return arr.find(fn)
+}
+
+const findIndex = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => findIndex(fn, holder)
+  }
+
+  const length = arr.length
+  let index = 0
+
+  while (++index < length) {
+    if (fn(arr[ index ])) {
+      return index
+    }
+  }
+
+  return -1
+}
+
+const flatten = (ary, ret) => {
+  ret = ret === undefined ?
+    [] :
+    ret
+  for (let i = 0; i < ary.length; i++) {
+    if (Array.isArray(ary[ i ])) {
+      flatten(ary[ i ], ret)
+    } else {
+      ret.push(ary[ i ])
+    }
+  }
+
+  return ret
+}
+
+const drop = (dropNumber, arr) => {
+  if (arr === undefined) {
+    return holder => drop(dropNumber, holder)
+  }
+  const arrClone = arr
+
+  return arrClone.slice(dropNumber)
+}
+
+const dropLast = (dropNumber, arr) => {
+  if (arr === undefined) {
+    return holder => dropLast(dropNumber, holder)
+  }
+  const arrClone = arr
+
+  return arrClone.slice(0, -dropNumber)
+}
+
+const equals = (a, b) => {
+  if (b === undefined) {
+    return holder => equals(a, holder)
+  } else if (a === b) {
+    return a !== 0 || 1 / a === 1 / b
+  }
+  const aType = type(a)
+  if (aType !== type(b)) {
+    return false
+  }
+
+  if (aType === "Array") {
+    const aClone = a
+    const bClone = b
+
+    return aClone.sort().toString() === bClone.sort().toString()
+  }
+
+  if (aType === "Object") {
+    const aKeys = Object.keys(a)
+    if (aKeys.length === Object.keys(b).length) {
+      if (aKeys.length === 0) {
+        return true
+      }
+      let flag = true
+      aKeys.map(val => {
+        if (flag) {
+          const aValType = type(a[ val ])
+          const bValType = type(b[ val ])
+          if (aValType === bValType) {
+            if (aValType === "Object") {
+              if (Object.keys(a[ val ]).length === Object.keys(b[ val ]).length) {
+                if (Object.keys(a[ val ]).length !== 0) {
+                  if (!equals(a[ val ], b[ val ])) {
+                    flag = false
+                  }
+                }
+              } else {
+                flag = false
+              }
+            } else if (!equals(a[ val ], b[ val ])) {
+              flag = false
+            }
+          } else {
+            flag = false
+          }
+        }
+      })
+
+      return flag
+    }
+  }
+
+  return false
+}
+
+const head = a => {
+  if (typeof a === "string") {
+    return a[ 0 ] || ""
+  }
+
+  return a[ 0 ]
+}
+
+const indexOf = (question, arr) => {
+  if (arr === undefined) {
+    return holder => indexOf(question, holder)
+  }
+
+  let index = -1
+  const length = arr.length
+
+  while (++index < length) {
+    if (arr[ index ] === question) {
+      return index
+    }
+  }
+
+  return -1
+}
+
+const baseSlice = (array, start, end) => {
+  let index = -1,
+  length = array.length
+
+  if (start < 0) {
+    start = -start > length ? 0 : length + start
+  }
+  end = end > length ? length : end
+  if (end < 0) {
+    end += length
+  }
+  length = start > end ? 0 : end - start >>> 0
+  start >>>= 0
+
+  const result = Array(length)
+  while (++index < length) {
+    result[ index ] = array[ index + start ]
+  }
+
+  return result
+}
+
+const init = a => {
+  if(typeof a === "string"){
+    return a.slice(0, -1)
+  }
+
+  return a.length ? baseSlice(a, 0, -1) : []
+}
+
+const join = (glue, arr) => {
+  if (arr === undefined) {
+    return holder => join(glue, holder)
+  }
+
+  return arr.join(glue)
+}
+
+const map = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => map(fn, holder)
+  }
+
+  return arr.map(fn)
+}
+
+const last = arr => arr[ arr.length - 1 ]
+
+const length = arr => arr.length
+
+const match = (regex, str) => {
+  if (str === undefined) {
+    return holder => match(regex, holder)
+  }
+  const willReturn = str.match(regex)
+
+  return willReturn === null ?
+    [] :
+    willReturn
+}
+
+const merge = (obj, newProps) => {
+  if (newProps === undefined) {
+    return holder => merge(obj, holder)
+  }
+
+  return Object.assign({}, obj, newProps)
+}
+
+const omit = (keys, obj) => {
+  if (obj === undefined) {
+    return holder => omit(keys, holder)
+  }
+  const willReturn = {}
+  for (key in obj) {
+    if (!keys.includes(key)) {
+      willReturn[ key ] = obj[ key ]
+    }
+  }
+
+  return willReturn
+}
+
+const path = (pathArr, obj) => {
+  if (obj === undefined) {
+    return holder => path(pathArr, holder)
+  }
+
+  let holder = obj
+  let counter = 0
+  while (counter < pathArr.length) {
+    if (holder === null) {
+      return undefined
+    }
+    holder = holder[ pathArr[ counter ] ]
+    counter++
+  }
+
+  return holder
+}
+
+const prepend = (val, arr) => {
+  if (arr === undefined) {
+    return holder => prepend(val, holder)
+  }
+
+  const clone = arr
+  clone.push(val)
+
+  return clone
+}
+
+const pick = (keys, obj) => {
+  if (obj === undefined) {
+    return holder => pick(keys, holder)
+  }
+  const willReturn = {}
+  for (key in obj) {
+    if (keys.includes(key)) {
+      willReturn[ key ] = obj[ key ]
+    }
+  }
+
+  return willReturn
+}
+
+const prop = (key, obj) => {
+  if (obj === undefined) {
+    return holder => prop(key, holder)
+  }
+
+  return obj[ key ]
+}
+
+const propEq = (key, val, obj) => {
+  if (val === undefined) {
+    return (valHolder, objHolder) => propEq(key, valHolder, objHolder)
+  } else if (obj === undefined) {
+    return holder => propEq(key, val, holder)
+  }
+
+  return obj[ key ] === val
+}
+
+const range = (start, end) => {
+  const willReturn = []
+  for (let i = start; i < end; i++) {
+    willReturn.push(i)
+  }
+
+  return willReturn
+}
+
+const repeat = (a, num) => {
+  if (num === undefined) {
+    return holder => repeat(a, holder)
+  }
+  const willReturn = range(0, num)
+
+  return willReturn.fill(a)
+}
+
+const replace = (regex, replacer, str) => {
+  if (replacer === undefined) {
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
+  } else if (str === undefined) {
+    return holder => replace(regex, replacer, holder)
+  }
+
+  return str.replace(regex, replacer)
+}
+
+const subtract = (a, b) => {
+  if (b === undefined) {
+    return c => subtract(a, c)
+  }
+
+  return a - b
+}
+
+const sort = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => sort(fn, holder)
+  }
+  const arrClone = arr
+
+  return arrClone.sort(fn)
+}
+
+const sortBy = (fn, arr) => {
+  if (arr === undefined) {
+    return holder => sortBy(fn, holder)
+  }
+  const arrClone = arr
+
+  return arrClone.sort((a, b) => {
+    const fnA = fn(a)
+    const fnB = fn(b)
+
+    return fnA < fnB ?
+      -1 :
+      fnA > fnB ?
+        1 :
+        0
+  })
+}
+
+const split = (glue, str) => {
+  if (str === undefined) {
+    return holder => split(glue, holder)
+  }
+
+  return str.split(glue)
+}
+
+const splitEvery = (num, a) => {
+  if (a === undefined) {
+    return holder => splitEvery(num, holder)
+  }
+  num = num > 1 ?
+  num :
+  1
+  const willReturn = []
+  let counter = 0
+  while (counter < a.length) {
+    willReturn.push(a.slice(counter, counter += num))
+  }
+
+  return willReturn
+}
+
+const tail = arr => drop(1, arr)
+
+const take = (takeNumber, arr) => {
+  if (arr === undefined) {
+    return holder => take(takeNumber, holder)
+  }
+  const arrClone = arr
+
+  return arrClone.slice(0, takeNumber)
+}
+
+const takeLast = (takeNumber, arr) => {
+  if (arr === undefined) {
+    return holder => dropLast(takeNumber, holder)
+  }
+  const arrClone = arr
+  takeNumber = takeNumber > arrClone.length ?
+  arrClone.length :
+  takeNumber
+
+  return arrClone.slice(arrClone.length - takeNumber)
+}
+
+const toLower = a => a.toLowerCase()
+
+const toUpper = a => a.toUpperCase()
+
+const test = (regex, str) => {
+  if (str === undefined) {
+    return holder => test(regex, holder)
+  }
+
+  return str.search(regex) === -1 ?
+  false :
+  true
+}
+
+const trim = str => str.trim()
+
+const type = a => {
+  if (a === null) {
+    return "Null"
+  } else if (Array.isArray(a)) {
+    return "Array"
+  } else if (typeof a === "boolean") {
+    return "Boolean"
+  } else if (typeof a === "number") {
+    return "Number"
+  } else if (typeof a === "string") {
+    return "String"
+  } else if (a === undefined) {
+    return "Undefined"
+  } else if (a instanceof RegExp) {
+    return "RegExp"
+  }
+
+  return "Object"
+}
+
+const values = obj => {
+  const willReturn = []
+  for (key in obj) {
+    willReturn.push(obj[ key ])
+  }
+
+  return willReturn
+}
+
+const uniq = arr => {
+  const holder = []
+
+  return arr.filter(val => {
+    if (holder.includes(val)) {
+      return false
+    }
+    holder.push(val)
+
+    return true
+  })
+}
+
+const update = (newValue, index, arr) => {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => update(newValue, indexHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => update(newValue, index, holder)
+  }
+
+  return arr.fill(newValue, index, index + 1)
+}
+
+module.exports.add = add
+module.exports.adjust = adjust
+module.exports.any = any
+module.exports.append = append
+module.exports.compose = compose
+module.exports.contains = contains
+module.exports.drop = drop
+module.exports.dropLast = dropLast
+module.exports.equals = equals
+module.exports.filter = filter
+module.exports.find = find
+module.exports.findIndex = findIndex
+module.exports.flatten = flatten
+module.exports.head = head
+module.exports.indexOf = indexOf
+module.exports.init = init
+module.exports.join = join
+module.exports.last = last
+module.exports.length = length
+module.exports.map = map
+module.exports.match = match
+module.exports.merge = merge
+module.exports.omit = omit
+module.exports.path = path
+module.exports.pick = pick
+module.exports.prepend = prepend
+module.exports.prop = prop
+module.exports.propEq = propEq
+module.exports.range = range
+module.exports.repeat = repeat
+module.exports.replace = replace
+module.exports.sort = sort
+module.exports.sortBy = sortBy
+module.exports.split = split
+module.exports.splitEvery = splitEvery
+module.exports.subtract = subtract
+module.exports.tail = tail
+module.exports.take = take
+module.exports.takeLast = takeLast
+module.exports.test = test
+module.exports.toLower = toLower
+module.exports.toUpper = toUpper
+module.exports.trim = trim
+module.exports.type = type
+module.exports.uniq = uniq
+module.exports.update = update
+module.exports.values = values
+
+
+/***/ }
+/******/ ]);
