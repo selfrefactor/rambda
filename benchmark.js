@@ -143,7 +143,7 @@ if (options.compose) {
 }
 
 const contains = new Benchmark.Suite
-options.contains = true
+options.contains = false
 
 if (options.contains) {
   const holder = [1,2,3,4]
@@ -536,7 +536,29 @@ if (options.omit) {
   .run()
 }
 
+const path = new Benchmark.Suite
+options.path = true
 
+if (options.path) {
+  const holder = {a: {b: 2}}
+  const a = ['a', 'b']
+  path.add("Rambda#path", () => {
+    R.path(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.path(a,holder)
+  })
+  .add("Lodash", () => {
+    _.get(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 if (options.update) {
