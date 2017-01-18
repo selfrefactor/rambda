@@ -54,7 +54,7 @@ if(0){
 }
 
 if (options.add) {
-  add.add("Rambda#add", () => {
+  add.add("Rambda.add", () => {
     R.add(1, 1)
   })
   .add("Ramda", () => {
@@ -73,7 +73,7 @@ if (options.add) {
 }
 
 if (options.adjust) {
-  adjust.add("Rambda#adjust", () => {
+  adjust.add("Rambda.adjust", () => {
     R.adjust(val => val + 1, 0)
   })
   .add("Ramda", () => {
@@ -89,7 +89,7 @@ if (options.adjust) {
 }
 
 if (options.any) {
-  any.add("Rambda#any", () => {
+  any.add("Rambda.any", () => {
     R.any(val => val > 2, [ 1, 2, 3, 4 ])
   })
   .add("Ramda", () => {
@@ -108,7 +108,7 @@ if (options.any) {
 }
 
 if (options.append) {
-  append.add("Rambda#append", () => {
+  append.add("Rambda.append", () => {
     R.append(0)([ 1, 2, 3, 4 ])
   })
   .add("Ramda", () => {
@@ -124,7 +124,7 @@ if (options.append) {
 }
 
 if (options.compose) {
-  compose.add("Rambda#compose", () => {
+  compose.add("Rambda.compose", () => {
     R.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
   })
   .add("Ramda", () => {
@@ -148,7 +148,7 @@ options.contains = false
 if (options.contains) {
   const holder = [1,2,3,4]
   const a = 4
-  contains.add("Rambda#contains", () => {
+  contains.add("Rambda.contains", () => {
     R.contains(a,holder)
   })
   .add("Ramda", () => {
@@ -172,7 +172,7 @@ options.drop = false
 if (options.drop) {
   const holder = [1,2,3,4]
   const a = 3
-  drop.add("Rambda#drop", () => {
+  drop.add("Rambda.drop", () => {
     R.drop(a)(holder)
   })
   .add("Ramda", () => {
@@ -193,7 +193,7 @@ options.dropLast = false
 if (options.dropLast) {
   const holder = [1,2,3,4]
   const a = 3
-  dropLast.add("Rambda#dropLast", () => {
+  dropLast.add("Rambda.dropLast", () => {
     R.dropLast(a)(holder)
   })
   .add("Ramda", () => {
@@ -209,7 +209,7 @@ if (options.dropLast) {
 }
 
 if (options.equals) {
-  equals.add("Rambda#equals", () => {
+  equals.add("Rambda.equals", () => {
     R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:1 } } })
   })
   .add("Ramda", () => {
@@ -228,7 +228,7 @@ if (options.equals) {
 }
 
 if (options.filter) {
-  filter.add("Rambda#filter", () => {
+  filter.add("Rambda.filter", () => {
     R.filter(val => val > 2, [ 1, 2, 3, 4 ])
   })
   .add("Ramda", () => {
@@ -247,7 +247,7 @@ if (options.filter) {
 }
 
 if (options.find) {
-  find.add("Rambda#find", () => {
+  find.add("Rambda.find", () => {
     R.find(val => val > 2, [ 1, 2, 3, 4 ])
   })
   .add("Ramda", () => {
@@ -271,7 +271,7 @@ options.findIndex = false
 if (options.findIndex) {
   const holder = [1,2,3,4]
   const a = val => val === 3
-  append.add("Rambda#findIndex", () => {
+  append.add("Rambda.findIndex", () => {
     R.findIndex(a,holder)
   })
   .add("Ramda", () => {
@@ -290,7 +290,7 @@ if (options.findIndex) {
 }
 
 if (options.flatten) {
-  flatten.add("Rambda#flatten", () => {
+  flatten.add("Rambda.flatten", () => {
     R.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
   })
   .add("Ramda", () => {
@@ -313,7 +313,7 @@ options.head = false
 
 if (options.head) {
   const holder = [1,2,3,4]
-  head.add("Rambda#head", () => {
+  head.add("Rambda.head", () => {
     R.head(holder)
   })
   .add("Ramda", () => {
@@ -336,7 +336,7 @@ options.headString = false
 
 if (options.headString) {
   const holder = ""
-  headString.add("Rambda#head when string", () => {
+  headString.add("Rambda.head when string", () => {
     R.head(holder)
   })
   .add("Ramda", () => {
@@ -357,7 +357,7 @@ options.indexOf = false
 if (options.indexOf) {
   const holder = [1,2,3,4]
   const a = 4
-  indexOf.add("Rambda#indexOf", () => {
+  indexOf.add("Rambda.indexOf", () => {
     R.indexOf(a,holder)
   })
   .add("Ramda", () => {
@@ -380,7 +380,7 @@ options.init = false
 
 if (options.init) {
   const holder = [1,2,3,4]
-  init.add("Rambda#init", () => {
+  init.add("Rambda.init", () => {
     R.init(holder)
   })
   .add("Ramda", () => {
@@ -403,7 +403,7 @@ options.initString = false
 
 if (options.initString) {
   const holder = "foo"
-  initString.add("Rambda#init when string", () => {
+  initString.add("Rambda.init when string", () => {
     R.init(holder)
   })
   .add("Ramda", () => {
@@ -423,7 +423,7 @@ options.last = false
 
 if (options.last) {
   const holder = [1,2,3,4]
-  last.add("Rambda#last", () => {
+  last.add("Rambda.last", () => {
     R.last(holder)
   })
   .add("Ramda", () => {
@@ -447,7 +447,7 @@ options.map = false
 if (options.map) {
   const holder = [1,2,3,4]
   const a = val => val +2
-  map.add("Rambda#map", () => {
+  map.add("Rambda.map", () => {
     R.map(a,holder)
   })
   .add("Ramda", () => {
@@ -469,7 +469,7 @@ const match = new Benchmark.Suite
 options.match = false
 
 if (options.match) {
-  match.add("Rambda#match", () => {
+  match.add("Rambda.match", () => {
     R.match(
       /a./g
     )("foo bar baz")
@@ -494,7 +494,7 @@ options.merge = false
 if (options.merge) {
   const holder = {bar:"yes"}
   const a = {foo:"bar",bar:"baz"}
-  merge.add("Rambda#merge", () => {
+  merge.add("Rambda.merge", () => {
     R.merge(a,holder)
   })
   .add("Ramda", () => {
@@ -518,7 +518,7 @@ options.omit = false
 if (options.omit) {
   const holder = { a:"foo", b:"bar", c:"baz" }
   const a = ["a","c"]
-  omit.add("Rambda#omit", () => {
+  omit.add("Rambda.omit", () => {
     R.omit(a,holder)
   })
   .add("Ramda", () => {
@@ -536,19 +536,40 @@ if (options.omit) {
   .run()
 }
 
+const prepend = new Benchmark.Suite
+options.prepend = true
+
+if (options.prepend) {
+  const holder = ["bar","baz"]
+  const a = "foo"
+  prepend.add("Rambda#prepend", () => {
+    R.prepend(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.prepend(a,holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
 const path = new Benchmark.Suite
-options.path = true
+options.path = false
 
 if (options.path) {
   const holder = {a: {b: 2}}
   const a = ['a', 'b']
-  path.add("Rambda#path", () => {
+  path.add("Rambda.path", () => {
     R.path(a,holder)
   })
   .add("Ramda", () => {
     Ramda.path(a,holder)
   })
-  .add("Lodash", () => {
+  .add("Lodash.get", () => {
     _.get(holder, a)
   })
   .on("cycle", event => {
@@ -561,8 +582,10 @@ if (options.path) {
 }
 
 
+
+
 if (options.update) {
-  update.add("Rambda#update", () => {
+  update.add("Rambda.update", () => {
     R.update(3, 1, [ 1, 2, 3 ])
   })
   .add("Ramda", () => {
@@ -578,7 +601,7 @@ if (options.update) {
 }
 
 if (options.type) {
-  type.add("Rambda#type", () => {
+  type.add("Rambda.type", () => {
     R.type([ 1, 2, 3 ])
   })
   .add("Ramda", () => {
@@ -594,7 +617,7 @@ if (options.type) {
 }
 
 if (options.first) {
-  firstExample.add("Rambda#firstExample", () => {
+  firstExample.add("Rambda.firstExample", () => {
     R.compose(
         R.join("|"),
         R.dropLast(2),
@@ -603,7 +626,7 @@ if (options.first) {
         R.flatten
       )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
   })
-  .add("Ramda#firstExample", () => {
+  .add("Ramda.firstExample", () => {
     Ramda.compose(
         Ramda.join("|"),
         Ramda.dropLast(2),
@@ -622,14 +645,14 @@ if (options.first) {
 }
 
 if (options.second) {
-  secondExample.add("Rambda#secondExample", () => {
+  secondExample.add("Rambda.secondExample", () => {
     R.compose(
         R.last,
         R.map(R.subtract(10)),
         R.adjust(R.add(1), 0)
       )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
   })
-  .add("Ramda#secondExample", () => {
+  .add("Ramda.secondExample", () => {
     Ramda.compose(
         Ramda.last,
         Ramda.map(Ramda.subtract(10)),
