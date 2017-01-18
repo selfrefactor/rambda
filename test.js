@@ -467,9 +467,14 @@ describe("common cases", () => {
   })
 
   it("take", () => {
+    let arr = [ "foo", "bar", "baz" ]
     expect(
-      R.take(1, [ "foo", "bar", "baz" ])
+      R.take(1, arr)
     ).toEqual([ "foo" ])
+
+    expect(
+      arr
+    ).toEqual([ "foo", "bar", "baz" ])
 
     expect(
       R.take(3)("rambda")
@@ -488,6 +493,10 @@ describe("common cases", () => {
     expect(
       R.takeLast(3, "rambda")
     ).toEqual("bda")
+
+    expect(
+      R.takeLast(7, "rambda")
+    ).toEqual("rambda")
   })
 
   it("test", () => {

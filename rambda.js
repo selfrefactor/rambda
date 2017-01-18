@@ -410,7 +410,7 @@ const repeat = (a, num) => {
   if (num === undefined) {
     return holder => repeat(a, holder)
   }
-  const willReturn = Array(num)
+  const willReturn =  Array(num)
 
   return willReturn.fill(a)
 }
@@ -486,25 +486,30 @@ const splitEvery = (num, a) => {
 
 const tail = arr => drop(1, arr)
 
-const take = (takeNumber, arr) => {
-  if (arr === undefined) {
-    return holder => take(takeNumber, holder)
-  }
-  const arrClone = arr
+const take = (takeNumber, a) => {
+  if (a === undefined) {
 
-  return arrClone.slice(0, takeNumber)
+    return holder => take(takeNumber, holder)
+  }else if(typeof a === "string"){
+
+    return a.slice(0, takeNumber)
+  }
+
+  return baseSlice(a, 0, takeNumber)
 }
 
-const takeLast = (takeNumber, arr) => {
-  if (arr === undefined) {
+const takeLast = (takeNumber, a) => {
+  if (a === undefined) {
     return holder => dropLast(takeNumber, holder)
   }
-  const arrClone = arr
-  takeNumber = takeNumber > arrClone.length ?
-  arrClone.length :
-  takeNumber
+  takeNumber = takeNumber > a.length ?
+    a.length :
+    takeNumber
+  if(typeof a === "string"){
+    return a.slice(a.length - takeNumber)
+  }
 
-  return arrClone.slice(arrClone.length - takeNumber)
+  return baseSlice(a, a.length - takeNumber, a.length)
 }
 
 const toLower = a => a.toLowerCase()

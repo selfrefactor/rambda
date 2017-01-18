@@ -827,7 +827,7 @@ if (options.splitEveryString) {
 }
 
 const take = new Benchmark.Suite
-options.take = true
+options.take = false
 
 if (options.take) {
   const holder = [1,2,3,4]
@@ -871,6 +871,50 @@ if (options.takeString) {
   .run()
 }
 
+const takeLast = new Benchmark.Suite
+options.takeLast = false
+
+if (options.takeLast) {
+  const holder = [1,2,3,4]
+  const a = 2
+  takeLast.add("Rambda#takeLast", () => {
+    R.takeLast(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.takeLast(a,holder)
+  })
+  .add("Lodash", () => {
+    _.takeRight(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const takeLastString = new Benchmark.Suite
+options.takeLastString = true
+
+if (options.takeLastString) {
+  const holder = "foobarbaz"
+  const a = 5
+  takeLast.add("Rambda#takeLast when String", () => {
+    R.takeLast(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.takeLast(a,holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 
