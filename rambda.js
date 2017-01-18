@@ -558,16 +558,15 @@ const values = obj => {
 }
 
 const uniq = arr => {
-  const holder = []
-
-  return arr.filter(val => {
-    if (holder.includes(val)) {
-      return false
+  let index = -1
+  const willReturn = []
+  while (++index < arr.length) {
+    const value = arr[index]
+    if(!willReturn.includes(value)){
+      willReturn.push(value)
     }
-    holder.push(val)
-
-    return true
-  })
+  }
+  return willReturn
 }
 
 const update = (newValue, index, arr) => {
