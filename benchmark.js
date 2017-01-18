@@ -439,7 +439,7 @@ if (options.last) {
 }
 
 const map = new Benchmark.Suite
-options.map = true
+options.map = false
 
 if (options.map) {
   const holder = [1,2,3,4]
@@ -461,6 +461,80 @@ if (options.map) {
   })
   .run()
 }
+
+const match = new Benchmark.Suite
+options.match = false
+
+if (options.match) {
+  match.add("Rambda#match", () => {
+    R.match(
+      /a./g
+    )("foo bar baz")
+  })
+  .add("Ramda", () => {
+    Ramda.match(
+      /a./g
+    )("foo bar baz")
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const merge = new Benchmark.Suite
+options.merge = false
+
+if (options.merge) {
+  const holder = {bar:"yes"}
+  const a = {foo:"bar",bar:"baz"}
+  merge.add("Rambda#merge", () => {
+    R.merge(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.merge(a,holder)
+  })
+  .add("Lodash", () => {
+    _.merge(a, holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const omit = new Benchmark.Suite
+options.omit = true
+
+if (options.omit) {
+  const holder = { a:"foo", b:"bar", c:"baz" }
+  const a = ["a","c"]
+  omit.add("Rambda#omit", () => {
+    R.omit(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.omit(a,holder)
+  })
+  .add("Lodash", () => {
+    _.omit(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+
+
 
 if (options.update) {
   update.add("Rambda#update", () => {
