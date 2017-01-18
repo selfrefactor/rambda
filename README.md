@@ -26,7 +26,7 @@ console.log(result) // => [3,4]
 
 ##Install
 
-- Use ** npm i rambda** for Webpack and Node.js
+- Use **npm i rambda** for Webpack and Node.js
 
 - For browser usage include
 
