@@ -466,6 +466,12 @@ describe("common cases", () => {
     ).toEqual([ "foo", "bar", "baz" ])
   })
 
+  it("subtract", () => {
+    expect(
+      R.subtract(2,1)
+    ).toEqual(1)
+  })
+
   it("take", () => {
     let arr = [ "foo", "bar", "baz" ]
     expect(
@@ -581,5 +587,20 @@ describe("common cases", () => {
     expect(
       R.update(3)(1)([ 1, 2, 3 ])
     ).toEqual([ 1, 3, 3 ])
+  })
+
+  it("example", () => {
+    const url = "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"
+
+    expect(
+      R.compose(
+          R.join("|"),
+          R.append("foo"),
+          R.takeLast(4),
+          R.map(R.toLower),
+          R.filter(val => val.length>4),
+          R.split("/")
+        )(url)
+    ).toEqual("foo|https:|developer.mozilla.org|en-us|javascript")
   })
 })

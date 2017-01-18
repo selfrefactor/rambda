@@ -427,7 +427,7 @@ const replace = (regex, replacer, str) => {
 
 const subtract = (a, b) => {
   if (b === undefined) {
-    return c => subtract(a, c)
+    return holder => subtract(a, holder)
   }
 
   return a - b
