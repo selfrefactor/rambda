@@ -582,7 +582,7 @@ if (options.path) {
 }
 
 const pick = new Benchmark.Suite
-options.pick = true
+options.pick = false
 
 if (options.pick) {
   const holder = { a:"foo", b:"bar", c:"baz" }
@@ -606,7 +606,7 @@ if (options.pick) {
 }
 
 const prop = new Benchmark.Suite
-options.prop = true
+options.prop = false
 
 if (options.prop) {
   const holder = {a:"foo",b:"bar",c:"baz"}
@@ -616,6 +616,31 @@ if (options.prop) {
   })
   .add("Ramda", () => {
     Ramda.prop(a)(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const propEq = new Benchmark.Suite
+options.propEq = true
+
+if (options.propEq) {
+  propEq.add("Rambda#propEq", () => {
+    R.propEq(
+      "foo",
+      "bar"
+    )({ foo:"bar" })
+  })
+  .add("Ramda", () => {
+    Ramda.propEq(
+      "foo",
+      "bar"
+    )({ foo:"bar" })
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
