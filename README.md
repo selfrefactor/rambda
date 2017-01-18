@@ -14,8 +14,8 @@ I wanted to optimize the size of my bundle, but already developed Ramda habits.
 This lead me to the idea to recreate the funtionality of some Ramda methods and export that as library.
 
 ## Example use
+
 ```
-// npm i rambda
 const R = require("rambda")
 const result = R.compose(
   R.filter(val => val>2),
@@ -24,12 +24,26 @@ const result = R.compose(
 console.log(result) // => [3,4]
 ```
 
+##Install
+
+- Use ** npm i rambda** for Webpack and Node.js
+
+- For browser usage include
+
+```
+https://unpkg.com/rambda@0.3.3/webVersion.js
+```
+
+ in your HTML
+
 ## Differences between Rambda and Ramda
-Rambda shadows only small part of the Ramda's API. A few things to note:
+Rambda shadows only small part of the Ramda's API.
 
-- Rambda's methods are not compatible with the placeholder **Ramda.__**.
+A few things to note:
 
-In some cases **Ramda.__** can be replaced by **Ramda.flip**. **Rambda** is tested for compatability with **Ramda.flip**.
+- Rambda's methods should be compatible with most of the basic Ramda's methods. For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
+
+- **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does
 
