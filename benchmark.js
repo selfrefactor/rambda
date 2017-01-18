@@ -627,7 +627,7 @@ if (options.prop) {
 }
 
 const propEq = new Benchmark.Suite
-options.propEq = true
+options.propEq = false
 
 if (options.propEq) {
   propEq.add("Rambda#propEq", () => {
@@ -650,6 +650,33 @@ if (options.propEq) {
   })
   .run()
 }
+
+const range = new Benchmark.Suite
+options.range = true
+
+if (options.range) {
+  const holder = 10
+  const a = 0
+  range.add("Rambda#range", () => {
+    R.range(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.range(a,holder)
+  })
+  .add("Lodash", () => {
+    _.range(a,holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+
+
 
 
 if (options.update) {
