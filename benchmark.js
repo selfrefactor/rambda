@@ -896,7 +896,7 @@ if (options.takeLast) {
 }
 
 const takeLastString = new Benchmark.Suite
-options.takeLastString = true
+options.takeLastString = false
 
 if (options.takeLastString) {
   const holder = "foobarbaz"
@@ -916,6 +916,24 @@ if (options.takeLastString) {
   .run()
 }
 
+const test = new Benchmark.Suite
+options.test = true
+
+if (options.test) {
+  test.add("Rambda#test", () => {
+    R.test(/\s/g, "x y z")
+  })
+  .add("Ramda", () => {
+    Ramda.test(/\s/g, "x y z")
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 
