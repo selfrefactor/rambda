@@ -1,9 +1,11 @@
+template.js
+templateLodash.js
+rambdaWeb.js
+
 # Logs
 logs
 *.log
 npm-debug.log*
-template.js
-templateLodash.js
 # Runtime data
 pids
 *.pid
