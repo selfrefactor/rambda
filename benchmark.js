@@ -588,10 +588,10 @@ if (options.pick) {
   const holder = { a:"foo", b:"bar", c:"baz" }
   const a = ["a","c"]
   pick.add("Rambda#pick", () => {
-    R.pick(a,holder)
+    R.pick(a)(holder)
   })
   .add("Ramda", () => {
-    Ramda.pick(a,holder)
+    Ramda.pick(a)(holder)
   })
   .add("Lodash", () => {
     _.pick(holder, a)
@@ -605,6 +605,26 @@ if (options.pick) {
   .run()
 }
 
+const prop = new Benchmark.Suite
+options.prop = true
+
+if (options.prop) {
+  const holder = {a:"foo",b:"bar",c:"baz"}
+  const a = "c"
+  prop.add("Rambda#prop", () => {
+    R.prop(a)(holder)
+  })
+  .add("Ramda", () => {
+    Ramda.prop(a)(holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 if (options.update) {
