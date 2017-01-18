@@ -652,7 +652,7 @@ if (options.propEq) {
 }
 
 const range = new Benchmark.Suite
-options.range = true
+options.range = false
 
 if (options.range) {
   const holder = 10
@@ -675,6 +675,29 @@ if (options.range) {
   .run()
 }
 
+const repeat = new Benchmark.Suite
+options.repeat = true
+
+if (options.repeat) {
+  const holder = 10
+  const a = "foo"
+  repeat.add("Rambda#repeat", () => {
+    R.repeat(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.repeat(a,holder)
+  })
+  .add("Lodash", () => {
+    _.repeat(a,holder)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 

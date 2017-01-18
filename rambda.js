@@ -410,7 +410,7 @@ const repeat = (a, num) => {
   if (num === undefined) {
     return holder => repeat(a, holder)
   }
-  const willReturn = range(0, num)
+  const willReturn = Array(num)
 
   return willReturn.fill(a)
 }

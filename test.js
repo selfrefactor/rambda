@@ -391,18 +391,18 @@ describe("common cases", () => {
 
   it("repeat", () => {
     expect(
-      R.replace(/\s/g)("|")("foo bar baz")
-    ).toEqual("foo|bar|baz")
-  })
-
-  it("replace", () => {
-    expect(
       R.repeat("foo", 3)
     ).toEqual([ "foo", "foo", "foo" ])
 
     expect(
       R.repeat({}, 3)
     ).toEqual([ {}, {}, {} ])
+  })
+
+  it("replace", () => {
+    expect(
+      R.replace(/\s/g)("|")("foo bar baz")
+    ).toEqual("foo|bar|baz")
   })
 
   it("sort", () => {
