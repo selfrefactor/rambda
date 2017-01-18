@@ -982,7 +982,7 @@ if (options.toUpper) {
 }
 
 const trim = new Benchmark.Suite
-options.trim = true
+options.trim = false
 
 if (options.trim) {
   const a = " foo "
@@ -1036,24 +1036,75 @@ if (options.update) {
   .run()
 }
 
+const values = new Benchmark.Suite
+options.values = false
+
+if (options.values) {
+  const a = {a:1,b:2}
+  values.add("Rambda#values", () => {
+    R.values(a)
+  })
+  .add("Ramda", () => {
+    Ramda.values(a)
+  })
+  .add("Lodash", () => {
+    _.values(a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const uniq = new Benchmark.Suite
+options.uniq = true
+
+if (options.uniq) {
+  const a = [4,1,3,5,4,2,3,4]
+  uniq.add("Rambda#uniq", () => {
+    R.uniq(a)
+  })
+  .add("Ramda", () => {
+    Ramda.uniq(a)
+  })
+  .add("Lodash", () => {
+    _.uniq(a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+
+
 if (options.first) {
-  firstExample.add("Rambda.firstExample", () => {
+  const url = "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"
+  firstExample.add("Rambda.compose(join,append,takeLast,map,filter,split)", () => {
     R.compose(
         R.join("|"),
-        R.dropLast(2),
-        R.flatten,
-        R.filter(val => val > 1),
-        R.flatten
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+        R.append("foo"),
+        R.takeLast(4),
+        R.map(R.toLower),
+        R.filter(val => val.length>4),
+        R.split("/")
+      )(url)
   })
-  .add("Ramda.firstExample", () => {
+  .add("Ramda", () => {
     Ramda.compose(
         Ramda.join("|"),
-        Ramda.dropLast(2),
-        Ramda.flatten,
-        Ramda.filter(val => val > 1),
-        Ramda.flatten
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
+        Ramda.append("foo"),
+        Ramda.takeLast(4),
+        Ramda.map(Ramda.toLower),
+        Ramda.filter(val => val.length>4),
+        Ramda.split("/")
+      )(url)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
