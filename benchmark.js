@@ -766,6 +766,66 @@ if (options.sortBy) {
   .run()
 }
 
+const split = new Benchmark.Suite
+options.split = false
+
+if (options.split) {
+  split.add("Rambda#split", () => {
+    R.split("|","foo|bar|baz")
+  })
+  .add("Ramda", () => {
+    Ramda.split("|","foo|bar|baz")
+  })
+  .add("Lodash", () => {
+    _.split("foo|bar|baz","|")
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const splitEvery = new Benchmark.Suite
+options.splitEvery = true
+
+if (options.splitEvery) {
+  splitEvery.add("Rambda#splitEvery", () => {
+    R.splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])
+  })
+  .add("Ramda", () => {
+    Ramda.splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const splitEveryString = new Benchmark.Suite
+options.splitEveryString = true
+
+if (options.splitEveryString) {
+  splitEveryString.add("Rambda#splitEvery when string", () => {
+    R.splitEvery(3)("foobarbazy")
+  })
+  .add("Ramda", () => {
+    Ramda.splitEvery(3)("foobarbazy")
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
 
 if (options.update) {
   update.add("Rambda.update", () => {
