@@ -537,7 +537,7 @@ if (options.omit) {
 }
 
 const prepend = new Benchmark.Suite
-options.prepend = true
+options.prepend = false
 
 if (options.prepend) {
   const holder = ["bar","baz"]
@@ -581,6 +581,29 @@ if (options.path) {
   .run()
 }
 
+const pick = new Benchmark.Suite
+options.pick = true
+
+if (options.pick) {
+  const holder = { a:"foo", b:"bar", c:"baz" }
+  const a = ["a","c"]
+  pick.add("Rambda#pick", () => {
+    R.pick(a,holder)
+  })
+  .add("Ramda", () => {
+    Ramda.pick(a,holder)
+  })
+  .add("Lodash", () => {
+    _.pick(holder, a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 

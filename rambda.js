@@ -76,7 +76,7 @@ const contains = (val, arr) => {
   if (arr === undefined) {
     return holder => contains(val, holder)
   }
-  
+
   return arr.includes(val)
 }
 
@@ -368,10 +368,12 @@ const pick = (keys, obj) => {
     return holder => pick(keys, holder)
   }
   const willReturn = {}
-  for (key in obj) {
-    if (keys.includes(key)) {
-      willReturn[ key ] = obj[ key ]
+  let counter = 0
+  while (counter < keys.length) {
+    if (keys[counter] in obj) {
+      willReturn[keys[counter]] = obj[keys[counter]];
     }
+    counter ++
   }
 
   return willReturn
