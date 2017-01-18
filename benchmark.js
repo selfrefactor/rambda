@@ -917,7 +917,7 @@ if (options.takeLastString) {
 }
 
 const test = new Benchmark.Suite
-options.test = true
+options.test = false
 
 if (options.test) {
   test.add("Rambda#test", () => {
@@ -935,15 +935,65 @@ if (options.test) {
   .run()
 }
 
+const toLower = new Benchmark.Suite
+options.toLower = false
 
-
-
-if (options.update) {
-  update.add("Rambda.update", () => {
-    R.update(3, 1, [ 1, 2, 3 ])
+if (options.toLower) {
+  const a = "Foo|Bar|Baz"
+  toLower.add("Rambda#toLower", () => {
+    R.toLower(a)
   })
   .add("Ramda", () => {
-    Ramda.update(3, 1, [ 1, 2, 3 ])
+    Ramda.toLower(a)
+  })
+  .add("Lodash", () => {
+    _.lowerCase(a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const toUpper = new Benchmark.Suite
+options.toUpper = false
+
+if (options.toUpper) {
+  const a = "Foo|Bar|Baz"
+  toUpper.add("Rambda#toUpper", () => {
+    R.toUpper(a)
+  })
+  .add("Ramda", () => {
+    Ramda.toUpper(a)
+  })
+  .add("Lodash", () => {
+    _.upperCase(a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const trim = new Benchmark.Suite
+options.trim = true
+
+if (options.trim) {
+  const a = " foo "
+  trim.add("Rambda#trim", () => {
+    R.trim(a)
+  })
+  .add("Ramda", () => {
+    Ramda.trim(a)
+  })
+  .add("Lodash", () => {
+    _.trim(a)
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
@@ -960,6 +1010,22 @@ if (options.type) {
   })
   .add("Ramda", () => {
     Ramda.type([ 1, 2, 3 ])
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+if (options.update) {
+  update.add("Rambda.update", () => {
+    R.update(3, 1, [ 1, 2, 3 ])
+  })
+  .add("Ramda", () => {
+    Ramda.update(3, 1, [ 1, 2, 3 ])
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
