@@ -442,6 +442,10 @@ describe("common cases", () => {
     expect(
       sortByNameCaseInsensitive(people)
     ).toEqual([ alice, bob, clara ])
+
+    expect(
+      R.sortBy(val=>val.a,[{a:2},{a:1},{a:0}])
+    ).toEqual([{a:0},{a:1},{a:2}])
   })
 
   it("split", () => {

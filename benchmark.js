@@ -721,6 +721,50 @@ if (options.replace) {
   .run()
 }
 
+const sort = new Benchmark.Suite
+options.sort = false
+
+if (options.sort) {
+  sort.add("Rambda#sort", () => {
+    R.sort(
+      (a, b) => a > b
+    )([ "foo", "bar", "baz" ])
+  })
+  .add("Ramda", () => {
+    Ramda.sort(
+      (a, b) => a > b
+    )([ "foo", "bar", "baz" ])
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
+const sortBy = new Benchmark.Suite
+options.sortBy = false
+
+if (options.sortBy) {
+  sortBy.add("Rambda#sortBy", () => {
+    R.sortBy(val=>val.a,[{a:2},{a:1},{a:0}])
+  })
+  .add("Ramda", () => {
+    Ramda.sortBy(val=>val.a,[{a:2},{a:1},{a:0}])
+  })
+  .add("Lodash", () => {
+    _.sortBy([{a:2},{a:1},{a:0}], val=>val.a)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
 
 
 if (options.update) {
