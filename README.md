@@ -49,7 +49,8 @@ A few things to note:
 
 ## Benchmark
 
-![Screen](/screen.png)
+![Screen](/screens/screen1.png)
+![Screen](/screens/screen2.png)
 
 ## Disclaimer
 
