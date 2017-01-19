@@ -49,7 +49,7 @@ A few things to note:
 
 ## Benchmark
 
-[Scroll to API](#api)
+[Scroll to API](https://github.com/selfrefactor/rambda#api)
 
 ![Screen](/screens/screen1.png)
 ![Screen](/screens/screen2.png)
