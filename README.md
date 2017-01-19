@@ -49,7 +49,7 @@ A few things to note:
 
 ## Benchmark
 
-[Scroll to API](https://github.com/selfrefactor/rambda#api)
+[Scroll to API](#api-list)
 
 ![Screen](/screens/screen1.png)
 ![Screen](/screens/screen2.png)
@@ -59,6 +59,8 @@ A few things to note:
 - Documentation of the methods below is scraped from Ramda's website and could be removed in the future, if requested from Ramda's side.
 
 ## API
+
+## api-list
 
 #### add
 
