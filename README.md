@@ -49,6 +49,8 @@ A few things to note:
 
 ## Benchmark
 
+[Scroll to API](#api)
+
 ![Screen](/screens/screen1.png)
 ![Screen](/screens/screen2.png)
 
