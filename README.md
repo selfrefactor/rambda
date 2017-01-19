@@ -3,7 +3,7 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 6kB
+Faster alternative to **Ramda** in just 7kB
 
 ## Argumentation
 
@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include
 
 ```
-https://unpkg.com/rambda@0.3.3/webVersion.js
+https://unpkg.com/rambda@0.3.4/webVersion.js
 ```
 
  in your HTML
