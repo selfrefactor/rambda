@@ -216,8 +216,8 @@ const contains = (val, arr) => {
 
   let index = -1
   let flag = false
-  while(++index<arr.length&&!flag){
-    if(equals(arr[index],val)){
+  while (++index < arr.length && !flag) {
+    if (equals(arr[ index ], val)) {
       flag = true
     }
   }
@@ -252,7 +252,7 @@ const indexOf = (question, arr) => {
 
 const baseSlice = (array, start, end) => {
   let index = -1,
-  length = array.length
+    length = array.length
 
   if (start < 0) {
     start = -start > length ? 0 : length + start
@@ -273,7 +273,7 @@ const baseSlice = (array, start, end) => {
 }
 
 const init = a => {
-  if(typeof a === "string"){
+  if (typeof a === "string") {
     return a.slice(0, -1)
   }
 
@@ -294,18 +294,18 @@ const map = (fn, arr) => {
   }
 
   let index = -1
-  const length = arr.length;
-  const willReturn = Array(length);
+  const length = arr.length
+  const willReturn = Array(length)
 
   while (++index < length) {
-    willReturn[index] = fn(arr[index])
+    willReturn[ index ] = fn(arr[ index ])
   }
 
   return willReturn
 }
 
 const last = a => {
-  if(typeof a === "string"){
+  if (typeof a === "string") {
     return a[ a.length - 1 ] || ""
   }
 
@@ -373,10 +373,10 @@ const pick = (keys, obj) => {
   const willReturn = {}
   let counter = 0
   while (counter < keys.length) {
-    if (keys[counter] in obj) {
-      willReturn[keys[counter]] = obj[keys[counter]];
+    if (keys[ counter ] in obj) {
+      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
     }
-    counter ++
+    counter++
   }
 
   return willReturn
@@ -424,7 +424,7 @@ const repeat = (a, num) => {
   if (num === undefined) {
     return holder => repeat(a, holder)
   }
-  const willReturn =  Array(num)
+  const willReturn = Array(num)
 
   return willReturn.fill(a)
 }
@@ -502,10 +502,8 @@ const tail = arr => drop(1, arr)
 
 const take = (takeNumber, a) => {
   if (a === undefined) {
-
     return holder => take(takeNumber, holder)
-  }else if(typeof a === "string"){
-
+  } else if (typeof a === "string") {
     return a.slice(0, takeNumber)
   }
 
@@ -514,16 +512,19 @@ const take = (takeNumber, a) => {
 
 const takeLast = (takeNumber, a) => {
   if (a === undefined) {
-    return holder => dropLast(takeNumber, holder)
+    return holder => takeLast(takeNumber, holder)
   }
-  takeNumber = takeNumber > a.length ?
-    a.length :
+  const len = a.length
+  takeNumber = takeNumber > len ?
+    len :
     takeNumber
-  if(typeof a === "string"){
-    return a.slice(a.length - takeNumber)
-  }
 
-  return baseSlice(a, a.length - takeNumber, a.length)
+  if (typeof a === "string") {
+    return a.slice(len - takeNumber)
+  }
+  takeNumber = len - takeNumber
+
+  return baseSlice(a, takeNumber, len)
 }
 
 const toLower = a => a.toLowerCase()
@@ -575,22 +576,24 @@ const uniq = arr => {
   let index = -1
   const willReturn = []
   while (++index < arr.length) {
-    const value = arr[index]
-    if(!willReturn.includes(value)){
+    const value = arr[ index ]
+    if (!contains(value, willReturn)) {
       willReturn.push(value)
     }
   }
+
   return willReturn
 }
 
-const update = (newValue, index, arr) => {
-  if (index === undefined) {
-    return (indexHolder, arrHolder) => update(newValue, indexHolder, arrHolder)
+const update = (index, newValue, arr) => {
+  if (newValue === undefined) {
+    return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder)
   } else if (arr === undefined) {
-    return holder => update(newValue, index, holder)
+    return holder => update(index, newValue, holder)
   }
+  const arrClone = arr
 
-  return arr.fill(newValue, index, index + 1)
+  return arrClone.fill(newValue, index, index + 1)
 }
 
 module.exports.add = add

@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include
 
 ```
-https://unpkg.com/rambda@0.3.5/webVersion.js
+https://unpkg.com/rambda@0.4.0/webVersion.js
 ```
 
  in your HTML

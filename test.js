@@ -345,6 +345,26 @@ describe("common cases", () => {
     ).toEqual({ b:"bar" })
   })
 
+  it("path", () => {
+    expect(
+        R.path(
+          [ "foo", "bar", "baz" ]
+        )({ foo:{ bar:{ baz:"yes" } } })
+      ).toEqual("yes")
+
+    expect(
+        R.path(
+          [ "foo", "bar", "baz" ]
+        )(null)
+      ).toEqual(undefined)
+
+    expect(
+        R.path(
+          [ "foo", "bar", "baz" ]
+        )({ foo:{ bar:"baz" } })
+      ).toEqual(undefined)
+  })
+
   it("pick", () => {
     expect(
         R.pick(
@@ -354,35 +374,15 @@ describe("common cases", () => {
 
     expect(
         R.pick(
-          [ "a", "d" ,"e", "f" ]
+          [ "a", "d", "e", "f" ]
         )({ a:"foo", b:"bar", c:"baz" })
       ).toEqual({ a:"foo" })
   })
 
   it("prepend", () => {
     expect(
-      R.prepend('yes', ['foo', 'bar', 'baz'])
-    ).toEqual(["yes", 'foo', 'bar', 'baz'])
-  })
-
-  it("path", () => {
-    expect(
-      R.path(
-        [ "foo", "bar", "baz" ]
-      )({ foo:{ bar:{ baz:"yes" } } })
-    ).toEqual("yes")
-
-    expect(
-      R.path(
-        [ "foo", "bar", "baz" ]
-      )(null)
-    ).toEqual(undefined)
-
-    expect(
-      R.path(
-        [ "foo", "bar", "baz" ]
-      )({ foo:{ bar:"baz" } })
-    ).toEqual(undefined)
+      R.prepend("yes", [ "foo", "bar", "baz" ])
+    ).toEqual([ "yes", "foo", "bar", "baz" ])
   })
 
   it("prop", () => {
@@ -433,12 +433,23 @@ describe("common cases", () => {
       R.repeat("foo", 3)
     ).toEqual([ "foo", "foo", "foo" ])
 
+    const obj = {}
+    const arr = R.repeat(obj, 3)
+
     expect(
-      R.repeat({}, 3)
+      arr
     ).toEqual([ {}, {}, {} ])
+
+    expect(
+      arr[ 0 ] === arr[ 1 ]
+    ).toBeTruthy()
   })
 
   it("replace", () => {
+    expect(
+      R.replace("foo", "yes", "foo bar baz")
+    ).toEqual("yes bar baz")
+
     expect(
       R.replace(/\s/g)("|")("foo bar baz")
     ).toEqual("foo|bar|baz")
@@ -493,6 +504,10 @@ describe("common cases", () => {
         "|"
       )("foo|bar|baz")
     ).toEqual([ "foo", "bar", "baz" ])
+
+    expect(
+      R.split(".", "a.b.c.xyz.d")
+    ).toEqual([ "a", "b", "c", "xyz", "d" ])
   })
 
   it("splitEvery", () => {
@@ -511,6 +526,18 @@ describe("common cases", () => {
     ).toEqual(1)
   })
 
+  it("tail", () => {
+    expect(R.tail([ 1, 2, 3 ])).toEqual([ 2, 3 ])
+    expect(R.tail([ 1, 2 ])).toEqual([ 2 ])
+    expect(R.tail([ 1 ])).toEqual([])
+    expect(R.tail([])).toEqual([])
+
+    expect(R.tail("abc")).toEqual("bc")
+    expect(R.tail("ab")).toEqual("b")
+    expect(R.tail("a")).toEqual("")
+    expect(R.tail("")).toEqual("")
+  })
+
   it("take", () => {
     const arr = [ "foo", "bar", "baz" ]
     expect(
@@ -521,6 +548,9 @@ describe("common cases", () => {
       arr
     ).toEqual([ "foo", "bar", "baz" ])
 
+    expect(R.take(2)([ "foo", "bar", "baz" ])).toEqual([ "foo", "bar" ])
+    expect(R.take(3, [ "foo", "bar", "baz" ])).toEqual([ "foo", "bar", "baz" ])
+    expect(R.take(4, [ "foo", "bar", "baz" ])).toEqual([ "foo", "bar", "baz" ])
     expect(
       R.take(3)("rambda")
     ).toEqual("ram")
@@ -530,6 +560,15 @@ describe("common cases", () => {
     expect(
       R.takeLast(1, [ "foo", "bar", "baz" ])
     ).toEqual([ "baz" ])
+    expect(
+      R.takeLast(2)([ "foo", "bar", "baz" ])
+    ).toEqual([ "bar", "baz" ])
+    expect(
+      R.takeLast(3, [ "foo", "bar", "baz" ])
+    ).toEqual([ "foo", "bar", "baz" ])
+    expect(
+      R.takeLast(4, [ "foo", "bar", "baz" ])
+    ).toEqual([ "foo", "bar", "baz" ])
 
     expect(
       R.takeLast(10, [ "foo", "bar", "baz" ])
@@ -610,22 +649,26 @@ describe("common cases", () => {
     ).toEqual("Undefined")
   })
 
-  it("values", () => {
-    expect(
-      R.values({ a:1, b:2, c:3 })
-    ).toEqual([ 1, 2, 3 ])
-  })
-
   it("uniq", () => {
     expect(
       R.uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])
     ).toEqual([ 1, 2, 3, 0 ])
+    expect(R.uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
+    expect([ 1, "1" ]).toEqual([ 1, "1" ])
+    expect(R.uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
   })
 
   it("update", () => {
     expect(
-      R.update(3)(1)([ 1, 2, 3 ])
-    ).toEqual([ 1, 3, 3 ])
+      R.update(1)(0)([ 1, 2, 3 ])
+    ).toEqual([ 1, 0, 3 ])
+    expect(R.update(1, 11, [ 0, 1, 2 ])).toEqual([ 0, 11, 2 ])
+  })
+
+  it("values", () => {
+    expect(
+      R.values({ a:1, b:2, c:3 })
+    ).toEqual([ 1, 2, 3 ])
   })
 
   it("example", () => {
@@ -640,6 +683,6 @@ describe("common cases", () => {
           R.filter(val => val.length > 4),
           R.split("/")
         )(url)
-    ).toEqual("https:|developer.mozilla.org|en-us|javascript|foo")
+    ).toEqual("reference|global_objects|array|slice|foo")
   })
 })
