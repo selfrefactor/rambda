@@ -79,14 +79,11 @@ describe("common cases", () => {
   })
 
   it("dropLast", () => {
-    expect(
-      R.compose(
-        R.dropLast(2),
-        R.flatten,
-        R.filter(val => val > 1),
-        R.flatten,
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 2 ])
+    expect(R.dropLast(1, ['foo', 'bar', 'baz'])).toEqual(["foo","bar"])
+    expect(R.dropLast(2, ['foo', 'bar', 'baz'])).toEqual(["foo"])
+    expect(R.dropLast(3, ['foo', 'bar', 'baz'])).toEqual([])
+    expect(R.dropLast(4, ['foo', 'bar', 'baz'])).toEqual([])
+    expect(R.dropLast(3,"rambda")).toEqual("ram")
   })
 
   it("equals", () => {
@@ -103,7 +100,7 @@ describe("common cases", () => {
     ).toBeTruthy()
 
     expect(
-      R.equals("1", 1)
+      R.equals(1, "1")
     ).toBeFalsy()
 
     expect(
@@ -164,13 +161,14 @@ describe("common cases", () => {
   })
 
   it("filter", () => {
+    const isEven = n => n % 2 === 0
+
     expect(
-      R.compose(
-        R.flatten,
-        R.filter(val => val > 2),
-        R.flatten,
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 3, 4 ])
+      R.filter(
+        isEven,
+        [1, 2, 3, 4]
+      )
+    ).toEqual([2, 4])
   })
 
   it("find", () => {
@@ -197,12 +195,20 @@ describe("common cases", () => {
     expect(
       R.flatten([ 1, 2, 3, [ [ [ [ [ 4 ] ] ] ] ] ])
     ).toEqual([ 1, 2, 3, 4 ])
+
     expect(
       R.flatten([ 1, [ 2, [ [ 3 ] ] ], [ 4 ] ])
     ).toEqual([ 1, 2, 3, 4 ])
+
     expect(
       R.flatten([ 1, [ 2, [ [ [ 3 ] ] ] ], [ 4 ] ])
     ).toEqual([ 1, 2,  3 , 4 ])
+
+    expect(
+      R.flatten(
+        [1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]
+      )
+    ).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
   })
 
   it("head", () => {
