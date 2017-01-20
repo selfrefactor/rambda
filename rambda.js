@@ -79,13 +79,10 @@ const filter = (fn, arr) => {
 
   let index = -1
   let resIndex = 0
-  const length = arr === null ?
-    0 :
-    arr.length
-
+  const len =  arr.length
   const willReturn = []
 
-  while (++index < length) {
+  while (++index < len) {
     const value = arr[ index ]
     if (fn(value)) {
       willReturn[ resIndex++ ] = value
@@ -251,12 +248,9 @@ const indexOf = (question, arr) => {
 }
 
 const baseSlice = (array, start, end) => {
-  let index = -1,
-    length = array.length
+  let index = -1
+  let length = array.length
 
-  if (start < 0) {
-    start = -start > length ? 0 : length + start
-  }
   end = end > length ? length : end
   if (end < 0) {
     end += length
@@ -487,8 +481,9 @@ const splitEvery = (num, a) => {
     return holder => splitEvery(num, holder)
   }
   num = num > 1 ?
-  num :
-  1
+    num :
+    1
+    
   const willReturn = []
   let counter = 0
   while (counter < a.length) {

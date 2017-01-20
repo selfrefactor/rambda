@@ -7,7 +7,7 @@ const benchmarks = require("beautify-benchmark")
 const options = {}
 
 const add = new Benchmark.Suite
-options.add = false
+options.add = true
 
 if (options.add) {
   add.add("Rambda.add", () => {
@@ -29,7 +29,7 @@ if (options.add) {
 }
 
 const adjust = new Benchmark.Suite
-options.adjust = false
+options.adjust = true
 
 if (options.adjust) {
   adjust.add("Rambda.adjust", () => {
@@ -48,7 +48,7 @@ if (options.adjust) {
 }
 
 const any = new Benchmark.Suite
-options.any = false
+options.any = true
 
 if (options.any) {
   any.add("Rambda.any", () => {
@@ -70,7 +70,7 @@ if (options.any) {
 }
 
 const append = new Benchmark.Suite
-options.append = false
+options.append = true
 
 if (options.append) {
   append.add("Rambda.append", () => {
@@ -89,7 +89,7 @@ if (options.append) {
 }
 
 const compose = new Benchmark.Suite
-options.compose = false
+options.compose = true
 
 if (options.compose) {
   compose.add("Rambda.compose", () => {
@@ -111,7 +111,7 @@ if (options.compose) {
 }
 
 const contains = new Benchmark.Suite
-options.contains = false
+options.contains = true
 
 if (options.contains) {
   const holder = [1,2,3,4]
@@ -135,7 +135,7 @@ if (options.contains) {
 }
 
 const drop = new Benchmark.Suite
-options.drop = false
+options.drop = true
 
 if (options.drop) {
   const holder = [1,2,3,4]
@@ -156,7 +156,7 @@ if (options.drop) {
 }
 
 const dropLast = new Benchmark.Suite
-options.dropLast = false
+options.dropLast = true
 
 if (options.dropLast) {
   const holder = [1,2,3,4]
@@ -177,7 +177,7 @@ if (options.dropLast) {
 }
 
 const equals = new Benchmark.Suite
-options.equals = false
+options.equals = true
 
 if (options.equals) {
   equals.add("Rambda.equals", () => {
@@ -199,7 +199,7 @@ if (options.equals) {
 }
 
 const filter = new Benchmark.Suite
-options.filter = false
+options.filter = true
 
 if (options.filter) {
   filter.add("Rambda.filter", () => {
@@ -221,7 +221,7 @@ if (options.filter) {
 }
 
 const find = new Benchmark.Suite
-options.find = false
+options.find = true
 
 if (options.find) {
   find.add("Rambda.find", () => {
@@ -243,7 +243,7 @@ if (options.find) {
 }
 
 const findIndex = new Benchmark.Suite
-options.findIndex = false
+options.findIndex = true
 
 if (options.findIndex) {
   const holder = [1,2,3,4]
@@ -267,7 +267,7 @@ if (options.findIndex) {
 }
 
 const flatten = new Benchmark.Suite
-options.flatten = false
+options.flatten = true
 
 if (options.flatten) {
   flatten.add("Rambda.flatten", () => {
@@ -289,7 +289,7 @@ if (options.flatten) {
 }
 
 const head = new Benchmark.Suite
-options.head = false
+options.head = true
 
 if (options.head) {
   const holder = [1,2,3,4]
@@ -312,7 +312,7 @@ if (options.head) {
 }
 
 const headString = new Benchmark.Suite
-options.headString = false
+options.headString = true
 
 if (options.headString) {
   const holder = ""
@@ -332,7 +332,7 @@ if (options.headString) {
 }
 
 const indexOf = new Benchmark.Suite
-options.indexOf = false
+options.indexOf = true
 
 if (options.indexOf) {
   const holder = [1,2,3,4]
@@ -356,7 +356,7 @@ if (options.indexOf) {
 }
 
 const init = new Benchmark.Suite
-options.init = false
+options.init = true
 
 if (options.init) {
   const holder = [1,2,3,4]
@@ -379,7 +379,7 @@ if (options.init) {
 }
 
 const initString = new Benchmark.Suite
-options.initString = false
+options.initString = true
 
 if (options.initString) {
   const holder = "foo"
@@ -422,7 +422,7 @@ if (options.last) {
 }
 
 const map = new Benchmark.Suite
-options.map = false
+options.map = true
 
 if (options.map) {
   const holder = [1,2,3,4]
@@ -446,7 +446,7 @@ if (options.map) {
 }
 
 const match = new Benchmark.Suite
-options.match = false
+options.match = true
 
 if (options.match) {
   match.add("Rambda.match", () => {
@@ -469,7 +469,7 @@ if (options.match) {
 }
 
 const merge = new Benchmark.Suite
-options.merge = false
+options.merge = true
 
 if (options.merge) {
   const holder = {bar:"yes"}
@@ -493,7 +493,7 @@ if (options.merge) {
 }
 
 const omit = new Benchmark.Suite
-options.omit = false
+options.omit = true
 
 if (options.omit) {
   const holder = { a:"foo", b:"bar", c:"baz" }
@@ -517,7 +517,7 @@ if (options.omit) {
 }
 
 const path = new Benchmark.Suite
-options.path = false
+options.path = true
 
 if (options.path) {
   const holder = {a: {b: 2}}
@@ -541,7 +541,7 @@ if (options.path) {
 }
 
 const pick = new Benchmark.Suite
-options.pick = false
+options.pick = true
 
 if (options.pick) {
   const holder = { a:"foo", b:"bar", c:"baz" }
@@ -565,7 +565,7 @@ if (options.pick) {
 }
 
 const prop = new Benchmark.Suite
-options.prop = false
+options.prop = true
 
 if (options.prop) {
   const holder = {a:"foo",b:"bar",c:"baz"}
@@ -586,7 +586,7 @@ if (options.prop) {
 }
 
 const propEq = new Benchmark.Suite
-options.propEq = false
+options.propEq = true
 
 if (options.propEq) {
   propEq.add("Rambda#propEq", () => {
@@ -611,7 +611,7 @@ if (options.propEq) {
 }
 
 const range = new Benchmark.Suite
-options.range = false
+options.range = true
 
 if (options.range) {
   const holder = 10
@@ -635,7 +635,7 @@ if (options.range) {
 }
 
 const repeat = new Benchmark.Suite
-options.repeat = false
+options.repeat = true
 
 if (options.repeat) {
   const holder = 10
@@ -659,7 +659,7 @@ if (options.repeat) {
 }
 
 const replace = new Benchmark.Suite
-options.replace = false
+options.replace = true
 
 if (options.replace) {
   replace.add("Rambda#replace", () => {
@@ -681,7 +681,7 @@ if (options.replace) {
 }
 
 const sort = new Benchmark.Suite
-options.sort = false
+options.sort = true
 
 if (options.sort) {
   sort.add("Rambda#sort", () => {
@@ -704,7 +704,7 @@ if (options.sort) {
 }
 
 const sortBy = new Benchmark.Suite
-options.sortBy = false
+options.sortBy = true
 
 if (options.sortBy) {
   sortBy.add("Rambda#sortBy", () => {
@@ -726,7 +726,7 @@ if (options.sortBy) {
 }
 
 const split = new Benchmark.Suite
-options.split = false
+options.split = true
 
 if (options.split) {
   split.add("Rambda#split", () => {
@@ -748,7 +748,7 @@ if (options.split) {
 }
 
 const splitEvery = new Benchmark.Suite
-options.splitEvery = false
+options.splitEvery = true
 
 if (options.splitEvery) {
   splitEvery.add("Rambda#splitEvery", () => {
@@ -767,7 +767,7 @@ if (options.splitEvery) {
 }
 
 const splitEveryString = new Benchmark.Suite
-options.splitEveryString = false
+options.splitEveryString = true
 
 if (options.splitEveryString) {
   splitEveryString.add("Rambda#splitEvery when String", () => {
@@ -786,7 +786,7 @@ if (options.splitEveryString) {
 }
 
 const take = new Benchmark.Suite
-options.take = false
+options.take = true
 
 if (options.take) {
   const holder = [1,2,3,4]
@@ -810,7 +810,7 @@ if (options.take) {
 }
 
 const takeString = new Benchmark.Suite
-options.takeString = false
+options.takeString = true
 
 if (options.takeString) {
   const holder = "foobarbaz"
@@ -831,7 +831,7 @@ if (options.takeString) {
 }
 
 const takeLast = new Benchmark.Suite
-options.takeLast = false
+options.takeLast = true
 
 if (options.takeLast) {
   const holder = [1,2,3,4]
@@ -855,7 +855,7 @@ if (options.takeLast) {
 }
 
 const takeLastString = new Benchmark.Suite
-options.takeLastString = false
+options.takeLastString = true
 
 if (options.takeLastString) {
   const holder = "foobarbaz"
@@ -876,7 +876,7 @@ if (options.takeLastString) {
 }
 
 const test = new Benchmark.Suite
-options.test = false
+options.test = true
 
 if (options.test) {
   test.add("Rambda#test", () => {
@@ -895,7 +895,7 @@ if (options.test) {
 }
 
 const toLower = new Benchmark.Suite
-options.toLower = false
+options.toLower = true
 
 if (options.toLower) {
   const a = "Foo|Bar|Baz"
@@ -918,7 +918,7 @@ if (options.toLower) {
 }
 
 const toUpper = new Benchmark.Suite
-options.toUpper = false
+options.toUpper = true
 
 if (options.toUpper) {
   const a = "Foo|Bar|Baz"
@@ -941,7 +941,7 @@ if (options.toUpper) {
 }
 
 const trim = new Benchmark.Suite
-options.trim = false
+options.trim = true
 
 if (options.trim) {
   const a = " foo "
@@ -964,7 +964,7 @@ if (options.trim) {
 }
 
 const type = new Benchmark.Suite
-options.type = false
+options.type = true
 
 if (options.type) {
   type.add("Rambda.type", () => {
@@ -983,7 +983,7 @@ if (options.type) {
 }
 
 const update = new Benchmark.Suite
-options.update = false
+options.update = true
 
 if (options.update) {
   update.add("Rambda.update", () => {
@@ -1002,7 +1002,7 @@ if (options.update) {
 }
 
 const values = new Benchmark.Suite
-options.values = false
+options.values = true
 
 if (options.values) {
   const a = {a:1,b:2}
@@ -1025,7 +1025,7 @@ if (options.values) {
 }
 
 const uniq = new Benchmark.Suite
-options.uniq = false
+options.uniq = true
 
 if (options.uniq) {
   const a = [4,1,3,5,4,2,3,4]
@@ -1048,7 +1048,7 @@ if (options.uniq) {
 }
 
 const example = new Benchmark.Suite
-options.example = false
+options.example = true
 
 if (options.example) {
   const url = "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"

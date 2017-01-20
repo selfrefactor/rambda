@@ -63,16 +63,20 @@ describe("common cases", () => {
   })
 
   it("contains", () => {
-    expect(R.contains(3, [ 1, 2, 3 ])).toBeTruthy()
+    expect(R.contains(3)([ 1, 2, 3 ])).toBeTruthy()
     expect(R.contains(4, [ 1, 2, 3 ])).toBeFalsy()
     expect(R.contains([ 42 ], [ [ 42 ] ])).toBeTruthy()
+  })
+
+  it("compose", () => {
+    expect(() => { R.compose(3, [ 1, 2, 3 ]) }).toThrow()
   })
 
   it("drop", () => {
     expect(
       R.drop(1, [ "foo", "bar", "baz" ])
     ).toEqual([ "bar", "baz" ])
-    expect(R.drop(2, [ "foo", "bar", "baz" ])).toEqual([ "baz" ])
+    expect(R.drop(2)([ "foo", "bar", "baz" ])).toEqual([ "baz" ])
     expect(R.drop(3, [ "foo", "bar", "baz" ])).toEqual([])
     expect(R.drop(4, [ "foo", "bar", "baz" ])).toEqual([])
     expect(R.drop(3, "rambda")).toEqual("bda")
@@ -80,7 +84,7 @@ describe("common cases", () => {
 
   it("dropLast", () => {
     expect(R.dropLast(1, [ "foo", "bar", "baz" ])).toEqual([ "foo", "bar" ])
-    expect(R.dropLast(2, [ "foo", "bar", "baz" ])).toEqual([ "foo" ])
+    expect(R.dropLast(2)([ "foo", "bar", "baz" ])).toEqual([ "foo" ])
     expect(R.dropLast(3, [ "foo", "bar", "baz" ])).toEqual([])
     expect(R.dropLast(4, [ "foo", "bar", "baz" ])).toEqual([])
     expect(R.dropLast(3, "rambda")).toEqual("ram")
@@ -110,6 +114,14 @@ describe("common cases", () => {
     expect(
       R.equals({ a:1, b:2 }, { b:2, a:1 })
     ).toBeTruthy()
+
+    expect(
+      R.equals({ a:1, b:2 }, { a:1, b:1 })
+    ).toBeFalsy()
+
+    expect(
+      R.equals({ a:1, b:false }, { a:1, b:1 })
+    ).toBeFalsy()
 
     expect(
       R.equals({ a:1, b:2 }, { b:2, a:1, c:3 })
@@ -383,6 +395,10 @@ describe("common cases", () => {
     expect(
       R.prepend("yes", [ "foo", "bar", "baz" ])
     ).toEqual([ "yes", "foo", "bar", "baz" ])
+
+    expect(
+      R.prepend("foo")([ ])
+    ).toEqual(["foo"])
   })
 
   it("prop", () => {
@@ -429,6 +445,9 @@ describe("common cases", () => {
   })
 
   it("repeat", () => {
+    expect(
+      R.repeat("")(3)
+    ).toEqual([ "", "", "" ])
     expect(
       R.repeat("foo", 3)
     ).toEqual([ "foo", "foo", "foo" ])
@@ -496,6 +515,14 @@ describe("common cases", () => {
     expect(
       R.sortBy(val => val.a, [ { a:2 }, { a:1 }, { a:0 } ])
     ).toEqual([ { a:0 }, { a:1 }, { a:2 } ])
+
+    expect(
+      R.sortBy(val => val.a, [ { a:1 }, { a:1 }, { a:1 } ])
+    ).toEqual([ { a:1 }, { a:1 }, { a:1 } ])
+
+    expect(
+      R.sortBy(val => val.a, [ { a:3 }, { a:2 }, { a:1 } ])
+    ).toEqual([ { a:1 }, { a:2 }, { a:3 } ])
   })
 
   it("split", () => {
@@ -518,11 +545,18 @@ describe("common cases", () => {
     expect(
       R.splitEvery(3)("foobarbaz")
     ).toEqual([ "foo", "bar", "baz" ])
+
+    expect(
+      R.splitEvery(0)("foo")
+    ).toEqual([ "f", "o", "o" ])
   })
 
   it("subtract", () => {
     expect(
       R.subtract(2, 1)
+    ).toEqual(1)
+    expect(
+      R.subtract(2)(1)
     ).toEqual(1)
   })
 
@@ -557,15 +591,19 @@ describe("common cases", () => {
   })
 
   it("takeLast", () => {
+
     expect(
       R.takeLast(1, [ "foo", "bar", "baz" ])
     ).toEqual([ "baz" ])
+
     expect(
       R.takeLast(2)([ "foo", "bar", "baz" ])
     ).toEqual([ "bar", "baz" ])
+
     expect(
       R.takeLast(3, [ "foo", "bar", "baz" ])
     ).toEqual([ "foo", "bar", "baz" ])
+
     expect(
       R.takeLast(4, [ "foo", "bar", "baz" ])
     ).toEqual([ "foo", "bar", "baz" ])
