@@ -43,7 +43,7 @@ const append = (val, arr) => {
     return holder => append(val, holder)
   }
   const clone = arr
-  clone.unshift(val)
+  clone.push(val)
 
   return clone
 }
@@ -70,14 +70,6 @@ function compose () {
 
     return args[ 0 ]
   }
-}
-
-const contains = (val, arr) => {
-  if (arr === undefined) {
-    return holder => contains(val, holder)
-  }
-
-  return arr.includes(val)
 }
 
 const filter = (fn, arr) => {
@@ -215,6 +207,22 @@ const equals = (a, b) => {
   }
 
   return false
+}
+
+const contains = (val, arr) => {
+  if (arr === undefined) {
+    return holder => contains(val, holder)
+  }
+
+  let index = -1
+  let flag = false
+  while(++index<arr.length&&!flag){
+    if(equals(arr[index],val)){
+      flag = true
+    }
+  }
+
+  return flag
 }
 
 const head = a => {

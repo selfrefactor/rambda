@@ -11,19 +11,33 @@ describe("common cases", () => {
     ).toEqual([ -9, -8, -7, -6, -5, -4, -3, -2, -1 ])
   })
 
-  it("add/adjust", () => {
+  it("add", () => {
     expect(
-      R.adjust(R.add(1))(1)([ 1, 2, 3 ])
-    ).toEqual([ 1, 3, 3 ])
+      R.add(2, 3)
+    ).toEqual(5)
+
+    expect(
+      R.add(7)(10)
+    ).toEqual(17)
   })
 
-  it("any/subtract", () => {
+  it("adjust", () => {
     expect(
-      R.compose(
-        R.any(val => val < 5),
-        R.map(R.subtract(10)),
-        R.adjust(R.add(1), 0)
-      )([ 0, 2, 3, 4, 5, 6, 7, 8, 9 ])
+      R.adjust(R.add(10), 1, [0, 1, 2])
+    ).toEqual([0, 11, 2])
+
+    expect(
+      R.adjust(R.add(10))(1)([0, 1, 2])
+    ).toEqual([0, 11, 2])
+  })
+
+  it("any", () => {
+    expect(
+      R.any(val=>val<0)([1, 2])
+    ).toBeFalsy()
+
+    expect(
+      R.any(val=>val<2)([1, 2])
     ).toBeTruthy()
   })
 
@@ -33,28 +47,35 @@ describe("common cases", () => {
         R.flatten,
         R.map(R.append(0))
       )([ [ 1 ], [ 2 ], [ 3 ] ])
-    ).toEqual([ 0, 1, 0, 2, 0, 3 ])
+    ).toEqual([ 1, 0,2, 0, 3, 0 ])
+
+    expect(
+      R.append('tests', ['write', 'more'])
+    ).toEqual(['write', 'more', 'tests'])
+
+    expect(
+      R.append('tests', [])
+    ).toEqual(["tests"])
+
+    expect(
+      R.append(['tests'], ['write', 'more'])
+    ).toEqual(['write', 'more', ['tests']])
   })
 
   it("contains", () => {
-    expect(
-      R.compose(
-        R.contains(2),
-        R.flatten,
-        R.map(R.append(0))
-      )([ [ 1 ], [ 2 ], [ 3 ] ])
-    ).toBeTruthy()
+    expect(R.contains(3, [1, 2, 3])).toBeTruthy()
+    expect(R.contains(4, [1, 2, 3])).toBeFalsy()
+    expect(R.contains([42], [[42]])).toBeTruthy()
   })
 
   it("drop", () => {
     expect(
-      R.compose(
-        R.drop(2),
-        R.flatten,
-        R.filter(val => val > 1),
-        R.flatten,
-      )([ [ 1 ], [ 2 ], [ 3 ], 4 ])
-    ).toEqual([ 4 ])
+      R.drop(1, ['foo', 'bar', 'baz'])
+    ).toEqual(['bar', 'baz'])
+    expect(R.drop(2, ['foo', 'bar', 'baz'])).toEqual(["baz"])
+    expect(R.drop(3, ['foo', 'bar', 'baz'])).toEqual([])
+    expect(R.drop(4, ['foo', 'bar', 'baz'])).toEqual([])
+    expect(R.drop(3, "rambda")).toEqual("bda")
   })
 
   it("dropLast", () => {
@@ -601,6 +622,6 @@ describe("common cases", () => {
           R.filter(val => val.length>4),
           R.split("/")
         )(url)
-    ).toEqual("foo|https:|developer.mozilla.org|en-us|javascript")
+    ).toEqual("https:|developer.mozilla.org|en-us|javascript|foo")
   })
 })
