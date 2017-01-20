@@ -111,7 +111,7 @@ if (options.compose) {
 }
 
 const contains = new Benchmark.Suite
-options.contains = true
+options.contains = false
 
 if (options.contains) {
   const holder = [1,2,3,4]
@@ -399,7 +399,7 @@ if (options.initString) {
 }
 
 const last = new Benchmark.Suite
-options.last = false
+options.last = true
 
 if (options.last) {
   const holder = [1,2,3,4]

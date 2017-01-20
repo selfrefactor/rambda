@@ -304,7 +304,13 @@ const map = (fn, arr) => {
   return willReturn
 }
 
-const last = arr => arr[ arr.length - 1 ]
+const last = a => {
+  if(typeof a === "string"){
+    return a[ a.length - 1 ] || ""
+  }
+
+  return a[ a.length - 1 ]
+}
 
 const length = arr => arr.length
 
@@ -360,17 +366,6 @@ const path = (pathArr, obj) => {
   return holder
 }
 
-const prepend = (val, arr) => {
-  if (arr === undefined) {
-    return holder => prepend(val, holder)
-  }
-
-  const clone = arr
-  clone.push(val)
-
-  return clone
-}
-
 const pick = (keys, obj) => {
   if (obj === undefined) {
     return holder => pick(keys, holder)
@@ -385,6 +380,17 @@ const pick = (keys, obj) => {
   }
 
   return willReturn
+}
+
+const prepend = (val, arr) => {
+  if (arr === undefined) {
+    return holder => prepend(val, holder)
+  }
+
+  const clone = arr
+  clone.unshift(val)
+
+  return clone
 }
 
 const prop = (key, obj) => {

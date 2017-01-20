@@ -47,7 +47,7 @@ A few things to note:
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does
 
-- Rambda's **filter** works only for arrays, while **Ramda.filter** accept aslo objects
+- Rambda's **map/filter** works only for arrays, while Ramda's **map/filter** accept aslo objects
 
 ## Benchmark
 
