@@ -459,7 +459,6 @@ const sortBy = (fn, arr) => {
   return arrClone.sort((a, b) => {
     const fnA = fn(a)
     const fnB = fn(b)
-
     return fnA < fnB ?
       -1 :
       fnA > fnB ?
@@ -483,7 +482,7 @@ const splitEvery = (num, a) => {
   num = num > 1 ?
     num :
     1
-    
+
   const willReturn = []
   let counter = 0
   while (counter < a.length) {

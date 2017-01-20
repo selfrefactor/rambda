@@ -140,6 +140,10 @@ describe("common cases", () => {
     ).toBeTruthy()
 
     expect(
+      R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:2 } } })
+    ).toBeFalsy()
+
+    expect(
       R.equals({ a:{} }, { a:{} })
     ).toBeTruthy()
 
@@ -522,6 +526,10 @@ describe("common cases", () => {
 
     expect(
       R.sortBy(val => val.a, [ { a:3 }, { a:2 }, { a:1 } ])
+    ).toEqual([ { a:1 }, { a:2 }, { a:3 } ])
+
+    expect(
+      R.sortBy(val => val.a, [ { a:1 }, { a:2 }, { a:3 } ])
     ).toEqual([ { a:1 }, { a:2 }, { a:3 } ])
   })
 
