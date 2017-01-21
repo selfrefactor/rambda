@@ -1,4 +1,4 @@
-const add = (a, b) => {
+function add(a, b){
   if (b === undefined) {
     return c => add(a, c)
   }
@@ -6,7 +6,7 @@ const add = (a, b) => {
   return a + b
 }
 
-const adjust = (fn, index, arr) => {
+function adjust(fn, index, arr){
   if (index === undefined) {
     return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
   } else if (arr === undefined) {
@@ -22,7 +22,7 @@ const adjust = (fn, index, arr) => {
   })
 }
 
-const any = (fn, arr) => {
+function any(fn, arr){
   if (arr === undefined) {
     return holder => any(fn, holder)
   }
@@ -38,7 +38,7 @@ const any = (fn, arr) => {
   return false
 }
 
-const append = (val, arr) => {
+function append (val, arr) {
   if (arr === undefined) {
     return holder => append(val, holder)
   }
@@ -48,7 +48,10 @@ const append = (val, arr) => {
   return clone
 }
 
-const isFunction = value => typeof value === "function"
+function isFunction(value){
+
+  return typeof value === "function"
+}
 
 function compose () {
   const funcs = arguments
@@ -72,7 +75,7 @@ function compose () {
   }
 }
 
-const filter = (fn, arr) => {
+function filter(fn, arr) {
   if (arr === undefined) {
     return holder => filter(fn, holder)
   }
@@ -92,7 +95,7 @@ const filter = (fn, arr) => {
   return willReturn
 }
 
-const find = (fn, arr) => {
+function find(fn, arr){
   if (arr === undefined) {
     return holder => find(fn, holder)
   }
@@ -100,7 +103,7 @@ const find = (fn, arr) => {
   return arr.find(fn)
 }
 
-const findIndex = (fn, arr) => {
+function findIndex(fn, arr){
   if (arr === undefined) {
     return holder => findIndex(fn, holder)
   }
@@ -117,7 +120,7 @@ const findIndex = (fn, arr) => {
   return -1
 }
 
-const flatten = (ary, ret) => {
+function flatten(ary, ret){
   ret = ret === undefined ?
     [] :
     ret
@@ -132,7 +135,7 @@ const flatten = (ary, ret) => {
   return ret
 }
 
-const drop = (dropNumber, arr) => {
+function drop(dropNumber, arr){
   if (arr === undefined) {
     return holder => drop(dropNumber, holder)
   }
@@ -141,7 +144,7 @@ const drop = (dropNumber, arr) => {
   return arrClone.slice(dropNumber)
 }
 
-const dropLast = (dropNumber, arr) => {
+function dropLast(dropNumber, arr){
   if (arr === undefined) {
     return holder => dropLast(dropNumber, holder)
   }
@@ -150,7 +153,7 @@ const dropLast = (dropNumber, arr) => {
   return arrClone.slice(0, -dropNumber)
 }
 
-const equals = (a, b) => {
+function equals(a, b) {
   if (b === undefined) {
     return holder => equals(a, holder)
   } else if (a === b) {
@@ -206,7 +209,7 @@ const equals = (a, b) => {
   return false
 }
 
-const contains = (val, arr) => {
+function contains(val, arr) {
   if (arr === undefined) {
     return holder => contains(val, holder)
   }
@@ -222,7 +225,7 @@ const contains = (val, arr) => {
   return flag
 }
 
-const head = a => {
+function head(a){
   if (typeof a === "string") {
     return a[ 0 ] || ""
   }
@@ -230,7 +233,7 @@ const head = a => {
   return a[ 0 ]
 }
 
-const indexOf = (question, arr) => {
+function indexOf(question, arr) {
   if (arr === undefined) {
     return holder => indexOf(question, holder)
   }
@@ -247,7 +250,7 @@ const indexOf = (question, arr) => {
   return -1
 }
 
-const baseSlice = (array, start, end) => {
+function baseSlice(array, start, end) {
   let index = -1
   let length = array.length
 
@@ -266,7 +269,7 @@ const baseSlice = (array, start, end) => {
   return result
 }
 
-const init = a => {
+function init(a){
   if (typeof a === "string") {
     return a.slice(0, -1)
   }
@@ -274,7 +277,7 @@ const init = a => {
   return a.length ? baseSlice(a, 0, -1) : []
 }
 
-const join = (glue, arr) => {
+function join(glue, arr) {
   if (arr === undefined) {
     return holder => join(glue, holder)
   }
@@ -282,7 +285,7 @@ const join = (glue, arr) => {
   return arr.join(glue)
 }
 
-const map = (fn, arr) => {
+function map(fn, arr) {
   if (arr === undefined) {
     return holder => map(fn, holder)
   }
@@ -298,7 +301,7 @@ const map = (fn, arr) => {
   return willReturn
 }
 
-const last = a => {
+function last(a){
   if (typeof a === "string") {
     return a[ a.length - 1 ] || ""
   }
@@ -306,9 +309,11 @@ const last = a => {
   return a[ a.length - 1 ]
 }
 
-const length = arr => arr.length
+function length(arr){
+  return arr.length
+}
 
-const match = (regex, str) => {
+function match(regex, str) {
   if (str === undefined) {
     return holder => match(regex, holder)
   }
@@ -319,7 +324,7 @@ const match = (regex, str) => {
     willReturn
 }
 
-const merge = (obj, newProps) => {
+function merge(obj, newProps) {
   if (newProps === undefined) {
     return holder => merge(obj, holder)
   }
@@ -327,7 +332,7 @@ const merge = (obj, newProps) => {
   return Object.assign({}, obj, newProps)
 }
 
-const omit = (keys, obj) => {
+function omit(keys, obj){
   if (obj === undefined) {
     return holder => omit(keys, holder)
   }
@@ -342,7 +347,7 @@ const omit = (keys, obj) => {
   return willReturn
 }
 
-const path = (pathArr, obj) => {
+function path(pathArr, obj) {
   if (obj === undefined) {
     return holder => path(pathArr, holder)
   }
@@ -360,7 +365,7 @@ const path = (pathArr, obj) => {
   return holder
 }
 
-const pick = (keys, obj) => {
+function pick(keys, obj) {
   if (obj === undefined) {
     return holder => pick(keys, holder)
   }
@@ -376,7 +381,7 @@ const pick = (keys, obj) => {
   return willReturn
 }
 
-const prepend = (val, arr) => {
+function prepend(val, arr) {
   if (arr === undefined) {
     return holder => prepend(val, holder)
   }
@@ -387,7 +392,7 @@ const prepend = (val, arr) => {
   return clone
 }
 
-const prop = (key, obj) => {
+function prop(key, obj) {
   if (obj === undefined) {
     return holder => prop(key, holder)
   }
@@ -395,7 +400,7 @@ const prop = (key, obj) => {
   return obj[ key ]
 }
 
-const propEq = (key, val, obj) => {
+function propEq(key, val, obj) {
   if (val === undefined) {
     return (valHolder, objHolder) => propEq(key, valHolder, objHolder)
   } else if (obj === undefined) {
@@ -405,7 +410,7 @@ const propEq = (key, val, obj) => {
   return obj[ key ] === val
 }
 
-const range = (start, end) => {
+function range(start, end) {
   const willReturn = []
   for (let i = start; i < end; i++) {
     willReturn.push(i)
@@ -414,7 +419,7 @@ const range = (start, end) => {
   return willReturn
 }
 
-const repeat = (a, num) => {
+function repeat(a, num) {
   if (num === undefined) {
     return holder => repeat(a, holder)
   }
@@ -423,7 +428,7 @@ const repeat = (a, num) => {
   return willReturn.fill(a)
 }
 
-const replace = (regex, replacer, str) => {
+function replace(regex, replacer, str) {
   if (replacer === undefined) {
     return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
   } else if (str === undefined) {
@@ -433,7 +438,7 @@ const replace = (regex, replacer, str) => {
   return str.replace(regex, replacer)
 }
 
-const subtract = (a, b) => {
+function subtract(a, b) {
   if (b === undefined) {
     return holder => subtract(a, holder)
   }
@@ -441,7 +446,7 @@ const subtract = (a, b) => {
   return a - b
 }
 
-const sort = (fn, arr) => {
+function sort(fn, arr) {
   if (arr === undefined) {
     return holder => sort(fn, holder)
   }
@@ -450,7 +455,7 @@ const sort = (fn, arr) => {
   return arrClone.sort(fn)
 }
 
-const sortBy = (fn, arr) => {
+function sortBy(fn, arr) {
   if (arr === undefined) {
     return holder => sortBy(fn, holder)
   }
@@ -467,7 +472,7 @@ const sortBy = (fn, arr) => {
   })
 }
 
-const split = (glue, str) => {
+function split(glue, str) {
   if (str === undefined) {
     return holder => split(glue, holder)
   }
@@ -475,7 +480,7 @@ const split = (glue, str) => {
   return str.split(glue)
 }
 
-const splitEvery = (num, a) => {
+function splitEvery(num, a) {
   if (a === undefined) {
     return holder => splitEvery(num, holder)
   }
@@ -492,9 +497,11 @@ const splitEvery = (num, a) => {
   return willReturn
 }
 
-const tail = arr => drop(1, arr)
+function tail(arr){
+  return drop(1, arr)
+}
 
-const take = (takeNumber, a) => {
+function take(takeNumber, a) {
   if (a === undefined) {
     return holder => take(takeNumber, holder)
   } else if (typeof a === "string") {
@@ -504,7 +511,7 @@ const take = (takeNumber, a) => {
   return baseSlice(a, 0, takeNumber)
 }
 
-const takeLast = (takeNumber, a) => {
+function takeLast(takeNumber, a) {
   if (a === undefined) {
     return holder => takeLast(takeNumber, holder)
   }
@@ -521,11 +528,15 @@ const takeLast = (takeNumber, a) => {
   return baseSlice(a, takeNumber, len)
 }
 
-const toLower = a => a.toLowerCase()
+function toLower(str){
+  return str.toLowerCase()
+}
 
-const toUpper = a => a.toUpperCase()
+function toUpper(str){
+  return str.toUpperCase()
+}
 
-const test = (regex, str) => {
+function test(regex, str){
   if (str === undefined) {
     return holder => test(regex, holder)
   }
@@ -535,9 +546,11 @@ const test = (regex, str) => {
   true
 }
 
-const trim = str => str.trim()
+function trim(str){
+  return str.trim()
+}
 
-const type = a => {
+function type(a){
   if (a === null) {
     return "Null"
   } else if (Array.isArray(a)) {
@@ -557,7 +570,7 @@ const type = a => {
   return "Object"
 }
 
-const values = obj => {
+function values(obj){
   const willReturn = []
   for (key in obj) {
     willReturn.push(obj[ key ])
@@ -566,7 +579,7 @@ const values = obj => {
   return willReturn
 }
 
-const uniq = arr => {
+function uniq(arr){
   let index = -1
   const willReturn = []
   while (++index < arr.length) {
@@ -579,7 +592,7 @@ const uniq = arr => {
   return willReturn
 }
 
-const update = (index, newValue, arr) => {
+function update(index, newValue, arr){
   if (newValue === undefined) {
     return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder)
   } else if (arr === undefined) {
