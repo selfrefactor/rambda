@@ -2,7 +2,7 @@
   "name": "rambda",
   "version": "0.4.2",
   "description": "Lightweight alternative to Ramda",
-  "main": "rambda.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "cover": "jest --coverage",
