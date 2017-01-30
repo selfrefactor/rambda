@@ -1,6 +1,7 @@
 const Ramda = require("ramda")
 const R = require("./rambda")
 
+
 describe("common cases", () => {
   it("works with Ramda's flip", () => {
     expect(
@@ -201,6 +202,10 @@ describe("common cases", () => {
     expect(
         R.findIndex(R.propEq("a", 2))([ { a: 1 }, { a: 2 }, { a: 3 } ])
       ).toEqual(1)
+
+    expect(
+        R.findIndex(R.propEq("a", 1))([ { a: 1 }, { a: 2 }, { a: 3 } ])
+      ).toEqual(0)
 
     expect(
         R.findIndex(R.propEq("a", 4))([ { a: 1 }, { a: 2 }, { a: 3 } ])

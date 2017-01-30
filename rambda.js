@@ -125,7 +125,7 @@ function findIndex(fn, arr){
   }
 
   const length = arr.length
-  let index = 0
+  let index = -1
 
   while (++index < length) {
     if (fn(arr[ index ])) {
@@ -136,43 +136,44 @@ function findIndex(fn, arr){
   return -1
 }
 
-function flatten(ary, ret){
-  ret = ret === undefined ?
+function flatten(arr, willReturn){
+  willReturn = willReturn === undefined ?
     [] :
-    ret
-  for (let i = 0; i < ary.length; i++) {
-    if (Array.isArray(ary[ i ])) {
-      flatten(ary[ i ], ret)
+    willReturn
+
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[ i ])) {
+      flatten(arr[ i ], willReturn)
     } else {
-      ret.push(ary[ i ])
+      willReturn.push(arr[ i ])
     }
   }
 
-  return ret
+  return willReturn
 }
 
-function drop(dropNumber, arr){
-  if (arr === undefined) {
+function drop(dropNumber, a){
+  if (a === undefined) {
     return holder => drop(dropNumber, holder)
   }
-  const arrClone = arr
 
-  return arrClone.slice(dropNumber)
+  return a.slice(dropNumber)
 }
 
-function dropLast(dropNumber, arr){
-  if (arr === undefined) {
+function dropLast(dropNumber, a){
+  if (a === undefined) {
     return holder => dropLast(dropNumber, holder)
   }
-  const arrClone = arr
 
-  return arrClone.slice(0, -dropNumber)
+  return a.slice(0, -dropNumber)
 }
 
 function equals(a, b) {
   if (b === undefined) {
+
     return holder => equals(a, holder)
   } else if (a === b) {
+
     return a !== 0 || 1 / a === 1 / b
   }
   const aType = type(a)
@@ -310,6 +311,7 @@ function last(a){
 }
 
 function length(arr){
+
   return arr.length
 }
 
@@ -450,7 +452,7 @@ function sort(fn, arr) {
   if (arr === undefined) {
     return holder => sort(fn, holder)
   }
-  const arrClone = arr
+  const arrClone = Array.from(arr)
 
   return arrClone.sort(fn)
 }
@@ -459,7 +461,7 @@ function sortBy(fn, arr) {
   if (arr === undefined) {
     return holder => sortBy(fn, holder)
   }
-  const arrClone = arr
+  const arrClone = Array.from(arr)
 
   return arrClone.sort((a, b) => {
     const fnA = fn(a)
@@ -498,6 +500,7 @@ function splitEvery(num, a) {
 }
 
 function tail(arr){
+
   return drop(1, arr)
 }
 
@@ -529,10 +532,12 @@ function takeLast(takeNumber, a) {
 }
 
 function toLower(str){
+
   return str.toLowerCase()
 }
 
 function toUpper(str){
+
   return str.toUpperCase()
 }
 
@@ -542,28 +547,36 @@ function test(regex, str){
   }
 
   return str.search(regex) === -1 ?
-  false :
-  true
+    false :
+    true
 }
 
 function trim(str){
+
   return str.trim()
 }
 
 function type(a){
   if (a === null) {
+
     return "Null"
   } else if (Array.isArray(a)) {
+
     return "Array"
   } else if (typeof a === "boolean") {
+
     return "Boolean"
   } else if (typeof a === "number") {
+
     return "Number"
   } else if (typeof a === "string") {
+
     return "String"
   } else if (a === undefined) {
+
     return "Undefined"
   } else if (a instanceof RegExp) {
+
     return "RegExp"
   }
 
@@ -598,7 +611,7 @@ function update(index, newValue, arr){
   } else if (arr === undefined) {
     return holder => update(index, newValue, holder)
   }
-  const arrClone = arr
+  const arrClone = Array.from(arr)
 
   return arrClone.fill(newValue, index, index + 1)
 }
