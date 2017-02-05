@@ -19,7 +19,7 @@
     "utility"
   ],
   "author": "self_refactor",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/selfrefactor/rambda/issues"
   },
