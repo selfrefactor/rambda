@@ -1,7 +1,6 @@
 const Ramda = require("ramda")
 const R = require("./rambda")
 
-
 describe("common cases", () => {
   it("works with Ramda's flip", () => {
     expect(
@@ -667,6 +666,34 @@ describe("common cases", () => {
   })
 
   it("type", () => {
+    const fn1 = () =>{}
+    const fn2 = function(){}
+    function fn3(){}
+    [
+      ()=>{},
+      fn1,
+      fn2,
+      fn3
+    ].map(val=>{
+      expect(
+        R.type(val)
+      ).toEqual("Function")
+    })
+    
+    async function fn4(){
+      const a = await R.add(1,2)
+      return a
+    }
+    
+    [
+      async ()=>{},
+      fn4,
+    ].map(val=>{
+      expect(
+        R.type(val)
+      ).toEqual("Async")
+    })
+    
     expect(
       R.type({})
     ).toEqual("Object")

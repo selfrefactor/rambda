@@ -579,6 +579,13 @@ function type(a){
 
     return "RegExp"
   }
+  
+  const asStr = a.toString()
+  if(asStr.startsWith("async")){
+    return "Async"
+  }else if(asStr.includes("function")||asStr.includes("=>")){
+    return "Function"
+  }
 
   return "Object"
 }
