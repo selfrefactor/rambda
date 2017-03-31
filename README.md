@@ -24,7 +24,7 @@ const result = R.compose(
 console.log(result) // => [3,4]
 ```
 
-##Install
+## Install
 
 - Use **npm i rambda** for Webpack and Node.js
 
