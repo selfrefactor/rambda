@@ -28,13 +28,11 @@ console.log(result) // => [3,4]
 
 - Use **npm i rambda** for Webpack and Node.js
 
-- For browser usage include
+- For browser usage include in your HTML
 
 ```
 https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.5/webVersion.js
 ```
-
- in your HTML
 
 ## Differences between Rambda and Ramda
 Rambda shadows only small part of the Ramda's API.
