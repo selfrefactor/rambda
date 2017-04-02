@@ -56,6 +56,14 @@ A few things to note:
 ![Screen](/screens/screen1.png)
 ![Screen](/screens/screen2.png)
 
+## Flowtype
+
+I haven't tested it fully, but the partial test shows that [Ramda
+definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
+
+You need to replace `declare module ramda` with `declare module rambda` on line
+10 and store the file as rambda.js in your *flow-typed* folder
+
 ## Disclaimer
 
 - Documentation of the methods below is scraped from Ramda's website and could be removed in the future, if requested from Ramda's side.
