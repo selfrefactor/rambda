@@ -679,12 +679,12 @@ describe("common cases", () => {
         R.type(val)
       ).toEqual("Function")
     })
-    
+
     async function fn4(){
       const a = await R.add(1,2)
       return a
     }
-    
+
     [
       async ()=>{},
       fn4,
@@ -693,7 +693,7 @@ describe("common cases", () => {
         R.type(val)
       ).toEqual("Async")
     })
-    
+
     expect(
       R.type({})
     ).toEqual("Object")

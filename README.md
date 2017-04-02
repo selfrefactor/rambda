@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.5/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.6/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
