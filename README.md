@@ -651,3 +651,21 @@ JS platforms.
 ```javascript
 R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 ```
+
+## Projects using Rambda
+
+- [I Learn Smarter](https://github.com/selfrefactor/ils)
+
+- [json-validity](https://www.npmjs.com/package/json-validity)
+
+- [log-fn](https://www.npmjs.com/package/log-fn)
+
+- [nightmare-helper](nightmare-helper)
+
+- [string-fn](https://www.npmjs.com/package/string-fn)
+
+- [watch-fn](https://www.npmjs.com/package/watch-fn)
+
+## Articles about Rambda
+
+- [https://survivejs.com/blog/rambda-interview/](https://survivejs.com/blog/rambda-interview/)
