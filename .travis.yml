@@ -1,5 +1,3 @@
-before_script:
-  - "npm i"
 env:
   global:
     - "TIMEOUT =150000"

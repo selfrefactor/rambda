@@ -579,7 +579,7 @@ function type(a){
 
     return "RegExp"
   }
-  
+
   const asStr = a.toString()
   if(asStr.startsWith("async")){
     return "Async"
@@ -623,50 +623,50 @@ function update(index, newValue, arr){
   return arrClone.fill(newValue, index, index + 1)
 }
 
-module.exports.add = add
-module.exports.adjust = adjust
-module.exports.any = any
-module.exports.append = append
-module.exports.compose = compose
-module.exports.contains = contains
-module.exports.drop = drop
-module.exports.dropLast = dropLast
-module.exports.equals = equals
-module.exports.filter = filter
-module.exports.find = find
-module.exports.findIndex = findIndex
-module.exports.flatten = flatten
-module.exports.head = head
-module.exports.indexOf = indexOf
-module.exports.init = init
-module.exports.join = join
-module.exports.last = last
-module.exports.length = length
-module.exports.map = map
-module.exports.match = match
-module.exports.merge = merge
-module.exports.omit = omit
-module.exports.path = path
-module.exports.pick = pick
-module.exports.prepend = prepend
-module.exports.prop = prop
-module.exports.propEq = propEq
-module.exports.range = range
-module.exports.repeat = repeat
-module.exports.replace = replace
-module.exports.sort = sort
-module.exports.sortBy = sortBy
-module.exports.split = split
-module.exports.splitEvery = splitEvery
-module.exports.subtract = subtract
-module.exports.tail = tail
-module.exports.take = take
-module.exports.takeLast = takeLast
-module.exports.test = test
-module.exports.toLower = toLower
-module.exports.toUpper = toUpper
-module.exports.trim = trim
-module.exports.type = type
-module.exports.uniq = uniq
-module.exports.update = update
-module.exports.values = values
+exports.add = add
+exports.adjust = adjust
+exports.any = any
+exports.append = append
+exports.compose = compose
+exports.contains = contains
+exports.drop = drop
+exports.dropLast = dropLast
+exports.equals = equals
+exports.filter = filter
+exports.find = find
+exports.findIndex = findIndex
+exports.flatten = flatten
+exports.head = head
+exports.indexOf = indexOf
+exports.init = init
+exports.join = join
+exports.last = last
+exports.length = length
+exports.map = map
+exports.match = match
+exports.merge = merge
+exports.omit = omit
+exports.path = path
+exports.pick = pick
+exports.prepend = prepend
+exports.prop = prop
+exports.propEq = propEq
+exports.range = range
+exports.repeat = repeat
+exports.replace = replace
+exports.sort = sort
+exports.sortBy = sortBy
+exports.split = split
+exports.splitEvery = splitEvery
+exports.subtract = subtract
+exports.tail = tail
+exports.take = take
+exports.takeLast = takeLast
+exports.test = test
+exports.toLower = toLower
+exports.toUpper = toUpper
+exports.trim = trim
+exports.type = type
+exports.uniq = uniq
+exports.update = update
+exports.values = values
