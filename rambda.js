@@ -623,7 +623,7 @@ function update(index, newValue, arr){
   return arrClone.fill(newValue, index, index + 1)
 }
 
-function flip (fnToCurry){
+function flipp (fnToCurry){
     return (...curryArguments)=>{
       const len = fnToCurry.length
       if(curryArguments[1]===undefined){
@@ -639,12 +639,38 @@ function flip (fnToCurry){
     }
 }
 
+function flip(fnToCurry){
+  return (...curryArguments)=>{
+    const len = fnToCurry.length
+    if(curryArguments[1]===undefined){
+      if(len > 1){
+        return (...futureArguments) => {
+          if(len === 3 && futureArguments.length === 1){
+            return holder => fnToCurry(holder,futureArguments[0],curryArguments[0]) 
+          }
+         return fnToCurry(...futureArguments.reverse(),curryArguments[0]) 
+        }
+      }
+      return fnToCurry(...curryArguments.reverse())
+    }else if(curryArguments[2]===undefined && len === 3){
+      return (futureArgument) => fnToCurry(futureArgument, ...curryArguments.reverse())
+    }
+
+    return fnToCurry(...curryArguments.reverse())
+  }
+}
+
 function curry(fnToCurry){
   return (...curryArguments)=>{
     const len = fnToCurry.length
     if(curryArguments[1]===undefined){
       if(len > 1){
-        return (...futureArguments) => fnToCurry(curryArguments[0],...futureArguments)
+        return (...futureArguments) => {
+          if(len === 3 && futureArguments.length === 1){
+            return b => fnToCurry(curryArguments[0],futureArguments[0],b) 
+          }
+         return fnToCurry(curryArguments[0],...futureArguments) 
+        }
       }
       return fnToCurry(...curryArguments)
     }else if(curryArguments[2]===undefined && len === 3){
@@ -655,6 +681,10 @@ function curry(fnToCurry){
   }
 }
 
+
+
+exports.flip = flip
+exports.curry = curry
 exports.add = add
 exports.adjust = adjust
 exports.any = any
