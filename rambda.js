@@ -623,6 +623,38 @@ function update(index, newValue, arr){
   return arrClone.fill(newValue, index, index + 1)
 }
 
+function flip (fnToCurry){
+    return (...curryArguments)=>{
+      const len = fnToCurry.length
+      if(curryArguments[1]===undefined){
+        if(len > 1){
+          return (...futureArguments) => fnToCurry(...futureArguments.reverse(),curryArguments[0])
+        }
+        return fnToCurry(...curryArguments.reverse())
+      }else if(curryArguments[2]===undefined && len === 3){
+        return futureArgument => fnToCurry(futureArgument,...curryArguments.reverse())
+      }
+
+      return fnToCurry(...curryArguments.reverse())
+    }
+}
+
+function curry(fnToCurry){
+  return (...curryArguments)=>{
+    const len = fnToCurry.length
+    if(curryArguments[1]===undefined){
+      if(len > 1){
+        return (...futureArguments) => fnToCurry(curryArguments[0],...futureArguments)
+      }
+      return fnToCurry(...curryArguments)
+    }else if(curryArguments[2]===undefined && len === 3){
+      return (futureArgument) => fnToCurry(...curryArguments,futureArgument)
+    }
+
+    return fnToCurry(...curryArguments)
+  }
+}
+
 exports.add = add
 exports.adjust = adjust
 exports.any = any
