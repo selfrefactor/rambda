@@ -101,7 +101,7 @@ R.any(a => a * a > 10)([1, 2, 3]) //=> false
 
 #### append
 
-> any(valueToAppend: any, arr: Array): Array
+> append(valueToAppend: any, arr: Array): Array
 
 ```javascript
 R.append('foo', ['bar', 'baz']); //=> ['foo', 'bar', 'baz']
@@ -212,418 +212,337 @@ R.head('foo') //=> 'f'
 
 #### indexOf
 
-> findIndex(findFn: Function, arr: Array): Number
+> indexOf(valueToFind: any, arr: Array): Number
 
-Returns `-1` or the index of the first element of `arr` satisfying `findFn`
+Returns `-1` or the index of the first element of `arr` equal of `valueToFind`
 
 ```javascript
-R.indexOf(3, [1,2,3,4]); //=> 2
-R.indexOf(10, [1,2,3,4]); //=> -1
+R.indexOf(1, [1, 2]) //=> 0
 ```
 
 #### init
 
-- Returns all but the last element of the given list or string.
+> init(arrOrStr: Array|String): Array
+
+- Returns all but the last element of `arrOrStr`
 
 ```javascript
-R.init([1, 2, 3]);  //=> [1, 2]
-R.init([1, 2]);     //=> [1]
-R.init([1]);        //=> []
-R.init([]);         //=> []
-
-R.init('abc');  //=> 'ab'
-R.init('ab');   //=> 'a'
-R.init('a');    //=> ''
-R.init('');     //=> ''
+R.init([1, 2, 3])  //=> [1, 2]
+R.init('foo')  //=> 'fo'
 ```
 
 #### join
 
-- Returns a string made by inserting the separator between each element and
-concatenating all the elements into a single string.
+> join(separator: String, arr: Array): String
 
 ```javascript
-var spacer = R.join(' ');
-spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
-R.join('|', [1, 2, 3]);    //=> '1|2|3'
+R.join('-', [1, 2, 3])    //=> '1-2-3'
 ```
 
 #### last
 
-- Returns the last element of the given list or string.
+> last(arrOrStr: Array|String)
+
+- Returns the last element of `arrOrStr`
 
 ```javascript
-R.last(['fi', 'fo', 'fum']); //=> 'fum'
-R.last([]); //=> undefined
-
-R.last('abc'); //=> 'c'
-R.last(''); //=> ''
+R.last(['foo', 'bar', 'baz']) //=> 'baz'
+R.last('foo') //=> 'o'
 ```
 
 #### length
 
-- Returns the number of elements in the array by returning list.length.
+> length(arrOrStr: Array|String)
 
 ```javascript
-R.length([]); //=> 0
-R.length([1, 2, 3]); //=> 3
+R.length([1, 2, 3]) //=> 3
 ```
 
 #### map
 
-- Takes a function and
-a functor,
-applies the function to each of the functor's values, and returns
-a functor of the same shape.
-Ramda provides suitable map implementations for Array and Object,
-so this function may be applied to [1, 2, 3] or {x: 1, y: 2, z: 3}.
-Dispatches to the map method of the second argument, if present.
-Acts as a transducer if a transformer is given in list position.
-Also treats functions as functors and will compose them together.
+> map(mapFn: Function, arr: Array): Array
 
 ```javascript
-var double = x => x * 2;
-
-R.map(double, [1, 2, 3]); //=> [2, 4, 6]
-
-R.map(double, {x: 1, y: 2, z: 3}); //=> {x: 2, y: 4, z: 6}
+const mapFn = x => x * 2;
+R.map(mapFn, [1, 2, 3]) //=> [2, 4, 6]
 ```
 
 #### match
 
-- Tests a regular expression against a String. Note that this function will
-return an empty array when there are no matches. This differs from
-String.prototype.match
-which returns null when there are no matches.
+> map(regExpression: Regex, str: String): Array
 
 ```javascript
-R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
-R.match(/a/, 'b'); //=> []
-R.match(/a/, null); //=> TypeError: null does not have a method named "match"
+R.match(/([a-z]a)/g, 'bananas') //=> ['ba', 'na', 'na']
 ```
 
 #### merge
 
-- Create a new object with the own properties of the first object merged with
-the own properties of the second object. If a key exists in both objects,
-the value from the second object will be used.
+> merge(a: Object, b: Object)
+
+Returns result of `Object.assign({}, a, b)`
 
 ```javascript
-R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
-//=> { 'name': 'fred', 'age': 40 }
-
-var resetToDefault = R.merge(R.__, {x: 0});
-resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
+R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
+//=> { 'foo': 7, 'bar': 1 }
 ```
 
 #### omit
 
-- Returns a partial copy of an object omitting the keys specified.
+> omit(keysToOmit: Array<String>, obj: Object): Object
+
+- Returns a partial copy of an `obj` with omitting `keysToOmit`
 
 ```javascript
-R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) //=> {b: 2, c: 3}
 ```
 
 #### path
 
-- Retrieve the value at a given path.
+> path(pathToSearch: Array<String>, obj: Object): any
+
+- Retrieve the value at a given path
 
 ```javascript
-R.path(['a', 'b'], {a: {b: 2}}); //=> 2
-R.path(['a', 'b'], {c: {b: 2}}); //=> undefined
+R.path(['a', 'b'], {a: {b: 2}}) //=> 2
 ```
 
 #### pick
 
-- Returns a partial copy of an object containing only the keys specified. If
-the key does not exist, the property is ignored.
+- Returns a partial copy of an `obj` containing only `keysToPick`
 
 ```javascript
-R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 ```
 
 #### prepend
 
-- Returns a new list with the given element at the front, followed by the
-contents of the list.
+> prepend(valueToPrepend: any, arr: Array): Array
 
 ```javascript
-R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+R.prepend('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
 ```
 
-#### prop
+#### prop(propToFind:String, obj: Object)
 
-- Returns a function that when supplied an object returns the indicated
-property of that object, if it exists.
-
+Returns `undefined` or the value of property `propToFind` in `obj`
 ```javascript
-R.prop('x', {x: 100}); //=> 100
-R.prop('x', {}); //=> undefined
+R.prop('x', {x: 100}) //=> 100
+R.prop('x', {}) //=> undefined
 ```
 
 #### propEq
 
-- Returns true if the specified object property is equal, in R.equals
-terms, to the given value; false otherwise.
+> propEq(propToFind: String, valueToMatch: any, obj: Object): Boolean
+
+Returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`
 
 ```javascript
-var abby = {name: 'Abby', age: 7, hair: 'blond'};
-var fred = {name: 'Fred', age: 12, hair: 'brown'};
-var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
-var alois = {name: 'Alois', age: 15, disposition: 'surly'};
-var kids = [abby, fred, rusty, alois];
-var hasBrownHair = R.propEq('hair', 'brown');
-R.filter(hasBrownHair, kids); //=> [fred, rusty]
+const propToFind = "foo"
+const valueToMatch = 0
+R.propEq(propToFind, valueToMatch)({foo: 0}) //=> true
+R.propEq(propToFind, valueToMatch)({foo: 1}) //=> false
 ```
 
 #### range
 
-- Returns a list of numbers from from (inclusive) to to (exclusive).
+> range(start: Number, end: Number): Array<Number>
+
+- Returns a array of numbers from `start`(inclusive) to `end`(exclusive)
 
 ```javascript
-R.range(1, 5);    //=> [1, 2, 3, 4]
-R.range(50, 53);  //=> [50, 51, 52]
+R.range(0, 2)   //=> [0, 1]
 ```
 
 #### repeat
 
-- Returns a fixed list of size n containing a specified identical value.
+> repeat(valueToRepeat: T, num: Number): Array<T>
 
 ```javascript
-R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
-
-var obj = {};
-var repeatedObjs = R.repeat(obj, 5); //=> [{}, {}, {}, {}, {}]
-repeatedObjs[0] === repeatedObjs[1]; //=> true
+R.repeat('foo', 2) //=> ['foo', 'foo']
 ```
 
 #### replace
 
-- Replace a substring or regex match in a string with a replacement.
+Replace `strOrRegex` with `substring` in `str`
 
 ```javascript
-R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
-R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
-
-// Use the "g" (global) flag to replace all occurrences:
-R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+R.replace('foo', 'bar', 'foo foo') //=> 'bar foo'
+R.replace(/foo/, 'bar', 'foo foo') //=> 'bar foo'
+R.replace(/foo/g, 'bar', 'foo foo') //=> 'bar bar'
 ```
 
 #### sort
 
-- Returns a copy of the list, sorted according to the comparator function,
-which should accept two values at a time and return a negative number if the
-first value is smaller, a positive number if it's larger, and zero if they
-are equal. Please note that this is a copy of the list. It does not
-modify the original.
+> sort(sortFn: Function, arr: Array): Array
+
+Returns copy of `arr` sorted by `sortFn`
+
+`sortFn` must return one of `-1, 0, 1`
 
 ```javascript
-var diff = function(a, b) { return a - b; };
-R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+const sortFn = (a, b) => a - b
+R.sort(sortFn, [3, 1, 2]) //=> [1, 2, 3]
 ```
 
 #### sortBy
 
-- Sorts the list according to the supplied function.
+
+Returns copy of `arr` sorted by `sortFn`
+
+`sortFn` must return value for comparison
+
 
 ```javascript
-var sortByFirstItem = R.sortBy(R.prop(0));
-var sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
-var pairs = [[-1, 1], [-2, 2], [-3, 3]];
-sortByFirstItem(pairs); //=> [[-3, 3], [-2, 2], [-1, 1]]
-var alice = {
-  name: 'ALICE',
-  age: 101
-};
-var bob = {
-  name: 'Bob',
-  age: -10
-};
-var clara = {
-  name: 'clara',
-  age: 314.159
-};
-var people = [clara, bob, alice];
-sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
+const sortFn = obj => obj.foo
+R.sortBy(sortFn, [
+  {foo: 1},
+  {foo: 0}
+])
+//=> [{foo: 0}, {foo: 1}]
 ```
 
 #### split
 
-- Splits a string into an array of strings based on the given
-separator.
+> split(separator: String, str: String): Array
 
 ```javascript
-var pathComponents = R.split('/');
-R.tail(pathComponents('/usr/local/bin/node')); //=> ['usr', 'local', 'bin', 'node']
-
-R.split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
+R.split('-', 'a-b-c') //=> ['a', 'b', 'c']
 ```
 
 #### splitEvery
 
-- Splits a collection into slices of the specified length.
+> splitEvery(sliceLength: Number, arrOrString: Array|String): Array
+
+- Splits `arrOrStr` into slices of `sliceLength`
 
 ```javascript
-R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); //=> [[1, 2, 3], [4, 5, 6], [7]]
-R.splitEvery(3, 'foobarbaz'); //=> ['foo', 'bar', 'baz']
+R.splitEvery(2, [1, 2, 3]) //=> [[1, 2], [3]]
+R.splitEvery(3, 'foobar') //=> ['foo', 'bar']
 ```
 
 #### subtract
 
-- Subtracts its second argument from its first argument.
+> subtract(a: Number, b: Number): Number
+
+Returns `a` minus `b`
 
 ```javascript
-R.subtract(10, 8); //=> 2
-
-var minus5 = R.subtract(R.__, 5);
-minus5(17); //=> 12
-
-var complementaryAngle = R.subtract(90);
-complementaryAngle(30); //=> 60
-complementaryAngle(72); //=> 18
+R.subtract(3, 1) //=> 2
 ```
 
 #### tail
 
-- Returns all but the first element of the given list or string (or object
-with a tail method).
-Dispatches to the slice method of the first argument, if present.
+> tail(arrOrStr: Array|String): Array|String
+
+- Returns all but the first element of `arrOrStr`
 
 ```javascript
-R.tail([1, 2, 3]);  //=> [2, 3]
-R.tail([1, 2]);     //=> [2]
-R.tail([1]);        //=> []
-R.tail([]);         //=> []
-
-R.tail('abc');  //=> 'bc'
-R.tail('ab');   //=> 'b'
-R.tail('a');    //=> ''
-R.tail('');     //=> ''
+R.tail([1, 2, 3])  //=> [2, 3]
+R.tail('foo')  //=> 'oo'
 ```
 
 #### take
 
-- Returns the first n elements of the given list, string, or
-transducer/transformer (or object with a take method).
-Dispatches to the take method of the second argument, if present.
+> take(num: Number, arrOrStr: Array|String): Array|String
+
+- Returns the first `num` elements of `arrOrStr`
 
 ```javascript
-R.take(1, ['foo', 'bar', 'baz']); //=> ['foo']
-R.take(2, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
-R.take(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
-R.take(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
-R.take(3, 'ramda');               //=> 'ram'
-
-var personnel = [
-  'Dave Brubeck',
-  'Paul Desmond',
-  'Eugene Wright',
-  'Joe Morello',
-  'Gerry Mulligan',
-  'Bob Bates',
-  'Joe Dodge',
-  'Ron Crotty'
-];
-
-var takeFive = R.take(5);
-takeFive(personnel);
-//=> ['Dave Brubeck', 'Paul Desmond', 'Eugene Wright', 'Joe Morello', 'Gerry Mulligan']
+R.take(1, ['foo', 'bar']) //=> ['foo']
+R.take(2, ['foo']) //=> 'fo'
 ```
 
 #### takeLast
 
-- Returns a new list containing the last n elements of the given list.
-If n > list.length, returns a list of list.length elements.
+> takeLast(num: Number, arrOrStr: Array|String): Array|String
+
+- Returns the last `num` elements of `arrOrStr`
 
 ```javascript
-R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
-R.takeLast(2, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
-R.takeLast(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
-R.takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
-R.takeLast(3, 'ramda');               //=> 'mda'
+R.takeLast(1, ['foo', 'bar']) //=> ['bar']
+R.takeLast(2, ['foo']) //=> 'oo'
 ```
 
 #### test
 
-- Determines whether a given string matches a given regular expression.
+> test(regExpression: Regex, str: String): Boolean
+
+- Determines whether `str` matches `regExpression`
 
 ```javascript
-R.test(/^x/, 'xyz'); //=> true
-R.test(/^y/, 'xyz'); //=> false
+R.test(/^f/, 'foo') //=> true
+R.test(/^f/, 'bar') //=> false
 ```
 
 #### toLower
 
-- The lower case version of a string.
+> toLower(str: String): String
 
 ```javascript
-R.toLower('XYZ'); //=> 'xyz'
+R.toLower('FOO') //=> 'foo'
 ```
 
 #### toUpper
 
-- The upper case version of a string.
+> toUpper(str: String): String
 
 ```javascript
-R.toUpper('abc'); //=> 'ABC'
+R.toUpper('foo') //=> 'FOO'
 ```
 
 #### trim
 
-- Removes (strips) whitespace from both ends of the string.
-
+> trim(str: String): String
 ```javascript
-R.trim('   xyz  '); //=> 'xyz'
-R.map(R.trim, R.split(',', 'x, y, z')); //=> ['x', 'y', 'z']
+R.trim('  foo  ') //=> 'foo'
 ```
 
 #### type
 
-- Gives a single-word string description of the (native) type of a value,
-returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
-attempt to distinguish user Object types any further, reporting them all as
-'Object'.
+> type(a: any): String
 
 ```javascript
-R.type({}); //=> "Object"
-R.type(1); //=> "Number"
-R.type(false); //=> "Boolean"
-R.type('s'); //=> "String"
-R.type(null); //=> "Null"
-R.type([]); //=> "Array"
-R.type(/[A-z]/); //=> "RegExp"
+R.type(() => {}) //=> "Function"
+R.type(async () => {}) //=> "Async"
+R.type([]) //=> "Array"
+R.type({}) //=> "Object"
+R.type('s') //=> "String"
+R.type(1) //=> "Number"
+R.type(false) //=> "Boolean"
+R.type(null) //=> "Null"
+R.type(/[A-z]/) //=> "RegExp"
 ```
 
 #### uniq
 
-- Returns a new list containing only one copy of each element in the original
-list. R.equals is used to determine equality.
+> uniq(arr: Array): Array
+
+- Returns a new array containing only one copy of each element in `arr`
 
 ```javascript
-R.uniq([1, 1, 2, 1]); //=> [1, 2]
-R.uniq([1, '1']);     //=> [1, '1']
-R.uniq([[42], [42]]); //=> [[42]]
+R.uniq([1, 1, 2, 1]) //=> [1, 2]
+R.uniq([1, '1'])     //=> [1, '1']
 ```
 
 #### update
 
-- Returns a new copy of the array with the element at the provided index
-replaced with the given value.
+> update(i: Number, replaceValue: any, arr: Array): Array
+
+- Returns a new copy of the `arr` with the element at `i` index
+replaced with `replaceValue`
 
 ```javascript
-R.update(1, 11, [0, 1, 2]);     //=> [0, 11, 2]
-R.update(1)(11)([0, 1, 2]);     //=> [0, 11, 2]
+R.update(0, "foo", ['bar', 'baz']) //=> ['foo', baz]
 ```
 
 #### values
 
-- Returns a list of all the enumerable own properties of the supplied object.
-Note that the order of the output array is not guaranteed across different
-JS platforms.
+> values(obj: Object): Array
+
+- Returns array with of all values in `obj`
 
 ```javascript
-R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+R.values({a: 1, b: 2}) //=> [1, 2]
 ```
 
 ## Projects using Rambda
