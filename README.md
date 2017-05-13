@@ -71,176 +71,150 @@ You need to replace `declare module ramda` with `declare module rambda` on line
 ## API
 
 ## api-list
-
 #### add
 
-- Adds two values.
+> add(a:Number,b:Number):Number
 
 ```javascript
-R.add(2, 3);       //=>  5
-R.add(7)(10);      //=> 17
+R.add(2, 3) //=>  5
 ```
 
 #### adjust
 
-- Applies a function to the value at the given index of an array, returning a
-new copy of the array with the element at the given index replaced with the
-result of the function application.
+> adjust(replaceFn: Function, i:Number, arr:Array):Array
+
+- Replaces `i` index for `arr` with the result of `replaceFn(arr[i])`
 
 ```javascript
-R.adjust(R.add(10), 1, [0, 1, 2]);     //=> [0, 11, 2]
-R.adjust(R.add(10))(1)([0, 1, 2]);     //=> [0, 11, 2]
+R.adjust(a => a + 1, 0, [0, 100]) //=> [1, 100]
 ```
 
 #### any
 
-- Returns true if at least one of elements of the list match the predicate,
-false otherwise.
-Dispatches to the any method of the second argument, if present.
-Acts as a transducer if a transformer is given in list position.
+> any(condition: Function, arr: Array): Boolean
+
+- Returns true if at least one member of `arr` returns true, when passed to the `condition` function.
 
 ```javascript
-var lessThan0 = R.flip(R.lt)(0);
-var lessThan2 = R.flip(R.lt)(2);
-R.any(lessThan0)([1, 2]); //=> false
-R.any(lessThan2)([1, 2]); //=> true
-```
+R.any(a => a * a > 8)([1, 2, 3]) //=> true
+R.any(a => a * a > 10)([1, 2, 3]) //=> false
 
 #### append
 
-- Returns a new list containing the contents of the given list, followed by
-the given element.
+> any(valueToAppend: any, arr: Array): Array
 
 ```javascript
-R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
-R.append('tests', []); //=> ['tests']
-R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+R.append('foo', ['bar', 'baz']); //=> ['foo', 'bar', 'baz']
 ```
 
 #### contains
 
-- Returns true if the specified value is equal, in R.equals terms, to at
-least one element of the given list; false otherwise.
+> contains(valueToFind: any, arr: Array): Boolean
+
+Returns the answer to "is `valueToFind` part of `arr`""
 
 ```javascript
-R.contains(3, [1, 2, 3]); //=> true
-R.contains(4, [1, 2, 3]); //=> false
-R.contains([42], [[42]]); //=> true
+R.contains(3, [1, 2, 3]) //=> true
+R.contains(4, [1, 2, 3]) //=> false
 ```
 
 #### drop
 
-- Returns all but the first n elements of the given list, string, or
-transducer/transformer (or object with a drop method).
-Dispatches to the drop method of the second argument, if present.
+> drop(howManyToDrop: Number, arrOrStr: Array|String)
+
+Drops `howManyToDrop` items from the left of `arrOrStr` and returns the result
 
 ```javascript
-R.drop(1, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
-R.drop(2, ['foo', 'bar', 'baz']); //=> ['baz']
-R.drop(3, ['foo', 'bar', 'baz']); //=> []
-R.drop(4, ['foo', 'bar', 'baz']); //=> []
-R.drop(3, 'ramda');               //=> 'da'
+R.drop(1, ['foo', 'bar', 'baz']) //=> ['bar', 'baz']
+R.drop(1, 'foo')  //=> 'oo'
 ```
 
 #### dropLast
 
-- Returns a list containing all but the last n elements of the given list.
+Drops `howManyToDrop` items from the right of `a` and returns the result
+
+> dropLast(howManyToDrop: Number, arrOrStr: Array|String)
 
 ```javascript
-R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
-R.dropLast(2, ['foo', 'bar', 'baz']); //=> ['foo']
-R.dropLast(3, ['foo', 'bar', 'baz']); //=> []
-R.dropLast(4, ['foo', 'bar', 'baz']); //=> []
-R.dropLast(3, 'ramda');               //=> 'ra'
+R.dropLast(1, ['foo', 'bar', 'baz']) //=> ['foo', 'bar']
+R.dropLast(1, 'foo')  //=> 'fo'
 ```
 
 #### equals
 
-- Returns true if its arguments are equivalent, false otherwise. Handles
-cyclical data structures.
-Dispatches symmetrically to the equals methods of both arguments, if
-present.
+> equals(a: any, b: any): Boolean
+
+- Returns type match between `a` and `b`.
+
+Doesn't handles cyclical data structures.
 
 ```javascript
-R.equals(1, 1); //=> true
-R.equals(1, '1'); //=> false
-R.equals([1, 2, 3], [1, 2, 3]); //=> true
-
-var a = {}; a.v = a;
-var b = {}; b.v = b;
-R.equals(a, b); //=> true
+R.equals(1, 1) //=> true
+R.equals({}, {}) //=> false
+R.equals([1, 2, 3], [1, 2, 3]) //=> true
 ```
 
 #### filter
 
-- Takes a predicate and a "filterable", and returns a new filterable of the
-same type containing the members of the given filterable which satisfy the
-given predicate.
-Dispatches to the filter method of the second argument, if present.
-Acts as a transducer if a transformer is given in list position.
+> filter(filterFn: Function, arr: Array): Array
+
+Filters `arr` throw boolean returning `filterFn`
 
 ```javascript
-var isEven = n => n % 2 === 0;
+const filterFn = a => a % 2 === 0
 
-R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
-
-R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
+R.filter(filterFn, [1, 2, 3, 4]) //=> [2, 4]
 ```
 
 #### find
 
-- Returns the first element of the list which matches the predicate, or
-undefined if no element matches.
-Dispatches to the find method of the second argument, if present.
-Acts as a transducer if a transformer is given in list position.
+> find(findFn: Function, arr: Array<T>): T|undefined
+
+Returns `undefined` or the first element of `arr` satisfying `findFn`
 
 ```javascript
-var xs = [{a: 1}, {a: 2}, {a: 3}];
-R.find(R.propEq('a', 2))(xs); //=> {a: 2}
-R.find(R.propEq('a', 4))(xs); //=> undefined
+const findFn = a => R.type(a.foo) === "Number"
+const arr = [{foo: "bar"}, {foo: 1}]
+R.find(findFn, arr) //=> {foo: 1}
 ```
 
 #### findIndex
 
-- Returns the index of the first element of the list which matches the
-predicate, or -1 if no element matches.
-Dispatches to the findIndex method of the second argument, if present.
-Acts as a transducer if a transformer is given in list position.
+> findIndex(findFn: Function, arr: Array): Number
+
+Returns `-1` or the index of the first element of `arr` satisfying `findFn`
 
 ```javascript
-var xs = [{a: 1}, {a: 2}, {a: 3}];
-R.findIndex(R.propEq('a', 2))(xs); //=> 1
-R.findIndex(R.propEq('a', 4))(xs); //=> -1
+const findFn = a => R.type(a.foo) === "Number"
+const arr = [{foo: "bar"}, {foo: 1}]
+R.find(findFn, arr) //=> 1
 ```
 
 #### flatten
 
-- Returns a new list by pulling every item out of it (and all its sub-arrays)
-and putting them in a new array, depth-first.
+> flatten(arr: Array): Array
 
 ```javascript
-R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+R.flatten([ 1, [ 2, [ 3 ] ] ]
+//=> [ 1, 2, 3 ]
 ```
 
 #### head
 
-- Returns the first element of the given list or string. In some libraries
-this function is named first.
+> head(arrOrStr: Array|String)
+
+- Returns the first element of `arrOrStr`
 
 ```javascript
-R.head(['fi', 'fo', 'fum']); //=> 'fi'
-R.head([]); //=> undefined
-
-R.head('abc'); //=> 'a'
-R.head(''); //=> ''
+R.head([1, 2, 3]) //=> 1
+R.head('foo') //=> 'f'
 ```
 
 #### indexOf
 
-- Returns the position of the first occurrence of an item in an array, or -1
-if the item is not included in the array. R.equals is used to determine
-equality.
+> findIndex(findFn: Function, arr: Array): Number
+
+Returns `-1` or the index of the first element of `arr` satisfying `findFn`
 
 ```javascript
 R.indexOf(3, [1,2,3,4]); //=> 2

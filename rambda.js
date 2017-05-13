@@ -383,6 +383,22 @@ function pick(keys, obj) {
   return willReturn
 }
 
+function pluck(keyToPluck,arr){
+  if(arr === undefined){
+    return arrHolder => pluck(keyToPluck, arrHolder)
+  }
+  const willReturn = []
+  map(
+    val =>{
+      if(!(val[keyToPluck]===undefined)){
+        willReturn.push(val[keyToPluck])
+      }
+    },
+    arr
+  )
+  return willReturn
+}
+
 function prepend(val, arr) {
   if (arr === undefined) {
     return holder => prepend(val, holder)
@@ -623,12 +639,22 @@ function update(index, newValue, arr){
   return arrClone.fill(newValue, index, index + 1)
 }
 
+function defaultTo(defaultArgument, inputArgument){
+  if(arguments.length === 1){
+    return inputArgumentHolder => defaultTo(defaultArgument,inputArgumentHolder)
+  }
+  return inputArgument === undefined || !(type(inputArgument)===type(defaultArgument)) ?
+    defaultArgument :
+    inputArgument
+}
+
 exports.add = add
 exports.adjust = adjust
 exports.any = any
 exports.append = append
 exports.compose = compose
 exports.contains = contains
+exports.defaultTo = defaultTo
 exports.drop = drop
 exports.dropLast = dropLast
 exports.equals = equals
@@ -648,6 +674,7 @@ exports.merge = merge
 exports.omit = omit
 exports.path = path
 exports.pick = pick
+exports.pluck = pluck
 exports.prepend = prepend
 exports.prop = prop
 exports.propEq = propEq
