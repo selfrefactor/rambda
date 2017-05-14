@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.6/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.7/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -64,16 +64,12 @@ definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/
 You need to replace `declare module ramda` with `declare module rambda` on line
 10 and store the file as rambda.js in your *flow-typed* folder
 
-## Disclaimer
-
-- Documentation of the methods below is scraped from Ramda's website and could be removed in the future, if requested from Ramda's side.
-
 ## API
 
 ## api-list
 #### add
 
-> add(a:Number,b:Number):Number
+> add(a: Number, b: Number): Number
 
 ```javascript
 R.add(2, 3) //=>  5
@@ -81,9 +77,9 @@ R.add(2, 3) //=>  5
 
 #### adjust
 
-> adjust(replaceFn: Function, i:Number, arr:Array):Array
+> adjust(replaceFn: Function, i:Number, arr:Array): Array
 
-- Replaces `i` index for `arr` with the result of `replaceFn(arr[i])`
+- Replaces `i` index in `arr` with the result of `replaceFn(arr[i])`
 
 ```javascript
 R.adjust(a => a + 1, 0, [0, 100]) //=> [1, 100]
@@ -93,36 +89,51 @@ R.adjust(a => a + 1, 0, [0, 100]) //=> [1, 100]
 
 > any(condition: Function, arr: Array): Boolean
 
-- Returns true if at least one member of `arr` returns true, when passed to the `condition` function.
+- Returns true if at least one member of `arr` returns true, when passed to the `condition` function
 
 ```javascript
 R.any(a => a * a > 8)([1, 2, 3]) //=> true
 R.any(a => a * a > 10)([1, 2, 3]) //=> false
+```
 
 #### append
 
 > append(valueToAppend: any, arr: Array): Array
 
 ```javascript
-R.append('foo', ['bar', 'baz']); //=> ['foo', 'bar', 'baz']
+R.append('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
 ```
 
 #### contains
 
 > contains(valueToFind: any, arr: Array): Boolean
 
-Returns the answer to "is `valueToFind` part of `arr`""
+Returns true if `valueToFind` is part of `arr`
 
 ```javascript
-R.contains(3, [1, 2, 3]) //=> true
-R.contains(4, [1, 2, 3]) //=> false
+R.contains(2, [1, 2]) //=> true
+R.contains(3, [1, 2]) //=> false
+```
+
+#### defaultTo
+
+> defaultTo(defaultArgument: T, inputArgument: any): T
+
+Returns `defaultArgument` if `inputArgument` is `undefined` or the type of `inputArgument` is different of the type of `defaultArgument`.
+
+Returns `inputArgument` in any other case.
+
+```javascript
+R.defaultTo('foo', undefined) //=> 'foo'
+R.defaultTo('foo')('bar') //=> 'bar'
+R.defaultTo('foo')(1) //=> 'foo'
 ```
 
 #### drop
 
-> drop(howManyToDrop: Number, arrOrStr: Array|String)
+> drop(howManyToDrop: Number, arrOrStr: Array|String): Array|String
 
-Drops `howManyToDrop` items from the left of `arrOrStr` and returns the result
+Returns `arrOrStr` with `howManyToDrop` items dropped from the left
 
 ```javascript
 R.drop(1, ['foo', 'bar', 'baz']) //=> ['bar', 'baz']
@@ -131,9 +142,9 @@ R.drop(1, 'foo')  //=> 'oo'
 
 #### dropLast
 
-Drops `howManyToDrop` items from the right of `a` and returns the result
+> dropLast(howManyToDrop: Number, arrOrStr: Array|String): Array|String
 
-> dropLast(howManyToDrop: Number, arrOrStr: Array|String)
+Returns `arrOrStr` with `howManyToDrop` items dropped from the right
 
 ```javascript
 R.dropLast(1, ['foo', 'bar', 'baz']) //=> ['foo', 'bar']
@@ -144,9 +155,9 @@ R.dropLast(1, 'foo')  //=> 'fo'
 
 > equals(a: any, b: any): Boolean
 
-- Returns type match between `a` and `b`.
+- Returns equality match between `a` and `b`
 
-Doesn't handles cyclical data structures.
+Doesn't handles cyclical data structures
 
 ```javascript
 R.equals(1, 1) //=> true
@@ -201,7 +212,7 @@ R.flatten([ 1, [ 2, [ 3 ] ] ]
 
 #### head
 
-> head(arrOrStr: Array|String)
+> head(arrOrStr: Array|String): any
 
 - Returns the first element of `arrOrStr`
 
@@ -222,7 +233,7 @@ R.indexOf(1, [1, 2]) //=> 0
 
 #### init
 
-> init(arrOrStr: Array|String): Array
+> init(arrOrStr: Array|String): Array|String
 
 - Returns all but the last element of `arrOrStr`
 
@@ -236,12 +247,12 @@ R.init('foo')  //=> 'fo'
 > join(separator: String, arr: Array): String
 
 ```javascript
-R.join('-', [1, 2, 3])    //=> '1-2-3'
+R.join('-', [1, 2, 3])  //=> '1-2-3'
 ```
 
 #### last
 
-> last(arrOrStr: Array|String)
+> last(arrOrStr: Array|String): any
 
 - Returns the last element of `arrOrStr`
 
@@ -252,7 +263,7 @@ R.last('foo') //=> 'o'
 
 #### length
 
-> length(arrOrStr: Array|String)
+> length(arrOrStr: Array|String): Number
 
 ```javascript
 R.length([1, 2, 3]) //=> 3
@@ -261,6 +272,8 @@ R.length([1, 2, 3]) //=> 3
 #### map
 
 > map(mapFn: Function, arr: Array): Array
+
+Returns the result of looping through `arr` with `mapFn`
 
 ```javascript
 const mapFn = x => x * 2;
@@ -288,9 +301,9 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 
 #### omit
 
-> omit(keysToOmit: Array<String>, obj: Object): Object
+> omit(propsToOmit: Array<String>, obj: Object): Object
 
-- Returns a partial copy of an `obj` with omitting `keysToOmit`
+- Returns a partial copy of an `obj` with omitting `propsToOmit`
 
 ```javascript
 R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) //=> {b: 2, c: 3}
@@ -300,18 +313,31 @@ R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) //=> {b: 2, c: 3}
 
 > path(pathToSearch: Array<String>, obj: Object): any
 
-- Retrieve the value at a given path
+- Retrieve the value at `pathToSearch` in object `obj`
 
 ```javascript
 R.path(['a', 'b'], {a: {b: 2}}) //=> 2
+R.path(['a', 'c'], {a: {b: 2}}) //=> undefined
 ```
 
 #### pick
 
-- Returns a partial copy of an `obj` containing only `keysToPick`
+> pick(propsToPick: Array<String>, obj: Object): Object
+
+- Returns a partial copy of an `obj` containing only `propsToPick` properties
 
 ```javascript
 R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
+```
+
+#### pluck
+
+> pluck(prop: String, arr: Array<Object>): Array
+
+- Returns list of the values of property `prop` taken from the objects in `arr`
+
+```javascript
+R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
 ```
 
 #### prepend
@@ -322,9 +348,10 @@ R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 R.prepend('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
 ```
 
-#### prop(propToFind:String, obj: Object)
+#### prop(propToFind: String, obj: Object): any
 
 Returns `undefined` or the value of property `propToFind` in `obj`
+
 ```javascript
 R.prop('x', {x: 100}) //=> 100
 R.prop('x', {}) //=> undefined
@@ -363,7 +390,9 @@ R.repeat('foo', 2) //=> ['foo', 'foo']
 
 #### replace
 
-Replace `strOrRegex` with `substring` in `str`
+> replace(strOrRegex: String|Regex, replacer: String, str: String): String
+
+Replace `strOrRegex` found in `str` with `replacer`
 
 ```javascript
 R.replace('foo', 'bar', 'foo foo') //=> 'bar foo'
@@ -377,7 +406,7 @@ R.replace(/foo/g, 'bar', 'foo foo') //=> 'bar bar'
 
 Returns copy of `arr` sorted by `sortFn`
 
-`sortFn` must return one of `-1, 0, 1`
+`sortFn` must return `Number`
 
 ```javascript
 const sortFn = (a, b) => a - b
@@ -386,11 +415,9 @@ R.sort(sortFn, [3, 1, 2]) //=> [1, 2, 3]
 
 #### sortBy
 
-
 Returns copy of `arr` sorted by `sortFn`
 
 `sortFn` must return value for comparison
-
 
 ```javascript
 const sortFn = obj => obj.foo

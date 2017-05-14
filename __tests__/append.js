@@ -1,6 +1,7 @@
 const R = require("../")
 
 describe("append",()=>{
+  it("",()=>{
     expect(
       R.compose(
         R.flatten,
@@ -19,4 +20,6 @@ describe("append",()=>{
     expect(
       R.append([ "tests" ], [ "write", "more" ])
     ).toEqual([ "write", "more", [ "tests" ] ])
+  })
+  
 })

@@ -2,7 +2,7 @@ const R = require("../")
 
 describe("equals",()=>{
 
-    it("equals", () => {
+    it("", () => {
       expect(
         R.equals([ 1, 2, 3 ], [ 1, 2, 3 ])
       ).toBeTruthy()
