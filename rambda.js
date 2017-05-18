@@ -648,12 +648,26 @@ function defaultTo(defaultArgument, inputArgument){
     inputArgument
 }
 
+function curry(fn, inputArguments = {}) {
+  return inputArgumentsHolder => {
+    if (type(fn) === "Async") {
+      return new Promise((resolve, reject) => {
+        fn(merge(inputArgumentsHolder, inputArguments))
+          .then(resolve)
+          .catch(reject)
+      })
+    }
+    return fn(merge(inputArgumentsHolder, inputArguments))
+  }
+}
+
 exports.add = add
 exports.adjust = adjust
 exports.any = any
 exports.append = append
 exports.compose = compose
 exports.contains = contains
+exports.curry = curry
 exports.defaultTo = defaultTo
 exports.drop = drop
 exports.dropLast = dropLast

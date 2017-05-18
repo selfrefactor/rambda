@@ -1,10 +1,11 @@
 {
   "name": "rambda",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Lightweight alternative to Ramda",
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "dev": "jest __tests__/curry.js",
     "cover": "jest --coverage",
     "de": "git add . --all&&git commit -m update&&git push"
   },

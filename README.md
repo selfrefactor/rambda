@@ -115,6 +115,23 @@ R.contains(2, [1, 2]) //=> true
 R.contains(3, [1, 2]) //=> false
 ```
 
+#### curry
+
+> curry(fn: Function, a: Object, b: Object): Function
+
+Returns function called with merged object of `a` over `b`.
+It supports async functions.
+Works only when as arguments are used on first call `fn` and `a` and on second call `b`.
+See the example below:
+
+```javascript
+const fn = ({a, b, c}) => {
+  return (a * b) + c
+}
+const curried = R.curry(fn, {a: 2})
+curried({b: 3, c: 10}) //=> 16
+```
+
 #### defaultTo
 
 > defaultTo(defaultArgument: T, inputArgument: any): T
