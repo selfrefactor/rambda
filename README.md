@@ -120,13 +120,13 @@ R.contains(3, [1, 2]) //=> false
 
 #### curry
 
-> curry(fn: Function, a: Object, b: Object): Function
+> curry(fn: Function|Async, a: Object, b: Object): Function|Promise
 
-Returns function called with merged object of `a` over `b`.
+When called with function `fn` and first set of input `a`, it will return a function.
 
-It supports async functions.
+This function will wait to be called with second set of input `b` and it will invoke `fn` with the merged object of `a` over `b`.
 
-Works only when as arguments are used on first call `fn` and `a` and on second call `b`.
+`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
 
 See the example below:
 
