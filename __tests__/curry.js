@@ -1,4 +1,4 @@
-const R = require("../rambda")
+const R = require("../")
 
 describe("curry", () => {
   it("", () => {
@@ -16,7 +16,7 @@ describe("curry", () => {
       },ms)
     })
     const fn = async ({a,b})=>{
-      const result = await delay(a)   
+      const result = await delay(a)
       return result + b
     }
     const curried = R.curry(fn,{a:200})

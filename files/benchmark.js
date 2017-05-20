@@ -1,4 +1,4 @@
-const R = require("./rambda")
+const R = require("../rambda")
 const Ramda = require("ramda")
 const _ = require("lodash")
 const Benchmark = require("benchmark")

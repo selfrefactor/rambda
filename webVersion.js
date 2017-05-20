@@ -1,1 +1,808 @@
-(function webpackUniversalModuleDefinition(d,e){if(typeof exports==='object'&&typeof module==='object')module.exports=e();else if(typeof define==='function'&&define.amd)define([],e);else{var a=e();for(var i in a)(typeof exports==='object'?exports:d)[i]=a[i];}})(this,function(){return function(f){var g={};function __webpack_require__(h){if(g[h])return g[h].exports;var j=g[h]={i:h,l:!1,exports:{}};f[h].call(j.exports,j,j.exports,__webpack_require__);j.l=!0;return j.exports;}__webpack_require__.m=f;__webpack_require__.c=g;__webpack_require__.i=function(k){return k;};__webpack_require__.d=function(l,m,n){if(!__webpack_require__.o(l,m)){Object.defineProperty(l,m,{configurable:!1,enumerable:!0,get:n});}};__webpack_require__.n=function(o){var p=o&&o.__esModule?function getDefault(){return o['default'];}:function getModuleExports(){return o;};__webpack_require__.d(p,'a',p);return p;};__webpack_require__.o=function(q,r){return Object.prototype.hasOwnProperty.call(q,r);};__webpack_require__.p="";return __webpack_require__(__webpack_require__.s=1);}([function(s,t){function add(a,b){if(b===void 0){return c=>add(a,c);}return a+b;}function adjust(u,v,w){if(v===void 0){return(x,y)=>adjust(u,x,y);}else if(w===void 0){return z=>adjust(u,v,z);}return w.map((A,B)=>{if(B===v){return u(w[v]);}return A;});}function any(C,D){if(D===void 0){return E=>any(C,E);}let F=0;while(F<D.length){if(C(D[F])){return!0;}F++;}return!1;}function append(G,H){if(H===void 0){return I=>append(G,I);}const J=H;J.push(G);return J;}function isFunction(K){return typeof K==="function";}function compose(){const L=arguments;let M=L.length;while(M--){if(!isFunction(L[M])){throw new TypeError();}}return function(){let N=arguments,O=L.length;while(O--){N=[L[O].apply(this,N)];}return N[0];};}function contains(P,Q){if(Q===void 0){return S=>contains(P,S);}let T=-1,U=!1;while(++T<Q.length&&!U){if(equals(Q[T],P)){U=!0;}}return U;}function filter(V,W){if(W===void 0){return X=>filter(V,X);}let Y=-1,Z=0;const a1=W.length,b1=[];while(++Y<a1){const c1=W[Y];if(V(c1)){b1[Z++]=c1;}}return b1;}function find(fn,e1){if(e1===void 0){return f1=>find(fn,f1);}return e1.find(fn);}function findIndex(fn,h1){if(h1===void 0){return i1=>findIndex(fn,i1);}const j1=h1.length;let k1=-1;while(++k1<j1){if(fn(h1[k1])){return k1;}}return-1;}function flatten(l1,m1){m1=m1===void 0?[]:m1;for(let i=0;i<l1.length;i++){if(Array.isArray(l1[i])){flatten(l1[i],m1);}else{m1.push(l1[i]);}}return m1;}function drop(n1,a){if(a===void 0){return o1=>drop(n1,o1);}return a.slice(n1);}function dropLast(p1,a){if(a===void 0){return q1=>dropLast(p1,q1);}return a.slice(0,-p1);}function equals(a,b){if(b===void 0){return r1=>equals(a,r1);}else if(a===b){return a!==0||1/a===1/b;}const s1=type(a);if(s1!==type(b)){return!1;}if(s1==="Array"){const t1=a,u1=b;return t1.sort().toString()===u1.sort().toString();}if(s1==="Object"){const v1=Object.keys(a);if(v1.length===Object.keys(b).length){if(v1.length===0){return!0;}let w1=!0;v1.map(x1=>{if(w1){const y1=type(a[x1]),z1=type(b[x1]);if(y1===z1){if(y1==="Object"){if(Object.keys(a[x1]).length===Object.keys(b[x1]).length){if(Object.keys(a[x1]).length!==0){if(!equals(a[x1],b[x1])){w1=!1;}}}else{w1=!1;}}else if(!equals(a[x1],b[x1])){w1=!1;}}else{w1=!1;}}});return w1;}}return!1;}function head(a){if(typeof a==="string"){return a[0]||"";}return a[0];}function indexOf(A1,B1){if(B1===void 0){return C1=>indexOf(A1,C1);}let D1=-1;const E1=B1.length;while(++D1<E1){if(B1[D1]===A1){return D1;}}return-1;}function baseSlice(F1,G1,H1){let I1=-1,J1=F1.length;H1=H1>J1?J1:H1;if(H1<0){H1+=J1;}J1=G1>H1?0:H1-G1>>>0;G1>>>=0;const K1=Array(J1);while(++I1<J1){K1[I1]=F1[I1+G1];}return K1;}function init(a){if(typeof a==="string"){return a.slice(0,-1);}return a.length?baseSlice(a,0,-1):[];}function join(L1,M1){if(M1===void 0){return N1=>join(L1,N1);}return M1.join(L1);}function map(fn,P1){if(P1===void 0){return Q1=>map(fn,Q1);}let R1=-1;const S1=P1.length,T1=Array(S1);while(++R1<S1){T1[R1]=fn(P1[R1]);}return T1;}function last(a){if(typeof a==="string"){return a[a.length-1]||"";}return a[a.length-1];}function length(U1){return U1.length;}function match(V1,W1){if(W1===void 0){return X1=>match(V1,X1);}const Y1=W1.match(V1);return Y1===null?[]:Y1;}function merge(Z1,a2){if(a2===void 0){return b2=>merge(Z1,b2);}return Object.assign({},Z1,a2);}function omit(c2,d2){if(d2===void 0){return e2=>omit(c2,e2);}const f2={};for(key in d2){if(!c2.includes(key)){f2[key]=d2[key];}}return f2;}function path(g2,h2){if(h2===void 0){return i2=>path(g2,i2);}let j2=h2,k2=0;while(k2<g2.length){if(j2===null){return void 0;}j2=j2[g2[k2]];k2++;}return j2;}function pick(l2,m2){if(m2===void 0){return n2=>pick(l2,n2);}const o2={};let p2=0;while(p2<l2.length){if(l2[p2]in m2){o2[l2[p2]]=m2[l2[p2]];}p2++;}return o2;}function pluck(q2,r2){if(r2===void 0){return s2=>pluck(q2,s2);}const t2=[];map(u2=>{if(!(u2[q2]===void 0)){t2.push(u2[q2]);}},r2);return t2;}function prepend(v2,w2){if(w2===void 0){return x2=>prepend(v2,x2);}const y2=w2;y2.unshift(v2);return y2;}function prop(z2,A2){if(A2===void 0){return B2=>prop(z2,B2);}return A2[z2];}function propEq(C2,D2,E2){if(D2===void 0){return(F2,G2)=>propEq(C2,F2,G2);}else if(E2===void 0){return H2=>propEq(C2,D2,H2);}return E2[C2]===D2;}function range(I2,J2){const K2=[];for(let i=I2;i<J2;i++){K2.push(i);}return K2;}function repeat(a,L2){if(L2===void 0){return M2=>repeat(a,M2);}const N2=Array(L2);return N2.fill(a);}function replace(O2,P2,Q2){if(P2===void 0){return(R2,S2)=>replace(O2,R2,S2);}else if(Q2===void 0){return T2=>replace(O2,P2,T2);}return Q2.replace(O2,P2);}function subtract(a,b){if(b===void 0){return U2=>subtract(a,U2);}return a-b;}function sort(fn,W2){if(W2===void 0){return X2=>sort(fn,X2);}const Y2=Array.from(W2);return Y2.sort(fn);}function sortBy(fn,a3){if(a3===void 0){return b3=>sortBy(fn,b3);}const c3=Array.from(a3);return c3.sort((a,b)=>{const d3=fn(a),e3=fn(b);return d3<e3?-1:d3>e3?1:0;});}function split(f3,g3){if(g3===void 0){return h3=>split(f3,h3);}return g3.split(f3);}function splitEvery(i3,a){if(a===void 0){return j3=>splitEvery(i3,j3);}i3=i3>1?i3:1;const k3=[];let l3=0;while(l3<a.length){k3.push(a.slice(l3,l3+=i3));}return k3;}function tail(m3){return drop(1,m3);}function take(n3,a){if(a===void 0){return o3=>take(n3,o3);}else if(typeof a==="string"){return a.slice(0,n3);}return baseSlice(a,0,n3);}function takeLast(p3,a){if(a===void 0){return q3=>takeLast(p3,q3);}const r3=a.length;p3=p3>r3?r3:p3;if(typeof a==="string"){return a.slice(r3-p3);}p3=r3-p3;return baseSlice(a,p3,r3);}function toLower(s3){return s3.toLowerCase();}function toUpper(t3){return t3.toUpperCase();}function test(u3,v3){if(v3===void 0){return w3=>test(u3,w3);}return v3.search(u3)===-1?!1:!0;}function trim(x3){return x3.trim();}function type(a){if(a===null){return"Null";}else if(Array.isArray(a)){return"Array";}else if(typeof a==="boolean"){return"Boolean";}else if(typeof a==="number"){return"Number";}else if(typeof a==="string"){return"String";}else if(a===void 0){return"Undefined";}else if(a instanceof RegExp){return"RegExp";}const y3=a.toString();if(y3.startsWith("async")){return"Async";}else if(y3.includes("function")||y3.includes("=>")){return"Function";}return"Object";}function values(z3){const A3=[];for(key in z3){A3.push(z3[key]);}return A3;}function uniq(B3){let C3=-1;const D3=[];while(++C3<B3.length){const E3=B3[C3];if(!contains(E3,D3)){D3.push(E3);}}return D3;}function update(F3,G3,H3){if(G3===void 0){return(I3,J3)=>update(F3,I3,J3);}else if(H3===void 0){return K3=>update(F3,G3,K3);}const L3=Array.from(H3);return L3.fill(G3,F3,F3+1);}function defaultTo(M3,N3){if(arguments.length===1){return O3=>defaultTo(M3,O3);}return N3===void 0||!(type(N3)===type(M3))?M3:N3;}t.add=add;t.adjust=adjust;t.any=any;t.append=append;t.compose=compose;t.contains=contains;t.defaultTo=defaultTo;t.drop=drop;t.dropLast=dropLast;t.equals=equals;t.filter=filter;t.find=find;t.findIndex=findIndex;t.flatten=flatten;t.head=head;t.indexOf=indexOf;t.init=init;t.join=join;t.last=last;t.length=length;t.map=map;t.match=match;t.merge=merge;t.omit=omit;t.path=path;t.pick=pick;t.pluck=pluck;t.prepend=prepend;t.prop=prop;t.propEq=propEq;t.range=range;t.repeat=repeat;t.replace=replace;t.sort=sort;t.sortBy=sortBy;t.split=split;t.splitEvery=splitEvery;t.subtract=subtract;t.tail=tail;t.take=take;t.takeLast=takeLast;t.test=test;t.toLower=toLower;t.toUpper=toUpper;t.trim=trim;t.type=type;t.uniq=uniq;t.update=update;t.values=values;},function(P3,Q3,R3){const R=R3(0);P3.exports={R:R};}]);});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+function add(a, b){
+  if (b === undefined) {
+    return c => add(a, c)
+  }
+
+  return a + b
+}
+
+function adjust(fn, index, arr){
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => adjust(fn, index, holder)
+  }
+
+  return arr.map((val, key) => {
+    if (key === index) {
+      return fn(arr[ index ])
+    }
+
+    return val
+  })
+}
+
+function any(fn, arr){
+  if (arr === undefined) {
+    return holder => any(fn, holder)
+  }
+
+  let counter = 0
+  while (counter < arr.length) {
+    if (fn(arr[ counter ])) {
+      return true
+    }
+    counter++
+  }
+
+  return false
+}
+
+function append (val, arr) {
+  if (arr === undefined) {
+    return holder => append(val, holder)
+  }
+  const clone = arr
+  clone.push(val)
+
+  return clone
+}
+
+function isFunction(value){
+
+  return typeof value === "function"
+}
+
+function compose () {
+  const funcs = arguments
+  let length = funcs.length
+
+  while (length--) {
+    if (!isFunction(funcs[ length ])) {
+      throw new TypeError
+    }
+  }
+
+  return function () {
+    let args = arguments
+    let len = funcs.length
+
+    while (len--) {
+      args = [ funcs[ len ].apply(this, args) ]
+    }
+
+    return args[ 0 ]
+  }
+}
+
+function contains(val, arr) {
+  if (arr === undefined) {
+    return holder => contains(val, holder)
+  }
+
+  let index = -1
+  let flag = false
+  while (++index < arr.length && !flag) {
+    if (equals(arr[ index ], val)) {
+      flag = true
+    }
+  }
+
+  return flag
+}
+
+function filter(fn, arr) {
+  if (arr === undefined) {
+    return holder => filter(fn, holder)
+  }
+
+  let index = -1
+  let resIndex = 0
+  const len =  arr.length
+  const willReturn = []
+
+  while (++index < len) {
+    const value = arr[ index ]
+    if (fn(value)) {
+      willReturn[ resIndex++ ] = value
+    }
+  }
+
+  return willReturn
+}
+
+function find(fn, arr){
+  if (arr === undefined) {
+    return holder => find(fn, holder)
+  }
+
+  return arr.find(fn)
+}
+
+function findIndex(fn, arr){
+  if (arr === undefined) {
+    return holder => findIndex(fn, holder)
+  }
+
+  const length = arr.length
+  let index = -1
+
+  while (++index < length) {
+    if (fn(arr[ index ])) {
+      return index
+    }
+  }
+
+  return -1
+}
+
+function flatten(arr, willReturn){
+  willReturn = willReturn === undefined ?
+    [] :
+    willReturn
+
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[ i ])) {
+      flatten(arr[ i ], willReturn)
+    } else {
+      willReturn.push(arr[ i ])
+    }
+  }
+
+  return willReturn
+}
+
+function drop(dropNumber, a){
+  if (a === undefined) {
+    return holder => drop(dropNumber, holder)
+  }
+
+  return a.slice(dropNumber)
+}
+
+function dropLast(dropNumber, a){
+  if (a === undefined) {
+    return holder => dropLast(dropNumber, holder)
+  }
+
+  return a.slice(0, -dropNumber)
+}
+
+function equals(a, b) {
+  if (b === undefined) {
+
+    return holder => equals(a, holder)
+  } else if (a === b) {
+
+    return a !== 0 || 1 / a === 1 / b
+  }
+  const aType = type(a)
+  if (aType !== type(b)) {
+    return false
+  }
+
+  if (aType === "Array") {
+    const aClone = a
+    const bClone = b
+
+    return aClone.sort().toString() === bClone.sort().toString()
+  }
+
+  if (aType === "Object") {
+    const aKeys = Object.keys(a)
+    if (aKeys.length === Object.keys(b).length) {
+      if (aKeys.length === 0) {
+        return true
+      }
+      let flag = true
+      aKeys.map(val => {
+        if (flag) {
+          const aValType = type(a[ val ])
+          const bValType = type(b[ val ])
+          if (aValType === bValType) {
+            if (aValType === "Object") {
+              if (Object.keys(a[ val ]).length === Object.keys(b[ val ]).length) {
+                if (Object.keys(a[ val ]).length !== 0) {
+                  if (!equals(a[ val ], b[ val ])) {
+                    flag = false
+                  }
+                }
+              } else {
+                flag = false
+              }
+            } else if (!equals(a[ val ], b[ val ])) {
+              flag = false
+            }
+          } else {
+            flag = false
+          }
+        }
+      })
+
+      return flag
+    }
+  }
+
+  return false
+}
+
+function head(a){
+  if (typeof a === "string") {
+    return a[ 0 ] || ""
+  }
+
+  return a[ 0 ]
+}
+
+function indexOf(question, arr) {
+  if (arr === undefined) {
+    return holder => indexOf(question, holder)
+  }
+
+  let index = -1
+  const length = arr.length
+
+  while (++index < length) {
+    if (arr[ index ] === question) {
+      return index
+    }
+  }
+
+  return -1
+}
+
+function baseSlice(array, start, end) {
+  let index = -1
+  let length = array.length
+
+  end = end > length ? length : end
+  if (end < 0) {
+    end += length
+  }
+  length = start > end ? 0 : end - start >>> 0
+  start >>>= 0
+
+  const result = Array(length)
+  while (++index < length) {
+    result[ index ] = array[ index + start ]
+  }
+
+  return result
+}
+
+function init(a){
+  if (typeof a === "string") {
+    return a.slice(0, -1)
+  }
+
+  return a.length ? baseSlice(a, 0, -1) : []
+}
+
+function join(glue, arr) {
+  if (arr === undefined) {
+    return holder => join(glue, holder)
+  }
+
+  return arr.join(glue)
+}
+
+function map(fn, arr) {
+  if (arr === undefined) {
+    return holder => map(fn, holder)
+  }
+
+  let index = -1
+  const length = arr.length
+  const willReturn = Array(length)
+
+  while (++index < length) {
+    willReturn[ index ] = fn(arr[ index ])
+  }
+
+  return willReturn
+}
+
+function last(a){
+  if (typeof a === "string") {
+    return a[ a.length - 1 ] || ""
+  }
+
+  return a[ a.length - 1 ]
+}
+
+function length(arr){
+
+  return arr.length
+}
+
+function match(regex, str) {
+  if (str === undefined) {
+    return holder => match(regex, holder)
+  }
+  const willReturn = str.match(regex)
+
+  return willReturn === null ?
+    [] :
+    willReturn
+}
+
+function merge(obj, newProps) {
+  if (newProps === undefined) {
+    return holder => merge(obj, holder)
+  }
+
+  return Object.assign({}, obj, newProps)
+}
+
+function omit(keys, obj){
+  if (obj === undefined) {
+    return holder => omit(keys, holder)
+  }
+
+  const willReturn = {}
+  for (key in obj) {
+    if (!keys.includes(key)) {
+      willReturn[ key ] = obj[ key ]
+    }
+  }
+
+  return willReturn
+}
+
+function path(pathArr, obj) {
+  if (obj === undefined) {
+    return holder => path(pathArr, holder)
+  }
+
+  let holder = obj
+  let counter = 0
+  while (counter < pathArr.length) {
+    if (holder === null) {
+      return undefined
+    }
+    holder = holder[ pathArr[ counter ] ]
+    counter++
+  }
+
+  return holder
+}
+
+function pick(keys, obj) {
+  if (obj === undefined) {
+    return holder => pick(keys, holder)
+  }
+  const willReturn = {}
+  let counter = 0
+  while (counter < keys.length) {
+    if (keys[ counter ] in obj) {
+      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+    }
+    counter++
+  }
+
+  return willReturn
+}
+
+function pluck(keyToPluck,arr){
+  if(arr === undefined){
+    return arrHolder => pluck(keyToPluck, arrHolder)
+  }
+  const willReturn = []
+  map(
+    val =>{
+      if(!(val[keyToPluck]===undefined)){
+        willReturn.push(val[keyToPluck])
+      }
+    },
+    arr
+  )
+  return willReturn
+}
+
+function prepend(val, arr) {
+  if (arr === undefined) {
+    return holder => prepend(val, holder)
+  }
+
+  const clone = arr
+  clone.unshift(val)
+
+  return clone
+}
+
+function prop(key, obj) {
+  if (obj === undefined) {
+    return holder => prop(key, holder)
+  }
+
+  return obj[ key ]
+}
+
+function propEq(key, val, obj) {
+  if (val === undefined) {
+    return (valHolder, objHolder) => propEq(key, valHolder, objHolder)
+  } else if (obj === undefined) {
+    return holder => propEq(key, val, holder)
+  }
+
+  return obj[ key ] === val
+}
+
+function range(start, end) {
+  const willReturn = []
+  for (let i = start; i < end; i++) {
+    willReturn.push(i)
+  }
+
+  return willReturn
+}
+
+function repeat(a, num) {
+  if (num === undefined) {
+    return holder => repeat(a, holder)
+  }
+  const willReturn = Array(num)
+
+  return willReturn.fill(a)
+}
+
+function replace(regex, replacer, str) {
+  if (replacer === undefined) {
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
+  } else if (str === undefined) {
+    return holder => replace(regex, replacer, holder)
+  }
+
+  return str.replace(regex, replacer)
+}
+
+function subtract(a, b) {
+  if (b === undefined) {
+    return holder => subtract(a, holder)
+  }
+
+  return a - b
+}
+
+function sort(fn, arr) {
+  if (arr === undefined) {
+    return holder => sort(fn, holder)
+  }
+  const arrClone = Array.from(arr)
+
+  return arrClone.sort(fn)
+}
+
+function sortBy(fn, arr) {
+  if (arr === undefined) {
+    return holder => sortBy(fn, holder)
+  }
+  const arrClone = Array.from(arr)
+
+  return arrClone.sort((a, b) => {
+    const fnA = fn(a)
+    const fnB = fn(b)
+    return fnA < fnB ?
+      -1 :
+      fnA > fnB ?
+        1 :
+        0
+  })
+}
+
+function split(glue, str) {
+  if (str === undefined) {
+    return holder => split(glue, holder)
+  }
+
+  return str.split(glue)
+}
+
+function splitEvery(num, a) {
+  if (a === undefined) {
+    return holder => splitEvery(num, holder)
+  }
+  num = num > 1 ?
+    num :
+    1
+
+  const willReturn = []
+  let counter = 0
+  while (counter < a.length) {
+    willReturn.push(a.slice(counter, counter += num))
+  }
+
+  return willReturn
+}
+
+function tail(arr){
+
+  return drop(1, arr)
+}
+
+function take(takeNumber, a) {
+  if (a === undefined) {
+    return holder => take(takeNumber, holder)
+  } else if (typeof a === "string") {
+    return a.slice(0, takeNumber)
+  }
+
+  return baseSlice(a, 0, takeNumber)
+}
+
+function takeLast(takeNumber, a) {
+  if (a === undefined) {
+    return holder => takeLast(takeNumber, holder)
+  }
+  const len = a.length
+  takeNumber = takeNumber > len ?
+    len :
+    takeNumber
+
+  if (typeof a === "string") {
+    return a.slice(len - takeNumber)
+  }
+  takeNumber = len - takeNumber
+
+  return baseSlice(a, takeNumber, len)
+}
+
+function toLower(str){
+
+  return str.toLowerCase()
+}
+
+function toUpper(str){
+
+  return str.toUpperCase()
+}
+
+function test(regex, str){
+  if (str === undefined) {
+    return holder => test(regex, holder)
+  }
+
+  return str.search(regex) === -1 ?
+    false :
+    true
+}
+
+function trim(str){
+
+  return str.trim()
+}
+
+function type(a){
+  if (a === null) {
+
+    return "Null"
+  } else if (Array.isArray(a)) {
+
+    return "Array"
+  } else if (typeof a === "boolean") {
+
+    return "Boolean"
+  } else if (typeof a === "number") {
+
+    return "Number"
+  } else if (typeof a === "string") {
+
+    return "String"
+  } else if (a === undefined) {
+
+    return "Undefined"
+  } else if (a instanceof RegExp) {
+
+    return "RegExp"
+  }
+
+  const asStr = a.toString()
+  if(asStr.startsWith("async")){
+    return "Async"
+  }else if(asStr.includes("function")||asStr.includes("=>")){
+    return "Function"
+  }
+
+  return "Object"
+}
+
+function values(obj){
+  const willReturn = []
+  for (key in obj) {
+    willReturn.push(obj[ key ])
+  }
+
+  return willReturn
+}
+
+function uniq(arr){
+  let index = -1
+  const willReturn = []
+  while (++index < arr.length) {
+    const value = arr[ index ]
+    if (!contains(value, willReturn)) {
+      willReturn.push(value)
+    }
+  }
+
+  return willReturn
+}
+
+function update(index, newValue, arr){
+  if (newValue === undefined) {
+    return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder)
+  } else if (arr === undefined) {
+    return holder => update(index, newValue, holder)
+  }
+  const arrClone = Array.from(arr)
+
+  return arrClone.fill(newValue, index, index + 1)
+}
+
+function defaultTo(defaultArgument, inputArgument){
+  if(arguments.length === 1){
+    return inputArgumentHolder => defaultTo(defaultArgument,inputArgumentHolder)
+  }
+  return inputArgument === undefined || !(type(inputArgument)===type(defaultArgument)) ?
+    defaultArgument :
+    inputArgument
+}
+
+function curry(fn, inputArguments = {}) {
+  return inputArgumentsHolder => {
+    if (type(fn) === "Async") {
+      return new Promise((resolve, reject) => {
+        fn(merge(inputArgumentsHolder, inputArguments))
+          .then(resolve)
+          .catch(reject)
+      })
+    }
+    return fn(merge(inputArgumentsHolder, inputArguments))
+  }
+}
+
+exports.add = add
+exports.adjust = adjust
+exports.any = any
+exports.append = append
+exports.compose = compose
+exports.contains = contains
+exports.curry = curry
+exports.defaultTo = defaultTo
+exports.drop = drop
+exports.dropLast = dropLast
+exports.equals = equals
+exports.filter = filter
+exports.find = find
+exports.findIndex = findIndex
+exports.flatten = flatten
+exports.head = head
+exports.indexOf = indexOf
+exports.init = init
+exports.join = join
+exports.last = last
+exports.length = length
+exports.map = map
+exports.match = match
+exports.merge = merge
+exports.omit = omit
+exports.path = path
+exports.pick = pick
+exports.pluck = pluck
+exports.prepend = prepend
+exports.prop = prop
+exports.propEq = propEq
+exports.range = range
+exports.repeat = repeat
+exports.replace = replace
+exports.sort = sort
+exports.sortBy = sortBy
+exports.split = split
+exports.splitEvery = splitEvery
+exports.subtract = subtract
+exports.tail = tail
+exports.take = take
+exports.takeLast = takeLast
+exports.test = test
+exports.toLower = toLower
+exports.toUpper = toUpper
+exports.trim = trim
+exports.type = type
+exports.uniq = uniq
+exports.update = update
+exports.values = values
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const rambda = __webpack_require__(0)
+module.exports.R = rambda
+
+
+/***/ })
+/******/ ]);
+});
