@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.7/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.9/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -39,15 +39,18 @@ Rambda shadows only small part of the Ramda's API.
 
 A few things to note:
 
-- Rambda's methods should be compatible with most of the basic Ramda's methods. For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
-
-- **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
-
-- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does
-
-- Rambda's **map/filter** works only for arrays, while Ramda's **map/filter** accept also objects
+- Rambda's methods should be compatible with most of the basic Ramda's methods.
+For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
+
+- Rambda's **curry** works in different way than Ramda's `curry`. Please chech the documentation of the method.
+
+- Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
+
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
 ## Benchmark
 
@@ -120,8 +123,11 @@ R.contains(3, [1, 2]) //=> false
 > curry(fn: Function, a: Object, b: Object): Function
 
 Returns function called with merged object of `a` over `b`.
+
 It supports async functions.
+
 Works only when as arguments are used on first call `fn` and `a` and on second call `b`.
+
 See the example below:
 
 ```javascript
