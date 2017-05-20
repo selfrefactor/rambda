@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "Lightweight alternative to Ramda",
   "main": "index.js",
   "scripts": {
