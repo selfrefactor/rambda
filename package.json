@@ -4,14 +4,13 @@
   "description": "Lightweight alternative to Ramda",
   "main": "index.js",
   "scripts": {
+    "build": "run-s browser-build browser-minify node-minify",
     "test": "jest",
     "dev": "jest __tests__/curry.js",
-    "build": "./build.sh",
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "sr m minify f webVersion.js o _",
     "node-minify": "sr m minify f rambda.js o index.js",
-    "cover": "jest --coverage",
-    "de": "git add . --all&&git commit -m update&&git push"
+    "cover": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -34,6 +33,7 @@
     "benchmark": "^2.1.3",
     "jest": "^18.1.0",
     "lodash": "^4.17.4",
+    "npm-run-all": "^4.0.2",
     "ramda": "*",
     "webpack": "^2.5.1"
   }
