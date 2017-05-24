@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("toUpper",()=>{
+describe("toUpper", () => {
   it("", () => {
     expect(
       R.compose(

@@ -1,7 +1,7 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("append",()=>{
-  it("",()=>{
+describe("append", () => {
+  it("", () => {
     expect(
       R.compose(
         R.flatten,
@@ -21,5 +21,4 @@ describe("append",()=>{
       R.append([ "tests" ], [ "write", "more" ])
     ).toEqual([ "write", "more", [ "tests" ] ])
   })
-  
 })

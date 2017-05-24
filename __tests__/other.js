@@ -1,7 +1,7 @@
-const R = require("../")
+const R = require("../rambda")
 const Ramda = require("ramda")
 
-describe("other",()=>{
+describe("other", () => {
   it("example", () => {
     const url = "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"
 

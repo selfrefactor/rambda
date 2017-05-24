@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("splitEvery",()=>{
+describe("splitEvery", () => {
   it("", () => {
     expect(
       R.splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])

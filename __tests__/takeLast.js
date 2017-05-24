@@ -1,8 +1,7 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("takeLast",()=>{
+describe("takeLast", () => {
   it("", () => {
-
     expect(
       R.takeLast(1, [ "foo", "bar", "baz" ])
     ).toEqual([ "baz" ])

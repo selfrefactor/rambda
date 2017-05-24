@@ -1,19 +1,17 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("prop",()=>{
-
-    it("", () => {
-      expect(
+describe("prop", () => {
+  it("", () => {
+    expect(
         R.prop(
           "foo"
-        )({ foo:"baz" })
+        )({ foo : "baz" })
       ).toEqual("baz")
 
-      expect(
+    expect(
         R.prop(
           "bar"
-        )({ foo:"baz" })
+        )({ foo : "baz" })
       ).toEqual(undefined)
-    })
-
+  })
 })

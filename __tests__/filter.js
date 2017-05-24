@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("drop",()=>{
+describe("drop", () => {
   it("filter", () => {
     const isEven = n => n % 2 === 0
 
@@ -11,5 +11,4 @@ describe("drop",()=>{
       )
     ).toEqual([ 2, 4 ])
   })
-
 })

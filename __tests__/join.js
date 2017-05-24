@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("join",()=>{
+describe("join", () => {
   it("", () => {
     expect(
       R.join(

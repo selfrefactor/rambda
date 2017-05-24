@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("repeat",()=>{
+describe("repeat", () => {
   it("", () => {
     expect(
       R.repeat("")(3)

@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("head",()=>{
+describe("head", () => {
   it("", () => {
     expect(
       R.head([ "fi", "fo", "fum" ])

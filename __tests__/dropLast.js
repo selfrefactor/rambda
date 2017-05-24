@@ -1,7 +1,7 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("dropLast",()=>{
-  it("",()=>{
+describe("dropLast", () => {
+  it("", () => {
     expect(R.dropLast(1, [ "foo", "bar", "baz" ])).toEqual([ "foo", "bar" ])
     expect(R.dropLast(2)([ "foo", "bar", "baz" ])).toEqual([ "foo" ])
     expect(R.dropLast(3, [ "foo", "bar", "baz" ])).toEqual([])

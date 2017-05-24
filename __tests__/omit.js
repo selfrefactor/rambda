@@ -1,11 +1,15 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("omit",()=>{
+describe("omit", () => {
   it("", () => {
     expect(
       R.omit(
         [ "a", "c" ]
-      )({ a:"foo", b:"bar", c:"baz" })
-    ).toEqual({ b:"bar" })
+      )({
+        a : "foo",
+        b : "bar",
+        c : "baz",
+      })
+    ).toEqual({ b : "bar" })
   })
 })

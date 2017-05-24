@@ -1,30 +1,31 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("type",()=>{
+describe("type", () => {
   it("", () => {
-    const fn1 = () =>{}
-    const fn2 = function(){}
-    function fn3(){}
+    const fn1 = () => {}
+    const fn2 = function () {}
+    function fn3 () {}
     [
-      ()=>{},
+      () => {},
       fn1,
       fn2,
-      fn3
-    ].map(val=>{
+      fn3,
+    ].map(val => {
       expect(
         R.type(val)
       ).toEqual("Function")
     })
 
-    async function fn4(){
-      const a = await R.add(1,2)
+    async function fn4 () {
+      const a = await R.add(1, 2)
+
       return a
     }
 
     [
-      async ()=>{},
+      async () => {},
       fn4,
-    ].map(val=>{
+    ].map(val => {
       expect(
         R.type(val)
       ).toEqual("Async")

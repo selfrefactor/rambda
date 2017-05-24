@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("toLower",()=>{
+describe("toLower", () => {
   it("", () => {
     expect(
       R.toLower("FOO|BAR|BAZ")

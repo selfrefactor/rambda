@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("indexOf",()=>{
+describe("indexOf", () => {
   it("", () => {
     expect(
       R.indexOf(3, [ 1, 2, 3, 4 ])

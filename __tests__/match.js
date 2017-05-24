@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("match",()=>{
+describe("match", () => {
   it("", () => {
     expect(
       R.match(
@@ -18,5 +18,4 @@ describe("match",()=>{
       () => { R.match(/a./g, null) }
     ).toThrow()
   })
-
 })

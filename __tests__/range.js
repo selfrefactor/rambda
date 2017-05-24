@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("range",()=>{
+describe("range", () => {
   it("", () => {
     expect(
       R.range(

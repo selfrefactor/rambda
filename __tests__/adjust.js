@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("adjust",()=>{
+describe("adjust", () => {
   it("without curring", () => {
     expect(
       R.adjust(R.add(10), 1, [ 0, 1, 2 ])
@@ -21,8 +21,7 @@ describe("adjust",()=>{
 
   it("with curring type 2 1", () => {
     expect(
-      R.adjust(R.add(10),1)([ 0, 1, 2 ])
+      R.adjust(R.add(10), 1)([ 0, 1, 2 ])
     ).toEqual([ 0, 11, 2 ])
   })
-
 })

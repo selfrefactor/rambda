@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("last",()=>{
+describe("last", () => {
   it("", () => {
     expect(
       R.compose(

@@ -1,90 +1,131 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("equals",()=>{
-
-    it("", () => {
-      expect(
+describe("equals", () => {
+  it("", () => {
+    expect(
         R.equals([ 1, 2, 3 ], [ 1, 2, 3 ])
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals([ 1, 2, 3 ], [ 1, 2 ])
       ).toBeFalsy()
 
-      expect(
+    expect(
         R.equals(1, 1)
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals(1, "1")
       ).toBeFalsy()
 
-      expect(
+    expect(
         R.equals({}, {})
       ).toBeTruthy()
 
-      expect(
-        R.equals({ a:1, b:2 }, { b:2, a:1 })
+    expect(
+        R.equals({
+          a : 1,
+          b : 2,
+        }, {
+          b : 2,
+          a : 1,
+        })
       ).toBeTruthy()
 
-      expect(
-        R.equals({ a:1, b:2 }, { a:1, b:1 })
+    expect(
+        R.equals({
+          a : 1,
+          b : 2,
+        }, {
+          a : 1,
+          b : 1,
+        })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ a:1, b:false }, { a:1, b:1 })
+    expect(
+        R.equals({
+          a : 1,
+          b : false,
+        }, {
+          a : 1,
+          b : 1,
+        })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ a:1, b:2 }, { b:2, a:1, c:3 })
+    expect(
+        R.equals({
+          a : 1,
+          b : 2,
+        }, {
+          b : 2,
+          a : 1,
+          c : 3,
+        })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ x:{ a:1, b:2 } }, { x:{ b:2, a:1, c:3 } })
+    expect(
+        R.equals({
+          x : {
+            a : 1,
+            b : 2,
+          },
+        }, {
+          x : {
+            b : 2,
+            a : 1,
+            c : 3,
+          },
+        })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ a:1, b:2 }, { b:3, a:1 })
+    expect(
+        R.equals({
+          a : 1,
+          b : 2,
+        }, {
+          b : 3,
+          a : 1,
+        })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:1 } } })
+    expect(
+        R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
       ).toBeTruthy()
 
-      expect(
-        R.equals({ a:{ b:{ c:1 } } }, { a:{ b:{ c:2 } } })
+    expect(
+        R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })
       ).toBeFalsy()
 
-      expect(
-        R.equals({ a:{} }, { a:{} })
+    expect(
+        R.equals({ a : {} }, { a : {} })
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals("", "")
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals("foo", "foo")
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals("foo", "bar")
       ).toBeFalsy()
 
-      expect(
+    expect(
         R.equals(0, false)
       ).toBeFalsy()
 
-      expect(
+    expect(
         R.equals(/\s/g, null)
       ).toBeFalsy()
 
-      expect(
+    expect(
         R.equals(null, null)
       ).toBeTruthy()
 
-      expect(
+    expect(
         R.equals(false)(null)
       ).toBeFalsy()
-    })
+  })
 })

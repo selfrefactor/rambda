@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("tail",()=>{
+describe("tail", () => {
   it("", () => {
     expect(R.tail([ 1, 2, 3 ])).toEqual([ 2, 3 ])
     expect(R.tail([ 1, 2 ])).toEqual([ 2 ])

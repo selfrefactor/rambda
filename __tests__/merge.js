@@ -1,11 +1,17 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("merge",()=>{
+describe("merge", () => {
   it("", () => {
     expect(
       R.merge(
-        { foo:"bar", bar:"bar" }
-      )({ bar:"baz" })
-    ).toEqual({ foo:"bar", bar:"baz" })
+        {
+          foo : "bar",
+          bar : "bar",
+        }
+      )({ bar : "baz" })
+    ).toEqual({
+      foo : "bar",
+      bar : "baz",
+    })
   })
 })

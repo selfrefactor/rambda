@@ -1,7 +1,7 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("any",()=>{
-  it("",()=>{
+describe("any", () => {
+  it("", () => {
     expect(
       R.any(val => val < 0)([ 1, 2 ])
     ).toBeFalsy()

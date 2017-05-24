@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("length",()=>{
+describe("length", () => {
   it("", () => {
     expect(
       R.length("foo")

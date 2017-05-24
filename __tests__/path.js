@@ -1,11 +1,11 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("path",()=>{
+describe("path", () => {
   it("", () => {
     expect(
         R.path(
           [ "foo", "bar", "baz" ]
-        )({ foo:{ bar:{ baz:"yes" } } })
+        )({ foo : { bar : { baz : "yes" } } })
       ).toEqual("yes")
 
     expect(
@@ -17,7 +17,7 @@ describe("path",()=>{
     expect(
         R.path(
           [ "foo", "bar", "baz" ]
-        )({ foo:{ bar:"baz" } })
+        )({ foo : { bar : "baz" } })
       ).toEqual(undefined)
   })
 })

@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("trim",()=>{
+describe("trim", () => {
   it("", () => {
     expect(
       R.trim(" foo ")

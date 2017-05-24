@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("take",()=>{
+describe("take", () => {
   it("", () => {
     const arr = [ "foo", "bar", "baz" ]
     expect(

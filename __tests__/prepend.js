@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("prepend",()=>{
+describe("prepend", () => {
   it("", () => {
     expect(
       R.prepend("yes", [ "foo", "bar", "baz" ])
@@ -8,6 +8,6 @@ describe("prepend",()=>{
 
     expect(
       R.prepend("foo")([ ])
-    ).toEqual(["foo"])
+    ).toEqual([ "foo" ])
   })
 })

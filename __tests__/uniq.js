@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("uniq",()=>{
+describe("uniq", () => {
   it("", () => {
     expect(
       R.uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])

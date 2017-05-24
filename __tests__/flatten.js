@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("drop",()=>{
+describe("drop", () => {
   it("flatten", () => {
     expect(
       R.flatten([ 1, 2, 3, [ [ [ [ [ 4 ] ] ] ] ] ])

@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("sort",()=>{
+describe("sort", () => {
   it("", () => {
     expect(
       R.sort(
@@ -14,5 +14,4 @@ describe("sort",()=>{
       )([ 2, 3, 1 ])
     ).toEqual([ 1, 2, 3 ])
   })
-
 })

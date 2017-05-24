@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("replace",()=>{
+describe("replace", () => {
   it("", () => {
     expect(
       R.replace("foo", "yes", "foo bar baz")

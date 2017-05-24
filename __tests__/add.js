@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("add",()=>{
+describe("add", () => {
   it("without curring", () => {
     expect(
       R.add(2, 3)

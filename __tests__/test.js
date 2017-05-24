@@ -1,6 +1,6 @@
-const R = require("../")
+const R = require("../rambda")
 
-describe("test",()=>{
+describe("test", () => {
   it("", () => {
     expect(
       R.test(/^x/, "xyz")
