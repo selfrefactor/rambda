@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.9/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.10/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -44,13 +44,15 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
 
-- Rambda's **curry** works in different way than Ramda's `curry`. Please chech the documentation of the method.
+- Rambda's **curry** works in much different way than Ramda's `curry`. Please chech with the documentation of the method.
 
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
+
+- If you need more **Ramda** methods, than what **Rambda** offers, you may check [Rambdax](https://github.com/selfrefactor/rambdax)
 
 ## Benchmark
 
@@ -231,6 +233,17 @@ R.find(findFn, arr) //=> 1
 ```javascript
 R.flatten([ 1, [ 2, [ 3 ] ] ]
 //=> [ 1, 2, 3 ]
+```
+
+#### has
+
+> has(prop: String, obj: Object): Boolean
+
+- Returns `true` if `obj` has property `prop`
+
+```javascript
+R.head("a", {a: 1}) //=> true
+R.head("b", {a: 1}) //=> false
 ```
 
 #### head

@@ -1,4 +1,4 @@
-const R = require("../rambda")
+const R = require("../")
 
 describe("has",()=>{
   it("has", () => {
