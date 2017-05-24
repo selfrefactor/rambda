@@ -226,6 +226,15 @@ function equals(a, b) {
   return false
 }
 
+function has(prop,obj){
+  if (obj === undefined) {
+    return objHolder => has(prop,objHolder)
+  }
+
+  return obj[prop] !== undefined
+}
+
+
 function head(a){
   if (typeof a === "string") {
     return a[ 0 ] || ""
@@ -676,6 +685,7 @@ exports.filter = filter
 exports.find = find
 exports.findIndex = findIndex
 exports.flatten = flatten
+exports.has = has
 exports.head = head
 exports.indexOf = indexOf
 exports.init = init
