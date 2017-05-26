@@ -22,3 +22,16 @@ describe("append", () => {
     ).toEqual([ "write", "more", [ "tests" ] ])
   })
 })
+
+describe("append",() => {
+  it("should not modify arguments", () => {
+    const a = [1, 2, 3]
+    const b = R.append(4,a)
+    expect(
+      a
+    ).toEqual([1,2,3])
+    expect(
+      b
+    ).toEqual([1,2,3,4])
+  })
+})

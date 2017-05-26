@@ -42,7 +42,7 @@ function append (val, arr) {
   if (arr === undefined) {
     return holder => append(val, holder)
   }
-  const clone = arr
+  const clone = Array.from(arr)
   clone.push(val)
 
   return clone
@@ -182,8 +182,8 @@ function equals(a, b) {
   }
 
   if (aType === "Array") {
-    const aClone = a
-    const bClone = b
+    const aClone = Array.from(a)
+    const bClone = Array.from(b)
 
     return aClone.sort().toString() === bClone.sort().toString()
   }
@@ -413,7 +413,7 @@ function prepend(val, arr) {
     return holder => prepend(val, holder)
   }
 
-  const clone = arr
+  const clone = Array.from(arr)
   clone.unshift(val)
 
   return clone
