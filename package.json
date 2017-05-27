@@ -6,7 +6,7 @@
   "scripts": {
     "build": "run-s browser-build browser-minify node-minify",
     "test": "jest",
-    "dev": "jest __tests__/curry.js",
+    "dev": "jest __tests__/init.js",
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "sr m minify f webVersion.js o _",
     "node-minify": "sr m minify f rambda.js o index.js",
