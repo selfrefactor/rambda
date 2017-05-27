@@ -3,7 +3,7 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 7kB
+Faster alternative to **Ramda** in just 10kB
 
 ## Argumentation
 
@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.5.12/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.6.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
