@@ -242,8 +242,8 @@ R.flatten([ 1, [ 2, [ 3 ] ] ]
 - Returns `true` if `obj` has property `prop`
 
 ```javascript
-R.head("a", {a: 1}) //=> true
-R.head("b", {a: 1}) //=> false
+R.has("a", {a: 1}) //=> true
+R.has("b", {a: 1}) //=> false
 ```
 
 #### head
