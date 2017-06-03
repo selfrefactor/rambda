@@ -9,9 +9,9 @@ Faster alternative to **Ramda** in just 10kB
 
 I admire ***Ramda*** as it is great library in what it does, but I used only small part of what it offers.
 
-I wanted to optimize the size of my bundle, but already developed Ramda habits.
+I wanted to optimize the size of my bundle, but I had already developed Ramda habits.
 
-This lead me to the idea to recreate the funtionality of some Ramda methods and export that as library.
+This lead me to the idea to recreate the funtionality of some Ramda methods and export that as a library.
 
 ## Example use
 
