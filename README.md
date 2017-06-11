@@ -594,25 +594,23 @@ R.values({a: 1, b: 2}) //=> [1, 2]
 ---
 ## Benchmark
 
-![Screen](/files/screen1.png)
-![Screen](/files/screen2.png)
+![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
+![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen2.png)
 
 ## Flowtype
 
 I haven't tested it fully, but the partial test shows that [Ramda
 definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
 
-You need to replace `declare module ramda` with `declare module rambda` on line
-10 and store the file as rambda.js in your *flow-typed* folder
----
+You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
 
 ### More info
 
-#### Changelog
+> Changelog
 
 - 0.6.2 Add separate documentation site via `docsify`
 
-#### Projects using Rambda
+> Projects using Rambda
 
 - [I Learn Smarter](https://github.com/selfrefactor/ils)
 
@@ -626,6 +624,6 @@ You need to replace `declare module ramda` with `declare module rambda` on line
 
 - [watch-fn](https://www.npmjs.com/package/watch-fn)
 
-#### Articles about Rambda
+> Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
