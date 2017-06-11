@@ -604,7 +604,7 @@ definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/
 
 You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
 
-### More info
+## More info
 
 > Changelog
 
