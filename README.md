@@ -367,9 +367,9 @@ R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 
 #### pluck
 
-> pluck( property: String, arr: Array<Object> ): Array
+> pluck(property: String, arr: Array): Array
 
-- Returns list of the values of `property` taken from the objects in `arr`
+- Returns list of the values of `property` taken from the objects in array of objects `arr`
 
 ```
 R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) //=> [1, 2]
