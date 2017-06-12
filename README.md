@@ -352,6 +352,10 @@ const curried = R.partialCurry(fn, {a: 2})
 curried({b: 3, c: 10}) //=> 16
 ```
 
+Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
+
+You can read my argumentation for creating `partialCurry` [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+
 #### pick
 
 > pick(propsToPick: Array<String>, obj: Object): Object
