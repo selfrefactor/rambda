@@ -367,7 +367,9 @@ R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 
 #### pluck
 
+
 > pluck(property: String, arr: Array<Object>): Array
+
 
 - Returns list of the values of `property` taken from the objects in `arr`
 
