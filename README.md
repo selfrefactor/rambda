@@ -357,6 +357,8 @@ curried({b: 3, c: 10}) //=> 16
 
 #### pluck
 
+- Returns list of the values of property `prop` taken from the objects in `arr`
+
 ```
 R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
 ```
