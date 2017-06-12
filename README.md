@@ -355,6 +355,26 @@ curried({b: 3, c: 10}) //=> 16
 
 - You can read my argumentation for creating *partialCurry* [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
+#### pick
+
+> pick(propsToPick: Array<String>, obj: Object): Object
+
+- Returns a partial copy of an `obj` containing only `propsToPick` properties
+
+```
+R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
+```
+
+#### pluck
+
+> pluck(prop: String, arr: Array<Object>): Array
+
+- Returns list of the values of property `prop` taken from the objects in `arr`
+
+```
+R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
+```
+
 #### prepend
 
 > prepend(valueToPrepend: any, arr: Array): Array
@@ -363,13 +383,15 @@ curried({b: 3, c: 10}) //=> 16
 R.prepend('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
 ```
 
-#### prop(propToFind: String, obj: Object): any
+#### prop
+
+> prop(propToFind: String, obj: Object): any
 
 Returns `undefined` or the value of property `propToFind` in `obj`
 
 ```javascript
 R.prop('x', {x: 100}) //=> 100
-R.prop('x', {}) //=> undefined
+R.prop('x', {a: 1}) //=> undefined
 ```
 
 #### propEq
