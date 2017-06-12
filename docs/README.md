@@ -351,10 +351,9 @@ const fn = ({a, b, c}) => {
 const curried = R.partialCurry(fn, {a: 2})
 curried({b: 3, c: 10}) //=> 16
 ```
+- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
-Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
-
-You can read my argumentation for creating `partialCurry` [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+- You can read my argumentation for creating *partialCurry* [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
 #### pick
 
@@ -362,18 +361,18 @@ You can read my argumentation for creating `partialCurry` [here](https://selfref
 
 - Returns a partial copy of an `obj` containing only `propsToPick` properties
 
-```javascript
+```
 R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 ```
 
 #### pluck
 
-> pluck(prop: String, arr: Array<Object>): Array
+> pluck(property: String, arr: Array): Array
 
-- Returns list of the values of property `prop` taken from the objects in `arr`
+- Returns list of the values of `property` taken from the objects in array of objects `arr`
 
-```javascript
-R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
+```
+R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) //=> [1, 2]
 ```
 
 #### prepend
@@ -384,13 +383,15 @@ R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
 R.prepend('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
 ```
 
-#### prop(propToFind: String, obj: Object): any
+#### prop
+
+> prop(propToFind: String, obj: Object): any
 
 Returns `undefined` or the value of property `propToFind` in `obj`
 
 ```javascript
 R.prop('x', {x: 100}) //=> 100
-R.prop('x', {}) //=> undefined
+R.prop('x', {a: 1}) //=> undefined
 ```
 
 #### propEq
@@ -450,6 +451,8 @@ R.sort(sortFn, [3, 1, 2]) //=> [1, 2, 3]
 ```
 
 #### sortBy
+
+> sortBy(sortFn: Function, arr: Array): Array
 
 Returns copy of `arr` sorted by `sortFn`
 
