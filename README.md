@@ -365,16 +365,6 @@ curried({b: 3, c: 10}) //=> 16
 R.pick(['a', 'c'], {a: 1, b: 2}) //=> {a: 1}
 ```
 
-#### pluck
-
-> pluck(prop: String, arr: Array<Object>): Array
-
-- Returns list of the values of property `prop` taken from the objects in `arr`
-
-```
-R.pluck('a')([{a: 1}, {a: 2}]) //=> [1, 2]
-```
-
 #### prepend
 
 > prepend(valueToPrepend: any, arr: Array): Array
