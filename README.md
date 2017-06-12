@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.6.1/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -44,15 +44,13 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
 
-- Rambda's **curry** works in much different way than Ramda's `curry`. Please chech with the documentation of the method.
-
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
-- If you need more **Ramda** methods, than what **Rambda** offers, you may check [Rambdax](https://github.com/selfrefactor/rambdax)
+> If you need more **Ramda** methods, than what **Rambda** offers, you may check the extended version of Rambda - [Rambdax](https://github.com/selfrefactor/rambdax)
 
 ## API
 
@@ -106,22 +104,16 @@ R.contains(3, [1, 2]) //=> false
 
 #### curry
 
-> curry(fn: Function|Async, a: Object, b: Object): Function|Promise
+> curry(fn: Function): Function
 
-When called with function `fn` and first set of input `a`, it will return a function.
-
-This function will wait to be called with second set of input `b` and it will invoke `fn` with the merged object of `a` over `b`.
-
-`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
-
-See the example below:
+Returns curried version of `fn`
 
 ```javascript
-const fn = ({a, b, c}) => {
-  return (a * b) + c
-}
-const curried = R.curry(fn, {a: 2})
-curried({b: 3, c: 10}) //=> 16
+const addFourNumbers = (a, b, c, d) => a + b + c + d
+const curriedAddFourNumbers = R.curry(addFourNumbers)
+const f = curriedAddFourNumbers(1, 2)
+const g = f(3)
+g(4) // => 10
 ```
 
 #### defaultTo
@@ -338,6 +330,26 @@ R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) //=> {b: 2, c: 3}
 ```javascript
 R.path(['a', 'b'], {a: {b: 2}}) //=> 2
 R.path(['a', 'c'], {a: {b: 2}}) //=> undefined
+```
+
+#### partialCurry
+
+> partialCurry(fn: Function|Async, a: Object, b: Object): Function|Promise
+
+When called with function `fn` and first set of input `a`, it will return a function.
+
+This function will wait to be called with second set of input `b` and it will invoke `fn` with the merged object of `a` over `b`.
+
+`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
+
+See the example below:
+
+```javascript
+const fn = ({a, b, c}) => {
+  return (a * b) + c
+}
+const curried = R.partialCurry(fn, {a: 2})
+curried({b: 3, c: 10}) //=> 16
 ```
 
 #### pick
@@ -608,6 +620,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry` 
 - 0.6.2 Add separate documentation site via `docsify`
 
 > Projects using Rambda

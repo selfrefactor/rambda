@@ -1,17 +1,7 @@
-const type = require("./type")
-const merge = require("./merge")
+// taken from the last comment of https://gist.github.com/mkuklis/5294248
 
-function curry(fn, inputArguments = {}) {
-  return inputArgumentsHolder => {
-    if (type(fn) === "Async") {
-      return new Promise((resolve, reject) => {
-        fn(merge(inputArgumentsHolder, inputArguments))
-          .then(resolve)
-          .catch(reject)
-      })
-    }
-    return fn(merge(inputArgumentsHolder, inputArguments))
-  }
+function curry(f, a = []){
+  return (...p) => (o => o.length === f.length ? f(...o) : curry(f, o))([...a, ...p])
 }
 
 module.exports = curry
