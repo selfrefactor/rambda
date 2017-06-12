@@ -357,6 +357,8 @@ curried({b: 3, c: 10}) //=> 16
 
 #### pluck
 
+> pluck(prop: String, arr: Array<Object>): Array
+
 - Returns list of the values of property `prop` taken from the objects in `arr`
 
 ```
@@ -449,6 +451,8 @@ R.sort(sortFn, [3, 1, 2]) //=> [1, 2, 3]
 ```
 
 #### sortBy
+
+> sortBy(sortFn: Function, arr: Array): Array
 
 Returns copy of `arr` sorted by `sortFn`
 
