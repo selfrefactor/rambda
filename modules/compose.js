@@ -1,28 +1,13 @@
-function isFunction(value){
+// Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
+const compose = (...fns) =>
+  result => {
+    let list = fns.slice()
 
-  return typeof value === "function"
-}
-
-function compose () {
-  const funcs = arguments
-  let length = funcs.length
-
-  while (length--) {
-    if (!isFunction(funcs[ length ])) {
-      throw new TypeError
-    }
-  }
-
-  return function () {
-    let args = arguments
-    let len = funcs.length
-
-    while (len--) {
-      args = [ funcs[ len ].apply(this, args) ]
+    while (list.length > 0) {
+      result = list.pop()(result)
     }
 
-    return args[ 0 ]
+    return result
   }
-}
 
 module.exports = compose
