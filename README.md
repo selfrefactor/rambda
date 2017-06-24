@@ -47,8 +47,8 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
-- 
-- Rambda's **path** accept string and arrays for defining object path.
+
+- Rambda's **path** accepts both string and array as object path.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
