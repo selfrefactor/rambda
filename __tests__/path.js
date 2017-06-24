@@ -1,6 +1,13 @@
 const R = require("../rambda")
 
 describe("path", () => {
+  it("works with string instead of array", () => {
+    expect(
+        R.path(
+          "foo.bar.baz"
+        )({ foo : { bar : { baz : "yes" } } })
+      ).toEqual("yes")
+  })    
   it("", () => {
     expect(
         R.path(

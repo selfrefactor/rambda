@@ -47,6 +47,8 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+- 
+- Rambda's **path** accept string and arrays for defining object path.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
@@ -89,6 +91,19 @@ R.any(a => a * a > 10)([1, 2, 3]) //=> false
 
 ```javascript
 R.append('foo', ['bar', 'baz']) //=> ['foo', 'bar', 'baz']
+```
+
+#### compose
+
+> compose(fn1: Function, ... , fnN: Function): any
+
+Performs right-to-left function composition
+```
+const result = R.compose(
+  R.map(a => a*2)
+  R.filter(val => val>2),
+)([1, 2, 3, 4])
+console.log(result) // => [6, 8]
 ```
 
 #### contains
@@ -323,11 +338,12 @@ R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) //=> {b: 2, c: 3}
 
 #### path
 
-> path(pathToSearch: Array<String>, obj: Object): any
+> path(pathToSearch: Array<String>|String, obj: Object): any
 
 - Retrieve the value at `pathToSearch` in object `obj`
 
 ```javascript
+R.path('a.b', {a: {b: 2}}) //=> 2
 R.path(['a', 'b'], {a: {b: 2}}) //=> 2
 R.path(['a', 'c'], {a: {b: 2}}) //=> undefined
 ```

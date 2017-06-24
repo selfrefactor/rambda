@@ -5,6 +5,9 @@ function path(pathArr, obj) {
 
   let holder = obj
   let counter = 0
+  if(typeof pathArr === "string"){
+    pathArr = pathArr.split(".")
+  }
   while (counter < pathArr.length) {
     if (holder === null) {
       return undefined
