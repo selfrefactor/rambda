@@ -635,6 +635,31 @@ if (options.range) {
   .run()
 }
 
+const reduce = new Benchmark.Suite
+options.reduce = false
+
+if (options.reduce) {
+  const fn = (acc, value) => acc + value
+  const holder = [1,2,3]
+  const acc = ""
+  reduce.add("Rambda#reduce", () => {
+    R.reduce(fn, acc, holder)
+  })
+  .add("Ramda", () => {
+    Ramda.reduce(fn, acc, holder)
+  })
+  .add("Lodash", () => {
+    _.reduce(holder, fn, acc)
+  })
+  .on("cycle", event => {
+    benchmarks.add(event.target)
+  })
+  .on("complete", () => {
+    benchmarks.log()
+  })
+  .run()
+}
+
 const repeat = new Benchmark.Suite
 options.repeat = false
 
