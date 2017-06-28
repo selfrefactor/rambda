@@ -423,6 +423,16 @@ R.propEq(propToFind, valueToMatch)({foo: 0}) //=> true
 R.propEq(propToFind, valueToMatch)({foo: 1}) //=> false
 ```
 
+#### range
+
+> range(start: Number, end: Number): Array<Number>
+
+- Returns a array of numbers from `start`(inclusive) to `end`(exclusive)
+
+```javascript
+R.range(0, 2)   //=> [0, 1]
+```
+
 #### reduce 
 
 > reduce(iteratorFn: Function, accumulator: Any, array: Array): any
@@ -433,17 +443,7 @@ The iterator function behaves like the native [`Array.prototype.reduce`](https:/
 
 ```javascript
 R.reduce((acc, value) => acc + value, '', [1, 2, 3])   //=> '1,2,3'
-```
-
-#### range
-
-> range(start: Number, end: Number): Array<Number>
-
-- Returns a array of numbers from `start`(inclusive) to `end`(exclusive)
-
-```javascript
-R.range(0, 2)   //=> [0, 1]
-```
+``
 
 #### repeat
 
