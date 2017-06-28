@@ -444,7 +444,7 @@ The iterator function behaves like the native callback of the [`Array.prototype.
 ```javascript
 const iteratorFn = (acc, val) => acc + val
 R.reduce(iteratorFn, 1, [1, 2, 3])   //=> 7
-``
+```
 
 #### repeat
 
@@ -656,7 +656,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
-- 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/5) - add `R.reduce` to the API
+- 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry` 
 - 0.6.2 Add separate documentation site via `docsify`
 
