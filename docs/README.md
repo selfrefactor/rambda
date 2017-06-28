@@ -423,6 +423,18 @@ R.propEq(propToFind, valueToMatch)({foo: 0}) //=> true
 R.propEq(propToFind, valueToMatch)({foo: 1}) //=> false
 ```
 
+#### reduce 
+
+> reduce(iteratorFn: Function, accumulator: Any, array: Array): any
+
+- Returns a single item by iterating through the list, successively calling the iterator function `iteratorFn` and passing it an `accumulator` value and the current value from the array, and then passing the result to the next call.
+
+The iterator function behaves like the native [`Array.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) method.
+
+```javascript
+R.reduce((acc, value) => acc + value, '', [1, 2, 3])   //=> '1,2,3'
+```
+
 #### range
 
 > range(start: Number, end: Number): Array<Number>
