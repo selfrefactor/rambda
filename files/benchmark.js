@@ -638,7 +638,7 @@ if (options.range) {
 const reduce = new Benchmark.Suite
 options.reduce = false
 
-if (options.range) {
+if (options.reduce) {
   const fn = (acc, value) => acc + value
   const holder = [1,2,3]
   const acc = ""
