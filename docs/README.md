@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.0/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.1/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -433,6 +433,19 @@ R.propEq(propToFind, valueToMatch)({foo: 1}) //=> false
 R.range(0, 2)   //=> [0, 1]
 ```
 
+#### reduce 
+
+> reduce(iteratorFn: Function, accumulator: any, array: Array): any
+
+- Returns a single item by iterating through the list, successively calling the iterator function `iteratorFn` and passing it an `accumulator` value and the current value from the array, and then passing the result to the next call.
+
+The iterator function behaves like the native callback of the [`Array.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) method.
+
+```javascript
+const iteratorFn = (acc, val) => acc + val
+R.reduce(iteratorFn, 1, [1, 2, 3])   //=> 7
+``
+
 #### repeat
 
 > repeat(valueToRepeat: T, num: Number): Array<T>
@@ -643,6 +656,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/5) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry` 
 - 0.6.2 Add separate documentation site via `docsify`
 
