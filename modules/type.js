@@ -23,8 +23,11 @@ function type(a){
   }
 
   const asStr = a.toString()
+
   if(asStr.startsWith("async")){
     return "Async"
+  }else if(asStr === "[object Promise]"){
+    return "Promise"
   }else if(asStr.includes("function")||asStr.includes("=>")){
     return "Function"
   }
