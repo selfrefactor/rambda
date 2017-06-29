@@ -43,7 +43,7 @@ A few things to note:
 For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
-- 
+
 - Rambda's **type** detect unresolved `Promises`. The returned value is `"Promise"`
 
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
