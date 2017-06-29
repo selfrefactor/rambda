@@ -31,7 +31,7 @@ console.log(result) // => [3,4]
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.1/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.2/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -43,6 +43,8 @@ A few things to note:
 For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
+- 
+- Rambda's **type** detect unresolved `Promises`. The returned value is `"Promise"`
 
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
 
@@ -601,11 +603,18 @@ R.type(() => {}) //=> "Function"
 R.type(async () => {}) //=> "Async"
 R.type([]) //=> "Array"
 R.type({}) //=> "Object"
-R.type('s') //=> "String"
+R.type('foo') //=> "String"
 R.type(1) //=> "Number"
-R.type(false) //=> "Boolean"
+R.type(true) //=> "Boolean"
 R.type(null) //=> "Null"
 R.type(/[A-z]/) //=> "RegExp"
+
+const delay = ms => new Promise(resolve => {
+  setTimeout(function () {
+    resolve()
+  }, ms)
+})
+R.type(delay) //=> "Promise"
 ```
 
 #### uniq
@@ -656,6 +665,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry` 
 - 0.6.2 Add separate documentation site via `docsify`
@@ -668,7 +678,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 - [log-fn](https://www.npmjs.com/package/log-fn)
 
-- [nightmare-helper](nightmare-helper)
+- [phobetor](https://github.com/selfrefactor/phobetor)
 
 - [string-fn](https://www.npmjs.com/package/string-fn)
 
