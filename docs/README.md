@@ -43,7 +43,7 @@ A few things to note:
 For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
 
 - Rambda's **type** detect async functions. The returned value is `"Async"`
-- 
+
 - Rambda's **type** detect unresolved `Promises`. The returned value is `"Promise"`
 
 - Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
@@ -311,7 +311,7 @@ R.map(mapFn, [1, 2, 3]) //=> [2, 4, 6]
 
 #### match
 
-> map(regExpression: Regex, str: String): Array
+> match(regExpression: Regex, str: String): Array
 
 ```javascript
 R.match(/([a-z]a)/g, 'bananas') //=> ['ba', 'na', 'na']
