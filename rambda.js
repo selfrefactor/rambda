@@ -1,4 +1,5 @@
 exports.add = require("./modules/add")
+exports.addIndex = require("./modules/addIndex")
 exports.any = require("./modules/any")
 exports.adjust = require("./modules/adjust")
 exports.append = require("./modules/append")
