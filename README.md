@@ -311,7 +311,7 @@ R.map(mapFn, [1, 2, 3]) //=> [2, 4, 6]
 
 #### match
 
-> map(regExpression: Regex, str: String): Array
+> match(regExpression: Regex, str: String): Array
 
 ```javascript
 R.match(/([a-z]a)/g, 'bananas') //=> ['ba', 'na', 'na']
