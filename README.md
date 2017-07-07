@@ -674,6 +674,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; also [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
 - 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`

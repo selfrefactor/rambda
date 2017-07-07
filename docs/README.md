@@ -66,6 +66,15 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 R.add(2, 3) //=>  5
 ```
 
+#### addIndex
+
+> addIndex(fn: Function): Function
+
+```javascript
+const mapWithIndex = R.addIndex(R.map)
+mapWithIndex((val, index) => `${val} - ${index}`, ["A", "B", "C"]) // => ["A - 0", "B - 1", "C - 2"]
+```
+
 #### adjust
 
 > adjust(replaceFn: Function, i:Number, arr:Array): Array
@@ -435,7 +444,7 @@ R.propEq(propToFind, valueToMatch)({foo: 1}) //=> false
 R.range(0, 2)   //=> [0, 1]
 ```
 
-#### reduce 
+#### reduce
 
 > reduce(iteratorFn: Function, accumulator: any, array: Array): any
 
@@ -667,7 +676,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 - 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
-- 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry` 
+- 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
 > Projects using Rambda
