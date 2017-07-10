@@ -7,11 +7,9 @@ Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefacto
 
 ## Argumentation
 
-I admire `Ramda` as it is great library in what it does, but I used only small part of what it offers.
+I admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
 
-I wanted to optimize the size of my webpack bundle, but I had already developed `Ramda` habits.
-
-This lead me to the idea to recreate the funtionality of some `Ramda` methods and export that as a library.
+Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
 
 ## Example use
 
