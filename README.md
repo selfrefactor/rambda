@@ -16,20 +16,21 @@ Then I realized that my best solution was to publish a library that recreates th
 ```
 const R = require("rambda")
 const result = R.compose(
-  R.filter(val => val>2),
+  R.join("-"),
+  R.filter(a => a > 2),
   R.flatten,
 )([ [1], [2], [3], 4])
-console.log(result) // => [3,4]
+console.log(result) // => "3-4"
 ```
 
 ## Install
 
-- Use **npm i rambda** for Webpack and Node.js
+- Use **npm i rambda** for `Webpack` and `Node.js` usage
 
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.3/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -70,7 +71,10 @@ R.add(2, 3) //=>  5
 
 ```javascript
 const mapWithIndex = R.addIndex(R.map)
-mapWithIndex((val, index) => `${val} - ${index}`, ["A", "B", "C"]) // => ["A - 0", "B - 1", "C - 2"]
+mapWithIndex(
+  (val, index) => `${val} - ${index}`,
+  ["A", "B", "C"]
+) // => ["A - 0", "B - 1", "C - 2"]
 ```
 
 #### adjust
