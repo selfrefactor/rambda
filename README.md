@@ -3,15 +3,15 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Argumentation
 
-I admire ***Ramda*** as it is great library in what it does, but I used only small part of what it offers.
+I admire `Ramda` as it is great library in what it does, but I used only small part of what it offers.
 
-I wanted to optimize the size of my bundle, but I had already developed Ramda habits.
+I wanted to optimize the size of my webpack bundle, but I had already developed `Ramda` habits.
 
-This lead me to the idea to recreate the funtionality of some Ramda methods and export that as a library.
+This lead me to the idea to recreate the funtionality of some `Ramda` methods and export that as a library.
 
 ## Example use
 
@@ -679,6 +679,10 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
+
+> PR
+
+If you want to add another `Ramda` method to the API, please feel free to submit a `PR` 
 
 > Projects using Rambda
 
