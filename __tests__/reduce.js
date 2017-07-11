@@ -22,5 +22,15 @@ describe("reduce", () => {
     expect(
       result
     ).toEqual(7)
+  })  
+  
+  it("with curry", () => {
+    const add = R.curry((n, n2) => n + n2)
+
+    expect(
+      R.reduce(add, 0, [1, 2, 3])
+    ).toEqual(6)
   })
+  
+  
 })

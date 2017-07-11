@@ -8,4 +8,9 @@ describe("curry", () => {
     const g = f(3)
     expect(g(4)).toEqual(10)
   })
+  
+  it("when called with more arguments", () => {
+    const add = R.curry((n, n2) => n + n2)
+    expect(add(1, 2, 3)).toEqual(3)
+  })
 })
