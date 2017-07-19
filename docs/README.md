@@ -3,35 +3,34 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Argumentation
 
-I admire ***Ramda*** as it is great library in what it does, but I used only small part of what it offers.
+I admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
 
-I wanted to optimize the size of my bundle, but I had already developed Ramda habits.
-
-This lead me to the idea to recreate the funtionality of some Ramda methods and export that as a library.
+Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
 
 ## Example use
 
 ```
 const R = require("rambda")
 const result = R.compose(
-  R.filter(val => val>2),
+  R.join("-"),
+  R.filter(a => a > 2),
   R.flatten,
 )([ [1], [2], [3], 4])
-console.log(result) // => [3,4]
+console.log(result) // => "3-4"
 ```
 
 ## Install
 
-- Use **npm i rambda** for Webpack and Node.js
+- Use **npm i rambda** for `Webpack` and `Node.js` usage
 
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.4/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -72,7 +71,10 @@ R.add(2, 3) //=>  5
 
 ```javascript
 const mapWithIndex = R.addIndex(R.map)
-mapWithIndex((val, index) => `${val} - ${index}`, ["A", "B", "C"]) // => ["A - 0", "B - 1", "C - 2"]
+mapWithIndex(
+  (val, index) => `${val} - ${index}`,
+  ["A", "B", "C"]
+) // => ["A - 0", "B - 1", "C - 2"]
 ```
 
 #### adjust
@@ -674,10 +676,16 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments 
+- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; also [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
 - 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
+
+> PR
+
+If you want to add another `Ramda` method to the API, please feel free to submit a `PR` 
 
 > Projects using Rambda
 
