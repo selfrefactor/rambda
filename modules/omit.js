@@ -4,7 +4,7 @@ function omit(keys, obj){
   }
 
   const willReturn = {}
-  for (key in obj) {
+  for (const key in obj) {
     if (!keys.includes(key)) {
       willReturn[ key ] = obj[ key ]
     }
