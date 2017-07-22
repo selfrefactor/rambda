@@ -34,10 +34,10 @@ options.adjust = true
 
 if (options.adjust) {
   adjust.add("Rambda.adjust", () => {
-    R.adjust(val => val + 1, 0)
+    R.adjust(val => val + 1, 0, [1, 100])
   })
   .add("Ramda", () => {
-    Ramda.adjust(val => val + 1, 0)
+    Ramda.adjust(val => val + 1, 0, [1, 100])
   })
   .on("cycle", event => {
     benchmarks.add(event.target)
