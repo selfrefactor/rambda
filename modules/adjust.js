@@ -1,18 +1,16 @@
 function adjust(fn, index, arr){
-  if (index === undefined) {
-    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
+  if (index === undefined || arr === undefined) {
+    return adjust.bind(null, fn)
   } else if (arr === undefined) {
-    return holder => adjust(fn, index, holder)
+    return adjust.bind(null, fn, index)
   }
-  const clone = arr.concat()
-
-  return clone.map((val, key) => {
-    if (key === index) {
-      return fn(arr[ index ])
-    }
-
-    return val
-  })
+  if(index < 0) {
+    return arr;
+  }
+  const clonedArr = arr.slice()
+  clonedArr[index] = fn(clonedArr[index])
+  
+  return clonedArr;
 }
 
 module.exports = adjust
