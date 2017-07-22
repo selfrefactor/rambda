@@ -3,7 +3,7 @@ codecov:
     require_ci_to_pass: false
     after_n_builds: 1
 
-  token: 193d03b5-c86b-4fe9-b1ea-dd35aba1e2f5
+  token: 18fed7a5-a580-47bf-8b77-3316518dd732
 coverage:
   status:
     project: false

@@ -1,6 +1,6 @@
 function add(a, b){
   if (b === undefined) {
-    return c => add(a, c)
+    return add.bind(null, a)
   }
 
   return a + b

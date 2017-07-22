@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1500744985574" clover="3.2.0">
+  <project timestamp="1500744985574" name="All files">
+    <metrics statements="439" coveredstatements="438" conditionals="208" coveredconditionals="202" methods="104" coveredmethods="104" elements="751" coveredelements="744" complexity="0" loc="439" ncloc="439" packages="2" files="56" classes="56">
+      <package name="rambda">
+        <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="rambda.js" path="/home/august/projects/open-source/rambda/rambda.js">
+          <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="2" count="54" type="stmt"/>
+          <line num="3" count="54" type="stmt"/>
+          <line num="4" count="54" type="stmt"/>
+          <line num="5" count="54" type="stmt"/>
+          <line num="6" count="54" type="stmt"/>
+          <line num="7" count="54" type="stmt"/>
+          <line num="8" count="54" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+          <line num="10" count="54" type="stmt"/>
+          <line num="11" count="54" type="stmt"/>
+          <line num="12" count="54" type="stmt"/>
+          <line num="13" count="54" type="stmt"/>
+          <line num="14" count="54" type="stmt"/>
+          <line num="15" count="54" type="stmt"/>
+          <line num="16" count="54" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+          <line num="18" count="54" type="stmt"/>
+          <line num="19" count="54" type="stmt"/>
+          <line num="20" count="54" type="stmt"/>
+          <line num="21" count="54" type="stmt"/>
+          <line num="22" count="54" type="stmt"/>
+          <line num="23" count="54" type="stmt"/>
+          <line num="24" count="54" type="stmt"/>
+          <line num="25" count="54" type="stmt"/>
+          <line num="26" count="54" type="stmt"/>
+          <line num="27" count="54" type="stmt"/>
+          <line num="28" count="54" type="stmt"/>
+          <line num="29" count="54" type="stmt"/>
+          <line num="30" count="54" type="stmt"/>
+          <line num="31" count="54" type="stmt"/>
+          <line num="32" count="54" type="stmt"/>
+          <line num="33" count="54" type="stmt"/>
+          <line num="34" count="54" type="stmt"/>
+          <line num="35" count="54" type="stmt"/>
+          <line num="36" count="54" type="stmt"/>
+          <line num="37" count="54" type="stmt"/>
+          <line num="38" count="54" type="stmt"/>
+          <line num="39" count="54" type="stmt"/>
+          <line num="40" count="54" type="stmt"/>
+          <line num="41" count="54" type="stmt"/>
+          <line num="42" count="54" type="stmt"/>
+          <line num="43" count="54" type="stmt"/>
+          <line num="44" count="54" type="stmt"/>
+          <line num="45" count="54" type="stmt"/>
+          <line num="46" count="54" type="stmt"/>
+          <line num="47" count="54" type="stmt"/>
+          <line num="48" count="54" type="stmt"/>
+          <line num="49" count="54" type="stmt"/>
+          <line num="50" count="54" type="stmt"/>
+          <line num="51" count="54" type="stmt"/>
+          <line num="52" count="54" type="stmt"/>
+          <line num="53" count="54" type="stmt"/>
+          <line num="54" count="54" type="stmt"/>
+        </file>
+      </package>
+      <package name="rambda.modules">
+        <metrics statements="385" coveredstatements="384" conditionals="208" coveredconditionals="202" methods="104" coveredmethods="104"/>
+        <file name="add.js" path="/home/august/projects/open-source/rambda/modules/add.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+          <line num="2" count="21" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="8" type="stmt"/>
+          <line num="6" count="13" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="addIndex.js" path="/home/august/projects/open-source/rambda/modules/addIndex.js">
+          <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+          <line num="2" count="2" type="stmt"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="4" count="4" type="stmt"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="adjust.js" path="/home/august/projects/open-source/rambda/modules/adjust.js">
+          <metrics statements="10" coveredstatements="9" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+          <line num="2" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="4" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="3" type="stmt"/>
+          <line num="7" count="5" type="cond" truecount="1" falsecount="1"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="10" count="5" type="stmt"/>
+          <line num="11" count="5" type="stmt"/>
+          <line num="13" count="5" type="stmt"/>
+          <line num="16" count="54" type="stmt"/>
+        </file>
+        <file name="any.js" path="/home/august/projects/open-source/rambda/modules/any.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="8" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="14" count="1" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+        </file>
+        <file name="append.js" path="/home/august/projects/open-source/rambda/modules/append.js">
+          <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="4" type="stmt"/>
+          <line num="5" count="8" type="stmt"/>
+          <line num="6" count="8" type="stmt"/>
+          <line num="8" count="8" type="stmt"/>
+          <line num="11" count="54" type="stmt"/>
+        </file>
+        <file name="baseSlice.js" path="/home/august/projects/open-source/rambda/modules/baseSlice.js">
+          <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+          <line num="2" count="15" type="stmt"/>
+          <line num="3" count="15" type="stmt"/>
+          <line num="5" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="7" count="5" type="stmt"/>
+          <line num="9" count="15" type="cond" truecount="1" falsecount="1"/>
+          <line num="10" count="15" type="stmt"/>
+          <line num="12" count="15" type="stmt"/>
+          <line num="13" count="15" type="stmt"/>
+          <line num="14" count="31" type="stmt"/>
+          <line num="17" count="15" type="stmt"/>
+          <line num="20" count="54" type="stmt"/>
+        </file>
+        <file name="compose.js" path="/home/august/projects/open-source/rambda/modules/compose.js">
+          <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+          <line num="2" count="54" type="stmt"/>
+          <line num="3" count="9" type="stmt"/>
+          <line num="4" count="14" type="stmt"/>
+          <line num="6" count="14" type="stmt"/>
+          <line num="7" count="35" type="stmt"/>
+          <line num="10" count="14" type="stmt"/>
+          <line num="13" count="54" type="stmt"/>
+        </file>
+        <file name="contains.js" path="/home/august/projects/open-source/rambda/modules/contains.js">
+          <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="18" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="8" count="17" type="stmt"/>
+          <line num="9" count="17" type="stmt"/>
+          <line num="10" count="17" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="26" type="cond" truecount="2" falsecount="0"/>
+          <line num="12" count="9" type="stmt"/>
+          <line num="16" count="17" type="stmt"/>
+          <line num="19" count="54" type="stmt"/>
+        </file>
+        <file name="curry.js" path="/home/august/projects/open-source/rambda/modules/curry.js">
+          <metrics statements="2" coveredstatements="2" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+          <line num="4" count="7" type="cond" truecount="2" falsecount="0"/>
+          <line num="7" count="54" type="stmt"/>
+        </file>
+        <file name="defaultTo.js" path="/home/august/projects/open-source/rambda/modules/defaultTo.js">
+          <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="7" count="5" type="cond" truecount="4" falsecount="0"/>
+          <line num="12" count="54" type="stmt"/>
+        </file>
+        <file name="drop.js" path="/home/august/projects/open-source/rambda/modules/drop.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="14" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="dropLast.js" path="/home/august/projects/open-source/rambda/modules/dropLast.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="5" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="equals.js" path="/home/august/projects/open-source/rambda/modules/equals.js">
+          <metrics statements="35" coveredstatements="35" conditionals="30" coveredconditionals="28" methods="3" coveredmethods="3"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="61" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="1" type="stmt"/>
+          <line num="7" count="60" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="17" type="cond" truecount="1" falsecount="1"/>
+          <line num="11" count="43" type="stmt"/>
+          <line num="12" count="43" type="cond" truecount="2" falsecount="0"/>
+          <line num="13" count="4" type="stmt"/>
+          <line num="16" count="39" type="cond" truecount="2" falsecount="0"/>
+          <line num="17" count="4" type="stmt"/>
+          <line num="18" count="4" type="stmt"/>
+          <line num="20" count="4" type="stmt"/>
+          <line num="23" count="35" type="cond" truecount="2" falsecount="0"/>
+          <line num="24" count="14" type="stmt"/>
+          <line num="25" count="14" type="cond" truecount="2" falsecount="0"/>
+          <line num="26" count="13" type="cond" truecount="2" falsecount="0"/>
+          <line num="27" count="1" type="stmt"/>
+          <line num="29" count="12" type="stmt"/>
+          <line num="30" count="12" type="stmt"/>
+          <line num="31" count="16" type="cond" truecount="1" falsecount="1"/>
+          <line num="32" count="16" type="stmt"/>
+          <line num="33" count="16" type="stmt"/>
+          <line num="34" count="16" type="cond" truecount="2" falsecount="0"/>
+          <line num="35" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="36" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="37" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="38" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="39" count="2" type="stmt"/>
+          <line num="43" count="1" type="stmt"/>
+          <line num="45" count="9" type="cond" truecount="2" falsecount="0"/>
+          <line num="46" count="3" type="stmt"/>
+          <line num="49" count="1" type="stmt"/>
+          <line num="54" count="12" type="stmt"/>
+          <line num="58" count="22" type="stmt"/>
+          <line num="61" count="54" type="stmt"/>
+        </file>
+        <file name="filter.js" path="/home/august/projects/open-source/rambda/modules/filter.js">
+          <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="8" count="2" type="stmt"/>
+          <line num="9" count="2" type="stmt"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="12" count="15" type="stmt"/>
+          <line num="13" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="14" count="10" type="stmt"/>
+          <line num="18" count="2" type="stmt"/>
+          <line num="21" count="54" type="stmt"/>
+        </file>
+        <file name="find.js" path="/home/august/projects/open-source/rambda/modules/find.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="findIndex.js" path="/home/august/projects/open-source/rambda/modules/findIndex.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="3" type="stmt"/>
+          <line num="6" count="3" type="stmt"/>
+          <line num="7" count="3" type="stmt"/>
+          <line num="9" count="3" type="stmt"/>
+          <line num="10" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="15" count="1" type="stmt"/>
+          <line num="18" count="54" type="stmt"/>
+        </file>
+        <file name="flatten.js" path="/home/august/projects/open-source/rambda/modules/flatten.js">
+          <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+          <line num="2" count="32" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="32" type="stmt"/>
+          <line num="7" count="60" type="cond" truecount="2" falsecount="0"/>
+          <line num="8" count="26" type="stmt"/>
+          <line num="10" count="34" type="stmt"/>
+          <line num="14" count="32" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+        </file>
+        <file name="has.js" path="/home/august/projects/open-source/rambda/modules/has.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="head.js" path="/home/august/projects/open-source/rambda/modules/head.js">
+          <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="indexOf.js" path="/home/august/projects/open-source/rambda/modules/indexOf.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="9" count="2" type="stmt"/>
+          <line num="10" count="7" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="1" type="stmt"/>
+          <line num="15" count="1" type="stmt"/>
+          <line num="18" count="54" type="stmt"/>
+        </file>
+        <file name="init.js" path="/home/august/projects/open-source/rambda/modules/init.js">
+          <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="3" type="stmt"/>
+          <line num="8" count="7" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="54" type="stmt"/>
+        </file>
+        <file name="join.js" path="/home/august/projects/open-source/rambda/modules/join.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="5" type="stmt"/>
+          <line num="6" count="5" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="last.js" path="/home/august/projects/open-source/rambda/modules/last.js">
+          <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+          <line num="2" count="9" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="4" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="length.js" path="/home/august/projects/open-source/rambda/modules/length.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="3" count="3" type="stmt"/>
+          <line num="6" count="54" type="stmt"/>
+        </file>
+        <file name="map.js" path="/home/august/projects/open-source/rambda/modules/map.js">
+          <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="19" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="8" type="stmt"/>
+          <line num="6" count="11" type="stmt"/>
+          <line num="7" count="11" type="stmt"/>
+          <line num="8" count="11" type="stmt"/>
+          <line num="10" count="11" type="stmt"/>
+          <line num="11" count="51" type="stmt"/>
+          <line num="14" count="11" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+        </file>
+        <file name="match.js" path="/home/august/projects/open-source/rambda/modules/match.js">
+          <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="5" count="3" type="stmt"/>
+          <line num="7" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="12" count="54" type="stmt"/>
+        </file>
+        <file name="merge.js" path="/home/august/projects/open-source/rambda/modules/merge.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="3" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="omit.js" path="/home/august/projects/open-source/rambda/modules/omit.js">
+          <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="1" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="8" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="16" count="54" type="stmt"/>
+        </file>
+        <file name="partialCurry.js" path="/home/august/projects/open-source/rambda/modules/partialCurry.js">
+          <metrics statements="8" coveredstatements="8" conditionals="3" coveredconditionals="2" methods="3" coveredmethods="3"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="2" count="54" type="stmt"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="6" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="8" count="1" type="stmt"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+        </file>
+        <file name="path.js" path="/home/august/projects/open-source/rambda/modules/path.js">
+          <metrics statements="13" coveredstatements="13" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+          <line num="2" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="4" type="stmt"/>
+          <line num="6" count="4" type="stmt"/>
+          <line num="7" count="4" type="stmt"/>
+          <line num="8" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="11" count="4" type="stmt"/>
+          <line num="12" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="15" count="9" type="stmt"/>
+          <line num="16" count="9" type="stmt"/>
+          <line num="19" count="3" type="stmt"/>
+          <line num="22" count="54" type="stmt"/>
+        </file>
+        <file name="pick.js" path="/home/august/projects/open-source/rambda/modules/pick.js">
+          <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="8" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="3" type="stmt"/>
+          <line num="11" count="6" type="stmt"/>
+          <line num="14" count="2" type="stmt"/>
+          <line num="17" count="54" type="stmt"/>
+        </file>
+        <file name="pluck.js" path="/home/august/projects/open-source/rambda/modules/pluck.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="8" count="1" type="stmt"/>
+          <line num="10" count="2" type="cond" truecount="1" falsecount="1"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="16" count="1" type="stmt"/>
+          <line num="19" count="54" type="stmt"/>
+        </file>
+        <file name="prepend.js" path="/home/august/projects/open-source/rambda/modules/prepend.js">
+          <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="9" count="2" type="stmt"/>
+          <line num="12" count="54" type="stmt"/>
+        </file>
+        <file name="prop.js" path="/home/august/projects/open-source/rambda/modules/prop.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="11" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="8" type="stmt"/>
+          <line num="6" count="8" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="propEq.js" path="/home/august/projects/open-source/rambda/modules/propEq.js">
+          <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <line num="2" count="23" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="22" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="14" type="stmt"/>
+          <line num="8" count="14" type="stmt"/>
+          <line num="11" count="54" type="stmt"/>
+        </file>
+        <file name="range.js" path="/home/august/projects/open-source/rambda/modules/range.js">
+          <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="2" count="1" type="stmt"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="10" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="10" count="54" type="stmt"/>
+        </file>
+        <file name="reduce.js" path="/home/august/projects/open-source/rambda/modules/reduce.js">
+          <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <line num="2" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="6" count="2" type="stmt"/>
+          <line num="9" count="3" type="stmt"/>
+          <line num="12" count="54" type="stmt"/>
+        </file>
+        <file name="repeat.js" path="/home/august/projects/open-source/rambda/modules/repeat.js">
+          <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="5" count="3" type="stmt"/>
+          <line num="7" count="3" type="stmt"/>
+          <line num="10" count="54" type="stmt"/>
+        </file>
+        <file name="replace.js" path="/home/august/projects/open-source/rambda/modules/replace.js">
+          <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="8" count="2" type="stmt"/>
+          <line num="11" count="54" type="stmt"/>
+        </file>
+        <file name="sort.js" path="/home/august/projects/open-source/rambda/modules/sort.js">
+          <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="10" count="54" type="stmt"/>
+        </file>
+        <file name="sortBy.js" path="/home/august/projects/open-source/rambda/modules/sortBy.js">
+          <metrics statements="8" coveredstatements="8" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+          <line num="2" count="6" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="5" count="5" type="stmt"/>
+          <line num="7" count="5" type="stmt"/>
+          <line num="8" count="13" type="stmt"/>
+          <line num="9" count="13" type="stmt"/>
+          <line num="10" count="13" type="cond" truecount="2" falsecount="0"/>
+          <line num="18" count="54" type="stmt"/>
+        </file>
+        <file name="split.js" path="/home/august/projects/open-source/rambda/modules/split.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="7" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="3" type="stmt"/>
+          <line num="6" count="4" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="splitEvery.js" path="/home/august/projects/open-source/rambda/modules/splitEvery.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="5" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="3" type="stmt"/>
+          <line num="10" count="3" type="stmt"/>
+          <line num="11" count="3" type="stmt"/>
+          <line num="12" count="9" type="stmt"/>
+          <line num="15" count="3" type="stmt"/>
+          <line num="18" count="54" type="stmt"/>
+        </file>
+        <file name="subtract.js" path="/home/august/projects/open-source/rambda/modules/subtract.js">
+          <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+          <line num="2" count="12" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="11" type="stmt"/>
+          <line num="9" count="54" type="stmt"/>
+        </file>
+        <file name="tail.js" path="/home/august/projects/open-source/rambda/modules/tail.js">
+          <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="9" type="stmt"/>
+          <line num="7" count="54" type="stmt"/>
+        </file>
+        <file name="take.js" path="/home/august/projects/open-source/rambda/modules/take.js">
+          <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="7" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="6" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="10" count="4" type="stmt"/>
+          <line num="13" count="54" type="stmt"/>
+        </file>
+        <file name="takeLast.js" path="/home/august/projects/open-source/rambda/modules/takeLast.js">
+          <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="2" type="stmt"/>
+          <line num="7" count="8" type="stmt"/>
+          <line num="8" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="12" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="13" count="2" type="stmt"/>
+          <line num="15" count="6" type="stmt"/>
+          <line num="17" count="6" type="stmt"/>
+          <line num="20" count="54" type="stmt"/>
+        </file>
+        <file name="testFn.js" path="/home/august/projects/open-source/rambda/modules/testFn.js">
+          <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+          <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="54" type="stmt"/>
+        </file>
+        <file name="toLower.js" path="/home/august/projects/open-source/rambda/modules/toLower.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="3" count="15" type="stmt"/>
+          <line num="6" count="54" type="stmt"/>
+        </file>
+        <file name="toUpper.js" path="/home/august/projects/open-source/rambda/modules/toUpper.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="3" count="11" type="stmt"/>
+          <line num="6" count="54" type="stmt"/>
+        </file>
+        <file name="trim.js" path="/home/august/projects/open-source/rambda/modules/trim.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="6" count="54" type="stmt"/>
+        </file>
+        <file name="type.js" path="/home/august/projects/open-source/rambda/modules/type.js">
+          <metrics statements="23" coveredstatements="23" conditionals="22" coveredconditionals="22" methods="1" coveredmethods="1"/>
+          <line num="2" count="143" type="cond" truecount="2" falsecount="0"/>
+          <line num="4" count="3" type="stmt"/>
+          <line num="5" count="140" type="cond" truecount="2" falsecount="0"/>
+          <line num="7" count="9" type="stmt"/>
+          <line num="8" count="131" type="cond" truecount="2" falsecount="0"/>
+          <line num="10" count="4" type="stmt"/>
+          <line num="11" count="127" type="cond" truecount="2" falsecount="0"/>
+          <line num="13" count="63" type="stmt"/>
+          <line num="14" count="64" type="cond" truecount="2" falsecount="0"/>
+          <line num="16" count="8" type="stmt"/>
+          <line num="17" count="56" type="cond" truecount="2" falsecount="0"/>
+          <line num="19" count="2" type="stmt"/>
+          <line num="20" count="54" type="cond" truecount="2" falsecount="0"/>
+          <line num="22" count="2" type="stmt"/>
+          <line num="25" count="52" type="stmt"/>
+          <line num="27" count="52" type="cond" truecount="2" falsecount="0"/>
+          <line num="28" count="3" type="stmt"/>
+          <line num="29" count="49" type="cond" truecount="2" falsecount="0"/>
+          <line num="30" count="1" type="stmt"/>
+          <line num="31" count="48" type="cond" truecount="4" falsecount="0"/>
+          <line num="32" count="7" type="stmt"/>
+          <line num="35" count="41" type="stmt"/>
+          <line num="38" count="54" type="stmt"/>
+        </file>
+        <file name="uniq.js" path="/home/august/projects/open-source/rambda/modules/uniq.js">
+          <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+          <line num="1" count="54" type="stmt"/>
+          <line num="4" count="3" type="stmt"/>
+          <line num="5" count="3" type="stmt"/>
+          <line num="6" count="3" type="stmt"/>
+          <line num="7" count="14" type="stmt"/>
+          <line num="8" count="14" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="7" type="stmt"/>
+          <line num="13" count="3" type="stmt"/>
+          <line num="16" count="54" type="stmt"/>
+        </file>
+        <file name="update.js" path="/home/august/projects/open-source/rambda/modules/update.js">
+          <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
+          <line num="9" count="2" type="stmt"/>
+          <line num="12" count="54" type="stmt"/>
+        </file>
+        <file name="values.js" path="/home/august/projects/open-source/rambda/modules/values.js">
+          <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="2" count="1" type="stmt"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="3" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="10" count="54" type="stmt"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
