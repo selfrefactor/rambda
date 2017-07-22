@@ -1,11 +1,11 @@
-const R = require("../")
+const R = require("../rambda")
 const Ramda = require("ramda")
 const _ = require("lodash")
 const Benchmark = require("benchmark")
 const benchmarks = require("beautify-benchmark")
 
 const options = {}
-
+/*
 const add = new Benchmark.Suite
 options.add = true
 
@@ -28,7 +28,7 @@ if (options.add) {
   .run()
 }
 
-
+*/
 const adjust = new Benchmark.Suite
 options.adjust = true
 
@@ -39,6 +39,12 @@ if (options.adjust) {
   .add("Ramda", () => {
     Ramda.adjust(val => val + 1, 0, [1, 100])
   })
+  .add("Rambda.adjust-curry", () => {
+    R.adjust(val => val + 1)(0)([1, 100])
+  })
+  .add("Ramda.adjust-curry", () => {
+    Ramda.adjust(val => val + 1)(0)([1, 100])
+  })
   .on("cycle", event => {
     benchmarks.add(event.target)
   })
@@ -47,7 +53,7 @@ if (options.adjust) {
   })
   .run()
 }
-
+/*
 const any = new Benchmark.Suite
 options.any = true
 
@@ -1107,3 +1113,4 @@ if (options.example) {
   })
   .run()
 }
+*/

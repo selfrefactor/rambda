@@ -11,7 +11,8 @@
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "sr m minify f webVersion.js o _",
     "node-minify": "sr m minify f index.js o _",
-    "cover": "jest --coverage"
+    "cover": "jest --coverage",
+    "bench": "node files/benchmark.js"
   },
   "repository": {
     "type": "git",
