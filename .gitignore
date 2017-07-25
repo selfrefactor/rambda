@@ -1,6 +1,4 @@
-template.js
-templateLodash.js
-rambdaWeb.js
+jest_*
 
 # Logs
 logs

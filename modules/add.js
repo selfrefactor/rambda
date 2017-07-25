@@ -1,9 +1,7 @@
-function add(a, b){
-  if (b === undefined) {
-    return c => add(a, c)
-  }
+const curry = require("./curry")
 
+function add(a, b){
   return a + b
 }
 
-module.exports = add
+module.exports = curry(add)
