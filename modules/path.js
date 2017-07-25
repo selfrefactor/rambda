@@ -1,8 +1,11 @@
-function path(pathArr, obj) {
-  if (obj === undefined) {
-    return holder => path(pathArr, holder)
-  }
+const type = require("./type")
+const curry = require("./curry")
 
+function path(pathArr, obj) {
+  if(!(type(obj) === "Object")){
+    return undefined
+  }
+  
   let holder = obj
   let counter = 0
   if(typeof pathArr === "string"){
@@ -19,4 +22,4 @@ function path(pathArr, obj) {
   return holder
 }
 
-module.exports = path
+module.exports = curry(path)
