@@ -1,6 +1,11 @@
 const curry = require("./curry")
 
 function adjust(fn, index, arr){
+  if (index === undefined) {		
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)		
+  } else if (arr === undefined) {		
+    return holder => adjust(fn, index, holder)		
+  }
   const clone = arr.concat()
 
   return clone.map((val, key) => {
@@ -12,4 +17,4 @@ function adjust(fn, index, arr){
   })
 }
 
-module.exports = curry(adjust)
+module.exports = adjust
