@@ -12,4 +12,9 @@ describe("add", () => {
       R.add(7)(10)
     ).toEqual(17)
   })
+  it("without first value", () => {
+    expect(
+      R.add()(7)(10)
+    ).toEqual(17)
+  })
 })

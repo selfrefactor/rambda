@@ -1,8 +1,8 @@
-const curry = require("./curry")
-
 function add(a, b){
-  if(b === undefined){
-    return holder => add(a,holder)
+  if (a === undefined) {
+    return add;
+  } else if(b === undefined){
+    return add.bind(null, a)
   }
   return a + b
 }
