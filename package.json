@@ -6,7 +6,8 @@
   "scripts": {
     "build": "run-s browser-build browser-minify node-build node-minify",
     "test": "jest",
-    "dev": "jest __tests__/path.js",
+    "lint": "node files/lint",
+    "dev": "jest __tests__/not.js",
     "node-build": "webpack  --config files/webpack.config.node.js",
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "run m minify f webVersion.js o _",
