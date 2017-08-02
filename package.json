@@ -9,8 +9,8 @@
     "dev": "jest __tests__/path.js",
     "node-build": "webpack  --config files/webpack.config.node.js",
     "browser-build": "webpack  --config files/webpack.config.js",
-    "browser-minify": "sr m minify f webVersion.js o _",
-    "node-minify": "sr m minify f index.js o _",
+    "browser-minify": "run m minify f webVersion.js o _",
+    "node-minify": "run m minify f index.js o _",
     "cover": "jest --coverage"
   },
   "repository": {

@@ -1,20 +1,13 @@
 const R = require("../rambda")
 
-describe("add", () => {
-  it("without curring", () => {
-    expect(
-      R.add(2, 3)
-    ).toEqual(5)
-  })
+test("add without curring", () => {
+  expect(
+    R.add(2, 3)
+  ).toEqual(5)
+})
 
-  it("with curring", () => {
-    expect(
-      R.add(7)(10)
-    ).toEqual(17)
-  })
-  it("without first value", () => {
-    expect(
-      R.add()(7)(10)
-    ).toEqual(17)
-  })
+test("add with curring", () => {
+  expect(
+    R.add(7)(10)
+  ).toEqual(17)
 })

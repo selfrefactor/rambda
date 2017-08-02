@@ -30,7 +30,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.5/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.6/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -676,6 +676,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 > Changelog
 
+- 0.7.6 Fix incorrect implementation of `R.values`
 - 0.7.5 Fix incorrect implementation of `R.omit`
 - 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments 
 - 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; also [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
