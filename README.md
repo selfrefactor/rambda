@@ -716,7 +716,7 @@ function endsWith(x, arrOrStr){
 module.exports = endsWith
 ```
 
-Or we can use `R.curry`, which is not as performant as the above example.
+Or we can use `R.curry`, which is not as performant as the example above.
 
 ```
 const curry = require('./curry')
@@ -766,6 +766,8 @@ We have two new files and for linting them we must run:
 `npm run lint __tests__/endsWith.js`
 
 > Submit PR
+
+Expect response within the next 2 days. 
 
 ## Additional info
 
