@@ -30,7 +30,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.7.6/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -49,11 +49,13 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
-- Rambda's **path** accepts both string and array as object path.
+- Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument.
+
+- Rambda's **partialCurry** and **includes** are not part of Ramda API. 
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
-> If you need more **Ramda** methods, than what **Rambda** offers, you may check the extended version of Rambda - [Rambdax](https://github.com/selfrefactor/rambdax)
+> If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
 ## API
 
@@ -674,6 +676,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`
 - 0.7.6 Fix incorrect implementation of `R.values`
 - 0.7.5 Fix incorrect implementation of `R.omit`
 - 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments 
