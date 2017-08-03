@@ -20,7 +20,7 @@ test("works with string instead of array", () => {
   ).toEqual("yes")
 })
 
-test("", () => {
+test("R.path", () => {
   expect(
     R.path(
       ["foo", "bar", "baz"]
