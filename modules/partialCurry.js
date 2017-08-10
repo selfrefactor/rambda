@@ -1,9 +1,9 @@
 const type = require("./type")
 const merge = require("./merge")
 
-function curry(fn, inputArguments = {}) {
+function partialCurry(fn, inputArguments = {}) {
   return inputArgumentsHolder => {
-    if (type(fn) === "Async") {
+    if (type(fn) === "Async" || type(fn) === "Promise") {
       return new Promise((resolve, reject) => {
         fn(merge(inputArgumentsHolder, inputArguments))
           .then(resolve)
@@ -14,4 +14,4 @@ function curry(fn, inputArguments = {}) {
   }
 }
 
-module.exports = curry
+module.exports = partialCurry
