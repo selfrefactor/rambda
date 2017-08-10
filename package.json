@@ -7,7 +7,7 @@
     "build": "run-s browser-build browser-minify node-build node-minify",
     "test": "jest",
     "lint": "node files/lint",
-    "dev": "jest __tests__/omit.js",
+    "dev": "jest __tests__/ifElse.js",
     "node-build": "webpack  --config files/webpack.config.node.js",
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "run m minify f webVersion.js o _",
