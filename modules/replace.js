@@ -1,11 +1,7 @@
-function replace(regex, replacer, str) {
-  if (replacer === undefined) {
-    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
-  } else if (str === undefined) {
-    return holder => replace(regex, replacer, holder)
-  }
+const curryThree = require("./internal/curryThree")
 
+function replace(regex, replacer, str) {
   return str.replace(regex, replacer)
 }
 
-module.exports = replace
+module.exports = curryThree(replace)

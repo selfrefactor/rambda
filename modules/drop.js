@@ -1,9 +1,7 @@
-function drop(dropNumber, a){
-  if (a === undefined) {
-    return holder => drop(dropNumber, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function drop(dropNumber, a){
   return a.slice(dropNumber)
 }
 
-module.exports = drop
+module.exports = curryTwo(drop)

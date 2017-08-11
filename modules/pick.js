@@ -1,9 +1,7 @@
+const curryTwo = require("./internal/curryTwo")
 const type = require("./type")
 
 function pick(keys, obj) {
-  if (obj === undefined) {
-    return holder => pick(keys, holder)
-  }
   if(type(keys)==='String'){
     keys = keys.split(',').map(x => x.trim())
   }
@@ -20,4 +18,4 @@ function pick(keys, obj) {
   return willReturn
 }
 
-module.exports = pick
+module.exports = curryTwo(pick)

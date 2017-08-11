@@ -1,8 +1,6 @@
-function map(fn, arr) {
-  if (arr === undefined) {
-    return holder => map(fn, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function map(fn, arr) {
   let index = -1
   const length = arr.length
   const willReturn = Array(length)
@@ -14,4 +12,4 @@ function map(fn, arr) {
   return willReturn
 }
 
-module.exports = map
+module.exports = curryTwo(map)

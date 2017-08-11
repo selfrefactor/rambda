@@ -1,9 +1,7 @@
 const type = require("./type")
+const curryTwo = require("./internal/curryTwo")
 
 function omit(keys, obj){
-  if (obj === undefined) {
-    return holder => omit(keys, holder)
-  }
   if(type(keys)==='String'){
     keys = keys.split(',').map(x => x.trim())
   }
@@ -18,4 +16,4 @@ function omit(keys, obj){
   return willReturn
 }
 
-module.exports = omit
+module.exports = curryTwo(omit)

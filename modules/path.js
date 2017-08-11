@@ -5,7 +5,6 @@ function path(pathArr, obj) {
   if(!(type(obj) === "Object")){
     return undefined
   }
-  
   let holder = obj
   let counter = 0
   if(typeof pathArr === "string"){

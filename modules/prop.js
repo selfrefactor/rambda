@@ -1,9 +1,7 @@
-function prop(key, obj) {
-  if (obj === undefined) {
-    return holder => prop(key, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function prop(key, obj) {
   return obj[ key ]
 }
 
-module.exports = prop
+module.exports = curryTwo(prop)

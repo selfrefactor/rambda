@@ -1,9 +1,7 @@
-function merge(obj, newProps) {
-  if (newProps === undefined) {
-    return holder => merge(obj, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function merge(obj, newProps) {
   return Object.assign({}, obj, newProps)
 }
 
-module.exports = merge
+module.exports = curryTwo(merge)
