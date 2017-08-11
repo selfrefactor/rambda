@@ -1,7 +1,6 @@
+const curryTwo = require("./internal/curryTwo")
+
 function any(fn, arr){
-  if (arr === undefined) {
-    return holder => any(fn, holder)
-  }
 
   let counter = 0
   while (counter < arr.length) {
@@ -14,4 +13,4 @@ function any(fn, arr){
   return false
 }
 
-module.exports = any
+module.exports = curryTwo(any)

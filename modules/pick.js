@@ -1,4 +1,5 @@
 const type = require("./type")
+
 function pick(keys, obj) {
   if (obj === undefined) {
     return holder => pick(keys, holder)

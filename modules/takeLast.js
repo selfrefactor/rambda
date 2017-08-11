@@ -1,4 +1,4 @@
-const baseSlice = require("./baseSlice")
+const baseSlice = require("./internal/baseSlice")
 
 function takeLast(takeNumber, a) {
   if (a === undefined) {

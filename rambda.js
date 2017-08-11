@@ -1,49 +1,8 @@
-function simpleHelper(method, x){
-  if(x === undefined){
-    return (xHolder) => simpleHelper(method, xHolder)
-  }
-  if(x[method]!== undefined){
-    return x[method]()
-  }
-}
-
-function helper(method, x, y){
-  if(x === undefined){
-    return (xHolder,yHolder) => helper(method, xHolder, yHolder)
-  }else if(y === undefined){
-    return yHolder => helper(method, x, yHolder)
-  }
-  if(y[method]!== undefined){
-    return y[method](x)
-  }
-}
-
-function passingHelper(method, x, y){
-  if(x === undefined){
-    return (xHolder,yHolder) => passingHelper(method, xHolder, yHolder)
-  }else if(y === undefined){
-    return yHolder => passingHelper(method, x, yHolder)
-  }
-  if(y[method]!== undefined){
-    y[method](x)
-    
-    return y
-  }
-}
-
-function oppositeHelper(method, x, y){
-  if(x === undefined){
-    return (xHolder,yHolder) => oppositeHelper(method, xHolder, yHolder)
-  }else if(y === undefined){
-    return yHolder => oppositeHelper(method, x, yHolder)
-  }
-  if(x[method]!== undefined){
-    return x[method](y)
-  }
-}
-
-// module.exports.add = superHelper(fn,1)
-// module.exports.replace = superHelper(fn,3)
+const simpleHelper = require('./modules/internal/simpleHelper')
+const helper = require('./modules/internal/helper')
+const passingHelper = require('./modules/internal/passingHelper')
+const oppositeHelper = require('./modules/internal/oppositeHelper')
+const propHelper = require('./modules/internal/propHelper')
 
 exports.padEnd = helper('padEnd')
 exports.padStart = helper('padStart')
@@ -80,7 +39,7 @@ exports.concat = oppositeHelper("concat")
 exports.init = require("./modules/init")
 exports.join = require("./modules/join")
 exports.last = require("./modules/last")
-exports.length = simpleHelper("length")
+exports.length = propHelper("length")
 exports.map = require("./modules/map")
 exports.match = require("./modules/match")
 exports.merge = require("./modules/merge")

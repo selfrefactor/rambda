@@ -1,10 +1,7 @@
 const equals = require("./equals")
+const curryTwo = require("./internal/curryTwo")
 
 function contains(val, arr) {
-  if (arr === undefined) {
-    return holder => contains(val, holder)
-  }
-
   let index = -1
   let flag = false
   while (++index < arr.length && !flag) {
@@ -16,4 +13,5 @@ function contains(val, arr) {
   return flag
 }
 
-module.exports = contains
+
+module.exports = curryTwo(contains)
