@@ -1,3 +1,54 @@
+function simpleHelper(method, x){
+  if(x === undefined){
+    return (xHolder) => simpleHelper(method, xHolder)
+  }
+  if(x[method]!== undefined){
+    return x[method]()
+  }
+}
+
+function helper(method, x, y){
+  if(x === undefined){
+    return (xHolder,yHolder) => helper(method, xHolder, yHolder)
+  }else if(y === undefined){
+    return yHolder => helper(method, x, yHolder)
+  }
+  if(y[method]!== undefined){
+    return y[method](x)
+  }
+}
+
+function passingHelper(method, x, y){
+  if(x === undefined){
+    return (xHolder,yHolder) => passingHelper(method, xHolder, yHolder)
+  }else if(y === undefined){
+    return yHolder => passingHelper(method, x, yHolder)
+  }
+  if(y[method]!== undefined){
+    y[method](x)
+    
+    return y
+  }
+}
+
+function oppositeHelper(method, x, y){
+  if(x === undefined){
+    return (xHolder,yHolder) => oppositeHelper(method, xHolder, yHolder)
+  }else if(y === undefined){
+    return yHolder => oppositeHelper(method, x, yHolder)
+  }
+  if(x[method]!== undefined){
+    return x[method](y)
+  }
+}
+
+// module.exports.add = superHelper(fn,1)
+// module.exports.replace = superHelper(fn,3)
+
+exports.padEnd = helper('padEnd')
+exports.padStart = helper('padStart')
+exports.reverse = simpleHelper('reverse')
+exports.toString = simpleHelper('toString')
 exports.add = require("./modules/add")
 exports.addIndex = require("./modules/addIndex")
 exports.any = require("./modules/any")
@@ -18,11 +69,18 @@ exports.has = require("./modules/has")
 exports.head = require("./modules/head")
 exports.ifElse = require("./modules/ifElse")
 exports.indexOf = require("./modules/indexOf")
-exports.includes = require("./modules/includes")
+exports.includes = helper("includes")
+exports.push = passingHelper("push")
+exports.endsWith = helper("endsWith")
+exports.lastIndexOf = helper("lastIndexOf")
+exports.startsWith = helper("startsWith")
+exports.helper = helper
+exports.oppositeHelper = oppositeHelper
+exports.concat = oppositeHelper("concat")
 exports.init = require("./modules/init")
 exports.join = require("./modules/join")
 exports.last = require("./modules/last")
-exports.length = require("./modules/length")
+exports.length = simpleHelper("length")
 exports.map = require("./modules/map")
 exports.match = require("./modules/match")
 exports.merge = require("./modules/merge")
@@ -47,9 +105,9 @@ exports.tail = require("./modules/tail")
 exports.take = require("./modules/take")
 exports.takeLast = require("./modules/takeLast")
 exports.test = require("./modules/testFn")
-exports.toLower = require("./modules/toLower")
-exports.toUpper = require("./modules/toUpper")
-exports.trim = require("./modules/trim")
+exports.toLower = simpleHelper("toLowerCase")
+exports.toUpper = simpleHelper("toUpperCase")
+exports.trim = simpleHelper("trim")
 exports.type = require("./modules/type")
 exports.uniq = require("./modules/uniq")
 exports.update = require("./modules/update")
