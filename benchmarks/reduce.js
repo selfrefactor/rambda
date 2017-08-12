@@ -1,0 +1,21 @@
+const R = require("../rambda")
+const Ramda = require("ramda")
+const _ = require("lodash")
+const Benchmark = require("benchmark")
+
+const fn = (acc, value) => acc + value
+const holder = [1,2,3]
+const acc = ""
+
+const suite = new Benchmark.Suite();
+
+suite.add("Rambda#reduce", () => {
+  R.reduce(fn, acc, holder)
+})
+.add("Ramda", () => {
+  Ramda.reduce(fn, acc, holder)
+})
+.add("Lodash", () => {
+  _.reduce(holder, fn, acc)
+})
+module.exports = suite;

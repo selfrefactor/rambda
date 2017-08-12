@@ -12,6 +12,7 @@
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "run m minify f webVersion.js o _",
     "node-minify": "run m minify f index.js o _",
+    "benchmark": "node benchmarks/index.js",
     "cover": "jest --coverage"
   },
   "repository": {
