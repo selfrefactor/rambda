@@ -11,7 +11,7 @@ function path(pathArr, obj) {
     pathArr = pathArr.split(".")
   }
   while (counter < pathArr.length) {
-    if (holder === null) {
+    if (holder === null || holder === undefined) {
       return undefined
     }
     holder = holder[ pathArr[ counter ] ]
