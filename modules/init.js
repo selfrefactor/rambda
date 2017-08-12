@@ -1,4 +1,4 @@
-const baseSlice = require("./baseSlice")
+const baseSlice = require("./internal/baseSlice")
 
 function init(a){
   if (typeof a === "string") {

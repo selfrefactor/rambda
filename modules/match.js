@@ -1,7 +1,6 @@
+const curryTwo = require("./internal/curryTwo")
+
 function match(regex, str) {
-  if (str === undefined) {
-    return holder => match(regex, holder)
-  }
   const willReturn = str.match(regex)
 
   return willReturn === null ?
@@ -9,4 +8,4 @@ function match(regex, str) {
     willReturn
 }
 
-module.exports = match
+module.exports = curryTwo(match)

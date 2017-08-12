@@ -1,8 +1,6 @@
-function findIndex(fn, arr){
-  if (arr === undefined) {
-    return holder => findIndex(fn, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function findIndex(fn, arr){
   const length = arr.length
   let index = -1
 
@@ -15,4 +13,4 @@ function findIndex(fn, arr){
   return -1
 }
 
-module.exports = findIndex
+module.exports = curryTwo(findIndex)

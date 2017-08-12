@@ -1,12 +1,10 @@
+const curryTwo = require("./internal/curryTwo")
 const type = require("./type")
 
 function equals(a, b) {
-  if (b === undefined) {
+  if (a === b) {
 
-    return holder => equals(a, holder)
-  } else if (a === b) {
-
-    return a !== 0 || 1 / a === 1 / b
+    return true
   }
   const aType = type(a)
   if (aType !== type(b)) {
@@ -58,4 +56,4 @@ function equals(a, b) {
   return false
 }
 
-module.exports = equals
+module.exports = curryTwo(equals)

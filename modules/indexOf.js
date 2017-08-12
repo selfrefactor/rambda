@@ -1,8 +1,6 @@
-function indexOf(question, arr) {
-  if (arr === undefined) {
-    return holder => indexOf(question, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function indexOf(question, arr) {
   let index = -1
   const length = arr.length
 
@@ -15,4 +13,4 @@ function indexOf(question, arr) {
   return -1
 }
 
-module.exports = indexOf
+module.exports = curryTwo(indexOf)

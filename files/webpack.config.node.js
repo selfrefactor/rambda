@@ -4,6 +4,7 @@ module.exports = {
     filename: "index.js",
     libraryTarget: "commonjs-module",
   },
+  // devtool: 'source-map',
   module:{
     rules:[
       {

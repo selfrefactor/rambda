@@ -1,11 +1,7 @@
-function propEq(key, val, obj) {
-  if (val === undefined) {
-    return (valHolder, objHolder) => propEq(key, valHolder, objHolder)
-  } else if (obj === undefined) {
-    return holder => propEq(key, val, holder)
-  }
+const curryThree = require("./internal/curryThree")
 
+function propEq(key, val, obj) {
   return obj[ key ] === val
 }
 
-module.exports = propEq
+module.exports = curryThree(propEq)

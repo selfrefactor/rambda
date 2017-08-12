@@ -5,14 +5,13 @@ function path(pathArr, obj) {
   if(!(type(obj) === "Object")){
     return undefined
   }
-  
   let holder = obj
   let counter = 0
   if(typeof pathArr === "string"){
     pathArr = pathArr.split(".")
   }
   while (counter < pathArr.length) {
-    if (holder === null) {
+    if (holder === null || holder === undefined) {
       return undefined
     }
     holder = holder[ pathArr[ counter ] ]

@@ -263,6 +263,26 @@ R.head([1, 2, 3]) //=> 1
 R.head('foo') //=> 'f'
 ```
 
+#### ifElse
+
+> ifElse(condition: Function, ifFn: Function, elseFn: Function): Function
+
+It returns a function that, which `input` argument is passed to `condition` function returns `answer`.
+
+If `answer` is `true`, then `input` is applied to `ifFn` function.
+If `answer` is `false`, then `input` is applied to `elseFn` function.
+
+```
+const fn = R.ifElse(
+ x => x > 10,
+ x => x*2,
+ x => x*10
+)
+fn(8) // => 80
+fn(11) // => 22
+```
+
+
 #### indexOf
 
 > indexOf(valueToFind: any, arr: Array): Number
@@ -676,11 +696,12 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.1 Add `R.ifElse`
 - 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`
 - 0.7.6 Fix incorrect implementation of `R.values`
 - 0.7.5 Fix incorrect implementation of `R.omit`
 - 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments 
-- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; also [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
+- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; Approve [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
 - 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
@@ -712,14 +733,14 @@ We can use the standard curring used throughout `Rambda`.
 ```
 function endsWith(x, arrOrStr){
   if(arrOrStr === undefined){
-    return holder => endsWith(x, arrOrStr)
+    return arrOrStrHolder => endsWith(x, arrOrStrHolder)
   }
   return arrOrStr.endsWith(x)
 }
 module.exports = endsWith
 ```
 
-Or we can use `R.curry`, which is not as performant as the example above.
+Or we can also use `R.curry`, but it is not as performant as the example above.
 
 ```
 const curry = require('./curry')
@@ -762,15 +783,13 @@ Note that your documentation should match the pattern visible across `./README.m
 
 > Lint your files
 
-We have two new files and for linting them we must run:
-
 `npm run lint modules/endsWith.js`
 
 `npm run lint __tests__/endsWith.js`
 
 > Submit PR
 
-Expect response within the next 2 days. 
+Expect response within 2 days. 
 
 ## Additional info
 

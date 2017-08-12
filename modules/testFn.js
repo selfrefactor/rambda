@@ -1,11 +1,9 @@
-function test(regex, str){
-  if (str === undefined) {
-    return holder => test(regex, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function test(regex, str){
   return str.search(regex) === -1 ?
     false :
     true
 }
 
-module.exports = test
+module.exports = curryTwo(test)

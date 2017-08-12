@@ -1,9 +1,7 @@
-function find(fn, arr){
-  if (arr === undefined) {
-    return holder => find(fn, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function find(fn, arr){
   return arr.find(fn)
 }
 
-module.exports = find
+module.exports = curryTwo(find)

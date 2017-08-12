@@ -6,7 +6,7 @@ env:
 sudo: true
 language: node_js
 node_js:
-  - 7.6.0
+  - 8.2.0
 script:
   - "npm run cover"
 after_success:

@@ -1,8 +1,6 @@
-function filter(fn, arr) {
-  if (arr === undefined) {
-    return holder => filter(fn, holder)
-  }
+const curryTwo = require("./internal/curryTwo")
 
+function filter(fn, arr) {
   let index = -1
   let resIndex = 0
   const len =  arr.length
@@ -18,4 +16,4 @@ function filter(fn, arr) {
   return willReturn
 }
 
-module.exports = filter
+module.exports = curryTwo(filter)
