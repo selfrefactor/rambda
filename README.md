@@ -51,7 +51,7 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 
 - Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument.
 
-- Rambda's **partialCurry** and **includes** are not part of Ramda API. 
+- Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
 
@@ -119,6 +119,14 @@ const result = R.compose(
   R.filter(val => val>2),
 )([1, 2, 3, 4])
 console.log(result) // => [6, 8]
+```
+
+#### concat
+
+> concat(x: Array, y: Array): Array
+
+```
+R.concat([3,4])([1,2])
 ```
 
 #### contains
@@ -682,6 +690,15 @@ R.update(0, "foo", ['bar', 'baz']) //=> ['foo', baz]
 R.values({a: 1, b: 2}) //=> [1, 2]
 ```
 ---
+
+## Lazy API
+
+The following methods are included just because it cost nothing to add them.
+
+> R.toString
+
+`R.toString([1, 2]) // => '1,2'`
+
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -700,7 +717,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`
 - 0.7.6 Fix incorrect implementation of `R.values`
 - 0.7.5 Fix incorrect implementation of `R.omit`
-- 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments 
+- 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments
 - 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; Approve [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
 - 0.7.2 Add `Promise` support for `R.type`
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
@@ -713,7 +730,7 @@ If you want to add another `Ramda` method to the API, please feel free to submit
 
 The only requirement is the new method to have exact or very close implementation compared to the corresponding `Ramda` method.
 
-I give you example steps of the `PR` process. 
+I give you example steps of the `PR` process.
 
 > Create a method file in `modules` folder.
 
@@ -763,7 +780,7 @@ exports.endsWith = require("./modules/endsWith")
 exports.equals = require("./modules/equals")
 ```
 
-> Write your test cases 
+> Write your test cases
 
 Create file `endsWith.js` in folder `__tests__`
 
@@ -789,7 +806,7 @@ Note that your documentation should match the pattern visible across `./README.m
 
 > Submit PR
 
-Expect response within 2 days. 
+Expect response within 2 days.
 
 ## Additional info
 
