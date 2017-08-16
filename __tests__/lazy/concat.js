@@ -14,3 +14,9 @@ test('', () => {
   expect(a).toEqual(expectedResult)
   expect(b).toEqual(expectedResult)
 })
+
+test('string', ()=>{
+  expect(
+    R.concat('ABC', 'DEF')
+  ).toEqual('ABCDEF')
+})
