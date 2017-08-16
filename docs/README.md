@@ -429,7 +429,7 @@ It returns the result of operation `a*b`.
 R.module(14,3) // => 2
 ```
 
-# not
+#### not
 
 > not(x: any): Boolean
 
