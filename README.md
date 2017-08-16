@@ -168,6 +168,12 @@ R.defaultTo('foo')('bar') //=> 'bar'
 R.defaultTo('foo')(1) //=> 'foo'
 ```
 
+#### divide
+
+```javascript
+R.divide(71, 100) //=> 0.71
+```
+
 #### drop
 
 > drop(howManyToDrop: Number, arrOrStr: Array|String): Array|String
@@ -188,6 +194,22 @@ Returns `arrOrStr` with `howManyToDrop` items dropped from the right
 ```javascript
 R.dropLast(1, ['foo', 'bar', 'baz']) //=> ['foo', 'bar']
 R.dropLast(1, 'foo')  //=> 'fo'
+```
+
+#### endsWith
+
+> endsWith(x: any, arrOrStr: Array|String): Boolean
+
+```
+R.endsWith(
+  'bar',
+  "foo-bar"
+) // => true 
+
+R.endsWith(
+  'baz',
+  "foo-bar"
+) // => false
 ```
 
 #### equals
@@ -698,6 +720,10 @@ The following methods are included just because it cost nothing to add them.
 > R.toString
 
 `R.toString([1, 2]) // => '1,2'`
+
+> R.reverse
+
+`R.reverse([1, 2]) // => [2, 1]`
 
 ## Benchmark
 

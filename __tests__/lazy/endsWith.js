@@ -1,7 +1,7 @@
 const R = require("../../rambda")
 
 
-test('true', ()=>{
+test('true', () => {
   const result = R.endsWith(
     'bar',
     "foo-bar"
@@ -9,10 +9,12 @@ test('true', ()=>{
   expect(result).toBeTruthy()
 })
 
-test('false', ()=>{
+test('false', () => {
   const result = R.endsWith(
     'baz',
     "foo-bar"
   )
   expect(result).toBeFalsy()
 })
+
+
