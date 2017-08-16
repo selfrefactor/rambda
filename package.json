@@ -6,6 +6,7 @@
   "scripts": {
     "build": "run-s browser-build browser-minify node-build node-minify",
     "test": "jest",
+    "docs": "docsify init ./docs",
     "lint": "node files/lint",
     "dev": "jest __tests__/lazy/concat.js",
     "node-build": "webpack  --config files/webpack.config.node.js",
