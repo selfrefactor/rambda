@@ -1,7 +1,9 @@
 const type = require("./type")
-const curry = require("./curry")
 
 function path(pathArr, obj) {
+  if(obj === undefined && arguments.length === 1){
+    return objHolder => path(pathArr, objHolder)
+  }
   if(!(type(obj) === "Object")){
     return undefined
   }
@@ -21,4 +23,4 @@ function path(pathArr, obj) {
   return holder
 }
 
-module.exports = curry(path)
+module.exports = path

@@ -14,6 +14,9 @@ test("works with undefined", () => {
   expect(
     R.path("foo.bar.baz",undefined)
   ).toEqual(undefined)
+  expect(
+    R.path("foo.bar.baz")(undefined)
+  ).toEqual(undefined)
 })
 
 test("works with string instead of array", () => {

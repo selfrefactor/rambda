@@ -8,7 +8,7 @@
     "test": "jest",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
-    "dev": "jest __tests__/type.js",
+    "dev": "jest __tests__/object/path.js",
     "node-build": "webpack  --config files/webpack.config.node.js",
     "browser-build": "webpack  --config files/webpack.config.js",
     "browser-minify": "run m minify f webVersion.js o _",
