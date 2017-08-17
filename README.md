@@ -30,7 +30,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.3/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -91,6 +91,13 @@ It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```javascript
 R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
+```
+
+#### always
+
+```
+const fn = R.always('foo')
+fn() // => 'foo'
 ```
 
 #### any
@@ -233,6 +240,10 @@ R.equals(1, 1) // => true
 R.equals({}, {}) // => false
 R.equals([1, 2, 3], [1, 2, 3]) // => true
 ```
+
+#### F
+
+`R.F() // => false`
 
 #### filter
 
@@ -789,6 +800,10 @@ It returns array with of all values in `obj`.
 ```javascript
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
+
+#### T
+
+`R.T() // => true`
 ---
 
 ## Lazy API
@@ -842,6 +857,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.3 Add `R.always`, `R.T` and `R.F`
 - 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
 - 0.8.1 Add `R.ifElse`
 - 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`

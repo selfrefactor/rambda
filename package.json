@@ -4,7 +4,7 @@
   "description": "Lightweight alternative to Ramda",
   "main": "index.js",
   "scripts": {
-    "build": "run-s browser-build browser-minify node-build node-minify",
+    "build": "run-s browser-build browser-minify node-build",
     "test": "jest",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
