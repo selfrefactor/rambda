@@ -30,7 +30,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.3/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.4/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -679,6 +679,10 @@ R.endsWith(
 R.subtract(3, 1) // => 2
 ```
 
+#### T
+
+`R.T() // => true`
+
 #### tail
 
 > tail(arrOrStr: Array|String): Array|String
@@ -801,9 +805,6 @@ It returns array with of all values in `obj`.
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
 
-#### T
-
-`R.T() // => true`
 ---
 
 ## Lazy API
@@ -857,6 +858,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.4 Learning to run `npm test` before `npm publish` the hard way
 - 0.8.3 Add `R.always`, `R.T` and `R.F`
 - 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
 - 0.8.1 Add `R.ifElse`
