@@ -125,9 +125,14 @@ R.allPass(conditionArr, obj) // => true
 
 #### always
 
+> always(x: any): Function
+
+It returns function that always returns `x`.
 ```
-const fn = R.always('foo')
-fn() // => 'foo'
+const fn = R.always(7)
+
+fn()// => 7
+fn()// => 7
 ```
 
 #### any
@@ -380,6 +385,15 @@ It returns the first element of `arrOrStr`.
 ```javascript
 R.head([1, 2, 3]) // => 1
 R.head('foo') // => 'f'
+```
+
+#### identity
+
+> identity(x: T): T
+
+It just passes back the supplied arguments.
+```
+R.identity(7) // => 7
 ```
 
 #### ifElse
@@ -928,6 +942,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
 - 0.8.4 Learning to run `npm test` before `npm publish` the hard way
 - 0.8.3 Add `R.always`, `R.T` and `R.F`
