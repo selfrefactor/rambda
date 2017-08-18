@@ -679,6 +679,10 @@ R.endsWith(
 R.subtract(3, 1) // => 2
 ```
 
+#### T
+
+`R.T() // => true`
+
 #### tail
 
 > tail(arrOrStr: Array|String): Array|String
@@ -801,9 +805,6 @@ It returns array with of all values in `obj`.
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
 
-#### T
-
-`R.T() // => true`
 ---
 
 ## Lazy API
