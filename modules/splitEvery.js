@@ -1,7 +1,5 @@
+const curry = require('./internal/curry')
 function splitEvery(num, a) {
-  if (a === undefined) {
-    return holder => splitEvery(num, holder)
-  }
   num = num > 1 ?
     num :
     1
@@ -15,4 +13,4 @@ function splitEvery(num, a) {
   return willReturn
 }
 
-module.exports = splitEvery
+module.exports = curry(splitEvery)

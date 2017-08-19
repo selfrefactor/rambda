@@ -1,7 +1,7 @@
-const { filter } = require("rambda")
+const filter = require("./filter")
 
 function all (condition, arr) {
-  if (arr === undefined && arguments.length === 1) {
+  if (arguments.length === 1) {
     return arrHolder => all(condition, arrHolder)
   }
 

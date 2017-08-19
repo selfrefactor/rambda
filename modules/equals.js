@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 const type = require("./type")
 
 function equals(a, b) {
@@ -56,4 +56,4 @@ function equals(a, b) {
   return false
 }
 
-module.exports = curryTwo(equals)
+module.exports = curry(equals)

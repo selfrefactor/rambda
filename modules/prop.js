@@ -1,7 +1,7 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function prop(key, obj) {
   return obj[ key ]
 }
 
-module.exports = curryTwo(prop)
+module.exports = curry(prop)

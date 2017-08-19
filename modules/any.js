@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function any(fn, arr){
 
@@ -13,4 +13,4 @@ function any(fn, arr){
   return false
 }
 
-module.exports = curryTwo(any)
+module.exports = curry(any)

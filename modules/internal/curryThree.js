@@ -1,4 +1,4 @@
-const curryTwo = require("./curryTwo")
+const curry = require("./curry")
 
 function curryThree(fn){
   return (x,y,z) => {
@@ -6,7 +6,7 @@ function curryThree(fn){
       const helper = (yHolder, zHolder) => {
         return fn(x, yHolder, zHolder)
       }
-      return curryTwo(helper)
+      return curry(helper)
     }else if(z === undefined){
       return zHolder => fn(x, y, zHolder) 
     }

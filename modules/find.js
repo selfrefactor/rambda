@@ -1,7 +1,7 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function find(fn, arr){
   return arr.find(fn)
 }
 
-module.exports = curryTwo(find)
+module.exports = curry(find)

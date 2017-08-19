@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function repeat(a, num) {
   const willReturn = Array(num)
@@ -6,4 +6,4 @@ function repeat(a, num) {
   return willReturn.fill(a)
 }
 
-module.exports = curryTwo(repeat)
+module.exports = curry(repeat)

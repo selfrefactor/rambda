@@ -3,7 +3,6 @@ const mathHelper = require('./modules/internal/mathHelper')
 const oppositeHelper = require('./modules/internal/oppositeHelper')
 const propHelper = require('./modules/internal/propHelper')
 const simpleHelper = require('./modules/internal/simpleHelper')
-const curryTwo = require('./modules/internal/curryTwo')
 
 exports.add = mathHelper('+')
 exports.addIndex = require("./modules/addIndex")
@@ -47,7 +46,7 @@ exports.match = require("./modules/match")
 exports.merge = require("./modules/merge")
 exports.modulo = mathHelper('%')
 exports.multiply = mathHelper('*')
-exports.not = require("./modules/not")
+exports.not = x => !x
 exports.omit = require("./modules/omit")
 exports.padEnd = helper('padEnd')
 exports.padStart = helper('padStart')
@@ -70,11 +69,7 @@ exports.splitEvery = require("./modules/splitEvery")
 exports.startsWith = helper("startsWith")
 exports.subtract = mathHelper('-')
 exports.T = () => true
-exports.tap = curryTwo((fn, input)=>{
-  fn(input)
-
-  return input
-})
+exports.tap = require("./modules/tap")
 exports.tail = require("./modules/tail")
 exports.take = require("./modules/take")
 exports.takeLast = require("./modules/takeLast")

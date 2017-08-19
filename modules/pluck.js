@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 const map = require("./map")
 
 function pluck(keyToPluck,arr){
@@ -14,4 +14,4 @@ function pluck(keyToPluck,arr){
   return willReturn
 }
 
-module.exports = curryTwo(pluck)
+module.exports = curry(pluck)

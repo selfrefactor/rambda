@@ -1,7 +1,7 @@
 const type = require("./type")
 
 function path(pathArr, obj) {
-  if(obj === undefined && arguments.length === 1){
+  if(arguments.length === 1){
     return objHolder => path(pathArr, objHolder)
   }
   if(!(type(obj) === "Object")){

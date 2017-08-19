@@ -1,5 +1,5 @@
 const equals = require("./equals")
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function contains(val, arr) {
   let index = -1
@@ -14,4 +14,4 @@ function contains(val, arr) {
 }
 
 
-module.exports = curryTwo(contains)
+module.exports = curry(contains)

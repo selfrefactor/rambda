@@ -1,4 +1,4 @@
-const curry = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function either (x, y) {
   return input => x(input) || y(input)

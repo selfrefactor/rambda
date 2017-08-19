@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function test(regex, str){
   return str.search(regex) === -1 ?
@@ -6,4 +6,4 @@ function test(regex, str){
     true
 }
 
-module.exports = curryTwo(test)
+module.exports = curry(test)

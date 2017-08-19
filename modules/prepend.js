@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function prepend(val, arr) {
   const clone = arr.concat()
@@ -7,4 +7,4 @@ function prepend(val, arr) {
   return clone
 }
 
-module.exports = curryTwo(prepend)
+module.exports = curry(prepend)

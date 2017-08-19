@@ -1,8 +1,8 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 
 function dropLast(dropNumber, a){
 
   return a.slice(0, -dropNumber)
 }
 
-module.exports = curryTwo(dropLast)
+module.exports = curry(dropLast)

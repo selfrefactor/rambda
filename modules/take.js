@@ -1,4 +1,4 @@
-const curryTwo = require("./internal/curryTwo")
+const curry = require("./internal/curry")
 const baseSlice = require("./internal/baseSlice")
 
 function take(takeNumber, a) {
@@ -11,4 +11,4 @@ function take(takeNumber, a) {
   return baseSlice(a, 0, takeNumber)
 }
 
-module.exports = curryTwo(take)
+module.exports = curry(take)
