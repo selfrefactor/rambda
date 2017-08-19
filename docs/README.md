@@ -3,7 +3,7 @@
 
 # Rambda
 
-Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to `Ramda` in just 12kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Argumentation
 
@@ -30,7 +30,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.4/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.5/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -93,11 +93,46 @@ It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
 ```
 
-#### always
+#### all
+
+> all(fn: Function, arr: Array): Boolean
+
+It returns `true` if all members of array `arr` returns `true`, when applied as argument to function `fn`. 
 
 ```
-const fn = R.always('foo')
-fn() // => 'foo'
+const arr = [ 0, 1, 2, 3, 4 ]
+const fn = x => x > -1
+R.all(fn, arr) // => true
+```
+
+#### allPass
+
+> allPass(rules: Array<Function>, input: any): Boolean
+
+It returns `true` if all functions of `rules` return `true`, when `input` is their argument.
+
+```
+const input = {
+  a : 1,
+  b : 2,
+}
+const rules = [
+  x => x.a === 1,
+  x => x.b === 2,
+]
+R.allPass(conditionArr, obj) // => true
+```
+
+#### always
+
+> always(x: any): Function
+
+It returns function that always returns `x`.
+```
+const fn = R.always(7)
+
+fn()// => 7
+fn()// => 7
 ```
 
 #### any
@@ -120,6 +155,21 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 R.append('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 ```
 
+#### both
+
+> both(x: Function, y: Function, input: any): Boolean
+
+It returns `true` if both function `x` and function `y` return `true`, when `input` is their argument.
+
+```
+const fn = R.both(
+  a => a > 10,
+  a => a < 20
+)
+fn(15) //=> true
+fn(30) //=> false
+```
+
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
@@ -131,6 +181,19 @@ const result = R.compose(
   R.filter(val => val>2),
 )([1, 2, 3, 4])
 console.log(result) // => [6, 8]
+```
+
+#### complement
+
+> complement(fn: Function): Function
+
+It returns `complemented` function that accept `input` as argument.
+
+The return value of `complemented` is the negative boolean value of `fn(input)`.
+
+```
+R.complement(R.always(0)) // => true
+R.complement(R.always(true)) // => false
 ```
 
 #### concat
@@ -227,6 +290,18 @@ R.endsWith(
 ) // => false
 ```
 
+#### either
+
+```
+const fn = R.either(
+  a => a > 10,
+  a => a % 2 === 0
+)
+fn(15) //=> true
+fn(6) //=> true
+fn(7) //=> false
+```
+
 #### equals
 
 > equals(a: any, b: any): Boolean
@@ -310,6 +385,15 @@ It returns the first element of `arrOrStr`.
 ```javascript
 R.head([1, 2, 3]) // => 1
 R.head('foo') // => 'f'
+```
+
+#### identity
+
+> identity(x: T): T
+
+It just passes back the supplied arguments.
+```
+R.identity(7) // => 7
 ```
 
 #### ifElse
@@ -858,6 +942,8 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.6 Add `R.tap` and `R.identity`
+- 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
 - 0.8.4 Learning to run `npm test` before `npm publish` the hard way
 - 0.8.3 Add `R.always`, `R.T` and `R.F`
 - 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
