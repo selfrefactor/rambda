@@ -52,9 +52,9 @@ For more complex and Ramda specific methods(such as **R.__**), you should expect
 - Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument.
 
 - Rambda's **defaultTo** approve incoming argument only if it has the same type as the default argument.
- 
+
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
- 
+
 - Rambda's **partialCurry** is not part of Ramda API.
 
 - **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
@@ -97,7 +97,7 @@ R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
 
 > all(fn: Function, arr: Array): Boolean
 
-It returns `true` if all members of array `arr` returns `true`, when applied as argument to function `fn`. 
+It returns `true` if all members of array `arr` returns `true`, when applied as argument to function `fn`.
 
 ```
 const arr = [ 0, 1, 2, 3, 4 ]
@@ -282,7 +282,7 @@ R.dropLast(1, 'foo')  // => 'fo'
 R.endsWith(
   'bar',
   "foo-bar"
-) // => true 
+) // => true
 
 R.endsWith(
   'baz',
@@ -459,11 +459,11 @@ R.last('foo') // => 'o'
 
 #### lastIndexOf
 
-> lastIndexOf(x: any, arr: Array): Number 
+> lastIndexOf(x: any, arr: Array): Number
 
 ```
-R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3 
-R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1 
+R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3
+R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
 
 #### length
@@ -686,7 +686,7 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 
 ```
 const arr = [1, 2]
-R.reverse(arr) 
+R.reverse(arr)
 console.log(arr) // => [2, 1]
 ```
 
@@ -747,7 +747,7 @@ R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 R.endsWith(
   'bar',
   "foo-bar"
-) // => true 
+) // => true
 
 R.endsWith(
   'baz',
@@ -960,26 +960,250 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Browse by category
 
+
+### Function
+
+
+[addIndex](#addindex)
+
+
+[always](#always)
+
+
+[compose](#compose)
+
+
+[curry](#curry)
+
+
+[F](#f)
+
+
+[identity](#identity)
+
+
+[T](#t)
+
+
+[tap](#tap)
+
+
+### Math
+
+
+[add](#add)
+
+
+[divide](#divide)
+
+
+[modulo](#modulo)
+
+
+[multiply](#multiply)
+
+
+[subtract](#subtract)
+
+
+
 ### List
 
-          
+
 [adjust](#adjust)
 
-            
+
 [all](#all)
 
-            
+
 [any](#any)
 
-            
+
 [append](#append)
 
-            
+
 [concat](#concat)
 
-            
+
 [contains](#contains)
 
+
+[drop](#drop)
+
+
+[dropLast](#droplast)
+
+
+[endsWith](#endswith)
+
+
+[filter](#filter)
+
+
+[find](#find)
+
+
+[findIndex](#findindex)
+
+
+[flatten](#flatten)
+
+
+[head](#head)
+
+
+[indexOf](#indexof)
+
+
+[init](#init)
+
+
+[join](#join)
+
+
+[last](#last)
+
+
+[lastIndexOf](#lastindexof)
+
+
+[length](#length)
+
+
+[map](#map)
+
+
+[pluck](#pluck)
+
+
+[prepend](#prepend)
+
+
+[range](#range)
+
+
+[reduce](#reduce)
+
+
+[repeat](#repeat)
+
+
+[reverse](#reverse)
+
+
+[sort](#sort)
+
+
+[splitEvery](#splitevery)
+
+
+[startsWith](#startswith)
+
+
+[tail](#tail)
+
+
+[take](#take)
+
+
+[takeLast](#takelast)
+
+
+[uniq](#uniq)
+
+
+[update](#update)
+
+
+
+### Logic
+
+
+[allPass](#allpass)
+
+
+[both](#both)
+
+
+[complement](#complement)
+
+
+[defaultTo](#defaultto)
+
+
+[either](#either)
+
+
+[ifElse](#ifelse)
+
+
+[not](#not)
+
+
+
+### Object
+
+
+[has](#has)
+
+
+[merge](#merge)
+
+
+[omit](#omit)
+
+
+[path](#path)
+
+
+[pick](#pick)
+
+
+[prop](#prop)
+
+
+[values](#values)
+
+
+
+### Relation
+
+
+[equals](#equals)
+
+
+[propEq](#propeq)
+
+
+[sortBy](#sortby)
+
+
+
+### String
+
+
+[match](#match)
+
+
+[replace](#replace)
+
+
+[split](#split)
+
+
+[test](#test)
+
+
+[toLower](#tolower)
+
+
+[toString](#tostring)
+
+
+[toUpper](#toupper)
+
+
+[trim](#trim)
 
 ## Contribution guidelines
 
