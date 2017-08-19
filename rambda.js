@@ -4,7 +4,7 @@ const oppositeHelper = require('./modules/internal/oppositeHelper')
 const propHelper = require('./modules/internal/propHelper')
 const simpleHelper = require('./modules/internal/simpleHelper')
 
-exports.add = mathHelper('+')
+exports.add = mathHelper('+') 
 exports.addIndex = require("./modules/addIndex")
 exports.adjust = require("./modules/adjust")
 exports.always = x => () => x
