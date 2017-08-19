@@ -958,6 +958,29 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
+## Browse by category
+
+### List
+
+          
+[adjust](#adjust)
+
+            
+[all](#all)
+
+            
+[any](#any)
+
+            
+[append](#append)
+
+            
+[concat](#concat)
+
+            
+[contains](#contains)
+
+
 ## Contribution guidelines
 
 If you want to add another `Ramda` method to the API, please feel free to submit a `PR` .
