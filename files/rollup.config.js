@@ -3,7 +3,7 @@ import babel from 'rollup-plugin-babel';
 import pkg from '../package.json';
 
 export default {
-    entry: './rambda.js',
+    input: './rambda.js',
     plugins: [
         commonjs(),
         babel({
@@ -11,26 +11,25 @@ export default {
             plugins: ['external-helpers'],
         }),
     ],
-    targets: [
+    sourcemap: false,
+    output: [
         {
-            dest: pkg.main,
+            file: pkg.main,
             format: 'cjs',
             exports: 'named',
             interop: false,
-            sourceMap: false,
+
         },
         {
-            dest: pkg.module,
+            file: pkg.module,
             format: 'es',
-            sourceMap: false,
         },
         {
-            dest: pkg.browser,
+            file: pkg.browser,
             format: 'umd',
-            moduleName: 'R',
+            name: 'R',
             exports: 'named',
             interop: false,
-            sourceMap: false,
         },
     ],
 };
