@@ -31,7 +31,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.5/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.7/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -943,6 +943,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
 - 0.8.4 Learning to run `npm test` before `npm publish` the hard way
