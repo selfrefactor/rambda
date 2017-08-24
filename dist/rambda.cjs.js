@@ -26,6 +26,7 @@ function curry$1(fn) {
         return fn(x, yHolder);
       };
     }
+
     return fn(x, y);
   };
 }
@@ -38,12 +39,14 @@ function curryThree(fn) {
       var helper = function helper(yHolder, zHolder) {
         return fn(x, yHolder, zHolder);
       };
+
       return curry_1(helper);
     } else if (z === undefined) {
       return function (zHolder) {
         return fn(x, y, zHolder);
       };
     }
+
     return fn(x, y, z);
   };
 }
@@ -52,6 +55,7 @@ var curryThree_1 = curryThree;
 
 function mathHelper(operation, x, y) {
   switch (operation) {
+
     case '+':
       return x + y;
     case '-':
@@ -62,6 +66,7 @@ function mathHelper(operation, x, y) {
       return x * y;
     case '%':
       return x % y;
+
   }
 }
 
@@ -145,7 +150,6 @@ function adjust$1(fn, index, arr) {
 var adjust_1 = curryThree_1(adjust$1);
 
 function any$1(fn, arr) {
-
   var counter = 0;
   while (counter < arr.length) {
     if (fn(arr[counter])) {
@@ -204,6 +208,7 @@ function allPass$1(conditions, x) {
       return allPass$1(conditions, xHolder);
     };
   }
+
   return !any_1(function (condition) {
     return !condition(x);
   })(conditions);
@@ -224,7 +229,7 @@ function createCommonjsModule(fn, module) {
 }
 
 var compose_1 = createCommonjsModule(function (module) {
-  // Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
+  //Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
   var compose = function compose() {
     for (var _len = arguments.length, fns = Array(_len), _key = 0; _key < _len; _key++) {
       fns[_key] = arguments[_key];
@@ -246,46 +251,38 @@ var compose_1 = createCommonjsModule(function (module) {
 
 function type$1(a) {
   if (a === null) {
-
-    return "Null";
+    return 'Null';
   } else if (Array.isArray(a)) {
-
-    return "Array";
-  } else if (typeof a === "boolean") {
-
-    return "Boolean";
-  } else if (typeof a === "number") {
-
-    return "Number";
-  } else if (typeof a === "string") {
-
-    return "String";
+    return 'Array';
+  } else if (typeof a === 'boolean') {
+    return 'Boolean';
+  } else if (typeof a === 'number') {
+    return 'Number';
+  } else if (typeof a === 'string') {
+    return 'String';
   } else if (a === undefined) {
-
-    return "Undefined";
+    return 'Undefined';
   } else if (a instanceof RegExp) {
-
-    return "RegExp";
+    return 'RegExp';
   }
 
   var asStr = a.toString();
 
-  if (asStr.startsWith("async")) {
-    return "Async";
-  } else if (asStr === "[object Promise]") {
-    return "Promise";
-  } else if (asStr.includes("function") || asStr.includes("=>")) {
-    return "Function";
+  if (asStr.startsWith('async')) {
+    return 'Async';
+  } else if (asStr === '[object Promise]') {
+    return 'Promise';
+  } else if (asStr.includes('function') || asStr.includes('=>')) {
+    return 'Function';
   }
 
-  return "Object";
+  return 'Object';
 }
 
 var type_1 = type$1;
 
 function equals$1(a, b) {
   if (a === b) {
-
     return true;
   }
   var aType = type_1(a);
@@ -293,14 +290,14 @@ function equals$1(a, b) {
     return false;
   }
 
-  if (aType === "Array") {
+  if (aType === 'Array') {
     var aClone = Array.from(a);
     var bClone = Array.from(b);
 
     return aClone.sort().toString() === bClone.sort().toString();
   }
 
-  if (aType === "Object") {
+  if (aType === 'Object') {
     var aKeys = Object.keys(a);
     if (aKeys.length === Object.keys(b).length) {
       if (aKeys.length === 0) {
@@ -312,7 +309,7 @@ function equals$1(a, b) {
           var aValType = type_1(a[val]);
           var bValType = type_1(b[val]);
           if (aValType === bValType) {
-            if (aValType === "Object") {
+            if (aValType === 'Object') {
               if (Object.keys(a[val]).length === Object.keys(b[val]).length) {
                 if (Object.keys(a[val]).length !== 0) {
                   if (!equals$1(a[val], b[val])) {
@@ -364,7 +361,7 @@ var toConsumableArray = function (arr) {
   }
 };
 
-// taken from the last comment of https://gist.github.com/mkuklis/5294248
+//taken from the last comment of https://gist.github.com/mkuklis/5294248
 
 function curry$3(f) {
   var a = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
@@ -388,6 +385,7 @@ function defaultTo$1(defaultArgument, inputArgument) {
       return defaultTo$1(defaultArgument, inputArgumentHolder);
     };
   }
+
   return inputArgument === undefined || !(type_1(inputArgument) === type_1(defaultArgument)) ? defaultArgument : inputArgument;
 }
 
@@ -400,7 +398,6 @@ function drop$1(dropNumber, a) {
 var drop_1 = curry_1(drop$1);
 
 function dropLast$1(dropNumber, a) {
-
   return a.slice(0, -dropNumber);
 }
 
@@ -458,8 +455,8 @@ function has$1(prop, obj) {
 var has_1 = curry_1(has$1);
 
 function head$1(a) {
-  if (typeof a === "string") {
-    return a[0] || "";
+  if (typeof a === 'string') {
+    return a[0] || '';
   }
 
   return a[0];
@@ -472,6 +469,7 @@ function ifElse$1(conditionFn, ifFn, elseFn) {
     if (conditionFn(input) === true) {
       return ifFn(input);
     }
+
     return elseFn(input);
   };
 }
@@ -515,7 +513,7 @@ function baseSlice(array, start, end) {
 var baseSlice_1 = baseSlice;
 
 function init$1(a) {
-  if (typeof a === "string") {
+  if (typeof a === 'string') {
     return a.slice(0, -1);
   }
 
@@ -525,8 +523,8 @@ function init$1(a) {
 var init_1 = init$1;
 
 function last$1(a) {
-  if (typeof a === "string") {
-    return a[a.length - 1] || "";
+  if (typeof a === 'string') {
+    return a[a.length - 1] || '';
   }
 
   return a[a.length - 1];
@@ -593,11 +591,12 @@ function partialCurry$1(fn) {
   var inputArguments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   return function (inputArgumentsHolder) {
-    if (type_1(fn) === "Async" || type_1(fn) === "Promise") {
+    if (type_1(fn) === 'Async' || type_1(fn) === 'Promise') {
       return new Promise(function (resolve, reject) {
         fn(merge_1(inputArgumentsHolder, inputArguments)).then(resolve).catch(reject);
       });
     }
+
     return fn(merge_1(inputArgumentsHolder, inputArguments));
   };
 }
@@ -610,13 +609,13 @@ function path$1(pathArr, obj) {
       return path$1(pathArr, objHolder);
     };
   }
-  if (!(type_1(obj) === "Object")) {
+  if (!(type_1(obj) === 'Object')) {
     return undefined;
   }
   var holder = obj;
   var counter = 0;
-  if (typeof pathArr === "string") {
-    pathArr = pathArr.split(".");
+  if (typeof pathArr === 'string') {
+    pathArr = pathArr.split('.');
   }
   while (counter < pathArr.length) {
     if (holder === null || holder === undefined) {
@@ -637,7 +636,7 @@ function pick$1(keys, obj) {
       return pick$1(keys, objHolder);
     };
   }
-  if (!(type_1(obj) === "Object")) {
+  if (!(type_1(obj) === 'Object')) {
     return undefined;
   }
   if (type_1(keys) === 'String') {
@@ -667,6 +666,7 @@ function pluck$1(keyToPluck, arr) {
       willReturn.push(val[keyToPluck]);
     }
   }, arr);
+
   return willReturn;
 }
 
@@ -738,6 +738,7 @@ function sortBy$1(fn, arr) {
   return arrClone.sort(function (a, b) {
     var fnA = fn(a);
     var fnB = fn(b);
+
     return fnA < fnB ? -1 : fnA > fnB ? 1 : 0;
   });
 }
@@ -745,7 +746,6 @@ function sortBy$1(fn, arr) {
 var sortBy_1 = curry_1(sortBy$1);
 
 function split$1(glue, str) {
-
   return str.split(glue);
 }
 
@@ -774,7 +774,6 @@ function tap$1(fn, input) {
 var tap_1 = curry_1(tap$1);
 
 function tail$1(arr) {
-
   return drop_1(1, arr);
 }
 
@@ -785,7 +784,7 @@ function take$1(takeNumber, a) {
     return function (holder) {
       return take$1(takeNumber, holder);
     };
-  } else if (typeof a === "string") {
+  } else if (typeof a === 'string') {
     return a.slice(0, takeNumber);
   }
 
@@ -798,7 +797,7 @@ function takeLast$1(takeNumber, a) {
   var len = a.length;
   takeNumber = takeNumber > len ? len : takeNumber;
 
-  if (typeof a === "string") {
+  if (typeof a === 'string') {
     return a.slice(len - takeNumber);
   }
   takeNumber = len - takeNumber;
@@ -809,7 +808,7 @@ function takeLast$1(takeNumber, a) {
 var takeLast_1 = curry_1(takeLast$1);
 
 function test$1(regex, str) {
-  return str.search(regex) === -1 ? false : true;
+  return str.search(regex) !== -1;
 }
 
 var testFn = curry_1(test$1);
@@ -1103,3 +1102,4 @@ exports.type = type;
 exports.uniq = uniq;
 exports.update = update;
 exports.values = values;
+//# sourceMappingURL=rambda.cjs.js.map
