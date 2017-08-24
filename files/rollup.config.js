@@ -7,7 +7,10 @@ export default {
     plugins: [
         commonjs(),
         babel({
-            presets: [['es2015', {modules: false}]],
+            presets: [['env', {
+                targets: {node: 6, browsers: ['> 1%']},
+                modules: false,
+            }]],
             plugins: ['external-helpers'],
         }),
     ],
@@ -18,7 +21,6 @@ export default {
             format: 'cjs',
             exports: 'named',
             interop: false,
-
         },
         {
             file: pkg.module,
