@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function prop(key, obj) {
+function prop (key, obj) {
   return obj[ key ]
 }
 

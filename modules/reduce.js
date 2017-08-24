@@ -1,6 +1,6 @@
-const curryThree = require("./internal/curryThree")
+const curryThree = require('./internal/curryThree')
 
-function reduce(fn, initialValue, arr) {
+function reduce (fn, initialValue, arr) {
   return arr.reduce(fn, initialValue)
 }
 

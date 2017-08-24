@@ -1,10 +1,11 @@
-const type = require("./type")
+const type = require('./type')
 
-function defaultTo(defaultArgument, inputArgument){
-  if(arguments.length === 1){
-    return inputArgumentHolder => defaultTo(defaultArgument,inputArgumentHolder)
+function defaultTo (defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return inputArgumentHolder => defaultTo(defaultArgument, inputArgumentHolder)
   }
-  return inputArgument === undefined || !(type(inputArgument)===type(defaultArgument)) ?
+
+  return inputArgument === undefined || !(type(inputArgument) === type(defaultArgument)) ?
     defaultArgument :
     inputArgument
 }

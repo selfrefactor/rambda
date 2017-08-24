@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function repeat(a, num) {
+function repeat (a, num) {
   const willReturn = Array(num)
 
   return willReturn.fill(a)

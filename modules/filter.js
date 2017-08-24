@@ -1,9 +1,9 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function filter(fn, arr) {
+function filter (fn, arr) {
   let index = -1
   let resIndex = 0
-  const len =  arr.length
+  const len = arr.length
   const willReturn = []
 
   while (++index < len) {

@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function drop(dropNumber, a){
+function drop (dropNumber, a) {
   return a.slice(dropNumber)
 }
 

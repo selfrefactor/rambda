@@ -1,16 +1,16 @@
-const type = require("./type")
+const type = require('./type')
 
-function path(pathArr, obj) {
-  if(arguments.length === 1){
+function path (pathArr, obj) {
+  if (arguments.length === 1) {
     return objHolder => path(pathArr, objHolder)
   }
-  if(!(type(obj) === "Object")){
+  if (!(type(obj) === 'Object')) {
     return undefined
   }
   let holder = obj
   let counter = 0
-  if(typeof pathArr === "string"){
-    pathArr = pathArr.split(".")
+  if (typeof pathArr === 'string') {
+    pathArr = pathArr.split('.')
   }
   while (counter < pathArr.length) {
     if (holder === null || holder === undefined) {

@@ -1,4 +1,4 @@
-function flatten(arr, willReturn){
+function flatten (arr, willReturn) {
   willReturn = willReturn === undefined ?
     [] :
     willReturn

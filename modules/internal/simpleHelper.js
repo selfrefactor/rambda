@@ -1,9 +1,9 @@
-function simpleHelper(method, x){
-  if(x === undefined){
-    return (xHolder) => simpleHelper(method, xHolder)
+function simpleHelper (method, x) {
+  if (x === undefined) {
+    return xHolder => simpleHelper(method, xHolder)
   }
-  if(x[method]!== undefined){
-    return x[method]()
+  if (x[ method ] !== undefined) {
+    return x[ method ]()
   }
 }
 

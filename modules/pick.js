@@ -1,13 +1,13 @@
-const type = require("./type")
+const type = require('./type')
 
-function pick(keys, obj) {
-  if(arguments.length === 1){
+function pick (keys, obj) {
+  if (arguments.length === 1) {
     return objHolder => pick(keys, objHolder)
   }
-  if(!(type(obj) === "Object")){
+  if (!(type(obj) === 'Object')) {
     return undefined
   }
-  if(type(keys)==='String'){
+  if (type(keys) === 'String') {
     keys = keys.split(',').map(x => x.trim())
   }
 

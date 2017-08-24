@@ -1,6 +1,6 @@
-const curryThree = require("./internal/curryThree")
+const curryThree = require('./internal/curryThree')
 
-function update(index, newValue, arr){
+function update (index, newValue, arr) {
   const arrClone = arr.concat()
 
   return arrClone.fill(newValue, index, index + 1)

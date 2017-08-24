@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function map(fn, arr) {
+function map (fn, arr) {
   let index = -1
   const length = arr.length
   const willReturn = Array(length)

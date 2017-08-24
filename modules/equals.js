@@ -1,9 +1,8 @@
-const curry = require("./internal/curry")
-const type = require("./type")
+const curry = require('./internal/curry')
+const type = require('./type')
 
-function equals(a, b) {
+function equals (a, b) {
   if (a === b) {
-
     return true
   }
   const aType = type(a)
@@ -11,14 +10,14 @@ function equals(a, b) {
     return false
   }
 
-  if (aType === "Array") {
+  if (aType === 'Array') {
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
     return aClone.sort().toString() === bClone.sort().toString()
   }
 
-  if (aType === "Object") {
+  if (aType === 'Object') {
     const aKeys = Object.keys(a)
     if (aKeys.length === Object.keys(b).length) {
       if (aKeys.length === 0) {
@@ -30,7 +29,7 @@ function equals(a, b) {
           const aValType = type(a[ val ])
           const bValType = type(b[ val ])
           if (aValType === bValType) {
-            if (aValType === "Object") {
+            if (aValType === 'Object') {
               if (Object.keys(a[ val ]).length === Object.keys(b[ val ]).length) {
                 if (Object.keys(a[ val ]).length !== 0) {
                   if (!equals(a[ val ], b[ val ])) {

@@ -1,4 +1,4 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
 function append (val, arr) {
   const clone = arr.concat()

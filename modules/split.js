@@ -1,7 +1,6 @@
 const curry = require('./internal/curry')
 
-function split(glue, str) {
-
+function split (glue, str) {
   return str.split(glue)
 }
 

@@ -1,6 +1,6 @@
-const curryThree = require("./internal/curryThree")
+const curryThree = require('./internal/curryThree')
 
-function replace(regex, replacer, str) {
+function replace (regex, replacer, str) {
   return str.replace(regex, replacer)
 }
 

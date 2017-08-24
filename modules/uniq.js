@@ -1,6 +1,6 @@
-const contains = require("./contains")
+const contains = require('./contains')
 
-function uniq(arr){
+function uniq (arr) {
   let index = -1
   const willReturn = []
   while (++index < arr.length) {

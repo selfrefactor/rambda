@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function sort(fn, arr) {
+function sort (fn, arr) {
   const arrClone = arr.concat()
 
   return arrClone.sort(fn)

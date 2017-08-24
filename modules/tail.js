@@ -1,7 +1,6 @@
-const drop = require("./drop")
+const drop = require('./drop')
 
-function tail(arr){
-
+function tail (arr) {
   return drop(1, arr)
 }
 

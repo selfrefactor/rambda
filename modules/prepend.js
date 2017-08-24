@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function prepend(val, arr) {
+function prepend (val, arr) {
   const clone = arr.concat()
   clone.unshift(val)
 

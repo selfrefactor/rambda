@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function indexOf(question, arr) {
+function indexOf (question, arr) {
   let index = -1
   const length = arr.length
 

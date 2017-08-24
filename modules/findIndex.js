@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function findIndex(fn, arr){
+function findIndex (fn, arr) {
   const length = arr.length
   let index = -1
 

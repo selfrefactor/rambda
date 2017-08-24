@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function find(fn, arr){
+function find (fn, arr) {
   return arr.find(fn)
 }
 

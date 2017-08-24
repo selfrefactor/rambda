@@ -1,6 +1,6 @@
-const curryThree = require("./internal/curryThree")
+const curryThree = require('./internal/curryThree')
 
-function propEq(key, val, obj) {
+function propEq (key, val, obj) {
   return obj[ key ] === val
 }
 

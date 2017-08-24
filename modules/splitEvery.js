@@ -1,5 +1,5 @@
 const curry = require('./internal/curry')
-function splitEvery(num, a) {
+function splitEvery (num, a) {
   num = num > 1 ?
     num :
     1

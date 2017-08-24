@@ -1,4 +1,4 @@
-const filter = require("./filter")
+const filter = require('./filter')
 
 function all (condition, arr) {
   if (arguments.length === 1) {

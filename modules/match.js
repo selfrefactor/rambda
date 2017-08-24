@@ -1,6 +1,6 @@
-const curry = require("./internal/curry")
+const curry = require('./internal/curry')
 
-function match(regex, str) {
+function match (regex, str) {
   const willReturn = str.match(regex)
 
   return willReturn === null ?

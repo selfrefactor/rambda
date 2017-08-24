@@ -1,10 +1,10 @@
-const curry = require("./internal/curry")
-const baseSlice = require("./internal/baseSlice")
+const baseSlice = require('./internal/baseSlice')
+const curry = require('./internal/curry')
 
-function take(takeNumber, a) {
+function take (takeNumber, a) {
   if (a === undefined) {
     return holder => take(takeNumber, holder)
-  } else if (typeof a === "string") {
+  } else if (typeof a === 'string') {
     return a.slice(0, takeNumber)
   }
 

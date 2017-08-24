@@ -1,6 +1,6 @@
-const curryThree = require("./internal/curryThree")
+const curryThree = require('./internal/curryThree')
 
-function adjust(fn, index, arr){
+function adjust (fn, index, arr) {
   const clone = arr.concat()
 
   return clone.map((val, key) => {
