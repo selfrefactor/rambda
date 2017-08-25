@@ -6,8 +6,7 @@ describe("compose", () => {
       R.last,
       R.map(R.add(10)),
       R.map(R.add(1))
-    )([1,2,3])
+    )([ 1, 2, 3 ])
     expect(result).toEqual(14)
   })
-
 })

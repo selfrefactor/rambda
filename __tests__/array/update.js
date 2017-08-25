@@ -1,6 +1,5 @@
 const R = require("../../rambda")
 
-
 describe("update", () => {
   it("", () => {
     expect(

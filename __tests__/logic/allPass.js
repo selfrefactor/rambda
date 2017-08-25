@@ -2,9 +2,9 @@ const R = require("../../rambda")
 
 test("", () => {
   const rules = [
-    x => R.type(x) === 'Number',
+    x => R.type(x) === "Number",
     x => x > 10,
-    x => x * 7 < 100
+    x => x * 7 < 100,
   ]
   expect(
     R.allPass(
@@ -21,8 +21,8 @@ test("", () => {
 })
 
 const obj = {
-  a: 1,
-  b: 2,
+  a : 1,
+  b : 2,
 }
 test("when returns true", () => {
   const conditionArr = [

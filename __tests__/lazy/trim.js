@@ -1,6 +1,5 @@
 const R = require("../../rambda")
 
-
 describe("trim", () => {
   it("", () => {
     expect(

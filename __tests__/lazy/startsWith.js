@@ -1,17 +1,16 @@
 const R = require("../../rambda")
 
-
-test('true', ()=>{
+test("true", () => {
   const result = R.startsWith(
-    'foo',
+    "foo",
     "foo-bar"
   )
   expect(result).toBeTruthy()
 })
 
-test('false', ()=>{
+test("false", () => {
   const result = R.startsWith(
-    'baz',
+    "baz",
     "foo-bar"
   )
   expect(result).toBeFalsy()

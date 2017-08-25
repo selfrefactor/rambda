@@ -1,6 +1,5 @@
 const R = require("../../rambda")
 
-
 describe("drop", () => {
   it("flatten", () => {
     expect(

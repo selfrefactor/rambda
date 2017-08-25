@@ -1,6 +1,6 @@
-const R = require('../../rambda')
+const R = require("../../rambda")
 
-test('', ()=>{
+test("", () => {
   const fn = R.always(7)
   expect(fn()).toEqual(7)
   expect(fn()).toEqual(7)

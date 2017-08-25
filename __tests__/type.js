@@ -31,16 +31,16 @@ describe("type", () => {
       ).toEqual("Async")
     })
 
-    const delay = ms => new Promise(resolve=>{
-      setTimeout(function () {
-        resolve(ms+110)
-      }, ms);
+    const delay = ms => new Promise(resolve => {
+      setTimeout(() => {
+        resolve(ms + 110)
+      }, ms)
     })
-    
+
     expect(
       R.type(delay(10))
     ).toEqual("Promise")
-    
+
     expect(
       R.type({})
     ).toEqual("Object")

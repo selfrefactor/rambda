@@ -1,6 +1,6 @@
 const R = require("../../rambda")
 
-test("",()=>{
+test("", () => {
   const numArr = [ 0, 1, 2, 3, 4 ]
   it("when returns true", () => {
     const fn = val => val > -1

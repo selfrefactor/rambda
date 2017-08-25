@@ -1,6 +1,5 @@
 const R = require("../../rambda")
 
-
 describe("map", () => {
   it("", () => {
     const double = x => x * 2

@@ -1,8 +1,7 @@
 const R = require("../../rambda")
 
-
-test("", ()=>{
+test("", () => {
   expect(
-    R.padStart(10, 'foo')
+    R.padStart(10, "foo")
   ).toEqual("       foo")
 })

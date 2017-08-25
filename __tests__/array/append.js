@@ -1,6 +1,5 @@
 const R = require("../../rambda")
 
-
 describe("append", () => {
   it("", () => {
     expect(
@@ -24,15 +23,15 @@ describe("append", () => {
   })
 })
 
-describe("append",() => {
+describe("append", () => {
   it("should not modify arguments", () => {
-    const a = [1, 2, 3]
-    const b = R.append(4,a)
+    const a = [ 1, 2, 3 ]
+    const b = R.append(4, a)
     expect(
       a
-    ).toEqual([1,2,3])
+    ).toEqual([ 1, 2, 3 ])
     expect(
       b
-    ).toEqual([1,2,3,4])
+    ).toEqual([ 1, 2, 3, 4 ])
   })
 })

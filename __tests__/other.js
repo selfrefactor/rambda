@@ -7,13 +7,13 @@ describe("other", () => {
 
     expect(
       R.compose(
-          R.join("|"),
-          R.append("foo"),
-          R.takeLast(4),
-          R.map(R.toLower),
-          R.filter(val => val.length > 4),
-          R.split("/")
-        )(url)
+        R.join("|"),
+        R.append("foo"),
+        R.takeLast(4),
+        R.map(R.toLower),
+        R.filter(val => val.length > 4),
+        R.split("/")
+      )(url)
     ).toEqual("reference|global_objects|array|slice|foo")
   })
 
