@@ -4,6 +4,7 @@ import pkg from '../package.json';
 
 export default {
     input: './rambda.js',
+    sourcemap: true,
     plugins: [
         commonjs(),
         babel({
@@ -14,7 +15,6 @@ export default {
             plugins: ['external-helpers'],
         }),
     ],
-    sourcemap: false,
     output: [
         {
             file: pkg.main,
