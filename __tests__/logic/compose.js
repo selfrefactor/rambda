@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("compose", () => {
-  it("", () => {
+describe('compose', () => {
+  it('', () => {
     const result = R.compose(
       R.last,
       R.map(R.add(10)),

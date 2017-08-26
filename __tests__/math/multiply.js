@@ -1,6 +1,6 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(
     R.multiply(2, 4)
   ).toEqual(8)

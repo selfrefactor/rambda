@@ -1,9 +1,9 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("trim", () => {
-  it("", () => {
+describe('trim', () => {
+  it('', () => {
     expect(
-      R.trim(" foo ")
-    ).toEqual("foo")
+      R.trim(' foo ')
+    ).toEqual('foo')
   })
 })

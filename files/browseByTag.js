@@ -1,18 +1,18 @@
-const R = require("../rambda")
-const fs = require("fs-extra")
-const path = require("path")
-const ramdaData = require("./ramdaData.json").data
+const fs = require('fs-extra')
+const path = require('path')
+const R = require('../rambda')
+const ramdaData = require('./ramdaData.json').data
 
 const fn = async () => {
-  try{
-    let willReturn = ''
+  try {
+    const willReturn = ''
     const filePath = path.resolve(__dirname, '../rambda.js')
     const data = fs.readFileSync(filePath).toString()
     const ourData = R.compose(
-      R.map(R.replace('exports.','')),
+      R.map(R.replace('exports.', '')),
       R.flatten,
       R.map(x =>
-        R.match(/^exports.[a-zA-Z]{1,20}/g,x)
+        R.match(/^exports.[a-zA-Z]{1,20}/g, x)
       ),
       R.filter(R.includes('exports.')),
       R.split('\n')
@@ -22,30 +22,32 @@ const fn = async () => {
       R.join('\n'),
       R.map(x => {
         let localWillReturn = `
-### ${x.category}
+### ${ x.category }
 
           `
         x.data.map(singleFunction => {
           localWillReturn += `
-[${singleFunction}](#${singleFunction.toLowerCase()})
+[${ singleFunction }](#${ singleFunction.toLowerCase() })
 
             `
         })
+
         return localWillReturn
       }),
       R.filter(
-        x => x.data.length> 2
+        x => x.data.length > 2
       ),
       R.map(category => {
+        const filteredData = R.filter(x => ourData.includes(x))(ramdaData[ category ])
 
-        const filteredData = R.filter(x => {
-          return ourData.includes(x)
-        })(ramdaData[category])
-        return {category, data: filteredData}
+        return {
+          category,
+          data : filteredData,
+        }
       }),
       Object.keys
     )(ramdaData)
-  }catch(err){
+  } catch (err) {
     throw new Error(err)
   }
 }

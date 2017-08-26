@@ -1,18 +1,17 @@
-const R = require("../rambda")
-const Ramda = require("ramda")
-const _ = require("lodash")
-const Benchmark = require("benchmark")
+const _ = require('lodash')
+const Benchmark = require('benchmark')
+const R = require('../rambda')
+const Ramda = require('ramda')
 
+const suite = new Benchmark.Suite()
 
-const suite = new Benchmark.Suite();
-
-suite.add("Rambda.head", () => {
+suite.add('Rambda.head', () => {
   R.head(holder)
 })
-.add("Ramda", () => {
-  Ramda.head(holder)
-})
-.add("Lodash", () => {
-  _.head(holder)
-})
-module.exports = suite;
+  .add('Ramda', () => {
+    Ramda.head(holder)
+  })
+  .add('Lodash', () => {
+    _.head(holder)
+  })
+module.exports = suite

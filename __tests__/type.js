@@ -1,7 +1,7 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("type", () => {
-  it("", () => {
+describe('type', () => {
+  it('', () => {
     const fn1 = () => {}
     const fn2 = function () {}
     function fn3 () {}
@@ -13,7 +13,7 @@ describe("type", () => {
     ].map(val => {
       expect(
         R.type(val)
-      ).toEqual("Function")
+      ).toEqual('Function')
     })
 
     async function fn4 () {
@@ -28,7 +28,7 @@ describe("type", () => {
     ].map(val => {
       expect(
         R.type(val)
-      ).toEqual("Async")
+      ).toEqual('Async')
     })
 
     const delay = ms => new Promise(resolve => {
@@ -39,38 +39,38 @@ describe("type", () => {
 
     expect(
       R.type(delay(10))
-    ).toEqual("Promise")
+    ).toEqual('Promise')
 
     expect(
       R.type({})
-    ).toEqual("Object")
+    ).toEqual('Object')
 
     expect(
       R.type(1)
-    ).toEqual("Number")
+    ).toEqual('Number')
 
     expect(
       R.type(false)
-    ).toEqual("Boolean")
+    ).toEqual('Boolean')
 
     expect(
-      R.type("foo")
-    ).toEqual("String")
+      R.type('foo')
+    ).toEqual('String')
 
     expect(
       R.type(null)
-    ).toEqual("Null")
+    ).toEqual('Null')
 
     expect(
       R.type([])
-    ).toEqual("Array")
+    ).toEqual('Array')
 
     expect(
       R.type(/\s/g)
-    ).toEqual("RegExp")
+    ).toEqual('RegExp')
 
     expect(
       R.type(undefined)
-    ).toEqual("Undefined")
+    ).toEqual('Undefined')
   })
 })

@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(
     R.toString([ 1, 2, 3 ])
-  ).toEqual("1,2,3")
+  ).toEqual('1,2,3')
 })

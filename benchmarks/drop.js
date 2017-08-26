@@ -1,17 +1,17 @@
-const R = require("../rambda")
-const Ramda = require("ramda")
-const _ = require("lodash")
-const Benchmark = require("benchmark")
+const _ = require('lodash')
+const Benchmark = require('benchmark')
+const R = require('../rambda')
+const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite();
+const suite = new Benchmark.Suite()
 
-const holder = [1,2,3,4]
+const holder = [ 1, 2, 3, 4 ]
 const a = 3
 
-suite.add("Rambda.drop", () => {
+suite.add('Rambda.drop', () => {
   R.drop(a)(holder)
 })
-.add("Ramda", () => {
-  Ramda.drop(a)(holder)
-})
-module.exports = suite;
+  .add('Ramda', () => {
+    Ramda.drop(a)(holder)
+  })
+module.exports = suite

@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("update", () => {
-  it("", () => {
+describe('update', () => {
+  it('', () => {
     expect(
       R.update(1)(0)([ 1, 2, 3 ])
     ).toEqual([ 1, 0, 3 ])

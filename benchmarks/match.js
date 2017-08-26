@@ -1,21 +1,21 @@
-const R = require("../rambda")
-const Ramda = require("ramda")
-const _ = require("lodash")
-const Benchmark = require("benchmark")
+const _ = require('lodash')
+const Benchmark = require('benchmark')
+const R = require('../rambda')
+const Ramda = require('ramda')
 
-const holder = [1,2,3,4]
+const holder = [ 1, 2, 3, 4 ]
 const a = val => val + 2
 
-const suite = new Benchmark.Suite();
+const suite = new Benchmark.Suite()
 
-suite.add("Rambda.match", () => {
+suite.add('Rambda.match', () => {
   R.match(
     /a./g
-  )("foo bar baz")
+  )('foo bar baz')
 })
-.add("Ramda", () => {
-  Ramda.match(
-    /a./g
-  )("foo bar baz")
-})
-module.exports = suite;
+  .add('Ramda', () => {
+    Ramda.match(
+      /a./g
+    )('foo bar baz')
+  })
+module.exports = suite

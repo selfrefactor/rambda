@@ -1,17 +1,17 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("match", () => {
-  it("", () => {
+describe('match', () => {
+  it('', () => {
     expect(
       R.match(
         /a./g
-      )("foo bar baz")
-    ).toEqual([ "ar", "az" ])
+      )('foo bar baz')
+    ).toEqual([ 'ar', 'az' ])
 
     expect(
       R.match(
         /a./g
-      )("foo")
+      )('foo')
     ).toEqual([])
 
     expect(

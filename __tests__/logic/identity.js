@@ -1,5 +1,5 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(R.identity(7)).toEqual(7)
 })

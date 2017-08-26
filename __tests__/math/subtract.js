@@ -1,6 +1,6 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(
     R.subtract(2, 1)
   ).toEqual(1)

@@ -1,23 +1,23 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("sortBy", () => {
-  it("", () => {
+describe('sortBy', () => {
+  it('', () => {
     const sortByNameCaseInsensitive = R.sortBy(
       R.compose(
         R.toLower,
-        R.prop("name")
+        R.prop('name')
       )
     )
     const alice = {
-      name : "ALICE",
+      name : 'ALICE',
       age  : 101,
     }
     const bob = {
-      name : "Bob",
+      name : 'Bob',
       age  : -10,
     }
     const clara = {
-      name : "clara",
+      name : 'clara',
       age  : 314.159,
     }
     const people = [ clara, bob, alice ]

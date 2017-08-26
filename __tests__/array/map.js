@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("map", () => {
-  it("", () => {
+describe('map', () => {
+  it('', () => {
     const double = x => x * 2
     expect(
       R.map(double, [ 1, 2, 3 ])

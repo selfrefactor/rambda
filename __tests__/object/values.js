@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("values", () => {
-  it("", () => {
+describe('values', () => {
+  it('', () => {
     expect(
       R.values({
         a : 1,

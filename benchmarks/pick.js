@@ -1,20 +1,20 @@
-const R = require("../rambda")
-const Ramda = require("ramda")
-const _ = require("lodash")
-const Benchmark = require("benchmark")
+const _ = require('lodash')
+const Benchmark = require('benchmark')
+const R = require('../rambda')
+const Ramda = require('ramda')
 
-const holder = {a: {b: 2}}
-const a = ['a', 'b']
+const holder = { a : { b : 2 } }
+const a = [ 'a', 'b' ]
 
-const suite = new Benchmark.Suite();
+const suite = new Benchmark.Suite()
 
-suite.add("Rambda#pick", () => {
+suite.add('Rambda#pick', () => {
   R.pick(a)(holder)
 })
-.add("Ramda", () => {
-  Ramda.pick(a)(holder)
-})
-.add("Lodash", () => {
-  _.pick(holder, a)
-})
-module.exports = suite;
+  .add('Ramda', () => {
+    Ramda.pick(a)(holder)
+  })
+  .add('Lodash', () => {
+    _.pick(holder, a)
+  })
+module.exports = suite

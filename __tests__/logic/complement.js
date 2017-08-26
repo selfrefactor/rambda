@@ -1,6 +1,6 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   const fn = R.complement(
     R.any(x => x === 2)
   )

@@ -1,12 +1,12 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("sort", () => {
-  it("", () => {
+describe('sort', () => {
+  it('', () => {
     expect(
       R.sort(
         (a, b) => a > b
-      )([ "foo", "bar", "baz" ])
-    ).toEqual([ "bar", "baz", "foo" ])
+      )([ 'foo', 'bar', 'baz' ])
+    ).toEqual([ 'bar', 'baz', 'foo' ])
 
     expect(
       R.sort(

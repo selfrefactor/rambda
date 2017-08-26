@@ -1,20 +1,20 @@
-const R = require("../rambda")
-const Ramda = require("ramda")
-const _ = require("lodash")
-const Benchmark = require("benchmark")
+const _ = require('lodash')
+const Benchmark = require('benchmark')
+const R = require('../rambda')
+const Ramda = require('ramda')
 
-const holder = [1,2,3,4]
+const holder = [ 1, 2, 3, 4 ]
 const a = val => val === 3
 
-const suite = new Benchmark.Suite();
+const suite = new Benchmark.Suite()
 
-suite.add("Rambda.findIndex", () => {
-  R.findIndex(a,holder)
+suite.add('Rambda.findIndex', () => {
+  R.findIndex(a, holder)
 })
-.add("Ramda", () => {
-  Ramda.findIndex(a,holder)
-})
-.add("Lodash", () => {
-  _.findIndex(holder, a)
-})
-module.exports = suite;
+  .add('Ramda', () => {
+    Ramda.findIndex(a, holder)
+  })
+  .add('Lodash', () => {
+    _.findIndex(holder, a)
+  })
+module.exports = suite

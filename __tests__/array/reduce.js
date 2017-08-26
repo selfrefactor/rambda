@@ -1,17 +1,17 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("reduce", () => {
-  it("with compose", () => {
+describe('reduce', () => {
+  it('with compose', () => {
     const convertToString = (acc, value) => acc + value
     expect(
       R.compose(
-        R.reduce(convertToString, ""),
+        R.reduce(convertToString, ''),
         R.map(x => x + 1)
       )([ 1, 2, 3 ])
-    ).toEqual("234")
+    ).toEqual('234')
   })
 
-  it("", () => {
+  it('', () => {
     const result = R.reduce(
       (acc, val) => acc + val
     )(1)([ 1, 2, 3 ])
@@ -20,7 +20,7 @@ describe("reduce", () => {
     ).toEqual(7)
   })
 
-  it("with curry", () => {
+  it('with curry', () => {
     const add = R.curry((n, n2) => n + n2)
 
     expect(

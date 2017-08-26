@@ -1,7 +1,7 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("init", () => {
-  it("", () => {
+describe('init', () => {
+  it('', () => {
     expect(
       R.compose(
         R.tail,
@@ -24,15 +24,15 @@ describe("init", () => {
     ).toEqual([])
 
     expect(
-      R.init("foo")
-    ).toEqual("fo")
+      R.init('foo')
+    ).toEqual('fo')
 
     expect(
-      R.init("f")
-    ).toEqual("")
+      R.init('f')
+    ).toEqual('')
 
     expect(
-      R.init("")
-    ).toEqual("")
+      R.init('')
+    ).toEqual('')
   })
 })

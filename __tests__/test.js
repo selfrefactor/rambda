@@ -1,13 +1,13 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("test", () => {
-  it("", () => {
+describe('test', () => {
+  it('', () => {
     expect(
-      R.test(/^x/, "xyz")
+      R.test(/^x/, 'xyz')
     ).toBeTruthy()
 
     expect(
-      R.test(/^y/)("xyz")
+      R.test(/^y/)('xyz')
     ).toBeFalsy()
   })
 })

@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("append", () => {
-  it("", () => {
+describe('append', () => {
+  it('', () => {
     expect(
       R.compose(
         R.flatten,
@@ -10,21 +10,21 @@ describe("append", () => {
     ).toEqual([ 1, 0, 2, 0, 3, 0 ])
 
     expect(
-      R.append("tests", [ "write", "more" ])
-    ).toEqual([ "write", "more", "tests" ])
+      R.append('tests', [ 'write', 'more' ])
+    ).toEqual([ 'write', 'more', 'tests' ])
 
     expect(
-      R.append("tests", [])
-    ).toEqual([ "tests" ])
+      R.append('tests', [])
+    ).toEqual([ 'tests' ])
 
     expect(
-      R.append([ "tests" ], [ "write", "more" ])
-    ).toEqual([ "write", "more", [ "tests" ] ])
+      R.append([ 'tests' ], [ 'write', 'more' ])
+    ).toEqual([ 'write', 'more', [ 'tests' ] ])
   })
 })
 
-describe("append", () => {
-  it("should not modify arguments", () => {
+describe('append', () => {
+  it('should not modify arguments', () => {
     const a = [ 1, 2, 3 ]
     const b = R.append(4, a)
     expect(

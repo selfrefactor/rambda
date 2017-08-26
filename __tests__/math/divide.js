@@ -1,6 +1,6 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(
     R.divide(71, 100)
   ).toEqual(0.71)

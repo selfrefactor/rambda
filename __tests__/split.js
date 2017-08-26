@@ -1,15 +1,15 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("split", () => {
-  it("", () => {
+describe('split', () => {
+  it('', () => {
     expect(
       R.split(
-        "|"
-      )("foo|bar|baz")
-    ).toEqual([ "foo", "bar", "baz" ])
+        '|'
+      )('foo|bar|baz')
+    ).toEqual([ 'foo', 'bar', 'baz' ])
 
     expect(
-      R.split(".", "a.b.c.xyz.d")
-    ).toEqual([ "a", "b", "c", "xyz", "d" ])
+      R.split('.', 'a.b.c.xyz.d')
+    ).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
   })
 })

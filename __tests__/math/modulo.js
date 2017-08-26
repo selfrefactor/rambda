@@ -1,6 +1,6 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("", () => {
+test('', () => {
   expect(
     R.modulo(17, 3)
   ).toEqual(2)

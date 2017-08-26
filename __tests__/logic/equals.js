@@ -1,7 +1,7 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-describe("equals", () => {
-  it("", () => {
+describe('equals', () => {
+  it('', () => {
     expect(
       R.equals([ 1, 2, 3 ], [ 1, 2, 3 ])
     ).toBeTruthy()
@@ -15,7 +15,7 @@ describe("equals", () => {
     ).toBeTruthy()
 
     expect(
-      R.equals(1, "1")
+      R.equals(1, '1')
     ).toBeFalsy()
 
     expect(
@@ -101,15 +101,15 @@ describe("equals", () => {
     ).toBeTruthy()
 
     expect(
-      R.equals("", "")
+      R.equals('', '')
     ).toBeTruthy()
 
     expect(
-      R.equals("foo", "foo")
+      R.equals('foo', 'foo')
     ).toBeTruthy()
 
     expect(
-      R.equals("foo", "bar")
+      R.equals('foo', 'bar')
     ).toBeFalsy()
 
     expect(

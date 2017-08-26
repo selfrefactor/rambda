@@ -1,23 +1,23 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-describe("propEq", () => {
-  it("", () => {
+describe('propEq', () => {
+  it('', () => {
     expect(
       R.propEq(
-        "foo",
-        "bar"
-      )({ foo : "bar" })
+        'foo',
+        'bar'
+      )({ foo : 'bar' })
     ).toBeTruthy()
 
     expect(
       R.propEq(
-        "foo",
-        "bar"
-      )({ foo : "baz" })
+        'foo',
+        'bar'
+      )({ foo : 'baz' })
     ).toBeFalsy()
 
     expect(
-      R.propEq("foo")("bar")({ foo : "baz" })
+      R.propEq('foo')('bar')({ foo : 'baz' })
     ).toBeFalsy()
   })
 })

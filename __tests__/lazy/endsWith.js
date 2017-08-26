@@ -1,17 +1,17 @@
-const R = require("../../rambda")
+const R = require('../../rambda')
 
-test("true", () => {
+test('true', () => {
   const result = R.endsWith(
-    "bar",
-    "foo-bar"
+    'bar',
+    'foo-bar'
   )
   expect(result).toBeTruthy()
 })
 
-test("false", () => {
+test('false', () => {
   const result = R.endsWith(
-    "baz",
-    "foo-bar"
+    'baz',
+    'foo-bar'
   )
   expect(result).toBeFalsy()
 })

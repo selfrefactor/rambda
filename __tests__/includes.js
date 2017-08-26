@@ -1,18 +1,18 @@
-const R = require("../rambda")
+const R = require('../rambda')
 
-test("R.includes with string", () => {
-  const str = "more is less"
+test('R.includes with string', () => {
+  const str = 'more is less'
 
   expect(
-    R.includes("less")(str)
+    R.includes('less')(str)
   ).toBeTruthy()
 
   expect(
-    R.includes("never", str)
+    R.includes('never', str)
   ).toBeFalsy()
 })
 
-test("R.includes with array", () => {
+test('R.includes with array', () => {
   const arr = [ 1, 2, 3 ]
   expect(
     R.includes(2)(arr)
