@@ -1,10 +1,8 @@
-const type = require('./type')
-
 function path (pathArr, obj) {
   if (arguments.length === 1) {
     return objHolder => path(pathArr, objHolder)
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === null || obj === undefined) {
     return undefined
   }
   let holder = obj

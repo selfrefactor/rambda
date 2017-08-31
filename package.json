@@ -7,7 +7,7 @@
   "browser": "dist/rambda.umd.js",
   "scripts": {
     "build": "run-s all-build browser-minify",
-    "test": "jest",
+    "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
     "dev": "jest __tests__/tap",

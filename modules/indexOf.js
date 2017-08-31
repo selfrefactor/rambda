@@ -1,11 +1,11 @@
 const curry = require('./internal/curry')
 
-function indexOf (question, arr) {
+function indexOf (x, arr) {
   let index = -1
   const length = arr.length
 
   while (++index < length) {
-    if (arr[ index ] === question) {
+    if (arr[ index ] === x) {
       return index
     }
   }
