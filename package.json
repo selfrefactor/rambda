@@ -21,7 +21,8 @@
     "lint-modules": "cd modules&&run m lintFolder",
     "lint-files": "cd files&&run m lintFolder",
     "lint-benchmarks": "cd benchmarks&&run m lintFolder",
-    "lint-rambda": "run m lint f rambda.js"
+    "lint-rambda": "run m lint f rambda.js",
+    "jest": "jest"
   },
   "repository": {
     "type": "git",

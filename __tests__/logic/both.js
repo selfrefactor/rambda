@@ -1,4 +1,4 @@
-const R = require('../../rambda')
+const R = require('../../dist/rambda.cjs')
 
 test('both', () => {
   const firstFn = val => val > 0

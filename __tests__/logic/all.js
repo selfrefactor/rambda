@@ -1,4 +1,4 @@
-const R = require('../../rambda')
+const R = require('../../dist/rambda.cjs')
 
 test('', () => {
   const numArr = [ 0, 1, 2, 3, 4 ]
