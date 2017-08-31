@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function has (prop, obj) {
   return obj[ prop ] !== undefined
 }
 
-module.exports = curry(has)
+export default curry(has)

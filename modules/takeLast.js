@@ -1,5 +1,5 @@
-const baseSlice = require('./internal/baseSlice')
-const curry = require('./internal/curry')
+import baseSlice from './internal/baseSlice'
+import curry from './internal/curry'
 
 function takeLast (takeNumber, a) {
   const len = a.length
@@ -15,4 +15,4 @@ function takeLast (takeNumber, a) {
   return baseSlice(a, takeNumber, len)
 }
 
-module.exports = curry(takeLast)
+export default curry(takeLast)

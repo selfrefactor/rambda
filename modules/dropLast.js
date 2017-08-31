@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function dropLast (dropNumber, a) {
   return a.slice(0, -dropNumber)
 }
 
-module.exports = curry(dropLast)
+export default curry(dropLast)

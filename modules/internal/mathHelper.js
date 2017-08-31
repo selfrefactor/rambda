@@ -1,4 +1,4 @@
-const curryThree = require('./curryThree')
+import curryThree from './curryThree'
 
 function mathHelper (operation, x, y) {
   switch (operation) {
@@ -17,4 +17,4 @@ function mathHelper (operation, x, y) {
   }
 }
 
-module.exports = curryThree(mathHelper)
+export default curryThree(mathHelper)

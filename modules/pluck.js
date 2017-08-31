@@ -1,5 +1,5 @@
-const curry = require('./internal/curry')
-const map = require('./map')
+import curry from './internal/curry'
+import map from './map'
 
 function pluck (keyToPluck, arr) {
   const willReturn = []
@@ -15,4 +15,4 @@ function pluck (keyToPluck, arr) {
   return willReturn
 }
 
-module.exports = curry(pluck)
+export default curry(pluck)

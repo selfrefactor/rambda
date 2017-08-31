@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function merge (obj, newProps) {
   return Object.assign({}, obj, newProps)
 }
 
-module.exports = curry(merge)
+export default curry(merge)

@@ -1,7 +1,7 @@
-const curryThree = require('./internal/curryThree')
+import curryThree from './internal/curryThree'
 
 function reduce (fn, initialValue, arr) {
   return arr.reduce(fn, initialValue)
 }
 
-module.exports = curryThree(reduce)
+export default curryThree(reduce)

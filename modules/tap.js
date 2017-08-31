@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function tap (fn, input) {
   fn(input)
@@ -6,4 +6,4 @@ function tap (fn, input) {
   return input
 }
 
-module.exports = curry(tap)
+export default curry(tap)

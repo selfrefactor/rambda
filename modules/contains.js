@@ -1,5 +1,5 @@
-const curry = require('./internal/curry')
-const equals = require('./equals')
+import curry from './internal/curry'
+import equals from './equals'
 
 function contains (val, arr) {
   let index = -1
@@ -13,4 +13,4 @@ function contains (val, arr) {
   return flag
 }
 
-module.exports = curry(contains)
+export default curry(contains)

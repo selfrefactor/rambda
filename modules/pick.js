@@ -1,6 +1,6 @@
-const type = require('./type')
+import type from './type'
 
-function pick (keys, obj) {
+export default function pick (keys, obj) {
   if (arguments.length === 1) {
     return objHolder => pick(keys, objHolder)
   }
@@ -22,5 +22,3 @@ function pick (keys, obj) {
 
   return willReturn
 }
-
-module.exports = pick

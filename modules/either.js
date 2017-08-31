@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function either (x, y) {
   return input => x(input) || y(input)
 }
 
-module.exports = curry(either)
+export default curry(either)

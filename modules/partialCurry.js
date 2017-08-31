@@ -1,7 +1,7 @@
-const merge = require('./merge')
-const type = require('./type')
+import merge from './merge'
+import type from './type'
 
-function partialCurry (fn, inputArguments = {}) {
+export default function partialCurry (fn, inputArguments = {}) {
   return inputArgumentsHolder => {
     if (type(fn) === 'Async' || type(fn) === 'Promise') {
       return new Promise((resolve, reject) => {
@@ -14,5 +14,3 @@ function partialCurry (fn, inputArguments = {}) {
     return fn(merge(inputArgumentsHolder, inputArguments))
   }
 }
-
-module.exports = partialCurry

@@ -1,4 +1,6 @@
-function omit (keys, obj) {
+import type from './type'
+
+export default function omit (keys, obj) {
   if (arguments.length === 1) {
     return objHolder => omit(keys, objHolder)
   }
@@ -18,5 +20,3 @@ function omit (keys, obj) {
 
   return willReturn
 }
-
-module.exports = omit

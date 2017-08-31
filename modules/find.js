@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function find (fn, arr) {
   return arr.find(fn)
 }
 
-module.exports = curry(find)
+export default curry(find)

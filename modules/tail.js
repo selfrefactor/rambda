@@ -1,7 +1,5 @@
-const drop = require('./drop')
+import drop from './drop'
 
-function tail (arr) {
+export default function tail (arr) {
   return drop(1, arr)
 }
-
-module.exports = tail

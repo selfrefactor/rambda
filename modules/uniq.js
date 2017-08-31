@@ -1,6 +1,6 @@
-const contains = require('./contains')
+import contains from './contains'
 
-function uniq (arr) {
+export default function uniq (arr) {
   let index = -1
   const willReturn = []
   while (++index < arr.length) {
@@ -12,5 +12,3 @@ function uniq (arr) {
 
   return willReturn
 }
-
-module.exports = uniq

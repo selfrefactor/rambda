@@ -1,4 +1,4 @@
-function simpleHelper (method, x) {
+export default function simpleHelper (method, x) {
   if (x === undefined) {
     return xHolder => simpleHelper(method, xHolder)
   }
@@ -6,5 +6,3 @@ function simpleHelper (method, x) {
     return x[ method ]()
   }
 }
-
-module.exports = simpleHelper

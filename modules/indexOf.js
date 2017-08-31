@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function indexOf (x, arr) {
   let index = -1
@@ -13,4 +13,4 @@ function indexOf (x, arr) {
   return -1
 }
 
-module.exports = curry(indexOf)
+export default curry(indexOf)

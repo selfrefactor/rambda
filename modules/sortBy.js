@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function sortBy (fn, arr) {
   const arrClone = arr.concat()
@@ -15,4 +15,4 @@ function sortBy (fn, arr) {
   })
 }
 
-module.exports = curry(sortBy)
+export default curry(sortBy)

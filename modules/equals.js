@@ -1,5 +1,5 @@
-const curry = require('./internal/curry')
-const type = require('./type')
+import curry from './internal/curry'
+import type from './type'
 
 function equals (a, b) {
   if (a === b) {
@@ -55,4 +55,4 @@ function equals (a, b) {
   return false
 }
 
-module.exports = curry(equals)
+export default curry(equals)

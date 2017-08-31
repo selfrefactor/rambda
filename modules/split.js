@@ -1,7 +1,7 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function split (glue, str) {
   return str.split(glue)
 }
 
-module.exports = curry(split)
+export default curry(split)

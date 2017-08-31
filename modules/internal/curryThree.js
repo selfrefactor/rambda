@@ -1,6 +1,6 @@
-const curry = require('./curry')
+import curry from './curry'
 
-function curryThree (fn) {
+export default function curryThree (fn) {
   return (x, y, z) => {
     if (y === undefined) {
       const helper = (yHolder, zHolder) => fn(x, yHolder, zHolder)
@@ -13,5 +13,3 @@ function curryThree (fn) {
     return fn(x, y, z)
   }
 }
-
-module.exports = curryThree

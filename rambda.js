@@ -1,8 +1,8 @@
-const helper = require('./modules/internal/helper')
-const mathHelper = require('./modules/internal/mathHelper')
-const oppositeHelper = require('./modules/internal/oppositeHelper')
-const propHelper = require('./modules/internal/propHelper')
-const simpleHelper = require('./modules/internal/simpleHelper')
+import helper from './modules/internal/helper'
+import mathHelper from './modules/internal/mathHelper'
+import oppositeHelper from './modules/internal/oppositeHelper'
+import propHelper from './modules/internal/propHelper'
+import simpleHelper from './modules/internal/simpleHelper'
 
 exports.add = mathHelper('+')
 exports.addIndex = require('./modules/addIndex')

@@ -1,4 +1,4 @@
-function passingHelper (method, x, y) {
+export default function passingHelper (method, x, y) {
   if (x === undefined) {
     return (xHolder, yHolder) => passingHelper(method, xHolder, yHolder)
   } else if (y === undefined) {
@@ -10,5 +10,3 @@ function passingHelper (method, x, y) {
     return y
   }
 }
-
-module.exports = passingHelper

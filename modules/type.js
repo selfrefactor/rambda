@@ -1,4 +1,4 @@
-function type (a) {
+export default function type (a) {
   if (a === null) {
     return 'Null'
   } else if (a === undefined) {
@@ -29,5 +29,3 @@ function type (a) {
 
   return 'Object'
 }
-
-module.exports = type

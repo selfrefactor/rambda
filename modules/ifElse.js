@@ -1,4 +1,4 @@
-const curryThree = require('./internal/curryThree')
+import curryThree from './internal/curryThree'
 
 function ifElse (conditionFn, ifFn, elseFn) {
   return input => {
@@ -10,4 +10,4 @@ function ifElse (conditionFn, ifFn, elseFn) {
   }
 }
 
-module.exports = curryThree(ifElse)
+export default curryThree(ifElse)

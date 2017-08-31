@@ -1,6 +1,6 @@
-const type = require('./type')
+import type from './type'
 
-function defaultTo (defaultArgument, inputArgument) {
+export default function defaultTo (defaultArgument, inputArgument) {
   if (arguments.length === 1) {
     return inputArgumentHolder => defaultTo(defaultArgument, inputArgumentHolder)
   }
@@ -9,5 +9,3 @@ function defaultTo (defaultArgument, inputArgument) {
     defaultArgument :
     inputArgument
 }
-
-module.exports = defaultTo

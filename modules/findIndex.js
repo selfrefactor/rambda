@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function findIndex (fn, arr) {
   const length = arr.length
@@ -13,4 +13,4 @@ function findIndex (fn, arr) {
   return -1
 }
 
-module.exports = curry(findIndex)
+export default curry(findIndex)

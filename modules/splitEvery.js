@@ -1,4 +1,5 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
+
 function splitEvery (num, a) {
   num = num > 1 ?
     num :
@@ -13,4 +14,4 @@ function splitEvery (num, a) {
   return willReturn
 }
 
-module.exports = curry(splitEvery)
+export default curry(splitEvery)

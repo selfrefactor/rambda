@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function map (fn, arr) {
   let index = -1
@@ -12,4 +12,4 @@ function map (fn, arr) {
   return willReturn
 }
 
-module.exports = curry(map)
+export default curry(map)

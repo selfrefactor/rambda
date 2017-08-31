@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function filter (fn, arr) {
   let index = -1
@@ -16,4 +16,4 @@ function filter (fn, arr) {
   return willReturn
 }
 
-module.exports = curry(filter)
+export default curry(filter)

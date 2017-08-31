@@ -52,7 +52,6 @@
     "ramda": "^0.24.1",
     "rollup": "^0.48.2",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.0",
     "run-fn": "^0.1.10"
   }
 }

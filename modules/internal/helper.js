@@ -1,4 +1,4 @@
-function helper (method, x, y) {
+export default function helper (method, x, y) {
   if (x === undefined) {
     return (xHolder, yHolder) => helper(method, xHolder, yHolder)
   } else if (y === undefined) {
@@ -8,5 +8,3 @@ function helper (method, x, y) {
     return y[ method ](x)
   }
 }
-
-module.exports = helper

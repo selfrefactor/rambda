@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function match (regex, str) {
   const willReturn = str.match(regex)
@@ -8,4 +8,4 @@ function match (regex, str) {
     willReturn
 }
 
-module.exports = curry(match)
+export default curry(match)

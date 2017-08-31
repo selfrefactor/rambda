@@ -1,6 +1,6 @@
 //Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
-const compose = (...fns) =>
-  result => {
+export default function compose (...fns) {
+  return result => {
     const list = fns.slice()
 
     while (list.length > 0) {
@@ -9,5 +9,4 @@ const compose = (...fns) =>
 
     return result
   }
-
-module.exports = compose
+}

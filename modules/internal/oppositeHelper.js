@@ -1,4 +1,4 @@
-function oppositeHelper (method, x, y) {
+export default function oppositeHelper (method, x, y) {
   if (x === undefined) {
     return (xHolder, yHolder) => oppositeHelper(method, xHolder, yHolder)
   } else if (y === undefined) {
@@ -8,5 +8,3 @@ function oppositeHelper (method, x, y) {
     return x[ method ](y)
   }
 }
-
-module.exports = oppositeHelper

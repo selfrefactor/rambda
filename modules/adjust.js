@@ -1,4 +1,4 @@
-const curryThree = require('./internal/curryThree')
+import curryThree from './internal/curryThree'
 
 function adjust (fn, index, arr) {
   const clone = arr.concat()
@@ -12,4 +12,4 @@ function adjust (fn, index, arr) {
   })
 }
 
-module.exports = curryThree(adjust)
+export default curryThree(adjust)

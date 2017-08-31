@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function append (val, arr) {
   const clone = arr.concat()
@@ -7,4 +7,4 @@ function append (val, arr) {
   return clone
 }
 
-module.exports = curry(append)
+export default curry(append)

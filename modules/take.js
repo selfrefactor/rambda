@@ -1,5 +1,5 @@
-const baseSlice = require('./internal/baseSlice')
-const curry = require('./internal/curry')
+import baseSlice from './internal/baseSlice'
+import curry from './internal/curry'
 
 function take (takeNumber, a) {
   if (a === undefined) {
@@ -11,4 +11,4 @@ function take (takeNumber, a) {
   return baseSlice(a, 0, takeNumber)
 }
 
-module.exports = curry(take)
+export default curry(take)

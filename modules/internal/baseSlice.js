@@ -1,4 +1,4 @@
-function baseSlice (array, start, end) {
+export default function baseSlice (array, start, end) {
   let index = -1
   let length = array.length
 
@@ -16,5 +16,3 @@ function baseSlice (array, start, end) {
 
   return result
 }
-
-module.exports = baseSlice

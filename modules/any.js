@@ -1,4 +1,4 @@
-const curry = require('./internal/curry')
+import curry from './internal/curry'
 
 function any (fn, arr) {
   let counter = 0
@@ -12,4 +12,4 @@ function any (fn, arr) {
   return false
 }
 
-module.exports = curry(any)
+export default curry(any)
