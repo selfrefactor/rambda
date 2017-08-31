@@ -496,7 +496,7 @@ if (options.merge) {
 }
 
 const omit = new Benchmark.Suite
-options.omit = false
+options.omit = true
 
 if (options.omit) {
   const holder = {
@@ -524,7 +524,7 @@ if (options.omit) {
 }
 
 const path = new Benchmark.Suite
-options.path = true
+options.path = false
 
 if (options.path) {
   const holder = { a : { b : 2 } }
@@ -532,12 +532,12 @@ if (options.path) {
   path.add('Rambda.path', () => {
     R.path(a, holder)
   })
-    //.add('Ramda', () => {
-    //Ramda.path(a, holder)
-    //})
-    //.add('Lodash.get', () => {
-    //_.get(holder, a)
-    //})
+    .add('Ramda', () => {
+      Ramda.path(a, holder)
+    })
+    .add('Lodash.get', () => {
+      _.get(holder, a)
+    })
     .on('cycle', event => {
       benchmarks.add(event.target)
     })

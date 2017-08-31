@@ -15,7 +15,7 @@
     "browser-minify": "run m minify f dist/rambda.umd.js o _",
     "node-minify": "run m minify f dist/rambda.cjs.js o _",
     "benchmark": "node benchmarks/index.js",
-    "cover": "jest --coverage",
+    "cover": "jest __tests__ --coverage",
     "lintall": "run-p lint-test lint-modules lint-rambda lint-files lint-benchmarks",
     "lint-test": "cd __tests__&&run m lintFolder",
     "lint-modules": "cd modules&&run m lintFolder",

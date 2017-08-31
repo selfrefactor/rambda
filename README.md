@@ -892,8 +892,6 @@ R.values({a: 1, b: 2}) // => [1, 2]
 
 ---
 
-## Lazy API
-
 The following methods are included as it costs next to nothing to add them.
 
 Note that the following list of methods are not part of `Ramda` API.
@@ -910,11 +908,16 @@ R.includes('oo', 'foo') // => true
 R.includes('z', 'foo') // => false
 ```
 
+Note that this method is not part of `Ramda` API.
+
+
 #### padEnd
 
 > padEnd(x: Number, str: String): String
 
 `R.padEnd(3, 'foo') // => 'foo   '`
+
+Note that this method is not part of `Ramda` API.
 
 #### padStart
 
@@ -922,6 +925,7 @@ R.includes('z', 'foo') // => false
 
 `R.padStart(3, 'foo') // => '   foo'`
 
+Note that this method is not part of `Ramda` API.
 
 #### toString
 
