@@ -820,6 +820,11 @@ R.test(/^f/, 'bar') // => false
 R.toLower('FOO') // => 'foo'
 ```
 
+#### toString
+> toString(x: any): String
+
+`R.toString([1, 2]) // => '1,2'`
+
 #### toUpper
 
 > toUpper(str: String): String
@@ -892,12 +897,6 @@ R.values({a: 1, b: 2}) // => [1, 2]
 
 ---
 
-The following methods are included as it costs next to nothing to add them.
-
-Note that the following list of methods are not part of `Ramda` API.
-
----
-
 #### includes
 
 > includes(x: any, arrOrStr: Array|String): Boolean
@@ -909,7 +908,6 @@ R.includes('z', 'foo') // => false
 ```
 
 Note that this method is not part of `Ramda` API.
-
 
 #### padEnd
 
@@ -926,12 +924,6 @@ Note that this method is not part of `Ramda` API.
 `R.padStart(3, 'foo') // => '   foo'`
 
 Note that this method is not part of `Ramda` API.
-
-#### toString
-
-`R.toString([1, 2]) // => '1,2'`
-
----
 
 ## Benchmark
 

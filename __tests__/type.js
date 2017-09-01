@@ -27,6 +27,10 @@ describe('type', () => {
     ).toEqual('Promise')
 
     expect(
+      R.type(async () => {})
+    ).toEqual('Async')
+
+    expect(
       R.type({})
     ).toEqual('Object')
 

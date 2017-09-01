@@ -10,7 +10,7 @@
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
-    "dev": "jest __tests__/type",
+    "dev": "jest __tests__/logic/partialCurry",
     "all-build": "rollup -c files/rollup.config.js",
     "browser-minify": "run m minify f dist/rambda.umd.js o _",
     "node-minify": "run m minify f dist/rambda.cjs.js o _",
