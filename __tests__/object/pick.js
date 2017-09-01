@@ -1,4 +1,4 @@
-const R = require('../../dist/rambda.cjs')
+const R = require('../../rambda')
 
 test('R.pick with string as condition', () => {
   const obj = {

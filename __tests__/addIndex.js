@@ -1,4 +1,4 @@
-const R = require('../dist/rambda.cjs')
+const R = require('../rambda')
 
 describe('addIndex', () => {
   it('should add index as last argument of function applied to functor', () => {

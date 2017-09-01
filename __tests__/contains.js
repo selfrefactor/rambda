@@ -1,4 +1,4 @@
-const R = require('../dist/rambda.cjs')
+const R = require('../rambda')
 
 test('', () => {
   expect(R.contains(3)([ 1, 2, 3 ])).toBeTruthy()

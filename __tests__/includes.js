@@ -1,4 +1,4 @@
-const R = require('../dist/rambda.cjs')
+const R = require('../rambda')
 
 test('R.includes with string', () => {
   const str = 'more is less'

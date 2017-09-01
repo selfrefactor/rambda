@@ -1,4 +1,4 @@
-const R = require('../../dist/rambda.cjs')
+const R = require('../../rambda')
 
 test('works with undefined', () => {
   const obj = { a : { b : { c : 1 } } }
