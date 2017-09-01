@@ -16,21 +16,6 @@ describe('type', () => {
       ).toEqual('Function')
     })
 
-    async function fn4 () {
-      const a = await R.add(1, 2)
-
-      return a
-    }
-
-    [
-      async () => {},
-      fn4,
-    ].map(val => {
-      expect(
-        R.type(val)
-      ).toEqual('Async')
-    })
-
     const delay = ms => new Promise(resolve => {
       setTimeout(() => {
         resolve(ms + 110)
