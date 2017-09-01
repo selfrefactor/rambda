@@ -4,84 +4,84 @@ import oppositeHelper from './modules/internal/oppositeHelper'
 import propHelper from './modules/internal/propHelper'
 import simpleHelper from './modules/internal/simpleHelper'
 
-exports.add = mathHelper('+')
-exports.addIndex = require('./modules/addIndex')
-exports.adjust = require('./modules/adjust')
-exports.all = require('./modules/all')
-exports.allPass = require('./modules/allPass')
-exports.anyPass = require('./modules/anyPass')
-exports.always = x => () => x
-exports.any = require('./modules/any')
-exports.append = require('./modules/append')
-exports.both = require('./modules/both')
-exports.complement = fn => input => !fn(input)
-exports.compose = require('./modules/compose')
-exports.concat = oppositeHelper('concat')
-exports.contains = require('./modules/contains')
-exports.curry = require('./modules/curry')
-exports.dec = require('./modules/dec')
-exports.defaultTo = require('./modules/defaultTo')
-exports.divide = mathHelper('/')
-exports.drop = require('./modules/drop')
-exports.dropLast = require('./modules/dropLast')
-exports.either = require('./modules/either')
-exports.endsWith = helper('endsWith')
-exports.inc = require('./modules/inc')
-exports.equals = require('./modules/equals')
-exports.F = () => false
-exports.filter = require('./modules/filter')
-exports.find = require('./modules/find')
-exports.findIndex = require('./modules/findIndex')
-exports.flatten = require('./modules/flatten')
-exports.has = require('./modules/has')
-exports.head = require('./modules/head')
-exports.identity = x => x
-exports.ifElse = require('./modules/ifElse')
-exports.includes = helper('includes')
-exports.indexOf = require('./modules/indexOf')
-exports.init = require('./modules/init')
-exports.join = helper('join')
-exports.last = require('./modules/last')
-exports.lastIndexOf = helper('lastIndexOf')
-exports.length = propHelper('length')
-exports.map = require('./modules/map')
-exports.match = require('./modules/match')
-exports.merge = require('./modules/merge')
-exports.modulo = mathHelper('%')
-exports.multiply = mathHelper('*')
-exports.not = x => !x
-exports.omit = require('./modules/omit')
-exports.padEnd = helper('padEnd')
-exports.padStart = helper('padStart')
-exports.partialCurry = require('./modules/partialCurry')
-exports.path = require('./modules/path')
-exports.pick = require('./modules/pick')
-exports.pluck = require('./modules/pluck')
-exports.prepend = require('./modules/prepend')
-exports.prop = require('./modules/prop')
-exports.propEq = require('./modules/propEq')
-exports.range = require('./modules/range')
-exports.reduce = require('./modules/reduce')
-exports.repeat = require('./modules/repeat')
-exports.replace = require('./modules/replace')
-exports.reverse = simpleHelper('reverse')
-exports.sort = require('./modules/sort')
-exports.sortBy = require('./modules/sortBy')
-exports.split = require('./modules/split')
-exports.splitEvery = require('./modules/splitEvery')
-exports.startsWith = helper('startsWith')
-exports.subtract = mathHelper('-')
-exports.T = () => true
-exports.tap = require('./modules/tap')
-exports.tail = require('./modules/tail')
-exports.take = require('./modules/take')
-exports.takeLast = require('./modules/takeLast')
-exports.test = require('./modules/test')
-exports.toLower = simpleHelper('toLowerCase')
-exports.toString = simpleHelper('toString')
-exports.toUpper = simpleHelper('toUpperCase')
-exports.trim = simpleHelper('trim')
-exports.type = require('./modules/type')
-exports.uniq = require('./modules/uniq')
-exports.update = require('./modules/update')
-exports.values = require('./modules/values')
+export const add = mathHelper('+')
+export { default as addIndex } from './modules/addIndex'
+export { default as adjust } from './modules/adjust'
+export { default as all } from './modules/all'
+export { default as allPass } from './modules/allPass'
+export { default as anyPass } from './modules/anyPass'
+export const always = x => () => x
+export { default as any } from './modules/any'
+export { default as append } from './modules/append'
+export { default as both } from './modules/both'
+export const complement = fn => input => !fn(input)
+export { default as compose } from './modules/compose'
+export const concat = oppositeHelper('concat')
+export { default as contains } from './modules/contains'
+export { default as curry } from './modules/curry'
+export { default as dec } from './modules/dec'
+export { default as defaultTo } from './modules/defaultTo'
+export const divide = mathHelper('/')
+export { default as drop } from './modules/drop'
+export { default as dropLast } from './modules/dropLast'
+export { default as either } from './modules/either'
+export const endsWith = helper('endsWith')
+export { default as inc } from './modules/inc'
+export { default as equals } from './modules/equals'
+export const F = () => false
+export { default as filter } from './modules/filter'
+export { default as find } from './modules/find'
+export { default as findIndex } from './modules/findIndex'
+export { default as flatten } from './modules/flatten'
+export { default as has } from './modules/has'
+export { default as head } from './modules/head'
+export const identity = x => x
+export { default as ifElse } from './modules/ifElse'
+export const includes = helper('includes')
+export { default as indexOf } from './modules/indexOf'
+export { default as init } from './modules/init'
+export const join = helper('join')
+export { default as last } from './modules/last'
+export const lastIndexOf = helper('lastIndexOf')
+export const length = propHelper('length')
+export { default as map } from './modules/map'
+export { default as match } from './modules/match'
+export { default as merge } from './modules/merge'
+export const modulo = mathHelper('%')
+export const multiply = mathHelper('*')
+export const not = x => !x
+export { default as omit } from './modules/omit'
+export const padEnd = helper('padEnd')
+export const padStart = helper('padStart')
+export { default as partialCurry } from './modules/partialCurry'
+export { default as path } from './modules/path'
+export { default as pick } from './modules/pick'
+export { default as pluck } from './modules/pluck'
+export { default as prepend } from './modules/prepend'
+export { default as prop } from './modules/prop'
+export { default as propEq } from './modules/propEq'
+export { default as range } from './modules/range'
+export { default as reduce } from './modules/reduce'
+export { default as repeat } from './modules/repeat'
+export { default as replace } from './modules/replace'
+export const reverse = simpleHelper('reverse')
+export { default as sort } from './modules/sort'
+export { default as sortBy } from './modules/sortBy'
+export { default as split } from './modules/split'
+export { default as splitEvery } from './modules/splitEvery'
+export const startsWith = helper('startsWith')
+export const subtract = mathHelper('-')
+export const T = () => true
+export { default as tap } from './modules/tap'
+export { default as tail } from './modules/tail'
+export { default as take } from './modules/take'
+export { default as takeLast } from './modules/takeLast'
+export { default as test } from './modules/test'
+export const toLower = simpleHelper('toLowerCase')
+export const toString = simpleHelper('toString')
+export const toUpper = simpleHelper('toUpperCase')
+export const trim = simpleHelper('trim')
+export { default as type } from './modules/type'
+export { default as uniq } from './modules/uniq'
+export { default as update } from './modules/update'
+export { default as values } from './modules/values'

@@ -1,6 +1,6 @@
-const __ = require('../__')
+import __ from '../__'
 
-function curry (fn) {
+export default function curry (fn) {
   return (x, y) => {
     if (y === undefined) {
       return yHolder => fn(x, yHolder)
@@ -12,5 +12,3 @@ function curry (fn) {
     return fn(x, y)
   }
 }
-
-module.exports = curry

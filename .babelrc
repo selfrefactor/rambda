@@ -1,5 +1,14 @@
 {
   "env": {
+    "development": {
+      "presets": [
+        ["env", {
+          "targets": {"node": 6, "browsers": [ "> 1%" ]},
+          "modules" : false
+        }]
+      ],
+      "plugins": ["external-helpers"]
+    },
     "test": {
       "presets": [
         ["env", {
@@ -7,12 +16,5 @@
         }]
       ]
     }
-  },
-  "presets": [
-    ["env", {
-      "targets": {"node": 6, "browsers": [ "> 1%" ]},
-      "modules" : false
-    }]
-  ],
-  "plugins": ["external-helpers"]
+  }
 }

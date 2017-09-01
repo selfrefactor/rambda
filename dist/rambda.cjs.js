@@ -238,6 +238,10 @@ function compose() {
 function type(a) {
   if (a === null) {
     return 'Null';
+  } else if (a === undefined) {
+    return 'Undefined';
+  } else if (a.freeze !== undefined) {
+    return 'Object';
   } else if (Array.isArray(a)) {
     return 'Array';
   } else if (typeof a === 'boolean') {
@@ -246,8 +250,6 @@ function type(a) {
     return 'Number';
   } else if (typeof a === 'string') {
     return 'String';
-  } else if (a === undefined) {
-    return 'Undefined';
   } else if (a instanceof RegExp) {
     return 'RegExp';
   }
@@ -460,12 +462,12 @@ function ifElse(conditionFn, ifFn, elseFn) {
 
 var ifElse$1 = curryThree(ifElse);
 
-function indexOf(question, arr) {
+function indexOf(x, arr) {
   var index = -1;
   var length = arr.length;
 
   while (++index < length) {
-    if (arr[index] === question) {
+    if (arr[index] === x) {
       return index;
     }
   }
@@ -544,10 +546,10 @@ function omit(keys, obj) {
       return omit(keys, objHolder);
     };
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === undefined || obj === null) {
     return undefined;
   }
-  if (type(keys) === 'String') {
+  if (typeof keys === 'string') {
     keys = keys.split(',').map(function (x) {
       return x.trim();
     });
@@ -583,7 +585,7 @@ function path(pathArr, obj) {
       return path(pathArr, objHolder);
     };
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === null || obj === undefined) {
     return undefined;
   }
   var holder = obj;
@@ -777,7 +779,7 @@ function test(regex, str) {
   return str.search(regex) !== -1;
 }
 
-var testFn = curry(test);
+var test$1 = curry(test);
 
 function uniq(arr) {
   var index = -1;
@@ -927,7 +929,7 @@ exports.tap = tap$1;
 exports.tail = tail;
 exports.take = take$1;
 exports.takeLast = takeLast$1;
-exports.test = testFn;
+exports.test = test$1;
 exports.type = type;
 exports.uniq = uniq;
 exports.update = update$1;
