@@ -33,6 +33,7 @@ export { default as filter } from './modules/filter'
 export { default as find } from './modules/find'
 export { default as findIndex } from './modules/findIndex'
 export { default as flatten } from './modules/flatten'
+export { default as flip } from './modules/flip'
 export { default as has } from './modules/has'
 export { default as head } from './modules/head'
 export const identity = x => x

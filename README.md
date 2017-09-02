@@ -12,21 +12,24 @@ I admire `Ramda`, as it is great library in what it does. My main problem was it
 
 Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
 
+Rambda partially shadows Ramda's API, so you need to check in Rambda's documentation, if the methods you need are available.
+
+Generally speaking, if you have never used methods such as `R.transduce`, **Rambda** API should be enough for your needs.
+
 ## Example use
 
 ```
-const R = require("rambda")
+const R = require('rambda')
 const result = R.compose(
-  R.join("-"),
-  R.filter(a => a > 2),
-  R.flatten,
-)([ [1], [2], [3], 4])
-console.log(result) // => "3-4"
+  R.filter( R.equals( 2 ) ),
+  R.map( R.add( 1 ) )
+)({ a: 1, b: 2, c: 3 })
+console.log(result) // => '{a: 2}'
 ```
 
 ## Install
 
-- Use **npm i rambda** for `Webpack` and `Node.js` usage
+- Use **yarn add rambda** for `Webpack` and `Node.js` usage
 
 - For browser usage include in your HTML
 
@@ -35,30 +38,21 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.7/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
-Rambda shadows only small part of the Ramda's API.
 
-A few things to note:
 
-- Rambda's methods should be compatible with most of the basic Ramda's methods.
-For more complex and Ramda specific methods(such as **R.__**), you should expect a mismatch.
+- Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-- Rambda's **type** detect async functions. The returned value is `"Async"`
-
-- Rambda's **type** detect unresolved `Promises`. The returned value is `"Promise"`
-
-- Rambda's **map/filter** work only for arrays, while Ramda's **map/filter** accept also objects.
+- Rambda's **defaultTo(x,y)** is equal to `x`, if `x` and `y` has different types.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
 - Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument.
 
-- Rambda's **defaultTo** approve incoming argument only if it has the same type as the default argument.
+- Rambda's **partialCurry**, '**includes**', '**padStart**' and '**padEnd**' are not part of Ramda API.
 
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
 
-- Rambda's **partialCurry** is not part of Ramda API.
-
-- **Rambda** is tested for compatability with **Ramda.flip**, as this method could be useful in some cases.
+- There is no placeholder `R.__` in Rambda, but Rambda's **flip** could be replacement most of the time.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -362,9 +356,23 @@ R.find(findFn, arr) // => 1
 > flatten(arr: Array): Array
 
 ```javascript
-R.flatten([ 1, [ 2, [ 3 ] ] ]
+R.flatten([ 1, [ 2, [ 3 ] ] ])
 // => [ 1, 2, 3 ]
 ```
+
+#### flip
+
+> flip(fn: Function): Function
+
+It returns function which calls `fn` with exchanged first and second argument.
+
+```javascript
+const subtractFlip = R.flip(R.subtract)
+R.subtractFlip(1,7)
+// => 6
+```
+
+Note that it works only for functions that expects two arguments. If passed, the third argument is ignored.
 
 #### has
 
@@ -939,6 +947,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
 - 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`

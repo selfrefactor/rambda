@@ -1,18 +1,17 @@
 export default function type (a) {
+  const typeOf = typeof a
   if (a === null) {
     return 'Null'
   } else if (a === undefined) {
     return 'Undefined'
-  } else if (a.freeze !== undefined) {
-    return 'Object'
+  } else if (typeOf === 'boolean') {
+    return 'Boolean'
+  } else if (typeOf === 'number') {
+    return 'Number'
+  } else if (typeOf === 'string') {
+    return 'String'
   } else if (Array.isArray(a)) {
     return 'Array'
-  } else if (typeof a === 'boolean') {
-    return 'Boolean'
-  } else if (typeof a === 'number') {
-    return 'Number'
-  } else if (typeof a === 'string') {
-    return 'String'
   } else if (a instanceof RegExp) {
     return 'RegExp'
   }

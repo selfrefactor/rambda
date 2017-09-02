@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const Benchmark = require('benchmark')
 const benchmarks = require('beautify-benchmark')
-const R = require('../rambda')
+const R = require('../dist/rambda.cjs')
 const Ramda = require('ramda')
 
 const options = {}
@@ -426,6 +426,10 @@ options.map = false
 
 if (options.map) {
   const holder = [ 1, 2, 3, 4 ]
+  const obj = {
+    a : 1,
+    b : 2,
+  }
   const a = val => val + 2
   map.add('Rambda.map', () => {
     R.map(a, holder)
@@ -435,6 +439,55 @@ if (options.map) {
     })
     .add('Lodash', () => {
       _.map(holder, a)
+    })
+    .on('cycle', event => {
+      benchmarks.add(event.target)
+    })
+    .on('complete', () => {
+      benchmarks.log()
+    })
+    .run()
+}
+
+const mapWithObject = new Benchmark.Suite
+options.mapWithObject = false
+if (options.mapWithObject) {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const fn = val => val * 2
+
+  mapWithObject.add('Rambda.map withObject', () => {
+    R.map(fn, obj)
+  })
+    .add('Ramda', () => {
+      Ramda.map(fn, obj)
+    })
+    .on('cycle', event => {
+      benchmarks.add(event.target)
+    })
+    .on('complete', () => {
+      benchmarks.log()
+    })
+    .run()
+}
+
+const filterWithObject = new Benchmark.Suite
+options.filterWithObject = true
+if (options.filterWithObject) {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const fn = val => val === 1
+  console.log(R.filter(fn, obj))
+
+  filterWithObject.add('Rambda.filter withObject', () => {
+    R.filter(fn, obj)
+  })
+    .add('Ramda', () => {
+      Ramda.filter(fn, obj)
     })
     .on('cycle', event => {
       benchmarks.add(event.target)
@@ -496,7 +549,7 @@ if (options.merge) {
 }
 
 const omit = new Benchmark.Suite
-options.omit = true
+options.omit = false
 
 if (options.omit) {
   const holder = {

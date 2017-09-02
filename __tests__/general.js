@@ -1,6 +1,17 @@
 const R = require('../rambda')
 const Ramda = require('ramda')
 
+test('flip', () => {
+  var fn = R.flip(R.subtract)
+
+  expect(
+    fn(1)(7)
+  ).toEqual(6)
+  expect(
+    fn(1,7)
+  ).toEqual(6)
+})
+
 test('example', () => {
   const url = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice'
 
@@ -30,6 +41,7 @@ test('inc', () => {
     R.inc(4)
   ).toEqual(5)
 })
+
 
 test('dec', () => {
   expect(
