@@ -1,5 +1,6 @@
 [![Build Status](https://img.shields.io/travis/selfrefactor/rambda.svg)](https://travis-ci.org/selfrefactor/rambda)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
 
 # Rambda
 
@@ -30,7 +31,7 @@ console.log(result) // => "3-4"
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.5/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.7/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -819,6 +820,11 @@ R.test(/^f/, 'bar') // => false
 R.toLower('FOO') // => 'foo'
 ```
 
+#### toString
+> toString(x: any): String
+
+`R.toString([1, 2]) // => '1,2'`
+
 #### toUpper
 
 > toUpper(str: String): String
@@ -891,14 +897,6 @@ R.values({a: 1, b: 2}) // => [1, 2]
 
 ---
 
-## Lazy API
-
-The following methods are included as it costs next to nothing to add them.
-
-Note that the following list of methods are not part of `Ramda` API.
-
----
-
 #### includes
 
 > includes(x: any, arrOrStr: Array|String): Boolean
@@ -909,11 +907,15 @@ R.includes('oo', 'foo') // => true
 R.includes('z', 'foo') // => false
 ```
 
+Note that this method is not part of `Ramda` API.
+
 #### padEnd
 
 > padEnd(x: Number, str: String): String
 
 `R.padEnd(3, 'foo') // => 'foo   '`
+
+Note that this method is not part of `Ramda` API.
 
 #### padStart
 
@@ -921,12 +923,7 @@ R.includes('z', 'foo') // => false
 
 `R.padStart(3, 'foo') // => '   foo'`
 
-
-#### toString
-
-`R.toString([1, 2]) // => '1,2'`
-
----
+Note that this method is not part of `Ramda` API.
 
 ## Benchmark
 
@@ -942,6 +939,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
 - 0.8.4 Learning to run `npm test` before `npm publish` the hard way
