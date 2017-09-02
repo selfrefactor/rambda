@@ -199,7 +199,7 @@ if (options.equals) {
 }
 
 const filter = new Benchmark.Suite
-options.filter = false
+options.filter = true
 
 if (options.filter) {
   filter.add('Rambda.filter', () => {
