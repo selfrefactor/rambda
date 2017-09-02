@@ -25,21 +25,25 @@ it('with promise', done => {
   })
 })
 
-it('with async', async() => {
+it('with async', async () => {
   const delay = ms => new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, ms)
   })
 
-  const fn = async ({a,b,c}) => {
+  const fn = async ({ a, b, c }) => {
     await delay(100)
+
     return a + b + c
   }
 
   const curried = R.partialCurry(fn, { a : 1 })
 
-  const result = await curried({b:2, c: 3})
+  const result = await curried({
+    b : 2,
+    c : 3,
+  })
   expect(
     result
   ).toEqual(6)

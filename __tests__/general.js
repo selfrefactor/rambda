@@ -2,13 +2,13 @@ const R = require('../rambda')
 const Ramda = require('ramda')
 
 test('flip', () => {
-  var fn = R.flip(R.subtract)
+  const fn = R.flip(R.subtract)
 
   expect(
     fn(1)(7)
   ).toEqual(6)
   expect(
-    fn(1,7)
+    fn(1, 7)
   ).toEqual(6)
 })
 
@@ -41,7 +41,6 @@ test('inc', () => {
     R.inc(4)
   ).toEqual(5)
 })
-
 
 test('dec', () => {
   expect(

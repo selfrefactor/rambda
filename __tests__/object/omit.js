@@ -1,6 +1,6 @@
 const R = require('../../rambda')
 
-test('R.omit with string as condition', () => {
+test('with string as condition', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -11,6 +11,12 @@ test('R.omit with string as condition', () => {
   const expectedResult = { b : 2 }
   expect(result).toEqual(expectedResult)
   expect(resultCurry).toEqual(expectedResult)
+})
+
+test('with non-object', () => {
+  expect(
+    R.pick('a,b',null)
+  ).toEqual(undefined)
 })
 
 describe('omit', () => {

@@ -9,8 +9,14 @@ test.skip('with array', () => {
 
 test('with object', () => {
   const double = x => x * 2
-  const obj = {a:1, b:2}
+  const obj = {
+    a : 1,
+    b : 2,
+  }
   expect(
     R.map(double, obj)
-  ).toEqual({a:2,b:4})
+  ).toEqual({
+    a : 2,
+    b : 4,
+  })
 })

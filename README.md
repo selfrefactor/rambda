@@ -372,7 +372,7 @@ R.subtractFlip(1,7)
 // => 6
 ```
 
-Note that it works only for functions that expects two arguments. If passed, the third argument is ignored.
+Note that it works only for functions that expects two arguments. If third argument is passed, then `undefined` is returned.
 
 #### has
 

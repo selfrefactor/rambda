@@ -39,4 +39,10 @@ test('R.pick', () => {
       c : 'baz',
     })
   ).toEqual({ a : 'foo' })
+
+  expect(
+    R.pick(
+       'a,d,e,f'
+    )(null)
+  ).toEqual(undefined)
 })

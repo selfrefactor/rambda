@@ -12,6 +12,7 @@ test('', () => {
       11
     )
   ).toBeTruthy()
+
   expect(
     R.allPass(
       rules,
@@ -20,17 +21,18 @@ test('', () => {
   ).toBeFalsy()
 })
 
-const obj = {
-  a : 1,
-  b : 2,
-}
+const obj =
+
 test('when returns true', () => {
   const conditionArr = [
     val => val.a === 1,
     val => val.b === 2,
   ]
   expect(
-    R.allPass(conditionArr, obj)
+    R.allPass(conditionArr, {
+      a : 1,
+      b : 2,
+    })
   ).toBeTruthy()
 })
 
@@ -40,6 +42,6 @@ test('when returns false', () => {
     val => val.b === 3,
   ]
   expect(
-    R.allPass(conditionArr, obj)
+    R.allPass(conditionArr)({a:1, b:2})
   ).toBeFalsy()
 })
