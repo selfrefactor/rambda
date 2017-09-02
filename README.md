@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.7/dist/rambda.umd.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.8/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
