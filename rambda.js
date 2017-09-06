@@ -38,6 +38,7 @@ export { default as has } from './modules/has'
 export { default as head } from './modules/head'
 export const identity = x => x
 export { default as ifElse } from './modules/ifElse'
+export { default as isNil } from './modules/isNil'
 export const includes = helper('includes')
 export { default as indexOf } from './modules/indexOf'
 export { default as init } from './modules/init'
