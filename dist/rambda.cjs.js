@@ -856,6 +856,14 @@ function pick(keys, obj) {
   return willReturn;
 }
 
+function pipe() {
+  for (var _len = arguments.length, fns = Array(_len), _key = 0; _key < _len; _key++) {
+    fns[_key] = arguments[_key];
+  }
+
+  return compose.apply(undefined, toConsumableArray(fns.reverse()));
+}
+
 function pluck(keyToPluck, arr) {
   var willReturn = [];
   map$1(function (val) {
@@ -1136,6 +1144,7 @@ exports.omit = omit;
 exports.partialCurry = partialCurry;
 exports.path = path;
 exports.pick = pick;
+exports.pipe = pipe;
 exports.pluck = pluck$1;
 exports.prepend = prepend$1;
 exports.prop = prop$1;
