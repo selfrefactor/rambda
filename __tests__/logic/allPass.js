@@ -42,6 +42,9 @@ test('when returns false', () => {
     val => val.b === 3,
   ]
   expect(
-    R.allPass(conditionArr)({a:1, b:2})
+    R.allPass(conditionArr)({
+      a : 1,
+      b : 2,
+    })
   ).toBeFalsy()
 })

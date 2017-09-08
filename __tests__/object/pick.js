@@ -42,7 +42,7 @@ test('R.pick', () => {
 
   expect(
     R.pick(
-       'a,d,e,f'
+      'a,d,e,f'
     )(null)
   ).toEqual(undefined)
 })
