@@ -58,6 +58,7 @@ export const padStart = helper('padStart')
 export { default as partialCurry } from './modules/partialCurry'
 export { default as path } from './modules/path'
 export { default as pick } from './modules/pick'
+export { default as pipe } from './modules/pipe'
 export { default as pluck } from './modules/pluck'
 export { default as prepend } from './modules/prepend'
 export { default as prop } from './modules/prop'

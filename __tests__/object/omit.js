@@ -15,7 +15,7 @@ test('with string as condition', () => {
 
 test('with non-object', () => {
   expect(
-    R.pick('a,b',null)
+    R.pick('a,b', null)
   ).toEqual(undefined)
 })
 
