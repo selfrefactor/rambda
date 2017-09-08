@@ -50,6 +50,8 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
 
 - Rambda's **partialCurry**, '**includes**', '**padStart**' and '**padEnd**' are not part of Ramda API.
 
+- Rambda's **append/prepend** doesn't work with strings.
+
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
 
 - There is no placeholder `R.__` in Rambda, but Rambda's **flip** could be useful replacement most of the time.

@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.8/dist/rambda.umd.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -50,9 +50,11 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.8.8/dist/rambda.umd.js
 
 - Rambda's **partialCurry**, '**includes**', '**padStart**' and '**padEnd**' are not part of Ramda API.
 
+- Rambda's **append/prepend** doesn't work with strings.
+
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
 
-- There is no placeholder `R.__` in Rambda, but Rambda's **flip** could be replacement most of the time.
+- There is no placeholder `R.__` in Rambda, but Rambda's **flip** could be useful replacement most of the time.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -172,8 +174,8 @@ fn(30) //=> false
 It performs right-to-left function composition.
 ```
 const result = R.compose(
-  R.map(a => a*2)
-  R.filter(val => val>2),
+  R.map(x => x * 2)
+  R.filter(x => x > 2),
 )([1, 2, 3, 4])
 console.log(result) // => [6, 8]
 ```
@@ -372,7 +374,7 @@ R.subtractFlip(1,7)
 // => 6
 ```
 
-Note that it works only for functions that expects two arguments. If passed, the third argument is ignored.
+Note that it works only for functions that expects two arguments. If third argument is passed, then `undefined` is returned.
 
 #### has
 
@@ -601,6 +603,20 @@ It returns a partial copy of an `obj` containing only `propsToPick` properties.
 ```
 R.pick(['a', 'c'], {a: 1, b: 2}) // => {a: 1}
 ```
+
+#### pipe
+
+> pipe(fn1: Function, ... , fnN: Function): any
+
+It performs left-to-right function composition.
+```
+const result = R.pipe(
+  R.filter(val => val > 2),
+  R.map(a => a * 2)
+)([1, 2, 3, 4])
+console.log(result) // => [6, 8]
+```
+
 
 #### pluck
 
@@ -947,6 +963,8 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
+- 0.8.9 Add `R.isNil`
 - 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
 - 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
