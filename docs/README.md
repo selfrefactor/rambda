@@ -628,7 +628,6 @@ const result = R.pipe(
 console.log(result) // => [6, 8]
 ```
 
-
 #### pluck
 
 > pluck(property: String, arr: Array): Array
@@ -912,6 +911,8 @@ R.typedDefaultTo('foo', 'bar') // => 'bar'
 R.typedDefaultTo('foo', 1) // => 'foo'
 ```
 
+- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
+
 #### typedPathOr
 
 > typedPathOr(defaultValue: any, pathToSearch: Array<String>|String, obj: Object): any
@@ -926,6 +927,8 @@ If `pathFound` has the same type as `defaultValue`, then `pathFound` will be ret
 R.typedPathOr(1, 'a.b', {a: {b: 2}}) // => 2
 R.typedPathOr(1, 'a.b', {a: {b: 'foo'}}) // => 1
 ```
+
+- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
 #### uniq
 
