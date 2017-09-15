@@ -224,9 +224,9 @@ g(4) // => 10
 
 #### defaultTo
 
-> defaultTo(defaultArgument: T, inputArgument: any): T
+> defaultTo(defaultValue: T, inputArgument: any): T
 
-It returns `defaultArgument`, if `inputArgument` is `undefined`, `null` or `NaN`.
+It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 
 It returns `inputArgument` in any other case.
 
@@ -899,9 +899,9 @@ R.type(delay) // => "Promise"
 
 #### typedDefaultTo
 
-> typedDefaultTo(defaultArgument: T, inputArgument: any): T
+> typedDefaultTo(defaultValue: T, inputArgument: any): T
 
-It returns `defaultArgument`, if `inputArgument` type is different from the type of `defaultArgument`.
+It returns `defaultValue`, if `inputArgument` and `defaultValue` has different types.
 
 It returns `inputArgument` in any other case.
 
@@ -911,7 +911,7 @@ R.typedDefaultTo('foo', 'bar') // => 'bar'
 R.typedDefaultTo('foo', 1) // => 'foo'
 ```
 
-- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
+- Note that `typedDefaultTo` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
 #### typedPathOr
 
@@ -928,7 +928,7 @@ R.typedPathOr(1, 'a.b', {a: {b: 2}}) // => 2
 R.typedPathOr(1, 'a.b', {a: {b: 'foo'}}) // => 1
 ```
 
-- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
+- Note that `typedDefaultTo` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
 #### uniq
 
