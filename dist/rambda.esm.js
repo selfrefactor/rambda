@@ -212,6 +212,9 @@ function anyPass(conditions, x) {
 }
 
 function append(val, arr) {
+  if (typeof arr === 'string') {
+    return '' + arr + val;
+  }
   var clone = arr.concat();
   clone.push(val);
 
@@ -557,7 +560,7 @@ function defaultTo(defaultArgument, inputArgument) {
     };
   }
 
-  return inputArgument === undefined || !(type(inputArgument) === type(defaultArgument)) ? defaultArgument : inputArgument;
+  return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
 function drop(dropNumber, a) {
@@ -668,7 +671,7 @@ function ifElse(conditionFn, ifFn, elseFn) {
 var ifElse$1 = curryThree(ifElse);
 
 function isNil(x) {
-  return type(x) === 'Undefined' || type(x) === 'Null';
+   return x === undefined || x === null;
 }
 
 function indexOf(x, arr) {
@@ -825,6 +828,12 @@ function path(pathArr, obj) {
   return holder;
 }
 
+function pathOr(defaultValue, inputPath, inputObject) {
+  return defaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var pathOr$1 = curry$1(pathOr);
+
 function pick(keys, obj) {
   if (arguments.length === 1) {
     return function (objHolder) {
@@ -874,6 +883,9 @@ function pluck(keyToPluck, arr) {
 var pluck$1 = curry(pluck);
 
 function prepend(val, arr) {
+  if (typeof arr === 'string') {
+    return '' + val + arr;
+  }
   var clone = arr.concat();
   clone.unshift(val);
 
@@ -1006,6 +1018,22 @@ function test(regex, str) {
 
 var test$1 = curry(test);
 
+function typedDefaultTo(defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return function (inputArgumentHolder) {
+      return typedDefaultTo(defaultArgument, inputArgumentHolder);
+    };
+  }
+
+  return !(type(inputArgument) === type(defaultArgument)) ? defaultArgument : inputArgument;
+}
+
+function typedPathOr(defaultValue, inputPath, inputObject) {
+  return typedDefaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var typedPathOr$1 = curry$1(typedPathOr);
+
 function uniq(arr) {
   var index = -1;
   var willReturn = [];
@@ -1078,5 +1106,5 @@ var toString = simpleHelper('toString');
 var toUpper = simpleHelper('toUpperCase');
 var trim = simpleHelper('trim');
 
-export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals$1 as equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, type, uniq, update$1 as update, values };
+export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals$1 as equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values };
 //# sourceMappingURL=rambda.esm.js.map

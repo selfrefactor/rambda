@@ -450,6 +450,17 @@ R.init('foo')  // => 'fo'
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
+#### isNil
+
+> isNil(x: any): Boolean
+
+It returns `true` is `x` is either `null` or `undefined`.
+
+```javascript
+R.isNil(null)  // => true
+R.isNil(1)  // => false
+```
+
 #### last
 
 > last(arrOrStr: Array|String): any

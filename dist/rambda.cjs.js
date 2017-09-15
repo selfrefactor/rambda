@@ -216,6 +216,9 @@ function anyPass(conditions, x) {
 }
 
 function append(val, arr) {
+  if (typeof arr === 'string') {
+    return '' + arr + val;
+  }
   var clone = arr.concat();
   clone.push(val);
 
@@ -561,7 +564,7 @@ function defaultTo(defaultArgument, inputArgument) {
     };
   }
 
-  return inputArgument === undefined || !(type(inputArgument) === type(defaultArgument)) ? defaultArgument : inputArgument;
+  return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
 function drop(dropNumber, a) {
@@ -672,7 +675,7 @@ function ifElse(conditionFn, ifFn, elseFn) {
 var ifElse$1 = curryThree(ifElse);
 
 function isNil(x) {
-  return type(x) === 'Undefined' || type(x) === 'Null';
+   return x === undefined || x === null;
 }
 
 function indexOf(x, arr) {
@@ -829,6 +832,12 @@ function path(pathArr, obj) {
   return holder;
 }
 
+function pathOr(defaultValue, inputPath, inputObject) {
+  return defaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var pathOr$1 = curry$1(pathOr);
+
 function pick(keys, obj) {
   if (arguments.length === 1) {
     return function (objHolder) {
@@ -878,6 +887,9 @@ function pluck(keyToPluck, arr) {
 var pluck$1 = curry(pluck);
 
 function prepend(val, arr) {
+  if (typeof arr === 'string') {
+    return '' + val + arr;
+  }
   var clone = arr.concat();
   clone.unshift(val);
 
@@ -1009,6 +1021,22 @@ function test(regex, str) {
 }
 
 var test$1 = curry(test);
+
+function typedDefaultTo(defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return function (inputArgumentHolder) {
+      return typedDefaultTo(defaultArgument, inputArgumentHolder);
+    };
+  }
+
+  return !(type(inputArgument) === type(defaultArgument)) ? defaultArgument : inputArgument;
+}
+
+function typedPathOr(defaultValue, inputPath, inputObject) {
+  return typedDefaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var typedPathOr$1 = curry$1(typedPathOr);
 
 function uniq(arr) {
   var index = -1;
@@ -1143,6 +1171,7 @@ exports.merge = merge$1;
 exports.omit = omit;
 exports.partialCurry = partialCurry;
 exports.path = path;
+exports.pathOr = pathOr$1;
 exports.pick = pick;
 exports.pipe = pipe;
 exports.pluck = pluck$1;
@@ -1163,6 +1192,8 @@ exports.take = take$1;
 exports.takeLast = takeLast$1;
 exports.test = test$1;
 exports.type = type;
+exports.typedPathOr = typedPathOr$1;
+exports.typedDefaultTo = typedDefaultTo;
 exports.uniq = uniq;
 exports.update = update$1;
 exports.values = values;
