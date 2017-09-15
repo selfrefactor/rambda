@@ -39,22 +39,15 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
 
 ## Differences between Rambda and Ramda
 
-
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
-
-- Rambda's **defaultTo(x,y)** is equal to `x`, if `x` and `y` has different types.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
-- Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument.
+- Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument('x.y.z' == ['x','y','z']).
 
-- Rambda's **partialCurry**, '**includes**', '**padStart**' and '**padEnd**' are not part of Ramda API.
-
-- Rambda's **append/prepend** doesn't work with strings.
+- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
 
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
-
-- There is no placeholder `R.__` in Rambda, but Rambda's **flip** could be useful replacement most of the time.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -233,14 +226,14 @@ g(4) // => 10
 
 > defaultTo(defaultArgument: T, inputArgument: any): T
 
-It returns `defaultArgument` if `inputArgument` is `undefined` or the type of `inputArgument` is different of the type of `defaultArgument`.
+It returns `defaultArgument`, if `inputArgument` is `undefined`, `null` or `NaN`.
 
 It returns `inputArgument` in any other case.
 
 ```javascript
 R.defaultTo('foo', undefined) // => 'foo'
-R.defaultTo('foo')('bar') // => 'bar'
-R.defaultTo('foo')(1) // => 'foo'
+R.defaultTo('foo', 'bar') // => 'bar'
+R.defaultTo('foo', 1) // => 1
 ```
 
 #### divide
@@ -562,12 +555,30 @@ R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) // => {b: 2, c: 3}
 
 > path(pathToSearch: Array<String>|String, obj: Object): any
 
-Retrieve the value at `pathToSearch` in object `obj`
+If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
+
+It will return `undefined`, if such path is not found.
 
 ```javascript
-R.path('a.b', {a: {b: 2}}) // => 2
+R.path('a.b', {a: {b: 1}}) // => 1
 R.path(['a', 'b'], {a: {b: 2}}) // => 2
 R.path(['a', 'c'], {a: {b: 2}}) // => undefined
+```
+
+#### pathOr
+
+> pathOr(defaultValue: any, pathToSearch: Array<String>|String, obj: Object): any
+
+`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
+
+If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be returned.
+
+`pathFound` is returned in any other case.
+
+```javascript
+R.pathOr(1, 'a.b', {a: {b: 2}}) // => 2
+R.pathOr(1, ['a', 'b'], {a: {b: 2}}) // => 2
+R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 ```
 
 #### partialCurry
@@ -885,6 +896,35 @@ const delay = ms => new Promise(resolve => {
   }, ms)
 })
 R.type(delay) // => "Promise"
+```
+
+#### typedDefaultTo
+
+> typedDefaultTo(defaultArgument: T, inputArgument: any): T
+
+It returns `defaultArgument`, if `inputArgument` type is different from the type of `defaultArgument`.
+
+It returns `inputArgument` in any other case.
+
+```javascript
+R.typedDefaultTo('foo', undefined) // => 'foo'
+R.typedDefaultTo('foo', 'bar') // => 'bar'
+R.typedDefaultTo('foo', 1) // => 'foo'
+```
+
+#### typedPathOr
+
+> typedPathOr(defaultValue: any, pathToSearch: Array<String>|String, obj: Object): any
+
+`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
+
+If `pathFound` has different type than `defaultValue`, then `defaultValue` will be returned.
+
+If `pathFound` has the same type as `defaultValue`, then `pathFound` will be returned.
+
+```javascript
+R.typedPathOr(1, 'a.b', {a: {b: 2}}) // => 2
+R.typedPathOr(1, 'a.b', {a: {b: 'foo'}}) // => 1
 ```
 
 #### uniq

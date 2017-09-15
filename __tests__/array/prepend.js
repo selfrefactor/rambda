@@ -1,13 +1,18 @@
 const R = require('../../rambda')
 
-describe('prepend', () => {
-  it('', () => {
-    expect(
-      R.prepend('yes', [ 'foo', 'bar', 'baz' ])
-    ).toEqual([ 'yes', 'foo', 'bar', 'baz' ])
+test('', () => {
+  expect(
+    R.prepend('f','oo')
+  ).toEqual('foo')
+})
 
-    expect(
-      R.prepend('foo')([ ])
-    ).toEqual([ 'foo' ])
-  })
+test('prepend', () => {
+  expect(
+    R.prepend('yes', [ 'foo', 'bar', 'baz' ])
+  ).toEqual([ 'yes', 'foo', 'bar', 'baz' ])
+
+  expect(
+    R.prepend('foo')([ ])
+  ).toEqual([ 'foo' ])
+
 })
