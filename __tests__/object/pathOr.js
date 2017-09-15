@@ -21,8 +21,22 @@ test('with NaN', () => {
   ).toEqual('foo')
 })
 
-test.skip('curry case ()()()', () => {
+test('curry case (x)(y)(z)', () => {
   const result = R.pathOr('foo')('x.y.z')({x:{y: {a:1}}})
+  expect(
+    result
+  ).toEqual('foo')
+})
+
+test('curry case (x)(y,z)', () => {
+  const result = R.pathOr('foo', 'x.y.z')({x:{y: {a:1}}})
+  expect(
+    result
+  ).toEqual('foo')
+})
+
+test('curry case (x,y)(z)', () => {
+  const result = R.pathOr('foo')('x.y.z',{x:{y: {a:1}}})
   expect(
     result
   ).toEqual('foo')
