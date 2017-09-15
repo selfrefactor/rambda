@@ -1,25 +1,26 @@
 const R = require('../../rambda')
 
-describe('defaultTo', () => {
-  it('', () => {
+
+test('with undefined', () => {
     expect(
       R.defaultTo('foo')(undefined)
     ).toEqual('foo')
+})
 
+test('with null', () => {
     expect(
-      R.defaultTo('foo', undefined)
+      R.defaultTo('foo')(null)
     ).toEqual('foo')
+})
 
+test('with NaN', () => {
     expect(
-      R.defaultTo('foo', 1)
+      R.defaultTo('foo')(NaN)
     ).toEqual('foo')
+})
 
+test('when inputArgument passes initial check', () => {
     expect(
-      R.defaultTo('foo', 'bar')
+      R.defaultTo('foo','bar')
     ).toEqual('bar')
-
-    expect(
-      R.defaultTo(undefined, 'bar')
-    ).toEqual(undefined)
-  })
 })

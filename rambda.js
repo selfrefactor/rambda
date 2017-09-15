@@ -57,6 +57,7 @@ export const padEnd = helper('padEnd')
 export const padStart = helper('padStart')
 export { default as partialCurry } from './modules/partialCurry'
 export { default as path } from './modules/path'
+export { default as pathOr } from './modules/pathOr'
 export { default as pick } from './modules/pick'
 export { default as pipe } from './modules/pipe'
 export { default as pluck } from './modules/pluck'
@@ -85,6 +86,8 @@ export const toString = simpleHelper('toString')
 export const toUpper = simpleHelper('toUpperCase')
 export const trim = simpleHelper('trim')
 export { default as type } from './modules/type'
+export { default as typedPathOr } from './modules/typedPathOr'
+export { default as typedDefaultTo } from './modules/typedDefaultTo'
 export { default as uniq } from './modules/uniq'
 export { default as update } from './modules/update'
 export { default as values } from './modules/values'

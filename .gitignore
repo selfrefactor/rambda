@@ -1,3 +1,4 @@
+*.ts
 jest_*
 
 # Logs
