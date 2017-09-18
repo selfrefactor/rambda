@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.1/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1008,6 +1008,10 @@ Note that this method is not part of `Ramda` API.
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen2.png)
 
+## Tree-shaking
+
+![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
+
 ## Flowtype
 
 I haven't tested it fully, but the partial test shows that [Ramda
@@ -1017,8 +1021,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
-- 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
-- 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
+- 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35) | Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.8.9 Add `R.isNil`
 - 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
 - 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
