@@ -5,6 +5,7 @@
   "main": "dist/rambda.cjs.js",
   "module": "dist/rambda.esm.js",
   "browser": "dist/rambda.umd.js",
+  "typings": "./index.d.ts",
   "scripts": {
     "build": "run-s all-build browser-minify",
     "test": "jest __tests__",
