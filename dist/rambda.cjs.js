@@ -168,14 +168,10 @@ function filter(fn, arr) {
 var filter$1 = curry(filter);
 
 function all(condition, arr) {
-  if (arguments.length === 1) {
-    return function (arrHolder) {
-      return all(condition, arrHolder);
-    };
-  }
-
   return filter$1(condition, arr).length === arr.length;
 }
+
+var all$1 = curry(all);
 
 function any(fn, arr) {
   var counter = 0;
@@ -200,7 +196,7 @@ function allPass(conditions, x) {
 
   return !any$1(function (condition) {
     return !condition(x);
-  })(conditions);
+  }, conditions);
 }
 
 function anyPass(conditions, x) {
@@ -468,6 +464,12 @@ function type(a) {
 }
 
 function equals(a, b) {
+  if (arguments.length === 1) {
+    return function (bHolder) {
+      return equals(a, bHolder);
+    };
+  }
+
   if (a === b) {
     return true;
   }
@@ -521,13 +523,11 @@ function equals(a, b) {
   return false;
 }
 
-var equals$1 = curry(equals);
-
 function contains(val, arr) {
   var index = -1;
   var flag = false;
   while (++index < arr.length && !flag) {
-    if (equals$1(arr[index], val)) {
+    if (equals(arr[index], val)) {
       flag = true;
     }
   }
@@ -1029,7 +1029,7 @@ function typedDefaultTo(defaultArgument, inputArgument) {
     };
   }
 
-  return !(type(inputArgument) === type(defaultArgument)) ? defaultArgument : inputArgument;
+  return type(inputArgument) !== type(defaultArgument) ? defaultArgument : inputArgument;
 }
 
 function typedPathOr(defaultValue, inputPath, inputObject) {
@@ -1137,7 +1137,7 @@ exports.toUpper = toUpper;
 exports.trim = trim;
 exports.addIndex = addIndex;
 exports.adjust = adjust$1;
-exports.all = all;
+exports.all = all$1;
 exports.allPass = allPass;
 exports.anyPass = anyPass;
 exports.any = any$1;
@@ -1152,7 +1152,7 @@ exports.drop = drop$1;
 exports.dropLast = dropLast$1;
 exports.either = either$1;
 exports.inc = inc;
-exports.equals = equals$1;
+exports.equals = equals;
 exports.filter = filter$1;
 exports.find = find$1;
 exports.findIndex = findIndex$1;

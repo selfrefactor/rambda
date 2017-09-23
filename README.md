@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.1/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.2/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -989,7 +989,7 @@ R.includes('oo', 'foo') // => true
 R.includes('z', 'foo') // => false
 ```
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 #### padEnd
 
@@ -997,7 +997,7 @@ Note that this method is not part of `Ramda` API.
 
 `R.padEnd(3, 'foo') // => 'foo   '`
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 #### padStart
 
@@ -1005,7 +1005,7 @@ Note that this method is not part of `Ramda` API.
 
 `R.padStart(3, 'foo') // => '   foo'`
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 ## Benchmark
 
@@ -1016,15 +1016,22 @@ Note that this method is not part of `Ramda` API.
 
 ![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
 
-## Flowtype
+## Typings
 
-I haven't tested it fully, but the partial test shows that [Ramda
+- Typescript
+
+Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
+
+- Flowtype
+
+You can use [Ramda
 definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
 
 You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
 
 ## Changelog
 
+- 0.9.2 Add `Typescript` definitions
 - 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
 - 0.8.9 Add `R.isNil`
@@ -1047,7 +1054,6 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.6.2 Add separate documentation site via `docsify`
 
 ## Browse by category
-
 
 ### Function
 
@@ -1379,15 +1385,15 @@ Expect response within 2 days.
 
 ## Additional info
 
-> Projects using Rambda
+> Libraries using Rambda
 
-- [I Learn Smarter](https://github.com/selfrefactor/ils)
+- [ig-api](https://www.npmjs.com/package/ig-api)
+
+- [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
 
 - [json-validity](https://www.npmjs.com/package/json-validity)
 
 - [log-fn](https://www.npmjs.com/package/log-fn)
-
-- [phobetor](https://github.com/selfrefactor/phobetor)
 
 - [string-fn](https://www.npmjs.com/package/string-fn)
 
