@@ -7,4 +7,3 @@ export default function allPass (conditions, x) {
 
   return !any(condition => !condition(x), conditions)
 }
-// curry

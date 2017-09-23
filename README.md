@@ -45,6 +45,8 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.1/webVersion.js
 
 - Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument('x.y.z' == ['x','y','z']).
 
+- Rambda's **flip** works only for functions expecting two arguments.
+
 - Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
 
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.

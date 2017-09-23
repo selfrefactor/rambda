@@ -1,7 +1,10 @@
-import curry from './internal/curry'
 import type from './type'
 
-function equals (a, b) {
+export default function equals (a, b) {
+  if(arguments.length === 1){
+    return bHolder => equals(a, bHolder)
+  }
+
   if (a === b) {
     return true
   }
@@ -54,5 +57,3 @@ function equals (a, b) {
 
   return false
 }
-
-export default curry(equals)

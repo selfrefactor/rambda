@@ -1,9 +1,8 @@
 import filter from './filter'
+import curry from './internal/curry'
 
-export default function all (condition, arr) {
-  if (arguments.length === 1) {
-    return arrHolder => all(condition, arrHolder)
-  }
-
+function all (condition, arr) {
   return filter(condition, arr).length === arr.length
 }
+
+export default curry(all)
