@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For browser usage include in your HTML
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.2/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -45,9 +45,13 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.0/webVersion.js
 
 - Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument('x.y.z' == ['x','y','z']).
 
+- Rambda's **flip** works only for functions expecting two arguments.
+
 - Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
 
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
+
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -266,16 +270,16 @@ R.dropLast(1, 'foo')  // => 'fo'
 
 #### endsWith
 
-> endsWith(x: any, arrOrStr: Array|String): Boolean
+> endsWith(x: String, str: String): Boolean
 
 ```
 R.endsWith(
   'bar',
-  "foo-bar"
+  'foo-bar'
 ) // => true
 
 R.endsWith(
-  'baz',
+  'foo',
   "foo-bar"
 ) // => false
 ```
@@ -787,17 +791,17 @@ R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 
 #### startsWith
 
-> startsWith(x: any, arrOrStr: Array|String): Boolean
+> startsWith(x: string, str: String): Boolean
 
 ```
-R.endsWith(
-  'bar',
-  "foo-bar"
+R.startsWith(
+  'foo',
+  'foo-bar'
 ) // => true
 
-R.endsWith(
-  'baz',
-  "foo-bar"
+R.startsWith(
+  'bar',
+  'foo-bar'
 ) // => false
 ```
 
@@ -939,7 +943,7 @@ R.typedPathOr(1, 'a.b', {a: {b: 2}}) // => 2
 R.typedPathOr(1, 'a.b', {a: {b: 'foo'}}) // => 1
 ```
 
-- Note that `typedDefaultTo` is method specific for **Rambda** and the method is not part of **Ramda**'s API
+- Note that `typedPathOr` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
 #### uniq
 
@@ -985,7 +989,7 @@ R.includes('oo', 'foo') // => true
 R.includes('z', 'foo') // => false
 ```
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 #### padEnd
 
@@ -993,7 +997,7 @@ Note that this method is not part of `Ramda` API.
 
 `R.padEnd(3, 'foo') // => 'foo   '`
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 #### padStart
 
@@ -1001,22 +1005,34 @@ Note that this method is not part of `Ramda` API.
 
 `R.padStart(3, 'foo') // => '   foo'`
 
-Note that this method is not part of `Ramda` API.
+!! Note that this method is not part of `Ramda` API.
 
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen2.png)
 
-## Flowtype
+## Tree-shaking
 
-I haven't tested it fully, but the partial test shows that [Ramda
+![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
+
+## Typings
+
+- Typescript
+
+Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
+
+- Flowtype
+
+You can use [Ramda
 definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
 
 You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
 
 ## Changelog
 
+- 0.9.2 Add `Typescript` definitions
+- 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
 - 0.8.9 Add `R.isNil`
 - 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
@@ -1038,7 +1054,6 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.6.2 Add separate documentation site via `docsify`
 
 ## Browse by category
-
 
 ### Function
 
@@ -1370,15 +1385,15 @@ Expect response within 2 days.
 
 ## Additional info
 
-> Projects using Rambda
+> Libraries using Rambda
 
-- [I Learn Smarter](https://github.com/selfrefactor/ils)
+- [ig-api](https://www.npmjs.com/package/ig-api)
+
+- [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
 
 - [json-validity](https://www.npmjs.com/package/json-validity)
 
 - [log-fn](https://www.npmjs.com/package/log-fn)
-
-- [phobetor](https://github.com/selfrefactor/phobetor)
 
 - [string-fn](https://www.npmjs.com/package/string-fn)
 
