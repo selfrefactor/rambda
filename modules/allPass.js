@@ -5,5 +5,6 @@ export default function allPass (conditions, x) {
     return xHolder => allPass(conditions, xHolder)
   }
 
-  return !any(condition => !condition(x))(conditions)
+  return !any(condition => !condition(x), conditions)
 }
+// curry

@@ -49,6 +49,8 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.1/webVersion.js
 
 - Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
 
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
 ## API
@@ -266,16 +268,16 @@ R.dropLast(1, 'foo')  // => 'fo'
 
 #### endsWith
 
-> endsWith(x: any, arrOrStr: Array|String): Boolean
+> endsWith(x: String, str: String): Boolean
 
 ```
 R.endsWith(
   'bar',
-  "foo-bar"
+  'foo-bar'
 ) // => true
 
 R.endsWith(
-  'baz',
+  'foo',
   "foo-bar"
 ) // => false
 ```
@@ -787,17 +789,17 @@ R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 
 #### startsWith
 
-> startsWith(x: any, arrOrStr: Array|String): Boolean
+> startsWith(x: string, str: String): Boolean
 
 ```
-R.endsWith(
-  'bar',
-  "foo-bar"
+R.startsWith(
+  'foo',
+  'foo-bar'
 ) // => true
 
-R.endsWith(
-  'baz',
-  "foo-bar"
+R.startsWith(
+  'bar',
+  'foo-bar'
 ) // => false
 ```
 
