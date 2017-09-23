@@ -2,7 +2,7 @@ const R = require('../../rambda')
 
 test('', () => {
   expect(
-    R.append('o','fo')
+    R.append('o', 'fo')
   ).toEqual('foo')
 })
 

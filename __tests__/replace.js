@@ -9,7 +9,7 @@ test('', () => {
     R.replace(/\s/g)('|')('foo bar baz')
   ).toEqual('foo|bar|baz')
   expect(
-    R.replace(/\s/g)('|','foo bar baz')
+    R.replace(/\s/g)('|', 'foo bar baz')
   ).toEqual('foo|bar|baz')
   expect(
     R.replace(/\s/g, '|')('foo bar baz')

@@ -1,7 +1,7 @@
 import type from './type'
 
 export default function equals (a, b) {
-  if(arguments.length === 1){
+  if (arguments.length === 1) {
     return bHolder => equals(a, bHolder)
   }
 

@@ -1,8 +1,8 @@
 import curry from './internal/curry'
 
 function append (val, arr) {
-  if(typeof arr === 'string'){
-    return `${arr}${val}`
+  if (typeof arr === 'string') {
+    return `${ arr }${ val }`
   }
   const clone = arr.concat()
   clone.push(val)
