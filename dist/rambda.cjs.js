@@ -648,6 +648,46 @@ function flip(fn) {
   return flipExport(fn);
 }
 
+function tap(fn, input) {
+  fn(input);
+
+  return input;
+}
+
+var tap$1 = curry(tap);
+
+function mapObject(fn, obj) {
+  var willReturn = {};
+  for (var prop in obj) {
+    willReturn[prop] = fn(obj[prop]);
+  }
+
+  return willReturn;
+}
+
+function map(fn, arr) {
+  if (arr.length === undefined) {
+    return mapObject(fn, arr);
+  }
+  var index = -1;
+  var length = arr.length;
+  var willReturn = Array(length);
+
+  while (++index < length) {
+    willReturn[index] = fn(arr[index]);
+  }
+
+  return willReturn;
+}
+
+var map$1 = curry(map);
+
+function forEach(fn, arr) {
+  return map$1(tap$1(fn), arr);
+}
+
+var forEach$1 = curry(forEach);
+
 function has(prop, obj) {
   return obj[prop] !== undefined;
 }
@@ -675,7 +715,7 @@ function ifElse(conditionFn, ifFn, elseFn) {
 var ifElse$1 = curryThree(ifElse);
 
 function isNil(x) {
-   return x === undefined || x === null;
+  return x === undefined || x === null;
 }
 
 function indexOf(x, arr) {
@@ -727,32 +767,6 @@ function last(a) {
 
   return a[a.length - 1];
 }
-
-function mapObject(fn, obj) {
-  var willReturn = {};
-  for (var prop in obj) {
-    willReturn[prop] = fn(obj[prop]);
-  }
-
-  return willReturn;
-}
-
-function map(fn, arr) {
-  if (arr.length === undefined) {
-    return mapObject(fn, arr);
-  }
-  var index = -1;
-  var length = arr.length;
-  var willReturn = Array(length);
-
-  while (++index < length) {
-    willReturn[index] = fn(arr[index]);
-  }
-
-  return willReturn;
-}
-
-var map$1 = curry(map);
 
 function match(regex, str) {
   var willReturn = str.match(regex);
@@ -980,14 +994,6 @@ function splitEvery(num, a) {
 
 var splitEvery$1 = curry(splitEvery);
 
-function tap(fn, input) {
-  fn(input);
-
-  return input;
-}
-
-var tap$1 = curry(tap);
-
 function tail(arr) {
   return drop$1(1, arr);
 }
@@ -1021,6 +1027,12 @@ function test(regex, str) {
 }
 
 var test$1 = curry(test);
+
+function times(fn, n) {
+  return map$1(fn, range(0, n));
+}
+
+var times$1 = curry(times);
 
 function typedDefaultTo(defaultArgument, inputArgument) {
   if (arguments.length === 1) {
@@ -1158,6 +1170,7 @@ exports.find = find$1;
 exports.findIndex = findIndex$1;
 exports.flatten = flatten;
 exports.flip = flip;
+exports.forEach = forEach$1;
 exports.has = has$1;
 exports.head = head;
 exports.ifElse = ifElse$1;
@@ -1191,6 +1204,7 @@ exports.tail = tail;
 exports.take = take$1;
 exports.takeLast = takeLast$1;
 exports.test = test$1;
+exports.times = times$1;
 exports.type = type;
 exports.typedPathOr = typedPathOr$1;
 exports.typedDefaultTo = typedDefaultTo;

@@ -34,6 +34,7 @@ export { default as find } from './modules/find'
 export { default as findIndex } from './modules/findIndex'
 export { default as flatten } from './modules/flatten'
 export { default as flip } from './modules/flip'
+export { default as forEach } from './modules/forEach'
 export { default as has } from './modules/has'
 export { default as head } from './modules/head'
 export const identity = x => x
@@ -81,6 +82,7 @@ export { default as tail } from './modules/tail'
 export { default as take } from './modules/take'
 export { default as takeLast } from './modules/takeLast'
 export { default as test } from './modules/test'
+export { default as times } from './modules/times'
 export const toLower = simpleHelper('toLowerCase')
 export const toString = simpleHelper('toString')
 export const toUpper = simpleHelper('toUpperCase')

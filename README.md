@@ -31,10 +31,10 @@ console.log(result) // => '{a: 2}'
 
 - Use **yarn add rambda** for `Webpack` and `Node.js` usage
 
-- For browser usage include in your HTML
+- For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -65,6 +65,8 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.2/webVersion.js
 R.add(2, 3) // =>  5
 ```
 
+[Source](https://github.com/selfrefactor/rambda/blob/master/modules/add.js)
+
 #### addIndex
 
 > addIndex(fn: Function): Function
@@ -76,6 +78,8 @@ mapWithIndex(
   ["A", "B", "C"]
 ) // => ["A - 0", "B - 1", "C - 2"]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/blob/master/modules/addIndex.js)
 
 #### adjust
 
@@ -371,7 +375,23 @@ R.subtractFlip(1,7)
 // => 6
 ```
 
-Note that it works only for functions that expects two arguments. If third argument is passed, then `undefined` is returned.
+#### forEach
+
+> forEach(fn: Function, arr: Array): Array
+
+It applies function `fn` over all members of array `arr` and returns `arr`.
+
+```javascript
+const sideEffect = {}
+const result = R.forEach(
+  x => sideEffect[`foo${x}`] = x
+)([1, 2])
+
+console.log(sideEffect) //=> {foo1 : 1, foo2 : 2}
+console.log(result) //=> [1, 2]
+```
+
+Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr`.
 
 #### has
 
@@ -861,6 +881,17 @@ R.test(/^f/, 'foo') // => true
 R.test(/^f/, 'bar') // => false
 ```
 
+#### times
+
+> times(fn: Function, n: Number): Array
+
+It returns the result of applying function `fn` over members of range array.
+The range array includes numbers between `0` and `n`(exclusive).
+
+```javascript
+R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+```
+
 #### toLower
 
 > toLower(str: String): String
@@ -1031,6 +1062,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.3 Add `R.forEach` and `R.times`
 - 0.9.2 Add `Typescript` definitions
 - 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)

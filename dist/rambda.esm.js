@@ -644,6 +644,46 @@ function flip(fn) {
   return flipExport(fn);
 }
 
+function tap(fn, input) {
+  fn(input);
+
+  return input;
+}
+
+var tap$1 = curry(tap);
+
+function mapObject(fn, obj) {
+  var willReturn = {};
+  for (var prop in obj) {
+    willReturn[prop] = fn(obj[prop]);
+  }
+
+  return willReturn;
+}
+
+function map(fn, arr) {
+  if (arr.length === undefined) {
+    return mapObject(fn, arr);
+  }
+  var index = -1;
+  var length = arr.length;
+  var willReturn = Array(length);
+
+  while (++index < length) {
+    willReturn[index] = fn(arr[index]);
+  }
+
+  return willReturn;
+}
+
+var map$1 = curry(map);
+
+function forEach(fn, arr) {
+  return map$1(tap$1(fn), arr);
+}
+
+var forEach$1 = curry(forEach);
+
 function has(prop, obj) {
   return obj[prop] !== undefined;
 }
@@ -671,7 +711,7 @@ function ifElse(conditionFn, ifFn, elseFn) {
 var ifElse$1 = curryThree(ifElse);
 
 function isNil(x) {
-   return x === undefined || x === null;
+  return x === undefined || x === null;
 }
 
 function indexOf(x, arr) {
@@ -723,32 +763,6 @@ function last(a) {
 
   return a[a.length - 1];
 }
-
-function mapObject(fn, obj) {
-  var willReturn = {};
-  for (var prop in obj) {
-    willReturn[prop] = fn(obj[prop]);
-  }
-
-  return willReturn;
-}
-
-function map(fn, arr) {
-  if (arr.length === undefined) {
-    return mapObject(fn, arr);
-  }
-  var index = -1;
-  var length = arr.length;
-  var willReturn = Array(length);
-
-  while (++index < length) {
-    willReturn[index] = fn(arr[index]);
-  }
-
-  return willReturn;
-}
-
-var map$1 = curry(map);
 
 function match(regex, str) {
   var willReturn = str.match(regex);
@@ -976,14 +990,6 @@ function splitEvery(num, a) {
 
 var splitEvery$1 = curry(splitEvery);
 
-function tap(fn, input) {
-  fn(input);
-
-  return input;
-}
-
-var tap$1 = curry(tap);
-
 function tail(arr) {
   return drop$1(1, arr);
 }
@@ -1017,6 +1023,12 @@ function test(regex, str) {
 }
 
 var test$1 = curry(test);
+
+function times(fn, n) {
+  return map$1(fn, range(0, n));
+}
+
+var times$1 = curry(times);
 
 function typedDefaultTo(defaultArgument, inputArgument) {
   if (arguments.length === 1) {
@@ -1106,5 +1118,5 @@ var toString = simpleHelper('toString');
 var toUpper = simpleHelper('toUpperCase');
 var trim = simpleHelper('trim');
 
-export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values };
+export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values };
 //# sourceMappingURL=rambda.esm.js.map

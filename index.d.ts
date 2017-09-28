@@ -226,6 +226,9 @@ declare namespace R {
 
         flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0: T) => TResult;
 
+        forEach<T>(fn: (x: T) => void, list: T[]): T[];
+        forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
+
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
 
@@ -351,6 +354,9 @@ declare namespace R {
 
         test(regexp: RegExp, str: string): boolean;
         test(regexp: RegExp): (str: string) => boolean;
+
+        times<T>(fn: (i: number) => T, n: number): T[];
+        times<T>(fn: (i: number) => T): (n: number) => T[];
 
         toLower(str: string): string;
 
