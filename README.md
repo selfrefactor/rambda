@@ -1417,6 +1417,16 @@ Expect response within 2 days.
 
 ## Additional info
 
+> Running benchmarks
+
+- To run all benchmarks
+
+`npm run benchmark all`
+
+- To run single or number of benchmarks
+
+`npm run benchmark add compose filter`
+
 > Libraries using Rambda
 
 - [ig-api](https://www.npmjs.com/package/ig-api)
