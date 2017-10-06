@@ -65,7 +65,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 R.add(2, 3) // =>  5
 ```
 
-[Source](https://github.com/selfrefactor/rambda/blob/master/modules/add.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
 
 #### addIndex
 
@@ -79,7 +79,7 @@ mapWithIndex(
 ) // => ["A - 0", "B - 1", "C - 2"]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/blob/master/modules/addIndex.js)
+[Source](https://raw.githubusercontent.com/selfrefactor/rambda/master/modules/addIndex.js
 
 #### adjust
 
