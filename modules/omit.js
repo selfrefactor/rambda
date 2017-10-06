@@ -1,14 +1,12 @@
-import type from './type'
-
 export default function omit (keys, obj) {
   if (arguments.length === 1) {
     return objHolder => omit(keys, objHolder)
   }
-  if (obj === undefined || obj === null) {
+  if (obj === null || obj === undefined) {
     return undefined
   }
   if (typeof keys === 'string') {
-    keys = keys.split(',').map(x => x.trim())
+    keys = keys.split(',')
   }
 
   const willReturn = {}

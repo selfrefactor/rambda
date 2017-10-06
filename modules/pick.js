@@ -1,14 +1,12 @@
-import type from './type'
-
 export default function pick (keys, obj) {
   if (arguments.length === 1) {
     return objHolder => pick(keys, objHolder)
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === null || obj === undefined) {
     return undefined
   }
-  if (type(keys) === 'String') {
-    keys = keys.split(',').map(x => x.trim())
+  if (typeof keys === 'string') {
+    keys = keys.split(',')
   }
 
   const willReturn = {}

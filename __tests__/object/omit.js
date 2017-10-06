@@ -6,21 +6,20 @@ test('with string as condition', () => {
     b : 2,
     c : 3,
   }
-  const result = R.omit('a, c', obj)
+  const result = R.omit('a,c', obj)
   const resultCurry = R.omit('a,c')(obj)
   const expectedResult = { b : 2 }
   expect(result).toEqual(expectedResult)
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('with non-object', () => {
+test('with null', () => {
   expect(
     R.pick('a,b', null)
   ).toEqual(undefined)
 })
 
-describe('omit', () => {
-  it('', () => {
+  test('', () => {
     expect(
       R.omit(
         [ 'a', 'c' ]
@@ -31,4 +30,3 @@ describe('omit', () => {
       })
     ).toEqual({ b : 'bar' })
   })
-})

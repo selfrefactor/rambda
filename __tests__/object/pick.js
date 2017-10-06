@@ -6,7 +6,7 @@ test('R.pick with string as condition', () => {
     b : 2,
     c : 3,
   }
-  const result = R.pick('a, c', obj)
+  const result = R.pick('a,c', obj)
   const resultCurry = R.pick('a,c')(obj)
   const expectedResult = {
     a : 1,
