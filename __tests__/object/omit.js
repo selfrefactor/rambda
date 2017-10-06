@@ -15,7 +15,7 @@ test('with string as condition', () => {
 
 test('with null', () => {
   expect(
-    R.pick('a,b', null)
+    R.omit('a,b', null)
   ).toEqual(undefined)
 })
 
