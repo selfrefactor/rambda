@@ -4,7 +4,7 @@
 
 # Rambda
 
-Faster alternative to `Ramda` in just 12kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Argumentation
 
@@ -65,7 +65,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 R.add(2, 3) // =>  5
 ```
 
-[Source](https://github.com/selfrefactor/rambda/blob/master/modules/add.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
 
 #### addIndex
 
@@ -75,11 +75,11 @@ R.add(2, 3) // =>  5
 const mapWithIndex = R.addIndex(R.map)
 mapWithIndex(
   (val, index) => `${val} - ${index}`,
-  ["A", "B", "C"]
-) // => ["A - 0", "B - 1", "C - 2"]
+  ['A', 'B', 'C']
+) // => ['A - 0', 'B - 1', 'C - 2']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/blob/master/modules/addIndex.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/addIndex.js)
 
 #### adjust
 
@@ -90,6 +90,8 @@ It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 ```javascript
 R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/adjust.js)
 
 #### all
 
@@ -102,6 +104,8 @@ const arr = [ 0, 1, 2, 3, 4 ]
 const fn = x => x > -1
 R.all(fn, arr) // => true
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/all.js)
 
 #### allPass
 
@@ -118,8 +122,10 @@ const rules = [
   x => x.a === 1,
   x => x.b === 2,
 ]
-R.allPass(conditionArr, obj) // => true
+R.allPass(rules, obj) // => true
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/allPass.js)
 
 #### always
 
@@ -133,6 +139,8 @@ fn()// => 7
 fn()// => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
+
 #### any
 
 > any(condition: Function, arr: Array): Boolean
@@ -145,6 +153,8 @@ R.any(a => a * a > 8)([1, 2, 3]) // => true
 R.any(a => a * a > 10)([1, 2, 3]) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
+
 #### append
 
 > append(valueToAppend: any, arr: Array): Array
@@ -152,6 +162,8 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 ```javascript
 R.append('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
 
 #### both
 
@@ -168,6 +180,8 @@ fn(15) //=> true
 fn(30) //=> false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
+
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
@@ -181,6 +195,8 @@ const result = R.compose(
 console.log(result) // => [6, 8]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
+
 #### complement
 
 > complement(fn: Function): Function
@@ -193,6 +209,7 @@ The return value of `complemented` is the negative boolean value of `fn(input)`.
 R.complement(R.always(0)) // => true
 R.complement(R.always(true)) // => false
 ```
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
 #### concat
 
@@ -1416,6 +1433,16 @@ Note that your documentation should match the pattern visible across `./README.m
 Expect response within 2 days.
 
 ## Additional info
+
+> Running benchmarks
+
+- To run all benchmarks
+
+`npm run benchmark all`
+
+- To run single or number of benchmarks
+
+`npm run benchmark add compose filter`
 
 > Libraries using Rambda
 
