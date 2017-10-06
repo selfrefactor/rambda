@@ -213,9 +213,9 @@ R.complement(R.always(true)) // => false
 
 #### concat
 
-> concat(x: Array|String, y: Array|String): Array|String
+> concat(x: array|string, y: array|string): array|string
 
-It returns new string or array, which is result merging `x` and `y`.
+It returns a new string or array, which is the result of merging `x` and `y`.
 
 ```
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
@@ -233,6 +233,8 @@ R.contains(2, [1, 2]) // => true
 R.contains(3, [1, 2]) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/contains.js)
+
 #### curry
 
 > curry(fn: Function): Function
@@ -247,6 +249,8 @@ const g = f(3)
 g(4) // => 10
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
+
 #### defaultTo
 
 > defaultTo(defaultValue: T, inputArgument: any): T
@@ -260,6 +264,8 @@ R.defaultTo('foo', undefined) // => 'foo'
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', 1) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
 #### divide
 
@@ -277,6 +283,8 @@ It returns `arrOrStr` with `howManyToDrop` items dropped from the left.
 R.drop(1, ['foo', 'bar', 'baz']) // => ['bar', 'baz']
 R.drop(1, 'foo')  // => 'oo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/drop.js)
 
 #### dropLast
 
