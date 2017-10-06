@@ -4,7 +4,7 @@
 
 # Rambda
 
-Faster alternative to `Ramda` in just 12kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Argumentation
 
@@ -79,7 +79,7 @@ mapWithIndex(
 ) // => ["A - 0", "B - 1", "C - 2"]
 ```
 
-[Source](https://raw.githubusercontent.com/selfrefactor/rambda/master/modules/addIndex.js
+[Source](https://raw.githubusercontent.com/selfrefactor/rambda/master/modules/addIndex.js)
 
 #### adjust
 
