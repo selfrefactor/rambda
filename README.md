@@ -1124,7 +1124,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
-- 0.8.4 Learning to run `npm test` before `npm publish` the hard way
+- 0.8.4 Learning to run `yarn test` before `yarn publish` the hard way
 - 0.8.3 Add `R.always`, `R.T` and `R.F`
 - 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
 - 0.8.1 Add `R.ifElse`
@@ -1452,7 +1452,7 @@ test('endsWith', () => {
 })
 ```
 
-> Run `npm test` to validate your tests
+> Run `yarn test` to validate your tests
 
 > Edit `./README.md` to add documentation
 
@@ -1460,9 +1460,9 @@ Note that your documentation should match the pattern visible across `./README.m
 
 > Lint your files
 
-`npm run lint modules/endsWith.js`
+`yarn run lint modules/endsWith.js`
 
-`npm run lint __tests__/endsWith.js`
+`yarn run lint __tests__/endsWith.js`
 
 > Submit PR
 
@@ -1474,11 +1474,11 @@ Expect response within 2 days.
 
 - To run all benchmarks
 
-`npm run benchmark all`
+`yarn run benchmark all`
 
 - To run single or number of benchmarks
 
-`npm run benchmark add compose filter`
+`yarn run benchmark add compose filter`
 
 > Libraries using Rambda
 
