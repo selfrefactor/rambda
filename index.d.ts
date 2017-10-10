@@ -385,6 +385,7 @@ declare namespace R {
 
         values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
         without(listToOmit: any[], originalList: any[]): list: any[];
+        without(listToOmit: any[]): (originalList: any[]) => list: any[];
     }
 }
 

@@ -248,7 +248,6 @@ function compose() {
   };
 }
 
-var babelHelpers = {};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -429,8 +428,6 @@ var toConsumableArray = function (arr) {
     return Array.from(arr);
   }
 };
-
-babelHelpers;
 
 function type(a) {
   var typeOf = typeof a === 'undefined' ? 'undefined' : _typeof(a);
@@ -788,13 +785,11 @@ function omit(keys, obj) {
       return omit(keys, objHolder);
     };
   }
-  if (obj === undefined || obj === null) {
+  if (obj === null || obj === undefined) {
     return undefined;
   }
   if (typeof keys === 'string') {
-    keys = keys.split(',').map(function (x) {
-      return x.trim();
-    });
+    keys = keys.split(',');
   }
 
   var willReturn = {};
@@ -858,13 +853,11 @@ function pick(keys, obj) {
       return pick(keys, objHolder);
     };
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === null || obj === undefined) {
     return undefined;
   }
-  if (type(keys) === 'String') {
-    keys = keys.split(',').map(function (x) {
-      return x.trim();
-    });
+  if (typeof keys === 'string') {
+    keys = keys.split(',');
   }
 
   var willReturn = {};
@@ -938,6 +931,14 @@ function reduce(fn, initialValue, arr) {
 }
 
 var reduce$1 = curryThree(reduce);
+
+function reject(predicate, collection) {
+  return filter$1(function (x) {
+    return !predicate(x);
+  }, collection);
+}
+
+var reject$1 = curry(reject);
 
 function repeat(a, num) {
   var willReturn = Array(num);
@@ -1080,6 +1081,12 @@ function values(obj) {
   return willReturn;
 }
 
+function without(itemsToOmit, collection) {
+  return reduce$1(function (accum, item) {
+    return !contains$1(item, itemsToOmit) ? accum.concat(item) : accum;
+  }, [], collection);
+}
+
 var add = mathHelper$1('+');
 var always = function always(x) {
   return function () {
@@ -1193,6 +1200,7 @@ exports.prop = prop$1;
 exports.propEq = propEq$1;
 exports.range = range;
 exports.reduce = reduce$1;
+exports.reject = reject$1;
 exports.repeat = repeat$1;
 exports.replace = replace$1;
 exports.sort = sort$1;
@@ -1211,4 +1219,5 @@ exports.typedDefaultTo = typedDefaultTo;
 exports.uniq = uniq;
 exports.update = update$1;
 exports.values = values;
+exports.without = without;
 //# sourceMappingURL=rambda.cjs.js.map

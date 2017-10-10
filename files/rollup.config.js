@@ -15,7 +15,7 @@ export default {
       format : 'es',
     },
     {
-      file   : pkg.browser,
+      file   : 'dist/rambda.umd.js',
       format : 'umd',
       name   : 'R',
     },

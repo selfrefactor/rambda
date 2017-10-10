@@ -4,7 +4,6 @@
   "description": "Lightweight alternative to Ramda",
   "main": "dist/rambda.cjs.js",
   "module": "dist/rambda.esm.js",
-  "browser": "dist/rambda.umd.js",
   "typings": "./index.d.ts",
   "scripts": {
     "build": "run-s all-build browser-minify",
@@ -13,8 +12,7 @@
     "lint": "node files/lint",
     "dev": "jest __tests__/object/pick --watch",
     "all-build": "rollup -c files/rollup.config.js",
-    "browser-minify": "run minify f dist/rambda.umd.js o _",
-    "node-minify": "run minify f dist/rambda.cjs.js o _",
+    "browser-minify": "run minify f dist/rambda.umd.js o webVersion.js",
     "benchmark": "node benchmarks/index.js",
     "cover": "jest __tests__ --coverage",
     "lintall": "run-p lint-test lint-modules lint-rambda lint-files lint-benchmarks",

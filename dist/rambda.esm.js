@@ -244,7 +244,6 @@ function compose() {
   };
 }
 
-var babelHelpers = {};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -425,8 +424,6 @@ var toConsumableArray = function (arr) {
     return Array.from(arr);
   }
 };
-
-babelHelpers;
 
 function type(a) {
   var typeOf = typeof a === 'undefined' ? 'undefined' : _typeof(a);
@@ -784,13 +781,11 @@ function omit(keys, obj) {
       return omit(keys, objHolder);
     };
   }
-  if (obj === undefined || obj === null) {
+  if (obj === null || obj === undefined) {
     return undefined;
   }
   if (typeof keys === 'string') {
-    keys = keys.split(',').map(function (x) {
-      return x.trim();
-    });
+    keys = keys.split(',');
   }
 
   var willReturn = {};
@@ -854,13 +849,11 @@ function pick(keys, obj) {
       return pick(keys, objHolder);
     };
   }
-  if (!(type(obj) === 'Object')) {
+  if (obj === null || obj === undefined) {
     return undefined;
   }
-  if (type(keys) === 'String') {
-    keys = keys.split(',').map(function (x) {
-      return x.trim();
-    });
+  if (typeof keys === 'string') {
+    keys = keys.split(',');
   }
 
   var willReturn = {};
@@ -934,6 +927,14 @@ function reduce(fn, initialValue, arr) {
 }
 
 var reduce$1 = curryThree(reduce);
+
+function reject(predicate, collection) {
+  return filter$1(function (x) {
+    return !predicate(x);
+  }, collection);
+}
+
+var reject$1 = curry(reject);
 
 function repeat(a, num) {
   var willReturn = Array(num);
@@ -1076,6 +1077,12 @@ function values(obj) {
   return willReturn;
 }
 
+function without(itemsToOmit, collection) {
+  return reduce$1(function (accum, item) {
+    return !contains$1(item, itemsToOmit) ? accum.concat(item) : accum;
+  }, [], collection);
+}
+
 var add = mathHelper$1('+');
 var always = function always(x) {
   return function () {
@@ -1118,5 +1125,5 @@ var toString = simpleHelper('toString');
 var toUpper = simpleHelper('toUpperCase');
 var trim = simpleHelper('trim');
 
-export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values };
+export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, reject$1 as reject, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values, without };
 //# sourceMappingURL=rambda.esm.js.map
