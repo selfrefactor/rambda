@@ -4051,8 +4051,8 @@ levn@^0.3.0, levn@~0.3.0:
     type-check "~0.3.2"
 
 lint-fn@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/lint-fn/-/lint-fn-0.3.1.tgz#900ea327e92dd6a649658d2d14e0785e2f55ed76"
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/lint-fn/-/lint-fn-0.3.2.tgz#e6d29f2ee28df4906e4fc5fbd460798ff7184a16"
   dependencies:
     babel-eslint "^8.0.0"
     eslint "^4.7.1"
