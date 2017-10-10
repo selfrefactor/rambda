@@ -308,6 +308,9 @@ declare namespace R {
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: T[]) => TResult;
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: T[]) => TResult;
 
+        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean, list: T[]): T[];
+
         replace(pattern: RegExp | string, replacement: string, str: string): string;
         replace(pattern: RegExp | string, replacement: string): (str: string) => string;
         replace(pattern: RegExp | string): (replacement: string) => (str: string) => string;

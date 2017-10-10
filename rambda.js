@@ -67,6 +67,7 @@ export { default as prop } from './modules/prop'
 export { default as propEq } from './modules/propEq'
 export { default as range } from './modules/range'
 export { default as reduce } from './modules/reduce'
+export { default as reject } from './modules/reject'
 export { default as repeat } from './modules/repeat'
 export { default as replace } from './modules/replace'
 export const reverse = simpleHelper('reverse')
