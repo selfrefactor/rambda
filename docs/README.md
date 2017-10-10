@@ -213,9 +213,9 @@ R.complement(R.always(true)) // => false
 
 #### concat
 
-> concat(x: Array|String, y: Array|String): Array|String
+> concat(x: array|string, y: array|string): array|string
 
-It returns new string or array, which is result merging `x` and `y`.
+It returns a new string or array, which is the result of merging `x` and `y`.
 
 ```
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
@@ -233,6 +233,8 @@ R.contains(2, [1, 2]) // => true
 R.contains(3, [1, 2]) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/contains.js)
+
 #### curry
 
 > curry(fn: Function): Function
@@ -247,6 +249,8 @@ const g = f(3)
 g(4) // => 10
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
+
 #### defaultTo
 
 > defaultTo(defaultValue: T, inputArgument: any): T
@@ -260,6 +264,8 @@ R.defaultTo('foo', undefined) // => 'foo'
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', 1) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
 #### divide
 
@@ -277,6 +283,8 @@ It returns `arrOrStr` with `howManyToDrop` items dropped from the left.
 R.drop(1, ['foo', 'bar', 'baz']) // => ['bar', 'baz']
 R.drop(1, 'foo')  // => 'oo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/drop.js)
 
 #### dropLast
 
@@ -747,6 +755,19 @@ const iteratorFn = (acc, val) => acc + val
 R.reduce(iteratorFn, 1, [1, 2, 3])   // => 7
 ```
 
+#### reject
+
+> reject(fn: Function, arr: Array): Array
+
+It has the opposite effect of `R.filter`.
+
+It will return those members of `arr` that return `false` when applied to function `fn`.
+
+```
+const fn = x => x % 2 === 1
+R.reject(fn, [1, 2, 3, 4]) // => [2, 4]
+```
+
 #### repeat
 
 > repeat(valueToRepeat: T, num: Number): Array<T>
@@ -1025,6 +1046,20 @@ It returns array with of all values in `obj`.
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
 
+#### without
+
+> without(a: Array, b: Array): Array
+
+It will return a new array based on `b` array.
+
+This array contains all members of `b` array, that doesn't exist in `a` array.
+
+Method `R.equals` is used to determine the existance of `b` members in `a` array.
+
+```
+R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
+```
+
 ---
 
 #### includes
@@ -1079,6 +1114,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
 - 0.9.3 Add `R.forEach` and `R.times`
 - 0.9.2 Add `Typescript` definitions
 - 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
