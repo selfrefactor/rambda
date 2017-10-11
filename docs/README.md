@@ -49,8 +49,6 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 
 - Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
 
-- Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
-
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
@@ -790,8 +788,6 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 
 #### reverse
 
-!!! It modifies the array instead of returning new copy, as original `Ramda` method does.
-
 ```
 const arr = [1, 2]
 R.reverse(arr)
@@ -1114,6 +1110,8 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.6 Close issue [#44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
+- 0.9.5 Close issue [#45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
 - 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
 - 0.9.3 Add `R.forEach` and `R.times`
 - 0.9.2 Add `Typescript` definitions
@@ -1124,7 +1122,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 - 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
 - 0.8.6 Add `R.tap` and `R.identity`
 - 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
-- 0.8.4 Learning to run `npm test` before `npm publish` the hard way
+- 0.8.4 Learning to run `yarn test` before `yarn publish` the hard way
 - 0.8.3 Add `R.always`, `R.T` and `R.F`
 - 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
 - 0.8.1 Add `R.ifElse`
@@ -1452,7 +1450,7 @@ test('endsWith', () => {
 })
 ```
 
-> Run `npm test` to validate your tests
+> Run `yarn test` to validate your tests
 
 > Edit `./README.md` to add documentation
 
@@ -1460,9 +1458,9 @@ Note that your documentation should match the pattern visible across `./README.m
 
 > Lint your files
 
-`npm run lint modules/endsWith.js`
+`yarn run lint modules/endsWith.js`
 
-`npm run lint __tests__/endsWith.js`
+`yarn run lint __tests__/endsWith.js`
 
 > Submit PR
 
@@ -1474,11 +1472,11 @@ Expect response within 2 days.
 
 - To run all benchmarks
 
-`npm run benchmark all`
+`yarn run benchmark all`
 
 - To run single or number of benchmarks
 
-`npm run benchmark add compose filter`
+`yarn run benchmark add compose filter`
 
 > Libraries using Rambda
 
