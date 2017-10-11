@@ -950,6 +950,12 @@ function replace(regex, replacer, str) {
 
 var replace$1 = curryThree(replace);
 
+function reverse(arr) {
+  var clone = arr.concat();
+
+  return clone.reverse();
+}
+
 function sort(fn, arr) {
   var arrClone = arr.concat();
 
@@ -1114,7 +1120,6 @@ var not = function not(x) {
 };
 var padEnd = helper('padEnd');
 var padStart = helper('padStart');
-var reverse = simpleHelper('reverse');
 var startsWith = helper('startsWith');
 var subtract = mathHelper$1('-');
 var T = function T() {
@@ -1125,5 +1130,5 @@ var toString = simpleHelper('toString');
 var toUpper = simpleHelper('toUpperCase');
 var trim = simpleHelper('trim');
 
-export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, reverse, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, reject$1 as reject, repeat$1 as repeat, replace$1 as replace, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values, without };
+export { add, always, complement, concat, divide, endsWith, F, identity, includes, join, lastIndexOf, length, modulo, multiply, not, padEnd, padStart, startsWith, subtract, T, toLower, toString, toUpper, trim, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, reject$1 as reject, repeat$1 as repeat, replace$1 as replace, reverse, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values, without };
 //# sourceMappingURL=rambda.esm.js.map

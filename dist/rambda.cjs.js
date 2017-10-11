@@ -954,6 +954,12 @@ function replace(regex, replacer, str) {
 
 var replace$1 = curryThree(replace);
 
+function reverse(arr) {
+  var clone = arr.concat();
+
+  return clone.reverse();
+}
+
 function sort(fn, arr) {
   var arrClone = arr.concat();
 
@@ -1118,7 +1124,6 @@ var not = function not(x) {
 };
 var padEnd = helper('padEnd');
 var padStart = helper('padStart');
-var reverse = simpleHelper('reverse');
 var startsWith = helper('startsWith');
 var subtract = mathHelper$1('-');
 var T = function T() {
@@ -1146,7 +1151,6 @@ exports.multiply = multiply;
 exports.not = not;
 exports.padEnd = padEnd;
 exports.padStart = padStart;
-exports.reverse = reverse;
 exports.startsWith = startsWith;
 exports.subtract = subtract;
 exports.T = T;
@@ -1203,6 +1207,7 @@ exports.reduce = reduce$1;
 exports.reject = reject$1;
 exports.repeat = repeat$1;
 exports.replace = replace$1;
+exports.reverse = reverse;
 exports.sort = sort$1;
 exports.sortBy = sortBy$1;
 exports.split = split$1;
