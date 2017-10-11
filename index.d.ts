@@ -384,8 +384,9 @@ declare namespace R {
         update<T>(index: number, value: T): (list: T[]) => T[];
 
         values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
-        without(listToOmit: any[], originalList: any[]): list: any[];
-        without(listToOmit: any[]): (originalList: any[]) => list: any[];
+
+        without<T>(list1: T[], list2: T[]): T[];
+        without<T>(list1: T[]): (list2: T[]) => T[];
     }
 }
 
