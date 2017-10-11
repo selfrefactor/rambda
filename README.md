@@ -49,8 +49,6 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 
 - Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
 
-- Rambda's **reverse** modifies the array, instead of returning reversed copy of it.
-
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
@@ -790,8 +788,6 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 
 #### reverse
 
-!!! It modifies the array instead of returning new copy, as original `Ramda` method does.
-
 ```
 const arr = [1, 2]
 R.reverse(arr)
@@ -1114,6 +1110,8 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.6 Close issue [#44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
+- 0.9.5 Close issue [#45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
 - 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
 - 0.9.3 Add `R.forEach` and `R.times`
 - 0.9.2 Add `Typescript` definitions

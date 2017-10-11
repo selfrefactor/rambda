@@ -70,7 +70,7 @@ export { default as reduce } from './modules/reduce'
 export { default as reject } from './modules/reject'
 export { default as repeat } from './modules/repeat'
 export { default as replace } from './modules/replace'
-export const reverse = simpleHelper('reverse')
+export { default as reverse } from './modules/reverse'
 export { default as sort } from './modules/sort'
 export { default as sortBy } from './modules/sortBy'
 export { default as split } from './modules/split'
