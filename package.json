@@ -6,12 +6,12 @@
   "module": "dist/rambda.esm.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "build": "run-s all-build browser-minify",
+    "buirld": "run-s all-build browser-minify",
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
     "dev": "jest __tests__/array/reverse --watch",
-    "all-build": "rollup -c files/rollup.config.js",
+    "build": "rollup -c files/rollup.config.js",
     "browser-minify": "run minify f dist/rambda.umd.js o webVersion.js",
     "benchmark": "node benchmarks/index.js",
     "cover": "jest __tests__ --coverage",
@@ -53,5 +53,8 @@
     "rollup": "^0.49.2",
     "rollup-plugin-babel": "^3.0.2",
     "run-fn": "^0.2.1"
+  },
+  "dependencies": {
+    "babel-preset-latest": "^6.24.1"
   }
 }
