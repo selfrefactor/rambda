@@ -150,6 +150,13 @@ function compose(...fns) {
   };
 }
 
+function concat(x, y) {
+
+  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+var concat$1 = curry(concat);
+
 function type(a) {
   const typeOf = typeof a;
   if (a === null) {
@@ -269,6 +276,12 @@ function defaultTo(defaultArgument, inputArgument) {
   return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
+function divide(x, y) {
+  return x / y;
+}
+
+var divide$1 = curry(divide);
+
 function drop(dropNumber, a) {
   return a.slice(dropNumber);
 }
@@ -286,6 +299,12 @@ function either(x, y) {
 }
 
 var either$1 = curry(either);
+
+function endsWith(x, y) {
+  return y.endsWith(x);
+}
+
+var endsWith$1 = curry(endsWith);
 
 var inc = (x => x + 1);
 
@@ -410,6 +429,12 @@ function isNil(x) {
   return x === undefined || x === null;
 }
 
+function includes(x, y) {
+  return y.includes(x);
+}
+
+var includes$1 = curry(includes);
+
 function indexOf(x, arr) {
   let index = -1;
   const length = arr.length;
@@ -452,12 +477,36 @@ function init(a) {
   return a.length ? baseSlice(a, 0, -1) : [];
 }
 
+function join(glue, arr) {
+  return arr.join(glue);
+}
+
+var join$1 = curry(join);
+
+function lastIndexOf(x, arr) {
+  let willReturn = -1;
+  arr.map((value, key) => {
+    if (equals(value, x)) {
+      willReturn = key;
+    }
+  });
+
+  return willReturn;
+}
+
+var lastIndexOf$1 = curry(lastIndexOf);
+
 function last(a) {
   if (typeof a === 'string') {
     return a[a.length - 1] || '';
   }
 
   return a[a.length - 1];
+}
+
+function length(x) {
+
+  return x.length;
 }
 
 function match(regex, str) {
@@ -473,6 +522,18 @@ function merge(obj, newProps) {
 }
 
 var merge$1 = curry(merge);
+
+function modulo(x, y) {
+  return x % y;
+}
+
+var modulo$1 = curry(modulo);
+
+function multiply(x, y) {
+  return x * y;
+}
+
+var multiply$1 = curry(multiply);
 
 function omit(keys, obj) {
   if (arguments.length === 1) {
@@ -682,6 +743,18 @@ function splitEvery(num, a) {
 
 var splitEvery$1 = curry(splitEvery);
 
+function startsWith(x, y) {
+  return y.startsWith(x);
+}
+
+var startsWith$1 = curry(startsWith);
+
+function subtract(x, y) {
+  return x - y;
+}
+
+var subtract$1 = curry(subtract);
+
 function tail(arr) {
   return drop$1(1, arr);
 }
@@ -721,6 +794,18 @@ function times(fn, n) {
 }
 
 var times$1 = curry(times);
+
+function toLower(x) {
+  return x.toLowerCase();
+}
+
+function toUpper(x) {
+  return x.toUpperCase();
+}
+
+function toString(x) {
+  return x.toString();
+}
 
 function typedDefaultTo(defaultArgument, inputArgument) {
   if (arguments.length === 1) {
@@ -770,21 +855,13 @@ function without(itemsToOmit, collection) {
   return reduce$1((accum, item) => !contains$1(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-// import helper from './modules/internal/helper'
-// import oppositeHelper from './modules/internal/oppositeHelper'
-// import propHelper from './modules/internal/propHelper'
-// import simpleHelper from './modules/internal/simpleHelper'
-
 const always = x => () => x;
 const complement = fn => input => !fn(input);
 const F = () => false;
 const identity = x => x;
-// export const modulo = mathHelper('%')
-// export const multiply = mathHelper('*')
 const not = x => !x;
-// export const startsWith = helper('startsWith')
-// export const subtract = mathHelper('-')
 const T = () => true;
+const trim = x => x.trim();
 
-export { always, complement, F, identity, not, T, add$1 as add, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, contains$1 as contains, curry$1 as curry, dec, defaultTo, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, indexOf$1 as indexOf, init, last, map$1 as map, match$1 as match, merge$1 as merge, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, reject$1 as reject, repeat$1 as repeat, replace$1 as replace, reverse, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values, without };
+export { always, complement, F, identity, not, T, trim, add$1 as add, addIndex, adjust$1 as adjust, all$1 as all, allPass, anyPass, any$1 as any, append$1 as append, both$1 as both, compose, concat$1 as concat, contains$1 as contains, curry$1 as curry, dec, defaultTo, divide$1 as divide, drop$1 as drop, dropLast$1 as dropLast, either$1 as either, endsWith$1 as endsWith, inc, equals, filter$1 as filter, find$1 as find, findIndex$1 as findIndex, flatten, flip, forEach$1 as forEach, has$1 as has, head, ifElse$1 as ifElse, isNil, includes$1 as includes, indexOf$1 as indexOf, init, join$1 as join, lastIndexOf$1 as lastIndexOf, last, length, map$1 as map, match$1 as match, merge$1 as merge, modulo$1 as modulo, multiply$1 as multiply, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck$1 as pluck, prepend$1 as prepend, prop$1 as prop, propEq$1 as propEq, range, reduce$1 as reduce, reject$1 as reject, repeat$1 as repeat, replace$1 as replace, reverse, sort$1 as sort, sortBy$1 as sortBy, split$1 as split, splitEvery$1 as splitEvery, startsWith$1 as startsWith, subtract$1 as subtract, tap$1 as tap, tail, take$1 as take, takeLast$1 as takeLast, test$1 as test, times$1 as times, toLower, toUpper, toString, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update$1 as update, values, without };
 //# sourceMappingURL=rambda.esm.js.map

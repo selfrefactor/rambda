@@ -156,6 +156,13 @@ function compose(...fns) {
   };
 }
 
+function concat(x, y) {
+
+  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+var concat$1 = curry(concat);
+
 function type(a) {
   const typeOf = typeof a;
   if (a === null) {
@@ -275,6 +282,12 @@ function defaultTo(defaultArgument, inputArgument) {
   return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
+function divide(x, y) {
+  return x / y;
+}
+
+var divide$1 = curry(divide);
+
 function drop(dropNumber, a) {
   return a.slice(dropNumber);
 }
@@ -292,6 +305,12 @@ function either(x, y) {
 }
 
 var either$1 = curry(either);
+
+function endsWith(x, y) {
+  return y.endsWith(x);
+}
+
+var endsWith$1 = curry(endsWith);
 
 var inc = (x => x + 1);
 
@@ -416,6 +435,12 @@ function isNil(x) {
   return x === undefined || x === null;
 }
 
+function includes(x, y) {
+  return y.includes(x);
+}
+
+var includes$1 = curry(includes);
+
 function indexOf(x, arr) {
   let index = -1;
   const length = arr.length;
@@ -458,12 +483,36 @@ function init(a) {
   return a.length ? baseSlice(a, 0, -1) : [];
 }
 
+function join(glue, arr) {
+  return arr.join(glue);
+}
+
+var join$1 = curry(join);
+
+function lastIndexOf(x, arr) {
+  let willReturn = -1;
+  arr.map((value, key) => {
+    if (equals(value, x)) {
+      willReturn = key;
+    }
+  });
+
+  return willReturn;
+}
+
+var lastIndexOf$1 = curry(lastIndexOf);
+
 function last(a) {
   if (typeof a === 'string') {
     return a[a.length - 1] || '';
   }
 
   return a[a.length - 1];
+}
+
+function length(x) {
+
+  return x.length;
 }
 
 function match(regex, str) {
@@ -479,6 +528,18 @@ function merge(obj, newProps) {
 }
 
 var merge$1 = curry(merge);
+
+function modulo(x, y) {
+  return x % y;
+}
+
+var modulo$1 = curry(modulo);
+
+function multiply(x, y) {
+  return x * y;
+}
+
+var multiply$1 = curry(multiply);
 
 function omit(keys, obj) {
   if (arguments.length === 1) {
@@ -688,6 +749,18 @@ function splitEvery(num, a) {
 
 var splitEvery$1 = curry(splitEvery);
 
+function startsWith(x, y) {
+  return y.startsWith(x);
+}
+
+var startsWith$1 = curry(startsWith);
+
+function subtract(x, y) {
+  return x - y;
+}
+
+var subtract$1 = curry(subtract);
+
 function tail(arr) {
   return drop$1(1, arr);
 }
@@ -727,6 +800,18 @@ function times(fn, n) {
 }
 
 var times$1 = curry(times);
+
+function toLower(x) {
+  return x.toLowerCase();
+}
+
+function toUpper(x) {
+  return x.toUpperCase();
+}
+
+function toString(x) {
+  return x.toString();
+}
 
 function typedDefaultTo(defaultArgument, inputArgument) {
   if (arguments.length === 1) {
@@ -776,21 +861,13 @@ function without(itemsToOmit, collection) {
   return reduce$1((accum, item) => !contains$1(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-// import helper from './modules/internal/helper'
-// import oppositeHelper from './modules/internal/oppositeHelper'
-// import propHelper from './modules/internal/propHelper'
-// import simpleHelper from './modules/internal/simpleHelper'
-
 const always = x => () => x;
 const complement = fn => input => !fn(input);
 const F = () => false;
 const identity = x => x;
-// export const modulo = mathHelper('%')
-// export const multiply = mathHelper('*')
 const not = x => !x;
-// export const startsWith = helper('startsWith')
-// export const subtract = mathHelper('-')
 const T = () => true;
+const trim = x => x.trim();
 
 exports.always = always;
 exports.complement = complement;
@@ -798,6 +875,7 @@ exports.F = F;
 exports.identity = identity;
 exports.not = not;
 exports.T = T;
+exports.trim = trim;
 exports.add = add$1;
 exports.addIndex = addIndex;
 exports.adjust = adjust$1;
@@ -808,13 +886,16 @@ exports.any = any$1;
 exports.append = append$1;
 exports.both = both$1;
 exports.compose = compose;
+exports.concat = concat$1;
 exports.contains = contains$1;
 exports.curry = curry$1;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
+exports.divide = divide$1;
 exports.drop = drop$1;
 exports.dropLast = dropLast$1;
 exports.either = either$1;
+exports.endsWith = endsWith$1;
 exports.inc = inc;
 exports.equals = equals;
 exports.filter = filter$1;
@@ -827,12 +908,18 @@ exports.has = has$1;
 exports.head = head;
 exports.ifElse = ifElse$1;
 exports.isNil = isNil;
+exports.includes = includes$1;
 exports.indexOf = indexOf$1;
 exports.init = init;
+exports.join = join$1;
+exports.lastIndexOf = lastIndexOf$1;
 exports.last = last;
+exports.length = length;
 exports.map = map$1;
 exports.match = match$1;
 exports.merge = merge$1;
+exports.modulo = modulo$1;
+exports.multiply = multiply$1;
 exports.omit = omit;
 exports.partialCurry = partialCurry;
 exports.path = path;
@@ -853,12 +940,17 @@ exports.sort = sort$1;
 exports.sortBy = sortBy$1;
 exports.split = split$1;
 exports.splitEvery = splitEvery$1;
+exports.startsWith = startsWith$1;
+exports.subtract = subtract$1;
 exports.tap = tap$1;
 exports.tail = tail;
 exports.take = take$1;
 exports.takeLast = takeLast$1;
 exports.test = test$1;
 exports.times = times$1;
+exports.toLower = toLower;
+exports.toUpper = toUpper;
+exports.toString = toString;
 exports.type = type;
 exports.typedPathOr = typedPathOr$1;
 exports.typedDefaultTo = typedDefaultTo;
