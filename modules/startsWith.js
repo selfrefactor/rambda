@@ -1,7 +1,7 @@
 import curry from './internal/curry'
 
-function startsWith(str,x){
-  return str.startsWith(x)
+function startsWith(x,y){
+  return y.startsWith(x)
 }
 
 export default curry(startsWith)

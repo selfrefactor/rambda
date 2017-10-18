@@ -1,7 +1,7 @@
 import curry from './internal/curry'
 
-function endsWith(str,x){
-  return str.endsWith(x)
+function endsWith(x,y){
+  return y.endsWith(x)
 }
 
 export default curry(endsWith)
