@@ -8,7 +8,7 @@ Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefacto
 
 ## Argumentation
 
-I admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
+Initial argumentation was the size of  admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
 
 Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
 
@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.7/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -47,7 +47,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
+- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr** and **includes** are not part of Ramda API.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -248,6 +248,17 @@ g(4) // => 10
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
+
+#### dec
+
+> dec(x: number): number
+
+
+It decrements a number.
+```
+R.dec(2) // => 1
+```
+
 
 #### defaultTo
 
@@ -468,6 +479,28 @@ fn(8) // => 80
 fn(11) // => 22
 ```
 
+#### inc
+
+> inc(x: number): number
+
+
+It increments a number.
+```
+R.inc(1) // => 2
+```
+
+#### includes
+
+> includes(x: any, arrOrStr: Array|String): Boolean
+
+```
+R.includes(1, [1, 2]) // => true
+R.includes('oo', 'foo') // => true
+R.includes('z', 'foo') // => false
+```
+
+!! Note that this method is not part of `Ramda` API.
+
 #### indexOf
 
 > indexOf(valueToFind: any, arr: Array): Number
@@ -522,6 +555,12 @@ R.last('foo') // => 'o'
 #### lastIndexOf
 
 > lastIndexOf(x: any, arr: Array): Number
+
+It returns the last index of `x` in array `arr`.
+
+`R.equals` is used to determine equality between `x` and members of `arr`.
+
+Value `-1` is returned if no `x` is found in `arr`.
 
 ```
 R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3
@@ -1056,36 +1095,6 @@ Method `R.equals` is used to determine the existance of `b` members in `a` array
 R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 ```
 
----
-
-#### includes
-
-> includes(x: any, arrOrStr: Array|String): Boolean
-
-```
-R.includes(1, [1, 2]) // => true
-R.includes('oo', 'foo') // => true
-R.includes('z', 'foo') // => false
-```
-
-!! Note that this method is not part of `Ramda` API.
-
-#### padEnd
-
-> padEnd(x: Number, str: String): String
-
-`R.padEnd(3, 'foo') // => 'foo   '`
-
-!! Note that this method is not part of `Ramda` API.
-
-#### padStart
-
-> padStart(x: Number, str: String): String
-
-`R.padStart(3, 'foo') // => '   foo'`
-
-!! Note that this method is not part of `Ramda` API.
-
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1110,6 +1119,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
 - 0.9.6 Close issue [#44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
 - 0.9.5 Close issue [#45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
 - 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
