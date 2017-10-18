@@ -47,7 +47,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.3/webVersion.js
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr**, **includes**, **padStart** and **padEnd** are not part of Ramda API.
+- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr** and **includes** are not part of Ramda API.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -248,6 +248,17 @@ g(4) // => 10
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
+
+#### dec
+
+> dec(x: number): number
+
+
+It decrements a number.
+```
+R.dec(2) // => 1
+```
+
 
 #### defaultTo
 
@@ -468,6 +479,28 @@ fn(8) // => 80
 fn(11) // => 22
 ```
 
+#### inc
+
+> inc(x: number): number
+
+
+It increments a number.
+```
+R.inc(1) // => 2
+```
+
+#### includes
+
+> includes(x: any, arrOrStr: Array|String): Boolean
+
+```
+R.includes(1, [1, 2]) // => true
+R.includes('oo', 'foo') // => true
+R.includes('z', 'foo') // => false
+```
+
+!! Note that this method is not part of `Ramda` API.
+
 #### indexOf
 
 > indexOf(valueToFind: any, arr: Array): Number
@@ -522,6 +555,12 @@ R.last('foo') // => 'o'
 #### lastIndexOf
 
 > lastIndexOf(x: any, arr: Array): Number
+
+It returns the last index of `x` in array `arr`.
+
+`R.equals` is used to determine equality between `x` and members of `arr`.
+
+Value `-1` is returned if no `x` is found in `arr`.
 
 ```
 R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3
@@ -1055,36 +1094,6 @@ Method `R.equals` is used to determine the existance of `b` members in `a` array
 ```
 R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 ```
-
----
-
-#### includes
-
-> includes(x: any, arrOrStr: Array|String): Boolean
-
-```
-R.includes(1, [1, 2]) // => true
-R.includes('oo', 'foo') // => true
-R.includes('z', 'foo') // => false
-```
-
-!! Note that this method is not part of `Ramda` API.
-
-#### padEnd
-
-> padEnd(x: Number, str: String): String
-
-`R.padEnd(3, 'foo') // => 'foo   '`
-
-!! Note that this method is not part of `Ramda` API.
-
-#### padStart
-
-> padStart(x: Number, str: String): String
-
-`R.padStart(3, 'foo') // => '   foo'`
-
-!! Note that this method is not part of `Ramda` API.
 
 ## Benchmark
 

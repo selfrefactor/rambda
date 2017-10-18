@@ -1,8 +1,3 @@
-// import helper from './modules/internal/helper'
-// import oppositeHelper from './modules/internal/oppositeHelper'
-// import propHelper from './modules/internal/propHelper'
-// import simpleHelper from './modules/internal/simpleHelper'
-
 export { default as add } from './modules/add'
 export { default as addIndex } from './modules/addIndex'
 export { default as adjust } from './modules/adjust'
@@ -15,16 +10,16 @@ export { default as append } from './modules/append'
 export { default as both } from './modules/both'
 export const complement = fn => input => !fn(input)
 export { default as compose } from './modules/compose'
-// export const concat = oppositeHelper('concat')
+export { default as concat } from './modules/concat'
 export { default as contains } from './modules/contains'
 export { default as curry } from './modules/curry'
 export { default as dec } from './modules/dec'
 export { default as defaultTo } from './modules/defaultTo'
-// export const divide = mathHelper('/')
+export { default as divide } from './modules/divide'
 export { default as drop } from './modules/drop'
 export { default as dropLast } from './modules/dropLast'
 export { default as either } from './modules/either'
-// export const endsWith = helper('endsWith')
+export { default as endsWith } from './modules/endsWith'
 export { default as inc } from './modules/inc'
 export { default as equals } from './modules/equals'
 export const F = () => false
@@ -39,22 +34,20 @@ export { default as head } from './modules/head'
 export const identity = x => x
 export { default as ifElse } from './modules/ifElse'
 export { default as isNil } from './modules/isNil'
-// export const includes = helper('includes')
+export { default as includes } from './modules/includes'
 export { default as indexOf } from './modules/indexOf'
 export { default as init } from './modules/init'
-// export const join = helper('join')
+export { default as join } from './modules/join'
+export { default as lastIndexOf } from './modules/lastIndexOf'
 export { default as last } from './modules/last'
-// export const lastIndexOf = helper('lastIndexOf')
-// export const length = propHelper('length')
+export { default as length } from './modules/length'
 export { default as map } from './modules/map'
 export { default as match } from './modules/match'
 export { default as merge } from './modules/merge'
-// export const modulo = mathHelper('%')
-// export const multiply = mathHelper('*')
+export { default as modulo } from './modules/modulo'
+export { default as multiply } from './modules/multiply'
 export const not = x => !x
 export { default as omit } from './modules/omit'
-// export const padEnd = helper('padEnd')
-// export const padStart = helper('padStart')
 export { default as partialCurry } from './modules/partialCurry'
 export { default as path } from './modules/path'
 export { default as pathOr } from './modules/pathOr'
@@ -74,8 +67,8 @@ export { default as sort } from './modules/sort'
 export { default as sortBy } from './modules/sortBy'
 export { default as split } from './modules/split'
 export { default as splitEvery } from './modules/splitEvery'
-// export const startsWith = helper('startsWith')
-// export const subtract = mathHelper('-')
+export { default as startsWith } from './modules/startsWith'
+export { default as subtract } from './modules/subtract'
 export const T = () => true
 export { default as tap } from './modules/tap'
 export { default as tail } from './modules/tail'
@@ -83,10 +76,10 @@ export { default as take } from './modules/take'
 export { default as takeLast } from './modules/takeLast'
 export { default as test } from './modules/test'
 export { default as times } from './modules/times'
-// export const toLower = simpleHelper('toLowerCase')
-// export const toString = simpleHelper('toString')
-// export const toUpper = simpleHelper('toUpperCase')
-// export const trim = simpleHelper('trim')
+export { default as toLower } from './modules/toLower'
+export { default as toUpper } from './modules/toUpper'
+export { default as toString } from './modules/toString'
+export const trim = x => x.trim()
 export { default as type } from './modules/type'
 export { default as typedPathOr } from './modules/typedPathOr'
 export { default as typedDefaultTo } from './modules/typedDefaultTo'

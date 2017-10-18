@@ -10,7 +10,7 @@
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
-    "dev": "jest __tests__/array/reverse --watch",
+    "dev": "jest __tests__/lazy/concat --watch",
     "build": "rollup -c files/rollup.config.js",
     "browser-minify": "run minify f dist/rambda.umd.js o webVersion.js",
     "benchmark": "node benchmarks/index.js",
