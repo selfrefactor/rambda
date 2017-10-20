@@ -1,6 +1,12 @@
-import curryThree from './internal/curryThree'
+export default function adjust (fn, index, arr) {
+  if(index === undefined){
 
-function adjust (fn, index, arr) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
+  }else if (arr === undefined) {
+
+    return arrHolder => adjust(fn , index, arrHolder)
+  }
+
   const clone = arr.concat()
 
   return clone.map((val, key) => {
@@ -11,5 +17,3 @@ function adjust (fn, index, arr) {
     return val
   })
 }
-
-export default curryThree(adjust)

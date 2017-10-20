@@ -3,7 +3,7 @@
     "development": {
       "presets": [
         ["env", {
-          "targets": {"node": 6, "browsers":"> 1%"},
+          "targets": {"node": "current"},
           "modules" : false
         }]
       ],

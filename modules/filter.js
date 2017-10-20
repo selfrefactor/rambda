@@ -1,4 +1,4 @@
-import curry from './internal/curry'
+// import curry from './internal/curry'
 
 function filterObject (fn, obj) {
   const willReturn = {}
@@ -12,6 +12,10 @@ function filterObject (fn, obj) {
 }
 
 function filter (fn, arr) {
+  if(arr === undefined){
+    return arrHolder => filter(fn, arrHolder)
+  }
+
   if (arr.length === undefined) {
     return filterObject(fn, arr)
   }
@@ -30,4 +34,5 @@ function filter (fn, arr) {
   return willReturn
 }
 
-export default curry(filter)
+// export default curry(filter)
+export default filter
