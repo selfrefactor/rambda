@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.7/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.8/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1119,6 +1119,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 0.9.8 Revert to ES5 compatible build - [Issue #46](https://github.com/selfrefactor/rambda/issues/46)
 - 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
 - 0.9.6 Close issue [#44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
 - 0.9.5 Close issue [#45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
