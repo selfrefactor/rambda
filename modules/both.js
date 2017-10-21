@@ -1,7 +1,7 @@
-import curry from './internal/curry'
-
-function both (x, y) {
+export default function both (x, y) {
+  if(y === undefined){
+    return yHolder => both(x, yHolder)
+  }
+  
   return input => x(input) && y(input)
 }
-
-export default curry(both)

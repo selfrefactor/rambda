@@ -1,13 +1,12 @@
-import curry from './internal/curry'
-
-function append (val, arr) {
+export default function append (x, arr) {
+  if(arr === undefined){
+    return arrHolder => append(x, arrHolder)
+  }
   if (typeof arr === 'string') {
-    return `${ arr }${ val }`
+    return `${ arr }${ x }`
   }
   const clone = arr.concat()
-  clone.push(val)
+  clone.push(x)
 
   return clone
 }
-
-export default curry(append)
