@@ -1,14 +1,10 @@
 const R = require('../../rambda')
 
 test('merge', () => {
-  expect(
-    R.merge(
-      {
-        foo : 'bar',
-        bar : 'bar',
-      }
-    )({ bar : 'baz' })
-  ).toEqual({
+  expect(R.merge({
+    foo : 'bar',
+    bar : 'bar',
+  })({ bar : 'baz' })).toEqual({
     foo : 'bar',
     bar : 'baz',
   })

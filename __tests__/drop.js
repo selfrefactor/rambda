@@ -1,9 +1,7 @@
 const R = require('../rambda')
 
 test('', () => {
-  expect(
-    R.drop(1, [ 'foo', 'bar', 'baz' ])
-  ).toEqual([ 'bar', 'baz' ])
+  expect(R.drop(1, [ 'foo', 'bar', 'baz' ])).toEqual([ 'bar', 'baz' ])
 
   expect(R.drop(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
 

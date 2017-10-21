@@ -2,12 +2,12 @@ import curry from './internal/curry'
 import range from './range'
 import map from './map'
 
-function times(fn, n){
+function times (fn, n) {
   const willReturn = []
-  
+
   return map(
     fn,
-    range(0,n)
+    range(0, n)
   )
 }
 

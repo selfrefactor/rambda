@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function endsWith(x,y){
+export default function endsWith (x, y) {
+  if(y === undefined){
+    return yHolder => endsWith(x,yHolder)
+  }
   return y.endsWith(x)
 }
-
-export default curry(endsWith)

@@ -1,16 +1,17 @@
-import curry from './internal/curry'
 import equals from './equals'
 
-function contains (val, arr) {
+export default function contains (x, arr) {
+  if (arr === undefined) {
+    return arrHolder => contains(x, arrHolder)
+  }
   let index = -1
   let flag = false
+
   while (++index < arr.length && !flag) {
-    if (equals(arr[ index ], val)) {
+    if (equals(arr[ index ], x)) {
       flag = true
     }
   }
 
   return flag
 }
-
-export default curry(contains)

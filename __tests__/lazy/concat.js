@@ -10,12 +10,11 @@ test('', () => {
   )
   const b = R.concat(arr2)(arr1)
   const expectedResult = [ 'd', 'e', 'f', 'a', 'b', 'c' ]
+
   expect(a).toEqual(expectedResult)
   expect(b).toEqual(expectedResult)
 })
 
 test('string', () => {
-  expect(
-    R.concat('ABC', 'DEF')
-  ).toEqual('ABCDEF')
+  expect(R.concat('ABC', 'DEF')).toEqual('ABCDEF')
 })

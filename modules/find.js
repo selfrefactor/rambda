@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function find (fn, arr) {
+export default function find (fn, arr) {
+  if(arr === undefined){
+    return arrHolder => find(fn,arrHolder)
+  }
   return arr.find(fn)
 }
-
-export default curry(find)

@@ -7,6 +7,7 @@ function splitEvery (num, a) {
 
   const willReturn = []
   let counter = 0
+
   while (counter < a.length) {
     willReturn.push(a.slice(counter, counter += num))
   }

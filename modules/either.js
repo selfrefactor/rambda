@@ -1,7 +1,7 @@
-import curry from './internal/curry'
+export default function either (x, y) {
+  if(y === undefined){
+    return yHolder => either(x, yHolder)
+  }
 
-function either (x, y) {
   return input => x(input) || y(input)
 }
-
-export default curry(either)

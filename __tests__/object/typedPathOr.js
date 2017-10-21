@@ -5,9 +5,8 @@ test('with different types', () => {
   const y = 'a.b.c'
   const z = { a : { b : { c : 1 } } }
   const result = R.typedPathOr(x, y, z)
-  expect(
-    result
-  ).toEqual('foo')
+
+  expect(result).toEqual('foo')
 })
 
 test('curry case (x)(y)(z)', () => {
@@ -15,9 +14,8 @@ test('curry case (x)(y)(z)', () => {
   const y = 'a.b.c'
   const z = { a : { b : { c : 1 } } }
   const result = R.typedPathOr(x)(y)(z)
-  expect(
-    result
-  ).toEqual('foo')
+
+  expect(result).toEqual('foo')
 })
 
 test('curry case (x)(y,z)', () => {
@@ -25,9 +23,8 @@ test('curry case (x)(y,z)', () => {
   const y = 'a.b.c'
   const z = { a : { b : { c : 1 } } }
   const result = R.typedPathOr(x)(y, z)
-  expect(
-    result
-  ).toEqual('foo')
+
+  expect(result).toEqual('foo')
 })
 
 test('with same types', () => {
@@ -35,9 +32,8 @@ test('with same types', () => {
   const y = 'a.b.c'
   const z = { a : { b : { c : 1 } } }
   const result = R.typedPathOr(x, y, z)
-  expect(
-    result
-  ).toEqual(1)
+
+  expect(result).toEqual(1)
 })
 
 test('curry case (x,y)(z)', () => {
@@ -45,7 +41,6 @@ test('curry case (x,y)(z)', () => {
   const y = 'a.b.c'
   const z = { a : { b : { c : 1 } } }
   const result = R.typedPathOr(x, y)(z)
-  expect(
-    result
-  ).toEqual(1)
+
+  expect(result).toEqual(1)
 })

@@ -3,6 +3,7 @@ import curry from './internal/curry'
 
 function takeLast (takeNumber, a) {
   const len = a.length
+
   takeNumber = takeNumber > len ?
     len :
     takeNumber

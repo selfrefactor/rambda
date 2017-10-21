@@ -5,6 +5,7 @@ test('true', () => {
     'bar',
     'foo-bar'
   )
+
   expect(result).toBeTruthy()
 })
 
@@ -13,6 +14,7 @@ test('false', () => {
     'baz',
     'foo-bar'
   )
+
   expect(result).toBeFalsy()
 })
 

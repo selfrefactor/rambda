@@ -1,5 +1,6 @@
 export default function type (a) {
   const typeOf = typeof a
+
   if (a === null) {
     return 'Null'
   } else if (a === undefined) {

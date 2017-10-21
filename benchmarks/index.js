@@ -11,27 +11,27 @@ const { argv } = process
 
 const getBenchmarksToRun = () => {
   const allFiles = fs.readdirSync(__dirname)
-  if(argv.includes('--all') || argv.includes('all')){
 
+  if (argv.includes('--all') || argv.includes('all')) {
     return R.filter(x => x !== 'index.js', allFiles)
   }
 
   return R.compose(
     R.filter(x => allFiles.includes(x)),
-    R.map(x => `${x}.js`)
+    R.map(x => `${ x }.js`)
   )(argv.slice(2, argv.length))
 }
 
 async function main () {
   const benchmarksToRun = getBenchmarksToRun()
-  for(const filePath of benchmarksToRun){
-    console.log(`Running ${filePath}`)
+
+  for (const filePath of benchmarksToRun) {
+    console.log(`Running ${ filePath }`)
     await runBenchmark(filePath)
   }
 }
 
 async function runBenchmark (filePath) {
-
   try {
     require(path.join(__dirname, filePath))
       .on('cycle', event => {
@@ -39,7 +39,6 @@ async function runBenchmark (filePath) {
       })
       .on('complete', () => {
         benchmarks.log()
-        return
       })
       .run()
   } catch (err) {
@@ -49,5 +48,5 @@ async function runBenchmark (filePath) {
 }
 
 main()
-.then(console.log)
-.catch(console.log)
+  .then(console.log)
+  .catch(console.log)

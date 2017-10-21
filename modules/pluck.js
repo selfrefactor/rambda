@@ -3,6 +3,7 @@ import map from './map'
 
 function pluck (keyToPluck, arr) {
   const willReturn = []
+
   map(
     val => {
       if (!(val[ keyToPluck ] === undefined)) {

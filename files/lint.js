@@ -1,4 +1,5 @@
 const filePath = process.argv[ 2 ]
+
 if (filePath === undefined) {
   console.log('Provide file path')
 

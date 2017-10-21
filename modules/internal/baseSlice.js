@@ -10,6 +10,7 @@ export default function baseSlice (array, start, end) {
   start >>>= 0
 
   const result = Array(length)
+
   while (++index < length) {
     result[ index ] = array[ index + start ]
   }

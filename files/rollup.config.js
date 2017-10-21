@@ -14,10 +14,10 @@ export default {
       file   : pkg.module,
       format : 'es',
     },
-    // {
-    //   file   : '/home/just/repos/tree-shaking-example/files/rambda.js',
-    //   format : 'es',
-    // },
+    //{
+    //file   : '/home/just/repos/tree-shaking-example/files/rambda.js',
+    //format : 'es',
+    //},
     {
       file   : 'dist/rambda.umd.js',
       format : 'umd',

@@ -5,6 +5,7 @@ function prepend (val, arr) {
     return `${ val }${ arr }`
   }
   const clone = arr.concat()
+
   clone.unshift(val)
 
   return clone

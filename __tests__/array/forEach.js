@@ -2,13 +2,9 @@ const R = require('../../rambda')
 
 test('', () => {
   const sideEffect = {}
-  const result = R.forEach(
-    x => sideEffect[ `foo${x}`] = x + 10
-  )([ 1, 2 ])
+  const result = R.forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
 
-  expect(
-    sideEffect
-  ).toEqual({
+  expect(sideEffect).toEqual({
     foo1 : 11,
     foo2 : 12,
   })
@@ -37,18 +33,13 @@ test('', () => {
     234 : 345,
   }
 
-  expect(
-    sideEffect
-  ).toEqual(expectedSideEffect)
-  expect(
-    result
-  ).toEqual(list)
+  expect(sideEffect).toEqual(expectedSideEffect)
+  expect(result).toEqual(list)
 })
 
 test('with empty list', () => {
   const list = []
   const result = R.forEach(x => x * x)(list)
-  expect(
-    result
-  ).toEqual(list)
+
+  expect(result).toEqual(list)
 })

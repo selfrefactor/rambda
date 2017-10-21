@@ -1,7 +1,7 @@
-import curry from './internal/curry'
+export default function drop (dropNumber, x) {
+  if (x === undefined) {
+    return xHolder => drop(dropNumber, xHolder)
+  }
 
-function drop (dropNumber, a) {
-  return a.slice(dropNumber)
+  return x.slice(dropNumber)
 }
-
-export default curry(drop)

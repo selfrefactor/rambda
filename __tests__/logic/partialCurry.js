@@ -3,6 +3,7 @@ const R = require('../../rambda')
 test('', () => {
   const fn = ({ a, b, c }) => a + b + c
   const curried = R.partialCurry(fn, { a : 1 })
+
   expect(R.type(curried)).toEqual('Function')
   expect(curried({
     b : 2,
@@ -19,6 +20,7 @@ it('with promise', done => {
   })
 
   const curried = R.partialCurry(delay, { ms : 200 })
+
   curried({ x : 3 }).then(result => {
     expect(R.type(curried)).toEqual('Function')
     done()
@@ -44,7 +46,6 @@ it('with async', async () => {
     b : 2,
     c : 3,
   })
-  expect(
-    result
-  ).toEqual(6)
+
+  expect(result).toEqual(6)
 })

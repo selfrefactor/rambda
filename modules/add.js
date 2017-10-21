@@ -1,6 +1,7 @@
-export default function add(x,y){
-  if(y === undefined){
+export default function add (x, y) {
+  if (y === undefined) {
     return yHolder => add(x, yHolder)
   }
-  return x+y
+
+  return x + y
 }

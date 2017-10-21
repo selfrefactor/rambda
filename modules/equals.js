@@ -9,6 +9,7 @@ export default function equals (a, b) {
     return true
   }
   const aType = type(a)
+
   if (aType !== type(b)) {
     return false
   }
@@ -22,15 +23,18 @@ export default function equals (a, b) {
 
   if (aType === 'Object') {
     const aKeys = Object.keys(a)
+
     if (aKeys.length === Object.keys(b).length) {
       if (aKeys.length === 0) {
         return true
       }
       let flag = true
+
       aKeys.map(val => {
         if (flag) {
           const aValType = type(a[ val ])
           const bValType = type(b[ val ])
+
           if (aValType === bValType) {
             if (aValType === 'Object') {
               if (Object.keys(a[ val ]).length === Object.keys(b[ val ]).length) {

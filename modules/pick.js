@@ -11,6 +11,7 @@ export default function pick (keys, obj) {
 
   const willReturn = {}
   let counter = 0
+
   while (counter < keys.length) {
     if (keys[ counter ] in obj) {
       willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]

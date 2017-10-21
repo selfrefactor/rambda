@@ -10,6 +10,7 @@ export default function omit (keys, obj) {
   }
 
   const willReturn = {}
+
   for (const key in obj) {
     if (!keys.includes(key)) {
       willReturn[ key ] = obj[ key ]

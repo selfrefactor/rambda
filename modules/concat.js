@@ -1,8 +1,7 @@
-import curry from './internal/curry'
+export default function concat (x, y) {
+  if (y === undefined) {
+    return yHolder => concat(x, yHolder)
+  }
 
-function concat (x, y) {
-
-  return typeof x === 'string' ? `${x}${y}` : [...x, ...y]
+  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
 }
-
-export default curry(concat)

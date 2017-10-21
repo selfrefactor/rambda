@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function startsWith(x,y){
+export default function startsWith (x, y) {
+  if(y === undefined){
+    return yHolder => startsWith(x,yHolder)
+  }
   return y.startsWith(x)
 }
-
-export default curry(startsWith)

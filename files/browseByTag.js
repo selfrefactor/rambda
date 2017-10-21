@@ -12,8 +12,7 @@ const fn = async () => {
       R.map(R.replace('exports.', '')),
       R.flatten,
       R.map(x =>
-        R.match(/^exports.[a-zA-Z]{1,20}/g, x)
-      ),
+        R.match(/^exports.[a-zA-Z]{1,20}/g, x)),
       R.filter(R.includes('exports.')),
       R.split('\n')
     )(data)
@@ -25,6 +24,7 @@ const fn = async () => {
 ### ${ x.category }
 
           `
+
         x.data.map(singleFunction => {
           localWillReturn += `
 [${ singleFunction }](#${ singleFunction.toLowerCase() })
@@ -34,9 +34,7 @@ const fn = async () => {
 
         return localWillReturn
       }),
-      R.filter(
-        x => x.data.length > 2
-      ),
+      R.filter(x => x.data.length > 2),
       R.map(category => {
         const filteredData = R.filter(x => ourData.includes(x))(ramdaData[ category ])
 
