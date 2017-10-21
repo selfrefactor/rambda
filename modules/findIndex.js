@@ -1,6 +1,8 @@
-import curry from './internal/curry'
-
-function findIndex (fn, arr) {
+export default function findIndex (fn, arr) {
+  if(arr === undefined){
+    
+    return arrHolder => findIndex(fn, arrHolder)
+  }
   const length = arr.length
   let index = -1
 
@@ -12,5 +14,3 @@ function findIndex (fn, arr) {
 
   return -1
 }
-
-export default curry(findIndex)

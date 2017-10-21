@@ -1,9 +1,9 @@
-import curry from './internal/curry'
 import tap from './tap'
 import map from './map'
 
-function forEach (fn, arr) {
+export default function forEach (fn, arr) {
+  if(arr === undefined){
+    return arrHolder => forEach(fn, arrHolder)
+  }
   return map(tap(fn), arr)
 }
-
-export default curry(forEach)

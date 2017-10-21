@@ -1,6 +1,10 @@
-import curryThree from './internal/curryThree'
+export default function ifElse (conditionFn, ifFn, elseFn) {
+  if(ifFn === undefined){
+    return (ifFnHolder, elseFnHolder) => ifElse(conditionFn, ifFnHolder, elseFnHolder)
+  }else if(elseFn === undefined){
+    return elseFnHolder => ifElse(conditionFn, ifFn, elseFnHolder)
+  }
 
-function ifElse (conditionFn, ifFn, elseFn) {
   return input => {
     if (conditionFn(input) === true) {
       return ifFn(input)
@@ -9,5 +13,3 @@ function ifElse (conditionFn, ifFn, elseFn) {
     return elseFn(input)
   }
 }
-
-export default curryThree(ifElse)
