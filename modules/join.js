@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function join (glue, arr) {
+export default function join (glue, arr) {
+  if(arr === undefined){
+    return arrHolder => join(glue, arrHolder)
+  }
   return arr.join(glue)
 }
-
-export default curry(join)

@@ -1,11 +1,10 @@
-import curry from './internal/curry'
-
-function match (regex, str) {
-  const willReturn = str.match(regex)
+export default function match (regex, x) {
+    if(x === undefined){
+      return xHolder => match(regex,xHolder)
+    }
+  const willReturn = x.match(regex)
 
   return willReturn === null ?
     [] :
     willReturn
 }
-
-export default curry(match)

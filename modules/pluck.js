@@ -1,7 +1,9 @@
-import curry from './internal/curry'
 import map from './map'
 
-function pluck (keyToPluck, arr) {
+export default function pluck (keyToPluck, arr) {
+  if(arr === undefined){
+    return arrHolder => pluck(keyToPluck, arrHolder)
+  }
   const willReturn = []
 
   map(
@@ -15,5 +17,3 @@ function pluck (keyToPluck, arr) {
 
   return willReturn
 }
-
-export default curry(pluck)

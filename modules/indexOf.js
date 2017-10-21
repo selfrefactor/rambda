@@ -1,6 +1,7 @@
-import curry from './internal/curry'
-
-function indexOf (x, arr) {
+export default function indexOf (x, arr) {
+  if(arr === undefined){
+    return arrHolder => indexOf(x, arrHolder)
+  }
   let index = -1
   const length = arr.length
 
@@ -12,5 +13,3 @@ function indexOf (x, arr) {
 
   return -1
 }
-
-export default curry(indexOf)

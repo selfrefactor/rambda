@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function modulo (x, y) {
+export default function modulo (x, y) {
+  if(y === undefined){
+    return yHolder => modulo(x, yHolder)
+  }
   return x % y
 }
-
-export default curry(modulo)

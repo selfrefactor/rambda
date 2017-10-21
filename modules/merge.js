@@ -1,7 +1,6 @@
-import curry from './internal/curry'
-
-function merge (obj, newProps) {
+export default function merge (obj, newProps) {
+  if(newProps === undefined){
+    return newPropsHolder => merge(obj, newPropsHolder)
+  }
   return Object.assign({}, obj, newProps)
 }
-
-export default curry(merge)

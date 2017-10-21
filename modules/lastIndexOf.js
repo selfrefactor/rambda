@@ -1,7 +1,9 @@
-import curry from './internal/curry'
 import equals from './equals'
 
-function lastIndexOf (x, arr) {
+export default function lastIndexOf (x, arr) {
+  if(arr === undefined){
+    return arrHolder => lastIndexOf(x, arrHolder)
+  }
   let willReturn = -1
 
   arr.map((value, key) => {
@@ -12,5 +14,3 @@ function lastIndexOf (x, arr) {
 
   return willReturn
 }
-
-export default curry(lastIndexOf)

@@ -1,5 +1,3 @@
-import curry from './internal/curry'
-
 function mapObject (fn, obj) {
   const willReturn = {}
 
@@ -10,7 +8,10 @@ function mapObject (fn, obj) {
   return willReturn
 }
 
-function map (fn, arr) {
+export default function map (fn, arr) {
+  if(arr === undefined){
+    return arrHolder => map(fn,arrHolder)
+  }
   if (arr.length === undefined) {
     return mapObject(fn, arr)
   }
@@ -24,5 +25,3 @@ function map (fn, arr) {
 
   return willReturn
 }
-
-export default curry(map)

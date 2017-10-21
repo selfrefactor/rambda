@@ -1,7 +1,7 @@
-import curry from './internal/curry'
 
-function multiply (x, y) {
+export default function multiply (x, y) {
+  if(y === undefined){
+    return yHolder => multiply(x, yHolder)
+  }
   return x * y
 }
-
-export default curry(multiply)
