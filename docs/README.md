@@ -34,7 +34,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/0.9.7/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1119,13 +1119,15 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
+- 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
 - 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
-- 0.9.6 Close issue [#44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
-- 0.9.5 Close issue [#45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
+- 0.9.6 Close [issue #44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
+- 0.9.5 Close [issue #45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
 - 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
 - 0.9.3 Add `R.forEach` and `R.times`
 - 0.9.2 Add `Typescript` definitions
-- 0.9.1 Close issue [#36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
+- 0.9.1 Close [issue #36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
 - 0.8.9 Add `R.isNil`
 - 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
