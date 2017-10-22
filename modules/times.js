@@ -1,14 +1,15 @@
-import curry from './internal/curry'
 import range from './range'
 import map from './map'
 
-function times (fn, n) {
+export default function times (fn, num) {
+  if (num === undefined) {
+    return numHolder => times(fn, numHolder)
+  }
+
   const willReturn = []
 
   return map(
     fn,
-    range(0, n)
+    range(0, num)
   )
 }
-
-export default curry(times)

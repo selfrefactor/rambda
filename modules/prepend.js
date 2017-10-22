@@ -1,14 +1,14 @@
-import curry from './internal/curry'
 
-function prepend (val, arr) {
+export default function prepend (x, arr) {
+  if (arr === undefined) {
+    return arrHolder => prepend(x, arrHolder)
+  }
   if (typeof arr === 'string') {
-    return `${ val }${ arr }`
+    return `${ x }${ arr }`
   }
   const clone = arr.concat()
 
-  clone.unshift(val)
+  clone.unshift(x)
 
   return clone
 }
-
-export default curry(prepend)

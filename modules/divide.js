@@ -1,7 +1,7 @@
-import curry from './internal/curry'
+export default function divide (x, y) {
+  if (y === undefined) {
+    return yHolder => divide(x, yHolder)
+  }
 
-function divide (x, y) {
   return x / y
 }
-
-export default curry(divide)

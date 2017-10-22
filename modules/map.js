@@ -9,8 +9,8 @@ function mapObject (fn, obj) {
 }
 
 export default function map (fn, arr) {
-  if(arr === undefined){
-    return arrHolder => map(fn,arrHolder)
+  if (arr === undefined) {
+    return arrHolder => map(fn, arrHolder)
   }
   if (arr.length === undefined) {
     return mapObject(fn, arr)

@@ -1,7 +1,9 @@
-import curryThree from './internal/curryThree'
+export default function propEq (key, x, obj) {
+  if (x === undefined) {
+    return (xHolder, objHolder) => propEq(key, xHolder, objHolder)
+  } else if (obj === undefined) {
+    return objHolder => propEq(key, x, objHolder)
+  }
 
-function propEq (key, val, obj) {
-  return obj[ key ] === val
+  return obj[ key ] === x
 }
-
-export default curryThree(propEq)

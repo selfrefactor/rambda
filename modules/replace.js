@@ -1,7 +1,9 @@
-import curryThree from './internal/curryThree'
+export default function replace (regex, replacer, str) {
+  if (replacer === undefined) {
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
+  } else if (str === undefined) {
+    return strHolder => replace(regex, replacer, strHolder)
+  }
 
-function replace (regex, replacer, str) {
   return str.replace(regex, replacer)
 }
-
-export default curryThree(replace)

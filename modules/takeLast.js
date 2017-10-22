@@ -1,19 +1,19 @@
 import baseSlice from './internal/baseSlice'
-import curry from './internal/curry'
 
-function takeLast (takeNumber, a) {
-  const len = a.length
-
-  takeNumber = takeNumber > len ?
-    len :
-    takeNumber
-
-  if (typeof a === 'string') {
-    return a.slice(len - takeNumber)
+export default function takeLast (num, x) {
+  if (x === undefined) {
+    return xHolder => takeLast(num, xHolder)
   }
-  takeNumber = len - takeNumber
+  const len = x.length
 
-  return baseSlice(a, takeNumber, len)
+  num = num > len ?
+    len :
+    num
+
+  if (typeof x === 'string') {
+    return x.slice(len - num)
+  }
+  num = len - num
+
+  return baseSlice(x, num, len)
 }
-
-export default curry(takeLast)

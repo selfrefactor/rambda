@@ -1,7 +1,7 @@
 import map from './map'
 
 export default function pluck (keyToPluck, arr) {
-  if(arr === undefined){
+  if (arr === undefined) {
     return arrHolder => pluck(keyToPluck, arrHolder)
   }
   const willReturn = []

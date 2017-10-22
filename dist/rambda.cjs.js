@@ -2,23 +2,44 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-//Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
-function compose(...fns) {
-  return result => {
-    const list = fns.slice();
+function add(x, y) {
+  if (y === undefined) {
+    return yHolder => add(x, yHolder);
+  }
 
-    while (list.length > 0) {
-      result = list.pop()(result);
-    }
+  return x + y;
+}
 
-    return result;
+function addIndex(functor) {
+  return function (fn, ...rest) {
+    let cnt = 0;
+    const newFn = (...args) => fn.apply(null, [...args, cnt++]);
+
+    return functor.apply(null, [newFn, ...rest]);
   };
 }
 
-// import curry from './internal/curry'
+function adjust(fn, index, arr) {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder);
+  } else if (arr === undefined) {
+    return arrHolder => adjust(fn, index, arrHolder);
+  }
+
+  const clone = arr.concat();
+
+  return clone.map((val, key) => {
+    if (key === index) {
+      return fn(arr[index]);
+    }
+
+    return val;
+  });
+}
 
 function filterObject(fn, obj) {
   const willReturn = {};
+
   for (const prop in obj) {
     if (fn(obj[prop])) {
       willReturn[prop] = obj[prop];
@@ -43,6 +64,7 @@ function filter(fn, arr) {
 
   while (++index < len) {
     const value = arr[index];
+
     if (fn(value)) {
       willReturn[resIndex++] = value;
     }
@@ -51,8 +73,648 @@ function filter(fn, arr) {
   return willReturn;
 }
 
-function range(start, end) {
+function all(condition, arr) {
+  if (arr === undefined) {
+    return arrHolder => all(condition, arrHolder);
+  }
+
+  return filter(condition, arr).length === arr.length;
+}
+
+function any(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => any(fn, arrHolder);
+  }
+  let counter = 0;
+
+  while (counter < arr.length) {
+    if (fn(arr[counter])) {
+      return true;
+    }
+    counter++;
+  }
+
+  return false;
+}
+
+function allPass(conditions, x) {
+  if (arguments.length === 1) {
+    return xHolder => allPass(conditions, xHolder);
+  }
+
+  return !any(condition => !condition(x), conditions);
+}
+
+function anyPass(conditions, x) {
+  if (arguments.length === 1) {
+    return xHolder => anyPass(conditions, xHolder);
+  }
+
+  return any(condition => condition(x))(conditions);
+}
+
+function append(x, arr) {
+  if (arr === undefined) {
+    return arrHolder => append(x, arrHolder);
+  }
+  if (typeof arr === 'string') {
+    return `${arr}${x}`;
+  }
+  const clone = arr.concat();
+
+  clone.push(x);
+
+  return clone;
+}
+
+function both(x, y) {
+  if (y === undefined) {
+    return yHolder => both(x, yHolder);
+  }
+
+  return input => x(input) && y(input);
+}
+
+//Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
+function compose(...fns) {
+  return result => {
+    const list = fns.slice();
+
+    while (list.length > 0) {
+      result = list.pop()(result);
+    }
+
+    return result;
+  };
+}
+
+function concat(x, y) {
+  if (y === undefined) {
+    return yHolder => concat(x, yHolder);
+  }
+
+  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+function type(a) {
+  const typeOf = typeof a;
+
+  if (a === null) {
+    return 'Null';
+  } else if (a === undefined) {
+    return 'Undefined';
+  } else if (typeOf === 'boolean') {
+    return 'Boolean';
+  } else if (typeOf === 'number') {
+    return 'Number';
+  } else if (typeOf === 'string') {
+    return 'String';
+  } else if (Array.isArray(a)) {
+    return 'Array';
+  } else if (a instanceof RegExp) {
+    return 'RegExp';
+  }
+
+  const asStr = a.toString();
+
+  if (asStr.startsWith('async')) {
+    return 'Async';
+  } else if (asStr === '[object Promise]') {
+    return 'Promise';
+  } else if (asStr.includes('function') || asStr.includes('=>')) {
+    return 'Function';
+  }
+
+  return 'Object';
+}
+
+function equals(a, b) {
+  if (arguments.length === 1) {
+    return bHolder => equals(a, bHolder);
+  }
+
+  if (a === b) {
+    return true;
+  }
+  const aType = type(a);
+
+  if (aType !== type(b)) {
+    return false;
+  }
+
+  if (aType === 'Array') {
+    const aClone = Array.from(a);
+    const bClone = Array.from(b);
+
+    return aClone.sort().toString() === bClone.sort().toString();
+  }
+
+  if (aType === 'Object') {
+    const aKeys = Object.keys(a);
+
+    if (aKeys.length === Object.keys(b).length) {
+      if (aKeys.length === 0) {
+        return true;
+      }
+      let flag = true;
+
+      aKeys.map(val => {
+        if (flag) {
+          const aValType = type(a[val]);
+          const bValType = type(b[val]);
+
+          if (aValType === bValType) {
+            if (aValType === 'Object') {
+              if (Object.keys(a[val]).length === Object.keys(b[val]).length) {
+                if (Object.keys(a[val]).length !== 0) {
+                  if (!equals(a[val], b[val])) {
+                    flag = false;
+                  }
+                }
+              } else {
+                flag = false;
+              }
+            } else if (!equals(a[val], b[val])) {
+              flag = false;
+            }
+          } else {
+            flag = false;
+          }
+        }
+      });
+
+      return flag;
+    }
+  }
+
+  return false;
+}
+
+function contains(x, arr) {
+  if (arr === undefined) {
+    return arrHolder => contains(x, arrHolder);
+  }
+  let index = -1;
+  let flag = false;
+
+  while (++index < arr.length && !flag) {
+    if (equals(arr[index], x)) {
+      flag = true;
+    }
+  }
+
+  return flag;
+}
+
+//taken from the last comment of https://gist.github.com/mkuklis/5294248
+
+function curry(f, a = []) {
+  return (...p) => (o => o.length >= f.length ? f(...o) : curry(f, o))([...a, ...p]);
+}
+
+var dec = (x => x - 1);
+
+function defaultTo(defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return inputArgumentHolder => defaultTo(defaultArgument, inputArgumentHolder);
+  }
+
+  return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
+}
+
+function divide(x, y) {
+  if (y === undefined) {
+    return yHolder => divide(x, yHolder);
+  }
+  return x / y;
+}
+
+function drop(dropNumber, x) {
+  if (x === undefined) {
+    return xHolder => drop(dropNumber, xHolder);
+  }
+
+  return x.slice(dropNumber);
+}
+
+function dropLast(dropNumber, x) {
+  if (x === undefined) {
+
+    return xHolder => dropLast(dropNumber, xHolder);
+  }
+
+  return x.slice(0, -dropNumber);
+}
+
+function either(x, y) {
+  if (y === undefined) {
+    return yHolder => either(x, yHolder);
+  }
+
+  return input => x(input) || y(input);
+}
+
+function endsWith(x, y) {
+  if (y === undefined) {
+    return yHolder => endsWith(x, yHolder);
+  }
+  return y.endsWith(x);
+}
+
+var inc = (x => x + 1);
+
+function find(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => find(fn, arrHolder);
+  }
+  return arr.find(fn);
+}
+
+function findIndex(fn, arr) {
+  if (arr === undefined) {
+
+    return arrHolder => findIndex(fn, arrHolder);
+  }
+  const length = arr.length;
+  let index = -1;
+
+  while (++index < length) {
+    if (fn(arr[index])) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+function flatten(arr, willReturn) {
+  willReturn = willReturn === undefined ? [] : willReturn;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      flatten(arr[i], willReturn);
+    } else {
+      willReturn.push(arr[i]);
+    }
+  }
+
+  return willReturn;
+}
+
+function flipExport(fn) {
+  return (...input) => {
+    if (input.length === 1) {
+      return holder => fn(holder, input[0]);
+    } else if (input.length === 2) {
+      return fn(input[1], input[0]);
+    }
+
+    return undefined;
+  };
+}
+
+function flip(fn, ...input) {
+  return flipExport(fn);
+}
+
+function tap(fn, x) {
+  if (x === undefined) {
+    return xHolder => tap(fn, xHolder);
+  }
+
+  fn(x);
+
+  return x;
+}
+
+function mapObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    willReturn[prop] = fn(obj[prop]);
+  }
+
+  return willReturn;
+}
+
+function map(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => map(fn, arrHolder);
+  }
+  if (arr.length === undefined) {
+    return mapObject(fn, arr);
+  }
+  let index = -1;
+  const length = arr.length;
+  const willReturn = Array(length);
+
+  while (++index < length) {
+    willReturn[index] = fn(arr[index]);
+  }
+
+  return willReturn;
+}
+
+function forEach(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => forEach(fn, arrHolder);
+  }
+  return map(tap(fn), arr);
+}
+
+function has(prop, obj) {
+  if (obj === undefined) {
+    return objHolder => has(prop, objHolder);
+  }
+  return obj[prop] !== undefined;
+}
+
+function head(a) {
+  if (typeof a === 'string') {
+    return a[0] || '';
+  }
+
+  return a[0];
+}
+
+function ifElse(conditionFn, ifFn, elseFn) {
+  if (ifFn === undefined) {
+    return (ifFnHolder, elseFnHolder) => ifElse(conditionFn, ifFnHolder, elseFnHolder);
+  } else if (elseFn === undefined) {
+    return elseFnHolder => ifElse(conditionFn, ifFn, elseFnHolder);
+  }
+
+  return input => {
+    if (conditionFn(input) === true) {
+      return ifFn(input);
+    }
+
+    return elseFn(input);
+  };
+}
+
+function isNil(x) {
+  return x === undefined || x === null;
+}
+
+function includes(x, y) {
+  if (y === undefined) {
+    return yHolder => includes(x, yHolder);
+  }
+  return y.includes(x);
+}
+
+function indexOf(x, arr) {
+  if (arr === undefined) {
+    return arrHolder => indexOf(x, arrHolder);
+  }
+  let index = -1;
+  const length = arr.length;
+
+  while (++index < length) {
+    if (arr[index] === x) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+function baseSlice(array, start, end) {
+  let index = -1;
+  let length = array.length;
+
+  end = end > length ? length : end;
+  if (end < 0) {
+    end += length;
+  }
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
+
+  const result = Array(length);
+
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+
+  return result;
+}
+
+function init(a) {
+  if (typeof a === 'string') {
+    return a.slice(0, -1);
+  }
+
+  return a.length ? baseSlice(a, 0, -1) : [];
+}
+
+function join(glue, arr) {
+  if (arr === undefined) {
+    return arrHolder => join(glue, arrHolder);
+  }
+  return arr.join(glue);
+}
+
+function lastIndexOf(x, arr) {
+  if (arr === undefined) {
+    return arrHolder => lastIndexOf(x, arrHolder);
+  }
+  let willReturn = -1;
+
+  arr.map((value, key) => {
+    if (equals(value, x)) {
+      willReturn = key;
+    }
+  });
+
+  return willReturn;
+}
+
+function last(a) {
+  if (typeof a === 'string') {
+    return a[a.length - 1] || '';
+  }
+
+  return a[a.length - 1];
+}
+
+function length(x) {
+  return x.length;
+}
+
+function match(regex, x) {
+  if (x === undefined) {
+    return xHolder => match(regex, xHolder);
+  }
+  const willReturn = x.match(regex);
+
+  return willReturn === null ? [] : willReturn;
+}
+
+function merge(obj, newProps) {
+  if (newProps === undefined) {
+    return newPropsHolder => merge(obj, newPropsHolder);
+  }
+  return Object.assign({}, obj, newProps);
+}
+
+function modulo(x, y) {
+  if (y === undefined) {
+    return yHolder => modulo(x, yHolder);
+  }
+  return x % y;
+}
+
+function multiply(x, y) {
+  if (y === undefined) {
+    return yHolder => multiply(x, yHolder);
+  }
+  return x * y;
+}
+
+function omit(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => omit(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  if (typeof keys === 'string') {
+    keys = keys.split(',');
+  }
+
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (!keys.includes(key)) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
+function partialCurry(fn, inputArguments = {}) {
+  return inputArgumentsHolder => {
+    if (type(fn) === 'Async' || type(fn) === 'Promise') {
+      return new Promise((resolve, reject) => {
+        fn(merge(inputArgumentsHolder, inputArguments)).then(resolve).catch(reject);
+      });
+    }
+
+    return fn(merge(inputArgumentsHolder, inputArguments));
+  };
+}
+
+function path(pathArr, obj) {
+  if (arguments.length === 1) {
+    return objHolder => path(pathArr, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  let holder = obj;
+  let counter = 0;
+
+  if (typeof pathArr === 'string') {
+    pathArr = pathArr.split('.');
+  }
+  while (counter < pathArr.length) {
+    if (holder === null || holder === undefined) {
+      return undefined;
+    }
+    holder = holder[pathArr[counter]];
+    counter++;
+  }
+
+  return holder;
+}
+
+function pathOr(defaultValue, inputPath, inputObject) {
+  return defaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var pathOr$1 = curry(pathOr);
+
+function pick(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => pick(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  if (typeof keys === 'string') {
+    keys = keys.split(',');
+  }
+
+  const willReturn = {};
+  let counter = 0;
+
+  while (counter < keys.length) {
+    if (keys[counter] in obj) {
+      willReturn[keys[counter]] = obj[keys[counter]];
+    }
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function pipe(...fns) {
+  return compose(...fns.reverse());
+}
+
+function pluck(keyToPluck, arr) {
+  if (arr === undefined) {
+    return arrHolder => pluck(keyToPluck, arrHolder);
+  }
   const willReturn = [];
+
+  map(val => {
+    if (!(val[keyToPluck] === undefined)) {
+      willReturn.push(val[keyToPluck]);
+    }
+  }, arr);
+
+  return willReturn;
+}
+
+function prepend(x, arr) {
+  if (arr === undefined) {
+    return arrHolder => prepend(x, arrHolder);
+  }
+  if (typeof arr === 'string') {
+    return `${x}${arr}`;
+  }
+  const clone = arr.concat();
+
+  clone.unshift(x);
+
+  return clone;
+}
+
+function prop(key, obj) {
+  if (obj === undefined) {
+    return objHolder => prop(key, objHolder);
+  }
+  return obj[key];
+}
+
+function propEq(key, x, obj) {
+  if (x === undefined) {
+    return (xHolder, objHolder) => propEq(key, xHolder, objHolder);
+  } else if (obj === undefined) {
+    return objHolder => propEq(key, x, objHolder);
+  }
+  return obj[key] === x;
+}
+
+function range(start, end) {
+  if (end === undefined) {
+    return endHolder => range(start, endHolder);
+  }
+  const willReturn = [];
+
   for (let i = start; i < end; i++) {
     willReturn.push(i);
   }
@@ -60,49 +722,317 @@ function range(start, end) {
   return willReturn;
 }
 
-// export { default as add } from './modules/add'
-// export { default as addIndex } from './modules/addIndex'
-// export { default as adjust } from './modules/adjust'
-// export { default as all } from './modules/all'
-// export { default as allPass } from './modules/allPass'
-// export { default as anyPass } from './modules/anyPass'
-// export const always = x => () => x
-// export { default as any } from './modules/any'
-// export { default as append } from './modules/append'
-// export { default as both } from './modules/both'
-// export const complement = fn => input => !fn(input)
+function reduce(fn, initialValue, arr) {
+  if (initialValue === undefined) {
+    return (initialValueHolder, arrHolder) => reduce(fn, initialValueHolder, arrHolder);
+  } else if (arr === undefined) {
 
-// export { default as reduce } from './modules/reduce'
-// export { default as reject } from './modules/reject'
-// export { default as repeat } from './modules/repeat'
-// export { default as replace } from './modules/replace'
-// export { default as reverse } from './modules/reverse'
-// export { default as sort } from './modules/sort'
-// export { default as sortBy } from './modules/sortBy'
-// export { default as split } from './modules/split'
-// export { default as splitEvery } from './modules/splitEvery'
-// export { default as startsWith } from './modules/startsWith'
-// export { default as subtract } from './modules/subtract'
-// export const T = () => true
-// export { default as tap } from './modules/tap'
-// export { default as tail } from './modules/tail'
-// export { default as take } from './modules/take'
-// export { default as takeLast } from './modules/takeLast'
-// export { default as test } from './modules/test'
-// export { default as times } from './modules/times'
-// export { default as toLower } from './modules/toLower'
-// export { default as toUpper } from './modules/toUpper'
-// export { default as toString } from './modules/toString'
-// export const trim = x => x.trim()
-// export { default as type } from './modules/type'
-// export { default as typedPathOr } from './modules/typedPathOr'
-// export { default as typedDefaultTo } from './modules/typedDefaultTo'
-// export { default as uniq } from './modules/uniq'
-// export { default as update } from './modules/update'
-// export { default as values } from './modules/values'
-// export { default as without } from './modules/without'
+    return arrHolder => reduce(fn, initialValue, arrHolder);
+  }
+  return arr.reduce(fn, initialValue);
+}
 
+function reject(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => reject(fn, arrHolder);
+  }
+  return filter(x => !fn(x), arr);
+}
+
+function repeat(x, num) {
+  if (num === undefined) {
+    return numHolder => repeat(x, numHolder);
+  }
+  const willReturn = Array(num);
+
+  return willReturn.fill(x);
+}
+
+function replace(regex, replacer, str) {
+  if (replacer === undefined) {
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder);
+  } else if (str === undefined) {
+
+    return strHolder => replace(regex, replacer, strHolder);
+  }
+
+  return str.replace(regex, replacer);
+}
+
+function reverse(arr) {
+  const clone = arr.concat();
+
+  return clone.reverse();
+}
+
+function sort(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => sort(fn, arrHolder);
+  }
+  const arrClone = arr.concat();
+
+  return arrClone.sort(fn);
+}
+
+function sortBy(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => sortBy(fn, arrHolder);
+  }
+  const arrClone = arr.concat();
+
+  return arrClone.sort((a, b) => {
+    const fnA = fn(a);
+    const fnB = fn(b);
+
+    return fnA < fnB ? -1 : fnA > fnB ? 1 : 0;
+  });
+}
+
+function split(glue, str) {
+  if (str === undefined) {
+    return strHolder => split(glue, strHolder);
+  }
+  return str.split(glue);
+}
+
+function splitEvery(num, x) {
+  if (x === undefined) {
+    return xHolder => splitEvery(num, xHolder);
+  }
+
+  num = num > 1 ? num : 1;
+
+  const willReturn = [];
+  let counter = 0;
+
+  while (counter < x.length) {
+    willReturn.push(x.slice(counter, counter += num));
+  }
+
+  return willReturn;
+}
+
+function startsWith(x, y) {
+  if (y === undefined) {
+    return yHolder => startsWith(x, yHolder);
+  }
+  return y.startsWith(x);
+}
+
+function subtract(x, y) {
+  if (y === undefined) {
+    return yHolder => subtract(x, yHolder);
+  }
+  return x - y;
+}
+
+function tail(arr) {
+  return drop(1, arr);
+}
+
+function take(num, x) {
+  if (x === undefined) {
+    return xHolder => take(num, xHolder);
+  }
+  if (typeof x === 'string') {
+    return x.slice(0, num);
+  }
+
+  return baseSlice(x, 0, num);
+}
+
+function takeLast(num, x) {
+  if (x === undefined) {
+    return xHolder => takeLast(num, xHolder);
+  }
+  const len = x.length;
+
+  num = num > len ? len : num;
+
+  if (typeof x === 'string') {
+    return x.slice(len - num);
+  }
+  num = len - num;
+
+  return baseSlice(x, num, len);
+}
+
+function test(regex, str) {
+  if (str === undefined) {
+    return strHolder => test(regex, strHolder);
+  }
+  return str.search(regex) !== -1;
+}
+
+function times(fn, num) {
+  if (num === undefined) {
+    return numHolder => times(fn, numHolder);
+  }
+
+  return map(fn, range(0, num));
+}
+
+function toLower(x) {
+  return x.toLowerCase();
+}
+
+function toUpper(x) {
+  return x.toUpperCase();
+}
+
+function toString(x) {
+  return x.toString();
+}
+
+function typedDefaultTo(defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return inputArgumentHolder => typedDefaultTo(defaultArgument, inputArgumentHolder);
+  }
+
+  return type(inputArgument) !== type(defaultArgument) ? defaultArgument : inputArgument;
+}
+
+function typedPathOr(defaultValue, inputPath, inputObject) {
+  return typedDefaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var typedPathOr$1 = curry(typedPathOr);
+
+function uniq(arr) {
+  let index = -1;
+  const willReturn = [];
+
+  while (++index < arr.length) {
+    const value = arr[index];
+
+    if (!contains(value, willReturn)) {
+      willReturn.push(value);
+    }
+  }
+
+  return willReturn;
+}
+
+function update(index, newValue, arr) {
+  if (newValue === undefined) {
+    return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder);
+  } else if (arr === undefined) {
+    return arrHolder => update(index, newValue, arrHolder);
+  }
+  const arrClone = arr.concat();
+
+  return arrClone.fill(newValue, index, index + 1);
+}
+
+function values(obj) {
+  const willReturn = [];
+
+  for (const key in obj) {
+    willReturn.push(obj[key]);
+  }
+
+  return willReturn;
+}
+
+function without(itemsToOmit, collection) {
+  return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
+}
+
+const always = x => () => x;
+const complement = fn => input => !fn(input);
+const F = () => false;
+const identity = x => x;
+const not = x => !x;
+const T = () => true;
+const trim = x => x.trim();
+
+exports.always = always;
+exports.complement = complement;
+exports.F = F;
+exports.identity = identity;
+exports.not = not;
+exports.T = T;
+exports.trim = trim;
+exports.add = add;
+exports.addIndex = addIndex;
+exports.adjust = adjust;
+exports.all = all;
+exports.allPass = allPass;
+exports.anyPass = anyPass;
+exports.any = any;
+exports.append = append;
+exports.both = both;
 exports.compose = compose;
+exports.concat = concat;
+exports.contains = contains;
+exports.curry = curry;
+exports.dec = dec;
+exports.defaultTo = defaultTo;
+exports.divide = divide;
+exports.drop = drop;
+exports.dropLast = dropLast;
+exports.either = either;
+exports.endsWith = endsWith;
+exports.inc = inc;
+exports.equals = equals;
 exports.filter = filter;
+exports.find = find;
+exports.findIndex = findIndex;
+exports.flatten = flatten;
+exports.flip = flip;
+exports.forEach = forEach;
+exports.has = has;
+exports.head = head;
+exports.ifElse = ifElse;
+exports.isNil = isNil;
+exports.includes = includes;
+exports.indexOf = indexOf;
+exports.init = init;
+exports.join = join;
+exports.lastIndexOf = lastIndexOf;
+exports.last = last;
+exports.length = length;
+exports.map = map;
+exports.match = match;
+exports.merge = merge;
+exports.modulo = modulo;
+exports.multiply = multiply;
+exports.omit = omit;
+exports.partialCurry = partialCurry;
+exports.path = path;
+exports.pathOr = pathOr$1;
+exports.pick = pick;
+exports.pipe = pipe;
+exports.pluck = pluck;
+exports.prepend = prepend;
+exports.prop = prop;
+exports.propEq = propEq;
 exports.range = range;
+exports.reduce = reduce;
+exports.reject = reject;
+exports.repeat = repeat;
+exports.replace = replace;
+exports.reverse = reverse;
+exports.sort = sort;
+exports.sortBy = sortBy;
+exports.split = split;
+exports.splitEvery = splitEvery;
+exports.startsWith = startsWith;
+exports.subtract = subtract;
+exports.tap = tap;
+exports.tail = tail;
+exports.take = take;
+exports.takeLast = takeLast;
+exports.test = test;
+exports.times = times;
+exports.toLower = toLower;
+exports.toUpper = toUpper;
+exports.toString = toString;
+exports.type = type;
+exports.typedPathOr = typedPathOr$1;
+exports.typedDefaultTo = typedDefaultTo;
+exports.uniq = uniq;
+exports.update = update;
+exports.values = values;
+exports.without = without;
 //# sourceMappingURL=rambda.cjs.js.map

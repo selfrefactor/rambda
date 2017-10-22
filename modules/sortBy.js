@@ -1,6 +1,8 @@
-import curry from './internal/curry'
 
-function sortBy (fn, arr) {
+export default function sortBy (fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => sortBy(fn, arrHolder)
+  }
   const arrClone = arr.concat()
 
   return arrClone.sort((a, b) => {
@@ -14,5 +16,3 @@ function sortBy (fn, arr) {
         0
   })
 }
-
-export default curry(sortBy)

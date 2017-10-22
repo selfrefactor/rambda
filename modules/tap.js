@@ -1,9 +1,10 @@
-import curry from './internal/curry'
 
-function tap (fn, input) {
-  fn(input)
+export default function tap (fn, x) {
+  if (x === undefined) {
+    return xHolder => tap(fn, xHolder)
+  }
 
-  return input
+  fn(x)
+
+  return x
 }
-
-export default curry(tap)

@@ -1,7 +1,8 @@
-import curry from './internal/curry'
 
-function subtract (x, y) {
+export default function subtract (x, y) {
+  if (y === undefined) {
+    return yHolder => subtract(x, yHolder)
+  }
+
   return x - y
 }
-
-export default curry(subtract)

@@ -1,7 +1,7 @@
-import curry from './internal/curry'
+export default function prop (key, obj) {
+  if (obj === undefined) {
+    return objHolder => prop(key, objHolder)
+  }
 
-function prop (key, obj) {
   return obj[ key ]
 }
-
-export default curry(prop)

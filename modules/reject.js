@@ -1,8 +1,9 @@
-import curry from './internal/curry'
 import filter from './filter'
 
-function reject (predicate, collection) {
-  return filter(x => !predicate(x), collection)
-}
+export default function reject (fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => reject(fn, arrHolder)
+  }
 
-export default curry(reject)
+  return filter(x => !fn(x), arr)
+}

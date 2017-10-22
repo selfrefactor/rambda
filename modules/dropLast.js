@@ -1,6 +1,5 @@
 export default function dropLast (dropNumber, x) {
   if (x === undefined) {
-
     return xHolder => dropLast(dropNumber, xHolder)
   }
 

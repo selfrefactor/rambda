@@ -1,5 +1,5 @@
 export default function indexOf (x, arr) {
-  if(arr === undefined){
+  if (arr === undefined) {
     return arrHolder => indexOf(x, arrHolder)
   }
   let index = -1

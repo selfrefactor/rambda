@@ -1,6 +1,5 @@
 export default function findIndex (fn, arr) {
-  if(arr === undefined){
-    
+  if (arr === undefined) {
     return arrHolder => findIndex(fn, arrHolder)
   }
   const length = arr.length

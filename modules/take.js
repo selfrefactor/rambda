@@ -1,12 +1,12 @@
 import baseSlice from './internal/baseSlice'
-import curry from './internal/curry'
 
-function take (takeNumber, a) {
-  if (typeof a === 'string') {
-    return a.slice(0, takeNumber)
+export default function take (num, x) {
+  if (x === undefined) {
+    return xHolder => take(num, xHolder)
+  }
+  if (typeof x === 'string') {
+    return x.slice(0, num)
   }
 
-  return baseSlice(a, 0, takeNumber)
+  return baseSlice(x, 0, num)
 }
-
-export default curry(take)

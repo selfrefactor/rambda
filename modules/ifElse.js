@@ -1,7 +1,7 @@
 export default function ifElse (conditionFn, ifFn, elseFn) {
-  if(ifFn === undefined){
+  if (ifFn === undefined) {
     return (ifFnHolder, elseFnHolder) => ifElse(conditionFn, ifFnHolder, elseFnHolder)
-  }else if(elseFn === undefined){
+  } else if (elseFn === undefined) {
     return elseFnHolder => ifElse(conditionFn, ifFn, elseFnHolder)
   }
 

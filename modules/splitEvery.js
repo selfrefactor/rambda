@@ -1,6 +1,9 @@
-import curry from './internal/curry'
 
-function splitEvery (num, a) {
+export default function splitEvery (num, x) {
+  if (x === undefined) {
+    return xHolder => splitEvery(num, xHolder)
+  }
+
   num = num > 1 ?
     num :
     1
@@ -8,11 +11,9 @@ function splitEvery (num, a) {
   const willReturn = []
   let counter = 0
 
-  while (counter < a.length) {
-    willReturn.push(a.slice(counter, counter += num))
+  while (counter < x.length) {
+    willReturn.push(x.slice(counter, counter += num))
   }
 
   return willReturn
 }
-
-export default curry(splitEvery)

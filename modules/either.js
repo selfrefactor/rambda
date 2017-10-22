@@ -1,5 +1,5 @@
 export default function either (x, y) {
-  if(y === undefined){
+  if (y === undefined) {
     return yHolder => either(x, yHolder)
   }
 
