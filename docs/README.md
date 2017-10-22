@@ -6,9 +6,35 @@
 
 Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
-## Argumentation
+## Rambda's advantages
 
-Initial argumentation was the size of  admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
+1. Tree-shaking
+
+Currenly `Rambda` is more tree-shakable than `Ramda` as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+
+2. Speed
+
+`Rambda` is generally more performant than `Ramda` as the benchmarks can prove that.
+
+You can clone this repo and run `yarn run benchmark all` to see for yourself.
+
+3. Minor helpers
+
+For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `R.path(['a','b'], {a: {b: 1}})`
+
+In `Rambda` you can use both types of expression.
+
+This is not a major change, but some developers would prefer to use `'a.b.c'` over `['a', 'b', 'c']`.
+
+Same logic is applied to `R.omit` method.
+
+`R.pick` is similar, but the separator is `,` not `.`
+
+---
+
+> Initial argumentation
+
+I admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
 
 Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
 
