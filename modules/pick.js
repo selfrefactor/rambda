@@ -5,16 +5,16 @@ export default function pick (keys, obj) {
   if (obj === null || obj === undefined) {
     return undefined
   }
-  if (typeof keys === 'string') {
-    keys = keys.split(',')
-  }
+  const keysValue = typeof keys === 'string' ?
+    keys.split(',') :
+    keys
 
   const willReturn = {}
   let counter = 0
 
-  while (counter < keys.length) {
-    if (keys[ counter ] in obj) {
-      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+  while (counter < keysValue.length) {
+    if (keysValue[ counter ] in obj) {
+      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
     }
     counter++
   }

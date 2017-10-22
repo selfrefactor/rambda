@@ -5,19 +5,20 @@ export default function path (pathArr, obj) {
   if (obj === null || obj === undefined) {
     return undefined
   }
-  let holder = obj
+  let willReturn = obj
   let counter = 0
 
-  if (typeof pathArr === 'string') {
-    pathArr = pathArr.split('.')
-  }
-  while (counter < pathArr.length) {
-    if (holder === null || holder === undefined) {
+  const pathArrValue = typeof pathArr === 'string' ?
+    pathArr = pathArr.split('.') :
+    pathArr
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
       return undefined
     }
-    holder = holder[ pathArr[ counter ] ]
+    willReturn = willReturn[ pathArrValue[ counter ] ]
     counter++
   }
 
-  return holder
+  return willReturn
 }

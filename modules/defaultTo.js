@@ -1,5 +1,3 @@
-import type from './type'
-
 export default function defaultTo (defaultArgument, inputArgument) {
   if (arguments.length === 1) {
     return inputArgumentHolder => defaultTo(defaultArgument, inputArgumentHolder)

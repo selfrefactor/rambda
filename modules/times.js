@@ -6,8 +6,6 @@ export default function times (fn, num) {
     return numHolder => times(fn, numHolder)
   }
 
-  const willReturn = []
-
   return map(
     fn,
     range(0, num)

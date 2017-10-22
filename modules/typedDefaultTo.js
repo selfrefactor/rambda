@@ -5,7 +5,7 @@ export default function typedDefaultTo (defaultArgument, inputArgument) {
     return inputArgumentHolder => typedDefaultTo(defaultArgument, inputArgumentHolder)
   }
 
-  return type(inputArgument) !== type(defaultArgument) ?
-    defaultArgument :
-    inputArgument
+  return type(inputArgument) === type(defaultArgument) ?
+    inputArgument :
+    defaultArgument
 }

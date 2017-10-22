@@ -4,7 +4,7 @@ export default function splitEvery (num, x) {
     return xHolder => splitEvery(num, xHolder)
   }
 
-  num = num > 1 ?
+  const numValue = num > 1 ?
     num :
     1
 
@@ -12,7 +12,7 @@ export default function splitEvery (num, x) {
   let counter = 0
 
   while (counter < x.length) {
-    willReturn.push(x.slice(counter, counter += num))
+    willReturn.push(x.slice(counter, counter += numValue))
   }
 
   return willReturn

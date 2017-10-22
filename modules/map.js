@@ -16,10 +16,10 @@ export default function map (fn, arr) {
     return mapObject(fn, arr)
   }
   let index = -1
-  const length = arr.length
-  const willReturn = Array(length)
+  const len = arr.length
+  const willReturn = Array(len)
 
-  while (++index < length) {
+  while (++index < len) {
     willReturn[ index ] = fn(arr[ index ])
   }
 

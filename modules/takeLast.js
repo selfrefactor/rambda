@@ -6,14 +6,14 @@ export default function takeLast (num, x) {
   }
   const len = x.length
 
-  num = num > len ?
+  let numValue = num > len ?
     len :
     num
 
   if (typeof x === 'string') {
-    return x.slice(len - num)
+    return x.slice(len - numValue)
   }
-  num = len - num
+  numValue = len - numValue
 
-  return baseSlice(x, num, len)
+  return baseSlice(x, numValue, len)
 }
