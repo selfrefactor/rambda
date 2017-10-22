@@ -21,13 +21,14 @@ You can clone this repo and run `yarn run benchmark all` to see for yourself.
 3. Minor helpers
 
 For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `R.path(['a','b'], {a: {b: 1}})`
-With `Rambda` you can use both expressions.
 
-This is not a major change, but some developers would prefer to use `'a.b'` over `['a', 'b']`.
+In `Rambda` you can use both types of expression.
+
+This is not a major change, but some developers would prefer to use `'a.b.c'` over `['a', 'b', 'c']`.
 
 Same logic is applied to `R.omit` method.
 
-`R.pick` is similar, but the separator is `,` not `.`.
+`R.pick` is similar, but the separator is `,` not `.`
 
 ---
 
