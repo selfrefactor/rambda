@@ -282,6 +282,7 @@ function divide(x, y) {
   if (y === undefined) {
     return yHolder => divide(x, yHolder);
   }
+
   return x / y;
 }
 
@@ -295,7 +296,6 @@ function drop(dropNumber, x) {
 
 function dropLast(dropNumber, x) {
   if (x === undefined) {
-
     return xHolder => dropLast(dropNumber, xHolder);
   }
 
@@ -314,6 +314,7 @@ function endsWith(x, y) {
   if (y === undefined) {
     return yHolder => endsWith(x, yHolder);
   }
+
   return y.endsWith(x);
 }
 
@@ -323,18 +324,18 @@ function find(fn, arr) {
   if (arr === undefined) {
     return arrHolder => find(fn, arrHolder);
   }
+
   return arr.find(fn);
 }
 
 function findIndex(fn, arr) {
   if (arr === undefined) {
-
     return arrHolder => findIndex(fn, arrHolder);
   }
-  const length = arr.length;
+  const len = arr.length;
   let index = -1;
 
-  while (++index < length) {
+  while (++index < len) {
     if (fn(arr[index])) {
       return index;
     }
@@ -401,10 +402,10 @@ function map(fn, arr) {
     return mapObject(fn, arr);
   }
   let index = -1;
-  const length = arr.length;
-  const willReturn = Array(length);
+  const len = arr.length;
+  const willReturn = Array(len);
 
-  while (++index < length) {
+  while (++index < len) {
     willReturn[index] = fn(arr[index]);
   }
 
@@ -415,6 +416,7 @@ function forEach(fn, arr) {
   if (arr === undefined) {
     return arrHolder => forEach(fn, arrHolder);
   }
+
   return map(tap(fn), arr);
 }
 
@@ -422,6 +424,7 @@ function has(prop, obj) {
   if (obj === undefined) {
     return objHolder => has(prop, objHolder);
   }
+
   return obj[prop] !== undefined;
 }
 
@@ -457,6 +460,7 @@ function includes(x, y) {
   if (y === undefined) {
     return yHolder => includes(x, yHolder);
   }
+
   return y.includes(x);
 }
 
@@ -508,6 +512,7 @@ function join(glue, arr) {
   if (arr === undefined) {
     return arrHolder => join(glue, arrHolder);
   }
+
   return arr.join(glue);
 }
 
@@ -551,6 +556,7 @@ function merge(obj, newProps) {
   if (newProps === undefined) {
     return newPropsHolder => merge(obj, newPropsHolder);
   }
+
   return Object.assign({}, obj, newProps);
 }
 
@@ -558,6 +564,7 @@ function modulo(x, y) {
   if (y === undefined) {
     return yHolder => modulo(x, yHolder);
   }
+
   return x % y;
 }
 
@@ -565,6 +572,7 @@ function multiply(x, y) {
   if (y === undefined) {
     return yHolder => multiply(x, yHolder);
   }
+
   return x * y;
 }
 
@@ -575,14 +583,13 @@ function omit(keys, obj) {
   if (obj === null || obj === undefined) {
     return undefined;
   }
-  if (typeof keys === 'string') {
-    keys = keys.split(',');
-  }
+
+  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
 
   const willReturn = {};
 
   for (const key in obj) {
-    if (!keys.includes(key)) {
+    if (!keysValue.includes(key)) {
       willReturn[key] = obj[key];
     }
   }
@@ -609,21 +616,20 @@ function path(pathArr, obj) {
   if (obj === null || obj === undefined) {
     return undefined;
   }
-  let holder = obj;
+  let willReturn = obj;
   let counter = 0;
 
-  if (typeof pathArr === 'string') {
-    pathArr = pathArr.split('.');
-  }
-  while (counter < pathArr.length) {
-    if (holder === null || holder === undefined) {
+  const pathArrValue = typeof pathArr === 'string' ? pathArr = pathArr.split('.') : pathArr;
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
       return undefined;
     }
-    holder = holder[pathArr[counter]];
+    willReturn = willReturn[pathArrValue[counter]];
     counter++;
   }
 
-  return holder;
+  return willReturn;
 }
 
 function pathOr(defaultValue, inputPath, inputObject) {
@@ -639,16 +645,14 @@ function pick(keys, obj) {
   if (obj === null || obj === undefined) {
     return undefined;
   }
-  if (typeof keys === 'string') {
-    keys = keys.split(',');
-  }
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys;
 
   const willReturn = {};
   let counter = 0;
 
-  while (counter < keys.length) {
-    if (keys[counter] in obj) {
-      willReturn[keys[counter]] = obj[keys[counter]];
+  while (counter < keysValue.length) {
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]];
     }
     counter++;
   }
@@ -693,6 +697,7 @@ function prop(key, obj) {
   if (obj === undefined) {
     return objHolder => prop(key, objHolder);
   }
+
   return obj[key];
 }
 
@@ -702,6 +707,7 @@ function propEq(key, x, obj) {
   } else if (obj === undefined) {
     return objHolder => propEq(key, x, objHolder);
   }
+
   return obj[key] === x;
 }
 
@@ -722,9 +728,9 @@ function reduce(fn, initialValue, arr) {
   if (initialValue === undefined) {
     return (initialValueHolder, arrHolder) => reduce(fn, initialValueHolder, arrHolder);
   } else if (arr === undefined) {
-
     return arrHolder => reduce(fn, initialValue, arrHolder);
   }
+
   return arr.reduce(fn, initialValue);
 }
 
@@ -732,6 +738,7 @@ function reject(fn, arr) {
   if (arr === undefined) {
     return arrHolder => reject(fn, arrHolder);
   }
+
   return filter(x => !fn(x), arr);
 }
 
@@ -748,7 +755,6 @@ function replace(regex, replacer, str) {
   if (replacer === undefined) {
     return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder);
   } else if (str === undefined) {
-
     return strHolder => replace(regex, replacer, strHolder);
   }
 
@@ -788,6 +794,7 @@ function split(glue, str) {
   if (str === undefined) {
     return strHolder => split(glue, strHolder);
   }
+
   return str.split(glue);
 }
 
@@ -796,13 +803,13 @@ function splitEvery(num, x) {
     return xHolder => splitEvery(num, xHolder);
   }
 
-  num = num > 1 ? num : 1;
+  const numValue = num > 1 ? num : 1;
 
   const willReturn = [];
   let counter = 0;
 
   while (counter < x.length) {
-    willReturn.push(x.slice(counter, counter += num));
+    willReturn.push(x.slice(counter, counter += numValue));
   }
 
   return willReturn;
@@ -812,6 +819,7 @@ function startsWith(x, y) {
   if (y === undefined) {
     return yHolder => startsWith(x, yHolder);
   }
+
   return y.startsWith(x);
 }
 
@@ -819,6 +827,7 @@ function subtract(x, y) {
   if (y === undefined) {
     return yHolder => subtract(x, yHolder);
   }
+
   return x - y;
 }
 
@@ -843,20 +852,21 @@ function takeLast(num, x) {
   }
   const len = x.length;
 
-  num = num > len ? len : num;
+  let numValue = num > len ? len : num;
 
   if (typeof x === 'string') {
-    return x.slice(len - num);
+    return x.slice(len - numValue);
   }
-  num = len - num;
+  numValue = len - numValue;
 
-  return baseSlice(x, num, len);
+  return baseSlice(x, numValue, len);
 }
 
 function test(regex, str) {
   if (str === undefined) {
     return strHolder => test(regex, strHolder);
   }
+
   return str.search(regex) !== -1;
 }
 
@@ -885,7 +895,7 @@ function typedDefaultTo(defaultArgument, inputArgument) {
     return inputArgumentHolder => typedDefaultTo(defaultArgument, inputArgumentHolder);
   }
 
-  return type(inputArgument) !== type(defaultArgument) ? defaultArgument : inputArgument;
+  return type(inputArgument) === type(defaultArgument) ? inputArgument : defaultArgument;
 }
 
 function typedPathOr(defaultValue, inputPath, inputObject) {
