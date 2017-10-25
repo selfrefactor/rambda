@@ -10,11 +10,7 @@ test('true', () => {
 })
 
 test('false', () => {
-  const result = R.endsWith(
-    'baz',
-    'foo-bar'
-  )
+  const result = R.endsWith('baz')('foo-bar')
 
   expect(result).toBeFalsy()
 })
-

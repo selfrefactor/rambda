@@ -10,10 +10,7 @@ test('true', () => {
 })
 
 test('false', () => {
-  const result = R.startsWith(
-    'baz',
-    'foo-bar'
-  )
+  const result = R.startsWith('baz')('foo-bar')
 
   expect(result).toBeFalsy()
 })
