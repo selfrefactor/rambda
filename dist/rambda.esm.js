@@ -452,6 +452,15 @@ function ifElse(conditionFn, ifFn, elseFn) {
   };
 }
 
+function is(xPrototype, x) {
+  if (x === undefined) {
+
+    return xHolder => is(xPrototype, xHolder);
+  }
+
+  return x instanceof xPrototype || x.constructor === xPrototype;
+}
+
 function isNil(x) {
   return x === undefined || x === null;
 }
@@ -952,5 +961,5 @@ const not = x => !x;
 const T = () => true;
 const trim = x => x.trim();
 
-export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update, values, without };
+export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, omit, partialCurry, path, pathOr$1 as pathOr, pick, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, typedPathOr$1 as typedPathOr, typedDefaultTo, uniq, update, values, without };
 //# sourceMappingURL=rambda.esm.js.map

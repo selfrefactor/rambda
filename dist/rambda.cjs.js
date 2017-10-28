@@ -456,6 +456,15 @@ function ifElse(conditionFn, ifFn, elseFn) {
   };
 }
 
+function is(xPrototype, x) {
+  if (x === undefined) {
+
+    return xHolder => is(xPrototype, xHolder);
+  }
+
+  return x instanceof xPrototype || x.constructor === xPrototype;
+}
+
 function isNil(x) {
   return x === undefined || x === null;
 }
@@ -994,6 +1003,7 @@ exports.forEach = forEach;
 exports.has = has;
 exports.head = head;
 exports.ifElse = ifElse;
+exports.is = is;
 exports.isNil = isNil;
 exports.includes = includes;
 exports.indexOf = indexOf;
