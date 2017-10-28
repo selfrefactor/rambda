@@ -6,10 +6,10 @@
   "module": "dist/rambda.esm.js",
   "typings": "./index.d.ts",
   "scripts": {
+    "dev": "jest __tests__/is.js --watch",
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
-    "dev": "jest __tests__/range.js",
     "build": "run-s build-main build-minify",
     "build-main": "rollup -c files/rollup.config.js",
     "build-minify": "run minify f dist/rambda.umd.js o webVersion.js",

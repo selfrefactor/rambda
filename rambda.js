@@ -33,6 +33,7 @@ export { default as has } from './modules/has'
 export { default as head } from './modules/head'
 export const identity = x => x
 export { default as ifElse } from './modules/ifElse'
+export { default as is } from './modules/is'
 export { default as isNil } from './modules/isNil'
 export { default as includes } from './modules/includes'
 export { default as indexOf } from './modules/indexOf'

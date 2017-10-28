@@ -251,6 +251,9 @@ declare namespace R {
         init<T>(list: T[]): T[]
         init(list: string): string
 
+        is(xPrototype: any, x: any): boolean
+        is(xPrototype: any): (x: any) => boolean
+
         isNil(value: any): value is null | undefined
 
         join(x: string, xs: any[]): string

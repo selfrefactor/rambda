@@ -16,8 +16,8 @@ test('', () => {
 })
 
 test('curry (x)(y,z)', () => {
-  const fn = R.ifElse(condition,ifFn)(elseFn)
-  
+  const fn = R.ifElse(condition, ifFn)(elseFn)
+
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)
 })

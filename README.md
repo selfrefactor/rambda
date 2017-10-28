@@ -556,6 +556,17 @@ R.init('foo')  // => 'fo'
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
+#### is
+
+> isNil(xPrototype: any, x: any): boolean
+
+It returns `true` is `x` is instance of `xPrototype`.
+
+```javascript
+R.is(String, 'foo')  // => true
+R.is(Array, 1)  // => false
+```
+
 #### isNil
 
 > isNil(x: any): Boolean
