@@ -281,6 +281,9 @@ declare namespace R {
         multiply(a: number, b: number): number
         multiply(a: number): (b: number) => number
 
+        none<T>(fn: (a: T) => boolean, list: T[]): boolean;
+        none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
+
         not(value: any): boolean
 
         omit<T>(names: string[]|string, obj: T): T
@@ -299,6 +302,9 @@ declare namespace R {
 
         pick<T, K extends keyof T>(names: Array<K | string>|string, obj: T): Pick<T, K>
         pick(names: string[]|string): <T, U>(obj: T) => U
+
+        pickAll<T, U>(names: string[], obj: T): U;
+        pickAll(names: string[]): <T, U>(obj: T) => U;
 
         pluck<T>(p: string | number, list: any[]): T[]
         pluck(p: string | number): <T>(list: any[]) => T[]
