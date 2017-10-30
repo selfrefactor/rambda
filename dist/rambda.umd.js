@@ -442,15 +442,19 @@ function head(a) {
   return a[0];
 }
 
-function ifElse(conditionFn, ifFn, elseFn) {
+function ifElse(condition, ifFn, elseFn) {
   if (ifFn === undefined) {
-    return (ifFnHolder, elseFnHolder) => ifElse(conditionFn, ifFnHolder, elseFnHolder);
+
+    return (ifFnHolder, elseFnHolder) => ifElse(condition, ifFnHolder, elseFnHolder);
   } else if (elseFn === undefined) {
-    return elseFnHolder => ifElse(conditionFn, ifFn, elseFnHolder);
+
+    return elseFnHolder => ifElse(condition, ifFn, elseFnHolder);
   }
 
   return input => {
-    if (conditionFn(input) === true) {
+    const conditionResult = typeof condition === 'boolean' ? condition : condition(input);
+
+    if (conditionResult === true) {
       return ifFn(input);
     }
 
@@ -460,7 +464,6 @@ function ifElse(conditionFn, ifFn, elseFn) {
 
 function is(xPrototype, x) {
   if (x === undefined) {
-
     return xHolder => is(xPrototype, xHolder);
   }
 
@@ -591,6 +594,14 @@ function multiply(x, y) {
   return x * y;
 }
 
+function none(fn, arr) {
+  if (arr === undefined) {
+    return arrHolder => none(fn, arr);
+  }
+
+  return arr.filter(fn).length === 0;
+}
+
 function omit(keys, obj) {
   if (arguments.length === 1) {
     return objHolder => omit(keys, objHolder);
@@ -668,6 +679,30 @@ function pick(keys, obj) {
   while (counter < keysValue.length) {
     if (keysValue[counter] in obj) {
       willReturn[keysValue[counter]] = obj[keysValue[counter]];
+    }
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function pickAll(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => pickAll(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys;
+
+  const willReturn = {};
+  let counter = 0;
+
+  while (counter < keysValue.length) {
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]];
+    } else {
+      willReturn[keysValue[counter]] = undefined;
     }
     counter++;
   }
@@ -905,20 +940,6 @@ function toString(x) {
   return x.toString();
 }
 
-function typedDefaultTo(defaultArgument, inputArgument) {
-  if (arguments.length === 1) {
-    return inputArgumentHolder => typedDefaultTo(defaultArgument, inputArgumentHolder);
-  }
-
-  return type(inputArgument) === type(defaultArgument) ? inputArgument : defaultArgument;
-}
-
-function typedPathOr(defaultValue, inputPath, inputObject) {
-  return typedDefaultTo(defaultValue, path(inputPath, inputObject));
-}
-
-var typedPathOr$1 = curry(typedPathOr);
-
 function uniq(arr) {
   let index = -1;
   const willReturn = [];
@@ -1019,11 +1040,13 @@ exports.match = match;
 exports.merge = merge;
 exports.modulo = modulo;
 exports.multiply = multiply;
+exports.none = none;
 exports.omit = omit;
 exports.partialCurry = partialCurry;
 exports.path = path;
 exports.pathOr = pathOr$1;
 exports.pick = pick;
+exports.pickAll = pickAll;
 exports.pipe = pipe;
 exports.pluck = pluck;
 exports.prepend = prepend;
@@ -1051,8 +1074,6 @@ exports.toLower = toLower;
 exports.toUpper = toUpper;
 exports.toString = toString;
 exports.type = type;
-exports.typedPathOr = typedPathOr$1;
-exports.typedDefaultTo = typedDefaultTo;
 exports.uniq = uniq;
 exports.update = update;
 exports.values = values;

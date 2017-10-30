@@ -486,11 +486,11 @@ R.identity(7) // => 7
 
 #### ifElse
 
-> ifElse(condition: Function, ifFn: Function, elseFn: Function): Function
+> ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
 
 It returns function, which expect `input` as argument and returns `finalResult`.
 
-When the function is called, a value `answer` is generated as a result of `condition(input)`.
+When this function is called, a value `answer` is generated as a result of `condition(input)`.
 
 If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
 If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.
@@ -1123,6 +1123,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 1.0.3 `R.ifElse` accept also boolean as condition argument
 - 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
 - 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
 - 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)

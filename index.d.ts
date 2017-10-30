@@ -246,7 +246,7 @@ declare namespace R {
 
         identity<T>(a: T): T
 
-        ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
+        ifElse(fn: Pred|boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
 
         init<T>(list: T[]): T[]
         init(list: string): string

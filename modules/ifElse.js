@@ -1,12 +1,18 @@
-export default function ifElse (conditionFn, ifFn, elseFn) {
+export default function ifElse (condition, ifFn, elseFn) {
   if (ifFn === undefined) {
-    return (ifFnHolder, elseFnHolder) => ifElse(conditionFn, ifFnHolder, elseFnHolder)
+    
+    return (ifFnHolder, elseFnHolder) => ifElse(condition, ifFnHolder, elseFnHolder)
   } else if (elseFn === undefined) {
-    return elseFnHolder => ifElse(conditionFn, ifFn, elseFnHolder)
+
+    return elseFnHolder => ifElse(condition, ifFn, elseFnHolder)
   }
 
   return input => {
-    if (conditionFn(input) === true) {
+    const conditionResult = typeof condition === 'boolean' ?
+      condition :
+      condition(input)
+
+    if (conditionResult === true) {
       return ifFn(input)
     }
 

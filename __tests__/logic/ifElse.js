@@ -15,6 +15,26 @@ test('', () => {
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
 
+test('accept constant as condition', () => {
+  const fn = R.ifElse(
+    true,
+    R.always(true),
+    R.always(false)
+  )
+
+  expect(fn()).toEqual(true)
+})
+
+test('accept constant as condition - case 2', () => {
+  const fn = R.ifElse(
+    false,
+    R.always(true),
+    R.always(false)
+  )
+
+  expect(fn()).toEqual(false)
+})
+
 test('curry (x)(y,z)', () => {
   const fn = R.ifElse(condition, ifFn)(elseFn)
 
