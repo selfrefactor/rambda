@@ -1,6 +1,5 @@
-export default function is(xPrototype, x){
-  if(x === undefined){
-  
+export default function is (xPrototype, x) {
+  if (x === undefined) {
     return xHolder => is(xPrototype, xHolder)
   }
 

@@ -10,7 +10,7 @@ test('R.pickAll with string as condition', () => {
   const resultCurry = R.pickAll('a,c')(obj)
   const expectedResult = {
     a : 1,
-    b : undefined, 
+    b : undefined,
     c : 3,
   }
 
@@ -25,7 +25,7 @@ test('', () => {
     c : 'baz',
   })).toEqual({
     a : 'foo',
-    b : undefined, 
+    b : undefined,
     c : 'baz',
   })
 

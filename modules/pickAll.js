@@ -15,7 +15,7 @@ export default function pickAll (keys, obj) {
   while (counter < keysValue.length) {
     if (keysValue[ counter ] in obj) {
       willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
-    }else{
+    } else {
       willReturn[ keysValue[ counter ] ] = undefined
     }
     counter++
