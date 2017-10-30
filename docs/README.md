@@ -73,7 +73,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.0/webVersion.js
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry**, **typedDefaultTo**, **typedPathOr** and **includes** are not part of Ramda API.
+- Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -1053,39 +1053,6 @@ const delay = ms => new Promise(resolve => {
 R.type(delay) // => "Promise"
 ```
 
-#### typedDefaultTo
-
-> typedDefaultTo(defaultValue: T, inputArgument: any): T
-
-It returns `defaultValue`, if `inputArgument` and `defaultValue` has different types.
-
-It returns `inputArgument` in any other case.
-
-```javascript
-R.typedDefaultTo('foo', undefined) // => 'foo'
-R.typedDefaultTo('foo', 'bar') // => 'bar'
-R.typedDefaultTo('foo', 1) // => 'foo'
-```
-
-- Note that `typedDefaultTo` is method specific for **Rambda** and the method is not part of **Ramda**'s API
-
-#### typedPathOr
-
-> typedPathOr(defaultValue: any, pathToSearch: Array<String>|String, obj: Object): any
-
-`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
-
-If `pathFound` has different type than `defaultValue`, then `defaultValue` will be returned.
-
-If `pathFound` has the same type as `defaultValue`, then `pathFound` will be returned.
-
-```javascript
-R.typedPathOr(1, 'a.b', {a: {b: 2}}) // => 2
-R.typedPathOr(1, 'a.b', {a: {b: 'foo'}}) // => 1
-```
-
-- Note that `typedPathOr` is method specific for **Rambda** and the method is not part of **Ramda**'s API
-
 #### uniq
 
 > uniq(arr: Array): Array
@@ -1156,6 +1123,7 @@ You need to replace `declare module ramda` with `declare module rambda` on line 
 
 ## Changelog
 
+- 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
 - 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
 - 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
 - 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
