@@ -1108,21 +1108,13 @@ R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 
 ![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
 
-## Typings
-
-- Typescript
+## Typescript
 
 Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
 
-- Flowtype
-
-You can use [Ramda
-definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
-
-You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
-
 ## Changelog
 
+- 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
 - 1.0.3 `R.ifElse` accept also boolean as condition argument
 - 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
 - 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition

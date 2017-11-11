@@ -2,8 +2,8 @@
   "name": "rambda",
   "version": "1.0.3",
   "description": "Lightweight alternative to Ramda",
-  "main": "dist/rambda.cjs.js",
-  "module": "dist/rambda.esm.js",
+  "main": "./dist/rambda.cjs.js",
+  "module": "./dist/rambda.esm.js",
   "typings": "./index.d.ts",
   "scripts": {
     "dev": "jest __tests__/is.js --watch",
