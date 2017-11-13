@@ -184,7 +184,7 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 > append(valueToAppend: any, arr: Array): Array
 
 ```javascript
-R.append('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
+R.append('foo', ['bar', 'baz']) // => ['bar', 'baz', 'foo']
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
