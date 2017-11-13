@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/selfrefactor/rambda.svg)](https://travis-ci.org/selfrefactor/rambda)
+[![CircleCI](https://img.shields.io/circleci/project/github/selfrefactor/rambda.svg)](https://circleci.com/gh/selfrefactor/rambda)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
 
@@ -486,11 +486,11 @@ R.identity(7) // => 7
 
 #### ifElse
 
-> ifElse(condition: Function, ifFn: Function, elseFn: Function): Function
+> ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
 
 It returns function, which expect `input` as argument and returns `finalResult`.
 
-When the function is called, a value `answer` is generated as a result of `condition(input)`.
+When this function is called, a value `answer` is generated as a result of `condition(input)`.
 
 If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
 If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.
@@ -1108,21 +1108,14 @@ R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 
 ![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
 
-## Typings
-
-- Typescript
+## Typescript
 
 Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
 
-- Flowtype
-
-You can use [Ramda
-definitions](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/ramda_v0.21.x/flow_v0.28.x-v0.30.x/ramda_v0.21.x.js) can be used.
-
-You need to replace `declare module ramda` with `declare module rambda` on line 10 and store the file as `rambda.js` in your *flow-typed* folder
-
 ## Changelog
 
+- 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
+- 1.0.3 `R.ifElse` accept also boolean as condition argument
 - 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
 - 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
 - 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
