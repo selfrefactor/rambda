@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/selfrefactor/rambda.svg)](https://travis-ci.org/selfrefactor/rambda)
+[![CircleCI](https://img.shields.io/circleci/project/github/selfrefactor/rambda.svg)](https://circleci.com/gh/selfrefactor/rambda)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
 
