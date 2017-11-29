@@ -24,7 +24,7 @@ For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `
 
 In `Rambda` you can use both types of expression.
 
-This is not a major change, but some developers would prefer to use `'a.b.c'` over `['a', 'b', 'c']`.
+This is not a major change, but some would consider `'a.b.c'` more readable then `['a', 'b', 'c']`.
 
 Same logic is applied to `R.omit` method.
 
@@ -60,7 +60,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.0/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.5/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1114,6 +1114,7 @@ Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pi
 
 ## Changelog
 
+- 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
 - 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
 - 1.0.3 `R.ifElse` accept also boolean as condition argument
 - 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
@@ -1391,90 +1392,6 @@ Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pi
 
 
 [trim](#trim)
-
-## Contribution guidelines
-
-If you want to add another `Ramda` method to the API, please feel free to submit a `PR` .
-
-The only requirement is the new method to have exact or very close implementation compared to the corresponding `Ramda` method.
-
-I give you example steps of the `PR` process.
-
-> Create a method file in `modules` folder.
-
-If the new method is `R.endsWith`, then the created file will be `./modules/endsWith.js`
-
-> Write the function declaration and function's logic.
-
-```
-function endsWith(x, arrOrStr){
-  return arrOrStr.endsWith(x)
-}
-```
-
-> Any method, which takes more than one argument, should be curried.
-
-We can use the standard curring used throughout `Rambda`.
-```
-function endsWith(x, arrOrStr){
-  if(arrOrStr === undefined){
-    return arrOrStrHolder => endsWith(x, arrOrStrHolder)
-  }
-  return arrOrStr.endsWith(x)
-}
-module.exports = endsWith
-```
-
-Or we can also use `R.curry`, but it is not as performant as the example above.
-
-```
-const curry = require('./curry')
-function endsWith(x, arrOrStr){
-  if(arrOrStr === undefined){
-    return holder => endsWith(x, arrOrStr)
-  }
-  return arrOrStr.endsWith(x)
-}
-module.exports = curry(endsWith)
-```
-
-> Edit `rambda.js` file
-
-Exported methods are sorted alphabetically
-
-```
-exports.dropLast = require("./modules/dropLast")
-exports.endsWith = require("./modules/endsWith")
-exports.equals = require("./modules/equals")
-```
-
-> Write your test cases
-
-Create file `endsWith.js` in folder `__tests__`
-
-```
-const R = require('../rambda')
-
-test('endsWith', () => {
-  expect(R.endsWith('oo')('foo')).toBeTruthy()
-})
-```
-
-> Run `yarn test` to validate your tests
-
-> Edit `./README.md` to add documentation
-
-Note that your documentation should match the pattern visible across `./README.md`
-
-> Lint your files
-
-`yarn run lint modules/endsWith.js`
-
-`yarn run lint __tests__/endsWith.js`
-
-> Submit PR
-
-Expect response within 2 days.
 
 ## Additional info
 
