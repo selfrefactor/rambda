@@ -30,7 +30,7 @@ export default function equals (a, b) {
       }
       let flag = true
 
-      aKeys.map(val => {
+      aKeys.forEach(val => {
         if (flag) {
           const aValType = type(a[ val ])
           const bValType = type(b[ val ])
