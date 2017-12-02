@@ -1115,7 +1115,7 @@ Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pi
 ## Use with ES5
 
 ```
-const add = require('./lib/add')
+import omit from 'rambda/lib/omit'
 ```
 
 ## Changelog
