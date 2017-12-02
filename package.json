@@ -21,7 +21,8 @@
     "lint-files": "cd files&&run lintFolder",
     "lint-benchmarks": "cd benchmarks&&run lintFolder",
     "lint-rambda": "run lint f rambda.js",
-    "jest": "jest"
+    "jest": "jest",
+    "prepublish": "BABEL_ENV=production babel modules/ --out-dir lib/"
   },
   "repository": {
     "type": "git",
