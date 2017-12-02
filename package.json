@@ -1,5 +1,5 @@
 {
-  "name": "rambda-es5",
+  "name": "rambda",
   "version": "1.0.5",
   "description": "Lightweight alternative to Ramda",
   "main": "./dist/rambda.cjs.js",
