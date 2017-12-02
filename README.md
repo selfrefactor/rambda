@@ -1112,9 +1112,15 @@ R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 
 Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
 
+## Use with ES5
+
+```
+const add = require('./lib/add')
+```
+
 ## Changelog
 
-- 1.0.5 Attempt to close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
+- 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
 - 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
 - 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
 - 1.0.3 `R.ifElse` accept also boolean as condition argument
