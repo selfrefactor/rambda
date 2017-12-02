@@ -244,7 +244,7 @@ declare namespace R {
         head(list: any[]): any
         head(list: string): string
 
-        identity<T>(a: T): T
+        identity<T>(input: T): T
 
         ifElse(fn: Pred|boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
 
@@ -288,8 +288,6 @@ declare namespace R {
 
         omit<T>(names: string[]|string, obj: T): T
         omit(names: string[]|string): <T>(obj: T) => T
-
-        once(fn: (...a: any[]) => any): (...a: any[]) => any
 
         partialCurry(fn: (input: object) => any,input: object): any
 
@@ -418,13 +416,6 @@ declare namespace R {
         trim(str: string): string
 
         type(val: any): RambdaTypes
-
-        typedDefaultTo<T>(defaultValue: T, x: any): T
-        typedDefaultTo<T>(defaultValue: T): (x: any) => T
-
-        typedPathOr<T>(d: T, p: Path|string, obj: any): T
-        typedPathOr<T>(d: T, p: Path|string): (obj: any) => T
-        typedPathOr<T>(d: T): CurriedFunction2<Path|string, any, T>
 
         uniq<T>(list: T[]): T[]
 
