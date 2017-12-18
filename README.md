@@ -63,6 +63,8 @@ console.log(result) // => '{a: 2}'
 https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
 ```
 
+Browser-safe version is `0.9.8` (read more in [issue#52](https://github.com/selfrefactor/rambda/issues/52))
+
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
