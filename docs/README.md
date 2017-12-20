@@ -659,7 +659,7 @@ R.module(14,3) // => 2
 It returns the result of operation `a*b`.
 
 ```javascript
-R.module(14,3) // => 2
+R.multiply(4,3) // => 12
 ```
 
 #### not
