@@ -85,6 +85,7 @@ export { default as toString } from './modules/toString'
 export const trim = x => x.trim()
 export { default as type } from './modules/type'
 export { default as uniq } from './modules/uniq'
+export { default as uniqWith } from './modules/uniqWith'
 export { default as update } from './modules/update'
 export { default as values } from './modules/values'
 export { default as without } from './modules/without'

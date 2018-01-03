@@ -419,6 +419,9 @@ declare namespace R {
 
         uniq<T>(list: T[]): T[]
 
+        uniqWith<T>(pred: (x: T, y: T) => boolean, list: T[]): T[];
+        uniqWith<T>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
+
         update<T>(index: number, value: T, list: T[]): T[]
         update<T>(index: number, value: T): (list: T[]) => T[]
 

@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
-const R = require('../rambda')
+const R = require('../dist/rambda.cjs')
 const ramdaData = require('./ramdaData.json').data
 
 const fn = async () => {
@@ -9,11 +9,12 @@ const fn = async () => {
     const filePath = path.resolve(__dirname, '../rambda.js')
     const data = fs.readFileSync(filePath).toString()
     const ourData = R.compose(
-      R.map(R.replace('exports.', '')),
+      R.map(R.init),
+      R.map(R.replace('from \'./modules/', '')),
       R.flatten,
       R.map(x =>
-        R.match(/^exports.[a-zA-Z]{1,20}/g, x)),
-      R.filter(R.includes('exports.')),
+        R.match(/from.{1,25}/g, x)),
+      R.filter(R.includes('} from')),
       R.split('\n')
     )(data)
 
@@ -51,5 +52,5 @@ const fn = async () => {
 }
 
 fn().then(result => {
-  fs.writeFileSync('browseByTag.md', result)
+  fs.writeFileSync(`${__dirname}/browseByTag.md`, result)
 })

@@ -4,7 +4,7 @@ const R = require('../dist/rambda.cjs')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
-
+const holder = [1,2,3]
 suite.add('Rambda.last', () => {
   R.last(holder)
 })

@@ -3,7 +3,7 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.cjs')
 const Ramda = require('ramda')
 
-const holder = ''
+const holder = 'foo'
 
 const suite = new Benchmark.Suite()
 

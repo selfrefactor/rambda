@@ -63,8 +63,6 @@ console.log(result) // => '{a: 2}'
 https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
 ```
 
-Browser-safe version is `0.9.8` (read more in [issue#52](https://github.com/selfrefactor/rambda/issues/52))
-
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
@@ -334,6 +332,8 @@ R.dropLast(1, ['foo', 'bar', 'baz']) // => ['foo', 'bar']
 R.dropLast(1, 'foo')  // => 'fo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/dropLast.js)
+
 #### endsWith
 
 > endsWith(x: String, str: String): Boolean
@@ -350,6 +350,8 @@ R.endsWith(
 ) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/endsWith.js)
+
 #### either
 
 ```
@@ -361,6 +363,8 @@ fn(15) //=> true
 fn(6) //=> true
 fn(7) //=> false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/either.js)
 
 #### equals
 
@@ -375,6 +379,8 @@ R.equals(1, 1) // => true
 R.equals({}, {}) // => false
 R.equals([1, 2, 3], [1, 2, 3]) // => true
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/equals.js)
 
 #### F
 
@@ -392,6 +398,8 @@ const filterFn = a => a % 2 === 0
 R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
+
 #### find
 
 > find(findFn: Function, arr: Array<T>): T|undefined
@@ -403,6 +411,8 @@ const findFn = a => R.type(a.foo) === "Number"
 const arr = [{foo: "bar"}, {foo: 1}]
 R.find(findFn, arr) // => {foo: 1}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
 
 #### findIndex
 
@@ -416,6 +426,8 @@ const arr = [{foo: "bar"}, {foo: 1}]
 R.find(findFn, arr) // => 1
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
+
 #### flatten
 
 > flatten(arr: Array): Array
@@ -424,6 +436,8 @@ R.find(findFn, arr) // => 1
 R.flatten([ 1, [ 2, [ 3 ] ] ])
 // => [ 1, 2, 3 ]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/flatten.js)
 
 #### flip
 
@@ -436,6 +450,8 @@ const subtractFlip = R.flip(R.subtract)
 R.subtractFlip(1,7)
 // => 6
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/flip.js)
 
 #### forEach
 
@@ -453,7 +469,9 @@ console.log(sideEffect) //=> {foo1 : 1, foo2 : 2}
 console.log(result) //=> [1, 2]
 ```
 
-Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr`.
+Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/forEach.js)
 
 #### has
 
@@ -466,6 +484,8 @@ R.has("a", {a: 1}) // => true
 R.has("b", {a: 1}) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/has.js)
+
 #### head
 
 > head(arrOrStr: Array|String): any
@@ -476,6 +496,8 @@ It returns the first element of `arrOrStr`.
 R.head([1, 2, 3]) // => 1
 R.head('foo') // => 'f'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/head.js)
 
 #### identity
 
@@ -506,6 +528,8 @@ const fn = R.ifElse(
 fn(8) // => 80
 fn(11) // => 22
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/ifElse.js)
 
 #### inc
 
@@ -539,6 +563,8 @@ It returns `-1` or the index of the first element of `arr` equal of `valueToFind
 R.indexOf(1, [1, 2]) // => 0
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexOf.js)
+
 #### init
 
 > init(arrOrStr: Array|String): Array|String
@@ -550,6 +576,8 @@ R.init([1, 2, 3])  // => [1, 2]
 R.init('foo')  // => 'fo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/init.js)
+
 #### join
 
 > join(separator: String, arr: Array): String
@@ -558,9 +586,11 @@ R.init('foo')  // => 'fo'
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/join.js)
+
 #### is
 
-> isNil(xPrototype: any, x: any): boolean
+> is(xPrototype: any, x: any): boolean
 
 It returns `true` is `x` is instance of `xPrototype`.
 
@@ -568,6 +598,8 @@ It returns `true` is `x` is instance of `xPrototype`.
 R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/is.js)
 
 #### isNil
 
@@ -580,6 +612,8 @@ R.isNil(null)  // => true
 R.isNil(1)  // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
+
 #### last
 
 > last(arrOrStr: Array|String): any
@@ -590,6 +624,8 @@ R.isNil(1)  // => false
 R.last(['foo', 'bar', 'baz']) // => 'baz'
 R.last('foo') // => 'o'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/last.js)
 
 #### lastIndexOf
 
@@ -605,6 +641,8 @@ Value `-1` is returned if no `x` is found in `arr`.
 R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3
 R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/lastIndexOf.js)
 
 #### length
 
@@ -625,6 +663,8 @@ const mapFn = x => x * 2;
 R.map(mapFn, [1, 2, 3]) // => [2, 4, 6]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/map.js)
+
 #### match
 
 > match(regExpression: Regex, str: String): Array
@@ -632,6 +672,8 @@ R.map(mapFn, [1, 2, 3]) // => [2, 4, 6]
 ```javascript
 R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/match.js)
 
 #### merge
 
@@ -643,6 +685,8 @@ It returns result of `Object.assign({}, a, b)`.
 R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 // => { 'foo': 7, 'bar': 1 }
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/merge.js)
 
 #### modulo
 
@@ -661,7 +705,7 @@ R.module(14,3) // => 2
 It returns the result of operation `a*b`.
 
 ```javascript
-R.multiply(4,3) // => 12
+R.module(14,3) // => 2
 ```
 
 #### not
@@ -687,6 +731,8 @@ It returns a partial copy of an `obj` with omitting `propsToOmit`
 R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) // => {b: 2, c: 3}
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/omit.js)
+
 #### path
 
 > path(pathToSearch: Array<String>|String, obj: Object): any
@@ -700,6 +746,8 @@ R.path('a.b', {a: {b: 1}}) // => 1
 R.path(['a', 'b'], {a: {b: 2}}) // => 2
 R.path(['a', 'c'], {a: {b: 2}}) // => undefined
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/path.js)
 
 #### pathOr
 
@@ -716,6 +764,8 @@ R.pathOr(1, 'a.b', {a: {b: 2}}) // => 2
 R.pathOr(1, ['a', 'b'], {a: {b: 2}}) // => 2
 R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pathOr.js)
 
 #### partialCurry
 
@@ -741,6 +791,8 @@ curried({b: 3, c: 10}) // => 16
 
 - You can read my argumentation for creating *partialCurry* [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/partialCurry.js)
+
 #### pick
 
 > pick(propsToPick: Array<String>, obj: Object): Object
@@ -750,6 +802,8 @@ It returns a partial copy of an `obj` containing only `propsToPick` properties.
 ```
 R.pick(['a', 'c'], {a: 1, b: 2}) // => {a: 1}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pick.js)
 
 #### pipe
 
@@ -764,6 +818,8 @@ const result = R.pipe(
 console.log(result) // => [6, 8]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pipe.js)
+
 #### pluck
 
 > pluck(property: String, arr: Array): Array
@@ -773,6 +829,8 @@ It returns list of the values of `property` taken from the objects in array of o
 ```
 R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) // => [1, 2]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pluck.js)
 
 #### prepend
 
@@ -784,6 +842,8 @@ It adds `x` to the start of the array `arr`.
 R.prepend('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/prepend.js)
+
 #### prop
 
 > prop(propToFind: String, obj: Object): any
@@ -794,6 +854,8 @@ It returns `undefined` or the value of property `propToFind` in `obj`
 R.prop('x', {x: 100}) // => 100
 R.prop('x', {a: 1}) // => undefined
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/prop.js)
 
 #### propEq
 
@@ -808,6 +870,8 @@ R.propEq(propToFind, valueToMatch)({foo: 0}) // => true
 R.propEq(propToFind, valueToMatch)({foo: 1}) // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/propEq.js)
+
 #### range
 
 > range(start: Number, end: Number): Array<Number>
@@ -818,18 +882,18 @@ It returns a array of numbers from `start`(inclusive) to `end`(exclusive).
 R.range(0, 2)   // => [0, 1]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/range.js)
+
 #### reduce
 
 > reduce(iteratorFn: Function, accumulator: any, array: Array): any
-
-It returns a single item by iterating through the list, successively calling the iterator function `iteratorFn` and passing it an `accumulator` value and the current value from the array, and then passing the result to the next call.
-
-The iterator function behaves like the native callback of the [`Array.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) method.
 
 ```javascript
 const iteratorFn = (acc, val) => acc + val
 R.reduce(iteratorFn, 1, [1, 2, 3])   // => 7
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reduce.js)
 
 #### reject
 
@@ -844,6 +908,8 @@ const fn = x => x % 2 === 1
 R.reject(fn, [1, 2, 3, 4]) // => [2, 4]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reject.js)
+
 #### repeat
 
 > repeat(valueToRepeat: T, num: Number): Array<T>
@@ -851,6 +917,8 @@ R.reject(fn, [1, 2, 3, 4]) // => [2, 4]
 ```javascript
 R.repeat('foo', 2) // => ['foo', 'foo']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/repeat.js)
 
 #### replace
 
@@ -864,6 +932,8 @@ R.replace(/foo/, 'bar', 'foo foo') // => 'bar foo'
 R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/replace.js)
+
 #### reverse
 
 ```
@@ -871,6 +941,8 @@ const arr = [1, 2]
 R.reverse(arr)
 console.log(arr) // => [2, 1]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reverse.js)
 
 #### sort
 
@@ -885,6 +957,8 @@ const sortFn = (a, b) => a - b
 R.sort(sortFn, [3, 1, 2]) // => [1, 2, 3]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/sort.js)
+
 #### sortBy
 
 > sortBy(sortFn: Function, arr: Array): Array
@@ -895,12 +969,17 @@ It returns copy of `arr` sorted by `sortFn`.
 
 ```javascript
 const sortFn = obj => obj.foo
-R.sortBy(sortFn, [
+
+const result = R.sortBy(sortFn, [
   {foo: 1},
   {foo: 0}
 ])
-// => [{foo: 0}, {foo: 1}]
+
+const expectedResult = [ {foo: 0}, {foo: 1} ]
+console.log(result === expectedResult) // => true 
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/sortBy.js)
 
 #### split
 
@@ -909,6 +988,8 @@ R.sortBy(sortFn, [
 ```javascript
 R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/split.js)
 
 #### splitEvery
 
@@ -920,6 +1001,8 @@ R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 R.splitEvery(2, [1, 2, 3]) // => [[1, 2], [3]]
 R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/splitEvery.js)
 
 #### startsWith
 
@@ -936,6 +1019,8 @@ R.startsWith(
   'foo-bar'
 ) // => false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/startsWith.js)
 
 #### subtract
 
@@ -960,6 +1045,8 @@ R.tail([1, 2, 3])  // => [2, 3]
 R.tail('foo')  // => 'oo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/tail.js)
+
 #### take
 
 > take(num: Number, arrOrStr: Array|String): Array|String
@@ -970,6 +1057,8 @@ R.tail('foo')  // => 'oo'
 R.take(1, ['foo', 'bar']) // => ['foo']
 R.take(2, ['foo']) // => 'fo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/take.js)
 
 #### takeLast
 
@@ -982,6 +1071,8 @@ R.takeLast(1, ['foo', 'bar']) // => ['bar']
 R.takeLast(2, ['foo']) // => 'oo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/takeLast.js)
+
 #### test
 
 > test(regExpression: Regex, str: String): Boolean
@@ -993,6 +1084,8 @@ R.test(/^f/, 'foo') // => true
 R.test(/^f/, 'bar') // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/test.js)
+
 #### times
 
 > times(fn: Function, n: Number): Array
@@ -1003,6 +1096,8 @@ The range array includes numbers between `0` and `n`(exclusive).
 ```javascript
 R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/times.js)
 
 #### toLower
 
@@ -1055,6 +1150,8 @@ const delay = ms => new Promise(resolve => {
 R.type(delay) // => "Promise"
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/type.js)
+
 #### uniq
 
 > uniq(arr: Array): Array
@@ -1065,6 +1162,38 @@ It returns a new array containing only one copy of each element in `arr`.
 R.uniq([1, 1, 2, 1]) // => [1, 2]
 R.uniq([1, '1'])     // => [1, '1']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/uniq.js)
+
+#### uniqWith
+
+> uniqWith(fn: Function, arr: Array): Array
+
+It returns a new array containing only one copy of each element in `arr` according to boolean returning function `fn`.
+
+```javascript
+const arr = [
+  {id: 0, title:'foo'},
+  {id: 1, title:'bar'},
+  {id: 2, title:'baz'},
+  {id: 3, title:'foo'},
+  {id: 4, title:'bar'},
+]
+
+const expectedResult = [
+  {id: 0, title:'foo'},
+  {id: 1, title:'bar'},
+  {id: 2, title:'baz'},
+]
+
+const fn = (x,y) => x.title === y.title
+
+const result = R.uniqWith(fn, arr)
+
+console.log(result === expectedResult) // => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/uniqWith.js)
 
 #### update
 
@@ -1077,6 +1206,8 @@ replaced with `replaceValue`.
 R.update(0, "foo", ['bar', 'baz']) // => ['foo', baz]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/update.js)
+
 #### values
 
 > values(obj: Object): Array
@@ -1086,6 +1217,8 @@ It returns array with of all values in `obj`.
 ```javascript
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/values.js)
 
 #### without
 
@@ -1100,6 +1233,8 @@ Method `R.equals` is used to determine the existance of `b` members in `a` array
 ```
 R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
 
 ## Benchmark
 
@@ -1122,6 +1257,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.0.7 Add `R.uniqWith`
 - 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
 - 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
 - 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
@@ -1160,247 +1296,279 @@ import omit from 'rambda/lib/omit'
 
 ### Function
 
-
+          
 [addIndex](#addindex)
 
-
-[always](#always)
-
-
+            
 [compose](#compose)
 
-
+            
 [curry](#curry)
 
+            
+[flip](#flip)
 
-[F](#f)
+            
+[pipe](#pipe)
 
-
-[identity](#identity)
-
-
-[T](#t)
-
-
+            
 [tap](#tap)
 
+            
 
 ### Math
 
-
+          
 [add](#add)
 
+            
+[dec](#dec)
 
+            
 [divide](#divide)
 
+            
+[inc](#inc)
 
+            
 [modulo](#modulo)
 
-
+            
 [multiply](#multiply)
 
-
+            
 [subtract](#subtract)
 
-
+            
 
 ### List
 
-
+          
 [adjust](#adjust)
 
-
+            
 [all](#all)
 
-
+            
 [any](#any)
 
-
+            
 [append](#append)
 
-
+            
 [concat](#concat)
 
-
+            
 [contains](#contains)
 
-
+            
 [drop](#drop)
 
-
+            
 [dropLast](#droplast)
 
-
+            
 [endsWith](#endswith)
 
-
+            
 [filter](#filter)
 
-
+            
 [find](#find)
 
-
+            
 [findIndex](#findindex)
 
-
+            
 [flatten](#flatten)
 
+            
+[forEach](#foreach)
 
+            
 [head](#head)
 
-
+            
 [indexOf](#indexof)
 
-
+            
 [init](#init)
 
-
+            
 [join](#join)
 
-
+            
 [last](#last)
 
-
+            
 [lastIndexOf](#lastindexof)
 
-
+            
 [length](#length)
 
-
+            
 [map](#map)
 
+            
+[none](#none)
 
+            
 [pluck](#pluck)
 
-
+            
 [prepend](#prepend)
 
-
+            
 [range](#range)
 
-
+            
 [reduce](#reduce)
 
+            
+[reject](#reject)
 
+            
 [repeat](#repeat)
 
-
+            
 [reverse](#reverse)
 
-
+            
 [sort](#sort)
 
-
+            
 [splitEvery](#splitevery)
 
-
+            
 [startsWith](#startswith)
 
-
+            
 [tail](#tail)
 
-
+            
 [take](#take)
 
-
+            
 [takeLast](#takelast)
 
+            
+[times](#times)
 
+            
 [uniq](#uniq)
 
+            
+[uniqWith](#uniqwith)
 
+            
 [update](#update)
 
+            
+[without](#without)
 
+            
 
 ### Logic
 
-
+          
 [allPass](#allpass)
 
+            
+[anyPass](#anypass)
 
+            
 [both](#both)
 
-
-[complement](#complement)
-
-
+            
 [defaultTo](#defaultto)
 
-
+            
 [either](#either)
 
-
+            
 [ifElse](#ifelse)
 
-
-[not](#not)
-
-
+            
 
 ### Object
 
-
+          
 [has](#has)
 
-
+            
 [merge](#merge)
 
-
+            
 [omit](#omit)
 
-
+            
 [path](#path)
 
+            
+[pathOr](#pathor)
 
+            
 [pick](#pick)
 
+            
+[pickAll](#pickall)
 
+            
 [prop](#prop)
 
-
+            
 [values](#values)
 
-
+            
 
 ### Relation
 
-
+          
 [equals](#equals)
 
-
+            
 [propEq](#propeq)
 
-
+            
 [sortBy](#sortby)
 
+            
 
+### Type
+
+          
+[is](#is)
+
+            
+[isNil](#isnil)
+
+            
+[type](#type)
+
+            
 
 ### String
 
-
+          
 [match](#match)
 
-
+            
 [replace](#replace)
 
-
+            
 [split](#split)
 
-
+            
 [test](#test)
 
-
+            
 [toLower](#tolower)
 
-
+            
 [toString](#tostring)
 
-
+            
 [toUpper](#toupper)
-
-
-[trim](#trim)
 
 ## Additional info
 

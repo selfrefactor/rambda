@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lightweight alternative to Ramda",
   "main": "./dist/rambda.cjs.js",
   "module": "./dist/rambda.esm.js",
@@ -13,7 +13,7 @@
     "build": "run-s build-main build-minify",
     "build-main": "rollup -c files/rollup.config.js",
     "build-minify": "node files/minify",
-    "benchmark": "node benchmarks/index.js",
+    "benchmark": "node benchmarks/index.js --all",
     "cover": "jest __tests__ --coverage",
     "lintall": "run-p lint-test lint-modules lint-rambda lint-files lint-benchmarks",
     "lint-test": "cd __tests__&&run lintFolder",

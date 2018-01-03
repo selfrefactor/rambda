@@ -1,5 +1,4 @@
 const R = require('../rambda')
-const Ramda = require('ramda')
 
 test('', () => {
   const input = [
@@ -43,16 +42,14 @@ test('', () => {
   const fn = (x, y) => x.title === y.title
 
   const result = R.uniqWith(fn, input)
-  //const result = R.uniqWith(Ramda.eqBy(Ramda.prop('title')), input)
+  const curriedResult = R.uniqWith(fn)(input)
 
   expect(
     result
   ).toEqual(expectedResult)
+
+  expect(
+    curriedResult
+  ).toEqual(expectedResult)
 })
 
-test('uniq', () => {
-  expect(R.uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])).toEqual([ 1, 2, 3, 0 ])
-  expect(R.uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
-  expect([ 1, '1' ]).toEqual([ 1, '1' ])
-  expect(R.uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
-})

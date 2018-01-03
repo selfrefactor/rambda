@@ -951,6 +951,26 @@ function uniq(arr) {
   return willReturn;
 }
 
+function uniqWith(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => uniqWith(fn, arrHolder);
+  }
+
+  let index = -1;
+  const willReturn = [];
+
+  while (++index < arr.length) {
+    const value = arr[index];
+    const flag = any(willReturnInstance => fn(value, willReturnInstance), willReturn);
+
+    if (!flag) {
+      willReturn.push(value);
+    }
+  }
+
+  return willReturn;
+}
+
 function update(index, newValue, arr) {
   if (newValue === undefined) {
     return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder);
@@ -1071,6 +1091,7 @@ exports.toUpper = toUpper;
 exports.toString = toString;
 exports.type = type;
 exports.uniq = uniq;
+exports.uniqWith = uniqWith;
 exports.update = update;
 exports.values = values;
 exports.without = without;

@@ -947,6 +947,26 @@ function uniq(arr) {
   return willReturn;
 }
 
+function uniqWith(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => uniqWith(fn, arrHolder);
+  }
+
+  let index = -1;
+  const willReturn = [];
+
+  while (++index < arr.length) {
+    const value = arr[index];
+    const flag = any(willReturnInstance => fn(value, willReturnInstance), willReturn);
+
+    if (!flag) {
+      willReturn.push(value);
+    }
+  }
+
+  return willReturn;
+}
+
 function update(index, newValue, arr) {
   if (newValue === undefined) {
     return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder);
@@ -980,5 +1000,5 @@ const not = x => !x;
 const T = () => true;
 const trim = x => x.trim();
 
-export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, uniq, update, values, without };
+export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, uniq, uniqWith, update, values, without };
 //# sourceMappingURL=rambda.esm.js.map

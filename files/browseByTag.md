@@ -5,22 +5,16 @@
 [addIndex](#addindex)
 
             
-[always](#always)
-
-            
 [compose](#compose)
 
             
 [curry](#curry)
 
             
-[F](#f)
+[flip](#flip)
 
             
-[identity](#identity)
-
-            
-[T](#t)
+[pipe](#pipe)
 
             
 [tap](#tap)
@@ -33,7 +27,13 @@
 [add](#add)
 
             
+[dec](#dec)
+
+            
 [divide](#divide)
+
+            
+[inc](#inc)
 
             
 [modulo](#modulo)
@@ -88,6 +88,9 @@
 [flatten](#flatten)
 
             
+[forEach](#foreach)
+
+            
 [head](#head)
 
             
@@ -112,6 +115,9 @@
 [map](#map)
 
             
+[none](#none)
+
+            
 [pluck](#pluck)
 
             
@@ -122,6 +128,9 @@
 
             
 [reduce](#reduce)
+
+            
+[reject](#reject)
 
             
 [repeat](#repeat)
@@ -148,10 +157,19 @@
 [takeLast](#takelast)
 
             
+[times](#times)
+
+            
 [uniq](#uniq)
 
             
+[uniqWith](#uniqwith)
+
+            
 [update](#update)
+
+            
+[without](#without)
 
             
 
@@ -161,10 +179,10 @@
 [allPass](#allpass)
 
             
-[both](#both)
+[anyPass](#anypass)
 
             
-[complement](#complement)
+[both](#both)
 
             
 [defaultTo](#defaultto)
@@ -174,9 +192,6 @@
 
             
 [ifElse](#ifelse)
-
-            
-[not](#not)
 
             
 
@@ -195,7 +210,13 @@
 [path](#path)
 
             
+[pathOr](#pathor)
+
+            
 [pick](#pick)
+
+            
+[pickAll](#pickall)
 
             
 [prop](#prop)
@@ -215,6 +236,19 @@
 
             
 [sortBy](#sortby)
+
+            
+
+### Type
+
+          
+[is](#is)
+
+            
+[isNil](#isnil)
+
+            
+[type](#type)
 
             
 
@@ -240,8 +274,5 @@
 
             
 [toUpper](#toupper)
-
-            
-[trim](#trim)
 
             
