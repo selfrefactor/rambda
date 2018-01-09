@@ -20,21 +20,17 @@ You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
 - dot notation for `R.path` 
 
-For example with `Rambda` you can call 
+Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })```.
 
-```R.path('a.b', {a: {b: 1} } )``` 
+In **Rambda** you have the choice to use the more readable dot notation: 
 
-instead of 
-
-```R.path(['a', 'b'], {a: {b: 1} } )```
-
-In `Rambda` you can use both types of expression.
-
-This is not a major change, unless you consider `'a.b'` more readable then `['a', 'b']`
+```R.path('a.b', {a: {b: 1} })``` 
 
 - comma notation for `R.pick` and `R.omit` 
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
+
+```R.pick('a,b', {a: 1 , b: 2, c: 3} })``` 
 
 ---
 
