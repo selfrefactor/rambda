@@ -24,9 +24,10 @@ For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `
 
 In `Rambda` you can use both types of expression.
 
-This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`.
+This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`
 
 4. comma notation for `R.pick` and `R.omit` 
+
 
 Similar to dot notation, but the separator is `,` not `.`
 ---
