@@ -14,11 +14,11 @@ declare namespace R {
 
   type FilterFunction<T> = (x: T, prop?: string) => boolean
 
-  type Identity<T> = (x: T) => T
+  type IdentityFunction<T> = (x: T) => T
   // RAMBDA_END  
   type Ord = number | string | boolean
 
-  type Path = Array<(number | string)>
+  type Path = ReadonlyArray<(number | string)>
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K
@@ -119,7 +119,10 @@ declare namespace R {
     add(a: number): (b: number) => number
     add(a: string): (b: string) => string
 
-    addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>
+    addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): CurriedFunction2<(item: T, idx: number, list?: T[]) => U, ReadonlyArray<T>, U[]>
+    addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): CurriedFunction2<(item: T, idx: number, list?: T[]) => void, ReadonlyArray<T>, T[]>
+    addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): CurriedFunction3<(acc: U, item: T, idx: number, list?: T[]) => U, U, ReadonlyArray<T>, U>
+
 
     adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[]
     adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[]
@@ -129,16 +132,15 @@ declare namespace R {
 
     allPass(preds: Pred[]): Pred
 
-    always<T>(val: T): () => T
+    always<T>(x: T): () => T
 
     any<T>(fn: (a: T) => boolean, list: T[]): boolean
     any<T>(fn: (a: T) => boolean): (list: T[]) => boolean
 
     anyPass(preds: Pred[]): Pred
 
-    append<T, U>(el: U, list: T[]): Array<(T & U)>
-    append<U>(el: U): <T>(list: T[]) => Array<(T & U)>
-    append<U>(el: U): <T>(list: T[]) => Array<(T & U)>
+    append<T>(el: T, list: ReadonlyArray<T>): T[]
+    append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[]
 
     both(pred1: Pred, pred2: Pred): Pred
     both(pred1: Pred): (pred2: Pred) => Pred
@@ -205,8 +207,8 @@ declare namespace R {
 
     dec(n: number): number
 
-    defaultTo<T, U>(a: T, b: U): T | U
-    defaultTo<T>(a: T): <U>(b: U) => T | U
+    defaultTo<T>(a: T, b: null | undefined | T): T
+    defaultTo<T>(a: T): (b: null | undefined | T) => T
 
     divide(a: number, b: number): number
     divide(a: number): (b: number) => number
