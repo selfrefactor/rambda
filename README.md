@@ -28,8 +28,8 @@ This is not a major change, unless you consider `'a.b.c'` more readable then `['
 
 4. comma notation for `R.pick` and `R.omit` 
 
+Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
-Similar to dot notation, but the separator is `,` not `.`
 ---
 
 > Initial argumentation
