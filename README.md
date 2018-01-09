@@ -8,17 +8,17 @@ Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefacto
 
 ## Rambda's advantages
 
-1. Tree-shaking
+- Tree-shaking
 
 Currenly `Rambda` is more tree-shakable than `Ramda` as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
-2. Speed
+- Speed
 
 `Rambda` is generally more performant than `Ramda` as the benchmarks can prove that.
 
 You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
-3. dot notation for `R.path` 
+- dot notation for `R.path` 
 
 For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `R.path(['a','b'], {a: {b: 1}})`
 
@@ -26,7 +26,7 @@ In `Rambda` you can use both types of expression.
 
 This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`
 
-4. comma notation for `R.pick` and `R.omit` 
+- comma notation for `R.pick` and `R.omit` 
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
