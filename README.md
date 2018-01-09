@@ -71,9 +71,9 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **path** accepts both string and array as condition argument(`'x.y' same as ['x','y']`).
+- Rambda's **path** accepts dot notation, i.e. `'x.y' same as ['x','y']`
 
-- Rambda's **pick** and **omit** accepts both string and array as condition argument(`'x,y' same as ['x','y']`).
+- Rambda's **pick** and **omit** accept comma notation, i.e. `'x,y' same as ['x','y']`
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
