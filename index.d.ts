@@ -238,9 +238,9 @@ declare namespace R {
 
     F(): boolean
 
-    filter<T>(fn: FilterFunction<T>): Filter<T>;
-    filter<T>(fn: FilterFunction<T>, list: ReadonlyArray<T>): T[];
-    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>;
+    filter<T>(fn: FilterFunction<T>): Filter<T>
+    filter<T>(fn: FilterFunction<T>, list: ReadonlyArray<T>): T[]
+    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
 
     find<T>(fn: (a: T) => boolean, list: T[]): T | undefined
     find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined
@@ -250,18 +250,21 @@ declare namespace R {
 
     flatten<T>(x: T[] | T[][]): T[]
 
-    flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0: T) => TResult
+    flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
+    flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult
 
     forEach<T>(fn: (x: T) => void, list: T[]): T[]
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[]
+    forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>
+    forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>
 
     has<T>(s: string, obj: T): boolean
     has(s: string): <T>(obj: T) => boolean
 
-    head(list: any[]): any
+    head<T>(list: ReadonlyArray<T>): T | undefined
     head(list: string): string
 
-    identity<T>(input: T): T
+    identity<T>(x: T): T
 
     ifElse(fn: Pred | boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
 
@@ -276,15 +279,22 @@ declare namespace R {
     join(x: string, xs: any[]): string
     join(x: string): (xs: any[]) => string
 
-    last<T>(list: T[]): T
+    last<T>(list: T[]): T | undefined
     last(list: string): string
 
-    length(list: any[]): number
+    length<T>(list: ReadonlyArray<T>): number
 
     map<T, U>(fn: (x: T) => U, list: T[]): U[]
     map<T, U>(fn: (x: T) => U): (list: T[]) => U[]
-    map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T], prop: string) => U[keyof T], obj: T): U
-    map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T], prop: string) => U[keyof T]): (obj: T) => U
+
+    map<T extends object, U extends {[P in keyof T]: U[P]}>(
+      fn: (x: T[keyof T], prop: string) => U[keyof T], 
+      obj: T
+    ): U
+
+    map<T extends object, U extends {[P in keyof T]: U[P]}>(
+      fn: (x: T[keyof T], prop: string
+    ) => U[keyof T]): (obj: T) => U
 
     match(regexp: RegExp, str: string): any[]
     match(regexp: RegExp): (str: string) => any[]
@@ -298,15 +308,18 @@ declare namespace R {
     multiply(a: number, b: number): number
     multiply(a: number): (b: number) => number
 
-    none<T>(fn: (a: T) => boolean, list: T[]): boolean;
-    none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
+    none<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean
+    none<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean
 
     not(value: any): boolean
 
     omit<T>(names: string[] | string, obj: T): T
     omit(names: string[] | string): <T>(obj: T) => T
 
-    partialCurry(fn: (input: object) => any, input: object): any
+    partialCurry<Out, In>(
+      fn: (input: Dictionary<In>) => Out | Promise<Out>, 
+      input: Dictionary<In>
+    ): Out
 
     path<T>(path: Path | string, obj: any): T
     path<T>(path: Path | string): (obj: any) => T
@@ -315,11 +328,15 @@ declare namespace R {
     pathOr<T>(d: T, p: Path): (obj: any) => T | any
     pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>
 
-    pick<T, K extends keyof T>(names: Array<K | string> | string, obj: T): Pick<T, K>
+    pick<T, K extends keyof T>(
+      names: Array<K | string> | string, 
+      obj: T
+    ): Pick<T, K>
+    
     pick(names: string[] | string): <T, U>(obj: T) => U
 
-    pickAll<T, U>(names: string[], obj: T): U
-    pickAll(names: string[]): <T, U>(obj: T) => U
+    pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U
+    pickAll(names: ReadonlyArray<string>): <T, U>(obj: T) => U
 
     pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
     pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -351,14 +368,16 @@ declare namespace R {
       fn4: (x: T4) => T5,
       fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
-    pluck<T>(p: string | number, list: any[]): T[]
-    pluck(p: string | number): <T>(list: any[]) => T[]
+    pluck<P extends string, T>(p: P, list: ReadonlyArray<Record<P, T>>): T[]
+    pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[]
+    pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[]
+    pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[]
 
     prepend<T>(el: T, list: T[]): T[]
     prepend<T>(el: T): (list: T[]) => T[]
 
-    prop<T>(p: string, obj: any): T
-    prop<T>(p: string): <T>(obj: any) => T
+    prop<P extends keyof T, T>(p: P, obj: T): T[P]
+    prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T
 
     propEq<T>(name: string, val: T, obj: any): boolean
     propEq<T>(name: string, val: T): (obj: any) => boolean
@@ -371,8 +390,12 @@ declare namespace R {
     reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: T[]) => TResult
     reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: T[]) => TResult
 
-    reject<T>(fn: (value: T) => boolean): (list: T[]) => T[]
-    reject<T>(fn: (value: T) => boolean, list: T[]): T[]
+    reject<T>(fn: (value: T) => boolean): Filter<T>
+    reject<T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[]
+    reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>
+
+    repeat<T>(a: T, n: number): T[]
+    repeat<T>(a: T): (n: number) => T[]  
 
     replace(pattern: RegExp | string, replacement: string, str: string): string
     replace(pattern: RegExp | string, replacement: string): (str: string) => string
@@ -398,21 +421,23 @@ declare namespace R {
     subtract(a: number, b: number): number
     subtract(a: number): (b: number) => number
 
-    tail(list: any[]): any
+    T(): boolean
+
+    tail<T>(list: ReadonlyArray<T>): T[]
     tail(list: string): string
 
-    take<T>(n: number, xs: T[]): T[]
+    take<T>(n: number, xs: ReadonlyArray<T>): T[]
     take(n: number, xs: string): string
     take<T>(n: number): {
-      (xs: string): string
-      (xs: T[]): T[]
+        (xs: string): string
+        (xs: ReadonlyArray<T>): T[]
     }
 
-    takeLast<T>(n: number, xs: T[]): T[]
+    takeLast<T>(n: number, xs: ReadonlyArray<T>): T[]
     takeLast(n: number, xs: string): string
     takeLast(n: number): {
-      <T>(xs: T[]): T[]
-      (xs: string): string
+        <T>(xs: ReadonlyArray<T>): T[]
+        (xs: string): string
     }
 
     tap<T>(fn: (a: T) => any, value: T): T
@@ -434,7 +459,7 @@ declare namespace R {
 
     type(val: any): RambdaTypes
 
-    uniq<T>(list: T[]): T[]
+    uniq<T>(list: ReadonlyArray<T>): T[]
 
     uniqWith<T>(pred: (x: T, y: T) => boolean, list: T[]): T[];
     uniqWith<T>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
