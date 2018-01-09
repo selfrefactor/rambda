@@ -94,6 +94,10 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R
     }
 
+    interface Dictionary<T> {
+        [index: string]: T;
+    }
+
     interface Reduced {
         [index: number]: any
         [index: string]: any
@@ -222,8 +226,10 @@ declare namespace R {
 
         F(): boolean
 
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[]
         filter<T>(fn: (value: T) => boolean, list: T[]): T[]
+        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[]
+        filter<T>(fn: (value: T, prop: string) => boolean): (obj: Dictionary<T>) => Dictionary<T>
+        filter<T>(fn: (value: T, prop: string) => boolean, obj: Dictionary<T>): Dictionary<T>
 
         find<T>(fn: (a: T) => boolean, list: T[]): T | undefined
         find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined
@@ -266,8 +272,8 @@ declare namespace R {
 
         map<T, U>(fn: (x: T) => U, list: T[]): U[]
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[]
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U
-        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T], prop: string) => U[keyof T], obj: T): U
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T], prop: string) => U[keyof T]): (obj: T) => U
 
         match(regexp: RegExp, str: string): any[]
         match(regexp: RegExp): (str: string) => any[]

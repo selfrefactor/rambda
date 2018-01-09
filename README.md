@@ -59,7 +59,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda

@@ -43,7 +43,7 @@ function filterObject(fn, obj) {
   const willReturn = {};
 
   for (const prop in obj) {
-    if (fn(obj[prop])) {
+    if (fn(obj[prop], prop)) {
       willReturn[prop] = obj[prop];
     }
   }
@@ -394,7 +394,7 @@ function mapObject(fn, obj) {
   const willReturn = {};
 
   for (const prop in obj) {
-    willReturn[prop] = fn(obj[prop]);
+    willReturn[prop] = fn(obj[prop], prop);
   }
 
   return willReturn;
