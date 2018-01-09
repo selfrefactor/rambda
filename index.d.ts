@@ -13,6 +13,12 @@ declare namespace R {
     | "Function"
 
   type FilterFunction<T> = (x: T, prop?: string) => boolean
+  type MapFunction<In, Out> = (x: In, prop?: string) => Out
+
+  interface MapInterface<T> {
+    (list: ReadonlyArray<T>): T[]
+    (obj: Dictionary<T>): Dictionary<T>
+  }
 
   type IdentityFunction<T> = (x: T) => T
   // RAMBDA_END  
@@ -284,17 +290,13 @@ declare namespace R {
 
     length<T>(list: ReadonlyArray<T>): number
 
-    map<T, U>(fn: (x: T) => U, list: T[]): U[]
-    map<T, U>(fn: (x: T) => U): (list: T[]) => U[]
+    map<In, Out>(
+      fn: MapFunction<In, Out>,
+      obj: Dictionary<In>
+    ): Dictionary<Out>
 
-    map<T extends object, U extends {[P in keyof T]: U[P]}>(
-      fn: (x: T[keyof T], prop: string) => U[keyof T], 
-      obj: T
-    ): U
-
-    map<T extends object, U extends {[P in keyof T]: U[P]}>(
-      fn: (x: T[keyof T], prop: string
-    ) => U[keyof T]): (obj: T) => U
+    map<In, Out>(fn: MapFunction<In, Out>): MapInterface<Out>
+    map<In, Out>(fn: MapFunction<In, Out>, list: ReadonlyArray<Out>): Out[]
 
     match(regexp: RegExp, str: string): any[]
     match(regexp: RegExp): (str: string) => any[]
@@ -317,7 +319,7 @@ declare namespace R {
     omit(names: string[] | string): <T>(obj: T) => T
 
     partialCurry<Out, In>(
-      fn: (input: Dictionary<In>) => Out | Promise<Out>, 
+      fn: (input: Dictionary<In>) => Out | Promise<Out>,
       input: Dictionary<In>
     ): Out
 
@@ -329,10 +331,10 @@ declare namespace R {
     pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>
 
     pick<T, K extends keyof T>(
-      names: Array<K | string> | string, 
+      names: Array<K | string> | string,
       obj: T
     ): Pick<T, K>
-    
+
     pick(names: string[] | string): <T, U>(obj: T) => U
 
     pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U
@@ -395,7 +397,7 @@ declare namespace R {
     reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>
 
     repeat<T>(a: T, n: number): T[]
-    repeat<T>(a: T): (n: number) => T[]  
+    repeat<T>(a: T): (n: number) => T[]
 
     replace(pattern: RegExp | string, replacement: string, str: string): string
     replace(pattern: RegExp | string, replacement: string): (str: string) => string
@@ -429,15 +431,15 @@ declare namespace R {
     take<T>(n: number, xs: ReadonlyArray<T>): T[]
     take(n: number, xs: string): string
     take<T>(n: number): {
-        (xs: string): string
-        (xs: ReadonlyArray<T>): T[]
+      (xs: string): string
+      (xs: ReadonlyArray<T>): T[]
     }
 
     takeLast<T>(n: number, xs: ReadonlyArray<T>): T[]
     takeLast(n: number, xs: string): string
     takeLast(n: number): {
-        <T>(xs: ReadonlyArray<T>): T[]
-        (xs: string): string
+      <T>(xs: ReadonlyArray<T>): T[]
+      (xs: string): string
     }
 
     tap<T>(fn: (a: T) => any, value: T): T
