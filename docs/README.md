@@ -18,18 +18,17 @@ Currenly `Rambda` is more tree-shakable than `Ramda` as you can see in this [tre
 
 You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
-3. Minor helpers
+3. dot notation for `R.path` 
 
 For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `R.path(['a','b'], {a: {b: 1}})`
 
 In `Rambda` you can use both types of expression.
 
-This is not a major change, but some would consider `'a.b.c'` more readable then `['a', 'b', 'c']`.
+This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`.
 
-Same logic is applied to `R.omit` method.
+4. comma notation for `R.pick` and `R.omit` 
 
-`R.pick` is similar, but the separator is `,` not `.`
-
+Similar to dot notation, but the separator is `,` not `.`
 ---
 
 > Initial argumentation
@@ -69,7 +68,11 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
-- Rambda's **path**, **pick** and **omit** accepts both string and array as condition argument('x.y.z' == ['x','y','z']).
+- Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
+
+- Rambda's **path** accepts both string and array as condition argument('x.y' == ['x','y']).
+
+- Rambda's **pick** and **omit** accepts both string and array as condition argument('x,y' == ['x','y']).
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
@@ -285,7 +288,6 @@ It decrements a number.
 R.dec(2) // => 1
 ```
 
-
 #### defaultTo
 
 > defaultTo(defaultValue: T, inputArgument: any): T
@@ -388,14 +390,25 @@ R.equals([1, 2, 3], [1, 2, 3]) // => true
 
 #### filter
 
-> filter(filterFn: Function, arr: Array): Array
+> filter(filterFn: Function, x: Array|Object): Array|Object
 
-Filters `arr` throw boolean returning `filterFn`
+It filters `x` iterable over boolean returning `filterFn`.
 
 ```javascript
 const filterFn = a => a % 2 === 0
 
 R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
+```
+
+The method works with objects as well. 
+
+Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
+
+```javascript
+const result = R.filter((val, prop)=>{
+  return prop === 'a' || val === 2  
+}, {a: 1, b: 2, c: 3}) 
+console.log(result) // => {a: 1, b: 2}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
@@ -654,13 +667,24 @@ R.length([1, 2, 3]) // => 3
 
 #### map
 
-> map(mapFn: Function, arr: Array): Array
+> map(mapFn: Function, x: Array|Object): Array|Object
 
-It returns the result of looping through `arr` with `mapFn`.
+It returns the result of looping through iterable `x` with `mapFn`.
 
 ```javascript
 const mapFn = x => x * 2;
 R.map(mapFn, [1, 2, 3]) // => [2, 4, 6]
+```
+
+The method works with objects as well. 
+
+Note that unlike Ramda's `map`, here object keys are passed as second argument to `mapFn`.
+
+```javascript
+const result = R.map((val, prop)=>{
+  return `${val}-${prop}`  
+}, {a: 1, b: 2}) 
+console.log(result) // => {a: 'a-1', b: 'b-2'}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/map.js)
@@ -1257,6 +1281,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
 - 1.0.7 Add `R.uniqWith`
 - 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
 - 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
