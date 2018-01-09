@@ -1,5 +1,19 @@
 const R = require('../../rambda')
 
+const sampleObject = {
+  a : 1,
+  b : 2,
+  c : 3,
+  d : 4,
+}
+
+test('with object it passes property as second argument', () => {
+
+  R.filter((val,prop)=>{
+    expect(typeof prop).toEqual('string')
+  })(sampleObject)
+})
+
 test('with array', () => {
   const isEven = n => n % 2 === 0
 
@@ -9,32 +23,26 @@ test('with array', () => {
   )).toEqual([ 2, 4 ])
 })
 
+
 test('with object', () => {
   const isEven = n => n % 2 === 0
-
-  expect(R.filter(
+  const result = R.filter(
     isEven,
-    {
-      a : 1,
-      b : 2,
-      c : 3,
-      d : 4,
-    }
-  )).toEqual({
+    sampleObject
+  )
+  const expectedResult = {
     b : 2,
     d : 4,
-  })
+  }
+
+  expect(result).toEqual(expectedResult)
 })
 
 test('with compose', () => {
   const result = R.compose(
     R.filter(R.equals(2)),
     R.map(R.add(1))
-  )({
-    a : 1,
-    b : 2,
-    c : 3,
-  })
+  )(sampleObject)
 
   expect(result).toEqual({ a : 2 })
 })

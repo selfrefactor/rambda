@@ -1,5 +1,12 @@
 const R = require('../../rambda')
 
+const sampleObject = {
+  a : 1,
+  b : 2,
+  c : 3,
+  d : 4,
+}
+
 test('with array', () => {
   const double = x => x * 2
 
@@ -17,4 +24,12 @@ test('with object', () => {
     a : 2,
     b : 4,
   })
+})
+
+
+test('with object passes property as second argument', () => {
+
+  R.map((val,prop)=>{
+    expect(typeof prop).toEqual('string')
+  })(sampleObject)
 })

@@ -2,7 +2,7 @@ function filterObject (fn, obj) {
   const willReturn = {}
 
   for (const prop in obj) {
-    if (fn(obj[ prop ])) {
+    if (fn(obj[ prop ], prop)) {
       willReturn[ prop ] = obj[ prop ]
     }
   }
