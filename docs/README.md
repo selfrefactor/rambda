@@ -24,11 +24,12 @@ For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `
 
 In `Rambda` you can use both types of expression.
 
-This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`.
+This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`
 
 4. comma notation for `R.pick` and `R.omit` 
 
-Similar to dot notation, but the separator is `,` not `.`
+Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
+
 ---
 
 > Initial argumentation
@@ -59,7 +60,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -70,9 +71,9 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.6/webVersion.js
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **path** accepts both string and array as condition argument('x.y' == ['x','y']).
+- Rambda's **path** accepts dot notation, i.e. `'x.y' same as ['x','y']`
 
-- Rambda's **pick** and **omit** accepts both string and array as condition argument('x,y' == ['x','y']).
+- Rambda's **pick** and **omit** accept comma notation, i.e. `'x,y' same as ['x','y']`
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
