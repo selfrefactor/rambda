@@ -4,43 +4,47 @@
 
 # Rambda
 
-Faster alternative to `Ramda` in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to **Ramda** in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Rambda's advantages
 
 - Tree-shaking
 
-Currenly `Rambda` is more tree-shakable than `Ramda` as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
 - Speed
 
-`Rambda` is generally more performant than `Ramda` as the benchmarks can prove that.
+**Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
 
 You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
 - dot notation for `R.path` 
 
-For example with `Rambda` you can call `R.path('a.b', {a: {b: 1}})` instead of `R.path(['a','b'], {a: {b: 1}})`
+Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })```.
 
-In `Rambda` you can use both types of expression.
+In **Rambda** you have the choice to use the more readable dot notation: 
 
-This is not a major change, unless you consider `'a.b.c'` more readable then `['a', 'b', 'c']`
+```R.path('a.b', {a: {b: 1} })``` 
 
 - comma notation for `R.pick` and `R.omit` 
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
+```R.pick('a,b', {a: 1 , b: 2, c: 3} })``` 
+
+- Typescript included
+
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`. 
+
 ---
 
 > Initial argumentation
 
-I admire `Ramda`, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had `Ramda` habits and I didn't want to switch to `Lodash`.
+I admire **Ramda**, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had **Ramda** habits and I didn't want to switch to **Lodash**.
 
-Then I realized that my best solution was to publish a library that recreates the functionality of some `Ramda` methods with less code.
+Then I realized that my best solution was to publish a library that recreates the functionality of some **Ramda** methods with less code.
 
-Rambda partially shadows Ramda's API, so you need to check in Rambda's documentation, if the methods you need are available.
-
-Generally speaking, if you have never used methods such as `R.transduce`, **Rambda** API should be enough for your needs.
+**Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
 
 ## Example use
 
@@ -1269,10 +1273,6 @@ R.without([1, 2], [1, 2, 3, 4]) // => [3, 4]
 ## Tree-shaking
 
 ![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
-
-## Typescript
-
-Rambda's typings are located at `./index.d.ts`, so your IDE should be able to pick it up without any additional actions.
 
 ## Use with ES5
 
