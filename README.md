@@ -38,12 +38,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 ---
 
-> Initial argumentation
-
-I admire **Ramda**, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had **Ramda** habits and I didn't want to switch to **Lodash**.
-
-Then I realized that my best solution was to publish a library that recreates the functionality of some **Ramda** methods with less code.
-
 **Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
 
 ## Example use
