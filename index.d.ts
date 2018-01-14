@@ -21,6 +21,15 @@ declare namespace R {
   }
 
   type IdentityFunction<T> = (x: T) => T
+
+  interface Filter<T> {
+    (list: ReadonlyArray<T>): T[]
+    (obj: Dictionary<T>): Dictionary<T>
+  }
+  
+  interface Dictionary<T> {
+    [index: string]: T
+  }
   // RAMBDA_END  
   type Ord = number | string | boolean
 
@@ -32,15 +41,6 @@ declare namespace R {
   }
 
   type Arity1Fn = (a: any) => any
-
-  interface Dictionary<T> {
-    [index: string]: T
-  }
-
-  interface Filter<T> {
-    (list: ReadonlyArray<T>): T[]
-    (obj: Dictionary<T>): Dictionary<T>
-  }
 
   type Pred = (...a: any[]) => boolean
 
@@ -273,6 +273,9 @@ declare namespace R {
     identity<T>(x: T): T
 
     ifElse(fn: Pred | boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
+    
+    includes(input: any, arrOrStr: any[]|string): boolean
+    includes(input: any) : (arrOrStr: any[]|string) => boolean
 
     init<T>(list: T[]): T[]
     init(list: string): string

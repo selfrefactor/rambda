@@ -34,7 +34,7 @@ Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
 - Typescript included
 
-Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`. 
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 ---
 
