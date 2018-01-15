@@ -34,15 +34,9 @@ Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
 - Typescript included
 
-Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`. 
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 ---
-
-> Initial argumentation
-
-I admire **Ramda**, as it is great library in what it does. My main problem was its size. Even custom builds didn't deliver satisfactory results. Also I already had **Ramda** habits and I didn't want to switch to **Lodash**.
-
-Then I realized that my best solution was to publish a library that recreates the functionality of some **Ramda** methods with less code.
 
 **Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
 
@@ -1282,6 +1276,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.0.9 Close [issue #58](https://github.com/selfrefactor/rambda/issues/58) - Incorrect `R.equals`
 - 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
 - 1.0.7 Add `R.uniqWith`
 - 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
