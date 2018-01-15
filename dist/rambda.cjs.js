@@ -206,45 +206,45 @@ function equals(a, b) {
     const aClone = Array.from(a);
     const bClone = Array.from(b);
 
-    return aClone.sort().toString() === bClone.sort().toString();
+    if (aClone.toString() !== bClone.toString()) {
+
+      return false;
+    }
+    let loopArrayFlag = true;
+
+    aClone.forEach((aCloneInstance, aCloneIndex) => {
+      if (loopArrayFlag) {
+
+        if (aCloneInstance !== bClone[aCloneIndex] && !equals(aCloneInstance, bClone[aCloneIndex])) {
+          loopArrayFlag = false;
+        }
+      }
+    });
+
+    return loopArrayFlag;
   }
 
   if (aType === 'Object') {
     const aKeys = Object.keys(a);
 
-    if (aKeys.length === Object.keys(b).length) {
-      if (aKeys.length === 0) {
-        return true;
-      }
-      let flag = true;
+    if (aKeys.length !== Object.keys(b).length) {
 
-      aKeys.forEach(val => {
-        if (flag) {
-          const aValType = type(a[val]);
-          const bValType = type(b[val]);
-
-          if (aValType === bValType) {
-            if (aValType === 'Object') {
-              if (Object.keys(a[val]).length === Object.keys(b[val]).length) {
-                if (Object.keys(a[val]).length !== 0) {
-                  if (!equals(a[val], b[val])) {
-                    flag = false;
-                  }
-                }
-              } else {
-                flag = false;
-              }
-            } else if (!equals(a[val], b[val])) {
-              flag = false;
-            }
-          } else {
-            flag = false;
-          }
-        }
-      });
-
-      return flag;
+      return false;
     }
+
+    let loopObjectFlag = true;
+    aKeys.forEach(aKeyInstance => {
+      if (loopObjectFlag) {
+        const aValue = a[aKeyInstance];
+        const bValue = b[aKeyInstance];
+
+        if (aValue !== bValue && !equals(aValue, bValue)) {
+          loopObjectFlag = false;
+        }
+      }
+    });
+
+    return loopObjectFlag;
   }
 
   return false;
