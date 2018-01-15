@@ -1,5 +1,28 @@
 const R = require('../../rambda')
 
+test('works with boolean tuple', () => {
+  expect(R.equals([true, false], [true, false])).toBeTruthy()
+  expect(R.equals([true, false], [true, true])).toBeFalsy()
+})
+
+test('works with equal objects within array', () => {
+  const objFirst = {a: {b: 1}}
+  const objSecond = {a: {b: 1}}
+  
+  const x = [1,2,objFirst, null, '', []]
+  const y = [1,2,objSecond, null, '', []]
+  expect(R.equals(x,y)).toBeTruthy()
+})
+
+test('works with different objects within array', () => {
+  const objFirst = {a: {b: 1}}
+  const objSecond = {a: {b: 2}}
+
+  const x = [1,2,objFirst, null, '', []]
+  const y = [1,2,objSecond, null, '', []]
+  expect(R.equals(x,y)).toBeFalsy()
+})
+
 test('works with undefined as second argument', () => {
   expect(R.equals(1, undefined)).toBeFalsy()
 
