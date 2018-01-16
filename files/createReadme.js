@@ -11,7 +11,7 @@ const {rambdaREPL} = require('rambda-repl')
 
 const MARKER_SOURCE = '[Source]'
 const MARKER_CODE = '```'
-const MARKER_METHOD = '####'
+const MARKER_METHOD = '#### '
 
 function getCodeExample(input){
   const [,code, ..._] = input.split(MARKER_CODE)
