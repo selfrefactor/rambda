@@ -3287,6 +3287,12 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
+"rambda-repl@https://github.com/selfrefactor/rambda-repl#0.1.0":
+  version "0.1.0"
+  resolved "https://github.com/selfrefactor/rambda-repl#2cc393bee33b5802223cfbd95d84778cc95a68cc"
+  dependencies:
+    rambdax "^0.8.8"
+
 rambda@^0.8.6, rambda@^0.8.9:
   version "0.8.9"
   resolved "https://registry.yarnpkg.com/rambda/-/rambda-0.8.9.tgz#962a4ffe7a2f700aa1960408a69f11f3a8acd26a"
@@ -3301,11 +3307,21 @@ rambda@^1.0.0:
   dependencies:
     babel-preset-latest "^6.24.1"
 
+rambda@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-1.0.9.tgz#df4fc58aa87547f91dbc2a52bd873bc2ee89af68"
+
 rambdax@^0.5.2:
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-0.5.8.tgz#ed33bf3b87989209bc7a33e707bef7a09bf94ea1"
   dependencies:
     rambda "^0.8.9"
+
+rambdax@^0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-0.8.8.tgz#ea2ea26d68e459d3bd4b25bf1850320bf4951086"
+  dependencies:
+    rambda "^1.0.9"
 
 "rambdax@https://github.com/selfrefactor/rambdax#0.6.8":
   version "0.6.8"
