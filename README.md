@@ -83,6 +83,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 
 ## API
 
+---
 #### add
 
 > add(a: Number, b: Number): Number
@@ -95,6 +96,7 @@ R.add(2, 3) // =>  5
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205)
 
+---
 #### addIndex
 
 > addIndex(fn: Function): Function
@@ -111,6 +113,7 @@ mapWithIndex(
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0AmapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D)
 
+---
 #### adjust
 
 > adjust(replaceFn: Function, i:Number, arr:Array): Array
@@ -125,6 +128,7 @@ R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.adjust(a%20%3D%3E%20a%20%2B%201%2C%200%2C%20%5B0%2C%20100%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D)
 
+---
 #### all
 
 > all(fn: Function, arr: Array): Boolean
@@ -141,6 +145,7 @@ R.all(fn, arr) // => true
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0AR.all(fn%2C%20arr)%20%2F%2F%20%3D%3E%20true)
 
+---
 #### allPass
 
 > allPass(rules: Array<Function>, input: any): Boolean
@@ -163,6 +168,7 @@ R.allPass(rules, obj) // => true
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0AR.allPass(rules%2C%20obj)%20%2F%2F%20%3D%3E%20true)
 
+---
 #### always
 
 > always(x: any): Function
@@ -179,6 +185,7 @@ fn()// => 7
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.always(7)%0A%0Afn()%2F%2F%20%3D%3E%207%0Afn()%2F%2F%20%3D%3E%207)
 
+---
 #### any
 
 > any(condition: Function, arr: Array): Boolean
@@ -195,6 +202,7 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20true%0AR.any(a%20%3D%3E%20a%20*%20a%20%3E%2010)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### append
 
 > append(valueToAppend: any, arr: Array): Array
@@ -207,6 +215,7 @@ R.append('foo', ['bar', 'baz']) // => ['bar', 'baz', 'foo']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.append('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D)
 
+---
 #### both
 
 > both(x: Function, y: Function, input: any): Boolean
@@ -226,6 +235,7 @@ fn(30) //=> false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Afn(15)%20%2F%2F%3D%3E%20true%0Afn(30)%20%2F%2F%3D%3E%20false)
 
+---
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
@@ -243,6 +253,7 @@ console.log(result) // => [6, 8]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0Aconsole.log(result)%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
 
+---
 #### complement
 
 > complement(fn: Function): Function
@@ -259,6 +270,7 @@ R.complement(R.always(true)) // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(0))%20%2F%2F%20%3D%3E%20true%0AR.complement(R.always(true))%20%2F%2F%20%3D%3E%20false)
 
+---
 #### concat
 
 > concat(x: array|string, y: array|string): array|string
@@ -270,6 +282,7 @@ R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo', 'bar') // => 'foobar'
 ```
 
+---
 #### contains
 
 > contains(valueToFind: any, arr: Array): Boolean
@@ -285,6 +298,7 @@ R.contains(3, [1, 2]) // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.contains(2%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20true%0AR.contains(3%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### curry
 
 > curry(fn: Function): Function
@@ -303,6 +317,7 @@ g(4) // => 10
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Ag(4)%20%2F%2F%20%3D%3E%2010)
 
+---
 #### dec
 
 > dec(x: number): number
@@ -313,6 +328,7 @@ It decrements a number.
 R.dec(2) // => 1
 ```
 
+---
 #### defaultTo
 
 > defaultTo(defaultValue: T, inputArgument: any): T
@@ -331,12 +347,14 @@ R.defaultTo('foo', 1) // => 1
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%201)%20%2F%2F%20%3D%3E%201)
 
+---
 #### divide
 
 ```
 R.divide(71, 100) // => 0.71
 ```
 
+---
 #### drop
 
 > drop(howManyToDrop: Number, arrOrStr: Array|String): Array|String
@@ -352,6 +370,7 @@ R.drop(1, 'foo')  // => 'oo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.drop(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%5D%0AR.drop(1%2C%20'foo')%20%20%2F%2F%20%3D%3E%20'oo')
 
+---
 #### dropLast
 
 > dropLast(howManyToDrop: Number, arrOrStr: Array|String): Array|String
@@ -367,6 +386,7 @@ R.dropLast(1, 'foo')  // => 'fo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.dropLast(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%5D%0AR.dropLast(1%2C%20'foo')%20%20%2F%2F%20%3D%3E%20'fo')
 
+---
 #### endsWith
 
 > endsWith(x: String, str: String): Boolean
@@ -387,6 +407,7 @@ R.endsWith(
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20%22foo-bar%22%0A)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### either
 
 ```
@@ -403,6 +424,7 @@ fn(7) //=> false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.either(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A)%0Afn(15)%20%2F%2F%3D%3E%20true%0Afn(6)%20%2F%2F%3D%3E%20true%0Afn(7)%20%2F%2F%3D%3E%20false)
 
+---
 #### equals
 
 > equals(a: any, b: any): Boolean
@@ -421,10 +443,12 @@ R.equals([1, 2, 3], [1, 2, 3]) // => true
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.equals(1%2C%201)%20%2F%2F%20%3D%3E%20true%0AR.equals(%7B%7D%2C%20%7B%7D)%20%2F%2F%20%3D%3E%20false%0AR.equals(%5B1%2C%202%2C%203%5D%2C%20%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20true)
 
+---
 #### F
 
 `R.F() // => false`
 
+---
 #### filter
 
 > filter(filterFn: Function, x: Array|Object): Array|Object
@@ -452,6 +476,7 @@ console.log(result) // => {a: 1, b: 2}
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0AR.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B2%2C%204%5D)
 
+---
 #### find
 
 > find(findFn: Function, arr: Array<T>): T|undefined
@@ -468,6 +493,7 @@ R.find(findFn, arr) // => {foo: 1}
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20%22Number%22%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20%22bar%22%7D%2C%20%7Bfoo%3A%201%7D%5D%0AR.find(findFn%2C%20arr)%20%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D)
 
+---
 #### findIndex
 
 > findIndex(findFn: Function, arr: Array): Number
@@ -484,6 +510,7 @@ R.find(findFn, arr) // => 1
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20%22Number%22%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20%22bar%22%7D%2C%20%7Bfoo%3A%201%7D%5D%0AR.find(findFn%2C%20arr)%20%2F%2F%20%3D%3E%201)
 
+---
 #### flatten
 
 > flatten(arr: Array): Array
@@ -497,6 +524,7 @@ R.flatten([ 1, [ 2, [ 3 ] ] ])
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.flatten(%5B%201%2C%20%5B%202%2C%20%5B%203%20%5D%20%5D%20%5D)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%203%20%5D)
 
+---
 #### flip
 
 > flip(fn: Function): Function
@@ -513,6 +541,7 @@ R.subtractFlip(1,7)
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20subtractFlip%20%3D%20R.flip(R.subtract)%0AR.subtractFlip(1%2C7)%0A%2F%2F%20%3D%3E%206)
 
+---
 #### forEach
 
 > forEach(fn: Function, arr: Array): Array
@@ -535,6 +564,7 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 
 [Try in REPL](https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D)
 
+---
 #### has
 
 > has(prop: String, obj: Object): Boolean
@@ -550,6 +580,7 @@ R.has("b", {a: 1}) // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.has(%22a%22%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20true%0AR.has(%22b%22%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### head
 
 > head(arrOrStr: Array|String): any
@@ -565,6 +596,7 @@ R.head('foo') // => 'f'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.head(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%201%0AR.head('foo')%20%2F%2F%20%3D%3E%20'f')
 
+---
 #### identity
 
 > identity(x: T): T
@@ -574,6 +606,7 @@ It just passes back the supplied arguments.
 R.identity(7) // => 7
 ```
 
+---
 #### ifElse
 
 > ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
@@ -599,6 +632,7 @@ fn(11) // => 22
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.ifElse(%0A%20x%20%3D%3E%20x%20%3E%2010%2C%0A%20x%20%3D%3E%20x*2%2C%0A%20x%20%3D%3E%20x*10%0A)%0Afn(8)%20%2F%2F%20%3D%3E%2080%0Afn(11)%20%2F%2F%20%3D%3E%2022)
 
+---
 #### inc
 
 > inc(x: number): number
@@ -609,6 +643,7 @@ It increments a number.
 R.inc(1) // => 2
 ```
 
+---
 #### includes
 
 > includes(x: any, arrOrStr: Array|String): Boolean
@@ -621,6 +656,7 @@ R.includes('z', 'foo') // => false
 
 !! Note that this method is not part of `Ramda` API.
 
+---
 #### indexOf
 
 > indexOf(valueToFind: any, arr: Array): Number
@@ -635,6 +671,7 @@ R.indexOf(1, [1, 2]) // => 0
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.indexOf(1%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%200)
 
+---
 #### init
 
 > init(arrOrStr: Array|String): Array|String
@@ -650,6 +687,7 @@ R.init('foo')  // => 'fo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.init(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D%0AR.init('foo')%20%20%2F%2F%20%3D%3E%20'fo')
 
+---
 #### join
 
 > join(separator: String, arr: Array): String
@@ -662,6 +700,7 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3')
 
+---
 #### is
 
 > is(xPrototype: any, x: any): boolean
@@ -677,6 +716,7 @@ R.is(Array, 1)  // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F%2F%20%3D%3E%20true%0AR.is(Array%2C%201)%20%20%2F%2F%20%3D%3E%20false)
 
+---
 #### isNil
 
 > isNil(x: any): Boolean
@@ -692,6 +732,7 @@ R.isNil(1)  // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false)
 
+---
 #### last
 
 > last(arrOrStr: Array|String): any
@@ -707,6 +748,7 @@ R.last('foo') // => 'o'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.last(%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20'baz'%0AR.last('foo')%20%2F%2F%20%3D%3E%20'o')
 
+---
 #### lastIndexOf
 
 > lastIndexOf(x: any, arr: Array): Number
@@ -726,6 +768,7 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.lastIndexOf(1%2C%20%5B1%2C%202%2C%203%2C%201%2C%202%5D)%20%2F%2F%20%3D%3E%203%0AR.lastIndexOf(10%2C%20%5B1%2C%202%2C%203%2C%201%2C%202%5D)%20%2F%2F%20%3D%3E%20-1)
 
+---
 #### length
 
 > length(arrOrStr: Array|String): Number
@@ -734,6 +777,7 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 R.length([1, 2, 3]) // => 3
 ```
 
+---
 #### map
 
 > map(mapFn: Function, x: Array|Object): Array|Object
@@ -760,6 +804,7 @@ console.log(result) // => {a: 'a-1', b: 'b-2'}
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20mapFn%20%3D%20x%20%3D%3E%20x%20*%202%3B%0AR.map(mapFn%2C%20%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20%5B2%2C%204%2C%206%5D)
 
+---
 #### match
 
 > match(regExpression: Regex, str: String): Array
@@ -772,6 +817,7 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%20%2F%2F%20%3D%3E%20%5B'ba'%2C%20'na'%2C%20'na'%5D)
 
+---
 #### merge
 
 > merge(a: Object, b: Object)
@@ -787,6 +833,7 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.merge(%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%2C%20%7B%20'foo'%3A%207%20%7D)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D)
 
+---
 #### modulo
 
 > modulo(a: Number, b: Number): Number
@@ -797,6 +844,7 @@ It returns the remainder of operation `a/b`.
 R.module(14,3) // => 2
 ```
 
+---
 #### multiply
 
 > multiply(a: Number, b: Number): Number
@@ -807,6 +855,7 @@ It returns the result of operation `a*b`.
 R.module(14,3) // => 2
 ```
 
+---
 #### not
 
 > not(x: any): Boolean
@@ -820,6 +869,7 @@ R.not(0); //=> true
 R.not(1); //=> false
 ```
 
+---
 #### omit
 
 > omit(propsToOmit: Array<String>, obj: Object): Object
@@ -834,6 +884,7 @@ R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) // => {b: 2, c: 3}
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.omit(%5B'a'%2C%20'd'%5D%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%20%2F%2F%20%3D%3E%20%7Bb%3A%202%2C%20c%3A%203%7D)
 
+---
 #### path
 
 > path(pathToSearch: Array<String>|String, obj: Object): any
@@ -852,6 +903,7 @@ R.path(['a', 'c'], {a: {b: 2}}) // => undefined
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.path('a.b'%2C%20%7Ba%3A%20%7Bb%3A%201%7D%7D)%20%2F%2F%20%3D%3E%201%0AR.path(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.path(%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%20undefined)
 
+---
 #### pathOr
 
 > pathOr(defaultValue: any, pathToSearch: Array<String>|String, obj: Object): any
@@ -872,6 +924,7 @@ R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.pathOr(1%2C%20'a.b'%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%201)
 
+---
 #### partialCurry
 
 > partialCurry(fn: Function|Async, a: Object, b: Object): Function|Promise
@@ -900,6 +953,7 @@ curried({b: 3, c: 10}) // => 16
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20(%7Ba%2C%20b%2C%20c%7D)%20%3D%3E%20%7B%0A%20%20return%20(a%20*%20b)%20%2B%20c%0A%7D%0Aconst%20curried%20%3D%20R.partialCurry(fn%2C%20%7Ba%3A%202%7D)%0Acurried(%7Bb%3A%203%2C%20c%3A%2010%7D)%20%2F%2F%20%3D%3E%2016)
 
+---
 #### pick
 
 > pick(propsToPick: Array<String>, obj: Object): Object
@@ -914,6 +968,7 @@ R.pick(['a', 'c'], {a: 1, b: 2}) // => {a: 1}
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.pick(%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Ba%3A%201%7D)
 
+---
 #### pipe
 
 > pipe(fn1: Function, ... , fnN: Function): any
@@ -931,6 +986,7 @@ console.log(result) // => [6, 8]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%20%20R.filter(val%20%3D%3E%20val%20%3E%202)%2C%0A%20%20R.map(a%20%3D%3E%20a%20*%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0Aconsole.log(result)%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
 
+---
 #### pluck
 
 > pluck(property: String, arr: Array): Array
@@ -945,6 +1001,7 @@ R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) // => [1, 2]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.pluck('a')(%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D)
 
+---
 #### prepend
 
 > prepend(x: any, arr: Array): Array
@@ -959,6 +1016,7 @@ R.prepend('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.prepend('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)
 
+---
 #### prop
 
 > prop(propToFind: String, obj: Object): any
@@ -974,6 +1032,7 @@ R.prop('x', {a: 1}) // => undefined
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.prop('x'%2C%20%7Bx%3A%20100%7D)%20%2F%2F%20%3D%3E%20100%0AR.prop('x'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20undefined)
 
+---
 #### propEq
 
 > propEq(propToFind: String, valueToMatch: any, obj: Object): Boolean
@@ -991,6 +1050,7 @@ R.propEq(propToFind, valueToMatch)({foo: 1}) // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20propToFind%20%3D%20%22foo%22%0Aconst%20valueToMatch%20%3D%200%0AR.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%200%7D)%20%2F%2F%20%3D%3E%20true%0AR.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%201%7D)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### range
 
 > range(start: Number, end: Number): Array<Number>
@@ -1005,6 +1065,7 @@ R.range(0, 2)   // => [0, 1]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.range(0%2C%202)%20%20%20%2F%2F%20%3D%3E%20%5B0%2C%201%5D)
 
+---
 #### reduce
 
 > reduce(iteratorFn: Function, accumulator: any, array: Array): any
@@ -1018,6 +1079,7 @@ R.reduce(iteratorFn, 1, [1, 2, 3])   // => 7
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20iteratorFn%20%3D%20(acc%2C%20val)%20%3D%3E%20acc%20%2B%20val%0AR.reduce(iteratorFn%2C%201%2C%20%5B1%2C%202%2C%203%5D)%20%20%20%2F%2F%20%3D%3E%207)
 
+---
 #### reject
 
 > reject(fn: Function, arr: Array): Array
@@ -1035,6 +1097,7 @@ R.reject(fn, [1, 2, 3, 4]) // => [2, 4]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0AR.reject(fn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B2%2C%204%5D)
 
+---
 #### repeat
 
 > repeat(valueToRepeat: T, num: Number): Array<T>
@@ -1047,6 +1110,7 @@ R.repeat('foo', 2) // => ['foo', 'foo']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.repeat('foo'%2C%202)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'foo'%5D)
 
+---
 #### replace
 
 > replace(strOrRegex: String|Regex, replacer: String, str: String): String
@@ -1063,6 +1127,7 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.replace('foo'%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20foo'%0AR.replace(%2Ffoo%2F%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20foo'%0AR.replace(%2Ffoo%2Fg%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20bar')
 
+---
 #### reverse
 
 ```
@@ -1075,6 +1140,7 @@ console.log(arr) // => [2, 1]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B1%2C%202%5D%0AR.reverse(arr)%0Aconsole.log(arr)%20%2F%2F%20%3D%3E%20%5B2%2C%201%5D)
 
+---
 #### sort
 
 > sort(sortFn: Function, arr: Array): Array
@@ -1092,6 +1158,7 @@ R.sort(sortFn, [3, 1, 2]) // => [1, 2, 3]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20sortFn%20%3D%20(a%2C%20b)%20%3D%3E%20a%20-%20b%0AR.sort(sortFn%2C%20%5B3%2C%201%2C%202%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D)
 
+---
 #### sortBy
 
 > sortBy(sortFn: Function, arr: Array): Array
@@ -1116,6 +1183,7 @@ console.log(result === expectedResult) // => true
 
 [Try in REPL](https://rambda.now.sh?const%20sortFn%20%3D%20obj%20%3D%3E%20obj.foo%0A%0Aconst%20result%20%3D%20R.sortBy(sortFn%2C%20%5B%0A%20%20%7Bfoo%3A%201%7D%2C%0A%20%20%7Bfoo%3A%200%7D%0A%5D)%0A%0Aconst%20expectedResult%20%3D%20%5B%20%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%20%5D%0Aconsole.log(result%20%3D%3D%3D%20expectedResult)%20%2F%2F%20%3D%3E%20true)
 
+---
 #### split
 
 > split(separator: String, str: String): Array
@@ -1128,6 +1196,7 @@ R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.split('-'%2C%20'a-b-c')%20%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'c'%5D)
 
+---
 #### splitEvery
 
 > splitEvery(sliceLength: Number, arrOrString: Array|String): Array
@@ -1143,6 +1212,7 @@ R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.splitEvery(2%2C%20%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%0AR.splitEvery(3%2C%20'foobar')%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%5D)
 
+---
 #### startsWith
 
 > startsWith(x: string, str: String): Boolean
@@ -1163,6 +1233,7 @@ R.startsWith(
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.startsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.startsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20false)
 
+---
 #### subtract
 
 > subtract(a: Number, b: Number): Number
@@ -1171,10 +1242,12 @@ R.startsWith(
 R.subtract(3, 1) // => 2
 ```
 
+---
 #### T
 
 `R.T() // => true`
 
+---
 #### tail
 
 > tail(arrOrStr: Array|String): Array|String
@@ -1190,6 +1263,7 @@ R.tail('foo')  // => 'oo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.tail(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20%5B2%2C%203%5D%0AR.tail('foo')%20%20%2F%2F%20%3D%3E%20'oo')
 
+---
 #### take
 
 > take(num: Number, arrOrStr: Array|String): Array|String
@@ -1205,6 +1279,7 @@ R.take(2, ['foo']) // => 'fo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.take(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%5D%0AR.take(2%2C%20%5B'foo'%5D)%20%2F%2F%20%3D%3E%20'fo')
 
+---
 #### takeLast
 
 > takeLast(num: Number, arrOrStr: Array|String): Array|String
@@ -1220,6 +1295,7 @@ R.takeLast(2, ['foo']) // => 'oo'
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.takeLast(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%5D%0AR.takeLast(2%2C%20%5B'foo'%5D)%20%2F%2F%20%3D%3E%20'oo')
 
+---
 #### test
 
 > test(regExpression: Regex, str: String): Boolean
@@ -1235,6 +1311,7 @@ R.test(/^f/, 'bar') // => false
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.test(%2F%5Ef%2F%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.test(%2F%5Ef%2F%2C%20'bar')%20%2F%2F%20%3D%3E%20false)
 
+---
 #### times
 
 > times(fn: Function, n: Number): Array
@@ -1250,6 +1327,7 @@ R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.times(R.identity%2C%205)%3B%20%2F%2F%3D%3E%20%5B0%2C%201%2C%202%2C%203%2C%204%5D)
 
+---
 #### toLower
 
 > toLower(str: String): String
@@ -1258,11 +1336,13 @@ R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
 R.toLower('FOO') // => 'foo'
 ```
 
+---
 #### toString
 > toString(x: any): String
 
 `R.toString([1, 2]) // => '1,2'`
 
+---
 #### toUpper
 
 > toUpper(str: String): String
@@ -1271,6 +1351,7 @@ R.toLower('FOO') // => 'foo'
 R.toUpper('foo') // => 'FOO'
 ```
 
+---
 #### trim
 
 > trim(str: String): String
@@ -1278,6 +1359,7 @@ R.toUpper('foo') // => 'FOO'
 R.trim('  foo  ') // => 'foo'
 ```
 
+---
 #### type
 
 > type(a: any): String
@@ -1305,6 +1387,7 @@ R.type(delay) // => "Promise"
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20%22Function%22%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20%22Async%22%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20%22Array%22%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20%22Object%22%0AR.type('foo')%20%2F%2F%20%3D%3E%20%22String%22%0AR.type(1)%20%2F%2F%20%3D%3E%20%22Number%22%0AR.type(true)%20%2F%2F%20%3D%3E%20%22Boolean%22%0AR.type(null)%20%2F%2F%20%3D%3E%20%22Null%22%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20%22RegExp%22%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20%22Promise%22)
 
+---
 #### uniq
 
 > uniq(arr: Array): Array
@@ -1320,6 +1403,7 @@ R.uniq([1, '1'])     // => [1, '1']
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.uniq(%5B1%2C%201%2C%202%2C%201%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D%0AR.uniq(%5B1%2C%20'1'%5D)%20%20%20%20%20%2F%2F%20%3D%3E%20%5B1%2C%20'1'%5D)
 
+---
 #### uniqWith
 
 > uniqWith(fn: Function, arr: Array): Array
@@ -1352,6 +1436,7 @@ console.log(result === expectedResult) // => true
 
 [Try in REPL](https://rambda.now.sh?const%20arr%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%20%20%7Bid%3A%203%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%204%2C%20title%3A'bar'%7D%2C%0A%5D%0A%0Aconst%20expectedResult%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%5D%0A%0Aconst%20fn%20%3D%20(x%2Cy)%20%3D%3E%20x.title%20%3D%3D%3D%20y.title%0A%0Aconst%20result%20%3D%20R.uniqWith(fn%2C%20arr)%0A%0Aconsole.log(result%20%3D%3D%3D%20expectedResult)%20%2F%2F%20%3D%3E%20true)
 
+---
 #### update
 
 > update(i: Number, replaceValue: any, arr: Array): Array
@@ -1367,6 +1452,7 @@ R.update(0, "foo", ['bar', 'baz']) // => ['foo', baz]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.update(0%2C%20%22foo%22%2C%20%5B'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20baz%5D)
 
+---
 #### values
 
 > values(obj: Object): Array
@@ -1381,6 +1467,7 @@ R.values({a: 1, b: 2}) // => [1, 2]
 
 [Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.values(%7Ba%3A%201%2C%20b%3A%202%7D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D)
 
+---
 #### without
 
 > without(a: Array, b: Array): Array

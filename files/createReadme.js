@@ -12,6 +12,8 @@ const {rambdaREPL} = require('rambda-repl')
 const MARKER_SOURCE = '[Source]'
 const MARKER_CODE = '```'
 const MARKER_METHOD = '#### '
+const MARKER_METHOD_LINE = `---
+#### `
 
 function getCodeExample(input){
   const [,code, ..._] = input.split(MARKER_CODE)
@@ -59,7 +61,7 @@ void function createReadme() {
     }
   })
 
-  const newReadme = contentWithREPL.join(MARKER_METHOD)
+  const newReadme = contentWithREPL.join(MARKER_METHOD_LINE)
   
   writeFileSync(outputPath, newReadme)
 }()
