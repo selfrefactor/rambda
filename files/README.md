@@ -99,7 +99,7 @@ R.add(2, 3) // =>  5
 
 ```
 const mapWithIndex = R.addIndex(R.map)
-mapWithIndex(
+const result = mapWithIndex(
   (val, index) => `${val} - ${index}`,
   ['A', 'B', 'C']
 ) // => ['A - 0', 'B - 1', 'C - 2']
@@ -114,7 +114,11 @@ mapWithIndex(
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```
-R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
+R.adjust(
+  a => a + 1,
+  0, 
+  [0, 100]
+) // => [1, 100]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/adjust.js)
@@ -128,7 +132,7 @@ It returns `true` if all members of array `arr` returns `true`, when applied as 
 ```
 const arr = [ 0, 1, 2, 3, 4 ]
 const fn = x => x > -1
-R.all(fn, arr) // => true
+const result = R.all(fn, arr) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/all.js)
@@ -148,7 +152,7 @@ const rules = [
   x => x.a === 1,
   x => x.b === 2,
 ]
-R.allPass(rules, obj) // => true
+const result = R.allPass(rules, obj) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/allPass.js)
@@ -159,10 +163,10 @@ R.allPass(rules, obj) // => true
 
 It returns function that always returns `x`.
 ```
-const fn = R.always(7)
+const returnSeven = R.always(7)
 
-fn()// => 7
-fn()// => 7
+console.log(returnSeven)// => 7
+console.log(returnSeven)// => 7
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
@@ -176,7 +180,6 @@ when passed to the `condition` function.
 
 ```
 R.any(a => a * a > 8)([1, 2, 3]) // => true
-R.any(a => a * a > 10)([1, 2, 3]) // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
@@ -186,7 +189,10 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 > append(valueToAppend: any, arr: Array): Array
 
 ```
-R.append('foo', ['bar', 'baz']) // => ['bar', 'baz', 'foo']
+R.append(
+  'foo', 
+  ['bar', 'baz']
+) // => ['bar', 'baz', 'foo']
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
@@ -202,8 +208,8 @@ const fn = R.both(
   a => a > 10,
   a => a < 20
 )
-fn(15) //=> true
-fn(30) //=> false
+console.log(fn(15)) //=> true
+console.log(fn(30)) //=> false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
@@ -217,8 +223,7 @@ It performs right-to-left function composition.
 const result = R.compose(
   R.map(x => x * 2)
   R.filter(x => x > 2),
-)([1, 2, 3, 4])
-console.log(result) // => [6, 8]
+)([1, 2, 3, 4])  // => [6, 8]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
@@ -232,8 +237,8 @@ It returns `complemented` function that accept `input` as argument.
 The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 ```
-R.complement(R.always(0)) // => true
 R.complement(R.always(true)) // => false
+R.complement(R.always(false)) // => true
 ```
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
@@ -245,7 +250,7 @@ It returns a new string or array, which is the result of merging `x` and `y`.
 
 ```
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
-R.concat('foo', 'bar') // => 'foobar'
+R.concat('foo')('bar') // => 'foobar'
 ```
 
 #### contains
@@ -272,7 +277,7 @@ const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)
 const f = curriedAddFourNumbers(1, 2)
 const g = f(3)
-g(4) // => 10
+const result = g(4) // => 10
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
@@ -280,7 +285,6 @@ g(4) // => 10
 #### dec
 
 > dec(x: number): number
-
 
 It decrements a number.
 ```
@@ -296,9 +300,8 @@ It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 It returns `inputArgument` in any other case.
 
 ```
-R.defaultTo('foo', undefined) // => 'foo'
-R.defaultTo('foo', 'bar') // => 'bar'
-R.defaultTo('foo', 1) // => 1
+console.log(R.defaultTo('foo', undefined)) // => 'foo'
+console.log(R.defaultTo('foo', 'bar')) // => 'bar'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)

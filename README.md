@@ -103,7 +103,7 @@ R.add(2, 3) // =>  5
 
 ```
 const mapWithIndex = R.addIndex(R.map)
-mapWithIndex(
+const result = mapWithIndex(
   (val, index) => `${val} - ${index}`,
   ['A', 'B', 'C']
 ) // => ['A - 0', 'B - 1', 'C - 2']
@@ -111,7 +111,7 @@ mapWithIndex(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/addIndex.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0AmapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0Aconst%20result%20%3D%20mapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D)
 
 ---
 #### adjust
@@ -121,12 +121,16 @@ mapWithIndex(
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```
-R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
+R.adjust(
+  a => a + 1,
+  0, 
+  [0, 100]
+) // => [1, 100]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/adjust.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.adjust(a%20%3D%3E%20a%20%2B%201%2C%200%2C%20%5B0%2C%20100%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%200%2C%20%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D)
 
 ---
 #### all
@@ -138,12 +142,12 @@ It returns `true` if all members of array `arr` returns `true`, when applied as 
 ```
 const arr = [ 0, 1, 2, 3, 4 ]
 const fn = x => x > -1
-R.all(fn, arr) // => true
+const result = R.all(fn, arr) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/all.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0AR.all(fn%2C%20arr)%20%2F%2F%20%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### allPass
@@ -161,12 +165,12 @@ const rules = [
   x => x.a === 1,
   x => x.b === 2,
 ]
-R.allPass(rules, obj) // => true
+const result = R.allPass(rules, obj) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/allPass.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0AR.allPass(rules%2C%20obj)%20%2F%2F%20%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules%2C%20obj)%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### always
@@ -175,15 +179,15 @@ R.allPass(rules, obj) // => true
 
 It returns function that always returns `x`.
 ```
-const fn = R.always(7)
+const returnSeven = R.always(7)
 
-fn()// => 7
-fn()// => 7
+console.log(returnSeven)// => 7
+console.log(returnSeven)// => 7
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.always(7)%0A%0Afn()%2F%2F%20%3D%3E%207%0Afn()%2F%2F%20%3D%3E%207)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20returnSeven%20%3D%20R.always(7)%0A%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207)
 
 ---
 #### any
@@ -195,12 +199,11 @@ when passed to the `condition` function.
 
 ```
 R.any(a => a * a > 8)([1, 2, 3]) // => true
-R.any(a => a * a > 10)([1, 2, 3]) // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20true%0AR.any(a%20%3D%3E%20a%20*%20a%20%3E%2010)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### append
@@ -208,12 +211,15 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 > append(valueToAppend: any, arr: Array): Array
 
 ```
-R.append('foo', ['bar', 'baz']) // => ['bar', 'baz', 'foo']
+R.append(
+  'foo', 
+  ['bar', 'baz']
+) // => ['bar', 'baz', 'foo']
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.append('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.append(%0A%20%20'foo'%2C%20%0A%20%20%5B'bar'%2C%20'baz'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D)
 
 ---
 #### both
@@ -227,13 +233,13 @@ const fn = R.both(
   a => a > 10,
   a => a < 20
 )
-fn(15) //=> true
-fn(30) //=> false
+console.log(fn(15)) //=> true
+console.log(fn(30)) //=> false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Afn(15)%20%2F%2F%3D%3E%20true%0Afn(30)%20%2F%2F%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false)
 
 ---
 #### compose
@@ -245,13 +251,12 @@ It performs right-to-left function composition.
 const result = R.compose(
   R.map(x => x * 2)
   R.filter(x => x > 2),
-)([1, 2, 3, 4])
-console.log(result) // => [6, 8]
+)([1, 2, 3, 4])  // => [6, 8]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0Aconsole.log(result)%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
 
 ---
 #### complement
@@ -263,12 +268,12 @@ It returns `complemented` function that accept `input` as argument.
 The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 ```
-R.complement(R.always(0)) // => true
 R.complement(R.always(true)) // => false
+R.complement(R.always(false)) // => true
 ```
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(0))%20%2F%2F%20%3D%3E%20true%0AR.complement(R.always(true))%20%2F%2F%20%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(true))%20%2F%2F%20%3D%3E%20false%0AR.complement(R.always(false))%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### concat
@@ -279,7 +284,7 @@ It returns a new string or array, which is the result of merging `x` and `y`.
 
 ```
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
-R.concat('foo', 'bar') // => 'foobar'
+R.concat('foo')('bar') // => 'foobar'
 ```
 
 ---
@@ -310,18 +315,17 @@ const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)
 const f = curriedAddFourNumbers(1, 2)
 const g = f(3)
-g(4) // => 10
+const result = g(4) // => 10
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Ag(4)%20%2F%2F%20%3D%3E%2010)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F%2F%20%3D%3E%2010)
 
 ---
 #### dec
 
 > dec(x: number): number
-
 
 It decrements a number.
 ```
@@ -338,14 +342,13 @@ It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 It returns `inputArgument` in any other case.
 
 ```
-R.defaultTo('foo', undefined) // => 'foo'
-R.defaultTo('foo', 'bar') // => 'bar'
-R.defaultTo('foo', 1) // => 1
+console.log(R.defaultTo('foo', undefined)) // => 'foo'
+console.log(R.defaultTo('foo', 'bar')) // => 'bar'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%201)%20%2F%2F%20%3D%3E%201)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20console.log(R.defaultTo('foo'%2C%20undefined))%20%2F%2F%20%3D%3E%20'foo'%0Aconsole.log(R.defaultTo('foo'%2C%20'bar'))%20%2F%2F%20%3D%3E%20'bar')
 
 ---
 #### divide
