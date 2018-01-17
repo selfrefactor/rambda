@@ -1,5 +1,16 @@
 const R = require('../../rambda')
 
+test('dev', ()=>{
+  const result = R.equals(
+    [1, {a:1}, [{b:3}]],
+    [1, {a:2}, [{b:3}]]
+  ) 
+
+  expect(
+    result
+  ).toBeFalsy()
+})
+
 test('Ramda spec', ()=>{
   expect(R.equals({}, {})).toEqual(true)
   expect(R.equals({a:1, b:2}, {a:1, b:2})).toEqual(true)

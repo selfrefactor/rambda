@@ -35,6 +35,7 @@ function getMethod(sourceLink){
     '',
     fileNameRaw
   )
+
   // 4 because we need to remove `.js)`
   return dropLast(4, fileName.trim())
 }
@@ -44,7 +45,7 @@ function getContentWithREPL(input){
   const method = getMethod(sourceLink)
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
-  const markdownLink = `[Try in REPL](${replLink})`
+  const markdownLink = `<a href="${replLink}">Try in REPL</a>`
 
   return `${input.trim()}\n\n${markdownLink}\n\n`
 }
