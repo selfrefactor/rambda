@@ -111,7 +111,7 @@ const result = mapWithIndex(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/addIndex.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0Aconst%20result%20%3D%20mapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D)
+[Try in REPL](https://rambda.now.sh?const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0Aconst%20result%20%3D%20mapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D)
 
 ---
 #### adjust
@@ -147,7 +147,7 @@ const result = R.all(fn, arr) // => true
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/all.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%20%2F%2F%20%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### allPass
@@ -170,7 +170,7 @@ const result = R.allPass(rules, obj) // => true
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/allPass.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules%2C%20obj)%20%2F%2F%20%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules%2C%20obj)%20%2F%2F%20%3D%3E%20true)
 
 ---
 #### always
@@ -187,7 +187,7 @@ console.log(returnSeven)// => 7
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20returnSeven%20%3D%20R.always(7)%0A%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207)
+[Try in REPL](https://rambda.now.sh?const%20returnSeven%20%3D%20R.always(7)%0A%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207)
 
 ---
 #### any
@@ -239,7 +239,7 @@ console.log(fn(30)) //=> false
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false)
 
 ---
 #### compose
@@ -256,7 +256,7 @@ const result = R.compose(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D)
 
 ---
 #### complement
@@ -320,7 +320,7 @@ const result = g(4) // => 10
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F%2F%20%3D%3E%2010)
+[Try in REPL](https://rambda.now.sh?const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F%2F%20%3D%3E%2010)
 
 ---
 #### dec
@@ -348,7 +348,7 @@ console.log(R.defaultTo('foo', 'bar')) // => 'bar'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20console.log(R.defaultTo('foo'%2C%20undefined))%20%2F%2F%20%3D%3E%20'foo'%0Aconsole.log(R.defaultTo('foo'%2C%20'bar'))%20%2F%2F%20%3D%3E%20'bar')
+[Try in REPL](https://rambda.now.sh?console.log(R.defaultTo('foo'%2C%20undefined))%20%2F%2F%20%3D%3E%20'foo'%0Aconsole.log(R.defaultTo('foo'%2C%20'bar'))%20%2F%2F%20%3D%3E%20'bar')
 
 ---
 #### divide
@@ -1141,7 +1141,7 @@ console.log(arr) // => [2, 1]
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/reverse.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20arr%20%3D%20%5B1%2C%202%5D%0AR.reverse(arr)%0Aconsole.log(arr)%20%2F%2F%20%3D%3E%20%5B2%2C%201%5D)
+[Try in REPL](https://rambda.now.sh?const%20arr%20%3D%20%5B1%2C%202%5D%0AR.reverse(arr)%0Aconsole.log(arr)%20%2F%2F%20%3D%3E%20%5B2%2C%201%5D)
 
 ---
 #### sort

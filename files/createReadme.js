@@ -22,12 +22,19 @@ function getCodeExample(input){
 
 function getMethod(sourceLink){
   const baseURL = '(https://github.com/selfrefactor/rambda/tree/master/modules/'
-  const fileName = replace(
+  const rambdaxBaseURL = '(https://github.com/selfrefactor/rambdax/tree/master/modules/'
+  
+  const fileNameRaw = replace(
     baseURL,
     '',
     sourceLink
   )
   
+  const fileName = replace(
+    rambdaxBaseURL,
+    '',
+    fileNameRaw
+  )
   // 4 because we need to remove `.js)`
   return dropLast(4, fileName.trim())
 }
@@ -38,6 +45,7 @@ function getContentWithREPL(input){
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
   const markdownLink = `[Try in REPL](${replLink})`
+
   return `${input.trim()}\n\n${markdownLink}\n\n`
 }
 
