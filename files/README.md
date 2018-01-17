@@ -85,7 +85,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 
 #### add
 
-> add(a: Number, b: Number): Number
+> add(a: number, b: number): number
 
 ```
 R.add(2, 3) // =>  5
@@ -109,14 +109,14 @@ const result = mapWithIndex(
 
 #### adjust
 
-> adjust(replaceFn: Function, i:Number, arr:Array): Array
+> adjust(replaceFn: Function, i: number, arr: T[]): T[]
 
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```
 R.adjust(
   a => a + 1,
-  0, 
+  0,
   [0, 100]
 ) // => [1, 100]
 ```
@@ -125,9 +125,9 @@ R.adjust(
 
 #### all
 
-> all(fn: Function, arr: Array): Boolean
+> all(fn: Function, arr: T[]): boolean
 
-It returns `true` if all members of array `arr` returns `true`, when applied as argument to function `fn`.
+It returns `true`, if all members of array `arr` returns `true`, when applied as argument to function `fn`.
 
 ```
 const arr = [ 0, 1, 2, 3, 4 ]
@@ -139,9 +139,9 @@ const result = R.all(fn, arr) // => true
 
 #### allPass
 
-> allPass(rules: Array<Function>, input: any): Boolean
+> allPass(rules: Function[], input: any): boolean
 
-It returns `true` if all functions of `rules` return `true`, when `input` is their argument.
+It returns `true`, if all functions of `rules` return `true`, when `input` is their argument.
 
 ```
 const input = {
@@ -173,10 +173,9 @@ console.log(returnSeven)// => 7
 
 #### any
 
-> any(condition: Function, arr: Array): Boolean
+> any(condition: Function, arr: T[]): Boolean
 
-It returns true if at least one member of `arr` returns true,
-when passed to the `condition` function.
+It returns `true`, if at least one member of `arr` returns true, when passed to the `condition` function.
 
 ```
 R.any(a => a * a > 8)([1, 2, 3]) // => true
@@ -186,11 +185,11 @@ R.any(a => a * a > 8)([1, 2, 3]) // => true
 
 #### append
 
-> append(valueToAppend: any, arr: Array): Array
+> append(valueToAppend: T, arr: T[]): T[]
 
 ```
 R.append(
-  'foo', 
+  'foo',
   ['bar', 'baz']
 ) // => ['bar', 'baz', 'foo']
 ```
@@ -199,9 +198,9 @@ R.append(
 
 #### both
 
-> both(x: Function, y: Function, input: any): Boolean
+> both(firstCondition: Function, secondCondition: Function, input: any): boolean
 
-It returns `true` if both function `x` and function `y` return `true`, when `input` is their argument.
+It returns `true`, if both function `firstCondition` and function `secondCondition` return `true`, when `input` is their argument.
 
 ```
 const fn = R.both(
@@ -244,7 +243,7 @@ R.complement(R.always(false)) // => true
 
 #### concat
 
-> concat(x: array|string, y: array|string): array|string
+> concat(x: T[]|string, y: T[]|string): T[]|string
 
 It returns a new string or array, which is the result of merging `x` and `y`.
 
@@ -255,9 +254,9 @@ R.concat('foo')('bar') // => 'foobar'
 
 #### contains
 
-> contains(valueToFind: any, arr: Array): Boolean
+> contains(valueToFind: T, arr: T[]): boolean
 
-It returns true if `valueToFind` is part of `arr`.
+It returns `true`, if `valueToFind` is part of `arr`.
 
 ```
 R.contains(2, [1, 2]) // => true
@@ -300,8 +299,8 @@ It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 It returns `inputArgument` in any other case.
 
 ```
-console.log(R.defaultTo('foo', undefined)) // => 'foo'
-console.log(R.defaultTo('foo', 'bar')) // => 'bar'
+R.defaultTo('foo', undefined) // => 'foo'
+R.defaultTo('foo', 'bar') // => 'bar'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
@@ -314,7 +313,7 @@ R.divide(71, 100) // => 0.71
 
 #### drop
 
-> drop(howManyToDrop: Number, arrOrStr: Array|String): Array|String
+> drop(howManyToDrop: number, arrOrStr: T[]|string): T[]|String
 
 It returns `arrOrStr` with `howManyToDrop` items dropped from the left.
 
@@ -327,7 +326,7 @@ R.drop(1, 'foo')  // => 'oo'
 
 #### dropLast
 
-> dropLast(howManyToDrop: Number, arrOrStr: Array|String): Array|String
+> dropLast(howManyToDrop: number, arrOrStr: T[]|String): T[]|String
 
 It returns `arrOrStr` with `howManyToDrop` items dropped from the right.
 
@@ -340,7 +339,7 @@ R.dropLast(1, 'foo')  // => 'fo'
 
 #### endsWith
 
-> endsWith(x: String, str: String): Boolean
+> endsWith(x: string, str: string): boolean
 
 ```
 R.endsWith(
@@ -358,30 +357,30 @@ R.endsWith(
 
 #### either
 
+> endsWith(firstCondition: Function, secondCondition: Function): Function
+
 ```
-const fn = R.either(
+R.either(
   a => a > 10,
   a => a % 2 === 0
-)
-fn(15) //=> true
-fn(6) //=> true
-fn(7) //=> false
+)(15) //=> true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/either.js)
 
 #### equals
 
-> equals(a: any, b: any): Boolean
+> equals(a: any, b: any): boolean
 
 It returns equality match between `a` and `b`.
 
 It doesn't handle cyclical data structures.
 
 ```
-R.equals(1, 1) // => true
-R.equals({}, {}) // => false
-R.equals([1, 2, 3], [1, 2, 3]) // => true
+R.equals(
+  [1, {a:2}, [{b:3}]],
+  [1, {a:2}, [{b:3}]]
+) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/equals.js)
@@ -402,50 +401,55 @@ const filterFn = a => a % 2 === 0
 R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
 ```
 
-The method works with objects as well. 
+The method works with objects as well.
 
 Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
 
 ```
 const result = R.filter((val, prop)=>{
-  return prop === 'a' || val === 2  
-}, {a: 1, b: 2, c: 3}) 
-console.log(result) // => {a: 1, b: 2}
+  return prop === 'a' || val === 2
+}, {a: 1, b: 2, c: 3})
+
+// => {a: 1, b: 2}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
 
 #### find
 
-> find(findFn: Function, arr: Array<T>): T|undefined
+> find(findFn: Function, arr: T[]): T|undefined
 
 It returns `undefined` or the first element of `arr` satisfying `findFn`.
 
 ```
 const findFn = a => R.type(a.foo) === "Number"
 const arr = [{foo: "bar"}, {foo: 1}]
-R.find(findFn, arr) // => {foo: 1}
+
+const result = R.find(findFn, arr) 
+// => {foo: 1}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
 
 #### findIndex
 
-> findIndex(findFn: Function, arr: Array): Number
+> findIndex(findFn: Function, arr: T[]): number
 
 It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 
 ```
 const findFn = a => R.type(a.foo) === "Number"
 const arr = [{foo: "bar"}, {foo: 1}]
-R.find(findFn, arr) // => 1
+
+const result = R.find(findFn, arr) 
+// => 1
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
 
 #### flatten
 
-> flatten(arr: Array): Array
+> flatten(arr: any[]): any[]
 
 ```
 R.flatten([ 1, [ 2, [ 3 ] ] ])
@@ -462,7 +466,8 @@ It returns function which calls `fn` with exchanged first and second argument.
 
 ```
 const subtractFlip = R.flip(R.subtract)
-R.subtractFlip(1,7)
+
+const result = R.subtractFlip(1,7)
 // => 6
 ```
 
