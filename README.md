@@ -403,13 +403,13 @@ R.endsWith(
 
 R.endsWith(
   'foo',
-  "foo-bar"
+  'foo-bar'
 ) // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/endsWith.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20%22foo-bar%22%0A)%20%2F%2F%20%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20false)
 
 ---
 #### either
@@ -489,8 +489,8 @@ const result = R.filter((val, prop)=>{
 It returns `undefined` or the first element of `arr` satisfying `findFn`.
 
 ```
-const findFn = a => R.type(a.foo) === "Number"
-const arr = [{foo: "bar"}, {foo: 1}]
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
 // => {foo: 1}
@@ -498,7 +498,7 @@ const result = R.find(findFn, arr)
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
 
-[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20%22Number%22%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20%22bar%22%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D)
+[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D)
 
 ---
 #### findIndex
@@ -508,8 +508,8 @@ const result = R.find(findFn, arr)
 It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 
 ```
-const findFn = a => R.type(a.foo) === "Number"
-const arr = [{foo: "bar"}, {foo: 1}]
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
 // => 1
@@ -517,7 +517,7 @@ const result = R.find(findFn, arr)
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
 
-[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20%22Number%22%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20%22bar%22%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%201)
+[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%201)
 
 ---
 #### flatten
@@ -582,13 +582,13 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 - It returns `true` if `obj` has property `prop`.
 
 ```
-R.has("a", {a: 1}) // => true
-R.has("b", {a: 1}) // => false
+R.has('a', {a: 1}) // => true
+R.has('b', {a: 1}) // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/has.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.has(%22a%22%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20true%0AR.has(%22b%22%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.has('a'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20true%0AR.has('b'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20false)
 
 ---
 #### head
@@ -1056,7 +1056,7 @@ R.prop('x', {a: 1}) // => undefined
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
 
 ```
-const propToFind = "foo"
+const propToFind = 'foo'
 const valueToMatch = 0
 
 const result = R.propEq(propToFind, valueToMatch)({foo: 0})
@@ -1065,7 +1065,7 @@ const result = R.propEq(propToFind, valueToMatch)({foo: 0})
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/propEq.js)
 
-[Try in REPL](https://rambda.now.sh?const%20propToFind%20%3D%20%22foo%22%0Aconst%20valueToMatch%20%3D%200%0A%0Aconst%20result%20%3D%20R.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%200%7D)%0A%2F%2F%20%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%200%0A%0Aconst%20result%20%3D%20R.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%200%7D)%0A%2F%2F%20%3D%3E%20true)
 
 ---
 #### range
@@ -1394,27 +1394,27 @@ R.trim('  foo  ') // => 'foo'
 > type(a: any): string
 
 ```
-R.type(() => {}) // => "Function"
-R.type(async () => {}) // => "Async"
-R.type([]) // => "Array"
-R.type({}) // => "Object"
-R.type('foo') // => "String"
-R.type(1) // => "Number"
-R.type(true) // => "Boolean"
-R.type(null) // => "Null"
-R.type(/[A-z]/) // => "RegExp"
+R.type(() => {}) // => 'Function'
+R.type(async () => {}) // => 'Async'
+R.type([]) // => 'Array'
+R.type({}) // => 'Object'
+R.type('foo') // => 'String'
+R.type(1) // => 'Number'
+R.type(true) // => 'Boolean'
+R.type(null) // => 'Null'
+R.type(/[A-z]/) // => 'RegExp'
 
 const delay = ms => new Promise(resolve => {
   setTimeout(function () {
     resolve()
   }, ms)
 })
-R.type(delay) // => "Promise"
+R.type(delay) // => 'Promise'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/type.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20%22Function%22%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20%22Async%22%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20%22Array%22%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20%22Object%22%0AR.type('foo')%20%2F%2F%20%3D%3E%20%22String%22%0AR.type(1)%20%2F%2F%20%3D%3E%20%22Number%22%0AR.type(true)%20%2F%2F%20%3D%3E%20%22Boolean%22%0AR.type(null)%20%2F%2F%20%3D%3E%20%22Null%22%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20%22RegExp%22%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20%22Promise%22)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Function'%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Async'%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20'Array'%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20'Object'%0AR.type('foo')%20%2F%2F%20%3D%3E%20'String'%0AR.type(1)%20%2F%2F%20%3D%3E%20'Number'%0AR.type(true)%20%2F%2F%20%3D%3E%20'Boolean'%0AR.type(null)%20%2F%2F%20%3D%3E%20'Null'%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20'RegExp'%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20'Promise')
 
 ---
 #### uniq
@@ -1474,13 +1474,13 @@ It returns a new copy of the `arr` with the element at `i` index
 replaced with `replaceValue`.
 
 ```
-R.update(0, "foo", ['bar', 'baz'])
+R.update(0, 'foo', ['bar', 'baz'])
 // => ['foo', baz]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/update.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.update(0%2C%20%22foo%22%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20baz%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.update(0%2C%20'foo'%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20baz%5D)
 
 ---
 #### values

@@ -351,7 +351,7 @@ R.endsWith(
 
 R.endsWith(
   'foo',
-  "foo-bar"
+  'foo-bar'
 ) // => false
 ```
 
@@ -424,8 +424,8 @@ const result = R.filter((val, prop)=>{
 It returns `undefined` or the first element of `arr` satisfying `findFn`.
 
 ```
-const findFn = a => R.type(a.foo) === "Number"
-const arr = [{foo: "bar"}, {foo: 1}]
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
 // => {foo: 1}
@@ -440,8 +440,8 @@ const result = R.find(findFn, arr)
 It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 
 ```
-const findFn = a => R.type(a.foo) === "Number"
-const arr = [{foo: "bar"}, {foo: 1}]
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
 // => 1
@@ -502,8 +502,8 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 - It returns `true` if `obj` has property `prop`.
 
 ```
-R.has("a", {a: 1}) // => true
-R.has("b", {a: 1}) // => false
+R.has('a', {a: 1}) // => true
+R.has('b', {a: 1}) // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/has.js)
@@ -901,7 +901,7 @@ R.prop('x', {a: 1}) // => undefined
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
 
 ```
-const propToFind = "foo"
+const propToFind = 'foo'
 const valueToMatch = 0
 
 const result = R.propEq(propToFind, valueToMatch)({foo: 0})
@@ -1182,22 +1182,22 @@ R.trim('  foo  ') // => 'foo'
 > type(a: any): string
 
 ```
-R.type(() => {}) // => "Function"
-R.type(async () => {}) // => "Async"
-R.type([]) // => "Array"
-R.type({}) // => "Object"
-R.type('foo') // => "String"
-R.type(1) // => "Number"
-R.type(true) // => "Boolean"
-R.type(null) // => "Null"
-R.type(/[A-z]/) // => "RegExp"
+R.type(() => {}) // => 'Function'
+R.type(async () => {}) // => 'Async'
+R.type([]) // => 'Array'
+R.type({}) // => 'Object'
+R.type('foo') // => 'String'
+R.type(1) // => 'Number'
+R.type(true) // => 'Boolean'
+R.type(null) // => 'Null'
+R.type(/[A-z]/) // => 'RegExp'
 
 const delay = ms => new Promise(resolve => {
   setTimeout(function () {
     resolve()
   }, ms)
 })
-R.type(delay) // => "Promise"
+R.type(delay) // => 'Promise'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/type.js)
@@ -1253,7 +1253,7 @@ It returns a new copy of the `arr` with the element at `i` index
 replaced with `replaceValue`.
 
 ```
-R.update(0, "foo", ['bar', 'baz'])
+R.update(0, 'foo', ['bar', 'baz'])
 // => ['foo', baz]
 ```
 
