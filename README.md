@@ -239,13 +239,13 @@ const fn = R.both(
   a => a > 10,
   a => a < 20
 )
-console.log(fn(15)) //=> true
-console.log(fn(30)) //=> false
+console.log(fn(15)) /* true */
+console.log(fn(30)) /* false */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
 
-[Try in REPL](https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false)
+[Try in REPL](https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F*%20true%20*%2F%0Aconsole.log(fn(30))%20%2F*%20false%20*%2F)
 
 ---
 #### compose
@@ -257,12 +257,12 @@ It performs right-to-left function composition.
 const result = R.compose(
   R.map(x => x * 2)
   R.filter(x => x > 2),
-)([1, 2, 3, 4])  /* 5 */ [6, 8]
+)([1, 2, 3, 4])  /* [6, 8] */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F*%205%20*%2F%20%5B6%2C%208%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F*%20%5B6%2C%208%5D%20*%2F)
 
 ---
 #### complement
@@ -274,12 +274,13 @@ It returns `complemented` function that accept `input` as argument.
 The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 ```
-R.complement(R.always(true)) /* 5 */ false
-R.complement(R.always(false)) /* 5 */ true
+R.complement(R.always(true)) /* false */
+R.complement(R.always(false)) /* true */
 ```
+
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(true))%20%2F*%205%20*%2F%20false%0AR.complement(R.always(false))%20%2F*%205%20*%2F%20true)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(true))%20%2F*%20false%20*%2F%0AR.complement(R.always(false))%20%2F*%20true%20*%2F)
 
 ---
 #### concat
@@ -321,12 +322,12 @@ const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)
 const f = curriedAddFourNumbers(1, 2)
 const g = f(3)
-const result = g(4) /* 5 */ 10
+const result = g(4) /* 10 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
 
-[Try in REPL](https://rambda.now.sh?const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F*%205%20*%2F%2010)
+[Try in REPL](https://rambda.now.sh?const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F*%2010%20*%2F)
 
 ---
 #### dec
@@ -335,7 +336,7 @@ const result = g(4) /* 5 */ 10
 
 It decrements a number.
 ```
-R.dec(2) /* 5 */ 1
+R.dec(2) /* 1 */
 ```
 
 ---
@@ -348,19 +349,19 @@ It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 It returns `inputArgument` in any other case.
 
 ```
-R.defaultTo('foo', undefined) /* 5 */ 'foo'
-R.defaultTo('foo', 'bar') /* 5 */ 'bar'
+R.defaultTo('foo', undefined) /* 'foo' */
+R.defaultTo('foo', 'bar') /* 'bar' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F*%205%20*%2F%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F*%205%20*%2F%20'bar')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F*%20'foo'%20*%2F%0AR.defaultTo('foo'%2C%20'bar')%20%2F*%20'bar'%20*%2F)
 
 ---
 #### divide
 
 ```
-R.divide(71, 100) /* 5 */ 0.71
+R.divide(71, 100) /* 0.71 */
 ```
 
 ---
@@ -371,13 +372,13 @@ R.divide(71, 100) /* 5 */ 0.71
 It returns `arrOrStr` with `howManyToDrop` items dropped from the left.
 
 ```
-R.drop(1, ['foo', 'bar', 'baz']) /* 5 */ ['bar', 'baz']
-R.drop(1, 'foo')  /* 5 */ 'oo'
+R.drop(1, ['foo', 'bar', 'baz']) /* ['bar', 'baz'] */
+R.drop(1, 'foo')  /* 'oo' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/drop.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.drop(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%205%20*%2F%20%5B'bar'%2C%20'baz'%5D%0AR.drop(1%2C%20'foo')%20%20%2F*%205%20*%2F%20'oo')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.drop(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%20%5B'bar'%2C%20'baz'%5D%20*%2F%0AR.drop(1%2C%20'foo')%20%20%2F*%20'oo'%20*%2F)
 
 ---
 #### dropLast
@@ -387,13 +388,13 @@ R.drop(1, 'foo')  /* 5 */ 'oo'
 It returns `arrOrStr` with `howManyToDrop` items dropped from the right.
 
 ```
-R.dropLast(1, ['foo', 'bar', 'baz']) /* 5 */ ['foo', 'bar']
-R.dropLast(1, 'foo')  /* 5 */ 'fo'
+R.dropLast(1, ['foo', 'bar', 'baz']) /* ['foo', 'bar'] */
+R.dropLast(1, 'foo')  /* 'fo' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/dropLast.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.dropLast(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%205%20*%2F%20%5B'foo'%2C%20'bar'%5D%0AR.dropLast(1%2C%20'foo')%20%20%2F*%205%20*%2F%20'fo')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.dropLast(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%20%5B'foo'%2C%20'bar'%5D%20*%2F%0AR.dropLast(1%2C%20'foo')%20%20%2F*%20'fo'%20*%2F)
 
 ---
 #### endsWith
@@ -404,17 +405,17 @@ R.dropLast(1, 'foo')  /* 5 */ 'fo'
 R.endsWith(
   'bar',
   'foo-bar'
-) /* 5 */ true
+) /* true */
 
 R.endsWith(
   'foo',
   'foo-bar'
-) /* 5 */ false
+) /* false */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/endsWith.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F*%205%20*%2F%20true%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F*%205%20*%2F%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F*%20true%20*%2F%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F*%20false%20*%2F)
 
 ---
 #### either
@@ -425,12 +426,12 @@ R.endsWith(
 R.either(
   a => a > 10,
   a => a % 2 === 0
-)(15) //=> true
+)(15) /* true */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/either.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.either(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A)(15)%20%2F%2F%3D%3E%20true)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.either(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A)(15)%20%2F*%20true%20*%2F)
 
 ---
 #### equals
@@ -445,12 +446,12 @@ It doesn't handle cyclical data structures.
 R.equals(
   [1, {a:2}, [{b:3}]],
   [1, {a:2}, [{b:3}]]
-) /* 5 */ true
+) /* true */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/equals.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%0A)%20%2F*%205%20*%2F%20true)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%0A)%20%2F*%20true%20*%2F)
 
 ---
 #### F
@@ -467,7 +468,7 @@ It filters `x` iterable over boolean returning `filterFn`.
 ```
 const filterFn = a => a % 2 === 0
 
-R.filter(filterFn, [1, 2, 3, 4]) /* 5 */ [2, 4]
+R.filter(filterFn, [1, 2, 3, 4]) /* [2, 4] */
 ```
 
 The method works with objects as well.
@@ -479,12 +480,12 @@ const result = R.filter((val, prop)=>{
   return prop === 'a' || val === 2
 }, {a: 1, b: 2, c: 3})
 
-/* 5 */ {a: 1, b: 2}
+/* {a: 1, b: 2} */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0AR.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%2F*%205%20*%2F%20%5B2%2C%204%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0AR.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%2F*%20%5B2%2C%204%5D%20*%2F)
 
 ---
 #### find
@@ -498,12 +499,12 @@ const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
-/* 5 */ {foo: 1}
+/* {foo: 1} */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
 
-[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F*%205%20*%2F%20%7Bfoo%3A%201%7D)
+[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F*%20%7Bfoo%3A%201%7D%20*%2F)
 
 ---
 #### findIndex
@@ -517,12 +518,12 @@ const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.find(findFn, arr) 
-/* 5 */ 1
+/* 1 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
 
-[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F*%205%20*%2F%201)
+[Try in REPL](https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F*%201%20*%2F)
 
 ---
 #### flatten
@@ -531,12 +532,12 @@ const result = R.find(findFn, arr)
 
 ```
 R.flatten([ 1, [ 2, [ 3 ] ] ])
-/* 5 */ [ 1, 2, 3 ]
+/* [ 1, 2, 3 ] */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/flatten.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.flatten(%5B%201%2C%20%5B%202%2C%20%5B%203%20%5D%20%5D%20%5D)%0A%2F*%205%20*%2F%20%5B%201%2C%202%2C%203%20%5D)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.flatten(%5B%201%2C%20%5B%202%2C%20%5B%203%20%5D%20%5D%20%5D)%0A%2F*%20%5B%201%2C%202%2C%203%20%5D%20*%2F)
 
 ---
 #### flip
@@ -549,12 +550,12 @@ It returns function which calls `fn` with exchanged first and second argument.
 const subtractFlip = R.flip(R.subtract)
 
 const result = R.subtractFlip(1,7)
-/* 5 */ 6
+/* 6 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/flip.js)
 
-[Try in REPL](https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20R.subtractFlip(1%2C7)%0A%2F*%205%20*%2F%206)
+[Try in REPL](https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20R.subtractFlip(1%2C7)%0A%2F*%206%20*%2F)
 
 ---
 #### forEach
@@ -569,15 +570,15 @@ const result = R.forEach(
   x => sideEffect[`foo${x}`] = x
 )([1, 2])
 
-console.log(sideEffect) //=> {foo1 : 1, foo2 : 2}
-console.log(result) //=> [1, 2]
+console.log(sideEffect) /* {foo1 : 1, foo2 : 2} */
+console.log(result) /* [1, 2] */
 ```
 
 Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/forEach.js)
 
-[Try in REPL](https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D)
+[Try in REPL](https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F*%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%20*%2F%0Aconsole.log(result)%20%2F*%20%5B1%2C%202%5D%20*%2F)
 
 ---
 #### has
@@ -587,13 +588,13 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 - It returns `true` if `obj` has property `prop`.
 
 ```
-R.has('a', {a: 1}) /* 5 */ true
-R.has('b', {a: 1}) /* 5 */ false
+R.has('a', {a: 1}) /* true */
+R.has('b', {a: 1}) /* false */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/has.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.has('a'%2C%20%7Ba%3A%201%7D)%20%2F*%205%20*%2F%20true%0AR.has('b'%2C%20%7Ba%3A%201%7D)%20%2F*%205%20*%2F%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.has('a'%2C%20%7Ba%3A%201%7D)%20%2F*%20true%20*%2F%0AR.has('b'%2C%20%7Ba%3A%201%7D)%20%2F*%20false%20*%2F)
 
 ---
 #### head
@@ -603,13 +604,13 @@ R.has('b', {a: 1}) /* 5 */ false
 It returns the first element of `arrOrStr`.
 
 ```
-R.head([1, 2, 3]) /* 5 */ 1
-R.head('foo') /* 5 */ 'f'
+R.head([1, 2, 3]) /* 1 */
+R.head('foo') /* 'f' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/head.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.head(%5B1%2C%202%2C%203%5D)%20%2F*%205%20*%2F%201%0AR.head('foo')%20%2F*%205%20*%2F%20'f')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.head(%5B1%2C%202%2C%203%5D)%20%2F*%201%20*%2F%0AR.head('foo')%20%2F*%20'f'%20*%2F)
 
 ---
 #### identity
@@ -619,7 +620,7 @@ R.head('foo') /* 5 */ 'f'
 It just passes back the supplied arguments.
 
 ```
-R.identity(7) /* 5 */ 7
+R.identity(5) /* 5 */
 ```
 
 ---
@@ -642,12 +643,12 @@ const fn = R.ifElse(
 )
 
 const result = fn(8)
-/* 5 */ 80
+/* 80 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/ifElse.js)
 
-[Try in REPL](https://rambda.now.sh?const%20fn%20%3D%20R.ifElse(%0A%20x%20%3D%3E%20x%20%3E%2010%2C%0A%20x%20%3D%3E%20x*2%2C%0A%20x%20%3D%3E%20x*10%0A)%0A%0Aconst%20result%20%3D%20fn(8)%0A%2F*%205%20*%2F%2080)
+[Try in REPL](https://rambda.now.sh?const%20fn%20%3D%20R.ifElse(%0A%20x%20%3D%3E%20x%20%3E%2010%2C%0A%20x%20%3D%3E%20x*2%2C%0A%20x%20%3D%3E%20x*10%0A)%0A%0Aconst%20result%20%3D%20fn(8)%0A%2F*%2080%20*%2F)
 
 ---
 #### inc
@@ -655,8 +656,9 @@ const result = fn(8)
 > inc(x: number): number
 
 It increments a number.
+
 ```
-R.inc(1) /* 5 */ 2
+R.inc(1) /* 2 */
 ```
 
 ---
@@ -665,16 +667,16 @@ R.inc(1) /* 5 */ 2
 > includes(x: any, arrOrStr: T[]|string): boolean
 
 ```
-R.includes(1, [1, 2]) /* 5 */ true
-R.includes('oo', 'foo') /* 5 */ true
-R.includes('z', 'foo') /* 5 */ false
+R.includes(1, [1, 2]) /* true */
+R.includes('oo', 'foo') /* true */
+R.includes('z', 'foo') /* false */
 ```
 
 !! Note that this method is not part of `Ramda` API.
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/includes.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.includes(1%2C%20%5B1%2C%202%5D)%20%2F*%205%20*%2F%20true%0AR.includes('oo'%2C%20'foo')%20%2F*%205%20*%2F%20true%0AR.includes('z'%2C%20'foo')%20%2F*%205%20*%2F%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.includes(1%2C%20%5B1%2C%202%5D)%20%2F*%20true%20*%2F%0AR.includes('oo'%2C%20'foo')%20%2F*%20true%20*%2F%0AR.includes('z'%2C%20'foo')%20%2F*%20false%20*%2F)
 
 ---
 #### indexOf
@@ -684,13 +686,13 @@ R.includes('z', 'foo') /* 5 */ false
 It returns `-1` or the index of the first element of `arr` equal of `valueToFind`.
 
 ```
-R.indexOf(1, [1, 2]) /* 5 */ 0
-R.indexOf(0, [1, 2]) /* 5 */ -1
+R.indexOf(1, [1, 2]) /* 0 */
+R.indexOf(0, [1, 2]) /* -1 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexOf.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.indexOf(1%2C%20%5B1%2C%202%5D)%20%2F*%205%20*%2F%200%0AR.indexOf(0%2C%20%5B1%2C%202%5D)%20%2F*%205%20*%2F%20-1)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.indexOf(1%2C%20%5B1%2C%202%5D)%20%2F*%200%20*%2F%0AR.indexOf(0%2C%20%5B1%2C%202%5D)%20%2F*%20-1%20*%2F)
 
 ---
 #### init
@@ -700,13 +702,13 @@ R.indexOf(0, [1, 2]) /* 5 */ -1
 - It returns all but the last element of `arrOrStr`.
 
 ```
-R.init([1, 2, 3])  /* 5 */ [1, 2]
-R.init('foo')  /* 5 */ 'fo'
+R.init([1, 2, 3])  /* [1, 2] */
+R.init('foo')  /* 'fo' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/init.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.init(%5B1%2C%202%2C%203%5D)%20%20%2F*%205%20*%2F%20%5B1%2C%202%5D%0AR.init('foo')%20%20%2F*%205%20*%2F%20'fo')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.init(%5B1%2C%202%2C%203%5D)%20%20%2F*%20%5B1%2C%202%5D%20*%2F%0AR.init('foo')%20%20%2F*%20'fo'%20*%2F)
 
 ---
 #### join
@@ -714,12 +716,12 @@ R.init('foo')  /* 5 */ 'fo'
 > join(separator: string, arr: T[]): string
 
 ```
-R.join('-', [1, 2, 3])  /* 5 */ '1-2-3'
+R.join('-', [1, 2, 3])  /* '1-2-3' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/join.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F*%205%20*%2F%20'1-2-3')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F*%20'1-2-3'%20*%2F)
 
 ---
 #### is
@@ -729,13 +731,13 @@ R.join('-', [1, 2, 3])  /* 5 */ '1-2-3'
 It returns `true` is `x` is instance of `xPrototype`.
 
 ```
-R.is(String, 'foo')  /* 5 */ true
-R.is(Array, 1)  /* 5 */ false
+R.is(String, 'foo')  /* true */
+R.is(Array, 1)  /* false */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/is.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F*%205%20*%2F%20true%0AR.is(Array%2C%201)%20%20%2F*%205%20*%2F%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F*%20true%20*%2F%0AR.is(Array%2C%201)%20%20%2F*%20false%20*%2F)
 
 ---
 #### isNil
@@ -745,13 +747,13 @@ R.is(Array, 1)  /* 5 */ false
 It returns `true` is `x` is either `null` or `undefined`.
 
 ```
-R.isNil(null)  /* 5 */ true
-R.isNil(1)  /* 5 */ false
+R.isNil(null)  /* true */
+R.isNil(1)  /* false */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F*%205%20*%2F%20true%0AR.isNil(1)%20%20%2F*%205%20*%2F%20false)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F*%20true%20*%2F%0AR.isNil(1)%20%20%2F*%20false%20*%2F)
 
 ---
 #### last
@@ -761,13 +763,13 @@ R.isNil(1)  /* 5 */ false
 - It returns the last element of `arrOrStr`.
 
 ```
-R.last(['foo', 'bar', 'baz']) /* 5 */ 'baz'
-R.last('foo') /* 5 */ 'o'
+R.last(['foo', 'bar', 'baz']) /* 'baz' */
+R.last('foo') /* 'o' */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/last.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.last(%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%205%20*%2F%20'baz'%0AR.last('foo')%20%2F*%205%20*%2F%20'o')
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.last(%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F*%20'baz'%20*%2F%0AR.last('foo')%20%2F*%20'o'%20*%2F)
 
 ---
 #### lastIndexOf
