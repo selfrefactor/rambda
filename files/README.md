@@ -88,7 +88,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 > add(a: number, b: number): number
 
 ```
-R.add(2, 3) // =>  5
+R.add(2, 3) /* 5 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
