@@ -1173,6 +1173,7 @@ R.toUpper('foo') // => 'FOO'
 #### trim
 
 > trim(str: string): string
+
 ```
 R.trim('  foo  ') // => 'foo'
 ```
