@@ -113,10 +113,6 @@ const result = mapWithIndex(
 ) // => ['A - 0', 'B - 1', 'C - 2']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/addIndex.js)
-
-<a href="https://rambda.now.sh?const%20mapWithIndex%20%3D%20R.addIndex(R.map)%0Aconst%20result%20%3D%20mapWithIndex(%0A%20%20(val%2C%20index)%20%3D%3E%20%60%24%7Bval%7D%20-%20%24%7Bindex%7D%60%2C%0A%20%20%5B'A'%2C%20'B'%2C%20'C'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'A%20-%200'%2C%20'B%20-%201'%2C%20'C%20-%202'%5D">Try in REPL</a>
-
 ---
 #### adjust
 
@@ -185,15 +181,11 @@ const result = R.allPass(rules, input) // => true
 
 It returns function that always returns `x`.
 ```
-const returnSeven = R.always(7)
+const fn = R.always(7)
 
-console.log(returnSeven)// => 7
-console.log(returnSeven)// => 7
+console.log(fn())// => 7
+console.log(fn())// => 7
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
-
-<a href="https://rambda.now.sh?const%20returnSeven%20%3D%20R.always(7)%0A%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207%0Aconsole.log(returnSeven)%2F%2F%20%3D%3E%207">Try in REPL</a>
 
 ---
 #### any
@@ -242,26 +234,25 @@ console.log(fn(15)) //=> true
 console.log(fn(30)) //=> false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
-
-<a href="https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false">Try in REPL</a>
-
 ---
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
 
 It performs right-to-left function composition.
+
 ```
 const result = R.compose(
-  R.map(x => x * 2)
-  R.filter(x => x > 2),
-)([1, 2, 3, 4])  // => [6, 8]
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A)(%5B1%2C%202%2C%203%2C%204%5D)%20%20%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
 
 ---
 #### complement
@@ -273,12 +264,14 @@ It returns `complemented` function that accept `input` as argument.
 The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 ```
-R.complement(R.always(true)) // => false
-R.complement(R.always(false)) // => true
+const fn = R.complement(x => !x)
+
+const result = fn(false) // => false
 ```
+
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.complement(R.always(true))%20%2F%2F%20%3D%3E%20false%0AR.complement(R.always(false))%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20fn%20%3D%20R.complement(x%20%3D%3E%20!x)%0A%0Aconst%20result%20%3D%20fn(false)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### concat
@@ -466,7 +459,8 @@ It filters `x` iterable over boolean returning `filterFn`.
 ```
 const filterFn = a => a % 2 === 0
 
-R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
+const result = R.filter(filterFn, [1, 2, 3, 4])
+// => [2, 4]
 ```
 
 The method works with objects as well.
@@ -483,7 +477,7 @@ const result = R.filter((val, prop)=>{
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0AR.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0Aconst%20result%20%3D%20R.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
 
 ---
 #### find
@@ -515,13 +509,13 @@ It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.find(findFn, arr) 
+const result = R.findIndex(findFn, arr)
 // => 1
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
 
-<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%201">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findIndex(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
 #### flatten
@@ -547,13 +541,13 @@ It returns function which calls `fn` with exchanged first and second argument.
 ```
 const subtractFlip = R.flip(R.subtract)
 
-const result = R.subtractFlip(1,7)
+const result = subtractFlip(1,7)
 // => 6
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/flip.js)
 
-<a href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20R.subtractFlip(1%2C7)%0A%2F%2F%20%3D%3E%206">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20subtractFlip(1%2C7)%0A%2F%2F%20%3D%3E%206">Try in REPL</a>
 
 ---
 #### forEach
