@@ -87,7 +87,7 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 
 > add(a: Number, b: Number): Number
 
-```javascript
+```
 R.add(2, 3) // =>  5
 ```
 
@@ -97,7 +97,7 @@ R.add(2, 3) // =>  5
 
 > addIndex(fn: Function): Function
 
-```javascript
+```
 const mapWithIndex = R.addIndex(R.map)
 mapWithIndex(
   (val, index) => `${val} - ${index}`,
@@ -113,7 +113,7 @@ mapWithIndex(
 
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
-```javascript
+```
 R.adjust(a => a + 1, 0, [0, 100]) // => [1, 100]
 ```
 
@@ -174,7 +174,7 @@ fn()// => 7
 It returns true if at least one member of `arr` returns true,
 when passed to the `condition` function.
 
-```javascript
+```
 R.any(a => a * a > 8)([1, 2, 3]) // => true
 R.any(a => a * a > 10)([1, 2, 3]) // => false
 ```
@@ -185,7 +185,7 @@ R.any(a => a * a > 10)([1, 2, 3]) // => false
 
 > append(valueToAppend: any, arr: Array): Array
 
-```javascript
+```
 R.append('foo', ['bar', 'baz']) // => ['bar', 'baz', 'foo']
 ```
 
@@ -254,7 +254,7 @@ R.concat('foo', 'bar') // => 'foobar'
 
 It returns true if `valueToFind` is part of `arr`.
 
-```javascript
+```
 R.contains(2, [1, 2]) // => true
 R.contains(3, [1, 2]) // => false
 ```
@@ -267,7 +267,7 @@ R.contains(3, [1, 2]) // => false
 
 It returns curried version of `fn`.
 
-```javascript
+```
 const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)
 const f = curriedAddFourNumbers(1, 2)
@@ -295,7 +295,7 @@ It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
 
 It returns `inputArgument` in any other case.
 
-```javascript
+```
 R.defaultTo('foo', undefined) // => 'foo'
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', 1) // => 1
@@ -305,7 +305,7 @@ R.defaultTo('foo', 1) // => 1
 
 #### divide
 
-```javascript
+```
 R.divide(71, 100) // => 0.71
 ```
 
@@ -315,7 +315,7 @@ R.divide(71, 100) // => 0.71
 
 It returns `arrOrStr` with `howManyToDrop` items dropped from the left.
 
-```javascript
+```
 R.drop(1, ['foo', 'bar', 'baz']) // => ['bar', 'baz']
 R.drop(1, 'foo')  // => 'oo'
 ```
@@ -328,7 +328,7 @@ R.drop(1, 'foo')  // => 'oo'
 
 It returns `arrOrStr` with `howManyToDrop` items dropped from the right.
 
-```javascript
+```
 R.dropLast(1, ['foo', 'bar', 'baz']) // => ['foo', 'bar']
 R.dropLast(1, 'foo')  // => 'fo'
 ```
@@ -375,7 +375,7 @@ It returns equality match between `a` and `b`.
 
 It doesn't handle cyclical data structures.
 
-```javascript
+```
 R.equals(1, 1) // => true
 R.equals({}, {}) // => false
 R.equals([1, 2, 3], [1, 2, 3]) // => true
@@ -393,7 +393,7 @@ R.equals([1, 2, 3], [1, 2, 3]) // => true
 
 It filters `x` iterable over boolean returning `filterFn`.
 
-```javascript
+```
 const filterFn = a => a % 2 === 0
 
 R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
@@ -403,7 +403,7 @@ The method works with objects as well.
 
 Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
 
-```javascript
+```
 const result = R.filter((val, prop)=>{
   return prop === 'a' || val === 2  
 }, {a: 1, b: 2, c: 3}) 
@@ -418,7 +418,7 @@ console.log(result) // => {a: 1, b: 2}
 
 It returns `undefined` or the first element of `arr` satisfying `findFn`.
 
-```javascript
+```
 const findFn = a => R.type(a.foo) === "Number"
 const arr = [{foo: "bar"}, {foo: 1}]
 R.find(findFn, arr) // => {foo: 1}
@@ -432,7 +432,7 @@ R.find(findFn, arr) // => {foo: 1}
 
 It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 
-```javascript
+```
 const findFn = a => R.type(a.foo) === "Number"
 const arr = [{foo: "bar"}, {foo: 1}]
 R.find(findFn, arr) // => 1
@@ -444,7 +444,7 @@ R.find(findFn, arr) // => 1
 
 > flatten(arr: Array): Array
 
-```javascript
+```
 R.flatten([ 1, [ 2, [ 3 ] ] ])
 // => [ 1, 2, 3 ]
 ```
@@ -457,7 +457,7 @@ R.flatten([ 1, [ 2, [ 3 ] ] ])
 
 It returns function which calls `fn` with exchanged first and second argument.
 
-```javascript
+```
 const subtractFlip = R.flip(R.subtract)
 R.subtractFlip(1,7)
 // => 6
@@ -471,7 +471,7 @@ R.subtractFlip(1,7)
 
 It applies function `fn` over all members of array `arr` and returns `arr`.
 
-```javascript
+```
 const sideEffect = {}
 const result = R.forEach(
   x => sideEffect[`foo${x}`] = x
@@ -491,7 +491,7 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 
 - It returns `true` if `obj` has property `prop`.
 
-```javascript
+```
 R.has("a", {a: 1}) // => true
 R.has("b", {a: 1}) // => false
 ```
@@ -504,7 +504,7 @@ R.has("b", {a: 1}) // => false
 
 It returns the first element of `arrOrStr`.
 
-```javascript
+```
 R.head([1, 2, 3]) // => 1
 R.head('foo') // => 'f'
 ```
@@ -571,7 +571,7 @@ R.includes('z', 'foo') // => false
 
 It returns `-1` or the index of the first element of `arr` equal of `valueToFind`.
 
-```javascript
+```
 R.indexOf(1, [1, 2]) // => 0
 ```
 
@@ -583,7 +583,7 @@ R.indexOf(1, [1, 2]) // => 0
 
 - It returns all but the last element of `arrOrStr`.
 
-```javascript
+```
 R.init([1, 2, 3])  // => [1, 2]
 R.init('foo')  // => 'fo'
 ```
@@ -594,7 +594,7 @@ R.init('foo')  // => 'fo'
 
 > join(separator: String, arr: Array): String
 
-```javascript
+```
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
@@ -606,7 +606,7 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 
 It returns `true` is `x` is instance of `xPrototype`.
 
-```javascript
+```
 R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
@@ -619,7 +619,7 @@ R.is(Array, 1)  // => false
 
 It returns `true` is `x` is either `null` or `undefined`.
 
-```javascript
+```
 R.isNil(null)  // => true
 R.isNil(1)  // => false
 ```
@@ -632,7 +632,7 @@ R.isNil(1)  // => false
 
 - It returns the last element of `arrOrStr`.
 
-```javascript
+```
 R.last(['foo', 'bar', 'baz']) // => 'baz'
 R.last('foo') // => 'o'
 ```
@@ -660,7 +660,7 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 
 > length(arrOrStr: Array|String): Number
 
-```javascript
+```
 R.length([1, 2, 3]) // => 3
 ```
 
@@ -670,7 +670,7 @@ R.length([1, 2, 3]) // => 3
 
 It returns the result of looping through iterable `x` with `mapFn`.
 
-```javascript
+```
 const mapFn = x => x * 2;
 R.map(mapFn, [1, 2, 3]) // => [2, 4, 6]
 ```
@@ -679,7 +679,7 @@ The method works with objects as well.
 
 Note that unlike Ramda's `map`, here object keys are passed as second argument to `mapFn`.
 
-```javascript
+```
 const result = R.map((val, prop)=>{
   return `${val}-${prop}`  
 }, {a: 1, b: 2}) 
@@ -692,7 +692,7 @@ console.log(result) // => {a: 'a-1', b: 'b-2'}
 
 > match(regExpression: Regex, str: String): Array
 
-```javascript
+```
 R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 ```
 
@@ -704,7 +704,7 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 
 It returns result of `Object.assign({}, a, b)`.
 
-```javascript
+```
 R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 // => { 'foo': 7, 'bar': 1 }
 ```
@@ -717,7 +717,7 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 
 It returns the remainder of operation `a/b`.
 
-```javascript
+```
 R.module(14,3) // => 2
 ```
 
@@ -727,7 +727,7 @@ R.module(14,3) // => 2
 
 It returns the result of operation `a*b`.
 
-```javascript
+```
 R.module(14,3) // => 2
 ```
 
@@ -750,7 +750,7 @@ R.not(1); //=> false
 
 It returns a partial copy of an `obj` with omitting `propsToOmit`
 
-```javascript
+```
 R.omit(['a', 'd'], {a: 1, b: 2, c: 3}) // => {b: 2, c: 3}
 ```
 
@@ -764,7 +764,7 @@ If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
 It will return `undefined`, if such path is not found.
 
-```javascript
+```
 R.path('a.b', {a: {b: 1}}) // => 1
 R.path(['a', 'b'], {a: {b: 2}}) // => 2
 R.path(['a', 'c'], {a: {b: 2}}) // => undefined
@@ -782,7 +782,7 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.
 
-```javascript
+```
 R.pathOr(1, 'a.b', {a: {b: 2}}) // => 2
 R.pathOr(1, ['a', 'b'], {a: {b: 2}}) // => 2
 R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
@@ -802,7 +802,7 @@ This function will wait to be called with second set of input `b` and it will in
 
 See the example below:
 
-```javascript
+```
 const fn = ({a, b, c}) => {
   return (a * b) + c
 }
@@ -861,7 +861,7 @@ R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) // => [1, 2]
 
 It adds `x` to the start of the array `arr`.
 
-```javascript
+```
 R.prepend('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 ```
 
@@ -873,7 +873,7 @@ R.prepend('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 
 It returns `undefined` or the value of property `propToFind` in `obj`
 
-```javascript
+```
 R.prop('x', {x: 100}) // => 100
 R.prop('x', {a: 1}) // => undefined
 ```
@@ -886,7 +886,7 @@ R.prop('x', {a: 1}) // => undefined
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`
 
-```javascript
+```
 const propToFind = "foo"
 const valueToMatch = 0
 R.propEq(propToFind, valueToMatch)({foo: 0}) // => true
@@ -901,7 +901,7 @@ R.propEq(propToFind, valueToMatch)({foo: 1}) // => false
 
 It returns a array of numbers from `start`(inclusive) to `end`(exclusive).
 
-```javascript
+```
 R.range(0, 2)   // => [0, 1]
 ```
 
@@ -911,7 +911,7 @@ R.range(0, 2)   // => [0, 1]
 
 > reduce(iteratorFn: Function, accumulator: any, array: Array): any
 
-```javascript
+```
 const iteratorFn = (acc, val) => acc + val
 R.reduce(iteratorFn, 1, [1, 2, 3])   // => 7
 ```
@@ -937,7 +937,7 @@ R.reject(fn, [1, 2, 3, 4]) // => [2, 4]
 
 > repeat(valueToRepeat: T, num: Number): Array<T>
 
-```javascript
+```
 R.repeat('foo', 2) // => ['foo', 'foo']
 ```
 
@@ -949,7 +949,7 @@ R.repeat('foo', 2) // => ['foo', 'foo']
 
 Replace `strOrRegex` found in `str` with `replacer`
 
-```javascript
+```
 R.replace('foo', 'bar', 'foo foo') // => 'bar foo'
 R.replace(/foo/, 'bar', 'foo foo') // => 'bar foo'
 R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
@@ -975,7 +975,7 @@ It returns copy of `arr` sorted by `sortFn`.
 
 `sortFn` must return `Number`
 
-```javascript
+```
 const sortFn = (a, b) => a - b
 R.sort(sortFn, [3, 1, 2]) // => [1, 2, 3]
 ```
@@ -990,7 +990,7 @@ It returns copy of `arr` sorted by `sortFn`.
 
 `sortFn` must return value for comparison
 
-```javascript
+```
 const sortFn = obj => obj.foo
 
 const result = R.sortBy(sortFn, [
@@ -1008,7 +1008,7 @@ console.log(result === expectedResult) // => true
 
 > split(separator: String, str: String): Array
 
-```javascript
+```
 R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 ```
 
@@ -1020,7 +1020,7 @@ R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 
 - Splits `arrOrStr` into slices of `sliceLength`
 
-```javascript
+```
 R.splitEvery(2, [1, 2, 3]) // => [[1, 2], [3]]
 R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 ```
@@ -1049,7 +1049,7 @@ R.startsWith(
 
 > subtract(a: Number, b: Number): Number
 
-```javascript
+```
 R.subtract(3, 1) // => 2
 ```
 
@@ -1063,7 +1063,7 @@ R.subtract(3, 1) // => 2
 
 - It returns all but the first element of `arrOrStr`
 
-```javascript
+```
 R.tail([1, 2, 3])  // => [2, 3]
 R.tail('foo')  // => 'oo'
 ```
@@ -1076,7 +1076,7 @@ R.tail('foo')  // => 'oo'
 
 - It returns the first `num` elements of `arrOrStr`.
 
-```javascript
+```
 R.take(1, ['foo', 'bar']) // => ['foo']
 R.take(2, ['foo']) // => 'fo'
 ```
@@ -1089,7 +1089,7 @@ R.take(2, ['foo']) // => 'fo'
 
 - It returns the last `num` elements of `arrOrStr`.
 
-```javascript
+```
 R.takeLast(1, ['foo', 'bar']) // => ['bar']
 R.takeLast(2, ['foo']) // => 'oo'
 ```
@@ -1102,7 +1102,7 @@ R.takeLast(2, ['foo']) // => 'oo'
 
 - Determines whether `str` matches `regExpression`
 
-```javascript
+```
 R.test(/^f/, 'foo') // => true
 R.test(/^f/, 'bar') // => false
 ```
@@ -1116,7 +1116,7 @@ R.test(/^f/, 'bar') // => false
 It returns the result of applying function `fn` over members of range array.
 The range array includes numbers between `0` and `n`(exclusive).
 
-```javascript
+```
 R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
 ```
 
@@ -1126,7 +1126,7 @@ R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
 
 > toLower(str: String): String
 
-```javascript
+```
 R.toLower('FOO') // => 'foo'
 ```
 
@@ -1139,14 +1139,14 @@ R.toLower('FOO') // => 'foo'
 
 > toUpper(str: String): String
 
-```javascript
+```
 R.toUpper('foo') // => 'FOO'
 ```
 
 #### trim
 
 > trim(str: String): String
-```javascript
+```
 R.trim('  foo  ') // => 'foo'
 ```
 
@@ -1154,7 +1154,7 @@ R.trim('  foo  ') // => 'foo'
 
 > type(a: any): String
 
-```javascript
+```
 R.type(() => {}) // => "Function"
 R.type(async () => {}) // => "Async"
 R.type([]) // => "Array"
@@ -1181,7 +1181,7 @@ R.type(delay) // => "Promise"
 
 It returns a new array containing only one copy of each element in `arr`.
 
-```javascript
+```
 R.uniq([1, 1, 2, 1]) // => [1, 2]
 R.uniq([1, '1'])     // => [1, '1']
 ```
@@ -1194,7 +1194,7 @@ R.uniq([1, '1'])     // => [1, '1']
 
 It returns a new array containing only one copy of each element in `arr` according to boolean returning function `fn`.
 
-```javascript
+```
 const arr = [
   {id: 0, title:'foo'},
   {id: 1, title:'bar'},
@@ -1225,7 +1225,7 @@ console.log(result === expectedResult) // => true
 It returns a new copy of the `arr` with the element at `i` index
 replaced with `replaceValue`.
 
-```javascript
+```
 R.update(0, "foo", ['bar', 'baz']) // => ['foo', baz]
 ```
 
@@ -1237,7 +1237,7 @@ R.update(0, "foo", ['bar', 'baz']) // => ['foo', baz]
 
 It returns array with of all values in `obj`.
 
-```javascript
+```
 R.values({a: 1, b: 2}) // => [1, 2]
 ```
 

@@ -36,7 +36,7 @@ function getContentWithREPL(input){
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
   const markdownLink = `[Try in REPL](${replLink})`
-  return `${input.trim()}\n${markdownLink}\n\n`
+  return `${input.trim()}\n\n${markdownLink}\n\n`
 }
 
 void function createReadme() {
