@@ -89,12 +89,12 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
 > add(a: number, b: number): number
 
 ```
-R.add(2, 3) // =>  5
+R.add(2, 3) /* 5 */
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
 
-[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205)
+[Try in REPL](https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F*%205%20*%2F)
 
 ---
 #### addIndex
@@ -1384,6 +1384,7 @@ R.toUpper('foo') // => 'FOO'
 #### trim
 
 > trim(str: string): string
+
 ```
 R.trim('  foo  ') // => 'foo'
 ```
