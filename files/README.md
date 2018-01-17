@@ -109,8 +109,6 @@ const result = mapWithIndex(
 ) // => ['A - 0', 'B - 1', 'C - 2']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/addIndex.js)
-
 #### adjust
 
 > adjust(replaceFn: Function, i: number, arr: T[]): T[]
@@ -169,13 +167,11 @@ const result = R.allPass(rules, input) // => true
 
 It returns function that always returns `x`.
 ```
-const returnSeven = R.always(7)
+const fn = R.always(7)
 
-console.log(returnSeven)// => 7
-console.log(returnSeven)// => 7
+console.log(fn())// => 7
+console.log(fn())// => 7
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/always.js)
 
 #### any
 
@@ -217,18 +213,19 @@ console.log(fn(15)) //=> true
 console.log(fn(30)) //=> false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/both.js)
-
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
 
 It performs right-to-left function composition.
+
 ```
 const result = R.compose(
-  R.map(x => x * 2)
-  R.filter(x => x > 2),
-)([1, 2, 3, 4])  // => [6, 8]
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
@@ -242,9 +239,11 @@ It returns `complemented` function that accept `input` as argument.
 The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 ```
-R.complement(R.always(true)) // => false
-R.complement(R.always(false)) // => true
+const fn = R.complement(x => !x)
+
+const result = fn(false) // => false
 ```
+
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
 
 #### concat
@@ -404,7 +403,8 @@ It filters `x` iterable over boolean returning `filterFn`.
 ```
 const filterFn = a => a % 2 === 0
 
-R.filter(filterFn, [1, 2, 3, 4]) // => [2, 4]
+const result = R.filter(filterFn, [1, 2, 3, 4])
+// => [2, 4]
 ```
 
 The method works with objects as well.
@@ -447,7 +447,7 @@ It returns `-1` or the index of the first element of `arr` satisfying `findFn`.
 const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.find(findFn, arr) 
+const result = R.findIndex(findFn, arr)
 // => 1
 ```
 
@@ -473,7 +473,7 @@ It returns function which calls `fn` with exchanged first and second argument.
 ```
 const subtractFlip = R.flip(R.subtract)
 
-const result = R.subtractFlip(1,7)
+const result = subtractFlip(1,7)
 // => 6
 ```
 
