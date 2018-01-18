@@ -170,20 +170,36 @@ It returns function that always returns `x`.
 const fn = R.always(7)
 
 console.log(fn())// => 7
-console.log(fn())// => 7
 ```
 
 #### any
 
-> any(condition: Function, arr: T[]): Boolean
+> any(condition: Function, arr: T[]): boolean
 
 It returns `true`, if at least one member of `arr` returns true, when passed to the `condition` function.
 
 ```
-R.any(a => a * a > 8)([1, 2, 3]) // => true
+R.any(a => a * a > 8)([1, 2, 3])
+// => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
+
+#### anyPass
+
+> anyPass(conditions: Function[]): Function
+
+```
+const isBig = a => a > 20
+const isOdd = a => a % 2 === 1
+
+const result = R.anyPass(
+  [isBig, isOdd]
+)(11)
+// => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/anyPass.js)
 
 #### append
 

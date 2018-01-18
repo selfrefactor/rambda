@@ -184,23 +184,42 @@ It returns function that always returns `x`.
 const fn = R.always(7)
 
 console.log(fn())// => 7
-console.log(fn())// => 7
 ```
 
 ---
 #### any
 
-> any(condition: Function, arr: T[]): Boolean
+> any(condition: Function, arr: T[]): boolean
 
 It returns `true`, if at least one member of `arr` returns true, when passed to the `condition` function.
 
 ```
-R.any(a => a * a > 8)([1, 2, 3]) // => true
+R.any(a => a * a > 8)([1, 2, 3])
+// => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
+
+---
+#### anyPass
+
+> anyPass(conditions: Function[]): Function
+
+```
+const isBig = a => a > 20
+const isOdd = a => a % 2 === 1
+
+const result = R.anyPass(
+  [isBig, isOdd]
+)(11)
+// => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/anyPass.js)
+
+<a href="https://rambda.now.sh?const%20isBig%20%3D%20a%20%3D%3E%20a%20%3E%2020%0Aconst%20isOdd%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)(11)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### append
