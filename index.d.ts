@@ -293,13 +293,13 @@ declare namespace R {
 
     length<T>(list: T[]): number
 
+    map<In, Out>(fn: MapFunction<In, Out>): MapInterface<Out>
+    map<In, Out>(fn: MapFunction<In, Out>, list: In[]): Out[]
+    
     map<In, Out>(
       fn: MapFunction<In, Out>,
       obj: Dictionary<In>
     ): Dictionary<Out>
-
-    map<In, Out>(fn: MapFunction<In, Out>): MapInterface<Out>
-    map<In, Out>(fn: MapFunction<In, Out>, list: In[]): Out[]
 
     match(regexp: RegExp, str: string): any[]
     match(regexp: RegExp): (str: string) => any[]
