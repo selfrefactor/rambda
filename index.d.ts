@@ -373,10 +373,10 @@ declare namespace R {
       fn4: (x: T4) => T5,
       fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
-    pluck<P extends string, T>(p: P, list: ReadonlyArray<Record<P, T>>): T[]
-    pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[]
-    pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[]
-    pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[]
+    pluck<In, Out>(prop: string, input: In[]): Out[]
+    pluck<T>(prop: number, input: T[][]): T[]
+    pluck<In, Out>(prop: string): (input: In[]) => Out[]
+    pluck<T>(prop: number): (input: T[][]) => T[]
 
     prepend<T>(el: T, list: T[]): T[]
     prepend<T>(el: T): (list: T[]) => T[]
