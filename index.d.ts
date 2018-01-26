@@ -321,10 +321,10 @@ declare namespace R {
     omit<T>(names: string[] | string, obj: T): T
     omit(names: string[] | string): <T>(obj: T) => T
 
-    partialCurry<Out, In>(
-      fn: (input: Dictionary<In>) => Out | Promise<Out>,
-      input: Dictionary<In>
-    ): Out
+    partialCurry<Out>(
+      fn: (input: Dictionary<any>) => Out,
+      input: Dictionary<any>
+    ): (input: Dictionary<any>) => Out
 
     path<T>(path: Path | string, obj: any): T
     path<T>(path: Path | string): (obj: any) => T
