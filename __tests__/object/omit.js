@@ -18,6 +18,10 @@ test('with null', () => {
   expect(R.omit('a,b', null)).toEqual(undefined)
 })
 
+test('doesn\'t work with number as property', () => {
+  expect(R.omit([42], {a: 1, 42: 2})).toEqual({42: 2, a: 1})
+})
+
 test('', () => {
   expect(R.omit([ 'a', 'c' ])({
     a : 'foo',

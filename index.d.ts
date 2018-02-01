@@ -216,6 +216,9 @@ declare namespace R {
     defaultTo<T>(a: T, b: null | undefined | T): T
     defaultTo<T>(a: T): (b: null | undefined | T) => T
 
+    dissoc<T>(prop: string, obj: any): T
+    dissoc(prop: string): <U>(obj: any) => U  
+
     divide(a: number, b: number): number
     divide(a: number): (b: number) => number
 

@@ -326,6 +326,19 @@ R.defaultTo('foo', 'bar') // => 'bar'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
 
+#### dissoc
+
+> dissoc(prop: any, obj: object): object
+
+It returns a new object that does not contain a `prop` property.
+
+```
+R.dissoc('b', {a: 1, b: 2, c: 3})
+//=> {a: 1, c: 3}
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/dissoc.js)
+
 #### divide
 
 ```

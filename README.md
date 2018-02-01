@@ -368,6 +368,19 @@ R.defaultTo('foo', 'bar') // => 'bar'
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'">Try in REPL</a>
 
 ---
+
+#### dissoc
+
+> dissoc(prop: any, obj: object): object
+
+It returns a new object that does not contain a `prop` property.
+
+```
+R.dissoc('b', {a: 1, b: 2, c: 3})
+//=> {a: 1, c: 3}
+```
+---
+
 #### divide
 
 ```
