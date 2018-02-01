@@ -284,6 +284,46 @@ function defaultTo(defaultArgument, inputArgument) {
   return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
+function omit(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => omit(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+
+  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
+
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (!keysValue.includes(key)) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
+function dissoc(prop, obj) {
+  if (arguments.length === 1) {
+
+    return objHolder => dissoc(prop, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (key !== `${prop}`) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
 function divide(x, y) {
   if (y === undefined) {
     return yHolder => divide(x, yHolder);
@@ -598,27 +638,6 @@ function none(fn, arr) {
   }
 
   return arr.filter(fn).length === 0;
-}
-
-function omit(keys, obj) {
-  if (arguments.length === 1) {
-    return objHolder => omit(keys, objHolder);
-  }
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-
-  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
-
-  const willReturn = {};
-
-  for (const key in obj) {
-    if (!keysValue.includes(key)) {
-      willReturn[key] = obj[key];
-    }
-  }
-
-  return willReturn;
 }
 
 function partialCurry(fn, inputArguments = {}) {
@@ -1028,6 +1047,7 @@ exports.contains = contains;
 exports.curry = curry;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
+exports.dissoc = dissoc;
 exports.divide = divide;
 exports.drop = drop;
 exports.dropLast = dropLast;

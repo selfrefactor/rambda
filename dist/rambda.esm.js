@@ -278,6 +278,46 @@ function defaultTo(defaultArgument, inputArgument) {
   return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
 }
 
+function omit(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => omit(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+
+  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
+
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (!keysValue.includes(key)) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
+function dissoc(prop, obj) {
+  if (arguments.length === 1) {
+
+    return objHolder => dissoc(prop, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (key !== `${prop}`) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
 function divide(x, y) {
   if (y === undefined) {
     return yHolder => divide(x, yHolder);
@@ -592,27 +632,6 @@ function none(fn, arr) {
   }
 
   return arr.filter(fn).length === 0;
-}
-
-function omit(keys, obj) {
-  if (arguments.length === 1) {
-    return objHolder => omit(keys, objHolder);
-  }
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-
-  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
-
-  const willReturn = {};
-
-  for (const key in obj) {
-    if (!keysValue.includes(key)) {
-      willReturn[key] = obj[key];
-    }
-  }
-
-  return willReturn;
 }
 
 function partialCurry(fn, inputArguments = {}) {
@@ -1000,5 +1019,5 @@ const not = x => !x;
 const T = () => true;
 const trim = x => x.trim();
 
-export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, uniq, uniqWith, update, values, without };
+export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, uniq, uniqWith, update, values, without };
 //# sourceMappingURL=rambda.esm.js.map
