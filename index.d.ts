@@ -222,15 +222,15 @@ declare namespace R {
     divide(a: number, b: number): number
     divide(a: number): (b: number) => number
 
-    drop<T>(n: number, input: T[]): T[]
     drop(n: number, input: string): string
+    drop<T>(n: number, input: T[]): T[]
     drop<T>(n: number): {
       (input: string): string
       (input: T[]): T[]
     }
 
-    dropLast<T>(n: number, input: T[]): T[]
     dropLast(n: number, input: string): string
+    dropLast<T>(n: number, input: T[]): T[]
     dropLast<T>(n: number): {
       (input: T[]): T[]
       (input: string): string
@@ -434,15 +434,15 @@ declare namespace R {
     tail<T>(list: T[]): T[]
     tail(list: string): string
 
-    take<T>(n: number, input: T[]): T[]
     take(n: number, input: string): string
+    take<T>(n: number, input: T[]): T[]
     take<T>(n: number): {
       (input: string): string
       (input: T[]): T[]
     }
 
-    takeLast<T>(n: number, input: T[]): T[]
     takeLast(n: number, input: string): string
+    takeLast<T>(n: number, input: T[]): T[]
     takeLast(n: number): {
       <T>(input: T[]): T[]
       (input: string): string
