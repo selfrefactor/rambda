@@ -11,7 +11,7 @@
     "docs": "docsify init ./docs",
     "lint": "node files/lint",
     "de": "commit",
-    "build": "run-s build-main build-minify",
+    "build": "NODE_ENV=build run-s build-main build-minify",
     "build-main": "rollup -c files/rollup.config.js",
     "build-minify": "node files/minify",
     "benchmark": "node benchmarks/index.js --all",

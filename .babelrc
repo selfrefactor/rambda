@@ -1,6 +1,6 @@
 {
   "env": {
-    "development": {
+    "build": {
       "presets": [
         ["env", {
           "targets": {"node": "current"},
@@ -16,7 +16,7 @@
         }]
       ]
     },
-    "production": {
+    "development": {
       "presets": [
         ["env"]
       ]
