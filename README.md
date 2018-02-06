@@ -62,7 +62,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.8/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.11/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -368,7 +368,6 @@ R.defaultTo('foo', 'bar') // => 'bar'
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'">Try in REPL</a>
 
 ---
-
 #### dissoc
 
 > dissoc(prop: any, obj: object): object
@@ -379,8 +378,12 @@ It returns a new object that does not contain a `prop` property.
 R.dissoc('b', {a: 1, b: 2, c: 3})
 //=> {a: 1, c: 3}
 ```
----
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/dissoc.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try in REPL</a>
+
+---
 #### divide
 
 ```
@@ -1564,6 +1567,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.0.11 [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
+- 1.0.10 [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
 - 1.0.9 Close [issue #58](https://github.com/selfrefactor/rambda/issues/58) - Incorrect `R.equals`
 - 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
 - 1.0.7 Add `R.uniqWith`
