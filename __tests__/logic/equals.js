@@ -1,45 +1,82 @@
 const R = require('../../rambda')
 
-test('dev', ()=>{
+test('dev', () => {
   const result = R.equals(
-    [1, {a:1}, [{b:3}]],
-    [1, {a:2}, [{b:3}]]
-  ) 
+    [ 1, { a : 1 }, [ { b : 3 } ] ],
+    [ 1, { a : 2 }, [ { b : 3 } ] ]
+  )
 
   expect(
     result
   ).toBeFalsy()
 })
 
-test('Ramda spec', ()=>{
+test('Ramda spec', () => {
   expect(R.equals({}, {})).toEqual(true)
-  expect(R.equals({a:1, b:2}, {a:1, b:2})).toEqual(true)
-  expect(R.equals({a:2, b:3}, {b:3, a:2})).toEqual(true)
-  expect(R.equals({a:2, b:3}, {a:3, b:3})).toEqual(false)
-  expect(R.equals({a:2, b:3, c:1}, {a:2, b:3})).toEqual(false)
+  expect(R.equals({
+    a : 1,
+    b : 2,
+  }, {
+    a : 1,
+    b : 2,
+  })).toEqual(true)
+  expect(R.equals({
+    a : 2,
+    b : 3,
+  }, {
+    b : 3,
+    a : 2,
+  })).toEqual(true)
+  expect(R.equals({
+    a : 2,
+    b : 3,
+  }, {
+    a : 3,
+    b : 3,
+  })).toEqual(false)
+  expect(R.equals({
+    a : 2,
+    b : 3,
+    c : 1,
+  }, {
+    a : 2,
+    b : 3,
+  })).toEqual(false)
 })
 
 test('works with boolean tuple', () => {
-  expect(R.equals([true, false], [true, false])).toBeTruthy()
-  expect(R.equals([true, false], [true, true])).toBeFalsy()
+  expect(R.equals([ true, false ], [ true, false ])).toBeTruthy()
+  expect(R.equals([ true, false ], [ true, true ])).toBeFalsy()
 })
 
 test('works with equal objects within array', () => {
-  const objFirst = {a: {b: 1, c:2, d: [1]}}
-  const objSecond = {a: {b: 1,c:2, d: [1]}}
-  
-  const x = [1,2,objFirst, null, '', []]
-  const y = [1,2,objSecond, null, '', []]
-  expect(R.equals(x,y)).toBeTruthy()
+  const objFirst = {
+    a : {
+      b : 1,
+      c : 2,
+      d : [ 1 ],
+    },
+  }
+  const objSecond = {
+    a : {
+      b : 1,
+      c : 2,
+      d : [ 1 ],
+    },
+  }
+
+  const x = [ 1, 2, objFirst, null, '', [] ]
+  const y = [ 1, 2, objSecond, null, '', [] ]
+  expect(R.equals(x, y)).toBeTruthy()
 })
 
 test('works with different objects within array', () => {
-  const objFirst = {a: {b: 1}}
-  const objSecond = {a: {b: 2}}
+  const objFirst = { a : { b : 1 } }
+  const objSecond = { a : { b : 2 } }
 
-  const x = [1,2,objFirst, null, '', []]
-  const y = [1,2,objSecond, null, '', []]
-  expect(R.equals(x,y)).toBeFalsy()
+  const x = [ 1, 2, objFirst, null, '', [] ]
+  const y = [ 1, 2, objSecond, null, '', [] ]
+  expect(R.equals(x, y)).toBeFalsy()
 })
 
 test('works with undefined as second argument', () => {

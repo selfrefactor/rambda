@@ -19,7 +19,13 @@ test('with null', () => {
 })
 
 test('doesn\'t work with number as property', () => {
-  expect(R.omit([42], {a: 1, 42: 2})).toEqual({42: 2, a: 1})
+  expect(R.omit([ 42 ], {
+    a  : 1,
+    42 : 2,
+  })).toEqual({
+    42 : 2,
+    a  : 1,
+  })
 })
 
 test('', () => {

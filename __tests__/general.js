@@ -11,32 +11,29 @@ test('R.F', () => {
 })
 
 test('R.compose over object', () => {
-
   const commands = {
-    initEpic: () => 'INIT_EPIC_CONTENT',
-    epic: () => 'EPIC_CONTENT',
-    exists: () => 'NEVER',
+    initEpic : () => 'INIT_EPIC_CONTENT',
+    epic     : () => 'EPIC_CONTENT',
+    exists   : () => 'NEVER',
   }
 
   const input = {
-    initEpicLocation: `${process.cwd()}/initEpic.ts`,
-    epicLocation: `${process.cwd()}/epic.ts`,
-    existsLocation: `${process.cwd()}/rambda.js`,
+    initEpicLocation : `${ process.cwd() }/initEpic.ts`,
+    epicLocation     : `${ process.cwd() }/epic.ts`,
+    existsLocation   : `${ process.cwd() }/rambda.js`,
   }
 
   const result = R.compose(
     Object.keys,
-    R.map((content, commandKey) => {
-      return content
-    }),
-    R.map((commandValue, commandKey)=>{
+    R.map((content, commandKey) => content),
+    R.map((commandValue, commandKey) => {
       expect(
         typeof commandKey
       ).toEqual('string')
 
-      return { [commandKey]: commandValue(input)}
+      return { [ commandKey ] : commandValue(input) }
     }),
-    R.filter((_, commandKey)=>!existsSync(input[`${commandKey}Location`]))
+    R.filter((_, commandKey) => !existsSync(input[ `${ commandKey }Location` ]))
   )(commands)
 
   expect(

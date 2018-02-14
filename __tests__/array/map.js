@@ -26,10 +26,8 @@ test('with object', () => {
   })
 })
 
-
 test('with object passes property as second argument', () => {
-
-  R.map((val,prop)=>{
+  R.map((val, prop) => {
     expect(typeof prop).toEqual('string')
   })(sampleObject)
 })

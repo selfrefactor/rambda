@@ -1,7 +1,6 @@
 const R = require('../../rambda')
 
 test('when input is undefined or null', () => {
-
   expect(R.pickAll('a', null)).toBe(undefined)
   expect(R.pickAll('a', undefined)).toBe(undefined)
 })

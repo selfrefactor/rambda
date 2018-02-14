@@ -8,8 +8,7 @@ const sampleObject = {
 }
 
 test('with object it passes property as second argument', () => {
-
-  R.filter((val,prop)=>{
+  R.filter((val, prop) => {
     expect(typeof prop).toEqual('string')
   })(sampleObject)
 })
@@ -22,7 +21,6 @@ test('with array', () => {
     [ 1, 2, 3, 4 ]
   )).toEqual([ 2, 4 ])
 })
-
 
 test('with object', () => {
   const isEven = n => n % 2 === 0
