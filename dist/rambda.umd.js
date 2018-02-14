@@ -115,6 +115,10 @@ function anyPass(conditions, x) {
   return any(condition => condition(x))(conditions);
 }
 
+function always(x) {
+  return () => x;
+}
+
 function append(x, arr) {
   if (arr === undefined) {
     return arrHolder => append(x, arrHolder);
@@ -135,6 +139,10 @@ function both(x, y) {
   }
 
   return input => x(input) && y(input);
+}
+
+function complement(fn) {
+  return input => !fn(input);
 }
 
 //Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
@@ -366,6 +374,10 @@ function endsWith(x, y) {
 
 var inc = (x => x + 1);
 
+function F() {
+  return false;
+}
+
 function find(fn, arr) {
   if (arr === undefined) {
     return arrHolder => find(fn, arrHolder);
@@ -480,6 +492,10 @@ function head(a) {
   }
 
   return a[0];
+}
+
+function identity(x) {
+  return x;
 }
 
 function ifElse(condition, ifFn, elseFn) {
@@ -634,10 +650,14 @@ function multiply(x, y) {
 
 function none(fn, arr) {
   if (arr === undefined) {
-    return arrHolder => none(fn, arr);
+    return arrHolder => none(fn, arrHolder);
   }
 
   return arr.filter(fn).length === 0;
+}
+
+function not(x) {
+  return !x;
 }
 
 function partialCurry(fn, inputArguments = {}) {
@@ -898,6 +918,10 @@ function subtract(x, y) {
   return x - y;
 }
 
+function T() {
+  return true;
+}
+
 function tail(arr) {
   return drop(1, arr);
 }
@@ -955,6 +979,10 @@ function toUpper(x) {
 
 function toString(x) {
   return x.toString();
+}
+
+function trim(str) {
+  return str.trim();
 }
 
 function uniq(arr) {
@@ -1017,30 +1045,17 @@ function without(itemsToOmit, collection) {
   return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-const always = x => () => x;
-const complement = fn => input => !fn(input);
-const F = () => false;
-const identity = x => x;
-const not = x => !x;
-const T = () => true;
-const trim = x => x.trim();
-
-exports.always = always;
-exports.complement = complement;
-exports.F = F;
-exports.identity = identity;
-exports.not = not;
-exports.T = T;
-exports.trim = trim;
 exports.add = add;
 exports.addIndex = addIndex;
 exports.adjust = adjust;
 exports.all = all;
 exports.allPass = allPass;
 exports.anyPass = anyPass;
+exports.always = always;
 exports.any = any;
 exports.append = append;
 exports.both = both;
+exports.complement = complement;
 exports.compose = compose;
 exports.concat = concat;
 exports.contains = contains;
@@ -1055,6 +1070,7 @@ exports.either = either;
 exports.endsWith = endsWith;
 exports.inc = inc;
 exports.equals = equals;
+exports.F = F;
 exports.filter = filter;
 exports.find = find;
 exports.findIndex = findIndex;
@@ -1063,6 +1079,7 @@ exports.flip = flip;
 exports.forEach = forEach;
 exports.has = has;
 exports.head = head;
+exports.identity = identity;
 exports.ifElse = ifElse;
 exports.is = is;
 exports.isNil = isNil;
@@ -1079,6 +1096,7 @@ exports.merge = merge;
 exports.modulo = modulo;
 exports.multiply = multiply;
 exports.none = none;
+exports.not = not;
 exports.omit = omit;
 exports.partialCurry = partialCurry;
 exports.path = path;
@@ -1102,6 +1120,7 @@ exports.split = split;
 exports.splitEvery = splitEvery;
 exports.startsWith = startsWith;
 exports.subtract = subtract;
+exports.T = T;
 exports.tap = tap;
 exports.tail = tail;
 exports.take = take;
@@ -1111,6 +1130,7 @@ exports.times = times;
 exports.toLower = toLower;
 exports.toUpper = toUpper;
 exports.toString = toString;
+exports.trim = trim;
 exports.type = type;
 exports.uniq = uniq;
 exports.uniqWith = uniqWith;

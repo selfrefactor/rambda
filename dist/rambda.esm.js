@@ -109,6 +109,10 @@ function anyPass(conditions, x) {
   return any(condition => condition(x))(conditions);
 }
 
+function always(x) {
+  return () => x;
+}
+
 function append(x, arr) {
   if (arr === undefined) {
     return arrHolder => append(x, arrHolder);
@@ -129,6 +133,10 @@ function both(x, y) {
   }
 
   return input => x(input) && y(input);
+}
+
+function complement(fn) {
+  return input => !fn(input);
 }
 
 //Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
@@ -360,6 +368,10 @@ function endsWith(x, y) {
 
 var inc = (x => x + 1);
 
+function F() {
+  return false;
+}
+
 function find(fn, arr) {
   if (arr === undefined) {
     return arrHolder => find(fn, arrHolder);
@@ -474,6 +486,10 @@ function head(a) {
   }
 
   return a[0];
+}
+
+function identity(x) {
+  return x;
 }
 
 function ifElse(condition, ifFn, elseFn) {
@@ -628,10 +644,14 @@ function multiply(x, y) {
 
 function none(fn, arr) {
   if (arr === undefined) {
-    return arrHolder => none(fn, arr);
+    return arrHolder => none(fn, arrHolder);
   }
 
   return arr.filter(fn).length === 0;
+}
+
+function not(x) {
+  return !x;
 }
 
 function partialCurry(fn, inputArguments = {}) {
@@ -892,6 +912,10 @@ function subtract(x, y) {
   return x - y;
 }
 
+function T() {
+  return true;
+}
+
 function tail(arr) {
   return drop(1, arr);
 }
@@ -949,6 +973,10 @@ function toUpper(x) {
 
 function toString(x) {
   return x.toString();
+}
+
+function trim(str) {
+  return str.trim();
 }
 
 function uniq(arr) {
@@ -1011,13 +1039,5 @@ function without(itemsToOmit, collection) {
   return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-const always = x => () => x;
-const complement = fn => input => !fn(input);
-const F = () => false;
-const identity = x => x;
-const not = x => !x;
-const T = () => true;
-const trim = x => x.trim();
-
-export { always, complement, F, identity, not, T, trim, add, addIndex, adjust, all, allPass, anyPass, any, append, both, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, filter, find, findIndex, flatten, flip, forEach, has, head, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, type, uniq, uniqWith, update, values, without };
+export { add, addIndex, adjust, all, allPass, anyPass, always, any, append, both, complement, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, F, filter, find, findIndex, flatten, flip, forEach, has, head, identity, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, not, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, T, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, trim, type, uniq, uniqWith, update, values, without };
 //# sourceMappingURL=rambda.esm.js.map
