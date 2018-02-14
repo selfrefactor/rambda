@@ -62,7 +62,7 @@ console.log(result) // => '{a: 2}'
 - For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.11/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.12/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1567,8 +1567,9 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 1.0.11 [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
-- 1.0.10 [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
+- 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
+- 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
+- 1.0.10 Close [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
 - 1.0.9 Close [issue #58](https://github.com/selfrefactor/rambda/issues/58) - Incorrect `R.equals`
 - 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
 - 1.0.7 Add `R.uniqWith`
