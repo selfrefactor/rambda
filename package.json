@@ -23,7 +23,7 @@
     "lint-benchmarks": "cd benchmarks&&run lintFolder",
     "lint-rambda": "run lint f rambda.js",
     "jest": "jest",
-    "prepublish": "BABEL_ENV=production babel modules/ --out-dir lib/"
+    "prepublish": "BABEL_ENV=development babel modules/ --out-dir lib/"
   },
   "repository": {
     "type": "git",
