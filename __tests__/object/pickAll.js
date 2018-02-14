@@ -1,6 +1,12 @@
 const R = require('../../rambda')
 
-test('R.pickAll with string as condition', () => {
+test('when input is undefined or null', () => {
+
+  expect(R.pickAll('a', null)).toBe(undefined)
+  expect(R.pickAll('a', undefined)).toBe(undefined)
+})
+
+test('with string as condition', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -18,22 +24,13 @@ test('R.pickAll with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('', () => {
-  expect(R.pick([ 'a', 'c' ])({
+test('with array as condition', () => {
+  expect(R.pickAll([ 'a', 'b', 'c' ], {
     a : 'foo',
-    b : 'bar',
     c : 'baz',
   })).toEqual({
     a : 'foo',
     b : undefined,
     c : 'baz',
   })
-
-  expect(R.pick([ 'a', 'd', 'e', 'f' ])({
-    a : 'foo',
-    b : 'bar',
-    c : 'baz',
-  })).toEqual({ a : 'foo' })
-
-  expect(R.pick('a,d,e,f')(null)).toEqual(undefined)
 })

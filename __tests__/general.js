@@ -2,6 +2,14 @@ const R = require('../rambda')
 const Ramda = require('ramda')
 const { existsSync } = require('fs')
 
+test('R.T', () => {
+  expect(R.T()).toBe(true)
+})
+
+test('R.F', () => {
+  expect(R.F()).toBe(false)
+})
+
 test('R.compose over object', () => {
 
   const commands = {

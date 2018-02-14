@@ -8,6 +8,6 @@ test('when true', () => {
   expect(R.none(isEven, arr)).toBeTruthy()
 })
 
-test('when true', () => {
-  expect(R.none(isOdd, arr)).toBeFalsy()
+test('when false curried', () => {
+  expect(R.none(isOdd)(arr)).toBeFalsy()
 })
