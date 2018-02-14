@@ -1,7 +1,12 @@
 const R = require('../../rambda')
 
-test('property exists', () => {
-  expect(R.dissoc('b', {a: 1, b: 2})).toEqual({a: 1})
+test('input is null or undefined', () => {
+  expect(R.dissoc('b', null)).toEqual(undefined)
+  expect(R.dissoc('b', undefined)).toEqual(undefined)
+})
+
+test('property exists curried', () => {
+  expect(R.dissoc('b')({a: 1, b: 2})).toEqual({a: 1})
 })
 
 test('property doesn\'t exists', () => {
