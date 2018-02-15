@@ -1388,16 +1388,28 @@ import omit from 'rambda/lib/omit'
 [addIndex](#addindex)
 
             
+[always](#always)
+
+            
 [compose](#compose)
 
             
 [curry](#curry)
 
             
+[F](#f)
+
+            
 [flip](#flip)
 
             
+[identity](#identity)
+
+            
 [pipe](#pipe)
+
+            
+[T](#t)
 
             
 [tap](#tap)
@@ -1568,6 +1580,9 @@ import omit from 'rambda/lib/omit'
 [both](#both)
 
             
+[complement](#complement)
+
+            
 [defaultTo](#defaultto)
 
             
@@ -1577,10 +1592,16 @@ import omit from 'rambda/lib/omit'
 [ifElse](#ifelse)
 
             
+[not](#not)
+
+            
 
 ### Object
 
           
+[dissoc](#dissoc)
+
+            
 [has](#has)
 
             
@@ -1658,6 +1679,9 @@ import omit from 'rambda/lib/omit'
             
 [toUpper](#toupper)
 
+            
+[trim](#trim)
+
 ## Additional info
 
 > Running benchmarks
@@ -1670,19 +1694,21 @@ import omit from 'rambda/lib/omit'
 
 `yarn run benchmark add compose filter`
 
-> Libraries using Rambda
+> Projects using Rambda
+
+- [string-fn](https://github.com/selfrefactor/string-fn)
+
+- [tachyons-for-js](https://github.com/devilcoders/tachyons-for-js)
+
+- [react-append-to-body](https://github.com/jpgorman/react-append-to-body)
+
+- [docker-voting-app-nodejs](https://github.com/subfuzion/docker-voting-app-nodejs)
 
 - [ig-api](https://www.npmjs.com/package/ig-api)
 
 - [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
 
-- [json-validity](https://www.npmjs.com/package/json-validity)
-
-- [log-fn](https://www.npmjs.com/package/log-fn)
-
-- [string-fn](https://www.npmjs.com/package/string-fn)
-
-- [watch-fn](https://www.npmjs.com/package/watch-fn)
+- [mat-che](https://github.com/ianagbip1oti/mat-che)
 
 > Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)

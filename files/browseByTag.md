@@ -5,16 +5,28 @@
 [addIndex](#addindex)
 
             
+[always](#always)
+
+            
 [compose](#compose)
 
             
 [curry](#curry)
 
             
+[F](#f)
+
+            
 [flip](#flip)
 
             
+[identity](#identity)
+
+            
 [pipe](#pipe)
+
+            
+[T](#t)
 
             
 [tap](#tap)
@@ -185,6 +197,9 @@
 [both](#both)
 
             
+[complement](#complement)
+
+            
 [defaultTo](#defaultto)
 
             
@@ -194,10 +209,16 @@
 [ifElse](#ifelse)
 
             
+[not](#not)
+
+            
 
 ### Object
 
           
+[dissoc](#dissoc)
+
+            
 [has](#has)
 
             
@@ -274,5 +295,8 @@
 
             
 [toUpper](#toupper)
+
+            
+[trim](#trim)
 
             
