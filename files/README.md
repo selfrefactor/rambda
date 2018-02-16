@@ -1327,8 +1327,6 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
-
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)

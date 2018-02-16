@@ -1554,8 +1554,6 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
-
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1946,6 +1944,3 @@ import omit from 'rambda/lib/omit'
 > Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
-
