@@ -4,7 +4,7 @@
 
 # Rambda
 
-Faster alternative to **Ramda** in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Rambda's advantages
 
@@ -22,7 +22,7 @@ You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
-In **Rambda** you have the choice to use the more readable dot notation:
+In **Rambda** you have the choice to use dot notation(which is arguably more readable):
 
 ```
 R.path('a.b', {a: {b: 1} })
@@ -34,6 +34,8 @@ Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
 ```
 R.pick('a,b', {a: 1 , b: 2, c: 3} })
+
+// No space allowed between properties
 ```
 
 - Typescript included
@@ -46,20 +48,23 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 ## Example use
 
-```
+```javascript
 const R = require('rambda')
 const result = R.compose(
-  R.filter( R.equals( 2 ) ),
-  R.map( R.add( 1 ) )
-)({ a: 1, b: 2, c: 3 })
-console.log(result) // => '{a: 2}'
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
 ```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
 
 ## Install
 
 - Use **yarn add rambda** for `Webpack` and `Node.js` usage
 
-- For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
+- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
 https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.12/webVersion.js
@@ -69,19 +74,20 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.12/webVersion.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+
+- Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **path** accepts dot notation, i.e. `'x.y' same as ['x','y']`
-
-- Rambda's **pick** and **omit** accept comma notation, i.e. `'x,y' same as ['x','y']`
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry** and **includes** are not part of Ramda API.
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
-- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+- Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
