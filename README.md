@@ -711,6 +711,21 @@ R.includes('z', 'foo') // => false
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.includes(1%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20true%0AR.includes('oo'%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.includes('z'%2C%20'foo')%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
+#### indexBy
+
+> indexBy(fn: Function, arr: T[]): Object
+
+It indexes the array as an object with the given selector function.
+
+```
+R.indexBy(x => x.id, [ {id: 1}, {id: 2} ]) // => { 1: {id: 1}, 2: {id: 2} }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexBy.js)
+
+<a href="https://rambda.now.sh">Try in REPL</a>
+
+---
 #### indexOf
 
 > indexOf(valueToFind: any, arr: T[]): number
