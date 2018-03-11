@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.12/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.13/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1361,6 +1361,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
 - 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
 - 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
 - 1.0.10 Close [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
