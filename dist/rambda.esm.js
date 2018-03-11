@@ -530,6 +530,20 @@ function includes(x, y) {
   return y.includes(x);
 }
 
+function indexBy(fn, list) {
+  if (list === undefined) {
+
+    return list => indexBy(fn, list);
+  }
+  const result = {};
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    result[fn(item)] = item;
+  }
+
+  return result;
+}
+
 function indexOf(x, arr) {
   if (arr === undefined) {
     return arrHolder => indexOf(x, arrHolder);
@@ -1039,5 +1053,5 @@ function without(itemsToOmit, collection) {
   return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-export { add, addIndex, adjust, all, allPass, anyPass, always, any, append, both, complement, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, F, filter, find, findIndex, flatten, flip, forEach, has, head, identity, ifElse, is, isNil, includes, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, not, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, T, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, trim, type, uniq, uniqWith, update, values, without };
+export { add, addIndex, adjust, all, allPass, anyPass, always, any, append, both, complement, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, F, filter, find, findIndex, flatten, flip, forEach, has, head, identity, ifElse, is, isNil, includes, indexBy, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, not, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, T, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, trim, type, uniq, uniqWith, update, values, without };
 //# sourceMappingURL=rambda.esm.js.map
