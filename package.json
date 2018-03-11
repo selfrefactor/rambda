@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Lightweight alternative to Ramda",
   "main": "./dist/rambda.cjs.js",
   "module": "./dist/rambda.esm.js",
