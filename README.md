@@ -689,6 +689,7 @@ const result = fn(8)
 > inc(x: number): number
 
 It increments a number.
+
 ```
 R.inc(1) // => 2
 ```
@@ -715,15 +716,19 @@ R.includes('z', 'foo') // => false
 
 > indexBy(fn: Function, arr: T[]): Object
 
-It indexes the array as an object with the given selector function.
+It indexes array `arr` as an object with provided selector function `fn`.
 
 ```
-R.indexBy(x => x.id, [ {id: 1}, {id: 2} ]) // => { 1: {id: 1}, 2: {id: 2} }
+R.indexBy(
+  x => x.id,
+  [ {id: 1}, {id: 2} ]
+)
+// => { 1: {id: 1}, 2: {id: 2} }
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexBy.js)
 
-<a href="https://rambda.now.sh">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20%5B%20%7Bid%3A%201%7D%2C%20%7Bid%3A%202%7D%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%201%3A%20%7Bid%3A%201%7D%2C%202%3A%20%7Bid%3A%202%7D%20%7D">Try in REPL</a>
 
 ---
 #### indexOf

@@ -599,6 +599,7 @@ const result = fn(8)
 > inc(x: number): number
 
 It increments a number.
+
 ```
 R.inc(1) // => 2
 ```
@@ -616,6 +617,22 @@ R.includes('z', 'foo') // => false
 !! Note that this method is not part of `Ramda` API.
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/includes.js)
+
+#### indexBy
+
+> indexBy(fn: Function, arr: T[]): Object
+
+It indexes array `arr` as an object with provided selector function `fn`.
+
+```
+R.indexBy(
+  x => x.id,
+  [ {id: 1}, {id: 2} ]
+)
+// => { 1: {id: 1}, 2: {id: 2} }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexBy.js)
 
 #### indexOf
 

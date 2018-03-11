@@ -1,5 +1,6 @@
 export default function indexBy(fn, list) {
   if (list === undefined) {
+    
     return list => indexBy(fn, list)
   }
   const result = {}
@@ -7,5 +8,6 @@ export default function indexBy(fn, list) {
     const item = list[i]
     result[fn(item)] = item
   }
+
   return result
 }
