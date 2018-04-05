@@ -8,6 +8,7 @@ declare namespace R {
     | "Boolean"
     | "String"
     | "Null"
+    | "Undefined"
     | "Array"
     | "RegExp"
     | "Function"
