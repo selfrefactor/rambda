@@ -1,10 +1,10 @@
-[![CircleCI](https://img.shields.io/circleci/project/github/selfrefactor/rambda.svg)](https://circleci.com/gh/selfrefactor/rambda)
+[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
 
 # Rambda
 
-Faster alternative to **Ramda** in just 10kB - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ## Rambda's advantages
 
@@ -22,7 +22,7 @@ You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
-In **Rambda** you have the choice to use the more readable dot notation:
+In **Rambda** you have the choice to use dot notation(which is arguably more readable):
 
 ```
 R.path('a.b', {a: {b: 1} })
@@ -34,6 +34,8 @@ Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
 ```
 R.pick('a,b', {a: 1 , b: 2, c: 3} })
+
+// No space allowed between properties
 ```
 
 - Typescript included
@@ -46,42 +48,46 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 ## Example use
 
-```
+```javascript
 const R = require('rambda')
 const result = R.compose(
-  R.filter( R.equals( 2 ) ),
-  R.map( R.add( 1 ) )
-)({ a: 1, b: 2, c: 3 })
-console.log(result) // => '{a: 2}'
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
 ```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
 
 ## Install
 
 - Use **yarn add rambda** for `Webpack` and `Node.js` usage
 
-- For UMD usage either use `./dist/rambda.umd.js` or the CDN link at
+- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.12/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.13/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+
+- Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **path** accepts dot notation, i.e. `'x.y' same as ['x','y']`
-
-- Rambda's **pick** and **omit** accept comma notation, i.e. `'x,y' same as ['x','y']`
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry** and **includes** are not part of Ramda API.
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
-- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+- Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -683,6 +689,7 @@ const result = fn(8)
 > inc(x: number): number
 
 It increments a number.
+
 ```
 R.inc(1) // => 2
 ```
@@ -703,6 +710,25 @@ R.includes('z', 'foo') // => false
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/includes.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.includes(1%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20true%0AR.includes('oo'%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.includes('z'%2C%20'foo')%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+
+---
+#### indexBy
+
+> indexBy(fn: Function, arr: T[]): Object
+
+It indexes array `arr` as an object with provided selector function `fn`.
+
+```
+R.indexBy(
+  x => x.id,
+  [ {id: 1}, {id: 2} ]
+)
+// => { 1: {id: 1}, 2: {id: 2} }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexBy.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20%5B%20%7Bid%3A%201%7D%2C%20%7Bid%3A%202%7D%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%201%3A%20%7Bid%3A%201%7D%2C%202%3A%20%7Bid%3A%202%7D%20%7D">Try in REPL</a>
 
 ---
 #### indexOf
@@ -1548,8 +1574,6 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
-
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1567,6 +1591,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
+- 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
 - 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
 - 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
 - 1.0.10 Close [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
@@ -1940,6 +1966,3 @@ import omit from 'rambda/lib/omit'
 > Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
-
