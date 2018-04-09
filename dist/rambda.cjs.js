@@ -143,16 +143,21 @@ function complement(fn) {
   return input => !fn(input);
 }
 
-//Taken from https://github.com/getify/Functional-Light-JS/blob/master/ch4.md
 function compose(...fns) {
-  return result => {
-    const list = fns.slice();
 
-    while (list.length > 0) {
-      result = list.pop()(result);
+  return (...args) => {
+    const list = fns.slice();
+    if (list.length > 0) {
+      const fn = list.pop();
+      let result = fn(...args);
+      while (list.length > 0) {
+        result = list.pop()(result);
+      }
+
+      return result;
     }
 
-    return result;
+    return undefined;
   };
 }
 

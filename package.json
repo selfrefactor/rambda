@@ -6,7 +6,7 @@
 	"module": "./dist/rambda.esm.js",
 	"typings": "./index.d.ts",
 	"scripts": {
-		"dev": "jest __tests__/object/dissoc.js --watch",
+		"dev": "jest __tests__/logic/compose.js --watch",
 		"test": "jest __tests__",
 		"docs": "docsify init ./docs",
 		"lint": "node files/lint",

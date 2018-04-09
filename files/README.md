@@ -1361,6 +1361,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
 - 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
 - 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
 - 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
