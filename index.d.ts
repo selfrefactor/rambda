@@ -480,6 +480,9 @@ declare namespace R {
 
     without<T>(list1: T[], list2: T[]): T[]
     without<T>(list1: T[]): (list2: T[]) => T[]
+
+    zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
+    zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
   }
 }
 

@@ -3102,20 +3102,6 @@ log-symbols@^2.1.0, log-symbols@^2.2.0:
   dependencies:
     chalk "^2.0.1"
 
-"log@git+https://github.com/selfrefactor/log.git#0.6.1":
-  version "1.1.0"
-  resolved "git+https://github.com/selfrefactor/log.git#3aa8c1f679c7c0f61567d065e5cbc35f54b40403"
-  dependencies:
-    boxen "^1.3.0"
-    chalk "^2.3.0"
-    figures "^2.0.0"
-    gradient-string "^1.0.0"
-    log-symbols "^2.1.0"
-    ms "^2.1.1"
-    ora "^1.3.0"
-    q-i "^2.0.1"
-    rambdax "^0.8.8"
-
 "log@https://github.com/selfrefactor/log#0.2.0":
   version "1.0.0"
   resolved "https://github.com/selfrefactor/log#5e0e31d235ee4e917c6a24706edd7d84722a470b"
@@ -3129,6 +3115,20 @@ log-symbols@^2.1.0, log-symbols@^2.2.0:
     ora "https://github.com/sindresorhus/ora#1.3.0"
     q-i "https://github.com/sapegin/q-i#1.2.0"
     rambdax "https://github.com/selfrefactor/rambdax#0.6.8"
+
+"log@https://github.com/selfrefactor/log#0.6.1":
+  version "1.1.0"
+  resolved "https://github.com/selfrefactor/log#3aa8c1f679c7c0f61567d065e5cbc35f54b40403"
+  dependencies:
+    boxen "^1.3.0"
+    chalk "^2.3.0"
+    figures "^2.0.0"
+    gradient-string "^1.0.0"
+    log-symbols "^2.1.0"
+    ms "^2.1.1"
+    ora "^1.3.0"
+    q-i "^2.0.1"
+    rambdax "^0.8.8"
 
 "log@https://github.com/selfrefactor/log#0.9.0":
   version "1.1.0"
@@ -3794,9 +3794,9 @@ rambda@^1.0.0, rambda@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/rambda/-/rambda-1.0.13.tgz#b515fb49bc4914f168a22ac2bbef7dd74d08ef3c"
 
-"rambda@git+https://github.com/selfrefactor/rambda.git#1.1.0":
+"rambda@https://github.com/selfrefactor/rambda#1.1.0":
   version "1.0.9"
-  resolved "git+https://github.com/selfrefactor/rambda.git#ee04b4005da84b29d166364100d50e2a9be56a60"
+  resolved "https://github.com/selfrefactor/rambda#ee04b4005da84b29d166364100d50e2a9be56a60"
 
 rambdax@^0.8.10, rambdax@^0.8.8:
   version "0.8.10"
