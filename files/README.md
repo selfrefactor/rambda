@@ -1344,6 +1344,23 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
+
+#### zip
+
+> zip(a: K[], b: V[]): Array<KeyValuePair<K, V>>
+
+It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.
+
+```
+R.zip([1, 2], ['A', 'B'])
+// => [[1, 'A'], [2, 'B']]
+
+// truncates to shortest list
+R.zip([1, 2, 3, 4], ['A', 'B'])
+// => [[1, 'A'], [2, 'B']]
+```
+
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1361,6 +1378,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
 - 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
 - 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
 - 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules

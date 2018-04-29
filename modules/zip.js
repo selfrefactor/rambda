@@ -1,11 +1,16 @@
-const R = require("../rambda");
+import addIndex from './addIndex'
+import reduce from './reduce'
 
-const zip = (array1, array2) =>
-  R.addIndex(R.reduce)(
+export default function zip(x, y){
+  if(y === undefined){
+
+    return yHolder => zip(x, yHolder)
+  }
+
+  return addIndex(reduce)(
     (accum, value, index) =>
-      array2[index] ? accum.concat([[value, array2[index]]]) : accum,
+      y[index] ? accum.concat([[value, y[index]]]) : accum,
     [],
-    array1
-  );
-
-module.exports = R.curry(zip);
+    x
+  )
+}

@@ -1058,5 +1058,14 @@ function without(itemsToOmit, collection) {
   return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
-export { add, addIndex, adjust, all, allPass, anyPass, always, any, append, both, complement, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, F, filter, find, findIndex, flatten, flip, forEach, has, head, identity, ifElse, is, isNil, includes, indexBy, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, not, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, T, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, trim, type, uniq, uniqWith, update, values, without };
+function zip(x, y) {
+  if (y === undefined) {
+
+    return yHolder => zip(x, yHolder);
+  }
+
+  return addIndex(reduce)((accum, value, index) => y[index] ? accum.concat([[value, y[index]]]) : accum, [], x);
+}
+
+export { add, addIndex, adjust, all, allPass, anyPass, always, any, append, both, complement, compose, concat, contains, curry, dec, defaultTo, dissoc, divide, drop, dropLast, either, endsWith, inc, equals, F, filter, find, findIndex, flatten, flip, forEach, has, head, identity, ifElse, is, isNil, includes, indexBy, indexOf, init, join, lastIndexOf, last, length, map, match, merge, modulo, multiply, none, not, omit, partialCurry, path, pathOr$1 as pathOr, pick, pickAll, pipe, pluck, prepend, prop, propEq, range, reduce, reject, repeat, replace, reverse, sort, sortBy, split, splitEvery, startsWith, subtract, T, tap, tail, take, takeLast, test, times, toLower, toUpper, toString, trim, type, uniq, uniqWith, update, values, without, zip };
 //# sourceMappingURL=rambda.esm.js.map

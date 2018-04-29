@@ -1062,6 +1062,15 @@ function without(itemsToOmit, collection) {
   return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
 }
 
+function zip(x, y) {
+  if (y === undefined) {
+
+    return yHolder => zip(x, yHolder);
+  }
+
+  return addIndex(reduce)((accum, value, index) => y[index] ? accum.concat([[value, y[index]]]) : accum, [], x);
+}
+
 exports.add = add;
 exports.addIndex = addIndex;
 exports.adjust = adjust;
@@ -1155,4 +1164,5 @@ exports.uniqWith = uniqWith;
 exports.update = update;
 exports.values = values;
 exports.without = without;
+exports.zip = zip;
 //# sourceMappingURL=rambda.cjs.js.map
