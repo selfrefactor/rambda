@@ -9,7 +9,7 @@ export default function path (pathArr, obj) {
   let counter = 0
 
   const pathArrValue = typeof pathArr === 'string' ?
-    pathArr = pathArr.split('.') :
+    pathArr.split('.') :
     pathArr
 
   while (counter < pathArrValue.length) {
