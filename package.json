@@ -5,6 +5,7 @@
   "main": "./dist/rambda.cjs.js",
   "module": "./dist/rambda.esm.js",
   "typings": "./index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "dev": "jest __tests__/logic/compose.js --watch",
     "test": "jest __tests__",
@@ -50,6 +51,7 @@
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-annotate-pure-calls": "^0.2.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "beautify-benchmark": "^0.2.4",
