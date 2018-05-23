@@ -614,6 +614,25 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 <a href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
 ---
+#### groupBy
+
+> groupBy(fn: Function, arr: T[]): Object
+
+It groups array `arr` by provided selector function `fn`.
+
+```
+R.groupBy(
+  x => x.length,
+  [ 'a', 'b', 'aa', 'bb' ]
+)
+// => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/groupBy.js)
+
+<a href="https://rambda.now.sh">Try in REPL</a>
+
+---
 #### has
 
 > has(prop: string, obj: Object): boolean
