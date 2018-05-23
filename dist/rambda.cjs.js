@@ -716,7 +716,7 @@ function pathOr(defaultValue, inputPath, inputObject) {
   return defaultTo(defaultValue, path(inputPath, inputObject));
 }
 
-var pathOr$1 = curry(pathOr);
+var pathOr$1 = /*#__PURE__*/curry(pathOr);
 
 function pick(keys, obj) {
   if (arguments.length === 1) {

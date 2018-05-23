@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.13/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.2/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -750,7 +750,7 @@ const resultWithArray = R.map(mapFn, [1, 2, 3])
 // => [2, 4, 6]
 
 const result = R.map((val, prop)=>{
-  return `${val}-${prop}`
+  return `${prop}-${val}`
 }, {a: 1, b: 2})
 // => {a: 'a-1', b: 'b-2'}
 ```
@@ -1378,6 +1378,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
 - 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
 - 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
 - 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
