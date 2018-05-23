@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.0.13/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.2/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -869,14 +869,14 @@ const resultWithArray = R.map(mapFn, [1, 2, 3])
 // => [2, 4, 6]
 
 const result = R.map((val, prop)=>{
-  return `${val}-${prop}`
+  return `${prop}-${val}`
 }, {a: 1, b: 2})
 // => {a: 'a-1', b: 'b-2'}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/map.js)
 
-<a href="https://rambda.now.sh?const%20mapFn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20resultWithArray%20%3D%20R.map(mapFn%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%2C%206%5D%0A%0Aconst%20result%20%3D%20R.map((val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bval%7D-%24%7Bprop%7D%60%0A%7D%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20mapFn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20resultWithArray%20%3D%20R.map(mapFn%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%2C%206%5D%0A%0Aconst%20result%20%3D%20R.map((val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try in REPL</a>
 
 ---
 #### match
@@ -1574,6 +1574,26 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
+
+---
+#### zip
+
+> zip(a: K[], b: V[]): Array<KeyValuePair<K, V>>
+
+It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.
+
+```
+R.zip([1, 2], ['A', 'B'])
+// => [[1, 'A'], [2, 'B']]
+
+// truncates to shortest list
+R.zip([1, 2, 3, 4], ['A', 'B'])
+// => [[1, 'A'], [2, 'B']]
+```
+
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1591,6 +1611,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
+- 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
 - 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
 - 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
 - 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
