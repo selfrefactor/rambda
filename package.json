@@ -7,7 +7,7 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "dev": "jest __tests__/logic/compose.js --watch",
+    "dev": "jest __tests__/general.js --watch",
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
     "lint": "node files/lint",

@@ -2,6 +2,11 @@ const R = require('../rambda')
 const Ramda = require('ramda')
 const { existsSync } = require('fs')
 
+test('', () => {
+  R.forEach(console.log, {a:1})
+  R.map(console.log, {a:1})
+})
+
 test('R.T', () => {
   expect(R.T()).toBe(true)
 })

@@ -435,16 +435,6 @@ function flip(fn, ...input) {
   return flipExport(fn);
 }
 
-function tap(fn, x) {
-  if (x === undefined) {
-    return xHolder => tap(fn, xHolder);
-  }
-
-  fn(x);
-
-  return x;
-}
-
 function mapObject(fn, obj) {
   const willReturn = {};
 
@@ -478,7 +468,25 @@ function forEach(fn, arr) {
     return arrHolder => forEach(fn, arrHolder);
   }
 
-  return map(tap(fn), arr);
+  map(fn, arr);
+
+  return arr;
+}
+
+function groupBy(fn, list) {
+  if (list === undefined) {
+    return list => groupBy(fn, list);
+  }
+  const result = {};
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    const key = fn(item);
+
+    if (!result[key]) result[key] = [];
+
+    result[key].push(item);
+  }
+  return result;
 }
 
 function has(prop, obj) {
@@ -939,6 +947,16 @@ function T() {
   return true;
 }
 
+function tap(fn, x) {
+  if (x === undefined) {
+    return xHolder => tap(fn, xHolder);
+  }
+
+  fn(x);
+
+  return x;
+}
+
 function tail(arr) {
   return drop(1, arr);
 }
@@ -1103,6 +1121,7 @@ exports.findIndex = findIndex;
 exports.flatten = flatten;
 exports.flip = flip;
 exports.forEach = forEach;
+exports.groupBy = groupBy;
 exports.has = has;
 exports.head = head;
 exports.identity = identity;

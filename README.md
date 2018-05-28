@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.3/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -616,7 +616,7 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 ---
 #### groupBy
 
-> groupBy(fn: Function, arr: T[]): Object
+> groupBy(fn: Function, arr: Array): Object
 
 It groups array `arr` by provided selector function `fn`.
 
@@ -630,7 +630,7 @@ R.groupBy(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/groupBy.js)
 
-<a href="https://rambda.now.sh">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.groupBy(%0A%20%20x%20%3D%3E%20x.length%2C%0A%20%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try in REPL</a>
 
 ---
 #### has
@@ -1630,6 +1630,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
 - 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
 - 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
 - 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
