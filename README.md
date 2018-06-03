@@ -452,7 +452,7 @@ R.endsWith(
 ---
 #### either
 
-> endsWith(firstCondition: Function, secondCondition: Function): Function
+> either(firstCondition: Function, secondCondition: Function): Function
 
 ```
 R.either(
