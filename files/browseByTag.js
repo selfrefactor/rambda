@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
-const R = require('../dist/rambda.cjs')
+const R = require('../dist/rambda.js')
 const ramdaData = require('./ramdaData.json').data
 
 const fn = async () => {

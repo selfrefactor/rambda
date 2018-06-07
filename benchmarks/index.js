@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 const _ = require('lodash')
-const R = require('../dist/rambda.cjs')
+const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const benchmarks = require('beautify-benchmark')
