@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.2/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.3/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -452,7 +452,7 @@ R.endsWith(
 ---
 #### either
 
-> endsWith(firstCondition: Function, secondCondition: Function): Function
+> either(firstCondition: Function, secondCondition: Function): Function
 
 ```
 R.either(
@@ -612,6 +612,25 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/forEach.js)
 
 <a href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
+
+---
+#### groupBy
+
+> groupBy(fn: Function, arr: Array): Object
+
+It groups array `arr` by provided selector function `fn`.
+
+```
+R.groupBy(
+  x => x.length,
+  [ 'a', 'b', 'aa', 'bb' ]
+)
+// => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/groupBy.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.groupBy(%0A%20%20x%20%3D%3E%20x.length%2C%0A%20%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try in REPL</a>
 
 ---
 #### has
@@ -1594,6 +1613,22 @@ R.zip([1, 2, 3, 4], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
+---
+#### zipObj
+
+> zipObj(a: K[], b: V[]): Object
+
+It will return a new object with keys of `a` array and values of `b` array.
+
+```
+R.zipObj(['a', 'b', 'c'], [1, 2, 3])
+//=> {a: 1, b: 2, c: 3}
+
+// truncates to shortest list
+R.zipObj(['a', 'b', 'c'], [1, 2])
+//=> {a: 1, b: 2}
+```
+
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1611,6 +1646,9 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
+- 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
+- 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
 - 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
 - 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
 - 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
