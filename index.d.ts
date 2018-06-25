@@ -27,11 +27,11 @@ declare namespace R {
     (list: T[]): T[]
     (obj: Dictionary<T>): Dictionary<T>
   }
-  
+
   interface Dictionary<T> {
     [index: string]: T
   }
-  // RAMBDA_END  
+  // RAMBDA_END
   type Ord = number | string | boolean
 
   type Path = Array<(number | string)>
@@ -218,7 +218,7 @@ declare namespace R {
     defaultTo<T>(a: T): (b: null | undefined | T) => T
 
     dissoc<T>(prop: string, obj: any): T
-    dissoc(prop: string): <U>(obj: any) => U  
+    dissoc(prop: string): <U>(obj: any) => U
 
     divide(a: number, b: number): number
     divide(a: number): (b: number) => number
@@ -277,7 +277,9 @@ declare namespace R {
     identity<T>(x: T): T
 
     ifElse(fn: Pred | boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
-    
+
+    inc(n: number): number
+
     includes(input: any, arrOrStr: any[]|string): boolean
     includes(input: any) : (arrOrStr: any[]|string) => boolean
 
@@ -299,7 +301,7 @@ declare namespace R {
 
     map<In, Out>(fn: MapFunction<In, Out>): MapInterface<Out>
     map<In, Out>(fn: MapFunction<In, Out>, list: In[]): Out[]
-    
+
     map<In, Out>(
       fn: MapFunction<In, Out>,
       obj: Dictionary<In>
