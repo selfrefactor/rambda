@@ -1377,6 +1377,21 @@ R.zip([1, 2, 3, 4], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
+#### zipObj
+
+> zipObj(a: K[], b: V[]): Object
+
+It will return a new object with keys of `a` array and values of `b` array.
+
+```
+R.zipObj(['a', 'b', 'c'], [1, 2, 3])
+//=> {a: 1, b: 2, c: 3}
+
+// truncates to shortest list
+R.zipObj(['a', 'b', 'c'], [1, 2])
+//=> {a: 1, b: 2}
+```
+
 ## Benchmark
 
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
@@ -1394,6 +1409,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
 - 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
 - 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
 - 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
