@@ -67,7 +67,8 @@
   "dependencies": {},
   "commitMessage": {
     "support": [
-      "docs"
+      "docs",
+      "build"
     ],
     "feature": [
       "method"
