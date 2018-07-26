@@ -294,6 +294,9 @@ declare namespace R {
     join(x: string, input: any[]): string
     join(x: string): (input: any[]) => string
 
+    keys<T extends object>(x: T): Array<keyof T>
+    keys<T>(x: T): string[]
+
     last<T>(list: T[]): T | undefined
     last(list: string): string
 
@@ -319,10 +322,26 @@ declare namespace R {
     multiply(a: number, b: number): number
     multiply(a: number): (b: number) => number
 
+    max<T>(a: T, b: T): T
+    max<T>(a: T): (b: T) => T
+
+    maxBy<T>(keyFn: Function, a: T, b: T): T
+    maxBy<T>(keyFn: Function, a: T): (b: T) => T
+    maxBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
+
+    min<T>(a: T, b: T): T
+    min<T>(a: T): (b: T) => T
+
+    minBy<T>(keyFn: Function, a: T, b: T): T
+    minBy<T>(keyFn: Function, a: T): (b: T) => T
+    minBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
+
     none<T>(fn: (x: T) => boolean, list: T[]): boolean
     none<T>(fn: (x: T) => boolean): (list: T[]) => boolean
 
     not(value: any): boolean
+    nth<T>(n: number, list: Array<T>): T | undefined;
+    nth(n: number): <T>(list: Array<T>) => T | undefined;
 
     omit<T>(names: string[] | string, obj: T): T
     omit(names: string[] | string): <T>(obj: T) => T
