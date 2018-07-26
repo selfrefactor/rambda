@@ -8,6 +8,14 @@ test('min/max', () => {
   expect(R.minBy(fn, 5,7)).toBe(5)
   expect(R.max(5,7)).toBe(7)
   expect(R.maxBy(fn, 5,7)).toBe(7)
+})
+
+test('R.keys', () => {
+  expect(R.keys({})).toEqual([])
+  expect(R.keys({a:1,b:2})).toEqual(['a','b'])
+})
+
+test('R.nth', () => {
   expect(R.nth(2, [1,2,7])).toBe(7)
 })
 

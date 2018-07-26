@@ -42,6 +42,7 @@ export { default as init } from './modules/init';
 export { default as is } from './modules/is';
 export { default as isNil } from './modules/isNil';
 export { default as join } from './modules/join';
+export { default as keys } from './modules/keys';
 export { default as last } from './modules/last';
 export { default as lastIndexOf } from './modules/lastIndexOf';
 export { default as length } from './modules/length';
