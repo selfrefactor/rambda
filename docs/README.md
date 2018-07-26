@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.1.3/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.0/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -795,6 +795,15 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try in REPL</a>
 
 ---
+#### keys
+
+> keys(x: Object): string[]
+
+```
+R.keys({a:1, b:2})  // => ['a', 'b']
+```
+
+---
 #### is
 
 > is(xPrototype: any, x: any): boolean
@@ -911,6 +920,24 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%20%2F%2F%20%3D%3E%20%5B'ba'%2C%20'na'%2C%20'na'%5D">Try in REPL</a>
 
 ---
+#### max
+
+> max(x: Number|String, y: Number|String): Number|String
+
+```
+R.max(5,7) // => 7
+```
+
+---
+#### maxBy
+
+> maxBy(fn: Function, x: Number|String, y: Number|String): Number|String
+
+```
+R.maxBy(Math.abs, 5, -7) // => -7
+```
+
+---
 #### merge
 
 > merge(a: Object, b: Object)
@@ -925,6 +952,24 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/merge.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.merge(%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%2C%20%7B%20'foo'%3A%207%20%7D)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try in REPL</a>
+
+---
+#### min
+
+> min(x: Number|String, y: Number|String): Number|String
+
+```
+R.max(5,7) // => 5
+```
+
+---
+#### minBy
+
+> minBy(fn: Function, x: Number|String, y: Number|String): Number|String
+
+```
+R.minBy(Math.abs, -5, -7) // => -5
+```
 
 ---
 #### modulo
@@ -1646,6 +1691,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
 - 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
 - 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
 - 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
