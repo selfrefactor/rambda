@@ -48,10 +48,15 @@ export { default as length } from './modules/length';
 export { default as map } from './modules/map';
 export { default as match } from './modules/match';
 export { default as merge } from './modules/merge';
+export { default as max } from './modules/max';
+export { default as maxBy } from './modules/maxBy';1
+export { default as min } from './modules/min';
+export { default as minBy } from './modules/minBy';
 export { default as modulo } from './modules/modulo';
 export { default as multiply } from './modules/multiply';
 export { default as none } from './modules/none';
 export { default as not } from './modules/not';
+export { default as nth } from './modules/nth';
 export { default as omit } from './modules/omit';
 export { default as partialCurry } from './modules/partialCurry';
 export { default as path } from './modules/path';
@@ -94,4 +99,3 @@ export { default as values } from './modules/values';
 export { default as without } from './modules/without';
 export { default as zip } from './modules/zip';
 export { default as zipObj } from './modules/zipObj';
-

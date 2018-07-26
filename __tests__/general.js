@@ -2,9 +2,13 @@ const R = require('../rambda')
 const Ramda = require('ramda')
 const { existsSync } = require('fs')
 
-test('', () => {
-  R.forEach(console.log, {a:1})
-  R.map(console.log, {a:1})
+test('min/max', () => {
+  const fn = a => a - 3 / 2  
+  expect(R.min(5,7)).toBe(5)
+  expect(R.minBy(fn, 5,7)).toBe(5)
+  expect(R.max(5,7)).toBe(7)
+  expect(R.maxBy(fn, 5,7)).toBe(7)
+  expect(R.nth(2, [1,2,7])).toBe(7)
 })
 
 test('R.T', () => {
