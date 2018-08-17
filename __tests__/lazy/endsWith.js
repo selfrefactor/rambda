@@ -1,16 +1,13 @@
 const R = require('../../rambda')
 
-test('true', () => {
-  const result = R.endsWith(
-    'bar',
-    'foo-bar'
-  )
-
-  expect(result).toBeTruthy()
+test('string ends with suffix', () => {
+  expect(R.endsWith('bar', 'foo-bar')).toBeTruthy()
 })
 
-test('false', () => {
-  const result = R.endsWith('baz')('foo-bar')
+test('currying', () => {
+  expect(R.endsWith('baz')('foo-bar')).toBeFalsy()
+})
 
-  expect(result).toBeFalsy()
+test('list ends with suffix', () => {
+  expect(R.endsWith(['c'], ['a', 'b', 'c'])).toBeTruthy()
 })

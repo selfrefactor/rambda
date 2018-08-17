@@ -49,10 +49,14 @@ module.exports = curry(endsWith)
 Exported methods are sorted alphabetically
 
 ```
-exports.dropLast = require("./modules/dropLast")
-exports.endsWith = require("./modules/endsWith")
-exports.equals = require("./modules/equals")
+export { default as either } from './modules/either';
+export { default as endsWith } from './modules/endsWith';
+export { default as equals } from './modules/equals';
 ```
+
+> Test that your implementation can be compiled to ES5
+
+`yarn prepublish`
 
 > Write your test cases
 
@@ -67,6 +71,33 @@ test('endsWith', () => {
 ```
 
 > Run `npm test` to validate your tests
+
+> Add a benchmark
+
+Create file `endsWith.js` in folder `benchmarks`
+
+```
+const Benchmark = require('benchmark')
+const R = require('../dist/rambda.js')
+const Ramda = require('ramda')
+
+const suite = new Benchmark.Suite()
+
+suite
+.add('Rambda.endsWith', () => {
+  R.endsWith(['b'], ['a', 'b', 'c'])
+})
+.add('Ramda.endsWith', () => {
+  Ramda.endsWith(['b'], ['a', 'b', 'c'])
+})
+
+module.exports = suite
+```
+
+> Test your benchmark
+
+`yarn build-main`
+`node benchmarks/index.js endsWith`
 
 > Edit `./README.md` to add documentation
 
