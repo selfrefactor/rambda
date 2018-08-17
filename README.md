@@ -244,6 +244,23 @@ R.append(
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.append(%0A%20%20'foo'%2C%0A%20%20%5B'bar'%2C%20'baz'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try in REPL</a>
 
 ---
+#### assoc
+
+> assoc(prop: any, value: any, obj: object): object
+
+Makes a shallow clone of `obj`, setting or overriding the property `prop` with
+the value `value`. Note that this copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
+
+```
+R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+R.assoc('a', {b: 1}, {a: {c: 2}}) // => {a: {b: 1}}
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/assoc.js)
+
+---
 #### both
 
 > both(firstCondition: Function, secondCondition: Function, input: any): boolean

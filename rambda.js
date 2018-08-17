@@ -7,6 +7,7 @@ export { default as always } from './modules/always';
 export { default as any } from './modules/any';
 export { default as anyPass } from './modules/anyPass';
 export { default as append } from './modules/append';
+export { default as assoc } from './modules/assoc';
 export { default as both } from './modules/both';
 export { default as complement } from './modules/complement';
 export { default as compose } from './modules/compose';
