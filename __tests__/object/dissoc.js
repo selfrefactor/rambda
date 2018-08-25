@@ -1,8 +1,11 @@
 const R = require('../../rambda')
 
 test('input is null or undefined', () => {
-  expect(R.dissoc('b', null)).toEqual(undefined)
-  expect(R.dissoc('b', undefined)).toEqual(undefined)
+  //These tests match Ramda behavior.
+  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20null%29
+  expect(R.dissoc('b', null)).toEqual({})
+  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20undefined%29
+  expect(R.dissoc('b', undefined)).toEqual({})
 })
 
 test('property exists curried', () => {

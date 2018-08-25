@@ -6,14 +6,14 @@ const Ramda = require('ramda')
 const suite = new Benchmark.Suite()
 
 suite
-.add('Rambda.any', () => {
-  R.any(val => val > 2, [ 1, 2, 3, 4 ])
+.add('Rambda.assoc', () => {
+  R.assoc('c', 3, {a: 1, b: 2})
 })
-.add('Ramda.any', () => {
-  Ramda.any(val => val > 2, [ 1, 2, 3, 4 ])
+.add('Ramda.assoc', () => {
+  Ramda.assoc('c', 3, {a: 1, b: 2})
 })
-.add('Lodash.some', () => {
-  _.some([ 1, 2, 3, 4 ], val => val > 2)
+.add('Lodash.set', () => {
+  _.set({a: 1, b: 2}, 'c', 3)
 })
 
 module.exports = suite

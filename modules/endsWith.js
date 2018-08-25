@@ -1,7 +1,13 @@
-export default function endsWith (x, y) {
-  if (y === undefined) {
-    return yHolder => endsWith(x, yHolder)
-  }
+import equals from './equals'
+import takeLast from './takeLast'
 
-  return y.endsWith(x)
+export default function endsWith (suffix, list) {
+  switch (arguments.length) {
+    case 0:
+      return endsWith
+    case 1:
+      return (list) => endsWith(suffix, list)
+    default:
+      return equals(suffix, takeLast(suffix.length, list))
+  }
 }
