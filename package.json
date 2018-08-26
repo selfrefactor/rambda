@@ -69,7 +69,8 @@
   "commitMessage": {
     "support": [
       "docs",
-      "build"
+      "build",
+      "prepublish"
     ],
     "feature": [
       "method"

@@ -1,7 +1,7 @@
 export default function merge (obj, newProps) {
-  if (newProps === undefined) {
+  if (arguments.length === 1) {
     return newPropsHolder => merge(obj, newPropsHolder)
   }
 
-  return Object.assign({}, obj, newProps)
+  return Object.assign({}, obj || {}, newProps || {})
 }

@@ -27,7 +27,6 @@ export { default as F } from './modules/F';
 export { default as filter } from './modules/filter';
 export { default as find } from './modules/find';
 export { default as findIndex } from './modules/findIndex';
-export { default as flatMap } from './modules/flatMap';
 export { default as flatten } from './modules/flatten';
 export { default as flip } from './modules/flip';
 export { default as forEach } from './modules/forEach';

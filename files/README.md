@@ -67,7 +67,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.0/webVersion.js
+https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.1/webVersion.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -1463,6 +1463,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
 - 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
 - 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`

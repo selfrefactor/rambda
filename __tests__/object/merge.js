@@ -1,22 +1,23 @@
 const R = require('../../rambda')
 
+const sample = {
+  foo : 'bar',
+  bar : 'bar',
+}
+
 test('merge', () => {
-  expect(R.merge({
-    foo : 'bar',
-    bar : 'bar',
-  })({ bar : 'baz' })).toEqual({
+  expect(R.merge(sample)({ bar : 'baz' })).toEqual({
     foo : 'bar',
     bar : 'baz',
   })
 })
 
-//test('R.__',()=>{
-//const result = R.compose(
-//R.map(R.merge('_',{b:20})),
-//R.map(R.tap(console.log))
-//)([{a:1}, {b:2}, {c:3}])
-//
-//expect(result).toEqual(
-//[{"a": 1, "b": 20}, {"b": 20}, {"b": 20, "c": 3}]
-//)
-//})
+/**
+ * https://github.com/selfrefactor/rambda/issues/77
+ */
+test('when undefined or null instead of object', () => {
+  expect(R.merge(null, undefined)).toEqual({})
+  expect(R.merge(sample, null)).toEqual(sample)
+  expect(R.merge(sample, undefined)).toEqual(sample)
+  expect(R.merge(undefined, sample)).toEqual(sample)
+})

@@ -149,6 +149,10 @@ declare namespace R {
     append<T>(el: T, list: T[]): T[]
     append<T>(el: T): <T>(list: T[]) => T[]
 
+    assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
+    assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
+    assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+
     both(pred1: Pred, pred2: Pred): Pred
     both(pred1: Pred): (pred2: Pred) => Pred
 
