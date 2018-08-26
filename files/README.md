@@ -220,6 +220,20 @@ R.append(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
 
+#### assoc
+
+> assoc(prop: any, value: any, obj: object): object
+
+Makes a shallow clone of `obj`, setting or overriding the property `prop` with
+the value `value`. Note that this copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
+
+```
+R.assoc('c', 3, {a: 1, b: 2})
+//=> {a: 1, b: 2, c: 3}
+```
+
 #### both
 
 > both(firstCondition: Function, secondCondition: Function, input: any): boolean
@@ -1829,4 +1843,5 @@ import omit from 'rambda/lib/omit'
 
 > Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
+
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
