@@ -11,6 +11,29 @@ test('adds a key to a non-empty object', () => {
   })
 })
 
+test('adds a key to a non-empty object - curry case 1', () => {
+  expect(R.assoc('b', 2)({ a : 1 })).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('adds a key to a non-empty object - curry case 2', () => {
+  expect(R.assoc('b')(2, { a : 1 })).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('adds a key to a non-empty object - curry case 3', () => {
+  const result = R.assoc('b')(2)({ a : 1 })
+
+  expect(result).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
 test('changes an existing key', () => {
   expect(R.assoc('a', 2, { a : 1 })).toEqual({ a : 2 })
 })

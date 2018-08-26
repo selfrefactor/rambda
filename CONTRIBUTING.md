@@ -70,7 +70,7 @@ test('endsWith', () => {
 })
 ```
 
-> Run `npm test` to validate your tests
+> Run `yarn test` to validate your tests
 
 > Add a benchmark
 
@@ -99,15 +99,15 @@ module.exports = suite
 `yarn build-main`
 `node benchmarks/index.js endsWith`
 
-> Edit `./README.md` to add documentation
+> Edit `./files/README.md` to add documentation for the method
 
-Note that your documentation should match the pattern visible across `./README.md`
+Note that your documentation should match the pattern visible across `./files/README.md`
 
 > Lint your files
 
-`yarn run lint modules/endsWith.js`
+`yarn lint modules/endsWith.js`
 
-`yarn run lint __tests__/endsWith.js`
+`yarn lint __tests__/endsWith.js`
 
 > Submit PR
 

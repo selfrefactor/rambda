@@ -17,7 +17,15 @@ module.exports = function (wallaby){
     compilers: {
       '**/*.js?(x)': wallaby.compilers.babel()
     },
+    workers: {
+      reload: true,
+      initial: 4,
+      regular: 2
+    },
+    delays: {
+      run: 1000
+    },
     testFramework: 'jest',
-    debug:false
+    debug:true
   }
 }
