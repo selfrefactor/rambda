@@ -121,6 +121,7 @@ declare namespace R {
   }
 
   interface Static {
+    // RAMBDA_START_MARKER
     add(a: number, b: number): number
     add(a: string, b: string): string
     add(a: number): (b: number) => number
@@ -509,8 +510,9 @@ declare namespace R {
     zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>
     zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>
 
-    zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
-    zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+    zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
+    zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T }
+    // RAMBDA_END_MARKER
   }
 }
 
