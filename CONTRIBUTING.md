@@ -23,9 +23,11 @@ function endsWith(x, arrOrStr){
 We can use the standard curring used throughout `Rambda`.
 ```
 function endsWith(x, arrOrStr){
-  if(arrOrStr === undefined){
+  if(arguments.length === 1){
+    
     return arrOrStrHolder => endsWith(x, arrOrStrHolder)
   }
+
   return arrOrStr.endsWith(x)
 }
 module.exports = endsWith
@@ -35,12 +37,11 @@ Or we can also use `R.curry`, but it is not as performant as the example above.
 
 ```
 const curry = require('./curry')
+
 function endsWith(x, arrOrStr){
-  if(arrOrStr === undefined){
-    return holder => endsWith(x, arrOrStr)
-  }
   return arrOrStr.endsWith(x)
 }
+
 module.exports = curry(endsWith)
 ```
 

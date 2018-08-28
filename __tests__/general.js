@@ -17,6 +17,8 @@ test('R.keys', () => {
 
 test('R.nth', () => {
   expect(R.nth(2, [1,2,7])).toBe(7)
+  expect(R.nth(1)([1,2,7])).toBe(2)
+  expect(R.nth(-3)([0,1,2,3,4,5])).toBe(3)
 })
 
 test('R.T', () => {

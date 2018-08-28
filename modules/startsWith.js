@@ -1,7 +1,5 @@
 export default function startsWith (x, y) {
-  if (y === undefined) {
-    return yHolder => startsWith(x, yHolder)
-  }
+  if (arguments.length === 1) return yHolder => startsWith(x, yHolder)
 
   return y.startsWith(x)
 }

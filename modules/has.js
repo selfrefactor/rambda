@@ -1,7 +1,5 @@
 export default function has (prop, obj) {
-  if (obj === undefined) {
-    return objHolder => has(prop, objHolder)
-  }
+  if (arguments.length === 1) { return objHolder => has(prop, objHolder) }
 
   return obj[ prop ] !== undefined
 }

@@ -1,18 +1,13 @@
 export default function dissoc (prop, obj) {
-  if(arguments.length === 1){
+  if (arguments.length === 1) { return objHolder => dissoc(prop, objHolder) }
 
-    return objHolder => dissoc(prop, objHolder)
-  }
-  
-  if (obj === null || obj === undefined) {	
-  
-    return {}	
-  }
+  if (obj === null || obj === undefined) { return {} }
 
   const willReturn = {}
-  for (var p in obj) {
-    willReturn[p] = obj[p]
+  for (const p in obj) {
+    willReturn[ p ] = obj[ p ]
   }
-  delete willReturn[prop]
+  delete willReturn[ prop ]
+
   return willReturn
 }

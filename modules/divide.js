@@ -1,7 +1,5 @@
 export default function divide (x, y) {
-  if (y === undefined) {
-    return yHolder => divide(x, yHolder)
-  }
+  if (arguments.length === 1) { return yHolder => divide(x, yHolder) }
 
   return x / y
 }

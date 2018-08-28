@@ -11,13 +11,12 @@ function filterObject (fn, obj) {
 }
 
 export default function filter (fn, arr) {
-  if (arr === undefined) {
-    return arrHolder => filter(fn, arrHolder)
-  }
+  if (arguments.length === 1) { return arrHolder => filter(fn, arrHolder) }
 
-  if (arr.length === undefined) {
-    return filterObject(fn, arr)
-  }
+  if (arr === undefined) { return [] }
+
+  if (arr.length === undefined) { return filterObject(fn, arr) }
+
   let index = -1
   let resIndex = 0
   const len = arr.length

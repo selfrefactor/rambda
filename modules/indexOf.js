@@ -1,7 +1,6 @@
 export default function indexOf (x, arr) {
-  if (arr === undefined) {
-    return arrHolder => indexOf(x, arrHolder)
-  }
+  if (arguments.length === 1) { return arrHolder => indexOf(x, arrHolder) }
+
   let index = -1
   const length = arr.length
 

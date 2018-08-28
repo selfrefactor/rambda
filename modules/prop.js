@@ -1,7 +1,5 @@
 export default function prop (key, obj) {
-  if (obj === undefined) {
-    return objHolder => prop(key, objHolder)
-  }
+  if (arguments.length === 1) return objHolder => prop(key, objHolder)
 
   return obj[ key ]
 }

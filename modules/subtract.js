@@ -1,8 +1,5 @@
-
 export default function subtract (x, y) {
-  if (y === undefined) {
-    return yHolder => subtract(x, yHolder)
-  }
+  if (arguments.length === 1) return yHolder => subtract(x, yHolder)
 
   return x - y
 }

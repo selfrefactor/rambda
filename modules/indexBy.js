@@ -1,12 +1,10 @@
-export default function indexBy(fn, list) {
-  if (list === undefined) {
-    
-    return list => indexBy(fn, list)
-  }
+export default function indexBy (fn, list) {
+  if (arguments.length === 1) { return listHolder => indexBy(fn, listHolder) }
+
   const result = {}
   for (let i = 0; i < list.length; i++) {
-    const item = list[i]
-    result[fn(item)] = item
+    const item = list[ i ]
+    result[ fn(item) ] = item
   }
 
   return result

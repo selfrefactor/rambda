@@ -7,6 +7,12 @@ const sampleObject = {
   d : 4,
 }
 
+test('bad case - undefined', () => {
+  expect(
+    R.filter(R.T)(undefined)
+  ).toEqual([])
+})
+
 test('with object it passes property as second argument', () => {
   R.filter((val, prop) => {
     expect(typeof prop).toEqual('string')

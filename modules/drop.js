@@ -1,7 +1,5 @@
 export default function drop (dropNumber, x) {
-  if (x === undefined) {
-    return xHolder => drop(dropNumber, xHolder)
-  }
+  if (arguments.length === 1) { return xHolder => drop(dropNumber, xHolder) }
 
   return x.slice(dropNumber)
 }

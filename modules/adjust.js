@@ -4,7 +4,6 @@ export default function adjust (fn, index, arr) {
   } else if (arr === undefined) {
     return arrHolder => adjust(fn, index, arrHolder)
   }
-
   const clone = arr.concat()
 
   return clone.map((val, key) => {

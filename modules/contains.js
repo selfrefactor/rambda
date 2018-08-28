@@ -1,9 +1,8 @@
 import equals from './equals'
 
 export default function contains (x, arr) {
-  if (arr === undefined) {
-    return arrHolder => contains(x, arrHolder)
-  }
+  if (arguments.length === 1) { return arrHolder => contains(x, arrHolder) }
+
   let index = -1
   let flag = false
 
