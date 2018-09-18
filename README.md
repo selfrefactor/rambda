@@ -91,6 +91,10 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
+## Contributors
+
+[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/0)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/0)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/1)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/1)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/2)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/2)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/3)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/3)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/4)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/4)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/5)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/5)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/6)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/6)[![](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/images/7)](https://sourcerer.io/fame/selfrefactor/selfrefactor/rambda/links/7)
+
 ## API
 
 ---
