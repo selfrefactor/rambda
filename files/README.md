@@ -74,7 +74,6 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)

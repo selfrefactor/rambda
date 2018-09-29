@@ -70,7 +70,8 @@
     "support": [
       "docs",
       "build",
-      "prepublish"
+      "prepublish",
+      "refactor"
     ],
     "feature": [
       "method"

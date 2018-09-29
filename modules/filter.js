@@ -15,7 +15,7 @@ export default function filter (fn, arr) {
 
   if (arr === undefined) { return [] }
 
-  if (arr.length === undefined) { return filterObject(fn, arr) }
+  if (!Array.isArray(arr)) { return filterObject(fn, arr) }
 
   let index = -1
   let resIndex = 0

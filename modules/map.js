@@ -12,8 +12,7 @@ export default function map (fn, arr) {
   if (arguments.length === 1) { return arrHolder => map(fn, arrHolder) }
 
   if (arr === undefined) { return [] }
-
-  if (arr.length === undefined) { return mapObject(fn, arr) }
+  if (!Array.isArray(arr)) { return mapObject(fn, arr) }
 
   let index = -1
   const len = arr.length
