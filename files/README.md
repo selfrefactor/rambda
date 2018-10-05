@@ -82,9 +82,11 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
-- Rambda's **flip** works only for functions expecting two arguments.
+- Rambda's **filter/all/any/none** pass index as second argument to the predicate function.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
 
 - Rambda's **partialCurry** and **includes** are not part of Ramda API.
 

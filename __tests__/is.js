@@ -1,6 +1,7 @@
 const R = require('../rambda')
 
 test('works with built-in types', () => {
+  expect(R.is(Array, undefined)).toBeFalsy()
   expect(R.is(Array)([])).toBeTruthy()
   expect(R.is(Boolean, new Boolean(false))).toBeTruthy()
   expect(R.is(Date, new Date())).toBeTruthy()

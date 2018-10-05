@@ -11,3 +11,12 @@ test('when true', () => {
 test('when false curried', () => {
   expect(R.none(isOdd)(arr)).toBeFalsy()
 })
+
+test('passes index to predicate', () => {
+  R.none(
+    (x, i) => {
+      expect(typeof x).toBe('number')
+      expect(typeof i).toBe('number')
+    }
+  )([1,2,3])
+})
