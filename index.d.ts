@@ -273,6 +273,9 @@ declare namespace R {
     forEach<T>(fn: (x: T) => void, list: T[]): T[]
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[]
 
+    groupBy<T>(fn: (x: T) => string, list: T[]): { [index: string]: T[] }
+    groupBy<T>(fn: (x: T) => string): (list: T[]) => { [index: string]: T[] }
+
     has<T>(s: string, obj: T): boolean
     has(s: string): <T>(obj: T) => boolean
 
@@ -287,6 +290,12 @@ declare namespace R {
 
     includes(input: any, arrOrStr: any[]|string): boolean
     includes(input: any) : (arrOrStr: any[]|string) => boolean
+
+    indexBy<T>(fn: (x: T) => string, list: T[]): { [key: string]: T }
+    indexBy<T>(fn: (x: T) => string): (list: T[]) => { [key: string]: T }
+
+    indexOf<T>(x: T, arr: T[]): number;
+    indexOf<T>(x: T): (arr: T[]) => number;
 
     init<T>(list: T[]): T[]
     init(list: string): string
@@ -304,6 +313,9 @@ declare namespace R {
 
     last<T>(list: T[]): T | undefined
     last(list: string): string
+
+    lastIndexOf<T>(x: T, arr: T[]): number
+    lastIndexOf<T>(x: T): (arr: T[]) => number
 
     length<T>(list: T[]): number
 
