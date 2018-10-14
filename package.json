@@ -65,7 +65,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "revert to rollup"
+    "workInProgress": ""
   },
   "files": [
     "dist",
