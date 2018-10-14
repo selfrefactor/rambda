@@ -263,7 +263,7 @@ declare namespace R {
     findIndex<T>(fn: (a: T) => boolean, list: T[]): number
     findIndex<T>(fn: (a: T) => boolean): (list: T[]) => number
 
-    flatten<T>(x: T[] | T[][]): T[]
+    flatten<T>(x: Array<T[]|T>): T[]
 
     flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
     flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult
