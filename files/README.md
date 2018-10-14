@@ -8,10 +8,6 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 ## Rambda's advantages
 
-- Tree-shaking
-
-Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
-
 - Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
@@ -63,12 +59,6 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 ## Install
 
 - Use **yarn add rambda** for `Webpack` and `Node.js` usage
-
-- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
-
-```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
-```
 
 ## Differences between Rambda and Ramda
 
