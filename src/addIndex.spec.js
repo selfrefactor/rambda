@@ -1,14 +1,19 @@
-const R = require('../rambda')
+import { addIndex } from './addIndex'
+import { map } from './map'
 
-test('should add index as last argument of function applied to functor', () => {
+test('add index as last argument', () => {
   const mockFn = jest.fn()
   const functor = (fn, a, b, c) => fn(a, b, c)
-  const withIndex = R.addIndex(functor)
+  const withIndex = addIndex(functor)
 
   withIndex(mockFn, 'A', 'B', 'C', 'D')
   expect(mockFn.mock.calls[ 0 ]).toEqual([ 'A', 'B', 'C', 0 ])
 })
 
-test('should add incrementing index to functors first arity method ', () => {
-  expect(R.addIndex(R.map)((val, index) => `${ val } - ${ index }`, [ 'A', 'B', 'C' ])).toEqual([ 'A - 0', 'B - 1', 'C - 2' ])
+test('add incrementing index', () => {
+  const result = addIndex(map)(
+    (val, index) => `${ val } - ${ index }`, [ 'A', 'B', 'C' ]
+  )
+
+  expect(result).toEqual([ 'A - 0', 'B - 1', 'C - 2' ])
 })
