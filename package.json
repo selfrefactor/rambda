@@ -17,7 +17,8 @@
     "build-main": "microbundle --entry rambda.js",
     "build-minify": "node files/minify",
     "benchmark": "node benchmarks/index.js --all",
-    "cover": "jest __tests__ --coverage --no-cache",
+    "cover": "jest __tests__ --coverage --no-cache -w 1",
+    "coverx": "jest __tests__ --coverage --no-cache --maxWorkers=1",
     "lintall": "run-p lint-test lint-modules lint-rambda lint-files lint-benchmarks",
     "lint-test": "cd __tests__&&run lintFolder",
     "lint-modules": "cd modules&&run lintFolder",
@@ -75,7 +76,8 @@
     ],
     "feature": [
       "method"
-    ]
+    ],
+    "workInProgress": "circleci memory limit"
   },
   "files": [
     "dist",
