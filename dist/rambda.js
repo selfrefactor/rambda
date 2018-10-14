@@ -1,2 +1,1235 @@
-function n(n){return function(t){for(var r=[],e=arguments.length-1;e-- >0;)r[e]=arguments[e+1];var u=0;return n.apply(null,[function(){for(var n=[],r=arguments.length;r--;)n[r]=arguments[r];return t.apply(null,n.concat([u++]))}].concat(r))}}function t(n,r){if(1===arguments.length)return function(r){return t(n,r)};if(void 0===r)return[];if(!Array.isArray(r))return function(n,t){var r={};for(var e in t)n(t[e],e)&&(r[e]=t[e]);return r}(n,r);for(var e=-1,u=0,o=r.length,i=[];++e<o;){var f=r[e];n(f)&&(i[u++]=f)}return i}function r(n,t){if(1===arguments.length)return function(t){return r(n,t)};for(var e=0;e<t.length;){if(n(t[e],e))return!0;e++}return!1}function e(n,t){return void 0===t&&(t=[]),function(){for(var r,u=[],o=arguments.length;o--;)u[o]=arguments[o];return(r=t.concat(u)).length>=n.length?n.apply(void 0,r):e(n,r)}}var u=e(function(n,t,r){var e;return Object.assign({},r,((e={})[n]=t,e))});function o(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];return function(){for(var t=[],r=arguments.length;r--;)t[r]=arguments[r];var e=n.slice();if(e.length>0){for(var u=e.pop().apply(void 0,t);e.length>0;)u=e.pop()(u);return u}}}function i(n){var t=typeof n;if(null===n)return"Null";if(void 0===n)return"Undefined";if("boolean"===t)return"Boolean";if("number"===t)return"Number";if("string"===t)return"String";if(Array.isArray(n))return"Array";if(n instanceof RegExp)return"RegExp";var r=n.toString();return r.startsWith("async")?"Async":"[object Promise]"===r?"Promise":r.includes("function")||r.includes("=>")?"Function":"Object"}function f(n,t){if(1===arguments.length)return function(t){return f(n,t)};if(n===t)return!0;var r=i(n);if(r!==i(t))return!1;if("Array"===r){var e=Array.from(n),u=Array.from(t);if(e.toString()!==u.toString())return!1;var o=!0;return e.forEach(function(n,t){o&&(n===u[t]||f(n,u[t])||(o=!1))}),o}if("Object"===r){var c=Object.keys(n);if(c.length!==Object.keys(t).length)return!1;var s=!0;return c.forEach(function(r){if(s){var e=n[r],u=t[r];e===u||f(e,u)||(s=!1)}}),s}return!1}function c(n,t){if(1===arguments.length)return function(t){return c(n,t)};for(var r=-1,e=!1;++r<t.length&&!e;)f(t[r],n)&&(e=!0);return e}function s(n,t){return 1===arguments.length?function(t){return s(n,t)}:void 0===t||null===t||!0===Number.isNaN(t)?n:t}function l(n,t){return 1===arguments.length?function(t){return l(n,t)}:t.slice(n)}function p(n,t,r){var e=-1,u=n.length;(r=r>u?u:r)<0&&(r+=u),u=t>r?0:r-t>>>0,t>>>=0;for(var o=Array(u);++e<u;)o[e]=n[e+t];return o}function a(n,t){if(1===arguments.length)return function(t){return a(n,t)};var r=t.length,e=n>r?r:n;return"string"==typeof t?t.slice(r-e):p(t,e=r-e,r)}function h(n,t){if(1===arguments.length)return function(t){return h(n,t)};if(void 0===t)return[];if(!Array.isArray(t))return function(n,t){var r={};for(var e in t)r[e]=n(t[e],e);return r}(n,t);for(var r=-1,e=t.length,u=Array(e);++r<e;)u[r]=n(t[r]);return u}function g(n,t){return 1===arguments.length?function(t){return g(n,t)}:Object.assign({},n||{},t||{})}var x=e(function(n,t,r){return n(r)<n(t)?r:t});function v(n,t){if(1===arguments.length)return function(t){return v(n,t)};if(null!==t&&void 0!==t){for(var r=t,e=0,u="string"==typeof n?n.split("."):n;e<u.length;){if(null===r||void 0===r)return;r=r[u[e]],e++}return r}}var d=e(function(n,t,r){return s(n,v(t,r))});function y(n,t){if(1===arguments.length)return function(t){return y(n,t)};for(var r=[],e=n;e<t;e++)r.push(e);return r}function m(n,t,r){return void 0===t?function(t,r){return m(n,t,r)}:void 0===r?function(r){return m(n,t,r)}:r.reduce(n,t)}exports.add=function n(t,r){return void 0===r?function(r){return n(t,r)}:t+r},exports.addIndex=n,exports.adjust=function n(t,r,e){return void 0===r?function(r,e){return n(t,r,e)}:void 0===e?function(e){return n(t,r,e)}:e.concat().map(function(n,u){return u===r?t(e[r]):n})},exports.all=function n(r,e){return 1===arguments.length?function(t){return n(r,t)}:t(r,e).length===e.length},exports.allPass=function n(t,e){return 1===arguments.length?function(r){return n(t,r)}:!r(function(n){return!n(e)},t)},exports.always=function(n){return function(){return n}},exports.any=r,exports.anyPass=function n(t,e){return 1===arguments.length?function(r){return n(t,r)}:r(function(n){return n(e)})(t)},exports.append=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if("string"==typeof r)return""+r+t;var e=r.concat();return e.push(t),e},exports.assoc=u,exports.both=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:function(n){return t(n)&&r(n)}},exports.complement=function(n){return function(t){return!n(t)}},exports.compose=o,exports.concat=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:"string"==typeof t?""+t+r:t.concat(r)},exports.contains=c,exports.curry=e,exports.dec=function(n){return n-1},exports.defaultTo=s,exports.dissoc=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if(null===r||void 0===r)return{};var e={};for(var u in r)e[u]=r[u];return delete e[t],e},exports.divide=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:t/r},exports.drop=l,exports.dropLast=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.slice(0,-t)},exports.either=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:function(n){return t(n)||r(n)}},exports.endsWith=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:f(t,a(t.length,r))},exports.equals=f,exports.F=function(){return!1},exports.filter=t,exports.find=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.find(t)},exports.findIndex=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};for(var e=r.length,u=-1;++u<e;)if(t(r[u]))return u;return-1},exports.flatten=function n(t,r){r=void 0===r?[]:r;for(var e=0;e<t.length;e++)Array.isArray(t[e])?n(t[e],r):r.push(t[e]);return r},exports.flip=function(n){for(var t=[],r=arguments.length-1;r-- >0;)t[r]=arguments[r+1];return function(n){return function(){for(var t=[],r=arguments.length;r--;)t[r]=arguments[r];return 1===t.length?function(r){return n(r,t[0])}:2===t.length?n(t[1],t[0]):void 0}}(n)},exports.forEach=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:(h(t,r),r)},exports.groupBy=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};for(var e={},u=0;u<r.length;u++){var o=r[u],i=t(o);e[i]||(e[i]=[]),e[i].push(o)}return e},exports.has=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:void 0!==r[t]},exports.head=function(n){return"string"==typeof n?n[0]||"":n[0]},exports.identity=function(n){return n},exports.ifElse=function n(t,r,e){return void 0===r?function(r,e){return n(t,r,e)}:void 0===e?function(e){return n(t,r,e)}:function(n){return!0===("boolean"==typeof t?t:t(n))?r(n):e(n)}},exports.inc=function(n){return n+1},exports.includes=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.includes(t)},exports.indexBy=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};for(var e={},u=0;u<r.length;u++){var o=r[u];e[t(o)]=o}return e},exports.indexOf=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};for(var e=-1,u=r.length;++e<u;)if(r[e]===t)return e;return-1},exports.init=function(n){return"string"==typeof n?n.slice(0,-1):n.length?p(n,0,-1):[]},exports.is=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:null!=r&&r.constructor===t||r instanceof t},exports.isNil=function(n){return void 0===n||null===n},exports.join=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.join(t)},exports.keys=function(n){return Object.keys(n)},exports.last=function(n){return"string"==typeof n?n[n.length-1]||"":n[n.length-1]},exports.lastIndexOf=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};var e=-1;return r.map(function(n,r){f(n,t)&&(e=r)}),e},exports.length=function(n){return n.length},exports.map=h,exports.match=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};var e=r.match(t);return null===e?[]:e},exports.merge=g,exports.max=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r>t?r:t},exports.maxBy=function n(t,r,e){return 2===arguments.length?function(e){return n(t,r,e)}:1===arguments.length?function(r,e){return n(t,r,e)}:t(e)>t(r)?e:r},exports.min=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r<t?r:t},exports.minBy=x,exports.modulo=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:t%r},exports.multiply=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:t*r},exports.none=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:0===r.filter(t).length},exports.not=function(n){return!n},exports.nth=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};var e=t<0?r.length+t:t;return"[object String]"===Object.prototype.toString.call(r)?r.charAt(e):r[e]},exports.omit=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if(null!==r&&void 0!==r){var e="string"==typeof t?t=t.split(","):t,u={};for(var o in r)e.includes(o)||(u[o]=r[o]);return u}},exports.partialCurry=function(n,t){return void 0===t&&(t={}),function(r){return"Async"===i(n)||"Promise"===i(n)?new Promise(function(e,u){n(g(r,t)).then(e).catch(u)}):n(g(r,t))}},exports.path=v,exports.pathOr=d,exports.pick=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if(null!==r&&void 0!==r){for(var e="string"==typeof t?t.split(","):t,u={},o=0;o<e.length;)e[o]in r&&(u[e[o]]=r[e[o]]),o++;return u}},exports.pickAll=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if(null!==r&&void 0!==r){for(var e="string"==typeof t?t.split(","):t,u={},o=0;o<e.length;)u[e[o]]=e[o]in r?r[e[o]]:void 0,o++;return u}},exports.pipe=function(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];return o.apply(void 0,n.reverse())},exports.pluck=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};var e=[];return h(function(n){void 0!==n[t]&&e.push(n[t])},r),e},exports.prepend=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};if("string"==typeof r)return""+t+r;var e=r.concat();return e.unshift(t),e},exports.prop=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r[t]},exports.propEq=function n(t,r,e){return void 0===r?function(r,e){return n(t,r,e)}:void 0===e?function(e){return n(t,r,e)}:e[t]===r},exports.range=y,exports.reduce=m,exports.reject=function n(r,e){return 1===arguments.length?function(t){return n(r,t)}:t(function(n){return!r(n)},e)},exports.repeat=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:Array(r).fill(t)},exports.replace=function n(t,r,e){return void 0===r?function(r,e){return n(t,r,e)}:void 0===e?function(e){return n(t,r,e)}:e.replace(t,r)},exports.reverse=function(n){return n.concat().reverse()},exports.sort=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.concat().sort(t)},exports.sortBy=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.concat().sort(function(n,r){var e=t(n),u=t(r);return e<u?-1:e>u?1:0})},exports.split=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.split(t)},exports.splitEvery=function n(t,r){if(1===arguments.length)return function(r){return n(t,r)};for(var e=t>1?t:1,u=[],o=0;o<r.length;)u.push(r.slice(o,o+=e));return u},exports.startsWith=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:r.startsWith(t)},exports.subtract=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:t-r},exports.T=function(){return!0},exports.tail=function(n){return l(1,n)},exports.take=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:"string"==typeof r?r.slice(0,t):p(r,0,t)},exports.takeLast=a,exports.tap=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:(t(r),r)},exports.test=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:-1!==r.search(t)},exports.times=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:h(t,y(0,r))},exports.toLower=function(n){return n.toLowerCase()},exports.toString=function(n){return n.toString()},exports.toUpper=function(n){return n.toUpperCase()},exports.trim=function(n){return n.trim()},exports.type=i,exports.uniq=function(n){for(var t=-1,r=[];++t<n.length;){var e=n[t];c(e,r)||r.push(e)}return r},exports.uniqWith=function n(t,e){if(1===arguments.length)return function(r){return n(t,r)};for(var u=-1,o=[],i=function(){var n=e[u];r(function(r){return t(n,r)},o)||o.push(n)};++u<e.length;)i();return o},exports.update=function n(t,r,e){return void 0===r?function(r,e){return n(t,r,e)}:void 0===e?function(e){return n(t,r,e)}:e.concat().fill(r,t,t+1)},exports.values=function(n){var t=[];for(var r in n)t.push(n[r]);return t},exports.without=function(n,t){return m(function(t,r){return c(r,n)?t:t.concat(r)},[],t)},exports.zip=function t(r,e){return 1===arguments.length?function(n){return t(r,n)}:n(m)(function(n,t,r){return e[r]?n.concat([[t,e[r]]]):n},[],r)},exports.zipObj=function n(t,r){return 1===arguments.length?function(r){return n(t,r)}:t.reduce(function(n,t,e){return n[t]=r[e],n},{})};
-//# sourceMappingURL=rambda.js.map
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function add(x, y) {
+  if (y === undefined) {
+    return yHolder => add(x, yHolder);
+  }
+
+  return x + y;
+}
+
+function addIndex(functor) {
+  return function (fn, ...rest) {
+    let cnt = 0;
+    const newFn = (...args) => fn.apply(null, [...args, cnt++]);
+
+    return functor.apply(null, [newFn, ...rest]);
+  };
+}
+
+function adjust(fn, index, arr) {
+  if (index === undefined) {
+    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder);
+  } else if (arr === undefined) {
+    return arrHolder => adjust(fn, index, arrHolder);
+  }
+  const clone = arr.concat();
+
+  return clone.map((val, key) => {
+    if (key === index) {
+      return fn(arr[index]);
+    }
+
+    return val;
+  });
+}
+
+function filterObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    if (fn(obj[prop], prop)) {
+      willReturn[prop] = obj[prop];
+    }
+  }
+
+  return willReturn;
+}
+
+function filter(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => filter(fn, arrHolder);
+  }
+
+  if (arr === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(arr)) {
+    return filterObject(fn, arr);
+  }
+
+  let index = -1;
+  let resIndex = 0;
+  const len = arr.length;
+  const willReturn = [];
+
+  while (++index < len) {
+    const value = arr[index];
+
+    if (fn(value)) {
+      willReturn[resIndex++] = value;
+    }
+  }
+
+  return willReturn;
+}
+
+function all(condition, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => all(condition, arrHolder);
+  }
+
+  return filter(condition, arr).length === arr.length;
+}
+
+function any(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => any(fn, arrHolder);
+  }
+
+  let counter = 0;
+  while (counter < arr.length) {
+    if (fn(arr[counter], counter)) {
+      return true;
+    }
+    counter++;
+  }
+
+  return false;
+}
+
+function allPass(conditions, x) {
+  if (arguments.length === 1) {
+    return xHolder => allPass(conditions, xHolder);
+  }
+
+  return !any(condition => !condition(x), conditions);
+}
+
+function always(x) {
+  return () => x;
+}
+
+function anyPass(conditions, x) {
+  if (arguments.length === 1) {
+    return xHolder => anyPass(conditions, xHolder);
+  }
+
+  return any(condition => condition(x))(conditions);
+}
+
+function append(x, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => append(x, arrHolder);
+  }
+
+  if (typeof arr === 'string') {
+    return `${arr}${x}`;
+  }
+
+  const clone = arr.concat();
+  clone.push(x);
+
+  return clone;
+}
+
+//taken from the last comment of https://gist.github.com/mkuklis/5294248
+
+function curry(f, a = []) {
+  return (...p) => (o => o.length >= f.length ? f(...o) : curry(f, o))([...a, ...p]);
+}
+
+function assoc(prop, value, obj) {
+  return Object.assign({}, obj, { [prop]: value });
+}
+
+var assoc$1 = curry(assoc);
+
+function both(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => both(x, yHolder);
+  }
+
+  return input => x(input) && y(input);
+}
+
+function complement(fn) {
+  return input => !fn(input);
+}
+
+function compose(...fns) {
+  return (...args) => {
+    const list = fns.slice();
+    if (list.length > 0) {
+      const fn = list.pop();
+      let result = fn(...args);
+      while (list.length > 0) {
+        result = list.pop()(result);
+      }
+
+      return result;
+    }
+
+    return undefined;
+  };
+}
+
+function concat(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => concat(x, yHolder);
+  }
+
+  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+function type(a) {
+  const typeOf = typeof a;
+
+  if (a === null) {
+    return 'Null';
+  } else if (a === undefined) {
+    return 'Undefined';
+  } else if (typeOf === 'boolean') {
+    return 'Boolean';
+  } else if (typeOf === 'number') {
+    return 'Number';
+  } else if (typeOf === 'string') {
+    return 'String';
+  } else if (Array.isArray(a)) {
+    return 'Array';
+  } else if (a instanceof RegExp) {
+    return 'RegExp';
+  }
+
+  const asStr = a.toString();
+
+  if (asStr.startsWith('async')) {
+    return 'Async';
+  } else if (asStr === '[object Promise]') {
+    return 'Promise';
+  } else if (asStr.includes('function') || asStr.includes('=>')) {
+    return 'Function';
+  }
+
+  return 'Object';
+}
+
+function equals(a, b) {
+  if (arguments.length === 1) {
+    return bHolder => equals(a, bHolder);
+  }
+
+  if (a === b) {
+    return true;
+  }
+
+  const aType = type(a);
+
+  if (aType !== type(b)) {
+    return false;
+  }
+
+  if (aType === 'Array') {
+    const aClone = Array.from(a);
+    const bClone = Array.from(b);
+
+    if (aClone.toString() !== bClone.toString()) {
+      return false;
+    }
+
+    let loopArrayFlag = true;
+    aClone.forEach((aCloneInstance, aCloneIndex) => {
+      if (loopArrayFlag) {
+        if (aCloneInstance !== bClone[aCloneIndex] && !equals(aCloneInstance, bClone[aCloneIndex])) {
+          loopArrayFlag = false;
+        }
+      }
+    });
+
+    return loopArrayFlag;
+  }
+
+  if (aType === 'Object') {
+    const aKeys = Object.keys(a);
+
+    if (aKeys.length !== Object.keys(b).length) {
+      return false;
+    }
+
+    let loopObjectFlag = true;
+    aKeys.forEach(aKeyInstance => {
+      if (loopObjectFlag) {
+        const aValue = a[aKeyInstance];
+        const bValue = b[aKeyInstance];
+
+        if (aValue !== bValue && !equals(aValue, bValue)) {
+          loopObjectFlag = false;
+        }
+      }
+    });
+
+    return loopObjectFlag;
+  }
+
+  return false;
+}
+
+function contains(x, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => contains(x, arrHolder);
+  }
+
+  let index = -1;
+  let flag = false;
+
+  while (++index < arr.length && !flag) {
+    if (equals(arr[index], x)) {
+      flag = true;
+    }
+  }
+
+  return flag;
+}
+
+var dec = (x => x - 1);
+
+function defaultTo(defaultArgument, inputArgument) {
+  if (arguments.length === 1) {
+    return inputArgumentHolder => defaultTo(defaultArgument, inputArgumentHolder);
+  }
+
+  return inputArgument === undefined || inputArgument === null || Number.isNaN(inputArgument) === true ? defaultArgument : inputArgument;
+}
+
+function dissoc(prop, obj) {
+  if (arguments.length === 1) {
+    return objHolder => dissoc(prop, objHolder);
+  }
+
+  if (obj === null || obj === undefined) {
+    return {};
+  }
+
+  const willReturn = {};
+  for (const p in obj) {
+    willReturn[p] = obj[p];
+  }
+  delete willReturn[prop];
+
+  return willReturn;
+}
+
+function divide(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => divide(x, yHolder);
+  }
+
+  return x / y;
+}
+
+function drop(dropNumber, x) {
+  if (arguments.length === 1) {
+    return xHolder => drop(dropNumber, xHolder);
+  }
+
+  return x.slice(dropNumber);
+}
+
+function dropLast(dropNumber, x) {
+  if (arguments.length === 1) {
+    return xHolder => dropLast(dropNumber, xHolder);
+  }
+
+  return x.slice(0, -dropNumber);
+}
+
+function either(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => either(x, yHolder);
+  }
+
+  return input => x(input) || y(input);
+}
+
+function baseSlice(array, start, end) {
+  let index = -1;
+  let length = array.length;
+
+  end = end > length ? length : end;
+  if (end < 0) {
+    end += length;
+  }
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
+
+  const result = Array(length);
+
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+
+  return result;
+}
+
+function takeLast(num, x) {
+  if (arguments.length === 1) return xHolder => takeLast(num, xHolder);
+
+  const len = x.length;
+
+  let numValue = num > len ? len : num;
+
+  if (typeof x === 'string') {
+
+    return x.slice(len - numValue);
+  }
+  numValue = len - numValue;
+
+  return baseSlice(x, numValue, len);
+}
+
+function endsWith(suffix, list) {
+  if (arguments.length === 1) {
+    return listHolder => endsWith(suffix, listHolder);
+  }
+
+  return equals(suffix, takeLast(suffix.length, list));
+}
+
+function F() {
+  return false;
+}
+
+function find(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => find(fn, arrHolder);
+  }
+
+  return arr.find(fn);
+}
+
+function findIndex(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => findIndex(fn, arrHolder);
+  }
+
+  const len = arr.length;
+  let index = -1;
+
+  while (++index < len) {
+    if (fn(arr[index])) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+function flatten(arr, willReturn) {
+  willReturn = willReturn === undefined ? [] : willReturn;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      flatten(arr[i], willReturn);
+    } else {
+      willReturn.push(arr[i]);
+    }
+  }
+
+  return willReturn;
+}
+
+function flipExport(fn) {
+  return (...input) => {
+    if (input.length === 1) {
+      return holder => fn(holder, input[0]);
+    } else if (input.length === 2) {
+      return fn(input[1], input[0]);
+    }
+
+    return undefined;
+  };
+}
+
+function flip(fn, ...input) {
+  return flipExport(fn);
+}
+
+function mapObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    willReturn[prop] = fn(obj[prop], prop);
+  }
+
+  return willReturn;
+}
+
+function map(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => map(fn, arrHolder);
+  }
+
+  if (arr === undefined) {
+    return [];
+  }
+  if (!Array.isArray(arr)) {
+    return mapObject(fn, arr);
+  }
+
+  let index = -1;
+  const len = arr.length;
+  const willReturn = Array(len);
+
+  while (++index < len) {
+    willReturn[index] = fn(arr[index]);
+  }
+
+  return willReturn;
+}
+
+function forEach(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => forEach(fn, arrHolder);
+  }
+
+  map(fn, arr);
+
+  return arr;
+}
+
+function groupBy(fn, list) {
+  if (arguments.length === 1) {
+    return list => groupBy(fn, list);
+  }
+
+  const result = {};
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    const key = fn(item);
+
+    if (!result[key]) {
+      result[key] = [];
+    }
+
+    result[key].push(item);
+  }
+
+  return result;
+}
+
+function has(prop, obj) {
+  if (arguments.length === 1) {
+    return objHolder => has(prop, objHolder);
+  }
+
+  return obj[prop] !== undefined;
+}
+
+function head(a) {
+  if (typeof a === 'string') {
+    return a[0] || '';
+  }
+
+  return a[0];
+}
+
+function identity(x) {
+  return x;
+}
+
+function ifElse(condition, ifFn, elseFn) {
+  if (ifFn === undefined) {
+    return (ifFnHolder, elseFnHolder) => ifElse(condition, ifFnHolder, elseFnHolder);
+  } else if (elseFn === undefined) {
+    return elseFnHolder => ifElse(condition, ifFn, elseFnHolder);
+  }
+
+  return input => {
+    const conditionResult = typeof condition === 'boolean' ? condition : condition(input);
+
+    if (conditionResult === true) {
+      return ifFn(input);
+    }
+
+    return elseFn(input);
+  };
+}
+
+var inc = (x => x + 1);
+
+function includes(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => includes(x, yHolder);
+  }
+
+  return y.includes(x);
+}
+
+function indexBy(fn, list) {
+  if (arguments.length === 1) {
+    return listHolder => indexBy(fn, listHolder);
+  }
+
+  const result = {};
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    result[fn(item)] = item;
+  }
+
+  return result;
+}
+
+function indexOf(x, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => indexOf(x, arrHolder);
+  }
+
+  let index = -1;
+  const length = arr.length;
+
+  while (++index < length) {
+    if (arr[index] === x) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+function init(a) {
+  if (typeof a === 'string') {
+    return a.slice(0, -1);
+  }
+
+  return a.length ? baseSlice(a, 0, -1) : [];
+}
+
+function is(xPrototype, x) {
+  if (arguments.length === 1) {
+    return xHolder => is(xPrototype, xHolder);
+  }
+
+  return x != null && x.constructor === xPrototype || x instanceof xPrototype;
+}
+
+function isNil(x) {
+  return x === undefined || x === null;
+}
+
+function join(glue, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => join(glue, arrHolder);
+  }
+
+  return arr.join(glue);
+}
+
+function keys(x) {
+  return Object.keys(x);
+}
+
+function last(a) {
+  if (typeof a === 'string') {
+    return a[a.length - 1] || '';
+  }
+
+  return a[a.length - 1];
+}
+
+function lastIndexOf(x, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => lastIndexOf(x, arrHolder);
+  }
+
+  let willReturn = -1;
+
+  arr.map((value, key) => {
+    if (equals(value, x)) {
+      willReturn = key;
+    }
+  });
+
+  return willReturn;
+}
+
+function length(x) {
+  return x.length;
+}
+
+function match(regex, x) {
+  if (arguments.length === 1) {
+    return xHolder => match(regex, xHolder);
+  }
+
+  const willReturn = x.match(regex);
+
+  return willReturn === null ? [] : willReturn;
+}
+
+function merge(obj, newProps) {
+  if (arguments.length === 1) {
+    return newPropsHolder => merge(obj, newPropsHolder);
+  }
+
+  return Object.assign({}, obj || {}, newProps || {});
+}
+
+function max(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => max(x, yHolder);
+  }
+
+  return y > x ? y : x;
+}
+
+function maxBy(fn, x, y) {
+  if (arguments.length === 2) {
+    return yHolder => maxBy(fn, x, yHolder);
+  } else if (arguments.length === 1) {
+    return (xHolder, yHolder) => maxBy(fn, xHolder, yHolder);
+  }
+
+  return fn(y) > fn(x) ? y : x;
+}
+
+function min(x, y) {
+  if (arguments.length === 1) {
+    return yHolder => min(x, yHolder);
+  }
+
+  return y < x ? y : x;
+}
+
+function minBy(fn, x, y) {
+  return fn(y) < fn(x) ? y : x;
+}
+
+var minBy$1 = curry(minBy);
+
+function modulo(x, y) {
+  if (arguments.length === 1) return yHolder => modulo(x, yHolder);
+
+  return x % y;
+}
+
+function multiply(x, y) {
+  if (arguments.length === 1) return yHolder => multiply(x, yHolder);
+
+  return x * y;
+}
+
+function none(fn, arr) {
+  if (arguments.length === 1) return arrHolder => none(fn, arrHolder);
+
+  return arr.filter(fn).length === 0;
+}
+
+function not(x) {
+  return !x;
+}
+
+function nth(index, list) {
+  if (arguments.length === 1) return listHolder => nth(index, listHolder);
+
+  const idx = index < 0 ? list.length + index : index;
+
+  return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
+}
+
+function omit(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => omit(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+
+  const keysValue = typeof keys === 'string' ? keys = keys.split(',') : keys;
+
+  const willReturn = {};
+
+  for (const key in obj) {
+    if (!keysValue.includes(key)) {
+      willReturn[key] = obj[key];
+    }
+  }
+
+  return willReturn;
+}
+
+function partialCurry(fn, inputArguments = {}) {
+  return inputArgumentsHolder => {
+    if (type(fn) === 'Async' || type(fn) === 'Promise') {
+      return new Promise((resolve, reject) => {
+        fn(merge(inputArgumentsHolder, inputArguments)).then(resolve).catch(reject);
+      });
+    }
+
+    return fn(merge(inputArgumentsHolder, inputArguments));
+  };
+}
+
+function path(pathArr, obj) {
+  if (arguments.length === 1) {
+    return objHolder => path(pathArr, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  let willReturn = obj;
+  let counter = 0;
+
+  const pathArrValue = typeof pathArr === 'string' ? pathArr.split('.') : pathArr;
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
+      return undefined;
+    }
+    willReturn = willReturn[pathArrValue[counter]];
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function pathOr(defaultValue, inputPath, inputObject) {
+  return defaultTo(defaultValue, path(inputPath, inputObject));
+}
+
+var pathOr$1 = curry(pathOr);
+
+function pick(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => pick(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys;
+
+  const willReturn = {};
+  let counter = 0;
+
+  while (counter < keysValue.length) {
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]];
+    }
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function pickAll(keys, obj) {
+  if (arguments.length === 1) {
+    return objHolder => pickAll(keys, objHolder);
+  }
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys;
+
+  const willReturn = {};
+  let counter = 0;
+
+  while (counter < keysValue.length) {
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]];
+    } else {
+      willReturn[keysValue[counter]] = undefined;
+    }
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function pipe(...fns) {
+  return compose(...fns.reverse());
+}
+
+function pluck(keyToPluck, arr) {
+  if (arguments.length === 1) return arrHolder => pluck(keyToPluck, arrHolder);
+
+  const willReturn = [];
+
+  map(val => {
+    if (!(val[keyToPluck] === undefined)) {
+      willReturn.push(val[keyToPluck]);
+    }
+  }, arr);
+
+  return willReturn;
+}
+
+function prepend(x, arr) {
+  if (arguments.length === 1) return arrHolder => prepend(x, arrHolder);
+
+  if (typeof arr === 'string') {
+
+    return `${x}${arr}`;
+  }
+  const clone = arr.concat();
+  clone.unshift(x);
+
+  return clone;
+}
+
+function prop(key, obj) {
+  if (arguments.length === 1) return objHolder => prop(key, objHolder);
+
+  return obj[key];
+}
+
+function propEq(key, x, obj) {
+  if (x === undefined) {
+    return (xHolder, objHolder) => propEq(key, xHolder, objHolder);
+  } else if (obj === undefined) {
+    return objHolder => propEq(key, x, objHolder);
+  }
+
+  return obj[key] === x;
+}
+
+function range(start, end) {
+  if (arguments.length === 1) return endHolder => range(start, endHolder);
+
+  const willReturn = [];
+
+  for (let i = start; i < end; i++) {
+    willReturn.push(i);
+  }
+
+  return willReturn;
+}
+
+function reduce(fn, initialValue, arr) {
+  if (initialValue === undefined) {
+    return (initialValueHolder, arrHolder) => reduce(fn, initialValueHolder, arrHolder);
+  } else if (arr === undefined) {
+    return arrHolder => reduce(fn, initialValue, arrHolder);
+  }
+
+  return arr.reduce(fn, initialValue);
+}
+
+function reject(fn, arr) {
+  if (arguments.length === 1) return arrHolder => reject(fn, arrHolder);
+
+  return filter(x => !fn(x), arr);
+}
+
+function repeat(x, num) {
+  if (arguments.length === 1) {
+    return numHolder => repeat(x, numHolder);
+  }
+  const willReturn = Array(num);
+
+  return willReturn.fill(x);
+}
+
+function replace(regex, replacer, str) {
+  if (replacer === undefined) {
+    return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder);
+  } else if (str === undefined) {
+    return strHolder => replace(regex, replacer, strHolder);
+  }
+
+  return str.replace(regex, replacer);
+}
+
+function reverse(arr) {
+  const clone = arr.concat();
+
+  return clone.reverse();
+}
+
+function sort(fn, arr) {
+  if (arguments.length === 1) return arrHolder => sort(fn, arrHolder);
+
+  const arrClone = arr.concat();
+
+  return arrClone.sort(fn);
+}
+
+function sortBy(fn, arr) {
+  if (arguments.length === 1) {
+    return arrHolder => sortBy(fn, arrHolder);
+  }
+  const arrClone = arr.concat();
+
+  return arrClone.sort((a, b) => {
+    const fnA = fn(a);
+    const fnB = fn(b);
+
+    return fnA < fnB ? -1 : fnA > fnB ? 1 : 0;
+  });
+}
+
+function split(glue, str) {
+  if (arguments.length === 1) return strHolder => split(glue, strHolder);
+
+  return str.split(glue);
+}
+
+function splitEvery(num, x) {
+  if (arguments.length === 1) return xHolder => splitEvery(num, xHolder);
+
+  const numValue = num > 1 ? num : 1;
+
+  const willReturn = [];
+  let counter = 0;
+
+  while (counter < x.length) {
+    willReturn.push(x.slice(counter, counter += numValue));
+  }
+
+  return willReturn;
+}
+
+function startsWith(x, y) {
+  if (arguments.length === 1) return yHolder => startsWith(x, yHolder);
+
+  return y.startsWith(x);
+}
+
+function subtract(x, y) {
+  if (arguments.length === 1) return yHolder => subtract(x, yHolder);
+
+  return x - y;
+}
+
+function T() {
+  return true;
+}
+
+function tail(arr) {
+  return drop(1, arr);
+}
+
+function take(num, x) {
+  if (arguments.length === 1) return xHolder => take(num, xHolder);
+
+  if (typeof x === 'string') {
+    return x.slice(0, num);
+  }
+
+  return baseSlice(x, 0, num);
+}
+
+function tap(fn, x) {
+  if (arguments.length === 1) return xHolder => tap(fn, xHolder);
+
+  fn(x);
+
+  return x;
+}
+
+function test(regex, str) {
+  if (arguments.length === 1) return strHolder => test(regex, strHolder);
+
+  return str.search(regex) !== -1;
+}
+
+function times(fn, num) {
+  if (arguments.length === 1) return numHolder => times(fn, numHolder);
+
+  return map(fn, range(0, num));
+}
+
+function toLower(x) {
+  return x.toLowerCase();
+}
+
+function toString(x) {
+  return x.toString();
+}
+
+function toUpper(x) {
+  return x.toUpperCase();
+}
+
+function trim(str) {
+  return str.trim();
+}
+
+function uniq(arr) {
+  let index = -1;
+  const willReturn = [];
+
+  while (++index < arr.length) {
+    const value = arr[index];
+
+    if (!contains(value, willReturn)) {
+      willReturn.push(value);
+    }
+  }
+
+  return willReturn;
+}
+
+function uniqWith(fn, arr) {
+  if (arguments.length === 1) return arrHolder => uniqWith(fn, arrHolder);
+
+  let index = -1;
+  const len = arr.length;
+  const willReturn = [];
+
+  while (++index < arr.length) {
+    const value = arr[index];
+    const flag = any(willReturnInstance => fn(value, willReturnInstance), willReturn);
+
+    if (!flag) {
+      willReturn.push(value);
+    }
+  }
+
+  return willReturn;
+}
+
+function update(index, newValue, arr) {
+  if (newValue === undefined) {
+    return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder);
+  } else if (arr === undefined) {
+    return arrHolder => update(index, newValue, arrHolder);
+  }
+  const arrClone = arr.concat();
+
+  return arrClone.fill(newValue, index, index + 1);
+}
+
+function values(obj) {
+  const willReturn = [];
+
+  for (const key in obj) {
+    willReturn.push(obj[key]);
+  }
+
+  return willReturn;
+}
+
+function without(itemsToOmit, collection) {
+  return reduce((accum, item) => !contains(item, itemsToOmit) ? accum.concat(item) : accum, [], collection);
+}
+
+function zip(x, y) {
+  if (arguments.length === 1) return yHolder => zip(x, yHolder);
+
+  return addIndex(reduce)((accum, value, index) => y[index] ? accum.concat([[value, y[index]]]) : accum, [], x);
+}
+
+function zipObj(x, y) {
+  if (arguments.length === 1) return yHolder => zipObj(x, yHolder);
+
+  return x.reduce((prev, xInstance, i) => {
+    prev[xInstance] = y[i];
+    return prev;
+  }, {});
+}
+
+exports.add = add;
+exports.addIndex = addIndex;
+exports.adjust = adjust;
+exports.all = all;
+exports.allPass = allPass;
+exports.always = always;
+exports.any = any;
+exports.anyPass = anyPass;
+exports.append = append;
+exports.assoc = assoc$1;
+exports.both = both;
+exports.complement = complement;
+exports.compose = compose;
+exports.concat = concat;
+exports.contains = contains;
+exports.curry = curry;
+exports.dec = dec;
+exports.defaultTo = defaultTo;
+exports.dissoc = dissoc;
+exports.divide = divide;
+exports.drop = drop;
+exports.dropLast = dropLast;
+exports.either = either;
+exports.endsWith = endsWith;
+exports.equals = equals;
+exports.F = F;
+exports.filter = filter;
+exports.find = find;
+exports.findIndex = findIndex;
+exports.flatten = flatten;
+exports.flip = flip;
+exports.forEach = forEach;
+exports.groupBy = groupBy;
+exports.has = has;
+exports.head = head;
+exports.identity = identity;
+exports.ifElse = ifElse;
+exports.inc = inc;
+exports.includes = includes;
+exports.indexBy = indexBy;
+exports.indexOf = indexOf;
+exports.init = init;
+exports.is = is;
+exports.isNil = isNil;
+exports.join = join;
+exports.keys = keys;
+exports.last = last;
+exports.lastIndexOf = lastIndexOf;
+exports.length = length;
+exports.map = map;
+exports.match = match;
+exports.merge = merge;
+exports.max = max;
+exports.maxBy = maxBy;
+exports.min = min;
+exports.minBy = minBy$1;
+exports.modulo = modulo;
+exports.multiply = multiply;
+exports.none = none;
+exports.not = not;
+exports.nth = nth;
+exports.omit = omit;
+exports.partialCurry = partialCurry;
+exports.path = path;
+exports.pathOr = pathOr$1;
+exports.pick = pick;
+exports.pickAll = pickAll;
+exports.pipe = pipe;
+exports.pluck = pluck;
+exports.prepend = prepend;
+exports.prop = prop;
+exports.propEq = propEq;
+exports.range = range;
+exports.reduce = reduce;
+exports.reject = reject;
+exports.repeat = repeat;
+exports.replace = replace;
+exports.reverse = reverse;
+exports.sort = sort;
+exports.sortBy = sortBy;
+exports.split = split;
+exports.splitEvery = splitEvery;
+exports.startsWith = startsWith;
+exports.subtract = subtract;
+exports.T = T;
+exports.tail = tail;
+exports.take = take;
+exports.takeLast = takeLast;
+exports.tap = tap;
+exports.test = test;
+exports.times = times;
+exports.toLower = toLower;
+exports.toString = toString;
+exports.toUpper = toUpper;
+exports.trim = trim;
+exports.type = type;
+exports.uniq = uniq;
+exports.uniqWith = uniqWith;
+exports.update = update;
+exports.values = values;
+exports.without = without;
+exports.zip = zip;
+exports.zipObj = zipObj;

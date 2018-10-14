@@ -7,3 +7,7 @@ Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this 
 ```
 https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.3/webVersion.js
 ```
+
+## Use `src`
+
+## Remove `lib`

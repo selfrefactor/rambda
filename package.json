@@ -1,9 +1,10 @@
 {
   "name": "rambda",
   "version": "1.2.2",
-  "description": "Lightweight alternative to Ramda",
+  "description": "Lightweight faster alternative to Ramda",
   "main": "./dist/rambda.js",
   "module": "./dist/rambda.esm.js",
+  "umd": "./dist/rambda.umd.js",
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -11,19 +12,13 @@
     "dev": "jest __tests__/object/zipObj.js --watch",
     "test": "jest __tests__",
     "docs": "docsify init ./docs",
-    "lint": "node files/lint",
     "de": "commit",
-    "build": "NODE_ENV=build run-s build-main build-minify",
-    "build-main": "microbundle --entry rambda.js",
-    "build-minify": "node files/minify",
+    "build": "yarn build:main&&yarn build:web&&yarn minify",
+    "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
+    "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
+    "minify": "node files/minify",
     "benchmark": "node benchmarks/index.js --all",
     "cover": "jest __tests__ --coverage --no-cache -w 1",
-    "lintall": "run-p lint-test lint-modules lint-rambda lint-files lint-benchmarks",
-    "lint-test": "cd __tests__&&run lintFolder",
-    "lint-modules": "cd modules&&run lintFolder",
-    "lint-files": "cd files&&run lintFolder",
-    "lint-benchmarks": "cd benchmarks&&run lintFolder",
-    "lint-rambda": "run lint f rambda.js",
     "jest": "jest",
     "prepublish": "BABEL_ENV=development babel modules/ --out-dir lib/"
   },
@@ -43,25 +38,19 @@
     "url": "https://github.com/selfrefactor/rambda/issues"
   },
   "homepage": "https://github.com/selfrefactor/rambda#readme",
-  "depFn": [
-    "babel-cli",
-    "babel-plugin-external-helpers",
-    "babel-preset-env"
-  ],
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-plugin-annotate-pure-calls": "^0.2.2",
-    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-external-helpers": "^7.0.0-beta.3",
     "babel-preset-env": "^1.6.1",
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "commit-message": "https://github.com/selfrefactor/commit-message#3.0.0",
     "jest": "^23.0.0-alpha.4",
-    "lint-fn": "^0.3.6",
     "lodash": "^4.17.5",
-    "microbundle": "^0.4.4",
     "minify": "https://github.com/selfrefactor/minify#0.1.0",
-    "npm-run-all": "^4.1.2",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.2",
     "rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
     "ramda": "^0.25.0"
   },
@@ -76,7 +65,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": ""
+    "workInProgress": "revert to rollup"
   },
   "files": [
     "dist",
