@@ -1,4 +1,4 @@
-export default function any (fn, arr) {
+export function any (fn, arr) {
   if (arguments.length === 1) { return arrHolder => any(fn, arrHolder) }
 
   let counter = 0

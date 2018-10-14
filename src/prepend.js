@@ -1,5 +1,5 @@
 
-export default function prepend (x, arr) {
+export function prepend (x, arr) {
   if (arguments.length === 1) return arrHolder => prepend(x, arrHolder)
   
   if (typeof arr === 'string') {

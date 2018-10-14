@@ -1,6 +1,6 @@
 import any from './any'
 
-export default function uniqWith (fn, arr) {
+export function uniqWith (fn, arr) {
   if(arguments.length === 1) return arrHolder => uniqWith(fn, arrHolder)
 
   let index = -1

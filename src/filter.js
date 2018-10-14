@@ -10,7 +10,7 @@ function filterObject (fn, obj) {
   return willReturn
 }
 
-export default function filter (fn, arr) {
+export function filter (fn, arr) {
   if (arguments.length === 1) { return arrHolder => filter(fn, arrHolder) }
 
   if (arr === undefined) { return [] }

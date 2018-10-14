@@ -1,5 +1,5 @@
 import compose from './compose'
 
-export default function pipe (...fns) {
+export function pipe (...fns) {
   return compose(...fns.reverse())
 }

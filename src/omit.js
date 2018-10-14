@@ -1,4 +1,4 @@
-export default function omit (keys, obj) {
+export function omit (keys, obj) {
   if (arguments.length === 1) {
     return objHolder => omit(keys, objHolder)
   }

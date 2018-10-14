@@ -1,4 +1,4 @@
-export default function compose (...fns) {
+export function compose (...fns) {
   return (...args) => {
     const list = fns.slice()
     if (list.length > 0) {

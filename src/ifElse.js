@@ -1,4 +1,4 @@
-export default function ifElse (condition, ifFn, elseFn) {
+export function ifElse (condition, ifFn, elseFn) {
   if (ifFn === undefined) {
     return (ifFnHolder, elseFnHolder) => ifElse(condition, ifFnHolder, elseFnHolder)
   } else if (elseFn === undefined) {

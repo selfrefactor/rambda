@@ -1,4 +1,4 @@
-export default function findIndex (fn, arr) {
+export function findIndex (fn, arr) {
   if (arguments.length === 1) { return arrHolder => findIndex(fn, arrHolder) }
 
   const len = arr.length

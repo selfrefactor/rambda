@@ -1,6 +1,6 @@
 import contains from './contains'
 
-export default function uniq (arr) {
+export function uniq (arr) {
   let index = -1
   const willReturn = []
 

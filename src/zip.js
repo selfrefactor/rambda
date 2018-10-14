@@ -1,7 +1,7 @@
 import addIndex from './addIndex'
 import reduce from './reduce'
 
-export default function zip(x, y){
+export function zip(x, y){
   if(arguments.length === 1) return yHolder => zip(x, yHolder)
 
   return addIndex(reduce)(

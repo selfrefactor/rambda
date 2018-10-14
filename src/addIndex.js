@@ -1,4 +1,4 @@
-export default function addIndex (functor) {
+export function addIndex (functor) {
   return function (fn, ...rest) {
     let cnt = 0
     const newFn = (...args) => fn.apply(null, [ ...args, cnt++ ])

@@ -1,4 +1,4 @@
-export default function range (start, end) {
+export function range (start, end) {
   if (arguments.length === 1) return endHolder => range(start, endHolder)
   
   const willReturn = []

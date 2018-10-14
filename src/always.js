@@ -1,3 +1,3 @@
-export default function always (x) {
+export function always (x) {
   return () => x
 }

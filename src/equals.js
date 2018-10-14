@@ -1,6 +1,6 @@
 import type from './type'
 
-export default function equals (a, b) {
+export function equals (a, b) {
   if (arguments.length === 1) { return bHolder => equals(a, bHolder) }
 
   if (a === b) { return true }

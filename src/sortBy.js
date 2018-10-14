@@ -1,4 +1,4 @@
-export default function sortBy (fn, arr) {
+export function sortBy (fn, arr) {
   if (arguments.length === 1) {
     return arrHolder => sortBy(fn, arrHolder)
   }

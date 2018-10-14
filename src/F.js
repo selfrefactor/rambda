@@ -1,3 +1,3 @@
-export default function F () {
+export function F () {
   return false
 }

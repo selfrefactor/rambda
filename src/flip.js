@@ -10,6 +10,6 @@ function flipExport (fn) {
   }
 }
 
-export default function flip (fn, ...input) {
+export function flip (fn, ...input) {
   return flipExport(fn)
 }

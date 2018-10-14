@@ -1,4 +1,4 @@
-export default function last (a) {
+export function last (a) {
   if (typeof a === 'string') {
     return a[ a.length - 1 ] || ''
   }

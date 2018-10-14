@@ -1,4 +1,4 @@
-export default function repeat (x, num) {
+export function repeat (x, num) {
   if (arguments.length === 1) {
     return numHolder => repeat(x, numHolder)
   }

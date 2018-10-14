@@ -1,3 +1,3 @@
-export default function toLower (x) {
+export function toLower (x) {
   return x.toLowerCase()
 }

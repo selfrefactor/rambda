@@ -1,3 +1,3 @@
-export default function identity (x) {
+export function identity (x) {
   return x
 }

@@ -6,4 +6,4 @@ function pathOr (defaultValue, inputPath, inputObject) {
   return defaultTo(defaultValue, path(inputPath, inputObject))
 }
 
-export default curry(pathOr)
+export curry(pathOr)

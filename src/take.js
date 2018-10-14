@@ -1,6 +1,6 @@
 import baseSlice from './internal/baseSlice'
 
-export default function take (num, x) {
+export function take (num, x) {
   if (arguments.length === 1) return xHolder => take(num, xHolder)
 
   if (typeof x === 'string') {

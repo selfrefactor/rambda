@@ -1,4 +1,4 @@
-export default function indexOf (x, arr) {
+export function indexOf (x, arr) {
   if (arguments.length === 1) { return arrHolder => indexOf(x, arrHolder) }
 
   let index = -1

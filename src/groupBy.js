@@ -1,4 +1,4 @@
-export default function groupBy (fn, list) {
+export function groupBy (fn, list) {
   if (arguments.length === 1) { return list => groupBy(fn, list) }
 
   const result = {}

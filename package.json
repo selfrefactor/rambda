@@ -20,7 +20,7 @@
     "benchmark": "node benchmarks/index.js --all",
     "cover": "jest __tests__ --coverage --no-cache -w 1",
     "jest": "jest",
-    "prepublish": "BABEL_ENV=development babel modules/ --out-dir lib/"
+    "prepublishx": "BABEL_ENV=development babel modules/ --out-dir lib/"
   },
   "repository": {
     "type": "git",

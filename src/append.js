@@ -1,4 +1,4 @@
-export default function append (x, arr) {
+export function append (x, arr) {
   if (arguments.length === 1) { return arrHolder => append(x, arrHolder) }
 
   if (typeof arr === 'string') { return `${ arr }${ x }` }

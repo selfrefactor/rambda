@@ -1,6 +1,6 @@
 import baseSlice from './internal/baseSlice'
 
-export default function init (a) {
+export function init (a) {
   if (typeof a === 'string') {
     return a.slice(0, -1)
   }

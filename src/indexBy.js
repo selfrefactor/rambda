@@ -1,4 +1,4 @@
-export default function indexBy (fn, list) {
+export function indexBy (fn, list) {
   if (arguments.length === 1) { return listHolder => indexBy(fn, listHolder) }
 
   const result = {}
