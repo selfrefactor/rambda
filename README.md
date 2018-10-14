@@ -1,7 +1,6 @@
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
-![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)
 
 # Rambda
 
@@ -75,7 +74,6 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
@@ -84,9 +82,11 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.2/webVersion.js
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
-- Rambda's **flip** works only for functions expecting two arguments.
+- Rambda's **filter/all/any/none** pass index as second argument to the predicate function.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
 
 - Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
@@ -1707,7 +1707,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 1.2.2 Change curry method used across most of library methods 
+- 1.2.3 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
+- 1.2.2 Change curry method used across most of library methods
 - 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
 - 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`

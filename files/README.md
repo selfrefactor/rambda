@@ -1464,7 +1464,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 1.2.2 Change curry method used across most of library methods 
+- 1.2.3 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
+- 1.2.2 Change curry method used across most of library methods
 - 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
 - 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
