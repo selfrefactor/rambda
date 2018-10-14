@@ -60,6 +60,12 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 - Use **yarn add rambda** for `Webpack` and `Node.js` usage
 
+- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
+
+```
+https://unpkg.com/rambda@1.2.3/dist/rambda.umd.js
+```
+
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
