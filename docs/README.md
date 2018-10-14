@@ -8,10 +8,6 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 ## Rambda's advantages
 
-- Tree-shaking
-
-Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
-
 - Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
@@ -67,13 +63,12 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.0/webVersion.js
+https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
-
 
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
@@ -83,9 +78,11 @@ https://cdnjs.cloudflare.com/ajax/libs/rambda/1.2.0/webVersion.js
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
-- Rambda's **flip** works only for functions expecting two arguments.
+- Rambda's **filter/all/any/none** pass index as second argument to the predicate function.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
 
 - Rambda's **partialCurry** and **includes** are not part of Ramda API.
 
@@ -242,6 +239,21 @@ R.append(
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.append(%0A%20%20'foo'%2C%0A%20%20%5B'bar'%2C%20'baz'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try in REPL</a>
+
+---
+#### assoc
+
+> assoc(prop: any, value: any, obj: object): object
+
+Makes a shallow clone of `obj`, setting or overriding the property `prop` with
+the value `value`. Note that this copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
+
+```
+R.assoc('c', 3, {a: 1, b: 2})
+//=> {a: 1, b: 2, c: 3}
+```
 
 ---
 #### both
@@ -1691,6 +1703,10 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
+- 1.2.3 Doesn't exist because NPM is great at handling errors.
+- 1.2.2 Change curry method used across most of library methods
+- 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
 - 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
 - 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
@@ -2071,4 +2087,5 @@ import omit from 'rambda/lib/omit'
 
 > Articles about Rambda
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
+
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
