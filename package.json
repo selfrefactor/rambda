@@ -71,7 +71,6 @@
   "files": [
     "dist",
     "lib",
-    "webVersion.js",
     "index.d.ts"
   ]
 }
