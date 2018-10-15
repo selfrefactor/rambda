@@ -1,15 +1,29 @@
-const R = require('../../rambda')
+import { any } from './any'
 
-test('any', () => {
-  expect(R.any(val => val < 0)([ 1, 2 ])).toBeFalsy()
-  expect(R.any(val => val < 2)([ 1, 2 ])).toBeTruthy()
+const arr = [ 1, 2 ]
+
+test('no curry', () => {
+  expect(
+    any(
+      val => val < 0,
+      arr
+    )
+  ).toBeFalsy()
+})
+
+test('with curry', () => {
+  expect(
+    any(
+      val => val < 2
+    )(arr)
+  ).toBeTruthy()
 })
 
 test('passes index to predicate', () => {
-  R.any(
+  any(
     (x, i) => {
-      expect(typeof x).toBe('number')
+      expect(typeof x).toBe('string')
       expect(typeof i).toBe('number')
     }
-  )([1,2,3])
+  )([ 'foo', 'bar' ])
 })

@@ -1,7 +1,7 @@
-import { add } from "./add"
-import { adjust } from "./adjust"
+import { add } from './add'
+import { adjust } from './adjust'
 
-const expectedResult = [0,11,2]
+const expectedResult = [ 0, 11, 2 ]
 
 test('without curring', () => {
   expect(
@@ -26,3 +26,4 @@ test('with curring type 2 1', () => {
     adjust(add(10), 1)([ 0, 1, 2 ])
   ).toEqual(expectedResult)
 })
+

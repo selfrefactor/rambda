@@ -1,7 +1,7 @@
-const R = require('../../rambda')
+import { always } from './always'
 
 test('', () => {
-  const fn = R.always(7)
+  const fn = always(7)
 
   expect(fn()).toEqual(7)
   expect(fn()).toEqual(7)

@@ -1,16 +1,17 @@
-const R = require('../../rambda')
+import { anyPass } from './anyPass'
 
 test('', () => {
   const rules = [
-    x => R.type(x) === 'String',
+    x => typeof x === 'string',
     x => x > 10,
   ]
 
-  expect(R.anyPass(
+  expect(anyPass(
     rules,
     11
   )).toBeTruthy()
-  expect(R.anyPass(
+
+  expect(anyPass(
     rules,
     undefined
   )).toBeFalsy()
@@ -27,14 +28,14 @@ test('when returns true', () => {
     val => val.a === 2,
   ]
 
-  expect(R.anyPass(conditionArr, obj)).toBeTruthy()
+  expect(anyPass(conditionArr, obj)).toBeTruthy()
 })
 
-test('when returns false', () => {
+test('when returns false + curry', () => {
   const conditionArr = [
     val => val.a === 2,
     val => val.b === 3,
   ]
 
-  expect(R.anyPass(conditionArr)(obj)).toBeFalsy()
+  expect(anyPass(conditionArr)(obj)).toBeFalsy()
 })

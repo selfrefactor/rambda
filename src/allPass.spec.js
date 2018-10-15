@@ -1,24 +1,22 @@
-const R = require('../../rambda')
+import { allPass } from './allPass'
 
 test('', () => {
   const rules = [
-    x => R.type(x) === 'Number',
+    x => typeof x === 'number',
     x => x > 10,
     x => x * 7 < 100,
   ]
 
-  expect(R.allPass(
+  expect(allPass(
     rules,
     11
   )).toBeTruthy()
 
-  expect(R.allPass(
+  expect(allPass(
     rules,
     undefined
   )).toBeFalsy()
 })
-
-const obj =
 
 test('when returns true', () => {
   const conditionArr = [
@@ -26,7 +24,7 @@ test('when returns true', () => {
     val => val.b === 2,
   ]
 
-  expect(R.allPass(conditionArr, {
+  expect(allPass(conditionArr, {
     a : 1,
     b : 2,
   })).toBeTruthy()
@@ -38,7 +36,7 @@ test('when returns false', () => {
     val => val.b === 3,
   ]
 
-  expect(R.allPass(conditionArr)({
+  expect(allPass(conditionArr)({
     a : 1,
     b : 2,
   })).toBeFalsy()

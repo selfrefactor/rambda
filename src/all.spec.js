@@ -1,10 +1,19 @@
-const R = require('../../rambda')
+import { all } from './all'
 
-test('', () => {
-  const numArr = [ 0, 1, 2, 3, 4 ]
-  const fn = val => val > -1
+const numArr = [ 0, 1, 2, 3, 4 ]
 
-  expect(R.all(fn)(numArr)).toBeTruthy()
+test('when true', () => {
+  const fn = x => x > -1
 
-  expect(R.all(val => val > 2, numArr)).toBeFalsy()
+  expect(
+    all(fn)(numArr)
+  ).toBeTruthy()
+})
+
+test('when false', () => {
+  const fn = x => x > 2
+
+  expect(
+    all(fn, numArr)
+  ).toBeFalsy()
 })
