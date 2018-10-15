@@ -24,6 +24,10 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+- Tree-shaking
+
+Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+
 - comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
