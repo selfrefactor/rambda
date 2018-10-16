@@ -1,4 +1,4 @@
-import equals from './equals'
+import { equals } from './equals'
 
 export function contains (x, arr) {
   if (arguments.length === 1) { return arrHolder => contains(x, arrHolder) }

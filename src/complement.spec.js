@@ -1,7 +1,7 @@
-const R = require('../../rambda')
-
+import {any} from './any'
+import {complement} from './complement'
 test('', () => {
-  const fn = R.complement(R.any(x => x === 2))
+  const fn = complement(any(x => x === 2))
 
   expect(fn([ 1, 2, 3 ])).toBeFalsy()
 })

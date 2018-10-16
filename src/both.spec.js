@@ -1,9 +1,12 @@
-const R = require('../../rambda')
+import { both } from './both'
 
-test('both', () => {
-  const firstFn = val => val > 0
-  const secondFn = val => val < 10
+const firstFn = val => val > 0
+const secondFn = val => val < 10
 
-  expect(R.both(firstFn, secondFn)(7)).toBeTruthy()
+test('without curry', () => {
+  expect(both(firstFn, secondFn)(7)).toBeTruthy()
+})
+
+test('with curry', () => {
   expect(R.both(firstFn)(secondFn)(17)).toBeFalsy()
 })

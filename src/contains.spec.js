@@ -1,9 +1,21 @@
-const R = require('../rambda')
+import {contains} from './contains'
 
-test('', () => {
-  expect(R.contains(3)([ 1, 2, 3 ])).toBeTruthy()
-  expect(R.contains(4, [ 1, 2, 3 ])).toBeFalsy()
-  expect(R.contains(4, {})).toBe(false)
-  // expect(R.contains(4, undefined)).toThrow()
-  expect(R.contains([ 42 ], [ [ 42 ] ])).toBeTruthy()
+test('when true + curry', () => {
+  expect(contains(3)([ 1, 2, 3 ])).toBeTruthy()
+})
+
+test('when false', () => {
+  expect(contains(4,[ 1, 2, 3 ])).toBeFalsy()
+})
+
+test('with empty object', () => {
+  expect(contains(4,{})).toBeFalsy()
+})
+
+test('complex case', () => {
+  expect(contains([ 42 ], [ [ 42 ] ])).toBeTruthy()
+})
+
+test('throws on undefined', () => {
+  expect(() => contains(4, undefined)).toThrow()
 })
