@@ -1,7 +1,7 @@
-const R = require('../../rambda')
+import {divide} from './divide'
 
 test('', () => {
-  expect(R.divide(71, 100)).toEqual(0.71)
-  expect(R.divide(71)(100)).toEqual(0.71)
+  expect(divide(71, 100)).toEqual(0.71)
+  expect(divide(71)(100)).toEqual(0.71)
 })
 
