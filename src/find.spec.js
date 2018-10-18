@@ -1,9 +1,19 @@
-const R = require('../../rambda')
+import {find} from './find'
+import {propEq} from './propEq'
 
-describe('drop', () => {
-  it('find', () => {
-    expect(R.find(R.propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual({ a : 2 })
+test('', () => {
+  expect(
+    find(
+      propEq('a', 2),
+      [ { a : 1 }, { a : 2 }, { a : 3 } ]
+    )
+  ).toEqual({ a : 2 })
+})
 
-    expect(R.find(R.propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(undefined)
-  })
+test('with curry', () => {
+
+  expect(
+    find(propEq('a', 4))
+    ([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual(undefined)
 })

@@ -1,7 +1,7 @@
-const R = require('../../rambda')
+import {equals} from './equals'
 
-test('dev', () => {
-  const result = R.equals(
+test('', () => {
+  const result = equals(
     [ 1, { a : 1 }, [ { b : 3 } ] ],
     [ 1, { a : 2 }, [ { b : 3 } ] ]
   )
@@ -12,29 +12,33 @@ test('dev', () => {
 })
 
 test('Ramda spec', () => {
-  expect(R.equals({}, {})).toEqual(true)
-  expect(R.equals({
+  expect(equals({}, {})).toEqual(true)
+  
+  expect(equals({
     a : 1,
     b : 2,
   }, {
     a : 1,
     b : 2,
   })).toEqual(true)
-  expect(R.equals({
+
+  expect(equals({
     a : 2,
     b : 3,
   }, {
     b : 3,
     a : 2,
   })).toEqual(true)
-  expect(R.equals({
+  
+  expect(equals({
     a : 2,
     b : 3,
   }, {
     a : 3,
     b : 3,
   })).toEqual(false)
-  expect(R.equals({
+  
+  expect(equals({
     a : 2,
     b : 3,
     c : 1,
@@ -45,8 +49,8 @@ test('Ramda spec', () => {
 })
 
 test('works with boolean tuple', () => {
-  expect(R.equals([ true, false ], [ true, false ])).toBeTruthy()
-  expect(R.equals([ true, false ], [ true, true ])).toBeFalsy()
+  expect(equals([ true, false ], [ true, false ])).toBeTruthy()
+  expect(equals([ true, false ], [ true, true ])).toBeFalsy()
 })
 
 test('works with equal objects within array', () => {
@@ -67,7 +71,7 @@ test('works with equal objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(R.equals(x, y)).toBeTruthy()
+  expect(equals(x, y)).toBeTruthy()
 })
 
 test('works with different objects within array', () => {
@@ -76,27 +80,27 @@ test('works with different objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(R.equals(x, y)).toBeFalsy()
+  expect(equals(x, y)).toBeFalsy()
 })
 
 test('works with undefined as second argument', () => {
-  expect(R.equals(1, undefined)).toBeFalsy()
+  expect(equals(1, undefined)).toBeFalsy()
 
-  expect(R.equals(undefined, undefined)).toBeTruthy()
+  expect(equals(undefined, undefined)).toBeTruthy()
 })
 
 test('various examples', () => {
-  expect(R.equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTruthy()
+  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTruthy()
 
-  expect(R.equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalsy()
+  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalsy()
 
-  expect(R.equals(1, 1)).toBeTruthy()
+  expect(equals(1, 1)).toBeTruthy()
 
-  expect(R.equals(1, '1')).toBeFalsy()
+  expect(equals(1, '1')).toBeFalsy()
 
-  expect(R.equals({}, {})).toBeTruthy()
+  expect(equals({}, {})).toBeTruthy()
 
-  expect(R.equals({
+  expect(equals({
     a : 1,
     b : 2,
   }, {
@@ -104,7 +108,7 @@ test('various examples', () => {
     a : 1,
   })).toBeTruthy()
 
-  expect(R.equals({
+  expect(equals({
     a : 1,
     b : 2,
   }, {
@@ -112,7 +116,7 @@ test('various examples', () => {
     b : 1,
   })).toBeFalsy()
 
-  expect(R.equals({
+  expect(equals({
     a : 1,
     b : false,
   }, {
@@ -120,7 +124,7 @@ test('various examples', () => {
     b : 1,
   })).toBeFalsy()
 
-  expect(R.equals({
+  expect(equals({
     a : 1,
     b : 2,
   }, {
@@ -129,7 +133,7 @@ test('various examples', () => {
     c : 3,
   })).toBeFalsy()
 
-  expect(R.equals({
+  expect(equals({
     x : {
       a : 1,
       b : 2,
@@ -142,7 +146,7 @@ test('various examples', () => {
     },
   })).toBeFalsy()
 
-  expect(R.equals({
+  expect(equals({
     a : 1,
     b : 2,
   }, {
@@ -150,23 +154,24 @@ test('various examples', () => {
     a : 1,
   })).toBeFalsy()
 
-  expect(R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
 
-  expect(R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
 
-  expect(R.equals({ a : {} }, { a : {} })).toBeTruthy()
+  expect(equals({ a : {} }, { a : {} })).toBeTruthy()
 
-  expect(R.equals('', '')).toBeTruthy()
+  expect(equals('', '')).toBeTruthy()
 
-  expect(R.equals('foo', 'foo')).toBeTruthy()
+  expect(equals('foo', 'foo')).toBeTruthy()
 
-  expect(R.equals('foo', 'bar')).toBeFalsy()
+  expect(equals('foo', 'bar')).toBeFalsy()
 
-  expect(R.equals(0, false)).toBeFalsy()
+  expect(equals(0, false)).toBeFalsy()
 
-  expect(R.equals(/\s/g, null)).toBeFalsy()
+  expect(equals(/\s/g, null)).toBeFalsy()
 
-  expect(R.equals(null, null)).toBeTruthy()
+  expect(equals(null, null)).toBeTruthy()
 
-  expect(R.equals(false)(null)).toBeFalsy()
+  expect(equals(false)(null)).toBeFalsy()
 })
+

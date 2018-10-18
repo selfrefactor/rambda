@@ -1,4 +1,9 @@
-const R = require('../../rambda')
+import {filter} from './filter'
+import {compose} from './compose'
+import {add} from './add'
+import {map} from './map'
+import {equals} from './equals'
+import {T} from './T'
 
 const sampleObject = {
   a : 1,
@@ -7,14 +12,24 @@ const sampleObject = {
   d : 4,
 }
 
+test('with compose', () => {
+  const result = compose(
+    filter(equals(2)),
+    map(add(1))
+  )(sampleObject)
+
+  expect(result).toEqual({ a : 2 })
+})
+
+
 test('bad case - undefined', () => {
   expect(
-    R.filter(R.T)(undefined)
+    filter(T)(undefined)
   ).toEqual([])
 })
 
 test('with object it passes property as second argument', () => {
-  R.filter((val, prop) => {
+  filter((val, prop) => {
     expect(typeof prop).toEqual('string')
   })(sampleObject)
 })
@@ -22,7 +37,7 @@ test('with object it passes property as second argument', () => {
 test('with array', () => {
   const isEven = n => n % 2 === 0
 
-  expect(R.filter(
+  expect(filter(
     isEven,
     [ 1, 2, 3, 4 ]
   )).toEqual([ 2, 4 ])
@@ -30,7 +45,7 @@ test('with array', () => {
 
 test('with object', () => {
   const isEven = n => n % 2 === 0
-  const result = R.filter(
+  const result = filter(
     isEven,
     sampleObject
   )
@@ -40,13 +55,4 @@ test('with object', () => {
   }
 
   expect(result).toEqual(expectedResult)
-})
-
-test('with compose', () => {
-  const result = R.compose(
-    R.filter(R.equals(2)),
-    R.map(R.add(1))
-  )(sampleObject)
-
-  expect(result).toEqual({ a : 2 })
 })
