@@ -798,6 +798,34 @@ R.init('foo')  // => 'fo'
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.init(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D%0AR.init('foo')%20%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
 
 ---
+#### is
+
+> is(xPrototype: any, x: any): boolean
+
+It returns `true` is `x` is instance of `xPrototype`.
+
+```
+R.is(String, 'foo')  // => true
+R.is(Array, 1)  // => false
+```
+
+---
+#### isNil
+
+> isNil(x: any): boolean
+
+It returns `true` is `x` is either `null` or `undefined`.
+
+```
+R.isNil(null)  // => true
+R.isNil(1)  // => false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+
+---
 #### join
 
 > join(separator: string, arr: T[]): string
@@ -818,38 +846,6 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
-
----
-#### is
-
-> is(xPrototype: any, x: any): boolean
-
-It returns `true` is `x` is instance of `xPrototype`.
-
-```
-R.is(String, 'foo')  // => true
-R.is(Array, 1)  // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/is.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F%2F%20%3D%3E%20true%0AR.is(Array%2C%201)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
-
----
-#### isNil
-
-> isNil(x: any): boolean
-
-It returns `true` is `x` is either `null` or `undefined`.
-
-```
-R.isNil(null)  // => true
-R.isNil(1)  // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### last

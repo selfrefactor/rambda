@@ -691,6 +691,30 @@ R.init('foo')  // => 'fo'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/init.js)
 
+#### is
+
+> is(xPrototype: any, x: any): boolean
+
+It returns `true` is `x` is instance of `xPrototype`.
+
+```
+R.is(String, 'foo')  // => true
+R.is(Array, 1)  // => false
+```
+
+#### isNil
+
+> isNil(x: any): boolean
+
+It returns `true` is `x` is either `null` or `undefined`.
+
+```
+R.isNil(null)  // => true
+R.isNil(1)  // => false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
+
 #### join
 
 > join(separator: string, arr: T[]): string
@@ -708,32 +732,6 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
-
-#### is
-
-> is(xPrototype: any, x: any): boolean
-
-It returns `true` is `x` is instance of `xPrototype`.
-
-```
-R.is(String, 'foo')  // => true
-R.is(Array, 1)  // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/is.js)
-
-#### isNil
-
-> isNil(x: any): boolean
-
-It returns `true` is `x` is either `null` or `undefined`.
-
-```
-R.isNil(null)  // => true
-R.isNil(1)  // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
 
 #### last
 

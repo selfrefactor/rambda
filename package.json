@@ -68,7 +68,8 @@
     ],
     "workInProgress": "refactor all tests",
     "docs": [
-      "docsify"
+      "docsify",
+      "repl"
     ]
   },
   "files": [
