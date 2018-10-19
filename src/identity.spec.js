@@ -1,5 +1,5 @@
-const R = require('../../rambda')
+import { identity } from './identity'
 
 test('', () => {
-  expect(R.identity(7)).toEqual(7)
+  expect(identity(7)).toEqual(7)
 })

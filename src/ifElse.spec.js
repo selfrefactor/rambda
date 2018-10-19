@@ -1,11 +1,13 @@
-const R = require('../../rambda')
+import { has } from './has'
+import { prop } from 'prop'
+import { always } from './allPass'
 
-const condition = R.has('foo')
-const ifFn = x => R.prop('foo', x).length
+const condition = has('foo')
+const ifFn = x => prop('foo', x).length
 const elseFn = () => false
 
 test('', () => {
-  const fn = R.ifElse(
+  const fn = ifElse(
     condition,
     ifFn,
     elseFn
@@ -16,34 +18,34 @@ test('', () => {
 })
 
 test('accept constant as condition', () => {
-  const fn = R.ifElse(
+  const fn = ifElse(
     true,
-    R.always(true),
-    R.always(false)
+    always(true),
+    always(false)
   )
 
   expect(fn()).toEqual(true)
 })
 
 test('accept constant as condition - case 2', () => {
-  const fn = R.ifElse(
+  const fn = ifElse(
     false,
-    R.always(true),
-    R.always(false)
+    always(true),
+    always(false)
   )
 
   expect(fn()).toEqual(false)
 })
 
 test('curry (x)(y,z)', () => {
-  const fn = R.ifElse(condition, ifFn)(elseFn)
+  const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
 
 test('curry (x)(y)(z)', () => {
-  const fn = R.ifElse(condition)(ifFn)(elseFn)
+  const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)

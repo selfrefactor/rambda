@@ -1,26 +1,28 @@
-const R = require('../rambda')
+import { compose } from './compose'
+import { tail } from './tail'
+import { init } from './init'
+import { flatten } from './flatten'
 
-describe('init', () => {
-  it('', () => {
-    expect(R.compose(
-      R.tail,
-      R.init,
-      R.flatten
+test('init', () => {
+    expect(compose(
+      tail,
+      init,
+      flatten
     )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])).toEqual([ 2, 3 ])
 
-    expect(R.init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
-    expect(R.init([ 1, 2 ])).toEqual([ 1 ])
-    expect(R.init([ 1 ])).toEqual([])
-    expect(R.init([])).toEqual([])
+    expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
+    expect(init([ 1, 2 ])).toEqual([ 1 ])
+    expect(init([ 1 ])).toEqual([])
+    expect(init([])).toEqual([])
 
-    expect(R.init([])).toEqual([])
+    expect(init([])).toEqual([])
 
-    expect(R.init([ 1 ])).toEqual([])
+    expect(init([ 1 ])).toEqual([])
 
-    expect(R.init('foo')).toEqual('fo')
+    expect(init('foo')).toEqual('fo')
 
-    expect(R.init('f')).toEqual('')
+    expect(init('f')).toEqual('')
 
-    expect(R.init('')).toEqual('')
-  })
+    expect(init('')).toEqual('')
 })
+

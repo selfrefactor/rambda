@@ -1,9 +1,9 @@
-const R = require('../../rambda')
+import { isNil } from 'path'
 
 test('', () => {
-  expect(R.isNil(null)).toBeTruthy()
+  expect(isNil(null)).toBeTruthy()
 
-  expect(R.isNil(undefined)).toBeTruthy()
+  expect(isNil(undefined)).toBeTruthy()
 
-  expect(R.isNil([])).toBeFalsy()
+  expect(isNil([])).toBeFalsy()
 })

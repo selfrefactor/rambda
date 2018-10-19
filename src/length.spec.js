@@ -1,9 +1,7 @@
-const R = require('../../rambda')
+import { length } from './length'
 
-describe('length', () => {
-  it('', () => {
-    expect(R.length('foo')).toEqual(3)
-    expect(R.length([ 1, 2, 3 ])).toEqual(3)
-    expect(R.length([])).toEqual(0)
-  })
+describe('test', () => {
+    expect(length('foo')).toEqual(3)
+    expect(length([ 1, 2, 3 ])).toEqual(3)
+    expect(length([])).toEqual(0)
 })

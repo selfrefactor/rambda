@@ -1,4 +1,5 @@
-const R = require('../../rambda')
+import { indexBy } from './indexBy'
+import { prop } from './prop'
 
 test('indexBy', () => {
 
@@ -9,7 +10,7 @@ test('indexBy', () => {
     { id: 'a' },
   ]
 
-  expect(R.indexBy(R.prop('id'))(list)).toEqual({
+  expect(indexBy(prop('id'))(list)).toEqual({
     '1': { id: 1 },
     '2': { id: 2 },
     '10': { id: 10 },

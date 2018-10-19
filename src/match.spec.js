@@ -1,9 +1,9 @@
-const R = require('../rambda')
+import { match } from './match'
 
 test('', () => {
-  expect(R.match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
+  expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
 
-  // expect(R.match(/a./g)('foo')).toEqual([])
+  expect(match(/a./g)('foo')).toEqual([])
 
-  // expect(() => { R.match(/a./g, null) }).toThrow()
+  expect(() => { match(/a./g, null) }).toThrow()
 })

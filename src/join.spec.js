@@ -1,11 +1,11 @@
-const R = require('../../rambda')
+import { join } from './join'
 
 test('curry', () => {
-  expect(R.join('|')([ 'foo', 'bar', 'baz' ])).toEqual('foo|bar|baz')
+  expect(join('|')([ 'foo', 'bar', 'baz' ])).toEqual('foo|bar|baz')
 
-  expect(R.join('|', [ 1, 2, 3 ])).toEqual('1|2|3')
+  expect(join('|', [ 1, 2, 3 ])).toEqual('1|2|3')
 
-  const spacer = R.join(' ')
+  const spacer = join(' ')
 
   expect(spacer([ 'a', 2, 3.4 ])).toEqual('a 2 3.4')
 })

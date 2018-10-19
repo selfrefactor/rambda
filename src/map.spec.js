@@ -1,4 +1,4 @@
-const R = require('../../rambda')
+import { map } from './map'
 
 const double = x => x * 2
 
@@ -10,7 +10,7 @@ const sampleObject = {
 }
 
 test('with array', () => {
-  expect(R.map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
+  expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
 })
 
 test('with object', () => {
@@ -19,14 +19,14 @@ test('with object', () => {
     b : 2,
   }
 
-  expect(R.map(double, obj)).toEqual({
+  expect(map(double, obj)).toEqual({
     a : 2,
     b : 4,
   })
 })
 
 test('with object passes property as second argument', () => {
-  R.map((_, prop) => {
+  map((_, prop) => {
     expect(typeof prop).toEqual('string')
   })(sampleObject)
 })
@@ -35,6 +35,6 @@ test('with object passes property as second argument', () => {
  * https://github.com/selfrefactor/rambda/issues/77
  */
 test('when undefined instead of array', () => {
-  expect(R.map(double, undefined)).toEqual([])
+  expect(map(double, undefined)).toEqual([])
 })
 

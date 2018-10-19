@@ -1,15 +1,15 @@
-const R = require('../rambda')
+import { is } from './is'
 
 test('works with built-in types', () => {
-  expect(R.is(Array, undefined)).toBeFalsy()
-  expect(R.is(Array)([])).toBeTruthy()
-  expect(R.is(Boolean, new Boolean(false))).toBeTruthy()
-  expect(R.is(Date, new Date())).toBeTruthy()
-  expect(R.is(Function, () => {})).toBeTruthy()
-  expect(R.is(Number, new Number(0))).toBeTruthy()
-  expect(R.is(Object, {})).toBeTruthy()
-  expect(R.is(RegExp, /(?:)/)).toBeTruthy()
-  expect(R.is(String, new String(''))).toBeTruthy()
+  expect(is(Array, undefined)).toBeFalsy()
+  expect(is(Array)([])).toBeTruthy()
+  expect(is(Boolean, new Boolean(false))).toBeTruthy()
+  expect(is(Date, new Date())).toBeTruthy()
+  expect(is(Function, () => {})).toBeTruthy()
+  expect(is(Number, new Number(0))).toBeTruthy()
+  expect(is(Object, {})).toBeTruthy()
+  expect(is(RegExp, /(?:)/)).toBeTruthy()
+  expect(is(String, new String(''))).toBeTruthy()
 })
 
 test('works with user-defined types', () => {
@@ -20,26 +20,26 @@ test('works with user-defined types', () => {
   const foo = new Foo()
   const bar = new Bar()
 
-  expect(R.is(Foo, foo)).toBeTruthy()
-  expect(R.is(Bar, bar)).toBeTruthy()
-  expect(R.is(Foo, bar)).toBeTruthy()
-  expect(R.is(Bar, foo)).toBeFalsy()
+  expect(is(Foo, foo)).toBeTruthy()
+  expect(is(Bar, bar)).toBeTruthy()
+  expect(is(Foo, bar)).toBeTruthy()
+  expect(is(Bar, foo)).toBeFalsy()
 })
 
 test('does not coerce', () => {
-  expect(R.is(Boolean, 1)).toBeFalsy()
-  expect(R.is(Number, '1')).toBeFalsy()
-  expect(R.is(Number, false)).toBeFalsy()
+  expect(is(Boolean, 1)).toBeFalsy()
+  expect(is(Number, '1')).toBeFalsy()
+  expect(is(Number, false)).toBeFalsy()
 })
 
 test('recognizes primitives as their object equivalents', () => {
-  expect(R.is(Boolean, false)).toBeTruthy()
-  expect(R.is(Number, 0)).toBeTruthy()
-  expect(R.is(String, '')).toBeTruthy()
+  expect(is(Boolean, false)).toBeTruthy()
+  expect(is(Number, 0)).toBeTruthy()
+  expect(is(String, '')).toBeTruthy()
 })
 
 test('does not consider primitives to be instances of Object', () => {
-  expect(R.is(Object, false)).toBeFalsy()
-  expect(R.is(Object, 0)).toBeFalsy()
-  expect(R.is(Object, '')).toBeFalsy()
+  expect(is(Object, false)).toBeFalsy()
+  expect(is(Object, 0)).toBeFalsy()
+  expect(is(Object, '')).toBeFalsy()
 })
