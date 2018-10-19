@@ -698,8 +698,6 @@ R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/is.js)
-
 #### isNil
 
 > isNil(x: any): boolean
