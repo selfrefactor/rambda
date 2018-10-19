@@ -687,24 +687,6 @@ R.init('foo')  // => 'fo'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/init.js)
 
-#### join
-
-> join(separator: string, arr: T[]): string
-
-```
-R.join('-', [1, 2, 3])  // => '1-2-3'
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/join.js)
-
-#### keys
-
-> keys(x: Object): string[]
-
-```
-R.keys({a:1, b:2})  // => ['a', 'b']
-```
-
 #### is
 
 > is(xPrototype: any, x: any): boolean
@@ -730,6 +712,24 @@ R.isNil(1)  // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
+
+#### join
+
+> join(separator: string, arr: T[]): string
+
+```
+R.join('-', [1, 2, 3])  // => '1-2-3'
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/modules/join.js)
+
+#### keys
+
+> keys(x: Object): string[]
+
+```
+R.keys({a:1, b:2})  // => ['a', 'b']
+```
 
 #### last
 
