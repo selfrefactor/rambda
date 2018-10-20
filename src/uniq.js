@@ -1,4 +1,4 @@
-import contains from './contains'
+import {contains} from './contains'
 
 export function uniq (arr) {
   let index = -1

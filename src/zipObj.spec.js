@@ -1,4 +1,5 @@
 import { zipObj } from './zipObj'
+
 test('zipObj', () => {
   expect(
     zipObj(['a', 'b', 'c'], [1, 2, 3])

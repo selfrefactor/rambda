@@ -1,5 +1,5 @@
-const R = require('../../rambda')
+import { toString } from './toString'
 
 test('', () => {
-  expect(R.toString([ 1, 2, 3 ])).toEqual('1,2,3')
+  expect(toString([ 1, 2, 3 ])).toEqual('1,2,3')
 })

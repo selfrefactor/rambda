@@ -1,11 +1,11 @@
-const R = require('../../rambda')
+import { prepend } from './prepend'
 
 test('', () => {
-  expect(R.prepend('f', 'oo')).toEqual('foo')
+  expect(prepend('f', 'oo')).toEqual('foo')
 })
 
 test('prepend', () => {
-  expect(R.prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([ 'yes', 'foo', 'bar', 'baz' ])
+  expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([ 'yes', 'foo', 'bar', 'baz' ])
 
-  expect(R.prepend('foo')([ ])).toEqual([ 'foo' ])
+  expect(prepend('foo')([ ])).toEqual([ 'foo' ])
 })

@@ -3,8 +3,7 @@ import { last } from './last'
 import { map } from './map'
 import { last } from './last'
 
-describe('last', () => {
-  it('', () => {
+test('last', () => {
     expect(compose(
       last,
       map(last)
@@ -14,5 +13,4 @@ describe('last', () => {
     expect(last([])).toEqual(undefined)
     expect(last('abc')).toEqual('c')
     expect(last('')).toEqual('')
-  })
 })

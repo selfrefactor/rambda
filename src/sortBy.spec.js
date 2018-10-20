@@ -1,10 +1,12 @@
-const R = require('../rambda')
+import { compose } from './compose'
+import { toLower } from './toLower'
+import { prop } from './prop'
+import { sortBy } from './sortBy'
 
-describe('sortBy', () => {
-  it('', () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose(
-      R.toLower,
-      R.prop('name')
+test('sortBy', () => {
+    const sortByNameCaseInsensitive = sortBy(compose(
+      toLower,
+      prop('name')
     ))
     const alice = {
       name : 'ALICE',
@@ -22,12 +24,11 @@ describe('sortBy', () => {
 
     expect(sortByNameCaseInsensitive(people)).toEqual([ alice, bob, clara ])
 
-    expect(R.sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
+    expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
 
-    expect(R.sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
+    expect(sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
 
-    expect(R.sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+    expect(sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 
-    expect(R.sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
-  })
+    expect(sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 })

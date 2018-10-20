@@ -1,15 +1,13 @@
-const R = require('../rambda')
+import { tail } from './tail'
 
-describe('tail', () => {
-  it('', () => {
-    expect(R.tail([ 1, 2, 3 ])).toEqual([ 2, 3 ])
-    expect(R.tail([ 1, 2 ])).toEqual([ 2 ])
-    expect(R.tail([ 1 ])).toEqual([])
-    expect(R.tail([])).toEqual([])
+test('tail', () => {
+    expect(tail([ 1, 2, 3 ])).toEqual([ 2, 3 ])
+    expect(tail([ 1, 2 ])).toEqual([ 2 ])
+    expect(tail([ 1 ])).toEqual([])
+    expect(tail([])).toEqual([])
 
-    expect(R.tail('abc')).toEqual('bc')
-    expect(R.tail('ab')).toEqual('b')
-    expect(R.tail('a')).toEqual('')
-    expect(R.tail('')).toEqual('')
-  })
+    expect(tail('abc')).toEqual('bc')
+    expect(tail('ab')).toEqual('b')
+    expect(tail('a')).toEqual('')
+    expect(tail('')).toEqual('')
 })

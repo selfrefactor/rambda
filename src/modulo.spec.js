@@ -1,6 +1,6 @@
-const R = require('../../rambda')
+import { modulo } from './modulo'
 
 test('', () => {
-  expect(R.modulo(17, 3)).toEqual(2)
-  expect(R.modulo(15)(6)).toEqual(3)
+  expect(modulo(17, 3)).toEqual(2)
+  expect(modulo(15)(6)).toEqual(3)
 })

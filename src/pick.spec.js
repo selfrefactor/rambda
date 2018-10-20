@@ -1,13 +1,13 @@
-const R = require('../../rambda')
+import { pick } from './pick'
 
-test('R.pick with string as condition', () => {
+test('pick with string as condition', () => {
   const obj = {
     a : 1,
     b : 2,
     c : 3,
   }
-  const result = R.pick('a,c', obj)
-  const resultCurry = R.pick('a,c')(obj)
+  const result = pick('a,c', obj)
+  const resultCurry = pick('a,c')(obj)
   const expectedResult = {
     a : 1,
     c : 3,
@@ -17,8 +17,8 @@ test('R.pick with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('R.pick', () => {
-  expect(R.pick([ 'a', 'c' ])({
+test('pick', () => {
+  expect(pick([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',
     c : 'baz',
@@ -27,11 +27,11 @@ test('R.pick', () => {
     c : 'baz',
   })
 
-  expect(R.pick([ 'a', 'd', 'e', 'f' ])({
+  expect(pick([ 'a', 'd', 'e', 'f' ])({
     a : 'foo',
     b : 'bar',
     c : 'baz',
   })).toEqual({ a : 'foo' })
 
-  expect(R.pick('a,d,e,f')(null)).toEqual(undefined)
+  expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })

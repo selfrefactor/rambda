@@ -1,7 +1,7 @@
-const R = require('../../rambda')
+import { startsWith } from './startsWith'
 
 test('true', () => {
-  const result = R.startsWith(
+  const result = startsWith(
     'foo',
     'foo-bar'
   )
@@ -10,7 +10,7 @@ test('true', () => {
 })
 
 test('false', () => {
-  const result = R.startsWith('baz')('foo-bar')
+  const result = startsWith('baz')('foo-bar')
 
   expect(result).toBeFalsy()
 })

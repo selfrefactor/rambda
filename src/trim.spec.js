@@ -1,7 +1,4 @@
-const R = require('../../rambda')
-
-describe('trim', () => {
-  it('', () => {
-    expect(R.trim(' foo ')).toEqual('foo')
-  })
+import { trim } from "./trim";
+test('trim', () => {
+    expect(trim(' foo ')).toEqual('foo')
 })

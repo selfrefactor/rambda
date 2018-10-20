@@ -1,9 +1,7 @@
-const R = require('../../rambda')
+import { prop } from './prop'
 
-describe('prop', () => {
-  it('', () => {
-    expect(R.prop('foo')({ foo : 'baz' })).toEqual('baz')
+test('prop', () => {
+    expect(prop('foo')({ foo : 'baz' })).toEqual('baz')
 
-    expect(R.prop('bar')({ foo : 'baz' })).toEqual(undefined)
-  })
+    expect(prop('bar')({ foo : 'baz' })).toEqual(undefined)
 })

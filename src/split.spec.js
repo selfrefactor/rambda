@@ -1,9 +1,7 @@
-const R = require('../rambda')
+import { split } from './split'
 
-describe('split', () => {
-  it('', () => {
-    expect(R.split('|')('foo|bar|baz')).toEqual([ 'foo', 'bar', 'baz' ])
+test('split', () => {
+    expect(split('|')('foo|bar|baz')).toEqual([ 'foo', 'bar', 'baz' ])
 
-    expect(R.split('.', 'a.b.c.xyz.d')).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
-  })
+    expect(split('.', 'a.b.c.xyz.d')).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
 })

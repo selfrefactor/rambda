@@ -1,7 +1,7 @@
-import curry from './curry'
+import {curry} from './curry'
 
-function minBy(fn, x, y){
+function minByRaw(fn, x, y){
   return fn(y) < fn(x) ? y : x 
 }
 
-export curry(minBy)
+export const minBy = curry(minByRaw)

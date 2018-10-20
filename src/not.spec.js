@@ -1,8 +1,8 @@
-const R = require('../../rambda')
+import { not } from './not'
 
 test('not', () => {
-  expect(R.not(false)).toEqual(true)
-  expect(R.not(true)).toEqual(false)
-  expect(R.not(0)).toEqual(true)
-  expect(R.not(1)).toEqual(false)
+  expect(not(false)).toEqual(true)
+  expect(not(true)).toEqual(false)
+  expect(not(0)).toEqual(true)
+  expect(not(1)).toEqual(false)
 })

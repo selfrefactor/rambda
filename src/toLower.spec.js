@@ -1,7 +1,5 @@
-const R = require('../../rambda')
+import { toLower } from './toLower'
 
-describe('toLower', () => {
-  it('', () => {
-    expect(R.toLower('FOO|BAR|BAZ')).toEqual('foo|bar|baz')
-  })
+test('toLower', () => {
+    expect(toLower('FOO|BAR|BAZ')).toEqual('foo|bar|baz')
 })

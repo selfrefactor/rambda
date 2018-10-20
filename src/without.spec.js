@@ -1,10 +1,8 @@
-const R = require('../rambda')
+import { without } from './without'
 
-describe('without', () => {
-  it('should return a new list without values in the first argument ', () => {
+  test('should return a new list without values in the first argument ', () => {
     const itemsToOmit = [ 'A', 'B', 'C' ]
     const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
 
-    expect(R.without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
+    expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
   })
-})

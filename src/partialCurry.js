@@ -1,5 +1,5 @@
-import merge from './merge'
-import type from './type'
+import {merge} from './merge'
+import {type} from './type'
 
 export function partialCurry (fn, inputArguments = {}) {
   return inputArgumentsHolder => {

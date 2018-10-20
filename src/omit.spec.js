@@ -1,4 +1,4 @@
-const R = require('../../rambda')
+import { omit } from './omit'
 
 test('with string as condition', () => {
   const obj = {
@@ -6,8 +6,8 @@ test('with string as condition', () => {
     b : 2,
     c : 3,
   }
-  const result = R.omit('a,c', obj)
-  const resultCurry = R.omit('a,c')(obj)
+  const result = omit('a,c', obj)
+  const resultCurry = omit('a,c')(obj)
   const expectedResult = { b : 2 }
 
   expect(result).toEqual(expectedResult)
@@ -15,11 +15,11 @@ test('with string as condition', () => {
 })
 
 test('with null', () => {
-  expect(R.omit('a,b', null)).toEqual(undefined)
+  expect(omit('a,b', null)).toEqual(undefined)
 })
 
 test('doesn\'t work with number as property', () => {
-  expect(R.omit([ 42 ], {
+  expect(omit([ 42 ], {
     a  : 1,
     42 : 2,
   })).toEqual({
@@ -29,7 +29,7 @@ test('doesn\'t work with number as property', () => {
 })
 
 test('', () => {
-  expect(R.omit([ 'a', 'c' ])({
+  expect(omit([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',
     c : 'baz',

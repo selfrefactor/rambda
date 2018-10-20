@@ -1,9 +1,7 @@
-const R = require('../rambda')
+import { test } from './test'
 
-describe('test', () => {
-  it('', () => {
-    expect(R.test(/^x/, 'xyz')).toBeTruthy()
+test('test', () => {
+    expect(test(/^x/, 'xyz')).toBeTruthy()
 
-    expect(R.test(/^y/)('xyz')).toBeFalsy()
-  })
+    expect(test(/^y/)('xyz')).toBeFalsy()
 })

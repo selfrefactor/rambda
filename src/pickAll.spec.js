@@ -1,8 +1,8 @@
-const R = require('../../rambda')
+import { pickAll } from './pickAll'
 
 test('when input is undefined or null', () => {
-  expect(R.pickAll('a', null)).toBe(undefined)
-  expect(R.pickAll('a', undefined)).toBe(undefined)
+  expect(pickAll('a', null)).toBe(undefined)
+  expect(pickAll('a', undefined)).toBe(undefined)
 })
 
 test('with string as condition', () => {
@@ -11,8 +11,8 @@ test('with string as condition', () => {
     b : 2,
     c : 3,
   }
-  const result = R.pickAll('a,c', obj)
-  const resultCurry = R.pickAll('a,c')(obj)
+  const result = pickAll('a,c', obj)
+  const resultCurry = pickAll('a,c')(obj)
   const expectedResult = {
     a : 1,
     b : undefined,
@@ -24,7 +24,7 @@ test('with string as condition', () => {
 })
 
 test('with array as condition', () => {
-  expect(R.pickAll([ 'a', 'b', 'c' ], {
+  expect(pickAll([ 'a', 'b', 'c' ], {
     a : 'foo',
     c : 'baz',
   })).toEqual({

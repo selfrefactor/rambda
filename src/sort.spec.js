@@ -1,9 +1,7 @@
-const R = require('../rambda')
+import { sort } from './sort'
 
-describe('sort', () => {
-  it('', () => {
-    expect(R.sort((a, b) => a > b)([ 'foo', 'bar', 'baz' ])).toEqual([ 'bar', 'baz', 'foo' ])
+test('sort', () => {
+    expect(sort((a, b) => a > b)([ 'foo', 'bar', 'baz' ])).toEqual([ 'bar', 'baz', 'foo' ])
 
-    expect(R.sort((a, b) => a - b)([ 2, 3, 1 ])).toEqual([ 1, 2, 3 ])
-  })
+    expect(sort((a, b) => a - b)([ 2, 3, 1 ])).toEqual([ 1, 2, 3 ])
 })

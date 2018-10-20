@@ -1,4 +1,4 @@
-import any from './any'
+import{any}  from './any'
 
 export function uniqWith (fn, arr) {
   if(arguments.length === 1) return arrHolder => uniqWith(fn, arrHolder)

@@ -1,6 +1,6 @@
-const R = require('../../rambda')
+import { multiply } from './multiply'
 
 test('', () => {
-  expect(R.multiply(2, 4)).toEqual(8)
-  expect(R.multiply(2)(4)).toEqual(8)
+  expect(multiply(2, 4)).toEqual(8)
+  expect(multiply(2)(4)).toEqual(8)
 })

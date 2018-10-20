@@ -1,5 +1,5 @@
-import contains from './contains'
-import reduce from './reduce'
+import {contains} from './contains'
+import {reduce} from './reduce'
 
 export function without (itemsToOmit, collection) {
   return reduce(

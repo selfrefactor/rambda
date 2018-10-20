@@ -1,13 +1,17 @@
-const R = require('../rambda')
+import { reject } from './reject'
+import { compose } from './compose'
+import { add } from './add'
+import { map } from './map'
+import { equals } from './equals'
 
 const isOdd = n => n % 2 === 1
 
-test('should return items that DO NOT match predicate from array', () => {
-  expect(R.reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+test('returns items that DO NOT match predicate from array', () => {
+  expect(reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
-test('should return items that DO NOT match predicate from object', () => {
-  expect(R.reject(isOdd, {
+test('returns items that DO NOT match predicate from object', () => {
+  expect(reject(isOdd, {
     a : 1,
     b : 2,
     c : 3,
@@ -19,9 +23,9 @@ test('should return items that DO NOT match predicate from object', () => {
 })
 
 test('should work with currying', () => {
-  const result = R.compose(
-    R.reject(R.equals(2)),
-    R.map(R.add(1))
+  const result = compose(
+    reject(equals(2)),
+    map(add(1))
   )({
     a : 1,
     b : 2,
