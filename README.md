@@ -24,6 +24,10 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+- Tree-shaking
+
+Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+
 - comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -1699,6 +1703,9 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.2.7 Close `feat` branch
+- 1.2.6 Use `src` folder instead of `modules` 
+- 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
 - 1.2.3 Doesn't exist because NPM is great at handling errors.
 - 1.2.2 Change curry method used across most of library methods

@@ -3,15 +3,14 @@ module.exports = function (wallaby){
     files: [
       'rambda.js',
       'package.json',
-      'modules/**/*.js'
+      '!src/**/*spec.js',
+      'src/**/*.js'
     ],
     tests: [
-      '__tests__/**/*.js'
+      'src/**/*spec.js',
     ],
     env: {
       type: 'node',
-      kind:'chrome',
-      runner: 'node'
     },
     projectCacheDir: 'node_modules',
     compilers: {

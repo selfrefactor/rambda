@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Lightweight faster alternative to Ramda",
   "main": "./dist/rambda.js",
   "module": "./dist/rambda.esm.js",
@@ -9,8 +9,7 @@
   "sideEffects": false,
   "scripts": {
     "test:watch": "jest --watch",
-    "dev": "jest __tests__/object/zipObj.js --watch",
-    "test": "jest __tests__",
+    "test": "jest src",
     "docs": "docsify init ./docs",
     "de": "commit",
     "build": "yarn build:main&&yarn build:web&&yarn minify",
@@ -20,7 +19,7 @@
     "benchmark": "node benchmarks/index.js --all",
     "cover": "jest __tests__ --coverage --no-cache -w 1",
     "jest": "jest",
-    "prepublish": "BABEL_ENV=development babel modules/ --out-dir lib/"
+    "prepublish": "BABEL_ENV=development babel src/ --out-dir lib/"
   },
   "repository": {
     "type": "git",
@@ -61,7 +60,8 @@
       "docs",
       "build",
       "prepublish",
-      "refactor"
+      "refactor",
+      "lint"
     ],
     "feature": [
       "method"
@@ -69,7 +69,8 @@
     "workInProgress": "",
     "docs": [
       "docsify",
-      "repl"
+      "repl",
+      "changelog"
     ]
   },
   "files": [
