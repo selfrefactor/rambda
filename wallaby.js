@@ -3,15 +3,12 @@ module.exports = function (wallaby){
     files: [
       'rambda.js',
       'package.json',
-      '!src/**/*spec.js',
-      'src/**/*.js'
+      'src/**/*.js',
+      '!src/**/*.spec.js'
     ],
     tests: [
-      'src/**/*spec.js',
+      'src/**/*.spec.js'
     ],
-    env: {
-      type: 'node',
-    },
     projectCacheDir: 'node_modules',
     compilers: {
       '**/*.js?(x)': wallaby.compilers.babel()
@@ -23,6 +20,9 @@ module.exports = function (wallaby){
     },
     delays: {
       run: 1000
+    },
+    env: {
+      type: 'node',
     },
     testFramework: 'jest',
     debug:true

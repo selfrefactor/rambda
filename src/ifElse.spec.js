@@ -18,7 +18,7 @@ test('', () => {
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
 
-test.only('accept constant as condition', () => {
+test('accept constant as condition', () => {
   const fn = ifElse(
     true,
     always(true),
