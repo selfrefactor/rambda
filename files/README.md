@@ -1462,6 +1462,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 1.2.7 Close `feat` branch
 - 1.2.6 Use `src` folder instead of `modules` 
 - 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)

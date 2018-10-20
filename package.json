@@ -69,7 +69,8 @@
     "workInProgress": "",
     "docs": [
       "docsify",
-      "repl"
+      "repl",
+      "changelog"
     ]
   },
   "files": [
