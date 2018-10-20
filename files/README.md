@@ -8,6 +8,32 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 ## Rambda's advantages
 
+- Tree-shaking
+
+Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+
+
+```
+------------------  --------
+file                size
+------------------  --------
+rollup/rambdax      206 B
+rollup/ramdaBabel   276 B
+rollup/lodash       278 B
+rollup/rambda       785 B
+parcel/lodash       1.2 KB
+parcel/rambdax      1.2 KB
+parcel/ramda        1.2 KB
+parcel/rambda       1.2 KB
+parcel/ramdaBabel   1.23 KB
+webpack/rambda      2 KB
+webpack/ramda       7.3 KB
+webpack/ramdaBabel  8.36 KB
+webpack/rambdax     26.71 KB
+webpack/lodash      70.76 KB
+rollup/ramda        92.16 KB
+```
+
 - Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
@@ -23,10 +49,6 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 ```
 R.path('a.b', {a: {b: 1} })
 ```
-
-- Tree-shaking
-
-Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
 - comma notation for `R.pick` and `R.omit`
 
@@ -49,12 +71,12 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 ## Example use
 
 ```javascript
-const R = require('rambda')
-const result = R.compose(
-  R.map(x => x * 2),
-  R.filter(x => x > 2)
-)([1, 2, 3, 4])
+import {compose, map, filter} from 'rambda'
 
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
 // => [6, 8]
 ```
 
