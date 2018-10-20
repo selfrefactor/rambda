@@ -17,7 +17,7 @@
     "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
     "minify": "node files/minify",
     "benchmark": "node benchmarks/index.js --all",
-    "cover": "jest __tests__ --coverage --no-cache -w 1",
+    "cover": "jest src --coverage --no-cache -w 1",
     "jest": "jest",
     "prepublish": "BABEL_ENV=development babel src/ --out-dir lib/"
   },
