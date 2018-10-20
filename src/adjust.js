@@ -1,4 +1,4 @@
-export function adjust (fn, index, arr) {
+export function adjust(fn, index, arr) {
   if (index === undefined) {
     return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
   } else if (arr === undefined) {

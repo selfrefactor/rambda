@@ -1,4 +1,4 @@
-export function replace (regex, replacer, str) {
+export function replace(regex, replacer, str) {
   if (replacer === undefined) {
     return (replacerHolder, strHolder) => replace(regex, replacerHolder, strHolder)
   } else if (str === undefined) {

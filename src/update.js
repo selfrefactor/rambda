@@ -1,4 +1,4 @@
-export function update (index, newValue, arr) {
+export function update(index, newValue, arr) {
   if (newValue === undefined) {
     return (newValueHolder, arrHolder) => update(index, newValueHolder, arrHolder)
   } else if (arr === undefined) {

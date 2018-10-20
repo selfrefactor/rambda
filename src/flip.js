@@ -1,4 +1,4 @@
-function flipExport (fn) {
+function flipExport(fn) {
   return (...input) => {
     if (input.length === 1) {
       return holder => fn(holder, input[ 0 ])
@@ -10,6 +10,6 @@ function flipExport (fn) {
   }
 }
 
-export function flip (fn, ...input) {
+export function flip(fn, ...input) {
   return flipExport(fn)
 }

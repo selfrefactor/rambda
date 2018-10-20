@@ -1,4 +1,4 @@
-export function pickAll (keys, obj) {
+export function pickAll(keys, obj) {
   if (arguments.length === 1) {
     return objHolder => pickAll(keys, objHolder)
   }

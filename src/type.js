@@ -1,4 +1,4 @@
-export function type (a) {
+export function type(a) {
   const typeOf = typeof a
 
   if (a === null) {

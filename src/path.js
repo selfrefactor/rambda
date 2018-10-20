@@ -1,4 +1,4 @@
-export function path (pathArr, obj) {
+export function path(pathArr, obj) {
   if (arguments.length === 1) {
     return objHolder => path(pathArr, objHolder)
   }

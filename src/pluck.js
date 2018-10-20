@@ -1,8 +1,8 @@
-import {map} from './map'
+import { map } from './map'
 
-export function pluck (keyToPluck, arr) {
+export function pluck(keyToPluck, arr) {
   if (arguments.length === 1) return arrHolder => pluck(keyToPluck, arrHolder)
-  
+
   const willReturn = []
 
   map(

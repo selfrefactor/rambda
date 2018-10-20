@@ -1,6 +1,6 @@
-import {curry} from './curry'
+import { curry } from './curry'
 
-function assocRaw (prop, value, obj) {
+function assocRaw(prop, value, obj) {
   return Object.assign({}, obj, { [ prop ] : value })
 }
 

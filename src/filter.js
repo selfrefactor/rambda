@@ -1,4 +1,4 @@
-function filterObject (fn, obj) {
+function filterObject(fn, obj) {
   const willReturn = {}
 
   for (const prop in obj) {
@@ -10,7 +10,7 @@ function filterObject (fn, obj) {
   return willReturn
 }
 
-export function filter (fn, arr) {
+export function filter(fn, arr) {
   if (arguments.length === 1) { return arrHolder => filter(fn, arrHolder) }
 
   if (arr === undefined) { return [] }

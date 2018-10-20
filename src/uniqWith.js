@@ -1,7 +1,7 @@
-import{any}  from './any'
+import { any } from './any'
 
-export function uniqWith (fn, arr) {
-  if(arguments.length === 1) return arrHolder => uniqWith(fn, arrHolder)
+export function uniqWith(fn, arr) {
+  if (arguments.length === 1) return arrHolder => uniqWith(fn, arrHolder)
 
   let index = -1
   const len = arr.length
@@ -11,7 +11,7 @@ export function uniqWith (fn, arr) {
     const value = arr[ index ]
     const flag = any(willReturnInstance => fn(value, willReturnInstance), willReturn)
 
-    if(!flag){
+    if (!flag){
       willReturn.push(value)
     }
   }

@@ -1,4 +1,4 @@
-export function flatten (arr, willReturn) {
+export function flatten(arr, willReturn) {
   willReturn = willReturn === undefined ?
     [] :
     willReturn

@@ -1,3 +1,3 @@
-export function toUpper (x) {
+export function toUpper(x) {
   return x.toUpperCase()
 }

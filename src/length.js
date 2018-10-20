@@ -1,3 +1,3 @@
-export function length (x) {
+export function length(x) {
   return x.length
 }

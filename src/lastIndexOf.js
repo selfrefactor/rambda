@@ -1,6 +1,6 @@
-import {equals} from './equals'
+import { equals } from './equals'
 
-export function lastIndexOf (x, arr) {
+export function lastIndexOf(x, arr) {
   if (arguments.length === 1) { return arrHolder => lastIndexOf(x, arrHolder) }
 
   let willReturn = -1

@@ -1,4 +1,4 @@
-function mapObject (fn, obj) {
+function mapObject(fn, obj) {
   const willReturn = {}
 
   for (const prop in obj) {
@@ -8,7 +8,7 @@ function mapObject (fn, obj) {
   return willReturn
 }
 
-export function map (fn, arr) {
+export function map(fn, arr) {
   if (arguments.length === 1) { return arrHolder => map(fn, arrHolder) }
 
   if (arr === undefined) { return [] }

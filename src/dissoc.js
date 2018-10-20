@@ -1,4 +1,4 @@
-export function dissoc (prop, obj) {
+export function dissoc(prop, obj) {
   if (arguments.length === 1) { return objHolder => dissoc(prop, objHolder) }
 
   if (obj === null || obj === undefined) { return {} }

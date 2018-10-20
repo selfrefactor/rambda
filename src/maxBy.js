@@ -1,4 +1,4 @@
-export function maxBy (fn, x, y) {
+export function maxBy(fn, x, y) {
   if (arguments.length === 2) {
     return yHolder => maxBy(fn, x, yHolder)
   } else if (arguments.length === 1) {
