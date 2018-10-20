@@ -1,9 +1,9 @@
-import defaultTo from './defaultTo'
-import path from './path'
-import curry from './curry'
+import {defaultTo} from './defaultTo'
+import {path} from './path'
+import {curry} from './curry'
 
-function pathOr (defaultValue, inputPath, inputObject) {
+function pathOrRaw (defaultValue, inputPath, inputObject) {
   return defaultTo(defaultValue, path(inputPath, inputObject))
 }
 
-export curry(pathOr)
+export const pathOr = curry(pathOrRaw)

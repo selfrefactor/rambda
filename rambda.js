@@ -87,7 +87,7 @@ export * from './src/tail';
 export * from './src/take';
 export * from './src/takeLast';
 export * from './src/tap';
-export * from './src/test';
+export * from './src/testModule';
 export * from './src/times';
 export * from './src/toLower';
 export * from './src/toString';

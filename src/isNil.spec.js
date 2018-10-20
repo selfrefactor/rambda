@@ -1,4 +1,4 @@
-import { isNil } from 'path'
+import { isNil } from './isNil'
 
 test('', () => {
   expect(isNil(null)).toBeTruthy()

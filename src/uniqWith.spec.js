@@ -1,4 +1,4 @@
-const R = require('../rambda')
+import { uniqWith } from './uniqWith'
 
 test('', () => {
   const input = [
@@ -41,8 +41,8 @@ test('', () => {
 
   const fn = (x, y) => x.title === y.title
 
-  const result = R.uniqWith(fn, input)
-  const curriedResult = R.uniqWith(fn)(input)
+  const result = uniqWith(fn, input)
+  const curriedResult = uniqWith(fn)(input)
 
   expect(
     result

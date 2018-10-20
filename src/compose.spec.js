@@ -7,8 +7,8 @@ import {compose} from './compose'
 test('', () => {
   const result = compose(
     last,
-    map(R.add(10)),
-    map(R.add(1))
+    map(add(10)),
+    map(add(1))
   )([ 1, 2, 3 ])
 
   expect(result).toEqual(14)

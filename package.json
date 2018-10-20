@@ -9,8 +9,7 @@
   "sideEffects": false,
   "scripts": {
     "test:watch": "jest --watch",
-    "dev": "jest __tests__/object/zipObj.js --watch",
-    "test": "jest __tests__",
+    "test": "jest src",
     "docs": "docsify init ./docs",
     "de": "commit",
     "build": "yarn build:main&&yarn build:web&&yarn minify",
@@ -66,7 +65,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "refactor all tests",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl"

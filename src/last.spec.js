@@ -1,7 +1,6 @@
-import { compose } from '/compose'
+import { compose } from './compose'
 import { last } from './last'
 import { map } from './map'
-import { last } from './last'
 
 test('last', () => {
     expect(compose(
@@ -14,3 +13,4 @@ test('last', () => {
     expect(last('abc')).toEqual('c')
     expect(last('')).toEqual('')
 })
+

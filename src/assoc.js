@@ -1,7 +1,7 @@
 import {curry} from './curry'
 
-function assoc (prop, value, obj) {
+function assocRaw (prop, value, obj) {
   return Object.assign({}, obj, { [ prop ] : value })
 }
 
-export curry(assoc)
+export const assoc = curry(assocRaw)

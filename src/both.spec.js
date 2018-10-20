@@ -8,5 +8,5 @@ test('without curry', () => {
 })
 
 test('with curry', () => {
-  expect(R.both(firstFn)(secondFn)(17)).toBeFalsy()
+  expect(both(firstFn)(secondFn)(17)).toBeFalsy()
 })

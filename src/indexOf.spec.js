@@ -1,7 +1,7 @@
-import { indexBy } from './indexBy'
+import { indexOf } from './indexOf'
 
 test('indexOf', () => {
-    expect(R.indexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
+    expect(indexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
 
-    expect(R.indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
+    expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
 })

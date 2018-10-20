@@ -13,3 +13,4 @@ test('with number', () => {
     pluck(0, input)
   ).toEqual([ 1, 3 ])
 })
+

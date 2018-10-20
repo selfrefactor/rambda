@@ -4,10 +4,11 @@ test('string ends with suffix', () => {
   expect(endsWith('bar', 'foo-bar')).toBeTruthy()
 })
 
-test('currying', () => {
+test.only('currying', () => {
   expect(endsWith('baz')('foo-bar')).toBeFalsy()
 })
 
 test('list ends with suffix', () => {
   expect(endsWith(['c'], ['a', 'b', 'c'])).toBeTruthy()
 })
+

@@ -16,5 +16,5 @@ test('', () => {
 })
 
 test('with strings', () => {
-  expect(R.concat('ABC', 'DEF')).toEqual('ABCDEF')
+  expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
 })
