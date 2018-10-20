@@ -15,6 +15,7 @@ declare namespace R {
 
   type FilterFunction<T> = (x: T, prop?: string) => boolean
   type MapFunction<In, Out> = (x: In, prop?: string) => Out
+  type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
   interface MapInterface<T> {
     (list: T[]): T[]
@@ -360,9 +361,14 @@ declare namespace R {
     nth<T>(n: number, list: Array<T>): T | undefined;
     nth(n: number): <T>(list: Array<T>) => T | undefined;
 
-    omit<T>(names: string[] | string, obj: T): T
-    omit(names: string[] | string): <T>(obj: T) => T
+    omit<T, K extends Array<keyof T>>(names: K, obj: T): Omit<T, K[number]>
 
+    omit<T, K extends keyof T>(name: K, obj: T): Omit<T, K>
+    
+    omit<T, K extends Array<keyof T>>(names: K): (obj: T) => Omit<T, K[number]>
+    
+    omit<T, K extends keyof T>(name: K): (obj: T) => Omit<T, K>
+    
     partialCurry<Out>(
       fn: (input: Dictionary<any>) => Out,
       input: Dictionary<any>
