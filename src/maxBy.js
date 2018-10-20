@@ -4,6 +4,6 @@ export function maxBy(fn, x, y) {
   } else if (arguments.length === 1) {
     return (xHolder, yHolder) => maxBy(fn, xHolder, yHolder)
   }
-
+  
   return fn(y) > fn(x) ? y : x
 }

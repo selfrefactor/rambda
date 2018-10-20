@@ -10,7 +10,7 @@ const elseFn = () => false
 test('', () => {
   const fn = ifElse(
     condition,
-    ifFn,
+    ifFn)(
     elseFn
   )
 
@@ -19,11 +19,7 @@ test('', () => {
 })
 
 test('accept constant as condition', () => {
-  const fn = ifElse(
-    true,
-    always(true),
-    always(false)
-  )
+  const fn = ifElse(true)(always(true))(always(false))
 
   expect(fn()).toEqual(true)
 })

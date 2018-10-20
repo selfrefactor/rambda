@@ -22,3 +22,7 @@ test('accepts initially two arguments', () => {
 
   expect(result).toEqual([6,8])
 })
+
+test('when no functions as input', () => {
+  expect(compose()()).toBeUndefined()
+})
