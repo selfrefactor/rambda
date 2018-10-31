@@ -3,3 +3,4 @@ jest_*
 coverage
 node_modules
 lib
+dist

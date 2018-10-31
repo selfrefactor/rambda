@@ -12,20 +12,24 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
-
 ```
 ------------------  --------
 file                size
 ------------------  --------
+rollup/rambdax      206 B
+rollup/ramdaBabel   276 B
 rollup/lodash       278 B
 rollup/rambda       785 B
 parcel/lodash       1.2 KB
-parcel/rambda       1.2 KB
+parcel/rambdax      1.2 KB
 parcel/ramda        1.2 KB
+parcel/rambda       1.2 KB
+parcel/ramdaBabel   1.23 KB
 webpack/rambda      2 KB
-webpack/rambdax     4.79 KB
 webpack/ramda       7.3 KB
-rollup/rambdax      20.77 KB
+webpack/ramdaBabel  8.36 KB
+webpack/rambdax     26.71 KB
+webpack/lodash      70.76 KB
 rollup/ramda        92.16 KB
 ```
 
@@ -1708,10 +1712,6 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen1.png)
 ![Screen](https://cdn.rawgit.com/selfrefactor/rambda/7475b559/files/screen2.png)
 
-## Tree-shaking
-
-![bundlephobia](https://user-images.githubusercontent.com/2149294/30378716-c8e43568-989c-11e7-81ee-aa9ec2c4bff2.png)
-
 ## Use with ES5
 
 ```
@@ -1720,7 +1720,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 1.2.6 Use `src` folder instead of `modules` 
+- 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
 - 1.2.3 Doesn't exist because NPM is great at handling errors.
@@ -1773,6 +1773,43 @@ import omit from 'rambda/lib/omit'
 - 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
+
+## Additional info
+
+> Running benchmarks
+
+- To run all benchmarks
+
+`yarn run benchmark all`
+
+- To run single or number of benchmarks
+
+`yarn run benchmark add compose filter`
+
+> Projects using Rambda
+
+- [string-fn](https://github.com/selfrefactor/string-fn)
+
+- [tachyons-for-js](https://github.com/devilcoders/tachyons-for-js)
+
+- [react-append-to-body](https://github.com/jpgorman/react-append-to-body)
+
+- [docker-voting-app-nodejs](https://github.com/subfuzion/docker-voting-app-nodejs)
+
+- [ig-api](https://www.npmjs.com/package/ig-api)
+
+- [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
+
+- [mat-che](https://github.com/ianagbip1oti/mat-che)
+
+> Projects using Rambdax
+
+- [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
+
+> Articles about Rambda
+- [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
+
+- [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
 ## Browse by category
 
@@ -2075,36 +2112,3 @@ import omit from 'rambda/lib/omit'
 
             
 [trim](#trim)
-
-## Additional info
-
-> Running benchmarks
-
-- To run all benchmarks
-
-`yarn run benchmark all`
-
-- To run single or number of benchmarks
-
-`yarn run benchmark add compose filter`
-
-> Projects using Rambda
-
-- [string-fn](https://github.com/selfrefactor/string-fn)
-
-- [tachyons-for-js](https://github.com/devilcoders/tachyons-for-js)
-
-- [react-append-to-body](https://github.com/jpgorman/react-append-to-body)
-
-- [docker-voting-app-nodejs](https://github.com/subfuzion/docker-voting-app-nodejs)
-
-- [ig-api](https://www.npmjs.com/package/ig-api)
-
-- [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
-
-- [mat-che](https://github.com/ianagbip1oti/mat-che)
-
-> Articles about Rambda
-- [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
-
-- [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
