@@ -5,12 +5,9 @@ export function takeLast(num, x) {
 
   const len = x.length
 
-  let numValue = num > len ?
-    len :
-    num
+  let numValue = num > len ? len : num
 
   if (typeof x === 'string') {
-
     return x.slice(len - numValue)
   }
   numValue = len - numValue

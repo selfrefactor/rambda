@@ -5,5 +5,5 @@ export function propEq(key, x, obj) {
     return objHolder => propEq(key, x, objHolder)
   }
 
-  return obj[ key ] === x
+  return obj[key] === x
 }

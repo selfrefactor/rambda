@@ -1,5 +1,5 @@
 import { flip } from './flip'
-import { subtract} from './subtract'
+import { subtract } from './subtract'
 
 test('flip', () => {
   const fn = flip(subtract)

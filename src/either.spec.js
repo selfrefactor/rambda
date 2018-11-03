@@ -1,4 +1,4 @@
-import {either} from './either'
+import { either } from './either'
 
 test('', () => {
   const firstFn = val => val > 0

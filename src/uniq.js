@@ -5,7 +5,7 @@ export function uniq(arr) {
   const willReturn = []
 
   while (++index < arr.length) {
-    const value = arr[ index ]
+    const value = arr[index]
 
     if (!contains(value, willReturn)) {
       willReturn.push(value)

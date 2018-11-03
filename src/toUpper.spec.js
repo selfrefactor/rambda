@@ -5,9 +5,11 @@ import { split } from './split'
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
-    expect(compose(
+  expect(
+    compose(
       join(''),
       map(toUpper),
-      split(''),
-    )('foo|bar|baz')).toEqual('FOO|BAR|BAZ')
+      split('')
+    )('foo|bar|baz')
+  ).toEqual('FOO|BAR|BAZ')
 })

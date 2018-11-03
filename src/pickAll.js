@@ -5,18 +5,16 @@ export function pickAll(keys, obj) {
   if (obj === null || obj === undefined) {
     return undefined
   }
-  const keysValue = typeof keys === 'string' ?
-    keys.split(',') :
-    keys
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys
 
   const willReturn = {}
   let counter = 0
 
   while (counter < keysValue.length) {
-    if (keysValue[ counter ] in obj) {
-      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]]
     } else {
-      willReturn[ keysValue[ counter ] ] = undefined
+      willReturn[keysValue[counter]] = undefined
     }
     counter++
   }

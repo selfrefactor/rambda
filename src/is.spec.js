@@ -13,8 +13,8 @@ test('works with built-in types', () => {
 })
 
 test('works with user-defined types', () => {
-  function Foo () {}
-  function Bar () {}
+  function Foo() {}
+  function Bar() {}
   Bar.prototype = new Foo()
 
   const foo = new Foo()

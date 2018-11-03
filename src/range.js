@@ -1,5 +1,6 @@
 export function range(start, end) {
-  if (arguments.length === 1) return endHolder => range(start, endHolder)
+  if (arguments.length === 1)
+    return endHolder => range(start, endHolder)
 
   const willReturn = []
 

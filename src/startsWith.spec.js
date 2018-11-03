@@ -1,10 +1,7 @@
 import { startsWith } from './startsWith'
 
 test('true', () => {
-  const result = startsWith(
-    'foo',
-    'foo-bar'
-  )
+  const result = startsWith('foo', 'foo-bar')
 
   expect(result).toBeTruthy()
 })

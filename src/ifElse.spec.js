@@ -8,14 +8,10 @@ const ifFn = x => prop('foo', x).length
 const elseFn = () => false
 
 test('', () => {
-  const fn = ifElse(
-    condition,
-    ifFn)(
-    elseFn
-  )
+  const fn = ifElse(condition, ifFn)(elseFn)
 
-  expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ foo: 'bar' })).toEqual(3)
+  expect(fn({ fo: 'bar' })).toEqual(false)
 })
 
 test('accept constant as condition', () => {
@@ -25,11 +21,7 @@ test('accept constant as condition', () => {
 })
 
 test('accept constant as condition - case 2', () => {
-  const fn = ifElse(
-    false,
-    always(true),
-    always(false)
-  )
+  const fn = ifElse(false, always(true), always(false))
 
   expect(fn()).toEqual(false)
 })
@@ -37,13 +29,13 @@ test('accept constant as condition - case 2', () => {
 test('curry (x)(y,z)', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
-  expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ foo: 'bar' })).toEqual(3)
+  expect(fn({ fo: 'bar' })).toEqual(false)
 })
 
 test('curry (x)(y)(z)', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
-  expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ foo: 'bar' })).toEqual(3)
+  expect(fn({ fo: 'bar' })).toEqual(false)
 })

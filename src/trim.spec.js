@@ -1,4 +1,4 @@
-import { trim } from "./trim";
+import { trim } from './trim'
 test('trim', () => {
-    expect(trim(' foo ')).toEqual('foo')
+  expect(trim(' foo ')).toEqual('foo')
 })

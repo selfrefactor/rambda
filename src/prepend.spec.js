@@ -5,7 +5,12 @@ test('', () => {
 })
 
 test('prepend', () => {
-  expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([ 'yes', 'foo', 'bar', 'baz' ])
+  expect(prepend('yes', ['foo', 'bar', 'baz'])).toEqual([
+    'yes',
+    'foo',
+    'bar',
+    'baz',
+  ])
 
-  expect(prepend('foo')([ ])).toEqual([ 'foo' ])
+  expect(prepend('foo')([])).toEqual(['foo'])
 })

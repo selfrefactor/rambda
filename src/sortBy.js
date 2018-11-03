@@ -8,10 +8,6 @@ export function sortBy(fn, arr) {
     const fnA = fn(a)
     const fnB = fn(b)
 
-    return fnA < fnB ?
-      -1 :
-      fnA > fnB ?
-        1 :
-        0
+    return fnA < fnB ? -1 : fnA > fnB ? 1 : 0
   })
 }

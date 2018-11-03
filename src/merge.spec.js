@@ -1,14 +1,14 @@
 import { merge } from './merge'
 
 const sample = {
-  foo : 'bar',
-  bar : 'bar',
+  foo: 'bar',
+  bar: 'bar',
 }
 
 test('merge', () => {
-  expect(merge(sample)({ bar : 'baz' })).toEqual({
-    foo : 'bar',
-    bar : 'baz',
+  expect(merge(sample)({ bar: 'baz' })).toEqual({
+    foo: 'bar',
+    bar: 'baz',
   })
 })
 

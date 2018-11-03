@@ -1,7 +1,9 @@
 import { equals } from './equals'
 
 export function lastIndexOf(x, arr) {
-  if (arguments.length === 1) { return arrHolder => lastIndexOf(x, arrHolder) }
+  if (arguments.length === 1) {
+    return arrHolder => lastIndexOf(x, arrHolder)
+  }
 
   let willReturn = -1
 

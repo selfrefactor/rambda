@@ -7,13 +7,15 @@ test('add index as last argument', () => {
   const withIndex = addIndex(functor)
 
   withIndex(mockFn, 'A', 'B', 'C', 'D')
-  expect(mockFn.mock.calls[ 0 ]).toEqual([ 'A', 'B', 'C', 0 ])
+  expect(mockFn.mock.calls[0]).toEqual(['A', 'B', 'C', 0])
 })
 
 test('add incrementing index', () => {
-  const result = addIndex(map)(
-    (val, index) => `${ val } - ${ index }`, [ 'A', 'B', 'C' ]
-  )
+  const result = addIndex(map)((val, index) => `${val} - ${index}`, [
+    'A',
+    'B',
+    'C',
+  ])
 
-  expect(result).toEqual([ 'A - 0', 'B - 1', 'C - 2' ])
+  expect(result).toEqual(['A - 0', 'B - 1', 'C - 2'])
 })

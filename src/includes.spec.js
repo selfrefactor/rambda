@@ -8,7 +8,7 @@ test('includes with string', () => {
 })
 
 test('includes with array', () => {
-  const arr = [ 1, 2, 3 ]
+  const arr = [1, 2, 3]
 
   expect(includes(2)(arr)).toBeTruthy()
 

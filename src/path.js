@@ -8,15 +8,14 @@ export function path(pathArr, obj) {
   let willReturn = obj
   let counter = 0
 
-  const pathArrValue = typeof pathArr === 'string' ?
-    pathArr.split('.') :
-    pathArr
+  const pathArrValue =
+    typeof pathArr === 'string' ? pathArr.split('.') : pathArr
 
   while (counter < pathArrValue.length) {
     if (willReturn === null || willReturn === undefined) {
       return undefined
     }
-    willReturn = willReturn[ pathArrValue[ counter ] ]
+    willReturn = willReturn[pathArrValue[counter]]
     counter++
   }
 

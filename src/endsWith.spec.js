@@ -1,9 +1,7 @@
-import {endsWith} from './endsWith'
+import { endsWith } from './endsWith'
 
 test('string ends with suffix', () => {
-  expect(
-    endsWith('bar', 'foo-bar')
-  ).toBeTruthy()
+  expect(endsWith('bar', 'foo-bar')).toBeTruthy()
 })
 
 test('currying', () => {
@@ -11,8 +9,5 @@ test('currying', () => {
 })
 
 test('list ends with suffix', () => {
-  expect(
-    () => endsWith(['c'], ['a', 'b', 'c'])
-  ).toThrow()
+  expect(() => endsWith(['c'], ['a', 'b', 'c'])).toThrow()
 })
-

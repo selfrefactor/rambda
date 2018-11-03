@@ -3,14 +3,15 @@ import { last } from './last'
 import { map } from './map'
 
 test('last', () => {
-    expect(compose(
+  expect(
+    compose(
       last,
       map(last)
-    )([ 'foo', 'bar', 'baz' ])).toEqual('z')
+    )(['foo', 'bar', 'baz'])
+  ).toEqual('z')
 
-    expect(last([ 'foo', 'bar', 'baz' ])).toEqual('baz')
-    expect(last([])).toEqual(undefined)
-    expect(last('abc')).toEqual('c')
-    expect(last('')).toEqual('')
+  expect(last(['foo', 'bar', 'baz'])).toEqual('baz')
+  expect(last([])).toEqual(undefined)
+  expect(last('abc')).toEqual('c')
+  expect(last('')).toEqual('')
 })
-
