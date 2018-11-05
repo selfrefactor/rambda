@@ -9,7 +9,7 @@ export function adjust(fn, index, arr) {
 
   return clone.map((val, key) => {
     if (key === index) {
-      return fn(arr[index])
+      return fn(arr[ index ])
     }
 
     return val

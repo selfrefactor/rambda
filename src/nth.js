@@ -4,7 +4,7 @@ export function nth(index, list) {
 
   const idx = index < 0 ? list.length + index : index
 
-  return Object.prototype.toString.call(list) === '[object String]'
-    ? list.charAt(idx)
-    : list[idx]
+  return Object.prototype.toString.call(list) === '[object String]' ?
+    list.charAt(idx) :
+    list[ idx ]
 }

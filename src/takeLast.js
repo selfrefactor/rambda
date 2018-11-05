@@ -1,7 +1,8 @@
 import baseSlice from './internal/baseSlice'
 
 export function takeLast(num, x) {
-  if (arguments.length === 1) return xHolder => takeLast(num, xHolder)
+  if (arguments.length === 1)
+    return xHolder => takeLast(num, xHolder)
 
   const len = x.length
 

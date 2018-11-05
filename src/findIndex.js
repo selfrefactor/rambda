@@ -7,7 +7,7 @@ export function findIndex(fn, arr) {
   let index = -1
 
   while (++index < len) {
-    if (fn(arr[index])) {
+    if (fn(arr[ index ])) {
       return index
     }
   }

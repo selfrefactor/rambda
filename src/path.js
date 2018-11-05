@@ -15,7 +15,7 @@ export function path(pathArr, obj) {
     if (willReturn === null || willReturn === undefined) {
       return undefined
     }
-    willReturn = willReturn[pathArrValue[counter]]
+    willReturn = willReturn[ pathArrValue[ counter ] ]
     counter++
   }
 

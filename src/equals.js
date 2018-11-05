@@ -27,8 +27,8 @@ export function equals(a, b) {
     aClone.forEach((aCloneInstance, aCloneIndex) => {
       if (loopArrayFlag) {
         if (
-          aCloneInstance !== bClone[aCloneIndex] &&
-          !equals(aCloneInstance, bClone[aCloneIndex])
+          aCloneInstance !== bClone[ aCloneIndex ] &&
+          !equals(aCloneInstance, bClone[ aCloneIndex ])
         ) {
           loopArrayFlag = false
         }
@@ -48,8 +48,8 @@ export function equals(a, b) {
     let loopObjectFlag = true
     aKeys.forEach(aKeyInstance => {
       if (loopObjectFlag) {
-        const aValue = a[aKeyInstance]
-        const bValue = b[aKeyInstance]
+        const aValue = a[ aKeyInstance ]
+        const bValue = b[ aKeyInstance ]
 
         if (aValue !== bValue && !equals(aValue, bValue)) {
           loopObjectFlag = false

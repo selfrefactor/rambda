@@ -7,8 +7,8 @@ export function pluck(keyToPluck, arr) {
   const willReturn = []
 
   map(val => {
-    if (!(val[keyToPluck] === undefined)) {
-      willReturn.push(val[keyToPluck])
+    if (!(val[ keyToPluck ] === undefined)) {
+      willReturn.push(val[ keyToPluck ])
     }
   }, arr)
 

@@ -4,7 +4,7 @@ export function is(xPrototype, x) {
   }
 
   return (
-    (x != null && x.constructor === xPrototype) ||
+    x != null && x.constructor === xPrototype ||
     x instanceof xPrototype
   )
 }

@@ -7,7 +7,7 @@ export function indexOf(x, arr) {
   const length = arr.length
 
   while (++index < length) {
-    if (arr[index] === x) {
+    if (arr[ index ] === x) {
       return index
     }
   }

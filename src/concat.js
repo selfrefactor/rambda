@@ -3,5 +3,5 @@ export function concat(x, y) {
     return yHolder => concat(x, yHolder)
   }
 
-  return typeof x === 'string' ? `${x}${y}` : [...x, ...y]
+  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
 }

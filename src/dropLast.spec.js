@@ -1,7 +1,10 @@
 import { dropLast } from './dropLast'
 
 test('', () => {
-  expect(dropLast(1, ['foo', 'bar', 'baz'])).toEqual(['foo', 'bar'])
+  expect(dropLast(1, ['foo', 'bar', 'baz'])).toEqual([
+    'foo',
+    'bar',
+  ])
 
   expect(dropLast(2)(['foo', 'bar', 'baz'])).toEqual(['foo'])
 

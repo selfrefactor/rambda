@@ -2,8 +2,8 @@ function filterObject(fn, obj) {
   const willReturn = {}
 
   for (const prop in obj) {
-    if (fn(obj[prop], prop)) {
-      willReturn[prop] = obj[prop]
+    if (fn(obj[ prop ], prop)) {
+      willReturn[ prop ] = obj[ prop ]
     }
   }
 
@@ -29,10 +29,10 @@ export function filter(fn, arr) {
   const willReturn = []
 
   while (++index < len) {
-    const value = arr[index]
+    const value = arr[ index ]
 
     if (fn(value)) {
-      willReturn[resIndex++] = value
+      willReturn[ resIndex++ ] = value
     }
   }
 

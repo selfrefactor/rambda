@@ -3,7 +3,7 @@ export function prepend(x, arr) {
     return arrHolder => prepend(x, arrHolder)
 
   if (typeof arr === 'string') {
-    return `${x}${arr}`
+    return `${ x }${ arr }`
   }
   const clone = arr.concat()
   clone.unshift(x)

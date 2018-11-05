@@ -5,8 +5,8 @@ export function indexBy(fn, list) {
 
   const result = {}
   for (let i = 0; i < list.length; i++) {
-    const item = list[i]
-    result[fn(item)] = item
+    const item = list[ i ]
+    result[ fn(item) ] = item
   }
 
   return result

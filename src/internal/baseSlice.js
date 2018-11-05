@@ -6,13 +6,13 @@ export default function baseSlice(array, start, end) {
   if (end < 0) {
     end += length
   }
-  length = start > end ? 0 : (end - start) >>> 0
+  length = start > end ? 0 : end - start >>> 0
   start >>>= 0
 
   const result = Array(length)
 
   while (++index < length) {
-    result[index] = array[index + start]
+    result[ index ] = array[ index + start ]
   }
 
   return result

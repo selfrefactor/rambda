@@ -9,9 +9,9 @@ export function dissoc(prop, obj) {
 
   const willReturn = {}
   for (const p in obj) {
-    willReturn[p] = obj[p]
+    willReturn[ p ] = obj[ p ]
   }
-  delete willReturn[prop]
+  delete willReturn[ prop ]
 
   return willReturn
 }

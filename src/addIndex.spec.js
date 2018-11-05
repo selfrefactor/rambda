@@ -11,11 +11,10 @@ test('add index as last argument', () => {
 })
 
 test('add incrementing index', () => {
-  const result = addIndex(map)((val, index) => `${val} - ${index}`, [
-    'A',
-    'B',
-    'C',
-  ])
+  const result = addIndex(map)(
+    (val, index) => `${val} - ${index}`,
+    ['A', 'B', 'C']
+  )
 
   expect(result).toEqual(['A - 0', 'B - 1', 'C - 2'])
 })

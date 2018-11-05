@@ -6,7 +6,7 @@ export function defaultTo(defaultArgument, inputArgument) {
 
   return inputArgument === undefined ||
     inputArgument === null ||
-    Number.isNaN(inputArgument) === true
-    ? defaultArgument
-    : inputArgument
+    Number.isNaN(inputArgument) === true ?
+    defaultArgument :
+    inputArgument
 }

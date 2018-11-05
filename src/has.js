@@ -3,5 +3,5 @@ export function has(prop, obj) {
     return objHolder => has(prop, objHolder)
   }
 
-  return obj[prop] !== undefined
+  return obj[ prop ] !== undefined
 }

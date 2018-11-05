@@ -9,7 +9,7 @@ export function contains(x, arr) {
   let flag = false
 
   while (++index < arr.length && !flag) {
-    if (equals(arr[index], x)) {
+    if (equals(arr[ index ], x)) {
       flag = true
     }
   }

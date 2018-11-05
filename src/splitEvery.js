@@ -8,7 +8,7 @@ export function splitEvery(num, x) {
   let counter = 0
 
   while (counter < x.length) {
-    willReturn.push(x.slice(counter, (counter += numValue)))
+    willReturn.push(x.slice(counter, counter += numValue))
   }
 
   return willReturn

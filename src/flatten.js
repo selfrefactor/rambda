@@ -2,10 +2,10 @@ export function flatten(arr, willReturn) {
   willReturn = willReturn === undefined ? [] : willReturn
 
   for (let i = 0; i < arr.length; i++) {
-    if (Array.isArray(arr[i])) {
-      flatten(arr[i], willReturn)
+    if (Array.isArray(arr[ i ])) {
+      flatten(arr[ i ], willReturn)
     } else {
-      willReturn.push(arr[i])
+      willReturn.push(arr[ i ])
     }
   }
 
