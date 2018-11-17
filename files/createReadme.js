@@ -8,7 +8,8 @@ const {
 const {readFileSync, writeFileSync} = require('fs')
 const {resolve} = require('path')
 const {rambdaREPL} = require('rambda-repl')
-
+var toc = require('markdown-toc');
+ 
 const MARKER_SOURCE = '[Source]'
 const MARKER_CODE = '```'
 const MARKER_METHOD = '#### '
@@ -72,5 +73,16 @@ void function createReadme() {
 
   const newReadme = contentWithREPL.join(MARKER_METHOD_LINE)
   
-  writeFileSync(outputPath, newReadme)
+
+  const tocContent = toc(
+   newReadme, 
+    {maxdepth:2}
+  ).content
+  
+  const newerReadme = replace(
+    '## Rambda\'s advantages',
+    `${tocContent}\n## Rambda's advantages`,
+    newReadme
+  )
+  writeFileSync(outputPath, newerReadme)
 }()
