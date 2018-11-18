@@ -6,7 +6,6 @@
 
 Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
-* [Rambda's advantages](#rambdas-advantages)
 * [Example use](#example-use)
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
@@ -16,7 +15,7 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 * [Changelog](#changelog)
 * [Additional info](#additional-info)
 * [Browse by category](#browse-by-category)
-  
+
 ## Rambda's advantages
 
 - Tree-shaking

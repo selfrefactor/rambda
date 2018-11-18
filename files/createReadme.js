@@ -1,6 +1,4 @@
 const {
-  match,
-  init,
   all,
   replace,
   dropLast,
@@ -8,7 +6,8 @@ const {
 const {readFileSync, writeFileSync} = require('fs')
 const {resolve} = require('path')
 const {rambdaREPL} = require('rambda-repl')
-var toc = require('markdown-toc');
+const {cleanTOC} = require('./_helpers/cleanTOC');
+const toc =   require('markdown-toc')
  
 const MARKER_SOURCE = '[Source]'
 const MARKER_CODE = '```'
@@ -42,8 +41,6 @@ function getMethod(sourceLink){
 }
 
 function getContentWithREPL(input){
-  const [,sourceLink] = input.split(MARKER_SOURCE)
-  const method = getMethod(sourceLink)
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
   const markdownLink = `<a href="${replLink}">Try in REPL</a>`
@@ -74,10 +71,12 @@ void function createReadme() {
   const newReadme = contentWithREPL.join(MARKER_METHOD_LINE)
   
 
-  const tocContent = toc(
+  const tocContentRaw = toc(
    newReadme, 
     {maxdepth:2}
   ).content
+
+  const tocContent = cleanTOC(tocContentRaw) + '\n'
   
   const newerReadme = replace(
     '## Rambda\'s advantages',

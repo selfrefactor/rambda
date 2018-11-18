@@ -4010,6 +4010,11 @@ rambda@^1.0.0, rambda@^1.0.9:
   version "1.0.9"
   resolved "https://github.com/selfrefactor/rambda#ee04b4005da84b29d166364100d50e2a9be56a60"
 
+rambdax@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-0.22.0.tgz#54f0752aa35eecca507908bc57db9eb6975b5de3"
+  integrity sha512-TfhEf1lUF5dZ0aZdiy4GHjP5TydIazIz3MXqQVGOL8o2XC4uRYYCJvwpEKPRQiBATzSHabSPylFo9CXovOJoeQ==
+
 rambdax@^0.8.10, rambdax@^0.8.8:
   version "0.8.10"
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-0.8.10.tgz#d8cc090c754e2225a39aa8a5a8d69475e9acd9ed"
