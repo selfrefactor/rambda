@@ -6,9 +6,9 @@ The only requirement is the new method to have exact or very close implementatio
 
 I give you example steps of the `PR` process.
 
-> Create a method file in `modules` folder.
+> Create a method file in `src` folder.
 
-If the new method is `R.endsWith`, then the created file will be `./modules/endsWith.js`
+If the new method is `R.endsWith`, then the created file will be `./src/endsWith.js`
 
 > Write the function declaration and function's logic.
 
@@ -22,27 +22,24 @@ function endsWith(x, arrOrStr){
 
 We can use the standard curring used throughout `Rambda`.
 ```
-function endsWith(x, arrOrStr){
+export function endsWith(x, arrOrStr){
   if(arguments.length === 1){
-    
     return arrOrStrHolder => endsWith(x, arrOrStrHolder)
   }
 
   return arrOrStr.endsWith(x)
 }
-module.exports = endsWith
 ```
 
 Or we can also use `R.curry`, but it is not as performant as the example above.
 
 ```
-const curry = require('./curry')
+import {curry} from './curry'
 
-function endsWith(x, arrOrStr){
+function endsWithFn(x, arrOrStr){
   return arrOrStr.endsWith(x)
 }
-
-module.exports = curry(endsWith)
+export const endsWith = curry(endsWithFn)
 ```
 
 > Edit `rambda.js` file
@@ -50,9 +47,9 @@ module.exports = curry(endsWith)
 Exported methods are sorted alphabetically
 
 ```
-export { default as either } from './modules/either';
-export { default as endsWith } from './modules/endsWith';
-export { default as equals } from './modules/equals';
+export * from './modules/either';
+export * from './modules/endsWith';
+export * from './modules/equals';
 ```
 
 > Test that your implementation can be compiled to ES5
@@ -61,19 +58,28 @@ export { default as equals } from './modules/equals';
 
 > Write your test cases
 
-Create file `endsWith.js` in folder `__tests__`
+Create file `endsWith.spec.js` in folder `src`
 
 ```
-const R = require('../rambda')
+import { endsWith } from 'endsWith'
 
 test('endsWith', () => {
-  expect(R.endsWith('oo')('foo')).toBeTruthy()
+  expect(
+    endsWith('oo')('foo')
+  ).toBeTruthy()
 })
 ```
 
 > Run `yarn test` to validate your tests
 
-> Add a benchmark
+> Edit `./files/README.md` to add documentation for this method
+
+Note that your documentation should match the pattern visible across `./files/README.md`
+Do not include `Source` location as that will trigger generation of REPL link and the REPL has separate update process.
+
+> Run `yarn readme` to generate the actual documentation
+
+> Add a benchmark(very optional)
 
 Create file `endsWith.js` in folder `benchmarks`
 
@@ -95,20 +101,10 @@ suite
 module.exports = suite
 ```
 
-> Test your benchmark
+> Test your benchmark(still optional)
 
-`yarn build-main`
+`yarn build`
 `node benchmarks/index.js endsWith`
-
-> Edit `./files/README.md` to add documentation for the method
-
-Note that your documentation should match the pattern visible across `./files/README.md`
-
-> Lint your files
-
-`yarn lint modules/endsWith.js`
-
-`yarn lint __tests__/endsWith.js`
 
 > Submit PR
 

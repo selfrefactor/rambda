@@ -1700,7 +1700,13 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 [forEach](#foreach)
 
             
+[groupBy](#groupby)
+
+            
 [head](#head)
+
+            
+[indexBy](#indexby)
 
             
 [indexOf](#indexof)
@@ -1725,6 +1731,9 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
             
 [none](#none)
+
+            
+[nth](#nth)
 
             
 [pluck](#pluck)
@@ -1781,6 +1790,12 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 [without](#without)
 
             
+[zip](#zip)
+
+            
+[zipObj](#zipobj)
+
+            
 
 ### Logic
 
@@ -1813,10 +1828,16 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 ### Object
 
           
+[assoc](#assoc)
+
+            
 [dissoc](#dissoc)
 
             
 [has](#has)
+
+            
+[keys](#keys)
 
             
 [merge](#merge)
@@ -1850,6 +1871,18 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 [equals](#equals)
 
             
+[max](#max)
+
+            
+[maxBy](#maxby)
+
+            
+[min](#min)
+
+            
+[minBy](#minby)
+
+            
 [propEq](#propeq)
 
             
@@ -1880,9 +1913,6 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
             
 [split](#split)
-
-            
-[test](#test)
 
             
 [toLower](#tolower)
