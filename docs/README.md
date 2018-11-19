@@ -1193,7 +1193,7 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 ---
 #### reverse
 
-reverse(str: T[]): T[]
+> reverse(str: T[]): T[]
 
 ```
 const arr = [1, 2]
@@ -1209,7 +1209,7 @@ const result = R.reverse(arr)
 ---
 #### sort
 
-takeLast(num: number, arrOrStr: T[]|string): T[]|String
+> sort(sortFn: Function, arr: T[]): T[]
 
 It returns copy of `arr` sorted by `sortFn`.
 
@@ -1218,13 +1218,13 @@ Note that `sortFn` must return a number type.
 ```
 const sortFn = (a, b) => a - b
 
-const result = R.sort(sortFn, [3, 1, 2]) 
+const result = R.sort(sortFn, [3, 1, 2])
 // => [1, 2, 3]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/sort.js)
 
-<a href="https://rambda.now.sh?const%20sortFn%20%3D%20(a%2C%20b)%20%3D%3E%20a%20-%20b%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20%5B3%2C%201%2C%202%5D)%20%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20sortFn%20%3D%20(a%2C%20b)%20%3D%3E%20a%20-%20b%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20%5B3%2C%201%2C%202%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try in REPL</a>
 
 ---
 #### sortBy
@@ -1233,7 +1233,7 @@ const result = R.sort(sortFn, [3, 1, 2])
 
 It returns copy of `arr` sorted by `sortFn`.
 
-`sortFn` must return value for comparison
+Note that `sortFn` must return value for comparison.
 
 ```
 const sortFn = obj => obj.foo
@@ -1244,12 +1244,13 @@ const result = R.sortBy(sortFn, [
 ])
 
 const expectedResult = [ {foo: 0}, {foo: 1} ]
-console.log(result === expectedResult) // => true
+console.log(result === expectedResult)
+// => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/sortBy.js)
 
-<a href="https://rambda.now.sh?const%20sortFn%20%3D%20obj%20%3D%3E%20obj.foo%0A%0Aconst%20result%20%3D%20R.sortBy(sortFn%2C%20%5B%0A%20%20%7Bfoo%3A%201%7D%2C%0A%20%20%7Bfoo%3A%200%7D%0A%5D)%0A%0Aconst%20expectedResult%20%3D%20%5B%20%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%20%5D%0Aconsole.log(result%20%3D%3D%3D%20expectedResult)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20sortFn%20%3D%20obj%20%3D%3E%20obj.foo%0A%0Aconst%20result%20%3D%20R.sortBy(sortFn%2C%20%5B%0A%20%20%7Bfoo%3A%201%7D%2C%0A%20%20%7Bfoo%3A%200%7D%0A%5D)%0A%0Aconst%20expectedResult%20%3D%20%5B%20%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%20%5D%0Aconsole.log(result%20%3D%3D%3D%20expectedResult)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### split
@@ -1362,6 +1363,21 @@ R.takeLast(2, ['foo']) // => 'oo'
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/takeLast.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.takeLast(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%5D%0AR.takeLast(2%2C%20%5B'foo'%5D)%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
+
+---
+#### tap
+
+> tap(fn: Function, input: T): T
+
+- It returns the last `num` elements of `arrOrStr`.
+
+```
+let a = 1
+const sayX = x => (a = x)
+
+const result = R.tap(sayX, 100)
+// both `a` and `result` are `100`
+```
 
 ---
 #### test
