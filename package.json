@@ -10,6 +10,8 @@
   "scripts": {
     "test:watch": "jest --watch",
     "test": "jest src",
+    "readme":"node files/createReadme",
+    "readmex":"node files/createReadmex",
     "docs": "docsify init ./docs",
     "de": "commit",
     "build": "yarn build:main&&yarn build:web&&yarn minify",
