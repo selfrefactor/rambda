@@ -1123,7 +1123,7 @@ R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 
 #### reverse
 
-reverse(str: T[]): T[]
+> reverse(str: T[]): T[]
 
 ```
 const arr = [1, 2]
@@ -1136,7 +1136,7 @@ const result = R.reverse(arr)
 
 #### sort
 
-takeLast(num: number, arrOrStr: T[]|string): T[]|String
+> sort(sortFn: Function, arr: T[]): T[]
 
 It returns copy of `arr` sorted by `sortFn`.
 
@@ -1145,7 +1145,7 @@ Note that `sortFn` must return a number type.
 ```
 const sortFn = (a, b) => a - b
 
-const result = R.sort(sortFn, [3, 1, 2]) 
+const result = R.sort(sortFn, [3, 1, 2])
 // => [1, 2, 3]
 ```
 
@@ -1157,7 +1157,7 @@ const result = R.sort(sortFn, [3, 1, 2])
 
 It returns copy of `arr` sorted by `sortFn`.
 
-`sortFn` must return value for comparison
+Note that `sortFn` must return value for comparison.
 
 ```
 const sortFn = obj => obj.foo
@@ -1168,7 +1168,8 @@ const result = R.sortBy(sortFn, [
 ])
 
 const expectedResult = [ {foo: 0}, {foo: 1} ]
-console.log(result === expectedResult) // => true
+console.log(result === expectedResult)
+// => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/sortBy.js)
@@ -1264,6 +1265,20 @@ R.takeLast(2, ['foo']) // => 'oo'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/takeLast.js)
+
+#### tap
+
+> tap(fn: Function, input: T): T
+
+- It returns the last `num` elements of `arrOrStr`.
+
+```
+let a = 1
+const sayX = x => (a = x)
+
+const result = R.tap(sayX, 100)
+// both `a` and `result` are `100`
+```
 
 #### test
 
