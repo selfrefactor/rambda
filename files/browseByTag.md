@@ -103,7 +103,13 @@
 [forEach](#foreach)
 
             
+[groupBy](#groupby)
+
+            
 [head](#head)
+
+            
+[indexBy](#indexby)
 
             
 [indexOf](#indexof)
@@ -128,6 +134,9 @@
 
             
 [none](#none)
+
+            
+[nth](#nth)
 
             
 [pluck](#pluck)
@@ -184,6 +193,12 @@
 [without](#without)
 
             
+[zip](#zip)
+
+            
+[zipObj](#zipobj)
+
+            
 
 ### Logic
 
@@ -216,10 +231,16 @@
 ### Object
 
           
+[assoc](#assoc)
+
+            
 [dissoc](#dissoc)
 
             
 [has](#has)
+
+            
+[keys](#keys)
 
             
 [merge](#merge)
@@ -253,6 +274,18 @@
 [equals](#equals)
 
             
+[max](#max)
+
+            
+[maxBy](#maxby)
+
+            
+[min](#min)
+
+            
+[minBy](#minby)
+
+            
 [propEq](#propeq)
 
             
@@ -283,9 +316,6 @@
 
             
 [split](#split)
-
-            
-[test](#test)
 
             
 [toLower](#tolower)

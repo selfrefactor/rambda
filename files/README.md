@@ -1676,7 +1676,13 @@ import omit from 'rambda/lib/omit'
 [forEach](#foreach)
 
             
+[groupBy](#groupby)
+
+            
 [head](#head)
+
+            
+[indexBy](#indexby)
 
             
 [indexOf](#indexof)
@@ -1701,6 +1707,9 @@ import omit from 'rambda/lib/omit'
 
             
 [none](#none)
+
+            
+[nth](#nth)
 
             
 [pluck](#pluck)
@@ -1757,6 +1766,12 @@ import omit from 'rambda/lib/omit'
 [without](#without)
 
             
+[zip](#zip)
+
+            
+[zipObj](#zipobj)
+
+            
 
 ### Logic
 
@@ -1789,10 +1804,16 @@ import omit from 'rambda/lib/omit'
 ### Object
 
           
+[assoc](#assoc)
+
+            
 [dissoc](#dissoc)
 
             
 [has](#has)
+
+            
+[keys](#keys)
 
             
 [merge](#merge)
@@ -1826,6 +1847,18 @@ import omit from 'rambda/lib/omit'
 [equals](#equals)
 
             
+[max](#max)
+
+            
+[maxBy](#maxby)
+
+            
+[min](#min)
+
+            
+[minBy](#minby)
+
+            
 [propEq](#propeq)
 
             
@@ -1856,9 +1889,6 @@ import omit from 'rambda/lib/omit'
 
             
 [split](#split)
-
-            
-[test](#test)
 
             
 [toLower](#tolower)

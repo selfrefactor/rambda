@@ -10,11 +10,11 @@ const fn = async () => {
     const data = fs.readFileSync(filePath).toString()
     const ourData = R.compose(
       R.map(R.init),
-      R.map(R.replace('from \'./modules/', '')),
+      R.map(R.replace('from \'./src/', '')),
       R.flatten,
       R.map(x =>
         R.match(/from.{1,25}/g, x)),
-      R.filter(R.includes('} from')),
+      R.filter(R.includes('* from')),
       R.split('\n')
     )(data)
 
