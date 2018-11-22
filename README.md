@@ -119,7 +119,9 @@ https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
-- Rambda's **partialCurry** and **includes** are not part of Ramda API.
+- Rambda's **partialCurry** is not part of Ramda API.
+
+- Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
 
@@ -363,6 +365,8 @@ R.concat('foo')('bar') // => 'foobar'
 > contains(valueToFind: T, arr: T[]): boolean
 
 It returns `true`, if `valueToFind` is part of `arr`.
+
+Note that while new versions of `Ramda` depricate this method, `contains` will remain in this library.
 
 ```
 R.contains(2, [1, 2]) // => true
