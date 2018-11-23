@@ -1585,9 +1585,16 @@ import omit from 'rambda/lib/omit'
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
 > Articles about Rambda
+
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+
+> Projects refering to Rambda
+
+- (https://github.com/stoeffel/awesome-fp-js)[awesome-fp-js]
+
+- (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]
 
 ## Browse by category
 
