@@ -128,11 +128,6 @@ declare namespace R {
     add(a: number): (b: number) => number
     add(a: string): (b: string) => string
 
-    addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>
-    addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): CurriedFunction2<(item: T, idx: number, list?: T[]) => void, T[], T[]>
-    addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): CurriedFunction3<(acc: U, item: T, idx: number, list?: T[]) => U, U, T[], U>
-
-
     adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[]
     adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[]
 

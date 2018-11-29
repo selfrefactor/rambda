@@ -1,5 +1,4 @@
 export * from './src/add'
-export * from './src/addIndex'
 export * from './src/adjust'
 export * from './src/all'
 export * from './src/allPass'

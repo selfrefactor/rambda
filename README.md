@@ -141,19 +141,6 @@ R.add(2, 3) // =>  5
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try in REPL</a>
 
 ---
-#### addIndex
-
-> addIndex(fn: Function): Function
-
-```
-const mapWithIndex = R.addIndex(R.map)
-const result = mapWithIndex(
-  (val, index) => `${val} - ${index}`,
-  ['A', 'B', 'C']
-) // => ['A - 0', 'B - 1', 'C - 2']
-```
-
----
 #### adjust
 
 > adjust(replaceFn: Function, i: number, arr: T[]): T[]
@@ -220,6 +207,7 @@ const result = R.allPass(rules, input) // => true
 > always(x: any): Function
 
 It returns function that always returns `x`.
+
 ```
 const fn = R.always(7)
 
@@ -402,6 +390,7 @@ const result = g(4) // => 10
 > dec(x: number): number
 
 It decrements a number.
+
 ```
 R.dec(2) // => 1
 ```
@@ -582,13 +571,13 @@ It returns `undefined` or the first element of `arr` satisfying `findFn`.
 const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.find(findFn, arr) 
+const result = R.find(findFn, arr)
 // => {foo: 1}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
 
-<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%20%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try in REPL</a>
 
 ---
 #### findIndex
@@ -1131,7 +1120,7 @@ const result = curried({b: 3, c: 10})
 
 - Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
-- You can read my argumentation for creating *partialCurry* [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+- You can read my argumentation for creating _partialCurry_ [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/partialCurry.js)
 
@@ -1279,13 +1268,13 @@ It will return those members of `arr` that return `false` when applied to functi
 ```
 const fn = x => x % 2 === 1
 
-const result = R.reject(fn, [1, 2, 3, 4]) 
+const result = R.reject(fn, [1, 2, 3, 4])
 // => [2, 4]
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/reject.js)
 
-<a href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.reject(fn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%20%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.reject(fn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
 
 ---
 #### repeat
@@ -1514,13 +1503,13 @@ const result = R.tap(sayX, 100)
 - Determines whether `str` matches `regExpression`
 
 ```
-R.test(/^f/, 'foo') 
+R.test(/^f/, 'foo')
 // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/test.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.test(%2F%5Ef%2F%2C%20'foo')%20%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.test(%2F%5Ef%2F%2C%20'foo')%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### times
@@ -1852,330 +1841,216 @@ import omit from 'rambda/lib/omit'
 
 ### Function
 
-          
 [addIndex](#addindex)
 
-            
 [always](#always)
 
-            
 [compose](#compose)
 
-            
 [curry](#curry)
 
-            
 [F](#f)
 
-            
 [flip](#flip)
 
-            
 [identity](#identity)
 
-            
 [pipe](#pipe)
 
-            
 [T](#t)
 
-            
 [tap](#tap)
-
-            
 
 ### Math
 
-          
 [add](#add)
 
-            
 [dec](#dec)
 
-            
 [divide](#divide)
 
-            
 [inc](#inc)
 
-            
 [modulo](#modulo)
 
-            
 [multiply](#multiply)
 
-            
 [subtract](#subtract)
-
-            
 
 ### List
 
-          
 [adjust](#adjust)
 
-            
 [all](#all)
 
-            
 [any](#any)
 
-            
 [append](#append)
 
-            
 [concat](#concat)
 
-            
 [contains](#contains)
 
-            
 [drop](#drop)
 
-            
 [dropLast](#droplast)
 
-            
 [endsWith](#endswith)
 
-            
 [filter](#filter)
 
-            
 [find](#find)
 
-            
 [findIndex](#findindex)
 
-            
 [flatten](#flatten)
 
-            
 [forEach](#foreach)
 
-            
 [groupBy](#groupby)
 
-            
 [head](#head)
 
-            
 [indexBy](#indexby)
 
-            
 [indexOf](#indexof)
 
-            
 [init](#init)
 
-            
 [join](#join)
 
-            
 [last](#last)
 
-            
 [lastIndexOf](#lastindexof)
 
-            
 [length](#length)
 
-            
 [map](#map)
 
-            
 [none](#none)
 
-            
 [nth](#nth)
 
-            
 [pluck](#pluck)
 
-            
 [prepend](#prepend)
 
-            
 [range](#range)
 
-            
 [reduce](#reduce)
 
-            
 [reject](#reject)
 
-            
 [repeat](#repeat)
 
-            
 [reverse](#reverse)
 
-            
 [sort](#sort)
 
-            
 [splitEvery](#splitevery)
 
-            
 [startsWith](#startswith)
 
-            
 [tail](#tail)
 
-            
 [take](#take)
 
-            
 [takeLast](#takelast)
 
-            
 [times](#times)
 
-            
 [uniq](#uniq)
 
-            
 [uniqWith](#uniqwith)
 
-            
 [update](#update)
 
-            
 [without](#without)
 
-            
 [zip](#zip)
 
-            
 [zipObj](#zipobj)
-
-            
 
 ### Logic
 
-          
 [allPass](#allpass)
 
-            
 [anyPass](#anypass)
 
-            
 [both](#both)
 
-            
 [complement](#complement)
 
-            
 [defaultTo](#defaultto)
 
-            
 [either](#either)
 
-            
 [ifElse](#ifelse)
 
-            
 [not](#not)
-
-            
 
 ### Object
 
-          
 [assoc](#assoc)
 
-            
 [dissoc](#dissoc)
 
-            
 [has](#has)
 
-            
 [keys](#keys)
 
-            
 [merge](#merge)
 
-            
 [omit](#omit)
 
-            
 [path](#path)
 
-            
 [pathOr](#pathor)
 
-            
 [pick](#pick)
 
-            
 [pickAll](#pickall)
 
-            
 [prop](#prop)
 
-            
 [values](#values)
-
-            
 
 ### Relation
 
-          
 [equals](#equals)
 
-            
 [max](#max)
 
-            
 [maxBy](#maxby)
 
-            
 [min](#min)
 
-            
 [minBy](#minby)
 
-            
 [propEq](#propeq)
 
-            
 [sortBy](#sortby)
-
-            
 
 ### Type
 
-          
 [is](#is)
 
-            
 [isNil](#isnil)
 
-            
 [type](#type)
-
-            
 
 ### String
 
-          
 [match](#match)
 
-            
 [replace](#replace)
 
-            
 [split](#split)
 
-            
 [toLower](#tolower)
 
-            
 [toString](#tostring)
 
-            
 [toUpper](#toupper)
 
-            
 [trim](#trim)

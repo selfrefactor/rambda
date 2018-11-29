@@ -127,18 +127,6 @@ R.add(2, 3) // =>  5
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
 
-#### addIndex
-
-> addIndex(fn: Function): Function
-
-```
-const mapWithIndex = R.addIndex(R.map)
-const result = mapWithIndex(
-  (val, index) => `${val} - ${index}`,
-  ['A', 'B', 'C']
-) // => ['A - 0', 'B - 1', 'C - 2']
-```
-
 #### adjust
 
 > adjust(replaceFn: Function, i: number, arr: T[]): T[]
@@ -196,6 +184,7 @@ const result = R.allPass(rules, input) // => true
 > always(x: any): Function
 
 It returns function that always returns `x`.
+
 ```
 const fn = R.always(7)
 
@@ -353,6 +342,7 @@ const result = g(4) // => 10
 > dec(x: number): number
 
 It decrements a number.
+
 ```
 R.dec(2) // => 1
 ```
@@ -506,7 +496,7 @@ It returns `undefined` or the first element of `arr` satisfying `findFn`.
 const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.find(findFn, arr) 
+const result = R.find(findFn, arr)
 // => {foo: 1}
 ```
 
@@ -974,7 +964,7 @@ const result = curried({b: 3, c: 10})
 
 - Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
-- You can read my argumentation for creating *partialCurry* [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+- You can read my argumentation for creating _partialCurry_ [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/partialCurry.js)
 
@@ -1095,7 +1085,7 @@ It will return those members of `arr` that return `false` when applied to functi
 ```
 const fn = x => x % 2 === 1
 
-const result = R.reject(fn, [1, 2, 3, 4]) 
+const result = R.reject(fn, [1, 2, 3, 4])
 // => [2, 4]
 ```
 
@@ -1291,7 +1281,7 @@ const result = R.tap(sayX, 100)
 - Determines whether `str` matches `regExpression`
 
 ```
-R.test(/^f/, 'foo') 
+R.test(/^f/, 'foo')
 // => true
 ```
 
@@ -1600,330 +1590,216 @@ import omit from 'rambda/lib/omit'
 
 ### Function
 
-          
 [addIndex](#addindex)
 
-            
 [always](#always)
 
-            
 [compose](#compose)
 
-            
 [curry](#curry)
 
-            
 [F](#f)
 
-            
 [flip](#flip)
 
-            
 [identity](#identity)
 
-            
 [pipe](#pipe)
 
-            
 [T](#t)
 
-            
 [tap](#tap)
-
-            
 
 ### Math
 
-          
 [add](#add)
 
-            
 [dec](#dec)
 
-            
 [divide](#divide)
 
-            
 [inc](#inc)
 
-            
 [modulo](#modulo)
 
-            
 [multiply](#multiply)
 
-            
 [subtract](#subtract)
-
-            
 
 ### List
 
-          
 [adjust](#adjust)
 
-            
 [all](#all)
 
-            
 [any](#any)
 
-            
 [append](#append)
 
-            
 [concat](#concat)
 
-            
 [contains](#contains)
 
-            
 [drop](#drop)
 
-            
 [dropLast](#droplast)
 
-            
 [endsWith](#endswith)
 
-            
 [filter](#filter)
 
-            
 [find](#find)
 
-            
 [findIndex](#findindex)
 
-            
 [flatten](#flatten)
 
-            
 [forEach](#foreach)
 
-            
 [groupBy](#groupby)
 
-            
 [head](#head)
 
-            
 [indexBy](#indexby)
 
-            
 [indexOf](#indexof)
 
-            
 [init](#init)
 
-            
 [join](#join)
 
-            
 [last](#last)
 
-            
 [lastIndexOf](#lastindexof)
 
-            
 [length](#length)
 
-            
 [map](#map)
 
-            
 [none](#none)
 
-            
 [nth](#nth)
 
-            
 [pluck](#pluck)
 
-            
 [prepend](#prepend)
 
-            
 [range](#range)
 
-            
 [reduce](#reduce)
 
-            
 [reject](#reject)
 
-            
 [repeat](#repeat)
 
-            
 [reverse](#reverse)
 
-            
 [sort](#sort)
 
-            
 [splitEvery](#splitevery)
 
-            
 [startsWith](#startswith)
 
-            
 [tail](#tail)
 
-            
 [take](#take)
 
-            
 [takeLast](#takelast)
 
-            
 [times](#times)
 
-            
 [uniq](#uniq)
 
-            
 [uniqWith](#uniqwith)
 
-            
 [update](#update)
 
-            
 [without](#without)
 
-            
 [zip](#zip)
 
-            
 [zipObj](#zipobj)
-
-            
 
 ### Logic
 
-          
 [allPass](#allpass)
 
-            
 [anyPass](#anypass)
 
-            
 [both](#both)
 
-            
 [complement](#complement)
 
-            
 [defaultTo](#defaultto)
 
-            
 [either](#either)
 
-            
 [ifElse](#ifelse)
 
-            
 [not](#not)
-
-            
 
 ### Object
 
-          
 [assoc](#assoc)
 
-            
 [dissoc](#dissoc)
 
-            
 [has](#has)
 
-            
 [keys](#keys)
 
-            
 [merge](#merge)
 
-            
 [omit](#omit)
 
-            
 [path](#path)
 
-            
 [pathOr](#pathor)
 
-            
 [pick](#pick)
 
-            
 [pickAll](#pickall)
 
-            
 [prop](#prop)
 
-            
 [values](#values)
-
-            
 
 ### Relation
 
-          
 [equals](#equals)
 
-            
 [max](#max)
 
-            
 [maxBy](#maxby)
 
-            
 [min](#min)
 
-            
 [minBy](#minby)
 
-            
 [propEq](#propeq)
 
-            
 [sortBy](#sortby)
-
-            
 
 ### Type
 
-          
 [is](#is)
 
-            
 [isNil](#isnil)
 
-            
 [type](#type)
-
-            
 
 ### String
 
-          
 [match](#match)
 
-            
 [replace](#replace)
 
-            
 [split](#split)
 
-            
 [toLower](#tolower)
 
-            
 [toString](#tostring)
 
-            
 [toUpper](#toupper)
 
-            
 [trim](#trim)
