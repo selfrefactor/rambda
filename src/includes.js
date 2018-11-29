@@ -3,7 +3,7 @@ export function includes(target, input) {
     return inputHolder => includes(target, inputHolder)
   }
   const ok = Array.isArray(input) || typeof input === 'string'
-  if(!ok) return false
+  if (!ok) return false
 
   return input.includes(target)
 }
