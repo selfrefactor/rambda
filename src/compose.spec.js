@@ -9,18 +9,18 @@ test('', () => {
     last,
     map(add(10)),
     map(add(1))
-  )([1, 2, 3])
+  )([ 1, 2, 3 ])
 
-  expect(result).toEqual(14)
+  expect(result).toStrictEqual(14)
 })
 
 test('accepts initially two arguments', () => {
   const result = compose(
     map(x => x * 2),
     (a, y) => filter(x => x > y, a)
-  )([1, 2, 3, 4], 2)
+  )([ 1, 2, 3, 4 ], 2)
 
-  expect(result).toEqual([6, 8])
+  expect(result).toStrictEqual([ 6, 8 ])
 })
 
 test('when no functions as input', () => {

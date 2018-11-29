@@ -6,11 +6,11 @@ test('', () => {
   const f = curriedAddFourNumbers(1, 2)
   const g = f(3)
 
-  expect(g(4)).toEqual(10)
+  expect(g(4)).toStrictEqual(10)
 })
 
 test('when called with more arguments', () => {
   const add = curry((n, n2) => n + n2)
 
-  expect(add(1, 2, 3)).toEqual(3)
+  expect(add(1, 2, 3)).toStrictEqual(3)
 })

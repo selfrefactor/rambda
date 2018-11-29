@@ -7,11 +7,11 @@ test('last', () => {
     compose(
       last,
       map(last)
-    )(['foo', 'bar', 'baz'])
-  ).toEqual('z')
+    )([ 'foo', 'bar', 'baz' ])
+  ).toStrictEqual('z')
 
-  expect(last(['foo', 'bar', 'baz'])).toEqual('baz')
-  expect(last([])).toEqual(undefined)
-  expect(last('abc')).toEqual('c')
-  expect(last('')).toEqual('')
+  expect(last([ 'foo', 'bar', 'baz' ])).toStrictEqual('baz')
+  expect(last([])).toStrictEqual(undefined)
+  expect(last('abc')).toStrictEqual('c')
+  expect(last('')).toStrictEqual('')
 })

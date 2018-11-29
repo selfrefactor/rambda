@@ -7,20 +7,20 @@ import { equals } from './equals'
 const isOdd = n => n % 2 === 1
 
 test('returns items that DO NOT match predicate from array', () => {
-  expect(reject(isOdd, [1, 2, 3, 4])).toEqual([2, 4])
+  expect(reject(isOdd, [ 1, 2, 3, 4 ])).toStrictEqual([ 2, 4 ])
 })
 
 test('returns items that DO NOT match predicate from object', () => {
   expect(
     reject(isOdd, {
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 4,
+      a : 1,
+      b : 2,
+      c : 3,
+      d : 4,
     })
-  ).toEqual({
-    b: 2,
-    d: 4,
+  ).toStrictEqual({
+    b : 2,
+    d : 4,
   })
 })
 
@@ -29,13 +29,13 @@ test('should work with currying', () => {
     reject(equals(2)),
     map(add(1))
   )({
-    a: 1,
-    b: 2,
-    c: 3,
+    a : 1,
+    b : 2,
+    c : 3,
   })
 
-  expect(result).toEqual({
-    b: 3,
-    c: 4,
+  expect(result).toStrictEqual({
+    b : 3,
+    c : 4,
   })
 })

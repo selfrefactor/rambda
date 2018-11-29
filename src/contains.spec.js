@@ -1,11 +1,11 @@
 import { contains } from './contains'
 
 test('when true + curry', () => {
-  expect(contains(3)([1, 2, 3])).toBeTruthy()
+  expect(contains(3)([ 1, 2, 3 ])).toBeTruthy()
 })
 
 test('when false', () => {
-  expect(contains(4, [1, 2, 3])).toBeFalsy()
+  expect(contains(4, [ 1, 2, 3 ])).toBeFalsy()
 })
 
 test('with empty object', () => {
@@ -13,7 +13,7 @@ test('with empty object', () => {
 })
 
 test('complex case', () => {
-  expect(contains([42], [[42]])).toBeTruthy()
+  expect(contains([ 42 ], [ [ 42 ] ])).toBeTruthy()
 })
 
 test('throws on undefined', () => {

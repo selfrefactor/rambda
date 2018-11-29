@@ -18,23 +18,23 @@ test('with compose', () => {
     map(add(1))
   )(sampleObject)
 
-  expect(result).toEqual({ a : 2 })
+  expect(result).toStrictEqual({ a : 2 })
 })
 
 test('bad case - undefined', () => {
-  expect(filter(T)(undefined)).toEqual([])
+  expect(filter(T)(undefined)).toStrictEqual([])
 })
 
 test('with object it passes property as second argument', () => {
   filter((val, prop) => {
-    expect(typeof prop).toEqual('string')
+    expect(typeof prop).toStrictEqual('string')
   })(sampleObject)
 })
 
 test('with array', () => {
   const isEven = n => n % 2 === 0
 
-  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+  expect(filter(isEven, [ 1, 2, 3, 4 ])).toStrictEqual([ 2, 4 ])
 })
 
 test('pass index as second argument', () => {
@@ -56,5 +56,5 @@ test('with object', () => {
     d : 4,
   }
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toStrictEqual(expectedResult)
 })

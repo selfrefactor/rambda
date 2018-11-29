@@ -7,31 +7,31 @@ test('when input is undefined or null', () => {
 
 test('with string as condition', () => {
   const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
+    a : 1,
+    b : 2,
+    c : 3,
   }
   const result = pickAll('a,c', obj)
   const resultCurry = pickAll('a,c')(obj)
   const expectedResult = {
-    a: 1,
-    b: undefined,
-    c: 3,
+    a : 1,
+    b : undefined,
+    c : 3,
   }
 
-  expect(result).toEqual(expectedResult)
-  expect(resultCurry).toEqual(expectedResult)
+  expect(result).toStrictEqual(expectedResult)
+  expect(resultCurry).toStrictEqual(expectedResult)
 })
 
 test('with array as condition', () => {
   expect(
-    pickAll(['a', 'b', 'c'], {
-      a: 'foo',
-      c: 'baz',
+    pickAll([ 'a', 'b', 'c' ], {
+      a : 'foo',
+      c : 'baz',
     })
-  ).toEqual({
-    a: 'foo',
-    b: undefined,
-    c: 'baz',
+  ).toStrictEqual({
+    a : 'foo',
+    b : undefined,
+    c : 'baz',
   })
 })

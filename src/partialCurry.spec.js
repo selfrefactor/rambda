@@ -3,19 +3,19 @@ import { partialCurry } from './partialCurry'
 
 test('', () => {
   const fn = ({ a, b, c }) => a + b + c
-  const curried = partialCurry(fn, { a: 1 })
+  const curried = partialCurry(fn, { a : 1 })
 
-  expect(type(curried)).toEqual('Function')
+  expect(type(curried)).toStrictEqual('Function')
   expect(
     curried({
-      b: 2,
-      c: 3,
+      b : 2,
+      c : 3,
     })
-  ).toEqual(6)
+  ).toStrictEqual(6)
   expect(true).toBeTruthy()
 })
 
-it('with promise', done => {
+test('with promise', done => {
   const delay = ({ ms, x }) =>
     new Promise(resolve => {
       setTimeout(() => {
@@ -23,15 +23,15 @@ it('with promise', done => {
       }, ms)
     })
 
-  const curried = partialCurry(delay, { ms: 200 })
+  const curried = partialCurry(delay, { ms : 200 })
 
-  curried({ x: 3 }).then(result => {
-    expect(type(curried)).toEqual('Function')
+  curried({ x : 3 }).then(result => {
+    expect(type(curried)).toStrictEqual('Function')
     done()
   })
 })
 
-it('with async', async () => {
+test('with async', async () => {
   const delay = ms =>
     new Promise(resolve => {
       setTimeout(() => {
@@ -45,12 +45,12 @@ it('with async', async () => {
     return a + b + c
   }
 
-  const curried = partialCurry(fn, { a: 1 })
+  const curried = partialCurry(fn, { a : 1 })
 
   const result = await curried({
-    b: 2,
-    c: 3,
+    b : 2,
+    c : 3,
   })
 
-  expect(result).toEqual(6)
+  expect(result).toStrictEqual(6)
 })

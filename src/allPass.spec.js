@@ -13,23 +13,23 @@ test('', () => {
 })
 
 test('when returns true', () => {
-  const conditionArr = [val => val.a === 1, val => val.b === 2]
+  const conditionArr = [ val => val.a === 1, val => val.b === 2 ]
 
   expect(
     allPass(conditionArr, {
-      a: 1,
-      b: 2,
+      a : 1,
+      b : 2,
     })
   ).toBeTruthy()
 })
 
 test('when returns false', () => {
-  const conditionArr = [val => val.a === 1, val => val.b === 3]
+  const conditionArr = [ val => val.a === 1, val => val.b === 3 ]
 
   expect(
     allPass(conditionArr)({
-      a: 1,
-      b: 2,
+      a : 1,
+      b : 2,
     })
   ).toBeFalsy()
 })

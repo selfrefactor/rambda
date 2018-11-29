@@ -9,21 +9,21 @@ test('init', () => {
       tail,
       init,
       flatten
-    )([[[1, [2]]], [3, 4]])
-  ).toEqual([2, 3])
+    )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])
+  ).toStrictEqual([ 2, 3 ])
 
-  expect(init([1, 2, 3])).toEqual([1, 2])
-  expect(init([1, 2])).toEqual([1])
-  expect(init([1])).toEqual([])
-  expect(init([])).toEqual([])
+  expect(init([ 1, 2, 3 ])).toStrictEqual([ 1, 2 ])
+  expect(init([ 1, 2 ])).toStrictEqual([ 1 ])
+  expect(init([ 1 ])).toStrictEqual([])
+  expect(init([])).toStrictEqual([])
 
-  expect(init([])).toEqual([])
+  expect(init([])).toStrictEqual([])
 
-  expect(init([1])).toEqual([])
+  expect(init([ 1 ])).toStrictEqual([])
 
-  expect(init('foo')).toEqual('fo')
+  expect(init('foo')).toStrictEqual('fo')
 
-  expect(init('f')).toEqual('')
+  expect(init('f')).toStrictEqual('')
 
-  expect(init('')).toEqual('')
+  expect(init('')).toStrictEqual('')
 })

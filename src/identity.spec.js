@@ -1,5 +1,5 @@
 import { identity } from './identity'
 
 test('', () => {
-  expect(identity(7)).toEqual(7)
+  expect(identity(7)).toStrictEqual(7)
 })

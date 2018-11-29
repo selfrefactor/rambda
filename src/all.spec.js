@@ -1,6 +1,6 @@
 import { all } from './all'
 
-const numArr = [0, 1, 2, 3, 4]
+const numArr = [ 0, 1, 2, 3, 4 ]
 
 test('when true', () => {
   const fn = x => x > -1
