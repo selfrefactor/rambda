@@ -1,7 +1,9 @@
-export function includes(x, y) {
+export function includes(target, input) {
   if (arguments.length === 1) {
-    return yHolder => includes(x, yHolder)
+    return inputHolder => includes(target, inputHolder)
   }
+  const ok = Array.isArray(input) || typeof input === 'string'
+  if(!ok) return false
 
-  return y.includes(x)
+  return input.includes(target)
 }

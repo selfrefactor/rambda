@@ -284,8 +284,8 @@ declare namespace R {
 
     inc(n: number): number
 
-    includes(input: any, arrOrStr: any[]|string): boolean
-    includes(input: any) : (arrOrStr: any[]|string) => boolean
+    includes(target: any, input: any): boolean
+    includes(target: any) : (input: any) => boolean
 
     indexBy<T>(fn: (x: T) => string, list: T[]): { [key: string]: T }
     indexBy<T>(fn: (x: T) => string): (list: T[]) => { [key: string]: T }

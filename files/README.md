@@ -101,11 +101,9 @@ https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays. The same applies to Rambda's **all/any/none** methods.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
-
-- Rambda's **filter/all/any/none** pass index as second argument to the predicate function.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
@@ -113,9 +111,9 @@ https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 
 - Rambda's **partialCurry** is not part of Ramda API.
 
-- Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value.
+- Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value. Also **Ramda** version will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
-> If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax)
+> If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
 ## API
 
@@ -654,12 +652,15 @@ R.inc(1) // => 2
 
 #### includes
 
-> includes(x: any, arrOrStr: T[]|string): boolean
+If `input` is neither `string` nor `array`, then this method will return `false`.
+
+> includes(target: any, input: any): boolean
 
 ```
 R.includes(1, [1, 2]) // => true
 R.includes('oo', 'foo') // => true
 R.includes('z', 'foo') // => false
+R.includes('z', null) // => false
 ```
 
 !! Note that this method is not part of `Ramda` API.
@@ -1475,7 +1476,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 2.0.0 Major version caused by removing of `R.zip` and `R.addIndex`. [Issue #85](https://github.com/selfrefactor/rambda/issues/85) rightfully finds that the implementation of `R.addIndex` is not correct. This lead to removing this method and also of `R.zip` as it had depended on it. Other change is that `R.map`, `R.filter` are passing array index as second argument when looping over arrays.
+- 2.0.0 Major version caused by removing of `R.zip` and `R.addIndex`. [Issue #85](https://github.com/selfrefactor/rambda/issues/85) rightfully finds that the implementation of `R.addIndex` is not correct. This lead to removing this method and also of `R.zip` as it had depended on it. Other change is that `R.map`, `R.filter` are passing array index as second argument when looping over arrays. The last change is that `R.includes` will return `false` if input is neigher `string` nor `array`. The previous behaviour was to throw an error.
 
 - 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
