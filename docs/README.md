@@ -1695,22 +1695,6 @@ R.without([1, 2], [1, 2, 3, 4])
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
 
 ---
-#### zip
-
-> zip(a: K[], b: V[]): Array<KeyValuePair<K, V>>
-
-It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.
-
-```
-R.zip([1, 2], ['A', 'B'])
-// => [[1, 'A'], [2, 'B']]
-
-// truncates to shortest list
-R.zip([1, 2, 3, 4], ['A', 'B'])
-// => [[1, 'A'], [2, 'B']]
-```
-
----
 #### zipObj
 
 > zipObj(a: K[], b: V[]): Object

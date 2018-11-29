@@ -1445,21 +1445,6 @@ R.without([1, 2], [1, 2, 3, 4])
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
 
-#### zip
-
-> zip(a: K[], b: V[]): Array<KeyValuePair<K, V>>
-
-It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.
-
-```
-R.zip([1, 2], ['A', 'B'])
-// => [[1, 'A'], [2, 'B']]
-
-// truncates to shortest list
-R.zip([1, 2, 3, 4], ['A', 'B'])
-// => [[1, 'A'], [2, 'B']]
-```
-
 #### zipObj
 
 > zipObj(a: K[], b: V[]): Object
