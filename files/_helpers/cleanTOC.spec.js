@@ -1,4 +1,4 @@
-const {cleanTOC} = require('./cleanTOC')
+const { cleanTOC } = require('./cleanTOC')
 
 const input = `
 - [Rambda](#rambda)

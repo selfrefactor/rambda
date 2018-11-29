@@ -52,5 +52,5 @@ const fn = async () => {
 }
 
 fn().then(result => {
-  fs.writeFileSync(`${__dirname}/browseByTag.md`, result)
+  fs.writeFileSync(`${ __dirname }/browseByTag.md`, result)
 })
