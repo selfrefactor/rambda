@@ -44,9 +44,9 @@ test('', () => {
   const result = uniqWith(fn, input)
   const curriedResult = uniqWith(fn)(input)
 
-  expect(result).toStrictEqual(expectedResult)
+  expect(result).toEqual(expectedResult)
 
-  expect(curriedResult).toStrictEqual(expectedResult)
+  expect(curriedResult).toEqual(expectedResult)
 })
 
 test('uniqWith', () => {
@@ -93,5 +93,5 @@ test('uniqWith', () => {
   const result = uniqWith(fn, input)
   //const result = uniqWith(Ramda.eqBy(Ramda.prop('title')), input)
 
-  expect(result).toStrictEqual(expectedResult)
+  expect(result).toEqual(expectedResult)
 })

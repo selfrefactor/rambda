@@ -10,5 +10,5 @@ test('pipe', () => {
     last
   )([ 1, 2, 3 ])
 
-  expect(result).toStrictEqual(14)
+  expect(result).toEqual(14)
 })

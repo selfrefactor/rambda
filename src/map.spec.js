@@ -10,7 +10,7 @@ const sampleObject = {
 }
 
 test('with array', () => {
-  expect(map(double, [ 1, 2, 3 ])).toStrictEqual([ 2, 4, 6 ])
+  expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
 })
 
 test('pass index as second argument', () => {
@@ -30,7 +30,7 @@ test('with object', () => {
     b : 2,
   }
 
-  expect(map(double, obj)).toStrictEqual({
+  expect(map(double, obj)).toEqual({
     a : 2,
     b : 4,
   })
@@ -38,7 +38,7 @@ test('with object', () => {
 
 test('with object passes property as second argument', () => {
   map((_, prop) => {
-    expect(typeof prop).toStrictEqual('string')
+    expect(typeof prop).toEqual('string')
   })(sampleObject)
 })
 
@@ -46,5 +46,5 @@ test('with object passes property as second argument', () => {
  * https://github.com/selfrefactor/rambda/issues/77
  */
 test('when undefined instead of array', () => {
-  expect(map(double, undefined)).toStrictEqual([])
+  expect(map(double, undefined)).toEqual([])
 })

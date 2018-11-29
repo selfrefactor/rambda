@@ -10,7 +10,7 @@ test('', () => {
 })
 
 test('ramda spec', () => {
-  expect(equals({}, {})).toStrictEqual(true)
+  expect(equals({}, {})).toEqual(true)
 
   expect(
     equals(
@@ -23,7 +23,7 @@ test('ramda spec', () => {
         b : 2,
       }
     )
-  ).toStrictEqual(true)
+  ).toEqual(true)
 
   expect(
     equals(
@@ -36,7 +36,7 @@ test('ramda spec', () => {
         a : 2,
       }
     )
-  ).toStrictEqual(true)
+  ).toEqual(true)
 
   expect(
     equals(
@@ -49,7 +49,7 @@ test('ramda spec', () => {
         b : 3,
       }
     )
-  ).toStrictEqual(false)
+  ).toEqual(false)
 
   expect(
     equals(
@@ -63,7 +63,7 @@ test('ramda spec', () => {
         b : 3,
       }
     )
-  ).toStrictEqual(false)
+  ).toEqual(false)
 })
 
 test('works with boolean tuple', () => {

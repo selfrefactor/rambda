@@ -8,10 +8,10 @@ test('last', () => {
       last,
       map(last)
     )([ 'foo', 'bar', 'baz' ])
-  ).toStrictEqual('z')
+  ).toEqual('z')
 
-  expect(last([ 'foo', 'bar', 'baz' ])).toStrictEqual('baz')
-  expect(last([])).toStrictEqual(undefined)
-  expect(last('abc')).toStrictEqual('c')
-  expect(last('')).toStrictEqual('')
+  expect(last([ 'foo', 'bar', 'baz' ])).toEqual('baz')
+  expect(last([])).toEqual(undefined)
+  expect(last('abc')).toEqual('c')
+  expect(last('')).toEqual('')
 })

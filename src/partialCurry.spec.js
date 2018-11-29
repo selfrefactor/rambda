@@ -5,13 +5,13 @@ test('', () => {
   const fn = ({ a, b, c }) => a + b + c
   const curried = partialCurry(fn, { a : 1 })
 
-  expect(type(curried)).toStrictEqual('Function')
+  expect(type(curried)).toEqual('Function')
   expect(
     curried({
       b : 2,
       c : 3,
     })
-  ).toStrictEqual(6)
+  ).toEqual(6)
   expect(true).toBeTruthy()
 })
 
@@ -26,7 +26,7 @@ test('with promise', done => {
   const curried = partialCurry(delay, { ms : 200 })
 
   curried({ x : 3 }).then(result => {
-    expect(type(curried)).toStrictEqual('Function')
+    expect(type(curried)).toEqual('Function')
     done()
   })
 })
@@ -52,5 +52,5 @@ test('with async', async () => {
     c : 3,
   })
 
-  expect(result).toStrictEqual(6)
+  expect(result).toEqual(6)
 })

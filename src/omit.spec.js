@@ -10,12 +10,12 @@ test('with string as condition', () => {
   const resultCurry = omit('a,c')(obj)
   const expectedResult = { b : 2 }
 
-  expect(result).toStrictEqual(expectedResult)
-  expect(resultCurry).toStrictEqual(expectedResult)
+  expect(result).toEqual(expectedResult)
+  expect(resultCurry).toEqual(expectedResult)
 })
 
 test('with null', () => {
-  expect(omit('a,b', null)).toStrictEqual(undefined)
+  expect(omit('a,b', null)).toEqual(undefined)
 })
 
 test('doesn\'t work with number as property', () => {
@@ -24,7 +24,7 @@ test('doesn\'t work with number as property', () => {
       a  : 1,
       42 : 2,
     })
-  ).toStrictEqual({
+  ).toEqual({
     42 : 2,
     a  : 1,
   })
@@ -37,5 +37,5 @@ test('', () => {
       b : 'bar',
       c : 'baz',
     })
-  ).toStrictEqual({ b : 'bar' })
+  ).toEqual({ b : 'bar' })
 })

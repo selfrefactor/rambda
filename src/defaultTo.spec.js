@@ -1,17 +1,17 @@
 import { defaultTo } from './defaultTo'
 
 test('with undefined', () => {
-  expect(defaultTo('foo')(undefined)).toStrictEqual('foo')
+  expect(defaultTo('foo')(undefined)).toEqual('foo')
 })
 
 test('with null', () => {
-  expect(defaultTo('foo')(null)).toStrictEqual('foo')
+  expect(defaultTo('foo')(null)).toEqual('foo')
 })
 
 test('with NaN', () => {
-  expect(defaultTo('foo')(NaN)).toStrictEqual('foo')
+  expect(defaultTo('foo')(NaN)).toEqual('foo')
 })
 
 test('when inputArgument passes initial check', () => {
-  expect(defaultTo('foo', 'bar')).toStrictEqual('bar')
+  expect(defaultTo('foo', 'bar')).toEqual('bar')
 })

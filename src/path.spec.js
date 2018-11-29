@@ -3,25 +3,25 @@ import { path } from './path'
 test('works with undefined', () => {
   const obj = { a : { b : { c : 1 } } }
 
-  expect(path('a.b.c.d.f', obj)).toStrictEqual(undefined)
-  expect(path('foo.babaz', undefined)).toStrictEqual(undefined)
-  expect(path('foo.babaz')(undefined)).toStrictEqual(undefined)
+  expect(path('a.b.c.d.f', obj)).toEqual(undefined)
+  expect(path('foo.babaz', undefined)).toEqual(undefined)
+  expect(path('foo.babaz')(undefined)).toEqual(undefined)
 })
 
 test('works with string instead of array', () => {
   expect(
     path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })
-  ).toStrictEqual('yes')
+  ).toEqual('yes')
 })
 
 test('path', () => {
   expect(
     path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })
-  ).toStrictEqual('yes')
+  ).toEqual('yes')
 
-  expect(path([ 'foo', 'bar', 'baz' ])(null)).toStrictEqual(undefined)
+  expect(path([ 'foo', 'bar', 'baz' ])(null)).toEqual(undefined)
 
   expect(
     path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })
-  ).toStrictEqual(undefined)
+  ).toEqual(undefined)
 })

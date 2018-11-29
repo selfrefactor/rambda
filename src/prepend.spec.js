@@ -1,16 +1,16 @@
 import { prepend } from './prepend'
 
 test('', () => {
-  expect(prepend('f', 'oo')).toStrictEqual('foo')
+  expect(prepend('f', 'oo')).toEqual('foo')
 })
 
 test('prepend', () => {
-  expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toStrictEqual([
+  expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([
     'yes',
     'foo',
     'bar',
     'baz',
   ])
 
-  expect(prepend('foo')([])).toStrictEqual([ 'foo' ])
+  expect(prepend('foo')([])).toEqual([ 'foo' ])
 })

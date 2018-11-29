@@ -7,5 +7,5 @@ test('values', () => {
       b : 2,
       c : 3,
     })
-  ).toStrictEqual([ 1, 2, 3 ])
+  ).toEqual([ 1, 2, 3 ])
 })

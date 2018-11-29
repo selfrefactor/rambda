@@ -3,7 +3,7 @@ test('', () => {
   const sideEffect = {}
   forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
 
-  expect(sideEffect).toStrictEqual({
+  expect(sideEffect).toEqual({
     foo1 : 11,
     foo2 : 12,
   })
@@ -39,13 +39,13 @@ test('', () => {
     234 : 345,
   }
 
-  expect(sideEffect).toStrictEqual(expectedSideEffect)
-  expect(result).toStrictEqual(list)
+  expect(sideEffect).toEqual(expectedSideEffect)
+  expect(result).toEqual(list)
 })
 
 test('with empty list', () => {
   const list = []
   const result = forEach(x => x * x)(list)
 
-  expect(result).toStrictEqual(list)
+  expect(result).toEqual(list)
 })

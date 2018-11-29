@@ -11,5 +11,5 @@ test('toUpper', () => {
       map(toUpper),
       split('')
     )('foo|bar|baz')
-  ).toStrictEqual('FOO|BAR|BAZ')
+  ).toEqual('FOO|BAR|BAZ')
 })

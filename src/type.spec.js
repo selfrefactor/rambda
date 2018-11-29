@@ -6,7 +6,7 @@ test('type', () => {
 
   function fn3() {}
   ;[ () => {}, fn1, fn2, fn3 ].map(val => {
-    expect(type(val)).toStrictEqual('Function')
+    expect(type(val)).toEqual('Function')
   })
 
   const delay = ms =>
@@ -16,23 +16,23 @@ test('type', () => {
       }, ms)
     })
 
-  expect(type(delay(10))).toStrictEqual('Promise')
+  expect(type(delay(10))).toEqual('Promise')
 
-  expect(type(async () => {})).toStrictEqual('Async')
+  expect(type(async () => {})).toEqual('Async')
 
-  expect(type({})).toStrictEqual('Object')
+  expect(type({})).toEqual('Object')
 
-  expect(type(1)).toStrictEqual('Number')
+  expect(type(1)).toEqual('Number')
 
-  expect(type(false)).toStrictEqual('Boolean')
+  expect(type(false)).toEqual('Boolean')
 
-  expect(type('foo')).toStrictEqual('String')
+  expect(type('foo')).toEqual('String')
 
-  expect(type(null)).toStrictEqual('Null')
+  expect(type(null)).toEqual('Null')
 
-  expect(type([])).toStrictEqual('Array')
+  expect(type([])).toEqual('Array')
 
-  expect(type(/\s/g)).toStrictEqual('RegExp')
+  expect(type(/\s/g)).toEqual('RegExp')
 
-  expect(type(undefined)).toStrictEqual('Undefined')
+  expect(type(undefined)).toEqual('Undefined')
 })

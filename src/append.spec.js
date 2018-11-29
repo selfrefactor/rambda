@@ -4,11 +4,11 @@ import { flatten } from './flatten'
 import { map } from './map'
 
 test('with strings', () => {
-  expect(append('o', 'fo')).toStrictEqual('foo')
+  expect(append('o', 'fo')).toEqual('foo')
 })
 
 test('with arrays', () => {
-  expect(append('tests', [ 'write', 'more' ])).toStrictEqual([
+  expect(append('tests', [ 'write', 'more' ])).toEqual([
     'write',
     'more',
     'tests',
@@ -16,7 +16,7 @@ test('with arrays', () => {
 })
 
 test('append to empty array', () => {
-  expect(append('tests', [])).toStrictEqual([ 'tests' ])
+  expect(append('tests', [])).toEqual([ 'tests' ])
 })
 
 test('', () => {
@@ -24,13 +24,13 @@ test('', () => {
     flatten,
     map(append(0))
   )([ [ 1 ], [ 2 ], [ 3 ] ])
-  expect(result).toStrictEqual([ 1, 0, 2, 0, 3, 0 ])
+  expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })
 
 test('should not modify arguments', () => {
   const a = [ 1, 2, 3 ]
   const b = append(4, a)
 
-  expect(a).toStrictEqual([ 1, 2, 3 ])
-  expect(b).toStrictEqual([ 1, 2, 3, 4 ])
+  expect(a).toEqual([ 1, 2, 3 ])
+  expect(b).toEqual([ 1, 2, 3, 4 ])
 })

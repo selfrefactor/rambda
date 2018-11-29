@@ -19,8 +19,8 @@ test('with string as condition', () => {
     c : 3,
   }
 
-  expect(result).toStrictEqual(expectedResult)
-  expect(resultCurry).toStrictEqual(expectedResult)
+  expect(result).toEqual(expectedResult)
+  expect(resultCurry).toEqual(expectedResult)
 })
 
 test('with array as condition', () => {
@@ -29,7 +29,7 @@ test('with array as condition', () => {
       a : 'foo',
       c : 'baz',
     })
-  ).toStrictEqual({
+  ).toEqual({
     a : 'foo',
     b : undefined,
     c : 'baz',

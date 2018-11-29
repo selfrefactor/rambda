@@ -6,7 +6,7 @@ const sample = {
 }
 
 test('merge', () => {
-  expect(merge(sample)({ bar : 'baz' })).toStrictEqual({
+  expect(merge(sample)({ bar : 'baz' })).toEqual({
     foo : 'bar',
     bar : 'baz',
   })
@@ -16,8 +16,8 @@ test('merge', () => {
  * https://github.com/selfrefactor/rambda/issues/77
  */
 test('when undefined or null instead of object', () => {
-  expect(merge(null, undefined)).toStrictEqual({})
-  expect(merge(sample, null)).toStrictEqual(sample)
-  expect(merge(sample, undefined)).toStrictEqual(sample)
-  expect(merge(undefined, sample)).toStrictEqual(sample)
+  expect(merge(null, undefined)).toEqual({})
+  expect(merge(sample, null)).toEqual(sample)
+  expect(merge(sample, undefined)).toEqual(sample)
+  expect(merge(undefined, sample)).toEqual(sample)
 })

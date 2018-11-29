@@ -13,8 +13,8 @@ test('pick with string as condition', () => {
     c : 3,
   }
 
-  expect(result).toStrictEqual(expectedResult)
-  expect(resultCurry).toStrictEqual(expectedResult)
+  expect(result).toEqual(expectedResult)
+  expect(resultCurry).toEqual(expectedResult)
 })
 
 test('pick', () => {
@@ -24,7 +24,7 @@ test('pick', () => {
       b : 'bar',
       c : 'baz',
     })
-  ).toStrictEqual({
+  ).toEqual({
     a : 'foo',
     c : 'baz',
   })
@@ -35,7 +35,7 @@ test('pick', () => {
       b : 'bar',
       c : 'baz',
     })
-  ).toStrictEqual({ a : 'foo' })
+  ).toEqual({ a : 'foo' })
 
-  expect(pick('a,d,e,f')(null)).toStrictEqual(undefined)
+  expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })

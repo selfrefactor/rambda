@@ -24,7 +24,7 @@ test('sortBy', () => {
   }
   const people = [ clara, bob, alice ]
 
-  expect(sortByNameCaseInsensitive(people)).toStrictEqual([
+  expect(sortByNameCaseInsensitive(people)).toEqual([
     alice,
     bob,
     clara,
@@ -32,17 +32,17 @@ test('sortBy', () => {
 
   expect(
     sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])
-  ).toStrictEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
+  ).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
 
   expect(
     sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])
-  ).toStrictEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
+  ).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
 
   expect(
     sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])
-  ).toStrictEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 
   expect(
     sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toStrictEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 })

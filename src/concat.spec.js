@@ -8,10 +8,10 @@ test('', () => {
   const b = concat(arr2)(arr1)
   const expectedResult = [ 'd', 'e', 'f', 'a', 'b', 'c' ]
 
-  expect(a).toStrictEqual(expectedResult)
-  expect(b).toStrictEqual(expectedResult)
+  expect(a).toEqual(expectedResult)
+  expect(b).toEqual(expectedResult)
 })
 
 test('with strings', () => {
-  expect(concat('ABC', 'DEF')).toStrictEqual('ABCDEF')
+  expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
 })
