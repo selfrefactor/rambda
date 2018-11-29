@@ -31,7 +31,7 @@ export function filter(fn, arr) {
   while (++index < len) {
     const value = arr[ index ]
 
-    if (fn(value)) {
+    if (fn(value, index)) {
       willReturn[ resIndex++ ] = value
     }
   }

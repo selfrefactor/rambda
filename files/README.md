@@ -101,6 +101,8 @@ https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **filter/all/any/none** pass index as second argument to the predicate function.
@@ -1473,6 +1475,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.0.0 Major version caused by removing of `R.zip` and `R.addIndex`. [Issue #85](https://github.com/selfrefactor/rambda/issues/85) rightfully finds that the implementation of `R.addIndex` is not correct. This lead to removing this method and also of `R.zip` as it had depended on it. Other change is that `R.map`, `R.filter` are passing array index as second argument when looping over arrays.
+
 - 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
@@ -1574,8 +1578,6 @@ import omit from 'rambda/lib/omit'
 ## Browse by category
 
 ### Function
-
-[addIndex](#addindex)
 
 [always](#always)
 
@@ -1700,8 +1702,6 @@ import omit from 'rambda/lib/omit'
 [update](#update)
 
 [without](#without)
-
-[zip](#zip)
 
 [zipObj](#zipobj)
 

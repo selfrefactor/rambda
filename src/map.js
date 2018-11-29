@@ -25,7 +25,7 @@ export function map(fn, arr) {
   const willReturn = Array(len)
 
   while (++index < len) {
-    willReturn[ index ] = fn(arr[ index ])
+    willReturn[ index ] = fn(arr[ index ], index)
   }
 
   return willReturn
