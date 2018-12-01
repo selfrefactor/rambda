@@ -17,5 +17,5 @@ test('includes with array', () => {
 
 test('return false if input is falsy', () => {
   expect(includes(2, null)).toBeFalsy()
-  expect(includes(4, undefined)).toBeFalsy()
+  expect(includes(4, undefined                                            )).toBeFalsy()
 })
