@@ -44,7 +44,10 @@ declare namespace R {
 
   type Arity1Fn = (a: any) => any
 
-  type Pred = (...a: any[]) => boolean
+  type Predicate<T> = (input: T) => boolean
+  type PredicateLong<T> = (...inputs: T[]) => boolean
+  type Fn<In, Out> = (x: In) => Out
+  type FnTwo<In, Out> = (x: In, y: In) => Out
 
   interface CurriedTypeGuard2<T1, T2, R extends T2> {
     (t1: T1): (t2: T2) => t2 is R
@@ -124,36 +127,36 @@ declare namespace R {
   interface Static {
     // RAMBDA_START_MARKER
     add(a: number, b: number): number
-    add(a: string, b: string): string
+    add(first: string, second: string): string
     add(a: number): (b: number) => number
-    add(a: string): (b: string) => string
+    add(first: string): (second: string) => string
 
-    adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[]
-    adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[]
+    adjust<T>(predicate: Fn<T, T>, index: number, list: T[]): T[]
+    adjust<T>(predicate: Fn<T, T>, index: number): (list: T[]) => T[]
 
-    all<T>(fn: (a: T) => boolean, list: T[]): boolean
-    all<T>(fn: (a: T) => boolean): (list: T[]) => boolean
+    all<T>(predicate: Fn<T, boolean>, list: T[]): boolean
+    all<T>(predicate: Fn<T, boolean>): (list: T[]) => boolean
 
-    allPass(preds: Pred[]): Pred
+    allPass(predicates: Predicate[]): Predicate
 
     always<T>(x: T): () => T
 
-    any<T>(fn: (a: T) => boolean, list: T[]): boolean
-    any<T>(fn: (a: T) => boolean): (list: T[]) => boolean
+    any<T>(predicate: Predicate<T>, list: T[]): boolean
+    any<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
-    anyPass(preds: Pred[]): Pred
+    anyPass(preds: Predicate[]): Predicate
 
-    append<T>(el: T, list: T[]): T[]
-    append<T>(el: T): <T>(list: T[]) => T[]
+    append<T>(lastToBe: T, list: T[]): T[]
+    append<T>(lastToBe: T): <T>(list: T[]) => T[]
 
     assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
 
-    both(pred1: Pred, pred2: Pred): Pred
-    both(pred1: Pred): (pred2: Pred) => Pred
+    both<T>(firstRule: Predicate<T>, secondRule: Predicate<T>): Predicate<T>
+    both<T>(firstRule: Predicate<T>): (secondRule: Predicate<T>) => Predicate<T>
 
-    complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
+    complement<Out>(fn: Fn<any, Out>): Fn<any, Out>
 
     compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1
     compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1
@@ -191,10 +194,10 @@ declare namespace R {
       fn1: (x: T1) => T2,
       fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6
 
-    concat<T>(list1: T[], list2: T[]): T[]
-    concat<T>(list1: T[]): (list2: T[]) => T[]
-    concat(list1: string, list2: string): string
-    concat(list1: string): (list2: string) => string
+    concat<T>(first: T[], second: T[]): T[]
+    concat<T>(first: T[]): (second: T[]) => T[]
+    concat(first: string, second: string): string
+    concat(first: string): (second: string) => string
 
     contains(a: string, list: string): boolean
     contains<T>(a: T, list: T[]): boolean
