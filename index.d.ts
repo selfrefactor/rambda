@@ -331,8 +331,8 @@ declare namespace R {
     match(regexp: RegExp, input: string): any[]
     match(regexp: RegExp): (input: string) => any[]
 
-    merge<T1, T2>(a: T1, canOverwriteA: T2): T1 & T2
-    merge<T1>(a: T1): <T2>(canOverwriteA: T2) => T1 & T2
+    merge<T1, T2>(obj: T1, higher: T2): T1 & T2
+    merge<T1>(obj: T1): <T2>(higher: T2) => T1 & T2
 
     modulo(a: number, b: number): number
     modulo(a: number): (b: number) => number
@@ -357,15 +357,15 @@ declare namespace R {
     none<T>(predicate: Predicate<T>, list: T[]): boolean
     none<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
-    not(value: any): boolean
+    not<T>(value: T): boolean
     nth<T>(n: number, list: Array<T>): T | undefined;
     nth(n: number): <T>(list: Array<T>) => T | undefined;
 
     omit<T, K extends Array<keyof T>>(names: K, obj: T): Omit<T, K[number]>
-
     omit<T, K extends keyof T>(name: K, obj: T): Omit<T, K>
-    
-    omit<T, K extends Array<keyof T>>(names: K): (obj: T) => Omit<T, K[number]>
+    omit<T, K extends Array<keyof T>>(
+      names: K
+    ): (obj: T) => Omit<T, K[number]>
     
     omit<T, K extends keyof T>(name: K): (obj: T) => Omit<T, K>
     
@@ -382,14 +382,13 @@ declare namespace R {
     pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>
 
     pick<T, K extends keyof T>(
-      names: Array<K | string> | string,
-      obj: T
+      props: Array<K | string> | string,
+      input: T
     ): Pick<T, K>
+    pick(props: string[] | string): <T, U>(obj: T) => U
 
-    pick(names: string[] | string): <T, U>(obj: T) => U
-
-    pickAll<T, U>(names: string[], obj: T): U
-    pickAll(names: string[]): <T, U>(obj: T) => U
+    pickAll<T, U>(props: string[], obj: T): U
+    pickAll(props: string[]): <T, U>(obj: T) => U
 
     pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
     pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -421,13 +420,13 @@ declare namespace R {
       fn4: (x: T4) => T5,
       fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
-    pluck<T>(prop: string, input: any[]): T[]
-    pluck<T>(prop: number, input: T[][]): T[]
-    pluck<T>(prop: string): (input: any[]) => T[]
-    pluck<T>(prop: number): (input: T[][]) => T[]
+    pluck<T>(propOrIndex: string, input: any[]): T[]
+    pluck<T>(propOrIndex: number, input: T[][]): T[]
+    pluck<T>(propOrIndex: string): (input: any[]) => T[]
+    pluck<T>(propOrIndex: number): (input: T[][]) => T[]
 
-    prepend<T>(el: T, list: T[]): T[]
-    prepend<T>(el: T): (list: T[]) => T[]
+    prepend<T>(firstToBe: T, list: T[]): T[]
+    prepend<T>(firstToBe: T): (list: T[]) => T[]
 
     prop<P extends keyof T, T>(p: P, obj: T): T[P]
     prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T
@@ -436,16 +435,16 @@ declare namespace R {
     propEq<T>(name: string, val: T): (obj: any) => boolean
     propEq(name: string): <T>(val: T, obj: any) => boolean
 
-    range(from: number, to: number): number[]
-    range(from: number): (to: number) => number[]
+    range(fromInclusive: number, toExclusive: number): number[]
+    range(fromInclusive: number): (toExclusive: number) => number[]
 
     reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult, list: T[]): TResult
     reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: T[]) => TResult
     reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: T[]) => TResult
 
-    reject<T>(fn: (value: T) => boolean): Filter<T>
-    reject<T>(fn: (value: T) => boolean, list: T[]): T[]
-    reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>
+    reject<T>(predicate: Predicate<T>): Filter<T>
+    reject<T>(predicate: Predicate<T>, list: T[]): T[]
+    reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>
 
     repeat<T>(a: T, n: number): T[]
     repeat<T>(a: T): (n: number) => T[]
@@ -456,8 +455,8 @@ declare namespace R {
 
     reverse<T>(list: T[]): T[]
 
-    sort<T>(fn: (a: T, b: T) => number, list: T[]): T[]
-    sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[]
+    sort<T>(sortingRule: FnTwo<T,number>, list: T[]): T[]
+    sort<T>(sortingRule: FnTwo<T,number>): (list: T[]) => T[]
 
     sortBy<T>(fn: (a: T) => Ord, list: T[]): T[]
     sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[]
@@ -496,34 +495,31 @@ declare namespace R {
     tap<T>(fn: (a: T) => any, value: T): T
     tap<T>(fn: (a: T) => any): (value: T) => T
 
-    test(regexp: RegExp, str: string): boolean
-    test(regexp: RegExp): (str: string) => boolean
+    test(regexp: RegExp, input: string): boolean
+    test(regexp: RegExp): (input: string) => boolean
 
     times<T>(fn: (i: number) => T, n: number): T[]
     times<T>(fn: (i: number) => T): (n: number) => T[]
 
-    toLower(str: string): string
+    toLower(input: string): string
+    toString<T>(input: T): string
+    toUpper(input: string): string
+    trim(input: string): string
 
-    toString<T>(val: T): string
-
-    toUpper(str: string): string
-
-    trim(str: string): string
-
-    type(val: any): RambdaTypes
+    type(input: any): RambdaTypes
 
     uniq<T>(list: T[]): T[]
 
-    uniqWith<T>(pred: (x: T, y: T) => boolean, list: T[]): T[];
-    uniqWith<T>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
+    uniqWith<T>(predicate:FnTwo<T, boolean>, list: T[]): T[];
+    uniqWith<T>(predicate:FnTwo<T, boolean>): (list: T[]) => T[];
 
-    update<T>(index: number, value: T, list: T[]): T[]
-    update<T>(index: number, value: T): (list: T[]) => T[]
+    update<T>(index: number, newValue: T, list: T[]): T[]
+    update<T>(index: number, newValue: T): (list: T[]) => T[]
 
     values<T extends object, K extends keyof T>(obj: T): Array<T[K]>
 
-    without<T>(list1: T[], list2: T[]): T[]
-    without<T>(list1: T[]): (list2: T[]) => T[]
+    without<T>(listOfWithouts: T[], input: T[]): T[]
+    without<T>(listOfWithouts: T[]): (input: T[]) => T[]
 
     zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
     zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T }
