@@ -32,6 +32,10 @@ declare namespace R {
   interface Dictionary<T> {
     [index: string]: T
   }
+  type Predicate<T> = (input: T) => boolean
+  type Fn<In, Out> = (x: In) => Out
+  type FnTwo<In, Out> = (x: In, y: In) => Out
+  type MapFn<In, Out> = (x: In, index: number) => Out
   // RAMBDA_END
   type Ord = number | string | boolean
 
@@ -43,11 +47,6 @@ declare namespace R {
   }
 
   type Arity1Fn = (a: any) => any
-
-  type Predicate<T> = (input: T) => boolean
-  type PredicateLong<T> = (...inputs: T[]) => boolean
-  type Fn<In, Out> = (x: In) => Out
-  type FnTwo<In, Out> = (x: In, y: In) => Out
 
   interface CurriedTypeGuard2<T1, T2, R extends T2> {
     (t1: T1): (t2: T2) => t2 is R
@@ -144,7 +143,7 @@ declare namespace R {
     any<T>(predicate: Predicate<T>, list: T[]): boolean
     any<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
-    anyPass(preds: Predicate[]): Predicate
+    anyPass(predicates: Predicate[]): Predicate
 
     append<T>(lastToBe: T, list: T[]): T[]
     append<T>(lastToBe: T): <T>(list: T[]) => T[]
@@ -199,10 +198,10 @@ declare namespace R {
     concat(first: string, second: string): string
     concat(first: string): (second: string) => string
 
-    contains(a: string, list: string): boolean
-    contains<T>(a: T, list: T[]): boolean
-    contains(a: string): (list: string) => boolean
-    contains<T>(a: T): (list: T[]) => boolean
+    contains(target: string, list: string): boolean
+    contains<T>(target: T, list: T[]): boolean
+    contains(target: string): (list: string) => boolean
+    contains<T>(target: T): (list: T[]) => boolean
 
     curry<T1, T2, TResult extends T2>(fn: (a: T1, b: T2) => b is TResult): CurriedTypeGuard2<T1, T2, TResult>
     curry<T1, T2, T3, TResult extends T3>(fn: (a: T1, b: T2, c: T3) => c is TResult): CurriedTypeGuard3<T1, T2, T3, TResult>
@@ -218,8 +217,8 @@ declare namespace R {
 
     dec(n: number): number
 
-    defaultTo<T>(a: T, b: null | undefined | T): T
-    defaultTo<T>(a: T): (b: null | undefined | T) => T
+    defaultTo<T>(fallback: T, actualInput: null | undefined | T): T
+    defaultTo<T>(fallback: T): (actualInput: null | undefined | T) => T
 
     dissoc<T>(prop: string, obj: any): T
     dissoc(prop: string): <U>(obj: any) => U
@@ -241,11 +240,12 @@ declare namespace R {
       (input: string): string
     }
 
-    either(pred1: Pred, pred2: Pred): Pred
-    either(pred1: Pred): (pred2: Pred) => Pred
 
-    endsWith(x: string, str: string): boolean
-    endsWith(x: string): (str: string) => boolean
+    either<T>(firstRule: Predicate<T>, secondRule: Predicate<T>): Predicate<T>
+    either<T>(firstRule: Predicate<T>): (secondRule: Predicate<T>) => Predicate<T>
+
+    endsWith(target: string, input: string): boolean
+    endsWith(target: string): (input: string) => boolean
 
     equals<T>(a: T, b: T): boolean
     equals<T>(a: T): (b: T) => boolean
@@ -256,51 +256,53 @@ declare namespace R {
     filter<T>(fn: FilterFunction<T>, list: T[]): T[]
     filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
 
-    find<T>(fn: (a: T) => boolean, list: T[]): T | undefined
-    find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined
+    find<T>(predicate: Predicate<T>, list: T[]): T | undefined
+    find<T>(predicate: Predicate<T>): (list: T[]) => T | undefined
 
-    findIndex<T>(fn: (a: T) => boolean, list: T[]): number
-    findIndex<T>(fn: (a: T) => boolean): (list: T[]) => number
+    findIndex<T>(predicate: Predicate<T>, list: T[]): number
+    findIndex<T>(predicate: Predicate<T>): (list: T[]) => number
 
     flatten<T>(x: Array<T[]|T>): T[]
 
     flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
     flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult
 
-    forEach<T>(fn: (x: T) => void, list: T[]): T[]
-    forEach<T>(fn: (x: T) => void): (list: T[]) => T[]
-    forEach<T>(fn: (x: T) => void, list: T[]): T[]
-    forEach<T>(fn: (x: T) => void): (list: T[]) => T[]
+    forEach<T>(fn: MapFn<T, any>, list: T[]): T[]
+    forEach<T>(fn: MapFn<T, any>): (list: T[]) => T[]
 
     groupBy<T>(fn: (x: T) => string, list: T[]): { [index: string]: T[] }
     groupBy<T>(fn: (x: T) => string): (list: T[]) => { [index: string]: T[] }
 
-    has<T>(s: string, obj: T): boolean
-    has(s: string): <T>(obj: T) => boolean
+    has<T>(prop: string, obj: T): boolean
+    has(prop: string): <T>(obj: T) => boolean
 
     head<T>(list: T[]): T | undefined
     head(list: string): string
 
     identity<T>(x: T): T
 
-    ifElse(fn: Pred | boolean, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
+    ifElse(
+      fn: Predicate<any> | boolean, 
+      onTrue: Arity1Fn, 
+      onFalse: Arity1Fn
+    ): Arity1Fn
 
     inc(n: number): number
 
-    includes(target: any, input: any): boolean
-    includes(target: any) : (input: any) => boolean
+    includes(target: any, input: string|Array): boolean
+    includes(target: any) : (input: string|Array) => boolean
 
     indexBy<T>(fn: (x: T) => string, list: T[]): { [key: string]: T }
     indexBy<T>(fn: (x: T) => string): (list: T[]) => { [key: string]: T }
 
-    indexOf<T>(x: T, arr: T[]): number;
-    indexOf<T>(x: T): (arr: T[]) => number;
+    indexOf<T>(target: T, arr: T[]): number;
+    indexOf<T>(target: T): (arr: T[]) => number;
 
     init<T>(list: T[]): T[]
     init(list: string): string
 
-    is(xPrototype: any, x: any): boolean
-    is(xPrototype: any): (x: any) => boolean
+    is(inputPrototype: any, input: any): boolean
+    is(inputPrototype: any): (input: any) => boolean
 
     isNil(value: any): value is null | undefined
 
@@ -326,11 +328,11 @@ declare namespace R {
       obj: Dictionary<In>
     ): Dictionary<Out>
 
-    match(regexp: RegExp, str: string): any[]
-    match(regexp: RegExp): (str: string) => any[]
+    match(regexp: RegExp, input: string): any[]
+    match(regexp: RegExp): (input: string) => any[]
 
-    merge<T1, T2>(a: T1, b: T2): T1 & T2
-    merge<T1>(a: T1): <T2>(b: T2) => T1 & T2
+    merge<T1, T2>(a: T1, canOverwriteA: T2): T1 & T2
+    merge<T1>(a: T1): <T2>(canOverwriteA: T2) => T1 & T2
 
     modulo(a: number, b: number): number
     modulo(a: number): (b: number) => number
@@ -352,8 +354,8 @@ declare namespace R {
     minBy<T>(keyFn: Function, a: T): (b: T) => T
     minBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
 
-    none<T>(fn: (x: T) => boolean, list: T[]): boolean
-    none<T>(fn: (x: T) => boolean): (list: T[]) => boolean
+    none<T>(predicate: Predicate<T>, list: T[]): boolean
+    none<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
     not(value: any): boolean
     nth<T>(n: number, list: Array<T>): T | undefined;

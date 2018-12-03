@@ -49,3 +49,18 @@ test('with empty list', () => {
 
   expect(result).toEqual(list)
 })
+
+test('returns the input', () => {
+  const list = [1,2,3]
+  const result = forEach(x => x * x)(list)
+
+  expect(result).toEqual(list)
+})
+
+test('pass index as second argument', () => {
+  const list = [11,21,31]
+  const indexes = []
+  const result = forEach((x, i) => indexes.push(i))(list)
+
+  expect(indexes).toEqual([0,1,2])
+})
