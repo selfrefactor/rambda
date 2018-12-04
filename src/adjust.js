@@ -1,9 +1,6 @@
-export function adjust(fn, index, arr) {
-  if (index === undefined) {
-    return (indexHolder, arrHolder) => adjust(fn, indexHolder, arrHolder)
-  } else if (arr === undefined) {
-    return arrHolder => adjust(fn, index, arrHolder)
-  }
+import {curry} from './curry'
+
+function adjustRaw(fn, index, arr) {
   const clone = arr.concat()
 
   return clone.map((val, key) => {
@@ -14,3 +11,5 @@ export function adjust(fn, index, arr) {
     return val
   })
 }
+
+export const adjust = curry(adjustRaw)

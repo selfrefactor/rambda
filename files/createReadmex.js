@@ -1,7 +1,4 @@
 const {
-  all,
-  replace,
-  multiline,
   match,
   remove,
 } = require('rambdax')

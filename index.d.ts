@@ -32,7 +32,8 @@ declare namespace R {
   interface Dictionary<T> {
     [index: string]: T
   }
-  type Predicate<T> = (input: T) => boolean
+  type Pred<T> = (input: T) => boolean
+  type Predicate<T> = (input: T, index: number) => boolean
   type Fn<In, Out> = (x: In) => Out
   type FnTwo<In, Out> = (x: In, y: In) => Out
   type MapFn<In, Out> = (x: In, index: number) => Out
@@ -130,11 +131,11 @@ declare namespace R {
     add(a: number): (b: number) => number
     add(first: string): (second: string) => string
 
-    adjust<T>(predicate: Fn<T, T>, index: number, list: T[]): T[]
-    adjust<T>(predicate: Fn<T, T>, index: number): (list: T[]) => T[]
+    adjust<T>(fn: Fn<T, T>, index: number, list: T[]): T[]
+    adjust<T>(fn: Fn<T, T>, index: number): (list: T[]) => T[]
 
-    all<T>(predicate: Fn<T, boolean>, list: T[]): boolean
-    all<T>(predicate: Fn<T, boolean>): (list: T[]) => boolean
+    all<T>(predicate: Predicate<T>, list: T[]): boolean
+    all<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
     allPass(predicates: Predicate[]): Predicate
 

@@ -13,3 +13,14 @@ test('when false', () => {
 
   expect(all(fn, numArr)).toBeFalsy()
 })
+
+test('pass index as second argument', () => {
+  const indexes = []
+  const fn = (x, i) => {
+    indexes.push(i)
+    return x > 5
+  }  
+  all(fn, [10,12,14])
+
+  expect(indexes).toEqual([0,1,2])
+})
