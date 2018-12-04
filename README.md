@@ -98,7 +98,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
+https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -111,7 +111,9 @@ https://unpkg.com/rambda@1.2.4/dist/rambda.umd.js
 
 - Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
 
-- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays. The same applies to Rambda's **all/any/none** methods.
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+
+- Rambda's **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
