@@ -153,8 +153,8 @@ declare namespace R {
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
 
-    both<T>(firstRule: Predicate<T>, secondRule: Predicate<T>): Predicate<T>
-    both<T>(firstRule: Predicate<T>): (secondRule: Predicate<T>) => Predicate<T>
+    both<T>(firstRule: Pred<T>, secondRule: Pred<T>): Pred<T>
+    both<T>(firstRule: Pred<T>): (secondRule: Pred<T>) => Pred<T>
 
     complement<Out>(fn: Fn<any, Out>): Fn<any, Out>
 
@@ -241,9 +241,8 @@ declare namespace R {
       (input: string): string
     }
 
-
-    either<T>(firstRule: Predicate<T>, secondRule: Predicate<T>): Predicate<T>
-    either<T>(firstRule: Predicate<T>): (secondRule: Predicate<T>) => Predicate<T>
+    either<T>(firstRule: Pred<T>, secondRule: Pred<T>): Pred<T>
+    either<T>(firstRule: Pred<T>): (secondRule: Pred<T>) => Pred<T>
 
     endsWith(target: string, input: string): boolean
     endsWith(target: string): (input: string) => boolean
@@ -257,8 +256,8 @@ declare namespace R {
     filter<T>(fn: FilterFunction<T>, list: T[]): T[]
     filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
 
-    find<T>(predicate: Predicate<T>, list: T[]): T | undefined
-    find<T>(predicate: Predicate<T>): (list: T[]) => T | undefined
+    find<T>(predicate: Pred<T>, list: T[]): T | undefined
+    find<T>(predicate: Pred<T>): (list: T[]) => T | undefined
 
     findIndex<T>(predicate: Predicate<T>, list: T[]): number
     findIndex<T>(predicate: Predicate<T>): (list: T[]) => number
@@ -355,8 +354,8 @@ declare namespace R {
     minBy<T>(keyFn: Function, a: T): (b: T) => T
     minBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
 
-    none<T>(predicate: Predicate<T>, list: T[]): boolean
-    none<T>(predicate: Predicate<T>): (list: T[]) => boolean
+    none<T>(predicate: Pred<T>, list: T[]): boolean
+    none<T>(predicate: Pred<T>): (list: T[]) => boolean
 
     not<T>(value: T): boolean
     nth<T>(n: number, list: Array<T>): T | undefined;
