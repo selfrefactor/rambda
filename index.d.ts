@@ -137,14 +137,26 @@ declare namespace R {
     all<T>(predicate: Predicate<T>, list: T[]): boolean
     all<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
-    allPass<T>(predicates: Predicate<T>[]): Predicate<T>
+    allPass<T>(
+      predicates: Predicate<T>[],
+      input: any
+    ): boolean
+    allPass<T>(
+      predicates: Predicate<T>[]
+    ): (input: any) => boolean
 
     always<T>(x: T): () => T
 
     any<T>(predicate: Predicate<T>, list: T[]): boolean
     any<T>(predicate: Predicate<T>): (list: T[]) => boolean
 
-    anyPass<T>(predicates: Predicate<T>[]): Predicate<T>
+    anyPass<T>(
+      predicates: Predicate<T>[],
+      input: any
+    ): boolean
+    anyPass<T>(
+      predicates: Predicate<T>[]
+    ): (input: any) => boolean
 
     append<T>(lastToBe: T, list: T[]): T[]
     append<T>(lastToBe: T): <T>(list: T[]) => T[]
