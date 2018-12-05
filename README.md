@@ -216,6 +216,10 @@ const fn = R.always(7)
 console.log(fn())// => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/always.js)
+
+<a href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconsole.log(fn())%2F%2F%20%3D%3E%207">Try in REPL</a>
+
 ---
 #### any
 
@@ -282,6 +286,10 @@ R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/assoc.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try in REPL</a>
+
 ---
 #### both
 
@@ -297,6 +305,10 @@ const fn = R.both(
 console.log(fn(15)) //=> true
 console.log(fn(30)) //=> false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/both.js)
+
+<a href="https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
 ---
 #### compose
@@ -349,6 +361,10 @@ R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo')('bar') // => 'foobar'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.concat(%5B1%2C%202%5D)(%5B3%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%5D%0AR.concat('foo')('bar')%20%2F%2F%20%3D%3E%20'foobar'">Try in REPL</a>
+
 ---
 #### contains
 
@@ -396,6 +412,10 @@ It decrements a number.
 ```
 R.dec(2) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/dec.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.dec(2)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
 #### defaultTo
@@ -531,6 +551,8 @@ R.equals(
 #### F
 
 `R.F() // => false`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/F.js)
 
 ---
 #### filter
@@ -717,6 +739,10 @@ It just passes back the supplied arguments.
 R.identity(7) // => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/identity.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.identity(7)%20%2F%2F%20%3D%3E%207">Try in REPL</a>
+
 ---
 #### ifElse
 
@@ -754,6 +780,10 @@ It increments a number.
 ```
 R.inc(1) // => 2
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/inc.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.inc(1)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
 
 ---
 #### includes
@@ -838,6 +868,10 @@ R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/is.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F%2F%20%3D%3E%20true%0AR.is(Array%2C%201)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+
 ---
 #### isNil
 
@@ -875,6 +909,10 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/keys.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.keys(%7Ba%3A1%2C%20b%3A2%7D)%20%20%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%5D">Try in REPL</a>
 
 ---
 #### last
@@ -920,6 +958,10 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
 R.length([1, 2, 3]) // => 3
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/length.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.length(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%203">Try in REPL</a>
 
 ---
 #### map
@@ -969,6 +1011,10 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 R.max(5,7) // => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/max.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%207">Try in REPL</a>
+
 ---
 #### maxBy
 
@@ -977,6 +1023,10 @@ R.max(5,7) // => 7
 ```
 R.maxBy(Math.abs, 5, -7) // => -7
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/maxBy.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.maxBy(Math.abs%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try in REPL</a>
 
 ---
 #### merge
@@ -1003,6 +1053,10 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 R.max(5,7) // => 5
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
+
 ---
 #### minBy
 
@@ -1011,6 +1065,10 @@ R.max(5,7) // => 5
 ```
 R.minBy(Math.abs, -5, -7) // => -5
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/minBy.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.minBy(Math.abs%2C%20-5%2C%20-7)%20%2F%2F%20%3D%3E%20-5">Try in REPL</a>
 
 ---
 #### modulo
@@ -1023,6 +1081,10 @@ It returns the remainder of operation `a/b`.
 R.module(14, 3) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/modulo.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.module(14%2C%203)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
+
 ---
 #### multiply
 
@@ -1033,6 +1095,10 @@ It returns the result of operation `a*b`.
 ```
 R.multiply(4, 3) // => 12
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/multiply.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.multiply(4%2C%203)%20%2F%2F%20%3D%3E%2012">Try in REPL</a>
 
 ---
 #### not
@@ -1047,6 +1113,10 @@ R.not(false) //=> true
 R.not(0) //=> true
 R.not(1) //=> false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/not.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.not(true)%20%2F%2F%3D%3E%20false%0AR.not(false)%20%2F%2F%3D%3E%20true%0AR.not(0)%20%2F%2F%3D%3E%20true%0AR.not(1)%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
 ---
 #### omit
@@ -1432,10 +1502,16 @@ R.startsWith(
 R.subtract(3, 1) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/subtract.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.subtract(3%2C%201)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
+
 ---
 #### T
 
 `R.T() // => true`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/T.js)
 
 ---
 #### tail
@@ -1500,6 +1576,10 @@ const result = R.tap(sayX, 100)
 // both `a` and `result` are `100`
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/tap.js)
+
+<a href="https://rambda.now.sh?let%20a%20%3D%201%0Aconst%20sayX%20%3D%20x%20%3D%3E%20(a%20%3D%20x)%0A%0Aconst%20result%20%3D%20R.tap(sayX%2C%20100)%0A%2F%2F%20both%20%60a%60%20and%20%60result%60%20are%20%60100%60">Try in REPL</a>
+
 ---
 #### test
 
@@ -1542,6 +1622,10 @@ R.times(R.identity, 5)
 R.toLower('FOO') // => 'foo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toLower.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.toLower('FOO')%20%2F%2F%20%3D%3E%20'foo'">Try in REPL</a>
+
 ---
 #### toString
 
@@ -1550,6 +1634,10 @@ R.toLower('FOO') // => 'foo'
 ```
 R.toString([1, 2]) // => '1,2'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toString.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.toString(%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20'1%2C2'">Try in REPL</a>
 
 ---
 #### toUpper
@@ -1560,6 +1648,10 @@ R.toString([1, 2]) // => '1,2'
 R.toUpper('foo') // => 'FOO'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toUpper.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.toUpper('foo')%20%2F%2F%20%3D%3E%20'FOO'">Try in REPL</a>
+
 ---
 #### trim
 
@@ -1568,6 +1660,10 @@ R.toUpper('foo') // => 'FOO'
 ```
 R.trim('  foo  ') // => 'foo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/trim.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.trim('%20%20foo%20%20')%20%2F%2F%20%3D%3E%20'foo'">Try in REPL</a>
 
 ---
 #### type
@@ -1715,6 +1811,10 @@ R.zip([1, 2, 3, 4], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zip.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.zip(%5B1%2C%202%5D%2C%20%5B'A'%2C%20'B'%5D)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zip(%5B1%2C%202%2C%203%2C%204%5D%2C%20%5B'A'%2C%20'B'%5D)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D">Try in REPL</a>
+
 ---
 #### zipObj
 
@@ -1730,6 +1830,13 @@ R.zipObj(['a', 'b', 'c'], [1, 2, 3])
 R.zipObj(['a', 'b', 'c'], [1, 2])
 //=> {a: 1, b: 2}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zipObj.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.zipObj(%5B'a'%2C%20'b'%2C%20'c'%5D%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zipObj(%5B'a'%2C%20'b'%2C%20'c'%5D%2C%20%5B1%2C%202%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%7D">Try in REPL</a>
+
+---
+#### ---
 
 ## Benchmark
 
