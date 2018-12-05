@@ -370,8 +370,8 @@ declare namespace R {
     none<T>(predicate: Pred<T>): (list: T[]) => boolean
 
     not<T>(value: T): boolean
-    nth<T>(n: number, list: Array<T>): T | undefined;
-    nth(n: number): <T>(list: Array<T>) => T | undefined;
+    nth<T>(n: number, list: T[]): T | undefined;
+    nth(n: number): <T>(list: T[]) => T | undefined;
 
     omit<T, K extends Array<keyof T>>(names: K, obj: T): Omit<T, K[number]>
     omit<T, K extends keyof T>(name: K, obj: T): Omit<T, K>
@@ -533,8 +533,11 @@ declare namespace R {
     without<T>(listOfWithouts: T[], input: T[]): T[]
     without<T>(listOfWithouts: T[]): (input: T[]) => T[]
 
-    zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
-    zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T }
+    zip<K, V>(list1: K[], list2: V[]): Array<KeyValuePair<K, V>>
+    zip<K>(list1: K[]): <V>(list2: V[]) => Array<KeyValuePair<K, V>>
+
+    zipObj<T>(keys: string[], values: T[]): { [index: string]: T }
+    zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T }
     // RAMBDA_END_MARKER
   }
 }
