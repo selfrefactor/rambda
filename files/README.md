@@ -193,6 +193,8 @@ const fn = R.always(7)
 console.log(fn())// => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/always.js)
+
 #### any
 
 > any(condition: Function, arr: T[]): boolean
@@ -249,6 +251,8 @@ R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/assoc.js)
+
 #### both
 
 > both(firstCondition: Function, secondCondition: Function, input: any): boolean
@@ -263,6 +267,8 @@ const fn = R.both(
 console.log(fn(15)) //=> true
 console.log(fn(30)) //=> false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/both.js)
 
 #### compose
 
@@ -308,6 +314,8 @@ R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo')('bar') // => 'foobar'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
+
 #### contains
 
 > contains(valueToFind: T, arr: T[]): boolean
@@ -348,6 +356,8 @@ It decrements a number.
 ```
 R.dec(2) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/dec.js)
 
 #### defaultTo
 
@@ -460,6 +470,8 @@ R.equals(
 #### F
 
 `R.F() // => false`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/F.js)
 
 #### filter
 
@@ -618,6 +630,8 @@ It just passes back the supplied arguments.
 R.identity(7) // => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/identity.js)
+
 #### ifElse
 
 > ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
@@ -651,6 +665,8 @@ It increments a number.
 ```
 R.inc(1) // => 2
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/inc.js)
 
 #### includes
 
@@ -722,6 +738,8 @@ R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/is.js)
+
 #### isNil
 
 > isNil(x: any): boolean
@@ -752,6 +770,8 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/keys.js)
 
 #### last
 
@@ -790,6 +810,8 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
 R.length([1, 2, 3]) // => 3
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/length.js)
 
 #### map
 
@@ -832,6 +854,8 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 R.max(5,7) // => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/max.js)
+
 #### maxBy
 
 > maxBy(fn: Function, x: Number|String, y: Number|String): Number|String
@@ -839,6 +863,8 @@ R.max(5,7) // => 7
 ```
 R.maxBy(Math.abs, 5, -7) // => -7
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/maxBy.js)
 
 #### merge
 
@@ -861,6 +887,8 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 R.max(5,7) // => 5
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
+
 #### minBy
 
 > minBy(fn: Function, x: Number|String, y: Number|String): Number|String
@@ -868,6 +896,8 @@ R.max(5,7) // => 5
 ```
 R.minBy(Math.abs, -5, -7) // => -5
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/minBy.js)
 
 #### modulo
 
@@ -879,6 +909,8 @@ It returns the remainder of operation `a/b`.
 R.module(14, 3) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/modulo.js)
+
 #### multiply
 
 > multiply(a: number, b: number): number
@@ -888,6 +920,8 @@ It returns the result of operation `a*b`.
 ```
 R.multiply(4, 3) // => 12
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/multiply.js)
 
 #### not
 
@@ -901,6 +935,8 @@ R.not(false) //=> true
 R.not(0) //=> true
 R.not(1) //=> false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/not.js)
 
 #### omit
 
@@ -1222,9 +1258,13 @@ R.startsWith(
 R.subtract(3, 1) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/subtract.js)
+
 #### T
 
 `R.T() // => true`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/T.js)
 
 #### tail
 
@@ -1279,6 +1319,8 @@ const result = R.tap(sayX, 100)
 // both `a` and `result` are `100`
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/tap.js)
+
 #### test
 
 > test(regExpression: Regex, str: string): boolean
@@ -1314,6 +1356,8 @@ R.times(R.identity, 5)
 R.toLower('FOO') // => 'foo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toLower.js)
+
 #### toString
 
 > toString(x: any): string
@@ -1321,6 +1365,8 @@ R.toLower('FOO') // => 'foo'
 ```
 R.toString([1, 2]) // => '1,2'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toString.js)
 
 #### toUpper
 
@@ -1330,6 +1376,8 @@ R.toString([1, 2]) // => '1,2'
 R.toUpper('foo') // => 'FOO'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toUpper.js)
+
 #### trim
 
 > trim(str: string): string
@@ -1337,6 +1385,8 @@ R.toUpper('foo') // => 'FOO'
 ```
 R.trim('  foo  ') // => 'foo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/trim.js)
 
 #### type
 
@@ -1465,6 +1515,8 @@ R.zip([1, 2, 3, 4], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zip.js)
+
 #### zipObj
 
 > zipObj(a: K[], b: V[]): Object
@@ -1479,6 +1531,10 @@ R.zipObj(['a', 'b', 'c'], [1, 2, 3])
 R.zipObj(['a', 'b', 'c'], [1, 2])
 //=> {a: 1, b: 2}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zipObj.js)
+
+#### ---
 
 ## Benchmark
 
