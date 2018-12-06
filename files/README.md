@@ -1203,7 +1203,7 @@ const result = R.sortBy(sortFn, [
 ])
 
 const expectedResult = [ {foo: 0}, {foo: 1} ]
-console.log(result === expectedResult)
+console.log(R.equals(result === expectedResult))
 // => true
 ```
 
@@ -1451,7 +1451,7 @@ const fn = (x,y) => x.title === y.title
 
 const result = R.uniqWith(fn, arr)
 
-console.log(result === expectedResult) // => true
+console.log(R.equals(result === expectedResult)) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/uniqWith.js)
