@@ -127,7 +127,7 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 R.add(2, 3) // =>  5
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/add.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
 
 #### adjust
 
@@ -143,7 +143,7 @@ R.adjust(
 ) // => [1, 100]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/adjust.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/adjust.js)
 
 #### all
 
@@ -159,7 +159,7 @@ const result = R.all(fn, arr)
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/all.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/all.js)
 
 #### allPass
 
@@ -179,7 +179,7 @@ const rules = [
 const result = R.allPass(rules, input) // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/allPass.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/allPass.js)
 
 #### always
 
@@ -193,6 +193,8 @@ const fn = R.always(7)
 console.log(fn())// => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/always.js)
+
 #### any
 
 > any(condition: Function, arr: T[]): boolean
@@ -204,7 +206,7 @@ R.any(a => a * a > 8)([1, 2, 3])
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/any.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/any.js)
 
 #### anyPass
 
@@ -220,7 +222,7 @@ const result = R.anyPass(
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/anyPass.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/anyPass.js)
 
 #### append
 
@@ -233,7 +235,7 @@ R.append(
 ) // => ['bar', 'baz', 'foo']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/append.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/append.js)
 
 #### assoc
 
@@ -248,6 +250,8 @@ reference.
 R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/assoc.js)
 
 #### both
 
@@ -264,6 +268,8 @@ console.log(fn(15)) //=> true
 console.log(fn(30)) //=> false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/both.js)
+
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
@@ -279,7 +285,7 @@ const result = R.compose(
 // => [6, 8]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/compose.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/compose.js)
 
 #### complement
 
@@ -295,7 +301,7 @@ const fn = R.complement(x => !x)
 const result = fn(false) // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/complement.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/complement.js)
 
 #### concat
 
@@ -307,6 +313,8 @@ It returns a new string or array, which is the result of merging `x` and `y`.
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo')('bar') // => 'foobar'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
 
 #### contains
 
@@ -321,7 +329,7 @@ R.contains(2, [1, 2]) // => true
 R.contains(3, [1, 2]) // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/contains.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/contains.js)
 
 #### curry
 
@@ -337,7 +345,7 @@ const g = f(3)
 const result = g(4) // => 10
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/curry.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/curry.js)
 
 #### dec
 
@@ -348,6 +356,8 @@ It decrements a number.
 ```
 R.dec(2) // => 1
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/dec.js)
 
 #### defaultTo
 
@@ -362,7 +372,7 @@ R.defaultTo('foo', undefined) // => 'foo'
 R.defaultTo('foo', 'bar') // => 'bar'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/defaultTo.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/defaultTo.js)
 
 #### dissoc
 
@@ -375,7 +385,7 @@ R.dissoc('b', {a: 1, b: 2, c: 3})
 //=> {a: 1, c: 3}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/dissoc.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/dissoc.js)
 
 #### divide
 
@@ -394,7 +404,7 @@ R.drop(1, ['foo', 'bar', 'baz']) // => ['bar', 'baz']
 R.drop(1, 'foo')  // => 'oo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/drop.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/drop.js)
 
 #### dropLast
 
@@ -407,7 +417,7 @@ R.dropLast(1, ['foo', 'bar', 'baz']) // => ['foo', 'bar']
 R.dropLast(1, 'foo')  // => 'fo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/dropLast.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/dropLast.js)
 
 #### endsWith
 
@@ -425,7 +435,7 @@ R.endsWith(
 ) // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/endsWith.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/endsWith.js)
 
 #### either
 
@@ -438,7 +448,7 @@ R.either(
 )(15) //=> true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/either.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/either.js)
 
 #### equals
 
@@ -455,11 +465,13 @@ R.equals(
 ) // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/equals.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/equals.js)
 
 #### F
 
 `R.F() // => false`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/F.js)
 
 #### filter
 
@@ -486,7 +498,7 @@ const result = R.filter((val, prop)=>{
 // => {a: 1, b: 2}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/filter.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/filter.js)
 
 #### find
 
@@ -502,7 +514,7 @@ const result = R.find(findFn, arr)
 // => {foo: 1}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/find.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/find.js)
 
 #### findIndex
 
@@ -518,7 +530,7 @@ const result = R.findIndex(findFn, arr)
 // => 1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/findIndex.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/findIndex.js)
 
 #### flatten
 
@@ -529,7 +541,7 @@ R.flatten([ 1, [ 2, [ 3 ] ] ])
 // => [ 1, 2, 3 ]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/flatten.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/flatten.js)
 
 #### flip
 
@@ -544,7 +556,7 @@ const result = subtractFlip(1,7)
 // => 6
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/flip.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/flip.js)
 
 #### forEach
 
@@ -564,7 +576,7 @@ console.log(result) //=> [1, 2]
 
 Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/forEach.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/forEach.js)
 
 #### groupBy
 
@@ -580,7 +592,7 @@ R.groupBy(
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/groupBy.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/groupBy.js)
 
 #### has
 
@@ -593,7 +605,7 @@ R.has('a', {a: 1}) // => true
 R.has('b', {a: 1}) // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/has.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/has.js)
 
 #### head
 
@@ -606,7 +618,7 @@ R.head([1, 2, 3]) // => 1
 R.head('foo') // => 'f'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/head.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/head.js)
 
 #### identity
 
@@ -617,6 +629,8 @@ It just passes back the supplied arguments.
 ```
 R.identity(7) // => 7
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/identity.js)
 
 #### ifElse
 
@@ -640,7 +654,7 @@ const result = fn(8)
 // => 80
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/ifElse.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/ifElse.js)
 
 #### inc
 
@@ -651,6 +665,8 @@ It increments a number.
 ```
 R.inc(1) // => 2
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/inc.js)
 
 #### includes
 
@@ -667,7 +683,7 @@ R.includes('z', null) // => false
 
 !! Note that this method is not part of `Ramda` API.
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/includes.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/includes.js)
 
 #### indexBy
 
@@ -683,7 +699,7 @@ R.indexBy(
 // => { 1: {id: 1}, 2: {id: 2} }
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexBy.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/indexBy.js)
 
 #### indexOf
 
@@ -696,7 +712,7 @@ R.indexOf(1, [1, 2]) // => 0
 R.indexOf(0, [1, 2]) // => -1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/indexOf.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/indexOf.js)
 
 #### init
 
@@ -709,7 +725,7 @@ R.init([1, 2, 3])  // => [1, 2]
 R.init('foo')  // => 'fo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/init.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/init.js)
 
 #### is
 
@@ -722,6 +738,8 @@ R.is(String, 'foo')  // => true
 R.is(Array, 1)  // => false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/is.js)
+
 #### isNil
 
 > isNil(x: any): boolean
@@ -733,7 +751,7 @@ R.isNil(null)  // => true
 R.isNil(1)  // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/isNil.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
 
 #### join
 
@@ -743,7 +761,7 @@ R.isNil(1)  // => false
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/join.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/join.js)
 
 #### keys
 
@@ -752,6 +770,8 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/keys.js)
 
 #### last
 
@@ -764,7 +784,7 @@ R.last(['foo', 'bar', 'baz']) // => 'baz'
 R.last('foo') // => 'o'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/last.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/last.js)
 
 #### lastIndexOf
 
@@ -781,7 +801,7 @@ R.lastIndexOf(1, [1, 2, 3, 1, 2]) // => 3
 R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/lastIndexOf.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/lastIndexOf.js)
 
 #### length
 
@@ -790,6 +810,8 @@ R.lastIndexOf(10, [1, 2, 3, 1, 2]) // => -1
 ```
 R.length([1, 2, 3]) // => 3
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/length.js)
 
 #### map
 
@@ -812,7 +834,7 @@ const result = R.map((val, prop)=>{
 // => {a: 'a-1', b: 'b-2'}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/map.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/map.js)
 
 #### match
 
@@ -822,7 +844,7 @@ const result = R.map((val, prop)=>{
 R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/match.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/match.js)
 
 #### max
 
@@ -832,6 +854,8 @@ R.match(/([a-z]a)/g, 'bananas') // => ['ba', 'na', 'na']
 R.max(5,7) // => 7
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/max.js)
+
 #### maxBy
 
 > maxBy(fn: Function, x: Number|String, y: Number|String): Number|String
@@ -839,6 +863,8 @@ R.max(5,7) // => 7
 ```
 R.maxBy(Math.abs, 5, -7) // => -7
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/maxBy.js)
 
 #### merge
 
@@ -851,7 +877,7 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 // => { 'foo': 7, 'bar': 1 }
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/merge.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/merge.js)
 
 #### min
 
@@ -861,6 +887,8 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 R.max(5,7) // => 5
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
+
 #### minBy
 
 > minBy(fn: Function, x: Number|String, y: Number|String): Number|String
@@ -868,6 +896,8 @@ R.max(5,7) // => 5
 ```
 R.minBy(Math.abs, -5, -7) // => -5
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/minBy.js)
 
 #### modulo
 
@@ -879,6 +909,8 @@ It returns the remainder of operation `a/b`.
 R.module(14, 3) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/modulo.js)
+
 #### multiply
 
 > multiply(a: number, b: number): number
@@ -888,6 +920,8 @@ It returns the result of operation `a*b`.
 ```
 R.multiply(4, 3) // => 12
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/multiply.js)
 
 #### not
 
@@ -902,6 +936,8 @@ R.not(0) //=> true
 R.not(1) //=> false
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/not.js)
+
 #### omit
 
 > omit(propsToOmit: string[]|string, obj: Object): Object
@@ -912,7 +948,7 @@ It returns a partial copy of an `obj` with omitting `propsToOmit`
 R.omit('a,c,d', {a: 1, b: 2, c: 3}) // => {b: 2}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/omit.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/omit.js)
 
 #### path
 
@@ -926,7 +962,7 @@ It will return `undefined`, if such path is not found.
 R.path('a.b', {a: {b: 1}}) // => 1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/path.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/path.js)
 
 #### pathOr
 
@@ -944,7 +980,7 @@ R.pathOr(1, ['a', 'b'], {a: {b: 2}}) // => 2
 R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pathOr.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/pathOr.js)
 
 #### partialCurry
 
@@ -971,7 +1007,7 @@ const result = curried({b: 3, c: 10})
 
 - You can read my argumentation for creating _partialCurry_ [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/partialCurry.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/partialCurry.js)
 
 #### pick
 
@@ -983,7 +1019,7 @@ It returns a partial copy of an `obj` containing only `propsToPick` properties.
 R.pick(['a', 'c'], {a: 1, b: 2}) // => {a: 1}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pick.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/pick.js)
 
 #### pipe
 
@@ -1000,7 +1036,7 @@ const result = R.pipe(
 // => [6, 8]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pipe.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/pipe.js)
 
 #### pluck
 
@@ -1012,7 +1048,7 @@ It returns list of the values of `property` taken from the objects in array of o
 R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) // => [1, 2]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/pluck.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/pluck.js)
 
 #### prepend
 
@@ -1024,7 +1060,7 @@ It adds `x` to the start of the array `arr`.
 R.prepend('foo', ['bar', 'baz']) // => ['foo', 'bar', 'baz']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/prepend.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/prepend.js)
 
 #### prop
 
@@ -1037,7 +1073,7 @@ R.prop('x', {x: 100}) // => 100
 R.prop('x', {a: 1}) // => undefined
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/prop.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/prop.js)
 
 #### propEq
 
@@ -1053,7 +1089,7 @@ const result = R.propEq(propToFind, valueToMatch)({foo: 0})
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/propEq.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propEq.js)
 
 #### range
 
@@ -1065,7 +1101,7 @@ It returns a array of numbers from `start`(inclusive) to `end`(exclusive).
 R.range(0, 3)   // => [0, 1, 2]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/range.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/range.js)
 
 #### reduce
 
@@ -1077,7 +1113,7 @@ const result = R.reduce(iteratorFn, 1, [1, 2, 3])
 // => 7
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reduce.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/reduce.js)
 
 #### reject
 
@@ -1094,7 +1130,7 @@ const result = R.reject(fn, [1, 2, 3, 4])
 // => [2, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reject.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/reject.js)
 
 #### repeat
 
@@ -1104,7 +1140,7 @@ const result = R.reject(fn, [1, 2, 3, 4])
 R.repeat('foo', 2) // => ['foo', 'foo']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/repeat.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/repeat.js)
 
 #### replace
 
@@ -1118,7 +1154,7 @@ R.replace(/foo/, 'bar', 'foo foo') // => 'bar foo'
 R.replace(/foo/g, 'bar', 'foo foo') // => 'bar bar'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/replace.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/replace.js)
 
 #### reverse
 
@@ -1131,7 +1167,7 @@ const result = R.reverse(arr)
 // => [2, 1]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/reverse.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/reverse.js)
 
 #### sort
 
@@ -1148,7 +1184,7 @@ const result = R.sort(sortFn, [3, 1, 2])
 // => [1, 2, 3]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/sort.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/sort.js)
 
 #### sortBy
 
@@ -1171,7 +1207,7 @@ console.log(result === expectedResult)
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/sortBy.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/sortBy.js)
 
 #### split
 
@@ -1181,7 +1217,7 @@ console.log(result === expectedResult)
 R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/split.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/split.js)
 
 #### splitEvery
 
@@ -1194,7 +1230,7 @@ R.splitEvery(2, [1, 2, 3]) // => [[1, 2], [3]]
 R.splitEvery(3, 'foobar') // => ['foo', 'bar']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/splitEvery.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/splitEvery.js)
 
 #### startsWith
 
@@ -1212,7 +1248,7 @@ R.startsWith(
 ) // => false
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/startsWith.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/startsWith.js)
 
 #### subtract
 
@@ -1222,9 +1258,13 @@ R.startsWith(
 R.subtract(3, 1) // => 2
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/subtract.js)
+
 #### T
 
 `R.T() // => true`
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/T.js)
 
 #### tail
 
@@ -1237,7 +1277,7 @@ R.tail([1, 2, 3])  // => [2, 3]
 R.tail('foo')  // => 'oo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/tail.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/tail.js)
 
 #### take
 
@@ -1250,7 +1290,7 @@ R.take(1, ['foo', 'bar']) // => ['foo']
 R.take(2, ['foo']) // => 'fo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/take.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/take.js)
 
 #### takeLast
 
@@ -1263,7 +1303,7 @@ R.takeLast(1, ['foo', 'bar']) // => ['bar']
 R.takeLast(2, ['foo']) // => 'oo'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/takeLast.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/takeLast.js)
 
 #### tap
 
@@ -1279,6 +1319,8 @@ const result = R.tap(sayX, 100)
 // both `a` and `result` are `100`
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/tap.js)
+
 #### test
 
 > test(regExpression: Regex, str: string): boolean
@@ -1290,7 +1332,7 @@ R.test(/^f/, 'foo')
 // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/test.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/test.js)
 
 #### times
 
@@ -1304,7 +1346,7 @@ R.times(R.identity, 5)
 //=> [0, 1, 2, 3, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/times.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/times.js)
 
 #### toLower
 
@@ -1314,6 +1356,8 @@ R.times(R.identity, 5)
 R.toLower('FOO') // => 'foo'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toLower.js)
+
 #### toString
 
 > toString(x: any): string
@@ -1321,6 +1365,8 @@ R.toLower('FOO') // => 'foo'
 ```
 R.toString([1, 2]) // => '1,2'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toString.js)
 
 #### toUpper
 
@@ -1330,6 +1376,8 @@ R.toString([1, 2]) // => '1,2'
 R.toUpper('foo') // => 'FOO'
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toUpper.js)
+
 #### trim
 
 > trim(str: string): string
@@ -1337,6 +1385,8 @@ R.toUpper('foo') // => 'FOO'
 ```
 R.trim('  foo  ') // => 'foo'
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/trim.js)
 
 #### type
 
@@ -1361,7 +1411,7 @@ const delay = ms => new Promise(resolve => {
 R.type(delay) // => 'Promise'
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/type.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/type.js)
 
 #### uniq
 
@@ -1374,7 +1424,7 @@ R.uniq([1, 1, 2, 1])
 // => [1, 2]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/uniq.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/uniq.js)
 
 #### uniqWith
 
@@ -1404,7 +1454,7 @@ const result = R.uniqWith(fn, arr)
 console.log(result === expectedResult) // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/uniqWith.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/uniqWith.js)
 
 #### update
 
@@ -1418,7 +1468,7 @@ R.update(0, 'foo', ['bar', 'baz'])
 // => ['foo', baz]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/update.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/update.js)
 
 #### values
 
@@ -1431,7 +1481,7 @@ R.values({a: 1, b: 2})
 // => [1, 2]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/values.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/values.js)
 
 #### without
 
@@ -1448,7 +1498,7 @@ R.without([1, 2], [1, 2, 3, 4])
 // => [3, 4]
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/modules/without.js)
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/without.js)
 
 #### zip
 
@@ -1465,6 +1515,8 @@ R.zip([1, 2, 3, 4], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zip.js)
+
 #### zipObj
 
 > zipObj(a: K[], b: V[]): Object
@@ -1479,6 +1531,10 @@ R.zipObj(['a', 'b', 'c'], [1, 2, 3])
 R.zipObj(['a', 'b', 'c'], [1, 2])
 //=> {a: 1, b: 2}
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/zipObj.js)
+
+#### ---
 
 ## Benchmark
 
