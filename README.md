@@ -1947,7 +1947,9 @@ import omit from 'rambda/lib/omit'
 
 - [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
-> Projects refering to Rambda
+> Links to Rambda
+
+- (https://mailchi.mp/webtoolsweekly/web-tools-280)[Web Tools Weekly]
 
 - (https://github.com/stoeffel/awesome-fp-js)[awesome-fp-js]
 

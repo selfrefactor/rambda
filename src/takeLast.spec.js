@@ -1,5 +1,6 @@
 import { takeLast } from './takeLast'
-test('', () => {
+
+test('with arrays', () => {
   expect(takeLast(1, [ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
 
   expect(takeLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([
@@ -24,7 +25,9 @@ test('', () => {
     'bar',
     'baz',
   ])
+})
 
+test('with strings', () => {
   expect(takeLast(3, 'rambda')).toEqual('bda')
 
   expect(takeLast(7, 'rambda')).toEqual('rambda')
