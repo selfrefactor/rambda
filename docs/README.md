@@ -1,4 +1,139 @@
-# Rambda - lightweight functional JS library
+[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
+[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
+
+# Rambda
+
+Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
+
+* [Example use](#example-use)
+* [Install](#install)
+* [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
+* [API](#api)
+* [Benchmark](#benchmark)
+* [Use with ES5](#use-with-es5)
+* [Changelog](#changelog)
+* [Additional info](#additional-info)
+* [Browse by category](#browse-by-category)
+
+## Rambda's advantages
+
+- Tree-shaking
+
+Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
+
+```
+------------------  --------
+file                size
+------------------  --------
+rollup/rambdax      206 B
+rollup/ramdaBabel   276 B
+rollup/lodash       278 B
+rollup/rambda       785 B
+parcel/lodash       1.2 KB
+parcel/rambdax      1.2 KB
+parcel/ramda        1.2 KB
+parcel/rambda       1.2 KB
+parcel/ramdaBabel   1.23 KB
+webpack/rambda      2 KB
+webpack/ramda       7.3 KB
+webpack/ramdaBabel  8.36 KB
+webpack/rambdax     26.71 KB
+webpack/lodash      70.76 KB
+rollup/ramda        92.16 KB
+```
+
+Also latest results of `bundle-phobia-cli`:
+
+```
+ℹ ramda (0.26.1) has 0 dependencies for a weight of 51.92KB (12.27KB gzipped)
+ℹ rambda (2.1.1) has 0 dependencies for a weight of 13.28KB (3.32KB gzipped)
+ℹ rambdax (1.3.0) has 0 dependencies for a weight of 31.52KB (8.95KB gzipped)
+```
+
+- Speed
+
+**Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
+
+You can clone this repo and run `yarn run benchmark all` to see for yourself.
+
+- dot notation for `R.path`
+
+Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
+
+In **Rambda** you have the choice to use dot notation(which is arguably more readable):
+
+```
+R.path('a.b', {a: {b: 1} })
+```
+
+- comma notation for `R.pick` and `R.omit`
+
+Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
+
+```
+R.pick('a,b', {a: 1 , b: 2, c: 3} })
+
+// No space allowed between properties
+```
+
+- Typescript included
+
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
+
+---
+
+**Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
+
+## Example use
+
+```javascript
+import {compose, map, filter} from 'rambda'
+
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
+// => [6, 8]
+```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+
+## Install
+
+- Use **yarn add rambda** for `Webpack` and `Node.js` usage
+
+- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
+
+```
+https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
+```
+
+## Differences between Rambda and Ramda
+
+- Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
+
+- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+
+- Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
+
+- Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
+
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+
+- Rambda's **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
+
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
+
+- Rambda's **partialCurry** is not part of Ramda API.
+
+- Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value. Also **Ramda** version will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
+
+> If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
 ## API
 
@@ -1710,6 +1845,345 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 ---
 #### ---
+
+## Benchmark
+
+Results of running `yarn benchmark`:
+
+```
+Running add.js
+  3 tests completed.
+
+  Rambda.add x 645,750,977 ops/sec ±1.21% (89 runs sampled)
+  Ramda.add  x  61,329,732 ops/sec ±4.57% (75 runs sampled)
+  Lodash.add x  49,915,718 ops/sec ±5.72% (74 runs sampled)
+
+Running adjust.js
+  2 tests completed.
+
+  Rambda.adjust x 2,356,436 ops/sec ±4.24% (72 runs sampled)
+  Ramda.adjust  x 8,249,572 ops/sec ±3.41% (76 runs sampled)
+
+Running any.js
+  3 tests completed.
+
+  Rambda.any  x 14,673,511 ops/sec ±4.50% (74 runs sampled)
+  Ramda.any   x  3,227,456 ops/sec ±5.51% (74 runs sampled)
+  Lodash.some x 11,964,478 ops/sec ±3.52% (74 runs sampled)
+
+Running append.js
+  2 tests completed.
+
+  Rambda.append x 3,020,920 ops/sec ±6.56% (70 runs sampled)
+  Ramda         x 2,381,626 ops/sec ±8.22% (74 runs sampled)
+
+Running assoc.js
+  3 tests completed.
+
+  Rambda.assoc x 1,091,819 ops/sec ±3.44% (82 runs sampled)
+  Ramda.assoc  x 5,780,540 ops/sec ±7.26% (75 runs sampled)
+  Lodash.set   x 7,025,930 ops/sec ±2.93% (84 runs sampled)
+
+Running compose.js
+  3 tests completed.
+
+  Rambda.compose   x 9,908,504 ops/sec ±7.20% (80 runs sampled)
+  Ramda            x   490,614 ops/sec ±3.65% (93 runs sampled)
+  Lodash.flowRight x 1,947,909 ops/sec ±3.05% (83 runs sampled)
+
+Running contains.js
+  3 tests completed.
+
+  Rambda.contains x  9,829,102 ops/sec ±5.41% (71 runs sampled)
+  Ramda           x 20,822,670 ops/sec ±7.20% (81 runs sampled)
+  Lodash.includes x 13,424,597 ops/sec ±1.43% (93 runs sampled)
+
+Running drop.js
+  2 tests completed.
+
+  Rambda.drop x 13,421,844 ops/sec ±1.96% (94 runs sampled)
+  Ramda       x  1,299,620 ops/sec ±0.56% (90 runs sampled)
+
+Running dropLast.js
+  2 tests completed.
+
+  Rambda.dropLast x 12,256,336 ops/sec ±2.98% (83 runs sampled)
+  Ramda           x    979,827 ops/sec ±0.85% (91 runs sampled)
+
+Running endsWith.js
+  2 tests completed.
+
+  Rambda.endsWith:
+  Ramda.endsWith  x 244,130 ops/sec ±0.80% (93 runs sampled)
+
+Running equals.js
+  3 tests completed.
+
+  Rambda.equals  x 776,908 ops/sec ±0.36% (95 runs sampled)
+  Ramda          x 130,283 ops/sec ±0.27% (96 runs sampled)
+  Lodash.isEqual x 324,492 ops/sec ±1.54% (91 runs sampled)
+
+Running filter.js
+  3 tests completed.
+
+  Rambda.filter x 8,972,564 ops/sec ±0.70% (93 runs sampled)
+  Ramda         x 2,828,593 ops/sec ±1.28% (92 runs sampled)
+  Lodash        x 7,988,026 ops/sec ±0.53% (91 runs sampled)
+
+Running find.js
+  3 tests completed.
+
+  Rambda.find x 15,377,832 ops/sec ±1.19% (94 runs sampled)
+  Ramda       x  3,552,442 ops/sec ±1.43% (93 runs sampled)
+  Lodash      x  6,795,695 ops/sec ±2.68% (83 runs sampled)
+
+Running findIndex.js
+  3 tests completed.
+
+  Rambda.findIndex x 74,769,765 ops/sec ±1.47% (89 runs sampled)
+  Ramda            x  4,495,595 ops/sec ±0.29% (86 runs sampled)
+  Lodash           x 18,412,494 ops/sec ±0.69% (94 runs sampled)
+
+Running flatMap.js
+  3 tests completed.
+
+  Rambda.flatMap:
+  Ramda.chain    x   693,304 ops/sec ±0.60% (92 runs sampled)
+  Lodash.flatMap x 5,010,798 ops/sec ±2.65% (91 runs sampled)
+
+Running flatten.js
+  3 tests completed.
+
+  Rambda.flatten x 11,422,824 ops/sec ±0.76% (83 runs sampled)
+  Ramda          x    511,591 ops/sec ±1.15% (93 runs sampled)
+  Lodash         x 11,886,203 ops/sec ±4.04% (90 runs sampled)
+
+Running head.js
+  3 tests completed.
+
+  Rambda.head x 666,523,533 ops/sec ±2.28% (90 runs sampled)
+  Ramda       x   4,108,249 ops/sec ±2.61% (81 runs sampled)
+  Lodash      x 635,064,083 ops/sec ±2.33% (90 runs sampled)
+
+Running headString.js
+  2 tests completed.
+
+  Rambda.head when string x 657,989,058 ops/sec ±2.97% (92 runs sampled)
+  Ramda                   x   4,359,516 ops/sec ±2.60% (90 runs sampled)
+
+Running indexOf.js
+  3 tests completed.
+
+  Rambda.indexOf x  70,001,108 ops/sec ±1.58% (88 runs sampled)
+  Ramda          x  29,813,338 ops/sec ±1.77% (83 runs sampled)
+  Lodash         x 113,836,928 ops/sec ±3.19% (84 runs sampled)
+
+Running init.js
+  3 tests completed.
+
+  Rambda.init x 65,121,775 ops/sec ±0.55% (90 runs sampled)
+  Ramda       x  3,826,157 ops/sec ±1.67% (90 runs sampled)
+  Lodash      x 65,335,623 ops/sec ±0.53% (94 runs sampled)
+
+Running initString.js
+  2 tests completed.
+
+  Rambda.init when string x 668,106,421 ops/sec ±0.28% (94 runs sampled)
+  Ramda                   x   1,859,185 ops/sec ±0.39% (92 runs sampled)
+
+Running last.js
+  3 tests completed.
+
+  Rambda.last x 685,930,416 ops/sec ±0.68% (92 runs sampled)
+  Ramda       x   4,691,688 ops/sec ±0.40% (92 runs sampled)
+  Lodash      x 661,001,582 ops/sec ±0.15% (92 runs sampled)
+
+Running map.js
+  3 tests completed.
+
+  Rambda.map x 38,639,887 ops/sec ±2.84% (85 runs sampled)
+  Ramda      x  3,183,185 ops/sec ±0.56% (90 runs sampled)
+  Lodash     x 10,962,353 ops/sec ±0.67% (95 runs sampled)
+
+Running match.js
+  2 tests completed.
+
+  Rambda.match x 5,426,665 ops/sec ±0.86% (91 runs sampled)
+  Ramda        x 2,047,681 ops/sec ±1.77% (91 runs sampled)
+
+Running merge.js
+  3 tests completed.
+
+  Rambda.merge x 1,863,285 ops/sec ±1.01% (94 runs sampled)
+  Ramda        x 1,697,063 ops/sec ±0.57% (93 runs sampled)
+  Lodash       x 3,204,496 ops/sec ±1.92% (93 runs sampled)
+
+Running omit.js
+  3 tests completed.
+
+  Rambda.omit x 16,131,957 ops/sec ±2.29% (88 runs sampled)
+  Ramda       x  5,550,336 ops/sec ±1.11% (87 runs sampled)
+  Lodash      x    462,267 ops/sec ±0.48% (95 runs sampled)
+
+Running path.js
+  3 tests completed.
+
+  Rambda.path x 19,324,789 ops/sec ±2.32% (84 runs sampled)
+  Ramda       x 12,023,590 ops/sec ±0.56% (94 runs sampled)
+  Lodash.get  x 23,917,540 ops/sec ±0.20% (91 runs sampled)
+
+Running pick.js
+  3 tests completed.
+
+  Rambda#pick x 14,718,599 ops/sec ±1.11% (90 runs sampled)
+  Ramda       x  2,743,200 ops/sec ±2.89% (88 runs sampled)
+  Lodash      x  1,163,711 ops/sec ±0.65% (85 runs sampled)
+
+Running pipe.js
+  3 tests completed.
+
+  Rambda.pipe x 4,882,396 ops/sec ±2.63% (84 runs sampled)
+  Ramda       x   684,076 ops/sec ±0.36% (93 runs sampled)
+  Lodash.flow x 2,249,643 ops/sec ±2.35% (87 runs sampled)
+
+Running prop.js
+  2 tests completed.
+
+  Rambda#prop x 24,454,343 ops/sec ±2.82% (77 runs sampled)
+  Ramda       x  2,465,343 ops/sec ±3.22% (86 runs sampled)
+
+Running propEq.js
+  2 tests completed.
+
+  Rambda#propEq x 21,726,907 ops/sec ±2.71% (83 runs sampled)
+  Ramda         x  2,529,510 ops/sec ±0.46% (92 runs sampled)
+
+Running range.js
+  3 tests completed.
+
+  Rambda#range x 17,206,190 ops/sec ±0.96% (92 runs sampled)
+  Ramda        x 10,920,367 ops/sec ±2.85% (86 runs sampled)
+  Lodash       x 15,615,720 ops/sec ±2.36% (89 runs sampled)
+
+Running reduce.js
+  3 tests completed.
+
+  Rambda#reduce x 9,780,084 ops/sec ±2.58% (88 runs sampled)
+  Ramda         x 2,606,911 ops/sec ±1.13% (91 runs sampled)
+  Lodash        x 8,901,216 ops/sec ±0.85% (9
+```
+
+## Use with ES5
+
+```
+import omit from 'rambda/lib/omit'
+```
+
+## Changelog
+
+- 2.1.0 Restore `R.zip` using [WatermelonDB](https://github.com/Nozbe/WatermelonDB/) implementation.
+
+- 2.0.0 Major version caused by removing of `R.zip` and `R.addIndex`. [Issue #85](https://github.com/selfrefactor/rambda/issues/85) rightfully finds that the implementation of `R.addIndex` is not correct. This led to removing this method and also of `R.zip` as it had depended on it. The second change is that `R.map`, `R.filter` are passing array index as second argument when looping over arrays. The third change is that `R.includes` will return `false` if input is neigher `string` nor `array`. The previous behaviour was to throw an error. The last change is to increase the number of methods that are passing index as second argument to the predicate function.
+
+- 1.2.6 Use `src` folder instead of `modules`
+- 1.2.5 Fix `omit` typing
+- 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
+- 1.2.3 Doesn't exist because NPM is great at handling errors.
+- 1.2.2 Change curry method used across most of library methods
+- 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
+- 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
+- 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
+- 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
+- 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
+- 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
+- 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
+- 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
+- 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
+- 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
+- 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
+- 1.0.10 Close [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
+- 1.0.9 Close [issue #58](https://github.com/selfrefactor/rambda/issues/58) - Incorrect `R.equals`
+- 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
+- 1.0.7 Add `R.uniqWith`
+- 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
+- 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
+- 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
+- 1.0.3 `R.ifElse` accept also boolean as condition argument
+- 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
+- 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
+- 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
+- 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
+- 0.9.6 Close [issue #44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
+- 0.9.5 Close [issue #45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
+- 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
+- 0.9.3 Add `R.forEach` and `R.times`
+- 0.9.2 Add `Typescript` definitions
+- 0.9.1 Close [issue #36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
+- 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
+- 0.8.9 Add `R.isNil`
+- 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
+- 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
+- 0.8.6 Add `R.tap` and `R.identity`
+- 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
+- 0.8.4 Learning to run `yarn test` before `yarn publish` the hard way
+- 0.8.3 Add `R.always`, `R.T` and `R.F`
+- 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
+- 0.8.1 Add `R.ifElse`
+- 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`
+- 0.7.6 Fix incorrect implementation of `R.values`
+- 0.7.5 Fix incorrect implementation of `R.omit`
+- 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments
+- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; Approve [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
+- 0.7.2 Add `Promise` support for `R.type`
+- 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
+- 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
+- 0.6.2 Add separate documentation site via `docsify`
+
+## Additional info
+
+> Running benchmarks
+
+- To run all benchmarks
+
+`yarn run benchmark all`
+
+- To run single or number of benchmarks
+
+`yarn run benchmark add compose filter`
+
+> Projects using Rambda
+
+- [string-fn](https://github.com/selfrefactor/string-fn)
+
+- [tachyons-for-js](https://github.com/devilcoders/tachyons-for-js)
+
+- [react-append-to-body](https://github.com/jpgorman/react-append-to-body)
+
+- [docker-voting-app-nodejs](https://github.com/subfuzion/docker-voting-app-nodejs)
+
+- [ig-api](https://www.npmjs.com/package/ig-api)
+
+- [ldap-authenticate](https://www.npmjs.com/package/ldap-authenticate)
+
+- [mat-che](https://github.com/ianagbip1oti/mat-che)
+
+> Projects using Rambdax
+
+- [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
+
+> Articles about Rambda
+
+- [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
+
+- [Argumentation of Rambda's curry method](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+
+> Links to Rambda
+
+- (https://mailchi.mp/webtoolsweekly/web-tools-280)[Web Tools Weekly]
+
+- (https://github.com/stoeffel/awesome-fp-js)[awesome-fp-js]
+
+- (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]
 
 ## Browse by category
 
