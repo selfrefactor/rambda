@@ -61,5 +61,23 @@
     "dist",
     "lib",
     "index.d.ts"
-  ]
+  ],
+  "commitMessage": {
+    "support": [
+      "docs",
+      "build",
+      "prepublish",
+      "refactor",
+      "lint"
+    ],
+    "feature": [
+      "method"
+    ],
+    "workInProgress": "",
+    "docs": [
+      "docsify",
+      "repl",
+      "changelog"
+    ]
+  }
 }

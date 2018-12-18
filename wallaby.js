@@ -15,8 +15,8 @@ module.exports = function (wallaby){
     },
     workers: {
       reload: true,
-      initial: 4,
-      regular: 2
+      initial: 2,
+      regular: 1
     },
     delays: {
       run: 1000
