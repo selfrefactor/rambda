@@ -1551,7 +1551,7 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 ## Benchmark
 
-Results of running `yarn benchmark`:
+Results of running `yarn benchmarks`:
 
 ```
 Running add.js

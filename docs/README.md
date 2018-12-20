@@ -123,6 +123,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
+- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
@@ -428,20 +430,23 @@ R.dec(2) // => 1
 ---
 #### defaultTo
 
-> defaultTo(defaultValue: T, inputArgument: any): T
+> defaultTo(defaultValue: T, ...inputArguments: any[]): T
 
-It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
+It either returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
-It returns `inputArgument` in any other case.
+Or it returns the first `inputArguments` instance(from left to right) that has a truthy value.
 
 ```
 R.defaultTo('foo', undefined) // => 'foo'
+R.defaultTo('foo', undefined, null, NaN) // => 'foo'
+R.defaultTo('foo', undefined, 'bar', NaN, 'baz') // => 'bar'
+R.defaultTo('foo', undefined, null, NaN, 'baz') // => 'baz'
 R.defaultTo('foo', 'bar') // => 'bar'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/defaultTo.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20'bar'%2C%20NaN%2C%20'baz')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN%2C%20'baz')%20%2F%2F%20%3D%3E%20'baz'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'">Try in REPL</a>
 
 ---
 #### dissoc
@@ -1848,7 +1853,7 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 ## Benchmark
 
-Results of running `yarn benchmark`:
+Results of running `yarn benchmarks`:
 
 ```
 Running add.js
@@ -2080,6 +2085,8 @@ import omit from 'rambda/lib/omit'
 ```
 
 ## Changelog
+
+- 2.2.0 `R.defaultTo` accepts indefinite number of input arguments. So the following is valid expression: `const x = defaultTo('foo',null, null, 'bar')`
 
 - 2.1.0 Restore `R.zip` using [WatermelonDB](https://github.com/Nozbe/WatermelonDB/) implementation.
 
