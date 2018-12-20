@@ -17,7 +17,8 @@
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
     "minify": "node files/minify",
-    "benchmark": "node benchmarks/index.js --all",
+    "benchmarks": "node benchmarks/index.js --all",
+    "benchmark": "node benchmarks/index.js",
     "cover": "jest src --coverage --no-cache -w 1",
     "jest": "jest --watch",
     "prepublish": "BABEL_ENV=development babel src/ --out-dir lib/"
