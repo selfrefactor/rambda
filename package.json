@@ -19,7 +19,7 @@
     "minify": "node files/minify",
     "benchmark": "node benchmarks/index.js --all",
     "cover": "jest src --coverage --no-cache -w 1",
-    "jest": "jest",
+    "jest": "jest --watch",
     "prepublish": "BABEL_ENV=development babel src/ --out-dir lib/"
   },
   "repository": {
