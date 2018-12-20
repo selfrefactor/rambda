@@ -2,7 +2,9 @@
   "name": "rambda",
   "version": "2.1.1",
   "description": "Lightweight faster alternative to Ramda",
-  "main": "./rambda.js",
+  "main": "./dist/rambda.js",
+  "module": "./dist/rambda.esm.js",
+  "umd": "./dist/rambda.umd.js",
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {

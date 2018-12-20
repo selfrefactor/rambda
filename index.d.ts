@@ -230,9 +230,10 @@ declare namespace R {
 
     dec(n: number): number
 
-    defaultTo<T>(fallback: T, actualInput: null | undefined | T): T
-    defaultTo<T>(fallback: T): (actualInput: null | undefined | T) => T
-
+    defaultTo<T>(defaultValue: T, actualInput: null | undefined | T): T
+    defaultTo<T>(defaultValue: T): (actualInput: null | undefined | T) => T
+    defaultTo<T>(defaultValue: T, ...inputArguments: Array<null | undefined | T>): T
+  
     dissoc<T>(prop: string, obj: any): T
     dissoc(prop: string): <U>(obj: any) => U
 

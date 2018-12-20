@@ -113,6 +113,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
+- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
@@ -369,14 +371,17 @@ R.dec(2) // => 1
 
 #### defaultTo
 
-> defaultTo(defaultValue: T, inputArgument: any): T
+> defaultTo(defaultValue: T, ...inputArguments: any[]): T
 
-It returns `defaultValue`, if `inputArgument` is `undefined`, `null` or `NaN`.
+It either returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
-It returns `inputArgument` in any other case.
+Or it returns the first `inputArguments` instance(from left to right) that has a truthy value.
 
 ```
 R.defaultTo('foo', undefined) // => 'foo'
+R.defaultTo('foo', undefined, null, NaN) // => 'foo'
+R.defaultTo('foo', undefined, 'bar', NaN, 'baz') // => 'bar'
+R.defaultTo('foo', undefined, null, NaN, 'baz') // => 'baz'
 R.defaultTo('foo', 'bar') // => 'bar'
 ```
 
