@@ -434,7 +434,7 @@ R.dec(2) // => 1
 
 It either returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
-Or it returns the first `inputArguments` instance(from left to right) that has a truthy value.
+Or it returns the first truthy `inputArguments` instance(from left to right).
 
 ```
 R.defaultTo('foo', undefined) // => 'foo'
