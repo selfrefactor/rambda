@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
@@ -7,10 +6,12 @@ const holder = 'foo'
 
 const suite = new Benchmark.Suite()
 
-suite.add('Rambda.head when string', () => {
-  R.head(holder)
-})
+suite
+  .add('Rambda.head when string', () => {
+    R.head(holder)
+  })
   .add('Ramda', () => {
     Ramda.head(holder)
   })
+
 module.exports = suite

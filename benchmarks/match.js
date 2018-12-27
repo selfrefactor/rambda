@@ -3,9 +3,6 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = [ 1, 2, 3, 4 ]
-const a = val => val + 2
-
 const suite = new Benchmark.Suite()
 
 suite.add('Rambda.match', () => {

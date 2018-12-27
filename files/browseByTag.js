@@ -5,7 +5,6 @@ const ramdaData = require('./ramdaData.json').data
 
 const fn = async () => {
   try {
-    const willReturn = ''
     const filePath = path.resolve(__dirname, '../rambda.js')
     const data = fs.readFileSync(filePath).toString()
     const ourData = R.compose(
@@ -46,7 +45,7 @@ const fn = async () => {
       }),
       Object.keys
     )(ramdaData)
-  } catch (err) {
+  } catch (err){
     throw new Error(err)
   }
 }
