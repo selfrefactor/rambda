@@ -5,9 +5,10 @@ const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
 
-suite.add('Rambda.find', () => {
-  R.find(val => val > 2, [ 1, 2, 3, 4 ])
-})
+suite
+  .add('Rambda.find', () => {
+    R.find(val => val > 2, [ 1, 2, 3, 4 ])
+  })
   .add('Ramda', () => {
     Ramda.find(val => val > 2, [ 1, 2, 3, 4 ])
   })

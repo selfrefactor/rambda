@@ -8,13 +8,15 @@ const a = val => val === 3
 
 const suite = new Benchmark.Suite()
 
-suite.add('Rambda.findIndex', () => {
-  R.findIndex(a, holder)
-})
+suite
+  .add('Rambda.findIndex', () => {
+    R.findIndex(a, holder)
+  })
   .add('Ramda', () => {
     Ramda.findIndex(a, holder)
   })
   .add('Lodash', () => {
     _.findIndex(holder, a)
   })
+
 module.exports = suite

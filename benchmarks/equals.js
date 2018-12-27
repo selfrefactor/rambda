@@ -5,9 +5,10 @@ const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
 
-suite.add('Rambda.equals', () => {
-  R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
-})
+suite
+  .add('Rambda.equals', () => {
+    R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
+  })
   .add('Ramda', () => {
     Ramda.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
   })

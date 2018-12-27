@@ -8,9 +8,10 @@ const a = 4
 
 const suite = new Benchmark.Suite()
 
-suite.add('Rambda.contains', () => {
-  R.contains(a, holder)
-})
+suite
+  .add('Rambda.contains', () => {
+    R.contains(a, holder)
+  })
   .add('Ramda', () => {
     Ramda.contains(a, holder)
   })
