@@ -3,15 +3,16 @@ declare let R: R.Static
 declare namespace R {
   // RAMBDA_START
   type RambdaTypes = "Async"
-    | "Promise"
-    | "Object"
-    | "Boolean"
-    | "String"
-    | "Null"
-    | "Undefined"
     | "Array"
-    | "RegExp"
+    | "Boolean"
     | "Function"
+    | "Null"
+    | "Number"
+    | "Object"
+    | "Promise"
+    | "RegExp"
+    | "String"
+    | "Undefined"
 
   type FilterFunction<T> = (x: T, prop?: string) => boolean
   type MapFunction<In, Out> = (x: In, prop?: string) => Out

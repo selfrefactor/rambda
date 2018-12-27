@@ -79,6 +79,9 @@
       "docsify",
       "repl",
       "changelog"
+    ],
+    "typings": [
+      "fix"
     ]
   }
 }
