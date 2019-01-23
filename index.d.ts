@@ -391,9 +391,9 @@ declare namespace R {
     path<T>(path: Path | string, obj: any): T
     path<T>(path: Path | string): (obj: any) => T
 
-    pathOr<T>(d: T, p: Path, obj: any): T | any
-    pathOr<T>(d: T, p: Path): (obj: any) => T | any
-    pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>
+    pathOr<T>(d: T, p: Path | string, obj: any): T | any
+    pathOr<T>(d: T, p: Path | string): (obj: any) => T | any
+    pathOr<T>(d: T): CurriedFunction2<Path | string, any, T | any>
 
     pick<T, K extends keyof T>(
       props: Array<K | string> | string,
