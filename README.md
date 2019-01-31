@@ -1579,7 +1579,7 @@ R.takeLast(2, ['foo']) // => 'oo'
 
 > tap(fn: Function, input: T): T
 
-- It returns the last `num` elements of `arrOrStr`.
+- It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
 
 ```
 let a = 1

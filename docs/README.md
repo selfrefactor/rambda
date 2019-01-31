@@ -1579,7 +1579,7 @@ R.takeLast(2, ['foo']) // => 'oo'
 
 > tap(fn: Function, input: T): T
 
-- It returns the last `num` elements of `arrOrStr`.
+- It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
 
 ```
 let a = 1
@@ -2085,6 +2085,8 @@ import omit from 'rambda/lib/omit'
 ```
 
 ## Changelog
+
+- 2.3.1 Close [issue #90](https://github.com/selfrefactor/rambda/issues/90) | Add string type of path in `R.pathOr`
 
 - 2.3.0 Close [issue #89](https://github.com/selfrefactor/rambda/issues/89) | Fix missing `Number` TS definition in `R.type`
 
