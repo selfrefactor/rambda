@@ -43,7 +43,7 @@
     "babel-cli": "6.26.0",
     "babel-plugin-annotate-pure-calls": "0.2.2",
     "babel-plugin-external-helpers": "7.0.0-beta.3",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.7.0",
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
     "jest": "23.0.0-alpha.4",
