@@ -3663,10 +3663,10 @@ qs@~6.5.1:
   version "1.0.9"
   resolved "https://github.com/selfrefactor/rambda#ee04b4005da84b29d166364100d50e2a9be56a60"
 
-rambdax@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-1.8.0.tgz#e0d9a9588586be0d4149ccdcf5ab3df0f695e60d"
-  integrity sha512-o8IMwYnhNPLvbBX17dxoTl6IvgegoxhT5tTchraVssaITOa7ta9VbjoaNJMd97QMzgqe1CjkYDR1BuPaPBhHJw==
+rambdax@1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-1.8.1.tgz#a32157896dd12b0c59ca8a95f46a67e58dce264e"
+  integrity sha512-KUpchpYfTV0nVZdkngkuRmZDkLYIjxyTfmwCXqy1ek9KikLyMawJQMR5168lzgijahSNz2KcldJi4+qb4JrNEQ==
 
 rambdax@^0.8.8:
   version "0.8.10"
