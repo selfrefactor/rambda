@@ -2084,7 +2084,11 @@ Running reduce.js
 import omit from 'rambda/lib/omit'
 ```
 
+> Latest version that has this feature is `2.3.1`
+
 ## Changelog
+
+- 2.4.0 Major bump of `Rollup`; Stop building for ES5
 
 - 2.3.1 Close [issue #90](https://github.com/selfrefactor/rambda/issues/90) | Add string type of path in `R.pathOr`
 
