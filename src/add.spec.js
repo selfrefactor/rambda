@@ -6,5 +6,5 @@ test('with number', () => {
 })
 
 test('with string', () => {
-  expect(add('foo','bar')).toEqual('foobar')
+  expect(add('foo', 'bar')).toEqual('foobar')
 })

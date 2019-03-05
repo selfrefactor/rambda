@@ -1,20 +1,29 @@
-import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve'
-import { umd } from '../package.json'
+const babel = require("rollup-plugin-babel")
+const replace = require("rollup-plugin-replace")
+const resolve = require("rollup-plugin-node-resolve")
+
+const extensions = [".js"]
 
 export default {
-  external  : false,
-  input     : './rambda.js',
-  treeshake : false,
-  plugins   : [
-    resolve(),
-    babel(),
+  plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    resolve({
+      extensions,
+      preferBuiltins: false
+    }),
+    babel({
+      extensions,
+      exclude: ["node_modules/**"]
+		})
   ],
-  output : [
+  input: "rambda.js",
+   output : [
     {
-      file   : umd,
+      file   : './dist/rambda.umd.js',
       format : 'umd',
       name   : 'R',
     },
   ],
-}
+}  

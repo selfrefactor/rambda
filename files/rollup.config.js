@@ -1,17 +1,32 @@
-import babel from 'rollup-plugin-babel'
-import packageJson from '../package.json'
+const babel = require("rollup-plugin-babel")
+const replace = require("rollup-plugin-replace")
+const resolve = require("rollup-plugin-node-resolve")
+
+const extensions = [".js"]
 
 export default {
-  input   : './rambda.js',
-  plugins : [ babel() ],
-  output  : [
+  plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    resolve({
+      extensions,
+      preferBuiltins: true
+    }),
+    babel({
+      extensions,
+      exclude: ["node_modules/**"]
+		}),
+  ],
+  input: "rambda.js",
+  output   : [
     {
-      file   : packageJson.main,
+      file   : './dist/rambda.js',
       format : 'cjs',
     },
     {
-      file   : packageJson.module,
+      file   : './dist/rambda.esm.js',
       format : 'es',
     },
   ],
-}
+}  
