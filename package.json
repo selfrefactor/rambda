@@ -8,7 +8,7 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test:watch": "jest --watch",
+    "test:watch": "jest src --watch",
     "test": "jest src",
     "readme": "node files/createReadme",
     "readmex": "node files/createReadmex",
@@ -71,7 +71,8 @@
       "build",
       "prepublish",
       "refactor",
-      "lint"
+      "lint",
+      "test"
     ],
     "feature": [
       "method"
