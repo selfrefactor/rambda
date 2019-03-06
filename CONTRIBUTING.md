@@ -6,11 +6,11 @@ The only requirement is the new method to have exact or very close implementatio
 
 I give you example steps of the `PR` process.
 
-> Create a method file in `src` folder.
+> Create a method file in `src` folder
 
 If the new method is `R.endsWith`, then the created file will be `./src/endsWith.js`
 
-> Write the function declaration and function's logic.
+> Write the function declaration and function's logic
 
 ```
 function endsWith(x, arrOrStr){
