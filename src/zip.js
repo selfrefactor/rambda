@@ -4,11 +4,9 @@
  */
 
 export function zip(left, right) {
-  if (right === undefined) {
-    return function(right) {
-      return zip(left, right)
-    }
-  }
+  if (arguments.length === 1){
+    return rightHolder => zip(left, rightHolder)
+  } 
 
   var result = []
   var length = Math.min(left.length, right.length)
