@@ -39,9 +39,9 @@
   },
   "homepage": "https://github.com/selfrefactor/rambda#readme",
   "devDependencies": {
-    "@babel/core": "7.4.3",
-    "@babel/plugin-proposal-object-rest-spread": "7.4.3",
-    "@babel/preset-env": "7.4.3",
+    "@babel/core": "7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+    "@babel/preset-env": "7.4.4",
     "babel-jest": "24.7.1",
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
