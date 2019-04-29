@@ -103,6 +103,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
+- Rambda's **type** handle `Not a number` values and it returns `NaN` in this case.
+
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
@@ -1785,6 +1787,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.5.0 `R.type` handles `NaN`
 
 - 2.4.0 Major bump of `Rollup`; Stop building for ES5
 

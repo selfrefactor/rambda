@@ -7,6 +7,7 @@ declare namespace R {
     | "Boolean"
     | "Function"
     | "Null"
+    | "NaN"
     | "Number"
     | "Object"
     | "Promise"

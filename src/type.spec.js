@@ -2,9 +2,9 @@ import { type } from './type'
 
 test('type', () => {
   const fn1 = () => {}
-  const fn2 = function() {}
+  const fn2 = function(){}
 
-  function fn3() {}
+  function fn3(){}
   ;[ () => {}, fn1, fn2, fn3 ].map(val => {
     expect(type(val)).toEqual('Function')
   })
@@ -35,4 +35,8 @@ test('type', () => {
   expect(type(/\s/g)).toEqual('RegExp')
 
   expect(type(undefined)).toEqual('Undefined')
+})
+
+test('nan', () => {
+  expect(type(Number('s'))).toBe('NaN')
 })
