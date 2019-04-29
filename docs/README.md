@@ -1551,12 +1551,12 @@ R.tail('foo')  // => 'oo'
 
 ```
 R.take(1, ['foo', 'bar']) // => ['foo']
-R.take(2, ['foo']) // => 'fo'
+R.take(2, 'foo') // => 'fo'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/take.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.take(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%5D%0AR.take(2%2C%20%5B'foo'%5D)%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.take(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%5D%0AR.take(2%2C%20'foo')%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
 
 ---
 #### takeLast
@@ -1567,12 +1567,12 @@ R.take(2, ['foo']) // => 'fo'
 
 ```
 R.takeLast(1, ['foo', 'bar']) // => ['bar']
-R.takeLast(2, ['foo']) // => 'oo'
+R.takeLast(2, 'foo') // => 'oo'
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/takeLast.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.takeLast(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%5D%0AR.takeLast(2%2C%20%5B'foo'%5D)%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.takeLast(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%5D%0AR.takeLast(2%2C%20'foo')%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
 
 ---
 #### tap
