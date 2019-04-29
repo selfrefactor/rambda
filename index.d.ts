@@ -384,6 +384,8 @@ declare namespace R {
     
     omit<T, K extends keyof T>(name: K): (obj: T) => Omit<T, K>
     
+    partial<T, U>(fn: Function, ...inputs: Array<T> ): U
+
     partialCurry<Out>(
       fn: (input: Dictionary<any>) => Out,
       input: Dictionary<any>

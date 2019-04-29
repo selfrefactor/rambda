@@ -123,6 +123,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **flip** works only for functions expecting two arguments.
 
+- Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+
 - Rambda's **partialCurry** is not part of Ramda API.
 
 - Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value. Also **Ramda** version will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
@@ -997,6 +999,24 @@ R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/pathOr.js)
 
+#### partial
+
+> partial(fn: Function, ...inputs: any[]): Function | any
+
+It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
+
+`R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
+The name comes from the fact that you partially inject the inputs.
+
+```
+const fn = (salutation, title, firstName, lastName) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+
+const canPassAnyNumberOfArguments = partial(fn, 'Hello', 'Ms.')
+const finalFn = canPassAnyNumberOfArguments('foo')
+
+finalFn('bar') // =>  'Hello, Ms. foo bar!'
+```
+
 #### partialCurry
 
 > partialCurry(fn: Function|Async, a: Object, b: Object): Function|Promise
@@ -1788,7 +1808,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 2.5.0 `R.type` handles `NaN`
+- 2.5.0 Close [issue #149](https://github.com/selfrefactor/rambda/issues/149) Add `R.partial` | `R.type` handles `NaN`
 
 - 2.4.0 Major bump of `Rollup`; Stop building for ES5
 
