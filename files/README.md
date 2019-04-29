@@ -38,7 +38,7 @@ Also latest results of `bundle-phobia-cli`:
 ```
 ℹ ramda (0.26.1) has 0 dependencies for a weight of 51.92KB (12.27KB gzipped)
 ℹ rambda (2.1.1) has 0 dependencies for a weight of 13.28KB (3.32KB gzipped)
-ℹ rambdax (1.3.0) has 0 dependencies for a weight of 31.52KB (8.95KB gzipped)
+ℹ rambdax (1.3.0) has 0 dependencies for a weight of 35.7KB (10.16KB gzipped)
 ```
 
 - Speed
