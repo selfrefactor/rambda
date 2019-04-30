@@ -1063,12 +1063,12 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 > min(x: Number|String, y: Number|String): Number|String
 
 ```
-R.max(5,7) // => 5
+R.min(5,7) // => 5
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.min(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
 
 ---
 #### minBy
