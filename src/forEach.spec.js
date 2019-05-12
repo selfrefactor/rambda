@@ -1,5 +1,21 @@
 import { forEach } from './forEach'
-test('', () => {
+import { type } from './type'
+
+test('iterate over object', () => {
+  const obj = {
+    a : 1,
+    b : [ 1, 2 ],
+    c : { d : 7 },
+    f : 'foo',
+  }
+  const result = {}
+  forEach(
+    (val, prop) => result[ prop ] = `${ prop }::${ type(val) }`
+  )(obj)
+  const expected = { a: 'a::Number', b: 'b::Array', c: 'c::Object', f: 'f::String' }  
+})
+
+test('happy', () => {
   const sideEffect = {}
   forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
 
@@ -9,7 +25,7 @@ test('', () => {
   })
 })
 
-test('', () => {
+test('happy 2', () => {
   const list = [
     {
       x : 1,
@@ -51,16 +67,16 @@ test('with empty list', () => {
 })
 
 test('returns the input', () => {
-  const list = [1,2,3]
+  const list = [ 1, 2, 3 ]
   const result = forEach(x => x * x)(list)
 
   expect(result).toEqual(list)
 })
 
 test('pass index as second argument', () => {
-  const list = [11,21,31]
+  const list = [ 11, 21, 31 ]
   const indexes = []
   const result = forEach((x, i) => indexes.push(i))(list)
 
-  expect(indexes).toEqual([0,1,2])
+  expect(indexes).toEqual([ 0, 1, 2 ])
 })
