@@ -38,11 +38,10 @@ test('pass input object as third argument', () => {
   }
   const predicate = (val, prop, inputObject) => {
     expect(inputObject).toEqual(obj)
+
     return val < 2
   }
-  expect(filter(predicate, obj)).toEqual({
-    a : 1,
-  })
+  expect(filter(predicate, obj)).toEqual({ a : 1 })
 })
 
 test('with array', () => {

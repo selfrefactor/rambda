@@ -15,8 +15,8 @@ declare namespace R {
     | "String"
     | "Undefined"
 
-  type FilterFunction<T> = (x: T, prop?: string) => boolean
-  type MapFunction<In, Out> = (x: In, prop?: string) => Out
+  type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean
+  type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out
   type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
   interface MapInterface<In, Out> {
@@ -284,6 +284,9 @@ declare namespace R {
 
     forEach<T>(fn: MapFn<T, any>, list: T[]): T[]
     forEach<T>(fn: MapFn<T, any>): (list: T[]) => T[]
+
+    forEach<T>(fn: MapFunction<any, any>, inputObj: T): T
+    forEach<T>(fn: MapFunction<any, any>): (inputObj: T) => T
 
     groupBy<T>(fn: (x: T) => string, list: T[]): { [index: string]: T[] }
     groupBy<T>(fn: (x: T) => string): (list: T[]) => { [index: string]: T[] }

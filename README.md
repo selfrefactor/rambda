@@ -18,7 +18,7 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 ## Rambda's advantages
 
-- Tree-shaking
+* Tree-shaking
 
 Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
@@ -51,13 +51,13 @@ Also latest results of `bundle-phobia-cli`:
 ℹ rambdax (1.3.0) has 0 dependencies for a weight of 31.52KB (8.95KB gzipped)
 ```
 
-- Speed
+* Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
 
 You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
-- dot notation for `R.path`
+* dot notation for `R.path`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -67,7 +67,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-- comma notation for `R.pick` and `R.omit`
+* comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
@@ -77,7 +77,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-- Typescript included
+* Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
