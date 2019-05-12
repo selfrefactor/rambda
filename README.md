@@ -18,7 +18,7 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 ## Rambda's advantages
 
-* Tree-shaking
+- Tree-shaking
 
 Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
 
@@ -48,16 +48,16 @@ Also latest results of `bundle-phobia-cli`:
 ```
 ℹ ramda (0.26.1) has 0 dependencies for a weight of 51.92KB (12.27KB gzipped)
 ℹ rambda (2.1.1) has 0 dependencies for a weight of 13.28KB (3.32KB gzipped)
-ℹ rambdax (1.3.0) has 0 dependencies for a weight of 31.52KB (8.95KB gzipped)
+ℹ rambdax (1.3.0) has 0 dependencies for a weight of 35.7KB (10.16KB gzipped)
 ```
 
-* Speed
+- Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
 
 You can clone this repo and run `yarn run benchmark all` to see for yourself.
 
-* dot notation for `R.path`
+- dot notation for `R.path`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -67,7 +67,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-* comma notation for `R.pick` and `R.omit`
+- comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
@@ -77,7 +77,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-* Typescript included
+- Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
@@ -113,6 +113,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
+- Rambda's **type** handle `Not a number` values and it returns `NaN` in this case.
+
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
@@ -130,6 +132,8 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
 
 - Rambda's **flip** works only for functions expecting two arguments.
+
+- Rambda's **partial** doesn't need the input arguments to be wrapped as array.
 
 - Rambda's **partialCurry** is not part of Ramda API.
 
@@ -1063,12 +1067,12 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 > min(x: Number|String, y: Number|String): Number|String
 
 ```
-R.min(5,7) // => 5
+R.max(5,7) // => 5
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.min(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
 
 ---
 #### minBy
@@ -1183,6 +1187,25 @@ R.pathOr(1, ['a', 'c'], {a: {b: 2}}) // => 1
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/pathOr.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.pathOr(1%2C%20'a.b'%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
+
+---
+#### partial
+
+> partial(fn: Function, ...inputs: any[]): Function | any
+
+It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
+
+`R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
+The name comes from the fact that you partially inject the inputs.
+
+```
+const fn = (salutation, title, firstName, lastName) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+
+const canPassAnyNumberOfArguments = partial(fn, 'Hello', 'Ms.')
+const finalFn = canPassAnyNumberOfArguments('foo')
+
+finalFn('bar') // =>  'Hello, Ms. foo bar!'
+```
 
 ---
 #### partialCurry
@@ -2087,6 +2110,10 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.6.0 `R.map`, `R.filter` and `R.forEach` pass original object to iterator as third argument | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
+
+- 2.5.0 Close [issue #149](https://github.com/selfrefactor/rambda/issues/149) Add `R.partial` | `R.type` handles `NaN`
 
 - 2.4.0 Major bump of `Rollup`; Stop building for ES5
 
