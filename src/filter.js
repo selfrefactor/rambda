@@ -1,8 +1,8 @@
-function filterObject(fn, obj) {
+function filterObject(fn, obj){
   const willReturn = {}
 
-  for (const prop in obj) {
-    if (fn(obj[ prop ], prop)) {
+  for (const prop in obj){
+    if (fn(obj[ prop ], prop, obj)){
       willReturn[ prop ] = obj[ prop ]
     }
   }
@@ -10,16 +10,16 @@ function filterObject(fn, obj) {
   return willReturn
 }
 
-export function filter(fn, arr) {
-  if (arguments.length === 1) {
+export function filter(fn, arr){
+  if (arguments.length === 1){
     return arrHolder => filter(fn, arrHolder)
   }
 
-  if (arr === undefined) {
+  if (arr === undefined){
     return []
   }
 
-  if (!Array.isArray(arr)) {
+  if (!Array.isArray(arr)){
     return filterObject(fn, arr)
   }
 
@@ -28,10 +28,10 @@ export function filter(fn, arr) {
   const len = arr.length
   const willReturn = []
 
-  while (++index < len) {
+  while (++index < len){
     const value = arr[ index ]
 
-    if (fn(value, index)) {
+    if (fn(value, index)){
       willReturn[ resIndex++ ] = value
     }
   }

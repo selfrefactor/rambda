@@ -36,6 +36,22 @@ test('with object', () => {
   })
 })
 
+test('pass input object as third argument', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const iterator = (val, prop, inputObject) => {
+    expect(inputObject).toEqual(obj)
+
+    return val * 2
+  }
+  expect(map(iterator, obj)).toEqual({
+    a : 2,
+    b : 4,
+  })
+})
+
 test('with object passes property as second argument', () => {
   map((_, prop) => {
     expect(typeof prop).toEqual('string')

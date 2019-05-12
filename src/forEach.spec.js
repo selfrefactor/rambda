@@ -11,10 +11,10 @@ test('iterate over object', () => {
   const result = {}
   const getLength = x => Object.keys(x).length
   forEach(
-    (val, prop, inputObj) => 
-      result[ prop ] = `${ prop }::${ type(val) }::${getLength(inputObj)}`
+    (val, prop, inputObj) =>
+      result[ prop ] = `${ prop }::${ type(val) }::${ getLength(inputObj) }`
   )(obj)
-  
+
   const expected = {
     a : 'a::Number::4',
     b : 'b::Array::4',

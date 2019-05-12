@@ -31,6 +31,20 @@ test('with object it passes property as second argument', () => {
   })(sampleObject)
 })
 
+test('pass input object as third argument', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const predicate = (val, prop, inputObject) => {
+    expect(inputObject).toEqual(obj)
+    return val < 2
+  }
+  expect(filter(predicate, obj)).toEqual({
+    a : 1,
+  })
+})
+
 test('with array', () => {
   const isEven = n => n % 2 === 0
 
