@@ -77,7 +77,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "map object support third argument",
     "docs": [
       "docsify",
       "repl",
