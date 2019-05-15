@@ -5,6 +5,8 @@ test('empty values', () => {
 
   expect(isEmpty(undefined)).toBeTruthy()
 
+  expect(isEmpty(1)).toBeTruthy()
+
   expect(isEmpty('')).toBeTruthy()
 
   expect(isEmpty([])).toBeTruthy()

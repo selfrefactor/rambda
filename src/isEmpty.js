@@ -1,5 +1,5 @@
 export function isEmpty(x) {
-  if (!x) {
+  if (Number.isFinite(x) || !x) {
     return true;
   }
 
