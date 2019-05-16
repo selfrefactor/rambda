@@ -235,7 +235,7 @@ declare namespace R {
     defaultTo<T>(defaultValue: T, actualInput: null | undefined | T): T
     defaultTo<T>(defaultValue: T): (actualInput: null | undefined | T) => T
     defaultTo<T>(defaultValue: T, ...inputArguments: Array<null | undefined | T>): T
-  
+
     dissoc<T>(prop: string, obj: any): T
     dissoc(prop: string): <U>(obj: any) => U
 
@@ -300,8 +300,8 @@ declare namespace R {
     identity<T>(x: T): T
 
     ifElse(
-      fn: Pred<any> | boolean, 
-      onTrue: Arity1Fn, 
+      fn: Pred<any> | boolean,
+      onTrue: Arity1Fn,
       onFalse: Arity1Fn
     ): Arity1Fn
 
@@ -321,6 +321,8 @@ declare namespace R {
 
     is(inputPrototype: any, input: any): boolean
     is(inputPrototype: any): (input: any) => boolean
+
+    isEmpty(value: any): boolean
 
     isNil(value: any): value is null | undefined
 
@@ -384,9 +386,9 @@ declare namespace R {
     omit<T, K extends Array<keyof T>>(
       names: K
     ): (obj: T) => Omit<T, K[number]>
-    
+
     omit<T, K extends keyof T>(name: K): (obj: T) => Omit<T, K>
-    
+
     partial<T, U>(fn: Function, ...inputs: Array<T> ): U
 
     partialCurry<Out>(
