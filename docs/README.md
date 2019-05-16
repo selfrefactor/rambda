@@ -906,6 +906,25 @@ R.isNil(1)  // => false
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
+#### isEmpty
+
+> isEmpty(x: any): boolean
+
+It returns `true` is `x` is `empty`.
+
+```
+R.isEmpty(null)  // => true
+R.isEmpty(undefined)  // => true
+R.isEmpty('')  // => true
+R.isEmpty([])  // => true
+R.isEmpty({})  // => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(undefined)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty('')%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%5B%5D)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
+
+---
 #### join
 
 > join(separator: string, arr: T[]): string

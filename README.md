@@ -890,6 +890,22 @@ R.is(Array, 1)  // => false
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F%2F%20%3D%3E%20true%0AR.is(Array%2C%201)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
+#### isNil
+
+> isNil(x: any): boolean
+
+It returns `true` is `x` is either `null` or `undefined`.
+
+```
+R.isNil(null)  // => true
+R.isNil(1)  // => false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+
+---
 #### isEmpty
 
 > isEmpty(x: any): boolean
@@ -906,23 +922,7 @@ R.isEmpty({})  // => true
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
 
-<a href="https://rambda.now.sh/?R.isEmpty(null)%20//%20=%3E%20true%0AR.isEmpty(undefined)%20//%20=%3E%20true%0AR.isEmpty(%27%27)%20//%20=%3E%20true%0AR.isEmpty([])%20//%20=%3E%20true%0AR.isEmpty({})%20//%20=%3E%20true">Try in REPL</a>
-
----
-#### isNil
-
-> isNil(x: any): boolean
-
-It returns `true` is `x` is either `null` or `undefined`.
-
-```
-R.isNil(null)  // => true
-R.isNil(1)  // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(undefined)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty('')%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%5B%5D)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### join

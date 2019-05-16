@@ -770,6 +770,22 @@ R.isNil(1)  // => false
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
 
+#### isEmpty
+
+> isEmpty(x: any): boolean
+
+It returns `true` is `x` is `empty`.
+
+```
+R.isEmpty(null)  // => true
+R.isEmpty(undefined)  // => true
+R.isEmpty('')  // => true
+R.isEmpty([])  // => true
+R.isEmpty({})  // => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
+
 #### join
 
 > join(separator: string, arr: T[]): string
