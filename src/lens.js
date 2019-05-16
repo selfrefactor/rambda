@@ -1,4 +1,4 @@
-import map from './map';
+import { map } from './map';
 
 export function lens(getter, setter) {
   return function(toFunctorFn) {
