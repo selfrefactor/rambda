@@ -770,6 +770,22 @@ R.isNil(1)  // => false
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
 
+#### isEmpty
+
+> isEmpty(x: any): boolean
+
+It returns `true` is `x` is `empty`.
+
+```
+R.isEmpty(null)  // => true
+R.isEmpty(undefined)  // => true
+R.isEmpty('')  // => true
+R.isEmpty([])  // => true
+R.isEmpty({})  // => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
+
 #### join
 
 > join(separator: string, arr: T[]): string
@@ -1807,6 +1823,10 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.7.1 expose `src` | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
+
+- 2.7.0 Approve [PR #161](https://github.com/selfrefactor/rambda/pull/161) `R.isEmpty`
 
 - 2.6.0 `R.map`, `R.filter` and `R.forEach` pass original object to iterator as third argument | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
 

@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "2.6.0",
+  "version": "2.7.1",
   "description": "Lightweight faster alternative to Ramda",
   "main": "./dist/rambda.js",
   "module": "./dist/rambda.esm.js",
@@ -52,17 +52,18 @@
     "rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
     "rambdax": "1.8.1",
     "ramda": "0.26.1",
-    "rollup": "1.11.3",
+    "rollup": "1.12.1",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.2.1",
     "rollup-plugin-json": "3.1.0",
-    "rollup-plugin-node-resolve": "4.2.4",
+    "rollup-plugin-node-resolve": "5.0.0",
     "rollup-plugin-replace": "2.1.0",
     "rollup-plugin-sourcemaps": "0.4.2"
   },
   "dependencies": {},
   "files": [
     "dist",
+    "src",
     "index.d.ts"
   ],
   "commitMessage": {
