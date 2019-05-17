@@ -52,7 +52,7 @@
     "rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
     "rambdax": "1.8.1",
     "ramda": "0.26.1",
-    "rollup": "1.12.1",
+    "rollup": "1.12.2",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "10.0.0",
     "rollup-plugin-json": "3.1.0",
