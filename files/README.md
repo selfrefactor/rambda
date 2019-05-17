@@ -284,6 +284,23 @@ console.log(fn(30)) //=> false
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/both.js)
 
+#### clone
+
+> clone(objOrArr: T|T[]): T|T[]
+
+Creates a deep copy of the value which may contain (nested) Arrays and Objects, 
+Numbers, Strings, Booleans and Dates. Functions are assigned by reference rather 
+than copied
+
+```
+const objects = [{}, {}, {}];
+const objectsClone = R.clone(objects);
+objects === objectsClone; //=> false
+objects[0] === objectsClone[0]; //=> false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/clone.js)
+
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
