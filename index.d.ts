@@ -163,6 +163,8 @@ declare namespace R {
     append<T>(lastToBe: T, list: T[]): T[]
     append<T>(lastToBe: T): <T>(list: T[]) => T[]
 
+    clone<T>(list: T|T[]): T|T[]
+
     assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
