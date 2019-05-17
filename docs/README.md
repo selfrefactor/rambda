@@ -325,6 +325,26 @@ console.log(fn(30)) //=> false
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
 ---
+#### clone
+
+> clone(objOrArr: T|T[]): T|T[]
+both
+Creates a deep copy of the value which may contain (nested) Arrays and Objects, 
+Numbers, Strings, Booleans and Dates. Functions are assigned by reference rather 
+than copied
+
+```
+const objects = [{}, {}, {}];
+const objectsClone = R.clone(objects);
+objects === objectsClone; //=> false
+objects[0] === objectsClone[0]; //=> false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/clone.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20const%20objects%20%3D%20%5B%7B%7D%2C%20%7B%7D%2C%20%7B%7D%5D%3B%0Aconst%20objectsClone%20%3D%20R.clone(objects)%3B%0Aobjects%20%3D%3D%3D%20objectsClone%3B%20%2F%2F%3D%3E%20false%0Aobjects%5B0%5D%20%3D%3D%3D%20objectsClone%5B0%5D%3B%20%2F%2F%3D%3E%20false">Try in REPL</a>
+
+---
 #### compose
 
 > compose(fn1: Function, ... , fnN: Function): any
@@ -333,7 +353,7 @@ It performs right-to-left function composition.
 
 ```
 const result = R.compose(
-  R.map(x => x * 2),
+  R.map(x => x * 2),both
   R.filter(x => x > 2)
 )([1, 2, 3, 4])
 
@@ -342,7 +362,7 @@ const result = R.compose(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/compose.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2Cboth%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
 
 ---
 #### complement
@@ -2129,6 +2149,10 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.8.0 Approve [PR #165](https://github.com/selfrefactor/rambda/pull/165) `R.clone`
+
+- 2.7.1 expose `src` | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
 
 - 2.7.0 Approve [PR #161](https://github.com/selfrefactor/rambda/pull/161) `R.isEmpty`
 
