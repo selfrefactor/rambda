@@ -4,7 +4,7 @@ If you want to add another `Ramda` method to the API, please feel free to submit
 
 The only requirement is the new method to have exact or very close implementation compared to the corresponding `Ramda` method.
 
-I give you example steps of the `PR` process, but before that I inform you that you will have to use `yarn` for installation, not `npm`.
+I give you example steps of the `PR` process:
 
 > Create a method file in `src` folder
 
