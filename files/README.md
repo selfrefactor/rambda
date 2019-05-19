@@ -287,7 +287,7 @@ console.log(fn(30)) //=> false
 #### clone
 
 > clone(objOrArr: T|T[]): T|T[]
-
+both
 Creates a deep copy of the value which may contain (nested) Arrays and Objects, 
 Numbers, Strings, Booleans and Dates. Functions are assigned by reference rather 
 than copied
@@ -309,7 +309,7 @@ It performs right-to-left function composition.
 
 ```
 const result = R.compose(
-  R.map(x => x * 2),
+  R.map(x => x * 2),both
   R.filter(x => x > 2)
 )([1, 2, 3, 4])
 
@@ -1840,6 +1840,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.8.0 Approve [PR #165](https://github.com/selfrefactor/rambda/pull/165) `R.clone`
 
 - 2.7.1 expose `src` | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
 
