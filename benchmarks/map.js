@@ -5,17 +5,17 @@ const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
 const input = [1, 2, 3, 4]
-const value = val => val + 2
+const fn = val => val + 2
 
 suite
   .add('Rambda.map', () => {
-    R.map(value, input)
+    R.map(fn, input)
   })
   .add('Ramda.map', () => {
-    Ramda.map(value, input)
+    Ramda.map(fn, input)
   })
   .add('Lodash.map', () => {
-    _.map(input, value)
+    _.map(input, fn)
   })
 
 module.exports = suite
