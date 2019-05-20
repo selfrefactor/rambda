@@ -1,6 +1,7 @@
 const babel = require("rollup-plugin-babel")
 const replace = require("rollup-plugin-replace")
 const resolve = require("rollup-plugin-node-resolve")
+const cleanup = require("rollup-plugin-cleanup")
 
 const extensions = [".js"]
 
@@ -13,6 +14,7 @@ export default {
       extensions,
       preferBuiltins: true
     }),
+    cleanup(),
     babel({
       extensions,
       exclude: ["node_modules/**"]

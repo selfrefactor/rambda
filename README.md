@@ -2196,6 +2196,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.10.0 Approve huge and importamt [PR #171](https://github.com/selfrefactor/rambda/pull/165) submitted by [@helmuthdu](https://github.com/helmuthdu) - Add comments to each method, improve Typescript support
+
 - 2.9.0 `R.toPairs` and `R.fromPairs`
 
 - 2.8.0 Approve [PR #165](https://github.com/selfrefactor/rambda/pull/165) `R.clone`
