@@ -38,9 +38,9 @@
  *      g(4); //=> 10
  */
 export function curry (fn, args = []) {
-  return (...props) =>
+  return (..._args) =>
     (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
       ...args,
-      ...props,
+      ..._args,
     ])
 }
