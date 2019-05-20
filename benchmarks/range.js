@@ -3,18 +3,18 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = 10
-const a = 0
-
 const suite = new Benchmark.Suite()
+const input = [0, 10]
 
-suite.add('Rambda#range', () => {
-  R.range(a, holder)
-})
-  .add('Ramda', () => {
-    Ramda.range(a, holder)
+suite
+  .add('Rambda.range', () => {
+    R.range(...input)
   })
-  .add('Lodash', () => {
-    _.range(a, holder)
+  .add('Ramda.range', () => {
+    Ramda.range(...input)
   })
+  .add('Lodash.range', () => {
+    _.range(...input)
+  })
+
 module.exports = suite

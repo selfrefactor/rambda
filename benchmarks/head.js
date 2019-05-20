@@ -4,17 +4,17 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
-const holder = [ 1, 2, 3 ]
+const input = [1, 2, 3]
 
 suite
   .add('Rambda.head', () => {
-    R.head(holder)
+    R.head(input)
   })
-  .add('Ramda', () => {
-    Ramda.head(holder)
+  .add('Ramda.head', () => {
+    Ramda.head(input)
   })
-  .add('Lodash', () => {
-    _.head(holder)
+  .add('Lodash.head', () => {
+    _.head(input)
   })
 
 module.exports = suite

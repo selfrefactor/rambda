@@ -3,20 +3,19 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = [ 1, 2, 3, 4 ]
-const a = val => val === 3
-
 const suite = new Benchmark.Suite()
+const input = [1, 2, 3, 4]
+const fn = val => val === 3
 
 suite
   .add('Rambda.findIndex', () => {
-    R.findIndex(a, holder)
+    R.findIndex(fn, input)
   })
-  .add('Ramda', () => {
-    Ramda.findIndex(a, holder)
+  .add('Ramda.findIndex', () => {
+    Ramda.findIndex(fn, input)
   })
-  .add('Lodash', () => {
-    _.findIndex(holder, a)
+  .add('Lodash.findIndex', () => {
+    _.findIndex(input, fn)
   })
 
 module.exports = suite

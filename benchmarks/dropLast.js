@@ -3,16 +3,15 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
-
-const holder = [ 1, 2, 3, 4 ]
-const a = 3
+const input = [1, 2, 3, 4]
+const value = 3
 
 suite
   .add('Rambda.dropLast', () => {
-    R.dropLast(a)(holder)
+    R.dropLast(value)(input)
   })
-  .add('Ramda', () => {
-    Ramda.dropLast(a)(holder)
+  .add('Ramda.dropLast', () => {
+    Ramda.dropLast(value)(input)
   })
 
 module.exports = suite
