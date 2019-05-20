@@ -1,557 +1,1096 @@
-declare let R: R.Static
+/// <reference path="./tools.d.ts" />
+declare let R: R.Static;
 
 declare namespace R {
-  // RAMBDA_START
-  type RambdaTypes = "Async"
-    | "Array"
-    | "Boolean"
-    | "Function"
-    | "Null"
-    | "NaN"
-    | "Number"
-    | "Object"
-    | "Promise"
-    | "RegExp"
-    | "String"
-    | "Undefined"
+  type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
-  type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean
-  type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out
-  type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+  type CommonKeys<T1, T2> = keyof T1 & keyof T2;
+  type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
+  type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
 
-  interface MapInterface<In, Out> {
-    (list: In[]): Out[]
-    (obj: Dictionary<In>): Dictionary<Out>
+  type Ord = number | string | boolean | Date;
+
+  type Path = ReadonlyArray<(number | string)>;
+
+  interface Functor<T> {
+    map<U>(fn: (t: T) => U): Functor<U>;
   }
-
-  type IdentityFunction<T> = (x: T) => T
-
-  interface Filter<T> {
-    (list: T[]): T[]
-    (obj: Dictionary<T>): Dictionary<T>
-  }
-
-  interface Dictionary<T> {
-    [index: string]: T
-  }
-  type Pred<T> = (input: T) => boolean
-  type Predicate<T> = (input: T, index: number) => boolean
-  type Fn<In, Out> = (x: In) => Out
-  type FnTwo<In, Out> = (x: In, y: In) => Out
-  type MapFn<In, Out> = (x: In, index: number) => Out
-  // RAMBDA_END
-  type Ord = number | string | boolean
-
-  type Path = Array<(number | string)>
 
   interface KeyValuePair<K, V> extends Array<K | V> {
-    0: K
-    1: V
+    0: K;
+    1: V;
   }
 
-  type Arity1Fn = (a: any) => any
+  type Arity1Fn = (a: any) => any;
 
-  interface CurriedTypeGuard2<T1, T2, R extends T2> {
-    (t1: T1): (t2: T2) => t2 is R
-    (t1: T1, t2: T2): t2 is R
+  type Arity2Fn = (a: any, b: any) => any;
+
+  type Pred = (...a: any[]) => boolean;
+  type SafePred<T> = (...a: T[]) => boolean;
+
+  type ObjPred = (value: any, key: string) => boolean;
+
+  interface Dictionary<T> {
+    [index: string]: T;
   }
 
-  interface CurriedTypeGuard3<T1, T2, T3, R extends T3> {
-    (t1: T1): CurriedTypeGuard2<T2, T3, R>
-    (t1: T1, t2: T2): (t3: T3) => t3 is R
-    (t1: T1, t2: T2, t3: T3): t3 is R
+  interface Lens {
+    <T, U>(obj: T): U;
+    set<T, U>(str: string, obj: T): U;
   }
 
-  interface CurriedTypeGuard4<T1, T2, T3, T4, R extends T4> {
-    (t1: T1): CurriedTypeGuard3<T2, T3, T4, R>
-    (t1: T1, t2: T2): CurriedTypeGuard2<T3, T4, R>
-    (t1: T1, t2: T2, t3: T3): (t4: T4) => t4 is R
-    (t1: T1, t2: T2, t3: T3, t4: T4): t4 is R
+  interface Filter {
+    <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
+    <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
+    <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
+    <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
+    <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
   }
 
-  interface CurriedTypeGuard5<T1, T2, T3, T4, T5, R extends T5> {
-    (t1: T1): CurriedTypeGuard4<T2, T3, T4, T5, R>
-    (t1: T1, t2: T2): CurriedTypeGuard3<T3, T4, T5, R>
-    (t1: T1, t2: T2, t3: T3): CurriedTypeGuard2<T4, T5, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => t5 is R
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): t5 is R
+  interface FilterOnceApplied<T> {
+    (list: ReadonlyArray<T>): T[];
+    (obj: Dictionary<T>): Dictionary<T>;
   }
 
-  interface CurriedTypeGuard6<T1, T2, T3, T4, T5, T6, R extends T6> {
-    (t1: T1): CurriedTypeGuard5<T2, T3, T4, T5, T6, R>
-    (t1: T1, t2: T2): CurriedTypeGuard4<T3, T4, T5, T6, R>
-    (t1: T1, t2: T2, t3: T3): CurriedTypeGuard3<T4, T5, T6, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4): CurriedTypeGuard2<T5, T6, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => t6 is R
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): t6 is R
+  type Evolve<O extends Evolvable<E>, E extends Evolver> = {
+    [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
+  };
+
+  type EvolveValue<V, E> =
+      E extends (value: V) => any ? ReturnType<E> :
+          E extends Evolver ? EvolveNestedValue<V, E> :
+              never;
+
+  type EvolveNestedValue<V, E extends Evolver> =
+      V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
+
+  interface Evolver {
+    [key: string]: ((value: any) => any) | Evolver;
   }
 
-  interface CurriedFunction2<T1, T2, R> {
-    (t1: T1): (t2: T2) => R
-    (t1: T1, t2: T2): R
+  // Represents all objects evolvable with Evolver E
+  type Evolvable<E extends Evolver> = {
+    [P in keyof E]?: Evolved<E[P]>;
+  };
+
+  type Evolved<T> =
+      T extends (value: infer V) => any ? V :
+          T extends Evolver ? Evolvable<T> :
+              never;
+
+  interface Placeholder { __isRamdaPlaceholder__: true; }
+
+  interface Reduced<T> {
+    '@@transducer/value': T;
+    '@@transducer/reduced': true;
   }
 
-  interface CurriedFunction3<T1, T2, T3, R> {
-    (t1: T1): CurriedFunction2<T2, T3, R>
-    (t1: T1, t2: T2): (t3: T3) => R
-    (t1: T1, t2: T2, t3: T3): R
-  }
-
-  interface CurriedFunction4<T1, T2, T3, T4, R> {
-    (t1: T1): CurriedFunction3<T2, T3, T4, R>
-    (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>
-    (t1: T1, t2: T2, t3: T3): (t4: T4) => R
-    (t1: T1, t2: T2, t3: T3, t4: T4): R
-  }
-
-  interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
-    (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>
-    (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>
-    (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R
-  }
-
-  interface CurriedFunction6<T1, T2, T3, T4, T5, T6, R> {
-    (t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>
-    (t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>
-    (t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R
-    (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R
-  }
-
-  interface Reduced {
-    [index: number]: any
-    [index: string]: any
-  }
+  type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
   interface Static {
-    // RAMBDA_START_MARKER
-    add(a: number, b: number): number
-    add(first: string, second: string): string
-    add(a: number): (b: number) => number
-    add(first: string): (second: string) => string
+    /**
+     * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
+     * position, and it returns a function waiting for its first argument.
+     */
+    __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
-    adjust<T>(fn: Fn<T, T>, index: number, list: T[]): T[]
-    adjust<T>(fn: Fn<T, T>, index: number): (list: T[]) => T[]
+    /**
+     * Adds two numbers (or strings). Equivalent to a + b but curried.
+     */
+    add(a: number, b: number): number;
+    add(a: string, b: string): string;
+    add(a: number): (b: number) => number;
+    add(a: string): (b: string) => string;
 
-    all<T>(predicate: Predicate<T>, list: T[]): boolean
-    all<T>(predicate: Predicate<T>): (list: T[]) => boolean
+    /**
+     * Applies a function to the value at the given index of an array, returning a new copy of the array with the
+     * element at the given index replaced with the result of the function application.
+     */
+    adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
+    adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
-    allPass<T>(
-      predicates: Predicate<T>[],
-      input: any
-    ): boolean
-    allPass<T>(
-      predicates: Predicate<T>[]
-    ): (input: any) => boolean
+    /**
+     * Returns true if all elements of the list match the predicate, false if there are any that don't.
+     */
+    all<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
+    all<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-    always<T>(x: T): () => T
+    /**
+     * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
+     */
+    allPass(preds: ReadonlyArray<Pred>): Pred;
 
-    any<T>(predicate: Predicate<T>, list: T[]): boolean
-    any<T>(predicate: Predicate<T>): (list: T[]) => boolean
+    /**
+     * Returns a function that always returns the given value.
+     */
+    always<T>(val: T): () => T;
 
-    anyPass<T>(
-      predicates: Predicate<T>[],
-      input: any
-    ): boolean
-    anyPass<T>(
-      predicates: Predicate<T>[]
-    ): (input: any) => boolean
+    /**
+     * Returns true if at least one of elements of the list match the predicate, false otherwise.
+     */
+    any<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
+    any<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-    append<T>(lastToBe: T, list: T[]): T[]
-    append<T>(lastToBe: T): <T>(list: T[]) => T[]
+    /**
+     * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
+     */
+    anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
-    clone<T>(list: T|T[]): T|T[]
+    /**
+     * Returns a new list containing the contents of the given list, followed by the given element.
+     */
+    append<T>(el: T, list: ReadonlyArray<T>): T[];
+    append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
 
+    /**
+     * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
+     */
+    assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
+    assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
     assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-    assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+    assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
-    both<T>(firstRule: Pred<T>, secondRule: Pred<T>): Pred<T>
-    both<T>(firstRule: Pred<T>): (secondRule: Pred<T>) => Pred<T>
+    /**
+     * A function wrapping calls to the two functions in an && operation, returning the result of the first function
+     * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
+     * that the second function will not be invoked if the first returns a false-y value.
+     */
+    both(pred1: Pred, pred2: Pred): Pred;
+    both(pred1: Pred): (pred2: Pred) => Pred;
 
-    complement<Out>(fn: Fn<any, Out>): Fn<any, Out>
+    /**
+     * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
+     */
+    clone<T>(value: T): T;
+    clone<T>(value: ReadonlyArray<T>): T[];
 
-    compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1
-    compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1
-    compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1
+    /**
+     * Takes a function f and returns a function g such that:
+     * - applying g to zero or more arguments will give true if applying the same arguments to f gives
+     *   a logical false value; and
+     * - applying g to zero or more arguments will give false if applying the same arguments to f gives
+     *   a logical true value.
+     */
+    complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
-    compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2
-    compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2
-    compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2
+    /**
+     * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
+     * functions must be unary.
+     */
 
-    compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3
-    compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3
-    compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3
+    // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
+    // compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+    // compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+    // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 
-    compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4
-    compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4
-    compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4
+    compose<T1>(fn0: () => T1): () => T1;
+    compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
+    compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
+    compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
-    compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5
-    compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5
-    compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5
+    compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
+    compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
+    compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
+    compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
 
-    compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6
+    compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
+    compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
+    compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
+    compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
+
+    compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
+    compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
+    compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
+    compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
+
+    compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
+    compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
+    compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
+    compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
+
+    compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
+    compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
     compose<V0, V1, T1, T2, T3, T4, T5, T6>(
-      fn5: (x: T5) => T6,
-      fn4: (x: T4) => T5,
-      fn3: (x: T3) => T4,
-      fn2: (x: T2) => T3,
-      fn1: (x: T1) => T2,
-      fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6
+        fn5: (x: T5) => T6,
+        fn4: (x: T4) => T5,
+        fn3: (x: T3) => T4,
+        fn2: (x: T2) => T3,
+        fn1: (x: T1) => T2,
+        fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
     compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-      fn5: (x: T5) => T6,
-      fn4: (x: T4) => T5,
-      fn3: (x: T3) => T4,
-      fn2: (x: T2) => T3,
-      fn1: (x: T1) => T2,
-      fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6
+        fn5: (x: T5) => T6,
+        fn4: (x: T4) => T5,
+        fn3: (x: T3) => T4,
+        fn2: (x: T2) => T3,
+        fn1: (x: T1) => T2,
+        fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
-    concat<T>(first: T[], second: T[]): T[]
-    concat<T>(first: T[]): (second: T[]) => T[]
-    concat(first: string, second: string): string
-    concat(first: string): (second: string) => string
+    /**
+     * Returns a new list consisting of the elements of the first list followed by the elements
+     * of the second.
+     */
+    concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
+    concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
+    concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+    concat(list1: string, list2: string): string;
+    concat(list1: string): (list2: string) => string;
 
-    contains(target: string, list: string): boolean
-    contains<T>(target: T, list: T[]): boolean
-    contains(target: string): (list: string) => boolean
-    contains<T>(target: T): (list: T[]) => boolean
+    /**
+     * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
+     * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
+     *
+     * @deprecated since 0.26 in favor of includes
+     */
+    contains(__: Placeholder, list: string): (a: string) => boolean;
+    contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
+    contains(__: Placeholder): (list: string, a: string) => boolean;
+    contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
+    contains(a: string, list: string): boolean;
+    contains<T>(a: T, list: ReadonlyArray<T>): boolean;
+    contains(a: string): (list: string) => boolean;
+    contains<T>(a: T): (list: ReadonlyArray<T>) => boolean;
 
-    curry<T1, T2, TResult extends T2>(fn: (a: T1, b: T2) => b is TResult): CurriedTypeGuard2<T1, T2, TResult>
-    curry<T1, T2, T3, TResult extends T3>(fn: (a: T1, b: T2, c: T3) => c is TResult): CurriedTypeGuard3<T1, T2, T3, TResult>
-    curry<T1, T2, T3, T4, TResult extends T4>(fn: (a: T1, b: T2, c: T3, d: T4) => d is TResult): CurriedTypeGuard4<T1, T2, T3, T4, TResult>
-    curry<T1, T2, T3, T4, T5, TResult extends T5>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => e is TResult): CurriedTypeGuard5<T1, T2, T3, T4, T5, TResult>
-    curry<T1, T2, T3, T4, T5, T6, TResult extends T6>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => f is TResult): CurriedTypeGuard6<T1, T2, T3, T4, T5, T6, TResult>
-    curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1, T2, TResult>
-    curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1, T2, T3, TResult>
-    curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1, T2, T3, T4, TResult>
-    curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): CurriedFunction5<T1, T2, T3, T4, T5, TResult>
-    curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): CurriedFunction6<T1, T2, T3, T4, T5, T6, TResult>
-    curry(fn: (...a: any[]) => any): (...a: any[]) => any
+    /**
+     * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
+     * First, its arguments needn't be provided one at a time.
+     */
+    curry<F extends (...args: any) => any>(f: F): Curry.Curry<F>;
 
-    dec(n: number): number
+    /**
+     * Decrements its argument.
+     */
+    dec(n: number): number;
 
-    defaultTo<T>(defaultValue: T, actualInput: null | undefined | T): T
-    defaultTo<T>(defaultValue: T): (actualInput: null | undefined | T) => T
-    defaultTo<T>(defaultValue: T, ...inputArguments: Array<null | undefined | T>): T
+    /**
+     * Returns the second argument if it is not null or undefined. If it is null or undefined, the
+     * first (default) argument is returned.
+     */
+    defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
+    defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
-    dissoc<T>(prop: string, obj: any): T
-    dissoc(prop: string): <U>(obj: any) => U
+    /*
+     * Returns a new object that does not contain a prop property.
+     */
+    // It seems impossible to infer the return type, so this may to be specified explicitely
+    dissoc<T>(prop: string, obj: any): T;
+    dissoc(prop: string): <U>(obj: any) => U;
 
-    divide(a: number, b: number): number
-    divide(a: number): (b: number) => number
+    /**
+     * Divides two numbers. Equivalent to a / b.
+     */
+    divide(__: Placeholder, b: number): (a: number) => number;
+    divide(__: Placeholder): (b: number, a: number) => number;
+    divide(a: number, b: number): number;
+    divide(a: number): (b: number) => number;
 
-    drop(n: number, input: string): string
-    drop<T>(n: number, input: T[]): T[]
+    /**
+     * Returns a new list containing all but the first n elements of the given list.
+     */
+    drop<T>(n: number, xs: ReadonlyArray<T>): T[];
+    drop(n: number, xs: string): string;
     drop<T>(n: number): {
-      (input: string): string
-      (input: T[]): T[]
-    }
+      (xs: string): string;
+      (xs: ReadonlyArray<T>): T[];
+    };
 
-    dropLast(n: number, input: string): string
-    dropLast<T>(n: number, input: T[]): T[]
+    /**
+     * Returns a list containing all but the last n elements of the given list.
+     */
+    dropLast<T>(n: number, xs: ReadonlyArray<T>): T[];
+    dropLast(n: number, xs: string): string;
     dropLast<T>(n: number): {
-      (input: T[]): T[]
-      (input: string): string
-    }
+      (xs: ReadonlyArray<T>): T[];
+      (xs: string): string;
+    };
 
-    either<T>(firstRule: Pred<T>, secondRule: Pred<T>): Pred<T>
-    either<T>(firstRule: Pred<T>): (secondRule: Pred<T>) => Pred<T>
+    /**
+     * A function wrapping calls to the two functions in an || operation, returning the result of the first
+     * function if it is truth-y and the result of the second function otherwise. Note that this is
+     * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
+     */
+    either(pred1: Pred, pred2: Pred): Pred;
+    either(pred1: Pred): (pred2: Pred) => Pred;
 
-    endsWith(target: string, input: string): boolean
-    endsWith(target: string): (input: string) => boolean
+    /**
+     * Checks if a list ends with the provided values
+     */
+    endsWith(a: string, list: string): boolean;
+    endsWith(a: string): (list: string) => boolean;
+    endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
+    endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
 
-    equals<T>(a: T, b: T): boolean
-    equals<T>(a: T): (b: T) => boolean
+    /**
+     * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
+     * Handles cyclical data structures.
+     */
+    equals<T>(a: T, b: T): boolean;
+    equals<T>(a: T): (b: T) => boolean;
 
-    F(): boolean
+    /*
+     * A function that always returns false. Any passed in parameters are ignored.
+     */
+    F(): boolean;
 
-    filter<T>(fn: FilterFunction<T>): Filter<T>
-    filter<T>(fn: FilterFunction<T>, list: T[]): T[]
-    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
+    /**
+     * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
+     */
+    filter: Filter;
 
-    find<T>(predicate: Pred<T>, list: T[]): T | undefined
-    find<T>(predicate: Pred<T>): (list: T[]) => T | undefined
+    /**
+     * Returns the first element of the list which matches the predicate, or `undefined` if no
+     * element matches.
+     */
+    find<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T | undefined;
+    find<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
 
-    findIndex<T>(predicate: Predicate<T>, list: T[]): number
-    findIndex<T>(predicate: Predicate<T>): (list: T[]) => number
+    /**
+     * Returns the index of the first element of the list which matches the predicate, or `-1`
+     * if no element matches.
+     */
+    findIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
+    findIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
 
-    flatten<T>(x: Array<T[]|T>): T[]
+    /**
+     * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
+     * them in a new array, depth-first.
+     */
+    flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 
-    flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
-    flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult
+    /**
+     * Returns a new function much like the supplied one, except that the first two arguments'
+     * order is reversed.
+     */
+    flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
+    flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
 
-    forEach<T>(fn: MapFn<T, any>, list: T[]): T[]
-    forEach<T>(fn: MapFn<T, any>): (list: T[]) => T[]
+    /**
+     * Iterate over an input list, calling a provided function fn for each element in the list.
+     */
+    forEach<T>(fn: (x: T) => void, list: T[]): T[];
+    forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
+    forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
+    forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
 
-    forEach<T>(fn: MapFunction<any, any>, inputObj: T): T
-    forEach<T>(fn: MapFunction<any, any>): (inputObj: T) => T
+    /**
+     * Splits a list into sublists stored in an object, based on the result of
+     * calling a String-returning function
+     * on each element, and grouping the results according to values returned.
+     */
+    groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
+    groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
-    groupBy<T>(fn: (x: T) => string, list: T[]): { [index: string]: T[] }
-    groupBy<T>(fn: (x: T) => string): (list: T[]) => { [index: string]: T[] }
+    /**
+     * Returns whether or not an object has an own property with the specified name.
+     */
+    has<T>(__: Placeholder, obj: T): (s: string) => boolean;
+    has<T>(__: Placeholder): (obj: T, s: string) => boolean;
+    has<T>(s: string, obj: T): boolean;
+    has(s: string): <T>(obj: T) => boolean;
 
-    has<T>(prop: string, obj: T): boolean
-    has(prop: string): <T>(obj: T) => boolean
+    /**
+     * Returns the first element in a list.
+     * In some libraries this function is named `first`.
+     */
+    head<T>(list: ReadonlyArray<T>): T | undefined;
+    head(list: string): string;
 
-    head<T>(list: T[]): T | undefined
-    head(list: string): string
+    /**
+     * A function that does nothing but return the parameter supplied to it. Good as a default
+     * or placeholder function.
+     */
+    identity<T>(a: T): T;
 
-    identity<T>(x: T): T
+    /**
+     * Creates a function that will process either the onTrue or the onFalse function depending upon the result
+     * of the condition predicate.
+     */
+    ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+    ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
-    ifElse(
-      fn: Pred<any> | boolean,
-      onTrue: Arity1Fn,
-      onFalse: Arity1Fn
-    ): Arity1Fn
+    /**
+     * Increments its argument.
+     */
+    inc(n: number): number;
 
-    inc(n: number): number
+    /**
+     * Given a target, this function checks a list for the target and returns a boolean.
+     * Given a string, this function checks for the string in another string or list and returns
+     * a boolean.
+     */
+    includes(s: string, list: ReadonlyArray<string> | string): boolean;
+    includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
+    includes<T>(target: T, list: ReadonlyArray<T>): boolean;
+    includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
-    includes(target: any, input: string|any[]): boolean
-    includes(target: any) : (input: string|any[]) => boolean
+    /**
+     * Given a function that generates a key, turns a list of objects into an object indexing the objects
+     * by the given key.
+     */
+    indexBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
+    indexBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
-    indexBy<T>(fn: (x: T) => string, list: T[]): { [key: string]: T }
-    indexBy<T>(fn: (x: T) => string): (list: T[]) => { [key: string]: T }
+    /**
+     * Returns the position of the first occurrence of an item in an array
+     * (by strict equality),
+     * or -1 if the item is not included in the array.
+     */
+    indexOf<T>(target: T, list: ReadonlyArray<T>): number;
+    indexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
-    indexOf<T>(target: T, arr: T[]): number;
-    indexOf<T>(target: T): (arr: T[]) => number;
+    /**
+     * Returns all but the last element of a list or string.
+     */
+    init<T>(list: ReadonlyArray<T>): T[];
+    init(list: string): string;
 
-    init<T>(list: T[]): T[]
-    init(list: string): string
+    /**
+     * See if an object (`val`) is an instance of the supplied constructor.
+     * This function will check up the inheritance chain, if any.
+     */
+    is(ctor: any, val: any): boolean;
+    is(ctor: any): (val: any) => boolean;
 
-    is(inputPrototype: any, input: any): boolean
-    is(inputPrototype: any): (input: any) => boolean
+    /**
+     * Reports whether the list has zero elements.
+     */
+    isEmpty(value: any): boolean;
 
-    isEmpty(value: any): boolean
+    /**
+     * Checks if the input value is null or undefined.
+     */
+    isNil(value: any): value is null | undefined;
 
-    isNil(value: any): value is null | undefined
+    /**
+     * Returns a string made by inserting the `separator` between each
+     * element and concatenating all the elements into a single string.
+     */
+    join(x: string, xs: ReadonlyArray<any>): string;
+    join(x: string): (xs: ReadonlyArray<any>) => string;
 
-    join(x: string, input: any[]): string
-    join(x: string): (input: any[]) => string
+    /**
+     * Returns a list containing the names of all the enumerable own
+     * properties of the supplied object.
+     */
+    keys<T extends object>(x: T): Array<keyof T>;
+    keys<T>(x: T): string[];
 
-    keys<T extends object>(x: T): Array<keyof T>
-    keys<T>(x: T): string[]
+    /**
+     * Returns the last element from a list.
+     */
+    last<T>(list: ReadonlyArray<T>): T | undefined;
+    last(list: string): string;
 
-    last<T>(list: T[]): T | undefined
-    last(list: string): string
+    /**
+     * Returns the position of the last occurrence of an item (by strict equality) in
+     * an array, or -1 if the item is not included in the array.
+     */
+    lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
 
-    lastIndexOf<T>(x: T, arr: T[]): number
-    lastIndexOf<T>(x: T): (arr: T[]) => number
+    /**
+     * Returns the number of elements in the array by returning list.length.
+     */
+    length<T>(list: ReadonlyArray<T>): number;
 
-    length<T>(list: T[]): number
+    /**
+     * Returns a lens for the given getter and setter functions. The getter
+     * "gets" the value of the focus; the setter "sets" the value of the focus.
+     * The setter should not mutate the data structure.
+     */
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
-    map<In, Out>(fn: MapFunction<In, Out>): MapInterface<In, Out>
-    map<In, Out>(fn: MapFunction<In, Out>, list: In[]): Out[]
+    /**
+     * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
+     */
+    map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
+    map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
+    map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
+    map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+    map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
+    map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
-    map<In, Out>(
-      fn: MapFunction<In, Out>,
-      obj: Dictionary<In>
-    ): Dictionary<Out>
+    /**
+     * Tests a regular expression agains a String
+     */
+    match(regexp: RegExp, str: string): any[];
+    match(regexp: RegExp): (str: string) => any[];
 
-    match(regexp: RegExp, input: string): any[]
-    match(regexp: RegExp): (input: string) => any[]
+    /**
+     * Returns the larger of its two arguments.
+     */
+    max<T extends Ord>(a: T, b: T): T;
+    max<T extends Ord>(a: T): (b: T) => T;
 
-    merge<T1, T2>(obj: T1, higher: T2): T1 & T2
-    merge<T1>(obj: T1): <T2>(higher: T2) => T1 & T2
+    /**
+     * Takes a function and two values, and returns whichever value produces
+     * the larger result when passed to the provided function.
+     */
+    maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+    maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
+    maxBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
 
-    modulo(a: number, b: number): number
-    modulo(a: number): (b: number) => number
+    /**
+     * Create a new object with the own properties of a
+     * merged with the own properties of object b.
+     * This function will *not* mutate passed-in objects.
+     *
+     * @deprecated since 0.26 in favor of mergeRight
+     */
+    merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => Merge<T2, T1>;
+    merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => Merge<T2, T1>;
+    merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
+    merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
-    multiply(a: number, b: number): number
-    multiply(a: number): (b: number) => number
+    /**
+     * Returns the smaller of its two arguments.
+     */
+    min<T extends Ord>(a: T, b: T): T;
+    min<T extends Ord>(a: T): (b: T) => T;
 
-    max<T>(a: T, b: T): T
-    max<T>(a: T): (b: T) => T
+    /**
+     * Takes a function and two values, and returns whichever value produces
+     * the smaller result when passed to the provided function.
+     */
+    minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+    minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
+    minBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
 
-    maxBy<T>(keyFn: Function, a: T, b: T): T
-    maxBy<T>(keyFn: Function, a: T): (b: T) => T
-    maxBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
+    /**
+     * Divides the second parameter by the first and returns the remainder.
+     * The flipped version (`moduloBy`) may be more useful curried.
+     * Note that this functions preserves the JavaScript-style behavior for
+     * modulo. For mathematical modulo see `mathMod`
+     */
+    modulo(__: Placeholder, b: number): (a: number) => number;
+    modulo(__: Placeholder): (b: number, a: number) => number;
+    modulo(a: number, b: number): number;
+    modulo(a: number): (b: number) => number;
 
-    min<T>(a: T, b: T): T
-    min<T>(a: T): (b: T) => T
+    /**
+     * Multiplies two numbers. Equivalent to a * b but curried.
+     */
+    multiply(a: number, b: number): number;
+    multiply(a: number): (b: number) => number;
 
-    minBy<T>(keyFn: Function, a: T, b: T): T
-    minBy<T>(keyFn: Function, a: T): (b: T) => T
-    minBy<T>(keyFn: Function): CurriedFunction2<T, T, T>
+    /**
+     * Returns true if no elements of the list match the predicate, false otherwise.
+     */
+    none<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
+    none<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-    none<T>(predicate: Pred<T>, list: T[]): boolean
-    none<T>(predicate: Pred<T>): (list: T[]) => boolean
+    /**
+     * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
+     * underlying function would return a false-y value, and `false` when it would return a truth-y one.
+     */
+    not(value: any): boolean;
 
-    not<T>(value: T): boolean
-    nth<T>(n: number, list: T[]): T | undefined;
-    nth(n: number): <T>(list: T[]) => T | undefined;
+    /**
+     * Returns a partial copy of an object omitting the keys specified.
+     */
+    omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
+    omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
 
-    omit<T, K extends Array<keyof T>>(names: K, obj: T): Omit<T, K[number]>
-    omit<T, K extends keyof T>(name: K, obj: T): Omit<T, K>
-    omit<T, K extends Array<keyof T>>(
-      names: K
-    ): (obj: T) => Omit<T, K[number]>
+    /**
+     * Takes a function `f` and a list of arguments, and returns a function `g`.
+     * When applied, `g` returns the result of applying `f` to the arguments
+     * provided initially followed by the arguments provided to `g`.
+     */
+    partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
 
-    omit<T, K extends keyof T>(name: K): (obj: T) => Omit<T, K>
+    partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+    partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
 
-    partial<T, U>(fn: Function, ...inputs: Array<T> ): U
+    partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
+    partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
+    partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
 
-    partialCurry<Out>(
-      fn: (input: Dictionary<any>) => Out,
-      input: Dictionary<any>
-    ): (input: Dictionary<any>) => Out
+    partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
-    path<T>(path: Path | string, obj: any): T
-    path<T>(path: Path | string): (obj: any) => T
+    /**
+     * Retrieve the value at a given path.
+     */
+    path<T>(path: Path, obj: any): T | undefined;
+    path<T>(path: Path): (obj: any) => T | undefined;
 
-    pathOr<T>(d: T, p: Path | string, obj: any): T | any
-    pathOr<T>(d: T, p: Path | string): (obj: any) => T | any
-    pathOr<T>(d: T): CurriedFunction2<Path | string, any, T | any>
+    /**
+     * If the given, non-null object has a value at the given path, returns the value at that path.
+     * Otherwise returns the provided default value.
+     */
+    pathOr<T>(defaultValue: T, path: Path, obj: any): any;
+    pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
+    pathOr<T>(defaultValue: T): Curry.Curry<(a: Path, b: any) => any>;
 
-    pick<T, K extends keyof T>(
-      props: Array<K | string> | string,
-      input: T
-    ): Pick<T, K>
-    pick(props: string[] | string): <T, U>(obj: T) => U
+    /**
+     * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
+     * property is ignored.
+     */
+    pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+    pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
-    pickAll<T, U>(props: string[], obj: T): U
-    pickAll(props: string[]): <T, U>(obj: T) => U
+    /**
+     * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
+     */
+    pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U;
+    pickAll(names: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
+    /**
+     * Creates a new function that runs each of the functions supplied as parameters in turn,
+     * passing the return value of each function invocation to the next function invocation,
+     * beginning with whatever arguments were passed to the initial invocation.
+     */
+    pipe<T1>(fn0: () => T1): () => T1;
     pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
     pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
     pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
+    pipe<T1, T2>(fn0: () => T1, fn1: (x: T1) => T2): () => T2;
     pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
     pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
     pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
 
+    pipe<T1, T2, T3>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): () => T3;
     pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
     pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
     pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
 
+    pipe<T1, T2, T3, T4>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): () => T4;
     pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
     pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
     pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
 
+    pipe<T1, T2, T3, T4, T5>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): () => T5;
     pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
     pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
     pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
 
+    pipe<T1, T2, T3, T4, T5, T6>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): () => T6;
     pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
     pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
     pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-      fn0: (x0: V0, x1: V1, x2: V2) => T1,
-      fn1: (x: T1) => T2,
-      fn2: (x: T2) => T3,
-      fn3: (x: T3) => T4,
-      fn4: (x: T4) => T5,
-      fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
+        fn0: (x0: V0, x1: V1, x2: V2) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
-    pluck<T>(propOrIndex: string, input: any[]): T[]
-    pluck<T>(propOrIndex: number, input: T[][]): T[]
-    pluck<T>(propOrIndex: string): (input: any[]) => T[]
-    pluck<T>(propOrIndex: number): (input: T[][]) => T[]
+    pipe<T1, T2, T3, T4, T5, T6, T7>(
+        fn0: () => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn: (x: T6) => T7): () => T7;
+    pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
+        fn0: (x: V0) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn: (x: T6) => T7): (x: V0) => T7;
+    pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(
+        fn0: (x0: V0, x1: V1) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
+    pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(
+        fn0: (x0: V0, x1: V1, x2: V2) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
 
-    prepend<T>(firstToBe: T, list: T[]): T[]
-    prepend<T>(firstToBe: T): (list: T[]) => T[]
+    pipe<T1, T2, T3, T4, T5, T6, T7, T8>(
+        fn0: () => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn: (x: T7) => T8): () => T8;
+    pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+        fn0: (x: V0) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn: (x: T7) => T8): (x: V0) => T8;
+    pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(
+        fn0: (x0: V0, x1: V1) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
+    pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
+        fn0: (x0: V0, x1: V1, x2: V2) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
 
-    prop<P extends keyof T, T>(p: P, obj: T): T[P]
-    prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T
+    pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        fn0: () => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9): () => T9;
+    pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        fn0: (x0: V0) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9): (x0: V0) => T9;
+    pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        fn0: (x0: V0, x1: V1) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
+    pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        fn0: (x0: V0, x1: V1, x2: V2) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
 
-    propEq<T>(name: string, val: T, obj: any): boolean
-    propEq<T>(name: string, val: T): (obj: any) => boolean
-    propEq(name: string): <T>(val: T, obj: any) => boolean
+    pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        fn0: () => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9,
+        fn9: (x: T9) => T10): () => T10;
+    pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        fn0: (x0: V0) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9,
+        fn9: (x: T9) => T10): (x0: V0) => T10;
+    pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        fn0: (x0: V0, x1: V1) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9,
+        fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
+    pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        fn0: (x0: V0, x1: V1, x2: V2) => T1,
+        fn1: (x: T1) => T2,
+        fn2: (x: T2) => T3,
+        fn3: (x: T3) => T4,
+        fn4: (x: T4) => T5,
+        fn5: (x: T5) => T6,
+        fn6: (x: T6) => T7,
+        fn7: (x: T7) => T8,
+        fn8: (x: T8) => T9,
+        fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
-    range(fromInclusive: number, toExclusive: number): number[]
-    range(fromInclusive: number): (toExclusive: number) => number[]
+    /**
+     * Returns a new list by plucking the same named property off all objects in the list supplied.
+     */
+    pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
+    pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
+    pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+    pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
 
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult, list: T[]): TResult
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: T[]) => TResult
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: T[]) => TResult
+    /**
+     * Returns a new list with the given element at the front, followed by the contents of the
+     * list.
+     */
+    prepend<T>(el: T, list: ReadonlyArray<T>): T[];
+    prepend<T>(el: T): (list: ReadonlyArray<T>) => T[];
 
-    reject<T>(predicate: Predicate<T>): Filter<T>
-    reject<T>(predicate: Predicate<T>, list: T[]): T[]
-    reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>
+    /**
+     * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
+     */
+    prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
+    prop<P extends keyof T, T>(p: P, obj: T): T[P];
+    prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
+    prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
 
-    repeat<T>(a: T, n: number): T[]
-    repeat<T>(a: T): (n: number) => T[]
+    /**
+     * Determines whether the given property of an object has a specific
+     * value according to strict equality (`===`).  Most likely used to
+     * filter a list.
+     */
+    propEq<T>(name: string | number, val: T, obj: any): boolean;
+    propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+    propEq(name: string | number): {
+      <T>(val: T, obj: any): boolean;
+      <T>(val: T): (obj: any) => boolean;
+    };
 
-    replace(pattern: RegExp | string, replacement: string, str: string): string
-    replace(pattern: RegExp | string, replacement: string): (str: string) => string
-    replace(pattern: RegExp | string): (replacement: string) => (str: string) => string
+    /**
+     * Returns a list of numbers from `from` (inclusive) to `to`
+     * (exclusive). In mathematical terms, `range(a, b)` is equivalent to
+     * the half-open interval `[a, b)`.
+     */
+    range(from: number, to: number): number[];
+    range(from: number): (to: number) => number[];
 
-    reverse<T>(list: T[]): T[]
+    /**
+     * Returns a single item by iterating through the list, successively calling the iterator
+     * function and passing it an accumulator value and the current value from the array, and
+     * then passing the result to the next call.
+     */
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
-    sort<T>(sortingRule: FnTwo<T,number>, list: T[]): T[]
-    sort<T>(sortingRule: FnTwo<T,number>): (list: T[]) => T[]
+    /**
+     * Similar to `filter`, except that it keeps only values for which the given predicate
+     * function returns falsy.
+     */
+    reject: Filter;
 
-    sortBy<T>(fn: (a: T) => Ord, list: T[]): T[]
-    sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[]
+    /**
+     * Returns a fixed list of size n containing a specified identical value.
+     */
+    repeat<T>(a: T, n: number): T[];
+    repeat<T>(a: T): (n: number) => T[];
 
-    split(sep: string | RegExp): (str: string) => string[]
-    split(sep: string | RegExp, str: string): string[]
+    /**
+     * Replace a substring or regex match in a string with a replacement.
+     */
+    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
+    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
+    replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
 
-    splitEvery<T>(a: number, list: T[]): T[][]
-    splitEvery(a: number): <T>(list: T[]) => T[][]
+    /**
+     * Returns a new list with the same elements as the original list, just in the reverse order.
+     */
+    reverse<T>(list: ReadonlyArray<T>): T[];
+    /**
+     * Returns a new string with the characters in reverse order.
+     */
+    reverse(str: string): string;
 
-    startsWith(x: string, str: string): boolean
-    startsWith(x: string): (str: string) => boolean
+    /**
+     * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
+     * time and return a negative number if the first value is smaller, a positive number if it's larger, and zero
+     * if they are equal.
+     */
+    sort<T>(fn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
+    sort<T>(fn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
-    subtract(a: number, b: number): number
-    subtract(a: number): (b: number) => number
+    /**
+     * Sorts the list according to a key generated by the supplied function.
+     */
+    sortBy<T>(fn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
+    sortBy(fn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
-    T(): boolean
+    /**
+     * Splits a string into an array of strings based on the given
+     * separator.
+     */
+    split(sep: string | RegExp): (str: string) => string[];
+    split(sep: string | RegExp, str: string): string[];
 
-    tail<T>(list: T[]): T[]
-    tail(list: string): string
+    /**
+     * Splits a collection into slices of the specified length.
+     */
+    splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
+    splitEvery(a: number, list: string): string[];
+    splitEvery(a: number): {
+      (list: string): string[];
+      <T>(list: ReadonlyArray<T>): T[][];
+    };
 
-    take(n: number, input: string): string
-    take<T>(n: number, input: T[]): T[]
+    /**
+     * Checks if a list starts with the provided values
+     */
+    startsWith(a: string, list: string): boolean;
+    startsWith(a: string): (list: string) => boolean;
+    startsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
+    startsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
+
+    /**
+     * Subtracts two numbers. Equivalent to `a - b` but curried.
+     */
+    subtract(__: Placeholder, b: number): (a: number) => number;
+    subtract(__: Placeholder): (b: number, a: number) => number;
+    subtract(a: number, b: number): number;
+    subtract(a: number): (b: number) => number;
+
+    /**
+     * A function that always returns true. Any passed in parameters are ignored.
+     */
+    T(): boolean;
+
+    /**
+     * Returns all but the first element of a list or string.
+     */
+    tail<T>(list: ReadonlyArray<T>): T[];
+    tail(list: string): string;
+
+    /**
+     * Returns a new list containing the first `n` elements of the given list.  If
+     * `n > * list.length`, returns a list of `list.length` elements.
+     */
+    take<T>(n: number, xs: ReadonlyArray<T>): T[];
+    take(n: number, xs: string): string;
     take<T>(n: number): {
-      (input: string): string
-      (input: T[]): T[]
-    }
+      (xs: string): string;
+      (xs: ReadonlyArray<T>): T[];
+    };
 
-    takeLast(n: number, input: string): string
-    takeLast<T>(n: number, input: T[]): T[]
+    /**
+     * Returns a new list containing the last n elements of the given list. If n > list.length,
+     * returns a list of list.length elements.
+     */
+    takeLast<T>(n: number, xs: ReadonlyArray<T>): T[];
+    takeLast(n: number, xs: string): string;
     takeLast(n: number): {
-      <T>(input: T[]): T[]
-      (input: string): string
-    }
+      <T>(xs: ReadonlyArray<T>): T[];
+      (xs: string): string;
+    };
 
-    tap<T>(fn: (a: T) => any, value: T): T
-    tap<T>(fn: (a: T) => any): (value: T) => T
+    /**
+     * The function to call with x. The return value of fn will be thrown away.
+     */
+    tap<T>(fn: (a: T) => any, value: T): T;
+    tap<T>(fn: (a: T) => any): (value: T) => T;
 
-    test(regexp: RegExp, input: string): boolean
-    test(regexp: RegExp): (input: string) => boolean
+    /**
+     * Determines whether a given string matches a given regular expression.
+     */
+    test(regexp: RegExp, str: string): boolean;
+    test(regexp: RegExp): (str: string) => boolean;
 
-    times<T>(fn: (i: number) => T, n: number): T[]
-    times<T>(fn: (i: number) => T): (n: number) => T[]
+    /**
+     * Calls an input function `n` times, returning an array containing the results of those
+     * function calls.
+     */
+    times<T>(fn: (i: number) => T, n: number): T[];
+    times<T>(fn: (i: number) => T): (n: number) => T[];
 
-    toLower(input: string): string
-    toString<T>(input: T): string
-    toUpper(input: string): string
-    trim(input: string): string
+    /**
+     * The lower case version of a string.
+     */
+    toLower(str: string): string;
 
-    type(input: any): RambdaTypes
+    /**
+     * Returns the string representation of the given value. eval'ing the output should
+     * result in a value equivalent to the input value. Many of the built-in toString
+     * methods do not satisfy this requirement.
+     *
+     * If the given value is an [object Object] with a toString method other than
+     * Object.prototype.toString, this method is invoked with no arguments to produce the
+     * return value. This means user-defined constructor functions can provide a suitable
+     * toString method.
+     */
+    toString<T>(val: T): string;
 
-    uniq<T>(list: T[]): T[]
+    /**
+     * The upper case version of a string.
+     */
+    toUpper(str: string): string;
 
-    uniqWith<T>(predicate:FnTwo<T, boolean>, list: T[]): T[];
-    uniqWith<T>(predicate:FnTwo<T, boolean>): (list: T[]) => T[];
+    /**
+     * Removes (strips) whitespace from both ends of the string.
+     */
+    trim(str: string): string;
 
-    update<T>(index: number, newValue: T, list: T[]): T[]
-    update<T>(index: number, newValue: T): (list: T[]) => T[]
+    /**
+     * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
+     * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
+     * all as 'Object'.
+     */
+    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
 
-    values<T extends object, K extends keyof T>(obj: T): Array<T[K]>
+    /**
+     * Returns a new list containing only one copy of each element in the original list.
+     */
+    uniq<T>(list: ReadonlyArray<T>): T[];
 
-    without<T>(listOfWithouts: T[], input: T[]): T[]
-    without<T>(listOfWithouts: T[]): (input: T[]) => T[]
+    /**
+     * Returns a new list containing only one copy of each element in the original list, based upon the value
+     * returned by applying the supplied predicate to two list elements.
+     */
+    uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
+    uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
-    zip<K, V>(list1: K[], list2: V[]): Array<KeyValuePair<K, V>>
-    zip<K>(list1: K[]): <V>(list2: V[]) => Array<KeyValuePair<K, V>>
+    /**
+     * Returns a new copy of the array with the element at the provided index replaced with the given value.
+     */
+    update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
+    update<T>(index: number, value: T): (list: ReadonlyArray<T>) => T[];
 
-    zipObj<T>(keys: string[], values: T[]): { [index: string]: T }
-    zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T }
-    // RAMBDA_END_MARKER
+    /**
+     * Returns a list of all the enumerable own properties of the supplied object.
+     * Note that the order of the output array is not guaranteed across
+     * different JS platforms.
+     */
+    values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
+
+    /**
+     * Returns a new list without values in the first argument. R.equals is used to determine equality.
+     * Acts as a transducer if a transformer is given in list position.
+     */
+    without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
+    /**
+     * Creates a new list out of the two supplied by pairing up equally-positioned items from
+     * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
+     */
+    zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
+    zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
+
+    /**
+     * Creates a new object out of a list of keys and a list of values.
+     */
+    // TODO: Dictionary<T> as a return value is to specific, any seems to loose
+    zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
+    zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
   }
 }
 
-export = R
+export = R;
+export as namespace R;
