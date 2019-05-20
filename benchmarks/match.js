@@ -3,13 +3,15 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
+const input = 'foo bar baz'
+const value = /a./g
 
 suite
   .add('Rambda.match', () => {
-    R.match(/a./g)('foo bar baz')
+    R.match(value)(input)
   })
-  .add('Ramda', () => {
-    Ramda.match(/a./g)('foo bar baz')
+  .add('Ramda.match', () => {
+    Ramda.match(value)(input)
   })
 
 module.exports = suite

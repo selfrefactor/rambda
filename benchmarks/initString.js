@@ -2,14 +2,15 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = 'foo'
-
 const suite = new Benchmark.Suite()
+const input = 'foo'
 
-suite.add('Rambda.init when string', () => {
-  R.init(holder)
-})
-  .add('Ramda', () => {
-    Ramda.init(holder)
+suite
+  .add('Rambda.init (when string)', () => {
+    R.init(input)
   })
+  .add('Ramda.init (when string)', () => {
+    Ramda.init(input)
+  })
+
 module.exports = suite

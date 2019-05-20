@@ -3,24 +3,18 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holders = [undefined, null, 1, '', [], {}]
-
 const suite = new Benchmark.Suite()
+const input = [undefined, null, 1, '', [], {}]
 
-suite.add('Rambda.isEmpty', () => {
-    holders.forEach((x) =>
-      R.isEmpty(x)
-    )
+suite
+  .add('Rambda.isEmpty', () => {
+    input.forEach(val => R.isEmpty(val))
   })
-  .add('Ramda', () => {
-    holders.forEach((x) =>
-      Ramda.isEmpty(x)
-    )
+  .add('Ramda.isEmpty', () => {
+    input.forEach(val => Ramda.isEmpty(val))
   })
-  .add('Lodash', () => {
-    holders.forEach((x) =>
-      _.isEmpty(x)
-    )
+  .add('Lodash.isEmpty', () => {
+    input.forEach(val => _.isEmpty(val))
   })
 
 module.exports = suite

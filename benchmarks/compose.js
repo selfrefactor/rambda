@@ -4,16 +4,18 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
+const input = [1, 2, 3, 4]
+const fns = [val => val + 1, val => val.length]
 
 suite
   .add('Rambda.compose', () => {
-    R.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+    R.compose(...fns)(input)
   })
-  .add('Ramda', () => {
-    Ramda.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+  .add('Ramda.compose', () => {
+    Ramda.compose(...fns)(input)
   })
   .add('Lodash.flowRight', () => {
-    _.flowRight(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
+    _.flowRight(...fns)(input)
   })
 
 module.exports = suite

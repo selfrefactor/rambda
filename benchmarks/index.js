@@ -1,9 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
-const _ = require('lodash')
 const R = require('../dist/rambda.js')
-const Ramda = require('ramda')
 
 const benchmarks = require('beautify-benchmark')
 
@@ -18,7 +15,7 @@ const getBenchmarksToRun = () => {
 
   return R.compose(
     R.filter(x => allFiles.includes(x)),
-    R.map(x => `${ x }.js`)
+    R.map(x => `${x}.js`)
   )(argv.slice(2, argv.length))
 }
 
@@ -26,7 +23,7 @@ async function main () {
   const benchmarksToRun = getBenchmarksToRun()
 
   for (const filePath of benchmarksToRun) {
-    console.log(`Running ${ filePath }`)
+    console.log(`Running ${filePath}`)
     await runBenchmark(filePath)
   }
 }

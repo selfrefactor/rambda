@@ -3,24 +3,18 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = [
-  { b: 2, c: 'foo', d: [1, 2, 3] },
-  1,
-  new Date(),
-  null
-]
-
 const suite = new Benchmark.Suite()
+const input = [{ b: 2, c: 'foo', d: [1, 2, 3] }, 1, new Date(), null]
 
 suite
   .add('Rambda.clone', () => {
-    R.clone(holder)
+    R.clone(input)
   })
-  .add('Ramda', () => {
-    Ramda.clone(holder)
+  .add('Ramda.clone', () => {
+    Ramda.clone(input)
   })
-  .add('Lodash', () => {
-    _.cloneDeep(holder)
+  .add('Lodash.cloneDeep', () => {
+    _.cloneDeep(input)
   })
 
 module.exports = suite
