@@ -5,8 +5,6 @@ declare namespace R {
   type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
   type CommonKeys<T1, T2> = keyof T1 & keyof T2;
-  type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
-  type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
 
   type Ord = number | string | boolean | Date;
 
@@ -27,8 +25,6 @@ declare namespace R {
 
   type Pred = (...a: any[]) => boolean;
   type SafePred<T> = (...a: T[]) => boolean;
-
-  type ObjPred = (value: any, key: string) => boolean;
 
   interface Dictionary<T> {
     [index: string]: T;
@@ -372,6 +368,12 @@ declare namespace R {
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
     forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
     forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
+
+    /**
+     * Creates a new object out of a list key-value pairs.
+     */
+    fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
+    fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
 
     /**
      * Splits a list into sublists stored in an object, based on the result of
@@ -1009,6 +1011,14 @@ declare namespace R {
      */
     times<T>(fn: (i: number) => T, n: number): T[];
     times<T>(fn: (i: number) => T): (n: number) => T[];
+
+    /**
+     * Converts an object into an array of key, value arrays.
+     * Only the object's own properties are used.
+     * Note that the order of the output array is not guaranteed to be
+     * consistent across different JS platforms.
+     */
+    toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
     /**
      * The lower case version of a string.
