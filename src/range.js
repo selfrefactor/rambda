@@ -1,10 +1,23 @@
-export function range(start, end) {
-  if (arguments.length === 1)
-    return endHolder => range(start, endHolder)
+/**
+ * Returns a list of numbers from `from` (inclusive) to `to` (exclusive).
+ *
+ * @func
+ * @category List
+ * @sig Number -> Number -> [Number]
+ * @param {Number} from The first number in the list.
+ * @param {Number} to One more than the last number in the list.
+ * @return {Array} The list of numbers in the set `[a, b)`.
+ * @example
+ *
+ *      R.range(1, 5);    //=> [1, 2, 3, 4]
+ *      R.range(50, 53);  //=> [50, 51, 52]
+ */
+export function range (from, to) {
+  if (arguments.length === 1) return _to => range(from, _to)
 
   const willReturn = []
 
-  for (let i = start; i < end; i++) {
+  for (let i = from; i < to; i++) {
     willReturn.push(i)
   }
 
