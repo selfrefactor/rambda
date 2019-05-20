@@ -3,22 +3,19 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = {
-  a : 'foo',
-  b : 'bar',
-  c : 'baz',
-}
-const a = [ 'a', 'c' ]
-
 const suite = new Benchmark.Suite()
+const input = { a: 'foo', b: 'bar', c: 'baz' }
+const value = ['a', 'c']
 
-suite.add('Rambda.omit', () => {
-  R.omit(a, holder)
-})
-  .add('Ramda', () => {
-    Ramda.omit(a, holder)
+suite
+  .add('Rambda.omit', () => {
+    R.omit(value, input)
   })
-  .add('Lodash', () => {
-    _.omit(holder, a)
+  .add('Ramda.omit', () => {
+    Ramda.omit(value, input)
   })
+  .add('Lodash.omit', () => {
+    _.omit(input, value)
+  })
+
 module.exports = suite

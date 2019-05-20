@@ -4,16 +4,18 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
+const input = [1, 2, 3, 4]
+const fn = val => val > 2
 
 suite
   .add('Rambda.filter', () => {
-    R.filter(val => val > 2, [ 1, 2, 3, 4 ])
+    R.filter(fn, input)
   })
-  .add('Ramda', () => {
-    Ramda.filter(val => val > 2, [ 1, 2, 3, 4 ])
+  .add('Ramda.filter', () => {
+    Ramda.filter(fn, input)
   })
-  .add('Lodash', () => {
-    _.filter([ 1, 2, 3, 4 ], val => val > 2)
+  .add('Lodash.filter', () => {
+    _.filter(input, fn)
   })
 
 module.exports = suite

@@ -3,21 +3,19 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = { bar : 'yes' }
-const a = {
-  foo : 'bar',
-  bar : 'baz',
-}
-
 const suite = new Benchmark.Suite()
+const input = { bar: 'yes' }
+const value = { foo: 'bar', bar: 'baz' }
 
-suite.add('Rambda.merge', () => {
-  R.merge(a, holder)
-})
-  .add('Ramda', () => {
-    Ramda.merge(a, holder)
+suite
+  .add('Rambda.merge', () => {
+    R.merge(value, input)
   })
-  .add('Lodash', () => {
-    _.merge(a, holder)
+  .add('Ramda.merge', () => {
+    Ramda.merge(value, input)
   })
+  .add('Lodash.merge', () => {
+    _.merge(value, input)
+  })
+
 module.exports = suite

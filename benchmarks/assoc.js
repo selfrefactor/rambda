@@ -4,16 +4,19 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
+const input = { a: 1, b: 2 }
+const key = 'c'
+const value = 3
 
 suite
-.add('Rambda.assoc', () => {
-  R.assoc('c', 3, {a: 1, b: 2})
-})
-.add('Ramda.assoc', () => {
-  Ramda.assoc('c', 3, {a: 1, b: 2})
-})
-.add('Lodash.set', () => {
-  _.set({a: 1, b: 2}, 'c', 3)
-})
+  .add('Rambda.assoc', () => {
+    R.assoc(key, value, input)
+  })
+  .add('Ramda.assoc', () => {
+    Ramda.assoc(key, value, input)
+  })
+  .add('Lodash.set', () => {
+    _.set(input, key, value)
+  })
 
 module.exports = suite

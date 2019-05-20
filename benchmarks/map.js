@@ -3,18 +3,19 @@ const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const holder = [ 1, 2, 3, 4 ]
-const a = val => val + 2
-
 const suite = new Benchmark.Suite()
+const input = [1, 2, 3, 4]
+const fn = val => val + 2
 
-suite.add('Rambda.map', () => {
-  R.map(a, holder)
-})
-  .add('Ramda', () => {
-    Ramda.map(a, holder)
+suite
+  .add('Rambda.map', () => {
+    R.map(fn, input)
   })
-  .add('Lodash', () => {
-    _.map(holder, a)
+  .add('Ramda.map', () => {
+    Ramda.map(fn, input)
   })
+  .add('Lodash.map', () => {
+    _.map(input, fn)
+  })
+
 module.exports = suite

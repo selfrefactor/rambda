@@ -1,4 +1,4 @@
-export default function baseSlice(array, start, end) {
+export default function baseSlice (array, start, end) {
   let index = -1
   let length = array.length
 
@@ -12,7 +12,7 @@ export default function baseSlice(array, start, end) {
   const result = Array(length)
 
   while (++index < length) {
-    result[ index ] = array[ index + start ]
+    result[index] = array[index + start]
   }
 
   return result
