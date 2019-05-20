@@ -290,6 +290,9 @@ declare namespace R {
     forEach<T>(fn: MapFunction<any, any>, inputObj: T): T
     forEach<T>(fn: MapFunction<any, any>): (inputObj: T) => T
 
+    fromPairs<T>(list: any[]): T
+    toPairs<T>(obj: object): Array<T>
+
     groupBy<T>(fn: (x: T) => string, list: T[]): { [index: string]: T[] }
     groupBy<T>(fn: (x: T) => string): (list: T[]) => { [index: string]: T[] }
 

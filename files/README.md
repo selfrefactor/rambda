@@ -612,6 +612,26 @@ Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEa
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/forEach.js)
 
+#### fromPairs
+
+> fromPairs(list: any[]): object
+
+It transforms a list to an object.
+
+```
+const list = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+const expected = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+
+const result = R.fromPairs(list)
+// expected === result
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/fromPairs.js)
+
 #### groupBy
 
 > groupBy(fn: Function, arr: Array): Object
@@ -1426,6 +1446,26 @@ R.toLower('FOO') // => 'foo'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/toLower.js)
 
+#### toPairs
+
+> toPairs(obj: object): any[]
+
+It transforms an object to a list.
+
+```
+const list = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+
+const result = R.toPairs(list)
+// expected === result
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/toPairs.js)
+
 #### toString
 
 > toString(x: any): string
@@ -1840,6 +1880,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.9.0 `R.toPairs` and `R.fromPairs`
 
 - 2.8.0 Approve [PR #165](https://github.com/selfrefactor/rambda/pull/165) `R.clone`
 
