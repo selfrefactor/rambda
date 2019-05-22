@@ -77,7 +77,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "group with",
     "docs": [
       "docsify",
       "repl",
