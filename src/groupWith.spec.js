@@ -33,3 +33,31 @@ test('happy', () => {
 
   expect(result).toEqual(expected)
 })
+
+test('throw with string as input', () => {
+  expect(
+    () => groupWith(equals, 'Mississippi')
+  ).toThrow()
+})
+
+test('from ramda', () => {
+  expect(groupWith(equals, [])).toEqual([])
+
+  const isConsecutive = function(a, b){
+    return a + 1 === b
+  }
+  expect(groupWith(isConsecutive, [])).toEqual([])
+  expect(groupWith(isConsecutive, [ 4, 3, 2, 1 ])).toEqual([
+    [ 4 ],
+    [ 3 ],
+    [ 2 ],
+    [ 1 ],
+  ])
+  expect(groupWith(isConsecutive, [ 1, 2, 3, 4 ])).toEqual([ [ 1, 2, 3, 4 ] ])
+  expect(groupWith(isConsecutive, [ 1, 2, 2, 3 ])).toEqual([ [ 1, 2 ], [ 2, 3 ] ])
+  expect(groupWith(isConsecutive, [ 1, 2, 9, 3, 4 ])).toEqual([
+    [ 1, 2 ],
+    [ 9 ],
+    [ 3, 4 ],
+  ])
+})
