@@ -29,7 +29,8 @@
     "ramda",
     "fp",
     "functional",
-    "utility"
+    "utility",
+    "lodash"
   ],
   "author": "self_refactor",
   "license": "MIT",
@@ -63,7 +64,8 @@
   "files": [
     "dist",
     "src",
-    "index.d.ts"
+    "src",
+    "tools.d.ts"
   ],
   "commitMessage": {
     "support": [
