@@ -2310,11 +2310,15 @@ import omit from 'rambda/lib/omit'
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
-> Articles about Rambda
+> Rambda in the wild
 
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
 - [Argumentation of Rambda's curry method](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
+
+- Trending in `Javascripting.com` list:
+
+![Trending in Javascripting.com list](https://github.com/selfrefactor/rambda/blob/master/files/rambda-trending.png?raw=true)
 
 > Links to Rambda
 
