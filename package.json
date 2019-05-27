@@ -64,7 +64,7 @@
   "files": [
     "dist",
     "src",
-    "src",
+    "index.d.ts",
     "tools.d.ts"
   ],
   "commitMessage": {
