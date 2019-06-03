@@ -19,13 +19,13 @@ import { equals } from './equals'
 export function lastIndexOf (target, list) {
   if (arguments.length === 1) return _list => lastIndexOf(target, _list)
 
-  let willReturn = -1
+  let index = list.length
 
-  list.map((value, key) => {
-    if (equals(value, target)) {
-      willReturn = key
+  while (--index > 0) {
+    if (equals(list[index], target)) {
+      return index
     }
-  })
+  }
 
-  return willReturn
+  return -1
 }

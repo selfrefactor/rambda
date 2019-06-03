@@ -24,13 +24,12 @@ export function contains (val, list) {
   if (arguments.length === 1) return _list => contains(val, _list)
 
   let index = -1
-  let flag = false
 
-  while (++index < list.length && !flag) {
+  while (++index < list.length) {
     if (equals(list[index], val)) {
-      flag = true
+      return true
     }
   }
 
-  return flag
+  return false
 }

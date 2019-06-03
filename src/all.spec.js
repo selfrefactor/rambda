@@ -19,7 +19,7 @@ test('pass index as second argument', () => {
   const fn = (x, i) => {
     indexes.push(i)
     return x > 5
-  }  
+  }
   all(fn, [10,12,14])
 
   expect(indexes).toEqual([0,1,2])

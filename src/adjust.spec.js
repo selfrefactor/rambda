@@ -18,3 +18,7 @@ test('with curring type 1 2', () => {
 test('with curring type 2 1', () => {
   expect(adjust(add(10), 1)([ 0, 1, 2 ])).toEqual(expectedResult)
 })
+
+test('with negative index', () => {
+  expect(adjust(add(10), -2, [ 0, 1, 2 ])).toEqual(expectedResult)
+})
