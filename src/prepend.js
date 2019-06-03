@@ -17,8 +17,7 @@ export function prepend (el, list) {
 
   if (typeof list === 'string') return `${el}${list}`
 
-  const clone = list.concat()
-  clone.unshift(el)
+  const clone = [el].concat(list)
 
   return clone
 }
