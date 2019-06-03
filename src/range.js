@@ -15,10 +15,11 @@
 export function range (from, to) {
   if (arguments.length === 1) return _to => range(from, _to)
 
-  const willReturn = []
+  const len = to - from
+  const willReturn = Array(len)
 
-  for (let i = from; i < to; i++) {
-    willReturn.push(i)
+  for (let i = 0; i < len; i++) {
+    willReturn[i] = from + i
   }
 
   return willReturn
