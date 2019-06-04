@@ -14,6 +14,6 @@
  *      R.not(0); //=> true
  *      R.not(1); //=> false
  */
-export function not (a) {
+export function not(a){
   return !a
 }

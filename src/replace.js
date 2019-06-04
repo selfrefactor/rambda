@@ -20,10 +20,10 @@
  *      // Use the "g" (global) flag to replace all occurrences:
  *      R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
  */
-export function replace (pattern, replacer, str) {
-  if (replacer === undefined) {
+export function replace(pattern, replacer, str){
+  if (replacer === undefined){
     return (_replacer, _str) => replace(pattern, _replacer, _str)
-  } else if (str === undefined) {
+  } else if (str === undefined){
     return _str => replace(pattern, replacer, _str)
   }
 

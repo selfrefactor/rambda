@@ -23,7 +23,7 @@ test('when called with zero arguments', () => {
 })
 
 test('when called via multiple curry stages', () => {
-  const join = curry((a, b, c, d) => [a, b, c, d].join('-'))
+  const join = curry((a, b, c, d) => [ a, b, c, d ].join('-'))
 
   const stage1 = join('A')
   const stage2 = stage1('B', 'C')

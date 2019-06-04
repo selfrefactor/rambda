@@ -20,13 +20,13 @@ import { equals } from './equals'
  *      R.contains([42], [[42]]); //=> true
  *      R.contains('ba', 'banana'); //=>true
  */
-export function contains (val, list) {
+export function contains(val, list){
   if (arguments.length === 1) return _list => contains(val, _list)
 
   let index = -1
 
-  while (++index < list.length) {
-    if (equals(list[index], val)) {
+  while (++index < list.length){
+    if (equals(list[ index ], val)){
       return true
     }
   }

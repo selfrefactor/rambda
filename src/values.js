@@ -12,6 +12,6 @@
  *
  *      R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
  */
-export function values (obj) {
+export function values(obj){
   return Object.values(obj)
 }

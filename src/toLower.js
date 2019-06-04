@@ -10,6 +10,6 @@
  *
  *      R.toLower('XYZ'); //=> 'xyz'
  */
-export function toLower (str) {
+export function toLower(str){
   return str.toLowerCase()
 }

@@ -15,14 +15,14 @@ import { contains } from './contains'
  *      R.uniq([1, '1']);     //=> [1, '1']
  *      R.uniq([[42], [42]]); //=> [[42]]
  */
-export function uniq (list) {
+export function uniq(list){
   let index = -1
   const willReturn = []
 
-  while (++index < list.length) {
-    const value = list[index]
+  while (++index < list.length){
+    const value = list[ index ]
 
-    if (!contains(value, willReturn)) {
+    if (!contains(value, willReturn)){
       willReturn.push(value)
     }
   }

@@ -11,6 +11,6 @@
  *      R.length([]); //=> 0
  *      R.length([1, 2, 3]); //=> 3
  */
-export function length (list) {
+export function length(list){
   return list.length
 }

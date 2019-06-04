@@ -19,7 +19,7 @@
  *      R.find(R.propEq('a', 2))(xs); //=> {a: 2}
  *      R.find(R.propEq('a', 4))(xs); //=> undefined
  */
-export function find (fn, list) {
+export function find(fn, list){
   if (arguments.length === 1) return _list => find(fn, _list)
 
   return list.find(fn)

@@ -20,17 +20,17 @@
  *      incCount({});           //=> { count: 1 }
  *      incCount({ count: 1 }); //=> { count: 2 }
  */
-export function ifElse (condition, onTrue, onFalse) {
-  if (onTrue === undefined) {
+export function ifElse(condition, onTrue, onFalse){
+  if (onTrue === undefined){
     return (_onTrue, _onFalse) => ifElse(condition, _onTrue, _onFalse)
-  } else if (onFalse === undefined) {
+  } else if (onFalse === undefined){
     return _onFalse => ifElse(condition, onTrue, _onFalse)
   }
 
   return input => {
     const conditionResult = typeof condition === 'boolean' ? condition : condition(input)
 
-    if (conditionResult === true) {
+    if (conditionResult === true){
       return onTrue(input)
     }
 

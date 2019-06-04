@@ -11,16 +11,16 @@
  *
  *      R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
  */
-export function dissoc (prop, obj) {
+export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
 
   if (obj === null || obj === undefined) return {}
 
   const willReturn = {}
-  for (const p in obj) {
-    willReturn[p] = obj[p]
+  for (const p in obj){
+    willReturn[ p ] = obj[ p ]
   }
-  delete willReturn[prop]
+  delete willReturn[ prop ]
 
   return willReturn
 }

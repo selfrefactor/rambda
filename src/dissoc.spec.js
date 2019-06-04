@@ -53,11 +53,11 @@ test('works with non-string property', () => {
 })
 
 test('includes prototype properties', () => {
-  function Rectangle(width, height) {
+  function Rectangle(width, height){
     this.width = width
     this.height = height
   }
-  const area = Rectangle.prototype.area = function() {
+  const area = Rectangle.prototype.area = function(){
     return this.width * this.height
   }
   const rect = new Rectangle(7, 6)

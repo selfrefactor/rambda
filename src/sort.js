@@ -16,7 +16,7 @@
  *      const diff = function(a, b) { return a - b; };
  *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
  */
-export function sort (fn, list) {
+export function sort(fn, list){
   if (arguments.length === 1) return _list => sort(fn, _list)
 
   const arrClone = list.concat()

@@ -19,7 +19,7 @@
  *      R.drop(4, ['foo', 'bar', 'baz']); //=> []
  *      R.drop(3, 'ramda');               //=> 'da'
  */
-export function drop (n, list) {
+export function drop(n, list){
   if (arguments.length === 1) return _list => drop(n, _list)
 
   return list.slice(n)

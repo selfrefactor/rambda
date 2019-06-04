@@ -24,7 +24,7 @@ import { any } from './any'
  *      isBlackCard({rank: 'Q', suit: '♠'}); //=> true
  *      isBlackCard({rank: 'Q', suit: '♦'}); //=> false
  */
-export function anyPass (predicates, list) {
+export function anyPass(predicates, list){
   if (arguments.length === 1) return _list => anyPass(predicates, _list)
 
   return any(fn => fn(list))(predicates)

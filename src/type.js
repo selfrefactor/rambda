@@ -21,32 +21,32 @@
  *      R.type(() => {}); //=> "Function"
  *      R.type(undefined); //=> "Undefined"
  */
-export function type (val) {
+export function type(val){
   const typeOf = typeof val
 
-  if (val === null) {
+  if (val === null){
     return 'Null'
-  } else if (val === undefined) {
+  } else if (val === undefined){
     return 'Undefined'
-  } else if (typeOf === 'boolean') {
+  } else if (typeOf === 'boolean'){
     return 'Boolean'
-  } else if (typeOf === 'number') {
+  } else if (typeOf === 'number'){
     return Number.isNaN(val) ? 'NaN' : 'Number'
-  } else if (typeOf === 'string') {
+  } else if (typeOf === 'string'){
     return 'String'
-  } else if (Array.isArray(val)) {
+  } else if (Array.isArray(val)){
     return 'Array'
-  } else if (val instanceof RegExp) {
+  } else if (val instanceof RegExp){
     return 'RegExp'
   }
 
   const asStr = val.toString()
 
-  if (asStr.startsWith('async')) {
+  if (asStr.startsWith('async')){
     return 'Async'
-  } else if (asStr === '[object Promise]') {
+  } else if (asStr === '[object Promise]'){
     return 'Promise'
-  } else if (asStr.includes('function') || asStr.includes('=>')) {
+  } else if (asStr.includes('function') || asStr.includes('=>')){
     return 'Function'
   }
 

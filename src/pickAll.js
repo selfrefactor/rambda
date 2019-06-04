@@ -13,10 +13,10 @@
  *      R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
  *      R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  */
-export function pickAll (keys, obj) {
+export function pickAll(keys, obj){
   if (arguments.length === 1) return _obj => pickAll(keys, _obj)
 
-  if (obj === null || obj === undefined) {
+  if (obj === null || obj === undefined){
     return undefined
   }
   const keysValue = typeof keys === 'string' ? keys.split(',') : keys
@@ -24,11 +24,11 @@ export function pickAll (keys, obj) {
   const willReturn = {}
   let counter = 0
 
-  while (counter < keysValue.length) {
-    if (keysValue[counter] in obj) {
-      willReturn[keysValue[counter]] = obj[keysValue[counter]]
+  while (counter < keysValue.length){
+    if (keysValue[ counter ] in obj){
+      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
     } else {
-      willReturn[keysValue[counter]] = undefined
+      willReturn[ keysValue[ counter ] ] = undefined
     }
     counter++
   }

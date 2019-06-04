@@ -19,7 +19,7 @@
  *      withDefaults({y: 2}); //=> {x: 0, y: 2}
  * @symb R.merge(a, b) = {...a, ...b}
  */
-export function merge (obj, props) {
+export function merge(obj, props){
   if (arguments.length === 1) return _props => merge(obj, _props)
 
   return Object.assign({}, obj || {}, props || {})

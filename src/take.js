@@ -40,7 +40,7 @@ import baseSlice from './internal/baseSlice'
  * @symb R.take(1, [a, b]) = [a]
  * @symb R.take(2, [a, b]) = [a, b]
  */
-export function take (n, list) {
+export function take(n, list){
   if (arguments.length === 1) return _list => take(n, _list)
 
   if (typeof list === 'string') return list.slice(0, n)

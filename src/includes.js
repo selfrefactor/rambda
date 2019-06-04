@@ -17,7 +17,7 @@
  *      R.includes([42], [[42]]); //=> true
  *      R.includes('ba', 'banana'); //=>true
  */
-export function includes (target, list) {
+export function includes(target, list){
   if (arguments.length === 1) return _list => includes(target, _list)
 
   const ok = Array.isArray(list) || typeof list === 'string'

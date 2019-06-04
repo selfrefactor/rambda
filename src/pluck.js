@@ -24,14 +24,14 @@ import { map } from './map'
  * @symb R.pluck('x', [{x: 1, y: 2}, {x: 3, y: 4}, {x: 5, y: 6}]) = [1, 3, 5]
  * @symb R.pluck(0, [[1, 2], [3, 4], [5, 6]]) = [1, 3, 5]
  */
-export function pluck (key, list) {
+export function pluck(key, list){
   if (arguments.length === 1) return _list => pluck(key, _list)
 
   const willReturn = []
 
   map(val => {
-    if (!(val[key] === undefined)) {
-      willReturn.push(val[key])
+    if (!(val[ key ] === undefined)){
+      willReturn.push(val[ key ])
     }
   }, list)
 

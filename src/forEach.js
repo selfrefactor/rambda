@@ -28,7 +28,7 @@ import { map } from './map'
  *      // logs 8
  * @symb R.forEach(f, [a, b, c]) = [a, b, c]
  */
-export function forEach (fn, list) {
+export function forEach(fn, list){
   if (arguments.length === 1) return _list => forEach(fn, _list)
 
   map(fn, list)

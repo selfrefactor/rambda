@@ -19,7 +19,7 @@
  *      R.is(Object, 's'); //=> false
  *      R.is(Number, {}); //=> false
  */
-export function is (ctor, val) {
+export function is(ctor, val){
   if (arguments.length === 1) return _val => is(ctor, _val)
 
   return (

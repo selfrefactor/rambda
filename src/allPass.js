@@ -22,7 +22,7 @@ import { any } from './any'
  *      isQueenOfSpades({rank: 'Q', suit: '♣︎'}); //=> false
  *      isQueenOfSpades({rank: 'Q', suit: '♠︎'}); //=> true
  */
-export function allPass (predicates, list) {
+export function allPass(predicates, list){
   if (arguments.length === 1) return _list => allPass(predicates, _list)
 
   return !any(fn => !fn(list), predicates)

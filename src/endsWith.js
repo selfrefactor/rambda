@@ -17,7 +17,7 @@
  *      R.endsWith(['c'], ['a', 'b', 'c'])    //=> true
  *      R.endsWith(['b'], ['a', 'b', 'c'])    //=> false
  */
-export function endsWith (suffix, list) {
+export function endsWith(suffix, list){
   if (arguments.length === 1) return _list => endsWith(suffix, _list)
 
   return list.endsWith(suffix)

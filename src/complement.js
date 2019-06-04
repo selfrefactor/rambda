@@ -17,6 +17,6 @@
  *      isNil(7); //=> false
  *      isNotNil(7); //=> true
  */
-export function complement (fn) {
+export function complement(fn){
   return input => !fn(input)
 }

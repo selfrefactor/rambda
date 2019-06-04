@@ -20,7 +20,7 @@
  *      isOdd(42); //=> 0
  *      isOdd(21); //=> 1
  */
-export function modulo (a, b) {
+export function modulo(a, b){
   if (arguments.length === 1) return _b => modulo(a, _b)
 
   return a % b

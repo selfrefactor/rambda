@@ -19,11 +19,11 @@
  *      // parseInt('string') results in NaN
  *      defaultTo42(parseInt('string')); //=> 42
  */
-export function defaultTo (defaultArgument, ...inputArgument) {
-  if (arguments.length === 1) {
+export function defaultTo(defaultArgument, ...inputArgument){
+  if (arguments.length === 1){
     return _inputArgument => defaultTo(defaultArgument, _inputArgument)
-  } else if (arguments.length === 2) {
-    return flagIs(inputArgument[0]) ? defaultArgument : inputArgument[0]
+  } else if (arguments.length === 2){
+    return flagIs(inputArgument[ 0 ]) ? defaultArgument : inputArgument[ 0 ]
   }
 
   const limit = inputArgument.length - 1
@@ -31,13 +31,13 @@ export function defaultTo (defaultArgument, ...inputArgument) {
   let ready = false
   let holder
 
-  while (!ready) {
-    const instance = inputArgument[limit - len + 1]
+  while (!ready){
+    const instance = inputArgument[ limit - len + 1 ]
 
-    if (len === 0) {
+    if (len === 0){
       ready = true
-    } else if (flagIs(instance)) {
-      len = len - 1
+    } else if (flagIs(instance)){
+      len -= 1
     } else {
       holder = instance
       ready = true
@@ -49,7 +49,7 @@ export function defaultTo (defaultArgument, ...inputArgument) {
     holder
 }
 
-function flagIs (inputArgument) {
+function flagIs(inputArgument){
   return inputArgument === undefined ||
     inputArgument === null ||
     Number.isNaN(inputArgument) === true

@@ -15,6 +15,6 @@
  *      R.identity(obj) === obj; //=> true
  * @symb R.identity(a) = a
  */
-export function identity (x) {
+export function identity(x){
   return x
 }

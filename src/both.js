@@ -26,7 +26,7 @@
  *      R.both(Maybe.Just(false), Maybe.Just(55)); // => Maybe.Just(false)
  *      R.both([false, false, 'a'], [11]); //=> [false, false, 11]
  */
-export function both (f, g) {
+export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
   return input => f(input) && g(input)

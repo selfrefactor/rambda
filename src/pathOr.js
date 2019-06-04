@@ -19,7 +19,7 @@ import { path } from './path'
  *      R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
  *      R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
  */
-function pathOrRaw (defaultValue, list, obj) {
+function pathOrRaw(defaultValue, list, obj){
   return defaultTo(
     defaultValue,
     path(list, obj)

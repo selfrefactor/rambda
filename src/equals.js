@@ -23,34 +23,34 @@ import { type } from './type'
  *      const b = {}; b.v = b;
  *      R.equals(a, b); //=> true
  */
-export function equals (a, b) {
+export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
-  if (a === b) {
+  if (a === b){
     return true
   }
 
   const aType = type(a)
 
-  if (aType !== type(b)) {
+  if (aType !== type(b)){
     return false
   }
 
-  if (aType === 'Array') {
+  if (aType === 'Array'){
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.toString() !== bClone.toString()){
       return false
     }
 
     let loopArrayFlag = true
     aClone.forEach((aCloneInstance, aCloneIndex) => {
-      if (loopArrayFlag) {
+      if (loopArrayFlag){
         if (
-          aCloneInstance !== bClone[aCloneIndex] &&
-          !equals(aCloneInstance, bClone[aCloneIndex])
-        ) {
+          aCloneInstance !== bClone[ aCloneIndex ] &&
+          !equals(aCloneInstance, bClone[ aCloneIndex ])
+        ){
           loopArrayFlag = false
         }
       }
@@ -59,20 +59,20 @@ export function equals (a, b) {
     return loopArrayFlag
   }
 
-  if (aType === 'Object') {
+  if (aType === 'Object'){
     const aKeys = Object.keys(a)
 
-    if (aKeys.length !== Object.keys(b).length) {
+    if (aKeys.length !== Object.keys(b).length){
       return false
     }
 
     let loopObjectFlag = true
     aKeys.forEach(aKeyInstance => {
-      if (loopObjectFlag) {
-        const aValue = a[aKeyInstance]
-        const bValue = b[aKeyInstance]
+      if (loopObjectFlag){
+        const aValue = a[ aKeyInstance ]
+        const bValue = b[ aKeyInstance ]
 
-        if (aValue !== bValue && !equals(aValue, bValue)) {
+        if (aValue !== bValue && !equals(aValue, bValue)){
           loopObjectFlag = false
         }
       }

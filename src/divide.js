@@ -17,7 +17,7 @@
  *      const reciprocal = R.divide(1);
  *      reciprocal(4);   //=> 0.25
  */
-export function divide (a, b) {
+export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)
 
   return a / b

@@ -20,6 +20,6 @@ import { compose } from './compose'
  *      f(3, 4); // -(3^4) + 1
  * @symb R.pipe(f, g, h)(a, b) = h(g(f(a, b)))
  */
-export function pipe (...fns) {
+export function pipe(...fns){
   return compose(...fns.reverse())
 }

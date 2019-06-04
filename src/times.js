@@ -21,7 +21,7 @@ import { range } from './range'
  * @symb R.times(f, 1) = [f(0)]
  * @symb R.times(f, 2) = [f(0), f(1)]
  */
-export function times (fn, n) {
+export function times(fn, n){
   if (arguments.length === 1) return _n => times(fn, _n)
 
   return map(fn, range(0, n))

@@ -10,6 +10,6 @@
  *
  *      R.T(); //=> true
  */
-export function T () {
+export function T(){
   return true
 }

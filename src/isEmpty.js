@@ -16,12 +16,12 @@
  *      R.isEmpty({});          //=> true
  *      R.isEmpty({length: 0}); //=> false
  */
-export function isEmpty (x) {
-  if (Number.isFinite(x) || !x) {
+export function isEmpty(x){
+  if (Number.isFinite(x) || !x){
     return true
   }
 
-  if (Array.isArray(x)) {
+  if (Array.isArray(x)){
     return x.length === 0
   }
 

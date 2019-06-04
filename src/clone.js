@@ -17,17 +17,17 @@
  *      objects === objectsClone; //=> false
  *      objects[0] === objectsClone[0]; //=> false
  */
-export function clone (val) {
+export function clone(val){
   const out = Array.isArray(val) ? Array(val.length) : {}
 
-  for (const key in val) {
-    let v = val[key]
-    out[key] =
-      typeof v === 'object' && v !== null
-        ? v.getTime
-        ? new Date(v.getTime())
-        : clone(v)
-        : v
+  for (const key in val){
+    const v = val[ key ]
+    out[ key ] =
+      typeof v === 'object' && v !== null ?
+        v.getTime ?
+          new Date(v.getTime()) :
+          clone(v) :
+        v
   }
 
   return out

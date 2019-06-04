@@ -17,10 +17,10 @@
  * @symb R.update(0, a, [b, c]) = [a, c]
  * @symb R.update(1, a, [b, c]) = [b, a]
  */
-export function update (idx, val, list) {
-  if (val === undefined) {
+export function update(idx, val, list){
+  if (val === undefined){
     return (_val, _list) => update(idx, _val, _list)
-  } else if (list === undefined) {
+  } else if (list === undefined){
     return _list => update(idx, val, _list)
   }
 

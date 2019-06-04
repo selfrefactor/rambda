@@ -32,6 +32,6 @@
  *      R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
  *      R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
  */
-export function toString (val) {
+export function toString(val){
   return val.toString()
 }

@@ -23,14 +23,14 @@
  *      sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
  * @symb R.partial(f, [a, b])(c, d) = f(a, b, c, d)
  */
-export function partial (fn, ...args) {
+export function partial(fn, ...args){
   const len = fn.length
 
   return (...rest) => {
-    if (args.length + rest.length >= len) {
+    if (args.length + rest.length >= len){
       return fn(...args, ...rest)
     }
 
-    return partial(fn, ...[...args, ...rest])
+    return partial(fn, ...[ ...args, ...rest ])
   }
 }

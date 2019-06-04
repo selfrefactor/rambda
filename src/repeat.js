@@ -18,7 +18,7 @@
  * @symb R.repeat(a, 1) = [a]
  * @symb R.repeat(a, 2) = [a, a]
  */
-export function repeat (val, n) {
+export function repeat(val, n){
   if (arguments.length === 1) return _n => repeat(val, _n)
 
   const willReturn = Array(n)

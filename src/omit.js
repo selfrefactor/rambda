@@ -11,10 +11,10 @@
  *
  *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
  */
-export function omit (keys, obj) {
+export function omit(keys, obj){
   if (arguments.length === 1) return _obj => omit(keys, _obj)
 
-  if (obj === null || obj === undefined) {
+  if (obj === null || obj === undefined){
     return undefined
   }
 
@@ -23,9 +23,9 @@ export function omit (keys, obj) {
 
   const willReturn = {}
 
-  for (const key in obj) {
-    if (!keysValue.includes(key)) {
-      willReturn[key] = obj[key]
+  for (const key in obj){
+    if (!keysValue.includes(key)){
+      willReturn[ key ] = obj[ key ]
     }
   }
 

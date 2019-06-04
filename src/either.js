@@ -25,7 +25,7 @@
  *      R.either(Maybe.Just(false), Maybe.Just(55)); // => Maybe.Just(55)
  *      R.either([false, false, 'a'], [11]) // => [11, 11, "a"]
  */
-export function either (f, g) {
+export function either(f, g){
   if (arguments.length === 1) return _g => either(f, _g)
 
   return input => f(input) || g(input)

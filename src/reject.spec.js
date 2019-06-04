@@ -46,5 +46,5 @@ test('pass index as second argument', () => {
       expect(typeof x).toBe('number')
       expect(typeof i).toBe('number')
     }
-  )([10,12,15])  
+  )([ 10, 12, 15 ])
 })

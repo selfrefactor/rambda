@@ -24,6 +24,6 @@ import { drop } from './drop'
  *      R.tail('a');    //=> ''
  *      R.tail('');     //=> ''
  */
-export function tail (list) {
+export function tail(list){
   return drop(1, list)
 }

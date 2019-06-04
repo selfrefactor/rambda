@@ -13,6 +13,6 @@
  *
  *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
  */
-export function keys (obj) {
+export function keys(obj){
   return Object.keys(obj)
 }

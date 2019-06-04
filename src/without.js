@@ -17,7 +17,7 @@ import { reduce } from './reduce'
  *
  *      R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
  */
-export function without (left, right) {
+export function without(left, right){
   return reduce(
     (accum, item) =>
       !contains(item, left) ? accum.concat(item) : accum,

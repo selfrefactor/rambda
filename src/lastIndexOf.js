@@ -16,13 +16,13 @@ import { equals } from './equals'
  *      R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
  *      R.lastIndexOf(10, [1,2,3,4]); //=> -1
  */
-export function lastIndexOf (target, list) {
+export function lastIndexOf(target, list){
   if (arguments.length === 1) return _list => lastIndexOf(target, _list)
 
   let index = list.length
 
-  while (--index > 0) {
-    if (equals(list[index], target)) {
+  while (--index > 0){
+    if (equals(list[ index ], target)){
       return index
     }
   }

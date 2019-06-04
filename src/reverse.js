@@ -20,7 +20,7 @@
  *      R.reverse('a');        //=> 'a'
  *      R.reverse('');         //=> ''
  */
-export function reverse (list) {
+export function reverse(list){
   const clone = list.concat()
 
   return clone.reverse()

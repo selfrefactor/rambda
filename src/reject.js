@@ -21,7 +21,7 @@ import { filter } from './filter'
  *
  *      R.reject(isOdd, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
  */
-export function reject (fn, list) {
+export function reject(fn, list){
   if (arguments.length === 1) return _list => reject(fn, _list)
 
   return filter((x, i) => !fn(x, i), list)

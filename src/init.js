@@ -21,7 +21,7 @@ import baseSlice from './internal/baseSlice'
  *      R.init('a');    //=> ''
  *      R.init('');     //=> ''
  */
-export function init (list) {
+export function init(list){
   if (typeof list === 'string') return list.slice(0, -1)
 
   return list.length ? baseSlice(list, 0, -1) : []

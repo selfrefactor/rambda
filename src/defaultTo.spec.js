@@ -13,11 +13,11 @@ test('with NaN', () => {
 })
 
 test('with empty string', () => {
-  expect(defaultTo('foo','')).toEqual('')
+  expect(defaultTo('foo', '')).toEqual('')
 })
 
 test('with false', () => {
-  expect(defaultTo('foo',false)).toEqual(false)
+  expect(defaultTo('foo', false)).toEqual(false)
 })
 
 test('when inputArgument passes initial check', () => {
@@ -27,7 +27,7 @@ test('when inputArgument passes initial check', () => {
 test('default extends to indefinite input arguments - case 1', () => {
   const result = defaultTo('foo', null, 'bar')
   const expected = 'bar'
-  
+
   expect(result).toEqual(expected)
 })
 

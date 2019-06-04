@@ -1,7 +1,7 @@
 import { path } from './path'
 
 test('with array inside object', () => {
-  const obj = { a : { b : [1,{ c : 1 }]} }
+  const obj = { a : { b : [ 1, { c : 1 } ] } }
 
   expect(path('a.b.1.c', obj)).toBe(1)
 })

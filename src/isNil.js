@@ -13,6 +13,6 @@
  *      R.isNil(0); //=> false
  *      R.isNil([]); //=> false
  */
-export function isNil (x) {
+export function isNil(x){
   return x === undefined || x === null
 }

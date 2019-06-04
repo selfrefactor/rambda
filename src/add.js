@@ -12,7 +12,7 @@
  *      R.add(2, 3);       //=>  5
  *      R.add(7)(10);      //=> 17
  */
-export function add (a, b) {
+export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
   return a + b

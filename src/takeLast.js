@@ -19,7 +19,7 @@ import baseSlice from './internal/baseSlice'
  *      R.takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
  *      R.takeLast(3, 'ramda');               //=> 'mda'
  */
-export function takeLast (n, list) {
+export function takeLast(n, list){
   if (arguments.length === 1) return _list => takeLast(n, _list)
 
   const len = list.length

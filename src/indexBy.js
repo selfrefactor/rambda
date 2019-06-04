@@ -18,13 +18,13 @@
  *      R.indexBy(R.prop('id'), list);
  *      //=> {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
  */
-export function indexBy (fn, list) {
+export function indexBy(fn, list){
   if (arguments.length === 1) return _list => indexBy(fn, _list)
 
   const result = {}
-  for (let i = 0; i < list.length; i++) {
-    const item = list[i]
-    result[fn(item)] = item
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    result[ fn(item) ] = item
   }
 
   return result

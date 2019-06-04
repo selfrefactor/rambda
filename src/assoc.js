@@ -17,8 +17,8 @@ import { curry } from './curry'
  *
  *      R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  */
-function assocRaw (prop, val, obj) {
-  return Object.assign({}, obj, { [prop]: val })
+function assocRaw(prop, val, obj){
+  return Object.assign({}, obj, { [ prop ] : val })
 }
 
 export const assoc = curry(assocRaw)

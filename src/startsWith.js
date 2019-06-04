@@ -18,7 +18,7 @@
  *      R.startsWith(['a'], ['a', 'b', 'c'])    //=> true
  *      R.startsWith(['b'], ['a', 'b', 'c'])    //=> false
  */
-export function startsWith (prefix, list) {
+export function startsWith(prefix, list){
   if (arguments.length === 1) return _list => startsWith(prefix, _list)
 
   return list.startsWith(prefix)

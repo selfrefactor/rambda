@@ -11,6 +11,6 @@
  *      R.trim('   xyz  '); //=> 'xyz'
  *      R.map(R.trim, R.split(',', 'x, y, z')); //=> ['x', 'y', 'z']
  */
-export function trim (str) {
+export function trim(str){
   return str.trim()
 }

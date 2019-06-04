@@ -16,7 +16,7 @@
  *      // logs 'x is 100'
  * @symb R.tap(f, a) = a
  */
-export function tap (fn, x) {
+export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
 
   fn(x)

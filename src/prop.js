@@ -14,8 +14,8 @@
  *      R.prop('x', {}); //=> undefined
  *      R.compose(R.inc, R.prop('x'))({ x: 3 }) //=> 4
  */
-export function prop (key, obj) {
+export function prop(key, obj){
   if (arguments.length === 1) return _obj => prop(key, _obj)
 
-  return obj[key]
+  return obj[ key ]
 }

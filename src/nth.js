@@ -22,12 +22,12 @@
  * @symb R.nth(0, [a, b, c]) = a
  * @symb R.nth(1, [a, b, c]) = b
  */
-export function nth (offset, list) {
+export function nth(offset, list){
   if (arguments.length === 1) return _list => nth(offset, _list)
 
   const idx = offset < 0 ? list.length + offset : offset
 
   return Object.prototype.toString.call(list) === '[object String]' ?
     list.charAt(idx) :
-    list[idx]
+    list[ idx ]
 }

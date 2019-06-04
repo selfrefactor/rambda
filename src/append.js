@@ -15,10 +15,10 @@
  *      R.append('tests', []); //=> ['tests']
  *      R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
  */
-export function append (el, list) {
+export function append(el, list){
   if (arguments.length === 1) return _list => append(el, _list)
 
-  if (typeof list === 'string') return `${list}${el}`
+  if (typeof list === 'string') return `${ list }${ el }`
 
   const clone = list.concat()
   clone.push(el)

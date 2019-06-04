@@ -10,6 +10,6 @@
  *
  *      R.F(); //=> false
  */
-export function F () {
+export function F(){
   return false
 }

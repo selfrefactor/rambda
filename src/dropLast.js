@@ -18,7 +18,7 @@
  *      R.dropLast(4, ['foo', 'bar', 'baz']); //=> []
  *      R.dropLast(3, 'ramda');               //=> 'ra'
  */
-export function dropLast (n, list) {
+export function dropLast(n, list){
   if (arguments.length === 1) return _list => dropLast(n, _list)
 
   return list.slice(0, -n)
