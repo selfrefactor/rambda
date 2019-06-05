@@ -368,6 +368,8 @@ declare namespace R {
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
     forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
     forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
+    forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
+    forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
 
     /**
      * Creates a new object out of a list key-value pairs.
@@ -511,6 +513,8 @@ declare namespace R {
     map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
     map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
     map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
+    map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U, obj: { [key: string]: T }): { [key: string]: U };
+    map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U): (obj: { [key: string]: T }) => { [key: string]: U };
 
     /**
      * Tests a regular expression agains a String
