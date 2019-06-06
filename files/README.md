@@ -1881,6 +1881,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.11.1 Approve [PR #182](https://github.com/selfrefactor/rambda/pull/182) - Changed typings to allow object as input to `R.forEach` and `R.map`
+
 - 2.11.0 Approve [PR #179](https://github.com/selfrefactor/rambda/pull/179) - `R.adjust` handles negative index; `R.all` doesn't need `R.filter`
 
 - 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing typescript file

@@ -25,7 +25,7 @@ test('accept constant as condition - case 2', () => {
 
   expect(fn()).toEqual(false)
 })
-
+z
 test('curry (x)(y,z)', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
