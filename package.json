@@ -1,94 +1,94 @@
 {
-	"name": "rambda",
-	"version": "2.11.0",
-	"description": "Lightweight faster alternative to Ramda",
-	"main": "./dist/rambda.js",
-	"module": "./dist/rambda.esm.js",
-	"umd": "./dist/rambda.umd.js",
-	"typings": "./index.d.ts",
-	"sideEffects": false,
-	"scripts": {
-		"test:watch": "jest src --watch",
-		"test": "jest src",
-		"readme": "node files/createReadme",
-		"readmex": "node files/createReadmex",
-		"docs": "docsify init ./docs",
-		"build": "yarn build:main&&yarn build:web",
-		"build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
-		"build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
-		"benchmarks": "node benchmarks/index.js --all",
-		"benchmark": "node benchmarks/index.js",
-		"cover": "jest src --coverage --no-cache -w 1",
-		"jest": "jest --watch"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/selfrefactor/rambda.git"
-	},
-	"keywords": [
-		"ramda",
-		"fp",
-		"functional",
-		"utility",
-		"lodash"
-	],
-	"author": "self_refactor",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/selfrefactor/rambda/issues"
-	},
-	"homepage": "https://github.com/selfrefactor/rambda#readme",
-	"devDependencies": {
-		"@babel/core": "^7.4.5",
-		"@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-		"@babel/preset-env": "^7.4.5",
-		"babel-jest": "^24.8.0",
-		"beautify-benchmark": "^0.2.4",
-		"benchmark": "^2.1.4",
-		"jest": "^24.8.0",
-		"lodash": "^4.17.11",
-		"markdown-toc": "^1.2.0",
-		"rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
-		"rambdax": "^2.8.1",
-		"ramda": "^0.26.1",
-		"rollup": "^1.14.3",
-		"rollup-plugin-babel": "^5.0.0-alpha.0",
-		"rollup-plugin-cleanup": "^3.1.1",
-		"rollup-plugin-commonjs": "^10.0.0",
-		"rollup-plugin-json": "^4.0.0",
-		"rollup-plugin-node-resolve": "^5.0.1",
-		"rollup-plugin-replace": "^2.2.0",
-		"rollup-plugin-sourcemaps": "^0.4.2"
-	},
-	"dependencies": {
-		
-	},
-	"files": [
-		"dist",
-		"src",
-		"index.d.ts",
-		"tools.d.ts"
-	],
-	"commitMessage": {
-		"support": [
-			"docs",
-			"build",
-			"prepublish",
-			"refactor",
-			"lint",
-			"test"
-		],
-		"feature": [
-			"method"
-		],
-		"workInProgress": "group with",
-		"docs": [
-			"docsify",
-			"repl",
-			"changelog"
-		],
-		"typings": [
-			"fix"
-		]
-	}
+  "name": "rambda",
+  "version": "2.11.0",
+  "description": "Lightweight faster alternative to Ramda",
+  "main": "./dist/rambda.js",
+  "module": "./dist/rambda.esm.js",
+  "umd": "./dist/rambda.umd.js",
+  "typings": "./index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "test:watch": "jest src --watch",
+    "test": "jest src",
+    "readme": "node files/createReadme",
+    "readmex": "node files/createReadmex",
+    "docs": "docsify init ./docs",
+    "build": "yarn build:main&&yarn build:web",
+    "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
+    "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
+    "benchmarks": "node benchmarks/index.js --all",
+    "benchmark": "node benchmarks/index.js",
+    "cover": "jest src --coverage --no-cache -w 1",
+    "jest": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfrefactor/rambda.git"
+  },
+  "keywords": [
+    "ramda",
+    "fp",
+    "functional",
+    "utility",
+    "lodash"
+  ],
+  "author": "self_refactor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selfrefactor/rambda/issues"
+  },
+  "homepage": "https://github.com/selfrefactor/rambda#readme",
+  "devDependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+    "@babel/preset-env": "7.4.5",
+    "babel-jest": "24.8.0",
+    "beautify-benchmark": "0.2.4",
+    "benchmark": "2.1.4",
+    "jest": "24.8.0",
+    "lodash": "4.17.11",
+    "markdown-toc": "1.2.0",
+    "rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
+    "rambdax": "1.8.1",
+    "ramda": "0.26.1",
+    "rollup": "1.13.1",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-cleanup": "3.1.1",
+    "rollup-plugin-commonjs": "10.0.0",
+    "rollup-plugin-json": "3.1.0",
+    "rollup-plugin-node-resolve": "5.0.1",
+    "rollup-plugin-replace": "2.1.0",
+    "rollup-plugin-sourcemaps": "0.4.2"
+  },
+  "dependencies": {
+    
+  },
+  "files": [
+    "dist",
+    "src",
+    "index.d.ts",
+    "tools.d.ts"
+  ],
+  "commitMessage": {
+    "support": [
+      "docs",
+      "build",
+      "prepublish",
+      "refactor",
+      "lint",
+      "test"
+    ],
+    "feature": [
+      "method"
+    ],
+    "workInProgress": "group with",
+    "docs": [
+      "docsify",
+      "repl",
+      "changelog"
+    ],
+    "typings": [
+      "fix"
+    ]
+  }
 }
