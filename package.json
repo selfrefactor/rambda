@@ -49,7 +49,7 @@
     "lodash": "4.17.11",
     "markdown-toc": "1.2.0",
     "rambda-repl": "https://github.com/selfrefactor/rambda-repl#0.3.0",
-    "rambdax": "2.9.0",
+    "rambdax": "2.9.1",
     "ramda": "0.26.1",
     "rollup": "1.14.4",
     "rollup-plugin-babel": "4.3.2",

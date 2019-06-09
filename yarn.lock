@@ -3498,10 +3498,10 @@ qs@~6.5.2:
   version "1.0.9"
   resolved "https://github.com/selfrefactor/rambda#ee04b4005da84b29d166364100d50e2a9be56a60"
 
-rambdax@2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.9.0.tgz#6210cf7e89df196fdceb8ff6623c854b874189a8"
-  integrity sha512-08koiuxDJw3m82M7KAK4A40fx8uKAoRL7VsS9yXbdx05vCxqHUrQVdNv8UgY4IDTZiM5pQGADrFOyY7RF1FPRg==
+rambdax@2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.9.1.tgz#82d15e9a22649afcb3e91a1fc5409a782bdd9239"
+  integrity sha512-AKnYieabGM0rGJ2Pelzqsh8SwN/BnPXpazb7cx1JZgEIMlGIF36Lme+MDAwWbp3FlriLrEYCIuGT6c+DjjsNIw==
 
 rambdax@^0.8.8:
   version "0.8.10"
