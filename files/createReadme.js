@@ -5,7 +5,7 @@ const {
   dropLast,
 } = require('rambda')
 const { cleanTOC } = require('./_helpers/cleanTOC')
-const { rambdaREPL } = require('rambda-repl')
+const { rambdaREPL } = require('./rambda-repl/src/')
 const { readFileSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
 
