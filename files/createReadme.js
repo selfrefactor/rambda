@@ -2,10 +2,9 @@ const toc = require('markdown-toc')
 const {
   all,
   replace,
-  dropLast,
-} = require('rambda')
+} = require('rambdax')
 const { cleanTOC } = require('./_helpers/cleanTOC')
-const { rambdaREPL } = require('./rambda-repl/src/')
+const { rambdaREPL } = require('./rambdaREPL')
 const { readFileSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
 
@@ -21,26 +20,6 @@ function getCodeExample(input){
   return code.trim()
 }
 
-function getMethod(sourceLink){
-  const baseURL = '(https://github.com/selfrefactor/rambda/tree/master/modules/'
-  const rambdaxBaseURL = '(https://github.com/selfrefactor/rambdax/tree/master/modules/'
-
-  const fileNameRaw = replace(
-    baseURL,
-    '',
-    sourceLink
-  )
-
-  const fileName = replace(
-    rambdaxBaseURL,
-    '',
-    fileNameRaw
-  )
-
-  //4 because we need to remove `.js)`
-  return dropLast(4, fileName.trim())
-}
-
 function getContentWithREPL(input){
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
@@ -49,7 +28,7 @@ function getContentWithREPL(input){
   return `${ input.trim() }\n\n${ markdownLink }\n\n`
 }
 
-void function createReadme() {
+void function createReadme(){
   const outputPath = resolve(
     __dirname,
     '../README.md'
