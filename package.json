@@ -46,6 +46,7 @@
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
     "jest": "24.8.0",
+    "docsify-cli": "4.3.0",
     "lodash": "4.17.11",
     "markdown-toc": "1.2.0",
     "rambdax": "2.10.0",

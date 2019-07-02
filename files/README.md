@@ -10,36 +10,7 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 - Tree-shaking
 
-Currenly **Rambda** is more tree-shakable than **Ramda** as you can see in this [tree-shaking example](https://github.com/selfrefactor/tree-shaking-example).
-
-```
-------------------  --------
-file                size
-------------------  --------
-rollup/rambdax      206 B
-rollup/ramdaBabel   276 B
-rollup/lodash       278 B
-rollup/rambda       785 B
-parcel/lodash       1.2 KB
-parcel/rambdax      1.2 KB
-parcel/ramda        1.2 KB
-parcel/rambda       1.2 KB
-parcel/ramdaBabel   1.23 KB
-webpack/rambda      2 KB
-webpack/ramda       7.3 KB
-webpack/ramdaBabel  8.36 KB
-webpack/rambdax     26.71 KB
-webpack/lodash      70.76 KB
-rollup/ramda        92.16 KB
-```
-
-Also latest results of `bundle-phobia-cli`:
-
-```
-ℹ ramda (0.26.1) has 0 dependencies for a weight of 51.92KB (12.27KB gzipped)
-ℹ rambda (2.1.1) has 0 dependencies for a weight of 13.28KB (3.32KB gzipped)
-ℹ rambdax (1.3.0) has 0 dependencies for a weight of 35.7KB (10.16KB gzipped)
-```
+Currenly **Rambda** is more tree-shakable than **Ramda**
 
 - Speed
 
