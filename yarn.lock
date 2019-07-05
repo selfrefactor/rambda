@@ -4522,10 +4522,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-rambdax@2.10.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.10.0.tgz#d8b7d89916d034763e085f36aea7f6cf480e46a6"
-  integrity sha512-eR4Sl1TCcWd2rI2/dP6gs9lk46fYOuOsn5ttgmvQFgix579zBfdckoX+QCfGAaQcq2V9/GYFMox9MxwLoDiggw==
+rambdax@2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.10.1.tgz#0860102a48f30616cca9339dc571dff7453972aa"
+  integrity sha512-s5v2NX8+RTth/z5HIGQQXjhlcTeIyOlOC6O0gIWGCl8lOdC5vw8Gq+NN1ymHmCTnS/Iz9mRcMoe1a0Os/LvUdA==
 
 ramda@0.26.1:
   version "0.26.1"

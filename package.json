@@ -49,7 +49,7 @@
     "docsify-cli": "4.3.0",
     "lodash": "4.17.11",
     "markdown-toc": "1.2.0",
-    "rambdax": "2.10.0",
+    "rambdax": "2.10.1",
     "ramda": "0.26.1",
     "rollup": "1.16.2",
     "rollup-plugin-babel": "4.3.3",
