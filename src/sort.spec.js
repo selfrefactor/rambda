@@ -19,4 +19,3 @@ test('it doesn\'t mutate', () => {
   expect(list[ 1 ]).toBe('bar')
   expect(list[ 2 ]).toBe('baz')
 })
- 
