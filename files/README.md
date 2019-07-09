@@ -1839,7 +1839,7 @@ Running reduce.js
 
   Rambda#reduce x 9,780,084 ops/sec ±2.58% (88 runs sampled)
   Ramda         x 2,606,911 ops/sec ±1.13% (91 runs sampled)
-  Lodash        x 8,901,216 ops/sec ±0.85% (9
+  Lodash        x 8,901,216 ops/sec ±0.85% (91 runs sampled)
 ```
 
 ## Use with ES5
