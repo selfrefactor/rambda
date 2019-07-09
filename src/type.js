@@ -46,7 +46,7 @@ export function type(val){
     return 'Async'
   } else if (asStr === '[object Promise]'){
     return 'Promise'
-  } else if (asStr.includes('function') || asStr.includes('=>')){
+  } else if (typeOf === 'function'){
     return 'Function'
   }
 

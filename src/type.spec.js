@@ -1,11 +1,13 @@
 import { type } from './type'
+import { type as ramdaType } from 'ramda'
 
 test('type', () => {
   const fn1 = () => {}
   const fn2 = function(){}
 
   function fn3(){}
-  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
+
+  [ () => {}, fn1, fn2, fn3 ].map(val => {
     expect(type(val)).toEqual('Function')
   })
 
@@ -39,4 +41,26 @@ test('type', () => {
 
 test('nan', () => {
   expect(type(Number('s'))).toBe('NaN')
+})
+
+test('function inside object 1', () => {
+  const obj = {
+    f(){
+      return 4
+    },
+  }
+
+  expect(type(obj.f)).toBe('Function')
+  expect(ramdaType(obj.f)).toBe('Function')
+})
+
+test('function inside object 1', () => {
+  const name = 'f'
+  const obj = {
+    [ name ](){
+      return 4
+    },
+  }
+  expect(type(obj.f)).toBe('Function')
+  expect(ramdaType(obj.f)).toBe('Function')
 })
