@@ -964,6 +964,8 @@ declare namespace R {
     subtract(a: number, b: number): number;
     subtract(a: number): (b: number) => number;
 
+    sum(listOfNumbers: number[]): number
+
     /**
      * A function that always returns true. Any passed in parameters are ignored.
      */

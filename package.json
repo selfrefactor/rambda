@@ -74,7 +74,8 @@
       "prepublish",
       "refactor",
       "lint",
-      "test"
+      "test",
+      "typings"
     ],
     "feature": [
       "method"
