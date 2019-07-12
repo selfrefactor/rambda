@@ -1327,8 +1327,6 @@ R.subtract(3, 1) // => 2
 R.sum([1,2,3,4,5]) // => 15
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/sum.js)
-
 #### T
 
 `R.T() // => true`

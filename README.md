@@ -1584,10 +1584,6 @@ R.subtract(3, 1) // => 2
 R.sum([1,2,3,4,5]) // => 15
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/sum.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.sum(%5B1%2C2%2C3%2C4%2C5%5D)%20%2F%2F%20%3D%3E%2015">Try in REPL</a>
-
 ---
 #### T
 
