@@ -3608,7 +3608,12 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@4.17.11, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.3.0:
+lodash@4.17.13:
+  version "4.17.13"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
+  integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
+
+lodash@^4.17.11, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -4522,10 +4527,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-rambdax@2.10.1:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.10.1.tgz#0860102a48f30616cca9339dc571dff7453972aa"
-  integrity sha512-s5v2NX8+RTth/z5HIGQQXjhlcTeIyOlOC6O0gIWGCl8lOdC5vw8Gq+NN1ymHmCTnS/Iz9mRcMoe1a0Os/LvUdA==
+rambdax@2.10.2:
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.10.2.tgz#64362fdf9b2fcff36680f59227d845da44248e06"
+  integrity sha512-hU1HH8GqMShM6QeqOtOOo1xxarX4QsHpabTIqvP7xm3y5YFCIyqZbVmwap0qMQpf/BhaNkQP9F0CANnABeNfoA==
 
 ramda@0.26.1:
   version "0.26.1"
