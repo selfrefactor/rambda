@@ -1371,6 +1371,23 @@ const result = R.propEq(propToFind, valueToMatch)({foo: 0})
 <a href="https://rambda.now.sh?const%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%200%0A%0Aconst%20result%20%3D%20R.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%200%7D)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
+#### propIs
+
+> propIs(type: any, name: string, obj: Object): boolean
+
+It Returns `true` if the specified object property is of the given type.
+
+```
+R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+R.propIs(Number, 'x', {x: 'foo'});    //=> false
+R.propIs(Number, 'x', {});            //=> false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propIs.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.propIs(Number%2C%20'x'%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%3B%20%20%2F%2F%3D%3E%20true%0AR.propIs(Number%2C%20'x'%2C%20%7Bx%3A%20'foo'%7D)%3B%20%20%20%20%2F%2F%3D%3E%20false%0AR.propIs(Number%2C%20'x'%2C%20%7B%7D)%3B%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%3D%3E%20false">Try in REPL</a>
+
+---
 #### range
 
 > range(start: number, end: number): number[]

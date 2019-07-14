@@ -1150,6 +1150,20 @@ const result = R.propEq(propToFind, valueToMatch)({foo: 0})
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/propEq.js)
 
+#### propIs
+
+> propIs(type: any, name: string, obj: Object): boolean
+
+It Returns `true` if the specified object property is of the given type.
+
+```
+R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+R.propIs(Number, 'x', {x: 'foo'});    //=> false
+R.propIs(Number, 'x', {});            //=> false
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propIs.js)
+
 #### range
 
 > range(start: number, end: number): number[]
