@@ -50,7 +50,7 @@
     "jest": "24.8.0",
     "lodash": "4.17.13",
     "markdown-toc": "1.2.0",
-    "rambdax": "2.10.2",
+    "rambdax": "2.11.0",
     "ramda": "0.26.1",
     "request": "2.88.0",
     "request-promise": "4.2.4",
