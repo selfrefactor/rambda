@@ -1576,6 +1576,19 @@ R.subtract(3, 1) // => 2
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.subtract(3%2C%201)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
 
 ---
+#### sum
+
+> sum(listOfNumbers: number[]): number
+
+```
+R.sum([1,2,3,4,5]) // => 15
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/sum.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.sum(%5B1%2C2%2C3%2C4%2C5%5D)%20%2F%2F%20%3D%3E%2015">Try in REPL</a>
+
+---
 #### T
 
 `R.T() // => true`
@@ -2154,7 +2167,7 @@ Running reduce.js
 
   Rambda#reduce x 9,780,084 ops/sec ±2.58% (88 runs sampled)
   Ramda         x 2,606,911 ops/sec ±1.13% (91 runs sampled)
-  Lodash        x 8,901,216 ops/sec ±0.85% (9
+  Lodash        x 8,901,216 ops/sec ±0.85% (91 runs sampled)
 ```
 
 ## Use with ES5
@@ -2166,6 +2179,10 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.12.0 Add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
+
+- 2.11.2 Close Rambdax [issue #32](https://github.com/selfrefactor/rambdax/issues/32) - wrong `R.type` when function is input
 
 - 2.11.1 Approve [PR #182](https://github.com/selfrefactor/rambda/pull/182) - Changed typings to allow object as input to `R.forEach` and `R.map`
 
