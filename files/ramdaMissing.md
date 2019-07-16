@@ -322,15 +322,6 @@ Ramda (missing)
  
  [product](https://raw.githubusercontent.com/ramda/ramda/master/source/product.js)
  
- [sum](https://raw.githubusercontent.com/ramda/ramda/master/source/sum.js)
- 
-          
-
- ###Type
- 
- 
- [propIs](https://raw.githubusercontent.com/ramda/ramda/master/source/propIs.js)
- 
           
 
  ###String
