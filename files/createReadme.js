@@ -1,6 +1,7 @@
 const toc = require('markdown-toc')
 const {
   all,
+  inject,
   replace,
 } = require('rambdax')
 const { cleanTOC } = require('./_helpers/cleanTOC')
@@ -35,6 +36,7 @@ void function createReadme(){
   )
 
   const content = readFileSync(`${ __dirname }/README.md`).toString()
+  const missingRamdaMethods = readFileSync(`${ __dirname }/ramdaMissing.md`).toString()
 
   const contentWithREPL = content.split(MARKER_METHOD).map(singleMethod => {
     const flag = all(
@@ -63,5 +65,10 @@ void function createReadme(){
     `${ tocContent }\n## Rambda's advantages`,
     newReadme
   )
-  writeFileSync(outputPath, newerReadme)
+  const withMissingRamdaMethods = replace(
+    '## Browse by category',
+    `${ missingRamdaMethods }\n## Browse by category`,
+    newerReadme
+  )
+  writeFileSync(outputPath, withMissingRamdaMethods)
 }()
