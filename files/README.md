@@ -1874,9 +1874,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 2.13.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213)
-
-- 2.12.0 Add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
+- 2.12.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213) and add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
 
 - 2.11.2 Close Rambdax [issue #32](https://github.com/selfrefactor/rambdax/issues/32) - wrong `R.type` when function is input
 
