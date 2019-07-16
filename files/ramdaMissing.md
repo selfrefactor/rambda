@@ -1,4 +1,4 @@
-## `Ramda` methods missing in `Rambda`
+## Ramda methods missing in Rambda
 
 ### Function
  

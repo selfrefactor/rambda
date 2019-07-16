@@ -2333,7 +2333,7 @@ import omit from 'rambda/lib/omit'
 
 - (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]
 
-## `Ramda` methods missing in `Rambda`
+## Ramda methods missing in Rambda
 
 ### Function
  
