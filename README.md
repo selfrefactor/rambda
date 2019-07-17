@@ -54,9 +54,11 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 - More generic methods
 
-`Ramda` has an overwhelming list of methods, some of which are focused on concepts such as `lenses`, `lift of function`. `Rambda` on the other hand aims to provide the user with more generic set of methods.
+`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(109) I see as advantage compared to the 255 of `Ramda`.
 
-You can [check the missing Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
+Ramda methods has plenty of really deep FP Methods, which are in fact really great, but they come at the price of added complexity. Such complex mechanism in practice are rarely needed.
+
+You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
 
 ## Example use
 
