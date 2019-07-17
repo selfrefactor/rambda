@@ -1,7 +1,7 @@
 const toc = require('markdown-toc')
 const {
   all,
-  inject,
+  remove,
   replace,
 } = require('rambdax')
 const { cleanTOC } = require('./_helpers/cleanTOC')
@@ -70,5 +70,9 @@ void function createReadme(){
     `${ missingRamdaMethods }\n## Browse by category`,
     newerReadme
   )
-  writeFileSync(outputPath, withMissingRamdaMethods)
+  const final = remove(
+    '\n* [Example use](#example-use)\n',
+    withMissingRamdaMethods
+  )
+  writeFileSync(outputPath, final)
 }()
