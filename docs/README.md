@@ -6,7 +6,22 @@
 
 Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
+## Example use
+
+```javascript
+import { compose, map, filter } from 'rambda'
+
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
+// => [6, 8]
+```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+
 * [Example use](#example-use)
+
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
@@ -59,20 +74,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 Ramda methods has plenty of really deep FP Methods, which are in fact really great, but they come at the price of added complexity. Such complex mechanism in practice are rarely needed.
 
 You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
-
-## Example use
-
-```javascript
-import {compose, map, filter} from 'rambda'
-
-const result = compose(
-  map(x => x * 2),
-  filter(x => x > 2)
-)([1, 2, 3, 4])
-// => [6, 8]
-```
-
-You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
 
 ## Install
 
