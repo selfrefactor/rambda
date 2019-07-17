@@ -2654,12 +2654,6 @@ import omit from 'rambda/lib/omit'
  [product](https://raw.githubusercontent.com/ramda/ramda/master/source/product.js)
  
           
-
-### String
- 
- [test](https://raw.githubusercontent.com/ramda/ramda/master/source/test.js)
- 
-          
 ## Browse by category
 
 ### Function
