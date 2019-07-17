@@ -10,7 +10,7 @@ Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io
 
 - Tree-shaking
 
-Currenly **Rambda** is more tree-shakable than **Ramda**
+Currently **Rambda** is more tree-shakable than **Ramda**
 
 - Speed
 
@@ -42,9 +42,11 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
----
+- More generic methods
 
-**Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
+`Ramda` has an overwhelming list of methods, some of which are focused on concepts such as `lenses`, `lift of function`. `Rambda` on the other hand aims to provide the user with more generic set of methods.
+
+You can [check the missing Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
 
 ## Example use
 
