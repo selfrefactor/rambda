@@ -48,7 +48,7 @@
     "cheerio": "1.0.0-rc.3",
     "docsify-cli": "4.3.0",
     "jest": "24.8.0",
-    "lodash": "4.17.14",
+    "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
     "rambdax": "2.11.0",
     "ramda": "0.26.1",
