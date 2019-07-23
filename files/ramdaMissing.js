@@ -60,7 +60,7 @@ const fn = async () => {
       R.reduce((acc, el) => {
         return `${acc}
 
- ### ${el[0]}
+### ${el[0]}
  ${R.reduce((accF, f) => `${accF}
  [${f}](https://raw.githubusercontent.com/ramda/ramda/master/source/${f}.js)
  `,
