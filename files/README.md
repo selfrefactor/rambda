@@ -649,6 +649,24 @@ R.head('foo') // => 'f'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/head.js)
 
+#### identical
+
+> identical(a: any, b: any): boolean
+
+Returns true if its arguments are identical, false otherwise. Values are identical if they reference the same memory. NaN is identical to NaN; 0 and -0 are not identical.
+
+```
+const o = {};
+R.identical(o, o); //=> true
+R.identical(1, 1); //=> true
+R.identical(1, '1'); //=> false
+R.identical([], []); //=> false
+R.identical(0, -0); //=> false
+R.identical(NaN, NaN); //=> true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/identical.js)
+
 #### identity
 
 > identity(x: T): T

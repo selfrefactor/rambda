@@ -280,8 +280,6 @@
  
  [gte](https://raw.githubusercontent.com/ramda/ramda/master/source/gte.js)
  
- [identical](https://raw.githubusercontent.com/ramda/ramda/master/source/identical.js)
- 
  [innerJoin](https://raw.githubusercontent.com/ramda/ramda/master/source/innerJoin.js)
  
  [intersection](https://raw.githubusercontent.com/ramda/ramda/master/source/intersection.js)

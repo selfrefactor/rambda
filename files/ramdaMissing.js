@@ -4,6 +4,8 @@ const request = require('request-promise')
 const cheerio = require('cheerio')
 const R = require('../dist/rambda.js')
 
+const ourModules = ['test'] // special case
+
 const getOur = () => {
   const filePath = path.resolve(__dirname, '../rambda.js')
   const data = fs.readFileSync(filePath).toString()
@@ -35,7 +37,7 @@ const getRamda = async (our) => {
       R.pipe(
         R.nth(1),
         R.pipe(
-          i => R.includes(i, our),
+          i => R.includes(i, our) || R.includes(i, ourModules),
           R.not
         )
       )
@@ -58,15 +60,14 @@ const fn = async () => {
       R.reduce((acc, el) => {
         return `${acc}
 
- ###${el[0]}
- 
+### ${el[0]}
  ${R.reduce((accF, f) => `${accF}
  [${f}](https://raw.githubusercontent.com/ramda/ramda/master/source/${f}.js)
  `,
           '',
           el[1])}
           `
-      }, 'Ramda (missing)')
+      }, '## Ramda methods missing in Rambda')
     )(ramdaData)
   } catch (err) {
     throw new Error(err)

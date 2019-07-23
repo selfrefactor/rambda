@@ -763,6 +763,27 @@ R.head('foo') // => 'f'
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.head(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%201%0AR.head('foo')%20%2F%2F%20%3D%3E%20'f'">Try in REPL</a>
 
 ---
+#### identical
+
+> identical(a: any, b: any): boolean
+
+Returns true if its arguments are identical, false otherwise. Values are identical if they reference the same memory. NaN is identical to NaN; 0 and -0 are not identical.
+
+```
+const o = {};
+R.identical(o, o); //=> true
+R.identical(1, 1); //=> true
+R.identical(1, '1'); //=> false
+R.identical([], []); //=> false
+R.identical(0, -0); //=> false
+R.identical(NaN, NaN); //=> true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/identical.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20const%20o%20%3D%20%7B%7D%3B%0AR.identical(o%2C%20o)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%201)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%3D%3E%20false%0AR.identical(NaN%2C%20NaN)%3B%20%2F%2F%3D%3E%20true">Try in REPL</a>
+
+---
 #### identity
 
 > identity(x: T): T
