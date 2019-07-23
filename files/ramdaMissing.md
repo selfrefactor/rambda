@@ -1,7 +1,6 @@
-Ramda (missing)
+## Ramda methods missing in Rambda
 
- ###Function
- 
+### Function
  
  [__](https://raw.githubusercontent.com/ramda/ramda/master/source/__.js)
  
@@ -89,8 +88,7 @@ Ramda (missing)
  
           
 
- ###Logic
- 
+### Logic
  
  [and](https://raw.githubusercontent.com/ramda/ramda/master/source/and.js)
  
@@ -110,8 +108,7 @@ Ramda (missing)
  
           
 
- ###List
- 
+### List
  
  [aperture](https://raw.githubusercontent.com/ramda/ramda/master/source/aperture.js)
  
@@ -193,8 +190,7 @@ Ramda (missing)
  
           
 
- ###Object
- 
+### Object
  
  [assocPath](https://raw.githubusercontent.com/ramda/ramda/master/source/assocPath.js)
  
@@ -268,8 +264,7 @@ Ramda (missing)
  
           
 
- ###Relation
- 
+### Relation
  
  [clamp](https://raw.githubusercontent.com/ramda/ramda/master/source/clamp.js)
  
@@ -309,8 +304,7 @@ Ramda (missing)
  
           
 
- ###Math
- 
+### Math
  
  [mathMod](https://raw.githubusercontent.com/ramda/ramda/master/source/mathMod.js)
  
@@ -321,12 +315,5 @@ Ramda (missing)
  [negate](https://raw.githubusercontent.com/ramda/ramda/master/source/negate.js)
  
  [product](https://raw.githubusercontent.com/ramda/ramda/master/source/product.js)
- 
-          
-
- ###String
- 
- 
- [test](https://raw.githubusercontent.com/ramda/ramda/master/source/test.js)
  
           

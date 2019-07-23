@@ -6,11 +6,25 @@
 
 Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
+## Example use
+
+```javascript
+import { compose, map, filter } from 'rambda'
+
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
+// => [6, 8]
+```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+
 ## Rambda's advantages
 
 - Tree-shaking
 
-Currenly **Rambda** is more tree-shakable than **Ramda**
+Currently **Rambda** is more tree-shakable than **Ramda**
 
 - Speed
 
@@ -42,23 +56,13 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
----
+- More generic methods
 
-**Rambda** partially shadows **Ramda**'s API, which means that you need to check **Rambda**'s documentation to assure that all the methods you need are available.
+`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(109) I see as advantage compared to the 255 of `Ramda`.
 
-## Example use
+Ramda methods has plenty of really deep FP Methods, which are in fact really great, but they come at the price of added complexity. Such complex mechanism in practice are rarely needed.
 
-```javascript
-import {compose, map, filter} from 'rambda'
-
-const result = compose(
-  map(x => x * 2),
-  filter(x => x > 2)
-)([1, 2, 3, 4])
-// => [6, 8]
-```
-
-You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
 
 ## Install
 
@@ -1874,7 +1878,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 2.12.0 Add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
+- 2.12.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213) and add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
 
 - 2.11.2 Close Rambdax [issue #32](https://github.com/selfrefactor/rambdax/issues/32) - wrong `R.type` when function is input
 

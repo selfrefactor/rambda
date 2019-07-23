@@ -4,7 +4,6 @@ const request = require('request-promise')
 const cheerio = require('cheerio')
 const R = require('../dist/rambda.js')
 
-
 const getOur = () => {
   const filePath = path.resolve(__dirname, '../rambda.js')
   const data = fs.readFileSync(filePath).toString()
