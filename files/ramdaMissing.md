@@ -246,8 +246,6 @@
  
  [project](https://raw.githubusercontent.com/ramda/ramda/master/source/project.js)
  
- [propOr](https://raw.githubusercontent.com/ramda/ramda/master/source/propOr.js)
- 
  [props](https://raw.githubusercontent.com/ramda/ramda/master/source/props.js)
  
  [set](https://raw.githubusercontent.com/ramda/ramda/master/source/set.js)

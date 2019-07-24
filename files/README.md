@@ -1186,6 +1186,24 @@ R.propIs(Number, 'x', {});            //=> false
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/propIs.js)
 
+#### propOr
+
+> propOr(defaultValue: any, param: string, obj: Object): any
+
+If the given, non-null object has an own property with the specified name, returns the value of that property. Otherwise returns the provided default value.
+
+```
+const theWall = { mother: 'Waters', comfortablyNumb: 'Gilmour/Waters' }
+const authorOfWishYouWereHere = R.prop('wishYouWereHere')
+const authorOfAtomHeartMotherWhenDefault = R.propOr('Pink Floyd', 'atomHeartMother')
+
+authorOfWishYouWereHere(theWall)  //=> undefined
+authorOfAtomHeartMotherWhenDefault(theWall) //=> 'Pink Floyd'
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propOr.js)
+
+
 #### range
 
 > range(start: number, end: number): number[]
