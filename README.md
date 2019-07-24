@@ -2217,6 +2217,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.13.0 Add `R.identical` - [PR #217](https://github.com/selfrefactor/rambda/pull/217) pushed by [@ku8ar](https://github.com/ku8ar)
+
 - 2.12.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213) and add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
 
 - 2.11.2 Close Rambdax [issue #32](https://github.com/selfrefactor/rambdax/issues/32) - wrong `R.type` when function is input
@@ -2638,8 +2640,6 @@ import omit from 'rambda/lib/omit'
  [gt](https://raw.githubusercontent.com/ramda/ramda/master/source/gt.js)
  
  [gte](https://raw.githubusercontent.com/ramda/ramda/master/source/gte.js)
- 
- [identical](https://raw.githubusercontent.com/ramda/ramda/master/source/identical.js)
  
  [innerJoin](https://raw.githubusercontent.com/ramda/ramda/master/source/innerJoin.js)
  
