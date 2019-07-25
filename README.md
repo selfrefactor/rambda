@@ -1412,6 +1412,26 @@ R.propIs(Number, 'x', {});            //=> false
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.propIs(Number%2C%20'x'%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%3B%20%20%2F%2F%3D%3E%20true%0AR.propIs(Number%2C%20'x'%2C%20%7Bx%3A%20'foo'%7D)%3B%20%20%20%20%2F%2F%3D%3E%20false%0AR.propIs(Number%2C%20'x'%2C%20%7B%7D)%3B%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
 ---
+#### propOr
+
+> propOr(defaultValue: any, param: string, obj: Object): any
+
+If the given, non-null object has an own property with the specified name, returns the value of that property. Otherwise returns the provided default value.
+
+```
+const theWall = { mother: 'Waters', comfortablyNumb: 'Gilmour/Waters' }
+const authorOfWishYouWereHere = R.prop('wishYouWereHere')
+const authorOfAtomHeartMotherWhenDefault = R.propOr('Pink Floyd', 'atomHeartMother')
+
+authorOfWishYouWereHere(theWall)  //=> undefined
+authorOfAtomHeartMotherWhenDefault(theWall) //=> 'Pink Floyd'
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propOr.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20const%20theWall%20%3D%20%7B%20mother%3A%20'Waters'%2C%20comfortablyNumb%3A%20'Gilmour%2FWaters'%20%7D%0Aconst%20authorOfWishYouWereHere%20%3D%20R.prop('wishYouWereHere')%0Aconst%20authorOfAtomHeartMotherWhenDefault%20%3D%20R.propOr('Pink%20Floyd'%2C%20'atomHeartMother')%0A%0AauthorOfWishYouWereHere(theWall)%20%20%2F%2F%3D%3E%20undefined%0AauthorOfAtomHeartMotherWhenDefault(theWall)%20%2F%2F%3D%3E%20'Pink%20Floyd'">Try in REPL</a>
+
+---
 #### range
 
 > range(start: number, end: number): number[]
