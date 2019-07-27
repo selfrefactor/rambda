@@ -299,17 +299,3 @@
  [unionWith](https://raw.githubusercontent.com/ramda/ramda/master/source/unionWith.js)
  
           
-
-### Math
- 
- [mathMod](https://raw.githubusercontent.com/ramda/ramda/master/source/mathMod.js)
- 
- [mean](https://raw.githubusercontent.com/ramda/ramda/master/source/mean.js)
- 
- [median](https://raw.githubusercontent.com/ramda/ramda/master/source/median.js)
- 
- [negate](https://raw.githubusercontent.com/ramda/ramda/master/source/negate.js)
- 
- [product](https://raw.githubusercontent.com/ramda/ramda/master/source/product.js)
- 
-          
