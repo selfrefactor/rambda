@@ -1,6 +1,11 @@
 import { type } from './type'
 import { type as ramdaType } from 'ramda'
 
+test('async arrow', () => {
+  const asyncArrow = async () => {};
+  expect(type(asyncArrow)).toBe('Async')
+})
+
 test('type', () => {
   const fn1 = () => {}
   const fn2 = function(){}
