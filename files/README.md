@@ -628,11 +628,18 @@ R.groupBy(
 It creates a groups of array members defined by equality function `fn`.
 
 ```
-const list = [0,1,6,2,2,3]
-
-R.groupWith(
-  (a,b) => a - b === 0
+const list = [ 4, 3, 6, 2, 2, 1 ]
+const result = R.groupWith(
+  (a,b) => a - b === 0,
+  list
 )
+const expected = [
+  [ 4, 3 ],
+  [ 6 ],
+  [ 2 ],
+  [ 2, 1 ],
+]
+// result === expected
 ```
 
 #### has

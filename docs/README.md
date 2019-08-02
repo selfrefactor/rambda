@@ -726,9 +726,27 @@ R.groupBy(
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/groupBy.js)
+---
+#### groupWith
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.groupBy(%0A%20%20x%20%3D%3E%20x.length%2C%0A%20%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try in REPL</a>
+> groupWith(fn: Function, arr: Array): Object
+
+It creates a groups of array members defined by equality function `fn`.
+
+```
+const list = [ 4, 3, 6, 2, 2, 1 ]
+const result = R.groupWith(
+  (a,b) => a - b === 0,
+  list
+)
+const expected = [
+  [ 4, 3 ],
+  [ 6 ],
+  [ 2 ],
+  [ 2, 1 ],
+]
+// result === expected
+```
 
 ---
 #### has
@@ -1410,6 +1428,26 @@ R.propIs(Number, 'x', {});            //=> false
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/propIs.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.propIs(Number%2C%20'x'%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%3B%20%20%2F%2F%3D%3E%20true%0AR.propIs(Number%2C%20'x'%2C%20%7Bx%3A%20'foo'%7D)%3B%20%20%20%20%2F%2F%3D%3E%20false%0AR.propIs(Number%2C%20'x'%2C%20%7B%7D)%3B%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%3D%3E%20false">Try in REPL</a>
+
+---
+#### propOr
+
+> propOr(defaultValue: any, param: string, obj: Object): any
+
+If the given, non-null object has an own property with the specified name, returns the value of that property. Otherwise returns the provided default value.
+
+```
+const theWall = { mother: 'Waters', comfortablyNumb: 'Gilmour/Waters' }
+const authorOfWishYouWereHere = R.prop('wishYouWereHere')
+const authorOfAtomHeartMotherWhenDefault = R.propOr('Pink Floyd', 'atomHeartMother')
+
+authorOfWishYouWereHere(theWall)  //=> undefined
+authorOfAtomHeartMotherWhenDefault(theWall) //=> 'Pink Floyd'
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/propOr.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20const%20theWall%20%3D%20%7B%20mother%3A%20'Waters'%2C%20comfortablyNumb%3A%20'Gilmour%2FWaters'%20%7D%0Aconst%20authorOfWishYouWereHere%20%3D%20R.prop('wishYouWereHere')%0Aconst%20authorOfAtomHeartMotherWhenDefault%20%3D%20R.propOr('Pink%20Floyd'%2C%20'atomHeartMother')%0A%0AauthorOfWishYouWereHere(theWall)%20%20%2F%2F%3D%3E%20undefined%0AauthorOfAtomHeartMotherWhenDefault(theWall)%20%2F%2F%3D%3E%20'Pink%20Floyd'">Try in REPL</a>
 
 ---
 #### range
@@ -2217,6 +2255,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.14.0 Add `R.groupWith` by @selfrefactor | Add `R.propOr`, `R.mathMod`, `R.mean`, `R.median`, `R.negate`, `R.product` by [@ku8ar](https://github.com/ku8ar)
+
 - 2.13.0 Add `R.identical` - [PR #217](https://github.com/selfrefactor/rambda/pull/217) pushed by [@ku8ar](https://github.com/ku8ar)
 
 - 2.12.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213) and add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
@@ -2487,8 +2527,6 @@ import omit from 'rambda/lib/omit'
  
  [findLastIndex](https://raw.githubusercontent.com/ramda/ramda/master/source/findLastIndex.js)
  
- [groupWith](https://raw.githubusercontent.com/ramda/ramda/master/source/groupWith.js)
- 
  [insert](https://raw.githubusercontent.com/ramda/ramda/master/source/insert.js)
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)
@@ -2607,8 +2645,6 @@ import omit from 'rambda/lib/omit'
  
  [project](https://raw.githubusercontent.com/ramda/ramda/master/source/project.js)
  
- [propOr](https://raw.githubusercontent.com/ramda/ramda/master/source/propOr.js)
- 
  [props](https://raw.githubusercontent.com/ramda/ramda/master/source/props.js)
  
  [set](https://raw.githubusercontent.com/ramda/ramda/master/source/set.js)
@@ -2660,20 +2696,6 @@ import omit from 'rambda/lib/omit'
  [union](https://raw.githubusercontent.com/ramda/ramda/master/source/union.js)
  
  [unionWith](https://raw.githubusercontent.com/ramda/ramda/master/source/unionWith.js)
- 
-          
-
-### Math
- 
- [mathMod](https://raw.githubusercontent.com/ramda/ramda/master/source/mathMod.js)
- 
- [mean](https://raw.githubusercontent.com/ramda/ramda/master/source/mean.js)
- 
- [median](https://raw.githubusercontent.com/ramda/ramda/master/source/median.js)
- 
- [negate](https://raw.githubusercontent.com/ramda/ramda/master/source/negate.js)
- 
- [product](https://raw.githubusercontent.com/ramda/ramda/master/source/product.js)
  
           
 ## Browse by category
