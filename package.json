@@ -80,7 +80,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "group with",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",
