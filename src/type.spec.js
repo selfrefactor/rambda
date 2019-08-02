@@ -2,7 +2,7 @@ import { type } from './type'
 import { type as ramdaType } from 'ramda'
 
 test('async arrow', () => {
-  const asyncArrow = async () => {};
+  const asyncArrow = async () => {}
   expect(type(asyncArrow)).toBe('Async')
 })
 

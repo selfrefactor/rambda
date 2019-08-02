@@ -621,7 +621,19 @@ R.groupBy(
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/groupBy.js)
+#### groupWith
+
+> groupWith(fn: Function, arr: Array): Object
+
+It creates a groups of array members defined by equality function `fn`.
+
+```
+const list = [0,1,6,2,2,3]
+
+R.groupWith(
+  (a,b) => a - b === 0
+)
+```
 
 #### has
 
@@ -1913,6 +1925,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 2.14.0 Add `R.groupWith` by @selfrefactor | Add `R.propOr`, `R.mathMod`, `R.mean`, `R.median`, `R.negate`, `R.product` by [@ku8ar](https://github.com/ku8ar)
 
 - 2.13.0 Add `R.identical` - [PR #217](https://github.com/selfrefactor/rambda/pull/217) pushed by [@ku8ar](https://github.com/ku8ar)
 

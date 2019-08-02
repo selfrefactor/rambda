@@ -34,6 +34,22 @@ test('happy', () => {
   expect(result).toEqual(expected)
 })
 
+test.only('readme example', () => {
+  const list = [ 4, 3, 6, 2, 2, 1 ]
+
+  const result = groupWith(
+    (a, b) => a - b === 0,
+    list
+  )
+  console.log(result)
+  const expected = [
+    [ 4, 3 ],
+    [ 6 ],
+    [ 2 ],
+    [ 2, 1 ],
+  ]
+})
+
 test('throw with string as input', () => {
   expect(
     () => groupWith(equals, 'Mississippi')

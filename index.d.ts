@@ -393,6 +393,10 @@ declare namespace R {
     has<T>(s: string, obj: T): boolean;
     has(s: string): <T>(obj: T) => boolean;
 
+    groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
+    groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
+    groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
+
     /**
      * Returns the first element in a list.
      * In some libraries this function is named `first`.
