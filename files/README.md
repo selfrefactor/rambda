@@ -1701,6 +1701,7 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 Results of running `yarn benchmarks`:
 
 ```
+
 Running add.js
   3 tests completed.
 
