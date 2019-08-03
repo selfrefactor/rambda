@@ -1,6 +1,6 @@
 const { exec } = require('helpers')
-const { writeFileSync } = require('fs')
 const { replace } = require('rambdax')
+const { writeFileSync } = require('fs')
 process.env.SKIP_BEAUTIFY = 'ON'
 
 function map(line){
@@ -25,7 +25,6 @@ function filter(line){
 void async function saveBenchmarkResults(){
   const result = await exec({
     cwd     : process.cwd(),
-    // command : 'node benchmarks/index add',
     command : 'node benchmarks/index --all',
   })
   const toSave = result

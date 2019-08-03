@@ -37,6 +37,7 @@ void function createReadme(){
 
   const content = readFileSync(`${ __dirname }/README.md`).toString()
   const missingRamdaMethods = readFileSync(`${ __dirname }/ramdaMissing.md`).toString()
+  const benchmarkResults = readFileSync(`${ __dirname }/benchmarkResults.md`).toString()
 
   const contentWithREPL = content.split(MARKER_METHOD).map(singleMethod => {
     const flag = all(
@@ -51,28 +52,33 @@ void function createReadme(){
 
   })
 
-  const newReadme = contentWithREPL.join(MARKER_METHOD_LINE)
+  const joined = contentWithREPL.join(MARKER_METHOD_LINE)
 
   const tocContentRaw = toc(
-    newReadme,
+    joined,
     { maxdepth : 2 }
   ).content
 
   const tocContent = cleanTOC(tocContentRaw) + '\n'
 
-  const newerReadme = replace(
+  const withTableOfContent = replace(
     '## Rambda\'s advantages',
     `${ tocContent }\n## Rambda's advantages`,
-    newReadme
+    joined
   )
   const withMissingRamdaMethods = replace(
     '## Browse by category',
     `${ missingRamdaMethods }\n## Browse by category`,
-    newerReadme
+    withTableOfContent
+  )
+  const withBenchmarkResults = replace(
+    'MARKER_BENCHMARK_RESULTS',
+    benchmarkResults,
+    withMissingRamdaMethods
   )
   const final = remove(
     '\n* [Example use](#example-use)\n',
-    withMissingRamdaMethods
+    withBenchmarkResults
   )
   writeFileSync(outputPath, final)
 }()
