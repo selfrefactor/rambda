@@ -833,8 +833,6 @@ R.isEmpty([])  // => true
 R.isEmpty({})  // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
-
 #### join
 
 > join(separator: string, arr: T[]): string
@@ -1219,9 +1217,6 @@ const authorOfAtomHeartMotherWhenDefault = R.propOr('Pink Floyd', 'atomHeartMoth
 authorOfWishYouWereHere(theWall)  //=> undefined
 authorOfAtomHeartMotherWhenDefault(theWall) //=> 'Pink Floyd'
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/propOr.js)
-
 
 #### range
 

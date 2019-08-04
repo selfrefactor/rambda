@@ -976,10 +976,6 @@ R.isEmpty([])  // => true
 R.isEmpty({})  // => true
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(undefined)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty('')%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%5B%5D)%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
-
 ---
 #### join
 
@@ -1444,10 +1440,6 @@ const authorOfAtomHeartMotherWhenDefault = R.propOr('Pink Floyd', 'atomHeartMoth
 authorOfWishYouWereHere(theWall)  //=> undefined
 authorOfAtomHeartMotherWhenDefault(theWall) //=> 'Pink Floyd'
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/propOr.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20const%20theWall%20%3D%20%7B%20mother%3A%20'Waters'%2C%20comfortablyNumb%3A%20'Gilmour%2FWaters'%20%7D%0Aconst%20authorOfWishYouWereHere%20%3D%20R.prop('wishYouWereHere')%0Aconst%20authorOfAtomHeartMotherWhenDefault%20%3D%20R.propOr('Pink%20Floyd'%2C%20'atomHeartMother')%0A%0AauthorOfWishYouWereHere(theWall)%20%20%2F%2F%3D%3E%20undefined%0AauthorOfAtomHeartMotherWhenDefault(theWall)%20%2F%2F%3D%3E%20'Pink%20Floyd'">Try in REPL</a>
 
 ---
 #### range
