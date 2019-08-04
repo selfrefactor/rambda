@@ -53,7 +53,7 @@ test('readme example', () => {
 test('throw with string as input', () => {
   expect(
     () => groupWith(equals, 'Mississippi')
-  ).toThrow()
+  ).toThrow('list.reduce is not a function')
 })
 
 test('from ramda', () => {

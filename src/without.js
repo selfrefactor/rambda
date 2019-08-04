@@ -20,7 +20,7 @@ import { reduce } from './reduce'
 export function without(left, right){
   return reduce(
     (accum, item) =>
-      !contains(item, left) ? accum.concat(item) : accum,
+      contains(item, left) ? accum : accum.concat(item),
     [],
     right
   )

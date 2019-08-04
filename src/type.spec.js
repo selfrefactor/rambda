@@ -59,7 +59,7 @@ test('function inside object 1', () => {
   expect(ramdaType(obj.f)).toBe('Function')
 })
 
-test('function inside object 1', () => {
+test('function inside object 2', () => {
   const name = 'f'
   const obj = {
     [ name ](){

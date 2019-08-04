@@ -3,7 +3,7 @@ import { identical } from './identical'
 test('identical', () => {
   const a = {}
 
-  expect(identical(100, 100)).toEqual(true)
+  expect(identical(100)(100)).toEqual(true)
   expect(identical(100, '100')).toEqual(false)
   expect(identical('string', 'string')).toEqual(true)
   expect(identical([], [])).toEqual(false)
