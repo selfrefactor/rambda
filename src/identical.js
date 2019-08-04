@@ -22,7 +22,7 @@ import _objectIs from './internal/_objectIs'
  *      R.identical(0, -0); //=> false
  *      R.identical(NaN, NaN); //=> true
  */
-export function identical(a, b) {
+export function identical(a, b){
   if (arguments.length === 1) return b => identical(a, b)
 
   return _objectIs(a, b)

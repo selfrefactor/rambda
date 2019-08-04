@@ -15,14 +15,15 @@ import { mean } from './mean'
  *      R.median([7, 2, 10, 9]); //=> 8
  *      R.median([]); //=> NaN
  */
-export function median(list) {
-  var len = list.length
+export function median(list){
+  const len = list.length
   if (len === 0) return NaN
-  var width = 2 - len % 2
-  var idx = (len - width) / 2
+  const width = 2 - len % 2
+  const idx = (len - width) / 2
+
   return mean(
     Array.prototype.slice.call(list, 0)
-    .sort((a, b) => a === b ? 0 : a < b ? -1 : 1)
-    .slice(idx, idx + width)
+      .sort((a, b) => a === b ? 0 : a < b ? -1 : 1)
+      .slice(idx, idx + width)
   )
 }

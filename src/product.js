@@ -1,7 +1,6 @@
 import { multiply } from './multiply'
 import { reduce } from './reduce'
 
-
 /**
  * Multiplies together all the elements of a list.
  *

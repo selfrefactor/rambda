@@ -1,4 +1,4 @@
-import { is } from './is';
+import { is } from './is'
 
 /**
  * Returns `true` if the specified object property is of the given type;
@@ -17,9 +17,9 @@ import { is } from './is';
  *      R.propIs(Number, 'x', {x: 'foo'});    //=> false
  *      R.propIs(Number, 'x', {});            //=> false
  */
-export function propIs(type, name, obj) {
+export function propIs(type, name, obj){
   if (arguments.length === 2) return _obj => propIs(type, name, _obj)
   if (arguments.length === 1) return (_name, _obj) => propIs(type, _name, _obj)
 
-  return is(type, obj[name]);
+  return is(type, obj[ name ])
 }

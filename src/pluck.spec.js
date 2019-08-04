@@ -1,7 +1,7 @@
 import { pluck } from './pluck'
 
 test('', () => {
-  expect(pluck('a')([ { a : 1 }, { a : 2 } ])).toEqual([ 1, 2 ])
+  expect(pluck('a')([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ 1, 2 ])
 })
 
 test('with number', () => {
