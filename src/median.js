@@ -23,7 +23,13 @@ export function median(list){
 
   return mean(
     Array.prototype.slice.call(list, 0)
-      .sort((a, b) => a === b ? 0 : a < b ? -1 : 1)
+      .sort((a, b) => {
+        if (a === b) return 0
+
+        return a < b ?
+          -1 :
+          1
+      })
       .slice(idx, idx + width)
   )
 }
