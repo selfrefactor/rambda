@@ -1060,7 +1060,7 @@ It returns the result of looping through iterable `x` with `mapFn`.
 
 The method works with objects as well.
 
-Note that unlike Ramda's `map`, here object keys are passed as second argument to `mapFn`.
+Note that unlike Ramda's `map`, here array keys are passed as second argument to `mapFn`.
 
 ```
 const mapFn = x => x * 2
