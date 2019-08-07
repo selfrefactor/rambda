@@ -52,7 +52,7 @@
     "markdown-toc": "1.2.0",
     "rambdax": "2.12.3",
     "ramda": "0.26.1",
-    "rollup": "1.19.3",
+    "rollup": "1.19.4",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-cleanup": "3.1.1",
     "rollup-plugin-commonjs": "10.0.2",
