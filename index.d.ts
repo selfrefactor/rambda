@@ -401,8 +401,7 @@ declare namespace R {
      * Returns the first element in a list.
      * In some libraries this function is named `first`.
      */
-    head<T>(list: ReadonlyArray<T>): T | undefined;
-    head(list: string): string;
+    head<T extends Readonly<any> | string>(list: T): T extends string ? string : (T[0] | undefined)
 
     /**
      * A function that does nothing but return the parameter supplied to it. Good as a default
