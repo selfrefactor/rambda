@@ -888,9 +888,9 @@ declare namespace R {
      * function and passing it an accumulator value and the current value from the array, and
      * then passing the result to the next call.
      */
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?:number) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?:number) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
     /**
      * Similar to `filter`, except that it keeps only values for which the given predicate

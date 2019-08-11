@@ -1709,7 +1709,7 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 2.14.3 Add index as third argument of `R.reduce` typings.
+- 2.14.4 Add index as third argument of `R.reduce` typings.
 
 - 2.14.2 Use `R.curry` with `R.reduce` as manual curry there didn't work as expected.
 
