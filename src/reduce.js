@@ -1,3 +1,5 @@
+import { curry } from './curry'
+
 /**
  * Returns a single item by iterating through the list, successively calling
  * the iterator function and passing it an accumulator value and the current
@@ -41,12 +43,8 @@
  *
  * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
  */
-export function reduce(fn, acc, list){
-  if (acc === undefined){
-    return (_acc, _list) => reduce(fn, _acc, _list)
-  } else if (list === undefined){
-    return _list => reduce(fn, acc, _list)
-  }
-
+function reduceFn(fn, acc, list){
   return list.reduce(fn, acc)
 }
+
+export const reduce = curry(reduceFn)
