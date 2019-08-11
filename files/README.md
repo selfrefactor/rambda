@@ -1709,6 +1709,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 2.14.3 Add index as third argument of `R.reduce` typings.
+
 - 2.14.2 Use `R.curry` with `R.reduce` as manual curry there didn't work as expected.
 
 - 2.14.1 Fix wrong typescript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
