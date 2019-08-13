@@ -1,4 +1,15 @@
 import { identical } from './identical'
+import {_isInteger }from './internal/_isInteger'
+import {_objectIs} from './internal/_objectIs'
+
+test('is integer internal', () => {
+  expect(_isInteger(1)).toBe(true)
+  expect(_isInteger(0.3)).toBe(false)
+})
+
+test('object is internal', () => {
+  expect(_objectIs(1,1)).toBe(true)
+})
 
 test('identical', () => {
   const a = {}
