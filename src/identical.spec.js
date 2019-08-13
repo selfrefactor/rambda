@@ -16,6 +16,7 @@ test('is integer internal', () => {
 
 test('object is internal', () => {
   expect(_objectIs(1,1)).toBe(true)
+  expect(_objectIs(NaN,NaN)).toBe(true)
 })
 
 test('identical', () => {
