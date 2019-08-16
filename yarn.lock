@@ -2703,9 +2703,10 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-"helpers@https://github.com/selfrefactor/helpers#1.5.1":
+"helpers@https://github.com/selfrefactor/helpers#1.6.0":
   version "1.2.0"
-  resolved "https://github.com/selfrefactor/helpers#0ee0e23bfc5f0bb732427e54990cab037d1cfbb8"
+  uid c2fdf89ee3c38de4d6154d6ae2b346e780707970
+  resolved "https://github.com/selfrefactor/helpers#c2fdf89ee3c38de4d6154d6ae2b346e780707970"
   dependencies:
     boxen "^4.1.0"
     chalk "^2.4.2"
