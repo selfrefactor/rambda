@@ -47,7 +47,7 @@
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
     "docsify-cli": "4.3.0",
-    "helpers": "https://github.com/selfrefactor/helpers#1.5.1",
+    "helpers": "https://github.com/selfrefactor/helpers#1.6.0",
     "jest": "24.9.0",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
