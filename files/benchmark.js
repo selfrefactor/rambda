@@ -115,32 +115,6 @@ if (options.compose){
     .run()
 }
 
-const contains = new Benchmark.Suite
-
-options.contains = true
-
-if (options.contains){
-  const holder = [ 1, 2, 3, 4 ]
-  const a = 4
-
-  contains.add('Rambda.contains', () => {
-    R.contains(a, holder)
-  })
-    .add('Ramda', () => {
-      Ramda.contains(a, holder)
-    })
-    .add('Lodash.includes', () => {
-      _.includes(holder, a)
-    })
-    .on('cycle', event => {
-      benchmarks.add(event.target)
-    })
-    .on('complete', () => {
-      benchmarks.log()
-    })
-    .run()
-}
-
 const drop = new Benchmark.Suite
 
 options.drop = true

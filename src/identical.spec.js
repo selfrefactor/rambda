@@ -1,8 +1,8 @@
 import { identical } from './identical'
-import {_isInteger }from './internal/_isInteger'
-import {_objectIs} from './internal/_objectIs'
-import {F} from './F'
-import {T} from './T'
+import { _isInteger } from './internal/_isInteger'
+import { _objectIs } from './internal/_objectIs'
+import { F } from './F'
+import { T } from './T'
 
 test('small', () => {
   expect(F()).toBe(false)
@@ -15,8 +15,8 @@ test('is integer internal', () => {
 })
 
 test('object is internal', () => {
-  expect(_objectIs(1,1)).toBe(true)
-  expect(_objectIs(NaN,NaN)).toBe(true)
+  expect(_objectIs(1, 1)).toBe(true)
+  expect(_objectIs(NaN, NaN)).toBe(true)
 })
 
 test('identical', () => {

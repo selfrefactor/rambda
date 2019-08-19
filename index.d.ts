@@ -74,8 +74,6 @@ declare namespace R {
           T extends Evolver ? Evolvable<T> :
               never;
 
-  interface Placeholder { __isRamdaPlaceholder__: true; }
-
   interface Reduced<T> {
     '@@transducer/value': T;
     '@@transducer/reduced': true;
@@ -84,12 +82,6 @@ declare namespace R {
   type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
   interface Static {
-    /**
-     * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
-     * position, and it returns a function waiting for its first argument.
-     */
-    __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
-
     /**
      * Adds two numbers (or strings). Equivalent to a + b but curried.
      */
@@ -141,8 +133,6 @@ declare namespace R {
     /**
      * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
      */
-    assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
-    assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
     assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
@@ -226,27 +216,10 @@ declare namespace R {
      * Returns a new list consisting of the elements of the first list followed by the elements
      * of the second.
      */
-    concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
-    concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
     concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
     concat(list1: string, list2: string): string;
     concat(list1: string): (list2: string) => string;
-
-    /**
-     * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
-     * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
-     *
-     * @deprecated since 0.26 in favor of includes
-     */
-    contains(__: Placeholder, list: string): (a: string) => boolean;
-    contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
-    contains(__: Placeholder): (list: string, a: string) => boolean;
-    contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
-    contains(a: string, list: string): boolean;
-    contains<T>(a: T, list: ReadonlyArray<T>): boolean;
-    contains(a: string): (list: string) => boolean;
-    contains<T>(a: T): (list: ReadonlyArray<T>) => boolean;
 
     /**
      * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
@@ -276,8 +249,6 @@ declare namespace R {
     /**
      * Divides two numbers. Equivalent to a / b.
      */
-    divide(__: Placeholder, b: number): (a: number) => number;
-    divide(__: Placeholder): (b: number, a: number) => number;
     divide(a: number, b: number): number;
     divide(a: number): (b: number) => number;
 
@@ -388,8 +359,6 @@ declare namespace R {
     /**
      * Returns whether or not an object has an own property with the specified name.
      */
-    has<T>(__: Placeholder, obj: T): (s: string) => boolean;
-    has<T>(__: Placeholder): (obj: T, s: string) => boolean;
     has<T>(s: string, obj: T): boolean;
     has(s: string): <T>(obj: T) => boolean;
 
@@ -404,8 +373,7 @@ declare namespace R {
     head<T extends Readonly<any> | string>(list: T): T extends string ? string : (T[0] | undefined);
 
     /**
-     * A function that does nothing but return the parameter supplied to it. Good as a default
-     * or placeholder function.
+     * A function that does nothing but return the parameter supplied to it.
      */
     identity<T>(a: T): T;
 
@@ -546,8 +514,6 @@ declare namespace R {
      *
      * @deprecated since 0.26 in favor of mergeRight
      */
-    merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => Merge<T2, T1>;
-    merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => Merge<T2, T1>;
     merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
     merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
@@ -571,8 +537,6 @@ declare namespace R {
      * Note that this functions preserves the JavaScript-style behavior for
      * modulo. For mathematical modulo see `mathMod`
      */
-    modulo(__: Placeholder, b: number): (a: number) => number;
-    modulo(__: Placeholder): (b: number, a: number) => number;
     modulo(a: number, b: number): number;
     modulo(a: number): (b: number) => number;
 
@@ -858,7 +822,6 @@ declare namespace R {
     /**
      * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
      */
-    prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
     prop<P extends keyof T, T>(p: P, obj: T): T[P];
     prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
     prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
@@ -962,8 +925,6 @@ declare namespace R {
     /**
      * Subtracts two numbers. Equivalent to `a - b` but curried.
      */
-    subtract(__: Placeholder, b: number): (a: number) => number;
-    subtract(__: Placeholder): (b: number, a: number) => number;
     subtract(a: number, b: number): number;
     subtract(a: number): (b: number) => number;
 
