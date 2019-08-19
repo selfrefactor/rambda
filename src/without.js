@@ -1,4 +1,4 @@
-import { contains } from './contains'
+import { includes } from './includes'
 import { reduce } from './reduce'
 
 /**
@@ -24,7 +24,7 @@ export function without(left, right){
 
   return reduce(
     (accum, item) =>
-      contains(item, left) ? accum : accum.concat(item),
+      includes(item, left) ? accum : accum.concat(item),
     [],
     right
   )

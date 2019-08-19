@@ -1,4 +1,4 @@
-import { contains } from './contains'
+import { includes } from './includes'
 
 /**
  * Returns a new list containing only one copy of each element in the original
@@ -22,7 +22,7 @@ export function uniq(list){
   while (++index < list.length){
     const value = list[ index ]
 
-    if (!contains(value, willReturn)){
+    if (!includes(value, willReturn)){
       willReturn.push(value)
     }
   }

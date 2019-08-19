@@ -111,7 +111,7 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **partialCurry** is not part of Ramda API.
 
-- Rambda's **includes** acts as curried Javascript `includes`, while **Ramda** version uses `R.equals` to check if a list contains certain value. Also **Ramda** version will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
+- Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
@@ -372,24 +372,6 @@ R.concat('foo')('bar') // => 'foobar'
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.concat(%5B1%2C%202%5D)(%5B3%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%5D%0AR.concat('foo')('bar')%20%2F%2F%20%3D%3E%20'foobar'">Try in REPL</a>
-
----
-#### contains
-
-> contains(valueToFind: T, arr: T[]): boolean
-
-It returns `true`, if `valueToFind` is part of `arr`.
-
-Note that while new versions of `Ramda` depricate this method, `contains` will remain in this library.
-
-```
-R.contains(2, [1, 2]) // => true
-R.contains(3, [1, 2]) // => false
-```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/contains.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.contains(2%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20true%0AR.contains(3%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### curry
@@ -861,22 +843,19 @@ R.inc(1) // => 2
 ---
 #### includes
 
-If `input` is neither `string` nor `array`, then this method will return `false`.
+> includes(valueToFind: T|string, input: T[]|string): boolean
 
-> includes(target: any, input: any): boolean
+If `input` is string, then this method work as native `includes`.
+If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
 
 ```
-R.includes(1, [1, 2]) // => true
 R.includes('oo', 'foo') // => true
-R.includes('z', 'foo') // => false
-R.includes('z', null) // => false
+R.includes({a: 1}, [{a: 1}]) // => true
 ```
-
-!! Note that this method is not part of `Ramda` API.
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/includes.js)
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.includes(1%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20true%0AR.includes('oo'%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.includes('z'%2C%20'foo')%20%2F%2F%20%3D%3E%20false%0AR.includes('z'%2C%20null)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.includes('oo'%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.includes(%7Ba%3A%201%7D%2C%20%5B%7Ba%3A%201%7D%5D)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### indexBy
@@ -2226,6 +2205,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 3.0.0 Deprecate `R.contains`, while `R.includes` is now following Ramda API(it uses `R.equals` for comparision)
 
 - 2.14.5 `R.without` needs currying
 
