@@ -2206,6 +2206,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 3.0.1 Close [issue #234](https://github.com/selfrefactor/rambda/issues/234) - wrong curry typing
+
 - 3.0.0 Deprecate `R.contains`, while `R.includes` is now following Ramda API(it uses `R.equals` for comparision)
 
 - 2.14.5 `R.without` needs currying
