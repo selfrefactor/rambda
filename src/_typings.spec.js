@@ -1,11 +1,11 @@
 import { spawnSync } from 'child_process'
 import { resolve } from 'path'
-jest.setTimeout(1 * 60 * 1000)
+jest.setTimeout(3 * 60 * 1000)
 
 const DIR = resolve(__dirname, '../')
 
 test('can build', async () => {
-  const { status } = spawnSync('yarn', [ 'build' ], {
+  const { status } = spawnSync('yarn', [ 'typings' ], {
     stdio : 'inherit',
     cwd   : DIR,
   })

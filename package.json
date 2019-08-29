@@ -8,10 +8,10 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test:watch": "jest src --watch",
+    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./_typings_tests",
     "test": "jest src",
+    "prove": "jest src --json",
     "readme": "node files/createReadme",
-    "readmex": "node files/createReadmex",
     "docs": "docsify init ./docs",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
@@ -19,7 +19,7 @@
     "benchmarks": "node benchmarks/index.js --all",
     "benchmark": "node benchmarks/index.js",
     "cover": "jest src --coverage --no-cache -w 1",
-    "jest": "jest --watch"
+    "coverx": "yarn typings&&yarn cover"
   },
   "repository": {
     "type": "git",
@@ -47,11 +47,12 @@
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
     "docsify-cli": "4.3.0",
+    "dtslint": "0.7.4",
     "helpers": "https://github.com/selfrefactor/helpers#1.6.0",
     "jest": "24.9.0",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
-    "rambdax": "2.13.1",
+    "rambdax": "2.14.0",
     "ramda": "0.26.1",
     "rollup": "1.20.3",
     "rollup-plugin-babel": "4.3.3",
@@ -60,7 +61,10 @@
     "rollup-plugin-json": "3.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-replace": "2.1.0",
-    "rollup-plugin-sourcemaps": "0.4.2"
+    "rollup-plugin-sourcemaps": "0.4.2",
+    "ts-node": "6.1.0",
+    "tslint": "5.9.1",
+    "typescript": "^3.0.1"
   },
   "dependencies": {},
   "files": [
