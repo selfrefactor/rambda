@@ -8,7 +8,7 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./_typings_tests",
+    "typings": "dtslint ./node_modules/typescript/lib --expectOnly ./_typings_tests",
     "test": "jest src",
     "prove": "jest src --json",
     "readme": "node files/createReadme",
@@ -18,8 +18,7 @@
     "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
     "benchmarks": "node benchmarks/index.js --all",
     "benchmark": "node benchmarks/index.js",
-    "cover:spec": "jest src --coverage --no-cache -w 1",
-    "cover": "yarn typings&&yarn cover:spec"
+    "cover": "jest src --coverage --no-cache -w 1"
   },
   "repository": {
     "type": "git",
