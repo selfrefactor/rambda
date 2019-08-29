@@ -4733,10 +4733,10 @@ rambda@2.7.1:
   resolved "https://registry.yarnpkg.com/rambda/-/rambda-2.7.1.tgz#56c3d4100131db0e252236a26bed75faffa229d8"
   integrity sha512-EjTEdqAOqMWSgiyIs/7cd9ByCN1hlVq5YBxaTdlmGygIpvAtM+qv4rO2eptiTUIkP8E5lGusuq7hohtFM23knw==
 
-rambdax@2.13.1:
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.13.1.tgz#2f3a5739b981d8d907a6c8927c1fa3d3f968e80a"
-  integrity sha512-U2R51Gsh4e9BIY4HYHWcte51DiTpVYgGCBpmOax0oULhE2RqShbSJxTWguxPkZZVH6QyZ1rWuyYPTr1NwHq9PQ==
+rambdax@2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.14.0.tgz#440d763750a8b8bd1f011f7bf1cb757b441eca9b"
+  integrity sha512-jlRxTNu4KDtgLG0L69iQpqabRV2De1F0FenEDnh6S+fTtoAAVoi62l6TBQ4B4Pv4W/hXrnoZ7aa09ZKHQeQP6g==
 
 rambdax@^2.12.3:
   version "2.12.3"
