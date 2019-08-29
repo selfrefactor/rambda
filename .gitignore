@@ -1,3 +1,4 @@
+.vscode
 jest_*
 *.log
 coverage
