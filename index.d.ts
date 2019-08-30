@@ -2,6 +2,14 @@
 declare let R: R.Static;
 
 declare namespace R {
+  type FilterFunction<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
+  type FilterFunction<T> = (x: T, prop: string) => boolean
+  type FilterFunction<T> = (x: T) => boolean
+  interface Filter<T> {
+    (list: T[]): T[]
+    (obj: Dictionary<T>): Dictionary<T>
+  }
+
   type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
   type CommonKeys<T1, T2> = keyof T1 & keyof T2;
@@ -35,7 +43,7 @@ declare namespace R {
     set<T, U>(str: string, obj: T): U;
   }
 
-  interface Filter {
+  interface Filterx {
     <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
     <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
     <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
@@ -300,10 +308,9 @@ declare namespace R {
      */
     F(): boolean;
 
-    /**
-     * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
-     */
-    filter: Filter;
+    filter<T>(fn: FilterFunction<T>): Filter<T>
+    filter<T>(fn: FilterFunction<T>, list: T[]): T[]
+    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
 
     /**
      * Returns the first element of the list which matches the predicate, or `undefined` if no

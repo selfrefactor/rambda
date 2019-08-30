@@ -85,7 +85,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "fix corner case typings",
     "docs": [
       "docsify",
       "repl",

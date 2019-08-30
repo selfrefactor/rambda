@@ -9,9 +9,8 @@ test('1', () => {
 
 test('2', () => {
   const firstFn = val => val > 0
-  const secondFn = val => val === - 10
+  const secondFn = val => val === -10
   const fn = either(firstFn)(secondFn)
 
   expect(fn(-10)).toBeTruthy()
 })
- 
