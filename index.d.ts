@@ -2,11 +2,12 @@
 declare let R: R.Static;
 
 declare namespace R {
-  type FilterFunctionArray<T>(x: T, index: number) => boolean
-  type FilterFunctionArray<T>(x: T) => boolean
+  type FilterFunctionArray<T>=(x: T, index: number) => boolean
+  type FilterFunctionArray<T>=(x: T) => boolean
   type FilterFunction<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
   type FilterFunction<T> = (x: T, prop: string) => boolean
   type FilterFunction<T> = (x: T) => boolean
+  type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
   interface Filter<T> {
     (list: T[]): T[]
     (obj: Dictionary<T>): Dictionary<T>
@@ -292,9 +293,9 @@ declare namespace R {
     F(): boolean;
 
     filter<T>(fn: FilterFunctionArray<T>) : (list: T[]) => T[]
+    filter<T,U>(fn: FilterFunction<T>): (obj: Dictionary<T>) =>Dictionary<U>
     filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[]
     filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
-    filter<T>(fn: FilterFunction<T>): (obj: Dictionary<T>) =>Dictionary<T>
 
     /**
      * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -462,14 +463,15 @@ declare namespace R {
     /**
      * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
      */
+    map<T, U>(fn: MapFunctionObject<T,U>, obj: Dictionary<T>): Dictionary<U>;
     map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
     map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
-    map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-    map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
-    map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
-    map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
-    map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U, obj: { [key: string]: T }): { [key: string]: U };
-    map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U): (obj: { [key: string]: T }) => { [key: string]: U };
+    // map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
+    // map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+    // map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
+    // map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
+    // map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U, obj: { [key: string]: T }): { [key: string]: U };
+    // map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U): (obj: { [key: string]: T }) => { [key: string]: U };
 
     /**
      * Tests a regular expression agains a String
