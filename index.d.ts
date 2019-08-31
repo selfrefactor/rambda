@@ -2,6 +2,8 @@
 declare let R: R.Static;
 
 declare namespace R {
+  type FilterFunctionArray<T>(x: T, index: number) => boolean
+  type FilterFunctionArray<T>(x: T) => boolean
   type FilterFunction<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
   type FilterFunction<T> = (x: T, prop: string) => boolean
   type FilterFunction<T> = (x: T) => boolean
@@ -37,25 +39,6 @@ declare namespace R {
   interface Dictionary<T> {
     [index: string]: T;
   }
-
-  interface Lens {
-    <T, U>(obj: T): U;
-    set<T, U>(str: string, obj: T): U;
-  }
-
-  interface Filterx {
-    <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
-    <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
-    <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
-    <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
-    <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
-  }
-
-  interface FilterOnceApplied<T> {
-    (list: ReadonlyArray<T>): T[];
-    (obj: Dictionary<T>): Dictionary<T>;
-  }
-
   type Evolve<O extends Evolvable<E>, E extends Evolver> = {
     [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
   };
@@ -308,9 +291,10 @@ declare namespace R {
      */
     F(): boolean;
 
-    filter<T>(fn: FilterFunction<T>): Filter<T>
-    filter<T>(fn: FilterFunction<T>, list: T[]): T[]
+    filter<T>(fn: FilterFunctionArray<T>) : (list: T[]) => T[]
+    filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[]
     filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
+    filter<T>(fn: FilterFunction<T>): (obj: Dictionary<T>) =>Dictionary<T>
 
     /**
      * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -474,13 +458,6 @@ declare namespace R {
      * Returns the number of elements in the array by returning list.length.
      */
     length<T>(list: ReadonlyArray<T>): number;
-
-    /**
-     * Returns a lens for the given getter and setter functions. The getter
-     * "gets" the value of the focus; the setter "sets" the value of the focus.
-     * The setter should not mutate the data structure.
-     */
-    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
     /**
      * Returns a new list, constructed by applying the supplied function to every element of the supplied list.

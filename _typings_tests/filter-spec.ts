@@ -1,6 +1,27 @@
 import { filter } from 'rambda'
 
-describe('filter', () => {
+describe('filter with array', () => {
+  it('1 curry', () => {
+    const x = filter<number>((a)=> { // $ExpectType number[]
+      a // $ExpectType number
+      return a > 1
+    })([1,2,3]); 
+  });
+  it('1', () => {
+    const x = filter<number>((a)=> { // $ExpectType number[]
+      a // $ExpectType number
+      return a > 1
+    },[1,2,3]); 
+  });
+  it('2', () => {
+    const x = filter<number>((a, b)=> { // $ExpectType number[]
+      a // $ExpectType number
+      return a > 1
+    },[1,2,3]); 
+  });
+})
+
+describe('filter with objects', () => {
   it('curry', () => {
     const x = filter<number>((a,b,c)=> { // $ExpectType Dictionary<number>
       b // $ExpectType string
