@@ -4,7 +4,7 @@ jest.setTimeout(3 * 60 * 1000)
 
 const DIR = resolve(__dirname, '../')
 
-test('can build', async () => {
+test('typings are correct', async () => {
   const { status } = spawnSync('yarn', [ 'typings' ], {
     stdio : 'inherit',
     cwd   : DIR,
