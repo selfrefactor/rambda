@@ -3,8 +3,9 @@ declare let R: R.Static;
 
 declare namespace R {
   type FilterFunctionArray<T> = (x: T, index: number) => boolean
-  type FilterFunction<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
+  type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
+  type MapFunctionArray<T, U> = (x: T, index: number) => U
 
   type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
@@ -287,8 +288,8 @@ declare namespace R {
 
     filter<T>(fn: FilterFunctionArray<T>) : (list: T[]) => T[]
     filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[]
-    filter<T,U>(fn: FilterFunction<T>): (obj: Dictionary<T>) =>Dictionary<U>
-    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
+    filter<T,U>(fn: FilterFunctionObject<T>): (obj: Dictionary<T>) =>Dictionary<T>
+    filter<T>(fn: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>
 
     /**
      * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -457,14 +458,12 @@ declare namespace R {
      * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
      */
     map<T, U>(fn: MapFunctionObject<T,U>, obj: Dictionary<T>): Dictionary<U>;
-    map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
-    map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
-    // map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-    // map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
-    // map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
-    // map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
-    // map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U, obj: { [key: string]: T }): { [key: string]: U };
-    // map<T, U>(fn: (value: T, key: string, obj: { [key: string]: T }) => U): (obj: { [key: string]: T }) => { [key: string]: U };
+    map<T, U, S>(fn: MapFunctionObject<T,U>): (obj: Dictionary<T>) => Dictionary<U>;
+    
+    map<T, U>(fn: MapFunctionArray<T,U>, list: Array<T>): U[];
+    map<T, U>(fn: MapFunctionArray<T,U>) : (list: Array<T>) => U[];
+    map<T>(fn: MapFunctionArray<T,T>, list: ReadonlyArray<T>): T[];
+    map<T>(fn: MapFunctionArray<T,T>) : (list: Array<T>) => T[];
 
     /**
      * Tests a regular expression agains a String

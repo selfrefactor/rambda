@@ -1,6 +1,48 @@
 import { map } from 'rambda'
 
+describe('map with arrays', () => {
+  it('only one type', () => {
+    const x = map<number>((a,b) => { // $ExpectType number[]
+      a // $ExpectType number
+      b // $ExpectType number
+      return a + 2
+    },[1,2,3]); 
+  });
+  it('only one type + curry', () => {
+    const x = map<number>((a,b) => { // $ExpectType number[]
+      a // $ExpectType number
+      b // $ExpectType number
+      return a + 2
+    })([1,2,3]); 
+  });
+  it('2 types', () => {
+    const x = map<number, string>((a,b) => { // $ExpectType string[]
+      a // $ExpectType number
+      b // $ExpectType number
+      return `${a}`
+    },[1,2,3]); 
+  });
+  it('2 types + curry', () => {
+    const x = map<number, string>((a,b) => { // $ExpectType string[]
+      a // $ExpectType number
+      b // $ExpectType number
+      return `${a}`
+    })([1,2,3]); 
+  });
+});
+
 describe('map with objects', () => {
+  it('curry', () => {
+    // It requires dummy third typing argument
+    // in order to distinguish compared to curry typings for arrays
+    // ============================================
+    const x = map<number, string, any>((a,b,c) => { // $ExpectType Dictionary<string>
+      a // $ExpectType number
+      b // $ExpectType string
+      c // $ExpectType Dictionary<number>
+      return `${a}`
+    })({a:1,b:2}); 
+  });
   it('1', () => {
     const x = map<number, string>((a,b,c) => { // $ExpectType Dictionary<string>
       a // $ExpectType number
