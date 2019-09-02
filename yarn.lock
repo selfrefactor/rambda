@@ -1946,7 +1946,7 @@ define-property@^2.0.2:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
 
-definitelytyped-header-parser@^1.0.1, definitelytyped-header-parser@^1.2.0:
+definitelytyped-header-parser@1.2.0, definitelytyped-header-parser@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/definitelytyped-header-parser/-/definitelytyped-header-parser-1.2.0.tgz#f21374b8a18fabcd3ba4b008a0bcbc9db2b7b4c4"
   integrity sha512-xpg8uu/2YD/reaVsZV4oJ4g7UDYFqQGWvT1W9Tsj6q4VtWBSaig38Qgah0ZMnQGF9kAsAim08EXDO1nSi0+Nog==
@@ -2066,22 +2066,23 @@ download-file-sync@^1.0.4:
   resolved "https://registry.yarnpkg.com/download-file-sync/-/download-file-sync-1.0.4.tgz#d3e3c543f836f41039455b9034c72e355b036019"
   integrity sha1-0+PFQ/g29BA5RVuQNMcuNVsDYBk=
 
-dts-critic@^1.0.9:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/dts-critic/-/dts-critic-1.2.0.tgz#fc358cad7461180ad426438ab88b249fedebd5c0"
-  integrity sha512-z6VI1Sz7xxy0BgN6YsWuG9hbRIfph3U9hwrfNHLnLzsq865VYyjo5xKKUgXPuqMgJ04BUF1LGYQJ+kWyWwvUvQ==
+dts-critic@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dts-critic/-/dts-critic-2.0.0.tgz#9d52943326d57df0691aa0479010a73ccb855a4f"
+  integrity sha512-oYo69B8NcjUoDhKh8oUl58ljMsgyWnPR0Qf3QKJmKjm5LvkQ21v4SW+QCOleI1Cs0HRN6zEYllvQEORGd45wOQ==
   dependencies:
     definitelytyped-header-parser "^1.2.0"
     download-file-sync "^1.0.4"
+    semver "^6.2.0"
     yargs "^12.0.5"
 
-dtslint@0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-0.7.4.tgz#49c9e66b3e655235dd62d105cc5d05d712227059"
-  integrity sha512-qjLW9j5Rwe2KhTh+NUZq6SdvQ+N+VfNO5HH8ArREtu1qcnKR4H5xfWdSjALxQpB0iIXRdXuEkleEYK0tTjdkfw==
+dtslint@0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-0.9.3.tgz#42ab9a8743ecf57b278d31b086af91b407ff0a08"
+  integrity sha512-nk71dlxXhvx4U7zIBQt+7UoJKotKT/dv8pQljFevl2RZvpbwmQ5czw/MArf+DjLQEt6QgeUXUa/RNpLcv8s+yA==
   dependencies:
-    definitelytyped-header-parser "^1.0.1"
-    dts-critic "^1.0.9"
+    definitelytyped-header-parser "1.2.0"
+    dts-critic "^2.0.0"
     fs-extra "^6.0.1"
     request "^2.88.0"
     strip-json-comments "^2.0.1"
@@ -5956,7 +5957,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.0.1:
+typescript@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.2.tgz#105b0f1934119dde543ac8eb71af3a91009efe54"
   integrity sha512-lmQ4L+J6mnu3xweP8+rOrUwzmN+MRAj7TgtJtDaXE5PMyX2kCrklhg3rvOsOIfNeAWMQWO2F1GPc1kMD2vLAfw==
