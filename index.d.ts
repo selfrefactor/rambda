@@ -576,6 +576,11 @@ declare namespace R {
      * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
      * property is ignored.
      */
+    pick<T>(propsToPick: string, obj: Dictionary<T>): Dictionary<T>;
+    pick<T>(propsToPick: string): (obj: Dictionary<T>) => Dictionary<T>;
+    pick<T,U>(propsToPick: string, obj: Dictionary<T>): Dictionary<U>;
+    pick<T,U>(propsToPick: string): (obj: Dictionary<T>) => Dictionary<U>;
+
     pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
     pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
