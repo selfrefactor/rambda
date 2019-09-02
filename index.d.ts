@@ -2,11 +2,11 @@
 declare let R: R.Static;
 
 declare namespace R {
-  type FilterFunctionArray<T>=(x: T, index: number) => boolean
-  type FilterFunctionArray<T>=(x: T) => boolean
-  type FilterFunction<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
-  type FilterFunction<T> = (x: T, prop: string) => boolean
-  type FilterFunction<T> = (x: T) => boolean
+  type FilterFunctionArrayA<T> = (x: T, index: number) => boolean
+  type FilterFunctionArrayB<T> = (x: T) => boolean
+  type FilterFunctionA<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
+  type FilterFunctionB<T> = (x: T, prop: string) => boolean
+  type FilterFunctionC<T> = (x: T) => boolean
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
   interface Filter<T> {
     (list: T[]): T[]
@@ -292,10 +292,16 @@ declare namespace R {
      */
     F(): boolean;
 
-    filter<T>(fn: FilterFunctionArray<T>) : (list: T[]) => T[]
-    filter<T,U>(fn: FilterFunction<T>): (obj: Dictionary<T>) =>Dictionary<U>
-    filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[]
-    filter<T>(fn: FilterFunction<T>, obj: Dictionary<T>): Dictionary<T>
+    filter<T>(fn: FilterFunctionArrayA<T>) : (list: T[]) => T[]
+    filter<T>(fn: FilterFunctionArrayB<T>) : (list: T[]) => T[]
+    filter<T,U>(fn: FilterFunctionA<T>): (obj: Dictionary<T>) =>Dictionary<U>
+    filter<T,U>(fn: FilterFunctionB<T>): (obj: Dictionary<T>) =>Dictionary<U>
+    filter<T,U>(fn: FilterFunctionC<T>): (obj: Dictionary<T>) =>Dictionary<U>
+    filter<T>(fn: FilterFunctionArrayA<T>, list: T[]): T[]
+    filter<T>(fn: FilterFunctionArrayB<T>, list: T[]): T[]
+    filter<T>(fn: FilterFunctionA<T>, obj: Dictionary<T>): Dictionary<T>
+    filter<T>(fn: FilterFunctionB<T>, obj: Dictionary<T>): Dictionary<T>
+    filter<T>(fn: FilterFunctionC<T>, obj: Dictionary<T>): Dictionary<T>
 
     /**
      * Returns the first element of the list which matches the predicate, or `undefined` if no
