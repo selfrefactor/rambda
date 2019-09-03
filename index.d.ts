@@ -7,6 +7,10 @@ declare namespace R {
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
   type MapFunctionArray<T, U> = (x: T, index: number) => U
 
+  type SimplePredicate<T> = (x: T) => boolean
+  // NEW ARE ABOVE
+  // ============================================
+
   type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
   type Ord = number | string | boolean | Date;
@@ -90,8 +94,9 @@ declare namespace R {
     /**
      * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
      */
-    allPass(preds: ReadonlyArray<Pred>): Pred;
-
+    // allPass(preds: ReadonlyArray<Pred>): Pred;
+    allPass<T>(predicates: Array<(x: T) => boolean>, input: T) : boolean
+    allPass<T>(predicates: Array<(x: T) => boolean>) : (input: T) => boolean
     /**
      * Returns a function that always returns the given value.
      */
