@@ -7,8 +7,6 @@ declare namespace R {
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
   type MapFunctionArray<T, U> = (x: T, index: number) => U
 
-  type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
-
   type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
   type Ord = number | string | boolean | Date;
@@ -539,9 +537,11 @@ declare namespace R {
     /**
      * Returns a partial copy of an object omitting the keys specified.
      */
-    omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
-    omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
-
+    omit<T>(propsToOmit: string|string[], obj: Dictionary<T>): Dictionary<T>;
+    omit<T>(propsToOmit: string|string[]): (obj: Dictionary<T>) => Dictionary<T>;
+    omit<T,U>(propsToOmit: string|string[], obj: Dictionary<T>): U;
+    omit<T,U>(propsToOmit: string|string[]): (obj: Dictionary<T>) => U;
+    
     /**
      * Takes a function `f` and a list of arguments, and returns a function `g`.
      * When applied, `g` returns the result of applying `f` to the arguments
