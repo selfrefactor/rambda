@@ -1,4 +1,3 @@
-/// <reference path="./tools.d.ts" />
 declare let R: R.Static;
 
 declare namespace R {
@@ -17,10 +16,6 @@ declare namespace R {
 
   type Path = ReadonlyArray<(number | string)>;
 
-  interface Functor<T> {
-    map<U>(fn: (t: T) => U): Functor<U>;
-  }
-
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
     1: V;
@@ -36,81 +31,30 @@ declare namespace R {
   interface Dictionary<T> {
     [index: string]: T;
   }
-  type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-    [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
-  };
-
-  type EvolveValue<V, E> =
-      E extends (value: V) => any ? ReturnType<E> :
-          E extends Evolver ? EvolveNestedValue<V, E> :
-              never;
-
-  type EvolveNestedValue<V, E extends Evolver> =
-      V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
-
-  interface Evolver {
-    [key: string]: ((value: any) => any) | Evolver;
-  }
-
-  // Represents all objects evolvable with Evolver E
-  type Evolvable<E extends Evolver> = {
-    [P in keyof E]?: Evolved<E[P]>;
-  };
-
-  type Evolved<T> =
-      T extends (value: infer V) => any ? V :
-          T extends Evolver ? Evolvable<T> :
-              never;
-
-  interface Reduced<T> {
-    '@@transducer/value': T;
-    '@@transducer/reduced': true;
-  }
-
   type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
   interface Static {
-    /**
-     * Adds two numbers (or strings). Equivalent to a + b but curried.
-     */
     add(a: number, b: number): number;
     add(a: string, b: string): string;
     add(a: number): (b: number) => number;
     add(a: string): (b: string) => string;
 
-    /**
-     * Applies a function to the value at the given index of an array, returning a new copy of the array with the
-     * element at the given index replaced with the result of the function application.
-     */
     adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
     adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
-    /**
-     * Returns true if all elements of the list match the predicate, false if there are any that don't.
-     */
-    all<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-    all<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+    all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+    all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-    /**
-     * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
-     */
-    // allPass(preds: ReadonlyArray<Pred>): Pred;
     allPass<T>(predicates: Array<(x: T) => boolean>, input: T) : boolean
     allPass<T>(predicates: Array<(x: T) => boolean>) : (input: T) => boolean
-    /**
-     * Returns a function that always returns the given value.
-     */
+
     always<T>(val: T): () => T;
 
-    /**
-     * Returns true if at least one of elements of the list match the predicate, false otherwise.
-     */
-    any<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-    any<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-    /**
-     * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
-     */
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
     /**
@@ -831,15 +775,7 @@ declare namespace R {
     range(from: number, to: number): number[];
     range(from: number): (to: number) => number[];
 
-    /**
-     * Returns a single item by iterating through the list, successively calling the iterator
-     * function and passing it an accumulator value and the current value from the array, and
-     * then passing the result to the next call.
-     */
-    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?:number) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T, i?:number) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
-
+    // reduce
     /**
      * Similar to `filter`, except that it keeps only values for which the given predicate
      * function returns falsy.
