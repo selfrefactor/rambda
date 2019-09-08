@@ -88,9 +88,11 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 
+- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
 - Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
-- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+- Rambda's **anyPass** accepts second argument as predicates input.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
