@@ -395,22 +395,15 @@ declare namespace R {
      */
     lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
 
-    /**
-     * Returns the number of elements in the array by returning list.length.
-     */
     length<T>(list: ReadonlyArray<T>): number;
 
-    /**
-     * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
-     */
     map<T, U>(fn: MapFunctionObject<T,U>, obj: Dictionary<T>): Dictionary<U>;
     map<T, U, S>(fn: MapFunctionObject<T,U>): (obj: Dictionary<T>) => Dictionary<U>;
     
     map<T, U>(fn: MapFunctionArray<T,U>, list: Array<T>): U[];
     map<T, U>(fn: MapFunctionArray<T,U>) : (list: Array<T>) => U[];
-    map<T>(fn: MapFunctionArray<T,T>, list: ReadonlyArray<T>): T[];
     map<T>(fn: MapFunctionArray<T,T>) : (list: Array<T>) => T[];
-
+    map<T>(fn: MapFunctionArray<T,T>, list: ReadonlyArray<T>): T[];
     /**
      * Tests a regular expression agains a String
      */
