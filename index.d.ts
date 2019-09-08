@@ -83,24 +83,12 @@ declare namespace R {
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
-    /**
-     * Takes a function f and returns a function g such that:
-     * - applying g to zero or more arguments will give true if applying the same arguments to f gives
-     *   a logical false value; and
-     * - applying g to zero or more arguments will give false if applying the same arguments to f gives
-     *   a logical true value.
-     */
     complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
     /**
      * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
      * functions must be unary.
      */
-
-    // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
-    // compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
-    // compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
-    // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 
     compose<T1>(fn0: () => T1): () => T1;
     compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
@@ -168,6 +156,7 @@ declare namespace R {
      * Returns the second argument if it is not null or undefined. If it is null or undefined, the
      * first (default) argument is returned.
      */
+    defaultTo<T>(a: T, b: T | null | undefined): T;
     defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
     defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
