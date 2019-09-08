@@ -1833,6 +1833,8 @@ import omit from 'rambda/lib/omit'
 
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
+- [Awesome functional Javascript programming libraries](https://github.com/stoeffel/awesome-fp-js#libraries)
+
 - [Argumentation of Rambda's curry method](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
 
 - Trending in `Javascripting.com` list:
