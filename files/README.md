@@ -1691,6 +1691,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced.
+
 - 3.0.1 Close [issue #234](https://github.com/selfrefactor/rambda/issues/234) - wrong curry typing
 
 - 3.0.0 Deprecate `R.contains`, while `R.includes` is now following Ramda API(it uses `R.equals` for comparision)

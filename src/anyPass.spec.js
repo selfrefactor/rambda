@@ -1,11 +1,18 @@
 import { anyPass } from './anyPass'
 
+test('happy', () => {
+  const rules = [ x => typeof x === 'string', x => x > 10 ]
+  const predicate = anyPass(rules)
+  expect(predicate('foo')).toBeTruthy()
+  expect(predicate(6)).toBeFalsy()
+})
+
 test('', () => {
   const rules = [ x => typeof x === 'string', x => x > 10 ]
 
   expect(anyPass(rules, 11)).toBeTruthy()
 
-  expect(anyPass(rules, undefined)).toBeFalsy()
+  expect(anyPass(rules)(undefined)).toBeFalsy()
 })
 
 const obj = {
@@ -16,7 +23,7 @@ const obj = {
 test('when returns true', () => {
   const conditionArr = [ val => val.a === 1, val => val.a === 2 ]
 
-  expect(anyPass(conditionArr, obj)).toBeTruthy()
+  expect(anyPass(conditionArr)(obj)).toBeTruthy()
 })
 
 test('when returns false + curry', () => {
