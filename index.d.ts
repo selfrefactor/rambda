@@ -161,9 +161,8 @@ declare namespace R {
     defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
     /*
-     * Returns a new object that does not contain a prop property.
+     * Returns a new object that does not contain a `prop` property.
      */
-    // It seems impossible to infer the return type, so this may to be specified explicitely
     dissoc<T>(prop: string, obj: any): T;
     dissoc(prop: string): <U>(obj: any) => U;
 
