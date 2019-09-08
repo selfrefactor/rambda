@@ -86,7 +86,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "refactor typings",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",

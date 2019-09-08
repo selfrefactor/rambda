@@ -92,8 +92,6 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
-- Rambda's **anyPass** accepts second argument as predicates input.
-
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
 - Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.

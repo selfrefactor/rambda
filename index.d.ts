@@ -44,8 +44,7 @@ declare namespace R {
 
     all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
     all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
-
-    allPass<T>(predicates: Array<(x: T) => boolean>, input: T) : boolean
+    
     allPass<T>(predicates: Array<(x: T) => boolean>) : (input: T) => boolean
 
     always<T>(val: T): () => T;

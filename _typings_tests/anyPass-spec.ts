@@ -1,8 +1,8 @@
-import { allPass } from 'rambda'
+import { anyPass } from 'rambda'
 
-describe('allPass', () => {
+describe('anyPass', () => {
   it('happy', () => {
-    const x = allPass<number>([
+    const x = anyPass<number>([
       y => {
         y // $ExpectType number
         return typeof y === 'number'
