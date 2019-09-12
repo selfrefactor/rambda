@@ -5,9 +5,6 @@
  * meaning that the second function will not be invoked if the first returns a
  * truth-y value.
  *
- * In addition to functions, `R.either` also accepts any fantasy-land compatible
- * applicative functor.
- *
  * @func
  * @category Logic
  * @sig (*... -> Boolean) -> (*... -> Boolean) -> (*... -> Boolean)
@@ -16,17 +13,13 @@
  * @return {Function} a function that applies its arguments to `f` and `g` and `||`s their outputs together.
  * @example
  *
- *      const gt10 = x => x > 10;
- *      const even = x => x % 2 === 0;
- *      const f = R.either(gt10, even);
- *      f(101); //=> true
- *      f(8); //=> true
- *
- *      R.either(Maybe.Just(false), Maybe.Just(55)); // => Maybe.Just(55)
- *      R.either([false, false, 'a'], [11]) // => [11, 11, "a"]
+ *   var between = function(a, b, c) {return a < b && b < c;};
+ *   var total20 = function(a, b, c) {return a + b + c === 20;};
+ *   var f = R.both(between, total20);
+ *   f(7,8,5) //=> true
  */
 export function either(f, g){
   if (arguments.length === 1) return _g => either(f, _g)
 
-  return input => f(input) || g(input)
+  return (...input) => f(...input) || g(...input)
 }

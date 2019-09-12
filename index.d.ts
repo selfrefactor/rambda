@@ -26,6 +26,7 @@ declare namespace R {
   type Arity2Fn = (a: any, b: any) => any;
 
   type Pred = (...a: any[]) => boolean;
+  type Predicate<T> = (input: T) => boolean;
   type SafePred<T> = (...a: T[]) => boolean;
 
   interface Dictionary<T> {
@@ -56,9 +57,6 @@ declare namespace R {
 
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
-    /**
-     * Returns a new list containing the contents of the given list, followed by the given element.
-     */
     append<T>(el: T, list: ReadonlyArray<T>): T[];
     append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
 
@@ -69,17 +67,14 @@ declare namespace R {
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
-    /**
-     * A function wrapping calls to the two functions in an && operation, returning the result of the first function
-     * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
-     * that the second function will not be invoked if the first returns a false-y value.
-     */
     both(pred1: Pred, pred2: Pred): Pred;
+    both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
+    both<T>(pred1: Predicate<T>) : (pred2: Predicate<T>) => Predicate<T>;
     both(pred1: Pred): (pred2: Pred) => Pred;
 
-    /**
-     * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
-     */
+    either(pred1: Pred, pred2: Pred): Pred;
+    either(pred1: Pred): (pred2: Pred) => Pred;
+
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
@@ -191,14 +186,6 @@ declare namespace R {
       (xs: ReadonlyArray<T>): T[];
       (xs: string): string;
     };
-
-    /**
-     * A function wrapping calls to the two functions in an || operation, returning the result of the first
-     * function if it is truth-y and the result of the second function otherwise. Note that this is
-     * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
-     */
-    either(pred1: Pred, pred2: Pred): Pred;
-    either(pred1: Pred): (pred2: Pred) => Pred;
 
     /**
      * Checks if a list ends with the provided values
