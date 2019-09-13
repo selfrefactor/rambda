@@ -12,13 +12,8 @@
  * @example
  *
  *      R.modulo(17, 3); //=> 2
- *      // JS behavior:
  *      R.modulo(-17, 3); //=> -2
  *      R.modulo(17, -3); //=> 2
- *
- *      const isOdd = R.modulo(R.__, 2);
- *      isOdd(42); //=> 0
- *      isOdd(21); //=> 1
  */
 export function modulo(a, b){
   if (arguments.length === 1) return _b => modulo(a, _b)
