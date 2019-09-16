@@ -328,6 +328,12 @@ declare namespace R {
     init(list: string): string;
 
     /**
+     * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
+     */
+    intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
+    /**
      * See if an object (`val`) is an instance of the supplied constructor.
      * This function will check up the inheritance chain, if any.
      */
