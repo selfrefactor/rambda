@@ -1,6 +1,5 @@
 /**
- * Returns the first element of the given list or string. In some libraries
- * this function is named `first`.
+ * Creates a new list with the separator interposed between elements
  *
  * @func
  * @category List
