@@ -44,7 +44,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/preset-env": "7.6.0",
     "@types/jest": "24.0.18",
-    "@types/ramda": "0.26.21",
+    "@types/ramda": "0.26.22",
     "babel-jest": "24.9.0",
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
