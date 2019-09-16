@@ -328,6 +328,12 @@ declare namespace R {
     init(list: string): string;
 
     /**
+     * Creates a new list with the separator interposed between elements.
+     */
+    intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
+    intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
+
+    /**
      * See if an object (`val`) is an instance of the supplied constructor.
      * This function will check up the inheritance chain, if any.
      */
