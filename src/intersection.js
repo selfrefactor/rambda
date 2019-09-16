@@ -8,7 +8,6 @@ import { includes } from "./includes"
  * @func
  * @category List
  * @sig a -> [*] -> [*] -> [*]
- * @param {*} separator
  * @param {Array} list1
  * @param {Array} list2
  * @return {Array} The list of elements found in both lists
