@@ -344,10 +344,16 @@ declare namespace R {
     init(list: string): string;
 
     /**
+     * Creates a new list with the separator interposed between elements.
+     */
+    intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
+    intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
+
      * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
      */
     intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
 
     /**
      * See if an object (`val`) is an instance of the supplied constructor.
