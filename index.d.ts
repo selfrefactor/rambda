@@ -67,6 +67,14 @@ declare namespace R {
     assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
     assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
+    /**
+     * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
+     * placing the specific value at the tail end of that path.
+     */
+    assocPath<T, U>(path: Path, val: T, obj: U): U;
+    assocPath<T, U>(path: Path, val: T): (obj: U) => U;
+    assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
+
     both(pred1: Pred, pred2: Pred): Pred;
     both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
     both<T>(pred1: Predicate<T>) : (pred2: Predicate<T>) => Predicate<T>;
@@ -349,6 +357,7 @@ declare namespace R {
     intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
     intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
+    /*
      * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
      */
     intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
