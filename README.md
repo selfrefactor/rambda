@@ -97,9 +97,9 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 
-- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
-
 - Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
+- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -2205,6 +2205,12 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
+
+- `R.either` and `R.both` supports multiple arguments as they should.
+
+- Several methods added by  [@squidfunk](https://github.com/squidfunk) - `R.assocPath`, `R.symmetricDifference`, `R.intersperse`, `R.intersection` and `R.difference`
 
 - 3.0.1 Close [issue #234](https://github.com/selfrefactor/rambda/issues/234) - wrong curry typing
 
