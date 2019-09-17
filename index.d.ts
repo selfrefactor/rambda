@@ -886,6 +886,12 @@ declare namespace R {
     sum(list: ReadonlyArray<number>): number;
 
     /**
+     * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+     */
+    symmetricDifference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    symmetricDifference<T>(list: ReadonlyArray<T>): <T>(list: ReadonlyArray<T>) => T[];
+
+    /**
      * A function that always returns true. Any passed in parameters are ignored.
      */
     T(): boolean;
