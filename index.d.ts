@@ -155,6 +155,12 @@ declare namespace R {
     defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
     defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
+    /**
+     * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
+     */
+    difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
     /*
      * Returns a new object that does not contain a `prop` property.
      */
