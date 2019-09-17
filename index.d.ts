@@ -155,6 +155,12 @@ declare namespace R {
     defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
     defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
+    /**
+     * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
+     */
+    difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
     /*
      * Returns a new object that does not contain a `prop` property.
      */
@@ -280,6 +286,16 @@ declare namespace R {
     head<T extends Readonly<any> | string>(list: T): T extends string ? string : (T[0] | undefined);
 
     /**
+     * Returns true if its arguments are identical, false otherwise. Values are
+     * identical if they reference the same memory. `NaN` is identical to `NaN`;
+     * `0` and `-0` are not identical.
+     *
+     * Note this is merely a curried version of ES6 `Object.is`.
+     */
+    identical<T>(a: T, b: T): boolean;
+    identical<T>(a: T): (b: T) => boolean;
+
+    /**
      * A function that does nothing but return the parameter supplied to it.
      */
     identity<T>(a: T): T;
@@ -332,6 +348,12 @@ declare namespace R {
      */
     intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
     intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
+
+     * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
+     */
+    intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
 
     /**
      * See if an object (`val`) is an instance of the supplied constructor.
@@ -406,6 +428,16 @@ declare namespace R {
     maxBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
 
     /**
+     * Returns the mean of the given list of numbers.
+     */
+    mean(list: ReadonlyArray<number>): number;
+
+    /**
+     * Returns the median of the given list of numbers.
+     */
+    median(list: ReadonlyArray<number>): number;
+
+    /**
      * Create a new object with the own properties of a
      * merged with the own properties of object b.
      * This function will *not* mutate passed-in objects.
@@ -445,6 +477,11 @@ declare namespace R {
     multiply(a: number): (b: number) => number;
 
     /**
+     * Negates its argument.
+     */
+    negate(a: number): number;
+
+    /**
      * Returns true if no elements of the list match the predicate, false otherwise.
      */
     none<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
@@ -455,6 +492,12 @@ declare namespace R {
      * underlying function would return a false-y value, and `false` when it would return a truth-y one.
      */
     not(value: any): boolean;
+
+    /**
+     * Returns the nth element in a list.
+     */
+    nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
+    nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
     /**
      * Returns a partial copy of an object omitting the keys specified.
@@ -722,6 +765,11 @@ declare namespace R {
     prepend<T>(el: T): (list: ReadonlyArray<T>) => T[];
 
     /**
+     * Multiplies together all the elements of a list.
+     */
+    product(list: ReadonlyArray<number>): number;
+
+    /**
      * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
      */
     prop<P extends keyof T, T>(p: P, obj: T): T[P];
@@ -741,6 +789,26 @@ declare namespace R {
     };
 
     /**
+     * Returns true if the specified object property is of the given type; false otherwise.
+     */
+    propIs<P extends keyof T, T>(type: any, name: P, obj: T): boolean;
+    propIs<P extends string>(type: any, name: P): <T>(obj: Record<P, T>) => boolean;
+    propIs(type: any): {
+      <P extends keyof T, T>(name: P, obj: T): boolean;
+      <P extends string>(name: P): (obj: Record<P, T>) => boolean;
+    };
+
+    /**
+     * If the given, non-null object has an own property with the specified name, returns the value of that property.
+     * Otherwise returns the provided default value.
+     */
+    propOr<T, U>(val: T, __: Placeholder, obj: U): <V>(p: string) => V;
+    propOr<U>(__: Placeholder, p: string, obj: U): <T, V>(val: T) => V;
+    propOr<T, U, V>(val: T, p: string, obj: U): V;
+    propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
+    propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
+
+    /**
      * Returns a list of numbers from `from` (inclusive) to `to`
      * (exclusive). In mathematical terms, `range(a, b)` is equivalent to
      * the half-open interval `[a, b)`.
@@ -748,7 +816,15 @@ declare namespace R {
     range(from: number, to: number): number[];
     range(from: number): (to: number) => number[];
 
-    // reduce
+    /**
+     * Returns a single item by iterating through the list, successively calling the iterator
+     * function and passing it an accumulator value and the current value from the array, and
+     * then passing the result to the next call.
+     */
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+
     /**
      * Similar to `filter`, except that it keeps only values for which the given predicate
      * function returns falsy.
@@ -822,7 +898,16 @@ declare namespace R {
     subtract(a: number, b: number): number;
     subtract(a: number): (b: number) => number;
 
-    sum(listOfNumbers: number[]): number
+    /**
+     * Adds together all the elements of a list.
+     */
+    sum(list: ReadonlyArray<number>): number;
+
+    /**
+     * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+     */
+    symmetricDifference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+    symmetricDifference<T>(list: ReadonlyArray<T>): <T>(list: ReadonlyArray<T>) => T[];
 
     /**
      * A function that always returns true. Any passed in parameters are ignored.
