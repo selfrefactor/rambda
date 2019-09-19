@@ -1,5 +1,4 @@
 import { _isInteger } from "./internal/_isInteger"
-import { _objectIs } from "./internal/_objectIs"
 import { assoc } from './assoc'
 import { curry } from './curry'
 
@@ -28,7 +27,7 @@ function assocPathFn(list, val, obj){
 
   const index = pathArrValue[0]
   if (pathArrValue.length > 1){
-    const nextObj = !(_objectIs(obj) && obj.hasOwnProperty(index))
+    const nextObj = typeof obj !== "object" || !obj.hasOwnProperty(index)
       ? _isInteger(parseInt(pathArrValue[1], 10)) ? [] : {}
       : obj[index]
     val = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), val, nextObj)
