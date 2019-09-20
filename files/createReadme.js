@@ -2,6 +2,7 @@ const toc = require('markdown-toc')
 const {
   all,
   remove,
+  inject,
   replace,
 } = require('rambdax')
 const { cleanTOC } = require('./_helpers/cleanTOC')
@@ -34,10 +35,15 @@ void function createReadme(){
     __dirname,
     '../README.md'
   )
+  const changelogSourcePath = resolve(
+    __dirname,
+    '../CHANGELOG.md'
+  )
 
   const content = readFileSync(`${ __dirname }/README.md`).toString()
   const missingRamdaMethods = readFileSync(`${ __dirname }/ramdaMissing.md`).toString()
   const benchmarkResults = readFileSync(`${ __dirname }/benchmarkResults.md`).toString()
+  const changelog = readFileSync(changelogSourcePath).toString()
 
   const contentWithREPL = content.split(MARKER_METHOD).map(singleMethod => {
     const flag = all(
@@ -76,9 +82,14 @@ void function createReadme(){
     benchmarkResults,
     withMissingRamdaMethods
   )
+  const withChangelog = inject(
+    changelog,
+    '## Changelog\n\n',
+    withBenchmarkResults
+  )
   const final = remove(
     '\n* [Example use](#example-use)\n',
-    withBenchmarkResults
+    withChangelog
   )
   writeFileSync(outputPath, final)
 }()
