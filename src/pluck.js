@@ -30,7 +30,7 @@ export function pluck(key, list){
   const willReturn = []
 
   map(val => {
-    if (!(val[ key ] === undefined)){
+    if (val[ key ] !== undefined){
       willReturn.push(val[ key ])
     }
   }, list)

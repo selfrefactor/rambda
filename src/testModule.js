@@ -13,7 +13,7 @@
  *      R.test(/^y/, 'xyz'); //=> false
  */
 export function test(pattern, str){
-  if (arguments.length === 1) return str => test(pattern, str)
+  if (arguments.length === 1) return _str => test(pattern, _str)
 
   return str.search(pattern) !== -1
 }

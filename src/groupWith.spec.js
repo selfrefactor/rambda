@@ -34,10 +34,26 @@ test('happy', () => {
   expect(result).toEqual(expected)
 })
 
+test('readme example', () => {
+  const list = [ 4, 3, 6, 2, 2, 1 ]
+
+  const result = groupWith(
+    (a, b) => a - b === 1,
+    list
+  )
+  const expected = [
+    [ 4, 3 ],
+    [ 6 ],
+    [ 2 ],
+    [ 2, 1 ],
+  ]
+  expect(result).toEqual(expected)
+})
+
 test('throw with string as input', () => {
   expect(
     () => groupWith(equals, 'Mississippi')
-  ).toThrow()
+  ).toThrow('list.reduce is not a function')
 })
 
 test('from ramda', () => {

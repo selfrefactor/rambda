@@ -1,21 +1,21 @@
 import { minBy } from './minBy'
 
-test('', () => {
+test('1', () => {
   expect(minBy(Math.round, 0.66, 0.77)).toEqual(0.66)
 })
 
-test('', () => {
+test('2', () => {
   expect(minBy(Math.round, 0.77, 0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('3', () => {
   expect(minBy(Math.round)(0.77, 0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('4', () => {
   expect(minBy(Math.round, 0.77)(0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('5', () => {
   expect(minBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(1)
 })

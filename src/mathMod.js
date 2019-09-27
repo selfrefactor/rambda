@@ -21,8 +21,9 @@ import _isInteger from './internal/_isInteger'
  *      R.mathMod(17.2, 5); //=> NaN
  *      R.mathMod(17, 5.3); //=> NaN
  */
-export function mathMod(m, p) {
+export function mathMod(m, p){
   if (arguments.length === 1) return p => mathMod(_m, p)
   if (!_isInteger(m) || !_isInteger(p) || p < 1) return NaN
-  return ((m % p) + p) % p
+
+  return (m % p + p) % p
 }

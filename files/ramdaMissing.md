@@ -126,8 +126,6 @@
  
  [findLastIndex](https://raw.githubusercontent.com/ramda/ramda/master/source/findLastIndex.js)
  
- [groupWith](https://raw.githubusercontent.com/ramda/ramda/master/source/groupWith.js)
- 
  [insert](https://raw.githubusercontent.com/ramda/ramda/master/source/insert.js)
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)

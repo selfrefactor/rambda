@@ -1,6 +1,11 @@
 import { type } from './type'
 import { type as ramdaType } from 'ramda'
 
+test('async arrow', () => {
+  const asyncArrow = async () => {}
+  expect(type(asyncArrow)).toBe('Async')
+})
+
 test('type', () => {
   const fn1 = () => {}
   const fn2 = function(){}
@@ -54,7 +59,7 @@ test('function inside object 1', () => {
   expect(ramdaType(obj.f)).toBe('Function')
 })
 
-test('function inside object 1', () => {
+test('function inside object 2', () => {
   const name = 'f'
   const obj = {
     [ name ](){

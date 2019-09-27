@@ -1,3 +1,15 @@
+function filterObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    if (fn(obj[ prop ], prop, obj)){
+      willReturn[ prop ] = obj[ prop ]
+    }
+  }
+
+  return willReturn
+}
+
 /**
  * Takes a predicate and a `Filterable`, and returns a new filterable of the
  * same type containing the members of the given filterable which satisfy the
@@ -43,18 +55,6 @@ export function filter(fn, list){
 
     if (fn(value, index)){
       willReturn[ resIndex++ ] = value
-    }
-  }
-
-  return willReturn
-}
-
-function filterObject(fn, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    if (fn(obj[ prop ], prop, obj)){
-      willReturn[ prop ] = obj[ prop ]
     }
   }
 

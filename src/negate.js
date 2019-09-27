@@ -10,6 +10,6 @@
  *
  *      R.negate(42); //=> -42
  */
-export function negate(n) {
+export function negate(n){
   return -n
 }

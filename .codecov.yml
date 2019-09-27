@@ -9,6 +9,6 @@ coverage:
     project: false
     patch:
       default:
-        target: 98%
+        target: 99%
 
 comment: false

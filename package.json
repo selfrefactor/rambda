@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "2.13.0",
+  "version": "3.1.0",
   "description": "Lightweight faster alternative to Ramda",
   "main": "./dist/rambda.js",
   "module": "./dist/rambda.esm.js",
@@ -8,18 +8,19 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test:watch": "jest src --watch",
+    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./_typings_tests",
+    "fix": "mkdir $HOME/.dts/perf -p",
     "test": "jest src",
+    "prove": "jest src --json",
     "readme": "node files/createReadme",
-    "readmex": "node files/createReadmex",
     "docs": "docsify init ./docs",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
     "benchmarks": "node benchmarks/index.js --all",
     "benchmark": "node benchmarks/index.js",
-    "cover": "jest src --coverage --no-cache -w 1",
-    "jest": "jest --watch"
+    "cover:spec": "jest src --coverage --no-cache -w 1",
+    "cover": "yarn typings&&yarn cover:spec"
   },
   "repository": {
     "type": "git",
@@ -39,29 +40,31 @@
   },
   "homepage": "https://github.com/selfrefactor/rambda#readme",
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "babel-jest": "24.8.0",
+    "@babel/core": "7.6.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.6.2",
+    "@babel/preset-env": "7.6.2",
+    "@types/jest": "24.0.18",
+    "@types/ramda": "0.26.25",
+    "babel-jest": "24.9.0",
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
-    "cheerio": "1.0.0-rc.3",
     "docsify-cli": "4.3.0",
-    "jest": "24.8.0",
+    "dtslint": "0.9.8",
+    "helpers": "https://github.com/selfrefactor/helpers#1.6.0",
+    "jest": "24.9.0",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
-    "rambdax": "2.11.0",
+    "rambdax": "2.14.1",
     "ramda": "0.26.1",
-    "request": "2.88.0",
-    "request-promise": "4.2.4",
-    "rollup": "1.17.0",
+    "rollup": "1.21.4",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-cleanup": "3.1.1",
-    "rollup-plugin-commonjs": "10.0.1",
+    "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-json": "3.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-replace": "2.1.0",
-    "rollup-plugin-sourcemaps": "0.4.2"
+    "rollup-plugin-sourcemaps": "0.4.2",
+    "typescript": "3.6.3"
   },
   "dependencies": {},
   "files": [
@@ -78,16 +81,20 @@
       "refactor",
       "lint",
       "test",
-      "typings"
+      "typings",
+      "script"
     ],
     "feature": [
       "method"
     ],
-    "workInProgress": "group with",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",
       "changelog"
+    ],
+    "test": [
+      "typings"
     ]
   }
 }

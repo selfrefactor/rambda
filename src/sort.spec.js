@@ -1,6 +1,6 @@
 import { sort } from './sort'
 
-const fn = (a, b) => (a > b ? 1 : -1)
+const fn = (a, b) => a > b ? 1 : -1
 
 test('sort', () => {
   expect(sort((a, b) => a - b)([ 2, 3, 1 ])).toEqual([ 1, 2, 3 ])

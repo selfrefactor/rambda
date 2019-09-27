@@ -3,7 +3,7 @@ const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
 const suite = new Benchmark.Suite()
-const input = [0, 1, 2]
+const input = [ 0, 1, 2 ]
 const value = 0
 const fn = val => val + 1
 
@@ -12,7 +12,7 @@ suite
     R.adjust(fn, value, input)
   })
   .add('Ramda.adjust', () => {
-    Ramda.adjust(fn, value, input)
+    Ramda.adjust(value, fn, input)
   })
 
 module.exports = suite

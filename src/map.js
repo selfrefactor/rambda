@@ -1,3 +1,13 @@
+function mapObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    willReturn[ prop ] = fn(obj[ prop ], prop, obj)
+  }
+
+  return willReturn
+}
+
 /**
  * Takes a function and
  * a [functor](https://github.com/fantasyland/fantasy-land#functor),
@@ -46,16 +56,6 @@ export function map(fn, list){
 
   while (++index < len){
     willReturn[ index ] = fn(list[ index ], index)
-  }
-
-  return willReturn
-}
-
-function mapObject(fn, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    willReturn[ prop ] = fn(obj[ prop ], prop, obj)
   }
 
   return willReturn

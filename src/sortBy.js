@@ -38,6 +38,8 @@ export function sortBy(fn, list){
     const fnA = fn(a)
     const fnB = fn(b)
 
-    return fnA < fnB ? -1 : fnA > fnB ? 1 : 0
+    if (fnA === fnB) return 0
+
+    return fnA < fnB ? -1 : 1
   })
 }

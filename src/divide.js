@@ -10,12 +10,6 @@
  * @example
  *
  *      R.divide(71, 100); //=> 0.71
- *
- *      const half = R.divide(R.__, 2);
- *      half(42); //=> 21
- *
- *      const reciprocal = R.divide(1);
- *      reciprocal(4);   //=> 0.25
  */
 export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)

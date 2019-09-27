@@ -12,7 +12,7 @@ const OUTPUT = resolve(
 
 const TITLE = '# Rambda - lightweight functional JS library'
 
-void function createReadmex() {
+void function createReadmex(){
   const content = readFileSync(OUTPUT).toString()
   const [ apiRaw ] = match(/## API(.|\n)+## Benchmark/g, content)
   const [ links ] = match(/## Browse by category(.|\n)+/g, content)

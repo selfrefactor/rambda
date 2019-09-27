@@ -1,6 +1,6 @@
 import { spawnSync } from 'child_process'
 import { resolve } from 'path'
-jest.setTimeout(30000)
+jest.setTimeout(1 * 60 * 1000)
 
 const DIR = resolve(__dirname, '../')
 

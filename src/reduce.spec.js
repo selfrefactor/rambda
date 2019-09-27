@@ -2,6 +2,17 @@ import { compose } from './compose'
 import { reduce } from './reduce'
 import { map } from './map'
 import { curry } from './curry'
+
+test('happy', () => {
+  const result = reduce((acc, val, i) => {
+    expect(typeof i).toBe('number')
+
+    return acc + val
+  })(1)([ 1, 2, 3 ])
+
+  expect(result).toEqual(7)
+})
+
 test('with compose', () => {
   const convertToString = (acc, value) => acc + value
 
@@ -11,12 +22,6 @@ test('with compose', () => {
       map(x => x + 1)
     )([ 1, 2, 3 ])
   ).toEqual('234')
-})
-
-test('', () => {
-  const result = reduce((acc, val) => acc + val)(1)([ 1, 2, 3 ])
-
-  expect(result).toEqual(7)
 })
 
 test('with curry', () => {

@@ -1,3 +1,9 @@
+function flagIs(inputArgument){
+  return inputArgument === undefined ||
+    inputArgument === null ||
+    Number.isNaN(inputArgument) === true
+}
+
 /**
  * Returns the second argument if it is not `null`, `undefined` or `NaN`;
  * otherwise the first argument is returned.
@@ -48,10 +54,3 @@ export function defaultTo(defaultArgument, ...inputArgument){
     defaultArgument :
     holder
 }
-
-function flagIs(inputArgument){
-  return inputArgument === undefined ||
-    inputArgument === null ||
-    Number.isNaN(inputArgument) === true
-}
-

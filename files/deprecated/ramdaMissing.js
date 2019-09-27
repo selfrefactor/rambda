@@ -1,10 +1,10 @@
+const cheerio = require('cheerio')
 const fs = require('fs-extra')
 const path = require('path')
-const request = require('request-promise')
-const cheerio = require('cheerio')
 const R = require('../dist/rambda.js')
+const request = require('request-promise')
 
-const ourModules = ['test'] // special case
+const ourModules = [ 'test' ] // special case
 
 const getOur = () => {
   const filePath = path.resolve(__dirname, '../rambda.js')
@@ -18,13 +18,14 @@ const getOur = () => {
     R.filter(R.includes('* from')),
     R.split('\n')
   )(data)
+
   return ourData
 }
 
-const getRamda = async (our) => {
+const getRamda = async our => {
   const $ = await request({
-    uri: 'https://ramdajs.com/docs/',
-    transform: body => cheerio.load(body)
+    uri       : 'https://ramdajs.com/docs/',
+    transform : body => cheerio.load(body),
   })
   const ar = $('li.func')
     .toArray()
@@ -32,6 +33,7 @@ const getRamda = async (our) => {
       R.path('attribs.data-category', el),
       R.path('attribs.data-name', el),
     ])
+
   return R.pipe(
     R.filter(
       R.pipe(
@@ -44,8 +46,8 @@ const getRamda = async (our) => {
     ),
     R.reduce((acc, val) =>
       R.merge(acc,
-        { [val[0]]: R.append(val[1], acc[val[0]] || []) }),
-      {},
+        { [ val[ 0 ] ] : R.append(val[ 1 ], acc[ val[ 0 ] ] || []) }),
+    {},
     )
   )(ar)
 }
@@ -57,23 +59,21 @@ const fn = async () => {
 
     return R.pipe(
       Object.entries,
-      R.reduce((acc, el) => {
-        return `${acc}
+      R.reduce((acc, el) => `${ acc }
 
-### ${el[0]}
- ${R.reduce((accF, f) => `${accF}
- [${f}](https://raw.githubusercontent.com/ramda/ramda/master/source/${f}.js)
+### ${ el[ 0 ] }
+ ${ R.reduce((accF, f) => `${ accF }
+ [${ f }](https://raw.githubusercontent.com/ramda/ramda/master/source/${ f }.js)
  `,
-          '',
-          el[1])}
-          `
-      }, '## Ramda methods missing in Rambda')
+  '',
+  el[ 1 ]) }
+          `, '## Ramda methods missing in Rambda')
     )(ramdaData)
-  } catch (err) {
+  } catch (err){
     throw new Error(err)
   }
 }
 
 fn().then(result => {
-  fs.writeFileSync(`${__dirname}/ramdaMissing.md`, result)
+  fs.writeFileSync(`${ __dirname }/ramdaMissing.md`, result)
 })

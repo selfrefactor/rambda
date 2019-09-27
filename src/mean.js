@@ -1,6 +1,5 @@
 import { sum } from './sum'
 
-
 /**
  * Returns the mean of the given list of numbers.
  *
@@ -15,6 +14,6 @@ import { sum } from './sum'
  *      R.mean([2, 7, 9]); //=> 6
  *      R.mean([]); //=> NaN
  */
-export function mean(list) {
+export function mean(list){
   return sum(list) / list.length
 }

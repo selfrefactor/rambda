@@ -12,8 +12,8 @@
  *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
  *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
  */
-export function flatten(list, willReturn){
-  willReturn = willReturn === undefined ? [] : willReturn
+export function flatten(list, input){
+  const willReturn = input === undefined ? [] : input
 
   for (let i = 0; i < list.length; i++){
     if (Array.isArray(list[ i ])){

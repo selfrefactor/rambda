@@ -1,21 +1,21 @@
 import { maxBy } from './maxBy'
 
-test('', () => {
+test('1', () => {
   expect(maxBy(Math.round, 0.66, 0.77)).toEqual(0.66)
 })
 
-test('', () => {
+test('2', () => {
   expect(maxBy(Math.round, 0.77, 0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('3', () => {
   expect(maxBy(Math.round)(0.77, 0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('4', () => {
   expect(maxBy(Math.round, 0.77)(0.66)).toEqual(0.77)
 })
 
-test('', () => {
+test('5', () => {
   expect(maxBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(0.66)
 })

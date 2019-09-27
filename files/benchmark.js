@@ -10,7 +10,7 @@ const add = new Benchmark.Suite
 
 options.add = true
 
-if (options.add) {
+if (options.add){
   add.add('Rambda.add', () => {
     R.add(1, 1)
   })
@@ -33,7 +33,7 @@ const adjust = new Benchmark.Suite
 
 options.adjust = true
 
-if (options.adjust) {
+if (options.adjust){
   adjust.add('Rambda.adjust', () => {
     R.adjust(val => val + 1, 0)
   })
@@ -53,7 +53,7 @@ const any = new Benchmark.Suite
 
 options.any = true
 
-if (options.any) {
+if (options.any){
   any.add('Rambda.any', () => {
     R.any(val => val > 2, [ 1, 2, 3, 4 ])
   })
@@ -76,7 +76,7 @@ const append = new Benchmark.Suite
 
 options.append = true
 
-if (options.append) {
+if (options.append){
   append.add('Rambda.append', () => {
     R.append(0)([ 1, 2, 3, 4 ])
   })
@@ -96,7 +96,7 @@ const compose = new Benchmark.Suite
 
 options.compose = true
 
-if (options.compose) {
+if (options.compose){
   compose.add('Rambda.compose', () => {
     R.compose(val => val + 1, val => val.length)([ 1, 2, 3, 4 ])
   })
@@ -115,37 +115,11 @@ if (options.compose) {
     .run()
 }
 
-const contains = new Benchmark.Suite
-
-options.contains = true
-
-if (options.contains) {
-  const holder = [ 1, 2, 3, 4 ]
-  const a = 4
-
-  contains.add('Rambda.contains', () => {
-    R.contains(a, holder)
-  })
-    .add('Ramda', () => {
-      Ramda.contains(a, holder)
-    })
-    .add('Lodash.includes', () => {
-      _.includes(holder, a)
-    })
-    .on('cycle', event => {
-      benchmarks.add(event.target)
-    })
-    .on('complete', () => {
-      benchmarks.log()
-    })
-    .run()
-}
-
 const drop = new Benchmark.Suite
 
 options.drop = true
 
-if (options.drop) {
+if (options.drop){
   const holder = [ 1, 2, 3, 4 ]
   const a = 3
 
@@ -168,7 +142,7 @@ const dropLast = new Benchmark.Suite
 
 options.dropLast = true
 
-if (options.dropLast) {
+if (options.dropLast){
   const holder = [ 1, 2, 3, 4 ]
   const a = 3
 
@@ -191,7 +165,7 @@ const equals = new Benchmark.Suite
 
 options.equals = true
 
-if (options.equals) {
+if (options.equals){
   equals.add('Rambda.equals', () => {
     R.equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
   })
@@ -214,7 +188,7 @@ const filter = new Benchmark.Suite
 
 options.filter = true
 
-if (options.filter) {
+if (options.filter){
   filter.add('Rambda.filter', () => {
     R.filter(val => val > 2, [ 1, 2, 3, 4 ])
   })
@@ -237,7 +211,7 @@ const find = new Benchmark.Suite
 
 options.find = true
 
-if (options.find) {
+if (options.find){
   find.add('Rambda.find', () => {
     R.find(val => val > 2, [ 1, 2, 3, 4 ])
   })
@@ -260,7 +234,7 @@ const findIndex = new Benchmark.Suite
 
 options.findIndex = true
 
-if (options.findIndex) {
+if (options.findIndex){
   const holder = [ 1, 2, 3, 4 ]
   const a = val => val === 3
 
@@ -286,7 +260,7 @@ const flatten = new Benchmark.Suite
 
 options.flatten = true
 
-if (options.flatten) {
+if (options.flatten){
   flatten.add('Rambda.flatten', () => {
     R.flatten([ 1, [ 2, [ 3, 4, 6 ] ] ])
   })
@@ -309,7 +283,7 @@ const head = new Benchmark.Suite
 
 options.head = true
 
-if (options.head) {
+if (options.head){
   const holder = [ 1, 2, 3, 4 ]
 
   head.add('Rambda.head', () => {
@@ -334,7 +308,7 @@ const headString = new Benchmark.Suite
 
 options.headString = true
 
-if (options.headString) {
+if (options.headString){
   const holder = ''
 
   headString.add('Rambda.head when string', () => {
@@ -356,7 +330,7 @@ const indexOf = new Benchmark.Suite
 
 options.indexOf = true
 
-if (options.indexOf) {
+if (options.indexOf){
   const holder = [ 1, 2, 3, 4 ]
   const a = 4
 
@@ -382,7 +356,7 @@ const init = new Benchmark.Suite
 
 options.init = true
 
-if (options.init) {
+if (options.init){
   const holder = [ 1, 2, 3, 4 ]
 
   init.add('Rambda.init', () => {
@@ -407,7 +381,7 @@ const initString = new Benchmark.Suite
 
 options.initString = true
 
-if (options.initString) {
+if (options.initString){
   const holder = 'foo'
 
   initString.add('Rambda.init when string', () => {
@@ -429,7 +403,7 @@ const last = new Benchmark.Suite
 
 options.last = true
 
-if (options.last) {
+if (options.last){
   const holder = [ 1, 2, 3, 4 ]
 
   last.add('Rambda.last', () => {
@@ -454,7 +428,7 @@ const map = new Benchmark.Suite
 
 options.map = true
 
-if (options.map) {
+if (options.map){
   const holder = [ 1, 2, 3, 4 ]
   const obj = {
     a : 1,
@@ -483,7 +457,7 @@ if (options.map) {
 const mapWithObject = new Benchmark.Suite
 
 options.mapWithObject = true
-if (options.mapWithObject) {
+if (options.mapWithObject){
   const obj = {
     a : 1,
     b : 2,
@@ -508,7 +482,7 @@ if (options.mapWithObject) {
 const filterWithObject = new Benchmark.Suite
 
 options.filterWithObject = true
-if (options.filterWithObject) {
+if (options.filterWithObject){
   const obj = {
     a : 1,
     b : 2,
@@ -536,7 +510,7 @@ const match = new Benchmark.Suite
 
 options.match = true
 
-if (options.match) {
+if (options.match){
   match.add('Rambda.match', () => {
     R.match(/a./g)('foo bar baz')
   })
@@ -556,7 +530,7 @@ const merge = new Benchmark.Suite
 
 options.merge = true
 
-if (options.merge) {
+if (options.merge){
   const holder = { bar : 'yes' }
   const a = {
     foo : 'bar',
@@ -585,7 +559,7 @@ const omit = new Benchmark.Suite
 
 options.omit = true
 
-if (options.omit) {
+if (options.omit){
   const holder = {
     a : 'foo',
     b : 'bar',
@@ -615,7 +589,7 @@ const path = new Benchmark.Suite
 
 options.path = true
 
-if (options.path) {
+if (options.path){
   const holder = { a : { b : 2 } }
   const a = [ 'a', 'b' ]
 
@@ -641,7 +615,7 @@ const pick = new Benchmark.Suite
 
 options.pick = true
 
-if (options.pick) {
+if (options.pick){
   const holder = {
     a : 'foo',
     b : 'bar',
@@ -671,7 +645,7 @@ const prop = new Benchmark.Suite
 
 options.prop = true
 
-if (options.prop) {
+if (options.prop){
   const holder = {
     a : 'foo',
     b : 'bar',
@@ -698,7 +672,7 @@ const propEq = new Benchmark.Suite
 
 options.propEq = true
 
-if (options.propEq) {
+if (options.propEq){
   propEq.add('Rambda#propEq', () => {
     R.propEq(
       'foo',
@@ -724,7 +698,7 @@ const range = new Benchmark.Suite
 
 options.range = true
 
-if (options.range) {
+if (options.range){
   const holder = 10
   const a = 0
 
@@ -750,7 +724,7 @@ const reduce = new Benchmark.Suite
 
 options.reduce = true
 
-if (options.reduce) {
+if (options.reduce){
   const fn = (acc, value) => acc + value
   const holder = [ 1, 2, 3 ]
   const acc = ''
@@ -777,7 +751,7 @@ const repeat = new Benchmark.Suite
 
 options.repeat = true
 
-if (options.repeat) {
+if (options.repeat){
   const holder = 10
   const a = 'foo'
 
@@ -803,7 +777,7 @@ const replace = new Benchmark.Suite
 
 options.replace = true
 
-if (options.replace) {
+if (options.replace){
   replace.add('Rambda#replace', () => {
     R.replace(/\s/g, '|', 'foo bar baz')
   })
@@ -826,7 +800,7 @@ const sort = new Benchmark.Suite
 
 options.sort = true
 
-if (options.sort) {
+if (options.sort){
   sort.add('Rambda#sort', () => {
     R.sort((a, b) => a > b)([ 'foo', 'bar', 'baz' ])
   })
@@ -846,7 +820,7 @@ const sortBy = new Benchmark.Suite
 
 options.sortBy = true
 
-if (options.sortBy) {
+if (options.sortBy){
   sortBy.add('Rambda#sortBy', () => {
     R.sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])
   })
@@ -869,7 +843,7 @@ const split = new Benchmark.Suite
 
 options.split = true
 
-if (options.split) {
+if (options.split){
   split.add('Rambda#split', () => {
     R.split('|', 'foo|bar|baz')
   })
@@ -892,7 +866,7 @@ const splitEvery = new Benchmark.Suite
 
 options.splitEvery = true
 
-if (options.splitEvery) {
+if (options.splitEvery){
   splitEvery.add('Rambda#splitEvery', () => {
     R.splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])
   })
@@ -912,7 +886,7 @@ const splitEveryString = new Benchmark.Suite
 
 options.splitEveryString = true
 
-if (options.splitEveryString) {
+if (options.splitEveryString){
   splitEveryString.add('Rambda#splitEvery when String', () => {
     R.splitEvery(3)('foobarbazy')
   })
@@ -932,7 +906,7 @@ const take = new Benchmark.Suite
 
 options.take = true
 
-if (options.take) {
+if (options.take){
   const holder = [ 1, 2, 3, 4 ]
   const a = 2
 
@@ -958,7 +932,7 @@ const takeString = new Benchmark.Suite
 
 options.takeString = true
 
-if (options.takeString) {
+if (options.takeString){
   const holder = 'foobarbaz'
   const a = 7
 
@@ -981,7 +955,7 @@ const takeLast = new Benchmark.Suite
 
 options.takeLast = true
 
-if (options.takeLast) {
+if (options.takeLast){
   const holder = [ 1, 2, 3, 4 ]
   const a = 2
 
@@ -1007,7 +981,7 @@ const takeLastString = new Benchmark.Suite
 
 options.takeLastString = true
 
-if (options.takeLastString) {
+if (options.takeLastString){
   const holder = 'foobarbaz'
   const a = 5
 
@@ -1030,7 +1004,7 @@ const test = new Benchmark.Suite
 
 options.test = true
 
-if (options.test) {
+if (options.test){
   test.add('Rambda#test', () => {
     R.test(/\s/g, 'x y z')
   })
@@ -1050,7 +1024,7 @@ const toLower = new Benchmark.Suite
 
 options.toLower = true
 
-if (options.toLower) {
+if (options.toLower){
   const a = 'Foo|Bar|Baz'
 
   toLower.add('Rambda#toLower', () => {
@@ -1075,7 +1049,7 @@ const toUpper = new Benchmark.Suite
 
 options.toUpper = true
 
-if (options.toUpper) {
+if (options.toUpper){
   const a = 'Foo|Bar|Baz'
 
   toUpper.add('Rambda#toUpper', () => {
@@ -1100,7 +1074,7 @@ const trim = new Benchmark.Suite
 
 options.trim = true
 
-if (options.trim) {
+if (options.trim){
   const a = ' foo '
 
   trim.add('Rambda#trim', () => {
@@ -1125,7 +1099,7 @@ const type = new Benchmark.Suite
 
 options.type = true
 
-if (options.type) {
+if (options.type){
   type.add('Rambda.type', () => {
     R.type([ 1, 2, 3 ])
   })
@@ -1145,7 +1119,7 @@ const update = new Benchmark.Suite
 
 options.update = true
 
-if (options.update) {
+if (options.update){
   update.add('Rambda.update', () => {
     R.update(3, 1, [ 1, 2, 3 ])
   })
@@ -1165,7 +1139,7 @@ const values = new Benchmark.Suite
 
 options.values = true
 
-if (options.values) {
+if (options.values){
   const a = {
     a : 1,
     b : 2,
@@ -1193,7 +1167,7 @@ const uniq = new Benchmark.Suite
 
 options.uniq = true
 
-if (options.uniq) {
+if (options.uniq){
   const a = [ 4, 1, 3, 5, 4, 2, 3, 4 ]
 
   uniq.add('Rambda#uniq', () => {
@@ -1218,7 +1192,7 @@ const example = new Benchmark.Suite
 
 options.example = true
 
-if (options.example) {
+if (options.example){
   const url = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice'
 
   example.add('Rambda.compose(join,append,takeLast,map,filter,split)', () => {
