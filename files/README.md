@@ -1278,6 +1278,21 @@ const result = R.reverse(arr)
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/reverse.js)
 
+#### slice
+
+> slice(list: T[], from: Number, to: Number)
+
+Returns the elements of the given list or string (or object with a `slice`
+method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
+Dispatches to the `slice` method of the third argument, if present.
+
+```
+R.slice(1, 3, ['a', 'b', 'c', 'd'])
+//=> ['b', 'c']
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/slice.js)
+
 #### sort
 
 > sort(sortFn: Function, arr: T[]): T[]

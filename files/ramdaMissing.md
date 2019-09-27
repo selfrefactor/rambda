@@ -160,8 +160,6 @@
  
  [sequence](https://raw.githubusercontent.com/ramda/ramda/master/source/sequence.js)
  
- [slice](https://raw.githubusercontent.com/ramda/ramda/master/source/slice.js)
- 
  [splitAt](https://raw.githubusercontent.com/ramda/ramda/master/source/splitAt.js)
  
  [splitWhen](https://raw.githubusercontent.com/ramda/ramda/master/source/splitWhen.js)
