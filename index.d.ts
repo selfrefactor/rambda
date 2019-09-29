@@ -7,8 +7,6 @@ declare namespace R {
   type MapFunctionArray<T, U> = (x: T, index: number) => U
 
   type SimplePredicate<T> = (x: T) => boolean
-  // NEW ARE ABOVE
-  // ============================================
 
   type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
@@ -75,6 +73,9 @@ declare namespace R {
     assocPath<T, U>(path: Path, val: T): (obj: U) => U;
     assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
 
+    /*
+      Creates new predicate from two predicates
+    */
     both(pred1: Pred, pred2: Pred): Pred;
     both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
     both<T>(pred1: Predicate<T>) : (pred2: Predicate<T>) => Predicate<T>;
@@ -86,13 +87,14 @@ declare namespace R {
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
+    /*
+      Creates a new function that returns opposite result of the given predicate
+    */
     complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
     /**
-     * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
-     * functions must be unary.
+     * Performs right-to-left function composition.
      */
-
     compose<T1>(fn0: () => T1): () => T1;
     compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
     compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -136,8 +138,8 @@ declare namespace R {
         fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
     /**
-     * Returns a new list consisting of the elements of the first list followed by the elements
-     * of the second.
+     * Creates new list with elements of the first list 
+     * followed by the elements of the second
      */
     concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
@@ -145,8 +147,7 @@ declare namespace R {
     concat(list1: string): (list2: string) => string;
 
     /**
-     * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
-     * First, its arguments needn't be provided one at a time.
+     * Returns a curried equivalent of the provided function.
      */
     curry<F extends (...args: any) => any>(f: F): Curry.Curry<F>;
 
@@ -156,21 +157,22 @@ declare namespace R {
     dec(n: number): number;
 
     /**
-     * Returns the second argument if it is not null or undefined. If it is null or undefined, the
-     * first (default) argument is returned.
+     * Returns the second argument if it is not null or undefined.
+     * Otherwise, it returns the first argument
      */
     defaultTo<T>(a: T, b: T | null | undefined): T;
     defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
     defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
     /**
-     * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
+     * Finds all elements(without duplicates)
+     * in the first list not contained in the second list
      */
     difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
     /*
-     * Returns a new object that does not contain a `prop` property.
+     * Returns a new object that does not contain specified property
      */
     dissoc<T>(prop: string, obj: any): T;
     dissoc(prop: string): <U>(obj: any) => U;
@@ -182,7 +184,7 @@ declare namespace R {
     divide(a: number): (b: number) => number;
 
     /**
-     * Returns a new list containing all but the first n elements of the given list.
+     * Returns a new list/string containing all but the first n elements of the given list/string
      */
     drop<T>(n: number, xs: ReadonlyArray<T>): T[];
     drop(n: number, xs: string): string;
@@ -531,6 +533,15 @@ declare namespace R {
     partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0): (x1: V1, x2: V2, x3: V3) => T;
 
     partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
+
+    /*
+      It accept function(that accept object as input), partial arguments 
+      and returns a new curried function
+    */
+    partialCurry<Input, PartialInput, Output>(
+      fn: (input: Input) => Output,
+      partialInput: PartialInput
+    ) : (input: Pick<Input, Exclude<keyof PartialInput>>) => Output
 
     /**
      * Retrieve the value at a given path.
