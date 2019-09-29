@@ -1,3 +1,11 @@
+- 3.2.0 There are several changes:
+
+Close [issue #263](https://github.com/selfrefactor/rambda/issues/263) - broken curry typing solved by `ts-toolbelt` local dependency.
+
+Add `R.partialCurry` typings.
+
+Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.slice` method.
+
 - 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
 
 - `R.either` and `R.both` supports multiple arguments as they should.
