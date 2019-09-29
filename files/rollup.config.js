@@ -28,5 +28,12 @@ export default {
       file   : './dist/rambda.esm.js',
       format : 'es',
     },
+    // --experimental-modules
+    // https://github.com/ramda/ramda/pull/2678/files
+    // ============================================
+    // {
+    //   file   : './dist/rambda.mjs',
+    //   format : 'esm',
+    // },
   ],
 }
