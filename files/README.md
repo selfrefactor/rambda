@@ -1291,8 +1291,6 @@ R.slice(1, 3, ['a', 'b', 'c', 'd'])
 //=> ['b', 'c']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/slice.js)
-
 #### sort
 
 > sort(sortFn: Function, arr: T[]): T[]

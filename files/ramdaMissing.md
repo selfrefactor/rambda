@@ -130,8 +130,6 @@
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)
  
- [intersperse](https://raw.githubusercontent.com/ramda/ramda/master/source/intersperse.js)
- 
  [into](https://raw.githubusercontent.com/ramda/ramda/master/source/into.js)
  
  [mapAccum](https://raw.githubusercontent.com/ramda/ramda/master/source/mapAccum.js)
@@ -187,8 +185,6 @@
           
 
 ### Object
- 
- [assocPath](https://raw.githubusercontent.com/ramda/ramda/master/source/assocPath.js)
  
  [dissocPath](https://raw.githubusercontent.com/ramda/ramda/master/source/dissocPath.js)
  
@@ -264,8 +260,6 @@
  
  [countBy](https://raw.githubusercontent.com/ramda/ramda/master/source/countBy.js)
  
- [difference](https://raw.githubusercontent.com/ramda/ramda/master/source/difference.js)
- 
  [differenceWith](https://raw.githubusercontent.com/ramda/ramda/master/source/differenceWith.js)
  
  [eqBy](https://raw.githubusercontent.com/ramda/ramda/master/source/eqBy.js)
@@ -276,8 +270,6 @@
  
  [innerJoin](https://raw.githubusercontent.com/ramda/ramda/master/source/innerJoin.js)
  
- [intersection](https://raw.githubusercontent.com/ramda/ramda/master/source/intersection.js)
- 
  [lt](https://raw.githubusercontent.com/ramda/ramda/master/source/lt.js)
  
  [lte](https://raw.githubusercontent.com/ramda/ramda/master/source/lte.js)
@@ -285,9 +277,7 @@
  [pathEq](https://raw.githubusercontent.com/ramda/ramda/master/source/pathEq.js)
  
  [sortWith](https://raw.githubusercontent.com/ramda/ramda/master/source/sortWith.js)
- 
- [symmetricDifference](https://raw.githubusercontent.com/ramda/ramda/master/source/symmetricDifference.js)
- 
+  
  [symmetricDifferenceWith](https://raw.githubusercontent.com/ramda/ramda/master/source/symmetricDifferenceWith.js)
  
  [union](https://raw.githubusercontent.com/ramda/ramda/master/source/union.js)

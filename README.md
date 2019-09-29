@@ -1530,10 +1530,6 @@ R.slice(1, 3, ['a', 'b', 'c', 'd'])
 //=> ['b', 'c']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/slice.js)
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.slice(1%2C%203%2C%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%5D)%0A%2F%2F%3D%3E%20%5B'b'%2C%20'c'%5D">Try in REPL</a>
-
 ---
 #### sort
 
@@ -2224,6 +2220,14 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 3.2.0 There are several changes:
+
+Close [issue #263](https://github.com/selfrefactor/rambda/issues/263) - broken curry typing solved by `ts-toolbelt` local dependency.
+
+Add `R.partialCurry` typings.
+
+Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.slice` method.
+
 - 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
 
 - `R.either` and `R.both` supports multiple arguments as they should.
@@ -2520,8 +2524,6 @@ import omit from 'rambda/lib/omit'
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)
  
- [intersperse](https://raw.githubusercontent.com/ramda/ramda/master/source/intersperse.js)
- 
  [into](https://raw.githubusercontent.com/ramda/ramda/master/source/into.js)
  
  [mapAccum](https://raw.githubusercontent.com/ramda/ramda/master/source/mapAccum.js)
@@ -2550,8 +2552,6 @@ import omit from 'rambda/lib/omit'
  
  [sequence](https://raw.githubusercontent.com/ramda/ramda/master/source/sequence.js)
  
- [slice](https://raw.githubusercontent.com/ramda/ramda/master/source/slice.js)
- 
  [splitAt](https://raw.githubusercontent.com/ramda/ramda/master/source/splitAt.js)
  
  [splitWhen](https://raw.githubusercontent.com/ramda/ramda/master/source/splitWhen.js)
@@ -2579,8 +2579,6 @@ import omit from 'rambda/lib/omit'
           
 
 ### Object
- 
- [assocPath](https://raw.githubusercontent.com/ramda/ramda/master/source/assocPath.js)
  
  [dissocPath](https://raw.githubusercontent.com/ramda/ramda/master/source/dissocPath.js)
  
@@ -2656,8 +2654,6 @@ import omit from 'rambda/lib/omit'
  
  [countBy](https://raw.githubusercontent.com/ramda/ramda/master/source/countBy.js)
  
- [difference](https://raw.githubusercontent.com/ramda/ramda/master/source/difference.js)
- 
  [differenceWith](https://raw.githubusercontent.com/ramda/ramda/master/source/differenceWith.js)
  
  [eqBy](https://raw.githubusercontent.com/ramda/ramda/master/source/eqBy.js)
@@ -2668,8 +2664,6 @@ import omit from 'rambda/lib/omit'
  
  [innerJoin](https://raw.githubusercontent.com/ramda/ramda/master/source/innerJoin.js)
  
- [intersection](https://raw.githubusercontent.com/ramda/ramda/master/source/intersection.js)
- 
  [lt](https://raw.githubusercontent.com/ramda/ramda/master/source/lt.js)
  
  [lte](https://raw.githubusercontent.com/ramda/ramda/master/source/lte.js)
@@ -2677,9 +2671,7 @@ import omit from 'rambda/lib/omit'
  [pathEq](https://raw.githubusercontent.com/ramda/ramda/master/source/pathEq.js)
  
  [sortWith](https://raw.githubusercontent.com/ramda/ramda/master/source/sortWith.js)
- 
- [symmetricDifference](https://raw.githubusercontent.com/ramda/ramda/master/source/symmetricDifference.js)
- 
+  
  [symmetricDifferenceWith](https://raw.githubusercontent.com/ramda/ramda/master/source/symmetricDifferenceWith.js)
  
  [union](https://raw.githubusercontent.com/ramda/ramda/master/source/union.js)
