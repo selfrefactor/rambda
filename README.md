@@ -1517,6 +1517,24 @@ const result = R.reverse(arr)
 <a href="https://rambda.now.sh?const%20arr%20%3D%20%5B1%2C%202%5D%0A%0Aconst%20result%20%3D%20R.reverse(arr)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try in REPL</a>
 
 ---
+#### slice
+
+> slice(list: T[], from: Number, to: Number)
+
+Returns the elements of the given list or string (or object with a `slice`
+method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
+Dispatches to the `slice` method of the third argument, if present.
+
+```
+R.slice(1, 3, ['a', 'b', 'c', 'd'])
+//=> ['b', 'c']
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/slice.js)
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.slice(1%2C%203%2C%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%5D)%0A%2F%2F%3D%3E%20%5B'b'%2C%20'c'%5D">Try in REPL</a>
+
+---
 #### sort
 
 > sort(sortFn: Function, arr: T[]): T[]
