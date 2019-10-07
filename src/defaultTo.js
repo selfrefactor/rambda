@@ -1,7 +1,7 @@
-function flagIs(inputArgument){
-  return inputArgument === undefined ||
-    inputArgument === null ||
-    Number.isNaN(inputArgument) === true
+function flagIs(inputArguments){
+  return inputArguments === undefined ||
+    inputArguments === null ||
+    Number.isNaN(inputArguments) === true
 }
 
 /**
@@ -12,7 +12,7 @@ function flagIs(inputArgument){
  * @category Logic
  * @sig a -> b -> a | b
  * @param {a} defaultArgument The default value.
- * @param {b} inputArgument `val` will be returned instead of `default` unless `val` is `null`, `undefined` or `NaN`.
+ * @param {b} inputArguments `val` will be returned instead of `default` unless `val` is `null`, `undefined` or `NaN`.
  * @return {*} The second value if it is not `null`, `undefined` or `NaN`, otherwise the default value
  * @example
  *
@@ -25,20 +25,20 @@ function flagIs(inputArgument){
  *      // parseInt('string') results in NaN
  *      defaultTo42(parseInt('string')); //=> 42
  */
-export function defaultTo(defaultArgument, ...inputArgument){
+export function defaultTo(defaultArgument, ...inputArguments){
   if (arguments.length === 1){
-    return _inputArgument => defaultTo(defaultArgument, _inputArgument)
+    return _inputArguments => defaultTo(defaultArgument, _inputArguments)
   } else if (arguments.length === 2){
-    return flagIs(inputArgument[ 0 ]) ? defaultArgument : inputArgument[ 0 ]
+    return flagIs(inputArguments[ 0 ]) ? defaultArgument : inputArguments[ 0 ]
   }
 
-  const limit = inputArgument.length - 1
+  const limit = inputArguments.length - 1
   let len = limit + 1
   let ready = false
   let holder
 
   while (!ready){
-    const instance = inputArgument[ limit - len + 1 ]
+    const instance = inputArguments[ limit - len + 1 ]
 
     if (len === 0){
       ready = true

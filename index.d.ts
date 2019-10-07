@@ -156,13 +156,9 @@ declare namespace R {
      */
     dec(n: number): number;
 
-    /**
-     * Returns the second argument if it is not null or undefined.
-     * Otherwise, it returns the first argument
-     */
-    defaultTo<T>(a: T, b: T | null | undefined): T;
-    defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
-    defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
+    defaultTo<T>(a: T): (...rest: Array<T | null | undefined>) => T;
+    defaultTo<T>(a: T, ...rest: Array<T | null | undefined>): T;
+    defaultTo<T,U>(a: T|U, ...rest: Array<T|U | null | undefined>): T|U;
 
     /**
      * Finds all elements(without duplicates)
