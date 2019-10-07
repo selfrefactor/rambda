@@ -4,6 +4,10 @@ describe('defaultTo with Ramda spec', () => {
   it('happy', () => {
     const x = defaultTo<string>('foo',undefined); // $ExpectType string
   });
+  it('fallback', () => {
+    const x = defaultTo('foo',undefined); // $ExpectType "foo"
+    const y = defaultTo('foo','bar'); // $ExpectType "foo" | "bar"
+  });
   it('with one type', () => {
     const x = defaultTo<string>('foo','bar'); // $ExpectType string
   });
