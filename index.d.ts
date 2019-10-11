@@ -1,3 +1,4 @@
+import { F } from "./ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
@@ -149,7 +150,7 @@ declare namespace R {
     /**
      * Returns a curried equivalent of the provided function.
      */
-    curry<F extends (...args: any) => any>(f: F): Curry.Curry<F>;
+    curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
 
     /**
      * Decrements its argument.
@@ -432,7 +433,7 @@ declare namespace R {
      */
     maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
     maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-    maxBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
+    maxBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
 
     /**
      * Returns the mean of the given list of numbers.
@@ -466,7 +467,7 @@ declare namespace R {
      */
     minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
     minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-    minBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
+    minBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
 
     /**
      * Divides the second parameter by the first and returns the remainder.
@@ -534,10 +535,10 @@ declare namespace R {
       It accept function(that accept object as input), partial arguments 
       and returns a new curried function
     */
-    partialCurry<Input, PartialInput, Output>(
-      fn: (input: Input) => Output,
-      partialInput: PartialInput
-    ) : (input: Pick<Input, Exclude<keyof PartialInput>>) => Output
+    // partialCurry<Input, PartialInput, Output>(
+    //   fn: (input: Input) => Output,
+    //   partialInput: PartialInput
+    // ) : (input: Pick<Input, Exclude<keyof PartialInput>>) => Output
 
     /**
      * Retrieve the value at a given path.
@@ -551,7 +552,7 @@ declare namespace R {
      */
     pathOr<T>(defaultValue: T, path: Path, obj: any): any;
     pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): Curry.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
 
     /**
      * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
@@ -809,17 +810,11 @@ declare namespace R {
      */
     propIs<P extends keyof T, T>(type: any, name: P, obj: T): boolean;
     propIs<P extends string>(type: any, name: P): <T>(obj: Record<P, T>) => boolean;
-    propIs(type: any): {
-      <P extends keyof T, T>(name: P, obj: T): boolean;
-      <P extends string>(name: P): (obj: Record<P, T>) => boolean;
-    };
 
     /**
      * If the given, non-null object has an own property with the specified name, returns the value of that property.
      * Otherwise returns the provided default value.
      */
-    propOr<T, U>(val: T, __: Placeholder, obj: U): <V>(p: string) => V;
-    propOr<U>(__: Placeholder, p: string, obj: U): <T, V>(val: T) => V;
     propOr<T, U, V>(val: T, p: string, obj: U): V;
     propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
     propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
@@ -837,15 +832,16 @@ declare namespace R {
      * function and passing it an accumulator value and the current value from the array, and
      * then passing the result to the next call.
      */
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+    reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
     /**
      * Similar to `filter`, except that it keeps only values for which the given predicate
      * function returns falsy.
      */
-    reject: Filter;
+    reject<T>(fn: FilterFunctionArray<T>) : (list: T[]) => T[]
+    reject<T>(fn: FilterFunctionArray<T>, list: T[]): T[]
 
     /**
      * Returns a fixed list of size n containing a specified identical value.
