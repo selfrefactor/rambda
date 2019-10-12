@@ -1,4 +1,4 @@
-const { getTestContent } = require('./getTestContent.js')
+const { getFileContent } = require('./getFileContent.js')
 
 const expected = `import { filter } from './filter'
 
@@ -11,6 +11,6 @@ export function reject(fn, list){
 
 test('happy', () => {
   expect(
-    getTestContent('reject')
+    getFileContent('reject')
   ).toBe(expected)
 })

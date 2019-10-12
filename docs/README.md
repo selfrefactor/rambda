@@ -133,6 +133,28 @@ R.add tests
 </summary>
 
 ```javascript
+import { add } from './add'
+
+test('with number', () => {
+  expect(add(2, 3)).toEqual(5)
+  expect(add(7)(10)).toEqual(17)
+})
+
+test('with string', () => {
+  expect(add('foo', 'bar')).toEqual('foobar')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.add source
+</summary>
+
+```javascript
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
@@ -142,8 +164,6 @@ export function add(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try in REPL</a>
 
@@ -169,6 +189,42 @@ R.adjust tests
 </summary>
 
 ```javascript
+import { add } from './add'
+import { adjust } from './adjust'
+
+const expectedResult = [ 0, 11, 2 ]
+
+test('without curring', () => {
+  expect(adjust(add(10), 1, [ 0, 1, 2 ])).toEqual(expectedResult)
+})
+
+test('with curring type 1 1 1', () => {
+  expect(adjust(add(10))(1)([ 0, 1, 2 ])).toEqual(expectedResult)
+})
+
+test('with curring type 1 2', () => {
+  expect(adjust(add(10))(1, [ 0, 1, 2 ])).toEqual(expectedResult)
+})
+
+test('with curring type 2 1', () => {
+  expect(adjust(add(10), 1)([ 0, 1, 2 ])).toEqual(expectedResult)
+})
+
+test('with negative index', () => {
+  expect(adjust(add(10), -2, [ 0, 1, 2 ])).toEqual(expectedResult)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.adjust source
+</summary>
+
+```javascript
 import { curry } from './curry'
 
 export const adjust = curry(adjustRaw)
@@ -176,8 +232,6 @@ export const adjust = curry(adjustRaw)
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/adjust.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%200%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try in REPL</a>
 
@@ -203,6 +257,45 @@ R.all tests
 </summary>
 
 ```javascript
+import { all } from './all'
+
+const numArr = [ 0, 1, 2, 3, 4 ]
+
+test('when true', () => {
+  const fn = x => x > -1
+
+  expect(all(fn)(numArr)).toBeTruthy()
+})
+
+test('when false', () => {
+  const fn = x => x > 2
+
+  expect(all(fn, numArr)).toBeFalsy()
+})
+
+test('pass index as second argument', () => {
+  const indexes = []
+  const fn = (x, i) => {
+    indexes.push(i)
+
+    return x > 5
+  }
+  all(fn, [ 10, 12, 14 ])
+
+  expect(indexes).toEqual([ 0, 1, 2 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.all source
+</summary>
+
+```javascript
 export function all(fn, list){
   if (arguments.length === 1) return _list => all(fn, _list)
 
@@ -217,8 +310,6 @@ export function all(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/all.js)
 
 <a href="https://rambda.now.sh?const%20arr%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20fn%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
@@ -248,6 +339,53 @@ R.allPass tests
 </summary>
 
 ```javascript
+import { allPass } from './allPass'
+
+test('', () => {
+  const rules = [
+    x => typeof x === 'number',
+    x => x > 10,
+    x => x * 7 < 100,
+  ]
+
+  expect(allPass(rules)(11)).toBeTruthy()
+
+  expect(allPass(rules)(undefined)).toBeFalsy()
+})
+
+test('when returns true', () => {
+  const conditionArr = [ val => val.a === 1, val => val.b === 2 ]
+
+  expect(
+    allPass(conditionArr)({
+      a : 1,
+      b : 2,
+    })
+  ).toBeTruthy()
+})
+
+test('when returns false', () => {
+  const conditionArr = [ val => val.a === 1, val => val.b === 3 ]
+
+  expect(
+    allPass(conditionArr)({
+      a : 1,
+      b : 2,
+    })
+  ).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.allPass source
+</summary>
+
+```javascript
 export function allPass(predicates){
   return input => {
     let counter = 0
@@ -265,8 +403,6 @@ export function allPass(predicates){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/allPass.js)
 
 <a href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules%2C%20input)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
@@ -290,6 +426,26 @@ R.always tests
 </summary>
 
 ```javascript
+import { always } from './always'
+
+test('', () => {
+  const fn = always(7)
+
+  expect(fn()).toEqual(7)
+  expect(fn()).toEqual(7)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.always source
+</summary>
+
+```javascript
 export function always(val){
   return () => val
 }
@@ -297,8 +453,6 @@ export function always(val){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/always.js)
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconsole.log(fn())%2F%2F%20%3D%3E%207">Try in REPL</a>
 
@@ -321,6 +475,36 @@ R.any tests
 </summary>
 
 ```javascript
+import { any } from './any'
+
+const arr = [ 1, 2 ]
+
+test('no curry', () => {
+  expect(any(val => val < 0, arr)).toBeFalsy()
+})
+
+test('with curry', () => {
+  expect(any(val => val < 2)(arr)).toBeTruthy()
+})
+
+test('passes index to predicate', () => {
+  any((x, i) => {
+    expect(typeof x).toBe('string')
+    expect(typeof i).toBe('number')
+  })([ 'foo', 'bar' ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.any source
+</summary>
+
+```javascript
 export function any(fn, list){
   if (arguments.length === 1) return _list => any(fn, _list)
 
@@ -338,8 +522,6 @@ export function any(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/any.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.any(a%20%3D%3E%20a%20*%20a%20%3E%208)(%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
@@ -365,6 +547,51 @@ R.anyPass tests
 </summary>
 
 ```javascript
+import { anyPass } from './anyPass'
+
+test('happy', () => {
+  const rules = [ x => typeof x === 'string', x => x > 10 ]
+  const predicate = anyPass(rules)
+  expect(predicate('foo')).toBeTruthy()
+  expect(predicate(6)).toBeFalsy()
+})
+
+test('', () => {
+  const rules = [ x => typeof x === 'string', x => x > 10 ]
+
+  expect(anyPass(rules)(11)).toBeTruthy()
+
+  expect(anyPass(rules)(undefined)).toBeFalsy()
+})
+
+const obj = {
+  a : 1,
+  b : 2,
+}
+
+test('when returns true', () => {
+  const conditionArr = [ val => val.a === 1, val => val.a === 2 ]
+
+  expect(anyPass(conditionArr)(obj)).toBeTruthy()
+})
+
+test('when returns false + curry', () => {
+  const conditionArr = [ val => val.a === 2, val => val.b === 3 ]
+
+  expect(anyPass(conditionArr)(obj)).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.anyPass source
+</summary>
+
+```javascript
 export function anyPass(predicates){
   return input => {
     let counter = 0
@@ -382,8 +609,6 @@ export function anyPass(predicates){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/anyPass.js)
 
 <a href="https://rambda.now.sh?const%20isBig%20%3D%20a%20%3D%3E%20a%20%3E%2020%0Aconst%20isOdd%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)(11)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
@@ -406,6 +631,54 @@ R.append tests
 </summary>
 
 ```javascript
+import { append } from './append'
+import { compose } from './compose'
+import { flatten } from './flatten'
+import { map } from './map'
+
+test('with strings', () => {
+  expect(append('o', 'fo')).toEqual('foo')
+})
+
+test('with arrays', () => {
+  expect(append('tests', [ 'write', 'more' ])).toEqual([
+    'write',
+    'more',
+    'tests',
+  ])
+})
+
+test('append to empty array', () => {
+  expect(append('tests', [])).toEqual([ 'tests' ])
+})
+
+test('', () => {
+  const result = compose(
+    flatten,
+    map(append(0))
+  )([ [ 1 ], [ 2 ], [ 3 ] ])
+  expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
+})
+
+test('should not modify arguments', () => {
+  const a = [ 1, 2, 3 ]
+  const b = append(4, a)
+
+  expect(a).toEqual([ 1, 2, 3 ])
+  expect(b).toEqual([ 1, 2, 3, 4 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.append source
+</summary>
+
+```javascript
 export function append(el, list){
   if (arguments.length === 1) return _list => append(el, _list)
 
@@ -420,8 +693,6 @@ export function append(el, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/append.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.append(%0A%20%20'foo'%2C%0A%20%20%5B'bar'%2C%20'baz'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try in REPL</a>
 
@@ -447,6 +718,77 @@ R.assoc tests
 </summary>
 
 ```javascript
+import { assoc } from './assoc'
+
+test('adds a key to an empty object', () => {
+  expect(assoc('a', 1, {})).toEqual({ a : 1 })
+})
+
+test('adds a key to a non-empty object', () => {
+  expect(assoc('b', 2, { a : 1 })).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('adds a key to a non-empty object - curry case 1', () => {
+  expect(assoc('b', 2)({ a : 1 })).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('adds a key to a non-empty object - curry case 2', () => {
+  expect(assoc('b')(2, { a : 1 })).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('adds a key to a non-empty object - curry case 3', () => {
+  const result = assoc('b')(2)({ a : 1 })
+
+  expect(result).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('changes an existing key', () => {
+  expect(assoc('a', 2, { a : 1 })).toEqual({ a : 2 })
+})
+
+test('undefined is considered an empty object', () => {
+  expect(assoc('a', 1, undefined)).toEqual({ a : 1 })
+})
+
+test('null is considered an empty object', () => {
+  expect(assoc('a', 1, null)).toEqual({ a : 1 })
+})
+
+test('value can be null', () => {
+  expect(assoc('a', null, null)).toEqual({ a : null })
+})
+
+test('value can be undefined', () => {
+  expect(assoc('a', undefined, null)).toEqual({ a : undefined })
+})
+
+test('assignment is shallow', () => {
+  expect(assoc('a', { b : 2 }, { a : { c : 3 } })).toEqual({ a : { b : 2 } })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.assoc source
+</summary>
+
+```javascript
 import { curry } from './curry'
 
 export const assoc = curry(assocFn)
@@ -454,8 +796,6 @@ export const assoc = curry(assocFn)
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/assoc.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try in REPL</a>
 
@@ -482,6 +822,46 @@ R.both tests
 </summary>
 
 ```javascript
+import { both } from './both'
+
+const firstFn = val => val > 0
+const secondFn = val => val < 10
+
+test('with curry', () => {
+  expect(both(firstFn)(secondFn)(17)).toBeFalsy()
+})
+
+test('without curry', () => {
+  expect(both(firstFn, secondFn)(7)).toBeTruthy()
+})
+
+test('with multiple inputs', () => {
+  const between = function(a, b, c){ return a < b && b < c }
+  const total20 = function(a, b, c){ return a + b + c === 20 }
+  const fn = both(between, total20)
+  expect(fn(5, 7, 8)).toBeTruthy()
+})
+
+test('skip evaluation of the second expression', () => {
+  let effect = 'not evaluated'
+  const F = function(){ return false }
+  const Z = function(){ effect = 'Z got evaluated' }
+  both(F, Z)()
+
+  expect(effect).toBe('not evaluated')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.both source
+</summary>
+
+```javascript
 export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
@@ -491,8 +871,6 @@ export function both(f, g){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/both.js)
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
@@ -519,6 +897,44 @@ R.clone tests
 </summary>
 
 ```javascript
+import { clone } from './clone'
+
+test('with array', () => {
+  const arr = [
+    {
+      b : 2,
+      c : 'foo',
+      d : [ 1, 2, 3 ],
+    },
+    1,
+    new Date(),
+    null,
+  ]
+  expect(clone(arr)).toEqual(arr)
+})
+
+test('with object', () => {
+  const arr = {
+    a : 1,
+    b : 2,
+    c : 3,
+    d : [ 1, 2, 3 ],
+    e : new Date(),
+  }
+  expect(clone(arr)).toEqual(arr)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.clone source
+</summary>
+
+```javascript
 export function clone(val){
   const out = Array.isArray(val) ? Array(val.length) : {}
 
@@ -538,8 +954,6 @@ export function clone(val){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/clone.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20const%20objects%20%3D%20%5B%7B%7D%2C%20%7B%7D%2C%20%7B%7D%5D%3B%0Aconst%20objectsClone%20%3D%20R.clone(objects)%3B%0Aobjects%20%3D%3D%3D%20objectsClone%3B%20%2F%2F%3D%3E%20false%0Aobjects%5B0%5D%20%3D%3D%3D%20objectsClone%5B0%5D%3B%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
@@ -566,6 +980,46 @@ R.compose tests
 </summary>
 
 ```javascript
+import { add } from './add'
+import { map } from './map'
+import { filter } from './filter'
+import { last } from './last'
+import { compose } from './compose'
+
+test('', () => {
+  const result = compose(
+    last,
+    map(add(10)),
+    map(add(1))
+  )([ 1, 2, 3 ])
+
+  expect(result).toEqual(14)
+})
+
+test('accepts initially two arguments', () => {
+  const result = compose(
+    map(x => x * 2),
+    (a, y) => filter(x => x > y, a)
+  )([ 1, 2, 3, 4 ], 2)
+
+  expect(result).toEqual([ 6, 8 ])
+})
+
+test('when no functions as input', () => {
+  expect(compose()()).toBeUndefined()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.compose source
+</summary>
+
+```javascript
 export function compose(...fns){
   return (...args) => {
     const list = fns.slice()
@@ -586,8 +1040,6 @@ export function compose(...fns){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/compose.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2Cboth%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
 
@@ -613,6 +1065,25 @@ R.complement tests
 </summary>
 
 ```javascript
+import { complement } from './complement'
+
+test('', () => {
+  const fn = complement(x => x.length === 0)
+
+  expect(fn([ 1, 2, 3 ])).toBeTruthy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.complement source
+</summary>
+
+```javascript
 export function complement(fn){
   return input => !fn(input)
 }
@@ -620,8 +1091,6 @@ export function complement(fn){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/complement.js)
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.complement(x%20%3D%3E%20!x)%0A%0Aconst%20result%20%3D%20fn(false)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -644,6 +1113,35 @@ R.concat tests
 </summary>
 
 ```javascript
+import { concat } from './concat'
+
+test('', () => {
+  const arr1 = [ 'a', 'b', 'c' ]
+  const arr2 = [ 'd', 'e', 'f' ]
+
+  const a = concat(arr1, arr2)
+  const b = concat(arr1)(arr2)
+  const expectedResult = [ 'a', 'b', 'c', 'd', 'e', 'f' ]
+
+  expect(a).toEqual(expectedResult)
+  expect(b).toEqual(expectedResult)
+})
+
+test('with strings', () => {
+  expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.concat source
+</summary>
+
+```javascript
 export function concat(left, right){
   if (arguments.length === 1) return _right => concat(left, _right)
 
@@ -653,8 +1151,6 @@ export function concat(left, right){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.concat(%5B1%2C%202%5D)(%5B3%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%5D%0AR.concat('foo')('bar')%20%2F%2F%20%3D%3E%20'foobar'">Try in REPL</a>
 
@@ -680,6 +1176,50 @@ R.curry tests
 </summary>
 
 ```javascript
+import { curry } from './curry'
+
+test('', () => {
+  const addFourNumbers = (a, b, c, d) => a + b + c + d
+  const curriedAddFourNumbers = curry(addFourNumbers)
+  const f = curriedAddFourNumbers(1, 2)
+  const g = f(3)
+
+  expect(g(4)).toEqual(10)
+})
+
+test('when called with more arguments', () => {
+  const add = curry((n, n2) => n + n2)
+
+  expect(add(1, 2, 3)).toEqual(3)
+})
+
+test('when called with zero arguments', () => {
+  const sub = curry((a, b) => a - b)
+  const s0 = sub()
+
+  expect(s0(5, 2)).toEqual(3)
+})
+
+test('when called via multiple curry stages', () => {
+  const join = curry((a, b, c, d) => [ a, b, c, d ].join('-'))
+
+  const stage1 = join('A')
+  const stage2 = stage1('B', 'C')
+
+  expect(stage2('D')).toEqual('A-B-C-D')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.curry source
+</summary>
+
+```javascript
 export function curry(fn, args = []){
   return (..._args) =>
     (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
@@ -692,8 +1232,6 @@ export function curry(fn, args = []){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/curry.js)
-
 <a href="https://rambda.now.sh?const%20addFourNumbers%20%3D%20(a%2C%20b%2C%20c%2C%20d)%20%3D%3E%20a%20%2B%20b%20%2B%20c%20%2B%20d%0Aconst%20curriedAddFourNumbers%20%3D%20R.curry(addFourNumbers)%0Aconst%20f%20%3D%20curriedAddFourNumbers(1%2C%202)%0Aconst%20g%20%3D%20f(3)%0Aconst%20result%20%3D%20g(4)%20%2F%2F%20%3D%3E%2010">Try in REPL</a>
 
 ---
@@ -703,22 +1241,9 @@ export function curry(fn, args = []){
 
 It decrements a number.
 
-```javascript
+```
 R.dec(2) // => 1
 ```
-
-<details>
-
-<summary>
-R.dec tests
-</summary>
-
-```javascript
-export const dec = n => n - 1
-
-```
-
-</details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/dec.js)
 
@@ -745,6 +1270,86 @@ R.defaultTo('foo', 'bar') // => 'bar'
 
 <summary>
 R.defaultTo tests
+</summary>
+
+```javascript
+import { defaultTo } from './defaultTo'
+
+test('with undefined', () => {
+  expect(defaultTo('foo')(undefined)).toEqual('foo')
+})
+
+test('with null', () => {
+  expect(defaultTo('foo')(null)).toEqual('foo')
+})
+
+test('with NaN', () => {
+  expect(defaultTo('foo')(NaN)).toEqual('foo')
+})
+
+test('with empty string', () => {
+  expect(defaultTo('foo', '')).toEqual('')
+})
+
+test('with false', () => {
+  expect(defaultTo('foo', false)).toEqual(false)
+})
+
+test('when inputArgument passes initial check', () => {
+  expect(defaultTo('foo', 'bar')).toEqual('bar')
+})
+
+test('default extends to indefinite input arguments - case 1', () => {
+  const result = defaultTo('foo', null, 'bar')
+  const expected = 'bar'
+
+  expect(result).toEqual(expected)
+})
+
+test('default extends to indefinite input arguments - case 2', () => {
+  const result = defaultTo('foo', null, NaN, 'bar')
+  const expected = 'bar'
+
+  expect(result).toEqual(expected)
+})
+
+test('default extends to indefinite input arguments - case 3', () => {
+  const result = defaultTo('foo', null, NaN, undefined)
+  const expected = 'foo'
+
+  expect(result).toEqual(expected)
+})
+
+test('default extends to indefinite input arguments - case 4', () => {
+  const result = defaultTo('foo', null, NaN, undefined, 'bar')
+  const expected = 'bar'
+
+  expect(result).toEqual(expected)
+})
+
+test('default extends to indefinite input arguments - case 5', () => {
+  const result = defaultTo('foo', null, NaN, 'bar', 'baz')
+  const expected = 'bar'
+
+  expect(result).toEqual(expected)
+})
+
+test('default extends to indefinite input arguments - case 6', () => {
+  const result = defaultTo('foo', null, NaN, undefined, null, NaN)
+  const expected = 'foo'
+
+  expect(result).toEqual(expected)
+})
+
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.defaultTo source
 </summary>
 
 ```javascript
@@ -788,8 +1393,6 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/defaultTo.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20'bar'%2C%20NaN%2C%20'baz')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN%2C%20'baz')%20%2F%2F%20%3D%3E%20'baz'%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'">Try in REPL</a>
 
 ---
@@ -811,6 +1414,98 @@ R.dissoc tests
 </summary>
 
 ```javascript
+import { dissoc } from './dissoc'
+
+test('input is null or undefined', () => {
+  //These tests match Ramda behavior
+  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20null%29
+  expect(dissoc('b', null)).toEqual({})
+  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20undefined%29
+  expect(dissoc('b', undefined)).toEqual({})
+})
+
+test('property exists curried', () => {
+  expect(
+    dissoc('b')({
+      a : 1,
+      b : 2,
+    })
+  ).toEqual({ a : 1 })
+})
+
+test('property doesn\'t exists', () => {
+  expect(
+    dissoc('c', {
+      a : 1,
+      b : 2,
+    })
+  ).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('works with non-string property', () => {
+  expect(
+    dissoc(42, {
+      a  : 1,
+      42 : 2,
+    })
+  ).toEqual({ a : 1 })
+
+  expect(
+    dissoc(null, {
+      a    : 1,
+      null : 2,
+    })
+  ).toEqual({ a : 1 })
+
+  expect(
+    dissoc(undefined, {
+      a         : 1,
+      undefined : 2,
+    })
+  ).toEqual({ a : 1 })
+})
+
+test('includes prototype properties', () => {
+  function Rectangle(width, height){
+    this.width = width
+    this.height = height
+  }
+  const area = Rectangle.prototype.area = function(){
+    return this.width * this.height
+  }
+  const rect = new Rectangle(7, 6)
+
+  expect(dissoc('area', rect)).toEqual({
+    width  : 7,
+    height : 6,
+  })
+
+  expect(dissoc('width', rect)).toEqual({
+    height : 6,
+    area   : area,
+  })
+
+  expect(dissoc('depth', rect)).toEqual({
+    width  : 7,
+    height : 6,
+    area   : area,
+  })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.dissoc source
+</summary>
+
+```javascript
 export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
 
@@ -828,8 +1523,6 @@ export function dissoc(prop, obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/dissoc.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try in REPL</a>
 
@@ -859,6 +1552,31 @@ R.drop tests
 </summary>
 
 ```javascript
+import { drop } from './drop'
+
+test('', () => {
+  expect(drop(1, [ 'foo', 'bar', 'baz' ])).toEqual([ 'bar', 'baz' ])
+
+  expect(drop(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
+
+  expect(drop(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
+
+  expect(drop(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
+
+  expect(drop(3, 'rambda')).toEqual('bda')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.drop source
+</summary>
+
+```javascript
 export function drop(n, list){
   if (arguments.length === 1) return _list => drop(n, _list)
 
@@ -868,8 +1586,6 @@ export function drop(n, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/drop.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.drop(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%5D%0AR.drop(1%2C%20'foo')%20%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
 
@@ -892,6 +1608,34 @@ R.dropLast tests
 </summary>
 
 ```javascript
+import { dropLast } from './dropLast'
+
+test('', () => {
+  expect(dropLast(1, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+  ])
+
+  expect(dropLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo' ])
+
+  expect(dropLast(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
+
+  expect(dropLast(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
+
+  expect(dropLast(3, 'rambda')).toEqual('ram')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.dropLast source
+</summary>
+
+```javascript
 export function dropLast(n, list){
   if (arguments.length === 1) return _list => dropLast(n, _list)
 
@@ -901,8 +1645,6 @@ export function dropLast(n, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/dropLast.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.dropLast(1%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%5D%0AR.dropLast(1%2C%20'foo')%20%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
 
@@ -930,6 +1672,31 @@ R.endsWith tests
 </summary>
 
 ```javascript
+import { endsWith } from './endsWith'
+
+test('string ends with suffix', () => {
+  expect(endsWith('bar', 'foo-bar')).toBeTruthy()
+})
+
+test('currying', () => {
+  expect(endsWith('baz')('foo-bar')).toBeFalsy()
+})
+
+test('list ends with suffix', () => {
+  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('list.endsWith is not a function')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.endsWith source
+</summary>
+
+```javascript
 export function endsWith(suffix, list){
   if (arguments.length === 1) return _list => endsWith(suffix, _list)
 
@@ -939,8 +1706,6 @@ export function endsWith(suffix, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/endsWith.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.endsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.endsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -963,6 +1728,50 @@ R.either tests
 </summary>
 
 ```javascript
+import { either } from './either'
+
+test('with multiple inputs', () => {
+  const between = function(a, b, c){ return a < b && b < c }
+  const total20 = function(a, b, c){ return a + b + c === 20 }
+  const fn = either(between, total20)
+  expect(fn(7, 8, 5)).toBeTruthy()
+})
+
+test('skip evaluation of the second expression', () => {
+  let effect = 'not evaluated'
+  const F = function(){ return true }
+  const Z = function(){ effect = 'Z got evaluated' }
+  either(F, Z)()
+
+  expect(effect).toBe('not evaluated')
+})
+
+test('1', () => {
+  const firstFn = val => val > 0
+  const secondFn = val => val * 5 > 10
+
+  expect(either(firstFn, secondFn)(1)).toBeTruthy()
+})
+
+test('2', () => {
+  const firstFn = val => val > 0
+  const secondFn = val => val === -10
+  const fn = either(firstFn)(secondFn)
+
+  expect(fn(-10)).toBeTruthy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.either source
+</summary>
+
+```javascript
 export function either(f, g){
   if (arguments.length === 1) return _g => either(f, _g)
 
@@ -972,8 +1781,6 @@ export function either(f, g){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/either.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.either(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A)(15)%20%2F%2F%3D%3E%20true">Try in REPL</a>
 
@@ -997,6 +1804,246 @@ R.equals(
 
 <summary>
 R.equals tests
+</summary>
+
+```javascript
+import { equals } from './equals'
+
+test('', () => {
+  const result = equals(
+    [ 1, { a : 1 }, [ { b : 3 } ] ],
+    [ 1, { a : 2 }, [ { b : 3 } ] ]
+  )
+
+  expect(result).toBeFalsy()
+})
+
+test('ramda spec', () => {
+  expect(equals({}, {})).toEqual(true)
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : 2,
+      },
+      {
+        a : 1,
+        b : 2,
+      }
+    )
+  ).toEqual(true)
+
+  expect(
+    equals(
+      {
+        a : 2,
+        b : 3,
+      },
+      {
+        b : 3,
+        a : 2,
+      }
+    )
+  ).toEqual(true)
+
+  expect(
+    equals(
+      {
+        a : 2,
+        b : 3,
+      },
+      {
+        a : 3,
+        b : 3,
+      }
+    )
+  ).toEqual(false)
+
+  expect(
+    equals(
+      {
+        a : 2,
+        b : 3,
+        c : 1,
+      },
+      {
+        a : 2,
+        b : 3,
+      }
+    )
+  ).toEqual(false)
+})
+
+test('works with boolean tuple', () => {
+  expect(equals([ true, false ], [ true, false ])).toBeTruthy()
+  expect(equals([ true, false ], [ true, true ])).toBeFalsy()
+})
+
+test('works with equal objects within array', () => {
+  const objFirst = {
+    a : {
+      b : 1,
+      c : 2,
+      d : [ 1 ],
+    },
+  }
+  const objSecond = {
+    a : {
+      b : 1,
+      c : 2,
+      d : [ 1 ],
+    },
+  }
+
+  const x = [ 1, 2, objFirst, null, '', [] ]
+  const y = [ 1, 2, objSecond, null, '', [] ]
+  expect(equals(x, y)).toBeTruthy()
+})
+
+test('works with different objects within array', () => {
+  const objFirst = { a : { b : 1 } }
+  const objSecond = { a : { b : 2 } }
+
+  const x = [ 1, 2, objFirst, null, '', [] ]
+  const y = [ 1, 2, objSecond, null, '', [] ]
+  expect(equals(x, y)).toBeFalsy()
+})
+
+test('works with undefined as second argument', () => {
+  expect(equals(1, undefined)).toBeFalsy()
+
+  expect(equals(undefined, undefined)).toBeTruthy()
+})
+
+test('various examples', () => {
+  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTruthy()
+
+  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalsy()
+
+  expect(equals(1, 1)).toBeTruthy()
+
+  expect(equals(1, '1')).toBeFalsy()
+
+  expect(equals({}, {})).toBeTruthy()
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : 2,
+      },
+      {
+        b : 2,
+        a : 1,
+      }
+    )
+  ).toBeTruthy()
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : 2,
+      },
+      {
+        a : 1,
+        b : 1,
+      }
+    )
+  ).toBeFalsy()
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : false,
+      },
+      {
+        a : 1,
+        b : 1,
+      }
+    )
+  ).toBeFalsy()
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : 2,
+      },
+      {
+        b : 2,
+        a : 1,
+        c : 3,
+      }
+    )
+  ).toBeFalsy()
+
+  expect(
+    equals(
+      {
+        x : {
+          a : 1,
+          b : 2,
+        },
+      },
+      {
+        x : {
+          b : 2,
+          a : 1,
+          c : 3,
+        },
+      }
+    )
+  ).toBeFalsy()
+
+  expect(
+    equals(
+      {
+        a : 1,
+        b : 2,
+      },
+      {
+        b : 3,
+        a : 1,
+      }
+    )
+  ).toBeFalsy()
+
+  expect(
+    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
+  ).toBeTruthy()
+
+  expect(
+    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })
+  ).toBeFalsy()
+
+  expect(equals({ a : {} }, { a : {} })).toBeTruthy()
+
+  expect(equals('', '')).toBeTruthy()
+
+  expect(equals('foo', 'foo')).toBeTruthy()
+
+  expect(equals('foo', 'bar')).toBeFalsy()
+
+  expect(equals(0, false)).toBeFalsy()
+
+  expect(equals(/\s/g, null)).toBeFalsy()
+
+  expect(equals(null, null)).toBeTruthy()
+
+  expect(equals(false)(null)).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.equals source
 </summary>
 
 ```javascript
@@ -1067,8 +2114,6 @@ export function equals(a, b){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/equals.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A3%7D%5D%5D%0A)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
@@ -1096,6 +2141,91 @@ const result = R.filter(filterFn, [1, 2, 3, 4])
 
 <summary>
 R.filter tests
+</summary>
+
+```javascript
+import { filter } from './filter'
+import { compose } from './compose'
+import { add } from './add'
+import { map } from './map'
+import { equals } from './equals'
+import { T } from './T'
+
+const sampleObject = {
+  a : 1,
+  b : 2,
+  c : 3,
+  d : 4,
+}
+
+test('with compose', () => {
+  const result = compose(
+    filter(equals(2)),
+    map(add(1))
+  )(sampleObject)
+
+  expect(result).toEqual({ a : 2 })
+})
+
+test('bad case - undefined', () => {
+  expect(filter(T)(undefined)).toEqual([])
+})
+
+test('with object it passes property as second argument', () => {
+  filter((val, prop) => {
+    expect(typeof prop).toEqual('string')
+  })(sampleObject)
+})
+
+test('pass input object as third argument', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const predicate = (val, prop, inputObject) => {
+    expect(inputObject).toEqual(obj)
+
+    return val < 2
+  }
+  expect(filter(predicate, obj)).toEqual({ a : 1 })
+})
+
+test('with array', () => {
+  const isEven = n => n % 2 === 0
+
+  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+})
+
+test('pass index as second argument', () => {
+  let counter = 0
+  filter(
+    (x, i) => {
+      expect(i).toBe(counter)
+      counter++
+    },
+    [ 10, 20, 30 ]
+  )
+})
+
+test('with object', () => {
+  const isEven = n => n % 2 === 0
+  const result = filter(isEven, sampleObject)
+  const expectedResult = {
+    b : 2,
+    d : 4,
+  }
+
+  expect(result).toEqual(expectedResult)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.filter source
 </summary>
 
 ```javascript
@@ -1154,8 +2284,6 @@ const result = R.filter((val, prop)=>{
 // => {a: 1, b: 2}
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/filter.js)
-
 <a href="https://rambda.now.sh?const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0Aconst%20result%20%3D%20R.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
 
 ---
@@ -1180,6 +2308,32 @@ R.find tests
 </summary>
 
 ```javascript
+import { find } from './find'
+import { propEq } from './propEq'
+
+test('', () => {
+  expect(
+    find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual({ a : 2 })
+})
+
+test('with curry', () => {
+  expect(
+    find(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual(undefined)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.find source
+</summary>
+
+```javascript
 export function find(fn, list){
   if (arguments.length === 1) return _list => find(fn, _list)
 
@@ -1189,8 +2343,6 @@ export function find(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/find.js)
 
 <a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try in REPL</a>
 
@@ -1216,6 +2368,43 @@ R.findIndex tests
 </summary>
 
 ```javascript
+import { findIndex } from './findIndex'
+import { propEq } from './propEq'
+
+test('', () => {
+  expect(
+    findIndex(propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual(1)
+
+  expect(
+    findIndex(propEq('a', 1))([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual(0)
+
+  expect(
+    findIndex(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual(-1)
+})
+
+test('pass index as second argument', () => {
+  findIndex(
+    (x, i) => {
+      expect(typeof x).toBe('number')
+      expect(typeof i).toBe('number')
+    }
+  )([ 10, 12, 15 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.findIndex source
+</summary>
+
+```javascript
 export function findIndex(fn, list){
   if (arguments.length === 1) return _list => findIndex(fn, _list)
 
@@ -1234,8 +2423,6 @@ export function findIndex(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/findIndex.js)
 
 <a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findIndex(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%201">Try in REPL</a>
 
@@ -1256,6 +2443,31 @@ R.flatten tests
 </summary>
 
 ```javascript
+import { flatten } from './flatten'
+
+test('', () => {
+  expect(flatten([ 1, 2, 3, [ [ [ [ [ 4 ] ] ] ] ] ])).toEqual([ 1, 2, 3, 4 ])
+
+  expect(flatten([ 1, [ 2, [ [ 3 ] ] ], [ 4 ] ])).toEqual([ 1, 2, 3, 4 ])
+
+  expect(flatten([ 1, [ 2, [ [ [ 3 ] ] ] ], [ 4 ] ])).toEqual([ 1, 2, 3, 4 ])
+
+  expect(
+    flatten([ 1, 2, [ 3, 4 ], 5, [ 6, [ 7, 8, [ 9, [ 10, 11 ], 12 ] ] ] ])
+  ).toEqual([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.flatten source
+</summary>
+
+```javascript
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
 
@@ -1273,8 +2485,6 @@ export function flatten(list, input){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/flatten.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.flatten(%5B%201%2C%20%5B%202%2C%20%5B%203%20%5D%20%5D%20%5D)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%203%20%5D">Try in REPL</a>
 
@@ -1299,6 +2509,28 @@ R.flip tests
 </summary>
 
 ```javascript
+import { flip } from './flip'
+import { subtract } from './subtract'
+
+test('flip', () => {
+  const fn = flip(subtract)
+
+  expect(fn(1)(7)).toEqual(6)
+  expect(fn(1, 7)).toEqual(6)
+  expect(fn(1, 7, 9)).toEqual(undefined)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.flip source
+</summary>
+
+```javascript
 function flipExport(fn){
   return (...input) => {
     if (input.length === 1){
@@ -1318,8 +2550,6 @@ export function flip(fn){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/flip.js)
 
 <a href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20subtractFlip(1%2C7)%0A%2F%2F%20%3D%3E%206">Try in REPL</a>
 
@@ -1347,6 +2577,110 @@ R.forEach tests
 </summary>
 
 ```javascript
+import { forEach } from './forEach'
+import { type } from './type'
+
+test('iterate over object', () => {
+  const obj = {
+    a : 1,
+    b : [ 1, 2 ],
+    c : { d : 7 },
+    f : 'foo',
+  }
+  const result = {}
+  const getLength = x => Object.keys(x).length
+  forEach(
+    (val, prop, inputObj) =>
+      result[ prop ] = `${ prop }::${ type(val) }::${ getLength(inputObj) }`
+  )(obj)
+
+  const expected = {
+    a : 'a::Number::4',
+    b : 'b::Array::4',
+    c : 'c::Object::4',
+    f : 'f::String::4',
+  }
+
+  expect(result).toEqual(expected)
+})
+
+test('happy', () => {
+  const sideEffect = {}
+  forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
+
+  expect(sideEffect).toEqual({
+    foo1 : 11,
+    foo2 : 12,
+  })
+})
+
+test('happy 2', () => {
+  const list = [
+    {
+      x : 1,
+      y : 2,
+    },
+    {
+      x : 100,
+      y : 200,
+    },
+    {
+      x : 300,
+      y : 400,
+    },
+    {
+      x : 234,
+      y : 345,
+    },
+  ]
+  const sideEffect = {}
+  const result = forEach(elem => {
+    sideEffect[ elem.x ] = elem.y
+  }, list)
+  const expectedSideEffect = {
+    1   : 2,
+    100 : 200,
+    300 : 400,
+    234 : 345,
+  }
+
+  expect(sideEffect).toEqual(expectedSideEffect)
+  expect(result).toEqual(list)
+})
+
+test('with empty list', () => {
+  const list = []
+  const result = forEach(x => x * x)(list)
+
+  expect(result).toEqual(list)
+})
+
+test('returns the input', () => {
+  const list = [ 1, 2, 3 ]
+  const result = forEach(x => x * x)(list)
+
+  expect(result).toEqual(list)
+})
+
+test('pass index as second argument', () => {
+  const list = [ 11, 21, 31 ]
+  const indexes = []
+  const result = forEach((x, i) => indexes.push(i))(list)
+
+  expect(indexes).toEqual([ 0, 1, 2 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.forEach source
+</summary>
+
+```javascript
 import { map } from './map'
 
 export function forEach(fn, list){
@@ -1362,8 +2696,6 @@ export function forEach(fn, list){
 </details>
 
 Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/forEach.js)
 
 <a href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
@@ -1393,6 +2725,30 @@ R.fromPairs tests
 </summary>
 
 ```javascript
+import { fromPairs } from './fromPairs'
+
+const list = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+const expected = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+
+test('', () => {
+  expect(fromPairs(list)).toEqual(expected)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.fromPairs source
+</summary>
+
+```javascript
 export function fromPairs(list){
   const toReturn = {}
   list.forEach(([ prop, value ]) => toReturn[ prop ] = value)
@@ -1403,8 +2759,6 @@ export function fromPairs(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/fromPairs.js)
 
 <a href="https://rambda.now.sh?const%20list%20%3D%20%5B%20%5B%20'a'%2C%201%20%5D%2C%20%5B%20'b'%2C%202%20%5D%2C%20%5B%20'c'%2C%20%5B%203%2C%204%20%5D%20%5D%20%5D%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%20%20c%20%3A%20%5B%203%2C%204%20%5D%2C%0A%7D%0A%0Aconst%20result%20%3D%20R.fromPairs(list)%0A%2F%2F%20expected%20%3D%3D%3D%20result">Try in REPL</a>
 
@@ -1464,6 +2818,24 @@ R.has tests
 </summary>
 
 ```javascript
+import { has } from './has'
+
+test('has', () => {
+  expect(has('a')({ a : 1 })).toBeTruthy()
+  expect(has('b', { a : 1 })).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.has source
+</summary>
+
+```javascript
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
 
@@ -1473,8 +2845,6 @@ export function has(prop, obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/has.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.has('a'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20true%0AR.has('b'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -1497,6 +2867,26 @@ R.head tests
 </summary>
 
 ```javascript
+import { head } from './head'
+
+test('head', () => {
+  expect(head([ 'fi', 'fo', 'fum' ])).toEqual('fi')
+  expect(head([])).toEqual(undefined)
+  expect(head('foo')).toEqual('f')
+  expect(head('')).toEqual('')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.head source
+</summary>
+
+```javascript
 export function head(list){
   if (typeof list === 'string') return list[ 0 ] || ''
 
@@ -1506,8 +2896,6 @@ export function head(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/head.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.head(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%201%0AR.head('foo')%20%2F%2F%20%3D%3E%20'f'">Try in REPL</a>
 
@@ -1535,6 +2923,50 @@ R.identical tests
 </summary>
 
 ```javascript
+import { identical } from './identical'
+import { _isInteger } from './internal/_isInteger'
+import { _objectIs } from './internal/_objectIs'
+import { F } from './F'
+import { T } from './T'
+
+test('small', () => {
+  expect(F()).toBe(false)
+  expect(T()).toBe(true)
+})
+
+test('is integer internal', () => {
+  expect(_isInteger(1)).toBe(true)
+  expect(_isInteger(0.3)).toBe(false)
+})
+
+test('object is internal', () => {
+  expect(_objectIs(1, 1)).toBe(true)
+  expect(_objectIs(NaN, NaN)).toBe(true)
+})
+
+test('identical', () => {
+  const a = {}
+
+  expect(identical(100)(100)).toEqual(true)
+  expect(identical(100, '100')).toEqual(false)
+  expect(identical('string', 'string')).toEqual(true)
+  expect(identical([], [])).toEqual(false)
+  expect(identical(a, a)).toEqual(true)
+  expect(identical(undefined, undefined)).toEqual(true)
+  expect(identical(null, undefined)).toEqual(false)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.identical source
+</summary>
+
+```javascript
 import _objectIs from './internal/_objectIs'
 
 export function identical(a, b){
@@ -1546,8 +2978,6 @@ export function identical(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/identical.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20const%20o%20%3D%20%7B%7D%3B%0AR.identical(o%2C%20o)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%201)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%3D%3E%20false%0AR.identical(NaN%2C%20NaN)%3B%20%2F%2F%3D%3E%20true">Try in REPL</a>
 
@@ -1569,6 +2999,23 @@ R.identity tests
 </summary>
 
 ```javascript
+import { identity } from './identity'
+
+test('', () => {
+  expect(identity(7)).toEqual(7)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.identity source
+</summary>
+
+```javascript
 export function identity(x){
   return x
 }
@@ -1576,8 +3023,6 @@ export function identity(x){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/identity.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.identity(7)%20%2F%2F%20%3D%3E%207">Try in REPL</a>
 
@@ -1611,6 +3056,59 @@ R.ifElse tests
 </summary>
 
 ```javascript
+import { has } from './has'
+import { prop } from './prop'
+import { always } from './always'
+import { ifElse } from './ifElse'
+
+const condition = has('foo')
+const ifFn = x => prop('foo', x).length
+const elseFn = () => false
+
+test('', () => {
+  const fn = ifElse(condition, ifFn)(elseFn)
+
+  expect(fn({ foo : 'bar' })).toEqual(3)
+  expect(fn({ fo : 'bar' })).toEqual(false)
+})
+
+test('accept constant as condition', () => {
+  const fn = ifElse(true)(always(true))(always(false))
+
+  expect(fn()).toEqual(true)
+})
+
+test('accept constant as condition - case 2', () => {
+  const fn = ifElse(false, always(true), always(false))
+
+  expect(fn()).toEqual(false)
+})
+
+test('curry (x)(y,z)', () => {
+  const fn = ifElse(condition, ifFn)(elseFn)
+
+  expect(fn({ foo : 'bar' })).toEqual(3)
+  expect(fn({ fo : 'bar' })).toEqual(false)
+})
+
+test('curry (x)(y)(z)', () => {
+  const fn = ifElse(condition)(ifFn)(elseFn)
+
+  expect(fn({ foo : 'bar' })).toEqual(3)
+  expect(fn({ fo : 'bar' })).toEqual(false)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.ifElse source
+</summary>
+
+```javascript
 export function ifElse(condition, onTrue, onFalse){
   if (onTrue === undefined){
     return (_onTrue, _onFalse) => ifElse(condition, _onTrue, _onFalse)
@@ -1633,8 +3131,6 @@ export function ifElse(condition, onTrue, onFalse){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/ifElse.js)
-
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.ifElse(%0A%20x%20%3D%3E%20x%20%3E%2010%2C%0A%20x%20%3D%3E%20x*2%2C%0A%20x%20%3D%3E%20x*10%0A)%0A%0Aconst%20result%20%3D%20fn(8)%0A%2F%2F%20%3D%3E%2080">Try in REPL</a>
 
 ---
@@ -1644,22 +3140,9 @@ export function ifElse(condition, onTrue, onFalse){
 
 It increments a number.
 
-```javascript
+```
 R.inc(1) // => 2
 ```
-
-<details>
-
-<summary>
-R.inc tests
-</summary>
-
-```javascript
-export const inc = n => n + 1
-
-```
-
-</details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/inc.js)
 
@@ -1682,6 +3165,46 @@ R.includes({a: 1}, [{a: 1}]) // => true
 
 <summary>
 R.includes tests
+</summary>
+
+```javascript
+import { includes } from './includes'
+import R from 'ramda'
+
+test('includes with string', () => {
+  const str = 'more is less'
+
+  expect(includes('less')(str)).toBeTruthy()
+  expect(R.includes('less')(str)).toBeTruthy()
+  expect(includes('never', str)).toBeFalsy()
+  expect(R.includes('never', str)).toBeFalsy()
+})
+
+test('includes with array', () => {
+  const arr = [ 1, 2, 3 ]
+
+  expect(includes(2)(arr)).toBeTruthy()
+  expect(R.includes(2)(arr)).toBeTruthy()
+
+  expect(includes(4, arr)).toBeFalsy()
+  expect(R.includes(4, arr)).toBeFalsy()
+})
+
+test('return false if input is falsy', () => {
+  expect(includes(2, null)).toBeFalsy()
+  expect(() => R.includes(2, null)).toThrow()
+  expect(includes(4, undefined)).toBeFalsy()
+  expect(() => R.includes(4, undefined)).toThrow()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.includes source
 </summary>
 
 ```javascript
@@ -1709,8 +3232,6 @@ export function includes(target, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/includes.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.includes('oo'%2C%20'foo')%20%2F%2F%20%3D%3E%20true%0AR.includes(%7Ba%3A%201%7D%2C%20%5B%7Ba%3A%201%7D%5D)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
@@ -1735,6 +3256,31 @@ R.indexBy tests
 </summary>
 
 ```javascript
+import { indexBy } from './indexBy'
+import { prop } from './prop'
+
+test('indexBy', () => {
+  const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
+
+  expect(indexBy(prop('id'))(list)).toEqual({
+    1  : { id : 1 },
+    2  : { id : 2 },
+    10 : { id : 10 },
+    a  : { id : 'a' },
+  })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.indexBy source
+</summary>
+
+```javascript
 export function indexBy(fn, list){
   if (arguments.length === 1) return _list => indexBy(fn, _list)
 
@@ -1750,8 +3296,6 @@ export function indexBy(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/indexBy.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20%5B%20%7Bid%3A%201%7D%2C%20%7Bid%3A%202%7D%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%201%3A%20%7Bid%3A%201%7D%2C%202%3A%20%7Bid%3A%202%7D%20%7D">Try in REPL</a>
 
@@ -1774,6 +3318,25 @@ R.indexOf tests
 </summary>
 
 ```javascript
+import { indexOf } from './indexOf'
+
+test('indexOf', () => {
+  expect(indexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
+
+  expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.indexOf source
+</summary>
+
+```javascript
 export function indexOf(target, list){
   if (arguments.length === 1) return _list => indexOf(target, _list)
 
@@ -1792,8 +3355,6 @@ export function indexOf(target, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/indexOf.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.indexOf(1%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%200%0AR.indexOf(0%2C%20%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20-1">Try in REPL</a>
 
@@ -1816,6 +3377,47 @@ R.init tests
 </summary>
 
 ```javascript
+import { compose } from './compose'
+import { tail } from './tail'
+import { init } from './init'
+import { flatten } from './flatten'
+
+test('init', () => {
+  expect(
+    compose(
+      tail,
+      init,
+      flatten
+    )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])
+  ).toEqual([ 2, 3 ])
+
+  expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
+  expect(init([ 1, 2 ])).toEqual([ 1 ])
+  expect(init([ 1 ])).toEqual([])
+  expect(init([])).toEqual([])
+
+  expect(init([])).toEqual([])
+
+  expect(init([ 1 ])).toEqual([])
+
+  expect(init('foo')).toEqual('fo')
+
+  expect(init('f')).toEqual('')
+
+  expect(init('')).toEqual('')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.init source
+</summary>
+
+```javascript
 import baseSlice from './internal/baseSlice'
 
 export function init(list){
@@ -1827,8 +3429,6 @@ export function init(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/init.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.init(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D%0AR.init('foo')%20%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
 
@@ -1851,6 +3451,63 @@ R.is tests
 </summary>
 
 ```javascript
+import { is } from './is'
+
+test('works with built-in types', () => {
+  expect(is(Array, undefined)).toBeFalsy()
+  expect(is(Array)([])).toBeTruthy()
+  expect(is(Boolean, new Boolean(false))).toBeTruthy()
+  expect(is(Date, new Date())).toBeTruthy()
+  expect(is(Function, () => {})).toBeTruthy()
+  expect(is(Number, new Number(0))).toBeTruthy()
+  expect(is(Object, {})).toBeTruthy()
+  expect(is(RegExp, /(?:)/)).toBeTruthy()
+  expect(is(String, new String(''))).toBeTruthy()
+})
+
+test('works with user-defined types', () => {
+  function Foo(){}
+  function Bar(){}
+  Bar.prototype = new Foo()
+
+  const foo = new Foo()
+  const bar = new Bar()
+
+  expect(is(Foo, foo)).toBeTruthy()
+  expect(is(Bar, bar)).toBeTruthy()
+  expect(is(Foo, bar)).toBeTruthy()
+  expect(is(Bar, foo)).toBeFalsy()
+})
+
+test('does not coerce', () => {
+  expect(is(Boolean, 1)).toBeFalsy()
+  expect(is(Number, '1')).toBeFalsy()
+  expect(is(Number, false)).toBeFalsy()
+})
+
+test('recognizes primitives as their object equivalents', () => {
+  expect(is(Boolean, false)).toBeTruthy()
+  expect(is(Number, 0)).toBeTruthy()
+  expect(is(String, '')).toBeTruthy()
+})
+
+test('does not consider primitives to be instances of Object', () => {
+  expect(is(Object, false)).toBeFalsy()
+  expect(is(Object, 0)).toBeFalsy()
+  expect(is(Object, '')).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.is source
+</summary>
+
+```javascript
 export function is(ctor, val){
   if (arguments.length === 1) return _val => is(ctor, _val)
 
@@ -1863,8 +3520,6 @@ export function is(ctor, val){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/is.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.is(String%2C%20'foo')%20%20%2F%2F%20%3D%3E%20true%0AR.is(Array%2C%201)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -1887,6 +3542,27 @@ R.isNil tests
 </summary>
 
 ```javascript
+import { isNil } from './isNil'
+
+test('', () => {
+  expect(isNil(null)).toBeTruthy()
+
+  expect(isNil(undefined)).toBeTruthy()
+
+  expect(isNil([])).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.isNil source
+</summary>
+
+```javascript
 export function isNil(x){
   return x === undefined || x === null
 }
@@ -1894,8 +3570,6 @@ export function isNil(x){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/isNil.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.isNil(null)%20%20%2F%2F%20%3D%3E%20true%0AR.isNil(1)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -1930,6 +3604,29 @@ R.join tests
 </summary>
 
 ```javascript
+import { join } from './join'
+
+test('curry', () => {
+  expect(join('|')([ 'foo', 'bar', 'baz' ])).toEqual('foo|bar|baz')
+
+  expect(join('|', [ 1, 2, 3 ])).toEqual('1|2|3')
+
+  const spacer = join(' ')
+
+  expect(spacer([ 'a', 2, 3.4 ])).toEqual('a 2 3.4')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.join source
+</summary>
+
+```javascript
 export function join(separator, list){
   if (arguments.length === 1) return _list => join(separator, _list)
 
@@ -1940,8 +3637,6 @@ export function join(separator, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/join.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try in REPL</a>
 
 ---
@@ -1949,24 +3644,9 @@ export function join(separator, list){
 
 > keys(x: Object): string[]
 
-```javascript
+```
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
-
-<details>
-
-<summary>
-R.keys tests
-</summary>
-
-```javascript
-export function keys(obj){
-  return Object.keys(obj)
-}
-
-```
-
-</details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/keys.js)
 
@@ -1991,6 +3671,35 @@ R.last tests
 </summary>
 
 ```javascript
+import { compose } from './compose'
+import { last } from './last'
+import { map } from './map'
+
+test('last', () => {
+  expect(
+    compose(
+      last,
+      map(last)
+    )([ 'foo', 'bar', 'baz' ])
+  ).toEqual('z')
+
+  expect(last([ 'foo', 'bar', 'baz' ])).toEqual('baz')
+  expect(last([])).toEqual(undefined)
+  expect(last('abc')).toEqual('c')
+  expect(last('')).toEqual('')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.last source
+</summary>
+
+```javascript
 export function last(list){
   if (typeof list === 'string') return list[ list.length - 1 ] || ''
 
@@ -2000,8 +3709,6 @@ export function last(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/last.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.last(%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20'baz'%0AR.last('foo')%20%2F%2F%20%3D%3E%20'o'">Try in REPL</a>
 
@@ -2028,6 +3735,33 @@ R.lastIndexOf tests
 </summary>
 
 ```javascript
+import { lastIndexOf } from './lastIndexOf'
+
+test('', () => {
+  const a = lastIndexOf(1, [ 1, 2, 3, 1, 2 ])
+  const b = lastIndexOf(1)([ 1, 2, 3, 1, 2 ])
+
+  expect(a).toEqual(3)
+  expect(b).toEqual(3)
+})
+
+test('false', () => {
+  const a = lastIndexOf(10, [ 1, 2, 3, 1, 2 ])
+
+  expect(a).toEqual(-1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.lastIndexOf source
+</summary>
+
+```javascript
 import { equals } from './equals'
 
 export function lastIndexOf(target, list){
@@ -2048,8 +3782,6 @@ export function lastIndexOf(target, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/lastIndexOf.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.lastIndexOf(1%2C%20%5B1%2C%202%2C%203%2C%201%2C%202%5D)%20%2F%2F%20%3D%3E%203%0AR.lastIndexOf(10%2C%20%5B1%2C%202%2C%203%2C%201%2C%202%5D)%20%2F%2F%20%3D%3E%20-1">Try in REPL</a>
 
 ---
@@ -2068,6 +3800,25 @@ R.length tests
 </summary>
 
 ```javascript
+import { length } from './length'
+
+test('test', () => {
+  expect(length('foo')).toEqual(3)
+  expect(length([ 1, 2, 3 ])).toEqual(3)
+  expect(length([])).toEqual(0)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.length source
+</summary>
+
+```javascript
 export function length(list){
   return list.length
 }
@@ -2075,8 +3826,6 @@ export function length(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/length.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.length(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%203">Try in REPL</a>
 
@@ -2106,6 +3855,84 @@ const result = R.map((val, prop)=>{
 
 <summary>
 R.map tests
+</summary>
+
+```javascript
+import { map } from './map'
+
+const double = x => x * 2
+
+const sampleObject = {
+  a : 1,
+  b : 2,
+  c : 3,
+  d : 4,
+}
+
+test('with array', () => {
+  expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
+})
+
+test('pass index as second argument', () => {
+  let counter = 0
+  map(
+    (x, i) => {
+      expect(i).toBe(counter)
+      counter++
+    },
+    [ 10, 20, 30 ]
+  )
+})
+
+test('with object', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+
+  expect(map(double, obj)).toEqual({
+    a : 2,
+    b : 4,
+  })
+})
+
+test('pass input object as third argument', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+  }
+  const iterator = (val, prop, inputObject) => {
+    expect(inputObject).toEqual(obj)
+
+    return val * 2
+  }
+  expect(map(iterator, obj)).toEqual({
+    a : 2,
+    b : 4,
+  })
+})
+
+test('with object passes property as second argument', () => {
+  map((_, prop) => {
+    expect(typeof prop).toEqual('string')
+  })(sampleObject)
+})
+
+/**
+ * https://github.com/selfrefactor/rambda/issues/77
+ */
+test('when undefined instead of array', () => {
+  expect(map(double, undefined)).toEqual([])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.map source
 </summary>
 
 ```javascript
@@ -2144,8 +3971,6 @@ export function map(fn, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/map.js)
-
 <a href="https://rambda.now.sh?const%20mapFn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20resultWithArray%20%3D%20R.map(mapFn%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%2C%206%5D%0A%0Aconst%20result%20%3D%20R.map((val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try in REPL</a>
 
 ---
@@ -2164,6 +3989,29 @@ R.match tests
 </summary>
 
 ```javascript
+import { match } from './match'
+
+test('', () => {
+  expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
+
+  expect(match(/a./g)('foo')).toEqual([])
+
+  expect(() => {
+    match(/a./g, null)
+  }).toThrow()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.match source
+</summary>
+
+```javascript
 export function match(pattern, str){
   if (arguments.length === 1) return _str => match(pattern, _str)
 
@@ -2175,8 +4023,6 @@ export function match(pattern, str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/match.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%20%2F%2F%20%3D%3E%20%5B'ba'%2C%20'na'%2C%20'na'%5D">Try in REPL</a>
 
@@ -2196,6 +4042,23 @@ R.max tests
 </summary>
 
 ```javascript
+import { max } from './max'
+
+test('max', () => {
+  expect(max(2, 1)).toBe(2)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.max source
+</summary>
+
+```javascript
 export function max(a, b){
   if (arguments.length === 1) return _b => max(a, _b)
 
@@ -2205,8 +4068,6 @@ export function max(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/max.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%207">Try in REPL</a>
 
@@ -2226,6 +4087,39 @@ R.maxBy tests
 </summary>
 
 ```javascript
+import { maxBy } from './maxBy'
+
+test('1', () => {
+  expect(maxBy(Math.round, 0.66, 0.77)).toEqual(0.66)
+})
+
+test('2', () => {
+  expect(maxBy(Math.round, 0.77, 0.66)).toEqual(0.77)
+})
+
+test('3', () => {
+  expect(maxBy(Math.round)(0.77, 0.66)).toEqual(0.77)
+})
+
+test('4', () => {
+  expect(maxBy(Math.round, 0.77)(0.66)).toEqual(0.77)
+})
+
+test('5', () => {
+  expect(maxBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(0.66)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.maxBy source
+</summary>
+
+```javascript
 export function maxBy(fn, a, b){
   if (arguments.length === 2){
     return _b => maxBy(fn, a, _b)
@@ -2239,8 +4133,6 @@ export function maxBy(fn, a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/maxBy.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.maxBy(Math.abs%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try in REPL</a>
 
@@ -2263,6 +4155,41 @@ R.merge tests
 </summary>
 
 ```javascript
+import { merge } from './merge'
+
+const sample = {
+  foo : 'bar',
+  bar : 'bar',
+}
+
+test('merge', () => {
+  expect(merge(sample)({ bar : 'baz' })).toEqual({
+    foo : 'bar',
+    bar : 'baz',
+  })
+})
+
+/**
+ * https://github.com/selfrefactor/rambda/issues/77
+ */
+test('when undefined or null instead of object', () => {
+  expect(merge(null, undefined)).toEqual({})
+  expect(merge(sample, null)).toEqual(sample)
+  expect(merge(sample, undefined)).toEqual(sample)
+  expect(merge(undefined, sample)).toEqual(sample)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.merge source
+</summary>
+
+```javascript
 export function merge(obj, props){
   if (arguments.length === 1) return _props => merge(obj, _props)
 
@@ -2272,8 +4199,6 @@ export function merge(obj, props){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/merge.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.merge(%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%2C%20%7B%20'foo'%3A%207%20%7D)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try in REPL</a>
 
@@ -2293,6 +4218,24 @@ R.min tests
 </summary>
 
 ```javascript
+import { min } from './min'
+
+test('', () => {
+  expect(min(2, 1)).toBe(1)
+  expect(min(2)(1)).toBe(1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.min source
+</summary>
+
+```javascript
 export function min(a, b){
   if (arguments.length === 1) return _b => min(a, _b)
 
@@ -2302,8 +4245,6 @@ export function min(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
 
@@ -2323,6 +4264,39 @@ R.minBy tests
 </summary>
 
 ```javascript
+import { minBy } from './minBy'
+
+test('1', () => {
+  expect(minBy(Math.round, 0.66, 0.77)).toEqual(0.66)
+})
+
+test('2', () => {
+  expect(minBy(Math.round, 0.77, 0.66)).toEqual(0.77)
+})
+
+test('3', () => {
+  expect(minBy(Math.round)(0.77, 0.66)).toEqual(0.77)
+})
+
+test('4', () => {
+  expect(minBy(Math.round, 0.77)(0.66)).toEqual(0.77)
+})
+
+test('5', () => {
+  expect(minBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.minBy source
+</summary>
+
+```javascript
 export function minBy(fn, a, b){
   if (arguments.length === 2){
     return _b => minBy(fn, a, _b)
@@ -2336,8 +4310,6 @@ export function minBy(fn, a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/minBy.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.minBy(Math.abs%2C%20-5%2C%20-7)%20%2F%2F%20%3D%3E%20-5">Try in REPL</a>
 
@@ -2359,6 +4331,24 @@ R.modulo tests
 </summary>
 
 ```javascript
+import { modulo } from './modulo'
+
+test('', () => {
+  expect(modulo(17, 3)).toEqual(2)
+  expect(modulo(15)(6)).toEqual(3)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.modulo source
+</summary>
+
+```javascript
 export function modulo(a, b){
   if (arguments.length === 1) return _b => modulo(a, _b)
 
@@ -2368,8 +4358,6 @@ export function modulo(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/modulo.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.module(14%2C%203)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
 
@@ -2391,6 +4379,24 @@ R.multiply tests
 </summary>
 
 ```javascript
+import { multiply } from './multiply'
+
+test('', () => {
+  expect(multiply(2, 4)).toEqual(8)
+  expect(multiply(2)(4)).toEqual(8)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.multiply source
+</summary>
+
+```javascript
 export function multiply(a, b){
   if (arguments.length === 1) return _b => multiply(a, _b)
 
@@ -2400,8 +4406,6 @@ export function multiply(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/multiply.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.multiply(4%2C%203)%20%2F%2F%20%3D%3E%2012">Try in REPL</a>
 
@@ -2426,6 +4430,26 @@ R.not tests
 </summary>
 
 ```javascript
+import { not } from './not'
+
+test('not', () => {
+  expect(not(false)).toEqual(true)
+  expect(not(true)).toEqual(false)
+  expect(not(0)).toEqual(true)
+  expect(not(1)).toEqual(false)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.not source
+</summary>
+
+```javascript
 export function not(a){
   return !a
 }
@@ -2433,8 +4457,6 @@ export function not(a){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/not.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.not(true)%20%2F%2F%3D%3E%20false%0AR.not(false)%20%2F%2F%3D%3E%20true%0AR.not(0)%20%2F%2F%3D%3E%20true%0AR.not(1)%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
@@ -2453,6 +4475,59 @@ R.omit('a,c,d', {a: 1, b: 2, c: 3}) // => {b: 2}
 
 <summary>
 R.omit tests
+</summary>
+
+```javascript
+import { omit } from './omit'
+
+test('with string as condition', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+  const result = omit('a,c', obj)
+  const resultCurry = omit('a,c')(obj)
+  const expectedResult = { b : 2 }
+
+  expect(result).toEqual(expectedResult)
+  expect(resultCurry).toEqual(expectedResult)
+})
+
+test('with null', () => {
+  expect(omit('a,b', null)).toEqual(undefined)
+})
+
+test('doesn\'t work with number as property', () => {
+  expect(
+    omit([ 42 ], {
+      a  : 1,
+      42 : 2,
+    })
+  ).toEqual({
+    42 : 2,
+    a  : 1,
+  })
+})
+
+test('', () => {
+  expect(
+    omit([ 'a', 'c' ])({
+      a : 'foo',
+      b : 'bar',
+      c : 'baz',
+    })
+  ).toEqual({ b : 'bar' })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.omit source
 </summary>
 
 ```javascript
@@ -2481,8 +4556,6 @@ export function omit(keys, obj){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/omit.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.omit('a%2Cc%2Cd'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%20%2F%2F%20%3D%3E%20%7Bb%3A%202%7D">Try in REPL</a>
 
 ---
@@ -2502,6 +4575,51 @@ R.path('a.b', {a: {b: 1}}) // => 1
 
 <summary>
 R.path tests
+</summary>
+
+```javascript
+import { path } from './path'
+
+test('with array inside object', () => {
+  const obj = { a : { b : [ 1, { c : 1 } ] } }
+
+  expect(path('a.b.1.c', obj)).toBe(1)
+})
+
+test('works with undefined', () => {
+  const obj = { a : { b : { c : 1 } } }
+
+  expect(path('a.b.c.d.f', obj)).toBeUndefined()
+  expect(path('foo.babaz', undefined)).toBeUndefined()
+  expect(path('foo.babaz')(undefined)).toBeUndefined()
+})
+
+test('works with string instead of array', () => {
+  expect(
+    path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })
+  ).toEqual('yes')
+})
+
+test('path', () => {
+  expect(
+    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })
+  ).toEqual('yes')
+
+  expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
+
+  expect(
+    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })
+  ).toBeUndefined()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.path source
 </summary>
 
 ```javascript
@@ -2531,8 +4649,6 @@ export function path(list, obj){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/path.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.path('a.b'%2C%20%7Ba%3A%20%7Bb%3A%201%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
@@ -2559,6 +4675,55 @@ R.pathOr tests
 </summary>
 
 ```javascript
+import { pathOr } from './pathOr'
+
+test('with undefined', () => {
+  const result = pathOr('foo', 'x.y', { x : { y : 1 } })
+
+  expect(result).toEqual(1)
+})
+
+test('with null', () => {
+  const result = pathOr('foo', 'x.y', null)
+
+  expect(result).toEqual('foo')
+})
+
+test('with NaN', () => {
+  const result = pathOr('foo', 'x.y', NaN)
+
+  expect(result).toEqual('foo')
+})
+
+test('curry case (x)(y)(z)', () => {
+  const result = pathOr('foo')('x.y.z')({ x : { y : { a : 1 } } })
+
+  expect(result).toEqual('foo')
+})
+
+test('curry case (x)(y,z)', () => {
+  const result = pathOr('foo', 'x.y.z')({ x : { y : { a : 1 } } })
+
+  expect(result).toEqual('foo')
+})
+
+test('curry case (x,y)(z)', () => {
+  const result = pathOr('foo')('x.y.z', { x : { y : { a : 1 } } })
+
+  expect(result).toEqual('foo')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.pathOr source
+</summary>
+
+```javascript
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
@@ -2568,8 +4733,6 @@ export const pathOr = curry(pathOrRaw)
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/pathOr.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.pathOr(1%2C%20'a.b'%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%202%0AR.pathOr(1%2C%20%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%20%7Bb%3A%202%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
@@ -2621,6 +4784,74 @@ R.partialCurry tests
 </summary>
 
 ```javascript
+import { type } from './type'
+import { partialCurry } from './partialCurry'
+
+test('', () => {
+  const fn = ({ a, b, c }) => a + b + c
+  const curried = partialCurry(fn, { a : 1 })
+
+  expect(type(curried)).toEqual('Function')
+  expect(
+    curried({
+      b : 2,
+      c : 3,
+    })
+  ).toEqual(6)
+  expect(true).toBeTruthy()
+})
+
+test('with promise', done => {
+  const delay = ({ ms, x }) =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(x * 2)
+      }, ms)
+    })
+
+  const curried = partialCurry(delay, { ms : 200 })
+
+  curried({ x : 3 }).then(result => {
+    expect(type(curried)).toEqual('Function')
+    done()
+  })
+})
+
+test('with async', async () => {
+  const delay = ms =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, ms)
+    })
+
+  const fn = async ({ a, b, c }) => {
+    await delay(100)
+
+    return a + b + c
+  }
+
+  const curried = partialCurry(fn, { a : 1 })
+
+  const result = await curried({
+    b : 2,
+    c : 3,
+  })
+
+  expect(result).toEqual(6)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.partialCurry source
+</summary>
+
+```javascript
 import { merge } from './merge'
 import { type } from './type'
 
@@ -2646,8 +4877,6 @@ export function partialCurry(fn, args = {}){
 
 - You can read my argumentation for creating _partialCurry_ [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/partialCurry.js)
-
 <a href="https://rambda.now.sh?const%20fn%20%3D%20(%7Ba%2C%20b%2C%20c%7D)%20%3D%3E%20%7B%0A%20%20return%20(a%20*%20b)%20%2B%20c%0A%7D%0Aconst%20curried%20%3D%20R.partialCurry(fn%2C%20%7Ba%3A%202%7D)%0Aconst%20result%20%3D%20curried(%7Bb%3A%203%2C%20c%3A%2010%7D)%0A%2F%2F%20%3D%3E%2016">Try in REPL</a>
 
 ---
@@ -2665,6 +4894,59 @@ R.pick(['a', 'c'], {a: 1, b: 2}) // => {a: 1}
 
 <summary>
 R.pick tests
+</summary>
+
+```javascript
+import { pick } from './pick'
+
+test('pick with string as condition', () => {
+  const obj = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+  const result = pick('a,c', obj)
+  const resultCurry = pick('a,c')(obj)
+  const expectedResult = {
+    a : 1,
+    c : 3,
+  }
+
+  expect(result).toEqual(expectedResult)
+  expect(resultCurry).toEqual(expectedResult)
+})
+
+test('pick', () => {
+  expect(
+    pick([ 'a', 'c' ])({
+      a : 'foo',
+      b : 'bar',
+      c : 'baz',
+    })
+  ).toEqual({
+    a : 'foo',
+    c : 'baz',
+  })
+
+  expect(
+    pick([ 'a', 'd', 'e', 'f' ])({
+      a : 'foo',
+      b : 'bar',
+      c : 'baz',
+    })
+  ).toEqual({ a : 'foo' })
+
+  expect(pick('a,d,e,f')(null)).toEqual(undefined)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.pick source
 </summary>
 
 ```javascript
@@ -2694,8 +4976,6 @@ export function pick(keys, obj){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/pick.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.pick(%5B'a'%2C%20'c'%5D%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Ba%3A%201%7D">Try in REPL</a>
 
 ---
@@ -2721,6 +5001,32 @@ R.pipe tests
 </summary>
 
 ```javascript
+import { pipe } from './pipe'
+import { map } from './map'
+import { add } from './add'
+import { last } from './last'
+
+test('pipe', () => {
+  const result = pipe(
+    map(add(1)),
+    map(add(10)),
+    last
+  )([ 1, 2, 3 ])
+
+  expect(result).toEqual(14)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.pipe source
+</summary>
+
+```javascript
 import { compose } from './compose'
 
 export function pipe(...fns){
@@ -2730,8 +5036,6 @@ export function pipe(...fns){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/pipe.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%20%20R.filter(val%20%3D%3E%20val%20%3E%202)%2C%0A%20%20R.map(a%20%3D%3E%20a%20*%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try in REPL</a>
 
@@ -2750,6 +5054,29 @@ R.pluck('a')([{a: 1}, {a: 2}, {b: 3}]) // => [1, 2]
 
 <summary>
 R.pluck tests
+</summary>
+
+```javascript
+import { pluck } from './pluck'
+
+test('', () => {
+  expect(pluck('a')([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ 1, 2 ])
+})
+
+test('with number', () => {
+  const input = [ [ 1, 2 ], [ 3, 4 ] ]
+
+  expect(pluck(0, input)).toEqual([ 1, 3 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.pluck source
 </summary>
 
 ```javascript
@@ -2773,8 +5100,6 @@ export function pluck(key, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/pluck.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.pluck('a')(%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
 ---
@@ -2795,6 +5120,34 @@ R.prepend tests
 </summary>
 
 ```javascript
+import { prepend } from './prepend'
+
+test('', () => {
+  expect(prepend('f', 'oo')).toEqual('foo')
+})
+
+test('prepend', () => {
+  expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([
+    'yes',
+    'foo',
+    'bar',
+    'baz',
+  ])
+
+  expect(prepend('foo')([])).toEqual([ 'foo' ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.prepend source
+</summary>
+
+```javascript
 export function prepend(el, list){
   if (arguments.length === 1) return _list => prepend(el, _list)
 
@@ -2808,8 +5161,6 @@ export function prepend(el, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/prepend.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.prepend('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try in REPL</a>
 
@@ -2832,6 +5183,27 @@ R.prop tests
 </summary>
 
 ```javascript
+import { prop } from './prop'
+
+test('prop', () => {
+  expect(prop('foo')({ foo : 'baz' })).toEqual('baz')
+
+  expect(prop('bar')({ foo : 'baz' })).toEqual(undefined)
+
+  expect(prop('bar')(null)).toEqual(undefined)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.prop source
+</summary>
+
+```javascript
 export function prop(key, obj){
   if (arguments.length === 1) return _obj => prop(key, _obj)
 
@@ -2843,8 +5215,6 @@ export function prop(key, obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/prop.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.prop('x'%2C%20%7Bx%3A%20100%7D)%20%2F%2F%20%3D%3E%20100%0AR.prop('x'%2C%20%7Ba%3A%201%7D)%20%2F%2F%20%3D%3E%20undefined">Try in REPL</a>
 
@@ -2870,6 +5240,27 @@ R.propEq tests
 </summary>
 
 ```javascript
+import { propEq } from './propEq'
+
+test('propEq', () => {
+  expect(propEq('foo', 'bar')({ foo : 'bar' })).toBeTruthy()
+
+  expect(propEq('foo', 'bar')({ foo : 'baz' })).toBeFalsy()
+
+  expect(propEq('foo')('bar')({ foo : 'baz' })).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.propEq source
+</summary>
+
+```javascript
 export function propEq(key, val, obj){
   if (val === undefined){
     return (_val, _obj) => propEq(key, _val, _obj)
@@ -2883,8 +5274,6 @@ export function propEq(key, val, obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/propEq.js)
 
 <a href="https://rambda.now.sh?const%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%200%0A%0Aconst%20result%20%3D%20R.propEq(propToFind%2C%20valueToMatch)(%7Bfoo%3A%200%7D)%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
@@ -2908,6 +5297,31 @@ R.propIs tests
 </summary>
 
 ```javascript
+import { propIs } from './propIs'
+
+test('1', () => {
+  expect(propIs(Number, 'value', { value : 1 })).toEqual(true)
+})
+
+test('2', () => {
+  expect(propIs(String, 'value', { value : 1 })).toEqual(false)
+})
+
+test('3', () => {
+  expect(propIs(String)('value')({})).toEqual(false)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.propIs source
+</summary>
+
+```javascript
 import { is } from './is'
 import { curry } from './curry.js'
 
@@ -2916,8 +5330,6 @@ export const propIs = curry(propIsFn)
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/propIs.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.propIs(Number%2C%20'x'%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%3B%20%20%2F%2F%3D%3E%20true%0AR.propIs(Number%2C%20'x'%2C%20%7Bx%3A%20'foo'%7D)%3B%20%20%20%20%2F%2F%3D%3E%20false%0AR.propIs(Number%2C%20'x'%2C%20%7B%7D)%3B%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%3D%3E%20false">Try in REPL</a>
 
@@ -2955,6 +5367,27 @@ R.range tests
 </summary>
 
 ```javascript
+import { range } from './range'
+
+test('1', () => {
+  expect(range(0, 10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
+})
+
+test('2', () => {
+  expect(range(0)(10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.range source
+</summary>
+
+```javascript
 export function range(from, to){
   if (arguments.length === 1) return _to => range(from, _to)
 
@@ -2971,8 +5404,6 @@ export function range(from, to){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/range.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.range(0%2C%203)%20%20%20%2F%2F%20%3D%3E%20%5B0%2C%201%2C%202%5D">Try in REPL</a>
 
@@ -2994,6 +5425,49 @@ R.reduce tests
 </summary>
 
 ```javascript
+import { compose } from './compose'
+import { reduce } from './reduce'
+import { map } from './map'
+import { curry } from './curry'
+
+test('happy', () => {
+  const result = reduce((acc, val, i) => {
+    expect(typeof i).toBe('number')
+
+    return acc + val
+  })(1)([ 1, 2, 3 ])
+
+  expect(result).toEqual(7)
+})
+
+test('with compose', () => {
+  const convertToString = (acc, value) => acc + value
+
+  expect(
+    compose(
+      reduce(convertToString, ''),
+      map(x => x + 1)
+    )([ 1, 2, 3 ])
+  ).toEqual('234')
+})
+
+test('with curry', () => {
+  const add = curry((n, n2) => n + n2)
+
+  expect(reduce(add, 0, [ 1, 2, 3 ])).toEqual(6)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.reduce source
+</summary>
+
+```javascript
 import { curry } from './curry'
 
 export const reduce = curry(reduceFn)
@@ -3001,8 +5475,6 @@ export const reduce = curry(reduceFn)
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/reduce.js)
 
 <a href="https://rambda.now.sh?const%20iteratorFn%20%3D%20(acc%2C%20val)%20%3D%3E%20acc%20%2B%20val%0Aconst%20result%20%3D%20R.reduce(iteratorFn%2C%201%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%207">Try in REPL</a>
 
@@ -3029,6 +5501,68 @@ R.reject tests
 </summary>
 
 ```javascript
+import { reject } from './reject'
+import { compose } from './compose'
+import { add } from './add'
+import { map } from './map'
+import { equals } from './equals'
+
+const isOdd = n => n % 2 === 1
+
+test('returns items that DO NOT match predicate from array', () => {
+  expect(reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+})
+
+test('returns items that DO NOT match predicate from object', () => {
+  expect(
+    reject(isOdd, {
+      a : 1,
+      b : 2,
+      c : 3,
+      d : 4,
+    })
+  ).toEqual({
+    b : 2,
+    d : 4,
+  })
+})
+
+test('should work with currying', () => {
+  const result = compose(
+    reject(equals(2)),
+    map(add(1))
+  )({
+    a : 1,
+    b : 2,
+    c : 3,
+  })
+
+  expect(result).toEqual({
+    b : 3,
+    c : 4,
+  })
+})
+
+test('pass index as second argument', () => {
+  reject(
+    (x, i) => {
+      expect(typeof x).toBe('number')
+      expect(typeof i).toBe('number')
+    }
+  )([ 10, 12, 15 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.reject source
+</summary>
+
+```javascript
 import { filter } from './filter'
 
 export function reject(fn, list){
@@ -3040,8 +5574,6 @@ export function reject(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/reject.js)
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.reject(fn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
 
@@ -3061,6 +5593,31 @@ R.repeat tests
 </summary>
 
 ```javascript
+import { repeat } from './repeat'
+
+test('repeat', () => {
+  expect(repeat('')(3)).toEqual([ '', '', '' ])
+  expect(repeat('foo', 3)).toEqual([ 'foo', 'foo', 'foo' ])
+
+  const obj = {}
+  const arr = repeat(obj, 3)
+
+  expect(arr).toEqual([ {}, {}, {} ])
+
+  expect(arr[ 0 ] === arr[ 1 ]).toBeTruthy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.repeat source
+</summary>
+
+```javascript
 export function repeat(val, n){
   if (arguments.length === 1) return _n => repeat(val, _n)
 
@@ -3072,8 +5629,6 @@ export function repeat(val, n){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/repeat.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.repeat('foo'%2C%202)%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'foo'%5D">Try in REPL</a>
 
@@ -3097,6 +5652,29 @@ R.replace tests
 </summary>
 
 ```javascript
+import { replace } from './replace'
+
+test('', () => {
+  expect(replace('foo', 'yes', 'foo bar baz')).toEqual(
+    'yes bar baz'
+  )
+
+  expect(replace(/\s/g)('|')('foo bar baz')).toEqual('foo|bar|baz')
+  expect(replace(/\s/g)('|', 'foo bar baz')).toEqual('foo|bar|baz')
+  expect(replace(/\s/g, '|')('foo bar baz')).toEqual('foo|bar|baz')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.replace source
+</summary>
+
+```javascript
 export function replace(pattern, replacer, str){
   if (replacer === undefined){
     return (_replacer, _str) => replace(pattern, _replacer, _str)
@@ -3110,8 +5688,6 @@ export function replace(pattern, replacer, str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/replace.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.replace('foo'%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20foo'%0AR.replace(%2Ffoo%2F%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20foo'%0AR.replace(%2Ffoo%2Fg%2C%20'bar'%2C%20'foo%20foo')%20%2F%2F%20%3D%3E%20'bar%20bar'">Try in REPL</a>
 
@@ -3134,6 +5710,31 @@ R.reverse tests
 </summary>
 
 ```javascript
+import { reverse } from './reverse'
+
+test('', () => {
+  expect(reverse([ 1, 2, 3 ])).toEqual([ 3, 2, 1 ])
+})
+
+test('it doesn\'t mutate', () => {
+  const arr = [ 1, 2, 3 ]
+
+  expect(reverse(arr)).toEqual([ 3, 2, 1 ])
+
+  expect(arr).toEqual([ 1, 2, 3 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.reverse source
+</summary>
+
+```javascript
 export function reverse(list){
   const clone = list.concat()
 
@@ -3143,8 +5744,6 @@ export function reverse(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/reverse.js)
 
 <a href="https://rambda.now.sh?const%20arr%20%3D%20%5B1%2C%202%5D%0A%0Aconst%20result%20%3D%20R.reverse(arr)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try in REPL</a>
 
@@ -3185,6 +5784,39 @@ R.sort tests
 </summary>
 
 ```javascript
+import { sort } from './sort'
+
+const fn = (a, b) => a > b ? 1 : -1
+
+test('sort', () => {
+  expect(sort((a, b) => a - b)([ 2, 3, 1 ])).toEqual([ 1, 2, 3 ])
+})
+
+test('it doesn\'t mutate', () => {
+  const list = [ 'foo', 'bar', 'baz' ]
+
+  expect(sort(fn, list)).toEqual([
+    'bar',
+    'baz',
+    'foo',
+  ])
+
+  expect(list[ 0 ]).toBe('foo')
+  expect(list[ 1 ]).toBe('bar')
+  expect(list[ 2 ]).toBe('baz')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.sort source
+</summary>
+
+```javascript
 export function sort(fn, list){
   if (arguments.length === 1) return _list => sort(fn, _list)
 
@@ -3196,8 +5828,6 @@ export function sort(fn, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/sort.js)
 
 <a href="https://rambda.now.sh?const%20sortFn%20%3D%20(a%2C%20b)%20%3D%3E%20a%20-%20b%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20%5B3%2C%201%2C%202%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try in REPL</a>
 
@@ -3230,6 +5860,66 @@ R.sortBy tests
 </summary>
 
 ```javascript
+import { compose } from './compose'
+import { toLower } from './toLower'
+import { prop } from './prop'
+import { sortBy } from './sortBy'
+
+test('sortBy', () => {
+  const sortByNameCaseInsensitive = sortBy(
+    compose(
+      toLower,
+      prop('name')
+    )
+  )
+  const alice = {
+    name : 'ALICE',
+    age  : 101,
+  }
+  const bob = {
+    name : 'Bob',
+    age  : -10,
+  }
+  const clara = {
+    name : 'clara',
+    age  : 314.159,
+  }
+  const people = [ clara, bob, alice ]
+
+  expect(sortByNameCaseInsensitive(people)).toEqual([
+    alice,
+    bob,
+    clara,
+  ])
+
+  expect(
+    sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])
+  ).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
+
+  expect(
+    sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])
+  ).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
+
+  expect(
+    sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])
+  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+
+  expect(
+    sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])
+  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.sortBy source
+</summary>
+
+```javascript
 export function sortBy(fn, list){
   if (arguments.length === 1) return _list => sortBy(fn, _list)
 
@@ -3249,8 +5939,6 @@ export function sortBy(fn, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/sortBy.js)
-
 <a href="https://rambda.now.sh?const%20sortFn%20%3D%20obj%20%3D%3E%20obj.foo%0A%0Aconst%20result%20%3D%20R.sortBy(sortFn%2C%20%5B%0A%20%20%7Bfoo%3A%201%7D%2C%0A%20%20%7Bfoo%3A%200%7D%0A%5D)%0A%0Aconst%20expectedResult%20%3D%20%5B%20%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%20%5D%0Aconsole.log(R.equals(result%2C%20expectedResult))%0A%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
@@ -3269,6 +5957,31 @@ R.split tests
 </summary>
 
 ```javascript
+import { split } from './split'
+
+test('split', () => {
+  expect(split('|')('foo|bar|baz')).toEqual([ 'foo', 'bar', 'baz' ])
+
+  expect(split('.', 'a.b.c.xyz.d')).toEqual([
+    'a',
+    'b',
+    'c',
+    'xyz',
+    'd',
+  ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.split source
+</summary>
+
+```javascript
 export function split(separator, str){
   if (arguments.length === 1) return _str => split(separator, _str)
 
@@ -3278,8 +5991,6 @@ export function split(separator, str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/split.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.split('-'%2C%20'a-b-c')%20%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'c'%5D">Try in REPL</a>
 
@@ -3302,6 +6013,31 @@ R.splitEvery tests
 </summary>
 
 ```javascript
+import { splitEvery } from './splitEvery'
+
+test('', () => {
+  expect(splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])).toEqual([
+    [ 1, 2, 3 ],
+    [ 4, 5, 6 ],
+    [ 7 ],
+  ])
+
+  expect(splitEvery(3)('foobarbaz')).toEqual([ 'foo', 'bar', 'baz' ])
+
+  expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.splitEvery source
+</summary>
+
+```javascript
 export function splitEvery(n, list){
   if (arguments.length === 1) return _list => splitEvery(n, _list)
 
@@ -3320,8 +6056,6 @@ export function splitEvery(n, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/splitEvery.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.splitEvery(2%2C%20%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%0AR.splitEvery(3%2C%20'foobar')%20%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%5D">Try in REPL</a>
 
@@ -3349,6 +6083,31 @@ R.startsWith tests
 </summary>
 
 ```javascript
+import { startsWith } from './startsWith'
+
+test('true', () => {
+  const result = startsWith('foo', 'foo-bar')
+
+  expect(result).toBeTruthy()
+})
+
+test('false', () => {
+  const result = startsWith('baz')('foo-bar')
+
+  expect(result).toBeFalsy()
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.startsWith source
+</summary>
+
+```javascript
 export function startsWith(prefix, list){
   if (arguments.length === 1) return _list => startsWith(prefix, _list)
 
@@ -3358,8 +6117,6 @@ export function startsWith(prefix, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/startsWith.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.startsWith(%0A%20%20'foo'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20true%0A%0AR.startsWith(%0A%20%20'bar'%2C%0A%20%20'foo-bar'%0A)%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
@@ -3379,6 +6136,24 @@ R.subtract tests
 </summary>
 
 ```javascript
+import { subtract } from './subtract'
+
+test('', () => {
+  expect(subtract(2, 1)).toEqual(1)
+  expect(subtract(2)(1)).toEqual(1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.subtract source
+</summary>
+
+```javascript
 export function subtract(a, b){
   if (arguments.length === 1) return _b => subtract(a, _b)
 
@@ -3388,8 +6163,6 @@ export function subtract(a, b){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/subtract.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.subtract(3%2C%201)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
 
@@ -3428,6 +6201,31 @@ R.tail tests
 </summary>
 
 ```javascript
+import { tail } from './tail'
+
+test('tail', () => {
+  expect(tail([ 1, 2, 3 ])).toEqual([ 2, 3 ])
+  expect(tail([ 1, 2 ])).toEqual([ 2 ])
+  expect(tail([ 1 ])).toEqual([])
+  expect(tail([])).toEqual([])
+
+  expect(tail('abc')).toEqual('bc')
+  expect(tail('ab')).toEqual('b')
+  expect(tail('a')).toEqual('')
+  expect(tail('')).toEqual('')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.tail source
+</summary>
+
+```javascript
 import { drop } from './drop'
 
 export function tail(list){
@@ -3437,8 +6235,6 @@ export function tail(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/tail.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.tail(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20%5B2%2C%203%5D%0AR.tail('foo')%20%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
 
@@ -3461,6 +6257,40 @@ R.take tests
 </summary>
 
 ```javascript
+import { take } from './take'
+
+test('take', () => {
+  const arr = [ 'foo', 'bar', 'baz' ]
+
+  expect(take(1, arr)).toEqual([ 'foo' ])
+
+  expect(arr).toEqual([ 'foo', 'bar', 'baz' ])
+
+  expect(take(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar' ])
+  expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+    'baz',
+  ])
+  expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+    'baz',
+  ])
+  expect(take(3)('rambda')).toEqual('ram')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.take source
+</summary>
+
+```javascript
 import baseSlice from './internal/baseSlice'
 
 export function take(n, list){
@@ -3474,8 +6304,6 @@ export function take(n, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/take.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.take(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%5D%0AR.take(2%2C%20'foo')%20%2F%2F%20%3D%3E%20'fo'">Try in REPL</a>
 
@@ -3498,6 +6326,52 @@ R.takeLast tests
 </summary>
 
 ```javascript
+import { takeLast } from './takeLast'
+
+test('with arrays', () => {
+  expect(takeLast(1, [ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
+
+  expect(takeLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([
+    'bar',
+    'baz',
+  ])
+
+  expect(takeLast(3, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+    'baz',
+  ])
+
+  expect(takeLast(4, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+    'baz',
+  ])
+
+  expect(takeLast(10, [ 'foo', 'bar', 'baz' ])).toEqual([
+    'foo',
+    'bar',
+    'baz',
+  ])
+})
+
+test('with strings', () => {
+  expect(takeLast(3, 'rambda')).toEqual('bda')
+
+  expect(takeLast(7, 'rambda')).toEqual('rambda')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.takeLast source
+</summary>
+
+```javascript
 import baseSlice from './internal/baseSlice'
 
 export function takeLast(n, list){
@@ -3517,8 +6391,6 @@ export function takeLast(n, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/takeLast.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.takeLast(1%2C%20%5B'foo'%2C%20'bar'%5D)%20%2F%2F%20%3D%3E%20%5B'bar'%5D%0AR.takeLast(2%2C%20'foo')%20%2F%2F%20%3D%3E%20'oo'">Try in REPL</a>
 
@@ -3544,6 +6416,28 @@ R.tap tests
 </summary>
 
 ```javascript
+import { tap } from './tap'
+
+test('tap', () => {
+  let a = 1
+  const sayX = x => a = x
+
+  expect(tap(sayX, 100)).toEqual(100)
+  expect(tap(sayX)(100)).toEqual(100)
+  expect(a).toEqual(100)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.tap source
+</summary>
+
+```javascript
 export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
 
@@ -3555,8 +6449,6 @@ export function tap(fn, x){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/tap.js)
 
 <a href="https://rambda.now.sh?let%20a%20%3D%201%0Aconst%20sayX%20%3D%20x%20%3D%3E%20(a%20%3D%20x)%0A%0Aconst%20result%20%3D%20R.tap(sayX%2C%20100)%0A%2F%2F%20both%20%60a%60%20and%20%60result%60%20are%20%60100%60">Try in REPL</a>
 
@@ -3596,6 +6488,32 @@ R.times tests
 </summary>
 
 ```javascript
+import { times } from './times'
+import { identity } from './identity'
+
+test('', () => {
+  const result = times(identity, 5)
+
+  expect(result).toEqual([ 0, 1, 2, 3, 4 ])
+})
+
+test('curry', () => {
+  const result = times(identity)(5)
+
+  expect(result).toEqual([ 0, 1, 2, 3, 4 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.times source
+</summary>
+
+```javascript
 import { map } from './map'
 import { range } from './range'
 
@@ -3608,8 +6526,6 @@ export function times(fn, n){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/times.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.times(R.identity%2C%205)%0A%2F%2F%3D%3E%20%5B0%2C%201%2C%202%2C%203%2C%204%5D">Try in REPL</a>
 
@@ -3629,6 +6545,23 @@ R.toLower tests
 </summary>
 
 ```javascript
+import { toLower } from './toLower'
+
+test('toLower', () => {
+  expect(toLower('FOO|BAR|BAZ')).toEqual('foo|bar|baz')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.toLower source
+</summary>
+
+```javascript
 export function toLower(str){
   return str.toLowerCase()
 }
@@ -3636,8 +6569,6 @@ export function toLower(str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/toLower.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.toLower('FOO')%20%2F%2F%20%3D%3E%20'foo'">Try in REPL</a>
 
@@ -3667,6 +6598,30 @@ R.toPairs tests
 </summary>
 
 ```javascript
+import { toPairs } from './toPairs'
+
+const obj = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+
+test('', () => {
+  expect(toPairs(obj)).toEqual(expected)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.toPairs source
+</summary>
+
+```javascript
 export function toPairs(obj){
   return Object.entries(obj)
 }
@@ -3674,8 +6629,6 @@ export function toPairs(obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/toPairs.js)
 
 <a href="https://rambda.now.sh?const%20list%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%20%20c%20%3A%20%5B%203%2C%204%20%5D%2C%0A%7D%0Aconst%20expected%20%3D%20%5B%20%5B%20'a'%2C%201%20%5D%2C%20%5B%20'b'%2C%202%20%5D%2C%20%5B%20'c'%2C%20%5B%203%2C%204%20%5D%20%5D%20%5D%0A%0Aconst%20result%20%3D%20R.toPairs(list)%0A%2F%2F%20expected%20%3D%3D%3D%20result">Try in REPL</a>
 
@@ -3695,6 +6648,23 @@ R.toString tests
 </summary>
 
 ```javascript
+import { toString } from './toString'
+
+test('', () => {
+  expect(toString([ 1, 2, 3 ])).toEqual('1,2,3')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.toString source
+</summary>
+
+```javascript
 export function toString(val){
   return val.toString()
 }
@@ -3702,8 +6672,6 @@ export function toString(val){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/toString.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.toString(%5B1%2C%202%5D)%20%2F%2F%20%3D%3E%20'1%2C2'">Try in REPL</a>
 
@@ -3723,6 +6691,33 @@ R.toUpper tests
 </summary>
 
 ```javascript
+import { compose } from './compose'
+import { join } from './join'
+import { map } from './map'
+import { split } from './split'
+import { toUpper } from './toUpper'
+
+test('toUpper', () => {
+  expect(
+    compose(
+      join(''),
+      map(toUpper),
+      split('')
+    )('foo|bar|baz')
+  ).toEqual('FOO|BAR|BAZ')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.toUpper source
+</summary>
+
+```javascript
 export function toUpper(str){
   return str.toUpperCase()
 }
@@ -3730,8 +6725,6 @@ export function toUpper(str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/toUpper.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.toUpper('foo')%20%2F%2F%20%3D%3E%20'FOO'">Try in REPL</a>
 
@@ -3751,6 +6744,22 @@ R.trim tests
 </summary>
 
 ```javascript
+import { trim } from './trim'
+test('trim', () => {
+  expect(trim(' foo ')).toEqual('foo')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.trim source
+</summary>
+
+```javascript
 export function trim(str){
   return str.trim()
 }
@@ -3758,8 +6767,6 @@ export function trim(str){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/trim.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.trim('%20%20foo%20%20')%20%2F%2F%20%3D%3E%20'foo'">Try in REPL</a>
 
@@ -3791,6 +6798,114 @@ R.type(delay) // => 'Promise'
 
 <summary>
 R.type tests
+</summary>
+
+```javascript
+import { type } from './type'
+import { type as ramdaType } from 'ramda'
+
+test('with simple promise', () => {
+  expect(type(Promise.resolve(1))).toBe('Promise')
+})
+
+test('with new promise', () => {
+  const delay = ms =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(ms + 110)
+      }, ms)
+    })
+
+  expect(type(delay(10))).toEqual('Promise')
+})
+
+test('async function', () => {
+  expect(type(async () => {})).toEqual('Async')
+})
+
+test('async arrow', () => {
+  const asyncArrow = async () => {}
+  expect(type(asyncArrow)).toBe('Async')
+})
+
+test('function', () => {
+  const fn1 = () => {}
+  const fn2 = function(){}
+
+  function fn3(){}
+
+  [ () => {}, fn1, fn2, fn3 ].map(val => {
+    expect(type(val)).toEqual('Function')
+  })
+})
+
+test('object', () => {
+  expect(type({})).toEqual('Object')
+})
+
+test('number', () => {
+  expect(type(1)).toEqual('Number')
+})
+
+test('boolean', () => {
+  expect(type(false)).toEqual('Boolean')
+})
+
+test('string', () => {
+  expect(type('foo')).toEqual('String')
+})
+
+test('null', () => {
+  expect(type(null)).toEqual('Null')
+})
+
+test('array', () => {
+  expect(type([])).toEqual('Array')
+  expect(type([ 1, 2, 3 ])).toEqual('Array')
+})
+
+test('regex', () => {
+  expect(type(/\s/g)).toEqual('RegExp')
+})
+
+test('undefined', () => {
+  expect(type(undefined)).toEqual('Undefined')
+})
+
+test('not a number', () => {
+  expect(type(Number('s'))).toBe('NaN')
+})
+
+test('function inside object 1', () => {
+  const obj = {
+    f(){
+      return 4
+    },
+  }
+
+  expect(type(obj.f)).toBe('Function')
+  expect(ramdaType(obj.f)).toBe('Function')
+})
+
+test('function inside object 2', () => {
+  const name = 'f'
+  const obj = {
+    [ name ](){
+      return 4
+    },
+  }
+  expect(type(obj.f)).toBe('Function')
+  expect(ramdaType(obj.f)).toBe('Function')
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.type source
 </summary>
 
 ```javascript
@@ -3830,8 +6945,6 @@ export function type(val){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/type.js)
-
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Function'%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Async'%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20'Array'%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20'Object'%0AR.type('foo')%20%2F%2F%20%3D%3E%20'String'%0AR.type(1)%20%2F%2F%20%3D%3E%20'Number'%0AR.type(true)%20%2F%2F%20%3D%3E%20'Boolean'%0AR.type(null)%20%2F%2F%20%3D%3E%20'Null'%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20'RegExp'%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20'Promise'">Try in REPL</a>
 
 ---
@@ -3850,6 +6963,26 @@ R.uniq([1, 1, 2, 1])
 
 <summary>
 R.uniq tests
+</summary>
+
+```javascript
+import { uniq } from './uniq'
+
+test('uniq', () => {
+  expect(uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])).toEqual([ 1, 2, 3, 0 ])
+  expect(uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
+  expect([ 1, '1' ]).toEqual([ 1, '1' ])
+  expect(uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.uniq source
 </summary>
 
 ```javascript
@@ -3873,8 +7006,6 @@ export function uniq(list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/uniq.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.uniq(%5B1%2C%201%2C%202%2C%201%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
@@ -3914,6 +7045,115 @@ R.uniqWith tests
 </summary>
 
 ```javascript
+import { uniqWith } from './uniqWith'
+
+test('', () => {
+  const input = [
+    {
+      id    : 0,
+      title : 'foo',
+    },
+    {
+      id    : 1,
+      title : 'bar',
+    },
+    {
+      id    : 2,
+      title : 'baz',
+    },
+    {
+      id    : 3,
+      title : 'foo',
+    },
+    {
+      id    : 4,
+      title : 'bar',
+    },
+  ]
+
+  const expectedResult = [
+    {
+      id    : 0,
+      title : 'foo',
+    },
+    {
+      id    : 1,
+      title : 'bar',
+    },
+    {
+      id    : 2,
+      title : 'baz',
+    },
+  ]
+
+  const fn = (x, y) => x.title === y.title
+
+  const result = uniqWith(fn, input)
+  const curriedResult = uniqWith(fn)(input)
+
+  expect(result).toEqual(expectedResult)
+
+  expect(curriedResult).toEqual(expectedResult)
+})
+
+test('uniqWith', () => {
+  const input = [
+    {
+      id    : 0,
+      title : 'foo',
+    },
+    {
+      id    : 1,
+      title : 'bar',
+    },
+    {
+      id    : 2,
+      title : 'baz',
+    },
+    {
+      id    : 3,
+      title : 'foo',
+    },
+    {
+      id    : 4,
+      title : 'bar',
+    },
+  ]
+
+  const expectedResult = [
+    {
+      id    : 0,
+      title : 'foo',
+    },
+    {
+      id    : 1,
+      title : 'bar',
+    },
+    {
+      id    : 2,
+      title : 'baz',
+    },
+  ]
+
+  const fn = (x, y) => x.title === y.title
+
+  const result = uniqWith(fn, input)
+  //const result = uniqWith(Ramda.eqBy(Ramda.prop('title')), input)
+
+  expect(result).toEqual(expectedResult)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.uniqWith source
+</summary>
+
+```javascript
 import { any } from './any'
 
 export function uniqWith(fn, list){
@@ -3942,8 +7182,6 @@ export function uniqWith(fn, list){
 
 </details>
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/uniqWith.js)
-
 <a href="https://rambda.now.sh?const%20arr%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%20%20%7Bid%3A%203%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%204%2C%20title%3A'bar'%7D%2C%0A%5D%0A%0Aconst%20expectedResult%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%5D%0A%0Aconst%20fn%20%3D%20(x%2Cy)%20%3D%3E%20x.title%20%3D%3D%3D%20y.title%0A%0Aconst%20result%20%3D%20R.uniqWith(fn%2C%20arr)%0A%0Aconsole.log(R.equals(result%2C%20expectedResult))%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
@@ -3966,6 +7204,24 @@ R.update tests
 </summary>
 
 ```javascript
+import { update } from './update'
+
+test('update', () => {
+  expect(update(1)(0)([ 1, 2, 3 ])).toEqual([ 1, 0, 3 ])
+  expect(update(1, 11, [ 0, 1, 2 ])).toEqual([ 0, 11, 2 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.update source
+</summary>
+
+```javascript
 export function update(idx, val, list){
   if (val === undefined){
     return (_val, _list) => update(idx, _val, _list)
@@ -3981,8 +7237,6 @@ export function update(idx, val, list){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/update.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.update(0%2C%20'foo'%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20baz%5D">Try in REPL</a>
 
@@ -4005,6 +7259,29 @@ R.values tests
 </summary>
 
 ```javascript
+import { values } from './values'
+
+test('values', () => {
+  expect(
+    values({
+      a : 1,
+      b : 2,
+      c : 3,
+    })
+  ).toEqual([ 1, 2, 3 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.values source
+</summary>
+
+```javascript
 export function values(obj){
   return Object.values(obj)
 }
@@ -4012,8 +7289,6 @@ export function values(obj){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/values.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.values(%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
@@ -4040,6 +7315,31 @@ R.without tests
 </summary>
 
 ```javascript
+import { without } from './without'
+
+test('should return a new list without values in the first argument ', () => {
+  const itemsToOmit = [ 'A', 'B', 'C' ]
+  const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+
+  expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
+  expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])
+})
+
+test('ramda test', () => {
+  expect(without([ 1, 2 ])([ 1, 2, 1, 3, 4 ])).toEqual([ 3, 4 ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.without source
+</summary>
+
+```javascript
 import { includes } from './includes'
 import { reduce } from './reduce'
 
@@ -4059,8 +7359,6 @@ export function without(left, right){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/without.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
 
@@ -4087,6 +7385,43 @@ R.zip tests
 </summary>
 
 ```javascript
+import { zip } from './zip'
+
+const array1 = [ 1, 2, 3 ]
+const array2 = [ 'A', 'B', 'C' ]
+
+test('should return an array', () => {
+  const actual = zip(array1)(array2)
+  expect(actual).toBeInstanceOf(Array)
+})
+
+test('should return and array or tuples', () => {
+  const expected = [ [ 1, 'A' ], [ 2, 'B' ], [ 3, 'C' ] ]
+  const actual = zip(array1, array2)
+  expect(actual).toEqual(expected)
+})
+
+test('should truncate result to length of shorted input list', () => {
+  const expectedA = [ [ 1, 'A' ], [ 2, 'B' ] ]
+  const actualA = zip([ 1, 2 ], array2)
+  expect(actualA).toEqual(expectedA)
+
+  const expectedB = [ [ 1, 'A' ], [ 2, 'B' ] ]
+  const actualB = zip(array1, [ 'A', 'B' ])
+  expect(actualB).toEqual(expectedB)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.zip source
+</summary>
+
+```javascript
 export function zip(left, right){
   if (arguments.length === 1) return _right => zip(left, _right)
 
@@ -4103,8 +7438,6 @@ export function zip(left, right){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/zip.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.zip(%5B1%2C%202%5D%2C%20%5B'A'%2C%20'B'%5D)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zip(%5B1%2C%202%2C%203%2C%204%5D%2C%20%5B'A'%2C%20'B'%5D)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D">Try in REPL</a>
 
@@ -4131,6 +7464,41 @@ R.zipObj tests
 </summary>
 
 ```javascript
+import { zipObj } from './zipObj'
+
+test('zipObj', () => {
+  expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
+    a : 1,
+    b : 2,
+    c : 3,
+  })
+})
+
+test('0', () => {
+  expect(zipObj([ 'a', 'b' ])([ 1, 2, 3 ])).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('1', () => {
+  expect(zipObj([ 'a', 'b', 'c' ])([ 1, 2 ])).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.zipObj source
+</summary>
+
+```javascript
 export function zipObj(keys, values){
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
 
@@ -4144,8 +7512,6 @@ export function zipObj(keys, values){
 ```
 
 </details>
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/zipObj.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.zipObj(%5B'a'%2C%20'b'%2C%20'c'%5D%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zipObj(%5B'a'%2C%20'b'%2C%20'c'%5D%2C%20%5B1%2C%202%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%7D">Try in REPL</a>
 
