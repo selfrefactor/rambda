@@ -6,7 +6,7 @@ const NEW_LINE = '__NEW_LINE__'
 
 function addToggleDetails(input){
   const [ methodName ] = input.split('\n')
-  const testContent = getFileContent(`${methodName}.spec`)
+  const testContent = getFileContent(`${ methodName }.spec`)
   const methodContent = getFileContent(methodName)
   if (!testContent || !methodContent) return input
 
@@ -39,7 +39,7 @@ function addToggleDetails(input){
 
   const withJavascriptTag = replace('```\n', '```javascript\n', input)
   const withToggleDetails = replace('```\n', `\`\`\`\n\n${ details }\n`, withJavascriptTag)
-  const withMethodContent = replace('</details>', `</details>\n\n${finalMethodContent}`, withToggleDetails)
+  const withMethodContent = replace('</details>', `</details>\n\n${ finalMethodContent }`, withToggleDetails)
 
   const withoutSourceLink = remove(
     /\[Source.+/,

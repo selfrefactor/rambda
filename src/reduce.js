@@ -5,21 +5,6 @@ import { curry } from './curry'
  * the iterator function and passing it an accumulator value and the current
  * value from the array, and then passing the result to the next call.
  *
- * The iterator function receives two values: *(acc, value)*. It may use
- * [`R.reduced`](#reduced) to shortcut the iteration.
- *
- * The arguments' order of [`reduceRight`](#reduceRight)'s iterator function
- * is *(value, acc)*.
- *
- * Note: `R.reduce` does not skip deleted or unassigned indices (sparse
- * arrays), unlike the native `Array.prototype.reduce` method. For more details
- * on this behavior, see:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
- *
- * Dispatches to the `reduce` method of the third argument, if present. When
- * doing so, it is up to the user to handle the [`R.reduced`](#reduced)
- * shortcuting, as this is not implemented by `reduce`.
- *
  * @func
  * @category List
  * @sig ((a, b) -> a) -> a -> [b] -> a
@@ -31,16 +16,6 @@ import { curry } from './curry'
  * @example
  *
  *      R.reduce(R.subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
- *      //          -               -10
- *      //         / \              / \
- *      //        -   4           -6   4
- *      //       / \              / \
- *      //      -   3   ==>     -3   3
- *      //     / \              / \
- *      //    -   2           -1   2
- *      //   / \              / \
- *      //  0   1            0   1
- *
  * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
  */
 function reduceFn(fn, acc, list){
