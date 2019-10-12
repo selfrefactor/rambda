@@ -17,11 +17,11 @@ const input = [ 'zipObj\n',
   '\n',
 ]
 
-const { addToggle } = require('./addToggle.js')
+const { addToggleDetails } = require('./addToggleDetails.js')
 
 test('happy', () => {
   console.log(
-    addToggle(input.join``)
+    addToggleDetails(input.join``)
 
   )
   // expect().toBe()
