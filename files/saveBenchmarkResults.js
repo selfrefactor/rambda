@@ -14,13 +14,6 @@ function map(line){
 
   return line
 }
-function filter(line){
-  if (line.trim() === '') return false
-  if (line.includes('completed.')) return false
-  if (line.includes('undefined')) return false
-
-  return true
-}
 
 void async function saveBenchmarkResults(){
   const result = await exec({

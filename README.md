@@ -122,29 +122,9 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 > add(a: number, b: number): number
 
-```javascript
+```
 R.add(2, 3) // =>  5
 ```
-
-<details>
-
-<summary>
-  R.add tests
-</summary>
-
-```javascript
-import { add } from './add'
-
-test('with number', () => {
-  expect(add(2, 3)).toEqual(5)
-  expect(add(7)(10)).toEqual(17)
-})
-
-test('with string', () => {
-  expect(add('foo', 'bar')).toEqual('foobar')
-})
-```
-</details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
 
@@ -2239,6 +2219,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
 
 - 3.2.0 There are several changes:
 

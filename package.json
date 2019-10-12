@@ -12,7 +12,7 @@
     "fix": "mkdir $HOME/.dts/perf -p",
     "test": "jest src",
     "prove": "jest src --json",
-    "readme": "node files/createReadme",
+    "readme": "node files/createReadme/createReadme.js",
     "docs": "docsify init ./docs",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
@@ -64,6 +64,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-replace": "2.1.0",
     "rollup-plugin-sourcemaps": "0.4.2",
+    "string-fn": "^2.9.0",
     "typescript": "3.6.4"
   },
   "dependencies": {},
@@ -88,7 +89,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "toggle spec content",
     "docs": [
       "docsify",
       "repl",

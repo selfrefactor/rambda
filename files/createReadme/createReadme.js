@@ -5,7 +5,8 @@ const {
   inject,
   replace,
 } = require('rambdax')
-const { cleanTOC } = require('./_helpers/cleanTOC')
+const { cleanTOC } = require('./cleanTOC')
+const { count } = require('string-fn')
 const { rambdaREPL } = require('./rambdaREPL')
 const { readFileSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
@@ -23,6 +24,11 @@ function getCodeExample(input){
 }
 
 function getContentWithREPL(input){
+  const counted = count(input, '```\n')
+  console.log({
+    input,
+    counted,
+  })
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
   const markdownLink = `<a href="${ replLink }">Try in REPL</a>`
@@ -30,19 +36,31 @@ function getContentWithREPL(input){
   return `${ input.trim() }\n\n${ markdownLink }\n\n`
 }
 
-void function createReadme(){
-  const outputPath = resolve(
-    __dirname,
-    '../README.md'
-  )
-  const changelogSourcePath = resolve(
-    __dirname,
-    '../CHANGELOG.md'
-  )
+const outputPath = resolve(
+  __dirname,
+  '../../README.md'
+)
+const changelogSourcePath = resolve(
+  __dirname,
+  '../../CHANGELOG.md'
+)
+const contentPath = resolve(
+  __dirname,
+  '../README.md'
+)
+const missingRamdaMethodsPath = resolve(
+  __dirname,
+  '../ramdaMissing.md'
+)
+const benchmarkResultsPath = resolve(
+  __dirname,
+  '../benchmarkResults.md'
+)
 
-  const content = readFileSync(`${ __dirname }/README.md`).toString()
-  const missingRamdaMethods = readFileSync(`${ __dirname }/ramdaMissing.md`).toString()
-  const benchmarkResults = readFileSync(`${ __dirname }/benchmarkResults.md`).toString()
+void function createReadme(){
+  const content = readFileSync(contentPath).toString()
+  const missingRamdaMethods = readFileSync(missingRamdaMethodsPath).toString()
+  const benchmarkResults = readFileSync(benchmarkResultsPath).toString()
   const changelog = readFileSync(changelogSourcePath).toString()
 
   const contentWithREPL = content.split(MARKER_METHOD).map(singleMethod => {
