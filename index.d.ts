@@ -859,12 +859,9 @@ declare namespace R {
     replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
 
     /**
-     * Returns a new list with the same elements as the original list, just in the reverse order.
+     * Returns a new list/string with the same elements as the original list/string, just in the reverse order.
      */
     reverse<T>(list: ReadonlyArray<T>): T[];
-    /**
-     * Returns a new string with the characters in reverse order.
-     */
     reverse(str: string): string;
 
     /**

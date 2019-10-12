@@ -126,6 +126,22 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 R.add(2, 3) // =>  5
 ```
 
+<details>
+<summary>R.add tests</summary>
+```
+import { add } from './add'
+
+test('with number', () => {
+  expect(add(2, 3)).toEqual(5)
+  expect(add(7)(10)).toEqual(17)
+})
+
+test('with string', () => {
+  expect(add('foo', 'bar')).toEqual('foobar')
+})
+```
+</details>
+
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try in REPL</a>
