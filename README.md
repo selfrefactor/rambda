@@ -140,6 +140,7 @@ test('with string', () => {
   expect(add('foo', 'bar')).toEqual('foobar')
 })
 ```
+
 </details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
