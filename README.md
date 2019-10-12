@@ -122,13 +122,17 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 > add(a: number, b: number): number
 
-```
+```javascript
 R.add(2, 3) // =>  5
 ```
 
 <details>
-<summary>R.add tests</summary>
-```
+
+<summary>
+  R.add tests
+</summary>
+
+```javascript
 import { add } from './add'
 
 test('with number', () => {
@@ -140,7 +144,6 @@ test('with string', () => {
   expect(add('foo', 'bar')).toEqual('foobar')
 })
 ```
-
 </details>
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
