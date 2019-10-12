@@ -89,7 +89,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "toggle spec content",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",

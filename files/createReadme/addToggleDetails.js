@@ -1,28 +1,24 @@
-const { count } = require('string-fn')
-const { replace, glue } = require('rambdax')
 const { getTestContent } = require('./getTestContent.js')
+const { replace, glue } = require('rambdax')
 
-const TEST_MARKER ='__TEST_CONTENT__'
-const NEW_LINE ='__NEW_LINE__'
+const TEST_MARKER = '__TEST_CONTENT__'
+const NEW_LINE = '__NEW_LINE__'
 
 function addToggleDetails(input){
   const [ methodName ] = input.split('\n')
   const testContent = getTestContent(methodName)
-  if(!testContent) return input
+  if (!testContent) return input
 
   const rawDetails = glue(`
-  <details>
-  ${NEW_LINE}
+  <details>${ NEW_LINE }
   <summary>
-  R.${methodName} tests
-  </summary>
-  ${NEW_LINE}
+  R.${ methodName } tests
+  </summary>${ NEW_LINE }
   \`\`\`javascript
-  ${TEST_MARKER}
-  \`\`\`
-  ${NEW_LINE}
+  ${ TEST_MARKER }
+  \`\`\`${ NEW_LINE }
   </details>  
-  `,'\n')
+  `, '\n')
 
   const stillRawDetails = replace(TEST_MARKER, testContent, rawDetails)
   const details = replace(new RegExp(NEW_LINE, 'gm'), '\n', stillRawDetails)

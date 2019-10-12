@@ -5,8 +5,8 @@ const {
   inject,
   replace,
 } = require('rambdax')
+const { addToggleDetails } = require('./addToggleDetails.js')
 const { cleanTOC } = require('./cleanTOC')
-const { count } = require('string-fn')
 const { rambdaREPL } = require('./rambdaREPL')
 const { readFileSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
@@ -24,16 +24,11 @@ function getCodeExample(input){
 }
 
 function getContentWithREPL(input){
-  const counted = count(input, '```\n')
-  console.log({
-    input,
-    counted,
-  })
   const codeExample = getCodeExample(input)
   const replLink = rambdaREPL(codeExample)
   const markdownLink = `<a href="${ replLink }">Try in REPL</a>`
 
-  return `${ input.trim() }\n\n${ markdownLink }\n\n`
+  return `${ addToggleDetails(input.trim()) }\n\n${ markdownLink }\n\n`
 }
 
 const outputPath = resolve(
