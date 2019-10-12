@@ -12,7 +12,10 @@ describe('partialCurry', () => {
       return input.c ? input.a: input.b
     }
 
-    const curried = partialCurry<Input, PartialInput, string|number>(fn, {a:1, b:'foo'});  // $ExpectType (input: Pick<Input, any>) => string | number
-    const result = curried({c:false}) // $ExpectType string | number
+    const curried = partialCurry<Input, PartialInput, string|number>(fn, {a:1, b:'foo'});  
+    curried // $ExpectType (input: Pick<Input, "c">) => string | number
+    
+    const result = curried({c:false}) 
+    result// $ExpectType string | number
   });
 });

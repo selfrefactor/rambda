@@ -1,4 +1,4 @@
-import { F } from "./ts-toolbelt/src/index";
+import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
@@ -535,10 +535,12 @@ declare namespace R {
       It accept function(that accept object as input), partial arguments 
       and returns a new curried function
     */
-    // partialCurry<Input, PartialInput, Output>(
-    //   fn: (input: Input) => Output,
-    //   partialInput: PartialInput
-    // ) : (input: Pick<Input, Exclude<keyof PartialInput>>) => Output
+    partialCurry<Input, PartialInput, Output>(
+      fn: (input: Input) => Output,
+      partialInput: PartialInput
+    ) : (
+      input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>
+    ) => Output
 
     /**
      * Retrieve the value at a given path.
