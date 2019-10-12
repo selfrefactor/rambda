@@ -965,8 +965,8 @@ declare namespace R {
     /**
      * Determines whether a given string matches a given regular expression.
      */
-    test(regexp: RegExp, str: string): boolean;
     test(regexp: RegExp): (str: string) => boolean;
+    test(regexp: RegExp, str: string): boolean;
 
     /**
      * Calls an input function `n` times, returning an array containing the results of those
@@ -1015,7 +1015,7 @@ declare namespace R {
      * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
      * all as 'Object'.
      */
-    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Async' | 'Promise';
 
     /**
      * Returns a new list containing only one copy of each element in the original list.

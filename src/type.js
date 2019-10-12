@@ -19,6 +19,8 @@
  *      R.type([]); //=> "Array"
  *      R.type(/[A-z]/); //=> "RegExp"
  *      R.type(() => {}); //=> "Function"
+ *      R.type(async () => {}); //=> "Async"
+ *      R.type(Promise('foo')); //=> "Promise"
  *      R.type(undefined); //=> "Undefined"
  */
 export function type(val){
