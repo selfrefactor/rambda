@@ -771,10 +771,10 @@ declare namespace R {
     /**
      * Returns a new list by plucking the same named property off all objects in the list supplied.
      */
+    pluck<T>(p: number, list: ReadonlyArray<T>): T;
     pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
-    pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
+    pluck(p: number): <T>(list: ReadonlyArray<T>) => T;
     pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
-    pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
 
     /**
      * Returns a new list with the given element at the front, followed by the contents of the
