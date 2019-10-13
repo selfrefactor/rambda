@@ -5,8 +5,6 @@ import { reduce } from './reduce'
  * Returns a new list without values in the first argument.
  * [`R.equals`](#equals) is used to determine equality.
  *
- * Acts as a transducer if a transformer is given in list position.
- *
  * @func
  * @category List
  * @sig [a] -> [a] -> [a]

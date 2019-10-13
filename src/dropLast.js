@@ -1,8 +1,6 @@
 /**
  * Returns a list containing all but the last `n` elements of the given `list`.
  *
- * Acts as a transducer if a transformer is given in list position.
- *
  * @func
  * @category List
  * @sig Number -> [a] -> [a]

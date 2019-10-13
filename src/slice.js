@@ -2,8 +2,6 @@
  * Returns the elements of the given list or string (or object with a `slice`
  * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
  *
- * Dispatches to the `slice` method of the third argument, if present.
- *
  * @func
  * @category List
  * @sig Number -> Number -> [a] -> [a]

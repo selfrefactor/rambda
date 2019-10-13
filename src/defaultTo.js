@@ -5,9 +5,8 @@ function flagIs(inputArguments){
 }
 
 /**
- * Returns the second argument if it is not `null`, `undefined` or `NaN`;
- * otherwise the first argument is returned.
- *
+ * Returns the last argument which is neither `null`, `undefined` nor `NaN`
+ * 
  * @func
  * @category Logic
  * @sig a -> b -> a | b
@@ -16,14 +15,12 @@ function flagIs(inputArguments){
  * @return {*} The second value if it is not `null`, `undefined` or `NaN`, otherwise the default value
  * @example
  *
- *      const defaultTo42 = R.defaultTo(42);
+ *      const defaultTo42 = ;
  *
- *      defaultTo42(null);  //=> 42
- *      defaultTo42(undefined);  //=> 42
- *      defaultTo42(false);  //=> false
- *      defaultTo42('Ramda');  //=> 'Ramda'
- *      // parseInt('string') results in NaN
- *      defaultTo42(parseInt('string')); //=> 42
+ *      R.defaultTo(42, null, undefined, Number('foo'));  //=> 42
+ *      R.defaultTo(42, null, undefined, Number('foo'), 1);  //=> 1 
+ *      R.defaultTo(42, 1);  //=> 1
+ *      R.defaultTo(42, false);  //=> 42
  */
 export function defaultTo(defaultArgument, ...inputArguments){
   if (arguments.length === 1){

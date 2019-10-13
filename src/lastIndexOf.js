@@ -2,9 +2,8 @@ import { equals } from './equals'
 
 /**
  * Returns the position of the last occurrence of an item in an array, or -1 if
- * the item is not included in the array. [`R.equals`](#equals) is used to
- * determine equality.
- *
+ * the item is not included in the array. 
+ * 
  * @func
  * @category List
  * @sig a -> [a] -> Number

@@ -3,10 +3,6 @@
  * calling a String-returning function on each element, and grouping the
  * results according to values returned.
  *
- * Dispatches to the `groupBy` method of the second argument, if present.
- *
- * Acts as a transducer if a transformer is given in list position.
- *
  * @func
  * @category List
  * @sig (a -> String) -> [a] -> {String: [a]}

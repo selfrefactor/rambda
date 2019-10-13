@@ -1,8 +1,5 @@
 /**
- * Gives a single-word string description of the (native) type of a value,
- * returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
- * attempt to distinguish user Object types any further, reporting them all as
- * 'Object'.
+ * Gives a single-word string type description
  *
  * @func
  * @category Type
@@ -11,6 +8,8 @@
  * @return {String}
  * @example
  *
+ *      R.type(async () => {}); //=> "Async"
+ *      R.type(Promise('foo')); //=> "Promise"
  *      R.type({}); //=> "Object"
  *      R.type(1); //=> "Number"
  *      R.type(false); //=> "Boolean"
@@ -19,8 +18,6 @@
  *      R.type([]); //=> "Array"
  *      R.type(/[A-z]/); //=> "RegExp"
  *      R.type(() => {}); //=> "Function"
- *      R.type(async () => {}); //=> "Async"
- *      R.type(Promise('foo')); //=> "Promise"
  *      R.type(undefined); //=> "Undefined"
  */
 export function type(val){

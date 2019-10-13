@@ -1,5 +1,5 @@
 /**
- * A function that always returns `false`. Any passed in parameters are ignored.
+ * A function that always returns `false`.
  *
  * @func
  * @category Function

@@ -4,8 +4,6 @@
  *
  * Dispatches to the `all` method of the second argument, if present.
  *
- * Acts as a transducer if a transformer is given in list position.
- *
  * @func
  * @category List
  * @sig (a -> Boolean) -> [a] -> Boolean

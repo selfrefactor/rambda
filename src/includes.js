@@ -1,4 +1,5 @@
 import { equals } from './equals'
+
 /**
  * Returns `true` if the specified value is equal, in [`R.equals`](#equals)
  * terms, to at least one element of the given list; `false` otherwise.

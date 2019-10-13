@@ -5,9 +5,6 @@ import { range } from './range'
  * Calls an input function `n` times, returning an array containing the results
  * of those function calls.
  *
- * `fn` is passed one argument: The current value of `n`, which begins at `0`
- * and is gradually incremented to `n - 1`.
- *
  * @func
  * @category List
  * @sig (Number -> a) -> Number -> [a]

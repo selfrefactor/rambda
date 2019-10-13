@@ -6,11 +6,11 @@ import { equals } from './equals'
 
 const isOdd = n => n % 2 === 1
 
-test('returns items that DO NOT match predicate from array', () => {
+test('with array', () => {
   expect(reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
-test('returns items that DO NOT match predicate from object', () => {
+test('with object', () => {
   expect(
     reject(isOdd, {
       a : 1,

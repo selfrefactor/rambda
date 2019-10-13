@@ -69,7 +69,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 `Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(109) I see as advantage compared to the 255 of `Ramda`.
 
-Ramda methods has plenty of really deep FP Methods, which are in fact really great, but they come at the price of added complexity. Such complex mechanism in practice are rarely needed.
+Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
 You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
 
@@ -80,7 +80,7 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
+https://unpkg.com/rambda@3.3.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -93,7 +93,7 @@ https://unpkg.com/rambda@2.0.0/dist/rambda.umd.js
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
-- Rambda's **map** and **filter** pass object key as second argument when mapping over objects.
+- Rambda's **map**, **filter**, **reject** and **forEach** can iterate over objects not only arrays.
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 
@@ -3209,6 +3209,7 @@ R.includes source
 
 ```javascript
 import { equals } from './equals'
+
 export function includes(target, list){
   if (arguments.length === 1) return _input => includes(target, _input)
 
@@ -5509,11 +5510,11 @@ import { equals } from './equals'
 
 const isOdd = n => n % 2 === 1
 
-test('returns items that DO NOT match predicate from array', () => {
+test('with array', () => {
   expect(reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
-test('returns items that DO NOT match predicate from object', () => {
+test('with object', () => {
   expect(
     reject(isOdd, {
       a : 1,
@@ -7734,6 +7735,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
 - 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
 

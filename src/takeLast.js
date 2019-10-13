@@ -15,8 +15,6 @@ import baseSlice from './internal/baseSlice'
  *
  *      R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
  *      R.takeLast(2, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
- *      R.takeLast(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
- *      R.takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
  *      R.takeLast(3, 'ramda');               //=> 'mda'
  */
 export function takeLast(n, list){
