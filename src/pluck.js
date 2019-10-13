@@ -4,10 +4,6 @@ import { map } from './map'
  * Returns a new list by plucking the same named property off all objects in
  * the list supplied.
  *
- * `pluck` will work on
- * any [functor](https://github.com/fantasyland/fantasy-land#functor) in
- * addition to arrays, as it is equivalent to `R.map(R.prop(k), f)`.
- *
  * @func
  * @category List
  * @sig Functor f => k -> f {k: v} -> f v

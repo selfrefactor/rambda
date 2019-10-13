@@ -545,8 +545,10 @@ declare namespace R {
     /**
      * Retrieve the value at a given path.
      */
-    path<T>(path: Path, obj: any): T | undefined;
-    path<T>(path: Path): (obj: any) => T | undefined;
+    path<Input, T>(path: string|string[], obj: Input): T | undefined;
+    path<T>(path: string|string[], obj: any): T | undefined;
+    path<T>(path: string|string[]): (obj: any) => T | undefined;
+    path<Input, T>(path: string|string[]): (obj: Input) => T | undefined;
 
     /**
      * If the given, non-null object has a value at the given path, returns the value at that path.
