@@ -35,9 +35,7 @@ declare namespace R {
 
   interface Static {
     add(a: number, b: number): number;
-    add(a: string, b: string): string;
     add(a: number): (b: number) => number;
-    add(a: string): (b: string) => string;
 
     adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
     adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
