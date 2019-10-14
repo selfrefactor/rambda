@@ -14,19 +14,20 @@ test('adds a key to a non-empty object', () => {
 test('adds a nested key to a non-empty object', () => {
   expect(assocPath('b.c', 2, { a : 1 })).toEqual({
     a : 1,
-    b : {
-      c : 2
-    }
+    b : { c : 2 },
   })
 })
 
 test('adds a nested key to a nested non-empty object - curry case 1', () => {
-  expect(assocPath('b.d', 3)({ a : 1, b: { c : 2 } })).toEqual({
+  expect(assocPath('b.d', 3)({
+    a : 1,
+    b : { c : 2 },
+  })).toEqual({
     a : 1,
     b : {
       c : 2,
-      d : 3
-    }
+      d : 3,
+    },
   })
 })
 
@@ -40,9 +41,7 @@ test('adds a key to a non-empty object - curry case 1', () => {
 test('adds a nested key to a non-empty object - curry case 1', () => {
   expect(assocPath('b.c', 2)({ a : 1 })).toEqual({
     a : 1,
-    b : {
-      c : 2
-    },
+    b : { c : 2 },
   })
 })
 
@@ -50,8 +49,8 @@ test('adds a nested array to a non-empty object - curry case 1', () => {
   expect(assocPath('b.0', 2)({ a : 1 })).toEqual({
     a : 1,
     b : [
-      2
-    ]
+      2,
+    ],
   })
 })
 
@@ -93,4 +92,18 @@ test('value can be undefined', () => {
 
 test('assignment is shallow', () => {
   expect(assocPath('a', { b : 2 }, { a : { c : 3 } })).toEqual({ a : { b : 2 } })
+})
+
+test('happy', () => {
+  const result = assocPath([], 3, {
+    a : 1,
+    b : 2,
+  })
+  expect(result).toEqual(3)
+})
+
+test('happy', () => {
+  const expected = { foo : { bar : { baz : 42 } } }
+  const result = assocPath([ 'foo', 'bar', 'baz' ], 42, { foo : null })
+  expect(result).toEqual(expected)
 })

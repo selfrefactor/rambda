@@ -31,3 +31,7 @@ test('when returns false + curry', () => {
 
   expect(anyPass(conditionArr)(obj)).toBeFalsy()
 })
+
+test('happy', () => {
+  expect(anyPass([])(3)).toEqual(false)
+})

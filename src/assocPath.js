@@ -1,4 +1,4 @@
-import { _isInteger } from "./internal/_isInteger"
+import { _isInteger } from './internal/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
 
@@ -21,24 +21,27 @@ import { curry } from './curry'
 function assocPathFn(list, val, obj){
   const pathArrValue = typeof list === 'string' ? list.split('.') : list
   if (pathArrValue.length === 0){
-    return obj
+    return val
   }
+  // if(obj === null) return
 
-  const index = pathArrValue[0]
+  const index = pathArrValue[ 0 ]
   if (pathArrValue.length > 1){
-    const nextObj = typeof obj !== "object" || !obj.hasOwnProperty(index)
-      ? _isInteger(parseInt(pathArrValue[1], 10)) ? [] : {}
-      : obj[index]
+    const nextObj = typeof obj !== 'object' || obj === null || !obj.hasOwnProperty(index) ?
+      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ? [] : {} :
+      obj[ index ]
     val = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), val, nextObj)
   }
 
-  if (_isInteger(parseInt(index, 10)) && Array.isArray(obj)) {
+  if (_isInteger(parseInt(index, 10)) && Array.isArray(obj)){
     const arr = [].concat(obj)
-    arr[index] = val
+    arr[ index ] = val
+
     return arr
-  } else {
-    return assoc(index, val, obj)
   }
+
+  return assoc(index, val, obj)
+
 }
 
 export const assocPath = curry(assocPathFn)
