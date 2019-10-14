@@ -4,7 +4,7 @@ import { adjust } from './adjust'
 const expectedResult = [ 0, 11, 2 ]
 
 test('without curring', () => {
-  expect(adjust(1,add(10), [ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1, add(10), [ 0, 1, 2 ])).toEqual(expectedResult)
 })
 
 test('with curring type 1 1 1', () => {
@@ -16,7 +16,7 @@ test('with curring type 1 2', () => {
 })
 
 test('with curring type 2 1', () => {
-  expect(adjust(1,add(10))([ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1, add(10))([ 0, 1, 2 ])).toEqual(expectedResult)
 })
 
 test('with negative index', () => {
@@ -25,6 +25,6 @@ test('with negative index', () => {
 
 test('ramda spec 1', () => {
   const result = adjust(2, add(1), [ 0, 1, 2, 3 ])
-  const expected = [0, 1, 3, 3]
+  const expected = [ 0, 1, 3, 3 ]
   expect(result).toEqual(expected)
 })
