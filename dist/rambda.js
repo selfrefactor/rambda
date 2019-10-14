@@ -19,7 +19,7 @@ function curry(fn, args = []) {
   return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
 }
 
-function adjustRaw(fn, idx, list) {
+function adjustRaw(idx, fn, list) {
   const clone = list.slice();
   const actualIndex = idx < 0 ? clone.length + idx : idx;
   clone[actualIndex] = fn(clone[actualIndex]);

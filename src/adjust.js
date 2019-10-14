@@ -22,7 +22,7 @@ import { curry } from './curry'
  * @symb R.adjust(-1, f, [a, b]) = [a, f(b)]
  * @symb R.adjust(0, f, [a, b]) = [f(a), b]
  */
-function adjustRaw(fn, idx, list){
+function adjustRaw(idx, fn, list){
   const clone = list.slice()
   const actualIndex = idx < 0 ? clone.length + idx : idx
 
