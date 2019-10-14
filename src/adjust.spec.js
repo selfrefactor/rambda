@@ -23,8 +23,8 @@ test('with negative index', () => {
   expect(adjust(-2, add(10), [ 0, 1, 2 ])).toEqual(expectedResult)
 })
 
-test('ramda spec 1', () => {
-  const result = adjust(2, add(1), [ 0, 1, 2, 3 ])
-  const expected = [ 0, 1, 3, 3 ]
-  expect(result).toEqual(expected)
+test('when index is out of bounds', () => {
+  const list = [ 0, 1, 2, 3 ]
+  expect(adjust(4, add(1), list),).toEqual(list)
+  expect(adjust(-5, add(1), list),).toEqual(list)
 })

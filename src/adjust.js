@@ -8,12 +8,12 @@ import { curry } from './curry'
  * @func
  * @category List
  * @sig Number -> (a -> a) -> [a] -> [a]
- * @param {Number} idx The index.
+ * @param {Number} index The index.
  * @param {Function} fn The function to apply.
  * @param {Array|Arguments} list An array-like object whose value
  *        at the supplied index will be replaced.
  * @return {Array} A copy of the supplied array-like object with
- *         the element at index `idx` replaced with the value
+ *         the element at index `index` replaced with the value
  *         returned by applying `fn` to the existing element.
  * @example
  *
@@ -22,10 +22,11 @@ import { curry } from './curry'
  * @symb R.adjust(-1, f, [a, b]) = [a, f(b)]
  * @symb R.adjust(0, f, [a, b]) = [f(a), b]
  */
-function adjustRaw(idx, fn, list){
-  const clone = list.slice()
-  const actualIndex = idx < 0 ? clone.length + idx : idx
+function adjustRaw(index, fn, list){
+  const actualIndex = index < 0 ? list.length + index : index
+  if (index >= list.length || actualIndex < 0) return list
 
+  const clone = list.concat()
   clone[ actualIndex ] = fn(clone[ actualIndex ])
 
   return clone
