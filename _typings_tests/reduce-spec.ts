@@ -7,7 +7,7 @@ describe('reduce', () => {
         acc // $ExpectType number
         elem // $ExpectType number
         return acc + elem
-      }, 
+      },
       1,
       [ 1, 2, 3 ]
     )
@@ -22,7 +22,7 @@ describe('reduce', () => {
         elem // $ExpectType number
 
         return `${acc}${elem}`
-      }, 
+      },
       'foo',
       [ 1, 2, 3 ]
     )
@@ -37,19 +37,21 @@ describe('reduce', () => {
         elem // $ExpectType number
         i // $ExpectType number
         return acc + elem
-      }, 
+      },
       1,
       [ 1, 2, 3 ]
     )
 
     result // $ExpectType number
   });
-  
+
   it('fallback', () => {
     const result = reduce((acc, val) => {
       acc // $ExpectType number
       return acc + val
     }, 1,[ 1, 2, 3 ])
+
+    result // $ExpectType number
   });
 
   it('fallback with index', () => {
@@ -58,6 +60,8 @@ describe('reduce', () => {
       i // $ExpectType number
       return acc + val
     }, 1,[ 1, 2, 3 ])
+
+    result // $ExpectType number
   });
 
   it('fallback with two types', () => {
@@ -65,5 +69,7 @@ describe('reduce', () => {
       acc // $ExpectType string
       return acc + val
     }, 'foo',[ 1, 2, 3 ])
+
+    result // $ExpectType string
   });
 });

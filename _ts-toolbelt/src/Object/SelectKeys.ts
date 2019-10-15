@@ -1,7 +1,6 @@
 import {Keys} from './Keys'
 import {Match} from '../Any/_Internal'
 import {Is} from '../Any/Is'
-import {True} from '../Boolean/Boolean'
 
 /** Get the keys of **`O`** which fields match **`M`**
  * @param O to extract from

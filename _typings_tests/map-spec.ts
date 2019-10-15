@@ -6,28 +6,32 @@ describe('map with arrays', () => {
       a // $ExpectType number
       b // $ExpectType number
       return a + 2
-    },[1,2,3]); 
+    },[1,2,3]);
+    x // $ExpectType number[]
   });
   it('only one type + curry', () => {
     const x = map<number>((a,b) => { // $ExpectType number[]
       a // $ExpectType number
       b // $ExpectType number
       return a + 2
-    })([1,2,3]); 
+    })([1,2,3]);
+    x // $ExpectType number[]
   });
   it('2 types', () => {
     const x = map<number, string>((a,b) => { // $ExpectType string[]
       a // $ExpectType number
       b // $ExpectType number
       return `${a}`
-    },[1,2,3]); 
+    },[1,2,3]);
+    x // $ExpectType string[]
   });
   it('2 types + curry', () => {
     const x = map<number, string>((a,b) => { // $ExpectType string[]
       a // $ExpectType number
       b // $ExpectType number
       return `${a}`
-    })([1,2,3]); 
+    })([1,2,3]);
+    x // $ExpectType string[]
   });
 });
 
@@ -41,7 +45,8 @@ describe('map with objects', () => {
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
       return `${a}`
-    })({a:1,b:2}); 
+    })({a:1,b:2});
+    x // $ExpectType Dictionary<string>
   });
   it('1', () => {
     const x = map<number, string>((a,b,c) => { // $ExpectType Dictionary<string>
@@ -49,19 +54,22 @@ describe('map with objects', () => {
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
       return `${a}`
-    },{a:1,b:2}); 
+    },{a:1,b:2});
+    x // $ExpectType Dictionary<string>
   });
   it('2', () => {
     const x = map<number, string>((a,b) => { // $ExpectType Dictionary<string>
       a // $ExpectType number
       b // $ExpectType string
       return `${a}`
-    },{a:1,b:2}); 
+    },{a:1,b:2});
+    x // $ExpectType Dictionary<string>
   });
   it('3', () => {
     const x = map<number, string>((a) => { // $ExpectType Dictionary<string>
       a // $ExpectType number
       return `${a}`
-    },{a:1,b:2}); 
+    },{a:1,b:2});
+    x // $ExpectType Dictionary<string>
   });
 });

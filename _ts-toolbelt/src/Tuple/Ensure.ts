@@ -2,7 +2,6 @@ import {Omit} from './Omit'
 import {At} from '../Object/At'
 import {Exclude} from '../Union/Exclude'
 import {Numbers} from '../Number/_Internal'
-import {Merge} from '../Object/Merge'
 
 /** Ensure that **`T`** is a proper **`Tuple`**, even is it has been mixed up.
  * Sometimes, we can end up with mixed up **`Tuple`**s that do not make sense
@@ -25,5 +24,3 @@ export type Ensure<T extends object> =
       : T                                                                             //    do nothing
     : Omit<T & [], keyof any[]>                                                            // ensure is object
 
-
-type t = Ensure<Merge<string[], {a: string}>>

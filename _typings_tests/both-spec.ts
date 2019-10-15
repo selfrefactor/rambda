@@ -1,4 +1,4 @@
-import { both, either } from 'rambda'
+import { both } from 'rambda'
 
 describe('both', () => {
   it('with passed type', () => {
@@ -9,11 +9,12 @@ describe('both', () => {
       x => {
         return x % 2 === 0
       },
-    ); 
+    );
     const result = fn(2) // $ExpectType boolean
+    result // $ExpectType boolean
   });
   it('no type passed', () => {
-    const fn = both( 
+    const fn = both(
       x => {
         x // $ExpectType any
         return x > 1
@@ -21,8 +22,9 @@ describe('both', () => {
       x => {
         return x % 2 === 0
       },
-    ); 
+    );
     const result = fn(2) // $ExpectType boolean
+    result // $ExpectType boolean
   });
 });
 
@@ -35,11 +37,12 @@ describe('both + curry', () => {
       x => {
         return x % 2 === 0
       },
-    ); 
+    );
     const result = fn(2) // $ExpectType boolean
+    result // $ExpectType boolean
   });
   it('no type passed', () => {
-    const fn = both( 
+    const fn = both(
       x => {
         x // $ExpectType unknown
         return x as number > 1
@@ -47,7 +50,8 @@ describe('both + curry', () => {
       x => {
         return x as number % 2 === 0
       },
-    ); 
+    );
     const result = fn(2) // $ExpectType boolean
+    result // $ExpectType boolean
   });
 });
