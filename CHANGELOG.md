@@ -4,6 +4,8 @@ Add to `Differences`:
 
 ```text
 R.compose doesn't pass `this` context
+
+R.clone doesn't work with number, booleans and strings as input
 ```
 
 All breaking changes:
@@ -17,6 +19,8 @@ All breaking changes:
 -- R.complement support function with multiple arguments
 
 -- R.compose throws when called with no argument
+
+-- R.clone works with `Date` value as input
 
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 

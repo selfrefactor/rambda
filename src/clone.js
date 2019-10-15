@@ -1,6 +1,6 @@
 /**
  * Creates a deep copy of the value which may contain (nested) `Array`s and
- * `Object`s, `Number`s, `String`s, `Boolean`s and `Date`s. 
+ * `Object`s, `Number`s, `String`s, `Boolean`s and `Date`s.
  *
  * @func
  * @category Object
@@ -16,6 +16,7 @@
  */
 export function clone(val){
   const out = Array.isArray(val) ? Array(val.length) : {}
+  if (val && val.getTime) return new Date(val.getTime())
 
   for (const key in val){
     const v = val[ key ]
