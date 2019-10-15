@@ -1060,10 +1060,10 @@
   resolved "https://registry.yarnpkg.com/@types/parsimmon/-/parsimmon-1.10.0.tgz#ffb81cb023ff435a41d4710a29ab23c561dc9fdf"
   integrity sha512-bsTIJFVQv7jnvNiC42ld2pQW2KRI+pAG243L+iATvqzy3X6+NH1obz2itRKDZZ8VVhN3wjwYax/VBGCcXzgTqQ==
 
-"@types/ramda@0.26.31":
-  version "0.26.31"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.31.tgz#a8e2c316b0d1e251e23103bc82182459aea0c847"
-  integrity sha512-ntAGHW5KUmEvI88y1OIXpyFHExSJ5u3D2Lr2bor4KEUc8K0ztpzBxayUcBBqR3a9dDcfX9f/dTJRnyQlIjNZvA==
+"@types/ramda@0.26.33":
+  version "0.26.33"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.33.tgz#5fd1f22381ccf913a3627beb16f468fb57f82d94"
+  integrity sha512-sUCQmKfAWmlbb6PpFqvndbGgTf0bCcmHLJqMYw8ErVS0UoZTTiz952aFedJhV+JERiVH7poh33358c7p0AAN8A==
   dependencies:
     ts-toolbelt "^4.7.7"
 
