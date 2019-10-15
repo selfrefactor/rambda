@@ -1,5 +1,4 @@
 import {Record} from '../../Object/Record'
-import {Compute} from '../../Any/Compute'
 import {IterationOf} from '../../Iteration/IterationOf'
 import {Iteration} from '../../Iteration/Iteration'
 import {Pos} from '../../Iteration/Pos'

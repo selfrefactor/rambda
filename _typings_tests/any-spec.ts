@@ -6,13 +6,15 @@ describe('any', () => {
       y // $ExpectType number
       i // $ExpectType number
       return y > 2
-    },[1,2,3]); 
+    },[1,2,3]);
+    x // $ExpectType boolean
   });
   it('2', () => {
     const x = any<number>((y)=> { // $ExpectType boolean
       y // $ExpectType number
       return y > 2
-    },[1,2,3]); 
+    },[1,2,3]);
+    x // $ExpectType boolean
   });
 
   it('1 curry', () => {
@@ -20,12 +22,14 @@ describe('any', () => {
       y // $ExpectType number
       i // $ExpectType number
       return y > 2
-    })([1,2,3]); 
+    })([1,2,3]);
+    x // $ExpectType boolean
   });
   it('2 curry', () => {
     const x = any<number>((y)=> { // $ExpectType boolean
       y // $ExpectType number
       return y > 2
-    })([1,2,3]); 
+    })([1,2,3]);
+    x // $ExpectType boolean
   });
 });

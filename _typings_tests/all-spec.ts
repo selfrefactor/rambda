@@ -7,7 +7,9 @@ describe('all', () => {
       return y > 0
     })([1, 2,3 ]);
     x // $ExpectType boolean
-    
+
     const q = all(y => y > 0,[1, 2,3 ]); // $ExpectType boolean
+
+    q // $ExpectType boolean
   });
 });
