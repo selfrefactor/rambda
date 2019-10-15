@@ -1,10 +1,11 @@
 import { add } from './add'
 import { map } from './map'
+import { multiply } from './multiply'
 import { filter } from './filter'
 import { last } from './last'
 import { compose } from './compose'
 
-test('', () => {
+test('happy', () => {
   const result = compose(
     last,
     map(add(10)),
@@ -23,6 +24,12 @@ test('accepts initially two arguments', () => {
   expect(result).toEqual([ 6, 8 ])
 })
 
-test('when no functions as input', () => {
-  expect(compose()()).toBeUndefined()
+test('when no arguments is passed', () => {
+expect(() => compose()).toThrow('compose requires at least one argument');
+})
+
+test('ramda spec', () => {
+  var f = function(a, b, c) { return [a, b, c]; };
+var g = compose(f);
+expect(g(1, 2, 3)).toEqual([1, 2,3])
 })

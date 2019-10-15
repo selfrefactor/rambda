@@ -1,5 +1,11 @@
 - 4.0.0 Multiple breaking changes as Rambda methods are changed in order to increase the similarity between with Ramda
 
+Add to `Differences`:
+
+```text
+R.compose doesn't pass `this` context
+```
+
 All breaking changes:
 
 -- R.add works only with numbers
@@ -9,6 +15,8 @@ All breaking changes:
 -- R.adjust works when index is out of bounds
 
 -- R.complement support function with multiple arguments
+
+-- R.compose throws when called with no argument
 
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
