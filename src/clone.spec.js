@@ -1,4 +1,5 @@
 import { clone } from './clone'
+import assert from 'assert'
 
 test('with array', () => {
   const arr = [
@@ -23,4 +24,14 @@ test('with object', () => {
     e : new Date(),
   }
   expect(clone(arr)).toEqual(arr)
+})
+
+test('with date', () => {
+  const date = new Date(2014, 10, 14, 23, 59, 59, 999)
+
+  const cloned = clone(date)
+  assert.notStrictEqual(date, cloned)
+  expect(cloned).toEqual(new Date(2014, 10, 14, 23, 59, 59, 999))
+
+  expect(cloned.getDay()).toEqual(5)
 })
