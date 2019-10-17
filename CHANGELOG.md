@@ -22,6 +22,8 @@ All breaking changes:
 
 -- R.clone works with `Date` value as input
 
+-- R.drop/dropLast works with negative count
+
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
 - 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings

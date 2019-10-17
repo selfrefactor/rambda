@@ -12,6 +12,6 @@ test('with string', () => {
 
 test('1', () => {
   expect(drop(0, [1, 2, 3])).toEqual([1, 2, 3])
-expect(drop(-1, [1, 2, 3])).toEqual([1, 2, 3])
-// expect(drop(-Infinity, [1, 2, 3])).toEqual([1, 2, 3])
+expect(drop(-1, [1, 2, 3])).toEqual([1, 2, 3]) 
+expect(drop(-Infinity, [1, 2, 3])).toEqual([1, 2, 3])
 })
