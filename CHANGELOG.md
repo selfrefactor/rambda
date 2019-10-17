@@ -22,7 +22,7 @@ All breaking changes:
 
 -- R.clone works with `Date` value as input
 
--- R.drop/dropLast works with negative count
+-- R.drop/dropLast always return new copy of the list/string
 
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
