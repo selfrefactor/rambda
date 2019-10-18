@@ -16,14 +16,14 @@ test('skip evaluation of the second expression', () => {
   expect(effect).toBe('not evaluated')
 })
 
-test('1', () => {
+test('case 1', () => {
   const firstFn = val => val > 0
   const secondFn = val => val * 5 > 10
 
   expect(either(firstFn, secondFn)(1)).toBeTruthy()
 })
 
-test('2', () => {
+test('case 2', () => {
   const firstFn = val => val > 0
   const secondFn = val => val === -10
   const fn = either(firstFn)(secondFn)

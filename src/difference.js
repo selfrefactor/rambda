@@ -1,5 +1,6 @@
-import { filter } from "./filter"
-import { includes } from "./includes"
+import { filter } from './filter'
+import { uniq } from './uniq'
+import { includes } from './includes'
 
 /**
  * Finds the set (i.e. no duplicates) of all elements in the first list not
@@ -17,8 +18,8 @@ import { includes } from "./includes"
  *      R.difference([1, 2, 3, 4], [3, 4, 5, 6]) // => [1, 2]
  *      R.difference([]); //=> []
  */
-export function difference(list1, list2) {
+export function difference(list1, list2){
   if (arguments.length === 1) return _list => difference(list1, _list)
 
-  return filter(value => !includes(value, list2), list1)
+  return filter(value => !includes(value, list2), uniq(list1))
 }

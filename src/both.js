@@ -2,7 +2,7 @@
  * A function which calls the two provided functions and returns the `&&`
  * of the results.
  * It returns the result of the first function if it is false-y and the result
- * of the second function otherwise. 
+ * of the second function otherwise.
  *
  * @func
  * @category Logic
