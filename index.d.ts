@@ -1013,7 +1013,7 @@ declare namespace R {
      * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
      * all as 'Object'.
      */
-    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Async' | 'Promise';
+    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'NaN' | 'Function' | 'Undefined' | 'Async' | 'Promise';
 
     /**
      * Returns a new list containing only one copy of each element in the original list.

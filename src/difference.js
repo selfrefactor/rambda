@@ -1,5 +1,5 @@
-import { filter } from './filter'
 import { uniq } from './uniq'
+import { equals } from './equals'
 import { includes } from './includes'
 
 /**
@@ -21,5 +21,11 @@ import { includes } from './includes'
 export function difference(list1, list2){
   if (arguments.length === 1) return _list => difference(list1, _list)
 
-  return filter(value => !includes(value, list2), uniq(list1))
+  return uniq(list1).filter(x1 => !includes(x1, list2))
+  // const result = uniq(list1).filter(x1 => {
+  //   const found = list2.find(x2 => equals(x1, x2))
+
+  //   return found === undefined
+  // })
+  // return result
 }

@@ -20,5 +20,9 @@ test('difference with objects', () => {
 test('no duplicates in first list', () => {
   const M2 = [ 1, 2, 3, 4, 1, 2, 3, 4 ]
   const N2 = [ 3, 3, 4, 4, 5, 5, 6, 6 ]
-  expect(difference(M2, N2)).toEqual([1,2])
+  expect(difference(M2, N2)).toEqual([ 1, 2 ])
+})
+
+test('should use R.equals', () => {
+  expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
 })

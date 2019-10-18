@@ -5,6 +5,10 @@ test('with simple promise', () => {
   expect(type(Promise.resolve(1))).toBe('Promise')
 })
 
+test('with new Boolean', () => {
+  expect(type(new Boolean(true))).toBe('Boolean')
+})
+
 test('with new promise', () => {
   const delay = ms =>
     new Promise(resolve => {

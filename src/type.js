@@ -17,11 +17,13 @@
  *      R.type(null); //=> "Null"
  *      R.type([]); //=> "Array"
  *      R.type(/[A-z]/); //=> "RegExp"
+ *      R.type(Number('foo')); //=> "NaN"
  *      R.type(() => {}); //=> "Function"
  *      R.type(undefined); //=> "Undefined"
  */
 export function type(val){
   const typeOf = typeof val
+  const asStr = val && val.toString ? val.toString() : ''
 
   if (val === null){
     return 'Null'
@@ -39,15 +41,10 @@ export function type(val){
     return 'RegExp'
   }
 
-  const asStr = val.toString()
-
-  if (asStr.startsWith('async')){
-    return 'Async'
-  } else if (asStr === '[object Promise]'){
-    return 'Promise'
-  } else if (typeOf === 'function'){
-    return 'Function'
-  }
+  if ([ 'true', 'false' ].includes(asStr)) return 'Boolean'
+  if (asStr.startsWith('async')) return 'Async'
+  if (asStr === '[object Promise]') return 'Promise'
+  if (typeOf === 'function') return 'Function'
 
   return 'Object'
 }

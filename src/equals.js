@@ -23,15 +23,12 @@ import { type } from './type'
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
-  if (a === b){
-    return true
-  }
-
   const aType = type(a)
 
-  if (aType !== type(b)){
-    return false
-  }
+  if (aType !== type(b)) return false
+  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
+  if (aType === 'Boolean') return a.toString() === b.toString()
+  if ([ 'Number', 'String' ].includes(aType)) return a === b
 
   if (aType === 'Array'){
     const aClone = Array.from(a)

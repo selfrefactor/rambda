@@ -1,12 +1,23 @@
 import { equals } from './equals'
 
-test('', () => {
+test('happy', () => {
   const result = equals(
     [ 1, { a : 1 }, [ { b : 3 } ] ],
     [ 1, { a : 2 }, [ { b : 3 } ] ]
   )
 
   expect(result).toBeFalsy()
+})
+
+test('naN', () => {
+  expect(equals([ NaN ], [ NaN ])).toBe(true)
+})
+
+test('new Boolean', () => {
+  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
+  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
+  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
+  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
 })
 
 test('ramda spec', () => {
