@@ -2,6 +2,7 @@ const bench = require('benny')
 
 const origin = [ 1, 2, 3, {a:1, b: 'foo'}, new RegExp('bar'), 7]
 const target = 7
+const folder = 'files/benchmars_results'
 
 bench.suite(
   'X in array',
@@ -20,7 +21,7 @@ bench.suite(
 
   bench.cycle(),
   bench.complete(),
-  bench.save({ file: 'find-in-array' })
+  bench.save({ file: 'find-in-array', folder })
 )
 
 // bench.suite(
