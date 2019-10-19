@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["es2015", "dom"],
+    "module": "esnext",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "target": "es2015",
+    "paths": { "rambda": ["../index.d.ts"] }
+  } 
+}    

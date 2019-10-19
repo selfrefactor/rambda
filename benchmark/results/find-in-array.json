@@ -1,0 +1,33 @@
+{
+  "name": "X in array",
+  "date": "2019-10-19T08:47:45.576Z",
+  "version": null,
+  "results": [
+    {
+      "name": "indexOf",
+      "ops": 69597826,
+      "margin": 1.16,
+      "percentSlower": 89.68
+    },
+    {
+      "name": "includes",
+      "ops": 674390659,
+      "margin": 0.52,
+      "percentSlower": 0
+    },
+    {
+      "name": "find",
+      "ops": 38319465,
+      "margin": 0.49,
+      "percentSlower": 94.32
+    }
+  ],
+  "fastest": {
+    "name": "includes",
+    "index": 1
+  },
+  "slowest": {
+    "name": "find",
+    "index": 2
+  }
+}

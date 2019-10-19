@@ -48,6 +48,7 @@
     "babel-jest": "24.9.0",
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
+    "benny": "^3.6.12",
     "docsify-cli": "4.3.0",
     "dtslint": "0.9.8",
     "helpers": "https://github.com/selfrefactor/helpers#1.7.1",

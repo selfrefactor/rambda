@@ -66,8 +66,8 @@ export function equals(a, b){
   if (
     aError[ 0 ]
   ){
-    return bError[ 0 ] ? 
-      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ]:
+    return bError[ 0 ] ?
+      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
       false
   }
 
