@@ -1695,10 +1695,10 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.3.0, chalk@^2.4.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^3.0.0-beta.1:
-  version "3.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0-beta.1.tgz#328a0eccc051d6e50787fe112cbcf85b5d5e4d88"
-  integrity sha512-f32K9VcIM5XJjpPHkqbrg+xN4vQVzEFNmPTgn1Ai3RBbtWT6ggFkUwZmB3/JTk0tdtjH1sl7fepaB9Vj8uVdUw==
+chalk@^3.0.0-beta.2:
+  version "3.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0-beta.2.tgz#d6a422d12828314a6f2ecad6863c68b706598a22"
+  integrity sha512-NKGY083nqioebgPmjRTGY/bRq34dgkXkmHmWgwDXbPs0YEkN7ZTcimhnv1KnHGW80QPta1QZiJDbQv7s+e+uaQ==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -2997,20 +2997,22 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-"helpers@https://github.com/selfrefactor/helpers#1.7.1":
+"helpers@https://github.com/selfrefactor/helpers#1.8.0":
   version "1.7.1"
-  resolved "https://github.com/selfrefactor/helpers#268797e3473c4e673219d43ad89b9f235df7d474"
+  resolved "https://github.com/selfrefactor/helpers#3b5d9fb34b97a2a49946b876b9b158952fc16a94"
   dependencies:
+    benny "^3.6.12"
     boxen "^4.1.0"
-    chalk "^3.0.0-beta.1"
+    chalk "^3.0.0-beta.2"
     dayjs "^1.8.16"
     env "https://github.com/selfrefactor/env#0.2.1"
     figures "^3.0.0"
     gradient-string "^1.2.0"
     log-symbols "^3.0.0"
-    ora "^4.0.1"
+    ora "^4.0.2"
     q-i "^2.0.1"
     rambdax "^2.14.1"
+    string-fn "^2.10.2"
 
 hosted-git-info@^2.1.4:
   version "2.7.1"
@@ -4758,10 +4760,10 @@ options@>=0.0.5:
   resolved "https://registry.yarnpkg.com/opts/-/opts-1.2.6.tgz#d185c0425cfdeb9da1d182908b65b5c0238febb3"
   integrity sha1-0YXAQlz9652h0YKQi2W1wCOP67M=
 
-ora@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/ora/-/ora-4.0.1.tgz#e0ddf8fcdcf28cf714f742f06a493cc84819621c"
-  integrity sha512-yQv2q0GO8rqP2wzdOxpu0FxUmRg4z/Lw0m6uSpukPJXoOMaQzrIpl+STKHzjryFP5ExQC56+y8+yXPar2iezaw==
+ora@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ora/-/ora-4.0.2.tgz#0e1e68fd45b135d28648b27cf08081fa6e8a297d"
+  integrity sha512-YUOZbamht5mfLxPmk4M35CD/5DuOkAacxlEUbStVXpBAt4fyhBf+vZHI/HRkI++QUp3sNoeA2Gw4C+hi4eGSig==
   dependencies:
     chalk "^2.4.2"
     cli-cursor "^3.1.0"

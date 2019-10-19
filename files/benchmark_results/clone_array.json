@@ -1,25 +1,25 @@
 {
   "name": "CLONE_ARRAY",
-  "date": "2019-10-19T12:19:47.090Z",
+  "date": "2019-10-19T12:30:59.791Z",
   "version": null,
   "results": [
     {
       "name": "concat",
-      "ops": 4128131,
-      "margin": 6.73,
-      "percentSlower": 85.3
+      "ops": 5392683,
+      "margin": 2.36,
+      "percentSlower": 82.53
     },
     {
       "name": "slice",
-      "ops": 28079736,
-      "margin": 3.86,
+      "ops": 30868456,
+      "margin": 3.7,
       "percentSlower": 0
     },
     {
       "name": "slice.with.zero",
-      "ops": 26943955,
-      "margin": 4.35,
-      "percentSlower": 4.04
+      "ops": 28928016,
+      "margin": 6.15,
+      "percentSlower": 6.29
     }
   ],
   "fastest": {

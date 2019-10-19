@@ -1,6 +1,6 @@
 process.env.BENCHMARK_FOLDER = 'files/benchmark_results'
-const { createBenchmark } = require('./createBenchmark.js')
- 
+const { createBenchmark } = require('helpers')
+
 const origin = [ 1, 2, 3, {
   a : 1,
   b : 'foo',
@@ -49,5 +49,5 @@ const cloneArray = [
   },
 ]
 
-createBenchmark({findInArray})
-createBenchmark({cloneArray})
+createBenchmark({ findInArray })
+createBenchmark({ cloneArray })

@@ -1,25 +1,25 @@
 {
   "name": "FIND_IN_ARRAY",
-  "date": "2019-10-19T12:19:30.239Z",
+  "date": "2019-10-19T12:30:43.504Z",
   "version": null,
   "results": [
     {
       "name": "index.of",
-      "ops": 65905927,
-      "margin": 3.52,
-      "percentSlower": 89.09
+      "ops": 70231580,
+      "margin": 0.97,
+      "percentSlower": 89.63
     },
     {
       "name": "includes",
-      "ops": 604031599,
-      "margin": 2.76,
+      "ops": 677253864,
+      "margin": 0.61,
       "percentSlower": 0
     },
     {
       "name": "find",
-      "ops": 18542417,
-      "margin": 8.49,
-      "percentSlower": 96.93
+      "ops": 38211985,
+      "margin": 0.56,
+      "percentSlower": 94.36
     }
   ],
   "fastest": {
