@@ -1,5 +1,13 @@
 import { type } from './type'
 
+function parseError(maybeError){
+  // if (!maybeError.__proto__) return []
+  const typeofError = maybeError.__proto__.toString()
+  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
+
+  return [ typeofError, maybeError.message ]
+}
+
 /**
  * Returns `true` if its arguments are equivalent, `false` otherwise. Handles
  * cyclical data structures.
@@ -27,7 +35,7 @@ export function equals(a, b){
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
   if (aType === 'String') return a === b
-  if ([ 'String', 'Boolean', 'Number' ].includes(aType)) return a.toString() === b.toString()
+  if ([ 'Boolean', 'Number' ].includes(aType)) return a.toString() === b.toString()
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
@@ -50,6 +58,17 @@ export function equals(a, b){
     })
 
     return loopArrayFlag
+  }
+
+  const aError = parseError(a)
+  const bError = parseError(b)
+
+  if (
+    aError[ 0 ]
+  ){
+    return bError[ 0 ] ? 
+      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ]:
+      false
   }
 
   if (aType === 'Object'){

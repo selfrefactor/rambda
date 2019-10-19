@@ -26,6 +26,18 @@ test('new Boolean', () => {
   expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
 })
 
+test('new Error', () => {
+  expect(equals(new Error('XXX'), {})).toEqual(false)
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
+})
+
+test('new Regex', () => {
+  expect(equals(new RegExp('XXX'), new RegExp('XXX'))).toEqual(false)
+})
+
 test('ramda spec', () => {
   expect(equals({}, {})).toEqual(true)
 
