@@ -9,6 +9,10 @@ test('with new Boolean', () => {
   expect(type(new Boolean(true))).toBe('Boolean')
 })
 
+test('with new Number', () => {
+  expect(type(new Number(1))).toBe('Number')
+})
+
 test('with new promise', () => {
   const delay = ms =>
     new Promise(resolve => {

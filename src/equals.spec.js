@@ -9,8 +9,14 @@ test('happy', () => {
   expect(result).toBeFalsy()
 })
 
-test('naN', () => {
+test('not a number', () => {
   expect(equals([ NaN ], [ NaN ])).toBe(true)
+})
+
+test('new number', () => {
+  expect(equals(new Number(0), new Number(0))).toEqual(true)
+  expect(equals(new Number(0), new Number(1))).toEqual(false)
+  expect(equals(new Number(1), new Number(0))).toEqual(false)
 })
 
 test('new Boolean', () => {

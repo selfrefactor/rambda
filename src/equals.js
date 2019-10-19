@@ -24,11 +24,10 @@ export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
   const aType = type(a)
-
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if (aType === 'Boolean') return a.toString() === b.toString()
-  if ([ 'Number', 'String' ].includes(aType)) return a === b
+  if (aType === 'String') return a === b
+  if ([ 'String', 'Boolean', 'Number' ].includes(aType)) return a.toString() === b.toString()
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
