@@ -1,0 +1,33 @@
+{
+  "name": "FIND_IN_ARRAY",
+  "date": "2019-10-19T12:19:30.239Z",
+  "version": null,
+  "results": [
+    {
+      "name": "index.of",
+      "ops": 65905927,
+      "margin": 3.52,
+      "percentSlower": 89.09
+    },
+    {
+      "name": "includes",
+      "ops": 604031599,
+      "margin": 2.76,
+      "percentSlower": 0
+    },
+    {
+      "name": "find",
+      "ops": 18542417,
+      "margin": 8.49,
+      "percentSlower": 96.93
+    }
+  ],
+  "fastest": {
+    "name": "includes",
+    "index": 1
+  },
+  "slowest": {
+    "name": "find",
+    "index": 2
+  }
+}

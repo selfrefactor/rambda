@@ -1,45 +1,53 @@
-const bench = require('benny')
-
-const origin = [ 1, 2, 3, {a:1, b: 'foo'}, new RegExp('bar'), 7]
+process.env.BENCHMARK_FOLDER = 'files/benchmark_results'
+const { createBenchmark } = require('./createBenchmark.js')
+ 
+const origin = [ 1, 2, 3, {
+  a : 1,
+  b : 'foo',
+}, new RegExp('bar'), 7 ]
 const target = 7
-const folder = 'files/benchmars_results'
 
-bench.suite(
-  'X in array',
+const findInArray = [
+  {
+    label : 'index.of',
+    fn    : () => {
+      const a = origin.indexOf(target) > -1
+    },
+  },
+  {
+    label : 'includes',
+    fn    : () => {
+      const a = origin.includes(target)
+    },
+  },
+  {
+    label : 'find',
+    fn    : () => {
+      const a = origin.find(x => x === target) !== undefined
+    },
+  },
+]
 
-  bench.add('indexOf', () => {
-    const a = origin.indexOf(target) > -1
-  }),
-  
-  bench.add('includes', () => {
-    const a = origin.includes(target)
-  }),
+const cloneArray = [
+  {
+    label : 'concat',
+    fn    : () => {
+      const a = origin.concat()
+    },
+  },
+  {
+    label : 'slice',
+    fn    : () => {
+      const a = origin.slice()
+    },
+  },
+  {
+    label : 'slice.with.zero',
+    fn    : () => {
+      const a = origin.slice(0)
+    },
+  },
+]
 
-  bench.add('find', () => {
-    const a = origin.find(x => x === target) !== undefined
-  }),
-
-  bench.cycle(),
-  bench.complete(),
-  bench.save({ file: 'find-in-array', folder })
-)
-
-// bench.suite(
-//   'Duplicate array',
-
-//   bench.add('slice', () => {
-//     const a = origin.slice()
-//   }),
-  
-//   bench.add('slice0', () => {
-//     const a = origin.slice(0)
-//   }),
-
-//   bench.add('concat', () => {
-//     const a = origin.concat()
-//   }),
-
-//   bench.cycle(),
-//   bench.complete(),
-//   bench.save({ file: 'duplicate-array' })
-// )
+createBenchmark({findInArray})
+createBenchmark({cloneArray})

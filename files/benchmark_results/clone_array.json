@@ -1,0 +1,33 @@
+{
+  "name": "CLONE_ARRAY",
+  "date": "2019-10-19T12:19:47.090Z",
+  "version": null,
+  "results": [
+    {
+      "name": "concat",
+      "ops": 4128131,
+      "margin": 6.73,
+      "percentSlower": 85.3
+    },
+    {
+      "name": "slice",
+      "ops": 28079736,
+      "margin": 3.86,
+      "percentSlower": 0
+    },
+    {
+      "name": "slice.with.zero",
+      "ops": 26943955,
+      "margin": 4.35,
+      "percentSlower": 4.04
+    }
+  ],
+  "fastest": {
+    "name": "slice",
+    "index": 1
+  },
+  "slowest": {
+    "name": "concat",
+    "index": 0
+  }
+}
