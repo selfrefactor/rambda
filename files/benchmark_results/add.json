@@ -1,0 +1,33 @@
+{
+  "name": "ADD",
+  "date": "2019-10-20T07:11:54.288Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 214762338,
+      "margin": 5.77,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 170897962,
+      "margin": 7.89,
+      "percentSlower": 20.42
+    },
+    {
+      "name": "Lodash",
+      "ops": 64837150,
+      "margin": 0.4,
+      "percentSlower": 69.81
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Lodash",
+    "index": 2
+  }
+}
