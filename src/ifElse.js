@@ -1,3 +1,5 @@
+import { curry } from './curry'
+
 /**
  * Creates a function that will process either the `onTrue` or the `onFalse`
  * function depending upon the result of the `condition` predicate.
@@ -20,20 +22,17 @@
  *      incCount({});           //=> { count: 1 }
  *      incCount({ count: 1 }); //=> { count: 2 }
  */
-export function ifElse(condition, onTrue, onFalse){
-  if (onTrue === undefined){
-    return (_onTrue, _onFalse) => ifElse(condition, _onTrue, _onFalse)
-  } else if (onFalse === undefined){
-    return _onFalse => ifElse(condition, onTrue, _onFalse)
-  }
+function ifElseFn(condition, onTrue, onFalse){
 
-  return input => {
-    const conditionResult = typeof condition === 'boolean' ? condition : condition(input)
+  return (...input) => {
+    const conditionResult = typeof condition === 'boolean' ? condition : condition(...input)
 
     if (conditionResult === true){
-      return onTrue(input)
+      return onTrue(...input)
     }
 
-    return onFalse(input)
+    return onFalse(...input)
   }
 }
+
+export const ifElse = curry(ifElseFn)

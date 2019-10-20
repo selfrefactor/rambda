@@ -1,5 +1,5 @@
 /**
- * Returns the number of elements in the array by returning `list.length`.
+ * Returns the number of elements in array/list
  *
  * @func
  * @category List
@@ -12,5 +12,7 @@
  *      R.length([1, 2, 3]); //=> 3
  */
 export function length(list){
+  if (list == null || list.length === undefined) return NaN
+
   return list.length
 }

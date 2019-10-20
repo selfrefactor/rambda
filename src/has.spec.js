@@ -9,6 +9,6 @@ test('with non-object', () => {
   expect(has('a', undefined)).toEqual(false)
   expect(has('a', null)).toEqual(false)
   expect(has('a', true)).toEqual(false)
-expect(has('a', '')).toEqual(false)
-expect(has('a', /a/)).toEqual(false)
+  expect(has('a', '')).toEqual(false)
+  expect(has('a', /a/)).toEqual(false)
 })

@@ -30,6 +30,12 @@ All breaking changes:
 
 -- R.type/R.equals supports `new Boolean/new Number/new Date` expressions
 
+-- R.has works with non-object
+
+-- R.ifElse pass all arguments
+
+-- R.length works with bad inputs
+
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
 - 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
