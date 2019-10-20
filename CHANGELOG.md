@@ -28,7 +28,7 @@ All breaking changes:
 
 -- R.equals handles `NaN`
 
--- R.type/R.equals supports `new Boolean/new Number` expressions
+-- R.type/R.equals supports `new Boolean/new Number/new Date` expressions
 
 - 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 

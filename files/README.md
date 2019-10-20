@@ -1688,8 +1688,6 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 ## Benchmark
 
-Results of running `yarn benchmarks`:
-
 ```
 MARKER_BENCHMARK_RESULTS
 ```

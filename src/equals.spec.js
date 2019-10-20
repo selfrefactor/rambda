@@ -34,8 +34,17 @@ test('new Error', () => {
   expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
 })
 
-test('new Regex', () => {
+test('new Regex is not supported', () => {
   expect(equals(new RegExp('XXX'), new RegExp('XXX'))).toEqual(false)
+})
+
+test('with dates', () => {
+  expect(equals(new Date(0), new Date(0))).toEqual(true)
+  expect(equals(new Date(1), new Date(1))).toEqual(true)
+  expect(equals(new Date(0), new Date(1))).toEqual(false)
+  expect(equals(new Date(1), new Date(0))).toEqual(false)
+  expect(equals(new Date(0), {})).toEqual(false)
+  expect(equals({}, new Date(0))).toEqual(false)
 })
 
 test('ramda spec', () => {
