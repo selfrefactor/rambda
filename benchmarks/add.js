@@ -1,19 +1,26 @@
 const _ = require('lodash')
-const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite()
+const add = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.add(1, 1)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.add(1, 1)
+    },
+  },
+  {
+    label : 'Lodash',
+    fn    : () => {
+      _.add(1, 1)
+    },
+  },
+]
 
-suite
-  .add('Rambda.add', () => {
-    R.add(1, 1)
-  })
-  .add('Ramda.add', () => {
-    Ramda.add(1, 1)
-  })
-  .add('Lodash.add', () => {
-    _.add(1, 1)
-  })
-
-module.exports = suite
+module.exports = add

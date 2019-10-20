@@ -1,16 +1,21 @@
-const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite()
-const input = [1, 2, 3, 4]
+const append = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.append(0)([ 1, 2, 3, 4 ])
+      R.append('bar')('foo')
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.append(0)([ 1, 2, 3, 4 ])
+      Ramda.append('bar')('foo')
+    },
+  },
+]
 
-suite
-  .add('Rambda.append', () => {
-    R.append(0)(input)
-  })
-  .add('Ramda.append', () => {
-    Ramda.append(0)(input)
-  })
-
-module.exports = suite
+module.exports = append
