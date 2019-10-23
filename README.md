@@ -134,14 +134,24 @@ R.add tests
 
 ```javascript
 import { add } from './add'
+import R from 'ramda'
 
 test('with number', () => {
   expect(add(2, 3)).toEqual(5)
   expect(add(7)(10)).toEqual(17)
 })
 
-test('with string', () => {
-  expect(add('foo', 'bar')).toEqual('foobar')
+test('with string returns NaN', () => {
+  expect(R.add('foo', 'bar')).toEqual(Number('foo'))
+})
+
+test('ramda specs', () => {
+  expect(add('1', '2'),).toEqual(3)
+  expect(add(1, '2'),).toEqual(3)
+  expect(add(true, false),).toEqual(1)
+  expect(add(null, null),).toEqual(0)
+  expect(add(undefined, undefined),).toEqual(NaN)
+  expect(add(new Date(1), new Date(2)),).toEqual(3)
 })
 
 ```
@@ -158,7 +168,7 @@ R.add source
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
-  return a + b
+  return Number(a) + Number(b)
 }
 
 ```
@@ -192,26 +202,32 @@ R.adjust tests
 import { add } from './add'
 import { adjust } from './adjust'
 
-const expectedResult = [ 0, 11, 2 ]
+const expected = [ 0, 11, 2 ]
 
 test('without curring', () => {
-  expect(adjust(add(10), 1, [ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1, add(10), [ 0, 1, 2 ])).toEqual(expected)
 })
 
 test('with curring type 1 1 1', () => {
-  expect(adjust(add(10))(1)([ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1)(add(10))([ 0, 1, 2 ])).toEqual(expected)
 })
 
 test('with curring type 1 2', () => {
-  expect(adjust(add(10))(1, [ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1)(add(10), [ 0, 1, 2 ])).toEqual(expected)
 })
 
 test('with curring type 2 1', () => {
-  expect(adjust(add(10), 1)([ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(1, add(10))([ 0, 1, 2 ])).toEqual(expected)
 })
 
 test('with negative index', () => {
-  expect(adjust(add(10), -2, [ 0, 1, 2 ])).toEqual(expectedResult)
+  expect(adjust(-2, add(10), [ 0, 1, 2 ])).toEqual(expected)
+})
+
+test('when index is out of bounds', () => {
+  const list = [ 0, 1, 2, 3 ]
+  expect(adjust(4, add(1), list),).toEqual(list)
+  expect(adjust(-5, add(1), list),).toEqual(list)
 })
 
 ```
@@ -581,6 +597,9 @@ test('when returns false + curry', () => {
   expect(anyPass(conditionArr)(obj)).toBeFalsy()
 })
 
+test('happy', () => {
+  expect(anyPass([])(3)).toEqual(false)
+})
 ```
 
 </details>
@@ -898,6 +917,7 @@ R.clone tests
 
 ```javascript
 import { clone } from './clone'
+import assert from 'assert'
 
 test('with array', () => {
   const arr = [
@@ -923,6 +943,16 @@ test('with object', () => {
   }
   expect(clone(arr)).toEqual(arr)
 })
+ 
+test('with date', () => {
+  const date = new Date(2014, 10, 14, 23, 59, 59, 999)
+
+  const cloned = clone(date)
+  assert.notStrictEqual(date, cloned)
+  expect(cloned).toEqual(new Date(2014, 10, 14, 23, 59, 59, 999))
+
+  expect(cloned.getDay()).toEqual(5)
+})
 
 ```
 
@@ -937,6 +967,7 @@ R.clone source
 ```javascript
 export function clone(val){
   const out = Array.isArray(val) ? Array(val.length) : {}
+  if (val && val.getTime) return new Date(val.getTime())
 
   for (const key in val){
     const v = val[ key ]
@@ -982,11 +1013,12 @@ R.compose tests
 ```javascript
 import { add } from './add'
 import { map } from './map'
+import { multiply } from './multiply'
 import { filter } from './filter'
 import { last } from './last'
 import { compose } from './compose'
 
-test('', () => {
+test('happy', () => {
   const result = compose(
     last,
     map(add(10)),
@@ -1005,8 +1037,14 @@ test('accepts initially two arguments', () => {
   expect(result).toEqual([ 6, 8 ])
 })
 
-test('when no functions as input', () => {
-  expect(compose()()).toBeUndefined()
+test('when no arguments is passed', () => {
+expect(() => compose()).toThrow('compose requires at least one argument');
+})
+
+test('ramda spec', () => {
+  var f = function(a, b, c) { return [a, b, c]; };
+var g = compose(f);
+expect(g(1, 2, 3)).toEqual([1, 2,3])
 })
 
 ```
@@ -1021,6 +1059,10 @@ R.compose source
 
 ```javascript
 export function compose(...fns){
+  if(fns.length === 0){
+    throw new Error('compose requires at least one argument')
+  } 
+
   return (...args) => {
     const list = fns.slice()
     if (list.length > 0){
@@ -1032,8 +1074,6 @@ export function compose(...fns){
 
       return result
     }
-
-    return undefined
   }
 }
 
@@ -1073,6 +1113,12 @@ test('', () => {
   expect(fn([ 1, 2, 3 ])).toBeTruthy()
 })
 
+test('with multiple parameters', () => {
+  const between = function(a, b, c){ return a < b && b < c }
+const f = complement(between)
+expect(f(4, 5, 11)).toEqual(false)
+expect(f(12, 2, 6)).toEqual(true)
+})
 ```
 
 </details>
@@ -1085,7 +1131,7 @@ R.complement source
 
 ```javascript
 export function complement(fn){
-  return input => !fn(input)
+  return (...input) => !fn(...input)
 }
 
 ```
@@ -1553,17 +1599,29 @@ R.drop tests
 
 ```javascript
 import { drop } from './drop'
+import assert from 'assert'
 
-test('', () => {
-  expect(drop(1, [ 'foo', 'bar', 'baz' ])).toEqual([ 'bar', 'baz' ])
-
+test('with array', () => {
   expect(drop(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
-
   expect(drop(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
-
   expect(drop(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
+})
 
+test('with string', () => {
   expect(drop(3, 'rambda')).toEqual('bda')
+})
+
+test('with non-positive count', () => {
+  expect(drop(0, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(drop(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(drop(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+
+test('should return copy', () => {
+  const xs = [ 1, 2, 3 ]
+
+  assert.notStrictEqual(drop(0, xs), xs)
+  assert.notStrictEqual(drop(-1, xs), xs)
 })
 
 ```
@@ -1577,10 +1635,10 @@ R.drop source
 </summary>
 
 ```javascript
-export function drop(n, list){
+export function drop(n, listOrString){
   if (arguments.length === 1) return _list => drop(n, _list)
-
-  return list.slice(n)
+  
+  return listOrString.slice(n > 0 ? n : 0)
 }
 
 ```
@@ -1609,20 +1667,28 @@ R.dropLast tests
 
 ```javascript
 import { dropLast } from './dropLast'
+import assert from 'assert'
 
-test('', () => {
-  expect(dropLast(1, [ 'foo', 'bar', 'baz' ])).toEqual([
-    'foo',
-    'bar',
-  ])
-
+test('with array', () => {
   expect(dropLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo' ])
-
   expect(dropLast(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
-
   expect(dropLast(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
-
+})
+test('with string', () => {
   expect(dropLast(3, 'rambda')).toEqual('ram')
+})
+
+test('with non-positive count', () => {
+  expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3])
+expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3]) 
+expect(dropLast(-Infinity, [1, 2, 3])).toEqual([1, 2, 3])
+})
+
+test('should return copy', () => {
+    var xs = [1, 2, 3];
+
+    assert.notStrictEqual(dropLast(0, xs), xs);
+    assert.notStrictEqual(dropLast(-1, xs), xs);
 })
 
 ```
@@ -1639,7 +1705,7 @@ R.dropLast source
 export function dropLast(n, list){
   if (arguments.length === 1) return _list => dropLast(n, _list)
 
-  return list.slice(0, -n)
+  return n > 0 ? list.slice(0, -n) : list.slice()
 }
 
 ```
@@ -1746,14 +1812,14 @@ test('skip evaluation of the second expression', () => {
   expect(effect).toBe('not evaluated')
 })
 
-test('1', () => {
+test('case 1', () => {
   const firstFn = val => val > 0
   const secondFn = val => val * 5 > 10
 
   expect(either(firstFn, secondFn)(1)).toBeTruthy()
 })
 
-test('2', () => {
+test('case 2', () => {
   const firstFn = val => val > 0
   const secondFn = val => val === -10
   const fn = either(firstFn)(secondFn)
@@ -1809,13 +1875,51 @@ R.equals tests
 ```javascript
 import { equals } from './equals'
 
-test('', () => {
+test('happy', () => {
   const result = equals(
     [ 1, { a : 1 }, [ { b : 3 } ] ],
     [ 1, { a : 2 }, [ { b : 3 } ] ]
   )
 
   expect(result).toBeFalsy()
+})
+
+test('not a number', () => {
+  expect(equals([ NaN ], [ NaN ])).toBe(true)
+})
+
+test('new number', () => {
+  expect(equals(new Number(0), new Number(0))).toEqual(true)
+  expect(equals(new Number(0), new Number(1))).toEqual(false)
+  expect(equals(new Number(1), new Number(0))).toEqual(false)
+})
+
+test('new Boolean', () => {
+  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
+  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
+  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
+  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
+})
+
+test('new Error', () => {
+  expect(equals(new Error('XXX'), {})).toEqual(false)
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
+})
+
+test('new Regex is not supported', () => {
+  expect(equals(new RegExp('XXX'), new RegExp('XXX'))).toEqual(false)
+})
+
+test('with dates', () => {
+  expect(equals(new Date(0), new Date(0))).toEqual(true)
+  expect(equals(new Date(1), new Date(1))).toEqual(true)
+  expect(equals(new Date(0), new Date(1))).toEqual(false)
+  expect(equals(new Date(1), new Date(0))).toEqual(false)
+  expect(equals(new Date(0), {})).toEqual(false)
+  expect(equals({}, new Date(0))).toEqual(false)
 })
 
 test('ramda spec', () => {
@@ -2049,18 +2153,27 @@ R.equals source
 ```javascript
 import { type } from './type'
 
+function parseError(maybeError){
+  const typeofError = maybeError.__proto__.toString()
+  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
+
+  return [ typeofError, maybeError.message ]
+}
+
+function parseDate(maybeDate){
+  if (!maybeDate.toDateString) return [ false ]
+
+  return [ true, maybeDate.getTime() ]
+}
+
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
-  if (a === b){
-    return true
-  }
-
   const aType = type(a)
-
-  if (aType !== type(b)){
-    return false
-  }
+  if (aType !== type(b)) return false
+  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
+  if (aType === 'String') return a === b
+  if ([ 'Boolean', 'Number' ].includes(aType)) return a.toString() === b.toString()
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
@@ -2083,6 +2196,24 @@ export function equals(a, b){
     })
 
     return loopArrayFlag
+  }
+
+  const aDate = parseDate(a)
+  const bDate = parseDate(b)
+
+  if (aDate[ 0 ]){
+    return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
+  } else if (bDate[ 0 ]) return false
+
+  const aError = parseError(a)
+  const bError = parseError(b)
+
+  if (
+    aError[ 0 ]
+  ){
+    return bError[ 0 ] ?
+      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
+      false
   }
 
   if (aType === 'Object'){
@@ -2820,9 +2951,17 @@ R.has tests
 ```javascript
 import { has } from './has'
 
-test('has', () => {
+test('happy', () => {
   expect(has('a')({ a : 1 })).toBeTruthy()
   expect(has('b', { a : 1 })).toBeFalsy()
+})
+
+test('with non-object', () => {
+  expect(has('a', undefined)).toEqual(false)
+  expect(has('a', null)).toEqual(false)
+  expect(has('a', true)).toEqual(false)
+  expect(has('a', '')).toEqual(false)
+  expect(has('a', /a/)).toEqual(false)
 })
 
 ```
@@ -2838,6 +2977,8 @@ R.has source
 ```javascript
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
+
+  if (!obj) return false
 
   return obj[ prop ] !== undefined
 }
@@ -3057,19 +3198,38 @@ R.ifElse tests
 
 ```javascript
 import { has } from './has'
+import { identity } from './identity.js'
 import { prop } from './prop'
 import { always } from './always'
 import { ifElse } from './ifElse'
 
 const condition = has('foo')
+const v = function(a){ return typeof a === 'number' }
+const t = function(a){ return a + 1 }
 const ifFn = x => prop('foo', x).length
 const elseFn = () => false
 
-test('', () => {
+test('happy', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)
+})
+
+test('ramda spec', () => {
+  const ifIsNumber = ifElse(v)
+  expect(ifIsNumber(t, identity)(15)).toEqual(16)
+  expect(ifIsNumber(t, identity)('hello')).toEqual('hello')
+})
+
+test('pass all arguments', () => {
+  const identity = function(a){ return a }
+  const v = function(){ return true }
+  const onTrue = function(a, b){
+    expect(a).toEqual(123)
+    expect(b).toEqual('abc')
+  }
+  ifElse(v, onTrue, identity)(123, 'abc')
 })
 
 test('accept constant as condition', () => {
@@ -3084,14 +3244,14 @@ test('accept constant as condition - case 2', () => {
   expect(fn()).toEqual(false)
 })
 
-test('curry (x)(y,z)', () => {
+test('curry 1', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
 
-test('curry (x)(y)(z)', () => {
+test('curry 2', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
@@ -3109,23 +3269,9 @@ R.ifElse source
 </summary>
 
 ```javascript
-export function ifElse(condition, onTrue, onFalse){
-  if (onTrue === undefined){
-    return (_onTrue, _onFalse) => ifElse(condition, _onTrue, _onFalse)
-  } else if (onFalse === undefined){
-    return _onFalse => ifElse(condition, onTrue, _onFalse)
-  }
+import { curry } from './curry'
 
-  return input => {
-    const conditionResult = typeof condition === 'boolean' ? condition : condition(input)
-
-    if (conditionResult === true){
-      return onTrue(input)
-    }
-
-    return onFalse(input)
-  }
-}
+export const ifElse = curry(ifElseFn)
 
 ```
 
@@ -3802,11 +3948,19 @@ R.length tests
 
 ```javascript
 import { length } from './length'
+import { identical } from './identical.js'
 
-test('test', () => {
+test('happy', () => {
   expect(length('foo')).toEqual(3)
   expect(length([ 1, 2, 3 ])).toEqual(3)
   expect(length([])).toEqual(0)
+})
+
+test('with bad input', () => {
+  expect(identical(NaN, length(0))).toEqual(true)
+  expect(identical(NaN, length({}))).toEqual(true)
+  expect(identical(NaN, length(null))).toEqual(true)
+  expect(identical(NaN, length(undefined))).toEqual(true)
 })
 
 ```
@@ -3821,6 +3975,8 @@ R.length source
 
 ```javascript
 export function length(list){
+  if (list == null || list.length === undefined) return NaN
+
   return list.length
 }
 
@@ -6809,6 +6965,14 @@ test('with simple promise', () => {
   expect(type(Promise.resolve(1))).toBe('Promise')
 })
 
+test('with new Boolean', () => {
+  expect(type(new Boolean(true))).toBe('Boolean')
+})
+
+test('with new Number', () => {
+  expect(type(new Number(1))).toBe('Number')
+})
+
 test('with new promise', () => {
   const delay = ms =>
     new Promise(resolve => {
@@ -6912,6 +7076,7 @@ R.type source
 ```javascript
 export function type(val){
   const typeOf = typeof val
+  const asStr = val && val.toString ? val.toString() : ''
 
   if (val === null){
     return 'Null'
@@ -6929,15 +7094,11 @@ export function type(val){
     return 'RegExp'
   }
 
-  const asStr = val.toString()
-
-  if (asStr.startsWith('async')){
-    return 'Async'
-  } else if (asStr === '[object Promise]'){
-    return 'Promise'
-  } else if (typeOf === 'function'){
-    return 'Function'
-  }
+  if ([ 'true', 'false' ].includes(asStr)) return 'Boolean'
+  if (!Number.isNaN(Number(asStr))) return 'Number'
+  if (asStr.startsWith('async')) return 'Async'
+  if (asStr === '[object Promise]') return 'Promise'
+  if (typeOf === 'function') return 'Function'
 
   return 'Object'
 }
@@ -7521,8 +7682,6 @@ export function zipObj(keys, values){
 
 ## Benchmark
 
-Results of running `yarn benchmarks`:
-
 ```
 > add.js
 Rambda.add x 72,564,688 ops/sec ±4.81% (73 runs sampled)
@@ -7736,7 +7895,49 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 3.3.0 Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
+- 4.0.0 Multiple breaking changes as Rambda methods are changed in order to increase the similarity between with Ramda
+
+Add to `Differences`:
+
+```text
+R.type can return 'NaN'
+
+R.compose doesn't pass `this` context
+
+R.clone doesn't work with number, booleans and strings as input
+```
+
+All breaking changes:
+
+-- R.add works only with numbers
+
+-- Fix R.adjust which had wrong order of arguments
+
+-- R.adjust works when index is out of bounds
+
+-- R.complement support function with multiple arguments
+
+-- R.compose throws when called with no argument
+
+-- R.clone works with `Date` value as input
+
+-- R.drop/dropLast always return new copy of the list/string
+
+-- R.equals handles `NaN`
+
+-- R.type/R.equals supports `new Boolean/new Number/new Date` expressions
+
+-- R.has works with non-object
+
+-- R.ifElse pass all arguments
+
+-- R.length works with bad inputs
+
+- 3.2.2
+
+Close [issue #273](https://github.com/selfrefactor/rambda/issues/273) - ts-toolbelt needs other type of export when `isolatedModules` TypeScript property
+
+Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
 
 - 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
 
