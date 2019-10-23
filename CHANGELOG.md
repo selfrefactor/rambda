@@ -36,6 +36,8 @@ All breaking changes:
 
 -- R.length works with bad inputs
 
+-- R.values works with bad inputs
+
 -- R.zipObj ignores extra keys
 
 - 3.2.2

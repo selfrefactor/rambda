@@ -1,3 +1,5 @@
+import { type } from './type.js'
+
 /**
  * Returns a list of all the enumerable own properties of the supplied object.
  *
@@ -11,5 +13,7 @@
  *      R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
  */
 export function values(obj){
+  if (type(obj) !== 'Object') return []
+
   return Object.values(obj)
 }
