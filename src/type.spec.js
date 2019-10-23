@@ -9,6 +9,10 @@ test('with new Boolean', () => {
   expect(type(new Boolean(true))).toBe('Boolean')
 })
 
+test('with new String', () => {
+  expect(type(new String('I am a String object'))).toEqual('String')
+})
+
 test('with new Number', () => {
   expect(type(new Number(1))).toBe('Number')
 })

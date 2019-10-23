@@ -28,7 +28,7 @@ All breaking changes:
 
 -- R.equals handles `NaN`
 
--- R.type/R.equals supports `new Boolean/new Number/new Date` expressions
+-- R.type/R.equals supports `new Boolean/new Number/new Date/new String` expressions
 
 -- R.has works with non-object
 

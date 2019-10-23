@@ -4,7 +4,7 @@
  * @func
  * @category Type
  * @sig (* -> {*}) -> String
- * @param {*} val The value to test
+ * @param {*} input The inputue to test
  * @return {String}
  * @example
  *
@@ -21,23 +21,23 @@
  *      R.type(() => {}); //=> "Function"
  *      R.type(undefined); //=> "Undefined"
  */
-export function type(val){
-  const typeOf = typeof val
-  const asStr = val && val.toString ? val.toString() : ''
+export function type(input){
+  const typeOf = typeof input
+  const asStr = input && input.toString ? input.toString() : ''
 
-  if (val === null){
+  if (input === null){
     return 'Null'
-  } else if (val === undefined){
+  } else if (input === undefined){
     return 'Undefined'
   } else if (typeOf === 'boolean'){
     return 'Boolean'
   } else if (typeOf === 'number'){
-    return Number.isNaN(val) ? 'NaN' : 'Number'
+    return Number.isNaN(input) ? 'NaN' : 'Number'
   } else if (typeOf === 'string'){
     return 'String'
-  } else if (Array.isArray(val)){
+  } else if (Array.isArray(input)){
     return 'Array'
-  } else if (val instanceof RegExp){
+  } else if (input instanceof RegExp){
     return 'RegExp'
   }
 
@@ -46,6 +46,7 @@ export function type(val){
   if (asStr.startsWith('async')) return 'Async'
   if (asStr === '[object Promise]') return 'Promise'
   if (typeOf === 'function') return 'Function'
+  if (input instanceof String) return 'String'
 
   return 'Object'
 }

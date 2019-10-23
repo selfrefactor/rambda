@@ -14,6 +14,7 @@ import { type } from './type.js'
  */
 export function values(obj){
   if (type(obj) !== 'Object') return []
+  console.log(obj)
 
   return Object.values(obj)
 }
