@@ -36,6 +36,8 @@ All breaking changes:
 
 -- R.length works with bad inputs
 
+-- R.test throws just like Ramda when first argument is not regex
+
 -- R.values works with bad inputs
 
 -- R.zipObj ignores extra keys
