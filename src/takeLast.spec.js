@@ -32,3 +32,8 @@ test('with strings', () => {
 
   expect(takeLast(7, 'rambda')).toEqual('rambda')
 })
+
+test('with negative index', () => {
+  expect(takeLast(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(takeLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})

@@ -26,6 +26,8 @@ All breaking changes:
 
 -- R.drop/dropLast always return new copy of the list/string
 
+-- R.take/takeLast return original list/string with negative index
+
 -- R.equals handles `NaN`
 
 -- R.type/R.equals supports `new Boolean/new Number/new Date/new String` expressions

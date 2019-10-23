@@ -20,3 +20,8 @@ test('take', () => {
   ])
   expect(take(3)('rambda')).toEqual('ram')
 })
+
+test('with negative index', () => {
+  expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
