@@ -1,4 +1,5 @@
 import { zipObj } from './zipObj'
+import { equals } from './equals.js'
 
 test('zipObj', () => {
   expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
@@ -20,4 +21,17 @@ test('1', () => {
     a : 1,
     b : 2,
   })
+})
+
+test('ignore extra keys', () => {
+  const result = zipObj([ 'a', 'b', 'c', 'd', 'e', 'f' ], [ 1, 2, 3 ])
+  const expected = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+
+  expect(
+    equals(result, expected)
+  ).toBeTruthy()
 })

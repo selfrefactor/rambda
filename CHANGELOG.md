@@ -36,6 +36,8 @@ All breaking changes:
 
 -- R.length works with bad inputs
 
+-- R.zipObj ignores extra keys
+
 - 3.2.2
 
 Close [issue #273](https://github.com/selfrefactor/rambda/issues/273) - ts-toolbelt needs other type of export when `isolatedModules` TypeScript property

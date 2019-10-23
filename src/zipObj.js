@@ -1,3 +1,4 @@
+import { take } from './take'
 /**
  * Creates a new object out of a list of keys and a list of values.
  * Key/value pairing is truncated to the length of the shorter of the two lists.
@@ -15,8 +16,9 @@
 export function zipObj(keys, values){
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
 
-  return keys.reduce((prev, xInstance, i) => {
+  return take(values.length, keys).reduce((prev, xInstance, i) => {
     prev[ xInstance ] = values[ i ]
+    // console.log({ prev })
 
     return prev
   }, {})
