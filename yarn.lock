@@ -2333,9 +2333,10 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-"env@https://github.com/selfrefactor/env#0.2.1":
-  version "0.1.0"
-  resolved "https://github.com/selfrefactor/env#0c113e1b2484b444a2f2f045f4e678e499bd7910"
+env-fn@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/env-fn/-/env-fn-1.1.2.tgz#e6be3280dbf005e07fc7fd3d91dec968ac9eb734"
+  integrity sha512-yoe6PnaRN6/W1GvE2fYv+VpPG3w+nEx5KTgcoinMvFaz3NHbVT7UHBr7m9Qz2SBgDW9ryuQPmcjqV133Gtf8kQ==
   dependencies:
     fs-extra "8.0.1"
     rambda "2.7.1"
@@ -2992,15 +2993,15 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-"helpers@https://github.com/selfrefactor/helpers#1.8.0":
+"helpers@https://github.com/selfrefactor/helpers#1.8.1":
   version "1.7.1"
-  resolved "https://github.com/selfrefactor/helpers#3b5d9fb34b97a2a49946b876b9b158952fc16a94"
+  resolved "https://github.com/selfrefactor/helpers#6661eb790bcf04abe805e19b4ad615d5d5534d5d"
   dependencies:
     benny "^3.6.12"
     boxen "^4.1.0"
     chalk "^3.0.0-beta.2"
     dayjs "^1.8.16"
-    env "https://github.com/selfrefactor/env#0.2.1"
+    env-fn "1.1.2"
     figures "^3.0.0"
     gradient-string "^1.2.0"
     log-symbols "^3.0.0"
