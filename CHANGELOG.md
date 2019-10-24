@@ -24,7 +24,7 @@ All breaking changes:
 
 -- R.clone works with `Date` value as input
 
--- R.drop/dropLast always return new copy of the list/string
+-- R.drop/dropLast/take/takeLast always return new copy of the list/string
 
 -- R.take/takeLast return original list/string with negative index
 
@@ -37,6 +37,8 @@ All breaking changes:
 -- R.ifElse pass all arguments
 
 -- R.length works with bad inputs
+
+-- R.splitEvery throws on non-positive integer index
 
 -- R.test throws just like Ramda when first argument is not regex
 

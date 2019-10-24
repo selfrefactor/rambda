@@ -36,6 +36,12 @@ const cloneArray = [
     },
   },
   {
+    label : 'rest',
+    fn    : () => {
+      const a = [ ...origin ]
+    },
+  },
+  {
     label : 'slice',
     fn    : () => {
       const a = origin.slice()
@@ -49,5 +55,5 @@ const cloneArray = [
   },
 ]
 
-createBenchmark({ findInArray })
+// createBenchmark({ findInArray })
 createBenchmark({ cloneArray })

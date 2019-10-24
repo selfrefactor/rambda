@@ -1,6 +1,7 @@
+import R from 'ramda'
 import { take } from './take'
 
-test('take', () => {
+test('happy', () => {
   const arr = [ 'foo', 'bar', 'baz' ]
 
   expect(take(1, arr)).toEqual([ 'foo' ])
@@ -24,4 +25,10 @@ test('take', () => {
 test('with negative index', () => {
   expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
   expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+
+test('with zero index', () => {
+  console.log(
+    take(0, [ 1, 2, 3 ])
+  )
 })

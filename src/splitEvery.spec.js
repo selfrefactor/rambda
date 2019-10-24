@@ -8,6 +8,11 @@ test('', () => {
   ])
 
   expect(splitEvery(3)('foobarbaz')).toEqual([ 'foo', 'bar', 'baz' ])
+})
 
-  expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
+test('with bad input', () => {
+  expect(
+    () => expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
+  ).toThrow('First argument to splitEvery must be a positive integer')
+
 })
