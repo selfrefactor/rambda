@@ -1,12 +1,12 @@
 /**
- * Returns a new list or string with the elements or characters in reverse
+ * Returns a new input or string with the elements or characters in reverse
  * order.
  *
  * @func
  * @category List
  * @sig [a] -> [a]
  * @sig String -> String
- * @param {Array|String} list
+ * @param {Array|String} input
  * @return {Array|String}
  * @example
  *
@@ -20,8 +20,13 @@
  *      R.reverse('a');        //=> 'a'
  *      R.reverse('');         //=> ''
  */
-export function reverse(list){
-  const clone = list.concat()
+export function reverse(input){
+  if (typeof input === 'string'){
+    return input.split('').reverse()
+      .join('')
+  }
+
+  const clone = input.slice()
 
   return clone.reverse()
 }

@@ -38,6 +38,8 @@ All breaking changes:
 
 -- R.length works with bad inputs
 
+-- R.reverse works with strings
+
 -- R.splitEvery throws on non-positive integer index
 
 -- R.test throws just like Ramda when first argument is not regex

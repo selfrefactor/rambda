@@ -1,7 +1,11 @@
 import { reverse } from './reverse'
 
-test('', () => {
+test('happy', () => {
   expect(reverse([ 1, 2, 3 ])).toEqual([ 3, 2, 1 ])
+})
+
+test('with string', () => {
+  expect(reverse('baz')).toEqual('zab')
 })
 
 test('it doesn\'t mutate', () => {
