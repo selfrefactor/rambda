@@ -38,6 +38,8 @@ All breaking changes:
 
 -- R.length works with bad inputs
 
+-- R.range work with bad inputs
+
 -- R.reverse works with strings
 
 -- R.splitEvery throws on non-positive integer index
