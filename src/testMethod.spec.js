@@ -9,5 +9,7 @@ test('', () => {
 test('throws if first argument is not regex', () => {
   expect(
     () => testMethod('foo', 'bar')
-  ).toThrow('1')
+  ).toThrow(
+    `‘test’ requires a value of type RegExp as its first argument; received "foo"`
+  )
 })

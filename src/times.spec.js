@@ -1,10 +1,16 @@
 import { times } from './times'
 import { identity } from './identity'
+import assert from 'assert'
 
-test('', () => {
+test('happy', () => {
   const result = times(identity, 5)
 
   expect(result).toEqual([ 0, 1, 2, 3, 4 ])
+})
+
+test('with bad input', () => {
+  assert.throws(() => { times(3)('cheers!') }, RangeError)
+  assert.throws(() => { times(identity, -1) }, RangeError)
 })
 
 test('curry', () => {
