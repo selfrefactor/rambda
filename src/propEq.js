@@ -1,3 +1,5 @@
+import { curry } from './curry'
+
 /**
  * Returns `true` if the specified object property is equal, in
  * [`R.equals`](#equals) terms, to the given value; `false` otherwise.
@@ -20,12 +22,10 @@
  *      const hasBrownHair = R.propEq('hair', 'brown');
  *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
  */
-export function propEq(key, val, obj){
-  if (val === undefined){
-    return (_val, _obj) => propEq(key, _val, _obj)
-  } else if (obj === undefined){
-    return _obj => propEq(key, val, _obj)
-  }
+function propEqFn(key, val, obj){
+  if (obj == null) return false
 
   return obj[ key ] === val
 }
+
+export const propEq = curry(propEqFn)

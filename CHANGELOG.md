@@ -36,7 +36,9 @@ All breaking changes:
 
 -- R.ifElse pass all arguments
 
--- R.length works with bad inputs
+-- R.length works with bad input
+
+-- R.propEq work with bad input for object argument
 
 -- R.range work with bad inputs
 

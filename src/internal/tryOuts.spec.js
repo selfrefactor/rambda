@@ -1,3 +1,5 @@
+import { runT } from 'rambdax'
+
 function isNumberA(x){
   return Number.isInteger(x) && x > 0
 }
