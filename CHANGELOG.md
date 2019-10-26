@@ -20,7 +20,7 @@ All breaking changes:
 
 -- R.complement support function with multiple arguments
 
--- R.compose throws when called with no argument
+-- R.compose/pipe throws when called with no argument
 
 -- R.clone works with `Date` value as input
 

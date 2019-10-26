@@ -12,3 +12,11 @@ test('pipe', () => {
 
   expect(result).toEqual(14)
 })
+
+test('with bad input', () => {
+  expect(
+    () => pipe()
+  ).toThrow(
+    'pipe requires at least one argument'
+  )
+})
