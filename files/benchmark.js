@@ -3,7 +3,7 @@ const _ = require('lodash')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 const { createBenchmark } = require('helpers')
-const { headObject } = require('rambdax')
+// const { headObject } = require('rambdax')
 
 const add = [
   {
@@ -99,12 +99,28 @@ const foo = [
     },
   },
 ]
+console.log(R.isNumberB)
+const isNumber = [
+  {
+    label : 'b',
+    fn    : () => {
+      R.isNumberB(new Error('XXX'))
+    },
+  },
+  {
+    label : 'c',
+    fn    : () => {
+      R.isNumberC(new Error('XXX'))
+    },
+  },
+]
 
 const methodsToBenchmark = [
-  { add },
-  { adjust },
-  { any },
-  { append },
+  // { add },
+  // { adjust },
+  // { any },
+  // { append },
+  { isNumber },
 ]
 
 methodsToBenchmark.forEach(singleMethod => {

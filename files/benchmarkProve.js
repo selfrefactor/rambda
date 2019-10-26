@@ -56,4 +56,4 @@ const cloneArray = [
 ]
 
 // createBenchmark({ findInArray })
-createBenchmark({ cloneArray })
+// createBenchmark({ cloneArray })

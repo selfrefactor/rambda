@@ -1,0 +1,27 @@
+{
+  "name": "IS_NUMBER",
+  "date": "2019-10-26T19:53:46.796Z",
+  "version": null,
+  "results": [
+    {
+      "name": "b",
+      "ops": 240135,
+      "margin": 0.93,
+      "percentSlower": 1.26
+    },
+    {
+      "name": "c",
+      "ops": 243189,
+      "margin": 1.01,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "c",
+    "index": 1
+  },
+  "slowest": {
+    "name": "b",
+    "index": 0
+  }
+}

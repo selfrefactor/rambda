@@ -1,14 +1,24 @@
-import { runT } from 'rambdax'
+import { runTests } from 'rambdax'
 
-function isNumberA(x){
-  return Number.isInteger(x) && x > 0
-}
+import * as T from './tryOuts.js'
 
-function isNumberB(x){
-  return !Number.isNaN(Number(x))
-}
+const isNumberData = [
+  { ok : 1 },
+  { ok : -1 },
+  { ok : -1.1 },
+  { fail : null },
+  { fail : {} },
+  { fail : new Error('foo') },
+]
 
-function isNumberC(x){
-  return !Number.isNaN(Number(x))
-}
+runTests({
+  label : 'is.number.b',
+  data  : isNumberData,
+  fn    : T.isNumberB,
+})
 
+runTests({
+  label : 'is.number.c',
+  data  : isNumberData,
+  fn    : T.isNumberC,
+})
