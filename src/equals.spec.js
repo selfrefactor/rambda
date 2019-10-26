@@ -19,6 +19,15 @@ test('new number', () => {
   expect(equals(new Number(1), new Number(0))).toEqual(false)
 })
 
+test('new string', () => {
+  expect(equals(new String(''), new String(''))).toEqual(true)
+  expect(equals(new String(''), new String('x'))).toEqual(false)
+  expect(equals(new String('x'), new String(''))).toEqual(false)
+  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
+  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
+  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
+})
+
 test('new Boolean', () => {
   expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
   expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
