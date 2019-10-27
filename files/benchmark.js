@@ -1,8 +1,8 @@
 process.env.BENCHMARK_FOLDER = 'files/benchmark_results'
 const _ = require('lodash')
 const R = require('../dist/rambda.js')
-const T = require('../src/internal/tryOuts.js')
 const Ramda = require('ramda')
+const T = require('../src/internal/tryOuts.js')
 const { createBenchmark } = require('helpers')
 // const { headObject } = require('rambdax')
 

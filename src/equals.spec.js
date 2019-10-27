@@ -9,12 +9,12 @@ test('happy', () => {
   expect(result).toBeFalsy()
 })
 
-test.only('with regex', () => {
+test('with regex', () => {
   expect(equals(/s/, /s/)).toEqual(true)
-// expect(equals(/s/, /d/)).toEqual(false)
-// expect(equals(/a/gi, /a/ig)).toEqual(true)
-// expect(equals(/a/mgi, /a/img)).toEqual(true)
-// expect(equals(/a/gi, /a/i)).toEqual(false)
+  expect(equals(/s/, /d/)).toEqual(false)
+  expect(equals(/a/gi, /a/ig)).toEqual(true)
+  expect(equals(/a/mgi, /a/img)).toEqual(true)
+  expect(equals(/a/gi, /a/i)).toEqual(false)
 })
 
 test('not a number', () => {
@@ -49,10 +49,6 @@ test('new Error', () => {
   expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
   expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
   expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
-})
-
-test('new Regex is not supported', () => {
-  expect(equals(new RegExp('XXX'), new RegExp('XXX'))).toEqual(false)
 })
 
 test('with dates', () => {

@@ -28,7 +28,7 @@ All breaking changes:
 
 -- R.take/takeLast return original list/string with negative index
 
--- R.equals handles `NaN`
+-- R.equals handles `NaN` and `RegExp` types
 
 -- R.type/R.equals supports `new Boolean/new Number/new Date/new String` expressions
 
