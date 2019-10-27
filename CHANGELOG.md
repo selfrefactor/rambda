@@ -54,7 +54,13 @@ All breaking changes:
 
 -- R.zipObj ignores extra keys
 
-- 3.2.2
+- 3.2.6
+
+This is pre `4.0.0` release and it contains all of the above changes
+
+Close [issue #287](https://github.com/selfrefactor/rambda/issues/287) - `ts-toolbelt` directory was changed but not reflected in `files` property in `package.json`
+
+- 3.2.5
 
 Close [issue #273](https://github.com/selfrefactor/rambda/issues/273) - ts-toolbelt needs other type of export when `isolatedModules` TypeScript property
 

@@ -67,7 +67,7 @@
   "files": [
     "dist",
     "src",
-    "ts-toolbelt",
+    "_ts-toolbelt",
     "index.d.ts",
     "tools.d.ts"
   ],
