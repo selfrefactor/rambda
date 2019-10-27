@@ -54,7 +54,7 @@ All breaking changes:
 
 -- R.zipObj ignores extra keys
 
-- 3.2.6
+- 3.3.0
 
 This is pre `4.0.0` release and it contains all of the above changes
 
