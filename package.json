@@ -85,7 +85,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "reduce differences with ramda",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",

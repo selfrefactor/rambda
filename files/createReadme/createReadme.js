@@ -47,15 +47,21 @@ const missingRamdaMethodsPath = resolve(
   __dirname,
   '../ramdaMissing.md'
 )
-const benchmarkResultsPath = resolve(
+// const benchmarkResultsPath = resolve(
+//   __dirname,
+//   '../benchmarkResults.md'
+// )
+
+const failingTestsSummaryPath = resolve(
   __dirname,
-  '../benchmarkResults.md'
+  '../failing_ramda_tests/_SUMMARY.md'
 )
 
 void function createReadme(){
   const content = readFileSync(contentPath).toString()
   const missingRamdaMethods = readFileSync(missingRamdaMethodsPath).toString()
-  const benchmarkResults = readFileSync(benchmarkResultsPath).toString()
+  // const benchmarkResults = readFileSync(benchmarkResultsPath).toString()
+  const failingTestsSummary = readFileSync(failingTestsSummaryPath).toString()
   const changelog = readFileSync(changelogSourcePath).toString()
 
   const contentWithREPL = content.split(MARKER_METHOD).map(singleMethod => {
@@ -90,15 +96,15 @@ void function createReadme(){
     `${ missingRamdaMethods }\n## Browse by category`,
     withTableOfContent
   )
-  const withBenchmarkResults = replace(
-    'MARKER_BENCHMARK_RESULTS',
-    benchmarkResults,
+  const withFailingTestsResults = replace(
+    'MARKER_FAILING_TESTS_SUMMARY',
+    failingTestsSummary,
     withMissingRamdaMethods
   )
   const withChangelog = inject(
     changelog,
     '## Changelog\n\n',
-    withBenchmarkResults
+    withFailingTestsResults
   )
   const final = remove(
     '\n* [Example use](#example-use)\n',

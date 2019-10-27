@@ -23,7 +23,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
-* [Benchmark](#benchmark)
+* [Benchmarks](#benchmarks)
 * [Use with ES5](#use-with-es5)
 * [Changelog](#changelog)
 * [Additional info](#additional-info)
@@ -80,7 +80,7 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@3.3.0/dist/rambda.umd.js
+https://unpkg.com/rambda@4.0.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -114,6 +114,1462 @@ https://unpkg.com/rambda@3.3.0/dist/rambda.umd.js
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
+
+---
+
+<details>
+
+<summary>
+Expand to see all `Ramda` tests failing for `Rambda`, if you want to know in detail the difference between the two libraries
+</summary>
+
+> adjust
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('adjust', function() {
+  it('accepts an array-like object', function() {
+    function args() {
+      return arguments;
+    }
+    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);
+  });
+});
+```
+
+> allPass
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('allPass', function() {
+  var odd = function(n) { return n % 2 !== 0; };
+  var lt20 = function(n) { return n < 20; };
+  var gt5 = function(n) { return n > 5; };
+  var plusEq = function(w, x, y, z) { return w + x === y + z; };
+  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {
+    eq(R.allPass([odd, gt5, plusEq]).length, 4);
+    eq(R.allPass([odd, gt5, plusEq])(9, 9, 9, 9), true);
+    eq(R.allPass([odd, gt5, plusEq])(9)(9)(9)(9), true);
+  });
+});
+```
+
+> anyPass
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('anyPass', function() {
+  var odd = function(n) { return n % 2 !== 0; };
+  var gt20 = function(n) { return n > 20; };
+  var lt5 = function(n) { return n < 5; };
+  var plusEq = function(w, x, y, z) { return w + x === y + z; };
+  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {
+    eq(R.anyPass([odd, lt5, plusEq]).length, 4);
+    eq(R.anyPass([odd, lt5, plusEq])(6, 7, 8, 9), false);
+    eq(R.anyPass([odd, lt5, plusEq])(6)(7)(8)(9), false);
+  });
+});
+```
+
+> both
+
+```javascript
+var S = require('sanctuary');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('both', function() {
+  it('accepts fantasy-land applicative functors', function() {
+    var Just = S.Just;
+    var Nothing = S.Nothing;
+    eq(R.both(Just(true), Just(true)), Just(true));
+    eq(R.both(Just(true), Just(false)), Just(false));
+    eq(R.both(Just(true), Nothing()), Nothing());
+    eq(R.both(Nothing(), Just(false)), Nothing());
+    eq(R.both(Nothing(), Nothing()), Nothing());
+  });
+});
+```
+
+> complement
+
+```javascript
+var S = require('sanctuary');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('complement', function() {
+  it('accepts fantasy-land functors', function() {
+    var Just = S.Just;
+    var Nothing = S.Nothing;
+    eq(R.complement(Just(true)), Just(false));
+    eq(R.complement(Just(false)), Just(true));
+    eq(R.complement(Nothing()), Nothing());
+  });
+});
+```
+
+> compose
+
+```javascript
+var assert = require('assert');
+var jsv = require('jsverify');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('compose', function() {
+  it('performs right-to-left function composition', function() {
+    //  f :: (String, Number?) -> ([Number] -> [Number])
+    var f = R.compose(R.map, R.multiply, parseInt);
+    eq(f.length, 2);
+    eq(f('10')([1, 2, 3]), [10, 20, 30]);
+    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);
+  });
+  it('passes context to functions', function() {
+    function x(val) {
+      return this.x * val;
+    }
+    function y(val) {
+      return this.y * val;
+    }
+    function z(val) {
+      return this.z * val;
+    }
+    var context = {
+      a: R.compose(x, y, z),
+      x: 4,
+      y: 2,
+      z: 1
+    };
+    eq(context.a(5), 40);
+  });
+  it('throws if given no arguments', function() {
+    assert.throws(
+      function() { R.compose(); },
+      function(err) {
+        return err.constructor === Error &&
+               err.message === 'compose requires at least one argument';
+      }
+    );
+  });
+  it('can be applied to one argument', function() {
+    var f = function(a, b, c) { return [a, b, c]; };
+    var g = R.compose(f);
+    eq(g.length, 3);
+    eq(g(1, 2, 3), [1, 2, 3]);
+  });
+});
+describe('compose properties', function() {
+  jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
+    return R.equals(R.compose(f, g)(x), f(g(x)));
+  });
+  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
+    var result = f(g(h(x)));
+    return R.all(R.equals(result), [
+      R.compose(f, g, h)(x),
+      R.compose(f, R.compose(g, h))(x),
+      R.compose(R.compose(f, g), h)(x)
+    ]);
+  });
+});
+```
+
+> concat
+
+```javascript
+var assert = require('assert');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('concat', function() {
+  var z1 = {
+    x: 'z1',
+    concat: function(that) { return this.x + ' ' + that.x; }
+  };
+  var z2 = {
+    x: 'z2'
+  };
+  it('delegates to non-String object with a concat method, as second param', function() {
+    eq(R.concat(z1, z2), 'z1 z2');
+  });
+  it('throws if attempting to combine an array with a non-array', function() {
+    assert.throws(function() { return R.concat([1], 2); }, TypeError);
+  });
+  it('throws if not an array, String, or object with a concat method', function() {
+    assert.throws(function() { return R.concat({}, {}); }, TypeError);
+  });
+});
+```
+
+> curry
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+var jsv = require('jsverify');
+var funcN = require('./shared/funcN');
+
+describe('curry', function() {
+  it('properly reports the length of the curried function', function() {
+    var f = R.curry(function(a, b, c, d) {return (a + b * c) / d;});
+    eq(f.length, 4);
+    var g = f(12);
+    eq(g.length, 3);
+    var h = g(3);
+    eq(h.length, 2);
+    eq(g(3, 6).length, 1);
+  });
+  it('preserves context', function() {
+    var ctx = {x: 10};
+    var f = function(a, b) { return a + b * this.x; };
+    var g = R.curry(f);
+    eq(g.call(ctx, 2, 4), 42);
+    eq(g.call(ctx, 2).call(ctx, 4), 42);
+  });
+  it('supports R.__ placeholder', function() {
+    var f = function(a, b, c) { return [a, b, c]; };
+    var g = R.curry(f);
+    var _ = R.__;
+    eq(g(1)(2)(3), [1, 2, 3]);
+    eq(g(1)(2, 3), [1, 2, 3]);
+    eq(g(1, 2)(3), [1, 2, 3]);
+    eq(g(1, 2, 3), [1, 2, 3]);
+    eq(g(_, 2, 3)(1), [1, 2, 3]);
+    eq(g(1, _, 3)(2), [1, 2, 3]);
+    eq(g(1, 2, _)(3), [1, 2, 3]);
+    eq(g(1, _, _)(2)(3), [1, 2, 3]);
+    eq(g(_, 2, _)(1)(3), [1, 2, 3]);
+    eq(g(_, _, 3)(1)(2), [1, 2, 3]);
+    eq(g(1, _, _)(2, 3), [1, 2, 3]);
+    eq(g(_, 2, _)(1, 3), [1, 2, 3]);
+    eq(g(_, _, 3)(1, 2), [1, 2, 3]);
+    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);
+    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);
+    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);
+    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
+    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
+  });
+  it('supports @@functional/placeholder', function() {
+    var f = function(a, b, c) { return [a, b, c]; };
+    var g = R.curry(f);
+    var _ = {'@@functional/placeholder': true, x: Math.random()};
+    eq(g(1)(2)(3), [1, 2, 3]);
+    eq(g(1)(2, 3), [1, 2, 3]);
+    eq(g(1, 2)(3), [1, 2, 3]);
+    eq(g(1, 2, 3), [1, 2, 3]);
+    eq(g(_, 2, 3)(1), [1, 2, 3]);
+    eq(g(1, _, 3)(2), [1, 2, 3]);
+    eq(g(1, 2, _)(3), [1, 2, 3]);
+    eq(g(1, _, _)(2)(3), [1, 2, 3]);
+    eq(g(_, 2, _)(1)(3), [1, 2, 3]);
+    eq(g(_, _, 3)(1)(2), [1, 2, 3]);
+    eq(g(1, _, _)(2, 3), [1, 2, 3]);
+    eq(g(_, 2, _)(1, 3), [1, 2, 3]);
+    eq(g(_, _, 3)(1, 2), [1, 2, 3]);
+    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);
+    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);
+    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);
+    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
+    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
+  });
+  it('forwards extra arguments', function() {
+    var f = function(a, b, c) {
+      void c;
+      return Array.prototype.slice.call(arguments);
+    };
+    var g = R.curry(f);
+    eq(g(1, 2, 3), [1, 2, 3]);
+    eq(g(1, 2, 3, 4), [1, 2, 3, 4]);
+    eq(g(1, 2)(3, 4), [1, 2, 3, 4]);
+    eq(g(1)(2, 3, 4), [1, 2, 3, 4]);
+    eq(g(1)(2)(3, 4), [1, 2, 3, 4]);
+  });
+});
+describe('curry properties', function() {
+  jsv.property('curries multiple values', funcN(4), jsv.json, jsv.json, jsv.json, jsv.json, function(f, a, b, c, d) {
+    var g = R.curry(f);
+    return R.all(R.equals(f(a, b, c, d)), [
+      g(a, b, c, d),
+      g(a)(b)(c)(d),
+      g(a)(b, c, d),
+      g(a, b)(c, d),
+      g(a, b, c)(d)
+    ]);
+  });
+  jsv.property('curries with placeholder', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
+    var _ = {'@@functional/placeholder': true, x: Math.random()};
+    var g = R.curry(f);
+    return R.all(R.equals(f(a, b, c)), [
+      g(_, _, c)(a, b),
+      g(a, _, c)(b),
+      g(_, b, c)(a),
+      g(a, _, _)(_, c)(b),
+      g(a, b, _)(c)
+    ]);
+  });
+});
+```
+
+> dropLast
+
+```javascript
+var assert = require('assert');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('dropLast', function() {
+  it('can act as a transducer', function() {
+    var dropLast2 = R.dropLast(2);
+    assert.deepEqual(R.into([], dropLast2, [1, 3, 5, 7, 9, 1, 2]), [1, 3, 5, 7, 9]);
+    assert.deepEqual(R.into([], dropLast2, [1]), []);
+  });
+});
+```
+
+> either
+
+```javascript
+var S = require('sanctuary');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('either', function() {
+  it('accepts fantasy-land applicative functors', function() {
+    var Just = S.Just;
+    var Nothing = S.Nothing;
+    eq(R.either(Just(true), Just(true)), Just(true));
+    eq(R.either(Just(true), Just(false)), Just(true));
+    eq(R.either(Just(false), Just(false)), Just(false));
+    eq(R.either(Just(true), Nothing()), Nothing());
+    eq(R.either(Nothing(), Just(false)), Nothing());
+    eq(R.either(Nothing(), Nothing()), Nothing());
+  });
+});
+```
+
+> endsWith
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('startsWith', function() {
+  it('should return true when an array ends with the provided value', function() {
+    eq(R.endsWith(['c'], ['a', 'b', 'c']), true);
+  });
+  it('should return true when an array ends with the provided values', function() {
+    eq(R.endsWith(['b', 'c'], ['a', 'b', 'c']), true);
+  });
+  it('should return false when an array does not end with the provided value', function() {
+    eq(R.endsWith(['b'], ['a', 'b', 'c']), false);
+  });
+  it('should return false when an array does not end with the provided values', function() {
+    eq(R.endsWith(['a', 'b'], ['a', 'b', 'c']), false);
+  });
+});
+```
+
+> equals
+
+```javascript
+/* global Map, Set, WeakMap, WeakSet */
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('equals', function() {
+  var a = [];
+  var b = a;
+  it('never considers Boolean primitive equal to Boolean object', function() {
+    eq(R.equals(true, new Boolean(true)), false);
+    eq(R.equals(new Boolean(true), true), false);
+    eq(R.equals(false, new Boolean(false)), false);
+    eq(R.equals(new Boolean(false), false), false);
+  });
+  it('considers equal number primitives equal', function() {
+    eq(R.equals(0, 0), true);
+    eq(R.equals(0, 1), false);
+    eq(R.equals(1, 0), false);
+  });
+  it('considers equivalent Number objects equal', function() {
+    eq(R.equals(new Number(0), new Number(0)), true);
+    eq(R.equals(new Number(0), new Number(1)), false);
+    eq(R.equals(new Number(1), new Number(0)), false);
+  });
+  it('never considers number primitive equal to Number object', function() {
+    eq(R.equals(0, new Number(0)), false);
+    eq(R.equals(new Number(0), 0), false);
+  });
+  it('considers equal string primitives equal', function() {
+    eq(R.equals('', ''), true);
+    eq(R.equals('', 'x'), false);
+    eq(R.equals('x', ''), false);
+    eq(R.equals('foo', 'foo'), true);
+    eq(R.equals('foo', 'bar'), false);
+    eq(R.equals('bar', 'foo'), false);
+  });
+  it('considers equivalent String objects equal', function() {
+    eq(R.equals(new String(''), new String('')), true);
+    eq(R.equals(new String(''), new String('x')), false);
+    eq(R.equals(new String('x'), new String('')), false);
+    eq(R.equals(new String('foo'), new String('foo')), true);
+    eq(R.equals(new String('foo'), new String('bar')), false);
+    eq(R.equals(new String('bar'), new String('foo')), false);
+  });
+  it('never considers string primitive equal to String object', function() {
+    eq(R.equals('', new String('')), false);
+    eq(R.equals(new String(''), ''), false);
+    eq(R.equals('x', new String('x')), false);
+    eq(R.equals(new String('x'), 'x'), false);
+  });
+  it('handles objects', function() {
+    eq(R.equals({}, {}), true);
+    eq(R.equals({a:1, b:2}, {a:1, b:2}), true);
+    eq(R.equals({a:2, b:3}, {b:3, a:2}), true);
+    eq(R.equals({a:2, b:3}, {a:3, b:3}), false);
+    eq(R.equals({a:2, b:3, c:1}, {a:2, b:3}), false);
+  });
+  it('considers equivalent Arguments objects equal', function() {
+    var a = (function() { return arguments; }());
+    var b = (function() { return arguments; }());
+    var c = (function() { return arguments; }(1, 2, 3));
+    var d = (function() { return arguments; }(1, 2, 3));
+    eq(R.equals(a, b), true);
+    eq(R.equals(b, a), true);
+    eq(R.equals(c, d), true);
+    eq(R.equals(d, c), true);
+    eq(R.equals(a, c), false);
+    eq(R.equals(c, a), false);
+  });
+  it('considers equivalent Error objects equal', function() {
+    eq(R.equals(new Error('XXX'), new Error('XXX')), true);
+    eq(R.equals(new Error('XXX'), new Error('YYY')), false);
+    eq(R.equals(new Error('XXX'), new TypeError('XXX')), false);
+    eq(R.equals(new Error('XXX'), new TypeError('YYY')), false);
+  });
+  var supportsSticky = false;
+  try { RegExp('', 'y'); supportsSticky = true; } catch (e) {}
+  var supportsUnicode = false;
+  try { RegExp('', 'u'); supportsUnicode = true; } catch (e) {}
+  it('handles regex', function() {
+    eq(R.equals(/\s/, /\s/), true);
+    eq(R.equals(/\s/, /\d/), false);
+    eq(R.equals(/a/gi, /a/ig), true);
+    eq(R.equals(/a/mgi, /a/img), true);
+    eq(R.equals(/a/gi, /a/i), false);
+    if (supportsSticky) {
+      // eq(R.equals(/\s/y, /\s/y), true);
+      // eq(R.equals(/a/mygi, /a/imgy), true);
+    }
+    if (supportsUnicode) {
+      // eq(R.equals(/\s/u, /\s/u), true);
+      // eq(R.equals(/a/mugi, /a/imgu), true);
+    }
+  });
+  var listA = [1, 2, 3];
+  var listB = [1, 3, 2];
+  it('handles lists', function() {
+    eq(R.equals([], {}), false);
+    eq(R.equals(listA, listB), false);
+  });
+  var c = {}; c.v = c;
+  var d = {}; d.v = d;
+  var e = []; e.push(e);
+  var f = []; f.push(f);
+  var nestA = {a:[1, 2, {c:1}], b:1};
+  var nestB = {a:[1, 2, {c:1}], b:1};
+  var nestC = {a:[1, 2, {c:2}], b:1};
+  it('handles recursive data structures', function() {
+    eq(R.equals(c, d), true);
+    eq(R.equals(e, f), true);
+    eq(R.equals(nestA, nestB), true);
+    eq(R.equals(nestA, nestC), false);
+  });
+  it('handles dates', function() {
+    eq(R.equals(new Date(0), new Date(0)), true);
+    eq(R.equals(new Date(1), new Date(1)), true);
+    eq(R.equals(new Date(0), new Date(1)), false);
+    eq(R.equals(new Date(1), new Date(0)), false);
+  });
+  it('requires that both objects have the same enumerable properties with the same values', function() {
+    var a1 = [];
+    var a2 = [];
+    a2.x = 0;
+    var b1 = new Boolean(false);
+    var b2 = new Boolean(false);
+    b2.x = 0;
+    var d1 = new Date(0);
+    var d2 = new Date(0);
+    d2.x = 0;
+    var n1 = new Number(0);
+    var n2 = new Number(0);
+    n2.x = 0;
+    var r1 = /(?:)/;
+    var r2 = /(?:)/;
+    r2.x = 0;
+    var s1 = new String('');
+    var s2 = new String('');
+    s2.x = 0;
+    eq(R.equals(a1, a2), false);
+    eq(R.equals(b1, b2), false);
+    eq(R.equals(d1, d2), false);
+    eq(R.equals(n1, n2), false);
+    eq(R.equals(r1, r2), false);
+    eq(R.equals(s1, s2), false);
+  });
+  it('is commutative', function() {
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+    Point.prototype.equals = function(point) {
+      return point instanceof Point &&
+             this.x === point.x && this.y === point.y;
+    };
+    function ColorPoint(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+    }
+    ColorPoint.prototype = new Point(0, 0);
+    ColorPoint.prototype.equals = function(point) {
+      return point instanceof ColorPoint &&
+             this.x === point.x && this.y === point.y &&
+             this.color === point.color;
+    };
+    eq(R.equals(new Point(2, 2), new ColorPoint(2, 2, 'red')), false);
+    eq(R.equals(new ColorPoint(2, 2, 'red'), new Point(2, 2)), false);
+  });
+});
+```
+
+> filter
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('filter', function() {
+  var even = function(x) {return x % 2 === 0;};
+  it('dispatches to passed-in non-Array object with a `filter` method', function() {
+    var f = {filter: function(f) { return f('called f.filter'); }};
+    eq(R.filter(function(s) { return s; }, f), 'called f.filter');
+  });
+});
+```
+
+> flip
+
+```javascript
+var jsv = require('jsverify');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+var funcN = require('./shared/funcN');
+describe('flip', function() {
+  it('returns a function which inverts the first two arguments to the supplied function', function() {
+    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};
+    var g = R.flip(f);
+    eq(f('a', 'b', 'c'), 'a b c');
+    eq(g('a', 'b', 'c'), 'b a c');
+  });
+  it('returns a curried function', function() {
+    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};
+    var g = R.flip(f)('a');
+    eq(g('b', 'c'), 'b a c');
+  });
+  it('returns a function with the correct arity', function() {
+    var f2 = function(a, b) {return a + ' ' + b;};
+    var f3 = function(a, b, c) {return a + ' ' + b + ' ' + c;};
+    eq(R.flip(f2).length, 2);
+    eq(R.flip(f3).length, 3);
+  });
+});
+describe('flip properties', function() {
+  jsv.property('inverts first two arguments', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
+    var g = R.flip(f);
+    return R.equals(f(a, b, c), g(b, a, c));
+  });
+});
+```
+
+> forEach
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('forEach', function() {
+  var list = [{x: 1, y: 2}, {x: 100, y: 200}, {x: 300, y: 400}, {x: 234, y: 345}];
+  it('dispatches to `forEach` method', function() {
+    var dispatched = false;
+    var fn = function() {};
+    function DummyList() {}
+    DummyList.prototype.forEach = function(callback) {
+      dispatched = true;
+      eq(callback, fn);
+    };
+    R.forEach(fn, new DummyList());
+    eq(dispatched, true);
+  });
+});
+```
+
+> groupBy
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+var _isTransformer = require('rambda/internal/_isTransformer');
+
+describe('groupBy', function() {
+  it('dispatches on transformer objects in list position', function() {
+    var byType = R.prop('type');
+    var xf = {
+      '@@transducer/init': function() { return {}; },
+      '@@transducer/result': function(x) { return x; },
+      '@@transducer/step': R.mergeRight
+    };
+    eq(_isTransformer(R.groupBy(byType, xf)), true);
+  });
+});
+```
+
+> has
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('has', function() {
+  var fred = {name: 'Fred', age: 23};
+  var anon = {age: 99};
+  it('does not check properties from the prototype chain', function() {
+    var Person = function() {};
+    Person.prototype.age = function() {};
+    var bob = new Person();
+    eq(R.has('age', bob), false);
+  });
+  it('returns false for non-objects', function() {
+    eq(R.has('a', undefined), false);
+    eq(R.has('a', null), false);
+    eq(R.has('a', true), false);
+    eq(R.has('a', ''), false);
+    eq(R.has('a', /a/), false);
+  });
+  it('tests currying', function() {
+    eq(R.has('a')({ a: { b: 1 } }), true);
+  });
+});
+```
+
+> ifElse
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('ifElse', function() {
+  var t = function(a) { return a + 1; };
+  var identity = function(a) { return a; };
+  var isArray = function(a) { return Object.prototype.toString.call(a) === '[object Array]'; };
+  it('returns a function whose arity equals the max arity of the three arguments to `ifElse`', function() {
+    function a0() { return 0; }
+    function a1(x) { return x; }
+    function a2(x, y) { return x + y; }
+    eq(R.ifElse(a0, a1, a2).length, 2);
+    eq(R.ifElse(a0, a2, a1).length, 2);
+    eq(R.ifElse(a1, a0, a2).length, 2);
+    eq(R.ifElse(a1, a2, a0).length, 2);
+    eq(R.ifElse(a2, a0, a1).length, 2);
+    eq(R.ifElse(a2, a1, a0).length, 2);
+  });
+  it('returns a curried function', function() {
+    var v = function(a) { return typeof a === 'number'; };
+    var ifIsNumber = R.ifElse(v);
+    eq(ifIsNumber(t, identity)(15), 16);
+    eq(ifIsNumber(t, identity)('hello'), 'hello');
+    var fn = R.ifElse(R.gt, R.subtract, R.add);
+    eq(fn(2)(7), 9);
+    eq(fn(2, 7), 9);
+    eq(fn(7)(2), 5);
+    eq(fn(7, 2), 5);
+  });
+});
+```
+
+> includes
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('includes', function() {
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.includes(0, [-0]), false);
+    eq(R.includes(-0, [0]), false);
+    eq(R.includes(NaN, [NaN]), true);
+    eq(R.includes(new Just([42]), [new Just([42])]), true);
+  });
+  it('returns true if substring is part of string', function() {
+    eq(R.includes('ba', 'banana'), true);
+  });
+});
+```
+
+> indexBy
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('indexBy', function() {
+  it('can act as a transducer', function() {
+    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
+    var transducer = R.compose(
+      R.indexBy(R.prop('id')),
+      R.map(R.pipe(
+        R.adjust(0, R.toUpper),
+        R.adjust(1, R.omit(['id']))
+      )));
+    var result = R.into({}, transducer, list);
+    eq(result, {ABC: {title: 'B'}, XYZ: {title: 'A'}});
+  });
+});
+```
+
+> indexOf
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('indexOf', function() {
+  var input = [1, 2, 3, 4, 5];
+  var list = [1, 2, 3];
+  list[-2] = 4; // Throw a wrench in the gears by assigning a non-valid array index as object property.
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.indexOf(0, [-0]), -1);
+    eq(R.indexOf(-0, [0]), -1);
+    eq(R.indexOf(NaN, [NaN]), 0);
+    eq(R.indexOf(new Just([42]), [new Just([42])]), 0);
+  });
+  it('dispatches to `indexOf` method', function() {
+    function Empty() {}
+    Empty.prototype.indexOf = R.always(-1);
+    function List(head, tail) {
+      this.head = head;
+      this.tail = tail;
+    }
+    List.prototype.indexOf = function(x) {
+      var idx = this.tail.indexOf(x);
+      return this.head === x ? 0 : idx >= 0 ? 1 + idx : -1;
+    };
+    var list = new List('b',
+      new List('a',
+        new List('n',
+          new List('a',
+            new List('n',
+              new List('a',
+                new Empty()
+              )
+            )
+          )
+        )
+      )
+    );
+    eq(R.indexOf('a', 'banana'), 1);
+    eq(R.indexOf('x', 'banana'), -1);
+    eq(R.indexOf('a', list), 1);
+    eq(R.indexOf('x', list), -1);
+  });
+  it('finds function, compared by identity', function() {
+    var f = function() {};
+    var g = function() {};
+    var list = [g, f, g, f];
+    eq(R.indexOf(f, list), 1);
+  });
+  it('does not find function, compared by identity', function() {
+    var f = function() {};
+    var g = function() {};
+    var h = function() {};
+    var list = [g, f];
+    eq(R.indexOf(h, list), -1);
+  });
+});
+```
+
+> keys
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('keys', function() {
+  var obj = {a: 100, b: [1, 2, 3], c: {x: 200, y: 300}, d: 'D', e: null, f: undefined};
+  function C() { this.a = 100; this.b = 200; }
+  C.prototype.x = function() { return 'x'; };
+  C.prototype.y = 'y';
+  var cobj = new C();
+  it('works for primitives', function() {
+    eq(R.keys(null), []);
+    eq(R.keys(undefined), []);
+    eq(R.keys(55), []);
+    eq(R.keys('foo'), []);
+    eq(R.keys(true), []);
+    eq(R.keys(false), []);
+    eq(R.keys(NaN), []);
+    eq(R.keys(Infinity), []);
+    eq(R.keys([]), []);
+  });
+  it("does not include the given object's prototype properties", function() {
+    eq(R.keys(cobj).sort(), ['a', 'b']);
+  });
+});
+```
+
+> lastIndexOf
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('lastIndexOf', function() {
+  var input = [1, 2, 3, 4, 5, 1];
+  var list = ['a', 1, 'a'];
+  list[-2] = 'a'; // Throw a wrench in the gears by assigning a non-valid array index as object property.
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.lastIndexOf(0, [-0]), -1);
+    eq(R.lastIndexOf(-0, [0]), -1);
+    eq(R.lastIndexOf(NaN, [NaN]), 0);
+    eq(R.lastIndexOf(new Just([42]), [new Just([42])]), 0);
+  });
+  it('dispatches to `lastIndexOf` method', function() {
+    function Empty() {}
+    Empty.prototype.lastIndexOf = R.always(-1);
+    function List(head, tail) {
+      this.head = head;
+      this.tail = tail;
+    }
+    List.prototype.lastIndexOf = function(x) {
+      var idx = this.tail.lastIndexOf(x);
+      return idx >= 0 ? 1 + idx : this.head === x ? 0 : -1;
+    };
+    var list = new List('b',
+      new List('a',
+        new List('n',
+          new List('a',
+            new List('n',
+              new List('a',
+                new Empty()
+              )
+            )
+          )
+        )
+      )
+    );
+    eq(R.lastIndexOf('a', 'banana'), 5);
+    eq(R.lastIndexOf('x', 'banana'), -1);
+    eq(R.lastIndexOf('a', list), 5);
+    eq(R.lastIndexOf('x', list), -1);
+  });
+  it('finds function, compared by identity', function() {
+    var f = function() {};
+    var g = function() {};
+    var list = [g, f, g, f];
+    eq(R.lastIndexOf(f, list), 3);
+  });
+  it('does not find function, compared by identity', function() {
+    var f = function() {};
+    var g = function() {};
+    var h = function() {};
+    var list = [g, f];
+    eq(R.lastIndexOf(h, list), -1);
+  });
+});
+```
+
+> length
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('length', function() {
+  it('returns NaN for length property of unexpected type', function() {
+    eq(R.identical(NaN, R.length({length: ''})), true);
+    eq(R.identical(NaN, R.length({length: '1.23'})), true);
+    eq(R.identical(NaN, R.length({length: null})), true);
+```
+
+> path
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('path', function() {
+  var deepObject = {a: {b: {c: 'c'}}, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ['arr']};
+  it('takes a path that contains negative indices into arrays', function() {
+    eq(R.path(['x', -2], {x: ['a', 'b', 'c', 'd']}), 'c');
+    eq(R.path([-1, 'y'], [{x: 1, y: 99}, {x: 2, y: 98}, {x: 3, y: 97}]), 97);
+  });
+  it("gets a deep property's value from objects", function() {
+    eq(R.path(['a', 'b', 'c'], deepObject), 'c');
+    eq(R.path(['a'], deepObject), deepObject.a);
+  });
+  it('returns undefined for items not found', function() {
+    eq(R.path(['a', 'b', 'foo'], deepObject), undefined);
+    eq(R.path(['bar'], deepObject), undefined);
+    eq(R.path(['a', 'b'], {a: null}), undefined);
+  });
+  it('works with falsy items', function() {
+    eq(R.path(['toString'], false), Boolean.prototype.toString);
+  });
+});
+```
+
+> pipe
+
+```javascript
+var assert = require('assert');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('pipe', function() {
+  it('performs left-to-right function composition', function() {
+    //  f :: (String, Number?) -> ([Number] -> [Number])
+    var f = R.pipe(parseInt, R.multiply, R.map);
+    eq(f.length, 2);
+    eq(f('10')([1, 2, 3]), [10, 20, 30]);
+    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);
+  });
+  it('passes context to functions', function() {
+    function x(val) {
+      return this.x * val;
+    }
+    function y(val) {
+      return this.y * val;
+    }
+    function z(val) {
+      return this.z * val;
+    }
+    var context = {
+      a: R.pipe(x, y, z),
+      x: 4,
+      y: 2,
+      z: 1
+    };
+    eq(context.a(5), 40);
+  });
+  it('throws if given no arguments', function() {
+    assert.throws(
+      function() { R.pipe(); },
+      function(err) {
+        return err.constructor === Error &&
+               err.message === 'pipe requires at least one argument';
+      }
+    );
+  });
+  it('can be applied to one argument', function() {
+    var f = function(a, b, c) { return [a, b, c]; };
+    var g = R.pipe(f);
+    eq(g.length, 3);
+    eq(g(1, 2, 3), [1, 2, 3]);
+  });
+});
+```
+
+> pluck
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('pluck', function() {
+  var people = [
+    {name: 'Fred', age: 23},
+    {name: 'Wilma', age: 21},
+    {name: 'Pebbles', age: 2}
+  ];
+  it('behaves as a transducer when given a transducer in list position', function() {
+    var numbers = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
+    var transducer = R.compose(R.pluck('a'), R.map(R.add(1)), R.take(2));
+    eq(R.transduce(transducer, R.flip(R.append), [], numbers), [2, 3]);
+  });
+});
+```
+
+> propEq
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('propEq', function() {
+  var obj1 = {name: 'Abby', age: 7, hair: 'blond'};
+  var obj2 = {name: 'Fred', age: 12, hair: 'brown'};
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.propEq('value', 0, {value: -0}), false);
+    eq(R.propEq('value', -0, {value: 0}), false);
+    eq(R.propEq('value', NaN, {value: NaN}), true);
+    eq(R.propEq('value', new Just([42]), {value: new Just([42])}), true);
+  });
+```
+
+> reduce
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('reduce', function() {
+  var add = function(a, b) {return a + b;};
+  var mult = function(a, b) {return a * b;};
+  it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
+```
+
+> reject
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('reject', function() {
+  var even = function(x) {return x % 2 === 0;};
+  it('dispatches to `filter` method', function() {
+    function Nothing() {}
+    Nothing.value = new Nothing();
+    Nothing.prototype.filter = function() {
+      return this;
+    };
+    function Just(x) { this.value = x; }
+    Just.prototype.filter = function(pred) {
+      return pred(this.value) ? this : Nothing.value;
+    };
+    var m = new Just(42);
+    eq(R.filter(R.T, m), m);
+    eq(R.filter(R.F, m), Nothing.value);
+    eq(R.reject(R.T, m), Nothing.value);
+    eq(R.reject(R.F, m), m);
+  });
+});
+```
+
+> sortBy
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+var albums = [
+  {title: 'Art of the Fugue', artist: 'Glenn Gould', genre: 'Baroque'},
+  {title: 'A Farewell to Kings', artist: 'Rush', genre: 'Rock'},
+  {title: 'Timeout', artist: 'Dave Brubeck Quartet', genre: 'Jazz'},
+  {title: 'Fly By Night', artist: 'Rush', genre: 'Rock'},
+  {title: 'Goldberg Variations', artist: 'Daniel Barenboim', genre: 'Baroque'},
+  {title: 'New World Symphony', artist: 'Leonard Bernstein', genre: 'Romantic'},
+  {title: 'Romance with the Unseen', artist: 'Don Byron', genre: 'Jazz'},
+  {title: 'Somewhere In Time', artist: 'Iron Maiden', genre: 'Metal'},
+  {title: 'In Times of Desparation', artist: 'Danny Holt', genre: 'Modern'},
+  {title: 'Evita', artist: 'Various', genre: 'Broadway'},
+  {title: 'Five Leaves Left', artist: 'Nick Drake', genre: 'Folk'},
+  {title: 'The Magic Flute', artist: 'John Eliot Gardiner', genre: 'Classical'}
+];
+describe('sortBy', function() {
+  it('sorts array-like object', function() {
+    var args = (function() { return arguments; }('c', 'a', 'b'));
+    var result = R.sortBy(R.identity, args);
+    eq(result[0], 'a');
+    eq(result[1], 'b');
+    eq(result[2], 'c');
+  });
+});
+```
+
+> startsWith
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('startsWith', function() {
+  it('should return true when an array starts with the provided value', function() {
+    eq(R.startsWith(['a'], ['a', 'b', 'c']), true);
+  });
+  it('should return true when an array starts with the provided values', function() {
+    eq(R.startsWith(['a', 'b'], ['a', 'b', 'c']), true);
+  });
+  it('should return false when an array does not start with the provided value', function() {
+    eq(R.startsWith(['b'], ['a', 'b', 'c']), false);
+  });
+  it('should return false when an array does not start with the provided values', function() {
+    eq(R.startsWith(['b', 'c'], ['a', 'b', 'c']), false);
+  });
+});
+```
+
+> take
+
+```javascript
+var assert = require('assert');
+var sinon = require('sinon');
+
+var R = require('rambda');
+var eq = require('./shared/eq');
+describe('take', function() {
+  it('handles zero correctly (#1224)', function() {
+    eq(R.into([], R.take(0), [1, 2, 3]), []);
+  });
+  it('steps correct number of times', function() {
+    var spy = sinon.spy();
+    R.into([], R.compose(R.map(spy), R.take(2)), [1, 2, 3]);
+    sinon.assert.calledTwice(spy);
+  });
+  it('transducer called for every member of list if `n` is < 0', function() {
+    var spy = sinon.spy();
+    R.into([], R.compose(R.map(spy), R.take(-1)), [1, 2, 3]);
+    sinon.assert.calledThrice(spy);
+  });
+});
+```
+
+> tap
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+var listXf = require('./helpers/listXf');
+var _curry2 = require('rambda/internal/_curry2');
+
+describe('tap', function() {
+  var pushToList = _curry2(function(lst, x) { lst.push(x); });
+  it('can act as a transducer', function() {
+    var sideEffect = [];
+    var numbers = [1,2,3,4,5];
+    var xf = R.compose(R.map(R.identity), R.tap(pushToList(sideEffect)));
+    eq(R.into([], xf, numbers), numbers);
+    eq(sideEffect, numbers);
+  });
+  it('dispatches to transformer objects', function() {
+    var sideEffect = [];
+    var pushToSideEffect = pushToList(sideEffect);
+    eq(R.tap(pushToSideEffect, listXf), {
+      f: pushToSideEffect,
+      xf: listXf
+    });
+  });
+});
+```
+
+> toString
+
+```javascript
+var assert = require('assert');
+
+var R = require('rambda');
+describe('toString', function() {
+  it('returns the string representation of null', function() {
+    assert.strictEqual(R.toString(null), 'null');
+  });
+  it('returns the string representation of undefined', function() {
+    assert.strictEqual(R.toString(undefined), 'undefined');
+  });
+  it('returns the string representation of a number primitive', function() {
+    assert.strictEqual(R.toString(0), '0');
+    assert.strictEqual(R.toString(-0), '-0');
+    assert.strictEqual(R.toString(1.23), '1.23');
+    assert.strictEqual(R.toString(-1.23), '-1.23');
+    assert.strictEqual(R.toString(1e+23), '1e+23');
+    assert.strictEqual(R.toString(-1e+23), '-1e+23');
+    assert.strictEqual(R.toString(1e-23), '1e-23');
+    assert.strictEqual(R.toString(-1e-23), '-1e-23');
+    assert.strictEqual(R.toString(Infinity), 'Infinity');
+    assert.strictEqual(R.toString(-Infinity), '-Infinity');
+    assert.strictEqual(R.toString(NaN), 'NaN');
+  });
+  it('returns the string representation of a string primitive', function() {
+    assert.strictEqual(R.toString('abc'), '"abc"');
+    assert.strictEqual(R.toString('x "y" z'), '"x \\"y\\" z"');
+    assert.strictEqual(R.toString("' '"), '"\' \'"');
+    assert.strictEqual(R.toString('" "'), '"\\" \\""');
+    assert.strictEqual(R.toString('\b \b'), '"\\b \\b"');
+    assert.strictEqual(R.toString('\f \f'), '"\\f \\f"');
+    assert.strictEqual(R.toString('\n \n'), '"\\n \\n"');
+    assert.strictEqual(R.toString('\r \r'), '"\\r \\r"');
+    assert.strictEqual(R.toString('\t \t'), '"\\t \\t"');
+    assert.strictEqual(R.toString('\v \v'), '"\\v \\v"');
+    assert.strictEqual(R.toString('\0 \0'), '"\\0 \\0"');
+    assert.strictEqual(R.toString('\\ \\'), '"\\\\ \\\\"');
+  });
+  it('returns the string representation of a Boolean object', function() {
+    assert.strictEqual(R.toString(new Boolean(true)), 'new Boolean(true)');
+    assert.strictEqual(R.toString(new Boolean(false)), 'new Boolean(false)');
+  });
+  it('returns the string representation of a Number object', function() {
+    assert.strictEqual(R.toString(new Number(0)), 'new Number(0)');
+    assert.strictEqual(R.toString(new Number(-0)), 'new Number(-0)');
+  });
+  it('returns the string representation of a String object', function() {
+    assert.strictEqual(R.toString(new String('abc')), 'new String("abc")');
+    assert.strictEqual(R.toString(new String('x "y" z')), 'new String("x \\"y\\" z")');
+    assert.strictEqual(R.toString(new String("' '")), 'new String("\' \'")');
+    assert.strictEqual(R.toString(new String('" "')), 'new String("\\" \\"")');
+    assert.strictEqual(R.toString(new String('\b \b')), 'new String("\\b \\b")');
+    assert.strictEqual(R.toString(new String('\f \f')), 'new String("\\f \\f")');
+    assert.strictEqual(R.toString(new String('\n \n')), 'new String("\\n \\n")');
+    assert.strictEqual(R.toString(new String('\r \r')), 'new String("\\r \\r")');
+    assert.strictEqual(R.toString(new String('\t \t')), 'new String("\\t \\t")');
+    assert.strictEqual(R.toString(new String('\v \v')), 'new String("\\v \\v")');
+    assert.strictEqual(R.toString(new String('\0 \0')), 'new String("\\0 \\0")');
+    assert.strictEqual(R.toString(new String('\\ \\')), 'new String("\\\\ \\\\")');
+  });
+  it('returns the string representation of a Date object', function() {
+    assert.strictEqual(R.toString(new Date('2001-02-03T04:05:06.000Z')), 'new Date("2001-02-03T04:05:06.000Z")');
+    assert.strictEqual(R.toString(new Date('XXX')), 'new Date(NaN)');
+  });
+  it('returns the string representation of a RegExp object', function() {
+    assert.strictEqual(R.toString(/(?:)/), '/(?:)/');
+    assert.strictEqual(R.toString(/\//g), '/\\//g');
+  });
+  it('returns the string representation of a function', function() {
+    var add = function add(a, b) { return a + b; };
+    assert.strictEqual(R.toString(add), add.toString());
+  });
+  it('returns the string representation of an array', function() {
+    assert.strictEqual(R.toString([]), '[]');
+    assert.strictEqual(R.toString([1, 2, 3]), '[1, 2, 3]');
+    assert.strictEqual(R.toString([1, [2, [3]]]), '[1, [2, [3]]]');
+    assert.strictEqual(R.toString(['x', 'y']), '["x", "y"]');
+  });
+  it('returns the string representation of an array with non-numeric property names', function() {
+    var xs = [1, 2, 3];
+    xs.foo = 0;
+    xs.bar = 0;
+    xs.baz = 0;
+    assert.strictEqual(R.toString(xs), '[1, 2, 3, "bar": 0, "baz": 0, "foo": 0]');
+  });
+  it('returns the string representation of an arguments object', function() {
+    assert.strictEqual(R.toString((function() { return arguments; })()), '(function() { return arguments; }())');
+    assert.strictEqual(R.toString((function() { return arguments; })(1, 2, 3)), '(function() { return arguments; }(1, 2, 3))');
+    assert.strictEqual(R.toString((function() { return arguments; })(['x', 'y'])), '(function() { return arguments; }(["x", "y"]))');
+  });
+  it('returns the string representation of a plain object', function() {
+    assert.strictEqual(R.toString({}), '{}');
+    assert.strictEqual(R.toString({foo: 1, bar: 2, baz: 3}), '{"bar": 2, "baz": 3, "foo": 1}');
+    assert.strictEqual(R.toString({'"quoted"': true}), '{"\\"quoted\\"": true}');
+    assert.strictEqual(R.toString({a: {b: {c: {}}}}), '{"a": {"b": {"c": {}}}}');
+  });
+  it('treats instance without custom `toString` method as plain object', function() {
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+    assert.strictEqual(R.toString(new Point(1, 2)), '{"x": 1, "y": 2}');
+  });
+  it('dispatches to custom `toString` method', function() {
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+    Point.prototype.toString = function() {
+      return 'new Point(' + this.x + ', ' + this.y + ')';
+    };
+    assert.strictEqual(R.toString(new Point(1, 2)), 'new Point(1, 2)');
+    function Just(x) {
+      if (!(this instanceof Just)) {
+        return new Just(x);
+      }
+      this.value = x;
+    }
+    Just.prototype.toString = function() {
+      return 'Just(' + R.toString(this.value) + ')';
+    };
+    assert.strictEqual(R.toString(Just(42)), 'Just(42)');
+    assert.strictEqual(R.toString(Just([1, 2, 3])), 'Just([1, 2, 3])');
+    assert.strictEqual(R.toString(Just(Just(Just('')))), 'Just(Just(Just("")))');
+    assert.strictEqual(R.toString({toString: R.always('x')}), 'x');
+  });
+  it('handles object with no `toString` method', function() {
+    if (typeof Object.create === 'function') {
+      var a = Object.create(null);
+      var b = Object.create(null); b.x = 1; b.y = 2;
+      assert.strictEqual(R.toString(a), '{}');
+      assert.strictEqual(R.toString(b), '{"x": 1, "y": 2}');
+    }
+  });
+  it('handles circular references', function() {
+    var a = [];
+    a[0] = a;
+    assert.strictEqual(R.toString(a), '[<Circular>]');
+    var o = {};
+    o.o = o;
+    assert.strictEqual(R.toString(o), '{"o": <Circular>}');
+    var b = ['bee'];
+    var c = ['see'];
+    b[1] = c;
+    c[1] = b;
+    assert.strictEqual(R.toString(b), '["bee", ["see", <Circular>]]');
+    assert.strictEqual(R.toString(c), '["see", ["bee", <Circular>]]');
+    var p = {};
+    var q = {};
+    p.q = q;
+    q.p = p;
+    assert.strictEqual(R.toString(p), '{"q": {"p": <Circular>}}');
+    assert.strictEqual(R.toString(q), '{"p": {"q": <Circular>}}');
+    var x = [];
+    var y = {};
+    x[0] = y;
+    y.x = x;
+    assert.strictEqual(R.toString(x), '[{"x": <Circular>}]');
+    assert.strictEqual(R.toString(y), '{"x": [<Circular>]}');
+  });
+});
+```
+
+> trim
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('trim', function() {
+  var test = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFFHello, World!\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+  it('trims all ES5 whitespace', function() {
+    eq(R.trim(test), 'Hello, World!');
+    eq(R.trim(test).length, 13);
+  });
+  it('does not trim the zero-width space', function() {
+    eq(R.trim('\u200b'), '\u200b');
+    eq(R.trim('\u200b').length, 1);
+  });
+  if (typeof String.prototype.trim !== 'function') {
+    it('falls back to a shim if String.prototype.trim is not present', function() {
+      eq(R.trim('   xyz  '), 'xyz');
+      eq(R.trim(test), 'Hello, World!');
+      eq(R.trim(test).length, 13);
+      eq(R.trim('\u200b'), '\u200b');
+      eq(R.trim('\u200b').length, 1);
+    });
+  }
+});
+```
+
+> type
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('type', function() {
+  // it('"Arguments" if given an arguments object', function() {
+  //   var args = (function() { return arguments; }());
+  //   eq(R.type(args), 'Arguments');
+  // });
+  it('"Number" if given the NaN value', function() {
+    eq(R.type(NaN), 'Number');
+  });
+  it('"String" if given a String literal', function() {
+    eq(R.type('Gooooodd Mornning Ramda!!'), 'String');
+  });
+  it('"String" if given a String object', function() {
+    eq(R.type(new String('I am a String object')), 'String');
+  });
+  it('"Null" if given the null value', function() {
+    eq(R.type(null), 'Null');
+  });
+```
+
+> uniq
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('uniq', function() {
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.uniq([-0, -0]).length, 1);
+    eq(R.uniq([0, -0]).length, 2);
+    eq(R.uniq([NaN, NaN]).length, 1);
+    eq(R.uniq([[1], [1]]).length, 1);
+    eq(R.uniq([new Just([42]), new Just([42])]).length, 1);
+  });
+  it('uses reference equality for functions', function() {
+    eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);
+  });
+});
+```
+
+> update
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('update', function() {
+  it('accepts an array-like object', function() {
+    function args() {
+      return arguments;
+    }
+    eq(R.update(2, 4, args(0, 1, 2, 3)), [0, 1, 4, 3]);
+  });
+});
+```
+
+> without
+
+```javascript
+var R = require('rambda');
+var eq = require('./shared/eq');
+
+describe('without', function() {
+  it('can act as a transducer', function() {
+    eq(R.into([], R.without([1]), [1]), []);
+  });
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.without([0], [-0]).length, 1);
+    eq(R.without([-0], [0]).length, 1);
+    eq(R.without([NaN], [NaN]).length, 0);
+    eq(R.without([[1]], [[1]]).length, 0);
+    eq(R.without([new Just([42])], [new Just([42])]).length, 0);
+  });
+});
+```
+
+
+
+</details>
+
+> You can see them as separate files in `./files/failing_ramda_tests` directory
 
 ## API
 
@@ -1884,6 +3340,14 @@ test('happy', () => {
   expect(result).toBeFalsy()
 })
 
+test('with regex', () => {
+  expect(equals(/s/, /s/)).toEqual(true)
+  expect(equals(/s/, /d/)).toEqual(false)
+  expect(equals(/a/gi, /a/ig)).toEqual(true)
+  expect(equals(/a/mgi, /a/img)).toEqual(true)
+  expect(equals(/a/gi, /a/i)).toEqual(false)
+})
+
 test('not a number', () => {
   expect(equals([ NaN ], [ NaN ])).toBe(true)
 })
@@ -1892,6 +3356,15 @@ test('new number', () => {
   expect(equals(new Number(0), new Number(0))).toEqual(true)
   expect(equals(new Number(0), new Number(1))).toEqual(false)
   expect(equals(new Number(1), new Number(0))).toEqual(false)
+})
+
+test('new string', () => {
+  expect(equals(new String(''), new String(''))).toEqual(true)
+  expect(equals(new String(''), new String('x'))).toEqual(false)
+  expect(equals(new String('x'), new String(''))).toEqual(false)
+  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
+  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
+  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
 })
 
 test('new Boolean', () => {
@@ -1907,10 +3380,6 @@ test('new Error', () => {
   expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
   expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
   expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
-})
-
-test('new Regex is not supported', () => {
-  expect(equals(new RegExp('XXX'), new RegExp('XXX'))).toEqual(false)
 })
 
 test('with dates', () => {
@@ -2166,14 +3635,20 @@ function parseDate(maybeDate){
   return [ true, maybeDate.getTime() ]
 }
 
+function parseRegex(maybeRegex){
+  if (maybeRegex.constructor !== RegExp) return [ false ]
+
+  return [ true, maybeRegex.toString() ]
+}
+
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
   const aType = type(a)
+
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if (aType === 'String') return a === b
-  if ([ 'Boolean', 'Number' ].includes(aType)) return a.toString() === b.toString()
+  if ([ 'Boolean', 'Number', 'String' ].includes(aType)) return a.toString() === b.toString()
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
@@ -2197,6 +3672,13 @@ export function equals(a, b){
 
     return loopArrayFlag
   }
+
+  const aRegex = parseRegex(a)
+  const bRegex = parseRegex(b)
+
+  if (aRegex[ 0 ]){
+    return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
+  } else if (bRegex[ 0 ]) return false
 
   const aDate = parseDate(a)
   const bDate = parseDate(b)
@@ -5173,6 +6655,14 @@ test('pipe', () => {
   expect(result).toEqual(14)
 })
 
+test('with bad input', () => {
+  expect(
+    () => pipe()
+  ).toThrow(
+    'pipe requires at least one argument'
+  )
+})
+
 ```
 
 </details>
@@ -5187,6 +6677,8 @@ R.pipe source
 import { compose } from './compose'
 
 export function pipe(...fns){
+  if (fns.length === 0) throw new Error('pipe requires at least one argument')
+
   return compose(...fns.reverse())
 }
 
@@ -5407,6 +6899,11 @@ test('propEq', () => {
   expect(propEq('foo')('bar')({ foo : 'baz' })).toBeFalsy()
 })
 
+test('happy', () => {
+  expect(propEq('name', 'Abby', null)).toEqual(false)
+// expect(propEq('name', 'Abby', undefined)).toEqual(false)
+})
+
 ```
 
 </details>
@@ -5418,15 +6915,9 @@ R.propEq source
 </summary>
 
 ```javascript
-export function propEq(key, val, obj){
-  if (val === undefined){
-    return (_val, _obj) => propEq(key, _val, _obj)
-  } else if (obj === undefined){
-    return _obj => propEq(key, val, _obj)
-  }
+import { curry } from './curry'
 
-  return obj[ key ] === val
-}
+export const propEq = curry(propEqFn)
 
 ```
 
@@ -5526,11 +7017,26 @@ R.range tests
 ```javascript
 import { range } from './range'
 
-test('1', () => {
+test('happy', () => {
   expect(range(0, 10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
 })
 
-test('2', () => {
+test('end range is bigger than start range', () => {
+  expect(range(7, 3)).toEqual([])
+  expect(range(5, 5)).toEqual([])
+})
+
+test('with bad input', () => {
+  expect(
+    () => range('a', 6)
+  ).toThrow('Both arguments to range must be numbers')
+  expect(
+    () => range(6, 'z')
+  ).toThrow('Both arguments to range must be numbers')
+
+})
+
+test('curry', () => {
   expect(range(0)(10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
 })
 
@@ -5547,6 +7053,12 @@ R.range source
 ```javascript
 export function range(from, to){
   if (arguments.length === 1) return _to => range(from, _to)
+
+  if (Number.isNaN(Number(from)) || Number.isNaN(Number(to))){
+    throw new TypeError('Both arguments to range must be numbers')
+  }
+
+  if (to < from) return []
 
   const len = to - from
   const willReturn = Array(len)
@@ -5869,8 +7381,12 @@ R.reverse tests
 ```javascript
 import { reverse } from './reverse'
 
-test('', () => {
+test('happy', () => {
   expect(reverse([ 1, 2, 3 ])).toEqual([ 3, 2, 1 ])
+})
+
+test('with string', () => {
+  expect(reverse('baz')).toEqual('zab')
 })
 
 test('it doesn\'t mutate', () => {
@@ -5892,8 +7408,13 @@ R.reverse source
 </summary>
 
 ```javascript
-export function reverse(list){
-  const clone = list.concat()
+export function reverse(input){
+  if (typeof input === 'string'){
+    return input.split('').reverse()
+      .join('')
+  }
+
+  const clone = input.slice()
 
   return clone.reverse()
 }
@@ -6180,8 +7701,13 @@ test('', () => {
   ])
 
   expect(splitEvery(3)('foobarbaz')).toEqual([ 'foo', 'bar', 'baz' ])
+})
 
-  expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
+test('with bad input', () => {
+  expect(
+    () => expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
+  ).toThrow('First argument to splitEvery must be a positive integer')
+
 })
 
 ```
@@ -6198,13 +7724,12 @@ R.splitEvery source
 export function splitEvery(n, list){
   if (arguments.length === 1) return _list => splitEvery(n, _list)
 
-  const numValue = n > 1 ? n : 1
-
+  if (n < 1) throw new Error('First argument to splitEvery must be a positive integer')
   const willReturn = []
   let counter = 0
 
   while (counter < list.length){
-    willReturn.push(list.slice(counter, counter += numValue))
+    willReturn.push(list.slice(counter, counter += n))
   }
 
   return willReturn
@@ -6414,9 +7939,10 @@ R.take tests
 </summary>
 
 ```javascript
+import R from 'ramda'
 import { take } from './take'
 
-test('take', () => {
+test('happy', () => {
   const arr = [ 'foo', 'bar', 'baz' ]
 
   expect(take(1, arr)).toEqual([ 'foo' ])
@@ -6437,6 +7963,17 @@ test('take', () => {
   expect(take(3)('rambda')).toEqual('ram')
 })
 
+test('with negative index', () => {
+  expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+
+test('with zero index', () => {
+  console.log(
+    take(0, [ 1, 2, 3 ])
+  )
+})
+
 ```
 
 </details>
@@ -6452,7 +7989,7 @@ import baseSlice from './internal/baseSlice'
 
 export function take(n, list){
   if (arguments.length === 1) return _list => take(n, _list)
-
+  if (n < 0) return list.slice()
   if (typeof list === 'string') return list.slice(0, n)
 
   return baseSlice(list, 0, n)
@@ -6518,6 +8055,11 @@ test('with strings', () => {
   expect(takeLast(7, 'rambda')).toEqual('rambda')
 })
 
+test('with negative index', () => {
+  expect(takeLast(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(takeLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+
 ```
 
 </details>
@@ -6535,7 +8077,7 @@ export function takeLast(n, list){
   if (arguments.length === 1) return _list => takeLast(n, _list)
 
   const len = list.length
-
+  if (n < 0) return list.slice()
   let numValue = n > len ? len : n
 
   if (typeof list === 'string') return list.slice(len - numValue)
@@ -6647,11 +8189,17 @@ R.times tests
 ```javascript
 import { times } from './times'
 import { identity } from './identity'
+import assert from 'assert'
 
-test('', () => {
+test('happy', () => {
   const result = times(identity, 5)
 
   expect(result).toEqual([ 0, 1, 2, 3, 4 ])
+})
+
+test('with bad input', () => {
+  assert.throws(() => { times(3)('cheers!') }, RangeError)
+  assert.throws(() => { times(identity, -1) }, RangeError)
 })
 
 test('curry', () => {
@@ -6676,6 +8224,7 @@ import { range } from './range'
 
 export function times(fn, n){
   if (arguments.length === 1) return _n => times(fn, _n)
+  if (!Number.isInteger(n) || n < 0) throw new RangeError('n must be an integer')
 
   return map(fn, range(0, n))
 }
@@ -6969,6 +8518,10 @@ test('with new Boolean', () => {
   expect(type(new Boolean(true))).toBe('Boolean')
 })
 
+test('with new String', () => {
+  expect(type(new String('I am a String object'))).toEqual('String')
+})
+
 test('with new Number', () => {
   expect(type(new Number(1))).toBe('Number')
 })
@@ -7074,23 +8627,23 @@ R.type source
 </summary>
 
 ```javascript
-export function type(val){
-  const typeOf = typeof val
-  const asStr = val && val.toString ? val.toString() : ''
+export function type(input){
+  const typeOf = typeof input
+  const asStr = input && input.toString ? input.toString() : ''
 
-  if (val === null){
+  if (input === null){
     return 'Null'
-  } else if (val === undefined){
+  } else if (input === undefined){
     return 'Undefined'
   } else if (typeOf === 'boolean'){
     return 'Boolean'
   } else if (typeOf === 'number'){
-    return Number.isNaN(val) ? 'NaN' : 'Number'
+    return Number.isNaN(input) ? 'NaN' : 'Number'
   } else if (typeOf === 'string'){
     return 'String'
-  } else if (Array.isArray(val)){
+  } else if (Array.isArray(input)){
     return 'Array'
-  } else if (val instanceof RegExp){
+  } else if (input instanceof RegExp){
     return 'RegExp'
   }
 
@@ -7099,6 +8652,7 @@ export function type(val){
   if (asStr.startsWith('async')) return 'Async'
   if (asStr === '[object Promise]') return 'Promise'
   if (typeOf === 'function') return 'Function'
+  if (input instanceof String) return 'String'
 
   return 'Object'
 }
@@ -7423,7 +8977,7 @@ R.values tests
 ```javascript
 import { values } from './values'
 
-test('values', () => {
+test('happy', () => {
   expect(
     values({
       a : 1,
@@ -7431,6 +8985,18 @@ test('values', () => {
       c : 3,
     })
   ).toEqual([ 1, 2, 3 ])
+})
+
+test('with bad input', () => {
+  expect(values(null)).toEqual([])
+  expect(values(undefined)).toEqual([])
+  expect(values(55)).toEqual([])
+  expect(values('foo')).toEqual([])
+  expect(values(true)).toEqual([])
+  expect(values(false)).toEqual([])
+  expect(values(NaN)).toEqual([])
+  expect(values(Infinity)).toEqual([])
+  expect(values([])).toEqual([])
 })
 
 ```
@@ -7444,7 +9010,12 @@ R.values source
 </summary>
 
 ```javascript
+import { type } from './type.js'
+
 export function values(obj){
+  if (type(obj) !== 'Object') return []
+  console.log(obj)
+
   return Object.values(obj)
 }
 
@@ -7627,6 +9198,7 @@ R.zipObj tests
 
 ```javascript
 import { zipObj } from './zipObj'
+import { equals } from './equals.js'
 
 test('zipObj', () => {
   expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
@@ -7650,6 +9222,19 @@ test('1', () => {
   })
 })
 
+test('ignore extra keys', () => {
+  const result = zipObj([ 'a', 'b', 'c', 'd', 'e', 'f' ], [ 1, 2, 3 ])
+  const expected = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+
+  expect(
+    equals(result, expected)
+  ).toBeTruthy()
+})
+
 ```
 
 </details>
@@ -7661,11 +9246,13 @@ R.zipObj source
 </summary>
 
 ```javascript
+import { take } from './take'
 export function zipObj(keys, values){
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
 
-  return keys.reduce((prev, xInstance, i) => {
+  return take(values.length, keys).reduce((prev, xInstance, i) => {
     prev[ xInstance ] = values[ i ]
+    // console.log({ prev })
 
     return prev
   }, {})
@@ -7680,209 +9267,12 @@ export function zipObj(keys, values){
 ---
 #### ---
 
-## Benchmark
+## Benchmarks
+
+> Coming soon
 
 ```
-> add.js
-Rambda.add x 72,564,688 ops/sec ±4.81% (73 runs sampled)
-Ramda.add x 56,396,341 ops/sec ±4.23% (82 runs sampled)
-Lodash.add x 35,946,727 ops/sec ±1.50% (87 runs sampled)
-
-> adjust.js
-Rambda.adjust x 7,035,757 ops/sec ±0.96% (92 runs sampled)
-Ramda.adjust x 11,520,117 ops/sec ±1.33% (91 runs sampled)
-
-> any.js
-Rambda.any x 57,187,584 ops/sec ±3.01% (85 runs sampled)
-Ramda.any x 10,380,996 ops/sec ±3.85% (82 runs sampled)
-Lodash.some x 36,716,897 ops/sec ±3.95% (77 runs sampled)
-
-> append.js
-Rambda.append x 3,499,777 ops/sec ±3.18% (82 runs sampled)
-Ramda.append x 2,964,099 ops/sec ±0.87% (93 runs sampled)
-
-> assoc.js
-Rambda.assoc x 4,002,722 ops/sec ±1.03% (91 runs sampled)
-Ramda.assoc x 6,014,560 ops/sec ±1.20% (92 runs sampled)
-Lodash.set x 14,148,999 ops/sec ±1.23% (88 runs sampled)
-
-> clone.js
-Rambda.clone x 495,003 ops/sec ±22.29% (58 runs sampled)
-Ramda.clone x 60,313 ops/sec ±14.66% (54 runs sampled)
-Lodash.cloneDeep x 370,928 ops/sec ±3.22% (82 runs sampled)
-
-> compose.js
-Rambda.compose x 6,565,224 ops/sec ±6.65% (74 runs sampled)
-Ramda.compose x 482,147 ops/sec ±7.44% (71 runs sampled)
-Lodash.flowRight x 1,907,860 ops/sec ±4.24% (80 runs sampled)
-
-> contains.js
-Rambda.contains x 38,642,695 ops/sec ±6.33% (67 runs sampled)
-Ramda.contains x 9,979,350 ops/sec ±24.61% (47 runs sampled)
-Lodash.includes x 30,027,499 ops/sec ±1.73% (86 runs sampled)
-
-> defaultTo.js
-Rambda.defaultTo simple x 51,090,366 ops/sec ±2.84% (81 runs sampled)
-Ramda.defaultTo x 29,850,625 ops/sec ±4.67% (74 runs sampled)
-Rambda.defaultTo (when several arguments) x 10,753,835 ops/sec ±10.84% (58 runs sampled)
-
-> drop.js
-Rambda.drop x 7,355,396 ops/sec ±12.03% (62 runs sampled)
-Ramda.drop x 1,278,065 ops/sec ±5.91% (74 runs sampled)
-
-> dropLast.js
-Rambda.dropLast x 7,620,630 ops/sec ±8.58% (64 runs sampled)
-Ramda.dropLast x 1,131,885 ops/sec ±4.18% (80 runs sampled)
-
-> endsWith.js
-Rambda.endsWith x 28,003,665 ops/sec ±5.59% (77 runs sampled)
-Ramda.endsWith x 656,403 ops/sec ±6.09% (81 runs sampled)
-
-> equals.js
-Rambda.equals x 1,085,925 ops/sec ±5.85% (75 runs sampled)
-Ramda.equals x 123,968 ops/sec ±5.05% (80 runs sampled)
-Lodash.isEqual x 356,517 ops/sec ±5.28% (81 runs sampled)
-
-> filter.js
-Rambda.filter x 15,054,483 ops/sec ±5.32% (74 runs sampled)
-Ramda.filter x 4,411,613 ops/sec ±5.60% (76 runs sampled)
-Lodash.filter x 12,980,591 ops/sec ±3.44% (77 runs sampled)
-
-> find.js
-Rambda.find x 14,086,382 ops/sec ±7.00% (76 runs sampled)
-Ramda.find x 6,968,369 ops/sec ±4.86% (76 runs sampled)
-Lodash.find x 8,130,806 ops/sec ±13.27% (63 runs sampled)
-
-> findIndex.js
-Rambda.findIndex x 48,179,679 ops/sec ±8.31% (71 runs sampled)
-Ramda.findIndex x 2,561,304 ops/sec ±17.39% (33 runs sampled)
-Lodash.findIndex x 3,636,170 ops/sec ±11.57% (54 runs sampled)
-
-> flatten.js
-Rambda.flatten x 3,651,487 ops/sec ±12.96% (57 runs sampled)
-Ramda.flatten x 585,856 ops/sec ±0.39% (90 runs sampled)
-Lodash.flatten x 12,330,106 ops/sec ±1.48% (93 runs sampled)
-
-> head.js
-Rambda.head x 73,327,652 ops/sec ±3.95% (77 runs sampled)
-Ramda.head x 4,281,233 ops/sec ±2.27% (87 runs sampled)
-Lodash.head x 67,943,467 ops/sec ±3.43% (77 runs sampled)
-
-> headString.js
-Rambda.head (when string) x 75,729,481 ops/sec ±3.76% (78 runs sampled)
-Ramda.head (when string) x 4,215,626 ops/sec ±2.33% (84 runs sampled)
-
-> identical.js
-Rambda.identical x 68,465,698 ops/sec ±4.76% (74 runs sampled)
-Ramda.identical x 19,430,040 ops/sec ±2.18% (82 runs sampled)
-
-> indexOf.js
-Rambda.indexOf x 52,087,884 ops/sec ±2.80% (78 runs sampled)
-Ramda.indexOf x 23,475,389 ops/sec ±2.57% (83 runs sampled)
-Lodash.indexOf x 50,416,017 ops/sec ±4.27% (79 runs sampled)
-
-> init.js
-Rambda.init x 33,425,823 ops/sec ±3.40% (78 runs sampled)
-Ramda.init x 2,732,046 ops/sec ±12.71% (69 runs sampled)
-Lodash.initial x 32,728,924 ops/sec ±4.09% (78 runs sampled)
-
-> initString.js
-Rambda.init (when string) x 71,090,037 ops/sec ±3.79% (74 runs sampled)
-Ramda.init (when string) x 1,849,154 ops/sec ±7.90% (69 runs sampled)
-
-> isEmpty.js
-Rambda.isEmpty x 16,658,518 ops/sec ±8.41% (69 runs sampled)
-Ramda.isEmpty x 100,014 ops/sec ±6.48% (75 runs sampled)
-Lodash.isEmpty x 972,958 ops/sec ±5.22% (79 runs sampled)
-
-> last.js
-Rambda.last x 66,518,805 ops/sec ±5.77% (69 runs sampled)
-Ramda.last x 4,065,920 ops/sec ±2.83% (84 runs sampled)
-Lodash.last x 64,817,997 ops/sec ±6.13% (73 runs sampled)
-
-> map.js
-Rambda.map x 29,936,120 ops/sec ±3.21% (76 runs sampled)
-Ramda.map x 6,112,792 ops/sec ±2.47% (88 runs sampled)
-Lodash.map x 28,685,845 ops/sec ±1.63% (90 runs sampled)
-
-> match.js
-Rambda.match x 4,646,951 ops/sec ±1.00% (92 runs sampled)
-Ramda.match x 1,990,270 ops/sec ±2.17% (90 runs sampled)
-
-> mathMod.js
-Rambda.mathMod x 31,132,727 ops/sec ±1.99% (89 runs sampled)
-Ramda.mathMod x 15,986,746 ops/sec ±2.21% (86 runs sampled)
-
-> mean.js
-Rambda.mean x 54,726,189 ops/sec ±2.68% (85 runs sampled)
-Ramda.mean x 1,167,399 ops/sec ±0.63% (91 runs sampled)
-
-> median.js
-Rambda.median x 2,416,103 ops/sec ±1.19% (93 runs sampled)
-Ramda.median x 688,465 ops/sec ±1.07% (89 runs sampled)
-
-> merge.js
-Rambda.merge x 9,303,698 ops/sec ±2.12% (88 runs sampled)
-Ramda.merge x 6,342,019 ops/sec ±2.58% (87 runs sampled)
-Lodash.merge x 3,443,832 ops/sec ±1.93% (88 runs sampled)
-
-> negate.js
-Rambda.negate x 76,127,966 ops/sec ±4.33% (79 runs sampled)
-Ramda.negate x 5,251,317 ops/sec ±2.66% (87 runs sampled)
-
-> omit.js
-Rambda.omit x 16,556,936 ops/sec ±1.28% (88 runs sampled)
-Ramda.omit x 4,935,868 ops/sec ±2.58% (86 runs sampled)
-Lodash.omit x 461,559 ops/sec ±1.06% (82 runs sampled)
-
-> path.js
-Rambda.path x 21,030,510 ops/sec ±1.80% (88 runs sampled)
-Ramda.path x 12,366,254 ops/sec ±1.88% (89 runs sampled)
-Lodash.get x 22,054,744 ops/sec ±1.31% (92 runs sampled)
-
-> pathOr.js
-Rambda.pathOr x 5,662,819 ops/sec ±4.74% (79 runs sampled)
-Ramda.pathOr x 5,571,989 ops/sec ±1.72% (85 runs sampled)
-
-> pick.js
-Rambda.pick x 9,939,191 ops/sec ±1.69% (88 runs sampled)
-Ramda.pick x 2,715,845 ops/sec ±2.35% (90 runs sampled)
-Lodash.pick x 1,062,961 ops/sec ±2.56% (83 runs sampled)
-
-> pipe.js
-Rambda.pipe x 4,508,406 ops/sec ±2.65% (85 runs sampled)
-Ramda.pipe x 757,113 ops/sec ±1.62% (86 runs sampled)
-Lodash.flow x 2,318,846 ops/sec ±0.98% (91 runs sampled)
-
-> product.js
-Rambda.product x 8,924,477 ops/sec ±0.75% (91 runs sampled)
-Ramda.product x 1,364,863 ops/sec ±0.39% (89 runs sampled)
-
-> prop.js
-Rambda.prop x 23,457,990 ops/sec ±1.24% (90 runs sampled)
-Ramda.prop x 2,736,492 ops/sec ±0.62% (90 runs sampled)
-
-> propEq.js
-Rambda.propEq x 14,389,769 ops/sec ±1.34% (89 runs sampled)
-Ramda.propEq x 2,673,442 ops/sec ±0.59% (89 runs sampled)
-
-> propIs.js
-Rambda.propIs x 26,337,209 ops/sec ±2.17% (85 runs sampled)
-Ramda.propIs x 8,519,778 ops/sec ±2.74% (86 runs sampled)
-
-> propOr.js
-Rambda.propOr x 49,257,830 ops/sec ±3.43% (75 runs sampled)
-Ramda.propOr x 3,907,852 ops/sec ±2.01% (88 runs sampled)
-
-> range.js
-Rambda.range x 14,450,269 ops/sec ±2.21% (84 runs sampled)
-Ramda.range x 7,354,755 ops/sec ±2.44% (85 runs sampled)
-Lodash.range x 10,475,753 ops/sec ±1.81% (89 runs sampled)
-
-> reduce.js
-Rambda.reduce x 9,262,518 ops/sec ±2.69% (88 runs sampled)
-Ramda x 2,524,600 ops/sec ±1.24% (88 runs sampled)
-Lodash x 13,553,365 ops/sec ±0.98% (88 runs sampled)
+MARKER_BENCHMARK_RESULTS
 ```
 
 ## Use with ES5
@@ -7917,21 +9307,39 @@ All breaking changes:
 
 -- R.complement support function with multiple arguments
 
--- R.compose throws when called with no argument
+-- R.compose/pipe throws when called with no argument
 
 -- R.clone works with `Date` value as input
 
--- R.drop/dropLast always return new copy of the list/string
+-- R.drop/dropLast/take/takeLast always return new copy of the list/string
 
--- R.equals handles `NaN`
+-- R.take/takeLast return original list/string with negative index
 
--- R.type/R.equals supports `new Boolean/new Number/new Date` expressions
+-- R.equals handles `NaN` and `RegExp` types
+
+-- R.type/R.equals supports `new Boolean/new Number/new Date/new String` expressions
 
 -- R.has works with non-object
 
 -- R.ifElse pass all arguments
 
--- R.length works with bad inputs
+-- R.length works with bad input
+
+-- R.propEq work with bad input for object argument
+
+-- R.range work with bad inputs
+
+-- R.times work with bad inputs
+
+-- R.reverse works with strings
+
+-- R.splitEvery throws on non-positive integer index
+
+-- R.test throws just like Ramda when first argument is not regex
+
+-- R.values works with bad inputs
+
+-- R.zipObj ignores extra keys
 
 - 3.2.2
 

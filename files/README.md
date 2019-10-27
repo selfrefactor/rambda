@@ -71,7 +71,7 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@3.3.0/dist/rambda.umd.js
+https://unpkg.com/rambda@4.0.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -105,6 +105,20 @@ https://unpkg.com/rambda@3.3.0/dist/rambda.umd.js
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
+
+---
+
+<details>
+
+<summary>
+Expand to see all `Ramda` tests failing for `Rambda`, if you want to know in detail the difference between the two libraries
+</summary>
+
+MARKER_FAILING_TESTS_SUMMARY
+
+</details>
+
+> You can see them as separate files in `./files/failing_ramda_tests` directory
 
 ## API
 
@@ -1686,7 +1700,9 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 #### ---
 
-## Benchmark
+## Benchmarks
+
+> Coming soon
 
 ```
 MARKER_BENCHMARK_RESULTS
