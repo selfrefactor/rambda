@@ -36,7 +36,7 @@ export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
   const aType = type(a)
-
+  console.log({a, b, aType}, a.constructor === RegExp)
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
   if ([ 'Boolean', 'Number', 'String' ].includes(aType)) return a.toString() === b.toString()

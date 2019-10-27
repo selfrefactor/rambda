@@ -1,18 +1,18 @@
 {
   "name": "IS_NUMBER",
-  "date": "2019-10-26T19:53:46.796Z",
+  "date": "2019-10-27T08:15:27.528Z",
   "version": null,
   "results": [
     {
       "name": "b",
-      "ops": 240135,
-      "margin": 0.93,
-      "percentSlower": 1.26
+      "ops": 237863,
+      "margin": 2.19,
+      "percentSlower": 2.71
     },
     {
       "name": "c",
-      "ops": 243189,
-      "margin": 1.01,
+      "ops": 244498,
+      "margin": 0.7,
       "percentSlower": 0
     }
   ],

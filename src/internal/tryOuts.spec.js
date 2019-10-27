@@ -1,6 +1,5 @@
-import { runTests } from 'rambdax'
-
-import * as T from './tryOuts.js'
+const { runTests } = require('rambdax')
+const T = require('./tryOuts.js')
 
 const isNumberData = [
   { ok : 1 },

@@ -9,6 +9,14 @@ test('happy', () => {
   expect(result).toBeFalsy()
 })
 
+test.only('with regex', () => {
+  expect(equals(/s/, /s/)).toEqual(true)
+// expect(equals(/s/, /d/)).toEqual(false)
+// expect(equals(/a/gi, /a/ig)).toEqual(true)
+// expect(equals(/a/mgi, /a/img)).toEqual(true)
+// expect(equals(/a/gi, /a/i)).toEqual(false)
+})
+
 test('not a number', () => {
   expect(equals([ NaN ], [ NaN ])).toBe(true)
 })

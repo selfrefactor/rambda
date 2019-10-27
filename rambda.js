@@ -1,4 +1,3 @@
-// export * from './src/internal/tryOuts.js'
 export * from './src/F'
 export * from './src/T'
 export * from './src/add'
