@@ -28,7 +28,5 @@ test('with negative index', () => {
 })
 
 test('with zero index', () => {
-  console.log(
-    take(0, [ 1, 2, 3 ])
-  )
+  expect(take(0, [ 1, 2, 3 ])).toEqual([])
 })

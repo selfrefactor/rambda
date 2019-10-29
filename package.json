@@ -92,7 +92,8 @@
       "changelog"
     ],
     "test": [
-      "typings"
+      "typings",
+      "fix"
     ],
     "fix": [
       "small"
