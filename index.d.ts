@@ -3,6 +3,8 @@ declare let R: R.Static;
 
 declare namespace R {
   // INTERFACES_MARKER
+  type RambdaTypes = 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'NaN' | 'Function' | 'Undefined' | 'Async' | 'Promise'
+  
   type FilterFunctionArray<T> = (x: T, index: number) => boolean
   type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
@@ -1018,7 +1020,7 @@ declare namespace R {
      * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
      * all as 'Object'.
      */
-    type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'NaN' | 'Function' | 'Undefined' | 'Async' | 'Promise';
+    type(val: any): RambdaTypes;
 
     /**
      * Returns a new list containing only one copy of each element in the original list.
