@@ -93,6 +93,9 @@
     ],
     "test": [
       "typings"
+    ],
+    "fix": [
+      "small"
     ]
   }
 }

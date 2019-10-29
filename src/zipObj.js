@@ -18,7 +18,6 @@ export function zipObj(keys, values){
 
   return take(values.length, keys).reduce((prev, xInstance, i) => {
     prev[ xInstance ] = values[ i ]
-    // console.log({ prev })
 
     return prev
   }, {})
