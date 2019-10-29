@@ -24,7 +24,7 @@ export function update(idx, val, list){
     return _list => update(idx, val, _list)
   }
 
-  const arrClone = list.concat()
+  const arrClone = list.slice()
 
   return arrClone.fill(val, idx, idx + 1)
 }

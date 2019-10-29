@@ -20,7 +20,7 @@ export function append(el, list){
 
   if (typeof list === 'string') return `${ list }${ el }`
 
-  const clone = list.concat()
+  const clone = list.slice()
   clone.push(el)
 
   return clone
