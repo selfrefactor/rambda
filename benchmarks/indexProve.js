@@ -8,7 +8,7 @@ const {mapAsync} = require('rambdax')
 async function runBenchmarks(){
   // const allBenchmarks =  filter(x => x !== 'index.js', fs.readdirSync(__dirname))
 
-  const allBenchmarks =  ['add', 'adjust', 'any', 'append']
+  const allBenchmarks =  ['add', 'adjust', 'any', 'append', 'assoc', 'compose']
 
   await mapAsync(
     async singleBenchmark => {

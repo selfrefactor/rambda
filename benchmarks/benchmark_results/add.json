@@ -1,25 +1,25 @@
 {
   "name": "ADD",
-  "date": "2019-10-29T18:02:41.237Z",
+  "date": "2019-10-29T18:11:22.002Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 412508658,
-      "margin": 0.5,
+      "ops": 414829593,
+      "margin": 0.91,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 290973511,
-      "margin": 1.1,
-      "percentSlower": 29.46
+      "ops": 292526957,
+      "margin": 1.26,
+      "percentSlower": 29.48
     },
     {
       "name": "Lodash",
-      "ops": 99570456,
-      "margin": 0.66,
-      "percentSlower": 75.86
+      "ops": 96006908,
+      "margin": 1.17,
+      "percentSlower": 76.86
     }
   ],
   "fastest": {

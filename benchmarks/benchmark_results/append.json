@@ -1,30 +1,30 @@
 {
   "name": "APPEND",
-  "date": "2019-10-29T18:03:30.362Z",
+  "date": "2019-10-29T18:12:10.991Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 419299637,
-      "margin": 0.21,
-      "percentSlower": 0
+      "ops": 140014007,
+      "margin": 1.51,
+      "percentSlower": 54.59
     },
     {
       "name": "Ramda",
-      "ops": 303246496,
-      "margin": 0.9,
-      "percentSlower": 27.68
+      "ops": 308346848,
+      "margin": 0.84,
+      "percentSlower": 0
     },
     {
       "name": "Lodash",
-      "ops": 100805389,
-      "margin": 0.49,
-      "percentSlower": 75.96
+      "ops": 102678100,
+      "margin": 0.54,
+      "percentSlower": 66.7
     }
   ],
   "fastest": {
-    "name": "Rambda",
-    "index": 0
+    "name": "Ramda",
+    "index": 1
   },
   "slowest": {
     "name": "Lodash",

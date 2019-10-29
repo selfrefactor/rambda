@@ -1,20 +1,31 @@
 const _ = require('lodash')
-const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite()
-const input = [{ b: 2, c: 'foo', d: [1, 2, 3] }, 1, new Date(), null]
+const input = {
+  a : 1,
+  b : 2,
+}
 
-suite
-  .add('Rambda.clone', () => {
-    R.clone(input)
-  })
-  .add('Ramda.clone', () => {
-    Ramda.clone(input)
-  })
-  .add('Lodash.cloneDeep', () => {
-    _.cloneDeep(input)
-  })
+const clone = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      const cloned = R.clone(input)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      const cloned = Ramda.clone(input)
+    },
+  },
+  {
+    label : 'Lodash.cloneDeep',
+    fn    : () => {
+      const cloned = _.cloneDeep(input)
+    },
+  },
+]
 
-module.exports = suite
+module.exports = clone
