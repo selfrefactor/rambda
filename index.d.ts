@@ -2,6 +2,7 @@ import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
+  // INTERFACES_MARKER
   type FilterFunctionArray<T> = (x: T, index: number) => boolean
   type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean
   type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U
@@ -33,7 +34,11 @@ declare namespace R {
   }
   type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
+  // INTERFACES_MARKER_END
   interface Static {
+    // METHODS_MARKER
+
+    // METHODS_MARKER_END
     add(a: number, b: number): number;
     add(a: number): (b: number) => number;
 
