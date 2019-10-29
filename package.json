@@ -71,6 +71,12 @@
     "index.d.ts",
     "tools.d.ts"
   ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/*.js",
+      "!internal"
+    ]
+  },
   "commitMessage": {
     "support": [
       "docs",
