@@ -91,7 +91,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "refactor benchmarks",
     "docs": [
       "docsify",
       "repl",
