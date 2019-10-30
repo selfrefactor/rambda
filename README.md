@@ -62,6 +62,8 @@ method | Rambda | Ramda | Lodash
  *drop* | Fastest | 83.23 slower | x
  *dropLast* | Fastest | 87.67 slower | x
  *equals* | Fastest | 80.5 slower | 50.77 slower
+ *filter* | Fastest | 61.69 slower | 45.37 slower
+ *map* | 5.45 slower | 81.99 slower | Fastest
 
 </details>
 
@@ -2080,6 +2082,7 @@ test('when returns false + curry', () => {
 test('happy', () => {
   expect(anyPass([])(3)).toEqual(false)
 })
+
 ```
 
 </details>
@@ -2423,7 +2426,7 @@ test('with object', () => {
   }
   expect(clone(arr)).toEqual(arr)
 })
- 
+
 test('with date', () => {
   const date = new Date(2014, 10, 14, 23, 59, 59, 999)
 
@@ -2518,13 +2521,13 @@ test('accepts initially two arguments', () => {
 })
 
 test('when no arguments is passed', () => {
-expect(() => compose()).toThrow('compose requires at least one argument');
+  expect(() => compose()).toThrow('compose requires at least one argument')
 })
 
 test('ramda spec', () => {
-  var f = function(a, b, c) { return [a, b, c]; };
-var g = compose(f);
-expect(g(1, 2, 3)).toEqual([1, 2,3])
+  const f = function(a, b, c){ return [ a, b, c ] }
+  const g = compose(f)
+  expect(g(1, 2, 3)).toEqual([ 1, 2, 3 ])
 })
 
 ```
@@ -2539,9 +2542,9 @@ R.compose source
 
 ```javascript
 export function compose(...fns){
-  if(fns.length === 0){
+  if (fns.length === 0){
     throw new Error('compose requires at least one argument')
-  } 
+  }
 
   return (...args) => {
     const list = fns.slice()
@@ -2595,10 +2598,11 @@ test('', () => {
 
 test('with multiple parameters', () => {
   const between = function(a, b, c){ return a < b && b < c }
-const f = complement(between)
-expect(f(4, 5, 11)).toEqual(false)
-expect(f(12, 2, 6)).toEqual(true)
+  const f = complement(between)
+  expect(f(4, 5, 11)).toEqual(false)
+  expect(f(12, 2, 6)).toEqual(true)
 })
+
 ```
 
 </details>
@@ -3117,7 +3121,7 @@ R.drop source
 ```javascript
 export function drop(n, listOrString){
   if (arguments.length === 1) return _list => drop(n, _list)
-  
+
   return listOrString.slice(n > 0 ? n : 0)
 }
 
@@ -3159,16 +3163,16 @@ test('with string', () => {
 })
 
 test('with non-positive count', () => {
-  expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3])
-expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3]) 
-expect(dropLast(-Infinity, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(0, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(dropLast(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(dropLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })
 
 test('should return copy', () => {
-    var xs = [1, 2, 3];
+  const xs = [ 1, 2, 3 ]
 
-    assert.notStrictEqual(dropLast(0, xs), xs);
-    assert.notStrictEqual(dropLast(-1, xs), xs);
+  assert.notStrictEqual(dropLast(0, xs), xs)
+  assert.notStrictEqual(dropLast(-1, xs), xs)
 })
 
 ```
@@ -5522,6 +5526,8 @@ R.map tests
 
 ```javascript
 import { map } from './map'
+import { add } from './add'
+import { compose } from './compose'
 
 const double = x => x * 2
 
@@ -5586,6 +5592,14 @@ test('with object passes property as second argument', () => {
  */
 test('when undefined instead of array', () => {
   expect(map(double, undefined)).toEqual([])
+})
+
+test('with R.compose', () => {
+  const result = compose(
+    map(add(1)),
+    map(add(1))
+  )([ 1, 2, 3 ])
+  expect(result).toEqual([ 3, 4, 5 ])
 })
 
 ```

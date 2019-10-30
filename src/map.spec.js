@@ -1,4 +1,6 @@
 import { map } from './map'
+import { add } from './add'
+import { compose } from './compose'
 
 const double = x => x * 2
 
@@ -63,4 +65,12 @@ test('with object passes property as second argument', () => {
  */
 test('when undefined instead of array', () => {
   expect(map(double, undefined)).toEqual([])
+})
+
+test('with R.compose', () => {
+  const result = compose(
+    map(add(1)),
+    map(add(1))
+  )([ 1, 2, 3 ])
+  expect(result).toEqual([ 3, 4, 5 ])
 })
