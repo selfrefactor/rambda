@@ -7,13 +7,13 @@ const drop = [
   {
     label : 'Rambda',
     fn    : () => {
-      const result = R.drop(3, input)
+      R.drop(3, input)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      const result = Ramda.drop(3, input)
+      Ramda.drop(3, input)
     },
   },
 ]

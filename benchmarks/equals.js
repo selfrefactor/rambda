@@ -9,19 +9,19 @@ const equals = [
   {
     label : 'Rambda',
     fn    : () => {
-      const result = R.equals(a, b)
+      R.equals(a, b)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      const result = Ramda.equals(a, b)
+      Ramda.equals(a, b)
     },
   },
   {
     label : 'Lodash',
     fn    : () => {
-      const result = _.isEqual(a, b)
+      _.isEqual(a, b)
     },
   },
 ]

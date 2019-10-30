@@ -4,17 +4,17 @@ const path = require('path')
 const { createBenchmark } = require('helpers')
 const { mapAsync, filter, dropLast } = require('rambdax')
 
-async function runBenchmarks(){
-  const allBenchmarks = filter(
+async function runBenchmarks(singleMethod){
+  const allBenchmarksList = filter(
     x => ![ 'indexProve.js', 'benchmark_results' ].includes(x),
     fs.readdirSync(__dirname)
   ).map(
     dropLast(3)
   )
 
-  const allBenchmarksx = [
-    'curry',
-  ]
+  const allBenchmarks = singleMethod ?
+    [ singleMethod ] :
+    allBenchmarksList
 
   await mapAsync(
     async singleBenchmark => {
@@ -25,4 +25,4 @@ async function runBenchmarks(){
   )(allBenchmarks)
 }
 
-runBenchmarks()
+runBenchmarks('map')

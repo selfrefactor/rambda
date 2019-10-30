@@ -11,7 +11,7 @@ const curry = [
       const f = curriedAddFourNumbers(1, 2)
       const g = f(3)
 
-      const result = g(4)
+      g(4)
     },
   },
   {
@@ -21,7 +21,7 @@ const curry = [
       const f = curriedAddFourNumbers(1, 2)
       const g = f(3)
 
-      const result = g(4)
+      g(4)
     },
   },
 ]

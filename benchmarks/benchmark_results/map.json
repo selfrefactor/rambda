@@ -1,0 +1,33 @@
+{
+  "name": "MAP",
+  "date": "2019-10-30T22:05:03.681Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 49665733,
+      "margin": 4,
+      "percentSlower": 5.45
+    },
+    {
+      "name": "Ramda",
+      "ops": 9463000,
+      "margin": 1.17,
+      "percentSlower": 81.99
+    },
+    {
+      "name": "Lodash",
+      "ops": 52529417,
+      "margin": 3.06,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Lodash",
+    "index": 2
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

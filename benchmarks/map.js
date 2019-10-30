@@ -2,30 +2,27 @@ const _ = require('lodash')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const input = {
-  a : 1,
-  b : 2,
-}
-
-const clone = [
+const arr = [ 1, 2, 3, 4 ]
+const fn = x => x * 2
+const map = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.clone(input)
+      R.map(fn, arr)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.clone(input)
+      Ramda.map(fn, arr)
     },
   },
   {
-    label : 'Lodash.cloneDeep',
+    label : 'Lodash',
     fn    : () => {
-      _.cloneDeep(input)
+      _.map(arr, fn)
     },
   },
 ]
 
-module.exports = clone
+module.exports = map

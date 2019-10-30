@@ -11,13 +11,13 @@ const allPass = [
   {
     label : 'Rambda',
     fn    : () => {
-      const result = R.allPass(rules)(11)
+      R.allPass(rules)(11)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      const result = Ramda.allPass(rules)(11)
+      Ramda.allPass(rules)(11)
     },
   },
 ]

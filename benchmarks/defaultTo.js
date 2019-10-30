@@ -7,19 +7,19 @@ const defaultTo = [
   {
     label : 'Rambda',
     fn    : () => {
-      const result = R.defaultTo(3, input[ 0 ])
+      R.defaultTo(3, input[ 0 ])
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      const result = Ramda.defaultTo(3, input[ 0 ])
+      Ramda.defaultTo(3, input[ 0 ])
     },
   },
   {
     label : 'Rambda with multiple arguments',
     fn    : () => {
-      const result = R.defaultTo(3, ...input)
+      R.defaultTo(3, ...input)
     },
   },
 ]
