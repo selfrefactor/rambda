@@ -30,7 +30,19 @@ Currently **Rambda** is more tree-shakable than **Ramda**
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
 
-You can clone this repo and run `yarn run benchmark all` to see for yourself.
+<details>
+
+<summary>
+Click to expand all benchmark results
+</summary>
+
+method | Rambda | Ramda | Lodash
+--- |--- | --- | ---
+*add* | Fastest | 70% slower | 50% slower
+--- |--- | --- | ---
+*compose* | Fastest | 70% slower | 50% slower
+
+</details>
 
 - dot notation for `R.path`
 
