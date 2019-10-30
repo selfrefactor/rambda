@@ -24,7 +24,7 @@ function benchmarkSummary(){
       x => {
         if (!x) return 'x'
 
-        return x.percentSlower === 0 ? 'Fastest' : `${ x.percentSlower } slower`
+        return x.percentSlower === 0 ? '🚀 Fastest' : `${ x.percentSlower }% slower`
       }
     ).join(' | ')
 

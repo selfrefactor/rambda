@@ -47,23 +47,23 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | Fastest | 29.93 slower | 75.02 slower
- *adjust* | Fastest | 2.55 slower | x
- *all* | Fastest | 77.32 slower | x
- *allPass* | Fastest | 98.38 slower | x
- *any* | Fastest | 94.34 slower | 9.48 slower
- *anyPass* | Fastest | 98.57 slower | x
- *append* | Fastest | 61.06 slower | x
- *assoc* | 78.17 slower | 67.74 slower | Fastest
- *clone* | Fastest | 92.5 slower | 88.12 slower
- *compose* | Fastest | 91.44 slower | 67.02 slower
- *curry* | Fastest | 42.63 slower | x
- *defaultTo* | Fastest | 70.97 slower | x
- *drop* | Fastest | 83.23 slower | x
- *dropLast* | Fastest | 87.67 slower | x
- *equals* | Fastest | 80.5 slower | 50.77 slower
- *filter* | Fastest | 61.69 slower | 45.37 slower
- *map* | 5.45 slower | 81.99 slower | Fastest
+ *add* | 🚀 Fastest | 29.93% slower | 75.02% slower
+ *adjust* | 🚀 Fastest | 2.55% slower | x
+ *all* | 🚀 Fastest | 77.32% slower | x
+ *allPass* | 🚀 Fastest | 98.38% slower | x
+ *any* | 🚀 Fastest | 94.34% slower | 9.48% slower
+ *anyPass* | 🚀 Fastest | 98.57% slower | x
+ *append* | 🚀 Fastest | 61.06% slower | x
+ *assoc* | 78.17% slower | 67.74% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 92.5% slower | 88.12% slower
+ *compose* | 🚀 Fastest | 91.44% slower | 67.02% slower
+ *curry* | 🚀 Fastest | 42.63% slower | x
+ *defaultTo* | 🚀 Fastest | 70.97% slower | x
+ *drop* | 🚀 Fastest | 83.23% slower | x
+ *dropLast* | 🚀 Fastest | 87.67% slower | x
+ *equals* | 🚀 Fastest | 80.5% slower | 50.77% slower
+ *filter* | 🚀 Fastest | 61.69% slower | 45.37% slower
+ *map* | 5.45% slower | 81.99% slower | 🚀 Fastest
 
 </details>
 
