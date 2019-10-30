@@ -1,0 +1,33 @@
+{
+  "name": "DEFAULT_TO",
+  "date": "2019-10-30T19:14:09.811Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 105792810,
+      "margin": 13.64,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 30716682,
+      "margin": 1.35,
+      "percentSlower": 70.97
+    },
+    {
+      "name": "Rambda with multiple arguments",
+      "ops": 17504166,
+      "margin": 1.42,
+      "percentSlower": 83.45
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Rambda with multiple arguments",
+    "index": 2
+  }
+}

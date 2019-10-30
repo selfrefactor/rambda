@@ -2,7 +2,10 @@ const _ = require('lodash')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const input = { a: 1, b: 2 }
+const input = {
+  a : 1,
+  b : 2,
+}
 const key = 'c'
 const value = 3
 

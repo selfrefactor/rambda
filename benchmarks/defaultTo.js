@@ -1,19 +1,27 @@
-const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite()
-const input = [null, undefined, 3]
+const input = [ null, undefined, 5 ]
 
-suite
-  .add('Rambda.defaultTo simple', () => {
-    R.defaultTo(3, input[0])
-  })
-  .add('Ramda.defaultTo', () => {
-    Ramda.defaultTo(3, input[0])
-  })
-  .add('Rambda.defaultTo (when several arguments)', () => {
-    R.defaultTo(3, ...input)
-  })
+const defaultTo = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      const result = R.defaultTo(3, input[ 0 ])
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      const result = Ramda.defaultTo(3, input[ 0 ])
+    },
+  },
+  {
+    label : 'Rambda with multiple arguments',
+    fn    : () => {
+      const result = R.defaultTo(3, ...input)
+    },
+  },
+]
 
-module.exports = suite
+module.exports = defaultTo

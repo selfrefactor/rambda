@@ -1,26 +1,24 @@
 process.env.BENCHMARK_FOLDER = 'benchmarks/benchmark_results'
 const fs = require('fs')
 const path = require('path')
-const { exec, createBenchmark } = require('helpers')
-const { filter } = require('../dist/rambda.js')
-const { mapAsync } = require('rambdax')
+const { createBenchmark } = require('helpers')
+const { mapAsync, filter, dropLast } = require('rambdax')
 
 async function runBenchmarks(){
-  const allBenchmarksxx = filter(x => x !== 'index.js', fs.readdirSync(__dirname))
+  const allBenchmarks = filter(
+    x => ![ 'indexProve.js', 'benchmark_results' ].includes(x),
+    fs.readdirSync(__dirname)
+  ).map(
+    dropLast(3)
+  )
 
-  const allBenchmarks = [
-    'add',
-    'all',
-    'adjust',
-    'any',
-    'append',
-    'assoc',
-    'compose',
+  const allBenchmarksx = [
+    'curry',
   ]
-  const allBenchmarksx = [ 'all' ] 
+
   await mapAsync(
     async singleBenchmark => {
-      const required = require(path.join(__dirname, `${singleBenchmark}.js`))
+      const required = require(path.join(__dirname, `${ singleBenchmark }.js`))
       console.log(singleBenchmark)
       createBenchmark({ [ singleBenchmark ] : required })
     }
