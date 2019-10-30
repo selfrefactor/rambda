@@ -22,7 +22,7 @@ function benchmarkSummary(){
 
     const columns = [ rambda, ramda, lodash ].map(
       x => {
-        if (!x) return 'x'
+        if (!x) return '🔳'
 
         return x.percentSlower === 0 ? '🚀 Fastest' : `${ x.percentSlower }% slower`
       }
