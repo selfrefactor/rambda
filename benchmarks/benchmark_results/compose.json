@@ -1,25 +1,25 @@
 {
   "name": "COMPOSE",
-  "date": "2019-10-29T18:12:43.715Z",
+  "date": "2019-10-30T18:02:14.989Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 428167333,
-      "margin": 0.42,
+      "ops": 7341203,
+      "margin": 1.94,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 178997834,
-      "margin": 12.31,
-      "percentSlower": 58.19
+      "ops": 540595,
+      "margin": 0.58,
+      "percentSlower": 92.64
     },
     {
-      "name": "Lodash",
-      "ops": 67625369,
-      "margin": 0.48,
-      "percentSlower": 84.21
+      "name": "Lodash.flowRight",
+      "ops": 1908787,
+      "margin": 0.74,
+      "percentSlower": 74
     }
   ],
   "fastest": {
@@ -27,7 +27,7 @@
     "index": 0
   },
   "slowest": {
-    "name": "Lodash",
-    "index": 2
+    "name": "Ramda",
+    "index": 1
   }
 }
