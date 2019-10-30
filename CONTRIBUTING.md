@@ -84,27 +84,28 @@ Do not include `Source` location as that will trigger generation of REPL link an
 Create file `endsWith.js` in folder `benchmarks`
 
 ```
-const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
-const suite = new Benchmark.Suite()
+const str = 'foo'
 
-suite
-.add('Rambda.endsWith', () => {
-  R.endsWith(['b'], ['a', 'b', 'c'])
-})
-.add('Ramda.endsWith', () => {
-  Ramda.endsWith(['b'], ['a', 'b', 'c'])
-})
+const endsWith = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      const result = R.endsWith('oo',str)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      const result = Ramda.endsWith('oo',str)
+    },
+  },
+]
 
-module.exports = suite
+module.exports = endsWith
 ```
-
-> Test your benchmark(still optional)
-
-`yarn build`
-`node benchmarks/index.js endsWith`
 
 > Submit PR
 
