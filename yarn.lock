@@ -2995,7 +2995,6 @@ has@^1.0.1, has@^1.0.3:
 
 "helpers@https://github.com/selfrefactor/helpers#2.0.0":
   version "1.7.1"
-  uid "152278f456f8e8d4ae349f6253eb4e85aab8d2d9"
   resolved "https://github.com/selfrefactor/helpers#152278f456f8e8d4ae349f6253eb4e85aab8d2d9"
   dependencies:
     benny "^3.6.12"
@@ -5875,7 +5874,7 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-string-fn@^2.10.2:
+string-fn@2.10.2, string-fn@^2.10.2:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.10.2.tgz#ac593561000ab44483c90effb0ad9c23bcbd2148"
   integrity sha512-63FZhsBUtjCueP8RdFmsHthzW1ySTm2hX/nJCrqC0IvnmhOi1GofaDLzNrYXfaHDumk0s25WJX4yThTOuSABGw==

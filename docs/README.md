@@ -39,7 +39,31 @@ Currently **Rambda** is more tree-shakable than **Ramda**
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
 
-You can clone this repo and run `yarn run benchmark all` to see for yourself.
+<details>
+
+<summary>
+Click to expand all benchmark results
+</summary>
+
+method | Rambda | Ramda | Lodash
+--- |--- | --- | ---
+ *add* | Fastest | 29.93 slower | 75.02 slower
+ *adjust* | Fastest | 2.55 slower | x
+ *all* | Fastest | 77.32 slower | x
+ *allPass* | Fastest | 98.38 slower | x
+ *any* | Fastest | 94.34 slower | 9.48 slower
+ *anyPass* | Fastest | 98.57 slower | x
+ *append* | Fastest | 61.06 slower | x
+ *assoc* | 78.17 slower | 67.74 slower | Fastest
+ *clone* | Fastest | 92.5 slower | 88.12 slower
+ *compose* | Fastest | 91.44 slower | 67.02 slower
+ *curry* | Fastest | 42.63 slower | x
+ *defaultTo* | Fastest | 70.97 slower | x
+ *drop* | Fastest | 83.23 slower | x
+ *dropLast* | Fastest | 87.67 slower | x
+ *equals* | Fastest | 80.5 slower | 50.77 slower
+
+</details>
 
 - dot notation for `R.path`
 
@@ -2159,7 +2183,7 @@ export function append(el, list){
 
   if (typeof list === 'string') return `${ list }${ el }`
 
-  const clone = list.concat()
+  const clone = list.slice()
   clone.push(el)
 
   return clone
@@ -7498,7 +7522,7 @@ R.sort source
 export function sort(fn, list){
   if (arguments.length === 1) return _list => sort(fn, _list)
 
-  const arrClone = list.concat()
+  const arrClone = list.slice()
 
   return arrClone.sort(fn)
 }
@@ -7601,7 +7625,7 @@ R.sortBy source
 export function sortBy(fn, list){
   if (arguments.length === 1) return _list => sortBy(fn, _list)
 
-  const arrClone = list.concat()
+  const arrClone = list.slice()
 
   return arrClone.sort((a, b) => {
     const fnA = fn(a)
@@ -7969,9 +7993,7 @@ test('with negative index', () => {
 })
 
 test('with zero index', () => {
-  console.log(
-    take(0, [ 1, 2, 3 ])
-  )
+  expect(take(0, [ 1, 2, 3 ])).toEqual([])
 })
 
 ```
@@ -8945,7 +8967,7 @@ export function update(idx, val, list){
     return _list => update(idx, val, _list)
   }
 
-  const arrClone = list.concat()
+  const arrClone = list.slice()
 
   return arrClone.fill(val, idx, idx + 1)
 }
@@ -9014,7 +9036,6 @@ import { type } from './type.js'
 
 export function values(obj){
   if (type(obj) !== 'Object') return []
-  console.log(obj)
 
   return Object.values(obj)
 }
@@ -9252,7 +9273,6 @@ export function zipObj(keys, values){
 
   return take(values.length, keys).reduce((prev, xInstance, i) => {
     prev[ xInstance ] = values[ i ]
-    // console.log({ prev })
 
     return prev
   }, {})
@@ -9284,6 +9304,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.0.1 Approve [PR #289](https://github.com/selfrefactor/rambda/pull/289) - remove console.log in `R.values` method
 
 - 4.0.0 Multiple breaking changes as Rambda methods are changed in order to increase the similarity between with Ramda
 

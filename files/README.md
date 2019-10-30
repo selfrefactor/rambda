@@ -38,9 +38,7 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
-*add* | Fastest | 70% slower | 50% slower
---- |--- | --- | ---
-*compose* | Fastest | 70% slower | 50% slower
+MARKER_BENCHMARK_SUMMARY
 
 </details>
 

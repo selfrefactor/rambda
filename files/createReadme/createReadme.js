@@ -6,6 +6,7 @@ const {
   replace,
 } = require('rambdax')
 const { addToggleDetails } = require('./addToggleDetails.js')
+const { benchmarkSummary } = require('./benchmarkSummary.js')
 const { cleanTOC } = require('./cleanTOC')
 const { rambdaREPL } = require('./rambdaREPL')
 const { readFileSync, writeFileSync } = require('fs')
@@ -47,10 +48,6 @@ const missingRamdaMethodsPath = resolve(
   __dirname,
   '../ramdaMissing.md'
 )
-// const benchmarkResultsPath = resolve(
-//   __dirname,
-//   '../benchmarkResults.md'
-// )
 
 const failingTestsSummaryPath = resolve(
   __dirname,
@@ -58,9 +55,9 @@ const failingTestsSummaryPath = resolve(
 )
 
 void function createReadme(){
+  const benchmarkSummaryContent = benchmarkSummary()
   const content = readFileSync(contentPath).toString()
   const missingRamdaMethods = readFileSync(missingRamdaMethodsPath).toString()
-  // const benchmarkResults = readFileSync(benchmarkResultsPath).toString()
   const failingTestsSummary = readFileSync(failingTestsSummaryPath).toString()
   const changelog = readFileSync(changelogSourcePath).toString()
 
@@ -101,10 +98,15 @@ void function createReadme(){
     failingTestsSummary,
     withMissingRamdaMethods
   )
+  const withBenchmarkSummary = replace(
+    'MARKER_BENCHMARK_SUMMARY',
+    benchmarkSummaryContent,
+    withFailingTestsResults
+  )
   const withChangelog = inject(
     changelog,
     '## Changelog\n\n',
-    withFailingTestsResults
+    withBenchmarkSummary
   )
   const final = remove(
     '\n* [Example use](#example-use)\n',
