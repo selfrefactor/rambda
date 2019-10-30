@@ -25,7 +25,7 @@ test('with object', () => {
   }
   expect(clone(arr)).toEqual(arr)
 })
- 
+
 test('with date', () => {
   const date = new Date(2014, 10, 14, 23, 59, 59, 999)
 

@@ -1,7 +1,7 @@
 /**
  * Returns the position of the first occurrence of an item in an array, or -1
- * if the item is not included in the array. 
- * 
+ * if the item is not included in the array.
+ *
  * @func
  * @category List
  * @sig a -> [a] -> Number

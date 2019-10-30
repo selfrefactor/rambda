@@ -1,7 +1,7 @@
 /**
  * Given a function that generates a key, turns a list of objects into an
  * object indexing the objects by the given key.
- * 
+ *
  * @func
  * @category List
  * @sig (a -> String) -> [{k: v}] -> {k: {k: v}}

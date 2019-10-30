@@ -1,6 +1,6 @@
 /**
  * Divides the first parameter by the second and returns the remainder.
- * 
+ *
  * @func
  * @category Math
  * @sig Number -> Number -> Number

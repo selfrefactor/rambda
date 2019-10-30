@@ -11,9 +11,9 @@
  * @symb R.compose(f, g, h)(a, b) = f(g(h(a, b)))
  */
 export function compose(...fns){
-  if(fns.length === 0){
+  if (fns.length === 0){
     throw new Error('compose requires at least one argument')
-  } 
+  }
 
   return (...args) => {
     const list = fns.slice()

@@ -25,11 +25,11 @@ test('accepts initially two arguments', () => {
 })
 
 test('when no arguments is passed', () => {
-expect(() => compose()).toThrow('compose requires at least one argument');
+  expect(() => compose()).toThrow('compose requires at least one argument')
 })
 
 test('ramda spec', () => {
-  var f = function(a, b, c) { return [a, b, c]; };
-var g = compose(f);
-expect(g(1, 2, 3)).toEqual([1, 2,3])
+  const f = function(a, b, c){ return [ a, b, c ] }
+  const g = compose(f)
+  expect(g(1, 2, 3)).toEqual([ 1, 2, 3 ])
 })

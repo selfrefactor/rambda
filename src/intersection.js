@@ -1,5 +1,5 @@
-import { filter } from "./filter"
-import { includes } from "./includes"
+import { filter } from './filter'
+import { includes } from './includes'
 
 /**
  * Combines two lists into a set (i.e. no duplicates) composed of those
@@ -16,7 +16,7 @@ import { includes } from "./includes"
  *      R.intersection([1, 2, 3, 4], [3, 4, 5, 6]) // => [3, 4]
  *      R.intersection([]); //=> []
  */
-export function intersection(list1, list2) {
+export function intersection(list1, list2){
   if (arguments.length === 1) return _list => intersection(list1, _list)
 
   return filter(value => includes(value, list2), list1)

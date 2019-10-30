@@ -26,10 +26,10 @@ function assocPathFn(list, val, input){
 
   const index = pathArrValue[ 0 ]
   if (pathArrValue.length > 1){
-    const condition = typeof input !== 'object' || 
-      input === null || 
+    const condition = typeof input !== 'object' ||
+      input === null ||
       !input.hasOwnProperty(index)
-      
+
     const nextinput = condition ?
       _isInteger(parseInt(pathArrValue[ 1 ], 10)) ? [] : {} :
       input[ index ]

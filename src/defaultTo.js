@@ -6,7 +6,7 @@ function flagIs(inputArguments){
 
 /**
  * Returns the last argument which is neither `null`, `undefined` nor `NaN`
- * 
+ *
  * @func
  * @category Logic
  * @sig a -> b -> a | b
@@ -18,7 +18,7 @@ function flagIs(inputArguments){
  *      const defaultTo42 = ;
  *
  *      R.defaultTo(42, null, undefined, Number('foo'));  //=> 42
- *      R.defaultTo(42, null, undefined, Number('foo'), 1);  //=> 1 
+ *      R.defaultTo(42, null, undefined, Number('foo'), 1);  //=> 1
  *      R.defaultTo(42, 1);  //=> 1
  *      R.defaultTo(42, false);  //=> 42
  */
