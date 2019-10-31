@@ -1,0 +1,33 @@
+{
+  "name": "FLATTEN",
+  "date": "2019-10-31T13:10:55.997Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 23404888,
+      "margin": 1.12,
+      "percentSlower": 9.4
+    },
+    {
+      "name": "Ramda",
+      "ops": 925685,
+      "margin": 0.52,
+      "percentSlower": 96.42
+    },
+    {
+      "name": "Lodash",
+      "ops": 25832346,
+      "margin": 0.98,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Lodash",
+    "index": 2
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

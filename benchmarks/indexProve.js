@@ -25,4 +25,4 @@ async function runBenchmarks(singleMethod){
   )(allBenchmarks)
 }
 
-runBenchmarks('map')
+runBenchmarks('flatten') 
