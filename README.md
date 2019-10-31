@@ -35,6 +35,8 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 Currently **Rambda** is more tree-shakable than **Ramda**
 
+---
+
 - Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
@@ -70,6 +72,8 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
+---
+
 - dot notation for `R.path`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
@@ -80,6 +84,8 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+---
+
 - comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -89,6 +95,8 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 // No space allowed between properties
 ```
+
+---
 
 - Typescript included
 
@@ -109,7 +117,7 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@4.0.0/dist/rambda.umd.js
+https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
