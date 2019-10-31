@@ -35,6 +35,8 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 Currently **Rambda** is more tree-shakable than **Ramda**
 
+---
+
 - Speed
 
 **Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
@@ -47,23 +49,32 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | Fastest | 29.93 slower | 75.02 slower
- *adjust* | Fastest | 2.55 slower | x
- *all* | Fastest | 77.32 slower | x
- *allPass* | Fastest | 98.38 slower | x
- *any* | Fastest | 94.34 slower | 9.48 slower
- *anyPass* | Fastest | 98.57 slower | x
- *append* | Fastest | 61.06 slower | x
- *assoc* | 78.17 slower | 67.74 slower | Fastest
- *clone* | Fastest | 92.5 slower | 88.12 slower
- *compose* | Fastest | 91.44 slower | 67.02 slower
- *curry* | Fastest | 42.63 slower | x
- *defaultTo* | Fastest | 70.97 slower | x
- *drop* | Fastest | 83.23 slower | x
- *dropLast* | Fastest | 87.67 slower | x
- *equals* | Fastest | 80.5 slower | 50.77 slower
+ *add* | 🚀 Fastest | 29.93% slower | 75.02% slower
+ *adjust* | 🚀 Fastest | 2.55% slower | 🔳
+ *all* | 🚀 Fastest | 77.32% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.38% slower | 🔳
+ *any* | 🚀 Fastest | 94.34% slower | 9.48% slower
+ *anyPass* | 🚀 Fastest | 98.57% slower | 🔳
+ *append* | 🚀 Fastest | 61.06% slower | 🔳
+ *assoc* | 78.17% slower | 67.74% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 92.5% slower | 88.12% slower
+ *compose* | 🚀 Fastest | 91.44% slower | 67.02% slower
+ *curry* | 🚀 Fastest | 42.63% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 70.97% slower | 🔳
+ *drop* | 🚀 Fastest | 83.23% slower | 🔳
+ *dropLast* | 🚀 Fastest | 87.67% slower | 🔳
+ *equals* | 🚀 Fastest | 80.5% slower | 50.77% slower
+ *filter* | 🚀 Fastest | 61.69% slower | 45.37% slower
+ *find* | 🚀 Fastest | 32.12% slower | 28.68% slower
+ *findIndex* | 🚀 Fastest | 88.57% slower | 26.29% slower
+ *flatten* | 9.4% slower | 96.42% slower | 🚀 Fastest
+ *indexOf* | 2.12% slower | 1.1% slower | 🚀 Fastest
+ *init* | 4.42% slower | 94.02% slower | 🚀 Fastest
+ *map* | 5.45% slower | 81.99% slower | 🚀 Fastest
 
 </details>
+
+---
 
 - dot notation for `R.path`
 
@@ -75,6 +86,8 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+---
+
 - comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -84,6 +97,8 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 // No space allowed between properties
 ```
+
+---
 
 - Typescript included
 
@@ -104,7 +119,7 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@4.0.0/dist/rambda.umd.js
+https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -2080,6 +2095,7 @@ test('when returns false + curry', () => {
 test('happy', () => {
   expect(anyPass([])(3)).toEqual(false)
 })
+
 ```
 
 </details>
@@ -2423,7 +2439,7 @@ test('with object', () => {
   }
   expect(clone(arr)).toEqual(arr)
 })
- 
+
 test('with date', () => {
   const date = new Date(2014, 10, 14, 23, 59, 59, 999)
 
@@ -2518,13 +2534,13 @@ test('accepts initially two arguments', () => {
 })
 
 test('when no arguments is passed', () => {
-expect(() => compose()).toThrow('compose requires at least one argument');
+  expect(() => compose()).toThrow('compose requires at least one argument')
 })
 
 test('ramda spec', () => {
-  var f = function(a, b, c) { return [a, b, c]; };
-var g = compose(f);
-expect(g(1, 2, 3)).toEqual([1, 2,3])
+  const f = function(a, b, c){ return [ a, b, c ] }
+  const g = compose(f)
+  expect(g(1, 2, 3)).toEqual([ 1, 2, 3 ])
 })
 
 ```
@@ -2539,9 +2555,9 @@ R.compose source
 
 ```javascript
 export function compose(...fns){
-  if(fns.length === 0){
+  if (fns.length === 0){
     throw new Error('compose requires at least one argument')
-  } 
+  }
 
   return (...args) => {
     const list = fns.slice()
@@ -2595,10 +2611,11 @@ test('', () => {
 
 test('with multiple parameters', () => {
   const between = function(a, b, c){ return a < b && b < c }
-const f = complement(between)
-expect(f(4, 5, 11)).toEqual(false)
-expect(f(12, 2, 6)).toEqual(true)
+  const f = complement(between)
+  expect(f(4, 5, 11)).toEqual(false)
+  expect(f(12, 2, 6)).toEqual(true)
 })
+
 ```
 
 </details>
@@ -3117,7 +3134,7 @@ R.drop source
 ```javascript
 export function drop(n, listOrString){
   if (arguments.length === 1) return _list => drop(n, _list)
-  
+
   return listOrString.slice(n > 0 ? n : 0)
 }
 
@@ -3159,16 +3176,16 @@ test('with string', () => {
 })
 
 test('with non-positive count', () => {
-  expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3])
-expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3]) 
-expect(dropLast(-Infinity, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(0, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(dropLast(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+  expect(dropLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })
 
 test('should return copy', () => {
-    var xs = [1, 2, 3];
+  const xs = [ 1, 2, 3 ]
 
-    assert.notStrictEqual(dropLast(0, xs), xs);
-    assert.notStrictEqual(dropLast(-1, xs), xs);
+  assert.notStrictEqual(dropLast(0, xs), xs)
+  assert.notStrictEqual(dropLast(-1, xs), xs)
 })
 
 ```
@@ -5522,6 +5539,8 @@ R.map tests
 
 ```javascript
 import { map } from './map'
+import { add } from './add'
+import { compose } from './compose'
 
 const double = x => x * 2
 
@@ -5586,6 +5605,14 @@ test('with object passes property as second argument', () => {
  */
 test('when undefined instead of array', () => {
   expect(map(double, undefined)).toEqual([])
+})
+
+test('with R.compose', () => {
+  const result = compose(
+    map(add(1)),
+    map(add(1))
+  )([ 1, 2, 3 ])
+  expect(result).toEqual([ 3, 4, 5 ])
 })
 
 ```
@@ -6538,7 +6565,7 @@ export function partialCurry(fn, args = {}){
 
 - Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
 
-- You can read my argumentation for creating _partialCurry_ [here](https://selfrefactor.gitbooks.io/blog/content/argumenting-rambdas-curry.html)
+- You can read my argumentation for creating _partialCurry_ [here](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20(%7Ba%2C%20b%2C%20c%7D)%20%3D%3E%20%7B%0A%20%20return%20(a%20*%20b)%20%2B%20c%0A%7D%0Aconst%20curried%20%3D%20R.partialCurry(fn%2C%20%7Ba%3A%202%7D)%0Aconst%20result%20%3D%20curried(%7Bb%3A%203%2C%20c%3A%2010%7D)%0A%2F%2F%20%3D%3E%2016">Try in REPL</a>
 
@@ -7988,6 +8015,10 @@ test('happy', () => {
 })
 
 test('with negative index', () => {
+  console.log(
+    take(1, [[ 1, 2, 3 ]]),
+    R.take(1, [[ 1, 2, 3 ]]),
+  ) 
   expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
   expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })
