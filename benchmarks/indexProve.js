@@ -24,5 +24,5 @@ async function runBenchmarks(singleMethod){
     }
   )(allBenchmarks)
 }
-
-runBenchmarks('flatten') 
+  
+runBenchmarks('init') 

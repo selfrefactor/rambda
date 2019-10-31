@@ -68,6 +68,8 @@ method | Rambda | Ramda | Lodash
  *find* | 🚀 Fastest | 32.12% slower | 28.68% slower
  *findIndex* | 🚀 Fastest | 88.57% slower | 26.29% slower
  *flatten* | 9.4% slower | 96.42% slower | 🚀 Fastest
+ *indexOf* | 2.12% slower | 1.1% slower | 🚀 Fastest
+ *init* | 4.42% slower | 94.02% slower | 🚀 Fastest
  *map* | 5.45% slower | 81.99% slower | 🚀 Fastest
 
 </details>
