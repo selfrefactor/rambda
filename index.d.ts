@@ -374,10 +374,9 @@ declare namespace R {
     is(ctor: any, val: any): boolean;
     is(ctor: any): (val: any) => boolean;
 
-    /**
-     * Reports whether the list has zero elements.
-     */
-    isEmpty(value: any): boolean;
+    isEmpty<T>(
+      input: T,
+    ): boolean;
 
     /**
      * Checks if the input value is null or undefined.
