@@ -1,19 +1,19 @@
 {
   "name": "ADJUST",
-  "date": "2019-10-30T19:11:52.707Z",
+  "date": "2019-11-02T11:28:46.023Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 7940165,
-      "margin": 5.85,
+      "ops": 8905295,
+      "margin": 6.13,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 7737737,
-      "margin": 3.58,
-      "percentSlower": 2.55
+      "ops": 8890785,
+      "margin": 7.16,
+      "percentSlower": 0.16
     }
   ],
   "fastest": {

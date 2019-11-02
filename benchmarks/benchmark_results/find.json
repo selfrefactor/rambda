@@ -1,25 +1,25 @@
 {
   "name": "FIND",
-  "date": "2019-10-31T13:09:00.057Z",
+  "date": "2019-11-02T11:32:15.080Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 32650051,
-      "margin": 1.14,
+      "ops": 15260673,
+      "margin": 4.34,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 22161976,
-      "margin": 1.57,
-      "percentSlower": 32.12
+      "ops": 7516652,
+      "margin": 4.41,
+      "percentSlower": 50.74
     },
     {
       "name": "Lodash",
-      "ops": 23287490,
-      "margin": 0.62,
-      "percentSlower": 28.68
+      "ops": 12726597,
+      "margin": 2.36,
+      "percentSlower": 16.61
     }
   ],
   "fastest": {

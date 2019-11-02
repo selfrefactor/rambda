@@ -20,7 +20,9 @@
     "build": "yarn build:main&&yarn build:web",
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
-    "benchmark": "node benchmarks/index.js",
+    "benchmarks": "node benchmarks/indexProve.js",
+    "benchmark": "node benchmarks/indexProve.js",
+    "bench": "node benchmarks/indexProve.js",
     "cover:spec": "jest src --coverage --no-cache -w 1",
     "cover": "yarn typings&&yarn cover:spec"
   },
