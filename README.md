@@ -70,6 +70,7 @@ method | Rambda | Ramda | Lodash
  *flatten* | 9.4% slower | 96.42% slower | 🚀 Fastest
  *indexOf* | 2.12% slower | 1.1% slower | 🚀 Fastest
  *init* | 4.42% slower | 94.02% slower | 🚀 Fastest
+ *isEmpty* | 🚀 Fastest | 96.78% slower | 56.96% slower
  *map* | 5.45% slower | 81.99% slower | 🚀 Fastest
 
 </details>
@@ -9335,6 +9336,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
 
 - 4.0.1 Approve [PR #289](https://github.com/selfrefactor/rambda/pull/289) - remove console.log in `R.values` method
 

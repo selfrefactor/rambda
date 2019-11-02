@@ -1,3 +1,5 @@
+- 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
+
 - 4.0.1 Approve [PR #289](https://github.com/selfrefactor/rambda/pull/289) - remove console.log in `R.values` method
 
 - 4.0.0 Multiple breaking changes as Rambda methods are changed in order to increase the similarity between with Ramda
