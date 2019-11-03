@@ -5249,6 +5249,8 @@ export function isNil(x){
 
 > isEmpty(x: any): boolean
 
+It returns `true` is `x` is `empty`.
+
 ```javascript
 R.isEmpty('')  // => true
 R.isEmpty({})  // => false

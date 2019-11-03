@@ -837,6 +837,8 @@ R.isNil(1)  // => false
 
 > isEmpty(x: any): boolean
 
+It returns `true` is `x` is `empty`.
+
 ```
 R.isEmpty('')  // => true
 R.isEmpty({})  // => false
