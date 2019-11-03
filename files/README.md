@@ -840,12 +840,10 @@ R.isNil(1)  // => false
 It returns `true` is `x` is `empty`.
 
 ```
-R.isEmpty(null)  // => true
-R.isEmpty(undefined)  // => true
-R.isEmpty('')  // => true
-R.isEmpty([])  // => true
-R.isEmpty({})  // => true
+R.isEmpty({})  // => false
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
 
 #### join
 

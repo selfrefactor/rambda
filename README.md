@@ -49,7 +49,7 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 🚀 Fastest | 33.74% slower | 74.42% slower
+ *add* | 🚀 Fastest | 30.81% slower | 73.18% slower
  *adjust* | 🚀 Fastest | 0.16% slower | 🔳
  *all* | 🚀 Fastest | 72.36% slower | 🔳
  *allPass* | 🚀 Fastest | 98.7% slower | 🔳
@@ -5251,13 +5251,68 @@ export function isNil(x){
 
 It returns `true` is `x` is `empty`.
 
+```javascript
+R.isEmpty({})  // => false
 ```
-R.isEmpty(null)  // => true
-R.isEmpty(undefined)  // => true
-R.isEmpty('')  // => true
-R.isEmpty([])  // => true
-R.isEmpty({})  // => true
+
+<details>
+
+<summary>
+R.isEmpty tests
+</summary>
+
+```javascript
+import { isEmpty } from './isEmpty'
+
+test('happy', () => {
+  expect(isEmpty(undefined)).toEqual(false)
+  expect(isEmpty('')).toEqual(true)
+  expect(isEmpty(null)).toEqual(false)
+  expect(isEmpty(' ')).toEqual(false)
+  expect(isEmpty(new RegExp(''))).toEqual(false)
+  expect(isEmpty([])).toEqual(true)
+  expect(isEmpty([ [] ])).toEqual(false)
+  expect(isEmpty({})).toEqual(true)
+  expect(isEmpty({ x : 0 })).toEqual(false)
+  expect(isEmpty(0)).toEqual(false)
+  expect(isEmpty(NaN)).toEqual(false)
+  expect(isEmpty([ '' ])).toEqual(false)
+})
+
 ```
+
+</details>
+
+<details>
+
+<summary>
+R.isEmpty source
+</summary>
+
+```javascript
+import { type } from './type.js'
+
+export function isEmpty(input){
+  const inputType = type(input)
+  if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType)) return false
+  if (!input) return true
+
+  if (inputType === 'Object'){
+    return Object.keys(input).length === 0
+  }
+
+  if (inputType === 'Array'){
+    return input.length === 0
+  }
+
+  return false
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### join
@@ -9585,7 +9640,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 ## Ramda methods missing in Rambda
 
-### Function
+### Function  
  
  [__](https://raw.githubusercontent.com/ramda/ramda/master/source/__.js)
  

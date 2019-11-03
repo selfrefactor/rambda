@@ -1,6 +1,6 @@
 ## Ramda methods missing in Rambda
 
-### Function
+### Function  
  
  [__](https://raw.githubusercontent.com/ramda/ramda/master/source/__.js)
  

@@ -49,29 +49,29 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 🚀 Fastest | 29.93% slower | 75.02% slower
- *adjust* | 🚀 Fastest | 2.55% slower | 🔳
- *all* | 🚀 Fastest | 77.32% slower | 🔳
- *allPass* | 🚀 Fastest | 98.38% slower | 🔳
- *any* | 🚀 Fastest | 94.34% slower | 9.48% slower
- *anyPass* | 🚀 Fastest | 98.57% slower | 🔳
- *append* | 🚀 Fastest | 61.06% slower | 🔳
- *assoc* | 78.17% slower | 67.74% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 92.5% slower | 88.12% slower
- *compose* | 🚀 Fastest | 91.44% slower | 67.02% slower
- *curry* | 🚀 Fastest | 42.63% slower | 🔳
- *defaultTo* | 🚀 Fastest | 70.97% slower | 🔳
- *drop* | 🚀 Fastest | 83.23% slower | 🔳
- *dropLast* | 🚀 Fastest | 87.67% slower | 🔳
- *equals* | 🚀 Fastest | 80.5% slower | 50.77% slower
- *filter* | 🚀 Fastest | 61.69% slower | 45.37% slower
- *find* | 🚀 Fastest | 32.12% slower | 28.68% slower
- *findIndex* | 🚀 Fastest | 88.57% slower | 26.29% slower
- *flatten* | 9.4% slower | 96.42% slower | 🚀 Fastest
- *indexOf* | 2.12% slower | 1.1% slower | 🚀 Fastest
- *init* | 4.42% slower | 94.02% slower | 🚀 Fastest
- *isEmpty* | 🚀 Fastest | 96.78% slower | 56.96% slower
- *map* | 5.45% slower | 81.99% slower | 🚀 Fastest
+ *add* | 🚀 Fastest | 30.81% slower | 73.18% slower
+ *adjust* | 🚀 Fastest | 0.16% slower | 🔳
+ *all* | 🚀 Fastest | 72.36% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.7% slower | 🔳
+ *any* | 0.48% slower | 93.82% slower | 🚀 Fastest
+ *anyPass* | 🚀 Fastest | 98.64% slower | 🔳
+ *append* | 🚀 Fastest | 82.25% slower | 🔳
+ *assoc* | 79.15% slower | 64.78% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 92.73% slower | 92.75% slower
+ *compose* | 🚀 Fastest | 91.96% slower | 65.9% slower
+ *curry* | 🚀 Fastest | 27.46% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 27.84% slower | 🔳
+ *drop* | 🚀 Fastest | 84.2% slower | 🔳
+ *dropLast* | 🚀 Fastest | 78.75% slower | 🔳
+ *equals* | 🚀 Fastest | 79.46% slower | 53.3% slower
+ *filter* | 🚀 Fastest | 64.89% slower | 47.14% slower
+ *find* | 🚀 Fastest | 50.74% slower | 16.61% slower
+ *findIndex* | 🚀 Fastest | 89.41% slower | 75% slower
+ *flatten* | 25.59% slower | 95.33% slower | 🚀 Fastest
+ *indexOf* | 🚀 Fastest | 55.06% slower | 6.34% slower
+ *init* | 🚀 Fastest | 90.18% slower | 2.04% slower
+ *isEmpty* | 🚀 Fastest | 91.25% slower | 35.32% slower
+ *map* | 23.77% slower | 87.62% slower | 🚀 Fastest
 
 </details>
 
@@ -5251,13 +5251,68 @@ export function isNil(x){
 
 It returns `true` is `x` is `empty`.
 
+```javascript
+R.isEmpty({})  // => false
 ```
-R.isEmpty(null)  // => true
-R.isEmpty(undefined)  // => true
-R.isEmpty('')  // => true
-R.isEmpty([])  // => true
-R.isEmpty({})  // => true
+
+<details>
+
+<summary>
+R.isEmpty tests
+</summary>
+
+```javascript
+import { isEmpty } from './isEmpty'
+
+test('happy', () => {
+  expect(isEmpty(undefined)).toEqual(false)
+  expect(isEmpty('')).toEqual(true)
+  expect(isEmpty(null)).toEqual(false)
+  expect(isEmpty(' ')).toEqual(false)
+  expect(isEmpty(new RegExp(''))).toEqual(false)
+  expect(isEmpty([])).toEqual(true)
+  expect(isEmpty([ [] ])).toEqual(false)
+  expect(isEmpty({})).toEqual(true)
+  expect(isEmpty({ x : 0 })).toEqual(false)
+  expect(isEmpty(0)).toEqual(false)
+  expect(isEmpty(NaN)).toEqual(false)
+  expect(isEmpty([ '' ])).toEqual(false)
+})
+
 ```
+
+</details>
+
+<details>
+
+<summary>
+R.isEmpty source
+</summary>
+
+```javascript
+import { type } from './type.js'
+
+export function isEmpty(input){
+  const inputType = type(input)
+  if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType)) return false
+  if (!input) return true
+
+  if (inputType === 'Object'){
+    return Object.keys(input).length === 0
+  }
+
+  if (inputType === 'Array'){
+    return input.length === 0
+  }
+
+  return false
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### join
@@ -9585,7 +9640,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 ## Ramda methods missing in Rambda
 
-### Function
+### Function  
  
  [__](https://raw.githubusercontent.com/ramda/ramda/master/source/__.js)
  
