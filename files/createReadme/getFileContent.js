@@ -6,8 +6,8 @@ function getFileContent(methodName){
   const methodPath = resolve(__dirname, `../../src/${ methodName }.js`)
   if (!existsSync(methodPath)) return ''
   const rawContent = readFileSync(methodPath).toString()
-  if(methodName.endsWith('.spec')) return rawContent
-  
+  if (methodName.endsWith('.spec')) return rawContent
+
   const content = replace(
     /\/\*(.|\n)+export/gm,
     'export',

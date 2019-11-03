@@ -1,13 +1,13 @@
-var S = require('sanctuary');
+const S = require('sanctuary')
 
-var R = require('rambda');
-var eq = require('./shared/eq');
-describe('complement', function() {
-  it('accepts fantasy-land functors', function() {
-    var Just = S.Just;
-    var Nothing = S.Nothing;
-    eq(R.complement(Just(true)), Just(false));
-    eq(R.complement(Just(false)), Just(true));
-    eq(R.complement(Nothing()), Nothing());
-  });
-});
+const eq = require('./shared/eq')
+const R = require('rambda')
+describe('complement', () => {
+  it('accepts fantasy-land functors', () => {
+    const { Just } = S
+    const { Nothing } = S
+    eq(R.complement(Just(true)), Just(false))
+    eq(R.complement(Just(false)), Just(true))
+    eq(R.complement(Nothing()), Nothing())
+  })
+})

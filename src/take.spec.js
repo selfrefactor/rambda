@@ -24,9 +24,9 @@ test('happy', () => {
 
 test('with negative index', () => {
   console.log(
-    take(1, [[ 1, 2, 3 ]]),
-    R.take(1, [[ 1, 2, 3 ]]),
-  ) 
+    take(1, [ [ 1, 2, 3 ] ]),
+    R.take(1, [ [ 1, 2, 3 ] ]),
+  )
   expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
   expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })

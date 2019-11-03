@@ -1,16 +1,16 @@
-var S = require('sanctuary');
+const S = require('sanctuary')
 
-var R = require('rambda');
-var eq = require('./shared/eq');
-describe('either', function() {
-  it('accepts fantasy-land applicative functors', function() {
-    var Just = S.Just;
-    var Nothing = S.Nothing;
-    eq(R.either(Just(true), Just(true)), Just(true));
-    eq(R.either(Just(true), Just(false)), Just(true));
-    eq(R.either(Just(false), Just(false)), Just(false));
-    eq(R.either(Just(true), Nothing()), Nothing());
-    eq(R.either(Nothing(), Just(false)), Nothing());
-    eq(R.either(Nothing(), Nothing()), Nothing());
-  });
-});
+const eq = require('./shared/eq')
+const R = require('rambda')
+describe('either', () => {
+  it('accepts fantasy-land applicative functors', () => {
+    const { Just } = S
+    const { Nothing } = S
+    eq(R.either(Just(true), Just(true)), Just(true))
+    eq(R.either(Just(true), Just(false)), Just(true))
+    eq(R.either(Just(false), Just(false)), Just(false))
+    eq(R.either(Just(true), Nothing()), Nothing())
+    eq(R.either(Nothing(), Just(false)), Nothing())
+    eq(R.either(Nothing(), Nothing()), Nothing())
+  })
+})

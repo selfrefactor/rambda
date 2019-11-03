@@ -9,7 +9,7 @@ const skipRules = [
 
 void async function lint(){
   process.env.SKIP_ESLINT_RULES = skipRules.join(',')
-  
+
   const output = await exec({
     // It requires `npm i -g run-fn` ============================================
     command : 'run lint',
@@ -22,8 +22,8 @@ void async function lint(){
     line => line.trim() !== ''
   )
   console.log('=====END=====')
-  if(filtered.length <= LIMIT){
-    return console.log('No new lint errors');
+  if (filtered.length <= LIMIT){
+    return console.log('No new lint errors')
   }
   filtered.map(x => console.log(x))
 }()

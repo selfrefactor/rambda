@@ -1,10 +1,10 @@
-var R = require('rambda');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('rambda')
 
-describe('filter', function() {
-  var even = function(x) {return x % 2 === 0;};
-  it('dispatches to passed-in non-Array object with a `filter` method', function() {
-    var f = {filter: function(f) { return f('called f.filter'); }};
-    eq(R.filter(function(s) { return s; }, f), 'called f.filter');
-  });
-});
+describe('filter', () => {
+  const even = function(x){ return x % 2 === 0 }
+  it('dispatches to passed-in non-Array object with a `filter` method', () => {
+    const f = { filter : function(f){ return f('called f.filter') } }
+    eq(R.filter(s => s, f), 'called f.filter')
+  })
+})
