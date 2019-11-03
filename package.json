@@ -56,7 +56,7 @@
     "jest": "24.9.0",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
-    "rambdax": "2.17.0",
+    "rambdax": "3.1.0",
     "ramda": "0.26.1",
     "rollup": "1.26.2",
     "string-fn": "2.10.2",
