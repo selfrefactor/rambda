@@ -209,6 +209,12 @@ describe('anyPass', () => {
   const gt20 = function(n){ return n > 20 }
   const lt5 = function(n){ return n < 5 }
   const plusEq = function(w, x, y, z){ return w + x === y + z }
+  it('returns a curried function whose arity matches that of the highest-arity predicate', () => {
+    eq(R.anyPass([ odd, lt5, plusEq ]).length, 4)
+    eq(R.anyPass([ odd, lt5, plusEq ])(6, 7, 8, 9), false)
+    eq(R.anyPass([ odd, lt5, plusEq ])(6)(7)(8)(9), false)
+  })
+})
 ```
 
 > both
@@ -255,13 +261,6 @@ describe('deep clone integers, strings and booleans', function() {
   });
 });
 describe('deep clone objects', function() {
-  it('clones shallow object', function() {
-    var obj = {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)};
-    var clone = R.clone(obj);
-    obj.c = false;
-    obj.d.setDate(31);
-    eq(clone, {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)});
-  });
   it('clones objects with circular references', function() {
     var x = {c: null};
     var y = {a: x};
@@ -281,59 +280,12 @@ describe('deep clone objects', function() {
     x.c.b = 1;
     assert.notDeepEqual(clone.c.b, x.c.b);
   });
-  it('clone instances', function() {
-    var Obj = function(x) {
-      this.x = x;
-    };
-    Obj.prototype.get = function() {
-      return this.x;
-    };
-    Obj.prototype.set = function(x) {
-      this.x = x;
-    };
-    var obj = new Obj(10);
-    eq(obj.get(), 10);
-    var clone = R.clone(obj);
-    eq(clone.get(), 10);
-    assert.notStrictEqual(obj, clone);
-    obj.set(11);
-    eq(obj.get(), 11);
-    eq(clone.get(), 10);
-  });
 });
 describe('deep clone arrays', function() {
-  it('clones shallow arrays', function() {
-    var list = [1, 2, 3];
-    var clone = R.clone(list);
-    list.pop();
-    eq(clone, [1, 2, 3]);
-  });
-  it('clones deep arrays', function() {
-    var list = [1, [1, 2, 3], [[[5]]]];
-    var clone = R.clone(list);
-    assert.notStrictEqual(list, clone);
-    assert.notStrictEqual(list[2], clone[2]);
-    assert.notStrictEqual(list[2][0], clone[2][0]);
-    eq(clone, [1, [1, 2, 3], [[[5]]]]);
-  });
 });
 describe('deep clone functions', function() {
-  it('keep reference to function', function() {
-    var fn = function(x) { return x + x;};
-    var list = [{a: fn}];
-    var clone = R.clone(list);
-    eq(clone[0].a(10), 20);
-    eq(list[0].a, clone[0].a);
-  });
 });
 describe('built-in types', function() {
-  it('clones Date object', function() {
-    var date = new Date(2014, 10, 14, 23, 59, 59, 999);
-    var clone = R.clone(date);
-    assert.notStrictEqual(date, clone);
-    eq(clone, new Date(2014, 10, 14, 23, 59, 59, 999));
-    eq(clone.getDay(), 5); // friday
-  });
   it('clones RegExp object', function() {
     R.forEach(function(pattern) {
       var clone = R.clone(pattern);
@@ -347,18 +299,6 @@ describe('built-in types', function() {
   });
 });
 describe('deep clone deep nested mixed objects', function() {
-  it('clones array with objects', function() {
-    var list = [{a: {b: 1}}, [{c: {d: 1}}]];
-    var clone = R.clone(list);
-    list[1][0] = null;
-    eq(clone, [{a: {b: 1}}, [{c: {d: 1}}]]);
-  });
-  it('clones array with arrays', function() {
-    var list = [[1], [[3]]];
-    var clone = R.clone(list);
-    list[1][0] = null;
-    eq(clone, [[1], [[3]]]);
-  });
   it('clones array with mutual ref object', function() {
     var obj = {a: 1};
     var list = [{b: obj}, {b: obj}];
@@ -449,15 +389,6 @@ describe('compose', function() {
     };
     eq(context.a(5), 40);
   });
-  it('throws if given no arguments', function() {
-    assert.throws(
-      function() { R.compose(); },
-      function(err) {
-        return err.constructor === Error &&
-               err.message === 'compose requires at least one argument';
-      }
-    );
-  });
   it('can be applied to one argument', function() {
     var f = function(a, b, c) { return [a, b, c]; };
     var g = R.compose(f);
@@ -468,15 +399,6 @@ describe('compose', function() {
 describe('compose properties', function() {
   jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
     return R.equals(R.compose(f, g)(x), f(g(x)));
-  });
-  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
-    var result = f(g(h(x)));
-    return R.all(R.equals(result), [
-      R.compose(f, g, h)(x),
-      R.compose(f, R.compose(g, h))(x),
-      R.compose(R.compose(f, g), h)(x)
-    ]);
-  });
 });
 ```
 
@@ -497,12 +419,6 @@ describe('concat', function() {
   };
   it('delegates to non-String object with a concat method, as second param', function() {
     eq(R.concat(z1, z2), 'z1 z2');
-  });
-  it('throws if attempting to combine an array with a non-array', function() {
-    assert.throws(function() { return R.concat([1], 2); }, TypeError);
-  });
-  it('throws if not an array, String, or object with a concat method', function() {
-    assert.throws(function() { return R.concat({}, {}); }, TypeError);
   });
 });
 ```
@@ -578,18 +494,6 @@ describe('curry', function() {
     eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
     eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
   });
-  it('forwards extra arguments', function() {
-    var f = function(a, b, c) {
-      void c;
-      return Array.prototype.slice.call(arguments);
-    };
-    var g = R.curry(f);
-    eq(g(1, 2, 3), [1, 2, 3]);
-    eq(g(1, 2, 3, 4), [1, 2, 3, 4]);
-    eq(g(1, 2)(3, 4), [1, 2, 3, 4]);
-    eq(g(1)(2, 3, 4), [1, 2, 3, 4]);
-    eq(g(1)(2)(3, 4), [1, 2, 3, 4]);
-  });
 });
 describe('curry properties', function() {
   jsv.property('curries multiple values', funcN(4), jsv.json, jsv.json, jsv.json, jsv.json, function(f, a, b, c, d) {
@@ -601,7 +505,6 @@ describe('curry properties', function() {
       g(a, b)(c, d),
       g(a, b, c)(d)
     ]);
-  });
   jsv.property('curries with placeholder', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
     var _ = {'@@functional/placeholder': true, x: Math.random()};
     var g = R.curry(f);
@@ -612,7 +515,6 @@ describe('curry properties', function() {
       g(a, _, _)(_, c)(b),
       g(a, b, _)(c)
     ]);
-  });
 });
 ```
 
@@ -638,18 +540,6 @@ describe('difference', function() {
     eq(R.difference([-0], [0]).length, 1);
     eq(R.difference([NaN], [NaN]).length, 0);
     eq(R.difference([new Just([42])], [new Just([42])]).length, 0);
-  });
-  it('works for arrays of different lengths', function() {
-    eq(R.difference(Z, Z2), [10]);
-    eq(R.difference(Z2, Z), [1, 2, 7, 8]);
-  });
-  it('will not create a "sparse" array', function() {
-    eq(R.difference(M2, [3]).length, 3);
-  });
-  it('returns an empty array if there are no different elements', function() {
-    eq(R.difference(M2, M), []);
-    eq(R.difference(M, M2), []);
-    eq(R.difference([], M2), []);
   });
 });
 ```
@@ -729,35 +619,9 @@ describe('equals', function() {
     eq(R.equals(false, new Boolean(false)), false);
     eq(R.equals(new Boolean(false), false), false);
   });
-  it('considers equal number primitives equal', function() {
-    eq(R.equals(0, 0), true);
-    eq(R.equals(0, 1), false);
-    eq(R.equals(1, 0), false);
-  });
-  it('considers equivalent Number objects equal', function() {
-    eq(R.equals(new Number(0), new Number(0)), true);
-    eq(R.equals(new Number(0), new Number(1)), false);
-    eq(R.equals(new Number(1), new Number(0)), false);
-  });
   it('never considers number primitive equal to Number object', function() {
     eq(R.equals(0, new Number(0)), false);
     eq(R.equals(new Number(0), 0), false);
-  });
-  it('considers equal string primitives equal', function() {
-    eq(R.equals('', ''), true);
-    eq(R.equals('', 'x'), false);
-    eq(R.equals('x', ''), false);
-    eq(R.equals('foo', 'foo'), true);
-    eq(R.equals('foo', 'bar'), false);
-    eq(R.equals('bar', 'foo'), false);
-  });
-  it('considers equivalent String objects equal', function() {
-    eq(R.equals(new String(''), new String('')), true);
-    eq(R.equals(new String(''), new String('x')), false);
-    eq(R.equals(new String('x'), new String('')), false);
-    eq(R.equals(new String('foo'), new String('foo')), true);
-    eq(R.equals(new String('foo'), new String('bar')), false);
-    eq(R.equals(new String('bar'), new String('foo')), false);
   });
   it('never considers string primitive equal to String object', function() {
     eq(R.equals('', new String('')), false);
@@ -765,56 +629,12 @@ describe('equals', function() {
     eq(R.equals('x', new String('x')), false);
     eq(R.equals(new String('x'), 'x'), false);
   });
-  it('handles objects', function() {
-    eq(R.equals({}, {}), true);
-    eq(R.equals({a:1, b:2}, {a:1, b:2}), true);
-    eq(R.equals({a:2, b:3}, {b:3, a:2}), true);
-    eq(R.equals({a:2, b:3}, {a:3, b:3}), false);
-    eq(R.equals({a:2, b:3, c:1}, {a:2, b:3}), false);
-  });
-  it('considers equivalent Arguments objects equal', function() {
-    var a = (function() { return arguments; }());
-    var b = (function() { return arguments; }());
-    var c = (function() { return arguments; }(1, 2, 3));
-    var d = (function() { return arguments; }(1, 2, 3));
-    eq(R.equals(a, b), true);
-    eq(R.equals(b, a), true);
-    eq(R.equals(c, d), true);
-    eq(R.equals(d, c), true);
-    eq(R.equals(a, c), false);
-    eq(R.equals(c, a), false);
-  });
-  it('considers equivalent Error objects equal', function() {
-    eq(R.equals(new Error('XXX'), new Error('XXX')), true);
-    eq(R.equals(new Error('XXX'), new Error('YYY')), false);
-    eq(R.equals(new Error('XXX'), new TypeError('XXX')), false);
-    eq(R.equals(new Error('XXX'), new TypeError('YYY')), false);
-  });
   var supportsSticky = false;
   try { RegExp('', 'y'); supportsSticky = true; } catch (e) {}
   var supportsUnicode = false;
   try { RegExp('', 'u'); supportsUnicode = true; } catch (e) {}
-  it('handles regex', function() {
-    eq(R.equals(/\s/, /\s/), true);
-    eq(R.equals(/\s/, /\d/), false);
-    eq(R.equals(/a/gi, /a/ig), true);
-    eq(R.equals(/a/mgi, /a/img), true);
-    eq(R.equals(/a/gi, /a/i), false);
-    if (supportsSticky) {
-      // eq(R.equals(/\s/y, /\s/y), true);
-      // eq(R.equals(/a/mygi, /a/imgy), true);
-    }
-    if (supportsUnicode) {
-      // eq(R.equals(/\s/u, /\s/u), true);
-      // eq(R.equals(/a/mugi, /a/imgu), true);
-    }
-  });
   var listA = [1, 2, 3];
   var listB = [1, 3, 2];
-  it('handles lists', function() {
-    eq(R.equals([], {}), false);
-    eq(R.equals(listA, listB), false);
-  });
   var c = {}; c.v = c;
   var d = {}; d.v = d;
   var e = []; e.push(e);
@@ -827,12 +647,6 @@ describe('equals', function() {
     eq(R.equals(e, f), true);
     eq(R.equals(nestA, nestB), true);
     eq(R.equals(nestA, nestC), false);
-  });
-  it('handles dates', function() {
-    eq(R.equals(new Date(0), new Date(0)), true);
-    eq(R.equals(new Date(1), new Date(1)), true);
-    eq(R.equals(new Date(0), new Date(1)), false);
-    eq(R.equals(new Date(1), new Date(0)), false);
   });
   it('requires that both objects have the same enumerable properties with the same values', function() {
     var a1 = [];
@@ -962,29 +776,6 @@ describe('equals', function() {
     eq(R.equals([new Left(42)], [new Right(42)]), false);
     eq(R.equals([new Right(42)], [new Left(42)]), false);
     eq(R.equals([new Right(42)], [new Right(42)]), true);
-  });
-  it('is commutative', function() {
-    function Point(x, y) {
-      this.x = x;
-      this.y = y;
-    }
-    Point.prototype.equals = function(point) {
-      return point instanceof Point &&
-             this.x === point.x && this.y === point.y;
-    };
-    function ColorPoint(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.color = color;
-    }
-    ColorPoint.prototype = new Point(0, 0);
-    ColorPoint.prototype.equals = function(point) {
-      return point instanceof ColorPoint &&
-             this.x === point.x && this.y === point.y &&
-             this.color === point.color;
-    };
-    eq(R.equals(new Point(2, 2), new ColorPoint(2, 2, 'red')), false);
-    eq(R.equals(new ColorPoint(2, 2, 'red'), new Point(2, 2)), false);
   });
 });
 ```
@@ -1121,16 +912,6 @@ describe('has', function() {
     var bob = new Person();
     eq(R.has('age', bob), false);
   });
-  it('returns false for non-objects', function() {
-    eq(R.has('a', undefined), false);
-    eq(R.has('a', null), false);
-    eq(R.has('a', true), false);
-    eq(R.has('a', ''), false);
-    eq(R.has('a', /a/), false);
-  });
-  it('tests currying', function() {
-    eq(R.has('a')({ a: { b: 1 } }), true);
-  });
 });
 ```
 
@@ -1185,9 +966,6 @@ describe('includes', function() {
     eq(R.includes(-0, [0]), false);
     eq(R.includes(NaN, [NaN]), true);
     eq(R.includes(new Just([42]), [new Just([42])]), true);
-  });
-  it('returns true if substring is part of string', function() {
-    eq(R.includes('ba', 'banana'), true);
   });
 });
 ```
@@ -1262,19 +1040,6 @@ describe('indexOf', function() {
     eq(R.indexOf('a', list), 1);
     eq(R.indexOf('x', list), -1);
   });
-  it('finds function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var list = [g, f, g, f];
-    eq(R.indexOf(f, list), 1);
-  });
-  it('does not find function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var h = function() {};
-    var list = [g, f];
-    eq(R.indexOf(h, list), -1);
-  });
 });
 ```
 
@@ -1322,10 +1087,20 @@ describe('intersperse', function() {
 > isEmpty
 
 ```javascript
-const eq = require('./shared/eq')
-const R = require('../../../../../rambda/dist/rambda.js')
+var R = require('rambda');
+var eq = require('./shared/eq');
 
-describe('isEmpty', () => {
+describe('isEmpty', function() {
+  const a = 1
+  it('returns true for empty typed array', function() {
+    eq(R.isEmpty(Uint8Array.from('')), true);
+    eq(R.isEmpty(Float32Array.from('')), true);
+    eq(R.isEmpty(new Float32Array([])), true);
+    eq(R.isEmpty(Uint8Array.from('1')), false);
+    eq(R.isEmpty(Float32Array.from('1')), false);
+    eq(R.isEmpty(new Float32Array([1])), false);
+  });
+});
 ```
 
 > keys
@@ -1350,9 +1125,6 @@ describe('keys', function() {
     eq(R.keys(NaN), []);
     eq(R.keys(Infinity), []);
     eq(R.keys([]), []);
-  });
-  it("does not include the given object's prototype properties", function() {
-    eq(R.keys(cobj).sort(), ['a', 'b']);
   });
 });
 ```
@@ -1411,13 +1183,6 @@ describe('lastIndexOf', function() {
     var g = function() {};
     var list = [g, f, g, f];
     eq(R.lastIndexOf(f, list), 3);
-  });
-  it('does not find function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var h = function() {};
-    var list = [g, f];
-    eq(R.lastIndexOf(h, list), -1);
   });
 });
 ```
@@ -1489,18 +1254,6 @@ describe('path', function() {
     eq(R.path(['x', -2], {x: ['a', 'b', 'c', 'd']}), 'c');
     eq(R.path([-1, 'y'], [{x: 1, y: 99}, {x: 2, y: 98}, {x: 3, y: 97}]), 97);
   });
-  it("gets a deep property's value from objects", function() {
-    eq(R.path(['a', 'b', 'c'], deepObject), 'c');
-    eq(R.path(['a'], deepObject), deepObject.a);
-  });
-  it('returns undefined for items not found', function() {
-    eq(R.path(['a', 'b', 'foo'], deepObject), undefined);
-    eq(R.path(['bar'], deepObject), undefined);
-    eq(R.path(['a', 'b'], {a: null}), undefined);
-  });
-  it('works with falsy items', function() {
-    eq(R.path(['toString'], false), Boolean.prototype.toString);
-  });
 });
 ```
 
@@ -1536,15 +1289,6 @@ describe('pipe', function() {
       z: 1
     };
     eq(context.a(5), 40);
-  });
-  it('throws if given no arguments', function() {
-    assert.throws(
-      function() { R.pipe(); },
-      function(err) {
-        return err.constructor === Error &&
-               err.message === 'pipe requires at least one argument';
-      }
-    );
   });
   it('can be applied to one argument', function() {
     var f = function(a, b, c) { return [a, b, c]; };
@@ -1593,10 +1337,6 @@ describe('propEq', function() {
     eq(R.propEq('value', -0, {value: 0}), false);
     eq(R.propEq('value', NaN, {value: NaN}), true);
     eq(R.propEq('value', new Just([42]), {value: new Just([42])}), true);
-  });
-  it('returns false if called with a null or undefined object', function() {
-    eq(R.propEq('name', 'Abby', null), false);
-    eq(R.propEq('name', 'Abby', undefined), false);
   });
 });
 ```
@@ -1696,28 +1436,6 @@ describe('slice', function() {
     var args = (function() { return arguments; }(1, 2, 3, 4, 5));
     eq(R.slice(1, 4, args), [2, 3, 4]);
   });
-  it('can operate on strings', function() {
-    eq(R.slice(0, 0, 'abc'), '');
-    eq(R.slice(0, 1, 'abc'), 'a');
-    eq(R.slice(0, 2, 'abc'), 'ab');
-    eq(R.slice(0, 3, 'abc'), 'abc');
-    eq(R.slice(0, 4, 'abc'), 'abc');
-    eq(R.slice(1, 0, 'abc'), '');
-    eq(R.slice(1, 1, 'abc'), '');
-    eq(R.slice(1, 2, 'abc'), 'b');
-    eq(R.slice(1, 3, 'abc'), 'bc');
-    eq(R.slice(1, 4, 'abc'), 'bc');
-    eq(R.slice(0, -4, 'abc'), '');
-    eq(R.slice(0, -3, 'abc'), '');
-    eq(R.slice(0, -2, 'abc'), 'a');
-    eq(R.slice(0, -1, 'abc'), 'ab');
-    eq(R.slice(0, -0, 'abc'), '');
-    eq(R.slice(-2, -4, 'abc'), '');
-    eq(R.slice(-2, -3, 'abc'), '');
-    eq(R.slice(-2, -2, 'abc'), '');
-    eq(R.slice(-2, -1, 'abc'), 'b');
-    eq(R.slice(-2, -0, 'abc'), '');
-  });
 });
 ```
 
@@ -1800,16 +1518,8 @@ describe('symmetricDifference', function() {
     eq(R.symmetricDifference([NaN], [NaN]).length, 0);
     eq(R.symmetricDifference([new Just([42])], [new Just([42])]).length, 0);
   });
-  it('works for arrays of different lengths', function() {
-    eq(R.symmetricDifference(Z, Z2), [10, 1, 2, 7, 8]);
-    eq(R.symmetricDifference(Z2, Z), [1, 2, 7, 8, 10]);
-  });
   it('will not create a "sparse" array', function() {
     eq(R.symmetricDifference(M2, [3]).length, 3);
-  });
-  it('returns an empty array if there are no different elements', function() {
-    eq(R.symmetricDifference(M2, M), []);
-    eq(R.symmetricDifference(M, M2), []);
   });
 });
 ```
@@ -1933,14 +1643,6 @@ describe('toString', function() {
     assert.strictEqual(R.toString(new Date('2001-02-03T04:05:06.000Z')), 'new Date("2001-02-03T04:05:06.000Z")');
     assert.strictEqual(R.toString(new Date('XXX')), 'new Date(NaN)');
   });
-  it('returns the string representation of a RegExp object', function() {
-    assert.strictEqual(R.toString(/(?:)/), '/(?:)/');
-    assert.strictEqual(R.toString(/\//g), '/\\//g');
-  });
-  it('returns the string representation of a function', function() {
-    var add = function add(a, b) { return a + b; };
-    assert.strictEqual(R.toString(add), add.toString());
-  });
   it('returns the string representation of an array', function() {
     assert.strictEqual(R.toString([]), '[]');
     assert.strictEqual(R.toString([1, 2, 3]), '[1, 2, 3]');
@@ -2044,10 +1746,6 @@ describe('trim', function() {
     eq(R.trim(test), 'Hello, World!');
     eq(R.trim(test).length, 13);
   });
-  it('does not trim the zero-width space', function() {
-    eq(R.trim('\u200b'), '\u200b');
-    eq(R.trim('\u200b').length, 1);
-  });
   if (typeof String.prototype.trim !== 'function') {
     it('falls back to a shim if String.prototype.trim is not present', function() {
       eq(R.trim('   xyz  '), 'xyz');
@@ -2074,18 +1772,6 @@ describe('type', function() {
   it('"Number" if given the NaN value', function() {
     eq(R.type(NaN), 'Number');
   });
-  it('"String" if given a String literal', function() {
-    eq(R.type('Gooooodd Mornning Ramda!!'), 'String');
-  });
-  it('"String" if given a String object', function() {
-    eq(R.type(new String('I am a String object')), 'String');
-  });
-  it('"Null" if given the null value', function() {
-    eq(R.type(null), 'Null');
-  });
-  it('"Undefined" if given the undefined value', function() {
-    eq(R.type(undefined), 'Undefined');
-  });
 });
 ```
 
@@ -2106,13 +1792,10 @@ describe('uniq', function() {
     eq(R.uniq([NaN, NaN]).length, 1);
     eq(R.uniq([[1], [1]]).length, 1);
     eq(R.uniq([new Just([42]), new Just([42])]).length, 1);
-  });
   it('handles null and undefined elements', function() {
     eq(R.uniq([void 0, null, void 0, null]), [void 0, null]);
-  });
   it('uses reference equality for functions', function() {
     eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);
-  });
 });
 ```
 

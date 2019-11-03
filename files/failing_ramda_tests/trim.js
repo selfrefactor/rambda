@@ -7,10 +7,6 @@ describe('trim', function() {
     eq(R.trim(test), 'Hello, World!');
     eq(R.trim(test).length, 13);
   });
-  it('does not trim the zero-width space', function() {
-    eq(R.trim('\u200b'), '\u200b');
-    eq(R.trim('\u200b').length, 1);
-  });
   if (typeof String.prototype.trim !== 'function') {
     it('falls back to a shim if String.prototype.trim is not present', function() {
       eq(R.trim('   xyz  '), 'xyz');

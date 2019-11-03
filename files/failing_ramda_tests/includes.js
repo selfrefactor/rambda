@@ -12,7 +12,4 @@ describe('includes', function() {
     eq(R.includes(NaN, [NaN]), true);
     eq(R.includes(new Just([42]), [new Just([42])]), true);
   });
-  it('returns true if substring is part of string', function() {
-    eq(R.includes('ba', 'banana'), true);
-  });
 });

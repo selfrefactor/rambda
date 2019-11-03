@@ -61,14 +61,6 @@ describe('toString', function() {
     assert.strictEqual(R.toString(new Date('2001-02-03T04:05:06.000Z')), 'new Date("2001-02-03T04:05:06.000Z")');
     assert.strictEqual(R.toString(new Date('XXX')), 'new Date(NaN)');
   });
-  it('returns the string representation of a RegExp object', function() {
-    assert.strictEqual(R.toString(/(?:)/), '/(?:)/');
-    assert.strictEqual(R.toString(/\//g), '/\\//g');
-  });
-  it('returns the string representation of a function', function() {
-    var add = function add(a, b) { return a + b; };
-    assert.strictEqual(R.toString(add), add.toString());
-  });
   it('returns the string representation of an array', function() {
     assert.strictEqual(R.toString([]), '[]');
     assert.strictEqual(R.toString([1, 2, 3]), '[1, 2, 3]');

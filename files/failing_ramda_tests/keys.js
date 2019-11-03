@@ -18,7 +18,4 @@ describe('keys', function() {
     eq(R.keys(Infinity), []);
     eq(R.keys([]), []);
   });
-  it("does not include the given object's prototype properties", function() {
-    eq(R.keys(cobj).sort(), ['a', 'b']);
-  });
 });

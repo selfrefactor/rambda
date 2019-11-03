@@ -12,11 +12,8 @@ describe('uniq', function() {
     eq(R.uniq([NaN, NaN]).length, 1);
     eq(R.uniq([[1], [1]]).length, 1);
     eq(R.uniq([new Just([42]), new Just([42])]).length, 1);
-  });
   it('handles null and undefined elements', function() {
     eq(R.uniq([void 0, null, void 0, null]), [void 0, null]);
-  });
   it('uses reference equality for functions', function() {
     eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);
-  });
 });

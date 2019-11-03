@@ -29,15 +29,6 @@ describe('compose', function() {
     };
     eq(context.a(5), 40);
   });
-  it('throws if given no arguments', function() {
-    assert.throws(
-      function() { R.compose(); },
-      function(err) {
-        return err.constructor === Error &&
-               err.message === 'compose requires at least one argument';
-      }
-    );
-  });
   it('can be applied to one argument', function() {
     var f = function(a, b, c) { return [a, b, c]; };
     var g = R.compose(f);
@@ -48,13 +39,4 @@ describe('compose', function() {
 describe('compose properties', function() {
   jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
     return R.equals(R.compose(f, g)(x), f(g(x)));
-  });
-  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
-    var result = f(g(h(x)));
-    return R.all(R.equals(result), [
-      R.compose(f, g, h)(x),
-      R.compose(f, R.compose(g, h))(x),
-      R.compose(R.compose(f, g), h)(x)
-    ]);
-  });
 });

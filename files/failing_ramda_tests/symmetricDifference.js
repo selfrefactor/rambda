@@ -21,15 +21,7 @@ describe('symmetricDifference', function() {
     eq(R.symmetricDifference([NaN], [NaN]).length, 0);
     eq(R.symmetricDifference([new Just([42])], [new Just([42])]).length, 0);
   });
-  it('works for arrays of different lengths', function() {
-    eq(R.symmetricDifference(Z, Z2), [10, 1, 2, 7, 8]);
-    eq(R.symmetricDifference(Z2, Z), [1, 2, 7, 8, 10]);
-  });
   it('will not create a "sparse" array', function() {
     eq(R.symmetricDifference(M2, [3]).length, 3);
-  });
-  it('returns an empty array if there are no different elements', function() {
-    eq(R.symmetricDifference(M2, M), []);
-    eq(R.symmetricDifference(M, M2), []);
   });
 });

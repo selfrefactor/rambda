@@ -28,15 +28,6 @@ describe('pipe', function() {
     };
     eq(context.a(5), 40);
   });
-  it('throws if given no arguments', function() {
-    assert.throws(
-      function() { R.pipe(); },
-      function(err) {
-        return err.constructor === Error &&
-               err.message === 'pipe requires at least one argument';
-      }
-    );
-  });
   it('can be applied to one argument', function() {
     var f = function(a, b, c) { return [a, b, c]; };
     var g = R.pipe(f);

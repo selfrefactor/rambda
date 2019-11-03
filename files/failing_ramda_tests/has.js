@@ -10,14 +10,4 @@ describe('has', function() {
     var bob = new Person();
     eq(R.has('age', bob), false);
   });
-  it('returns false for non-objects', function() {
-    eq(R.has('a', undefined), false);
-    eq(R.has('a', null), false);
-    eq(R.has('a', true), false);
-    eq(R.has('a', ''), false);
-    eq(R.has('a', /a/), false);
-  });
-  it('tests currying', function() {
-    eq(R.has('a')({ a: { b: 1 } }), true);
-  });
 });

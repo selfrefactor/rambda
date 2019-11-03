@@ -66,18 +66,6 @@ describe('curry', function() {
     eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
     eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
   });
-  it('forwards extra arguments', function() {
-    var f = function(a, b, c) {
-      void c;
-      return Array.prototype.slice.call(arguments);
-    };
-    var g = R.curry(f);
-    eq(g(1, 2, 3), [1, 2, 3]);
-    eq(g(1, 2, 3, 4), [1, 2, 3, 4]);
-    eq(g(1, 2)(3, 4), [1, 2, 3, 4]);
-    eq(g(1)(2, 3, 4), [1, 2, 3, 4]);
-    eq(g(1)(2)(3, 4), [1, 2, 3, 4]);
-  });
 });
 describe('curry properties', function() {
   jsv.property('curries multiple values', funcN(4), jsv.json, jsv.json, jsv.json, jsv.json, function(f, a, b, c, d) {
@@ -89,7 +77,6 @@ describe('curry properties', function() {
       g(a, b)(c, d),
       g(a, b, c)(d)
     ]);
-  });
   jsv.property('curries with placeholder', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
     var _ = {'@@functional/placeholder': true, x: Math.random()};
     var g = R.curry(f);
@@ -100,5 +87,4 @@ describe('curry properties', function() {
       g(a, _, _)(_, c)(b),
       g(a, b, _)(c)
     ]);
-  });
 });

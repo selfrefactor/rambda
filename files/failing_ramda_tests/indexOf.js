@@ -44,17 +44,4 @@ describe('indexOf', function() {
     eq(R.indexOf('a', list), 1);
     eq(R.indexOf('x', list), -1);
   });
-  it('finds function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var list = [g, f, g, f];
-    eq(R.indexOf(f, list), 1);
-  });
-  it('does not find function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var h = function() {};
-    var list = [g, f];
-    eq(R.indexOf(h, list), -1);
-  });
 });

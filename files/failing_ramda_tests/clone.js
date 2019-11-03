@@ -19,13 +19,6 @@ describe('deep clone integers, strings and booleans', function() {
   });
 });
 describe('deep clone objects', function() {
-  it('clones shallow object', function() {
-    var obj = {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)};
-    var clone = R.clone(obj);
-    obj.c = false;
-    obj.d.setDate(31);
-    eq(clone, {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)});
-  });
   it('clones objects with circular references', function() {
     var x = {c: null};
     var y = {a: x};
@@ -45,59 +38,12 @@ describe('deep clone objects', function() {
     x.c.b = 1;
     assert.notDeepEqual(clone.c.b, x.c.b);
   });
-  it('clone instances', function() {
-    var Obj = function(x) {
-      this.x = x;
-    };
-    Obj.prototype.get = function() {
-      return this.x;
-    };
-    Obj.prototype.set = function(x) {
-      this.x = x;
-    };
-    var obj = new Obj(10);
-    eq(obj.get(), 10);
-    var clone = R.clone(obj);
-    eq(clone.get(), 10);
-    assert.notStrictEqual(obj, clone);
-    obj.set(11);
-    eq(obj.get(), 11);
-    eq(clone.get(), 10);
-  });
 });
 describe('deep clone arrays', function() {
-  it('clones shallow arrays', function() {
-    var list = [1, 2, 3];
-    var clone = R.clone(list);
-    list.pop();
-    eq(clone, [1, 2, 3]);
-  });
-  it('clones deep arrays', function() {
-    var list = [1, [1, 2, 3], [[[5]]]];
-    var clone = R.clone(list);
-    assert.notStrictEqual(list, clone);
-    assert.notStrictEqual(list[2], clone[2]);
-    assert.notStrictEqual(list[2][0], clone[2][0]);
-    eq(clone, [1, [1, 2, 3], [[[5]]]]);
-  });
 });
 describe('deep clone functions', function() {
-  it('keep reference to function', function() {
-    var fn = function(x) { return x + x;};
-    var list = [{a: fn}];
-    var clone = R.clone(list);
-    eq(clone[0].a(10), 20);
-    eq(list[0].a, clone[0].a);
-  });
 });
 describe('built-in types', function() {
-  it('clones Date object', function() {
-    var date = new Date(2014, 10, 14, 23, 59, 59, 999);
-    var clone = R.clone(date);
-    assert.notStrictEqual(date, clone);
-    eq(clone, new Date(2014, 10, 14, 23, 59, 59, 999));
-    eq(clone.getDay(), 5); // friday
-  });
   it('clones RegExp object', function() {
     R.forEach(function(pattern) {
       var clone = R.clone(pattern);
@@ -111,18 +57,6 @@ describe('built-in types', function() {
   });
 });
 describe('deep clone deep nested mixed objects', function() {
-  it('clones array with objects', function() {
-    var list = [{a: {b: 1}}, [{c: {d: 1}}]];
-    var clone = R.clone(list);
-    list[1][0] = null;
-    eq(clone, [{a: {b: 1}}, [{c: {d: 1}}]]);
-  });
-  it('clones array with arrays', function() {
-    var list = [[1], [[3]]];
-    var clone = R.clone(list);
-    list[1][0] = null;
-    eq(clone, [[1], [[3]]]);
-  });
   it('clones array with mutual ref object', function() {
     var obj = {a: 1};
     var list = [{b: obj}, {b: obj}];
