@@ -1,4 +1,4 @@
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('type', function() {
@@ -18,3 +18,7 @@ describe('type', function() {
   it('"Null" if given the null value', function() {
     eq(R.type(null), 'Null');
   });
+  it('"Undefined" if given the undefined value', function() {
+    eq(R.type(undefined), 'Undefined');
+  });
+});

@@ -1,7 +1,7 @@
 > adjust
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('adjust', function() {
@@ -17,7 +17,7 @@ describe('adjust', function() {
 > allPass
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('allPass', function() {
@@ -36,20 +36,14 @@ describe('allPass', function() {
 > anyPass
 
 ```javascript
-var R = require('rambda');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('../../../../../rambda/dist/rambda.js')
 
-describe('anyPass', function() {
-  var odd = function(n) { return n % 2 !== 0; };
-  var gt20 = function(n) { return n > 20; };
-  var lt5 = function(n) { return n < 5; };
-  var plusEq = function(w, x, y, z) { return w + x === y + z; };
-  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {
-    eq(R.anyPass([odd, lt5, plusEq]).length, 4);
-    eq(R.anyPass([odd, lt5, plusEq])(6, 7, 8, 9), false);
-    eq(R.anyPass([odd, lt5, plusEq])(6)(7)(8)(9), false);
-  });
-});
+describe('anyPass', () => {
+  const odd = function(n){ return n % 2 !== 0 }
+  const gt20 = function(n){ return n > 20 }
+  const lt5 = function(n){ return n < 5 }
+  const plusEq = function(w, x, y, z){ return w + x === y + z }
 ```
 
 > both
@@ -57,7 +51,7 @@ describe('anyPass', function() {
 ```javascript
 var S = require('sanctuary');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('both', function() {
   it('accepts fantasy-land applicative functors', function() {
@@ -72,12 +66,178 @@ describe('both', function() {
 });
 ```
 
+> clone
+
+```javascript
+var assert = require('assert');
+
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+describe('deep clone integers, strings and booleans', function() {
+  it('clones integers', function() {
+    eq(R.clone(-4), -4);
+    eq(R.clone(9007199254740991), 9007199254740991);
+  });
+  it('clones floats', function() {
+    eq(R.clone(-4.5), -4.5);
+    eq(R.clone(0.0), 0.0);
+  });
+  it('clones strings', function() {
+    eq(R.clone('ramda'), 'ramda');
+  });
+  it('clones booleans', function() {
+    eq(R.clone(true), true);
+  });
+});
+describe('deep clone objects', function() {
+  it('clones shallow object', function() {
+    var obj = {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)};
+    var clone = R.clone(obj);
+    obj.c = false;
+    obj.d.setDate(31);
+    eq(clone, {a: 1, b: 'ramda', c: true, d: new Date(2013, 11, 25)});
+  });
+  it('clones objects with circular references', function() {
+    var x = {c: null};
+    var y = {a: x};
+    var z = {b: y};
+    x.c = z;
+    var clone = R.clone(x);
+    assert.notStrictEqual(x, clone);
+    assert.notStrictEqual(x.c, clone.c);
+    assert.notStrictEqual(x.c.b, clone.c.b);
+    assert.notStrictEqual(x.c.b.a, clone.c.b.a);
+    assert.notStrictEqual(x.c.b.a.c, clone.c.b.a.c);
+    eq(R.keys(clone), R.keys(x));
+    eq(R.keys(clone.c), R.keys(x.c));
+    eq(R.keys(clone.c.b), R.keys(x.c.b));
+    eq(R.keys(clone.c.b.a), R.keys(x.c.b.a));
+    eq(R.keys(clone.c.b.a.c), R.keys(x.c.b.a.c));
+    x.c.b = 1;
+    assert.notDeepEqual(clone.c.b, x.c.b);
+  });
+  it('clone instances', function() {
+    var Obj = function(x) {
+      this.x = x;
+    };
+    Obj.prototype.get = function() {
+      return this.x;
+    };
+    Obj.prototype.set = function(x) {
+      this.x = x;
+    };
+    var obj = new Obj(10);
+    eq(obj.get(), 10);
+    var clone = R.clone(obj);
+    eq(clone.get(), 10);
+    assert.notStrictEqual(obj, clone);
+    obj.set(11);
+    eq(obj.get(), 11);
+    eq(clone.get(), 10);
+  });
+});
+describe('deep clone arrays', function() {
+  it('clones shallow arrays', function() {
+    var list = [1, 2, 3];
+    var clone = R.clone(list);
+    list.pop();
+    eq(clone, [1, 2, 3]);
+  });
+  it('clones deep arrays', function() {
+    var list = [1, [1, 2, 3], [[[5]]]];
+    var clone = R.clone(list);
+    assert.notStrictEqual(list, clone);
+    assert.notStrictEqual(list[2], clone[2]);
+    assert.notStrictEqual(list[2][0], clone[2][0]);
+    eq(clone, [1, [1, 2, 3], [[[5]]]]);
+  });
+});
+describe('deep clone functions', function() {
+  it('keep reference to function', function() {
+    var fn = function(x) { return x + x;};
+    var list = [{a: fn}];
+    var clone = R.clone(list);
+    eq(clone[0].a(10), 20);
+    eq(list[0].a, clone[0].a);
+  });
+});
+describe('built-in types', function() {
+  it('clones Date object', function() {
+    var date = new Date(2014, 10, 14, 23, 59, 59, 999);
+    var clone = R.clone(date);
+    assert.notStrictEqual(date, clone);
+    eq(clone, new Date(2014, 10, 14, 23, 59, 59, 999));
+    eq(clone.getDay(), 5); // friday
+  });
+  it('clones RegExp object', function() {
+    R.forEach(function(pattern) {
+      var clone = R.clone(pattern);
+      assert.notStrictEqual(clone, pattern);
+      eq(clone.constructor, RegExp);
+      eq(clone.source, pattern.source);
+      eq(clone.global, pattern.global);
+      eq(clone.ignoreCase, pattern.ignoreCase);
+      eq(clone.multiline, pattern.multiline);
+    }, [/x/, /x/g, /x/i, /x/m, /x/gi, /x/gm, /x/im, /x/gim]);
+  });
+});
+describe('deep clone deep nested mixed objects', function() {
+  it('clones array with objects', function() {
+    var list = [{a: {b: 1}}, [{c: {d: 1}}]];
+    var clone = R.clone(list);
+    list[1][0] = null;
+    eq(clone, [{a: {b: 1}}, [{c: {d: 1}}]]);
+  });
+  it('clones array with arrays', function() {
+    var list = [[1], [[3]]];
+    var clone = R.clone(list);
+    list[1][0] = null;
+    eq(clone, [[1], [[3]]]);
+  });
+  it('clones array with mutual ref object', function() {
+    var obj = {a: 1};
+    var list = [{b: obj}, {b: obj}];
+    var clone = R.clone(list);
+    assert.strictEqual(list[0].b, list[1].b);
+    assert.strictEqual(clone[0].b, clone[1].b);
+    assert.notStrictEqual(clone[0].b, list[0].b);
+    assert.notStrictEqual(clone[1].b, list[1].b);
+    eq(clone[0].b, {a:1});
+    eq(clone[1].b, {a:1});
+    obj.a = 2;
+    eq(clone[0].b, {a:1});
+    eq(clone[1].b, {a:1});
+  });
+});
+describe('deep clone edge cases', function() {
+  it('nulls, undefineds and empty objects and arrays', function() {
+    eq(R.clone(null), null);
+    eq(R.clone(undefined), undefined);
+    assert.notStrictEqual(R.clone(undefined), null);
+    var obj = {};
+    assert.notStrictEqual(R.clone(obj), obj);
+    var list = [];
+    assert.notStrictEqual(R.clone(list), list);
+  });
+});
+describe('Let `R.clone` use an arbitrary user defined `clone` method', function() {
+  it('dispatches to `clone` method if present', function() {
+    function ArbitraryClone(x) { this.value = x; }
+    ArbitraryClone.prototype.clone = function() { return new ArbitraryClone(this.value); };
+    var obj = new ArbitraryClone(42);
+    var arbitraryClonedObj = R.clone(obj);
+    eq(arbitraryClonedObj, new ArbitraryClone(42));
+    eq(arbitraryClonedObj instanceof ArbitraryClone, true);
+  });
+});
+```
+
 > complement
 
 ```javascript
 var S = require('sanctuary');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('complement', function() {
   it('accepts fantasy-land functors', function() {
@@ -96,7 +256,7 @@ describe('complement', function() {
 var assert = require('assert');
 var jsv = require('jsverify');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('compose', function() {
   it('performs right-to-left function composition', function() {
@@ -160,7 +320,7 @@ describe('compose properties', function() {
 ```javascript
 var assert = require('assert');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('concat', function() {
   var z1 = {
@@ -185,7 +345,7 @@ describe('concat', function() {
 > curry
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 var jsv = require('jsverify');
 var funcN = require('./shared/funcN');
@@ -291,12 +451,50 @@ describe('curry properties', function() {
 });
 ```
 
+> difference
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('difference', function() {
+  var M = [1, 2, 3, 4];
+  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];
+  var N = [3, 4, 5, 6];
+  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];
+  var Z = [3, 4, 5, 6, 10];
+  var Z2 = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8];
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.difference([0], [-0]).length, 1);
+    eq(R.difference([-0], [0]).length, 1);
+    eq(R.difference([NaN], [NaN]).length, 0);
+    eq(R.difference([new Just([42])], [new Just([42])]).length, 0);
+  });
+  it('works for arrays of different lengths', function() {
+    eq(R.difference(Z, Z2), [10]);
+    eq(R.difference(Z2, Z), [1, 2, 7, 8]);
+  });
+  it('will not create a "sparse" array', function() {
+    eq(R.difference(M2, [3]).length, 3);
+  });
+  it('returns an empty array if there are no different elements', function() {
+    eq(R.difference(M2, M), []);
+    eq(R.difference(M, M2), []);
+    eq(R.difference([], M2), []);
+  });
+});
+```
+
 > dropLast
 
 ```javascript
 var assert = require('assert');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('dropLast', function() {
   it('can act as a transducer', function() {
@@ -312,7 +510,7 @@ describe('dropLast', function() {
 ```javascript
 var S = require('sanctuary');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('either', function() {
   it('accepts fantasy-land applicative functors', function() {
@@ -331,7 +529,7 @@ describe('either', function() {
 > endsWith
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('startsWith', function() {
@@ -355,7 +553,7 @@ describe('startsWith', function() {
 ```javascript
 /* global Map, Set, WeakMap, WeakSet */
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('equals', function() {
   var a = [];
@@ -497,6 +695,109 @@ describe('equals', function() {
     eq(R.equals(r1, r2), false);
     eq(R.equals(s1, s2), false);
   });
+  if (typeof ArrayBuffer !== 'undefined' && typeof Int8Array !== 'undefined') {
+    var typArr1 = new ArrayBuffer(10);
+    typArr1[0] = 1;
+    var typArr2 = new ArrayBuffer(10);
+    typArr2[0] = 1;
+    var typArr3 = new ArrayBuffer(10);
+    var intTypArr = new Int8Array(typArr1);
+    typArr3[0] = 0;
+    it('handles typed arrays', function() {
+      eq(R.equals(typArr1, typArr2), true);
+      eq(R.equals(typArr1, typArr3), false);
+      eq(R.equals(typArr1, intTypArr), false);
+    });
+  }
+  if (typeof Promise !== 'undefined') {
+    it('compares Promise objects by identity', function() {
+      var p = Promise.resolve(42);
+      var q = Promise.resolve(42);
+      eq(R.equals(p, p), true);
+      eq(R.equals(p, q), false);
+    });
+  }
+  if (typeof Map !== 'undefined') {
+    it('compares Map objects by value', function() {
+      eq(R.equals(new Map([]), new Map([])), true);
+      eq(R.equals(new Map([]), new Map([[1, 'a']])), false);
+      eq(R.equals(new Map([[1, 'a']]), new Map([])), false);
+      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'a']])), true);
+      eq(R.equals(new Map([[1, 'a'], [2, 'b']]), new Map([[2, 'b'], [1, 'a']])), true);
+      eq(R.equals(new Map([[1, 'a']]), new Map([[2, 'a']])), false);
+      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'b']])), false);
+      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'c']])]])), true);
+      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'd']])]])), false);
+      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [4, 5, 6]]])), true);
+      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [7, 8, 9]]])), false);
+    });
+    it('dispatches to `equals` method recursively in Set', function() {
+      var a = new Map();
+      var b = new Map();
+      a.set(a, a);
+      eq(R.equals(a, b), false);
+      a.set(b, b);
+      b.set(b, b);
+      b.set(a, a);
+      eq(R.equals(a, b), true);
+    });
+  }
+  if (typeof Set !== 'undefined') {
+    it('compares Set objects by value', function() {
+      eq(R.equals(new Set([]), new Set([])), true);
+      eq(R.equals(new Set([]), new Set([1])), false);
+      eq(R.equals(new Set([1]), new Set([])), false);
+      eq(R.equals(new Set([1, 2]), new Set([2, 1])), true);
+      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([3])])])), true);
+      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([4])])])), false);
+      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [4, 5, 6]])), true);
+      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [7, 8, 9]])), false);
+    });
+    it('dispatches to `equals` method recursively in Set', function() {
+      var a = new Set();
+      var b = new Set();
+      a.add(a);
+      eq(R.equals(a, b), false);
+      a.add(b);
+      b.add(b);
+      b.add(a);
+      eq(R.equals(a, b), true);
+    });
+  }
+  if (typeof WeakMap !== 'undefined') {
+    it('compares WeakMap objects by identity', function() {
+      var m = new WeakMap([]);
+      eq(R.equals(m, m), true);
+      eq(R.equals(m, new WeakMap([])), false);
+    });
+  }
+  if (typeof WeakSet !== 'undefined') {
+    it('compares WeakSet objects by identity', function() {
+      var s = new WeakSet([]);
+      eq(R.equals(s, s), true);
+      eq(R.equals(s, new WeakSet([])), false);
+    });
+  }
+  it('dispatches to `equals` method recursively', function() {
+    function Left(x) { this.value = x; }
+    Left.prototype.equals = function(x) {
+      return x instanceof Left && R.equals(x.value, this.value);
+    };
+    function Right(x) { this.value = x; }
+    Right.prototype.equals = function(x) {
+      return x instanceof Right && R.equals(x.value, this.value);
+    };
+    eq(R.equals(new Left([42]), new Left([42])), true);
+    eq(R.equals(new Left([42]), new Left([43])), false);
+    eq(R.equals(new Left(42), {value: 42}), false);
+    eq(R.equals({value: 42}, new Left(42)), false);
+    eq(R.equals(new Left(42), new Right(42)), false);
+    eq(R.equals(new Right(42), new Left(42)), false);
+    eq(R.equals([new Left(42)], [new Left(42)]), true);
+    eq(R.equals([new Left(42)], [new Right(42)]), false);
+    eq(R.equals([new Right(42)], [new Left(42)]), false);
+    eq(R.equals([new Right(42)], [new Right(42)]), true);
+  });
   it('is commutative', function() {
     function Point(x, y) {
       this.x = x;
@@ -526,7 +827,7 @@ describe('equals', function() {
 > filter
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('filter', function() {
@@ -543,7 +844,7 @@ describe('filter', function() {
 ```javascript
 var jsv = require('jsverify');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 var funcN = require('./shared/funcN');
 describe('flip', function() {
@@ -576,7 +877,7 @@ describe('flip properties', function() {
 > forEach
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('forEach', function() {
@@ -598,7 +899,7 @@ describe('forEach', function() {
 > groupBy
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 var _isTransformer = require('rambda/internal/_isTransformer');
 
@@ -615,10 +916,35 @@ describe('groupBy', function() {
 });
 ```
 
+> groupWith
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('groupWith', function() {
+  it('splits the list into groups according to the grouping function', function() {
+    eq(R.groupWith(R.equals, [1, 2, 2, 3]), [[1], [2, 2], [3]]);
+    eq(R.groupWith(R.equals, [1, 1, 1, 1]), [[1, 1, 1, 1]]);
+    eq(R.groupWith(R.equals, [1, 2, 3, 4]), [[1], [2], [3], [4]]);
+  });
+  it('can be turned into the original list through concatenation', function() {
+    var list = [1, 1, 2, 3, 4, 4, 5, 5];
+    eq(R.unnest(R.groupWith(R.equals, list)), list);
+    eq(R.unnest(R.groupWith(R.complement(R.equals), list)), list);
+    eq(R.unnest(R.groupWith(R.T, list)), list);
+    eq(R.unnest(R.groupWith(R.F, list)), list);
+  });
+  it('also works on strings', function() {
+    eq(R.groupWith(R.equals)('Mississippi'), ['M','i','ss','i','ss','i','pp','i']);
+  });
+});
+```
+
 > has
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('has', function() {
@@ -646,7 +972,7 @@ describe('has', function() {
 > ifElse
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('ifElse', function() {
@@ -681,7 +1007,7 @@ describe('ifElse', function() {
 > includes
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('includes', function() {
@@ -704,7 +1030,7 @@ describe('includes', function() {
 > indexBy
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('indexBy', function() {
@@ -725,7 +1051,7 @@ describe('indexBy', function() {
 > indexOf
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('indexOf', function() {
@@ -787,10 +1113,60 @@ describe('indexOf', function() {
 });
 ```
 
+> intersection
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('intersection', function() {
+  var M = [1, 2, 3, 4];
+  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];
+  var N = [3, 4, 5, 6];
+  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];
+  it('does not allow duplicates in the output even if the input lists had duplicates', function() {
+    eq(R.intersection(M2, N2), [3, 4]);
+  });
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.intersection([0], [-0]).length, 0);
+    eq(R.intersection([-0], [0]).length, 0);
+    eq(R.intersection([NaN], [NaN]).length, 1);
+    eq(R.intersection([new Just([42])], [new Just([42])]).length, 1);
+  });
+});
+```
+
+> intersperse
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('intersperse', function() {
+  it('dispatches', function() {
+    var obj = {intersperse: function(x) { return 'override ' + x; }};
+    eq(R.intersperse('x', obj), 'override x');
+  });
+});
+```
+
+> isEmpty
+
+```javascript
+const eq = require('./shared/eq')
+const R = require('../../../../../rambda/dist/rambda.js')
+
+describe('isEmpty', () => {
+```
+
 > keys
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('keys', function() {
@@ -819,7 +1195,7 @@ describe('keys', function() {
 > lastIndexOf
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('lastIndexOf', function() {
@@ -884,7 +1260,7 @@ describe('lastIndexOf', function() {
 > length
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('length', function() {
@@ -892,12 +1268,54 @@ describe('length', function() {
     eq(R.identical(NaN, R.length({length: ''})), true);
     eq(R.identical(NaN, R.length({length: '1.23'})), true);
     eq(R.identical(NaN, R.length({length: null})), true);
+    eq(R.identical(NaN, R.length({length: undefined})), true);
+    eq(R.identical(NaN, R.length({})), true);
+  });
+});
+```
+
+> mean
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('mean', function() {
+  it('handles array-like object', function() {
+    eq(R.mean((function() { return arguments; })(1, 2, 3)), 2);
+  });
+});
+```
+
+> partial
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('partial', function() {
+  var disc = function(a, b, c) { // note disc(3, 7, 4) => 1
+    return b * b - 4 * a * c;
+  };
+  it('caches the initially supplied arguments', function() {
+    var f = R.partial(disc, [3]);
+    eq(f(7, 4), 1);
+    var g = R.partial(disc, [3, 7]);
+    eq(g(4), 1);
+  });
+  it('correctly reports the arity of the new function', function() {
+    var f = R.partial(disc, [3]);
+    eq(f.length, 2);
+    var g = R.partial(disc, [3, 7]);
+    eq(g.length, 1);
+  });
+});
 ```
 
 > path
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('path', function() {
@@ -926,7 +1344,7 @@ describe('path', function() {
 ```javascript
 var assert = require('assert');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('pipe', function() {
   it('performs left-to-right function composition', function() {
@@ -975,7 +1393,7 @@ describe('pipe', function() {
 > pluck
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('pluck', function() {
@@ -995,7 +1413,7 @@ describe('pluck', function() {
 > propEq
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('propEq', function() {
@@ -1011,24 +1429,74 @@ describe('propEq', function() {
     eq(R.propEq('value', NaN, {value: NaN}), true);
     eq(R.propEq('value', new Just([42]), {value: new Just([42])}), true);
   });
+  it('returns false if called with a null or undefined object', function() {
+    eq(R.propEq('name', 'Abby', null), false);
+    eq(R.propEq('name', 'Abby', undefined), false);
+  });
+});
 ```
 
 > reduce
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('reduce', function() {
   var add = function(a, b) {return a + b;};
   var mult = function(a, b) {return a * b;};
   it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
+    var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';
+    function Reducible(arr) {
+      this.arr = arr;
+    }
+    Reducible.prototype.reduce = function(f, init) {
+      var acc = init;
+      for (var i = 0; i < this.arr.length; i += 1) {
+        acc = f(acc, this.arr[i]);
+      }
+      return acc;
+    };
+    Reducible.prototype[symIterator] = function() {
+      var a = this.arr;
+      return {
+        _pos: 0,
+        next: function() {
+          if (this._pos < a.length) {
+            var v = a[this._pos];
+            this._pos += 1;
+            return {
+              value: v,
+              done: false
+            };
+          } else {
+            return {
+              done: true
+            };
+          }
+        }
+      };
+    };
+    var xf = R.take(2);
+    var apendingT = { };
+    apendingT['@@transducer/result'] = R.identity;
+    apendingT['@@transducer/step'] = R.flip(R.append);
+    var rfn = xf(apendingT);
+    var list = new Reducible([1, 2, 3, 4, 5, 6]);
+    eq(R.reduce(rfn, [], list), [1, 2]);
+  });
+  it('short circuits with reduced', function() {
+    var addWithMaxOf10 = function(acc, val) {return acc + val > 10 ? R.reduced(acc) : acc + val;};
+    eq(R.reduce(addWithMaxOf10, 0, [1, 2, 3, 4]), 10);
+    eq(R.reduce(addWithMaxOf10, 0, [2, 4, 6, 8]), 6);
+  });
+});
 ```
 
 > reject
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('reject', function() {
@@ -1052,10 +1520,46 @@ describe('reject', function() {
 });
 ```
 
+> slice
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('slice', function() {
+  it('handles array-like object', function() {
+    var args = (function() { return arguments; }(1, 2, 3, 4, 5));
+    eq(R.slice(1, 4, args), [2, 3, 4]);
+  });
+  it('can operate on strings', function() {
+    eq(R.slice(0, 0, 'abc'), '');
+    eq(R.slice(0, 1, 'abc'), 'a');
+    eq(R.slice(0, 2, 'abc'), 'ab');
+    eq(R.slice(0, 3, 'abc'), 'abc');
+    eq(R.slice(0, 4, 'abc'), 'abc');
+    eq(R.slice(1, 0, 'abc'), '');
+    eq(R.slice(1, 1, 'abc'), '');
+    eq(R.slice(1, 2, 'abc'), 'b');
+    eq(R.slice(1, 3, 'abc'), 'bc');
+    eq(R.slice(1, 4, 'abc'), 'bc');
+    eq(R.slice(0, -4, 'abc'), '');
+    eq(R.slice(0, -3, 'abc'), '');
+    eq(R.slice(0, -2, 'abc'), 'a');
+    eq(R.slice(0, -1, 'abc'), 'ab');
+    eq(R.slice(0, -0, 'abc'), '');
+    eq(R.slice(-2, -4, 'abc'), '');
+    eq(R.slice(-2, -3, 'abc'), '');
+    eq(R.slice(-2, -2, 'abc'), '');
+    eq(R.slice(-2, -1, 'abc'), 'b');
+    eq(R.slice(-2, -0, 'abc'), '');
+  });
+});
+```
+
 > sortBy
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 var albums = [
@@ -1086,7 +1590,7 @@ describe('sortBy', function() {
 > startsWith
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('startsWith', function() {
@@ -1105,13 +1609,53 @@ describe('startsWith', function() {
 });
 ```
 
+> symmetricDifference
+
+```javascript
+var R = require('../../../../../rambda/dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('symmetricDifference', function() {
+  var M = [1, 2, 3, 4];
+  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];
+  var N = [3, 4, 5, 6];
+  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];
+  var Z = [3, 4, 5, 6, 10];
+  var Z2 = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8];
+  it('does not allow duplicates in the output even if the input lists had duplicates', function() {
+    eq(R.symmetricDifference(M2, N2), [1, 2, 5, 6]);
+  });
+  it('has R.equals semantics', function() {
+    function Just(x) { this.value = x; }
+    Just.prototype.equals = function(x) {
+      return x instanceof Just && R.equals(x.value, this.value);
+    };
+    eq(R.symmetricDifference([0], [-0]).length, 2);
+    eq(R.symmetricDifference([-0], [0]).length, 2);
+    eq(R.symmetricDifference([NaN], [NaN]).length, 0);
+    eq(R.symmetricDifference([new Just([42])], [new Just([42])]).length, 0);
+  });
+  it('works for arrays of different lengths', function() {
+    eq(R.symmetricDifference(Z, Z2), [10, 1, 2, 7, 8]);
+    eq(R.symmetricDifference(Z2, Z), [1, 2, 7, 8, 10]);
+  });
+  it('will not create a "sparse" array', function() {
+    eq(R.symmetricDifference(M2, [3]).length, 3);
+  });
+  it('returns an empty array if there are no different elements', function() {
+    eq(R.symmetricDifference(M2, M), []);
+    eq(R.symmetricDifference(M, M2), []);
+  });
+});
+```
+
 > take
 
 ```javascript
 var assert = require('assert');
 var sinon = require('sinon');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 describe('take', function() {
   it('handles zero correctly (#1224)', function() {
@@ -1133,7 +1677,7 @@ describe('take', function() {
 > tap
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 var listXf = require('./helpers/listXf');
 var _curry2 = require('rambda/internal/_curry2');
@@ -1163,7 +1707,7 @@ describe('tap', function() {
 ```javascript
 var assert = require('assert');
 
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 describe('toString', function() {
   it('returns the string representation of null', function() {
     assert.strictEqual(R.toString(null), 'null');
@@ -1326,7 +1870,7 @@ describe('toString', function() {
 > trim
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('trim', function() {
@@ -1354,7 +1898,7 @@ describe('trim', function() {
 > type
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('type', function() {
@@ -1374,12 +1918,16 @@ describe('type', function() {
   it('"Null" if given the null value', function() {
     eq(R.type(null), 'Null');
   });
+  it('"Undefined" if given the undefined value', function() {
+    eq(R.type(undefined), 'Undefined');
+  });
+});
 ```
 
 > uniq
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('uniq', function() {
@@ -1394,6 +1942,9 @@ describe('uniq', function() {
     eq(R.uniq([[1], [1]]).length, 1);
     eq(R.uniq([new Just([42]), new Just([42])]).length, 1);
   });
+  it('handles null and undefined elements', function() {
+    eq(R.uniq([void 0, null, void 0, null]), [void 0, null]);
+  });
   it('uses reference equality for functions', function() {
     eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);
   });
@@ -1403,7 +1954,7 @@ describe('uniq', function() {
 > update
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('update', function() {
@@ -1419,7 +1970,7 @@ describe('update', function() {
 > without
 
 ```javascript
-var R = require('rambda');
+var R = require('../../../../../rambda/dist/rambda.js');
 var eq = require('./shared/eq');
 
 describe('without', function() {
