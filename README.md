@@ -5249,9 +5249,8 @@ export function isNil(x){
 
 > isEmpty(x: any): boolean
 
-It returns `true` is `x` is `empty`.
-
 ```javascript
+R.isEmpty('')  // => true
 R.isEmpty({})  // => false
 ```
 
@@ -5312,7 +5311,7 @@ export function isEmpty(input){
 
 </details>
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.isEmpty('')%20%20%2F%2F%20%3D%3E%20true%0AR.isEmpty(%7B%7D)%20%20%2F%2F%20%3D%3E%20false">Try in REPL</a>
 
 ---
 #### join
