@@ -841,7 +841,7 @@ It returns `true` is `x` is `empty`.
 
 ```
 R.isEmpty('')  // => true
-R.isEmpty({})  // => false
+R.isEmpty({ x : 0 })  // => false
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/isEmpty.js)
