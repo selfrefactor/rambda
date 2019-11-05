@@ -47,7 +47,7 @@
     "@babel/core": "7.6.4",
     "@babel/plugin-proposal-object-rest-spread": "7.6.2",
     "@babel/preset-env": "7.6.3",
-    "@types/jest": "24.0.21",
+    "@types/jest": "24.0.22",
     "@types/ramda": "0.26.33",
     "babel-jest": "24.9.0",
     "docsify-cli": "4.3.0",
