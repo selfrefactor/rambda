@@ -122,10 +122,6 @@
  
  [dropWhile](https://raw.githubusercontent.com/ramda/ramda/master/source/dropWhile.js)
  
- [findLast](https://raw.githubusercontent.com/ramda/ramda/master/source/findLast.js)
- 
- [findLastIndex](https://raw.githubusercontent.com/ramda/ramda/master/source/findLastIndex.js)
- 
  [insert](https://raw.githubusercontent.com/ramda/ramda/master/source/insert.js)
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)
