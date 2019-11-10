@@ -108,7 +108,7 @@ https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 
 - Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
-- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
+- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -553,6 +553,38 @@ const findFn = a => R.type(a.foo) === 'Number'
 const arr = [{foo: 'bar'}, {foo: 1}]
 
 const result = R.findIndex(findFn, arr)
+// => 1
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/findIndex.js)
+
+#### findLast
+
+> findLast(findFn: Function, arr: T[]): T|undefined
+
+It returns `undefined` or the last element of `arr` satisfying `findFn`.
+
+```
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.findLast(findFn, arr)
+// => {foo: 1}
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/find.js)
+
+#### findLastIndex
+
+> findLastIndex(findFn: Function, arr: T[]): number
+
+It returns `-1` or the last index of the first element of `arr` satisfying `findFn`.
+
+```
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.findLastIndex(findFn, arr)
 // => 1
 ```
 
