@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Lightweight faster alternative to Ramda",
   "main": "./dist/rambda.js",
   "module": "./dist/rambda.esm.js",
@@ -19,7 +19,7 @@
     "docs": "docsify init ./docs",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "NODE_ENV=build rollup -c files/rollup.config.js",
-    "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js", 
+    "build:web": "NODE_ENV=build rollup -c files/rollup.web.config.js",
     "benchmarks": "node benchmarks/indexProve.js",
     "benchmark": "node benchmarks/indexProve.js",
     "bench": "node benchmarks/indexProve.js",
