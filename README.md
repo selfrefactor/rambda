@@ -23,7 +23,6 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
-* [Benchmarks](#benchmarks)
 * [Use with ES5](#use-with-es5)
 * [Changelog](#changelog)
 * [Additional info](#additional-info)
@@ -45,14 +44,16 @@ Currently **Rambda** is more tree-shakable than **Ramda**
 
 <summary>
 Click to expand all benchmark results
+
+Note that some methods benchmarked only with `Ramda` and `Rambda`(i.e. no `Lodash`), are called with and without curring. This is done in order to give more detailed performance feedback.
+
 </summary>
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 7.37% slower | 65.41% slower
- *add (curried)* | 🚀 Fastest | 32.33% slower | 73.42% slower
- *adjust* | 🚀 Fastest | 0.16% slower | 🔳
- *all* | 🚀 Fastest | 72.36% slower | 🔳
+ *adjust* | 28.94% slower | 🚀 Fastest | 🔳
+ *all* | 🚀 Fastest | 78.33% slower | 🔳
  *allPass* | 🚀 Fastest | 98.7% slower | 🔳
  *any* | 0.48% slower | 93.82% slower | 🚀 Fastest
  *anyPass* | 🚀 Fastest | 98.64% slower | 🔳
@@ -2058,7 +2059,7 @@ R.adjust source
 ```javascript
 import { curry } from './curry'
 
-export const adjust = curry(adjustRaw)
+export const adjust = curry(adjustFn)
 
 ```
 
@@ -9903,14 +9904,6 @@ export function zipObj(keys, values){
 ---
 #### ---
 
-## Benchmarks
-
-> Coming soon
-
-```
-MARKER_BENCHMARK_RESULTS
-```
-
 ## Use with ES5
 
 ```
@@ -10123,11 +10116,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - To run all benchmarks
 
-`yarn run benchmark all`
-
-- To run single or number of benchmarks
-
-`yarn run benchmark add compose filter`
+`yarn benchmark`
 
 > Projects using Rambda
 

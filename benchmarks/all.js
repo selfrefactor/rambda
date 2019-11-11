@@ -10,6 +10,7 @@ const all = [
       const fn = x => x > 2
 
       R.all(fn, input)
+      R.all(fn)(input)
     },
   },
   {
@@ -18,6 +19,7 @@ const all = [
       const fn = x => x > 2
 
       Ramda.all(fn, input)
+      Ramda.all(fn)(input)
     },
   },
 ]

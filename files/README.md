@@ -36,6 +36,9 @@ Currently **Rambda** is more tree-shakable than **Ramda**
 
 <summary>
 Click to expand all benchmark results
+
+Note that some methods benchmarked only with `Ramda` and `Rambda`(i.e. no `Lodash`), are called with and without curring. This is done in order to give more detailed performance feedback.
+
 </summary>
 
 method | Rambda | Ramda | Lodash
@@ -1749,14 +1752,6 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 #### ---
 
-## Benchmarks
-
-> Coming soon
-
-```
-MARKER_BENCHMARK_RESULTS
-```
-
 ## Use with ES5
 
 ```
@@ -1773,11 +1768,7 @@ import omit from 'rambda/lib/omit'
 
 - To run all benchmarks
 
-`yarn run benchmark all`
-
-- To run single or number of benchmarks
-
-`yarn run benchmark add compose filter`
+`yarn benchmark`
 
 > Projects using Rambda
 

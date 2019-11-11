@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { createBenchmark } = require('helpers')
 const { mapAsync, filter, dropLast } = require('rambdax')
- 
+
 async function runBenchmarks(singleMethod){
   const allBenchmarksList = filter(
     x => ![ 'indexProve.js', 'benchmark_results' ].includes(x),
@@ -19,4 +19,4 @@ async function runBenchmarks(singleMethod){
   })(allBenchmarks)
 }
 
-runBenchmarks('addCurried')
+runBenchmarks('all')
