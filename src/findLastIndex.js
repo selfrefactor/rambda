@@ -28,5 +28,5 @@ export function findLastIndex(fn, list){
     }
   }
 
-  return undefined
+  return -1
 }
