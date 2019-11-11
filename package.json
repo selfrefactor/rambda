@@ -58,7 +58,7 @@
     "markdown-toc": "1.2.0",
     "rambdax": "3.1.0",
     "ramda": "0.26.1",
-    "rollup": "1.26.3",
+    "rollup": "1.26.5",
     "string-fn": "2.10.2",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-cleanup": "3.1.1",
