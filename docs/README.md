@@ -139,7 +139,7 @@ https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 
 - Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
-- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** and **reject** are passing index as second argument to the predicate function.
+- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
 
 - Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
 
@@ -4398,6 +4398,215 @@ export function findIndex(fn, list){
 </details>
 
 <a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findIndex(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%201">Try in REPL</a>
+
+---
+#### findLast
+
+> findLast(findFn: Function, arr: T[]): T|undefined
+
+It returns `undefined` or the last element of `arr` satisfying `findFn`.
+
+```javascript
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.findLast(findFn, arr)
+// => {foo: 1}
+```
+
+<details>
+
+<summary>
+R.findLast tests
+</summary>
+
+```javascript
+import { findLast } from './findLast'
+
+test('happy', () => {
+  const result = findLast((x, i) => {
+    expect(typeof i).toBe('number')
+    return x > 1
+  }, [ 1, 1, 1, 2, 3, 4, 1 ])
+  expect(
+    result
+  ).toEqual(4)
+
+  expect(
+    findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])
+  ).toEqual(0)
+})
+
+test('with curry', () => {
+  expect(
+    findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])
+  ).toEqual(4)
+})
+
+const obj1 = { x : 100 }
+const obj2 = { x : 200 }
+const a = [ 11, 10, 9, 'cow', obj1, 8, 7, 100, 200, 300, obj2, 4, 3, 2, 1, 0 ]
+const even = function(x){ return x % 2 === 0 }
+const gt100 = function(x){ return x > 100 }
+const isStr = function(x){ return typeof x === 'string' }
+const xGt100 = function(o){ return o && o.x > 100 }
+
+test('ramda 1', () => {
+  expect(findLast(even, a)).toEqual(0)
+  expect(findLast(gt100, a)).toEqual(300)
+  expect(findLast(isStr, a)).toEqual('cow')
+  expect(findLast(xGt100, a)).toEqual(obj2)
+})
+
+test('ramda 2', () => {
+  expect(findLast(even, [ 'zing' ])).toEqual(undefined)
+})
+
+test('ramda 3', () => {
+  expect(findLast(even, [ 2, 3, 5 ])).toEqual(2)
+})
+
+test('ramda 4', () => {
+  expect(findLast(even, [])).toEqual(undefined)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.findLast source
+</summary>
+
+```javascript
+export function findLast(fn, list){
+  if (arguments.length === 1) return _list => findLast(fn, _list)
+
+  let index = list.length
+
+  while (--index >= 0){
+    if (fn(list[ index ], index)){
+      return list[ index ]
+    }
+  }
+
+  return undefined
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findLast(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try in REPL</a>
+
+---
+#### findLastIndex
+
+> findLastIndex(findFn: Function, arr: T[]): number
+
+It returns `-1` or the last index of the first element of `arr` satisfying `findFn`.
+
+```javascript
+const findFn = a => R.type(a.foo) === 'Number'
+const arr = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.findLastIndex(findFn, arr)
+// => 1
+```
+
+<details>
+
+<summary>
+R.findLastIndex tests
+</summary>
+
+```javascript
+import { findLastIndex } from './findLastIndex'
+
+test('happy', () => {
+  const result = findLastIndex((x, i) => {
+    expect(typeof i).toBe('number')
+    return x > 1
+  }, [ 1, 1, 1, 2, 3, 4, 1 ])
+  
+  expect(
+    result
+  ).toEqual(5)
+
+  expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
+})
+
+test('with curry', () => {
+  expect(findLastIndex(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(5)
+})
+
+const obj1 = { x : 100 }
+const obj2 = { x : 200 }
+const a = [ 11, 10, 9, 'cow', obj1, 8, 7, 100, 200, 300, obj2, 4, 3, 2, 1, 0 ]
+const even = function(x){
+  return x % 2 === 0
+}
+const gt100 = function(x){
+  return x > 100
+}
+const isStr = function(x){
+  return typeof x === 'string'
+}
+const xGt100 = function(o){
+  return o && o.x > 100
+}
+
+test('ramda 1', () => {
+  expect(findLastIndex(even, a)).toEqual(15)
+  expect(findLastIndex(gt100, a)).toEqual(9)
+  expect(findLastIndex(isStr, a)).toEqual(3)
+  expect(findLastIndex(xGt100, a)).toEqual(10)
+})
+
+test('ramda 2', () => {
+  expect(findLastIndex(even, [ 'zing' ])).toEqual(-1)
+})
+
+test('ramda 3', () => {
+  expect(findLastIndex(even, [ 2, 3, 5 ])).toEqual(0)
+})
+
+test('ramda 4', () => {
+  expect(findLastIndex(even, [])).toEqual(-1)
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.findLastIndex source
+</summary>
+
+```javascript
+export function findLastIndex(fn, list){
+  if (arguments.length === 1) return _list => findLastIndex(fn, _list)
+
+  let index = list.length
+
+  while (--index >= 0){
+    if (fn(list[ index ], index)){
+      return index
+    }
+  }
+
+  return -1
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20findFn%20%3D%20a%20%3D%3E%20R.type(a.foo)%20%3D%3D%3D%20'Number'%0Aconst%20arr%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findLastIndex(findFn%2C%20arr)%0A%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
 #### flatten
@@ -9711,6 +9920,12 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 4.0.3
+
+Add `R.findLast`
+
+Add `R.findLastIndex`
+
 - 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
 
 - 4.0.1 Approve [PR #289](https://github.com/selfrefactor/rambda/pull/289) - remove console.log in `R.values` method
@@ -10081,10 +10296,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
  
  [dropWhile](https://raw.githubusercontent.com/ramda/ramda/master/source/dropWhile.js)
  
- [findLast](https://raw.githubusercontent.com/ramda/ramda/master/source/findLast.js)
- 
- [findLastIndex](https://raw.githubusercontent.com/ramda/ramda/master/source/findLastIndex.js)
- 
  [insert](https://raw.githubusercontent.com/ramda/ramda/master/source/insert.js)
  
  [insertAll](https://raw.githubusercontent.com/ramda/ramda/master/source/insertAll.js)
@@ -10244,6 +10455,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
  [unionWith](https://raw.githubusercontent.com/ramda/ramda/master/source/unionWith.js)
  
           
+
 ## Browse by category
 
 ### Function

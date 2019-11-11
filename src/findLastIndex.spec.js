@@ -1,7 +1,14 @@
 import { findLastIndex } from './findLastIndex'
 
 test('happy', () => {
-  expect(findLastIndex(x => x > 1, [ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(5)
+  const result = findLastIndex((x, i) => {
+    expect(typeof i).toBe('number')
+    return x > 1
+  }, [ 1, 1, 1, 2, 3, 4, 1 ])
+  
+  expect(
+    result
+  ).toEqual(5)
 
   expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
 })

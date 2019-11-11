@@ -1,8 +1,12 @@
 import { findLast } from './findLast'
 
 test('happy', () => {
+  const result = findLast((x, i) => {
+    expect(typeof i).toBe('number')
+    return x > 1
+  }, [ 1, 1, 1, 2, 3, 4, 1 ])
   expect(
-    findLast(x => x > 1, [ 1, 1, 1, 2, 3, 4, 1 ])
+    result
   ).toEqual(4)
 
   expect(
@@ -42,4 +46,3 @@ test('ramda 3', () => {
 test('ramda 4', () => {
   expect(findLast(even, [])).toEqual(undefined)
 })
-
