@@ -1,8 +1,4 @@
-- 4.0.3
-
-Add `R.findLast`
-
-Add `R.findLastIndex`
+- 4.1.0 Add `R.findLast` and `R.findLastIndex`
 
 - 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
 
