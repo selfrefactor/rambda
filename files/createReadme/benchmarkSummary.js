@@ -1,8 +1,17 @@
 const { camelCase } = require('string-fn')
 const { readdirSync } = require('fs')
 const { readJsonSync } = require('fs-extra')
+const { remove } = require('rambdax')
 const { resolve } = require('path')
 const resultsDir = resolve(__dirname, '../../benchmarks/benchmark_results')
+
+function parseMethodName(input){
+  if (!input.endsWith('Curried')) return input
+
+  const methodName = remove('Curried', input)
+
+  return `${ methodName } (curried)`
+}
 
 function benchmarkSummary(){
   const allResults = readdirSync(resultsDir)
@@ -20,15 +29,17 @@ function benchmarkSummary(){
       if (result.name.includes('Lodash')) lodash = result
     })
 
-    const columns = [ rambda, ramda, lodash ].map(
-      x => {
+    const columns = [ rambda, ramda, lodash ]
+      .map(x => {
         if (!x) return '🔳'
 
-        return x.percentSlower === 0 ? '🚀 Fastest' : `${ x.percentSlower }% slower`
-      }
-    ).join(' | ')
+        return x.percentSlower === 0 ?
+          '🚀 Fastest' :
+          `${ x.percentSlower }% slower`
+      })
+      .join(' | ')
 
-    return ` *${ methodName }* | ${ columns }`
+    return ` *${ parseMethodName(methodName) }* | ${ columns }`
   })
 
   return tableRows.join('\n')

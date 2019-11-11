@@ -49,7 +49,8 @@ Click to expand all benchmark results
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 🚀 Fastest | 30.81% slower | 73.18% slower
+ *add* | 🚀 Fastest | 7.37% slower | 65.41% slower
+ *add (curried)* | 🚀 Fastest | 32.33% slower | 73.42% slower
  *adjust* | 🚀 Fastest | 0.16% slower | 🔳
  *all* | 🚀 Fastest | 72.36% slower | 🔳
  *allPass* | 🚀 Fastest | 98.7% slower | 🔳
