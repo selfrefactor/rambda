@@ -52,7 +52,7 @@
     "babel-jest": "24.9.0",
     "docsify-cli": "4.3.0",
     "dtslint": "2.0.0",
-    "helpers": "https://github.com/selfrefactor/helpers#2.0.0",
+    "helpers": "https://github.com/selfrefactor/helpers#2.0.1",
     "jest": "24.9.0",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",

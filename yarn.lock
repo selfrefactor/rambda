@@ -3013,9 +3013,10 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-"helpers@https://github.com/selfrefactor/helpers#2.0.0":
+"helpers@https://github.com/selfrefactor/helpers#2.0.1":
   version "1.7.1"
-  resolved "https://github.com/selfrefactor/helpers#152278f456f8e8d4ae349f6253eb4e85aab8d2d9"
+  uid "7d587c78f1627d33fcc17e50d202d702df0d2664"
+  resolved "https://github.com/selfrefactor/helpers#7d587c78f1627d33fcc17e50d202d702df0d2664"
   dependencies:
     benny "^3.6.12"
     boxen "^4.1.0"
