@@ -1,19 +1,19 @@
 {
-  "name": "ALL",
-  "date": "2019-11-13T11:23:19.383Z",
+  "name": "UPDATE",
+  "date": "2019-11-13T11:33:31.444Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 25139995,
-      "margin": 0.63,
+      "ops": 8121661,
+      "margin": 0.78,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 2603537,
-      "margin": 0.85,
-      "percentSlower": 89.64
+      "ops": 979799,
+      "margin": 0.45,
+      "percentSlower": 87.94
     }
   ],
   "fastest": {

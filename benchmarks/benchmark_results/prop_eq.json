@@ -1,19 +1,19 @@
 {
   "name": "PROP_EQ",
-  "date": "2019-11-13T10:30:34.632Z",
+  "date": "2019-11-13T11:30:10.000Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1825926,
-      "margin": 1.46,
+      "ops": 1823572,
+      "margin": 1.91,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 184979,
-      "margin": 0.59,
-      "percentSlower": 89.87
+      "ops": 176130,
+      "margin": 1.43,
+      "percentSlower": 90.34
     }
   ],
   "fastest": {

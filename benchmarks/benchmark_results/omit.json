@@ -1,25 +1,25 @@
 {
   "name": "OMIT",
-  "date": "2019-11-13T10:29:39.612Z",
+  "date": "2019-11-13T11:29:14.964Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 33954704,
+      "ops": 34422692,
       "margin": 0.98,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 9654573,
-      "margin": 0.38,
-      "percentSlower": 71.57
+      "ops": 9317817,
+      "margin": 1.24,
+      "percentSlower": 72.93
     },
     {
       "name": "Lodash",
-      "ops": 747451,
-      "margin": 0.5,
-      "percentSlower": 97.8
+      "ops": 697871,
+      "margin": 2.67,
+      "percentSlower": 97.97
     }
   ],
   "fastest": {
