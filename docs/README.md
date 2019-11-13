@@ -23,7 +23,6 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
-* [Benchmarks](#benchmarks)
 * [Use with ES5](#use-with-es5)
 * [Changelog](#changelog)
 * [Additional info](#additional-info)
@@ -45,33 +44,46 @@ Currently **Rambda** is more tree-shakable than **Ramda**
 
 <summary>
 Click to expand all benchmark results
+
+Note that some methods benchmarked only with `Ramda` and `Rambda`(i.e. no `Lodash`), are called with and without curring. This is done in order to give more detailed performance feedback.
+
 </summary>
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 🚀 Fastest | 30.81% slower | 73.18% slower
- *adjust* | 🚀 Fastest | 0.16% slower | 🔳
- *all* | 🚀 Fastest | 72.36% slower | 🔳
- *allPass* | 🚀 Fastest | 98.7% slower | 🔳
- *any* | 0.48% slower | 93.82% slower | 🚀 Fastest
- *anyPass* | 🚀 Fastest | 98.64% slower | 🔳
- *append* | 🚀 Fastest | 82.25% slower | 🔳
- *assoc* | 79.15% slower | 64.78% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 92.73% slower | 92.75% slower
- *compose* | 🚀 Fastest | 91.96% slower | 65.9% slower
- *curry* | 🚀 Fastest | 27.46% slower | 🔳
- *defaultTo* | 🚀 Fastest | 27.84% slower | 🔳
- *drop* | 🚀 Fastest | 84.2% slower | 🔳
- *dropLast* | 🚀 Fastest | 78.75% slower | 🔳
- *equals* | 🚀 Fastest | 79.46% slower | 53.3% slower
- *filter* | 🚀 Fastest | 64.89% slower | 47.14% slower
- *find* | 🚀 Fastest | 50.74% slower | 16.61% slower
- *findIndex* | 🚀 Fastest | 89.41% slower | 75% slower
- *flatten* | 25.59% slower | 95.33% slower | 🚀 Fastest
- *indexOf* | 🚀 Fastest | 55.06% slower | 6.34% slower
- *init* | 🚀 Fastest | 90.18% slower | 2.04% slower
- *isEmpty* | 🚀 Fastest | 91.25% slower | 35.32% slower
- *map* | 23.77% slower | 87.62% slower | 🚀 Fastest
+ *add* | 🚀 Fastest | 30.22% slower | 75.83% slower
+ *adjust* | 🚀 Fastest | 1.84% slower | 🔳
+ *all* | 🚀 Fastest | 89.43% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.42% slower | 🔳
+ *any* | 🚀 Fastest | 91% slower | 26.94% slower
+ *anyPass* | 🚀 Fastest | 98.53% slower | 🔳
+ *append* | 🚀 Fastest | 84.95% slower | 🔳
+ *assoc* | 74.5% slower | 59.43% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 93.68% slower | 89.31% slower
+ *compose* | 🚀 Fastest | 94.21% slower | 79.13% slower
+ *curry* | 🚀 Fastest | 39.18% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 37.85% slower | 🔳
+ *drop* | 🚀 Fastest | 89.67% slower | 🔳
+ *dropLast* | 🚀 Fastest | 91.44% slower | 🔳
+ *equals* | 🚀 Fastest | 84.61% slower | 60.54% slower
+ *filter* | 🚀 Fastest | 72.98% slower | 13.76% slower
+ *find* | 🚀 Fastest | 47.17% slower | 60.31% slower
+ *findIndex* | 🚀 Fastest | 91.82% slower | 87.62% slower
+ *flatten* | 4.98% slower | 96.34% slower | 🚀 Fastest
+ *indexOf* | 2.52% slower | 69.39% slower | 🚀 Fastest
+ *init* | 🚀 Fastest | 94.2% slower | 0.8% slower
+ *isEmpty* | 36.42% slower | 92.83% slower | 🚀 Fastest
+ *last* | 1.46% slower | 98.98% slower | 🚀 Fastest
+ *map* | 🚀 Fastest | 87.17% slower | 20.96% slower
+ *match* | 🚀 Fastest | 49.82% slower | 🔳
+ *merge* | 🚀 Fastest | 28.79% slower | 64.88% slower
+ *omit* | 🚀 Fastest | 71.57% slower | 97.8% slower
+ *path* | 6.18% slower | 52.54% slower | 🚀 Fastest
+ *pick* | 🚀 Fastest | 26.16% slower | 88.29% slower
+ *prop* | 🚀 Fastest | 93.98% slower | 🔳
+ *propEq* | 🚀 Fastest | 89.87% slower | 🔳
+ *range* | 🚀 Fastest | 64.23% slower | 50.05% slower
+ *reduce* | 72.19% slower | 84.64% slower | 🚀 Fastest
 
 </details>
 
@@ -2057,7 +2069,7 @@ R.adjust source
 ```javascript
 import { curry } from './curry'
 
-export const adjust = curry(adjustRaw)
+export const adjust = curry(adjustFn)
 
 ```
 
@@ -9902,14 +9914,6 @@ export function zipObj(keys, values){
 ---
 #### ---
 
-## Benchmarks
-
-> Coming soon
-
-```
-MARKER_BENCHMARK_RESULTS
-```
-
 ## Use with ES5
 
 ```
@@ -10122,11 +10126,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - To run all benchmarks
 
-`yarn run benchmark all`
-
-- To run single or number of benchmarks
-
-`yarn run benchmark add compose filter`
+`yarn benchmark`
 
 > Projects using Rambda
 

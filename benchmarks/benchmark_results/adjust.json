@@ -1,27 +1,27 @@
 {
   "name": "ADJUST",
-  "date": "2019-11-11T19:41:22.006Z",
+  "date": "2019-11-13T10:23:33.417Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1213163,
-      "margin": 5.8,
-      "percentSlower": 28.94
+      "ops": 2919790,
+      "margin": 0.49,
+      "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1707158,
-      "margin": 4.14,
-      "percentSlower": 0
+      "ops": 2866105,
+      "margin": 0.56,
+      "percentSlower": 1.84
     }
   ],
   "fastest": {
-    "name": "Ramda",
-    "index": 1
-  },
-  "slowest": {
     "name": "Rambda",
     "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
   }
 }

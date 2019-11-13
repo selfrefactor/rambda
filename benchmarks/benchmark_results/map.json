@@ -1,30 +1,30 @@
 {
   "name": "MAP",
-  "date": "2019-11-02T11:33:54.161Z",
+  "date": "2019-11-13T10:28:55.902Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 13438508,
-      "margin": 8.27,
-      "percentSlower": 23.77
+      "ops": 98795842,
+      "margin": 1.81,
+      "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 2182715,
-      "margin": 14.01,
-      "percentSlower": 87.62
+      "ops": 12670954,
+      "margin": 0.52,
+      "percentSlower": 87.17
     },
     {
       "name": "Lodash",
-      "ops": 17629082,
-      "margin": 10.06,
-      "percentSlower": 0
+      "ops": 78090748,
+      "margin": 0.61,
+      "percentSlower": 20.96
     }
   ],
   "fastest": {
-    "name": "Lodash",
-    "index": 2
+    "name": "Rambda",
+    "index": 0
   },
   "slowest": {
     "name": "Ramda",
