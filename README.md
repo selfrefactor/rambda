@@ -51,39 +51,51 @@ Note that some methods benchmarked only with `Ramda` and `Rambda`(i.e. no `Lodas
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 🚀 Fastest | 30.22% slower | 75.83% slower
- *adjust* | 🚀 Fastest | 1.84% slower | 🔳
- *all* | 🚀 Fastest | 89.43% slower | 🔳
- *allPass* | 🚀 Fastest | 98.42% slower | 🔳
- *any* | 🚀 Fastest | 91% slower | 26.94% slower
- *anyPass* | 🚀 Fastest | 98.53% slower | 🔳
- *append* | 🚀 Fastest | 84.95% slower | 🔳
- *assoc* | 74.5% slower | 59.43% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 93.68% slower | 89.31% slower
- *compose* | 🚀 Fastest | 94.21% slower | 79.13% slower
- *curry* | 🚀 Fastest | 39.18% slower | 🔳
- *defaultTo* | 🚀 Fastest | 37.85% slower | 🔳
- *drop* | 🚀 Fastest | 89.67% slower | 🔳
- *dropLast* | 🚀 Fastest | 91.44% slower | 🔳
- *equals* | 🚀 Fastest | 84.61% slower | 60.54% slower
- *filter* | 🚀 Fastest | 72.98% slower | 13.76% slower
- *find* | 🚀 Fastest | 47.17% slower | 60.31% slower
- *findIndex* | 🚀 Fastest | 91.82% slower | 87.62% slower
- *flatten* | 4.98% slower | 96.34% slower | 🚀 Fastest
- *indexOf* | 2.52% slower | 69.39% slower | 🚀 Fastest
- *init* | 🚀 Fastest | 94.2% slower | 0.8% slower
- *isEmpty* | 36.42% slower | 92.83% slower | 🚀 Fastest
- *last* | 1.46% slower | 98.98% slower | 🚀 Fastest
- *map* | 🚀 Fastest | 87.17% slower | 20.96% slower
- *match* | 🚀 Fastest | 49.82% slower | 🔳
- *merge* | 🚀 Fastest | 28.79% slower | 64.88% slower
- *omit* | 🚀 Fastest | 71.57% slower | 97.8% slower
- *path* | 6.18% slower | 52.54% slower | 🚀 Fastest
- *pick* | 🚀 Fastest | 26.16% slower | 88.29% slower
- *prop* | 🚀 Fastest | 93.98% slower | 🔳
- *propEq* | 🚀 Fastest | 89.87% slower | 🔳
- *range* | 🚀 Fastest | 64.23% slower | 50.05% slower
- *reduce* | 72.19% slower | 84.64% slower | 🚀 Fastest
+ *add* | 🚀 Fastest | 28.16% slower | 76.17% slower
+ *adjust* | 🚀 Fastest | 2.8% slower | 🔳
+ *all* | 🚀 Fastest | 89.64% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.48% slower | 🔳
+ *any* | 🚀 Fastest | 92.1% slower | 29.4% slower
+ *anyPass* | 🚀 Fastest | 98.67% slower | 🔳
+ *append* | 🚀 Fastest | 85.14% slower | 🔳
+ *assoc* | 76.71% slower | 63.5% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 93.55% slower | 88.95% slower
+ *compose* | 🚀 Fastest | 95.09% slower | 79.91% slower
+ *curry* | 🚀 Fastest | 42.95% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 41.61% slower | 🔳
+ *drop* | 🚀 Fastest | 89.2% slower | 🔳
+ *dropLast* | 🚀 Fastest | 91.53% slower | 🔳
+ *equals* | 🚀 Fastest | 84.87% slower | 59.82% slower
+ *filter* | 🚀 Fastest | 72.63% slower | 11.78% slower
+ *find* | 🚀 Fastest | 47.89% slower | 60.19% slower
+ *findIndex* | 🚀 Fastest | 90.6% slower | 84.75% slower
+ *flatten* | 10.31% slower | 96.42% slower | 🚀 Fastest
+ *indexOf* | 🚀 Fastest | 69.38% slower | 0.64% slower
+ *init* | 🚀 Fastest | 94.17% slower | 2.63% slower
+ *isEmpty* | 37.68% slower | 92.85% slower | 🚀 Fastest
+ *last* | 🚀 Fastest | 99.02% slower | 3.5% slower
+ *map* | 🚀 Fastest | 87.72% slower | 23.59% slower
+ *match* | 🚀 Fastest | 52.01% slower | 🔳
+ *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
+ *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
+ *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
+ *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
+ *prop* | 🚀 Fastest | 94.38% slower | 🔳
+ *propEq* | 🚀 Fastest | 90.34% slower | 🔳
+ *range* | 🚀 Fastest | 63.45% slower | 50.56% slower
+ *reduce* | 71.84% slower | 84.24% slower | 🚀 Fastest
+ *repeat* | 55.51% slower | 83.45% slower | 🚀 Fastest
+ *replace* | 🚀 Fastest | 35.85% slower | 4.98% slower
+ *sort* | 🚀 Fastest | 28.43% slower | 🔳
+ *sortBy* | 🚀 Fastest | 16.52% slower | 72.48% slower
+ *split* | 🚀 Fastest | 56.27% slower | 28.78% slower
+ *splitEvery* | 🚀 Fastest | 74.75% slower | 🔳
+ *take* | 🚀 Fastest | 96% slower | 26.07% slower
+ *takeLast* | 🚀 Fastest | 96.37% slower | 28.53% slower
+ *test* | 🚀 Fastest | 86.86% slower | 🔳
+ *type* | 19.76% slower | 🚀 Fastest | 🔳
+ *uniq* | 99.56% slower | 96.54% slower | 🚀 Fastest
+ *update* | 🚀 Fastest | 87.94% slower | 🔳
 
 </details>
 
