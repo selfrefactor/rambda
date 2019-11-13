@@ -10167,10 +10167,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - [Argumentation of Rambda's curry method](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
 
-- Trending in `Javascripting.com` list:
-
-![Trending in Javascripting.com list](https://github.com/selfrefactor/rambda/blob/master/files/rambda-trending.png?raw=true)
-
 > Links to Rambda
 
 - (https://mailchi.mp/webtoolsweekly/web-tools-280)[Web Tools Weekly]
