@@ -2310,6 +2310,18 @@ export function always(val){
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconsole.log(fn())%2F%2F%20%3D%3E%207">Try in REPL</a>
 
 ---
+#### and
+
+Returns `true` if both arguments are `true`; `false` otherwise.
+
+```
+R.and(true, true); // => true
+R.and(true, false); // => false
+R.and(false, true); // => false
+R.and(false, false); // => false
+```
+
+---
 #### any
 
 > any(condition: Function, arr: T[]): boolean
@@ -10080,7 +10092,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
-- 1.2.3 Doesn't exist because NPM is great at handling errors.
 - 1.2.2 Change curry method used across most of library methods
 - 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`

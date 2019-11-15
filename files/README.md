@@ -219,6 +219,17 @@ console.log(fn())// => 7
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/always.js)
 
+#### and
+
+Returns `true` if both arguments are `true`; `false` otherwise.
+
+```
+R.and(true, true); // => true
+R.and(true, false); // => false
+R.and(false, true); // => false
+R.and(false, false); // => false
+```
+
 #### any
 
 > any(condition: Function, arr: T[]): boolean
