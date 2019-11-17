@@ -244,6 +244,12 @@ declare namespace R {
     findIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
     findIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
 
+    findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+    findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
+
+    findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+    findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+
     /**
      * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
      * them in a new array, depth-first.
@@ -258,7 +264,7 @@ declare namespace R {
     flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
 
     /**
-     * Iterate over an input list, calling a provided function fn for each element in the list.
+     * Iterate over an array or objectt, calling a provided function fn for each element in the iterable.
      */
     forEach<T>(fn: (x: T) => void, list: T[]): T[];
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
@@ -374,9 +380,7 @@ declare namespace R {
     is(ctor: any, val: any): boolean;
     is(ctor: any): (val: any) => boolean;
 
-    isEmpty<T>(
-      input: T,
-    ): boolean;
+    isEmpty<T>(input: T): boolean;
 
     /**
      * Checks if the input value is null or undefined.
@@ -413,7 +417,6 @@ declare namespace R {
 
     map<T, U>(fn: MapFunctionObject<T, U>, obj: Dictionary<T>): Dictionary<U>;
     map<T, U, S>(fn: MapFunctionObject<T, U>): (obj: Dictionary<T>) => Dictionary<U>;
-
     map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
     map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
     map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
@@ -451,9 +454,6 @@ declare namespace R {
     /**
      * Create a new object with the own properties of a
      * merged with the own properties of object b.
-     * This function will *not* mutate passed-in objects.
-     *
-     * @deprecated since 0.26 in favor of mergeRight
      */
     merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
     merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
@@ -869,6 +869,17 @@ declare namespace R {
      */
     reverse<T>(list: ReadonlyArray<T>): T[];
     reverse(str: string): string;
+
+    slice(a: number, b: number, list: string): string;
+    slice<T>(a: number, b: number, list: T[]): T[];
+    slice(a: number, b: number): {
+        (list: string): string;
+        <T>(list: T[]): T[];
+    };
+    slice(a: number): {
+        (b: number, list: string): string;
+        <T>(b: number, list: T[]): T[];
+    };
 
     /**
      * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a

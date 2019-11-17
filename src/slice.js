@@ -1,3 +1,5 @@
+import { curry } from './curry'
+
 /**
  * Returns the elements of the given list or string (or object with a `slice`
  * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
@@ -18,9 +20,8 @@
  *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
  *      R.slice(0, 3, 'ramda');                     //=> 'ram'
  */
-export function slice(fromIndex, toIndex, list){
-  if (arguments.length === 2) return (_toIndex, _list) => slice(fromIndex, _toIndex, _list)
-  if (arguments.length === 1) return _list => slice(fromIndex, toIndex, _list)
-
+function sliceFn(fromIndex, toIndex, list){
   return list.slice(fromIndex, toIndex)
 }
+
+export const slice = curry(sliceFn)

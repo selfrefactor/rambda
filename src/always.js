@@ -4,13 +4,14 @@
  * @func
  * @category Function
  * @sig a -> (* -> a)
- * @param {*} val The value to wrap in a function
+ * @param {*} x The value to wrap in a function
  * @return {Function} A Function :: * -> val.
  * @example
  *
  *      const t = R.always('Tee');
  *      t(); //=> 'Tee'
  */
-export function always(val){
-  return () => val
+export function always(x){ 
+  return () => x
 }
+ 
