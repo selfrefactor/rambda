@@ -1,3 +1,5 @@
+- 4.1.1 Add missing typings for `R.slice`
+
 - 4.1.0 Add `R.findLast` and `R.findLastIndex`
 
 - 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
