@@ -50,7 +50,7 @@
     "@types/jest": "24.0.23",
     "@types/ramda": "0.26.34",
     "babel-jest": "24.9.0",
-    "docsify-cli": "4.3.0",
+    "docsify-cli": "4.4.0",
     "dtslint": "2.0.2",
     "helpers": "https://github.com/selfrefactor/helpers#2.2.0",
     "jest": "24.9.0",
