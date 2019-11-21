@@ -1,3 +1,5 @@
+- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.add`
+
 - 4.1.1 Add missing typings for `R.slice`
 
 - 4.1.0 Add `R.findLast` and `R.findLastIndex`
