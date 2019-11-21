@@ -2017,14 +2017,14 @@ export function add(a, b){
 ---
 #### adjust
 
-> adjust(replaceFn: Function, i: number, arr: T[]): T[]
+> adjust(i: number, replaceFn: Function, arr: T[]): T[]
 
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```javascript
 R.adjust(
-  a => a + 1,
   0,
+  a => a + 1,
   [0, 100]
 ) // => [1, 100]
 ```
@@ -2086,7 +2086,7 @@ export const adjust = curry(adjustFn)
 
 </details>
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%200%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try in REPL</a>
 
 ---
 #### all
@@ -2299,15 +2299,27 @@ R.always source
 </summary>
 
 ```javascript
-export function always(val){
-  return () => val
+export function always(x){ 
+  return () => x
 }
-
+ 
 ```
 
 </details>
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconsole.log(fn())%2F%2F%20%3D%3E%207">Try in REPL</a>
+
+---
+#### and
+
+Returns `true` if both arguments are `true`; `false` otherwise.
+
+```
+R.and(true, true); // => true
+R.and(true, false); // => false
+R.and(false, true); // => false
+R.and(false, false); // => false
+```
 
 ---
 #### any
@@ -9935,6 +9947,8 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
+- 4.1.1 Add missing typings for `R.slice`
+
 - 4.1.0 Add `R.findLast` and `R.findLastIndex`
 
 - 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
@@ -10080,7 +10094,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
 - 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
-- 1.2.3 Doesn't exist because NPM is great at handling errors.
 - 1.2.2 Change curry method used across most of library methods
 - 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`

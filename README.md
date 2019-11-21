@@ -2017,14 +2017,14 @@ export function add(a, b){
 ---
 #### adjust
 
-> adjust(replaceFn: Function, i: number, arr: T[]): T[]
+> adjust(i: number, replaceFn: Function, arr: T[]): T[]
 
 It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
 
 ```javascript
 R.adjust(
-  a => a + 1,
   0,
+  a => a + 1,
   [0, 100]
 ) // => [1, 100]
 ```
@@ -2086,7 +2086,7 @@ export const adjust = curry(adjustFn)
 
 </details>
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%200%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try in REPL</a>
 
 ---
 #### all
@@ -2299,10 +2299,10 @@ R.always source
 </summary>
 
 ```javascript
-export function always(val){
-  return () => val
+export function always(x){ 
+  return () => x
 }
-
+ 
 ```
 
 </details>
@@ -9946,6 +9946,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.1.1 Add missing typings for `R.slice`
 
 - 4.1.0 Add `R.findLast` and `R.findLastIndex`
 
