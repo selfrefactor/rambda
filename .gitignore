@@ -1,7 +1,4 @@
 .vscode
-jest_*
 *.log
 coverage
 node_modules
-lib
-distx
