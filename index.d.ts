@@ -79,6 +79,10 @@ declare namespace R {
     assocPath<T, U>(path: Path, val: T): (obj: U) => U;
     assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
 
+    and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+    and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+
+
     /*
       Creates new predicate from two predicates
     */
