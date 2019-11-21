@@ -150,7 +150,7 @@ https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 
 - Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-- Rambda's **type** handle `Not a number` values and it returns `NaN` in this case.
+- Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
 
 - Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
 
