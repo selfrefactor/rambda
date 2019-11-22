@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "add markers to definitions",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",
