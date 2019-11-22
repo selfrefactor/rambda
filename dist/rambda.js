@@ -1204,6 +1204,13 @@ function toUpper(str) {
   return str.toUpperCase();
 }
 
+function transpose(array) {
+  return array.reduce((acc, el) => {
+    el.forEach((nestedEl, i) => Array.isArray(acc[i]) ? acc[i].push(nestedEl) : acc.push([nestedEl]));
+    return acc;
+  }, []);
+}
+
 function trim(str) {
   return str.trim();
 }
@@ -1384,6 +1391,7 @@ exports.toLower = toLower;
 exports.toPairs = toPairs;
 exports.toString = toString;
 exports.toUpper = toUpper;
+exports.transpose = transpose;
 exports.trim = trim;
 exports.type = type;
 exports.uniq = uniq;

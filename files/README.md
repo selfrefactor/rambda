@@ -1607,6 +1607,18 @@ R.toUpper('foo') // => 'FOO'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/toUpper.js)
 
+#### transpose
+
+> transpose(input: Array): Array
+
+```
+const input = [[10, 11], [20], [], [30, 31, 32]]
+const expected = [[10, 20, 30], [11, 31], [32]]
+
+const result = R.transpose(input)
+// result === expected
+```
+
 #### trim
 
 > trim(str: string): string

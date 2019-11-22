@@ -993,6 +993,8 @@ declare namespace R {
     times<T>(fn: (i: number) => T, n: number): T[];
     times<T>(fn: (i: number) => T): (n: number) => T[];
 
+    transpose<T>(list: T[][]): T[][];
+
     /**
      * Converts an object into an array of key, value arrays.
      * Only the object's own properties are used.
@@ -1001,38 +1003,14 @@ declare namespace R {
      */
     toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
-    /**
-     * The lower case version of a string.
-     */
     toLower(str: string): string;
 
-    /**
-     * Returns the string representation of the given value. eval'ing the output should
-     * result in a value equivalent to the input value. Many of the built-in toString
-     * methods do not satisfy this requirement.
-     *
-     * If the given value is an [object Object] with a toString method other than
-     * Object.prototype.toString, this method is invoked with no arguments to produce the
-     * return value. This means user-defined constructor functions can provide a suitable
-     * toString method.
-     */
     toString<T>(val: T): string;
 
-    /**
-     * The upper case version of a string.
-     */
     toUpper(str: string): string;
 
-    /**
-     * Removes (strips) whitespace from both ends of the string.
-     */
     trim(str: string): string;
 
-    /**
-     * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
-     * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
-     * all as 'Object'.
-     */
     type(val: any): RambdaTypes;
 
     /**
@@ -1040,36 +1018,19 @@ declare namespace R {
      */
     uniq<T>(list: ReadonlyArray<T>): T[];
 
-    /**
-     * Returns a new list containing only one copy of each element in the original list, based upon the value
-     * returned by applying the supplied predicate to two list elements.
-     */
     uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
     uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
-
-    /**
-     * Returns a new copy of the array with the element at the provided index replaced with the given value.
-     */
     update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
     update<T>(index: number, value: T): (list: ReadonlyArray<T>) => T[];
 
-    /**
-     * Returns a list of all the enumerable own properties of the supplied object.
-     * Note that the order of the output array is not guaranteed across
-     * different JS platforms.
-     */
     values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
 
-    /**
-     * Returns a new list without values in the first argument. R.equals is used to determine equality.
-     * Acts as a transducer if a transformer is given in list position.
-     */
     without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
     /**
-     * Creates a new list out of the two supplied by pairing up equally-positioned items from
-     * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
+     * Creates a new list out of the two supplied by 
+     * pairing up equally-positioned items from both lists. 
      */
     zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
     zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
@@ -1077,7 +1038,6 @@ declare namespace R {
     /**
      * Creates a new object out of a list of keys and a list of values.
      */
-    // TODO: Dictionary<T> as a return value is to specific, any seems to loose
     zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
     zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
   }

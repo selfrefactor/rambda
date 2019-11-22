@@ -1,4 +1,6 @@
-- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.add`
+- 4.3.0 Close [Issue #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.transpose`
+
+- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.and`
 
 - 4.1.1 Add missing typings for `R.slice`
 

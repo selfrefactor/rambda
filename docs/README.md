@@ -9108,6 +9108,19 @@ export function toUpper(str){
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.toUpper('foo')%20%2F%2F%20%3D%3E%20'FOO'">Try in REPL</a>
 
 ---
+#### transpose
+
+> transpose(input: Array): Array
+
+```
+const input = [[10, 11], [20], [], [30, 31, 32]]
+const expected = [[10, 20, 30], [11, 31], [32]]
+
+const result = R.transpose(input)
+// result === expected
+```
+
+---
 #### trim
 
 > trim(str: string): string
@@ -9948,7 +9961,9 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.add`
+- 4.3.0 Close [Issue #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.transpose`
+
+- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.and`
 
 - 4.1.1 Add missing typings for `R.slice`
 
