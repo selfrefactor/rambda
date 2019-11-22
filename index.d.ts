@@ -41,24 +41,32 @@ declare namespace R {
     // METHODS_MARKER
 
     // METHODS_MARKER_END
+
+    // SINGLE_MARKER
     add(a: number, b: number): number;
     add(a: number): (b: number) => number;
 
+    // SINGLE_MARKER
     adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
     adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
+    // SINGLE_MARKER
     all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
     all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
+    // SINGLE_MARKER
     allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean;
 
+    // SINGLE_MARKER
     always<T>(val: T): () => T;
 
+    // SINGLE_MARKER
     any<T>(fn: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
     any<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
     any<T>(fn: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
     any<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
+    // SINGLE_MARKER
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
     append<T>(el: T, list: ReadonlyArray<T>): T[];
@@ -76,9 +84,6 @@ declare namespace R {
     and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 
-    /*
-      Creates new predicate from two predicates
-    */
     both(pred1: Pred, pred2: Pred): Pred;
     both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
     both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
@@ -90,9 +95,6 @@ declare namespace R {
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
-    /*
-      Creates a new function that returns opposite result of the given predicate
-    */
     complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
     compose<T1>(fn0: () => T1): () => T1;
