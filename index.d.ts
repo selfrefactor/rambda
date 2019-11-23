@@ -16,7 +16,7 @@ declare namespace R {
 
   type Ord = number | string | boolean | Date;
 
-  type Path = ReadonlyArray<(number | string)>;
+  type Path = string | ReadonlyArray<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
@@ -549,10 +549,10 @@ Note that unlike Ramda's `map`, here array keys are passed as second argument to
 
 It will return `undefined`, if such path is not found.	
 		*/	
-    path<Input, T>(path: string | string[], obj: Input): T | undefined;
-    path<T>(path: string | string[], obj: any): T | undefined;
-    path<T>(path: string | string[]): (obj: any) => T | undefined;
-    path<Input, T>(path: string | string[]): (obj: Input) => T | undefined;
+    path<Input, T>(path: Path, obj: Input): T | undefined;
+    path<T>(path: Path, obj: any): T | undefined;
+    path<T>(path: Path): (obj: any) => T | undefined;
+    path<Input, T>(path: Path): (obj: Input) => T | undefined;
 
     /*
 			`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
