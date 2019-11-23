@@ -634,16 +634,57 @@ const ifElse = curry(ifElseFn);
 
 const inc = n => n + 1;
 
-function indexBy(fn, list) {
-  if (arguments.length === 1) return _list => indexBy(fn, _list);
-  const result = {};
+function path(list, obj) {
+  if (arguments.length === 1) return _obj => path(list, _obj);
+
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+
+  let willReturn = obj;
+  let counter = 0;
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list;
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
+      return undefined;
+    }
+
+    willReturn = willReturn[pathArrValue[counter]];
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function indexByPath(pathInput, list) {
+  const toReturn = {};
 
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
-    result[fn(item)] = item;
+    toReturn[path(pathInput, item)] = item;
   }
 
-  return result;
+  return toReturn;
+}
+
+function indexBy(fnOrPath, list) {
+  if (arguments.length === 1) {
+    return _list => indexBy(fnOrPath, _list);
+  }
+
+  if (typeof fnOrPath === 'string') {
+    return indexByPath(fnOrPath, list);
+  }
+
+  const toReturn = {};
+
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    toReturn[fnOrPath(item)] = item;
+  }
+
+  return toReturn;
 }
 
 function indexOf(target, list) {
@@ -903,29 +944,6 @@ function partialCurry(fn, args = {}) {
 
     return fn(merge(rest, args));
   };
-}
-
-function path(list, obj) {
-  if (arguments.length === 1) return _obj => path(list, _obj);
-
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-
-  let willReturn = obj;
-  let counter = 0;
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list;
-
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
-      return undefined;
-    }
-
-    willReturn = willReturn[pathArrValue[counter]];
-    counter++;
-  }
-
-  return willReturn;
 }
 
 function pathOrRaw(defaultValue, list, obj) {

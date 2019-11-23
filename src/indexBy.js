@@ -1,27 +1,29 @@
-/**
- * Given a function that generates a key, turns a list of objects into an
- * object indexing the objects by the given key.
- *
- * @func
- * @category List
- * @sig (a -> String) -> [{k: v}] -> {k: {k: v}}
- * @param {Function} fn Function :: a -> String
- * @param {Array} list The array of objects to index
- * @return {Object} An object indexing each array element by the given property.
- * @example
- *
- *      const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
- *      R.indexBy(R.prop('id'), list);
- *      //=> {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
- */
-export function indexBy(fn, list){
-  if (arguments.length === 1) return _list => indexBy(fn, _list)
+import { path } from './path'
 
-  const result = {}
+function indexByPath(pathInput, list){
+  const toReturn = {}
   for (let i = 0; i < list.length; i++){
     const item = list[ i ]
-    result[ fn(item) ] = item
+    toReturn[ path(pathInput, item) ] = item
   }
 
-  return result
+  return toReturn
+}
+
+export function indexBy(fnOrPath, list){
+  if (arguments.length === 1){
+    return _list => indexBy(fnOrPath, _list)
+  }
+
+  if (typeof fnOrPath === 'string'){
+    return indexByPath(fnOrPath, list)
+  }
+
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ fnOrPath(item) ] = item
+  }
+
+  return toReturn
 }
