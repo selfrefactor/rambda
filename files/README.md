@@ -81,7 +81,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 - More generic methods
 
-`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(109) I see as advantage compared to the 255 of `Ramda`.
+`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(124) I see as advantage compared to the 255 of `Ramda`.
 
 Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
@@ -89,12 +89,12 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 
 ## Install
 
-- Use **yarn add rambda** for `Webpack` and `Node.js` usage
+- **yarn add rambda**
 
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
+https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -122,6 +122,8 @@ https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 - Rambda's **flip** works only for functions expecting two arguments.
 
 - Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+
+- Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Rambda's **partialCurry** is not part of Ramda API.
 

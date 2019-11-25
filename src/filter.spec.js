@@ -1,9 +1,6 @@
 import { filter } from './filter'
-import { compose } from './compose'
-import { add } from './add'
-import { map } from './map'
-import { equals } from './equals'
 import { T } from './T'
+import Ramda from 'ramda'
 
 const sampleObject = {
   a : 1,
@@ -12,42 +9,36 @@ const sampleObject = {
   d : 4,
 }
 
-test('with compose', () => {
-  const result = compose(
-    filter(equals(2)),
-    map(add(1))
-  )(sampleObject)
+test('happy', () => {
+  const isEven = n => n % 2 === 0
 
-  expect(result).toEqual({ a : 2 })
+  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+  expect(filter(isEven, {
+    a : 1,
+    b : 2,
+    d : 3,
+  })).toEqual({ b : 2 })
 })
 
-test('bad case - undefined', () => {
+test('bad inputs', () => {
   expect(filter(T)(undefined)).toEqual([])
+  expect(filter(T, null)).toEqual([])
+  expect(() => Ramda.filter(T, null)).toThrow()
+  expect(() => Ramda.filter(T, undefined)).toThrow()
 })
 
-test('with object it passes property as second argument', () => {
-  filter((val, prop) => {
-    expect(typeof prop).toEqual('string')
-  })(sampleObject)
-})
-
-test('pass input object as third argument', () => {
+test('predicate when input is object', () => {
   const obj = {
     a : 1,
     b : 2,
   }
   const predicate = (val, prop, inputObject) => {
     expect(inputObject).toEqual(obj)
+    expect(typeof prop).toEqual('string')
 
     return val < 2
   }
   expect(filter(predicate, obj)).toEqual({ a : 1 })
-})
-
-test('with array', () => {
-  const isEven = n => n % 2 === 0
-
-  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
 test('pass index as second argument', () => {

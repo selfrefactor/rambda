@@ -428,7 +428,7 @@ function filterObject(fn, obj) {
 function filter(fn, list) {
   if (arguments.length === 1) return _list => filter(fn, _list);
 
-  if (list === undefined) {
+  if (list == undefined) {
     return [];
   }
 

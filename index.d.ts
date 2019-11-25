@@ -49,19 +49,19 @@ declare namespace R {
     /*
 			It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.	
 		*/	
-    adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
-    adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+    adjust<T>(i: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
+    adjust<T>(i: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
     /*
 			It returns `true`, if all members of array `arr` returns `true`, when applied as argument to function `fn`.	
 		*/	
-    all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-    all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+    all<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
+    all<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
 
     /*
 			It returns `true`, if all functions of `rules` return `true`, when `input` is their argument.	
 		*/	
-    allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean;
+    allPass<T>(rules: Array<(x: T) => boolean>): (input: T) => boolean;
 
     /*
 			It returns function that always returns `x`.	
