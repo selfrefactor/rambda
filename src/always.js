@@ -11,7 +11,6 @@
  *      const t = R.always('Tee');
  *      t(); //=> 'Tee'
  */
-export function always(x){ 
+export function always(x){
   return () => x
 }
- 

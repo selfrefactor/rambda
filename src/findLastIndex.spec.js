@@ -3,9 +3,10 @@ import { findLastIndex } from './findLastIndex'
 test('happy', () => {
   const result = findLastIndex((x, i) => {
     expect(typeof i).toBe('number')
+
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
-  
+
   expect(
     result
   ).toEqual(5)

@@ -3,6 +3,7 @@ import { findLast } from './findLast'
 test('happy', () => {
   const result = findLast((x, i) => {
     expect(typeof i).toBe('number')
+
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
   expect(
