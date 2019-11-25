@@ -523,23 +523,15 @@ R.equals(
 
 It filters `x` iterable over boolean returning `filterFn`.
 
+
 ```
 const filterFn = a => a % 2 === 0
 
 const result = R.filter(filterFn, [1, 2, 3, 4])
 // => [2, 4]
-```
 
-The method works with objects as well.
-
-Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
-
-```
-const result = R.filter((val, prop)=>{
-  return prop === 'a' || val === 2
-}, {a: 1, b: 2, c: 3})
-
-// => {a: 1, b: 2}
+const objResult = R.filter(filterFn, {a: 1, b: 2})
+// => {b: 2}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/filter.js)
