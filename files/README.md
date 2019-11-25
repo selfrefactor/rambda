@@ -523,7 +523,6 @@ R.equals(
 
 It filters `x` iterable over boolean returning `filterFn`.
 
-
 ```
 const filterFn = a => a % 2 === 0
 

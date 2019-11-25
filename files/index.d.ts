@@ -58,13 +58,13 @@ declare namespace R {
     allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean;
 
     // SINGLE_MARKER
-    always<T>(val: T): () => T;
+    always<T>(x: T): () => T;
 
     // SINGLE_MARKER
-    any<T>(fn: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
-    any<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-    any<T>(fn: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-    any<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T, i: number) => boolean): (arr: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
 
     // SINGLE_MARKER
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
@@ -74,9 +74,9 @@ declare namespace R {
     append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
 
     // SINGLE_MARKER
-    assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-    assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
-    assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
+    assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
+    assoc<T, K extends string>(prop: K, value: T): <U>(obj: U) => Record<K, T> & U;
+    assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
 
     // SINGLE_MARKER
     assocPath<T, U>(path: Path, val: T, obj: U): U;
@@ -89,10 +89,10 @@ declare namespace R {
 
 
     // SINGLE_MARKER
-    both(pred1: Pred, pred2: Pred): Pred;
-    both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
-    both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
-    both(pred1: Pred): (pred2: Pred) => Pred;
+    both(firstCondition: Pred, secondCondition: Pred): Pred;
+    both<T>(firstCondition: Predicate<T>, secondCondition: Predicate<T>): Predicate<T>;
+    both<T>(firstCondition: Predicate<T>): (secondCondition: Predicate<T>) => Predicate<T>;
+    both(firstCondition: Pred): (secondCondition: Pred) => Pred;
 
     // SINGLE_MARKER
     either(pred1: Pred, pred2: Pred): Pred;
@@ -149,10 +149,10 @@ declare namespace R {
       fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
     // SINGLE_MARKER
-    concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-    concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
-    concat(list1: string, list2: string): string;
-    concat(list1: string): (list2: string) => string;
+    concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
+    concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
+    concat(x: string, y: string): string;
+    concat(x: string): (y: string) => string;
 
     // SINGLE_MARKER
     curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
@@ -161,9 +161,9 @@ declare namespace R {
     dec(n: number): number;
 
     // SINGLE_MARKER
-    defaultTo<T>(a: T): (...rest: Array<T | null | undefined>) => T;
-    defaultTo<T>(a: T, ...rest: Array<T | null | undefined>): T;
-    defaultTo<T, U>(a: T | U, ...rest: Array<T | U | null | undefined>): T | U;
+    defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T;
+    defaultTo<T>(defaultValue: T, ...inputArguments: Array<T | null | undefined>): T;
+    defaultTo<T, U>(defaultValue: T | U, ...inputArguments: Array<T | U | null | undefined>): T | U;
 
     // SINGLE_MARKER
     difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -178,19 +178,19 @@ declare namespace R {
     divide(a: number): (b: number) => number;
 
     // SINGLE_MARKER
-    drop<T>(n: number, xs: ReadonlyArray<T>): T[];
-    drop(n: number, xs: string): string;
-    drop<T>(n: number): {
-      (xs: string): string;
-      (xs: ReadonlyArray<T>): T[];
+    drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+    drop(howManyToDrop: number, arrOrStr: string): string;
+    drop<T>(howManyToDrop: number): {
+      (arrOrStr: string): string;
+      (arrOrStr: ReadonlyArray<T>): T[];
     };
 
     // SINGLE_MARKER
-    dropLast<T>(n: number, xs: ReadonlyArray<T>): T[];
-    dropLast(n: number, xs: string): string;
-    dropLast<T>(n: number): {
-      (xs: ReadonlyArray<T>): T[];
-      (xs: string): string;
+    dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+    dropLast(howManyToDrop: number, arrOrStr: string): string;
+    dropLast<T>(howManyToDrop: number): {
+      (arrOrStr: ReadonlyArray<T>): T[];
+      (arrOrStr: string): string;
     };
 
     // SINGLE_MARKER
@@ -208,18 +208,18 @@ declare namespace R {
     F(): boolean;
 
     // SINGLE_MARKER
-    filter<T>(fn: FilterFunctionArray<T>): (list: T[]) => T[];
-    filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[];
-    filter<T, U>(fn: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
-    filter<T>(fn: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
+    filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
+    filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
+    filter<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+    filter<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
     // SINGLE_MARKER
-    find<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-    find<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+    find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
+    find<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
     // SINGLE_MARKER
-    findIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
-    findIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
+    findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
+    findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
     // SINGLE_MARKER
     findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
@@ -234,7 +234,6 @@ declare namespace R {
 
     // SINGLE_MARKER
     flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-    flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
 
     // SINGLE_MARKER
     forEach<T>(fn: (x: T) => void, list: T[]): T[];
@@ -253,7 +252,7 @@ declare namespace R {
     groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
     // SINGLE_MARKER
-    has(s: string): <T>(obj: T) => boolean;
+    has(prop: string): <T>(obj: T) => boolean;
 
     // SINGLE_MARKER
     groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
@@ -261,32 +260,34 @@ declare namespace R {
     groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
     // SINGLE_MARKER
-    head<T>(list: Array<T>): T | undefined;
-    head(list: string): string;
+    head<T>(arrOrStr: Array<T>): T | undefined;
+    head(arrOrStr: string): string;
 
     // SINGLE_MARKER
     identical<T>(a: T, b: T): boolean;
     identical<T>(a: T): (b: T) => boolean;
 
     // SINGLE_MARKER
-    identity<T>(a: T): T;
+    identity<T>(x: T): T;
 
     // SINGLE_MARKER
-    ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-    ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+    ifElse(condition: Pred, ifFn: Arity1Fn, elseFn: Arity1Fn): Arity1Fn;
+    ifElse(condition: Pred, ifFn: Arity2Fn, elseFn: Arity2Fn): Arity2Fn;
 
     // SINGLE_MARKER
     inc(n: number): number;
 
     // SINGLE_MARKER
-    includes(s: string, list: ReadonlyArray<string> | string): boolean;
-    includes(s: string): (list: ReadonlyArray<string> | string) => boolean;
-    includes<T>(target: T, list: ReadonlyArray<T>): boolean;
-    includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
+    includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
+    includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
+    includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
+    includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
     // SINGLE_MARKER
-    indexBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
-    indexBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
+    indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
+    indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
+    indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
+    indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
 
     // SINGLE_MARKER
     indexOf<T>(target: T, list: ReadonlyArray<T>): number;
