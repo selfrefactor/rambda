@@ -290,12 +290,12 @@ declare namespace R {
     indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
 
     // SINGLE_MARKER
-    indexOf<T>(target: T, list: ReadonlyArray<T>): number;
-    indexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
+    indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
+    indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
 
     // SINGLE_MARKER
-    init<T>(list: ReadonlyArray<T>): T[];
-    init(list: string): string;
+    init<T>(arrOrStr: ReadonlyArray<T>): T[];
+    init(arrOrStr: string): string;
 
     // SINGLE_MARKER
     intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
@@ -307,14 +307,14 @@ declare namespace R {
     intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
     // SINGLE_MARKER
-    is(ctor: any, val: any): boolean;
-    is(ctor: any): (val: any) => boolean;
+    is(xPrototype: any, x: any): boolean;
+    is(xPrototype: any): (x: any) => boolean;
 
     // SINGLE_MARKER
     isEmpty<T>(input: T): boolean;
 
     // SINGLE_MARKER
-    isNil(value: any): value is null | undefined;
+    isNil(x: any): x is null | undefined;
 
     // SINGLE_MARKER
     join(x: string, xs: ReadonlyArray<any>): string;
@@ -325,22 +325,22 @@ declare namespace R {
     keys<T>(x: T): string[];
 
     // SINGLE_MARKER
-    last<T>(list: Array<T>): T | undefined;
-    last(list: string): string;
+    last<T>(arrOrStr: Array<T>): T | undefined;
+    last(arrOrStr: string): string;
 
     // SINGLE_MARKER
-    lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
+    lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
 
     // SINGLE_MARKER
     length<T>(list: ReadonlyArray<T>): number;
 
     // SINGLE_MARKER
-    map<T, U>(fn: MapFunctionObject<T, U>, obj: Dictionary<T>): Dictionary<U>;
-    map<T, U, S>(fn: MapFunctionObject<T, U>): (obj: Dictionary<T>) => Dictionary<U>;
-    map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
-    map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
-    map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-    map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+    map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
+    map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
+    map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
+    map<T, U>(mapFn: MapFunctionArray<T, U>): (x: T[]) => U[];
+    map<T>(mapFn: MapFunctionArray<T, T>): (x: T[]) => T[];
+    map<T>(mapFn: MapFunctionArray<T, T>, x: ReadonlyArray<T>): T[];
 
     // SINGLE_MARKER
     match(regexp: RegExp, str: string): any[];
@@ -390,7 +390,7 @@ declare namespace R {
     none<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
     // SINGLE_MARKER
-    not(value: any): boolean;
+    not(x: any): boolean;
 
     // SINGLE_MARKER
     nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;

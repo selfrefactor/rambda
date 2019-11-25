@@ -910,7 +910,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 
 > last(arrOrStr: T[]|string): T|string
 
-- It returns the last element of `arrOrStr`.
+It returns the last element of `arrOrStr`.
 
 ```
 R.last(['foo', 'bar', 'baz']) // => 'baz'
