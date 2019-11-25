@@ -424,15 +424,15 @@ declare namespace R {
 
 
     // SINGLE_MARKER
-    path<Input, T>(path: string | string[], obj: Input): T | undefined;
-    path<T>(path: string | string[], obj: any): T | undefined;
-    path<T>(path: string | string[]): (obj: any) => T | undefined;
-    path<Input, T>(path: string | string[]): (obj: Input) => T | undefined;
+    path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
+    path<T>(pathToSearch: string | string[], obj: any): T | undefined;
+    path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
+    path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
     // SINGLE_MARKER
-    pathOr<T>(defaultValue: T, path: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
+    pathOr<T>(defaultValue: T): F.Curry<(a: pathToSearch, b: any) => any>;
 
     // SINGLE_MARKER
     pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
@@ -638,29 +638,29 @@ declare namespace R {
       fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
     // SINGLE_MARKER
-    pluck<T>(p: number, list: ReadonlyArray<T>): T;
-    pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
-    pluck(p: number): <T>(list: ReadonlyArray<T>) => T;
-    pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+    pluck<T>(property: number, arr: ReadonlyArray<T>): T;
+    pluck<K extends keyof T, T>(property: K, arr: ReadonlyArray<T>): Array<T[K]>;
+    pluck(property: number): <T>(arr: ReadonlyArray<T>) => T;
+    pluck<P extends string>(property: P): <T>(arr: ReadonlyArray<Record<P, T>>) => T[];
 
     // SINGLE_MARKER
-    prepend<T>(el: T, list: ReadonlyArray<T>): T[];
-    prepend<T>(el: T): (list: ReadonlyArray<T>) => T[];
+    prepend<T>(x: T, arr: ReadonlyArray<T>): T[];
+    prepend<T>(x: T): (arr: ReadonlyArray<T>) => T[];
 
     // SINGLE_MARKER
     product(list: ReadonlyArray<number>): number;
 
     // SINGLE_MARKER
-    prop<P extends keyof T, T>(p: P, obj: T): T[P];
-    prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
-    prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
+    prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
+    prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
+    prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 
     // SINGLE_MARKER
-    propEq<T>(name: string | number, val: T, obj: any): boolean;
-    propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-    propEq(name: string | number): {
-      <T>(val: T, obj: any): boolean;
-      <T>(val: T): (obj: any) => boolean;
+    propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
+    propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
+    propEq(propToFind: string | number): {
+      <T>(valueToMatch: T, obj: any): boolean;
+      <T>(valueToMatch: T): (obj: any) => boolean;
     };
 
     // SINGLE_MARKER
@@ -673,8 +673,8 @@ declare namespace R {
     propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
 
     // SINGLE_MARKER
-    range(from: number, to: number): number[];
-    range(from: number): (to: number) => number[];
+    range(start: number, end: number): number[];
+    range(start: number): (end: number) => number[];
 
     // SINGLE_MARKER
     reduce<T, TResult>(fn: (acc: TResult, elem: T, i: number) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
@@ -683,17 +683,17 @@ declare namespace R {
     reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
     // SINGLE_MARKER
-    reject<T>(fn: FilterFunctionArray<T>): (list: T[]) => T[];
-    reject<T>(fn: FilterFunctionArray<T>, list: T[]): T[];
+    reject<T>(fn: FilterFunctionArray<T>): (arr: T[]) => T[];
+    reject<T>(fn: FilterFunctionArray<T>, arr: T[]): T[];
 
     // SINGLE_MARKER
     repeat<T>(a: T, n: number): T[];
     repeat<T>(a: T): (n: number) => T[];
 
     // SINGLE_MARKER
-    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
-    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
-    replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
+    replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
+    replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
+    replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
     // SINGLE_MARKER
     reverse<T>(list: ReadonlyArray<T>): T[];
@@ -712,12 +712,12 @@ declare namespace R {
     };
 
     // SINGLE_MARKER
-    sort<T>(fn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
-    sort<T>(fn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
+    sort<T>(sortFn: (a: T, b: T) => number, arr: ReadonlyArray<T>): T[];
+    sort<T>(sortFn: (a: T, b: T) => number): (arr: ReadonlyArray<T>) => T[];
 
     // SINGLE_MARKER
-    sortBy<T>(fn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
-    sortBy(fn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
+    sortBy<T>(sortFn: (a: T) => Ord, arr: ReadonlyArray<T>): T[];
+    sortBy(sortFn: (a: any) => Ord): <T>(arr: ReadonlyArray<T>) => T[];
 
     // SINGLE_MARKER
     split(sep: string | RegExp): (str: string) => string[];
@@ -752,23 +752,23 @@ declare namespace R {
     T(): boolean;
 
     // SINGLE_MARKER
-    tail<T>(list: ReadonlyArray<T>): T[];
-    tail(list: string): string;
+    tail<T>(arrOrStr: ReadonlyArray<T>): T[];
+    tail(arrOrStr: string): string;
 
     // SINGLE_MARKER
-    take<T>(n: number, xs: ReadonlyArray<T>): T[];
-    take(n: number, xs: string): string;
-    take<T>(n: number): {
-      (xs: string): string;
-      (xs: ReadonlyArray<T>): T[];
+    take<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
+    take(num: number, arrOrStr: string): string;
+    take<T>(num: number): {
+      (arrOrStr: string): string;
+      (arrOrStr: ReadonlyArray<T>): T[];
     };
 
     // SINGLE_MARKER
-    takeLast<T>(n: number, xs: ReadonlyArray<T>): T[];
-    takeLast(n: number, xs: string): string;
-    takeLast(n: number): {
-      <T>(xs: ReadonlyArray<T>): T[];
-      (xs: string): string;
+    takeLast<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
+    takeLast(num: number, arrOrStr: string): string;
+    takeLast(num: number): {
+      <T>(arrOrStr: ReadonlyArray<T>): T[];
+      (arrOrStr: string): string;
     };
 
     // SINGLE_MARKER
@@ -776,8 +776,8 @@ declare namespace R {
     tap<T>(fn: (a: T) => any): (value: T) => T;
 
     // SINGLE_MARKER
-    test(regexp: RegExp): (str: string) => boolean;
-    test(regexp: RegExp, str: string): boolean;
+    test(regExpression: RegExp): (str: string) => boolean;
+    test(regExpression: RegExp, str: string): boolean;
 
     // SINGLE_MARKER
     times<T>(fn: (i: number) => T, n: number): T[];
@@ -805,11 +805,11 @@ declare namespace R {
     type(val: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 
     // SINGLE_MARKER
-    uniq<T>(list: ReadonlyArray<T>): T[];
+    uniq<T>(arr: ReadonlyArray<T>): T[];
 
     // SINGLE_MARKER
-    uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
-    uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
+    uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[];
+    uniqWith<T, U>(fn: (x: T, y: T) => boolean): (  arr: ReadonlyArray<T>) => T[];
     
     // SINGLE_MARKER
     update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];

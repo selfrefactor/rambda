@@ -1416,7 +1416,7 @@ R.split('-', 'a-b-c') // => ['a', 'b', 'c']
 
 > splitEvery(sliceLength: number, arrOrString: T[]|string): T[T[]]|string[]
 
-- It splits `arrOrStr` into slices of `sliceLength`.
+It splits `arrOrStr` into slices of `sliceLength`.
 
 ```
 R.splitEvery(2, [1, 2, 3]) // => [[1, 2], [3]]
@@ -1484,7 +1484,7 @@ R.tail('foo')  // => 'oo'
 
 > take(num: number, arrOrStr: T[]|string): T[]|string
 
-- It returns the first `num` elements of `arrOrStr`.
+It returns the first `num` elements of `arrOrStr`.
 
 ```
 R.take(1, ['foo', 'bar']) // => ['foo']
@@ -1497,7 +1497,7 @@ R.take(2, 'foo') // => 'fo'
 
 > takeLast(num: number, arrOrStr: T[]|string): T[]|string
 
-- It returns the last `num` elements of `arrOrStr`.
+It returns the last `num` elements of `arrOrStr`.
 
 ```
 R.takeLast(1, ['foo', 'bar']) // => ['bar']
@@ -1510,7 +1510,7 @@ R.takeLast(2, 'foo') // => 'oo'
 
 > tap(fn: Function, input: T): T
 
-- It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
+It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
 
 ```
 let a = 1
@@ -1526,7 +1526,7 @@ const result = R.tap(sayX, 100)
 
 > test(regExpression: Regex, str: string): boolean
 
-- Determines whether `str` matches `regExpression`
+Determines whether `str` matches `regExpression`
 
 ```
 R.test(/^f/, 'foo')
