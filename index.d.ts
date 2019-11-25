@@ -66,15 +66,15 @@ declare namespace R {
     /*
 			It returns function that always returns `x`.	
 		*/	
-    always<T>(val: T): () => T;
+    always<T>(x: T): () => T;
 
     /*
 			It returns `true`, if at least one member of `arr` returns true, when passed to the `condition` function.	
 		*/	
-    any<T>(fn: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
-    any<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-    any<T>(fn: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-    any<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
+    any<T>(fn: (x: T, i: number) => boolean): (arr: ReadonlyArray<T>) => boolean;
+    any<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
 
     
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
@@ -89,9 +89,9 @@ the value `value`. Note that this copies and flattens prototype properties
 onto the new object as well. All non-primitive properties are copied by
 reference.	
 		*/	
-    assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-    assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
-    assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
+    assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
+    assoc<T, K extends string>(prop: K, value: T): <U>(obj: U) => Record<K, T> & U;
+    assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
 
     
     assocPath<T, U>(path: Path, val: T, obj: U): U;
@@ -106,10 +106,10 @@ reference.
     /*
 			It returns `true`, if both function `firstCondition` and function `secondCondition` return `true`, when `input` is their argument.	
 		*/	
-    both(pred1: Pred, pred2: Pred): Pred;
-    both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
-    both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
-    both(pred1: Pred): (pred2: Pred) => Pred;
+    both(firstCondition: Pred, secondCondition: Pred): Pred;
+    both<T>(firstCondition: Predicate<T>, secondCondition: Predicate<T>): Predicate<T>;
+    both<T>(firstCondition: Predicate<T>): (secondCondition: Predicate<T>) => Predicate<T>;
+    both(firstCondition: Pred): (secondCondition: Pred) => Pred;
 
     
     either(pred1: Pred, pred2: Pred): Pred;
@@ -174,10 +174,10 @@ The return value of `complemented` is the negative boolean value of `fn(input)`.
     /*
 			It returns a new string or array, which is the result of merging `x` and `y`.	
 		*/	
-    concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-    concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
-    concat(list1: string, list2: string): string;
-    concat(list1: string): (list2: string) => string;
+    concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
+    concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
+    concat(x: string, y: string): string;
+    concat(x: string): (y: string) => string;
 
     /*
 			It returns curried version of `fn`.	
@@ -194,9 +194,9 @@ The return value of `complemented` is the negative boolean value of `fn(input)`.
 
 Or it returns the first truthy `inputArguments` instance(from left to right).	
 		*/	
-    defaultTo<T>(a: T): (...rest: Array<T | null | undefined>) => T;
-    defaultTo<T>(a: T, ...rest: Array<T | null | undefined>): T;
-    defaultTo<T, U>(a: T | U, ...rest: Array<T | U | null | undefined>): T | U;
+    defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T;
+    defaultTo<T>(defaultValue: T, ...inputArguments: Array<T | null | undefined>): T;
+    defaultTo<T, U>(defaultValue: T | U, ...inputArguments: Array<T | U | null | undefined>): T | U;
 
     
     difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -215,21 +215,21 @@ Or it returns the first truthy `inputArguments` instance(from left to right).
     /*
 			It returns `arrOrStr` with `howManyToDrop` items dropped from the left.	
 		*/	
-    drop<T>(n: number, xs: ReadonlyArray<T>): T[];
-    drop(n: number, xs: string): string;
-    drop<T>(n: number): {
-      (xs: string): string;
-      (xs: ReadonlyArray<T>): T[];
+    drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+    drop(howManyToDrop: number, arrOrStr: string): string;
+    drop<T>(howManyToDrop: number): {
+      (arrOrStr: string): string;
+      (arrOrStr: ReadonlyArray<T>): T[];
     };
 
     /*
 			It returns `arrOrStr` with `howManyToDrop` items dropped from the right.	
 		*/	
-    dropLast<T>(n: number, xs: ReadonlyArray<T>): T[];
-    dropLast(n: number, xs: string): string;
-    dropLast<T>(n: number): {
-      (xs: ReadonlyArray<T>): T[];
-      (xs: string): string;
+    dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+    dropLast(howManyToDrop: number, arrOrStr: string): string;
+    dropLast<T>(howManyToDrop: number): {
+      (arrOrStr: ReadonlyArray<T>): T[];
+      (arrOrStr: string): string;
     };
 
     

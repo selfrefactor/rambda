@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "edit typescript arguments",
     "docs": [
       "docsify",
       "repl",
