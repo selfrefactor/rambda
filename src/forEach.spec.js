@@ -9,20 +9,20 @@ test('iterate over object', () => {
     f : 'foo',
   }
   const result = {}
-  const getLength = x => Object.keys(x).length
-  forEach(
-    (val, prop, inputObj) =>
-      result[ prop ] = `${ prop }::${ type(val) }::${ getLength(inputObj) }`
-  )(obj)
+  const returned = forEach((val, prop, inputObj) => {
+    expect(type(inputObj)).toBe('Object')
+    result[ prop ] = `${ prop }-${ type(val) }`
+  })(obj)
 
   const expected = {
-    a : 'a::Number::4',
-    b : 'b::Array::4',
-    c : 'c::Object::4',
-    f : 'f::String::4',
+    a : 'a-Number',
+    b : 'b-Array',
+    c : 'c-Object',
+    f : 'f-String',
   }
 
   expect(result).toEqual(expected)
+  expect(returned).toEqual(obj)
 })
 
 test('happy', () => {

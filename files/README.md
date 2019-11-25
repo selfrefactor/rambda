@@ -628,9 +628,9 @@ const result = subtractFlip(1,7)
 
 #### forEach
 
-> forEach(fn: Function, arr: Array): Array
+> forEach(fn: Function, x: Array|Object): Array|Object
 
-It applies function `fn` over all members of array `arr` and returns `arr`.
+It applies function `fn` over all members of iterable `x` and returns `x`.
 
 ```
 const sideEffect = {}
@@ -641,8 +641,6 @@ const result = R.forEach(
 console.log(sideEffect) //=> {foo1 : 1, foo2 : 2}
 console.log(result) //=> [1, 2]
 ```
-
-Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/forEach.js)
 
@@ -761,12 +759,7 @@ R.identity(7) // => 7
 
 > ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
 
-It returns function, which expect `input` as argument and returns `finalResult`.
-
-When this function is called, a value `answer` is generated as a result of `condition(input)`.
-
-If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
-If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.
+It returns another function. When this new function is called with `input` argument, it will return either `ifFn(input)` or `elseFn(input)` depending on `condition(input)` evaluation.
 
 ```
 const fn = R.ifElse(
@@ -809,16 +802,22 @@ R.includes({a: 1}, [{a: 1}]) // => true
 
 #### indexBy
 
-> indexBy(fn: Function, arr: T[]): Object
+> indexBy(condition: Function|String, arr: T[]): Object
 
-It indexes array `arr` as an object with provided selector function `fn`.
+Generates object with properties provided by `condition` and values provided by `arr`. If `condition` is a string, then it is passed to `R.path`.
 
 ```
-R.indexBy(
+const arr = [ {id: 1}, {id: 2} ]
+const result = R.indexBy(
   x => x.id,
-  [ {id: 1}, {id: 2} ]
+  arr
+)
+const pathResult = R.indexBy(
+  'id',
+  arr
 )
 // => { 1: {id: 1}, 2: {id: 2} }
+// pathResult === result
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/indexBy.js)

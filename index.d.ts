@@ -268,22 +268,22 @@ const result = R.filter((val, prop)=>{
 
 // => {a: 1, b: 2}	
 		*/	
-    filter<T>(fn: FilterFunctionArray<T>): (list: T[]) => T[];
-    filter<T>(fn: FilterFunctionArray<T>, list: T[]): T[];
-    filter<T, U>(fn: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
-    filter<T>(fn: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
+    filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
+    filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
+    filter<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+    filter<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
     /*
 			It returns `undefined` or the first element of `arr` satisfying `findFn`.	
 		*/	
-    find<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-    find<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+    find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
+    find<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
     /*
 			It returns `-1` or the index of the first element of `arr` satisfying `findFn`.	
 		*/	
-    findIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
-    findIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
+    findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
+    findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
     
     findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
@@ -300,7 +300,6 @@ const result = R.filter((val, prop)=>{
 			It returns function which calls `fn` with exchanged first and second argument.	
 		*/	
     flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-    flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
 
     /*
 			It applies function `fn` over all members of array `arr` and returns `arr`.	
@@ -325,7 +324,7 @@ const result = R.filter((val, prop)=>{
     /*
 			- It returns `true` if `obj` has property `prop`.	
 		*/	
-    has(s: string): <T>(obj: T) => boolean;
+    has(prop: string): <T>(obj: T) => boolean;
 
     
     groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
@@ -335,8 +334,8 @@ const result = R.filter((val, prop)=>{
     /*
 			It returns the first element of `arrOrStr`.	
 		*/	
-    head<T>(list: Array<T>): T | undefined;
-    head(list: string): string;
+    head<T>(arrOrStr: Array<T>): T | undefined;
+    head(arrOrStr: string): string;
 
     
     identical<T>(a: T, b: T): boolean;
@@ -345,7 +344,7 @@ const result = R.filter((val, prop)=>{
     /*
 			It just passes back the supplied arguments.	
 		*/	
-    identity<T>(a: T): T;
+    identity<T>(x: T): T;
 
     /*
 			It returns function, which expect `input` as argument and returns `finalResult`.
@@ -355,8 +354,8 @@ When this function is called, a value `answer` is generated as a result of `cond
 If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
 If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.	
 		*/	
-    ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-    ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+    ifElse(condition: Pred, ifFn: Arity1Fn, elseFn: Arity1Fn): Arity1Fn;
+    ifElse(condition: Pred, ifFn: Arity2Fn, elseFn: Arity2Fn): Arity2Fn;
 
     /*
 			It increments a number.	
@@ -367,16 +366,18 @@ If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.
 			If `input` is string, then this method work as native `includes`.
 If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.	
 		*/	
-    includes(s: string, list: ReadonlyArray<string> | string): boolean;
-    includes(s: string): (list: ReadonlyArray<string> | string) => boolean;
-    includes<T>(target: T, list: ReadonlyArray<T>): boolean;
-    includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
+    includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
+    includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
+    includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
+    includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
     /*
 			It indexes array `arr` as an object with provided selector function `fn`.	
 		*/	
-    indexBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
-    indexBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
+    indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
+    indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
+    indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
+    indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
 
     /*
 			It returns `-1` or the index of the first element of `arr` equal of `valueToFind`.	
