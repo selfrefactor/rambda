@@ -1,4 +1,12 @@
-- 4.3.0 Close [Issue #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.transpose`
+- 4.3.0 Several changes:
+
+Close [Issue #317](https://github.com/selfrefactor/rambda/issues/317) - add `R.transpose`
+
+Close [Issue #325](https://github.com/selfrefactor/rambda/issues/325) - `R.filter` should return equal values for bad inputs `null` and `undefined`
+
+Approve suggestion for `R.indexBy` to accept string not only function as first argument.
+
+Edit of `R.path` typings
 
 - 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.and`
 

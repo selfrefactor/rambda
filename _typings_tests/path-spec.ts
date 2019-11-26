@@ -11,13 +11,17 @@ describe('path', () => {
   it('without specified input type', () => {
     const input = { a: 1, b: { c: true } }
     const result = path<boolean>('a.b.c', input)
+    const resultCurried = path<boolean>('a.b.c')(input)
     result // $ExpectType boolean | undefined
+    resultCurried // $ExpectType boolean | undefined
   });
+
   it('without specified output type', () => {
     const input = { a: 1, b: { c: true } }
     const result = path('a.b.c', input)
     result // $ExpectType unknown
   });
+
   it('with string as path', () => {
     const input: Input = { a: 1, b: { c: true } }
     const resultA = path<boolean>('a.b.c', input)
