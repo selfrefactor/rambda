@@ -819,8 +819,10 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 It will return those members of `arr` that return `false` when applied to function `fn`.	
 		*/	
-    reject<T>(fn: FilterFunctionArray<T>): (arr: T[]) => T[];
-    reject<T>(fn: FilterFunctionArray<T>, arr: T[]): T[];
+    reject<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
+    reject<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
+    reject<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+    reject<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
     
     repeat<T>(a: T, n: number): T[];

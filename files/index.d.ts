@@ -683,8 +683,10 @@ declare namespace R {
     reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
     // SINGLE_MARKER
-    reject<T>(fn: FilterFunctionArray<T>): (arr: T[]) => T[];
-    reject<T>(fn: FilterFunctionArray<T>, arr: T[]): T[];
+    reject<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
+    reject<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
+    reject<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+    reject<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
     // SINGLE_MARKER
     repeat<T>(a: T, n: number): T[];

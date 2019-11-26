@@ -1295,16 +1295,16 @@ const result = R.reduce(iteratorFn, 1, [1, 2, 3])
 
 #### reject
 
-> reject(fn: Function, arr: T[]): T[]
+> reject(filterFn: Function, arr: T[]): T[]
 
 It has the opposite effect of `R.filter`.
 
-It will return those members of `arr` that return `false` when applied to function `fn`.
+It will return those members of `arr` that return `false` when applied to function `filterFn`.
 
 ```
-const fn = x => x % 2 === 1
+const filterFn = x => x % 2 === 1
 
-const result = R.reject(fn, [1, 2, 3, 4])
+const result = R.reject(filterFn, [1, 2, 3, 4])
 // => [2, 4]
 ```
 
