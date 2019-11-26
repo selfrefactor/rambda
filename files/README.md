@@ -1135,15 +1135,13 @@ finalFn('bar') // =>  'Hello, Ms. foo bar!'
 
 #### partialCurry
 
-> partialCurry(fn: Function|Async, a: Object, b: Object): Function|Promise
+> partialCurry(fn: Function|Async, partialInput: Object, input: Object): Function|Promise
 
-When called with function `fn` and first set of input `a`, it will return a function.
+When called with function `fn` and first set of input `partialInput`, it will return a function.
 
-This function will wait to be called with second set of input `b` and it will invoke `fn` with the merged object of `a` over `b`.
+This function will wait to be called with second set of input `input` and it will invoke `fn` with the merged object of `partialInput` over `input`.
 
 `fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
-
-See the example below:
 
 ```
 const fn = ({a, b, c}) => {

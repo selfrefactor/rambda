@@ -16,7 +16,7 @@ declare namespace R {
 
   type Ord = number | string | boolean | Date;
 
-  type Path = string | ReadonlyArray<(number | string)>;
+  type Path = ReadonlyArray<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
@@ -49,19 +49,19 @@ declare namespace R {
     /*
 			It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.	
 		*/	
-    adjust<T>(i: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
-    adjust<T>(i: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+    adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
+    adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
     /*
 			It returns `true`, if all members of array `arr` returns `true`, when applied as argument to function `fn`.	
 		*/	
-    all<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
-    all<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
+    all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+    all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
     /*
 			It returns `true`, if all functions of `rules` return `true`, when `input` is their argument.	
 		*/	
-    allPass<T>(rules: Array<(x: T) => boolean>): (input: T) => boolean;
+    allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean;
 
     /*
 			It returns function that always returns `x`.	
@@ -251,22 +251,7 @@ It doesn't handle cyclical data structures.
     F(): boolean;
 
     /*
-			It filters `x` iterable over boolean returning `filterFn`.
-
-
-
-
-
-The method works with objects as well.
-
-Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
-
-
-const result = R.filter((val, prop)=>{
-  return prop === 'a' || val === 2
-}, {a: 1, b: 2, c: 3})
-
-// => {a: 1, b: 2}	
+			It filters `x` iterable over boolean returning `filterFn`.	
 		*/	
     filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
     filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
@@ -302,7 +287,7 @@ const result = R.filter((val, prop)=>{
     flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
     /*
-			It applies function `fn` over all members of array `arr` and returns `arr`.	
+			It applies function `fn` over all members of iterable `x` and returns `x`.	
 		*/	
     forEach<T>(fn: (x: T) => void, list: T[]): T[];
     forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
@@ -347,12 +332,7 @@ const result = R.filter((val, prop)=>{
     identity<T>(x: T): T;
 
     /*
-			It returns function, which expect `input` as argument and returns `finalResult`.
-
-When this function is called, a value `answer` is generated as a result of `condition(input)`.
-
-If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
-If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.	
+			It returns another function. When this new function is called with `input` argument, it will return either `ifFn(input)` or `elseFn(input)` depending on `condition(input)` evaluation.	
 		*/	
     ifElse(condition: Pred, ifFn: Arity1Fn, elseFn: Arity1Fn): Arity1Fn;
     ifElse(condition: Pred, ifFn: Arity2Fn, elseFn: Arity2Fn): Arity2Fn;
@@ -372,7 +352,7 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
     includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
     /*
-			It indexes array `arr` as an object with provided selector function `fn`.	
+			Generates object with properties provided by `condition` and values provided by `arr`. If `condition` is a string, then it is passed to `R.path`.	
 		*/	
     indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
     indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
@@ -382,14 +362,14 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
     /*
 			It returns `-1` or the index of the first element of `arr` equal of `valueToFind`.	
 		*/	
-    indexOf<T>(target: T, list: ReadonlyArray<T>): number;
-    indexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
+    indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
+    indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
 
     /*
 			- It returns all but the last element of `arrOrStr`.	
 		*/	
-    init<T>(list: ReadonlyArray<T>): T[];
-    init(list: string): string;
+    init<T>(arrOrStr: ReadonlyArray<T>): T[];
+    init(arrOrStr: string): string;
 
     
     intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
@@ -403,8 +383,8 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
     /*
 			It returns `true` is `x` is instance of `xPrototype`.	
 		*/	
-    is(ctor: any, val: any): boolean;
-    is(ctor: any): (val: any) => boolean;
+    is(xPrototype: any, x: any): boolean;
+    is(xPrototype: any): (x: any) => boolean;
 
     
     isEmpty<T>(input: T): boolean;
@@ -412,7 +392,7 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
     /*
 			It returns `true` is `x` is either `null` or `undefined`.	
 		*/	
-    isNil(value: any): value is null | undefined;
+    isNil(x: any): x is null | undefined;
 
     
     join(x: string, xs: ReadonlyArray<any>): string;
@@ -423,10 +403,10 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
     keys<T>(x: T): string[];
 
     /*
-			- It returns the last element of `arrOrStr`.	
+			It returns the last element of `arrOrStr`.	
 		*/	
-    last<T>(list: Array<T>): T | undefined;
-    last(list: string): string;
+    last<T>(arrOrStr: Array<T>): T | undefined;
+    last(arrOrStr: string): string;
 
     /*
 			It returns the last index of `x` in array `arr`.
@@ -435,7 +415,7 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
 
 Value `-1` is returned if no `x` is found in `arr`.	
 		*/	
-    lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
+    lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
 
     
     length<T>(list: ReadonlyArray<T>): number;
@@ -447,12 +427,12 @@ The method works with objects as well.
 
 Note that unlike Ramda's `map`, here array keys are passed as second argument to `mapFn`.	
 		*/	
-    map<T, U>(fn: MapFunctionObject<T, U>, obj: Dictionary<T>): Dictionary<U>;
-    map<T, U, S>(fn: MapFunctionObject<T, U>): (obj: Dictionary<T>) => Dictionary<U>;
-    map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
-    map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
-    map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-    map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+    map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
+    map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
+    map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
+    map<T, U>(mapFn: MapFunctionArray<T, U>): (x: T[]) => U[];
+    map<T>(mapFn: MapFunctionArray<T, T>): (x: T[]) => T[];
+    map<T>(mapFn: MapFunctionArray<T, T>, x: ReadonlyArray<T>): T[];
 
     
     match(regexp: RegExp, str: string): any[];
@@ -510,7 +490,7 @@ Note that unlike Ramda's `map`, here array keys are passed as second argument to
     /*
 			It returns inverted boolean version of input `x`.	
 		*/	
-    not(value: any): boolean;
+    not(x: any): boolean;
 
     
     nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
@@ -536,7 +516,13 @@ Note that unlike Ramda's `map`, here array keys are passed as second argument to
 
     partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
-    
+    /*
+			When called with function `fn` and first set of input `partialInput`, it will return a function.
+
+This function will wait to be called with second set of input `input` and it will invoke `fn` with the merged object of `partialInput` over `input`.
+
+`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.	
+		*/	
     partialCurry<Input, PartialInput, Output>(
       fn: (input: Input) => Output,
       partialInput: PartialInput,
@@ -550,10 +536,10 @@ Note that unlike Ramda's `map`, here array keys are passed as second argument to
 
 It will return `undefined`, if such path is not found.	
 		*/	
-    path<Input, T>(path: Path, obj: Input): T | undefined;
-    path<T>(path: Path, obj: any): T | undefined;
-    path<T>(path: Path): (obj: any) => T | undefined;
-    path<Input, T>(path: Path): (obj: Input) => T | undefined;
+    path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
+    path<T>(pathToSearch: string | string[], obj: any): T | undefined;
+    path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
+    path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
     /*
 			`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
@@ -562,9 +548,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, path: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
+    pathOr<T>(defaultValue: T): F.Curry<(a: pathToSearch, b: any) => any>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	
@@ -776,16 +762,16 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
     /*
 			It returns list of the values of `property` taken from the objects in array of objects `arr`.	
 		*/	
-    pluck<T>(p: number, list: ReadonlyArray<T>): T;
-    pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
-    pluck(p: number): <T>(list: ReadonlyArray<T>) => T;
-    pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+    pluck<T>(property: number, arr: ReadonlyArray<T>): T;
+    pluck<K extends keyof T, T>(property: K, arr: ReadonlyArray<T>): Array<T[K]>;
+    pluck(property: number): <T>(arr: ReadonlyArray<T>) => T;
+    pluck<P extends string>(property: P): <T>(arr: ReadonlyArray<Record<P, T>>) => T[];
 
     /*
 			It adds `x` to the start of the array `arr`.	
 		*/	
-    prepend<T>(el: T, list: ReadonlyArray<T>): T[];
-    prepend<T>(el: T): (list: ReadonlyArray<T>) => T[];
+    prepend<T>(x: T, arr: ReadonlyArray<T>): T[];
+    prepend<T>(x: T): (arr: ReadonlyArray<T>) => T[];
 
     
     product(list: ReadonlyArray<number>): number;
@@ -793,18 +779,18 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
     /*
 			It returns `undefined` or the value of property `propToFind` in `obj`	
 		*/	
-    prop<P extends keyof T, T>(p: P, obj: T): T[P];
-    prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
-    prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
+    prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
+    prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
+    prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 
     /*
 			It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.	
 		*/	
-    propEq<T>(name: string | number, val: T, obj: any): boolean;
-    propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-    propEq(name: string | number): {
-      <T>(val: T, obj: any): boolean;
-      <T>(val: T): (obj: any) => boolean;
+    propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
+    propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
+    propEq(propToFind: string | number): {
+      <T>(valueToMatch: T, obj: any): boolean;
+      <T>(valueToMatch: T): (obj: any) => boolean;
     };
 
     
@@ -819,8 +805,8 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
     /*
 			It returns a array of numbers from `start`(inclusive) to `end`(exclusive).	
 		*/	
-    range(from: number, to: number): number[];
-    range(from: number): (to: number) => number[];
+    range(start: number, end: number): number[];
+    range(start: number): (end: number) => number[];
 
     
     reduce<T, TResult>(fn: (acc: TResult, elem: T, i: number) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
@@ -833,8 +819,8 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 It will return those members of `arr` that return `false` when applied to function `fn`.	
 		*/	
-    reject<T>(fn: FilterFunctionArray<T>): (list: T[]) => T[];
-    reject<T>(fn: FilterFunctionArray<T>, list: T[]): T[];
+    reject<T>(fn: FilterFunctionArray<T>): (arr: T[]) => T[];
+    reject<T>(fn: FilterFunctionArray<T>, arr: T[]): T[];
 
     
     repeat<T>(a: T, n: number): T[];
@@ -843,9 +829,9 @@ It will return those members of `arr` that return `false` when applied to functi
     /*
 			It replaces `strOrRegex` found in `str` with `replacer`.	
 		*/	
-    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
-    replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
-    replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
+    replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
+    replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
+    replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
     
     reverse<T>(list: ReadonlyArray<T>): T[];
@@ -868,23 +854,23 @@ It will return those members of `arr` that return `false` when applied to functi
 
 Note that `sortFn` must return a number type.	
 		*/	
-    sort<T>(fn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
-    sort<T>(fn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
+    sort<T>(sortFn: (a: T, b: T) => number, arr: ReadonlyArray<T>): T[];
+    sort<T>(sortFn: (a: T, b: T) => number): (arr: ReadonlyArray<T>) => T[];
 
     /*
 			It returns copy of `arr` sorted by `sortFn`.
 
 Note that `sortFn` must return value for comparison.	
 		*/	
-    sortBy<T>(fn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
-    sortBy(fn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
+    sortBy<T>(sortFn: (a: T) => Ord, arr: ReadonlyArray<T>): T[];
+    sortBy(sortFn: (a: any) => Ord): <T>(arr: ReadonlyArray<T>) => T[];
 
     
     split(sep: string | RegExp): (str: string) => string[];
     split(sep: string | RegExp, str: string): string[];
 
     /*
-			- It splits `arrOrStr` into slices of `sliceLength`.	
+			It splits `arrOrStr` into slices of `sliceLength`.	
 		*/	
     splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
     splitEvery(a: number, list: string): string[];
@@ -916,40 +902,40 @@ Note that `sortFn` must return value for comparison.
     /*
 			- It returns all but the first element of `arrOrStr`	
 		*/	
-    tail<T>(list: ReadonlyArray<T>): T[];
-    tail(list: string): string;
+    tail<T>(arrOrStr: ReadonlyArray<T>): T[];
+    tail(arrOrStr: string): string;
 
     /*
-			- It returns the first `num` elements of `arrOrStr`.	
+			It returns the first `num` elements of `arrOrStr`.	
 		*/	
-    take<T>(n: number, xs: ReadonlyArray<T>): T[];
-    take(n: number, xs: string): string;
-    take<T>(n: number): {
-      (xs: string): string;
-      (xs: ReadonlyArray<T>): T[];
+    take<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
+    take(num: number, arrOrStr: string): string;
+    take<T>(num: number): {
+      (arrOrStr: string): string;
+      (arrOrStr: ReadonlyArray<T>): T[];
     };
 
     /*
-			- It returns the last `num` elements of `arrOrStr`.	
+			It returns the last `num` elements of `arrOrStr`.	
 		*/	
-    takeLast<T>(n: number, xs: ReadonlyArray<T>): T[];
-    takeLast(n: number, xs: string): string;
-    takeLast(n: number): {
-      <T>(xs: ReadonlyArray<T>): T[];
-      (xs: string): string;
+    takeLast<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
+    takeLast(num: number, arrOrStr: string): string;
+    takeLast(num: number): {
+      <T>(arrOrStr: ReadonlyArray<T>): T[];
+      (arrOrStr: string): string;
     };
 
     /*
-			- It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.	
+			It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.	
 		*/	
     tap<T>(fn: (a: T) => any, value: T): T;
     tap<T>(fn: (a: T) => any): (value: T) => T;
 
     /*
-			- Determines whether `str` matches `regExpression`	
+			Determines whether `str` matches `regExpression`	
 		*/	
-    test(regexp: RegExp): (str: string) => boolean;
-    test(regexp: RegExp, str: string): boolean;
+    test(regExpression: RegExp): (str: string) => boolean;
+    test(regExpression: RegExp, str: string): boolean;
 
     /*
 			It returns the result of applying function `fn` over members of range array.
@@ -982,13 +968,13 @@ The range array includes numbers between `0` and `n`(exclusive).
     /*
 			It returns a new array containing only one copy of each element in `arr`.	
 		*/	
-    uniq<T>(list: ReadonlyArray<T>): T[];
+    uniq<T>(arr: ReadonlyArray<T>): T[];
 
     /*
 			It returns a new array containing only one copy of each element in `arr` according to boolean returning function `fn`.	
 		*/	
-    uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
-    uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
+    uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[];
+    uniqWith<T, U>(fn: (x: T, y: T) => boolean): (  arr: ReadonlyArray<T>) => T[];
     
     /*
 			It returns a new copy of the `arr` with the element at `i` index
