@@ -1,7 +1,7 @@
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
-test.only('indexBy', () => {
+test('indexBy', () => {
   const list = [ { id : 1 }, {
     id : 1,
     a  : 2,
