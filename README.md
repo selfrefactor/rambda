@@ -132,7 +132,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 - More generic methods
 
-`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(109) I see as advantage compared to the 255 of `Ramda`.
+`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(124) I see as advantage compared to the 255 of `Ramda`.
 
 Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
@@ -140,12 +140,12 @@ You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-mi
 
 ## Install
 
-- Use **yarn add rambda** for `Webpack` and `Node.js` usage
+- **yarn add rambda**
 
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
+https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -173,6 +173,8 @@ https://unpkg.com/rambda@4.0.1/dist/rambda.umd.js
 - Rambda's **flip** works only for functions expecting two arguments.
 
 - Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+
+- Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Rambda's **partialCurry** is not part of Ramda API.
 
@@ -2300,10 +2302,10 @@ R.always source
 </summary>
 
 ```javascript
-export function always(x){ 
+export function always(x){
   return () => x
 }
- 
+
 ```
 
 </details>
@@ -3252,9 +3254,11 @@ R.defaultTo source
 
 ```javascript
 function flagIs(inputArguments){
-  return inputArguments === undefined ||
+  return (
+    inputArguments === undefined ||
     inputArguments === null ||
     Number.isNaN(inputArguments) === true
+  )
 }
 
 export function defaultTo(defaultArgument, ...inputArguments){
@@ -3282,9 +3286,7 @@ export function defaultTo(defaultArgument, ...inputArguments){
     }
   }
 
-  return holder === undefined ?
-    defaultArgument :
-    holder
+  return holder === undefined ? defaultArgument : holder
 }
 
 ```
@@ -4144,6 +4146,9 @@ const filterFn = a => a % 2 === 0
 
 const result = R.filter(filterFn, [1, 2, 3, 4])
 // => [2, 4]
+
+const objResult = R.filter(filterFn, {a: 1, b: 2})
+// => {b: 2}
 ```
 
 <details>
@@ -4154,11 +4159,8 @@ R.filter tests
 
 ```javascript
 import { filter } from './filter'
-import { compose } from './compose'
-import { add } from './add'
-import { map } from './map'
-import { equals } from './equals'
 import { T } from './T'
+import Ramda from 'ramda'
 
 const sampleObject = {
   a : 1,
@@ -4167,42 +4169,36 @@ const sampleObject = {
   d : 4,
 }
 
-test('with compose', () => {
-  const result = compose(
-    filter(equals(2)),
-    map(add(1))
-  )(sampleObject)
+test('happy', () => {
+  const isEven = n => n % 2 === 0
 
-  expect(result).toEqual({ a : 2 })
+  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+  expect(filter(isEven, {
+    a : 1,
+    b : 2,
+    d : 3,
+  })).toEqual({ b : 2 })
 })
 
-test('bad case - undefined', () => {
+test('bad inputs', () => {
   expect(filter(T)(undefined)).toEqual([])
+  expect(filter(T, null)).toEqual([])
+  expect(() => Ramda.filter(T, null)).toThrow()
+  expect(() => Ramda.filter(T, undefined)).toThrow()
 })
 
-test('with object it passes property as second argument', () => {
-  filter((val, prop) => {
-    expect(typeof prop).toEqual('string')
-  })(sampleObject)
-})
-
-test('pass input object as third argument', () => {
+test('predicate when input is object', () => {
   const obj = {
     a : 1,
     b : 2,
   }
   const predicate = (val, prop, inputObject) => {
     expect(inputObject).toEqual(obj)
+    expect(typeof prop).toEqual('string')
 
     return val < 2
   }
   expect(filter(predicate, obj)).toEqual({ a : 1 })
-})
-
-test('with array', () => {
-  const isEven = n => n % 2 === 0
-
-  expect(filter(isEven, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
 test('pass index as second argument', () => {
@@ -4253,7 +4249,7 @@ function filterObject(fn, obj){
 export function filter(fn, list){
   if (arguments.length === 1) return _list => filter(fn, _list)
 
-  if (list === undefined){
+  if (list == undefined){
     return []
   }
 
@@ -4281,19 +4277,7 @@ export function filter(fn, list){
 
 </details>
 
-The method works with objects as well.
-
-Note that unlike Ramda's `filter`, here object keys are passed as second argument to `filterFn`.
-
-```
-const result = R.filter((val, prop)=>{
-  return prop === 'a' || val === 2
-}, {a: 1, b: 2, c: 3})
-
-// => {a: 1, b: 2}
-```
-
-<a href="https://rambda.now.sh?const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0Aconst%20result%20%3D%20R.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20filterFn%20%3D%20a%20%3D%3E%20a%20%25%202%20%3D%3D%3D%200%0A%0Aconst%20result%20%3D%20R.filter(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D%0A%0Aconst%20objResult%20%3D%20R.filter(filterFn%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%202%7D">Try in REPL</a>
 
 ---
 #### find
@@ -4462,6 +4446,7 @@ import { findLast } from './findLast'
 test('happy', () => {
   const result = findLast((x, i) => {
     expect(typeof i).toBe('number')
+
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
   expect(
@@ -4564,9 +4549,10 @@ import { findLastIndex } from './findLastIndex'
 test('happy', () => {
   const result = findLastIndex((x, i) => {
     expect(typeof i).toBe('number')
+
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
-  
+
   expect(
     result
   ).toEqual(5)
@@ -4774,9 +4760,9 @@ export function flip(fn){
 ---
 #### forEach
 
-> forEach(fn: Function, arr: Array): Array
+> forEach(fn: Function, x: Array|Object): Array|Object
 
-It applies function `fn` over all members of array `arr` and returns `arr`.
+It applies function `fn` over all members of iterable `x` and returns `x`.
 
 ```javascript
 const sideEffect = {}
@@ -4806,20 +4792,20 @@ test('iterate over object', () => {
     f : 'foo',
   }
   const result = {}
-  const getLength = x => Object.keys(x).length
-  forEach(
-    (val, prop, inputObj) =>
-      result[ prop ] = `${ prop }::${ type(val) }::${ getLength(inputObj) }`
-  )(obj)
+  const returned = forEach((val, prop, inputObj) => {
+    expect(type(inputObj)).toBe('Object')
+    result[ prop ] = `${ prop }-${ type(val) }`
+  })(obj)
 
   const expected = {
-    a : 'a::Number::4',
-    b : 'b::Array::4',
-    c : 'c::Object::4',
-    f : 'f::String::4',
+    a : 'a-Number',
+    b : 'b-Array',
+    c : 'c-Object',
+    f : 'f-String',
   }
 
   expect(result).toEqual(expected)
+  expect(returned).toEqual(obj)
 })
 
 test('happy', () => {
@@ -4912,8 +4898,6 @@ export function forEach(fn, list){
 ```
 
 </details>
-
-Note, that unlike `Ramda`'s **forEach**, Rambda's one doesn't dispatch to `forEach` method of `arr` if `arr` has such method.
 
 <a href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0Aconsole.log(sideEffect)%20%2F%2F%3D%3E%20%7Bfoo1%20%3A%201%2C%20foo2%20%3A%202%7D%0Aconsole.log(result)%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
@@ -5259,12 +5243,7 @@ export function identity(x){
 
 > ifElse(condition: Function|boolean, ifFn: Function, elseFn: Function): Function
 
-It returns function, which expect `input` as argument and returns `finalResult`.
-
-When this function is called, a value `answer` is generated as a result of `condition(input)`.
-
-If `answer` is `true`, then `finalResult` is equal to `ifFn(input)`.
-If `answer` is `false`, then `finalResult` is equal to `elseFn(input)`.
+It returns another function. When this new function is called with `input` argument, it will return either `ifFn(input)` or `elseFn(input)` depending on `condition(input)` evaluation.
 
 ```javascript
 const fn = R.ifElse(
@@ -5471,16 +5450,22 @@ export function includes(target, list){
 ---
 #### indexBy
 
-> indexBy(fn: Function, arr: T[]): Object
+> indexBy(condition: Function|String, arr: T[]): Object
 
-It indexes array `arr` as an object with provided selector function `fn`.
+Generates object with properties provided by `condition` and values provided by `arr`. If `condition` is a string, then it is passed to `R.path`.
 
 ```javascript
-R.indexBy(
+const arr = [ {id: 1}, {id: 2} ]
+const result = R.indexBy(
   x => x.id,
-  [ {id: 1}, {id: 2} ]
+  arr
+)
+const pathResult = R.indexBy(
+  'id',
+  arr
 )
 // => { 1: {id: 1}, 2: {id: 2} }
+// pathResult === result
 ```
 
 <details>
@@ -5493,15 +5478,62 @@ R.indexBy tests
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
-test('indexBy', () => {
-  const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
+test.only('indexBy', () => {
+  const list = [ { id : 1 }, {
+    id : 1,
+    a  : 2,
+  }, { id : 2 }, { id : 10 }, { id : 'a' } ]
 
   expect(indexBy(prop('id'))(list)).toEqual({
-    1  : { id : 1 },
+    1 : {
+      id : 1,
+      a  : 2,
+    },
     2  : { id : 2 },
     10 : { id : 10 },
     a  : { id : 'a' },
   })
+})
+
+test('suggestion', () => {
+  const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
+  const standardResult = indexBy(obj => obj.id, list)
+  const suggestionResult = indexBy('id', list)
+
+  expect(standardResult).toEqual(suggestionResult)
+})
+
+test('suggestion - bad path', () => {
+  const list = [ {
+    a : {
+      b : 1,
+      c : 2,
+    },
+  }, { a : { c : 4 } }, {}, {
+    a : {
+      b : 10,
+      c : 20,
+    },
+  } ]
+
+  const result = indexBy('a.b', list)
+  const expected = {
+    1 : {
+      a : {
+        b : 1,
+        c : 2,
+      },
+    },
+    10 : {
+      a : {
+        b : 10,
+        c : 20,
+      },
+    },
+    undefined : {},
+  }
+
+  expect(result).toEqual(expected)
 })
 
 ```
@@ -5515,23 +5547,41 @@ R.indexBy source
 </summary>
 
 ```javascript
-export function indexBy(fn, list){
-  if (arguments.length === 1) return _list => indexBy(fn, _list)
+import { path } from './path'
 
-  const result = {}
+function indexByPath(pathInput, list){
+  const toReturn = {}
   for (let i = 0; i < list.length; i++){
     const item = list[ i ]
-    result[ fn(item) ] = item
+    toReturn[ path(pathInput, item) ] = item
   }
 
-  return result
+  return toReturn
+}
+
+export function indexBy(fnOrPath, list){
+  if (arguments.length === 1){
+    return _list => indexBy(fnOrPath, _list)
+  }
+
+  if (typeof fnOrPath === 'string'){
+    return indexByPath(fnOrPath, list)
+  }
+
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ fnOrPath(item) ] = item
+  }
+
+  return toReturn
 }
 
 ```
 
 </details>
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20%5B%20%7Bid%3A%201%7D%2C%20%7Bid%3A%202%7D%20%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%201%3A%20%7Bid%3A%201%7D%2C%202%3A%20%7Bid%3A%202%7D%20%7D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20arr%20%3D%20%5B%20%7Bid%3A%201%7D%2C%20%7Bid%3A%202%7D%20%5D%0Aconst%20result%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20arr%0A)%0Aconst%20pathResult%20%3D%20R.indexBy(%0A%20%20'id'%2C%0A%20%20arr%0A)%0A%2F%2F%20%3D%3E%20%7B%201%3A%20%7Bid%3A%201%7D%2C%202%3A%20%7Bid%3A%202%7D%20%7D%0A%2F%2F%20pathResult%20%3D%3D%3D%20result">Try in REPL</a>
 
 ---
 #### indexOf
@@ -5947,7 +5997,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 
 > last(arrOrStr: T[]|string): T|string
 
-- It returns the last element of `arrOrStr`.
+It returns the last element of `arrOrStr`.
 
 ```javascript
 R.last(['foo', 'bar', 'baz']) // => 'baz'
@@ -5961,18 +6011,9 @@ R.last tests
 </summary>
 
 ```javascript
-import { compose } from './compose'
 import { last } from './last'
-import { map } from './map'
 
-test('last', () => {
-  expect(
-    compose(
-      last,
-      map(last)
-    )([ 'foo', 'bar', 'baz' ])
-  ).toEqual('z')
-
+test('happy', () => {
   expect(last([ 'foo', 'bar', 'baz' ])).toEqual('baz')
   expect(last([])).toEqual(undefined)
   expect(last('abc')).toEqual('c')
@@ -7068,15 +7109,13 @@ finalFn('bar') // =>  'Hello, Ms. foo bar!'
 ---
 #### partialCurry
 
-> partialCurry(fn: Function|Async, a: Object, b: Object): Function|Promise
+> partialCurry(fn: Function|Async, partialInput: Object, input: Object): Function|Promise
 
-When called with function `fn` and first set of input `a`, it will return a function.
+When called with function `fn` and first set of input `partialInput`, it will return a function.
 
-This function will wait to be called with second set of input `b` and it will invoke `fn` with the merged object of `a` over `b`.
+This function will wait to be called with second set of input `input` and it will invoke `fn` with the merged object of `partialInput` over `input`.
 
 `fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
-
-See the example below:
 
 ```javascript
 const fn = ({a, b, c}) => {
@@ -7994,13 +8033,19 @@ R.replace tests
 ```javascript
 import { replace } from './replace'
 
-test('', () => {
-  expect(replace('foo', 'yes', 'foo bar baz')).toEqual(
-    'yes bar baz'
-  )
+test('happy', () => {
+  expect(replace('foo', 'yes', 'foo bar baz')).toEqual('yes bar baz')
+})
 
+test('1', () => {
   expect(replace(/\s/g)('|')('foo bar baz')).toEqual('foo|bar|baz')
+})
+
+test('2', () => {
   expect(replace(/\s/g)('|', 'foo bar baz')).toEqual('foo|bar|baz')
+})
+
+test('3', () => {
   expect(replace(/\s/g, '|')('foo bar baz')).toEqual('foo|bar|baz')
 })
 
@@ -8348,7 +8393,7 @@ export function split(separator, str){
 
 > splitEvery(sliceLength: number, arrOrString: T[]|string): T[T[]]|string[]
 
-- It splits `arrOrStr` into slices of `sliceLength`.
+It splits `arrOrStr` into slices of `sliceLength`.
 
 ```javascript
 R.splitEvery(2, [1, 2, 3]) // => [[1, 2], [3]]
@@ -8596,7 +8641,7 @@ export function tail(list){
 
 > take(num: number, arrOrStr: T[]|string): T[]|string
 
-- It returns the first `num` elements of `arrOrStr`.
+It returns the first `num` elements of `arrOrStr`.
 
 ```javascript
 R.take(1, ['foo', 'bar']) // => ['foo']
@@ -8679,7 +8724,7 @@ export function take(n, list){
 
 > takeLast(num: number, arrOrStr: T[]|string): T[]|string
 
-- It returns the last `num` elements of `arrOrStr`.
+It returns the last `num` elements of `arrOrStr`.
 
 ```javascript
 R.takeLast(1, ['foo', 'bar']) // => ['bar']
@@ -8771,7 +8816,7 @@ export function takeLast(n, list){
 
 > tap(fn: Function, input: T): T
 
-- It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
+It applies function to input and pass the input back. Use case is debuging in the middle of `R.compose`.
 
 ```javascript
 let a = 1
@@ -8829,7 +8874,7 @@ export function tap(fn, x){
 
 > test(regExpression: Regex, str: string): boolean
 
-- Determines whether `str` matches `regExpression`
+Determines whether `str` matches `regExpression`
 
 ```
 R.test(/^f/, 'foo')
@@ -9961,7 +10006,15 @@ import omit from 'rambda/lib/omit'
 
 ## Changelog
 
-- 4.3.0 Close [Issue #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.transpose`
+- 4.4.0 Several changes:
+
+Close [Issue #317](https://github.com/selfrefactor/rambda/issues/317) - add `R.transpose`
+
+Close [Issue #325](https://github.com/selfrefactor/rambda/issues/325) - `R.filter` should return equal values for bad inputs `null` and `undefined`
+
+Approve suggestion for `R.indexBy` to accept string not only function as first argument.
+
+Edit of `R.path` typings
 
 - 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.and`
 

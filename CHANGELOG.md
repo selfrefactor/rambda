@@ -1,4 +1,4 @@
-- 4.3.0 Several changes:
+- 4.4.0 Several changes:
 
 Close [Issue #317](https://github.com/selfrefactor/rambda/issues/317) - add `R.transpose`
 
