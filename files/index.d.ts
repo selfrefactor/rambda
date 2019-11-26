@@ -432,7 +432,7 @@ declare namespace R {
     // SINGLE_MARKER
     pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
     pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: pathToSearch, b: any) => any>;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
 
     // SINGLE_MARKER
     pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
