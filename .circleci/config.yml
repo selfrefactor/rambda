@@ -1,35 +1,54 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:10.17
+version: 2.1
 
-    working_directory: ~/repo
-
+commands:
+  test-nodejs:
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-      - run: yarn install
-
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Typings fix
+          command: mkdir /home/circleci/.dts/perf -p    
+      - run:
+          name: Test
+          command: yarn run cover   
+      - run:
+          name: Upload
+          command: bash <(curl -s https://codecov.io/bash)   
+      - save-npm-cache
+  save-npm-cache:
+    steps:
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      # needed for dtslint
-      - run: mkdir /home/circleci/.dts/perf -p   	  
-      # run tests!
-      - run: yarn run cover
 
-      - run: bash <(curl -s https://codecov.io/bash)
+jobs:
+  node-v8:
+    docker:
+      - image: node:8
+    steps:
+      - test-nodejs
+  node-v10:
+    docker:
+      - image: node:10
+    steps:
+      - test-nodejs
+  node-v11:
+    docker:
+      - image: node:11
+    steps:
+      - test-nodejs
+
+workflows:
+  node-multi-build:
+    jobs:
+      - node-v8
+      - node-v10
+      - node-v11
