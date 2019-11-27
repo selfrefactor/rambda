@@ -817,7 +817,7 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
     /*
 			It has the opposite effect of `R.filter`.
 
-It will return those members of `arr` that return `false` when applied to function `fn`.	
+It will return those members of `arr` that return `false` when applied to function `filterFn`.	
 		*/	
     reject<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
     reject<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];

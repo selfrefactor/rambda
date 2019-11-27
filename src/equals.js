@@ -19,25 +19,6 @@ function parseRegex(maybeRegex){
   return [ true, maybeRegex.toString() ]
 }
 
-/**
- * Returns `true` if its arguments are equivalent, `false` otherwise.
- *
- * @func
- * @category Relation
- * @sig a -> b -> Boolean
- * @param {*} a
- * @param {*} b
- * @return {Boolean}
- * @example
- *
- *      R.equals(1, 1); //=> true
- *      R.equals(1, '1'); //=> false
- *      R.equals([1, 2, 3], [1, 2, 3]); //=> true
- *
- *      const a = {}; a.v = a;
- *      const b = {}; b.v = b;
- *      R.equals(a, b); //=> true
- */
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
