@@ -6559,7 +6559,7 @@ export function merge(obj, props){
 > min(x: Number|String, y: Number|String): Number|String
 
 ```javascript
-R.max(5,7) // => 5
+R.min(5,7) // => 5
 ```
 
 <details>
