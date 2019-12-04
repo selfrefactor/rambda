@@ -136,7 +136,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
-You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
+You can [check the list with missing  Ramda methods in Rambda](https://github.com/selfrefactor/rambda/blob/master/files/ramdaMissing.md)  list to assure that `Rambda` doesn't have any important misses.
 
 ## Install
 
@@ -2083,6 +2083,16 @@ R.adjust source
 ```javascript
 import { curry } from './curry'
 
+function adjustFn(index, fn, list){
+  const actualIndex = index < 0 ? list.length + index : index
+  if (index >= list.length || actualIndex < 0) return list
+
+  const clone = list.slice()
+  clone[ actualIndex ] = fn(clone[ actualIndex ])
+
+  return clone
+}
+
 export const adjust = curry(adjustFn)
 
 ```
@@ -2663,6 +2673,10 @@ R.assoc source
 ```javascript
 import { curry } from './curry'
 
+function assocFn(prop, val, obj){
+  return Object.assign({}, obj, { [ prop ] : val })
+}
+
 export const assoc = curry(assocFn)
 
 ```
@@ -3141,11 +3155,38 @@ export function curry(fn, args = []){
 
 It decrements a number.
 
-```
+```javascript
 R.dec(2) // => 1
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/dec.js)
+<details>
+
+<summary>
+R.dec tests
+</summary>
+
+```javascript
+import {dec} from './dec'
+
+test('happy', () => {
+  expect(dec(2)).toBe(1)
+})
+```
+
+</details>
+
+<details>
+
+<summary>
+R.dec source
+</summary>
+
+```javascript
+export const dec = n => n - 1
+
+```
+
+</details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.dec(2)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
@@ -5337,6 +5378,19 @@ R.ifElse source
 ```javascript
 import { curry } from './curry'
 
+function ifElseFn(condition, onTrue, onFalse){
+
+  return (...input) => {
+    const conditionResult = typeof condition === 'boolean' ? condition : condition(...input)
+
+    if (conditionResult === true){
+      return onTrue(...input)
+    }
+
+    return onFalse(...input)
+  }
+}
+
 export const ifElse = curry(ifElseFn)
 
 ```
@@ -5352,11 +5406,38 @@ export const ifElse = curry(ifElseFn)
 
 It increments a number.
 
-```
+```javascript
 R.inc(1) // => 2
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/inc.js)
+<details>
+
+<summary>
+R.inc tests
+</summary>
+
+```javascript
+import {inc} from './inc'
+
+test('happy', () => {
+  expect(inc(1)).toBe(2)
+})
+```
+
+</details>
+
+<details>
+
+<summary>
+R.inc source
+</summary>
+
+```javascript
+export const inc = n => n + 1
+
+```
+
+</details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.inc(1)%20%2F%2F%20%3D%3E%202">Try in REPL</a>
 
@@ -5478,7 +5559,7 @@ R.indexBy tests
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
-test.only('indexBy', () => {
+test('indexBy', () => {
   const list = [ { id : 1 }, {
     id : 1,
     a  : 2,
@@ -5984,11 +6065,40 @@ export function join(separator, list){
 
 > keys(x: Object): string[]
 
-```
+```javascript
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
 
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/keys.js)
+<details>
+
+<summary>
+R.keys tests
+</summary>
+
+```javascript
+import { keys } from './keys.js'
+
+test('happy', () => {
+  expect(keys({a:1})).toEqual(['a'])
+})
+```
+
+</details>
+
+<details>
+
+<summary>
+R.keys source
+</summary>
+
+```javascript
+export function keys(obj){
+  return Object.keys(obj)
+}
+
+```
+
+</details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.keys(%7Ba%3A1%2C%20b%3A2%7D)%20%20%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%5D">Try in REPL</a>
 
@@ -6597,7 +6707,7 @@ export function min(a, b){
 
 </details>
 
-<a href="https://rambda.now.sh?const%20result%20%3D%20R.max(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20result%20%3D%20R.min(5%2C7)%20%2F%2F%20%3D%3E%205">Try in REPL</a>
 
 ---
 #### minBy
@@ -7078,6 +7188,13 @@ R.pathOr source
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
+
+function pathOrRaw(defaultValue, list, obj){
+  return defaultTo(
+    defaultValue,
+    path(list, obj)
+  )
+}
 
 export const pathOr = curry(pathOrRaw)
 
@@ -7627,6 +7744,12 @@ R.propEq source
 ```javascript
 import { curry } from './curry'
 
+function propEqFn(key, val, obj){
+  if (obj == null) return false
+
+  return obj[ key ] === val
+}
+
 export const propEq = curry(propEqFn)
 
 ```
@@ -7682,6 +7805,10 @@ R.propIs source
 ```javascript
 import { is } from './is'
 import { curry } from './curry.js'
+
+function propIsFn(type, name, obj){
+  return is(type, obj[ name ])
+}
 
 export const propIs = curry(propIsFn)
 
@@ -7849,6 +7976,10 @@ R.reduce source
 ```javascript
 import { curry } from './curry'
 
+function reduceFn(fn, acc, list){
+  return list.reduce(fn, acc)
+}
+
 export const reduce = curry(reduceFn)
 
 ```
@@ -7860,16 +7991,16 @@ export const reduce = curry(reduceFn)
 ---
 #### reject
 
-> reject(fn: Function, arr: T[]): T[]
+> reject(filterFn: Function, arr: T[]): T[]
 
 It has the opposite effect of `R.filter`.
 
-It will return those members of `arr` that return `false` when applied to function `fn`.
+It will return those members of `arr` that return `false` when applied to function `filterFn`.
 
 ```javascript
-const fn = x => x % 2 === 1
+const filterFn = x => x % 2 === 1
 
-const result = R.reject(fn, [1, 2, 3, 4])
+const result = R.reject(filterFn, [1, 2, 3, 4])
 // => [2, 4]
 ```
 
@@ -7954,7 +8085,7 @@ export function reject(fn, list){
 
 </details>
 
-<a href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.reject(fn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20filterFn%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.reject(filterFn%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try in REPL</a>
 
 ---
 #### repeat
@@ -8680,10 +8811,6 @@ test('happy', () => {
 })
 
 test('with negative index', () => {
-  console.log(
-    take(1, [ [ 1, 2, 3 ] ]),
-    R.take(1, [ [ 1, 2, 3 ] ]),
-  )
   expect(take(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
   expect(take(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })
@@ -9977,6 +10104,7 @@ R.zipObj source
 
 ```javascript
 import { take } from './take'
+
 export function zipObj(keys, values){
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
 
@@ -10005,6 +10133,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.4.1 Make `R.reject` has the same typing as `R.filter`
 
 - 4.4.0 Several changes:
 

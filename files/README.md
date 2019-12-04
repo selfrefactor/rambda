@@ -85,7 +85,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
-You can [check the list with missing  Ramda methods in Rambda](#ramda-methods-missing-in-rambda) list to assure that `Rambda` doesn't have any important misses.
+You can [check the list with missing  Ramda methods in Rambda](https://github.com/selfrefactor/rambda/blob/master/files/ramdaMissing.md)  list to assure that `Rambda` doesn't have any important misses.
 
 ## Install
 
@@ -1017,7 +1017,7 @@ R.merge({ 'foo': 0, 'bar': 1 }, { 'foo': 7 })
 > min(x: Number|String, y: Number|String): Number|String
 
 ```
-R.max(5,7) // => 5
+R.min(5,7) // => 5
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/min.js)
