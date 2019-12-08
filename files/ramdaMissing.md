@@ -90,8 +90,6 @@
 
 ### Logic
  
- [and](https://raw.githubusercontent.com/ramda/ramda/master/source/and.js)
- 
  [cond](https://raw.githubusercontent.com/ramda/ramda/master/source/cond.js)
  
  [or](https://raw.githubusercontent.com/ramda/ramda/master/source/or.js)
