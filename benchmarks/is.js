@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
 
