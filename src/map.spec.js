@@ -60,6 +60,25 @@ test('with object passes property as second argument', () => {
   })(sampleObject)
 })
 
+test('map with index example', () => {
+  const mappedWithIndex = (fn,obj) => {
+    let counter = -1
+    return map(
+      (...inputs) => {
+        counter++
+        return fn(...inputs, counter)
+      },
+      obj
+    )
+  }
+  const fn = (x, prop, obj, index) => {
+    console.log({index}) // => {index:0} | {index:1}
+    return x + 1
+  }
+  const result = mappedWithIndex(fn, {a:1, b:2})
+  console.log({result}) // => {a:2, b:3}
+})
+
 /**
  * https://github.com/selfrefactor/rambda/issues/77
  */
