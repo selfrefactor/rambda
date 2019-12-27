@@ -16,7 +16,7 @@ declare namespace R {
 
   type Ord = number | string | boolean | Date;
 
-  type Path = ReadonlyArray<(number | string)>;
+  type PathInput = string | ReadonlyArray<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
@@ -94,9 +94,9 @@ reference.
     assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
 
     
-    assocPath<T, U>(path: Path, val: T, obj: U): U;
-    assocPath<T, U>(path: Path, val: T): (obj: U) => U;
-    assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
+    assocPath<T, U>(path: PathInput, val: T, obj: U): U;
+    assocPath<T, U>(path: PathInput, val: T): (obj: U) => U;
+    assocPath<T, U>(path: PathInput): F.Curry<(a: T, b: U) => U>;
 
     
     and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
@@ -548,9 +548,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: PathInput, obj: any): any;
+    pathOr<T>(defaultValue: T, pathToSearch: PathInput): (obj: any) => any;
+    pathOr<T>(defaultValue: T): F.Curry<(a: PathInput, b: any) => any>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	
