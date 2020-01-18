@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "r.clamp",
     "docs": [
       "docsify",
       "repl",

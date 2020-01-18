@@ -16,7 +16,7 @@ declare namespace R {
 
   type Ord = number | string | boolean | Date;
 
-  type PathInput = string | ReadonlyArray<(number | string)>;
+  type Path = ReadonlyArray<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
@@ -94,9 +94,9 @@ reference.
     assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
 
     
-    assocPath<T, U>(path: PathInput, val: T, obj: U): U;
-    assocPath<T, U>(path: PathInput, val: T): (obj: U) => U;
-    assocPath<T, U>(path: PathInput): F.Curry<(a: T, b: U) => U>;
+    assocPath<T, U>(path: Path, val: T, obj: U): U;
+    assocPath<T, U>(path: Path, val: T): (obj: U) => U;
+    assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
 
     
     and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
@@ -115,8 +115,11 @@ reference.
     either(pred1: Pred, pred2: Pred): Pred;
     either(pred1: Pred): (pred2: Pred) => Pred;
 
+    
     clamp(min: number, max: number, input:number): number;
-
+    clamp(min: number, max: number) : (input:number) => number;
+    
+    
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
@@ -549,9 +552,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, pathToSearch: PathInput, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: PathInput): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: PathInput, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	
