@@ -115,7 +115,8 @@ reference.
     either(pred1: Pred, pred2: Pred): Pred;
     either(pred1: Pred): (pred2: Pred) => Pred;
 
-    
+    clamp(min: number, max: number, input:number): number;
+
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 

@@ -99,6 +99,10 @@ declare namespace R {
     either(pred1: Pred): (pred2: Pred) => Pred;
 
     // SINGLE_MARKER
+    clamp(min: number, max: number, input:number): number;
+    clamp(min: number, max: number) : (input:number) => number;
+    
+    // SINGLE_MARKER
     clone<T>(value: T): T;
     clone<T>(value: ReadonlyArray<T>): T[];
 
