@@ -1,3 +1,5 @@
+- 4.4.2 Improve `R.propOr` typings
+
 - 4.4.1 Make `R.reject` has the same typing as `R.filter`
 
 - 4.4.0 Several changes:

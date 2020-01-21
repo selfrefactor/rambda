@@ -552,9 +552,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	
