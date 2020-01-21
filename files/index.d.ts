@@ -16,7 +16,7 @@ declare namespace R {
 
   type Ord = number | string | boolean | Date;
 
-  type Path = ReadonlyArray<(number | string)>;
+  type Path = string | ReadonlyArray<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
