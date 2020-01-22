@@ -323,8 +323,7 @@ It doesn't handle cyclical data structures.
     /*
 			It returns the first element of `arrOrStr`.	
 		*/	
-    head<T>(arrOrStr: Array<T>): T | undefined;
-    head(arrOrStr: string): string;
+    head<T extends Readonly<any> | string>(arrOrStr: T): T[0] | undefined;
 
     
     identical<T>(a: T, b: T): boolean;
