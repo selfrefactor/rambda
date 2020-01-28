@@ -1,8 +1,8 @@
-import { reject } from './reject'
-import { compose } from './compose'
 import { add } from './add'
-import { map } from './map'
+import { compose } from './compose'
 import { equals } from './equals'
+import { map } from './map'
+import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
 
@@ -11,24 +11,20 @@ test('with array', () => {
 })
 
 test('with object', () => {
-  expect(
-    reject(isOdd, {
-      a : 1,
-      b : 2,
-      c : 3,
-      d : 4,
-    })
-  ).toEqual({
+  expect(reject(isOdd, {
+    a : 1,
+    b : 2,
+    c : 3,
+    d : 4,
+  })).toEqual({
     b : 2,
     d : 4,
   })
 })
 
 test('should work with currying', () => {
-  const result = compose(
-    reject(equals(2)),
-    map(add(1))
-  )({
+  const result = compose(reject(equals(2)),
+    map(add(1)))({
     a : 1,
     b : 2,
     c : 3,
@@ -41,10 +37,8 @@ test('should work with currying', () => {
 })
 
 test('pass index as second argument', () => {
-  reject(
-    (x, i) => {
-      expect(typeof x).toBe('number')
-      expect(typeof i).toBe('number')
-    }
-  )([ 10, 12, 15 ])
+  reject((x, i) => {
+    expect(typeof x).toBe('number')
+    expect(typeof i).toBe('number')
+  })([ 10, 12, 15 ])
 })

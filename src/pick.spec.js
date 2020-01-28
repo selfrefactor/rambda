@@ -18,24 +18,20 @@ test('pick with string as condition', () => {
 })
 
 test('pick', () => {
-  expect(
-    pick([ 'a', 'c' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({
+  expect(pick([ 'a', 'c' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({
     a : 'foo',
     c : 'baz',
   })
 
-  expect(
-    pick([ 'a', 'd', 'e', 'f' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({ a : 'foo' })
+  expect(pick([ 'a', 'd', 'e', 'f' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({ a : 'foo' })
 
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })

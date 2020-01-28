@@ -9,47 +9,37 @@ test('input is null or undefined', () => {
 })
 
 test('property exists curried', () => {
-  expect(
-    dissoc('b')({
-      a : 1,
-      b : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc('b')({
+    a : 1,
+    b : 2,
+  })).toEqual({ a : 1 })
 })
 
 test('property doesn\'t exists', () => {
-  expect(
-    dissoc('c', {
-      a : 1,
-      b : 2,
-    })
-  ).toEqual({
+  expect(dissoc('c', {
+    a : 1,
+    b : 2,
+  })).toEqual({
     a : 1,
     b : 2,
   })
 })
 
 test('works with non-string property', () => {
-  expect(
-    dissoc(42, {
-      a  : 1,
-      42 : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(42, {
+    a  : 1,
+    42 : 2,
+  })).toEqual({ a : 1 })
 
-  expect(
-    dissoc(null, {
-      a    : 1,
-      null : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(null, {
+    a    : 1,
+    null : 2,
+  })).toEqual({ a : 1 })
 
-  expect(
-    dissoc(undefined, {
-      a         : 1,
-      undefined : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(undefined, {
+    a         : 1,
+    undefined : 2,
+  })).toEqual({ a : 1 })
 })
 
 test('includes prototype properties', () => {

@@ -1,7 +1,7 @@
-import { pipe } from './pipe'
-import { map } from './map'
 import { add } from './add'
 import { last } from './last'
+import { map } from './map'
+import { pipe } from './pipe'
 
 test('pipe', () => {
   const result = pipe(
@@ -14,9 +14,5 @@ test('pipe', () => {
 })
 
 test('with bad input', () => {
-  expect(
-    () => pipe()
-  ).toThrow(
-    'pipe requires at least one argument'
-  )
+  expect(() => pipe()).toThrow('pipe requires at least one argument')
 })

@@ -1,5 +1,6 @@
-import { type } from './type'
 import { type as ramdaType } from 'ramda'
+
+import { type } from './type'
 
 test('with simple promise', () => {
   expect(type(Promise.resolve(1))).toBe('Promise')

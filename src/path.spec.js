@@ -15,19 +15,13 @@ test('works with undefined', () => {
 })
 
 test('works with string instead of array', () => {
-  expect(
-    path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })
-  ).toEqual('yes')
+  expect(path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })).toEqual('yes')
 })
 
 test('path', () => {
-  expect(
-    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })
-  ).toEqual('yes')
+  expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })).toEqual('yes')
 
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
 
-  expect(
-    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })
-  ).toBeUndefined()
+  expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
 })

@@ -2,7 +2,9 @@ function mapObject(fn, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    willReturn[ prop ] = fn(obj[ prop ], prop, obj)
+    willReturn[ prop ] = fn(
+      obj[ prop ], prop, obj
+    )
   }
 
   return willReturn

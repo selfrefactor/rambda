@@ -1,9 +1,9 @@
 import { add } from './add'
-import { map } from './map'
-import { multiply } from './multiply'
+import { compose } from './compose'
 import { filter } from './filter'
 import { last } from './last'
-import { compose } from './compose'
+import { map } from './map'
+import { multiply } from './multiply'
 
 test('happy', () => {
   const result = compose(
@@ -16,10 +16,8 @@ test('happy', () => {
 })
 
 test('accepts initially two arguments', () => {
-  const result = compose(
-    map(x => x * 2),
-    (a, y) => filter(x => x > y, a)
-  )([ 1, 2, 3, 4 ], 2)
+  const result = compose(map(x => x * 2),
+    (a, y) => filter(x => x > y, a))([ 1, 2, 3, 4 ], 2)
 
   expect(result).toEqual([ 6, 8 ])
 })
@@ -29,7 +27,11 @@ test('when no arguments is passed', () => {
 })
 
 test('ramda spec', () => {
-  const f = function(a, b, c){ return [ a, b, c ] }
+  const f = function(
+    a, b, c
+  ){ return [ a, b, c ] }
   const g = compose(f)
-  expect(g(1, 2, 3)).toEqual([ 1, 2, 3 ])
+  expect(g(
+    1, 2, 3
+  )).toEqual([ 1, 2, 3 ])
 })

@@ -9,10 +9,8 @@ export function uniqWith(fn, list){
 
   while (++index < len){
     const value = list[ index ]
-    const flag = any(
-      willReturnInstance => fn(value, willReturnInstance),
-      willReturn
-    )
+    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+      willReturn)
 
     if (!flag){
       willReturn.push(value)

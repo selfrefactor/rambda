@@ -1,5 +1,6 @@
-import { add } from './add'
 import R from 'ramda'
+
+import { add } from './add'
 
 test('with number', () => {
   expect(add(2, 3)).toEqual(5)

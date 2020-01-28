@@ -1,6 +1,7 @@
-import { times } from './times'
-import { identity } from './identity'
 import assert from 'assert'
+
+import { identity } from './identity'
+import { times } from './times'
 
 test('happy', () => {
   const result = times(identity, 5)

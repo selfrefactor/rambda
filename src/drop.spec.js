@@ -1,5 +1,6 @@
-import { drop } from './drop'
 import assert from 'assert'
+
+import { drop } from './drop'
 
 test('with array', () => {
   expect(drop(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])

@@ -19,23 +19,19 @@ test('with null', () => {
 })
 
 test('doesn\'t work with number as property', () => {
-  expect(
-    omit([ 42 ], {
-      a  : 1,
-      42 : 2,
-    })
-  ).toEqual({
+  expect(omit([ 42 ], {
+    a  : 1,
+    42 : 2,
+  })).toEqual({
     42 : 2,
     a  : 1,
   })
 })
 
 test('', () => {
-  expect(
-    omit([ 'a', 'c' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({ b : 'bar' })
+  expect(omit([ 'a', 'c' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({ b : 'bar' })
 })

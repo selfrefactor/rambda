@@ -6,5 +6,7 @@ test('flip', () => {
 
   expect(fn(1)(7)).toEqual(6)
   expect(fn(1, 7)).toEqual(6)
-  expect(fn(1, 7, 9)).toEqual(undefined)
+  expect(fn(
+    1, 7, 9
+  )).toEqual(undefined)
 })

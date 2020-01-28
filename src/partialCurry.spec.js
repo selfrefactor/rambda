@@ -1,17 +1,15 @@
-import { type } from './type'
 import { partialCurry } from './partialCurry'
+import { type } from './type'
 
 test('', () => {
   const fn = ({ a, b, c }) => a + b + c
   const curried = partialCurry(fn, { a : 1 })
 
   expect(type(curried)).toEqual('Function')
-  expect(
-    curried({
-      b : 2,
-      c : 3,
-    })
-  ).toEqual(6)
+  expect(curried({
+    b : 2,
+    c : 3,
+  })).toEqual(6)
   expect(true).toBeTruthy()
 })
 

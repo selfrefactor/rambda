@@ -1,5 +1,5 @@
-import { groupWith } from './groupWith'
 import { equals } from './equals'
+import { groupWith } from './groupWith'
 
 test('happy', () => {
   const result = groupWith(equals, [
@@ -37,10 +37,8 @@ test('happy', () => {
 test('readme example', () => {
   const list = [ 4, 3, 6, 2, 2, 1 ]
 
-  const result = groupWith(
-    (a, b) => a - b === 1,
-    list
-  )
+  const result = groupWith((a, b) => a - b === 1,
+    list)
   const expected = [
     [ 4, 3 ],
     [ 6 ],
@@ -51,9 +49,7 @@ test('readme example', () => {
 })
 
 test('throw with string as input', () => {
-  expect(
-    () => groupWith(equals, 'Mississippi')
-  ).toThrow('list.reduce is not a function')
+  expect(() => groupWith(equals, 'Mississippi')).toThrow('list.reduce is not a function')
 })
 
 test('from ramda', () => {

@@ -1,8 +1,8 @@
+import { always } from './always'
 import { has } from './has'
 import { identity } from './identity.js'
-import { prop } from './prop'
-import { always } from './always'
 import { ifElse } from './ifElse'
+import { prop } from './prop'
 
 const condition = has('foo')
 const v = function(a){ return typeof a === 'number' }
@@ -30,7 +30,9 @@ test('pass all arguments', () => {
     expect(a).toEqual(123)
     expect(b).toEqual('abc')
   }
-  ifElse(v, onTrue, identity)(123, 'abc')
+  ifElse(
+    v, onTrue, identity
+  )(123, 'abc')
 })
 
 test('accept constant as condition', () => {
@@ -40,7 +42,9 @@ test('accept constant as condition', () => {
 })
 
 test('accept constant as condition - case 2', () => {
-  const fn = ifElse(false, always(true), always(false))
+  const fn = ifElse(
+    false, always(true), always(false)
+  )
 
   expect(fn()).toEqual(false)
 })

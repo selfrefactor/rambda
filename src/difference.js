@@ -1,5 +1,5 @@
-import { uniq } from './uniq'
 import { includes } from './includes'
+import { uniq } from './uniq'
 
 /**
  * Finds the set (i.e. no duplicates) of all elements in the first list not

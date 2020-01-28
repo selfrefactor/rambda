@@ -1,6 +1,6 @@
-import { map } from './map'
 import { add } from './add'
 import { compose } from './compose'
+import { map } from './map'
 
 const double = x => x * 2
 
@@ -17,13 +17,11 @@ test('with array', () => {
 
 test('pass index as second argument', () => {
   let counter = 0
-  map(
-    (x, i) => {
-      expect(i).toBe(counter)
-      counter++
-    },
-    [ 10, 20, 30 ]
-  )
+  map((x, i) => {
+    expect(i).toBe(counter)
+    counter++
+  },
+  [ 10, 20, 30 ])
 })
 
 test('with object', () => {
@@ -43,7 +41,9 @@ test('pass input object as third argument', () => {
     a : 1,
     b : 2,
   }
-  const iterator = (val, prop, inputObject) => {
+  const iterator = (
+    val, prop, inputObject
+  ) => {
     expect(inputObject).toEqual(obj)
 
     return val * 2
@@ -61,22 +61,28 @@ test('with object passes property as second argument', () => {
 })
 
 test('map with index example', () => {
-  const mappedWithIndex = (fn,obj) => {
+  const mappedWithIndex = (fn, obj) => {
     let counter = -1
-    return map(
-      (...inputs) => {
-        counter++
-        return fn(...inputs, counter)
-      },
-      obj
-    )
+
+    return map((...inputs) => {
+      counter++
+
+      return fn(...inputs, counter)
+    },
+    obj)
   }
-  const fn = (x, prop, obj, index) => {
-    console.log({index}) // => {index:0} | {index:1}
+  const fn = (
+    x, prop, obj, index
+  ) => {
+    console.log({ index }) // => {index:0} | {index:1}
+
     return x + 1
   }
-  const result = mappedWithIndex(fn, {a:1, b:2})
-  console.log({result}) // => {a:2, b:3}
+  const result = mappedWithIndex(fn, {
+    a : 1,
+    b : 2,
+  })
+  console.log({ result }) // => {a:2, b:3}
 })
 
 /**
@@ -87,9 +93,7 @@ test('when undefined instead of array', () => {
 })
 
 test('with R.compose', () => {
-  const result = compose(
-    map(add(1)),
-    map(add(1))
-  )([ 1, 2, 3 ])
+  const result = compose(map(add(1)),
+    map(add(1)))([ 1, 2, 3 ])
   expect(result).toEqual([ 3, 4, 5 ])
 })

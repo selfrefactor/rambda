@@ -3,9 +3,7 @@ import { transpose } from './transpose'
 test('happy', () => {
   const input = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ]
 
-  expect(transpose(input)).toEqual(
-    [ [ 'a', 'b', 'c' ], [ 1, 2, 3 ] ]
-  )
+  expect(transpose(input)).toEqual([ [ 'a', 'b', 'c' ], [ 1, 2, 3 ] ])
 })
 
 test('when rows are shorter', () => {

@@ -129,6 +129,8 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
+- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
 ---

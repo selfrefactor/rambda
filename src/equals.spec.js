@@ -1,10 +1,8 @@
 import { equals } from './equals'
 
 test('happy', () => {
-  const result = equals(
-    [ 1, { a : 1 }, [ { b : 3 } ] ],
-    [ 1, { a : 2 }, [ { b : 3 } ] ]
-  )
+  const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ],
+    [ 1, { a : 2 }, [ { b : 3 } ] ])
 
   expect(result).toBeFalsy()
 })
@@ -63,58 +61,42 @@ test('with dates', () => {
 test('ramda spec', () => {
   expect(equals({}, {})).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        a : 1,
-        b : 2,
-      }
-    )
-  ).toEqual(true)
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    a : 1,
+    b : 2,
+  })).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-      },
-      {
-        b : 3,
-        a : 2,
-      }
-    )
-  ).toEqual(true)
+  expect(equals({
+    a : 2,
+    b : 3,
+  },
+  {
+    b : 3,
+    a : 2,
+  })).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-      },
-      {
-        a : 3,
-        b : 3,
-      }
-    )
-  ).toEqual(false)
+  expect(equals({
+    a : 2,
+    b : 3,
+  },
+  {
+    a : 3,
+    b : 3,
+  })).toEqual(false)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-        c : 1,
-      },
-      {
-        a : 2,
-        b : 3,
-      }
-    )
-  ).toEqual(false)
+  expect(equals({
+    a : 2,
+    b : 3,
+    c : 1,
+  },
+  {
+    a : 2,
+    b : 3,
+  })).toEqual(false)
 })
 
 test('works with boolean tuple', () => {
@@ -169,97 +151,69 @@ test('various examples', () => {
 
   expect(equals({}, {})).toBeTruthy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 2,
-        a : 1,
-      }
-    )
-  ).toBeTruthy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 2,
+    a : 1,
+  })).toBeTruthy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        a : 1,
-        b : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    a : 1,
+    b : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : false,
-      },
-      {
-        a : 1,
-        b : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : false,
+  },
+  {
+    a : 1,
+    b : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 2,
-        a : 1,
-        c : 3,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 2,
+    a : 1,
+    c : 3,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        x : {
-          a : 1,
-          b : 2,
-        },
-      },
-      {
-        x : {
-          b : 2,
-          a : 1,
-          c : 3,
-        },
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    x : {
+      a : 1,
+      b : 2,
+    },
+  },
+  {
+    x : {
+      b : 2,
+      a : 1,
+      c : 3,
+    },
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 3,
-        a : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 3,
+    a : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
-  ).toBeTruthy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
 
-  expect(
-    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })
-  ).toBeFalsy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
 
   expect(equals({ a : {} }, { a : {} })).toBeTruthy()
 

@@ -24,12 +24,10 @@ test('with string as condition', () => {
 })
 
 test('with array as condition', () => {
-  expect(
-    pickAll([ 'a', 'b', 'c' ], {
-      a : 'foo',
-      c : 'baz',
-    })
-  ).toEqual({
+  expect(pickAll([ 'a', 'b', 'c' ], {
+    a : 'foo',
+    c : 'baz',
+  })).toEqual({
     a : 'foo',
     b : undefined,
     c : 'baz',

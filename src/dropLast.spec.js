@@ -1,11 +1,13 @@
-import { dropLast } from './dropLast'
 import assert from 'assert'
+
+import { dropLast } from './dropLast'
 
 test('with array', () => {
   expect(dropLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo' ])
   expect(dropLast(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
   expect(dropLast(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
 })
+
 test('with string', () => {
   expect(dropLast(3, 'rambda')).toEqual('ram')
 })

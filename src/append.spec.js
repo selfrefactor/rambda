@@ -20,10 +20,8 @@ test('append to empty array', () => {
 })
 
 test('', () => {
-  const result = compose(
-    flatten,
-    map(append(0))
-  )([ [ 1 ], [ 2 ], [ 3 ] ])
+  const result = compose(flatten,
+    map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })
 

@@ -1,5 +1,5 @@
-import { length } from './length'
 import { identical } from './identical.js'
+import { length } from './length'
 
 test('happy', () => {
   expect(length('foo')).toEqual(3)

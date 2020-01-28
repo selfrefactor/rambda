@@ -1,5 +1,5 @@
-import { median } from './median'
 import { identical } from './identical'
+import { median } from './median'
 
 test('median', () => {
   expect(median([ 2 ])).toEqual(2)

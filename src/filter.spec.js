@@ -1,6 +1,7 @@
+import Ramda from 'ramda'
+
 import { filter } from './filter'
 import { T } from './T'
-import Ramda from 'ramda'
 
 const sampleObject = {
   a : 1,
@@ -32,7 +33,9 @@ test('predicate when input is object', () => {
     a : 1,
     b : 2,
   }
-  const predicate = (val, prop, inputObject) => {
+  const predicate = (
+    val, prop, inputObject
+  ) => {
     expect(inputObject).toEqual(obj)
     expect(typeof prop).toEqual('string')
 
@@ -43,13 +46,11 @@ test('predicate when input is object', () => {
 
 test('pass index as second argument', () => {
   let counter = 0
-  filter(
-    (x, i) => {
-      expect(i).toBe(counter)
-      counter++
-    },
-    [ 10, 20, 30 ]
-  )
+  filter((x, i) => {
+    expect(i).toBe(counter)
+    counter++
+  },
+  [ 10, 20, 30 ])
 })
 
 test('with object', () => {

@@ -1,16 +1,14 @@
 import { compose } from './compose'
-import { tail } from './tail'
-import { init } from './init'
 import { flatten } from './flatten'
+import { init } from './init'
+import { tail } from './tail'
 
 test('init', () => {
-  expect(
-    compose(
-      tail,
-      init,
-      flatten
-    )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])
-  ).toEqual([ 2, 3 ])
+  expect(compose(
+    tail,
+    init,
+    flatten
+  )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])).toEqual([ 2, 3 ])
 
   expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
   expect(init([ 1, 2 ])).toEqual([ 1 ])

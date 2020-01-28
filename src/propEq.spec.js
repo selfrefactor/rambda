@@ -9,6 +9,8 @@ test('propEq', () => {
 })
 
 test('happy', () => {
-  expect(propEq('name', 'Abby', null)).toEqual(false)
+  expect(propEq(
+    'name', 'Abby', null
+  )).toEqual(false)
 // expect(propEq('name', 'Abby', undefined)).toEqual(false)
 })

@@ -1,7 +1,9 @@
-import { is } from './is'
 import { curry } from './curry.js'
+import { is } from './is'
 
-function propIsFn(type, name, obj){
+function propIsFn(
+  type, name, obj
+){
   return is(type, obj[ name ])
 }
 

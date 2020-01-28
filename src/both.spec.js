@@ -12,10 +12,16 @@ test('without curry', () => {
 })
 
 test('with multiple inputs', () => {
-  const between = function(a, b, c){ return a < b && b < c }
-  const total20 = function(a, b, c){ return a + b + c === 20 }
+  const between = function(
+    a, b, c
+  ){ return a < b && b < c }
+  const total20 = function(
+    a, b, c
+  ){ return a + b + c === 20 }
   const fn = both(between, total20)
-  expect(fn(5, 7, 8)).toBeTruthy()
+  expect(fn(
+    5, 7, 8
+  )).toBeTruthy()
 })
 
 test('skip evaluation of the second expression', () => {

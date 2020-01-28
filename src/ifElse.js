@@ -1,6 +1,8 @@
 import { curry } from './curry'
 
-function ifElseFn(condition, onTrue, onFalse){
+function ifElseFn(
+  condition, onTrue, onFalse
+){
 
   return (...input) => {
     const conditionResult = typeof condition === 'boolean' ? condition : condition(...input)

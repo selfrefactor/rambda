@@ -2,7 +2,9 @@ export function groupWith(predicate, list){
   const toReturn = []
   let holder = []
 
-  list.reduce((prev, current, i) => {
+  list.reduce((
+    prev, current, i
+  ) => {
     if (i > 0 && predicate(prev, current)){
       if (holder.length === 0){
         holder.push(prev)

@@ -9,7 +9,9 @@ test('iterate over object', () => {
     f : 'foo',
   }
   const result = {}
-  const returned = forEach((val, prop, inputObj) => {
+  const returned = forEach((
+    val, prop, inputObj
+  ) => {
     expect(type(inputObj)).toBe('Object')
     result[ prop ] = `${ prop }-${ type(val) }`
   })(obj)

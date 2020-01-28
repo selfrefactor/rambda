@@ -1,5 +1,6 @@
-import { includes } from './includes'
 import R from 'ramda'
+
+import { includes } from './includes'
 
 test('includes with string', () => {
   const str = 'more is less'

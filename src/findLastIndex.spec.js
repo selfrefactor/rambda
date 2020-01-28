@@ -7,9 +7,7 @@ test('happy', () => {
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
 
-  expect(
-    result
-  ).toEqual(5)
+  expect(result).toEqual(5)
 
   expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
 })

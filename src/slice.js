@@ -1,6 +1,8 @@
 import { curry } from './curry'
 
-function sliceFn(fromIndex, toIndex, list){
+function sliceFn(
+  fromIndex, toIndex, list
+){
   return list.slice(fromIndex, toIndex)
 }
 

@@ -1,6 +1,8 @@
 import { curry } from './curry'
 
-function reduceFn(fn, acc, list){
+function reduceFn(
+  fn, acc, list
+){
   return list.reduce(fn, acc)
 }
 

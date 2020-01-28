@@ -11,5 +11,7 @@ export function takeLast(n, list){
 
   numValue = len - numValue
 
-  return baseSlice(list, numValue, len)
+  return baseSlice(
+    list, numValue, len
+  )
 }

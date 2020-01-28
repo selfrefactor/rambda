@@ -1,5 +1,5 @@
-import { zipObj } from './zipObj'
 import { equals } from './equals.js'
+import { zipObj } from './zipObj'
 
 test('zipObj', () => {
   expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
@@ -31,7 +31,5 @@ test('ignore extra keys', () => {
     c : 3,
   }
 
-  expect(
-    equals(result, expected)
-  ).toBeTruthy()
+  expect(equals(result, expected)).toBeTruthy()
 })

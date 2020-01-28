@@ -1,7 +1,7 @@
+import { F } from './F'
 import { identical } from './identical'
 import { _isInteger } from './internal/_isInteger'
 import { _objectIs } from './internal/_objectIs'
-import { F } from './F'
 import { T } from './T'
 
 test('small', () => {

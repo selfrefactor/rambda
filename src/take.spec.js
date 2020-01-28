@@ -1,4 +1,5 @@
 import R from 'ramda'
+
 import { take } from './take'
 
 test('happy', () => {
