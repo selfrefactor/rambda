@@ -71,13 +71,18 @@ method | Rambda | Ramda | Lodash
  *find* | 🚀 Fastest | 47.89% slower | 60.19% slower
  *findIndex* | 🚀 Fastest | 90.6% slower | 84.75% slower
  *flatten* | 10.31% slower | 96.42% slower | 🚀 Fastest
+ *ifElse* | 🚀 Fastest | 23.16% slower | 🔳
+ *includes* | 🚀 Fastest | 66.8% slower | 🔳
  *indexOf* | 🚀 Fastest | 69.38% slower | 0.64% slower
  *init* | 🚀 Fastest | 94.17% slower | 2.63% slower
+ *is* | 🚀 Fastest | 44.05% slower | 🔳
  *isEmpty* | 37.68% slower | 92.85% slower | 🚀 Fastest
  *last* | 🚀 Fastest | 99.02% slower | 3.5% slower
+ *lastIndexOf* | 🚀 Fastest | 45.56% slower | 🔳
  *map* | 🚀 Fastest | 87.72% slower | 23.59% slower
  *match* | 🚀 Fastest | 52.01% slower | 🔳
  *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
+ *none* | 🚀 Fastest | 66.57% slower | 🔳
  *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
  *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
@@ -2195,7 +2200,7 @@ const rules = [
   x => x.a === 1,
   x => x.b === 2,
 ]
-const result = R.allPass(rules, input) // => true
+const result = R.allPass(rules)(input) // => true
 ```
 
 <details>
@@ -2207,7 +2212,7 @@ R.allPass tests
 ```javascript
 import { allPass } from './allPass'
 
-test('', () => {
+test('happy', () => {
   const rules = [
     x => typeof x === 'number',
     x => x > 10,
@@ -2270,7 +2275,7 @@ export function allPass(predicates){
 
 </details>
 
-<a href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules%2C%20input)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
+<a href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20rules%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(rules)(input)%20%2F%2F%20%3D%3E%20true">Try in REPL</a>
 
 ---
 #### always
@@ -2759,6 +2764,21 @@ export function both(f, g){
 </details>
 
 <a href="https://rambda.now.sh?const%20fn%20%3D%20R.both(%0A%20%20a%20%3D%3E%20a%20%3E%2010%2C%0A%20%20a%20%3D%3E%20a%20%3C%2020%0A)%0Aconsole.log(fn(15))%20%2F%2F%3D%3E%20true%0Aconsole.log(fn(30))%20%2F%2F%3D%3E%20false">Try in REPL</a>
+
+---
+#### clamp
+
+> clamp(min: number, max: number, input:number): number
+
+Restrict a number `input` to be withing `min` and `max` limits.
+If `input` is bigger than `max`, then result is `max`.
+If `input` is smaller than `min`, then result is `min`.
+
+```
+R.clamp(0, 10, 5) //=> 5
+R.clamp(0, 10, -1) //=> 0
+R.clamp(0, 10, 11) //=> 10
+```
 
 ---
 #### clone
@@ -6367,6 +6387,25 @@ test('with object passes property as second argument', () => {
   map((_, prop) => {
     expect(typeof prop).toEqual('string')
   })(sampleObject)
+})
+
+test('map with index example', () => {
+  const mappedWithIndex = (fn,obj) => {
+    let counter = -1
+    return map(
+      (...inputs) => {
+        counter++
+        return fn(...inputs, counter)
+      },
+      obj
+    )
+  }
+  const fn = (x, prop, obj, index) => {
+    console.log({index}) // => {index:0} | {index:1}
+    return x + 1
+  }
+  const result = mappedWithIndex(fn, {a:1, b:2})
+  console.log({result}) // => {a:2, b:3}
 })
 
 /**
@@ -10131,6 +10170,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.4.2 Improve `R.propOr` typings
 
 - 4.4.1 Make `R.reject` has the same typing as `R.filter`
 

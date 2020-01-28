@@ -1,6 +1,6 @@
 import { allPass } from './allPass'
 
-test('', () => {
+test('happy', () => {
   const rules = [
     x => typeof x === 'number',
     x => x > 10,

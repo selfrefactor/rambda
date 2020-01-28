@@ -204,7 +204,7 @@ const rules = [
   x => x.a === 1,
   x => x.b === 2,
 ]
-const result = R.allPass(rules, input) // => true
+const result = R.allPass(rules)(input) // => true
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/allPass.js)
