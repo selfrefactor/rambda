@@ -48,7 +48,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.8.3",
     "@babel/preset-env": "7.8.3",
     "@types/jest": "25.1.0",
-    "@types/ramda": "0.26.39",
+    "@types/ramda": "0.26.40",
     "babel-jest": "24.9.0",
     "dtslint": "2.0.5",
     "helpers": "https://github.com/selfrefactor/helpers#2.4.0",
