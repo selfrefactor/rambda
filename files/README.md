@@ -251,7 +251,9 @@ R.any(a => a * a > 8)([1, 2, 3])
 
 #### anyPass
 
-> anyPass(conditions: Function[]): Function
+> anyPass(predicates: Function[]): Function
+
+It returns `true`, if any of `predicates` return `true` with `input` is their argument.
 
 ```
 const isBig = a => a > 20

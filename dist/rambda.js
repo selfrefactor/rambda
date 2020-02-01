@@ -189,6 +189,14 @@ function concat(left, right) {
   return typeof left === 'string' ? `${left}${right}` : [...left, ...right];
 }
 
+function clampFn(lowLimit, highLimit, input) {
+  if (input >= lowLimit && input <= highLimit) return input;
+  if (input > highLimit) return highLimit;
+  if (input < lowLimit) return lowLimit;
+}
+
+const clamp = curry(clampFn);
+
 const dec = n => n - 1;
 
 function flagIs(inputArguments) {
@@ -1309,6 +1317,7 @@ exports.append = append;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
 exports.both = both;
+exports.clamp = clamp;
 exports.clone = clone;
 exports.complement = complement;
 exports.compose = compose;

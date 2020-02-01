@@ -185,6 +185,8 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
+- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
 ---
@@ -1978,8 +1980,9 @@ R.add tests
 </summary>
 
 ```javascript
-import { add } from './add'
 import R from 'ramda'
+
+import { add } from './add'
 
 test('with number', () => {
   expect(add(2, 3)).toEqual(5)
@@ -2050,7 +2053,9 @@ import { adjust } from './adjust'
 const expected = [ 0, 11, 2 ]
 
 test('without curring', () => {
-  expect(adjust(1, add(10), [ 0, 1, 2 ])).toEqual(expected)
+  expect(adjust(
+    1, add(10), [ 0, 1, 2 ]
+  )).toEqual(expected)
 })
 
 test('with curring type 1 1 1', () => {
@@ -2066,13 +2071,19 @@ test('with curring type 2 1', () => {
 })
 
 test('with negative index', () => {
-  expect(adjust(-2, add(10), [ 0, 1, 2 ])).toEqual(expected)
+  expect(adjust(
+    -2, add(10), [ 0, 1, 2 ]
+  )).toEqual(expected)
 })
 
 test('when index is out of bounds', () => {
   const list = [ 0, 1, 2, 3 ]
-  expect(adjust(4, add(1), list),).toEqual(list)
-  expect(adjust(-5, add(1), list),).toEqual(list)
+  expect(adjust(
+    4, add(1), list
+  ),).toEqual(list)
+  expect(adjust(
+    -5, add(1), list
+  ),).toEqual(list)
 })
 
 ```
@@ -2088,7 +2099,9 @@ R.adjust source
 ```javascript
 import { curry } from './curry'
 
-function adjustFn(index, fn, list){
+function adjustFn(
+  index, fn, list
+){
   const actualIndex = index < 0 ? list.length + index : index
   if (index >= list.length || actualIndex < 0) return list
 
@@ -2213,11 +2226,7 @@ R.allPass tests
 import { allPass } from './allPass'
 
 test('happy', () => {
-  const rules = [
-    x => typeof x === 'number',
-    x => x > 10,
-    x => x * 7 < 100,
-  ]
+  const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
 
   expect(allPass(rules)(11)).toBeTruthy()
 
@@ -2227,23 +2236,19 @@ test('happy', () => {
 test('when returns true', () => {
   const conditionArr = [ val => val.a === 1, val => val.b === 2 ]
 
-  expect(
-    allPass(conditionArr)({
-      a : 1,
-      b : 2,
-    })
-  ).toBeTruthy()
+  expect(allPass(conditionArr)({
+    a : 1,
+    b : 2,
+  })).toBeTruthy()
 })
 
 test('when returns false', () => {
   const conditionArr = [ val => val.a === 1, val => val.b === 3 ]
 
-  expect(
-    allPass(conditionArr)({
-      a : 1,
-      b : 2,
-    })
-  ).toBeFalsy()
+  expect(allPass(conditionArr)({
+    a : 1,
+    b : 2,
+  })).toBeFalsy()
 })
 
 ```
@@ -2411,7 +2416,9 @@ export function any(fn, list){
 ---
 #### anyPass
 
-> anyPass(conditions: Function[]): Function
+> anyPass(predicates: Function[]): Function
+
+It returns `true`, if any of `predicates` return `true` with `input` is their argument.
 
 ```javascript
 const isBig = a => a > 20
@@ -2540,10 +2547,8 @@ test('append to empty array', () => {
 })
 
 test('', () => {
-  const result = compose(
-    flatten,
-    map(append(0))
-  )([ [ 1 ], [ 2 ], [ 3 ] ])
+  const result = compose(flatten,
+    map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })
 
@@ -2608,11 +2613,15 @@ R.assoc tests
 import { assoc } from './assoc'
 
 test('adds a key to an empty object', () => {
-  expect(assoc('a', 1, {})).toEqual({ a : 1 })
+  expect(assoc(
+    'a', 1, {}
+  )).toEqual({ a : 1 })
 })
 
 test('adds a key to a non-empty object', () => {
-  expect(assoc('b', 2, { a : 1 })).toEqual({
+  expect(assoc(
+    'b', 2, { a : 1 }
+  )).toEqual({
     a : 1,
     b : 2,
   })
@@ -2642,27 +2651,39 @@ test('adds a key to a non-empty object - curry case 3', () => {
 })
 
 test('changes an existing key', () => {
-  expect(assoc('a', 2, { a : 1 })).toEqual({ a : 2 })
+  expect(assoc(
+    'a', 2, { a : 1 }
+  )).toEqual({ a : 2 })
 })
 
 test('undefined is considered an empty object', () => {
-  expect(assoc('a', 1, undefined)).toEqual({ a : 1 })
+  expect(assoc(
+    'a', 1, undefined
+  )).toEqual({ a : 1 })
 })
 
 test('null is considered an empty object', () => {
-  expect(assoc('a', 1, null)).toEqual({ a : 1 })
+  expect(assoc(
+    'a', 1, null
+  )).toEqual({ a : 1 })
 })
 
 test('value can be null', () => {
-  expect(assoc('a', null, null)).toEqual({ a : null })
+  expect(assoc(
+    'a', null, null
+  )).toEqual({ a : null })
 })
 
 test('value can be undefined', () => {
-  expect(assoc('a', undefined, null)).toEqual({ a : undefined })
+  expect(assoc(
+    'a', undefined, null
+  )).toEqual({ a : undefined })
 })
 
 test('assignment is shallow', () => {
-  expect(assoc('a', { b : 2 }, { a : { c : 3 } })).toEqual({ a : { b : 2 } })
+  expect(assoc(
+    'a', { b : 2 }, { a : { c : 3 } }
+  )).toEqual({ a : { b : 2 } })
 })
 
 ```
@@ -2678,8 +2699,12 @@ R.assoc source
 ```javascript
 import { curry } from './curry'
 
-function assocFn(prop, val, obj){
-  return Object.assign({}, obj, { [ prop ] : val })
+function assocFn(
+  prop, val, obj
+){
+  return Object.assign(
+    {}, obj, { [ prop ] : val }
+  )
 }
 
 export const assoc = curry(assocFn)
@@ -2727,10 +2752,16 @@ test('without curry', () => {
 })
 
 test('with multiple inputs', () => {
-  const between = function(a, b, c){ return a < b && b < c }
-  const total20 = function(a, b, c){ return a + b + c === 20 }
+  const between = function(
+    a, b, c
+  ){ return a < b && b < c }
+  const total20 = function(
+    a, b, c
+  ){ return a + b + c === 20 }
   const fn = both(between, total20)
-  expect(fn(5, 7, 8)).toBeTruthy()
+  expect(fn(
+    5, 7, 8
+  )).toBeTruthy()
 })
 
 test('skip evaluation of the second expression', () => {
@@ -2801,8 +2832,9 @@ R.clone tests
 </summary>
 
 ```javascript
-import { clone } from './clone'
 import assert from 'assert'
+
+import { clone } from './clone'
 
 test('with array', () => {
   const arr = [
@@ -2830,11 +2862,15 @@ test('with object', () => {
 })
 
 test('with date', () => {
-  const date = new Date(2014, 10, 14, 23, 59, 59, 999)
+  const date = new Date(
+    2014, 10, 14, 23, 59, 59, 999
+  )
 
   const cloned = clone(date)
   assert.notStrictEqual(date, cloned)
-  expect(cloned).toEqual(new Date(2014, 10, 14, 23, 59, 59, 999))
+  expect(cloned).toEqual(new Date(
+    2014, 10, 14, 23, 59, 59, 999
+  ))
 
   expect(cloned.getDay()).toEqual(5)
 })
@@ -2897,11 +2933,11 @@ R.compose tests
 
 ```javascript
 import { add } from './add'
-import { map } from './map'
-import { multiply } from './multiply'
+import { compose } from './compose'
 import { filter } from './filter'
 import { last } from './last'
-import { compose } from './compose'
+import { map } from './map'
+import { multiply } from './multiply'
 
 test('happy', () => {
   const result = compose(
@@ -2914,10 +2950,8 @@ test('happy', () => {
 })
 
 test('accepts initially two arguments', () => {
-  const result = compose(
-    map(x => x * 2),
-    (a, y) => filter(x => x > y, a)
-  )([ 1, 2, 3, 4 ], 2)
+  const result = compose(map(x => x * 2),
+    (a, y) => filter(x => x > y, a))([ 1, 2, 3, 4 ], 2)
 
   expect(result).toEqual([ 6, 8 ])
 })
@@ -2927,9 +2961,13 @@ test('when no arguments is passed', () => {
 })
 
 test('ramda spec', () => {
-  const f = function(a, b, c){ return [ a, b, c ] }
+  const f = function(
+    a, b, c
+  ){ return [ a, b, c ] }
   const g = compose(f)
-  expect(g(1, 2, 3)).toEqual([ 1, 2, 3 ])
+  expect(g(
+    1, 2, 3
+  )).toEqual([ 1, 2, 3 ])
 })
 
 ```
@@ -2999,10 +3037,16 @@ test('', () => {
 })
 
 test('with multiple parameters', () => {
-  const between = function(a, b, c){ return a < b && b < c }
+  const between = function(
+    a, b, c
+  ){ return a < b && b < c }
   const f = complement(between)
-  expect(f(4, 5, 11)).toEqual(false)
-  expect(f(12, 2, 6)).toEqual(true)
+  expect(f(
+    4, 5, 11
+  )).toEqual(false)
+  expect(f(
+    12, 2, 6
+  )).toEqual(true)
 })
 
 ```
@@ -3111,7 +3155,9 @@ R.curry tests
 import { curry } from './curry'
 
 test('', () => {
-  const addFourNumbers = (a, b, c, d) => a + b + c + d
+  const addFourNumbers = (
+    a, b, c, d
+  ) => a + b + c + d
   const curriedAddFourNumbers = curry(addFourNumbers)
   const f = curriedAddFourNumbers(1, 2)
   const g = f(3)
@@ -3122,7 +3168,9 @@ test('', () => {
 test('when called with more arguments', () => {
   const add = curry((n, n2) => n + n2)
 
-  expect(add(1, 2, 3)).toEqual(3)
+  expect(add(
+    1, 2, 3
+  )).toEqual(3)
 })
 
 test('when called with zero arguments', () => {
@@ -3133,7 +3181,9 @@ test('when called with zero arguments', () => {
 })
 
 test('when called via multiple curry stages', () => {
-  const join = curry((a, b, c, d) => [ a, b, c, d ].join('-'))
+  const join = curry((
+    a, b, c, d
+  ) => [ a, b, c, d ].join('-'))
 
   const stage1 = join('A')
   const stage2 = stage1('B', 'C')
@@ -3184,11 +3234,12 @@ R.dec tests
 </summary>
 
 ```javascript
-import {dec} from './dec'
+import { dec } from './dec'
 
 test('happy', () => {
   expect(dec(2)).toBe(1)
 })
+
 ```
 
 </details>
@@ -3259,42 +3310,54 @@ test('when inputArgument passes initial check', () => {
 })
 
 test('default extends to indefinite input arguments - case 1', () => {
-  const result = defaultTo('foo', null, 'bar')
+  const result = defaultTo(
+    'foo', null, 'bar'
+  )
   const expected = 'bar'
 
   expect(result).toEqual(expected)
 })
 
 test('default extends to indefinite input arguments - case 2', () => {
-  const result = defaultTo('foo', null, NaN, 'bar')
+  const result = defaultTo(
+    'foo', null, NaN, 'bar'
+  )
   const expected = 'bar'
 
   expect(result).toEqual(expected)
 })
 
 test('default extends to indefinite input arguments - case 3', () => {
-  const result = defaultTo('foo', null, NaN, undefined)
+  const result = defaultTo(
+    'foo', null, NaN, undefined
+  )
   const expected = 'foo'
 
   expect(result).toEqual(expected)
 })
 
 test('default extends to indefinite input arguments - case 4', () => {
-  const result = defaultTo('foo', null, NaN, undefined, 'bar')
+  const result = defaultTo(
+    'foo', null, NaN, undefined, 'bar'
+  )
   const expected = 'bar'
 
   expect(result).toEqual(expected)
 })
 
 test('default extends to indefinite input arguments - case 5', () => {
-  const result = defaultTo('foo', null, NaN, 'bar', 'baz')
+  const result = defaultTo(
+    'foo', null, NaN, 'bar', 'baz'
+  )
   const expected = 'bar'
 
   expect(result).toEqual(expected)
 })
 
 test('default extends to indefinite input arguments - case 6', () => {
-  const result = defaultTo('foo', null, NaN, undefined, null, NaN)
+  const result = defaultTo(
+    'foo', null, NaN, undefined, null, NaN
+  )
   const expected = 'foo'
 
   expect(result).toEqual(expected)
@@ -3384,47 +3447,37 @@ test('input is null or undefined', () => {
 })
 
 test('property exists curried', () => {
-  expect(
-    dissoc('b')({
-      a : 1,
-      b : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc('b')({
+    a : 1,
+    b : 2,
+  })).toEqual({ a : 1 })
 })
 
 test('property doesn\'t exists', () => {
-  expect(
-    dissoc('c', {
-      a : 1,
-      b : 2,
-    })
-  ).toEqual({
+  expect(dissoc('c', {
+    a : 1,
+    b : 2,
+  })).toEqual({
     a : 1,
     b : 2,
   })
 })
 
 test('works with non-string property', () => {
-  expect(
-    dissoc(42, {
-      a  : 1,
-      42 : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(42, {
+    a  : 1,
+    42 : 2,
+  })).toEqual({ a : 1 })
 
-  expect(
-    dissoc(null, {
-      a    : 1,
-      null : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(null, {
+    a    : 1,
+    null : 2,
+  })).toEqual({ a : 1 })
 
-  expect(
-    dissoc(undefined, {
-      a         : 1,
-      undefined : 2,
-    })
-  ).toEqual({ a : 1 })
+  expect(dissoc(undefined, {
+    a         : 1,
+    undefined : 2,
+  })).toEqual({ a : 1 })
 })
 
 test('includes prototype properties', () => {
@@ -3511,8 +3564,9 @@ R.drop tests
 </summary>
 
 ```javascript
-import { drop } from './drop'
 import assert from 'assert'
+
+import { drop } from './drop'
 
 test('with array', () => {
   expect(drop(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'baz' ])
@@ -3579,14 +3633,16 @@ R.dropLast tests
 </summary>
 
 ```javascript
-import { dropLast } from './dropLast'
 import assert from 'assert'
+
+import { dropLast } from './dropLast'
 
 test('with array', () => {
   expect(dropLast(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo' ])
   expect(dropLast(3, [ 'foo', 'bar', 'baz' ])).toEqual([])
   expect(dropLast(4, [ 'foo', 'bar', 'baz' ])).toEqual([])
 })
+
 test('with string', () => {
   expect(dropLast(3, 'rambda')).toEqual('ram')
 })
@@ -3710,10 +3766,16 @@ R.either tests
 import { either } from './either'
 
 test('with multiple inputs', () => {
-  const between = function(a, b, c){ return a < b && b < c }
-  const total20 = function(a, b, c){ return a + b + c === 20 }
+  const between = function(
+    a, b, c
+  ){ return a < b && b < c }
+  const total20 = function(
+    a, b, c
+  ){ return a + b + c === 20 }
   const fn = either(between, total20)
-  expect(fn(7, 8, 5)).toBeTruthy()
+  expect(fn(
+    7, 8, 5
+  )).toBeTruthy()
 })
 
 test('skip evaluation of the second expression', () => {
@@ -3789,10 +3851,8 @@ R.equals tests
 import { equals } from './equals'
 
 test('happy', () => {
-  const result = equals(
-    [ 1, { a : 1 }, [ { b : 3 } ] ],
-    [ 1, { a : 2 }, [ { b : 3 } ] ]
-  )
+  const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ],
+    [ 1, { a : 2 }, [ { b : 3 } ] ])
 
   expect(result).toBeFalsy()
 })
@@ -3851,58 +3911,42 @@ test('with dates', () => {
 test('ramda spec', () => {
   expect(equals({}, {})).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        a : 1,
-        b : 2,
-      }
-    )
-  ).toEqual(true)
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    a : 1,
+    b : 2,
+  })).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-      },
-      {
-        b : 3,
-        a : 2,
-      }
-    )
-  ).toEqual(true)
+  expect(equals({
+    a : 2,
+    b : 3,
+  },
+  {
+    b : 3,
+    a : 2,
+  })).toEqual(true)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-      },
-      {
-        a : 3,
-        b : 3,
-      }
-    )
-  ).toEqual(false)
+  expect(equals({
+    a : 2,
+    b : 3,
+  },
+  {
+    a : 3,
+    b : 3,
+  })).toEqual(false)
 
-  expect(
-    equals(
-      {
-        a : 2,
-        b : 3,
-        c : 1,
-      },
-      {
-        a : 2,
-        b : 3,
-      }
-    )
-  ).toEqual(false)
+  expect(equals({
+    a : 2,
+    b : 3,
+    c : 1,
+  },
+  {
+    a : 2,
+    b : 3,
+  })).toEqual(false)
 })
 
 test('works with boolean tuple', () => {
@@ -3957,97 +4001,69 @@ test('various examples', () => {
 
   expect(equals({}, {})).toBeTruthy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 2,
-        a : 1,
-      }
-    )
-  ).toBeTruthy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 2,
+    a : 1,
+  })).toBeTruthy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        a : 1,
-        b : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    a : 1,
+    b : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : false,
-      },
-      {
-        a : 1,
-        b : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : false,
+  },
+  {
+    a : 1,
+    b : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 2,
-        a : 1,
-        c : 3,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 2,
+    a : 1,
+    c : 3,
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        x : {
-          a : 1,
-          b : 2,
-        },
-      },
-      {
-        x : {
-          b : 2,
-          a : 1,
-          c : 3,
-        },
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    x : {
+      a : 1,
+      b : 2,
+    },
+  },
+  {
+    x : {
+      b : 2,
+      a : 1,
+      c : 3,
+    },
+  })).toBeFalsy()
 
-  expect(
-    equals(
-      {
-        a : 1,
-        b : 2,
-      },
-      {
-        b : 3,
-        a : 1,
-      }
-    )
-  ).toBeFalsy()
+  expect(equals({
+    a : 1,
+    b : 2,
+  },
+  {
+    b : 3,
+    a : 1,
+  })).toBeFalsy()
 
-  expect(
-    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })
-  ).toBeTruthy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
 
-  expect(
-    equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })
-  ).toBeFalsy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
 
   expect(equals({ a : {} }, { a : {} })).toBeTruthy()
 
@@ -4217,9 +4233,10 @@ R.filter tests
 </summary>
 
 ```javascript
+import Ramda from 'ramda'
+
 import { filter } from './filter'
 import { T } from './T'
-import Ramda from 'ramda'
 
 const sampleObject = {
   a : 1,
@@ -4251,7 +4268,9 @@ test('predicate when input is object', () => {
     a : 1,
     b : 2,
   }
-  const predicate = (val, prop, inputObject) => {
+  const predicate = (
+    val, prop, inputObject
+  ) => {
     expect(inputObject).toEqual(obj)
     expect(typeof prop).toEqual('string')
 
@@ -4262,13 +4281,11 @@ test('predicate when input is object', () => {
 
 test('pass index as second argument', () => {
   let counter = 0
-  filter(
-    (x, i) => {
-      expect(i).toBe(counter)
-      counter++
-    },
-    [ 10, 20, 30 ]
-  )
+  filter((x, i) => {
+    expect(i).toBe(counter)
+    counter++
+  },
+  [ 10, 20, 30 ])
 })
 
 test('with object', () => {
@@ -4297,7 +4314,9 @@ function filterObject(fn, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    if (fn(obj[ prop ], prop, obj)){
+    if (fn(
+      obj[ prop ], prop, obj
+    )){
       willReturn[ prop ] = obj[ prop ]
     }
   }
@@ -4364,15 +4383,11 @@ import { find } from './find'
 import { propEq } from './propEq'
 
 test('', () => {
-  expect(
-    find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual({ a : 2 })
+  expect(find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual({ a : 2 })
 })
 
 test('with curry', () => {
-  expect(
-    find(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual(undefined)
+  expect(find(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(undefined)
 })
 
 ```
@@ -4424,26 +4439,18 @@ import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
 test('', () => {
-  expect(
-    findIndex(propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual(1)
+  expect(findIndex(propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(1)
 
-  expect(
-    findIndex(propEq('a', 1))([ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual(0)
+  expect(findIndex(propEq('a', 1))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(0)
 
-  expect(
-    findIndex(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual(-1)
+  expect(findIndex(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(-1)
 })
 
 test('pass index as second argument', () => {
-  findIndex(
-    (x, i) => {
-      expect(typeof x).toBe('number')
-      expect(typeof i).toBe('number')
-    }
-  )([ 10, 12, 15 ])
+  findIndex((x, i) => {
+    expect(typeof x).toBe('number')
+    expect(typeof i).toBe('number')
+  })([ 10, 12, 15 ])
 })
 
 ```
@@ -4508,19 +4515,13 @@ test('happy', () => {
 
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
-  expect(
-    result
-  ).toEqual(4)
+  expect(result).toEqual(4)
 
-  expect(
-    findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])
-  ).toEqual(0)
+  expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
 })
 
 test('with curry', () => {
-  expect(
-    findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])
-  ).toEqual(4)
+  expect(findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(4)
 })
 
 const obj1 = { x : 100 }
@@ -4612,9 +4613,7 @@ test('happy', () => {
     return x > 1
   }, [ 1, 1, 1, 2, 3, 4, 1 ])
 
-  expect(
-    result
-  ).toEqual(5)
+  expect(result).toEqual(5)
 
   expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
 })
@@ -4715,9 +4714,7 @@ test('', () => {
 
   expect(flatten([ 1, [ 2, [ [ [ 3 ] ] ] ], [ 4 ] ])).toEqual([ 1, 2, 3, 4 ])
 
-  expect(
-    flatten([ 1, 2, [ 3, 4 ], 5, [ 6, [ 7, 8, [ 9, [ 10, 11 ], 12 ] ] ] ])
-  ).toEqual([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ])
+  expect(flatten([ 1, 2, [ 3, 4 ], 5, [ 6, [ 7, 8, [ 9, [ 10, 11 ], 12 ] ] ] ])).toEqual([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ])
 })
 
 ```
@@ -4780,7 +4777,9 @@ test('flip', () => {
 
   expect(fn(1)(7)).toEqual(6)
   expect(fn(1, 7)).toEqual(6)
-  expect(fn(1, 7, 9)).toEqual(undefined)
+  expect(fn(
+    1, 7, 9
+  )).toEqual(undefined)
 })
 
 ```
@@ -4851,7 +4850,9 @@ test('iterate over object', () => {
     f : 'foo',
   }
   const result = {}
-  const returned = forEach((val, prop, inputObj) => {
+  const returned = forEach((
+    val, prop, inputObj
+  ) => {
     expect(type(inputObj)).toBe('Object')
     result[ prop ] = `${ prop }-${ type(val) }`
   })(obj)
@@ -5194,10 +5195,10 @@ R.identical tests
 </summary>
 
 ```javascript
+import { F } from './F'
 import { identical } from './identical'
 import { _isInteger } from './internal/_isInteger'
 import { _objectIs } from './internal/_objectIs'
-import { F } from './F'
 import { T } from './T'
 
 test('small', () => {
@@ -5322,11 +5323,11 @@ R.ifElse tests
 </summary>
 
 ```javascript
+import { always } from './always'
 import { has } from './has'
 import { identity } from './identity.js'
-import { prop } from './prop'
-import { always } from './always'
 import { ifElse } from './ifElse'
+import { prop } from './prop'
 
 const condition = has('foo')
 const v = function(a){ return typeof a === 'number' }
@@ -5354,7 +5355,9 @@ test('pass all arguments', () => {
     expect(a).toEqual(123)
     expect(b).toEqual('abc')
   }
-  ifElse(v, onTrue, identity)(123, 'abc')
+  ifElse(
+    v, onTrue, identity
+  )(123, 'abc')
 })
 
 test('accept constant as condition', () => {
@@ -5364,7 +5367,9 @@ test('accept constant as condition', () => {
 })
 
 test('accept constant as condition - case 2', () => {
-  const fn = ifElse(false, always(true), always(false))
+  const fn = ifElse(
+    false, always(true), always(false)
+  )
 
   expect(fn()).toEqual(false)
 })
@@ -5396,7 +5401,9 @@ R.ifElse source
 ```javascript
 import { curry } from './curry'
 
-function ifElseFn(condition, onTrue, onFalse){
+function ifElseFn(
+  condition, onTrue, onFalse
+){
 
   return (...input) => {
     const conditionResult = typeof condition === 'boolean' ? condition : condition(...input)
@@ -5435,11 +5442,12 @@ R.inc tests
 </summary>
 
 ```javascript
-import {inc} from './inc'
+import { inc } from './inc'
 
 test('happy', () => {
   expect(inc(1)).toBe(2)
 })
+
 ```
 
 </details>
@@ -5479,8 +5487,9 @@ R.includes tests
 </summary>
 
 ```javascript
-import { includes } from './includes'
 import R from 'ramda'
+
+import { includes } from './includes'
 
 test('includes with string', () => {
   const str = 'more is less'
@@ -5761,18 +5770,16 @@ R.init tests
 
 ```javascript
 import { compose } from './compose'
-import { tail } from './tail'
-import { init } from './init'
 import { flatten } from './flatten'
+import { init } from './init'
+import { tail } from './tail'
 
 test('init', () => {
-  expect(
-    compose(
-      tail,
-      init,
-      flatten
-    )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])
-  ).toEqual([ 2, 3 ])
+  expect(compose(
+    tail,
+    init,
+    flatten
+  )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])).toEqual([ 2, 3 ])
 
   expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
   expect(init([ 1, 2 ])).toEqual([ 1 ])
@@ -5806,7 +5813,9 @@ import baseSlice from './internal/baseSlice'
 export function init(list){
   if (typeof list === 'string') return list.slice(0, -1)
 
-  return list.length ? baseSlice(list, 0, -1) : []
+  return list.length ? baseSlice(
+    list, 0, -1
+  ) : []
 }
 
 ```
@@ -6097,8 +6106,9 @@ R.keys tests
 import { keys } from './keys.js'
 
 test('happy', () => {
-  expect(keys({a:1})).toEqual(['a'])
+  expect(keys({ a : 1 })).toEqual([ 'a' ])
 })
+
 ```
 
 </details>
@@ -6259,8 +6269,8 @@ R.length tests
 </summary>
 
 ```javascript
-import { length } from './length'
 import { identical } from './identical.js'
+import { length } from './length'
 
 test('happy', () => {
   expect(length('foo')).toEqual(3)
@@ -6327,9 +6337,9 @@ R.map tests
 </summary>
 
 ```javascript
-import { map } from './map'
 import { add } from './add'
 import { compose } from './compose'
+import { map } from './map'
 
 const double = x => x * 2
 
@@ -6346,13 +6356,11 @@ test('with array', () => {
 
 test('pass index as second argument', () => {
   let counter = 0
-  map(
-    (x, i) => {
-      expect(i).toBe(counter)
-      counter++
-    },
-    [ 10, 20, 30 ]
-  )
+  map((x, i) => {
+    expect(i).toBe(counter)
+    counter++
+  },
+  [ 10, 20, 30 ])
 })
 
 test('with object', () => {
@@ -6372,7 +6380,9 @@ test('pass input object as third argument', () => {
     a : 1,
     b : 2,
   }
-  const iterator = (val, prop, inputObject) => {
+  const iterator = (
+    val, prop, inputObject
+  ) => {
     expect(inputObject).toEqual(obj)
 
     return val * 2
@@ -6390,22 +6400,28 @@ test('with object passes property as second argument', () => {
 })
 
 test('map with index example', () => {
-  const mappedWithIndex = (fn,obj) => {
+  const mappedWithIndex = (fn, obj) => {
     let counter = -1
-    return map(
-      (...inputs) => {
-        counter++
-        return fn(...inputs, counter)
-      },
-      obj
-    )
+
+    return map((...inputs) => {
+      counter++
+
+      return fn(...inputs, counter)
+    },
+    obj)
   }
-  const fn = (x, prop, obj, index) => {
-    console.log({index}) // => {index:0} | {index:1}
+  const fn = (
+    x, prop, obj, index
+  ) => {
+    console.log({ index }) // => {index:0} | {index:1}
+
     return x + 1
   }
-  const result = mappedWithIndex(fn, {a:1, b:2})
-  console.log({result}) // => {a:2, b:3}
+  const result = mappedWithIndex(fn, {
+    a : 1,
+    b : 2,
+  })
+  console.log({ result }) // => {a:2, b:3}
 })
 
 /**
@@ -6416,10 +6432,8 @@ test('when undefined instead of array', () => {
 })
 
 test('with R.compose', () => {
-  const result = compose(
-    map(add(1)),
-    map(add(1))
-  )([ 1, 2, 3 ])
+  const result = compose(map(add(1)),
+    map(add(1)))([ 1, 2, 3 ])
   expect(result).toEqual([ 3, 4, 5 ])
 })
 
@@ -6438,7 +6452,9 @@ function mapObject(fn, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    willReturn[ prop ] = fn(obj[ prop ], prop, obj)
+    willReturn[ prop ] = fn(
+      obj[ prop ], prop, obj
+    )
   }
 
   return willReturn
@@ -6588,11 +6604,15 @@ R.maxBy tests
 import { maxBy } from './maxBy'
 
 test('1', () => {
-  expect(maxBy(Math.round, 0.66, 0.77)).toEqual(0.66)
+  expect(maxBy(
+    Math.round, 0.66, 0.77
+  )).toEqual(0.66)
 })
 
 test('2', () => {
-  expect(maxBy(Math.round, 0.77, 0.66)).toEqual(0.77)
+  expect(maxBy(
+    Math.round, 0.77, 0.66
+  )).toEqual(0.77)
 })
 
 test('3', () => {
@@ -6604,7 +6624,9 @@ test('4', () => {
 })
 
 test('5', () => {
-  expect(maxBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(0.66)
+  expect(maxBy(
+    x => x === 1 ? -1 : 1, 1, 0.66
+  )).toEqual(0.66)
 })
 
 ```
@@ -6618,11 +6640,17 @@ R.maxBy source
 </summary>
 
 ```javascript
-export function maxBy(fn, a, b){
+export function maxBy(
+  fn, a, b
+){
   if (arguments.length === 2){
-    return _b => maxBy(fn, a, _b)
+    return _b => maxBy(
+      fn, a, _b
+    )
   } else if (arguments.length === 1){
-    return (_a, _b) => maxBy(fn, _a, _b)
+    return (_a, _b) => maxBy(
+      fn, _a, _b
+    )
   }
 
   return fn(b) > fn(a) ? b : a
@@ -6691,7 +6719,9 @@ R.merge source
 export function merge(obj, props){
   if (arguments.length === 1) return _props => merge(obj, _props)
 
-  return Object.assign({}, obj || {}, props || {})
+  return Object.assign(
+    {}, obj || {}, props || {}
+  )
 }
 
 ```
@@ -6765,11 +6795,15 @@ R.minBy tests
 import { minBy } from './minBy'
 
 test('1', () => {
-  expect(minBy(Math.round, 0.66, 0.77)).toEqual(0.66)
+  expect(minBy(
+    Math.round, 0.66, 0.77
+  )).toEqual(0.66)
 })
 
 test('2', () => {
-  expect(minBy(Math.round, 0.77, 0.66)).toEqual(0.77)
+  expect(minBy(
+    Math.round, 0.77, 0.66
+  )).toEqual(0.77)
 })
 
 test('3', () => {
@@ -6781,7 +6815,9 @@ test('4', () => {
 })
 
 test('5', () => {
-  expect(minBy(x => x === 1 ? -1 : 1, 1, 0.66)).toEqual(1)
+  expect(minBy(
+    x => x === 1 ? -1 : 1, 1, 0.66
+  )).toEqual(1)
 })
 
 ```
@@ -6795,11 +6831,17 @@ R.minBy source
 </summary>
 
 ```javascript
-export function minBy(fn, a, b){
+export function minBy(
+  fn, a, b
+){
   if (arguments.length === 2){
-    return _b => minBy(fn, a, _b)
+    return _b => minBy(
+      fn, a, _b
+    )
   } else if (arguments.length === 1){
-    return (_a, _b) => minBy(fn, _a, _b)
+    return (_a, _b) => minBy(
+      fn, _a, _b
+    )
   }
 
   return fn(b) < fn(a) ? b : a
@@ -6997,25 +7039,21 @@ test('with null', () => {
 })
 
 test('doesn\'t work with number as property', () => {
-  expect(
-    omit([ 42 ], {
-      a  : 1,
-      42 : 2,
-    })
-  ).toEqual({
+  expect(omit([ 42 ], {
+    a  : 1,
+    42 : 2,
+  })).toEqual({
     42 : 2,
     a  : 1,
   })
 })
 
 test('', () => {
-  expect(
-    omit([ 'a', 'c' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({ b : 'bar' })
+  expect(omit([ 'a', 'c' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({ b : 'bar' })
 })
 
 ```
@@ -7093,21 +7131,15 @@ test('works with undefined', () => {
 })
 
 test('works with string instead of array', () => {
-  expect(
-    path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })
-  ).toEqual('yes')
+  expect(path('foo.bar.baz')({ foo : { bar : { baz : 'yes' } } })).toEqual('yes')
 })
 
 test('path', () => {
-  expect(
-    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })
-  ).toEqual('yes')
+  expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })).toEqual('yes')
 
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
 
-  expect(
-    path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })
-  ).toBeUndefined()
+  expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
 })
 
 ```
@@ -7176,19 +7208,25 @@ R.pathOr tests
 import { pathOr } from './pathOr'
 
 test('with undefined', () => {
-  const result = pathOr('foo', 'x.y', { x : { y : 1 } })
+  const result = pathOr(
+    'foo', 'x.y', { x : { y : 1 } }
+  )
 
   expect(result).toEqual(1)
 })
 
 test('with null', () => {
-  const result = pathOr('foo', 'x.y', null)
+  const result = pathOr(
+    'foo', 'x.y', null
+  )
 
   expect(result).toEqual('foo')
 })
 
 test('with NaN', () => {
-  const result = pathOr('foo', 'x.y', NaN)
+  const result = pathOr(
+    'foo', 'x.y', NaN
+  )
 
   expect(result).toEqual('foo')
 })
@@ -7226,11 +7264,11 @@ import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
 
-function pathOrRaw(defaultValue, list, obj){
-  return defaultTo(
-    defaultValue,
-    path(list, obj)
-  )
+function pathOrRaw(
+  defaultValue, list, obj
+){
+  return defaultTo(defaultValue,
+    path(list, obj))
 }
 
 export const pathOr = curry(pathOrRaw)
@@ -7287,20 +7325,18 @@ R.partialCurry tests
 </summary>
 
 ```javascript
-import { type } from './type'
 import { partialCurry } from './partialCurry'
+import { type } from './type'
 
 test('', () => {
   const fn = ({ a, b, c }) => a + b + c
   const curried = partialCurry(fn, { a : 1 })
 
   expect(type(curried)).toEqual('Function')
-  expect(
-    curried({
-      b : 2,
-      c : 3,
-    })
-  ).toEqual(6)
+  expect(curried({
+    b : 2,
+    c : 3,
+  })).toEqual(6)
   expect(true).toBeTruthy()
 })
 
@@ -7420,24 +7456,20 @@ test('pick with string as condition', () => {
 })
 
 test('pick', () => {
-  expect(
-    pick([ 'a', 'c' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({
+  expect(pick([ 'a', 'c' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({
     a : 'foo',
     c : 'baz',
   })
 
-  expect(
-    pick([ 'a', 'd', 'e', 'f' ])({
-      a : 'foo',
-      b : 'bar',
-      c : 'baz',
-    })
-  ).toEqual({ a : 'foo' })
+  expect(pick([ 'a', 'd', 'e', 'f' ])({
+    a : 'foo',
+    b : 'bar',
+    c : 'baz',
+  })).toEqual({ a : 'foo' })
 
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })
@@ -7504,10 +7536,10 @@ R.pipe tests
 </summary>
 
 ```javascript
-import { pipe } from './pipe'
-import { map } from './map'
 import { add } from './add'
 import { last } from './last'
+import { map } from './map'
+import { pipe } from './pipe'
 
 test('pipe', () => {
   const result = pipe(
@@ -7520,11 +7552,7 @@ test('pipe', () => {
 })
 
 test('with bad input', () => {
-  expect(
-    () => pipe()
-  ).toThrow(
-    'pipe requires at least one argument'
-  )
+  expect(() => pipe()).toThrow('pipe requires at least one argument')
 })
 
 ```
@@ -7764,7 +7792,9 @@ test('propEq', () => {
 })
 
 test('happy', () => {
-  expect(propEq('name', 'Abby', null)).toEqual(false)
+  expect(propEq(
+    'name', 'Abby', null
+  )).toEqual(false)
 // expect(propEq('name', 'Abby', undefined)).toEqual(false)
 })
 
@@ -7781,7 +7811,9 @@ R.propEq source
 ```javascript
 import { curry } from './curry'
 
-function propEqFn(key, val, obj){
+function propEqFn(
+  key, val, obj
+){
   if (obj == null) return false
 
   return obj[ key ] === val
@@ -7818,11 +7850,15 @@ R.propIs tests
 import { propIs } from './propIs'
 
 test('1', () => {
-  expect(propIs(Number, 'value', { value : 1 })).toEqual(true)
+  expect(propIs(
+    Number, 'value', { value : 1 }
+  )).toEqual(true)
 })
 
 test('2', () => {
-  expect(propIs(String, 'value', { value : 1 })).toEqual(false)
+  expect(propIs(
+    String, 'value', { value : 1 }
+  )).toEqual(false)
 })
 
 test('3', () => {
@@ -7840,10 +7876,12 @@ R.propIs source
 </summary>
 
 ```javascript
-import { is } from './is'
 import { curry } from './curry.js'
+import { is } from './is'
 
-function propIsFn(type, name, obj){
+function propIsFn(
+  type, name, obj
+){
   return is(type, obj[ name ])
 }
 
@@ -7901,12 +7939,8 @@ test('end range is bigger than start range', () => {
 })
 
 test('with bad input', () => {
-  expect(
-    () => range('a', 6)
-  ).toThrow('Both arguments to range must be numbers')
-  expect(
-    () => range(6, 'z')
-  ).toThrow('Both arguments to range must be numbers')
+  expect(() => range('a', 6)).toThrow('Both arguments to range must be numbers')
+  expect(() => range(6, 'z')).toThrow('Both arguments to range must be numbers')
 
 })
 
@@ -7969,12 +8003,14 @@ R.reduce tests
 
 ```javascript
 import { compose } from './compose'
-import { reduce } from './reduce'
-import { map } from './map'
 import { curry } from './curry'
+import { map } from './map'
+import { reduce } from './reduce'
 
 test('happy', () => {
-  const result = reduce((acc, val, i) => {
+  const result = reduce((
+    acc, val, i
+  ) => {
     expect(typeof i).toBe('number')
 
     return acc + val
@@ -7986,18 +8022,16 @@ test('happy', () => {
 test('with compose', () => {
   const convertToString = (acc, value) => acc + value
 
-  expect(
-    compose(
-      reduce(convertToString, ''),
-      map(x => x + 1)
-    )([ 1, 2, 3 ])
-  ).toEqual('234')
+  expect(compose(reduce(convertToString, ''),
+    map(x => x + 1))([ 1, 2, 3 ])).toEqual('234')
 })
 
 test('with curry', () => {
   const add = curry((n, n2) => n + n2)
 
-  expect(reduce(add, 0, [ 1, 2, 3 ])).toEqual(6)
+  expect(reduce(
+    add, 0, [ 1, 2, 3 ]
+  )).toEqual(6)
 })
 
 ```
@@ -8013,7 +8047,9 @@ R.reduce source
 ```javascript
 import { curry } from './curry'
 
-function reduceFn(fn, acc, list){
+function reduceFn(
+  fn, acc, list
+){
   return list.reduce(fn, acc)
 }
 
@@ -8048,11 +8084,11 @@ R.reject tests
 </summary>
 
 ```javascript
-import { reject } from './reject'
-import { compose } from './compose'
 import { add } from './add'
-import { map } from './map'
+import { compose } from './compose'
 import { equals } from './equals'
+import { map } from './map'
+import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
 
@@ -8061,24 +8097,20 @@ test('with array', () => {
 })
 
 test('with object', () => {
-  expect(
-    reject(isOdd, {
-      a : 1,
-      b : 2,
-      c : 3,
-      d : 4,
-    })
-  ).toEqual({
+  expect(reject(isOdd, {
+    a : 1,
+    b : 2,
+    c : 3,
+    d : 4,
+  })).toEqual({
     b : 2,
     d : 4,
   })
 })
 
 test('should work with currying', () => {
-  const result = compose(
-    reject(equals(2)),
-    map(add(1))
-  )({
+  const result = compose(reject(equals(2)),
+    map(add(1)))({
     a : 1,
     b : 2,
     c : 3,
@@ -8091,12 +8123,10 @@ test('should work with currying', () => {
 })
 
 test('pass index as second argument', () => {
-  reject(
-    (x, i) => {
-      expect(typeof x).toBe('number')
-      expect(typeof i).toBe('number')
-    }
-  )([ 10, 12, 15 ])
+  reject((x, i) => {
+    expect(typeof x).toBe('number')
+    expect(typeof i).toBe('number')
+  })([ 10, 12, 15 ])
 })
 
 ```
@@ -8202,7 +8232,9 @@ R.replace tests
 import { replace } from './replace'
 
 test('happy', () => {
-  expect(replace('foo', 'yes', 'foo bar baz')).toEqual('yes bar baz')
+  expect(replace(
+    'foo', 'yes', 'foo bar baz'
+  )).toEqual('yes bar baz')
 })
 
 test('1', () => {
@@ -8228,11 +8260,17 @@ R.replace source
 </summary>
 
 ```javascript
-export function replace(pattern, replacer, str){
+export function replace(
+  pattern, replacer, str
+){
   if (replacer === undefined){
-    return (_replacer, _str) => replace(pattern, _replacer, _str)
+    return (_replacer, _str) => replace(
+      pattern, _replacer, _str
+    )
   } else if (str === undefined){
-    return _str => replace(pattern, replacer, _str)
+    return _str => replace(
+      pattern, replacer, _str
+    )
   }
 
   return str.replace(pattern, replacer)
@@ -8423,17 +8461,13 @@ R.sortBy tests
 
 ```javascript
 import { compose } from './compose'
-import { toLower } from './toLower'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
+import { toLower } from './toLower'
 
 test('sortBy', () => {
-  const sortByNameCaseInsensitive = sortBy(
-    compose(
-      toLower,
-      prop('name')
-    )
-  )
+  const sortByNameCaseInsensitive = sortBy(compose(toLower,
+    prop('name')))
   const alice = {
     name : 'ALICE',
     age  : 101,
@@ -8454,21 +8488,13 @@ test('sortBy', () => {
     clara,
   ])
 
-  expect(
-    sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])
-  ).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
+  expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
 
-  expect(
-    sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])
-  ).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
+  expect(sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
 
-  expect(
-    sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])
-  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  expect(sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 
-  expect(
-    sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])
-  ).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  expect(sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
 })
 
 ```
@@ -8588,9 +8614,7 @@ test('', () => {
 })
 
 test('with bad input', () => {
-  expect(
-    () => expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])
-  ).toThrow('First argument to splitEvery must be a positive integer')
+  expect(() => expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrow('First argument to splitEvery must be a positive integer')
 
 })
 
@@ -8824,6 +8848,7 @@ R.take tests
 
 ```javascript
 import R from 'ramda'
+
 import { take } from './take'
 
 test('happy', () => {
@@ -8874,7 +8899,9 @@ export function take(n, list){
   if (n < 0) return list.slice()
   if (typeof list === 'string') return list.slice(0, n)
 
-  return baseSlice(list, 0, n)
+  return baseSlice(
+    list, 0, n
+  )
 }
 
 ```
@@ -8966,7 +8993,9 @@ export function takeLast(n, list){
 
   numValue = len - numValue
 
-  return baseSlice(list, numValue, len)
+  return baseSlice(
+    list, numValue, len
+  )
 }
 
 ```
@@ -9069,9 +9098,10 @@ R.times tests
 </summary>
 
 ```javascript
-import { times } from './times'
-import { identity } from './identity'
 import assert from 'assert'
+
+import { identity } from './identity'
+import { times } from './times'
 
 test('happy', () => {
   const result = times(identity, 5)
@@ -9286,13 +9316,11 @@ import { split } from './split'
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
-  expect(
-    compose(
-      join(''),
-      map(toUpper),
-      split('')
-    )('foo|bar|baz')
-  ).toEqual('FOO|BAR|BAZ')
+  expect(compose(
+    join(''),
+    map(toUpper),
+    split('')
+  )('foo|bar|baz')).toEqual('FOO|BAR|BAZ')
 })
 
 ```
@@ -9346,6 +9374,7 @@ R.trim tests
 
 ```javascript
 import { trim } from './trim'
+
 test('trim', () => {
   expect(trim(' foo ')).toEqual('foo')
 })
@@ -9402,8 +9431,9 @@ R.type tests
 </summary>
 
 ```javascript
-import { type } from './type'
 import { type as ramdaType } from 'ramda'
+
+import { type } from './type'
 
 test('with simple promise', () => {
   expect(type(Promise.resolve(1))).toBe('Promise')
@@ -9776,10 +9806,8 @@ export function uniqWith(fn, list){
 
   while (++index < len){
     const value = list[ index ]
-    const flag = any(
-      willReturnInstance => fn(value, willReturnInstance),
-      willReturn
-    )
+    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+      willReturn)
 
     if (!flag){
       willReturn.push(value)
@@ -9819,7 +9847,9 @@ import { update } from './update'
 
 test('update', () => {
   expect(update(1)(0)([ 1, 2, 3 ])).toEqual([ 1, 0, 3 ])
-  expect(update(1, 11, [ 0, 1, 2 ])).toEqual([ 0, 11, 2 ])
+  expect(update(
+    1, 11, [ 0, 1, 2 ]
+  )).toEqual([ 0, 11, 2 ])
 })
 
 ```
@@ -9833,16 +9863,24 @@ R.update source
 </summary>
 
 ```javascript
-export function update(idx, val, list){
+export function update(
+  idx, val, list
+){
   if (val === undefined){
-    return (_val, _list) => update(idx, _val, _list)
+    return (_val, _list) => update(
+      idx, _val, _list
+    )
   } else if (list === undefined){
-    return _list => update(idx, val, _list)
+    return _list => update(
+      idx, val, _list
+    )
   }
 
   const arrClone = list.slice()
 
-  return arrClone.fill(val, idx, idx + 1)
+  return arrClone.fill(
+    val, idx, idx + 1
+  )
 }
 
 ```
@@ -9873,13 +9911,11 @@ R.values tests
 import { values } from './values'
 
 test('happy', () => {
-  expect(
-    values({
-      a : 1,
-      b : 2,
-      c : 3,
-    })
-  ).toEqual([ 1, 2, 3 ])
+  expect(values({
+    a : 1,
+    b : 2,
+    c : 3,
+  })).toEqual([ 1, 2, 3 ])
 })
 
 test('with bad input', () => {
@@ -10091,8 +10127,8 @@ R.zipObj tests
 </summary>
 
 ```javascript
-import { zipObj } from './zipObj'
 import { equals } from './equals.js'
+import { zipObj } from './zipObj'
 
 test('zipObj', () => {
   expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
@@ -10124,9 +10160,7 @@ test('ignore extra keys', () => {
     c : 3,
   }
 
-  expect(
-    equals(result, expected)
-  ).toBeTruthy()
+  expect(equals(result, expected)).toBeTruthy()
 })
 
 ```
@@ -10145,7 +10179,9 @@ import { take } from './take'
 export function zipObj(keys, values){
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
 
-  return take(values.length, keys).reduce((prev, xInstance, i) => {
+  return take(values.length, keys).reduce((
+    prev, xInstance, i
+  ) => {
     prev[ xInstance ] = values[ i ]
 
     return prev
@@ -10170,6 +10206,8 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.5.0 Add `R.clamp`
 
 - 4.4.2 Improve `R.propOr` typings
 

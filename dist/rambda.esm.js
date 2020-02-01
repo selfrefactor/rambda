@@ -185,6 +185,14 @@ function concat(left, right) {
   return typeof left === 'string' ? `${left}${right}` : [...left, ...right];
 }
 
+function clampFn(lowLimit, highLimit, input) {
+  if (input >= lowLimit && input <= highLimit) return input;
+  if (input > highLimit) return highLimit;
+  if (input < lowLimit) return lowLimit;
+}
+
+const clamp = curry(clampFn);
+
 const dec = n => n - 1;
 
 function flagIs(inputArguments) {
@@ -1291,4 +1299,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, assoc, assocPath, both, clone, complement, compose, concat, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, partial, partialCurry, path, pathOr, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, without, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, assoc, assocPath, both, clamp, clone, complement, compose, concat, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, partial, partialCurry, path, pathOr, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, without, zip, zipObj };

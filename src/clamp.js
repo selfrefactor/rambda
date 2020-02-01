@@ -1,8 +1,6 @@
 import { curry } from './curry'
 
-function clampFn(
-  lowLimit, highLimit, input
-){
+function clampFn(lowLimit, highLimit, input){
   if (input >= lowLimit && input <= highLimit) return input
 
   if (input > highLimit) return highLimit
