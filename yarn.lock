@@ -4467,10 +4467,10 @@ rambdax@^3.3.1:
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-3.3.1.tgz#d7325ff33ceea186b465f7fd46274a533d4ce47a"
   integrity sha512-sW/hicOTtP3XCiqkA42cIXe6dxlFCmEAmcTQQDcHqDQ5aTMfw8m0BjyDDsmF6PXStsOU/jNxBwIfPq1/UDkEiw==
 
-ramda@0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
-  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+ramda@0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
 
 randomatic@^3.0.0:
   version "3.1.1"
