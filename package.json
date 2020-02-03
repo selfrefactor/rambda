@@ -47,7 +47,7 @@
     "@babel/core": "7.8.4",
     "@babel/plugin-proposal-object-rest-spread": "7.8.3",
     "@babel/preset-env": "7.8.4",
-    "@types/jest": "25.1.0",
+    "@types/jest": "25.1.1",
     "@types/ramda": "0.26.40",
     "babel-jest": "24.9.0",
     "dtslint": "2.0.5",
