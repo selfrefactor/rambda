@@ -50,7 +50,7 @@
     "@types/jest": "25.1.1",
     "@types/ramda": "0.26.40",
     "babel-jest": "24.9.0",
-    "dtslint": "2.0.5",
+    "dtslint": "2.0.6",
     "helpers": "https://github.com/selfrefactor/helpers#2.4.0",
     "jest": "24.9.0",
     "lodash": "4.17.15",
