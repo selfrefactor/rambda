@@ -1,3 +1,13 @@
+- 4.6.0 
+
+Add `R.cond`
+
+Add `R.move`
+
+Add `R.paths`
+
+Add `R.xor`
+
 - 4.5.0 Add `R.clamp`
 
 - 4.4.2 Improve `R.propOr` typings
