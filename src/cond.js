@@ -1,5 +1,5 @@
-import {curry} from './curry'
+import { curry } from './curry'
 
-function condFn() {}
+function condFn(){}
 
 export const cond = curry(condFn)

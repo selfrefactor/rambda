@@ -99,7 +99,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "prepare sync with new ramda",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",
