@@ -2119,15 +2119,14 @@ dts-critic@^2.2.4:
     semver "^6.2.0"
     yargs "^12.0.5"
 
-dtslint@2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-2.0.5.tgz#2589c69751f9943c29841eab8634baa329df115b"
-  integrity sha512-73Rixb/W7VbxUb0PPSyAPT63dmaudA4JxcA+NWJvBd+d03kl9j2BW3Ldzz0+SlhWkYRyrJtp2D9IXURNLaWRpw==
+dtslint@2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-2.0.6.tgz#8862293c9bb01b923a7ed40643695fc6f12a7c78"
+  integrity sha512-lvuwW8ZSJOIP5Ipm2hGGZ/t1urFwzIwaI46aPxqZ8GgMpdxbzr2iBjNwews+mJygkmR04TT8HnfCa1vcggMIMQ==
   dependencies:
     definitelytyped-header-parser "3.8.2"
     dts-critic "^2.2.4"
     fs-extra "^6.0.1"
-    request "^2.88.0"
     strip-json-comments "^2.0.1"
     tslint "5.14.0"
     typescript next
@@ -4629,7 +4628,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.87.0, request@^2.88.0:
+request@^2.87.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
