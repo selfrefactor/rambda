@@ -84,6 +84,7 @@ method | Rambda | Ramda | Lodash
  *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
  *none* | 🚀 Fastest | 66.57% slower | 🔳
  *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
+ *over* | 🚀 Fastest | 56.26% slower | 🔳
  *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
  *prop* | 🚀 Fastest | 94.38% slower | 🔳
@@ -92,6 +93,7 @@ method | Rambda | Ramda | Lodash
  *reduce* | 71.84% slower | 84.24% slower | 🚀 Fastest
  *repeat* | 55.51% slower | 83.45% slower | 🚀 Fastest
  *replace* | 🚀 Fastest | 35.85% slower | 4.98% slower
+ *set* | 🚀 Fastest | 57.61% slower | 🔳
  *sort* | 🚀 Fastest | 28.43% slower | 🔳
  *sortBy* | 🚀 Fastest | 16.52% slower | 72.48% slower
  *split* | 🚀 Fastest | 56.27% slower | 28.78% slower
@@ -102,6 +104,7 @@ method | Rambda | Ramda | Lodash
  *type* | 19.76% slower | 🚀 Fastest | 🔳
  *uniq* | 99.56% slower | 96.54% slower | 🚀 Fastest
  *update* | 🚀 Fastest | 87.94% slower | 🔳
+ *view* | 🚀 Fastest | 69.35% slower | 🔳
 
 </details>
 
