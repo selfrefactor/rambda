@@ -1,0 +1,27 @@
+{
+  "name": "OVER",
+  "date": "2020-02-16T11:21:32.628Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 1401771,
+      "margin": 1.58,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 613179,
+      "margin": 2.69,
+      "percentSlower": 56.26
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

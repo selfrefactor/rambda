@@ -821,6 +821,50 @@ function length(list) {
   return list.length;
 }
 
+function lens(getter, setter) {
+  if (arguments.length === 1) return _setter => lens(getter, _setter);
+  return function (functor) {
+    return function (target) {
+      return functor(getter(target)).map(focus => setter(focus, target));
+    };
+  };
+}
+
+function nth(offset, list) {
+  if (arguments.length === 1) return _list => nth(offset, _list);
+  const idx = offset < 0 ? list.length + offset : offset;
+  return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
+}
+
+function update(idx, val, list) {
+  if (val === undefined) {
+    return (_val, _list) => update(idx, _val, _list);
+  } else if (list === undefined) {
+    return _list => update(idx, val, _list);
+  }
+
+  const arrClone = list.slice();
+  return arrClone.fill(val, idx, idx + 1);
+}
+
+function lensIndex(i) {
+  return lens(nth(i), update(i));
+}
+
+function lensPath(key) {
+  return lens(path(key), assocPath(key));
+}
+
+function prop(key, obj) {
+  if (arguments.length === 1) return _obj => prop(key, _obj);
+  if (!obj) return undefined;
+  return obj[key];
+}
+
+function lensProp(key) {
+  return lens(prop(key), assoc(key));
+}
+
 function match(pattern, str) {
   if (arguments.length === 1) return _str => match(pattern, _str);
   const willReturn = str.match(pattern);
@@ -910,12 +954,6 @@ function not(a) {
   return !a;
 }
 
-function nth(offset, list) {
-  if (arguments.length === 1) return _list => nth(offset, _list);
-  const idx = offset < 0 ? list.length + offset : offset;
-  return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
-}
-
 function omit(keys, obj) {
   if (arguments.length === 1) return _obj => omit(keys, _obj);
 
@@ -933,6 +971,17 @@ function omit(keys, obj) {
   }
 
   return willReturn;
+}
+
+const Identity = x => ({
+  x,
+  map: fn => Identity(fn(x))
+});
+
+function over(lens, fn, object) {
+  if (arguments.length === 1) return (_fn, _object) => over(lens, _fn, _object);
+  if (arguments.length === 2) return _object => over(lens, fn, _object);
+  return lens(x => Identity(fn(x)))(object).x;
 }
 
 function partial(fn, ...args) {
@@ -1041,12 +1090,6 @@ const reduce = curry(reduceFn);
 
 const product = reduce(multiply, 1);
 
-function prop(key, obj) {
-  if (arguments.length === 1) return _obj => prop(key, _obj);
-  if (!obj) return undefined;
-  return obj[key];
-}
-
 function propEqFn(key, val, obj) {
   if (obj == null) return false;
   return obj[key] === val;
@@ -1113,6 +1156,12 @@ function reverse(input) {
 
   const clone = input.slice();
   return clone.reverse();
+}
+
+function set(lens, v, x) {
+  if (arguments.length === 1) return (_v, _x) => set(lens, _v, _x);
+  if (arguments.length === 2) return _x => set(lens, v, _x);
+  return over(lens, always(v), x);
 }
 
 function sliceFn(fromIndex, toIndex, list) {
@@ -1259,20 +1308,19 @@ function uniqWith(fn, list) {
   return willReturn;
 }
 
-function update(idx, val, list) {
-  if (val === undefined) {
-    return (_val, _list) => update(idx, _val, _list);
-  } else if (list === undefined) {
-    return _list => update(idx, val, _list);
-  }
-
-  const arrClone = list.slice();
-  return arrClone.fill(val, idx, idx + 1);
-}
-
 function values(obj) {
   if (type(obj) !== 'Object') return [];
   return Object.values(obj);
+}
+
+const Const = x => ({
+  x,
+  map: fn => Const(x)
+});
+
+function view(lens, target) {
+  if (arguments.length === 1) return _target => view(lens, _target);
+  return lens(Const)(target).x;
 }
 
 function without(left, right) {
@@ -1362,6 +1410,10 @@ exports.keys = keys;
 exports.last = last;
 exports.lastIndexOf = lastIndexOf;
 exports.length = length;
+exports.lens = lens;
+exports.lensIndex = lensIndex;
+exports.lensPath = lensPath;
+exports.lensProp = lensProp;
 exports.map = map;
 exports.match = match;
 exports.mathMod = mathMod;
@@ -1379,6 +1431,7 @@ exports.none = none;
 exports.not = not;
 exports.nth = nth;
 exports.omit = omit;
+exports.over = over;
 exports.partial = partial;
 exports.partialCurry = partialCurry;
 exports.path = path;
@@ -1399,6 +1452,7 @@ exports.reject = reject;
 exports.repeat = repeat;
 exports.replace = replace;
 exports.reverse = reverse;
+exports.set = set;
 exports.slice = slice;
 exports.sort = sort;
 exports.sortBy = sortBy;
@@ -1425,6 +1479,7 @@ exports.uniq = uniq;
 exports.uniqWith = uniqWith;
 exports.update = update;
 exports.values = values;
+exports.view = view;
 exports.without = without;
 exports.zip = zip;
 exports.zipObj = zipObj;

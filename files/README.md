@@ -962,6 +962,66 @@ R.length([1, 2, 3]) // => 3
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/length.js)
 
+#### lens
+
+> lens(getter: Function, setter: Function): Lens
+
+Returns a `lens` for the given `getter` and `setter` functions. 
+
+The `getter` "gets" the value of the focus; the `setter` "sets" the value of the focus. 
+
+The setter should not mutate the data structure.
+
+```
+const xLens = R.lens(R.prop('x'), R.assoc('x'));
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.over(xLens, R.negate, {x: 1, y: 2}) //=> {x: -1, y: 2}
+```
+
+#### lensIndex
+
+> lensIndex(index: Number): Lens
+
+Returns a lens that focuses on the specified index
+
+```
+const headLens = R.lensIndex(0)
+
+R.view(headLens, ['a', 'b', 'c']) //=> 'a'
+R.set(headLens, 'x', ['a', 'b', 'c']) //=> ['x', 'b', 'c']
+R.over(headLens, R.toUpper, ['a', 'b', 'c']) //=> ['A', 'b', 'c']
+```
+
+#### lensPath
+
+> lensPath(path: Array|String): Lens
+
+Returns a lens that focuses on the specified path
+
+```
+const xHeadYLens = R.lensPath(['x', 0, 'y'])
+
+R.view(xHeadYLens, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> 2
+R.set(xHeadYLens, 1, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+R.over(xHeadYLens, R.negate, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+```
+
+#### lensProp
+
+> lensProp(prop: String): Lens
+
+Returns a lens that focuses on the specified property
+
+```
+const xLens = R.lensProp('x');
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.over(xLens, R.negate, {x: 1, y: 2}) //=> {x: -1, y: 2}
+```
+
 #### map
 
 > map(mapFn: Function, x: Array|Object): Array|Object
@@ -1098,6 +1158,18 @@ R.omit('a,c,d', {a: 1, b: 2, c: 3}) // => {b: 2}
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/omit.js)
+
+#### over
+
+> over(lens: Lens, f: Function, target: Array|Object): Array|Object
+
+Returns a copied `Object` or `Array` with the modified value resulting from the function applying to the lenses focus.
+
+```
+const headLens = R.lensIndex(0)
+ 
+R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
+```
 
 #### path
 
@@ -1362,6 +1434,19 @@ const result = R.reverse(arr)
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/reverse.js)
+
+#### set
+
+> set(lens: Lens, x: any, target: Array|Object): Array|Object
+
+Returns a copied `Object` or `Array` with the modified value resulting from the input value replacing that of the lenses focus.
+
+```
+const xLens = R.lensProp('x')
+
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.set(xLens, 8, {x: 1, y: 2}) //=> {x: 8, y: 2}
+```
 
 #### slice
 
@@ -1729,6 +1814,20 @@ R.values({a: 1, b: 2})
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/values.js)
+
+#### view
+
+> view(lens: Lens, target: Array|Object): any
+
+Returns the value at the lenses focus on the target object.
+
+```
+const xLens = R.lensProp('x')
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.view(xLens, {x: 4, y: 2}) //=> 4
+```
+
 
 #### without
 
