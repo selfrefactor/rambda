@@ -18,13 +18,13 @@ Add `R.view`
 
 > Sync with Ramda 0.27
 
-Add `R.cond`
-
-Add `R.move`
-
 Add `R.paths`
 
 Add `R.xor`
+
+> Close issue  
+
+Add `R.cond`
 
 - 4.5.0 Add `R.clamp`
 
