@@ -37,26 +37,3 @@ test('predicates are tested in order', () => {
   ])
   expect(fn()).toEqual('foo')
 })
-
-test('forwards all arguments to predicates and to transformers', () => {
-  const fn = cond([
-    [
-      function(_, x){
-        return x === 42
-      },
-      () => arguments.length,
-    ],
-  ])
-  expect(fn(
-    21, 42, 84
-  )).toEqual(3)
-})
-
-test('retains highest predicate arity', () => {
-  const fn = cond([
-    [ nAry(2, T), T ],
-    [ nAry(3, T), T ],
-    [ nAry(1, T), T ],
-  ])
-  expect(fn.length).toEqual(3)
-})
