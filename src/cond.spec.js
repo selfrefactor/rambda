@@ -1,3 +1,4 @@
+import { always, equals, T } from '../rambda.js'
 import { cond } from './cond'
 
 test('returns a function', () => {

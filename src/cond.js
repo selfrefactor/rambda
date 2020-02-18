@@ -1,5 +1,14 @@
-import { curry } from './curry'
+export function cond(conditions){
+  return input => {
+    let done = false
+    let toReturn
+    conditions.forEach(([ predicate, resultClosure ]) => {
+      if (!done && predicate(input)){
+        done = true
+        toReturn = resultClosure(input)
+      }
+    })
 
-function condFn(){}
-
-export const cond = curry(condFn)
+    return toReturn
+  }
+}
