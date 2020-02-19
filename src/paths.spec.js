@@ -1,3 +1,5 @@
+import { paths } from './paths'
+
 const obj = {
   a : {
     b : {
@@ -12,17 +14,25 @@ const obj = {
   },
 }
 
-test('takes paths and returns values at those paths', () => {
-  expect(paths([
+test('with string path', () => {
+  const result = paths([
+    'a.b.d',
+    'p.q',
+  ],
+  obj)
+  
+  expect(result).toEqual([ 2, undefined ])
+})
+
+test('with array path', () => {
+  const result = paths([
     [ 'a', 'b', 'c' ],
     [ 'x', 'y' ],
   ],
-  obj)).toEqual([ 1, 'Alice' ])
-  expect(paths([
-    [ 'a', 'b', 'd' ],
-    [ 'p', 'q' ],
-  ],
-  obj)).toEqual([ 2, undefined ])
+  obj)
+
+  expect(result).toEqual([ 1, 'Alice' ])
+
 })
 
 test('takes a paths that contains indices into arrays', () => {
@@ -36,19 +46,6 @@ test('takes a paths that contains indices into arrays', () => {
     [ 'x', 'z', 2, 1 ],
   ],
   obj)).toEqual([ 3, undefined ])
-})
-
-test('takes a path that contains negative indices into arrays', () => {
-  expect(paths([
-    [ 'p', -2, 'q' ],
-    [ 'p', -1 ],
-  ],
-  obj)).toEqual([ 3, 'Hi' ])
-  expect(paths([
-    [ 'p', -4, 'q' ],
-    [ 'x', 'z', -1, 0 ],
-  ],
-  obj)).toEqual([ undefined, {} ])
 })
 
 test('gets a deep property\'s value from objects', () => {
