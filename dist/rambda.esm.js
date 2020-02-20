@@ -185,6 +185,20 @@ function concat(left, right) {
   return typeof left === 'string' ? `${left}${right}` : [...left, ...right];
 }
 
+function cond(conditions) {
+  return input => {
+    let done = false;
+    let toReturn;
+    conditions.forEach(([predicate, resultClosure]) => {
+      if (!done && predicate(input)) {
+        done = true;
+        toReturn = resultClosure(input);
+      }
+    });
+    return toReturn;
+  };
+}
+
 function clampFn(lowLimit, highLimit, input) {
   if (input >= lowLimit && input <= highLimit) return input;
   if (input > highLimit) return highLimit;
@@ -229,7 +243,6 @@ function defaultTo(defaultArgument, ...inputArguments) {
 
 function type(input) {
   const typeOf = typeof input;
-  const asStr = input && input.toString ? input.toString() : '';
 
   if (input === null) {
     return 'Null';
@@ -247,6 +260,7 @@ function type(input) {
     return 'RegExp';
   }
 
+  const asStr = input && input.toString ? input.toString() : '';
   if (['true', 'false'].includes(asStr)) return 'Boolean';
   if (!Number.isNaN(Number(asStr))) return 'Number';
   if (asStr.startsWith('async')) return 'Async';
@@ -1003,6 +1017,10 @@ function partialCurry(fn, args = {}) {
   };
 }
 
+function paths(pathsInput, obj) {
+  return pathsInput.map(singlePath => path(singlePath, obj));
+}
+
 function pathOrRaw(defaultValue, list, obj) {
   return defaultTo(defaultValue, path(list, obj));
 }
@@ -1339,6 +1357,11 @@ function zip(left, right) {
   return result;
 }
 
+function xor(a, b) {
+  if (arguments.length === 1) return _b => xor(a, _b);
+  return Boolean(a) && !b || Boolean(b) && !a;
+}
+
 function zipObj(keys, values) {
   if (arguments.length === 1) return yHolder => zipObj(keys, yHolder);
   return take(values.length, keys).reduce((prev, xInstance, i) => {
@@ -1347,4 +1370,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, assoc, assocPath, both, clamp, clone, complement, compose, concat, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, over, partial, partialCurry, path, pathOr, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, without, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, over, partial, partialCurry, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, without, xor, zip, zipObj };

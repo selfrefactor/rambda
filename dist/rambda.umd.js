@@ -191,6 +191,20 @@
     return typeof left === 'string' ? `${left}${right}` : [...left, ...right];
   }
 
+  function cond(conditions) {
+    return input => {
+      let done = false;
+      let toReturn;
+      conditions.forEach(([predicate, resultClosure]) => {
+        if (!done && predicate(input)) {
+          done = true;
+          toReturn = resultClosure(input);
+        }
+      });
+      return toReturn;
+    };
+  }
+
   function clampFn(lowLimit, highLimit, input) {
     if (input >= lowLimit && input <= highLimit) return input;
     if (input > highLimit) return highLimit;
@@ -235,7 +249,6 @@
 
   function type(input) {
     const typeOf = typeof input;
-    const asStr = input && input.toString ? input.toString() : '';
 
     if (input === null) {
       return 'Null';
@@ -253,6 +266,7 @@
       return 'RegExp';
     }
 
+    const asStr = input && input.toString ? input.toString() : '';
     if (['true', 'false'].includes(asStr)) return 'Boolean';
     if (!Number.isNaN(Number(asStr))) return 'Number';
     if (asStr.startsWith('async')) return 'Async';
@@ -1009,6 +1023,10 @@
     };
   }
 
+  function paths(pathsInput, obj) {
+    return pathsInput.map(singlePath => path(singlePath, obj));
+  }
+
   function pathOrRaw(defaultValue, list, obj) {
     return defaultTo(defaultValue, path(list, obj));
   }
@@ -1345,6 +1363,11 @@
     return result;
   }
 
+  function xor(a, b) {
+    if (arguments.length === 1) return _b => xor(a, _b);
+    return Boolean(a) && !b || Boolean(b) && !a;
+  }
+
   function zipObj(keys, values) {
     if (arguments.length === 1) return yHolder => zipObj(keys, yHolder);
     return take(values.length, keys).reduce((prev, xInstance, i) => {
@@ -1372,6 +1395,7 @@
   exports.complement = complement;
   exports.compose = compose;
   exports.concat = concat;
+  exports.cond = cond;
   exports.curry = curry;
   exports.dec = dec;
   exports.defaultTo = defaultTo;
@@ -1438,6 +1462,7 @@
   exports.partialCurry = partialCurry;
   exports.path = path;
   exports.pathOr = pathOr;
+  exports.paths = paths;
   exports.pick = pick;
   exports.pickAll = pickAll;
   exports.pipe = pipe;
@@ -1483,6 +1508,7 @@
   exports.values = values;
   exports.view = view;
   exports.without = without;
+  exports.xor = xor;
   exports.zip = zip;
   exports.zipObj = zipObj;
 
