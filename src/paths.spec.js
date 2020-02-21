@@ -1,5 +1,5 @@
 import { paths } from './paths'
-
+ 
 const obj = {
   a : {
     b : {
@@ -20,7 +20,7 @@ test('with string path', () => {
     'p.q',
   ],
   obj)
-  
+
   expect(result).toEqual([ 2, undefined ])
 })
 
