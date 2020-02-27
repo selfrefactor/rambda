@@ -1,4 +1,4 @@
-import { F, TToolbelt } from "./_ts-toolbelt/src/index";
+import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
