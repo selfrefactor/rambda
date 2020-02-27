@@ -1,4 +1,4 @@
-import { F } from "./_ts-toolbelt/src/index";
+import { F, TToolbelt } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
@@ -427,9 +427,28 @@ Value `-1` is returned if no `x` is found in `arr`.
 		*/	
     lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
 
-    
     length<T>(list: ReadonlyArray<T>): number;
 
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    lensIndex(n: number): Lens;
+    lensPath(path: Path): Lens;
+    
+    lensProp(str: string): {
+        <T, U>(obj: T): U;
+        set<T, U, V>(val: T, obj: U): V;
+    };
+    over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+    over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
+    over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+    over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
+    over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+    over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+
+    set<T, U>(lens: Lens, a: U, obj: T): T;
+    set<U>(lens: Lens, a: U): <T>(obj: T) => T;
+    set(lens: Lens): <T, U>(a: U, obj: T) => T;
+    view<T, U>(lens: Lens): (obj: T) => U;
+    view<T, U>(lens: Lens, obj: T): U;
     /*
 			It returns the result of looping through iterable `x` with `mapFn`.
 

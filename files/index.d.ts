@@ -343,6 +343,36 @@ declare namespace R {
     length<T>(list: ReadonlyArray<T>): number;
 
     // SINGLE_MARKER
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    
+    // SINGLE_MARKER
+    lensIndex(n: number): Lens;
+    lensPath(path: Path): Lens;
+
+    // SINGLE_MARKER
+    lensProp(str: string): {
+        <T, U>(obj: T): U;
+        set<T, U, V>(val: T, obj: U): V;
+    };
+
+    // SINGLE_MARKER
+    over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+    over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
+    over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+    over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
+    over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+    over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+
+    // SINGLE_MARKER
+    set<T, U>(lens: Lens, a: U, obj: T): T;
+    set<U>(lens: Lens, a: U): <T>(obj: T) => T;
+    set(lens: Lens): <T, U>(a: U, obj: T) => T;
+    
+    // SINGLE_MARKER
+    view<T, U>(lens: Lens): (obj: T) => U;
+    view<T, U>(lens: Lens, obj: T): U;
+
+    // SINGLE_MARKER
     map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
     map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
     map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
