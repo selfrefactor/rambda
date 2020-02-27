@@ -1,7 +1,8 @@
-import { F } from "./_ts-toolbelt/src/index";
+import { F, TToolbelt } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
+
   // INTERFACES_MARKER
   type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -22,7 +23,10 @@ declare namespace R {
     0: K;
     1: V;
   }
-
+  interface Lens {
+    <TToolbelt, U>(obj: TToolbelt): U;
+    set<TToolbelt, U>(str: string, obj: TToolbelt): U;
+  }
   type Arity1Fn = (a: any) => any;
 
   type Arity2Fn = (a: any, b: any) => any;
