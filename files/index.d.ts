@@ -18,6 +18,7 @@ declare namespace R {
   type Ord = number | string | boolean | Date;
 
   type Path = string | ReadonlyArray<(number | string)>;
+  type RamdaPath = Array<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
@@ -347,7 +348,7 @@ declare namespace R {
     
     // SINGLE_MARKER
     lensIndex(n: number): Lens;
-    lensPath(path: Path): Lens;
+    lensPath(path: RamdaPath): Lens;
 
     // SINGLE_MARKER
     lensProp(str: string): {
@@ -468,9 +469,9 @@ declare namespace R {
     path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
     // SINGLE_MARKER
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
 
     // SINGLE_MARKER
     pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
