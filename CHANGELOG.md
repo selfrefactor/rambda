@@ -1,6 +1,6 @@
 - 4.6.0 
 
-Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses
+Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses(Thank you [@synthet1c](https://github.com/synthet1c))
 
 Add `R.lens`
 
@@ -22,7 +22,7 @@ Add `R.paths`
 
 Add `R.xor`
 
-> Close issue  
+> Close [Issue #373](https://github.com/selfrefactor/rambda/issues/373)
 
 Add `R.cond`
 

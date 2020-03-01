@@ -104,8 +104,8 @@ declare namespace R {
     either(pred1: Pred): (pred2: Pred) => Pred;
 
     // SINGLE_MARKER
-    clamp(min: number, max: number, input:number): number;
-    clamp(min: number, max: number) : (input:number) => number;
+    clamp(min: number, max: number, input: number): number;
+    clamp(min: number, max: number) : (input: number) => number;
     
     // SINGLE_MARKER
     clone<T>(value: T): T;
@@ -162,6 +162,10 @@ declare namespace R {
     concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
     concat(x: string, y: string): string;
     concat(x: string): (y: string) => string;
+    
+    // SINGLE_MARKER
+    cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
+    cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
 
     // SINGLE_MARKER
     curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
