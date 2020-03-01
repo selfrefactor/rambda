@@ -104,8 +104,8 @@ declare namespace R {
     either(pred1: Pred): (pred2: Pred) => Pred;
 
     // SINGLE_MARKER
-    clamp(min: number, max: number, input:number): number;
-    clamp(min: number, max: number) : (input:number) => number;
+    clamp(min: number, max: number, input: number): number;
+    clamp(min: number, max: number) : (input: number) => number;
     
     // SINGLE_MARKER
     clone<T>(value: T): T;
@@ -162,6 +162,10 @@ declare namespace R {
     concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
     concat(x: string, y: string): string;
     concat(x: string): (y: string) => string;
+    
+    // SINGLE_MARKER
+    cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
+    cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
 
     // SINGLE_MARKER
     curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
@@ -345,6 +349,7 @@ declare namespace R {
 
     // SINGLE_MARKER
     lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
     
     // SINGLE_MARKER
     lensIndex(n: number): Lens;
@@ -467,6 +472,12 @@ declare namespace R {
     path<T>(pathToSearch: string | string[], obj: any): T | undefined;
     path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
     path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+    
+    // SINGLE_MARKER
+    paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>, obj: any): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>): (obj: any) => Array<T | undefined>;
+    paths<Input, T>(pathsToSearch: Array<string | string[]>): (obj: Input) => Array<T | undefined>;
 
     // SINGLE_MARKER
     pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
@@ -862,6 +873,10 @@ declare namespace R {
     // SINGLE_MARKER
     without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+    
+    // SINGLE_MARKER
+    xor(a: boolean, b:boolean): boolean
+    xor(a: boolean): (b:boolean) => boolean
 
     // SINGLE_MARKER
     zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;

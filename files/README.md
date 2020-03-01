@@ -51,7 +51,7 @@ MARKER_BENCHMARK_SUMMARY
 
 ---
 
-- dot notation for `R.path`
+- dot notation for `R.path` and `R.paths`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -103,7 +103,7 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
 
-- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+- Rambda's **path** and **paths** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
@@ -1212,6 +1212,26 @@ R.path('a.b', {a: {b: 1}}) // => 1
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/path.js)
 
+#### paths
+
+> paths(paths: string[][]|string[], obj: Object): Array
+
+Similar to `R.path`, but for multiple object's path queries. 
+
+```
+const obj = {
+  foo: {
+    bar: [10,20],
+    baz: '123'
+  },
+  a: 90
+}
+R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
+// => [ undefined, 20, 90]
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/paths.js)
+
 #### pathOr
 
 > pathOr(defaultValue: any, pathToSearch: string[]|string, obj: Object): any
@@ -1872,6 +1892,21 @@ R.without([1, 2], [1, 2, 3, 4])
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/without.js)
+
+#### xor
+
+> xor(a: boolean, b: boolean): boolean
+
+Logical xor function
+
+```
+R.xor(false, true)
+// => true
+
+R.xor(true, true)
+// => false
+```
+
 
 #### zip
 

@@ -1,6 +1,6 @@
 import { both } from 'rambda'
 
-describe('both', () => {
+describe('both', () => { 
   it('with passed type', () => {
     const fn = both<number>( // $ExpectType Predicate<number>
       x => {

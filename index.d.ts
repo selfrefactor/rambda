@@ -1,4 +1,4 @@
-import { F, TToolbelt } from "./_ts-toolbelt/src/index";
+import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
@@ -18,14 +18,15 @@ declare namespace R {
   type Ord = number | string | boolean | Date;
 
   type Path = string | ReadonlyArray<(number | string)>;
+  type RamdaPath = Array<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
     1: V;
   }
   interface Lens {
-    <TToolbelt, U>(obj: TToolbelt): U;
-    set<TToolbelt, U>(str: string, obj: TToolbelt): U;
+    <T, U>(obj: T): U;
+    set<T, U>(str: string, obj: T): U;
   }
   type Arity1Fn = (a: any) => any;
 
@@ -427,16 +428,24 @@ Value `-1` is returned if no `x` is found in `arr`.
 		*/	
     lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
 
+    
     length<T>(list: ReadonlyArray<T>): number;
 
+    
     lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    
+    
     lensIndex(n: number): Lens;
-    lensPath(path: Path): Lens;
+    lensPath(path: RamdaPath): Lens;
+
     
     lensProp(str: string): {
         <T, U>(obj: T): U;
         set<T, U, V>(val: T, obj: U): V;
     };
+
+    
     over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
     over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
     over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
@@ -444,11 +453,15 @@ Value `-1` is returned if no `x` is found in `arr`.
     over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
     over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
+    
     set<T, U>(lens: Lens, a: U, obj: T): T;
     set<U>(lens: Lens, a: U): <T>(obj: T) => T;
     set(lens: Lens): <T, U>(a: U, obj: T) => T;
+    
+    
     view<T, U>(lens: Lens): (obj: T) => U;
     view<T, U>(lens: Lens, obj: T): U;
+
     /*
 			It returns the result of looping through iterable `x` with `mapFn`.
 
@@ -569,6 +582,12 @@ It will return `undefined`, if such path is not found.
     path<T>(pathToSearch: string | string[], obj: any): T | undefined;
     path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
     path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+    
+    
+    paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>, obj: any): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>): (obj: any) => Array<T | undefined>;
+    paths<Input, T>(pathsToSearch: Array<string | string[]>): (obj: Input) => Array<T | undefined>;
 
     /*
 			`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
@@ -577,9 +596,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	
@@ -1028,6 +1047,10 @@ Method `R.equals` is used to determine the existance of `b` members in `a` array
 		*/	
     without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+    
+    
+    xor(a: boolean, b:boolean): boolean
+    xor(a: boolean): (b:boolean) => boolean
 
     /*
 			It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.	

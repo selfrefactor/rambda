@@ -110,7 +110,7 @@ method | Rambda | Ramda | Lodash
 
 ---
 
-- dot notation for `R.path`
+- dot notation for `R.path` and `R.paths`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -162,7 +162,7 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
 
-- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+- Rambda's **path** and **paths** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
@@ -7262,6 +7262,115 @@ export function path(list, obj){
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.path('a.b'%2C%20%7Ba%3A%20%7Bb%3A%201%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
+#### paths
+
+> paths(paths: string[][]|string[], obj: Object): Array
+
+Similar to `R.path`, but for multiple object's path queries. 
+
+```javascript
+const obj = {
+  foo: {
+    bar: [10,20],
+    baz: '123'
+  },
+  a: 90
+}
+R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
+// => [ undefined, 20, 90]
+```
+
+<details>
+
+<summary>
+R.paths tests
+</summary>
+
+```javascript
+import { paths } from './paths'
+ 
+const obj = {
+  a : {
+    b : {
+      c : 1,
+      d : 2,
+    },
+  },
+  p : [ { q : 3 }, 'Hi' ],
+  x : {
+    y : 'Alice',
+    z : [ [ {} ] ],
+  },
+}
+
+test('with string path', () => {
+  const result = paths([
+    'a.b.d',
+    'p.q',
+  ],
+  obj)
+
+  expect(result).toEqual([ 2, undefined ])
+})
+
+test('with array path', () => {
+  const result = paths([
+    [ 'a', 'b', 'c' ],
+    [ 'x', 'y' ],
+  ],
+  obj)
+
+  expect(result).toEqual([ 1, 'Alice' ])
+
+})
+
+test('takes a paths that contains indices into arrays', () => {
+  expect(paths([
+    [ 'p', 0, 'q' ],
+    [ 'x', 'z', 0, 0 ],
+  ],
+  obj)).toEqual([ 3, {} ])
+  expect(paths([
+    [ 'p', 0, 'q' ],
+    [ 'x', 'z', 2, 1 ],
+  ],
+  obj)).toEqual([ 3, undefined ])
+})
+
+test('gets a deep property\'s value from objects', () => {
+  expect(paths([ [ 'a', 'b' ] ], obj)).toEqual([ obj.a.b ])
+  expect(paths([ [ 'p', 0 ] ], obj)).toEqual([ obj.p[ 0 ] ])
+})
+
+test('returns undefined for items not found', () => {
+  expect(paths([ [ 'a', 'x', 'y' ] ], obj)).toEqual([ undefined ])
+  expect(paths([ [ 'p', 2 ] ], obj)).toEqual([ undefined ])
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.paths source
+</summary>
+
+```javascript
+import { path } from './path'
+
+export function paths(pathsInput, obj){
+  return pathsInput.map(singlePath => path(singlePath, obj))
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7B%0A%20%20foo%3A%20%7B%0A%20%20%20%20bar%3A%20%5B10%2C20%5D%2C%0A%20%20%20%20baz%3A%20'123'%0A%20%20%7D%2C%0A%20%20a%3A%2090%0A%7D%0AR.paths(%5B'a.b'%2C%20'foo.bar.1'%2C%20'foo.baz'%5D)%0A%2F%2F%20%3D%3E%20%5B%20undefined%2C%2020%2C%2090%5D">Try in REPL</a>
+
+---
 #### pathOr
 
 > pathOr(defaultValue: any, pathToSearch: string[]|string, obj: Object): any
@@ -10136,6 +10245,22 @@ export function without(left, right){
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
 
 ---
+#### xor
+
+> xor(a: boolean, b: boolean): boolean
+
+Logical xor function
+
+```
+R.xor(false, true)
+// => true
+
+R.xor(true, true)
+// => false
+```
+
+
+---
 #### zip
 
 > zip(a: K[], b: V[]): Array
@@ -10319,7 +10444,7 @@ import omit from 'rambda/lib/omit'
 
 - 4.6.0 
 
-Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses
+Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses(Thank you [@synthet1c](https://github.com/synthet1c))
 
 Add `R.lens`
 
@@ -10341,7 +10466,7 @@ Add `R.paths`
 
 Add `R.xor`
 
-> Close issue  
+> Close [Issue #373](https://github.com/selfrefactor/rambda/issues/373)
 
 Add `R.cond`
 
