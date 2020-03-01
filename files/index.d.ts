@@ -2,6 +2,7 @@ import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
+
   // INTERFACES_MARKER
   type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -17,12 +18,16 @@ declare namespace R {
   type Ord = number | string | boolean | Date;
 
   type Path = string | ReadonlyArray<(number | string)>;
+  type RamdaPath = Array<(number | string)>;
 
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
     1: V;
   }
-
+  interface Lens {
+    <T, U>(obj: T): U;
+    set<T, U>(str: string, obj: T): U;
+  }
   type Arity1Fn = (a: any) => any;
 
   type Arity2Fn = (a: any, b: any) => any;
@@ -339,6 +344,36 @@ declare namespace R {
     length<T>(list: ReadonlyArray<T>): number;
 
     // SINGLE_MARKER
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    
+    // SINGLE_MARKER
+    lensIndex(n: number): Lens;
+    lensPath(path: RamdaPath): Lens;
+
+    // SINGLE_MARKER
+    lensProp(str: string): {
+        <T, U>(obj: T): U;
+        set<T, U, V>(val: T, obj: U): V;
+    };
+
+    // SINGLE_MARKER
+    over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+    over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
+    over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+    over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
+    over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+    over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+
+    // SINGLE_MARKER
+    set<T, U>(lens: Lens, a: U, obj: T): T;
+    set<U>(lens: Lens, a: U): <T>(obj: T) => T;
+    set(lens: Lens): <T, U>(a: U, obj: T) => T;
+    
+    // SINGLE_MARKER
+    view<T, U>(lens: Lens): (obj: T) => U;
+    view<T, U>(lens: Lens, obj: T): U;
+
+    // SINGLE_MARKER
     map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
     map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
     map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
@@ -434,9 +469,9 @@ declare namespace R {
     path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
     // SINGLE_MARKER
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
 
     // SINGLE_MARKER
     pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;

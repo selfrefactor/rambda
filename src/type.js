@@ -1,6 +1,5 @@
 export function type(input){
   const typeOf = typeof input
-  const asStr = input && input.toString ? input.toString() : ''
 
   if (input === null){
     return 'Null'
@@ -17,6 +16,8 @@ export function type(input){
   } else if (input instanceof RegExp){
     return 'RegExp'
   }
+
+  const asStr = input && input.toString ? input.toString() : ''
 
   if ([ 'true', 'false' ].includes(asStr)) return 'Boolean'
   if (!Number.isNaN(Number(asStr))) return 'Number'

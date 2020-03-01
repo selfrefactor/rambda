@@ -1,3 +1,31 @@
+- 4.6.0 
+
+Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses
+
+Add `R.lens`
+
+Add `R.lensIndex`
+
+Add `R.lensPath`
+
+Add `R.lensProp`
+
+Add `R.over`
+
+Add `R.set`
+
+Add `R.view`
+
+> Sync with Ramda 0.27
+
+Add `R.paths`
+
+Add `R.xor`
+
+> Close issue  
+
+Add `R.cond`
+
 - 4.5.0 Add `R.clamp`
 
 - 4.4.2 Improve `R.propOr` typings

@@ -250,8 +250,6 @@
 
 ### Relation
  
- [clamp](https://raw.githubusercontent.com/ramda/ramda/master/source/clamp.js)
- 
  [countBy](https://raw.githubusercontent.com/ramda/ramda/master/source/countBy.js)
  
  [differenceWith](https://raw.githubusercontent.com/ramda/ramda/master/source/differenceWith.js)

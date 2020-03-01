@@ -11,6 +11,6 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "target": "es2015",
-    "paths": { "rambda": ["../index.d.ts"] }
+    "paths": { "rambda": ["../files/index.d.ts"] }
   } 
 }    

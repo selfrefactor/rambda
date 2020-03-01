@@ -1,7 +1,8 @@
-import { F } from "./_ts-toolbelt/src/index";
+import { F, TToolbelt } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
+
   // INTERFACES_MARKER
   type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -22,7 +23,10 @@ declare namespace R {
     0: K;
     1: V;
   }
-
+  interface Lens {
+    <TToolbelt, U>(obj: TToolbelt): U;
+    set<TToolbelt, U>(str: string, obj: TToolbelt): U;
+  }
   type Arity1Fn = (a: any) => any;
 
   type Arity2Fn = (a: any, b: any) => any;
@@ -76,7 +80,9 @@ declare namespace R {
     any<T>(fn: (x: T, i: number) => boolean): (arr: ReadonlyArray<T>) => boolean;
     any<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
 
-    
+    /*
+			It returns `true`, if any of `predicates` return `true` with `input` is their argument.	
+		*/	
     anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
     
@@ -323,7 +329,8 @@ It doesn't handle cyclical data structures.
     /*
 			It returns the first element of `arrOrStr`.	
 		*/	
-    head<T extends Readonly<any> | string>(arrOrStr: T): T[0] | undefined;
+    head<T>(arrOrStr: Array<T>): T | undefined;
+    head(arrOrStr: string): string;
 
     
     identical<T>(a: T, b: T): boolean;
@@ -420,9 +427,28 @@ Value `-1` is returned if no `x` is found in `arr`.
 		*/	
     lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
 
-    
     length<T>(list: ReadonlyArray<T>): number;
 
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    lensIndex(n: number): Lens;
+    lensPath(path: Path): Lens;
+    
+    lensProp(str: string): {
+        <T, U>(obj: T): U;
+        set<T, U, V>(val: T, obj: U): V;
+    };
+    over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+    over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
+    over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+    over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
+    over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+    over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+
+    set<T, U>(lens: Lens, a: U, obj: T): T;
+    set<U>(lens: Lens, a: U): <T>(obj: T) => T;
+    set(lens: Lens): <T, U>(a: U, obj: T) => T;
+    view<T, U>(lens: Lens): (obj: T) => U;
+    view<T, U>(lens: Lens, obj: T): U;
     /*
 			It returns the result of looping through iterable `x` with `mapFn`.
 
@@ -551,9 +577,9 @@ If `pathFound` is `undefined`, `null` or `NaN`, then `defaultValue` will be retu
 
 `pathFound` is returned in any other case.	
 		*/	
-    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
-    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
+    pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): any;
+    pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => any;
+    pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => any>;
 
     /*
 			It returns a partial copy of an `obj` containing only `propsToPick` properties.	

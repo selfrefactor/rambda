@@ -84,6 +84,7 @@ method | Rambda | Ramda | Lodash
  *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
  *none* | 🚀 Fastest | 66.57% slower | 🔳
  *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
+ *over* | 🚀 Fastest | 56.26% slower | 🔳
  *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
  *prop* | 🚀 Fastest | 94.38% slower | 🔳
@@ -92,6 +93,7 @@ method | Rambda | Ramda | Lodash
  *reduce* | 71.84% slower | 84.24% slower | 🚀 Fastest
  *repeat* | 55.51% slower | 83.45% slower | 🚀 Fastest
  *replace* | 🚀 Fastest | 35.85% slower | 4.98% slower
+ *set* | 🚀 Fastest | 57.61% slower | 🔳
  *sort* | 🚀 Fastest | 28.43% slower | 🔳
  *sortBy* | 🚀 Fastest | 16.52% slower | 72.48% slower
  *split* | 🚀 Fastest | 56.27% slower | 28.78% slower
@@ -102,6 +104,7 @@ method | Rambda | Ramda | Lodash
  *type* | 19.76% slower | 🚀 Fastest | 🔳
  *uniq* | 99.56% slower | 96.54% slower | 🚀 Fastest
  *update* | 🚀 Fastest | 87.94% slower | 🔳
+ *view* | 🚀 Fastest | 69.35% slower | 🔳
 
 </details>
 
@@ -6309,6 +6312,70 @@ export function length(list){
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.length(%5B1%2C%202%2C%203%5D)%20%2F%2F%20%3D%3E%203">Try in REPL</a>
 
 ---
+#### lens
+
+> lens(getter: Function, setter: Function): Lens
+
+Returns a `lens` for the given `getter` and `setter` functions. 
+
+The `getter` "gets" the value of the focus; the `setter` "sets" the value of the focus. 
+
+The setter should not mutate the data structure.
+
+```
+const xLens = R.lens(R.prop('x'), R.assoc('x'));
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.over(xLens, R.negate, {x: 1, y: 2}) //=> {x: -1, y: 2}
+```
+
+---
+#### lensIndex
+
+> lensIndex(index: Number): Lens
+
+Returns a lens that focuses on the specified index
+
+```
+const headLens = R.lensIndex(0)
+
+R.view(headLens, ['a', 'b', 'c']) //=> 'a'
+R.set(headLens, 'x', ['a', 'b', 'c']) //=> ['x', 'b', 'c']
+R.over(headLens, R.toUpper, ['a', 'b', 'c']) //=> ['A', 'b', 'c']
+```
+
+---
+#### lensPath
+
+> lensPath(path: Array|String): Lens
+
+Returns a lens that focuses on the specified path
+
+```
+const xHeadYLens = R.lensPath(['x', 0, 'y'])
+
+R.view(xHeadYLens, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> 2
+R.set(xHeadYLens, 1, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+R.over(xHeadYLens, R.negate, {x: [{y: 2, z: 3}, {y: 4, z: 5}]}) //=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+```
+
+---
+#### lensProp
+
+> lensProp(prop: String): Lens
+
+Returns a lens that focuses on the specified property
+
+```
+const xLens = R.lensProp('x');
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.over(xLens, R.negate, {x: 1, y: 2}) //=> {x: -1, y: 2}
+```
+
+---
 #### map
 
 > map(mapFn: Function, x: Array|Object): Array|Object
@@ -7093,6 +7160,19 @@ export function omit(keys, obj){
 </details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.omit('a%2Cc%2Cd'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%20%2F%2F%20%3D%3E%20%7Bb%3A%202%7D">Try in REPL</a>
+
+---
+#### over
+
+> over(lens: Lens, f: Function, target: Array|Object): Array|Object
+
+Returns a copied `Object` or `Array` with the modified value resulting from the function applying to the lenses focus.
+
+```
+const headLens = R.lensIndex(0)
+ 
+R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
+```
 
 ---
 #### path
@@ -8348,6 +8428,20 @@ export function reverse(input){
 <a href="https://rambda.now.sh?const%20arr%20%3D%20%5B1%2C%202%5D%0A%0Aconst%20result%20%3D%20R.reverse(arr)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try in REPL</a>
 
 ---
+#### set
+
+> set(lens: Lens, x: any, target: Array|Object): Array|Object
+
+Returns a copied `Object` or `Array` with the modified value resulting from the input value replacing that of the lenses focus.
+
+```
+const xLens = R.lensProp('x')
+
+R.set(xLens, 4, {x: 1, y: 2}) //=> {x: 4, y: 2}
+R.set(xLens, 8, {x: 1, y: 2}) //=> {x: 8, y: 2}
+```
+
+---
 #### slice
 
 > slice(list: T[], from: Number, to: Number)
@@ -9554,7 +9648,6 @@ R.type source
 ```javascript
 export function type(input){
   const typeOf = typeof input
-  const asStr = input && input.toString ? input.toString() : ''
 
   if (input === null){
     return 'Null'
@@ -9571,6 +9664,8 @@ export function type(input){
   } else if (input instanceof RegExp){
     return 'RegExp'
   }
+
+  const asStr = input && input.toString ? input.toString() : ''
 
   if ([ 'true', 'false' ].includes(asStr)) return 'Boolean'
   if (!Number.isNaN(Number(asStr))) return 'Number'
@@ -9956,6 +10051,21 @@ export function values(obj){
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.values(%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try in REPL</a>
 
 ---
+#### view
+
+> view(lens: Lens, target: Array|Object): any
+
+Returns the value at the lenses focus on the target object.
+
+```
+const xLens = R.lensProp('x')
+
+R.view(xLens, {x: 1, y: 2}) //=> 1
+R.view(xLens, {x: 4, y: 2}) //=> 4
+```
+
+
+---
 #### without
 
 > without(a: T[], b: T[]): T[]
@@ -10206,6 +10316,34 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 4.6.0 
+
+Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses
+
+Add `R.lens`
+
+Add `R.lensIndex`
+
+Add `R.lensPath`
+
+Add `R.lensProp`
+
+Add `R.over`
+
+Add `R.set`
+
+Add `R.view`
+
+> Sync with Ramda 0.27
+
+Add `R.paths`
+
+Add `R.xor`
+
+> Close issue  
+
+Add `R.cond`
 
 - 4.5.0 Add `R.clamp`
 
