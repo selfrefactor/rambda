@@ -19,4 +19,4 @@ async function runBenchmarks(singleMethod){
   })(allBenchmarks)
 }
 
-runBenchmarks('ifElse')
+runBenchmarks('applySpec')
