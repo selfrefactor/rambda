@@ -280,6 +280,33 @@ R.append(
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/append.js)
 
+#### applySpec
+
+Returns a curried function with the same arity as the longest function in the spec object (max 5 arity). 
+Arguments will be applied to the spec methods recursively. This is useful for changing the shape of a json object
+
+> applySpec({ x: Function }, T): T
+
+```
+const getMetrics = R.applySpec({
+  sum: R.add,
+  nested: { mul: R.multiply }
+});
+getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+
+const spec = {
+    name: R.path('user', 'firstname')
+}
+const json = {
+    user: {
+        firstname: 'barry'
+    }
+}
+applySpec(spec, json) // => { user: 'barry' }
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/applySpec.js)
+
 #### assoc
 
 > assoc(prop: any, value: any, obj: object): object
