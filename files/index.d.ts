@@ -1,4 +1,4 @@
-import { F, TToolbelt } from "./_ts-toolbelt/src/index";
+import { F } from "./_ts-toolbelt/src/index";
 declare let R: R.Static;
 
 declare namespace R {
@@ -25,8 +25,8 @@ declare namespace R {
     1: V;
   }
   interface Lens {
-    <TToolbelt, U>(obj: TToolbelt): U;
-    set<TToolbelt, U>(str: string, obj: TToolbelt): U;
+    <T, U>(obj: T): U;
+    set<T, U>(str: string, obj: T): U;
   }
   type Arity1Fn = (a: any) => any;
 

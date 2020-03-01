@@ -1,8 +1,8 @@
 import {
   lens,
-  // lensIndex,
+  lensIndex,
   lensPath,
-  // lensProp,
+  lensProp,
   view,
 } from 'rambda'
 
@@ -18,7 +18,7 @@ interface Input{
   pets: Dictionary<string>,
 }
 
-const alice: Input = {
+const MockObject: Input = {
   name: 'Alice Jones',
   address: ['22 Walnut St', 'San Francisco', 'CA'],
   pets: {dog: 'joker', cat: 'batman'}
@@ -27,17 +27,25 @@ const alice: Input = {
 var nameLens = lens<Input, string, string>((x: Input) =>{
   return x.name
 }, assoc('name'));
-// var addressLens = lensProp('address');
-// var headLens = lensIndex(0);
+var addressLens = lensProp('address');
+var headLens = lensIndex(0);
 var dogLens = lensPath(['pets', 'dog']);
 
 describe('lenses', () => {
-  it('view 1', () => {
-    const result = view<Input, string>(dogLens, alice) // $ExpectType string
+  it('lens', () => {
+    const result = view<Input, string>(nameLens, MockObject) // $ExpectType string
     console.log(result)
   });
-  it('view 2', () => {
-    const result = view<Input, string>(nameLens, alice) // $ExpectType string
+  it('lens path', () => {
+    const result = view<Input, string>(dogLens, MockObject) // $ExpectType string
+    console.log(result)
+  });
+  it('lens prop', () => {
+    const result = view<Input, string>(addressLens, MockObject) // $ExpectType string
+    console.log(result)
+  });
+  it('lens index', () => {
+    const result = view< Input['address'], string>(headLens, MockObject.address) // $ExpectType string
     console.log(result)
   });
 });

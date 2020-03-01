@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "lenses typings",
+    "workInProgress": "",
     "docs": [
       "docsify",
       "repl",
