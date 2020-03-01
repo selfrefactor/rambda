@@ -345,6 +345,7 @@ declare namespace R {
 
     // SINGLE_MARKER
     lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+    lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
     
     // SINGLE_MARKER
     lensIndex(n: number): Lens;

@@ -25,6 +25,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
+* [paths](#paths)
 * [Use with ES5](#use-with-es5)
 * [Changelog](#changelog)
 * [Additional info](#additional-info)
@@ -110,7 +111,7 @@ method | Rambda | Ramda | Lodash
 
 ---
 
-- dot notation for `R.path`
+- dot notation for `R.path` and `R.paths`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -162,7 +163,7 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
 
-- Rambda's **path** accepts dot notation(`'x.y' same as ['x','y']`)
+- Rambda's **path** and **paths** accepts dot notation(`'x.y' same as ['x','y']`)
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
@@ -7259,6 +7260,26 @@ export function path(list, obj){
 
 </details>
 
+
+
+## paths
+
+> paths(paths: string[][]|string[], obj: Object): Array
+
+Similar to `R.path`, but for multiple object's path queries. 
+
+```
+const obj = {
+  foo: {
+    bar: [10,20],
+    baz: '123'
+  },
+  a: 90
+}
+R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
+// => [ undefined, 20, 90]
+```
+
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.path('a.b'%2C%20%7Ba%3A%20%7Bb%3A%201%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
@@ -10134,6 +10155,22 @@ export function without(left, right){
 </details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.without(%5B1%2C%202%5D%2C%20%5B1%2C%202%2C%203%2C%204%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try in REPL</a>
+
+---
+#### xor
+
+> zip(a: K[], b: V[]): Array
+
+Logical xor function
+
+```
+R.xor(false, true)
+// => true
+
+R.xor(true, true)
+// => false
+```
+
 
 ---
 #### zip

@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "r.paths typings",
     "docs": [
       "docsify",
       "repl",
