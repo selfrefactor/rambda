@@ -1185,7 +1185,7 @@ R.path('a.b', {a: {b: 1}}) // => 1
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/path.js)
 
-## paths
+#### paths
 
 > paths(paths: string[][]|string[], obj: Object): Array
 
@@ -1202,6 +1202,8 @@ const obj = {
 R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
 // => [ undefined, 20, 90]
 ```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/paths.js)
 
 #### pathOr
 
@@ -1866,7 +1868,7 @@ R.without([1, 2], [1, 2, 3, 4])
 
 #### xor
 
-> zip(a: K[], b: V[]): Array
+> xor(a: boolean, b: boolean): boolean
 
 Logical xor function
 

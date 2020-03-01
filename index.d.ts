@@ -582,6 +582,12 @@ It will return `undefined`, if such path is not found.
     path<T>(pathToSearch: string | string[], obj: any): T | undefined;
     path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
     path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+    
+    
+    paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>, obj: any): Array<T | undefined>;
+    paths<T>(pathsToSearch: Array<string | string[]>): (obj: any) => Array<T | undefined>;
+    paths<Input, T>(pathsToSearch: Array<string | string[]>): (obj: Input) => Array<T | undefined>;
 
     /*
 			`pathFound` is the result of calling `R.path(pathToSearch, obj)`.
@@ -1041,6 +1047,10 @@ Method `R.equals` is used to determine the existance of `b` members in `a` array
 		*/	
     without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
     without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+    
+    
+    xor(a: boolean, b:boolean): boolean
+    xor(a: boolean): (b:boolean) => boolean
 
     /*
 			It will return a new array containing tuples of equally positions items from both lists. The returned list will be truncated to match the length of the shortest supplied list.	

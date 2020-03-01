@@ -7280,6 +7280,8 @@ R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
 // => [ undefined, 20, 90]
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/paths.js)
+
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.path('a.b'%2C%20%7Ba%3A%20%7Bb%3A%201%7D%7D)%20%2F%2F%20%3D%3E%201">Try in REPL</a>
 
 ---
@@ -10159,7 +10161,7 @@ export function without(left, right){
 ---
 #### xor
 
-> zip(a: K[], b: V[]): Array
+> xor(a: boolean, b: boolean): boolean
 
 Logical xor function
 
