@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "prepare r.apply.spec",
     "docs": [
       "docsify",
       "repl",

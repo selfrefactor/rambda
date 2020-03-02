@@ -20,6 +20,11 @@ declare namespace R {
   type Path = string | ReadonlyArray<(number | string)>;
   type RamdaPath = Array<(number | string)>;
 
+  type ValueOfRecord<R> =
+    R extends Record<any, infer T>
+    ? T
+    : never;
+
   interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
     1: V;
@@ -77,7 +82,15 @@ declare namespace R {
     // SINGLE_MARKER
     append<T>(el: T, list: ReadonlyArray<T>): T[];
     append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
-
+    
+    // SINGLE_MARKER
+    applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
+      obj: Obj
+    ): (
+        ...args: Parameters<ValueOfRecord<Obj>>
+    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+    applySpec<T>(obj: any): (...args: readonly any[]) => T;
+    
     // SINGLE_MARKER
     assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
     assoc<T, K extends string>(prop: K, value: T): <U>(obj: U) => Record<K, T> & U;
