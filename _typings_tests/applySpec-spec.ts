@@ -1,12 +1,23 @@
-import { applySpec, add, multiply } from 'rambda'
+import { multiply, applySpec, inc, dec, add } from 'rambda'
 
 describe('applySpec', () => {
-  it('number', () => {
+  it('ramda 1', () => {
     const result = applySpec({
-      one: (x1) => x1,
-      two: (x1, x2) => x1 + x2,
-      three: (x1, x2, x3) => x1 + x2 + x3,
-    }, 1,2,3)
+      v : inc,
+      u : dec,
+    })(1)
+    result // $ExpectType { v: number; u: number; }
+  });
+  it('ramda 1', () => {
+    interface Output{
+      sum: number
+      multiplied: number
+    }
+    const result = applySpec<Output>({ 
+      sum : add, 
+      multiplied: multiply 
+    })(1, 2)
 
+    result // $ExpectType Output
   });
 });

@@ -1,6 +1,7 @@
-import { T, add, always, compose, dec, inc, map, path, prop } from '../rambda'
-import { applySpec } from './applySpec'
 import { nAry } from 'ramda'
+
+import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
+import { applySpec } from './applySpec'
 
 test.skip('works with empty spec', () => {
   expect(applySpec({})()).toEqual({})
@@ -62,15 +63,11 @@ test.skip('retains the highest arity', () => {
     f1 : nAry(2, T),
     f2 : nAry(5, T),
   })
-  expect(
-    f.length
-  ).toBe(5)
+  expect(f.length).toBe(5)
 })
 
 test('ramda 6', () => {
-  expect(
-    applySpec({ sum : add })(1)(2)
-  ).toEqual({sum: 3})
+  expect(applySpec({ sum : add })(1)(2)).toEqual({ sum : 3 })
 })
 
 test('arity', () => {
