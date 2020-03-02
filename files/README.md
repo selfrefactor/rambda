@@ -282,10 +282,12 @@ R.append(
 
 #### applySpec
 
-Returns a curried function with the same arity as the longest function in the spec object (max 5 arity). 
-Arguments will be applied to the spec methods recursively. This is useful for changing the shape of a json object
+> applySpec(specs: object): Function
 
-> applySpec({ x: Function }, T): T
+Returns a curried function with the same arity as the longest function in the spec object.
+Arguments will be applied to the spec methods recursively.
+
+Note that the currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 ```
 const getMetrics = R.applySpec({
@@ -295,14 +297,22 @@ const getMetrics = R.applySpec({
 getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 
 const spec = {
-    name: R.path('user', 'firstname')
+  name: R.path('deeply.nested.object.user.firstname')
 }
+
 const json = {
-    user: {
-        firstname: 'barry'
+  deeply: {
+   nested: {
+     object: {
+       user: {
+         firstname: 'barry'
+        } 
+      }
     }
+  }
 }
-applySpec(spec, json) // => { user: 'barry' }
+const result = R.applySpec(spec, json) 
+// => { name: 'barry' }
 ```
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/applySpec.js)

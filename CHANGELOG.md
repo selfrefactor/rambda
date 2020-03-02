@@ -1,3 +1,7 @@
+- 4.7.0 
+
+Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`
+
 - 4.6.0 
 
 Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses(Thank you [@synthet1c](https://github.com/synthet1c))
