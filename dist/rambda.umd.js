@@ -105,14 +105,8 @@
     return clone;
   }
 
-  function applySpec(spec, ...args) {
-    const arity = __findHighestArity(spec);
-
-    return __applySpecWithArity(spec, arity, args);
-  }
-
   function __findHighestArity(spec, max = 0) {
-    for (let key in spec) {
+    for (const key in spec) {
       if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
 
       if (typeof spec[key] === 'object') {
@@ -150,7 +144,7 @@
     if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
     const ret = {};
 
-    for (let key in spec) {
+    for (const key in spec) {
       if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
 
       if (typeof spec[key] === 'object') {
@@ -164,6 +158,12 @@
     }
 
     return ret;
+  }
+
+  function applySpec(spec, ...args) {
+    const arity = __findHighestArity(spec);
+
+    return __applySpecWithArity(spec, arity, args);
   }
 
   function assocFn(prop, val, obj) {

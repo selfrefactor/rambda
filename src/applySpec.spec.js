@@ -1,11 +1,12 @@
-import { always, compose, inc, dec, path, prop } from '../rambda'
+import { T, add, always, compose, dec, inc, map, path, prop } from '../rambda'
 import { applySpec } from './applySpec'
+import { nAry } from 'ramda'
 
-test('ramda 1', () => {
+test.skip('works with empty spec', () => {
   expect(applySpec({})()).toEqual({})
 })
 
-test('ramda 2', () => {
+test('ramda 1', () => {
   const result = applySpec({
     v : inc,
     u : dec,
@@ -17,11 +18,60 @@ test('ramda 2', () => {
   expect(result).toEqual(expected)
 })
 
-test('ramda 3', () => {})
+test('ramda 2', () => {
+  const result = applySpec({ sum : add })(1, 2)
+  expect(result).toEqual({ sum : 3 })
+})
 
-test('ramda 4', () => {})
+test('ramda 3', () => {
+  const result = applySpec({
+    unnested : always(0),
+    nested   : { sum : add },
+  })(1, 2)
+  const expected = {
+    unnested : 0,
+    nested   : { sum : 3 },
+  }
+  expect(result).toEqual(expected)
+})
 
-test('ramda 5', () => {})
+test.skip('works with arrays of functions', () => {
+  const result = applySpec([ map(prop('a')), map(prop('b')) ])([
+    {
+      a : 'a1',
+      b : 'b1',
+    },
+    {
+      a : 'a2',
+      b : 'b2',
+    },
+  ])
+  const expected = [
+    [ 'a1', 'a2' ],
+    [ 'b1', 'b2' ],
+  ]
+  expect(result).toEqual(expected)
+})
+
+test('ramda 5', () => {
+  expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
+})
+
+test.skip('retains the highest arity', () => {
+  const f = applySpec({
+    f1 : nAry(2, T),
+    f2 : nAry(5, T),
+  })
+  expect(
+    f.length
+  ).toBe(5)
+})
+
+test('ramda 6', () => {
+  expect(
+    applySpec({ sum : add })(1)(2)
+  ).toEqual({sum: 3})
+})
 
 test('arity', () => {
   const spec = {

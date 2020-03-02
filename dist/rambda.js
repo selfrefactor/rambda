@@ -103,14 +103,8 @@ function append(el, list) {
   return clone;
 }
 
-function applySpec(spec, ...args) {
-  const arity = __findHighestArity(spec);
-
-  return __applySpecWithArity(spec, arity, args);
-}
-
 function __findHighestArity(spec, max = 0) {
-  for (let key in spec) {
+  for (const key in spec) {
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
 
     if (typeof spec[key] === 'object') {
@@ -148,7 +142,7 @@ function __applySpecWithArity(spec, arity, cache) {
   if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
   const ret = {};
 
-  for (let key in spec) {
+  for (const key in spec) {
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
 
     if (typeof spec[key] === 'object') {
@@ -162,6 +156,12 @@ function __applySpecWithArity(spec, arity, cache) {
   }
 
   return ret;
+}
+
+function applySpec(spec, ...args) {
+  const arity = __findHighestArity(spec);
+
+  return __applySpecWithArity(spec, arity, args);
 }
 
 function assocFn(prop, val, obj) {
