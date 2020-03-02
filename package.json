@@ -51,7 +51,7 @@
     "@types/ramda": "0.26.42",
     "babel-jest": "24.9.0",
     "cross-env": "7.0.0",
-    "dtslint": "3.1.0",
+    "dtslint": "3.3.0",
     "helpers": "https://github.com/selfrefactor/helpers#2.4.0",
     "jest": "24.9.0",
     "lodash": "4.17.15",
