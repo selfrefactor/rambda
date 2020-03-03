@@ -2132,7 +2132,15 @@ define-property@^2.0.2:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
 
-definitelytyped-header-parser@3.8.2, definitelytyped-header-parser@^3.8.2:
+definitelytyped-header-parser@3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/definitelytyped-header-parser/-/definitelytyped-header-parser-3.9.0.tgz#f992abb8e62f697ca25e1adbfd5f69ef11621644"
+  integrity sha512-slbwZ5h5lasB12t+9EAGYr060aCMqEXp6cwD7CoTriK40HNDYU56/XQ6S4sbjBK8ReGRMnB/uDx0elKkb4kuQA==
+  dependencies:
+    "@types/parsimmon" "^1.3.0"
+    parsimmon "^1.2.0"
+
+definitelytyped-header-parser@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/definitelytyped-header-parser/-/definitelytyped-header-parser-3.8.2.tgz#ac9b5710da976c6258997c15376d2180b6bd0e5c"
   integrity sha512-kQePPP/cqQX3H6DrX5nCo2vMjJeboPsjEG8OOl43TZbTOr9zLlapWJ/oRCLnMCiyERsBRZXyLMtBXGM+1zmtgQ==
@@ -2203,12 +2211,12 @@ dts-critic@^3.0.0:
     typescript "^3.7.5"
     yargs "^12.0.5"
 
-dtslint@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-3.1.0.tgz#8a974c75ca1193d53f26cce8ec791aba38c3d405"
-  integrity sha512-L1j0+keWRAMPYTk0986UVhCnvwLvgnpSU/ECKzY7UCwiirqJLi3v2KpSlPbqW7Xl8G3D5/64oICNp5EZuvfTvg==
+dtslint@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-3.3.0.tgz#e1e429a0c82e7fbe5c55c08dff2459d2280ce513"
+  integrity sha512-fQ1Q8Rvnz8ejiUe081qjYYeXi8XuNw8cR8dKv57FwZ5HG3KG541eOE3MeyBFbkZZAIZutl7KHcqhRXj0eaKg0g==
   dependencies:
-    definitelytyped-header-parser "3.8.2"
+    definitelytyped-header-parser "3.9.0"
     dts-critic "^3.0.0"
     fs-extra "^6.0.1"
     json-stable-stringify "^1.0.1"
