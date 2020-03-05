@@ -1,3 +1,9 @@
+- 5.0.0
+
+Move `R.partialCurry` to Rambdax
+
+Use new type of export in Typescript definitions
+
 - 4.7.0 
 
 Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`

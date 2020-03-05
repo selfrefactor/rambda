@@ -1,4 +1,4 @@
-import { F } from "./_ts-toolbelt/src/index";
+import { F } from "../_ts-toolbelt/src/index";
 
 // INTERFACES_MARKER
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
@@ -96,3 +96,5 @@ export function assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Re
 export function assocPath<T, U>(path: Path, val: T, obj: U): U;
 export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
 export function assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
+
+export as namespace R
