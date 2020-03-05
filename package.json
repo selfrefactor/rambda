@@ -100,7 +100,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "complete new typings",
     "docs": [
       "docsify",
       "repl",

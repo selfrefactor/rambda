@@ -1,5 +1,7 @@
 - 5.0.0
 
+`R.add` support strings
+
 Move `R.partialCurry` to Rambdax
 
 Use new type of export in Typescript definitions
