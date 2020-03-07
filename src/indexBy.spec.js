@@ -1,11 +1,17 @@
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
-test('indexBy', () => {
-  const list = [ { id : 1 }, {
-    id : 1,
-    a  : 2,
-  }, { id : 2 }, { id : 10 }, { id : 'a' } ]
+test('happy', () => {
+  const list = [
+    { id : 1 },
+    {
+      id : 1,
+      a  : 2,
+    },
+    { id : 2 },
+    { id : 10 },
+    { id : 'a' },
+  ]
 
   expect(indexBy(prop('id'))(list)).toEqual({
     1 : {
@@ -18,7 +24,7 @@ test('indexBy', () => {
   })
 })
 
-test('suggestion', () => {
+test('with string as condition', () => {
   const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
   const standardResult = indexBy(obj => obj.id, list)
   const suggestionResult = indexBy('id', list)
@@ -26,18 +32,23 @@ test('suggestion', () => {
   expect(standardResult).toEqual(suggestionResult)
 })
 
-test('suggestion - bad path', () => {
-  const list = [ {
-    a : {
-      b : 1,
-      c : 2,
+test('with string - bad path', () => {
+  const list = [
+    {
+      a : {
+        b : 1,
+        c : 2,
+      },
     },
-  }, { a : { c : 4 } }, {}, {
-    a : {
-      b : 10,
-      c : 20,
+    { a : { c : 4 } },
+    {},
+    {
+      a : {
+        b : 10,
+        c : 20,
+      },
     },
-  } ]
+  ]
 
   const result = indexBy('a.b', list)
   const expected = {

@@ -99,67 +99,6 @@ function append(el, list) {
   return clone;
 }
 
-function __findHighestArity(spec, max = 0) {
-  for (const key in spec) {
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
-
-    if (typeof spec[key] === 'object') {
-      max = Math.max(max, __findHighestArity(spec[key]));
-    }
-
-    if (typeof spec[key] === 'function') {
-      max = Math.max(max, spec[key].length);
-    }
-  }
-
-  return max;
-}
-
-function __filterUndefined() {
-  const defined = [];
-  let i = 0;
-  const l = arguments.length;
-
-  while (i < l) {
-    if (typeof arguments[i] === 'undefined') break;
-    defined[i] = arguments[i];
-    i++;
-  }
-
-  return defined;
-}
-
-function __applySpecWithArity(spec, arity, cache) {
-  const remaining = arity - cache.length;
-  if (remaining === 1) return x => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x));
-  if (remaining === 2) return (x, y) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y));
-  if (remaining === 3) return (x, y, z) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z));
-  if (remaining === 4) return (x, y, z, a) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z, a));
-  if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
-  const ret = {};
-
-  for (const key in spec) {
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
-
-    if (typeof spec[key] === 'object') {
-      ret[key] = __applySpecWithArity(spec[key], arity, cache);
-      continue;
-    }
-
-    if (typeof spec[key] === 'function') {
-      ret[key] = spec[key](...cache);
-    }
-  }
-
-  return ret;
-}
-
-function applySpec(spec, ...args) {
-  const arity = __findHighestArity(spec);
-
-  return __applySpecWithArity(spec, arity, args);
-}
-
 function assocFn(prop, val, obj) {
   return Object.assign({}, obj, {
     [prop]: val
@@ -1066,18 +1005,6 @@ function partial(fn, ...args) {
   };
 }
 
-function partialCurry(fn, args = {}) {
-  return rest => {
-    if (type(fn) === 'Async' || type(fn) === 'Promise') {
-      return new Promise((resolve, reject) => {
-        fn(merge(rest, args)).then(resolve).catch(reject);
-      });
-    }
-
-    return fn(merge(rest, args));
-  };
-}
-
 function paths(pathsInput, obj) {
   return pathsInput.map(singlePath => path(singlePath, obj));
 }
@@ -1431,4 +1358,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, over, partial, partialCurry, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, without, xor, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, mean, median, merge, min, minBy, modulo, multiply, negate, none, not, nth, omit, over, partial, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, without, xor, zip, zipObj };

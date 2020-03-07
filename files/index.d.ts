@@ -41,8 +41,8 @@ type SafePred<T> = (...a: T[]) => boolean;
 interface Dictionary<T> {
   [index: string]: T;
 }
-type Merge<Primary, Seexport functionexport function condary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Seexport functionexport function condary, CommonKeys<Primary, Seexport functionexport function condary>>]: Seexport functionexport function condary[K] };
 
+type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 // INTERFACES_MARKER_END
   
 // SINGLE_MARKER
@@ -101,10 +101,10 @@ export function and<T extends { and?: ((...a: readonly any[]) => any); } | numbe
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 // SINGLE_MARKER
-export function both(firstexport functionexport function Condition: Pred, seexport functionexport function condexport functionexport function Condition: Pred): Pred;
-export function both<T>(firstexport functionexport function Condition: Predicate<T>, seexport functionexport function condexport functionexport function Condition: Predicate<T>): Predicate<T>;
-export function both<T>(firstexport functionexport function Condition: Predicate<T>): (seexport functionexport function condexport functionexport function Condition: Predicate<T>) => Predicate<T>;
-export function both(firstexport functionexport function Condition: Pred): (seexport functionexport function condexport functionexport function Condition: Pred) => Pred;
+export function both(pred1: Pred, pred2: Pred): Pred;
+export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
+export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
+export function both(pred1: Pred): (pred2: Pred) => Pred;
 
 // SINGLE_MARKER
 export function either(pred1: Pred, pred2: Pred): Pred;
@@ -112,8 +112,8 @@ export function either(pred1: Pred): (pred2: Pred) => Pred;
 
 
 // SINGLE_MARKER
-export function export function clamp(min: number, max: number, input: number): number;
-export function export function clamp(min: number, max: number) : (input: number) => number;
+export function clamp(min: number, max: number, input: number): number;
+export function clamp(min: number, max: number) : (input: number) => number;
 
 // SINGLE_MARKER
 export function clone<T>(value: T): T;
@@ -123,41 +123,41 @@ export function clone<T>(value: ReadonlyArray<T>): T[];
 export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 // SINGLE_MARKER
-export function export function compose<T1>(fn0: () => T1): () => T1;
-export function export function compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-export function export function compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-export function export function compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
+export function compose<T1>(fn0: () => T1): () => T1;
+export function compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
+export function compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
+export function compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
-export function export function compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
-export function export function compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
-export function export function compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
-export function export function compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
+export function compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
+export function compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
+export function compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
+export function compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
 
-export function export function compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
-export function export function compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
-export function export function compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
-export function export function compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
+export function compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
+export function compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
+export function compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
+export function compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
 
-export function export function compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
-export function export function compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
-export function export function compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
-export function export function compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
+export function compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
+export function compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
+export function compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
+export function compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
 
-export function export function compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
-export function export function compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
-export function export function compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
-export function export function compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
+export function compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
+export function compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
+export function compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
+export function compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
 
-export function export function compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
-export function export function compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
-export function export function compose<V0, V1, T1, T2, T3, T4, T5, T6>(
+export function compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
+export function compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
+export function compose<V0, V1, T1, T2, T3, T4, T5, T6>(
   fn5: (x: T5) => T6,
   fn4: (x: T4) => T5,
   fn3: (x: T3) => T4,
   fn2: (x: T2) => T3,
   fn1: (x: T1) => T2,
   fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
-export function export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
+export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
   fn5: (x: T5) => T6,
   fn4: (x: T4) => T5,
   fn3: (x: T3) => T4,
@@ -166,14 +166,14 @@ export function export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
   fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
 // SINGLE_MARKER
-export function export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
-export function export function concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
-export function export function concat(x: string, y: string): string;
-export function export function concat(x: string): (y: string) => string;
+export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
+export function concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
+export function concat(x: string, y: string): string;
+export function concat(x: string): (y: string) => string;
 
 // SINGLE_MARKER
-export functionexport function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
-export functionexport function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
+export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
+export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
 
 // SINGLE_MARKER
 export function curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
@@ -293,8 +293,8 @@ export function identical<T>(a: T): (b: T) => boolean;
 export function identity<T>(x: T): T;
 
 // SINGLE_MARKER
-export function ifElseexport function condition: Pred, ifFn: Arity1Fn, elseFn: Arity1Fn): Arity1Fn;
-export function ifElseexport function condition: Pred, ifFn: Arity2Fn, elseFn: Arity2Fn): Arity2Fn;
+export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 // SINGLE_MARKER
 export function inc(n: number): number;
@@ -306,10 +306,10 @@ export function includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
 export function includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
 // SINGLE_MARKER
-export function indexBy<T>export function condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>export function condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>export function condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
-export function indexBy<T>export function condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
+export function indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
+export function indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
+export function indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
+export function indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
 
 // SINGLE_MARKER
 export function clamp(min: number, max: number, input: number): number;
@@ -351,19 +351,19 @@ export function compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3:
 export function compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
 export function compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
 export function compose<V0, V1, T1, T2, T3, T4, T5, T6>(
-fn5: (x: T5) => T6,
-fn4: (x: T4) => T5,
-fn3: (x: T3) => T4,
-fn2: (x: T2) => T3,
-fn1: (x: T1) => T2,
-fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
+  fn5: (x: T5) => T6,
+  fn4: (x: T4) => T5,
+  fn3: (x: T3) => T4,
+  fn2: (x: T2) => T3,
+  fn1: (x: T1) => T2,
+  fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
 export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-fn5: (x: T5) => T6,
-fn4: (x: T4) => T5,
-fn3: (x: T3) => T4,
-fn2: (x: T2) => T3,
-fn1: (x: T1) => T2,
-fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
+  fn5: (x: T5) => T6,
+  fn4: (x: T4) => T5,
+  fn3: (x: T3) => T4,
+  fn2: (x: T2) => T3,
+  fn1: (x: T1) => T2,
+  fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
 // SINGLE_MARKER
 export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
@@ -473,44 +473,6 @@ export function groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [ind
 export function groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
 // SINGLE_MARKER
-export function has(prop: string): <T>(obj: T) => boolean;
-
-// SINGLE_MARKER
-export function groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
-
-// SINGLE_MARKER
-export function head<T>(arrOrStr: Array<T>): T | undefined;
-export function head(arrOrStr: string): string;
-
-// SINGLE_MARKER
-export function identical<T>(a: T, b: T): boolean;
-export function identical<T>(a: T): (b: T) => boolean;
-
-// SINGLE_MARKER
-export function identity<T>(x: T): T;
-
-// SINGLE_MARKER
-export function ifElse(condition: Pred, ifFn: Arity1Fn, elseFn: Arity1Fn): Arity1Fn;
-export function ifElse(condition: Pred, ifFn: Arity2Fn, elseFn: Arity2Fn): Arity2Fn;
-
-// SINGLE_MARKER
-export function inc(n: number): number;
-
-// SINGLE_MARKER
-export function includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
-export function includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
-export function includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
-export function includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
-
-// SINGLE_MARKER
-export function indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
-export function indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
-
-// SINGLE_MARKER
 export function indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
 export function indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
 
@@ -522,7 +484,6 @@ export function init(arrOrStr: string): string;
 export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 export function intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
-export function 
 // SINGLE_MARKER
 export function intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
 export function intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
@@ -558,16 +519,16 @@ export function length<T>(list: ReadonlyArray<T>): number;
 // SINGLE_MARKER
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
-export function 
+
 // SINGLE_MARKER
 export function lensIndex(n: number): Lens;
 export function lensPath(path: RamdaPath): Lens;
 
 // SINGLE_MARKER
 export function lensProp(str: string): {
-export function export function <T, U>(obj: T): U;
-export function export function set<T, U, V>(val: T, obj: U): V;
-export function };
+  <T, U>(obj: T): U;
+  set<T, U, V>(val: T, obj: U): V;
+};
 
 // SINGLE_MARKER
 export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
@@ -581,7 +542,7 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 export function set<T, U>(lens: Lens, a: U, obj: T): T;
 export function set<U>(lens: Lens, a: U): <T>(obj: T) => T;
 export function set(lens: Lens): <T, U>(a: U, obj: T) => T;
-export function 
+
 // SINGLE_MARKER
 export function view<T, U>(lens: Lens): (obj: T) => U;
 export function view<T, U>(lens: Lens, obj: T): U;
@@ -669,7 +630,7 @@ export function path<Input, T>(pathToSearch: string | string[], obj: Input): T |
 export function path<T>(pathToSearch: string | string[], obj: any): T | undefined;
 export function path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
 export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
-export function 
+
 // SINGLE_MARKER
 export function paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>;
 export function paths<T>(pathsToSearch: Array<string | string[]>, obj: any): Array<T | undefined>;
@@ -953,12 +914,12 @@ export function reverse(str: string): string;
 export function slice(a: number, b: number, list: string): string;
 export function slice<T>(a: number, b: number, list: T[]): T[];
 export function slice(a: number, b: number): {
-export function export function (list: string): string;
-export function export function <T>(list: T[]): T[];
+export function (list: string): string;
+export function <T>(list: T[]): T[];
 export function };
 export function slice(a: number): {
-export function export function (b: number, list: string): string;
-export function export function <T>(b: number, list: T[]): T[];
+export function (b: number, list: string): string;
+export function <T>(b: number, list: T[]): T[];
 export function };
 
 // SINGLE_MARKER
@@ -1060,7 +1021,7 @@ export function uniq<T>(arr: ReadonlyArray<T>): T[];
 // SINGLE_MARKER
 export function uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[];
 export function uniqWith<T, U>(fn: (x: T, y: T) => boolean): (  arr: ReadonlyArray<T>) => T[];
-export function 
+
 // SINGLE_MARKER
 export function update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
 export function update<T>(index: number, value: T): (list: ReadonlyArray<T>) => T[];

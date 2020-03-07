@@ -103,67 +103,6 @@ function append(el, list) {
   return clone;
 }
 
-function __findHighestArity(spec, max = 0) {
-  for (const key in spec) {
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
-
-    if (typeof spec[key] === 'object') {
-      max = Math.max(max, __findHighestArity(spec[key]));
-    }
-
-    if (typeof spec[key] === 'function') {
-      max = Math.max(max, spec[key].length);
-    }
-  }
-
-  return max;
-}
-
-function __filterUndefined() {
-  const defined = [];
-  let i = 0;
-  const l = arguments.length;
-
-  while (i < l) {
-    if (typeof arguments[i] === 'undefined') break;
-    defined[i] = arguments[i];
-    i++;
-  }
-
-  return defined;
-}
-
-function __applySpecWithArity(spec, arity, cache) {
-  const remaining = arity - cache.length;
-  if (remaining === 1) return x => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x));
-  if (remaining === 2) return (x, y) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y));
-  if (remaining === 3) return (x, y, z) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z));
-  if (remaining === 4) return (x, y, z, a) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z, a));
-  if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
-  const ret = {};
-
-  for (const key in spec) {
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
-
-    if (typeof spec[key] === 'object') {
-      ret[key] = __applySpecWithArity(spec[key], arity, cache);
-      continue;
-    }
-
-    if (typeof spec[key] === 'function') {
-      ret[key] = spec[key](...cache);
-    }
-  }
-
-  return ret;
-}
-
-function applySpec(spec, ...args) {
-  const arity = __findHighestArity(spec);
-
-  return __applySpecWithArity(spec, arity, args);
-}
-
 function assocFn(prop, val, obj) {
   return Object.assign({}, obj, {
     [prop]: val
@@ -1070,18 +1009,6 @@ function partial(fn, ...args) {
   };
 }
 
-function partialCurry(fn, args = {}) {
-  return rest => {
-    if (type(fn) === 'Async' || type(fn) === 'Promise') {
-      return new Promise((resolve, reject) => {
-        fn(merge(rest, args)).then(resolve).catch(reject);
-      });
-    }
-
-    return fn(merge(rest, args));
-  };
-}
-
 function paths(pathsInput, obj) {
   return pathsInput.map(singlePath => path(singlePath, obj));
 }
@@ -1446,7 +1373,6 @@ exports.and = and;
 exports.any = any;
 exports.anyPass = anyPass;
 exports.append = append;
-exports.applySpec = applySpec;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
 exports.both = both;
@@ -1519,7 +1445,6 @@ exports.nth = nth;
 exports.omit = omit;
 exports.over = over;
 exports.partial = partial;
-exports.partialCurry = partialCurry;
 exports.path = path;
 exports.pathOr = pathOr;
 exports.paths = paths;
