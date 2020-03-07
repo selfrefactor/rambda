@@ -43,10 +43,12 @@ interface Dictionary<T> {
 }
 
 type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
+
 // INTERFACES_MARKER_END
-  
+
+// INJECT_RAMBDAX
+
 // SINGLE_MARKER
-// TODO 
 export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
 
