@@ -1,4 +1,4 @@
-import { F } from "../_ts-toolbelt/src/index";
+import { FToolbelt } from "../_ts-toolbelt/src/index";
 
 // INTERFACES_MARKER
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
@@ -93,7 +93,7 @@ export function assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Re
 // SINGLE_MARKER
 export function assocPath<T, U>(path: Path, val: T, obj: U): U;
 export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
+export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 
 // SINGLE_MARKER
@@ -389,5 +389,45 @@ export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: Array<T 
 // SINGLE_MARKER
 export function difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
 export function difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
+// SINGLE_MARKER
+export function dissoc<T>(prop: string, obj: any): T;
+export function dissoc(prop: string): <U>(obj: any) => U;
+
+// SINGLE_MARKER
+export function divide(a: number, b: number): number;
+export function divide(a: number): (b: number) => number;
+
+// SINGLE_MARKER
+export function drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+export function drop(howManyToDrop: number, arrOrStr: string): string;
+export function drop<T>(howManyToDrop: number): {
+   (arrOrStr: string): string;
+   (arrOrStr: ReadonlyArray<T>): T[];
+};
+
+// SINGLE_MARKER
+export function dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
+export function dropLast(howManyToDrop: number, arrOrStr: string): string;
+export function dropLast<T>(howManyToDrop: number): {
+   (arrOrStr: ReadonlyArray<T>): T[];
+   (arrOrStr: string): string;
+};
+
+// SINGLE_MARKER
+export function endsWith(a: string, list: string): boolean;
+export function endsWith(a: string): (list: string) => boolean;
+export function endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
+export function endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
+
+
+
+
+
+
+
+
+
+
 
 export as namespace R

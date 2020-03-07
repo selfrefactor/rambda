@@ -1,3 +1,3 @@
-import * as F from './Function/_api'
+import * as FToolbelt from './Function/_api'
 
-export {F}
+export {FToolbelt}
