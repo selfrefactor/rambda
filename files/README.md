@@ -125,8 +125,6 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
-- Rambda's **partialCurry** is not part of Ramda API.
-
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
 - Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
@@ -1278,31 +1276,6 @@ const finalFn = canPassAnyNumberOfArguments('foo')
 finalFn('bar') // =>  'Hello, Ms. foo bar!'
 ```
 
-#### partialCurry
-
-> partialCurry(fn: Function|Async, partialInput: Object, input: Object): Function|Promise
-
-When called with function `fn` and first set of input `partialInput`, it will return a function.
-
-This function will wait to be called with second set of input `input` and it will invoke `fn` with the merged object of `partialInput` over `input`.
-
-`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
-
-```
-const fn = ({a, b, c}) => {
-  return (a * b) + c
-}
-const curried = R.partialCurry(fn, {a: 2})
-const result = curried({b: 3, c: 10})
-// => 16
-```
-
-- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
-
-- You can read my argumentation for creating _partialCurry_ [here](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/partialCurry.js)
-
 #### pick
 
 > pick(propsToPick: string[], obj: Object): Object
@@ -1997,8 +1970,6 @@ import omit from 'rambda/lib/omit'
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
 - [Awesome functional Javascript programming libraries](https://github.com/stoeffel/awesome-fp-js#libraries)
-
-- [Argumentation of Rambda's curry method](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
 
 > Links to Rambda
 
