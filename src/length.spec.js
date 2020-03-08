@@ -1,4 +1,3 @@
-import { identical } from './identical.js'
 import { length } from './length'
 
 test('happy', () => {
@@ -7,9 +6,9 @@ test('happy', () => {
   expect(length([])).toEqual(0)
 })
 
-test('with bad input', () => {
-  expect(identical(NaN, length(0))).toEqual(true)
-  expect(identical(NaN, length({}))).toEqual(true)
-  expect(identical(NaN, length(null))).toEqual(true)
-  expect(identical(NaN, length(undefined))).toEqual(true)
+test('with bad input returns NaN', () => {
+  expect(length(0)).toBeNaN()
+  expect(length({})).toBeNaN()
+  expect(length(null)).toBeNaN()
+  expect(length(undefined)).toBeNaN()
 })

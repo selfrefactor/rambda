@@ -1,5 +1,5 @@
 import { paths } from './paths'
- 
+
 const obj = {
   a : {
     b : {

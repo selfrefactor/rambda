@@ -1,5 +1,3 @@
-import R from 'ramda'
-
 import { add } from './add'
 
 test('with number', () => {
@@ -7,8 +5,8 @@ test('with number', () => {
   expect(add(7)(10)).toEqual(17)
 })
 
-test('with string returns NaN', () => {
-  expect(R.add('foo', 'bar')).toEqual(Number('foo'))
+test('string is bad input', () => {
+  expect(add('foo', 'bar')).toBeNaN()
 })
 
 test('ramda specs', () => {
