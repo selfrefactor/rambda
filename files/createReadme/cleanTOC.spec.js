@@ -26,7 +26,7 @@ const expected = `
 * [Browse by category](#browse-by-category)
 `.trim()
 
-test('', () => {
+test('happy', () => {
   const result = cleanTOC(input)
 
   expect(

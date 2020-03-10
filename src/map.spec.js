@@ -1,5 +1,4 @@
-import { add } from './add'
-import { compose } from './compose'
+import { add, compose } from '../rambda'
 import { map } from './map'
 
 const double = x => x * 2
@@ -68,13 +67,12 @@ test('map with index example', () => {
       counter++
 
       return fn(...inputs, counter)
-    },
-    obj)
+    }, obj)
   }
   const fn = (
     x, prop, obj, index
   ) => {
-    console.log({ index }) // => {index:0} | {index:1}
+    expect(index).toBeNumber()
 
     return x + 1
   }
@@ -82,7 +80,10 @@ test('map with index example', () => {
     a : 1,
     b : 2,
   })
-  console.log({ result }) // => {a:2, b:3}
+  expect(result).toEqual({
+    a : 2,
+    b : 3,
+  })
 })
 
 /**
@@ -93,7 +94,6 @@ test('when undefined instead of array', () => {
 })
 
 test('with R.compose', () => {
-  const result = compose(map(add(1)),
-    map(add(1)))([ 1, 2, 3 ])
+  const result = compose(map(add(1)), map(add(1)))([ 1, 2, 3 ])
   expect(result).toEqual([ 3, 4, 5 ])
 })

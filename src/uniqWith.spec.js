@@ -1,6 +1,6 @@
 import { uniqWith } from './uniqWith'
 
-test('', () => {
+test('happy', () => {
   const input = [
     {
       id    : 0,

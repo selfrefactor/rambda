@@ -1,6 +1,6 @@
 import { concat } from './concat'
 
-test('', () => {
+test('happy', () => {
   const arr1 = [ 'a', 'b', 'c' ]
   const arr2 = [ 'd', 'e', 'f' ]
 

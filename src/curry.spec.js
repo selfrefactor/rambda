@@ -1,6 +1,6 @@
 import { curry } from './curry'
 
-test('', () => {
+test('happy', () => {
   const addFourNumbers = (
     a, b, c, d
   ) => a + b + c + d

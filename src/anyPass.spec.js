@@ -7,7 +7,7 @@ test('happy', () => {
   expect(predicate(6)).toBeFalsy()
 })
 
-test('', () => {
+test('happy', () => {
   const rules = [ x => typeof x === 'string', x => x > 10 ]
 
   expect(anyPass(rules)(11)).toBeTruthy()

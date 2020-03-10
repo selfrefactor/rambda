@@ -1,5 +1,3 @@
-import R from 'ramda'
-
 import { take } from './take'
 
 test('happy', () => {
@@ -10,16 +8,8 @@ test('happy', () => {
   expect(arr).toEqual([ 'foo', 'bar', 'baz' ])
 
   expect(take(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar' ])
-  expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([
-    'foo',
-    'bar',
-    'baz',
-  ])
-  expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([
-    'foo',
-    'bar',
-    'baz',
-  ])
+  expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
+  expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
   expect(take(3)('rambda')).toEqual('ram')
 })
 

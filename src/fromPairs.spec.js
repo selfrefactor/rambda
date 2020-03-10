@@ -7,6 +7,6 @@ const expected = {
   c : [ 3, 4 ],
 }
 
-test('', () => {
+test('happy', () => {
   expect(fromPairs(list)).toEqual(expected)
 })
