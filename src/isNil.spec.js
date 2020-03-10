@@ -1,9 +1,9 @@
 import { isNil } from './isNil'
 
 test('happy', () => {
-  expect(isNil(null)).toBeTruthy()
+  expect(isNil(null)).toBeTrue()
 
-  expect(isNil(undefined)).toBeTruthy()
+  expect(isNil(undefined)).toBeTrue()
 
-  expect(isNil([])).toBeFalsy()
+  expect(isNil([])).toBeFalse()
 })

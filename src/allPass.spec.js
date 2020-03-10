@@ -3,9 +3,9 @@ import { allPass } from './allPass'
 test('happy', () => {
   const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
 
-  expect(allPass(rules)(11)).toBeTruthy()
+  expect(allPass(rules)(11)).toBeTrue()
 
-  expect(allPass(rules)(undefined)).toBeFalsy()
+  expect(allPass(rules)(undefined)).toBeFalse()
 })
 
 test('when returns true', () => {
@@ -14,7 +14,7 @@ test('when returns true', () => {
   expect(allPass(conditionArr)({
     a : 1,
     b : 2,
-  })).toBeTruthy()
+  })).toBeTrue()
 })
 
 test('when returns false', () => {
@@ -23,5 +23,5 @@ test('when returns false', () => {
   expect(allPass(conditionArr)({
     a : 1,
     b : 2,
-  })).toBeFalsy()
+  })).toBeFalse()
 })
