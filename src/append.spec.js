@@ -1,18 +1,12 @@
+import { compose, flatten, map } from '../rambda'
 import { append } from './append'
-import { compose } from './compose'
-import { flatten } from './flatten'
-import { map } from './map'
 
 test('with strings', () => {
   expect(append('o', 'fo')).toEqual('foo')
 })
 
 test('with arrays', () => {
-  expect(append('tests', [ 'write', 'more' ])).toEqual([
-    'write',
-    'more',
-    'tests',
-  ])
+  expect(append('tests', [ 'write', 'more' ])).toEqual([ 'write', 'more', 'tests' ])
 })
 
 test('append to empty array', () => {
@@ -20,8 +14,7 @@ test('append to empty array', () => {
 })
 
 test('', () => {
-  const result = compose(flatten,
-    map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
+  const result = compose(flatten, map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })
 

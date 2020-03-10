@@ -3,11 +3,18 @@ import { nAry } from 'ramda'
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
 import { applySpec } from './applySpec'
 
-test.skip('works with empty spec', () => {
-  expect(applySpec({})()).toEqual({})
+test.skip('with bad input', () => {
+  const result = applySpec({ sum : { a : 1 } })(1, 2)
+  console.log({ result })
 })
 
-test('ramda 1', () => {
+test('works with empty spec', () => {
+  expect(applySpec({})()).toEqual({})
+  expect(applySpec([])(1, 2)).toEqual({})
+  expect(applySpec(null)(1, 2)).toEqual({})
+})
+
+test('works with unary functions', () => {
   const result = applySpec({
     v : inc,
     u : dec,
@@ -19,12 +26,12 @@ test('ramda 1', () => {
   expect(result).toEqual(expected)
 })
 
-test('ramda 2', () => {
+test('works with binary functions', () => {
   const result = applySpec({ sum : add })(1, 2)
   expect(result).toEqual({ sum : 3 })
 })
 
-test('ramda 3', () => {
+test('works with nested specs', () => {
   const result = applySpec({
     unnested : always(0),
     nested   : { sum : add },
@@ -36,7 +43,25 @@ test('ramda 3', () => {
   expect(result).toEqual(expected)
 })
 
-test.skip('works with arrays of functions', () => {
+test('works with arrays of nested specs', () => {
+  const result = applySpec({
+    unnested : always(0),
+    nested   : [ { sum : add } ],
+  })(1, 2)
+
+  expect(result).toEqual({
+    unnested : 0,
+    nested   : [ { sum : 3 } ],
+  })
+})
+
+test('works with arrays of spec objects', () => {
+  const result = applySpec([ { sum : add } ])(1, 2)
+
+  expect(result).toEqual([ { sum : 3 } ])
+})
+
+test('works with arrays of functions', () => {
   const result = applySpec([ map(prop('a')), map(prop('b')) ])([
     {
       a : 'a1',
@@ -54,7 +79,7 @@ test.skip('works with arrays of functions', () => {
   expect(result).toEqual(expected)
 })
 
-test('ramda 5', () => {
+test('works with a spec defining a map key', () => {
   expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
 })
 
@@ -66,10 +91,12 @@ test.skip('retains the highest arity', () => {
   expect(f.length).toBe(5)
 })
 
-test('ramda 6', () => {
+test('returns a curried function', () => {
   expect(applySpec({ sum : add })(1)(2)).toEqual({ sum : 3 })
 })
 
+// Additional tests
+// ============================================
 test('arity', () => {
   const spec = {
     one   : x1 => x1,
@@ -153,11 +180,6 @@ test('curried over 5 arguments', () => {
 test('undefined property', () => {
   const spec = { prop : path([ 'property', 'doesnt', 'exist' ]) }
   expect(applySpec(spec, {})).toEqual({ prop : undefined })
-})
-
-test('filter spec property that is not callable', () => {
-  const spec = { prop : 'not callable' }
-  expect(applySpec(spec, {})).toEqual({})
 })
 
 test('restructure json object', () => {
