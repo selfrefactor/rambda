@@ -10,7 +10,7 @@ test('with multiple inputs', () => {
   const fn = either(between, total20)
   expect(fn(
     7, 8, 5
-  )).toBeTruthy()
+  )).toBeTrue()
 })
 
 test('skip evaluation of the second expression', () => {
@@ -26,7 +26,7 @@ test('case 1', () => {
   const firstFn = val => val > 0
   const secondFn = val => val * 5 > 10
 
-  expect(either(firstFn, secondFn)(1)).toBeTruthy()
+  expect(either(firstFn, secondFn)(1)).toBeTrue()
 })
 
 test('case 2', () => {
@@ -34,5 +34,5 @@ test('case 2', () => {
   const secondFn = val => val === -10
   const fn = either(firstFn)(secondFn)
 
-  expect(fn(-10)).toBeTruthy()
+  expect(fn(-10)).toBeTrue()
 })

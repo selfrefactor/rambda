@@ -5,25 +5,25 @@ import { includes } from './includes'
 test('includes with string', () => {
   const str = 'more is less'
 
-  expect(includes('less')(str)).toBeTruthy()
-  expect(R.includes('less')(str)).toBeTruthy()
-  expect(includes('never', str)).toBeFalsy()
-  expect(R.includes('never', str)).toBeFalsy()
+  expect(includes('less')(str)).toBeTrue()
+  expect(R.includes('less')(str)).toBeTrue()
+  expect(includes('never', str)).toBeFalse()
+  expect(R.includes('never', str)).toBeFalse()
 })
 
 test('includes with array', () => {
   const arr = [ 1, 2, 3 ]
 
-  expect(includes(2)(arr)).toBeTruthy()
-  expect(R.includes(2)(arr)).toBeTruthy()
+  expect(includes(2)(arr)).toBeTrue()
+  expect(R.includes(2)(arr)).toBeTrue()
 
-  expect(includes(4, arr)).toBeFalsy()
-  expect(R.includes(4, arr)).toBeFalsy()
+  expect(includes(4, arr)).toBeFalse()
+  expect(R.includes(4, arr)).toBeFalse()
 })
 
 test('return false if input is falsy', () => {
-  expect(includes(2, null)).toBeFalsy()
+  expect(includes(2, null)).toBeFalse()
   expect(() => R.includes(2, null)).toThrow()
-  expect(includes(4, undefined)).toBeFalsy()
+  expect(includes(4, undefined)).toBeFalse()
   expect(() => R.includes(4, undefined)).toThrow()
 })

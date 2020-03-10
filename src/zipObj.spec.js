@@ -31,5 +31,5 @@ test('ignore extra keys', () => {
     c : 3,
   }
 
-  expect(equals(result, expected)).toBeTruthy()
+  expect(equals(result, expected)).toBeTrue()
 })
