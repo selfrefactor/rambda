@@ -6,7 +6,7 @@ export function _objectIs(a, b){
     return a !== 0 || 1 / a === 1 / b
   }
 
-  // Step 6.a: NaN == NaN
+  // Step 6.a: NaN === NaN
   return a !== a && b !== b
 
 }

@@ -3,7 +3,7 @@ import { curry } from './curry'
 function propEqFn(
   key, val, obj
 ){
-  if (obj == null) return false
+  if (!obj) return false
 
   return obj[ key ] === val
 }
