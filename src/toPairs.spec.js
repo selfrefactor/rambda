@@ -7,6 +7,6 @@ const obj = {
 }
 const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
 
-test('', () => {
+test('happy', () => {
   expect(toPairs(obj)).toEqual(expected)
 })

@@ -1,15 +1,9 @@
-import { add } from './add'
+import { add, filter, last, map } from '../rambda'
 import { compose } from './compose'
-import { filter } from './filter'
-import { last } from './last'
-import { map } from './map'
-import { multiply } from './multiply'
 
 test('happy', () => {
   const result = compose(
-    last,
-    map(add(10)),
-    map(add(1))
+    last, map(add(10)), map(add(1))
   )([ 1, 2, 3 ])
 
   expect(result).toEqual(14)
@@ -29,7 +23,9 @@ test('when no arguments is passed', () => {
 test('ramda spec', () => {
   const f = function(
     a, b, c
-  ){ return [ a, b, c ] }
+  ){
+    return [ a, b, c ]
+  }
   const g = compose(f)
   expect(g(
     1, 2, 3

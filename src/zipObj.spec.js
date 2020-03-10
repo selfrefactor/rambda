@@ -1,4 +1,4 @@
-import { equals } from './equals.js'
+import { equals } from './equals'
 import { zipObj } from './zipObj'
 
 test('zipObj', () => {

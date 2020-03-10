@@ -1,13 +1,9 @@
-import { add } from './add'
-import { last } from './last'
-import { map } from './map'
+import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
 test('pipe', () => {
   const result = pipe(
-    map(add(1)),
-    map(add(10)),
-    last
+    map(add(1)), map(add(10)), last
   )([ 1, 2, 3 ])
 
   expect(result).toEqual(14)

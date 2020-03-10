@@ -1,6 +1,4 @@
-import { compose } from './compose'
-import { curry } from './curry'
-import { map } from './map'
+import { compose, curry, map } from '../rambda'
 import { reduce } from './reduce'
 
 test('happy', () => {

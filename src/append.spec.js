@@ -13,7 +13,7 @@ test('append to empty array', () => {
   expect(append('tests', [])).toEqual([ 'tests' ])
 })
 
-test('', () => {
+test('happy', () => {
   const result = compose(flatten, map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })

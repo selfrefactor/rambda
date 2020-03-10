@@ -1,7 +1,7 @@
 import { find } from './find'
 import { propEq } from './propEq'
 
-test('', () => {
+test('happy', () => {
   expect(find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual({ a : 2 })
 })
 

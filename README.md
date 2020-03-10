@@ -2307,7 +2307,7 @@ R.always tests
 ```javascript
 import { always } from './always'
 
-test('', () => {
+test('happy', () => {
   const fn = always(7)
 
   expect(fn()).toEqual(7)
@@ -2449,7 +2449,7 @@ test('happy', () => {
   expect(predicate(6)).toBeFalsy()
 })
 
-test('', () => {
+test('happy', () => {
   const rules = [ x => typeof x === 'string', x => x > 10 ]
 
   expect(anyPass(rules)(11)).toBeTruthy()
@@ -2549,7 +2549,7 @@ test('append to empty array', () => {
   expect(append('tests', [])).toEqual([ 'tests' ])
 })
 
-test('', () => {
+test('happy', () => {
   const result = compose(flatten,
     map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
@@ -3033,7 +3033,7 @@ R.complement tests
 ```javascript
 import { complement } from './complement'
 
-test('', () => {
+test('happy', () => {
   const fn = complement(x => x.length === 0)
 
   expect(fn([ 1, 2, 3 ])).toBeTruthy()
@@ -3094,7 +3094,7 @@ R.concat tests
 ```javascript
 import { concat } from './concat'
 
-test('', () => {
+test('happy', () => {
   const arr1 = [ 'a', 'b', 'c' ]
   const arr2 = [ 'd', 'e', 'f' ]
 
@@ -3157,7 +3157,7 @@ R.curry tests
 ```javascript
 import { curry } from './curry'
 
-test('', () => {
+test('happy', () => {
   const addFourNumbers = (
     a, b, c, d
   ) => a + b + c + d
@@ -4385,7 +4385,7 @@ R.find tests
 import { find } from './find'
 import { propEq } from './propEq'
 
-test('', () => {
+test('happy', () => {
   expect(find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual({ a : 2 })
 })
 
@@ -4441,7 +4441,7 @@ R.findIndex tests
 import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
-test('', () => {
+test('happy', () => {
   expect(findIndex(propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(1)
 
   expect(findIndex(propEq('a', 1))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(0)
@@ -4710,7 +4710,7 @@ R.flatten tests
 ```javascript
 import { flatten } from './flatten'
 
-test('', () => {
+test('happy', () => {
   expect(flatten([ 1, 2, 3, [ [ [ [ [ 4 ] ] ] ] ] ])).toEqual([ 1, 2, 3, 4 ])
 
   expect(flatten([ 1, [ 2, [ [ 3 ] ] ], [ 4 ] ])).toEqual([ 1, 2, 3, 4 ])
@@ -4999,7 +4999,7 @@ const expected = {
   c : [ 3, 4 ],
 }
 
-test('', () => {
+test('happy', () => {
   expect(fromPairs(list)).toEqual(expected)
 })
 
@@ -5276,7 +5276,7 @@ R.identity tests
 ```javascript
 import { identity } from './identity'
 
-test('', () => {
+test('happy', () => {
   expect(identity(7)).toEqual(7)
 })
 
@@ -5939,7 +5939,7 @@ R.isNil tests
 ```javascript
 import { isNil } from './isNil'
 
-test('', () => {
+test('happy', () => {
   expect(isNil(null)).toBeTruthy()
 
   expect(isNil(undefined)).toBeTruthy()
@@ -6209,7 +6209,7 @@ R.lastIndexOf tests
 ```javascript
 import { lastIndexOf } from './lastIndexOf'
 
-test('', () => {
+test('happy', () => {
   const a = lastIndexOf(1, [ 1, 2, 3, 1, 2 ])
   const b = lastIndexOf(1)([ 1, 2, 3, 1, 2 ])
 
@@ -6572,7 +6572,7 @@ R.match tests
 ```javascript
 import { match } from './match'
 
-test('', () => {
+test('happy', () => {
   expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
 
   expect(match(/a./g)('foo')).toEqual([])
@@ -6815,7 +6815,7 @@ R.min tests
 ```javascript
 import { min } from './min'
 
-test('', () => {
+test('happy', () => {
   expect(min(2, 1)).toBe(1)
   expect(min(2)(1)).toBe(1)
 })
@@ -6940,7 +6940,7 @@ R.modulo tests
 ```javascript
 import { modulo } from './modulo'
 
-test('', () => {
+test('happy', () => {
   expect(modulo(17, 3)).toEqual(2)
   expect(modulo(15)(6)).toEqual(3)
 })
@@ -6988,7 +6988,7 @@ R.multiply tests
 ```javascript
 import { multiply } from './multiply'
 
-test('', () => {
+test('happy', () => {
   expect(multiply(2, 4)).toEqual(8)
   expect(multiply(2)(4)).toEqual(8)
 })
@@ -7115,7 +7115,7 @@ test('doesn\'t work with number as property', () => {
   })
 })
 
-test('', () => {
+test('happy', () => {
   expect(omit([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',
@@ -7517,7 +7517,7 @@ R.partialCurry tests
 import { partialCurry } from './partialCurry'
 import { type } from './type'
 
-test('', () => {
+test('happy', () => {
   const fn = ({ a, b, c }) => a + b + c
   const curried = partialCurry(fn, { a : 1 })
 
@@ -7789,7 +7789,7 @@ R.pluck tests
 ```javascript
 import { pluck } from './pluck'
 
-test('', () => {
+test('happy', () => {
   expect(pluck('a')([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ 1, 2 ])
 })
 
@@ -7852,7 +7852,7 @@ R.prepend tests
 ```javascript
 import { prepend } from './prepend'
 
-test('', () => {
+test('happy', () => {
   expect(prepend('f', 'oo')).toEqual('foo')
 })
 
@@ -8806,7 +8806,7 @@ R.splitEvery tests
 ```javascript
 import { splitEvery } from './splitEvery'
 
-test('', () => {
+test('happy', () => {
   expect(splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])).toEqual([
     [ 1, 2, 3 ],
     [ 4, 5, 6 ],
@@ -8931,7 +8931,7 @@ R.subtract tests
 ```javascript
 import { subtract } from './subtract'
 
-test('', () => {
+test('happy', () => {
   expect(subtract(2, 1)).toEqual(1)
   expect(subtract(2)(1)).toEqual(1)
 })
@@ -9428,7 +9428,7 @@ const obj = {
 }
 const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
 
-test('', () => {
+test('happy', () => {
   expect(toPairs(obj)).toEqual(expected)
 })
 
@@ -9471,7 +9471,7 @@ R.toString tests
 ```javascript
 import { toString } from './toString'
 
-test('', () => {
+test('happy', () => {
   expect(toString([ 1, 2, 3 ])).toEqual('1,2,3')
 })
 
@@ -9892,7 +9892,7 @@ R.uniqWith tests
 ```javascript
 import { uniqWith } from './uniqWith'
 
-test('', () => {
+test('happy', () => {
   const input = [
     {
       id    : 0,

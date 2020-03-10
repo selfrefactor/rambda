@@ -1,6 +1,6 @@
 import { lastIndexOf } from './lastIndexOf'
 
-test('', () => {
+test('happy', () => {
   const a = lastIndexOf(1, [ 1, 2, 3, 1, 2 ])
   const b = lastIndexOf(1)([ 1, 2, 3, 1, 2 ])
 
