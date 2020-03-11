@@ -7,5 +7,5 @@ test('', () => {
 
   expect(() => {
     match(/a./g, null)
-  }).toThrow()
+  }).toThrowWithMessage(TypeError, `Cannot read property 'match' of null`) 
 })
