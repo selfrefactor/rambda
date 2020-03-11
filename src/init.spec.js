@@ -1,13 +1,9 @@
-import { compose } from './compose'
-import { flatten } from './flatten'
+import { compose, flatten, tail } from '../rambda'
 import { init } from './init'
-import { tail } from './tail'
 
 test('init', () => {
   expect(compose(
-    tail,
-    init,
-    flatten
+    tail, init, flatten
   )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])).toEqual([ 2, 3 ])
 
   expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])

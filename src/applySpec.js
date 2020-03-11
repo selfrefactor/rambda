@@ -28,6 +28,17 @@ function __filterUndefined(){
   return defined
 }
 
+export function handleArrayOfFunctions(obj){
+  const keys = Object.keys(obj)
+  const toReturn = Array(keys.length)
+
+  keys.forEach(x => {
+    toReturn[ x ] = obj[ x ]
+  })
+
+  return toReturn
+}
+
 function __applySpecWithArity(
   spec, arity, cache
 ){
@@ -84,14 +95,19 @@ function __applySpecWithArity(
     }
   }
 
-  return ret
+  return Array.isArray(spec) ? handleArrayOfFunctions(ret) : ret
 }
 
 export function applySpec(spec, ...args){
   // get the highest arity spec function, cache the result and pass to __applySpecWithArity
   const arity = __findHighestArity(spec)
 
-  return __applySpecWithArity(
+  if (arity === 0){
+    return () => ({})
+  }
+  const toReturn = __applySpecWithArity(
     spec, arity, args
   )
+
+  return toReturn
 }

@@ -1,6 +1,6 @@
 import { prepend } from './prepend'
 
-test('', () => {
+test('happy', () => {
   expect(prepend('f', 'oo')).toEqual('foo')
 })
 

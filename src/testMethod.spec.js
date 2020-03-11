@@ -1,9 +1,9 @@
 import { test as testMethod } from './testMethod'
 
-test('', () => {
-  expect(testMethod(/^x/, 'xyz')).toBeTruthy()
+test('happy', () => {
+  expect(testMethod(/^x/, 'xyz')).toBeTrue()
 
-  expect(testMethod(/^y/)('xyz')).toBeFalsy()
+  expect(testMethod(/^y/)('xyz')).toBeFalse()
 })
 
 test('throws if first argument is not regex', () => {

@@ -4,7 +4,7 @@ test('happy', () => {
   const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ],
     [ 1, { a : 2 }, [ { b : 3 } ] ])
 
-  expect(result).toBeFalsy()
+  expect(result).toBeFalse()
 })
 
 test('with regex', () => {
@@ -100,8 +100,8 @@ test('ramda spec', () => {
 })
 
 test('works with boolean tuple', () => {
-  expect(equals([ true, false ], [ true, false ])).toBeTruthy()
-  expect(equals([ true, false ], [ true, true ])).toBeFalsy()
+  expect(equals([ true, false ], [ true, false ])).toBeTrue()
+  expect(equals([ true, false ], [ true, true ])).toBeFalse()
 })
 
 test('works with equal objects within array', () => {
@@ -122,7 +122,7 @@ test('works with equal objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(equals(x, y)).toBeTruthy()
+  expect(equals(x, y)).toBeTrue()
 })
 
 test('works with different objects within array', () => {
@@ -131,25 +131,25 @@ test('works with different objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(equals(x, y)).toBeFalsy()
+  expect(equals(x, y)).toBeFalse()
 })
 
 test('works with undefined as second argument', () => {
-  expect(equals(1, undefined)).toBeFalsy()
+  expect(equals(1, undefined)).toBeFalse()
 
-  expect(equals(undefined, undefined)).toBeTruthy()
+  expect(equals(undefined, undefined)).toBeTrue()
 })
 
 test('various examples', () => {
-  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTruthy()
+  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTrue()
 
-  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalsy()
+  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalse()
 
-  expect(equals(1, 1)).toBeTruthy()
+  expect(equals(1, 1)).toBeTrue()
 
-  expect(equals(1, '1')).toBeFalsy()
+  expect(equals(1, '1')).toBeFalse()
 
-  expect(equals({}, {})).toBeTruthy()
+  expect(equals({}, {})).toBeTrue()
 
   expect(equals({
     a : 1,
@@ -158,7 +158,7 @@ test('various examples', () => {
   {
     b : 2,
     a : 1,
-  })).toBeTruthy()
+  })).toBeTrue()
 
   expect(equals({
     a : 1,
@@ -167,7 +167,7 @@ test('various examples', () => {
   {
     a : 1,
     b : 1,
-  })).toBeFalsy()
+  })).toBeFalse()
 
   expect(equals({
     a : 1,
@@ -176,7 +176,7 @@ test('various examples', () => {
   {
     a : 1,
     b : 1,
-  })).toBeFalsy()
+  })).toBeFalse()
 
   expect(equals({
     a : 1,
@@ -186,7 +186,7 @@ test('various examples', () => {
     b : 2,
     a : 1,
     c : 3,
-  })).toBeFalsy()
+  })).toBeFalse()
 
   expect(equals({
     x : {
@@ -200,7 +200,7 @@ test('various examples', () => {
       a : 1,
       c : 3,
     },
-  })).toBeFalsy()
+  })).toBeFalse()
 
   expect(equals({
     a : 1,
@@ -209,25 +209,25 @@ test('various examples', () => {
   {
     b : 3,
     a : 1,
-  })).toBeFalsy()
+  })).toBeFalse()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalse()
 
-  expect(equals({ a : {} }, { a : {} })).toBeTruthy()
+  expect(equals({ a : {} }, { a : {} })).toBeTrue()
 
-  expect(equals('', '')).toBeTruthy()
+  expect(equals('', '')).toBeTrue()
 
-  expect(equals('foo', 'foo')).toBeTruthy()
+  expect(equals('foo', 'foo')).toBeTrue()
 
-  expect(equals('foo', 'bar')).toBeFalsy()
+  expect(equals('foo', 'bar')).toBeFalse()
 
-  expect(equals(0, false)).toBeFalsy()
+  expect(equals(0, false)).toBeFalse()
 
-  expect(equals(/\s/g, null)).toBeFalsy()
+  expect(equals(/\s/g, null)).toBeFalse()
 
-  expect(equals(null, null)).toBeTruthy()
+  expect(equals(null, null)).toBeTrue()
 
-  expect(equals(false)(null)).toBeFalsy()
+  expect(equals(false)(null)).toBeFalse()
 })

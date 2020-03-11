@@ -1,8 +1,8 @@
 import { has } from './has'
 
 test('happy', () => {
-  expect(has('a')({ a : 1 })).toBeTruthy()
-  expect(has('b', { a : 1 })).toBeFalsy()
+  expect(has('a')({ a : 1 })).toBeTrue()
+  expect(has('b', { a : 1 })).toBeFalse()
 })
 
 test('with non-object', () => {

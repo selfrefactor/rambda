@@ -66,7 +66,7 @@ import { endsWith } from 'endsWith'
 test('endsWith', () => {
   expect(
     endsWith('oo')('foo')
-  ).toBeTruthy()
+  ).toBeTrue()
 })
 ```
 

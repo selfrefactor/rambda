@@ -15,9 +15,7 @@ function filterObject(fn, obj){
 export function filter(fn, list){
   if (arguments.length === 1) return _list => filter(fn, _list)
 
-  if (list == undefined){
-    return []
-  }
+  if (!list) return []
 
   if (!Array.isArray(list)){
     return filterObject(fn, list)

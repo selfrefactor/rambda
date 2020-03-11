@@ -1,6 +1,6 @@
 import { always } from './always'
 
-test('', () => {
+test('happy', () => {
   const fn = always(7)
 
   expect(fn()).toEqual(7)

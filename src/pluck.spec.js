@@ -1,6 +1,6 @@
 import { pluck } from './pluck'
 
-test('', () => {
+test('happy', () => {
   expect(pluck('a')([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ 1, 2 ])
 })
 

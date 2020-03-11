@@ -449,10 +449,7 @@ function filterObject(fn, obj) {
 
 function filter(fn, list) {
   if (arguments.length === 1) return _list => filter(fn, _list);
-
-  if (list == undefined) {
-    return [];
-  }
+  if (!list) return [];
 
   if (!Array.isArray(list)) {
     return filterObject(fn, list);
@@ -827,7 +824,10 @@ function lastIndexOf(target, list) {
 }
 
 function length(list) {
-  if (list == null || list.length === undefined) return NaN;
+  if (!list || list.length === undefined) {
+    return NaN;
+  }
+
   return list.length;
 }
 
@@ -1093,7 +1093,7 @@ const reduce = curry(reduceFn);
 const product = reduce(multiply, 1);
 
 function propEqFn(key, val, obj) {
-  if (obj == null) return false;
+  if (!obj) return false;
   return obj[key] === val;
 }
 

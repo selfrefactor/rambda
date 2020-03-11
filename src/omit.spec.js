@@ -28,7 +28,7 @@ test('doesn\'t work with number as property', () => {
   })
 })
 
-test('', () => {
+test('happy', () => {
   expect(omit([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',

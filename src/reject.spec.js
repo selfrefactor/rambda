@@ -1,7 +1,4 @@
-import { add } from './add'
-import { compose } from './compose'
-import { equals } from './equals'
-import { map } from './map'
+import { add, compose, equals, map } from '../rambda'
 import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
