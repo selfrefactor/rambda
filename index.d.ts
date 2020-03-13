@@ -178,7 +178,7 @@ export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: 
 export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
 
 
-export function curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
+export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 
 export function dec(n: number): number;
@@ -314,167 +314,6 @@ export function indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>)
 export function indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
 
 
-export function clamp(min: number, max: number, input: number): number;
-export function clamp(min: number, max: number) : (input: number) => number;
-
-
-export function clone<T>(value: T): T;
-export function clone<T>(value: ReadonlyArray<T>): T[];
-
-
-export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
-
-
-export function compose<T1>(fn0: () => T1): () => T1;
-export function compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-export function compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-export function compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
-
-export function compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
-export function compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
-export function compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
-export function compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
-
-export function compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
-export function compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
-export function compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
-export function compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
-
-export function compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
-export function compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
-export function compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
-export function compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
-
-export function compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
-export function compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
-export function compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
-export function compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
-
-export function compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
-export function compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
-export function compose<V0, V1, T1, T2, T3, T4, T5, T6>(
-  fn5: (x: T5) => T6,
-  fn4: (x: T4) => T5,
-  fn3: (x: T3) => T4,
-  fn2: (x: T2) => T3,
-  fn1: (x: T1) => T2,
-  fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
-export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-  fn5: (x: T5) => T6,
-  fn4: (x: T4) => T5,
-  fn3: (x: T3) => T4,
-  fn2: (x: T2) => T3,
-  fn1: (x: T1) => T2,
-  fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
-
-
-export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
-export function concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
-export function concat(x: string, y: string): string;
-export function concat(x: string): (y: string) => string;
-
-
-export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
-export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
-
-
-export function curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
-
-
-export function dec(n: number): number;
-
-
-export function defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T;
-export function defaultTo<T>(defaultValue: T, ...inputArguments: Array<T | null | undefined>): T;
-export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: Array<T | U | null | undefined>): T | U;
-
-
-export function difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
-
-
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
-
-
-export function divide(a: number, b: number): number;
-export function divide(a: number): (b: number) => number;
-
-
-export function drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, arrOrStr: string): string;
-export function drop<T>(howManyToDrop: number): {
-   (arrOrStr: string): string;
-   (arrOrStr: ReadonlyArray<T>): T[];
-};
-
-
-export function dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, arrOrStr: string): string;
-export function dropLast<T>(howManyToDrop: number): {
-   (arrOrStr: ReadonlyArray<T>): T[];
-   (arrOrStr: string): string;
-};
-
-
-export function endsWith(a: string, list: string): boolean;
-export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
-
-
-export function equals<T>(a: T, b: T): boolean;
-export function equals<T>(a: T): (b: T) => boolean;
-
-
-export function F(): boolean;
-
-
-export function filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
-export function filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
-export function filter<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filter<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
-
-
-export function find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
-export function find<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
-
-
-export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
-export function findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
-
-
-export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
-
-
-export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
-
-
-
-export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
-
-
-export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-
-
-export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
-export function forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-export function forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-export function forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
-
-
-export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
-export function fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
-
-
-export function groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
-
-
 export function indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
 export function indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
 
@@ -568,7 +407,7 @@ export function max<T extends Ord>(a: T): (b: T) => T;
 
 export function maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
 export function maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-export function maxBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
+export function maxBy<T>(keyFn: (a: T) => Ord): FToolbelt.Curry<(a: T, b: T) => T>;
 
 
 export function mean(list: ReadonlyArray<number>): number;
@@ -587,7 +426,7 @@ export function min<T extends Ord>(a: T): (b: T) => T;
 
 export function minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
 export function minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-export function minBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
+export function minBy<T>(keyFn: (a: T) => Ord): FToolbelt.Curry<(a: T, b: T) => T>;
 
 
 export function modulo(a: number, b: number): number;
@@ -642,7 +481,7 @@ export function paths<Input, T>(pathsToSearch: Array<string | string[]>): (obj: 
 
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
+export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 
 export function pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
@@ -870,9 +709,9 @@ export function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T
 export function propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
 export function propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
 export function propEq(propToFind: string | number): {
-export function   <T>(valueToMatch: T, obj: any): boolean;
-export function   <T>(valueToMatch: T): (obj: any) => boolean;
-export function };
+   <T>(valueToMatch: T, obj: any): boolean;
+   <T>(valueToMatch: T): (obj: any) => boolean;
+};
 
 
 export function propIs<P extends keyof T, T>(type: any, name: P, obj: T): boolean;
@@ -916,13 +755,13 @@ export function reverse(str: string): string;
 export function slice(a: number, b: number, list: string): string;
 export function slice<T>(a: number, b: number, list: T[]): T[];
 export function slice(a: number, b: number): {
-export function (list: string): string;
-export function <T>(list: T[]): T[];
-export function };
+  (list: string): string;
+  <T>(list: T[]): T[];
+};
 export function slice(a: number): {
-export function (b: number, list: string): string;
-export function <T>(b: number, list: T[]): T[];
-export function };
+  (b: number, list: string): string;
+  <T>(b: number, list: T[]): T[];
+};
 
 
 export function sort<T>(sortFn: (a: T, b: T) => number, arr: ReadonlyArray<T>): T[];
