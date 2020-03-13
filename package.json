@@ -81,7 +81,9 @@
     "tools.d.ts"
   ],
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended"],
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
     "collectCoverageFrom": [
       "src/*.js",
       "!internal"
@@ -108,7 +110,8 @@
       "repl",
       "changelog",
       "important",
-      "important"
+      "important",
+      "fix"
     ],
     "test": [
       "typings",

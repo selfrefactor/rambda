@@ -7655,7 +7655,7 @@ export function path(list, obj){
 
 Similar to `R.path`, but for multiple object's path queries. 
 
-```javascript
+```
 const obj = {
   foo: {
     bar: [10,20],
@@ -7664,98 +7664,8 @@ const obj = {
   a: 90
 }
 R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
-// => [ undefined, 20, 90]
+// => [ undefined, 20, 123]
 ```
-
-<details>
-
-<summary>
-R.paths tests
-</summary>
-
-```javascript
-import { paths } from './paths'
-
-const obj = {
-  a : {
-    b : {
-      c : 1,
-      d : 2,
-    },
-  },
-  p : [ { q : 3 }, 'Hi' ],
-  x : {
-    y : 'Alice',
-    z : [ [ {} ] ],
-  },
-}
-
-test('with string path', () => {
-  const result = paths([
-    'a.b.d',
-    'p.q',
-  ],
-  obj)
-
-  expect(result).toEqual([ 2, undefined ])
-})
-
-test('with array path', () => {
-  const result = paths([
-    [ 'a', 'b', 'c' ],
-    [ 'x', 'y' ],
-  ],
-  obj)
-
-  expect(result).toEqual([ 1, 'Alice' ])
-
-})
-
-test('takes a paths that contains indices into arrays', () => {
-  expect(paths([
-    [ 'p', 0, 'q' ],
-    [ 'x', 'z', 0, 0 ],
-  ],
-  obj)).toEqual([ 3, {} ])
-  expect(paths([
-    [ 'p', 0, 'q' ],
-    [ 'x', 'z', 2, 1 ],
-  ],
-  obj)).toEqual([ 3, undefined ])
-})
-
-test('gets a deep property\'s value from objects', () => {
-  expect(paths([ [ 'a', 'b' ] ], obj)).toEqual([ obj.a.b ])
-  expect(paths([ [ 'p', 0 ] ], obj)).toEqual([ obj.p[ 0 ] ])
-})
-
-test('returns undefined for items not found', () => {
-  expect(paths([ [ 'a', 'x', 'y' ] ], obj)).toEqual([ undefined ])
-  expect(paths([ [ 'p', 2 ] ], obj)).toEqual([ undefined ])
-})
-
-```
-
-</details>
-
-<details>
-
-<summary>
-R.paths source
-</summary>
-
-```javascript
-import { path } from './path'
-
-export function paths(pathsInput, obj){
-  return pathsInput.map(singlePath => path(singlePath, obj))
-}
-
-```
-
-</details>
-
-<a href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7B%0A%20%20foo%3A%20%7B%0A%20%20%20%20bar%3A%20%5B10%2C20%5D%2C%0A%20%20%20%20baz%3A%20'123'%0A%20%20%7D%2C%0A%20%20a%3A%2090%0A%7D%0AR.paths(%5B'a.b'%2C%20'foo.bar.1'%2C%20'foo.baz'%5D)%0A%2F%2F%20%3D%3E%20%5B%20undefined%2C%2020%2C%2090%5D">Try in REPL</a>
 
 ---
 #### pathOr

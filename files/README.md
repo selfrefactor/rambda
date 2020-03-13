@@ -1235,10 +1235,8 @@ const obj = {
   a: 90
 }
 R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
-// => [ undefined, 20, 90]
+// => [ undefined, 20, 123]
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/paths.js)
 
 #### pathOr
 
