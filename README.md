@@ -59,6 +59,7 @@ method | Rambda | Ramda | Lodash
  *any* | 🚀 Fastest | 92.1% slower | 29.4% slower
  *anyPass* | 🚀 Fastest | 98.67% slower | 🔳
  *append* | 🚀 Fastest | 85.14% slower | 🔳
+ *applySpec* | 🚀 Fastest | 82.9% slower | 🔳
  *assoc* | 76.71% slower | 63.5% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 93.55% slower | 88.95% slower
  *compose* | 🚀 Fastest | 95.09% slower | 79.91% slower
@@ -183,8 +184,6 @@ https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
 - Rambda's **partial** doesn't need the input arguments to be wrapped as array.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
-
-- Rambda's **partialCurry** is not part of Ramda API.
 
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
@@ -1983,8 +1982,6 @@ R.add tests
 </summary>
 
 ```javascript
-import R from 'ramda'
-
 import { add } from './add'
 
 test('with number', () => {
@@ -1992,8 +1989,8 @@ test('with number', () => {
   expect(add(7)(10)).toEqual(17)
 })
 
-test('with string returns NaN', () => {
-  expect(R.add('foo', 'bar')).toEqual(Number('foo'))
+test('string is bad input', () => {
+  expect(add('foo', 'bar')).toBeNaN()
 })
 
 test('ramda specs', () => {
@@ -2528,21 +2525,15 @@ R.append tests
 </summary>
 
 ```javascript
+import { compose, flatten, map } from '../rambda'
 import { append } from './append'
-import { compose } from './compose'
-import { flatten } from './flatten'
-import { map } from './map'
 
 test('with strings', () => {
   expect(append('o', 'fo')).toEqual('foo')
 })
 
 test('with arrays', () => {
-  expect(append('tests', [ 'write', 'more' ])).toEqual([
-    'write',
-    'more',
-    'tests',
-  ])
+  expect(append('tests', [ 'write', 'more' ])).toEqual([ 'write', 'more', 'tests' ])
 })
 
 test('append to empty array', () => {
@@ -2550,8 +2541,7 @@ test('append to empty array', () => {
 })
 
 test('happy', () => {
-  const result = compose(flatten,
-    map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
+  const result = compose(flatten, map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
   expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
 })
 
@@ -2590,6 +2580,394 @@ export function append(el, list){
 </details>
 
 <a href="https://rambda.now.sh?const%20result%20%3D%20R.append(%0A%20%20'foo'%2C%0A%20%20%5B'bar'%2C%20'baz'%5D%0A)%20%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try in REPL</a>
+
+---
+#### applySpec
+
+> applySpec(specs: object): Function
+
+Returns a curried function with the same arity as the longest function in the spec object.
+Arguments will be applied to the spec methods recursively.
+
+Note that the currying in this function works best with functions with 4 arguments or less. (arity of 4)
+
+```javascript
+const getMetrics = R.applySpec({
+  sum: R.add,
+  nested: { mul: R.multiply }
+});
+getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+
+const spec = {
+  name: R.path('deeply.nested.object.user.firstname')
+}
+
+const json = {
+  deeply: {
+   nested: {
+     object: {
+       user: {
+         firstname: 'barry'
+        } 
+      }
+    }
+  }
+}
+const result = R.applySpec(spec, json) 
+// => { name: 'barry' }
+```
+
+<details>
+
+<summary>
+R.applySpec tests
+</summary>
+
+```javascript
+import { nAry } from 'ramda'
+
+import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
+import { applySpec } from './applySpec'
+
+test.skip('with bad input', () => {
+  const result = applySpec({ sum : { a : 1 } })(1, 2)
+  console.log({ result })
+})
+
+test('works with empty spec', () => {
+  expect(applySpec({})()).toEqual({})
+  expect(applySpec([])(1, 2)).toEqual({})
+  expect(applySpec(null)(1, 2)).toEqual({})
+})
+
+test('works with unary functions', () => {
+  const result = applySpec({
+    v : inc,
+    u : dec,
+  })(1)
+  const expected = {
+    v : 2,
+    u : 0,
+  }
+  expect(result).toEqual(expected)
+})
+
+test('works with binary functions', () => {
+  const result = applySpec({ sum : add })(1, 2)
+  expect(result).toEqual({ sum : 3 })
+})
+
+test('works with nested specs', () => {
+  const result = applySpec({
+    unnested : always(0),
+    nested   : { sum : add },
+  })(1, 2)
+  const expected = {
+    unnested : 0,
+    nested   : { sum : 3 },
+  }
+  expect(result).toEqual(expected)
+})
+
+test('works with arrays of nested specs', () => {
+  const result = applySpec({
+    unnested : always(0),
+    nested   : [ { sum : add } ],
+  })(1, 2)
+
+  expect(result).toEqual({
+    unnested : 0,
+    nested   : [ { sum : 3 } ],
+  })
+})
+
+test('works with arrays of spec objects', () => {
+  const result = applySpec([ { sum : add } ])(1, 2)
+
+  expect(result).toEqual([ { sum : 3 } ])
+})
+
+test('works with arrays of functions', () => {
+  const result = applySpec([ map(prop('a')), map(prop('b')) ])([
+    {
+      a : 'a1',
+      b : 'b1',
+    },
+    {
+      a : 'a2',
+      b : 'b2',
+    },
+  ])
+  const expected = [
+    [ 'a1', 'a2' ],
+    [ 'b1', 'b2' ],
+  ]
+  expect(result).toEqual(expected)
+})
+
+test('works with a spec defining a map key', () => {
+  expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
+})
+
+test.skip('retains the highest arity', () => {
+  const f = applySpec({
+    f1 : nAry(2, T),
+    f2 : nAry(5, T),
+  })
+  expect(f.length).toBe(5)
+})
+
+test('returns a curried function', () => {
+  expect(applySpec({ sum : add })(1)(2)).toEqual({ sum : 3 })
+})
+
+// Additional tests
+// ============================================
+test('arity', () => {
+  const spec = {
+    one   : x1 => x1,
+    two   : (x1, x2) => x1 + x2,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+  }
+  expect(applySpec(
+    spec, 1, 2, 3
+  )).toEqual({
+    one   : 1,
+    two   : 3,
+    three : 6,
+  })
+})
+
+test('arity over 5 arguments', () => {
+  const spec = {
+    one   : x1 => x1,
+    two   : (x1, x2) => x1 + x2,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+    four : (
+      x1, x2, x3, x4
+    ) => x1 + x2 + x3 + x4,
+    five : (
+      x1, x2, x3, x4, x5
+    ) => x1 + x2 + x3 + x4 + x5,
+  }
+  expect(applySpec(
+    spec, 1, 2, 3, 4, 5
+  )).toEqual({
+    one   : 1,
+    two   : 3,
+    three : 6,
+    four  : 10,
+    five  : 15,
+  })
+})
+
+test('curried', () => {
+  const spec = {
+    one   : x1 => x1,
+    two   : (x1, x2) => x1 + x2,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+  }
+  expect(applySpec(spec)(1)(2)(3)).toEqual({
+    one   : 1,
+    two   : 3,
+    three : 6,
+  })
+})
+
+test('curried over 5 arguments', () => {
+  const spec = {
+    one   : x1 => x1,
+    two   : (x1, x2) => x1 + x2,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+    four : (
+      x1, x2, x3, x4
+    ) => x1 + x2 + x3 + x4,
+    five : (
+      x1, x2, x3, x4, x5
+    ) => x1 + x2 + x3 + x4 + x5,
+  }
+  expect(applySpec(spec)(1)(2)(3)(4)(5)).toEqual({
+    one   : 1,
+    two   : 3,
+    three : 6,
+    four  : 10,
+    five  : 15,
+  })
+})
+
+test('undefined property', () => {
+  const spec = { prop : path([ 'property', 'doesnt', 'exist' ]) }
+  expect(applySpec(spec, {})).toEqual({ prop : undefined })
+})
+
+test('restructure json object', () => {
+  const spec = {
+    id          : path('user.id'),
+    name        : path('user.firstname'),
+    profile     : path('user.profile'),
+    doesntExist : path('user.profile.doesntExist'),
+    info        : { views : compose(inc, prop('views')) },
+    type        : always('playa'),
+  }
+
+  const data = {
+    user : {
+      id        : 1337,
+      firstname : 'john',
+      lastname  : 'shaft',
+      profile   : 'shaft69',
+    },
+    views : 42,
+  }
+
+  expect(applySpec(spec, data)).toEqual({
+    id          : 1337,
+    name        : 'john',
+    profile     : 'shaft69',
+    doesntExist : undefined,
+    info        : { views : 43 },
+    type        : 'playa',
+  })
+})
+
+```
+
+</details>
+
+<details>
+
+<summary>
+R.applySpec source
+</summary>
+
+```javascript
+// recursively traverse the given spec object to find the highest arity function
+function __findHighestArity(spec, max = 0){
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    if (typeof spec[ key ] === 'object'){
+      max = Math.max(max, __findHighestArity(spec[ key ]))
+    }
+
+    if (typeof spec[ key ] === 'function'){
+      max = Math.max(max, spec[ key ].length)
+    }
+  }
+
+  return max
+}
+
+function __filterUndefined(){
+  const defined = []
+  let i = 0
+  const l = arguments.length
+  while (i < l){
+    if (typeof arguments[ i ] === 'undefined') break
+    defined[ i ] = arguments[ i ]
+    i++
+  }
+
+  return defined
+}
+
+export function handleArrayOfFunctions(obj){
+  const keys = Object.keys(obj)
+  const toReturn = Array(keys.length)
+
+  keys.forEach(x => {
+    toReturn[ x ] = obj[ x ]
+  })
+
+  return toReturn
+}
+
+function __applySpecWithArity(
+  spec, arity, cache
+){
+  const remaining = arity - cache.length
+
+  if (remaining === 1) return x => __applySpecWithArity(
+    spec, arity, __filterUndefined(...cache, x)
+  )
+  if (remaining === 2)
+    return (x, y) => __applySpecWithArity(
+      spec, arity, __filterUndefined(
+        ...cache, x, y
+      )
+    )
+  if (remaining === 3)
+    return (
+      x, y, z
+    ) => __applySpecWithArity(
+      spec, arity, __filterUndefined(
+        ...cache, x, y, z
+      )
+    )
+  if (remaining === 4)
+    return (
+      x, y, z, a
+    ) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y, z, a
+        )
+      )
+  if (remaining > 4)
+    return (...args) => __applySpecWithArity(
+      spec, arity, __filterUndefined(...cache, ...args)
+    )
+
+  const ret = {}
+
+  // apply callbacks to each property in the spec object
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    // apply the spec recursively
+    if (typeof spec[ key ] === 'object'){
+      ret[ key ] = __applySpecWithArity(
+        spec[ key ], arity, cache
+      )
+      continue
+    }
+
+    // apply spec to the key
+    if (typeof spec[ key ] === 'function'){
+      ret[ key ] = spec[ key ](...cache)
+    }
+  }
+
+  return Array.isArray(spec) ? handleArrayOfFunctions(ret) : ret
+}
+
+export function applySpec(spec, ...args){
+  // get the highest arity spec function, cache the result and pass to __applySpecWithArity
+  const arity = __findHighestArity(spec)
+
+  if (arity === 0){
+    return () => ({})
+  }
+  const toReturn = __applySpecWithArity(
+    spec, arity, args
+  )
+
+  return toReturn
+}
+
+```
+
+</details>
+
+<a href="https://rambda.now.sh?const%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%3B%0AgetMetrics(2%2C%204)%3B%20%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D%0A%0Aconst%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.object.user.firstname')%0A%7D%0A%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20object%3A%20%7B%0A%20%20%20%20%20%20%20user%3A%20%7B%0A%20%20%20%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%20%20%20%20%7D%20%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%0A%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D">Try in REPL</a>
 
 ---
 #### assoc
@@ -2935,18 +3313,12 @@ R.compose tests
 </summary>
 
 ```javascript
-import { add } from './add'
+import { add, filter, last, map } from '../rambda'
 import { compose } from './compose'
-import { filter } from './filter'
-import { last } from './last'
-import { map } from './map'
-import { multiply } from './multiply'
 
 test('happy', () => {
   const result = compose(
-    last,
-    map(add(10)),
-    map(add(1))
+    last, map(add(10)), map(add(1))
   )([ 1, 2, 3 ])
 
   expect(result).toEqual(14)
@@ -2966,7 +3338,9 @@ test('when no arguments is passed', () => {
 test('ramda spec', () => {
   const f = function(
     a, b, c
-  ){ return [ a, b, c ] }
+  ){
+    return [ a, b, c ]
+  }
   const g = compose(f)
   expect(g(
     1, 2, 3
@@ -3042,7 +3416,9 @@ test('happy', () => {
 test('with multiple parameters', () => {
   const between = function(
     a, b, c
-  ){ return a < b && b < c }
+  ){
+    return a < b && b < c
+  }
   const f = complement(between)
   expect(f(
     4, 5, 11
@@ -3442,10 +3818,7 @@ R.dissoc tests
 import { dissoc } from './dissoc'
 
 test('input is null or undefined', () => {
-  //These tests match Ramda behavior
-  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20null%29
   expect(dissoc('b', null)).toEqual({})
-  //https://ramdajs.com/repl/?v=0.25.0#?R.dissoc%28%27b%27%2C%20undefined%29
   expect(dissoc('b', undefined)).toEqual({})
 })
 
@@ -4330,9 +4703,7 @@ function filterObject(fn, obj){
 export function filter(fn, list){
   if (arguments.length === 1) return _list => filter(fn, _list)
 
-  if (list == undefined){
-    return []
-  }
+  if (!list) return []
 
   if (!Array.isArray(list)){
     return filterObject(fn, list)
@@ -5198,23 +5569,22 @@ R.identical tests
 </summary>
 
 ```javascript
-import { F } from './F'
+import { F, T } from '../rambda.js'
 import { identical } from './identical'
 import { _isInteger } from './internal/_isInteger'
 import { _objectIs } from './internal/_objectIs'
-import { T } from './T'
 
-test('small', () => {
+test('with boolean', () => {
   expect(F()).toBe(false)
   expect(T()).toBe(true)
 })
 
-test('is integer internal', () => {
+test('internal isInteger', () => {
   expect(_isInteger(1)).toBe(true)
   expect(_isInteger(0.3)).toBe(false)
 })
 
-test('object is internal', () => {
+test('internal objectIs', () => {
   expect(_objectIs(1, 1)).toBe(true)
   expect(_objectIs(NaN, NaN)).toBe(true)
 })
@@ -5278,6 +5648,8 @@ import { identity } from './identity'
 
 test('happy', () => {
   expect(identity(7)).toEqual(7)
+  expect(identity(true)).toEqual(true)
+  expect(identity({ a : 1 })).toEqual({ a : 1 })
 })
 
 ```
@@ -5326,15 +5698,16 @@ R.ifElse tests
 </summary>
 
 ```javascript
-import { always } from './always'
-import { has } from './has'
-import { identity } from './identity.js'
+import { always, has, identity, prop } from '../rambda'
 import { ifElse } from './ifElse'
-import { prop } from './prop'
 
 const condition = has('foo')
-const v = function(a){ return typeof a === 'number' }
-const t = function(a){ return a + 1 }
+const v = function(a){
+  return typeof a === 'number'
+}
+const t = function(a){
+  return a + 1
+}
 const ifFn = x => prop('foo', x).length
 const elseFn = () => false
 
@@ -5352,8 +5725,12 @@ test('ramda spec', () => {
 })
 
 test('pass all arguments', () => {
-  const identity = function(a){ return a }
-  const v = function(){ return true }
+  const identity = function(a){
+    return a
+  }
+  const v = function(){
+    return true
+  }
   const onTrue = function(a, b){
     expect(a).toEqual(123)
     expect(b).toEqual('abc')
@@ -5515,9 +5892,11 @@ test('includes with array', () => {
 
 test('return false if input is falsy', () => {
   expect(includes(2, null)).toBeFalse()
-  expect(() => R.includes(2, null)).toThrow()
+  expect(() => R.includes(2, null)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of null')
   expect(includes(4, undefined)).toBeFalse()
-  expect(() => R.includes(4, undefined)).toThrow()
+  expect(() => R.includes(4, undefined)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of undefined')
 })
 
 ```
@@ -5589,11 +5968,17 @@ R.indexBy tests
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
-test('indexBy', () => {
-  const list = [ { id : 1 }, {
-    id : 1,
-    a  : 2,
-  }, { id : 2 }, { id : 10 }, { id : 'a' } ]
+test('happy', () => {
+  const list = [
+    { id : 1 },
+    {
+      id : 1,
+      a  : 2,
+    },
+    { id : 2 },
+    { id : 10 },
+    { id : 'a' },
+  ]
 
   expect(indexBy(prop('id'))(list)).toEqual({
     1 : {
@@ -5606,7 +5991,7 @@ test('indexBy', () => {
   })
 })
 
-test('suggestion', () => {
+test('with string as condition', () => {
   const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
   const standardResult = indexBy(obj => obj.id, list)
   const suggestionResult = indexBy('id', list)
@@ -5614,18 +5999,23 @@ test('suggestion', () => {
   expect(standardResult).toEqual(suggestionResult)
 })
 
-test('suggestion - bad path', () => {
-  const list = [ {
-    a : {
-      b : 1,
-      c : 2,
+test('with string - bad path', () => {
+  const list = [
+    {
+      a : {
+        b : 1,
+        c : 2,
+      },
     },
-  }, { a : { c : 4 } }, {}, {
-    a : {
-      b : 10,
-      c : 20,
+    { a : { c : 4 } },
+    {},
+    {
+      a : {
+        b : 10,
+        c : 20,
+      },
     },
-  } ]
+  ]
 
   const result = indexBy('a.b', list)
   const expected = {
@@ -5772,16 +6162,12 @@ R.init tests
 </summary>
 
 ```javascript
-import { compose } from './compose'
-import { flatten } from './flatten'
+import { compose, flatten, tail } from '../rambda'
 import { init } from './init'
-import { tail } from './tail'
 
 test('init', () => {
   expect(compose(
-    tail,
-    init,
-    flatten
+    tail, init, flatten
   )([ [ [ 1, [ 2 ] ] ], [ 3, 4 ] ])).toEqual([ 2, 3 ])
 
   expect(init([ 1, 2, 3 ])).toEqual([ 1, 2 ])
@@ -6272,7 +6658,6 @@ R.length tests
 </summary>
 
 ```javascript
-import { identical } from './identical.js'
 import { length } from './length'
 
 test('happy', () => {
@@ -6281,11 +6666,11 @@ test('happy', () => {
   expect(length([])).toEqual(0)
 })
 
-test('with bad input', () => {
-  expect(identical(NaN, length(0))).toEqual(true)
-  expect(identical(NaN, length({}))).toEqual(true)
-  expect(identical(NaN, length(null))).toEqual(true)
-  expect(identical(NaN, length(undefined))).toEqual(true)
+test('with bad input returns NaN', () => {
+  expect(length(0)).toBeNaN()
+  expect(length({})).toBeNaN()
+  expect(length(null)).toBeNaN()
+  expect(length(undefined)).toBeNaN()
 })
 
 ```
@@ -6300,7 +6685,9 @@ R.length source
 
 ```javascript
 export function length(list){
-  if (list == null || list.length === undefined) return NaN
+  if (!list || list.length === undefined){
+    return NaN
+  }
 
   return list.length
 }
@@ -6404,8 +6791,7 @@ R.map tests
 </summary>
 
 ```javascript
-import { add } from './add'
-import { compose } from './compose'
+import { add, compose } from '../rambda'
 import { map } from './map'
 
 const double = x => x * 2
@@ -6474,13 +6860,12 @@ test('map with index example', () => {
       counter++
 
       return fn(...inputs, counter)
-    },
-    obj)
+    }, obj)
   }
   const fn = (
     x, prop, obj, index
   ) => {
-    console.log({ index }) // => {index:0} | {index:1}
+    expect(index).toBeNumber()
 
     return x + 1
   }
@@ -6488,7 +6873,10 @@ test('map with index example', () => {
     a : 1,
     b : 2,
   })
-  console.log({ result }) // => {a:2, b:3}
+  expect(result).toEqual({
+    a : 2,
+    b : 3,
+  })
 })
 
 /**
@@ -6499,8 +6887,7 @@ test('when undefined instead of array', () => {
 })
 
 test('with R.compose', () => {
-  const result = compose(map(add(1)),
-    map(add(1)))([ 1, 2, 3 ])
+  const result = compose(map(add(1)), map(add(1)))([ 1, 2, 3 ])
   expect(result).toEqual([ 3, 4, 5 ])
 })
 
@@ -6579,7 +6966,7 @@ test('happy', () => {
 
   expect(() => {
     match(/a./g, null)
-  }).toThrow()
+  }).toThrowWithMessage(TypeError, 'Cannot read property \'match\' of null')
 })
 
 ```
@@ -7288,7 +7675,7 @@ R.paths tests
 
 ```javascript
 import { paths } from './paths'
- 
+
 const obj = {
   a : {
     b : {
@@ -7488,126 +7875,6 @@ finalFn('bar') // =>  'Hello, Ms. foo bar!'
 ```
 
 ---
-#### partialCurry
-
-> partialCurry(fn: Function|Async, partialInput: Object, input: Object): Function|Promise
-
-When called with function `fn` and first set of input `partialInput`, it will return a function.
-
-This function will wait to be called with second set of input `input` and it will invoke `fn` with the merged object of `partialInput` over `input`.
-
-`fn` can be asynchronous function. In that case a `Promise` holding the result of `fn` is returned.
-
-```javascript
-const fn = ({a, b, c}) => {
-  return (a * b) + c
-}
-const curried = R.partialCurry(fn, {a: 2})
-const result = curried({b: 3, c: 10})
-// => 16
-```
-
-<details>
-
-<summary>
-R.partialCurry tests
-</summary>
-
-```javascript
-import { partialCurry } from './partialCurry'
-import { type } from './type'
-
-test('happy', () => {
-  const fn = ({ a, b, c }) => a + b + c
-  const curried = partialCurry(fn, { a : 1 })
-
-  expect(type(curried)).toEqual('Function')
-  expect(curried({
-    b : 2,
-    c : 3,
-  })).toEqual(6)
-  expect(true).toBeTrue()
-})
-
-test('with promise', done => {
-  const delay = ({ ms, x }) =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x * 2)
-      }, ms)
-    })
-
-  const curried = partialCurry(delay, { ms : 200 })
-
-  curried({ x : 3 }).then(result => {
-    expect(type(curried)).toEqual('Function')
-    done()
-  })
-})
-
-test('with async', async () => {
-  const delay = ms =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve()
-      }, ms)
-    })
-
-  const fn = async ({ a, b, c }) => {
-    await delay(100)
-
-    return a + b + c
-  }
-
-  const curried = partialCurry(fn, { a : 1 })
-
-  const result = await curried({
-    b : 2,
-    c : 3,
-  })
-
-  expect(result).toEqual(6)
-})
-
-```
-
-</details>
-
-<details>
-
-<summary>
-R.partialCurry source
-</summary>
-
-```javascript
-import { merge } from './merge'
-import { type } from './type'
-
-export function partialCurry(fn, args = {}){
-  return rest => {
-    if (type(fn) === 'Async' || type(fn) === 'Promise'){
-      return new Promise((resolve, reject) => {
-        fn(merge(rest, args))
-          .then(resolve)
-          .catch(reject)
-      })
-    }
-
-    return fn(merge(rest, args))
-  }
-}
-
-```
-
-</details>
-
-- Note that `partialCurry` is method specific for **Rambda** and the method is not part of **Ramda**'s API
-
-- You can read my argumentation for creating _partialCurry_ [here](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
-
-<a href="https://rambda.now.sh?const%20fn%20%3D%20(%7Ba%2C%20b%2C%20c%7D)%20%3D%3E%20%7B%0A%20%20return%20(a%20*%20b)%20%2B%20c%0A%7D%0Aconst%20curried%20%3D%20R.partialCurry(fn%2C%20%7Ba%3A%202%7D)%0Aconst%20result%20%3D%20curried(%7Bb%3A%203%2C%20c%3A%2010%7D)%0A%2F%2F%20%3D%3E%2016">Try in REPL</a>
-
----
 #### pick
 
 > pick(propsToPick: string[], obj: Object): Object
@@ -7725,16 +7992,12 @@ R.pipe tests
 </summary>
 
 ```javascript
-import { add } from './add'
-import { last } from './last'
-import { map } from './map'
+import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
 test('pipe', () => {
   const result = pipe(
-    map(add(1)),
-    map(add(10)),
-    last
+    map(add(1)), map(add(10)), last
   )([ 1, 2, 3 ])
 
   expect(result).toEqual(14)
@@ -8003,7 +8266,7 @@ import { curry } from './curry'
 function propEqFn(
   key, val, obj
 ){
-  if (obj == null) return false
+  if (!obj) return false
 
   return obj[ key ] === val
 }
@@ -8191,9 +8454,7 @@ R.reduce tests
 </summary>
 
 ```javascript
-import { compose } from './compose'
-import { curry } from './curry'
-import { map } from './map'
+import { compose, curry, map } from '../rambda'
 import { reduce } from './reduce'
 
 test('happy', () => {
@@ -8273,10 +8534,7 @@ R.reject tests
 </summary>
 
 ```javascript
-import { add } from './add'
-import { compose } from './compose'
-import { equals } from './equals'
-import { map } from './map'
+import { add, compose, equals, map } from '../rambda'
 import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
@@ -8663,14 +8921,11 @@ R.sortBy tests
 </summary>
 
 ```javascript
-import { compose } from './compose'
-import { prop } from './prop'
+import { compose, prop, toLower } from '../rambda'
 import { sortBy } from './sortBy'
-import { toLower } from './toLower'
 
 test('sortBy', () => {
-  const sortByNameCaseInsensitive = sortBy(compose(toLower,
-    prop('name')))
+  const sortByNameCaseInsensitive = sortBy(compose(toLower, prop('name')))
   const alice = {
     name : 'ALICE',
     age  : 101,
@@ -8685,11 +8940,7 @@ test('sortBy', () => {
   }
   const people = [ clara, bob, alice ]
 
-  expect(sortByNameCaseInsensitive(people)).toEqual([
-    alice,
-    bob,
-    clara,
-  ])
+  expect(sortByNameCaseInsensitive(people)).toEqual([ alice, bob, clara ])
 
   expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
 
@@ -9050,8 +9301,6 @@ R.take tests
 </summary>
 
 ```javascript
-import R from 'ramda'
-
 import { take } from './take'
 
 test('happy', () => {
@@ -9062,16 +9311,8 @@ test('happy', () => {
   expect(arr).toEqual([ 'foo', 'bar', 'baz' ])
 
   expect(take(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar' ])
-  expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([
-    'foo',
-    'bar',
-    'baz',
-  ])
-  expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([
-    'foo',
-    'bar',
-    'baz',
-  ])
+  expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
+  expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
   expect(take(3)('rambda')).toEqual('ram')
 })
 
@@ -9512,18 +9753,10 @@ R.toUpper tests
 </summary>
 
 ```javascript
-import { compose } from './compose'
-import { join } from './join'
-import { map } from './map'
-import { split } from './split'
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
-  expect(compose(
-    join(''),
-    map(toUpper),
-    split('')
-  )('foo|bar|baz')).toEqual('FOO|BAR|BAZ')
+  expect(toUpper('foo|bar|baz')).toEqual('FOO|BAR|BAZ')
 })
 
 ```
@@ -10362,7 +10595,7 @@ R.zipObj tests
 </summary>
 
 ```javascript
-import { equals } from './equals.js'
+import { equals } from './equals'
 import { zipObj } from './zipObj'
 
 test('zipObj', () => {
@@ -10441,6 +10674,16 @@ import omit from 'rambda/lib/omit'
 > Latest version that has this feature is `2.3.1`
 
 ## Changelog
+
+- 5.0.0
+
+Move `R.partialCurry` to Rambdax(reason for major bump)
+
+Use new type of export in Typescript definitions
+
+- 4.7.0 
+
+Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`
 
 - 4.6.0 
 
@@ -10718,8 +10961,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
 - [Awesome functional Javascript programming libraries](https://github.com/stoeffel/awesome-fp-js#libraries)
-
-- [Argumentation of Rambda's curry method](https://ilearnsmarter.wordpress.com/2018/12/20/argumentation-of-rambdas-partialcurry-method/)
 
 > Links to Rambda
 
