@@ -2921,7 +2921,7 @@ It performs right-to-left function composition.
 
 ```javascript
 const result = R.compose(
-  R.map(x => x * 2),both
+  R.map(x => x * 2),
   R.filter(x => x > 2)
 )([1, 2, 3, 4])
 
