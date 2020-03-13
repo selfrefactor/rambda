@@ -7277,7 +7277,7 @@ const obj = {
   a: 90
 }
 R.paths(['a.b', 'foo.bar.1', 'foo.baz'])
-// => [ undefined, 20, 90]
+// => [ undefined, 20, 123]
 ```
 
 <details>
