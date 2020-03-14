@@ -11,7 +11,7 @@
     "tslint:tslint": "tslint --fix index.d.ts",
     "tslint:tsformat": "tsfmt -r index.d.ts",
     "tslint": "yarn tslint:tslint&&yarn tslint:tsformat",
-    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./_typings_tests",
+    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./src",
     "fix": "mkdir $HOME/.dts/perf -p",
     "test": "jest src",
     "prove": "jest src --json",
