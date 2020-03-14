@@ -8,13 +8,14 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
+    "populate": "maid populate",
     "tslint:tslint": "tslint --fix index.d.ts",
     "tslint:tsformat": "tsfmt -r index.d.ts",
     "tslint": "yarn tslint:tslint&&yarn tslint:tsformat",
     "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./src",
     "fix": "mkdir $HOME/.dts/perf -p",
     "test": "jest src",
-    "prove": "jest src --json",
+    "provex": "jest src --json",
     "readme": "node files/createReadme/createReadme.js",
     "docs": "docsify init ./docs",
     "build": "yarn build:main&&yarn build:web",
@@ -52,10 +53,12 @@
     "babel-jest": "24.9.0",
     "cross-env": "7.0.2",
     "dtslint": "3.3.0",
+    "esm": "^3.2.25",
     "helpers": "https://github.com/selfrefactor/helpers#2.4.0",
     "jest": "24.9.0",
     "jest-extended": "0.11.5",
     "lodash": "4.17.15",
+    "maid": "^0.3.0",
     "markdown-toc": "1.2.0",
     "rambdax": "3.5.0",
     "ramda": "0.27.0",
@@ -91,12 +94,9 @@
   },
   "commitMessage": {
     "support": [
-      "docs",
       "build",
       "prepublish",
-      "refactor",
       "lint",
-      "test",
       "typings",
       "script",
       "benchmark"
@@ -104,12 +104,9 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "source typings hold method description",
     "docs": [
       "docsify",
-      "repl",
       "changelog",
-      "important",
       "important",
       "fix"
     ],
