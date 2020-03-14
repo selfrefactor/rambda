@@ -3,7 +3,7 @@ import { nAry } from 'ramda'
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
 import { applySpec } from './applySpec'
 
-test.skip('with bad input', () => {
+test('with bad input', () => {
   const result = applySpec({ sum : { a : 1 } })(1, 2)
   console.log({ result })
 })
