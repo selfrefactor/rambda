@@ -104,7 +104,7 @@
     "feature": [
       "method"
     ],
-    "workInProgress": "",
+    "workInProgress": "source typings hold method description",
     "docs": [
       "docsify",
       "repl",

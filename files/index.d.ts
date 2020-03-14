@@ -1,6 +1,5 @@
 import { FToolbelt } from "../_ts-toolbelt/src/index";
 
-// INTERFACES_MARKER
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
 type FilterFunctionArray<T> = (x: T, index: number) => boolean;
@@ -44,11 +43,20 @@ interface Dictionary<T> {
 
 type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
-// INTERFACES_MARKER_END
-
-// INJECT_RAMBDAX
-
 // SINGLE_MARKER
+/*
+Method: add
+
+Explanation:
+
+It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.
+
+Example:
+
+```
+R.add(2, 3) // =>  5
+```
+*/
 export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
 
