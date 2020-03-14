@@ -28,17 +28,6 @@ function __filterUndefined(){
   return defined
 }
 
-export function handleArrayOfFunctions(obj){
-  const keys = Object.keys(obj)
-  const toReturn = Array(keys.length)
-
-  keys.forEach(x => {
-    toReturn[ x ] = obj[ x ]
-  })
-
-  return toReturn
-}
-
 function __applySpecWithArity(
   spec, arity, cache
 ){
@@ -75,8 +64,30 @@ function __applySpecWithArity(
       spec, arity, __filterUndefined(...cache, ...args)
     )
 
-  const ret = {}
+  // handle spec as Array
+  if (Array.isArray(spec)){
+    const ret = []
+    let i = 0
+    const l = spec.length
+    for (;i < l; i++){
 
+      // handle recursive spec inside array
+      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
+        ret[ i ] = __applySpecWithArity(
+          spec[ i ], arity, cache
+        )
+      }
+      // apply spec to the key
+      if (typeof spec[ i ] === 'function'){
+        ret[ i ] = spec[ i ](...cache)
+      }
+    }
+
+    return ret
+  }
+
+  // handle spec as Object
+  const ret = {}
   // apply callbacks to each property in the spec object
   for (const key in spec){
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
@@ -95,7 +106,7 @@ function __applySpecWithArity(
     }
   }
 
-  return Array.isArray(spec) ? handleArrayOfFunctions(ret) : ret
+  return ret
 }
 
 export function applySpec(spec, ...args){

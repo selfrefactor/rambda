@@ -1,14 +1,12 @@
 - 5.0.0
 
-Move `R.partialCurry` to Rambdax(reason for major bump)
+Move `R.partialCurry` to Rambdax(reason for major bump).
 
-Use new type of export in Typescript definitions
-
-- 4.7.0 
+Use new type of export in Typescript definitions.
 
 Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`
 
-- 4.6.0 
+- 4.6.0
 
 Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses(Thank you [@synthet1c](https://github.com/synthet1c))
 

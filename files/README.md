@@ -304,7 +304,7 @@ const json = {
      object: {
        user: {
          firstname: 'barry'
-        } 
+        }
       }
     }
   }
@@ -312,8 +312,6 @@ const json = {
 const result = R.applySpec(spec, json) 
 // => { name: 'barry' }
 ```
-
-[Source](https://github.com/selfrefactor/rambda/tree/master/src/applySpec.js)
 
 #### assoc
 
