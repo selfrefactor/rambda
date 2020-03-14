@@ -72,7 +72,7 @@ function __applySpecWithArity(
     for (;i < l; i++){
 
       // handle recursive spec inside array
-      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])) {
+      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
         ret[ i ] = __applySpecWithArity(
           spec[ i ], arity, cache
         )
