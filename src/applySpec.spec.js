@@ -5,7 +5,7 @@ import { applySpec } from './applySpec'
 
 test('with bad input', () => {
   const result = applySpec({ sum : { a : 1 } })(1, 2)
-  console.log({ result })
+  expect(result).toEqual({})
 })
 
 test('works with empty spec', () => {
