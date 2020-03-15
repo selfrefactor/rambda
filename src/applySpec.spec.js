@@ -1,11 +1,13 @@
-import { nAry } from 'ramda'
+import { applySpec as applySpecRamda, nAry } from 'ramda'
 
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
 import { applySpec } from './applySpec'
 
-test('with bad input', () => {
+test('different than Ramda when bad spec', () => {
   const result = applySpec({ sum : { a : 1 } })(1, 2)
+  const ramdaResult = applySpecRamda({ sum : { a : 1 } })(1, 2)
   expect(result).toEqual({})
+  expect(ramdaResult).toEqual({ sum : { a : {} } })
 })
 
 test('works with empty spec', () => {
