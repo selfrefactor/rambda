@@ -1269,12 +1269,12 @@
   resolved "https://registry.yarnpkg.com/@types/parsimmon/-/parsimmon-1.10.0.tgz#ffb81cb023ff435a41d4710a29ab23c561dc9fdf"
   integrity sha512-bsTIJFVQv7jnvNiC42ld2pQW2KRI+pAG243L+iATvqzy3X6+NH1obz2itRKDZZ8VVhN3wjwYax/VBGCcXzgTqQ==
 
-"@types/ramda@0.26.42":
-  version "0.26.42"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.42.tgz#f002dc8c075a50cf9c267251a2042a0bf7303277"
-  integrity sha512-HjMKhIWHR6SPfAR24ghGkzoG/8aBRr1Pb7c2gskneuwgtDJBhO3KJ0tM0sLOX7gjf4LmQ3NLp6wTkDfjKEqimA==
+"@types/ramda@0.26.44":
+  version "0.26.44"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.44.tgz#70bb06f5ae60809dc83a3d804505ee3123443738"
+  integrity sha512-s0cj9rylWw+Ax/AnttCQzMrLZGq/OxAIZgrkRLK1QHJIF6Qabd0//acMCFM6+Xb8Bi8p8PkT2fqpaQveRju/kA==
   dependencies:
-    ts-toolbelt "^6.1.11"
+    ts-toolbelt "^6.3.3"
 
 "@types/resolve@0.0.8":
   version "0.0.8"
@@ -5613,10 +5613,10 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
 
-ts-toolbelt@^6.1.11:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.3.0.tgz#1c7d20841e3a6272117273a1574034a9a80c316c"
-  integrity sha512-tm0LbFonuwKMLll9duP+/DQ9nHA9xU+qPo9OrPZWkRZ9iBDp2IPEcPUUSpHGVFckpElIgf9jx1UOW3wzUDLP9g==
+ts-toolbelt@^6.3.3:
+  version "6.3.6"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.3.6.tgz#2bde29106c013ed520c32f30e1248daf8fd4f5f9"
+  integrity sha512-eVzym+LyQodOCfyVyQDQ6FGYbO2Xf9Nc4dGLRKlKSUpAs+8qQWHG+grDiA3ciEuNPNZ0qJnNIYkdqBW1rCWuUA==
 
 tslib@^1.10.0:
   version "1.11.1"
