@@ -18,6 +18,6 @@ export function getTypings(){
       remove('export function ')
     )
 
-    return { [ name ] : remove('export function ',typing) }
+    return { [ name ] : remove('export function ', typing) }
   }, matches)
 }
