@@ -58,7 +58,7 @@
     "jest": "24.9.0",
     "jest-extended": "0.11.5",
     "lodash": "4.17.15",
-    "maid": "^0.3.0",
+    "maided": "0.1.2",
     "markdown-toc": "1.2.0",
     "rambdax": "3.5.0",
     "ramda": "0.27.0",
