@@ -1,7 +1,6 @@
-import { CONTENT } from '../constants'
+import { getTypings } from './getTypings'
 import { parse } from './parse.js'
 
 test('happy', () => {
-  console.log(CONTENT)
-  parse()
+  parse(getTypings())
 })

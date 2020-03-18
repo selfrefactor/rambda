@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-const contentPath = resolve(__dirname, '../../../rambda/files/README.md')
+const readmePath = resolve(__dirname, '../../../rambda/files/README.md')
+const typingsPath = resolve(__dirname, '../../../rambda/files/index.d.ts')
 
-export const CONTENT = readFileSync(contentPath).toString()
+export const README = readFileSync(readmePath).toString()
+export const TYPINGS = readFileSync(typingsPath).toString()

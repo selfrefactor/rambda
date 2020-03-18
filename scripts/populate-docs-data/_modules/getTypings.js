@@ -1,9 +1,9 @@
 import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import { CONTENT } from '../constants'
+import { TYPINGS } from '../constants'
 
 export function getTypings(){
-  const matches = match(/\/\/ SINGLE_MARKER\nexport function[^;]+/gm, CONTENT)
+  const matches = match(/\/\/ SINGLE_MARKER\nexport function[^;]+/gm, TYPINGS)
 
   return mapToObject(singleMatch => {
     const typing = remove('// SINGLE_MARKER', singleMatch)

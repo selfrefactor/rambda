@@ -1,4 +1,7 @@
-export function parse(input, typingsData){
+import { CONTENT } from '../constants'
+
+export function parse(typingsData){
+  console.log(typingsData) 
   // const methodName = getMethodName(input)
   // const example = getExample(input)
   // const code = getCode(methodName)
