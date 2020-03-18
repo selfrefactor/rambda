@@ -99,7 +99,8 @@
       "lint",
       "typings",
       "script",
-      "benchmark"
+      "benchmark",
+      "scripts"
     ],
     "feature": [
       "method",

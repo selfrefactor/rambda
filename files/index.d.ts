@@ -55,6 +55,9 @@ Example:
 ```
 R.add(2, 3) // =>  5
 ```
+
+Categories: Number
+
 */
 // @SINGLE_MARKER
 export function add(a: number, b: number): number;
@@ -76,6 +79,9 @@ R.adjust(
   [0, 100]
 ) // => [1, 100]
 ```
+
+Categories: List
+
 */
 // @SINGLE_MARKER
 export function adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
@@ -93,6 +99,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
@@ -110,6 +119,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean;
@@ -126,6 +138,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function always<T>(x: T): () => T;
@@ -142,6 +157,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean;
@@ -161,6 +179,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
@@ -177,6 +198,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function append<T>(el: T, list: ReadonlyArray<T>): T[];
@@ -194,6 +218,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
@@ -215,6 +242,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
@@ -233,6 +263,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function assocPath<T, U>(path: Path, val: T, obj: U): U;
@@ -252,6 +285,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
@@ -269,6 +305,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function both(pred1: Pred, pred2: Pred): Pred;
@@ -288,6 +327,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function either(pred1: Pred, pred2: Pred): Pred;
@@ -306,6 +348,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function clamp(min: number, max: number, input: number): number;
@@ -323,6 +368,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function clone<T>(value: T): T;
@@ -340,6 +388,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
@@ -356,6 +407,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function compose<T1>(fn0: () => T1): () => T1;
@@ -412,6 +466,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
@@ -431,6 +488,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
@@ -448,6 +508,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
@@ -464,6 +527,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function dec(n: number): number;
@@ -480,6 +546,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T;
@@ -498,6 +567,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -515,6 +587,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function dissoc<T>(prop: string, obj: any): T;
@@ -532,6 +607,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function divide(a: number, b: number): number;
@@ -549,6 +627,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
@@ -570,6 +651,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
@@ -591,6 +675,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function endsWith(a: string, list: string): boolean;
@@ -610,6 +697,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function equals<T>(a: T, b: T): boolean;
@@ -628,6 +718,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function F(): boolean;
@@ -644,6 +737,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
@@ -663,6 +759,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
@@ -680,6 +779,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
@@ -697,6 +799,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
@@ -714,6 +819,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
@@ -731,6 +839,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
@@ -747,6 +858,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
@@ -763,6 +877,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
@@ -784,6 +901,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
@@ -801,6 +921,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
@@ -818,6 +941,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function has<T>(prop: string, obj: T): boolean;
@@ -835,6 +961,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
@@ -853,6 +982,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function head<T>(arrOrStr: Array<T>): T | undefined;
@@ -870,6 +1002,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function identical<T>(a: T, b: T): boolean;
@@ -887,6 +1022,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function identity<T>(x: T): T;
@@ -903,6 +1041,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
@@ -920,6 +1061,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function inc(n: number): number;
@@ -936,6 +1080,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
@@ -955,6 +1102,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
@@ -974,6 +1124,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
@@ -991,6 +1144,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function init<T>(arrOrStr: ReadonlyArray<T>): T[];
@@ -1008,6 +1164,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
@@ -1025,6 +1184,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -1042,6 +1204,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function is(xPrototype: any, x: any): boolean;
@@ -1059,6 +1224,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function isEmpty<T>(input: T): boolean;
@@ -1075,6 +1243,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function isNil(x: any): x is null | undefined;
@@ -1091,6 +1262,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function join(x: string, xs: ReadonlyArray<any>): string;
@@ -1108,6 +1282,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function keys<T extends object>(x: T): Array<keyof T>;
@@ -1125,6 +1302,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function last<T>(arrOrStr: Array<T>): T | undefined;
@@ -1142,6 +1322,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
@@ -1158,6 +1341,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function length<T>(list: ReadonlyArray<T>): number;
@@ -1174,6 +1360,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
@@ -1191,6 +1380,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function lensIndex(n: number): Lens;
@@ -1208,6 +1400,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function lensProp(str: string): {
@@ -1227,6 +1422,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
@@ -1248,6 +1446,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function set<T, U>(lens: Lens, a: U, obj: T): T;
@@ -1266,6 +1467,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function view<T, U>(lens: Lens): (obj: T) => U;
@@ -1283,6 +1487,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
@@ -1304,6 +1511,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function match(regexp: RegExp, str: string): any[];
@@ -1321,6 +1531,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function max<T extends Ord>(a: T, b: T): T;
@@ -1338,6 +1551,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
@@ -1356,6 +1572,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function mean(list: ReadonlyArray<number>): number;
@@ -1372,6 +1591,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function median(list: ReadonlyArray<number>): number;
@@ -1388,6 +1610,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
@@ -1405,6 +1630,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function min<T extends Ord>(a: T, b: T): T;
@@ -1422,6 +1650,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
@@ -1440,6 +1671,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function modulo(a: number, b: number): number;
@@ -1457,6 +1691,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function multiply(a: number, b: number): number;
@@ -1474,6 +1711,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function negate(a: number): number;
@@ -1490,6 +1730,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function none<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
@@ -1507,6 +1750,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function not(x: any): boolean;
@@ -1524,6 +1770,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
@@ -1541,6 +1790,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
@@ -1560,6 +1812,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T;
@@ -1582,6 +1837,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
@@ -1601,6 +1859,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>;
@@ -1620,6 +1881,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
@@ -1638,6 +1902,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
@@ -1657,6 +1924,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U;
@@ -1674,6 +1944,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function pipe<T1>(fn0: () => T1): () => T1;
@@ -1881,6 +2154,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function pluck<T>(property: number, arr: ReadonlyArray<T>): T;
@@ -1900,6 +2176,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function prepend<T>(x: T, arr: ReadonlyArray<T>): T[];
@@ -1917,6 +2196,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function product(list: ReadonlyArray<number>): number;
@@ -1933,6 +2215,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
@@ -1951,6 +2236,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
@@ -1972,6 +2260,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function propIs<P extends keyof T, T>(type: any, name: P, obj: T): boolean;
@@ -1989,6 +2280,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function propOr<T, U, V>(val: T, p: string, obj: U): V;
@@ -2007,6 +2301,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function range(start: number, end: number): number[];
@@ -2024,6 +2321,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function reduce<T, TResult>(fn: (acc: TResult, elem: T, i: number) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
@@ -2043,6 +2343,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function reject<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
@@ -2062,6 +2365,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function repeat<T>(a: T, n: number): T[];
@@ -2079,6 +2385,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
@@ -2097,6 +2406,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function reverse<T>(list: ReadonlyArray<T>): T[];
@@ -2114,6 +2426,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function slice(a: number, b: number, list: string): string;
@@ -2139,6 +2454,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function sort<T>(sortFn: (a: T, b: T) => number, arr: ReadonlyArray<T>): T[];
@@ -2156,6 +2474,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function sortBy<T>(sortFn: (a: T) => Ord, arr: ReadonlyArray<T>): T[];
@@ -2173,6 +2494,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function split(sep: string | RegExp): (str: string) => string[];
@@ -2190,6 +2514,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
@@ -2211,6 +2538,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function startsWith(a: string, list: string): boolean;
@@ -2230,6 +2560,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function subtract(a: number, b: number): number;
@@ -2247,6 +2580,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function sum(list: ReadonlyArray<number>): number;
@@ -2263,6 +2599,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function symmetricDifference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -2280,6 +2619,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function T(): boolean;
@@ -2296,6 +2638,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function tail<T>(arrOrStr: ReadonlyArray<T>): T[];
@@ -2313,6 +2658,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function take<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
@@ -2334,6 +2682,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function takeLast<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
@@ -2355,6 +2706,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function tap<T>(fn: (a: T) => any, value: T): T;
@@ -2372,6 +2726,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function test(regExpression: RegExp): (str: string) => boolean;
@@ -2389,6 +2746,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function times<T>(fn: (i: number) => T, n: number): T[];
@@ -2406,6 +2766,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function transpose<T>(list: T[][]): T[][];
@@ -2422,6 +2785,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
@@ -2438,6 +2804,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function toLower(str: string): string;
@@ -2454,6 +2823,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function toString<T>(val: T): string;
@@ -2470,6 +2842,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function toUpper(str: string): string;
@@ -2486,6 +2861,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function trim(str: string): string;
@@ -2502,6 +2880,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function type(val: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
@@ -2518,6 +2899,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function uniq<T>(arr: ReadonlyArray<T>): T[];
@@ -2534,6 +2918,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[];
@@ -2551,6 +2938,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
@@ -2568,6 +2958,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
@@ -2584,6 +2977,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
@@ -2600,6 +2996,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function xor(a: boolean, b:boolean): boolean
@@ -2617,6 +3016,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
@@ -2634,6 +3036,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 export function zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
@@ -2650,6 +3055,9 @@ Example:
 ```
 
 ```
+
+Categories:
+
 */
 // @SINGLE_MARKER
 
