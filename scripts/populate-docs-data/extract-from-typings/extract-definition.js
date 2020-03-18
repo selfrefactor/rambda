@@ -2,11 +2,11 @@ import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
 
 import { ORIGIN } from '../constants'
 
-export function extractDefinitions(){
-  const matches = match(/\/\/ SINGLE_MARKER\nexport function[^;]+/gm, ORIGIN)
+export function extractDefinition(){
+  const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm, ORIGIN)
 
   return mapToObject(singleMatch => {
-    const typing = remove('// SINGLE_MARKER', singleMatch)
+    const typing = remove('// @SINGLE_MARKER', singleMatch)
 
     const name = piped(
       typing,

@@ -1,17 +1,3 @@
-/**
- * Creates a new list with the separator interposed between elements
- *
- * @func
- * @category List
- * @sig a -> [a] -> [a]
- * @param {*} separator
- * @param {Array} list
- * @return {Array} The new list
- * @example
- *
- *      R.intersperse('!', ['a', 'b', 'c']); //=> ['a', '!', 'b', '!', 'c']
- *      R.intersperse([]); //=> []
- */
 export function intersperse(separator, list){
   if (arguments.length === 1) return _list => intersperse(separator, _list)
 
@@ -29,4 +15,3 @@ export function intersperse(separator, list){
 
   return willReturn
 }
-

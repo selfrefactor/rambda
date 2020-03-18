@@ -155,7 +155,7 @@ Example:
 
 \`\`\`
 */
-// SINGLE_MARKER
+// @SINGLE_MARKER
 export function zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>",
   "zipObj": "zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }",
 }
