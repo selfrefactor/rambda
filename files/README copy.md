@@ -1,3 +1,194 @@
+[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
+[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
+![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
+![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
+
+# Rambda
+
+Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
+
+## Example use
+
+```javascript
+import { compose, map, filter } from 'rambda'
+
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
+// => [6, 8]
+```
+
+You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+
+## Rambda's advantages
+
+- Tree-shaking
+
+Currently **Rambda** is more tree-shakable than **Ramda**
+
+---
+
+- Speed
+
+**Rambda** is generally more performant than `Ramda` as the benchmarks can prove that.
+
+<details>
+
+<summary>
+Click to expand all benchmark results
+
+Note that some methods benchmarked only with `Ramda` and `Rambda`(i.e. no `Lodash`), are called with and without curring. This is done in order to give more detailed performance feedback.
+
+</summary>
+
+method | Rambda | Ramda | Lodash
+--- |--- | --- | ---
+MARKER_BENCHMARK_SUMMARY
+
+</details>
+
+---
+
+- dot notation for `R.path` and `R.paths`
+
+Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
+
+In **Rambda** you have the choice to use dot notation(which is arguably more readable):
+
+```
+R.path('a.b', {a: {b: 1} })
+```
+
+---
+
+- comma notation for `R.pick` and `R.omit`
+
+Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
+
+```
+R.pick('a,b', {a: 1 , b: 2, c: 3} })
+
+// No space allowed between properties
+```
+
+---
+
+- Typescript included
+
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
+
+- More generic methods
+
+`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(124) I see as advantage compared to the 255 of `Ramda`.
+
+Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
+
+You can [check the list with missing  Ramda methods in Rambda](https://github.com/selfrefactor/rambda/blob/master/files/ramdaMissing.md)  list to assure that `Rambda` doesn't have any important misses.
+
+## Install
+
+- **yarn add rambda**
+
+- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
+
+```
+https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
+```
+
+## Differences between Rambda and Ramda
+
+- Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
+
+- Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
+
+- Rambda's **path** and **paths** accepts dot notation(`'x.y' same as ['x','y']`)
+
+- Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
+
+- Rambda's **map**, **filter**, **reject** and **forEach** can iterate over objects not only arrays.
+
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+
+- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
+- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
+
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
+
+- Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+
+- Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
+
+- Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
+
+- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+
+> If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
+
+---
+
+<details>
+
+<summary>
+Expand to see all `Ramda` tests failing for `Rambda`, if you want to know in detail the difference between the two libraries
+</summary>
+
+MARKER_FAILING_TESTS_SUMMARY
+
+</details>
+
+> You can see them as separate files in `./files/failing_ramda_tests` directory
+
+## API
+
+#### add
+
+> add(a: number, b: number): number
+
+```
+R.add(2, 3) // =>  5
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/add.js)
+
+#### adjust
+
+> adjust(i: number, replaceFn: Function, arr: T[]): T[]
+
+It replaces `i` index in `arr` with the result of `replaceFn(arr[i])`.
+
+```
+R.adjust(
+  0,
+  a => a + 1,
+  [0, 100]
+) // => [1, 100]
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/adjust.js)
+
+#### all
+
+> all(fn: Function, arr: T[]): boolean
+
+It returns `true`, if all members of array `arr` returns `true`, when applied as argument to function `fn`.
+
+```
+const arr = [ 0, 1, 2, 3, 4 ]
+const fn = x => x > -1
+
+const result = R.all(fn, arr)
+// => true
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/all.js)
+
 #### allPass
 
 > allPass(rules: Function[], input: any): boolean

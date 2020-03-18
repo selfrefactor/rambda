@@ -1,8 +1,8 @@
-export function all(fn, list){
-  if (arguments.length === 1) return _list => all(fn, _list)
+export function all(predicate, list){
+  if (arguments.length === 1) return _list => all(predicate, _list)
 
   for (let i = 0; i < list.length; i++){
-    if (!fn(list[ i ], i))
+    if (!predicate(list[ i ], i))
       return false
   }
 

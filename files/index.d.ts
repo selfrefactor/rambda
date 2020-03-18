@@ -162,24 +162,28 @@ export function adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyA
 export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: all
 
 Explanation:
 
-
+It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
 
 Example:
 
 ```
+const list = [ 0, 1, 2, 3, 4 ]
+const predicate = x => x > -1
 
+const result = R.all(fn, arr)
+// => true
 ```
 
 Categories:
 
 */
 // @SINGLE_MARKER
-export function all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function all<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
 Method:

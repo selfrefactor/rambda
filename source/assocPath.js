@@ -1,6 +1,6 @@
+import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
-import { _isInteger } from './_internals/_isInteger'
 
 function assocPathFn(
   list, val, input
