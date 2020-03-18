@@ -50,6 +50,8 @@ Explanation:
 
 It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.
 
+This is test
+
 Example:
 
 ```

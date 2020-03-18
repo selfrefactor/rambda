@@ -94,23 +94,19 @@
   },
   "commitMessage": {
     "support": [
+      "script",
       "build",
       "prepublish",
       "lint",
       "typings",
-      "script",
-      "benchmark",
-      "scripts"
+      "benchmark"
     ],
     "feature": [
       "method",
       "script"
     ],
     "docs": [
-      "docsify",
-      "changelog",
-      "important",
-      "fix"
+      "changelog"
     ],
     "test": [
       "typings",
