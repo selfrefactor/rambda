@@ -9,12 +9,8 @@ Object {
     "typing": "T(): boolean",
   },
   "add": Object {
-    "examples": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.
-
-This is test",
-    "explanations": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.
-
-This is test",
+    "examples": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
+    "explanations": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
     "typing": "add(a: number, b: number): number",
   },
   "adjust": Object {
