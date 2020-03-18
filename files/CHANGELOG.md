@@ -1,3 +1,9 @@
+- 5.0.1
+
+Release new documentation site
+
+Deprecate docsify
+
 - 5.0.0
 
 Move `R.partialCurry` to Rambdax(reason for major bump).

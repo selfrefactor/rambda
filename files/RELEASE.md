@@ -15,3 +15,15 @@ This generates `index.d.ts` from `files/index.d.ts`
 ## Build
 
 - yarn build
+
+---
+
+## TODO
+
+- create readme script will need update
+
+- ramda failing tests
+
+- ramda missing is replaced with json
+
+- update contribute
