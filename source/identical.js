@@ -1,4 +1,4 @@
-import _objectIs from './internal/_objectIs'
+import _objectIs from './_internals/_objectIs'
 
 export function identical(a, b){
   if (arguments.length === 1) return _b => identical(a, _b)
