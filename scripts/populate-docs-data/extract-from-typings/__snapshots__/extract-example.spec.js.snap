@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`happy 1`] = `
+Object {
+  "add": "\`\`\`javascript
+R.add(2, 3) // =>  5
+\`\`\`",
+  "adjust": "\`\`\`javascript
+R.adjust(
+  0,
+  a => a + 1,
+  [0, 100]
+) // => [1, 100]
+\`\`\`",
+}
+`;
