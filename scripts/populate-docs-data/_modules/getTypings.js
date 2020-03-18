@@ -1,11 +1,9 @@
 import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
-const { readFileSync } = require('fs')
-const { resolve } = require('path')
+
+import { CONTENT } from '../constants'
 
 export function getTypings(){
-  const path = resolve(__dirname, '../../../files/index.d.ts')
-  const content = readFileSync(path).toString()
-  const matches = match(/\/\/ SINGLE_MARKER\nexport function[^;]+/gm, content)
+  const matches = match(/\/\/ SINGLE_MARKER\nexport function[^;]+/gm, CONTENT)
 
   return mapToObject(singleMatch => {
     const typing = remove('// SINGLE_MARKER', singleMatch)

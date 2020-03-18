@@ -31,8 +31,8 @@ test('when index is out of bounds', () => {
   const list = [ 0, 1, 2, 3 ]
   expect(adjust(
     4, add(1), list
-  ),).toEqual(list)
+  )).toEqual(list)
   expect(adjust(
     -5, add(1), list
-  ),).toEqual(list)
+  )).toEqual(list)
 })
