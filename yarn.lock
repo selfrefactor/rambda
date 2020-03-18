@@ -4695,6 +4695,11 @@ rambdax@3.7.0:
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-3.7.0.tgz#bc89ced092f95521555eb24fe0a29039807a4756"
   integrity sha512-EaV46HD0sqoFGmm0BT7cMSUXJw0l+iMCH52CkhAuByJNLC+WXE13KgxRd5UsnwdLg/tEskgPADYacOuR0zVa9Q==
 
+rambdax@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-3.7.0.tgz#bc89ced092f95521555eb24fe0a29039807a4756"
+  integrity sha512-EaV46HD0sqoFGmm0BT7cMSUXJw0l+iMCH52CkhAuByJNLC+WXE13KgxRd5UsnwdLg/tEskgPADYacOuR0zVa9Q==
+
 rambdax@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-3.3.1.tgz#d7325ff33ceea186b465f7fd46274a533d4ce47a"
@@ -5345,7 +5350,14 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-string-fn@2.10.2, string-fn@^2.10.2:
+string-fn@2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.11.0.tgz#6488fda37c0b23e0c1d00434da174499a3b04aac"
+  integrity sha512-M69Gv1BjusS8pljB9Vo8MDcHBAA7MjRxOQVMWtcxFZGxZCImJXKQd4zlakXBaZdDZ35UhVve3QaVSurXInnCsw==
+  dependencies:
+    rambdax "3.7.0"
+
+string-fn@^2.10.2:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.10.2.tgz#ac593561000ab44483c90effb0ad9c23bcbd2148"
   integrity sha512-63FZhsBUtjCueP8RdFmsHthzW1ySTm2hX/nJCrqC0IvnmhOi1GofaDLzNrYXfaHDumk0s25WJX4yThTOuSABGw==
