@@ -9,23 +9,8 @@
   "sideEffects": false,
   "scripts": {
     "populate": "maided populate",
-    "tslint:tslint": "tslint --fix index.d.ts",
-    "tslint:tsformat": "tsfmt -r index.d.ts",
-    "tslint": "yarn tslint:tslint&&yarn tslint:tsformat",
-    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./src",
-    "fix": "mkdir $HOME/.dts/perf -p",
-    "test": "jest src",
-    "provex": "jest src --json",
-    "readme": "node files/createReadme/createReadme.js",
-    "docs": "docsify init ./docs",
-    "build": "yarn build:main&&yarn build:web",
-    "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
-    "build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
-    "benchmarks": "node benchmarks/indexProve.js",
-    "benchmark": "node benchmarks/indexProve.js",
-    "bench": "node benchmarks/indexProve.js",
-    "cover:spec": "jest src --coverage --no-cache -w 1",
-    "cover": "yarn typings&&yarn cover:spec"
+    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+    "fix": "mkdir $HOME/.dts/perf -p"
   },
   "repository": {
     "type": "git",

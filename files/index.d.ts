@@ -2984,6 +2984,7 @@ Categories:
 // @SINGLE_MARKER
 export function without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
 export function without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+
 /*
 Method: 
 
@@ -3043,23 +3044,10 @@ Categories:
 // @SINGLE_MARKER
 export function zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
 export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
-/*
-Method: 
 
-Explanation:
+// RAMBDAX BELOW
+// ============================================
 
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-*/
-// @SINGLE_MARKER
 
 
 export as namespace R
