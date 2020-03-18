@@ -57,7 +57,7 @@
     "jest-extended": "0.11.5",
     "lodash": "4.17.15",
     "markdown-toc": "1.2.0",
-    "rambdax": "3.5.0",
+    "rambdax": "3.7.0",
     "ramda": "0.27.0",
     "rollup": "2.0.6",
     "rollup-plugin-babel": "4.4.0",
