@@ -92,9 +92,6 @@
       "method",
       "script"
     ],
-    "docs": [
-      "changelog"
-    ],
     "test": [
       "typings",
       "fix"

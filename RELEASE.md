@@ -20,6 +20,10 @@ This generates `index.d.ts` from `files/index.d.ts`
 
 ## TODO
 
+- lint all dtslint specs
+
+- move benchmarks
+
 - create readme script will need update (move to scripts)
 
 also with lenses not each method has a dedicated spec file
