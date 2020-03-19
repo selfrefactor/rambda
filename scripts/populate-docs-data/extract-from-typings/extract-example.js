@@ -15,7 +15,6 @@ export function extractExample(){
     if (anyFalse(
       matched, name, !skipExampleList.includes(name)
     )) return
-
     const exampleRaw = remove([ 'Categories:', 'Example:' ])(matched)
     const example = replace(
       '```', '```javascript', exampleRaw

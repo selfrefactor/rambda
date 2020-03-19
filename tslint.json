@@ -5,6 +5,7 @@
     ],
     "jsRules": {},
     "rules": {
+        "semicolon": [true, "always"],
         "no-namespace": false,
         "interface-name": false,
         "unified-signatures": false,

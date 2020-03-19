@@ -6,18 +6,18 @@ Object {
   "T": "T(): boolean",
   "add": "add(a: number, b: number): number",
   "adjust": "adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]",
-  "all": "all<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
-  "allPass": "allPass<T>(predicates: Array<(x: T) => boolean>): (input: T) => boolean",
+  "all": "all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
+  "allPass": "allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean",
   "always": "always<T>(x: T): () => T",
   "and": "and<T extends { and?: ((...a: readonly any[]) => any)",
   "any": "any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean",
   "anyPass": "anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>",
   "append": "append<T>(el: T, list: ReadonlyArray<T>): T[]",
   "applySpec": "applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
-      obj: Obj
-    ): (
-        ...args: Parameters<ValueOfRecord<Obj>>
-    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> }",
+  obj: Obj
+): (
+    ...args: Parameters<ValueOfRecord<Obj>>
+  ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> }",
   "assoc": "assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U",
   "assocPath": "assocPath<T, U>(path: Path, val: T, obj: U): U",
   "both": "both(pred1: Pred, pred2: Pred): Pred",
@@ -26,10 +26,10 @@ Object {
   "complement": "complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean",
   "compose": "compose<T1>(fn0: () => T1): () => T1",
   "concat": "concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]",
-  "cond": "cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any",
+  "cond": "cond(fns: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any",
   "curry": "curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>",
   "dec": "dec(n: number): number",
-  "defaultTo": "defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T",
+  "defaultTo": "defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T",
   "difference": "difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[]",
   "dissoc": "dissoc<T>(prop: string, obj: any): T",
   "divide": "divide(a: number, b: number): number",
@@ -41,16 +41,14 @@ Object {
   "filter": "filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[]",
   "find": "find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined",
   "findIndex": "findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number",
-  "findLast": "findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined",
-  "findLastIndex": "findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number",
   "flatten": "flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[]",
   "flip": "flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult",
   "forEach": "forEach<T>(fn: (x: T) => void, list: T[]): T[]",
-  "fromPairs": "fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V }",
+  "fromPairs": "fromPairs<V>(pairs: KeyValuePair<string, V>[]): { [index: string]: V }",
   "groupBy": "groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }",
   "groupWith": "groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]",
   "has": "has<T>(prop: string, obj: T): boolean",
-  "head": "head<T>(arrOrStr: Array<T>): T | undefined",
+  "head": "head<T>(arrOrStr: T[]): T | undefined",
   "identical": "identical<T>(a: T, b: T): boolean",
   "identity": "identity<T>(x: T): T",
   "ifElse": "ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn",
@@ -65,8 +63,8 @@ Object {
   "isEmpty": "isEmpty<T>(input: T): boolean",
   "isNil": "isNil(x: any): x is null | undefined",
   "join": "join(x: string, xs: ReadonlyArray<any>): string",
-  "keys": "keys<T extends object>(x: T): Array<keyof T>",
-  "last": "last<T>(arrOrStr: Array<T>): T | undefined",
+  "keys": "keys<T extends object>(x: T): (keyof T)[]",
+  "last": "last<T>(arrOrStr: T[]): T | undefined",
   "lastIndexOf": "lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number",
   "length": "length<T>(list: ReadonlyArray<T>): number",
   "lens": "lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens",
@@ -93,7 +91,7 @@ Object {
   "partial": "partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T",
   "path": "path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined",
   "pathOr": "pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T",
-  "paths": "paths<Input, T>(pathsToSearch: Array<string | string[]>, obj: Input): Array<T | undefined>",
+  "paths": "paths<Input, T>(pathsToSearch: (string | string[])[], obj: Input): (T | undefined)[]",
   "pick": "pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>",
   "pickAll": "pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U",
   "pipe": "pipe<T1>(fn0: () => T1): () => T1",
@@ -127,7 +125,7 @@ Object {
   "test": "test(regExpression: RegExp): (str: string) => boolean",
   "times": "times<T>(fn: (i: number) => T, n: number): T[]",
   "toLower": "toLower(str: string): string",
-  "toPairs": "toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>",
+  "toPairs": "toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][]",
   "toString": "toString<T>(val: T): string",
   "toUpper": "toUpper(str: string): string",
   "transpose": "transpose<T>(list: T[][]): T[][]",
@@ -136,27 +134,11 @@ Object {
   "uniq": "uniq<T>(arr: ReadonlyArray<T>): T[]",
   "uniqWith": "uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[]",
   "update": "update<T>(index: number, value: T, list: ReadonlyArray<T>): T[]",
-  "values": "values<T extends object, K extends keyof T>(obj: T): Array<T[K]>",
+  "values": "values<T extends object, K extends keyof T>(obj: T): T[K][]",
   "view": "view<T, U>(lens: Lens): (obj: T) => U",
   "without": "without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[]",
-  "xor": "xor(a: boolean, b:boolean): boolean
-export function xor(a: boolean): (b:boolean) => boolean
-
-/*
-Method: 
-
-Explanation:
-
-
-
-Example:
-
-\`\`\`
-
-\`\`\`
-*/
-// @SINGLE_MARKER
-export function zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>",
+  "xor": "xor(a: boolean, b: boolean): boolean",
+  "zip": "zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): KeyValuePair<K, V>[]",
   "zipObj": "zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }",
 }
 `;

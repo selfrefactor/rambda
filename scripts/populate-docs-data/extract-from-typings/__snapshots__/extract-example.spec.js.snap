@@ -12,5 +12,12 @@ R.adjust(
   [0, 100]
 ) // => [1, 100]
 \`\`\`",
+  "all": "\`\`\`javascript
+const list = [ 0, 1, 2, 3, 4 ]
+const predicate = x => x > -1
+
+const result = R.all(fn, arr)
+// => true
+\`\`\`",
 }
 `;
