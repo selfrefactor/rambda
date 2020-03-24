@@ -3,6 +3,6 @@ const filePath = `${__dirname}/index.d.ts`
 
 void (async function lint() {
   console.time('lint')
-  await lintFn(filePath)
+  await lintFn(filePath, 'outer')
   console.timeEnd('lint')
 })()

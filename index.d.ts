@@ -84,10 +84,7 @@ export function adjust<T>(
   fn: (a: T) => T
 ): (list: readonly T[]) => T[]
 
-export function all<T>(
-  fn: (x: T) => boolean,
-  list: readonly T[]
-): boolean
+export function all<T>(fn: (x: T) => boolean, list: readonly T[]): boolean
 export function all<T>(
   fn: (x: T) => boolean
 ): (list: readonly T[]) => boolean
@@ -106,9 +103,7 @@ export function any<T>(fn: (x: T) => boolean, arr: readonly T[]): boolean
 export function any<T>(
   fn: (x: T, i: number) => boolean
 ): (arr: readonly T[]) => boolean
-export function any<T>(
-  fn: (x: T) => boolean
-): (arr: readonly T[]) => boolean
+export function any<T>(fn: (x: T) => boolean): (arr: readonly T[]) => boolean
 
 export function anyPass<T>(preds: readonly SafePred<T>[]): SafePred<T>
 
@@ -344,10 +339,7 @@ export function defaultTo<T, U>(
   ...inputArguments: (T | U | null | undefined)[]
 ): T | U
 
-export function difference<T>(
-  list1: readonly T[],
-  list2: readonly T[]
-): T[]
+export function difference<T>(list1: readonly T[], list2: readonly T[]): T[]
 export function difference<T>(
   list1: readonly T[]
 ): (list2: readonly T[]) => T[]
@@ -358,10 +350,7 @@ export function dissoc(prop: string): <U>(obj: any) => U
 export function divide(a: number, b: number): number
 export function divide(a: number): (b: number) => number
 
-export function drop<T>(
-  howManyToDrop: number,
-  arrOrStr: readonly T[]
-): T[]
+export function drop<T>(howManyToDrop: number, arrOrStr: readonly T[]): T[]
 export function drop(howManyToDrop: number, arrOrStr: string): string
 export function drop<T>(
   howManyToDrop: number
@@ -384,10 +373,7 @@ export function dropLast<T>(
 
 export function endsWith(a: string, list: string): boolean
 export function endsWith(a: string): (list: string) => boolean
-export function endsWith<T>(
-  a: T | readonly T[],
-  list: readonly T[]
-): boolean
+export function endsWith<T>(a: T | readonly T[], list: readonly T[]): boolean
 export function endsWith<T>(
   a: T | readonly T[]
 ): (list: readonly T[]) => boolean
@@ -517,9 +503,7 @@ export function includes(
   valueToFind: string
 ): (input: readonly string[] | string) => boolean
 export function includes<T>(valueToFind: T, input: readonly T[]): boolean
-export function includes<T>(
-  valueToFind: T
-): (input: readonly T[]) => boolean
+export function includes<T>(valueToFind: T): (input: readonly T[]) => boolean
 
 export function indexBy<T>(
   condition: (a: T) => string,
@@ -621,10 +605,7 @@ export function map<T, U, S>(
 export function map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[]
 export function map<T, U>(mapFn: MapFunctionArray<T, U>): (x: T[]) => U[]
 export function map<T>(mapFn: MapFunctionArray<T, T>): (x: T[]) => T[]
-export function map<T>(
-  mapFn: MapFunctionArray<T, T>,
-  x: readonly T[]
-): T[]
+export function map<T>(mapFn: MapFunctionArray<T, T>, x: readonly T[]): T[]
 
 export function match(regexp: RegExp, str: string): any[]
 export function match(regexp: RegExp): (str: string) => any[]
@@ -662,10 +643,7 @@ export function multiply(a: number): (b: number) => number
 
 export function negate(a: number): number
 
-export function none<T>(
-  fn: (a: T) => boolean,
-  list: readonly T[]
-): boolean
+export function none<T>(fn: (a: T) => boolean, list: readonly T[]): boolean
 export function none<T>(
   fn: (a: T) => boolean
 ): (list: readonly T[]) => boolean
@@ -1322,27 +1300,16 @@ export function uniqWith<T, U>(
   fn: (x: T, y: T) => boolean
 ): (arr: readonly T[]) => T[]
 
-export function update<T>(
-  index: number,
-  value: T,
-  list: readonly T[]
-): T[]
+export function update<T>(index: number, value: T, list: readonly T[]): T[]
 export function update<T>(
   index: number,
   value: T
 ): (list: readonly T[]) => T[]
 
-export function values<T extends object, K extends keyof T>(
-  obj: T
-): T[K][]
+export function values<T extends object, K extends keyof T>(obj: T): T[K][]
 
-export function without<T>(
-  list1: readonly T[],
-  list2: readonly T[]
-): T[]
-export function without<T>(
-  list1: readonly T[]
-): (list2: readonly T[]) => T[]
+export function without<T>(list1: readonly T[], list2: readonly T[]): T[]
+export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[]
 
 export function xor(a: boolean, b: boolean): boolean
 export function xor(a: boolean): (b: boolean) => boolean

@@ -4422,10 +4422,10 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-fn@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/lint-fn/-/lint-fn-2.3.1.tgz#fcfd8535e68a13348b84169e03e8bc1474d678d3"
-  integrity sha512-BIe8EQuQc3XZb/f0yfiJ4yiS4QXGAZqEoVskQFz98wn5zbLhLMAdKr3b/dCnoJT+6Ussw0e/1HOHX0REsQ+N+w==
+lint-fn@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/lint-fn/-/lint-fn-2.4.2.tgz#8751fdfeee59bc2fd8f16791ec14351c3322d292"
+  integrity sha512-fmrrKBmOqvW+8ySiHiExpyJz9jeYChiG3QwzbsMJ30DrSW9zNnTdo+pDVv2R48H0kwKM8SYDzXiQmPNBrxCdbQ==
   dependencies:
     babel-eslint "10.0.1"
     eslint "^7.0.0-alpha.2"
