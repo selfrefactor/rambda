@@ -1,6 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "schedule:earlyMondays"
   ],
-  "prCreation": "status-success"
+  "prCreation": "status-success",
+  "branchPrefix":"deps/",
+  "commitMessageAction": "chore@dep"
 }
