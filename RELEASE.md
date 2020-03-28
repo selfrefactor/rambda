@@ -15,21 +15,3 @@ This generates `index.d.ts` from `files/index.d.ts`
 ## Build
 
 - yarn build
-
----
-
-## TODO
-
-- lint all dtslint specs
-
-- move benchmarks
-
-- create readme script will need update (move to scripts)
-
-also with lenses not each method has a dedicated spec file
-
-- ramda failing tests
-
-- ramda missing is replaced with json
-
-- update contribute
