@@ -1,0 +1,42 @@
+
+
+  isEmpty
+    ✓ returns false for null
+    1) returns false for undefined
+    ✓ returns true for empty string
+    ✓ returns true for empty array
+    2) returns true for empty typed array
+    ✓ returns true for empty object
+    3) returns true for empty arguments object
+    4) returns false for every other value
+
+
+  4 passing (86ms)
+  4 failing
+
+  1) isEmpty
+       returns false for undefined:
+     TypeError: R.isEmpty is not a function
+      at Context.isEmpty (test/isEmpty.js:10:10)
+      at processImmediate (internal/timers.js:439:21)
+
+  2) isEmpty
+       returns true for empty typed array:
+     TypeError: R.isEmpty is not a function
+      at Context.isEmpty (test/isEmpty.js:30:10)
+      at processImmediate (internal/timers.js:439:21)
+
+  3) isEmpty
+       returns true for empty arguments object:
+     TypeError: R.isEmpty is not a function
+      at Context.isEmpty (test/isEmpty.js:42:10)
+      at processImmediate (internal/timers.js:439:21)
+
+  4) isEmpty
+       returns false for every other value:
+     TypeError: R.isEmpty is not a function
+      at Context.isEmpty (test/isEmpty.js:47:10)
+      at processImmediate (internal/timers.js:439:21)
+
+
+

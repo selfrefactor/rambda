@@ -1,0 +1,182 @@
+{
+  "adjust": {
+    "count": 1,
+    "reason": "ramda accepts an array-like object"
+  },
+  "allPass": {
+    "count": 1,
+    "reason": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+  },
+  "anyPass": {
+    "count": 1,
+    "reason": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+  },
+  "isEmpty": {
+    "count": 1,
+    "reason": "ramda supports typed arrays"
+  },
+  "both": {
+    "count": 1,
+    "reason": "ramda supports fantasy-land"
+  },
+  "either": {
+    "count": 1,
+    "reason": "ramda supports fantasy-land"
+  },
+  "complement": {
+    "count": 1,
+    "reason": "ramda supports fantasy-land"
+  },
+  "difference": {
+    "count": 1,
+    "reason": "ramda supports negative zero"
+  },
+  "compose": {
+    "count": 3,
+    "reason": "ramda passes context to functions | rambda composed functions have no length"
+  },
+  "pipe": {
+    "count": 3,
+    "reason": "ramda passes context to functions | rambda composed functions have no length"
+  },
+  "curry": {
+    "count": 5,
+    "reason": "ramda passes context to functions"
+  },
+  "concat": {
+    "count": 1,
+    "reason": "ramda pass to concat method if present"
+  },
+  "cond": {
+    "count": 2,
+    "reason": "pass to transformer is not applied in rambda"
+  },
+  "dropLast": {
+    "count": 5,
+    "reason": "ramda method can act as a transducer"
+  },
+  "clone": {
+    "count": 9,
+    "reason": "rambda method work only with objects and arrays"
+  },
+  "endsWith": {
+    "count": 4,
+    "reason": "rambda doesn't support arrays"
+  },
+  "equals": {
+    "count": 14,
+    "reason": "rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively"
+  },
+  "filter": {
+    "count": 1,
+    "reason": "ramda dispatches to `filter` method of object"
+  },
+  "flip": {
+    "count": 4,
+    "reason": "rambda flip work only for functions with two arguments"
+  },
+  "forEach": {
+    "count": 1,
+    "reason": "ramda method dispatches to `forEach` method"
+  },
+  "groupBy": {
+    "count": 1,
+    "reason": "ramda support transforms"
+  },
+  "has": {
+    "count": 1,
+    "reason": "rambda does check properties from the prototype chain"
+  },
+  "ifElse": {
+    "count": 2,
+    "reason": "rambda doesn't return a curried function"
+  },
+  "includes": {
+    "count": 1,
+    "reason": "ramda method pass to `equals` method if available"
+  },
+  "indexBy": {
+    "count": 1,
+    "reason": "ramda method can act as a transducer"
+  },
+  "reduce": {
+    "count": 2,
+    "reason": "rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method"
+  },
+  "reject": {
+    "count": 1,
+    "reason": "ramda method dispatches to `filter` method"
+  },
+  "indexOf": {
+    "count": 2,
+    "reason": "ramda method dispatches to `indexOf` method"
+  },
+  "lastIndexOf": {
+    "count": 3,
+    "reason": "ramda method dispatches to `lastIndexOf` method"
+  },
+  "length": {
+    "count": 1,
+    "reason": "ramda method supports object with `length` method"
+  },
+  "keys": {
+    "count": 1,
+    "reason": "ramda method works for primitives"
+  },
+  "path": {
+    "count": 1,
+    "reason": "ramda method supports negative indices"
+  },
+  "paths": {
+    "count": 1,
+    "reason": "ramda method supports negative indices"
+  },
+  "pluck": {
+    "count": 1,
+    "reason": "ramda method behaves as a transducer"
+  },
+  "propEq": {
+    "count": 1,
+    "reason": "ramda method pass to `equals` method if available"
+  },
+  "sortBy": {
+    "count": 1,
+    "reason":"ramda works with array-like objects"
+  },
+  "take": {
+    "count": 3,
+    "reason":"rambda doesn't have 'R.into` method"
+  },
+  "tap": {
+    "count": 2,
+    "reason":"ramda can act as a transducer"
+  },
+  "trim": {
+    "count": 1,
+    "reason":"ramda trims all ES5 whitespace"
+  },
+  "type": {
+    "count": 1,
+    "reason": "ramda returns 'Number' type to NaN input, while rambda returns 'NaN'"
+  },
+  "uniq": {
+    "count": 2,
+    "reason": "ramda pass to `uniq` method | ramda method uses reference equality for functions"
+  },
+  "update": {
+    "count": 1,
+    "reason": "ramda accepts an array-like object"
+  },
+  "without": {
+    "count": 2,
+    "reason": "ramda method act as a transducer | ramda method pass to `equals` method"
+  },
+  "startsWith": {
+    "count": 4,
+    "reason": "rambda doesn't support arrays"
+  },
+  "xor": {
+    "count": 1,
+    "reason": "ramda support empty call of method"
+  }
+}
