@@ -1,16 +1,17 @@
 function _curryN(n, cache, fn) {
   return function() {
+    // concat cache and the arguments as fast as possible https://jsperf.com/concat-two-arrays-quickly
     let ci = 0;
-    const cl = cache.length
     let ai = 0;
+    const cl = cache.length
     const al = arguments.length
-    // concat cache and the arguments as fast as possible https://jsperf.com/concat-two-arrays-quickly/1
+    const args = new Array(cl + al)
     while (ci < cl) {
-      args.push(cache[ci])
+      args[ci] = cache[ci]
       ci++
     }
     while (ai < al) {
-      args.push(arguments[ai])
+      args[cl + ai] = arguments[ai]
       ai++
     }
     const remaining = n - args.length
