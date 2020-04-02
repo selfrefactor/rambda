@@ -3,7 +3,7 @@ const Ramda = require('ramda')
 
 const addFourNumbers = (a, b, c, d) => a + b + c + d
 
-const curry = [
+const curryN = [
   {
     label : 'Rambda',
     fn    : () => {
@@ -26,4 +26,4 @@ const curry = [
   },
 ]
 
-module.exports = curry
+module.exports = curryN

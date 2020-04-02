@@ -379,6 +379,57 @@ function curryN(n, fn) {
   return _arity(n, _curryN(n, [], fn));
 }
 
+function mapObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    willReturn[prop] = fn(obj[prop], prop, obj);
+  }
+
+  return willReturn;
+}
+
+function map(fn, list) {
+  if (arguments.length === 1) return _list => map(fn, _list);
+
+  if (list === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(list)) {
+    return mapObject(fn, list);
+  }
+
+  let index = -1;
+  const len = list.length;
+  const willReturn = Array(len);
+
+  while (++index < len) {
+    willReturn[index] = fn(list[index], index);
+  }
+
+  return willReturn;
+}
+
+function max(a, b) {
+  if (arguments.length === 1) return _b => max(a, _b);
+  return b > a ? b : a;
+}
+
+function reduceFn(fn, acc, list) {
+  return list.reduce(fn, acc);
+}
+
+const reduce = curry(reduceFn);
+
+function converge(fn, transformers) {
+  if (arguments.length === 1) return _transformers => converge(fn, _transformers);
+  const highestArity = reduce((a, b) => max(a, b.length), 0, transformers);
+  return curryN(highestArity, function () {
+    return fn.apply(this, map(g => g.apply(this, arguments), transformers));
+  });
+}
+
 function clampFn(lowLimit, highLimit, input) {
   if (input >= lowLimit && input <= highLimit) return input;
   if (input > highLimit) return highLimit;
@@ -698,38 +749,6 @@ function flipExport(fn) {
 
 function flip(fn) {
   return flipExport(fn);
-}
-
-function mapObject(fn, obj) {
-  const willReturn = {};
-
-  for (const prop in obj) {
-    willReturn[prop] = fn(obj[prop], prop, obj);
-  }
-
-  return willReturn;
-}
-
-function map(fn, list) {
-  if (arguments.length === 1) return _list => map(fn, _list);
-
-  if (list === undefined) {
-    return [];
-  }
-
-  if (!Array.isArray(list)) {
-    return mapObject(fn, list);
-  }
-
-  let index = -1;
-  const len = list.length;
-  const willReturn = Array(len);
-
-  while (++index < len) {
-    willReturn[index] = fn(list[index], index);
-  }
-
-  return willReturn;
 }
 
 function forEach(fn, list) {
@@ -1067,11 +1086,6 @@ function mathMod(m, p) {
   return (m % p + p) % p;
 }
 
-function max(a, b) {
-  if (arguments.length === 1) return _b => max(a, _b);
-  return b > a ? b : a;
-}
-
 function maxBy(fn, a, b) {
   if (arguments.length === 2) {
     return _b => maxBy(fn, a, _b);
@@ -1263,12 +1277,6 @@ function prepend(el, list) {
   const clone = [el].concat(list);
   return clone;
 }
-
-function reduceFn(fn, acc, list) {
-  return list.reduce(fn, acc);
-}
-
-const reduce = curry(reduceFn);
 
 const product = reduce(multiply, 1);
 
@@ -1559,6 +1567,7 @@ exports.complement = complement;
 exports.compose = compose;
 exports.concat = concat;
 exports.cond = cond;
+exports.converge = converge;
 exports.curry = curry;
 exports.curryN = curryN;
 exports.dec = dec;
