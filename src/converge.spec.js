@@ -23,8 +23,8 @@ describe('converge', function() {
 
   test('returns a function with the length of the "longest" argument', function() {
     expect(f1.length).toEqual(1);
-    // expect(f2.length).toEqual(2);
-    // expect(f3.length).toEqual(3);
+    expect(f2.length).toEqual(2);
+    expect(f3.length).toEqual(3);
   });
 
   test('passes context to its functions', function() {
