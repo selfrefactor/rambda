@@ -2920,9 +2920,10 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-"helpers@https://github.com/selfrefactor/helpers#2.4.0":
-  version "2.2.1"
-  resolved "https://github.com/selfrefactor/helpers#2119e3e1dacd67944e4fc1fcfd0b589796d71296"
+helpers-fn@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.1.1.tgz#00e71182a1ff9cc201536c79675cc1353bd44a87"
+  integrity sha512-30PUzIraLLKGya4k0AyTDfkC5G+UXCjk+3tot4Sx2I6MNOL7FJBia2ENnhz7wZ7MhdpqvaZfe3sJl6hmLHYE4w==
   dependencies:
     benny "^3.6.14"
     boxen "^4.1.0"

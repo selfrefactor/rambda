@@ -1,7 +1,7 @@
 process.env.BENCHMARK_FOLDER = 'benchmarks/benchmark_results'
 const fs = require('fs')
 const path = require('path')
-const { createBenchmark } = require('helpers')
+const { createBenchmark } = require('helpers-fn')
 const { mapAsync, filter, dropLast } = require('rambdax')
 
 async function runBenchmarks(singleMethod){
