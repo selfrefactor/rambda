@@ -18,20 +18,20 @@ export function groupWith(predicate, list){
     if (okPredicate){
       if (holderIsEmpty) holder.push(prev)
       holder.push(current)
-      if(lastCall) toReturn.push(holder)
+      if (lastCall) toReturn.push(holder)
 
       return current
     }
 
     if (holderIsEmpty){
       toReturn.push([ prev ])
-      if(lastCall) toReturn.push([ current ])
+      if (lastCall) toReturn.push([ current ])
 
       return current
     }
 
     toReturn.push(holder)
-    if(lastCall) toReturn.push([ current ])
+    if (lastCall) toReturn.push([ current ])
     holder = []
 
     return current
