@@ -4,3 +4,14 @@
 coverage
 node_modules
 files/ramda-tests/ramda/*
+scripts/run-ramda-specs/ramda/*
+/es
+/lib/bench/report/
+/lib/docs/public/
+/npm-debug.log
+/lib/test/bundle.js
+/tmp
+/bower_components/
+/dist/gh-pages/
+/tmp-test-bundle.js
+/coverage/

@@ -22,3 +22,7 @@ or
 
 ## Parse Ramda test to Rambda test
 
+    "clone": "run read https://github.com/ramda/ramda.git",
+    "shake": "node node_modules/bundle-phobia-cli/index.js ramda rambda",
+    "on": "node src/findFailingTests.js",
+    "test": "cd ramda&&BABEL_ENV=cjs node node_modules/mocha/bin/mocha --require @babel/register --reporter spec test/isEmpty.js"
