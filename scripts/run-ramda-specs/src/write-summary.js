@@ -7,7 +7,7 @@ const { remove, replace, map, filter, piped, mapToObject } = require('rambdax')
 const { resolve } = require('path')
 
 const BASE = resolve(__dirname, '../')
-const OUTPUT = `${BASE}/failing_tests`
+const OUTPUT = `${ BASE }/failing_tests`
 
 const getOutputPath = x => `${ BASE }/outputs/${ x }.txt`
 const getTestPath = x => `${ BASE }/ramda/test/${ x }.js`
@@ -94,8 +94,7 @@ function withSingleMethod(method){
     return x
   })
 
-  writeFileSync(`${ OUTPUT }/${ method }.js`,
-    toReturn.join('\n'))
+  writeFileSync(`${ OUTPUT }/${ method }.js`, toReturn.join('\n'))
 
   const differencePayload = allDifferences[ method ] ?
     { diffReason : allDifferences[ method ].reason } :
@@ -118,9 +117,9 @@ export async function writeSummary(){
   const allFailingTests = allMethods
     .map(method => withSingleMethod(method))
     .filter(Boolean)
-   
-  const summaryJson = mapToObject(x => ({[x.method]: x}),allFailingTests)  
-   await writeJson(`${ BASE }/summary.json`, summaryJson)
+
+  const summaryJson = mapToObject(x => ({ [ x.method ] : x }), allFailingTests)
+  await writeJson(`${ BASE }/summary.json`, summaryJson)
 
   allFailingTests.forEach(({ content, method, diffReason }) => {
     const reasoning = diffReason ?
