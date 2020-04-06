@@ -1,7 +1,6 @@
 const allDifferences = require('./allDifferences.json')
 const R = require('rambda')
 const { emptyDirSync, copySync } = require('fs-extra')
-const { findFailingTests } = require('./findFailingTests.js')
 const { getIndent, indent } = require('string-fn')
 const { readFileSync, writeFileSync, existsSync } = require('fs')
 const { remove, replace, take, map, filter, piped } = require('rambdax')
@@ -74,7 +73,9 @@ function withSingleMethod(method){
 
     if (!flag){
       const lineToPush = line.includes('../source') ?
-        replace('../source', 'rambda', line) :
+        replace(
+          '../source', 'rambda', line
+        ) :
         line
 
       holder.push(lineToPush)
@@ -95,7 +96,7 @@ function withSingleMethod(method){
   writeFileSync(
     `${ __dirname }/failing_tests/${ method }.js`,
     toReturn.join('\n')
-  )
+    )
 
   const differencePayload = allDifferences[ method ] ?
     { diffReason : allDifferences[ method ].reason } :
@@ -108,17 +109,16 @@ function withSingleMethod(method){
   }
 }
 
-async function recordFailingTests(){
+export async function writeSummary(){
   const dir = `${ __dirname }/failing_tests`
-  // emptyDirSync(dir)
-  // await findFailingTests(true)
+  emptyDirSync(dir)
 
-  const allMethods = Object.keys(R).filter(x => x !== 'partialCurry')
+  const allMethods = Object.keys(R)
+  const summary = []
 
   const allFailingTests = allMethods
     .map(method => withSingleMethod(method))
     .filter(Boolean)
-  let summary = ''
 
   allFailingTests.forEach(({ content, method, diffReason }) => {
     const reasoning = diffReason ?
@@ -127,15 +127,13 @@ async function recordFailingTests(){
 
     const toAdd = `> ${ method }\n${ reasoning }\n\`\`\`javascript\n${ content }\n\`\`\`\n\n`
 
-    summary += toAdd
+    summary.push(toAdd)
   })
-  writeFileSync(`${ dir }/_SUMMARY.md`, summary)
+  // writeFileSync(`${ dir }/_SUMMARY.md`, summary)
 
-  const ramdaDir = resolve(
-    __dirname,
-    '../../../../rambda/files/failing_ramda_tests'
-  )
-  copySync(dir, ramdaDir)
+  // const ramdaDir = resolve(
+  //   __dirname,
+  //   '../../../../rambda/files/failing_ramda_tests'
+  // )
+  // copySync(dir, ramdaDir)
 }
-
-recordFailingTests()
