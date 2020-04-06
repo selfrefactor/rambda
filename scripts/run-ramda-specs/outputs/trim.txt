@@ -1,30 +1,0 @@
-
-
-  trim
-    ✓ trims a string
-    1) trims all ES5 whitespace
-    ✓ does not trim the zero-width space
-
-
-  2 passing (90ms)
-  1 failing
-
-  1) trim
-       trims all ES5 whitespace:
-
-      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-+ actual - expected
-
-+ '"᠎             　  ﻿Hello, World!\\t\\n\\v\\f\\r   ᠎"'
-- '"Hello, World!"'
-      + expected - actual
-
-      -"᠎             　  ﻿Hello, World!\t\n\v\f\r   ᠎"
-      +"Hello, World!"
-      
-      at strictEqual (test/shared/eq.js:8:10)
-      at Context.eq (test/trim.js:13:5)
-      at processImmediate (internal/timers.js:439:21)
-
-
-

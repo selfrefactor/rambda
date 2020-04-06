@@ -1,4 +1,8 @@
 {
+  "lenses": {
+    "count": 10,
+    "reason": "TODO"
+  },
   "adjust": {
     "count": 1,
     "reason": "ramda accepts an array-like object"
