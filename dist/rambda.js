@@ -289,6 +289,147 @@ function cond(conditions) {
   };
 }
 
+function _curryN(n, cache, fn) {
+  return function () {
+    let ci = 0;
+    let ai = 0;
+    const cl = cache.length;
+    const al = arguments.length;
+    const args = new Array(cl + al);
+
+    while (ci < cl) {
+      args[ci] = cache[ci];
+      ci++;
+    }
+
+    while (ai < al) {
+      args[cl + ai] = arguments[ai];
+      ai++;
+    }
+
+    const remaining = n - args.length;
+    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+  };
+}
+
+function _arity(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments);
+      };
+
+    case 1:
+      return function (_1) {
+        return fn.apply(this, arguments);
+      };
+
+    case 2:
+      return function (_1, _2) {
+        return fn.apply(this, arguments);
+      };
+
+    case 3:
+      return function (_1, _2, _3) {
+        return fn.apply(this, arguments);
+      };
+
+    case 4:
+      return function (_1, _2, _3, _4) {
+        return fn.apply(this, arguments);
+      };
+
+    case 5:
+      return function (_1, _2, _3, _4, _5) {
+        return fn.apply(this, arguments);
+      };
+
+    case 6:
+      return function (_1, _2, _3, _4, _5, _6) {
+        return fn.apply(this, arguments);
+      };
+
+    case 7:
+      return function (_1, _2, _3, _4, _5, _6, _7) {
+        return fn.apply(this, arguments);
+      };
+
+    case 8:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+        return fn.apply(this, arguments);
+      };
+
+    case 9:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+        return fn.apply(this, arguments);
+      };
+
+    case 10:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+        return fn.apply(this, arguments);
+      };
+
+    default:
+      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+}
+
+function curryN(n, fn) {
+  if (arguments.length === 1) return _fn => curryN(n, _fn);
+  return _arity(n, _curryN(n, [], fn));
+}
+
+function mapObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    willReturn[prop] = fn(obj[prop], prop, obj);
+  }
+
+  return willReturn;
+}
+
+function map(fn, list) {
+  if (arguments.length === 1) return _list => map(fn, _list);
+
+  if (list === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(list)) {
+    return mapObject(fn, list);
+  }
+
+  let index = -1;
+  const len = list.length;
+  const willReturn = Array(len);
+
+  while (++index < len) {
+    willReturn[index] = fn(list[index], index);
+  }
+
+  return willReturn;
+}
+
+function max(a, b) {
+  if (arguments.length === 1) return _b => max(a, _b);
+  return b > a ? b : a;
+}
+
+function reduceFn(fn, acc, list) {
+  return list.reduce(fn, acc);
+}
+
+const reduce = curry(reduceFn);
+
+function converge(fn, transformers) {
+  if (arguments.length === 1) return _transformers => converge(fn, _transformers);
+  const highestArity = reduce((a, b) => max(a, b.length), 0, transformers);
+  return curryN(highestArity, function () {
+    return fn.apply(this, map(g => g.apply(this, arguments), transformers));
+  });
+}
+
 function clampFn(lowLimit, highLimit, input) {
   if (input >= lowLimit && input <= highLimit) return input;
   if (input > highLimit) return highLimit;
@@ -610,38 +751,6 @@ function flip(fn) {
   return flipExport(fn);
 }
 
-function mapObject(fn, obj) {
-  const willReturn = {};
-
-  for (const prop in obj) {
-    willReturn[prop] = fn(obj[prop], prop, obj);
-  }
-
-  return willReturn;
-}
-
-function map(fn, list) {
-  if (arguments.length === 1) return _list => map(fn, _list);
-
-  if (list === undefined) {
-    return [];
-  }
-
-  if (!Array.isArray(list)) {
-    return mapObject(fn, list);
-  }
-
-  let index = -1;
-  const len = list.length;
-  const willReturn = Array(len);
-
-  while (++index < len) {
-    willReturn[index] = fn(list[index], index);
-  }
-
-  return willReturn;
-}
-
 function forEach(fn, list) {
   if (arguments.length === 1) return _list => forEach(fn, _list);
   map(fn, list);
@@ -673,29 +782,71 @@ function groupBy(fn, list) {
 }
 
 function groupWith(predicate, list) {
+  if (!Array.isArray(list)) throw new TypeError('list.reduce is not a function');
+  const clone = list.slice();
   const toReturn = [];
   let holder = [];
-  list.reduce((prev, current, i) => {
-    if (i > 0 && predicate(prev, current)) {
-      if (holder.length === 0) {
+  clone.reduce((prev, current, i) => {
+    if (i === 0) return current;
+    const okPredicate = predicate(prev, current);
+    const holderIsEmpty = holder.length === 0;
+    const initialState = toReturn.length === 0;
+    const lastCall = i === list.length - 1;
+
+    if (initialState) {
+      if (okPredicate) {
+        if (lastCall) {
+          toReturn.push([...holder, prev, current]);
+          return current;
+        }
+
         holder.push(prev);
-        holder.push(current);
-      } else {
-        holder.push(current);
+        return current;
       }
-    } else if (i > 0) {
-      if (holder.length === 0) {
-        toReturn.push([prev]);
-        if (i === list.length - 1) holder.push(current);
-      } else {
-        toReturn.push(holder);
-        holder = [];
+
+      if (lastCall) {
+        toReturn.push([...holder, prev]);
+        toReturn.push([current]);
+        return current;
       }
+
+      toReturn.push([...holder, prev]);
+      holder = [];
+      return current;
     }
 
+    if (lastCall) {
+      if (okPredicate) {
+        toReturn.push([...holder, prev, current]);
+        return current;
+      }
+
+      if (holderIsEmpty) {
+        toReturn.push([prev]);
+        toReturn.push([current]);
+        return current;
+      }
+
+      toReturn.push([...holder, prev]);
+      toReturn.push([current]);
+      return current;
+    }
+
+    if (okPredicate) {
+      holder.push(current);
+      return current;
+    }
+
+    if (holderIsEmpty) {
+      toReturn.push([prev]);
+      return current;
+    }
+
+    toReturn.push([...holder, prev]);
+    holder = [];
     return current;
   }, undefined);
-  return holder.length === 0 ? toReturn : [...toReturn, holder];
+  return toReturn;
 }
 
 function has(prop, obj) {
@@ -977,11 +1128,6 @@ function mathMod(m, p) {
   return (m % p + p) % p;
 }
 
-function max(a, b) {
-  if (arguments.length === 1) return _b => max(a, _b);
-  return b > a ? b : a;
-}
-
 function maxBy(fn, a, b) {
   if (arguments.length === 2) {
     return _b => maxBy(fn, a, _b);
@@ -1173,12 +1319,6 @@ function prepend(el, list) {
   const clone = [el].concat(list);
   return clone;
 }
-
-function reduceFn(fn, acc, list) {
-  return list.reduce(fn, acc);
-}
-
-const reduce = curry(reduceFn);
 
 const product = reduce(multiply, 1);
 
@@ -1469,7 +1609,9 @@ exports.complement = complement;
 exports.compose = compose;
 exports.concat = concat;
 exports.cond = cond;
+exports.converge = converge;
 exports.curry = curry;
+exports.curryN = curryN;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
 exports.difference = difference;

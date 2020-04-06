@@ -1,8 +1,16 @@
-- 5.0.1
+- 5.1.1
 
 Release new documentation site
 
 Deprecate docsify
+
+- 5.1.0
+
+Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
+
+> Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
+
+> Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
 
 - 5.0.0
 

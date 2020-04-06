@@ -122,6 +122,8 @@ const result = R.applySpec(spec, json)
 // => { name: 'barry' }
 ```
 
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/applySpec.js)
+
 #### assoc
 
 > assoc(prop: any, value: any, obj: object): object
@@ -230,6 +232,25 @@ R.concat('foo')('bar') // => 'foobar'
 
 [Source](https://github.com/selfrefactor/rambda/tree/master/src/concat.js)
 
+#### converge
+
+> converge(fn: Function, transformers: Function[]): Function
+
+Takes a converging function and an array of branching functions, returning a curried function the same arity as the longest branching function.
+
+Arguments to the curried function are applied to each branching function with their results being applied to the converging function.
+
+```
+const average = R.converge(R.divide, [R.sum, R.length])
+average([1, 2, 3, 4]) // => 2.5
+
+const addProps = R.converge(R.add, [R.prop('x'), R.prop('y')])
+addProps({ x: 1, y: 2 }) // => 3
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/converge.js)
+
+
 #### curry
 
 > curry(fn: Function): Function
@@ -239,6 +260,22 @@ It returns curried version of `fn`.
 ```
 const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)
+const f = curriedAddFourNumbers(1, 2)
+const g = f(3)
+const result = g(4) // => 10
+```
+
+[Source](https://github.com/selfrefactor/rambda/tree/master/src/curry.js)
+
+#### curryN
+
+> curryN(n: number, fn: Function): Function
+
+It returns curried version of `fn` with `n` number of arguments.
+
+```
+const sumArgs = (...args) => a + b + c + d
+const curriedAddFourNumbers = R.curryN(4, addFourNumbers)
 const f = curriedAddFourNumbers(1, 2)
 const g = f(3)
 const result = g(4) // => 10
