@@ -1,11 +1,13 @@
 const allDifferences = require('./allDifferences.json')
 const R = require('rambda')
-const { emptyDirSync, copySync } = require('fs-extra')
+const { emptyDirSync } = require('fs-extra')
 const { getIndent, indent } = require('string-fn')
 const { readFileSync, writeFileSync, existsSync } = require('fs')
-const { remove, replace, take, map, filter, piped } = require('rambdax')
+const { remove, replace, map, filter, piped } = require('rambdax')
 const { resolve } = require('path')
+
 const BASE = resolve(__dirname, '../')
+const OUTPUT = `${BASE}/failing_tests`
 
 const getOutputPath = x => `${ BASE }/outputs/${ x }.txt`
 const getTestPath = x => `${ BASE }/ramda/test/${ x }.js`
@@ -39,7 +41,6 @@ function withSingleMethod(method){
   const holder = []
 
   testContent.split('\n').forEach(line => {
-    // if(line.includes(`it('`)) console.log({counter, badCounter, line, target: goodTests[counter]})
     if (badTests[ badCounter ] && line.includes(badTests[ badCounter ])){
       indentCount = getIndent(line)
 
@@ -93,10 +94,8 @@ function withSingleMethod(method){
     return x
   })
 
-  writeFileSync(
-    `${ __dirname }/failing_tests/${ method }.js`,
-    toReturn.join('\n')
-    )
+  writeFileSync(`${ OUTPUT }/${ method }.js`,
+    toReturn.join('\n'))
 
   const differencePayload = allDifferences[ method ] ?
     { diffReason : allDifferences[ method ].reason } :
@@ -110,7 +109,7 @@ function withSingleMethod(method){
 }
 
 export async function writeSummary(){
-  const dir = `${ __dirname }/failing_tests`
+  const dir = `${ BASE }/failing_tests`
   emptyDirSync(dir)
 
   const allMethods = Object.keys(R)
@@ -129,11 +128,6 @@ export async function writeSummary(){
 
     summary.push(toAdd)
   })
-  // writeFileSync(`${ dir }/_SUMMARY.md`, summary)
 
-  // const ramdaDir = resolve(
-  //   __dirname,
-  //   '../../../../rambda/files/failing_ramda_tests'
-  // )
-  // copySync(dir, ramdaDir)
+  writeFileSync(`${ BASE }/_SUMMARY.md`, summary)
 }
