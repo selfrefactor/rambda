@@ -44,8 +44,9 @@
     "eslint": "^6.8.0",
     "esm": "3.2.25",
     "execa": "^4.0.0",
+    "fdir": "^2.1.0",
     "fs-extra": "8.1.0",
-    "helpers-fn": "0.1.1",
+    "helpers-fn": "0.2.0",
     "jest": "24.9.0",
     "jest-extended": "0.11.5",
     "lint-fn": "2.4.2",
@@ -103,6 +104,6 @@
     "fix": [
       "small"
     ],
-    "workInProgress": ""
+    "workInProgress": "run ramda specs"
   }
 }
