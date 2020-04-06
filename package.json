@@ -104,6 +104,6 @@
     "fix": [
       "small"
     ],
-    "workInProgress": "run ramda specs"
+    "workInProgress": ""
   }
 }

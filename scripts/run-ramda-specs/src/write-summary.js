@@ -1,9 +1,9 @@
 const allDifferences = require('./allDifferences.json')
 const R = require('rambda')
-const { emptyDirSync } = require('fs-extra')
+const { emptyDirSync, writeJson } = require('fs-extra')
 const { getIndent, indent } = require('string-fn')
 const { readFileSync, writeFileSync, existsSync } = require('fs')
-const { remove, replace, map, filter, piped } = require('rambdax')
+const { remove, replace, map, filter, piped, mapToObject } = require('rambdax')
 const { resolve } = require('path')
 
 const BASE = resolve(__dirname, '../')
@@ -118,6 +118,9 @@ export async function writeSummary(){
   const allFailingTests = allMethods
     .map(method => withSingleMethod(method))
     .filter(Boolean)
+   
+  const summaryJson = mapToObject(x => ({[x.method]: x}),allFailingTests)  
+   await writeJson(`${ BASE }/summary.json`, summaryJson)
 
   allFailingTests.forEach(({ content, method, diffReason }) => {
     const reasoning = diffReason ?
@@ -129,5 +132,5 @@ export async function writeSummary(){
     summary.push(toAdd)
   })
 
-  writeFileSync(`${ BASE }/_SUMMARY.md`, summary)
+  writeFileSync(`${ BASE }/_SUMMARY.md`, summary.join(''))
 }
