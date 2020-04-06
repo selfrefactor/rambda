@@ -5284,10 +5284,10 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-string-fn@2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.11.0.tgz#6488fda37c0b23e0c1d00434da174499a3b04aac"
-  integrity sha512-M69Gv1BjusS8pljB9Vo8MDcHBAA7MjRxOQVMWtcxFZGxZCImJXKQd4zlakXBaZdDZ35UhVve3QaVSurXInnCsw==
+string-fn@2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.11.1.tgz#2eee6bfa426c855255b4199b61185335ff0b5c6a"
+  integrity sha512-W/OAf3hwIGcGM8+oqP5wbm/mXOz/XIYIFncEHcVKuuY1erWsUbO9I5bb1zDA3DjgTTETtqEmtHm2Nn7tgxZKYw==
   dependencies:
     rambdax "3.7.0"
 
