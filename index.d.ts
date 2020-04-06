@@ -390,9 +390,9 @@ export function view<T, U>(lens: Lens, obj: T): U;
 
 
 export function map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
-export function map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
 export function map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
 export function map<T, U>(mapFn: MapFunctionArray<T, U>): (x: T[]) => U[];
+export function map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
 export function map<T>(mapFn: MapFunctionArray<T, T>): (x: T[]) => T[];
 export function map<T>(mapFn: MapFunctionArray<T, T>, x: ReadonlyArray<T>): T[];
 
