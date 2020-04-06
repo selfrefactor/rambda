@@ -2,8 +2,8 @@ import { equals } from './equals'
 import { groupWith } from './groupWith'
 
 test('issue is fixed', () => {
-  const expected = [ [ 1 ], [ 2, 2 ], [ 3 ] ]
   const result = groupWith(equals, [ 1, 2, 2, 3 ])
+  const expected = [ [ 1 ], [ 2, 2 ], [ 3 ] ]
   expect(result).toEqual(expected)
 })
 

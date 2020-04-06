@@ -89,7 +89,8 @@
       "prepublish",
       "lint",
       "typings",
-      "benchmark"
+      "benchmark",
+      "refactor"
     ],
     "feature": [
       "method",
