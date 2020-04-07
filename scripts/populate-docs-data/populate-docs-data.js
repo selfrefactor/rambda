@@ -4,6 +4,7 @@ import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
 import { extractNotes } from './extract-from-typings/extract-notes'
+import { failedRamdaTests } from './extracts/failed-ramda-tests'
 
 function mergeObjects(
   source, newSourceKey, objectOfObjects
@@ -34,6 +35,7 @@ export function populateDocsData(){
   const examples = extractExample()
   const explanations = extractExplanation()
   const notes = extractNotes()
+  const failedRamdaSpecs = failedRamdaTests()
 
   // const dataToInject = {
   //   example: pick('pipe,add,adjust')(examples),
@@ -45,6 +47,7 @@ export function populateDocsData(){
     example     : examples,
     note        : notes,
     explanation : explanations,
+    failedRamdaSpecs,
   }
 
   return mergeObjects(
