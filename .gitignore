@@ -3,4 +3,5 @@
 *.log
 coverage
 node_modules
-scripts/run-ramda-specs/ramdaz/*
+scripts/run-ramda-specs/ramda
+scripts/run-ramda-specs/ramda/*
