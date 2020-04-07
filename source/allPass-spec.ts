@@ -1,4 +1,4 @@
-import { allPass } from 'rambda'
+import {allPass} from 'rambda'
 
 describe('allPass', () => {
   it('happy', () => {
@@ -13,5 +13,5 @@ describe('allPass', () => {
     ])(11)
 
     x // $ExpectType boolean
-  });
-});
+  })
+})

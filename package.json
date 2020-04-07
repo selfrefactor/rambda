@@ -41,12 +41,12 @@
     "babel-jest": "25.2.6",
     "cross-env": "7.0.2",
     "dtslint": "3.4.1",
+    "fdir": "2.1.0",
     "helpers-fn": "0.2.0",
     "jest": "25.2.7",
     "jest-extended": "0.11.5",
     "lint-fn": "2.4.2",
     "lodash": "4.17.15",
-    "fdir": "2.1.0",
     "maided": "0.1.2",
     "rambdax": "3.7.0",
     "ramda": "0.27.0",
@@ -63,7 +63,9 @@
     "typescript": "3.8.3",
     "typescript-formatter": "7.2.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fs-extra": "^9.0.0"
+  },
   "files": [
     "dist",
     "src",

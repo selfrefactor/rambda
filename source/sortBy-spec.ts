@@ -1,17 +1,19 @@
-import { sortBy } from 'rambda'
+import {sortBy} from 'rambda'
 
 describe('sortBy', () => {
   it('happy', () => {
-    interface Input {a: number}
+    interface Input {
+      a: number,
+    }
 
-    function fn(x: Input): number{
+    function fn(x: Input): number {
       return x.a
     }
 
-    const input: Array<Input> = [ { a : 2 }, { a : 1 }, { a : 0 } ]
-    const result =  sortBy(fn, input)
+    const input: Input[] = [{a: 2}, {a: 1}, {a: 0}]
+    const result = sortBy(fn, input)
 
     result // $ExpectType Input[]
     result[0].a // $ExpectType number
-  });
-});
+  })
+})
