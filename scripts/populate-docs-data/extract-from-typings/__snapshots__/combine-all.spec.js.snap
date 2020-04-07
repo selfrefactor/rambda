@@ -9,18 +9,35 @@ Object {
     "typing": "T(): boolean",
   },
   "add": Object {
-    "examples": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
-    "explanations": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
+    "example": "\`\`\`javascript
+R.add(2, 3) // =>  5
+\`\`\`",
+    "explanation": "It adds \`a\` and \`b\`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
+    "note": "It doesn't work with strings",
     "typing": "add(a: number, b: number): number",
   },
   "adjust": Object {
-    "examples": "It replaces \`index\` in array \`list\` with the result of \`replaceFn(arr[i])\`.",
-    "explanations": "It replaces \`index\` in array \`list\` with the result of \`replaceFn(arr[i])\`.",
+    "example": "\`\`\`javascript
+R.adjust(
+  0,
+  a => a + 1,
+  [0, 100]
+) // => [1, 100]
+\`\`\`",
+    "explanation": "It replaces \`index\` in array \`list\` with the result of \`replaceFn(arr[i])\`.",
+    "note": "",
     "typing": "adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]",
   },
   "all": Object {
-    "examples": "It returns \`true\`, if all members of array \`list\` returns \`true\`, when applied as argument to \`predicate\` function.",
-    "explanations": "It returns \`true\`, if all members of array \`list\` returns \`true\`, when applied as argument to \`predicate\` function.",
+    "example": "\`\`\`javascript
+const list = [ 0, 1, 2, 3, 4 ]
+const predicate = x => x > -1
+
+const result = R.all(fn, arr)
+// => true
+\`\`\`",
+    "explanation": "It returns \`true\`, if all members of array \`list\` returns \`true\`, when applied as argument to \`predicate\` function.",
+    "note": "",
     "typing": "all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
   },
   "allPass": Object {
@@ -371,8 +388,9 @@ Object {
     "typing": "toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][]",
   },
   "toString": Object {
-    "examples": [Function],
-    "explanations": [Function],
+    "example": [Function],
+    "explanation": [Function],
+    "note": [Function],
     "typing": "toString<T>(val: T): string",
   },
   "toUpper": Object {

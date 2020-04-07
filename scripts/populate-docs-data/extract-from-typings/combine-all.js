@@ -1,4 +1,4 @@
-import { map, mapToObject, pluck } from 'rambdax'
+import { map, mapToObject, pluck, pick } from 'rambdax'
 
 import { extractDefinition } from './extract-definition'
 import { extractExample } from './extract-example'
@@ -12,10 +12,13 @@ function mergeObjects(
   const listOfObjects = Object.values(objectOfObjects)
 
   return map((sourceValue, sourceProp) => {
-    const withMergedProps = mapToObject(singleKey => {
+    const withMergedProps = mapToObject(() => {
       const plucked = pluck(sourceProp, listOfObjects)
-
-      return mapToObject(singlePlucked => ({ [ singleKey ] : singlePlucked }))(plucked)
+      const toReturn = {}
+      plucked.forEach((x,i) => {
+        toReturn[keys[i]] = x
+      })
+      return toReturn
     })(keys)
 
     return {
@@ -30,11 +33,19 @@ export function combineAll(){
   const examples = extractExample()
   const explanations = extractExplanation()
   const notes = extractNotes()
+  // const dataToInject = {
+  //   example: pick('pipe,add,adjust')(examples),
+  //   note: pick('pipe,add,adjust')(notes),
+  //   explanation: pick('pipe,add,adjust')(explanations),
+  // }
+  const dataToInject = {
+    example: examples,
+    note: notes,
+    explanation: explanations,
+  }
 
   return mergeObjects(
-    definitions, 'typing', {
-      examples,
-      explanations,
-    }
+    definitions, 'typing', dataToInject
+    // pick('pipe,add,adjust')(definitions), 'typing', dataToInject
   )
 }
