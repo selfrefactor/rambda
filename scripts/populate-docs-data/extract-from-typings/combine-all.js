@@ -3,6 +3,7 @@ import { map, mapToObject, pluck } from 'rambdax'
 import { extractDefinition } from './extract-definition'
 import { extractExample } from './extract-example'
 import { extractExplanation } from './extract-explanation'
+import { extractNotes } from './extract-notes'
 
 function mergeObjects(
   source, newSourceKey, objectOfObjects
@@ -28,6 +29,7 @@ export function combineAll(){
   const definitions = extractDefinition()
   const examples = extractExample()
   const explanations = extractExplanation()
+  const notes = extractNotes()
 
   return mergeObjects(
     definitions, 'typing', {
