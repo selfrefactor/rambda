@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const R = require('../dist/rambda.js')
+const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 
 const arr = [ 1, 2, 3, 4 ]

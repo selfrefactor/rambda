@@ -1,16 +1,35 @@
-process.env.BENCHMARK_FOLDER = 'benchmarks/benchmark_results'
-const fs = require('fs')
-const path = require('path')
-const { createBenchmark } = require('helpers-fn')
-const { mapAsync, filter, dropLast } = require('rambdax')
+process.env.BENCHMARK_FOLDER =
+  'scripts/run-benchmarks/benchmarks/benchmark_results'
+import fdir from 'fdir'
+import { createBenchmark } from 'helpers-fn'
+import { parse } from 'path'
+import { mapAsync } from 'rambdax'
 
-export async function runBenchmarks(singleMethod){
-  // const allBenchmarksList = filter(
-  //   x => ![ 'indexProve.js', 'benchmark_results' ].includes(x),
-  //   fs.readdirSync(__dirname)
-  // ).map(dropLast(3))
+async function getAllBenchmarks(){
+  const methods = []
+  const allBenchmarksRaw = await fdir.async(`${ __dirname }/benchmarks`)
+  const allBenchmarks = allBenchmarksRaw.filter(filePath => {
+    if (filePath.includes('benchmark_results')) return false
+    methods.push(parse(filePath).name)
+  })
 
-  // const allBenchmarks = singleMethod ? [ singleMethod ] : allBenchmarksList
+  return {
+    filePaths : allBenchmarks,
+    methods,
+  }
+}
+
+export async function runSingleBenchmark(singleMethod){
+  const { methods } = await getAllBenchmarks()
+  if (!methods.includes(singleMethod))
+    throw new Error('this method has no benchmark')
+
+  const required = require(`${ __dirname }/benchmarks/${ singleMethod }.js`)
+  createBenchmark({ [ singleMethod ] : required })
+}
+
+export async function runBenchmarks(){
+  const { filePaths } = await getAllBenchmarks()
 
   // await mapAsync(async singleBenchmark => {
   //   const required = require(path.join(__dirname, `${ singleBenchmark }.js`))

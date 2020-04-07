@@ -5,5 +5,5 @@
   ],
   "prCreation": "status-success",
   "branchPrefix":"deps/",
-  "commitMessageAction": "chore@dep"
+  "commitMessageAction": "chore:"
 }

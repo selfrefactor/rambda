@@ -1,4 +1,4 @@
-const R = require('../dist/rambda.js')
+const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 
 const match = [

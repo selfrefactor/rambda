@@ -8,7 +8,6 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "tslint": "maided tslint",
     "populate": "maided populate",
     "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "fix": "mkdir $HOME/.dts/perf -p"
