@@ -1,25 +1,25 @@
 {
   "name": "REPLACE",
-  "date": "2019-11-13T11:31:15.547Z",
+  "date": "2020-04-07T18:00:37.826Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 7106810,
-      "margin": 1.46,
+      "ops": 4134648,
+      "margin": 0.83,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 4559147,
-      "margin": 1.82,
-      "percentSlower": 35.85
+      "ops": 2819336,
+      "margin": 0.41,
+      "percentSlower": 31.81
     },
     {
       "name": "Lodash",
-      "ops": 6752550,
-      "margin": 1.33,
-      "percentSlower": 4.98
+      "ops": 4091635,
+      "margin": 0.32,
+      "percentSlower": 1.04
     }
   ],
   "fastest": {

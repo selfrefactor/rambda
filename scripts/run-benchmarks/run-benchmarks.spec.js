@@ -1,7 +1,9 @@
-import { runBenchmarks, runSingleBenchmark } from './run-benchmarks.js'
 import { ms } from 'string-fn'
-jest.setTimeout(ms('4 minutes'))
+
+import { runAllBenchmarks, runSingleBenchmark } from './run-benchmarks.js'
+jest.setTimeout(ms('15 minutes'))
 
 test('happy', async () => {
+  // await runAllBenchmarks()
   // await runSingleBenchmark('add')
 })

@@ -1,19 +1,19 @@
 {
   "name": "DROP",
-  "date": "2019-11-13T11:25:36.230Z",
+  "date": "2020-04-07T17:53:51.762Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 43744156,
-      "margin": 2.61,
+      "ops": 26308249,
+      "margin": 1.95,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 4724526,
-      "margin": 0.76,
-      "percentSlower": 89.2
+      "ops": 549460,
+      "margin": 2.3,
+      "percentSlower": 97.91
     }
   ],
   "fastest": {

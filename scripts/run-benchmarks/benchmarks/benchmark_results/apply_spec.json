@@ -1,19 +1,19 @@
 {
   "name": "APPLY_SPEC",
-  "date": "2020-03-01T15:52:32.038Z",
+  "date": "2020-04-07T17:52:01.846Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1808758,
-      "margin": 2.02,
+      "ops": 563712,
+      "margin": 1.33,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 309311,
-      "margin": 1.12,
-      "percentSlower": 82.9
+      "ops": 182362,
+      "margin": 2.96,
+      "percentSlower": 67.65
     }
   ],
   "fastest": {

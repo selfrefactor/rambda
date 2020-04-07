@@ -3,37 +3,35 @@ process.env.BENCHMARK_FOLDER =
 import fdir from 'fdir'
 import { createBenchmark } from 'helpers-fn'
 import { parse } from 'path'
-import { mapAsync } from 'rambdax'
+import { mapAsyncLimit } from 'rambdax'
 
 async function getAllBenchmarks(){
-  const methods = []
-  const allBenchmarksRaw = await fdir.async(`${ __dirname }/benchmarks`)
-  const allBenchmarks = allBenchmarksRaw.filter(filePath => {
-    if (filePath.includes('benchmark_results')) return false
-    methods.push(parse(filePath).name)
-  })
+  const files = await fdir.async(`${ __dirname }/benchmarks`)
 
-  return {
-    filePaths : allBenchmarks,
-    methods,
-  }
+  return files
+    .filter(filePath => !filePath.includes('benchmark_results'))
+    .map(filePath => parse(filePath).name)
 }
 
 export async function runSingleBenchmark(singleMethod){
-  const { methods } = await getAllBenchmarks()
-  if (!methods.includes(singleMethod))
+  const methodsWithBenchmarks= await getAllBenchmarks()
+  if (!methodsWithBenchmarks.includes(singleMethod)){
+
     throw new Error('this method has no benchmark')
+  }
 
   const required = require(`${ __dirname }/benchmarks/${ singleMethod }.js`)
   createBenchmark({ [ singleMethod ] : required })
 }
 
-export async function runBenchmarks(){
-  const { filePaths } = await getAllBenchmarks()
+export async function runAllBenchmarks(){
+  console.time('run.all.benchmarks')
+  const methodsWithBenchmarks = await getAllBenchmarks()
+  const iterable = async singleMethod => {
+    const required = require(`${ __dirname }/benchmarks/${ singleMethod }.js`)
+    createBenchmark({ [ singleMethod ] : required })
+  }
 
-  // await mapAsync(async singleBenchmark => {
-  //   const required = require(path.join(__dirname, `${ singleBenchmark }.js`))
-  //   console.log(singleBenchmark)
-  //   createBenchmark({ [ singleBenchmark ] : required })
-  // })(allBenchmarks)
+  await mapAsyncLimit(iterable, 5, methodsWithBenchmarks)
+  console.timeEnd('run.all.benchmarks')
 }

@@ -1,27 +1,27 @@
 {
   "name": "CURRY_N",
-  "date": "2020-04-02T17:19:34.776Z",
+  "date": "2020-04-07T17:53:24.164Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 2802714,
-      "margin": 1.09,
-      "percentSlower": 0
+      "ops": 707126,
+      "margin": 3.08,
+      "percentSlower": 53.6
     },
     {
       "name": "Ramda",
-      "ops": 2184231,
-      "margin": 1.82,
-      "percentSlower": 22.07
+      "ops": 1523968,
+      "margin": 3.39,
+      "percentSlower": 0
     }
   ],
   "fastest": {
-    "name": "Rambda",
-    "index": 0
-  },
-  "slowest": {
     "name": "Ramda",
     "index": 1
+  },
+  "slowest": {
+    "name": "Rambda",
+    "index": 0
   }
 }

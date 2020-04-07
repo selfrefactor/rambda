@@ -1,24 +1,24 @@
 {
   "name": "PATH",
-  "date": "2019-11-13T11:29:31.554Z",
+  "date": "2020-04-07T17:58:53.949Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 47917103,
-      "margin": 0.95,
-      "percentSlower": 0.34
+      "ops": 24769178,
+      "margin": 0.91,
+      "percentSlower": 5.49
     },
     {
       "name": "Ramda",
-      "ops": 22710828,
-      "margin": 2.5,
-      "percentSlower": 52.76
+      "ops": 5668921,
+      "margin": 0.61,
+      "percentSlower": 78.37
     },
     {
       "name": "Lodash",
-      "ops": 48079429,
-      "margin": 0.86,
+      "ops": 26209203,
+      "margin": 0.26,
       "percentSlower": 0
     }
   ],

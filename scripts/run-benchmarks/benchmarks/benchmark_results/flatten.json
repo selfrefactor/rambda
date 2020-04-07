@@ -1,24 +1,24 @@
 {
   "name": "FLATTEN",
-  "date": "2019-11-13T11:27:09.375Z",
+  "date": "2020-04-07T17:55:25.119Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 22853375,
-      "margin": 0.55,
-      "percentSlower": 10.31
+      "ops": 438516,
+      "margin": 1.08,
+      "percentSlower": 96.51
     },
     {
       "name": "Ramda",
-      "ops": 911163,
-      "margin": 0.55,
-      "percentSlower": 96.42
+      "ops": 545221,
+      "margin": 4.91,
+      "percentSlower": 95.67
     },
     {
       "name": "Lodash",
-      "ops": 25479962,
-      "margin": 1.02,
+      "ops": 12580257,
+      "margin": 0.35,
       "percentSlower": 0
     }
   ],
@@ -27,7 +27,7 @@
     "index": 2
   },
   "slowest": {
-    "name": "Ramda",
-    "index": 1
+    "name": "Rambda",
+    "index": 0
   }
 }

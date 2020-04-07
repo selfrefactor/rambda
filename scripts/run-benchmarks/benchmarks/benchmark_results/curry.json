@@ -1,19 +1,19 @@
 {
   "name": "CURRY",
-  "date": "2019-11-13T11:25:08.743Z",
+  "date": "2020-04-07T17:53:13.384Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 4012015,
-      "margin": 0.82,
+      "ops": 2327589,
+      "margin": 2,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 2288738,
-      "margin": 0.65,
-      "percentSlower": 42.95
+      "ops": 1063996,
+      "margin": 6.07,
+      "percentSlower": 54.29
     }
   ],
   "fastest": {
