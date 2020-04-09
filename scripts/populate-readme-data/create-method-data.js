@@ -67,10 +67,14 @@ const getIntro = ({methodName, typing}) =>{
   return [ `### ${ methodName }`, '\n\n', `> ${ typing }`, '\n\n' ]
 }
 
+function createReplReadme({replLink, methodName}){
+  return `\n<a href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
+}
+
 export function createMethodData(method){
   const data = getIntro(method)
   const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
-  
+
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
   if (method.example)data.push(createExampleReadme(method))
@@ -78,7 +82,7 @@ export function createMethodData(method){
   if (method.rambdaSpecs)data.push(createRambdaSpecReadme(method))
   if (method.typescriptDefinitionTest)data.push(createTypescriptTest(method))
   if (hasFailedSpec)data.push(createFailedSpec(method))
-  if (method.typescriptSpecs)data.push(method.typescriptSpecs)
+  if (method.replLink)data.push(createReplReadme(method))
 
   return data.join('')
 }
