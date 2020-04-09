@@ -228,11 +228,7 @@ R.add(2, 3) // =>  5
 
 <details>
 
-<summary>
-
-**Rambda.add** tests
-
-</summary>
+<summary>Rambda.add tests</summary>
 
 ```javascript
 import { add } from './add'
@@ -275,11 +271,7 @@ R.adjust(
 
 <details>
 
-<summary>
-
-**Rambda.adjust** tests
-
-</summary>
+<summary>Rambda.adjust tests</summary>
 
 ```javascript
 import { add } from './add'
@@ -326,12 +318,9 @@ test('when index is out of bounds', () => {
 
 <details>
 
-<summary>
-
-Failed **Ramda.adjust** specs
+<summary> Failed Ramda.adjust specs
 
 > Reason for the failure: ramda accepts an array-like object
-
 </summary>
 
 ```javascript
@@ -368,11 +357,7 @@ const result = R.all(fn, arr)
 
 <details>
 
-<summary>
-
-**Rambda.all** tests
-
-</summary>
+<summary>Rambda.all tests</summary>
 
 ```javascript
 import { all } from './all'

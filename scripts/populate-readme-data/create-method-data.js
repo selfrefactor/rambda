@@ -4,12 +4,9 @@ function createFailedSpecReadme(method){
   const summaryTemplate = `
 <details>
 
-<summary>
-
-Failed **Ramda.{{methodName}}** specs
+<summary> Failed Ramda.{{methodName}} specs
 
 > Reason for the failure: {{failedSpecsReasons}}
-
 </summary>
 
 \`\`\`javascript
@@ -27,11 +24,7 @@ function createRambdaSpecReadme({methodName, rambdaSpecs}){
   const summaryTemplate = `
 <details>
 
-<summary>
-
-**Rambda.{{methodName}}** tests
-
-</summary>
+<summary>Rambda.{{methodName}} tests</summary>
 
 \`\`\`javascript
 {{rambdaSpecs}}
