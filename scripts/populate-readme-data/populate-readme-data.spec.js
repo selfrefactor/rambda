@@ -1,5 +1,7 @@
+import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from './populate-readme-data.js'
 
-test('happy', async () => {
+test('generate final readme file', async () => {
+  await populateDocsData()
   expect(await populateReadmeData()).toMatchSnapshot()
 })

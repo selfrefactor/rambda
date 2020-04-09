@@ -1,8 +1,274 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`happy 1`] = `
+exports[`generate final readme file 1`] = `
 "
-INTRO_FOO
+
+[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
+[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
+![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
+![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
+
+# Rambda
+
+Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
+
+## Example use
+
+\`\`\`javascript
+import { compose, map, filter } from 'rambda'
+
+const result = compose(
+  map(x => x * 2),
+  filter(x => x > 2)
+)([1, 2, 3, 4])
+// => [6, 8]
+\`\`\`
+
+You can test this example in <a href=\\"https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D\\">Rambda's REPL</a>
+
+* [Install](#install)
+* [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
+* [API](#api)
+* [Use with ES5](#use-with-es5)
+* [Changelog](#changelog)
+* [Additional info](#additional-info)
+
+## Rambda's advantages
+
+- Tree-shaking
+
+Currently **Rambda** is more tree-shakable than **Ramda**
+
+---
+
+- Speed
+
+**Rambda** is generally more performant than \`Ramda\` as the benchmarks can prove that.
+
+<details>
+
+<summary>
+Click to expand all benchmark results
+
+Note that some methods benchmarked only with \`Ramda\` and \`Rambda\`(i.e. no \`Lodash\`), are called with and without curring. This is done in order to give more detailed performance feedback.
+
+</summary>
+
+method | Rambda | Ramda | Lodash
+--- |--- | --- | ---
+ *add* | 🚀 Fastest | 28.16% slower | 76.17% slower
+ *adjust* | 🚀 Fastest | 2.8% slower | 🔳
+ *all* | 🚀 Fastest | 89.64% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.48% slower | 🔳
+ *any* | 🚀 Fastest | 92.1% slower | 29.4% slower
+ *anyPass* | 🚀 Fastest | 98.67% slower | 🔳
+ *append* | 🚀 Fastest | 85.14% slower | 🔳
+ *applySpec* | 🚀 Fastest | 82.9% slower | 🔳
+ *assoc* | 76.71% slower | 63.5% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 93.55% slower | 88.95% slower
+ *compose* | 🚀 Fastest | 95.09% slower | 79.91% slower
+ *curry* | 🚀 Fastest | 42.95% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 41.61% slower | 🔳
+ *drop* | 🚀 Fastest | 89.2% slower | 🔳
+ *dropLast* | 🚀 Fastest | 91.53% slower | 🔳
+ *equals* | 🚀 Fastest | 84.87% slower | 59.82% slower
+ *filter* | 🚀 Fastest | 72.63% slower | 11.78% slower
+ *find* | 🚀 Fastest | 47.89% slower | 60.19% slower
+ *findIndex* | 🚀 Fastest | 90.6% slower | 84.75% slower
+ *flatten* | 10.31% slower | 96.42% slower | 🚀 Fastest
+ *ifElse* | 🚀 Fastest | 23.16% slower | 🔳
+ *includes* | 🚀 Fastest | 66.8% slower | 🔳
+ *indexOf* | 🚀 Fastest | 69.38% slower | 0.64% slower
+ *init* | 🚀 Fastest | 94.17% slower | 2.63% slower
+ *is* | 🚀 Fastest | 44.05% slower | 🔳
+ *isEmpty* | 37.68% slower | 92.85% slower | 🚀 Fastest
+ *last* | 🚀 Fastest | 99.02% slower | 3.5% slower
+ *lastIndexOf* | 🚀 Fastest | 45.56% slower | 🔳
+ *map* | 🚀 Fastest | 87.72% slower | 23.59% slower
+ *match* | 🚀 Fastest | 52.01% slower | 🔳
+ *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
+ *none* | 🚀 Fastest | 66.57% slower | 🔳
+ *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
+ *over* | 🚀 Fastest | 56.26% slower | 🔳
+ *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
+ *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
+ *prop* | 🚀 Fastest | 94.38% slower | 🔳
+ *propEq* | 🚀 Fastest | 90.34% slower | 🔳
+ *range* | 🚀 Fastest | 63.45% slower | 50.56% slower
+ *reduce* | 71.84% slower | 84.24% slower | 🚀 Fastest
+ *repeat* | 55.51% slower | 83.45% slower | 🚀 Fastest
+ *replace* | 🚀 Fastest | 35.85% slower | 4.98% slower
+ *set* | 🚀 Fastest | 57.61% slower | 🔳
+ *sort* | 🚀 Fastest | 28.43% slower | 🔳
+ *sortBy* | 🚀 Fastest | 16.52% slower | 72.48% slower
+ *split* | 🚀 Fastest | 56.27% slower | 28.78% slower
+ *splitEvery* | 🚀 Fastest | 74.75% slower | 🔳
+ *take* | 🚀 Fastest | 96% slower | 26.07% slower
+ *takeLast* | 🚀 Fastest | 96.37% slower | 28.53% slower
+ *test* | 🚀 Fastest | 86.86% slower | 🔳
+ *type* | 19.76% slower | 🚀 Fastest | 🔳
+ *uniq* | 99.56% slower | 96.54% slower | 🚀 Fastest
+ *update* | 🚀 Fastest | 87.94% slower | 🔳
+ *view* | 🚀 Fastest | 69.35% slower | 🔳
+
+</details>
+
+---
+
+- dot notation for \`R.path\` and \`R.paths\`
+
+Standard usage of \`R.path\` is \`R.path(['a', 'b'], {a: {b: 1} })\`.
+
+In **Rambda** you have the choice to use dot notation(which is arguably more readable):
+
+\`\`\`
+R.path('a.b', {a: {b: 1} })
+\`\`\`
+
+---
+
+- comma notation for \`R.pick\` and \`R.omit\`
+
+Similar to dot notation, but the separator is comma(\`,\`) instead of dot(\`.\`).
+
+\`\`\`
+R.pick('a,b', {a: 1 , b: 2, c: 3} })
+
+// No space allowed between properties
+\`\`\`
+
+---
+
+- Typescript included
+
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install \`@types/ramda\`.
+
+- More generic methods
+
+\`Ramda\` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. \`Rambda\`'s much smaller number of total methods(124) I see as advantage compared to the 255 of \`Ramda\`.
+
+Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
+
+You can [check the list with missing  Ramda methods in Rambda](https://github.com/selfrefactor/rambda/blob/master/files/ramdaMissing.md)  list to assure that \`Rambda\` doesn't have any important misses.
+
+## Install
+
+- **yarn add rambda**
+
+- For UMD usage either use \`./dist/rambda.umd.js\` or following CDN link:
+
+\`\`\`
+https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
+\`\`\`
+
+## Differences between Rambda and Ramda
+
+- Rambda's **type** detect async functions and unresolved \`Promises\`. The returned values are \`'Async'\` and \`'Promise'\`.
+
+- Rambda's **type** handle \`NaN\` input, in which case it returns \`\\"NaN\\"\`.
+
+- Rambda's **path** and **paths** accepts dot notation(\`'x.y' same as ['x','y']\`)
+
+- Rambda's **pick** and **omit** accept comma notation(\`'x,y' same as ['x','y']\`)
+
+- Rambda's **map**, **filter**, **reject** and **forEach** can iterate over objects not only arrays.
+
+- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
+
+- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. \`R.defaultTo(2, foo, bar, baz)\`.
+
+- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
+
+- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
+
+- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
+
+- Rambda's **flip** works only for functions expecting two arguments.
+
+- Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+
+- Rambda's **filter** returns empty array with bad input(\`null\` or \`undefined\`), while Ramda throws.
+
+- Ramda's **includes** will throw an error if input is neither \`string\` nor \`array\`, while **Rambda** version will return \`false\`.
+
+- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+
+> If you need more **Ramda** methods in **Rambda**, you may either submit a \`PR\` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
+
+---
+
+
+<details>
+
+<summary>
+Click to expand all benchmark results
+
+There are methods which are benchmarked only with \`Ramda\` and \`Rambda\`(i.e. no \`Lodash\`).
+
+Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
+
+</summary>
+
+ *add* | 🚀 Fastest | 28.16% slower | 76.17% slower
+ *adjust* | 🚀 Fastest | 2.8% slower | 🔳
+ *all* | 🚀 Fastest | 89.64% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.48% slower | 🔳
+ *any* | 🚀 Fastest | 92.1% slower | 29.4% slower
+ *anyPass* | 🚀 Fastest | 98.67% slower | 🔳
+ *append* | 🚀 Fastest | 85.14% slower | 🔳
+ *applySpec* | 🚀 Fastest | 82.9% slower | 🔳
+ *assoc* | 76.71% slower | 63.5% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 93.55% slower | 88.95% slower
+ *compose* | 🚀 Fastest | 95.09% slower | 79.91% slower
+ *converge* | 72.48% slower | 🚀 Fastest | 🔳
+ *curry* | 🚀 Fastest | 42.95% slower | 🔳
+ *curryN* | 🚀 Fastest | 22.07% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 41.61% slower | 🔳
+ *drop* | 🚀 Fastest | 89.2% slower | 🔳
+ *dropLast* | 🚀 Fastest | 91.53% slower | 🔳
+ *equals* | 🚀 Fastest | 84.87% slower | 59.82% slower
+ *filter* | 🚀 Fastest | 72.63% slower | 11.78% slower
+ *find* | 🚀 Fastest | 47.89% slower | 60.19% slower
+ *findIndex* | 🚀 Fastest | 90.6% slower | 84.75% slower
+ *flatten* | 10.31% slower | 96.42% slower | 🚀 Fastest
+ *ifElse* | 🚀 Fastest | 23.16% slower | 🔳
+ *includes* | 🚀 Fastest | 66.8% slower | 🔳
+ *indexOf* | 🚀 Fastest | 69.38% slower | 0.64% slower
+ *init* | 🚀 Fastest | 94.17% slower | 2.63% slower
+ *is* | 🚀 Fastest | 44.05% slower | 🔳
+ *isEmpty* | 37.68% slower | 92.85% slower | 🚀 Fastest
+ *last* | 🚀 Fastest | 99.02% slower | 3.5% slower
+ *lastIndexOf* | 🚀 Fastest | 45.56% slower | 🔳
+ *map* | 🚀 Fastest | 87.72% slower | 23.59% slower
+ *match* | 🚀 Fastest | 52.01% slower | 🔳
+ *merge* | 🚀 Fastest | 29.34% slower | 67.66% slower
+ *none* | 🚀 Fastest | 66.57% slower | 🔳
+ *omit* | 🚀 Fastest | 72.93% slower | 97.97% slower
+ *over* | 🚀 Fastest | 56.26% slower | 🔳
+ *path* | 0.34% slower | 52.76% slower | 🚀 Fastest
+ *pick* | 🚀 Fastest | 24.06% slower | 88.13% slower
+ *prop* | 🚀 Fastest | 94.38% slower | 🔳
+ *propEq* | 🚀 Fastest | 90.34% slower | 🔳
+ *range* | 🚀 Fastest | 63.45% slower | 50.56% slower
+ *reduce* | 71.84% slower | 84.24% slower | 🚀 Fastest
+ *repeat* | 55.51% slower | 83.45% slower | 🚀 Fastest
+ *replace* | 🚀 Fastest | 35.85% slower | 4.98% slower
+ *set* | 🚀 Fastest | 57.61% slower | 🔳
+ *sort* | 🚀 Fastest | 28.43% slower | 🔳
+ *sortBy* | 🚀 Fastest | 16.52% slower | 72.48% slower
+ *split* | 🚀 Fastest | 56.27% slower | 28.78% slower
+ *splitEvery* | 🚀 Fastest | 74.75% slower | 🔳
+ *take* | 🚀 Fastest | 96% slower | 26.07% slower
+ *takeLast* | 🚀 Fastest | 96.37% slower | 28.53% slower
+ *test* | 🚀 Fastest | 86.86% slower | 🔳
+ *type* | 19.76% slower | 🚀 Fastest | 🔳
+ *uniq* | 99.56% slower | 96.54% slower | 🚀 Fastest
+ *update* | 🚀 Fastest | 87.94% slower | 🔳
+ *view* | 🚀 Fastest | 69.35% slower | 🔳
+
+<details>
+
 
 ## API
 

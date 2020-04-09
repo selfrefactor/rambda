@@ -2,22 +2,9 @@ import { outputFile } from 'fs-extra'
 import { map, template } from 'rambdax'
 
 import methodsData from '../populate-docs-data/data.json'
-import { rambdaRepl } from './rambda-repl'
 import { createMethodData } from './create-method-data'
-
-const INTRO = 'INTRO_FOO'
-const PART1 = 'PART1_FOO'
-const PART2 = 'PART2'
-const PART3 = 'PART3'
-
-const readmeTemplate = `
-{{intro}}
-
-## API
-
-{{methods}}
-
-`
+import { getIntro } from './get-intro'
+import { rambdaRepl } from './rambda-repl'
 
 export async function populateReadmeData(){
   const methods = map(x => {
@@ -34,11 +21,13 @@ export async function populateReadmeData(){
       ...methods[ key ],
       methodName : key,
     }))
-    .sort((x, y) => x.methodName.toLowerCase() > y.methodName.toLowerCase() ? 1 : -1)
+    .sort((x, y) =>
+      x.methodName.toLowerCase() > y.methodName.toLowerCase() ? 1 : -1)
     .map(createMethodData)
 
+  const intro = await getIntro()
   const templateData = {
-    intro      : INTRO,
+    intro,
     firstPart  : PART1,
     secondPart : PART2,
     thirdPart  : PART3,
