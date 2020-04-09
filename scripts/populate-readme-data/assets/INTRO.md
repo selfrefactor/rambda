@@ -2,8 +2,6 @@
 
 Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/selfrefactor/rambda.svg?style=flat-square)
-
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
