@@ -68,7 +68,7 @@ const getIntro = ({methodName, typing}) =>{
 }
 
 function createReplReadme({replLink, methodName}){
-  return `\n<a href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
+  return `\n<a target="blank" href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
 }
 
 export function createMethodData(method){
