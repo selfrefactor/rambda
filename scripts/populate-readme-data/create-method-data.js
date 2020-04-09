@@ -68,6 +68,7 @@ const getIntro = ({methodName, typing}) =>{
 }
 
 function createReplReadme({replLink, methodName}){
+  return `\n[Try R.${methodName} in REPL](${replLink}){:target="_blank"}`
   return `\n<a target="_blank" href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
 }
 
