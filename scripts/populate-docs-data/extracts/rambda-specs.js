@@ -3,7 +3,7 @@ import { getMethods } from '../extract-from-typings/get-methods'
 import {readFile, existsSync} from 'fs-extra'
 import { resolve } from 'path'
 
-async function mapToObjectAsync(iterable, list){
+export async function mapToObjectAsync(iterable, list){
   let toReturn = {}
   const innerIterable = async (x) => {
     const intermediateResult = await iterable(x)

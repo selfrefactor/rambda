@@ -228,7 +228,7 @@ R.add(2, 3) // =>  5
 
 <details>
 
-<summary>Rambda.add tests</summary>
+<summary>Tests</summary>
 
 ```javascript
 import { add } from './add'
@@ -254,6 +254,25 @@ test('ramda specs', () => {
 
 </details>
 
+<details>
+
+<summary>Typescript test</summary>
+
+```typescript
+import {add} from 'rambda'
+
+describe('add', () => {
+  it('number', () => {
+    const resultA = add(4)(1) // $ExpectType number
+    resultA // $ExpectType number
+    const resultB = add(4, 1) // $ExpectType number
+    resultB // $ExpectType number
+  })
+})
+```
+
+</details>
+
 
 ### adjust
 
@@ -271,7 +290,7 @@ R.adjust(
 
 <details>
 
-<summary>Rambda.adjust tests</summary>
+<summary>Tests</summary>
 
 ```javascript
 import { add } from './add'
@@ -357,7 +376,7 @@ const result = R.all(fn, arr)
 
 <details>
 
-<summary>Rambda.all tests</summary>
+<summary>Tests</summary>
 
 ```javascript
 import { all } from './all'
@@ -386,6 +405,30 @@ test('pass index as second argument', () => {
   all(fn, [ 10, 12, 14 ])
 
   expect(indexes).toEqual([ 0, 1, 2 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary>Typescript test</summary>
+
+```typescript
+import {all} from 'rambda'
+
+describe('all', () => {
+  it('happy', () => {
+    const x = all<number>(y => {
+      y // $ExpectType number
+      return y > 0
+    })([1, 2, 3])
+    x // $ExpectType boolean
+
+    const q = all(y => y > 0, [1, 2, 3]) // $ExpectType boolean
+
+    q // $ExpectType boolean
+  })
 })
 ```
 

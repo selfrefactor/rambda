@@ -8,6 +8,7 @@ import { extractNotes } from './extract-from-typings/extract-notes'
 import { failedRamdaTests } from './extracts/failed-ramda-tests'
 import { failedTestsReasons } from './extracts/failed-tests-reasons'
 import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs.js'
+import { typingsTests as typingsTestsMethod } from './extracts/typings-tests'
 
 function initiateData(definitions, key){
   return map(x => ({ [ key ] : x }))(definitions)
@@ -27,6 +28,7 @@ function appendData({ input, prop, hash }){
 export async function populateDocsData(){
   const definitions = extractDefinition()
   const rambdaSpecs = await rambdaSpecsMethod()
+  const typingsTests = await typingsTestsMethod()
   const examples = extractExample()
   const explanations = extractExplanation()
   const notes = extractNotes()
@@ -55,6 +57,12 @@ export async function populateDocsData(){
       prop : 'example',
       hash : examples,
     }),
+    input =>
+      appendData({
+        input,
+        prop : 'typescriptDefinitionTest',
+        hash : typingsTests,
+      }),
     input =>
       appendData({
         input,

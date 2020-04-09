@@ -4,7 +4,8 @@
     "notes": "It doesn't work with strings",
     "rambdaSpecs": "import { add } from './add'\n\ntest('with number', () => {\n  expect(add(2, 3)).toEqual(5)\n  expect(add(7)(10)).toEqual(17)\n})\n\ntest('string is bad input', () => {\n  expect(add('foo', 'bar')).toBeNaN()\n})\n\ntest('ramda specs', () => {\n  expect(add('1', '2'),).toEqual(3)\n  expect(add(1, '2'),).toEqual(3)\n  expect(add(true, false),).toEqual(1)\n  expect(add(null, null),).toEqual(0)\n  expect(add(undefined, undefined),).toEqual(NaN)\n  expect(add(new Date(1), new Date(2)),).toEqual(3)\n})\n",
     "explanation": "It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
-    "example": "R.add(2, 3) // =>  5"
+    "example": "R.add(2, 3) // =>  5",
+    "typescriptDefinitionTest": "import {add} from 'rambda'\n\ndescribe('add', () => {\n  it('number', () => {\n    const resultA = add(4)(1) // $ExpectType number\n    resultA // $ExpectType number\n    const resultB = add(4, 1) // $ExpectType number\n    resultB // $ExpectType number\n  })\n})\n"
   },
   "adjust": {
     "typing": "adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]",
@@ -18,7 +19,8 @@
     "typing": "all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
     "rambdaSpecs": "import { all } from './all'\n\nconst numArr = [ 0, 1, 2, 3, 4 ]\n\ntest('when true', () => {\n  const fn = x => x > -1\n\n  expect(all(fn)(numArr)).toBeTrue()\n})\n\ntest('when false', () => {\n  const fn = x => x > 2\n\n  expect(all(fn, numArr)).toBeFalse()\n})\n\ntest('pass index as second argument', () => {\n  const indexes = []\n  const fn = (x, i) => {\n    indexes.push(i)\n\n    return x > 5\n  }\n  all(fn, [ 10, 12, 14 ])\n\n  expect(indexes).toEqual([ 0, 1, 2 ])\n})\n",
     "explanation": "It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.",
-    "example": "const list = [ 0, 1, 2, 3, 4 ]\nconst predicate = x => x > -1\n\nconst result = R.all(fn, arr)\n// => true"
+    "example": "const list = [ 0, 1, 2, 3, 4 ]\nconst predicate = x => x > -1\n\nconst result = R.all(fn, arr)\n// => true",
+    "typescriptDefinitionTest": "import {all} from 'rambda'\n\ndescribe('all', () => {\n  it('happy', () => {\n    const x = all<number>(y => {\n      y // $ExpectType number\n      return y > 0\n    })([1, 2, 3])\n    x // $ExpectType boolean\n\n    const q = all(y => y > 0, [1, 2, 3]) // $ExpectType boolean\n\n    q // $ExpectType boolean\n  })\n})\n"
   },
   "allPass": {
     "typing": "allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean"
