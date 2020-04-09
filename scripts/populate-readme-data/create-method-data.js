@@ -4,7 +4,7 @@ function createFailedSpec(method){
   const summaryTemplate = `
 <details>
 
-<summary> Failed Ramda.{{methodName}} specs
+<summary> Failed <italic>Ramda.{{methodName}}</italic> specs
 
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
@@ -24,7 +24,7 @@ function createRambdaSpecReadme({rambdaSpecs}){
   const summaryTemplate = `
 <details>
 
-<summary>Tests</summary>
+<summary><strong>Tests</strong></summary>
 
 \`\`\`javascript
 {{rambdaSpecs}}
@@ -40,7 +40,7 @@ function createTypescriptTest({typescriptDefinitionTest}){
   const summaryTemplate = `
 <details>
 
-<summary>Typescript test</summary>
+<summary><strong>Typescript</strong> test</summary>
 
 \`\`\`typescript
 {{typescriptDefinitionTest}}
@@ -68,9 +68,7 @@ const getIntro = ({methodName, typing}) =>{
 }
 
 function createReplReadme({replLink, methodName}){
-  return `\n[Link](${replLink} "title" target="_blank")`
-  // return `\n[Try R.${methodName} in REPL](${replLink}){target="_blank"}`
-  return `\n<a target="_blank" title="opens in a new window" href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
+  return `\n<a title="redirect to Rambda Repl site" href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
 }
 
 export function createMethodData(method){
