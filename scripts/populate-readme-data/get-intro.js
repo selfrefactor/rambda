@@ -21,7 +21,7 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
 {{summary}}
 
-<details>
+</details>
 
 ## Used by
 
