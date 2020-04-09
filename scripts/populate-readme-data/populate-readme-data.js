@@ -4,7 +4,18 @@ import { map, template } from 'rambdax'
 import methodsData from '../populate-docs-data/data.json'
 import { createMethodData } from './create-method-data'
 import { getIntro } from './get-intro'
+import { getTail } from './get-tail'
 import { rambdaRepl } from './rambda-repl'
+ 
+const readmeTemplate = `
+{{intro}}
+
+## API
+
+{{methods}}
+
+{{tail}}
+`
 
 export async function populateReadmeData(){
   const methods = map(x => {
@@ -26,14 +37,14 @@ export async function populateReadmeData(){
     .map(createMethodData)
 
   const intro = await getIntro()
+  const tail = await getTail()
   const templateData = {
     intro,
-    firstPart  : PART1,
-    secondPart : PART2,
-    thirdPart  : PART3,
-    methods    : sortedMethods.join('\n\n'),
+    tail,
+    methods : sortedMethods.join('\n\n'),
   }
-  const readme = template(readmeTemplate, templateData)
+
+  const readme = template(readmeTemplate, templateData).trim()
   await outputFile(`${ __dirname }/TEST_README.md`, readme)
 
   return readme
