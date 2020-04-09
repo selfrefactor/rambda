@@ -2,22 +2,16 @@
 
 exports[`happy 1`] = `
 Object {
-  "add": "\`\`\`javascript
-R.add(2, 3) // =>  5
-\`\`\`",
-  "adjust": "\`\`\`javascript
-R.adjust(
+  "add": "R.add(2, 3) // =>  5",
+  "adjust": "R.adjust(
   0,
   a => a + 1,
   [0, 100]
-) // => [1, 100]
-\`\`\`",
-  "all": "\`\`\`javascript
-const list = [ 0, 1, 2, 3, 4 ]
+) // => [1, 100]",
+  "all": "const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
 const result = R.all(fn, arr)
-// => true
-\`\`\`",
+// => true",
 }
 `;

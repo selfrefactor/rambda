@@ -1,12 +1,12 @@
 {
   "add": {
-    "example": "```javascript\nR.add(2, 3) // =>  5\n```",
+    "example": "R.add(2, 3) // =>  5",
     "note": "It doesn't work with strings",
     "explanation": "It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
     "typing": "add(a: number, b: number): number"
   },
   "adjust": {
-    "example": "```javascript\nR.adjust(\n  0,\n  a => a + 1,\n  [0, 100]\n) // => [1, 100]\n```",
+    "example": "R.adjust(\n  0,\n  a => a + 1,\n  [0, 100]\n) // => [1, 100]",
     "note": "",
     "explanation": "It replaces `index` in array `list` with the result of `replaceFn(arr[i])`.",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('adjust', function() {\n  it('accepts an array-like object', function() {\n    function args() {\n      return arguments;\n    }\n    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);\n  });\n});",
@@ -14,7 +14,7 @@
     "typing": "adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]"
   },
   "all": {
-    "example": "```javascript\nconst list = [ 0, 1, 2, 3, 4 ]\nconst predicate = x => x > -1\n\nconst result = R.all(fn, arr)\n// => true\n```",
+    "example": "const list = [ 0, 1, 2, 3, 4 ]\nconst predicate = x => x > -1\n\nconst result = R.all(fn, arr)\n// => true",
     "note": "",
     "explanation": "It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.",
     "typing": "all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean"

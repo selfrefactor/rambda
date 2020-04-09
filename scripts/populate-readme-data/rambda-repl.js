@@ -1,15 +1,9 @@
-const {
-  either,
-  includes,
-  when,
-} = require('rambdax')
+import { either, includes, when } from 'rambdax'
 const REPL_URL = 'https://rambda.now.sh'
 
 const getConsoleLog = includes('console.log')
-const getResultVariableLog = either(
-  includes('const result ='),
-  includes('const result='),
-)
+const getResultVariableLog = either(includes('const result ='),
+  includes('const result='))
 
 function attachResultVariable(input){
   const [ firstLineRaw, ...otherLines ] = input.split('\n')
@@ -20,7 +14,7 @@ function attachResultVariable(input){
     [ firstLine, ...otherLines ].join('\n')
 }
 
-function rambdaREPL(input){
+export function rambdaRepl(input){
   const consoleLogFlag = getConsoleLog(input)
   const resultVariableFlag = getResultVariableLog(input)
   const flag = resultVariableFlag || consoleLogFlag
@@ -29,5 +23,3 @@ function rambdaREPL(input){
 
   return `${ REPL_URL }?${ encoded }`
 }
-
-exports.rambdaREPL = rambdaREPL
