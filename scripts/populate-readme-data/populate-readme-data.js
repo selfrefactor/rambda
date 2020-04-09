@@ -6,7 +6,7 @@ import { createMethodData } from './create-method-data'
 import { getIntro } from './get-intro'
 import { getTail } from './get-tail'
 import { rambdaRepl } from './rambda-repl'
- 
+  
 const readmeTemplate = `
 {{intro}}
 
