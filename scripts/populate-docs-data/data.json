@@ -10,6 +10,7 @@
     "note": "",
     "explanation": "It replaces `index` in array `list` with the result of `replaceFn(arr[i])`.",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('adjust', function() {\n  it('accepts an array-like object', function() {\n    function args() {\n      return arguments;\n    }\n    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);\n  });\n});",
+    "failedSpecsReasons": "ramda accepts an array-like object",
     "typing": "adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]"
   },
   "all": {
