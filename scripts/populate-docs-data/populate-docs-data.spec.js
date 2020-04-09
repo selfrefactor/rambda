@@ -1,5 +1,5 @@
 import { populateDocsData } from './populate-docs-data.js'
 
-test('happy', () => {
-  expect(populateDocsData()).toMatchSnapshot()
+test('happy', async () => {
+  await expect(populateDocsData()).resolves.toBeObject()
 })

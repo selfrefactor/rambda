@@ -1,3 +1,4 @@
+import { outputJSON } from 'fs-extra'
 import { map, mapToObject, pick, pluck } from 'rambdax'
 
 import { extractDefinition } from './extract-from-typings/extract-definition'
@@ -30,7 +31,7 @@ function mergeObjects(
   })(source)
 }
 
-export function populateDocsData(){
+export async function populateDocsData(){
   const definitions = extractDefinition()
   const examples = extractExample()
   const explanations = extractExplanation()
@@ -50,7 +51,12 @@ export function populateDocsData(){
     failedRamdaSpecs,
   }
 
-  return mergeObjects(
+  const toSave = mergeObjects(
     definitions, 'typing', dataToInject
   )
+  await outputJSON(
+    `${ __dirname }/data.json`, toSave, { spaces : 2 }
+  )
+
+  return toSave
 }

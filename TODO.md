@@ -1,10 +1,6 @@
 ## TODO
 
-- lint all dtslint specs
-
 - ramda missing is simple match against
-
-- update contribute
 
 Use badges
 
