@@ -1,5 +1,5 @@
 import { outputJSON } from 'fs-extra'
-import { map, mapToObject, pick, pluck, piped } from 'rambdax'
+import { map, mapToObject, pick, piped, pluck } from 'rambdax'
 
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
@@ -9,48 +9,19 @@ import { failedRamdaTests } from './extracts/failed-ramda-tests'
 import { failedTestsReasons } from './extracts/failed-tests-reasons'
 import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs.js'
 
-function mergeObjects(
-  source, newSourceKey, objectOfObjects
-){
-  const keys = Object.keys(objectOfObjects)
-  const listOfObjects = Object.values(objectOfObjects)
+function initiateData(definitions, key){
+  return map(x => ({ [ key ] : x }))(definitions)
+}
 
-  return map((sourceValue, sourceProp) => {
-    const withMergedProps = mapToObject(() => {
-      const plucked = pluck(sourceProp, listOfObjects)
-      const toReturn = {}
-      plucked.forEach((x, i) => {
-        toReturn[ keys[ i ] ] = x
-      })
-
-      return toReturn
-    })(keys)
+function appendData({ input, prop, hash }){
+  return map((x, methodName) => {
+    if (!hash[ methodName ]) return x
 
     return {
-      ...withMergedProps,
-      [ newSourceKey ] : sourceValue,
+      ...x,
+      [ prop ] : hash[ methodName ],
     }
-  })(source)
-}
-
-function initiateData(definitions, key){
-  return map(x => ({
-    [key]:x
-  }))(definitions)
-}
-
-
-function appendData({input, prop, hash}){
-  
-  return map(
-    (x, methodName) => {
-      if(!hash[ methodName ]) return x
-      return {
-        ...x,
-        [prop] : hash[ methodName]
-      }
-    }
-  )(input)
+  })(input)
 }
 
 export async function populateDocsData(){
@@ -64,12 +35,38 @@ export async function populateDocsData(){
 
   const toSave = piped(
     initiateData(definitions, 'typing'),
-    input => appendData({input, prop: 'notes', hash: notes}),
-    input => appendData({input, prop: 'rambdaSpecs', hash: rambdaSpecs}),
-    input => appendData({input, prop: 'explanation', hash: explanations}),
-    input => appendData({input, prop: 'example', hash: examples}),
-    input => appendData({input, prop: 'failedRamdaSpecs', hash: failedRamdaSpecs}),
-    input => appendData({input, prop: 'failedSpecsReasons', hash: failedSpecsReasons}),
+    input => appendData({
+      input,
+      prop : 'notes',
+      hash : notes,
+    }),
+    input => appendData({
+      input,
+      prop : 'rambdaSpecs',
+      hash : rambdaSpecs,
+    }),
+    input => appendData({
+      input,
+      prop : 'explanation',
+      hash : explanations,
+    }),
+    input => appendData({
+      input,
+      prop : 'example',
+      hash : examples,
+    }),
+    input =>
+      appendData({
+        input,
+        prop : 'failedRamdaSpecs',
+        hash : failedRamdaSpecs,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'failedSpecsReasons',
+        hash : failedSpecsReasons,
+      })
   )
 
   await outputJSON(
