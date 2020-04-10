@@ -25,9 +25,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [Install](#install)
 * [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
-* [Use with ES5](#use-with-es5)
 * [Changelog](#changelog)
-* [Additional info](#additional-info)
 
 ## Rambda's advantages
 
@@ -35,13 +33,9 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 Currently **Rambda** is more tree-shakable than **Ramda**
 
----
-
 - Speed
 
-**Rambda** is generally more performant than `Ramda` as the [#benchmarks](benchmarks) can prove that.
-
----
+**Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
 - dot notation for `R.path` and `R.paths`
 
@@ -53,8 +47,6 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
----
-
 - comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -65,19 +57,23 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
----
-
 - Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 - More generic methods
 
-`Ramda` has an overwhelming list of methods, as one could get lost putting all the methods in one's head. `Rambda`'s much smaller number of total methods(124) I see as advantage compared to the 255 of `Ramda`.
+`Ramda` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. `Rambda` has smaller method counts and that could be seen as advantage.
 
-Ramda methods has plenty of really deep FP Methods, which are in fact quite useful, but they come at the price of added complexity. Such complex logics are in practice rarely needed.
 
-You can [check the list with missing  Ramda methods in Rambda](https://github.com/selfrefactor/rambda/blob/master/files/ramdaMissing.md)  list to assure that `Rambda` doesn't have any important misses.
+<details>
+<summary>
+  Click to see the full list of Ramda methods not implemented in Rambda 
+</summary>
+
+TODO
+
+<details>
 
 ## Install
 
@@ -86,7 +82,7 @@ You can [check the list with missing  Ramda methods in Rambda](https://github.co
 - For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
 
 ```
-https://unpkg.com/rambda@4.3.0/dist/rambda.umd.js
+https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 ```
 
 ## Differences between Rambda and Ramda
@@ -226,7 +222,7 @@ It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to n
 R.add(2, 3) // =>  5
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try above <strong>R.add</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try the above <strong>R.add</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -333,7 +329,7 @@ R.adjust(
 ) // => [1, 100]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try above <strong>R.adjust</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try the above <strong>R.adjust</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -474,7 +470,7 @@ const result = R.all(fn, arr)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try above <strong>R.all</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.all</strong> example in Rambda REPL</a>
 
 <details>
 
