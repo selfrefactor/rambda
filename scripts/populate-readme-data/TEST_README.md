@@ -195,7 +195,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - thunkify
 - default
 
-<details>
+</details>
   
 ## Install
 

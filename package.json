@@ -103,6 +103,6 @@
     "fix": [
       "small"
     ],
-    "workInProgress": ""
+    "workInProgress": "final typings should include description"
   }
 }

@@ -17,7 +17,7 @@ function getMissingMethods(){
 </summary>
 
 {{missingMethods}}
-<details>
+</details>
   `
 
   const missingMethods = Object.keys(Ramda)
