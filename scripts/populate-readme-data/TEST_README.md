@@ -226,6 +226,8 @@ It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to n
 R.add(2, 3) // =>  5
 ```
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try above <strong>R.add</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary><strong>R.add</strong> source</summary>
@@ -287,7 +289,35 @@ describe('add', () => {
 
 </details>
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try <strong>R.add</strong> in REPL</a>
+<details>
+
+<summary>Rambda is fastest. Ramda is 28.16% slower and Lodash is 76.17% slower</summary>
+
+```javascript
+const add = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.add(1, 1)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.add(1, 1)
+    },
+  },
+  {
+    label : 'Lodash',
+    fn    : () => {
+      _.add(1, 1)
+    },
+  },
+]
+```
+
+</details>
+
 
 ### adjust
 
@@ -302,6 +332,8 @@ R.adjust(
   [0, 100]
 ) // => [1, 100]
 ```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try above <strong>R.adjust</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -376,6 +408,35 @@ test('when index is out of bounds', () => {
 
 <details>
 
+<summary>Rambda is faster than Ramda with 2.8%</summary>
+
+```javascript
+const list = [ 0, 1, 2 ]
+const fn = x => x + 1
+const index = 1
+
+const adjust = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.adjust(index, fn, list)
+      R.adjust(index, fn)(list)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.adjust(index, fn, list)
+      Ramda.adjust(index, fn)(list)
+    },
+  },
+]
+```
+
+</details>
+
+<details>
+
 <summary> Failed <italic>Ramda.adjust</italic> specs
 
 > Reason for the failure: ramda accepts an array-like object
@@ -398,7 +459,6 @@ describe('adjust', function() {
 
 </details>
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try <strong>R.adjust</strong> in REPL</a>
 
 ### all
 
@@ -413,6 +473,8 @@ const predicate = x => x > -1
 const result = R.all(fn, arr)
 // => true
 ```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try above <strong>R.all</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -492,7 +554,37 @@ describe('all', () => {
 
 </details>
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(fn%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try <strong>R.all</strong> in REPL</a>
+<details>
+
+<summary>Rambda is faster than Ramda with 89.64%</summary>
+
+```javascript
+const input = [ 1, 2, 3, 4 ]
+
+const all = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      const fn = x => x > 2
+
+      R.all(fn, input)
+      R.all(fn)(input)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      const fn = x => x > 2
+
+      Ramda.all(fn, input)
+      Ramda.all(fn)(input)
+    },
+  },
+]
+```
+
+</details>
+
 
 ### allPass
 
