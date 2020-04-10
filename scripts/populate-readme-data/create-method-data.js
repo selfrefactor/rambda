@@ -20,7 +20,7 @@ function createFailedSpec(method){
   return template(summaryTemplate, method)
 }
 
-function createRambdaSpecReadme({rambdaSpecs}){
+function createRambdaSpecReadme(method){
   const summaryTemplate = `
 <details>
 
@@ -33,10 +33,26 @@ function createRambdaSpecReadme({rambdaSpecs}){
 </details>
 `
 
-  return template(summaryTemplate, {rambdaSpecs: rambdaSpecs.trim()})
+  return template(summaryTemplate, method)
 }
 
-function createTypescriptTest({typescriptDefinitionTest}){
+function createRambdaSourceReadme(method){
+  const summaryTemplate = `
+<details>
+
+<summary><strong>R.{{methodName}}</strong> source</summary>
+
+\`\`\`javascript
+{{rambdaSource}}
+\`\`\`
+
+</details>
+`
+
+  return template(summaryTemplate, method)
+}
+
+function createTypescriptTest(method){
   const summaryTemplate = `
 <details>
 
@@ -49,40 +65,39 @@ function createTypescriptTest({typescriptDefinitionTest}){
 </details>
 `
 
-  return template(summaryTemplate, {typescriptDefinitionTest: typescriptDefinitionTest.trim()})
+  return template(summaryTemplate, method)
 }
 
-const createExampleReadme = ({example}) => `
+const createExampleReadme = ({ example }) => `
 \`\`\`javascript
-${example }
+${ example }
 \`\`\`
 `
 
-const createNoteReadme = ({note}) => `
+const createNoteReadme = ({ note }) => `
 > Note
 ${ note }
 `
 
-const getIntro = ({methodName, typing}) =>{
-  return [ `### ${ methodName }`, '\n\n', `> ${ typing }`, '\n\n' ]
-}
+const getIntro = ({ methodName, typing }) => [ `### ${ methodName }`, '\n\n', `> ${ typing }`, '\n\n' ]
 
-function createReplReadme({replLink, methodName}){
-  return `\n<a title="redirect to Rambda Repl site" href="${replLink}">Try <strong>R.${methodName}</strong> in REPL</a>`
+function createReplReadme({ replLink, methodName }){
+  return `\n<a title="redirect to Rambda Repl site" href="${ replLink }">Try <strong>R.${ methodName }</strong> in REPL</a>`
 }
 
 export function createMethodData(method){
   const data = getIntro(method)
   const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
-
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
-  if (method.example)data.push(createExampleReadme(method))
+  if (method.example) data.push(createExampleReadme(method))
   if (method.note) data.push(createNoteReadme(method))
-  if (method.rambdaSpecs)data.push(createRambdaSpecReadme(method))
-  if (method.typescriptDefinitionTest)data.push(createTypescriptTest(method))
-  if (hasFailedSpec)data.push(createFailedSpec(method))
-  if (method.replLink)data.push(createReplReadme(method))
+  if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
+  if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+  if (method.typescriptDefinitionTest)
+    data.push(createTypescriptTest(method))
+  if (hasFailedSpec) data.push(createFailedSpec(method))
+  if (method.replLink) data.push(createReplReadme(method))
 
   return data.join('')
 }

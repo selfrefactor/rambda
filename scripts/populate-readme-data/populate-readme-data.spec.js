@@ -5,3 +5,4 @@ test('generate final readme file', async () => {
   await populateDocsData()
   expect(await populateReadmeData()).toMatchSnapshot()
 })
+ 

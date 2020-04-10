@@ -1,5 +1,5 @@
 import { outputJSON } from 'fs-extra'
-import { map, mapToObject, pick, piped, pluck } from 'rambdax'
+import { map, piped } from 'rambdax'
 
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
@@ -7,7 +7,8 @@ import { extractExplanation } from './extract-from-typings/extract-explanation'
 import { extractNotes } from './extract-from-typings/extract-notes'
 import { failedRamdaTests } from './extracts/failed-ramda-tests'
 import { failedTestsReasons } from './extracts/failed-tests-reasons'
-import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs.js'
+import { rambdaSource as rambdaSourceMethod } from './extracts/rambda-source'
+import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs'
 import { typingsTests as typingsTestsMethod } from './extracts/typings-tests'
 
 function initiateData(definitions, key){
@@ -28,6 +29,7 @@ function appendData({ input, prop, hash }){
 export async function populateDocsData(){
   const definitions = extractDefinition()
   const rambdaSpecs = await rambdaSpecsMethod()
+  const rambdaSource = await rambdaSourceMethod()
   const typingsTests = await typingsTestsMethod()
   const examples = extractExample()
   const explanations = extractExplanation()
@@ -37,26 +39,36 @@ export async function populateDocsData(){
 
   const toSave = piped(
     initiateData(definitions, 'typing'),
-    input => appendData({
-      input,
-      prop : 'notes',
-      hash : notes,
-    }),
-    input => appendData({
-      input,
-      prop : 'rambdaSpecs',
-      hash : rambdaSpecs,
-    }),
-    input => appendData({
-      input,
-      prop : 'explanation',
-      hash : explanations,
-    }),
-    input => appendData({
-      input,
-      prop : 'example',
-      hash : examples,
-    }),
+    input =>
+      appendData({
+        input,
+        prop : 'notes',
+        hash : notes,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'rambdaSource',
+        hash : rambdaSource,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'rambdaSpecs',
+        hash : rambdaSpecs,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'explanation',
+        hash : explanations,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'example',
+        hash : examples,
+      }),
     input =>
       appendData({
         input,

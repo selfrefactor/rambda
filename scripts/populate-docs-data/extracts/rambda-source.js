@@ -4,9 +4,9 @@ import { resolve } from 'path'
 import { mapToObjectAsync } from '../../../source/mapToObjectAsync'
 import { getMethods } from '../extract-from-typings/get-methods'
 
-export async function rambdaSpecs(){
+export async function rambdaSource(){
   return mapToObjectAsync(async method => {
-    const filePath = resolve(__dirname, `../../../source/${ method }.spec.js`)
+    const filePath = resolve(__dirname, `../../../source/${ method }.js`)
     if (!existsSync(filePath)) return false
     const rambdaSpec = await readFile(filePath)
 
