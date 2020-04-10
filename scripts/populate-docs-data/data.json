@@ -1,14 +1,14 @@
 {
   "add": {
     "typing": "add(a: number, b: number): number",
-    "notes": "It doesn't work with strings",
+    "notes": "It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
     "rambdaSource": "export function add(a, b){\n  if (arguments.length === 1) return _b => add(a, _b)\n\n  return Number(a) + Number(b)\n}",
     "rambdaSpecs": "import { add } from './add'\n\ntest('with number', () => {\n  expect(add(2, 3)).toEqual(5)\n  expect(add(7)(10)).toEqual(17)\n})\n\ntest('string is bad input', () => {\n  expect(add('foo', 'bar')).toBeNaN()\n})\n\ntest('ramda specs', () => {\n  expect(add('1', '2'),).toEqual(3)\n  expect(add(1, '2'),).toEqual(3)\n  expect(add(true, false),).toEqual(1)\n  expect(add(null, null),).toEqual(0)\n  expect(add(undefined, undefined),).toEqual(NaN)\n  expect(add(new Date(1), new Date(2)),).toEqual(3)\n})",
     "benchmarkInfo": {
       "benchmarkContent": "const add = [\n  {\n    label : 'Rambda',\n    fn    : () => {\n      R.add(1, 1)\n    },\n  },\n  {\n    label : 'Ramda',\n    fn    : () => {\n      Ramda.add(1, 1)\n    },\n  },\n  {\n    label : 'Lodash',\n    fn    : () => {\n      _.add(1, 1)\n    },\n  },\n]",
       "methodSummary": "Rambda is fastest. Ramda is 28.16% slower and Lodash is 76.17% slower"
     },
-    "explanation": "It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.",
+    "explanation": "It adds `a` and `b`.",
     "example": "R.add(2, 3) // =>  5",
     "typescriptDefinitionTest": "import {add} from 'rambda'\n\ndescribe('add', () => {\n  it('number', () => {\n    const resultA = add(4)(1) // $ExpectType number\n    resultA // $ExpectType number\n    const resultB = add(4, 1) // $ExpectType number\n    resultB // $ExpectType number\n  })\n})"
   },
@@ -20,7 +20,7 @@
       "benchmarkContent": "const list = [ 0, 1, 2 ]\nconst fn = x => x + 1\nconst index = 1\n\nconst adjust = [\n  {\n    label : 'Rambda',\n    fn    : () => {\n      R.adjust(index, fn, list)\n      R.adjust(index, fn)(list)\n    },\n  },\n  {\n    label : 'Ramda',\n    fn    : () => {\n      Ramda.adjust(index, fn, list)\n      Ramda.adjust(index, fn)(list)\n    },\n  },\n]",
       "methodSummary": "Rambda is faster than Ramda with 2.8%"
     },
-    "explanation": "It replaces `index` in array `list` with the result of `replaceFn(arr[i])`.",
+    "explanation": "It replaces `index` in array `list` with the result of `replaceFn(list[i])`.",
     "example": "R.adjust(\n  0,\n  a => a + 1,\n  [0, 100]\n) // => [1, 100]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('adjust', function() {\n  it('accepts an array-like object', function() {\n    function args() {\n      return arguments;\n    }\n    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);\n  });\n});",
     "failedSpecsReasons": "ramda accepts an array-like object"

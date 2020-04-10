@@ -118,13 +118,13 @@ type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
 /*
-	It adds `a` and `b`. It doesn't work with strings, as the inputs are parsed to numbers before calculation.
+	It adds `a` and `b`.
 */
 export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
 
 /*
-	It replaces `index` in array `list` with the result of `replaceFn(arr[i])`.
+	It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 */
 export function adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
 export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
