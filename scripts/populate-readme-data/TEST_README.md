@@ -61,20 +61,142 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
+
 - More generic methods
 
 `Ramda` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. `Rambda` has smaller method counts and that could be seen as advantage.
-
 
 <details>
 <summary>
   Click to see the full list of Ramda methods not implemented in Rambda 
 </summary>
 
-TODO
+- __
+- addIndex
+- ap
+- aperture
+- apply
+- applyTo
+- ascend
+- binary
+- bind
+- call
+- chain
+- comparator
+- composeK
+- composeP
+- composeWith
+- construct
+- constructN
+- contains
+- converge
+- countBy
+- curryN
+- descend
+- differenceWith
+- dissocPath
+- dropLastWhile
+- dropRepeats
+- dropRepeatsWith
+- dropWhile
+- empty
+- eqBy
+- eqProps
+- evolve
+- findLast
+- findLastIndex
+- forEachObjIndexed
+- gt
+- gte
+- hasIn
+- hasPath
+- innerJoin
+- insert
+- insertAll
+- into
+- invert
+- invertObj
+- invoker
+- juxt
+- keysIn
+- lift
+- liftN
+- lt
+- lte
+- mapAccum
+- mapAccumRight
+- mapObjIndexed
+- memoizeWith
+- mergeAll
+- mergeDeepLeft
+- mergeDeepRight
+- mergeDeepWith
+- mergeDeepWithKey
+- mergeLeft
+- mergeRight
+- mergeWith
+- mergeWithKey
+- move
+- nAry
+- nthArg
+- o
+- objOf
+- of
+- once
+- or
+- otherwise
+- pair
+- partialRight
+- partition
+- pathEq
+- pathSatisfies
+- pickBy
+- pipeK
+- pipeP
+- pipeWith
+- project
+- propSatisfies
+- props
+- reduceBy
+- reduceRight
+- reduceWhile
+- reduced
+- remove
+- scan
+- sequence
+- sortWith
+- splitAt
+- splitWhen
+- symmetricDifferenceWith
+- takeLastWhile
+- takeWhile
+- andThen
+- toPairsIn
+- transduce
+- traverse
+- tryCatch
+- unapply
+- unary
+- uncurryN
+- unfold
+- union
+- unionWith
+- uniqBy
+- unless
+- unnest
+- until
+- useWith
+- valuesIn
+- when
+- where
+- whereEq
+- xprod
+- zipWith
+- thunkify
+- default
 
 <details>
-
+  
 ## Install
 
 - **yarn add rambda**
@@ -118,8 +240,6 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 - Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
-
----
 
 ## Benchmarks
 
