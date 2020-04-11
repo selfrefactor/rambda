@@ -192,19 +192,25 @@ export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): bo
 export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
-Method:
+Method: allPass
 
-Explanation:
-
-
+Explanation: It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
 
 Example:
 
 ```
-
+const input = {
+  a : 1,
+  b : 2,
+}
+const predicates = [
+  x => x.a === 1,
+  x => x.b === 2,
+]
+const result = R.allPass(predicates)(input) // => true
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 

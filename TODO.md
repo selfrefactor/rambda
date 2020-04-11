@@ -1,0 +1,1 @@
+Build `src` folder with Rambda methods. It should include only source files
