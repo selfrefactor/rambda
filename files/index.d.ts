@@ -219,19 +219,19 @@ Notes:
 export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 /*
-Method:
+Method: always
 
-Explanation:
-
-
+Explanation: It returns function that always returns `x`.
 
 Example:
 
 ```
+const fn = R.always(7)
 
+console.log(fn())// => 7
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -240,28 +240,50 @@ Notes:
 export function always<T>(x: T): () => T;
 
 /*
-Method:
+Method: and
 
-Explanation:
-
-
+Explanation: Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
 
 Example:
 
 ```
+R.and(true, true); // => true
+R.and(false, true); // => false
+```  
 
-```
-
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean;
-export function any<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
-export function any<T>(fn: (x: T, i: number) => boolean): (arr: ReadonlyArray<T>) => boolean;
-export function any<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+
+/*
+Method: any
+
+Explanation: It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+
+Example:
+
+```
+const list = [1, 2, 3]
+const predicate = x => x * x > 8
+R.any(fn, list)
+// => true
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
+export function any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
 Method:
@@ -377,29 +399,6 @@ Notes:
 export function assocPath<T, U>(path: Path, val: T, obj: U): U;
 export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
 export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
-
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 /*
 Method:

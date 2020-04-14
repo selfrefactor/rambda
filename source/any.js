@@ -1,9 +1,9 @@
-export function any(fn, list){
-  if (arguments.length === 1) return _list => any(fn, _list)
+export function any(predicate, list){
+  if (arguments.length === 1) return _list => any(predicate, _list)
 
   let counter = 0
   while (counter < list.length){
-    if (fn(list[ counter ], counter)){
+    if (predicate(list[ counter ], counter)){
       return true
     }
     counter++
