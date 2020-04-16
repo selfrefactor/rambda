@@ -286,25 +286,31 @@ export function any<T>(predicate: (x: T, i: number) => boolean): (list: Readonly
 export function any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
-Method:
+Method: anyPass
 
-Explanation:
-
-
+Explanation: It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
 
 Example:
 
 ```
+const isBig = x => x > 20
+const isOdd = x => x % 2 === 1
+const input = 11
 
+const fn = const result = R.anyPass(
+  [isBig, isOdd]
+)
+
+const result = fn(input) // => true
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
+export function anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 /*
 Method:
