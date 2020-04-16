@@ -313,19 +313,20 @@ Notes:
 export function anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 /*
-Method:
+Method: append
 
-Explanation:
-
-
+Explanation: It appends element `el` to a `list` array.
 
 Example:
 
 ```
-
+R.append(
+  'foo',
+  ['bar', 'baz']
+) // => ['bar', 'baz', 'foo']
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -335,30 +336,46 @@ export function append<T>(el: T, list: ReadonlyArray<T>): T[];
 export function append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: applySpec
 
-Explanation:
-
-
+Explanation: Returns a curried function with the same arity as the longest function in the spec object.
+Arguments will be applied to the spec methods recursively.
 
 Example:
 
 ```
+const spec = {
+  name: R.path('deeply.nested.firstname')
+}
+const json = {
+  deeply: {
+   nested: {
+      firstname: 'barry'
+    }
+  }
+}
+const result = R.applySpec(spec, json) // => { name: 'barry' }
 
+// Second example
+const getMetrics = R.applySpec({
+  sum: R.add,
+  nested: { mul: R.multiply }
+});
+getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 ```
 
-Categories:
+Categories: Function
 
-Notes:
+Notes: Note that the currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 */
 // @SINGLE_MARKER
-export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
-  obj: Obj
+export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+  spec: Spec
 ): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-  ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
-export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
+    ...args: Parameters<ValueOfRecord<Spec>>
+  ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /*
 Method:
