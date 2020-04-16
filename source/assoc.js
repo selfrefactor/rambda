@@ -1,10 +1,10 @@
 import { curry } from './curry'
 
 function assocFn(
-  prop, val, obj
+  prop, newValue, obj
 ){
   return Object.assign(
-    {}, obj, { [ prop ] : val }
+    {}, obj, { [ prop ] : newValue }
   )
 }
 

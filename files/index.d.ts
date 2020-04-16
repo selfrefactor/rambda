@@ -366,7 +366,7 @@ getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 
 Categories: Function
 
-Notes: Note that the currying in this function works best with functions with 4 arguments or less. (arity of 4)
+Notes: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 */
 // @SINGLE_MARKER
@@ -378,65 +378,74 @@ export function applySpec<Spec extends Record<string, (...args: readonly any[]) 
 export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /*
-Method:
+Method: assoc
 
-Explanation:
-
-
+Explanation: It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
 
 Example:
 
 ```
-
+R.assoc('c', 3, {a: 1, b: 2})
+//=> {a: 1, b: 2, c: 3}
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: This copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, value: T): <U>(obj: U) => Record<K, T> & U;
-export function assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
+export function assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
+export function assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
 
 /*
-Method:
+Method: assocPath
 
-Explanation:
-
-
+Explanation: It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
 Example:
 
 ```
+const path = 'b.c'
+const newValue = 2
+const obj = { a: 1 }
 
+R.assocPath(path, newValue, obj)
+// => { a : 1, b : { c : 2 }}
 ```
 
 Categories:
 
-Notes:
+Notes: Object
 
 */
 // @SINGLE_MARKER
-export function assocPath<T, U>(path: Path, val: T, obj: U): U;
-export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
+export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
+export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
 export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 /*
-Method:
+Method: both
 
-Explanation:
+Explanation: It returns a function with `input` argument. 
 
-
+This funciton will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
 
 Example:
 
 ```
+const firstCondition = x => x > 10
+const secondCondition = x => x < 20
+const fn = R.both(secondCondition)
 
+const result = [fn(15), fn(30)]
+// => [true, false]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
