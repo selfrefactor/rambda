@@ -1,6 +1,7 @@
 import assert from 'assert'
 
 import { clone } from './clone'
+import { equals } from './equals'
 
 test('with array', () => {
   const arr = [
@@ -39,4 +40,16 @@ test('with date', () => {
   ))
 
   expect(cloned.getDay()).toEqual(5)
+})
+
+test('with R.equals', () => {
+  const objects = [ { a : 1 }, { b : 2 } ]
+
+  const objectsClone = clone(objects)
+
+  const result = [
+    equals(objects, objectsClone),
+    equals(objects[ 0 ], objectsClone[ 0 ]),
+  ]
+  expect(result).toEqual([ true, true ])
 })

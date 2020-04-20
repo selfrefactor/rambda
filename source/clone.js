@@ -1,9 +1,9 @@
-export function clone(val){
-  const out = Array.isArray(val) ? Array(val.length) : {}
-  if (val && val.getTime) return new Date(val.getTime())
+export function clone(input){
+  const out = Array.isArray(input) ? Array(input.length) : {}
+  if (input && input.getTime) return new Date(input.getTime())
 
-  for (const key in val){
-    const v = val[ key ]
+  for (const key in input){
+    const v = input[ key ]
     out[ key ] =
       typeof v === 'object' && v !== null ?
         v.getTime ?

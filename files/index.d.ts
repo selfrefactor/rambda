@@ -485,14 +485,18 @@ export function clamp(min: number, max: number): (input: number) => number;
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
 
 Example:
 
 ```
+const objects = [{a:1}, {b:2}];
+const objectsClone = R.clone(objects);
 
+const result = [
+  R.equals(objects, objectsClone),
+  R.equals(objects[0], objectsClone[0]),
+] // => [ true, true ]
 ```
 
 Categories:
@@ -501,30 +505,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function clone<T>(value: T): T;
-export function clone<T>(value: ReadonlyArray<T>): T[];
+export function clone<T>(input: T): T;
+export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /*
 Method:
@@ -836,6 +818,28 @@ export function dropLast<T>(howManyToDrop: number): {
   (arrOrStr: ReadonlyArray<T>): T[];
   (arrOrStr: string): string;
 };
+
+/*
+Method:
+
+Explanation:
+
+
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function either(pred1: Pred, pred2: Pred): Pred;
+export function either(pred1: Pred): (pred2: Pred) => Pred;
 
 /*
 Method:
