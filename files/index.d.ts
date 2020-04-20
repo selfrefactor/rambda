@@ -490,7 +490,7 @@ Explanation: It creates a deep copy of the `input`, which may contain (nested) A
 Example:
 
 ```
-const objects = [{a:1}, {b:2}];
+const objects = [{a: 1}, {b: 2}];
 const objectsClone = R.clone(objects);
 
 const result = [
@@ -499,7 +499,7 @@ const result = [
 ] // => [ true, true ]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -509,19 +509,26 @@ export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /*
-Method:
+Method: complement
 
-Explanation:
+Explanation: It returns `inverted` function of `origin` function that accept `input` as argument.
 
+The return value of `inverted` is the negative boolean value of `origin(input)`.
 
 
 Example:
 
 ```
+const origin = x => x > 5
+const inverted = complement(origin)
 
+const result = [
+  origin(7),
+  inverted(7)
+] => [ true, false ]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
