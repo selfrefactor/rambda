@@ -457,27 +457,30 @@ export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate
 export function both(pred1: Pred): (pred2: Pred) => Pred;
 
 /*
-Method:
+Method: clamp
 
-Explanation:
+Explanation: Restrict a number `input` to be withing `min` and `max` limits.
 
+If `input` is bigger than `max`, then the result is `max`.
 
+If `input` is smaller than `min`, then the result is `min`.
 
 Example:
 
 ```
-
+R.clamp(0, 10, 5) //=> 5
+R.clamp(0, 10, -1) //=> 0
+R.clamp(0, 10, 11) //=> 10
 ```
 
-Categories:
+Categories: Other
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
-
+export function clamp(min: number, max: number, input: number): number;
+export function clamp(min: number, max: number): (input: number) => number;
 
 /*
 Method:
@@ -498,8 +501,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function clamp(min: number, max: number, input: number): number;
-export function clamp(min: number, max: number): (input: number) => number;
+export function either(pred1: Pred, pred2: Pred): Pred;
+export function either(pred1: Pred): (pred2: Pred) => Pred;
 
 /*
 Method:

@@ -1,12 +1,13 @@
 import { curry } from './curry'
 
 function clampFn(
-  lowLimit, highLimit, input
+  min, max, input
 ){
-  if (input >= lowLimit && input <= highLimit) return input
+  if (input >= min && input <= max) return input
 
-  if (input > highLimit) return highLimit
-  if (input < lowLimit) return lowLimit
+  if (input > max) return max
+  if (input < min) return min
 }
 
-export const clamp = curry(clampFn)
+export const clamp = curry(clampFn) 
+ 

@@ -1,18 +1,3 @@
-#### clamp
-
-> clamp(min: number, max: number, input:number): number
-
-Restrict a number `input` to be withing `min` and `max` limits.
-If `input` is bigger than `max`, then result is `max`.
-If `input` is smaller than `min`, then result is `min`.
-
-```
-R.clamp(0, 10, 5) //=> 5
-R.clamp(0, 10, -1) //=> 0
-R.clamp(0, 10, 11) //=> 10
-```
-
----
 #### clone
 
 > clone(objOrArr: T|T[]): T|T[]
