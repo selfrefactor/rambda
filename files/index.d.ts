@@ -624,26 +624,41 @@ export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
 
 /*
-Method:
+Method: cond
 
-Explanation:
+Explanation: It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
 
+This function will start evaluating the `conditions` in order to find the first winner(order of conditions matter). 
 
+The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
+
+If no winner is found, then `fn` returns `undefined`.
 
 Example:
 
 ```
+const fn = R.cond([
+  [ x => x > 25, R.always('more than 25') ],
+  [ x => x > 15, R.always('more than 15') ],
+  [ R.T, x => `${x} is nothing special` ],
+])
 
+const result = [
+  fn(30),
+  fn(20),
+  fn(10),
+] 
+// => ['more than 25', 'more than 15', '10 is nothing special']
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function cond(fns: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
-export function cond<A, B>(fns: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
+export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
+export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 
 /*
 Method:

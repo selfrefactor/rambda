@@ -21,11 +21,11 @@ test('returns a conditional function', () => {
   expect(fn(100)).toEqual('water boils at 100°C')
 })
 
-test('returns a function which returns undefined if none of the predicates matches', () => {
+test('no winner', () => {
   const fn = cond([
     [ equals('foo'), always(1) ],
     [ equals('bar'), always(2) ],
-  ])
+  ]) 
   expect(fn('quux')).toEqual(undefined)
 })
 
