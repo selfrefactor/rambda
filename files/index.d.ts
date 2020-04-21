@@ -178,6 +178,9 @@ export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: 
 export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
 
 // SINGLE_MARKER
+export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+
+// SINGLE_MARKER
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 // SINGLE_MARKER

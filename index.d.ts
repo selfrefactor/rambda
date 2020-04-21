@@ -180,9 +180,11 @@ export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>)
 
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+
+export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
 
 export function dec(n: number): number;
-
 
 export function defaultTo<T>(defaultValue: T): (...inputArguments: Array<T | null | undefined>) => T;
 export function defaultTo<T>(defaultValue: T, ...inputArguments: Array<T | null | undefined>): T;
