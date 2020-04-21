@@ -1,9 +1,3 @@
-#### curry
-
-> curry(fn: Function): Function
-
-It returns curried version of `fn`.
-
 ```javascript
 const addFourNumbers = (a, b, c, d) => a + b + c + d
 const curriedAddFourNumbers = R.curry(addFourNumbers)

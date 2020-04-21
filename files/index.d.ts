@@ -661,19 +661,21 @@ export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a
 export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 
 /*
-Method:
+Method: curry
 
-Explanation:
-
-
+Explanation: It expects a function as input and returns its curried version.
 
 Example:
 
 ```
+const fn = (a, b, c) => a + b + c
+const curried = R.curry(fn)
+const sum = curried(1,2)
 
+const result = sum(3) // => 6
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
