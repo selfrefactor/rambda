@@ -1,5 +1,5 @@
-export function concat(left, right){
-  if (arguments.length === 1) return _right => concat(left, _right)
+export function concat(x, y){
+  if (arguments.length === 1) return _y => concat(x, _y)
 
-  return typeof left === 'string' ? `${ left }${ right }` : [ ...left, ...right ]
+  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
 }

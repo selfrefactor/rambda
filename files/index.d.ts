@@ -511,7 +511,7 @@ export function clone<T>(input: ReadonlyArray<T>): T[];
 /*
 Method: complement
 
-Explanation: It returns `inverted` function of `origin` function that accept `input` as argument.
+Explanation: It returns `inverted` version of `origin` function that accept `input` as argument.
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
 
@@ -537,19 +537,22 @@ Notes:
 export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 /*
-Method:
+Method: compose
 
-Explanation:
-
-
+Explanation: It performs right-to-left function composition.
 
 Example:
 
 ```
+const result = R.compose(
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
 
+// => [6, 8]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -598,19 +601,18 @@ export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
   fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
 /*
-Method:
+Method: concat
 
-Explanation:
-
-
+Explanation: It returns a new string or array, which is the result of merging `x` and `y`.
 
 Example:
 
 ```
-
+R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
+R.concat('foo', 'bar') // => 'foobar'
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
