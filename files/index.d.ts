@@ -661,6 +661,27 @@ export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a
 export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 
 /*
+Method: converge
+
+Explanation:
+
+
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+
+/*
 Method: curry
 
 Explanation: It expects a function as input and returns its curried version.
@@ -684,9 +705,28 @@ Notes:
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 /*
-Method:
+Method: curryN
 
-Explanation:
+Explanation: It returns a curried equivalent of the provided function, with the specified arity.
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes: Function
+
+*/
+// @SINGLE_MARKER
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+
+/*
+Method: dec
+
+Explanation: It decrements a number.
 
 
 
@@ -696,30 +736,38 @@ Example:
 
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function dec(n: number): number;
+export function dec(x: number): number;
 
 /*
-Method:
+Method: defaultTo
 
 Explanation:
+It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
-
+Else, it returns the first truthy `inputArguments` instance(from left to right).
 
 Example:
 
 ```
+// With single input argument
+R.defaultTo('foo', 'bar') // => 'bar'
+R.defaultTo('foo', undefined) // => 'foo'
 
+// With multiple input arguments
+R.defaultTo('foo', undefined, null, NaN) // => 'foo'
+R.defaultTo('foo', undefined, 'bar', NaN, 'qux') // => 'bar'
+R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
 ```
 
-Categories:
+Categories: Logic
 
-Notes:
+Notes: `Ramda` library works with a single input argument, while `Rambda` allows multiple arguments.
 
 */
 // @SINGLE_MARKER

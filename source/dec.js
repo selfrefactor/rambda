@@ -1,1 +1,1 @@
-export const dec = n => n - 1
+export const dec = x => x - 1
