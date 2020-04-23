@@ -922,28 +922,28 @@ export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
-Method:
+Method: endsWith
 
-Explanation:
-
-
+Explanation: It returns `true` if `input` string ends with `suffix`.
 
 Example:
 
 ```
+const input = 'foo-bar'
+const suffix = '-bar'
 
+const result = R.endsWith(suffix, input)
+// => true
 ```
 
-Categories:
+Categories: String
 
-Notes:
+Notes: It doesn't work with arrays
 
 */
 // @SINGLE_MARKER
 export function endsWith(a: string, list: string): boolean;
 export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
 
 /*
 Method:
