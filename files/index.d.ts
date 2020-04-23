@@ -946,39 +946,37 @@ export function endsWith(a: string, list: string): boolean;
 export function endsWith(a: string): (list: string) => boolean;
 
 /*
-Method:
+Method: equals
 
-Explanation:
-
-
+Explanation: It deeply compares `a` and `b` and returns `true` if they are equal.
 
 Example:
 
 ```
-
+R.equals(
+  [1, {a:2}, [{b: 3}]],
+  [1, {a:2}, [{b: 3}]]
+) // => true
 ```
 
-Categories:
+Categories: Logic
 
-Notes:
+Notes: It doesn't handle cyclical data structures.
 
 */
 // @SINGLE_MARKER
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
-
 /*
-Method:
+Method: F
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+F() // => false
 ```
 
 Categories:
@@ -990,31 +988,39 @@ Notes:
 export function F(): boolean;
 
 /*
-Method:
+Method: filter
 
-Explanation:
-
-
+Explanation: It filters list or object `input` with `predicate`.
 
 Example:
 
 ```
+const list = [3, 4, 3, 2]
+const listPredicate = (x, index) => x - index > 2
 
+const object = {abc: 'fo', xyz: 'bar', baz: 'foo'}
+const objectPredicate = (x, prop) => x.length + prop.length > 5
+
+const result = [
+  R.filter(listPredicate, list),
+  R.filter(objectPredicate, object)
+]
+// => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
-export function filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
-export function filter<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filter<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+export function filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
+export function filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+export function filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
-Method:
+Method: find
 
 Explanation:
 

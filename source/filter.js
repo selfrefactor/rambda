@@ -12,13 +12,13 @@ function filterObject(fn, obj){
   return willReturn
 }
 
-export function filter(fn, list){
-  if (arguments.length === 1) return _list => filter(fn, _list)
+export function filter(predicate, list){
+  if (arguments.length === 1) return _list => filter(predicate, _list)
 
   if (!list) return []
 
   if (!Array.isArray(list)){
-    return filterObject(fn, list)
+    return filterObject(predicate, list)
   }
 
   let index = -1
@@ -29,10 +29,11 @@ export function filter(fn, list){
   while (++index < len){
     const value = list[ index ]
 
-    if (fn(value, index)){
+    if (predicate(value, index)){
       willReturn[ resIndex++ ] = value
     }
   }
 
   return willReturn
 }
+ 
