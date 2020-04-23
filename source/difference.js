@@ -1,8 +1,8 @@
 import { includes } from './includes'
 import { uniq } from './uniq'
 
-export function difference(list1, list2){
-  if (arguments.length === 1) return _list => difference(list1, _list)
+export function difference(a, b){
+  if (arguments.length === 1) return _b => difference(a, _b)
 
-  return uniq(list1).filter(x1 => !includes(x1, list2))
+  return uniq(a).filter(aInstance => !includes(aInstance, b))
 }

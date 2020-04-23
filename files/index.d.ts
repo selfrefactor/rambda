@@ -776,26 +776,28 @@ export function defaultTo<T>(defaultValue: T, ...inputArguments: (T | null | und
 export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefined)[]): T | U;
 
 /*
-Method:
+Method: difference
 
-Explanation:
-
-
+Explanation: It returns the uniq set of all elements in the first list `a` not contained in the second list `b`. 
 
 Example:
 
 ```
+const a = [ 1, 2, 3, 4 ]
+const b = [ 3, 4, 5, 6 ]
 
+const result = difference(a, b)
+// => [ 1, 2 ]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+export function difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
+export function difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 /*
 Method:
