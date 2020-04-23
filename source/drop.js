@@ -1,5 +1,5 @@
-export function drop(n, listOrString){
-  if (arguments.length === 1) return _list => drop(n, _list)
+export function drop(howManyToDrop, listOrString){
+  if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
 
-  return listOrString.slice(n > 0 ? n : 0)
+  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }

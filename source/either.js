@@ -1,5 +1,7 @@
-export function either(f, g){
-  if (arguments.length === 1) return _g => either(f, _g)
+export function either(firstPredicate, secondPredicate){
+  if (arguments.length === 1){
+    return _secondPredicate => either(firstPredicate, _secondPredicate)
+  }
 
-  return (...input) => f(...input) || g(...input)
+  return (...input) => Boolean(firstPredicate(...input) || secondPredicate(...input))
 }

@@ -800,19 +800,18 @@ export function difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
 export function difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: dissoc
 
-Explanation:
-
-
+Explanation: It returns a new object that does not contain property `prop`.
 
 Example:
 
 ```
-
+R.dissoc('b', {a: 1, b: 2, c: 3})
+//=> {a: 1, c: 3}
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -822,19 +821,17 @@ export function dissoc<T>(prop: string, obj: any): T;
 export function dissoc(prop: string): <U>(obj: any) => U;
 
 /*
-Method:
+Method: divide
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.divide(71, 100) // => 0.71
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
@@ -844,78 +841,85 @@ export function divide(a: number, b: number): number;
 export function divide(a: number): (b: number) => number;
 
 /*
-Method:
+Method: drop
 
-Explanation:
-
-
+Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
 
 Example:
 
 ```
-
+R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
+R.drop(2, 'foobar')  // => 'obar'
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, arrOrStr: string): string;
+export function drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
+export function drop(howManyToDrop: number, listOrString: string): string;
 export function drop<T>(howManyToDrop: number): {
-  (arrOrStr: string): string;
-  (arrOrStr: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
-Method:
+Method: dropLast
 
-Explanation:
-
-
+Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its end.
 
 Example:
 
 ```
-
+R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
+R.dropLast(2, 'foobar')  // => 'foob'
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, arrOrStr: string): string;
+export function dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
+export function dropLast(howManyToDrop: number, listOrString: string): string;
 export function dropLast<T>(howManyToDrop: number): {
-  (arrOrStr: ReadonlyArray<T>): T[];
-  (arrOrStr: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
 };
 
 /*
 Method:
 
-Explanation:
+Explanation: It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
 
-
+This `predicate` function will return `true`, if any of the two input predicates return `true`.
 
 Example:
 
 ```
+const firstPredicate = x => x > 10
+const secondPredicate = x => x % 2 === 0
+const predicate = R.either(firstPredicate, secondPredicate)
 
+const result = [
+  predicate(15),
+  predicate(8),
+  predicate(7),
+]
+//=> [true, true, false]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
+export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
 Method:
@@ -1273,8 +1277,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(arrOrStr: T[]): T | undefined;
-export function head(arrOrStr: string): string;
+export function head<T>(listOrString: T[]): T | undefined;
+export function head(listOrString: string): string;
 
 /*
 Method:
@@ -1451,8 +1455,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T>(arrOrStr: ReadonlyArray<T>): T[];
-export function init(arrOrStr: string): string;
+export function init<T>(listOrString: ReadonlyArray<T>): T[];
+export function init(listOrString: string): string;
 
 /*
 Method:
@@ -1625,8 +1629,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last<T>(arrOrStr: T[]): T | undefined;
-export function last(arrOrStr: string): string;
+export function last<T>(listOrString: T[]): T | undefined;
+export function last(listOrString: string): string;
 
 /*
 Method:
@@ -3071,8 +3075,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T>(arrOrStr: ReadonlyArray<T>): T[];
-export function tail(arrOrStr: string): string;
+export function tail<T>(listOrString: ReadonlyArray<T>): T[];
+export function tail(listOrString: string): string;
 
 /*
 Method:
@@ -3093,11 +3097,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
-export function take(num: number, arrOrStr: string): string;
+export function take<T>(num: number, listOrString: ReadonlyArray<T>): T[];
+export function take(num: number, listOrString: string): string;
 export function take<T>(num: number): {
-  (arrOrStr: string): string;
-  (arrOrStr: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
@@ -3119,11 +3123,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
-export function takeLast(num: number, arrOrStr: string): string;
+export function takeLast<T>(num: number, listOrString: ReadonlyArray<T>): T[];
+export function takeLast(num: number, listOrString: string): string;
 export function takeLast(num: number): {
-  <T>(arrOrStr: ReadonlyArray<T>): T[];
-  (arrOrStr: string): string;
+  <T>(listOrString: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
 };
 
 /*
