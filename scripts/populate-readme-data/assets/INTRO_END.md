@@ -18,7 +18,7 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 
 - Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
 
-- Rambda's **map**, **filter**, **reject** and **forEach** can iterate over objects not only arrays.
+- Rambda's **map**, **reject** and **forEach** can iterate over objects not only arrays.
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 

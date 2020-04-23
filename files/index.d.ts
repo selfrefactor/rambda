@@ -938,7 +938,7 @@ const result = R.endsWith(suffix, input)
 
 Categories: String
 
-Notes: It doesn't work with arrays
+Notes: It doesn't work with arrays.
 
 */
 // @SINGLE_MARKER
@@ -1022,27 +1022,31 @@ export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>):
 /*
 Method: find
 
-Explanation:
+Explanation: It returns the first element of `list` that satisfy the `predicate`.
 
-
+If there is no such element, it returns `undefined`.
 
 Example:
 
 ```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 'bar'}, {foo: 1}]
 
+const result = R.find(predicate, list)
+// => {foo: 1}
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
-export function find<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
+export function find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 /*
-Method:
+Method: findIndex
 
 Explanation:
 
