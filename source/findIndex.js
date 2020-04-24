@@ -1,11 +1,11 @@
-export function findIndex(fn, list){
-  if (arguments.length === 1) return _list => findIndex(fn, _list)
+export function findIndex(predicate, list){
+  if (arguments.length === 1) return _list => findIndex(predicate, _list)
 
   const len = list.length
   let index = -1
 
   while (++index < len){
-    if (fn(list[ index ], index)){
+    if (predicate(list[ index ], index)){
       return index
     }
   }

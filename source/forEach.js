@@ -1,9 +1,9 @@
 import { map } from './map'
 
-export function forEach(fn, list){
-  if (arguments.length === 1) return _list => forEach(fn, _list)
+export function forEach(predicate, list){
+  if (arguments.length === 1) return _list => forEach(predicate, _list)
 
-  map(fn, list)
+  map(predicate, list)
 
   return list
 }

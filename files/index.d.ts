@@ -1048,17 +1048,21 @@ export function find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) =
 /*
 Method: findIndex
 
-Explanation:
+Explanation: It returns the index of the first element of `list` satisfying the `predicate` function.
 
-
+If there is no such element, then `-1` is returned.
 
 Example:
 
 ```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 'bar'}, {foo: 1}]
 
+const result = R.findIndex(predicate, list)
+// => 1
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1068,19 +1072,23 @@ export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): 
 export function findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 /*
-Method:
+Method: findLast
 
-Explanation:
+Explanation: It returns the last element of `list` satisfying the `predicate` function.
 
-
+If there is no such element, then `undefined` is returned.
 
 Example:
 
 ```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 0}, {foo: 1}]
 
+const result = R.findLast(predicate, list)
+// => {foo: 1}
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1090,19 +1098,23 @@ export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
 /*
-Method:
+Method: findLastIndex
 
-Explanation:
+Explanation: It returns the index of the last element of `list` satisfying the `predicate` function.
 
-
+If there is no such element, then `-1` is returned.
 
 Example:
 
 ```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 0}, {foo: 1}]
 
+const result = R.findLastIndex(predicate, list)
+// => 1
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1112,19 +1124,23 @@ export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
 export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
 
 /*
-Method:
+Method: flatten
 
-Explanation:
-
-
+Explanation: It deeply flattens an array.
 
 Example:
 
 ```
-
+const result = R.flatten([
+  1, 
+  2, 
+  [3, 30, [300]], 
+  [4]
+])
+// => [ 1, 2, 3, 30, 300, 4 ]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1133,19 +1149,23 @@ Notes:
 export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 
 /*
-Method:
+Method: flip
 
-Explanation:
-
-
+Explanation: It returns function which calls `fn` with exchanged first and second argument.
 
 Example:
 
 ```
+const subtractFlip = R.flip(R.subtract)
 
+const result = [
+  subtractFlip(1,7),
+  R.flip(1,6)
+]  
+// => [6, -6]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
