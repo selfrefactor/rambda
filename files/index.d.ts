@@ -1174,21 +1174,25 @@ Notes:
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
 /*
-Method:
+Method: forEach
 
-Explanation:
-
-
+Explanation: It applies `iterable` function over all members of `list` and returns `list`.
 
 Example:
 
 ```
+const sideEffect = {}
+const result = R.forEach(
+  x => sideEffect[`foo${x}`] = x
+)([1, 2])
 
+sideEffect //=> {foo1: 1, foo2: 2}
+result //=> [1, 2]
 ```
 
-Categories:
+Categories: List, Object
 
-Notes:
+Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
