@@ -135,71 +135,100 @@ export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: Readonl
 export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
-
+/*
+	It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
+*/
 export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
-
+/*
+	It returns function that always returns `x`.
+*/
 export function always<T>(x: T): () => T;
 
-
-export function any<T>(fn: (x: T, i: number) => boolean, arr: ReadonlyArray<T>): boolean;
-export function any<T>(fn: (x: T) => boolean, arr: ReadonlyArray<T>): boolean;
-export function any<T>(fn: (x: T, i: number) => boolean): (arr: ReadonlyArray<T>) => boolean;
-export function any<T>(fn: (x: T) => boolean): (arr: ReadonlyArray<T>) => boolean;
-
-
-export function anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
-
-
-export function append<T>(el: T, list: ReadonlyArray<T>): T[];
-export function append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
-
-
-export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
-  obj: Obj
-): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-  ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
-export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
-
-
-export function assoc<T, U, K extends string>(prop: K, value: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, value: T): <U>(obj: U) => Record<K, T> & U;
-export function assoc<K extends string>(prop: K): <T, U>(value: T, obj: U) => Record<K, T> & U;
-
-
-export function assocPath<T, U>(path: Path, val: T, obj: U): U;
-export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
-
-
-
+/*
+	Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+*/
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
+/*
+	It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+*/
+export function any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
+export function any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
+/*
+	It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+*/
+export function anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
+
+/*
+	It appends element `el` to a `list` array.
+*/
+export function append<T>(el: T, list: ReadonlyArray<T>): T[];
+export function append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
+
+/*
+	Returns a curried function with the same arity as the longest function in the spec object.
+Arguments will be applied to the spec methods recursively.
+*/
+export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+  spec: Spec
+): (
+    ...args: Parameters<ValueOfRecord<Spec>>
+  ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
+
+/*
+	It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
+*/
+export function assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
+export function assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
+
+/*
+	It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
+*/
+export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
+export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
+export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
+
+/*
+	It returns a function with `input` argument. 
+
+This funciton will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
+*/
 export function both(pred1: Pred, pred2: Pred): Pred;
 export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
 export function both(pred1: Pred): (pred2: Pred) => Pred;
 
+/*
+	Restrict a number `input` to be withing `min` and `max` limits.
 
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
+If `input` is bigger than `max`, then the result is `max`.
 
-
-
+If `input` is smaller than `min`, then the result is `min`.
+*/
 export function clamp(min: number, max: number, input: number): number;
 export function clamp(min: number, max: number): (input: number) => number;
 
 
-export function clone<T>(value: T): T;
-export function clone<T>(value: ReadonlyArray<T>): T[];
+export function clone<T>(input: T): T;
+export function clone<T>(input: ReadonlyArray<T>): T[];
 
+/*
+	It returns `inverted` version of `origin` function that accept `input` as argument.
 
+The return value of `inverted` is the negative boolean value of `origin(input)`.
+*/
 export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
-
+/*
+	It performs right-to-left function composition.
+*/
 export function compose<T1>(fn0: () => T1): () => T1;
 export function compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 export function compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -242,98 +271,167 @@ export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
   fn1: (x: T1) => T2,
   fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
-
+/*
+	It returns a new string or array, which is the result of merging `x` and `y`.
+*/
 export function concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
 export function concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
 export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
 
+/*
+	It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
 
-export function cond(fns: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
-export function cond<A, B>(fns: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
+This function will start evaluating the `conditions` in order to find the first winner(order of conditions matter). 
 
+The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
 
+If no winner is found, then `fn` returns `undefined`.
+*/
+export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
+export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
+
+/*
+	
+*/
+export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+
+/*
+	It expects a function as input and returns its curried version.
+*/
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
+/*
+	It expects a function as input and returns its curried version.
+*/
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
-export function dec(n: number): number;
+/*
+	It decrements a number.
+*/
+export function dec(x: number): number;
 
+/*
+	It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
+Else, it returns the first truthy `inputArguments` instance(from left to right).
+*/
 export function defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T;
 export function defaultTo<T>(defaultValue: T, ...inputArguments: (T | null | undefined)[]): T;
 export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefined)[]): T | U;
 
+/*
+	It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
+*/
+export function difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
+export function difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
-export function difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
-
-
+/*
+	It returns a new object that does not contain property `prop`.
+*/
 export function dissoc<T>(prop: string, obj: any): T;
 export function dissoc(prop: string): <U>(obj: any) => U;
 
-
+/*
+	
+*/
 export function divide(a: number, b: number): number;
 export function divide(a: number): (b: number) => number;
 
-
-export function drop<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, arrOrStr: string): string;
+/*
+	It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+*/
+export function drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
+export function drop(howManyToDrop: number, listOrString: string): string;
 export function drop<T>(howManyToDrop: number): {
-  (arrOrStr: string): string;
-  (arrOrStr: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
 };
 
-
-export function dropLast<T>(howManyToDrop: number, arrOrStr: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, arrOrStr: string): string;
+/*
+	It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+*/
+export function dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
+export function dropLast(howManyToDrop: number, listOrString: string): string;
 export function dropLast<T>(howManyToDrop: number): {
-  (arrOrStr: ReadonlyArray<T>): T[];
-  (arrOrStr: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
 };
 
 
+export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+
+/*
+	It returns `true` if `input` string ends with `suffix`.
+*/
 export function endsWith(a: string, list: string): boolean;
 export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-export function endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
 
-
+/*
+	It deeply compares `a` and `b` and returns `true` if they are equal.
+*/
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
-
-
+/*
+	
+*/
 export function F(): boolean;
 
+/*
+	It filters list or object `input` with `predicate`.
+*/
+export function filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
+export function filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+export function filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
-export function filter<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
-export function filter<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
-export function filter<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filter<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+/*
+	It returns the first element of `list` that satisfy the `predicate`.
 
+If there is no such element, it returns `undefined`.
+*/
+export function find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
+export function find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
-export function find<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
-export function find<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
+/*
+	It returns the first element of `list` that satisfy the `predicate`.
 
-
+If there is no such element, it returns `undefined`.
+*/
 export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
 export function findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
+/*
+	It returns the first element of `list` that satisfy the `predicate`.
 
+If there is no such element, it returns `undefined`.
+*/
 export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
+/*
+	It returns the first element of `list` that satisfy the `predicate`.
 
+If there is no such element, it returns `undefined`.
+*/
 export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
 export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
 
-
+/*
+	It deeply flattens an array.
+*/
 export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 
-
+/*
+	It returns function which calls `fn` with exchanged first and second argument.
+*/
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
-
+/*
+	It applies `iterable` function over all members of `list` and returns `list`.
+*/
 export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
 export function forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 export function forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
@@ -341,26 +439,32 @@ export function forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => Read
 export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
 export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
 
+/*
+	It transforms a `listOfPairs` to an object.
+*/
+export function fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
+export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
-export function fromPairs<V>(pairs: KeyValuePair<string, V>[]): { [index: string]: V };
-export function fromPairs<V>(pairs: KeyValuePair<number, V>[]): { [index: number]: V };
+/*
+	It splits `list` according to a provided `groupFn` function and returns an object.
+*/
+export function groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
-
-export function groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+/*
+	It returns splitted version of `list`, where separation is done with equality `compareFn` function.
+*/
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
 
 
-export function groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
-
-
-export function head<T>(arrOrStr: T[]): T | undefined;
-export function head(arrOrStr: string): string;
+export function head<T>(listOrString: T[]): T | undefined;
+export function head(listOrString: string): string;
 
 
 export function identical<T>(a: T, b: T): boolean;
@@ -393,8 +497,8 @@ export function indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
 export function indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
 
 
-export function init<T>(arrOrStr: ReadonlyArray<T>): T[];
-export function init(arrOrStr: string): string;
+export function init<T>(listOrString: ReadonlyArray<T>): T[];
+export function init(listOrString: string): string;
 
 
 export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
@@ -423,8 +527,8 @@ export function keys<T extends object>(x: T): (keyof T)[];
 export function keys<T>(x: T): string[];
 
 
-export function last<T>(arrOrStr: T[]): T | undefined;
-export function last(arrOrStr: string): string;
+export function last<T>(listOrString: T[]): T | undefined;
+export function last(listOrString: string): string;
 
 
 export function lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
@@ -879,23 +983,23 @@ export function symmetricDifference<T>(list: ReadonlyArray<T>): <T>(list: Readon
 export function T(): boolean;
 
 
-export function tail<T>(arrOrStr: ReadonlyArray<T>): T[];
-export function tail(arrOrStr: string): string;
+export function tail<T>(listOrString: ReadonlyArray<T>): T[];
+export function tail(listOrString: string): string;
 
 
-export function take<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
-export function take(num: number, arrOrStr: string): string;
+export function take<T>(num: number, listOrString: ReadonlyArray<T>): T[];
+export function take(num: number, listOrString: string): string;
 export function take<T>(num: number): {
-  (arrOrStr: string): string;
-  (arrOrStr: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
 };
 
 
-export function takeLast<T>(num: number, arrOrStr: ReadonlyArray<T>): T[];
-export function takeLast(num: number, arrOrStr: string): string;
+export function takeLast<T>(num: number, listOrString: ReadonlyArray<T>): T[];
+export function takeLast(num: number, listOrString: string): string;
 export function takeLast(num: number): {
-  <T>(arrOrStr: ReadonlyArray<T>): T[];
-  (arrOrStr: string): string;
+  <T>(listOrString: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
 };
 
 

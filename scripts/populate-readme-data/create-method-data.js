@@ -84,6 +84,22 @@ function createBenchmarkInfo(method){
   return template(summaryTemplate, method.benchmarkInfo)
 }
 
+function attachAllTypings(method){
+  const allTypingsTemplate = `
+<details>
+
+<summary>All Typescript definitions</summary>
+
+\`\`\`typescript
+{{allTypings}}
+\`\`\`
+
+</details>
+`
+
+  return template(allTypingsTemplate, method)
+}
+
 const createExampleReadme = ({ example }) => `
 \`\`\`javascript
 ${ example }
@@ -95,12 +111,13 @@ const createNoteReadme = ({ note }) => `
 ${ note }
 `
 
-const getIntro = ({ methodName, typing }) => [
-  `### ${ methodName }`,
-  '\n\n',
-  `> ${ typing }`,
-  '\n\n',
-]
+const attachTyping = ({ typing }) => `
+\`\`\`typescript
+${ typing }
+\`\`\`
+\n`
+
+const getIntro = ({ methodName }) => [ `### ${ methodName }`, '\n\n' ]
 
 function createReplReadme({ replLink, methodName }){
   return `\n<a title="redirect to Rambda Repl site" href="${ replLink }">Try the above <strong>R.${ methodName }</strong> example in Rambda REPL</a>`
@@ -109,16 +126,21 @@ function createReplReadme({ replLink, methodName }){
 export function createMethodData(method){
   const data = getIntro(method)
   const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
+
+  if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
   if (method.example) data.push(createExampleReadme(method))
   if (method.replLink) data.push(createReplReadme(method))
   if (method.replLink) data.push('\n')
+  if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
   if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+
   if (method.typescriptDefinitionTest)
     data.push(createTypescriptTest(method))
+
   if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
   if (hasFailedSpec) data.push(createFailedSpec(method))
 

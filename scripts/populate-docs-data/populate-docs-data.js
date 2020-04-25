@@ -2,6 +2,7 @@ import { outputJSON } from 'fs-extra'
 import { map, piped } from 'rambdax'
 
 import { createExportedTypings } from './create-exported-typings'
+import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
@@ -32,6 +33,7 @@ export async function populateDocsData(){
   await createExportedTypings()
 
   const definitions = extractDefinition()
+  const allDefinitions = extractAllDefinitions()
   const rambdaSource = await rambdaSourceMethod()
   const rambdaSpecs = await rambdaSpecsMethod()
   const typingsTests = await typingsTestsMethod()
@@ -44,6 +46,12 @@ export async function populateDocsData(){
 
   const toSave = piped(
     initiateData(definitions, 'typing'),
+    input =>
+      appendData({
+        input,
+        prop : 'allTypings',
+        hash : allDefinitions,
+      }),
     input =>
       appendData({
         input,
