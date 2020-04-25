@@ -7,6 +7,6 @@ import { populateReadmeData } from './populate-readme-data.js'
 // })
 
 test('for Ramdax', async () => {
-  await populateDocsData({withRambdax: true})
-  await populateReadmeData({withRambdax: true})
+  await populateDocsData({ withRambdax : true })
+  await populateReadmeData({ withRambdax : true })
 })
