@@ -4,7 +4,6 @@ describe('map with arrays', () => {
   it('only one type', () => {
     const x = map<number>(
       (a, b) => {
-        // $ExpectType number[]
         a // $ExpectType number
         b // $ExpectType number
         return a + 2
@@ -15,7 +14,6 @@ describe('map with arrays', () => {
   })
   it('only one type + curry', () => {
     const x = map<number>((a, b) => {
-      // $ExpectType number[]
       a // $ExpectType number
       b // $ExpectType number
       return a + 2
@@ -25,7 +23,6 @@ describe('map with arrays', () => {
   it('2 types', () => {
     const x = map<number, string>(
       (a, b) => {
-        // $ExpectType string[]
         a // $ExpectType number
         b // $ExpectType number
         return `${a}`
@@ -36,7 +33,6 @@ describe('map with arrays', () => {
   })
   it('2 types + curry', () => {
     const x = map<number, string>((a, b) => {
-      // $ExpectType string[]
       a // $ExpectType number
       b // $ExpectType number
       return `${a}`
@@ -51,7 +47,6 @@ describe('map with objects', () => {
     // in order to distinguish compared to curry typings for arrays
     // ============================================
     const x = map<number, string, any>((a, b, c) => {
-      // $ExpectType Dictionary<string>
       a // $ExpectType number
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
@@ -62,7 +57,6 @@ describe('map with objects', () => {
   it('1', () => {
     const x = map<number, string>(
       (a, b, c) => {
-        // $ExpectType Dictionary<string>
         a // $ExpectType number
         b // $ExpectType string
         c // $ExpectType Dictionary<number>
@@ -75,7 +69,6 @@ describe('map with objects', () => {
   it('2', () => {
     const x = map<number, string>(
       (a, b) => {
-        // $ExpectType Dictionary<string>
         a // $ExpectType number
         b // $ExpectType string
         return `${a}`
@@ -87,7 +80,6 @@ describe('map with objects', () => {
   it('3', () => {
     const x = map<number, string>(
       a => {
-        // $ExpectType Dictionary<string>
         a // $ExpectType number
         return `${a}`
       },

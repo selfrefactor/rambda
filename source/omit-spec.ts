@@ -18,14 +18,16 @@ describe('omit with string as props input', () => {
       b: '2',
       c: 3,
       d: 4,
-    }) // $ExpectType Output
+    })
+    x // $ExpectType Output
     x.b // $ExpectType string
     const y = omit<string | number, Output>('a,c')({
       a: 1,
       b: '2',
       c: 3,
       d: 4,
-    }) // $ExpectType Output
+    })
+    y // $ExpectType Output
     y.d // $ExpectType number
   })
 

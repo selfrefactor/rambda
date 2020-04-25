@@ -31,11 +31,11 @@ describe('both', () => {
 describe('both + curry', () => {
   it('with passed type', () => {
     const fn = both<number>(x => {
-      // $ExpectType Predicate<number>
       return x > 1
     })(x => {
       return x % 2 === 0
     })
+    fn // $ExpectType Predicate<number>
     const result = fn(2) // $ExpectType boolean
     result // $ExpectType boolean
   })

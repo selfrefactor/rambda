@@ -3,7 +3,6 @@ import {reject} from 'rambda'
 describe('reject with array', () => {
   it('1 curry', () => {
     const x = reject<number>(a => {
-      // $ExpectType number[]
       a // $ExpectType number
       return a > 1
     })([1, 2, 3])
@@ -12,7 +11,6 @@ describe('reject with array', () => {
   it('1', () => {
     const x = reject<number>(
       a => {
-        // $ExpectType number[]
         a // $ExpectType number
         return a > 1
       },
@@ -23,7 +21,6 @@ describe('reject with array', () => {
   it('2', () => {
     const x = reject<number>(
       (a, b) => {
-        // $ExpectType number[]
         a // $ExpectType number
         return a > 1
       },
@@ -36,7 +33,6 @@ describe('reject with array', () => {
 describe('reject with objects', () => {
   it('curry', () => {
     const x = reject<number, number>((a, b, c) => {
-      // $ExpectType Dictionary<number>
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
 
@@ -48,7 +44,6 @@ describe('reject with objects', () => {
   it('object with three arguments predicate', () => {
     const x = reject<number>(
       (a, b, c) => {
-        // $ExpectType Dictionary<number>
         b // $ExpectType string
         c // $ExpectType Dictionary<number>
 
@@ -62,7 +57,6 @@ describe('reject with objects', () => {
   it('object with two arguments predicate', () => {
     const x = reject<number>(
       (a, b) => {
-        // $ExpectType Dictionary<number>
         b // $ExpectType string
         return a > 1
       },
@@ -73,7 +67,6 @@ describe('reject with objects', () => {
   it('object with one argument predicate', () => {
     const x = reject<number>(
       a => {
-        // $ExpectType Dictionary<number>
         a // $ExpectType number
         return a > 1
       },
