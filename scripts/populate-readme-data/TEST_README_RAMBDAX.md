@@ -1,17 +1,25 @@
-# Rambda
+# Rambdax
 
-Faster alternative to **Ramda** - [Documentation](https://selfrefactor.github.io/rambda/#/)
+Extended version of Rambda(utility library) - [Documentation](https://selfrefactor.github.io/rambdax/#/)
 
-[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
-[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
-[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
-![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
-![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
+`Rambda` is faster and smaller alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
+
+[![CircleCI](https://circleci.com/gh/selfrefactor/rambdax/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambdax/tree/master)
+[![codecov](https://codecov.io/gh/selfrefactor/rambdax/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambdax/status.svg)](https://david-dm.org/selfrefactor/rambda)
+![Normal size](https://img.badgesize.io/selfrefactor/rambdax/master/dist/rambdax.js)
+![Gzip size](https://img.badgesize.io/selfrefactor/rambdax/master/dist/rambdax.js?compression=gzip)
+
+## Differences between Rambda and Ramdax
+
+Rambdax passthrough all [Rambda](https://github.com/selfrefactor/rambda) methods and introduce some new functions.
+
+The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatability.
 
 ## Example use
 
 ```javascript
-import { compose, map, filter } from 'rambda'
+import { compose, map, filter } from 'rambdax'
 
 const result = compose(
   map(x => x * 2),

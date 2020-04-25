@@ -61,8 +61,16 @@ method | Rambda | Ramda | Lodash
 {{usedBy}}
 `
 
-export async function getIntro(){
-  const introContent = await readFile(`${ __dirname }/assets/INTRO.md`)
+async function getIntroContent(withRambdax){
+  const filePath = withRambdax ?
+    `${ __dirname }/assets/INTRO_RAMBDAX.md` :
+    `${ __dirname }/assets/INTRO.md`
+
+  return readFile(filePath)
+}
+
+export async function getIntro(withRambdax){
+  const introContent = await getIntroContent(withRambdax)
   const introEndContent = await readFile(`${ __dirname }/assets/INTRO_END.md`)
   const usedByContent = await readFile(`${ __dirname }/assets/USED_BY.md`)
   const summaryContent = await readFile(resolve(__dirname, '../read-benchmarks/summary.txt'))

@@ -1,8 +1,8 @@
 import { outputFile } from 'fs-extra'
 import { map, template } from 'rambdax'
 
-import methodsDataRambda from '../populate-docs-data/data.json'
 import methodsDataRambdax from '../populate-docs-data/data-rambdax.json'
+import methodsDataRambda from '../populate-docs-data/data.json'
 import { createMethodData } from './create-method-data'
 import { getIntro } from './get-intro'
 import { getTail } from './get-tail'
@@ -18,7 +18,7 @@ const readmeTemplate = `
 {{tail}}
 `
 
-export async function populateReadmeData({withRambdax}){
+export async function populateReadmeData({ withRambdax }){
   const methodsData = withRambdax ? methodsDataRambdax : methodsDataRambda
 
   const methods = map(x => {
@@ -40,7 +40,7 @@ export async function populateReadmeData({withRambdax}){
       x.methodName.toLowerCase() > y.methodName.toLowerCase() ? 1 : -1)
     .map(createMethodData)
 
-  const intro = await getIntro()
+  const intro = await getIntro(withRambdax)
   const tail = await getTail()
   const templateData = {
     intro,
@@ -50,10 +50,11 @@ export async function populateReadmeData({withRambdax}){
 
   const readme = template(readmeTemplate, templateData).trim()
   const output = withRambdax ?
-  `${ __dirname }/TEST_README_RAMBDAX.md` :
+    `${ __dirname }/TEST_README_RAMBDAX.md` :
     `${ __dirname }/TEST_README.md`
-  
+
   await outputFile(output, readme)
 
   return readme
 }
+ 
