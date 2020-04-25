@@ -56,7 +56,8 @@ async function replaceImports(){
   return toReturn
 }
 
-export async function importRamdaSpecs(){
-  // await cloneRamda()
+export async function importRamdaSpecs(withInitStep = false){
+  if (withInitStep) await cloneRamda()
+
   return replaceImports()
 }

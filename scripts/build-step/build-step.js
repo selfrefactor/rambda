@@ -1,10 +1,19 @@
 import fdir from 'fdir'
-import { copy, outputFile, readJson, remove as removeFS, outputJson } from 'fs-extra'
+import {
+  copy,
+  outputFile,
+  outputJson,
+  readJson,
+  remove as removeFS,
+} from 'fs-extra'
 import { parse, resolve } from 'path'
-import { filter, mapAsync, pipedAsync, pick } from 'rambdax'
-import {devDependencies} from '../../package.json'
+import { filter, mapAsync, pick, pipedAsync } from 'rambdax'
+
+import { devDependencies } from '../../package.json'
 import * as R from '../../rambda.js'
 import { createExportedTypings } from './create-exported-typings'
+
+const ramdaMethods = Object.keys(R)
 
 async function createMainFile({ allMethods, ramdaMethods, dir }){
   const content = [ ...allMethods, ...ramdaMethods ]
@@ -16,17 +25,17 @@ async function createMainFile({ allMethods, ramdaMethods, dir }){
 
 async function rambdaxBuildStep(){
   const buildDeps = [
-    "@babel/core",
-"@babel/plugin-proposal-object-rest-spread",
-"@babel/preset-env",
-"rollup",
-"rollup-plugin-babel",
-"rollup-plugin-cleanup",
-"rollup-plugin-commonjs",
-"rollup-plugin-json",
-"rollup-plugin-node-resolve",
-"rollup-plugin-replace",
-"rollup-plugin-sourcemaps"
+    '@babel/core',
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/preset-env',
+    'rollup',
+    'rollup-plugin-babel',
+    'rollup-plugin-cleanup',
+    'rollup-plugin-commonjs',
+    'rollup-plugin-json',
+    'rollup-plugin-node-resolve',
+    'rollup-plugin-replace',
+    'rollup-plugin-sourcemaps',
   ]
 
   const rambdaxDeps = pick(buildDeps, devDependencies)
@@ -36,14 +45,18 @@ async function rambdaxBuildStep(){
   const tsToolbeltOutput = `${ dir }/_ts-toolbelt`
   const packageJsonOutput = `${ dir }/package.json`
   const packageJson = await readJson(packageJsonOutput)
-  const newPackageJson = {...packageJson, devDependencies: rambdaxDeps}
-  
-  await outputJson(packageJsonOutput, newPackageJson, {spaces:2})
+  const newPackageJson = {
+    ...packageJson,
+    devDependencies : rambdaxDeps,
+  }
+
+  await outputJson(
+    packageJsonOutput, newPackageJson, { spaces : 2 }
+  )
   await removeFS(tsToolbeltOutput)
   await copy(tsToolbelt, tsToolbeltOutput)
 
   const allMethods = []
-  const ramdaMethods = Object.keys(R)
 
   await pipedAsync(
     sourceFiles,
@@ -70,8 +83,32 @@ async function rambdaxBuildStep(){
   })
 }
 
+async function rambdaBuildStep(){
+  const sourceFiles = resolve(__dirname, '../../source')
+  const output = resolve(__dirname, '../../src')
+
+  await pipedAsync(
+    sourceFiles,
+    async x => fdir.async(x),
+    filter(x => {
+      if (x.endsWith('.spec.js')) return false
+
+      return x.endsWith('.js')
+    }),
+    mapAsync(async x => {
+      const { name } = parse(x)
+      if (!x.includes('internals') || !ramdaMethods.includes(name))
+        return false
+
+      const [ , fileName ] = x.split('source/')
+      await copy(x, `${ output }/${ fileName }`)
+    })
+  )
+}
+
 export async function buildStep(withRambdax = false){
   await createExportedTypings(withRambdax)
 
   if (withRambdax) await rambdaxBuildStep()
+  await rambdaBuildStep()
 }

@@ -1,7 +1,6 @@
 import { buildStep } from './build-step.js'
 
 test('happy', async () => {
-  const withRambdax = true
-  console.log(2)
+  const withRambdax = false
   await buildStep(withRambdax)
 })

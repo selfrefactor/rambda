@@ -6,6 +6,9 @@ import { writeSummary } from './src/write-summary.js'
 
 jest.setTimeout(ms('12 minutes'))
 
+
+// The test are running agains the bundle file, build before this
+// ============================================
 test('happy', async () => {
   const methodsWithSpecs = await importRamdaSpecs()
   // await runRamdaSpecs(methodsWithSpecs)
