@@ -432,7 +432,7 @@ Method: both
 
 Explanation: It returns a function with `input` argument. 
 
-This funciton will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
+This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
 
 Example:
 
@@ -1258,7 +1258,7 @@ export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) 
 /*
 Method: groupWith
 
-Explanation: It returns splitted version of `list`, where separation is done with equality `compareFn` function.
+Explanation: It returns separated version of `list`, where separation is done with equality `compareFn` function.
 
 Example:
 
@@ -3906,7 +3906,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function setter(keyOrobject: string | object, value?: any): void;
+export function setter(keyOrObject: string | object, value?: any): void;
 
 /*
 Method:
