@@ -14,7 +14,7 @@ Extended version of Rambda(utility library) - [Documentation](https://selfrefact
 
 Rambdax passthrough all [Rambda](https://github.com/selfrefactor/rambda) methods and introduce some new functions.
 
-The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatability.
+The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatibility.
 
 ## Example use
 
@@ -8562,31 +8562,43 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 ## CHANGELOG
 
-- 5.1.1
+# CHANGELOG
 
-Release new documentation site
+4.0.0
 
-Deprecate docsify
+Deprecate the following methods:
 
-- 5.1.0
+- `R.headObject`
 
-Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
+- `R.composed`
 
-> Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
+- `R.whenAsync`
 
-> Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
+- `R.opposite`
 
-- 5.0.0
+- `R.inject`
 
-Move `R.partialCurry` to Rambdax(reason for major bump).
+- `R.isAttach`
 
-Use new type of export in Typescript definitions.
+- `R.otherwise`
 
-Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`
+- `R.resolve`
 
-- 4.6.0
+Also these changes:
 
-Approve [PR #375](https://github.com/selfrefactor/rambda/pull/375) - add lenses(Thank you [@synthet1c](https://github.com/synthet1c))
+- Improve `R.ok` throwed error message
+
+- Add `R.pipeAsync`
+
+- Change how Typescript definitions are exported
+
+- Rename `R.uuid` to `R.randomString`
+
+- Take `R.partialCurry` from `Rambda` as it is deprecated there
+
+3.7.0
+
+> Sync with Rambda
 
 Add `R.lens`
 
@@ -8602,230 +8614,223 @@ Add `R.set`
 
 Add `R.view`
 
-> Sync with Ramda 0.27
-
 Add `R.paths`
 
 Add `R.xor`
 
-> Close [Issue #373](https://github.com/selfrefactor/rambda/issues/373)
-
 Add `R.cond`
 
-- 4.5.0 Add `R.clamp`
+3.6.0
 
-- 4.4.2 Improve `R.propOr` typings
+- Add `R.mapAsyncLimit`
 
-- 4.4.1 Make `R.reject` has the same typing as `R.filter`
+- Add `R.toggle`, match Ramda upcoming method specification
 
-- 4.4.0 Several changes:
+- Add `R.isValidAsync`
 
-Close [Issue #317](https://github.com/selfrefactor/rambda/issues/317) - add `R.transpose`
+- Extend `R.template` without introducing breaking change
 
-Close [Issue #325](https://github.com/selfrefactor/rambda/issues/325) - `R.filter` should return equal values for bad inputs `null` and `undefined`
+3.5.0 Sync with `Rambda` - add methods descriptions to Typescript definitions
 
-Approve suggestion for `R.indexBy` to accept string not only function as first argument.
+3.4.0 Sync with `Rambda` and close [Issue #42](https://github.com/selfrefactor/rambdax/pull/42)
 
-Edit of `R.path` typings
+3.3.0 Fix `R.sortObject` typing
 
-- 4.2.0 Approve [PR #314](https://github.com/selfrefactor/rambda/pull/314) - add `R.and`
+3.3.0 Add `R.filterAsync` and `R.sortObject` methods
 
-- 4.1.1 Add missing typings for `R.slice`
+3.2.0 `R.uuid` accept second argument in order to return string only uuid
 
-- 4.1.0 Add `R.findLast` and `R.findLastIndex`
+3.1.0 Dynamic set of exports lead to adding previously ommited Rambda exports such as `R.identical`
 
-- 4.0.2 Fix `R.isEmpty` wrong behaviour compared to the Ramda method
+3.0.3 Sync with Rambda - new functionality of `R.isEmpty`
 
-- 4.0.1 Approve [PR #289](https://github.com/selfrefactor/rambda/pull/289) - remove console.log in `R.values` method
+3.0.2 Add typings for `R.mapToObject`
 
-- 4.0.0 Multiple breaking changes as Rambda methods are changed in order to increase the similarity between with Ramda
+3.0.1 Fix typings
 
-Add to `Differences`:
+3.0.0 Breaking change as `Rambda` also has breaking changes
 
-```text
-R.type can return 'NaN'
+Read more about it in `Rambda` changelog
 
-R.compose doesn't pass `this` context
+Also with this versions, typings tests are provided and several definitions are changed.
 
-R.clone doesn't work with number, booleans and strings as input
-```
+- R.anyTrue, R.anyFalse, R.allTrue, R.allFalse use internal `isTruthy` and `isFalsy` methods. Empty array and object with zero length are considered falsy.
 
-All breaking changes:
+- Deprecate `R.contains`
 
--- R.add works only with numbers
+- Deprecate `R.defaultToWhen`
 
--- Fix R.adjust which had wrong order of arguments
+- Moved `R.runTests` to `helpers` repo
 
--- R.adjust works when index is out of bounds
+2.17.0 Change in `R.runTests` logic. It will be removed from Rambdax to `helpers` repo.
 
--- R.complement support function with multiple arguments
+2.16.0 Restore `R.runTests` but without documentation
 
--- R.compose/pipe throws when called with no argument
+- export `getEvaluations`, `getPositiveEvaluation`, `getNegativeEvaluation` in the context of `R.runTests`
 
--- R.clone works with `Date` value as input
+2.15.0 Several changes
 
--- R.drop/dropLast/take/takeLast always return new copy of the list/string
+- Typescript definitions have been updated and typings tests are introduced
 
--- R.take/takeLast return original list/string with negative index
+- `R.mapAsync` and `R.mapFastAsync` pass index as second argument
 
--- R.equals handles `NaN` and `RegExp` types
 
--- R.type/R.equals supports `new Boolean/new Number/new Date/new String` expressions
+2.14.1 Restore `R.contains`
 
--- R.has works with non-object
+2.14.0 Several changes:
 
--- R.ifElse pass all arguments
+- `R.inject` accept before flag as fourth argument
 
--- R.length works with bad input
+- Remove `R.includesAny`
 
--- R.propEq work with bad input for object argument
+- Improve typing of `R.partition`
 
--- R.range work with bad inputs
+- `R.nextIndex` and `R.prevIndex` work also with number as second argument
 
--- R.times work with bad inputs
+2.13.1 Deprecate `R.log` and `R.runTests`
 
--- R.reverse works with strings
+2.12.3 Add 'dist' directory to `files`
 
--- R.splitEvery throws on non-positive integer index
+2.12.2 Add `R.mapToObject` typings
 
--- R.test throws just like Ramda when first argument is not regex
+2.12.0 Sync with Rambda
 
--- R.values works with bad inputs
+2.11.1 Fix `R.waitFor`
 
--- R.zipObj ignores extra keys
+2.11.0 Add `R.toDecimal`
 
-- 3.3.0
+2.10.2 Fix [issue 32](https://github.com/selfrefactor/rambdax/issues/32)
 
-This is pre `4.0.0` release and it contains all of the above changes
+2.10.0 deprecate `R._`
 
-Close [issue #287](https://github.com/selfrefactor/rambda/issues/287) - `ts-toolbelt` directory was changed but not reflected in `files` property in `package.json`
+2.9.1 R.fromPairs/toPairs typing
 
-- 3.2.5
+2.9.0 npm doesn't update version on their site
 
-Close [issue #273](https://github.com/selfrefactor/rambda/issues/273) - ts-toolbelt needs other type of export when `isolatedModules` TypeScript property
+2.8.2 R.map typing
 
-Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
+2.8.0 Sync with Rambda | no need for create types script
 
-- 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
+2.7.0 Add `R.prevIndex`
 
-- 3.2.0 There are several changes:
+2.6.2 Sync with Rambda
 
-Close [issue #263](https://github.com/selfrefactor/rambda/issues/263) - broken curry typing solved by `ts-toolbelt` local dependency.
+2.6.0 `R.log` depends on `RAMBDAX_LOG`
 
-Add `R.partialCurry` typings.
+2.5.0 Rambda's `partial`
 
-Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.slice` method.
+2.4.0 Add `R.uuid`
 
-- 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
+2.3.0 `R._` parse to constant case
 
-- `R.either` and `R.both` supports multiple arguments as they should.
+> This introduce breaking change for ie11 as noted in [issue 31](https://github.com/selfrefactor/rambdax/issues/31) which is fixed with `2.10.0` which deprecates this method
 
-- Several methods added by  [@squidfunk](https://github.com/squidfunk) - `R.assocPath`, `R.symmetricDifference`, `R.intersperse`, `R.intersection` and `R.difference`
+2.2.1 Add `R.log`, `R.logInit` and `R.logHolder`
 
-- 3.0.1 Close [issue #234](https://github.com/selfrefactor/rambda/issues/234) - wrong curry typing
+2.1.0 Add `R._`
 
-- 3.0.0 Deprecate `R.contains`, while `R.includes` is now following Ramda API(it uses `R.equals` for comparision)
+2.0.0 Add `R.toggle`
 
-- 2.14.5 `R.without` needs currying
+1.9.0 Add `R.pushUniq`
 
-- 2.14.4 Close [issue #227](https://github.com/selfrefactor/rambda/issues/227) - add index as third argument of `R.reduce` typings
+1.8.2 No need for sourcemaps
 
-- 2.14.2 Use `R.curry` with `R.reduce` as manual curry there didn't work as expected.
+1.8.1 Fix building with `regeneratorRuntime`
 
-- 2.14.1 Fix wrong typescript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
+1.8.0 Upgrade to new major Rollup release
 
-- 2.14.0 Add `R.groupWith` by @selfrefactor | Add `R.propOr`, `R.mathMod`, `R.mean`, `R.median`, `R.negate`, `R.product` by [@ku8ar](https://github.com/ku8ar)
+- Restore `R.headObject`
 
-- 2.13.0 Add `R.identical` - [PR #217](https://github.com/selfrefactor/rambda/pull/217) pushed by [@ku8ar](https://github.com/ku8ar)
+- Add `R.hasPath` method
 
-- 2.12.0 Add `R.propIs` - [PR #213](https://github.com/selfrefactor/rambda/pull/213) and add `R.sum` - [issue #207](https://github.com/selfrefactor/rambda/issues/207)
+1.7.2 `R.memoize` contains dev console.logs
 
-- 2.11.2 Close Rambdax [issue #32](https://github.com/selfrefactor/rambdax/issues/32) - wrong `R.type` when function is input
+1.7.1 Forgot to build types
 
-- 2.11.1 Approve [PR #182](https://github.com/selfrefactor/rambda/pull/182) - Changed typings to allow object as input to `R.forEach` and `R.map`
+1.7.0 Rename `R.then` to `R.resolve` because of Ramda issue with `R.then`(they rename it to `R.andThen`)
 
-- 2.11.0 Approve [PR #179](https://github.com/selfrefactor/rambda/pull/179) - `R.adjust` handles negative index; `R.all` doesn't need `R.filter`
+- Add `R.isFalsy`, `R.nextIndex` and `R.mergeDeep`
 
-- 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing typescript file
+1.6.3 Forgot to export `R.unless`(credit to @mobily for the PR)
 
-- 2.10.0 Approve huge and important [PR #171](https://github.com/selfrefactor/rambda/pull/171) submitted by [@helmuthdu](https://github.com/helmuthdu) - Add comments to each method, improve Typescript support
+1.6.0 Restore `R.compact` method
 
-- 2.9.0 `R.toPairs` and `R.fromPairs`
+1.5.6 `R.maybe` accepts also anonymous functions as second and third argument
 
-- 2.8.0 Approve [PR #165](https://github.com/selfrefactor/rambda/pull/165) `R.clone`
+1.5.5 Add `R.maybe` method
 
-- 2.7.1 expose `src` | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
+- Fix errors caugth by `DeepScan` service
+- Fix Typescript definitions for `R.then` and `R.otherwise`
+- `R.change` increase nesting level to 4
 
-- 2.7.0 Approve [PR #161](https://github.com/selfrefactor/rambda/pull/161) `R.isEmpty`
+1.4.1 `R.isValid` didn't work with `Number` prototype
 
-- 2.6.0 `R.map`, `R.filter` and `R.forEach` pass original object to iterator as third argument | Discussed at [issue #147](https://github.com/selfrefactor/rambda/issues/147)
+1.4.0 Add multiple methods
 
-- 2.5.0 Close [issue #149](https://github.com/selfrefactor/rambda/issues/149) Add `R.partial` | `R.type` handles `NaN`
+- Add `R.defaultToStrict`
+- Add `R.defaultToWhen`
+- Add `R.whereEq`
+- Add `R.partition`
+- Add `R.negate` is renamed to `R.opposite`
+- Add `R.then`
+- Add `R.otherwise`
+- `R.isValid` accepts prototypes as rules, i.e. `schema = {a: String}`
+- The prevoious point leads to the same change applied to the methods depending on `R.isValid`, i.e. `R.ok`, `R.pass` and `R.isAttach`
 
-- 2.4.0 Major bump of `Rollup`; Stop building for ES5
+  1.3.0 Add `R.unless`
 
-- 2.3.1 Close [issue #90](https://github.com/selfrefactor/rambda/issues/90) | Add string type of path in `R.pathOr`
+- `R.when` accepts both function and value for `whenTrue` argument. The same is valid for `R.unless`
 
-- 2.3.0 Close [issue #89](https://github.com/selfrefactor/rambda/issues/89) | Fix missing `Number` TS definition in `R.type`
+- export `R.negate` which is the same as `R.complement`
 
-- 2.2.0 `R.defaultTo` accepts indefinite number of input arguments. So the following is valid expression: `const x = defaultTo('foo',null, null, 'bar')`
+  1.2.0 Export `src` folder
 
-- 2.1.0 Restore `R.zip` using [WatermelonDB](https://github.com/Nozbe/WatermelonDB/) implementation.
+  1.1.0 Restore `promiseAllObject` and `flatMap`
 
-- 2.0.0 Major version caused by removing of `R.zip` and `R.addIndex`. [Issue #85](https://github.com/selfrefactor/rambda/issues/85) rightfully finds that the implementation of `R.addIndex` is not correct. This led to removing this method and also of `R.zip` as it had depended on it. The second change is that `R.map`, `R.filter` are passing array index as second argument when looping over arrays. The third change is that `R.includes` will return `false` if input is neigher `string` nor `array`. The previous behaviour was to throw an error. The last change is to increase the number of methods that are passing index as second argument to the predicate function.
+  1.0.1 Fix typings
 
-- 1.2.6 Use `src` folder instead of `modules`
-- 1.2.5 Fix `omit` typing
-- 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
-- 1.2.2 Change curry method used across most of library methods
-- 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
-- 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
-- 1.1.5 Close [issue #74](https://github.com/selfrefactor/rambda/issues/74) `R.zipObj`
-- 1.1.4 Close [issue #71](https://github.com/selfrefactor/rambda/issues/71) CRA fail to build `rambda`
-- 1.1.3 Approve [PR #70](https://github.com/selfrefactor/rambda/pull/67) implement `R.groupBy` | Close [issue #69](https://github.com/selfrefactor/rambda/issues/69)
-- 1.1.2 Approve [PR #67](https://github.com/selfrefactor/rambda/pull/67) use `babel-plugin-annotate-pure-calls`
-- 1.1.1 Approve [PR #66](https://github.com/selfrefactor/rambda/pull/66) `R.zip`
-- 1.1.0 `R.compose` accepts more than one input argument [issue #65](https://github.com/selfrefactor/rambda/issues/65)
-- 1.0.13 Approve [PR #64](https://github.com/selfrefactor/rambda/pull/64) `R.indexOf`
-- 1.0.12 Close [issue #61](https://github.com/selfrefactor/rambda/issues/61) make all functions modules
-- 1.0.11 Close [issue #60](https://github.com/selfrefactor/rambda/issues/60) problem with babelrc
-- 1.0.10 Close [issue #59](https://github.com/selfrefactor/rambda/issues/59) add R.dissoc
-- 1.0.9 Close [issue #58](https://github.com/selfrefactor/rambda/issues/58) - Incorrect `R.equals`
-- 1.0.8 `R.map` and `R.filter` pass object properties when mapping over objects
-- 1.0.7 Add `R.uniqWith`
-- 1.0.6 Close [issue #52](https://github.com/selfrefactor/rambda/issues/52) - ES5 compatible code
-- 1.0.5 Close [issue #51](https://github.com/selfrefactor/rambda/issues/51)
-- 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
-- 1.0.3 `R.ifElse` accept also boolean as condition argument
-- 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
-- 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
-- 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
-- 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
-- 0.9.6 Close [issue #44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
-- 0.9.5 Close [issue #45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
-- 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
-- 0.9.3 Add `R.forEach` and `R.times`
-- 0.9.2 Add `Typescript` definitions
-- 0.9.1 Close [issue #36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
-- 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
-- 0.8.9 Add `R.isNil`
-- 0.8.8 Migrate to ES modules [PR33](https://github.com/selfrefactor/rambda/pull/33) | Add R.flip to the API | R.map/filter works with objects
-- 0.8.7 Change `Webpack` with `Rollup` - [PR29](https://github.com/selfrefactor/rambda/pull/29)
-- 0.8.6 Add `R.tap` and `R.identity`
-- 0.8.5 Add `R.all`, `R.allPass`, `R.both`, `R.either` and `R.complement`
-- 0.8.4 Learning to run `yarn test` before `yarn publish` the hard way
-- 0.8.3 Add `R.always`, `R.T` and `R.F`
-- 0.8.2 Add `concat`, `padStart`, `padEnd`, `lastIndexOf`, `toString`, `reverse`, `endsWith` and `startsWith` methods
-- 0.8.1 Add `R.ifElse`
-- 0.8.0 Add `R.not`, `R.includes` | Take string as condition for `R.pick` and `R.omit`
-- 0.7.6 Fix incorrect implementation of `R.values`
-- 0.7.5 Fix incorrect implementation of `R.omit`
-- 0.7.4 [issue #13](https://github.com/selfrefactor/rambda/issues/13) - Fix `R.curry`, which used to return incorrectly `function` when called with more arguments
-- 0.7.3 Close [issue #9](https://github.com/selfrefactor/rambda/issues/9) - Compile to `es2015`; Approve [PR #10](https://github.com/selfrefactor/rambda/pull/10) - add `R.addIndex` to the API
-- 0.7.2 Add `Promise` support for `R.type`
-- 0.7.1 Close [issue #7](https://github.com/selfrefactor/rambda/issues/7) - add `R.reduce` to the API
-- 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
-- 0.6.2 Add separate documentation site via `docsify`
+  1.0.0 Deprecate the following methods:
+
+- compact
+- evolve
+- flatMap
+- greater
+- intersection
+- less
+- omitBy
+- pickBy
+- promiseAllObject
+- promiseAllSecure
+- rangeBy
+
+> Also pass deprecation of `addIndex` from `Rambda@2.0.0`
+
+0.24.0 add `R.pipedAsync`, replace `R.multiline` with `R.glue`, remove `R.validate`
+
+0.23.0 Add `R.count`
+
+0.22.0 Add `R.includesAny`
+
+0.21.0 Add `R.includesType`
+
+0.20.1 `R.pass` and `R.ok` work with single schema.
+
+0.20.0 Add `R.pathEq`
+
+0.19.0 Add `R.wait`, expose already complete `R.waitFor`
+
+0.18.0 Add`R.anyType` and `R.allType`
+
+0.17.0 Rename `R.is` to `R.pass` and restore `R.is` original functionality.
+
+0.16.0 getter, setter, reset methods
+
+0.15.3 No more `prepublish` script
+
+0.15.2 curry in `remove`
+
+> Last version with `lib` folder exposed
+
 
 ## Additional info
 

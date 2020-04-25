@@ -11,11 +11,15 @@ const templateTail = `
 
 // TODO
 // ============================================
-const mostInfluentialContibutors = ''
+// const mostInfluentialContributors = ''
 
-export async function getTail(){
+export async function getTail(withRambdax){
   const additionalInfoContent = await readFile(`${ __dirname }/assets/ADDITIONAL.md`)
-  const changelogContent = await readFile(`${ __dirname }/assets/CHANGELOG.md`)
+  const changelogSource = withRambdax ?
+    `${ __dirname }/assets/CHANGELOG_RAMBDAX.md` :
+    `${ __dirname }/assets/CHANGELOG.md`
+
+  const changelogContent = await readFile(changelogSource)
 
   return template(templateTail, {
     additionalInfo : additionalInfoContent.toString(),

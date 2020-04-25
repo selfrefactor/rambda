@@ -41,7 +41,7 @@ export async function populateReadmeData({ withRambdax }){
     .map(createMethodData)
 
   const intro = await getIntro(withRambdax)
-  const tail = await getTail()
+  const tail = await getTail(withRambdax)
   const templateData = {
     intro,
     tail,
