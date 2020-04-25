@@ -57,4 +57,3 @@ export async function populateReadmeData({ withRambdax }){
 
   return readme
 }
- 
