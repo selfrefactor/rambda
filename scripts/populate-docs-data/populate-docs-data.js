@@ -1,7 +1,7 @@
 import { outputJSON } from 'fs-extra'
 import { map, piped } from 'rambdax'
 
-import { createExportedTypings } from './create-exported-typings'
+import { buildStep } from '../build-step/build-step'
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
@@ -30,7 +30,7 @@ function appendData({ input, prop, hash }){
 }
 
 export async function populateDocsData({ withRambdax }){
-  await createExportedTypings() // todo for rambdax
+  await buildStep(withRambdax)
 
   const definitions = extractDefinition(withRambdax)
   const allDefinitions = extractAllDefinitions(withRambdax)
@@ -107,9 +107,9 @@ export async function populateDocsData({ withRambdax }){
         hash : failedSpecsReasons,
       })
   )
-  
+
   const output = withRambdax ?
-    `${ __dirname }/data-rambdax.json`:
+    `${ __dirname }/data-rambdax.json` :
     `${ __dirname }/data.json`
 
   await outputJSON(

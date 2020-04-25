@@ -6,4 +6,8 @@ Build `src` folder with Rambda methods. It should include only source files
 
 ---
 
+Move tsbelt folder
+
+---
+
 Ramda filter works with objects
