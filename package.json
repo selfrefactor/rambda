@@ -74,6 +74,7 @@
     "tools.d.ts"
   ],
   "jest": {
+    "testRegex": "source/.*\\.spec\\.js$",
     "setupFilesAfterEnv": [
       "jest-extended"
     ],

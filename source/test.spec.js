@@ -1,4 +1,4 @@
-import { test as testMethod } from './testMethod'
+import { test as testMethod } from './test'
 
 test('happy', () => {
   expect(testMethod(/^x/, 'xyz')).toBeTrue()
