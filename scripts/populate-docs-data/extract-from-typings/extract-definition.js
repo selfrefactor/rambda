@@ -1,12 +1,12 @@
 import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
 
 import * as R from '../../../rambda'
-import { ORIGIN } from '../constants'
+import { getOrigin } from '../constants'
 
-export function extractDefinition(){
+export function extractDefinition(withRambdax){
   const rambdaMethods = Object.keys(R)
   const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm,
-    ORIGIN)
+    getOrigin(withRambdax))
 
   const result = mapToObject(singleMatch => {
     const typing = remove('// @SINGLE_MARKER', singleMatch)

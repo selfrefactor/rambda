@@ -1,7 +1,6 @@
 import { match } from 'rambdax'
+import { getOrigin } from '../constants'
 
-import { ORIGIN } from '../constants'
-
-export function extractRawInfo(){
-  return match(/\/\*(\n|[^@])+/gm, ORIGIN)
+export function extractRawInfo(withRambdax = false){
+  return match(/\/\*(\n|[^@])+/gm, getOrigin(withRambdax))
 }

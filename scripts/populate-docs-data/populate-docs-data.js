@@ -29,18 +29,18 @@ function appendData({ input, prop, hash }){
   })(input)
 }
 
-export async function populateDocsData(){
-  await createExportedTypings()
+export async function populateDocsData({ withRambdax }){
+  await createExportedTypings() // todo for rambdax
 
-  const definitions = extractDefinition()
-  const allDefinitions = extractAllDefinitions()
-  const rambdaSource = await rambdaSourceMethod()
-  const rambdaSpecs = await rambdaSpecsMethod()
-  const typingsTests = await typingsTestsMethod()
+  const definitions = extractDefinition(withRambdax)
+  const allDefinitions = extractAllDefinitions(withRambdax)
+  const rambdaSource = await rambdaSourceMethod(withRambdax)
+  const rambdaSpecs = await rambdaSpecsMethod(withRambdax)
+  const typingsTests = await typingsTestsMethod(withRambdax)
   const benchmarkInfo = await benchmarkInfoMethod()
-  const examples = extractExample()
-  const explanations = extractExplanation()
-  const notes = extractNotes()
+  const examples = extractExample(withRambdax)
+  const explanations = extractExplanation(withRambdax)
+  const notes = extractNotes(withRambdax)
   const failedRamdaSpecs = failedRamdaTests()
   const failedSpecsReasons = failedTestsReasons()
 
@@ -107,9 +107,13 @@ export async function populateDocsData(){
         hash : failedSpecsReasons,
       })
   )
+  
+  const output = withRambdax ?
+    `${ __dirname }/data-rambdax.json`:
+    `${ __dirname }/data.json`
 
   await outputJSON(
-    `${ __dirname }/data.json`, toSave, { spaces : 2 }
+    output, toSave, { spaces : 2 }
   )
 
   return toSave

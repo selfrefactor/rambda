@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from 'fs'
 import { resolve } from 'path'
 import { mapToObject } from 'rambdax'
-
 import { getMethods } from '../extract-from-typings/get-methods'
 
 export function failedRamdaTests(){
