@@ -3562,32 +3562,29 @@ export function zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>)
 export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
 
 // RAMBDAX_MARKER_START
-// ============================================
-
 
 /*
-Method:
+Method: allFalse
 
-Explanation:
-
-
+Explanation: It returns `true` if all `inputs` arguments return `false` when passed to `Boolean`.
 
 Example:
 
 ```
-
+R.allFalse(null, undefined, '', () => false)
+//=> true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function allFalse(...input: any[]): boolean;
+export function allFalse(...inputs: any[]): boolean;
 
 /*
-Method:
+Method: anyFalse
 
 Explanation:
 

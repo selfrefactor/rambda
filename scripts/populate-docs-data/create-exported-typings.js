@@ -2,20 +2,13 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { remove, replace } from 'rambdax'
 
-import { ORIGIN } from './constants.js'
+import { getOrigin } from './constants.js'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
 
 const fixToolbeltImport = replace('../_ts-toolbelt', './_ts-toolbelt')
 
-function getStartingState(includeRambdax, initialSource){
-  if (includeRambdax) return initialSource
-  const [ typescriptDefinitions ] = ORIGIN.split('// RAMBDAX_MARKER_START')
-
-  return typescriptDefinitions
-}
-
 export async function createExportedTypings(includeRambdax = false){
-  let typescriptDefinitions = getStartingState(includeRambdax, ORIGIN)
+  let typescriptDefinitions = getOrigin(includeRambdax)
   const explanations = extractExplanation()
 
   Object.keys(explanations).forEach(methodName => {
