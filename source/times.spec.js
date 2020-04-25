@@ -10,8 +10,12 @@ test('happy', () => {
 })
 
 test('with bad input', () => {
-  assert.throws(() => { times(3)('cheers!') }, RangeError)
-  assert.throws(() => { times(identity, -1) }, RangeError)
+  assert.throws(() => {
+    times(3)('cheers!')
+  }, RangeError)
+  assert.throws(() => {
+    times(identity, -1)
+  }, RangeError)
 })
 
 test('curry', () => {

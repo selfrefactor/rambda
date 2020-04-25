@@ -1,11 +1,11 @@
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('../../../../dist/rambda.js')
 
-describe('xor', function() {
-  it('returns a curried function', function() {
-    eq(R.xor()(true)(true), false);
-    eq(R.xor()(true)(false), true);
-    eq(R.xor()(false)(true), true);
-    eq(R.xor()(false)(false), false);
-  });
-});
+describe('xor', () => {
+  it('returns a curried function', () => {
+    eq(R.xor()(true)(true), false)
+    eq(R.xor()(true)(false), true)
+    eq(R.xor()(false)(true), true)
+    eq(R.xor()(false)(false), false)
+  })
+})

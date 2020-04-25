@@ -15,11 +15,7 @@ const obj = {
 }
 
 test('with string path', () => {
-  const result = paths([
-    'a.b.d',
-    'p.q',
-  ],
-  obj)
+  const result = paths([ 'a.b.d', 'p.q' ], obj)
 
   expect(result).toEqual([ 2, undefined ])
 })
@@ -32,7 +28,6 @@ test('with array path', () => {
   obj)
 
   expect(result).toEqual([ 1, 'Alice' ])
-
 })
 
 test('takes a paths that contains indices into arrays', () => {

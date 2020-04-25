@@ -9,9 +9,7 @@ test('prevent type error', () => {
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule,
-    whenIf,
-    () => y.a === 'foo'
+    ifRule, whenIf, () => y.a === 'foo'
   )
   const expectedResult = 7
 
@@ -24,9 +22,7 @@ test('function as whenElse', () => {
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule,
-    whenIf,
-    () => y.a === 'foo'
+    ifRule, whenIf, () => y.a === 'foo'
   )
   const expectedResult = false
 

@@ -17,4 +17,3 @@ test('when such element already exists', () => {
 
   expect(list).toEqual([ 1, 2, 3 ])
 })
-

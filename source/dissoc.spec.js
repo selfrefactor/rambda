@@ -44,7 +44,7 @@ test('includes prototype properties', () => {
     this.width = width
     this.height = height
   }
-  const area = Rectangle.prototype.area = function(){
+  const area = Rectangle.prototype.area = function (){
     return this.width * this.height
   }
   const rect = new Rectangle(7, 6)

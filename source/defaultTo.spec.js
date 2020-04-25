@@ -77,4 +77,3 @@ test('default extends to indefinite input arguments - case 6', () => {
 
   expect(result).toEqual(expected)
 })
-

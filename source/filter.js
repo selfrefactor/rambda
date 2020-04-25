@@ -36,4 +36,3 @@ export function filter(predicate, list){
 
   return willReturn
 }
- 

@@ -5,10 +5,7 @@ const converge = [
   {
     label : 'Rambda',
     fn    : () => {
-      const fn = Ramda.converge(Ramda.multiply, [
-        Ramda.add(1),
-        Ramda.add(3)
-      ]);
+      const fn = Ramda.converge(Ramda.multiply, [ Ramda.add(1), Ramda.add(3) ])
 
       fn(4)
     },
@@ -16,10 +13,7 @@ const converge = [
   {
     label : 'Ramda',
     fn    : () => {
-      const fn = R.converge(R.multiply, [
-        R.add(1),
-        R.add(3)
-      ]);
+      const fn = R.converge(R.multiply, [ R.add(1), R.add(3) ])
 
       fn(4)
     },

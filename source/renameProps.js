@@ -3,8 +3,7 @@ import { omit } from './omit'
 
 export function renameProps(conditions, inputObject){
   if (inputObject === undefined){
-    return inputObjectHolder =>
-      renameProps(conditions, inputObjectHolder)
+    return inputObjectHolder => renameProps(conditions, inputObjectHolder)
   }
   const renamed = {}
   Object.keys(conditions).forEach(renameConditionProp => {

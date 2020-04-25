@@ -1,12 +1,16 @@
 import { either } from './either'
 
 test('with multiple inputs', () => {
-  const between = function(
+  const between = function (
     a, b, c
-  ){ return a < b && b < c }
-  const total20 = function(
+  ){
+    return a < b && b < c
+  }
+  const total20 = function (
     a, b, c
-  ){ return a + b + c === 20 }
+  ){
+    return a + b + c === 20
+  }
   const fn = either(between, total20)
   expect(fn(
     7, 8, 5
@@ -15,8 +19,12 @@ test('with multiple inputs', () => {
 
 test('skip evaluation of the second expression', () => {
   let effect = 'not evaluated'
-  const F = function(){ return true }
-  const Z = function(){ effect = 'Z got evaluated' }
+  const F = function (){
+    return true
+  }
+  const Z = function (){
+    effect = 'Z got evaluated'
+  }
   either(F, Z)()
 
   expect(effect).toBe('not evaluated')

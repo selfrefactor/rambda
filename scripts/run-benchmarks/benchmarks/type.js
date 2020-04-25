@@ -1,7 +1,7 @@
 const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 const fn1 = () => {}
-const fn2 = function(){}
+const fn2 = function (){}
 function fn3(){}
 
 const test = [

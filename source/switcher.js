@@ -1,13 +1,9 @@
 import { equals } from './equals'
 
-const NO_MATCH_FOUND = Symbol ?
-  Symbol('NO_MATCH_FOUND') :
-  undefined
+const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined
 
 const getMatchingKeyValuePair = (
-  cases,
-  testValue,
-  defaultValue
+  cases, testValue, defaultValue
 ) => {
   let iterationValue
 
@@ -60,9 +56,7 @@ class Switchem{
 
   default(defaultValue){
     const holder = new Switchem(
-      defaultValue,
-      this.cases,
-      this.willMatch
+      defaultValue, this.cases, this.willMatch
     )
 
     return holder.match(this.willMatch)
@@ -78,9 +72,7 @@ class Switchem{
 
   match(matchValue){
     return getMatchingKeyValuePair(
-      this.cases,
-      matchValue,
-      this.defaultValue
+      this.cases, matchValue, this.defaultValue
     )
   }
 }

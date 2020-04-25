@@ -33,44 +33,50 @@ function __applySpecWithArity(
 ){
   const remaining = arity - cache.length
 
-  if (remaining === 1) return x => __applySpecWithArity(
-    spec, arity, __filterUndefined(...cache, x)
-  )
-  if (remaining === 2)
-    return (x, y) => __applySpecWithArity(
-      spec, arity, __filterUndefined(
-        ...cache, x, y
+  if (remaining === 1)
+    return x =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, x)
       )
-    )
+  if (remaining === 2)
+    return (x, y) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y
+        )
+      )
   if (remaining === 3)
     return (
       x, y, z
-    ) => __applySpecWithArity(
-      spec, arity, __filterUndefined(
-        ...cache, x, y, z
+    ) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y, z
+        )
       )
-    )
   if (remaining === 4)
     return (
       x, y, z, a
     ) =>
       __applySpecWithArity(
-        spec, arity, __filterUndefined(
+        spec,
+        arity,
+        __filterUndefined(
           ...cache, x, y, z, a
         )
       )
   if (remaining > 4)
-    return (...args) => __applySpecWithArity(
-      spec, arity, __filterUndefined(...cache, ...args)
-    )
+    return (...args) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, ...args)
+      )
 
   // handle spec as Array
   if (Array.isArray(spec)){
     const ret = []
     let i = 0
     const l = spec.length
-    for (;i < l; i++){
-
+    for (; i < l; i++){
       // handle recursive spec inside array
       if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
         ret[ i ] = __applySpecWithArity(

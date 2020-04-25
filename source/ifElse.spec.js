@@ -2,10 +2,10 @@ import { always, has, identity, prop } from '../rambda'
 import { ifElse } from './ifElse'
 
 const condition = has('foo')
-const v = function(a){
+const v = function (a){
   return typeof a === 'number'
 }
-const t = function(a){
+const t = function (a){
   return a + 1
 }
 const ifFn = x => prop('foo', x).length
@@ -25,13 +25,13 @@ test('ramda spec', () => {
 })
 
 test('pass all arguments', () => {
-  const identity = function(a){
+  const identity = function (a){
     return a
   }
-  const v = function(){
+  const v = function (){
     return true
   }
-  const onTrue = function(a, b){
+  const onTrue = function (a, b){
     expect(a).toEqual(123)
     expect(b).toEqual('abc')
   }

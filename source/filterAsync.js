@@ -1,5 +1,5 @@
-import { mapAsync } from './mapAsync.js'
 import { filter } from './filter.js'
+import { mapAsync } from './mapAsync.js'
 
 export function filterAsync(predicate, iterateOver){
   if (arguments.length === 1){

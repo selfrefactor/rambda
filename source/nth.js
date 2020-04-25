@@ -3,5 +3,7 @@ export function nth(offset, list){
 
   const idx = offset < 0 ? list.length + offset : offset
 
-  return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[ idx ]
+  return Object.prototype.toString.call(list) === '[object String]' ?
+    list.charAt(idx) :
+    list[ idx ]
 }

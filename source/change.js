@@ -4,8 +4,7 @@ import { set } from './_internals/set'
 import { partition } from './partition'
 
 const isObject = x => {
-  const ok =
-    x !== null && !Array.isArray(x) && typeof x === 'object'
+  const ok = x !== null && !Array.isArray(x) && typeof x === 'object'
   if (!ok){
     return false
   }
@@ -58,17 +57,15 @@ export function change(
           )
         }
 
-        Object.keys(deep)
-          .forEach(superDeepKey => {
-            const superDeep = rule[ subruleKey ][ deepKey ][ superDeepKey ]
+        Object.keys(deep).forEach(superDeepKey => {
+          const superDeep = rule[ subruleKey ][ deepKey ][ superDeepKey ]
 
-            set(
-              willReturn,
-              `${ path }${ ruleKey }.${ subruleKey }.${ deepKey }.${ superDeepKey }`,
-              superDeep
-            )
-          })
-
+          set(
+            willReturn,
+            `${ path }${ ruleKey }.${ subruleKey }.${ deepKey }.${ superDeepKey }`,
+            superDeep
+          )
+        })
       })
     })
   }

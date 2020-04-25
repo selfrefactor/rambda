@@ -1,8 +1,13 @@
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('../../../../dist/rambda.js')
 
-describe('mean', function() {
-  it('handles array-like object', function() {
-    eq(R.mean((function() { return arguments; })(1, 2, 3)), 2);
-  });
-});
+describe('mean', () => {
+  it('handles array-like object', () => {
+    eq(R.mean((function (){
+      return arguments
+    })(
+      1, 2, 3
+    )),
+    2)
+  })
+})

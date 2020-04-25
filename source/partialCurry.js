@@ -5,8 +5,7 @@ export function partialCurry(fn, input){
   return rest => {
     if (type(fn) === 'Async'){
       return new Promise((resolve, reject) => {
-        fn(merge(rest, input))
-          .then(resolve)
+        fn(merge(rest, input)).then(resolve)
           .catch(reject)
       })
     }

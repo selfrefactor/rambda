@@ -1,9 +1,16 @@
 import { transpose } from './transpose'
 
 test('happy', () => {
-  const input = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ]
+  const input = [
+    [ 'a', 1 ],
+    [ 'b', 2 ],
+    [ 'c', 3 ],
+  ]
 
-  expect(transpose(input)).toEqual([ [ 'a', 'b', 'c' ], [ 1, 2, 3 ] ])
+  expect(transpose(input)).toEqual([
+    [ 'a', 'b', 'c' ],
+    [ 1, 2, 3 ],
+  ])
 })
 
 test('when rows are shorter', () => {
@@ -17,7 +24,15 @@ test('with empty array', () => {
 })
 
 test('array with falsy values', () => {
-  const actual = transpose([ [ true, false, undefined, null ], [ null, undefined, false, true ] ])
-  const expected = [ [ true, null ], [ false, undefined ], [ undefined, false ], [ null, true ] ]
+  const actual = transpose([
+    [ true, false, undefined, null ],
+    [ null, undefined, false, true ],
+  ])
+  const expected = [
+    [ true, null ],
+    [ false, undefined ],
+    [ undefined, false ],
+    [ null, true ],
+  ]
   expect(actual).toEqual(expected)
 })

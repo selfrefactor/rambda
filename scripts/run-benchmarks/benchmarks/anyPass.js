@@ -1,11 +1,7 @@
 const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const rules = [
-  x => typeof x === 'boolean',
-  x => x > 20,
-  x => x * 7 < 100,
-]
+const rules = [ x => typeof x === 'boolean', x => x > 20, x => x * 7 < 100 ]
 
 const anyPass = [
   {

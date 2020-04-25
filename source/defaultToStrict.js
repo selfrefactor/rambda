@@ -11,8 +11,7 @@ function flagIs(targetType, input){
   return true
 }
 
-export function defaultToStrict(defaultArgument,
-  ...inputArguments){
+export function defaultToStrict(defaultArgument, ...inputArguments){
   if (arguments.length === 1){
     return inputArgumentsHolder =>
       defaultToStrict(defaultArgument, inputArgumentsHolder)

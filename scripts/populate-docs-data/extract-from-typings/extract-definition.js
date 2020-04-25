@@ -5,7 +5,8 @@ import { ORIGIN } from '../constants'
 
 export function extractDefinition(){
   const rambdaMethods = Object.keys(R)
-  const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm, ORIGIN)
+  const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm,
+    ORIGIN)
 
   const result = mapToObject(singleMatch => {
     const typing = remove('// @SINGLE_MARKER', singleMatch)

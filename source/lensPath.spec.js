@@ -35,10 +35,13 @@ test('set', () => {
   expect(set(
     lensPath('a.0.X'), 0, testObj
   )).toEqual({
-    a : [ {
-      b : 1,
-      X : 0,
-    }, { b : 2 } ],
+    a : [
+      {
+        b : 1,
+        X : 0,
+      },
+      { b : 2 },
+    ],
     d : 3,
   })
   expect(set(
@@ -69,10 +72,13 @@ test('over', () => {
   expect(over(
     lensPath('a.0.X'), identity, testObj
   )).toEqual({
-    a : [ {
-      b : 1,
-      X : undefined,
-    }, { b : 2 } ],
+    a : [
+      {
+        b : 1,
+        X : undefined,
+      },
+      { b : 2 },
+    ],
     d : 3,
   })
 })
@@ -87,7 +93,9 @@ test('set s (get s) === s', () => {
     lensPath([ 'd' ]), view(lensPath([ 'd' ]), testObj), testObj
   )).toEqual(testObj)
   expect(set(
-    lensPath([ 'a', 0, 'b' ]), view(lensPath([ 'a', 0, 'b' ]), testObj), testObj
+    lensPath([ 'a', 0, 'b' ]),
+    view(lensPath([ 'a', 0, 'b' ]), testObj),
+    testObj
   )).toEqual(testObj)
 })
 

@@ -1,10 +1,10 @@
-import { delay } from './delay'
 import { add } from './add'
+import { delay } from './delay'
 import { identity } from './identity'
+import { switcher } from './switcher'
 import { tap } from './tap'
 import { trim } from './trim'
 import { type } from './type'
-import { switcher } from './switcher'
 
 test('happy', () => {
   const result = switcher('foo')
@@ -70,8 +70,7 @@ test('works with string as condition', () => {
 
 test('works with functions as condition result', () => {
   const input = 'foo'
-  const result = switcher(input)
-    .is('foo', delay)
+  const result = switcher(input).is('foo', delay)
     .default(identity)
 
   expect(type(result())).toEqual('Promise')

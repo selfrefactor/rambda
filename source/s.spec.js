@@ -1,15 +1,13 @@
+import { s } from './s'
 import { take } from './take'
 import { toUpper } from './toUpper'
-import { s } from './s'
 
 test('happy', () => {
   expect(s()).toBe(true)
   expect(s()).toBe(false)
 
   const input = 'foo'
-  const result = input
-    .s(toUpper)
-    .s(take(2))
+  const result = input.s(toUpper).s(take(2))
 
   const expectedResult = 'FO'
 

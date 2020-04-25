@@ -1,5 +1,5 @@
-import { getter, reset, setter } from './getter'
 import { add } from './add'
+import { getter, reset, setter } from './getter'
 
 afterEach(() => {
   reset()

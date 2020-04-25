@@ -8,8 +8,7 @@ export function mergeDeep(target, source){
   Object.keys(source).forEach(key => {
     if (type(source[ key ]) === 'Object'){
       if (type(target[ key ]) === 'Object'){
-        willReturn[ key ] = mergeDeep(target[ key ],
-          source[ key ])
+        willReturn[ key ] = mergeDeep(target[ key ], source[ key ])
       } else {
         willReturn[ key ] = source[ key ]
       }

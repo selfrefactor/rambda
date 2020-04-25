@@ -1,6 +1,6 @@
 import { composeAsync } from './composeAsync'
-import { mapFastAsync } from './mapFastAsync'
 import { map } from './map'
+import { mapFastAsync } from './mapFastAsync'
 
 const delay = a =>
   new Promise(resolve => {
@@ -49,6 +49,6 @@ test('with array', async () => {
   await mapFastAsync((x, i) => {
     expect(x % 10).toBe(0)
     expect(typeof i).toBe('number')
-  }, [ 10, 20, 30 ])
+  },
+  [ 10, 20, 30 ])
 })
-

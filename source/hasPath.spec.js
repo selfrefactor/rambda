@@ -19,4 +19,3 @@ test('when false', () => {
 
   expect(result).toEqual(expectedResult)
 })
-

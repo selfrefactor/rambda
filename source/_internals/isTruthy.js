@@ -5,7 +5,6 @@ export function isTruthy(x){
     return x.length > 0
   }
   if (type(x) === 'Object'){
-
     return Object.keys(x).length > 0
   }
 

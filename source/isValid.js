@@ -104,7 +104,8 @@ export function isValid({ input, schema }){
 
       const ok = isOptional && inputProp !== undefined || !isOptional
 
-      if (!ok || rule === 'any' && inputProp != null || rule === inputProp) continue
+      if (!ok || rule === 'any' && inputProp != null || rule === inputProp)
+        continue
 
       if (ruleType === 'Object'){
         /**
@@ -130,7 +131,11 @@ export function isValid({ input, schema }){
          * Enum case | rule is like a: ['foo', 'bar']
          */
         boom(includes(inputProp, rule))
-      } else if (ruleType === 'Array' && rule.length === 1 && inputPropType === 'Array'){
+      } else if (
+        ruleType === 'Array' &&
+        rule.length === 1 &&
+        inputPropType === 'Array'
+      ){
         /**
          * 1. array of type | rule is like a: ['number']
          * 2. rule is like a: [{foo: 'string', bar: 'number'}]
@@ -139,7 +144,9 @@ export function isValid({ input, schema }){
         const currentRuleType = type(currentRule)
 
         //Check if rule is invalid
-        boom(currentRuleType === 'String' || currentRuleType === 'Object' || isPrototype(currentRule))
+        boom(currentRuleType === 'String' ||
+            currentRuleType === 'Object' ||
+            isPrototype(currentRule))
 
         if (currentRuleType === 'Object' && flag){
           /**
@@ -158,9 +165,13 @@ export function isValid({ input, schema }){
            */
 
           const actualRule =
-            currentRuleType === 'String' ? currentRule : prototypeToString(currentRule)
-          const isInvalidResult = any(inputPropInstance => type(inputPropInstance).toLowerCase() !== actualRule.toLowerCase(),
-            inputProp)
+            currentRuleType === 'String' ?
+              currentRule :
+              prototypeToString(currentRule)
+          const isInvalidResult = any(inputPropInstance =>
+            type(inputPropInstance).toLowerCase() !==
+              actualRule.toLowerCase(),
+          inputProp)
           boom(!isInvalidResult)
         }
       } else if (ruleType === 'RegExp' && inputPropType === 'String'){

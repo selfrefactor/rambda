@@ -3,7 +3,8 @@ import { type } from './type'
 
 const greet = (
   salutation, title, firstName, lastName
-) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+) =>
+  salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
 
 test('happy', () => {
   const canPassAnyNumberOfArguments = partial(

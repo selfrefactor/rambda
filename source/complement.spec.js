@@ -7,7 +7,7 @@ test('happy', () => {
 })
 
 test('with multiple parameters', () => {
-  const between = function(
+  const between = function (
     a, b, c
   ){
     return a < b && b < c

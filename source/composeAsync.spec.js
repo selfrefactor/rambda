@@ -1,8 +1,8 @@
 import { composeAsync } from './composeAsync'
 import { delay as delayModule } from './delay'
-import { mapAsync } from './mapAsync'
 import { equals } from './equals'
 import { map } from './map'
+import { mapAsync } from './mapAsync'
 import { prop } from './prop'
 import { tapAsync } from './tapAsync'
 
@@ -138,4 +138,3 @@ test('throw error', async () => {
 
   expect(flag).toBe(false)
 })
-

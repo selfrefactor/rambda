@@ -6,7 +6,11 @@ test('with strings', () => {
 })
 
 test('with arrays', () => {
-  expect(append('tests', [ 'write', 'more' ])).toEqual([ 'write', 'more', 'tests' ])
+  expect(append('tests', [ 'write', 'more' ])).toEqual([
+    'write',
+    'more',
+    'tests',
+  ])
 })
 
 test('append to empty array', () => {

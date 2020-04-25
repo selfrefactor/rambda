@@ -1,6 +1,6 @@
 import { delay } from './delay'
-import { ifElseAsync } from './ifElseAsync'
 import { F } from './F'
+import { ifElseAsync } from './ifElseAsync'
 import { T } from './T'
 import { type } from './type'
 
@@ -33,9 +33,7 @@ test('ok', async () => {
   )(7)
 
   const resultFalse = await ifElseAsync(
-    conditionFalse,
-    ifFn,
-    elseFn
+    conditionFalse, ifFn, elseFn
   )(7)
 
   expect(result).toBe(true)

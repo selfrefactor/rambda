@@ -1,6 +1,6 @@
+import { map } from './map'
 import { mergeAll } from './mergeAll'
 import { ok } from './ok'
-import { map } from './map'
 import { type } from './type'
 
 export function mapToObject(fn, list){

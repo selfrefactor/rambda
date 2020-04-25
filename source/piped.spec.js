@@ -1,7 +1,7 @@
-import { piped } from './piped'
 import { add } from './add'
 import { filter } from './filter'
 import { map } from './map'
+import { piped } from './piped'
 
 test('', () => {
   const result = piped(

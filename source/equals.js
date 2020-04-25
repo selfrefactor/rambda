@@ -26,7 +26,8 @@ export function equals(a, b){
 
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if ([ 'Boolean', 'Number', 'String' ].includes(aType)) return a.toString() === b.toString()
+  if ([ 'Boolean', 'Number', 'String' ].includes(aType))
+    return a.toString() === b.toString()
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
@@ -68,9 +69,7 @@ export function equals(a, b){
   const aError = parseError(a)
   const bError = parseError(b)
 
-  if (
-    aError[ 0 ]
-  ){
+  if (aError[ 0 ]){
     return bError[ 0 ] ?
       aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
       false

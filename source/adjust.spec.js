@@ -5,10 +5,10 @@ const expected = [ 0, 11, 2 ]
 
 test('without curring', () => {
   expect(adjust(
-    1, add(10), [ 0, 1, 2 ]    
-  )).toEqual(expected) 
-}) 
- 
+    1, add(10), [ 0, 1, 2 ]
+  )).toEqual(expected)
+})
+
 test('with curring type 1 1 1', () => {
   expect(adjust(1)(add(10))([ 0, 1, 2 ])).toEqual(expected)
 })

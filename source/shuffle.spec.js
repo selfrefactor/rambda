@@ -1,6 +1,6 @@
 import { range } from './range'
-import { uniq } from './uniq'
 import { shuffle } from './shuffle'
+import { uniq } from './uniq'
 
 test('happy', () => {
   const list = range(0, 7)

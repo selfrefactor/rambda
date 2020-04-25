@@ -14,9 +14,8 @@ async function getAllBenchmarks(){
 }
 
 export async function runSingleBenchmark(singleMethod){
-  const methodsWithBenchmarks= await getAllBenchmarks()
+  const methodsWithBenchmarks = await getAllBenchmarks()
   if (!methodsWithBenchmarks.includes(singleMethod)){
-
     throw new Error('this method has no benchmark')
   }
 
@@ -32,6 +31,8 @@ export async function runAllBenchmarks(){
     createBenchmark({ [ singleMethod ] : required })
   }
 
-  await mapAsyncLimit(iterable, 5, methodsWithBenchmarks)
+  await mapAsyncLimit(
+    iterable, 5, methodsWithBenchmarks
+  )
   console.timeEnd('run.all.benchmarks')
 }

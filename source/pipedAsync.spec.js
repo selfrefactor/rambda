@@ -1,6 +1,6 @@
+import { add } from './add'
 import { delay } from './delay'
 import { pipedAsync } from './pipedAsync'
-import { add } from './add'
 
 test('', async () => {
   const result = await pipedAsync(

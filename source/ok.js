@@ -1,6 +1,6 @@
+import { any } from './any'
 import { glue } from './glue'
 import { fromPrototypeToString, isValid } from './isValid'
-import { any } from './any'
 import { map } from './map'
 import { type } from './type'
 

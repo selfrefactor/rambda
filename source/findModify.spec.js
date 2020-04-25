@@ -1,11 +1,12 @@
 import { findModify } from './findModify'
 
-const fn = x => x + 1 > 10 ?
-  {
-    a : 8,
-    x,
-  } :
-  false
+const fn = x =>
+  x + 1 > 10 ?
+    {
+      a : 8,
+      x,
+    } :
+    false
 
 test('no element pass the condition function', () => {
   const list = [ 1, 2, 3 ]

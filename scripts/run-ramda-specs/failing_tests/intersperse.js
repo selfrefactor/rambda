@@ -1,9 +1,13 @@
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('../../../../dist/rambda.js')
 
-describe('intersperse', function() {
-  it('dispatches', function() {
-    var obj = {intersperse: function(x) { return 'override ' + x; }};
-    eq(R.intersperse('x', obj), 'override x');
-  });
-});
+describe('intersperse', () => {
+  it('dispatches', () => {
+    const obj = {
+      intersperse : function (x){
+        return 'override ' + x
+      },
+    }
+    eq(R.intersperse('x', obj), 'override x')
+  })
+})

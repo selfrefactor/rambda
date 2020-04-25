@@ -5,7 +5,10 @@ test('happy', () => {
 })
 
 test('with number', () => {
-  const input = [ [ 1, 2 ], [ 3, 4 ] ]
+  const input = [
+    [ 1, 2 ],
+    [ 3, 4 ],
+  ]
 
   expect(pluck(0, input)).toEqual([ 1, 3 ])
 })

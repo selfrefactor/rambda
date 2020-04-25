@@ -1,6 +1,6 @@
+import { forEach } from './forEach'
 import { isPromise } from './isPromise'
 import { isValid } from './isValid'
-import { forEach } from './forEach'
 
 export async function isValidAsync({ schema, input }){
   const asyncSchema = {}
@@ -11,18 +11,21 @@ export async function isValidAsync({ schema, input }){
     } else {
       simpleSchema[ prop ] = rule
     }
-  },
-  schema)
+  }, schema)
 
-  if (Object.keys(asyncSchema).length === 0) return isValid({
-    input,
-    schema,
-  })
+  if (Object.keys(asyncSchema).length === 0)
+    return isValid({
+      input,
+      schema,
+    })
 
-  if (!isValid({
-    input,
-    schema : simpleSchema,
-  })) return false
+  if (
+    !isValid({
+      input,
+      schema : simpleSchema,
+    })
+  )
+    return false
 
   let toReturn = true
 

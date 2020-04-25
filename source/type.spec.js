@@ -40,11 +40,11 @@ test('async arrow', () => {
 
 test('function', () => {
   const fn1 = () => {}
-  const fn2 = function(){}
+  const fn2 = function (){}
 
   function fn3(){}
 
-  [ () => {}, fn1, fn2, fn3 ].map(val => {
+  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
     expect(type(val)).toEqual('Function')
   })
 })

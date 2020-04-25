@@ -18,7 +18,8 @@ const predicateB = (
 const expectationB = [ 'a', 'b', 'c' ]
 const predicateC = (
   propA, propB, valueA, valueB
-) => valueA > valueB ? -1 : 1
+) =>
+  valueA > valueB ? -1 : 1
 const expectationC = [ 'b', 'a', 'c' ]
 
 const fn = ([ predicate, expectation ]) => {

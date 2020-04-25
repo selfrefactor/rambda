@@ -1,4 +1,3 @@
 export function sum(list){
-  return list.reduce((prev, current) => prev + current,
-    0)
+  return list.reduce((prev, current) => prev + current, 0)
 }

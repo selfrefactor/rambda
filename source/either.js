@@ -3,5 +3,6 @@ export function either(firstPredicate, secondPredicate){
     return _secondPredicate => either(firstPredicate, _secondPredicate)
   }
 
-  return (...input) => Boolean(firstPredicate(...input) || secondPredicate(...input))
+  return (...input) =>
+    Boolean(firstPredicate(...input) || secondPredicate(...input))
 }

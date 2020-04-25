@@ -12,7 +12,6 @@ test('end range is bigger than start range', () => {
 test('with bad input', () => {
   expect(() => range('a', 6)).toThrow('Both arguments to range must be numbers')
   expect(() => range(6, 'z')).toThrow('Both arguments to range must be numbers')
-
 })
 
 test('curry', () => {

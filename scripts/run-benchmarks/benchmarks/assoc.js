@@ -13,19 +13,25 @@ const assoc = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.assoc(key, value, input)
+      R.assoc(
+        key, value, input
+      )
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.assoc(key, value, input)
+      Ramda.assoc(
+        key, value, input
+      )
     },
   },
   {
     label : 'Lodash.set',
     fn    : () => {
-      _.set(input, key, value)
+      _.set(
+        input, key, value
+      )
     },
   },
 ]

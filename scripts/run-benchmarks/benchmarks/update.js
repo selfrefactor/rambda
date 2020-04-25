@@ -9,7 +9,9 @@ const update = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.update(replacer, index, list)
+      R.update(
+        replacer, index, list
+      )
       R.update(replacer, index)(list)
       R.update(replacer)(index)(list)
     },
@@ -17,7 +19,9 @@ const update = [
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.update(replacer, index, list)
+      Ramda.update(
+        replacer, index, list
+      )
       Ramda.update(replacer, index)(list)
       Ramda.update(replacer)(index)(list)
     },

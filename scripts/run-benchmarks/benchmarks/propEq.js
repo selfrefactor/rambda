@@ -15,15 +15,10 @@ const propEq = [
     fn    : () => {
       R.propEq('a')(expected)(obj)
 
-      R.propEq(
-        'a',
-        expected
-      )(obj)
+      R.propEq('a', expected)(obj)
 
       R.propEq(
-        'a',
-        expected,
-        obj
+        'a', expected, obj
       )
     },
   },
@@ -32,15 +27,10 @@ const propEq = [
     fn    : () => {
       Ramda.propEq('a')(expected)(obj)
 
-      Ramda.propEq(
-        'a',
-        expected
-      )(obj)
+      Ramda.propEq('a', expected)(obj)
 
       Ramda.propEq(
-        'a',
-        expected,
-        obj
+        'a', expected, obj
       )
     },
   },

@@ -2,10 +2,10 @@ const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 
 const condition = R.has('foo')
-const v = function(a){
+const v = function (a){
   return typeof a === 'number'
 }
-const t = function(a){
+const t = function (a){
   return a + 1
 }
 const ifFn = x => R.prop('foo', x).length

@@ -19,11 +19,27 @@ test('sortBy', () => {
 
   expect(sortByNameCaseInsensitive(people)).toEqual([ alice, bob, clara ])
 
-  expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([ { a : 0 }, { a : 1 }, { a : 2 } ])
+  expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([
+    { a : 0 },
+    { a : 1 },
+    { a : 2 },
+  ])
 
-  expect(sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 1 }, { a : 1 } ])
+  expect(sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([
+    { a : 1 },
+    { a : 1 },
+    { a : 1 },
+  ])
 
-  expect(sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  expect(sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([
+    { a : 1 },
+    { a : 2 },
+    { a : 3 },
+  ])
 
-  expect(sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([ { a : 1 }, { a : 2 }, { a : 3 } ])
+  expect(sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([
+    { a : 1 },
+    { a : 2 },
+    { a : 3 },
+  ])
 })

@@ -7,8 +7,7 @@ export function without(left, right){
   }
 
   return reduce(
-    (accum, item) =>
-      includes(item, left) ? accum : accum.concat(item),
+    (accum, item) => includes(item, left) ? accum : accum.concat(item),
     [],
     right
   )

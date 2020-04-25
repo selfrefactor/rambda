@@ -23,8 +23,7 @@ export function mapAsync(fn, arr){
   }
 
   return new Promise((resolve, reject) => {
-    mapAsyncFn(fn, arr)
-      .then(resolve)
+    mapAsyncFn(fn, arr).then(resolve)
       .catch(reject)
   })
 }

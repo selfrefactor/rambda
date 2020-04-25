@@ -11,7 +11,7 @@ test('returns a conditional function', () => {
     [ equals(100), always('water boils at 100°C') ],
     [
       T,
-      function(temp){
+      function (temp){
         return 'nothing special happens at ' + temp + '°C'
       },
     ],
@@ -25,7 +25,7 @@ test('no winner', () => {
   const fn = cond([
     [ equals('foo'), always(1) ],
     [ equals('bar'), always(2) ],
-  ]) 
+  ])
   expect(fn('quux')).toEqual(undefined)
 })
 

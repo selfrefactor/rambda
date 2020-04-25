@@ -36,17 +36,11 @@ const reIsUint = /^(?:0|[1-9]\d*)$/
 
 /**Detect free variable `global` from Node.js. */
 const freeGlobal =
-  typeof global === 'object' &&
-  global &&
-  global.Object === Object &&
-  global
+  typeof global === 'object' && global && global.Object === Object && global
 
 /**Detect free variable `self`. */
 const freeSelf =
-  typeof self === 'object' &&
-  self &&
-  self.Object === Object &&
-  self
+  typeof self === 'object' && self && self.Object === Object && self
 
 /**Used as a reference to the global object. */
 const root = freeGlobal || freeSelf || Function('return this')()
@@ -92,9 +86,8 @@ const arrayProto = Array.prototype,
 const coreJsData = root[ '__core-js_shared__' ]
 
 /**Used to detect methods masquerading as native. */
-const maskSrcKey = (function(){
-  const uid = (/[^.]+$/).exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO ||
-      '')
+const maskSrcKey = (function (){
+  const uid = (/[^.]+$/).exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '')
 
   return uid ? 'Symbol(src)_1.' + uid : ''
 })()
@@ -225,8 +218,7 @@ function hashHas(key){
  */
 function hashSet(key, value){
   const data = this.__data__
-  data[ key ] =
-    nativeCreate && value === undefined ? HASH_UNDEFINED : value
+  data[ key ] = nativeCreate && value === undefined ? HASH_UNDEFINED : value
 
   return this
 }
@@ -503,9 +495,7 @@ function baseIsNative(value){
     return false
   }
   const pattern =
-    isFunction(value) || isHostObject(value) ?
-      reIsNative :
-      reIsHostCtor
+    isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor
 
   return pattern.test(toSource(value))
 }
@@ -539,11 +529,9 @@ function baseSet(
 
     if (index != lastIndex){
       const objValue = nested[ key ]
-      newValue = customizer ?
-        customizer(
-          objValue, key, nested
-        ) :
-        undefined
+      newValue = customizer ? customizer(
+        objValue, key, nested
+      ) : undefined
       if (newValue === undefined){
         newValue = isObject(objValue) ?
           objValue :
@@ -637,7 +625,9 @@ function isIndex(value, length){
   return (
     Boolean(length) &&
     (typeof value === 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length)
+    value > -1 &&
+    value % 1 == 0 &&
+    value < length
   )
 }
 
@@ -810,7 +800,7 @@ function memoize(func, resolver){
   ){
     throw new TypeError(FUNC_ERROR_TEXT)
   }
-  var memoized = function(){
+  var memoized = function (){
     const args = arguments,
       key = resolver ? resolver.apply(this, args) : args[ 0 ],
       { cache } = memoized
@@ -996,8 +986,7 @@ function isObjectLike(value){
 function isSymbol(value){
   return (
     typeof value === 'symbol' ||
-    isObjectLike(value) &&
-      objectToString.call(value) == symbolTag
+    isObjectLike(value) && objectToString.call(value) == symbolTag
   )
 }
 

@@ -57,7 +57,11 @@ test('over', () => {
 
   expect(over(
     headLens, toUpper, alice.address
-  )).toEqual([ '22 WALNUT ST', 'San Francisco', 'CA' ])
+  )).toEqual([
+    '22 WALNUT ST',
+    'San Francisco',
+    'CA',
+  ])
 })
 
 test('set', () => {
@@ -85,7 +89,11 @@ test('set', () => {
 
   expect(set(
     headLens, '52 Crane Ave', alice.address
-  )).toEqual([ '52 Crane Ave', 'San Francisco', 'CA' ])
+  )).toEqual([
+    '52 Crane Ave',
+    'San Francisco',
+    'CA',
+  ])
 })
 
 test('composed lenses', () => {
@@ -118,4 +126,3 @@ test('composed lenses', () => {
     },
   })
 })
-

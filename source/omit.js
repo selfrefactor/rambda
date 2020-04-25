@@ -5,8 +5,7 @@ export function omit(keys, obj){
     return undefined
   }
 
-  const keysValue =
-    typeof keys === 'string' ? keys.split(',') : keys
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys
 
   const willReturn = {}
 

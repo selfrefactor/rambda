@@ -6,7 +6,5 @@ test('happy', () => {
 })
 
 test('does not work with arrays', () => {
-  expect(
-    () => endsWith([ 'c' ], [ 'a', 'b', 'c' ])
-  ).toThrow('list.endsWith is not a function')
+  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('list.endsWith is not a function')
 })

@@ -9,20 +9,25 @@ const reduce = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.reduce(fn, acc, holder)
-
+      R.reduce(
+        fn, acc, holder
+      )
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.reduce(fn, acc, holder)
+      Ramda.reduce(
+        fn, acc, holder
+      )
     },
   },
   {
     label : 'Lodash',
     fn    : () => {
-      _.reduce(holder, fn, acc)
+      _.reduce(
+        holder, fn, acc
+      )
     },
   },
 ]

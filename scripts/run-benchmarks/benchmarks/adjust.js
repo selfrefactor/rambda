@@ -8,14 +8,18 @@ const adjust = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.adjust(index, fn, list)
+      R.adjust(
+        index, fn, list
+      )
       R.adjust(index, fn)(list)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.adjust(index, fn, list)
+      Ramda.adjust(
+        index, fn, list
+      )
       Ramda.adjust(index, fn)(list)
     },
   },

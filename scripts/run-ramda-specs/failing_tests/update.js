@@ -1,11 +1,15 @@
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
+const eq = require('./shared/eq')
+const R = require('../../../../dist/rambda.js')
 
-describe('update', function() {
-  it('accepts an array-like object', function() {
-    function args() {
-      return arguments;
+describe('update', () => {
+  it('accepts an array-like object', () => {
+    function args(){
+      return arguments
     }
-    eq(R.update(2, 4, args(0, 1, 2, 3)), [0, 1, 4, 3]);
-  });
-});
+    eq(R.update(
+      2, 4, args(
+        0, 1, 2, 3
+      )
+    ), [ 0, 1, 4, 3 ])
+  })
+})

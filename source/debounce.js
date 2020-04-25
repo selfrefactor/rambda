@@ -3,8 +3,8 @@ export function debounce(
 ){
   let timeout
 
-  return function(...input){
-    const later = function(){
+  return function (...input){
+    const later = function (){
       timeout = null
       if (!immediate){
         func.apply(null, input)

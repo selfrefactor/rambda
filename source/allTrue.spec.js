@@ -51,7 +51,9 @@ test('escapes early - case 2', () => {
 test('escapes early - case 3', () => {
   const foo = { a : { b : 'foo' } }
   const result = allTrue(
-    foo, () => foo.a, () => foo.a.b
+    foo,
+    () => foo.a,
+    () => foo.a.b
   )
   expect(result).toBe(true)
 })

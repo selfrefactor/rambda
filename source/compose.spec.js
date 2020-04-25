@@ -21,7 +21,7 @@ test('when no arguments is passed', () => {
 })
 
 test('ramda spec', () => {
-  const f = function(
+  const f = function (
     a, b, c
   ){
     return [ a, b, c ]

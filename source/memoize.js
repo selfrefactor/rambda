@@ -45,8 +45,7 @@ const generateProp = (fn, ...inputArguments) => {
 // with weakmaps
 export function memoize(fn, ...inputArguments){
   if (arguments.length === 1){
-    return (...inputArgumentsHolder) =>
-      memoize(fn, ...inputArgumentsHolder)
+    return (...inputArgumentsHolder) => memoize(fn, ...inputArgumentsHolder)
   }
 
   const prop = generateProp(fn, ...inputArguments)

@@ -1,7 +1,7 @@
 import { type } from './type'
 
 export function composeAsync(...inputArguments){
-  return async function(startArgument){
+  return async function (startArgument){
     let argumentsToPass = startArgument
 
     while (inputArguments.length !== 0){

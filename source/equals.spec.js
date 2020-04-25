@@ -1,8 +1,7 @@
 import { equals } from './equals'
 
 test('happy', () => {
-  const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ],
-    [ 1, { a : 2 }, [ { b : 3 } ] ])
+  const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ], [ 1, { a : 2 }, [ { b : 3 } ] ])
 
   expect(result).toBeFalse()
 })
@@ -10,8 +9,8 @@ test('happy', () => {
 test('with regex', () => {
   expect(equals(/s/, /s/)).toEqual(true)
   expect(equals(/s/, /d/)).toEqual(false)
-  expect(equals(/a/gi, /a/ig)).toEqual(true)
-  expect(equals(/a/mgi, /a/img)).toEqual(true)
+  expect(equals(/a/gi, /a/gi)).toEqual(true)
+  expect(equals(/a/gim, /a/gim)).toEqual(true)
   expect(equals(/a/gi, /a/i)).toEqual(false)
 })
 

@@ -11,6 +11,6 @@ test('happy', () => {
 })
 
 test('with bad input', () => {
-  expect(() => expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrow('First argument to splitEvery must be a positive integer')
-
+  expect(() =>
+    expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrow('First argument to splitEvery must be a positive integer')
 })

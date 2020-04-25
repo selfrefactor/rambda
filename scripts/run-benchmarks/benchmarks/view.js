@@ -1,7 +1,7 @@
 const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const testObj = { a: 1 }
+const testObj = { a : 1 }
 
 const last = [
   {

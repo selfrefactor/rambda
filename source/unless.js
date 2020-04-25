@@ -6,9 +6,8 @@ export function unless(condition, whenFalse){
   }
 
   return input => {
-    const flag = typeof condition === 'boolean' ?
-      condition :
-      condition(input)
+    const flag =
+      typeof condition === 'boolean' ? condition : condition(input)
 
     if (flag) return input
 

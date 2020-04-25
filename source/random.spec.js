@@ -1,5 +1,5 @@
-import { range } from './range'
 import { random } from './random'
+import { range } from './range'
 
 test('when returns true', () => {
   range(0, 100).map(() => {

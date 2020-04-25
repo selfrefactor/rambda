@@ -47,9 +47,10 @@ test('get (set s v) === v', () => {
 })
 
 test('get (set(set s v1) v2) === v2', () => {
-  expect(view(lensIndex(0), set(
-    lensIndex(0), 11, set(
-      lensIndex(0), 10, testList
-    )
-  ))).toEqual(11,)
+  expect(view(lensIndex(0),
+    set(
+      lensIndex(0), 11, set(
+        lensIndex(0), 10, testList
+      )
+    ))).toEqual(11)
 })

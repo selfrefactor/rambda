@@ -6,19 +6,25 @@ const replace = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.replace(/\s/g, '|', 'foo bar baz')
+      R.replace(
+        /\s/g, '|', 'foo bar baz'
+      )
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.replace(/\s/g, '|', 'foo bar baz')
+      Ramda.replace(
+        /\s/g, '|', 'foo bar baz'
+      )
     },
   },
   {
     label : 'Lodash',
     fn    : () => {
-      _.replace('foo bar baz', /\s/g, '|')
+      _.replace(
+        'foo bar baz', /\s/g, '|'
+      )
     },
   },
 ]

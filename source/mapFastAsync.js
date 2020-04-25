@@ -10,8 +10,7 @@ export function mapFastAsync(fn, arr){
   }
 
   return new Promise((resolve, reject) => {
-    mapFastAsyncFn(fn, arr)
-      .then(resolve)
+    mapFastAsyncFn(fn, arr).then(resolve)
       .catch(reject)
   })
 }

@@ -9,7 +9,5 @@ export function randomString(length = 8, stringTag = false){
   const loops = range(0, length)
   const charSet = stringTag ? charCodesString : charCodes
 
-  return loops
-    .map(x => String.fromCharCode(head(shuffle(charSet))))
-    .join('')
+  return loops.map(x => String.fromCharCode(head(shuffle(charSet)))).join('')
 }

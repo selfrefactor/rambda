@@ -9,5 +9,4 @@ function clampFn(
   if (input < min) return min
 }
 
-export const clamp = curry(clampFn) 
- 
+export const clamp = curry(clampFn)
