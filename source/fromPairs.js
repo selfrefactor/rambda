@@ -1,6 +1,6 @@
-export function fromPairs(list){
+export function fromPairs(listOfPairs){
   const toReturn = {}
-  list.forEach(([ prop, value ]) => toReturn[ prop ] = value)
+  listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
 
   return toReturn
 }

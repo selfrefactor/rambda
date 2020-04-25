@@ -1,10 +1,10 @@
-export function groupBy(fn, list){
-  if (arguments.length === 1) return _list => groupBy(fn, _list)
+export function groupBy(groupFn, list){
+  if (arguments.length === 1) return _list => groupBy(groupFn, _list)
 
   const result = {}
   for (let i = 0; i < list.length; i++){
     const item = list[ i ]
-    const key = fn(item)
+    const key = groupFn(item)
 
     if (!result[ key ]){
       result[ key ] = []

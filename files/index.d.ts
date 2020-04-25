@@ -1204,48 +1204,81 @@ export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }
 export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
 
 /*
-Method:
+Method: fromPairs
 
-Explanation:
-
-
+Explanation: It transforms a `listOfPairs` to an object.
 
 Example:
 
 ```
+const listOfPairs = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+const expected = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
 
+const result = R.fromPairs(listOfPairs)
+// expected === result
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function fromPairs<V>(pairs: KeyValuePair<string, V>[]): { [index: string]: V };
-export function fromPairs<V>(pairs: KeyValuePair<number, V>[]): { [index: number]: V };
+export function fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
+export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 /*
-Method:
+Method: groupBy
 
-Explanation:
-
-
+Explanation: It splits `list` according to a provided `groupFn` function and returns an object.
 
 Example:
 
 ```
+const list = [ 'a', 'b', 'aa', 'bb' ]
+const groupFn = x => x.length
 
+const result = R.groupBy(groupFn, list)
+// => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+
+/*
+Method: groupWith
+
+Explanation: It returns splitted version of `list`, where separation is done with equality `compareFn` function.
+
+Example:
+
+```
+const compareFn = (x, y) => x === y
+const list = [1, 2, 2, 1, 1, 2]
+
+const result = R.groupWith(isConsecutive, list)
+// => [[1], [2,2], [1,1], [2]]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 /*
 Method:
@@ -1268,29 +1301,6 @@ Notes:
 // @SINGLE_MARKER
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
-export function groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
 /*
 Method:

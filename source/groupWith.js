@@ -1,4 +1,4 @@
-export function groupWith(predicate, list){
+export function groupWith(compareFn, list){
   if (!Array.isArray(list))
     throw new TypeError('list.reduce is not a function')
 
@@ -11,11 +11,11 @@ export function groupWith(predicate, list){
   ) => {
     if (i === 0) return current
 
-    const okPredicate = predicate(prev, current)
+    const okCompare = compareFn(prev, current)
     const holderIsEmpty = holder.length === 0
     const lastCall = i === list.length - 1
 
-    if (okPredicate){
+    if (okCompare){
       if (holderIsEmpty) holder.push(prev)
       holder.push(current)
       if (lastCall) toReturn.push(holder)
