@@ -14,7 +14,7 @@ Extended version of Rambda(utility library) - [Documentation](https://selfrefact
 
 Rambdax passthrough all [Rambda](https://github.com/selfrefactor/rambda) methods and introduce some new functions.
 
-The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatability.
+The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatibility.
 
 ## Example use
 
