@@ -8,6 +8,7 @@
   "typings": "./index.d.ts",
   "sideEffects": false,
   "scripts": {
+    "dev":"jest scripts/build-step/build-step.spec.js",
     "test": "jest source --bail=true",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
@@ -74,7 +75,7 @@
     "tools.d.ts"
   ],
   "jest": {
-    "testRegex": "source/.*\\.spec\\.js$",
+    "testRegex": ".*\\.spec\\.js$",
     "setupFilesAfterEnv": [
       "jest-extended"
     ],
