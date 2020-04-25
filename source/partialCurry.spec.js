@@ -1,4 +1,5 @@
-import { delay, type } from '..x'
+import { type } from './type'
+import { delay } from './delay'
 import { partialCurry } from './partialCurry'
 
 test('with plain function', () => {

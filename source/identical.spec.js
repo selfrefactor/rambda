@@ -1,7 +1,7 @@
 import { F, T } from '../rambda.js'
+import { _isInteger } from './_internals/_isInteger'
+import { _objectIs } from './_internals/_objectIs'
 import { identical } from './identical'
-import { _isInteger } from './internal/_isInteger'
-import { _objectIs } from './internal/_objectIs'
 
 test('with boolean', () => {
   expect(F()).toBe(false)
