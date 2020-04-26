@@ -1,5 +1,8 @@
-import { always, has, identity, prop } from '../rambda'
+import { always } from './always.js'
+import { has } from './has'
+import { identity } from './identity'
 import { ifElse } from './ifElse'
+import { prop } from './prop'
 
 const condition = has('foo')
 const v = function (a){

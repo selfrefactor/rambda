@@ -1,4 +1,6 @@
-import { always, equals, T } from '../rambda.js'
+import { always} from './always.js'
+import { equals } from './equals.js'
+import { T } from './T.js'
 import { cond } from './cond'
 
 test('returns a function', () => {

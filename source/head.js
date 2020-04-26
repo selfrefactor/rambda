@@ -1,5 +1,5 @@
-export function head(list){
-  if (typeof list === 'string') return list[ 0 ] || ''
+export function head(listOrString){
+  if (typeof listOrString === 'string') return listOrString[ 0 ] || ''
 
-  return list[ 0 ]
+  return listOrString[ 0 ]
 }

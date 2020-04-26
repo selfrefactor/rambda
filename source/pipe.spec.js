@@ -1,10 +1,12 @@
 import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
-test('pipe', () => {
+test('happy', () => {
+  const list = [ 1, 2, 3 ]
+
   const result = pipe(
     map(add(1)), map(add(10)), last
-  )([ 1, 2, 3 ])
+  )(list)
 
   expect(result).toEqual(14)
 })

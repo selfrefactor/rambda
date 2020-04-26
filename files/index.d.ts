@@ -1281,19 +1281,23 @@ export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyA
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 /*
-Method:
+Method: has
 
-Explanation:
-
-
+Explanation: It returns `true` if `obj` has property `prop`.
 
 Example:
 
 ```
+const obj = {a: 1}
 
+const result = [
+  R.has('a', obj),
+  R.has('b', obj)
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -1305,17 +1309,19 @@ export function has(prop: string): <T>(obj: T) => boolean;
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It returns the first element of `listOrString`.
 
 Example:
 
 ```
-
+const result = [
+  R.head([1, 2, 3]),
+  R.head('foo') 
+]
+// => [1, 'f']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 

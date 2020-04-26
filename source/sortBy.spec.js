@@ -1,8 +1,17 @@
-import { compose, prop, toLower } from '../rambda'
+import { compose } from './compose'
+import { prop } from './prop'
 import { sortBy } from './sortBy'
+import { toLower } from './toLower.js'
 
-test('sortBy', () => {
-  const sortByNameCaseInsensitive = sortBy(compose(toLower, prop('name')))
+test('happy', () => {
+  const input = [ { a : 2 }, { a : 1 },{ a : 1 },  { a : 3 } ]
+  const expected = [ { a : 1 }, { a : 1 }, { a : 2 }, { a : 3 } ]
+
+  const result = sortBy(x => x.a)(input)
+  expect(result).toEqual(expected)
+})
+ 
+test('with compose', () => {
   const alice = {
     name : 'ALICE',
     age  : 101,
@@ -16,30 +25,7 @@ test('sortBy', () => {
     age  : 314.159,
   }
   const people = [ clara, bob, alice ]
+  const sortByNameCaseInsensitive = sortBy(compose(toLower, prop('name')))
 
   expect(sortByNameCaseInsensitive(people)).toEqual([ alice, bob, clara ])
-
-  expect(sortBy(val => val.a, [ { a : 2 }, { a : 1 }, { a : 0 } ])).toEqual([
-    { a : 0 },
-    { a : 1 },
-    { a : 2 },
-  ])
-
-  expect(sortBy(val => val.a, [ { a : 1 }, { a : 1 }, { a : 1 } ])).toEqual([
-    { a : 1 },
-    { a : 1 },
-    { a : 1 },
-  ])
-
-  expect(sortBy(val => val.a, [ { a : 3 }, { a : 2 }, { a : 1 } ])).toEqual([
-    { a : 1 },
-    { a : 2 },
-    { a : 3 },
-  ])
-
-  expect(sortBy(val => val.a, [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual([
-    { a : 1 },
-    { a : 2 },
-    { a : 3 },
-  ])
 })

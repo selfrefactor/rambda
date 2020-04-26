@@ -1,4 +1,6 @@
-import { compose, flatten, map } from '../rambda'
+import { compose } from './compose.js'
+import { flatten } from './flatten.js'
+import {map } from './map'
 import { append } from './append'
 
 test('with strings', () => {
