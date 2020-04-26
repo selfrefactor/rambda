@@ -14,7 +14,7 @@
     ✓ shows the same behaviour as pathOr for an undefined object
 
 
-  10 passing (90ms)
+  10 passing (81ms)
   1 failing
 
   1) propOr

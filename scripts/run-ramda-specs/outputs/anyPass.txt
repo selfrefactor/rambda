@@ -6,7 +6,7 @@
     1) returns a curried function whose arity matches that of the highest-arity predicate
 
 
-  2 passing (45ms)
+  2 passing (104ms)
   1 failing
 
   1) anyPass

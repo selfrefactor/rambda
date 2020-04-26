@@ -7,7 +7,7 @@
     1) dispatches to `forEach` method
 
 
-  3 passing (54ms)
+  3 passing (65ms)
   1 failing
 
   1) forEach

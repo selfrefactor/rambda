@@ -6,7 +6,7 @@
     2) has R.equals semantics
 
 
-  1 passing (59ms)
+  1 passing (67ms)
   2 failing
 
   1) intersection

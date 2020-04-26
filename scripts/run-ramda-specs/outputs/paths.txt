@@ -8,7 +8,7 @@
     ✓ returns undefined for items not found
 
 
-  4 passing (73ms)
+  4 passing (98ms)
   1 failing
 
   1) paths

@@ -11,11 +11,11 @@
     ✓ forwards extra arguments
 
   curry properties
-    ✓ curries multiple values (126ms)
+    ✓ curries multiple values (120ms)
     5) curries with placeholder
 
 
-  5 passing (259ms)
+  5 passing (241ms)
   5 failing
 
   1) curry
@@ -64,7 +64,7 @@
 
   5) curry properties
        curries with placeholder:
-     TypeError: Failed after 1 tests and 5 shrinks. rngState: 8b1ba57d3f4206e9c8; Counterexample: Function of arity3; {}; []; []; Exception: g(...) is not a function
+     TypeError: Failed after 1 tests and 5 shrinks. rngState: 8dc67af280d5e4b319; Counterexample: Function of arity3; []; []; 0; Exception: g(...) is not a function
       at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/test/curry.js:143:7
       at Object.bind (node_modules/jsverify/lib/functor.js:48:11)
       at test (node_modules/jsverify/lib/jsverify.js:212:20)

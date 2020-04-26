@@ -9,7 +9,7 @@
     ✓ returns an empty array if there are no different elements
 
 
-  5 passing (56ms)
+  5 passing (57ms)
   1 failing
 
   1) difference

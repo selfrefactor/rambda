@@ -6,14 +6,14 @@
     1) handles array-like object
 
 
-  2 passing (73ms)
+  2 passing (72ms)
   1 failing
 
   1) mean
        handles array-like object:
      TypeError: list.reduce is not a function
-      at sum (/home/s/repos/rambda/dist/rambda.js:1142:15)
-      at Object.mean (/home/s/repos/rambda/dist/rambda.js:1146:10)
+      at sum (/home/s/repos/rambda/dist/rambda.js:1008:15)
+      at Object.mean (/home/s/repos/rambda/dist/rambda.js:1012:10)
       at Context.mean (test/mean.js:19:10)
       at processImmediate (internal/timers.js:456:21)
 

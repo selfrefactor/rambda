@@ -7,7 +7,7 @@
     ✓ returns false if called with a null or undefined object
 
 
-  2 passing (91ms)
+  2 passing (99ms)
   2 failing
 
   1) propEq

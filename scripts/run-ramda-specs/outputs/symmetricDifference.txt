@@ -9,7 +9,7 @@
     ✓ returns an empty array if there are no different elements
 
 
-  3 passing (103ms)
+  3 passing (90ms)
   3 failing
 
   1) symmetricDifference

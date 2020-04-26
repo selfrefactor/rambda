@@ -1,9 +1,13 @@
 import { ms } from 'string-fn'
+
 import { buildStep } from '../build-step/build-step.js'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'
-import { runSingleBenchmark, runAllBenchmarks } from '../run-benchmarks/run-benchmarks'
 import { benchmarkSummary } from '../read-benchmarks/benchmark-summary'
+import {
+  runAllBenchmarks,
+  runSingleBenchmark,
+} from '../run-benchmarks/run-benchmarks'
 import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs.js'
 import { runSingleSpec } from '../run-ramda-specs/src/run-specs'
 
@@ -18,7 +22,7 @@ test('run many scripts and generate readme', async () => {
   // or edit of method's examples or explanation
   // then you should change `files/index.d.ts`
 
-  await populateDocsData({withRambdax})
+  await populateDocsData({ withRambdax })
 
   // In case that you need to update a single benchmark:
 
@@ -42,17 +46,17 @@ test('run many scripts and generate readme', async () => {
   // Also the tests are running against the bundle file
   // so you need to run `yarn build` before that
 
-  // On the very first step, `withInitialStep` should be `true` 
+  // On the very first step, `withInitialStep` should be `true`
 
-  await runRamdaSpecs({withInitialStep: true})
+  await runRamdaSpecs({ withInitialStep : true })
 
   // This step is to run Ramda tests on a single Rambda method
 
   // await runSingleSpec('foo')
-   
+
   // In order to build the final README.md file
   await populateReadmeData({ withRambdax })
 
   // In order to prepare for `yarn build`
-  await buildStep({withRambdax})
+  await buildStep({ withRambdax })
 })

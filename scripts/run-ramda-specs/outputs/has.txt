@@ -8,7 +8,7 @@
     ✓ tests currying
 
 
-  4 passing (79ms)
+  4 passing (88ms)
   1 failing
 
   1) has

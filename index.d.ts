@@ -468,7 +468,9 @@ export function has(prop: string): <T>(obj: T) => boolean;
 export function head<T>(listOrString: T[]): T | undefined;
 export function head(listOrString: string): string;
 
-
+/*
+	It returns `true` if its arguments are identical, `false` otherwise.
+*/
 export function identical<T>(a: T, b: T): boolean;
 export function identical<T>(a: T): (b: T) => boolean;
 

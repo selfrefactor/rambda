@@ -8,7 +8,7 @@
     1) returns a curried function
 
 
-  4 passing (93ms)
+  4 passing (125ms)
   1 failing
 
   1) xor

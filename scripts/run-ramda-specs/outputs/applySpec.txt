@@ -13,7 +13,7 @@
     ✓ returns a curried function
 
 
-  9 passing (99ms)
+  9 passing (73ms)
   1 failing
 
   1) applySpec

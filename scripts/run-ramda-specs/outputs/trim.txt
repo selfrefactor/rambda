@@ -6,7 +6,7 @@
     ✓ does not trim the zero-width space
 
 
-  2 passing (90ms)
+  2 passing (128ms)
   1 failing
 
   1) trim

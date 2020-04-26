@@ -6,7 +6,7 @@
     1) handles number as property
 
 
-  2 passing (80ms)
+  2 passing (95ms)
   1 failing
 
   1) propIs

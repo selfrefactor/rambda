@@ -10,7 +10,7 @@
     2) returns a curried function
 
 
-  5 passing (62ms)
+  5 passing (73ms)
   2 failing
 
   1) ifElse
@@ -32,7 +32,7 @@
   2) ifElse
        returns a curried function:
      TypeError: condition is not a function
-      at /home/s/repos/rambda/dist/rambda.js:883:74
+      at /home/s/repos/rambda/dist/rambda.js:744:74
       at Context.fn (test/ifElse.js:64:8)
       at processImmediate (internal/timers.js:456:21)
 

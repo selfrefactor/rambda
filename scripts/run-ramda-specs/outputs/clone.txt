@@ -35,7 +35,7 @@
     9) dispatches to `clone` method if present
 
 
-  9 passing (177ms)
+  9 passing (195ms)
   9 failing
 
   1) deep clone integers, strings and booleans
@@ -5837,8 +5837,8 @@
       
       at strictEqual (test/shared/eq.js:8:10)
       at eq (test/clone.js:141:7)
-      at map (/home/s/repos/rambda/dist/rambda.js:408:25)
-      at Object.forEach (/home/s/repos/rambda/dist/rambda.js:756:3)
+      at map (/home/s/repos/rambda/dist/rambda.js:645:25)
+      at Object.forEach (/home/s/repos/rambda/dist/rambda.js:653:3)
       at Context.forEach (test/clone.js:138:7)
       at processImmediate (internal/timers.js:456:21)
 

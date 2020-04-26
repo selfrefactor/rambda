@@ -11,7 +11,7 @@
     ✓ returns false for every other value
 
 
-  7 passing (75ms)
+  7 passing (66ms)
   1 failing
 
   1) isEmpty

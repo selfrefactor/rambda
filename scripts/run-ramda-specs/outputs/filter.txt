@@ -9,7 +9,7 @@
     2) correctly uses fantasy-land implementations
 
 
-  4 passing (60ms)
+  4 passing (88ms)
   2 failing
 
   1) filter

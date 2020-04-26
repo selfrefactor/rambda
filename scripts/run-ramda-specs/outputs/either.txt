@@ -7,7 +7,7 @@
     1) accepts fantasy-land applicative functors
 
 
-  3 passing (64ms)
+  3 passing (87ms)
   1 failing
 
   1) either
@@ -16,11 +16,11 @@
       AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
 + actual - expected
 
-+ '(...input) => f(...input) || g(...input)'
++ '(...input) => Boolean(firstPredicate(...input) || secondPredicate(...input))'
 - 'Just(true)'
       + expected - actual
 
-      -(...input) => f(...input) || g(...input)
+      -(...input) => Boolean(firstPredicate(...input) || secondPredicate(...input))
       +Just(true)
       
       at strictEqual (test/shared/eq.js:8:10)

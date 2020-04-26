@@ -22,20 +22,20 @@
     16) handles circular references
 
 
-  3 passing (120ms)
+  3 passing (174ms)
   16 failing
 
   1) toString
        returns the string representation of null:
      TypeError: Cannot read property 'toString' of null
-      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1507:14)
+      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1379:14)
       at Context.toString (test/toString.js:9:26)
       at processImmediate (internal/timers.js:456:21)
 
   2) toString
        returns the string representation of undefined:
      TypeError: Cannot read property 'toString' of undefined
-      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1507:14)
+      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1379:14)
       at Context.toString (test/toString.js:13:26)
       at processImmediate (internal/timers.js:456:21)
 
@@ -231,7 +231,7 @@
   15) toString
        handles object with no `toString` method:
      TypeError: val.toString is not a function
-      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1507:14)
+      at Object.toString (/home/s/repos/rambda/dist/rambda.js:1379:14)
       at Context.toString (test/toString.js:157:28)
       at processImmediate (internal/timers.js:456:21)
 

@@ -5,7 +5,7 @@
     1) behaves as a transducer when given a transducer in list position
 
 
-  1 passing (81ms)
+  1 passing (83ms)
   1 failing
 
   1) pluck

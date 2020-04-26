@@ -1331,21 +1331,27 @@ export function head<T>(listOrString: T[]): T | undefined;
 export function head(listOrString: string): string;
 
 /*
-Method:
+Method: identical
 
-Explanation:
+Explanation: It returns `true` if its arguments `a` and `b` are identical.
 
-
+Otherwise, it returns `false`. 
 
 Example:
 
 ```
-
+const obj = {a: 1};
+R.identical(obj, obj); //=> true
+R.identical(1, 1); //=> true
+R.identical(1, '1'); //=> false
+R.identical([], []); //=> false
+R.identical(0, -0); //=> false
+R.identical(NaN, NaN); //=> true
 ```
 
-Categories:
+Categories: Logic
 
-Notes:
+Notes: Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
 
 */
 // @SINGLE_MARKER
@@ -1353,47 +1359,52 @@ export function identical<T>(a: T, b: T): boolean;
 export function identical<T>(a: T): (b: T) => boolean;
 
 /*
-Method:
+Method: identity
 
-Explanation:
-
-
+Explanation: It just passes back the supplied `input` argument.
 
 Example:
 
 ```
-
+R.identity(7) // => 7
 ```
 
 Categories:
 
-Notes:
+Notes: Logic
 
 */
 // @SINGLE_MARKER
-export function identity<T>(x: T): T;
+export function identity<T>(input: T): T;
 
 /*
-Method:
+Method: ifElse
 
-Explanation:
+Explanation: It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. 
 
-
+When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
 
 Example:
 
 ```
+const fn = R.ifElse(
+ x => x>10,
+ x => x*2,
+ x => x*10
+)
 
+const result = [ fn(8), fn(18) ]
+// => [80, 36]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 /*
 Method:

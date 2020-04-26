@@ -8,14 +8,14 @@
     2) short circuits with reduced
 
 
-  3 passing (89ms)
+  3 passing (77ms)
   2 failing
 
   1) reduce
        Prefers the use of the iterator of an object over reduce (and handles short-circuits):
      TypeError: f is not a function
       at Reducible.f [as reduce] (test/reduce.js:35:15)
-      at reduceFn (/home/s/repos/rambda/dist/rambda.js:420:15)
+      at reduceFn (/home/s/repos/rambda/dist/rambda.js:1190:15)
       at /home/s/repos/rambda/dist/rambda.js:19:60
       at Object.reduce (/home/s/repos/rambda/dist/rambda.js:19:90)
       at Context.reduce (test/reduce.js:70:10)
@@ -26,7 +26,7 @@
      TypeError: R.reduced is not a function
       at reduced (test/reduce.js:74:72)
       at Array.reduce (<anonymous>)
-      at reduceFn (/home/s/repos/rambda/dist/rambda.js:420:15)
+      at reduceFn (/home/s/repos/rambda/dist/rambda.js:1190:15)
       at /home/s/repos/rambda/dist/rambda.js:19:60
       at Object.reduce (/home/s/repos/rambda/dist/rambda.js:19:90)
       at Context.reduce (test/reduce.js:76:10)

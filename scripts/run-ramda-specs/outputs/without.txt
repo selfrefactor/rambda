@@ -6,7 +6,7 @@
     2) has R.equals semantics
 
 
-  1 passing (94ms)
+  1 passing (92ms)
   2 failing
 
   1) without

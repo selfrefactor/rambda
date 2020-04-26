@@ -11,7 +11,7 @@
     ✓ shows the same behaviour as path for an undefined object
 
 
-  7 passing (81ms)
+  7 passing (98ms)
   1 failing
 
   1) prop

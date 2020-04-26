@@ -9,7 +9,7 @@
     2) retains highest predicate arity
 
 
-  4 passing (62ms)
+  4 passing (57ms)
   2 failing
 
   1) cond

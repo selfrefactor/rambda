@@ -12,7 +12,7 @@
   1) slice
        handles array-like object:
      TypeError: list.slice is not a function
-      at sliceFn (/home/s/repos/rambda/dist/rambda.js:1400:15)
+      at sliceFn (/home/s/repos/rambda/dist/rambda.js:1272:15)
       at /home/s/repos/rambda/dist/rambda.js:19:60
       at Object.slice (/home/s/repos/rambda/dist/rambda.js:19:90)
       at Context.slice (test/slice.js:12:10)
