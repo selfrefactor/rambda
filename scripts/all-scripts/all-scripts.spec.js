@@ -44,12 +44,12 @@ test('run many scripts and generate readme', async () => {
 
   // On the very first step, `withInitialStep` should be `true` 
 
-  // await runRamdaSpec({withInitialStep: false})
+  await runRamdaSpecs({withInitialStep: true})
 
   // This step is to run Ramda tests on a single Rambda method
 
   // await runSingleSpec('foo')
-  
+   
   // In order to build the final README.md file
   await populateReadmeData({ withRambdax })
 

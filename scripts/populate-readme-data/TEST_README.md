@@ -1490,7 +1490,9 @@ export function append(el, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { compose, flatten, map } from '../rambda'
+import { compose } from './compose.js'
+import { flatten } from './flatten.js'
+import {map } from './map'
 import { append } from './append'
 
 test('with strings', () => {
@@ -2446,7 +2448,7 @@ both(pred1: Pred, pred2: Pred): Pred
 
 It returns a function with `input` argument. 
 
-This funciton will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
+This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
 
 ```javascript
 const firstCondition = x => x > 10
@@ -2911,7 +2913,10 @@ export function compose(...fns){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { add, filter, last, map } from '../rambda'
+import { add } from './add'
+import { filter } from './filter.js'
+import { last} from './last'
+import {  map } from './map'
 import { compose } from './compose'
 
 test('happy', () => {
@@ -3214,7 +3219,9 @@ export function cond(conditions){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { always, equals, T } from '../rambda.js'
+import { always} from './always.js'
+import { equals } from './equals.js'
+import { T } from './T.js'
 import { cond } from './cond'
 
 test('returns a function', () => {
@@ -4478,7 +4485,7 @@ endsWith(a: string): (list: string) => boolean;
 
 ```javascript
 export function endsWith(suffix, input){
-  if (arguments.length === 1) return _list => endsWith(suffix, _input)
+  if (arguments.length === 1) return _input => endsWith(suffix, _input)
 
   return input.endsWith(suffix)
 }
@@ -4499,7 +4506,7 @@ test('happy', () => {
 })
 
 test('does not work with arrays', () => {
-  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('list.endsWith is not a function')
+  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('input.endsWith is not a function')
 })
 ```
 
@@ -6491,7 +6498,7 @@ describe('groupBy', () => {
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]
 ```
 
-It returns splitted version of `list`, where separation is done with equality `compareFn` function.
+It returns separated version of `list`, where separation is done with equality `compareFn` function.
 
 ```javascript
 const compareFn = (x, y) => x === y
@@ -6673,6 +6680,19 @@ test('from ramda 3', () => {
 has<T>(prop: string, obj: T): boolean
 ```
 
+It returns `true` if `obj` has property `prop`.
+
+```javascript
+const obj = {a: 1}
+
+const result = [
+  R.has('a', obj),
+  R.has('b', obj)
+]
+// => [true, false]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20obj)%2C%0A%20%20R.has('b'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.has</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6682,6 +6702,75 @@ has<T>(prop: string, obj: T): boolean
 has<T>(prop: string, obj: T): boolean;
 has(prop: string): <T>(obj: T) => boolean;
 ```
+
+</details>
+
+<details>
+
+<summary><strong>R.has</strong> source</summary>
+
+```javascript
+export function has(prop, obj){
+  if (arguments.length === 1) return _obj => has(prop, _obj)
+
+  if (!obj) return false
+
+  return obj[ prop ] !== undefined
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { has } from './has'
+
+test('happy', () => {
+  expect(has('a')({ a : 1 })).toBeTrue()
+  expect(has('b', { a : 1 })).toBeFalse()
+})
+
+test('with non-object', () => {
+  expect(has('a', undefined)).toEqual(false)
+  expect(has('a', null)).toEqual(false)
+  expect(has('a', true)).toEqual(false)
+  expect(has('a', '')).toEqual(false)
+  expect(has('a', /a/)).toEqual(false)
+})
+```
+
+</details>
+
+<details>
+
+<summary> Failed <italic>Ramda.has</italic> specs
+
+> Reason for the failure: rambda does check properties from the prototype chain
+</summary>
+
+```javascript
+const eq = require('./shared/eq')
+const R = require('../../../../dist/rambda.js')
+
+describe('has', () => {
+  const fred = {
+    name : 'Fred',
+    age  : 23,
+  }
+  const anon = { age : 99 }
+  it('does not check properties from the prototype chain', () => {
+    const Person = function (){}
+    Person.prototype.age = function (){}
+    const bob = new Person()
+    eq(R.has('age', bob), false)
+  })
+})
+
+```
+
 
 </details>
 

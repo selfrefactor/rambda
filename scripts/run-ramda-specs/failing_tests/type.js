@@ -1,12 +1,12 @@
-const eq = require('./shared/eq')
-const R = require('../../../../dist/rambda.js')
+var R = require('../../../../dist/rambda.js');
+var eq = require('./shared/eq');
 
-describe('type', () => {
+describe('type', function() {
   // it('"Arguments" if given an arguments object', function() {
   //   var args = (function() { return arguments; }());
   //   eq(R.type(args), 'Arguments');
   // });
-  it('"Number" if given the NaN value', () => {
-    eq(R.type(NaN), 'Number')
-  })
-})
+  it('"Number" if given the NaN value', function() {
+    eq(R.type(NaN), 'Number');
+  });
+});
