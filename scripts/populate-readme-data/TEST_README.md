@@ -1172,7 +1172,6 @@ describe('any', () => {
   it('1', () => {
     const x = any<number>(
       (y, i) => {
-        // $ExpectType boolean
         y // $ExpectType number
         i // $ExpectType number
         return y > 2
@@ -1184,7 +1183,6 @@ describe('any', () => {
   it('2', () => {
     const x = any<number>(
       y => {
-        // $ExpectType boolean
         y // $ExpectType number
         return y > 2
       },
@@ -1195,7 +1193,6 @@ describe('any', () => {
 
   it('1 curry', () => {
     const x = any<number>((y, i) => {
-      // $ExpectType boolean
       y // $ExpectType number
       i // $ExpectType number
       return y > 2
@@ -1204,7 +1201,6 @@ describe('any', () => {
   })
   it('2 curry', () => {
     const x = any<number>(y => {
-      // $ExpectType boolean
       y // $ExpectType number
       return y > 2
     })([1, 2, 3])
@@ -2579,11 +2575,11 @@ describe('both', () => {
 describe('both + curry', () => {
   it('with passed type', () => {
     const fn = both<number>(x => {
-      // $ExpectType Predicate<number>
       return x > 1
     })(x => {
       return x % 2 === 0
     })
+    fn // $ExpectType Predicate<number>
     const result = fn(2) // $ExpectType boolean
     result // $ExpectType boolean
   })
@@ -5440,7 +5436,6 @@ import {filter} from 'rambda'
 describe('filter with array', () => {
   it('1 curry', () => {
     const x = filter<number>(a => {
-      // $ExpectType number[]
       a // $ExpectType number
       return a > 1
     })([1, 2, 3])
@@ -5449,7 +5444,6 @@ describe('filter with array', () => {
   it('1', () => {
     const x = filter<number>(
       a => {
-        // $ExpectType number[]
         a // $ExpectType number
         return a > 1
       },
@@ -5460,7 +5454,6 @@ describe('filter with array', () => {
   it('2', () => {
     const x = filter<number>(
       (a, b) => {
-        // $ExpectType number[]
         a // $ExpectType number
         return a > 1
       },
@@ -5473,7 +5466,6 @@ describe('filter with array', () => {
 describe('filter with objects', () => {
   it('curry', () => {
     const x = filter<number, number>((a, b, c) => {
-      // $ExpectType Dictionary<number>
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
 
@@ -5485,7 +5477,6 @@ describe('filter with objects', () => {
   it('object with three arguments predicate', () => {
     const x = filter<number>(
       (a, b, c) => {
-        // $ExpectType Dictionary<number>
         b // $ExpectType string
         c // $ExpectType Dictionary<number>
 
@@ -5499,7 +5490,6 @@ describe('filter with objects', () => {
   it('object with two arguments predicate', () => {
     const x = filter<number>(
       (a, b) => {
-        // $ExpectType Dictionary<number>
         b // $ExpectType string
         return a > 1
       },
@@ -5510,7 +5500,6 @@ describe('filter with objects', () => {
   it('object with one argument predicate', () => {
     const x = filter<number>(
       a => {
-        // $ExpectType Dictionary<number>
         a // $ExpectType number
         return a > 1
       },

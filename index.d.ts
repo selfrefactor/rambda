@@ -198,7 +198,7 @@ export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 /*
 	It returns a function with `input` argument. 
 
-This funciton will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
+This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
 */
 export function both(pred1: Pred, pred2: Pred): Pred;
 export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
@@ -452,13 +452,15 @@ export function groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): {
 export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
 /*
-	It returns splitted version of `list`, where separation is done with equality `compareFn` function.
+	It returns separated version of `list`, where separation is done with equality `compareFn` function.
 */
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
-
+/*
+	It returns `true` if `obj` has property `prop`.
+*/
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
 

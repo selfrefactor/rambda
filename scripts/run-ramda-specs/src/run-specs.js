@@ -38,7 +38,7 @@ function getNumberFailing(testOutput){
   return Number(numberFailing.trim())
 }
 
-async function runSingleSpec(method, skipDelete){
+export async function runSingleSpec(method, skipDelete = true){
   console.log(method)
   const { command, outputPath } = getCommand(method)
 

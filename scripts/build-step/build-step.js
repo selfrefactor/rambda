@@ -106,7 +106,7 @@ async function rambdaBuildStep(){
   )
 }
 
-export async function buildStep(withRambdax = false){
+export async function buildStep({ withRambdax }){
   await createExportedTypings(withRambdax)
 
   if (withRambdax) await rambdaxBuildStep()
