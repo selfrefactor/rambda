@@ -32,5 +32,5 @@ async function lintRambdaDefinitions() {
   await lintSingleFile(filePath)
 }
 
-lintTypingsTests('add')
+lintTypingsTests()
 lintRambdaDefinitions()
