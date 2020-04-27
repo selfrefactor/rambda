@@ -1,7 +1,7 @@
+import { append } from './append'
 import { compose } from './compose.js'
 import { flatten } from './flatten.js'
-import {map } from './map'
-import { append } from './append'
+import { map } from './map'
 
 test('with strings', () => {
   expect(append('o', 'fo')).toEqual('foo')

@@ -1,6 +1,6 @@
-import { type } from './type'
 import { delay } from './delay'
 import { partialCurry } from './partialCurry'
+import { type } from './type'
 
 test('with plain function', () => {
   const fn = ({ a, b, c }) => a + b + c

@@ -1,11 +1,9 @@
 import { spawn } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsync } from 'rambdax'
-import { ms } from 'string-fn'
 
 const base = resolve(__dirname, '../../')
 
-jest.setTimeout(ms('8 minutes'))
 
 const folders = [
   'source',
@@ -31,7 +29,7 @@ async function lintFolder(folder){
   await spawn({
     cwd     : `${ base }/${ folder }`,
     command : 'run',
-    inputs  : [ 'lx' ],
+    inputs  : [ 'l' ],
   })
 }
 
@@ -47,5 +45,5 @@ async function lintFile(file){
 
 export async function lint(){
   await mapAsync(lintFolder)(folders)
-  // await mapAsync(lintFile)(files)
+  await mapAsync(lintFile)(files)
 }

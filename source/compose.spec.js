@@ -1,8 +1,8 @@
 import { add } from './add'
-import { filter } from './filter.js'
-import { last} from './last'
-import {  map } from './map'
 import { compose } from './compose'
+import { filter } from './filter.js'
+import { last } from './last'
+import { map } from './map'
 
 test('happy', () => {
   const result = compose(
