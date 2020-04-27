@@ -2908,10 +2908,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fdir@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/fdir/-/fdir-2.1.0.tgz#92ea339a3a4493fcbd31475f539d0ab80c92acfa"
-  integrity sha512-3OrEdo5P0o6SCvy0G4TNXx97D4/f3E+oKMF0q9MmWGIxJDLSjQabRJnlBApLtopdoaZ108WjPjHQM7niFYHYGg==
+fdir@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fdir/-/fdir-2.1.1.tgz#11b3d8b9b74aab626791c73c5e5ce28cf8fcc8af"
+  integrity sha512-pBc2pGnR4cTkJf7y0NmhWlDFtZw4r92i5TW+tirHYxgivX7ZlfGKRk9KZ667xGbmCvrzb9f11a4j+qAeHz+oqQ==
 
 figures@3.2.0, figures@^3.0.0:
   version "3.2.0"
