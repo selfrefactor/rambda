@@ -1407,40 +1407,42 @@ export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Ar
 export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 /*
-Method:
+Method: inc
 
-Explanation:
-
-
+Explanation: It increments a number.
 
 Example:
 
 ```
-
+R.inc(1) // => 2
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function inc(n: number): number;
+export function inc(x: number): number;
 
 /*
 Method:
 
-Explanation:
+Explanation: If `input` is string, then this method work as native `String.includes`.
 
-
+If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
 
 Example:
 
 ```
-
+const result = [
+  R.includes('oo', 'foo'),
+  R.includes({a: 1}, [{a: 1}])
+]
+// => [true, true ]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
@@ -1452,50 +1454,72 @@ export function includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
 export function includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
 /*
-Method:
+Method: indexBy
 
-Explanation:
+Explanation: It generates object with properties provided by `condition` and values provided by `list` array.
 
+If `condition` is a function, then all list members are passed through it.
 
+If `condition` is a string, then all list members are passed through `R.path(condition)`.
 
 Example:
 
 ```
+const list = [ {id: 10}, {id: 20} ]
 
+const withFunction = R.indexBy(
+  x => x.id,
+  list
+)
+const withString = R.indexBy(
+  'id',
+  list
+)
+const result = [
+  withFunction, 
+  R.equals(withFunction, withString)
+]
+// => [ { 10: {id: 10}, 20: {id: 20} }, true ]
 ```
 
-Categories:
-
+Categories: List
+ 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function indexBy<T>(condition: (a: T) => string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>(condition: string, arr: ReadonlyArray<T>): { [key: string]: T };
-export function indexBy<T>(condition: (a: T) => string): (arr: ReadonlyArray<T>) => { [key: string]: T };
-export function indexBy<T>(condition: string): (arr: ReadonlyArray<T>) => { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
+export function indexBy<T>(condition: string, list: ReadonlyArray<T>): { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
+export function indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 /*
-Method:
+Method: indexOf
 
-Explanation:
+Explanation: It returns the index of the first element of `list` equals to `valueToFind`.
 
-
+If there is no such element, it returns `-1`.
 
 Example:
 
 ```
+const list = [0, 1, 2, 3]
 
+const result = [
+  R.indexOf(2, list),
+  R.indexOf(0, list)
+]
+// => [2, -1]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function indexOf<T>(target: T, arr: ReadonlyArray<T>): number;
-export function indexOf<T>(target: T): (arr: ReadonlyArray<T>) => number;
+export function indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
+export function indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 /*
 Method:
