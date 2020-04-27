@@ -8,8 +8,7 @@ const add2 = rambda_1.add(1)(3)
 const morebs = rambda_1.transpose([ [ 1, 2 ], [], [ 1, 2, 3 ], [ 3 ] ])
 console.log({ morebs : morebs })
 const bs = rambda_1.and(1)(2)
-const a = rambda_1.reject((a, c) => a > 1,
-  [ 1, 2, 3 ])
+const a = rambda_1.reject((a, c) => a > 1, [ 1, 2, 3 ])
 function fn(input){
   return input.c ? input.a : input.b
 }

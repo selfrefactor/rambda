@@ -7,6 +7,7 @@
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
     "populate": "maided populate",
+    "lint": "maided lint",
     "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "fix": "mkdir $HOME/.dts/perf -p"
   },

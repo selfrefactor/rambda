@@ -5,7 +5,7 @@ import { createBenchmark } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsyncLimit } from 'rambdax'
 
-const benchmarksDir = resolve(__dirname, '../../source/benchmarks') 
+const benchmarksDir = resolve(__dirname, '../../source/benchmarks')
 
 async function getAllBenchmarks(){
   const files = await fdir.async(benchmarksDir)

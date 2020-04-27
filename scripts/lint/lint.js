@@ -1,9 +1,9 @@
-import { mapAsync } from 'rambdax'
-import { resolve , parse } from 'path'
-import { ms } from 'string-fn'
 import { spawn } from 'helpers-fn'
+import { parse, resolve } from 'path'
+import { mapAsync } from 'rambdax'
+import { ms } from 'string-fn'
 
-const base = resolve(__dirname,'../../')
+const base = resolve(__dirname, '../../')
 
 jest.setTimeout(ms('8 minutes'))
 
@@ -29,24 +29,23 @@ const files = [
 
 async function lintFolder(folder){
   await spawn({
-    cwd: `${base}/${folder}`,
-    command: 'run',
-    inputs: ['lintfolderx']
+    cwd     : `${ base }/${ folder }`,
+    command : 'run',
+    inputs  : [ 'lx' ],
   })
 }
 
 async function lintFile(file){
-  const filePath = `${base}/${file}`
-  const {dir} = parse(filePath)
-  
+  const filePath = `${ base }/${ file }`
+  const { dir, name } = parse(filePath)
   await spawn({
-  cwd: dir,
-    command: 'run',
-    inputs: ['lintfile', filePath]
+    cwd     : dir,
+    command : 'run',
+    inputs  : [ 'lintfile', `${ name }.js` ],
   })
 }
- 
+
 export async function lint(){
-  // await mapAsync(lintFolder)(folders)
-  await mapAsync(lintFile)(files)
+  await mapAsync(lintFolder)(folders)
+  // await mapAsync(lintFile)(files)
 }
