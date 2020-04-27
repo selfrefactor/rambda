@@ -1,12 +1,5 @@
 {
   "name": "rambda",
-  "version": "5.1.0",
-  "description": "Lightweight faster alternative to Ramda",
-  "main": "./dist/rambda.js",
-  "module": "./dist/rambda.esm.js",
-  "umd": "./dist/rambda.umd.js",
-  "typings": "./index.d.ts",
-  "sideEffects": false,
   "scripts": {
     "dev": "jest scripts/build-step/build-step.spec.js",
     "test": "jest source --bail=true",
@@ -17,23 +10,12 @@
     "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "fix": "mkdir $HOME/.dts/perf -p"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/selfrefactor/rambda.git"
+  "typings": "./index.d.ts",
+  "main": "./dist/rambda.js",
+  "version": "5.1.0",
+  "dependencies": {
+    "fs-extra": "^9.0.0"
   },
-  "keywords": [
-    "ramda",
-    "fp",
-    "functional",
-    "utility",
-    "lodash"
-  ],
-  "author": "self_refactor",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/selfrefactor/rambda/issues"
-  },
-  "homepage": "https://github.com/selfrefactor/rambda#readme",
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "7.9.0",
@@ -64,16 +46,6 @@
     "typescript": "3.8.3",
     "typescript-formatter": "7.2.2"
   },
-  "dependencies": {
-    "fs-extra": "^9.0.0"
-  },
-  "files": [
-    "dist",
-    "src",
-    "_ts-toolbelt",
-    "index.d.ts",
-    "tools.d.ts"
-  ],
   "jest": {
     "testRegex": ".*\\.spec\\.js$",
     "setupFilesAfterEnv": [
@@ -84,6 +56,34 @@
       "!_internals"
     ]
   },
+  "files": [
+    "dist",
+    "src",
+    "_ts-toolbelt",
+    "index.d.ts",
+    "tools.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfrefactor/rambda.git"
+  },
+  "license": "MIT",
+  "author": "self_refactor",
+  "description": "Lightweight faster alternative to Ramda",
+  "module": "./dist/rambda.esm.js",
+  "umd": "./dist/rambda.umd.js",
+  "sideEffects": false,
+  "keywords": [
+    "ramda",
+    "fp",
+    "functional",
+    "utility",
+    "lodash"
+  ],
+  "bugs": {
+    "url": "https://github.com/selfrefactor/rambda/issues"
+  },
+  "homepage": "https://github.com/selfrefactor/rambda#readme",
   "commitMessage": {
     "support": [
       "script",
