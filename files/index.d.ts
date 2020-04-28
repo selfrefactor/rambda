@@ -2325,10 +2325,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function paths<Input, T>(pathsToSearch: (string | string[])[], obj: Input): (T | undefined)[];
-export function paths<T>(pathsToSearch: (string | string[])[], obj: any): (T | undefined)[];
-export function paths<T>(pathsToSearch: (string | string[])[]): (obj: any) => (T | undefined)[];
-export function paths<Input, T>(pathsToSearch: (string | string[])[]): (obj: Input) => (T | undefined)[];
+export function paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
+export function paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
+export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
+export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 /*
 Method:
