@@ -6,14 +6,13 @@ import { tap } from './tap'
 import { trim } from './trim'
 import { type } from './type'
 
-test('happy', () => {
-  const result = switcher('foo')
+test('accept function as answers', () => {
+  const fn = switcher('foo')
     .is('bar', tap)
     .is('foo', add(1))
     .default(trim)
 
-  console.log(1)
-  expect(result(2)).toEqual(3)
+  expect(fn(2)).toEqual(3)
 })
 
 test('with boolean tuple', () => {
