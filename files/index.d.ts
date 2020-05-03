@@ -1522,19 +1522,21 @@ export function indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
 export function indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 /*
-Method:
+Method: init
 
-Explanation:
-
-
+Explanation: It returns all but the last element of `listOrString`.
 
 Example:
 
 ```
-
+const result = [
+  R.init([1, 2, 3]) , 
+  R.init('foo')  // => 'fo'
+]
+// => [[1, 2], 'fo']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
@@ -1542,6 +1544,30 @@ Notes:
 // @SINGLE_MARKER
 export function init<T>(listOrString: ReadonlyArray<T>): T[];
 export function init(listOrString: string): string;
+
+/*
+Method: intersection
+
+Explanation: It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+
+Example:
+
+```
+const list1 = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
+const list2 = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
+
+const result = intersection(list1,list2)
+// => [{ id : 3 }, { id : 4 }]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+export function intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
 /*
 Method:
@@ -1564,28 +1590,6 @@ Notes:
 // @SINGLE_MARKER
 export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 export function intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
 
 /*
 Method:
