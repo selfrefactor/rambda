@@ -1553,10 +1553,10 @@ Explanation: It loops throw `listA` and `listB` and returns the intersection of 
 Example:
 
 ```
-const list1 = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
-const list2 = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
+const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
+const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 
-const result = intersection(list1,list2)
+const result = intersection(listA, listB)
 // => [{ id : 3 }, { id : 4 }]
 ```
 
@@ -1566,23 +1566,24 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+export function intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[];
+export function intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: intersperse
 
-Explanation:
-
-
+Explanation: It adds a `separator` between members of `list`.
 
 Example:
 
 ```
-
+const list = [ 0, 1, 2, 3 ]
+const separator = '|'
+const result = intersperse(separator, list)
+// => [0, '|', 1, '|', 2, '|', 3]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1592,47 +1593,51 @@ export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 export function intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: is
 
-Explanation:
-
-
+Explanation: It returns `true` is `x` is instance of `targetPrototype`.
 
 Example:
 
 ```
-
+const result = [
+  R.is(String, 'foo'),  
+  R.is(Array, 1)
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function is(xPrototype: any, x: any): boolean;
-export function is(xPrototype: any): (x: any) => boolean;
+export function is(targetPrototype: any, x: any): boolean;
+export function is(targetPrototype: any): (x: any) => boolean;
 
 /*
-Method:
+Method: isEmpty
 
-Explanation:
-
-
+Explanation: It returns `true` is `x` is `empty`.
 
 Example:
 
 ```
-
+const result = [
+  R.isEmpty(''),
+  R.isEmpty({ x : 0 })
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function isEmpty<T>(input: T): boolean;
+export function isEmpty<T>(x: T): boolean;
 
 /*
 Method:
