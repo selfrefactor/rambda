@@ -1,5 +1,5 @@
-export function join(separator, list){
-  if (arguments.length === 1) return _list => join(separator, _list)
+export function join(glue, list){
+  if (arguments.length === 1) return _list => join(glue, _list)
 
-  return list.join(separator)
+  return list.join(glue)
 }

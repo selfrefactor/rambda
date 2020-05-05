@@ -1,3 +1,3 @@
-export function keys(obj){
-  return Object.keys(obj)
+export function keys(x){
+  return Object.keys(x)
 }

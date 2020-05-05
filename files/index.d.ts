@@ -1640,19 +1640,21 @@ Notes:
 export function isEmpty<T>(x: T): boolean;
 
 /*
-Method:
+Method: isNil
 
-Explanation:
-
-
+Explanation: It returns `true` is `x` is either `null` or `undefined`.
 
 Example:
 
 ```
-
+const result = [
+  R.isNil(null),
+  R.isNil(1),
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -1661,19 +1663,17 @@ Notes:
 export function isNil(x: any): x is null | undefined;
 
 /*
-Method:
+Method: join
 
-Explanation:
-
-
+Explanation: It returns a string representing `list` instances joined with `glue`.
 
 Example:
 
 ```
-
+R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -1683,19 +1683,17 @@ export function join(x: string, xs: ReadonlyArray<any>): string;
 export function join(x: string): (xs: ReadonlyArray<any>) => string;
 
 /*
-Method:
+Method: keys
 
-Explanation:
-
-
+Explanation: It applies `Object.keys` over `x` and returns its keys.
 
 Example:
 
 ```
-
+R.keys({a:1, b:2})  // => ['a', 'b']
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
