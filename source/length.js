@@ -1,7 +1,7 @@
-export function length(list){
-  if (!list || list.length === undefined){
+export function length(x){
+  if (!x || x.length === undefined){
     return NaN
   }
 
-  return list.length
+  return x.length
 }

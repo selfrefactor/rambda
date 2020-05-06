@@ -1703,19 +1703,21 @@ export function keys<T extends object>(x: T): (keyof T)[];
 export function keys<T>(x: T): string[];
 
 /*
-Method:
+Method: last
 
-Explanation:
-
-
+Explanation: It returns the last element of `listOrString`.
 
 Example:
 
 ```
-
+const result = [
+  R.last([1, 2, 3]),
+  R.last('foo'),
+]
+// => [3, 'o']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
@@ -1725,25 +1727,33 @@ export function last<T>(listOrString: T[]): T | undefined;
 export function last(listOrString: string): string;
 
 /*
-Method:
+Method: lastIndexOf
 
-Explanation:
+Explanation: It returns the last index of `target` in `list` array.
 
+`R.equals` is used to determine equality between `target` and members of `list`.
 
+If there is no such index, then `-1` is returned.
 
 Example:
 
 ```
-
+const list = [1, 2, 3, 1, 2, 3]
+const result = [
+  R.lastIndexOf(2, list),
+  R.lastIndexOf(4, list),
+]
+// => [4, -1]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function lastIndexOf<T>(x: T, arr: ReadonlyArray<T>): number;
+export function lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
+export function lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 /*
 Method:
