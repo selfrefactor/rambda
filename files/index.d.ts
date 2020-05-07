@@ -1756,40 +1756,48 @@ export function lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
 export function lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 /*
-Method:
+Method: length
 
-Explanation:
-
-
+Explanation: It returns the `length` property of `listOrString`.
 
 Example:
 
 ```
-
+const result = [
+  R.length([1, 2, 3, 4]),
+  R.length('foo'),
+]
+// => [4, 3]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function length<T>(list: ReadonlyArray<T>): number;
+export function length<T>(listOrString: ReadonlyArray<T>): number;
 
 /*
-Method:
+Method: lens
 
-Explanation:
+Explanation: It returns a `lens` for the given `getter` and `setter` functions. 
 
+The `getter` **gets** the value of the focus; the `setter` **sets** the value of the focus. 
 
+The setter should not mutate the data structure.
 
 Example:
 
 ```
+const xLens = R.lens(R.prop('x'), R.assoc('x'));
 
+R.view(xLens, {x: 1, y: 2}) // => 1
+R.set(xLens, 4, {x: 1, y: 2}) // => {x: 4, y: 2}
+R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
@@ -1799,65 +1807,102 @@ export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): L
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 /*
-Method:
+Method: lensIndex
 
-Explanation:
-
-
+Explanation: It returns a lens that focuses on specified `index`.
 
 Example:
 
 ```
+const list = ['a', 'b', 'c']
+const headLens = R.lensIndex(0)
 
+R.view(headLens, list) // => 'a'
+R.set(headLens, 'x', list) // => ['x', 'b', 'c']
+R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function lensIndex(n: number): Lens;
+export function lensIndex(index: number): Lens;
+
+/*
+Method: lensPath
+
+Explanation: It returns a lens that focuses on specified `path`.
+
+Example:
+
+```
+const lensPath = R.lensPath(['x', 0, 'y'])
+const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
+
+R.view(lensPath, input) //=> 2
+
+R.set(lensPath, 1, input) 
+//=> {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+
+R.over(xHeadYLens, R.negate, input) 
+//=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+```
+
+Categories: Lenses
+
+Notes:
+
+*/
+// @SINGLE_MARKER
 export function lensPath(path: RamdaPath): Lens;
 
 /*
-Method:
+Method: lensProp
 
-Explanation:
-
-
+Explanation: It returns a lens that focuses on specified property `prop`.
 
 Example:
 
 ```
+const xLens = R.lensProp('x');
+const input = {x: 1, y: 2}
 
+R.view(xLens, input) // => 1
+
+R.set(xLens, 4, input) 
+// => {x: 4, y: 2}
+
+R.over(xLens, R.negate, input) 
+// => {x: -1, y: 2}
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function lensProp(str: string): {
+export function lensProp(prop: string): {
   <T, U>(obj: T): U;
   set<T, U, V>(val: T, obj: U): V;
 };
 
 /*
-Method:
+Method: over
 
-Explanation:
-
-
+Explanation: It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
 
 Example:
 
 ```
-
+const headLens = R.lensIndex(0)
+ 
+R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
@@ -1871,27 +1916,30 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
 export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 /*
-Method:
+Method: set
 
-Explanation:
-
-
+Explanation: It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
 
 Example:
 
 ```
+const input = {x: 1, y: 2}
+const xLens = R.lensProp('x')
+
+R.set(xLens, 4, input) //=> {x: 4, y: 2}
+R.set(xLens, 8, input) //=> {x: 8, y: 2}
 
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function set<T, U>(lens: Lens, a: U, obj: T): T;
-export function set<U>(lens: Lens, a: U): <T>(obj: T) => T;
-export function set(lens: Lens): <T, U>(a: U, obj: T) => T;
+export function set<T, U>(lens: Lens, replacer: U, obj: T): T;
+export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
+export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 /*
 Method:
