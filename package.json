@@ -51,7 +51,7 @@
     "@types/ramda": "0.27.4",
     "babel-jest": "25.4.0",
     "cross-env": "7.0.2",
-    "dtslint": "3.4.2",
+    "dtslint": "3.5.2",
     "helpers-fn": "0.1.1",
     "jest": "25.4.0",
     "jest-extended": "0.11.5",
