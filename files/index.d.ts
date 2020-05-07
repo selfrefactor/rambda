@@ -1942,67 +1942,82 @@ export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
 export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 /*
-Method:
+Method: view
 
-Explanation:
-
-
+Explanation: It returns the value of `lens` focus over `target` object.
 
 Example:
 
 ```
+const lens = R.lensProp('x')
 
+R.view(lens, {x: 1, y: 2}) //=> 1
+R.view(lens, {x: 4, y: 2}) //=> 4
 ```
 
-Categories:
+Categories: Lenses
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function view<T, U>(lens: Lens): (obj: T) => U;
-export function view<T, U>(lens: Lens, obj: T): U;
+export function view<T, U>(lens: Lens): (target: T) => U;
+export function view<T, U>(lens: Lens, target: T): U;
 
 /*
-Method:
+Method: map
 
-Explanation:
+Explanation: It returns the result of looping through `list` with `fn`.
 
-
+It works with both array and object. 
 
 Example:
 
 ```
+const fn = (x, i) => (x * 2) + i
+const fnWhenObject = (val, prop)=>{
+  return `${prop}-${val}`
+}
 
+const list = [1, 2]
+const obj = {a: 1, b: 2}
+
+const result = [ 
+  R.map(fn, list),
+  R.map(fnWhenObject, obj)
+]
+// => [ [2, 5], {a: 'a-1', b: 'b-2'}] 
 ```
 
-Categories:
+Categories: List, Object
 
-Notes:
+Notes: Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
 
 */
 // @SINGLE_MARKER
-export function map<T, U>(mapFn: MapFunctionObject<T, U>, x: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(mapFn: MapFunctionArray<T, U>, x: T[]): U[];
-export function map<T, U>(mapFn: MapFunctionArray<T, U>): (x: T[]) => U[];
-export function map<T, U, S>(mapFn: MapFunctionObject<T, U>): (x: Dictionary<T>) => Dictionary<U>;
-export function map<T>(mapFn: MapFunctionArray<T, T>): (x: T[]) => T[];
-export function map<T>(mapFn: MapFunctionArray<T, T>, x: ReadonlyArray<T>): T[];
+export function map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
+export function map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
+export function map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
+export function map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
+export function map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
+export function map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 /*
-Method:
+Method: match
 
-Explanation:
-
-
+Explanation: Curried version of `String.prototype.match` which returns empty array, when there is no match.
 
 Example:
 
 ```
-
+const result = [
+  R.match('a', 'foo'),
+  R.match(/([a-z]a)/g, 'bananas')
+]
+// => [[], ['ba', 'na', 'na']]
 ```
 
-Categories:
+Categories: String
 
 Notes:
 
@@ -2012,19 +2027,21 @@ export function match(regexp: RegExp, str: string): any[];
 export function match(regexp: RegExp): (str: string) => any[];
 
 /*
-Method:
+Method: max
 
-Explanation:
-
-
+Explanation: It returns the greater value between `x` and `y`.
 
 Example:
 
 ```
-
+const result = [
+  R.max(5, 7),  
+  R.max('bar', 'foo'),  
+]
+// => [7, 'foo']
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 

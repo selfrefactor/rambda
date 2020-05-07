@@ -1,5 +1,5 @@
-export function max(a, b){
-  if (arguments.length === 1) return _b => max(a, _b)
+export function max(x, y){
+  if (arguments.length === 1) return _y => max(x, _y)
 
-  return b > a ? b : a
+  return y > x ? y : x
 }
