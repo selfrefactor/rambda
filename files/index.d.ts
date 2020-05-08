@@ -2384,19 +2384,28 @@ export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]
 /*
 Method: path
 
-Explanation:
+Explanation: If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
-
+It will return `undefined`, if such path is not found.
 
 Example:
 
 ```
+const obj = {a: {b: 1}}
+const pathToSearch = 'a.b'
+const pathToSearchList = ['a', 'b']
 
+const result = [
+  R.path(pathToSearch, obj),
+  R.path(pathToSearchList, obj),
+  R.path('a.b.c.d', obj)
+]
+// => [1, 1, undefined]
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`
 
 */
 // @SINGLE_MARKER
@@ -2406,19 +2415,33 @@ export function path<T>(pathToSearch: string | string[]): (obj: any) => T | unde
 export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 /*
-Method:
+Method: paths
 
-Explanation:
+Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
 
-
+Because it calls `R.path`, then `singlePath` can be either string or a list.
 
 Example:
 
 ```
+const obj = {
+  a : {
+    b : {
+      c : 1,
+      d : 2,
+    }
+  }
+}
 
+const result = R.paths([
+  'a.b.c',
+  'a.b.c.d',
+  'a.b.c.d.e',
+], obj)
+// => [1, 2, undefined]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
