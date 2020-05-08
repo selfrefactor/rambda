@@ -2094,19 +2094,18 @@ Notes:
 export function mean(list: ReadonlyArray<number>): number;
 
 /*
-Method:
+Method: median
 
-Explanation:
-
+Explanation: It returns the median value of `list` input.
 
 
 Example:
 
 ```
-
+R.median([ 7, 2, 10, 9 ]) // => 8
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -2115,71 +2114,76 @@ Notes:
 export function median(list: ReadonlyArray<number>): number;
 
 /*
-Method:
+Method: merge
 
-Explanation:
-
-
+Explanation: It creates a copy of `target` object with overidden `newProps` properties. 
 
 Example:
 
 ```
+const target = { 'foo': 0, 'bar': 1 }
+const newProps = { 'foo': 7 }
 
+const result = R.merge(target, newProps)
+// => { 'foo': 7, 'bar': 1 }
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
-export function merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
+export function merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
+export function merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 /*
-Method:
+Method: min
 
-Explanation:
-
-
+Explanation: It returns the lesser value between `x` and `y`.
 
 Example:
 
 ```
-
+const result = [
+  R.min(5, 7),  
+  R.min('bar', 'foo'),  
+]
+// => [5, 'bar']
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function min<T extends Ord>(a: T, b: T): T;
-export function min<T extends Ord>(a: T): (b: T) => T;
+export function min<T extends Ord>(x: T, y: T): T;
+export function min<T extends Ord>(x: T): (y: T) => T;
 
 /*
-Method:
+Method: minBy
 
-Explanation:
-
-
+Explanation: It returns the lesser value between `x` and `y` according to `compareFn` function.
 
 Example:
 
 ```
+const compareFn = Math.abs
 
+R.minBy(compareFn, -5, 2) // => -5
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-export function minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-export function minBy<T>(keyFn: (a: T) => Ord): FToolbelt.Curry<(a: T, b: T) => T>;
+export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+
 
 /*
 Method:

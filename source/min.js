@@ -1,5 +1,5 @@
-export function min(a, b){
-  if (arguments.length === 1) return _b => min(a, _b)
+export function min(x, y){
+  if (arguments.length === 1) return _y => min(x, _y)
 
-  return b < a ? b : a
+  return y < x ? y : x
 }

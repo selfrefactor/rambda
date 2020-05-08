@@ -1,27 +1,12 @@
 import { minBy } from './minBy'
 
-test('1', () => {
+test('happy', () => {
   expect(minBy(
-    Math.round, 0.66, 0.77
-  )).toEqual(0.66)
+    Math.abs, -5, 2
+  )).toEqual(2)
 })
 
-test('2', () => {
-  expect(minBy(
-    Math.round, 0.77, 0.66
-  )).toEqual(0.77)
-})
-
-test('3', () => {
-  expect(minBy(Math.round)(0.77, 0.66)).toEqual(0.77)
-})
-
-test('4', () => {
-  expect(minBy(Math.round, 0.77)(0.66)).toEqual(0.77)
-})
-
-test('5', () => {
-  expect(minBy(
-    x => x === 1 ? -1 : 1, 1, 0.66
-  )).toEqual(1)
+test('curried', () => {
+  expect(minBy(Math.abs)(2, -5)).toEqual(2)
+  expect(minBy(Math.abs)(2)(-5)).toEqual(2)
 })
