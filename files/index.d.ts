@@ -168,9 +168,7 @@ export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: Readonl
 /*
 Method: all
 
-Explanation:
-
-It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
+Explanation: It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
 
 Example:
 
@@ -178,7 +176,7 @@ Example:
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
-const result = R.all(fn, arr)
+const result = R.all(predicate, arr)
 // => true
 ```
 
@@ -338,7 +336,7 @@ export function append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
 /*
 Method: applySpec
 
-Explanation: Returns a curried function with the same arity as the longest function in the spec object.
+Explanation: It returns a curried function with the same arity as the longest function in the spec object.
 Arguments will be applied to the spec methods recursively.
 
 Example:
@@ -2186,150 +2184,157 @@ export function minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y
 
 
 /*
-Method:
+Method: modulo
 
-Explanation:
-
-
+Explanation: Curried version of `x%y`.
 
 Example:
 
 ```
-
+R.modulo(17, 3) // => 2
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function modulo(a: number, b: number): number;
-export function modulo(a: number): (b: number) => number;
+export function modulo(x: number, y: number): number;
+export function modulo(x: number): (y: number) => number;
 
 /*
-Method:
+Method: multiply
 
-Explanation:
-
+Explanation: Curried version of `x*y`.
 
 
 Example:
 
 ```
-
+R.multiply(2, 4) // => 8
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function multiply(a: number, b: number): number;
-export function multiply(a: number): (b: number) => number;
+export function multiply(x: number, y: number): number;
+export function multiply(x: number): (y: number) => number;
 
 /*
-Method:
+Method: negate
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.negate(420)// => -420
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function negate(a: number): number;
+export function negate(x: number): number;
 
 /*
-Method:
+Method: none
 
-Explanation:
-
-
+Explanation: It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
 
 Example:
 
 ```
+const list = [ 0, 1, 2, 3, 4 ]
+const predicate = x => x > 6
 
+const result = R.none(predicate, arr)
+// => true
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function none<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
-Method:
+Method: not
 
-Explanation:
-
-
+Explanation: It returns a boolean negated version of `input`.
 
 Example:
 
 ```
-
+R.not(false) // true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function not(x: any): boolean;
+export function not(input: any): boolean;
 
 
 /*
-Method:
+Method: nth
 
-Explanation:
-
-
+Explanation: Curried version of `list[index]`.
 
 Example:
 
 ```
+const list = [1, 2, 3]
+const str = 'foo'
 
+const result = [
+  R.nth(2, list),
+  R.nth(6, list),
+  R.nth(0, str),
+]
+// => [3, undefined, 'f']
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
-export function nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
+export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 /*
-Method:
+Method: omit
 
-Explanation:
-
-
+Explanation: It returns a partial copy of an `obj` without `propsToOmit` properties.
 
 Example:
 
 ```
+const obj = {a: 1, b: 2, c: 3}
+const propsToOmit = 'a,c,d'
+const propsToOmitList = ['a', 'c', 'd']
 
+const result = [
+  R.omit(propsToOmit, obj), 
+  R.omit(propsToOmitList, obj) 
+]
+// => [{b: 2}, {b: 2}]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -2341,19 +2346,28 @@ export function omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): 
 export function omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 /*
-Method:
+Method: partial
 
-Explanation:
+Explanation: It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
 
+`R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
+The name comes from the fact that you partially inject the inputs.
 
 
 Example:
 
 ```
+const fn = (title, firstName, lastName) => {
+  return title + ' ' + firstName + ' ' + lastName + '!'
+}
 
+const canPassAnyNumberOfArguments = partial(fn, 'Hello')
+const finalFn = canPassAnyNumberOfArguments('Foo')
+
+finalFn('Bar') // =>  'Hello, Foo Bar!'
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -2368,7 +2382,7 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 /*
-Method:
+Method: path
 
 Explanation:
 

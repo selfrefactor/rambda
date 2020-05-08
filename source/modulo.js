@@ -1,5 +1,5 @@
-export function modulo(a, b){
-  if (arguments.length === 1) return _b => modulo(a, _b)
+export function modulo(x, y){
+  if (arguments.length === 1) return _y => modulo(x, _y)
 
-  return a % b
+  return x % y
 }
