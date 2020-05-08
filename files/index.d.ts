@@ -2405,7 +2405,7 @@ const result = [
 
 Categories: Object
 
-Notes: String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`
+Notes: String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
 
 */
 // @SINGLE_MARKER
@@ -2428,7 +2428,7 @@ const obj = {
   a : {
     b : {
       c : 1,
-      d : 2,
+      d : 2
     }
   }
 }
@@ -2453,19 +2453,32 @@ export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
 export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 /*
-Method:
+Method: pathOr
 
-Explanation:
-
-
+Explanation: It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
 
 Example:
 
 ```
+const defaultValue = 'DEFAULT_VALUE'
+const pathToSearch = 'a.b'
+const pathToSearchList = ['a', 'b']
 
+const obj = {
+  a : {
+    b : 1
+  }
+}
+
+const result = [
+  R.pathOr(DEFAULT_VALUE, pathToSearch, obj) 
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj) 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj) 
+]
+// => [1, 1, 'DEFAULT_VALUE']
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -2476,21 +2489,39 @@ export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 /*
-Method:
+Method: pick
 
-Explanation:
-
-
+Explanation: It returns a partial copy of an `obj`  containing only `propsToPick` properties.
 
 Example:
 
 ```
+const obj = {
+  a : 1,
+  b : false,
+  foo: 'cherry'
+}
+const propsToPick = 'a,foo'
+const propsToPickList = ['a', 'foo']
 
+const result = [
+  R.pick(propsToPick, obj),
+  R.pick(propsToPickList, obj),
+  R.pick('a,bar', obj),
+  R.pick('bar', obj),
+]
+const expected = [
+  {a:1, foo: 'cherry'},
+  {a:1, foo: 'cherry'},
+  {a:1},
+  {}
+]
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 */
 // @SINGLE_MARKER
@@ -2500,16 +2531,34 @@ export function pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): 
 export function pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 /*
-Method:
+Method: pickAll
 
-Explanation:
-
-
+Explanation: Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`. 
 
 Example:
 
 ```
+const obj = {
+  a : 1,
+  b : false,
+  foo: 'cherry'
+}
+const propsToPick = 'a,foo,bar'
+const propsToPickList = ['a', 'foo', 'bar']
 
+const result = [
+  R.pickAll(propsToPick, obj),
+  R.pickAll(propsToPickList, obj),
+  R.pickAll('a,bar', obj),
+  R.pickAll('bar', obj),
+]
+const expected = [
+  {a:1, foo: 'cherry', bar: undefined},
+  {a:1, foo: 'cherry', bar: undefined},
+  {a:1, bar: undefined},
+  {bar: undefined}
+]
+// => `result` is equal to `expected`
 ```
 
 Categories:
@@ -2518,8 +2567,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U;
-export function pickAll(names: ReadonlyArray<string>): <T, U>(obj: T) => U;
+export function pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
+export function pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 /*
 Method:
