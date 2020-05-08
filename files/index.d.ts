@@ -2047,46 +2047,45 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function max<T extends Ord>(a: T, b: T): T;
-export function max<T extends Ord>(a: T): (b: T) => T;
+export function max<T extends Ord>(x: T, y: T): T;
+export function max<T extends Ord>(x: T): (y: T) => T;
 
 /*
-Method:
+Method: maxBy
 
-Explanation:
-
-
+Explanation: It returns the greater value between `x` and `y` according to `compareFn` function.
 
 Example:
 
 ```
+const compareFn = Math.abs
 
+R.maxBy(compareFn, 5, -7) // => -7
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-export function maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-export function maxBy<T>(keyFn: (a: T) => Ord): FToolbelt.Curry<(a: T, b: T) => T>;
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 /*
-Method:
+Method: mean
 
-Explanation:
-
-
+Explanation: It returns the mean value of `list` input.
 
 Example:
 
 ```
-
+R.mean([ 2, 7 ])
+// => 4.5
 ```
 
-Categories:
+Categories: List
 
 Notes:
 

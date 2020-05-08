@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "jest scripts/build-step/build-step.spec.js",
     "test": "jest source --bail=true",
+    "cover": "jest source --bail=true",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",

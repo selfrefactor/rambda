@@ -1,15 +1,15 @@
 export function maxBy(
-  fn, a, b
+  compareFn, x, y
 ){
   if (arguments.length === 2){
-    return _b => maxBy(
-      fn, a, _b
+    return _y => maxBy(
+      compareFn, x, _y
     )
   } else if (arguments.length === 1){
-    return (_a, _b) => maxBy(
-      fn, _a, _b
+    return (_x, _y) => maxBy(
+      compareFn, _x, _y
     )
   }
 
-  return fn(b) > fn(a) ? b : a
+  return compareFn(y) > compareFn(x) ? y : x
 }
