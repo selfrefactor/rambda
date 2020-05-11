@@ -1,7 +1,7 @@
-export function sort(fn, list){
-  if (arguments.length === 1) return _list => sort(fn, _list)
+export function sort(sortFn, list){
+  if (arguments.length === 1) return _list => sort(sortFn, _list)
 
-  const arrClone = list.slice()
+  const clone = list.slice()
 
-  return arrClone.sort(fn)
+  return clone.sort(sortFn)
 }

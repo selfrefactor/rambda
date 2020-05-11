@@ -3104,79 +3104,101 @@ export function replace(strOrRegex: RegExp | string): (replacer: string) => (str
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It returns a reversed copy of `listOrString` input. 
 
 Example:
 
 ```
-
+const result = [
+  R.reverse('foo'),
+  R.reverse([1, 2, 3])
+]
+// => ['oof', [3, 2, 1]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function reverse<T>(list: ReadonlyArray<T>): T[];
-export function reverse(str: string): string;
+export function reverse<T>(listOrString: ReadonlyArray<T>): T[];
+export function reverse(listOrString: string): string;
 
 /*
-Method:
+Method: slice
 
-Explanation:
-
-
+Explanation: It returns `listOrString` between `from` and `to` indexes. 
 
 Example:
 
 ```
+const list = [0, 1, 2, 3, 4, 5]
+const str = 'FOO_BAR'
+const from = 1
+const to = 4
 
+const result = [
+  R.slice(str, to, list),
+  R.slice(from, to, list)
+]
+// => ['OO_', [1, 2, 3]]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function slice(a: number, b: number, list: string): string;
-export function slice<T>(a: number, b: number, list: T[]): T[];
-export function slice(a: number, b: number): {
+export function slice(from: number, to: number, list: string): string;
+export function slice<T>(from: number, to: number, list: T[]): T[];
+export function slice(frp,: number, to: number): {
   (list: string): string;
   <T>(list: T[]): T[];
 };
-export function slice(a: number): {
-  (b: number, list: string): string;
-  <T>(b: number, list: T[]): T[];
+export function slice(from: number): {
+  (to: number, list: string): string;
+  <T>(to: number, list: T[]): T[];
 };
 
 /*
-Method:
+Method: sort
 
-Explanation:
-
-
+Explanation: It returns copy of `list` sorted by `sortFn` function.
 
 Example:
 
 ```
+const list = [
+  {a: 2},
+  {a: 3},
+  {a: 1}
+]
+const sortFn = (x, y) => {
+  return x.a > y.a ? 1 : -1
+}
 
+const result = R.sort(list, sortFn)
+const expected = [
+  {a: 1},
+  {a: 2},
+  {a: 3}
+]
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: `comparator` function must return a number.
 
 */
 // @SINGLE_MARKER
-export function sort<T>(sortFn: (a: T, b: T) => number, arr: ReadonlyArray<T>): T[];
-export function sort<T>(sortFn: (a: T, b: T) => number): (arr: ReadonlyArray<T>) => T[];
+export function sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
+export function sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: sortBy
 
 Explanation:
 
@@ -3194,8 +3216,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortBy<T>(sortFn: (a: T) => Ord, arr: ReadonlyArray<T>): T[];
-export function sortBy(sortFn: (a: any) => Ord): <T>(arr: ReadonlyArray<T>) => T[];
+export function sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
+export function sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 /*
 Method:

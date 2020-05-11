@@ -1,14 +1,14 @@
-export function sortBy(fn, list){
-  if (arguments.length === 1) return _list => sortBy(fn, _list)
+export function sortBy(sortFn, list){
+  if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
-  const arrClone = list.slice()
+  const clone = list.slice()
 
-  return arrClone.sort((a, b) => {
-    const fnA = fn(a)
-    const fnB = fn(b)
+  return clone.sort((a, b) => {
+    const aSortResult = sortFn(a)
+    const bSortResult = sortFn(b)
 
-    if (fnA === fnB) return 0
+    if (aSortResult === bSortResult) return 0
 
-    return fnA < fnB ? -1 : 1
+    return aSortResult < bSortResult ? -1 : 1
   })
 }
