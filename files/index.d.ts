@@ -3027,65 +3027,71 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: ReadonlyArray<T>) => TResult;
 
 /*
-Method:
+Method: reject
 
-Explanation:
+Explanation: It has the opposite effect of `R.filter`.
 
-
+It will return those members of `list` that return `false` when applied to `predicate` function.
 
 Example:
 
 ```
+const list = [1, 2, 3, 4]
+const predicate = x => x > 2
 
+const result = [
+  R.reject(predicate, list)
+]
+// => [1, 2]
 ```
 
-Categories:
+Categories: List
+
+Notes: As it uses `R.filter`, this method works also with objects.
+
+*/
+// @SINGLE_MARKER
+export function reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
+export function reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+export function reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
+Method: repeat
+
+Explanation: It returns a list of `x` input repeated `timesToRepeat` input.
+
+Example:
+
+```
+R.repeat('foo', 3)
+// => ['foo', 'foo', 'foo']
+```
+
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(filterFn: FilterFunctionArray<T>): (x: T[]) => T[];
-export function reject<T>(filterFn: FilterFunctionArray<T>, x: T[]): T[];
-export function reject<T, U>(filterFn: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function reject<T>(filterFn: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+export function repeat<T>(x: T, timesToRepeat: number): T[];
+export function repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 /*
-Method:
-
-Explanation:
-
-
+Method: replace
+ 
+Explanation: It replaces `strOrRegex` found in `str` with `replacer`.
 
 Example:
 
 ```
+const strOrRegex = /o/g
 
+const result = R.replace(strOrRegex, '|0|', 'foo')
+// => 'f|0||0|'
 ```
 
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function repeat<T>(a: T, n: number): T[];
-export function repeat<T>(a: T): (n: number) => T[];
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
+Categories: String
 
 Notes:
 

@@ -1,7 +1,7 @@
-export function repeat(val, n){
-  if (arguments.length === 1) return _n => repeat(val, _n)
+export function repeat(x, timesToRepeat){
+  if (arguments.length === 1){
+    return _timesToRepeat => repeat(x, _timesToRepeat)
+  }
 
-  const willReturn = Array(n)
-
-  return willReturn.fill(val)
+  return Array(timesToRepeat).fill(x)
 }
