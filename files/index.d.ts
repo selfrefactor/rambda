@@ -2888,19 +2888,27 @@ export function prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T
 export function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 
 /*
-Method:
+Method: propEq
 
-Explanation:
-
-
+Explanation: It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
 
 Example:
 
 ```
+const obj = { foo: 'bar' }
+const secondObj = { foo: 1 }
 
+const propToFind = 'foo'
+const valueToMatch = 'bar'
+
+const result = [
+  R.propEq(propToFind, valueToMatch, obj),
+  R.propEq(propToFind, valueToMatch, secondObj)
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -2914,64 +2922,75 @@ export function propEq(propToFind: string | number): {
 };
 
 /*
-Method:
+Method: propIs
 
-Explanation:
-
-
+Explanation: It returns `true` if `property` of `obj` is from `target` type.
 
 Example:
 
 ```
+const obj = {a:1, b: 'foo'}
+const property = 'foo'
 
+const result = [
+  R.propIs(String, property, obj),
+  R.propIs(Number, property, obj)
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs<P extends keyof T, T>(type: any, name: P, obj: T): boolean;
-export function propIs<P extends string>(type: any, name: P): <T>(obj: Record<P, T>) => boolean;
+export function propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
+export function propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
 
 /*
-Method:
 
-Explanation:
+Method: propOr
 
-
+Explanation: It returns either `defaultValue` or the value of `property` in `obj`.
 
 Example:
 
 ```
+const obj = {a: 1}
+const defaultValue = 'DEFAULT_VALUE'
+const property = 'a'
 
+const result = [
+  R.propOr(defaultValue, property, obj),
+  R.propOr(defaultValue, 'foo', obj)
+]
+// => [1, 'DEFAULT_VALUE']
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, U, V>(val: T, p: string, obj: U): V;
-export function propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
-export function propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
+export function propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
+export function propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
+export function propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 /*
-Method:
+Method: range
 
-Explanation:
-
-
+Explanation: It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
 
 Example:
 
 ```
-
+R.range(0, 5)
+// => [0, 1, 2, 3, 4]
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
@@ -2981,28 +3000,31 @@ export function range(start: number, end: number): number[];
 export function range(start: number): (end: number) => number[];
 
 /*
-Method:
+Method: reduce
 
-Explanation:
-
-
+Explanation: 
 
 Example:
 
 ```
+const list = [1, 2, 3]
+const initialValue = 10
+const reducer = (prev, current) => prev * current
 
+const result = R.reduce(reducer, initialValue, list)
+// => 60
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: It passes index of the list as third argument to `reducer` function.
 
 */
 // @SINGLE_MARKER
-export function reduce<T, TResult>(fn: (acc: TResult, elem: T, i: number) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-export function reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-export function reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-export function reduce<T, TResult>(fn: (acc: TResult, elem: T, i?: number) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: ReadonlyArray<T>) => TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: ReadonlyArray<T>) => TResult;
 
 /*
 Method:

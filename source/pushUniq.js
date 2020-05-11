@@ -1,5 +1,7 @@
+import { includes } from './includes'
+
 export function pushUniq(x, list){
-  if (list.includes(x)) return
+  if (includes(x, list)) return
 
   list.push(x)
 }

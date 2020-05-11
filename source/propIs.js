@@ -2,9 +2,9 @@ import { curry } from './curry.js'
 import { is } from './is'
 
 function propIsFn(
-  type, name, obj
+  targetPrototype, property, obj
 ){
-  return is(type, obj[ name ])
+  return is(targetPrototype, obj[ property ])
 }
 
 export const propIs = curry(propIsFn)

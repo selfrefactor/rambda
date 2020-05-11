@@ -1,13 +1,17 @@
 import { reduce } from './reduce'
 
 test('happy', () => {
-  const result = reduce((
-    acc, val, i
+  const reducer = (
+    prev, current, i
   ) => {
-    expect(typeof i).toBe('number')
+    expect(i).toBeNumber()
 
-    return acc + val
-  })(1)([ 1, 2, 3 ])
+    return prev + current
+  }
+  const initialValue = 1
+  const list = [ 1, 2, 3 ]
 
-  expect(result).toEqual(7)
+  expect(reduce(
+    reducer, initialValue, list
+  )).toEqual(7)
 })
