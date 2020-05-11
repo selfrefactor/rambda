@@ -313,15 +313,18 @@ export function anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 /*
 Method: append
 
-Explanation: It appends element `el` to a `list` array.
+Explanation: It adds element `x` at the end of `listOrString`.
 
 Example:
 
 ```
-R.append(
-  'foo',
-  ['bar', 'baz']
-) // => ['bar', 'baz', 'foo']
+const x = 'foo'
+
+const result = [
+  R.append(x, 'cherry_'),
+  R.append(x, ['bar', 'baz'])
+]
+// => ['cherry_foo', ['bar', 'baz', 'foo']]
 ```
 
 Categories: List
@@ -330,8 +333,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(el: T, list: ReadonlyArray<T>): T[];
-export function append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
+export function append<T>(x: T, listOrString: ReadonlyArray<T>): T[];
+export function append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 /*
 Method: applySpec
@@ -2561,7 +2564,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -2571,19 +2574,22 @@ export function pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
 export function pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 /*
-Method:
+Method: pipe
 
-Explanation:
-
-
+Explanation: It performs left-to-right function composition.
 
 Example:
 
 ```
+const result = R.pipe(
+  R.filter(val => val > 2),
+  R.map(a => a * 2)
+)([1, 2, 3, 4])
 
+// => [6, 8]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -2783,65 +2789,70 @@ export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 
 
 /*
-Method:
+Method: pluck
 
-Explanation:
-
-
+Explanation: It returns list of the values of `property` taken from the all objects inside `list`.
 
 Example:
 
 ```
+const list = [{a: 1}, {a: 2}, {b: 3}]
+const property = 'a'
 
+R.pluck(list, property) 
+// => [1, 2]
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function pluck<T>(property: number, arr: ReadonlyArray<T>): T;
-export function pluck<K extends keyof T, T>(property: K, arr: ReadonlyArray<T>): T[K][];
-export function pluck(property: number): <T>(arr: ReadonlyArray<T>) => T;
-export function pluck<P extends string>(property: P): <T>(arr: ReadonlyArray<Record<P, T>>) => T[];
+export function pluck<T>(property: number, list: ReadonlyArray<T>): T;
+export function pluck<K extends keyof T, T>(property: K, list: ReadonlyArray<T>): T[K][];
+export function pluck(property: number): <T>(list: ReadonlyArray<T>) => T;
+export function pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
 
 /*
-Method:
+Method: prepend
 
-Explanation:
-
-
+Explanation: It adds element `x` at the beginning of `listOrString`.
 
 Example:
 
 ```
+const x = 'foo'
 
+const result = [
+  R.prepend(x, '_cherry'),
+  R.prepend(x, ['bar', 'baz'])
+]
+// => ['foo_cherry', ['foo', 'bar', 'baz']]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(x: T, arr: ReadonlyArray<T>): T[];
-export function prepend<T>(x: T): (arr: ReadonlyArray<T>) => T[];
+export function prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
+export function prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: product
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.product([ 2, 3, 4 ])
+// => 24)
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -2852,17 +2863,21 @@ export function product(list: ReadonlyArray<number>): number;
 /*
 Method:
 
-Explanation:
+Explanation: It returns the value of property `propToFind` in `obj`.
 
-
+If there is no such property, it returns `undefined`.
 
 Example:
 
 ```
-
+const result = [
+  R.prop('x', {x: 100}), 
+  R.prop('x', {a: 1}) 
+]
+// => [100, undefined]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
