@@ -335,13 +335,13 @@ method | Rambda | Ramda | Lodash
 ### add
 
 
-```text
+```typescript
 add(a: number, b: number): number
 ```
 
 It adds `a` and `b`.
 
-```text
+```javascript
 R.add(2, 3) // =>  5
 ```
 
@@ -423,13 +423,13 @@ describe('add', () => {
 ### adjust
 
 
-```text
+```typescript
 adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]
 ```
 
 It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 
-```text
+```javascript
 R.adjust(
   0,
   a => a + 1,
@@ -549,13 +549,13 @@ describe('adjust', function() {
 ### all
 
 
-```text
+```typescript
 all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
 It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
 
-```text
+```javascript
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
@@ -658,13 +658,13 @@ describe('all', () => {
 ### allPass
 
 
-```text
+```typescript
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
 
 It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
 
-```text
+```javascript
 const input = {
   a : 1,
   b : 2,
@@ -803,13 +803,13 @@ describe('allPass', function() {
 ### always
 
 
-```text
+```typescript
 always<T>(x: T): () => T
 ```
 
 It returns function that always returns `x`.
 
-```text
+```javascript
 const fn = R.always(7)
 
 console.log(fn())// => 7
@@ -860,13 +860,13 @@ test('happy', () => {
 ### and
 
 
-```text
+```typescript
 and<T extends { and?: ((...a: readonly any[]) => any)
 ```
 
 Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
 
-```text
+```javascript
 R.and(true, true); // => true
 R.and(false, true); // => false
 ```
@@ -919,13 +919,13 @@ test('happy', () => {
 ### any
 
 
-```text
+```typescript
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
 It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
 
-```text
+```javascript
 const list = [1, 2, 3]
 const predicate = x => x * x > 8
 R.any(fn, list)
@@ -1050,13 +1050,13 @@ describe('any', () => {
 ### anyPass
 
 
-```text
+```typescript
 anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>
 ```
 
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
 
-```text
+```javascript
 const isBig = x => x > 20
 const isOdd = x => x % 2 === 1
 const input = 11
@@ -1205,13 +1205,13 @@ describe('anyPass', function() {
 ### append
 
 
-```text
+```typescript
 append<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It adds element `x` at the end of `listOrString`.
 
-```text
+```javascript
 const x = 'foo'
 
 const result = [
@@ -1300,7 +1300,7 @@ test('should not modify arguments', () => {
 ### applySpec
 
 
-```text
+```typescript
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
@@ -1311,7 +1311,7 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 It returns a curried function with the same arity as the longest function in the spec object.
 Arguments will be applied to the spec methods recursively.
 
-```text
+```javascript
 const spec = {
   name: R.path('deeply.nested.firstname')
 }
@@ -1743,13 +1743,13 @@ describe('applySpec', () => {
 ### assoc
 
 
-```text
+```typescript
 assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U
 ```
 
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
 
-```text
+```javascript
 R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
 ```
@@ -1876,13 +1876,13 @@ test('assignment is shallow', () => {
 ### assocPath
 
 
-```text
+```typescript
 assocPath<T, U>(path: Path, newValue: T, obj: U): U
 ```
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
-```text
+```javascript
 const path = 'b.c'
 const newValue = 2
 const obj = { a: 1 }
@@ -2101,7 +2101,7 @@ test('happy', () => {
 ### both
 
 
-```text
+```typescript
 both(pred1: Pred, pred2: Pred): Pred
 ```
 
@@ -2109,7 +2109,7 @@ It returns a function with `input` argument.
 
 This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
 
-```text
+```javascript
 const firstCondition = x => x > 10
 const secondCondition = x => x < 20
 const fn = R.both(secondCondition)
@@ -2291,7 +2291,7 @@ describe('both', function() {
 ### clamp
 
 
-```text
+```typescript
 clamp(min: number, max: number, input: number): number
 ```
 
@@ -2301,7 +2301,7 @@ If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
-```text
+```javascript
 R.clamp(0, 10, 5) //=> 5
 R.clamp(0, 10, -1) //=> 0
 R.clamp(0, 10, 11) //=> 10
@@ -2385,7 +2385,7 @@ test('rambda specs', () => {
 ### clone
 
 
-```text
+```typescript
 clone<T>(input: T): T
 ```
 
@@ -2405,7 +2405,7 @@ clone<T>(input: ReadonlyArray<T>): T[];
 ### complement
 
 
-```text
+```typescript
 complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
 ```
 
@@ -2413,7 +2413,7 @@ It returns `inverted` version of `origin` function that accept `input` as argume
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
 
-```text
+```javascript
 const origin = x => x > 5
 const inverted = complement(origin)
 
@@ -2508,13 +2508,13 @@ describe('complement', function() {
 ### compose
 
 
-```text
+```typescript
 compose<T1>(fn0: () => T1): () => T1
 ```
 
 It performs right-to-left function composition.
 
-```text
+```javascript
 const result = R.compose(
   R.map(x => x * 2),
   R.filter(x => x > 2)
@@ -2676,13 +2676,13 @@ describe('compose properties', function() {
 ### concat
 
 
-```text
+```typescript
 concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
 It returns a new string or array, which is the result of merging `x` and `y`.
 
-```text
+```javascript
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo', 'bar') // => 'foobar'
 ```
@@ -2775,7 +2775,7 @@ describe('concat', function() {
 ### cond
 
 
-```text
+```typescript
 cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any
 ```
 
@@ -2787,7 +2787,7 @@ The winner is this condition, which left side returns `true` when `input` is its
 
 If no winner is found, then `fn` returns `undefined`.
 
-```text
+```javascript
 const fn = R.cond([
   [ x => x > 25, R.always('more than 25') ],
   [ x => x > 15, R.always('more than 15') ],
@@ -2952,13 +2952,13 @@ describe('cond', function() {
 ### curry
 
 
-```text
+```typescript
 curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>
 ```
 
 It expects a function as input and returns its curried version.
 
-```text
+```javascript
 const fn = (a, b, c) => a + b + c
 const curried = R.curry(fn)
 const sum = curried(1,2)
@@ -3148,7 +3148,7 @@ describe('curry properties', function() {
 ### dec
 
 
-```text
+```typescript
 dec(x: number): number
 ```
 
@@ -3192,7 +3192,7 @@ test('happy', () => {
 ### defaultTo
 
 
-```text
+```typescript
 defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T
 ```
 
@@ -3200,7 +3200,7 @@ It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or
 
 Else, it returns the first truthy `inputArguments` instance(from left to right).
 
-```text
+```javascript
 // With single input argument
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', undefined) // => 'foo'
@@ -3412,13 +3412,13 @@ describe('defaultTo with Rambda spec', () => {
 ### difference
 
 
-```text
+```typescript
 difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[]
 ```
 
 It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
 
-```text
+```javascript
 const a = [ 1, 2, 3, 4 ]
 const b = [ 3, 4, 5, 6 ]
 
@@ -3528,13 +3528,13 @@ describe('difference', function() {
 ### dissoc
 
 
-```text
+```typescript
 dissoc<T>(prop: string, obj: any): T
 ```
 
 It returns a new object that does not contain property `prop`.
 
-```text
+```javascript
 R.dissoc('b', {a: 1, b: 2, c: 3})
 //=> {a: 1, c: 3}
 ```
@@ -3654,12 +3654,12 @@ test('includes prototype properties', () => {
 ### divide
 
 
-```text
+```typescript
 divide(a: number, b: number): number
 ```
 
 
-```text
+```javascript
 R.divide(71, 100) // => 0.71
 ```
 
@@ -3709,13 +3709,13 @@ test('happy', () => {
 ### drop
 
 
-```text
+```typescript
 drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
 
-```text
+```javascript
 R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
 R.drop(2, 'foobar')  // => 'obar'
 ```
@@ -3810,13 +3810,13 @@ describe('drop', () => {
 ### dropLast
 
 
-```text
+```typescript
 dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns `listOrString` with `howManyToDrop` items dropped from its end.
 
-```text
+```javascript
 R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
 R.dropLast(2, 'foobar')  // => 'foob'
 ```
@@ -3916,7 +3916,7 @@ describe('dropLast', function() {
 ### either
 
 
-```text
+```typescript
 either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
 
@@ -3936,13 +3936,13 @@ either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 ### endsWith
 
 
-```text
+```typescript
 endsWith(target: string, str: string): boolean
 ```
 
 Curried version of `String.prototype.endsWith`
 
-```text
+```javascript
 const str = 'foo-bar'
 const target = '-bar'
 
@@ -4030,13 +4030,13 @@ describe('startsWith', function() {
 ### equals
 
 
-```text
+```typescript
 equals<T>(a: T, b: T): boolean
 ```
 
 It deeply compares `a` and `b` and returns `true` if they are equal.
 
-```text
+```javascript
 R.equals(
   [1, {a:2}, [{b: 3}]],
   [1, {a:2}, [{b: 3}]]
@@ -4596,12 +4596,12 @@ describe('equals', function() {
 ### F
 
 
-```text
+```typescript
 F(): boolean
 ```
 
 
-```text
+```javascript
 F() // => false
 ```
 
@@ -4633,13 +4633,13 @@ export function F(){
 ### filter
 
 
-```text
+```typescript
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
 It filters list or object `input` with `predicate`.
 
-```text
+```javascript
 const list = [3, 4, 3, 2]
 const listPredicate = (x, index) => x - index > 2
 
@@ -4908,7 +4908,7 @@ describe('filter', function() {
 ### find
 
 
-```text
+```typescript
 find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined
 ```
 
@@ -4916,7 +4916,7 @@ It returns the first element of `list` that satisfy the `predicate`.
 
 If there is no such element, it returns `undefined`.
 
-```text
+```javascript
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 'bar'}, {foo: 1}]
 
@@ -4974,7 +4974,7 @@ test('with curry', () => {
 ### findIndex
 
 
-```text
+```typescript
 findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number
 ```
 
@@ -4982,7 +4982,7 @@ It returns the index of the first element of `list` satisfying the `predicate` f
 
 If there is no such element, then `-1` is returned.
 
-```text
+```javascript
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 'bar'}, {foo: 1}]
 
@@ -5056,13 +5056,13 @@ test('pass index as second argument', () => {
 ### flatten
 
 
-```text
+```typescript
 flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[]
 ```
 
 It deeply flattens an array.
 
-```text
+```javascript
 const result = R.flatten([
   1, 
   2, 
@@ -5135,13 +5135,13 @@ test('readme example', () => {
 ### flip
 
 
-```text
+```typescript
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
 ```
 
 It returns function which calls `fn` with exchanged first and second argument.
 
-```text
+```javascript
 const subtractFlip = R.flip(R.subtract)
 
 const result = [
@@ -5255,13 +5255,13 @@ describe('flip properties', function() {
 ### forEach
 
 
-```text
+```typescript
 forEach<T>(fn: (x: T) => void, list: T[]): T[]
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
 
-```text
+```javascript
 const sideEffect = {}
 const result = R.forEach(
   x => sideEffect[`foo${x}`] = x
@@ -5443,13 +5443,13 @@ describe('forEach', function() {
 ### fromPairs
 
 
-```text
+```typescript
 fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V }
 ```
 
 It transforms a `listOfPairs` to an object.
 
-```text
+```javascript
 const listOfPairs = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
 const expected = {
   a : 1,
@@ -5518,13 +5518,13 @@ test('happy', () => {
 ### groupBy
 
 
-```text
+```typescript
 groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }
 ```
 
 It splits `list` according to a provided `groupFn` function and returns an object.
 
-```text
+```javascript
 const list = [ 'a', 'b', 'aa', 'bb' ]
 const groupFn = x => x.length
 
@@ -5660,13 +5660,13 @@ describe('groupBy', function() {
 ### groupWith
 
 
-```text
+```typescript
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]
 ```
 
 It returns separated version of `list`, where separation is done with equality `compareFn` function.
 
-```text
+```javascript
 const compareFn = (x, y) => x === y
 const list = [1, 2, 2, 1, 1, 2]
 
@@ -5842,13 +5842,13 @@ test('from ramda 3', () => {
 ### has
 
 
-```text
+```typescript
 has<T>(prop: string, obj: T): boolean
 ```
 
 It returns `true` if `obj` has property `prop`.
 
-```text
+```javascript
 const obj = {a: 1}
 
 const result = [
@@ -5940,7 +5940,7 @@ describe('has', function() {
 ### head
 
 
-```text
+```typescript
 head<T>(listOrString: T[]): T | undefined
 ```
 
@@ -5960,7 +5960,7 @@ head(listOrString: string): string;
 ### identical
 
 
-```text
+```typescript
 identical<T>(a: T, b: T): boolean
 ```
 
@@ -5968,7 +5968,7 @@ It returns `true` if its arguments `a` and `b` are identical.
 
 Otherwise, it returns `false`.
 
-```text
+```javascript
 const obj = {a: 1};
 R.identical(obj, obj); //=> true
 R.identical(1, 1); //=> true
@@ -6051,13 +6051,13 @@ test('identical', () => {
 ### identity
 
 
-```text
+```typescript
 identity<T>(input: T): T
 ```
 
 It just passes back the supplied `input` argument.
 
-```text
+```javascript
 R.identity(7) // => 7
 ```
 
@@ -6105,7 +6105,7 @@ test('happy', () => {
 ### ifElse
 
 
-```text
+```typescript
 ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
 ```
 
@@ -6113,7 +6113,7 @@ It expects `condition`, `onTrue` and `onFalse` functions as inputs and it return
 
 When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
 
-```text
+```javascript
 const fn = R.ifElse(
  x => x>10,
  x => x*2,
@@ -6292,13 +6292,13 @@ describe('ifElse', function() {
 ### inc
 
 
-```text
+```typescript
 inc(x: number): number
 ```
 
 It increments a number.
 
-```text
+```javascript
 R.inc(1) // => 2
 ```
 
@@ -6342,7 +6342,7 @@ test('happy', () => {
 ### includes
 
 
-```text
+```typescript
 includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean
 ```
 
@@ -6364,7 +6364,7 @@ includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 ### indexBy
 
 
-```text
+```typescript
 indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T }
 ```
 
@@ -6374,7 +6374,7 @@ If `condition` is a function, then all list members are passed through it.
 
 If `condition` is a string, then all list members are passed through `R.path(condition)`.
 
-```text
+```javascript
 const list = [ {id: 10}, {id: 20} ]
 
 const withFunction = R.indexBy(
@@ -6603,7 +6603,7 @@ describe('indexBy', function() {
 ### indexOf
 
 
-```text
+```typescript
 indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number
 ```
 
@@ -6611,7 +6611,7 @@ It returns the index of the first element of `list` equals to `valueToFind`.
 
 If there is no such element, it returns `-1`.
 
-```text
+```javascript
 const list = [0, 1, 2, 3]
 
 const result = [
@@ -6739,13 +6739,13 @@ describe('indexOf', function() {
 ### init
 
 
-```text
+```typescript
 init<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns all but the last element of `listOrString`.
 
-```text
+```javascript
 const result = [
   R.init([1, 2, 3]) , 
   R.init('foo')  // => 'fo'
@@ -6813,13 +6813,13 @@ test('with string', () => {
 ### intersection
 
 
-```text
+```typescript
 intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[]
 ```
 
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
-```text
+```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 
@@ -6885,13 +6885,13 @@ test('intersection with objects', () => {
 ### intersperse
 
 
-```text
+```typescript
 intersperse<T>(separator: T, list: ReadonlyArray<T>): T[]
 ```
 
 It adds a `separator` between members of `list`.
 
-```text
+```javascript
 const list = [ 0, 1, 2, 3 ]
 const separator = '|'
 const result = intersperse(separator, list)
@@ -6966,13 +6966,13 @@ test('intersperse', () => {
 ### is
 
 
-```text
+```typescript
 is(targetPrototype: any, x: any): boolean
 ```
 
 It returns `true` is `x` is instance of `targetPrototype`.
 
-```text
+```javascript
 const result = [
   R.is(String, 'foo'),  
   R.is(Array, 1)
@@ -7068,13 +7068,13 @@ test('does not consider primitives to be instances of Object', () => {
 ### isEmpty
 
 
-```text
+```typescript
 isEmpty<T>(x: T): boolean
 ```
 
 It returns `true` is `x` is `empty`.
 
-```text
+```javascript
 const result = [
   R.isEmpty(''),
   R.isEmpty({ x : 0 })
@@ -7176,13 +7176,13 @@ describe('isEmpty', function() {
 ### isNil
 
 
-```text
+```typescript
 isNil(x: any): x is null | undefined
 ```
 
 It returns `true` is `x` is either `null` or `undefined`.
 
-```text
+```javascript
 const result = [
   R.isNil(null),
   R.isNil(1),
@@ -7236,13 +7236,13 @@ test('happy', () => {
 ### join
 
 
-```text
+```typescript
 join(x: string, xs: ReadonlyArray<any>): string
 ```
 
 It returns a string representing `list` instances joined with `glue`.
 
-```text
+```javascript
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
 
@@ -7297,13 +7297,13 @@ test('curry', () => {
 ### keys
 
 
-```text
+```typescript
 keys<T extends object>(x: T): (keyof T)[]
 ```
 
 It applies `Object.keys` over `x` and returns its keys.
 
-```text
+```javascript
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
 
@@ -7384,13 +7384,13 @@ describe('keys', function() {
 ### last
 
 
-```text
+```typescript
 last<T>(listOrString: T[]): T | undefined
 ```
 
 It returns the last element of `listOrString`.
 
-```text
+```javascript
 const result = [
   R.last([1, 2, 3]),
   R.last('foo'),
@@ -7448,7 +7448,7 @@ test('happy', () => {
 ### lastIndexOf
 
 
-```text
+```typescript
 lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number
 ```
 
@@ -7458,7 +7458,7 @@ It returns the last index of `target` in `list` array.
 
 If there is no such index, then `-1` is returned.
 
-```text
+```javascript
 const list = [1, 2, 3, 1, 2, 3]
 const result = [
   R.lastIndexOf(2, list),
@@ -7598,13 +7598,13 @@ describe('lastIndexOf', function() {
 ### length
 
 
-```text
+```typescript
 length<T>(listOrString: ReadonlyArray<T>): number
 ```
 
 It returns the `length` property of `listOrString`.
 
-```text
+```javascript
 const result = [
   R.length([1, 2, 3, 4]),
   R.length('foo'),
@@ -7696,7 +7696,7 @@ describe('length', function() {
 ### lens
 
 
-```text
+```typescript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens
 ```
 
@@ -7706,7 +7706,7 @@ The `getter` **gets** the value of the focus; the `setter` **sets** the value of
 
 The setter should not mutate the data structure.
 
-```text
+```javascript
 const xLens = R.lens(R.prop('x'), R.assoc('x'));
 
 R.view(xLens, {x: 1, y: 2}) // => 1
@@ -7749,13 +7749,13 @@ export function lens(getter, setter){
 ### lensIndex
 
 
-```text
+```typescript
 lensIndex(index: number): Lens
 ```
 
 It returns a lens that focuses on specified `index`.
 
-```text
+```javascript
 const list = ['a', 'b', 'c']
 const headLens = R.lensIndex(0)
 
@@ -7861,13 +7861,13 @@ test('get (set(set s v1) v2) === v2', () => {
 ### lensPath
 
 
-```text
+```typescript
 lensPath(path: RamdaPath): Lens
 ```
 
 It returns a lens that focuses on specified `path`.
 
-```text
+```javascript
 const lensPath = R.lensPath(['x', 0, 'y'])
 const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
 
@@ -8045,14 +8045,14 @@ test('get (set(set s v1) v2) === v2', () => {
 ### lensProp
 
 
-```text
+```typescript
 lensProp(prop: string): {
   <T, U>(obj: T): U
 ```
 
 It returns a lens that focuses on specified property `prop`.
 
-```text
+```javascript
 const xLens = R.lensProp('x');
 const input = {x: 1, y: 2}
 
@@ -8200,7 +8200,7 @@ test('get (set(set s v1) v2) === v2', () => {
 ### map
 
 
-```text
+```typescript
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>
 ```
 
@@ -8208,7 +8208,7 @@ It returns the result of looping through `list` with `fn`.
 
 It works with both array and object.
 
-```text
+```javascript
 const fn = (x, i) => (x * 2) + i
 const fnWhenObject = (val, prop)=>{
   return `${prop}-${val}`
@@ -8459,13 +8459,13 @@ describe('map with objects', () => {
 ### match
 
 
-```text
+```typescript
 match(regExpression: RegExp, str: string): any[]
 ```
 
 Curried version of `String.prototype.match` which returns empty array, when there is no match.
 
-```text
+```javascript
 const result = [
   R.match('a', 'foo'),
   R.match(/([a-z]a)/g, 'bananas')
@@ -8536,13 +8536,13 @@ test('throwing', () => {
 ### max
 
 
-```text
+```typescript
 max<T extends Ord>(x: T, y: T): T
 ```
 
 It returns the greater value between `x` and `y`.
 
-```text
+```javascript
 const result = [
   R.max(5, 7),  
   R.max('bar', 'foo'),  
@@ -8600,13 +8600,13 @@ test('with string', () => {
 ### maxBy
 
 
-```text
+```typescript
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
 It returns the greater value between `x` and `y` according to `compareFn` function.
 
-```text
+```javascript
 const compareFn = Math.abs
 
 R.maxBy(compareFn, 5, -7) // => -7
@@ -8669,13 +8669,13 @@ test('curried', () => {
 ### mean
 
 
-```text
+```typescript
 mean(list: ReadonlyArray<number>): number
 ```
 
 It returns the mean value of `list` input.
 
-```text
+```javascript
 R.mean([ 2, 7 ])
 // => 4.5
 ```
@@ -8728,13 +8728,13 @@ test('with NaN', () => {
 ### median
 
 
-```text
+```typescript
 median(list: ReadonlyArray<number>): number
 ```
 
 It returns the median value of `list` input.
 
-```text
+```javascript
 R.median([ 7, 2, 10, 9 ]) // => 8
 ```
 
@@ -8797,13 +8797,13 @@ test('median', () => {
 ### merge
 
 
-```text
+```typescript
 merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>
 ```
 
 It creates a copy of `target` object with overidden `newProps` properties.
 
-```text
+```javascript
 const target = { 'foo': 0, 'bar': 1 }
 const newProps = { 'foo': 7 }
 
@@ -8876,13 +8876,13 @@ test('when undefined or null instead of object', () => {
 ### min
 
 
-```text
+```typescript
 min<T extends Ord>(x: T, y: T): T
 ```
 
 It returns the lesser value between `x` and `y`.
 
-```text
+```javascript
 const result = [
   R.min(5, 7),  
   R.min('bar', 'foo'),  
@@ -8936,13 +8936,13 @@ test('happy', () => {
 ### minBy
 
 
-```text
+```typescript
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
 It returns the lesser value between `x` and `y` according to `compareFn` function.
 
-```text
+```javascript
 const compareFn = Math.abs
 
 R.minBy(compareFn, -5, 2) // => -5
@@ -9005,13 +9005,13 @@ test('curried', () => {
 ### modulo
 
 
-```text
+```typescript
 modulo(x: number, y: number): number
 ```
 
 Curried version of `x%y`.
 
-```text
+```javascript
 R.modulo(17, 3) // => 2
 ```
 
@@ -9061,13 +9061,13 @@ test('happy', () => {
 ### multiply
 
 
-```text
+```typescript
 multiply(x: number, y: number): number
 ```
 
 Curried version of `x*y`.
 
-```text
+```javascript
 R.multiply(2, 4) // => 8
 ```
 
@@ -9117,12 +9117,12 @@ test('happy', () => {
 ### negate
 
 
-```text
+```typescript
 negate(x: number): number
 ```
 
 
-```text
+```javascript
 R.negate(420)// => -420
 ```
 
@@ -9169,13 +9169,13 @@ test('negate', () => {
 ### none
 
 
-```text
+```typescript
 none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
 It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
 
-```text
+```javascript
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > 6
 
@@ -9243,13 +9243,13 @@ test('passes index to predicate', () => {
 ### not
 
 
-```text
+```typescript
 not(input: any): boolean
 ```
 
 It returns a boolean negated version of `input`.
 
-```text
+```javascript
 R.not(false) // true
 ```
 
@@ -9298,13 +9298,13 @@ test('not', () => {
 ### nth
 
 
-```text
+```typescript
 nth<T>(index: number, list: ReadonlyArray<T>): T | undefined
 ```
 
 Curried version of `list[index]`.
 
-```text
+```javascript
 const list = [1, 2, 3]
 const str = 'foo'
 
@@ -9377,13 +9377,13 @@ test('with negative index', () => {
 ### omit
 
 
-```text
+```typescript
 omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>
 ```
 
 It returns a partial copy of an `obj` without `propsToOmit` properties.
 
-```text
+```javascript
 const obj = {a: 1, b: 2, c: 3}
 const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
@@ -9549,13 +9549,13 @@ describe('omit with array as props input', () => {
 ### over
 
 
-```text
+```typescript
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T
 ```
 
 It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
 
-```text
+```javascript
 const headLens = R.lensIndex(0)
  
 R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
@@ -9609,7 +9609,7 @@ export function over(
 ### partial
 
 
-```text
+```typescript
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T
 ```
 
@@ -9618,7 +9618,7 @@ It is very similar to `R.curry`, but you can pass initial arguments when you cre
 `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
 The name comes from the fact that you partially inject the inputs.
 
-```text
+```javascript
 const fn = (title, firstName, lastName) => {
   return title + ' ' + firstName + ' ' + lastName + '!'
 }
@@ -9739,7 +9739,7 @@ test('ramda spec', () => {
 ### path
 
 
-```text
+```typescript
 path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined
 ```
 
@@ -9747,7 +9747,7 @@ If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
 It will return `undefined`, if such path is not found.
 
-```text
+```javascript
 const obj = {a: {b: 1}}
 const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
@@ -9935,13 +9935,13 @@ describe('path', function() {
 ### pathOr
 
 
-```text
+```typescript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
 It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
 
-```text
+```javascript
 const defaultValue = 'DEFAULT_VALUE'
 const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
@@ -10050,7 +10050,7 @@ test('curry case (x,y)(z)', () => {
 ### paths
 
 
-```text
+```typescript
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
@@ -10058,7 +10058,7 @@ It loops over members of `pathsToSearch` as `singlePath` and returns the array p
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
-```text
+```javascript
 const obj = {
   a : {
     b : {
@@ -10247,13 +10247,13 @@ describe('paths', function() {
 ### pick
 
 
-```text
+```typescript
 pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>
 ```
 
 It returns a partial copy of an `obj`  containing only `propsToPick` properties.
 
-```text
+```javascript
 const obj = {
   a : 1,
   b : false,
@@ -10432,13 +10432,13 @@ describe('pick with array as props input', () => {
 ### pickAll
 
 
-```text
+```typescript
 pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U
 ```
 
 Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
 
-```text
+```javascript
 const obj = {
   a : 1,
   b : false,
@@ -10554,13 +10554,13 @@ test('with array as condition', () => {
 ### pipe
 
 
-```text
+```typescript
 pipe<T1>(fn0: () => T1): () => T1
 ```
 
 It performs left-to-right function composition.
 
-```text
+```javascript
 const result = R.pipe(
   R.filter(val => val > 2),
   R.map(a => a * 2)
@@ -10680,13 +10680,13 @@ describe('pipe', function() {
 ### pluck
 
 
-```text
+```typescript
 pluck<T>(property: number, list: ReadonlyArray<T>): T
 ```
 
 It returns list of the values of `property` taken from the all objects inside `list`.
 
-```text
+```javascript
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
@@ -10827,13 +10827,13 @@ describe('pluck', function() {
 ### prepend
 
 
-```text
+```typescript
 prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It adds element `x` at the beginning of `listOrString`.
 
-```text
+```javascript
 const x = 'foo'
 
 const result = [
@@ -10902,12 +10902,12 @@ test('prepend', () => {
 ### product
 
 
-```text
+```typescript
 product(list: ReadonlyArray<number>): number
 ```
 
 
-```text
+```javascript
 R.product([ 2, 3, 4 ])
 // => 24)
 ```
@@ -10960,7 +10960,7 @@ test('bad input', () => {
 ### prop
 
 
-```text
+```typescript
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
 ```
 
@@ -10981,13 +10981,13 @@ prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 ### propEq
 
 
-```text
+```typescript
 propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
 
-```text
+```javascript
 const obj = { foo: 'bar' }
 const secondObj = { foo: 1 }
 
@@ -11096,13 +11096,13 @@ describe('propEq', function() {
 ### propIs
 
 
-```text
+```typescript
 propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean
 ```
 
 It returns `true` if `property` of `obj` is from `target` type.
 
-```text
+```javascript
 const obj = {a:1, b: 'foo'}
 const property = 'foo'
 
@@ -11177,13 +11177,13 @@ test('when false', () => {
 ### propOr
 
 
-```text
+```typescript
 propOr<T, U, V>(defaultValue: T, property: string, obj: U): V
 ```
 
 It returns either `defaultValue` or the value of `property` in `obj`.
 
-```text
+```javascript
 const obj = {a: 1}
 const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
@@ -11265,13 +11265,13 @@ test('propOr (currying)', () => {
 ### range
 
 
-```text
+```typescript
 range(start: number, end: number): number[]
 ```
 
 It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
 
-```text
+```javascript
 R.range(0, 5)
 // => [0, 1, 2, 3, 4]
 ```
@@ -11349,12 +11349,12 @@ test('curry', () => {
 ### reduce
 
 
-```text
+```typescript
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult
 ```
 
 
-```text
+```javascript
 const list = [1, 2, 3]
 const initialValue = 10
 const reducer = (prev, current) => prev * current
@@ -11589,7 +11589,7 @@ describe('reduce', function() {
 ### reject
 
 
-```text
+```typescript
 reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
@@ -11597,7 +11597,7 @@ It has the opposite effect of `R.filter`.
 
 It will return those members of `list` that return `false` when applied to `predicate` function.
 
-```text
+```javascript
 const list = [1, 2, 3, 4]
 const predicate = x => x > 2
 
@@ -11799,13 +11799,13 @@ describe('reject', function() {
 ### repeat
 
 
-```text
+```typescript
 repeat<T>(x: T, timesToRepeat: number): T[]
 ```
 
 It returns a list of `x` input repeated `timesToRepeat` input.
 
-```text
+```javascript
 R.repeat('foo', 3)
 // => ['foo', 'foo', 'foo']
 ```
@@ -11865,13 +11865,13 @@ test('repeat', () => {
 ### replace
 
 
-```text
+```typescript
 replace(strOrRegex: RegExp | string, replacer: string, str: string): string
 ```
 
 It replaces `strOrRegex` found in `str` with `replacer`.
 
-```text
+```javascript
 const strOrRegex = /o/g
 
 const result = R.replace(strOrRegex, '|0|', 'foo')
@@ -11948,7 +11948,7 @@ test('3', () => {
 ### reverse
 
 
-```text
+```typescript
 reverse<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -11968,13 +11968,13 @@ reverse(listOrString: string): string;
 ### set
 
 
-```text
+```typescript
 set<T, U>(lens: Lens, replacer: U, obj: T): T
 ```
 
 It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
 
-```text
+```javascript
 const input = {x: 1, y: 2}
 const xLens = R.lensProp('x')
 
@@ -12026,13 +12026,13 @@ export function set(
 ### slice
 
 
-```text
+```typescript
 slice(from: number, to: number, list: string): string
 ```
 
 It returns `listOrString` between `from` and `to` indexes.
 
-```text
+```javascript
 const list = [0, 1, 2, 3, 4, 5]
 const str = 'FOO_BAR'
 const from = 1
@@ -12109,13 +12109,13 @@ test('slice', () => {
 ### sort
 
 
-```text
+```typescript
 sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[]
 ```
 
 It returns copy of `list` sorted by `sortFn` function.
 
-```text
+```javascript
 const list = [
   {a: 2},
   {a: 3},
@@ -12193,13 +12193,13 @@ test('it doesn\'t mutate', () => {
 ### sortBy
 
 
-```text
+```typescript
 sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[]
 ```
 
 It returns copy of `list` sorted by `sortFn` function.
 
-```text
+```javascript
 const list = [
   {a: 2},
   {a: 3},
@@ -12363,13 +12363,13 @@ describe('sortBy', function() {
 ### split
 
 
-```text
+```typescript
 split(separator: string | RegExp): (str: string) => string[]
 ```
 
 Curried version of `String.prototype.split`
 
-```text
+```javascript
 const str = 'foo|bar|baz'
 const separator = |'
 const result = R.split(separator, str))
@@ -12423,7 +12423,7 @@ test('split', () => {
 ### splitEvery
 
 
-```text
+```typescript
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 ```
 
@@ -12444,13 +12444,13 @@ splitEvery(sliceLength: number): {
 ### startsWith
 
 
-```text
+```typescript
 startsWith(target: string, str: string): boolean
 ```
 
 Curried version of `String.prototype.startsWith`
 
-```text
+```javascript
 const str = 'foo-bar'
 
 const result = [
@@ -12543,7 +12543,7 @@ describe('startsWith', function() {
 ### subtract
 
 
-```text
+```typescript
 subtract(x: number, y: number): number
 ```
 
@@ -12563,12 +12563,12 @@ subtract(x: number): (y: number) => number;
 ### sum
 
 
-```text
+```typescript
 sum(list: ReadonlyArray<number>): number
 ```
 
 
-```text
+```javascript
 R.sum([1, 2, 3, 4, 5]) 
 // => 15
 ```
@@ -12615,13 +12615,13 @@ test('happy', () => {
 ### symmetricDifference
 
 
-```text
+```typescript
 symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
 It returns a merged list of `x` and `y` with all equal elements removed.
 
-```text
+```javascript
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
@@ -12696,12 +12696,12 @@ test('symmetricDifference with objects', () => {
 ### T
 
 
-```text
+```typescript
 T(): boolean
 ```
 
 
-```text
+```javascript
 R.T() 
 // => true
 ```
@@ -12734,13 +12734,13 @@ export function T(){
 ### tail
 
 
-```text
+```typescript
 tail<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns all but the first element of `listOrString`.
 
-```text
+```javascript
 const result = [
   R.tail([1, 2, 3]),  
   R.tail('foo') 
@@ -12801,13 +12801,13 @@ test('tail', () => {
 ### take
 
 
-```text
+```typescript
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns the first `howMany` elements of `listOrString`.
 
-```text
+```javascript
 const howMany = 2
 
 const result = [
@@ -12921,13 +12921,13 @@ describe('take', function() {
 ### takeLast
 
 
-```text
+```typescript
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
 It returns the last `howMany` elements of `listOrString`.
 
-```text
+```javascript
 const howMany = 2
 
 const result = [
@@ -13016,7 +13016,7 @@ test('with negative index', () => {
 ### tap
 
 
-```text
+```typescript
 tap<T>(fn: (a: T) => any, x: T): T
 ```
 
@@ -13024,7 +13024,7 @@ It applies function `fn` to input `x` and returns `x`.
 
 One use case is debuging in the middle of `R.compose`.
 
-```text
+```javascript
 const list = [1, 2, 3]
 
 R.compose(
@@ -13123,13 +13123,13 @@ describe('tap', function() {
 ### test
 
 
-```text
+```typescript
 test(regExpression: RegExp): (str: string) => boolean
 ```
 
 It determines whether `str` matches `regExpression`.
 
-```text
+```javascript
 R.test(/^f/, 'foo')
 // => true
 ```
@@ -13189,7 +13189,7 @@ test('throws if first argument is not regex', () => {
 ### times
 
 
-```text
+```typescript
 times<T>(fn: (i: number) => T, howMany: number): T[]
 ```
 
@@ -13197,7 +13197,7 @@ It returns the result of applying function `fn` over members of range array.
 
 The range array includes numbers between `0` and `howMany`(exclusive).
 
-```text
+```javascript
 const fn = x => x * 2
 const howMany = 5
 
@@ -13276,12 +13276,12 @@ test('curry', () => {
 ### toLower
 
 
-```text
+```typescript
 toLower(str: string): string
 ```
 
 
-```text
+```javascript
 R.toLower('FOO')
 // => 'foo'
 ```
@@ -13328,13 +13328,13 @@ test('toLower', () => {
 ### toPairs
 
 
-```text
+```typescript
 toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][]
 ```
 
 It transforms an object to a list.
 
-```text
+```javascript
 const list = {
   a : 1,
   b : 2,
@@ -13399,12 +13399,12 @@ test('happy', () => {
 ### toString
 
 
-```text
+```typescript
 toString<T>(x: T): string
 ```
 
 
-```text
+```javascript
 R.toString([1, 2]) 
 // => '1,2'
 ```
@@ -13451,12 +13451,12 @@ test('happy', () => {
 ### toUpper
 
 
-```text
+```typescript
 toUpper(str: string): string
 ```
 
 
-```text
+```javascript
 R.toUpper('foo')
 // => 'FOO'
 ```
@@ -13503,12 +13503,12 @@ test('toUpper', () => {
 ### transpose
 
 
-```text
+```typescript
 transpose<T>(list: T[][]): T[][]
 ```
 
 
-```text
+```javascript
 const list = [[10, 11], [20], [], [30, 31, 32]]
 const expected = [[10, 20, 30], [11, 31], [32]]
 
@@ -13596,12 +13596,12 @@ test('array with falsy values', () => {
 ### trim
 
 
-```text
+```typescript
 trim(str: string): string
 ```
 
 
-```text
+```javascript
 R.trim('  foo  ') 
 // => 'foo'
 ```
@@ -13680,7 +13680,7 @@ describe('trim', function() {
 ### type
 
 
-```text
+```typescript
 type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN"
 ```
 
@@ -13699,13 +13699,13 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 ### uniq
 
 
-```text
+```typescript
 uniq<T>(list: ReadonlyArray<T>): T[]
 ```
 
 It returns a new array containing only one copy of each element of `list`.
 
-```text
+```javascript
 const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
 
 R.uniq(list)
@@ -13819,13 +13819,13 @@ describe('uniq', function() {
 ### uniqWith
 
 
-```text
+```typescript
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[]
 ```
 
 It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
 
-```text
+```javascript
 const list = [
   {id: 0, title:'foo'},
   {id: 1, title:'bar'},
@@ -14041,13 +14041,13 @@ describe('uniqWith', () => {
 ### update
 
 
-```text
+```typescript
 update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[]
 ```
 
 It returns a copy of `list` with updated element at `index` with `newValue`.
 
-```text
+```javascript
 const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
@@ -14159,13 +14159,13 @@ describe('update', function() {
 ### values
 
 
-```text
+```typescript
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
 With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
 
-```text
+```javascript
 const obj = {a:1, b:2}
 
 R.values(obj)
@@ -14255,13 +14255,13 @@ describe('values', () => {
 ### view
 
 
-```text
+```typescript
 view<T, U>(lens: Lens): (target: T) => U
 ```
 
 It returns the value of `lens` focus over `target` object.
 
-```text
+```javascript
 const lens = R.lensProp('x')
 
 R.view(lens, {x: 1, y: 2}) //=> 1
@@ -14304,7 +14304,7 @@ export function view(lens, target){
 ### without
 
 
-```text
+```typescript
 without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]
 ```
 
@@ -14324,12 +14324,12 @@ without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 ### xor
 
 
-```text
+```typescript
 xor(x: boolean, y: boolean): boolean
 ```
 
 
-```text
+```javascript
 const result = [
   xor(true, true),
   xor(false, false),
@@ -14473,7 +14473,7 @@ describe('xor', function() {
 ### zip
 
 
-```text
+```typescript
 zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[]
 ```
 
@@ -14481,7 +14481,7 @@ It will return a new array containing tuples of equally positions items from bot
 
 The returned list will be truncated to match the length of the shortest supplied list.
 
-```text
+```javascript
 const x = [1, 2]
 const y = ['A', 'B']
 R.zip(x, y)
@@ -14594,7 +14594,7 @@ describe('zip', () => {
 ### zipObj
 
 
-```text
+```typescript
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
 ```
 

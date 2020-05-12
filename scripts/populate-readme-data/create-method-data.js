@@ -101,7 +101,7 @@ function attachAllTypings(method){
 }
 
 const createExampleReadme = ({ example }) => `
-\`\`\`text
+\`\`\`javascript
 ${ example }
 \`\`\`
 `
@@ -112,7 +112,7 @@ ${ note }
 `
 
 const attachTyping = ({ typing }) => `
-\`\`\`text
+\`\`\`typescript
 ${ typing }
 \`\`\`
 \n`
