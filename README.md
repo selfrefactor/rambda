@@ -14618,8 +14618,6 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 Release new documentation site
 
-Deprecate docsify
-
 - 5.1.0
 
 Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
