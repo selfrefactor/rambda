@@ -24,8 +24,8 @@
     "@babel/plugin-proposal-object-rest-spread": "7.8.3",
     "@babel/preset-env": "7.8.4",
     "@types/jest": "25.1.2",
-    "babel-jest": "24.9.0",
-    "jest": "^25.0.0"
+    "babel-jest": "26.0.1",
+    "jest": "26.0.1"
   },
   "name": "rambda-scripts",
   "version": "1.0.0",
