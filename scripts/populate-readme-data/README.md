@@ -358,10 +358,6 @@ add(a: number): (b: number) => number;
 
 </details>
 
----
-R.add
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -411,10 +407,6 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 ```
 
 </details>
-
----
-R.adjust
----
 
 <details>
 
@@ -470,10 +462,6 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
 
 </details>
-
----
-R.all
----
 
 <details>
 
@@ -532,10 +520,6 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 ```
 
 </details>
-
----
-R.allPass
----
 
 <details>
 
@@ -618,10 +602,6 @@ always<T>(x: T): () => T;
 
 </details>
 
----
-R.always
----
-
 
 ### and
 
@@ -649,10 +629,6 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 ```
 
 </details>
-
----
-R.and
----
 
 
 ### any
@@ -685,10 +661,6 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
 
 </details>
-
----
-R.any
----
 
 <details>
 
@@ -773,10 +745,6 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 ```
 
 </details>
-
----
-R.anyPass
----
 
 <details>
 
@@ -864,10 +832,6 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.append
----
-
 
 ### applySpec
 
@@ -915,10 +879,6 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ```
 
 </details>
-
----
-R.applySpec
----
 
 <details>
 
@@ -981,10 +941,6 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 </details>
 
----
-R.assoc
----
-
 
 ### assocPath
 
@@ -1017,10 +973,6 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 ```
 
 </details>
-
----
-R.assocPath
----
 
 
 ### both
@@ -1057,10 +1009,6 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 ```
 
 </details>
-
----
-R.both
----
 
 <details>
 
@@ -1184,10 +1132,6 @@ clamp(min: number, max: number): (input: number) => number;
 
 </details>
 
----
-R.clamp
----
-
 
 ### clone
 
@@ -1241,10 +1185,6 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 ```
 
 </details>
-
----
-R.complement
----
 
 <details>
 
@@ -1305,10 +1245,6 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 ```
 
 </details>
-
----
-R.compose
----
 
 <details>
 
@@ -1402,10 +1338,6 @@ concat(x: string): (y: string) => string;
 
 </details>
 
----
-R.concat
----
-
 <details>
 
 <summary> Failed <italic>Ramda.concat</italic> specs
@@ -1478,10 +1410,6 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 ```
 
 </details>
-
----
-R.cond
----
 
 <details>
 
@@ -1572,10 +1500,6 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 ```
 
 </details>
-
----
-R.curry
----
 
 <details>
 
@@ -1700,10 +1624,6 @@ dec(x: number): number;
 
 </details>
 
----
-R.dec
----
-
 
 ### defaultTo
 
@@ -1740,10 +1660,6 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 ```
 
 </details>
-
----
-R.defaultTo
----
 
 <details>
 
@@ -1827,10 +1743,6 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.difference
----
-
 <details>
 
 <summary> Failed <italic>Ramda.difference</italic> specs
@@ -1893,10 +1805,6 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 </details>
 
----
-R.dissoc
----
-
 
 ### divide
 
@@ -1922,10 +1830,6 @@ divide(a: number): (b: number) => number;
 ```
 
 </details>
-
----
-R.divide
----
 
 
 ### drop
@@ -1955,10 +1859,6 @@ drop<T>(howManyToDrop: number): {
 ```
 
 </details>
-
----
-R.drop
----
 
 <details>
 
@@ -2011,10 +1911,6 @@ dropLast<T>(howManyToDrop: number): {
 ```
 
 </details>
-
----
-R.dropLast
----
 
 <details>
 
@@ -2091,10 +1987,6 @@ endsWith(target: string): (str: string) => boolean;
 
 </details>
 
----
-R.endsWith
----
-
 <details>
 
 <summary> Failed <italic>Ramda.endsWith</italic> specs
@@ -2154,10 +2046,6 @@ equals<T>(a: T): (b: T) => boolean;
 ```
 
 </details>
-
----
-R.equals
----
 
 <details>
 
@@ -2369,10 +2257,6 @@ F(): boolean;
 
 </details>
 
----
-R.F
----
-
 
 ### filter
 
@@ -2411,10 +2295,6 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 ```
 
 </details>
-
----
-R.filter
----
 
 <details>
 
@@ -2564,10 +2444,6 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 </details>
 
----
-R.find
----
-
 
 ### findIndex
 
@@ -2601,10 +2477,6 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 </details>
 
----
-R.findIndex
----
-
 
 ### flatten
 
@@ -2637,10 +2509,6 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 </details>
 
----
-R.flatten
----
-
 
 ### flip
 
@@ -2672,10 +2540,6 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 ```
 
 </details>
-
----
-R.flip
----
 
 <details>
 
@@ -2757,10 +2621,6 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 </details>
 
----
-R.forEach
----
-
 <details>
 
 <summary> Failed <italic>Ramda.forEach</italic> specs
@@ -2826,10 +2686,6 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 </details>
 
----
-R.fromPairs
----
-
 
 ### groupBy
 
@@ -2860,10 +2716,6 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 ```
 
 </details>
-
----
-R.groupBy
----
 
 <details>
 
@@ -2925,10 +2777,6 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 </details>
 
----
-R.groupWith
----
-
 
 ### has
 
@@ -2961,10 +2809,6 @@ has(prop: string): <T>(obj: T) => boolean;
 ```
 
 </details>
-
----
-R.has
----
 
 <details>
 
@@ -3047,10 +2891,6 @@ identical<T>(a: T): (b: T) => boolean;
 
 </details>
 
----
-R.identical
----
-
 
 ### identity
 
@@ -3076,10 +2916,6 @@ identity<T>(input: T): T;
 ```
 
 </details>
-
----
-R.identity
----
 
 
 ### ifElse
@@ -3116,10 +2952,6 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 ```
 
 </details>
-
----
-R.ifElse
----
 
 <details>
 
@@ -3190,10 +3022,6 @@ inc(x: number): number;
 
 </details>
 
----
-R.inc
----
-
 
 ### includes
 
@@ -3262,10 +3090,6 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 ```
 
 </details>
-
----
-R.indexBy
----
 
 <details>
 
@@ -3376,10 +3200,6 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
----
-R.indexOf
----
-
 <details>
 
 <summary> Failed <italic>Ramda.indexOf</italic> specs
@@ -3471,10 +3291,6 @@ init(listOrString: string): string;
 
 </details>
 
----
-R.init
----
-
 
 ### intersection
 
@@ -3506,10 +3322,6 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.intersection
----
-
 
 ### intersperse
 
@@ -3539,10 +3351,6 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 ```
 
 </details>
-
----
-R.intersperse
----
 
 
 ### is
@@ -3575,10 +3383,6 @@ is(targetPrototype: any): (x: any) => boolean;
 
 </details>
 
----
-R.is
----
-
 
 ### isEmpty
 
@@ -3608,10 +3412,6 @@ isEmpty<T>(x: T): boolean;
 ```
 
 </details>
-
----
-R.isEmpty
----
 
 <details>
 
@@ -3669,10 +3469,6 @@ isNil(x: any): x is null | undefined;
 
 </details>
 
----
-R.isNil
----
-
 
 ### join
 
@@ -3700,10 +3496,6 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 </details>
 
----
-R.join
----
-
 
 ### keys
 
@@ -3730,10 +3522,6 @@ keys<T>(x: T): string[];
 ```
 
 </details>
-
----
-R.keys
----
 
 <details>
 
@@ -3800,10 +3588,6 @@ last(listOrString: string): string;
 
 </details>
 
----
-R.last
----
-
 
 ### lastIndexOf
 
@@ -3839,10 +3623,6 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 ```
 
 </details>
-
----
-R.lastIndexOf
----
 
 <details>
 
@@ -3940,10 +3720,6 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 </details>
 
----
-R.length
----
-
 <details>
 
 <summary> Failed <italic>Ramda.length</italic> specs
@@ -4008,10 +3784,6 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 </details>
 
----
-R.lens
----
-
 
 ### lensIndex
 
@@ -4042,10 +3814,6 @@ lensIndex(index: number): Lens;
 ```
 
 </details>
-
----
-R.lensIndex
----
 
 
 ### lensPath
@@ -4082,10 +3850,6 @@ lensPath(path: RamdaPath): Lens;
 
 </details>
 
----
-R.lensPath
----
-
 
 ### lensProp
 
@@ -4121,10 +3885,6 @@ lensProp(prop: string): {
 ```
 
 </details>
-
----
-R.lensProp
----
 
 
 ### map
@@ -4170,10 +3930,6 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 ```
 
 </details>
-
----
-R.map
----
 
 <details>
 
@@ -4305,10 +4061,6 @@ match(regExpression: RegExp): (str: string) => any[];
 
 </details>
 
----
-R.match
----
-
 
 ### max
 
@@ -4340,10 +4092,6 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
----
-R.max
----
-
 
 ### maxBy
 
@@ -4374,10 +4122,6 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
----
-R.maxBy
----
-
 
 ### mean
 
@@ -4405,10 +4149,6 @@ mean(list: ReadonlyArray<number>): number;
 
 </details>
 
----
-R.mean
----
-
 
 ### median
 
@@ -4434,10 +4174,6 @@ median(list: ReadonlyArray<number>): number;
 ```
 
 </details>
-
----
-R.median
----
 
 
 ### merge
@@ -4470,10 +4206,6 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 </details>
 
----
-R.merge
----
-
 
 ### min
 
@@ -4505,10 +4237,6 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
----
-R.min
----
-
 
 ### minBy
 
@@ -4539,10 +4267,6 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
----
-R.minBy
----
-
 
 ### modulo
 
@@ -4569,10 +4293,6 @@ modulo(x: number): (y: number) => number;
 ```
 
 </details>
-
----
-R.modulo
----
 
 
 ### multiply
@@ -4601,10 +4321,6 @@ multiply(x: number): (y: number) => number;
 
 </details>
 
----
-R.multiply
----
-
 
 ### negate
 
@@ -4629,10 +4345,6 @@ negate(x: number): number;
 ```
 
 </details>
-
----
-R.negate
----
 
 
 ### none
@@ -4665,10 +4377,6 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
----
-R.none
----
-
 
 ### not
 
@@ -4694,10 +4402,6 @@ not(input: any): boolean;
 ```
 
 </details>
-
----
-R.not
----
 
 
 ### nth
@@ -4733,10 +4437,6 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 ```
 
 </details>
-
----
-R.nth
----
 
 
 ### omit
@@ -4774,10 +4474,6 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 ```
 
 </details>
-
----
-R.omit
----
 
 <details>
 
@@ -4872,10 +4568,6 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 </details>
 
----
-R.over
----
-
 
 ### partial
 
@@ -4918,10 +4610,6 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 </details>
 
----
-R.partial
----
-
 
 ### path
 
@@ -4961,10 +4649,6 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 ```
 
 </details>
-
----
-R.path
----
 
 <details>
 
@@ -5099,10 +4783,6 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 </details>
 
----
-R.pathOr
----
-
 
 ### paths
 
@@ -5147,10 +4827,6 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 ```
 
 </details>
-
----
-R.paths
----
 
 <details>
 
@@ -5276,10 +4952,6 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 </details>
 
----
-R.pick
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -5387,10 +5059,6 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 </details>
 
----
-R.pickAll
----
-
 
 ### pipe
 
@@ -5424,10 +5092,6 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 ```
 
 </details>
-
----
-R.pipe
----
 
 <details>
 
@@ -5511,10 +5175,6 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 ```
 
 </details>
-
----
-R.pluck
----
 
 <details>
 
@@ -5616,10 +5276,6 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.prepend
----
-
 
 ### product
 
@@ -5645,10 +5301,6 @@ product(list: ReadonlyArray<number>): number;
 ```
 
 </details>
-
----
-R.product
----
 
 
 ### prop
@@ -5708,10 +5360,6 @@ propEq(propToFind: string | number): {
 ```
 
 </details>
-
----
-R.propEq
----
 
 <details>
 
@@ -5785,10 +5433,6 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 </details>
 
----
-R.propIs
----
-
 
 ### propOr
 
@@ -5825,10 +5469,6 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 </details>
 
----
-R.propOr
----
-
 
 ### range
 
@@ -5856,10 +5496,6 @@ range(start: number): (end: number) => number[];
 ```
 
 </details>
-
----
-R.range
----
 
 
 ### reduce
@@ -5893,10 +5529,6 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 ```
 
 </details>
-
----
-R.reduce
----
 
 <details>
 
@@ -6096,10 +5728,6 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
----
-R.reject
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -6249,10 +5877,6 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 </details>
 
----
-R.repeat
----
-
 
 ### replace
 
@@ -6283,10 +5907,6 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 ```
 
 </details>
-
----
-R.replace
----
 
 
 ### reverse
@@ -6340,10 +5960,6 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 </details>
 
----
-R.set
----
-
 
 ### slice
 
@@ -6380,10 +5996,6 @@ slice(frp,: number, to: number): {
 ```
 
 </details>
-
----
-R.slice
----
 
 
 ### sort
@@ -6427,10 +6039,6 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.sort
----
-
 
 ### sortBy
 
@@ -6470,10 +6078,6 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 ```
 
 </details>
-
----
-R.sortBy
----
 
 <details>
 
@@ -6572,10 +6176,6 @@ split(separator: string | RegExp, str: string): string[];
 
 </details>
 
----
-R.split
----
-
 
 ### splitEvery
 
@@ -6629,10 +6229,6 @@ startsWith(target: string): (str: string) => boolean;
 ```
 
 </details>
-
----
-R.startsWith
----
 
 <details>
 
@@ -6710,10 +6306,6 @@ sum(list: ReadonlyArray<number>): number;
 
 </details>
 
----
-R.sum
----
-
 
 ### symmetricDifference
 
@@ -6745,10 +6337,6 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.symmetricDifference
----
-
 
 ### T
 
@@ -6774,10 +6362,6 @@ T(): boolean;
 ```
 
 </details>
-
----
-R.T
----
 
 
 ### tail
@@ -6809,10 +6393,6 @@ tail(listOrString: string): string;
 ```
 
 </details>
-
----
-R.tail
----
 
 
 ### take
@@ -6847,10 +6427,6 @@ take<T>(howMany: number): {
 ```
 
 </details>
-
----
-R.take
----
 
 <details>
 
@@ -6919,10 +6495,6 @@ takeLast<T>(howMany: number): {
 
 </details>
 
----
-R.takeLast
----
-
 
 ### tap
 
@@ -6958,10 +6530,6 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 ```
 
 </details>
-
----
-R.tap
----
 
 <details>
 
@@ -7027,10 +6595,6 @@ test(regExpression: RegExp, str: string): boolean;
 
 </details>
 
----
-R.test
----
-
 
 ### times
 
@@ -7064,10 +6628,6 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 </details>
 
----
-R.times
----
-
 
 ### toLower
 
@@ -7093,10 +6653,6 @@ toLower(str: string): string;
 ```
 
 </details>
-
----
-R.toLower
----
 
 
 ### toPairs
@@ -7132,10 +6688,6 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 </details>
 
----
-R.toPairs
----
-
 
 ### toString
 
@@ -7162,10 +6714,6 @@ toString<T>(x: T): string;
 
 </details>
 
----
-R.toString
----
-
 
 ### toUpper
 
@@ -7191,10 +6739,6 @@ toUpper(str: string): string;
 ```
 
 </details>
-
----
-R.toUpper
----
 
 
 ### transpose
@@ -7225,10 +6769,6 @@ transpose<T>(list: T[][]): T[][];
 
 </details>
 
----
-R.transpose
----
-
 
 ### trim
 
@@ -7254,10 +6794,6 @@ trim(str: string): string;
 ```
 
 </details>
-
----
-R.trim
----
 
 <details>
 
@@ -7338,10 +6874,6 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 ```
 
 </details>
-
----
-R.uniq
----
 
 <details>
 
@@ -7436,10 +6968,6 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 </details>
 
----
-R.uniqWith
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -7514,10 +7042,6 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
----
-R.update
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -7588,10 +7112,6 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 </details>
 
----
-R.values
----
-
 <details>
 
 <summary><strong>Typescript</strong> test</summary>
@@ -7643,10 +7163,6 @@ view<T, U>(lens: Lens, target: T): U;
 
 </details>
 
----
-R.view
----
-
 
 ### without
 
@@ -7697,10 +7213,6 @@ xor(y: boolean): (y: boolean) => boolean;
 ```
 
 </details>
-
----
-R.xor
----
 
 <details>
 
@@ -7780,10 +7292,6 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 ```
 
 </details>
-
----
-R.zip
----
 
 <details>
 
