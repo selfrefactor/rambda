@@ -255,7 +255,7 @@
     "allTypings": "endsWith(target: string, str: string): boolean;\nendsWith(target: string): (str: string) => boolean;",
     "notes": "It doesn't work with arrays unlike its corresponding **Ramda** method.",
     "rambdaSource": "export function endsWith(target, str){\n  if (arguments.length === 1) return _str => endsWith(target, _str)\n\n  return str.endsWith(target)\n}",
-    "rambdaSpecs": "import { endsWith } from './endsWith'\n\ntest('happy', () => {\n  expect(endsWith('bar', 'foo-bar')).toBeTrue()\n  expect(endsWith('baz')('foo-bar')).toBeFalse()\n})\n\ntest('does not work with arrays', () => {\n  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('input.endsWith is not a function')\n})",
+    "rambdaSpecs": "import { endsWith } from './endsWith'\n\ntest('happy', () => {\n  expect(endsWith('bar', 'foo-bar')).toBeTrue()\n  expect(endsWith('baz')('foo-bar')).toBeFalse()\n})\n\ntest('does not work with arrays', () => {\n  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('str.endsWith is not a function')\n})",
     "explanation": "Curried version of `String.prototype.endsWith`",
     "example": "const str = 'foo-bar'\nconst target = '-bar'\n\nconst result = R.endsWith(target, str)\n// => true",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('startsWith', function() {\n  it('should return true when an array ends with the provided value', function() {\n    eq(R.endsWith(['c'], ['a', 'b', 'c']), true);\n  });\n  it('should return true when an array ends with the provided values', function() {\n    eq(R.endsWith(['b', 'c'], ['a', 'b', 'c']), true);\n  });\n  it('should return false when an array does not end with the provided value', function() {\n    eq(R.endsWith(['b'], ['a', 'b', 'c']), false);\n  });\n  it('should return false when an array does not end with the provided values', function() {\n    eq(R.endsWith(['a', 'b'], ['a', 'b', 'c']), false);\n  });\n});",
@@ -896,7 +896,7 @@
   },
   "slice": {
     "typing": "slice(from: number, to: number, list: string): string",
-    "allTypings": "slice(from: number, to: number, list: string): string;\nslice<T>(from: number, to: number, list: T[]): T[];\nslice(frp,: number, to: number): {",
+    "allTypings": "slice(from: number, to: number, list: string): string;\nslice<T>(from: number, to: number, list: T[]): T[];\nslice(from: number, to: number): {",
     "rambdaSource": "import { curry } from './curry'\n\nfunction sliceFn(\n  from, to, list\n){\n  return list.slice(from, to)\n}\n\nexport const slice = curry(sliceFn)",
     "rambdaSpecs": "import { slice } from './slice'\n\ntest('slice', () => {\n  expect(slice(\n    1, 3, [ 'a', 'b', 'c', 'd' ]\n  )).toEqual([ 'b', 'c' ])\n  expect(slice(\n    1, Infinity, [ 'a', 'b', 'c', 'd' ]\n  )).toEqual([ 'b', 'c', 'd' ])\n  expect(slice(\n    0, -1, [ 'a', 'b', 'c', 'd' ]\n  )).toEqual([ 'a', 'b', 'c' ])\n  expect(slice(\n    -3, -1, [ 'a', 'b', 'c', 'd' ]\n  )).toEqual([ 'b', 'c' ])\n  expect(slice(\n    0, 3, 'ramda'\n  )).toEqual('ram')\n})",
     "explanation": "It returns `listOrString` between `from` and `to` indexes.",

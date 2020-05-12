@@ -3153,7 +3153,7 @@ Notes:
 // @SINGLE_MARKER
 export function slice(from: number, to: number, list: string): string;
 export function slice<T>(from: number, to: number, list: T[]): T[];
-export function slice(frp,: number, to: number): {
+export function slice(from: number, to: number): {
   (list: string): string;
   <T>(list: T[]): T[];
 };
