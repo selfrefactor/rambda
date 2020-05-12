@@ -9419,13 +9419,15 @@ const fn = (title, firstName, lastName) => {
   return title + ' ' + firstName + ' ' + lastName + '!'
 }
 
-const canPassAnyNumberOfArguments = partial(fn, 'Hello')
+const canPassAnyNumberOfArguments = R.partial(fn, 'Hello')
+const ramdaStyle = R.partial(fn, ['Hello'])
+
 const finalFn = canPassAnyNumberOfArguments('Foo')
 
 finalFn('Bar') // =>  'Hello, Foo Bar!'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20(title%2C%20firstName%2C%20lastName)%20%3D%3E%20%7B%0A%20%20return%20title%20%2B%20'%20'%20%2B%20firstName%20%2B%20'%20'%20%2B%20lastName%20%2B%20'!'%0A%7D%0A%0Aconst%20canPassAnyNumberOfArguments%20%3D%20partial(fn%2C%20'Hello')%0Aconst%20finalFn%20%3D%20canPassAnyNumberOfArguments('Foo')%0A%0AfinalFn('Bar')%20%2F%2F%20%3D%3E%20%20'Hello%2C%20Foo%20Bar!'">Try the above <strong>R.partial</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20(title%2C%20firstName%2C%20lastName)%20%3D%3E%20%7B%0A%20%20return%20title%20%2B%20'%20'%20%2B%20firstName%20%2B%20'%20'%20%2B%20lastName%20%2B%20'!'%0A%7D%0A%0Aconst%20canPassAnyNumberOfArguments%20%3D%20R.partial(fn%2C%20'Hello')%0Aconst%20ramdaStyle%20%3D%20R.partial(fn%2C%20%5B'Hello'%5D)%0A%0Aconst%20finalFn%20%3D%20canPassAnyNumberOfArguments('Foo')%0A%0AfinalFn('Bar')%20%2F%2F%20%3D%3E%20%20'Hello%2C%20Foo%20Bar!'">Try the above <strong>R.partial</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -9473,18 +9475,20 @@ import { type } from './type'
 
 const greet = (
   salutation, title, firstName, lastName
-) =>
-  salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
 
 test('happy', () => {
   const canPassAnyNumberOfArguments = partial(
     greet, 'Hello', 'Ms.'
   )
   const fn = canPassAnyNumberOfArguments('foo')
+  const sayHello = partial(greet, [ 'Hello' ])
+  const sayHelloRamda = partial(sayHello, [ 'Ms.' ])
 
   expect(type(fn)).toBe('Function')
 
   expect(fn('bar')).toBe('Hello, Ms. foo bar!')
+  expect(sayHelloRamda('foo', 'bar')).toBe('Hello, Ms. foo bar!')
 })
 
 test('extra arguments are ignored', () => {
@@ -14273,11 +14277,13 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 ## CHANGELOG
 
-- 5.1.1
+- 5.2.0
 
 Release new documentation site
 
-- 5.1.0
+`Ramda` repo now holds all `Rambdax` methods and tests
+
+- 5.1.1
 
 Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
 

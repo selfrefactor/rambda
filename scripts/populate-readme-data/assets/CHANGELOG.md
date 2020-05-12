@@ -1,8 +1,10 @@
-- 5.1.1
+- 5.2.0
 
 Release new documentation site
 
-- 5.1.0
+`Ramda` repo now holds all `Rambdax` methods and tests
+
+- 5.1.1
 
 Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
 
