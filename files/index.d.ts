@@ -3791,41 +3791,45 @@ export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyAr
 export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: update
 
-Explanation:
-
-
+Explanation: It returns a copy of `list` with updated element at `index` with `newValue`.
 
 Example:
 
 ```
+const index = 2
+const newValue = 88
+const list = [1, 2, 3, 4, 5]
 
+const result = update(index, newValue, list)
+// => [1, 2, 88, 4, 5]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
-export function update<T>(index: number, value: T): (list: ReadonlyArray<T>) => T[];
+export function update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
+export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: values
 
-Explanation:
-
-
+Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
 
 Example:
 
 ```
+const obj = {a:1, b:2}
 
+R.values(obj)
+// => [1, 2]
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -3836,6 +3840,30 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 /*
 Method:
 
+Explanation: It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
+
+Example:
+
+```
+const source = [1, 2, 3, 4]
+const matchAgainst = [2, 3]
+
+const result = R.without(matchAgainst, source)
+// => [1, 4]
+```
+
+Categories: List
+
+Notes: `R.equals` is used to determine equality
+
+*/
+// @SINGLE_MARKER
+export function without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
+export function without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
+
+/*
+Method: xor
+
 Explanation:
 
 
@@ -3843,76 +3871,71 @@ Explanation:
 Example:
 
 ```
-
+const result = [
+  xor(true, true),
+  xor(false, false),
+  xor(false, true),
+]
+// => [false, false, true]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+export function xor(x: boolean, y: boolean): boolean;
+export function xor(y: boolean): (y: boolean) => boolean;
 
 /*
-Method:
+Method: zip
 
-Explanation:
+Explanation: It will return a new array containing tuples of equally positions items from both `x` and `y` lists. 
 
-
+The returned list will be truncated to match the length of the shortest supplied list.
 
 Example:
 
 ```
+const x = [1, 2]
+const y = ['A', 'B']
+R.zip(x, y)
+// => [[1, 'A'], [2, 'B']]
 
+// truncates to shortest list
+R.zip([...x, 3], ['A', 'B'])
+// => [[1, 'A'], [2, 'B']]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function xor(a: boolean, b: boolean): boolean;
-export function xor(a: boolean): (b: boolean) => boolean;
+export function zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[];
+export function zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It will return a new object with keys of `keys` array and values of `values` array.
 
 Example:
 
 ```
+const keys = ['a', 'b', 'c']
 
+R.zipObj(keys, [1, 2, 3])
+//=> {a: 1, b: 2, c: 3}
+
+// truncates to shortest list
+R.zipObj(keys, [1, 2])
+//=> {a: 1, b: 2}
 ```
 
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): KeyValuePair<K, V>[];
-export function zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => KeyValuePair<K, V>[];
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
+Categories: List
 
 Notes:
 
