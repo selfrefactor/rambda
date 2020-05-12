@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { outputFile } from 'fs-extra'
 import { map, template } from 'rambdax'
 
@@ -17,6 +18,17 @@ const readmeTemplate = `
 
 {{tail}}
 `
+
+function getOutputPath(withRambdax){
+  if(withRambdax){
+    const dir = resolve(__dirname, '../../../rambdax')
+    return `${dir}/README_IN_PROGRESS.md`
+  }
+  const dir = resolve(__dirname, '../../')
+
+  return `${dir}/README.md`
+
+}
 
 export async function populateReadmeData({ withRambdax }){
   const methodsData = withRambdax ? methodsDataRambdax : methodsDataRambda
@@ -49,9 +61,7 @@ export async function populateReadmeData({ withRambdax }){
   }
 
   const readme = template(readmeTemplate, templateData).trim()
-  const output = withRambdax ?
-    `${ __dirname }/TEST_README_RAMBDAX.md` :
-    `${ __dirname }/TEST_README.md`
+  const output =  getOutputPath(withRambdax)
 
   await outputFile(output, readme)
 
