@@ -1,13 +1,17 @@
-export function splitEvery(n, list){
-  if (arguments.length === 1) return _list => splitEvery(n, _list)
+export function splitEvery(sliceLength, listOrString){
+  if (arguments.length === 1){
+    return _listOrString => splitEvery(sliceLength, _listOrString)
+  }
 
-  if (n < 1)
+  if (sliceLength < 1){
     throw new Error('First argument to splitEvery must be a positive integer')
+  }
+
   const willReturn = []
   let counter = 0
 
-  while (counter < list.length){
-    willReturn.push(list.slice(counter, counter += n))
+  while (counter < listOrString.length){
+    willReturn.push(listOrString.slice(counter, counter += sliceLength))
   }
 
   return willReturn

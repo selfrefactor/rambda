@@ -3190,7 +3190,7 @@ const expected = [
 
 Categories: List
 
-Notes: `comparator` function must return a number.
+Notes: `sortFn` function must return a number.
 
 */
 // @SINGLE_MARKER
@@ -3200,19 +3200,30 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>
 /*
 Method: sortBy
 
-Explanation:
-
-
+Explanation: It returns copy of `list` sorted by `sortFn` function.
 
 Example:
 
 ```
+const list = [
+  {a: 2},
+  {a: 3},
+  {a: 1}
+]
+const sortFn = x => x.a
 
+const result = R.sortBy(list, sortFn)
+const expected = [
+  {a: 1},
+  {a: 2},
+  {a: 3}
+]
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: `sortFn` function must return a value to compare.
 
 */
 // @SINGLE_MARKER
@@ -3220,76 +3231,86 @@ export function sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: split
 
-Explanation:
-
-
+Explanation: Curried version of `String.prototype.split`
 
 Example:
 
 ```
-
+const str = 'foo|bar|baz'
+const separator = |'
+const result = R.split(separator, str))
+// => [ 'foo', 'bar', 'baz' ]
 ```
 
-Categories:
+Categories: String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function split(sep: string | RegExp): (str: string) => string[];
-export function split(sep: string | RegExp, str: string): string[];
+export function split(separator: string | RegExp): (str: string) => string[];
+export function split(separator: string | RegExp, str: string): string[];
 
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It splits `listOrString` into slices of `sliceLength`.
 
 Example:
 
 ```
+const result = [
+  R.splitEvery(2, [1, 2, 3]), 
+  R.splitEvery(3, 'foobar') 
+]
 
+const expected = [
+  [[1, 2], [3]],
+  ['foo', 'bar']
+]
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
-export function splitEvery(a: number, list: string): string[];
-export function splitEvery(a: number): {
-  (list: string): string[];
-  <T>(list: ReadonlyArray<T>): T[][];
+export function splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];
+export function splitEvery(sliceLength: number, listOrString: string): string[];
+export function splitEvery(sliceLength: number): {
+  (listOrString: string): string[];
+  <T>(listOrString: ReadonlyArray<T>): T[][];
 };
 
 /*
-Method:
+Method: startsWith
 
-Explanation:
-
-
+Explanation: Curried version of `String.prototype.startsWith`
 
 Example:
 
 ```
+const str = 'foo-bar'
 
+const result = [
+  R.startsWith('foo', str),
+  R.startsWith('bar', str)
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: String
 
-Notes:
+Notes: **Ramda** method work also with arrays, while here this method is used only for strings.
 
 */
 // @SINGLE_MARKER
-export function startsWith(a: string, list: string): boolean;
-export function startsWith(a: string): (list: string) => boolean;
-export function startsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-export function startsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
+export function startsWith(target: string, str: string): boolean;
+export function startsWith(target: string): (str: string) => boolean;
 
 /*
 Method:
