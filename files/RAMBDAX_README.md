@@ -4059,3 +4059,6 @@ R.zipObj(['a', 'b', 'c'], [1, 2])
 
 [Test](https://github.com/selfrefactor/rambda/blob/master/src/zipObj.spec.js)
 
+
+Ramda filter works with objects
+

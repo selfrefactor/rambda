@@ -1,6 +1,6 @@
 import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
-import { map, template, replace } from 'rambdax'
+import { map, replace, template } from 'rambdax'
 
 import methodsDataRambdax from '../populate-docs-data/data-rambdax.json'
 import methodsDataRambda from '../populate-docs-data/data.json'

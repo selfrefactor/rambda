@@ -1,1 +1,0 @@
-Ramda filter works with objects
