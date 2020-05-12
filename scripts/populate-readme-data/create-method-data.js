@@ -9,9 +9,7 @@ function createFailedSpec(method){
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
-\`\`\`javascript
-{{failedRamdaSpecs}}
-\`\`\`
+\`{{failedRamdaSpecs}}\`
 
 
 </details>
@@ -26,45 +24,22 @@ function createRambdaSpecReadme(method){
 
 <summary><strong>Tests</strong></summary>
 
-\`\`\`javascript
-{{rambdaSpecs}}
-\`\`\`
+\`{{rambdaSpecs}}\`
 
 </details>
 `
 
   return template(summaryTemplate, method)
 }
+
 
 function createRambdaSourceReadme(method){
-  const summaryTemplate = `
-  Foo
-  <details>
-  
-  Foo
-  <summary>R.{{methodName}} source</summary>
-  Foo
-  
-\`\`\`javascript
-{{rambdaSpecs}}
-\`\`\`
-  
-  Foo
-</details>
-Foo
-`
-
-  return template(summaryTemplate, method)
-}
-function createRambdaSourceReadmex(method){
   const summaryTemplate = `
 <details>
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
 
-\`\`\`javascript
-{{rambdaSource}}
-\`\`\`
+\`{{rambdaSource}}\`
 
 </details>
 `
@@ -78,9 +53,7 @@ function createTypescriptTest(method){
 
 <summary><strong>Typescript</strong> test</summary>
 
-\`\`\`typescript
-{{typescriptDefinitionTest}}
-\`\`\`
+\`{{typescriptDefinitionTest}}\`
 
 </details>
 `
@@ -94,9 +67,7 @@ function createBenchmarkInfo(method){
 
 <summary>{{methodSummary}}</summary>
 
-\`\`\`javascript
-{{benchmarkContent}}
-\`\`\`
+\`{{benchmarkContent}}\`
 
 </details>
 `
@@ -110,9 +81,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`\`\`typescript
-{{allTypings}}
-\`\`\`
+\`{{allTypings}}\`
 
 </details>
 `
@@ -121,20 +90,18 @@ function attachAllTypings(method){
 }
 
 const createExampleReadme = ({ example }) => `
-\`\`\`javascript
-${ example }
-\`\`\`
+\`javascript${ example }\`
 `
 
 const createNoteReadme = ({ note }) => `
-> Note
+---
+Note
+
 ${ note }
 `
 
 const attachTyping = ({ typing }) => `
-\`\`\`typescript
-${ typing }
-\`\`\`
+\`${ typing }\`
 \n`
 
 const getIntro = ({ methodName }) => [ `### ${ methodName }`, '\n\n' ]
@@ -147,17 +114,16 @@ export function createMethodData(method){
   const data = getIntro(method)
   const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
 
-  // if (method.typing) data.push(attachTyping(method))
+  if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
-  if (method.example) data.push(createExampleReadme(method))
-  if (method.replLink) data.push(createReplReadme(method))
-  if (method.replLink) data.push('\n')
-  if (method.allTypings) data.push(attachAllTypings(method))
-  if (method.note) data.push(createNoteReadme(method))
-  if (method.rambdaSource) data.push(createRambdaSourceReadmex(method))
-  data.push('---\n\n## FOO\n---\n\n')
-  if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+  // if (method.example) data.push(createExampleReadme(method))
+  // if (method.replLink) data.push(createReplReadme(method))
+  // if (method.replLink) data.push('\n')
+  // if (method.allTypings) data.push(attachAllTypings(method))
+  // if (method.note) data.push(createNoteReadme(method))
+  // if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
+  // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
   // if (method.typescriptDefinitionTest){
   //   data.push(createTypescriptTest(method))
