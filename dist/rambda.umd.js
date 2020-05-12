@@ -900,9 +900,9 @@
     return x === undefined || x === null;
   }
 
-  function join(separator, list) {
-    if (arguments.length === 1) return _list => join(separator, _list);
-    return list.join(separator);
+  function join(glue, list) {
+    if (arguments.length === 1) return _list => join(glue, _list);
+    return list.join(glue);
   }
 
   function keys(obj) {
@@ -1437,6 +1437,11 @@
     return reduce((accum, item) => includes(item, left) ? accum : accum.concat(item), [], right);
   }
 
+  function xor(a, b) {
+    if (arguments.length === 1) return _b => xor(a, _b);
+    return Boolean(a) && !b || Boolean(b) && !a;
+  }
+
   function zip(left, right) {
     if (arguments.length === 1) return _right => zip(left, _right);
     const result = [];
@@ -1447,11 +1452,6 @@
     }
 
     return result;
-  }
-
-  function xor(a, b) {
-    if (arguments.length === 1) return _b => xor(a, _b);
-    return Boolean(a) && !b || Boolean(b) && !a;
   }
 
   function zipObj(keys, values) {
