@@ -377,7 +377,7 @@ export function add(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -470,7 +470,7 @@ export const adjust = curry(adjustFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -576,7 +576,7 @@ export function all(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -678,7 +678,7 @@ export function allPass(predicates){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -764,7 +764,7 @@ export function always(x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -833,7 +833,7 @@ export function and(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -914,7 +914,7 @@ export function any(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -1007,7 +1007,7 @@ export function anyPass(predicates){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -1116,7 +1116,7 @@ export function append(x, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -1351,7 +1351,7 @@ export function applySpec(spec, ...args){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -1634,7 +1634,7 @@ export const assoc = curry(assocFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -1814,7 +1814,7 @@ export const assocPath = curry(assocPathFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2013,7 +2013,7 @@ export function both(f, g){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2128,7 +2128,7 @@ export const clamp = curry(clampFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2192,7 +2192,7 @@ clone<T>(input: ReadonlyArray<T>): T[];
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2247,7 +2247,7 @@ export function complement(fn){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2349,7 +2349,7 @@ export function compose(...fns){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2448,7 +2448,7 @@ export function concat(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2551,7 +2551,7 @@ export function cond(conditions){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2657,7 +2657,7 @@ export function curry(fn, args = []){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2741,7 +2741,7 @@ export const dec = x => x - 1
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2846,7 +2846,7 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -2992,7 +2992,7 @@ export function difference(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3086,7 +3086,7 @@ export function dissoc(prop, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3210,7 +3210,7 @@ export function divide(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3278,7 +3278,7 @@ export function drop(howManyToDrop, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3370,7 +3370,7 @@ export function dropLast(howManyToDrop, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3429,7 +3429,7 @@ either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3483,7 +3483,7 @@ export function endsWith(target, str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3652,7 +3652,7 @@ export function equals(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -3938,7 +3938,7 @@ export function F(){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4033,7 +4033,7 @@ export function filter(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4164,7 +4164,7 @@ export function find(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4249,7 +4249,7 @@ export function findIndex(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4339,7 +4339,7 @@ export function flatten(list, input){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4430,7 +4430,7 @@ export function flip(fn){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4516,7 +4516,7 @@ export function forEach(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4679,7 +4679,7 @@ export function fromPairs(listOfPairs){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4771,7 +4771,7 @@ export function groupBy(groupFn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -4920,7 +4920,7 @@ export function groupWith(compareFn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5079,7 +5079,7 @@ export function has(prop, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5126,7 +5126,7 @@ head(listOrString: string): string;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5186,7 +5186,7 @@ export function identical(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5274,7 +5274,7 @@ export function identity(input){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5363,7 +5363,7 @@ export const ifElse = curry(ifElseFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5490,7 +5490,7 @@ export const inc = x => x + 1
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5530,7 +5530,7 @@ includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5624,7 +5624,7 @@ export function indexBy(condition, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5774,7 +5774,7 @@ export function indexOf(valueToFind, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5849,7 +5849,7 @@ export function init(listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -5932,7 +5932,7 @@ export function intersection(listA, listB){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6022,7 +6022,7 @@ export function intersperse(separator, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6105,7 +6105,7 @@ export function is(targetPrototype, x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6226,7 +6226,7 @@ export function isEmpty(input){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6303,7 +6303,7 @@ export function isNil(x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6372,7 +6372,7 @@ export function join(glue, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6441,7 +6441,7 @@ export function keys(x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6512,7 +6512,7 @@ export function last(listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6599,7 +6599,7 @@ export function lastIndexOf(target, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6679,7 +6679,7 @@ export function length(x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6765,7 +6765,7 @@ export function lens(getter, setter){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6821,7 +6821,7 @@ export function lensIndex(index){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -6947,7 +6947,7 @@ export function lensPath(key){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7141,7 +7141,7 @@ export function lensProp(key){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7340,7 +7340,7 @@ export function map(fn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7471,7 +7471,7 @@ export function match(pattern, input){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7556,7 +7556,7 @@ export function max(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7633,7 +7633,7 @@ export const maxBy = curry(maxByFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7705,7 +7705,7 @@ export function mean(list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7785,7 +7785,7 @@ export function median(list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7859,7 +7859,7 @@ export function merge(target, newProps){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -7946,7 +7946,7 @@ export function min(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8019,7 +8019,7 @@ export const minBy = curry(minByFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8091,7 +8091,7 @@ export function modulo(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8157,7 +8157,7 @@ export function multiply(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8217,7 +8217,7 @@ export function negate(x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8287,7 +8287,7 @@ export function none(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8364,7 +8364,7 @@ export function not(input){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8444,7 +8444,7 @@ export function nth(index, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8546,7 +8546,7 @@ export function omit(propsToOmit, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8662,7 +8662,7 @@ export function over(
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8733,7 +8733,7 @@ export function partial(fn, ...args){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8881,7 +8881,7 @@ export function path(list, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -8990,7 +8990,7 @@ export const pathOr = curry(pathOrFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9111,7 +9111,7 @@ export function paths(pathsToSearch, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9263,7 +9263,7 @@ export function pick(propsToPick, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9397,7 +9397,7 @@ export function pickAll(propsToPick, obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9502,7 +9502,7 @@ export function pipe(...fns){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9594,7 +9594,7 @@ export function pluck(property, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9677,7 +9677,7 @@ export function prepend(x, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9749,7 +9749,7 @@ export const product = reduce(multiply, 1)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9793,7 +9793,7 @@ prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9860,7 +9860,7 @@ export const propEq = curry(propEqFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -9942,7 +9942,7 @@ export const propIs = curry(propIsFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10037,7 +10037,7 @@ export const propOr = curry(propOrFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10133,7 +10133,7 @@ export function range(start, end){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10223,7 +10223,7 @@ export const reduce = curry(reduceFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10312,7 +10312,7 @@ export function reject(predicate, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10402,7 +10402,7 @@ export function repeat(x, timesToRepeat){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10489,7 +10489,7 @@ export function replace(
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10541,7 +10541,7 @@ reverse(listOrString: string): string;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10608,7 +10608,7 @@ export function set(
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10672,7 +10672,7 @@ export const slice = curry(sliceFn)
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10768,7 +10768,7 @@ export function sort(sortFn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10867,7 +10867,7 @@ export function sortBy(sortFn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -10961,7 +10961,7 @@ export function split(separator, str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11002,7 +11002,7 @@ splitEvery(sliceLength: number): {
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11058,7 +11058,7 @@ export function startsWith(target, str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11104,7 +11104,7 @@ subtract(x: number): (y: number) => number;
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11149,7 +11149,7 @@ export function sum(list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11225,7 +11225,7 @@ export function symmetricDifference(x, y){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11300,7 +11300,7 @@ export function T(){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11354,7 +11354,7 @@ export function tail(listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11441,7 +11441,7 @@ export function take(howMany, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11545,7 +11545,7 @@ export function takeLast(howMany, listOrString){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11640,7 +11640,7 @@ export function tap(fn, x){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11715,7 +11715,7 @@ export function test(pattern, str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11798,7 +11798,7 @@ export function times(fn, howMany){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11878,7 +11878,7 @@ export function toLower(str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -11948,7 +11948,7 @@ export function toPairs(obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12019,7 +12019,7 @@ export function toString(val){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12079,7 +12079,7 @@ export function toUpper(str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12147,7 +12147,7 @@ export function transpose(array){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12240,7 +12240,7 @@ export function trim(str){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12277,7 +12277,7 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12340,7 +12340,7 @@ export function uniq(list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12441,7 +12441,7 @@ export function uniqWith(fn, list){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12617,7 +12617,7 @@ export function update(
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12689,7 +12689,7 @@ export function values(obj){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12778,7 +12778,7 @@ export function view(lens, target){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12801,7 +12801,7 @@ without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12853,7 +12853,7 @@ export function xor(a, b){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -12981,7 +12981,7 @@ export function zip(left, right){
 
 ---
 
-FOO
+## FOO
 ---
 
 
@@ -13049,7 +13049,7 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 ---
 
-FOO
+## FOO
 ---
 
 
