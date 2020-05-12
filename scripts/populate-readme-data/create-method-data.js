@@ -9,7 +9,7 @@ function createFailedSpec(method){
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
-\`{{failedRamdaSpecs}}\`
+{{failedRamdaSpecs}}
 
 
 </details>
@@ -24,7 +24,7 @@ function createRambdaSpecReadme(method){
 
 <summary><strong>Tests</strong></summary>
 
-\`{{rambdaSpecs}}\`
+{{rambdaSpecs}}
 
 </details>
 `
@@ -39,7 +39,7 @@ function createRambdaSourceReadme(method){
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
 
-\`{{rambdaSource}}\`
+{{rambdaSource}}
 
 </details>
 `
@@ -53,7 +53,7 @@ function createTypescriptTest(method){
 
 <summary><strong>Typescript</strong> test</summary>
 
-\`{{typescriptDefinitionTest}}\`
+{{typescriptDefinitionTest}}
 
 </details>
 `
@@ -67,7 +67,7 @@ function createBenchmarkInfo(method){
 
 <summary>{{methodSummary}}</summary>
 
-\`{{benchmarkContent}}\`
+{{benchmarkContent}}
 
 </details>
 `
@@ -81,7 +81,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`{{allTypings}}\`
+{{allTypings}}
 
 </details>
 `
@@ -90,12 +90,13 @@ function attachAllTypings(method){
 }
 
 const createExampleReadme = ({ example }) => `
-\`javascript${ example }\`
+\`\`\`javascript
+${ example }
+\`\`\`
 `
 
 const createNoteReadme = ({ note }) => `
----
-Note
+> Note
 
 ${ note }
 `
@@ -117,20 +118,20 @@ export function createMethodData(method){
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
-  // if (method.example) data.push(createExampleReadme(method))
-  // if (method.replLink) data.push(createReplReadme(method))
-  // if (method.replLink) data.push('\n')
-  // if (method.allTypings) data.push(attachAllTypings(method))
-  // if (method.note) data.push(createNoteReadme(method))
+  if (method.example) data.push(createExampleReadme(method))
+  if (method.replLink) data.push(createReplReadme(method))
+  if (method.replLink) data.push('\n')
+  if (method.allTypings) data.push(attachAllTypings(method))
+  if (method.note) data.push(createNoteReadme(method))
   if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
-  // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+  if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
-  // if (method.typescriptDefinitionTest){
-  //   data.push(createTypescriptTest(method))
-  // }
+  if (method.typescriptDefinitionTest){
+    data.push(createTypescriptTest(method))
+  }
 
-  // if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
-  // if (hasFailedSpec) data.push(createFailedSpec(method))
+  if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
+  if (hasFailedSpec) data.push(createFailedSpec(method))
 
   return data.join('\n')
 }
