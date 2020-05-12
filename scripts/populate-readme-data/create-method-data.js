@@ -26,7 +26,7 @@ function createRambdaSpecReadme(method){
 
 <summary><strong>Tests</strong></summary>
 
-\`\`\`text
+\`\`\`javascript
 {{rambdaSpecs}}
 \`\`\`
 
