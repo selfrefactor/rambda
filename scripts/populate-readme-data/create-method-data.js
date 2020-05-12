@@ -130,7 +130,7 @@ export function createMethodData(method){
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
-  if (method.example) data.push(createExampleReadme(method))
+  // if (method.example) data.push(createExampleReadme(method))
   if (method.replLink) data.push(createReplReadme(method))
   if (method.replLink) data.push('\n')
   // if (method.allTypings) data.push(attachAllTypings(method))
