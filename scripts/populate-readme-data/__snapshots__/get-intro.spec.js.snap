@@ -256,6 +256,8 @@ There are methods which are benchmarked only with \`Ramda\` and \`Rambda\`(i.e. 
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
+The date of running the benchmarks is *Tuesday, May 12 2020*
+
 </summary>
 
 method | Rambda | Ramda | Lodash

@@ -5,5 +5,5 @@ jest.setTimeout(ms('15 minutes'))
 
 test('happy', async () => {
   // await runAllBenchmarks()
-  await runSingleBenchmark('add')
+  // await runSingleBenchmark('add')
 })
