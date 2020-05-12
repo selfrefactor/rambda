@@ -7,8 +7,7 @@ import { trim } from './trim'
 import { type } from './type'
 
 test('accept function as answers', () => {
-  const fn = switcher('foo')
-    .is('bar', tap)
+  const fn = switcher('foo').is('bar', tap)
     .is('foo', add(1))
     .default(trim)
 

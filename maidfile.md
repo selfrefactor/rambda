@@ -1,14 +1,12 @@
 ## lint:js
 
-It lints all files and folders but it requires `npm i -g run-fn`
-
 ```bash
 jest scripts/lint/lint.spec.js
-```
+``` 
 
 ## lint:ts
 
-It lints all files and folders but it requires `npm i -g run-fn`
+It required local `yarn install` run as it uses its own dependencies
 
 ```bash
 jest scripts/lint/lint.spec.js

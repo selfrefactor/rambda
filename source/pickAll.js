@@ -4,7 +4,8 @@ export function pickAll(propsToPick, obj){
   if (obj === null || obj === undefined){
     return undefined
   }
-  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+  const keysValue =
+    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
 
   const willReturn = {}
   let counter = 0

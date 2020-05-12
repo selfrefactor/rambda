@@ -96,13 +96,12 @@ async function rambdaBuildStep(){
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-      const shouldCopy = x.includes('internals') ||
+      const shouldCopy =
+        x.includes('internals') ||
         x.includes('benchmarks') ||
         !ramdaMethods.includes(name)
-        
-      if (
-        shouldCopy
-      ) return
+
+      if (shouldCopy) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)

@@ -4,7 +4,6 @@ import { mapAsync } from 'rambdax'
 
 const base = resolve(__dirname, '../../')
 
-
 const folders = [
   'source',
   'scripts/all-scripts',
