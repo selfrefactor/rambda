@@ -351,7 +351,7 @@ R.add(2, 3) // =>  5
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 add(a: number, b: number): number;
 add(a: number): (b: number) => number;
 ```
@@ -362,7 +362,7 @@ add(a: number): (b: number) => number;
 
 <summary><strong>R.add</strong> source</summary>
 
-```javascript
+```text
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
@@ -443,7 +443,7 @@ R.adjust(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
 adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -454,7 +454,7 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 <summary><strong>R.adjust</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function adjustFn(
@@ -528,7 +528,7 @@ test('when index is out of bounds', () => {
 > Reason for the failure: ramda accepts an array-like object
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -569,7 +569,7 @@ const result = R.all(predicate, arr)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
@@ -580,7 +580,7 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.all</strong> source</summary>
 
-```javascript
+```text
 export function all(predicate, list){
   if (arguments.length === 1) return _list => all(predicate, _list)
 
@@ -682,7 +682,7 @@ const result = R.allPass(predicates)(input) // => true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 ```
 
@@ -692,7 +692,7 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 <summary><strong>R.allPass</strong> source</summary>
 
-```javascript
+```text
 export function allPass(predicates){
   return input => {
     let counter = 0
@@ -779,7 +779,7 @@ describe('allPass', () => {
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -821,7 +821,7 @@ console.log(fn())// => 7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 always<T>(x: T): () => T;
 ```
 
@@ -831,7 +831,7 @@ always<T>(x: T): () => T;
 
 <summary><strong>R.always</strong> source</summary>
 
-```javascript
+```text
 export function always(x){
   return () => x
 }
@@ -877,7 +877,7 @@ R.and(false, true); // => false
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
 and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 ```
@@ -888,7 +888,7 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 <summary><strong>R.and</strong> source</summary>
 
-```javascript
+```text
 export function and(a, b){
   if (arguments.length === 1) return _b => and(a, _b)
 
@@ -938,7 +938,7 @@ R.any(fn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
 any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
@@ -951,7 +951,7 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.any</strong> source</summary>
 
-```javascript
+```text
 export function any(predicate, list){
   if (arguments.length === 1) return _list => any(predicate, _list)
 
@@ -1074,7 +1074,7 @@ const result = fn(input) // => true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 ```
 
@@ -1084,7 +1084,7 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 <summary><strong>R.anyPass</strong> source</summary>
 
-```javascript
+```text
 export function anyPass(predicates){
   return input => {
     let counter = 0
@@ -1181,7 +1181,7 @@ describe('anyPass', () => {
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -1227,7 +1227,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 append<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 ```
@@ -1238,7 +1238,7 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.append</strong> source</summary>
 
-```javascript
+```text
 export function append(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => append(x, _listOrString)
@@ -1338,7 +1338,7 @@ getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ```
 
@@ -1348,7 +1348,7 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 
 <summary><strong>R.applySpec</strong> source</summary>
 
-```javascript
+```text
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
   for (const key in spec){
@@ -1760,7 +1760,7 @@ R.assoc('c', 3, {a: 1, b: 2})
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
 assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
 assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
@@ -1772,7 +1772,7 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 <summary><strong>R.assoc</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function assocFn(
@@ -1897,7 +1897,7 @@ R.assocPath(path, newValue, obj)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
 assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
@@ -1909,7 +1909,7 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 <summary><strong>R.assocPath</strong> source</summary>
 
-```javascript
+```text
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
@@ -2124,7 +2124,7 @@ const result = [fn(15), fn(30)]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 both(pred1: Pred, pred2: Pred): Pred;
 both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
@@ -2137,7 +2137,7 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 <summary><strong>R.both</strong> source</summary>
 
-```javascript
+```text
 export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
@@ -2266,7 +2266,7 @@ describe('both + curry', () => {
 > Reason for the failure: ramda supports fantasy-land
 </summary>
 
-```javascript
+```text
 var S = require('sanctuary');
 
 var R = require('../../../../dist/rambda.js');
@@ -2313,7 +2313,7 @@ R.clamp(0, 10, 11) //=> 10
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 clamp(min: number, max: number, input: number): number;
 clamp(min: number, max: number): (input: number) => number;
 ```
@@ -2324,7 +2324,7 @@ clamp(min: number, max: number): (input: number) => number;
 
 <summary><strong>R.clamp</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function clampFn(
@@ -2394,7 +2394,7 @@ clone<T>(input: T): T
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 clone<T>(input: T): T;
 clone<T>(input: ReadonlyArray<T>): T[];
 ```
@@ -2429,7 +2429,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 ```
 
@@ -2439,7 +2439,7 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 <summary><strong>R.complement</strong> source</summary>
 
-```javascript
+```text
 export function complement(fn){
   return (...input) => !fn(...input)
 }
@@ -2485,7 +2485,7 @@ test('with multiple parameters', () => {
 > Reason for the failure: ramda supports fantasy-land
 </summary>
 
-```javascript
+```text
 var S = require('sanctuary');
 
 var R = require('../../../../dist/rambda.js');
@@ -2529,7 +2529,7 @@ const result = R.compose(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 compose<T1>(fn0: () => T1): () => T1;
 compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -2542,7 +2542,7 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 <summary><strong>R.compose</strong> source</summary>
 
-```javascript
+```text
 export function compose(...fns){
   if (fns.length === 0){
     throw new Error('compose requires at least one argument')
@@ -2617,7 +2617,7 @@ test('ramda spec', () => {
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
-```javascript
+```text
 var assert = require('assert');
 var jsv = require('jsverify');
 
@@ -2693,7 +2693,7 @@ R.concat('foo', 'bar') // => 'foobar'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
 concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
 concat(x: string, y: string): string;
@@ -2706,7 +2706,7 @@ concat(x: string): (y: string) => string;
 
 <summary><strong>R.concat</strong> source</summary>
 
-```javascript
+```text
 export function concat(x, y){
   if (arguments.length === 1) return _y => concat(x, _y)
 
@@ -2749,7 +2749,7 @@ test('with strings', () => {
 > Reason for the failure: ramda pass to concat method if present
 </summary>
 
-```javascript
+```text
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -2808,7 +2808,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
 cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 ```
@@ -2819,7 +2819,7 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 <summary><strong>R.cond</strong> source</summary>
 
-```javascript
+```text
 export function cond(conditions){
   return input => {
     let done = false
@@ -2923,7 +2923,7 @@ describe('cond', () => {
 > Reason for the failure: pass to transformer is not applied in rambda
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -2972,7 +2972,7 @@ const result = sum(3) // => 6
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 ```
 
@@ -2982,7 +2982,7 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 <summary><strong>R.curry</strong> source</summary>
 
-```javascript
+```text
 export function curry(fn, args = []){
   return (..._args) =>
     (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
@@ -3048,7 +3048,7 @@ test('when called via multiple curry stages', () => {
 > Reason for the failure: ramda passes context to functions
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var jsv = require('jsverify');
@@ -3158,7 +3158,7 @@ It decrements a number.
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 dec(x: number): number;
 ```
 
@@ -3168,7 +3168,7 @@ dec(x: number): number;
 
 <summary><strong>R.dec</strong> source</summary>
 
-```javascript
+```text
 export const dec = x => x - 1
 ```
 
@@ -3217,7 +3217,7 @@ R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T;
 defaultTo<T>(defaultValue: T, ...inputArguments: (T | null | undefined)[]): T;
 defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefined)[]): T | U;
@@ -3229,7 +3229,7 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 
 <summary><strong>R.defaultTo</strong> source</summary>
 
-```javascript
+```text
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -3432,7 +3432,7 @@ const result = difference(a, b)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
 difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 ```
@@ -3443,7 +3443,7 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.difference</strong> source</summary>
 
-```javascript
+```text
 import { includes } from './includes'
 import { uniq } from './uniq'
 
@@ -3497,7 +3497,7 @@ test('should use R.equals', () => {
 > Reason for the failure: ramda supports negative zero
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -3545,7 +3545,7 @@ R.dissoc('b', {a: 1, b: 2, c: 3})
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 dissoc<T>(prop: string, obj: any): T;
 dissoc(prop: string): <U>(obj: any) => U;
 ```
@@ -3556,7 +3556,7 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 <summary><strong>R.dissoc</strong> source</summary>
 
-```javascript
+```text
 export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
 
@@ -3669,7 +3669,7 @@ R.divide(71, 100) // => 0.71
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 divide(a: number, b: number): number;
 divide(a: number): (b: number) => number;
 ```
@@ -3680,7 +3680,7 @@ divide(a: number): (b: number) => number;
 
 <summary><strong>R.divide</strong> source</summary>
 
-```javascript
+```text
 export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)
 
@@ -3726,7 +3726,7 @@ R.drop(2, 'foobar')  // => 'obar'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 drop(howManyToDrop: number, listOrString: string): string;
 drop<T>(howManyToDrop: number): {
@@ -3738,7 +3738,7 @@ drop<T>(howManyToDrop: number): {
 
 <summary><strong>R.drop</strong> source</summary>
 
-```javascript
+```text
 export function drop(howManyToDrop, listOrString){
   if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
 
@@ -3827,7 +3827,7 @@ R.dropLast(2, 'foobar')  // => 'foob'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 dropLast(howManyToDrop: number, listOrString: string): string;
 dropLast<T>(howManyToDrop: number): {
@@ -3839,7 +3839,7 @@ dropLast<T>(howManyToDrop: number): {
 
 <summary><strong>R.dropLast</strong> source</summary>
 
-```javascript
+```text
 export function dropLast(howManyToDrop, listOrString){
   if (arguments.length === 1){
     return _listOrString => dropLast(howManyToDrop, _listOrString)
@@ -3895,7 +3895,7 @@ test('should return copy', () => {
 > Reason for the failure: ramda method can act as a transducer
 </summary>
 
-```javascript
+```text
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -3925,7 +3925,7 @@ either(firstPredicate: Pred, secondPredicate: Pred): Pred
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 ```
@@ -3956,7 +3956,7 @@ const result = R.endsWith(target, str)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 endsWith(target: string, str: string): boolean;
 endsWith(target: string): (str: string) => boolean;
 ```
@@ -3967,7 +3967,7 @@ endsWith(target: string): (str: string) => boolean;
 
 <summary><strong>R.endsWith</strong> source</summary>
 
-```javascript
+```text
 export function endsWith(target, str){
   if (arguments.length === 1) return _str => endsWith(target, _str)
 
@@ -4003,7 +4003,7 @@ test('does not work with arrays', () => {
 > Reason for the failure: rambda doesn't support arrays
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -4049,7 +4049,7 @@ R.equals(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 equals<T>(a: T, b: T): boolean;
 equals<T>(a: T): (b: T) => boolean;
 ```
@@ -4060,7 +4060,7 @@ equals<T>(a: T): (b: T) => boolean;
 
 <summary><strong>R.equals</strong> source</summary>
 
-```javascript
+```text
 import { type } from './type'
 
 function parseError(maybeError){
@@ -4414,7 +4414,7 @@ test('various examples', () => {
 > Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
 </summary>
 
-```javascript
+```text
 /* global Map, Set, WeakMap, WeakSet */
 
 var R = require('../../../../dist/rambda.js');
@@ -4611,7 +4611,7 @@ F() // => false
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 F(): boolean;
 ```
 
@@ -4621,7 +4621,7 @@ F(): boolean;
 
 <summary><strong>R.F</strong> source</summary>
 
-```javascript
+```text
 export function F(){
   return false
 }
@@ -4659,7 +4659,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
 filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
@@ -4672,7 +4672,7 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 <summary><strong>R.filter</strong> source</summary>
 
-```javascript
+```text
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -4882,7 +4882,7 @@ describe('filter with objects', () => {
 > Reason for the failure: ramda dispatches to `filter` method of object
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var Maybe = require('./shared/Maybe');
@@ -4930,7 +4930,7 @@ const result = R.find(predicate, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
 find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 ```
@@ -4941,7 +4941,7 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 <summary><strong>R.find</strong> source</summary>
 
-```javascript
+```text
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
 
@@ -4996,7 +4996,7 @@ const result = R.findIndex(predicate, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
 findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 ```
@@ -5007,7 +5007,7 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 <summary><strong>R.findIndex</strong> source</summary>
 
-```javascript
+```text
 export function findIndex(predicate, list){
   if (arguments.length === 1) return _list => findIndex(predicate, _list)
 
@@ -5078,7 +5078,7 @@ const result = R.flatten([
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 ```
 
@@ -5088,7 +5088,7 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 <summary><strong>R.flatten</strong> source</summary>
 
-```javascript
+```text
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
 
@@ -5157,7 +5157,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 ```
 
@@ -5167,7 +5167,7 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 <summary><strong>R.flip</strong> source</summary>
 
-```javascript
+```text
 function flipExport(fn){
   return (...input) => {
     if (input.length === 1){
@@ -5215,7 +5215,7 @@ test('flip', () => {
 > Reason for the failure: rambda flip work only for functions with two arguments
 </summary>
 
-```javascript
+```text
 var jsv = require('jsverify');
 
 var R = require('../../../../dist/rambda.js');
@@ -5277,7 +5277,7 @@ result //=> [1, 2]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 forEach<T>(fn: (x: T) => void, list: T[]): T[];
 forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
@@ -5292,7 +5292,7 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 <summary><strong>R.forEach</strong> source</summary>
 
-```javascript
+```text
 import { map } from './map'
 
 export function forEach(predicate, list){
@@ -5416,7 +5416,7 @@ test('pass index as second argument', () => {
 > Reason for the failure: ramda method dispatches to `forEach` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -5467,7 +5467,7 @@ const result = R.fromPairs(listOfPairs)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
 fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 ```
@@ -5478,7 +5478,7 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 <summary><strong>R.fromPairs</strong> source</summary>
 
-```javascript
+```text
 export function fromPairs(listOfPairs){
   const toReturn = {}
   listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
@@ -5538,7 +5538,7 @@ const result = R.groupBy(groupFn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
 groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 ```
@@ -5549,7 +5549,7 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 <summary><strong>R.groupBy</strong> source</summary>
 
-```javascript
+```text
 export function groupBy(groupFn, list){
   if (arguments.length === 1) return _list => groupBy(groupFn, _list)
 
@@ -5635,7 +5635,7 @@ test('groupBy', () => {
 > Reason for the failure: ramda support transforms
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var _isTransformer = require('rambda/internal/_isTransformer');
@@ -5680,7 +5680,7 @@ const result = R.groupWith(isConsecutive, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
 groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
 groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
@@ -5692,7 +5692,7 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 <summary><strong>R.groupWith</strong> source</summary>
 
-```javascript
+```text
 export function groupWith(compareFn, list){
   if (!Array.isArray(list))
     throw new TypeError('list.reduce is not a function')
@@ -5864,7 +5864,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 has<T>(prop: string, obj: T): boolean;
 has(prop: string): <T>(obj: T) => boolean;
 ```
@@ -5875,7 +5875,7 @@ has(prop: string): <T>(obj: T) => boolean;
 
 <summary><strong>R.has</strong> source</summary>
 
-```javascript
+```text
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
 
@@ -5917,7 +5917,7 @@ test('with non-object', () => {
 > Reason for the failure: rambda does check properties from the prototype chain
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -5949,7 +5949,7 @@ head<T>(listOrString: T[]): T | undefined
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 head<T>(listOrString: T[]): T | undefined;
 head(listOrString: string): string;
 ```
@@ -5984,7 +5984,7 @@ R.identical(NaN, NaN); //=> true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 identical<T>(a: T, b: T): boolean;
 identical<T>(a: T): (b: T) => boolean;
 ```
@@ -5995,7 +5995,7 @@ identical<T>(a: T): (b: T) => boolean;
 
 <summary><strong>R.identical</strong> source</summary>
 
-```javascript
+```text
 import _objectIs from './_internals/_objectIs'
 
 export function identical(a, b){
@@ -6067,7 +6067,7 @@ R.identity(7) // => 7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 identity<T>(input: T): T;
 ```
 
@@ -6077,7 +6077,7 @@ identity<T>(input: T): T;
 
 <summary><strong>R.identity</strong> source</summary>
 
-```javascript
+```text
 export function identity(input){
   return input
 }
@@ -6130,7 +6130,7 @@ const result = [ fn(8), fn(18) ]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 ```
@@ -6141,7 +6141,7 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 <summary><strong>R.ifElse</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function ifElseFn(
@@ -6252,7 +6252,7 @@ test('curry 2', () => {
 > Reason for the failure: rambda doesn't return a curried function
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6308,7 +6308,7 @@ R.inc(1) // => 2
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 inc(x: number): number;
 ```
 
@@ -6318,7 +6318,7 @@ inc(x: number): number;
 
 <summary><strong>R.inc</strong> source</summary>
 
-```javascript
+```text
 export const inc = x => x + 1
 ```
 
@@ -6351,7 +6351,7 @@ includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
 includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
 includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
@@ -6398,7 +6398,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
 indexBy<T>(condition: string, list: ReadonlyArray<T>): { [key: string]: T };
 indexBy<T>(condition: (x: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
@@ -6411,7 +6411,7 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 <summary><strong>R.indexBy</strong> source</summary>
 
-```javascript
+```text
 import { path } from './path'
 
 function indexByPath(pathInput, list){
@@ -6577,7 +6577,7 @@ describe('indexBy', () => {
 > Reason for the failure: ramda method can act as a transducer
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6627,7 +6627,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
 indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 ```
@@ -6638,7 +6638,7 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 <summary><strong>R.indexOf</strong> source</summary>
 
-```javascript
+```text
 export function indexOf(valueToFind, list){
   if (arguments.length === 1){
     return _list => indexOf(valueToFind, _list)
@@ -6682,7 +6682,7 @@ test('indexOf', () => {
 > Reason for the failure: ramda method dispatches to `indexOf` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6759,7 +6759,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 init<T>(listOrString: ReadonlyArray<T>): T[];
 init(listOrString: string): string;
 ```
@@ -6770,7 +6770,7 @@ init(listOrString: string): string;
 
 <summary><strong>R.init</strong> source</summary>
 
-```javascript
+```text
 import baseSlice from './_internals/baseSlice'
 
 export function init(listOrString){
@@ -6833,7 +6833,7 @@ const result = intersection(listA, listB)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[];
 intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 ```
@@ -6844,7 +6844,7 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.intersection</strong> source</summary>
 
-```javascript
+```text
 import { filter } from './filter'
 import { includes } from './includes'
 
@@ -6904,7 +6904,7 @@ const result = intersperse(separator, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -6915,7 +6915,7 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.intersperse</strong> source</summary>
 
-```javascript
+```text
 export function intersperse(separator, list){
   if (arguments.length === 1) return _list => intersperse(separator, _list)
 
@@ -6986,7 +6986,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 is(targetPrototype: any, x: any): boolean;
 is(targetPrototype: any): (x: any) => boolean;
 ```
@@ -6997,7 +6997,7 @@ is(targetPrototype: any): (x: any) => boolean;
 
 <summary><strong>R.is</strong> source</summary>
 
-```javascript
+```text
 export function is(targetPrototype, x){
   if (arguments.length === 1) return _x => is(targetPrototype, _x)
 
@@ -7088,7 +7088,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 isEmpty<T>(x: T): boolean;
 ```
 
@@ -7098,7 +7098,7 @@ isEmpty<T>(x: T): boolean;
 
 <summary><strong>R.isEmpty</strong> source</summary>
 
-```javascript
+```text
 import { type } from './type.js'
 
 export function isEmpty(input){
@@ -7153,7 +7153,7 @@ test('happy', () => {
 > Reason for the failure: ramda supports typed arrays
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7196,7 +7196,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 isNil(x: any): x is null | undefined;
 ```
 
@@ -7206,7 +7206,7 @@ isNil(x: any): x is null | undefined;
 
 <summary><strong>R.isNil</strong> source</summary>
 
-```javascript
+```text
 export function isNil(x){
   return x === undefined || x === null
 }
@@ -7252,7 +7252,7 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 join(x: string, xs: ReadonlyArray<any>): string;
 join(x: string): (xs: ReadonlyArray<any>) => string;
 ```
@@ -7263,7 +7263,7 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 <summary><strong>R.join</strong> source</summary>
 
-```javascript
+```text
 export function join(glue, list){
   if (arguments.length === 1) return _list => join(glue, _list)
 
@@ -7313,7 +7313,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 keys<T extends object>(x: T): (keyof T)[];
 keys<T>(x: T): string[];
 ```
@@ -7324,7 +7324,7 @@ keys<T>(x: T): string[];
 
 <summary><strong>R.keys</strong> source</summary>
 
-```javascript
+```text
 export function keys(x){
   return Object.keys(x)
 }
@@ -7353,7 +7353,7 @@ test('happy', () => {
 > Reason for the failure: ramda method works for primitives
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7404,7 +7404,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 last<T>(listOrString: T[]): T | undefined;
 last(listOrString: string): string;
 ```
@@ -7415,7 +7415,7 @@ last(listOrString: string): string;
 
 <summary><strong>R.last</strong> source</summary>
 
-```javascript
+```text
 export function last(listOrString){
   if (typeof listOrString === 'string'){
     return listOrString[ listOrString.length - 1 ] || ''
@@ -7473,7 +7473,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
 lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 ```
@@ -7484,7 +7484,7 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 <summary><strong>R.lastIndexOf</strong> source</summary>
 
-```javascript
+```text
 import { equals } from './equals'
 
 export function lastIndexOf(target, list){
@@ -7535,7 +7535,7 @@ test('false', () => {
 > Reason for the failure: ramda method dispatches to `lastIndexOf` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7618,7 +7618,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 length<T>(listOrString: ReadonlyArray<T>): number;
 ```
 
@@ -7628,7 +7628,7 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 <summary><strong>R.length</strong> source</summary>
 
-```javascript
+```text
 export function length(x){
   if (!x || x.length === undefined){
     return NaN
@@ -7670,7 +7670,7 @@ test('with bad input returns NaN', () => {
 > Reason for the failure: ramda method supports object with `length` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7720,7 +7720,7 @@ R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ```
@@ -7731,7 +7731,7 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 <summary><strong>R.lens</strong> source</summary>
 
-```javascript
+```text
 export function lens(getter, setter){
   if (arguments.length === 1) return _setter => lens(getter, _setter)
 
@@ -7770,7 +7770,7 @@ R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 lensIndex(index: number): Lens;
 ```
 
@@ -7780,7 +7780,7 @@ lensIndex(index: number): Lens;
 
 <summary><strong>R.lensIndex</strong> source</summary>
 
-```javascript
+```text
 import { lens } from './lens'
 import { nth } from './nth'
 import { update } from './update'
@@ -7886,7 +7886,7 @@ R.over(xHeadYLens, R.negate, input)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 lensPath(path: RamdaPath): Lens;
 ```
 
@@ -7896,7 +7896,7 @@ lensPath(path: RamdaPath): Lens;
 
 <summary><strong>R.lensPath</strong> source</summary>
 
-```javascript
+```text
 import { assocPath } from './assocPath'
 import { lens } from './lens'
 import { path } from './path'
@@ -8071,7 +8071,7 @@ R.over(xLens, R.negate, input)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 lensProp(prop: string): {
 ```
 
@@ -8081,7 +8081,7 @@ lensProp(prop: string): {
 
 <summary><strong>R.lensProp</strong> source</summary>
 
-```javascript
+```text
 import { assoc } from './assoc'
 import { lens } from './lens'
 import { prop } from './prop'
@@ -8230,7 +8230,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
 map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
 map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
@@ -8245,7 +8245,7 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 <summary><strong>R.map</strong> source</summary>
 
-```javascript
+```text
 function mapObject(fn, obj){
   const willReturn = {}
 
@@ -8479,7 +8479,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 match(regExpression: RegExp, str: string): any[];
 match(regExpression: RegExp): (str: string) => any[];
 ```
@@ -8490,7 +8490,7 @@ match(regExpression: RegExp): (str: string) => any[];
 
 <summary><strong>R.match</strong> source</summary>
 
-```javascript
+```text
 export function match(pattern, input){
   if (arguments.length === 1) return _input => match(pattern, _input)
 
@@ -8556,7 +8556,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 max<T extends Ord>(x: T, y: T): T;
 max<T extends Ord>(x: T): (y: T) => T;
 ```
@@ -8567,7 +8567,7 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 <summary><strong>R.max</strong> source</summary>
 
-```javascript
+```text
 export function max(x, y){
   if (arguments.length === 1) return _y => max(x, _y)
 
@@ -8618,7 +8618,7 @@ R.maxBy(compareFn, 5, -7) // => -7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
@@ -8630,7 +8630,7 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 <summary><strong>R.maxBy</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 export function maxByFn(
@@ -8686,7 +8686,7 @@ R.mean([ 2, 7 ])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 mean(list: ReadonlyArray<number>): number;
 ```
 
@@ -8696,7 +8696,7 @@ mean(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.mean</strong> source</summary>
 
-```javascript
+```text
 import { sum } from './sum'
 
 export function mean(list){
@@ -8744,7 +8744,7 @@ R.median([ 7, 2, 10, 9 ]) // => 8
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 median(list: ReadonlyArray<number>): number;
 ```
 
@@ -8754,7 +8754,7 @@ median(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.median</strong> source</summary>
 
-```javascript
+```text
 import { mean } from './mean'
 
 export function median(list){
@@ -8817,7 +8817,7 @@ const result = R.merge(target, newProps)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
 merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 ```
@@ -8828,7 +8828,7 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 <summary><strong>R.merge</strong> source</summary>
 
-```javascript
+```text
 export function merge(target, newProps){
   if (arguments.length === 1) return _newProps => merge(target, _newProps)
 
@@ -8896,7 +8896,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 min<T extends Ord>(x: T, y: T): T;
 min<T extends Ord>(x: T): (y: T) => T;
 ```
@@ -8907,7 +8907,7 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 <summary><strong>R.min</strong> source</summary>
 
-```javascript
+```text
 export function min(x, y){
   if (arguments.length === 1) return _y => min(x, _y)
 
@@ -8954,7 +8954,7 @@ R.minBy(compareFn, -5, 2) // => -5
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
@@ -8966,7 +8966,7 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 <summary><strong>R.minBy</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 export function minByFn(
@@ -9021,7 +9021,7 @@ R.modulo(17, 3) // => 2
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 modulo(x: number, y: number): number;
 modulo(x: number): (y: number) => number;
 ```
@@ -9032,7 +9032,7 @@ modulo(x: number): (y: number) => number;
 
 <summary><strong>R.modulo</strong> source</summary>
 
-```javascript
+```text
 export function modulo(x, y){
   if (arguments.length === 1) return _y => modulo(x, _y)
 
@@ -9077,7 +9077,7 @@ R.multiply(2, 4) // => 8
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 multiply(x: number, y: number): number;
 multiply(x: number): (y: number) => number;
 ```
@@ -9088,7 +9088,7 @@ multiply(x: number): (y: number) => number;
 
 <summary><strong>R.multiply</strong> source</summary>
 
-```javascript
+```text
 export function multiply(x, y){
   if (arguments.length === 1) return _y => multiply(x, _y)
 
@@ -9132,7 +9132,7 @@ R.negate(420)// => -420
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 negate(x: number): number;
 ```
 
@@ -9142,7 +9142,7 @@ negate(x: number): number;
 
 <summary><strong>R.negate</strong> source</summary>
 
-```javascript
+```text
 export function negate(x){
   return -x
 }
@@ -9189,7 +9189,7 @@ const result = R.none(predicate, arr)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
@@ -9200,7 +9200,7 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.none</strong> source</summary>
 
-```javascript
+```text
 export function none(predicate, list){
   if (arguments.length === 1) return _list => none(predicate, _list)
 
@@ -9259,7 +9259,7 @@ R.not(false) // true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 not(input: any): boolean;
 ```
 
@@ -9269,7 +9269,7 @@ not(input: any): boolean;
 
 <summary><strong>R.not</strong> source</summary>
 
-```javascript
+```text
 export function not(input){
   return !input
 }
@@ -9322,7 +9322,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
 nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 ```
@@ -9333,7 +9333,7 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 <summary><strong>R.nth</strong> source</summary>
 
-```javascript
+```text
 export function nth(index, list){
   if (arguments.length === 1) return _list => nth(index, _list)
 
@@ -9401,7 +9401,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
 omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
 omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
@@ -9414,7 +9414,7 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 <summary><strong>R.omit</strong> source</summary>
 
-```javascript
+```text
 export function omit(propsToOmit, obj){
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
@@ -9567,7 +9567,7 @@ R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
 over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
@@ -9582,7 +9582,7 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 <summary><strong>R.over</strong> source</summary>
 
-```javascript
+```text
 const Identity = x => ({
   x,
   map : fn => Identity(fn(x)),
@@ -9635,7 +9635,7 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0, x1: V1): (x2: V2) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0): (x1: V1, x2: V2) => T;
@@ -9651,7 +9651,7 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 <summary><strong>R.partial</strong> source</summary>
 
-```javascript
+```text
 export function partial(fn, ...args){
   const len = fn.length
 
@@ -9766,7 +9766,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
 path<T>(pathToSearch: string | string[], obj: any): T | undefined;
 path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
@@ -9779,7 +9779,7 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 <summary><strong>R.path</strong> source</summary>
 
-```javascript
+```text
 export function path(list, obj){
   if (arguments.length === 1) return _obj => path(list, _obj)
 
@@ -9915,7 +9915,7 @@ describe('path with specified input', () => {
 > Reason for the failure: ramda method supports negative indices
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -9966,7 +9966,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
@@ -9978,7 +9978,7 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 <summary><strong>R.pathOr</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
@@ -10082,7 +10082,7 @@ const result = R.paths([
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
 paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
 paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
@@ -10095,7 +10095,7 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 <summary><strong>R.paths</strong> source</summary>
 
-```javascript
+```text
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
@@ -10215,7 +10215,7 @@ describe('paths', () => {
 > Reason for the failure: ramda method supports negative indices
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -10283,7 +10283,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
 pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
 pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
@@ -10296,7 +10296,7 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 <summary><strong>R.pick</strong> source</summary>
 
-```javascript
+```text
 export function pick(propsToPick, obj){
   if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
 
@@ -10468,7 +10468,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
 pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 ```
@@ -10479,7 +10479,7 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 <summary><strong>R.pickAll</strong> source</summary>
 
-```javascript
+```text
 export function pickAll(propsToPick, obj){
   if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
 
@@ -10575,7 +10575,7 @@ const result = R.pipe(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 pipe<T1>(fn0: () => T1): () => T1;
 pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -10588,7 +10588,7 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 <summary><strong>R.pipe</strong> source</summary>
 
-```javascript
+```text
 import { compose } from './compose'
 
 export function pipe(...fns){
@@ -10633,7 +10633,7 @@ test('with bad input', () => {
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
-```javascript
+```text
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -10700,7 +10700,7 @@ R.pluck(list, property)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 pluck<T>(property: number, list: ReadonlyArray<T>): T;
 pluck<K extends keyof T, T>(property: K, list: ReadonlyArray<T>): T[K][];
 pluck(property: number): <T>(list: ReadonlyArray<T>) => T;
@@ -10713,7 +10713,7 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 <summary><strong>R.pluck</strong> source</summary>
 
-```javascript
+```text
 import { map } from './map'
 
 export function pluck(property, list){
@@ -10802,7 +10802,7 @@ describe('pluck', () => {
 > Reason for the failure: ramda method behaves as a transducer
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -10849,7 +10849,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 ```
@@ -10860,7 +10860,7 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.prepend</strong> source</summary>
 
-```javascript
+```text
 export function prepend(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => prepend(x, _listOrString)
@@ -10918,7 +10918,7 @@ R.product([ 2, 3, 4 ])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 product(list: ReadonlyArray<number>): number;
 ```
 
@@ -10928,7 +10928,7 @@ product(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.product</strong> source</summary>
 
-```javascript
+```text
 import { multiply } from './multiply'
 import { reduce } from './reduce'
 
@@ -10969,7 +10969,7 @@ prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
 prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
@@ -11007,7 +11007,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
 propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
 propEq(propToFind: string | number): {
@@ -11019,7 +11019,7 @@ propEq(propToFind: string | number): {
 
 <summary><strong>R.propEq</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function propEqFn(
@@ -11061,7 +11061,7 @@ test('happy', () => {
 > Reason for the failure: ramda method pass to `equals` method if available
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -11119,7 +11119,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
 propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
 ```
@@ -11130,7 +11130,7 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 <summary><strong>R.propIs</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry.js'
 import { is } from './is'
 
@@ -11201,7 +11201,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
 propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
 propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
@@ -11213,7 +11213,7 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 <summary><strong>R.propOr</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 
@@ -11282,7 +11282,7 @@ R.range(0, 5)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 range(start: number, end: number): number[];
 range(start: number): (end: number) => number[];
 ```
@@ -11293,7 +11293,7 @@ range(start: number): (end: number) => number[];
 
 <summary><strong>R.range</strong> source</summary>
 
-```javascript
+```text
 export function range(start, end){
   if (arguments.length === 1) return _end => range(start, _end)
 
@@ -11369,7 +11369,7 @@ const result = R.reduce(reducer, initialValue, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
 reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: ReadonlyArray<T>) => TResult;
@@ -11382,7 +11382,7 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 <summary><strong>R.reduce</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function reduceFn(
@@ -11527,7 +11527,7 @@ describe('reduce', () => {
 > Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -11613,7 +11613,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
 reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
@@ -11626,7 +11626,7 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 <summary><strong>R.reject</strong> source</summary>
 
-```javascript
+```text
 import { filter } from './filter'
 
 export function reject(predicate, list){
@@ -11767,7 +11767,7 @@ describe('reject with objects', () => {
 > Reason for the failure: ramda method dispatches to `filter` method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -11816,7 +11816,7 @@ R.repeat('foo', 3)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 repeat<T>(x: T, timesToRepeat: number): T[];
 repeat<T>(x: T): (timesToRepeat: number) => T[];
 ```
@@ -11827,7 +11827,7 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 <summary><strong>R.repeat</strong> source</summary>
 
-```javascript
+```text
 export function repeat(x, timesToRepeat){
   if (arguments.length === 1){
     return _timesToRepeat => repeat(x, _timesToRepeat)
@@ -11884,7 +11884,7 @@ const result = R.replace(strOrRegex, '|0|', 'foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
 replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
 replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
@@ -11896,7 +11896,7 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 <summary><strong>R.replace</strong> source</summary>
 
-```javascript
+```text
 export function replace(
   pattern, replacer, str
 ){
@@ -11957,7 +11957,7 @@ reverse<T>(listOrString: ReadonlyArray<T>): T[]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 reverse<T>(listOrString: ReadonlyArray<T>): T[];
 reverse(listOrString: string): string;
 ```
@@ -11988,7 +11988,7 @@ R.set(xLens, 8, input) //=> {x: 8, y: 2}
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 set<T, U>(lens: Lens, replacer: U, obj: T): T;
 set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
 set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
@@ -12000,7 +12000,7 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 <summary><strong>R.set</strong> source</summary>
 
-```javascript
+```text
 import { always } from './always'
 import { over } from './over'
 
@@ -12051,7 +12051,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 slice(from: number, to: number, list: string): string;
 slice<T>(from: number, to: number, list: T[]): T[];
 slice(frp,: number, to: number): {
@@ -12063,7 +12063,7 @@ slice(frp,: number, to: number): {
 
 <summary><strong>R.slice</strong> source</summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 function sliceFn(
@@ -12140,7 +12140,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
 sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 ```
@@ -12151,7 +12151,7 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.sort</strong> source</summary>
 
-```javascript
+```text
 export function sort(sortFn, list){
   if (arguments.length === 1) return _list => sort(sortFn, _list)
 
@@ -12222,7 +12222,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
 sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 ```
@@ -12233,7 +12233,7 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.sortBy</strong> source</summary>
 
-```javascript
+```text
 export function sortBy(sortFn, list){
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
@@ -12327,7 +12327,7 @@ describe('sortBy', () => {
 > Reason for the failure: ramda works with array-like objects
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -12382,7 +12382,7 @@ const result = R.split(separator, str))
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 split(separator: string | RegExp): (str: string) => string[];
 split(separator: string | RegExp, str: string): string[];
 ```
@@ -12393,7 +12393,7 @@ split(separator: string | RegExp, str: string): string[];
 
 <summary><strong>R.split</strong> source</summary>
 
-```javascript
+```text
 export function split(separator, str){
   if (arguments.length === 1) return _str => split(separator, _str)
 
@@ -12432,7 +12432,7 @@ splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];
 splitEvery(sliceLength: number, listOrString: string): string[];
 splitEvery(sliceLength: number): {
@@ -12466,7 +12466,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 startsWith(target: string, str: string): boolean;
 startsWith(target: string): (str: string) => boolean;
 ```
@@ -12477,7 +12477,7 @@ startsWith(target: string): (str: string) => boolean;
 
 <summary><strong>R.startsWith</strong> source</summary>
 
-```javascript
+```text
 export function startsWith(target, str){
   if (arguments.length === 1) return _str => startsWith(target, _str)
 
@@ -12516,7 +12516,7 @@ test('false', () => {
 > Reason for the failure: rambda doesn't support arrays
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -12552,7 +12552,7 @@ subtract(x: number, y: number): number
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 subtract(x: number, y: number): number;
 subtract(x: number): (y: number) => number;
 ```
@@ -12579,7 +12579,7 @@ R.sum([1, 2, 3, 4, 5])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 sum(list: ReadonlyArray<number>): number;
 ```
 
@@ -12589,7 +12589,7 @@ sum(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.sum</strong> source</summary>
 
-```javascript
+```text
 export function sum(list){
   return list.reduce((prev, current) => prev + current, 0)
 }
@@ -12635,7 +12635,7 @@ const result = symmetricDifference(x, y)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
 symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 ```
@@ -12646,7 +12646,7 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.symmetricDifference</strong> source</summary>
 
-```javascript
+```text
 import { concat } from './concat'
 import { filter } from './filter'
 import { includes } from './includes'
@@ -12712,7 +12712,7 @@ R.T()
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 T(): boolean;
 ```
 
@@ -12722,7 +12722,7 @@ T(): boolean;
 
 <summary><strong>R.T</strong> source</summary>
 
-```javascript
+```text
 export function T(){
   return true
 }
@@ -12754,7 +12754,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 tail<T>(listOrString: ReadonlyArray<T>): T[];
 tail(listOrString: string): string;
 ```
@@ -12765,7 +12765,7 @@ tail(listOrString: string): string;
 
 <summary><strong>R.tail</strong> source</summary>
 
-```javascript
+```text
 import { drop } from './drop'
 
 export function tail(listOrString){
@@ -12823,7 +12823,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 take(howMany: number, listOrString: string): string;
 take<T>(howMany: number): {
@@ -12835,7 +12835,7 @@ take<T>(howMany: number): {
 
 <summary><strong>R.take</strong> source</summary>
 
-```javascript
+```text
 import baseSlice from './_internals/baseSlice'
 
 export function take(howMany, listOrString){
@@ -12891,7 +12891,7 @@ test('with zero index', () => {
 > Reason for the failure: rambda doesn't have 'R.into` method
 </summary>
 
-```javascript
+```text
 var assert = require('assert');
 var sinon = require('sinon');
 
@@ -12943,7 +12943,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 takeLast(howMany: number, listOrString: string): string;
 takeLast<T>(howMany: number): {
@@ -12955,7 +12955,7 @@ takeLast<T>(howMany: number): {
 
 <summary><strong>R.takeLast</strong> source</summary>
 
-```javascript
+```text
 import baseSlice from './_internals/baseSlice'
 
 export function takeLast(howMany, listOrString){
@@ -13041,7 +13041,7 @@ R.compose(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 tap<T>(fn: (a: T) => any, x: T): T;
 tap<T>(fn: (a: T) => any): (x: T) => T;
 ```
@@ -13052,7 +13052,7 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 <summary><strong>R.tap</strong> source</summary>
 
-```javascript
+```text
 export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
 
@@ -13090,7 +13090,7 @@ test('tap', () => {
 > Reason for the failure: ramda can act as a transducer
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var listXf = require('./helpers/listXf');
@@ -13140,7 +13140,7 @@ R.test(/^f/, 'foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 test(regExpression: RegExp): (str: string) => boolean;
 test(regExpression: RegExp, str: string): boolean;
 ```
@@ -13151,7 +13151,7 @@ test(regExpression: RegExp, str: string): boolean;
 
 <summary><strong>R.test</strong> source</summary>
 
-```javascript
+```text
 export function test(pattern, str){
   if (arguments.length === 1) return _str => test(pattern, _str)
 
@@ -13211,7 +13211,7 @@ R.times(fn, howMany)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 times<T>(fn: (i: number) => T, howMany: number): T[];
 times<T>(fn: (i: number) => T): (howMany: number) => T[];
 ```
@@ -13222,7 +13222,7 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 <summary><strong>R.times</strong> source</summary>
 
-```javascript
+```text
 import { map } from './map'
 import { range } from './range'
 
@@ -13292,7 +13292,7 @@ R.toLower('FOO')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 toLower(str: string): string;
 ```
 
@@ -13302,7 +13302,7 @@ toLower(str: string): string;
 
 <summary><strong>R.toLower</strong> source</summary>
 
-```javascript
+```text
 export function toLower(str){
   return str.toLowerCase()
 }
@@ -13352,7 +13352,7 @@ const result = R.toPairs(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 ```
 
@@ -13362,7 +13362,7 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 <summary><strong>R.toPairs</strong> source</summary>
 
-```javascript
+```text
 export function toPairs(obj){
   return Object.entries(obj)
 }
@@ -13415,7 +13415,7 @@ R.toString([1, 2])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 toString<T>(x: T): string;
 ```
 
@@ -13425,7 +13425,7 @@ toString<T>(x: T): string;
 
 <summary><strong>R.toString</strong> source</summary>
 
-```javascript
+```text
 export function toString(val){
   return val.toString()
 }
@@ -13467,7 +13467,7 @@ R.toUpper('foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 toUpper(str: string): string;
 ```
 
@@ -13477,7 +13477,7 @@ toUpper(str: string): string;
 
 <summary><strong>R.toUpper</strong> source</summary>
 
-```javascript
+```text
 export function toUpper(str){
   return str.toUpperCase()
 }
@@ -13522,7 +13522,7 @@ const result = R.transpose(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 transpose<T>(list: T[][]): T[][];
 ```
 
@@ -13532,7 +13532,7 @@ transpose<T>(list: T[][]): T[][];
 
 <summary><strong>R.transpose</strong> source</summary>
 
-```javascript
+```text
 export function transpose(array){
   return array.reduce((acc, el) => {
     el.forEach((nestedEl, i) =>
@@ -13612,7 +13612,7 @@ R.trim('  foo  ')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 trim(str: string): string;
 ```
 
@@ -13622,7 +13622,7 @@ trim(str: string): string;
 
 <summary><strong>R.trim</strong> source</summary>
 
-```javascript
+```text
 export function trim(str){
   return str.trim()
 }
@@ -13651,7 +13651,7 @@ test('trim', () => {
 > Reason for the failure: ramda trims all ES5 whitespace
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -13689,7 +13689,7 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 ```
 
@@ -13718,7 +13718,7 @@ R.uniq(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 uniq<T>(list: ReadonlyArray<T>): T[];
 ```
 
@@ -13728,7 +13728,7 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 <summary><strong>R.uniq</strong> source</summary>
 
-```javascript
+```text
 import { includes } from './includes'
 
 export function uniq(list){
@@ -13790,7 +13790,7 @@ describe('uniq', () => {
 > Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -13852,7 +13852,7 @@ const result = R.uniqWith(uniqFn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 ```
@@ -13863,7 +13863,7 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 <summary><strong>R.uniqWith</strong> source</summary>
 
-```javascript
+```text
 import { any } from './any'
 
 export function uniqWith(fn, list){
@@ -14062,7 +14062,7 @@ const result = update(index, newValue, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
 update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -14073,7 +14073,7 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.update</strong> source</summary>
 
-```javascript
+```text
 export function update(
   idx, val, list
 ){
@@ -14138,7 +14138,7 @@ describe('update', () => {
 > Reason for the failure: ramda accepts an array-like object
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -14178,7 +14178,7 @@ R.values(obj)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 values<T extends object, K extends keyof T>(obj: T): T[K][];
 ```
 
@@ -14188,7 +14188,7 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 <summary><strong>R.values</strong> source</summary>
 
-```javascript
+```text
 import { type } from './type.js'
 
 export function values(obj){
@@ -14274,7 +14274,7 @@ R.view(lens, {x: 4, y: 2}) //=> 4
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 view<T, U>(lens: Lens): (target: T) => U;
 view<T, U>(lens: Lens, target: T): U;
 ```
@@ -14285,7 +14285,7 @@ view<T, U>(lens: Lens, target: T): U;
 
 <summary><strong>R.view</strong> source</summary>
 
-```javascript
+```text
 const Const = x => ({
   x,
   map : fn => Const(x),
@@ -14313,7 +14313,7 @@ without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 ```
@@ -14344,7 +14344,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 xor(x: boolean, y: boolean): boolean;
 xor(y: boolean): (y: boolean) => boolean;
 ```
@@ -14355,7 +14355,7 @@ xor(y: boolean): (y: boolean) => boolean;
 
 <summary><strong>R.xor</strong> source</summary>
 
-```javascript
+```text
 export function xor(a, b){
   if (arguments.length === 1) return _b => xor(a, _b)
 
@@ -14452,7 +14452,7 @@ describe('xor', () => {
 > Reason for the failure: ramda support empty call of method
 </summary>
 
-```javascript
+```text
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -14498,7 +14498,7 @@ R.zip([...x, 3], ['A', 'B'])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[];
 zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 ```
@@ -14509,7 +14509,7 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 <summary><strong>R.zip</strong> source</summary>
 
-```javascript
+```text
 export function zip(left, right){
   if (arguments.length === 1) return _right => zip(left, _right)
 
@@ -14603,7 +14603,7 @@ zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: stri
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```text
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
 zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
 ```
