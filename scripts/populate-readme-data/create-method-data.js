@@ -9,7 +9,9 @@ function createFailedSpec(method){
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
+\`\`\`javascript
 {{failedRamdaSpecs}}
+\`\`\`
 
 
 </details>
@@ -24,7 +26,9 @@ function createRambdaSpecReadme(method){
 
 <summary><strong>Tests</strong></summary>
 
+\`\`\`javascript
 {{rambdaSpecs}}
+\`\`\`
 
 </details>
 `
@@ -32,14 +36,15 @@ function createRambdaSpecReadme(method){
   return template(summaryTemplate, method)
 }
 
-
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
 <details>
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
 
+\`\`\`javascript
 {{rambdaSource}}
+\`\`\`
 
 </details>
 `
@@ -53,9 +58,9 @@ function createTypescriptTest(method){
 
 <summary><strong>Typescript</strong> test</summary>
 
-\`\`\`text
+\`\`\`typescript
 {{typescriptDefinitionTest}}
-\`\`\`text
+\`\`\`
 
 </details>
 `
@@ -69,7 +74,7 @@ function createBenchmarkInfo(method){
 
 <summary>{{methodSummary}}</summary>
 
-\`\`\`text
+\`\`\`javascript
 {{benchmarkContent}}
 \`\`\`
 
@@ -85,7 +90,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`\`\`text
+\`\`\`typescript
 {{allTypings}}
 \`\`\`
 
@@ -103,12 +108,13 @@ ${ example }
 
 const createNoteReadme = ({ note }) => `
 > Note
-
 ${ note }
 `
 
 const attachTyping = ({ typing }) => `
-\`${ typing }\`
+\`\`\`typescript
+${ typing }
+\`\`\`
 \n`
 
 const getIntro = ({ methodName }) => [ `### ${ methodName }`, '\n\n' ]
@@ -132,12 +138,11 @@ export function createMethodData(method){
   if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
-  if (method.typescriptDefinitionTest){
+  if (method.typescriptDefinitionTest)
     data.push(createTypescriptTest(method))
-  }
 
   if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
   if (hasFailedSpec) data.push(createFailedSpec(method))
 
-  return data.join('\n')
+  return data.join('')
 }
