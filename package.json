@@ -21,9 +21,9 @@
     "fs-extra": "^9.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.9.5",
-    "@babel/preset-env": "7.9.0",
+    "@babel/core": "7.9.6",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.6",
+    "@babel/preset-env": "7.9.6",
     "@types/jest": "25.2.1",
     "@types/ramda": "0.27.0",
     "cross-env": "7.0.2",
