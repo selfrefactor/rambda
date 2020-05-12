@@ -129,20 +129,20 @@ export function createMethodData(method){
 
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
-  // if (method.explanation) data.push('\n')
-  // if (method.example) data.push(createExampleReadme(method))
-  // if (method.replLink) data.push(createReplReadme(method))
-  // if (method.replLink) data.push('\n')
-  // if (method.allTypings) data.push(attachAllTypings(method))
-  // if (method.note) data.push(createNoteReadme(method))
-  // if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
-  // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+  if (method.explanation) data.push('\n')
+  if (method.example) data.push(createExampleReadme(method))
+  if (method.replLink) data.push(createReplReadme(method))
+  if (method.replLink) data.push('\n')
+  if (method.allTypings) data.push(attachAllTypings(method))
+  if (method.note) data.push(createNoteReadme(method))
+  if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
+  if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
-  // if (method.typescriptDefinitionTest)
-  //   data.push(createTypescriptTest(method))
+  if (method.typescriptDefinitionTest)
+    data.push(createTypescriptTest(method))
 
-  // if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
-  // if (hasFailedSpec) data.push(createFailedSpec(method))
+  if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
+  if (hasFailedSpec) data.push(createFailedSpec(method))
 
   return data.join('')
 }
