@@ -34,6 +34,10 @@ function getMissingMethods(){
 
 const templateIntro = `
 {{intro}}
+`
+
+const templateIntrox = `
+{{intro}}
 {{missingMethods}}
 {{introEnd}}
 
