@@ -42,7 +42,9 @@ function createRambdaSourceReadme(method){
 
 <summary>R.{{methodName}} source</summary>
 
-{{rambdaSource}}
+\`\`\`
+{{rambdaSpecs}}
+\`\`\`
 
 </details>
 `
