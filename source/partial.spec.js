@@ -3,18 +3,20 @@ import { type } from './type'
 
 const greet = (
   salutation, title, firstName, lastName
-) =>
-  salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
 
 test('happy', () => {
   const canPassAnyNumberOfArguments = partial(
     greet, 'Hello', 'Ms.'
   )
   const fn = canPassAnyNumberOfArguments('foo')
+  const sayHello = partial(greet, [ 'Hello' ])
+  const sayHelloRamda = partial(sayHello, [ 'Ms.' ])
 
   expect(type(fn)).toBe('Function')
 
   expect(fn('bar')).toBe('Hello, Ms. foo bar!')
+  expect(sayHelloRamda('foo', 'bar')).toBe('Hello, Ms. foo bar!')
 })
 
 test('extra arguments are ignored', () => {

@@ -212,25 +212,15 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 
 - Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
 
-- Rambda's **path** and **paths** accepts dot notation(`'x.y' same as ['x','y']`)
+- Rambda's **path** and **paths** accept dot notation - `'x.y' same as ['x','y']`
 
-- Rambda's **pick** and **omit** accept comma notation(`'x,y' same as ['x','y']`)
+- Rambda's **pick** and **omit** accept comma notation - `'x,y' same as ['x','y']`
 
 - Rambda's **map**, **reject** and **forEach** can iterate over objects not only arrays.
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 
-- Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
-
 - Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
-
-- Rambda's **startsWith/endsWith** work only with strings, instead with array and strings.
-
-- Rambda's **equals** doesn't protect against circular structures as **Ramda.equals** does.
-
-- Rambda's **flip** works only for functions expecting two arguments.
-
-- Rambda's **partial** doesn't need the input arguments to be wrapped as array.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 

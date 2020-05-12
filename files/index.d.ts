@@ -769,7 +769,7 @@ R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
 
 Categories: Logic
 
-Notes: `Ramda` library works with a single input argument, while `Rambda` allows multiple arguments.
+Notes: Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 */
 // @SINGLE_MARKER
@@ -1169,7 +1169,7 @@ const result = [
 
 Categories: Function
 
-Notes:
+Notes: Rambda's **flip** works only for functions expecting two arguments.
 
 */
 // @SINGLE_MARKER
@@ -2365,7 +2365,9 @@ const fn = (title, firstName, lastName) => {
   return title + ' ' + firstName + ' ' + lastName + '!'
 }
 
-const canPassAnyNumberOfArguments = partial(fn, 'Hello')
+const canPassAnyNumberOfArguments = R.partial(fn, 'Hello')
+const ramdaStyle = R.partial(fn, ['Hello'])
+
 const finalFn = canPassAnyNumberOfArguments('Foo')
 
 finalFn('Bar') // =>  'Hello, Foo Bar!'
@@ -2373,7 +2375,7 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 
 Categories: Logic
 
-Notes:
+Notes: Rambda's **partial** doesn't need the input arguments to be wrapped as array.
 
 */
 // @SINGLE_MARKER
