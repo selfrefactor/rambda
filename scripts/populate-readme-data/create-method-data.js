@@ -38,6 +38,10 @@ function createRambdaSpecReadme(method){
 
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
+---
+R.{{methodName}}
+---
+
 <details>
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
@@ -47,6 +51,7 @@ function createRambdaSourceReadme(method){
 \`\`\`
 
 </details>
+---
 `
 
   return template(summaryTemplate, method)

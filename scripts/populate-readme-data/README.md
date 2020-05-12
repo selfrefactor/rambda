@@ -358,6 +358,10 @@ add(a: number): (b: number) => number;
 
 </details>
 
+---
+R.add
+---
+
 <details>
 
 <summary><strong>R.add</strong> source</summary>
@@ -371,6 +375,7 @@ export function add(a, b){
 ```
 
 </details>
+---
 
 <details>
 
@@ -422,6 +427,10 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 </details>
 
+---
+R.adjust
+---
+
 <details>
 
 <summary><strong>R.adjust</strong> source</summary>
@@ -445,6 +454,7 @@ export const adjust = curry(adjustFn)
 ```
 
 </details>
+---
 
 <details>
 
@@ -501,6 +511,10 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
+---
+R.all
+---
+
 <details>
 
 <summary><strong>R.all</strong> source</summary>
@@ -518,6 +532,7 @@ export function all(predicate, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -577,6 +592,10 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 </details>
 
+---
+R.allPass
+---
+
 <details>
 
 <summary><strong>R.allPass</strong> source</summary>
@@ -598,6 +617,7 @@ export function allPass(predicates){
 ```
 
 </details>
+---
 
 <details>
 
@@ -680,6 +700,10 @@ always<T>(x: T): () => T;
 
 </details>
 
+---
+R.always
+---
+
 <details>
 
 <summary><strong>R.always</strong> source</summary>
@@ -691,6 +715,7 @@ export function always(x){
 ```
 
 </details>
+---
 
 
 ### and
@@ -720,6 +745,10 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 </details>
 
+---
+R.and
+---
+
 <details>
 
 <summary><strong>R.and</strong> source</summary>
@@ -733,6 +762,7 @@ export function and(a, b){
 ```
 
 </details>
+---
 
 
 ### any
@@ -766,6 +796,10 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
+---
+R.any
+---
+
 <details>
 
 <summary><strong>R.any</strong> source</summary>
@@ -787,6 +821,7 @@ export function any(predicate, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -872,6 +907,10 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 </details>
 
+---
+R.anyPass
+---
+
 <details>
 
 <summary><strong>R.anyPass</strong> source</summary>
@@ -893,6 +932,7 @@ export function anyPass(predicates){
 ```
 
 </details>
+---
 
 <details>
 
@@ -980,6 +1020,10 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.append
+---
+
 <details>
 
 <summary><strong>R.append</strong> source</summary>
@@ -999,6 +1043,7 @@ export function append(x, listOrString){
 ```
 
 </details>
+---
 
 
 ### applySpec
@@ -1047,6 +1092,10 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ```
 
 </details>
+
+---
+R.applySpec
+---
 
 <details>
 
@@ -1186,6 +1235,7 @@ export function applySpec(spec, ...args){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1248,6 +1298,10 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 </details>
 
+---
+R.assoc
+---
+
 <details>
 
 <summary><strong>R.assoc</strong> source</summary>
@@ -1267,6 +1321,7 @@ export const assoc = curry(assocFn)
 ```
 
 </details>
+---
 
 
 ### assocPath
@@ -1300,6 +1355,10 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 ```
 
 </details>
+
+---
+R.assocPath
+---
 
 <details>
 
@@ -1353,6 +1412,7 @@ export const assocPath = curry(assocPathFn)
 ```
 
 </details>
+---
 
 
 ### both
@@ -1390,6 +1450,10 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 </details>
 
+---
+R.both
+---
+
 <details>
 
 <summary><strong>R.both</strong> source</summary>
@@ -1403,6 +1467,7 @@ export function both(f, g){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1526,6 +1591,10 @@ clamp(min: number, max: number): (input: number) => number;
 
 </details>
 
+---
+R.clamp
+---
+
 <details>
 
 <summary><strong>R.clamp</strong> source</summary>
@@ -1546,6 +1615,7 @@ export const clamp = curry(clampFn)
 ```
 
 </details>
+---
 
 
 ### clone
@@ -1601,6 +1671,10 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 </details>
 
+---
+R.complement
+---
+
 <details>
 
 <summary><strong>R.complement</strong> source</summary>
@@ -1612,6 +1686,7 @@ export function complement(fn){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1673,6 +1748,10 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 </details>
 
+---
+R.compose
+---
+
 <details>
 
 <summary><strong>R.compose</strong> source</summary>
@@ -1699,6 +1778,7 @@ export function compose(...fns){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1792,6 +1872,10 @@ concat(x: string): (y: string) => string;
 
 </details>
 
+---
+R.concat
+---
+
 <details>
 
 <summary><strong>R.concat</strong> source</summary>
@@ -1805,6 +1889,7 @@ export function concat(x, y){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1879,6 +1964,10 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 </details>
 
+---
+R.cond
+---
+
 <details>
 
 <summary><strong>R.cond</strong> source</summary>
@@ -1901,6 +1990,7 @@ export function cond(conditions){
 ```
 
 </details>
+---
 
 <details>
 
@@ -1992,6 +2082,10 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 </details>
 
+---
+R.curry
+---
+
 <details>
 
 <summary><strong>R.curry</strong> source</summary>
@@ -2007,6 +2101,7 @@ export function curry(fn, args = []){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2131,6 +2226,10 @@ dec(x: number): number;
 
 </details>
 
+---
+R.dec
+---
+
 <details>
 
 <summary><strong>R.dec</strong> source</summary>
@@ -2140,6 +2239,7 @@ export const dec = x => x - 1
 ```
 
 </details>
+---
 
 
 ### defaultTo
@@ -2177,6 +2277,10 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 ```
 
 </details>
+
+---
+R.defaultTo
+---
 
 <details>
 
@@ -2221,6 +2325,7 @@ export function defaultTo(defaultArgument, ...inputArguments){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2304,6 +2409,10 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.difference
+---
+
 <details>
 
 <summary><strong>R.difference</strong> source</summary>
@@ -2320,6 +2429,7 @@ export function difference(a, b){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2383,6 +2493,10 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 </details>
 
+---
+R.dissoc
+---
+
 <details>
 
 <summary><strong>R.dissoc</strong> source</summary>
@@ -2404,6 +2518,7 @@ export function dissoc(prop, obj){
 ```
 
 </details>
+---
 
 
 ### divide
@@ -2431,6 +2546,10 @@ divide(a: number): (b: number) => number;
 
 </details>
 
+---
+R.divide
+---
+
 <details>
 
 <summary><strong>R.divide</strong> source</summary>
@@ -2444,6 +2563,7 @@ export function divide(a, b){
 ```
 
 </details>
+---
 
 
 ### drop
@@ -2474,6 +2594,10 @@ drop<T>(howManyToDrop: number): {
 
 </details>
 
+---
+R.drop
+---
+
 <details>
 
 <summary><strong>R.drop</strong> source</summary>
@@ -2487,6 +2611,7 @@ export function drop(howManyToDrop, listOrString){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2540,6 +2665,10 @@ dropLast<T>(howManyToDrop: number): {
 
 </details>
 
+---
+R.dropLast
+---
+
 <details>
 
 <summary><strong>R.dropLast</strong> source</summary>
@@ -2557,6 +2686,7 @@ export function dropLast(howManyToDrop, listOrString){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2633,6 +2763,10 @@ endsWith(target: string): (str: string) => boolean;
 
 </details>
 
+---
+R.endsWith
+---
+
 <details>
 
 <summary><strong>R.endsWith</strong> source</summary>
@@ -2646,6 +2780,7 @@ export function endsWith(target, str){
 ```
 
 </details>
+---
 
 <details>
 
@@ -2706,6 +2841,10 @@ equals<T>(a: T): (b: T) => boolean;
 ```
 
 </details>
+
+---
+R.equals
+---
 
 <details>
 
@@ -2816,6 +2955,7 @@ export function equals(a, b){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3027,6 +3167,10 @@ F(): boolean;
 
 </details>
 
+---
+R.F
+---
+
 <details>
 
 <summary><strong>R.F</strong> source</summary>
@@ -3038,6 +3182,7 @@ export function F(){
 ```
 
 </details>
+---
 
 
 ### filter
@@ -3077,6 +3222,10 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 ```
 
 </details>
+
+---
+R.filter
+---
 
 <details>
 
@@ -3124,6 +3273,7 @@ export function filter(predicate, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3273,6 +3423,10 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 </details>
 
+---
+R.find
+---
+
 <details>
 
 <summary><strong>R.find</strong> source</summary>
@@ -3286,6 +3440,7 @@ export function find(predicate, list){
 ```
 
 </details>
+---
 
 
 ### findIndex
@@ -3320,6 +3475,10 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 </details>
 
+---
+R.findIndex
+---
+
 <details>
 
 <summary><strong>R.findIndex</strong> source</summary>
@@ -3342,6 +3501,7 @@ export function findIndex(predicate, list){
 ```
 
 </details>
+---
 
 
 ### flatten
@@ -3375,6 +3535,10 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 </details>
 
+---
+R.flatten
+---
+
 <details>
 
 <summary><strong>R.flatten</strong> source</summary>
@@ -3396,6 +3560,7 @@ export function flatten(list, input){
 ```
 
 </details>
+---
 
 
 ### flip
@@ -3429,6 +3594,10 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 </details>
 
+---
+R.flip
+---
+
 <details>
 
 <summary><strong>R.flip</strong> source</summary>
@@ -3452,6 +3621,7 @@ export function flip(fn){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3533,6 +3703,10 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 </details>
 
+---
+R.forEach
+---
+
 <details>
 
 <summary><strong>R.forEach</strong> source</summary>
@@ -3550,6 +3724,7 @@ export function forEach(predicate, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3616,6 +3791,10 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 </details>
 
+---
+R.fromPairs
+---
+
 <details>
 
 <summary><strong>R.fromPairs</strong> source</summary>
@@ -3630,6 +3809,7 @@ export function fromPairs(listOfPairs){
 ```
 
 </details>
+---
 
 
 ### groupBy
@@ -3662,6 +3842,10 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 </details>
 
+---
+R.groupBy
+---
+
 <details>
 
 <summary><strong>R.groupBy</strong> source</summary>
@@ -3687,6 +3871,7 @@ export function groupBy(groupFn, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3748,6 +3933,10 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 </details>
 
+---
+R.groupWith
+---
+
 <details>
 
 <summary><strong>R.groupWith</strong> source</summary>
@@ -3797,6 +3986,7 @@ export function groupWith(compareFn, list){
 ```
 
 </details>
+---
 
 
 ### has
@@ -3831,6 +4021,10 @@ has(prop: string): <T>(obj: T) => boolean;
 
 </details>
 
+---
+R.has
+---
+
 <details>
 
 <summary><strong>R.has</strong> source</summary>
@@ -3846,6 +4040,7 @@ export function has(prop, obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -3928,6 +4123,10 @@ identical<T>(a: T): (b: T) => boolean;
 
 </details>
 
+---
+R.identical
+---
+
 <details>
 
 <summary><strong>R.identical</strong> source</summary>
@@ -3943,6 +4142,7 @@ export function identical(a, b){
 ```
 
 </details>
+---
 
 
 ### identity
@@ -3970,6 +4170,10 @@ identity<T>(input: T): T;
 
 </details>
 
+---
+R.identity
+---
+
 <details>
 
 <summary><strong>R.identity</strong> source</summary>
@@ -3981,6 +4185,7 @@ export function identity(input){
 ```
 
 </details>
+---
 
 
 ### ifElse
@@ -4018,6 +4223,10 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 </details>
 
+---
+R.ifElse
+---
+
 <details>
 
 <summary><strong>R.ifElse</strong> source</summary>
@@ -4044,6 +4253,7 @@ export const ifElse = curry(ifElseFn)
 ```
 
 </details>
+---
 
 <details>
 
@@ -4114,6 +4324,10 @@ inc(x: number): number;
 
 </details>
 
+---
+R.inc
+---
+
 <details>
 
 <summary><strong>R.inc</strong> source</summary>
@@ -4123,6 +4337,7 @@ export const inc = x => x + 1
 ```
 
 </details>
+---
 
 
 ### includes
@@ -4193,6 +4408,10 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 </details>
 
+---
+R.indexBy
+---
+
 <details>
 
 <summary><strong>R.indexBy</strong> source</summary>
@@ -4230,6 +4449,7 @@ export function indexBy(condition, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -4340,6 +4560,10 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
+---
+R.indexOf
+---
+
 <details>
 
 <summary><strong>R.indexOf</strong> source</summary>
@@ -4364,6 +4588,7 @@ export function indexOf(valueToFind, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -4456,6 +4681,10 @@ init(listOrString: string): string;
 
 </details>
 
+---
+R.init
+---
+
 <details>
 
 <summary><strong>R.init</strong> source</summary>
@@ -4473,6 +4702,7 @@ export function init(listOrString){
 ```
 
 </details>
+---
 
 
 ### intersection
@@ -4505,6 +4735,10 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.intersection
+---
+
 <details>
 
 <summary><strong>R.intersection</strong> source</summary>
@@ -4521,6 +4755,7 @@ export function intersection(listA, listB){
 ```
 
 </details>
+---
 
 
 ### intersperse
@@ -4552,6 +4787,10 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.intersperse
+---
+
 <details>
 
 <summary><strong>R.intersperse</strong> source</summary>
@@ -4577,6 +4816,7 @@ export function intersperse(separator, list){
 ```
 
 </details>
+---
 
 
 ### is
@@ -4609,6 +4849,10 @@ is(targetPrototype: any): (x: any) => boolean;
 
 </details>
 
+---
+R.is
+---
+
 <details>
 
 <summary><strong>R.is</strong> source</summary>
@@ -4625,6 +4869,7 @@ export function is(targetPrototype, x){
 ```
 
 </details>
+---
 
 
 ### isEmpty
@@ -4656,6 +4901,10 @@ isEmpty<T>(x: T): boolean;
 
 </details>
 
+---
+R.isEmpty
+---
+
 <details>
 
 <summary><strong>R.isEmpty</strong> source</summary>
@@ -4682,6 +4931,7 @@ export function isEmpty(input){
 ```
 
 </details>
+---
 
 <details>
 
@@ -4739,6 +4989,10 @@ isNil(x: any): x is null | undefined;
 
 </details>
 
+---
+R.isNil
+---
+
 <details>
 
 <summary><strong>R.isNil</strong> source</summary>
@@ -4750,6 +5004,7 @@ export function isNil(x){
 ```
 
 </details>
+---
 
 
 ### join
@@ -4778,6 +5033,10 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 </details>
 
+---
+R.join
+---
+
 <details>
 
 <summary><strong>R.join</strong> source</summary>
@@ -4791,6 +5050,7 @@ export function join(glue, list){
 ```
 
 </details>
+---
 
 
 ### keys
@@ -4819,6 +5079,10 @@ keys<T>(x: T): string[];
 
 </details>
 
+---
+R.keys
+---
+
 <details>
 
 <summary><strong>R.keys</strong> source</summary>
@@ -4830,6 +5094,7 @@ export function keys(x){
 ```
 
 </details>
+---
 
 <details>
 
@@ -4896,6 +5161,10 @@ last(listOrString: string): string;
 
 </details>
 
+---
+R.last
+---
+
 <details>
 
 <summary><strong>R.last</strong> source</summary>
@@ -4911,6 +5180,7 @@ export function last(listOrString){
 ```
 
 </details>
+---
 
 
 ### lastIndexOf
@@ -4948,6 +5218,10 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
+---
+R.lastIndexOf
+---
+
 <details>
 
 <summary><strong>R.lastIndexOf</strong> source</summary>
@@ -4971,6 +5245,7 @@ export function lastIndexOf(target, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -5068,6 +5343,10 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 </details>
 
+---
+R.length
+---
+
 <details>
 
 <summary><strong>R.length</strong> source</summary>
@@ -5083,6 +5362,7 @@ export function length(x){
 ```
 
 </details>
+---
 
 <details>
 
@@ -5148,6 +5428,10 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 </details>
 
+---
+R.lens
+---
+
 <details>
 
 <summary><strong>R.lens</strong> source</summary>
@@ -5165,6 +5449,7 @@ export function lens(getter, setter){
 ```
 
 </details>
+---
 
 
 ### lensIndex
@@ -5197,6 +5482,10 @@ lensIndex(index: number): Lens;
 
 </details>
 
+---
+R.lensIndex
+---
+
 <details>
 
 <summary><strong>R.lensIndex</strong> source</summary>
@@ -5212,6 +5501,7 @@ export function lensIndex(index){
 ```
 
 </details>
+---
 
 
 ### lensPath
@@ -5248,6 +5538,10 @@ lensPath(path: RamdaPath): Lens;
 
 </details>
 
+---
+R.lensPath
+---
+
 <details>
 
 <summary><strong>R.lensPath</strong> source</summary>
@@ -5263,6 +5557,7 @@ export function lensPath(key){
 ```
 
 </details>
+---
 
 
 ### lensProp
@@ -5300,6 +5595,10 @@ lensProp(prop: string): {
 
 </details>
 
+---
+R.lensProp
+---
+
 <details>
 
 <summary><strong>R.lensProp</strong> source</summary>
@@ -5315,6 +5614,7 @@ export function lensProp(key){
 ```
 
 </details>
+---
 
 
 ### map
@@ -5361,6 +5661,10 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 </details>
 
+---
+R.map
+---
+
 <details>
 
 <summary><strong>R.map</strong> source</summary>
@@ -5401,6 +5705,7 @@ export function map(fn, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -5532,6 +5837,10 @@ match(regExpression: RegExp): (str: string) => any[];
 
 </details>
 
+---
+R.match
+---
+
 <details>
 
 <summary><strong>R.match</strong> source</summary>
@@ -5547,6 +5856,7 @@ export function match(pattern, input){
 ```
 
 </details>
+---
 
 
 ### max
@@ -5579,6 +5889,10 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
+---
+R.max
+---
+
 <details>
 
 <summary><strong>R.max</strong> source</summary>
@@ -5592,6 +5906,7 @@ export function max(x, y){
 ```
 
 </details>
+---
 
 
 ### maxBy
@@ -5623,6 +5938,10 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
+---
+R.maxBy
+---
+
 <details>
 
 <summary><strong>R.maxBy</strong> source</summary>
@@ -5640,6 +5959,7 @@ export const maxBy = curry(maxByFn)
 ```
 
 </details>
+---
 
 
 ### mean
@@ -5668,6 +5988,10 @@ mean(list: ReadonlyArray<number>): number;
 
 </details>
 
+---
+R.mean
+---
+
 <details>
 
 <summary><strong>R.mean</strong> source</summary>
@@ -5681,6 +6005,7 @@ export function mean(list){
 ```
 
 </details>
+---
 
 
 ### median
@@ -5708,6 +6033,10 @@ median(list: ReadonlyArray<number>): number;
 
 </details>
 
+---
+R.median
+---
+
 <details>
 
 <summary><strong>R.median</strong> source</summary>
@@ -5733,6 +6062,7 @@ export function median(list){
 ```
 
 </details>
+---
 
 
 ### merge
@@ -5765,6 +6095,10 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 </details>
 
+---
+R.merge
+---
+
 <details>
 
 <summary><strong>R.merge</strong> source</summary>
@@ -5780,6 +6114,7 @@ export function merge(target, newProps){
 ```
 
 </details>
+---
 
 
 ### min
@@ -5812,6 +6147,10 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
+---
+R.min
+---
+
 <details>
 
 <summary><strong>R.min</strong> source</summary>
@@ -5825,6 +6164,7 @@ export function min(x, y){
 ```
 
 </details>
+---
 
 
 ### minBy
@@ -5856,6 +6196,10 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
+---
+R.minBy
+---
+
 <details>
 
 <summary><strong>R.minBy</strong> source</summary>
@@ -5873,6 +6217,7 @@ export const minBy = curry(minByFn)
 ```
 
 </details>
+---
 
 
 ### modulo
@@ -5901,6 +6246,10 @@ modulo(x: number): (y: number) => number;
 
 </details>
 
+---
+R.modulo
+---
+
 <details>
 
 <summary><strong>R.modulo</strong> source</summary>
@@ -5914,6 +6263,7 @@ export function modulo(x, y){
 ```
 
 </details>
+---
 
 
 ### multiply
@@ -5942,6 +6292,10 @@ multiply(x: number): (y: number) => number;
 
 </details>
 
+---
+R.multiply
+---
+
 <details>
 
 <summary><strong>R.multiply</strong> source</summary>
@@ -5955,6 +6309,7 @@ export function multiply(x, y){
 ```
 
 </details>
+---
 
 
 ### negate
@@ -5981,6 +6336,10 @@ negate(x: number): number;
 
 </details>
 
+---
+R.negate
+---
+
 <details>
 
 <summary><strong>R.negate</strong> source</summary>
@@ -5992,6 +6351,7 @@ export function negate(x){
 ```
 
 </details>
+---
 
 
 ### none
@@ -6024,6 +6384,10 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
+---
+R.none
+---
+
 <details>
 
 <summary><strong>R.none</strong> source</summary>
@@ -6037,6 +6401,7 @@ export function none(predicate, list){
 ```
 
 </details>
+---
 
 
 ### not
@@ -6064,6 +6429,10 @@ not(input: any): boolean;
 
 </details>
 
+---
+R.not
+---
+
 <details>
 
 <summary><strong>R.not</strong> source</summary>
@@ -6075,6 +6444,7 @@ export function not(input){
 ```
 
 </details>
+---
 
 
 ### nth
@@ -6111,6 +6481,10 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 </details>
 
+---
+R.nth
+---
+
 <details>
 
 <summary><strong>R.nth</strong> source</summary>
@@ -6128,6 +6502,7 @@ export function nth(index, list){
 ```
 
 </details>
+---
 
 
 ### omit
@@ -6166,6 +6541,10 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 </details>
 
+---
+R.omit
+---
+
 <details>
 
 <summary><strong>R.omit</strong> source</summary>
@@ -6194,6 +6573,7 @@ export function omit(propsToOmit, obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -6288,6 +6668,10 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 </details>
 
+---
+R.over
+---
+
 <details>
 
 <summary><strong>R.over</strong> source</summary>
@@ -6314,6 +6698,7 @@ export function over(
 ```
 
 </details>
+---
 
 
 ### partial
@@ -6357,6 +6742,10 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 </details>
 
+---
+R.partial
+---
+
 <details>
 
 <summary><strong>R.partial</strong> source</summary>
@@ -6376,6 +6765,7 @@ export function partial(fn, ...args){
 ```
 
 </details>
+---
 
 
 ### path
@@ -6417,6 +6807,10 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 </details>
 
+---
+R.path
+---
+
 <details>
 
 <summary><strong>R.path</strong> source</summary>
@@ -6446,6 +6840,7 @@ export function path(list, obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -6580,6 +6975,10 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 </details>
 
+---
+R.pathOr
+---
+
 <details>
 
 <summary><strong>R.pathOr</strong> source</summary>
@@ -6599,6 +6998,7 @@ export const pathOr = curry(pathOrFn)
 ```
 
 </details>
+---
 
 
 ### paths
@@ -6645,6 +7045,10 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 </details>
 
+---
+R.paths
+---
+
 <details>
 
 <summary><strong>R.paths</strong> source</summary>
@@ -6658,6 +7062,7 @@ export function paths(pathsToSearch, obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -6783,6 +7188,10 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 </details>
 
+---
+R.pick
+---
+
 <details>
 
 <summary><strong>R.pick</strong> source</summary>
@@ -6812,6 +7221,7 @@ export function pick(propsToPick, obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -6920,6 +7330,10 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 </details>
 
+---
+R.pickAll
+---
+
 <details>
 
 <summary><strong>R.pickAll</strong> source</summary>
@@ -6950,6 +7364,7 @@ export function pickAll(propsToPick, obj){
 ```
 
 </details>
+---
 
 
 ### pipe
@@ -6985,6 +7400,10 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 </details>
 
+---
+R.pipe
+---
+
 <details>
 
 <summary><strong>R.pipe</strong> source</summary>
@@ -7001,6 +7420,7 @@ export function pipe(...fns){
 ```
 
 </details>
+---
 
 <details>
 
@@ -7085,6 +7505,10 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 </details>
 
+---
+R.pluck
+---
+
 <details>
 
 <summary><strong>R.pluck</strong> source</summary>
@@ -7108,6 +7532,7 @@ export function pluck(property, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -7209,6 +7634,10 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.prepend
+---
+
 <details>
 
 <summary><strong>R.prepend</strong> source</summary>
@@ -7225,6 +7654,7 @@ export function prepend(x, listOrString){
 ```
 
 </details>
+---
 
 
 ### product
@@ -7252,6 +7682,10 @@ product(list: ReadonlyArray<number>): number;
 
 </details>
 
+---
+R.product
+---
+
 <details>
 
 <summary><strong>R.product</strong> source</summary>
@@ -7264,6 +7698,7 @@ export const product = reduce(multiply, 1)
 ```
 
 </details>
+---
 
 
 ### prop
@@ -7324,6 +7759,10 @@ propEq(propToFind: string | number): {
 
 </details>
 
+---
+R.propEq
+---
+
 <details>
 
 <summary><strong>R.propEq</strong> source</summary>
@@ -7343,6 +7782,7 @@ export const propEq = curry(propEqFn)
 ```
 
 </details>
+---
 
 <details>
 
@@ -7416,6 +7856,10 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 </details>
 
+---
+R.propIs
+---
+
 <details>
 
 <summary><strong>R.propIs</strong> source</summary>
@@ -7434,6 +7878,7 @@ export const propIs = curry(propIsFn)
 ```
 
 </details>
+---
 
 
 ### propOr
@@ -7471,6 +7916,10 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 </details>
 
+---
+R.propOr
+---
+
 <details>
 
 <summary><strong>R.propOr</strong> source</summary>
@@ -7491,6 +7940,7 @@ export const propOr = curry(propOrFn)
 ```
 
 </details>
+---
 
 
 ### range
@@ -7520,6 +7970,10 @@ range(start: number): (end: number) => number[];
 
 </details>
 
+---
+R.range
+---
+
 <details>
 
 <summary><strong>R.range</strong> source</summary>
@@ -7546,6 +8000,7 @@ export function range(start, end){
 ```
 
 </details>
+---
 
 
 ### reduce
@@ -7580,6 +8035,10 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 </details>
 
+---
+R.reduce
+---
+
 <details>
 
 <summary><strong>R.reduce</strong> source</summary>
@@ -7599,6 +8058,7 @@ export const reduce = curry(reduceFn)
 ```
 
 </details>
+---
 
 <details>
 
@@ -7798,6 +8258,10 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
+---
+R.reject
+---
+
 <details>
 
 <summary><strong>R.reject</strong> source</summary>
@@ -7813,6 +8277,7 @@ export function reject(predicate, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -7963,6 +8428,10 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 </details>
 
+---
+R.repeat
+---
+
 <details>
 
 <summary><strong>R.repeat</strong> source</summary>
@@ -7978,6 +8447,7 @@ export function repeat(x, timesToRepeat){
 ```
 
 </details>
+---
 
 
 ### replace
@@ -8010,6 +8480,10 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 </details>
 
+---
+R.replace
+---
+
 <details>
 
 <summary><strong>R.replace</strong> source</summary>
@@ -8033,6 +8507,7 @@ export function replace(
 ```
 
 </details>
+---
 
 
 ### reverse
@@ -8086,6 +8561,10 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 </details>
 
+---
+R.set
+---
+
 <details>
 
 <summary><strong>R.set</strong> source</summary>
@@ -8111,6 +8590,7 @@ export function set(
 ```
 
 </details>
+---
 
 
 ### slice
@@ -8149,6 +8629,10 @@ slice(frp,: number, to: number): {
 
 </details>
 
+---
+R.slice
+---
+
 <details>
 
 <summary><strong>R.slice</strong> source</summary>
@@ -8166,6 +8650,7 @@ export const slice = curry(sliceFn)
 ```
 
 </details>
+---
 
 
 ### sort
@@ -8209,6 +8694,10 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.sort
+---
+
 <details>
 
 <summary><strong>R.sort</strong> source</summary>
@@ -8224,6 +8713,7 @@ export function sort(sortFn, list){
 ```
 
 </details>
+---
 
 
 ### sortBy
@@ -8265,6 +8755,10 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.sortBy
+---
+
 <details>
 
 <summary><strong>R.sortBy</strong> source</summary>
@@ -8287,6 +8781,7 @@ export function sortBy(sortFn, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -8385,6 +8880,10 @@ split(separator: string | RegExp, str: string): string[];
 
 </details>
 
+---
+R.split
+---
+
 <details>
 
 <summary><strong>R.split</strong> source</summary>
@@ -8398,6 +8897,7 @@ export function split(separator, str){
 ```
 
 </details>
+---
 
 
 ### splitEvery
@@ -8453,6 +8953,10 @@ startsWith(target: string): (str: string) => boolean;
 
 </details>
 
+---
+R.startsWith
+---
+
 <details>
 
 <summary><strong>R.startsWith</strong> source</summary>
@@ -8466,6 +8970,7 @@ export function startsWith(target, str){
 ```
 
 </details>
+---
 
 <details>
 
@@ -8543,6 +9048,10 @@ sum(list: ReadonlyArray<number>): number;
 
 </details>
 
+---
+R.sum
+---
+
 <details>
 
 <summary><strong>R.sum</strong> source</summary>
@@ -8554,6 +9063,7 @@ export function sum(list){
 ```
 
 </details>
+---
 
 
 ### symmetricDifference
@@ -8586,6 +9096,10 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.symmetricDifference
+---
+
 <details>
 
 <summary><strong>R.symmetricDifference</strong> source</summary>
@@ -8606,6 +9120,7 @@ export function symmetricDifference(x, y){
 ```
 
 </details>
+---
 
 
 ### T
@@ -8633,6 +9148,10 @@ T(): boolean;
 
 </details>
 
+---
+R.T
+---
+
 <details>
 
 <summary><strong>R.T</strong> source</summary>
@@ -8644,6 +9163,7 @@ export function T(){
 ```
 
 </details>
+---
 
 
 ### tail
@@ -8676,6 +9196,10 @@ tail(listOrString: string): string;
 
 </details>
 
+---
+R.tail
+---
+
 <details>
 
 <summary><strong>R.tail</strong> source</summary>
@@ -8689,6 +9213,7 @@ export function tail(listOrString){
 ```
 
 </details>
+---
 
 
 ### take
@@ -8724,6 +9249,10 @@ take<T>(howMany: number): {
 
 </details>
 
+---
+R.take
+---
+
 <details>
 
 <summary><strong>R.take</strong> source</summary>
@@ -8744,6 +9273,7 @@ export function take(howMany, listOrString){
 ```
 
 </details>
+---
 
 <details>
 
@@ -8812,6 +9342,10 @@ takeLast<T>(howMany: number): {
 
 </details>
 
+---
+R.takeLast
+---
+
 <details>
 
 <summary><strong>R.takeLast</strong> source</summary>
@@ -8839,6 +9373,7 @@ export function takeLast(howMany, listOrString){
 ```
 
 </details>
+---
 
 
 ### tap
@@ -8876,6 +9411,10 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 </details>
 
+---
+R.tap
+---
+
 <details>
 
 <summary><strong>R.tap</strong> source</summary>
@@ -8891,6 +9430,7 @@ export function tap(fn, x){
 ```
 
 </details>
+---
 
 <details>
 
@@ -8956,6 +9496,10 @@ test(regExpression: RegExp, str: string): boolean;
 
 </details>
 
+---
+R.test
+---
+
 <details>
 
 <summary><strong>R.test</strong> source</summary>
@@ -8973,6 +9517,7 @@ export function test(pattern, str){
 ```
 
 </details>
+---
 
 
 ### times
@@ -9007,6 +9552,10 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 </details>
 
+---
+R.times
+---
+
 <details>
 
 <summary><strong>R.times</strong> source</summary>
@@ -9026,6 +9575,7 @@ export function times(fn, howMany){
 ```
 
 </details>
+---
 
 
 ### toLower
@@ -9053,6 +9603,10 @@ toLower(str: string): string;
 
 </details>
 
+---
+R.toLower
+---
+
 <details>
 
 <summary><strong>R.toLower</strong> source</summary>
@@ -9064,6 +9618,7 @@ export function toLower(str){
 ```
 
 </details>
+---
 
 
 ### toPairs
@@ -9099,6 +9654,10 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 </details>
 
+---
+R.toPairs
+---
+
 <details>
 
 <summary><strong>R.toPairs</strong> source</summary>
@@ -9110,6 +9669,7 @@ export function toPairs(obj){
 ```
 
 </details>
+---
 
 
 ### toString
@@ -9137,6 +9697,10 @@ toString<T>(x: T): string;
 
 </details>
 
+---
+R.toString
+---
+
 <details>
 
 <summary><strong>R.toString</strong> source</summary>
@@ -9148,6 +9712,7 @@ export function toString(val){
 ```
 
 </details>
+---
 
 
 ### toUpper
@@ -9175,6 +9740,10 @@ toUpper(str: string): string;
 
 </details>
 
+---
+R.toUpper
+---
+
 <details>
 
 <summary><strong>R.toUpper</strong> source</summary>
@@ -9186,6 +9755,7 @@ export function toUpper(str){
 ```
 
 </details>
+---
 
 
 ### transpose
@@ -9216,6 +9786,10 @@ transpose<T>(list: T[][]): T[][];
 
 </details>
 
+---
+R.transpose
+---
+
 <details>
 
 <summary><strong>R.transpose</strong> source</summary>
@@ -9232,6 +9806,7 @@ export function transpose(array){
 ```
 
 </details>
+---
 
 
 ### trim
@@ -9259,6 +9834,10 @@ trim(str: string): string;
 
 </details>
 
+---
+R.trim
+---
+
 <details>
 
 <summary><strong>R.trim</strong> source</summary>
@@ -9270,6 +9849,7 @@ export function trim(str){
 ```
 
 </details>
+---
 
 <details>
 
@@ -9351,6 +9931,10 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 </details>
 
+---
+R.uniq
+---
+
 <details>
 
 <summary><strong>R.uniq</strong> source</summary>
@@ -9375,6 +9959,7 @@ export function uniq(list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -9469,6 +10054,10 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 </details>
 
+---
+R.uniqWith
+---
+
 <details>
 
 <summary><strong>R.uniqWith</strong> source</summary>
@@ -9498,6 +10087,7 @@ export function uniqWith(fn, list){
 ```
 
 </details>
+---
 
 <details>
 
@@ -9573,6 +10163,10 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
+---
+R.update
+---
+
 <details>
 
 <summary><strong>R.update</strong> source</summary>
@@ -9600,6 +10194,7 @@ export function update(
 ```
 
 </details>
+---
 
 <details>
 
@@ -9671,6 +10266,10 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 </details>
 
+---
+R.values
+---
+
 <details>
 
 <summary><strong>R.values</strong> source</summary>
@@ -9686,6 +10285,7 @@ export function values(obj){
 ```
 
 </details>
+---
 
 <details>
 
@@ -9738,6 +10338,10 @@ view<T, U>(lens: Lens, target: T): U;
 
 </details>
 
+---
+R.view
+---
+
 <details>
 
 <summary><strong>R.view</strong> source</summary>
@@ -9756,6 +10360,7 @@ export function view(lens, target){
 ```
 
 </details>
+---
 
 
 ### without
@@ -9808,6 +10413,10 @@ xor(y: boolean): (y: boolean) => boolean;
 
 </details>
 
+---
+R.xor
+---
+
 <details>
 
 <summary><strong>R.xor</strong> source</summary>
@@ -9821,6 +10430,7 @@ export function xor(a, b){
 ```
 
 </details>
+---
 
 <details>
 
@@ -9901,6 +10511,10 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 </details>
 
+---
+R.zip
+---
+
 <details>
 
 <summary><strong>R.zip</strong> source</summary>
@@ -9921,6 +10535,7 @@ export function zip(left, right){
 ```
 
 </details>
+---
 
 <details>
 
