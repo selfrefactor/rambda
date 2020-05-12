@@ -1,6 +1,6 @@
 import { spawnSync } from 'child_process'
-import { resolve } from 'path'
 import isCI from 'is-ci'
+import { resolve } from 'path'
 
 jest.setTimeout(3 * 60 * 1000)
 
@@ -13,9 +13,10 @@ test('typings are correct', async () => {
       cwd   : DIR,
     }
   )
-  if(isCI){
-    console.log('CI for some reason stop working. Status should be 0', status)
-  }else{
+  if (isCI){
+    console.log('CI for some reason stop working. Status should be 0',
+      status)
+  } else {
     expect(status).toBe(0)
   }
 })
