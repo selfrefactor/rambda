@@ -1,62 +1,40 @@
 {
   "name": "rambda",
-  "version": "5.1.1",
-  "description": "Lightweight faster alternative to Ramda",
-  "main": "./dist/rambda.js",
-  "module": "./dist/rambda.esm.js",
-  "umd": "./dist/rambda.umd.js",
-  "typings": "./index.d.ts",
-  "sideEffects": false,
   "scripts": {
-    "tslint:tslint": "tslint --fix index.d.ts",
-    "tslint:tsformat": "tsfmt -r index.d.ts",
-    "tslint": "yarn tslint:tslint&&yarn tslint:tsformat",
-    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./_typings_tests",
-    "fix": "mkdir $HOME/.dts/perf -p",
-    "test": "jest src",
-    "prove": "jest src --json",
-    "readme": "node files/createReadme/createReadme.js",
-    "docs": "docsify init ./docs",
+    "dev": "jest scripts/build-step/build-step.spec.js",
+    "test": "jest source --bail=true",
+    "cover": "jest source --bail=true",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
     "build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
-    "benchmarks": "node benchmarks/indexProve.js",
-    "benchmark": "node benchmarks/indexProve.js",
-    "bench": "node benchmarks/indexProve.js",
-    "cover:spec": "jest src --coverage --no-cache -w 1",
-    "cover": "yarn typings&&yarn cover:spec"
+    "populate": "maided populate",
+    "lint": "maided lint",
+    "readme": "maided readme",
+    "out": "maided out",
+    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+    "fix": "mkdir $HOME/.dts/perf -p"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/selfrefactor/rambda.git"
+  "typings": "./index.d.ts",
+  "main": "./dist/rambda.js",
+  "version": "5.1.0",
+  "dependencies": {
+    "fs-extra": "^9.0.0"
   },
-  "keywords": [
-    "ramda",
-    "fp",
-    "functional",
-    "utility",
-    "lodash"
-  ],
-  "author": "self_refactor",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/selfrefactor/rambda/issues"
-  },
-  "homepage": "https://github.com/selfrefactor/rambda#readme",
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "7.9.5",
-    "@babel/preset-env": "7.9.5",
-    "@types/jest": "25.1.4",
-    "@types/ramda": "0.27.4",
-    "babel-jest": "25.4.0",
+    "@babel/preset-env": "7.9.0",
+    "@types/jest": "25.2.1",
+    "@types/ramda": "0.27.0",
     "cross-env": "7.0.2",
-    "dtslint": "3.4.2",
-    "helpers-fn": "0.1.1",
-    "jest": "25.4.0",
+    "dtslint": "3.5.2",
+    "fdir": "2.1.1",
+    "helpers-fn": "0.2.0",
+    "jest": "26.0.1",
     "jest-extended": "0.11.5",
+    "lint-fn": "2.4.2",
     "lodash": "4.17.15",
-    "markdown-toc": "1.2.0",
+    "maided": "0.1.2",
     "rambdax": "3.7.0",
     "ramda": "0.27.0",
     "rollup": "2.7.3",
@@ -72,7 +50,17 @@
     "typescript": "3.8.3",
     "typescript-formatter": "7.2.2"
   },
-  "dependencies": {},
+  "jest": {
+    "testRegex": ".*\\.spec\\.js$",
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
+    "collectCoverageFrom": [
+      "source/*.js",
+      "!_internals",
+      "!benchmarks"
+    ]
+  },
   "files": [
     "dist",
     "src",
@@ -80,45 +68,49 @@
     "index.d.ts",
     "tools.d.ts"
   ],
-  "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended"
-    ],
-    "collectCoverageFrom": [
-      "src/*.js",
-      "!internal"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfrefactor/rambda.git"
   },
+  "license": "MIT",
+  "author": "self_refactor",
+  "description": "Lightweight faster alternative to Ramda",
+  "module": "./dist/rambda.esm.js",
+  "umd": "./dist/rambda.umd.js",
+  "sideEffects": false,
+  "keywords": [
+    "ramda",
+    "fp",
+    "functional",
+    "utility",
+    "lodash"
+  ],
+  "bugs": {
+    "url": "https://github.com/selfrefactor/rambda/issues"
+  },
+  "homepage": "https://github.com/selfrefactor/rambda#readme",
   "commitMessage": {
     "support": [
-      "docs",
+      "script",
       "build",
       "prepublish",
-      "refactor",
       "lint",
-      "test",
       "typings",
-      "script",
-      "benchmark"
+      "benchmark",
+      "refactor"
     ],
     "feature": [
-      "method"
-    ],
-    "workInProgress": "",
-    "docs": [
-      "docsify",
-      "repl",
-      "changelog",
-      "important",
-      "important",
-      "fix"
+      "method",
+      "script"
     ],
     "test": [
       "typings",
       "fix"
     ],
     "fix": [
-      "small"
-    ]
+      "small",
+      "dep"
+    ],
+    "workInProgress": ""
   }
 }

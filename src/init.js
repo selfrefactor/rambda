@@ -1,4 +1,4 @@
-import baseSlice from './internal/baseSlice'
+import baseSlice from './_internals/baseSlice'
 
 export function init(list){
   if (typeof list === 'string') return list.slice(0, -1)

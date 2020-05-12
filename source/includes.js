@@ -1,0 +1,20 @@
+import { equals } from './equals'
+
+export function includes(valueToFind, input){
+  if (arguments.length === 1) return _input => includes(valueToFind, _input)
+
+  if (typeof input === 'string'){
+    return input.includes(valueToFind)
+  }
+  if (!Array.isArray(input)) return false
+
+  let index = -1
+
+  while (++index < input.length){
+    if (equals(input[ index ], valueToFind)){
+      return true
+    }
+  }
+
+  return false
+}

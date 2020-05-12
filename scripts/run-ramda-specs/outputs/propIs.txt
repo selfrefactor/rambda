@@ -1,0 +1,30 @@
+
+
+  propIs
+    ✓ returns true if the specified object property is of the given type
+    ✓ returns false otherwise
+    1) handles number as property
+
+
+  2 passing (95ms)
+  1 failing
+
+  1) propIs
+       handles number as property:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'false'
+- 'true'
+      + expected - actual
+
+      -false
+      +true
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/propIs.js:21:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

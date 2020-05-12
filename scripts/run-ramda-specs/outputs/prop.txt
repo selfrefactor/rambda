@@ -1,0 +1,35 @@
+
+
+  prop
+    ✓ returns a function that fetches the appropriate property
+    1) handles number as property
+    ✓ shows the same behaviour as path for a nonexistent property
+    ✓ shows the same behaviour as path for an undefined property
+    ✓ shows the same behaviour as path for a null property
+    ✓ shows the same behaviour as path for a valid property and object
+    ✓ shows the same behaviour as path for a null object
+    ✓ shows the same behaviour as path for an undefined object
+
+
+  7 passing (98ms)
+  1 failing
+
+  1) prop
+       handles number as property:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'undefined'
+- '"Yog-Sothoth"'
+      + expected - actual
+
+      -undefined
+      +"Yog-Sothoth"
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/prop.js:19:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

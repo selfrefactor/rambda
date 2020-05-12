@@ -1,0 +1,32 @@
+
+
+  paths
+    ✓ takes paths and returns values at those paths
+    ✓ takes a paths that contains indices into arrays
+    1) takes a path that contains negative indices into arrays
+    ✓ gets a deep property's value from objects
+    ✓ returns undefined for items not found
+
+
+  4 passing (98ms)
+  1 failing
+
+  1) paths
+       takes a path that contains negative indices into arrays:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '[undefined, undefined]'
+- '[3, "Hi"]'
+      + expected - actual
+
+      -[undefined, undefined]
+      +[3, "Hi"]
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/paths.js:29:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

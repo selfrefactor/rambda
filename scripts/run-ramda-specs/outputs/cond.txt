@@ -1,0 +1,39 @@
+
+
+  cond
+    ✓ returns a function
+    ✓ returns a conditional function
+    ✓ returns a function which returns undefined if none of the predicates matches
+    ✓ predicates are tested in order
+    1) forwards all arguments to predicates and to transformers
+    2) retains highest predicate arity
+
+
+  4 passing (57ms)
+  2 failing
+
+  1) cond
+       forwards all arguments to predicates and to transformers:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'undefined'
+- '3'
+      + expected - actual
+
+      -undefined
+      +3
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/cond.js:42:5)
+      at processImmediate (internal/timers.js:456:21)
+
+  2) cond
+       retains highest predicate arity:
+     TypeError: R.nAry is not a function
+      at Context.nAry (test/cond.js:47:10)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

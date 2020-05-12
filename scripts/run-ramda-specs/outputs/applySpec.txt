@@ -1,0 +1,26 @@
+
+
+  applySpec
+    ✓ works with empty spec
+    ✓ works with unary functions
+    ✓ works with binary functions
+    ✓ works with nested specs
+    ✓ works with arrays of nested specs
+    ✓ works with arrays of spec objects
+    ✓ works with arrays of functions
+    ✓ works with a spec defining a map key
+    1) retains the highest arity
+    ✓ returns a curried function
+
+
+  9 passing (73ms)
+  1 failing
+
+  1) applySpec
+       retains the highest arity:
+     TypeError: R.nAry is not a function
+      at Context.nAry (test/applySpec.js:49:33)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

@@ -1,0 +1,35 @@
+
+
+  isEmpty
+    ✓ returns false for null
+    ✓ returns false for undefined
+    ✓ returns true for empty string
+    ✓ returns true for empty array
+    1) returns true for empty typed array
+    ✓ returns true for empty object
+    ✓ returns true for empty arguments object
+    ✓ returns false for every other value
+
+
+  7 passing (66ms)
+  1 failing
+
+  1) isEmpty
+       returns true for empty typed array:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'false'
+- 'true'
+      + expected - actual
+
+      -false
+      +true
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/isEmpty.js:26:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

@@ -1,4 +1,4 @@
-import baseSlice from './internal/baseSlice'
+import baseSlice from './_internals/baseSlice'
 
 export function take(n, list){
   if (arguments.length === 1) return _list => take(n, _list)

@@ -1,0 +1,21 @@
+
+
+  xor
+    ✓ compares two values with exclusive or
+    ✓ when both values are truthy, it should return false
+    ✓ when both values are falsy, it should return false
+    ✓ when one argument is truthy and the other is falsy, it should return true
+    1) returns a curried function
+
+
+  4 passing (125ms)
+  1 failing
+
+  1) xor
+       returns a curried function:
+     TypeError: R.xor(...) is not a function
+      at Context.<anonymous> (test/xor.js:50:8)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

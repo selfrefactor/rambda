@@ -4,8 +4,7 @@ export function pick(keys, obj){
   if (obj === null || obj === undefined){
     return undefined
   }
-  const keysValue =
-    typeof keys === 'string' ? keys.split(',') : keys
+  const keysValue = typeof keys === 'string' ? keys.split(',') : keys
 
   const willReturn = {}
   let counter = 0

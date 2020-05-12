@@ -1,0 +1,49 @@
+
+
+  length
+    ✓ returns the length of a list
+    1) returns the length of a string
+    ✓ returns the length of a function
+    ✓ returns the length of an arguments object
+    ✓ returns NaN for value of unexpected type
+    2) returns NaN for length property of unexpected type
+
+
+  4 passing (110ms)
+  2 failing
+
+  1) length
+       returns the length of a string:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'NaN' !== '0'
+
+      + expected - actual
+
+      -NaN
+      +0
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/length.js:12:5)
+      at processImmediate (internal/timers.js:456:21)
+
+  2) length
+       returns NaN for length property of unexpected type:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'false'
+- 'true'
+      + expected - actual
+
+      -false
+      +true
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/length.js:34:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

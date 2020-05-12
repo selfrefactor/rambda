@@ -1,0 +1,13 @@
+{
+  "name": "consume-rambda-typings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "tsc index.ts&&node index.js"
+  },
+  "dependencies": {
+    "rambda": "https://github.com/selfrefactor/rambda#5.0.0",
+    "typescript": "^3.7.2"
+  }
+}
