@@ -16,7 +16,7 @@
   },
   "typings": "./index.d.ts",
   "main": "./dist/rambda.js",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "dependencies": {
     "fs-extra": "^9.0.0"
   },
