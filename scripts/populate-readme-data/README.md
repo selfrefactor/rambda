@@ -2,12 +2,6 @@
 
 `Rambda` is faster and smaller alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
-[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
-[![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
-[![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
-![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
-![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
-
 ## Example use
 
 ```javascript
@@ -21,11 +15,6 @@ const result = compose(
 ```
 
 You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
-
-* [Install](#install)
-* [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
-* [API](#api)
-* [Changelog](#changelog)
 
 ## Rambda's advantages
 
