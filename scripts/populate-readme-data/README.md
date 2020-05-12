@@ -364,21 +364,6 @@ R.add
 
 <details>
 
-<summary><strong>R.add</strong> source</summary>
-
-```javascript
-export function add(a, b){
-  if (arguments.length === 1) return _b => add(a, _b)
-
-  return Number(a) + Number(b)
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -429,31 +414,6 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 ---
 R.adjust
----
-
-<details>
-
-<summary><strong>R.adjust</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function adjustFn(
-  index, replaceFn, list
-){
-  const actualIndex = index < 0 ? list.length + index : index
-  if (index >= list.length || actualIndex < 0) return list
-
-  const clone = list.slice()
-  clone[ actualIndex ] = replaceFn(clone[ actualIndex ])
-
-  return clone
-}
-
-export const adjust = curry(adjustFn)
-```
-
-</details>
 ---
 
 <details>
@@ -517,25 +477,6 @@ R.all
 
 <details>
 
-<summary><strong>R.all</strong> source</summary>
-
-```javascript
-export function all(predicate, list){
-  if (arguments.length === 1) return _list => all(predicate, _list)
-
-  for (let i = 0; i < list.length; i++){
-    if (!predicate(list[ i ], i)) return false
-  }
-
-  return true
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -594,29 +535,6 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 ---
 R.allPass
----
-
-<details>
-
-<summary><strong>R.allPass</strong> source</summary>
-
-```javascript
-export function allPass(predicates){
-  return input => {
-    let counter = 0
-    while (counter < predicates.length){
-      if (!predicates[ counter ](input)){
-        return false
-      }
-      counter++
-    }
-
-    return true
-  }
-}
-```
-
-</details>
 ---
 
 <details>
@@ -704,19 +622,6 @@ always<T>(x: T): () => T;
 R.always
 ---
 
-<details>
-
-<summary><strong>R.always</strong> source</summary>
-
-```javascript
-export function always(x){
-  return () => x
-}
-```
-
-</details>
----
-
 
 ### and
 
@@ -747,21 +652,6 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 ---
 R.and
----
-
-<details>
-
-<summary><strong>R.and</strong> source</summary>
-
-```javascript
-export function and(a, b){
-  if (arguments.length === 1) return _b => and(a, _b)
-
-  return a && b
-}
-```
-
-</details>
 ---
 
 
@@ -798,29 +688,6 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 ---
 R.any
----
-
-<details>
-
-<summary><strong>R.any</strong> source</summary>
-
-```javascript
-export function any(predicate, list){
-  if (arguments.length === 1) return _list => any(predicate, _list)
-
-  let counter = 0
-  while (counter < list.length){
-    if (predicate(list[ counter ], counter)){
-      return true
-    }
-    counter++
-  }
-
-  return false
-}
-```
-
-</details>
 ---
 
 <details>
@@ -913,29 +780,6 @@ R.anyPass
 
 <details>
 
-<summary><strong>R.anyPass</strong> source</summary>
-
-```javascript
-export function anyPass(predicates){
-  return input => {
-    let counter = 0
-    while (counter < predicates.length){
-      if (predicates[ counter ](input)){
-        return true
-      }
-      counter++
-    }
-
-    return false
-  }
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -1024,27 +868,6 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 R.append
 ---
 
-<details>
-
-<summary><strong>R.append</strong> source</summary>
-
-```javascript
-export function append(x, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => append(x, _listOrString)
-
-  if (typeof listOrString === 'string') return `${ listOrString }${ x }`
-
-  const clone = listOrString.slice()
-  clone.push(x)
-
-  return clone
-}
-```
-
-</details>
----
-
 
 ### applySpec
 
@@ -1095,146 +918,6 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 
 ---
 R.applySpec
----
-
-<details>
-
-<summary><strong>R.applySpec</strong> source</summary>
-
-```javascript
-// recursively traverse the given spec object to find the highest arity function
-function __findHighestArity(spec, max = 0){
-  for (const key in spec){
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
-
-    if (typeof spec[ key ] === 'object'){
-      max = Math.max(max, __findHighestArity(spec[ key ]))
-    }
-
-    if (typeof spec[ key ] === 'function'){
-      max = Math.max(max, spec[ key ].length)
-    }
-  }
-
-  return max
-}
-
-function __filterUndefined(){
-  const defined = []
-  let i = 0
-  const l = arguments.length
-  while (i < l){
-    if (typeof arguments[ i ] === 'undefined') break
-    defined[ i ] = arguments[ i ]
-    i++
-  }
-
-  return defined
-}
-
-function __applySpecWithArity(
-  spec, arity, cache
-){
-  const remaining = arity - cache.length
-
-  if (remaining === 1)
-    return x =>
-      __applySpecWithArity(
-        spec, arity, __filterUndefined(...cache, x)
-      )
-  if (remaining === 2)
-    return (x, y) =>
-      __applySpecWithArity(
-        spec, arity, __filterUndefined(
-          ...cache, x, y
-        )
-      )
-  if (remaining === 3)
-    return (
-      x, y, z
-    ) =>
-      __applySpecWithArity(
-        spec, arity, __filterUndefined(
-          ...cache, x, y, z
-        )
-      )
-  if (remaining === 4)
-    return (
-      x, y, z, a
-    ) =>
-      __applySpecWithArity(
-        spec,
-        arity,
-        __filterUndefined(
-          ...cache, x, y, z, a
-        )
-      )
-  if (remaining > 4)
-    return (...args) =>
-      __applySpecWithArity(
-        spec, arity, __filterUndefined(...cache, ...args)
-      )
-
-  // handle spec as Array
-  if (Array.isArray(spec)){
-    const ret = []
-    let i = 0
-    const l = spec.length
-    for (; i < l; i++){
-      // handle recursive spec inside array
-      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
-        ret[ i ] = __applySpecWithArity(
-          spec[ i ], arity, cache
-        )
-      }
-      // apply spec to the key
-      if (typeof spec[ i ] === 'function'){
-        ret[ i ] = spec[ i ](...cache)
-      }
-    }
-
-    return ret
-  }
-
-  // handle spec as Object
-  const ret = {}
-  // apply callbacks to each property in the spec object
-  for (const key in spec){
-    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
-
-    // apply the spec recursively
-    if (typeof spec[ key ] === 'object'){
-      ret[ key ] = __applySpecWithArity(
-        spec[ key ], arity, cache
-      )
-      continue
-    }
-
-    // apply spec to the key
-    if (typeof spec[ key ] === 'function'){
-      ret[ key ] = spec[ key ](...cache)
-    }
-  }
-
-  return ret
-}
-
-export function applySpec(spec, ...args){
-  // get the highest arity spec function, cache the result and pass to __applySpecWithArity
-  const arity = __findHighestArity(spec)
-
-  if (arity === 0){
-    return () => ({})
-  }
-  const toReturn = __applySpecWithArity(
-    spec, arity, args
-  )
-
-  return toReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -1302,27 +985,6 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 R.assoc
 ---
 
-<details>
-
-<summary><strong>R.assoc</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function assocFn(
-  prop, newValue, obj
-){
-  return Object.assign(
-    {}, obj, { [ prop ] : newValue }
-  )
-}
-
-export const assoc = curry(assocFn)
-```
-
-</details>
----
-
 
 ### assocPath
 
@@ -1358,60 +1020,6 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 ---
 R.assocPath
----
-
-<details>
-
-<summary><strong>R.assocPath</strong> source</summary>
-
-```javascript
-import { _isInteger } from './_internals/_isInteger'
-import { assoc } from './assoc'
-import { curry } from './curry'
-
-function assocPathFn(
-  list, newValue, input
-){
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
-  if (pathArrValue.length === 0){
-    return newValue
-  }
-
-  const index = pathArrValue[ 0 ]
-  if (pathArrValue.length > 1){
-    const condition =
-      typeof input !== 'object' ||
-      input === null ||
-      !input.hasOwnProperty(index)
-
-    const nextinput = condition ?
-      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
-        [] :
-        {} :
-      input[ index ]
-    newValue = assocPathFn(
-      Array.prototype.slice.call(pathArrValue, 1),
-      newValue,
-      nextinput
-    )
-  }
-
-  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)){
-    const arr = input.slice()
-    arr[ index ] = newValue
-
-    return arr
-  }
-
-  return assoc(
-    index, newValue, input
-  )
-}
-
-export const assocPath = curry(assocPathFn)
-```
-
-</details>
 ---
 
 
@@ -1452,21 +1060,6 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 ---
 R.both
----
-
-<details>
-
-<summary><strong>R.both</strong> source</summary>
-
-```javascript
-export function both(f, g){
-  if (arguments.length === 1) return _g => both(f, _g)
-
-  return (...input) => f(...input) && g(...input)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -1595,28 +1188,6 @@ clamp(min: number, max: number): (input: number) => number;
 R.clamp
 ---
 
-<details>
-
-<summary><strong>R.clamp</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function clampFn(
-  min, max, input
-){
-  if (input >= min && input <= max) return input
-
-  if (input > max) return max
-  if (input < min) return min
-}
-
-export const clamp = curry(clampFn)
-```
-
-</details>
----
-
 
 ### clone
 
@@ -1673,19 +1244,6 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 ---
 R.complement
----
-
-<details>
-
-<summary><strong>R.complement</strong> source</summary>
-
-```javascript
-export function complement(fn){
-  return (...input) => !fn(...input)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -1750,34 +1308,6 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 ---
 R.compose
----
-
-<details>
-
-<summary><strong>R.compose</strong> source</summary>
-
-```javascript
-export function compose(...fns){
-  if (fns.length === 0){
-    throw new Error('compose requires at least one argument')
-  }
-
-  return (...args) => {
-    const list = fns.slice()
-    if (list.length > 0){
-      const fn = list.pop()
-      let result = fn(...args)
-      while (list.length > 0){
-        result = list.pop()(result)
-      }
-
-      return result
-    }
-  }
-}
-```
-
-</details>
 ---
 
 <details>
@@ -1878,21 +1408,6 @@ R.concat
 
 <details>
 
-<summary><strong>R.concat</strong> source</summary>
-
-```javascript
-export function concat(x, y){
-  if (arguments.length === 1) return _y => concat(x, _y)
-
-  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.concat</italic> specs
 
 > Reason for the failure: ramda pass to concat method if present
@@ -1966,30 +1481,6 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 ---
 R.cond
----
-
-<details>
-
-<summary><strong>R.cond</strong> source</summary>
-
-```javascript
-export function cond(conditions){
-  return input => {
-    let done = false
-    let toReturn
-    conditions.forEach(([ predicate, resultClosure ]) => {
-      if (!done && predicate(input)){
-        done = true
-        toReturn = resultClosure(input)
-      }
-    })
-
-    return toReturn
-  }
-}
-```
-
-</details>
 ---
 
 <details>
@@ -2084,23 +1575,6 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 ---
 R.curry
----
-
-<details>
-
-<summary><strong>R.curry</strong> source</summary>
-
-```javascript
-export function curry(fn, args = []){
-  return (..._args) =>
-    (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
-      ...args,
-      ..._args,
-    ])
-}
-```
-
-</details>
 ---
 
 <details>
@@ -2230,17 +1704,6 @@ dec(x: number): number;
 R.dec
 ---
 
-<details>
-
-<summary><strong>R.dec</strong> source</summary>
-
-```javascript
-export const dec = x => x - 1
-```
-
-</details>
----
-
 
 ### defaultTo
 
@@ -2280,51 +1743,6 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 
 ---
 R.defaultTo
----
-
-<details>
-
-<summary><strong>R.defaultTo</strong> source</summary>
-
-```javascript
-function flagIs(inputArguments){
-  return (
-    inputArguments === undefined ||
-    inputArguments === null ||
-    Number.isNaN(inputArguments) === true
-  )
-}
-
-export function defaultTo(defaultArgument, ...inputArguments){
-  if (arguments.length === 1){
-    return _inputArguments => defaultTo(defaultArgument, _inputArguments)
-  } else if (arguments.length === 2){
-    return flagIs(inputArguments[ 0 ]) ? defaultArgument : inputArguments[ 0 ]
-  }
-
-  const limit = inputArguments.length - 1
-  let len = limit + 1
-  let ready = false
-  let holder
-
-  while (!ready){
-    const instance = inputArguments[ limit - len + 1 ]
-
-    if (len === 0){
-      ready = true
-    } else if (flagIs(instance)){
-      len -= 1
-    } else {
-      holder = instance
-      ready = true
-    }
-  }
-
-  return holder === undefined ? defaultArgument : holder
-}
-```
-
-</details>
 ---
 
 <details>
@@ -2415,24 +1833,6 @@ R.difference
 
 <details>
 
-<summary><strong>R.difference</strong> source</summary>
-
-```javascript
-import { includes } from './includes'
-import { uniq } from './uniq'
-
-export function difference(a, b){
-  if (arguments.length === 1) return _b => difference(a, _b)
-
-  return uniq(a).filter(aInstance => !includes(aInstance, b))
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.difference</italic> specs
 
 > Reason for the failure: ramda supports negative zero
@@ -2497,29 +1897,6 @@ dissoc(prop: string): <U>(obj: any) => U;
 R.dissoc
 ---
 
-<details>
-
-<summary><strong>R.dissoc</strong> source</summary>
-
-```javascript
-export function dissoc(prop, obj){
-  if (arguments.length === 1) return _obj => dissoc(prop, _obj)
-
-  if (obj === null || obj === undefined) return {}
-
-  const willReturn = {}
-  for (const p in obj){
-    willReturn[ p ] = obj[ p ]
-  }
-  delete willReturn[ prop ]
-
-  return willReturn
-}
-```
-
-</details>
----
-
 
 ### divide
 
@@ -2548,21 +1925,6 @@ divide(a: number): (b: number) => number;
 
 ---
 R.divide
----
-
-<details>
-
-<summary><strong>R.divide</strong> source</summary>
-
-```javascript
-export function divide(a, b){
-  if (arguments.length === 1) return _b => divide(a, _b)
-
-  return a / b
-}
-```
-
-</details>
 ---
 
 
@@ -2596,21 +1958,6 @@ drop<T>(howManyToDrop: number): {
 
 ---
 R.drop
----
-
-<details>
-
-<summary><strong>R.drop</strong> source</summary>
-
-```javascript
-export function drop(howManyToDrop, listOrString){
-  if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
-
-  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -2667,25 +2014,6 @@ dropLast<T>(howManyToDrop: number): {
 
 ---
 R.dropLast
----
-
-<details>
-
-<summary><strong>R.dropLast</strong> source</summary>
-
-```javascript
-export function dropLast(howManyToDrop, listOrString){
-  if (arguments.length === 1){
-    return _listOrString => dropLast(howManyToDrop, _listOrString)
-  }
-
-  return howManyToDrop > 0 ?
-    listOrString.slice(0, -howManyToDrop) :
-    listOrString.slice()
-}
-```
-
-</details>
 ---
 
 <details>
@@ -2769,21 +2097,6 @@ R.endsWith
 
 <details>
 
-<summary><strong>R.endsWith</strong> source</summary>
-
-```javascript
-export function endsWith(target, str){
-  if (arguments.length === 1) return _str => endsWith(target, _str)
-
-  return str.endsWith(target)
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.endsWith</italic> specs
 
 > Reason for the failure: rambda doesn't support arrays
@@ -2844,117 +2157,6 @@ equals<T>(a: T): (b: T) => boolean;
 
 ---
 R.equals
----
-
-<details>
-
-<summary><strong>R.equals</strong> source</summary>
-
-```javascript
-import { type } from './type'
-
-function parseError(maybeError){
-  const typeofError = maybeError.__proto__.toString()
-  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
-
-  return [ typeofError, maybeError.message ]
-}
-
-function parseDate(maybeDate){
-  if (!maybeDate.toDateString) return [ false ]
-
-  return [ true, maybeDate.getTime() ]
-}
-
-function parseRegex(maybeRegex){
-  if (maybeRegex.constructor !== RegExp) return [ false ]
-
-  return [ true, maybeRegex.toString() ]
-}
-
-export function equals(a, b){
-  if (arguments.length === 1) return _b => equals(a, _b)
-
-  const aType = type(a)
-
-  if (aType !== type(b)) return false
-  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if ([ 'Boolean', 'Number', 'String' ].includes(aType))
-    return a.toString() === b.toString()
-
-  if (aType === 'Array'){
-    const aClone = Array.from(a)
-    const bClone = Array.from(b)
-
-    if (aClone.toString() !== bClone.toString()){
-      return false
-    }
-
-    let loopArrayFlag = true
-    aClone.forEach((aCloneInstance, aCloneIndex) => {
-      if (loopArrayFlag){
-        if (
-          aCloneInstance !== bClone[ aCloneIndex ] &&
-          !equals(aCloneInstance, bClone[ aCloneIndex ])
-        ){
-          loopArrayFlag = false
-        }
-      }
-    })
-
-    return loopArrayFlag
-  }
-
-  const aRegex = parseRegex(a)
-  const bRegex = parseRegex(b)
-
-  if (aRegex[ 0 ]){
-    return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
-  } else if (bRegex[ 0 ]) return false
-
-  const aDate = parseDate(a)
-  const bDate = parseDate(b)
-
-  if (aDate[ 0 ]){
-    return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
-  } else if (bDate[ 0 ]) return false
-
-  const aError = parseError(a)
-  const bError = parseError(b)
-
-  if (aError[ 0 ]){
-    return bError[ 0 ] ?
-      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
-      false
-  }
-
-  if (aType === 'Object'){
-    const aKeys = Object.keys(a)
-
-    if (aKeys.length !== Object.keys(b).length){
-      return false
-    }
-
-    let loopObjectFlag = true
-    aKeys.forEach(aKeyInstance => {
-      if (loopObjectFlag){
-        const aValue = a[ aKeyInstance ]
-        const bValue = b[ aKeyInstance ]
-
-        if (aValue !== bValue && !equals(aValue, bValue)){
-          loopObjectFlag = false
-        }
-      }
-    })
-
-    return loopObjectFlag
-  }
-
-  return false
-}
-```
-
-</details>
 ---
 
 <details>
@@ -3171,19 +2373,6 @@ F(): boolean;
 R.F
 ---
 
-<details>
-
-<summary><strong>R.F</strong> source</summary>
-
-```javascript
-export function F(){
-  return false
-}
-```
-
-</details>
----
-
 
 ### filter
 
@@ -3225,54 +2414,6 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 ---
 R.filter
----
-
-<details>
-
-<summary><strong>R.filter</strong> source</summary>
-
-```javascript
-function filterObject(fn, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    if (fn(
-      obj[ prop ], prop, obj
-    )){
-      willReturn[ prop ] = obj[ prop ]
-    }
-  }
-
-  return willReturn
-}
-
-export function filter(predicate, list){
-  if (arguments.length === 1) return _list => filter(predicate, _list)
-
-  if (!list) return []
-
-  if (!Array.isArray(list)){
-    return filterObject(predicate, list)
-  }
-
-  let index = -1
-  let resIndex = 0
-  const len = list.length
-  const willReturn = []
-
-  while (++index < len){
-    const value = list[ index ]
-
-    if (predicate(value, index)){
-      willReturn[ resIndex++ ] = value
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -3427,21 +2568,6 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 R.find
 ---
 
-<details>
-
-<summary><strong>R.find</strong> source</summary>
-
-```javascript
-export function find(predicate, list){
-  if (arguments.length === 1) return _list => find(predicate, _list)
-
-  return list.find(predicate)
-}
-```
-
-</details>
----
-
 
 ### findIndex
 
@@ -3477,30 +2603,6 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 ---
 R.findIndex
----
-
-<details>
-
-<summary><strong>R.findIndex</strong> source</summary>
-
-```javascript
-export function findIndex(predicate, list){
-  if (arguments.length === 1) return _list => findIndex(predicate, _list)
-
-  const len = list.length
-  let index = -1
-
-  while (++index < len){
-    if (predicate(list[ index ], index)){
-      return index
-    }
-  }
-
-  return -1
-}
-```
-
-</details>
 ---
 
 
@@ -3539,29 +2641,6 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 R.flatten
 ---
 
-<details>
-
-<summary><strong>R.flatten</strong> source</summary>
-
-```javascript
-export function flatten(list, input){
-  const willReturn = input === undefined ? [] : input
-
-  for (let i = 0; i < list.length; i++){
-    if (Array.isArray(list[ i ])){
-      flatten(list[ i ], willReturn)
-    } else {
-      willReturn.push(list[ i ])
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
----
-
 
 ### flip
 
@@ -3596,31 +2675,6 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 ---
 R.flip
----
-
-<details>
-
-<summary><strong>R.flip</strong> source</summary>
-
-```javascript
-function flipExport(fn){
-  return (...input) => {
-    if (input.length === 1){
-      return holder => fn(holder, input[ 0 ])
-    } else if (input.length === 2){
-      return fn(input[ 1 ], input[ 0 ])
-    }
-
-    return undefined
-  }
-}
-
-export function flip(fn){
-  return flipExport(fn)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -3709,25 +2763,6 @@ R.forEach
 
 <details>
 
-<summary><strong>R.forEach</strong> source</summary>
-
-```javascript
-import { map } from './map'
-
-export function forEach(predicate, list){
-  if (arguments.length === 1) return _list => forEach(predicate, _list)
-
-  map(predicate, list)
-
-  return list
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.forEach</italic> specs
 
 > Reason for the failure: ramda method dispatches to `forEach` method
@@ -3795,22 +2830,6 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 R.fromPairs
 ---
 
-<details>
-
-<summary><strong>R.fromPairs</strong> source</summary>
-
-```javascript
-export function fromPairs(listOfPairs){
-  const toReturn = {}
-  listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
-
-  return toReturn
-}
-```
-
-</details>
----
-
 
 ### groupBy
 
@@ -3844,33 +2863,6 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 ---
 R.groupBy
----
-
-<details>
-
-<summary><strong>R.groupBy</strong> source</summary>
-
-```javascript
-export function groupBy(groupFn, list){
-  if (arguments.length === 1) return _list => groupBy(groupFn, _list)
-
-  const result = {}
-  for (let i = 0; i < list.length; i++){
-    const item = list[ i ]
-    const key = groupFn(item)
-
-    if (!result[ key ]){
-      result[ key ] = []
-    }
-
-    result[ key ].push(item)
-  }
-
-  return result
-}
-```
-
-</details>
 ---
 
 <details>
@@ -3937,57 +2929,6 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 R.groupWith
 ---
 
-<details>
-
-<summary><strong>R.groupWith</strong> source</summary>
-
-```javascript
-export function groupWith(compareFn, list){
-  if (!Array.isArray(list))
-    throw new TypeError('list.reduce is not a function')
-
-  const clone = list.slice()
-  const toReturn = []
-  let holder = []
-
-  clone.reduce((
-    prev, current, i
-  ) => {
-    if (i === 0) return current
-
-    const okCompare = compareFn(prev, current)
-    const holderIsEmpty = holder.length === 0
-    const lastCall = i === list.length - 1
-
-    if (okCompare){
-      if (holderIsEmpty) holder.push(prev)
-      holder.push(current)
-      if (lastCall) toReturn.push(holder)
-
-      return current
-    }
-
-    if (holderIsEmpty){
-      toReturn.push([ prev ])
-      if (lastCall) toReturn.push([ current ])
-
-      return current
-    }
-
-    toReturn.push(holder)
-    if (lastCall) toReturn.push([ current ])
-    holder = []
-
-    return current
-  }, undefined)
-
-  return toReturn
-}
-```
-
-</details>
----
-
 
 ### has
 
@@ -4023,23 +2964,6 @@ has(prop: string): <T>(obj: T) => boolean;
 
 ---
 R.has
----
-
-<details>
-
-<summary><strong>R.has</strong> source</summary>
-
-```javascript
-export function has(prop, obj){
-  if (arguments.length === 1) return _obj => has(prop, _obj)
-
-  if (!obj) return false
-
-  return obj[ prop ] !== undefined
-}
-```
-
-</details>
 ---
 
 <details>
@@ -4127,23 +3051,6 @@ identical<T>(a: T): (b: T) => boolean;
 R.identical
 ---
 
-<details>
-
-<summary><strong>R.identical</strong> source</summary>
-
-```javascript
-import _objectIs from './_internals/_objectIs'
-
-export function identical(a, b){
-  if (arguments.length === 1) return _b => identical(a, _b)
-
-  return _objectIs(a, b)
-}
-```
-
-</details>
----
-
 
 ### identity
 
@@ -4172,19 +3079,6 @@ identity<T>(input: T): T;
 
 ---
 R.identity
----
-
-<details>
-
-<summary><strong>R.identity</strong> source</summary>
-
-```javascript
-export function identity(input){
-  return input
-}
-```
-
-</details>
 ---
 
 
@@ -4225,34 +3119,6 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 ---
 R.ifElse
----
-
-<details>
-
-<summary><strong>R.ifElse</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function ifElseFn(
-  condition, onTrue, onFalse
-){
-  return (...input) => {
-    const conditionResult =
-      typeof condition === 'boolean' ? condition : condition(...input)
-
-    if (conditionResult === true){
-      return onTrue(...input)
-    }
-
-    return onFalse(...input)
-  }
-}
-
-export const ifElse = curry(ifElseFn)
-```
-
-</details>
 ---
 
 <details>
@@ -4328,17 +3194,6 @@ inc(x: number): number;
 R.inc
 ---
 
-<details>
-
-<summary><strong>R.inc</strong> source</summary>
-
-```javascript
-export const inc = x => x + 1
-```
-
-</details>
----
-
 
 ### includes
 
@@ -4410,45 +3265,6 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 ---
 R.indexBy
----
-
-<details>
-
-<summary><strong>R.indexBy</strong> source</summary>
-
-```javascript
-import { path } from './path'
-
-function indexByPath(pathInput, list){
-  const toReturn = {}
-  for (let i = 0; i < list.length; i++){
-    const item = list[ i ]
-    toReturn[ path(pathInput, item) ] = item
-  }
-
-  return toReturn
-}
-
-export function indexBy(condition, list){
-  if (arguments.length === 1){
-    return _list => indexBy(condition, _list)
-  }
-
-  if (typeof condition === 'string'){
-    return indexByPath(condition, list)
-  }
-
-  const toReturn = {}
-  for (let i = 0; i < list.length; i++){
-    const item = list[ i ]
-    toReturn[ condition(item) ] = item
-  }
-
-  return toReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -4566,32 +3382,6 @@ R.indexOf
 
 <details>
 
-<summary><strong>R.indexOf</strong> source</summary>
-
-```javascript
-export function indexOf(valueToFind, list){
-  if (arguments.length === 1){
-    return _list => indexOf(valueToFind, _list)
-  }
-
-  let index = -1
-  const { length } = list
-
-  while (++index < length){
-    if (list[ index ] === valueToFind){
-      return index
-    }
-  }
-
-  return -1
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.indexOf</italic> specs
 
 > Reason for the failure: ramda method dispatches to `indexOf` method
@@ -4685,25 +3475,6 @@ init(listOrString: string): string;
 R.init
 ---
 
-<details>
-
-<summary><strong>R.init</strong> source</summary>
-
-```javascript
-import baseSlice from './_internals/baseSlice'
-
-export function init(listOrString){
-  if (typeof listOrString === 'string') return listOrString.slice(0, -1)
-
-  return listOrString.length ? baseSlice(
-    listOrString, 0, -1
-  ) : []
-}
-```
-
-</details>
----
-
 
 ### intersection
 
@@ -4739,24 +3510,6 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 R.intersection
 ---
 
-<details>
-
-<summary><strong>R.intersection</strong> source</summary>
-
-```javascript
-import { filter } from './filter'
-import { includes } from './includes'
-
-export function intersection(listA, listB){
-  if (arguments.length === 1) return _list => intersection(listA, _list)
-
-  return filter(value => includes(value, listB), listA)
-}
-```
-
-</details>
----
-
 
 ### intersperse
 
@@ -4789,33 +3542,6 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 ---
 R.intersperse
----
-
-<details>
-
-<summary><strong>R.intersperse</strong> source</summary>
-
-```javascript
-export function intersperse(separator, list){
-  if (arguments.length === 1) return _list => intersperse(separator, _list)
-
-  let index = -1
-  const len = list.length
-  const willReturn = []
-
-  while (++index < len){
-    if (index === len - 1){
-      willReturn.push(list[ index ])
-    } else {
-      willReturn.push(list[ index ], separator)
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 
@@ -4853,24 +3579,6 @@ is(targetPrototype: any): (x: any) => boolean;
 R.is
 ---
 
-<details>
-
-<summary><strong>R.is</strong> source</summary>
-
-```javascript
-export function is(targetPrototype, x){
-  if (arguments.length === 1) return _x => is(targetPrototype, _x)
-
-  return (
-    x != null && x.constructor === targetPrototype ||
-    x instanceof targetPrototype
-  )
-}
-```
-
-</details>
----
-
 
 ### isEmpty
 
@@ -4903,34 +3611,6 @@ isEmpty<T>(x: T): boolean;
 
 ---
 R.isEmpty
----
-
-<details>
-
-<summary><strong>R.isEmpty</strong> source</summary>
-
-```javascript
-import { type } from './type.js'
-
-export function isEmpty(input){
-  const inputType = type(input)
-  if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType))
-    return false
-  if (!input) return true
-
-  if (inputType === 'Object'){
-    return Object.keys(input).length === 0
-  }
-
-  if (inputType === 'Array'){
-    return input.length === 0
-  }
-
-  return false
-}
-```
-
-</details>
 ---
 
 <details>
@@ -4993,19 +3673,6 @@ isNil(x: any): x is null | undefined;
 R.isNil
 ---
 
-<details>
-
-<summary><strong>R.isNil</strong> source</summary>
-
-```javascript
-export function isNil(x){
-  return x === undefined || x === null
-}
-```
-
-</details>
----
-
 
 ### join
 
@@ -5037,21 +3704,6 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 R.join
 ---
 
-<details>
-
-<summary><strong>R.join</strong> source</summary>
-
-```javascript
-export function join(glue, list){
-  if (arguments.length === 1) return _list => join(glue, _list)
-
-  return list.join(glue)
-}
-```
-
-</details>
----
-
 
 ### keys
 
@@ -5081,19 +3733,6 @@ keys<T>(x: T): string[];
 
 ---
 R.keys
----
-
-<details>
-
-<summary><strong>R.keys</strong> source</summary>
-
-```javascript
-export function keys(x){
-  return Object.keys(x)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -5165,23 +3804,6 @@ last(listOrString: string): string;
 R.last
 ---
 
-<details>
-
-<summary><strong>R.last</strong> source</summary>
-
-```javascript
-export function last(listOrString){
-  if (typeof listOrString === 'string'){
-    return listOrString[ listOrString.length - 1 ] || ''
-  }
-
-  return listOrString[ listOrString.length - 1 ]
-}
-```
-
-</details>
----
-
 
 ### lastIndexOf
 
@@ -5220,31 +3842,6 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 ---
 R.lastIndexOf
----
-
-<details>
-
-<summary><strong>R.lastIndexOf</strong> source</summary>
-
-```javascript
-import { equals } from './equals'
-
-export function lastIndexOf(target, list){
-  if (arguments.length === 1) return _list => lastIndexOf(target, _list)
-
-  let index = list.length
-
-  while (--index > 0){
-    if (equals(list[ index ], target)){
-      return index
-    }
-  }
-
-  return -1
-}
-```
-
-</details>
 ---
 
 <details>
@@ -5349,23 +3946,6 @@ R.length
 
 <details>
 
-<summary><strong>R.length</strong> source</summary>
-
-```javascript
-export function length(x){
-  if (!x || x.length === undefined){
-    return NaN
-  }
-
-  return x.length
-}
-```
-
-</details>
----
-
-<details>
-
 <summary> Failed <italic>Ramda.length</italic> specs
 
 > Reason for the failure: ramda method supports object with `length` method
@@ -5432,25 +4012,6 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 R.lens
 ---
 
-<details>
-
-<summary><strong>R.lens</strong> source</summary>
-
-```javascript
-export function lens(getter, setter){
-  if (arguments.length === 1) return _setter => lens(getter, _setter)
-
-  return function (functor){
-    return function (target){
-      return functor(getter(target)).map(focus => setter(focus, target))
-    }
-  }
-}
-```
-
-</details>
----
-
 
 ### lensIndex
 
@@ -5484,23 +4045,6 @@ lensIndex(index: number): Lens;
 
 ---
 R.lensIndex
----
-
-<details>
-
-<summary><strong>R.lensIndex</strong> source</summary>
-
-```javascript
-import { lens } from './lens'
-import { nth } from './nth'
-import { update } from './update'
-
-export function lensIndex(index){
-  return lens(nth(index), update(index))
-}
-```
-
-</details>
 ---
 
 
@@ -5542,23 +4086,6 @@ lensPath(path: RamdaPath): Lens;
 R.lensPath
 ---
 
-<details>
-
-<summary><strong>R.lensPath</strong> source</summary>
-
-```javascript
-import { assocPath } from './assocPath'
-import { lens } from './lens'
-import { path } from './path'
-
-export function lensPath(key){
-  return lens(path(key), assocPath(key))
-}
-```
-
-</details>
----
-
 
 ### lensProp
 
@@ -5597,23 +4124,6 @@ lensProp(prop: string): {
 
 ---
 R.lensProp
----
-
-<details>
-
-<summary><strong>R.lensProp</strong> source</summary>
-
-```javascript
-import { assoc } from './assoc'
-import { lens } from './lens'
-import { prop } from './prop'
-
-export function lensProp(key){
-  return lens(prop(key), assoc(key))
-}
-```
-
-</details>
 ---
 
 
@@ -5663,48 +4173,6 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 ---
 R.map
----
-
-<details>
-
-<summary><strong>R.map</strong> source</summary>
-
-```javascript
-function mapObject(fn, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    willReturn[ prop ] = fn(
-      obj[ prop ], prop, obj
-    )
-  }
-
-  return willReturn
-}
-
-export function map(fn, list){
-  if (arguments.length === 1) return _list => map(fn, _list)
-
-  if (list === undefined){
-    return []
-  }
-  if (!Array.isArray(list)){
-    return mapObject(fn, list)
-  }
-
-  let index = -1
-  const len = list.length
-  const willReturn = Array(len)
-
-  while (++index < len){
-    willReturn[ index ] = fn(list[ index ], index)
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -5841,23 +4309,6 @@ match(regExpression: RegExp): (str: string) => any[];
 R.match
 ---
 
-<details>
-
-<summary><strong>R.match</strong> source</summary>
-
-```javascript
-export function match(pattern, input){
-  if (arguments.length === 1) return _input => match(pattern, _input)
-
-  const willReturn = input.match(pattern)
-
-  return willReturn === null ? [] : willReturn
-}
-```
-
-</details>
----
-
 
 ### max
 
@@ -5891,21 +4342,6 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 ---
 R.max
----
-
-<details>
-
-<summary><strong>R.max</strong> source</summary>
-
-```javascript
-export function max(x, y){
-  if (arguments.length === 1) return _y => max(x, _y)
-
-  return y > x ? y : x
-}
-```
-
-</details>
 ---
 
 
@@ -5942,25 +4378,6 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 R.maxBy
 ---
 
-<details>
-
-<summary><strong>R.maxBy</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-export function maxByFn(
-  compareFn, x, y
-){
-  return compareFn(y) > compareFn(x) ? y : x
-}
-
-export const maxBy = curry(maxByFn)
-```
-
-</details>
----
-
 
 ### mean
 
@@ -5992,21 +4409,6 @@ mean(list: ReadonlyArray<number>): number;
 R.mean
 ---
 
-<details>
-
-<summary><strong>R.mean</strong> source</summary>
-
-```javascript
-import { sum } from './sum'
-
-export function mean(list){
-  return sum(list) / list.length
-}
-```
-
-</details>
----
-
 
 ### median
 
@@ -6035,33 +4437,6 @@ median(list: ReadonlyArray<number>): number;
 
 ---
 R.median
----
-
-<details>
-
-<summary><strong>R.median</strong> source</summary>
-
-```javascript
-import { mean } from './mean'
-
-export function median(list){
-  const len = list.length
-  if (len === 0) return NaN
-  const width = 2 - len % 2
-  const idx = (len - width) / 2
-
-  return mean(Array.prototype.slice
-    .call(list, 0)
-    .sort((a, b) => {
-      if (a === b) return 0
-
-      return a < b ? -1 : 1
-    })
-    .slice(idx, idx + width))
-}
-```
-
-</details>
 ---
 
 
@@ -6099,23 +4474,6 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 R.merge
 ---
 
-<details>
-
-<summary><strong>R.merge</strong> source</summary>
-
-```javascript
-export function merge(target, newProps){
-  if (arguments.length === 1) return _newProps => merge(target, _newProps)
-
-  return Object.assign(
-    {}, target || {}, newProps || {}
-  )
-}
-```
-
-</details>
----
-
 
 ### min
 
@@ -6149,21 +4507,6 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 ---
 R.min
----
-
-<details>
-
-<summary><strong>R.min</strong> source</summary>
-
-```javascript
-export function min(x, y){
-  if (arguments.length === 1) return _y => min(x, _y)
-
-  return y < x ? y : x
-}
-```
-
-</details>
 ---
 
 
@@ -6200,25 +4543,6 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 R.minBy
 ---
 
-<details>
-
-<summary><strong>R.minBy</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-export function minByFn(
-  compareFn, x, y
-){
-  return compareFn(y) < compareFn(x) ? y : x
-}
-
-export const minBy = curry(minByFn)
-```
-
-</details>
----
-
 
 ### modulo
 
@@ -6248,21 +4572,6 @@ modulo(x: number): (y: number) => number;
 
 ---
 R.modulo
----
-
-<details>
-
-<summary><strong>R.modulo</strong> source</summary>
-
-```javascript
-export function modulo(x, y){
-  if (arguments.length === 1) return _y => modulo(x, _y)
-
-  return x % y
-}
-```
-
-</details>
 ---
 
 
@@ -6296,21 +4605,6 @@ multiply(x: number): (y: number) => number;
 R.multiply
 ---
 
-<details>
-
-<summary><strong>R.multiply</strong> source</summary>
-
-```javascript
-export function multiply(x, y){
-  if (arguments.length === 1) return _y => multiply(x, _y)
-
-  return x * y
-}
-```
-
-</details>
----
-
 
 ### negate
 
@@ -6338,19 +4632,6 @@ negate(x: number): number;
 
 ---
 R.negate
----
-
-<details>
-
-<summary><strong>R.negate</strong> source</summary>
-
-```javascript
-export function negate(x){
-  return -x
-}
-```
-
-</details>
 ---
 
 
@@ -6388,21 +4669,6 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 R.none
 ---
 
-<details>
-
-<summary><strong>R.none</strong> source</summary>
-
-```javascript
-export function none(predicate, list){
-  if (arguments.length === 1) return _list => none(predicate, _list)
-
-  return list.filter(predicate).length === 0
-}
-```
-
-</details>
----
-
 
 ### not
 
@@ -6431,19 +4697,6 @@ not(input: any): boolean;
 
 ---
 R.not
----
-
-<details>
-
-<summary><strong>R.not</strong> source</summary>
-
-```javascript
-export function not(input){
-  return !input
-}
-```
-
-</details>
 ---
 
 
@@ -6485,25 +4738,6 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 R.nth
 ---
 
-<details>
-
-<summary><strong>R.nth</strong> source</summary>
-
-```javascript
-export function nth(index, list){
-  if (arguments.length === 1) return _list => nth(index, _list)
-
-  const idx = index < 0 ? list.length + index : index
-
-  return Object.prototype.toString.call(list) === '[object String]' ?
-    list.charAt(idx) :
-    list[ idx ]
-}
-```
-
-</details>
----
-
 
 ### omit
 
@@ -6543,36 +4777,6 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 ---
 R.omit
----
-
-<details>
-
-<summary><strong>R.omit</strong> source</summary>
-
-```javascript
-export function omit(propsToOmit, obj){
-  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
-
-  const propsToOmitValue =
-    typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit
-
-  const willReturn = {}
-
-  for (const key in obj){
-    if (!propsToOmitValue.includes(key)){
-      willReturn[ key ] = obj[ key ]
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -6672,34 +4876,6 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 R.over
 ---
 
-<details>
-
-<summary><strong>R.over</strong> source</summary>
-
-```javascript
-const Identity = x => ({
-  x,
-  map : fn => Identity(fn(x)),
-})
-
-export function over(
-  lens, fn, object
-){
-  if (arguments.length === 1)
-    return (_fn, _object) => over(
-      lens, _fn, _object
-    )
-  if (arguments.length === 2) return _object => over(
-    lens, fn, _object
-  )
-
-  return lens(x => Identity(fn(x)))(object).x
-}
-```
-
-</details>
----
-
 
 ### partial
 
@@ -6746,27 +4922,6 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 R.partial
 ---
 
-<details>
-
-<summary><strong>R.partial</strong> source</summary>
-
-```javascript
-export function partial(fn, ...args){
-  const len = fn.length
-
-  return (...rest) => {
-    if (args.length + rest.length >= len){
-      return fn(...args, ...rest)
-    }
-
-    return partial(fn, ...[ ...args, ...rest ])
-  }
-}
-```
-
-</details>
----
-
 
 ### path
 
@@ -6809,37 +4964,6 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 ---
 R.path
----
-
-<details>
-
-<summary><strong>R.path</strong> source</summary>
-
-```javascript
-export function path(list, obj){
-  if (arguments.length === 1) return _obj => path(list, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
-  let willReturn = obj
-  let counter = 0
-
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
-
-  while (counter < pathArrValue.length){
-    if (willReturn === null || willReturn === undefined){
-      return undefined
-    }
-    willReturn = willReturn[ pathArrValue[ counter ] ]
-    counter++
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -6979,27 +5103,6 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 R.pathOr
 ---
 
-<details>
-
-<summary><strong>R.pathOr</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-import { defaultTo } from './defaultTo'
-import { path } from './path'
-
-function pathOrFn(
-  defaultValue, list, obj
-){
-  return defaultTo(defaultValue, path(list, obj))
-}
-
-export const pathOr = curry(pathOrFn)
-```
-
-</details>
----
-
 
 ### paths
 
@@ -7047,21 +5150,6 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 ---
 R.paths
----
-
-<details>
-
-<summary><strong>R.paths</strong> source</summary>
-
-```javascript
-import { path } from './path'
-
-export function paths(pathsToSearch, obj){
-  return pathsToSearch.map(singlePath => path(singlePath, obj))
-}
-```
-
-</details>
 ---
 
 <details>
@@ -7194,37 +5282,6 @@ R.pick
 
 <details>
 
-<summary><strong>R.pick</strong> source</summary>
-
-```javascript
-export function pick(propsToPick, obj){
-  if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
-  const keys =
-    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
-
-  const willReturn = {}
-  let counter = 0
-
-  while (counter < keys.length){
-    if (keys[ counter ] in obj){
-      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
-    }
-    counter++
-  }
-
-  return willReturn
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -7334,38 +5391,6 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 R.pickAll
 ---
 
-<details>
-
-<summary><strong>R.pickAll</strong> source</summary>
-
-```javascript
-export function pickAll(propsToPick, obj){
-  if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
-  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
-
-  const willReturn = {}
-  let counter = 0
-
-  while (counter < keysValue.length){
-    if (keysValue[ counter ] in obj){
-      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
-    } else {
-      willReturn[ keysValue[ counter ] ] = undefined
-    }
-    counter++
-  }
-
-  return willReturn
-}
-```
-
-</details>
----
-
 
 ### pipe
 
@@ -7402,24 +5427,6 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 ---
 R.pipe
----
-
-<details>
-
-<summary><strong>R.pipe</strong> source</summary>
-
-```javascript
-import { compose } from './compose'
-
-export function pipe(...fns){
-  if (fns.length === 0)
-    throw new Error('pipe requires at least one argument')
-
-  return compose(...fns.reverse())
-}
-```
-
-</details>
 ---
 
 <details>
@@ -7507,31 +5514,6 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 ---
 R.pluck
----
-
-<details>
-
-<summary><strong>R.pluck</strong> source</summary>
-
-```javascript
-import { map } from './map'
-
-export function pluck(property, list){
-  if (arguments.length === 1) return _list => pluck(property, _list)
-
-  const willReturn = []
-
-  map(x => {
-    if (x[ property ] !== undefined){
-      willReturn.push(x[ property ])
-    }
-  }, list)
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -7638,24 +5620,6 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 R.prepend
 ---
 
-<details>
-
-<summary><strong>R.prepend</strong> source</summary>
-
-```javascript
-export function prepend(x, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => prepend(x, _listOrString)
-
-  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
-
-  return [ x ].concat(listOrString)
-}
-```
-
-</details>
----
-
 
 ### product
 
@@ -7684,20 +5648,6 @@ product(list: ReadonlyArray<number>): number;
 
 ---
 R.product
----
-
-<details>
-
-<summary><strong>R.product</strong> source</summary>
-
-```javascript
-import { multiply } from './multiply'
-import { reduce } from './reduce'
-
-export const product = reduce(multiply, 1)
-```
-
-</details>
 ---
 
 
@@ -7761,27 +5711,6 @@ propEq(propToFind: string | number): {
 
 ---
 R.propEq
----
-
-<details>
-
-<summary><strong>R.propEq</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function propEqFn(
-  propToFind, valueToMatch, obj
-){
-  if (!obj) return false
-
-  return obj[ propToFind ] === valueToMatch
-}
-
-export const propEq = curry(propEqFn)
-```
-
-</details>
 ---
 
 <details>
@@ -7860,26 +5789,6 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 R.propIs
 ---
 
-<details>
-
-<summary><strong>R.propIs</strong> source</summary>
-
-```javascript
-import { curry } from './curry.js'
-import { is } from './is'
-
-function propIsFn(
-  targetPrototype, property, obj
-){
-  return is(targetPrototype, obj[ property ])
-}
-
-export const propIs = curry(propIsFn)
-```
-
-</details>
----
-
 
 ### propOr
 
@@ -7920,28 +5829,6 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 R.propOr
 ---
 
-<details>
-
-<summary><strong>R.propOr</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-import { defaultTo } from './defaultTo'
-
-function propOrFn(
-  defaultValue, property, obj
-){
-  if (!obj) return defaultValue
-
-  return defaultTo(defaultValue, obj[ property ])
-}
-
-export const propOr = curry(propOrFn)
-```
-
-</details>
----
-
 
 ### range
 
@@ -7972,34 +5859,6 @@ range(start: number): (end: number) => number[];
 
 ---
 R.range
----
-
-<details>
-
-<summary><strong>R.range</strong> source</summary>
-
-```javascript
-export function range(start, end){
-  if (arguments.length === 1) return _end => range(start, _end)
-
-  if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
-    throw new TypeError('Both arguments to range must be numbers')
-  }
-
-  if (end < start) return []
-
-  const len = end - start
-  const willReturn = Array(len)
-
-  for (let i = 0; i < len; i++){
-    willReturn[ i ] = start + i
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 
@@ -8037,27 +5896,6 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 ---
 R.reduce
----
-
-<details>
-
-<summary><strong>R.reduce</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function reduceFn(
-  reducer, acc, list
-){
-  const clone = list.slice()
-
-  return clone.reduce(reducer, acc)
-}
-
-export const reduce = curry(reduceFn)
-```
-
-</details>
 ---
 
 <details>
@@ -8264,23 +6102,6 @@ R.reject
 
 <details>
 
-<summary><strong>R.reject</strong> source</summary>
-
-```javascript
-import { filter } from './filter'
-
-export function reject(predicate, list){
-  if (arguments.length === 1) return _list => reject(predicate, _list)
-
-  return filter((x, i) => !predicate(x, i), list)
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -8432,23 +6253,6 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 R.repeat
 ---
 
-<details>
-
-<summary><strong>R.repeat</strong> source</summary>
-
-```javascript
-export function repeat(x, timesToRepeat){
-  if (arguments.length === 1){
-    return _timesToRepeat => repeat(x, _timesToRepeat)
-  }
-
-  return Array(timesToRepeat).fill(x)
-}
-```
-
-</details>
----
-
 
 ### replace
 
@@ -8482,31 +6286,6 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 ---
 R.replace
----
-
-<details>
-
-<summary><strong>R.replace</strong> source</summary>
-
-```javascript
-export function replace(
-  pattern, replacer, str
-){
-  if (replacer === undefined){
-    return (_replacer, _str) => replace(
-      pattern, _replacer, _str
-    )
-  } else if (str === undefined){
-    return _str => replace(
-      pattern, replacer, _str
-    )
-  }
-
-  return str.replace(pattern, replacer)
-}
-```
-
-</details>
 ---
 
 
@@ -8565,33 +6344,6 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 R.set
 ---
 
-<details>
-
-<summary><strong>R.set</strong> source</summary>
-
-```javascript
-import { always } from './always'
-import { over } from './over'
-
-export function set(
-  lens, replacer, x
-){
-  if (arguments.length === 1) return (_v, _x) => set(
-    lens, _v, _x
-  )
-  if (arguments.length === 2) return _x => set(
-    lens, replacer, _x
-  )
-
-  return over(
-    lens, always(replacer), x
-  )
-}
-```
-
-</details>
----
-
 
 ### slice
 
@@ -8631,25 +6383,6 @@ slice(frp,: number, to: number): {
 
 ---
 R.slice
----
-
-<details>
-
-<summary><strong>R.slice</strong> source</summary>
-
-```javascript
-import { curry } from './curry'
-
-function sliceFn(
-  from, to, list
-){
-  return list.slice(from, to)
-}
-
-export const slice = curry(sliceFn)
-```
-
-</details>
 ---
 
 
@@ -8698,23 +6431,6 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 R.sort
 ---
 
-<details>
-
-<summary><strong>R.sort</strong> source</summary>
-
-```javascript
-export function sort(sortFn, list){
-  if (arguments.length === 1) return _list => sort(sortFn, _list)
-
-  const clone = list.slice()
-
-  return clone.sort(sortFn)
-}
-```
-
-</details>
----
-
 
 ### sortBy
 
@@ -8757,30 +6473,6 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 ---
 R.sortBy
----
-
-<details>
-
-<summary><strong>R.sortBy</strong> source</summary>
-
-```javascript
-export function sortBy(sortFn, list){
-  if (arguments.length === 1) return _list => sortBy(sortFn, _list)
-
-  const clone = list.slice()
-
-  return clone.sort((a, b) => {
-    const aSortResult = sortFn(a)
-    const bSortResult = sortFn(b)
-
-    if (aSortResult === bSortResult) return 0
-
-    return aSortResult < bSortResult ? -1 : 1
-  })
-}
-```
-
-</details>
 ---
 
 <details>
@@ -8884,21 +6576,6 @@ split(separator: string | RegExp, str: string): string[];
 R.split
 ---
 
-<details>
-
-<summary><strong>R.split</strong> source</summary>
-
-```javascript
-export function split(separator, str){
-  if (arguments.length === 1) return _str => split(separator, _str)
-
-  return str.split(separator)
-}
-```
-
-</details>
----
-
 
 ### splitEvery
 
@@ -8955,21 +6632,6 @@ startsWith(target: string): (str: string) => boolean;
 
 ---
 R.startsWith
----
-
-<details>
-
-<summary><strong>R.startsWith</strong> source</summary>
-
-```javascript
-export function startsWith(target, str){
-  if (arguments.length === 1) return _str => startsWith(target, _str)
-
-  return str.startsWith(target)
-}
-```
-
-</details>
 ---
 
 <details>
@@ -9052,19 +6714,6 @@ sum(list: ReadonlyArray<number>): number;
 R.sum
 ---
 
-<details>
-
-<summary><strong>R.sum</strong> source</summary>
-
-```javascript
-export function sum(list){
-  return list.reduce((prev, current) => prev + current, 0)
-}
-```
-
-</details>
----
-
 
 ### symmetricDifference
 
@@ -9100,28 +6749,6 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 R.symmetricDifference
 ---
 
-<details>
-
-<summary><strong>R.symmetricDifference</strong> source</summary>
-
-```javascript
-import { concat } from './concat'
-import { filter } from './filter'
-import { includes } from './includes'
-
-export function symmetricDifference(x, y){
-  if (arguments.length === 1){
-    return _y => symmetricDifference(x, _y)
-  }
-
-  return concat(filter(value => !includes(value, y), x),
-    filter(value => !includes(value, x), y))
-}
-```
-
-</details>
----
-
 
 ### T
 
@@ -9150,19 +6777,6 @@ T(): boolean;
 
 ---
 R.T
----
-
-<details>
-
-<summary><strong>R.T</strong> source</summary>
-
-```javascript
-export function T(){
-  return true
-}
-```
-
-</details>
 ---
 
 
@@ -9198,21 +6812,6 @@ tail(listOrString: string): string;
 
 ---
 R.tail
----
-
-<details>
-
-<summary><strong>R.tail</strong> source</summary>
-
-```javascript
-import { drop } from './drop'
-
-export function tail(listOrString){
-  return drop(1, listOrString)
-}
-```
-
-</details>
 ---
 
 
@@ -9251,28 +6850,6 @@ take<T>(howMany: number): {
 
 ---
 R.take
----
-
-<details>
-
-<summary><strong>R.take</strong> source</summary>
-
-```javascript
-import baseSlice from './_internals/baseSlice'
-
-export function take(howMany, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => take(howMany, _listOrString)
-  if (howMany < 0) return listOrString.slice()
-  if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
-
-  return baseSlice(
-    listOrString, 0, howMany
-  )
-}
-```
-
-</details>
 ---
 
 <details>
@@ -9346,35 +6923,6 @@ takeLast<T>(howMany: number): {
 R.takeLast
 ---
 
-<details>
-
-<summary><strong>R.takeLast</strong> source</summary>
-
-```javascript
-import baseSlice from './_internals/baseSlice'
-
-export function takeLast(howMany, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => takeLast(howMany, _listOrString)
-
-  const len = listOrString.length
-  if (howMany < 0) return listOrString.slice()
-  let numValue = howMany > len ? len : howMany
-
-  if (typeof listOrString === 'string')
-    return listOrString.slice(len - numValue)
-
-  numValue = len - numValue
-
-  return baseSlice(
-    listOrString, numValue, len
-  )
-}
-```
-
-</details>
----
-
 
 ### tap
 
@@ -9413,23 +6961,6 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 ---
 R.tap
----
-
-<details>
-
-<summary><strong>R.tap</strong> source</summary>
-
-```javascript
-export function tap(fn, x){
-  if (arguments.length === 1) return _x => tap(fn, _x)
-
-  fn(x)
-
-  return x
-}
-```
-
-</details>
 ---
 
 <details>
@@ -9500,25 +7031,6 @@ test(regExpression: RegExp, str: string): boolean;
 R.test
 ---
 
-<details>
-
-<summary><strong>R.test</strong> source</summary>
-
-```javascript
-export function test(pattern, str){
-  if (arguments.length === 1) return _str => test(pattern, _str)
-
-  if (typeof pattern === 'string'){
-    throw new TypeError(`‘test’ requires a value of type RegExp as its first argument; received "${ pattern }"`)
-  }
-
-  return str.search(pattern) !== -1
-}
-```
-
-</details>
----
-
 
 ### times
 
@@ -9556,27 +7068,6 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 R.times
 ---
 
-<details>
-
-<summary><strong>R.times</strong> source</summary>
-
-```javascript
-import { map } from './map'
-import { range } from './range'
-
-export function times(fn, howMany){
-  if (arguments.length === 1) return _howMany => times(fn, _howMany)
-  if (!Number.isInteger(howMany) || howMany < 0){
-    throw new RangeError('n must be an integer')
-  }
-
-  return map(fn, range(0, howMany))
-}
-```
-
-</details>
----
-
 
 ### toLower
 
@@ -9605,19 +7096,6 @@ toLower(str: string): string;
 
 ---
 R.toLower
----
-
-<details>
-
-<summary><strong>R.toLower</strong> source</summary>
-
-```javascript
-export function toLower(str){
-  return str.toLowerCase()
-}
-```
-
-</details>
 ---
 
 
@@ -9658,19 +7136,6 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 R.toPairs
 ---
 
-<details>
-
-<summary><strong>R.toPairs</strong> source</summary>
-
-```javascript
-export function toPairs(obj){
-  return Object.entries(obj)
-}
-```
-
-</details>
----
-
 
 ### toString
 
@@ -9701,19 +7166,6 @@ toString<T>(x: T): string;
 R.toString
 ---
 
-<details>
-
-<summary><strong>R.toString</strong> source</summary>
-
-```javascript
-export function toString(val){
-  return val.toString()
-}
-```
-
-</details>
----
-
 
 ### toUpper
 
@@ -9742,19 +7194,6 @@ toUpper(str: string): string;
 
 ---
 R.toUpper
----
-
-<details>
-
-<summary><strong>R.toUpper</strong> source</summary>
-
-```javascript
-export function toUpper(str){
-  return str.toUpperCase()
-}
-```
-
-</details>
 ---
 
 
@@ -9790,24 +7229,6 @@ transpose<T>(list: T[][]): T[][];
 R.transpose
 ---
 
-<details>
-
-<summary><strong>R.transpose</strong> source</summary>
-
-```javascript
-export function transpose(array){
-  return array.reduce((acc, el) => {
-    el.forEach((nestedEl, i) =>
-      Array.isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]))
-
-    return acc
-  }, [])
-}
-```
-
-</details>
----
-
 
 ### trim
 
@@ -9836,19 +7257,6 @@ trim(str: string): string;
 
 ---
 R.trim
----
-
-<details>
-
-<summary><strong>R.trim</strong> source</summary>
-
-```javascript
-export function trim(str){
-  return str.trim()
-}
-```
-
-</details>
 ---
 
 <details>
@@ -9933,32 +7341,6 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 ---
 R.uniq
----
-
-<details>
-
-<summary><strong>R.uniq</strong> source</summary>
-
-```javascript
-import { includes } from './includes'
-
-export function uniq(list){
-  let index = -1
-  const willReturn = []
-
-  while (++index < list.length){
-    const value = list[ index ]
-
-    if (!includes(value, willReturn)){
-      willReturn.push(value)
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
 ---
 
 <details>
@@ -10060,37 +7442,6 @@ R.uniqWith
 
 <details>
 
-<summary><strong>R.uniqWith</strong> source</summary>
-
-```javascript
-import { any } from './any'
-
-export function uniqWith(fn, list){
-  if (arguments.length === 1) return _list => uniqWith(fn, _list)
-
-  let index = -1
-  const len = list.length
-  const willReturn = []
-
-  while (++index < len){
-    const value = list[ index ]
-    const flag = any(willReturnInstance => fn(value, willReturnInstance),
-      willReturn)
-
-    if (!flag){
-      willReturn.push(value)
-    }
-  }
-
-  return willReturn
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -10169,35 +7520,6 @@ R.update
 
 <details>
 
-<summary><strong>R.update</strong> source</summary>
-
-```javascript
-export function update(
-  idx, val, list
-){
-  if (val === undefined){
-    return (_val, _list) => update(
-      idx, _val, _list
-    )
-  } else if (list === undefined){
-    return _list => update(
-      idx, val, _list
-    )
-  }
-
-  const arrClone = list.slice()
-
-  return arrClone.fill(
-    val, idx, idx + 1
-  )
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -10272,23 +7594,6 @@ R.values
 
 <details>
 
-<summary><strong>R.values</strong> source</summary>
-
-```javascript
-import { type } from './type.js'
-
-export function values(obj){
-  if (type(obj) !== 'Object') return []
-
-  return Object.values(obj)
-}
-```
-
-</details>
----
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
@@ -10340,26 +7645,6 @@ view<T, U>(lens: Lens, target: T): U;
 
 ---
 R.view
----
-
-<details>
-
-<summary><strong>R.view</strong> source</summary>
-
-```javascript
-const Const = x => ({
-  x,
-  map : fn => Const(x),
-})
-
-export function view(lens, target){
-  if (arguments.length === 1) return _target => view(lens, _target)
-
-  return lens(Const)(target).x
-}
-```
-
-</details>
 ---
 
 
@@ -10415,21 +7700,6 @@ xor(y: boolean): (y: boolean) => boolean;
 
 ---
 R.xor
----
-
-<details>
-
-<summary><strong>R.xor</strong> source</summary>
-
-```javascript
-export function xor(a, b){
-  if (arguments.length === 1) return _b => xor(a, _b)
-
-  return Boolean(a) && !b || Boolean(b) && !a
-}
-```
-
-</details>
 ---
 
 <details>
@@ -10513,28 +7783,6 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 ---
 R.zip
----
-
-<details>
-
-<summary><strong>R.zip</strong> source</summary>
-
-```javascript
-export function zip(left, right){
-  if (arguments.length === 1) return _right => zip(left, _right)
-
-  const result = []
-  const length = Math.min(left.length, right.length)
-
-  for (let i = 0; i < length; i++){
-    result[ i ] = [ left[ i ], right[ i ] ]
-  }
-
-  return result
-}
-```
-
-</details>
 ---
 
 <details>
