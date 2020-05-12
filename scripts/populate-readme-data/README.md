@@ -367,13 +367,17 @@ add(a: number): (b: number) => number;
 </details>
 
 
-R.add
+<details>
+
+<summary>R.add source</summary>
 
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
   return Number(a) + Number(b)
 }
+
+</details>
 
 
 ### adjust
@@ -415,7 +419,9 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 </details>
 
 
-R.adjust
+<details>
+
+<summary>R.adjust source</summary>
 
 import { curry } from './curry'
 
@@ -432,6 +438,8 @@ function adjustFn(
 }
 
 export const adjust = curry(adjustFn)
+
+</details>
 
 
 ### all
@@ -473,7 +481,9 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-R.all
+<details>
+
+<summary>R.all source</summary>
 
 export function all(predicate, list){
   if (arguments.length === 1) return _list => all(predicate, _list)
@@ -484,6 +494,8 @@ export function all(predicate, list){
 
   return true
 }
+
+</details>
 
 
 ### allPass
@@ -528,7 +540,9 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 </details>
 
 
-R.allPass
+<details>
+
+<summary>R.allPass source</summary>
 
 export function allPass(predicates){
   return input => {
@@ -543,6 +557,8 @@ export function allPass(predicates){
     return true
   }
 }
+
+</details>
 
 
 ### always
@@ -581,11 +597,15 @@ always<T>(x: T): () => T;
 </details>
 
 
-R.always
+<details>
+
+<summary>R.always source</summary>
 
 export function always(x){
   return () => x
 }
+
+</details>
 
 
 ### and
@@ -624,13 +644,17 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 </details>
 
 
-R.and
+<details>
+
+<summary>R.and source</summary>
 
 export function and(a, b){
   if (arguments.length === 1) return _b => and(a, _b)
 
   return a && b
 }
+
+</details>
 
 
 ### any
@@ -673,7 +697,9 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-R.any
+<details>
+
+<summary>R.any source</summary>
 
 export function any(predicate, list){
   if (arguments.length === 1) return _list => any(predicate, _list)
@@ -688,6 +714,8 @@ export function any(predicate, list){
 
   return false
 }
+
+</details>
 
 
 ### anyPass
@@ -732,7 +760,9 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 </details>
 
 
-R.anyPass
+<details>
+
+<summary>R.anyPass source</summary>
 
 export function anyPass(predicates){
   return input => {
@@ -747,6 +777,8 @@ export function anyPass(predicates){
     return false
   }
 }
+
+</details>
 
 
 ### append
@@ -790,7 +822,9 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.append
+<details>
+
+<summary>R.append source</summary>
 
 export function append(x, listOrString){
   if (arguments.length === 1)
@@ -803,6 +837,8 @@ export function append(x, listOrString){
 
   return clone
 }
+
+</details>
 
 
 ### applySpec
@@ -861,7 +897,9 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 </details>
 
 
-R.applySpec
+<details>
+
+<summary>R.applySpec source</summary>
 
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
@@ -994,6 +1032,8 @@ export function applySpec(spec, ...args){
   return toReturn
 }
 
+</details>
+
 
 ### assoc
 
@@ -1032,7 +1072,9 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 </details>
 
 
-R.assoc
+<details>
+
+<summary>R.assoc source</summary>
 
 import { curry } from './curry'
 
@@ -1045,6 +1087,8 @@ function assocFn(
 }
 
 export const assoc = curry(assocFn)
+
+</details>
 
 
 ### assocPath
@@ -1088,7 +1132,9 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 </details>
 
 
-R.assocPath
+<details>
+
+<summary>R.assocPath source</summary>
 
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
@@ -1135,6 +1181,8 @@ function assocPathFn(
 
 export const assocPath = curry(assocPathFn)
 
+</details>
+
 
 ### both
 
@@ -1180,13 +1228,17 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 </details>
 
 
-R.both
+<details>
+
+<summary>R.both source</summary>
 
 export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
   return (...input) => f(...input) && g(...input)
 }
+
+</details>
 
 
 ### clamp
@@ -1230,7 +1282,9 @@ clamp(min: number, max: number): (input: number) => number;
 </details>
 
 
-R.clamp
+<details>
+
+<summary>R.clamp source</summary>
 
 import { curry } from './curry'
 
@@ -1244,6 +1298,8 @@ function clampFn(
 }
 
 export const clamp = curry(clampFn)
+
+</details>
 
 
 ### clone
@@ -1311,11 +1367,15 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 </details>
 
 
-R.complement
+<details>
+
+<summary>R.complement source</summary>
 
 export function complement(fn){
   return (...input) => !fn(...input)
 }
+
+</details>
 
 
 ### compose
@@ -1360,7 +1420,9 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 </details>
 
 
-R.compose
+<details>
+
+<summary>R.compose source</summary>
 
 export function compose(...fns){
   if (fns.length === 0){
@@ -1380,6 +1442,8 @@ export function compose(...fns){
     }
   }
 }
+
+</details>
 
 
 ### concat
@@ -1420,13 +1484,17 @@ concat(x: string): (y: string) => string;
 </details>
 
 
-R.concat
+<details>
+
+<summary>R.concat source</summary>
 
 export function concat(x, y){
   if (arguments.length === 1) return _y => concat(x, _y)
 
   return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
 }
+
+</details>
 
 
 ### cond
@@ -1481,7 +1549,9 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 </details>
 
 
-R.cond
+<details>
+
+<summary>R.cond source</summary>
 
 export function cond(conditions){
   return input => {
@@ -1497,6 +1567,8 @@ export function cond(conditions){
     return toReturn
   }
 }
+
+</details>
 
 
 ### curry
@@ -1537,7 +1609,9 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 </details>
 
 
-R.curry
+<details>
+
+<summary>R.curry source</summary>
 
 export function curry(fn, args = []){
   return (..._args) =>
@@ -1546,6 +1620,8 @@ export function curry(fn, args = []){
       ..._args,
     ])
 }
+
+</details>
 
 
 ### dec
@@ -1573,9 +1649,13 @@ dec(x: number): number;
 </details>
 
 
-R.dec
+<details>
+
+<summary>R.dec source</summary>
 
 export const dec = x => x - 1
+
+</details>
 
 
 ### defaultTo
@@ -1623,7 +1703,9 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 </details>
 
 
-R.defaultTo
+<details>
+
+<summary>R.defaultTo source</summary>
 
 function flagIs(inputArguments){
   return (
@@ -1660,6 +1742,8 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
   return holder === undefined ? defaultArgument : holder
 }
+
+</details>
 
 
 ### difference
@@ -1701,7 +1785,9 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.difference
+<details>
+
+<summary>R.difference source</summary>
 
 import { includes } from './includes'
 import { uniq } from './uniq'
@@ -1711,6 +1797,8 @@ export function difference(a, b){
 
   return uniq(a).filter(aInstance => !includes(aInstance, b))
 }
+
+</details>
 
 
 ### dissoc
@@ -1749,7 +1837,9 @@ dissoc(prop: string): <U>(obj: any) => U;
 </details>
 
 
-R.dissoc
+<details>
+
+<summary>R.dissoc source</summary>
 
 export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
@@ -1764,6 +1854,8 @@ export function dissoc(prop, obj){
 
   return willReturn
 }
+
+</details>
 
 
 ### divide
@@ -1798,13 +1890,17 @@ divide(a: number): (b: number) => number;
 </details>
 
 
-R.divide
+<details>
+
+<summary>R.divide source</summary>
 
 export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)
 
   return a / b
 }
+
+</details>
 
 
 ### drop
@@ -1844,13 +1940,17 @@ drop<T>(howManyToDrop: number): {
 </details>
 
 
-R.drop
+<details>
+
+<summary>R.drop source</summary>
 
 export function drop(howManyToDrop, listOrString){
   if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
 
   return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
+
+</details>
 
 
 ### dropLast
@@ -1890,7 +1990,9 @@ dropLast<T>(howManyToDrop: number): {
 </details>
 
 
-R.dropLast
+<details>
+
+<summary>R.dropLast source</summary>
 
 export function dropLast(howManyToDrop, listOrString){
   if (arguments.length === 1){
@@ -1901,6 +2003,8 @@ export function dropLast(howManyToDrop, listOrString){
     listOrString.slice(0, -howManyToDrop) :
     listOrString.slice()
 }
+
+</details>
 
 
 ### either
@@ -1965,13 +2069,17 @@ endsWith(target: string): (str: string) => boolean;
 </details>
 
 
-R.endsWith
+<details>
+
+<summary>R.endsWith source</summary>
 
 export function endsWith(target, str){
   if (arguments.length === 1) return _str => endsWith(target, _str)
 
   return str.endsWith(target)
 }
+
+</details>
 
 
 ### equals
@@ -2012,7 +2120,9 @@ equals<T>(a: T): (b: T) => boolean;
 </details>
 
 
-R.equals
+<details>
+
+<summary>R.equals source</summary>
 
 import { type } from './type'
 
@@ -2116,6 +2226,8 @@ export function equals(a, b){
   return false
 }
 
+</details>
+
 
 ### F
 
@@ -2148,11 +2260,15 @@ F(): boolean;
 </details>
 
 
-R.F
+<details>
+
+<summary>R.F source</summary>
 
 export function F(){
   return false
 }
+
+</details>
 
 
 ### filter
@@ -2202,7 +2318,9 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 </details>
 
 
-R.filter
+<details>
+
+<summary>R.filter source</summary>
 
 function filterObject(fn, obj){
   const willReturn = {}
@@ -2242,6 +2360,8 @@ export function filter(predicate, list){
 
   return willReturn
 }
+
+</details>
 
 
 ### find
@@ -2285,13 +2405,17 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 </details>
 
 
-R.find
+<details>
+
+<summary>R.find source</summary>
 
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
 
   return list.find(predicate)
 }
+
+</details>
 
 
 ### findIndex
@@ -2335,7 +2459,9 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 </details>
 
 
-R.findIndex
+<details>
+
+<summary>R.findIndex source</summary>
 
 export function findIndex(predicate, list){
   if (arguments.length === 1) return _list => findIndex(predicate, _list)
@@ -2351,6 +2477,8 @@ export function findIndex(predicate, list){
 
   return -1
 }
+
+</details>
 
 
 ### flatten
@@ -2393,7 +2521,9 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 </details>
 
 
-R.flatten
+<details>
+
+<summary>R.flatten source</summary>
 
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
@@ -2408,6 +2538,8 @@ export function flatten(list, input){
 
   return willReturn
 }
+
+</details>
 
 
 ### flip
@@ -2450,7 +2582,9 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 </details>
 
 
-R.flip
+<details>
+
+<summary>R.flip source</summary>
 
 function flipExport(fn){
   return (...input) => {
@@ -2467,6 +2601,8 @@ function flipExport(fn){
 export function flip(fn){
   return flipExport(fn)
 }
+
+</details>
 
 
 ### forEach
@@ -2514,7 +2650,9 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 </details>
 
 
-R.forEach
+<details>
+
+<summary>R.forEach source</summary>
 
 import { map } from './map'
 
@@ -2525,6 +2663,8 @@ export function forEach(predicate, list){
 
   return list
 }
+
+</details>
 
 
 ### fromPairs
@@ -2570,7 +2710,9 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 </details>
 
 
-R.fromPairs
+<details>
+
+<summary>R.fromPairs source</summary>
 
 export function fromPairs(listOfPairs){
   const toReturn = {}
@@ -2578,6 +2720,8 @@ export function fromPairs(listOfPairs){
 
   return toReturn
 }
+
+</details>
 
 
 ### groupBy
@@ -2619,7 +2763,9 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 </details>
 
 
-R.groupBy
+<details>
+
+<summary>R.groupBy source</summary>
 
 export function groupBy(groupFn, list){
   if (arguments.length === 1) return _list => groupBy(groupFn, _list)
@@ -2638,6 +2784,8 @@ export function groupBy(groupFn, list){
 
   return result
 }
+
+</details>
 
 
 ### groupWith
@@ -2680,7 +2828,9 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 </details>
 
 
-R.groupWith
+<details>
+
+<summary>R.groupWith source</summary>
 
 export function groupWith(compareFn, list){
   if (!Array.isArray(list))
@@ -2724,6 +2874,8 @@ export function groupWith(compareFn, list){
   return toReturn
 }
 
+</details>
+
 
 ### has
 
@@ -2766,7 +2918,9 @@ has(prop: string): <T>(obj: T) => boolean;
 </details>
 
 
-R.has
+<details>
+
+<summary>R.has source</summary>
 
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
@@ -2775,6 +2929,8 @@ export function has(prop, obj){
 
   return obj[ prop ] !== undefined
 }
+
+</details>
 
 
 ### head
@@ -2843,7 +2999,9 @@ identical<T>(a: T): (b: T) => boolean;
 </details>
 
 
-R.identical
+<details>
+
+<summary>R.identical source</summary>
 
 import _objectIs from './_internals/_objectIs'
 
@@ -2852,6 +3010,8 @@ export function identical(a, b){
 
   return _objectIs(a, b)
 }
+
+</details>
 
 
 ### identity
@@ -2888,11 +3048,15 @@ identity<T>(input: T): T;
 </details>
 
 
-R.identity
+<details>
+
+<summary>R.identity source</summary>
 
 export function identity(input){
   return input
 }
+
+</details>
 
 
 ### ifElse
@@ -2939,7 +3103,9 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 </details>
 
 
-R.ifElse
+<details>
+
+<summary>R.ifElse source</summary>
 
 import { curry } from './curry'
 
@@ -2959,6 +3125,8 @@ function ifElseFn(
 }
 
 export const ifElse = curry(ifElseFn)
+
+</details>
 
 
 ### inc
@@ -2995,9 +3163,13 @@ inc(x: number): number;
 </details>
 
 
-R.inc
+<details>
+
+<summary>R.inc source</summary>
 
 export const inc = x => x + 1
+
+</details>
 
 
 ### includes
@@ -3080,7 +3252,9 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 </details>
 
 
-R.indexBy
+<details>
+
+<summary>R.indexBy source</summary>
 
 import { path } from './path'
 
@@ -3111,6 +3285,8 @@ export function indexBy(condition, list){
 
   return toReturn
 }
+
+</details>
 
 
 ### indexOf
@@ -3156,7 +3332,9 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 </details>
 
 
-R.indexOf
+<details>
+
+<summary>R.indexOf source</summary>
 
 export function indexOf(valueToFind, list){
   if (arguments.length === 1){
@@ -3174,6 +3352,8 @@ export function indexOf(valueToFind, list){
 
   return -1
 }
+
+</details>
 
 
 ### init
@@ -3215,7 +3395,9 @@ init(listOrString: string): string;
 </details>
 
 
-R.init
+<details>
+
+<summary>R.init source</summary>
 
 import baseSlice from './_internals/baseSlice'
 
@@ -3226,6 +3408,8 @@ export function init(listOrString){
     listOrString, 0, -1
   ) : []
 }
+
+</details>
 
 
 ### intersection
@@ -3267,7 +3451,9 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.intersection
+<details>
+
+<summary>R.intersection source</summary>
 
 import { filter } from './filter'
 import { includes } from './includes'
@@ -3277,6 +3463,8 @@ export function intersection(listA, listB){
 
   return filter(value => includes(value, listB), listA)
 }
+
+</details>
 
 
 ### intersperse
@@ -3317,7 +3505,9 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.intersperse
+<details>
+
+<summary>R.intersperse source</summary>
 
 export function intersperse(separator, list){
   if (arguments.length === 1) return _list => intersperse(separator, _list)
@@ -3336,6 +3526,8 @@ export function intersperse(separator, list){
 
   return willReturn
 }
+
+</details>
 
 
 ### is
@@ -3377,7 +3569,9 @@ is(targetPrototype: any): (x: any) => boolean;
 </details>
 
 
-R.is
+<details>
+
+<summary>R.is source</summary>
 
 export function is(targetPrototype, x){
   if (arguments.length === 1) return _x => is(targetPrototype, _x)
@@ -3387,6 +3581,8 @@ export function is(targetPrototype, x){
     x instanceof targetPrototype
   )
 }
+
+</details>
 
 
 ### isEmpty
@@ -3427,7 +3623,9 @@ isEmpty<T>(x: T): boolean;
 </details>
 
 
-R.isEmpty
+<details>
+
+<summary>R.isEmpty source</summary>
 
 import { type } from './type.js'
 
@@ -3447,6 +3645,8 @@ export function isEmpty(input){
 
   return false
 }
+
+</details>
 
 
 ### isNil
@@ -3487,11 +3687,15 @@ isNil(x: any): x is null | undefined;
 </details>
 
 
-R.isNil
+<details>
+
+<summary>R.isNil source</summary>
 
 export function isNil(x){
   return x === undefined || x === null
 }
+
+</details>
 
 
 ### join
@@ -3529,13 +3733,17 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 </details>
 
 
-R.join
+<details>
+
+<summary>R.join source</summary>
 
 export function join(glue, list){
   if (arguments.length === 1) return _list => join(glue, _list)
 
   return list.join(glue)
 }
+
+</details>
 
 
 ### keys
@@ -3573,11 +3781,15 @@ keys<T>(x: T): string[];
 </details>
 
 
-R.keys
+<details>
+
+<summary>R.keys source</summary>
 
 export function keys(x){
   return Object.keys(x)
 }
+
+</details>
 
 
 ### last
@@ -3619,7 +3831,9 @@ last(listOrString: string): string;
 </details>
 
 
-R.last
+<details>
+
+<summary>R.last source</summary>
 
 export function last(listOrString){
   if (typeof listOrString === 'string'){
@@ -3628,6 +3842,8 @@ export function last(listOrString){
 
   return listOrString[ listOrString.length - 1 ]
 }
+
+</details>
 
 
 ### lastIndexOf
@@ -3674,7 +3890,9 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 </details>
 
 
-R.lastIndexOf
+<details>
+
+<summary>R.lastIndexOf source</summary>
 
 import { equals } from './equals'
 
@@ -3691,6 +3909,8 @@ export function lastIndexOf(target, list){
 
   return -1
 }
+
+</details>
 
 
 ### length
@@ -3731,7 +3951,9 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 </details>
 
 
-R.length
+<details>
+
+<summary>R.length source</summary>
 
 export function length(x){
   if (!x || x.length === undefined){
@@ -3740,6 +3962,8 @@ export function length(x){
 
   return x.length
 }
+
+</details>
 
 
 ### lens
@@ -3785,7 +4009,9 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 </details>
 
 
-R.lens
+<details>
+
+<summary>R.lens source</summary>
 
 export function lens(getter, setter){
   if (arguments.length === 1) return _setter => lens(getter, _setter)
@@ -3796,6 +4022,8 @@ export function lens(getter, setter){
     }
   }
 }
+
+</details>
 
 
 ### lensIndex
@@ -3837,7 +4065,9 @@ lensIndex(index: number): Lens;
 </details>
 
 
-R.lensIndex
+<details>
+
+<summary>R.lensIndex source</summary>
 
 import { lens } from './lens'
 import { nth } from './nth'
@@ -3846,6 +4076,8 @@ import { update } from './update'
 export function lensIndex(index){
   return lens(nth(index), update(index))
 }
+
+</details>
 
 
 ### lensPath
@@ -3891,7 +4123,9 @@ lensPath(path: RamdaPath): Lens;
 </details>
 
 
-R.lensPath
+<details>
+
+<summary>R.lensPath source</summary>
 
 import { assocPath } from './assocPath'
 import { lens } from './lens'
@@ -3900,6 +4134,8 @@ import { path } from './path'
 export function lensPath(key){
   return lens(path(key), assocPath(key))
 }
+
+</details>
 
 
 ### lensProp
@@ -3946,7 +4182,9 @@ lensProp(prop: string): {
 </details>
 
 
-R.lensProp
+<details>
+
+<summary>R.lensProp source</summary>
 
 import { assoc } from './assoc'
 import { lens } from './lens'
@@ -3955,6 +4193,8 @@ import { prop } from './prop'
 export function lensProp(key){
   return lens(prop(key), assoc(key))
 }
+
+</details>
 
 
 ### map
@@ -4010,7 +4250,9 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 </details>
 
 
-R.map
+<details>
+
+<summary>R.map source</summary>
 
 function mapObject(fn, obj){
   const willReturn = {}
@@ -4044,6 +4286,8 @@ export function map(fn, list){
 
   return willReturn
 }
+
+</details>
 
 
 ### match
@@ -4085,7 +4329,9 @@ match(regExpression: RegExp): (str: string) => any[];
 </details>
 
 
-R.match
+<details>
+
+<summary>R.match source</summary>
 
 export function match(pattern, input){
   if (arguments.length === 1) return _input => match(pattern, _input)
@@ -4094,6 +4340,8 @@ export function match(pattern, input){
 
   return willReturn === null ? [] : willReturn
 }
+
+</details>
 
 
 ### max
@@ -4135,13 +4383,17 @@ max<T extends Ord>(x: T): (y: T) => T;
 </details>
 
 
-R.max
+<details>
+
+<summary>R.max source</summary>
 
 export function max(x, y){
   if (arguments.length === 1) return _y => max(x, _y)
 
   return y > x ? y : x
 }
+
+</details>
 
 
 ### maxBy
@@ -4182,7 +4434,9 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 </details>
 
 
-R.maxBy
+<details>
+
+<summary>R.maxBy source</summary>
 
 import { curry } from './curry'
 
@@ -4193,6 +4447,8 @@ export function maxByFn(
 }
 
 export const maxBy = curry(maxByFn)
+
+</details>
 
 
 ### mean
@@ -4230,13 +4486,17 @@ mean(list: ReadonlyArray<number>): number;
 </details>
 
 
-R.mean
+<details>
+
+<summary>R.mean source</summary>
 
 import { sum } from './sum'
 
 export function mean(list){
   return sum(list) / list.length
 }
+
+</details>
 
 
 ### median
@@ -4273,7 +4533,9 @@ median(list: ReadonlyArray<number>): number;
 </details>
 
 
-R.median
+<details>
+
+<summary>R.median source</summary>
 
 import { mean } from './mean'
 
@@ -4292,6 +4554,8 @@ export function median(list){
     })
     .slice(idx, idx + width))
 }
+
+</details>
 
 
 ### merge
@@ -4333,7 +4597,9 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 </details>
 
 
-R.merge
+<details>
+
+<summary>R.merge source</summary>
 
 export function merge(target, newProps){
   if (arguments.length === 1) return _newProps => merge(target, _newProps)
@@ -4342,6 +4608,8 @@ export function merge(target, newProps){
     {}, target || {}, newProps || {}
   )
 }
+
+</details>
 
 
 ### min
@@ -4383,13 +4651,17 @@ min<T extends Ord>(x: T): (y: T) => T;
 </details>
 
 
-R.min
+<details>
+
+<summary>R.min source</summary>
 
 export function min(x, y){
   if (arguments.length === 1) return _y => min(x, _y)
 
   return y < x ? y : x
 }
+
+</details>
 
 
 ### minBy
@@ -4430,7 +4702,9 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 </details>
 
 
-R.minBy
+<details>
+
+<summary>R.minBy source</summary>
 
 import { curry } from './curry'
 
@@ -4441,6 +4715,8 @@ export function minByFn(
 }
 
 export const minBy = curry(minByFn)
+
+</details>
 
 
 ### modulo
@@ -4478,13 +4754,17 @@ modulo(x: number): (y: number) => number;
 </details>
 
 
-R.modulo
+<details>
+
+<summary>R.modulo source</summary>
 
 export function modulo(x, y){
   if (arguments.length === 1) return _y => modulo(x, _y)
 
   return x % y
 }
+
+</details>
 
 
 ### multiply
@@ -4522,13 +4802,17 @@ multiply(x: number): (y: number) => number;
 </details>
 
 
-R.multiply
+<details>
+
+<summary>R.multiply source</summary>
 
 export function multiply(x, y){
   if (arguments.length === 1) return _y => multiply(x, _y)
 
   return x * y
 }
+
+</details>
 
 
 ### negate
@@ -4562,11 +4846,15 @@ negate(x: number): number;
 </details>
 
 
-R.negate
+<details>
+
+<summary>R.negate source</summary>
 
 export function negate(x){
   return -x
 }
+
+</details>
 
 
 ### none
@@ -4608,13 +4896,17 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-R.none
+<details>
+
+<summary>R.none source</summary>
 
 export function none(predicate, list){
   if (arguments.length === 1) return _list => none(predicate, _list)
 
   return list.filter(predicate).length === 0
 }
+
+</details>
 
 
 ### not
@@ -4651,11 +4943,15 @@ not(input: any): boolean;
 </details>
 
 
-R.not
+<details>
+
+<summary>R.not source</summary>
 
 export function not(input){
   return !input
 }
+
+</details>
 
 
 ### nth
@@ -4701,7 +4997,9 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 </details>
 
 
-R.nth
+<details>
+
+<summary>R.nth source</summary>
 
 export function nth(index, list){
   if (arguments.length === 1) return _list => nth(index, _list)
@@ -4712,6 +5010,8 @@ export function nth(index, list){
     list.charAt(idx) :
     list[ idx ]
 }
+
+</details>
 
 
 ### omit
@@ -4759,7 +5059,9 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 </details>
 
 
-R.omit
+<details>
+
+<summary>R.omit source</summary>
 
 export function omit(propsToOmit, obj){
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
@@ -4781,6 +5083,8 @@ export function omit(propsToOmit, obj){
 
   return willReturn
 }
+
+</details>
 
 
 ### over
@@ -4824,7 +5128,9 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 </details>
 
 
-R.over
+<details>
+
+<summary>R.over source</summary>
 
 const Identity = x => ({
   x,
@@ -4844,6 +5150,8 @@ export function over(
 
   return lens(x => Identity(fn(x)))(object).x
 }
+
+</details>
 
 
 ### partial
@@ -4896,7 +5204,9 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 </details>
 
 
-R.partial
+<details>
+
+<summary>R.partial source</summary>
 
 export function partial(fn, ...args){
   const len = fn.length
@@ -4909,6 +5219,8 @@ export function partial(fn, ...args){
     return partial(fn, ...[ ...args, ...rest ])
   }
 }
+
+</details>
 
 
 ### path
@@ -4959,7 +5271,9 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 </details>
 
 
-R.path
+<details>
+
+<summary>R.path source</summary>
 
 export function path(list, obj){
   if (arguments.length === 1) return _obj => path(list, _obj)
@@ -4982,6 +5296,8 @@ export function path(list, obj){
 
   return willReturn
 }
+
+</details>
 
 
 ### pathOr
@@ -5035,7 +5351,9 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 </details>
 
 
-R.pathOr
+<details>
+
+<summary>R.pathOr source</summary>
 
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
@@ -5048,6 +5366,8 @@ function pathOrFn(
 }
 
 export const pathOr = curry(pathOrFn)
+
+</details>
 
 
 ### paths
@@ -5103,13 +5423,17 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 </details>
 
 
-R.paths
+<details>
+
+<summary>R.paths source</summary>
 
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
   return pathsToSearch.map(singlePath => path(singlePath, obj))
 }
+
+</details>
 
 
 ### pick
@@ -5169,7 +5493,9 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 </details>
 
 
-R.pick
+<details>
+
+<summary>R.pick source</summary>
 
 export function pick(propsToPick, obj){
   if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
@@ -5192,6 +5518,8 @@ export function pick(propsToPick, obj){
 
   return willReturn
 }
+
+</details>
 
 
 ### pickAll
@@ -5249,7 +5577,9 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 </details>
 
 
-R.pickAll
+<details>
+
+<summary>R.pickAll source</summary>
 
 export function pickAll(propsToPick, obj){
   if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
@@ -5273,6 +5603,8 @@ export function pickAll(propsToPick, obj){
 
   return willReturn
 }
+
+</details>
 
 
 ### pipe
@@ -5317,7 +5649,9 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 </details>
 
 
-R.pipe
+<details>
+
+<summary>R.pipe source</summary>
 
 import { compose } from './compose'
 
@@ -5327,6 +5661,8 @@ export function pipe(...fns){
 
   return compose(...fns.reverse())
 }
+
+</details>
 
 
 ### pluck
@@ -5370,7 +5706,9 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 </details>
 
 
-R.pluck
+<details>
+
+<summary>R.pluck source</summary>
 
 import { map } from './map'
 
@@ -5387,6 +5725,8 @@ export function pluck(property, list){
 
   return willReturn
 }
+
+</details>
 
 
 ### prepend
@@ -5430,7 +5770,9 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.prepend
+<details>
+
+<summary>R.prepend source</summary>
 
 export function prepend(x, listOrString){
   if (arguments.length === 1)
@@ -5440,6 +5782,8 @@ export function prepend(x, listOrString){
 
   return [ x ].concat(listOrString)
 }
+
+</details>
 
 
 ### product
@@ -5474,12 +5818,16 @@ product(list: ReadonlyArray<number>): number;
 </details>
 
 
-R.product
+<details>
+
+<summary>R.product source</summary>
 
 import { multiply } from './multiply'
 import { reduce } from './reduce'
 
 export const product = reduce(multiply, 1)
+
+</details>
 
 
 ### prop
@@ -5552,7 +5900,9 @@ propEq(propToFind: string | number): {
 </details>
 
 
-R.propEq
+<details>
+
+<summary>R.propEq source</summary>
 
 import { curry } from './curry'
 
@@ -5565,6 +5915,8 @@ function propEqFn(
 }
 
 export const propEq = curry(propEqFn)
+
+</details>
 
 
 ### propIs
@@ -5609,7 +5961,9 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 </details>
 
 
-R.propIs
+<details>
+
+<summary>R.propIs source</summary>
 
 import { curry } from './curry.js'
 import { is } from './is'
@@ -5621,6 +5975,8 @@ function propIsFn(
 }
 
 export const propIs = curry(propIsFn)
+
+</details>
 
 
 ### propOr
@@ -5667,7 +6023,9 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 </details>
 
 
-R.propOr
+<details>
+
+<summary>R.propOr source</summary>
 
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
@@ -5681,6 +6039,8 @@ function propOrFn(
 }
 
 export const propOr = curry(propOrFn)
+
+</details>
 
 
 ### range
@@ -5719,7 +6079,9 @@ range(start: number): (end: number) => number[];
 </details>
 
 
-R.range
+<details>
+
+<summary>R.range source</summary>
 
 export function range(start, end){
   if (arguments.length === 1) return _end => range(start, _end)
@@ -5739,6 +6101,8 @@ export function range(start, end){
 
   return willReturn
 }
+
+</details>
 
 
 ### reduce
@@ -5780,7 +6144,9 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 </details>
 
 
-R.reduce
+<details>
+
+<summary>R.reduce source</summary>
 
 import { curry } from './curry'
 
@@ -5793,6 +6159,8 @@ function reduceFn(
 }
 
 export const reduce = curry(reduceFn)
+
+</details>
 
 
 ### reject
@@ -5840,7 +6208,9 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 </details>
 
 
-R.reject
+<details>
+
+<summary>R.reject source</summary>
 
 import { filter } from './filter'
 
@@ -5849,6 +6219,8 @@ export function reject(predicate, list){
 
   return filter((x, i) => !predicate(x, i), list)
 }
+
+</details>
 
 
 ### repeat
@@ -5887,7 +6259,9 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 </details>
 
 
-R.repeat
+<details>
+
+<summary>R.repeat source</summary>
 
 export function repeat(x, timesToRepeat){
   if (arguments.length === 1){
@@ -5896,6 +6270,8 @@ export function repeat(x, timesToRepeat){
 
   return Array(timesToRepeat).fill(x)
 }
+
+</details>
 
 
 ### replace
@@ -5937,7 +6313,9 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 </details>
 
 
-R.replace
+<details>
+
+<summary>R.replace source</summary>
 
 export function replace(
   pattern, replacer, str
@@ -5954,6 +6332,8 @@ export function replace(
 
   return str.replace(pattern, replacer)
 }
+
+</details>
 
 
 ### reverse
@@ -6019,7 +6399,9 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 </details>
 
 
-R.set
+<details>
+
+<summary>R.set source</summary>
 
 import { always } from './always'
 import { over } from './over'
@@ -6038,6 +6420,8 @@ export function set(
     lens, always(replacer), x
   )
 }
+
+</details>
 
 
 ### slice
@@ -6085,7 +6469,9 @@ slice(frp,: number, to: number): {
 </details>
 
 
-R.slice
+<details>
+
+<summary>R.slice source</summary>
 
 import { curry } from './curry'
 
@@ -6096,6 +6482,8 @@ function sliceFn(
 }
 
 export const slice = curry(sliceFn)
+
+</details>
 
 
 ### sort
@@ -6148,7 +6536,9 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.sort
+<details>
+
+<summary>R.sort source</summary>
 
 export function sort(sortFn, list){
   if (arguments.length === 1) return _list => sort(sortFn, _list)
@@ -6157,6 +6547,8 @@ export function sort(sortFn, list){
 
   return clone.sort(sortFn)
 }
+
+</details>
 
 
 ### sortBy
@@ -6207,7 +6599,9 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.sortBy
+<details>
+
+<summary>R.sortBy source</summary>
 
 export function sortBy(sortFn, list){
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
@@ -6223,6 +6617,8 @@ export function sortBy(sortFn, list){
     return aSortResult < bSortResult ? -1 : 1
   })
 }
+
+</details>
 
 
 ### split
@@ -6263,13 +6659,17 @@ split(separator: string | RegExp, str: string): string[];
 </details>
 
 
-R.split
+<details>
+
+<summary>R.split source</summary>
 
 export function split(separator, str){
   if (arguments.length === 1) return _str => split(separator, _str)
 
   return str.split(separator)
 }
+
+</details>
 
 
 ### splitEvery
@@ -6337,13 +6737,17 @@ startsWith(target: string): (str: string) => boolean;
 </details>
 
 
-R.startsWith
+<details>
+
+<summary>R.startsWith source</summary>
 
 export function startsWith(target, str){
   if (arguments.length === 1) return _str => startsWith(target, _str)
 
   return str.startsWith(target)
 }
+
+</details>
 
 
 ### subtract
@@ -6401,11 +6805,15 @@ sum(list: ReadonlyArray<number>): number;
 </details>
 
 
-R.sum
+<details>
+
+<summary>R.sum source</summary>
 
 export function sum(list){
   return list.reduce((prev, current) => prev + current, 0)
 }
+
+</details>
 
 
 ### symmetricDifference
@@ -6447,7 +6855,9 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.symmetricDifference
+<details>
+
+<summary>R.symmetricDifference source</summary>
 
 import { concat } from './concat'
 import { filter } from './filter'
@@ -6461,6 +6871,8 @@ export function symmetricDifference(x, y){
   return concat(filter(value => !includes(value, y), x),
     filter(value => !includes(value, x), y))
 }
+
+</details>
 
 
 ### T
@@ -6495,11 +6907,15 @@ T(): boolean;
 </details>
 
 
-R.T
+<details>
+
+<summary>R.T source</summary>
 
 export function T(){
   return true
 }
+
+</details>
 
 
 ### tail
@@ -6541,13 +6957,17 @@ tail(listOrString: string): string;
 </details>
 
 
-R.tail
+<details>
+
+<summary>R.tail source</summary>
 
 import { drop } from './drop'
 
 export function tail(listOrString){
   return drop(1, listOrString)
 }
+
+</details>
 
 
 ### take
@@ -6592,7 +7012,9 @@ take<T>(howMany: number): {
 </details>
 
 
-R.take
+<details>
+
+<summary>R.take source</summary>
 
 import baseSlice from './_internals/baseSlice'
 
@@ -6606,6 +7028,8 @@ export function take(howMany, listOrString){
     listOrString, 0, howMany
   )
 }
+
+</details>
 
 
 ### takeLast
@@ -6650,7 +7074,9 @@ takeLast<T>(howMany: number): {
 </details>
 
 
-R.takeLast
+<details>
+
+<summary>R.takeLast source</summary>
 
 import baseSlice from './_internals/baseSlice'
 
@@ -6671,6 +7097,8 @@ export function takeLast(howMany, listOrString){
     listOrString, numValue, len
   )
 }
+
+</details>
 
 
 ### tap
@@ -6717,7 +7145,9 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 </details>
 
 
-R.tap
+<details>
+
+<summary>R.tap source</summary>
 
 export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
@@ -6726,6 +7156,8 @@ export function tap(fn, x){
 
   return x
 }
+
+</details>
 
 
 ### test
@@ -6764,7 +7196,9 @@ test(regExpression: RegExp, str: string): boolean;
 </details>
 
 
-R.test
+<details>
+
+<summary>R.test source</summary>
 
 export function test(pattern, str){
   if (arguments.length === 1) return _str => test(pattern, _str)
@@ -6775,6 +7209,8 @@ export function test(pattern, str){
 
   return str.search(pattern) !== -1
 }
+
+</details>
 
 
 ### times
@@ -6818,7 +7254,9 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 </details>
 
 
-R.times
+<details>
+
+<summary>R.times source</summary>
 
 import { map } from './map'
 import { range } from './range'
@@ -6831,6 +7269,8 @@ export function times(fn, howMany){
 
   return map(fn, range(0, howMany))
 }
+
+</details>
 
 
 ### toLower
@@ -6865,11 +7305,15 @@ toLower(str: string): string;
 </details>
 
 
-R.toLower
+<details>
+
+<summary>R.toLower source</summary>
 
 export function toLower(str){
   return str.toLowerCase()
 }
+
+</details>
 
 
 ### toPairs
@@ -6914,11 +7358,15 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 </details>
 
 
-R.toPairs
+<details>
+
+<summary>R.toPairs source</summary>
 
 export function toPairs(obj){
   return Object.entries(obj)
 }
+
+</details>
 
 
 ### toString
@@ -6953,11 +7401,15 @@ toString<T>(x: T): string;
 </details>
 
 
-R.toString
+<details>
+
+<summary>R.toString source</summary>
 
 export function toString(val){
   return val.toString()
 }
+
+</details>
 
 
 ### toUpper
@@ -6992,11 +7444,15 @@ toUpper(str: string): string;
 </details>
 
 
-R.toUpper
+<details>
+
+<summary>R.toUpper source</summary>
 
 export function toUpper(str){
   return str.toUpperCase()
 }
+
+</details>
 
 
 ### transpose
@@ -7034,7 +7490,9 @@ transpose<T>(list: T[][]): T[][];
 </details>
 
 
-R.transpose
+<details>
+
+<summary>R.transpose source</summary>
 
 export function transpose(array){
   return array.reduce((acc, el) => {
@@ -7044,6 +7502,8 @@ export function transpose(array){
     return acc
   }, [])
 }
+
+</details>
 
 
 ### trim
@@ -7078,11 +7538,15 @@ trim(str: string): string;
 </details>
 
 
-R.trim
+<details>
+
+<summary>R.trim source</summary>
 
 export function trim(str){
   return str.trim()
 }
+
+</details>
 
 
 ### type
@@ -7144,7 +7608,9 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 </details>
 
 
-R.uniq
+<details>
+
+<summary>R.uniq source</summary>
 
 import { includes } from './includes'
 
@@ -7162,6 +7628,8 @@ export function uniq(list){
 
   return willReturn
 }
+
+</details>
 
 
 ### uniqWith
@@ -7216,7 +7684,9 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 </details>
 
 
-R.uniqWith
+<details>
+
+<summary>R.uniqWith source</summary>
 
 import { any } from './any'
 
@@ -7239,6 +7709,8 @@ export function uniqWith(fn, list){
 
   return willReturn
 }
+
+</details>
 
 
 ### update
@@ -7281,7 +7753,9 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-R.update
+<details>
+
+<summary>R.update source</summary>
 
 export function update(
   idx, val, list
@@ -7302,6 +7776,8 @@ export function update(
     val, idx, idx + 1
   )
 }
+
+</details>
 
 
 ### values
@@ -7341,7 +7817,9 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 </details>
 
 
-R.values
+<details>
+
+<summary>R.values source</summary>
 
 import { type } from './type.js'
 
@@ -7350,6 +7828,8 @@ export function values(obj){
 
   return Object.values(obj)
 }
+
+</details>
 
 
 ### view
@@ -7390,7 +7870,9 @@ view<T, U>(lens: Lens, target: T): U;
 </details>
 
 
-R.view
+<details>
+
+<summary>R.view source</summary>
 
 const Const = x => ({
   x,
@@ -7402,6 +7884,8 @@ export function view(lens, target){
 
   return lens(Const)(target).x
 }
+
+</details>
 
 
 ### without
@@ -7464,13 +7948,17 @@ xor(y: boolean): (y: boolean) => boolean;
 </details>
 
 
-R.xor
+<details>
+
+<summary>R.xor source</summary>
 
 export function xor(a, b){
   if (arguments.length === 1) return _b => xor(a, _b)
 
   return Boolean(a) && !b || Boolean(b) && !a
 }
+
+</details>
 
 
 ### zip
@@ -7517,7 +8005,9 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 </details>
 
 
-R.zip
+<details>
+
+<summary>R.zip source</summary>
 
 export function zip(left, right){
   if (arguments.length === 1) return _right => zip(left, _right)
@@ -7531,6 +8021,8 @@ export function zip(left, right){
 
   return result
 }
+
+</details>
 
 
 ### zipObj

@@ -38,9 +38,13 @@ function createRambdaSpecReadme(method){
 
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
-R.{{methodName}}
+<details>
+
+<summary>R.{{methodName}} source</summary>
 
 {{rambdaSource}}
+
+</details>
 `
 
   return template(summaryTemplate, method)
@@ -144,7 +148,6 @@ export function createMethodData(method){
   if (method.replLink) data.push('\n')
   if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
-  console.log(createRambdaSourceReadme(method))
   if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
   // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
