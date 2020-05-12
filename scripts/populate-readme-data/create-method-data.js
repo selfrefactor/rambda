@@ -90,7 +90,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`\`\`typescript
+\`\`\`text
 {{allTypings}}
 \`\`\`
 
