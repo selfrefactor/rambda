@@ -1,17 +1,17 @@
-export function range(from, to){
-  if (arguments.length === 1) return _to => range(from, _to)
+export function range(start, end){
+  if (arguments.length === 1) return _end => range(start, _end)
 
-  if (Number.isNaN(Number(from)) || Number.isNaN(Number(to))){
+  if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
     throw new TypeError('Both arguments to range must be numbers')
   }
 
-  if (to < from) return []
+  if (end < start) return []
 
-  const len = to - from
+  const len = end - start
   const willReturn = Array(len)
 
   for (let i = 0; i < len; i++){
-    willReturn[ i ] = from + i
+    willReturn[ i ] = start + i
   }
 
   return willReturn

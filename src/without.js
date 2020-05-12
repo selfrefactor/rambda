@@ -1,14 +1,15 @@
 import { includes } from './includes'
 import { reduce } from './reduce'
 
-export function without(left, right){
-  if (right === undefined){
-    return _right => without(left, _right)
+export function without(matchAgainst, source){
+  if (source === undefined){
+    return _source => without(matchAgainst, _source)
   }
 
   return reduce(
-    (accum, item) => includes(item, left) ? accum : accum.concat(item),
+    (prev, current) =>
+      includes(current, matchAgainst) ? prev : prev.concat(current),
     [],
-    right
+    source
   )
 }

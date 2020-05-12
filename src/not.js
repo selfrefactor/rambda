@@ -1,3 +1,3 @@
-export function not(a){
-  return !a
+export function not(input){
+  return !input
 }

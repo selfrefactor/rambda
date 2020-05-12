@@ -1,5 +1,5 @@
-export function startsWith(prefix, list){
-  if (arguments.length === 1) return _list => startsWith(prefix, _list)
+export function startsWith(target, str){
+  if (arguments.length === 1) return _str => startsWith(target, _str)
 
-  return list.startsWith(prefix)
+  return str.startsWith(target)
 }

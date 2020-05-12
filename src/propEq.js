@@ -1,11 +1,11 @@
 import { curry } from './curry'
 
 function propEqFn(
-  key, val, obj
+  propToFind, valueToMatch, obj
 ){
   if (!obj) return false
 
-  return obj[ key ] === val
+  return obj[ propToFind ] === valueToMatch
 }
 
 export const propEq = curry(propEqFn)

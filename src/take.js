@@ -1,11 +1,12 @@
 import baseSlice from './_internals/baseSlice'
 
-export function take(n, list){
-  if (arguments.length === 1) return _list => take(n, _list)
-  if (n < 0) return list.slice()
-  if (typeof list === 'string') return list.slice(0, n)
+export function take(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => take(howMany, _listOrString)
+  if (howMany < 0) return listOrString.slice()
+  if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
 
   return baseSlice(
-    list, 0, n
+    listOrString, 0, howMany
   )
 }

@@ -3990,7 +3990,7 @@ test('happy', () => {
 })
 
 test('does not work with arrays', () => {
-  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('input.endsWith is not a function')
+  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('str.endsWith is not a function')
 })
 ```
 
@@ -12054,7 +12054,7 @@ const result = [
 ```text
 slice(from: number, to: number, list: string): string;
 slice<T>(from: number, to: number, list: T[]): T[];
-slice(frp,: number, to: number): {
+slice(from: number, to: number): {
 ```
 
 </details>

@@ -1,5 +1,7 @@
-export function last(list){
-  if (typeof list === 'string') return list[ list.length - 1 ] || ''
+export function last(listOrString){
+  if (typeof listOrString === 'string'){
+    return listOrString[ listOrString.length - 1 ] || ''
+  }
 
-  return list[ list.length - 1 ]
+  return listOrString[ listOrString.length - 1 ]
 }

@@ -1,15 +1,9 @@
-export function maxBy(
-  fn, a, b
-){
-  if (arguments.length === 2){
-    return _b => maxBy(
-      fn, a, _b
-    )
-  } else if (arguments.length === 1){
-    return (_a, _b) => maxBy(
-      fn, _a, _b
-    )
-  }
+import { curry } from './curry'
 
-  return fn(b) > fn(a) ? b : a
+export function maxByFn(
+  compareFn, x, y
+){
+  return compareFn(y) > compareFn(x) ? y : x
 }
+
+export const maxBy = curry(maxByFn)

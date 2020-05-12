@@ -57,7 +57,6 @@ async function rambdaxBuildStep(){
   await copy(tsToolbelt, tsToolbeltOutput)
 
   const allMethods = []
-
   await pipedAsync(
     sourceFiles,
     async x => fdir.async(x),
@@ -97,14 +96,13 @@ async function rambdaBuildStep(){
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-
-      if (
-        !x.includes('internals') ||
-        !x.includes('benchmarks') ||
+      const shouldCopy = x.includes('internals') ||
+        x.includes('benchmarks') ||
         !ramdaMethods.includes(name)
-      ){
-        return false
-      }
+        
+      if (
+        shouldCopy
+      ) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)

@@ -1,17 +1,19 @@
 import baseSlice from './_internals/baseSlice'
 
-export function takeLast(n, list){
-  if (arguments.length === 1) return _list => takeLast(n, _list)
+export function takeLast(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => takeLast(howMany, _listOrString)
 
-  const len = list.length
-  if (n < 0) return list.slice()
-  let numValue = n > len ? len : n
+  const len = listOrString.length
+  if (howMany < 0) return listOrString.slice()
+  let numValue = howMany > len ? len : howMany
 
-  if (typeof list === 'string') return list.slice(len - numValue)
+  if (typeof listOrString === 'string')
+    return listOrString.slice(len - numValue)
 
   numValue = len - numValue
 
   return baseSlice(
-    list, numValue, len
+    listOrString, numValue, len
   )
 }

@@ -1,5 +1,8 @@
-export function is(ctor, val){
-  if (arguments.length === 1) return _val => is(ctor, _val)
+export function is(targetPrototype, x){
+  if (arguments.length === 1) return _x => is(targetPrototype, _x)
 
-  return val != null && val.constructor === ctor || val instanceof ctor
+  return (
+    x != null && x.constructor === targetPrototype ||
+    x instanceof targetPrototype
+  )
 }

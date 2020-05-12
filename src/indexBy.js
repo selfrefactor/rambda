@@ -10,19 +10,19 @@ function indexByPath(pathInput, list){
   return toReturn
 }
 
-export function indexBy(fnOrPath, list){
+export function indexBy(condition, list){
   if (arguments.length === 1){
-    return _list => indexBy(fnOrPath, _list)
+    return _list => indexBy(condition, _list)
   }
 
-  if (typeof fnOrPath === 'string'){
-    return indexByPath(fnOrPath, list)
+  if (typeof condition === 'string'){
+    return indexByPath(condition, list)
   }
 
   const toReturn = {}
   for (let i = 0; i < list.length; i++){
     const item = list[ i ]
-    toReturn[ fnOrPath(item) ] = item
+    toReturn[ condition(item) ] = item
   }
 
   return toReturn

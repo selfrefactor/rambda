@@ -1,16 +1,17 @@
-export function omit(keys, obj){
-  if (arguments.length === 1) return _obj => omit(keys, _obj)
+export function omit(propsToOmit, obj){
+  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
   if (obj === null || obj === undefined){
     return undefined
   }
 
-  const keysValue = typeof keys === 'string' ? keys.split(',') : keys
+  const propsToOmitValue =
+    typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit
 
   const willReturn = {}
 
   for (const key in obj){
-    if (!keysValue.includes(key)){
+    if (!propsToOmitValue.includes(key)){
       willReturn[ key ] = obj[ key ]
     }
   }

@@ -7,8 +7,8 @@ export function without(matchAgainst, source){
   }
 
   return reduce(
-    (accum, item) =>
-      includes(item, matchAgainst) ? accum : accum.concat(item),
+    (prev, current) =>
+      includes(current, matchAgainst) ? prev : prev.concat(current),
     [],
     source
   )

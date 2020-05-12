@@ -1,10 +1,10 @@
-export function pickAll(keys, obj){
-  if (arguments.length === 1) return _obj => pickAll(keys, _obj)
+export function pickAll(propsToPick, obj){
+  if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
 
   if (obj === null || obj === undefined){
     return undefined
   }
-  const keysValue = typeof keys === 'string' ? keys.split(',') : keys
+  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
 
   const willReturn = {}
   let counter = 0

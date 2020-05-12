@@ -1,9 +1,11 @@
 import { curry } from './curry'
 
 function reduceFn(
-  fn, acc, list
+  reducer, acc, list
 ){
-  return list.reduce(fn, acc)
+  const clone = list.slice()
+
+  return clone.reduce(reducer, acc)
 }
 
 export const reduce = curry(reduceFn)

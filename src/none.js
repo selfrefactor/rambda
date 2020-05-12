@@ -1,5 +1,5 @@
-export function none(fn, list){
-  if (arguments.length === 1) return _list => none(fn, _list)
+export function none(predicate, list){
+  if (arguments.length === 1) return _list => none(predicate, _list)
 
-  return list.filter(fn).length === 0
+  return list.filter(predicate).length === 0
 }

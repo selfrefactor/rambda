@@ -1,10 +1,10 @@
-export function reverse(input){
-  if (typeof input === 'string'){
-    return input.split('').reverse()
+export function reverse(listOrString){
+  if (typeof listOrString === 'string'){
+    return listOrString.split('').reverse()
       .join('')
   }
 
-  const clone = input.slice()
+  const clone = listOrString.slice()
 
   return clone.reverse()
 }

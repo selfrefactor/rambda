@@ -1,7 +1,7 @@
-export function merge(obj, props){
-  if (arguments.length === 1) return _props => merge(obj, _props)
+export function merge(target, newProps){
+  if (arguments.length === 1) return _newProps => merge(target, _newProps)
 
   return Object.assign(
-    {}, obj || {}, props || {}
+    {}, target || {}, newProps || {}
   )
 }

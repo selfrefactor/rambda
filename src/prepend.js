@@ -1,9 +1,8 @@
-export function prepend(el, list){
-  if (arguments.length === 1) return _list => prepend(el, _list)
+export function prepend(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => prepend(x, _listOrString)
 
-  if (typeof list === 'string') return `${ el }${ list }`
+  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
 
-  const clone = [ el ].concat(list)
-
-  return clone
+  return [ x ].concat(listOrString)
 }

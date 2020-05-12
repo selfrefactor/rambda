@@ -1,9 +1,9 @@
 import { curry } from './curry'
 
 function sliceFn(
-  fromIndex, toIndex, list
+  from, to, list
 ){
-  return list.slice(fromIndex, toIndex)
+  return list.slice(from, to)
 }
 
 export const slice = curry(sliceFn)

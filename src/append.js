@@ -1,10 +1,11 @@
-export function append(el, list){
-  if (arguments.length === 1) return _list => append(el, _list)
+export function append(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => append(x, _listOrString)
 
-  if (typeof list === 'string') return `${ list }${ el }`
+  if (typeof listOrString === 'string') return `${ listOrString }${ x }`
 
-  const clone = list.slice()
-  clone.push(el)
+  const clone = listOrString.slice()
+  clone.push(x)
 
   return clone
 }
