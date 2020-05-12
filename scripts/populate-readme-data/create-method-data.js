@@ -38,9 +38,15 @@ function createRambdaSpecReadme(method){
 
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
----
-R.{{methodName}}
----
+<details>
+
+<summary><strong>R.{{methodName}}</strong> source</summary>
+
+\`\`\`javascript
+{{rambdaSource}}
+\`\`\`
+
+</details>
 `
 
   return template(summaryTemplate, method)
@@ -122,12 +128,12 @@ export function createMethodData(method){
   const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
 
   if (method.typing) data.push(attachTyping(method))
-  // if (method.explanation) data.push(method.explanation)
-  // if (method.explanation) data.push('\n')
-  // if (method.example) data.push(createExampleReadme(method))
-  // if (method.replLink) data.push(createReplReadme(method))
-  // if (method.replLink) data.push('\n')
-  // if (method.allTypings) data.push(attachAllTypings(method))
+  if (method.explanation) data.push(method.explanation)
+  if (method.explanation) data.push('\n')
+  if (method.example) data.push(createExampleReadme(method))
+  if (method.replLink) data.push(createReplReadme(method))
+  if (method.replLink) data.push('\n')
+  if (method.allTypings) data.push(attachAllTypings(method))
   // if (method.note) data.push(createNoteReadme(method))
   // if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
   // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
