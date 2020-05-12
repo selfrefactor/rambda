@@ -404,7 +404,7 @@ test('ramda specs', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {add} from 'rambda'
 
 describe('add', () => {
@@ -634,7 +634,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {all} from 'rambda'
 
 describe('all', () => {
@@ -750,7 +750,7 @@ test('when returns false', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {allPass} from 'rambda'
 
 describe('allPass', () => {
@@ -1000,7 +1000,7 @@ test('passes index to predicate', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {any} from 'rambda'
 
 describe('any', () => {
@@ -1152,7 +1152,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {anyPass} from 'rambda'
 
 describe('anyPass', () => {
@@ -1711,7 +1711,7 @@ test('restructure json object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {multiply, applySpec, inc, dec, add} from 'rambda'
 
 describe('applySpec', () => {
@@ -2202,7 +2202,7 @@ test('skip evaluation of the second expression', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {both} from 'rambda'
 
 describe('both', () => {
@@ -2892,7 +2892,7 @@ test('predicates are tested in order', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {cond, always, equals} from 'rambda'
 
 describe('cond', () => {
@@ -3361,7 +3361,7 @@ test('default extends to indefinite input arguments - case 6', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {defaultTo} from 'rambda'
 
 describe('defaultTo with Ramda spec', () => {
@@ -3787,7 +3787,7 @@ test('should return copy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {drop} from 'rambda'
 
 describe('drop', () => {
@@ -4793,7 +4793,7 @@ test('with object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {filter} from 'rambda'
 
 describe('filter with array', () => {
@@ -6529,7 +6529,7 @@ test('with string - bad path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {indexBy} from 'rambda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
@@ -8360,7 +8360,7 @@ test('when undefined instead of array', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {map} from 'rambda'
 
 describe('map with arrays', () => {
@@ -9489,7 +9489,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {omit} from 'rambda'
 
 describe('omit with string as props input', () => {
@@ -9845,7 +9845,7 @@ test('path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {path} from 'rambda'
 
 interface Input {
@@ -10172,7 +10172,7 @@ test('returns undefined for items not found', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {paths} from 'rambda'
 
 interface Input {
@@ -10372,7 +10372,7 @@ test('pick', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {pick} from 'rambda'
 
 describe('pick with string as props input', () => {
@@ -10760,7 +10760,7 @@ test('with number', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {pluck} from 'rambda'
 
 describe('pluck', () => {
@@ -11428,7 +11428,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {reduce} from 'rambda'
 
 describe('reduce', () => {
@@ -11678,7 +11678,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {reject} from 'rambda'
 
 describe('reject with array', () => {
@@ -12296,7 +12296,7 @@ test('with compose', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {sortBy} from 'rambda'
 
 describe('sortBy', () => {
@@ -13770,7 +13770,7 @@ test('uniq', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {uniq} from 'rambda'
 
 describe('uniq', () => {
@@ -13999,7 +13999,7 @@ test('uniqWith', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {uniqWith} from 'rambda'
 
 describe('uniqWith', () => {
@@ -14118,7 +14118,7 @@ test('update', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {update} from 'rambda'
 
 describe('update', () => {
@@ -14234,7 +14234,7 @@ test('with bad input', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {values} from 'rambda'
 
 describe('values', () => {
@@ -14430,7 +14430,7 @@ test.skip('returns a curried function', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {xor} from 'rambda'
 
 describe('xor', () => {
@@ -14574,7 +14574,7 @@ test('should truncate result to length of shorted input list', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```text
+```typescript
 import {zip} from 'rambda'
 
 describe('zip', () => {
