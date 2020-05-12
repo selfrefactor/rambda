@@ -15,13 +15,6 @@ const readmeTemplate = `
 ## API
 
 {{methods}}
-`
-const readmeTemplatex = `
-{{intro}}
-
-## API
-
-{{methods}}
 
 {{tail}}
 `
