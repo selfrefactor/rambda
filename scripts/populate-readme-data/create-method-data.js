@@ -156,7 +156,7 @@ export function createMethodData(method){
   if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
   if (method.rambdaSource) data.push(createRambdaSourceReadmex(method))
-  // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
+  if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
   // if (method.typescriptDefinitionTest){
   //   data.push(createTypescriptTest(method))
