@@ -398,10 +398,12 @@ import {add} from 'rambda'
 
 describe('add', () => {
   it('number', () => {
-    const resultA = add(4)(1) // $ExpectType number
-    resultA // $ExpectType number
-    const resultB = add(4, 1) // $ExpectType number
-    resultB // $ExpectType number
+    const result = [
+      add(4)(1),
+      add(4,1)
+    ]  
+    result[0] // $ExpectType number
+    result[1] // $ExpectType number
   })
 })
 ```
@@ -1270,11 +1272,7 @@ test('should not modify arguments', () => {
 ### applySpec
 
 ```typescript
-applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
-  spec: Spec
-): (
-    ...args: Parameters<ValueOfRecord<Spec>>
-  ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }
+applySpec<T>(spec: any): (...args: readonly any[]) => T
 ```
 
 It returns a curried function with the same arity as the longest function in the spec object.
@@ -1308,7 +1306,12 @@ getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 <summary>All Typescript definitions</summary>
 
 ```text
+applySpec<T>(spec: any): (...args: readonly any[]) => T;
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+  spec: Spec
+): (
+  ...args: Parameters<ValueOfRecord<Spec>>
+) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
 ```
 
 </details>
@@ -3658,6 +3661,9 @@ R.drop(2, 'foobar')  // => 'obar'
 drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 drop(howManyToDrop: number, listOrString: string): string;
 drop<T>(howManyToDrop: number): {
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
+};
 ```
 
 </details>
@@ -3757,6 +3763,9 @@ R.dropLast(2, 'foobar')  // => 'foob'
 dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 dropLast(howManyToDrop: number, listOrString: string): string;
 dropLast<T>(howManyToDrop: number): {
+  (listOrString: ReadonlyArray<T>): T[];
+  (listOrString: string): string;
+};
 ```
 
 </details>
@@ -7906,6 +7915,9 @@ R.over(xLens, R.negate, input)
 
 ```text
 lensProp(prop: string): {
+  <T, U>(obj: T): U;
+  set<T, U, V>(val: T, obj: U): V;
+};
 ```
 
 </details>
@@ -10784,6 +10796,9 @@ const result = [
 propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
 propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
 propEq(propToFind: string | number): {
+  <T>(valueToMatch: T, obj: any): boolean;
+  <T>(valueToMatch: T): (obj: any) => boolean;
+};
 ```
 
 </details>
@@ -11803,6 +11818,13 @@ const result = [
 slice(from: number, to: number, list: string): string;
 slice<T>(from: number, to: number, list: T[]): T[];
 slice(from: number, to: number): {
+  (list: string): string;
+  <T>(list: T[]): T[];
+};
+slice(from: number): {
+  (to: number, list: string): string;
+  <T>(to: number, list: T[]): T[];
+};
 ```
 
 </details>
@@ -12174,6 +12196,9 @@ splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];
 splitEvery(sliceLength: number, listOrString: string): string[];
 splitEvery(sliceLength: number): {
+  (listOrString: string): string[];
+  <T>(listOrString: ReadonlyArray<T>): T[][];
+};
 ```
 
 </details>
@@ -12547,6 +12572,9 @@ const result = [
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 take(howMany: number, listOrString: string): string;
 take<T>(howMany: number): {
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
+};
 ```
 
 </details>
@@ -12664,6 +12692,9 @@ const result = [
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 takeLast(howMany: number, listOrString: string): string;
 takeLast<T>(howMany: number): {
+  (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
+};
 ```
 
 </details>
@@ -14264,6 +14295,21 @@ describe('zip', () => {
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
 ```
 
+It will return a new object with keys of `keys` array and values of `values` array.
+
+```javascript
+const keys = ['a', 'b', 'c']
+
+R.zipObj(keys, [1, 2, 3])
+//=> {a: 1, b: 2, c: 3}
+
+// truncates to shortest list
+R.zipObj(keys, [1, 2])
+//=> {a: 1, b: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20keys%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%5D%0A%0AR.zipObj(keys%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zipObj(keys%2C%20%5B1%2C%202%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%7D">Try the above <strong>R.zipObj</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -14275,7 +14321,94 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 </details>
 
+<details>
+
+<summary><strong>R.zipObj</strong> source</summary>
+
+```text
+import { take } from './take'
+
+export function zipObj(keys, values){
+  if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
+
+  return take(values.length, keys).reduce((
+    prev, xInstance, i
+  ) => {
+    prev[ xInstance ] = values[ i ]
+
+    return prev
+  }, {})
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { equals } from './equals'
+import { zipObj } from './zipObj'
+
+test('zipObj', () => {
+  expect(zipObj([ 'a', 'b', 'c' ], [ 1, 2, 3 ])).toEqual({
+    a : 1,
+    b : 2,
+    c : 3,
+  })
+})
+
+test('0', () => {
+  expect(zipObj([ 'a', 'b' ])([ 1, 2, 3 ])).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('1', () => {
+  expect(zipObj([ 'a', 'b', 'c' ])([ 1, 2 ])).toEqual({
+    a : 1,
+    b : 2,
+  })
+})
+
+test('ignore extra keys', () => {
+  const result = zipObj([ 'a', 'b', 'c', 'd', 'e', 'f' ], [ 1, 2, 3 ])
+  const expected = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+
+  expect(equals(result, expected)).toBeTrue()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {zipObj} from 'rambda'
+
+describe('zipObj', () => {
+  it('happy', () => {
+    const result = zipObj(['a', 'b', 'c', 'd', 'e', 'f'], [1, 2, 3])
+    result // $ExpectType { [index: string]: number; }
+  })
+})
+```
+
+</details>
+
 ## CHANGELOG
+
+- 5.2.1
+
+Fix Typescript comment for every method
 
 - 5.2.0
 
