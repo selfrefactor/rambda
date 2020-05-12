@@ -67,7 +67,9 @@ function createBenchmarkInfo(method){
 
 <summary>{{methodSummary}}</summary>
 
+\`\`\`text
 {{benchmarkContent}}
+\`\`\`
 
 </details>
 `
@@ -81,7 +83,9 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
+\`\`\`text
 {{allTypings}}
+\`\`\`
 
 </details>
 `
