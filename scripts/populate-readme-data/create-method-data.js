@@ -38,6 +38,17 @@ function createRambdaSpecReadme(method){
 
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
+R.{{methodName}}
+
+\`\`\`javascript
+{{rambdaSource}}
+\`\`\`
+`
+
+  return template(summaryTemplate, method)
+}
+function createRambdaSourceReadmex(method){
+  const summaryTemplate = `
 <details>
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
@@ -136,8 +147,7 @@ export function createMethodData(method){
   if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
   console.log(createRambdaSourceReadme(method))
-  if (method.rambdaSource) data.push('foo')
-  // if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
+  if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
   // if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
   // if (method.typescriptDefinitionTest){

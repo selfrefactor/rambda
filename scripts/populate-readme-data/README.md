@@ -366,7 +366,17 @@ add(a: number): (b: number) => number;
 
 </details>
 
-foo
+
+R.add
+
+```javascript
+export function add(a, b){
+  if (arguments.length === 1) return _b => add(a, _b)
+
+  return Number(a) + Number(b)
+}
+```
+
 
 ### adjust
 
@@ -406,7 +416,27 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 </details>
 
-foo
+
+R.adjust
+
+```javascript
+import { curry } from './curry'
+
+function adjustFn(
+  index, replaceFn, list
+){
+  const actualIndex = index < 0 ? list.length + index : index
+  if (index >= list.length || actualIndex < 0) return list
+
+  const clone = list.slice()
+  clone[ actualIndex ] = replaceFn(clone[ actualIndex ])
+
+  return clone
+}
+
+export const adjust = curry(adjustFn)
+```
+
 
 ### all
 
@@ -446,7 +476,21 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
-foo
+
+R.all
+
+```javascript
+export function all(predicate, list){
+  if (arguments.length === 1) return _list => all(predicate, _list)
+
+  for (let i = 0; i < list.length; i++){
+    if (!predicate(list[ i ], i)) return false
+  }
+
+  return true
+}
+```
+
 
 ### allPass
 
@@ -489,7 +533,25 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 </details>
 
-foo
+
+R.allPass
+
+```javascript
+export function allPass(predicates){
+  return input => {
+    let counter = 0
+    while (counter < predicates.length){
+      if (!predicates[ counter ](input)){
+        return false
+      }
+      counter++
+    }
+
+    return true
+  }
+}
+```
+
 
 ### always
 
@@ -526,7 +588,15 @@ always<T>(x: T): () => T;
 
 </details>
 
-foo
+
+R.always
+
+```javascript
+export function always(x){
+  return () => x
+}
+```
+
 
 ### and
 
@@ -563,7 +633,17 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 </details>
 
-foo
+
+R.and
+
+```javascript
+export function and(a, b){
+  if (arguments.length === 1) return _b => and(a, _b)
+
+  return a && b
+}
+```
+
 
 ### any
 
@@ -604,7 +684,25 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
-foo
+
+R.any
+
+```javascript
+export function any(predicate, list){
+  if (arguments.length === 1) return _list => any(predicate, _list)
+
+  let counter = 0
+  while (counter < list.length){
+    if (predicate(list[ counter ], counter)){
+      return true
+    }
+    counter++
+  }
+
+  return false
+}
+```
+
 
 ### anyPass
 
@@ -647,7 +745,25 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 </details>
 
-foo
+
+R.anyPass
+
+```javascript
+export function anyPass(predicates){
+  return input => {
+    let counter = 0
+    while (counter < predicates.length){
+      if (predicates[ counter ](input)){
+        return true
+      }
+      counter++
+    }
+
+    return false
+  }
+}
+```
+
 
 ### append
 
@@ -689,7 +805,23 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.append
+
+```javascript
+export function append(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => append(x, _listOrString)
+
+  if (typeof listOrString === 'string') return `${ listOrString }${ x }`
+
+  const clone = listOrString.slice()
+  clone.push(x)
+
+  return clone
+}
+```
+
 
 ### applySpec
 
@@ -746,7 +878,142 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 
 </details>
 
-foo
+
+R.applySpec
+
+```javascript
+// recursively traverse the given spec object to find the highest arity function
+function __findHighestArity(spec, max = 0){
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    if (typeof spec[ key ] === 'object'){
+      max = Math.max(max, __findHighestArity(spec[ key ]))
+    }
+
+    if (typeof spec[ key ] === 'function'){
+      max = Math.max(max, spec[ key ].length)
+    }
+  }
+
+  return max
+}
+
+function __filterUndefined(){
+  const defined = []
+  let i = 0
+  const l = arguments.length
+  while (i < l){
+    if (typeof arguments[ i ] === 'undefined') break
+    defined[ i ] = arguments[ i ]
+    i++
+  }
+
+  return defined
+}
+
+function __applySpecWithArity(
+  spec, arity, cache
+){
+  const remaining = arity - cache.length
+
+  if (remaining === 1)
+    return x =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, x)
+      )
+  if (remaining === 2)
+    return (x, y) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y
+        )
+      )
+  if (remaining === 3)
+    return (
+      x, y, z
+    ) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y, z
+        )
+      )
+  if (remaining === 4)
+    return (
+      x, y, z, a
+    ) =>
+      __applySpecWithArity(
+        spec,
+        arity,
+        __filterUndefined(
+          ...cache, x, y, z, a
+        )
+      )
+  if (remaining > 4)
+    return (...args) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, ...args)
+      )
+
+  // handle spec as Array
+  if (Array.isArray(spec)){
+    const ret = []
+    let i = 0
+    const l = spec.length
+    for (; i < l; i++){
+      // handle recursive spec inside array
+      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
+        ret[ i ] = __applySpecWithArity(
+          spec[ i ], arity, cache
+        )
+      }
+      // apply spec to the key
+      if (typeof spec[ i ] === 'function'){
+        ret[ i ] = spec[ i ](...cache)
+      }
+    }
+
+    return ret
+  }
+
+  // handle spec as Object
+  const ret = {}
+  // apply callbacks to each property in the spec object
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    // apply the spec recursively
+    if (typeof spec[ key ] === 'object'){
+      ret[ key ] = __applySpecWithArity(
+        spec[ key ], arity, cache
+      )
+      continue
+    }
+
+    // apply spec to the key
+    if (typeof spec[ key ] === 'function'){
+      ret[ key ] = spec[ key ](...cache)
+    }
+  }
+
+  return ret
+}
+
+export function applySpec(spec, ...args){
+  // get the highest arity spec function, cache the result and pass to __applySpecWithArity
+  const arity = __findHighestArity(spec)
+
+  if (arity === 0){
+    return () => ({})
+  }
+  const toReturn = __applySpecWithArity(
+    spec, arity, args
+  )
+
+  return toReturn
+}
+```
+
 
 ### assoc
 
@@ -784,7 +1051,23 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 </details>
 
-foo
+
+R.assoc
+
+```javascript
+import { curry } from './curry'
+
+function assocFn(
+  prop, newValue, obj
+){
+  return Object.assign(
+    {}, obj, { [ prop ] : newValue }
+  )
+}
+
+export const assoc = curry(assocFn)
+```
+
 
 ### assocPath
 
@@ -826,7 +1109,56 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 </details>
 
-foo
+
+R.assocPath
+
+```javascript
+import { _isInteger } from './_internals/_isInteger'
+import { assoc } from './assoc'
+import { curry } from './curry'
+
+function assocPathFn(
+  list, newValue, input
+){
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  if (pathArrValue.length === 0){
+    return newValue
+  }
+
+  const index = pathArrValue[ 0 ]
+  if (pathArrValue.length > 1){
+    const condition =
+      typeof input !== 'object' ||
+      input === null ||
+      !input.hasOwnProperty(index)
+
+    const nextinput = condition ?
+      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
+        [] :
+        {} :
+      input[ index ]
+    newValue = assocPathFn(
+      Array.prototype.slice.call(pathArrValue, 1),
+      newValue,
+      nextinput
+    )
+  }
+
+  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)){
+    const arr = input.slice()
+    arr[ index ] = newValue
+
+    return arr
+  }
+
+  return assoc(
+    index, newValue, input
+  )
+}
+
+export const assocPath = curry(assocPathFn)
+```
+
 
 ### both
 
@@ -871,7 +1203,17 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 </details>
 
-foo
+
+R.both
+
+```javascript
+export function both(f, g){
+  if (arguments.length === 1) return _g => both(f, _g)
+
+  return (...input) => f(...input) && g(...input)
+}
+```
+
 
 ### clamp
 
@@ -913,7 +1255,24 @@ clamp(min: number, max: number): (input: number) => number;
 
 </details>
 
-foo
+
+R.clamp
+
+```javascript
+import { curry } from './curry'
+
+function clampFn(
+  min, max, input
+){
+  if (input >= min && input <= max) return input
+
+  if (input > max) return max
+  if (input < min) return min
+}
+
+export const clamp = curry(clampFn)
+```
+
 
 ### clone
 
@@ -979,7 +1338,15 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 </details>
 
-foo
+
+R.complement
+
+```javascript
+export function complement(fn){
+  return (...input) => !fn(...input)
+}
+```
+
 
 ### compose
 
@@ -1022,7 +1389,30 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 </details>
 
-foo
+
+R.compose
+
+```javascript
+export function compose(...fns){
+  if (fns.length === 0){
+    throw new Error('compose requires at least one argument')
+  }
+
+  return (...args) => {
+    const list = fns.slice()
+    if (list.length > 0){
+      const fn = list.pop()
+      let result = fn(...args)
+      while (list.length > 0){
+        result = list.pop()(result)
+      }
+
+      return result
+    }
+  }
+}
+```
+
 
 ### concat
 
@@ -1061,7 +1451,17 @@ concat(x: string): (y: string) => string;
 
 </details>
 
-foo
+
+R.concat
+
+```javascript
+export function concat(x, y){
+  if (arguments.length === 1) return _y => concat(x, _y)
+
+  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
+}
+```
+
 
 ### cond
 
@@ -1114,7 +1514,26 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 </details>
 
-foo
+
+R.cond
+
+```javascript
+export function cond(conditions){
+  return input => {
+    let done = false
+    let toReturn
+    conditions.forEach(([ predicate, resultClosure ]) => {
+      if (!done && predicate(input)){
+        done = true
+        toReturn = resultClosure(input)
+      }
+    })
+
+    return toReturn
+  }
+}
+```
+
 
 ### curry
 
@@ -1153,7 +1572,19 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 </details>
 
-foo
+
+R.curry
+
+```javascript
+export function curry(fn, args = []){
+  return (..._args) =>
+    (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
+      ...args,
+      ..._args,
+    ])
+}
+```
+
 
 ### dec
 
@@ -1179,7 +1610,13 @@ dec(x: number): number;
 
 </details>
 
-foo
+
+R.dec
+
+```javascript
+export const dec = x => x - 1
+```
+
 
 ### defaultTo
 
@@ -1225,7 +1662,47 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 
 </details>
 
-foo
+
+R.defaultTo
+
+```javascript
+function flagIs(inputArguments){
+  return (
+    inputArguments === undefined ||
+    inputArguments === null ||
+    Number.isNaN(inputArguments) === true
+  )
+}
+
+export function defaultTo(defaultArgument, ...inputArguments){
+  if (arguments.length === 1){
+    return _inputArguments => defaultTo(defaultArgument, _inputArguments)
+  } else if (arguments.length === 2){
+    return flagIs(inputArguments[ 0 ]) ? defaultArgument : inputArguments[ 0 ]
+  }
+
+  const limit = inputArguments.length - 1
+  let len = limit + 1
+  let ready = false
+  let holder
+
+  while (!ready){
+    const instance = inputArguments[ limit - len + 1 ]
+
+    if (len === 0){
+      ready = true
+    } else if (flagIs(instance)){
+      len -= 1
+    } else {
+      holder = instance
+      ready = true
+    }
+  }
+
+  return holder === undefined ? defaultArgument : holder
+}
+```
+
 
 ### difference
 
@@ -1265,7 +1742,20 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.difference
+
+```javascript
+import { includes } from './includes'
+import { uniq } from './uniq'
+
+export function difference(a, b){
+  if (arguments.length === 1) return _b => difference(a, _b)
+
+  return uniq(a).filter(aInstance => !includes(aInstance, b))
+}
+```
+
 
 ### dissoc
 
@@ -1302,7 +1792,25 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 </details>
 
-foo
+
+R.dissoc
+
+```javascript
+export function dissoc(prop, obj){
+  if (arguments.length === 1) return _obj => dissoc(prop, _obj)
+
+  if (obj === null || obj === undefined) return {}
+
+  const willReturn = {}
+  for (const p in obj){
+    willReturn[ p ] = obj[ p ]
+  }
+  delete willReturn[ prop ]
+
+  return willReturn
+}
+```
+
 
 ### divide
 
@@ -1335,7 +1843,17 @@ divide(a: number): (b: number) => number;
 
 </details>
 
-foo
+
+R.divide
+
+```javascript
+export function divide(a, b){
+  if (arguments.length === 1) return _b => divide(a, _b)
+
+  return a / b
+}
+```
+
 
 ### drop
 
@@ -1373,7 +1891,17 @@ drop<T>(howManyToDrop: number): {
 
 </details>
 
-foo
+
+R.drop
+
+```javascript
+export function drop(howManyToDrop, listOrString){
+  if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
+
+  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+}
+```
+
 
 ### dropLast
 
@@ -1411,7 +1939,21 @@ dropLast<T>(howManyToDrop: number): {
 
 </details>
 
-foo
+
+R.dropLast
+
+```javascript
+export function dropLast(howManyToDrop, listOrString){
+  if (arguments.length === 1){
+    return _listOrString => dropLast(howManyToDrop, _listOrString)
+  }
+
+  return howManyToDrop > 0 ?
+    listOrString.slice(0, -howManyToDrop) :
+    listOrString.slice()
+}
+```
+
 
 ### either
 
@@ -1474,7 +2016,17 @@ endsWith(target: string): (str: string) => boolean;
 
 </details>
 
-foo
+
+R.endsWith
+
+```javascript
+export function endsWith(target, str){
+  if (arguments.length === 1) return _str => endsWith(target, _str)
+
+  return str.endsWith(target)
+}
+```
+
 
 ### equals
 
@@ -1513,7 +2065,113 @@ equals<T>(a: T): (b: T) => boolean;
 
 </details>
 
-foo
+
+R.equals
+
+```javascript
+import { type } from './type'
+
+function parseError(maybeError){
+  const typeofError = maybeError.__proto__.toString()
+  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
+
+  return [ typeofError, maybeError.message ]
+}
+
+function parseDate(maybeDate){
+  if (!maybeDate.toDateString) return [ false ]
+
+  return [ true, maybeDate.getTime() ]
+}
+
+function parseRegex(maybeRegex){
+  if (maybeRegex.constructor !== RegExp) return [ false ]
+
+  return [ true, maybeRegex.toString() ]
+}
+
+export function equals(a, b){
+  if (arguments.length === 1) return _b => equals(a, _b)
+
+  const aType = type(a)
+
+  if (aType !== type(b)) return false
+  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
+  if ([ 'Boolean', 'Number', 'String' ].includes(aType))
+    return a.toString() === b.toString()
+
+  if (aType === 'Array'){
+    const aClone = Array.from(a)
+    const bClone = Array.from(b)
+
+    if (aClone.toString() !== bClone.toString()){
+      return false
+    }
+
+    let loopArrayFlag = true
+    aClone.forEach((aCloneInstance, aCloneIndex) => {
+      if (loopArrayFlag){
+        if (
+          aCloneInstance !== bClone[ aCloneIndex ] &&
+          !equals(aCloneInstance, bClone[ aCloneIndex ])
+        ){
+          loopArrayFlag = false
+        }
+      }
+    })
+
+    return loopArrayFlag
+  }
+
+  const aRegex = parseRegex(a)
+  const bRegex = parseRegex(b)
+
+  if (aRegex[ 0 ]){
+    return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
+  } else if (bRegex[ 0 ]) return false
+
+  const aDate = parseDate(a)
+  const bDate = parseDate(b)
+
+  if (aDate[ 0 ]){
+    return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
+  } else if (bDate[ 0 ]) return false
+
+  const aError = parseError(a)
+  const bError = parseError(b)
+
+  if (aError[ 0 ]){
+    return bError[ 0 ] ?
+      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
+      false
+  }
+
+  if (aType === 'Object'){
+    const aKeys = Object.keys(a)
+
+    if (aKeys.length !== Object.keys(b).length){
+      return false
+    }
+
+    let loopObjectFlag = true
+    aKeys.forEach(aKeyInstance => {
+      if (loopObjectFlag){
+        const aValue = a[ aKeyInstance ]
+        const bValue = b[ aKeyInstance ]
+
+        if (aValue !== bValue && !equals(aValue, bValue)){
+          loopObjectFlag = false
+        }
+      }
+    })
+
+    return loopObjectFlag
+  }
+
+  return false
+}
+```
+
 
 ### F
 
@@ -1545,7 +2203,15 @@ F(): boolean;
 
 </details>
 
-foo
+
+R.F
+
+```javascript
+export function F(){
+  return false
+}
+```
+
 
 ### filter
 
@@ -1593,7 +2259,50 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
-foo
+
+R.filter
+
+```javascript
+function filterObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    if (fn(
+      obj[ prop ], prop, obj
+    )){
+      willReturn[ prop ] = obj[ prop ]
+    }
+  }
+
+  return willReturn
+}
+
+export function filter(predicate, list){
+  if (arguments.length === 1) return _list => filter(predicate, _list)
+
+  if (!list) return []
+
+  if (!Array.isArray(list)){
+    return filterObject(predicate, list)
+  }
+
+  let index = -1
+  let resIndex = 0
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    const value = list[ index ]
+
+    if (predicate(value, index)){
+      willReturn[ resIndex++ ] = value
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### find
 
@@ -1635,7 +2344,17 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 </details>
 
-foo
+
+R.find
+
+```javascript
+export function find(predicate, list){
+  if (arguments.length === 1) return _list => find(predicate, _list)
+
+  return list.find(predicate)
+}
+```
+
 
 ### findIndex
 
@@ -1677,7 +2396,26 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 </details>
 
-foo
+
+R.findIndex
+
+```javascript
+export function findIndex(predicate, list){
+  if (arguments.length === 1) return _list => findIndex(predicate, _list)
+
+  const len = list.length
+  let index = -1
+
+  while (++index < len){
+    if (predicate(list[ index ], index)){
+      return index
+    }
+  }
+
+  return -1
+}
+```
+
 
 ### flatten
 
@@ -1718,7 +2456,25 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 </details>
 
-foo
+
+R.flatten
+
+```javascript
+export function flatten(list, input){
+  const willReturn = input === undefined ? [] : input
+
+  for (let i = 0; i < list.length; i++){
+    if (Array.isArray(list[ i ])){
+      flatten(list[ i ], willReturn)
+    } else {
+      willReturn.push(list[ i ])
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### flip
 
@@ -1759,7 +2515,27 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 </details>
 
-foo
+
+R.flip
+
+```javascript
+function flipExport(fn){
+  return (...input) => {
+    if (input.length === 1){
+      return holder => fn(holder, input[ 0 ])
+    } else if (input.length === 2){
+      return fn(input[ 1 ], input[ 0 ])
+    }
+
+    return undefined
+  }
+}
+
+export function flip(fn){
+  return flipExport(fn)
+}
+```
+
 
 ### forEach
 
@@ -1805,7 +2581,21 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 </details>
 
-foo
+
+R.forEach
+
+```javascript
+import { map } from './map'
+
+export function forEach(predicate, list){
+  if (arguments.length === 1) return _list => forEach(predicate, _list)
+
+  map(predicate, list)
+
+  return list
+}
+```
+
 
 ### fromPairs
 
@@ -1849,7 +2639,18 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 </details>
 
-foo
+
+R.fromPairs
+
+```javascript
+export function fromPairs(listOfPairs){
+  const toReturn = {}
+  listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
+
+  return toReturn
+}
+```
+
 
 ### groupBy
 
@@ -1889,7 +2690,29 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 </details>
 
-foo
+
+R.groupBy
+
+```javascript
+export function groupBy(groupFn, list){
+  if (arguments.length === 1) return _list => groupBy(groupFn, _list)
+
+  const result = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    const key = groupFn(item)
+
+    if (!result[ key ]){
+      result[ key ] = []
+    }
+
+    result[ key ].push(item)
+  }
+
+  return result
+}
+```
+
 
 ### groupWith
 
@@ -1930,7 +2753,53 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 </details>
 
-foo
+
+R.groupWith
+
+```javascript
+export function groupWith(compareFn, list){
+  if (!Array.isArray(list))
+    throw new TypeError('list.reduce is not a function')
+
+  const clone = list.slice()
+  const toReturn = []
+  let holder = []
+
+  clone.reduce((
+    prev, current, i
+  ) => {
+    if (i === 0) return current
+
+    const okCompare = compareFn(prev, current)
+    const holderIsEmpty = holder.length === 0
+    const lastCall = i === list.length - 1
+
+    if (okCompare){
+      if (holderIsEmpty) holder.push(prev)
+      holder.push(current)
+      if (lastCall) toReturn.push(holder)
+
+      return current
+    }
+
+    if (holderIsEmpty){
+      toReturn.push([ prev ])
+      if (lastCall) toReturn.push([ current ])
+
+      return current
+    }
+
+    toReturn.push(holder)
+    if (lastCall) toReturn.push([ current ])
+    holder = []
+
+    return current
+  }, undefined)
+
+  return toReturn
+}
+```
+
 
 ### has
 
@@ -1972,7 +2841,19 @@ has(prop: string): <T>(obj: T) => boolean;
 
 </details>
 
-foo
+
+R.has
+
+```javascript
+export function has(prop, obj){
+  if (arguments.length === 1) return _obj => has(prop, _obj)
+
+  if (!obj) return false
+
+  return obj[ prop ] !== undefined
+}
+```
+
 
 ### head
 
@@ -2039,7 +2920,19 @@ identical<T>(a: T): (b: T) => boolean;
 
 </details>
 
-foo
+
+R.identical
+
+```javascript
+import _objectIs from './_internals/_objectIs'
+
+export function identical(a, b){
+  if (arguments.length === 1) return _b => identical(a, _b)
+
+  return _objectIs(a, b)
+}
+```
+
 
 ### identity
 
@@ -2074,7 +2967,15 @@ identity<T>(input: T): T;
 
 </details>
 
-foo
+
+R.identity
+
+```javascript
+export function identity(input){
+  return input
+}
+```
+
 
 ### ifElse
 
@@ -2119,7 +3020,30 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 </details>
 
-foo
+
+R.ifElse
+
+```javascript
+import { curry } from './curry'
+
+function ifElseFn(
+  condition, onTrue, onFalse
+){
+  return (...input) => {
+    const conditionResult =
+      typeof condition === 'boolean' ? condition : condition(...input)
+
+    if (conditionResult === true){
+      return onTrue(...input)
+    }
+
+    return onFalse(...input)
+  }
+}
+
+export const ifElse = curry(ifElseFn)
+```
+
 
 ### inc
 
@@ -2154,7 +3078,13 @@ inc(x: number): number;
 
 </details>
 
-foo
+
+R.inc
+
+```javascript
+export const inc = x => x + 1
+```
+
 
 ### includes
 
@@ -2235,7 +3165,41 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 </details>
 
-foo
+
+R.indexBy
+
+```javascript
+import { path } from './path'
+
+function indexByPath(pathInput, list){
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ path(pathInput, item) ] = item
+  }
+
+  return toReturn
+}
+
+export function indexBy(condition, list){
+  if (arguments.length === 1){
+    return _list => indexBy(condition, _list)
+  }
+
+  if (typeof condition === 'string'){
+    return indexByPath(condition, list)
+  }
+
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ condition(item) ] = item
+  }
+
+  return toReturn
+}
+```
+
 
 ### indexOf
 
@@ -2279,7 +3243,28 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
-foo
+
+R.indexOf
+
+```javascript
+export function indexOf(valueToFind, list){
+  if (arguments.length === 1){
+    return _list => indexOf(valueToFind, _list)
+  }
+
+  let index = -1
+  const { length } = list
+
+  while (++index < length){
+    if (list[ index ] === valueToFind){
+      return index
+    }
+  }
+
+  return -1
+}
+```
+
 
 ### init
 
@@ -2319,7 +3304,21 @@ init(listOrString: string): string;
 
 </details>
 
-foo
+
+R.init
+
+```javascript
+import baseSlice from './_internals/baseSlice'
+
+export function init(listOrString){
+  if (typeof listOrString === 'string') return listOrString.slice(0, -1)
+
+  return listOrString.length ? baseSlice(
+    listOrString, 0, -1
+  ) : []
+}
+```
+
 
 ### intersection
 
@@ -2359,7 +3358,20 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.intersection
+
+```javascript
+import { filter } from './filter'
+import { includes } from './includes'
+
+export function intersection(listA, listB){
+  if (arguments.length === 1) return _list => intersection(listA, _list)
+
+  return filter(value => includes(value, listB), listA)
+}
+```
+
 
 ### intersperse
 
@@ -2398,7 +3410,29 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.intersperse
+
+```javascript
+export function intersperse(separator, list){
+  if (arguments.length === 1) return _list => intersperse(separator, _list)
+
+  let index = -1
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    if (index === len - 1){
+      willReturn.push(list[ index ])
+    } else {
+      willReturn.push(list[ index ], separator)
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### is
 
@@ -2438,7 +3472,20 @@ is(targetPrototype: any): (x: any) => boolean;
 
 </details>
 
-foo
+
+R.is
+
+```javascript
+export function is(targetPrototype, x){
+  if (arguments.length === 1) return _x => is(targetPrototype, _x)
+
+  return (
+    x != null && x.constructor === targetPrototype ||
+    x instanceof targetPrototype
+  )
+}
+```
+
 
 ### isEmpty
 
@@ -2477,7 +3524,30 @@ isEmpty<T>(x: T): boolean;
 
 </details>
 
-foo
+
+R.isEmpty
+
+```javascript
+import { type } from './type.js'
+
+export function isEmpty(input){
+  const inputType = type(input)
+  if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType))
+    return false
+  if (!input) return true
+
+  if (inputType === 'Object'){
+    return Object.keys(input).length === 0
+  }
+
+  if (inputType === 'Array'){
+    return input.length === 0
+  }
+
+  return false
+}
+```
+
 
 ### isNil
 
@@ -2516,7 +3586,15 @@ isNil(x: any): x is null | undefined;
 
 </details>
 
-foo
+
+R.isNil
+
+```javascript
+export function isNil(x){
+  return x === undefined || x === null
+}
+```
+
 
 ### join
 
@@ -2552,7 +3630,17 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 </details>
 
-foo
+
+R.join
+
+```javascript
+export function join(glue, list){
+  if (arguments.length === 1) return _list => join(glue, _list)
+
+  return list.join(glue)
+}
+```
+
 
 ### keys
 
@@ -2588,7 +3676,15 @@ keys<T>(x: T): string[];
 
 </details>
 
-foo
+
+R.keys
+
+```javascript
+export function keys(x){
+  return Object.keys(x)
+}
+```
+
 
 ### last
 
@@ -2628,7 +3724,19 @@ last(listOrString: string): string;
 
 </details>
 
-foo
+
+R.last
+
+```javascript
+export function last(listOrString){
+  if (typeof listOrString === 'string'){
+    return listOrString[ listOrString.length - 1 ] || ''
+  }
+
+  return listOrString[ listOrString.length - 1 ]
+}
+```
+
 
 ### lastIndexOf
 
@@ -2673,7 +3781,27 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
-foo
+
+R.lastIndexOf
+
+```javascript
+import { equals } from './equals'
+
+export function lastIndexOf(target, list){
+  if (arguments.length === 1) return _list => lastIndexOf(target, _list)
+
+  let index = list.length
+
+  while (--index > 0){
+    if (equals(list[ index ], target)){
+      return index
+    }
+  }
+
+  return -1
+}
+```
+
 
 ### length
 
@@ -2712,7 +3840,19 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 </details>
 
-foo
+
+R.length
+
+```javascript
+export function length(x){
+  if (!x || x.length === undefined){
+    return NaN
+  }
+
+  return x.length
+}
+```
+
 
 ### lens
 
@@ -2756,7 +3896,21 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 </details>
 
-foo
+
+R.lens
+
+```javascript
+export function lens(getter, setter){
+  if (arguments.length === 1) return _setter => lens(getter, _setter)
+
+  return function (functor){
+    return function (target){
+      return functor(getter(target)).map(focus => setter(focus, target))
+    }
+  }
+}
+```
+
 
 ### lensIndex
 
@@ -2796,7 +3950,19 @@ lensIndex(index: number): Lens;
 
 </details>
 
-foo
+
+R.lensIndex
+
+```javascript
+import { lens } from './lens'
+import { nth } from './nth'
+import { update } from './update'
+
+export function lensIndex(index){
+  return lens(nth(index), update(index))
+}
+```
+
 
 ### lensPath
 
@@ -2840,7 +4006,19 @@ lensPath(path: RamdaPath): Lens;
 
 </details>
 
-foo
+
+R.lensPath
+
+```javascript
+import { assocPath } from './assocPath'
+import { lens } from './lens'
+import { path } from './path'
+
+export function lensPath(key){
+  return lens(path(key), assocPath(key))
+}
+```
+
 
 ### lensProp
 
@@ -2885,7 +4063,19 @@ lensProp(prop: string): {
 
 </details>
 
-foo
+
+R.lensProp
+
+```javascript
+import { assoc } from './assoc'
+import { lens } from './lens'
+import { prop } from './prop'
+
+export function lensProp(key){
+  return lens(prop(key), assoc(key))
+}
+```
+
 
 ### map
 
@@ -2939,7 +4129,44 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 </details>
 
-foo
+
+R.map
+
+```javascript
+function mapObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    willReturn[ prop ] = fn(
+      obj[ prop ], prop, obj
+    )
+  }
+
+  return willReturn
+}
+
+export function map(fn, list){
+  if (arguments.length === 1) return _list => map(fn, _list)
+
+  if (list === undefined){
+    return []
+  }
+  if (!Array.isArray(list)){
+    return mapObject(fn, list)
+  }
+
+  let index = -1
+  const len = list.length
+  const willReturn = Array(len)
+
+  while (++index < len){
+    willReturn[ index ] = fn(list[ index ], index)
+  }
+
+  return willReturn
+}
+```
+
 
 ### match
 
@@ -2979,7 +4206,19 @@ match(regExpression: RegExp): (str: string) => any[];
 
 </details>
 
-foo
+
+R.match
+
+```javascript
+export function match(pattern, input){
+  if (arguments.length === 1) return _input => match(pattern, _input)
+
+  const willReturn = input.match(pattern)
+
+  return willReturn === null ? [] : willReturn
+}
+```
+
 
 ### max
 
@@ -3019,7 +4258,17 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
-foo
+
+R.max
+
+```javascript
+export function max(x, y){
+  if (arguments.length === 1) return _y => max(x, _y)
+
+  return y > x ? y : x
+}
+```
+
 
 ### maxBy
 
@@ -3058,7 +4307,21 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
-foo
+
+R.maxBy
+
+```javascript
+import { curry } from './curry'
+
+export function maxByFn(
+  compareFn, x, y
+){
+  return compareFn(y) > compareFn(x) ? y : x
+}
+
+export const maxBy = curry(maxByFn)
+```
+
 
 ### mean
 
@@ -3094,7 +4357,17 @@ mean(list: ReadonlyArray<number>): number;
 
 </details>
 
-foo
+
+R.mean
+
+```javascript
+import { sum } from './sum'
+
+export function mean(list){
+  return sum(list) / list.length
+}
+```
+
 
 ### median
 
@@ -3129,7 +4402,29 @@ median(list: ReadonlyArray<number>): number;
 
 </details>
 
-foo
+
+R.median
+
+```javascript
+import { mean } from './mean'
+
+export function median(list){
+  const len = list.length
+  if (len === 0) return NaN
+  const width = 2 - len % 2
+  const idx = (len - width) / 2
+
+  return mean(Array.prototype.slice
+    .call(list, 0)
+    .sort((a, b) => {
+      if (a === b) return 0
+
+      return a < b ? -1 : 1
+    })
+    .slice(idx, idx + width))
+}
+```
+
 
 ### merge
 
@@ -3169,7 +4464,19 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 </details>
 
-foo
+
+R.merge
+
+```javascript
+export function merge(target, newProps){
+  if (arguments.length === 1) return _newProps => merge(target, _newProps)
+
+  return Object.assign(
+    {}, target || {}, newProps || {}
+  )
+}
+```
+
 
 ### min
 
@@ -3209,7 +4516,17 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 </details>
 
-foo
+
+R.min
+
+```javascript
+export function min(x, y){
+  if (arguments.length === 1) return _y => min(x, _y)
+
+  return y < x ? y : x
+}
+```
+
 
 ### minBy
 
@@ -3248,7 +4565,21 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 </details>
 
-foo
+
+R.minBy
+
+```javascript
+import { curry } from './curry'
+
+export function minByFn(
+  compareFn, x, y
+){
+  return compareFn(y) < compareFn(x) ? y : x
+}
+
+export const minBy = curry(minByFn)
+```
+
 
 ### modulo
 
@@ -3284,7 +4615,17 @@ modulo(x: number): (y: number) => number;
 
 </details>
 
-foo
+
+R.modulo
+
+```javascript
+export function modulo(x, y){
+  if (arguments.length === 1) return _y => modulo(x, _y)
+
+  return x % y
+}
+```
+
 
 ### multiply
 
@@ -3320,7 +4661,17 @@ multiply(x: number): (y: number) => number;
 
 </details>
 
-foo
+
+R.multiply
+
+```javascript
+export function multiply(x, y){
+  if (arguments.length === 1) return _y => multiply(x, _y)
+
+  return x * y
+}
+```
+
 
 ### negate
 
@@ -3352,7 +4703,15 @@ negate(x: number): number;
 
 </details>
 
-foo
+
+R.negate
+
+```javascript
+export function negate(x){
+  return -x
+}
+```
+
 
 ### none
 
@@ -3392,7 +4751,17 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 </details>
 
-foo
+
+R.none
+
+```javascript
+export function none(predicate, list){
+  if (arguments.length === 1) return _list => none(predicate, _list)
+
+  return list.filter(predicate).length === 0
+}
+```
+
 
 ### not
 
@@ -3427,7 +4796,15 @@ not(input: any): boolean;
 
 </details>
 
-foo
+
+R.not
+
+```javascript
+export function not(input){
+  return !input
+}
+```
+
 
 ### nth
 
@@ -3471,7 +4848,21 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 </details>
 
-foo
+
+R.nth
+
+```javascript
+export function nth(index, list){
+  if (arguments.length === 1) return _list => nth(index, _list)
+
+  const idx = index < 0 ? list.length + index : index
+
+  return Object.prototype.toString.call(list) === '[object String]' ?
+    list.charAt(idx) :
+    list[ idx ]
+}
+```
+
 
 ### omit
 
@@ -3517,7 +4908,32 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 </details>
 
-foo
+
+R.omit
+
+```javascript
+export function omit(propsToOmit, obj){
+  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+
+  const propsToOmitValue =
+    typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit
+
+  const willReturn = {}
+
+  for (const key in obj){
+    if (!propsToOmitValue.includes(key)){
+      willReturn[ key ] = obj[ key ]
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### over
 
@@ -3559,7 +4975,30 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 </details>
 
-foo
+
+R.over
+
+```javascript
+const Identity = x => ({
+  x,
+  map : fn => Identity(fn(x)),
+})
+
+export function over(
+  lens, fn, object
+){
+  if (arguments.length === 1)
+    return (_fn, _object) => over(
+      lens, _fn, _object
+    )
+  if (arguments.length === 2) return _object => over(
+    lens, fn, _object
+  )
+
+  return lens(x => Identity(fn(x)))(object).x
+}
+```
+
 
 ### partial
 
@@ -3610,7 +5049,23 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 </details>
 
-foo
+
+R.partial
+
+```javascript
+export function partial(fn, ...args){
+  const len = fn.length
+
+  return (...rest) => {
+    if (args.length + rest.length >= len){
+      return fn(...args, ...rest)
+    }
+
+    return partial(fn, ...[ ...args, ...rest ])
+  }
+}
+```
+
 
 ### path
 
@@ -3659,7 +5114,33 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 </details>
 
-foo
+
+R.path
+
+```javascript
+export function path(list, obj){
+  if (arguments.length === 1) return _obj => path(list, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  let willReturn = obj
+  let counter = 0
+
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+
+  while (counter < pathArrValue.length){
+    if (willReturn === null || willReturn === undefined){
+      return undefined
+    }
+    willReturn = willReturn[ pathArrValue[ counter ] ]
+    counter++
+  }
+
+  return willReturn
+}
+```
+
 
 ### pathOr
 
@@ -3711,7 +5192,23 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 </details>
 
-foo
+
+R.pathOr
+
+```javascript
+import { curry } from './curry'
+import { defaultTo } from './defaultTo'
+import { path } from './path'
+
+function pathOrFn(
+  defaultValue, list, obj
+){
+  return defaultTo(defaultValue, path(list, obj))
+}
+
+export const pathOr = curry(pathOrFn)
+```
+
 
 ### paths
 
@@ -3765,7 +5262,17 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 </details>
 
-foo
+
+R.paths
+
+```javascript
+import { path } from './path'
+
+export function paths(pathsToSearch, obj){
+  return pathsToSearch.map(singlePath => path(singlePath, obj))
+}
+```
+
 
 ### pick
 
@@ -3823,7 +5330,33 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 </details>
 
-foo
+
+R.pick
+
+```javascript
+export function pick(propsToPick, obj){
+  if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  const keys =
+    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+
+  const willReturn = {}
+  let counter = 0
+
+  while (counter < keys.length){
+    if (keys[ counter ] in obj){
+      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+    }
+    counter++
+  }
+
+  return willReturn
+}
+```
+
 
 ### pickAll
 
@@ -3879,7 +5412,34 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 </details>
 
-foo
+
+R.pickAll
+
+```javascript
+export function pickAll(propsToPick, obj){
+  if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+
+  const willReturn = {}
+  let counter = 0
+
+  while (counter < keysValue.length){
+    if (keysValue[ counter ] in obj){
+      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
+    } else {
+      willReturn[ keysValue[ counter ] ] = undefined
+    }
+    counter++
+  }
+
+  return willReturn
+}
+```
+
 
 ### pipe
 
@@ -3922,7 +5482,20 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 </details>
 
-foo
+
+R.pipe
+
+```javascript
+import { compose } from './compose'
+
+export function pipe(...fns){
+  if (fns.length === 0)
+    throw new Error('pipe requires at least one argument')
+
+  return compose(...fns.reverse())
+}
+```
+
 
 ### pluck
 
@@ -3964,7 +5537,27 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 </details>
 
-foo
+
+R.pluck
+
+```javascript
+import { map } from './map'
+
+export function pluck(property, list){
+  if (arguments.length === 1) return _list => pluck(property, _list)
+
+  const willReturn = []
+
+  map(x => {
+    if (x[ property ] !== undefined){
+      willReturn.push(x[ property ])
+    }
+  }, list)
+
+  return willReturn
+}
+```
+
 
 ### prepend
 
@@ -4006,7 +5599,20 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.prepend
+
+```javascript
+export function prepend(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => prepend(x, _listOrString)
+
+  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
+
+  return [ x ].concat(listOrString)
+}
+```
+
 
 ### product
 
@@ -4039,7 +5645,16 @@ product(list: ReadonlyArray<number>): number;
 
 </details>
 
-foo
+
+R.product
+
+```javascript
+import { multiply } from './multiply'
+import { reduce } from './reduce'
+
+export const product = reduce(multiply, 1)
+```
+
 
 ### prop
 
@@ -4110,7 +5725,23 @@ propEq(propToFind: string | number): {
 
 </details>
 
-foo
+
+R.propEq
+
+```javascript
+import { curry } from './curry'
+
+function propEqFn(
+  propToFind, valueToMatch, obj
+){
+  if (!obj) return false
+
+  return obj[ propToFind ] === valueToMatch
+}
+
+export const propEq = curry(propEqFn)
+```
+
 
 ### propIs
 
@@ -4153,7 +5784,22 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 </details>
 
-foo
+
+R.propIs
+
+```javascript
+import { curry } from './curry.js'
+import { is } from './is'
+
+function propIsFn(
+  targetPrototype, property, obj
+){
+  return is(targetPrototype, obj[ property ])
+}
+
+export const propIs = curry(propIsFn)
+```
+
 
 ### propOr
 
@@ -4198,7 +5844,24 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 </details>
 
-foo
+
+R.propOr
+
+```javascript
+import { curry } from './curry'
+import { defaultTo } from './defaultTo'
+
+function propOrFn(
+  defaultValue, property, obj
+){
+  if (!obj) return defaultValue
+
+  return defaultTo(defaultValue, obj[ property ])
+}
+
+export const propOr = curry(propOrFn)
+```
+
 
 ### range
 
@@ -4235,7 +5898,30 @@ range(start: number): (end: number) => number[];
 
 </details>
 
-foo
+
+R.range
+
+```javascript
+export function range(start, end){
+  if (arguments.length === 1) return _end => range(start, _end)
+
+  if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
+    throw new TypeError('Both arguments to range must be numbers')
+  }
+
+  if (end < start) return []
+
+  const len = end - start
+  const willReturn = Array(len)
+
+  for (let i = 0; i < len; i++){
+    willReturn[ i ] = start + i
+  }
+
+  return willReturn
+}
+```
+
 
 ### reduce
 
@@ -4275,7 +5961,23 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 </details>
 
-foo
+
+R.reduce
+
+```javascript
+import { curry } from './curry'
+
+function reduceFn(
+  reducer, acc, list
+){
+  const clone = list.slice()
+
+  return clone.reduce(reducer, acc)
+}
+
+export const reduce = curry(reduceFn)
+```
+
 
 ### reject
 
@@ -4321,7 +6023,19 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
-foo
+
+R.reject
+
+```javascript
+import { filter } from './filter'
+
+export function reject(predicate, list){
+  if (arguments.length === 1) return _list => reject(predicate, _list)
+
+  return filter((x, i) => !predicate(x, i), list)
+}
+```
+
 
 ### repeat
 
@@ -4358,7 +6072,19 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 </details>
 
-foo
+
+R.repeat
+
+```javascript
+export function repeat(x, timesToRepeat){
+  if (arguments.length === 1){
+    return _timesToRepeat => repeat(x, _timesToRepeat)
+  }
+
+  return Array(timesToRepeat).fill(x)
+}
+```
+
 
 ### replace
 
@@ -4398,7 +6124,27 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 </details>
 
-foo
+
+R.replace
+
+```javascript
+export function replace(
+  pattern, replacer, str
+){
+  if (replacer === undefined){
+    return (_replacer, _str) => replace(
+      pattern, _replacer, _str
+    )
+  } else if (str === undefined){
+    return _str => replace(
+      pattern, replacer, _str
+    )
+  }
+
+  return str.replace(pattern, replacer)
+}
+```
+
 
 ### reverse
 
@@ -4462,7 +6208,29 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 </details>
 
-foo
+
+R.set
+
+```javascript
+import { always } from './always'
+import { over } from './over'
+
+export function set(
+  lens, replacer, x
+){
+  if (arguments.length === 1) return (_v, _x) => set(
+    lens, _v, _x
+  )
+  if (arguments.length === 2) return _x => set(
+    lens, replacer, _x
+  )
+
+  return over(
+    lens, always(replacer), x
+  )
+}
+```
+
 
 ### slice
 
@@ -4508,7 +6276,21 @@ slice(frp,: number, to: number): {
 
 </details>
 
-foo
+
+R.slice
+
+```javascript
+import { curry } from './curry'
+
+function sliceFn(
+  from, to, list
+){
+  return list.slice(from, to)
+}
+
+export const slice = curry(sliceFn)
+```
+
 
 ### sort
 
@@ -4559,7 +6341,19 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.sort
+
+```javascript
+export function sort(sortFn, list){
+  if (arguments.length === 1) return _list => sort(sortFn, _list)
+
+  const clone = list.slice()
+
+  return clone.sort(sortFn)
+}
+```
+
 
 ### sortBy
 
@@ -4608,7 +6402,26 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.sortBy
+
+```javascript
+export function sortBy(sortFn, list){
+  if (arguments.length === 1) return _list => sortBy(sortFn, _list)
+
+  const clone = list.slice()
+
+  return clone.sort((a, b) => {
+    const aSortResult = sortFn(a)
+    const bSortResult = sortFn(b)
+
+    if (aSortResult === bSortResult) return 0
+
+    return aSortResult < bSortResult ? -1 : 1
+  })
+}
+```
+
 
 ### split
 
@@ -4647,7 +6460,17 @@ split(separator: string | RegExp, str: string): string[];
 
 </details>
 
-foo
+
+R.split
+
+```javascript
+export function split(separator, str){
+  if (arguments.length === 1) return _str => split(separator, _str)
+
+  return str.split(separator)
+}
+```
+
 
 ### splitEvery
 
@@ -4713,7 +6536,17 @@ startsWith(target: string): (str: string) => boolean;
 
 </details>
 
-foo
+
+R.startsWith
+
+```javascript
+export function startsWith(target, str){
+  if (arguments.length === 1) return _str => startsWith(target, _str)
+
+  return str.startsWith(target)
+}
+```
+
 
 ### subtract
 
@@ -4769,7 +6602,15 @@ sum(list: ReadonlyArray<number>): number;
 
 </details>
 
-foo
+
+R.sum
+
+```javascript
+export function sum(list){
+  return list.reduce((prev, current) => prev + current, 0)
+}
+```
+
 
 ### symmetricDifference
 
@@ -4809,7 +6650,24 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.symmetricDifference
+
+```javascript
+import { concat } from './concat'
+import { filter } from './filter'
+import { includes } from './includes'
+
+export function symmetricDifference(x, y){
+  if (arguments.length === 1){
+    return _y => symmetricDifference(x, _y)
+  }
+
+  return concat(filter(value => !includes(value, y), x),
+    filter(value => !includes(value, x), y))
+}
+```
+
 
 ### T
 
@@ -4842,7 +6700,15 @@ T(): boolean;
 
 </details>
 
-foo
+
+R.T
+
+```javascript
+export function T(){
+  return true
+}
+```
+
 
 ### tail
 
@@ -4882,7 +6748,17 @@ tail(listOrString: string): string;
 
 </details>
 
-foo
+
+R.tail
+
+```javascript
+import { drop } from './drop'
+
+export function tail(listOrString){
+  return drop(1, listOrString)
+}
+```
+
 
 ### take
 
@@ -4925,7 +6801,24 @@ take<T>(howMany: number): {
 
 </details>
 
-foo
+
+R.take
+
+```javascript
+import baseSlice from './_internals/baseSlice'
+
+export function take(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => take(howMany, _listOrString)
+  if (howMany < 0) return listOrString.slice()
+  if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
+
+  return baseSlice(
+    listOrString, 0, howMany
+  )
+}
+```
+
 
 ### takeLast
 
@@ -4968,7 +6861,31 @@ takeLast<T>(howMany: number): {
 
 </details>
 
-foo
+
+R.takeLast
+
+```javascript
+import baseSlice from './_internals/baseSlice'
+
+export function takeLast(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => takeLast(howMany, _listOrString)
+
+  const len = listOrString.length
+  if (howMany < 0) return listOrString.slice()
+  let numValue = howMany > len ? len : howMany
+
+  if (typeof listOrString === 'string')
+    return listOrString.slice(len - numValue)
+
+  numValue = len - numValue
+
+  return baseSlice(
+    listOrString, numValue, len
+  )
+}
+```
+
 
 ### tap
 
@@ -5013,7 +6930,19 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 </details>
 
-foo
+
+R.tap
+
+```javascript
+export function tap(fn, x){
+  if (arguments.length === 1) return _x => tap(fn, _x)
+
+  fn(x)
+
+  return x
+}
+```
+
 
 ### test
 
@@ -5050,7 +6979,21 @@ test(regExpression: RegExp, str: string): boolean;
 
 </details>
 
-foo
+
+R.test
+
+```javascript
+export function test(pattern, str){
+  if (arguments.length === 1) return _str => test(pattern, _str)
+
+  if (typeof pattern === 'string'){
+    throw new TypeError(`‘test’ requires a value of type RegExp as its first argument; received "${ pattern }"`)
+  }
+
+  return str.search(pattern) !== -1
+}
+```
+
 
 ### times
 
@@ -5092,7 +7035,23 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 </details>
 
-foo
+
+R.times
+
+```javascript
+import { map } from './map'
+import { range } from './range'
+
+export function times(fn, howMany){
+  if (arguments.length === 1) return _howMany => times(fn, _howMany)
+  if (!Number.isInteger(howMany) || howMany < 0){
+    throw new RangeError('n must be an integer')
+  }
+
+  return map(fn, range(0, howMany))
+}
+```
+
 
 ### toLower
 
@@ -5125,7 +7084,15 @@ toLower(str: string): string;
 
 </details>
 
-foo
+
+R.toLower
+
+```javascript
+export function toLower(str){
+  return str.toLowerCase()
+}
+```
+
 
 ### toPairs
 
@@ -5168,7 +7135,15 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 </details>
 
-foo
+
+R.toPairs
+
+```javascript
+export function toPairs(obj){
+  return Object.entries(obj)
+}
+```
+
 
 ### toString
 
@@ -5201,7 +7176,15 @@ toString<T>(x: T): string;
 
 </details>
 
-foo
+
+R.toString
+
+```javascript
+export function toString(val){
+  return val.toString()
+}
+```
+
 
 ### toUpper
 
@@ -5234,7 +7217,15 @@ toUpper(str: string): string;
 
 </details>
 
-foo
+
+R.toUpper
+
+```javascript
+export function toUpper(str){
+  return str.toUpperCase()
+}
+```
+
 
 ### transpose
 
@@ -5270,7 +7261,20 @@ transpose<T>(list: T[][]): T[][];
 
 </details>
 
-foo
+
+R.transpose
+
+```javascript
+export function transpose(array){
+  return array.reduce((acc, el) => {
+    el.forEach((nestedEl, i) =>
+      Array.isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]))
+
+    return acc
+  }, [])
+}
+```
+
 
 ### trim
 
@@ -5303,7 +7307,15 @@ trim(str: string): string;
 
 </details>
 
-foo
+
+R.trim
+
+```javascript
+export function trim(str){
+  return str.trim()
+}
+```
+
 
 ### type
 
@@ -5363,7 +7375,28 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 </details>
 
-foo
+
+R.uniq
+
+```javascript
+import { includes } from './includes'
+
+export function uniq(list){
+  let index = -1
+  const willReturn = []
+
+  while (++index < list.length){
+    const value = list[ index ]
+
+    if (!includes(value, willReturn)){
+      willReturn.push(value)
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### uniqWith
 
@@ -5416,7 +7449,33 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 </details>
 
-foo
+
+R.uniqWith
+
+```javascript
+import { any } from './any'
+
+export function uniqWith(fn, list){
+  if (arguments.length === 1) return _list => uniqWith(fn, _list)
+
+  let index = -1
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    const value = list[ index ]
+    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+      willReturn)
+
+    if (!flag){
+      willReturn.push(value)
+    }
+  }
+
+  return willReturn
+}
+```
+
 
 ### update
 
@@ -5457,7 +7516,31 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
-foo
+
+R.update
+
+```javascript
+export function update(
+  idx, val, list
+){
+  if (val === undefined){
+    return (_val, _list) => update(
+      idx, _val, _list
+    )
+  } else if (list === undefined){
+    return _list => update(
+      idx, val, _list
+    )
+  }
+
+  const arrClone = list.slice()
+
+  return arrClone.fill(
+    val, idx, idx + 1
+  )
+}
+```
+
 
 ### values
 
@@ -5495,7 +7578,19 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 </details>
 
-foo
+
+R.values
+
+```javascript
+import { type } from './type.js'
+
+export function values(obj){
+  if (type(obj) !== 'Object') return []
+
+  return Object.values(obj)
+}
+```
+
 
 ### view
 
@@ -5534,7 +7629,22 @@ view<T, U>(lens: Lens, target: T): U;
 
 </details>
 
-foo
+
+R.view
+
+```javascript
+const Const = x => ({
+  x,
+  map : fn => Const(x),
+})
+
+export function view(lens, target){
+  if (arguments.length === 1) return _target => view(lens, _target)
+
+  return lens(Const)(target).x
+}
+```
+
 
 ### without
 
@@ -5595,7 +7705,17 @@ xor(y: boolean): (y: boolean) => boolean;
 
 </details>
 
-foo
+
+R.xor
+
+```javascript
+export function xor(a, b){
+  if (arguments.length === 1) return _b => xor(a, _b)
+
+  return Boolean(a) && !b || Boolean(b) && !a
+}
+```
+
 
 ### zip
 
@@ -5640,7 +7760,24 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 </details>
 
-foo
+
+R.zip
+
+```javascript
+export function zip(left, right){
+  if (arguments.length === 1) return _right => zip(left, _right)
+
+  const result = []
+  const length = Math.min(left.length, right.length)
+
+  for (let i = 0; i < length; i++){
+    result[ i ] = [ left[ i ], right[ i ] ]
+  }
+
+  return result
+}
+```
+
 
 ### zipObj
 
