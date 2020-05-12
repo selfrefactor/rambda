@@ -42,7 +42,7 @@ jobs:
       - test-nodejs
   node-latest:
     docker:
-      - image: node:13
+      - image: node:14
     steps:
       - test-nodejs
 
