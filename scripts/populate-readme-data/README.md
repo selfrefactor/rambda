@@ -359,7 +359,7 @@ R.add(2, 3) // =>  5
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 add(a: number, b: number): number;
 add(a: number): (b: number) => number;
 ```
@@ -367,11 +367,14 @@ add(a: number): (b: number) => number;
 </details>
 
 
-<details>
-
-<summary>R.add source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.add source</summary>
+  Foo
+  
+```javascript
 import { add } from './add'
 
 test('with number', () => {
@@ -392,8 +395,10 @@ test('ramda specs', () => {
   expect(add(new Date(1), new Date(2))).toEqual(3)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### adjust
@@ -427,7 +432,7 @@ R.adjust(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
 adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -435,11 +440,14 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 </details>
 
 
-<details>
-
-<summary>R.adjust source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.adjust source</summary>
+  Foo
+  
+```javascript
 import { add } from './add'
 import { adjust } from './adjust'
 
@@ -479,8 +487,10 @@ test('when index is out of bounds', () => {
   )).toEqual(list)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### all
@@ -514,7 +524,7 @@ const result = R.all(predicate, arr)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
@@ -522,11 +532,14 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.all source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.all source</summary>
+  Foo
+  
+```javascript
 import { all } from './all'
 
 const numArr = [ 0, 1, 2, 3, 4 ]
@@ -555,8 +568,10 @@ test('pass index as second argument', () => {
   expect(indexes).toEqual([ 0, 1, 2 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### allPass
@@ -594,18 +609,21 @@ const result = R.allPass(predicates)(input) // => true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.allPass source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.allPass source</summary>
+  Foo
+  
+```javascript
 import { allPass } from './allPass'
 
 test('happy', () => {
@@ -634,8 +652,10 @@ test('when returns false', () => {
   })).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### always
@@ -667,18 +687,21 @@ console.log(fn())// => 7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 always<T>(x: T): () => T;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.always source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.always source</summary>
+  Foo
+  
+```javascript
 import { always } from './always'
 
 test('happy', () => {
@@ -688,8 +711,10 @@ test('happy', () => {
   expect(fn()).toEqual(7)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### and
@@ -720,7 +745,7 @@ R.and(false, true); // => false
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
 and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 ```
@@ -728,11 +753,14 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 </details>
 
 
-<details>
-
-<summary>R.and source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.and source</summary>
+  Foo
+  
+```javascript
 import { and } from './and'
 
 test('happy', () => {
@@ -742,8 +770,10 @@ test('happy', () => {
   expect(and(false, false)).toBe(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### any
@@ -776,7 +806,7 @@ R.any(fn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
 any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
@@ -786,11 +816,14 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.any source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.any source</summary>
+  Foo
+  
+```javascript
 import { any } from './any'
 
 const arr = [ 1, 2 ]
@@ -810,8 +843,10 @@ test('passes index to predicate', () => {
   })([ 'foo', 'bar' ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### anyPass
@@ -849,18 +884,21 @@ const result = fn(input) // => true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.anyPass source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.anyPass source</summary>
+  Foo
+  
+```javascript
 import { anyPass } from './anyPass'
 
 test('happy', () => {
@@ -899,8 +937,10 @@ test('happy', () => {
   expect(anyPass([])(3)).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### append
@@ -936,7 +976,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 append<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 ```
@@ -944,11 +984,14 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.append source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.append source</summary>
+  Foo
+  
+```javascript
 import { append } from './append'
 import { compose } from './compose.js'
 import { flatten } from './flatten.js'
@@ -983,8 +1026,10 @@ test('should not modify arguments', () => {
   expect(b).toEqual([ 1, 2, 3, 4 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### applySpec
@@ -1036,18 +1081,21 @@ getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.applySpec source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.applySpec source</summary>
+  Foo
+  
+```javascript
 import { applySpec as applySpecRamda, nAry } from 'ramda'
 
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
@@ -1264,8 +1312,10 @@ test('restructure json object', () => {
   })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### assoc
@@ -1296,7 +1346,7 @@ R.assoc('c', 3, {a: 1, b: 2})
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
 assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
 assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
@@ -1305,11 +1355,14 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 </details>
 
 
-<details>
-
-<summary>R.assoc source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.assoc source</summary>
+  Foo
+  
+```javascript
 import { assoc } from './assoc'
 
 test('adds a key to an empty object', () => {
@@ -1386,8 +1439,10 @@ test('assignment is shallow', () => {
   )).toEqual({ a : { b : 2 } })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### assocPath
@@ -1422,7 +1477,7 @@ R.assocPath(path, newValue, obj)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
 assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
@@ -1431,11 +1486,14 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 </details>
 
 
-<details>
-
-<summary>R.assocPath source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.assocPath source</summary>
+  Foo
+  
+```javascript
 import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
@@ -1567,8 +1625,10 @@ test('happy', () => {
   expect(result).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### both
@@ -1605,7 +1665,7 @@ const result = [fn(15), fn(30)]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 both(pred1: Pred, pred2: Pred): Pred;
 both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
@@ -1615,11 +1675,14 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 </details>
 
 
-<details>
-
-<summary>R.both source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.both source</summary>
+  Foo
+  
+```javascript
 import { both } from './both'
 
 const firstFn = val => val > 0
@@ -1663,8 +1726,10 @@ test('skip evaluation of the second expression', () => {
   expect(effect).toBe('not evaluated')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### clamp
@@ -1700,7 +1765,7 @@ R.clamp(0, 10, 11) //=> 10
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 clamp(min: number, max: number, input: number): number;
 clamp(min: number, max: number): (input: number) => number;
 ```
@@ -1708,11 +1773,14 @@ clamp(min: number, max: number): (input: number) => number;
 </details>
 
 
-<details>
-
-<summary>R.clamp source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.clamp source</summary>
+  Foo
+  
+```javascript
 import { clamp } from './clamp'
 
 test('rambda specs', () => {
@@ -1745,8 +1813,10 @@ test('rambda specs', () => {
   )).toEqual(0)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### clone
@@ -1764,7 +1834,7 @@ clone<T>(input: T): T
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 clone<T>(input: T): T;
 clone<T>(input: ReadonlyArray<T>): T[];
 ```
@@ -1807,18 +1877,21 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.complement source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.complement source</summary>
+  Foo
+  
+```javascript
 import { complement } from './complement'
 
 test('happy', () => {
@@ -1842,8 +1915,10 @@ test('with multiple parameters', () => {
   )).toEqual(true)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### compose
@@ -1878,7 +1953,7 @@ const result = R.compose(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 compose<T1>(fn0: () => T1): () => T1;
 compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -1888,11 +1963,14 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 </details>
 
 
-<details>
-
-<summary>R.compose source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.compose source</summary>
+  Foo
+  
+```javascript
 import { add } from './add'
 import { compose } from './compose'
 import { filter } from './filter.js'
@@ -1930,8 +2008,10 @@ test('ramda spec', () => {
   )).toEqual([ 1, 2, 3 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### concat
@@ -1962,7 +2042,7 @@ R.concat('foo', 'bar') // => 'foobar'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
 concat<T>(x: ReadonlyArray<T>): (y: ReadonlyArray<T>) => T[];
 concat(x: string, y: string): string;
@@ -1972,11 +2052,14 @@ concat(x: string): (y: string) => string;
 </details>
 
 
-<details>
-
-<summary>R.concat source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.concat source</summary>
+  Foo
+  
+```javascript
 import { concat } from './concat'
 
 test('happy', () => {
@@ -1995,8 +2078,10 @@ test('with strings', () => {
   expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### cond
@@ -2043,7 +2128,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
 cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 ```
@@ -2051,11 +2136,14 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 </details>
 
 
-<details>
-
-<summary>R.cond source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.cond source</summary>
+  Foo
+  
+```javascript
 import { always } from './always.js'
 import { cond } from './cond'
 import { equals } from './equals.js'
@@ -2098,8 +2186,10 @@ test('predicates are tested in order', () => {
   expect(fn()).toEqual('foo')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### curry
@@ -2133,18 +2223,21 @@ const result = sum(3) // => 6
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.curry source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.curry source</summary>
+  Foo
+  
+```javascript
 import { curry } from './curry'
 
 test('happy', () => {
@@ -2184,8 +2277,10 @@ test('when called via multiple curry stages', () => {
   expect(stage2('D')).toEqual('A-B-C-D')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### dec
@@ -2206,26 +2301,31 @@ It decrements a number.
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 dec(x: number): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.dec source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.dec source</summary>
+  Foo
+  
+```javascript
 import { dec } from './dec'
 
 test('happy', () => {
   expect(dec(2)).toBe(1)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### defaultTo
@@ -2264,7 +2364,7 @@ R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T;
 defaultTo<T>(defaultValue: T, ...inputArguments: (T | null | undefined)[]): T;
 defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefined)[]): T | U;
@@ -2273,11 +2373,14 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 </details>
 
 
-<details>
-
-<summary>R.defaultTo source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.defaultTo source</summary>
+  Foo
+  
+```javascript
 import { defaultTo } from './defaultTo'
 
 test('with undefined', () => {
@@ -2358,8 +2461,10 @@ test('default extends to indefinite input arguments - case 6', () => {
   expect(result).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### difference
@@ -2393,7 +2498,7 @@ const result = difference(a, b)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
 difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 ```
@@ -2401,11 +2506,14 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.difference source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.difference source</summary>
+  Foo
+  
+```javascript
 import { difference } from './difference'
 
 test('difference', () => {
@@ -2432,8 +2540,10 @@ test('should use R.equals', () => {
   expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### dissoc
@@ -2464,7 +2574,7 @@ R.dissoc('b', {a: 1, b: 2, c: 3})
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 dissoc<T>(prop: string, obj: any): T;
 dissoc(prop: string): <U>(obj: any) => U;
 ```
@@ -2472,11 +2582,14 @@ dissoc(prop: string): <U>(obj: any) => U;
 </details>
 
 
-<details>
-
-<summary>R.dissoc source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.dissoc source</summary>
+  Foo
+  
+```javascript
 import { dissoc } from './dissoc'
 
 test('input is null or undefined', () => {
@@ -2545,8 +2658,10 @@ test('includes prototype properties', () => {
   })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### divide
@@ -2573,7 +2688,7 @@ R.divide(71, 100) // => 0.71
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 divide(a: number, b: number): number;
 divide(a: number): (b: number) => number;
 ```
@@ -2581,11 +2696,14 @@ divide(a: number): (b: number) => number;
 </details>
 
 
-<details>
-
-<summary>R.divide source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.divide source</summary>
+  Foo
+  
+```javascript
 import { divide } from './divide'
 
 test('happy', () => {
@@ -2593,8 +2711,10 @@ test('happy', () => {
   expect(divide(71)(100)).toEqual(0.71)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### drop
@@ -2625,7 +2745,7 @@ R.drop(2, 'foobar')  // => 'obar'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 drop(howManyToDrop: number, listOrString: string): string;
 drop<T>(howManyToDrop: number): {
@@ -2634,11 +2754,14 @@ drop<T>(howManyToDrop: number): {
 </details>
 
 
-<details>
-
-<summary>R.drop source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.drop source</summary>
+  Foo
+  
+```javascript
 import assert from 'assert'
 
 import { drop } from './drop'
@@ -2666,8 +2789,10 @@ test('should return copy', () => {
   assert.notStrictEqual(drop(-1, xs), xs)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### dropLast
@@ -2698,7 +2823,7 @@ R.dropLast(2, 'foobar')  // => 'foob'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
 dropLast(howManyToDrop: number, listOrString: string): string;
 dropLast<T>(howManyToDrop: number): {
@@ -2707,11 +2832,14 @@ dropLast<T>(howManyToDrop: number): {
 </details>
 
 
-<details>
-
-<summary>R.dropLast source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.dropLast source</summary>
+  Foo
+  
+```javascript
 import assert from 'assert'
 
 import { dropLast } from './dropLast'
@@ -2739,8 +2867,10 @@ test('should return copy', () => {
   assert.notStrictEqual(dropLast(-1, xs), xs)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### either
@@ -2758,7 +2888,7 @@ either(firstPredicate: Pred, secondPredicate: Pred): Pred
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 ```
@@ -2797,7 +2927,7 @@ const result = R.endsWith(target, str)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 endsWith(target: string, str: string): boolean;
 endsWith(target: string): (str: string) => boolean;
 ```
@@ -2805,11 +2935,14 @@ endsWith(target: string): (str: string) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.endsWith source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.endsWith source</summary>
+  Foo
+  
+```javascript
 import { endsWith } from './endsWith'
 
 test('happy', () => {
@@ -2821,8 +2954,10 @@ test('does not work with arrays', () => {
   expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrow('input.endsWith is not a function')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### equals
@@ -2855,7 +2990,7 @@ R.equals(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 equals<T>(a: T, b: T): boolean;
 equals<T>(a: T): (b: T) => boolean;
 ```
@@ -2863,11 +2998,14 @@ equals<T>(a: T): (b: T) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.equals source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.equals source</summary>
+  Foo
+  
+```javascript
 import { equals } from './equals'
 
 test('happy', () => {
@@ -3101,8 +3239,10 @@ test('various examples', () => {
   expect(equals(false)(null)).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### F
@@ -3129,22 +3269,27 @@ F() // => false
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 F(): boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.F source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.F source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### filter
@@ -3184,7 +3329,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
 filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
@@ -3194,11 +3339,14 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 </details>
 
 
-<details>
-
-<summary>R.filter source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.filter source</summary>
+  Foo
+  
+```javascript
 import Ramda from 'ramda'
 
 import { filter } from './filter'
@@ -3265,8 +3413,10 @@ test('with object', () => {
   expect(result).toEqual(expectedResult)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### find
@@ -3302,7 +3452,7 @@ const result = R.find(predicate, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
 find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 ```
@@ -3310,11 +3460,14 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 </details>
 
 
-<details>
-
-<summary>R.find source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.find source</summary>
+  Foo
+  
+```javascript
 import { find } from './find'
 import { propEq } from './propEq'
 
@@ -3326,8 +3479,10 @@ test('with curry', () => {
   expect(find(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(undefined)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### findIndex
@@ -3363,7 +3518,7 @@ const result = R.findIndex(predicate, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
 findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 ```
@@ -3371,11 +3526,14 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 </details>
 
 
-<details>
-
-<summary>R.findIndex source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.findIndex source</summary>
+  Foo
+  
+```javascript
 import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
@@ -3394,8 +3552,10 @@ test('pass index as second argument', () => {
   })([ 10, 12, 15 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### flatten
@@ -3431,18 +3591,21 @@ const result = R.flatten([
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.flatten source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.flatten source</summary>
+  Foo
+  
+```javascript
 import { flatten } from './flatten'
 
 test('happy', () => {
@@ -3460,8 +3623,10 @@ test('readme example', () => {
   expect(result).toEqual([ 1, 2, 3, 30, 300, 4 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### flip
@@ -3497,18 +3662,21 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.flip source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.flip source</summary>
+  Foo
+  
+```javascript
 import { flip } from './flip'
 import { subtract } from './subtract'
 
@@ -3522,8 +3690,10 @@ test('flip', () => {
   )).toEqual(undefined)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### forEach
@@ -3559,7 +3729,7 @@ result //=> [1, 2]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 forEach<T>(fn: (x: T) => void, list: T[]): T[];
 forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
@@ -3571,11 +3741,14 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 </details>
 
 
-<details>
-
-<summary>R.forEach source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.forEach source</summary>
+  Foo
+  
+```javascript
 import { forEach } from './forEach'
 import { type } from './type'
 
@@ -3671,8 +3844,10 @@ test('pass index as second argument', () => {
   expect(indexes).toEqual([ 0, 1, 2 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### fromPairs
@@ -3710,7 +3885,7 @@ const result = R.fromPairs(listOfPairs)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
 fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 ```
@@ -3718,11 +3893,14 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 </details>
 
 
-<details>
-
-<summary>R.fromPairs source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.fromPairs source</summary>
+  Foo
+  
+```javascript
 import { fromPairs } from './fromPairs'
 
 const list = [
@@ -3740,8 +3918,10 @@ test('happy', () => {
   expect(fromPairs(list)).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### groupBy
@@ -3775,7 +3955,7 @@ const result = R.groupBy(groupFn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
 groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 ```
@@ -3783,11 +3963,14 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 </details>
 
 
-<details>
-
-<summary>R.groupBy source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.groupBy source</summary>
+  Foo
+  
+```javascript
 import { groupBy } from './groupBy'
 import { prop } from './prop'
 
@@ -3837,8 +4020,10 @@ test('groupBy', () => {
   expect(groupBy(prop('age'), list)).toEqual(expectedResult)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### groupWith
@@ -3872,7 +4057,7 @@ const result = R.groupWith(isConsecutive, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
 groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
 groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
@@ -3881,11 +4066,14 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 </details>
 
 
-<details>
-
-<summary>R.groupWith source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.groupWith source</summary>
+  Foo
+  
+```javascript
 import { equals } from './equals'
 import { groupWith } from './groupWith'
 
@@ -3978,8 +4166,10 @@ test('from ramda 3', () => {
   ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### has
@@ -4015,7 +4205,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 has<T>(prop: string, obj: T): boolean;
 has(prop: string): <T>(obj: T) => boolean;
 ```
@@ -4023,11 +4213,14 @@ has(prop: string): <T>(obj: T) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.has source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.has source</summary>
+  Foo
+  
+```javascript
 import { has } from './has'
 
 test('happy', () => {
@@ -4043,8 +4236,10 @@ test('with non-object', () => {
   expect(has('a', /a/)).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### head
@@ -4062,7 +4257,7 @@ head<T>(listOrString: T[]): T | undefined
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 head<T>(listOrString: T[]): T | undefined;
 head(listOrString: string): string;
 ```
@@ -4105,7 +4300,7 @@ R.identical(NaN, NaN); //=> true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 identical<T>(a: T, b: T): boolean;
 identical<T>(a: T): (b: T) => boolean;
 ```
@@ -4113,11 +4308,14 @@ identical<T>(a: T): (b: T) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.identical source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.identical source</summary>
+  Foo
+  
+```javascript
 import { F, T } from '../rambda.js'
 import { _isInteger } from './_internals/_isInteger'
 import { _objectIs } from './_internals/_objectIs'
@@ -4150,8 +4348,10 @@ test('identical', () => {
   expect(identical(null, undefined)).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### identity
@@ -4181,18 +4381,21 @@ R.identity(7) // => 7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 identity<T>(input: T): T;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.identity source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.identity source</summary>
+  Foo
+  
+```javascript
 import { identity } from './identity'
 
 test('happy', () => {
@@ -4201,8 +4404,10 @@ test('happy', () => {
   expect(identity({ a : 1 })).toEqual({ a : 1 })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### ifElse
@@ -4241,7 +4446,7 @@ const result = [ fn(8), fn(18) ]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 ```
@@ -4249,11 +4454,14 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 </details>
 
 
-<details>
-
-<summary>R.ifElse source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.ifElse source</summary>
+  Foo
+  
+```javascript
 import { always } from './always.js'
 import { has } from './has'
 import { identity } from './identity'
@@ -4327,8 +4535,10 @@ test('curry 2', () => {
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### inc
@@ -4358,26 +4568,31 @@ R.inc(1) // => 2
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 inc(x: number): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.inc source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.inc source</summary>
+  Foo
+  
+```javascript
 import { inc } from './inc'
 
 test('happy', () => {
   expect(inc(1)).toBe(2)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### includes
@@ -4395,7 +4610,7 @@ includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
 includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
 includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
@@ -4450,7 +4665,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
 indexBy<T>(condition: string, list: ReadonlyArray<T>): { [key: string]: T };
 indexBy<T>(condition: (x: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
@@ -4460,11 +4675,14 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 </details>
 
 
-<details>
-
-<summary>R.indexBy source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.indexBy source</summary>
+  Foo
+  
+```javascript
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
@@ -4537,8 +4755,10 @@ test('with string - bad path', () => {
   expect(result).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### indexOf
@@ -4576,7 +4796,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
 indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 ```
@@ -4584,11 +4804,14 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 </details>
 
 
-<details>
-
-<summary>R.indexOf source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.indexOf source</summary>
+  Foo
+  
+```javascript
 import { indexOf } from './indexOf'
 
 test('indexOf', () => {
@@ -4597,8 +4820,10 @@ test('indexOf', () => {
   expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### init
@@ -4632,7 +4857,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 init<T>(listOrString: ReadonlyArray<T>): T[];
 init(listOrString: string): string;
 ```
@@ -4640,11 +4865,14 @@ init(listOrString: string): string;
 </details>
 
 
-<details>
-
-<summary>R.init source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.init source</summary>
+  Foo
+  
+```javascript
 import { init } from './init'
 
 test('with array', () => {
@@ -4662,8 +4890,10 @@ test('with string', () => {
   expect(init('')).toEqual('')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### intersection
@@ -4697,7 +4927,7 @@ const result = intersection(listA, listB)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[];
 intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 ```
@@ -4705,11 +4935,14 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.intersection source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.intersection source</summary>
+  Foo
+  
+```javascript
 import { intersection } from './intersection'
 
 test('intersection', () => {
@@ -4726,8 +4959,10 @@ test('intersection with objects', () => {
   expect(intersection(list1)(list2)).toEqual([ { id : 3 }, { id : 4 } ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### intersperse
@@ -4760,7 +4995,7 @@ const result = intersperse(separator, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -4768,11 +5003,14 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.intersperse source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.intersperse source</summary>
+  Foo
+  
+```javascript
 import { intersperse } from './intersperse'
 
 test('intersperse', () => {
@@ -4790,8 +5028,10 @@ test('intersperse', () => {
   expect(intersperse('!')([])).toEqual([])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### is
@@ -4825,7 +5065,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 is(targetPrototype: any, x: any): boolean;
 is(targetPrototype: any): (x: any) => boolean;
 ```
@@ -4833,11 +5073,14 @@ is(targetPrototype: any): (x: any) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.is source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.is source</summary>
+  Foo
+  
+```javascript
 import { is } from './is'
 
 test('works with built-in types', () => {
@@ -4884,8 +5127,10 @@ test('does not consider primitives to be instances of Object', () => {
   expect(is(Object, '')).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### isEmpty
@@ -4919,18 +5164,21 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 isEmpty<T>(x: T): boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.isEmpty source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.isEmpty source</summary>
+  Foo
+  
+```javascript
 import { isEmpty } from './isEmpty'
 
 test('happy', () => {
@@ -4948,8 +5196,10 @@ test('happy', () => {
   expect(isEmpty([ '' ])).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### isNil
@@ -4983,18 +5233,21 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 isNil(x: any): x is null | undefined;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.isNil source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.isNil source</summary>
+  Foo
+  
+```javascript
 import { isNil } from './isNil'
 
 test('happy', () => {
@@ -5005,8 +5258,10 @@ test('happy', () => {
   expect(isNil([])).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### join
@@ -5036,7 +5291,7 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 join(x: string, xs: ReadonlyArray<any>): string;
 join(x: string): (xs: ReadonlyArray<any>) => string;
 ```
@@ -5044,11 +5299,14 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 </details>
 
 
-<details>
-
-<summary>R.join source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.join source</summary>
+  Foo
+  
+```javascript
 import { join } from './join'
 
 test('curry', () => {
@@ -5061,8 +5319,10 @@ test('curry', () => {
   expect(spacer([ 'a', 2, 3.4 ])).toEqual('a 2 3.4')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### keys
@@ -5092,7 +5352,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 keys<T extends object>(x: T): (keyof T)[];
 keys<T>(x: T): string[];
 ```
@@ -5100,19 +5360,24 @@ keys<T>(x: T): string[];
 </details>
 
 
-<details>
-
-<summary>R.keys source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.keys source</summary>
+  Foo
+  
+```javascript
 import { keys } from './keys.js'
 
 test('happy', () => {
   expect(keys({ a : 1 })).toEqual([ 'a' ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### last
@@ -5146,7 +5411,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 last<T>(listOrString: T[]): T | undefined;
 last(listOrString: string): string;
 ```
@@ -5154,11 +5419,14 @@ last(listOrString: string): string;
 </details>
 
 
-<details>
-
-<summary>R.last source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.last source</summary>
+  Foo
+  
+```javascript
 import { last } from './last'
 
 test('happy', () => {
@@ -5168,8 +5436,10 @@ test('happy', () => {
   expect(last('')).toEqual('')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### lastIndexOf
@@ -5208,7 +5478,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
 lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 ```
@@ -5216,11 +5486,14 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 </details>
 
 
-<details>
-
-<summary>R.lastIndexOf source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.lastIndexOf source</summary>
+  Foo
+  
+```javascript
 import { lastIndexOf } from './lastIndexOf'
 
 test('happy', () => {
@@ -5237,8 +5510,10 @@ test('false', () => {
   expect(a).toEqual(-1)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### length
@@ -5272,18 +5547,21 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 length<T>(listOrString: ReadonlyArray<T>): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.length source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.length source</summary>
+  Foo
+  
+```javascript
 import { length } from './length'
 
 test('happy', () => {
@@ -5299,8 +5577,10 @@ test('with bad input returns NaN', () => {
   expect(length(undefined)).toBeNaN()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### lens
@@ -5338,7 +5618,7 @@ R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ```
@@ -5346,15 +5626,20 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 </details>
 
 
-<details>
-
-<summary>R.lens source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.lens source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### lensIndex
@@ -5389,18 +5674,21 @@ R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 lensIndex(index: number): Lens;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.lensIndex source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.lensIndex source</summary>
+  Foo
+  
+```javascript
 import { compose } from './compose'
 import { keys } from './keys'
 import { lensIndex } from './lensIndex'
@@ -5458,8 +5746,10 @@ test('get (set(set s v1) v2) === v2', () => {
     ))).toEqual(11)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### lensPath
@@ -5498,18 +5788,21 @@ R.over(xHeadYLens, R.negate, input)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 lensPath(path: RamdaPath): Lens;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.lensPath source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.lensPath source</summary>
+  Foo
+  
+```javascript
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -5635,8 +5928,10 @@ test('get (set(set s v1) v2) === v2', () => {
   ))).toEqual(11)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### lensProp
@@ -5676,18 +5971,21 @@ R.over(xLens, R.negate, input)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 lensProp(prop: string): {
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.lensProp source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.lensProp source</summary>
+  Foo
+  
+```javascript
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -5783,8 +6081,10 @@ test('get (set(set s v1) v2) === v2', () => {
     ))).toEqual(11)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### map
@@ -5828,7 +6128,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
 map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
 map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
@@ -5840,11 +6140,14 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 </details>
 
 
-<details>
-
-<summary>R.map source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.map source</summary>
+  Foo
+  
+```javascript
 import { map } from './map'
 
 const double = x => x * 2
@@ -5911,8 +6214,10 @@ test('when undefined instead of array', () => {
   expect(map(double, undefined)).toEqual([])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### match
@@ -5946,7 +6251,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 match(regExpression: RegExp, str: string): any[];
 match(regExpression: RegExp): (str: string) => any[];
 ```
@@ -5954,11 +6259,14 @@ match(regExpression: RegExp): (str: string) => any[];
 </details>
 
 
-<details>
-
-<summary>R.match source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.match source</summary>
+  Foo
+  
+```javascript
 import { equals } from './equals'
 import { match } from './match'
 
@@ -5981,8 +6289,10 @@ test('throwing', () => {
   }).toThrowWithMessage(TypeError, 'Cannot read property \'match\' of null')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### max
@@ -6016,7 +6326,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 max<T extends Ord>(x: T, y: T): T;
 max<T extends Ord>(x: T): (y: T) => T;
 ```
@@ -6024,11 +6334,14 @@ max<T extends Ord>(x: T): (y: T) => T;
 </details>
 
 
-<details>
-
-<summary>R.max source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.max source</summary>
+  Foo
+  
+```javascript
 import { max } from './max'
 
 test('with number', () => {
@@ -6040,8 +6353,10 @@ test('with string', () => {
   expect(max('bar')('baz')).toBe('baz')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### maxBy
@@ -6073,7 +6388,7 @@ R.maxBy(compareFn, 5, -7) // => -7
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
@@ -6082,11 +6397,14 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 </details>
 
 
-<details>
-
-<summary>R.maxBy source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.maxBy source</summary>
+  Foo
+  
+```javascript
 import { maxBy } from './maxBy'
 
 test('happy', () => {
@@ -6100,8 +6418,10 @@ test('curried', () => {
   expect(maxBy(Math.abs)(2)(-5)).toEqual(-5)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### mean
@@ -6132,18 +6452,21 @@ R.mean([ 2, 7 ])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 mean(list: ReadonlyArray<number>): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.mean source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.mean source</summary>
+  Foo
+  
+```javascript
 import { mean } from './mean'
 
 test('happy', () => {
@@ -6154,8 +6477,10 @@ test('with NaN', () => {
   expect(mean([])).toBeNaN()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### median
@@ -6185,18 +6510,21 @@ R.median([ 7, 2, 10, 9 ]) // => 8
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 median(list: ReadonlyArray<number>): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.median source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.median source</summary>
+  Foo
+  
+```javascript
 import { identical } from './identical'
 import { median } from './median'
 
@@ -6206,8 +6534,10 @@ test('median', () => {
   expect(identical(NaN, median([]))).toBeTrue()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### merge
@@ -6241,7 +6571,7 @@ const result = R.merge(target, newProps)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
 merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 ```
@@ -6249,11 +6579,14 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 </details>
 
 
-<details>
-
-<summary>R.merge source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.merge source</summary>
+  Foo
+  
+```javascript
 import { merge } from './merge'
 
 const sample = {
@@ -6278,8 +6611,10 @@ test('when undefined or null instead of object', () => {
   expect(merge(undefined, sample)).toEqual(sample)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### min
@@ -6313,7 +6648,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 min<T extends Ord>(x: T, y: T): T;
 min<T extends Ord>(x: T): (y: T) => T;
 ```
@@ -6321,11 +6656,14 @@ min<T extends Ord>(x: T): (y: T) => T;
 </details>
 
 
-<details>
-
-<summary>R.min source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.min source</summary>
+  Foo
+  
+```javascript
 import { min } from './min'
 
 test('happy', () => {
@@ -6333,8 +6671,10 @@ test('happy', () => {
   expect(min(2)(1)).toBe(1)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### minBy
@@ -6366,7 +6706,7 @@ R.minBy(compareFn, -5, 2) // => -5
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
@@ -6375,11 +6715,14 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 </details>
 
 
-<details>
-
-<summary>R.minBy source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.minBy source</summary>
+  Foo
+  
+```javascript
 import { minBy } from './minBy'
 
 test('happy', () => {
@@ -6393,8 +6736,10 @@ test('curried', () => {
   expect(minBy(Math.abs)(2)(-5)).toEqual(2)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### modulo
@@ -6424,7 +6769,7 @@ R.modulo(17, 3) // => 2
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 modulo(x: number, y: number): number;
 modulo(x: number): (y: number) => number;
 ```
@@ -6432,11 +6777,14 @@ modulo(x: number): (y: number) => number;
 </details>
 
 
-<details>
-
-<summary>R.modulo source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.modulo source</summary>
+  Foo
+  
+```javascript
 import { modulo } from './modulo'
 
 test('happy', () => {
@@ -6444,8 +6792,10 @@ test('happy', () => {
   expect(modulo(15)(6)).toEqual(3)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### multiply
@@ -6475,7 +6825,7 @@ R.multiply(2, 4) // => 8
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 multiply(x: number, y: number): number;
 multiply(x: number): (y: number) => number;
 ```
@@ -6483,11 +6833,14 @@ multiply(x: number): (y: number) => number;
 </details>
 
 
-<details>
-
-<summary>R.multiply source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.multiply source</summary>
+  Foo
+  
+```javascript
 import { multiply } from './multiply'
 
 test('happy', () => {
@@ -6495,8 +6848,10 @@ test('happy', () => {
   expect(multiply(2)(4)).toEqual(8)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### negate
@@ -6523,18 +6878,21 @@ R.negate(420)// => -420
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 negate(x: number): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.negate source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.negate source</summary>
+  Foo
+  
+```javascript
 import { negate } from './negate'
 
 test('negate', () => {
@@ -6542,8 +6900,10 @@ test('negate', () => {
   expect(negate(-13)).toEqual(13)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### none
@@ -6577,7 +6937,7 @@ const result = R.none(predicate, arr)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
@@ -6585,11 +6945,14 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.none source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.none source</summary>
+  Foo
+  
+```javascript
 import { none } from './none'
 
 const isEven = n => n % 2 === 0
@@ -6611,8 +6974,10 @@ test('passes index to predicate', () => {
   })([ 1, 2, 3 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### not
@@ -6642,18 +7007,21 @@ R.not(false) // true
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 not(input: any): boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.not source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.not source</summary>
+  Foo
+  
+```javascript
 import { not } from './not'
 
 test('not', () => {
@@ -6663,8 +7031,10 @@ test('not', () => {
   expect(not(1)).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### nth
@@ -6702,7 +7072,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
 nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 ```
@@ -6710,11 +7080,14 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 </details>
 
 
-<details>
-
-<summary>R.nth source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.nth source</summary>
+  Foo
+  
+```javascript
 import { nth } from './nth'
 
 test('happy', () => {
@@ -6733,8 +7106,10 @@ test('with negative index', () => {
   expect(nth(-3)([ 1, 2, 3, 4 ])).toEqual(2)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### omit
@@ -6772,7 +7147,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
 omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
 omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
@@ -6782,11 +7157,14 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 </details>
 
 
-<details>
-
-<summary>R.omit source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.omit source</summary>
+  Foo
+  
+```javascript
 import { omit } from './omit'
 
 test('with string as condition', () => {
@@ -6825,8 +7203,10 @@ test('happy', () => {
   })).toEqual({ b : 'bar' })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### over
@@ -6858,7 +7238,7 @@ R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
 over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
@@ -6870,15 +7250,20 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 </details>
 
 
-<details>
-
-<summary>R.over source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.over source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### partial
@@ -6918,7 +7303,7 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0, x1: V1): (x2: V2) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0): (x1: V1, x2: V2) => T;
@@ -6931,11 +7316,14 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 </details>
 
 
-<details>
-
-<summary>R.partial source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.partial source</summary>
+  Foo
+  
+```javascript
 import { partial } from './partial'
 import { type } from './type'
 
@@ -6996,8 +7384,10 @@ test('ramda spec', () => {
   expect(sayHelloToMs('Jane', 'Jones')).toBe('Hello, Ms. Jane Jones!')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### path
@@ -7038,7 +7428,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
 path<T>(pathToSearch: string | string[], obj: any): T | undefined;
 path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
@@ -7048,11 +7438,14 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 </details>
 
 
-<details>
-
-<summary>R.path source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.path source</summary>
+  Foo
+  
+```javascript
 import { path } from './path'
 
 test('with array inside object', () => {
@@ -7081,8 +7474,10 @@ test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### pathOr
@@ -7127,7 +7522,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
@@ -7136,11 +7531,14 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 </details>
 
 
-<details>
-
-<summary>R.pathOr source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.pathOr source</summary>
+  Foo
+  
+```javascript
 import { pathOr } from './pathOr'
 
 test('with undefined', () => {
@@ -7185,8 +7583,10 @@ test('curry case (x,y)(z)', () => {
   expect(result).toEqual('foo')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### paths
@@ -7232,7 +7632,7 @@ const result = R.paths([
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
 paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
 paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
@@ -7242,11 +7642,14 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 </details>
 
 
-<details>
-
-<summary>R.paths source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.paths source</summary>
+  Foo
+  
+```javascript
 import { paths } from './paths'
 
 const obj = {
@@ -7302,8 +7705,10 @@ test('returns undefined for items not found', () => {
   expect(paths([ [ 'p', 2 ] ], obj)).toEqual([ undefined ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### pick
@@ -7353,7 +7758,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
 pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
 pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
@@ -7363,11 +7768,14 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 </details>
 
 
-<details>
-
-<summary>R.pick source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.pick source</summary>
+  Foo
+  
+```javascript
 import { pick } from './pick'
 
 test('pick with string as condition', () => {
@@ -7406,8 +7814,10 @@ test('pick', () => {
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### pickAll
@@ -7457,7 +7867,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
 pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 ```
@@ -7465,11 +7875,14 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 </details>
 
 
-<details>
-
-<summary>R.pickAll source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.pickAll source</summary>
+  Foo
+  
+```javascript
 import { pickAll } from './pickAll'
 
 test('when input is undefined or null', () => {
@@ -7506,8 +7919,10 @@ test('with array as condition', () => {
   })
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### pipe
@@ -7542,7 +7957,7 @@ const result = R.pipe(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 pipe<T1>(fn0: () => T1): () => T1;
 pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
@@ -7552,11 +7967,14 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 </details>
 
 
-<details>
-
-<summary>R.pipe source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.pipe source</summary>
+  Foo
+  
+```javascript
 import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
@@ -7574,8 +7992,10 @@ test('with bad input', () => {
   expect(() => pipe()).toThrow('pipe requires at least one argument')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### pluck
@@ -7609,7 +8029,7 @@ R.pluck(list, property)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 pluck<T>(property: number, list: ReadonlyArray<T>): T;
 pluck<K extends keyof T, T>(property: K, list: ReadonlyArray<T>): T[K][];
 pluck(property: number): <T>(list: ReadonlyArray<T>) => T;
@@ -7619,11 +8039,14 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 </details>
 
 
-<details>
-
-<summary>R.pluck source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.pluck source</summary>
+  Foo
+  
+```javascript
 import { pluck } from './pluck'
 
 test('happy', () => {
@@ -7639,8 +8062,10 @@ test('with number', () => {
   expect(pluck(0, input)).toEqual([ 1, 3 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### prepend
@@ -7676,7 +8101,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 ```
@@ -7684,11 +8109,14 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.prepend source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.prepend source</summary>
+  Foo
+  
+```javascript
 import { prepend } from './prepend'
 
 test('happy', () => {
@@ -7706,8 +8134,10 @@ test('prepend', () => {
   expect(prepend('foo')([])).toEqual([ 'foo' ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### product
@@ -7735,18 +8165,21 @@ R.product([ 2, 3, 4 ])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 product(list: ReadonlyArray<number>): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.product source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.product source</summary>
+  Foo
+  
+```javascript
 import { product } from './product'
 
 test('happy', () => {
@@ -7758,8 +8191,10 @@ test('bad input', () => {
   expect(product([])).toEqual(1)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### prop
@@ -7777,7 +8212,7 @@ prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
 prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
@@ -7823,7 +8258,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
 propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
 propEq(propToFind: string | number): {
@@ -7832,11 +8267,14 @@ propEq(propToFind: string | number): {
 </details>
 
 
-<details>
-
-<summary>R.propEq source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.propEq source</summary>
+  Foo
+  
+```javascript
 import { propEq } from './propEq'
 
 test('happy', () => {
@@ -7848,8 +8286,10 @@ test('happy', () => {
   )).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### propIs
@@ -7886,7 +8326,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
 propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
 ```
@@ -7894,11 +8334,14 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 </details>
 
 
-<details>
-
-<summary>R.propIs source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.propIs source</summary>
+  Foo
+  
+```javascript
 import { propIs } from './propIs'
 
 const obj = { value : 1 }
@@ -7919,8 +8362,10 @@ test('when false', () => {
   )).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### propOr
@@ -7958,7 +8403,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
 propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
 propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
@@ -7967,11 +8412,14 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 </details>
 
 
-<details>
-
-<summary>R.propOr source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.propOr source</summary>
+  Foo
+  
+```javascript
 import { propOr } from './propOr'
 
 test('propOr (result)', () => {
@@ -7995,8 +8443,10 @@ test('propOr (currying)', () => {
   expect(propOr('default', 'notExist')(obj)).toEqual('default')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### range
@@ -8027,7 +8477,7 @@ R.range(0, 5)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 range(start: number, end: number): number[];
 range(start: number): (end: number) => number[];
 ```
@@ -8035,11 +8485,14 @@ range(start: number): (end: number) => number[];
 </details>
 
 
-<details>
-
-<summary>R.range source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.range source</summary>
+  Foo
+  
+```javascript
 import { range } from './range'
 
 test('happy', () => {
@@ -8061,8 +8514,10 @@ test('curry', () => {
   expect(range(0)(10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### reduce
@@ -8094,7 +8549,7 @@ const result = R.reduce(reducer, initialValue, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
 reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: ReadonlyArray<T>) => TResult;
@@ -8104,11 +8559,14 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 </details>
 
 
-<details>
-
-<summary>R.reduce source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.reduce source</summary>
+  Foo
+  
+```javascript
 import { reduce } from './reduce'
 
 test('happy', () => {
@@ -8127,8 +8585,10 @@ test('happy', () => {
   )).toEqual(7)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### reject
@@ -8166,7 +8626,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
 reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
@@ -8176,11 +8636,14 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 </details>
 
 
-<details>
-
-<summary>R.reject source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.reject source</summary>
+  Foo
+  
+```javascript
 import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
@@ -8209,8 +8672,10 @@ test('pass index as second argument', () => {
   [ 10, 12, 15 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### repeat
@@ -8241,7 +8706,7 @@ R.repeat('foo', 3)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 repeat<T>(x: T, timesToRepeat: number): T[];
 repeat<T>(x: T): (timesToRepeat: number) => T[];
 ```
@@ -8249,11 +8714,14 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 </details>
 
 
-<details>
-
-<summary>R.repeat source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.repeat source</summary>
+  Foo
+  
+```javascript
 import { repeat } from './repeat'
 
 test('repeat', () => {
@@ -8268,8 +8736,10 @@ test('repeat', () => {
   expect(arr[ 0 ] === arr[ 1 ]).toBeTrue()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### replace
@@ -8302,7 +8772,7 @@ const result = R.replace(strOrRegex, '|0|', 'foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
 replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
 replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
@@ -8311,11 +8781,14 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 </details>
 
 
-<details>
-
-<summary>R.replace source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.replace source</summary>
+  Foo
+  
+```javascript
 import { replace } from './replace'
 
 test('happy', () => {
@@ -8336,8 +8809,10 @@ test('3', () => {
   expect(replace(/\s/g, '|')('foo bar baz')).toEqual('foo|bar|baz')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### reverse
@@ -8355,7 +8830,7 @@ reverse<T>(listOrString: ReadonlyArray<T>): T[]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 reverse<T>(listOrString: ReadonlyArray<T>): T[];
 reverse(listOrString: string): string;
 ```
@@ -8394,7 +8869,7 @@ R.set(xLens, 8, input) //=> {x: 8, y: 2}
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 set<T, U>(lens: Lens, replacer: U, obj: T): T;
 set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
 set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
@@ -8403,15 +8878,20 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 </details>
 
 
-<details>
-
-<summary>R.set source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.set source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### slice
@@ -8450,7 +8930,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 slice(from: number, to: number, list: string): string;
 slice<T>(from: number, to: number, list: T[]): T[];
 slice(frp,: number, to: number): {
@@ -8459,11 +8939,14 @@ slice(frp,: number, to: number): {
 </details>
 
 
-<details>
-
-<summary>R.slice source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.slice source</summary>
+  Foo
+  
+```javascript
 import { slice } from './slice'
 
 test('slice', () => {
@@ -8484,8 +8967,10 @@ test('slice', () => {
   )).toEqual('ram')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### sort
@@ -8530,7 +9015,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
 sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 ```
@@ -8538,11 +9023,14 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.sort source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.sort source</summary>
+  Foo
+  
+```javascript
 import { sort } from './sort'
 
 const fn = (a, b) => a > b ? 1 : -1
@@ -8561,8 +9049,10 @@ test('it doesn\'t mutate', () => {
   expect(list[ 2 ]).toBe('baz')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### sortBy
@@ -8605,7 +9095,7 @@ const expected = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
 sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 ```
@@ -8613,11 +9103,14 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.sortBy source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.sortBy source</summary>
+  Foo
+  
+```javascript
 import { compose } from './compose'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
@@ -8650,8 +9143,10 @@ test('with compose', () => {
   expect(sortByNameCaseInsensitive(people)).toEqual([ alice, bob, clara ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### split
@@ -8684,7 +9179,7 @@ const result = R.split(separator, str))
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 split(separator: string | RegExp): (str: string) => string[];
 split(separator: string | RegExp, str: string): string[];
 ```
@@ -8692,11 +9187,14 @@ split(separator: string | RegExp, str: string): string[];
 </details>
 
 
-<details>
-
-<summary>R.split source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.split source</summary>
+  Foo
+  
+```javascript
 import { split } from './split'
 
 test('split', () => {
@@ -8705,8 +9203,10 @@ test('split', () => {
   expect(split('.', 'a.b.c.xyz.d')).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### splitEvery
@@ -8724,7 +9224,7 @@ splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];
 splitEvery(sliceLength: number, listOrString: string): string[];
 splitEvery(sliceLength: number): {
@@ -8766,7 +9266,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 startsWith(target: string, str: string): boolean;
 startsWith(target: string): (str: string) => boolean;
 ```
@@ -8774,11 +9274,14 @@ startsWith(target: string): (str: string) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.startsWith source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.startsWith source</summary>
+  Foo
+  
+```javascript
 import { startsWith } from './startsWith'
 
 test('true', () => {
@@ -8793,8 +9296,10 @@ test('false', () => {
   expect(result).toBeFalse()
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### subtract
@@ -8812,7 +9317,7 @@ subtract(x: number, y: number): number
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 subtract(x: number, y: number): number;
 subtract(x: number): (y: number) => number;
 ```
@@ -8845,26 +9350,31 @@ R.sum([1, 2, 3, 4, 5])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 sum(list: ReadonlyArray<number>): number;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.sum source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.sum source</summary>
+  Foo
+  
+```javascript
 import { sum } from './sum'
 
 test('happy', () => {
   expect(sum([ 1, 2, 3, 4, 5 ])).toBe(15)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### symmetricDifference
@@ -8898,7 +9408,7 @@ const result = symmetricDifference(x, y)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
 symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 ```
@@ -8906,11 +9416,14 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.symmetricDifference source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.symmetricDifference source</summary>
+  Foo
+  
+```javascript
 import { symmetricDifference } from './symmetricDifference'
 
 test('symmetricDifference', () => {
@@ -8932,8 +9445,10 @@ test('symmetricDifference with objects', () => {
   ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### T
@@ -8961,22 +9476,27 @@ R.T()
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 T(): boolean;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.T source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.T source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### tail
@@ -9010,7 +9530,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 tail<T>(listOrString: ReadonlyArray<T>): T[];
 tail(listOrString: string): string;
 ```
@@ -9018,11 +9538,14 @@ tail(listOrString: string): string;
 </details>
 
 
-<details>
-
-<summary>R.tail source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.tail source</summary>
+  Foo
+  
+```javascript
 import { tail } from './tail'
 
 test('tail', () => {
@@ -9037,8 +9560,10 @@ test('tail', () => {
   expect(tail('')).toEqual('')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### take
@@ -9074,7 +9599,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 take(howMany: number, listOrString: string): string;
 take<T>(howMany: number): {
@@ -9083,11 +9608,14 @@ take<T>(howMany: number): {
 </details>
 
 
-<details>
-
-<summary>R.take source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.take source</summary>
+  Foo
+  
+```javascript
 import { take } from './take'
 
 test('happy', () => {
@@ -9112,8 +9640,10 @@ test('with zero index', () => {
   expect(take(0, [ 1, 2, 3 ])).toEqual([])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### takeLast
@@ -9149,7 +9679,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 takeLast(howMany: number, listOrString: string): string;
 takeLast<T>(howMany: number): {
@@ -9158,11 +9688,14 @@ takeLast<T>(howMany: number): {
 </details>
 
 
-<details>
-
-<summary>R.takeLast source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.takeLast source</summary>
+  Foo
+  
+```javascript
 import { takeLast } from './takeLast'
 
 test('with arrays', () => {
@@ -9188,8 +9721,10 @@ test('with negative index', () => {
   expect(takeLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### tap
@@ -9228,7 +9763,7 @@ R.compose(
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 tap<T>(fn: (a: T) => any, x: T): T;
 tap<T>(fn: (a: T) => any): (x: T) => T;
 ```
@@ -9236,11 +9771,14 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 </details>
 
 
-<details>
-
-<summary>R.tap source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.tap source</summary>
+  Foo
+  
+```javascript
 import { tap } from './tap'
 
 test('tap', () => {
@@ -9252,8 +9790,10 @@ test('tap', () => {
   expect(a).toEqual(100)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### test
@@ -9284,7 +9824,7 @@ R.test(/^f/, 'foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 test(regExpression: RegExp): (str: string) => boolean;
 test(regExpression: RegExp, str: string): boolean;
 ```
@@ -9292,11 +9832,14 @@ test(regExpression: RegExp, str: string): boolean;
 </details>
 
 
-<details>
-
-<summary>R.test source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.test source</summary>
+  Foo
+  
+```javascript
 import { test as testMethod } from './test'
 
 test('happy', () => {
@@ -9309,8 +9852,10 @@ test('throws if first argument is not regex', () => {
   expect(() => testMethod('foo', 'bar')).toThrow('‘test’ requires a value of type RegExp as its first argument; received "foo"')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### times
@@ -9346,7 +9891,7 @@ R.times(fn, howMany)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 times<T>(fn: (i: number) => T, howMany: number): T[];
 times<T>(fn: (i: number) => T): (howMany: number) => T[];
 ```
@@ -9354,11 +9899,14 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 </details>
 
 
-<details>
-
-<summary>R.times source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.times source</summary>
+  Foo
+  
+```javascript
 import assert from 'assert'
 
 import { identity } from './identity'
@@ -9385,8 +9933,10 @@ test('curry', () => {
   expect(result).toEqual([ 0, 1, 2, 3, 4 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### toLower
@@ -9414,26 +9964,31 @@ R.toLower('FOO')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 toLower(str: string): string;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.toLower source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.toLower source</summary>
+  Foo
+  
+```javascript
 import { toLower } from './toLower'
 
 test('toLower', () => {
   expect(toLower('FOO|BAR|BAZ')).toEqual('foo|bar|baz')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### toPairs
@@ -9471,18 +10026,21 @@ const result = R.toPairs(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.toPairs source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.toPairs source</summary>
+  Foo
+  
+```javascript
 import { toPairs } from './toPairs'
 
 const obj = {
@@ -9500,8 +10058,10 @@ test('happy', () => {
   expect(toPairs(obj)).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### toString
@@ -9529,26 +10089,31 @@ R.toString([1, 2])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 toString<T>(x: T): string;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.toString source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.toString source</summary>
+  Foo
+  
+```javascript
 import { toString } from './toString'
 
 test('happy', () => {
   expect(toString([ 1, 2, 3 ])).toEqual('1,2,3')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### toUpper
@@ -9576,26 +10141,31 @@ R.toUpper('foo')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 toUpper(str: string): string;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.toUpper source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.toUpper source</summary>
+  Foo
+  
+```javascript
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
   expect(toUpper('foo|bar|baz')).toEqual('FOO|BAR|BAZ')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### transpose
@@ -9626,18 +10196,21 @@ const result = R.transpose(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 transpose<T>(list: T[][]): T[][];
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.transpose source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.transpose source</summary>
+  Foo
+  
+```javascript
 import { transpose } from './transpose'
 
 test('happy', () => {
@@ -9677,8 +10250,10 @@ test('array with falsy values', () => {
   expect(actual).toEqual(expected)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### trim
@@ -9706,26 +10281,31 @@ R.trim('  foo  ')
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 trim(str: string): string;
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.trim source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.trim source</summary>
+  Foo
+  
+```javascript
 import { trim } from './trim'
 
 test('trim', () => {
   expect(trim(' foo ')).toEqual('foo')
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### type
@@ -9743,7 +10323,7 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 ```
 
@@ -9780,18 +10360,21 @@ R.uniq(list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 uniq<T>(list: ReadonlyArray<T>): T[];
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.uniq source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.uniq source</summary>
+  Foo
+  
+```javascript
 import { uniq } from './uniq'
 
 test('uniq', () => {
@@ -9801,8 +10384,10 @@ test('uniq', () => {
   expect(uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### uniqWith
@@ -9849,7 +10434,7 @@ const result = R.uniqWith(uniqFn, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 ```
@@ -9857,11 +10442,14 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 </details>
 
 
-<details>
-
-<summary>R.uniqWith source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.uniqWith source</summary>
+  Foo
+  
+```javascript
 import { uniqWith } from './uniqWith'
 
 test('happy', () => {
@@ -9960,8 +10548,10 @@ test('uniqWith', () => {
   expect(result).toEqual(expectedResult)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### update
@@ -9996,7 +10586,7 @@ const result = update(index, newValue, list)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
 update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 ```
@@ -10004,11 +10594,14 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 </details>
 
 
-<details>
-
-<summary>R.update source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.update source</summary>
+  Foo
+  
+```javascript
 import { update } from './update'
 
 test('update', () => {
@@ -10018,8 +10611,10 @@ test('update', () => {
   )).toEqual([ 0, 11, 2 ])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### values
@@ -10052,18 +10647,21 @@ R.values(obj)
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 values<T extends object, K extends keyof T>(obj: T): T[K][];
 ```
 
 </details>
 
 
-<details>
-
-<summary>R.values source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.values source</summary>
+  Foo
+  
+```javascript
 import { values } from './values'
 
 test('happy', () => {
@@ -10086,8 +10684,10 @@ test('with bad input', () => {
   expect(values([])).toEqual([])
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### view
@@ -10120,7 +10720,7 @@ R.view(lens, {x: 4, y: 2}) //=> 4
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 view<T, U>(lens: Lens): (target: T) => U;
 view<T, U>(lens: Lens, target: T): U;
 ```
@@ -10128,15 +10728,20 @@ view<T, U>(lens: Lens, target: T): U;
 </details>
 
 
-<details>
-
-<summary>R.view source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.view source</summary>
+  Foo
+  
+```javascript
 {{rambdaSpecs}}
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### without
@@ -10154,7 +10759,7 @@ without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 ```
@@ -10191,7 +10796,7 @@ const result = [
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 xor(x: boolean, y: boolean): boolean;
 xor(y: boolean): (y: boolean) => boolean;
 ```
@@ -10199,11 +10804,14 @@ xor(y: boolean): (y: boolean) => boolean;
 </details>
 
 
-<details>
-
-<summary>R.xor source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.xor source</summary>
+  Foo
+  
+```javascript
 import { xor } from './xor'
 
 test('compares two values with exclusive or', () => {
@@ -10257,8 +10865,10 @@ test.skip('returns a curried function', () => {
   expect(xor()(false)(false)).toEqual(false)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### zip
@@ -10297,7 +10907,7 @@ R.zip([...x, 3], ['A', 'B'])
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[];
 zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 ```
@@ -10305,11 +10915,14 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 </details>
 
 
-<details>
-
-<summary>R.zip source</summary>
-
-```
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.zip source</summary>
+  Foo
+  
+```javascript
 import { zip } from './zip'
 
 const array1 = [ 1, 2, 3 ]
@@ -10346,8 +10959,10 @@ test('should truncate result to length of shorted input list', () => {
   expect(actualB).toEqual(expectedB)
 })
 ```
-
+  
+  Foo
 </details>
+Foo
 
 
 ### zipObj
@@ -10365,7 +10980,7 @@ zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: stri
 
 <summary>All Typescript definitions</summary>
 
-```typescript
+```javascript
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
 zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
 ```

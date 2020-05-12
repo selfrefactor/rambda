@@ -38,15 +38,20 @@ function createRambdaSpecReadme(method){
 
 function createRambdaSourceReadme(method){
   const summaryTemplate = `
-<details>
-
-<summary>R.{{methodName}} source</summary>
-
-\`\`\`
+  Foo
+  <details>
+  
+  Foo
+  <summary>R.{{methodName}} source</summary>
+  Foo
+  
+\`\`\`javascript
 {{rambdaSpecs}}
 \`\`\`
-
+  
+  Foo
 </details>
+Foo
 `
 
   return template(summaryTemplate, method)
@@ -105,7 +110,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`\`\`typescript
+\`\`\`javascript
 {{allTypings}}
 \`\`\`
 
