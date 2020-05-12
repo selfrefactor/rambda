@@ -1,7 +1,7 @@
 {
   "name": "rambda",
   "scripts": {
-    "dev": "jest scripts/build-step/build-step.spec.js",
+    "dev": "jest source/mapAsyncLimit.spec.js",
     "prove": "jest source --json",
     "cover": "jest source --bail=true",
     "out": "maided out",

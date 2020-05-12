@@ -84,6 +84,6 @@ export async function getIntro(withRambdax){
     intro          : introContent.toString(),
     summary        : summaryContent.toString(),
     usedBy         : usedByContent.toString(),
-    benchmarkTime
+    benchmarkTime,
   })
 }
