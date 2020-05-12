@@ -1,3 +1,5 @@
+import isCI from 'is-ci'
+
 import { delay } from './delay'
 import { mapAsync } from './mapAsync'
 import { mapAsyncLimit } from './mapAsyncLimit.js'
@@ -6,6 +8,7 @@ import { toDecimal } from './toDecimal.js'
 jest.setTimeout(30000)
 
 test('happy', async () => {
+  console.log(isCI)
   const limit = 3
   const startTime = new Date().getTime()
   const list = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
@@ -27,6 +30,5 @@ test('happy', async () => {
 
   const methodScale = toDecimal((diffTime2 - diffTime) / 1000, 0)
   expect(result).toEqual([ 2, 3, 4, 5, 6, 7, 8, 9, 10 ])
-  
-  console.log({methodScale, limit}, 'these should be equal but in ci they are not')
+  if (!isCI) expect(methodScale).toBe(limit)
 })
