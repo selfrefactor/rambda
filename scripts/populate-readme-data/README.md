@@ -344,6 +344,19 @@ It adds `a` and `b`.
 
 
 
+<details>
+
+<summary><strong>R.add</strong> source</summary>
+
+`export function add(a, b){
+  if (arguments.length === 1) return _b => add(a, _b)
+
+  return Number(a) + Number(b)
+}`
+
+</details>
+
+
 ### adjust
 
 
@@ -354,6 +367,29 @@ It adds `a` and `b`.
 
 It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 
+
+
+<details>
+
+<summary><strong>R.adjust</strong> source</summary>
+
+`import { curry } from './curry'
+
+function adjustFn(
+  index, replaceFn, list
+){
+  const actualIndex = index < 0 ? list.length + index : index
+  if (index >= list.length || actualIndex < 0) return list
+
+  const clone = list.slice()
+  clone[ actualIndex ] = replaceFn(clone[ actualIndex ])
+
+  return clone
+}
+
+export const adjust = curry(adjustFn)`
+
+</details>
 
 
 ### all
@@ -368,6 +404,23 @@ It returns `true`, if all members of array `list` returns `true`, when applied a
 
 
 
+<details>
+
+<summary><strong>R.all</strong> source</summary>
+
+`export function all(predicate, list){
+  if (arguments.length === 1) return _list => all(predicate, _list)
+
+  for (let i = 0; i < list.length; i++){
+    if (!predicate(list[ i ], i)) return false
+  }
+
+  return true
+}`
+
+</details>
+
+
 ### allPass
 
 
@@ -378,6 +431,27 @@ It returns `true`, if all members of array `list` returns `true`, when applied a
 
 It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
 
+
+
+<details>
+
+<summary><strong>R.allPass</strong> source</summary>
+
+`export function allPass(predicates){
+  return input => {
+    let counter = 0
+    while (counter < predicates.length){
+      if (!predicates[ counter ](input)){
+        return false
+      }
+      counter++
+    }
+
+    return true
+  }
+}`
+
+</details>
 
 
 ### always
@@ -392,6 +466,17 @@ It returns function that always returns `x`.
 
 
 
+<details>
+
+<summary><strong>R.always</strong> source</summary>
+
+`export function always(x){
+  return () => x
+}`
+
+</details>
+
+
 ### and
 
 
@@ -402,6 +487,19 @@ It returns function that always returns `x`.
 
 Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
 
+
+
+<details>
+
+<summary><strong>R.and</strong> source</summary>
+
+`export function and(a, b){
+  if (arguments.length === 1) return _b => and(a, _b)
+
+  return a && b
+}`
+
+</details>
 
 
 ### any
@@ -416,6 +514,27 @@ It returns `true`, if at least one member of `list` returns true, when passed to
 
 
 
+<details>
+
+<summary><strong>R.any</strong> source</summary>
+
+`export function any(predicate, list){
+  if (arguments.length === 1) return _list => any(predicate, _list)
+
+  let counter = 0
+  while (counter < list.length){
+    if (predicate(list[ counter ], counter)){
+      return true
+    }
+    counter++
+  }
+
+  return false
+}`
+
+</details>
+
+
 ### anyPass
 
 
@@ -428,6 +547,27 @@ It accepts list of `predicates` and returns a function. This function with its `
 
 
 
+<details>
+
+<summary><strong>R.anyPass</strong> source</summary>
+
+`export function anyPass(predicates){
+  return input => {
+    let counter = 0
+    while (counter < predicates.length){
+      if (predicates[ counter ](input)){
+        return true
+      }
+      counter++
+    }
+
+    return false
+  }
+}`
+
+</details>
+
+
 ### append
 
 
@@ -438,6 +578,25 @@ It accepts list of `predicates` and returns a function. This function with its `
 
 It adds element `x` at the end of `listOrString`.
 
+
+
+<details>
+
+<summary><strong>R.append</strong> source</summary>
+
+`export function append(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => append(x, _listOrString)
+
+  if (typeof listOrString === 'string') return `${ listOrString }${ x }`
+
+  const clone = listOrString.slice()
+  clone.push(x)
+
+  return clone
+}`
+
+</details>
 
 
 ### applySpec
@@ -457,6 +616,144 @@ Arguments will be applied to the spec methods recursively.
 
 
 
+<details>
+
+<summary><strong>R.applySpec</strong> source</summary>
+
+`// recursively traverse the given spec object to find the highest arity function
+function __findHighestArity(spec, max = 0){
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    if (typeof spec[ key ] === 'object'){
+      max = Math.max(max, __findHighestArity(spec[ key ]))
+    }
+
+    if (typeof spec[ key ] === 'function'){
+      max = Math.max(max, spec[ key ].length)
+    }
+  }
+
+  return max
+}
+
+function __filterUndefined(){
+  const defined = []
+  let i = 0
+  const l = arguments.length
+  while (i < l){
+    if (typeof arguments[ i ] === 'undefined') break
+    defined[ i ] = arguments[ i ]
+    i++
+  }
+
+  return defined
+}
+
+function __applySpecWithArity(
+  spec, arity, cache
+){
+  const remaining = arity - cache.length
+
+  if (remaining === 1)
+    return x =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, x)
+      )
+  if (remaining === 2)
+    return (x, y) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y
+        )
+      )
+  if (remaining === 3)
+    return (
+      x, y, z
+    ) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(
+          ...cache, x, y, z
+        )
+      )
+  if (remaining === 4)
+    return (
+      x, y, z, a
+    ) =>
+      __applySpecWithArity(
+        spec,
+        arity,
+        __filterUndefined(
+          ...cache, x, y, z, a
+        )
+      )
+  if (remaining > 4)
+    return (...args) =>
+      __applySpecWithArity(
+        spec, arity, __filterUndefined(...cache, ...args)
+      )
+
+  // handle spec as Array
+  if (Array.isArray(spec)){
+    const ret = []
+    let i = 0
+    const l = spec.length
+    for (; i < l; i++){
+      // handle recursive spec inside array
+      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
+        ret[ i ] = __applySpecWithArity(
+          spec[ i ], arity, cache
+        )
+      }
+      // apply spec to the key
+      if (typeof spec[ i ] === 'function'){
+        ret[ i ] = spec[ i ](...cache)
+      }
+    }
+
+    return ret
+  }
+
+  // handle spec as Object
+  const ret = {}
+  // apply callbacks to each property in the spec object
+  for (const key in spec){
+    if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+    // apply the spec recursively
+    if (typeof spec[ key ] === 'object'){
+      ret[ key ] = __applySpecWithArity(
+        spec[ key ], arity, cache
+      )
+      continue
+    }
+
+    // apply spec to the key
+    if (typeof spec[ key ] === 'function'){
+      ret[ key ] = spec[ key ](...cache)
+    }
+  }
+
+  return ret
+}
+
+export function applySpec(spec, ...args){
+  // get the highest arity spec function, cache the result and pass to __applySpecWithArity
+  const arity = __findHighestArity(spec)
+
+  if (arity === 0){
+    return () => ({})
+  }
+  const toReturn = __applySpecWithArity(
+    spec, arity, args
+  )
+
+  return toReturn
+}`
+
+</details>
+
+
 ### assoc
 
 
@@ -469,6 +766,25 @@ It makes a shallow clone of `obj` with setting or overriding the property `prop`
 
 
 
+<details>
+
+<summary><strong>R.assoc</strong> source</summary>
+
+`import { curry } from './curry'
+
+function assocFn(
+  prop, newValue, obj
+){
+  return Object.assign(
+    {}, obj, { [ prop ] : newValue }
+  )
+}
+
+export const assoc = curry(assocFn)`
+
+</details>
+
+
 ### assocPath
 
 
@@ -479,6 +795,58 @@ It makes a shallow clone of `obj` with setting or overriding the property `prop`
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
+
+
+<details>
+
+<summary><strong>R.assocPath</strong> source</summary>
+
+`import { _isInteger } from './_internals/_isInteger'
+import { assoc } from './assoc'
+import { curry } from './curry'
+
+function assocPathFn(
+  list, newValue, input
+){
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  if (pathArrValue.length === 0){
+    return newValue
+  }
+
+  const index = pathArrValue[ 0 ]
+  if (pathArrValue.length > 1){
+    const condition =
+      typeof input !== 'object' ||
+      input === null ||
+      !input.hasOwnProperty(index)
+
+    const nextinput = condition ?
+      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
+        [] :
+        {} :
+      input[ index ]
+    newValue = assocPathFn(
+      Array.prototype.slice.call(pathArrValue, 1),
+      newValue,
+      nextinput
+    )
+  }
+
+  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)){
+    const arr = input.slice()
+    arr[ index ] = newValue
+
+    return arr
+  }
+
+  return assoc(
+    index, newValue, input
+  )
+}
+
+export const assocPath = curry(assocPathFn)`
+
+</details>
 
 
 ### both
@@ -495,6 +863,19 @@ This function will return `true`, if both `firstCondition` and `secondCondition`
 
 
 
+<details>
+
+<summary><strong>R.both</strong> source</summary>
+
+`export function both(f, g){
+  if (arguments.length === 1) return _g => both(f, _g)
+
+  return (...input) => f(...input) && g(...input)
+}`
+
+</details>
+
+
 ### clamp
 
 
@@ -509,6 +890,26 @@ If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
+
+
+<details>
+
+<summary><strong>R.clamp</strong> source</summary>
+
+`import { curry } from './curry'
+
+function clampFn(
+  min, max, input
+){
+  if (input >= min && input <= max) return input
+
+  if (input > max) return max
+  if (input < min) return min
+}
+
+export const clamp = curry(clampFn)`
+
+</details>
 
 
 ### clone
@@ -534,6 +935,17 @@ The return value of `inverted` is the negative boolean value of `origin(input)`.
 
 
 
+<details>
+
+<summary><strong>R.complement</strong> source</summary>
+
+`export function complement(fn){
+  return (...input) => !fn(...input)
+}`
+
+</details>
+
+
 ### compose
 
 
@@ -546,6 +958,32 @@ It performs right-to-left function composition.
 
 
 
+<details>
+
+<summary><strong>R.compose</strong> source</summary>
+
+`export function compose(...fns){
+  if (fns.length === 0){
+    throw new Error('compose requires at least one argument')
+  }
+
+  return (...args) => {
+    const list = fns.slice()
+    if (list.length > 0){
+      const fn = list.pop()
+      let result = fn(...args)
+      while (list.length > 0){
+        result = list.pop()(result)
+      }
+
+      return result
+    }
+  }
+}`
+
+</details>
+
+
 ### concat
 
 
@@ -556,6 +994,19 @@ It performs right-to-left function composition.
 
 It returns a new string or array, which is the result of merging `x` and `y`.
 
+
+
+<details>
+
+<summary><strong>R.concat</strong> source</summary>
+
+`export function concat(x, y){
+  if (arguments.length === 1) return _y => concat(x, _y)
+
+  return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
+}`
+
+</details>
 
 
 ### cond
@@ -576,6 +1027,28 @@ If no winner is found, then `fn` returns `undefined`.
 
 
 
+<details>
+
+<summary><strong>R.cond</strong> source</summary>
+
+`export function cond(conditions){
+  return input => {
+    let done = false
+    let toReturn
+    conditions.forEach(([ predicate, resultClosure ]) => {
+      if (!done && predicate(input)){
+        done = true
+        toReturn = resultClosure(input)
+      }
+    })
+
+    return toReturn
+  }
+}`
+
+</details>
+
+
 ### curry
 
 
@@ -588,6 +1061,21 @@ It expects a function as input and returns its curried version.
 
 
 
+<details>
+
+<summary><strong>R.curry</strong> source</summary>
+
+`export function curry(fn, args = []){
+  return (..._args) =>
+    (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
+      ...args,
+      ..._args,
+    ])
+}`
+
+</details>
+
+
 ### dec
 
 
@@ -598,6 +1086,15 @@ It expects a function as input and returns its curried version.
 
 It decrements a number.
 
+
+
+<details>
+
+<summary><strong>R.dec</strong> source</summary>
+
+`export const dec = x => x - 1`
+
+</details>
 
 
 ### defaultTo
@@ -614,6 +1111,49 @@ Else, it returns the first truthy `inputArguments` instance(from left to right).
 
 
 
+<details>
+
+<summary><strong>R.defaultTo</strong> source</summary>
+
+`function flagIs(inputArguments){
+  return (
+    inputArguments === undefined ||
+    inputArguments === null ||
+    Number.isNaN(inputArguments) === true
+  )
+}
+
+export function defaultTo(defaultArgument, ...inputArguments){
+  if (arguments.length === 1){
+    return _inputArguments => defaultTo(defaultArgument, _inputArguments)
+  } else if (arguments.length === 2){
+    return flagIs(inputArguments[ 0 ]) ? defaultArgument : inputArguments[ 0 ]
+  }
+
+  const limit = inputArguments.length - 1
+  let len = limit + 1
+  let ready = false
+  let holder
+
+  while (!ready){
+    const instance = inputArguments[ limit - len + 1 ]
+
+    if (len === 0){
+      ready = true
+    } else if (flagIs(instance)){
+      len -= 1
+    } else {
+      holder = instance
+      ready = true
+    }
+  }
+
+  return holder === undefined ? defaultArgument : holder
+}`
+
+</details>
+
+
 ### difference
 
 
@@ -624,6 +1164,22 @@ Else, it returns the first truthy `inputArguments` instance(from left to right).
 
 It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
 
+
+
+<details>
+
+<summary><strong>R.difference</strong> source</summary>
+
+`import { includes } from './includes'
+import { uniq } from './uniq'
+
+export function difference(a, b){
+  if (arguments.length === 1) return _b => difference(a, _b)
+
+  return uniq(a).filter(aInstance => !includes(aInstance, b))
+}`
+
+</details>
 
 
 ### dissoc
@@ -638,6 +1194,27 @@ It returns a new object that does not contain property `prop`.
 
 
 
+<details>
+
+<summary><strong>R.dissoc</strong> source</summary>
+
+`export function dissoc(prop, obj){
+  if (arguments.length === 1) return _obj => dissoc(prop, _obj)
+
+  if (obj === null || obj === undefined) return {}
+
+  const willReturn = {}
+  for (const p in obj){
+    willReturn[ p ] = obj[ p ]
+  }
+  delete willReturn[ prop ]
+
+  return willReturn
+}`
+
+</details>
+
+
 ### divide
 
 
@@ -645,6 +1222,19 @@ It returns a new object that does not contain property `prop`.
 
 `divide(a: number, b: number): number`
 
+
+
+<details>
+
+<summary><strong>R.divide</strong> source</summary>
+
+`export function divide(a, b){
+  if (arguments.length === 1) return _b => divide(a, _b)
+
+  return a / b
+}`
+
+</details>
 
 
 ### drop
@@ -659,6 +1249,19 @@ It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
 
 
 
+<details>
+
+<summary><strong>R.drop</strong> source</summary>
+
+`export function drop(howManyToDrop, listOrString){
+  if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
+
+  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+}`
+
+</details>
+
+
 ### dropLast
 
 
@@ -669,6 +1272,23 @@ It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
 
 It returns `listOrString` with `howManyToDrop` items dropped from its end.
 
+
+
+<details>
+
+<summary><strong>R.dropLast</strong> source</summary>
+
+`export function dropLast(howManyToDrop, listOrString){
+  if (arguments.length === 1){
+    return _listOrString => dropLast(howManyToDrop, _listOrString)
+  }
+
+  return howManyToDrop > 0 ?
+    listOrString.slice(0, -howManyToDrop) :
+    listOrString.slice()
+}`
+
+</details>
 
 
 ### either
@@ -692,6 +1312,19 @@ Curried version of `String.prototype.endsWith`
 
 
 
+<details>
+
+<summary><strong>R.endsWith</strong> source</summary>
+
+`export function endsWith(target, str){
+  if (arguments.length === 1) return _str => endsWith(target, _str)
+
+  return str.endsWith(target)
+}`
+
+</details>
+
+
 ### equals
 
 
@@ -704,6 +1337,115 @@ It deeply compares `a` and `b` and returns `true` if they are equal.
 
 
 
+<details>
+
+<summary><strong>R.equals</strong> source</summary>
+
+`import { type } from './type'
+
+function parseError(maybeError){
+  const typeofError = maybeError.__proto__.toString()
+  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
+
+  return [ typeofError, maybeError.message ]
+}
+
+function parseDate(maybeDate){
+  if (!maybeDate.toDateString) return [ false ]
+
+  return [ true, maybeDate.getTime() ]
+}
+
+function parseRegex(maybeRegex){
+  if (maybeRegex.constructor !== RegExp) return [ false ]
+
+  return [ true, maybeRegex.toString() ]
+}
+
+export function equals(a, b){
+  if (arguments.length === 1) return _b => equals(a, _b)
+
+  const aType = type(a)
+
+  if (aType !== type(b)) return false
+  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
+  if ([ 'Boolean', 'Number', 'String' ].includes(aType))
+    return a.toString() === b.toString()
+
+  if (aType === 'Array'){
+    const aClone = Array.from(a)
+    const bClone = Array.from(b)
+
+    if (aClone.toString() !== bClone.toString()){
+      return false
+    }
+
+    let loopArrayFlag = true
+    aClone.forEach((aCloneInstance, aCloneIndex) => {
+      if (loopArrayFlag){
+        if (
+          aCloneInstance !== bClone[ aCloneIndex ] &&
+          !equals(aCloneInstance, bClone[ aCloneIndex ])
+        ){
+          loopArrayFlag = false
+        }
+      }
+    })
+
+    return loopArrayFlag
+  }
+
+  const aRegex = parseRegex(a)
+  const bRegex = parseRegex(b)
+
+  if (aRegex[ 0 ]){
+    return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
+  } else if (bRegex[ 0 ]) return false
+
+  const aDate = parseDate(a)
+  const bDate = parseDate(b)
+
+  if (aDate[ 0 ]){
+    return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
+  } else if (bDate[ 0 ]) return false
+
+  const aError = parseError(a)
+  const bError = parseError(b)
+
+  if (aError[ 0 ]){
+    return bError[ 0 ] ?
+      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
+      false
+  }
+
+  if (aType === 'Object'){
+    const aKeys = Object.keys(a)
+
+    if (aKeys.length !== Object.keys(b).length){
+      return false
+    }
+
+    let loopObjectFlag = true
+    aKeys.forEach(aKeyInstance => {
+      if (loopObjectFlag){
+        const aValue = a[ aKeyInstance ]
+        const bValue = b[ aKeyInstance ]
+
+        if (aValue !== bValue && !equals(aValue, bValue)){
+          loopObjectFlag = false
+        }
+      }
+    })
+
+    return loopObjectFlag
+  }
+
+  return false
+}`
+
+</details>
+
+
 ### F
 
 
@@ -711,6 +1453,17 @@ It deeply compares `a` and `b` and returns `true` if they are equal.
 
 `F(): boolean`
 
+
+
+<details>
+
+<summary><strong>R.F</strong> source</summary>
+
+`export function F(){
+  return false
+}`
+
+</details>
 
 
 ### filter
@@ -723,6 +1476,52 @@ It deeply compares `a` and `b` and returns `true` if they are equal.
 
 It filters list or object `input` with `predicate`.
 
+
+
+<details>
+
+<summary><strong>R.filter</strong> source</summary>
+
+`function filterObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    if (fn(
+      obj[ prop ], prop, obj
+    )){
+      willReturn[ prop ] = obj[ prop ]
+    }
+  }
+
+  return willReturn
+}
+
+export function filter(predicate, list){
+  if (arguments.length === 1) return _list => filter(predicate, _list)
+
+  if (!list) return []
+
+  if (!Array.isArray(list)){
+    return filterObject(predicate, list)
+  }
+
+  let index = -1
+  let resIndex = 0
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    const value = list[ index ]
+
+    if (predicate(value, index)){
+      willReturn[ resIndex++ ] = value
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
 
 
 ### find
@@ -739,6 +1538,19 @@ If there is no such element, it returns `undefined`.
 
 
 
+<details>
+
+<summary><strong>R.find</strong> source</summary>
+
+`export function find(predicate, list){
+  if (arguments.length === 1) return _list => find(predicate, _list)
+
+  return list.find(predicate)
+}`
+
+</details>
+
+
 ### findIndex
 
 
@@ -753,6 +1565,28 @@ If there is no such element, then `-1` is returned.
 
 
 
+<details>
+
+<summary><strong>R.findIndex</strong> source</summary>
+
+`export function findIndex(predicate, list){
+  if (arguments.length === 1) return _list => findIndex(predicate, _list)
+
+  const len = list.length
+  let index = -1
+
+  while (++index < len){
+    if (predicate(list[ index ], index)){
+      return index
+    }
+  }
+
+  return -1
+}`
+
+</details>
+
+
 ### flatten
 
 
@@ -763,6 +1597,27 @@ If there is no such element, then `-1` is returned.
 
 It deeply flattens an array.
 
+
+
+<details>
+
+<summary><strong>R.flatten</strong> source</summary>
+
+`export function flatten(list, input){
+  const willReturn = input === undefined ? [] : input
+
+  for (let i = 0; i < list.length; i++){
+    if (Array.isArray(list[ i ])){
+      flatten(list[ i ], willReturn)
+    } else {
+      willReturn.push(list[ i ])
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
 
 
 ### flip
@@ -777,6 +1632,29 @@ It returns function which calls `fn` with exchanged first and second argument.
 
 
 
+<details>
+
+<summary><strong>R.flip</strong> source</summary>
+
+`function flipExport(fn){
+  return (...input) => {
+    if (input.length === 1){
+      return holder => fn(holder, input[ 0 ])
+    } else if (input.length === 2){
+      return fn(input[ 1 ], input[ 0 ])
+    }
+
+    return undefined
+  }
+}
+
+export function flip(fn){
+  return flipExport(fn)
+}`
+
+</details>
+
+
 ### forEach
 
 
@@ -787,6 +1665,23 @@ It returns function which calls `fn` with exchanged first and second argument.
 
 It applies `iterable` function over all members of `list` and returns `list`.
 
+
+
+<details>
+
+<summary><strong>R.forEach</strong> source</summary>
+
+`import { map } from './map'
+
+export function forEach(predicate, list){
+  if (arguments.length === 1) return _list => forEach(predicate, _list)
+
+  map(predicate, list)
+
+  return list
+}`
+
+</details>
 
 
 ### fromPairs
@@ -801,6 +1696,20 @@ It transforms a `listOfPairs` to an object.
 
 
 
+<details>
+
+<summary><strong>R.fromPairs</strong> source</summary>
+
+`export function fromPairs(listOfPairs){
+  const toReturn = {}
+  listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
+
+  return toReturn
+}`
+
+</details>
+
+
 ### groupBy
 
 
@@ -811,6 +1720,31 @@ It transforms a `listOfPairs` to an object.
 
 It splits `list` according to a provided `groupFn` function and returns an object.
 
+
+
+<details>
+
+<summary><strong>R.groupBy</strong> source</summary>
+
+`export function groupBy(groupFn, list){
+  if (arguments.length === 1) return _list => groupBy(groupFn, _list)
+
+  const result = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    const key = groupFn(item)
+
+    if (!result[ key ]){
+      result[ key ] = []
+    }
+
+    result[ key ].push(item)
+  }
+
+  return result
+}`
+
+</details>
 
 
 ### groupWith
@@ -825,6 +1759,55 @@ It returns separated version of `list`, where separation is done with equality `
 
 
 
+<details>
+
+<summary><strong>R.groupWith</strong> source</summary>
+
+`export function groupWith(compareFn, list){
+  if (!Array.isArray(list))
+    throw new TypeError('list.reduce is not a function')
+
+  const clone = list.slice()
+  const toReturn = []
+  let holder = []
+
+  clone.reduce((
+    prev, current, i
+  ) => {
+    if (i === 0) return current
+
+    const okCompare = compareFn(prev, current)
+    const holderIsEmpty = holder.length === 0
+    const lastCall = i === list.length - 1
+
+    if (okCompare){
+      if (holderIsEmpty) holder.push(prev)
+      holder.push(current)
+      if (lastCall) toReturn.push(holder)
+
+      return current
+    }
+
+    if (holderIsEmpty){
+      toReturn.push([ prev ])
+      if (lastCall) toReturn.push([ current ])
+
+      return current
+    }
+
+    toReturn.push(holder)
+    if (lastCall) toReturn.push([ current ])
+    holder = []
+
+    return current
+  }, undefined)
+
+  return toReturn
+}`
+
+</details>
+
+
 ### has
 
 
@@ -835,6 +1818,21 @@ It returns separated version of `list`, where separation is done with equality `
 
 It returns `true` if `obj` has property `prop`.
 
+
+
+<details>
+
+<summary><strong>R.has</strong> source</summary>
+
+`export function has(prop, obj){
+  if (arguments.length === 1) return _obj => has(prop, _obj)
+
+  if (!obj) return false
+
+  return obj[ prop ] !== undefined
+}`
+
+</details>
 
 
 ### head
@@ -860,6 +1858,21 @@ Otherwise, it returns `false`.
 
 
 
+<details>
+
+<summary><strong>R.identical</strong> source</summary>
+
+`import _objectIs from './_internals/_objectIs'
+
+export function identical(a, b){
+  if (arguments.length === 1) return _b => identical(a, _b)
+
+  return _objectIs(a, b)
+}`
+
+</details>
+
+
 ### identity
 
 
@@ -870,6 +1883,17 @@ Otherwise, it returns `false`.
 
 It just passes back the supplied `input` argument.
 
+
+
+<details>
+
+<summary><strong>R.identity</strong> source</summary>
+
+`export function identity(input){
+  return input
+}`
+
+</details>
 
 
 ### ifElse
@@ -886,6 +1910,32 @@ When `fn`` is called with `input` argument, it will return either `onTrue(input)
 
 
 
+<details>
+
+<summary><strong>R.ifElse</strong> source</summary>
+
+`import { curry } from './curry'
+
+function ifElseFn(
+  condition, onTrue, onFalse
+){
+  return (...input) => {
+    const conditionResult =
+      typeof condition === 'boolean' ? condition : condition(...input)
+
+    if (conditionResult === true){
+      return onTrue(...input)
+    }
+
+    return onFalse(...input)
+  }
+}
+
+export const ifElse = curry(ifElseFn)`
+
+</details>
+
+
 ### inc
 
 
@@ -896,6 +1946,15 @@ When `fn`` is called with `input` argument, it will return either `onTrue(input)
 
 It increments a number.
 
+
+
+<details>
+
+<summary><strong>R.inc</strong> source</summary>
+
+`export const inc = x => x + 1`
+
+</details>
 
 
 ### includes
@@ -923,6 +1982,43 @@ If `condition` is a string, then all list members are passed through `R.path(con
 
 
 
+<details>
+
+<summary><strong>R.indexBy</strong> source</summary>
+
+`import { path } from './path'
+
+function indexByPath(pathInput, list){
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ path(pathInput, item) ] = item
+  }
+
+  return toReturn
+}
+
+export function indexBy(condition, list){
+  if (arguments.length === 1){
+    return _list => indexBy(condition, _list)
+  }
+
+  if (typeof condition === 'string'){
+    return indexByPath(condition, list)
+  }
+
+  const toReturn = {}
+  for (let i = 0; i < list.length; i++){
+    const item = list[ i ]
+    toReturn[ condition(item) ] = item
+  }
+
+  return toReturn
+}`
+
+</details>
+
+
 ### indexOf
 
 
@@ -937,6 +2033,30 @@ If there is no such element, it returns `-1`.
 
 
 
+<details>
+
+<summary><strong>R.indexOf</strong> source</summary>
+
+`export function indexOf(valueToFind, list){
+  if (arguments.length === 1){
+    return _list => indexOf(valueToFind, _list)
+  }
+
+  let index = -1
+  const { length } = list
+
+  while (++index < length){
+    if (list[ index ] === valueToFind){
+      return index
+    }
+  }
+
+  return -1
+}`
+
+</details>
+
+
 ### init
 
 
@@ -947,6 +2067,23 @@ If there is no such element, it returns `-1`.
 
 It returns all but the last element of `listOrString`.
 
+
+
+<details>
+
+<summary><strong>R.init</strong> source</summary>
+
+`import baseSlice from './_internals/baseSlice'
+
+export function init(listOrString){
+  if (typeof listOrString === 'string') return listOrString.slice(0, -1)
+
+  return listOrString.length ? baseSlice(
+    listOrString, 0, -1
+  ) : []
+}`
+
+</details>
 
 
 ### intersection
@@ -961,6 +2098,22 @@ It loops throw `listA` and `listB` and returns the intersection of the two accor
 
 
 
+<details>
+
+<summary><strong>R.intersection</strong> source</summary>
+
+`import { filter } from './filter'
+import { includes } from './includes'
+
+export function intersection(listA, listB){
+  if (arguments.length === 1) return _list => intersection(listA, _list)
+
+  return filter(value => includes(value, listB), listA)
+}`
+
+</details>
+
+
 ### intersperse
 
 
@@ -971,6 +2124,31 @@ It loops throw `listA` and `listB` and returns the intersection of the two accor
 
 It adds a `separator` between members of `list`.
 
+
+
+<details>
+
+<summary><strong>R.intersperse</strong> source</summary>
+
+`export function intersperse(separator, list){
+  if (arguments.length === 1) return _list => intersperse(separator, _list)
+
+  let index = -1
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    if (index === len - 1){
+      willReturn.push(list[ index ])
+    } else {
+      willReturn.push(list[ index ], separator)
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
 
 
 ### is
@@ -985,6 +2163,22 @@ It returns `true` is `x` is instance of `targetPrototype`.
 
 
 
+<details>
+
+<summary><strong>R.is</strong> source</summary>
+
+`export function is(targetPrototype, x){
+  if (arguments.length === 1) return _x => is(targetPrototype, _x)
+
+  return (
+    x != null && x.constructor === targetPrototype ||
+    x instanceof targetPrototype
+  )
+}`
+
+</details>
+
+
 ### isEmpty
 
 
@@ -995,6 +2189,32 @@ It returns `true` is `x` is instance of `targetPrototype`.
 
 It returns `true` is `x` is `empty`.
 
+
+
+<details>
+
+<summary><strong>R.isEmpty</strong> source</summary>
+
+`import { type } from './type.js'
+
+export function isEmpty(input){
+  const inputType = type(input)
+  if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType))
+    return false
+  if (!input) return true
+
+  if (inputType === 'Object'){
+    return Object.keys(input).length === 0
+  }
+
+  if (inputType === 'Array'){
+    return input.length === 0
+  }
+
+  return false
+}`
+
+</details>
 
 
 ### isNil
@@ -1009,6 +2229,17 @@ It returns `true` is `x` is either `null` or `undefined`.
 
 
 
+<details>
+
+<summary><strong>R.isNil</strong> source</summary>
+
+`export function isNil(x){
+  return x === undefined || x === null
+}`
+
+</details>
+
+
 ### join
 
 
@@ -1019,6 +2250,19 @@ It returns `true` is `x` is either `null` or `undefined`.
 
 It returns a string representing `list` instances joined with `glue`.
 
+
+
+<details>
+
+<summary><strong>R.join</strong> source</summary>
+
+`export function join(glue, list){
+  if (arguments.length === 1) return _list => join(glue, _list)
+
+  return list.join(glue)
+}`
+
+</details>
 
 
 ### keys
@@ -1033,6 +2277,17 @@ It applies `Object.keys` over `x` and returns its keys.
 
 
 
+<details>
+
+<summary><strong>R.keys</strong> source</summary>
+
+`export function keys(x){
+  return Object.keys(x)
+}`
+
+</details>
+
+
 ### last
 
 
@@ -1043,6 +2298,21 @@ It applies `Object.keys` over `x` and returns its keys.
 
 It returns the last element of `listOrString`.
 
+
+
+<details>
+
+<summary><strong>R.last</strong> source</summary>
+
+`export function last(listOrString){
+  if (typeof listOrString === 'string'){
+    return listOrString[ listOrString.length - 1 ] || ''
+  }
+
+  return listOrString[ listOrString.length - 1 ]
+}`
+
+</details>
 
 
 ### lastIndexOf
@@ -1061,6 +2331,29 @@ If there is no such index, then `-1` is returned.
 
 
 
+<details>
+
+<summary><strong>R.lastIndexOf</strong> source</summary>
+
+`import { equals } from './equals'
+
+export function lastIndexOf(target, list){
+  if (arguments.length === 1) return _list => lastIndexOf(target, _list)
+
+  let index = list.length
+
+  while (--index > 0){
+    if (equals(list[ index ], target)){
+      return index
+    }
+  }
+
+  return -1
+}`
+
+</details>
+
+
 ### length
 
 
@@ -1071,6 +2364,21 @@ If there is no such index, then `-1` is returned.
 
 It returns the `length` property of `listOrString`.
 
+
+
+<details>
+
+<summary><strong>R.length</strong> source</summary>
+
+`export function length(x){
+  if (!x || x.length === undefined){
+    return NaN
+  }
+
+  return x.length
+}`
+
+</details>
 
 
 ### lens
@@ -1089,6 +2397,23 @@ The setter should not mutate the data structure.
 
 
 
+<details>
+
+<summary><strong>R.lens</strong> source</summary>
+
+`export function lens(getter, setter){
+  if (arguments.length === 1) return _setter => lens(getter, _setter)
+
+  return function (functor){
+    return function (target){
+      return functor(getter(target)).map(focus => setter(focus, target))
+    }
+  }
+}`
+
+</details>
+
+
 ### lensIndex
 
 
@@ -1099,6 +2424,21 @@ The setter should not mutate the data structure.
 
 It returns a lens that focuses on specified `index`.
 
+
+
+<details>
+
+<summary><strong>R.lensIndex</strong> source</summary>
+
+`import { lens } from './lens'
+import { nth } from './nth'
+import { update } from './update'
+
+export function lensIndex(index){
+  return lens(nth(index), update(index))
+}`
+
+</details>
 
 
 ### lensPath
@@ -1113,6 +2453,21 @@ It returns a lens that focuses on specified `path`.
 
 
 
+<details>
+
+<summary><strong>R.lensPath</strong> source</summary>
+
+`import { assocPath } from './assocPath'
+import { lens } from './lens'
+import { path } from './path'
+
+export function lensPath(key){
+  return lens(path(key), assocPath(key))
+}`
+
+</details>
+
+
 ### lensProp
 
 
@@ -1124,6 +2479,21 @@ It returns a lens that focuses on specified `path`.
 
 It returns a lens that focuses on specified property `prop`.
 
+
+
+<details>
+
+<summary><strong>R.lensProp</strong> source</summary>
+
+`import { assoc } from './assoc'
+import { lens } from './lens'
+import { prop } from './prop'
+
+export function lensProp(key){
+  return lens(prop(key), assoc(key))
+}`
+
+</details>
 
 
 ### map
@@ -1140,6 +2510,46 @@ It works with both array and object.
 
 
 
+<details>
+
+<summary><strong>R.map</strong> source</summary>
+
+`function mapObject(fn, obj){
+  const willReturn = {}
+
+  for (const prop in obj){
+    willReturn[ prop ] = fn(
+      obj[ prop ], prop, obj
+    )
+  }
+
+  return willReturn
+}
+
+export function map(fn, list){
+  if (arguments.length === 1) return _list => map(fn, _list)
+
+  if (list === undefined){
+    return []
+  }
+  if (!Array.isArray(list)){
+    return mapObject(fn, list)
+  }
+
+  let index = -1
+  const len = list.length
+  const willReturn = Array(len)
+
+  while (++index < len){
+    willReturn[ index ] = fn(list[ index ], index)
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### match
 
 
@@ -1150,6 +2560,21 @@ It works with both array and object.
 
 Curried version of `String.prototype.match` which returns empty array, when there is no match.
 
+
+
+<details>
+
+<summary><strong>R.match</strong> source</summary>
+
+`export function match(pattern, input){
+  if (arguments.length === 1) return _input => match(pattern, _input)
+
+  const willReturn = input.match(pattern)
+
+  return willReturn === null ? [] : willReturn
+}`
+
+</details>
 
 
 ### max
@@ -1164,6 +2589,19 @@ It returns the greater value between `x` and `y`.
 
 
 
+<details>
+
+<summary><strong>R.max</strong> source</summary>
+
+`export function max(x, y){
+  if (arguments.length === 1) return _y => max(x, _y)
+
+  return y > x ? y : x
+}`
+
+</details>
+
+
 ### maxBy
 
 
@@ -1174,6 +2612,23 @@ It returns the greater value between `x` and `y`.
 
 It returns the greater value between `x` and `y` according to `compareFn` function.
 
+
+
+<details>
+
+<summary><strong>R.maxBy</strong> source</summary>
+
+`import { curry } from './curry'
+
+export function maxByFn(
+  compareFn, x, y
+){
+  return compareFn(y) > compareFn(x) ? y : x
+}
+
+export const maxBy = curry(maxByFn)`
+
+</details>
 
 
 ### mean
@@ -1188,6 +2643,19 @@ It returns the mean value of `list` input.
 
 
 
+<details>
+
+<summary><strong>R.mean</strong> source</summary>
+
+`import { sum } from './sum'
+
+export function mean(list){
+  return sum(list) / list.length
+}`
+
+</details>
+
+
 ### median
 
 
@@ -1198,6 +2666,31 @@ It returns the mean value of `list` input.
 
 It returns the median value of `list` input.
 
+
+
+<details>
+
+<summary><strong>R.median</strong> source</summary>
+
+`import { mean } from './mean'
+
+export function median(list){
+  const len = list.length
+  if (len === 0) return NaN
+  const width = 2 - len % 2
+  const idx = (len - width) / 2
+
+  return mean(Array.prototype.slice
+    .call(list, 0)
+    .sort((a, b) => {
+      if (a === b) return 0
+
+      return a < b ? -1 : 1
+    })
+    .slice(idx, idx + width))
+}`
+
+</details>
 
 
 ### merge
@@ -1212,6 +2705,21 @@ It creates a copy of `target` object with overidden `newProps` properties.
 
 
 
+<details>
+
+<summary><strong>R.merge</strong> source</summary>
+
+`export function merge(target, newProps){
+  if (arguments.length === 1) return _newProps => merge(target, _newProps)
+
+  return Object.assign(
+    {}, target || {}, newProps || {}
+  )
+}`
+
+</details>
+
+
 ### min
 
 
@@ -1222,6 +2730,19 @@ It creates a copy of `target` object with overidden `newProps` properties.
 
 It returns the lesser value between `x` and `y`.
 
+
+
+<details>
+
+<summary><strong>R.min</strong> source</summary>
+
+`export function min(x, y){
+  if (arguments.length === 1) return _y => min(x, _y)
+
+  return y < x ? y : x
+}`
+
+</details>
 
 
 ### minBy
@@ -1236,6 +2757,23 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 
 
 
+<details>
+
+<summary><strong>R.minBy</strong> source</summary>
+
+`import { curry } from './curry'
+
+export function minByFn(
+  compareFn, x, y
+){
+  return compareFn(y) < compareFn(x) ? y : x
+}
+
+export const minBy = curry(minByFn)`
+
+</details>
+
+
 ### modulo
 
 
@@ -1246,6 +2784,19 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 
 Curried version of `x%y`.
 
+
+
+<details>
+
+<summary><strong>R.modulo</strong> source</summary>
+
+`export function modulo(x, y){
+  if (arguments.length === 1) return _y => modulo(x, _y)
+
+  return x % y
+}`
+
+</details>
 
 
 ### multiply
@@ -1260,6 +2811,19 @@ Curried version of `x*y`.
 
 
 
+<details>
+
+<summary><strong>R.multiply</strong> source</summary>
+
+`export function multiply(x, y){
+  if (arguments.length === 1) return _y => multiply(x, _y)
+
+  return x * y
+}`
+
+</details>
+
+
 ### negate
 
 
@@ -1267,6 +2831,17 @@ Curried version of `x*y`.
 
 `negate(x: number): number`
 
+
+
+<details>
+
+<summary><strong>R.negate</strong> source</summary>
+
+`export function negate(x){
+  return -x
+}`
+
+</details>
 
 
 ### none
@@ -1281,6 +2856,19 @@ It returns `true`, if all members of array `list` returns `false`, when applied 
 
 
 
+<details>
+
+<summary><strong>R.none</strong> source</summary>
+
+`export function none(predicate, list){
+  if (arguments.length === 1) return _list => none(predicate, _list)
+
+  return list.filter(predicate).length === 0
+}`
+
+</details>
+
+
 ### not
 
 
@@ -1291,6 +2879,17 @@ It returns `true`, if all members of array `list` returns `false`, when applied 
 
 It returns a boolean negated version of `input`.
 
+
+
+<details>
+
+<summary><strong>R.not</strong> source</summary>
+
+`export function not(input){
+  return !input
+}`
+
+</details>
 
 
 ### nth
@@ -1305,6 +2904,23 @@ Curried version of `list[index]`.
 
 
 
+<details>
+
+<summary><strong>R.nth</strong> source</summary>
+
+`export function nth(index, list){
+  if (arguments.length === 1) return _list => nth(index, _list)
+
+  const idx = index < 0 ? list.length + index : index
+
+  return Object.prototype.toString.call(list) === '[object String]' ?
+    list.charAt(idx) :
+    list[ idx ]
+}`
+
+</details>
+
+
 ### omit
 
 
@@ -1317,6 +2933,34 @@ It returns a partial copy of an `obj` without `propsToOmit` properties.
 
 
 
+<details>
+
+<summary><strong>R.omit</strong> source</summary>
+
+`export function omit(propsToOmit, obj){
+  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+
+  const propsToOmitValue =
+    typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit
+
+  const willReturn = {}
+
+  for (const key in obj){
+    if (!propsToOmitValue.includes(key)){
+      willReturn[ key ] = obj[ key ]
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### over
 
 
@@ -1327,6 +2971,32 @@ It returns a partial copy of an `obj` without `propsToOmit` properties.
 
 It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
 
+
+
+<details>
+
+<summary><strong>R.over</strong> source</summary>
+
+`const Identity = x => ({
+  x,
+  map : fn => Identity(fn(x)),
+})
+
+export function over(
+  lens, fn, object
+){
+  if (arguments.length === 1)
+    return (_fn, _object) => over(
+      lens, _fn, _object
+    )
+  if (arguments.length === 2) return _object => over(
+    lens, fn, _object
+  )
+
+  return lens(x => Identity(fn(x)))(object).x
+}`
+
+</details>
 
 
 ### partial
@@ -1344,6 +3014,25 @@ The name comes from the fact that you partially inject the inputs.
 
 
 
+<details>
+
+<summary><strong>R.partial</strong> source</summary>
+
+`export function partial(fn, ...args){
+  const len = fn.length
+
+  return (...rest) => {
+    if (args.length + rest.length >= len){
+      return fn(...args, ...rest)
+    }
+
+    return partial(fn, ...[ ...args, ...rest ])
+  }
+}`
+
+</details>
+
+
 ### path
 
 
@@ -1358,6 +3047,35 @@ It will return `undefined`, if such path is not found.
 
 
 
+<details>
+
+<summary><strong>R.path</strong> source</summary>
+
+`export function path(list, obj){
+  if (arguments.length === 1) return _obj => path(list, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  let willReturn = obj
+  let counter = 0
+
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+
+  while (counter < pathArrValue.length){
+    if (willReturn === null || willReturn === undefined){
+      return undefined
+    }
+    willReturn = willReturn[ pathArrValue[ counter ] ]
+    counter++
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### pathOr
 
 
@@ -1368,6 +3086,25 @@ It will return `undefined`, if such path is not found.
 
 It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
 
+
+
+<details>
+
+<summary><strong>R.pathOr</strong> source</summary>
+
+`import { curry } from './curry'
+import { defaultTo } from './defaultTo'
+import { path } from './path'
+
+function pathOrFn(
+  defaultValue, list, obj
+){
+  return defaultTo(defaultValue, path(list, obj))
+}
+
+export const pathOr = curry(pathOrFn)`
+
+</details>
 
 
 ### paths
@@ -1384,6 +3121,19 @@ Because it calls `R.path`, then `singlePath` can be either string or a list.
 
 
 
+<details>
+
+<summary><strong>R.paths</strong> source</summary>
+
+`import { path } from './path'
+
+export function paths(pathsToSearch, obj){
+  return pathsToSearch.map(singlePath => path(singlePath, obj))
+}`
+
+</details>
+
+
 ### pick
 
 
@@ -1394,6 +3144,35 @@ Because it calls `R.path`, then `singlePath` can be either string or a list.
 
 It returns a partial copy of an `obj`  containing only `propsToPick` properties.
 
+
+
+<details>
+
+<summary><strong>R.pick</strong> source</summary>
+
+`export function pick(propsToPick, obj){
+  if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  const keys =
+    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+
+  const willReturn = {}
+  let counter = 0
+
+  while (counter < keys.length){
+    if (keys[ counter ] in obj){
+      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+    }
+    counter++
+  }
+
+  return willReturn
+}`
+
+</details>
 
 
 ### pickAll
@@ -1408,6 +3187,36 @@ Same as `R.pick` but it won't skip the missing props, i.e. it will assign them t
 
 
 
+<details>
+
+<summary><strong>R.pickAll</strong> source</summary>
+
+`export function pickAll(propsToPick, obj){
+  if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+
+  const willReturn = {}
+  let counter = 0
+
+  while (counter < keysValue.length){
+    if (keysValue[ counter ] in obj){
+      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
+    } else {
+      willReturn[ keysValue[ counter ] ] = undefined
+    }
+    counter++
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### pipe
 
 
@@ -1418,6 +3227,22 @@ Same as `R.pick` but it won't skip the missing props, i.e. it will assign them t
 
 It performs left-to-right function composition.
 
+
+
+<details>
+
+<summary><strong>R.pipe</strong> source</summary>
+
+`import { compose } from './compose'
+
+export function pipe(...fns){
+  if (fns.length === 0)
+    throw new Error('pipe requires at least one argument')
+
+  return compose(...fns.reverse())
+}`
+
+</details>
 
 
 ### pluck
@@ -1432,6 +3257,29 @@ It returns list of the values of `property` taken from the all objects inside `l
 
 
 
+<details>
+
+<summary><strong>R.pluck</strong> source</summary>
+
+`import { map } from './map'
+
+export function pluck(property, list){
+  if (arguments.length === 1) return _list => pluck(property, _list)
+
+  const willReturn = []
+
+  map(x => {
+    if (x[ property ] !== undefined){
+      willReturn.push(x[ property ])
+    }
+  }, list)
+
+  return willReturn
+}`
+
+</details>
+
+
 ### prepend
 
 
@@ -1444,6 +3292,22 @@ It adds element `x` at the beginning of `listOrString`.
 
 
 
+<details>
+
+<summary><strong>R.prepend</strong> source</summary>
+
+`export function prepend(x, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => prepend(x, _listOrString)
+
+  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
+
+  return [ x ].concat(listOrString)
+}`
+
+</details>
+
+
 ### product
 
 
@@ -1451,6 +3315,18 @@ It adds element `x` at the beginning of `listOrString`.
 
 `product(list: ReadonlyArray<number>): number`
 
+
+
+<details>
+
+<summary><strong>R.product</strong> source</summary>
+
+`import { multiply } from './multiply'
+import { reduce } from './reduce'
+
+export const product = reduce(multiply, 1)`
+
+</details>
 
 
 ### prop
@@ -1474,6 +3350,25 @@ It returns true if `obj` has property `propToFind` and its value is equal to `va
 
 
 
+<details>
+
+<summary><strong>R.propEq</strong> source</summary>
+
+`import { curry } from './curry'
+
+function propEqFn(
+  propToFind, valueToMatch, obj
+){
+  if (!obj) return false
+
+  return obj[ propToFind ] === valueToMatch
+}
+
+export const propEq = curry(propEqFn)`
+
+</details>
+
+
 ### propIs
 
 
@@ -1484,6 +3379,24 @@ It returns true if `obj` has property `propToFind` and its value is equal to `va
 
 It returns `true` if `property` of `obj` is from `target` type.
 
+
+
+<details>
+
+<summary><strong>R.propIs</strong> source</summary>
+
+`import { curry } from './curry.js'
+import { is } from './is'
+
+function propIsFn(
+  targetPrototype, property, obj
+){
+  return is(targetPrototype, obj[ property ])
+}
+
+export const propIs = curry(propIsFn)`
+
+</details>
 
 
 ### propOr
@@ -1498,6 +3411,26 @@ It returns either `defaultValue` or the value of `property` in `obj`.
 
 
 
+<details>
+
+<summary><strong>R.propOr</strong> source</summary>
+
+`import { curry } from './curry'
+import { defaultTo } from './defaultTo'
+
+function propOrFn(
+  defaultValue, property, obj
+){
+  if (!obj) return defaultValue
+
+  return defaultTo(defaultValue, obj[ property ])
+}
+
+export const propOr = curry(propOrFn)`
+
+</details>
+
+
 ### range
 
 
@@ -1510,6 +3443,32 @@ It returns list of numbers between `start`(inclusive) to `end`(exclusive) number
 
 
 
+<details>
+
+<summary><strong>R.range</strong> source</summary>
+
+`export function range(start, end){
+  if (arguments.length === 1) return _end => range(start, _end)
+
+  if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
+    throw new TypeError('Both arguments to range must be numbers')
+  }
+
+  if (end < start) return []
+
+  const len = end - start
+  const willReturn = Array(len)
+
+  for (let i = 0; i < len; i++){
+    willReturn[ i ] = start + i
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### reduce
 
 
@@ -1517,6 +3476,25 @@ It returns list of numbers between `start`(inclusive) to `end`(exclusive) number
 
 `reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult`
 
+
+
+<details>
+
+<summary><strong>R.reduce</strong> source</summary>
+
+`import { curry } from './curry'
+
+function reduceFn(
+  reducer, acc, list
+){
+  const clone = list.slice()
+
+  return clone.reduce(reducer, acc)
+}
+
+export const reduce = curry(reduceFn)`
+
+</details>
 
 
 ### reject
@@ -1533,6 +3511,21 @@ It will return those members of `list` that return `false` when applied to `pred
 
 
 
+<details>
+
+<summary><strong>R.reject</strong> source</summary>
+
+`import { filter } from './filter'
+
+export function reject(predicate, list){
+  if (arguments.length === 1) return _list => reject(predicate, _list)
+
+  return filter((x, i) => !predicate(x, i), list)
+}`
+
+</details>
+
+
 ### repeat
 
 
@@ -1545,6 +3538,21 @@ It returns a list of `x` input repeated `timesToRepeat` input.
 
 
 
+<details>
+
+<summary><strong>R.repeat</strong> source</summary>
+
+`export function repeat(x, timesToRepeat){
+  if (arguments.length === 1){
+    return _timesToRepeat => repeat(x, _timesToRepeat)
+  }
+
+  return Array(timesToRepeat).fill(x)
+}`
+
+</details>
+
+
 ### replace
 
 
@@ -1555,6 +3563,29 @@ It returns a list of `x` input repeated `timesToRepeat` input.
 
 It replaces `strOrRegex` found in `str` with `replacer`.
 
+
+
+<details>
+
+<summary><strong>R.replace</strong> source</summary>
+
+`export function replace(
+  pattern, replacer, str
+){
+  if (replacer === undefined){
+    return (_replacer, _str) => replace(
+      pattern, _replacer, _str
+    )
+  } else if (str === undefined){
+    return _str => replace(
+      pattern, replacer, _str
+    )
+  }
+
+  return str.replace(pattern, replacer)
+}`
+
+</details>
 
 
 ### reverse
@@ -1578,6 +3609,31 @@ It returns a copied **Object** or **Array** with modified `lens` focus set to `r
 
 
 
+<details>
+
+<summary><strong>R.set</strong> source</summary>
+
+`import { always } from './always'
+import { over } from './over'
+
+export function set(
+  lens, replacer, x
+){
+  if (arguments.length === 1) return (_v, _x) => set(
+    lens, _v, _x
+  )
+  if (arguments.length === 2) return _x => set(
+    lens, replacer, _x
+  )
+
+  return over(
+    lens, always(replacer), x
+  )
+}`
+
+</details>
+
+
 ### slice
 
 
@@ -1588,6 +3644,23 @@ It returns a copied **Object** or **Array** with modified `lens` focus set to `r
 
 It returns `listOrString` between `from` and `to` indexes.
 
+
+
+<details>
+
+<summary><strong>R.slice</strong> source</summary>
+
+`import { curry } from './curry'
+
+function sliceFn(
+  from, to, list
+){
+  return list.slice(from, to)
+}
+
+export const slice = curry(sliceFn)`
+
+</details>
 
 
 ### sort
@@ -1602,6 +3675,21 @@ It returns copy of `list` sorted by `sortFn` function.
 
 
 
+<details>
+
+<summary><strong>R.sort</strong> source</summary>
+
+`export function sort(sortFn, list){
+  if (arguments.length === 1) return _list => sort(sortFn, _list)
+
+  const clone = list.slice()
+
+  return clone.sort(sortFn)
+}`
+
+</details>
+
+
 ### sortBy
 
 
@@ -1614,6 +3702,28 @@ It returns copy of `list` sorted by `sortFn` function.
 
 
 
+<details>
+
+<summary><strong>R.sortBy</strong> source</summary>
+
+`export function sortBy(sortFn, list){
+  if (arguments.length === 1) return _list => sortBy(sortFn, _list)
+
+  const clone = list.slice()
+
+  return clone.sort((a, b) => {
+    const aSortResult = sortFn(a)
+    const bSortResult = sortFn(b)
+
+    if (aSortResult === bSortResult) return 0
+
+    return aSortResult < bSortResult ? -1 : 1
+  })
+}`
+
+</details>
+
+
 ### split
 
 
@@ -1624,6 +3734,19 @@ It returns copy of `list` sorted by `sortFn` function.
 
 Curried version of `String.prototype.split`
 
+
+
+<details>
+
+<summary><strong>R.split</strong> source</summary>
+
+`export function split(separator, str){
+  if (arguments.length === 1) return _str => split(separator, _str)
+
+  return str.split(separator)
+}`
+
+</details>
 
 
 ### splitEvery
@@ -1647,6 +3770,19 @@ Curried version of `String.prototype.startsWith`
 
 
 
+<details>
+
+<summary><strong>R.startsWith</strong> source</summary>
+
+`export function startsWith(target, str){
+  if (arguments.length === 1) return _str => startsWith(target, _str)
+
+  return str.startsWith(target)
+}`
+
+</details>
+
+
 ### subtract
 
 
@@ -1665,6 +3801,17 @@ Curried version of `String.prototype.startsWith`
 
 
 
+<details>
+
+<summary><strong>R.sum</strong> source</summary>
+
+`export function sum(list){
+  return list.reduce((prev, current) => prev + current, 0)
+}`
+
+</details>
+
+
 ### symmetricDifference
 
 
@@ -1677,6 +3824,26 @@ It returns a merged list of `x` and `y` with all equal elements removed.
 
 
 
+<details>
+
+<summary><strong>R.symmetricDifference</strong> source</summary>
+
+`import { concat } from './concat'
+import { filter } from './filter'
+import { includes } from './includes'
+
+export function symmetricDifference(x, y){
+  if (arguments.length === 1){
+    return _y => symmetricDifference(x, _y)
+  }
+
+  return concat(filter(value => !includes(value, y), x),
+    filter(value => !includes(value, x), y))
+}`
+
+</details>
+
+
 ### T
 
 
@@ -1684,6 +3851,17 @@ It returns a merged list of `x` and `y` with all equal elements removed.
 
 `T(): boolean`
 
+
+
+<details>
+
+<summary><strong>R.T</strong> source</summary>
+
+`export function T(){
+  return true
+}`
+
+</details>
 
 
 ### tail
@@ -1698,6 +3876,19 @@ It returns all but the first element of `listOrString`.
 
 
 
+<details>
+
+<summary><strong>R.tail</strong> source</summary>
+
+`import { drop } from './drop'
+
+export function tail(listOrString){
+  return drop(1, listOrString)
+}`
+
+</details>
+
+
 ### take
 
 
@@ -1710,6 +3901,26 @@ It returns the first `howMany` elements of `listOrString`.
 
 
 
+<details>
+
+<summary><strong>R.take</strong> source</summary>
+
+`import baseSlice from './_internals/baseSlice'
+
+export function take(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => take(howMany, _listOrString)
+  if (howMany < 0) return listOrString.slice()
+  if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
+
+  return baseSlice(
+    listOrString, 0, howMany
+  )
+}`
+
+</details>
+
+
 ### takeLast
 
 
@@ -1720,6 +3931,33 @@ It returns the first `howMany` elements of `listOrString`.
 
 It returns the last `howMany` elements of `listOrString`.
 
+
+
+<details>
+
+<summary><strong>R.takeLast</strong> source</summary>
+
+`import baseSlice from './_internals/baseSlice'
+
+export function takeLast(howMany, listOrString){
+  if (arguments.length === 1)
+    return _listOrString => takeLast(howMany, _listOrString)
+
+  const len = listOrString.length
+  if (howMany < 0) return listOrString.slice()
+  let numValue = howMany > len ? len : howMany
+
+  if (typeof listOrString === 'string')
+    return listOrString.slice(len - numValue)
+
+  numValue = len - numValue
+
+  return baseSlice(
+    listOrString, numValue, len
+  )
+}`
+
+</details>
 
 
 ### tap
@@ -1736,6 +3974,21 @@ One use case is debuging in the middle of `R.compose`.
 
 
 
+<details>
+
+<summary><strong>R.tap</strong> source</summary>
+
+`export function tap(fn, x){
+  if (arguments.length === 1) return _x => tap(fn, _x)
+
+  fn(x)
+
+  return x
+}`
+
+</details>
+
+
 ### test
 
 
@@ -1746,6 +3999,23 @@ One use case is debuging in the middle of `R.compose`.
 
 It determines whether `str` matches `regExpression`.
 
+
+
+<details>
+
+<summary><strong>R.test</strong> source</summary>
+
+`export function test(pattern, str){
+  if (arguments.length === 1) return _str => test(pattern, _str)
+
+  if (typeof pattern === 'string'){
+    throw new TypeError(`‘test’ requires a value of type RegExp as its first argument; received "${ pattern }"`)
+  }
+
+  return str.search(pattern) !== -1
+}`
+
+</details>
 
 
 ### times
@@ -1762,6 +4032,25 @@ The range array includes numbers between `0` and `howMany`(exclusive).
 
 
 
+<details>
+
+<summary><strong>R.times</strong> source</summary>
+
+`import { map } from './map'
+import { range } from './range'
+
+export function times(fn, howMany){
+  if (arguments.length === 1) return _howMany => times(fn, _howMany)
+  if (!Number.isInteger(howMany) || howMany < 0){
+    throw new RangeError('n must be an integer')
+  }
+
+  return map(fn, range(0, howMany))
+}`
+
+</details>
+
+
 ### toLower
 
 
@@ -1769,6 +4058,17 @@ The range array includes numbers between `0` and `howMany`(exclusive).
 
 `toLower(str: string): string`
 
+
+
+<details>
+
+<summary><strong>R.toLower</strong> source</summary>
+
+`export function toLower(str){
+  return str.toLowerCase()
+}`
+
+</details>
 
 
 ### toPairs
@@ -1783,6 +4083,17 @@ It transforms an object to a list.
 
 
 
+<details>
+
+<summary><strong>R.toPairs</strong> source</summary>
+
+`export function toPairs(obj){
+  return Object.entries(obj)
+}`
+
+</details>
+
+
 ### toString
 
 
@@ -1790,6 +4101,17 @@ It transforms an object to a list.
 
 `toString<T>(x: T): string`
 
+
+
+<details>
+
+<summary><strong>R.toString</strong> source</summary>
+
+`export function toString(val){
+  return val.toString()
+}`
+
+</details>
 
 
 ### toUpper
@@ -1801,6 +4123,17 @@ It transforms an object to a list.
 
 
 
+<details>
+
+<summary><strong>R.toUpper</strong> source</summary>
+
+`export function toUpper(str){
+  return str.toUpperCase()
+}`
+
+</details>
+
+
 ### transpose
 
 
@@ -1810,6 +4143,22 @@ It transforms an object to a list.
 
 
 
+<details>
+
+<summary><strong>R.transpose</strong> source</summary>
+
+`export function transpose(array){
+  return array.reduce((acc, el) => {
+    el.forEach((nestedEl, i) =>
+      Array.isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]))
+
+    return acc
+  }, [])
+}`
+
+</details>
+
+
 ### trim
 
 
@@ -1817,6 +4166,17 @@ It transforms an object to a list.
 
 `trim(str: string): string`
 
+
+
+<details>
+
+<summary><strong>R.trim</strong> source</summary>
+
+`export function trim(str){
+  return str.trim()
+}`
+
+</details>
 
 
 ### type
@@ -1840,6 +4200,30 @@ It returns a new array containing only one copy of each element of `list`.
 
 
 
+<details>
+
+<summary><strong>R.uniq</strong> source</summary>
+
+`import { includes } from './includes'
+
+export function uniq(list){
+  let index = -1
+  const willReturn = []
+
+  while (++index < list.length){
+    const value = list[ index ]
+
+    if (!includes(value, willReturn)){
+      willReturn.push(value)
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
+
+
 ### uniqWith
 
 
@@ -1850,6 +4234,35 @@ It returns a new array containing only one copy of each element of `list`.
 
 It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
 
+
+
+<details>
+
+<summary><strong>R.uniqWith</strong> source</summary>
+
+`import { any } from './any'
+
+export function uniqWith(fn, list){
+  if (arguments.length === 1) return _list => uniqWith(fn, _list)
+
+  let index = -1
+  const len = list.length
+  const willReturn = []
+
+  while (++index < len){
+    const value = list[ index ]
+    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+      willReturn)
+
+    if (!flag){
+      willReturn.push(value)
+    }
+  }
+
+  return willReturn
+}`
+
+</details>
 
 
 ### update
@@ -1864,6 +4277,33 @@ It returns a copy of `list` with updated element at `index` with `newValue`.
 
 
 
+<details>
+
+<summary><strong>R.update</strong> source</summary>
+
+`export function update(
+  idx, val, list
+){
+  if (val === undefined){
+    return (_val, _list) => update(
+      idx, _val, _list
+    )
+  } else if (list === undefined){
+    return _list => update(
+      idx, val, _list
+    )
+  }
+
+  const arrClone = list.slice()
+
+  return arrClone.fill(
+    val, idx, idx + 1
+  )
+}`
+
+</details>
+
+
 ### values
 
 
@@ -1876,6 +4316,21 @@ With correct input, this is nothing more than `Object.values(obj)`. If `obj` is 
 
 
 
+<details>
+
+<summary><strong>R.values</strong> source</summary>
+
+`import { type } from './type.js'
+
+export function values(obj){
+  if (type(obj) !== 'Object') return []
+
+  return Object.values(obj)
+}`
+
+</details>
+
+
 ### view
 
 
@@ -1886,6 +4341,24 @@ With correct input, this is nothing more than `Object.values(obj)`. If `obj` is 
 
 It returns the value of `lens` focus over `target` object.
 
+
+
+<details>
+
+<summary><strong>R.view</strong> source</summary>
+
+`const Const = x => ({
+  x,
+  map : fn => Const(x),
+})
+
+export function view(lens, target){
+  if (arguments.length === 1) return _target => view(lens, _target)
+
+  return lens(Const)(target).x
+}`
+
+</details>
 
 
 ### without
@@ -1906,6 +4379,19 @@ It returns the value of `lens` focus over `target` object.
 
 
 
+<details>
+
+<summary><strong>R.xor</strong> source</summary>
+
+`export function xor(a, b){
+  if (arguments.length === 1) return _b => xor(a, _b)
+
+  return Boolean(a) && !b || Boolean(b) && !a
+}`
+
+</details>
+
+
 ### zip
 
 
@@ -1918,6 +4404,26 @@ It will return a new array containing tuples of equally positions items from bot
 
 The returned list will be truncated to match the length of the shortest supplied list.
 
+
+
+<details>
+
+<summary><strong>R.zip</strong> source</summary>
+
+`export function zip(left, right){
+  if (arguments.length === 1) return _right => zip(left, _right)
+
+  const result = []
+  const length = Math.min(left.length, right.length)
+
+  for (let i = 0; i < length; i++){
+    result[ i ] = [ left[ i ], right[ i ] ]
+  }
+
+  return result
+}`
+
+</details>
 
 
 ### zipObj
