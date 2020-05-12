@@ -409,6 +409,7 @@ test('ramda specs', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {add} from 'rambda'
 
 describe('add', () => {
@@ -419,6 +420,7 @@ describe('add', () => {
     resultB // $ExpectType number
   })
 })
+```text
 
 </details>
 
@@ -645,6 +647,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {all} from 'rambda'
 
 describe('all', () => {
@@ -660,6 +663,7 @@ describe('all', () => {
     q // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -764,6 +768,7 @@ test('when returns false', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {allPass} from 'rambda'
 
 describe('allPass', () => {
@@ -781,6 +786,7 @@ describe('allPass', () => {
     x // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -1024,6 +1030,7 @@ test('passes index to predicate', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {any} from 'rambda'
 
 describe('any', () => {
@@ -1065,6 +1072,7 @@ describe('any', () => {
     x // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -1179,6 +1187,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {anyPass} from 'rambda'
 
 describe('anyPass', () => {
@@ -1196,6 +1205,7 @@ describe('anyPass', () => {
     x // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -1744,6 +1754,7 @@ test('restructure json object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {multiply, applySpec, inc, dec, add} from 'rambda'
 
 describe('applySpec', () => {
@@ -1767,6 +1778,7 @@ describe('applySpec', () => {
     result // $ExpectType Output
   })
 })
+```text
 
 </details>
 
@@ -2246,6 +2258,7 @@ test('skip evaluation of the second expression', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {both} from 'rambda'
 
 describe('both', () => {
@@ -2298,6 +2311,7 @@ describe('both + curry', () => {
     result // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -2952,6 +2966,7 @@ test('predicates are tested in order', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {cond, always, equals} from 'rambda'
 
 describe('cond', () => {
@@ -2971,6 +2986,7 @@ describe('cond', () => {
     a // $ExpectType string
   })
 })
+```text
 
 </details>
 
@@ -3427,6 +3443,7 @@ test('default extends to indefinite input arguments - case 6', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {defaultTo} from 'rambda'
 
 describe('defaultTo with Ramda spec', () => {
@@ -3469,6 +3486,7 @@ describe('defaultTo with Rambda spec', () => {
     x // $ExpectType string | number
   })
 })
+```text
 
 </details>
 
@@ -3865,6 +3883,7 @@ test('should return copy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {drop} from 'rambda'
 
 describe('drop', () => {
@@ -3879,6 +3898,7 @@ describe('drop', () => {
     yy // $ExpectType number[]
   })
 })
+```text
 
 </details>
 
@@ -4887,6 +4907,7 @@ test('with object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {filter} from 'rambda'
 
 describe('filter with array', () => {
@@ -4964,6 +4985,7 @@ describe('filter with objects', () => {
     x // $ExpectType Dictionary<number>
   })
 })
+```text
 
 </details>
 
@@ -6674,6 +6696,7 @@ test('with string - bad path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {indexBy} from 'rambda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
@@ -6710,6 +6733,7 @@ describe('indexBy', () => {
     resultCurried // $ExpectType { [key: string]: Foo; }
   })
 })
+```text
 
 </details>
 
@@ -8567,6 +8591,7 @@ test('when undefined instead of array', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {map} from 'rambda'
 
 describe('map with arrays', () => {
@@ -8657,6 +8682,7 @@ describe('map with objects', () => {
     x // $ExpectType Dictionary<string>
   })
 })
+```text
 
 </details>
 
@@ -9753,6 +9779,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {omit} from 'rambda'
 
 describe('omit with string as props input', () => {
@@ -9804,6 +9831,7 @@ describe('omit with array as props input', () => {
     y // $ExpectType Dictionary<number>
   })
 })
+```text
 
 </details>
 
@@ -10121,6 +10149,7 @@ test('path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {path} from 'rambda'
 
 interface Input {
@@ -10179,6 +10208,7 @@ describe('path with specified input', () => {
     resultB // $ExpectType boolean | undefined
   })
 })
+```text
 
 </details>
 
@@ -10454,6 +10484,7 @@ test('returns undefined for items not found', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {paths} from 'rambda'
 
 interface Input {
@@ -10485,6 +10516,7 @@ describe('paths', () => {
     result // $ExpectType (number | undefined)[]
   })
 })
+```text
 
 </details>
 
@@ -10656,6 +10688,7 @@ test('pick', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {pick} from 'rambda'
 
 describe('pick with string as props input', () => {
@@ -10707,6 +10740,7 @@ describe('pick with array as props input', () => {
     y // $ExpectType Dictionary<number>
   })
 })
+```text
 
 </details>
 
@@ -11054,6 +11088,7 @@ test('with number', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {pluck} from 'rambda'
 
 describe('pluck', () => {
@@ -11084,6 +11119,7 @@ describe('pluck', () => {
     resultCurry // $ExpectType number[]
   })
 })
+```text
 
 </details>
 
@@ -11744,6 +11780,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {reduce} from 'rambda'
 
 describe('reduce', () => {
@@ -11831,6 +11868,7 @@ describe('reduce', () => {
     result // $ExpectType string
   })
 })
+```text
 
 </details>
 
@@ -11996,6 +12034,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {reject} from 'rambda'
 
 describe('reject with array', () => {
@@ -12073,6 +12112,7 @@ describe('reject with objects', () => {
     x // $ExpectType Dictionary<number>
   })
 })
+```text
 
 </details>
 
@@ -12638,6 +12678,7 @@ test('with compose', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {sortBy} from 'rambda'
 
 describe('sortBy', () => {
@@ -12657,6 +12698,7 @@ describe('sortBy', () => {
     result[0].a // $ExpectType number
   })
 })
+```text
 
 </details>
 
@@ -14168,6 +14210,7 @@ test('uniq', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {uniq} from 'rambda'
 
 describe('uniq', () => {
@@ -14176,6 +14219,7 @@ describe('uniq', () => {
     result // $ExpectType number[]
   })
 })
+```text
 
 </details>
 
@@ -14399,6 +14443,7 @@ test('uniqWith', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {uniqWith} from 'rambda'
 
 describe('uniqWith', () => {
@@ -14432,6 +14477,7 @@ describe('uniqWith', () => {
     result // $ExpectType { id: number; title: string; }[]
   })
 })
+```text
 
 </details>
 
@@ -14521,6 +14567,7 @@ test('update', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {update} from 'rambda'
 
 describe('update', () => {
@@ -14529,6 +14576,7 @@ describe('update', () => {
     result // $ExpectType number[]
   })
 })
+```text
 
 </details>
 
@@ -14639,6 +14687,7 @@ test('with bad input', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {values} from 'rambda'
 
 describe('values', () => {
@@ -14651,6 +14700,7 @@ describe('values', () => {
     result // $ExpectType number[]
   })
 })
+```text
 
 </details>
 
@@ -14842,6 +14892,7 @@ test.skip('returns a curried function', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {xor} from 'rambda'
 
 describe('xor', () => {
@@ -14852,6 +14903,7 @@ describe('xor', () => {
     xor(true)(false) // $ExpectType boolean
   })
 })
+```text
 
 </details>
 
@@ -14988,6 +15040,7 @@ test('should truncate result to length of shorted input list', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
+```text
 import {zip} from 'rambda'
 
 describe('zip', () => {
@@ -14999,6 +15052,7 @@ describe('zip', () => {
     result // $ExpectType KeyValuePair<number, string>[]
   })
 })
+```text
 
 </details>
 

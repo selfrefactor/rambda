@@ -53,7 +53,9 @@ function createTypescriptTest(method){
 
 <summary><strong>Typescript</strong> test</summary>
 
+\`\`\`text
 {{typescriptDefinitionTest}}
+\`\`\`text
 
 </details>
 `
