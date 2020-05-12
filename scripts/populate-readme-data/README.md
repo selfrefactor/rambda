@@ -375,6 +375,12 @@ export function add(a, b){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -461,6 +467,12 @@ export const adjust = curry(adjustFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -562,6 +574,12 @@ export function all(predicate, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -658,6 +676,12 @@ export function allPass(predicates){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -738,6 +762,12 @@ export function always(x){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -800,6 +830,12 @@ export function and(a, b){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -875,6 +911,12 @@ export function any(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -962,6 +1004,12 @@ export function anyPass(predicates){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -1065,6 +1113,12 @@ export function append(x, listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -1294,6 +1348,12 @@ export function applySpec(spec, ...args){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -1572,6 +1632,12 @@ export const assoc = curry(assocFn)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -1745,6 +1811,12 @@ export const assocPath = curry(assocPathFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -1939,6 +2011,12 @@ export function both(f, g){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -2048,6 +2126,12 @@ export const clamp = curry(clampFn)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -2106,6 +2190,12 @@ clone<T>(input: ReadonlyArray<T>): T[];
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### complement
 
@@ -2154,6 +2244,12 @@ export function complement(fn){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -2251,6 +2347,12 @@ export function compose(...fns){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -2343,6 +2445,12 @@ export function concat(x, y){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -2440,6 +2548,12 @@ export function cond(conditions){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -2541,6 +2655,12 @@ export function curry(fn, args = []){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -2618,6 +2738,12 @@ export const dec = x => x - 1
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -2717,6 +2843,12 @@ export function defaultTo(defaultArgument, ...inputArguments){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -2858,6 +2990,12 @@ export function difference(a, b){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -2945,6 +3083,12 @@ export function dissoc(prop, obj){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -3064,6 +3208,12 @@ export function divide(a, b){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -3125,6 +3275,12 @@ export function drop(howManyToDrop, listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -3212,6 +3368,12 @@ export function dropLast(howManyToDrop, listOrString){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -3265,6 +3427,12 @@ either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### endsWith
 
@@ -3312,6 +3480,12 @@ export function endsWith(target, str){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -3475,6 +3649,12 @@ export function equals(a, b){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -3756,6 +3936,12 @@ export function F(){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### filter
 
@@ -3844,6 +4030,12 @@ export function filter(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -3970,6 +4162,12 @@ export function find(predicate, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -4048,6 +4246,12 @@ export function findIndex(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -4132,6 +4336,12 @@ export function flatten(list, input){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -4218,6 +4428,12 @@ export function flip(fn){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -4297,6 +4513,12 @@ export function forEach(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -4455,6 +4677,12 @@ export function fromPairs(listOfPairs){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -4540,6 +4768,12 @@ export function groupBy(groupFn, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -4683,6 +4917,12 @@ export function groupWith(compareFn, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -4837,6 +5077,12 @@ export function has(prop, obj){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -4877,6 +5123,12 @@ head(listOrString: string): string;
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### identical
@@ -4931,6 +5183,12 @@ export function identical(a, b){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5014,6 +5272,12 @@ export function identity(input){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -5096,6 +5360,12 @@ export const ifElse = curry(ifElseFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5218,6 +5488,12 @@ export const inc = x => x + 1
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -5251,6 +5527,12 @@ includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### indexBy
@@ -5339,6 +5621,12 @@ export function indexBy(condition, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5484,6 +5772,12 @@ export function indexOf(valueToFind, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -5552,6 +5846,12 @@ export function init(listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5629,6 +5929,12 @@ export function intersection(listA, listB){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5714,6 +6020,12 @@ export function intersperse(separator, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -5790,6 +6102,12 @@ export function is(targetPrototype, x){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -5906,6 +6224,12 @@ export function isEmpty(input){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -5977,6 +6301,12 @@ export function isNil(x){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -6040,6 +6370,12 @@ export function join(glue, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -6102,6 +6438,12 @@ export function keys(x){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6167,6 +6509,12 @@ export function last(listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6249,6 +6597,12 @@ export function lastIndexOf(target, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -6322,6 +6676,12 @@ export function length(x){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6403,6 +6763,12 @@ export function lens(getter, setter){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### lensIndex
 
@@ -6452,6 +6818,12 @@ export function lensIndex(index){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6572,6 +6944,12 @@ export function lensPath(key){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6760,6 +7138,12 @@ export function lensProp(key){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -6954,6 +7338,12 @@ export function map(fn, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7079,6 +7469,12 @@ export function match(pattern, input){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7158,6 +7554,12 @@ export function max(x, y){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7229,6 +7631,12 @@ export const maxBy = curry(maxByFn)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7294,6 +7702,12 @@ export function mean(list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -7369,6 +7783,12 @@ export function median(list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7436,6 +7856,12 @@ export function merge(target, newProps){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -7518,6 +7944,12 @@ export function min(x, y){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7585,6 +8017,12 @@ export const minBy = curry(minByFn)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7651,6 +8089,12 @@ export function modulo(x, y){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7711,6 +8155,12 @@ export function multiply(x, y){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -7764,6 +8214,12 @@ export function negate(x){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -7828,6 +8284,12 @@ export function none(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -7899,6 +8361,12 @@ export function not(input){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -7973,6 +8441,12 @@ export function nth(index, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -8069,6 +8543,12 @@ export function omit(propsToOmit, obj){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -8180,6 +8660,12 @@ export function over(
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### partial
 
@@ -8244,6 +8730,12 @@ export function partial(fn, ...args){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -8387,6 +8879,12 @@ export function path(list, obj){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -8489,6 +8987,12 @@ export const pathOr = curry(pathOrFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -8604,6 +9108,12 @@ export function paths(pathsToSearch, obj){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -8751,6 +9261,12 @@ export function pick(propsToPick, obj){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -8879,6 +9395,12 @@ export function pickAll(propsToPick, obj){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -8978,6 +9500,12 @@ export function pipe(...fns){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9064,6 +9592,12 @@ export function pluck(property, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9141,6 +9675,12 @@ export function prepend(x, listOrString){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9207,6 +9747,12 @@ export const product = reduce(multiply, 1)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9244,6 +9790,12 @@ prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### propEq
@@ -9305,6 +9857,12 @@ export const propEq = curry(propEqFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -9381,6 +9939,12 @@ export const propIs = curry(propIsFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -9470,6 +10034,12 @@ export const propOr = curry(propOrFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -9561,6 +10131,12 @@ export function range(start, end){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9645,6 +10221,12 @@ export const reduce = curry(reduceFn)
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9727,6 +10309,12 @@ export function reject(predicate, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -9812,6 +10400,12 @@ export function repeat(x, timesToRepeat){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9893,6 +10487,12 @@ export function replace(
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -9938,6 +10538,12 @@ reverse(listOrString: string): string;
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### set
@@ -10000,6 +10606,12 @@ export function set(
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### slice
 
@@ -10057,6 +10669,12 @@ export const slice = curry(sliceFn)
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -10147,6 +10765,12 @@ export function sort(sortFn, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -10241,6 +10865,12 @@ export function sortBy(sortFn, list){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -10329,6 +10959,12 @@ export function split(separator, str){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -10363,6 +10999,12 @@ splitEvery(sliceLength: number): {
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### startsWith
@@ -10414,6 +11056,12 @@ export function startsWith(target, str){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -10454,6 +11102,12 @@ subtract(x: number): (y: number) => number;
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### sum
 
@@ -10492,6 +11146,12 @@ export function sum(list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -10563,6 +11223,12 @@ export function symmetricDifference(x, y){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -10632,6 +11298,12 @@ export function T(){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### tail
 
@@ -10679,6 +11351,12 @@ export function tail(listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -10760,6 +11438,12 @@ export function take(howMany, listOrString){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -10859,6 +11543,12 @@ export function takeLast(howMany, listOrString){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -10948,6 +11638,12 @@ export function tap(fn, x){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11016,6 +11712,12 @@ export function test(pattern, str){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11094,6 +11796,12 @@ export function times(fn, howMany){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11168,6 +11876,12 @@ export function toLower(str){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11231,6 +11945,12 @@ export function toPairs(obj){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11297,6 +12017,12 @@ export function toString(val){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11350,6 +12076,12 @@ export function toUpper(str){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11412,6 +12144,12 @@ export function transpose(array){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11500,6 +12238,12 @@ export function trim(str){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11530,6 +12274,12 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### uniq
@@ -11587,6 +12337,12 @@ export function uniq(list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11682,6 +12438,12 @@ export function uniqWith(fn, list){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -11853,6 +12615,12 @@ export function update(
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -11918,6 +12686,12 @@ export function values(obj){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -12002,6 +12776,12 @@ export function view(lens, target){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 ### without
 
@@ -12018,6 +12798,12 @@ without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 ### xor
@@ -12064,6 +12850,12 @@ export function xor(a, b){
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 <details>
@@ -12187,6 +12979,12 @@ export function zip(left, right){
 
 </details>
 
+---
+
+FOO
+---
+
+
 
 <details>
 
@@ -12248,6 +13046,12 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 ```
 
 </details>
+
+---
+
+FOO
+---
+
 
 
 
