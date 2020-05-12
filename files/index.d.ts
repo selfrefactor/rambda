@@ -925,26 +925,26 @@ export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 /*
 Method: endsWith
 
-Explanation: It returns `true` if `input` string ends with `suffix`.
+Explanation: Curried version of `String.prototype.endsWith`
 
 Example:
 
 ```
-const input = 'foo-bar'
-const suffix = '-bar'
+const str = 'foo-bar'
+const target = '-bar'
 
-const result = R.endsWith(suffix, input)
+const result = R.endsWith(target, str)
 // => true
 ```
 
 Categories: String
 
-Notes: It doesn't work with arrays.
+Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function endsWith(a: string, list: string): boolean;
-export function endsWith(a: string): (list: string) => boolean;
+export function endsWith(target: string, str: string): boolean;
+export function endsWith(target: string): (str: string) => boolean;
 
 /*
 Method: equals
@@ -3305,7 +3305,7 @@ const result = [
 
 Categories: String
 
-Notes: **Ramda** method work also with arrays, while here this method is used only for strings.
+Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
@@ -3313,41 +3313,42 @@ export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
 
 /*
-Method:
+Method: substract
 
-Explanation:
-
-
+Explanation: Curried version of `x - y`
 
 Example:
 
 ```
+const x = 3
+const y = 1
 
+R.substract(x, y) 
+// => 2
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function subtract(a: number, b: number): number;
-export function subtract(a: number): (b: number) => number;
+export function subtract(x: number, y: number): number;
+export function subtract(x: number): (y: number) => number;
 
 /*
-Method:
+Method: sum
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.sum([1, 2, 3, 4, 5]) 
+// => 15
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -3356,29 +3357,31 @@ Notes:
 export function sum(list: ReadonlyArray<number>): number;
 
 /*
-Method:
+Method: symmetricDifference
 
-Explanation:
-
-
+Explanation: It returns a merged list of `x` and `y` with all equal elements removed. 
 
 Example:
 
 ```
+const x = [ 1, 2, 3, 4 ]
+const y = [ 3, 4, 5, 6 ]
 
+const result = symmetricDifference(x, y)
+// => [ 1, 2, 5, 6 ]
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: `R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-export function symmetricDifference<T>(list: ReadonlyArray<T>): <T>(list: ReadonlyArray<T>) => T[];
+export function symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[];
+export function symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 /*
-Method:
+Method: T
 
 Explanation:
 
@@ -3387,10 +3390,11 @@ Explanation:
 Example:
 
 ```
-
+R.T() 
+// => true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -3399,19 +3403,21 @@ Notes:
 export function T(): boolean;
 
 /*
-Method:
+Method: tail
 
-Explanation:
-
-
+Explanation: It returns all but the first element of `listOrString`.
 
 Example:
 
 ```
-
+const result = [
+  R.tail([1, 2, 3]),  
+  R.tail('foo') 
+]
+// => [[2, 3], 'oo']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 

@@ -2,10 +2,11 @@ import { concat } from './concat'
 import { filter } from './filter'
 import { includes } from './includes'
 
-export function symmetricDifference(list1, list2){
-  if (arguments.length === 1)
-    return _list => symmetricDifference(list1, _list)
+export function symmetricDifference(x, y){
+  if (arguments.length === 1){
+    return _y => symmetricDifference(x, _y)
+  }
 
-  return concat(filter(value => !includes(value, list2), list1),
-    filter(value => !includes(value, list1), list2))
+  return concat(filter(value => !includes(value, y), x),
+    filter(value => !includes(value, x), y))
 }

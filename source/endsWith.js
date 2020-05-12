@@ -1,5 +1,5 @@
-export function endsWith(suffix, input){
-  if (arguments.length === 1) return _input => endsWith(suffix, _input)
+export function endsWith(target, str){
+  if (arguments.length === 1) return _str => endsWith(target, _str)
 
-  return input.endsWith(suffix)
+  return str.endsWith(target)
 }
