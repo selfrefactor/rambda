@@ -11,6 +11,10 @@ import { rambdaRepl } from './rambda-repl'
 
 const readmeTemplate = `
 {{intro}}
+
+## API
+
+{{methods}}
 `
 const readmeTemplatex = `
 {{intro}}
