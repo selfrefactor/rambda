@@ -8,6 +8,12 @@ test('when true', () => {
 
 test('when false', () => {
   expect(anyFalse(
-    true, true, true
+    true, true
   )).toBeFalsy()
+})
+
+test('supports function', () => {
+  expect(anyFalse(
+     true,() => true, () => false
+  )).toBeTruthy()
 })

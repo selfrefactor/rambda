@@ -3952,13 +3952,13 @@ export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T
 /*
 Method: allFalse
 
-Explanation: It returns `true` if all `inputs` arguments return `false` when passed to `Boolean`.
+Explanation: It returns `true` if all `inputs` arguments are falsy according to `R.isFalsy`.
 
 Example:
 
 ```
 R.allFalse(null, undefined, '', () => false)
-//=> true
+// => true
 ```
 
 Categories: Logic
@@ -3972,14 +3972,13 @@ export function allFalse(...inputs: any[]): boolean;
 /*
 Method: anyFalse
 
-Explanation:
-
-
+Explanation: It returns `true` if any `inputs` is falsy according to `R.isFalsy`.
 
 Example:
 
 ```
-
+R.anyFalse(2, , '', () => false)
+// => true
 ```
 
 Categories:
