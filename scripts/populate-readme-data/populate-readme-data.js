@@ -1,6 +1,6 @@
 import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
-import { map, template } from 'rambdax'
+import { map, template, replace } from 'rambdax'
 
 import methodsDataRambdax from '../populate-docs-data/data-rambdax.json'
 import methodsDataRambda from '../populate-docs-data/data.json'
@@ -8,6 +8,8 @@ import { createMethodData } from './create-method-data'
 import { getIntro } from './get-intro'
 import { getTail } from './get-tail'
 import { rambdaRepl } from './rambda-repl'
+
+const removeDoubleNewLines = replace(/\n{3,5}/g, '\n\n')
 
 const readmeTemplate = `
 {{intro}}
@@ -63,7 +65,8 @@ export async function populateReadmeData({ withRambdax }){
   const readme = template(readmeTemplate, templateData).trim()
   const output = getOutputPath(withRambdax)
 
-  await outputFile(output, readme)
+  const finalReadme = removeDoubleNewLines(readme)
+  await outputFile(output, finalReadme)
 
-  return readme
+  return finalReadme
 }

@@ -7,4 +7,3 @@ export function init(listOrString){
     listOrString, 0, -1
   ) : []
 }
- 

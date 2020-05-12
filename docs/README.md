@@ -1061,14 +1061,15 @@ const isBig = x => x > 20
 const isOdd = x => x % 2 === 1
 const input = 11
 
-const fn = const result = R.anyPass(
+const fn = R.anyPass(
   [isBig, isOdd]
 )
 
-const result = fn(input) // => true
+const result = fn(input) 
+// => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isBig%20%3D%20x%20%3D%3E%20x%20%3E%2020%0Aconst%20isOdd%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0Aconst%20input%20%3D%2011%0A%0Aconst%20fn%20%3D%20const%20result%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)%0A%0Aconst%20result%20%3D%20fn(input)%20%2F%2F%20%3D%3E%20true">Try the above <strong>R.anyPass</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isBig%20%3D%20x%20%3D%3E%20x%20%3E%2020%0Aconst%20isOdd%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0Aconst%20input%20%3D%2011%0A%0Aconst%20fn%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)%0A%0Aconst%20result%20%3D%20fn(input)%20%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.anyPass</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10486,7 +10487,8 @@ export function pickAll(propsToPick, obj){
   if (obj === null || obj === undefined){
     return undefined
   }
-  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
+  const keysValue =
+    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
 
   const willReturn = {}
   let counter = 0

@@ -295,11 +295,12 @@ const isBig = x => x > 20
 const isOdd = x => x % 2 === 1
 const input = 11
 
-const fn = const result = R.anyPass(
+const fn = R.anyPass(
   [isBig, isOdd]
 )
 
-const result = fn(input) // => true
+const result = fn(input) 
+// => true
 ```
 
 Categories: Function
