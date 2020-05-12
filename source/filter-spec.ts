@@ -3,7 +3,7 @@ import {filter} from 'rambda'
 describe('filter with array', () => {
   it('1 curry', () => {
     const x = filter<number>(a => {
-      a // $ExpectType number[]
+      a // $ExpectType number
       return a > 1
     })([1, 2, 3])
     x // $ExpectType number[]
