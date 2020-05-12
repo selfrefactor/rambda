@@ -335,15 +335,25 @@ method | Rambda | Ramda | Lodash
 ### add
 
 
+
+
 ```typescript
 add(a: number, b: number): number
 ```
 
+
 It adds `a` and `b`.
+
+
 
 ```javascript
 R.add(2, 3) // =>  5
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try the above <strong>R.add</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -360,11 +370,16 @@ add(a: number): (b: number) => number;
 ### adjust
 
 
+
+
 ```typescript
 adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]
 ```
 
+
 It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
+
+
 
 ```javascript
 R.adjust(
@@ -373,6 +388,11 @@ R.adjust(
   [0, 100]
 ) // => [1, 100]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try the above <strong>R.adjust</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -385,39 +405,20 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.adjust</italic> specs
-
-> Reason for the failure: ramda accepts an array-like object
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('adjust', function() {
-  it('accepts an array-like object', function() {
-    function args() {
-      return arguments;
-    }
-    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);
-  });
-});
-```
-
-
-</details>
-
 
 ### all
+
+
 
 
 ```typescript
 all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
+
 It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
+
+
 
 ```javascript
 const list = [ 0, 1, 2, 3, 4 ]
@@ -426,6 +427,11 @@ const predicate = x => x > -1
 const result = R.all(predicate, arr)
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(predicate%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.all</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -442,11 +448,16 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ### allPass
 
 
+
+
 ```typescript
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
 
+
 It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
+
+
 
 ```javascript
 const input = {
@@ -460,6 +471,11 @@ const predicates = [
 const result = R.allPass(predicates)(input) // => true
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20predicates%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(predicates)(input)%20%2F%2F%20%3D%3E%20true">Try the above <strong>R.allPass</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -470,48 +486,31 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.allPass</italic> specs
-
-> Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('allPass', function() {
-  var odd = function(n) { return n % 2 !== 0; };
-  var lt20 = function(n) { return n < 20; };
-  var gt5 = function(n) { return n > 5; };
-  var plusEq = function(w, x, y, z) { return w + x === y + z; };
-  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {
-    eq(R.allPass([odd, gt5, plusEq]).length, 4);
-    eq(R.allPass([odd, gt5, plusEq])(9, 9, 9, 9), true);
-    eq(R.allPass([odd, gt5, plusEq])(9)(9)(9)(9), true);
-  });
-});
-```
-
-
-</details>
-
 
 ### always
+
+
 
 
 ```typescript
 always<T>(x: T): () => T
 ```
 
+
 It returns function that always returns `x`.
+
+
 
 ```javascript
 const fn = R.always(7)
 
 console.log(fn())// => 7
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconsole.log(fn())%2F%2F%20%3D%3E%207">Try the above <strong>R.always</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -527,16 +526,26 @@ always<T>(x: T): () => T;
 ### and
 
 
+
+
 ```typescript
 and<T extends { and?: ((...a: readonly any[]) => any)
 ```
 
+
 Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+
+
 
 ```javascript
 R.and(true, true); // => true
 R.and(false, true); // => false
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false">Try the above <strong>R.and</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -553,11 +562,16 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 ### any
 
 
+
+
 ```typescript
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
+
 It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+
+
 
 ```javascript
 const list = [1, 2, 3]
@@ -565,6 +579,11 @@ const predicate = x => x * x > 8
 R.any(fn, list)
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20*%20x%20%3E%208%0AR.any(fn%2C%20list)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.any</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -583,11 +602,16 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ### anyPass
 
 
+
+
 ```typescript
 anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>
 ```
 
+
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
+
+
 
 ```javascript
 const isBig = x => x > 20
@@ -601,6 +625,11 @@ const fn = const result = R.anyPass(
 const result = fn(input) // => true
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isBig%20%3D%20x%20%3D%3E%20x%20%3E%2020%0Aconst%20isOdd%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0Aconst%20input%20%3D%2011%0A%0Aconst%20fn%20%3D%20const%20result%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)%0A%0Aconst%20result%20%3D%20fn(input)%20%2F%2F%20%3D%3E%20true">Try the above <strong>R.anyPass</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -611,42 +640,20 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.anyPass</italic> specs
-
-> Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('anyPass', function() {
-  var odd = function(n) { return n % 2 !== 0; };
-  var gt20 = function(n) { return n > 20; };
-  var lt5 = function(n) { return n < 5; };
-  var plusEq = function(w, x, y, z) { return w + x === y + z; };
-  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {
-    eq(R.anyPass([odd, lt5, plusEq]).length, 4);
-    eq(R.anyPass([odd, lt5, plusEq])(6, 7, 8, 9), false);
-    eq(R.anyPass([odd, lt5, plusEq])(6)(7)(8)(9), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### append
+
+
 
 
 ```typescript
 append<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It adds element `x` at the end of `listOrString`.
+
+
 
 ```javascript
 const x = 'foo'
@@ -657,6 +664,11 @@ const result = [
 ]
 // => ['cherry_foo', ['bar', 'baz', 'foo']]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.append(x%2C%20'cherry_')%2C%0A%20%20R.append(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'cherry_foo'%2C%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D%5D">Try the above <strong>R.append</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -673,6 +685,8 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 ### applySpec
 
 
+
+
 ```typescript
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
@@ -681,8 +695,11 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }
 ```
 
+
 It returns a curried function with the same arity as the longest function in the spec object.
 Arguments will be applied to the spec methods recursively.
+
+
 
 ```javascript
 const spec = {
@@ -705,6 +722,11 @@ const getMetrics = R.applySpec({
 getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.firstname')%0A%7D%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D%0A%0A%2F%2F%20Second%20example%0Aconst%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%3B%0AgetMetrics(2%2C%204)%3B%20%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try the above <strong>R.applySpec</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -719,16 +741,26 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ### assoc
 
 
+
+
 ```typescript
 assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U
 ```
 
+
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
+
+
 
 ```javascript
 R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try the above <strong>R.assoc</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -746,11 +778,16 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 ### assocPath
 
 
+
+
 ```typescript
 assocPath<T, U>(path: Path, newValue: T, obj: U): U
 ```
 
+
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
+
+
 
 ```javascript
 const path = 'b.c'
@@ -760,6 +797,11 @@ const obj = { a: 1 }
 R.assocPath(path, newValue, obj)
 // => { a : 1, b : { c : 2 }}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20path%20%3D%20'b.c'%0Aconst%20newValue%20%3D%202%0Aconst%20obj%20%3D%20%7B%20a%3A%201%20%7D%0A%0AR.assocPath(path%2C%20newValue%2C%20obj)%0A%2F%2F%20%3D%3E%20%7B%20a%20%3A%201%2C%20b%20%3A%20%7B%20c%20%3A%202%20%7D%7D">Try the above <strong>R.assocPath</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -777,13 +819,18 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 ### both
 
 
+
+
 ```typescript
 both(pred1: Pred, pred2: Pred): Pred
 ```
 
+
 It returns a function with `input` argument. 
 
 This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
+
+
 
 ```javascript
 const firstCondition = x => x > 10
@@ -793,6 +840,11 @@ const fn = R.both(secondCondition)
 const result = [fn(15), fn(30)]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20firstCondition%20%3D%20x%20%3D%3E%20x%20%3E%2010%0Aconst%20secondCondition%20%3D%20x%20%3D%3E%20x%20%3C%2020%0Aconst%20fn%20%3D%20R.both(secondCondition)%0A%0Aconst%20result%20%3D%20%5Bfn(15)%2C%20fn(30)%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.both</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -807,41 +859,16 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.both</italic> specs
-
-> Reason for the failure: ramda supports fantasy-land
-</summary>
-
-```javascript
-var S = require('sanctuary');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('both', function() {
-  it('accepts fantasy-land applicative functors', function() {
-    var Just = S.Just;
-    var Nothing = S.Nothing;
-    eq(R.both(Just(true), Just(true)), Just(true));
-    eq(R.both(Just(true), Just(false)), Just(false));
-    eq(R.both(Just(true), Nothing()), Nothing());
-    eq(R.both(Nothing(), Just(false)), Nothing());
-    eq(R.both(Nothing(), Nothing()), Nothing());
-  });
-});
-```
-
-
-</details>
-
 
 ### clamp
+
+
 
 
 ```typescript
 clamp(min: number, max: number, input: number): number
 ```
+
 
 Restrict a number `input` to be withing `min` and `max` limits.
 
@@ -849,11 +876,18 @@ If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
+
+
 ```javascript
 R.clamp(0, 10, 5) //=> 5
 R.clamp(0, 10, -1) //=> 0
 R.clamp(0, 10, 11) //=> 10
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.clamp(0%2C%2010%2C%205)%20%2F%2F%3D%3E%205%0AR.clamp(0%2C%2010%2C%20-1)%20%2F%2F%3D%3E%200%0AR.clamp(0%2C%2010%2C%2011)%20%2F%2F%3D%3E%2010">Try the above <strong>R.clamp</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -870,9 +904,12 @@ clamp(min: number, max: number): (input: number) => number;
 ### clone
 
 
+
+
 ```typescript
 clone<T>(input: T): T
 ```
+
 
 
 <details>
@@ -890,13 +927,18 @@ clone<T>(input: ReadonlyArray<T>): T[];
 ### complement
 
 
+
+
 ```typescript
 complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
 ```
 
+
 It returns `inverted` version of `origin` function that accept `input` as argument.
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
+
+
 
 ```javascript
 const origin = x => x > 5
@@ -908,6 +950,11 @@ const result = [
 ] => [ true, false ]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20origin%20%3D%20x%20%3D%3E%20x%20%3E%205%0Aconst%20inverted%20%3D%20complement(origin)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20origin(7)%2C%0A%20%20inverted(7)%0A%5D%20%3D%3E%20%5B%20true%2C%20false%20%5D">Try the above <strong>R.complement</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -918,41 +965,20 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.complement</italic> specs
-
-> Reason for the failure: ramda supports fantasy-land
-</summary>
-
-```javascript
-var S = require('sanctuary');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('complement', function() {
-  it('accepts fantasy-land functors', function() {
-    var Just = S.Just;
-    var Nothing = S.Nothing;
-    eq(R.complement(Just(true)), Just(false));
-    eq(R.complement(Just(false)), Just(true));
-    eq(R.complement(Nothing()), Nothing());
-  });
-});
-```
-
-
-</details>
-
 
 ### compose
+
+
 
 
 ```typescript
 compose<T1>(fn0: () => T1): () => T1
 ```
 
+
 It performs right-to-left function composition.
+
+
 
 ```javascript
 const result = R.compose(
@@ -962,6 +988,11 @@ const result = R.compose(
 
 // => [6, 8]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try the above <strong>R.compose</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -976,82 +1007,30 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.compose</italic> specs
-
-> Reason for the failure: ramda passes context to functions | rambda composed functions have no length
-</summary>
-
-```javascript
-var assert = require('assert');
-var jsv = require('jsverify');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('compose', function() {
-  it('performs right-to-left function composition', function() {
-    //  f :: (String, Number?) -> ([Number] -> [Number])
-    var f = R.compose(R.map, R.multiply, parseInt);
-    eq(f.length, 2);
-    eq(f('10')([1, 2, 3]), [10, 20, 30]);
-    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);
-  });
-  it('passes context to functions', function() {
-    function x(val) {
-      return this.x * val;
-    }
-    function y(val) {
-      return this.y * val;
-    }
-    function z(val) {
-      return this.z * val;
-    }
-    var context = {
-      a: R.compose(x, y, z),
-      x: 4,
-      y: 2,
-      z: 1
-    };
-    eq(context.a(5), 40);
-  });
-  it('can be applied to one argument', function() {
-    var f = function(a, b, c) { return [a, b, c]; };
-    var g = R.compose(f);
-    eq(g.length, 3);
-    eq(g(1, 2, 3), [1, 2, 3]);
-  });
-});
-describe('compose properties', function() {
-  jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
-    return R.equals(R.compose(f, g)(x), f(g(x)));
-  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
-    var result = f(g(h(x)));
-    return R.all(R.equals(result), [
-      R.compose(f, g, h)(x),
-      R.compose(f, R.compose(g, h))(x),
-      R.compose(R.compose(f, g), h)(x)
-    ]);
-});
-```
-
-
-</details>
-
 
 ### concat
+
+
 
 
 ```typescript
 concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
+
 It returns a new string or array, which is the result of merging `x` and `y`.
+
+
 
 ```javascript
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
 R.concat('foo', 'bar') // => 'foobar'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.concat(%5B1%2C%202%5D)(%5B3%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%5D%0AR.concat('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'foobar'">Try the above <strong>R.concat</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1066,42 +1045,16 @@ concat(x: string): (y: string) => string;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.concat</italic> specs
-
-> Reason for the failure: ramda pass to concat method if present
-</summary>
-
-```javascript
-var assert = require('assert');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('concat', function() {
-  var z1 = {
-    x: 'z1',
-    concat: function(that) { return this.x + ' ' + that.x; }
-  };
-  var z2 = {
-    x: 'z2'
-  };
-  it('delegates to non-String object with a concat method, as second param', function() {
-    eq(R.concat(z1, z2), 'z1 z2');
-  });
-});
-```
-
-
-</details>
-
 
 ### cond
+
+
 
 
 ```typescript
 cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any
 ```
+
 
 It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
 
@@ -1110,6 +1063,8 @@ This function will start evaluating the `conditions` in order to find the first 
 The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
 
 If no winner is found, then `fn` returns `undefined`.
+
+
 
 ```javascript
 const fn = R.cond([
@@ -1126,6 +1081,11 @@ const result = [
 // => ['more than 25', 'more than 15', '10 is nothing special']
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.cond(%5B%0A%20%20%5B%20x%20%3D%3E%20x%20%3E%2025%2C%20R.always('more%20than%2025')%20%5D%2C%0A%20%20%5B%20x%20%3D%3E%20x%20%3E%2015%2C%20R.always('more%20than%2015')%20%5D%2C%0A%20%20%5B%20R.T%2C%20x%20%3D%3E%20%60%24%7Bx%7D%20is%20nothing%20special%60%20%5D%2C%0A%5D)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(30)%2C%0A%20%20fn(20)%2C%0A%20%20fn(10)%2C%0A%5D%20%0A%2F%2F%20%3D%3E%20%5B'more%20than%2025'%2C%20'more%20than%2015'%2C%20'10%20is%20nothing%20special'%5D">Try the above <strong>R.cond</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -1137,47 +1097,20 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.cond</italic> specs
-
-> Reason for the failure: pass to transformer is not applied in rambda
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('cond', function() {
-  it('forwards all arguments to predicates and to transformers', function() {
-    var fn = R.cond([
-      [function(_, x) { return x === 42; }, function() { return arguments.length; }]
-    ]);
-    eq(fn(21, 42, 84), 3);
-  });
-  it('retains highest predicate arity', function() {
-    var fn = R.cond([
-      [R.nAry(2, R.T), R.T],
-      [R.nAry(3, R.T), R.T],
-      [R.nAry(1, R.T), R.T]
-    ]);
-    eq(fn.length, 3);
-  });
-});
-```
-
-
-</details>
-
 
 ### curry
+
+
 
 
 ```typescript
 curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>
 ```
 
+
 It expects a function as input and returns its curried version.
+
+
 
 ```javascript
 const fn = (a, b, c) => a + b + c
@@ -1186,6 +1119,11 @@ const sum = curried(1,2)
 
 const result = sum(3) // => 6
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(a%2C%20b%2C%20c)%20%3D%3E%20a%20%2B%20b%20%2B%20c%0Aconst%20curried%20%3D%20R.curry(fn)%0Aconst%20sum%20%3D%20curried(1%2C2)%0A%0Aconst%20result%20%3D%20sum(3)%20%2F%2F%20%3D%3E%206">Try the above <strong>R.curry</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1197,118 +1135,20 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.curry</italic> specs
-
-> Reason for the failure: ramda passes context to functions
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-var jsv = require('jsverify');
-var funcN = require('./shared/funcN');
-
-describe('curry', function() {
-  it('properly reports the length of the curried function', function() {
-    var f = R.curry(function(a, b, c, d) {return (a + b * c) / d;});
-    eq(f.length, 4);
-    var g = f(12);
-    eq(g.length, 3);
-    var h = g(3);
-    eq(h.length, 2);
-    eq(g(3, 6).length, 1);
-  });
-  it('preserves context', function() {
-    var ctx = {x: 10};
-    var f = function(a, b) { return a + b * this.x; };
-    var g = R.curry(f);
-    eq(g.call(ctx, 2, 4), 42);
-    eq(g.call(ctx, 2).call(ctx, 4), 42);
-  });
-  it('supports R.__ placeholder', function() {
-    var f = function(a, b, c) { return [a, b, c]; };
-    var g = R.curry(f);
-    var _ = R.__;
-    eq(g(1)(2)(3), [1, 2, 3]);
-    eq(g(1)(2, 3), [1, 2, 3]);
-    eq(g(1, 2)(3), [1, 2, 3]);
-    eq(g(1, 2, 3), [1, 2, 3]);
-    eq(g(_, 2, 3)(1), [1, 2, 3]);
-    eq(g(1, _, 3)(2), [1, 2, 3]);
-    eq(g(1, 2, _)(3), [1, 2, 3]);
-    eq(g(1, _, _)(2)(3), [1, 2, 3]);
-    eq(g(_, 2, _)(1)(3), [1, 2, 3]);
-    eq(g(_, _, 3)(1)(2), [1, 2, 3]);
-    eq(g(1, _, _)(2, 3), [1, 2, 3]);
-    eq(g(_, 2, _)(1, 3), [1, 2, 3]);
-    eq(g(_, _, 3)(1, 2), [1, 2, 3]);
-    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);
-    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);
-    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);
-    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
-    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
-  });
-  it('supports @@functional/placeholder', function() {
-    var f = function(a, b, c) { return [a, b, c]; };
-    var g = R.curry(f);
-    var _ = {'@@functional/placeholder': true, x: Math.random()};
-    eq(g(1)(2)(3), [1, 2, 3]);
-    eq(g(1)(2, 3), [1, 2, 3]);
-    eq(g(1, 2)(3), [1, 2, 3]);
-    eq(g(1, 2, 3), [1, 2, 3]);
-    eq(g(_, 2, 3)(1), [1, 2, 3]);
-    eq(g(1, _, 3)(2), [1, 2, 3]);
-    eq(g(1, 2, _)(3), [1, 2, 3]);
-    eq(g(1, _, _)(2)(3), [1, 2, 3]);
-    eq(g(_, 2, _)(1)(3), [1, 2, 3]);
-    eq(g(_, _, 3)(1)(2), [1, 2, 3]);
-    eq(g(1, _, _)(2, 3), [1, 2, 3]);
-    eq(g(_, 2, _)(1, 3), [1, 2, 3]);
-    eq(g(_, _, 3)(1, 2), [1, 2, 3]);
-    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);
-    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);
-    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);
-    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);
-    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);
-  });
-});
-describe('curry properties', function() {
-  jsv.property('curries multiple values', funcN(4), jsv.json, jsv.json, jsv.json, jsv.json, function(f, a, b, c, d) {
-    var g = R.curry(f);
-    return R.all(R.equals(f(a, b, c, d)), [
-      g(a, b, c, d),
-      g(a)(b)(c)(d),
-      g(a)(b, c, d),
-      g(a, b)(c, d),
-      g(a, b, c)(d)
-    ]);
-  jsv.property('curries with placeholder', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
-    var _ = {'@@functional/placeholder': true, x: Math.random()};
-    var g = R.curry(f);
-    return R.all(R.equals(f(a, b, c)), [
-      g(_, _, c)(a, b),
-      g(a, _, c)(b),
-      g(_, b, c)(a),
-      g(a, _, _)(_, c)(b),
-      g(a, b, _)(c)
-    ]);
-});
-```
-
-
-</details>
-
 
 ### dec
+
+
 
 
 ```typescript
 dec(x: number): number
 ```
 
+
 It decrements a number.
+
+
 
 <details>
 
@@ -1324,13 +1164,18 @@ dec(x: number): number;
 ### defaultTo
 
 
+
+
 ```typescript
 defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T
 ```
 
+
 It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
 
 Else, it returns the first truthy `inputArguments` instance(from left to right).
+
+
 
 ```javascript
 // With single input argument
@@ -1342,6 +1187,11 @@ R.defaultTo('foo', undefined, null, NaN) // => 'foo'
 R.defaultTo('foo', undefined, 'bar', NaN, 'qux') // => 'bar'
 R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%2F%2F%20With%20single%20input%20argument%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0A%0A%2F%2F%20With%20multiple%20input%20arguments%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20'bar'%2C%20NaN%2C%20'qux')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN%2C%20'quz')%20%2F%2F%20%3D%3E%20'qux'">Try the above <strong>R.defaultTo</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1359,11 +1209,16 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 ### difference
 
 
+
+
 ```typescript
 difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[]
 ```
 
+
 It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
+
+
 
 ```javascript
 const a = [ 1, 2, 3, 4 ]
@@ -1372,6 +1227,11 @@ const b = [ 3, 4, 5, 6 ]
 const result = difference(a, b)
 // => [ 1, 2 ]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try the above <strong>R.difference</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1384,54 +1244,30 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.difference</italic> specs
-
-> Reason for the failure: ramda supports negative zero
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('difference', function() {
-  var M = [1, 2, 3, 4];
-  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];
-  var N = [3, 4, 5, 6];
-  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];
-  var Z = [3, 4, 5, 6, 10];
-  var Z2 = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8];
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.difference([0], [-0]).length, 1);
-    eq(R.difference([-0], [0]).length, 1);
-    eq(R.difference([NaN], [NaN]).length, 0);
-    eq(R.difference([new Just([42])], [new Just([42])]).length, 0);
-  });
-});
-```
-
-
-</details>
-
 
 ### dissoc
+
+
 
 
 ```typescript
 dissoc<T>(prop: string, obj: any): T
 ```
 
+
 It returns a new object that does not contain property `prop`.
+
+
 
 ```javascript
 R.dissoc('b', {a: 1, b: 2, c: 3})
 //=> {a: 1, c: 3}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try the above <strong>R.dissoc</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1448,14 +1284,22 @@ dissoc(prop: string): <U>(obj: any) => U;
 ### divide
 
 
+
+
 ```typescript
 divide(a: number, b: number): number
 ```
 
 
+
 ```javascript
 R.divide(71, 100) // => 0.71
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.divide(71%2C%20100)%20%2F%2F%20%3D%3E%200.71">Try the above <strong>R.divide</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1472,16 +1316,26 @@ divide(a: number): (b: number) => number;
 ### drop
 
 
+
+
 ```typescript
 drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+
+
 
 ```javascript
 R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
 R.drop(2, 'foobar')  // => 'obar'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.drop(2%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'baz'%5D%0AR.drop(2%2C%20'foobar')%20%20%2F%2F%20%3D%3E%20'obar'">Try the above <strong>R.drop</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1499,16 +1353,26 @@ drop<T>(howManyToDrop: number): {
 ### dropLast
 
 
+
+
 ```typescript
 dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns `listOrString` with `howManyToDrop` items dropped from its end.
+
+
 
 ```javascript
 R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
 R.dropLast(2, 'foobar')  // => 'foob'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropLast(2%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'foo'%5D%0AR.dropLast(2%2C%20'foobar')%20%20%2F%2F%20%3D%3E%20'foob'">Try the above <strong>R.dropLast</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1522,37 +1386,16 @@ dropLast<T>(howManyToDrop: number): {
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.dropLast</italic> specs
-
-> Reason for the failure: ramda method can act as a transducer
-</summary>
-
-```javascript
-var assert = require('assert');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('dropLast', function() {
-  it('can act as a transducer', function() {
-    var dropLast2 = R.dropLast(2);
-    assert.deepEqual(R.into([], dropLast2, [1, 3, 5, 7, 9, 1, 2]), [1, 3, 5, 7, 9]);
-    assert.deepEqual(R.into([], dropLast2, [1]), []);
-  });
-});
-```
-
-
-</details>
-
 
 ### either
+
+
 
 
 ```typescript
 either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
+
 
 
 <details>
@@ -1570,11 +1413,16 @@ either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 ### endsWith
 
 
+
+
 ```typescript
 endsWith(target: string, str: string): boolean
 ```
 
+
 Curried version of `String.prototype.endsWith`
+
+
 
 ```javascript
 const str = 'foo-bar'
@@ -1583,6 +1431,11 @@ const target = '-bar'
 const result = R.endsWith(target, str)
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20str%20%3D%20'foo-bar'%0Aconst%20target%20%3D%20'-bar'%0A%0Aconst%20result%20%3D%20R.endsWith(target%2C%20str)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.endsWith</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1595,45 +1448,20 @@ endsWith(target: string): (str: string) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.endsWith</italic> specs
-
-> Reason for the failure: rambda doesn't support arrays
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('startsWith', function() {
-  it('should return true when an array ends with the provided value', function() {
-    eq(R.endsWith(['c'], ['a', 'b', 'c']), true);
-  });
-  it('should return true when an array ends with the provided values', function() {
-    eq(R.endsWith(['b', 'c'], ['a', 'b', 'c']), true);
-  });
-  it('should return false when an array does not end with the provided value', function() {
-    eq(R.endsWith(['b'], ['a', 'b', 'c']), false);
-  });
-  it('should return false when an array does not end with the provided values', function() {
-    eq(R.endsWith(['a', 'b'], ['a', 'b', 'c']), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### equals
+
+
 
 
 ```typescript
 equals<T>(a: T, b: T): boolean
 ```
 
+
 It deeply compares `a` and `b` and returns `true` if they are equal.
+
+
 
 ```javascript
 R.equals(
@@ -1641,6 +1469,11 @@ R.equals(
   [1, {a:2}, [{b: 3}]]
 ) // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%0A)%20%2F%2F%20%3D%3E%20true">Try the above <strong>R.equals</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1653,193 +1486,10 @@ equals<T>(a: T): (b: T) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.equals</italic> specs
-
-> Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
-</summary>
-
-```javascript
-/* global Map, Set, WeakMap, WeakSet */
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('equals', function() {
-  var a = [];
-  var b = a;
-  it('never considers Boolean primitive equal to Boolean object', function() {
-    eq(R.equals(true, new Boolean(true)), false);
-    eq(R.equals(new Boolean(true), true), false);
-    eq(R.equals(false, new Boolean(false)), false);
-    eq(R.equals(new Boolean(false), false), false);
-  });
-  it('never considers number primitive equal to Number object', function() {
-    eq(R.equals(0, new Number(0)), false);
-    eq(R.equals(new Number(0), 0), false);
-  });
-  it('never considers string primitive equal to String object', function() {
-    eq(R.equals('', new String('')), false);
-    eq(R.equals(new String(''), ''), false);
-    eq(R.equals('x', new String('x')), false);
-    eq(R.equals(new String('x'), 'x'), false);
-  });
-  var supportsSticky = false;
-  try { RegExp('', 'y'); supportsSticky = true; } catch (e) {}
-  var supportsUnicode = false;
-  try { RegExp('', 'u'); supportsUnicode = true; } catch (e) {}
-  var listA = [1, 2, 3];
-  var listB = [1, 3, 2];
-  var c = {}; c.v = c;
-  var d = {}; d.v = d;
-  var e = []; e.push(e);
-  var f = []; f.push(f);
-  var nestA = {a:[1, 2, {c:1}], b:1};
-  var nestB = {a:[1, 2, {c:1}], b:1};
-  var nestC = {a:[1, 2, {c:2}], b:1};
-  it('handles recursive data structures', function() {
-    eq(R.equals(c, d), true);
-    eq(R.equals(e, f), true);
-    eq(R.equals(nestA, nestB), true);
-    eq(R.equals(nestA, nestC), false);
-  });
-  it('requires that both objects have the same enumerable properties with the same values', function() {
-    var a1 = [];
-    var a2 = [];
-    a2.x = 0;
-    var b1 = new Boolean(false);
-    var b2 = new Boolean(false);
-    b2.x = 0;
-    var d1 = new Date(0);
-    var d2 = new Date(0);
-    d2.x = 0;
-    var n1 = new Number(0);
-    var n2 = new Number(0);
-    n2.x = 0;
-    var r1 = /(?:)/;
-    var r2 = /(?:)/;
-    r2.x = 0;
-    var s1 = new String('');
-    var s2 = new String('');
-    s2.x = 0;
-    eq(R.equals(a1, a2), false);
-    eq(R.equals(b1, b2), false);
-    eq(R.equals(d1, d2), false);
-    eq(R.equals(n1, n2), false);
-    eq(R.equals(r1, r2), false);
-    eq(R.equals(s1, s2), false);
-  });
-  if (typeof ArrayBuffer !== 'undefined' && typeof Int8Array !== 'undefined') {
-    var typArr1 = new ArrayBuffer(10);
-    typArr1[0] = 1;
-    var typArr2 = new ArrayBuffer(10);
-    typArr2[0] = 1;
-    var typArr3 = new ArrayBuffer(10);
-    var intTypArr = new Int8Array(typArr1);
-    typArr3[0] = 0;
-    it('handles typed arrays', function() {
-      eq(R.equals(typArr1, typArr2), true);
-      eq(R.equals(typArr1, typArr3), false);
-      eq(R.equals(typArr1, intTypArr), false);
-    });
-  }
-  if (typeof Promise !== 'undefined') {
-    it('compares Promise objects by identity', function() {
-      var p = Promise.resolve(42);
-      var q = Promise.resolve(42);
-      eq(R.equals(p, p), true);
-      eq(R.equals(p, q), false);
-    });
-  }
-  if (typeof Map !== 'undefined') {
-    it('compares Map objects by value', function() {
-      eq(R.equals(new Map([]), new Map([])), true);
-      eq(R.equals(new Map([]), new Map([[1, 'a']])), false);
-      eq(R.equals(new Map([[1, 'a']]), new Map([])), false);
-      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'a']])), true);
-      eq(R.equals(new Map([[1, 'a'], [2, 'b']]), new Map([[2, 'b'], [1, 'a']])), true);
-      eq(R.equals(new Map([[1, 'a']]), new Map([[2, 'a']])), false);
-      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'b']])), false);
-      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'c']])]])), true);
-      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'd']])]])), false);
-      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [4, 5, 6]]])), true);
-      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [7, 8, 9]]])), false);
-    });
-    it('dispatches to `equals` method recursively in Set', function() {
-      var a = new Map();
-      var b = new Map();
-      a.set(a, a);
-      eq(R.equals(a, b), false);
-      a.set(b, b);
-      b.set(b, b);
-      b.set(a, a);
-      eq(R.equals(a, b), true);
-    });
-  }
-  if (typeof Set !== 'undefined') {
-    it('compares Set objects by value', function() {
-      eq(R.equals(new Set([]), new Set([])), true);
-      eq(R.equals(new Set([]), new Set([1])), false);
-      eq(R.equals(new Set([1]), new Set([])), false);
-      eq(R.equals(new Set([1, 2]), new Set([2, 1])), true);
-      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([3])])])), true);
-      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([4])])])), false);
-      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [4, 5, 6]])), true);
-      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [7, 8, 9]])), false);
-    });
-    it('dispatches to `equals` method recursively in Set', function() {
-      var a = new Set();
-      var b = new Set();
-      a.add(a);
-      eq(R.equals(a, b), false);
-      a.add(b);
-      b.add(b);
-      b.add(a);
-      eq(R.equals(a, b), true);
-    });
-  }
-  if (typeof WeakMap !== 'undefined') {
-    it('compares WeakMap objects by identity', function() {
-      var m = new WeakMap([]);
-      eq(R.equals(m, m), true);
-      eq(R.equals(m, new WeakMap([])), false);
-    });
-  }
-  if (typeof WeakSet !== 'undefined') {
-    it('compares WeakSet objects by identity', function() {
-      var s = new WeakSet([]);
-      eq(R.equals(s, s), true);
-      eq(R.equals(s, new WeakSet([])), false);
-    });
-  }
-  it('dispatches to `equals` method recursively', function() {
-    function Left(x) { this.value = x; }
-    Left.prototype.equals = function(x) {
-      return x instanceof Left && R.equals(x.value, this.value);
-    };
-    function Right(x) { this.value = x; }
-    Right.prototype.equals = function(x) {
-      return x instanceof Right && R.equals(x.value, this.value);
-    };
-    eq(R.equals(new Left([42]), new Left([42])), true);
-    eq(R.equals(new Left([42]), new Left([43])), false);
-    eq(R.equals(new Left(42), {value: 42}), false);
-    eq(R.equals({value: 42}, new Left(42)), false);
-    eq(R.equals(new Left(42), new Right(42)), false);
-    eq(R.equals(new Right(42), new Left(42)), false);
-    eq(R.equals([new Left(42)], [new Left(42)]), true);
-    eq(R.equals([new Left(42)], [new Right(42)]), false);
-    eq(R.equals([new Right(42)], [new Left(42)]), false);
-    eq(R.equals([new Right(42)], [new Right(42)]), true);
-  });
-});
-```
-
-
-</details>
-
 
 ### F
+
+
 
 
 ```typescript
@@ -1847,9 +1497,15 @@ F(): boolean
 ```
 
 
+
 ```javascript
 F() // => false
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20F()%20%2F%2F%20%3D%3E%20false">Try the above <strong>R.F</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1865,11 +1521,16 @@ F(): boolean;
 ### filter
 
 
+
+
 ```typescript
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
+
 It filters list or object `input` with `predicate`.
+
+
 
 ```javascript
 const list = [3, 4, 3, 2]
@@ -1885,6 +1546,11 @@ const result = [
 // => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B3%2C%204%2C%203%2C%202%5D%0Aconst%20listPredicate%20%3D%20(x%2C%20index)%20%3D%3E%20x%20-%20index%20%3E%202%0A%0Aconst%20object%20%3D%20%7Babc%3A%20'fo'%2C%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%0Aconst%20objectPredicate%20%3D%20(x%2C%20prop)%20%3D%3E%20x.length%20%2B%20prop.length%20%3E%205%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.filter(listPredicate%2C%20list)%2C%0A%20%20R.filter(objectPredicate%2C%20object)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B3%2C%204%5D%2C%20%7B%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%20%5D">Try the above <strong>R.filter</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -1898,46 +1564,22 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.filter</italic> specs
-
-> Reason for the failure: ramda dispatches to `filter` method of object
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-var Maybe = require('./shared/Maybe');
-
-describe('filter', function() {
-  var even = function(x) {return x % 2 === 0;};
-  it('dispatches to passed-in non-Array object with a `filter` method', function() {
-    var f = {filter: function(f) { return f('called f.filter'); }};
-    eq(R.filter(function(s) { return s; }, f), 'called f.filter');
-  });
-  it('correctly uses fantasy-land implementations', function() {
-    var m1 = Maybe.Just(-1);
-    var m2 = R.filter(function(x) { return x > 0; } , m1);
-    eq(m2.isNothing, true);
-  });
-});
-```
-
-
-</details>
-
 
 ### find
+
+
 
 
 ```typescript
 find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined
 ```
 
+
 It returns the first element of `list` that satisfy the `predicate`.
 
 If there is no such element, it returns `undefined`.
+
+
 
 ```javascript
 const predicate = x => R.type(x.foo) === 'Number'
@@ -1946,6 +1588,11 @@ const list = [{foo: 'bar'}, {foo: 1}]
 const result = R.find(predicate, list)
 // => {foo: 1}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.find(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try the above <strong>R.find</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1962,13 +1609,18 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 ### findIndex
 
 
+
+
 ```typescript
 findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number
 ```
 
+
 It returns the index of the first element of `list` satisfying the `predicate` function.
 
 If there is no such element, then `-1` is returned.
+
+
 
 ```javascript
 const predicate = x => R.type(x.foo) === 'Number'
@@ -1977,6 +1629,11 @@ const list = [{foo: 'bar'}, {foo: 1}]
 const result = R.findIndex(predicate, list)
 // => 1
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findIndex(predicate%2C%20list)%0A%2F%2F%20%3D%3E%201">Try the above <strong>R.findIndex</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -1993,11 +1650,16 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 ### flatten
 
 
+
+
 ```typescript
 flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[]
 ```
 
+
 It deeply flattens an array.
+
+
 
 ```javascript
 const result = R.flatten([
@@ -2008,6 +1670,11 @@ const result = R.flatten([
 ])
 // => [ 1, 2, 3, 30, 300, 4 ]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.flatten(%5B%0A%20%201%2C%20%0A%20%202%2C%20%0A%20%20%5B3%2C%2030%2C%20%5B300%5D%5D%2C%20%0A%20%20%5B4%5D%0A%5D)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%203%2C%2030%2C%20300%2C%204%20%5D">Try the above <strong>R.flatten</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2023,11 +1690,16 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 ### flip
 
 
+
+
 ```typescript
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
 ```
 
+
 It returns function which calls `fn` with exchanged first and second argument.
+
+
 
 ```javascript
 const subtractFlip = R.flip(R.subtract)
@@ -2039,6 +1711,11 @@ const result = [
 // => [6, -6]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20subtractFlip(1%2C7)%2C%0A%20%20R.flip(1%2C6)%0A%5D%20%20%0A%2F%2F%20%3D%3E%20%5B6%2C%20-6%5D">Try the above <strong>R.flip</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -2049,58 +1726,20 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.flip</italic> specs
-
-> Reason for the failure: rambda flip work only for functions with two arguments
-</summary>
-
-```javascript
-var jsv = require('jsverify');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-var funcN = require('./shared/funcN');
-describe('flip', function() {
-  it('returns a function which inverts the first two arguments to the supplied function', function() {
-    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};
-    var g = R.flip(f);
-    eq(f('a', 'b', 'c'), 'a b c');
-    eq(g('a', 'b', 'c'), 'b a c');
-  });
-  it('returns a curried function', function() {
-    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};
-    var g = R.flip(f)('a');
-    eq(g('b', 'c'), 'b a c');
-  });
-  it('returns a function with the correct arity', function() {
-    var f2 = function(a, b) {return a + ' ' + b;};
-    var f3 = function(a, b, c) {return a + ' ' + b + ' ' + c;};
-    eq(R.flip(f2).length, 2);
-    eq(R.flip(f3).length, 3);
-  });
-});
-describe('flip properties', function() {
-  jsv.property('inverts first two arguments', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {
-    var g = R.flip(f);
-    return R.equals(f(a, b, c), g(b, a, c));
-  });
-});
-```
-
-
-</details>
-
 
 ### forEach
+
+
 
 
 ```typescript
 forEach<T>(fn: (x: T) => void, list: T[]): T[]
 ```
 
+
 It applies `iterable` function over all members of `list` and returns `list`.
+
+
 
 ```javascript
 const sideEffect = {}
@@ -2111,6 +1750,11 @@ const result = R.forEach(
 sideEffect //=> {foo1: 1, foo2: 2}
 result //=> [1, 2]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0AsideEffect%20%2F%2F%3D%3E%20%7Bfoo1%3A%201%2C%20foo2%3A%202%7D%0Aresult%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try the above <strong>R.forEach</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2127,45 +1771,20 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.forEach</italic> specs
-
-> Reason for the failure: ramda method dispatches to `forEach` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('forEach', function() {
-  var list = [{x: 1, y: 2}, {x: 100, y: 200}, {x: 300, y: 400}, {x: 234, y: 345}];
-  it('dispatches to `forEach` method', function() {
-    var dispatched = false;
-    var fn = function() {};
-    function DummyList() {}
-    DummyList.prototype.forEach = function(callback) {
-      dispatched = true;
-      eq(callback, fn);
-    };
-    R.forEach(fn, new DummyList());
-    eq(dispatched, true);
-  });
-});
-```
-
-
-</details>
-
 
 ### fromPairs
+
+
 
 
 ```typescript
 fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V }
 ```
 
+
 It transforms a `listOfPairs` to an object.
+
+
 
 ```javascript
 const listOfPairs = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
@@ -2178,6 +1797,11 @@ const expected = {
 const result = R.fromPairs(listOfPairs)
 // => `result` is equal to `expected`
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listOfPairs%20%3D%20%5B%20%5B%20'a'%2C%201%20%5D%2C%20%5B%20'b'%2C%202%20%5D%2C%20%5B%20'c'%2C%20%5B%203%2C%204%20%5D%20%5D%20%5D%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%20%20c%20%3A%20%5B%203%2C%204%20%5D%2C%0A%7D%0A%0Aconst%20result%20%3D%20R.fromPairs(listOfPairs)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.fromPairs</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2194,11 +1818,16 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 ### groupBy
 
 
+
+
 ```typescript
 groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }
 ```
 
+
 It splits `list` according to a provided `groupFn` function and returns an object.
+
+
 
 ```javascript
 const list = [ 'a', 'b', 'aa', 'bb' ]
@@ -2207,6 +1836,11 @@ const groupFn = x => x.length
 const result = R.groupBy(groupFn, list)
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn%2C%20list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try the above <strong>R.groupBy</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2219,43 +1853,20 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.groupBy</italic> specs
-
-> Reason for the failure: ramda support transforms
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-var _isTransformer = require('rambda/internal/_isTransformer');
-
-describe('groupBy', function() {
-  it('dispatches on transformer objects in list position', function() {
-    var byType = R.prop('type');
-    var xf = {
-      '@@transducer/init': function() { return {}; },
-      '@@transducer/result': function(x) { return x; },
-      '@@transducer/step': R.mergeRight
-    };
-    eq(_isTransformer(R.groupBy(byType, xf)), true);
-  });
-});
-```
-
-
-</details>
-
 
 ### groupWith
+
+
 
 
 ```typescript
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]
 ```
 
+
 It returns separated version of `list`, where separation is done with equality `compareFn` function.
+
+
 
 ```javascript
 const compareFn = (x, y) => x === y
@@ -2264,6 +1875,11 @@ const list = [1, 2, 2, 1, 1, 2]
 const result = R.groupWith(isConsecutive, list)
 // => [[1], [2,2], [1,1], [2]]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20compareFn%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%0Aconst%20list%20%3D%20%5B1%2C%202%2C%202%2C%201%2C%201%2C%202%5D%0A%0Aconst%20result%20%3D%20R.groupWith(isConsecutive%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C2%5D%2C%20%5B1%2C1%5D%2C%20%5B2%5D%5D">Try the above <strong>R.groupWith</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2281,11 +1897,16 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 ### has
 
 
+
+
 ```typescript
 has<T>(prop: string, obj: T): boolean
 ```
 
+
 It returns `true` if `obj` has property `prop`.
+
+
 
 ```javascript
 const obj = {a: 1}
@@ -2296,6 +1917,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20obj)%2C%0A%20%20R.has('b'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.has</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2308,39 +1934,16 @@ has(prop: string): <T>(obj: T) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.has</italic> specs
-
-> Reason for the failure: rambda does check properties from the prototype chain
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('has', function() {
-  var fred = {name: 'Fred', age: 23};
-  var anon = {age: 99};
-  it('does not check properties from the prototype chain', function() {
-    var Person = function() {};
-    Person.prototype.age = function() {};
-    var bob = new Person();
-    eq(R.has('age', bob), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### head
+
+
 
 
 ```typescript
 head<T>(listOrString: T[]): T | undefined
 ```
+
 
 
 <details>
@@ -2358,13 +1961,18 @@ head(listOrString: string): string;
 ### identical
 
 
+
+
 ```typescript
 identical<T>(a: T, b: T): boolean
 ```
 
+
 It returns `true` if its arguments `a` and `b` are identical.
 
 Otherwise, it returns `false`.
+
+
 
 ```javascript
 const obj = {a: 1};
@@ -2375,6 +1983,11 @@ R.identical([], []); //=> false
 R.identical(0, -0); //=> false
 R.identical(NaN, NaN); //=> true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7Ba%3A%201%7D%3B%0AR.identical(obj%2C%20obj)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%201)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%3D%3E%20false%0AR.identical(NaN%2C%20NaN)%3B%20%2F%2F%3D%3E%20true">Try the above <strong>R.identical</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2391,15 +2004,25 @@ identical<T>(a: T): (b: T) => boolean;
 ### identity
 
 
+
+
 ```typescript
 identity<T>(input: T): T
 ```
 
+
 It just passes back the supplied `input` argument.
+
+
 
 ```javascript
 R.identity(7) // => 7
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.identity(7)%20%2F%2F%20%3D%3E%207">Try the above <strong>R.identity</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2415,13 +2038,18 @@ identity<T>(input: T): T;
 ### ifElse
 
 
+
+
 ```typescript
 ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn
 ```
 
+
 It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. 
 
 When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
+
+
 
 ```javascript
 const fn = R.ifElse(
@@ -2434,6 +2062,11 @@ const result = [ fn(8), fn(18) ]
 // => [80, 36]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.ifElse(%0A%20x%20%3D%3E%20x%3E10%2C%0A%20x%20%3D%3E%20x*2%2C%0A%20x%20%3D%3E%20x*10%0A)%0A%0Aconst%20result%20%3D%20%5B%20fn(8)%2C%20fn(18)%20%5D%0A%2F%2F%20%3D%3E%20%5B80%2C%2036%5D">Try the above <strong>R.ifElse</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -2445,62 +2078,29 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.ifElse</italic> specs
-
-> Reason for the failure: rambda doesn't return a curried function
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('ifElse', function() {
-  var t = function(a) { return a + 1; };
-  var identity = function(a) { return a; };
-  var isArray = function(a) { return Object.prototype.toString.call(a) === '[object Array]'; };
-  it('returns a function whose arity equals the max arity of the three arguments to `ifElse`', function() {
-    function a0() { return 0; }
-    function a1(x) { return x; }
-    function a2(x, y) { return x + y; }
-    eq(R.ifElse(a0, a1, a2).length, 2);
-    eq(R.ifElse(a0, a2, a1).length, 2);
-    eq(R.ifElse(a1, a0, a2).length, 2);
-    eq(R.ifElse(a1, a2, a0).length, 2);
-    eq(R.ifElse(a2, a0, a1).length, 2);
-    eq(R.ifElse(a2, a1, a0).length, 2);
-  });
-  it('returns a curried function', function() {
-    var v = function(a) { return typeof a === 'number'; };
-    var ifIsNumber = R.ifElse(v);
-    eq(ifIsNumber(t, identity)(15), 16);
-    eq(ifIsNumber(t, identity)('hello'), 'hello');
-    var fn = R.ifElse(R.gt, R.subtract, R.add);
-    eq(fn(2)(7), 9);
-    eq(fn(2, 7), 9);
-    eq(fn(7)(2), 5);
-    eq(fn(7, 2), 5);
-  });
-});
-```
-
-
-</details>
-
 
 ### inc
+
+
 
 
 ```typescript
 inc(x: number): number
 ```
 
+
 It increments a number.
+
+
 
 ```javascript
 R.inc(1) // => 2
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.inc(1)%20%2F%2F%20%3D%3E%202">Try the above <strong>R.inc</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2516,9 +2116,12 @@ inc(x: number): number;
 ### includes
 
 
+
+
 ```typescript
 includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean
 ```
+
 
 
 <details>
@@ -2538,15 +2141,20 @@ includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 ### indexBy
 
 
+
+
 ```typescript
 indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T }
 ```
+
 
 It generates object with properties provided by `condition` and values provided by `list` array.
 
 If `condition` is a function, then all list members are passed through it.
 
 If `condition` is a string, then all list members are passed through `R.path(condition)`.
+
+
 
 ```javascript
 const list = [ {id: 10}, {id: 20} ]
@@ -2566,6 +2174,11 @@ const result = [
 // => [ { 10: {id: 10}, 20: {id: 20} }, true ]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20%7Bid%3A%2010%7D%2C%20%7Bid%3A%2020%7D%20%5D%0A%0Aconst%20withFunction%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20list%0A)%0Aconst%20withString%20%3D%20R.indexBy(%0A%20%20'id'%2C%0A%20%20list%0A)%0Aconst%20result%20%3D%20%5B%0A%20%20withFunction%2C%20%0A%20%20R.equals(withFunction%2C%20withString)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%7B%2010%3A%20%7Bid%3A%2010%7D%2C%2020%3A%20%7Bid%3A%2020%7D%20%7D%2C%20true%20%5D">Try the above <strong>R.indexBy</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -2579,46 +2192,22 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.indexBy</italic> specs
-
-> Reason for the failure: ramda method can act as a transducer
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('indexBy', function() {
-  it('can act as a transducer', function() {
-    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    var transducer = R.compose(
-      R.indexBy(R.prop('id')),
-      R.map(R.pipe(
-        R.adjust(0, R.toUpper),
-        R.adjust(1, R.omit(['id']))
-      )));
-    var result = R.into({}, transducer, list);
-    eq(result, {ABC: {title: 'B'}, XYZ: {title: 'A'}});
-  });
-});
-```
-
-
-</details>
-
 
 ### indexOf
+
+
 
 
 ```typescript
 indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number
 ```
 
+
 It returns the index of the first element of `list` equals to `valueToFind`.
 
 If there is no such element, it returns `-1`.
+
+
 
 ```javascript
 const list = [0, 1, 2, 3]
@@ -2629,6 +2218,11 @@ const result = [
 ]
 // => [2, -1]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B0%2C%201%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.indexOf(2%2C%20list)%2C%0A%20%20R.indexOf(0%2C%20list)%0A%5D%0A%2F%2F%20%3D%3E%20%5B2%2C%20-1%5D">Try the above <strong>R.indexOf</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2641,75 +2235,20 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.indexOf</italic> specs
-
-> Reason for the failure: ramda method dispatches to `indexOf` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('indexOf', function() {
-  var input = [1, 2, 3, 4, 5];
-  var list = [1, 2, 3];
-  list[-2] = 4; // Throw a wrench in the gears by assigning a non-valid array index as object property.
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.indexOf(0, [-0]), -1);
-    eq(R.indexOf(-0, [0]), -1);
-    eq(R.indexOf(NaN, [NaN]), 0);
-    eq(R.indexOf(new Just([42]), [new Just([42])]), 0);
-  });
-  it('dispatches to `indexOf` method', function() {
-    function Empty() {}
-    Empty.prototype.indexOf = R.always(-1);
-    function List(head, tail) {
-      this.head = head;
-      this.tail = tail;
-    }
-    List.prototype.indexOf = function(x) {
-      var idx = this.tail.indexOf(x);
-      return this.head === x ? 0 : idx >= 0 ? 1 + idx : -1;
-    };
-    var list = new List('b',
-      new List('a',
-        new List('n',
-          new List('a',
-            new List('n',
-              new List('a',
-                new Empty()
-              )
-            )
-          )
-        )
-      )
-    );
-    eq(R.indexOf('a', 'banana'), 1);
-    eq(R.indexOf('x', 'banana'), -1);
-    eq(R.indexOf('a', list), 1);
-    eq(R.indexOf('x', list), -1);
-  });
-});
-```
-
-
-</details>
-
 
 ### init
+
+
 
 
 ```typescript
 init<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns all but the last element of `listOrString`.
+
+
 
 ```javascript
 const result = [
@@ -2718,6 +2257,11 @@ const result = [
 ]
 // => [[1, 2], 'fo']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.init(%5B1%2C%202%2C%203%5D)%20%2C%20%0A%20%20R.init('foo')%20%20%2F%2F%20%3D%3E%20'fo'%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try the above <strong>R.init</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2734,11 +2278,16 @@ init(listOrString: string): string;
 ### intersection
 
 
+
+
 ```typescript
 intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[]
 ```
 
+
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+
+
 
 ```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
@@ -2747,6 +2296,11 @@ const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 const result = intersection(listA, listB)
 // => [{ id : 3 }, { id : 4 }]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listA%20%3D%20%5B%20%7B%20id%20%3A%201%20%7D%2C%20%7B%20id%20%3A%202%20%7D%2C%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%20%5D%0Aconst%20listB%20%3D%20%5B%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%2C%20%7B%20id%20%3A%205%20%7D%2C%20%7B%20id%20%3A%206%20%7D%20%5D%0A%0Aconst%20result%20%3D%20intersection(listA%2C%20listB)%0A%2F%2F%20%3D%3E%20%5B%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%5D">Try the above <strong>R.intersection</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2763,11 +2317,16 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 ### intersperse
 
 
+
+
 ```typescript
 intersperse<T>(separator: T, list: ReadonlyArray<T>): T[]
 ```
 
+
 It adds a `separator` between members of `list`.
+
+
 
 ```javascript
 const list = [ 0, 1, 2, 3 ]
@@ -2775,6 +2334,11 @@ const separator = '|'
 const result = intersperse(separator, list)
 // => [0, '|', 1, '|', 2, '|', 3]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%20%5D%0Aconst%20separator%20%3D%20'%7C'%0Aconst%20result%20%3D%20intersperse(separator%2C%20list)%0A%2F%2F%20%3D%3E%20%5B0%2C%20'%7C'%2C%201%2C%20'%7C'%2C%202%2C%20'%7C'%2C%203%5D">Try the above <strong>R.intersperse</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2791,11 +2355,16 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 ### is
 
 
+
+
 ```typescript
 is(targetPrototype: any, x: any): boolean
 ```
 
+
 It returns `true` is `x` is instance of `targetPrototype`.
+
+
 
 ```javascript
 const result = [
@@ -2804,6 +2373,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.is(String%2C%20'foo')%2C%20%20%0A%20%20R.is(Array%2C%201)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.is</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2820,11 +2394,16 @@ is(targetPrototype: any): (x: any) => boolean;
 ### isEmpty
 
 
+
+
 ```typescript
 isEmpty<T>(x: T): boolean
 ```
 
+
 It returns `true` is `x` is `empty`.
+
+
 
 ```javascript
 const result = [
@@ -2833,6 +2412,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.isEmpty('')%2C%0A%20%20R.isEmpty(%7B%20x%20%3A%200%20%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.isEmpty</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2844,41 +2428,20 @@ isEmpty<T>(x: T): boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.isEmpty</italic> specs
-
-> Reason for the failure: ramda supports typed arrays
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('isEmpty', function() {
-  it('returns true for empty typed array', function() {
-    eq(R.isEmpty(Uint8Array.from('')), true);
-    eq(R.isEmpty(Float32Array.from('')), true);
-    eq(R.isEmpty(new Float32Array([])), true);
-    eq(R.isEmpty(Uint8Array.from('1')), false);
-    eq(R.isEmpty(Float32Array.from('1')), false);
-    eq(R.isEmpty(new Float32Array([1])), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### isNil
+
+
 
 
 ```typescript
 isNil(x: any): x is null | undefined
 ```
 
+
 It returns `true` is `x` is either `null` or `undefined`.
+
+
 
 ```javascript
 const result = [
@@ -2887,6 +2450,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.isNil(null)%2C%0A%20%20R.isNil(1)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.isNil</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2902,15 +2470,25 @@ isNil(x: any): x is null | undefined;
 ### join
 
 
+
+
 ```typescript
 join(x: string, xs: ReadonlyArray<any>): string
 ```
 
+
 It returns a string representing `list` instances joined with `glue`.
+
+
 
 ```javascript
 R.join('-', [1, 2, 3])  // => '1-2-3'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try the above <strong>R.join</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2927,15 +2505,25 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 ### keys
 
 
+
+
 ```typescript
 keys<T extends object>(x: T): (keyof T)[]
 ```
 
+
 It applies `Object.keys` over `x` and returns its keys.
+
+
 
 ```javascript
 R.keys({a:1, b:2})  // => ['a', 'b']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.keys(%7Ba%3A1%2C%20b%3A2%7D)%20%20%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%5D">Try the above <strong>R.keys</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -2948,49 +2536,20 @@ keys<T>(x: T): string[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.keys</italic> specs
-
-> Reason for the failure: ramda method works for primitives
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('keys', function() {
-  var obj = {a: 100, b: [1, 2, 3], c: {x: 200, y: 300}, d: 'D', e: null, f: undefined};
-  function C() { this.a = 100; this.b = 200; }
-  C.prototype.x = function() { return 'x'; };
-  C.prototype.y = 'y';
-  var cobj = new C();
-  it('works for primitives', function() {
-    eq(R.keys(null), []);
-    eq(R.keys(undefined), []);
-    eq(R.keys(55), []);
-    eq(R.keys('foo'), []);
-    eq(R.keys(true), []);
-    eq(R.keys(false), []);
-    eq(R.keys(NaN), []);
-    eq(R.keys(Infinity), []);
-    eq(R.keys([]), []);
-  });
-});
-```
-
-
-</details>
-
 
 ### last
+
+
 
 
 ```typescript
 last<T>(listOrString: T[]): T | undefined
 ```
 
+
 It returns the last element of `listOrString`.
+
+
 
 ```javascript
 const result = [
@@ -2999,6 +2558,11 @@ const result = [
 ]
 // => [3, 'o']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.last(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.last('foo')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B3%2C%20'o'%5D">Try the above <strong>R.last</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3015,15 +2579,20 @@ last(listOrString: string): string;
 ### lastIndexOf
 
 
+
+
 ```typescript
 lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number
 ```
+
 
 It returns the last index of `target` in `list` array.
 
 `R.equals` is used to determine equality between `target` and members of `list`.
 
 If there is no such index, then `-1` is returned.
+
+
 
 ```javascript
 const list = [1, 2, 3, 1, 2, 3]
@@ -3033,6 +2602,11 @@ const result = [
 ]
 // => [4, -1]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%201%2C%202%2C%203%5D%0Aconst%20result%20%3D%20%5B%0A%20%20R.lastIndexOf(2%2C%20list)%2C%0A%20%20R.lastIndexOf(4%2C%20list)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B4%2C%20-1%5D">Try the above <strong>R.lastIndexOf</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3045,81 +2619,20 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.lastIndexOf</italic> specs
-
-> Reason for the failure: ramda method dispatches to `lastIndexOf` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('lastIndexOf', function() {
-  var input = [1, 2, 3, 4, 5, 1];
-  var list = ['a', 1, 'a'];
-  list[-2] = 'a'; // Throw a wrench in the gears by assigning a non-valid array index as object property.
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.lastIndexOf(0, [-0]), -1);
-    eq(R.lastIndexOf(-0, [0]), -1);
-    eq(R.lastIndexOf(NaN, [NaN]), 0);
-    eq(R.lastIndexOf(new Just([42]), [new Just([42])]), 0);
-  });
-  it('dispatches to `lastIndexOf` method', function() {
-    function Empty() {}
-    Empty.prototype.lastIndexOf = R.always(-1);
-    function List(head, tail) {
-      this.head = head;
-      this.tail = tail;
-    }
-    List.prototype.lastIndexOf = function(x) {
-      var idx = this.tail.lastIndexOf(x);
-      return idx >= 0 ? 1 + idx : this.head === x ? 0 : -1;
-    };
-    var list = new List('b',
-      new List('a',
-        new List('n',
-          new List('a',
-            new List('n',
-              new List('a',
-                new Empty()
-              )
-            )
-          )
-        )
-      )
-    );
-    eq(R.lastIndexOf('a', 'banana'), 5);
-    eq(R.lastIndexOf('x', 'banana'), -1);
-    eq(R.lastIndexOf('a', list), 5);
-    eq(R.lastIndexOf('x', list), -1);
-  });
-  it('finds function, compared by identity', function() {
-    var f = function() {};
-    var g = function() {};
-    var list = [g, f, g, f];
-    eq(R.lastIndexOf(f, list), 3);
-  });
-});
-```
-
-
-</details>
-
 
 ### length
+
+
 
 
 ```typescript
 length<T>(listOrString: ReadonlyArray<T>): number
 ```
 
+
 It returns the `length` property of `listOrString`.
+
+
 
 ```javascript
 const result = [
@@ -3128,6 +2641,11 @@ const result = [
 ]
 // => [4, 3]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.length(%5B1%2C%202%2C%203%2C%204%5D)%2C%0A%20%20R.length('foo')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B4%2C%203%5D">Try the above <strong>R.length</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3139,48 +2657,24 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.length</italic> specs
-
-> Reason for the failure: ramda method supports object with `length` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('length', function() {
-  it('returns the length of a string', function() {
-    eq(R.length(''), 0);
-    eq(R.length('xyz'), 3);
-  });
-  it('returns NaN for length property of unexpected type', function() {
-    eq(R.identical(NaN, R.length({length: ''})), true);
-    eq(R.identical(NaN, R.length({length: '1.23'})), true);
-    eq(R.identical(NaN, R.length({length: null})), true);
-    eq(R.identical(NaN, R.length({length: undefined})), true);
-    eq(R.identical(NaN, R.length({})), true);
-  });
-});
-```
-
-
-</details>
-
 
 ### lens
+
+
 
 
 ```typescript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens
 ```
 
+
 It returns a `lens` for the given `getter` and `setter` functions. 
 
 The `getter` **gets** the value of the focus; the `setter` **sets** the value of the focus. 
 
 The setter should not mutate the data structure.
+
+
 
 ```javascript
 const xLens = R.lens(R.prop('x'), R.assoc('x'));
@@ -3189,6 +2683,11 @@ R.view(xLens, {x: 1, y: 2}) // => 1
 R.set(xLens, 4, {x: 1, y: 2}) // => {x: 4, y: 2}
 R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20xLens%20%3D%20R.lens(R.prop('x')%2C%20R.assoc('x'))%3B%0A%0AR.view(xLens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%201%0AR.set(xLens%2C%204%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0AR.over(xLens%2C%20R.negate%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Bx%3A%20-1%2C%20y%3A%202%7D">Try the above <strong>R.lens</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3205,11 +2704,16 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ### lensIndex
 
 
+
+
 ```typescript
 lensIndex(index: number): Lens
 ```
 
+
 It returns a lens that focuses on specified `index`.
+
+
 
 ```javascript
 const list = ['a', 'b', 'c']
@@ -3219,6 +2723,11 @@ R.view(headLens, list) // => 'a'
 R.set(headLens, 'x', list) // => ['x', 'b', 'c']
 R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%5D%0Aconst%20headLens%20%3D%20R.lensIndex(0)%0A%0AR.view(headLens%2C%20list)%20%2F%2F%20%3D%3E%20'a'%0AR.set(headLens%2C%20'x'%2C%20list)%20%2F%2F%20%3D%3E%20%5B'x'%2C%20'b'%2C%20'c'%5D%0AR.over(headLens%2C%20R.toUpper%2C%20list)%20%2F%2F%20%3D%3E%20%5B'A'%2C%20'b'%2C%20'c'%5D">Try the above <strong>R.lensIndex</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3234,11 +2743,16 @@ lensIndex(index: number): Lens;
 ### lensPath
 
 
+
+
 ```typescript
 lensPath(path: RamdaPath): Lens
 ```
 
+
 It returns a lens that focuses on specified `path`.
+
+
 
 ```javascript
 const lensPath = R.lensPath(['x', 0, 'y'])
@@ -3252,6 +2766,11 @@ R.set(lensPath, 1, input)
 R.over(xHeadYLens, R.negate, input) 
 //=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try the above <strong>R.lensPath</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3267,12 +2786,17 @@ lensPath(path: RamdaPath): Lens;
 ### lensProp
 
 
+
+
 ```typescript
 lensProp(prop: string): {
   <T, U>(obj: T): U
 ```
 
+
 It returns a lens that focuses on specified property `prop`.
+
+
 
 ```javascript
 const xLens = R.lensProp('x');
@@ -3286,6 +2810,11 @@ R.set(xLens, 4, input)
 R.over(xLens, R.negate, input) 
 // => {x: -1, y: 2}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20xLens%20%3D%20R.lensProp('x')%3B%0Aconst%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0A%0AR.view(xLens%2C%20input)%20%2F%2F%20%3D%3E%201%0A%0AR.set(xLens%2C%204%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0A%0AR.over(xLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20-1%2C%20y%3A%202%7D">Try the above <strong>R.lensProp</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3301,13 +2830,18 @@ lensProp(prop: string): {
 ### map
 
 
+
+
 ```typescript
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>
 ```
 
+
 It returns the result of looping through `list` with `fn`.
 
 It works with both array and object.
+
+
 
 ```javascript
 const fn = (x, i) => (x * 2) + i
@@ -3324,6 +2858,11 @@ const result = [
 ]
 // => [ [2, 5], {a: 'a-1', b: 'b-2'}]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(x%2C%20i)%20%3D%3E%20(x%20*%202)%20%2B%20i%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20list%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B2%2C%205%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try the above <strong>R.map</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3344,11 +2883,16 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 ### match
 
 
+
+
 ```typescript
 match(regExpression: RegExp, str: string): any[]
 ```
 
+
 Curried version of `String.prototype.match` which returns empty array, when there is no match.
+
+
 
 ```javascript
 const result = [
@@ -3357,6 +2901,11 @@ const result = [
 ]
 // => [[], ['ba', 'na', 'na']]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.match('a'%2C%20'foo')%2C%0A%20%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20%5B'ba'%2C%20'na'%2C%20'na'%5D%5D">Try the above <strong>R.match</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3373,11 +2922,16 @@ match(regExpression: RegExp): (str: string) => any[];
 ### max
 
 
+
+
 ```typescript
 max<T extends Ord>(x: T, y: T): T
 ```
 
+
 It returns the greater value between `x` and `y`.
+
+
 
 ```javascript
 const result = [
@@ -3386,6 +2940,11 @@ const result = [
 ]
 // => [7, 'foo']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.max(5%2C%207)%2C%20%20%0A%20%20R.max('bar'%2C%20'foo')%2C%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B7%2C%20'foo'%5D">Try the above <strong>R.max</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3402,17 +2961,27 @@ max<T extends Ord>(x: T): (y: T) => T;
 ### maxBy
 
 
+
+
 ```typescript
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
+
 It returns the greater value between `x` and `y` according to `compareFn` function.
+
+
 
 ```javascript
 const compareFn = Math.abs
 
 R.maxBy(compareFn, 5, -7) // => -7
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20compareFn%20%3D%20Math.abs%0A%0AR.maxBy(compareFn%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try the above <strong>R.maxBy</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3430,16 +2999,26 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 ### mean
 
 
+
+
 ```typescript
 mean(list: ReadonlyArray<number>): number
 ```
 
+
 It returns the mean value of `list` input.
+
+
 
 ```javascript
 R.mean([ 2, 7 ])
 // => 4.5
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mean(%5B%202%2C%207%20%5D)%0A%2F%2F%20%3D%3E%204.5">Try the above <strong>R.mean</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3455,15 +3034,25 @@ mean(list: ReadonlyArray<number>): number;
 ### median
 
 
+
+
 ```typescript
 median(list: ReadonlyArray<number>): number
 ```
 
+
 It returns the median value of `list` input.
+
+
 
 ```javascript
 R.median([ 7, 2, 10, 9 ]) // => 8
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.median(%5B%207%2C%202%2C%2010%2C%209%20%5D)%20%2F%2F%20%3D%3E%208">Try the above <strong>R.median</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3479,11 +3068,16 @@ median(list: ReadonlyArray<number>): number;
 ### merge
 
 
+
+
 ```typescript
 merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>
 ```
 
+
 It creates a copy of `target` object with overidden `newProps` properties.
+
+
 
 ```javascript
 const target = { 'foo': 0, 'bar': 1 }
@@ -3492,6 +3086,11 @@ const newProps = { 'foo': 7 }
 const result = R.merge(target, newProps)
 // => { 'foo': 7, 'bar': 1 }
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.merge(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try the above <strong>R.merge</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3508,11 +3107,16 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 ### min
 
 
+
+
 ```typescript
 min<T extends Ord>(x: T, y: T): T
 ```
 
+
 It returns the lesser value between `x` and `y`.
+
+
 
 ```javascript
 const result = [
@@ -3521,6 +3125,11 @@ const result = [
 ]
 // => [5, 'bar']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.min(5%2C%207)%2C%20%20%0A%20%20R.min('bar'%2C%20'foo')%2C%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B5%2C%20'bar'%5D">Try the above <strong>R.min</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3537,17 +3146,27 @@ min<T extends Ord>(x: T): (y: T) => T;
 ### minBy
 
 
+
+
 ```typescript
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
+
 It returns the lesser value between `x` and `y` according to `compareFn` function.
+
+
 
 ```javascript
 const compareFn = Math.abs
 
 R.minBy(compareFn, -5, 2) // => -5
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20compareFn%20%3D%20Math.abs%0A%0AR.minBy(compareFn%2C%20-5%2C%202)%20%2F%2F%20%3D%3E%20-5">Try the above <strong>R.minBy</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3565,15 +3184,25 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 ### modulo
 
 
+
+
 ```typescript
 modulo(x: number, y: number): number
 ```
 
+
 Curried version of `x%y`.
+
+
 
 ```javascript
 R.modulo(17, 3) // => 2
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modulo(17%2C%203)%20%2F%2F%20%3D%3E%202">Try the above <strong>R.modulo</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3590,15 +3219,25 @@ modulo(x: number): (y: number) => number;
 ### multiply
 
 
+
+
 ```typescript
 multiply(x: number, y: number): number
 ```
 
+
 Curried version of `x*y`.
+
+
 
 ```javascript
 R.multiply(2, 4) // => 8
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.multiply(2%2C%204)%20%2F%2F%20%3D%3E%208">Try the above <strong>R.multiply</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3615,14 +3254,22 @@ multiply(x: number): (y: number) => number;
 ### negate
 
 
+
+
 ```typescript
 negate(x: number): number
 ```
 
 
+
 ```javascript
 R.negate(420)// => -420
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.negate(420)%2F%2F%20%3D%3E%20-420">Try the above <strong>R.negate</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3638,11 +3285,16 @@ negate(x: number): number;
 ### none
 
 
+
+
 ```typescript
 none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
+
 It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
+
+
 
 ```javascript
 const list = [ 0, 1, 2, 3, 4 ]
@@ -3651,6 +3303,11 @@ const predicate = x => x > 6
 const result = R.none(predicate, arr)
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%206%0A%0Aconst%20result%20%3D%20R.none(predicate%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.none</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3667,15 +3324,25 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ### not
 
 
+
+
 ```typescript
 not(input: any): boolean
 ```
 
+
 It returns a boolean negated version of `input`.
+
+
 
 ```javascript
 R.not(false) // true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.not(false)%20%2F%2F%20true">Try the above <strong>R.not</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3691,11 +3358,16 @@ not(input: any): boolean;
 ### nth
 
 
+
+
 ```typescript
 nth<T>(index: number, list: ReadonlyArray<T>): T | undefined
 ```
 
+
 Curried version of `list[index]`.
+
+
 
 ```javascript
 const list = [1, 2, 3]
@@ -3708,6 +3380,11 @@ const result = [
 ]
 // => [3, undefined, 'f']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20str%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.nth(2%2C%20list)%2C%0A%20%20R.nth(6%2C%20list)%2C%0A%20%20R.nth(0%2C%20str)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B3%2C%20undefined%2C%20'f'%5D">Try the above <strong>R.nth</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3724,11 +3401,16 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 ### omit
 
 
+
+
 ```typescript
 omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>
 ```
 
+
 It returns a partial copy of an `obj` without `propsToOmit` properties.
+
+
 
 ```javascript
 const obj = {a: 1, b: 2, c: 3}
@@ -3741,6 +3423,11 @@ const result = [
 ]
 // => [{b: 2}, {b: 2}]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20obj)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try the above <strong>R.omit</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3759,17 +3446,27 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 ### over
 
 
+
+
 ```typescript
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T
 ```
 
+
 It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
+
+
 
 ```javascript
 const headLens = R.lensIndex(0)
  
 R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20headLens%20%3D%20R.lensIndex(0)%0A%20%0AR.over(headLens%2C%20R.toUpper%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%3D%3E%20%5B'FOO'%2C%20'bar'%2C%20'baz'%5D">Try the above <strong>R.over</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3790,14 +3487,19 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 ### partial
 
 
+
+
 ```typescript
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T
 ```
+
 
 It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
 
 `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
 The name comes from the fact that you partially inject the inputs.
+
+
 
 ```javascript
 const fn = (title, firstName, lastName) => {
@@ -3809,6 +3511,11 @@ const finalFn = canPassAnyNumberOfArguments('Foo')
 
 finalFn('Bar') // =>  'Hello, Foo Bar!'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20(title%2C%20firstName%2C%20lastName)%20%3D%3E%20%7B%0A%20%20return%20title%20%2B%20'%20'%20%2B%20firstName%20%2B%20'%20'%20%2B%20lastName%20%2B%20'!'%0A%7D%0A%0Aconst%20canPassAnyNumberOfArguments%20%3D%20partial(fn%2C%20'Hello')%0Aconst%20finalFn%20%3D%20canPassAnyNumberOfArguments('Foo')%0A%0AfinalFn('Bar')%20%2F%2F%20%3D%3E%20%20'Hello%2C%20Foo%20Bar!'">Try the above <strong>R.partial</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -3830,13 +3537,18 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 ### path
 
 
+
+
 ```typescript
 path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined
 ```
 
+
 If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
 It will return `undefined`, if such path is not found.
+
+
 
 ```javascript
 const obj = {a: {b: 1}}
@@ -3851,6 +3563,11 @@ const result = [
 // => [1, 1, undefined]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20obj)%2C%0A%20%20R.path(pathToSearchList%2C%20obj)%2C%0A%20%20R.path('a.b.c.d'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try the above <strong>R.path</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -3864,38 +3581,20 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.path</italic> specs
-
-> Reason for the failure: ramda method supports negative indices
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('path', function() {
-  var deepObject = {a: {b: {c: 'c'}}, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ['arr']};
-  it('takes a path that contains negative indices into arrays', function() {
-    eq(R.path(['x', -2], {x: ['a', 'b', 'c', 'd']}), 'c');
-    eq(R.path([-1, 'y'], [{x: 1, y: 99}, {x: 2, y: 98}, {x: 3, y: 97}]), 97);
-  });
-});
-```
-
-
-</details>
-
 
 ### pathOr
+
+
 
 
 ```typescript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
+
 It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+
+
 
 ```javascript
 const defaultValue = 'DEFAULT_VALUE'
@@ -3916,6 +3615,11 @@ const result = [
 // => [1, 1, 'DEFAULT_VALUE']
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%201%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearch%2C%20obj)%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearchList%2C%20obj)%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20'a.b.c'%2C%20obj)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20'DEFAULT_VALUE'%5D">Try the above <strong>R.pathOr</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -3932,13 +3636,18 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 ### paths
 
 
+
+
 ```typescript
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
+
 It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
+
+
 
 ```javascript
 const obj = {
@@ -3958,6 +3667,11 @@ const result = R.paths([
 // => [1, 2, undefined]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%20%7B%0A%20%20%20%20%20%20c%20%3A%201%2C%0A%20%20%20%20%20%20d%20%3A%202%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20R.paths(%5B%0A%20%20'a.b.c'%2C%0A%20%20'a.b.c.d'%2C%0A%20%20'a.b.c.d.e'%2C%0A%5D%2C%20obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20undefined%5D">Try the above <strong>R.paths</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -3971,50 +3685,20 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.paths</italic> specs
-
-> Reason for the failure: ramda method supports negative indices
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('paths', function() {
-  var obj = {
-    a: {
-      b: {
-        c: 1,
-        d: 2
-      }
-    },
-    p: [{q: 3}, 'Hi'],
-    x: {
-      y: 'Alice',
-      z: [[{}]]
-    }
-  };
-  it('takes a path that contains negative indices into arrays', function() {
-    eq(R.paths([['p', -2, 'q'], ['p', -1]], obj), [3, 'Hi']);
-    eq(R.paths([['p', -4, 'q'], ['x', 'z', -1, 0]], obj), [undefined, {}]);
-  });
-});
-```
-
-
-</details>
-
 
 ### pick
+
+
 
 
 ```typescript
 pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>
 ```
 
+
 It returns a partial copy of an `obj`  containing only `propsToPick` properties.
+
+
 
 ```javascript
 const obj = {
@@ -4040,6 +3724,11 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20obj)%2C%0A%20%20R.pick(propsToPickList%2C%20obj)%2C%0A%20%20R.pick('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pick('bar'%2C%20obj)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.pick</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4057,11 +3746,16 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 ### pickAll
 
 
+
+
 ```typescript
 pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U
 ```
 
+
 Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
+
+
 
 ```javascript
 const obj = {
@@ -4087,6 +3781,11 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo%2Cbar'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%2C%20'bar'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pickAll(propsToPick%2C%20obj)%2C%0A%20%20R.pickAll(propsToPickList%2C%20obj)%2C%0A%20%20R.pickAll('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pickAll('bar'%2C%20obj)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Bbar%3A%20undefined%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.pickAll</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4102,11 +3801,16 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 ### pipe
 
 
+
+
 ```typescript
 pipe<T1>(fn0: () => T1): () => T1
 ```
 
+
 It performs left-to-right function composition.
+
+
 
 ```javascript
 const result = R.pipe(
@@ -4116,6 +3820,11 @@ const result = R.pipe(
 
 // => [6, 8]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%20%20R.filter(val%20%3D%3E%20val%20%3E%202)%2C%0A%20%20R.map(a%20%3D%3E%20a%20*%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try the above <strong>R.pipe</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4130,65 +3839,20 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.pipe</italic> specs
-
-> Reason for the failure: ramda passes context to functions | rambda composed functions have no length
-</summary>
-
-```javascript
-var assert = require('assert');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('pipe', function() {
-  it('performs left-to-right function composition', function() {
-    //  f :: (String, Number?) -> ([Number] -> [Number])
-    var f = R.pipe(parseInt, R.multiply, R.map);
-    eq(f.length, 2);
-    eq(f('10')([1, 2, 3]), [10, 20, 30]);
-    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);
-  });
-  it('passes context to functions', function() {
-    function x(val) {
-      return this.x * val;
-    }
-    function y(val) {
-      return this.y * val;
-    }
-    function z(val) {
-      return this.z * val;
-    }
-    var context = {
-      a: R.pipe(x, y, z),
-      x: 4,
-      y: 2,
-      z: 1
-    };
-    eq(context.a(5), 40);
-  });
-  it('can be applied to one argument', function() {
-    var f = function(a, b, c) { return [a, b, c]; };
-    var g = R.pipe(f);
-    eq(g.length, 3);
-    eq(g(1, 2, 3), [1, 2, 3]);
-  });
-});
-```
-
-
-</details>
-
 
 ### pluck
+
+
 
 
 ```typescript
 pluck<T>(property: number, list: ReadonlyArray<T>): T
 ```
 
+
 It returns list of the values of `property` taken from the all objects inside `list`.
+
+
 
 ```javascript
 const list = [{a: 1}, {a: 2}, {b: 3}]
@@ -4197,6 +3861,11 @@ const property = 'a'
 R.pluck(list, property) 
 // => [1, 2]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D%0Aconst%20property%20%3D%20'a'%0A%0AR.pluck(list%2C%20property)%20%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try the above <strong>R.pluck</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4211,43 +3880,20 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.pluck</italic> specs
-
-> Reason for the failure: ramda method behaves as a transducer
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('pluck', function() {
-  var people = [
-    {name: 'Fred', age: 23},
-    {name: 'Wilma', age: 21},
-    {name: 'Pebbles', age: 2}
-  ];
-  it('behaves as a transducer when given a transducer in list position', function() {
-    var numbers = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
-    var transducer = R.compose(R.pluck('a'), R.map(R.add(1)), R.take(2));
-    eq(R.transduce(transducer, R.flip(R.append), [], numbers), [2, 3]);
-  });
-});
-```
-
-
-</details>
-
 
 ### prepend
+
+
 
 
 ```typescript
 prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It adds element `x` at the beginning of `listOrString`.
+
+
 
 ```javascript
 const x = 'foo'
@@ -4258,6 +3904,11 @@ const result = [
 ]
 // => ['foo_cherry', ['foo', 'bar', 'baz']]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.prepend(x%2C%20'_cherry')%2C%0A%20%20R.prepend(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'foo_cherry'%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D%5D">Try the above <strong>R.prepend</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4274,15 +3925,23 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 ### product
 
 
+
+
 ```typescript
 product(list: ReadonlyArray<number>): number
 ```
+
 
 
 ```javascript
 R.product([ 2, 3, 4 ])
 // => 24)
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.product(%5B%202%2C%203%2C%204%20%5D)%0A%2F%2F%20%3D%3E%2024)">Try the above <strong>R.product</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4298,9 +3957,12 @@ product(list: ReadonlyArray<number>): number;
 ### prop
 
 
+
+
 ```typescript
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
 ```
+
 
 
 <details>
@@ -4319,11 +3981,16 @@ prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
 ### propEq
 
 
+
+
 ```typescript
 propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean
 ```
 
+
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
+
+
 
 ```javascript
 const obj = { foo: 'bar' }
@@ -4339,6 +4006,11 @@ const result = [
 // => [true, false]
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20obj)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.propEq</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4351,53 +4023,20 @@ propEq(propToFind: string | number): {
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.propEq</italic> specs
-
-> Reason for the failure: ramda method pass to `equals` method if available
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('propEq', function() {
-  var obj1 = {name: 'Abby', age: 7, hair: 'blond'};
-  var obj2 = {name: 'Fred', age: 12, hair: 'brown'};
-  it('handles number as property', function() {
-    var deities = ['Cthulhu', 'Dagon', 'Yog-Sothoth'];
-    eq(R.propEq(0, 'Cthulhu', deities), true);
-    eq(R.propEq(1, 'Dagon', deities), true);
-    eq(R.propEq(2, 'Yog-Sothoth', deities), true);
-    eq(R.propEq(-1, 'Yog-Sothoth', deities), true);
-    eq(R.propEq(3, undefined, deities), true);
-  });
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.propEq('value', 0, {value: -0}), false);
-    eq(R.propEq('value', -0, {value: 0}), false);
-    eq(R.propEq('value', NaN, {value: NaN}), true);
-    eq(R.propEq('value', new Just([42]), {value: new Just([42])}), true);
-  });
-});
-```
-
-
-</details>
-
 
 ### propIs
+
+
 
 
 ```typescript
 propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean
 ```
 
+
 It returns `true` if `property` of `obj` is from `target` type.
+
+
 
 ```javascript
 const obj = {a:1, b: 'foo'}
@@ -4409,6 +4048,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0Aconst%20property%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(String%2C%20property%2C%20obj)%2C%0A%20%20R.propIs(Number%2C%20property%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.propIs</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4425,11 +4069,16 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 ### propOr
 
 
+
+
 ```typescript
 propOr<T, U, V>(defaultValue: T, property: string, obj: U): V
 ```
 
+
 It returns either `defaultValue` or the value of `property` in `obj`.
+
+
 
 ```javascript
 const obj = {a: 1}
@@ -4442,6 +4091,11 @@ const result = [
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property%2C%20obj)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try the above <strong>R.propOr</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4459,16 +4113,26 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 ### range
 
 
+
+
 ```typescript
 range(start: number, end: number): number[]
 ```
 
+
 It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
+
+
 
 ```javascript
 R.range(0, 5)
 // => [0, 1, 2, 3, 4]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.range(0%2C%205)%0A%2F%2F%20%3D%3E%20%5B0%2C%201%2C%202%2C%203%2C%204%5D">Try the above <strong>R.range</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4485,9 +4149,12 @@ range(start: number): (end: number) => number[];
 ### reduce
 
 
+
+
 ```typescript
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult
 ```
+
 
 
 ```javascript
@@ -4498,6 +4165,11 @@ const reducer = (prev, current) => prev * current
 const result = R.reduce(reducer, initialValue, list)
 // => 60
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue%2C%20list)%0A%2F%2F%20%3D%3E%2060">Try the above <strong>R.reduce</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4512,82 +4184,22 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.reduce</italic> specs
-
-> Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('reduce', function() {
-  var add = function(a, b) {return a + b;};
-  var mult = function(a, b) {return a * b;};
-  it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
-    var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';
-    function Reducible(arr) {
-      this.arr = arr;
-    }
-    Reducible.prototype.reduce = function(f, init) {
-      var acc = init;
-      for (var i = 0; i < this.arr.length; i += 1) {
-        acc = f(acc, this.arr[i]);
-      }
-      return acc;
-    };
-    Reducible.prototype[symIterator] = function() {
-      var a = this.arr;
-      return {
-        _pos: 0,
-        next: function() {
-          if (this._pos < a.length) {
-            var v = a[this._pos];
-            this._pos += 1;
-            return {
-              value: v,
-              done: false
-            };
-          } else {
-            return {
-              done: true
-            };
-          }
-        }
-      };
-    };
-    var xf = R.take(2);
-    var apendingT = { };
-    apendingT['@@transducer/result'] = R.identity;
-    apendingT['@@transducer/step'] = R.flip(R.append);
-    var rfn = xf(apendingT);
-    var list = new Reducible([1, 2, 3, 4, 5, 6]);
-    eq(R.reduce(rfn, [], list), [1, 2]);
-  });
-  it('short circuits with reduced', function() {
-    var addWithMaxOf10 = function(acc, val) {return acc + val > 10 ? R.reduced(acc) : acc + val;};
-    eq(R.reduce(addWithMaxOf10, 0, [1, 2, 3, 4]), 10);
-    eq(R.reduce(addWithMaxOf10, 0, [2, 4, 6, 8]), 6);
-  });
-});
-```
-
-
-</details>
-
 
 ### reject
+
+
 
 
 ```typescript
 reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
+
 It has the opposite effect of `R.filter`.
 
 It will return those members of `list` that return `false` when applied to `predicate` function.
+
+
 
 ```javascript
 const list = [1, 2, 3, 4]
@@ -4598,6 +4210,11 @@ const result = [
 ]
 // => [1, 2]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try the above <strong>R.reject</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4612,55 +4229,30 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.reject</italic> specs
-
-> Reason for the failure: ramda method dispatches to `filter` method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('reject', function() {
-  var even = function(x) {return x % 2 === 0;};
-  it('dispatches to `filter` method', function() {
-    function Nothing() {}
-    Nothing.value = new Nothing();
-    Nothing.prototype.filter = function() {
-      return this;
-    };
-    function Just(x) { this.value = x; }
-    Just.prototype.filter = function(pred) {
-      return pred(this.value) ? this : Nothing.value;
-    };
-    var m = new Just(42);
-    eq(R.filter(R.T, m), m);
-    eq(R.filter(R.F, m), Nothing.value);
-    eq(R.reject(R.T, m), Nothing.value);
-    eq(R.reject(R.F, m), m);
-  });
-});
-```
-
-
-</details>
-
 
 ### repeat
+
+
 
 
 ```typescript
 repeat<T>(x: T, timesToRepeat: number): T[]
 ```
 
+
 It returns a list of `x` input repeated `timesToRepeat` input.
+
+
 
 ```javascript
 R.repeat('foo', 3)
 // => ['foo', 'foo', 'foo']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.repeat('foo'%2C%203)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'foo'%2C%20'foo'%5D">Try the above <strong>R.repeat</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4677,11 +4269,16 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 ### replace
 
 
+
+
 ```typescript
 replace(strOrRegex: RegExp | string, replacer: string, str: string): string
 ```
 
+
 It replaces `strOrRegex` found in `str` with `replacer`.
+
+
 
 ```javascript
 const strOrRegex = /o/g
@@ -4689,6 +4286,11 @@ const strOrRegex = /o/g
 const result = R.replace(strOrRegex, '|0|', 'foo')
 // => 'f|0||0|'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20strOrRegex%20%3D%20%2Fo%2Fg%0A%0Aconst%20result%20%3D%20R.replace(strOrRegex%2C%20'%7C0%7C'%2C%20'foo')%0A%2F%2F%20%3D%3E%20'f%7C0%7C%7C0%7C'">Try the above <strong>R.replace</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4706,9 +4308,12 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 ### reverse
 
 
+
+
 ```typescript
 reverse<T>(listOrString: ReadonlyArray<T>): T[]
 ```
+
 
 
 <details>
@@ -4726,11 +4331,16 @@ reverse(listOrString: string): string;
 ### set
 
 
+
+
 ```typescript
 set<T, U>(lens: Lens, replacer: U, obj: T): T
 ```
 
+
 It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
+
+
 
 ```javascript
 const input = {x: 1, y: 2}
@@ -4739,6 +4349,11 @@ const xLens = R.lensProp('x')
 R.set(xLens, 4, input) //=> {x: 4, y: 2}
 R.set(xLens, 8, input) //=> {x: 8, y: 2}
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0Aconst%20xLens%20%3D%20R.lensProp('x')%0A%0AR.set(xLens%2C%204%2C%20input)%20%2F%2F%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0AR.set(xLens%2C%208%2C%20input)%20%2F%2F%3D%3E%20%7Bx%3A%208%2C%20y%3A%202%7D">Try the above <strong>R.set</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4756,11 +4371,16 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 ### slice
 
 
+
+
 ```typescript
 slice(from: number, to: number, list: string): string
 ```
 
+
 It returns `listOrString` between `from` and `to` indexes.
+
+
 
 ```javascript
 const list = [0, 1, 2, 3, 4, 5]
@@ -4774,6 +4394,11 @@ const result = [
 ]
 // => ['OO_', [1, 2, 3]]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B0%2C%201%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20str%20%3D%20'FOO_BAR'%0Aconst%20from%20%3D%201%0Aconst%20to%20%3D%204%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.slice(str%2C%20to%2C%20list)%2C%0A%20%20R.slice(from%2C%20to%2C%20list)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'OO_'%2C%20%5B1%2C%202%2C%203%5D%5D">Try the above <strong>R.slice</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4791,11 +4416,16 @@ slice(frp,: number, to: number): {
 ### sort
 
 
+
+
 ```typescript
 sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[]
 ```
 
+
 It returns copy of `list` sorted by `sortFn` function.
+
+
 
 ```javascript
 const list = [
@@ -4816,6 +4446,11 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(list%2C%20sortFn)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sort</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4831,11 +4466,16 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 ### sortBy
 
 
+
+
 ```typescript
 sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[]
 ```
 
+
 It returns copy of `list` sorted by `sortFn` function.
+
+
 
 ```javascript
 const list = [
@@ -4854,6 +4494,11 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortBy(list%2C%20sortFn)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sortBy</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4865,54 +4510,20 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.sortBy</italic> specs
-
-> Reason for the failure: ramda works with array-like objects
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-var albums = [
-  {title: 'Art of the Fugue', artist: 'Glenn Gould', genre: 'Baroque'},
-  {title: 'A Farewell to Kings', artist: 'Rush', genre: 'Rock'},
-  {title: 'Timeout', artist: 'Dave Brubeck Quartet', genre: 'Jazz'},
-  {title: 'Fly By Night', artist: 'Rush', genre: 'Rock'},
-  {title: 'Goldberg Variations', artist: 'Daniel Barenboim', genre: 'Baroque'},
-  {title: 'New World Symphony', artist: 'Leonard Bernstein', genre: 'Romantic'},
-  {title: 'Romance with the Unseen', artist: 'Don Byron', genre: 'Jazz'},
-  {title: 'Somewhere In Time', artist: 'Iron Maiden', genre: 'Metal'},
-  {title: 'In Times of Desparation', artist: 'Danny Holt', genre: 'Modern'},
-  {title: 'Evita', artist: 'Various', genre: 'Broadway'},
-  {title: 'Five Leaves Left', artist: 'Nick Drake', genre: 'Folk'},
-  {title: 'The Magic Flute', artist: 'John Eliot Gardiner', genre: 'Classical'}
-];
-describe('sortBy', function() {
-  it('sorts array-like object', function() {
-    var args = (function() { return arguments; }('c', 'a', 'b'));
-    var result = R.sortBy(R.identity, args);
-    eq(result[0], 'a');
-    eq(result[1], 'b');
-    eq(result[2], 'c');
-  });
-});
-```
-
-
-</details>
-
 
 ### split
+
+
 
 
 ```typescript
 split(separator: string | RegExp): (str: string) => string[]
 ```
 
+
 Curried version of `String.prototype.split`
+
+
 
 ```javascript
 const str = 'foo|bar|baz'
@@ -4920,6 +4531,11 @@ const separator = |'
 const result = R.split(separator, str))
 // => [ 'foo', 'bar', 'baz' ]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20str%20%3D%20'foo%7Cbar%7Cbaz'%0Aconst%20separator%20%3D%20%7C'%0Aconst%20result%20%3D%20R.split(separator%2C%20str))%0A%2F%2F%20%3D%3E%20%5B%20'foo'%2C%20'bar'%2C%20'baz'%20%5D">Try the above <strong>R.split</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4936,9 +4552,12 @@ split(separator: string | RegExp, str: string): string[];
 ### splitEvery
 
 
+
+
 ```typescript
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 ```
+
 
 
 <details>
@@ -4957,11 +4576,16 @@ splitEvery(sliceLength: number): {
 ### startsWith
 
 
+
+
 ```typescript
 startsWith(target: string, str: string): boolean
 ```
 
+
 Curried version of `String.prototype.startsWith`
+
+
 
 ```javascript
 const str = 'foo-bar'
@@ -4972,6 +4596,11 @@ const result = [
 ]
 // => [true, false]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20str%20%3D%20'foo-bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.startsWith('foo'%2C%20str)%2C%0A%20%20R.startsWith('bar'%2C%20str)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try the above <strong>R.startsWith</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -4984,43 +4613,16 @@ startsWith(target: string): (str: string) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.startsWith</italic> specs
-
-> Reason for the failure: rambda doesn't support arrays
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('startsWith', function() {
-  it('should return true when an array starts with the provided value', function() {
-    eq(R.startsWith(['a'], ['a', 'b', 'c']), true);
-  });
-  it('should return true when an array starts with the provided values', function() {
-    eq(R.startsWith(['a', 'b'], ['a', 'b', 'c']), true);
-  });
-  it('should return false when an array does not start with the provided value', function() {
-    eq(R.startsWith(['b'], ['a', 'b', 'c']), false);
-  });
-  it('should return false when an array does not start with the provided values', function() {
-    eq(R.startsWith(['b', 'c'], ['a', 'b', 'c']), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### subtract
+
+
 
 
 ```typescript
 subtract(x: number, y: number): number
 ```
+
 
 
 <details>
@@ -5038,15 +4640,23 @@ subtract(x: number): (y: number) => number;
 ### sum
 
 
+
+
 ```typescript
 sum(list: ReadonlyArray<number>): number
 ```
+
 
 
 ```javascript
 R.sum([1, 2, 3, 4, 5]) 
 // => 15
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sum(%5B1%2C%202%2C%203%2C%204%2C%205%5D)%20%0A%2F%2F%20%3D%3E%2015">Try the above <strong>R.sum</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5062,11 +4672,16 @@ sum(list: ReadonlyArray<number>): number;
 ### symmetricDifference
 
 
+
+
 ```typescript
 symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
+
 It returns a merged list of `x` and `y` with all equal elements removed.
+
+
 
 ```javascript
 const x = [ 1, 2, 3, 4 ]
@@ -5075,6 +4690,11 @@ const y = [ 3, 4, 5, 6 ]
 const result = symmetricDifference(x, y)
 // => [ 1, 2, 5, 6 ]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20symmetricDifference(x%2C%20y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try the above <strong>R.symmetricDifference</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5091,15 +4711,23 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 ### T
 
 
+
+
 ```typescript
 T(): boolean
 ```
+
 
 
 ```javascript
 R.T() 
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.T()%20%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.T</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5115,11 +4743,16 @@ T(): boolean;
 ### tail
 
 
+
+
 ```typescript
 tail<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns all but the first element of `listOrString`.
+
+
 
 ```javascript
 const result = [
@@ -5128,6 +4761,11 @@ const result = [
 ]
 // => [[2, 3], 'oo']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.tail(%5B1%2C%202%2C%203%5D)%2C%20%20%0A%20%20R.tail('foo')%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%203%5D%2C%20'oo'%5D">Try the above <strong>R.tail</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5144,11 +4782,16 @@ tail(listOrString: string): string;
 ### take
 
 
+
+
 ```typescript
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns the first `howMany` elements of `listOrString`.
+
+
 
 ```javascript
 const howMany = 2
@@ -5159,6 +4802,11 @@ const result = [
 ]
 // => [[1, 2], 'fo']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.take(howMany%2C%20%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.take(howMany%2C%20'foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try the above <strong>R.take</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5172,48 +4820,20 @@ take<T>(howMany: number): {
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.take</italic> specs
-
-> Reason for the failure: rambda doesn't have 'R.into` method
-</summary>
-
-```javascript
-var assert = require('assert');
-var sinon = require('sinon');
-
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-describe('take', function() {
-  it('handles zero correctly (#1224)', function() {
-    eq(R.into([], R.take(0), [1, 2, 3]), []);
-  });
-  it('steps correct number of times', function() {
-    var spy = sinon.spy();
-    R.into([], R.compose(R.map(spy), R.take(2)), [1, 2, 3]);
-    sinon.assert.calledTwice(spy);
-  });
-  it('transducer called for every member of list if `n` is < 0', function() {
-    var spy = sinon.spy();
-    R.into([], R.compose(R.map(spy), R.take(-1)), [1, 2, 3]);
-    sinon.assert.calledThrice(spy);
-  });
-});
-```
-
-
-</details>
-
 
 ### takeLast
+
+
 
 
 ```typescript
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
+
 It returns the last `howMany` elements of `listOrString`.
+
+
 
 ```javascript
 const howMany = 2
@@ -5224,6 +4844,11 @@ const result = [
 ]
 // => [[2, 3], 'ar']
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.takeLast(howMany%2C%20%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.takeLast(howMany%2C%20'foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%203%5D%2C%20'ar'%5D">Try the above <strong>R.takeLast</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5241,13 +4866,18 @@ takeLast<T>(howMany: number): {
 ### tap
 
 
+
+
 ```typescript
 tap<T>(fn: (a: T) => any, x: T): T
 ```
 
+
 It applies function `fn` to input `x` and returns `x`. 
 
 One use case is debuging in the middle of `R.compose`.
+
+
 
 ```javascript
 const list = [1, 2, 3]
@@ -5260,6 +4890,11 @@ R.compose(
 // => `2` and `3` will be logged
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0AR.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.tap(console.log)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%0A)(list)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try the above <strong>R.tap</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -5271,56 +4906,30 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.tap</italic> specs
-
-> Reason for the failure: ramda can act as a transducer
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-var listXf = require('./helpers/listXf');
-var _curry2 = require('rambda/internal/_curry2');
-
-describe('tap', function() {
-  var pushToList = _curry2(function(lst, x) { lst.push(x); });
-  it('can act as a transducer', function() {
-    var sideEffect = [];
-    var numbers = [1,2,3,4,5];
-    var xf = R.compose(R.map(R.identity), R.tap(pushToList(sideEffect)));
-    eq(R.into([], xf, numbers), numbers);
-    eq(sideEffect, numbers);
-  });
-  it('dispatches to transformer objects', function() {
-    var sideEffect = [];
-    var pushToSideEffect = pushToList(sideEffect);
-    eq(R.tap(pushToSideEffect, listXf), {
-      f: pushToSideEffect,
-      xf: listXf
-    });
-  });
-});
-```
-
-
-</details>
-
 
 ### test
+
+
 
 
 ```typescript
 test(regExpression: RegExp): (str: string) => boolean
 ```
 
+
 It determines whether `str` matches `regExpression`.
+
+
 
 ```javascript
 R.test(/^f/, 'foo')
 // => true
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.test(%2F%5Ef%2F%2C%20'foo')%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.test</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5337,13 +4946,18 @@ test(regExpression: RegExp, str: string): boolean;
 ### times
 
 
+
+
 ```typescript
 times<T>(fn: (i: number) => T, howMany: number): T[]
 ```
 
+
 It returns the result of applying function `fn` over members of range array.
 
 The range array includes numbers between `0` and `howMany`(exclusive).
+
+
 
 ```javascript
 const fn = x => x * 2
@@ -5352,6 +4966,11 @@ const howMany = 5
 R.times(fn, howMany)
 //=> [0, 2, 4, 6, 8]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20howMany%20%3D%205%0A%0AR.times(fn%2C%20howMany)%0A%2F%2F%3D%3E%20%5B0%2C%202%2C%204%2C%206%2C%208%5D">Try the above <strong>R.times</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5368,15 +4987,23 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 ### toLower
 
 
+
+
 ```typescript
 toLower(str: string): string
 ```
+
 
 
 ```javascript
 R.toLower('FOO')
 // => 'foo'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.toLower('FOO')%0A%2F%2F%20%3D%3E%20'foo'">Try the above <strong>R.toLower</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5392,11 +5019,16 @@ toLower(str: string): string;
 ### toPairs
 
 
+
+
 ```typescript
 toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][]
 ```
 
+
 It transforms an object to a list.
+
+
 
 ```javascript
 const list = {
@@ -5409,6 +5041,11 @@ const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
 const result = R.toPairs(list)
 // => `result` is equal to `expected`
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%20%20c%20%3A%20%5B%203%2C%204%20%5D%2C%0A%7D%0Aconst%20expected%20%3D%20%5B%20%5B%20'a'%2C%201%20%5D%2C%20%5B%20'b'%2C%202%20%5D%2C%20%5B%20'c'%2C%20%5B%203%2C%204%20%5D%20%5D%20%5D%0A%0Aconst%20result%20%3D%20R.toPairs(list)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.toPairs</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5424,15 +5061,23 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 ### toString
 
 
+
+
 ```typescript
 toString<T>(x: T): string
 ```
+
 
 
 ```javascript
 R.toString([1, 2]) 
 // => '1,2'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.toString(%5B1%2C%202%5D)%20%0A%2F%2F%20%3D%3E%20'1%2C2'">Try the above <strong>R.toString</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5448,15 +5093,23 @@ toString<T>(x: T): string;
 ### toUpper
 
 
+
+
 ```typescript
 toUpper(str: string): string
 ```
+
 
 
 ```javascript
 R.toUpper('foo')
 // => 'FOO'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.toUpper('foo')%0A%2F%2F%20%3D%3E%20'FOO'">Try the above <strong>R.toUpper</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5472,9 +5125,12 @@ toUpper(str: string): string;
 ### transpose
 
 
+
+
 ```typescript
 transpose<T>(list: T[][]): T[][]
 ```
+
 
 
 ```javascript
@@ -5484,6 +5140,11 @@ const expected = [[10, 20, 30], [11, 31], [32]]
 const result = R.transpose(list)
 // => `result` is equal to `expected`
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%5B10%2C%2011%5D%2C%20%5B20%5D%2C%20%5B%5D%2C%20%5B30%2C%2031%2C%2032%5D%5D%0Aconst%20expected%20%3D%20%5B%5B10%2C%2020%2C%2030%5D%2C%20%5B11%2C%2031%5D%2C%20%5B32%5D%5D%0A%0Aconst%20result%20%3D%20R.transpose(list)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.transpose</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5499,15 +5160,23 @@ transpose<T>(list: T[][]): T[][];
 ### trim
 
 
+
+
 ```typescript
 trim(str: string): string
 ```
+
 
 
 ```javascript
 R.trim('  foo  ') 
 // => 'foo'
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.trim('%20%20foo%20%20')%20%0A%2F%2F%20%3D%3E%20'foo'">Try the above <strong>R.trim</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5519,45 +5188,16 @@ trim(str: string): string;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.trim</italic> specs
-
-> Reason for the failure: ramda trims all ES5 whitespace
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('trim', function() {
-  var test = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFFHello, World!\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
-  it('trims all ES5 whitespace', function() {
-    eq(R.trim(test), 'Hello, World!');
-    eq(R.trim(test).length, 13);
-  });
-  if (typeof String.prototype.trim !== 'function') {
-    it('falls back to a shim if String.prototype.trim is not present', function() {
-      eq(R.trim('   xyz  '), 'xyz');
-      eq(R.trim(test), 'Hello, World!');
-      eq(R.trim(test).length, 13);
-      eq(R.trim('\u200b'), '\u200b');
-      eq(R.trim('\u200b').length, 1);
-    });
-  }
-});
-```
-
-
-</details>
-
 
 ### type
+
+
 
 
 ```typescript
 type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN"
 ```
+
 
 
 <details>
@@ -5574,11 +5214,16 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 ### uniq
 
 
+
+
 ```typescript
 uniq<T>(list: ReadonlyArray<T>): T[]
 ```
 
+
 It returns a new array containing only one copy of each element of `list`.
+
+
 
 ```javascript
 const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
@@ -5586,6 +5231,11 @@ const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
 R.uniq(list)
 // => [1, {a: 1}, {a: 2}]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B1%2C%201%2C%20%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Ba%3A1%7D%5D%0A%0AR.uniq(list)%0A%2F%2F%20%3D%3E%20%5B1%2C%20%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%5D">Try the above <strong>R.uniq</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5597,47 +5247,20 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.uniq</italic> specs
-
-> Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('uniq', function() {
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.uniq([-0, -0]).length, 1);
-    eq(R.uniq([0, -0]).length, 2);
-    eq(R.uniq([NaN, NaN]).length, 1);
-    eq(R.uniq([[1], [1]]).length, 1);
-    eq(R.uniq([new Just([42]), new Just([42])]).length, 1);
-  it('handles null and undefined elements', function() {
-    eq(R.uniq([void 0, null, void 0, null]), [void 0, null]);
-  it('uses reference equality for functions', function() {
-    eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);
-});
-```
-
-
-</details>
-
 
 ### uniqWith
+
+
 
 
 ```typescript
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[]
 ```
 
+
 It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
+
+
 
 ```javascript
 const list = [
@@ -5660,6 +5283,11 @@ const result = R.uniqWith(uniqFn, list)
 // => `result` is equal to `expected`
 ```
 
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%20%20%7Bid%3A%203%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%204%2C%20title%3A'bar'%7D%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%5D%0A%0Aconst%20uniqFn%20%3D%20(x%2Cy)%20%3D%3E%20x.title%20%3D%3D%3D%20y.title%0A%0Aconst%20result%20%3D%20R.uniqWith(uniqFn%2C%20list)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.uniqWith</strong> example in Rambda REPL</a>
+
+
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -5675,11 +5303,16 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 ### update
 
 
+
+
 ```typescript
 update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[]
 ```
 
+
 It returns a copy of `list` with updated element at `index` with `newValue`.
+
+
 
 ```javascript
 const index = 2
@@ -5689,6 +5322,11 @@ const list = [1, 2, 3, 4, 5]
 const result = update(index, newValue, list)
 // => [1, 2, 88, 4, 5]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try the above <strong>R.update</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5701,39 +5339,20 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.update</italic> specs
-
-> Reason for the failure: ramda accepts an array-like object
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('update', function() {
-  it('accepts an array-like object', function() {
-    function args() {
-      return arguments;
-    }
-    eq(R.update(2, 4, args(0, 1, 2, 3)), [0, 1, 4, 3]);
-  });
-});
-```
-
-
-</details>
-
 
 ### values
+
+
 
 
 ```typescript
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
+
 With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+
+
 
 ```javascript
 const obj = {a:1, b:2}
@@ -5741,6 +5360,11 @@ const obj = {a:1, b:2}
 R.values(obj)
 // => [1, 2]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A2%7D%0A%0AR.values(obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try the above <strong>R.values</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5756,11 +5380,16 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 ### view
 
 
+
+
 ```typescript
 view<T, U>(lens: Lens): (target: T) => U
 ```
 
+
 It returns the value of `lens` focus over `target` object.
+
+
 
 ```javascript
 const lens = R.lensProp('x')
@@ -5768,6 +5397,11 @@ const lens = R.lensProp('x')
 R.view(lens, {x: 1, y: 2}) //=> 1
 R.view(lens, {x: 4, y: 2}) //=> 4
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lens%20%3D%20R.lensProp('x')%0A%0AR.view(lens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%3D%3E%201%0AR.view(lens%2C%20%7Bx%3A%204%2C%20y%3A%202%7D)%20%2F%2F%3D%3E%204">Try the above <strong>R.view</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5784,9 +5418,12 @@ view<T, U>(lens: Lens, target: T): U;
 ### without
 
 
+
+
 ```typescript
 without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]
 ```
+
 
 
 <details>
@@ -5804,9 +5441,12 @@ without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 ### xor
 
 
+
+
 ```typescript
 xor(x: boolean, y: boolean): boolean
 ```
+
 
 
 ```javascript
@@ -5817,6 +5457,11 @@ const result = [
 ]
 // => [false, false, true]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20xor(true%2C%20true)%2C%0A%20%20xor(false%2C%20false)%2C%0A%20%20xor(false%2C%20true)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20false%2C%20true%5D">Try the above <strong>R.xor</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5829,41 +5474,22 @@ xor(y: boolean): (y: boolean) => boolean;
 
 </details>
 
-<details>
-
-<summary> Failed <italic>Ramda.xor</italic> specs
-
-> Reason for the failure: ramda support empty call of method
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('xor', function() {
-  it('returns a curried function', function() {
-    eq(R.xor()(true)(true), false);
-    eq(R.xor()(true)(false), true);
-    eq(R.xor()(false)(true), true);
-    eq(R.xor()(false)(false), false);
-  });
-});
-```
-
-
-</details>
-
 
 ### zip
+
+
 
 
 ```typescript
 zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[]
 ```
 
+
 It will return a new array containing tuples of equally positions items from both `x` and `y` lists. 
 
 The returned list will be truncated to match the length of the shortest supplied list.
+
+
 
 ```javascript
 const x = [1, 2]
@@ -5875,6 +5501,11 @@ R.zip(x, y)
 R.zip([...x, 3], ['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
+
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20x%20%3D%20%5B1%2C%202%5D%0Aconst%20y%20%3D%20%5B'A'%2C%20'B'%5D%0AR.zip(x%2C%20y)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zip(%5B...x%2C%203%5D%2C%20%5B'A'%2C%20'B'%5D)%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%20'A'%5D%2C%20%5B2%2C%20'B'%5D%5D">Try the above <strong>R.zip</strong> example in Rambda REPL</a>
+
+
 
 <details>
 
@@ -5891,9 +5522,12 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 ### zipObj
 
 
+
+
 ```typescript
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
 ```
+
 
 
 <details>
