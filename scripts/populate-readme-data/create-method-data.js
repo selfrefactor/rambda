@@ -40,9 +40,7 @@ function createRambdaSourceReadme(method){
   const summaryTemplate = `
 R.{{methodName}}
 
-\`\`\`javascript
 {{rambdaSource}}
-\`\`\`
 `
 
   return template(summaryTemplate, method)

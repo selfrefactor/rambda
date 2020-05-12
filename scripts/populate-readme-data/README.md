@@ -369,13 +369,11 @@ add(a: number): (b: number) => number;
 
 R.add
 
-```javascript
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
   return Number(a) + Number(b)
 }
-```
 
 
 ### adjust
@@ -419,7 +417,6 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 R.adjust
 
-```javascript
 import { curry } from './curry'
 
 function adjustFn(
@@ -435,7 +432,6 @@ function adjustFn(
 }
 
 export const adjust = curry(adjustFn)
-```
 
 
 ### all
@@ -479,7 +475,6 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 R.all
 
-```javascript
 export function all(predicate, list){
   if (arguments.length === 1) return _list => all(predicate, _list)
 
@@ -489,7 +484,6 @@ export function all(predicate, list){
 
   return true
 }
-```
 
 
 ### allPass
@@ -536,7 +530,6 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 R.allPass
 
-```javascript
 export function allPass(predicates){
   return input => {
     let counter = 0
@@ -550,7 +543,6 @@ export function allPass(predicates){
     return true
   }
 }
-```
 
 
 ### always
@@ -591,11 +583,9 @@ always<T>(x: T): () => T;
 
 R.always
 
-```javascript
 export function always(x){
   return () => x
 }
-```
 
 
 ### and
@@ -636,13 +626,11 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 R.and
 
-```javascript
 export function and(a, b){
   if (arguments.length === 1) return _b => and(a, _b)
 
   return a && b
 }
-```
 
 
 ### any
@@ -687,7 +675,6 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 R.any
 
-```javascript
 export function any(predicate, list){
   if (arguments.length === 1) return _list => any(predicate, _list)
 
@@ -701,7 +688,6 @@ export function any(predicate, list){
 
   return false
 }
-```
 
 
 ### anyPass
@@ -748,7 +734,6 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 R.anyPass
 
-```javascript
 export function anyPass(predicates){
   return input => {
     let counter = 0
@@ -762,7 +747,6 @@ export function anyPass(predicates){
     return false
   }
 }
-```
 
 
 ### append
@@ -808,7 +792,6 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 R.append
 
-```javascript
 export function append(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => append(x, _listOrString)
@@ -820,7 +803,6 @@ export function append(x, listOrString){
 
   return clone
 }
-```
 
 
 ### applySpec
@@ -881,7 +863,6 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 
 R.applySpec
 
-```javascript
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
   for (const key in spec){
@@ -1012,7 +993,6 @@ export function applySpec(spec, ...args){
 
   return toReturn
 }
-```
 
 
 ### assoc
@@ -1054,7 +1034,6 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 R.assoc
 
-```javascript
 import { curry } from './curry'
 
 function assocFn(
@@ -1066,7 +1045,6 @@ function assocFn(
 }
 
 export const assoc = curry(assocFn)
-```
 
 
 ### assocPath
@@ -1112,7 +1090,6 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 R.assocPath
 
-```javascript
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
@@ -1157,7 +1134,6 @@ function assocPathFn(
 }
 
 export const assocPath = curry(assocPathFn)
-```
 
 
 ### both
@@ -1206,13 +1182,11 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 R.both
 
-```javascript
 export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
   return (...input) => f(...input) && g(...input)
 }
-```
 
 
 ### clamp
@@ -1258,7 +1232,6 @@ clamp(min: number, max: number): (input: number) => number;
 
 R.clamp
 
-```javascript
 import { curry } from './curry'
 
 function clampFn(
@@ -1271,7 +1244,6 @@ function clampFn(
 }
 
 export const clamp = curry(clampFn)
-```
 
 
 ### clone
@@ -1341,11 +1313,9 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 R.complement
 
-```javascript
 export function complement(fn){
   return (...input) => !fn(...input)
 }
-```
 
 
 ### compose
@@ -1392,7 +1362,6 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 R.compose
 
-```javascript
 export function compose(...fns){
   if (fns.length === 0){
     throw new Error('compose requires at least one argument')
@@ -1411,7 +1380,6 @@ export function compose(...fns){
     }
   }
 }
-```
 
 
 ### concat
@@ -1454,13 +1422,11 @@ concat(x: string): (y: string) => string;
 
 R.concat
 
-```javascript
 export function concat(x, y){
   if (arguments.length === 1) return _y => concat(x, _y)
 
   return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
 }
-```
 
 
 ### cond
@@ -1517,7 +1483,6 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 R.cond
 
-```javascript
 export function cond(conditions){
   return input => {
     let done = false
@@ -1532,7 +1497,6 @@ export function cond(conditions){
     return toReturn
   }
 }
-```
 
 
 ### curry
@@ -1575,7 +1539,6 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 R.curry
 
-```javascript
 export function curry(fn, args = []){
   return (..._args) =>
     (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
@@ -1583,7 +1546,6 @@ export function curry(fn, args = []){
       ..._args,
     ])
 }
-```
 
 
 ### dec
@@ -1613,9 +1575,7 @@ dec(x: number): number;
 
 R.dec
 
-```javascript
 export const dec = x => x - 1
-```
 
 
 ### defaultTo
@@ -1665,7 +1625,6 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 
 R.defaultTo
 
-```javascript
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -1701,7 +1660,6 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
   return holder === undefined ? defaultArgument : holder
 }
-```
 
 
 ### difference
@@ -1745,7 +1703,6 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 R.difference
 
-```javascript
 import { includes } from './includes'
 import { uniq } from './uniq'
 
@@ -1754,7 +1711,6 @@ export function difference(a, b){
 
   return uniq(a).filter(aInstance => !includes(aInstance, b))
 }
-```
 
 
 ### dissoc
@@ -1795,7 +1751,6 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 R.dissoc
 
-```javascript
 export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
 
@@ -1809,7 +1764,6 @@ export function dissoc(prop, obj){
 
   return willReturn
 }
-```
 
 
 ### divide
@@ -1846,13 +1800,11 @@ divide(a: number): (b: number) => number;
 
 R.divide
 
-```javascript
 export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)
 
   return a / b
 }
-```
 
 
 ### drop
@@ -1894,13 +1846,11 @@ drop<T>(howManyToDrop: number): {
 
 R.drop
 
-```javascript
 export function drop(howManyToDrop, listOrString){
   if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
 
   return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
-```
 
 
 ### dropLast
@@ -1942,7 +1892,6 @@ dropLast<T>(howManyToDrop: number): {
 
 R.dropLast
 
-```javascript
 export function dropLast(howManyToDrop, listOrString){
   if (arguments.length === 1){
     return _listOrString => dropLast(howManyToDrop, _listOrString)
@@ -1952,7 +1901,6 @@ export function dropLast(howManyToDrop, listOrString){
     listOrString.slice(0, -howManyToDrop) :
     listOrString.slice()
 }
-```
 
 
 ### either
@@ -2019,13 +1967,11 @@ endsWith(target: string): (str: string) => boolean;
 
 R.endsWith
 
-```javascript
 export function endsWith(target, str){
   if (arguments.length === 1) return _str => endsWith(target, _str)
 
   return str.endsWith(target)
 }
-```
 
 
 ### equals
@@ -2068,7 +2014,6 @@ equals<T>(a: T): (b: T) => boolean;
 
 R.equals
 
-```javascript
 import { type } from './type'
 
 function parseError(maybeError){
@@ -2170,7 +2115,6 @@ export function equals(a, b){
 
   return false
 }
-```
 
 
 ### F
@@ -2206,11 +2150,9 @@ F(): boolean;
 
 R.F
 
-```javascript
 export function F(){
   return false
 }
-```
 
 
 ### filter
@@ -2262,7 +2204,6 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 R.filter
 
-```javascript
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -2301,7 +2242,6 @@ export function filter(predicate, list){
 
   return willReturn
 }
-```
 
 
 ### find
@@ -2347,13 +2287,11 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 R.find
 
-```javascript
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
 
   return list.find(predicate)
 }
-```
 
 
 ### findIndex
@@ -2399,7 +2337,6 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 R.findIndex
 
-```javascript
 export function findIndex(predicate, list){
   if (arguments.length === 1) return _list => findIndex(predicate, _list)
 
@@ -2414,7 +2351,6 @@ export function findIndex(predicate, list){
 
   return -1
 }
-```
 
 
 ### flatten
@@ -2459,7 +2395,6 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 R.flatten
 
-```javascript
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
 
@@ -2473,7 +2408,6 @@ export function flatten(list, input){
 
   return willReturn
 }
-```
 
 
 ### flip
@@ -2518,7 +2452,6 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 R.flip
 
-```javascript
 function flipExport(fn){
   return (...input) => {
     if (input.length === 1){
@@ -2534,7 +2467,6 @@ function flipExport(fn){
 export function flip(fn){
   return flipExport(fn)
 }
-```
 
 
 ### forEach
@@ -2584,7 +2516,6 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 R.forEach
 
-```javascript
 import { map } from './map'
 
 export function forEach(predicate, list){
@@ -2594,7 +2525,6 @@ export function forEach(predicate, list){
 
   return list
 }
-```
 
 
 ### fromPairs
@@ -2642,14 +2572,12 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 R.fromPairs
 
-```javascript
 export function fromPairs(listOfPairs){
   const toReturn = {}
   listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
 
   return toReturn
 }
-```
 
 
 ### groupBy
@@ -2693,7 +2621,6 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 R.groupBy
 
-```javascript
 export function groupBy(groupFn, list){
   if (arguments.length === 1) return _list => groupBy(groupFn, _list)
 
@@ -2711,7 +2638,6 @@ export function groupBy(groupFn, list){
 
   return result
 }
-```
 
 
 ### groupWith
@@ -2756,7 +2682,6 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 R.groupWith
 
-```javascript
 export function groupWith(compareFn, list){
   if (!Array.isArray(list))
     throw new TypeError('list.reduce is not a function')
@@ -2798,7 +2723,6 @@ export function groupWith(compareFn, list){
 
   return toReturn
 }
-```
 
 
 ### has
@@ -2844,7 +2768,6 @@ has(prop: string): <T>(obj: T) => boolean;
 
 R.has
 
-```javascript
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
 
@@ -2852,7 +2775,6 @@ export function has(prop, obj){
 
   return obj[ prop ] !== undefined
 }
-```
 
 
 ### head
@@ -2923,7 +2845,6 @@ identical<T>(a: T): (b: T) => boolean;
 
 R.identical
 
-```javascript
 import _objectIs from './_internals/_objectIs'
 
 export function identical(a, b){
@@ -2931,7 +2852,6 @@ export function identical(a, b){
 
   return _objectIs(a, b)
 }
-```
 
 
 ### identity
@@ -2970,11 +2890,9 @@ identity<T>(input: T): T;
 
 R.identity
 
-```javascript
 export function identity(input){
   return input
 }
-```
 
 
 ### ifElse
@@ -3023,7 +2941,6 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 R.ifElse
 
-```javascript
 import { curry } from './curry'
 
 function ifElseFn(
@@ -3042,7 +2959,6 @@ function ifElseFn(
 }
 
 export const ifElse = curry(ifElseFn)
-```
 
 
 ### inc
@@ -3081,9 +2997,7 @@ inc(x: number): number;
 
 R.inc
 
-```javascript
 export const inc = x => x + 1
-```
 
 
 ### includes
@@ -3168,7 +3082,6 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 R.indexBy
 
-```javascript
 import { path } from './path'
 
 function indexByPath(pathInput, list){
@@ -3198,7 +3111,6 @@ export function indexBy(condition, list){
 
   return toReturn
 }
-```
 
 
 ### indexOf
@@ -3246,7 +3158,6 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 R.indexOf
 
-```javascript
 export function indexOf(valueToFind, list){
   if (arguments.length === 1){
     return _list => indexOf(valueToFind, _list)
@@ -3263,7 +3174,6 @@ export function indexOf(valueToFind, list){
 
   return -1
 }
-```
 
 
 ### init
@@ -3307,7 +3217,6 @@ init(listOrString: string): string;
 
 R.init
 
-```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function init(listOrString){
@@ -3317,7 +3226,6 @@ export function init(listOrString){
     listOrString, 0, -1
   ) : []
 }
-```
 
 
 ### intersection
@@ -3361,7 +3269,6 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 R.intersection
 
-```javascript
 import { filter } from './filter'
 import { includes } from './includes'
 
@@ -3370,7 +3277,6 @@ export function intersection(listA, listB){
 
   return filter(value => includes(value, listB), listA)
 }
-```
 
 
 ### intersperse
@@ -3413,7 +3319,6 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 R.intersperse
 
-```javascript
 export function intersperse(separator, list){
   if (arguments.length === 1) return _list => intersperse(separator, _list)
 
@@ -3431,7 +3336,6 @@ export function intersperse(separator, list){
 
   return willReturn
 }
-```
 
 
 ### is
@@ -3475,7 +3379,6 @@ is(targetPrototype: any): (x: any) => boolean;
 
 R.is
 
-```javascript
 export function is(targetPrototype, x){
   if (arguments.length === 1) return _x => is(targetPrototype, _x)
 
@@ -3484,7 +3387,6 @@ export function is(targetPrototype, x){
     x instanceof targetPrototype
   )
 }
-```
 
 
 ### isEmpty
@@ -3527,7 +3429,6 @@ isEmpty<T>(x: T): boolean;
 
 R.isEmpty
 
-```javascript
 import { type } from './type.js'
 
 export function isEmpty(input){
@@ -3546,7 +3447,6 @@ export function isEmpty(input){
 
   return false
 }
-```
 
 
 ### isNil
@@ -3589,11 +3489,9 @@ isNil(x: any): x is null | undefined;
 
 R.isNil
 
-```javascript
 export function isNil(x){
   return x === undefined || x === null
 }
-```
 
 
 ### join
@@ -3633,13 +3531,11 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 R.join
 
-```javascript
 export function join(glue, list){
   if (arguments.length === 1) return _list => join(glue, _list)
 
   return list.join(glue)
 }
-```
 
 
 ### keys
@@ -3679,11 +3575,9 @@ keys<T>(x: T): string[];
 
 R.keys
 
-```javascript
 export function keys(x){
   return Object.keys(x)
 }
-```
 
 
 ### last
@@ -3727,7 +3621,6 @@ last(listOrString: string): string;
 
 R.last
 
-```javascript
 export function last(listOrString){
   if (typeof listOrString === 'string'){
     return listOrString[ listOrString.length - 1 ] || ''
@@ -3735,7 +3628,6 @@ export function last(listOrString){
 
   return listOrString[ listOrString.length - 1 ]
 }
-```
 
 
 ### lastIndexOf
@@ -3784,7 +3676,6 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 R.lastIndexOf
 
-```javascript
 import { equals } from './equals'
 
 export function lastIndexOf(target, list){
@@ -3800,7 +3691,6 @@ export function lastIndexOf(target, list){
 
   return -1
 }
-```
 
 
 ### length
@@ -3843,7 +3733,6 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 R.length
 
-```javascript
 export function length(x){
   if (!x || x.length === undefined){
     return NaN
@@ -3851,7 +3740,6 @@ export function length(x){
 
   return x.length
 }
-```
 
 
 ### lens
@@ -3899,7 +3787,6 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 R.lens
 
-```javascript
 export function lens(getter, setter){
   if (arguments.length === 1) return _setter => lens(getter, _setter)
 
@@ -3909,7 +3796,6 @@ export function lens(getter, setter){
     }
   }
 }
-```
 
 
 ### lensIndex
@@ -3953,7 +3839,6 @@ lensIndex(index: number): Lens;
 
 R.lensIndex
 
-```javascript
 import { lens } from './lens'
 import { nth } from './nth'
 import { update } from './update'
@@ -3961,7 +3846,6 @@ import { update } from './update'
 export function lensIndex(index){
   return lens(nth(index), update(index))
 }
-```
 
 
 ### lensPath
@@ -4009,7 +3893,6 @@ lensPath(path: RamdaPath): Lens;
 
 R.lensPath
 
-```javascript
 import { assocPath } from './assocPath'
 import { lens } from './lens'
 import { path } from './path'
@@ -4017,7 +3900,6 @@ import { path } from './path'
 export function lensPath(key){
   return lens(path(key), assocPath(key))
 }
-```
 
 
 ### lensProp
@@ -4066,7 +3948,6 @@ lensProp(prop: string): {
 
 R.lensProp
 
-```javascript
 import { assoc } from './assoc'
 import { lens } from './lens'
 import { prop } from './prop'
@@ -4074,7 +3955,6 @@ import { prop } from './prop'
 export function lensProp(key){
   return lens(prop(key), assoc(key))
 }
-```
 
 
 ### map
@@ -4132,7 +4012,6 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 R.map
 
-```javascript
 function mapObject(fn, obj){
   const willReturn = {}
 
@@ -4165,7 +4044,6 @@ export function map(fn, list){
 
   return willReturn
 }
-```
 
 
 ### match
@@ -4209,7 +4087,6 @@ match(regExpression: RegExp): (str: string) => any[];
 
 R.match
 
-```javascript
 export function match(pattern, input){
   if (arguments.length === 1) return _input => match(pattern, _input)
 
@@ -4217,7 +4094,6 @@ export function match(pattern, input){
 
   return willReturn === null ? [] : willReturn
 }
-```
 
 
 ### max
@@ -4261,13 +4137,11 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 R.max
 
-```javascript
 export function max(x, y){
   if (arguments.length === 1) return _y => max(x, _y)
 
   return y > x ? y : x
 }
-```
 
 
 ### maxBy
@@ -4310,7 +4184,6 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 R.maxBy
 
-```javascript
 import { curry } from './curry'
 
 export function maxByFn(
@@ -4320,7 +4193,6 @@ export function maxByFn(
 }
 
 export const maxBy = curry(maxByFn)
-```
 
 
 ### mean
@@ -4360,13 +4232,11 @@ mean(list: ReadonlyArray<number>): number;
 
 R.mean
 
-```javascript
 import { sum } from './sum'
 
 export function mean(list){
   return sum(list) / list.length
 }
-```
 
 
 ### median
@@ -4405,7 +4275,6 @@ median(list: ReadonlyArray<number>): number;
 
 R.median
 
-```javascript
 import { mean } from './mean'
 
 export function median(list){
@@ -4423,7 +4292,6 @@ export function median(list){
     })
     .slice(idx, idx + width))
 }
-```
 
 
 ### merge
@@ -4467,7 +4335,6 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 R.merge
 
-```javascript
 export function merge(target, newProps){
   if (arguments.length === 1) return _newProps => merge(target, _newProps)
 
@@ -4475,7 +4342,6 @@ export function merge(target, newProps){
     {}, target || {}, newProps || {}
   )
 }
-```
 
 
 ### min
@@ -4519,13 +4385,11 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 R.min
 
-```javascript
 export function min(x, y){
   if (arguments.length === 1) return _y => min(x, _y)
 
   return y < x ? y : x
 }
-```
 
 
 ### minBy
@@ -4568,7 +4432,6 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 R.minBy
 
-```javascript
 import { curry } from './curry'
 
 export function minByFn(
@@ -4578,7 +4441,6 @@ export function minByFn(
 }
 
 export const minBy = curry(minByFn)
-```
 
 
 ### modulo
@@ -4618,13 +4480,11 @@ modulo(x: number): (y: number) => number;
 
 R.modulo
 
-```javascript
 export function modulo(x, y){
   if (arguments.length === 1) return _y => modulo(x, _y)
 
   return x % y
 }
-```
 
 
 ### multiply
@@ -4664,13 +4524,11 @@ multiply(x: number): (y: number) => number;
 
 R.multiply
 
-```javascript
 export function multiply(x, y){
   if (arguments.length === 1) return _y => multiply(x, _y)
 
   return x * y
 }
-```
 
 
 ### negate
@@ -4706,11 +4564,9 @@ negate(x: number): number;
 
 R.negate
 
-```javascript
 export function negate(x){
   return -x
 }
-```
 
 
 ### none
@@ -4754,13 +4610,11 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 R.none
 
-```javascript
 export function none(predicate, list){
   if (arguments.length === 1) return _list => none(predicate, _list)
 
   return list.filter(predicate).length === 0
 }
-```
 
 
 ### not
@@ -4799,11 +4653,9 @@ not(input: any): boolean;
 
 R.not
 
-```javascript
 export function not(input){
   return !input
 }
-```
 
 
 ### nth
@@ -4851,7 +4703,6 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 R.nth
 
-```javascript
 export function nth(index, list){
   if (arguments.length === 1) return _list => nth(index, _list)
 
@@ -4861,7 +4712,6 @@ export function nth(index, list){
     list.charAt(idx) :
     list[ idx ]
 }
-```
 
 
 ### omit
@@ -4911,7 +4761,6 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 R.omit
 
-```javascript
 export function omit(propsToOmit, obj){
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
@@ -4932,7 +4781,6 @@ export function omit(propsToOmit, obj){
 
   return willReturn
 }
-```
 
 
 ### over
@@ -4978,7 +4826,6 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 R.over
 
-```javascript
 const Identity = x => ({
   x,
   map : fn => Identity(fn(x)),
@@ -4997,7 +4844,6 @@ export function over(
 
   return lens(x => Identity(fn(x)))(object).x
 }
-```
 
 
 ### partial
@@ -5052,7 +4898,6 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 R.partial
 
-```javascript
 export function partial(fn, ...args){
   const len = fn.length
 
@@ -5064,7 +4909,6 @@ export function partial(fn, ...args){
     return partial(fn, ...[ ...args, ...rest ])
   }
 }
-```
 
 
 ### path
@@ -5117,7 +4961,6 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 R.path
 
-```javascript
 export function path(list, obj){
   if (arguments.length === 1) return _obj => path(list, _obj)
 
@@ -5139,7 +4982,6 @@ export function path(list, obj){
 
   return willReturn
 }
-```
 
 
 ### pathOr
@@ -5195,7 +5037,6 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 R.pathOr
 
-```javascript
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
@@ -5207,7 +5048,6 @@ function pathOrFn(
 }
 
 export const pathOr = curry(pathOrFn)
-```
 
 
 ### paths
@@ -5265,13 +5105,11 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 R.paths
 
-```javascript
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
   return pathsToSearch.map(singlePath => path(singlePath, obj))
 }
-```
 
 
 ### pick
@@ -5333,7 +5171,6 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 R.pick
 
-```javascript
 export function pick(propsToPick, obj){
   if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
 
@@ -5355,7 +5192,6 @@ export function pick(propsToPick, obj){
 
   return willReturn
 }
-```
 
 
 ### pickAll
@@ -5415,7 +5251,6 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 R.pickAll
 
-```javascript
 export function pickAll(propsToPick, obj){
   if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
 
@@ -5438,7 +5273,6 @@ export function pickAll(propsToPick, obj){
 
   return willReturn
 }
-```
 
 
 ### pipe
@@ -5485,7 +5319,6 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 R.pipe
 
-```javascript
 import { compose } from './compose'
 
 export function pipe(...fns){
@@ -5494,7 +5327,6 @@ export function pipe(...fns){
 
   return compose(...fns.reverse())
 }
-```
 
 
 ### pluck
@@ -5540,7 +5372,6 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 R.pluck
 
-```javascript
 import { map } from './map'
 
 export function pluck(property, list){
@@ -5556,7 +5387,6 @@ export function pluck(property, list){
 
   return willReturn
 }
-```
 
 
 ### prepend
@@ -5602,7 +5432,6 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 R.prepend
 
-```javascript
 export function prepend(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => prepend(x, _listOrString)
@@ -5611,7 +5440,6 @@ export function prepend(x, listOrString){
 
   return [ x ].concat(listOrString)
 }
-```
 
 
 ### product
@@ -5648,12 +5476,10 @@ product(list: ReadonlyArray<number>): number;
 
 R.product
 
-```javascript
 import { multiply } from './multiply'
 import { reduce } from './reduce'
 
 export const product = reduce(multiply, 1)
-```
 
 
 ### prop
@@ -5728,7 +5554,6 @@ propEq(propToFind: string | number): {
 
 R.propEq
 
-```javascript
 import { curry } from './curry'
 
 function propEqFn(
@@ -5740,7 +5565,6 @@ function propEqFn(
 }
 
 export const propEq = curry(propEqFn)
-```
 
 
 ### propIs
@@ -5787,7 +5611,6 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 R.propIs
 
-```javascript
 import { curry } from './curry.js'
 import { is } from './is'
 
@@ -5798,7 +5621,6 @@ function propIsFn(
 }
 
 export const propIs = curry(propIsFn)
-```
 
 
 ### propOr
@@ -5847,7 +5669,6 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 R.propOr
 
-```javascript
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 
@@ -5860,7 +5681,6 @@ function propOrFn(
 }
 
 export const propOr = curry(propOrFn)
-```
 
 
 ### range
@@ -5901,7 +5721,6 @@ range(start: number): (end: number) => number[];
 
 R.range
 
-```javascript
 export function range(start, end){
   if (arguments.length === 1) return _end => range(start, _end)
 
@@ -5920,7 +5739,6 @@ export function range(start, end){
 
   return willReturn
 }
-```
 
 
 ### reduce
@@ -5964,7 +5782,6 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 R.reduce
 
-```javascript
 import { curry } from './curry'
 
 function reduceFn(
@@ -5976,7 +5793,6 @@ function reduceFn(
 }
 
 export const reduce = curry(reduceFn)
-```
 
 
 ### reject
@@ -6026,7 +5842,6 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 R.reject
 
-```javascript
 import { filter } from './filter'
 
 export function reject(predicate, list){
@@ -6034,7 +5849,6 @@ export function reject(predicate, list){
 
   return filter((x, i) => !predicate(x, i), list)
 }
-```
 
 
 ### repeat
@@ -6075,7 +5889,6 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 R.repeat
 
-```javascript
 export function repeat(x, timesToRepeat){
   if (arguments.length === 1){
     return _timesToRepeat => repeat(x, _timesToRepeat)
@@ -6083,7 +5896,6 @@ export function repeat(x, timesToRepeat){
 
   return Array(timesToRepeat).fill(x)
 }
-```
 
 
 ### replace
@@ -6127,7 +5939,6 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 R.replace
 
-```javascript
 export function replace(
   pattern, replacer, str
 ){
@@ -6143,7 +5954,6 @@ export function replace(
 
   return str.replace(pattern, replacer)
 }
-```
 
 
 ### reverse
@@ -6211,7 +6021,6 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 R.set
 
-```javascript
 import { always } from './always'
 import { over } from './over'
 
@@ -6229,7 +6038,6 @@ export function set(
     lens, always(replacer), x
   )
 }
-```
 
 
 ### slice
@@ -6279,7 +6087,6 @@ slice(frp,: number, to: number): {
 
 R.slice
 
-```javascript
 import { curry } from './curry'
 
 function sliceFn(
@@ -6289,7 +6096,6 @@ function sliceFn(
 }
 
 export const slice = curry(sliceFn)
-```
 
 
 ### sort
@@ -6344,7 +6150,6 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 R.sort
 
-```javascript
 export function sort(sortFn, list){
   if (arguments.length === 1) return _list => sort(sortFn, _list)
 
@@ -6352,7 +6157,6 @@ export function sort(sortFn, list){
 
   return clone.sort(sortFn)
 }
-```
 
 
 ### sortBy
@@ -6405,7 +6209,6 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 R.sortBy
 
-```javascript
 export function sortBy(sortFn, list){
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
@@ -6420,7 +6223,6 @@ export function sortBy(sortFn, list){
     return aSortResult < bSortResult ? -1 : 1
   })
 }
-```
 
 
 ### split
@@ -6463,13 +6265,11 @@ split(separator: string | RegExp, str: string): string[];
 
 R.split
 
-```javascript
 export function split(separator, str){
   if (arguments.length === 1) return _str => split(separator, _str)
 
   return str.split(separator)
 }
-```
 
 
 ### splitEvery
@@ -6539,13 +6339,11 @@ startsWith(target: string): (str: string) => boolean;
 
 R.startsWith
 
-```javascript
 export function startsWith(target, str){
   if (arguments.length === 1) return _str => startsWith(target, _str)
 
   return str.startsWith(target)
 }
-```
 
 
 ### subtract
@@ -6605,11 +6403,9 @@ sum(list: ReadonlyArray<number>): number;
 
 R.sum
 
-```javascript
 export function sum(list){
   return list.reduce((prev, current) => prev + current, 0)
 }
-```
 
 
 ### symmetricDifference
@@ -6653,7 +6449,6 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 R.symmetricDifference
 
-```javascript
 import { concat } from './concat'
 import { filter } from './filter'
 import { includes } from './includes'
@@ -6666,7 +6461,6 @@ export function symmetricDifference(x, y){
   return concat(filter(value => !includes(value, y), x),
     filter(value => !includes(value, x), y))
 }
-```
 
 
 ### T
@@ -6703,11 +6497,9 @@ T(): boolean;
 
 R.T
 
-```javascript
 export function T(){
   return true
 }
-```
 
 
 ### tail
@@ -6751,13 +6543,11 @@ tail(listOrString: string): string;
 
 R.tail
 
-```javascript
 import { drop } from './drop'
 
 export function tail(listOrString){
   return drop(1, listOrString)
 }
-```
 
 
 ### take
@@ -6804,7 +6594,6 @@ take<T>(howMany: number): {
 
 R.take
 
-```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function take(howMany, listOrString){
@@ -6817,7 +6606,6 @@ export function take(howMany, listOrString){
     listOrString, 0, howMany
   )
 }
-```
 
 
 ### takeLast
@@ -6864,7 +6652,6 @@ takeLast<T>(howMany: number): {
 
 R.takeLast
 
-```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function takeLast(howMany, listOrString){
@@ -6884,7 +6671,6 @@ export function takeLast(howMany, listOrString){
     listOrString, numValue, len
   )
 }
-```
 
 
 ### tap
@@ -6933,7 +6719,6 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 R.tap
 
-```javascript
 export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
 
@@ -6941,7 +6726,6 @@ export function tap(fn, x){
 
   return x
 }
-```
 
 
 ### test
@@ -6982,7 +6766,6 @@ test(regExpression: RegExp, str: string): boolean;
 
 R.test
 
-```javascript
 export function test(pattern, str){
   if (arguments.length === 1) return _str => test(pattern, _str)
 
@@ -6992,7 +6775,6 @@ export function test(pattern, str){
 
   return str.search(pattern) !== -1
 }
-```
 
 
 ### times
@@ -7038,7 +6820,6 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 R.times
 
-```javascript
 import { map } from './map'
 import { range } from './range'
 
@@ -7050,7 +6831,6 @@ export function times(fn, howMany){
 
   return map(fn, range(0, howMany))
 }
-```
 
 
 ### toLower
@@ -7087,11 +6867,9 @@ toLower(str: string): string;
 
 R.toLower
 
-```javascript
 export function toLower(str){
   return str.toLowerCase()
 }
-```
 
 
 ### toPairs
@@ -7138,11 +6916,9 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 R.toPairs
 
-```javascript
 export function toPairs(obj){
   return Object.entries(obj)
 }
-```
 
 
 ### toString
@@ -7179,11 +6955,9 @@ toString<T>(x: T): string;
 
 R.toString
 
-```javascript
 export function toString(val){
   return val.toString()
 }
-```
 
 
 ### toUpper
@@ -7220,11 +6994,9 @@ toUpper(str: string): string;
 
 R.toUpper
 
-```javascript
 export function toUpper(str){
   return str.toUpperCase()
 }
-```
 
 
 ### transpose
@@ -7264,7 +7036,6 @@ transpose<T>(list: T[][]): T[][];
 
 R.transpose
 
-```javascript
 export function transpose(array){
   return array.reduce((acc, el) => {
     el.forEach((nestedEl, i) =>
@@ -7273,7 +7044,6 @@ export function transpose(array){
     return acc
   }, [])
 }
-```
 
 
 ### trim
@@ -7310,11 +7080,9 @@ trim(str: string): string;
 
 R.trim
 
-```javascript
 export function trim(str){
   return str.trim()
 }
-```
 
 
 ### type
@@ -7378,7 +7146,6 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 R.uniq
 
-```javascript
 import { includes } from './includes'
 
 export function uniq(list){
@@ -7395,7 +7162,6 @@ export function uniq(list){
 
   return willReturn
 }
-```
 
 
 ### uniqWith
@@ -7452,7 +7218,6 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 R.uniqWith
 
-```javascript
 import { any } from './any'
 
 export function uniqWith(fn, list){
@@ -7474,7 +7239,6 @@ export function uniqWith(fn, list){
 
   return willReturn
 }
-```
 
 
 ### update
@@ -7519,7 +7283,6 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 R.update
 
-```javascript
 export function update(
   idx, val, list
 ){
@@ -7539,7 +7302,6 @@ export function update(
     val, idx, idx + 1
   )
 }
-```
 
 
 ### values
@@ -7581,7 +7343,6 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 R.values
 
-```javascript
 import { type } from './type.js'
 
 export function values(obj){
@@ -7589,7 +7350,6 @@ export function values(obj){
 
   return Object.values(obj)
 }
-```
 
 
 ### view
@@ -7632,7 +7392,6 @@ view<T, U>(lens: Lens, target: T): U;
 
 R.view
 
-```javascript
 const Const = x => ({
   x,
   map : fn => Const(x),
@@ -7643,7 +7402,6 @@ export function view(lens, target){
 
   return lens(Const)(target).x
 }
-```
 
 
 ### without
@@ -7708,13 +7466,11 @@ xor(y: boolean): (y: boolean) => boolean;
 
 R.xor
 
-```javascript
 export function xor(a, b){
   if (arguments.length === 1) return _b => xor(a, _b)
 
   return Boolean(a) && !b || Boolean(b) && !a
 }
-```
 
 
 ### zip
@@ -7763,7 +7519,6 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 R.zip
 
-```javascript
 export function zip(left, right){
   if (arguments.length === 1) return _right => zip(left, _right)
 
@@ -7776,7 +7531,6 @@ export function zip(left, right){
 
   return result
 }
-```
 
 
 ### zipObj
