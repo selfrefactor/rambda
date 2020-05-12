@@ -1,3 +1,7 @@
+- 5.2.1
+
+Fix Typescript comment for every method
+
 - 5.2.0
 
 Release new documentation site

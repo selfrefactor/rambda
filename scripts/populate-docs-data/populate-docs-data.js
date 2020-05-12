@@ -30,6 +30,9 @@ function appendData({ input, prop, hash }){
 }
 
 export async function populateDocsData({ withRambdax }){
+  // This should be here as here data.json is created
+  // but in the next line, read operation is performed
+  // ============================================
   await buildStep(withRambdax)
 
   const definitions = extractDefinition(withRambdax)

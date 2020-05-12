@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@types/ramda@^0.27.4":
+  version "0.27.4"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.4.tgz#816002c95e54cf3f3d5d7e8e014998450934d992"
+  integrity sha512-uE1OSffeRZoFjVah2RjR4pAyptzqN6T+fEsWr06biuUstR2IBIzKhSGwKxzISAoy4SC+JkJv8y99Hm3cJ/TDOQ==
+  dependencies:
+    ts-toolbelt "^6.3.3"
+
 at-least-node@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
@@ -31,11 +38,22 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-"rambda@https://github.com/selfrefactor/rambda#5.1.0-alpha":
-  version "5.1.0"
-  resolved "https://github.com/selfrefactor/rambda#c9473d25ccdc0862e3bd4e5afc882ccc5cc2aa94"
+rambda@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-5.2.0.tgz#82fade0d1ee925291c6885b0bbd04b5ff4109220"
+  integrity sha512-0vJ+uH1HCe0JY2gVTKwj2yc0DnaOy14SCJRXZTvjjq+GeBHgZDIu5Y8BWHjsalVXnuWpufcLCFdd9rN58GYIZw==
   dependencies:
     fs-extra "^9.0.0"
+
+ramda@0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
+
+ts-toolbelt@^6.3.3:
+  version "6.7.4"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.7.4.tgz#30e6999578a82ed4636563cb525bb3664a255760"
+  integrity sha512-cP8q7BnIyuevMyBpq+TVKf3NvSS70S+BLdhzHVeV/5WNPMoUxN5YWMKgUd54qAwWgk6n2USHi/2XFIxZJa+30g==
 
 typescript@3.8.3:
   version "3.8.3"

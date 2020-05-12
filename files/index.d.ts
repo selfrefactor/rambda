@@ -117,6 +117,8 @@ type Async<T> = (x: any) => Promise<T>;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
+// API_MARKER
+
 /*
 Method: add
 
@@ -375,8 +377,8 @@ Notes: The currying in this function works best with functions with 4 arguments 
 export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
-    ...args: Parameters<ValueOfRecord<Spec>>
-  ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+  ...args: Parameters<ValueOfRecord<Spec>>
+) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
 export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /*
@@ -3921,7 +3923,7 @@ export function zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePai
 export function zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 /*
-Method:
+Method: zipObj
 
 Explanation: It will return a new object with keys of `keys` array and values of `values` array.
 
