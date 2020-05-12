@@ -1220,7 +1220,7 @@ const expected = {
 }
 
 const result = R.fromPairs(listOfPairs)
-// expected === result
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2024,8 +2024,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regexp: RegExp, str: string): any[];
-export function match(regexp: RegExp): (str: string) => any[];
+export function match(regExpression: RegExp, str: string): any[];
+export function match(regExpression: RegExp): (str: string) => any[];
 
 /*
 Method: max
@@ -3427,93 +3427,110 @@ export function tail<T>(listOrString: ReadonlyArray<T>): T[];
 export function tail(listOrString: string): string;
 
 /*
-Method:
+Method: take
 
-Explanation:
-
+Explanation: It returns the first `howMany` elements of `listOrString`.
 
 
 Example:
 
 ```
+const howMany = 2
 
+const result = [
+  R.take(howMany, [1, 2, 3]),
+  R.take(howMany, 'foobar'),
+]
+// => [[1, 2], 'fo']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(num: number, listOrString: ReadonlyArray<T>): T[];
-export function take(num: number, listOrString: string): string;
-export function take<T>(num: number): {
+export function take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function take(howMany: number, listOrString: string): string;
+export function take<T>(howMany: number): {
   (listOrString: string): string;
   (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
-Method:
+Method: takeLast
 
-Explanation:
-
+Explanation: It returns the last `howMany` elements of `listOrString`.
 
 
 Example:
 
 ```
+const howMany = 2
 
+const result = [
+  R.takeLast(howMany, [1, 2, 3]),
+  R.takeLast(howMany, 'foobar'),
+]
+// => [[2, 3], 'ar']
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(num: number, listOrString: ReadonlyArray<T>): T[];
-export function takeLast(num: number, listOrString: string): string;
-export function takeLast(num: number): {
-  <T>(listOrString: ReadonlyArray<T>): T[];
+export function takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function takeLast(howMany: number, listOrString: string): string;
+export function takeLast<T>(howMany: number): {
   (listOrString: string): string;
+  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
-Method:
+Method: tap
 
-Explanation:
+Explanation: It applies function `fn` to input `x` and returns `x`. 
 
+One use case is debuging in the middle of `R.compose`.
 
 
 Example:
 
 ```
+const list = [1, 2, 3]
 
+R.compose(
+  R.map(x => x * 2)
+  R.tap(console.log),
+  R.filter(x => x > 1)
+)(list)
+// => `2` and `3` will be logged
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function tap<T>(fn: (a: T) => any, value: T): T;
-export function tap<T>(fn: (a: T) => any): (value: T) => T;
+export function tap<T>(fn: (a: T) => any, x: T): T;
+export function tap<T>(fn: (a: T) => any): (x: T) => T;
 
 /*
-Method:
+Method: test
 
-Explanation:
-
-
+Explanation: It determines whether `str` matches `regExpression`.
 
 Example:
 
 ```
-
+R.test(/^f/, 'foo')
+// => true
 ```
 
-Categories:
+Categories: String
 
 Notes:
 
@@ -3523,16 +3540,20 @@ export function test(regExpression: RegExp): (str: string) => boolean;
 export function test(regExpression: RegExp, str: string): boolean;
 
 /*
-Method:
+Method: times
 
-Explanation:
+Explanation: It returns the result of applying function `fn` over members of range array.
 
-
+The range array includes numbers between `0` and `howMany`(exclusive).
 
 Example:
 
 ```
+const fn = x => x * 2
+const howMany = 5
 
+R.times(fn, howMany)
+//=> [0, 2, 4, 6, 8]
 ```
 
 Categories:
@@ -3541,20 +3562,110 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function times<T>(fn: (i: number) => T, n: number): T[];
-export function times<T>(fn: (i: number) => T): (n: number) => T[];
+export function times<T>(fn: (i: number) => T, howMany: number): T[];
+export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 /*
-Method:
+Method: toLower
 
 Explanation:
 
+Example:
+
+```
+R.toLower('FOO')
+// => 'foo'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function toLower(str: string): string;
+
+/*
+Method: toUpper
+
+Explanation:
+
+Example:
+
+```
+R.toUpper('foo')
+// => 'FOO'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function toUpper(str: string): string;
+
+/*
+Method: toPairs
+
+Explanation: It transforms an object to a list.
 
 
 Example:
 
 ```
+const list = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
 
+const result = R.toPairs(list)
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
+
+/*
+Method: toString
+
+Explanation:
+
+Example:
+
+```
+R.toString([1, 2]) 
+// => '1,2'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function toString<T>(x: T): string;
+
+/*
+Method: transpose
+
+Explanation:
+
+Example:
+
+```
+const list = [[10, 11], [20], [], [30, 31, 32]]
+const expected = [[10, 20, 30], [11, 31], [32]]
+
+const result = R.transpose(list)
+// => `result` is equal to `expected`
 ```
 
 Categories:
@@ -3566,103 +3677,18 @@ Notes:
 export function transpose<T>(list: T[][]): T[][];
 
 /*
-Method:
+Method: trim
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.trim('  foo  ') 
+// => 'foo'
 ```
 
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toLower(str: string): string;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toString<T>(val: T): string;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toUpper(str: string): string;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
+Categories: String
 
 Notes:
 
@@ -3673,66 +3699,96 @@ export function trim(str: string): string;
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It accepts any input and it returns its type.
 
 Example:
 
 ```
+R.type(() => {}) // => 'Function'
+R.type(async () => {}) // => 'Async'
+R.type([]) // => 'Array'
+R.type({}) // => 'Object'
+R.type('foo') // => 'String'
+R.type(1) // => 'Number'
+R.type(true) // => 'Boolean'
+R.type(null) // => 'Null'
+R.type(/[A-z]/) // => 'RegExp'
+R.type('foo'*1) // => 'NaN'
 
+const delay = ms => new Promise(resolve => {
+  setTimeout(function () {
+    resolve()
+  }, ms)
+})
+R.type(delay) // => 'Promise'
 ```
 
-Categories:
+Categories: Logic
 
-Notes:
+Notes: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
 
 */
 // @SINGLE_MARKER
-export function type(val: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
+export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 
 /*
-Method:
+Method: uniq
 
-Explanation:
-
-
+Explanation: It returns a new array containing only one copy of each element of `list`.
 
 Example:
 
 ```
+const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
 
+R.uniq(list)
+// => [1, {a: 1}, {a: 2}]
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: `R.equals` is used to determine equality
 
 */
 // @SINGLE_MARKER
-export function uniq<T>(arr: ReadonlyArray<T>): T[];
+export function uniq<T>(list: ReadonlyArray<T>): T[];
 
 /*
-Method:
+Method: uniqWith
 
-Explanation:
-
-
+Explanation: It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
 
 Example:
 
 ```
+const list = [
+  {id: 0, title:'foo'},
+  {id: 1, title:'bar'},
+  {id: 2, title:'baz'},
+  {id: 3, title:'foo'},
+  {id: 4, title:'bar'},
+]
 
+const expected = [
+  {id: 0, title:'foo'},
+  {id: 1, title:'bar'},
+  {id: 2, title:'baz'},
+]
+
+const uniqFn = (x,y) => x.title === y.title
+
+const result = R.uniqWith(uniqFn, list)
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(fn: (x: T, y: T) => boolean, arr: ReadonlyArray<T>): T[];
-export function uniqWith<T, U>(fn: (x: T, y: T) => boolean): (arr: ReadonlyArray<T>) => T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
 /*
 Method:
