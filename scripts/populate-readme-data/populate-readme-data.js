@@ -27,7 +27,7 @@ function getOutputPath(withRambdax){
   }
   const dir = resolve(__dirname, '../../')
 
-  return `${ dir }/README.md`
+  return `${ dir }/READMEx.md`
 }
 
 export async function populateReadmeData({ withRambdax }){
