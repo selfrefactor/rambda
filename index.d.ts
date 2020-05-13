@@ -83,10 +83,12 @@ interface Switchem<T> {
   is: isfn<Switchem<T>>;
   default: IdentityFunction<T>;
 }
+
 interface HeadObject<T> {
   prop: string;
   value: T;
 }
+
 interface Reduced {
   [index: number]: any;
   [index: string]: any;
@@ -977,11 +979,11 @@ export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) 
 export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 export function when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>;
 export function when<T>(
   rule: Func<boolean>
-): (ruleResult: T) =>  IdentityFunction<T>;
+): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
 export function without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 export function without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];

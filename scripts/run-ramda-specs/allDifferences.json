@@ -171,10 +171,6 @@
     "count": 2,
     "reason": "ramda method act as a transducer | ramda method pass to `equals` method"
   },
-  "when": {
-    "count": 1,
-    "reason": "ramda method returns curried function"
-  },
   "startsWith": {
     "count": 4,
     "reason": "rambda doesn't support arrays"

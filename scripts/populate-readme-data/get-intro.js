@@ -26,12 +26,16 @@ function getMissingMethods(){
     .map(ramdaMethod => {
       if (rambdaMethods.includes(ramdaMethod)) return false
       counter++
+
       return `- ${ ramdaMethod }\n`
     })
     .filter(Boolean)
     .join('')
 
-  return template(missingMethodsTemplate, { missingMethods, counter })
+  return template(missingMethodsTemplate, {
+    missingMethods,
+    counter,
+  })
 }
 
 const templateIntro = `

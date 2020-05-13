@@ -38,8 +38,8 @@ function getNumberFailing(testOutput){
   return Number(numberFailing.trim())
 }
 
-export async function runSingleSpec(method, skipDelete = true){
-  console.log(method)
+export async function runSingleSpec(method, skipDelete = false){
+  console.log({ methodToRun : method })
   const { command, outputPath } = getCommand(method)
 
   await exec({
@@ -57,6 +57,10 @@ export async function runSingleSpec(method, skipDelete = true){
   if (skipDelete) return
 
   const numberFailing = getNumberFailing(testOutput)
+  console.log({
+    numberFailing,
+    declared : KNOWN_FAILING_TESTS[ method ],
+  })
 
   if (
     !KNOWN_FAILING_TESTS[ method ] ||
@@ -68,6 +72,9 @@ export async function runSingleSpec(method, skipDelete = true){
   unlinkSync(outputPath)
 }
 
-export async function runSpecs(methodsWithSpecs){
-  await mapAsync(async method => runSingleSpec(method, true))(methodsWithSpecs)
+export async function runSpecs(methodsWithSpecs, singleMethod){
+  if (singleMethod){
+    return runSingleSpec(singleMethod)
+  }
+  await mapAsync(async method => runSingleSpec(method))(methodsWithSpecs)
 }

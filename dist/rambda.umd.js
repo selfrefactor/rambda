@@ -1572,12 +1572,19 @@
     return reduce((prev, current) => includes(current, matchAgainst) ? prev : prev.concat(current), [], source);
   }
 
-  function when(rule, ruleResult) {
+  function isFunction(fn) {
+    return ['Async', 'Promise', 'Function'].includes(type(fn));
+  }
+
+  function when(rule, resultOrFunction) {
     if (arguments.length === 1) {
       return whenTrueHolder => when(rule, whenTrueHolder);
     }
 
-    return input => rule(input) ? ruleResult : input;
+    return input => {
+      if (!rule(input)) return input;
+      return isFunction(resultOrFunction) ? resultOrFunction(input) : resultOrFunction;
+    };
   }
 
   function xor(a, b) {

@@ -83,10 +83,12 @@ interface Switchem<T> {
   is: isfn<Switchem<T>>;
   default: IdentityFunction<T>;
 }
+
 interface HeadObject<T> {
   prop: string;
   value: T;
 }
+
 interface Reduced {
   [index: number]: any;
   [index: string]: any;
@@ -3845,18 +3847,41 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 /*
 Method: when
 
-Example:
+Example: It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
+
+This function will return `input` if `rule(input)` is false.
+
+If `resultOrFunction` is function, it will return `resultOrFunction(input)`.
+
+If `resultOrFunction` is not function, it will return `resultOrFunction`.
+
+Maybe the example use will do a better job in explaining this method.
 
 ```
-const ruleResult = 'RULE_RESULT'
 const rule = x => typeof x === 'number'
-const fn = when(rule, ruleResult)
+const whenTrueResult = 6345789
+const whenTrueFn = R.add(11)
+
+const fnWithResult = when(rule, whenTrueResult)
+const fnWithFunction = when(rule, whenTrueFn)
+
+const goodInput = 88
+const badInput = 'foo'
 
 const result = [
-  fn('foo'),
-  fn(88)
+  fnWithResult(goodInput),
+  fnWithResult(badInput),
+  fnWithFn(goodInput)
+  fnWithFn(badInput),
 ]
-// => ['foo', 'RULE_RESULT']
+
+const expected = [
+  6345789,
+  'foo',
+  99,
+  'foo'
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: Logic, Function
@@ -3866,11 +3891,11 @@ Notes:
 */
 // @SINGLE_MARKER
 export function when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>;
 export function when<T>(
   rule: Func<boolean>
-): (ruleResult: T) =>  IdentityFunction<T>;
+): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
 /*
 Method:

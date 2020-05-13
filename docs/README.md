@@ -14571,23 +14571,48 @@ export function view(lens, target){
 
 ```typescript
 when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>
 ```
 
 ```javascript
-const ruleResult = 'RULE_RESULT'
+It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
+
+This function will return `input` if `rule(input)` is false.
+
+If `resultOrFunction` is function, it will return `resultOrFunction(input)`.
+
+If `resultOrFunction` is not function, it will return `resultOrFunction`.
+
+Maybe the example use will do a better job in explaining this method.
+
 const rule = x => typeof x === 'number'
-const fn = when(rule, ruleResult)
+const whenTrueResult = 6345789
+const whenTrueFn = R.add(11)
+
+const fnWithResult = when(rule, whenTrueResult)
+const fnWithFunction = when(rule, whenTrueFn)
+
+const goodInput = 88
+const badInput = 'foo'
 
 const result = [
-  fn('foo'),
-  fn(88)
+  fnWithResult(goodInput),
+  fnWithResult(badInput),
+  fnWithFn(goodInput)
+  fnWithFn(badInput),
 ]
-// => ['foo', 'RULE_RESULT']
+
+const expected = [
+  6345789,
+  'foo',
+  99,
+  'foo'
+]
+// => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20ruleResult%20%3D%20'RULE_RESULT'%0Aconst%20rule%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20fn%20%3D%20when(rule%2C%20ruleResult)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn('foo')%2C%0A%20%20fn(88)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'RULE_RESULT'%5D">Try the above <strong>R.when</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?It%20accepts%20%60rule%60%20and%20%60resultOrFunction%60%20as%20arguments%20and%20returns%20a%20function%20with%20%60input%60.%0A%0AThis%20function%20will%20return%20%60input%60%20if%20%60rule(input)%60%20is%20false.%0A%0AIf%20%60resultOrFunction%60%20is%20function%2C%20it%20will%20return%20%60resultOrFunction(input)%60.%0A%0AIf%20%60resultOrFunction%60%20is%20not%20function%2C%20it%20will%20return%20%60resultOrFunction%60.%0A%0AMaybe%20the%20example%20use%20will%20do%20a%20better%20job%20in%20explaining%20this%20method.%0A%0A%0Aconst%20rule%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20whenTrueResult%20%3D%206345789%0Aconst%20whenTrueFn%20%3D%20R.add(11)%0A%0Aconst%20fnWithResult%20%3D%20when(rule%2C%20whenTrueResult)%0Aconst%20fnWithFunction%20%3D%20when(rule%2C%20whenTrueFn)%0A%0Aconst%20goodInput%20%3D%2088%0Aconst%20badInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fnWithResult(goodInput)%2C%0A%20%20fnWithResult(badInput)%2C%0A%20%20fnWithFn(goodInput)%0A%20%20fnWithFn(badInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%206345789%2C%0A%20%20'foo'%2C%0A%20%2099%2C%0A%20%20'foo'%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.when</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14595,11 +14620,11 @@ const result = [
 
 ```typescript
 when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>;
 when<T>(
   rule: Func<boolean>
-): (ruleResult: T) =>  IdentityFunction<T>;
+): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 ```
 
 </details>
@@ -14609,12 +14634,20 @@ when<T>(
 <summary><strong>R.when</strong> source</summary>
 
 ```javascript
-export function when(rule, ruleResult){
+import { isFunction } from './isFunction'
+
+export function when(rule, resultOrFunction){
   if (arguments.length === 1){
     return whenTrueHolder => when(rule, whenTrueHolder)
   }
 
-  return input => rule(input) ? ruleResult : input
+  return input => {
+    if (!rule(input)) return input
+
+    return isFunction(resultOrFunction) ?
+      resultOrFunction(input) :
+      resultOrFunction
+  }
 }
 ```
 
@@ -14625,6 +14658,8 @@ export function when(rule, ruleResult){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
+import { add } from './add'
+import { is } from './is'
 import { when } from './when'
 
 const ruleResult = 'RULE_RESULT'
@@ -14644,6 +14679,11 @@ test('when rule returns false', () => {
   expect(fn(input)).toBe(input)
   expect(curriedFn(input)).toBe(input)
 })
+
+test('second argument can be a function', () => {
+  const fn = when(is(Number), add(1))
+  expect(fn(10)).toBe(11)
+})
 ```
 
 </details>
@@ -14653,13 +14693,13 @@ test('when rule returns false', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {when} from 'rambda'
+import {when, add} from 'rambda'
 
 const ruleResult = 88
 const rule = (x: number) => x > 2
 
 describe('when', () => {
-  it('without passing type', () => {
+  it('without passing type - happy', () => {
     const fn = when(rule, ruleResult)
     const result = [
       fn(1),
@@ -14669,10 +14709,32 @@ describe('when', () => {
     result[1] // $ExpectType number
   })
 
+  it('without passing type - second argument is function', () => {
+    const fn = when(rule, add(1))
+    const fnCurried = when(rule)(add(1))
+    const [result1, result2] = [
+      fn(1),
+      fnCurried(2),
+    ]
+    result1 // $ExpectType number
+    result2 // $ExpectType unknown
+  })
+
   it('with passing type', () => {
     const fn = when<number>(rule, ruleResult)
     const result = fn(1) 
     result // $ExpectType number
+  })
+
+  it('with passing type - second argument is function', () => {
+    const fn = when<number>(rule, add(1))
+    const fnCurried = when<number>(rule)(add(1))
+    const [result1, result2] = [
+      fn(1),
+      fnCurried(2),
+    ]
+    result1 // $ExpectType number
+    result2 // $ExpectType number
   })
 
   it('curry', () => {

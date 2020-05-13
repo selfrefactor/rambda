@@ -7,6 +7,6 @@ jest.setTimeout(ms('12 minutes'))
 // The test are running agains the bundle file, build before this
 // ============================================
 test('happy', async () => {
-  const withInitialStep = true
+  const withInitialStep = false
   await runRamdaSpecs({ withInitialStep })
 })

@@ -10,14 +10,15 @@ import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
-import ramdaxData from '../populate-docs-data/data-rambdax.json'
-import ramdaData from '../populate-docs-data/data.json'
+import { rambdaMethods } from '../constants'
 import { createExportedTypings } from './create-exported-typings'
 
-const ramdaMethods = Object.keys(ramdaData)
+// Rambdax methods which are used in creation of Rambda method
+// ============================================
+const rambdaxMethodsAsInternals = [ 'isFunction' ]
 
-async function createMainFile({ allMethods, ramdaMethods, dir }){
-  const content = [ ...allMethods, ...ramdaMethods ]
+async function createMainFile({ allMethods, rambdaMethods, dir }){
+  const content = [ ...allMethods, ...rambdaMethods ]
     .map(x => `export * from './src/${ x }'`)
     .join('\n')
 
@@ -68,7 +69,7 @@ async function rambdaxBuildStep(){
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-      if (!x.includes('internals') && !ramdaMethods.includes(name)){
+      if (!x.includes('internals') && !rambdaMethods.includes(name)){
         allMethods.push(name)
       }
       const [ , fileName ] = x.split('source/')
@@ -78,7 +79,7 @@ async function rambdaxBuildStep(){
 
   await createMainFile({
     allMethods,
-    ramdaMethods,
+    rambdaMethods,
     dir,
   })
 }
@@ -97,12 +98,14 @@ async function rambdaBuildStep(){
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-      const shouldCopy =
+      
+      const shouldSkip =
         x.includes('internals') ||
         x.includes('benchmarks') ||
-        !ramdaMethods.includes(name)
+        !rambdaMethods.includes(name) &&
+          !rambdaxMethodsAsInternals.includes(name)
 
-      if (shouldCopy) return
+      if (shouldSkip) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)
