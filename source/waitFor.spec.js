@@ -1,6 +1,8 @@
 import { delay } from './delay'
 import { waitFor } from './waitFor'
 
+jest.setTimeout(30000)
+
 const howLong = 1000
 
 test('true', async () => {
@@ -57,4 +59,4 @@ test('throws when fn is not function', () => {
   const fn = 'foo'
 
   expect(() => waitFor(fn, howLong)()).toThrow('R.waitFor')
-})
+}) 
