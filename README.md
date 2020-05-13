@@ -365,7 +365,7 @@ export function add(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { add } from './add'
 
 test('with number', () => {
@@ -467,7 +467,7 @@ export const adjust = curry(adjustFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { add } from './add'
 import { adjust } from './adjust'
 
@@ -584,7 +584,7 @@ export function all(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { all } from './all'
 
 const numArr = [ 0, 1, 2, 3, 4 ]
@@ -698,7 +698,7 @@ export function allPass(predicates){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { allPass } from './allPass'
 
 test('happy', () => {
@@ -824,7 +824,7 @@ export function always(x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { always } from './always'
 
 test('happy', () => {
@@ -881,7 +881,7 @@ export function and(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { and } from './and'
 
 test('happy', () => {
@@ -950,7 +950,7 @@ export function any(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { any } from './any'
 
 const arr = [ 1, 2 ]
@@ -1082,7 +1082,7 @@ export function anyPass(predicates){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { anyPass } from './anyPass'
 
 test('happy', () => {
@@ -1231,7 +1231,7 @@ export function append(x, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { append } from './append'
 import { compose } from './compose.js'
 import { flatten } from './flatten.js'
@@ -1463,7 +1463,7 @@ export function applySpec(spec, ...args){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { applySpec as applySpecRamda, nAry } from 'ramda'
 
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
@@ -1766,7 +1766,7 @@ export const assoc = curry(assocFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { assoc } from './assoc'
 
 test('adds a key to an empty object', () => {
@@ -1934,7 +1934,7 @@ export const assocPath = curry(assocPathFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
@@ -2121,7 +2121,7 @@ export function both(f, g){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { both } from './both'
 
 const firstFn = val => val > 0
@@ -2312,7 +2312,7 @@ export const clamp = curry(clampFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { clamp } from './clamp'
 
 test('rambda specs', () => {
@@ -2413,7 +2413,7 @@ export function complement(fn){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { complement } from './complement'
 
 test('happy', () => {
@@ -2528,7 +2528,7 @@ export function compose(...fns){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { add } from './add'
 import { compose } from './compose'
 import { filter } from './filter.js'
@@ -2676,7 +2676,7 @@ export function concat(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { concat } from './concat'
 
 test('happy', () => {
@@ -2795,7 +2795,7 @@ export function cond(conditions){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { always } from './always.js'
 import { cond } from './cond'
 import { equals } from './equals.js'
@@ -2948,7 +2948,7 @@ export function curry(fn, args = []){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 test('happy', () => {
@@ -3125,7 +3125,7 @@ export const dec = x => x - 1
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { dec } from './dec'
 
 test('happy', () => {
@@ -3218,7 +3218,7 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { defaultTo } from './defaultTo'
 
 test('with undefined', () => {
@@ -3403,7 +3403,7 @@ export function difference(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { difference } from './difference'
 
 test('difference', () => {
@@ -3518,7 +3518,7 @@ export function dissoc(prop, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { dissoc } from './dissoc'
 
 test('input is null or undefined', () => {
@@ -3631,7 +3631,7 @@ export function divide(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { divide } from './divide'
 
 test('happy', () => {
@@ -3690,7 +3690,7 @@ export function drop(howManyToDrop, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import assert from 'assert'
 
 import { drop } from './drop'
@@ -3796,7 +3796,7 @@ export function dropLast(howManyToDrop, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import assert from 'assert'
 
 import { dropLast } from './dropLast'
@@ -3914,7 +3914,7 @@ export function endsWith(target, str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { endsWith } from './endsWith'
 
 test('happy', () => {
@@ -4100,7 +4100,7 @@ export function equals(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { equals } from './equals'
 
 test('happy', () => {
@@ -4643,7 +4643,7 @@ export function filter(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import Ramda from 'ramda'
 
 import { filter } from './filter'
@@ -4876,7 +4876,7 @@ export function find(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { find } from './find'
 import { propEq } from './propEq'
 
@@ -4949,7 +4949,7 @@ export function findIndex(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
@@ -5027,7 +5027,7 @@ export function flatten(list, input){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { flatten } from './flatten'
 
 test('happy', () => {
@@ -5106,7 +5106,7 @@ export function flip(fn){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { flip } from './flip'
 import { subtract } from './subtract'
 
@@ -5222,7 +5222,7 @@ export function forEach(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { forEach } from './forEach'
 import { type } from './type'
 
@@ -5402,7 +5402,7 @@ export function fromPairs(listOfPairs){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { fromPairs } from './fromPairs'
 
 const list = [
@@ -5482,7 +5482,7 @@ export function groupBy(groupFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { groupBy } from './groupBy'
 import { prop } from './prop'
 
@@ -5646,7 +5646,7 @@ export function groupWith(compareFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { equals } from './equals'
 import { groupWith } from './groupWith'
 
@@ -5793,7 +5793,7 @@ export function has(prop, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { has } from './has'
 
 test('happy', () => {
@@ -5907,7 +5907,7 @@ export function identical(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { F, T } from '../rambda.js'
 import { _isInteger } from './_internals/_isInteger'
 import { _objectIs } from './_internals/_objectIs'
@@ -5983,7 +5983,7 @@ export function identity(input){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { identity } from './identity'
 
 test('happy', () => {
@@ -6060,7 +6060,7 @@ export const ifElse = curry(ifElseFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { always } from './always.js'
 import { has } from './has'
 import { identity } from './identity'
@@ -6217,7 +6217,7 @@ export const inc = x => x + 1
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { inc } from './inc'
 
 test('happy', () => {
@@ -6333,7 +6333,7 @@ export function indexBy(condition, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
@@ -6544,7 +6544,7 @@ export function indexOf(valueToFind, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { indexOf } from './indexOf'
 
 test('indexOf', () => {
@@ -6666,7 +6666,7 @@ export function init(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { init } from './init'
 
 test('with array', () => {
@@ -6737,7 +6737,7 @@ export function intersection(listA, listB){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { intersection } from './intersection'
 
 test('intersection', () => {
@@ -6815,7 +6815,7 @@ export function intersperse(separator, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { intersperse } from './intersperse'
 
 test('intersperse', () => {
@@ -6886,7 +6886,7 @@ export function is(targetPrototype, x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { is } from './is'
 
 test('works with built-in types', () => {
@@ -6995,7 +6995,7 @@ export function isEmpty(input){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { isEmpty } from './isEmpty'
 
 test('happy', () => {
@@ -7085,7 +7085,7 @@ export function isNil(x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { isNil } from './isNil'
 
 test('happy', () => {
@@ -7142,7 +7142,7 @@ export function join(glue, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { join } from './join'
 
 test('curry', () => {
@@ -7199,7 +7199,7 @@ export function keys(x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { keys } from './keys.js'
 
 test('happy', () => {
@@ -7291,7 +7291,7 @@ export function last(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { last } from './last'
 
 test('happy', () => {
@@ -7366,7 +7366,7 @@ export function lastIndexOf(target, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { lastIndexOf } from './lastIndexOf'
 
 test('happy', () => {
@@ -7499,7 +7499,7 @@ export function length(x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { length } from './length'
 
 test('happy', () => {
@@ -7646,7 +7646,7 @@ export function lensIndex(index){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { compose } from './compose'
 import { keys } from './keys'
 import { lensIndex } from './lensIndex'
@@ -7760,7 +7760,7 @@ export function lensPath(key){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -7946,7 +7946,7 @@ export function lensProp(key){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -8133,7 +8133,7 @@ export function map(fn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { map } from './map'
 
 const double = x => x * 2
@@ -8351,7 +8351,7 @@ export function match(pattern, input){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { equals } from './equals'
 import { match } from './match'
 
@@ -8424,7 +8424,7 @@ export function max(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { max } from './max'
 
 test('with number', () => {
@@ -8489,7 +8489,7 @@ export const maxBy = curry(maxByFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { maxBy } from './maxBy'
 
 test('happy', () => {
@@ -8549,7 +8549,7 @@ export function mean(list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { mean } from './mean'
 
 test('happy', () => {
@@ -8617,7 +8617,7 @@ export function median(list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { identical } from './identical'
 import { median } from './median'
 
@@ -8679,7 +8679,7 @@ export function merge(target, newProps){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { merge } from './merge'
 
 const sample = {
@@ -8754,7 +8754,7 @@ export function min(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { min } from './min'
 
 test('happy', () => {
@@ -8815,7 +8815,7 @@ export const minBy = curry(minByFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { minBy } from './minBy'
 
 test('happy', () => {
@@ -8875,7 +8875,7 @@ export function modulo(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { modulo } from './modulo'
 
 test('happy', () => {
@@ -8929,7 +8929,7 @@ export function multiply(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { multiply } from './multiply'
 
 test('happy', () => {
@@ -8978,7 +8978,7 @@ export function negate(x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { negate } from './negate'
 
 test('negate', () => {
@@ -9036,7 +9036,7 @@ export function none(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { none } from './none'
 
 const isEven = n => n % 2 === 0
@@ -9101,7 +9101,7 @@ export function not(input){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { not } from './not'
 
 test('not', () => {
@@ -9169,7 +9169,7 @@ export function nth(index, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { nth } from './nth'
 
 test('happy', () => {
@@ -9259,7 +9259,7 @@ export function omit(propsToOmit, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { omit } from './omit'
 
 test('with string as condition', () => {
@@ -9485,7 +9485,7 @@ export function partial(fn, ...args){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { partial } from './partial'
 import { type } from './type'
 
@@ -9623,7 +9623,7 @@ export function path(list, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { path } from './path'
 
 test('with array inside object', () => {
@@ -9809,7 +9809,7 @@ export const pathOr = curry(pathOrFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { pathOr } from './pathOr'
 
 test('with undefined', () => {
@@ -9918,7 +9918,7 @@ export function paths(pathsToSearch, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { paths } from './paths'
 
 const obj = {
@@ -10132,7 +10132,7 @@ export function pick(propsToPick, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { pick } from './pick'
 
 test('pick with string as condition', () => {
@@ -10315,7 +10315,7 @@ export function pickAll(propsToPick, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { pickAll } from './pickAll'
 
 test('when input is undefined or null', () => {
@@ -10408,7 +10408,7 @@ export function pipe(...fns){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
@@ -10537,7 +10537,7 @@ export function pluck(property, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { pluck } from './pluck'
 
 test('happy', () => {
@@ -10674,7 +10674,7 @@ export function prepend(x, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { prepend } from './prepend'
 
 test('happy', () => {
@@ -10735,7 +10735,7 @@ export const product = reduce(multiply, 1)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { product } from './product'
 
 test('happy', () => {
@@ -10831,7 +10831,7 @@ export const propEq = curry(propEqFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { propEq } from './propEq'
 
 test('happy', () => {
@@ -10938,7 +10938,7 @@ export const propIs = curry(propIsFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { propIs } from './propIs'
 
 const obj = { value : 1 }
@@ -11021,7 +11021,7 @@ export const propOr = curry(propOrFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { propOr } from './propOr'
 
 test('propOr (result)', () => {
@@ -11105,7 +11105,7 @@ export function range(start, end){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { range } from './range'
 
 test('happy', () => {
@@ -11184,7 +11184,7 @@ export const reduce = curry(reduceFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { reduce } from './reduce'
 
 test('happy', () => {
@@ -11421,7 +11421,7 @@ export function reject(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
@@ -11619,7 +11619,7 @@ export function repeat(x, timesToRepeat){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { repeat } from './repeat'
 
 test('repeat', () => {
@@ -11694,7 +11694,7 @@ export function replace(
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { replace } from './replace'
 
 test('happy', () => {
@@ -11855,7 +11855,7 @@ export const slice = curry(sliceFn)
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { slice } from './slice'
 
 test('slice', () => {
@@ -11939,7 +11939,7 @@ export function sort(sortFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { sort } from './sort'
 
 const fn = (a, b) => a > b ? 1 : -1
@@ -12026,7 +12026,7 @@ export function sortBy(sortFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { compose } from './compose'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
@@ -12174,7 +12174,7 @@ export function split(separator, str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { split } from './split'
 
 test('split', () => {
@@ -12256,7 +12256,7 @@ export function startsWith(target, str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { startsWith } from './startsWith'
 
 test('true', () => {
@@ -12359,7 +12359,7 @@ export function sum(list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { sum } from './sum'
 
 test('happy', () => {
@@ -12423,7 +12423,7 @@ export function symmetricDifference(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { symmetricDifference } from './symmetricDifference'
 
 test('symmetricDifference', () => {
@@ -12530,7 +12530,7 @@ export function tail(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { tail } from './tail'
 
 test('tail', () => {
@@ -12608,7 +12608,7 @@ export function take(howMany, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { take } from './take'
 
 test('happy', () => {
@@ -12735,7 +12735,7 @@ export function takeLast(howMany, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { takeLast } from './takeLast'
 
 test('with arrays', () => {
@@ -12818,7 +12818,7 @@ export function tap(fn, x){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { tap } from './tap'
 
 test('tap', () => {
@@ -12916,7 +12916,7 @@ export function test(pattern, str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { test as testMethod } from './test'
 
 test('happy', () => {
@@ -12987,7 +12987,7 @@ export function times(fn, howMany){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import assert from 'assert'
 
 import { identity } from './identity'
@@ -13056,7 +13056,7 @@ export function toLower(str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { toLower } from './toLower'
 
 test('toLower', () => {
@@ -13114,7 +13114,7 @@ export function toPairs(obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { toPairs } from './toPairs'
 
 const obj = {
@@ -13174,7 +13174,7 @@ export function toString(val){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { toString } from './toString'
 
 test('happy', () => {
@@ -13223,7 +13223,7 @@ export function toUpper(str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
@@ -13280,7 +13280,7 @@ export function transpose(array){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { transpose } from './transpose'
 
 test('happy', () => {
@@ -13362,7 +13362,7 @@ export function trim(str){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { trim } from './trim'
 
 test('trim', () => {
@@ -13475,7 +13475,7 @@ export function uniq(list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { uniq } from './uniq'
 
 test('uniq', () => {
@@ -13612,7 +13612,7 @@ export function uniqWith(fn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { uniqWith } from './uniqWith'
 
 test('happy', () => {
@@ -13818,7 +13818,7 @@ export function update(
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { update } from './update'
 
 test('update', () => {
@@ -13918,7 +13918,7 @@ export function values(obj){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { values } from './values'
 
 test('happy', () => {
@@ -14075,7 +14075,7 @@ export function xor(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { xor } from './xor'
 
 test('compares two values with exclusive or', () => {
@@ -14233,7 +14233,7 @@ export function zip(left, right){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { zip } from './zip'
 
 const array1 = [ 1, 2, 3 ]
@@ -14351,7 +14351,7 @@ export function zipObj(keys, values){
 
 <summary><strong>Tests</strong></summary>
 
-```text
+```javascript
 import { equals } from './equals'
 import { zipObj } from './zipObj'
 
