@@ -17,7 +17,7 @@ commands:
           command: mkdir /home/circleci/.dts/perf -p    
       - run:
           name: Test
-          command: yarn test   
+          command: yarn cover   
       - run:
           name: Upload
           command: bash <(curl -s https://codecov.io/bash)   
