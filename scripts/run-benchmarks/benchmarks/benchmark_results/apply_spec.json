@@ -1,0 +1,27 @@
+{
+  "name": "APPLY_SPEC",
+  "date": "2020-05-13T22:09:12.578Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 899501,
+      "margin": 1.77,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 301026,
+      "margin": 1.3,
+      "percentSlower": 66.53
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

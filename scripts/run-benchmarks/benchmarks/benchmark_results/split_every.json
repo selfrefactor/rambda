@@ -1,0 +1,27 @@
+{
+  "name": "SPLIT_EVERY",
+  "date": "2020-05-13T22:18:51.696Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 8517906,
+      "margin": 1.18,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 913869,
+      "margin": 0.45,
+      "percentSlower": 89.27
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

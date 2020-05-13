@@ -44,10 +44,6 @@ export async function benchmarkSummary(){
   })
 
   const toSave = tableRows.join('\n')
-  console.log({ type : typeof toSave })
-  console.log({ array : Array.isArray(toSave) ? toSave.length : 'not array' })
-  console.log({ keys : toSave ? Object.keys(toSave) : 'not object' })
-  console.log(toSave)
 
   await outputFile(`${ __dirname }/summary.txt`, toSave)
 }

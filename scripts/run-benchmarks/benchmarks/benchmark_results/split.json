@@ -1,0 +1,33 @@
+{
+  "name": "SPLIT",
+  "date": "2020-05-13T22:18:40.683Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 9562412,
+      "margin": 1.22,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 1434075,
+      "margin": 0.29,
+      "percentSlower": 85
+    },
+    {
+      "name": "Lodash",
+      "ops": 6466092,
+      "margin": 0.55,
+      "percentSlower": 32.38
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

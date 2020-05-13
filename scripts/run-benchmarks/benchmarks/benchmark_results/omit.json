@@ -1,0 +1,33 @@
+{
+  "name": "OMIT",
+  "date": "2020-05-13T22:15:34.804Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 24388075,
+      "margin": 2.03,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 7037073,
+      "margin": 3.46,
+      "percentSlower": 71.15
+    },
+    {
+      "name": "Lodash",
+      "ops": 580904,
+      "margin": 2.23,
+      "percentSlower": 97.62
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Lodash",
+    "index": 2
+  }
+}

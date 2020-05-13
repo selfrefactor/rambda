@@ -39,9 +39,9 @@ export async function runAllBenchmarks(){
     createBenchmark({ [ singleMethod ] : required })
   }
 
-  // await mapAsyncLimit(
-  //   iterable, 5, methodsWithBenchmarks
-  // )
+  await mapAsyncLimit(
+    iterable, 5, methodsWithBenchmarks
+  )
   console.timeEnd('run.all.benchmarks')
 
   await outputJson(`${ __dirname }/time.json`, { benchmarkTime : benchmarkTime() })

@@ -1,0 +1,33 @@
+{
+  "name": "TAKE",
+  "date": "2020-05-13T22:19:08.142Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 5226461,
+      "margin": 1.08,
+      "percentSlower": 92.41
+    },
+    {
+      "name": "Ramda",
+      "ops": 1542042,
+      "margin": 0.45,
+      "percentSlower": 97.76
+    },
+    {
+      "name": "Lodash",
+      "ops": 68850720,
+      "margin": 0.38,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Lodash",
+    "index": 2
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

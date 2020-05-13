@@ -1,0 +1,27 @@
+{
+  "name": "SORT",
+  "date": "2020-05-13T22:18:08.156Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 2275450,
+      "margin": 1.32,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 863055,
+      "margin": 0.25,
+      "percentSlower": 62.07
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

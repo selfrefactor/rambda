@@ -1,0 +1,27 @@
+{
+  "name": "PROP_EQ",
+  "date": "2020-05-13T22:16:40.561Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 1591105,
+      "margin": 3.26,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 97283,
+      "margin": 0.63,
+      "percentSlower": 93.89
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

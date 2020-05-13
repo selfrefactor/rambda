@@ -1,0 +1,27 @@
+{
+  "name": "CONVERGE",
+  "date": "2020-05-13T22:10:12.610Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 279837,
+      "margin": 2.62,
+      "percentSlower": 44.9
+    },
+    {
+      "name": "Ramda",
+      "ops": 507914,
+      "margin": 1.83,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Ramda",
+    "index": 1
+  },
+  "slowest": {
+    "name": "Rambda",
+    "index": 0
+  }
+}
