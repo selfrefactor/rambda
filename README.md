@@ -15257,6 +15257,10 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
+- 5.4.0
+
+> Close [Issue #408](https://github.com/selfrefactor/rambda/issues/408) - add `R.chain`
+
 - 5.3.0
 
 > Close [Issue #430](https://github.com/selfrefactor/rambda/issues/430) - add `R.when`
