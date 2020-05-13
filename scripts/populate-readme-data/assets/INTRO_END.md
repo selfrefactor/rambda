@@ -10,9 +10,9 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 
 ## Differences between Rambda and Ramda
 
-- Rambda's **type** detect async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
+- Rambda's **type** detects async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
 
-- Rambda's **type** handle `NaN` input, in which case it returns `"NaN"`.
+- Rambda's **type** handles *NaN* input, in which case it returns `NaN`.
 
 - Rambda's **path** and **paths** accept dot notation - `'x.y' same as ['x','y']`
 
