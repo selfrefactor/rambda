@@ -67,7 +67,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 <details>
 <summary>
-  Click to see the full list of 119 Ramda methods not implemented in Rambda 
+  Click to see the full list of 118 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -80,7 +80,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - binary
 - bind
 - call
-- chain
 - comparator
 - composeK
 - composeP
@@ -2252,6 +2251,117 @@ describe('both', function() {
 
 </details>
 
+### chain
+
+```typescript
+chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[]
+```
+
+The method is also known as `flatMap`.
+
+```javascript
+const duplicate = n => [ n, n ]
+const list = [ 1, 2, 3 ]
+
+const result = chain(duplicate, list)
+// => [ 1, 1, 2, 2, 3, 3 ]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20duplicate%20%3D%20n%20%3D%3E%20%5B%20n%2C%20n%20%5D%0Aconst%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0A%0Aconst%20result%20%3D%20chain(duplicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%201%2C%201%2C%202%2C%202%2C%203%2C%203%20%5D">Try the above <strong>R.chain</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
+chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
+chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.chain</strong> source</summary>
+
+```javascript
+export function chain(fn, list){
+  if (arguments.length === 1){
+    return _list => chain(fn, _list)
+  }
+
+  return [].concat(...list.map(fn))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { chain } from './chain.js'
+
+const duplicate = n => [ n, n ]
+
+test('happy', () => {
+  const fn = x => [ x * 2 ]
+  const list = [ 1, 2, 3 ]
+
+  const result = chain(fn, list)
+
+  expect(result).toEqual([ 2, 4, 6 ])
+})
+
+test('maps then flattens one level', () => {
+  expect(chain(duplicate, [ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])
+})
+
+test('maps then flattens one level - curry', () => {
+  expect(chain(duplicate)([ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])
+})
+
+test('flattens only one level', () => {
+  const nest = n => [ [ n ] ]
+  expect(chain(nest, [ 1, 2, 3 ])).toEqual([ [ 1 ], [ 2 ], [ 3 ] ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {chain} from 'rambda'
+
+const list = [ 1, 2, 3 ]
+const duplicate = (n: number) => [ n, n ]
+
+describe('chain', () => {
+  it('without passing type', () => {
+    const result = chain(duplicate, list)
+    result // $ExpectType number[]
+  })
+
+  it('passing types', () => {
+    const duplicateAndModify = (x: number) => [
+      `||${x}||`,
+      `||${x}||`
+    ]
+    const result = chain<number, string>(duplicateAndModify, list)
+    const resultCurried = chain<number, string>(duplicateAndModify)(list)
+    result // $ExpectType string[]
+    resultCurried // $ExpectType string[]
+  })
+})
+```
+
+</details>
+
 ### clamp
 
 ```typescript
@@ -2614,6 +2724,13 @@ describe('compose', function() {
 describe('compose properties', function() {
   jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
     return R.equals(R.compose(f, g)(x), f(g(x)));
+  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
+    var result = f(g(h(x)));
+    return R.all(R.equals(result), [
+      R.compose(f, g, h)(x),
+      R.compose(f, R.compose(g, h))(x),
+      R.compose(R.compose(f, g), h)(x)
+    ]);
 });
 ```
 
@@ -11866,11 +11983,6 @@ var eq = require('./shared/eq');
 describe('reduce', function() {
   var add = function(a, b) {return a + b;};
   var mult = function(a, b) {return a * b;};
-  it('dispatches to objects that implement `reduce`', function() {
-    var obj = {x: [1, 2, 3], reduce: function() { return 'override'; }};
-    eq(R.reduce(add, 0, obj), 'override');
-    eq(R.reduce(add, 10, obj), 'override');
-  });
   it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
     var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';
     function Reducible(arr) {

@@ -122,6 +122,15 @@
     "failedRamdaSpecs": "var S = require('sanctuary');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('both', function() {\n  it('accepts fantasy-land applicative functors', function() {\n    var Just = S.Just;\n    var Nothing = S.Nothing;\n    eq(R.both(Just(true), Just(true)), Just(true));\n    eq(R.both(Just(true), Just(false)), Just(false));\n    eq(R.both(Just(true), Nothing()), Nothing());\n    eq(R.both(Nothing(), Just(false)), Nothing());\n    eq(R.both(Nothing(), Nothing()), Nothing());\n  });\n});",
     "failedSpecsReasons": "ramda supports fantasy-land"
   },
+  "chain": {
+    "typing": "chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[]",
+    "allTypings": "chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];\nchain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];\nchain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;",
+    "rambdaSource": "export function chain(fn, list){\n  if (arguments.length === 1){\n    return _list => chain(fn, _list)\n  }\n\n  return [].concat(...list.map(fn))\n}",
+    "rambdaSpecs": "import { chain } from './chain.js'\n\nconst duplicate = n => [ n, n ]\n\ntest('happy', () => {\n  const fn = x => [ x * 2 ]\n  const list = [ 1, 2, 3 ]\n\n  const result = chain(fn, list)\n\n  expect(result).toEqual([ 2, 4, 6 ])\n})\n\ntest('maps then flattens one level', () => {\n  expect(chain(duplicate, [ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])\n})\n\ntest('maps then flattens one level - curry', () => {\n  expect(chain(duplicate)([ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])\n})\n\ntest('flattens only one level', () => {\n  const nest = n => [ [ n ] ]\n  expect(chain(nest, [ 1, 2, 3 ])).toEqual([ [ 1 ], [ 2 ], [ 3 ] ])\n})",
+    "explanation": "The method is also known as `flatMap`.",
+    "example": "const duplicate = n => [ n, n ]\nconst list = [ 1, 2, 3 ]\n\nconst result = chain(duplicate, list)\n// => [ 1, 1, 2, 2, 3, 3 ]",
+    "typescriptDefinitionTest": "import {chain} from 'rambda'\n\nconst list = [ 1, 2, 3 ]\nconst duplicate = (n: number) => [ n, n ]\n\ndescribe('chain', () => {\n  it('without passing type', () => {\n    const result = chain(duplicate, list)\n    result // $ExpectType number[]\n  })\n\n  it('passing types', () => {\n    const duplicateAndModify = (x: number) => [\n      `||${x}||`,\n      `||${x}||`\n    ]\n    const result = chain<number, string>(duplicateAndModify, list)\n    const resultCurried = chain<number, string>(duplicateAndModify)(list)\n    result // $ExpectType string[]\n    resultCurried // $ExpectType string[]\n  })\n})"
+  },
   "clamp": {
     "typing": "clamp(min: number, max: number, input: number): number",
     "allTypings": "clamp(min: number, max: number, input: number): number;\nclamp(min: number, max: number): (input: number) => number;",

@@ -235,6 +235,14 @@
     return (...input) => f(...input) && g(...input);
   }
 
+  function chain(fn, list) {
+    if (arguments.length === 1) {
+      return _list => chain(fn, _list);
+    }
+
+    return [].concat(...list.map(fn));
+  }
+
   function clone(input) {
     const out = Array.isArray(input) ? Array(input.length) : {};
     if (input && input.getTime) return new Date(input.getTime());
@@ -1627,6 +1635,7 @@
   exports.assoc = assoc;
   exports.assocPath = assocPath;
   exports.both = both;
+  exports.chain = chain;
   exports.clamp = clamp;
   exports.clone = clone;
   exports.complement = complement;

@@ -146,6 +146,8 @@ index.d.ts
 
 typings + typings test
 
-edit `rambda.js`
+edit `rambda.js` !important
 
 yarn out
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/ramda/index.d.ts

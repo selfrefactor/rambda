@@ -463,6 +463,31 @@ export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate
 export function both(pred1: Pred): (pred2: Pred) => Pred;
 
 /*
+Method: chain
+
+Explanation:  The method is also known as `flatMap`. 
+
+Example:
+
+```
+const duplicate = n => [ n, n ]
+const list = [ 1, 2, 3 ]
+
+const result = chain(duplicate, list)
+// => [ 1, 1, 2, 2, 3, 3 ]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
+export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
+export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+
+/*
 Method: clamp
 
 Explanation: Restrict a number `input` to be withing `min` and `max` limits.

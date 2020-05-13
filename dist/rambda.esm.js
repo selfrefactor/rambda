@@ -229,6 +229,14 @@ function both(f, g) {
   return (...input) => f(...input) && g(...input);
 }
 
+function chain(fn, list) {
+  if (arguments.length === 1) {
+    return _list => chain(fn, _list);
+  }
+
+  return [].concat(...list.map(fn));
+}
+
 function clone(input) {
   const out = Array.isArray(input) ? Array(input.length) : {};
   if (input && input.getTime) return new Date(input.getTime());
@@ -1606,4 +1614,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, when, without, xor, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, when, without, xor, zip, zipObj };

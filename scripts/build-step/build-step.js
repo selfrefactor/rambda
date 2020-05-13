@@ -98,7 +98,7 @@ async function rambdaBuildStep(){
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-      
+
       const shouldSkip =
         x.includes('internals') ||
         x.includes('benchmarks') ||
