@@ -517,7 +517,7 @@ test('when index is out of bounds', () => {
 > Reason for the failure: ramda accepts an array-like object
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -763,7 +763,7 @@ describe('allPass', () => {
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -1157,7 +1157,7 @@ describe('anyPass', () => {
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -2236,7 +2236,7 @@ describe('both + curry', () => {
 > Reason for the failure: ramda supports fantasy-land
 </summary>
 
-```text
+```javascript
 var S = require('sanctuary');
 
 var R = require('../../../../dist/rambda.js');
@@ -2447,7 +2447,7 @@ test('with multiple parameters', () => {
 > Reason for the failure: ramda supports fantasy-land
 </summary>
 
-```text
+```javascript
 var S = require('sanctuary');
 
 var R = require('../../../../dist/rambda.js');
@@ -2576,7 +2576,7 @@ test('ramda spec', () => {
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
-```text
+```javascript
 var assert = require('assert');
 var jsv = require('jsverify');
 
@@ -2705,7 +2705,7 @@ test('with strings', () => {
 > Reason for the failure: ramda pass to concat method if present
 </summary>
 
-```text
+```javascript
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -2876,7 +2876,7 @@ describe('cond', () => {
 > Reason for the failure: pass to transformer is not applied in rambda
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -2998,7 +2998,7 @@ test('when called via multiple curry stages', () => {
 > Reason for the failure: ramda passes context to functions
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var jsv = require('jsverify');
@@ -3440,7 +3440,7 @@ test('should use R.equals', () => {
 > Reason for the failure: ramda supports negative zero
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -3834,7 +3834,7 @@ test('should return copy', () => {
 > Reason for the failure: ramda method can act as a transducer
 </summary>
 
-```text
+```javascript
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -3936,7 +3936,7 @@ test('does not work with arrays', () => {
 > Reason for the failure: rambda doesn't support arrays
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -4344,7 +4344,7 @@ test('various examples', () => {
 > Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
 </summary>
 
-```text
+```javascript
 /* global Map, Set, WeakMap, WeakSet */
 
 var R = require('../../../../dist/rambda.js');
@@ -4806,7 +4806,7 @@ describe('filter with objects', () => {
 > Reason for the failure: ramda dispatches to `filter` method of object
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var Maybe = require('./shared/Maybe');
@@ -5130,7 +5130,7 @@ test('flip', () => {
 > Reason for the failure: rambda flip work only for functions with two arguments
 </summary>
 
-```text
+```javascript
 var jsv = require('jsverify');
 
 var R = require('../../../../dist/rambda.js');
@@ -5328,7 +5328,7 @@ test('pass index as second argument', () => {
 > Reason for the failure: ramda method dispatches to `forEach` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -5542,7 +5542,7 @@ test('groupBy', () => {
 > Reason for the failure: ramda support transforms
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var _isTransformer = require('rambda/internal/_isTransformer');
@@ -5819,7 +5819,7 @@ test('with non-object', () => {
 > Reason for the failure: rambda does check properties from the prototype chain
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6144,7 +6144,7 @@ test('curry 2', () => {
 > Reason for the failure: rambda doesn't return a curried function
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6461,7 +6461,7 @@ describe('indexBy', () => {
 > Reason for the failure: ramda method can act as a transducer
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -6563,7 +6563,7 @@ test('indexOf', () => {
 > Reason for the failure: ramda method dispatches to `indexOf` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7023,7 +7023,7 @@ test('happy', () => {
 > Reason for the failure: ramda supports typed arrays
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7216,7 +7216,7 @@ test('happy', () => {
 > Reason for the failure: ramda method works for primitives
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7393,7 +7393,7 @@ test('false', () => {
 > Reason for the failure: ramda method dispatches to `lastIndexOf` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -7525,7 +7525,7 @@ test('with bad input returns NaN', () => {
 > Reason for the failure: ramda method supports object with `length` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -9729,7 +9729,7 @@ describe('path with specified input', () => {
 > Reason for the failure: ramda method supports negative indices
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -10024,7 +10024,7 @@ describe('paths', () => {
 > Reason for the failure: ramda method supports negative indices
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -10436,7 +10436,7 @@ test('with bad input', () => {
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
-```text
+```javascript
 var assert = require('assert');
 
 var R = require('../../../../dist/rambda.js');
@@ -10602,7 +10602,7 @@ describe('pluck', () => {
 > Reason for the failure: ramda method behaves as a transducer
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -10853,7 +10853,7 @@ test('happy', () => {
 > Reason for the failure: ramda method pass to `equals` method if available
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -11309,7 +11309,7 @@ describe('reduce', () => {
 > Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -11546,7 +11546,7 @@ describe('reject with objects', () => {
 > Reason for the failure: ramda method dispatches to `filter` method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -12097,7 +12097,7 @@ describe('sortBy', () => {
 > Reason for the failure: ramda works with array-like objects
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -12281,7 +12281,7 @@ test('false', () => {
 > Reason for the failure: rambda doesn't support arrays
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -12643,7 +12643,7 @@ test('with zero index', () => {
 > Reason for the failure: rambda doesn't have 'R.into` method
 </summary>
 
-```text
+```javascript
 var assert = require('assert');
 var sinon = require('sinon');
 
@@ -12840,7 +12840,7 @@ test('tap', () => {
 > Reason for the failure: ramda can act as a transducer
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 var listXf = require('./helpers/listXf');
@@ -13379,7 +13379,7 @@ test('trim', () => {
 > Reason for the failure: ramda trims all ES5 whitespace
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -13512,7 +13512,7 @@ describe('uniq', () => {
 > Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -13855,7 +13855,7 @@ describe('update', () => {
 > Reason for the failure: ramda accepts an array-like object
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 
@@ -14158,7 +14158,7 @@ describe('xor', () => {
 > Reason for the failure: ramda support empty call of method
 </summary>
 
-```text
+```javascript
 var R = require('../../../../dist/rambda.js');
 var eq = require('./shared/eq');
 

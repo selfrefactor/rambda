@@ -9,7 +9,7 @@ function createFailedSpec(method){
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
-\`\`\`text
+\`\`\`javascript
 {{failedRamdaSpecs}}
 \`\`\`
 
