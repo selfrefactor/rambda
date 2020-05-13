@@ -1,8 +1,6 @@
 import { delay } from './delay'
 import { waitFor } from './waitFor'
 
-jest.setTimeout(30000)
-
 const howLong = 1000
 
 test('true', async () => {
