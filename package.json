@@ -1,9 +1,10 @@
 {
   "name": "rambda",
   "scripts": {
-    "dev": "jest source/mapAsyncLimit.spec.js",
     "prove": "jest source --json",
     "test": "jest source --bail=true",
+    "cover:spec": "jest source --coverage --no-cache -w 1",
+    "cover": "yarn typings&&yarn cover:spec",
     "out": "maided out",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
