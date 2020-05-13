@@ -9,7 +9,7 @@ function createFailedSpec(method){
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
-\`\`\`text
+\`\`\`javascript
 {{failedRamdaSpecs}}
 \`\`\`
 
@@ -42,7 +42,7 @@ function createRambdaSourceReadme(method){
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
 
-\`\`\`text
+\`\`\`javascript
 {{rambdaSource}}
 \`\`\`
 
@@ -90,7 +90,7 @@ function attachAllTypings(method){
 
 <summary>All Typescript definitions</summary>
 
-\`\`\`text
+\`\`\`typescript
 {{allTypings}}
 \`\`\`
 
