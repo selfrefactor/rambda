@@ -26,7 +26,7 @@ function createRambdaSpecReadme(method){
 
 <summary><strong>Tests</strong></summary>
 
-\`\`\`javascript
+\`\`\`text
 {{rambdaSpecs}}
 \`\`\`
 
@@ -42,7 +42,7 @@ function createRambdaSourceReadme(method){
 
 <summary><strong>R.{{methodName}}</strong> source</summary>
 
-\`\`\`text
+\`\`\`javascript
 {{rambdaSource}}
 \`\`\`
 
@@ -58,7 +58,7 @@ function createTypescriptTest(method){
 
 <summary><strong>Typescript</strong> test</summary>
 
-\`\`\`typescript
+\`\`\`text
 {{typescriptDefinitionTest}}
 \`\`\`
 

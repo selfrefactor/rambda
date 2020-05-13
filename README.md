@@ -351,7 +351,7 @@ add(a: number): (b: number) => number;
 
 <summary><strong>R.add</strong> source</summary>
 
-```text
+```javascript
 export function add(a, b){
   if (arguments.length === 1) return _b => add(a, _b)
 
@@ -365,7 +365,7 @@ export function add(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { add } from './add'
 
 test('with number', () => {
@@ -393,7 +393,7 @@ test('ramda specs', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {add} from 'rambda'
 
 describe('add', () => {
@@ -443,7 +443,7 @@ adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[
 
 <summary><strong>R.adjust</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function adjustFn(
@@ -467,7 +467,7 @@ export const adjust = curry(adjustFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { add } from './add'
 import { adjust } from './adjust'
 
@@ -566,7 +566,7 @@ all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.all</strong> source</summary>
 
-```text
+```javascript
 export function all(predicate, list){
   if (arguments.length === 1) return _list => all(predicate, _list)
 
@@ -584,7 +584,7 @@ export function all(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { all } from './all'
 
 const numArr = [ 0, 1, 2, 3, 4 ]
@@ -620,7 +620,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {all} from 'rambda'
 
 describe('all', () => {
@@ -676,7 +676,7 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 <summary><strong>R.allPass</strong> source</summary>
 
-```text
+```javascript
 export function allPass(predicates){
   return input => {
     let counter = 0
@@ -698,7 +698,7 @@ export function allPass(predicates){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { allPass } from './allPass'
 
 test('happy', () => {
@@ -734,7 +734,7 @@ test('when returns false', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {allPass} from 'rambda'
 
 describe('allPass', () => {
@@ -812,7 +812,7 @@ always<T>(x: T): () => T;
 
 <summary><strong>R.always</strong> source</summary>
 
-```text
+```javascript
 export function always(x){
   return () => x
 }
@@ -824,7 +824,7 @@ export function always(x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { always } from './always'
 
 test('happy', () => {
@@ -867,7 +867,7 @@ and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | st
 
 <summary><strong>R.and</strong> source</summary>
 
-```text
+```javascript
 export function and(a, b){
   if (arguments.length === 1) return _b => and(a, _b)
 
@@ -881,7 +881,7 @@ export function and(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { and } from './and'
 
 test('happy', () => {
@@ -928,7 +928,7 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.any</strong> source</summary>
 
-```text
+```javascript
 export function any(predicate, list){
   if (arguments.length === 1) return _list => any(predicate, _list)
 
@@ -950,7 +950,7 @@ export function any(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { any } from './any'
 
 const arr = [ 1, 2 ]
@@ -977,7 +977,7 @@ test('passes index to predicate', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {any} from 'rambda'
 
 describe('any', () => {
@@ -1060,7 +1060,7 @@ anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
 <summary><strong>R.anyPass</strong> source</summary>
 
-```text
+```javascript
 export function anyPass(predicates){
   return input => {
     let counter = 0
@@ -1082,7 +1082,7 @@ export function anyPass(predicates){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { anyPass } from './anyPass'
 
 test('happy', () => {
@@ -1128,7 +1128,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {anyPass} from 'rambda'
 
 describe('anyPass', () => {
@@ -1211,7 +1211,7 @@ append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.append</strong> source</summary>
 
-```text
+```javascript
 export function append(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => append(x, _listOrString)
@@ -1231,7 +1231,7 @@ export function append(x, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { append } from './append'
 import { compose } from './compose.js'
 import { flatten } from './flatten.js'
@@ -1272,7 +1272,11 @@ test('should not modify arguments', () => {
 ### applySpec
 
 ```typescript
-applySpec<T>(spec: any): (...args: readonly any[]) => T
+applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+  spec: Spec
+): (
+  ...args: Parameters<ValueOfRecord<Spec>>
+) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }
 ```
 
 It returns a curried function with the same arity as the longest function in the spec object.
@@ -1306,12 +1310,12 @@ getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 <summary>All Typescript definitions</summary>
 
 ```text
-applySpec<T>(spec: any): (...args: readonly any[]) => T;
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+applySpec<T>(spec: any): (...args: readonly any[]) => T;
 ```
 
 </details>
@@ -1320,7 +1324,7 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 
 <summary><strong>R.applySpec</strong> source</summary>
 
-```text
+```javascript
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
   for (const key in spec){
@@ -1459,7 +1463,7 @@ export function applySpec(spec, ...args){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { applySpec as applySpecRamda, nAry } from 'ramda'
 
 import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda'
@@ -1683,7 +1687,7 @@ test('restructure json object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {multiply, applySpec, inc, dec, add} from 'rambda'
 
 describe('applySpec', () => {
@@ -1742,7 +1746,7 @@ assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & 
 
 <summary><strong>R.assoc</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function assocFn(
@@ -1762,7 +1766,7 @@ export const assoc = curry(assocFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { assoc } from './assoc'
 
 test('adds a key to an empty object', () => {
@@ -1877,7 +1881,7 @@ assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
 
 <summary><strong>R.assocPath</strong> source</summary>
 
-```text
+```javascript
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
@@ -1930,7 +1934,7 @@ export const assocPath = curry(assocPathFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
@@ -2103,7 +2107,7 @@ both(pred1: Pred): (pred2: Pred) => Pred;
 
 <summary><strong>R.both</strong> source</summary>
 
-```text
+```javascript
 export function both(f, g){
   if (arguments.length === 1) return _g => both(f, _g)
 
@@ -2117,7 +2121,7 @@ export function both(f, g){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { both } from './both'
 
 const firstFn = val => val > 0
@@ -2168,7 +2172,7 @@ test('skip evaluation of the second expression', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {both} from 'rambda'
 
 describe('both', () => {
@@ -2287,7 +2291,7 @@ clamp(min: number, max: number): (input: number) => number;
 
 <summary><strong>R.clamp</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function clampFn(
@@ -2308,7 +2312,7 @@ export const clamp = curry(clampFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { clamp } from './clamp'
 
 test('rambda specs', () => {
@@ -2397,7 +2401,7 @@ complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 <summary><strong>R.complement</strong> source</summary>
 
-```text
+```javascript
 export function complement(fn){
   return (...input) => !fn(...input)
 }
@@ -2409,7 +2413,7 @@ export function complement(fn){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { complement } from './complement'
 
 test('happy', () => {
@@ -2497,7 +2501,7 @@ compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x
 
 <summary><strong>R.compose</strong> source</summary>
 
-```text
+```javascript
 export function compose(...fns){
   if (fns.length === 0){
     throw new Error('compose requires at least one argument')
@@ -2524,7 +2528,7 @@ export function compose(...fns){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { add } from './add'
 import { compose } from './compose'
 import { filter } from './filter.js'
@@ -2658,7 +2662,7 @@ concat(x: string): (y: string) => string;
 
 <summary><strong>R.concat</strong> source</summary>
 
-```text
+```javascript
 export function concat(x, y){
   if (arguments.length === 1) return _y => concat(x, _y)
 
@@ -2672,7 +2676,7 @@ export function concat(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { concat } from './concat'
 
 test('happy', () => {
@@ -2768,7 +2772,7 @@ cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: reado
 
 <summary><strong>R.cond</strong> source</summary>
 
-```text
+```javascript
 export function cond(conditions){
   return input => {
     let done = false
@@ -2791,7 +2795,7 @@ export function cond(conditions){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { always } from './always.js'
 import { cond } from './cond'
 import { equals } from './equals.js'
@@ -2841,7 +2845,7 @@ test('predicates are tested in order', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {cond, always, equals} from 'rambda'
 
 describe('cond', () => {
@@ -2928,7 +2932,7 @@ curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
 
 <summary><strong>R.curry</strong> source</summary>
 
-```text
+```javascript
 export function curry(fn, args = []){
   return (..._args) =>
     (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
@@ -2944,7 +2948,7 @@ export function curry(fn, args = []){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { curry } from './curry'
 
 test('happy', () => {
@@ -3111,7 +3115,7 @@ dec(x: number): number;
 
 <summary><strong>R.dec</strong> source</summary>
 
-```text
+```javascript
 export const dec = x => x - 1
 ```
 
@@ -3121,7 +3125,7 @@ export const dec = x => x - 1
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { dec } from './dec'
 
 test('happy', () => {
@@ -3170,7 +3174,7 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 
 <summary><strong>R.defaultTo</strong> source</summary>
 
-```text
+```javascript
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -3214,7 +3218,7 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { defaultTo } from './defaultTo'
 
 test('with undefined', () => {
@@ -3302,7 +3306,7 @@ test('default extends to indefinite input arguments - case 6', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {defaultTo} from 'rambda'
 
 describe('defaultTo with Ramda spec', () => {
@@ -3382,7 +3386,7 @@ difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.difference</strong> source</summary>
 
-```text
+```javascript
 import { includes } from './includes'
 import { uniq } from './uniq'
 
@@ -3399,7 +3403,7 @@ export function difference(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { difference } from './difference'
 
 test('difference', () => {
@@ -3492,7 +3496,7 @@ dissoc(prop: string): <U>(obj: any) => U;
 
 <summary><strong>R.dissoc</strong> source</summary>
 
-```text
+```javascript
 export function dissoc(prop, obj){
   if (arguments.length === 1) return _obj => dissoc(prop, _obj)
 
@@ -3514,7 +3518,7 @@ export function dissoc(prop, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { dissoc } from './dissoc'
 
 test('input is null or undefined', () => {
@@ -3613,7 +3617,7 @@ divide(a: number): (b: number) => number;
 
 <summary><strong>R.divide</strong> source</summary>
 
-```text
+```javascript
 export function divide(a, b){
   if (arguments.length === 1) return _b => divide(a, _b)
 
@@ -3627,7 +3631,7 @@ export function divide(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { divide } from './divide'
 
 test('happy', () => {
@@ -3672,7 +3676,7 @@ drop<T>(howManyToDrop: number): {
 
 <summary><strong>R.drop</strong> source</summary>
 
-```text
+```javascript
 export function drop(howManyToDrop, listOrString){
   if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
 
@@ -3686,7 +3690,7 @@ export function drop(howManyToDrop, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import assert from 'assert'
 
 import { drop } from './drop'
@@ -3721,7 +3725,7 @@ test('should return copy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {drop} from 'rambda'
 
 describe('drop', () => {
@@ -3774,7 +3778,7 @@ dropLast<T>(howManyToDrop: number): {
 
 <summary><strong>R.dropLast</strong> source</summary>
 
-```text
+```javascript
 export function dropLast(howManyToDrop, listOrString){
   if (arguments.length === 1){
     return _listOrString => dropLast(howManyToDrop, _listOrString)
@@ -3792,7 +3796,7 @@ export function dropLast(howManyToDrop, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import assert from 'assert'
 
 import { dropLast } from './dropLast'
@@ -3896,7 +3900,7 @@ endsWith(target: string): (str: string) => boolean;
 
 <summary><strong>R.endsWith</strong> source</summary>
 
-```text
+```javascript
 export function endsWith(target, str){
   if (arguments.length === 1) return _str => endsWith(target, _str)
 
@@ -3910,7 +3914,7 @@ export function endsWith(target, str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { endsWith } from './endsWith'
 
 test('happy', () => {
@@ -3986,7 +3990,7 @@ equals<T>(a: T): (b: T) => boolean;
 
 <summary><strong>R.equals</strong> source</summary>
 
-```text
+```javascript
 import { type } from './type'
 
 function parseError(maybeError){
@@ -4096,7 +4100,7 @@ export function equals(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { equals } from './equals'
 
 test('happy', () => {
@@ -4543,7 +4547,7 @@ F(): boolean;
 
 <summary><strong>R.F</strong> source</summary>
 
-```text
+```javascript
 export function F(){
   return false
 }
@@ -4592,7 +4596,7 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 <summary><strong>R.filter</strong> source</summary>
 
-```text
+```javascript
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -4639,7 +4643,7 @@ export function filter(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import Ramda from 'ramda'
 
 import { filter } from './filter'
@@ -4713,7 +4717,7 @@ test('with object', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {filter} from 'rambda'
 
 describe('filter with array', () => {
@@ -4858,7 +4862,7 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 
 <summary><strong>R.find</strong> source</summary>
 
-```text
+```javascript
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
 
@@ -4872,7 +4876,7 @@ export function find(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { find } from './find'
 import { propEq } from './propEq'
 
@@ -4922,7 +4926,7 @@ findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
 
 <summary><strong>R.findIndex</strong> source</summary>
 
-```text
+```javascript
 export function findIndex(predicate, list){
   if (arguments.length === 1) return _list => findIndex(predicate, _list)
 
@@ -4945,7 +4949,7 @@ export function findIndex(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
@@ -5001,7 +5005,7 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 
 <summary><strong>R.flatten</strong> source</summary>
 
-```text
+```javascript
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
 
@@ -5023,7 +5027,7 @@ export function flatten(list, input){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { flatten } from './flatten'
 
 test('happy', () => {
@@ -5078,7 +5082,7 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 <summary><strong>R.flip</strong> source</summary>
 
-```text
+```javascript
 function flipExport(fn){
   return (...input) => {
     if (input.length === 1){
@@ -5102,7 +5106,7 @@ export function flip(fn){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { flip } from './flip'
 import { subtract } from './subtract'
 
@@ -5200,7 +5204,7 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 
 <summary><strong>R.forEach</strong> source</summary>
 
-```text
+```javascript
 import { map } from './map'
 
 export function forEach(predicate, list){
@@ -5218,7 +5222,7 @@ export function forEach(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { forEach } from './forEach'
 import { type } from './type'
 
@@ -5383,7 +5387,7 @@ fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
 <summary><strong>R.fromPairs</strong> source</summary>
 
-```text
+```javascript
 export function fromPairs(listOfPairs){
   const toReturn = {}
   listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value)
@@ -5398,7 +5402,7 @@ export function fromPairs(listOfPairs){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { fromPairs } from './fromPairs'
 
 const list = [
@@ -5452,7 +5456,7 @@ groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: str
 
 <summary><strong>R.groupBy</strong> source</summary>
 
-```text
+```javascript
 export function groupBy(groupFn, list){
   if (arguments.length === 1) return _list => groupBy(groupFn, _list)
 
@@ -5478,7 +5482,7 @@ export function groupBy(groupFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { groupBy } from './groupBy'
 import { prop } from './prop'
 
@@ -5592,7 +5596,7 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 
 <summary><strong>R.groupWith</strong> source</summary>
 
-```text
+```javascript
 export function groupWith(compareFn, list){
   if (!Array.isArray(list))
     throw new TypeError('list.reduce is not a function')
@@ -5642,7 +5646,7 @@ export function groupWith(compareFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { equals } from './equals'
 import { groupWith } from './groupWith'
 
@@ -5773,7 +5777,7 @@ has(prop: string): <T>(obj: T) => boolean;
 
 <summary><strong>R.has</strong> source</summary>
 
-```text
+```javascript
 export function has(prop, obj){
   if (arguments.length === 1) return _obj => has(prop, _obj)
 
@@ -5789,7 +5793,7 @@ export function has(prop, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { has } from './has'
 
 test('happy', () => {
@@ -5887,7 +5891,7 @@ identical<T>(a: T): (b: T) => boolean;
 
 <summary><strong>R.identical</strong> source</summary>
 
-```text
+```javascript
 import _objectIs from './_internals/_objectIs'
 
 export function identical(a, b){
@@ -5903,7 +5907,7 @@ export function identical(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { F, T } from '../rambda.js'
 import { _isInteger } from './_internals/_isInteger'
 import { _objectIs } from './_internals/_objectIs'
@@ -5967,7 +5971,7 @@ identity<T>(input: T): T;
 
 <summary><strong>R.identity</strong> source</summary>
 
-```text
+```javascript
 export function identity(input){
   return input
 }
@@ -5979,7 +5983,7 @@ export function identity(input){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { identity } from './identity'
 
 test('happy', () => {
@@ -6029,7 +6033,7 @@ ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
 <summary><strong>R.ifElse</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function ifElseFn(
@@ -6056,7 +6060,7 @@ export const ifElse = curry(ifElseFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { always } from './always.js'
 import { has } from './has'
 import { identity } from './identity'
@@ -6203,7 +6207,7 @@ inc(x: number): number;
 
 <summary><strong>R.inc</strong> source</summary>
 
-```text
+```javascript
 export const inc = x => x + 1
 ```
 
@@ -6213,7 +6217,7 @@ export const inc = x => x + 1
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { inc } from './inc'
 
 test('happy', () => {
@@ -6291,7 +6295,7 @@ indexBy<T>(condition: string): (list: ReadonlyArray<T>) => { [key: string]: T };
 
 <summary><strong>R.indexBy</strong> source</summary>
 
-```text
+```javascript
 import { path } from './path'
 
 function indexByPath(pathInput, list){
@@ -6329,7 +6333,7 @@ export function indexBy(condition, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { indexBy } from './indexBy'
 import { prop } from './prop'
 
@@ -6409,7 +6413,7 @@ test('with string - bad path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {indexBy} from 'rambda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
@@ -6515,7 +6519,7 @@ indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 <summary><strong>R.indexOf</strong> source</summary>
 
-```text
+```javascript
 export function indexOf(valueToFind, list){
   if (arguments.length === 1){
     return _list => indexOf(valueToFind, _list)
@@ -6540,7 +6544,7 @@ export function indexOf(valueToFind, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { indexOf } from './indexOf'
 
 test('indexOf', () => {
@@ -6644,7 +6648,7 @@ init(listOrString: string): string;
 
 <summary><strong>R.init</strong> source</summary>
 
-```text
+```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function init(listOrString){
@@ -6662,7 +6666,7 @@ export function init(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { init } from './init'
 
 test('with array', () => {
@@ -6716,7 +6720,7 @@ intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.intersection</strong> source</summary>
 
-```text
+```javascript
 import { filter } from './filter'
 import { includes } from './includes'
 
@@ -6733,7 +6737,7 @@ export function intersection(listA, listB){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { intersection } from './intersection'
 
 test('intersection', () => {
@@ -6785,7 +6789,7 @@ intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.intersperse</strong> source</summary>
 
-```text
+```javascript
 export function intersperse(separator, list){
   if (arguments.length === 1) return _list => intersperse(separator, _list)
 
@@ -6811,7 +6815,7 @@ export function intersperse(separator, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { intersperse } from './intersperse'
 
 test('intersperse', () => {
@@ -6865,7 +6869,7 @@ is(targetPrototype: any): (x: any) => boolean;
 
 <summary><strong>R.is</strong> source</summary>
 
-```text
+```javascript
 export function is(targetPrototype, x){
   if (arguments.length === 1) return _x => is(targetPrototype, _x)
 
@@ -6882,7 +6886,7 @@ export function is(targetPrototype, x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { is } from './is'
 
 test('works with built-in types', () => {
@@ -6964,7 +6968,7 @@ isEmpty<T>(x: T): boolean;
 
 <summary><strong>R.isEmpty</strong> source</summary>
 
-```text
+```javascript
 import { type } from './type.js'
 
 export function isEmpty(input){
@@ -6991,7 +6995,7 @@ export function isEmpty(input){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { isEmpty } from './isEmpty'
 
 test('happy', () => {
@@ -7069,7 +7073,7 @@ isNil(x: any): x is null | undefined;
 
 <summary><strong>R.isNil</strong> source</summary>
 
-```text
+```javascript
 export function isNil(x){
   return x === undefined || x === null
 }
@@ -7081,7 +7085,7 @@ export function isNil(x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { isNil } from './isNil'
 
 test('happy', () => {
@@ -7124,7 +7128,7 @@ join(x: string): (xs: ReadonlyArray<any>) => string;
 
 <summary><strong>R.join</strong> source</summary>
 
-```text
+```javascript
 export function join(glue, list){
   if (arguments.length === 1) return _list => join(glue, _list)
 
@@ -7138,7 +7142,7 @@ export function join(glue, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { join } from './join'
 
 test('curry', () => {
@@ -7183,7 +7187,7 @@ keys<T>(x: T): string[];
 
 <summary><strong>R.keys</strong> source</summary>
 
-```text
+```javascript
 export function keys(x){
   return Object.keys(x)
 }
@@ -7195,7 +7199,7 @@ export function keys(x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { keys } from './keys.js'
 
 test('happy', () => {
@@ -7271,7 +7275,7 @@ last(listOrString: string): string;
 
 <summary><strong>R.last</strong> source</summary>
 
-```text
+```javascript
 export function last(listOrString){
   if (typeof listOrString === 'string'){
     return listOrString[ listOrString.length - 1 ] || ''
@@ -7287,7 +7291,7 @@ export function last(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { last } from './last'
 
 test('happy', () => {
@@ -7338,7 +7342,7 @@ lastIndexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
 
 <summary><strong>R.lastIndexOf</strong> source</summary>
 
-```text
+```javascript
 import { equals } from './equals'
 
 export function lastIndexOf(target, list){
@@ -7362,7 +7366,7 @@ export function lastIndexOf(target, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { lastIndexOf } from './lastIndexOf'
 
 test('happy', () => {
@@ -7479,7 +7483,7 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 <summary><strong>R.length</strong> source</summary>
 
-```text
+```javascript
 export function length(x){
   if (!x || x.length === undefined){
     return NaN
@@ -7495,7 +7499,7 @@ export function length(x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { length } from './length'
 
 test('happy', () => {
@@ -7579,7 +7583,7 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 <summary><strong>R.lens</strong> source</summary>
 
-```text
+```javascript
 export function lens(getter, setter){
   if (arguments.length === 1) return _setter => lens(getter, _setter)
 
@@ -7626,7 +7630,7 @@ lensIndex(index: number): Lens;
 
 <summary><strong>R.lensIndex</strong> source</summary>
 
-```text
+```javascript
 import { lens } from './lens'
 import { nth } from './nth'
 import { update } from './update'
@@ -7642,7 +7646,7 @@ export function lensIndex(index){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { compose } from './compose'
 import { keys } from './keys'
 import { lensIndex } from './lensIndex'
@@ -7740,7 +7744,7 @@ lensPath(path: RamdaPath): Lens;
 
 <summary><strong>R.lensPath</strong> source</summary>
 
-```text
+```javascript
 import { assocPath } from './assocPath'
 import { lens } from './lens'
 import { path } from './path'
@@ -7756,7 +7760,7 @@ export function lensPath(key){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -7926,7 +7930,7 @@ lensProp(prop: string): {
 
 <summary><strong>R.lensProp</strong> source</summary>
 
-```text
+```javascript
 import { assoc } from './assoc'
 import { lens } from './lens'
 import { prop } from './prop'
@@ -7942,7 +7946,7 @@ export function lensProp(key){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
@@ -8088,7 +8092,7 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 <summary><strong>R.map</strong> source</summary>
 
-```text
+```javascript
 function mapObject(fn, obj){
   const willReturn = {}
 
@@ -8129,7 +8133,7 @@ export function map(fn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { map } from './map'
 
 const double = x => x * 2
@@ -8203,7 +8207,7 @@ test('when undefined instead of array', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {map} from 'rambda'
 
 describe('map with arrays', () => {
@@ -8331,7 +8335,7 @@ match(regExpression: RegExp): (str: string) => any[];
 
 <summary><strong>R.match</strong> source</summary>
 
-```text
+```javascript
 export function match(pattern, input){
   if (arguments.length === 1) return _input => match(pattern, _input)
 
@@ -8347,7 +8351,7 @@ export function match(pattern, input){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { equals } from './equals'
 import { match } from './match'
 
@@ -8406,7 +8410,7 @@ max<T extends Ord>(x: T): (y: T) => T;
 
 <summary><strong>R.max</strong> source</summary>
 
-```text
+```javascript
 export function max(x, y){
   if (arguments.length === 1) return _y => max(x, _y)
 
@@ -8420,7 +8424,7 @@ export function max(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { max } from './max'
 
 test('with number', () => {
@@ -8467,7 +8471,7 @@ maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 <summary><strong>R.maxBy</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 export function maxByFn(
@@ -8485,7 +8489,7 @@ export const maxBy = curry(maxByFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { maxBy } from './maxBy'
 
 test('happy', () => {
@@ -8531,7 +8535,7 @@ mean(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.mean</strong> source</summary>
 
-```text
+```javascript
 import { sum } from './sum'
 
 export function mean(list){
@@ -8545,7 +8549,7 @@ export function mean(list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { mean } from './mean'
 
 test('happy', () => {
@@ -8587,7 +8591,7 @@ median(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.median</strong> source</summary>
 
-```text
+```javascript
 import { mean } from './mean'
 
 export function median(list){
@@ -8613,7 +8617,7 @@ export function median(list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { identical } from './identical'
 import { median } from './median'
 
@@ -8659,7 +8663,7 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
 
 <summary><strong>R.merge</strong> source</summary>
 
-```text
+```javascript
 export function merge(target, newProps){
   if (arguments.length === 1) return _newProps => merge(target, _newProps)
 
@@ -8675,7 +8679,7 @@ export function merge(target, newProps){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { merge } from './merge'
 
 const sample = {
@@ -8736,7 +8740,7 @@ min<T extends Ord>(x: T): (y: T) => T;
 
 <summary><strong>R.min</strong> source</summary>
 
-```text
+```javascript
 export function min(x, y){
   if (arguments.length === 1) return _y => min(x, _y)
 
@@ -8750,7 +8754,7 @@ export function min(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { min } from './min'
 
 test('happy', () => {
@@ -8793,7 +8797,7 @@ minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
 
 <summary><strong>R.minBy</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 export function minByFn(
@@ -8811,7 +8815,7 @@ export const minBy = curry(minByFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { minBy } from './minBy'
 
 test('happy', () => {
@@ -8857,7 +8861,7 @@ modulo(x: number): (y: number) => number;
 
 <summary><strong>R.modulo</strong> source</summary>
 
-```text
+```javascript
 export function modulo(x, y){
   if (arguments.length === 1) return _y => modulo(x, _y)
 
@@ -8871,7 +8875,7 @@ export function modulo(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { modulo } from './modulo'
 
 test('happy', () => {
@@ -8911,7 +8915,7 @@ multiply(x: number): (y: number) => number;
 
 <summary><strong>R.multiply</strong> source</summary>
 
-```text
+```javascript
 export function multiply(x, y){
   if (arguments.length === 1) return _y => multiply(x, _y)
 
@@ -8925,7 +8929,7 @@ export function multiply(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { multiply } from './multiply'
 
 test('happy', () => {
@@ -8962,7 +8966,7 @@ negate(x: number): number;
 
 <summary><strong>R.negate</strong> source</summary>
 
-```text
+```javascript
 export function negate(x){
   return -x
 }
@@ -8974,7 +8978,7 @@ export function negate(x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { negate } from './negate'
 
 test('negate', () => {
@@ -9018,7 +9022,7 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 <summary><strong>R.none</strong> source</summary>
 
-```text
+```javascript
 export function none(predicate, list){
   if (arguments.length === 1) return _list => none(predicate, _list)
 
@@ -9032,7 +9036,7 @@ export function none(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { none } from './none'
 
 const isEven = n => n % 2 === 0
@@ -9085,7 +9089,7 @@ not(input: any): boolean;
 
 <summary><strong>R.not</strong> source</summary>
 
-```text
+```javascript
 export function not(input){
   return !input
 }
@@ -9097,7 +9101,7 @@ export function not(input){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { not } from './not'
 
 test('not', () => {
@@ -9147,7 +9151,7 @@ nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 <summary><strong>R.nth</strong> source</summary>
 
-```text
+```javascript
 export function nth(index, list){
   if (arguments.length === 1) return _list => nth(index, _list)
 
@@ -9165,7 +9169,7 @@ export function nth(index, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { nth } from './nth'
 
 test('happy', () => {
@@ -9226,7 +9230,7 @@ omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
 
 <summary><strong>R.omit</strong> source</summary>
 
-```text
+```javascript
 export function omit(propsToOmit, obj){
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
@@ -9255,7 +9259,7 @@ export function omit(propsToOmit, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { omit } from './omit'
 
 test('with string as condition', () => {
@@ -9301,7 +9305,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {omit} from 'rambda'
 
 describe('omit with string as props input', () => {
@@ -9392,7 +9396,7 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 <summary><strong>R.over</strong> source</summary>
 
-```text
+```javascript
 const Identity = x => ({
   x,
   map : fn => Identity(fn(x)),
@@ -9461,7 +9465,7 @@ partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 <summary><strong>R.partial</strong> source</summary>
 
-```text
+```javascript
 export function partial(fn, ...args){
   const len = fn.length
 
@@ -9481,7 +9485,7 @@ export function partial(fn, ...args){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { partial } from './partial'
 import { type } from './type'
 
@@ -9589,7 +9593,7 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 <summary><strong>R.path</strong> source</summary>
 
-```text
+```javascript
 export function path(list, obj){
   if (arguments.length === 1) return _obj => path(list, _obj)
 
@@ -9619,7 +9623,7 @@ export function path(list, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { path } from './path'
 
 test('with array inside object', () => {
@@ -9655,7 +9659,7 @@ test('path', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {path} from 'rambda'
 
 interface Input {
@@ -9785,7 +9789,7 @@ pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 <summary><strong>R.pathOr</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 import { path } from './path'
@@ -9805,7 +9809,7 @@ export const pathOr = curry(pathOrFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { pathOr } from './pathOr'
 
 test('with undefined', () => {
@@ -9900,7 +9904,7 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 <summary><strong>R.paths</strong> source</summary>
 
-```text
+```javascript
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
@@ -9914,7 +9918,7 @@ export function paths(pathsToSearch, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { paths } from './paths'
 
 const obj = {
@@ -9977,7 +9981,7 @@ test('returns undefined for items not found', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {paths} from 'rambda'
 
 interface Input {
@@ -10098,7 +10102,7 @@ pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
 
 <summary><strong>R.pick</strong> source</summary>
 
-```text
+```javascript
 export function pick(propsToPick, obj){
   if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
 
@@ -10128,7 +10132,7 @@ export function pick(propsToPick, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { pick } from './pick'
 
 test('pick with string as condition', () => {
@@ -10174,7 +10178,7 @@ test('pick', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {pick} from 'rambda'
 
 describe('pick with string as props input', () => {
@@ -10279,7 +10283,7 @@ pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
 
 <summary><strong>R.pickAll</strong> source</summary>
 
-```text
+```javascript
 export function pickAll(propsToPick, obj){
   if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
 
@@ -10311,7 +10315,7 @@ export function pickAll(propsToPick, obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { pickAll } from './pickAll'
 
 test('when input is undefined or null', () => {
@@ -10387,7 +10391,7 @@ pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: 
 
 <summary><strong>R.pipe</strong> source</summary>
 
-```text
+```javascript
 import { compose } from './compose'
 
 export function pipe(...fns){
@@ -10404,7 +10408,7 @@ export function pipe(...fns){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { add, last, map } from '../rambda'
 import { pipe } from './pipe'
 
@@ -10509,7 +10513,7 @@ pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => 
 
 <summary><strong>R.pluck</strong> source</summary>
 
-```text
+```javascript
 import { map } from './map'
 
 export function pluck(property, list){
@@ -10533,7 +10537,7 @@ export function pluck(property, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { pluck } from './pluck'
 
 test('happy', () => {
@@ -10556,7 +10560,7 @@ test('with number', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {pluck} from 'rambda'
 
 describe('pluck', () => {
@@ -10653,7 +10657,7 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.prepend</strong> source</summary>
 
-```text
+```javascript
 export function prepend(x, listOrString){
   if (arguments.length === 1)
     return _listOrString => prepend(x, _listOrString)
@@ -10670,7 +10674,7 @@ export function prepend(x, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { prepend } from './prepend'
 
 test('happy', () => {
@@ -10718,7 +10722,7 @@ product(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.product</strong> source</summary>
 
-```text
+```javascript
 import { multiply } from './multiply'
 import { reduce } from './reduce'
 
@@ -10731,7 +10735,7 @@ export const product = reduce(multiply, 1)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { product } from './product'
 
 test('happy', () => {
@@ -10807,7 +10811,7 @@ propEq(propToFind: string | number): {
 
 <summary><strong>R.propEq</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function propEqFn(
@@ -10827,7 +10831,7 @@ export const propEq = curry(propEqFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { propEq } from './propEq'
 
 test('happy', () => {
@@ -10915,7 +10919,7 @@ propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) 
 
 <summary><strong>R.propIs</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry.js'
 import { is } from './is'
 
@@ -10934,7 +10938,7 @@ export const propIs = curry(propIsFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { propIs } from './propIs'
 
 const obj = { value : 1 }
@@ -10996,7 +11000,7 @@ propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
 
 <summary><strong>R.propOr</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 import { defaultTo } from './defaultTo'
 
@@ -11017,7 +11021,7 @@ export const propOr = curry(propOrFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { propOr } from './propOr'
 
 test('propOr (result)', () => {
@@ -11074,7 +11078,7 @@ range(start: number): (end: number) => number[];
 
 <summary><strong>R.range</strong> source</summary>
 
-```text
+```javascript
 export function range(start, end){
   if (arguments.length === 1) return _end => range(start, _end)
 
@@ -11101,7 +11105,7 @@ export function range(start, end){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { range } from './range'
 
 test('happy', () => {
@@ -11160,7 +11164,7 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 <summary><strong>R.reduce</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function reduceFn(
@@ -11180,7 +11184,7 @@ export const reduce = curry(reduceFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { reduce } from './reduce'
 
 test('happy', () => {
@@ -11206,7 +11210,7 @@ test('happy', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {reduce} from 'rambda'
 
 describe('reduce', () => {
@@ -11401,7 +11405,7 @@ reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 <summary><strong>R.reject</strong> source</summary>
 
-```text
+```javascript
 import { filter } from './filter'
 
 export function reject(predicate, list){
@@ -11417,7 +11421,7 @@ export function reject(predicate, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { reject } from './reject'
 
 const isOdd = n => n % 2 === 1
@@ -11453,7 +11457,7 @@ test('pass index as second argument', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {reject} from 'rambda'
 
 describe('reject with array', () => {
@@ -11599,7 +11603,7 @@ repeat<T>(x: T): (timesToRepeat: number) => T[];
 
 <summary><strong>R.repeat</strong> source</summary>
 
-```text
+```javascript
 export function repeat(x, timesToRepeat){
   if (arguments.length === 1){
     return _timesToRepeat => repeat(x, _timesToRepeat)
@@ -11615,7 +11619,7 @@ export function repeat(x, timesToRepeat){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { repeat } from './repeat'
 
 test('repeat', () => {
@@ -11666,7 +11670,7 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 
 <summary><strong>R.replace</strong> source</summary>
 
-```text
+```javascript
 export function replace(
   pattern, replacer, str
 ){
@@ -11690,7 +11694,7 @@ export function replace(
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { replace } from './replace'
 
 test('happy', () => {
@@ -11765,7 +11769,7 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 <summary><strong>R.set</strong> source</summary>
 
-```text
+```javascript
 import { always } from './always'
 import { over } from './over'
 
@@ -11833,7 +11837,7 @@ slice(from: number): {
 
 <summary><strong>R.slice</strong> source</summary>
 
-```text
+```javascript
 import { curry } from './curry'
 
 function sliceFn(
@@ -11851,7 +11855,7 @@ export const slice = curry(sliceFn)
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { slice } from './slice'
 
 test('slice', () => {
@@ -11919,7 +11923,7 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.sort</strong> source</summary>
 
-```text
+```javascript
 export function sort(sortFn, list){
   if (arguments.length === 1) return _list => sort(sortFn, _list)
 
@@ -11935,7 +11939,7 @@ export function sort(sortFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { sort } from './sort'
 
 const fn = (a, b) => a > b ? 1 : -1
@@ -11999,7 +12003,7 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.sortBy</strong> source</summary>
 
-```text
+```javascript
 export function sortBy(sortFn, list){
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
@@ -12022,7 +12026,7 @@ export function sortBy(sortFn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { compose } from './compose'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
@@ -12062,7 +12066,7 @@ test('with compose', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {sortBy} from 'rambda'
 
 describe('sortBy', () => {
@@ -12156,7 +12160,7 @@ split(separator: string | RegExp, str: string): string[];
 
 <summary><strong>R.split</strong> source</summary>
 
-```text
+```javascript
 export function split(separator, str){
   if (arguments.length === 1) return _str => split(separator, _str)
 
@@ -12170,7 +12174,7 @@ export function split(separator, str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { split } from './split'
 
 test('split', () => {
@@ -12238,7 +12242,7 @@ startsWith(target: string): (str: string) => boolean;
 
 <summary><strong>R.startsWith</strong> source</summary>
 
-```text
+```javascript
 export function startsWith(target, str){
   if (arguments.length === 1) return _str => startsWith(target, _str)
 
@@ -12252,7 +12256,7 @@ export function startsWith(target, str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { startsWith } from './startsWith'
 
 test('true', () => {
@@ -12343,7 +12347,7 @@ sum(list: ReadonlyArray<number>): number;
 
 <summary><strong>R.sum</strong> source</summary>
 
-```text
+```javascript
 export function sum(list){
   return list.reduce((prev, current) => prev + current, 0)
 }
@@ -12355,7 +12359,7 @@ export function sum(list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { sum } from './sum'
 
 test('happy', () => {
@@ -12398,7 +12402,7 @@ symmetricDifference<T>(x: ReadonlyArray<T>): <T>(y: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.symmetricDifference</strong> source</summary>
 
-```text
+```javascript
 import { concat } from './concat'
 import { filter } from './filter'
 import { includes } from './includes'
@@ -12419,7 +12423,7 @@ export function symmetricDifference(x, y){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { symmetricDifference } from './symmetricDifference'
 
 test('symmetricDifference', () => {
@@ -12471,7 +12475,7 @@ T(): boolean;
 
 <summary><strong>R.T</strong> source</summary>
 
-```text
+```javascript
 export function T(){
   return true
 }
@@ -12512,7 +12516,7 @@ tail(listOrString: string): string;
 
 <summary><strong>R.tail</strong> source</summary>
 
-```text
+```javascript
 import { drop } from './drop'
 
 export function tail(listOrString){
@@ -12526,7 +12530,7 @@ export function tail(listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { tail } from './tail'
 
 test('tail', () => {
@@ -12583,7 +12587,7 @@ take<T>(howMany: number): {
 
 <summary><strong>R.take</strong> source</summary>
 
-```text
+```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function take(howMany, listOrString){
@@ -12604,7 +12608,7 @@ export function take(howMany, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { take } from './take'
 
 test('happy', () => {
@@ -12703,7 +12707,7 @@ takeLast<T>(howMany: number): {
 
 <summary><strong>R.takeLast</strong> source</summary>
 
-```text
+```javascript
 import baseSlice from './_internals/baseSlice'
 
 export function takeLast(howMany, listOrString){
@@ -12731,7 +12735,7 @@ export function takeLast(howMany, listOrString){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { takeLast } from './takeLast'
 
 test('with arrays', () => {
@@ -12798,7 +12802,7 @@ tap<T>(fn: (a: T) => any): (x: T) => T;
 
 <summary><strong>R.tap</strong> source</summary>
 
-```text
+```javascript
 export function tap(fn, x){
   if (arguments.length === 1) return _x => tap(fn, _x)
 
@@ -12814,7 +12818,7 @@ export function tap(fn, x){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { tap } from './tap'
 
 test('tap', () => {
@@ -12894,7 +12898,7 @@ test(regExpression: RegExp, str: string): boolean;
 
 <summary><strong>R.test</strong> source</summary>
 
-```text
+```javascript
 export function test(pattern, str){
   if (arguments.length === 1) return _str => test(pattern, _str)
 
@@ -12912,7 +12916,7 @@ export function test(pattern, str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { test as testMethod } from './test'
 
 test('happy', () => {
@@ -12963,7 +12967,7 @@ times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 <summary><strong>R.times</strong> source</summary>
 
-```text
+```javascript
 import { map } from './map'
 import { range } from './range'
 
@@ -12983,7 +12987,7 @@ export function times(fn, howMany){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import assert from 'assert'
 
 import { identity } from './identity'
@@ -13040,7 +13044,7 @@ toLower(str: string): string;
 
 <summary><strong>R.toLower</strong> source</summary>
 
-```text
+```javascript
 export function toLower(str){
   return str.toLowerCase()
 }
@@ -13052,7 +13056,7 @@ export function toLower(str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { toLower } from './toLower'
 
 test('toLower', () => {
@@ -13098,7 +13102,7 @@ toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
 
 <summary><strong>R.toPairs</strong> source</summary>
 
-```text
+```javascript
 export function toPairs(obj){
   return Object.entries(obj)
 }
@@ -13110,7 +13114,7 @@ export function toPairs(obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { toPairs } from './toPairs'
 
 const obj = {
@@ -13158,7 +13162,7 @@ toString<T>(x: T): string;
 
 <summary><strong>R.toString</strong> source</summary>
 
-```text
+```javascript
 export function toString(val){
   return val.toString()
 }
@@ -13170,7 +13174,7 @@ export function toString(val){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { toString } from './toString'
 
 test('happy', () => {
@@ -13207,7 +13211,7 @@ toUpper(str: string): string;
 
 <summary><strong>R.toUpper</strong> source</summary>
 
-```text
+```javascript
 export function toUpper(str){
   return str.toUpperCase()
 }
@@ -13219,7 +13223,7 @@ export function toUpper(str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { toUpper } from './toUpper'
 
 test('toUpper', () => {
@@ -13259,7 +13263,7 @@ transpose<T>(list: T[][]): T[][];
 
 <summary><strong>R.transpose</strong> source</summary>
 
-```text
+```javascript
 export function transpose(array){
   return array.reduce((acc, el) => {
     el.forEach((nestedEl, i) =>
@@ -13276,7 +13280,7 @@ export function transpose(array){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { transpose } from './transpose'
 
 test('happy', () => {
@@ -13346,7 +13350,7 @@ trim(str: string): string;
 
 <summary><strong>R.trim</strong> source</summary>
 
-```text
+```javascript
 export function trim(str){
   return str.trim()
 }
@@ -13358,7 +13362,7 @@ export function trim(str){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { trim } from './trim'
 
 test('trim', () => {
@@ -13446,7 +13450,7 @@ uniq<T>(list: ReadonlyArray<T>): T[];
 
 <summary><strong>R.uniq</strong> source</summary>
 
-```text
+```javascript
 import { includes } from './includes'
 
 export function uniq(list){
@@ -13471,7 +13475,7 @@ export function uniq(list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { uniq } from './uniq'
 
 test('uniq', () => {
@@ -13488,7 +13492,7 @@ test('uniq', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {uniq} from 'rambda'
 
 describe('uniq', () => {
@@ -13578,7 +13582,7 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[]
 
 <summary><strong>R.uniqWith</strong> source</summary>
 
-```text
+```javascript
 import { any } from './any'
 
 export function uniqWith(fn, list){
@@ -13608,7 +13612,7 @@ export function uniqWith(fn, list){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { uniqWith } from './uniqWith'
 
 test('happy', () => {
@@ -13714,7 +13718,7 @@ test('uniqWith', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {uniqWith} from 'rambda'
 
 describe('uniqWith', () => {
@@ -13786,7 +13790,7 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 <summary><strong>R.update</strong> source</summary>
 
-```text
+```javascript
 export function update(
   idx, val, list
 ){
@@ -13814,7 +13818,7 @@ export function update(
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { update } from './update'
 
 test('update', () => {
@@ -13831,7 +13835,7 @@ test('update', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {update} from 'rambda'
 
 describe('update', () => {
@@ -13898,7 +13902,7 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 <summary><strong>R.values</strong> source</summary>
 
-```text
+```javascript
 import { type } from './type.js'
 
 export function values(obj){
@@ -13914,7 +13918,7 @@ export function values(obj){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { values } from './values'
 
 test('happy', () => {
@@ -13944,7 +13948,7 @@ test('with bad input', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {values} from 'rambda'
 
 describe('values', () => {
@@ -13993,7 +13997,7 @@ view<T, U>(lens: Lens, target: T): U;
 
 <summary><strong>R.view</strong> source</summary>
 
-```text
+```javascript
 const Const = x => ({
   x,
   map : fn => Const(x),
@@ -14057,7 +14061,7 @@ xor(y: boolean): (y: boolean) => boolean;
 
 <summary><strong>R.xor</strong> source</summary>
 
-```text
+```javascript
 export function xor(a, b){
   if (arguments.length === 1) return _b => xor(a, _b)
 
@@ -14071,7 +14075,7 @@ export function xor(a, b){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { xor } from './xor'
 
 test('compares two values with exclusive or', () => {
@@ -14132,7 +14136,7 @@ test.skip('returns a curried function', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {xor} from 'rambda'
 
 describe('xor', () => {
@@ -14208,7 +14212,7 @@ zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValuePair<K, V>[];
 
 <summary><strong>R.zip</strong> source</summary>
 
-```text
+```javascript
 export function zip(left, right){
   if (arguments.length === 1) return _right => zip(left, _right)
 
@@ -14229,7 +14233,7 @@ export function zip(left, right){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { zip } from './zip'
 
 const array1 = [ 1, 2, 3 ]
@@ -14273,7 +14277,7 @@ test('should truncate result to length of shorted input list', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {zip} from 'rambda'
 
 describe('zip', () => {
@@ -14325,7 +14329,7 @@ zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: 
 
 <summary><strong>R.zipObj</strong> source</summary>
 
-```text
+```javascript
 import { take } from './take'
 
 export function zipObj(keys, values){
@@ -14347,7 +14351,7 @@ export function zipObj(keys, values){
 
 <summary><strong>Tests</strong></summary>
 
-```javascript
+```text
 import { equals } from './equals'
 import { zipObj } from './zipObj'
 
@@ -14391,7 +14395,7 @@ test('ignore extra keys', () => {
 
 <summary><strong>Typescript</strong> test</summary>
 
-```typescript
+```text
 import {zipObj} from 'rambda'
 
 describe('zipObj', () => {

@@ -175,12 +175,12 @@ export function append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];
  * It returns a curried function with the same arity as the longest function in the spec object.
  * Arguments will be applied to the spec methods recursively.
  */
-export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
