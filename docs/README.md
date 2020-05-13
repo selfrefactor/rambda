@@ -67,7 +67,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 <details>
 <summary>
-  Click to see the full list of Ramda methods not implemented in Rambda 
+  Click to see the full list of 119 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -88,9 +88,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - construct
 - constructN
 - contains
-- converge
 - countBy
-- curryN
 - descend
 - differenceWith
 - dissocPath
@@ -102,8 +100,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - eqBy
 - eqProps
 - evolve
-- findLast
-- findLastIndex
 - forEachObjIndexed
 - gt
 - gte
@@ -125,6 +121,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - mapAccum
 - mapAccumRight
 - mapObjIndexed
+- mathMod
 - memoizeWith
 - mergeAll
 - mergeDeepLeft
@@ -186,7 +183,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - until
 - useWith
 - valuesIn
-- when
 - where
 - whereEq
 - xprod
@@ -2618,13 +2614,6 @@ describe('compose', function() {
 describe('compose properties', function() {
   jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {
     return R.equals(R.compose(f, g)(x), f(g(x)));
-  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {
-    var result = f(g(h(x)));
-    return R.all(R.equals(result), [
-      R.compose(f, g, h)(x),
-      R.compose(f, R.compose(g, h))(x),
-      R.compose(R.compose(f, g), h)(x)
-    ]);
 });
 ```
 
@@ -2900,6 +2889,135 @@ describe('cond', function() {
 
 </details>
 
+### converge
+
+```typescript
+converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any
+```
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.converge</strong> source</summary>
+
+```javascript
+import { curryN } from './curryN'
+import { map } from './map'
+import { max } from './max'
+import { reduce } from './reduce'
+
+export function converge(fn, transformers){
+  if (arguments.length === 1)
+    return _transformers => converge(fn, _transformers)
+
+  const highestArity = reduce(
+    (a, b) => max(a, b.length), 0, transformers
+  )
+
+  return curryN(highestArity, function (){
+    return fn.apply(this,
+      map(g => g.apply(this, arguments), transformers))
+  })
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { add } from './add'
+import { converge } from './converge'
+
+const mult = function (a, b){
+  return a * b
+}
+
+const f1 = converge(mult, [
+  function (a){
+    return a
+  },
+  function (a){
+    return a
+  },
+])
+const f2 = converge(mult, [
+  function (a){
+    return a
+  },
+  function (a, b){
+    return b
+  },
+])
+const f3 = converge(mult, [
+  function (a){
+    return a
+  },
+  function (
+    a, b, c
+  ){
+    return c
+  },
+])
+
+test('passes the results of applying the arguments individually to two separate functions into a single one', () => {
+  expect(converge(mult, [ add(1), add(3) ])(2)).toEqual(15) // mult(add1(2), add3(2)) = mult(3, 5) = 3 * 15;
+})
+
+test('returns a function with the length of the "longest" argument', () => {
+  expect(f1.length).toEqual(1)
+  expect(f2.length).toEqual(2)
+  expect(f3.length).toEqual(3)
+})
+
+test('passes context to its functions', () => {
+  const a = function (x){
+    return this.f1(x)
+  }
+  const b = function (x){
+    return this.f2(x)
+  }
+  const c = function (x, y){
+    return this.f3(x, y)
+  }
+  const d = converge(c, [ a, b ])
+  const context = {
+    f1 : add(1),
+    f2 : add(2),
+    f3 : add,
+  }
+  expect(a.call(context, 1)).toEqual(2)
+  expect(b.call(context, 1)).toEqual(3)
+  expect(d.call(context, 1)).toEqual(5)
+})
+
+test('returns a curried function', () => {
+  expect(f2(6)(7)).toEqual(42)
+  expect(f3().length).toEqual(3)
+})
+
+test('works with empty functions list', () => {
+  const fn = converge(function (){
+    return arguments.length
+  }, [])
+  expect(fn.length).toEqual(0)
+  expect(fn()).toEqual(0)
+})
+```
+
+</details>
+
 ### curry
 
 ```typescript
@@ -3089,6 +3207,209 @@ describe('curry properties', function() {
       g(a, b, _)(c)
     ]);
 });
+```
+
+</details>
+
+### curryN
+
+```typescript
+curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any
+```
+
+It returns a curried equivalent of the provided function, with the specified arity.
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.curryN</strong> source</summary>
+
+```javascript
+function _curryN(
+  n, cache, fn
+){
+  return function (){
+    // concat cache and the arguments as fast as possible https://jsperf.com/concat-two-arrays-quickly
+    let ci = 0
+    let ai = 0
+    const cl = cache.length
+    const al = arguments.length
+    const args = new Array(cl + al)
+    while (ci < cl){
+      args[ ci ] = cache[ ci ]
+      ci++
+    }
+    while (ai < al){
+      args[ cl + ai ] = arguments[ ai ]
+      ai++
+    }
+    const remaining = n - args.length
+
+    return args.length >= n ?
+      fn.apply(this, args) :
+      _arity(remaining, _curryN(
+        n, args, fn
+      ))
+  }
+}
+
+function _arity(n, fn){
+  switch (n){
+  case 0:
+    return function (){
+      return fn.apply(this, arguments)
+    }
+  case 1:
+    return function (_1){
+      return fn.apply(this, arguments)
+    }
+  case 2:
+    return function (_1, _2){
+      return fn.apply(this, arguments)
+    }
+  case 3:
+    return function (
+      _1, _2, _3
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 4:
+    return function (
+      _1, _2, _3, _4
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 5:
+    return function (
+      _1, _2, _3, _4, _5
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 6:
+    return function (
+      _1, _2, _3, _4, _5, _6
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 7:
+    return function (
+      _1, _2, _3, _4, _5, _6, _7
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 8:
+    return function (
+      _1, _2, _3, _4, _5, _6, _7, _8
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 9:
+    return function (
+      _1, _2, _3, _4, _5, _6, _7, _8, _9
+    ){
+      return fn.apply(this, arguments)
+    }
+  case 10:
+    return function (
+      _1, _2, _3, _4, _5, _6, _7, _8, _9, _10
+    ){
+      return fn.apply(this, arguments)
+    }
+  default:
+    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
+  }
+}
+
+export function curryN(n, fn){
+  if (arguments.length === 1) return _fn => curryN(n, _fn)
+
+  return _arity(n, _curryN(
+    n, [], fn
+  ))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { curryN } from './curryN'
+
+describe('curryN', () => {
+  function source(
+    a, b, c, d
+  ){
+    void d
+
+    return a * b * c
+  }
+
+  it('accepts an arity', () => {
+    const curried = curryN(3, source)
+    expect(curried(1)(2)(3)).toEqual(6)
+    expect(curried(1, 2)(3)).toEqual(6)
+    expect(curried(1)(2, 3)).toEqual(6)
+    expect(curried(
+      1, 2, 3
+    )).toEqual(6)
+  })
+
+  it('can be partially applied', () => {
+    const curry3 = curryN(3)
+    const curried = curry3(source)
+    expect(curried.length).toEqual(3)
+    expect(curried(1)(2)(3)).toEqual(6)
+    expect(curried(1, 2)(3)).toEqual(6)
+    expect(curried(1)(2, 3)).toEqual(6)
+    expect(curried(
+      1, 2, 3
+    )).toEqual(6)
+  })
+
+  it('preserves context', () => {
+    const ctx = { x : 10 }
+    const f = function (a, b){
+      return a + b * this.x
+    }
+    const g = curryN(2, f)
+
+    expect(g.call(
+      ctx, 2, 4
+    )).toEqual(42)
+    expect(g.call(ctx, 2).call(ctx, 4)).toEqual(42)
+  })
+
+  it('forwards extra arguments', () => {
+    const f = function (){
+      return Array.prototype.slice.call(arguments)
+    }
+    const g = curryN(3, f)
+
+    expect(g(
+      1, 2, 3
+    )).toEqual([ 1, 2, 3 ])
+    expect(g(
+      1, 2, 3, 4
+    )).toEqual([ 1, 2, 3, 4 ])
+    expect(g(1, 2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
+    expect(g(1)(
+      2, 3, 4
+    )).toEqual([ 1, 2, 3, 4 ])
+    expect(g(1)(2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
+  })
+})
 ```
 
 </details>
@@ -4966,6 +5287,235 @@ test('pass index as second argument', () => {
     expect(typeof x).toBe('number')
     expect(typeof i).toBe('number')
   })([ 10, 12, 15 ])
+})
+```
+
+</details>
+
+### findLast
+
+```typescript
+findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined
+```
+
+It returns the last element of `list` satisfying the `predicate` function.
+
+If there is no such element, then `undefined` is returned.
+
+```javascript
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 0}, {foo: 1}]
+
+const result = R.findLast(predicate, list)
+// => {foo: 1}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findLast(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%201%7D">Try the above <strong>R.findLast</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.findLast</strong> source</summary>
+
+```javascript
+export function findLast(predicate, list){
+  if (arguments.length === 1) return _list => findLast(predicate, _list)
+
+  let index = list.length
+
+  while (--index >= 0){
+    if (predicate(list[ index ], index)){
+      return list[ index ]
+    }
+  }
+
+  return undefined
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { findLast } from './findLast'
+
+test('happy', () => {
+  const result = findLast((x, i) => {
+    expect(typeof i).toBe('number')
+
+    return x > 1
+  },
+  [ 1, 1, 1, 2, 3, 4, 1 ])
+  expect(result).toEqual(4)
+
+  expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
+})
+
+test('with curry', () => {
+  expect(findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(4)
+})
+
+const obj1 = { x : 100 }
+const obj2 = { x : 200 }
+const a = [ 11, 10, 9, 'cow', obj1, 8, 7, 100, 200, 300, obj2, 4, 3, 2, 1, 0 ]
+const even = function (x){
+  return x % 2 === 0
+}
+const gt100 = function (x){
+  return x > 100
+}
+const isStr = function (x){
+  return typeof x === 'string'
+}
+const xGt100 = function (o){
+  return o && o.x > 100
+}
+
+test('ramda 1', () => {
+  expect(findLast(even, a)).toEqual(0)
+  expect(findLast(gt100, a)).toEqual(300)
+  expect(findLast(isStr, a)).toEqual('cow')
+  expect(findLast(xGt100, a)).toEqual(obj2)
+})
+
+test('ramda 2', () => {
+  expect(findLast(even, [ 'zing' ])).toEqual(undefined)
+})
+
+test('ramda 3', () => {
+  expect(findLast(even, [ 2, 3, 5 ])).toEqual(2)
+})
+
+test('ramda 4', () => {
+  expect(findLast(even, [])).toEqual(undefined)
+})
+```
+
+</details>
+
+### findLastIndex
+
+```typescript
+findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number
+```
+
+It returns the index of the last element of `list` satisfying the `predicate` function.
+
+If there is no such element, then `-1` is returned.
+
+```javascript
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 0}, {foo: 1}]
+
+const result = R.findLastIndex(predicate, list)
+// => 1
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%200%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.findLastIndex(predicate%2C%20list)%0A%2F%2F%20%3D%3E%201">Try the above <strong>R.findLastIndex</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.findLastIndex</strong> source</summary>
+
+```javascript
+export function findLastIndex(fn, list){
+  if (arguments.length === 1) return _list => findLastIndex(fn, _list)
+
+  let index = list.length
+
+  while (--index >= 0){
+    if (fn(list[ index ], index)){
+      return index
+    }
+  }
+
+  return -1
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { findLastIndex } from './findLastIndex'
+
+test('happy', () => {
+  const result = findLastIndex((x, i) => {
+    expect(typeof i).toBe('number')
+
+    return x > 1
+  },
+  [ 1, 1, 1, 2, 3, 4, 1 ])
+
+  expect(result).toEqual(5)
+
+  expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
+})
+
+test('with curry', () => {
+  expect(findLastIndex(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(5)
+})
+
+const obj1 = { x : 100 }
+const obj2 = { x : 200 }
+const a = [ 11, 10, 9, 'cow', obj1, 8, 7, 100, 200, 300, obj2, 4, 3, 2, 1, 0 ]
+const even = function (x){
+  return x % 2 === 0
+}
+const gt100 = function (x){
+  return x > 100
+}
+const isStr = function (x){
+  return typeof x === 'string'
+}
+const xGt100 = function (o){
+  return o && o.x > 100
+}
+
+test('ramda 1', () => {
+  expect(findLastIndex(even, a)).toEqual(15)
+  expect(findLastIndex(gt100, a)).toEqual(9)
+  expect(findLastIndex(isStr, a)).toEqual(3)
+  expect(findLastIndex(xGt100, a)).toEqual(10)
+})
+
+test('ramda 2', () => {
+  expect(findLastIndex(even, [ 'zing' ])).toEqual(-1)
+})
+
+test('ramda 3', () => {
+  expect(findLastIndex(even, [ 2, 3, 5 ])).toEqual(0)
+})
+
+test('ramda 4', () => {
+  expect(findLastIndex(even, [])).toEqual(-1)
 })
 ```
 
@@ -11316,6 +11866,11 @@ var eq = require('./shared/eq');
 describe('reduce', function() {
   var add = function(a, b) {return a + b;};
   var mult = function(a, b) {return a * b;};
+  it('dispatches to objects that implement `reduce`', function() {
+    var obj = {x: [1, 2, 3], reduce: function() { return 'override'; }};
+    eq(R.reduce(add, 0, obj), 'override');
+    eq(R.reduce(add, 10, obj), 'override');
+  });
   it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
     var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';
     function Reducible(arr) {
@@ -14012,6 +14567,124 @@ export function view(lens, target){
 
 </details>
 
+### when
+
+```typescript
+when<T>(
+  rule: Func<boolean>, ruleResult: T
+): IdentityFunction<T>
+```
+
+```javascript
+const ruleResult = 'RULE_RESULT'
+const rule = x => typeof x === 'number'
+const fn = when(rule, ruleResult)
+
+const result = [
+  fn('foo'),
+  fn(88)
+]
+// => ['foo', 'RULE_RESULT']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20ruleResult%20%3D%20'RULE_RESULT'%0Aconst%20rule%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20fn%20%3D%20when(rule%2C%20ruleResult)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn('foo')%2C%0A%20%20fn(88)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'RULE_RESULT'%5D">Try the above <strong>R.when</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+when<T>(
+  rule: Func<boolean>, ruleResult: T
+): IdentityFunction<T>;
+when<T>(
+  rule: Func<boolean>
+): (ruleResult: T) =>  IdentityFunction<T>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.when</strong> source</summary>
+
+```javascript
+export function when(rule, ruleResult){
+  if (arguments.length === 1){
+    return whenTrueHolder => when(rule, whenTrueHolder)
+  }
+
+  return input => rule(input) ? ruleResult : input
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { when } from './when'
+
+const ruleResult = 'RULE_RESULT'
+const rule = x => typeof x === 'number'
+const fn = when(rule, ruleResult)
+const curriedFn = when(rule)(ruleResult)
+
+test('when rule returns true', () => {
+  const input = 7
+
+  expect(fn(input)).toBe(ruleResult)
+})
+
+test('when rule returns false', () => {
+  const input = 'foo'
+
+  expect(fn(input)).toBe(input)
+  expect(curriedFn(input)).toBe(input)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {when} from 'rambda'
+
+const ruleResult = 88
+const rule = (x: number) => x > 2
+
+describe('when', () => {
+  it('without passing type', () => {
+    const fn = when(rule, ruleResult)
+    const result = [
+      fn(1),
+      fn(2)
+    ]
+    result[0] // $ExpectType number
+    result[1] // $ExpectType number
+  })
+
+  it('with passing type', () => {
+    const fn = when<number>(rule, ruleResult)
+    const result = fn(1) 
+    result // $ExpectType number
+  })
+
+  it('curry', () => {
+    const fn = when<number>(rule)(ruleResult)
+    const result = fn(1) 
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### without
 
 ```typescript
@@ -14409,6 +15082,12 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- 5.3.0
+
+> Close [Issue #430](https://github.com/selfrefactor/rambda/issues/430) - add `R.when`
+
+Also restore `R.converge`, `R.findLast`, `R.findLastIndex` and `R.curryN` as I have forgotten to export them when releasing `5.2.0`.
 
 - 5.2.1
 

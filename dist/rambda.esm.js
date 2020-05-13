@@ -271,6 +271,148 @@ function concat(x, y) {
   return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
 }
 
+function _curryN(n, cache, fn) {
+  return function () {
+    let ci = 0;
+    let ai = 0;
+    const cl = cache.length;
+    const al = arguments.length;
+    const args = new Array(cl + al);
+
+    while (ci < cl) {
+      args[ci] = cache[ci];
+      ci++;
+    }
+
+    while (ai < al) {
+      args[cl + ai] = arguments[ai];
+      ai++;
+    }
+
+    const remaining = n - args.length;
+    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+  };
+}
+
+function _arity(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments);
+      };
+
+    case 1:
+      return function (_1) {
+        return fn.apply(this, arguments);
+      };
+
+    case 2:
+      return function (_1, _2) {
+        return fn.apply(this, arguments);
+      };
+
+    case 3:
+      return function (_1, _2, _3) {
+        return fn.apply(this, arguments);
+      };
+
+    case 4:
+      return function (_1, _2, _3, _4) {
+        return fn.apply(this, arguments);
+      };
+
+    case 5:
+      return function (_1, _2, _3, _4, _5) {
+        return fn.apply(this, arguments);
+      };
+
+    case 6:
+      return function (_1, _2, _3, _4, _5, _6) {
+        return fn.apply(this, arguments);
+      };
+
+    case 7:
+      return function (_1, _2, _3, _4, _5, _6, _7) {
+        return fn.apply(this, arguments);
+      };
+
+    case 8:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+        return fn.apply(this, arguments);
+      };
+
+    case 9:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+        return fn.apply(this, arguments);
+      };
+
+    case 10:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+        return fn.apply(this, arguments);
+      };
+
+    default:
+      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+}
+
+function curryN(n, fn) {
+  if (arguments.length === 1) return _fn => curryN(n, _fn);
+  return _arity(n, _curryN(n, [], fn));
+}
+
+function mapObject(fn, obj) {
+  const willReturn = {};
+
+  for (const prop in obj) {
+    willReturn[prop] = fn(obj[prop], prop, obj);
+  }
+
+  return willReturn;
+}
+
+function map(fn, list) {
+  if (arguments.length === 1) return _list => map(fn, _list);
+
+  if (list === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(list)) {
+    return mapObject(fn, list);
+  }
+
+  let index = -1;
+  const len = list.length;
+  const willReturn = Array(len);
+
+  while (++index < len) {
+    willReturn[index] = fn(list[index], index);
+  }
+
+  return willReturn;
+}
+
+function max(x, y) {
+  if (arguments.length === 1) return _y => max(x, _y);
+  return y > x ? y : x;
+}
+
+function reduceFn(reducer, acc, list) {
+  const clone = list.slice();
+  return clone.reduce(reducer, acc);
+}
+
+const reduce = curry(reduceFn);
+
+function converge(fn, transformers) {
+  if (arguments.length === 1) return _transformers => converge(fn, _transformers);
+  const highestArity = reduce((a, b) => max(a, b.length), 0, transformers);
+  return curryN(highestArity, function () {
+    return fn.apply(this, map(g => g.apply(this, arguments), transformers));
+  });
+}
+
 function cond(conditions) {
   return input => {
     let done = false;
@@ -582,6 +724,32 @@ function findIndex(predicate, list) {
   return -1;
 }
 
+function findLastIndex(fn, list) {
+  if (arguments.length === 1) return _list => findLastIndex(fn, _list);
+  let index = list.length;
+
+  while (--index >= 0) {
+    if (fn(list[index], index)) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+function findLast(predicate, list) {
+  if (arguments.length === 1) return _list => findLast(predicate, _list);
+  let index = list.length;
+
+  while (--index >= 0) {
+    if (predicate(list[index], index)) {
+      return list[index];
+    }
+  }
+
+  return undefined;
+}
+
 function flatten(list, input) {
   const willReturn = input === undefined ? [] : input;
 
@@ -610,38 +778,6 @@ function flipExport(fn) {
 
 function flip(fn) {
   return flipExport(fn);
-}
-
-function mapObject(fn, obj) {
-  const willReturn = {};
-
-  for (const prop in obj) {
-    willReturn[prop] = fn(obj[prop], prop, obj);
-  }
-
-  return willReturn;
-}
-
-function map(fn, list) {
-  if (arguments.length === 1) return _list => map(fn, _list);
-
-  if (list === undefined) {
-    return [];
-  }
-
-  if (!Array.isArray(list)) {
-    return mapObject(fn, list);
-  }
-
-  let index = -1;
-  const len = list.length;
-  const willReturn = Array(len);
-
-  while (++index < len) {
-    willReturn[index] = fn(list[index], index);
-  }
-
-  return willReturn;
 }
 
 function forEach(predicate, list) {
@@ -991,11 +1127,6 @@ function mathMod(m, p) {
   return (m % p + p) % p;
 }
 
-function max(x, y) {
-  if (arguments.length === 1) return _y => max(x, _y);
-  return y > x ? y : x;
-}
-
 function maxByFn(compareFn, x, y) {
   return compareFn(y) > compareFn(x) ? y : x;
 }
@@ -1176,13 +1307,6 @@ function prepend(x, listOrString) {
   if (typeof listOrString === 'string') return `${x}${listOrString}`;
   return [x].concat(listOrString);
 }
-
-function reduceFn(reducer, acc, list) {
-  const clone = list.slice();
-  return clone.reduce(reducer, acc);
-}
-
-const reduce = curry(reduceFn);
 
 const product = reduce(multiply, 1);
 
@@ -1442,6 +1566,14 @@ function without(matchAgainst, source) {
   return reduce((prev, current) => includes(current, matchAgainst) ? prev : prev.concat(current), [], source);
 }
 
+function when(rule, ruleResult) {
+  if (arguments.length === 1) {
+    return whenTrueHolder => when(rule, whenTrueHolder);
+  }
+
+  return input => rule(input) ? ruleResult : input;
+}
+
 function xor(a, b) {
   if (arguments.length === 1) return _b => xor(a, _b);
   return Boolean(a) && !b || Boolean(b) && !a;
@@ -1467,4 +1599,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, curry, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, without, xor, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, path, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, type, uniq, uniqWith, update, values, view, when, without, xor, zip, zipObj };

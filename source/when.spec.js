@@ -1,27 +1,19 @@
-import { compose } from './compose'
-import { take } from './take'
 import { when } from './when'
 
-test('whenTrue can be other than function', () => {
-  const result = when(Boolean, 2)(true)
+const ruleResult = 'RULE_RESULT'
+const rule = x => typeof x === 'number'
+const fn = when(rule, ruleResult)
+const curriedFn = when(rule)(ruleResult)
 
-  expect(result).toBe(2)
+test('when rule returns true', () => {
+  const input = 7
+
+  expect(fn(input)).toBe(ruleResult)
 })
 
-test('', () => {
-  const truncate = when(x => x.length > 5,
-    compose(x => `${ x }...`, take(5)))
+test('when rule returns false', () => {
+  const input = 'foo'
 
-  expect(truncate('1234')).toEqual('1234')
-  expect(truncate('12345678')).toEqual('12345...')
-})
-
-test('use boolean', () => {
-  const truncateTrue = when(true)(compose(x => `${ x }...`, take(5)))
-
-  const truncateFalse = when(false,
-    compose(x => `${ x }...`, take(5)))
-
-  expect(truncateFalse('1234')).toEqual('1234')
-  expect(truncateTrue('12345678')).toEqual('12345...')
+  expect(fn(input)).toBe(input)
+  expect(curriedFn(input)).toBe(input)
 })

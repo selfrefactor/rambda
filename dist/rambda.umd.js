@@ -277,6 +277,148 @@
     return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
   }
 
+  function _curryN(n, cache, fn) {
+    return function () {
+      let ci = 0;
+      let ai = 0;
+      const cl = cache.length;
+      const al = arguments.length;
+      const args = new Array(cl + al);
+
+      while (ci < cl) {
+        args[ci] = cache[ci];
+        ci++;
+      }
+
+      while (ai < al) {
+        args[cl + ai] = arguments[ai];
+        ai++;
+      }
+
+      const remaining = n - args.length;
+      return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+    };
+  }
+
+  function _arity(n, fn) {
+    switch (n) {
+      case 0:
+        return function () {
+          return fn.apply(this, arguments);
+        };
+
+      case 1:
+        return function (_1) {
+          return fn.apply(this, arguments);
+        };
+
+      case 2:
+        return function (_1, _2) {
+          return fn.apply(this, arguments);
+        };
+
+      case 3:
+        return function (_1, _2, _3) {
+          return fn.apply(this, arguments);
+        };
+
+      case 4:
+        return function (_1, _2, _3, _4) {
+          return fn.apply(this, arguments);
+        };
+
+      case 5:
+        return function (_1, _2, _3, _4, _5) {
+          return fn.apply(this, arguments);
+        };
+
+      case 6:
+        return function (_1, _2, _3, _4, _5, _6) {
+          return fn.apply(this, arguments);
+        };
+
+      case 7:
+        return function (_1, _2, _3, _4, _5, _6, _7) {
+          return fn.apply(this, arguments);
+        };
+
+      case 8:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+          return fn.apply(this, arguments);
+        };
+
+      case 9:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+          return fn.apply(this, arguments);
+        };
+
+      case 10:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+          return fn.apply(this, arguments);
+        };
+
+      default:
+        throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+    }
+  }
+
+  function curryN(n, fn) {
+    if (arguments.length === 1) return _fn => curryN(n, _fn);
+    return _arity(n, _curryN(n, [], fn));
+  }
+
+  function mapObject(fn, obj) {
+    const willReturn = {};
+
+    for (const prop in obj) {
+      willReturn[prop] = fn(obj[prop], prop, obj);
+    }
+
+    return willReturn;
+  }
+
+  function map(fn, list) {
+    if (arguments.length === 1) return _list => map(fn, _list);
+
+    if (list === undefined) {
+      return [];
+    }
+
+    if (!Array.isArray(list)) {
+      return mapObject(fn, list);
+    }
+
+    let index = -1;
+    const len = list.length;
+    const willReturn = Array(len);
+
+    while (++index < len) {
+      willReturn[index] = fn(list[index], index);
+    }
+
+    return willReturn;
+  }
+
+  function max(x, y) {
+    if (arguments.length === 1) return _y => max(x, _y);
+    return y > x ? y : x;
+  }
+
+  function reduceFn(reducer, acc, list) {
+    const clone = list.slice();
+    return clone.reduce(reducer, acc);
+  }
+
+  const reduce = curry(reduceFn);
+
+  function converge(fn, transformers) {
+    if (arguments.length === 1) return _transformers => converge(fn, _transformers);
+    const highestArity = reduce((a, b) => max(a, b.length), 0, transformers);
+    return curryN(highestArity, function () {
+      return fn.apply(this, map(g => g.apply(this, arguments), transformers));
+    });
+  }
+
   function cond(conditions) {
     return input => {
       let done = false;
@@ -588,6 +730,32 @@
     return -1;
   }
 
+  function findLastIndex(fn, list) {
+    if (arguments.length === 1) return _list => findLastIndex(fn, _list);
+    let index = list.length;
+
+    while (--index >= 0) {
+      if (fn(list[index], index)) {
+        return index;
+      }
+    }
+
+    return -1;
+  }
+
+  function findLast(predicate, list) {
+    if (arguments.length === 1) return _list => findLast(predicate, _list);
+    let index = list.length;
+
+    while (--index >= 0) {
+      if (predicate(list[index], index)) {
+        return list[index];
+      }
+    }
+
+    return undefined;
+  }
+
   function flatten(list, input) {
     const willReturn = input === undefined ? [] : input;
 
@@ -616,38 +784,6 @@
 
   function flip(fn) {
     return flipExport(fn);
-  }
-
-  function mapObject(fn, obj) {
-    const willReturn = {};
-
-    for (const prop in obj) {
-      willReturn[prop] = fn(obj[prop], prop, obj);
-    }
-
-    return willReturn;
-  }
-
-  function map(fn, list) {
-    if (arguments.length === 1) return _list => map(fn, _list);
-
-    if (list === undefined) {
-      return [];
-    }
-
-    if (!Array.isArray(list)) {
-      return mapObject(fn, list);
-    }
-
-    let index = -1;
-    const len = list.length;
-    const willReturn = Array(len);
-
-    while (++index < len) {
-      willReturn[index] = fn(list[index], index);
-    }
-
-    return willReturn;
   }
 
   function forEach(predicate, list) {
@@ -997,11 +1133,6 @@
     return (m % p + p) % p;
   }
 
-  function max(x, y) {
-    if (arguments.length === 1) return _y => max(x, _y);
-    return y > x ? y : x;
-  }
-
   function maxByFn(compareFn, x, y) {
     return compareFn(y) > compareFn(x) ? y : x;
   }
@@ -1182,13 +1313,6 @@
     if (typeof listOrString === 'string') return `${x}${listOrString}`;
     return [x].concat(listOrString);
   }
-
-  function reduceFn(reducer, acc, list) {
-    const clone = list.slice();
-    return clone.reduce(reducer, acc);
-  }
-
-  const reduce = curry(reduceFn);
 
   const product = reduce(multiply, 1);
 
@@ -1448,6 +1572,14 @@
     return reduce((prev, current) => includes(current, matchAgainst) ? prev : prev.concat(current), [], source);
   }
 
+  function when(rule, ruleResult) {
+    if (arguments.length === 1) {
+      return whenTrueHolder => when(rule, whenTrueHolder);
+    }
+
+    return input => rule(input) ? ruleResult : input;
+  }
+
   function xor(a, b) {
     if (arguments.length === 1) return _b => xor(a, _b);
     return Boolean(a) && !b || Boolean(b) && !a;
@@ -1494,7 +1626,9 @@
   exports.compose = compose;
   exports.concat = concat;
   exports.cond = cond;
+  exports.converge = converge;
   exports.curry = curry;
+  exports.curryN = curryN;
   exports.dec = dec;
   exports.defaultTo = defaultTo;
   exports.difference = difference;
@@ -1508,6 +1642,8 @@
   exports.filter = filter;
   exports.find = find;
   exports.findIndex = findIndex;
+  exports.findLast = findLast;
+  exports.findLastIndex = findLastIndex;
   exports.flatten = flatten;
   exports.flip = flip;
   exports.forEach = forEach;
@@ -1606,6 +1742,7 @@
   exports.update = update;
   exports.values = values;
   exports.view = view;
+  exports.when = when;
   exports.without = without;
   exports.xor = xor;
   exports.zip = zip;

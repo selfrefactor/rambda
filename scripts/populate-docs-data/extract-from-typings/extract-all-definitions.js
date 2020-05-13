@@ -1,10 +1,8 @@
 import { head, init, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import * as R from '../../../rambda'
-import { getOrigin, wayTooLongTypings } from '../constants'
+import { getOrigin, wayTooLongTypings } from '../../constants'
 
 export function extractAllDefinitions(withRambdax){
-  const rambdaMethods = Object.keys(R)
   const matches = match(/\/\/\s@SINGLE_MARKER\nexport\sfunction.([^*])+/gm,
     getOrigin(withRambdax)).map(init)
 
@@ -20,10 +18,6 @@ export function extractAllDefinitions(withRambdax){
       trim,
       remove('export function ')
     )
-    // if(name === 'applySpec'){
-    //   console.log(allTypings)
-    // }
-    if (!rambdaMethods.includes(name)) return false
 
     const methodTypings = remove(/export\sfunction\s/g, allTypings)
     const partialReturn = { [ name ] : methodTypings }

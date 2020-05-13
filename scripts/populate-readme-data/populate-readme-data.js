@@ -2,6 +2,7 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, template } from 'rambdax'
 
+import { buildStep } from '../build-step/build-step'
 import methodsDataRambdax from '../populate-docs-data/data-rambdax.json'
 import methodsDataRambda from '../populate-docs-data/data.json'
 import { createMethodData } from './create-method-data'
@@ -25,7 +26,7 @@ function getOutputPath(withRambdax){
   if (withRambdax){
     const dir = resolve(__dirname, '../../../rambdax')
 
-    return `${ dir }/README_IN_PROGRESS.md`
+    return `${ dir }/README.md`
   }
   const dir = resolve(__dirname, '../../')
 
@@ -33,6 +34,8 @@ function getOutputPath(withRambdax){
 }
 
 export async function populateReadmeData({ withRambdax }){
+  await buildStep(withRambdax)
+
   const methodsData = withRambdax ? methodsDataRambdax : methodsDataRambda
 
   const methods = map(x => {

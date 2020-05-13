@@ -137,3 +137,15 @@ module.exports = endsWith
 > Submit PR
 
 Expect response within 2 days.
+
+---
+
+Ramda docs + repl
+
+index.d.ts
+
+typings + typings test
+
+edit `rambda.js`
+
+yarn out

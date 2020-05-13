@@ -10,10 +10,11 @@ import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
-import * as R from '../../rambda.js'
+import ramdaxData from '../populate-docs-data/data-rambdax.json'
+import ramdaData from '../populate-docs-data/data.json'
 import { createExportedTypings } from './create-exported-typings'
 
-const ramdaMethods = Object.keys(R)
+const ramdaMethods = Object.keys(ramdaData)
 
 async function createMainFile({ allMethods, ramdaMethods, dir }){
   const content = [ ...allMethods, ...ramdaMethods ]

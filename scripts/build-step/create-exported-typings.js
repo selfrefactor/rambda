@@ -2,7 +2,7 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, trim } from 'rambdax'
 
-import { intro } from '../populate-docs-data/constants.js'
+import { intro } from '../constants.js'
 import methodsData from '../populate-docs-data/data.json'
 const fixToolbeltImport = replace('../_ts-toolbelt', './_ts-toolbelt')
 
@@ -48,4 +48,4 @@ export async function createExportedTypings(withRambdax = false){
   await outputFile(output, finalVersion)
 
   return finalVersion
-} 
+}

@@ -254,10 +254,17 @@ export function concat(x: string): (y: string) => string;
 export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
 export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;
 
+export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+
 /**
  * It expects a function as input and returns its curried version.
  */
 export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
+
+/**
+ * It returns a curried equivalent of the provided function, with the specified arity.
+ */
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /**
  * It decrements a number.
@@ -348,6 +355,22 @@ export function find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) =
  */
 export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
 export function findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
+
+/**
+ * It returns the last element of `list` satisfying the `predicate` function.
+ * 
+ * If there is no such element, then `undefined` is returned.
+ */
+export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
+
+/**
+ * It returns the index of the last element of `list` satisfying the `predicate` function.
+ * 
+ * If there is no such element, then `-1` is returned.
+ */
+export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
 
 /**
  * It deeply flattens an array.
@@ -952,6 +975,13 @@ export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) 
  * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
  */
 export function values<T extends object, K extends keyof T>(obj: T): T[K][];
+
+export function when<T>(
+  rule: Func<boolean>, ruleResult: T
+): IdentityFunction<T>;
+export function when<T>(
+  rule: Func<boolean>
+): (ruleResult: T) =>  IdentityFunction<T>;
 
 export function without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 export function without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];

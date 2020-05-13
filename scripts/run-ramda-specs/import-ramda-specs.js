@@ -4,7 +4,7 @@ import { execSafe, spawn } from 'helpers-fn'
 import { parse } from 'path'
 import { mapAsync, replace } from 'rambdax'
 
-import * as R from '../../rambda'
+import { rambdaMethods } from '../constants.js'
 
 const cloneCommandInputs = 'clone --depth 1 https://github.com/ramda/ramda'.split(' ')
 
@@ -29,7 +29,6 @@ async function cloneRamda(){
 
 async function replaceImports(){
   const toReturn = [ 'lenses' ]
-  const rambdaKeys = Object.keys(R)
 
   const allFiles = await fdir.async(`${ __dirname }/ramda/test`)
   const goodFiles = allFiles.filter(filePath => {
@@ -38,7 +37,7 @@ async function replaceImports(){
     const { name } = parse(filePath)
     toReturn.push(name)
 
-    return rambdaKeys.includes(name)
+    return rambdaMethods.includes(name)
   })
   const replaceImport = async function (filePath){
     const content = await readFile(filePath)

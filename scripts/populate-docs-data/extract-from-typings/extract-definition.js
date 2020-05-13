@@ -1,10 +1,8 @@
 import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import * as R from '../../../rambda'
-import { getOrigin } from '../constants'
+import { getOrigin } from '../../constants'
 
 export function extractDefinition(withRambdax){
-  const rambdaMethods = Object.keys(R)
   const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm,
     getOrigin(withRambdax))
 
@@ -18,10 +16,8 @@ export function extractDefinition(withRambdax){
       trim,
       remove('export function ')
     )
-    if (!rambdaMethods.includes(name)) return false
-    const partialReturn = { [ name ] : remove('export function ', typing) }
 
-    return partialReturn
+    return { [ name ] : remove('export function ', typing) }
   }, matches)
 
   return result

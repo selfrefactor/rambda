@@ -1,3 +1,9 @@
+- 5.3.0
+
+> Close [Issue #430](https://github.com/selfrefactor/rambda/issues/430) - add `R.when`
+
+Also restore `R.converge`, `R.findLast`, `R.findLastIndex` and `R.curryN` as I have forgotten to export them when releasing `5.2.0`.
+
 - 5.2.1
 
 Fix Typescript comment for every method

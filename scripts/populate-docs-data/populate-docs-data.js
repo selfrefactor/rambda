@@ -1,7 +1,6 @@
 import { outputJSON } from 'fs-extra'
 import { map, piped } from 'rambdax'
 
-import { buildStep } from '../build-step/build-step'
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
@@ -30,11 +29,6 @@ function appendData({ input, prop, hash }){
 }
 
 export async function populateDocsData({ withRambdax }){
-  // This should be here as here data.json is created
-  // but in the next line, read operation is performed
-  // ============================================
-  await buildStep(withRambdax)
-
   const definitions = extractDefinition(withRambdax)
   const allDefinitions = extractAllDefinitions(withRambdax)
   const rambdaSource = await rambdaSourceMethod(withRambdax)

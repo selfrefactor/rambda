@@ -21,12 +21,12 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;",
   "anyPass": "anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>;",
   "append": "append<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];",
-  "applySpec": "applySpec<T>(spec: any): (...args: readonly any[]) => T;
-applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+  "applySpec": "applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
-) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };",
+) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+applySpec<T>(spec: any): (...args: readonly any[]) => T;",
   "assoc": "assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
 assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
 assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;",
@@ -52,7 +52,9 @@ concat(x: string, y: string): string;
 concat(x: string): (y: string) => string;",
   "cond": "cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
 cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;",
+  "converge": "converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;",
   "curry": "curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;",
+  "curryN": "curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;",
   "dec": "dec(x: number): number;",
   "defaultTo": "defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T;
 defaultTo<T>(defaultValue: T, ...inputArguments: (T | null | undefined)[]): T;
@@ -89,6 +91,10 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;"
 find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;",
   "findIndex": "findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
 findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;",
+  "findLast": "findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;",
+  "findLastIndex": "findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;",
   "flatten": "flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];",
   "flip": "flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;",
   "forEach": "forEach<T>(fn: (x: T) => void, list: T[]): T[];
@@ -326,6 +332,12 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];",
   "values": "values<T extends object, K extends keyof T>(obj: T): T[K][];",
   "view": "view<T, U>(lens: Lens): (target: T) => U;
 view<T, U>(lens: Lens, target: T): U;",
+  "when": "when<T>(
+  rule: Func<boolean>, ruleResult: T
+): IdentityFunction<T>;
+when<T>(
+  rule: Func<boolean>
+): (ruleResult: T) =>  IdentityFunction<T>;",
   "without": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];",
   "xor": "xor(x: boolean, y: boolean): boolean;

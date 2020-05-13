@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
-import * as Rambda from '../../rambda'
+import { rambdaMethods } from '../constants'
 import { benchmarkTime } from '../run-benchmarks/time.json'
 
 function getMissingMethods(){
@@ -14,23 +14,24 @@ function getMissingMethods(){
 
 <details>
 <summary>
-  Click to see the full list of Ramda methods not implemented in Rambda 
+  Click to see the full list of {{counter}} Ramda methods not implemented in Rambda 
 </summary>
 
 {{missingMethods}}
 </details>
   `
 
+  let counter = 0
   const missingMethods = Object.keys(Ramda)
     .map(ramdaMethod => {
-      if (Rambda[ ramdaMethod ] !== undefined) return false
-
+      if (rambdaMethods.includes(ramdaMethod)) return false
+      counter++
       return `- ${ ramdaMethod }\n`
     })
     .filter(Boolean)
     .join('')
 
-  return template(missingMethodsTemplate, { missingMethods })
+  return template(missingMethodsTemplate, { missingMethods, counter })
 }
 
 const templateIntro = `

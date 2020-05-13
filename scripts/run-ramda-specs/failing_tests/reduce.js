@@ -4,6 +4,11 @@ var eq = require('./shared/eq');
 describe('reduce', function() {
   var add = function(a, b) {return a + b;};
   var mult = function(a, b) {return a * b;};
+  it('dispatches to objects that implement `reduce`', function() {
+    var obj = {x: [1, 2, 3], reduce: function() { return 'override'; }};
+    eq(R.reduce(add, 0, obj), 'override');
+    eq(R.reduce(add, 10, obj), 'override');
+  });
   it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {
     var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';
     function Reducible(arr) {

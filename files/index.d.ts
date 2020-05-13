@@ -3843,6 +3843,36 @@ Notes:
 export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 /*
+Method: when
+
+Example:
+
+```
+const ruleResult = 'RULE_RESULT'
+const rule = x => typeof x === 'number'
+const fn = when(rule, ruleResult)
+
+const result = [
+  fn('foo'),
+  fn(88)
+]
+// => ['foo', 'RULE_RESULT']
+```
+
+Categories: Logic, Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function when<T>(
+  rule: Func<boolean>, ruleResult: T
+): IdentityFunction<T>;
+export function when<T>(
+  rule: Func<boolean>
+): (ruleResult: T) =>  IdentityFunction<T>;
+
+/*
 Method:
 
 Explanation: It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
@@ -5316,32 +5346,6 @@ export function waitFor(
   waitForTrueCondition: () => any | Promise<any>,
   msHowLong: number
 ): (input?: any) => Promise<boolean>;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function when<T>(
-  rule: Func<boolean> | boolean, ruleTrue: any
-): IdentityFunction<T>;
-export function when<T>(
-  rule: Func<boolean> | boolean
-): (ruleTrue: any) => IdentityFunction<T>;
 
 /*
 Method:
