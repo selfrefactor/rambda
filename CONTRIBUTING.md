@@ -151,3 +151,7 @@ edit `rambda.js` !important
 yarn out
 
 https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/ramda/index.d.ts
+
+last step - single run ramda spec
+
+issue when ramda spec has incompatible methods - manual change

@@ -19,6 +19,10 @@
     "count": 1,
     "reason": "ramda supports fantasy-land"
   },
+  "chain": {
+    "count": 5,
+    "reason": "ramda passes to `chain` if available | ramda supports fantasy-land"
+  },
   "either": {
     "count": 1,
     "reason": "ramda supports fantasy-land"

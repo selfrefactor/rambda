@@ -2,7 +2,7 @@ import { importRamdaSpecs } from './import-ramda-specs.js'
 import { runSpecs } from './src/run-specs'
 import { writeSummary } from './src/write-summary.js'
 
-const singleMethod = 'when'
+const singleMethod = 'chain'
 // const singleMethod = undefined
 
 export async function runRamdaSpecs({ withInitialStep }){
