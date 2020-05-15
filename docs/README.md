@@ -507,7 +507,7 @@ test('when index is out of bounds', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.adjust</italic> specs
+<summary>1 failed <italic>Ramda.adjust</italic> specs
 
 > Reason for the failure: ramda accepts an array-like object
 </summary>
@@ -753,7 +753,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.allPass</italic> specs
+<summary>1 failed <italic>Ramda.allPass</italic> specs
 
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
@@ -1147,7 +1147,7 @@ describe('anyPass', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.anyPass</italic> specs
+<summary>1 failed <italic>Ramda.anyPass</italic> specs
 
 > Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
@@ -2226,7 +2226,7 @@ describe('both + curry', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.both</italic> specs
+<summary>1 failed <italic>Ramda.both</italic> specs
 
 > Reason for the failure: ramda supports fantasy-land
 </summary>
@@ -2361,6 +2361,10 @@ describe('chain', () => {
 ```
 
 </details>
+
+*5 failed Ramda.chain specs*
+
+> Reason for the failure: ramda passes to `chain` if available | ramda supports fantasy-land
 
 ### clamp
 
@@ -2548,7 +2552,7 @@ test('with multiple parameters', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.complement</italic> specs
+<summary>1 failed <italic>Ramda.complement</italic> specs
 
 > Reason for the failure: ramda supports fantasy-land
 </summary>
@@ -2637,7 +2641,7 @@ export function compose(...fns){
 ```javascript
 import { add } from './add'
 import { compose } from './compose'
-import { filter } from './filter.js'
+import { filter } from './filter'
 import { last } from './last'
 import { map } from './map'
 
@@ -2677,7 +2681,7 @@ test('ramda spec', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.compose</italic> specs
+<summary>3 failed <italic>Ramda.compose</italic> specs
 
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
@@ -2806,7 +2810,7 @@ test('with strings', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.concat</italic> specs
+<summary>1 failed <italic>Ramda.concat</italic> specs
 
 > Reason for the failure: ramda pass to concat method if present
 </summary>
@@ -2977,7 +2981,7 @@ describe('cond', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.cond</italic> specs
+<summary>2 failed <italic>Ramda.cond</italic> specs
 
 > Reason for the failure: pass to transformer is not applied in rambda
 </summary>
@@ -3228,7 +3232,7 @@ test('when called via multiple curry stages', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.curry</italic> specs
+<summary>5 failed <italic>Ramda.curry</italic> specs
 
 > Reason for the failure: ramda passes context to functions
 </summary>
@@ -3873,7 +3877,7 @@ test('should use R.equals', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.difference</italic> specs
+<summary>1 failed <italic>Ramda.difference</italic> specs
 
 > Reason for the failure: ramda supports negative zero
 </summary>
@@ -4267,7 +4271,7 @@ test('should return copy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.dropLast</italic> specs
+<summary>5 failed <italic>Ramda.dropLast</italic> specs
 
 > Reason for the failure: ramda method can act as a transducer
 </summary>
@@ -4369,7 +4373,7 @@ test('does not work with arrays', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.endsWith</italic> specs
+<summary>4 failed <italic>Ramda.endsWith</italic> specs
 
 > Reason for the failure: rambda doesn't support arrays
 </summary>
@@ -4777,7 +4781,7 @@ test('various examples', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.equals</italic> specs
+<summary>14 failed <italic>Ramda.equals</italic> specs
 
 > Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
 </summary>
@@ -5239,7 +5243,7 @@ describe('filter with objects', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.filter</italic> specs
+<summary>1 failed <italic>Ramda.filter</italic> specs
 
 > Reason for the failure: ramda dispatches to `filter` method of object
 </summary>
@@ -5792,7 +5796,7 @@ test('flip', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.flip</italic> specs
+<summary>4 failed <italic>Ramda.flip</italic> specs
 
 > Reason for the failure: rambda flip work only for functions with two arguments
 </summary>
@@ -5990,7 +5994,7 @@ test('pass index as second argument', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.forEach</italic> specs
+<summary>1 failed <italic>Ramda.forEach</italic> specs
 
 > Reason for the failure: ramda method dispatches to `forEach` method
 </summary>
@@ -6204,7 +6208,7 @@ test('groupBy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.groupBy</italic> specs
+<summary>1 failed <italic>Ramda.groupBy</italic> specs
 
 > Reason for the failure: ramda support transforms
 </summary>
@@ -6481,7 +6485,7 @@ test('with non-object', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.has</italic> specs
+<summary>1 failed <italic>Ramda.has</italic> specs
 
 > Reason for the failure: rambda does check properties from the prototype chain
 </summary>
@@ -6806,7 +6810,7 @@ test('curry 2', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.ifElse</italic> specs
+<summary>2 failed <italic>Ramda.ifElse</italic> specs
 
 > Reason for the failure: rambda doesn't return a curried function
 </summary>
@@ -7123,7 +7127,7 @@ describe('indexBy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.indexBy</italic> specs
+<summary>1 failed <italic>Ramda.indexBy</italic> specs
 
 > Reason for the failure: ramda method can act as a transducer
 </summary>
@@ -7225,7 +7229,7 @@ test('indexOf', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.indexOf</italic> specs
+<summary>2 failed <italic>Ramda.indexOf</italic> specs
 
 > Reason for the failure: ramda method dispatches to `indexOf` method
 </summary>
@@ -7685,7 +7689,7 @@ test('happy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.isEmpty</italic> specs
+<summary>1 failed <italic>Ramda.isEmpty</italic> specs
 
 > Reason for the failure: ramda supports typed arrays
 </summary>
@@ -7878,7 +7882,7 @@ test('happy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.keys</italic> specs
+<summary>1 failed <italic>Ramda.keys</italic> specs
 
 > Reason for the failure: ramda method works for primitives
 </summary>
@@ -8055,7 +8059,7 @@ test('false', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.lastIndexOf</italic> specs
+<summary>3 failed <italic>Ramda.lastIndexOf</italic> specs
 
 > Reason for the failure: ramda method dispatches to `lastIndexOf` method
 </summary>
@@ -8187,7 +8191,7 @@ test('with bad input returns NaN', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.length</italic> specs
+<summary>1 failed <italic>Ramda.length</italic> specs
 
 > Reason for the failure: ramda method supports object with `length` method
 </summary>
@@ -10391,7 +10395,7 @@ describe('path with specified input', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.path</italic> specs
+<summary>1 failed <italic>Ramda.path</italic> specs
 
 > Reason for the failure: ramda method supports negative indices
 </summary>
@@ -10686,7 +10690,7 @@ describe('paths', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.paths</italic> specs
+<summary>1 failed <italic>Ramda.paths</italic> specs
 
 > Reason for the failure: ramda method supports negative indices
 </summary>
@@ -11098,7 +11102,7 @@ test('with bad input', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.pipe</italic> specs
+<summary>3 failed <italic>Ramda.pipe</italic> specs
 
 > Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
@@ -11264,7 +11268,7 @@ describe('pluck', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.pluck</italic> specs
+<summary>1 failed <italic>Ramda.pluck</italic> specs
 
 > Reason for the failure: ramda method behaves as a transducer
 </summary>
@@ -11515,7 +11519,7 @@ test('happy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.propEq</italic> specs
+<summary>1 failed <italic>Ramda.propEq</italic> specs
 
 > Reason for the failure: ramda method pass to `equals` method if available
 </summary>
@@ -11971,7 +11975,7 @@ describe('reduce', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.reduce</italic> specs
+<summary>2 failed <italic>Ramda.reduce</italic> specs
 
 > Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
 </summary>
@@ -12208,7 +12212,7 @@ describe('reject with objects', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.reject</italic> specs
+<summary>1 failed <italic>Ramda.reject</italic> specs
 
 > Reason for the failure: ramda method dispatches to `filter` method
 </summary>
@@ -12759,7 +12763,7 @@ describe('sortBy', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.sortBy</italic> specs
+<summary>1 failed <italic>Ramda.sortBy</italic> specs
 
 > Reason for the failure: ramda works with array-like objects
 </summary>
@@ -12943,7 +12947,7 @@ test('false', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.startsWith</italic> specs
+<summary>4 failed <italic>Ramda.startsWith</italic> specs
 
 > Reason for the failure: rambda doesn't support arrays
 </summary>
@@ -13305,7 +13309,7 @@ test('with zero index', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.take</italic> specs
+<summary>3 failed <italic>Ramda.take</italic> specs
 
 > Reason for the failure: rambda doesn't have 'R.into` method
 </summary>
@@ -13502,7 +13506,7 @@ test('tap', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.tap</italic> specs
+<summary>2 failed <italic>Ramda.tap</italic> specs
 
 > Reason for the failure: ramda can act as a transducer
 </summary>
@@ -14041,7 +14045,7 @@ test('trim', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.trim</italic> specs
+<summary>1 failed <italic>Ramda.trim</italic> specs
 
 > Reason for the failure: ramda trims all ES5 whitespace
 </summary>
@@ -14174,7 +14178,7 @@ describe('uniq', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.uniq</italic> specs
+<summary>2 failed <italic>Ramda.uniq</italic> specs
 
 > Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
 </summary>
@@ -14517,7 +14521,7 @@ describe('update', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.update</italic> specs
+<summary>1 failed <italic>Ramda.update</italic> specs
 
 > Reason for the failure: ramda accepts an array-like object
 </summary>
@@ -15000,7 +15004,7 @@ describe('xor', () => {
 
 <details>
 
-<summary> Failed <italic>Ramda.xor</italic> specs
+<summary>1 failed <italic>Ramda.xor</italic> specs
 
 > Reason for the failure: ramda support empty call of method
 </summary>
