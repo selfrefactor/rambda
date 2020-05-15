@@ -2362,7 +2362,7 @@ describe('chain', () => {
 
 </details>
 
-5 failed <italic>Ramda.chain</italic> specs
+*5 failed Ramda.chain specs*
 
 > Reason for the failure: ramda passes to `chain` if available | ramda supports fantasy-land
 

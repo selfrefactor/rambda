@@ -18,7 +18,7 @@ function createFailedSpec(method){
 `
 
   const shortSummaryTemplate = `
-{{failedSpecsCount}} failed <italic>Ramda.{{methodName}}</italic> specs
+*{{failedSpecsCount}} failed Ramda.{{methodName}} specs*
 
 > Reason for the failure: {{failedSpecsReasons}}
 `
