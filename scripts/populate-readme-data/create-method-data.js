@@ -4,7 +4,7 @@ function createFailedSpec(method){
   const summaryTemplate = `
 <details>
 
-<summary> Failed <italic>Ramda.{{methodName}}</italic> specs
+<summary>{{failedSpecsCount}} failed <italic>Ramda.{{methodName}}</italic> specs
 
 > Reason for the failure: {{failedSpecsReasons}}
 </summary>
@@ -17,7 +17,16 @@ function createFailedSpec(method){
 </details>
 `
 
-  return template(summaryTemplate, method)
+  const shortSummaryTemplate = `
+{{failedSpecsCount}} failed <italic>Ramda.{{methodName}}</italic> specs
+
+> Reason for the failure: {{failedRamdaSpecs}}
+`
+
+  const templateToUse = method.failedRamdaSpecs ? 
+    summaryTemplate : shortSummaryTemplate
+
+  return template(templateToUse, method)
 }
 
 function createRambdaSpecReadme(method){
@@ -125,7 +134,6 @@ function createReplReadme({ replLink, methodName }){
 
 export function createMethodData(method){
   const data = getIntro(method)
-  const hasFailedSpec = method.failedRamdaSpecs && method.failedSpecsReasons
 
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
@@ -142,7 +150,7 @@ export function createMethodData(method){
     data.push(createTypescriptTest(method))
 
   if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
-  if (hasFailedSpec) data.push(createFailedSpec(method))
+  if (method.failedSpecsReasons) data.push(createFailedSpec(method))
 
   return data.join('')
 }

@@ -9,6 +9,7 @@ import { extractNotes } from './extract-from-typings/extract-notes'
 import { benchmarkInfo as benchmarkInfoMethod } from './extracts/benchmark-info'
 import { failedRamdaTests } from './extracts/failed-ramda-tests'
 import { failedTestsReasons } from './extracts/failed-tests-reasons'
+import { failedTestsCount } from './extracts/failed-tests-count'
 import { rambdaSource as rambdaSourceMethod } from './extracts/rambda-source'
 import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs'
 import { typingsTests as typingsTestsMethod } from './extracts/typings-tests'
@@ -40,7 +41,8 @@ export async function populateDocsData({ withRambdax }){
   const notes = extractNotes(withRambdax)
   const failedRamdaSpecs = failedRamdaTests()
   const failedSpecsReasons = failedTestsReasons()
-
+  const failedSpecsCount = failedTestsCount()
+  
   const toSave = piped(
     initiateData(definitions, 'typing'),
     input =>
@@ -102,6 +104,12 @@ export async function populateDocsData({ withRambdax }){
         input,
         prop : 'failedSpecsReasons',
         hash : failedSpecsReasons,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'failedSpecsCount',
+        hash : failedSpecsCount,
       })
   )
 

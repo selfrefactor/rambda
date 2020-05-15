@@ -1,6 +1,6 @@
 import { add } from './add'
 import { compose } from './compose'
-import { filter } from './filter.js'
+import { filter } from './filter'
 import { last } from './last'
 import { map } from './map'
 
