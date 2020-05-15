@@ -20,7 +20,7 @@ function createFailedSpec(method){
   const shortSummaryTemplate = `
 {{failedSpecsCount}} failed <italic>Ramda.{{methodName}}</italic> specs
 
-> Reason for the failure: {{failedRamdaSpecs}}
+> Reason for the failure: {{failedSpecsReasons}}
 `
 
   const templateToUse = method.failedRamdaSpecs ? 

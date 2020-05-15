@@ -17,7 +17,8 @@
     "explanation": "It replaces `index` in array `list` with the result of `replaceFn(list[i])`.",
     "example": "R.adjust(\n  0,\n  a => a + 1,\n  [0, 100]\n) // => [1, 100]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('adjust', function() {\n  it('accepts an array-like object', function() {\n    function args() {\n      return arguments;\n    }\n    eq(R.adjust(2, R.add(1), args(0, 1, 2, 3)), [0, 1, 3, 3]);\n  });\n});",
-    "failedSpecsReasons": "ramda accepts an array-like object"
+    "failedSpecsReasons": "ramda accepts an array-like object",
+    "failedSpecsCount": 1
   },
   "all": {
     "typing": "all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
@@ -37,7 +38,8 @@
     "example": "const input = {\n  a : 1,\n  b : 2,\n}\nconst predicates = [\n  x => x.a === 1,\n  x => x.b === 2,\n]\nconst result = R.allPass(predicates)(input) // => true",
     "typescriptDefinitionTest": "import {allPass} from 'rambda'\n\ndescribe('allPass', () => {\n  it('happy', () => {\n    const x = allPass<number>([\n      y => {\n        y // $ExpectType number\n        return typeof y === 'number'\n      },\n      y => {\n        return y > 0\n      },\n    ])(11)\n\n    x // $ExpectType boolean\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('allPass', function() {\n  var odd = function(n) { return n % 2 !== 0; };\n  var lt20 = function(n) { return n < 20; };\n  var gt5 = function(n) { return n > 5; };\n  var plusEq = function(w, x, y, z) { return w + x === y + z; };\n  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {\n    eq(R.allPass([odd, gt5, plusEq]).length, 4);\n    eq(R.allPass([odd, gt5, plusEq])(9, 9, 9, 9), true);\n    eq(R.allPass([odd, gt5, plusEq])(9)(9)(9)(9), true);\n  });\n});",
-    "failedSpecsReasons": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+    "failedSpecsReasons": "ramda returns a curried function whose arity matches that of the highest-arity predicate",
+    "failedSpecsCount": 1
   },
   "always": {
     "typing": "always<T>(x: T): () => T",
@@ -73,7 +75,8 @@
     "example": "const isBig = x => x > 20\nconst isOdd = x => x % 2 === 1\nconst input = 11\n\nconst fn = R.anyPass(\n  [isBig, isOdd]\n)\n\nconst result = fn(input) \n// => true",
     "typescriptDefinitionTest": "import {anyPass} from 'rambda'\n\ndescribe('anyPass', () => {\n  it('happy', () => {\n    const x = anyPass<number>([\n      y => {\n        y // $ExpectType number\n        return typeof y === 'number'\n      },\n      y => {\n        return y > 0\n      },\n    ])(11)\n\n    x // $ExpectType boolean\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('anyPass', function() {\n  var odd = function(n) { return n % 2 !== 0; };\n  var gt20 = function(n) { return n > 20; };\n  var lt5 = function(n) { return n < 5; };\n  var plusEq = function(w, x, y, z) { return w + x === y + z; };\n  it('returns a curried function whose arity matches that of the highest-arity predicate', function() {\n    eq(R.anyPass([odd, lt5, plusEq]).length, 4);\n    eq(R.anyPass([odd, lt5, plusEq])(6, 7, 8, 9), false);\n    eq(R.anyPass([odd, lt5, plusEq])(6)(7)(8)(9), false);\n  });\n});",
-    "failedSpecsReasons": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+    "failedSpecsReasons": "ramda returns a curried function whose arity matches that of the highest-arity predicate",
+    "failedSpecsCount": 1
   },
   "append": {
     "typing": "append<T>(x: T, listOrString: ReadonlyArray<T>): T[]",
@@ -120,7 +123,8 @@
     "example": "const firstCondition = x => x > 10\nconst secondCondition = x => x < 20\nconst fn = R.both(secondCondition)\n\nconst result = [fn(15), fn(30)]\n// => [true, false]",
     "typescriptDefinitionTest": "import {both} from 'rambda'\n\ndescribe('both', () => {\n  it('with passed type', () => {\n    const fn = both<number>( // $ExpectType Predicate<number>\n      x => {\n        return x > 1\n      },\n      x => {\n        return x % 2 === 0\n      }\n    )\n    const result = fn(2) // $ExpectType boolean\n    result // $ExpectType boolean\n  })\n  it('no type passed', () => {\n    const fn = both(\n      x => {\n        x // $ExpectType any\n        return x > 1\n      },\n      x => {\n        return x % 2 === 0\n      }\n    )\n    const result = fn(2) // $ExpectType boolean\n    result // $ExpectType boolean\n  })\n})\n\ndescribe('both + curry', () => {\n  it('with passed type', () => {\n    const fn = both<number>(x => {\n      return x > 1\n    })(x => {\n      return x % 2 === 0\n    })\n    fn // $ExpectType Predicate<number>\n    const result = fn(2) // $ExpectType boolean\n    result // $ExpectType boolean\n  })\n  it('no type passed', () => {\n    const fn = both(x => {\n      x // $ExpectType unknown\n      return (x as number) > 1\n    })(x => {\n      return (x as number) % 2 === 0\n    })\n    const result = fn(2) // $ExpectType boolean\n    result // $ExpectType boolean\n  })\n})",
     "failedRamdaSpecs": "var S = require('sanctuary');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('both', function() {\n  it('accepts fantasy-land applicative functors', function() {\n    var Just = S.Just;\n    var Nothing = S.Nothing;\n    eq(R.both(Just(true), Just(true)), Just(true));\n    eq(R.both(Just(true), Just(false)), Just(false));\n    eq(R.both(Just(true), Nothing()), Nothing());\n    eq(R.both(Nothing(), Just(false)), Nothing());\n    eq(R.both(Nothing(), Nothing()), Nothing());\n  });\n});",
-    "failedSpecsReasons": "ramda supports fantasy-land"
+    "failedSpecsReasons": "ramda supports fantasy-land",
+    "failedSpecsCount": 1
   },
   "chain": {
     "typing": "chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[]",
@@ -130,7 +134,8 @@
     "explanation": "The method is also known as `flatMap`.",
     "example": "const duplicate = n => [ n, n ]\nconst list = [ 1, 2, 3 ]\n\nconst result = chain(duplicate, list)\n// => [ 1, 1, 2, 2, 3, 3 ]",
     "typescriptDefinitionTest": "import {chain} from 'rambda'\n\nconst list = [ 1, 2, 3 ]\nconst duplicate = (n: number) => [ n, n ]\n\ndescribe('chain', () => {\n  it('without passing type', () => {\n    const result = chain(duplicate, list)\n    result // $ExpectType number[]\n  })\n\n  it('passing types', () => {\n    const duplicateAndModify = (x: number) => [\n      `||${x}||`,\n      `||${x}||`\n    ]\n    const result = chain<number, string>(duplicateAndModify, list)\n    const resultCurried = chain<number, string>(duplicateAndModify)(list)\n    result // $ExpectType string[]\n    resultCurried // $ExpectType string[]\n  })\n})",
-    "failedSpecsReasons": "ramda passes to `chain` if available | ramda supports fantasy-land"
+    "failedSpecsReasons": "ramda passes to `chain` if available | ramda supports fantasy-land",
+    "failedSpecsCount": 5
   },
   "clamp": {
     "typing": "clamp(min: number, max: number, input: number): number",
@@ -152,17 +157,19 @@
     "explanation": "It returns `inverted` version of `origin` function that accept `input` as argument.\n\nThe return value of `inverted` is the negative boolean value of `origin(input)`.",
     "example": "const origin = x => x > 5\nconst inverted = complement(origin)\n\nconst result = [\n  origin(7),\n  inverted(7)\n] => [ true, false ]",
     "failedRamdaSpecs": "var S = require('sanctuary');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('complement', function() {\n  it('accepts fantasy-land functors', function() {\n    var Just = S.Just;\n    var Nothing = S.Nothing;\n    eq(R.complement(Just(true)), Just(false));\n    eq(R.complement(Just(false)), Just(true));\n    eq(R.complement(Nothing()), Nothing());\n  });\n});",
-    "failedSpecsReasons": "ramda supports fantasy-land"
+    "failedSpecsReasons": "ramda supports fantasy-land",
+    "failedSpecsCount": 1
   },
   "compose": {
     "typing": "compose<T1>(fn0: () => T1): () => T1",
     "allTypings": "compose<T1>(fn0: () => T1): () => T1;\ncompose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;\ncompose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;\ncompose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;",
     "rambdaSource": "export function compose(...fns){\n  if (fns.length === 0){\n    throw new Error('compose requires at least one argument')\n  }\n\n  return (...args) => {\n    const list = fns.slice()\n    if (list.length > 0){\n      const fn = list.pop()\n      let result = fn(...args)\n      while (list.length > 0){\n        result = list.pop()(result)\n      }\n\n      return result\n    }\n  }\n}",
-    "rambdaSpecs": "import { add } from './add'\nimport { compose } from './compose'\nimport { filter } from './filter.js'\nimport { last } from './last'\nimport { map } from './map'\n\ntest('happy', () => {\n  const result = compose(\n    last, map(add(10)), map(add(1))\n  )([ 1, 2, 3 ])\n\n  expect(result).toEqual(14)\n})\n\ntest('accepts initially two arguments', () => {\n  const result = compose(map(x => x * 2),\n    (a, y) => filter(x => x > y, a))([ 1, 2, 3, 4 ], 2)\n\n  expect(result).toEqual([ 6, 8 ])\n})\n\ntest('when no arguments is passed', () => {\n  expect(() => compose()).toThrow('compose requires at least one argument')\n})\n\ntest('ramda spec', () => {\n  const f = function (\n    a, b, c\n  ){\n    return [ a, b, c ]\n  }\n  const g = compose(f)\n  expect(g(\n    1, 2, 3\n  )).toEqual([ 1, 2, 3 ])\n})",
+    "rambdaSpecs": "import { add } from './add'\nimport { compose } from './compose'\nimport { filter } from './filter'\nimport { last } from './last'\nimport { map } from './map'\n\ntest('happy', () => {\n  const result = compose(\n    last, map(add(10)), map(add(1))\n  )([ 1, 2, 3 ])\n\n  expect(result).toEqual(14)\n})\n\ntest('accepts initially two arguments', () => {\n  const result = compose(map(x => x * 2),\n    (a, y) => filter(x => x > y, a))([ 1, 2, 3, 4 ], 2)\n\n  expect(result).toEqual([ 6, 8 ])\n})\n\ntest('when no arguments is passed', () => {\n  expect(() => compose()).toThrow('compose requires at least one argument')\n})\n\ntest('ramda spec', () => {\n  const f = function (\n    a, b, c\n  ){\n    return [ a, b, c ]\n  }\n  const g = compose(f)\n  expect(g(\n    1, 2, 3\n  )).toEqual([ 1, 2, 3 ])\n})",
     "explanation": "It performs right-to-left function composition.",
     "example": "const result = R.compose(\n  R.map(x => x * 2),\n  R.filter(x => x > 2)\n)([1, 2, 3, 4])\n\n// => [6, 8]",
     "failedRamdaSpecs": "var assert = require('assert');\nvar jsv = require('jsverify');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('compose', function() {\n  it('performs right-to-left function composition', function() {\n    //  f :: (String, Number?) -> ([Number] -> [Number])\n    var f = R.compose(R.map, R.multiply, parseInt);\n    eq(f.length, 2);\n    eq(f('10')([1, 2, 3]), [10, 20, 30]);\n    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);\n  });\n  it('passes context to functions', function() {\n    function x(val) {\n      return this.x * val;\n    }\n    function y(val) {\n      return this.y * val;\n    }\n    function z(val) {\n      return this.z * val;\n    }\n    var context = {\n      a: R.compose(x, y, z),\n      x: 4,\n      y: 2,\n      z: 1\n    };\n    eq(context.a(5), 40);\n  });\n  it('can be applied to one argument', function() {\n    var f = function(a, b, c) { return [a, b, c]; };\n    var g = R.compose(f);\n    eq(g.length, 3);\n    eq(g(1, 2, 3), [1, 2, 3]);\n  });\n});\ndescribe('compose properties', function() {\n  jsv.property('composes two functions', jsv.fn(), jsv.fn(), jsv.nat, function(f, g, x) {\n    return R.equals(R.compose(f, g)(x), f(g(x)));\n  jsv.property('associative',  jsv.fn(), jsv.fn(), jsv.fn(), jsv.nat, function(f, g, h, x) {\n    var result = f(g(h(x)));\n    return R.all(R.equals(result), [\n      R.compose(f, g, h)(x),\n      R.compose(f, R.compose(g, h))(x),\n      R.compose(R.compose(f, g), h)(x)\n    ]);\n});",
-    "failedSpecsReasons": "ramda passes context to functions | rambda composed functions have no length"
+    "failedSpecsReasons": "ramda passes context to functions | rambda composed functions have no length",
+    "failedSpecsCount": 3
   },
   "concat": {
     "typing": "concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]",
@@ -172,7 +179,8 @@
     "explanation": "It returns a new string or array, which is the result of merging `x` and `y`.",
     "example": "R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]\nR.concat('foo', 'bar') // => 'foobar'",
     "failedRamdaSpecs": "var assert = require('assert');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('concat', function() {\n  var z1 = {\n    x: 'z1',\n    concat: function(that) { return this.x + ' ' + that.x; }\n  };\n  var z2 = {\n    x: 'z2'\n  };\n  it('delegates to non-String object with a concat method, as second param', function() {\n    eq(R.concat(z1, z2), 'z1 z2');\n  });\n});",
-    "failedSpecsReasons": "ramda pass to concat method if present"
+    "failedSpecsReasons": "ramda pass to concat method if present",
+    "failedSpecsCount": 1
   },
   "cond": {
     "typing": "cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any",
@@ -183,7 +191,8 @@
     "example": "const fn = R.cond([\n  [ x => x > 25, R.always('more than 25') ],\n  [ x => x > 15, R.always('more than 15') ],\n  [ R.T, x => `${x} is nothing special` ],\n])\n\nconst result = [\n  fn(30),\n  fn(20),\n  fn(10),\n] \n// => ['more than 25', 'more than 15', '10 is nothing special']",
     "typescriptDefinitionTest": "import {cond, always, equals} from 'rambda'\n\ndescribe('cond', () => {\n  it('happy', () => {\n    const fn = cond<number, string>([\n      [equals(0), always('water freezes at 0°C')],\n      [equals(100), always('water boils at 100°C')],\n      [\n        () => true,\n        function(temp) {\n          return 'nothing special happens at ' + temp + '°C'\n        },\n      ],\n    ])\n\n    const a = fn(0)\n    a // $ExpectType string\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('cond', function() {\n  it('forwards all arguments to predicates and to transformers', function() {\n    var fn = R.cond([\n      [function(_, x) { return x === 42; }, function() { return arguments.length; }]\n    ]);\n    eq(fn(21, 42, 84), 3);\n  });\n  it('retains highest predicate arity', function() {\n    var fn = R.cond([\n      [R.nAry(2, R.T), R.T],\n      [R.nAry(3, R.T), R.T],\n      [R.nAry(1, R.T), R.T]\n    ]);\n    eq(fn.length, 3);\n  });\n});",
-    "failedSpecsReasons": "pass to transformer is not applied in rambda"
+    "failedSpecsReasons": "pass to transformer is not applied in rambda",
+    "failedSpecsCount": 2
   },
   "converge": {
     "typing": "converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any",
@@ -199,7 +208,8 @@
     "explanation": "It expects a function as input and returns its curried version.",
     "example": "const fn = (a, b, c) => a + b + c\nconst curried = R.curry(fn)\nconst sum = curried(1,2)\n\nconst result = sum(3) // => 6",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\nvar jsv = require('jsverify');\nvar funcN = require('./shared/funcN');\n\ndescribe('curry', function() {\n  it('properly reports the length of the curried function', function() {\n    var f = R.curry(function(a, b, c, d) {return (a + b * c) / d;});\n    eq(f.length, 4);\n    var g = f(12);\n    eq(g.length, 3);\n    var h = g(3);\n    eq(h.length, 2);\n    eq(g(3, 6).length, 1);\n  });\n  it('preserves context', function() {\n    var ctx = {x: 10};\n    var f = function(a, b) { return a + b * this.x; };\n    var g = R.curry(f);\n    eq(g.call(ctx, 2, 4), 42);\n    eq(g.call(ctx, 2).call(ctx, 4), 42);\n  });\n  it('supports R.__ placeholder', function() {\n    var f = function(a, b, c) { return [a, b, c]; };\n    var g = R.curry(f);\n    var _ = R.__;\n    eq(g(1)(2)(3), [1, 2, 3]);\n    eq(g(1)(2, 3), [1, 2, 3]);\n    eq(g(1, 2)(3), [1, 2, 3]);\n    eq(g(1, 2, 3), [1, 2, 3]);\n    eq(g(_, 2, 3)(1), [1, 2, 3]);\n    eq(g(1, _, 3)(2), [1, 2, 3]);\n    eq(g(1, 2, _)(3), [1, 2, 3]);\n    eq(g(1, _, _)(2)(3), [1, 2, 3]);\n    eq(g(_, 2, _)(1)(3), [1, 2, 3]);\n    eq(g(_, _, 3)(1)(2), [1, 2, 3]);\n    eq(g(1, _, _)(2, 3), [1, 2, 3]);\n    eq(g(_, 2, _)(1, 3), [1, 2, 3]);\n    eq(g(_, _, 3)(1, 2), [1, 2, 3]);\n    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);\n    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);\n    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);\n    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);\n    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);\n  });\n  it('supports @@functional/placeholder', function() {\n    var f = function(a, b, c) { return [a, b, c]; };\n    var g = R.curry(f);\n    var _ = {'@@functional/placeholder': true, x: Math.random()};\n    eq(g(1)(2)(3), [1, 2, 3]);\n    eq(g(1)(2, 3), [1, 2, 3]);\n    eq(g(1, 2)(3), [1, 2, 3]);\n    eq(g(1, 2, 3), [1, 2, 3]);\n    eq(g(_, 2, 3)(1), [1, 2, 3]);\n    eq(g(1, _, 3)(2), [1, 2, 3]);\n    eq(g(1, 2, _)(3), [1, 2, 3]);\n    eq(g(1, _, _)(2)(3), [1, 2, 3]);\n    eq(g(_, 2, _)(1)(3), [1, 2, 3]);\n    eq(g(_, _, 3)(1)(2), [1, 2, 3]);\n    eq(g(1, _, _)(2, 3), [1, 2, 3]);\n    eq(g(_, 2, _)(1, 3), [1, 2, 3]);\n    eq(g(_, _, 3)(1, 2), [1, 2, 3]);\n    eq(g(1, _, _)(_, 3)(2), [1, 2, 3]);\n    eq(g(_, 2, _)(_, 3)(1), [1, 2, 3]);\n    eq(g(_, _, 3)(_, 2)(1), [1, 2, 3]);\n    eq(g(_, _, _)(_, _)(_)(1, 2, 3), [1, 2, 3]);\n    eq(g(_, _, _)(1, _, _)(_, _)(2, _)(_)(3), [1, 2, 3]);\n  });\n});\ndescribe('curry properties', function() {\n  jsv.property('curries multiple values', funcN(4), jsv.json, jsv.json, jsv.json, jsv.json, function(f, a, b, c, d) {\n    var g = R.curry(f);\n    return R.all(R.equals(f(a, b, c, d)), [\n      g(a, b, c, d),\n      g(a)(b)(c)(d),\n      g(a)(b, c, d),\n      g(a, b)(c, d),\n      g(a, b, c)(d)\n    ]);\n  jsv.property('curries with placeholder', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {\n    var _ = {'@@functional/placeholder': true, x: Math.random()};\n    var g = R.curry(f);\n    return R.all(R.equals(f(a, b, c)), [\n      g(_, _, c)(a, b),\n      g(a, _, c)(b),\n      g(_, b, c)(a),\n      g(a, _, _)(_, c)(b),\n      g(a, b, _)(c)\n    ]);\n});",
-    "failedSpecsReasons": "ramda passes context to functions"
+    "failedSpecsReasons": "ramda passes context to functions",
+    "failedSpecsCount": 5
   },
   "curryN": {
     "typing": "curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any",
@@ -234,7 +244,8 @@
     "explanation": "It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.",
     "example": "const a = [ 1, 2, 3, 4 ]\nconst b = [ 3, 4, 5, 6 ]\n\nconst result = difference(a, b)\n// => [ 1, 2 ]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('difference', function() {\n  var M = [1, 2, 3, 4];\n  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];\n  var N = [3, 4, 5, 6];\n  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];\n  var Z = [3, 4, 5, 6, 10];\n  var Z2 = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8];\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.difference([0], [-0]).length, 1);\n    eq(R.difference([-0], [0]).length, 1);\n    eq(R.difference([NaN], [NaN]).length, 0);\n    eq(R.difference([new Just([42])], [new Just([42])]).length, 0);\n  });\n});",
-    "failedSpecsReasons": "ramda supports negative zero"
+    "failedSpecsReasons": "ramda supports negative zero",
+    "failedSpecsCount": 1
   },
   "dissoc": {
     "typing": "dissoc<T>(prop: string, obj: any): T",
@@ -268,7 +279,8 @@
     "explanation": "It returns `listOrString` with `howManyToDrop` items dropped from its end.",
     "example": "R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']\nR.dropLast(2, 'foobar')  // => 'foob'",
     "failedRamdaSpecs": "var assert = require('assert');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('dropLast', function() {\n  it('can act as a transducer', function() {\n    var dropLast2 = R.dropLast(2);\n    assert.deepEqual(R.into([], dropLast2, [1, 3, 5, 7, 9, 1, 2]), [1, 3, 5, 7, 9]);\n    assert.deepEqual(R.into([], dropLast2, [1]), []);\n  });\n});",
-    "failedSpecsReasons": "ramda method can act as a transducer"
+    "failedSpecsReasons": "ramda method can act as a transducer",
+    "failedSpecsCount": 5
   },
   "either": {
     "typing": "either(firstPredicate: Pred, secondPredicate: Pred): Pred",
@@ -283,7 +295,8 @@
     "explanation": "Curried version of `String.prototype.endsWith`",
     "example": "const str = 'foo-bar'\nconst target = '-bar'\n\nconst result = R.endsWith(target, str)\n// => true",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('startsWith', function() {\n  it('should return true when an array ends with the provided value', function() {\n    eq(R.endsWith(['c'], ['a', 'b', 'c']), true);\n  });\n  it('should return true when an array ends with the provided values', function() {\n    eq(R.endsWith(['b', 'c'], ['a', 'b', 'c']), true);\n  });\n  it('should return false when an array does not end with the provided value', function() {\n    eq(R.endsWith(['b'], ['a', 'b', 'c']), false);\n  });\n  it('should return false when an array does not end with the provided values', function() {\n    eq(R.endsWith(['a', 'b'], ['a', 'b', 'c']), false);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't support arrays"
+    "failedSpecsReasons": "rambda doesn't support arrays",
+    "failedSpecsCount": 4
   },
   "equals": {
     "typing": "equals<T>(a: T, b: T): boolean",
@@ -294,7 +307,8 @@
     "explanation": "It deeply compares `a` and `b` and returns `true` if they are equal.",
     "example": "R.equals(\n  [1, {a:2}, [{b: 3}]],\n  [1, {a:2}, [{b: 3}]]\n) // => true",
     "failedRamdaSpecs": "/* global Map, Set, WeakMap, WeakSet */\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('equals', function() {\n  var a = [];\n  var b = a;\n  it('never considers Boolean primitive equal to Boolean object', function() {\n    eq(R.equals(true, new Boolean(true)), false);\n    eq(R.equals(new Boolean(true), true), false);\n    eq(R.equals(false, new Boolean(false)), false);\n    eq(R.equals(new Boolean(false), false), false);\n  });\n  it('never considers number primitive equal to Number object', function() {\n    eq(R.equals(0, new Number(0)), false);\n    eq(R.equals(new Number(0), 0), false);\n  });\n  it('never considers string primitive equal to String object', function() {\n    eq(R.equals('', new String('')), false);\n    eq(R.equals(new String(''), ''), false);\n    eq(R.equals('x', new String('x')), false);\n    eq(R.equals(new String('x'), 'x'), false);\n  });\n  var supportsSticky = false;\n  try { RegExp('', 'y'); supportsSticky = true; } catch (e) {}\n  var supportsUnicode = false;\n  try { RegExp('', 'u'); supportsUnicode = true; } catch (e) {}\n  var listA = [1, 2, 3];\n  var listB = [1, 3, 2];\n  var c = {}; c.v = c;\n  var d = {}; d.v = d;\n  var e = []; e.push(e);\n  var f = []; f.push(f);\n  var nestA = {a:[1, 2, {c:1}], b:1};\n  var nestB = {a:[1, 2, {c:1}], b:1};\n  var nestC = {a:[1, 2, {c:2}], b:1};\n  it('handles recursive data structures', function() {\n    eq(R.equals(c, d), true);\n    eq(R.equals(e, f), true);\n    eq(R.equals(nestA, nestB), true);\n    eq(R.equals(nestA, nestC), false);\n  });\n  it('requires that both objects have the same enumerable properties with the same values', function() {\n    var a1 = [];\n    var a2 = [];\n    a2.x = 0;\n    var b1 = new Boolean(false);\n    var b2 = new Boolean(false);\n    b2.x = 0;\n    var d1 = new Date(0);\n    var d2 = new Date(0);\n    d2.x = 0;\n    var n1 = new Number(0);\n    var n2 = new Number(0);\n    n2.x = 0;\n    var r1 = /(?:)/;\n    var r2 = /(?:)/;\n    r2.x = 0;\n    var s1 = new String('');\n    var s2 = new String('');\n    s2.x = 0;\n    eq(R.equals(a1, a2), false);\n    eq(R.equals(b1, b2), false);\n    eq(R.equals(d1, d2), false);\n    eq(R.equals(n1, n2), false);\n    eq(R.equals(r1, r2), false);\n    eq(R.equals(s1, s2), false);\n  });\n  if (typeof ArrayBuffer !== 'undefined' && typeof Int8Array !== 'undefined') {\n    var typArr1 = new ArrayBuffer(10);\n    typArr1[0] = 1;\n    var typArr2 = new ArrayBuffer(10);\n    typArr2[0] = 1;\n    var typArr3 = new ArrayBuffer(10);\n    var intTypArr = new Int8Array(typArr1);\n    typArr3[0] = 0;\n    it('handles typed arrays', function() {\n      eq(R.equals(typArr1, typArr2), true);\n      eq(R.equals(typArr1, typArr3), false);\n      eq(R.equals(typArr1, intTypArr), false);\n    });\n  }\n  if (typeof Promise !== 'undefined') {\n    it('compares Promise objects by identity', function() {\n      var p = Promise.resolve(42);\n      var q = Promise.resolve(42);\n      eq(R.equals(p, p), true);\n      eq(R.equals(p, q), false);\n    });\n  }\n  if (typeof Map !== 'undefined') {\n    it('compares Map objects by value', function() {\n      eq(R.equals(new Map([]), new Map([])), true);\n      eq(R.equals(new Map([]), new Map([[1, 'a']])), false);\n      eq(R.equals(new Map([[1, 'a']]), new Map([])), false);\n      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'a']])), true);\n      eq(R.equals(new Map([[1, 'a'], [2, 'b']]), new Map([[2, 'b'], [1, 'a']])), true);\n      eq(R.equals(new Map([[1, 'a']]), new Map([[2, 'a']])), false);\n      eq(R.equals(new Map([[1, 'a']]), new Map([[1, 'b']])), false);\n      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'c']])]])), true);\n      eq(R.equals(new Map([[1, 'a'], [2, new Map([[3, 'c']])]]), new Map([[1, 'a'], [2, new Map([[3, 'd']])]])), false);\n      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [4, 5, 6]]])), true);\n      eq(R.equals(new Map([[[1, 2, 3], [4, 5, 6]]]), new Map([[[1, 2, 3], [7, 8, 9]]])), false);\n    });\n    it('dispatches to `equals` method recursively in Set', function() {\n      var a = new Map();\n      var b = new Map();\n      a.set(a, a);\n      eq(R.equals(a, b), false);\n      a.set(b, b);\n      b.set(b, b);\n      b.set(a, a);\n      eq(R.equals(a, b), true);\n    });\n  }\n  if (typeof Set !== 'undefined') {\n    it('compares Set objects by value', function() {\n      eq(R.equals(new Set([]), new Set([])), true);\n      eq(R.equals(new Set([]), new Set([1])), false);\n      eq(R.equals(new Set([1]), new Set([])), false);\n      eq(R.equals(new Set([1, 2]), new Set([2, 1])), true);\n      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([3])])])), true);\n      eq(R.equals(new Set([1, new Set([2, new Set([3])])]), new Set([1, new Set([2, new Set([4])])])), false);\n      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [4, 5, 6]])), true);\n      eq(R.equals(new Set([[1, 2, 3], [4, 5, 6]]), new Set([[1, 2, 3], [7, 8, 9]])), false);\n    });\n    it('dispatches to `equals` method recursively in Set', function() {\n      var a = new Set();\n      var b = new Set();\n      a.add(a);\n      eq(R.equals(a, b), false);\n      a.add(b);\n      b.add(b);\n      b.add(a);\n      eq(R.equals(a, b), true);\n    });\n  }\n  if (typeof WeakMap !== 'undefined') {\n    it('compares WeakMap objects by identity', function() {\n      var m = new WeakMap([]);\n      eq(R.equals(m, m), true);\n      eq(R.equals(m, new WeakMap([])), false);\n    });\n  }\n  if (typeof WeakSet !== 'undefined') {\n    it('compares WeakSet objects by identity', function() {\n      var s = new WeakSet([]);\n      eq(R.equals(s, s), true);\n      eq(R.equals(s, new WeakSet([])), false);\n    });\n  }\n  it('dispatches to `equals` method recursively', function() {\n    function Left(x) { this.value = x; }\n    Left.prototype.equals = function(x) {\n      return x instanceof Left && R.equals(x.value, this.value);\n    };\n    function Right(x) { this.value = x; }\n    Right.prototype.equals = function(x) {\n      return x instanceof Right && R.equals(x.value, this.value);\n    };\n    eq(R.equals(new Left([42]), new Left([42])), true);\n    eq(R.equals(new Left([42]), new Left([43])), false);\n    eq(R.equals(new Left(42), {value: 42}), false);\n    eq(R.equals({value: 42}, new Left(42)), false);\n    eq(R.equals(new Left(42), new Right(42)), false);\n    eq(R.equals(new Right(42), new Left(42)), false);\n    eq(R.equals([new Left(42)], [new Left(42)]), true);\n    eq(R.equals([new Left(42)], [new Right(42)]), false);\n    eq(R.equals([new Right(42)], [new Left(42)]), false);\n    eq(R.equals([new Right(42)], [new Right(42)]), true);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively"
+    "failedSpecsReasons": "rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively",
+    "failedSpecsCount": 14
   },
   "F": {
     "typing": "F(): boolean",
@@ -311,7 +325,8 @@
     "example": "const list = [3, 4, 3, 2]\nconst listPredicate = (x, index) => x - index > 2\n\nconst object = {abc: 'fo', xyz: 'bar', baz: 'foo'}\nconst objectPredicate = (x, prop) => x.length + prop.length > 5\n\nconst result = [\n  R.filter(listPredicate, list),\n  R.filter(objectPredicate, object)\n]\n// => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]",
     "typescriptDefinitionTest": "import {filter} from 'rambda'\n\ndescribe('filter with array', () => {\n  it('1 curry', () => {\n    const x = filter<number>(a => {\n      a // $ExpectType number\n      return a > 1\n    })([1, 2, 3])\n    x // $ExpectType number[]\n  })\n  it('1', () => {\n    const x = filter<number>(\n      a => {\n        a // $ExpectType number\n        return a > 1\n      },\n      [1, 2, 3]\n    )\n    x // $ExpectType number[]\n  })\n  it('2', () => {\n    const x = filter<number>(\n      (a, b) => {\n        a // $ExpectType number\n        return a > 1\n      },\n      [1, 2, 3]\n    )\n    x // $ExpectType number[]\n  })\n})\n\ndescribe('filter with objects', () => {\n  it('curry', () => {\n    const x = filter<number, number>((a, b, c) => {\n      b // $ExpectType string\n      c // $ExpectType Dictionary<number>\n\n      return a > 1\n    })({a: 1, b: 2})\n    x // $ExpectType Dictionary<number>\n  })\n\n  it('object with three arguments predicate', () => {\n    const x = filter<number>(\n      (a, b, c) => {\n        b // $ExpectType string\n        c // $ExpectType Dictionary<number>\n\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n\n  it('object with two arguments predicate', () => {\n    const x = filter<number>(\n      (a, b) => {\n        b // $ExpectType string\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n  it('object with one argument predicate', () => {\n    const x = filter<number>(\n      a => {\n        a // $ExpectType number\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\nvar Maybe = require('./shared/Maybe');\n\ndescribe('filter', function() {\n  var even = function(x) {return x % 2 === 0;};\n  it('dispatches to passed-in non-Array object with a `filter` method', function() {\n    var f = {filter: function(f) { return f('called f.filter'); }};\n    eq(R.filter(function(s) { return s; }, f), 'called f.filter');\n  });\n  it('correctly uses fantasy-land implementations', function() {\n    var m1 = Maybe.Just(-1);\n    var m2 = R.filter(function(x) { return x > 0; } , m1);\n    eq(m2.isNothing, true);\n  });\n});",
-    "failedSpecsReasons": "ramda dispatches to `filter` method of object"
+    "failedSpecsReasons": "ramda dispatches to `filter` method of object",
+    "failedSpecsCount": 1
   },
   "find": {
     "typing": "find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined",
@@ -362,7 +377,8 @@
     "explanation": "It returns function which calls `fn` with exchanged first and second argument.",
     "example": "const subtractFlip = R.flip(R.subtract)\n\nconst result = [\n  subtractFlip(1,7),\n  R.flip(1,6)\n]  \n// => [6, -6]",
     "failedRamdaSpecs": "var jsv = require('jsverify');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\nvar funcN = require('./shared/funcN');\ndescribe('flip', function() {\n  it('returns a function which inverts the first two arguments to the supplied function', function() {\n    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};\n    var g = R.flip(f);\n    eq(f('a', 'b', 'c'), 'a b c');\n    eq(g('a', 'b', 'c'), 'b a c');\n  });\n  it('returns a curried function', function() {\n    var f = function(a, b, c) {return a + ' ' + b + ' ' + c;};\n    var g = R.flip(f)('a');\n    eq(g('b', 'c'), 'b a c');\n  });\n  it('returns a function with the correct arity', function() {\n    var f2 = function(a, b) {return a + ' ' + b;};\n    var f3 = function(a, b, c) {return a + ' ' + b + ' ' + c;};\n    eq(R.flip(f2).length, 2);\n    eq(R.flip(f3).length, 3);\n  });\n});\ndescribe('flip properties', function() {\n  jsv.property('inverts first two arguments', funcN(3), jsv.json, jsv.json, jsv.json, function(f, a, b, c) {\n    var g = R.flip(f);\n    return R.equals(f(a, b, c), g(b, a, c));\n  });\n});",
-    "failedSpecsReasons": "rambda flip work only for functions with two arguments"
+    "failedSpecsReasons": "rambda flip work only for functions with two arguments",
+    "failedSpecsCount": 4
   },
   "forEach": {
     "typing": "forEach<T>(fn: (x: T) => void, list: T[]): T[]",
@@ -373,7 +389,8 @@
     "explanation": "It applies `iterable` function over all members of `list` and returns `list`.",
     "example": "const sideEffect = {}\nconst result = R.forEach(\n  x => sideEffect[`foo${x}`] = x\n)([1, 2])\n\nsideEffect //=> {foo1: 1, foo2: 2}\nresult //=> [1, 2]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('forEach', function() {\n  var list = [{x: 1, y: 2}, {x: 100, y: 200}, {x: 300, y: 400}, {x: 234, y: 345}];\n  it('dispatches to `forEach` method', function() {\n    var dispatched = false;\n    var fn = function() {};\n    function DummyList() {}\n    DummyList.prototype.forEach = function(callback) {\n      dispatched = true;\n      eq(callback, fn);\n    };\n    R.forEach(fn, new DummyList());\n    eq(dispatched, true);\n  });\n});",
-    "failedSpecsReasons": "ramda method dispatches to `forEach` method"
+    "failedSpecsReasons": "ramda method dispatches to `forEach` method",
+    "failedSpecsCount": 1
   },
   "fromPairs": {
     "typing": "fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V }",
@@ -391,7 +408,8 @@
     "explanation": "It splits `list` according to a provided `groupFn` function and returns an object.",
     "example": "const list = [ 'a', 'b', 'aa', 'bb' ]\nconst groupFn = x => x.length\n\nconst result = R.groupBy(groupFn, list)\n// => { '1': ['a', 'b'], '2': ['aa', 'bb'] }",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\nvar _isTransformer = require('rambda/internal/_isTransformer');\n\ndescribe('groupBy', function() {\n  it('dispatches on transformer objects in list position', function() {\n    var byType = R.prop('type');\n    var xf = {\n      '@@transducer/init': function() { return {}; },\n      '@@transducer/result': function(x) { return x; },\n      '@@transducer/step': R.mergeRight\n    };\n    eq(_isTransformer(R.groupBy(byType, xf)), true);\n  });\n});",
-    "failedSpecsReasons": "ramda support transforms"
+    "failedSpecsReasons": "ramda support transforms",
+    "failedSpecsCount": 1
   },
   "groupWith": {
     "typing": "groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]",
@@ -410,7 +428,8 @@
     "explanation": "It returns `true` if `obj` has property `prop`.",
     "example": "const obj = {a: 1}\n\nconst result = [\n  R.has('a', obj),\n  R.has('b', obj)\n]\n// => [true, false]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('has', function() {\n  var fred = {name: 'Fred', age: 23};\n  var anon = {age: 99};\n  it('does not check properties from the prototype chain', function() {\n    var Person = function() {};\n    Person.prototype.age = function() {};\n    var bob = new Person();\n    eq(R.has('age', bob), false);\n  });\n});",
-    "failedSpecsReasons": "rambda does check properties from the prototype chain"
+    "failedSpecsReasons": "rambda does check properties from the prototype chain",
+    "failedSpecsCount": 1
   },
   "head": {
     "typing": "head<T>(listOrString: T[]): T | undefined",
@@ -442,7 +461,8 @@
     "explanation": "It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. \n\nWhen `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.",
     "example": "const fn = R.ifElse(\n x => x>10,\n x => x*2,\n x => x*10\n)\n\nconst result = [ fn(8), fn(18) ]\n// => [80, 36]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('ifElse', function() {\n  var t = function(a) { return a + 1; };\n  var identity = function(a) { return a; };\n  var isArray = function(a) { return Object.prototype.toString.call(a) === '[object Array]'; };\n  it('returns a function whose arity equals the max arity of the three arguments to `ifElse`', function() {\n    function a0() { return 0; }\n    function a1(x) { return x; }\n    function a2(x, y) { return x + y; }\n    eq(R.ifElse(a0, a1, a2).length, 2);\n    eq(R.ifElse(a0, a2, a1).length, 2);\n    eq(R.ifElse(a1, a0, a2).length, 2);\n    eq(R.ifElse(a1, a2, a0).length, 2);\n    eq(R.ifElse(a2, a0, a1).length, 2);\n    eq(R.ifElse(a2, a1, a0).length, 2);\n  });\n  it('returns a curried function', function() {\n    var v = function(a) { return typeof a === 'number'; };\n    var ifIsNumber = R.ifElse(v);\n    eq(ifIsNumber(t, identity)(15), 16);\n    eq(ifIsNumber(t, identity)('hello'), 'hello');\n    var fn = R.ifElse(R.gt, R.subtract, R.add);\n    eq(fn(2)(7), 9);\n    eq(fn(2, 7), 9);\n    eq(fn(7)(2), 5);\n    eq(fn(7, 2), 5);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't return a curried function"
+    "failedSpecsReasons": "rambda doesn't return a curried function",
+    "failedSpecsCount": 2
   },
   "inc": {
     "typing": "inc(x: number): number",
@@ -465,7 +485,8 @@
     "example": "const list = [ {id: 10}, {id: 20} ]\n\nconst withFunction = R.indexBy(\n  x => x.id,\n  list\n)\nconst withString = R.indexBy(\n  'id',\n  list\n)\nconst result = [\n  withFunction, \n  R.equals(withFunction, withString)\n]\n// => [ { 10: {id: 10}, 20: {id: 20} }, true ]",
     "typescriptDefinitionTest": "import {indexBy} from 'rambda'\n\nconst list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]\n\ndescribe('indexBy', () => {\n  it('happy', () => {\n    const result = indexBy<any>(x => x.a.b, list)\n    const resultCurried = indexBy<any>(x => x.a.b)(list)\n    result // $ExpectType { [key: string]: any; }\n    resultCurried // $ExpectType { [key: string]: any; }\n  })\n\n  it('with string', () => {\n    const result = indexBy<any>('a.b', list)\n    const resultCurried = indexBy<any>('a.b')(list)\n    result // $ExpectType { [key: string]: any; }\n    resultCurried // $ExpectType { [key: string]: any; }\n  })\n\n  it('with interface', () => {\n    interface Foo {\n      a: string,\n    }\n    const interfaceList = [{a: 'foo'}, {a: 'bar'}]\n    const result = indexBy<Foo>(x => {\n      x.a // $ExpectType string\n      return x.a\n    }, interfaceList)\n    const resultCurried = indexBy<Foo>(x => {\n      x.a // $ExpectType string\n      return x.a\n    })(interfaceList)\n    result // $ExpectType { [key: string]: Foo; }\n    resultCurried // $ExpectType { [key: string]: Foo; }\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('indexBy', function() {\n  it('can act as a transducer', function() {\n    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];\n    var transducer = R.compose(\n      R.indexBy(R.prop('id')),\n      R.map(R.pipe(\n        R.adjust(0, R.toUpper),\n        R.adjust(1, R.omit(['id']))\n      )));\n    var result = R.into({}, transducer, list);\n    eq(result, {ABC: {title: 'B'}, XYZ: {title: 'A'}});\n  });\n});",
-    "failedSpecsReasons": "ramda method can act as a transducer"
+    "failedSpecsReasons": "ramda method can act as a transducer",
+    "failedSpecsCount": 1
   },
   "indexOf": {
     "typing": "indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number",
@@ -475,7 +496,8 @@
     "explanation": "It returns the index of the first element of `list` equals to `valueToFind`.\n\nIf there is no such element, it returns `-1`.",
     "example": "const list = [0, 1, 2, 3]\n\nconst result = [\n  R.indexOf(2, list),\n  R.indexOf(0, list)\n]\n// => [2, -1]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('indexOf', function() {\n  var input = [1, 2, 3, 4, 5];\n  var list = [1, 2, 3];\n  list[-2] = 4; // Throw a wrench in the gears by assigning a non-valid array index as object property.\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.indexOf(0, [-0]), -1);\n    eq(R.indexOf(-0, [0]), -1);\n    eq(R.indexOf(NaN, [NaN]), 0);\n    eq(R.indexOf(new Just([42]), [new Just([42])]), 0);\n  });\n  it('dispatches to `indexOf` method', function() {\n    function Empty() {}\n    Empty.prototype.indexOf = R.always(-1);\n    function List(head, tail) {\n      this.head = head;\n      this.tail = tail;\n    }\n    List.prototype.indexOf = function(x) {\n      var idx = this.tail.indexOf(x);\n      return this.head === x ? 0 : idx >= 0 ? 1 + idx : -1;\n    };\n    var list = new List('b',\n      new List('a',\n        new List('n',\n          new List('a',\n            new List('n',\n              new List('a',\n                new Empty()\n              )\n            )\n          )\n        )\n      )\n    );\n    eq(R.indexOf('a', 'banana'), 1);\n    eq(R.indexOf('x', 'banana'), -1);\n    eq(R.indexOf('a', list), 1);\n    eq(R.indexOf('x', list), -1);\n  });\n});",
-    "failedSpecsReasons": "ramda method dispatches to `indexOf` method"
+    "failedSpecsReasons": "ramda method dispatches to `indexOf` method",
+    "failedSpecsCount": 2
   },
   "init": {
     "typing": "init<T>(listOrString: ReadonlyArray<T>): T[]",
@@ -519,7 +541,8 @@
     "explanation": "It returns `true` is `x` is `empty`.",
     "example": "const result = [\n  R.isEmpty(''),\n  R.isEmpty({ x : 0 })\n]\n// => [true, false]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('isEmpty', function() {\n  it('returns true for empty typed array', function() {\n    eq(R.isEmpty(Uint8Array.from('')), true);\n    eq(R.isEmpty(Float32Array.from('')), true);\n    eq(R.isEmpty(new Float32Array([])), true);\n    eq(R.isEmpty(Uint8Array.from('1')), false);\n    eq(R.isEmpty(Float32Array.from('1')), false);\n    eq(R.isEmpty(new Float32Array([1])), false);\n  });\n});",
-    "failedSpecsReasons": "ramda supports typed arrays"
+    "failedSpecsReasons": "ramda supports typed arrays",
+    "failedSpecsCount": 1
   },
   "isNil": {
     "typing": "isNil(x: any): x is null | undefined",
@@ -545,7 +568,8 @@
     "explanation": "It applies `Object.keys` over `x` and returns its keys.",
     "example": "R.keys({a:1, b:2})  // => ['a', 'b']",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('keys', function() {\n  var obj = {a: 100, b: [1, 2, 3], c: {x: 200, y: 300}, d: 'D', e: null, f: undefined};\n  function C() { this.a = 100; this.b = 200; }\n  C.prototype.x = function() { return 'x'; };\n  C.prototype.y = 'y';\n  var cobj = new C();\n  it('works for primitives', function() {\n    eq(R.keys(null), []);\n    eq(R.keys(undefined), []);\n    eq(R.keys(55), []);\n    eq(R.keys('foo'), []);\n    eq(R.keys(true), []);\n    eq(R.keys(false), []);\n    eq(R.keys(NaN), []);\n    eq(R.keys(Infinity), []);\n    eq(R.keys([]), []);\n  });\n});",
-    "failedSpecsReasons": "ramda method works for primitives"
+    "failedSpecsReasons": "ramda method works for primitives",
+    "failedSpecsCount": 1
   },
   "last": {
     "typing": "last<T>(listOrString: T[]): T | undefined",
@@ -563,7 +587,8 @@
     "explanation": "It returns the last index of `target` in `list` array.\n\n`R.equals` is used to determine equality between `target` and members of `list`.\n\nIf there is no such index, then `-1` is returned.",
     "example": "const list = [1, 2, 3, 1, 2, 3]\nconst result = [\n  R.lastIndexOf(2, list),\n  R.lastIndexOf(4, list),\n]\n// => [4, -1]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('lastIndexOf', function() {\n  var input = [1, 2, 3, 4, 5, 1];\n  var list = ['a', 1, 'a'];\n  list[-2] = 'a'; // Throw a wrench in the gears by assigning a non-valid array index as object property.\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.lastIndexOf(0, [-0]), -1);\n    eq(R.lastIndexOf(-0, [0]), -1);\n    eq(R.lastIndexOf(NaN, [NaN]), 0);\n    eq(R.lastIndexOf(new Just([42]), [new Just([42])]), 0);\n  });\n  it('dispatches to `lastIndexOf` method', function() {\n    function Empty() {}\n    Empty.prototype.lastIndexOf = R.always(-1);\n    function List(head, tail) {\n      this.head = head;\n      this.tail = tail;\n    }\n    List.prototype.lastIndexOf = function(x) {\n      var idx = this.tail.lastIndexOf(x);\n      return idx >= 0 ? 1 + idx : this.head === x ? 0 : -1;\n    };\n    var list = new List('b',\n      new List('a',\n        new List('n',\n          new List('a',\n            new List('n',\n              new List('a',\n                new Empty()\n              )\n            )\n          )\n        )\n      )\n    );\n    eq(R.lastIndexOf('a', 'banana'), 5);\n    eq(R.lastIndexOf('x', 'banana'), -1);\n    eq(R.lastIndexOf('a', list), 5);\n    eq(R.lastIndexOf('x', list), -1);\n  });\n  it('finds function, compared by identity', function() {\n    var f = function() {};\n    var g = function() {};\n    var list = [g, f, g, f];\n    eq(R.lastIndexOf(f, list), 3);\n  });\n});",
-    "failedSpecsReasons": "ramda method dispatches to `lastIndexOf` method"
+    "failedSpecsReasons": "ramda method dispatches to `lastIndexOf` method",
+    "failedSpecsCount": 3
   },
   "length": {
     "typing": "length<T>(listOrString: ReadonlyArray<T>): number",
@@ -573,7 +598,8 @@
     "explanation": "It returns the `length` property of `listOrString`.",
     "example": "const result = [\n  R.length([1, 2, 3, 4]),\n  R.length('foo'),\n]\n// => [4, 3]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('length', function() {\n  it('returns the length of a string', function() {\n    eq(R.length(''), 0);\n    eq(R.length('xyz'), 3);\n  });\n  it('returns NaN for length property of unexpected type', function() {\n    eq(R.identical(NaN, R.length({length: ''})), true);\n    eq(R.identical(NaN, R.length({length: '1.23'})), true);\n    eq(R.identical(NaN, R.length({length: null})), true);\n    eq(R.identical(NaN, R.length({length: undefined})), true);\n    eq(R.identical(NaN, R.length({})), true);\n  });\n});",
-    "failedSpecsReasons": "ramda method supports object with `length` method"
+    "failedSpecsReasons": "ramda method supports object with `length` method",
+    "failedSpecsCount": 1
   },
   "lens": {
     "typing": "lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens",
@@ -778,7 +804,8 @@
     "example": "const obj = {a: {b: 1}}\nconst pathToSearch = 'a.b'\nconst pathToSearchList = ['a', 'b']\n\nconst result = [\n  R.path(pathToSearch, obj),\n  R.path(pathToSearchList, obj),\n  R.path('a.b.c.d', obj)\n]\n// => [1, 1, undefined]",
     "typescriptDefinitionTest": "import {path} from 'rambda'\n\ninterface Input {\n  a: number,\n  b: {\n    c: boolean,\n  },\n}\n\ndescribe('path', () => {\n  it('without specified input type', () => {\n    const input = {a: 1, b: {c: true}}\n    const result = path<boolean>('a.b.c', input)\n    const resultCurried = path<boolean>('a.b.c')(input)\n    result // $ExpectType boolean | undefined\n    resultCurried // $ExpectType boolean | undefined\n  })\n\n  it('without specified output type', () => {\n    const input = {a: 1, b: {c: true}}\n    const result = path('a.b.c', input)\n    result // $ExpectType unknown\n  })\n\n  it('with string as path', () => {\n    const input: Input = {a: 1, b: {c: true}}\n    const resultA = path<boolean>('a.b.c', input)\n    const resultB = path<boolean>('a.b.c')(input)\n    resultA // $ExpectType boolean | undefined\n    resultB // $ExpectType boolean | undefined\n  })\n  it('with array as path', () => {\n    const input: Input = {a: 1, b: {c: true}}\n    const resultA = path<boolean>(['a', 'b', 'c'], input)\n    const resultB = path<boolean>(['a', 'b', 'c'])(input)\n    resultA // $ExpectType boolean | undefined\n    resultB // $ExpectType boolean | undefined\n  })\n})\n\ndescribe('path with specified input', () => {\n  it('with string as path', () => {\n    const input: Input = {a: 1, b: {c: true}}\n    // const wrongInput = { a: 1, b: true }\n    // const resultA = path<Input, boolean>('a.b.c', wrongInput)\n    const resultA = path<Input, boolean>('a.b.c', input)\n    const resultB = path<Input, boolean>('a.b.c')(input)\n    resultA // $ExpectType boolean | undefined\n    resultB // $ExpectType boolean | undefined\n  })\n  it('with array as path', () => {\n    const input: Input = {a: 1, b: {c: true}}\n    const resultA = path<Input, boolean>(['a', 'b', 'c'], input)\n    const resultB = path<Input, boolean>(['a', 'b', 'c'])(input)\n    resultA // $ExpectType boolean | undefined\n    resultB // $ExpectType boolean | undefined\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('path', function() {\n  var deepObject = {a: {b: {c: 'c'}}, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ['arr']};\n  it('takes a path that contains negative indices into arrays', function() {\n    eq(R.path(['x', -2], {x: ['a', 'b', 'c', 'd']}), 'c');\n    eq(R.path([-1, 'y'], [{x: 1, y: 99}, {x: 2, y: 98}, {x: 3, y: 97}]), 97);\n  });\n});",
-    "failedSpecsReasons": "ramda method supports negative indices"
+    "failedSpecsReasons": "ramda method supports negative indices",
+    "failedSpecsCount": 1
   },
   "paths": {
     "typing": "paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]",
@@ -789,7 +816,8 @@
     "example": "const obj = {\n  a : {\n    b : {\n      c : 1,\n      d : 2\n    }\n  }\n}\n\nconst result = R.paths([\n  'a.b.c',\n  'a.b.c.d',\n  'a.b.c.d.e',\n], obj)\n// => [1, 2, undefined]",
     "typescriptDefinitionTest": "import {paths} from 'rambda'\n\ninterface Input {\n  a: number,\n  b: number,\n  c: number,\n}\n\nconst input: Input = {a: 1, b: 2, c: 3}\n\ndescribe('paths', () => {\n  it('with dot notation', () => {\n    const result = paths<number>(['a.b.c', 'foo.bar'], input)\n    result // $ExpectType (number | undefined)[]\n  })\n\n  it('without type', () => {\n    const result = paths(['a.b.c', 'foo.bar'], input)\n    result // $ExpectType unknown[]\n  })\n\n  it('with array as path', () => {\n    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']], input)\n    result // $ExpectType (number | undefined)[]\n  })\n\n  it('with curry', () => {\n    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)\n    result // $ExpectType (number | undefined)[]\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('paths', function() {\n  var obj = {\n    a: {\n      b: {\n        c: 1,\n        d: 2\n      }\n    },\n    p: [{q: 3}, 'Hi'],\n    x: {\n      y: 'Alice',\n      z: [[{}]]\n    }\n  };\n  it('takes a path that contains negative indices into arrays', function() {\n    eq(R.paths([['p', -2, 'q'], ['p', -1]], obj), [3, 'Hi']);\n    eq(R.paths([['p', -4, 'q'], ['x', 'z', -1, 0]], obj), [undefined, {}]);\n  });\n});",
-    "failedSpecsReasons": "ramda method supports negative indices"
+    "failedSpecsReasons": "ramda method supports negative indices",
+    "failedSpecsCount": 1
   },
   "pathOr": {
     "typing": "pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T",
@@ -825,7 +853,8 @@
     "explanation": "It performs left-to-right function composition.",
     "example": "const result = R.pipe(\n  R.filter(val => val > 2),\n  R.map(a => a * 2)\n)([1, 2, 3, 4])\n\n// => [6, 8]",
     "failedRamdaSpecs": "var assert = require('assert');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('pipe', function() {\n  it('performs left-to-right function composition', function() {\n    //  f :: (String, Number?) -> ([Number] -> [Number])\n    var f = R.pipe(parseInt, R.multiply, R.map);\n    eq(f.length, 2);\n    eq(f('10')([1, 2, 3]), [10, 20, 30]);\n    eq(f('10', 2)([1, 2, 3]), [2, 4, 6]);\n  });\n  it('passes context to functions', function() {\n    function x(val) {\n      return this.x * val;\n    }\n    function y(val) {\n      return this.y * val;\n    }\n    function z(val) {\n      return this.z * val;\n    }\n    var context = {\n      a: R.pipe(x, y, z),\n      x: 4,\n      y: 2,\n      z: 1\n    };\n    eq(context.a(5), 40);\n  });\n  it('can be applied to one argument', function() {\n    var f = function(a, b, c) { return [a, b, c]; };\n    var g = R.pipe(f);\n    eq(g.length, 3);\n    eq(g(1, 2, 3), [1, 2, 3]);\n  });\n});",
-    "failedSpecsReasons": "ramda passes context to functions | rambda composed functions have no length"
+    "failedSpecsReasons": "ramda passes context to functions | rambda composed functions have no length",
+    "failedSpecsCount": 3
   },
   "pluck": {
     "typing": "pluck<T>(property: number, list: ReadonlyArray<T>): T",
@@ -836,7 +865,8 @@
     "example": "const list = [{a: 1}, {a: 2}, {b: 3}]\nconst property = 'a'\n\nR.pluck(list, property) \n// => [1, 2]",
     "typescriptDefinitionTest": "import {pluck} from 'rambda'\n\ndescribe('pluck', () => {\n  it('with object', () => {\n    interface ListMember {\n      a: number,\n      b: string,\n    }\n    const input: ListMember[] = [\n      {a: 1, b: 'foo'},\n      {a: 2, b: 'bar'},\n    ]\n    const resultA = pluck('a', input)\n    const resultB = pluck('b')(input)\n    resultA // $ExpectType number[]\n    resultB // $ExpectType string[]\n  })\n\n  it('with array', () => {\n    const input = [\n      [1, 2],\n      [3, 4],\n      [5, 6],\n    ]\n    const result = pluck(0, input)\n    const resultCurry = pluck(0)(input)\n    result // $ExpectType number[]\n    resultCurry // $ExpectType number[]\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('pluck', function() {\n  var people = [\n    {name: 'Fred', age: 23},\n    {name: 'Wilma', age: 21},\n    {name: 'Pebbles', age: 2}\n  ];\n  it('behaves as a transducer when given a transducer in list position', function() {\n    var numbers = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];\n    var transducer = R.compose(R.pluck('a'), R.map(R.add(1)), R.take(2));\n    eq(R.transduce(transducer, R.flip(R.append), [], numbers), [2, 3]);\n  });\n});",
-    "failedSpecsReasons": "ramda method behaves as a transducer"
+    "failedSpecsReasons": "ramda method behaves as a transducer",
+    "failedSpecsCount": 1
   },
   "prepend": {
     "typing": "prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[]",
@@ -865,7 +895,8 @@
     "explanation": "It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.",
     "example": "const obj = { foo: 'bar' }\nconst secondObj = { foo: 1 }\n\nconst propToFind = 'foo'\nconst valueToMatch = 'bar'\n\nconst result = [\n  R.propEq(propToFind, valueToMatch, obj),\n  R.propEq(propToFind, valueToMatch, secondObj)\n]\n// => [true, false]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('propEq', function() {\n  var obj1 = {name: 'Abby', age: 7, hair: 'blond'};\n  var obj2 = {name: 'Fred', age: 12, hair: 'brown'};\n  it('handles number as property', function() {\n    var deities = ['Cthulhu', 'Dagon', 'Yog-Sothoth'];\n    eq(R.propEq(0, 'Cthulhu', deities), true);\n    eq(R.propEq(1, 'Dagon', deities), true);\n    eq(R.propEq(2, 'Yog-Sothoth', deities), true);\n    eq(R.propEq(-1, 'Yog-Sothoth', deities), true);\n    eq(R.propEq(3, undefined, deities), true);\n  });\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.propEq('value', 0, {value: -0}), false);\n    eq(R.propEq('value', -0, {value: 0}), false);\n    eq(R.propEq('value', NaN, {value: NaN}), true);\n    eq(R.propEq('value', new Just([42]), {value: new Just([42])}), true);\n  });\n});",
-    "failedSpecsReasons": "ramda method pass to `equals` method if available"
+    "failedSpecsReasons": "ramda method pass to `equals` method if available",
+    "failedSpecsCount": 1
   },
   "propIs": {
     "typing": "propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean",
@@ -902,7 +933,8 @@
     "example": "const list = [1, 2, 3]\nconst initialValue = 10\nconst reducer = (prev, current) => prev * current\n\nconst result = R.reduce(reducer, initialValue, list)\n// => 60",
     "typescriptDefinitionTest": "import {reduce} from 'rambda'\n\ndescribe('reduce', () => {\n  it('happy', () => {\n    const result = reduce<number, number>(\n      (acc, elem) => {\n        acc // $ExpectType number\n        elem // $ExpectType number\n        return acc + elem\n      },\n      1,\n      [1, 2, 3]\n    )\n\n    result // $ExpectType number\n  })\n\n  it('with two types', () => {\n    const result = reduce<number, string>(\n      (acc, elem) => {\n        acc // $ExpectType string\n        elem // $ExpectType number\n\n        return `${acc}${elem}`\n      },\n      'foo',\n      [1, 2, 3]\n    )\n\n    result // $ExpectType string\n  })\n\n  it('with index', () => {\n    const result = reduce<number, number>(\n      (acc, elem, i) => {\n        acc // $ExpectType number\n        elem // $ExpectType number\n        i // $ExpectType number\n        return acc + elem\n      },\n      1,\n      [1, 2, 3]\n    )\n\n    result // $ExpectType number\n  })\n\n  it('fallback', () => {\n    const result = reduce(\n      (acc, val) => {\n        acc // $ExpectType number\n        return acc + val\n      },\n      1,\n      [1, 2, 3]\n    )\n\n    result // $ExpectType number\n  })\n\n  it('fallback with index', () => {\n    const result = reduce(\n      (acc, val, i) => {\n        acc // $ExpectType number\n        i // $ExpectType number\n        return acc + val\n      },\n      1,\n      [1, 2, 3]\n    )\n\n    result // $ExpectType number\n  })\n\n  it('fallback with two types', () => {\n    const result = reduce(\n      (acc, val) => {\n        acc // $ExpectType string\n        return acc + val\n      },\n      'foo',\n      [1, 2, 3]\n    )\n\n    result // $ExpectType string\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('reduce', function() {\n  var add = function(a, b) {return a + b;};\n  var mult = function(a, b) {return a * b;};\n  it('Prefers the use of the iterator of an object over reduce (and handles short-circuits)', function() {\n    var symIterator = (typeof Symbol !== 'undefined') ? Symbol.iterator : '@@iterator';\n    function Reducible(arr) {\n      this.arr = arr;\n    }\n    Reducible.prototype.reduce = function(f, init) {\n      var acc = init;\n      for (var i = 0; i < this.arr.length; i += 1) {\n        acc = f(acc, this.arr[i]);\n      }\n      return acc;\n    };\n    Reducible.prototype[symIterator] = function() {\n      var a = this.arr;\n      return {\n        _pos: 0,\n        next: function() {\n          if (this._pos < a.length) {\n            var v = a[this._pos];\n            this._pos += 1;\n            return {\n              value: v,\n              done: false\n            };\n          } else {\n            return {\n              done: true\n            };\n          }\n        }\n      };\n    };\n    var xf = R.take(2);\n    var apendingT = { };\n    apendingT['@@transducer/result'] = R.identity;\n    apendingT['@@transducer/step'] = R.flip(R.append);\n    var rfn = xf(apendingT);\n    var list = new Reducible([1, 2, 3, 4, 5, 6]);\n    eq(R.reduce(rfn, [], list), [1, 2]);\n  });\n  it('short circuits with reduced', function() {\n    var addWithMaxOf10 = function(acc, val) {return acc + val > 10 ? R.reduced(acc) : acc + val;};\n    eq(R.reduce(addWithMaxOf10, 0, [1, 2, 3, 4]), 10);\n    eq(R.reduce(addWithMaxOf10, 0, [2, 4, 6, 8]), 6);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method"
+    "failedSpecsReasons": "rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method",
+    "failedSpecsCount": 2
   },
   "reject": {
     "typing": "reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]",
@@ -914,7 +946,8 @@
     "example": "const list = [1, 2, 3, 4]\nconst predicate = x => x > 2\n\nconst result = [\n  R.reject(predicate, list)\n]\n// => [1, 2]",
     "typescriptDefinitionTest": "import {reject} from 'rambda'\n\ndescribe('reject with array', () => {\n  it('1 curry', () => {\n    const x = reject<number>(a => {\n      a // $ExpectType number\n      return a > 1\n    })([1, 2, 3])\n    x // $ExpectType number[]\n  })\n  it('1', () => {\n    const x = reject<number>(\n      a => {\n        a // $ExpectType number\n        return a > 1\n      },\n      [1, 2, 3]\n    )\n    x // $ExpectType number[]\n  })\n  it('2', () => {\n    const x = reject<number>(\n      (a, b) => {\n        a // $ExpectType number\n        return a > 1\n      },\n      [1, 2, 3]\n    )\n    x // $ExpectType number[]\n  })\n})\n\ndescribe('reject with objects', () => {\n  it('curry', () => {\n    const x = reject<number, number>((a, b, c) => {\n      b // $ExpectType string\n      c // $ExpectType Dictionary<number>\n\n      return a > 1\n    })({a: 1, b: 2})\n    x // $ExpectType Dictionary<number>\n  })\n\n  it('object with three arguments predicate', () => {\n    const x = reject<number>(\n      (a, b, c) => {\n        b // $ExpectType string\n        c // $ExpectType Dictionary<number>\n\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n\n  it('object with two arguments predicate', () => {\n    const x = reject<number>(\n      (a, b) => {\n        b // $ExpectType string\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n  it('object with one argument predicate', () => {\n    const x = reject<number>(\n      a => {\n        a // $ExpectType number\n        return a > 1\n      },\n      {a: 1, b: 2}\n    )\n    x // $ExpectType Dictionary<number>\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('reject', function() {\n  var even = function(x) {return x % 2 === 0;};\n  it('dispatches to `filter` method', function() {\n    function Nothing() {}\n    Nothing.value = new Nothing();\n    Nothing.prototype.filter = function() {\n      return this;\n    };\n    function Just(x) { this.value = x; }\n    Just.prototype.filter = function(pred) {\n      return pred(this.value) ? this : Nothing.value;\n    };\n    var m = new Just(42);\n    eq(R.filter(R.T, m), m);\n    eq(R.filter(R.F, m), Nothing.value);\n    eq(R.reject(R.T, m), Nothing.value);\n    eq(R.reject(R.F, m), m);\n  });\n});",
-    "failedSpecsReasons": "ramda method dispatches to `filter` method"
+    "failedSpecsReasons": "ramda method dispatches to `filter` method",
+    "failedSpecsCount": 1
   },
   "repeat": {
     "typing": "repeat<T>(x: T, timesToRepeat: number): T[]",
@@ -964,7 +997,8 @@
     "example": "const list = [\n  {a: 2},\n  {a: 3},\n  {a: 1}\n]\nconst sortFn = x => x.a\n\nconst result = R.sortBy(list, sortFn)\nconst expected = [\n  {a: 1},\n  {a: 2},\n  {a: 3}\n]\n// => `result` is equal to `expected`",
     "typescriptDefinitionTest": "import {sortBy} from 'rambda'\n\ndescribe('sortBy', () => {\n  it('happy', () => {\n    interface Input {\n      a: number,\n    }\n\n    function fn(x: Input): number {\n      return x.a\n    }\n\n    const input: Input[] = [{a: 2}, {a: 1}, {a: 0}]\n    const result = sortBy(fn, input)\n\n    result // $ExpectType Input[]\n    result[0].a // $ExpectType number\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\nvar albums = [\n  {title: 'Art of the Fugue', artist: 'Glenn Gould', genre: 'Baroque'},\n  {title: 'A Farewell to Kings', artist: 'Rush', genre: 'Rock'},\n  {title: 'Timeout', artist: 'Dave Brubeck Quartet', genre: 'Jazz'},\n  {title: 'Fly By Night', artist: 'Rush', genre: 'Rock'},\n  {title: 'Goldberg Variations', artist: 'Daniel Barenboim', genre: 'Baroque'},\n  {title: 'New World Symphony', artist: 'Leonard Bernstein', genre: 'Romantic'},\n  {title: 'Romance with the Unseen', artist: 'Don Byron', genre: 'Jazz'},\n  {title: 'Somewhere In Time', artist: 'Iron Maiden', genre: 'Metal'},\n  {title: 'In Times of Desparation', artist: 'Danny Holt', genre: 'Modern'},\n  {title: 'Evita', artist: 'Various', genre: 'Broadway'},\n  {title: 'Five Leaves Left', artist: 'Nick Drake', genre: 'Folk'},\n  {title: 'The Magic Flute', artist: 'John Eliot Gardiner', genre: 'Classical'}\n];\ndescribe('sortBy', function() {\n  it('sorts array-like object', function() {\n    var args = (function() { return arguments; }('c', 'a', 'b'));\n    var result = R.sortBy(R.identity, args);\n    eq(result[0], 'a');\n    eq(result[1], 'b');\n    eq(result[2], 'c');\n  });\n});",
-    "failedSpecsReasons": "ramda works with array-like objects"
+    "failedSpecsReasons": "ramda works with array-like objects",
+    "failedSpecsCount": 1
   },
   "split": {
     "typing": "split(separator: string | RegExp): (str: string) => string[]",
@@ -987,7 +1021,8 @@
     "explanation": "Curried version of `String.prototype.startsWith`",
     "example": "const str = 'foo-bar'\n\nconst result = [\n  R.startsWith('foo', str),\n  R.startsWith('bar', str)\n]\n// => [true, false]",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('startsWith', function() {\n  it('should return true when an array starts with the provided value', function() {\n    eq(R.startsWith(['a'], ['a', 'b', 'c']), true);\n  });\n  it('should return true when an array starts with the provided values', function() {\n    eq(R.startsWith(['a', 'b'], ['a', 'b', 'c']), true);\n  });\n  it('should return false when an array does not start with the provided value', function() {\n    eq(R.startsWith(['b'], ['a', 'b', 'c']), false);\n  });\n  it('should return false when an array does not start with the provided values', function() {\n    eq(R.startsWith(['b', 'c'], ['a', 'b', 'c']), false);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't support arrays"
+    "failedSpecsReasons": "rambda doesn't support arrays",
+    "failedSpecsCount": 4
   },
   "subtract": {
     "typing": "subtract(x: number, y: number): number",
@@ -1032,7 +1067,8 @@
     "explanation": "It returns the first `howMany` elements of `listOrString`.",
     "example": "const howMany = 2\n\nconst result = [\n  R.take(howMany, [1, 2, 3]),\n  R.take(howMany, 'foobar'),\n]\n// => [[1, 2], 'fo']",
     "failedRamdaSpecs": "var assert = require('assert');\nvar sinon = require('sinon');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('take', function() {\n  it('handles zero correctly (#1224)', function() {\n    eq(R.into([], R.take(0), [1, 2, 3]), []);\n  });\n  it('steps correct number of times', function() {\n    var spy = sinon.spy();\n    R.into([], R.compose(R.map(spy), R.take(2)), [1, 2, 3]);\n    sinon.assert.calledTwice(spy);\n  });\n  it('transducer called for every member of list if `n` is < 0', function() {\n    var spy = sinon.spy();\n    R.into([], R.compose(R.map(spy), R.take(-1)), [1, 2, 3]);\n    sinon.assert.calledThrice(spy);\n  });\n});",
-    "failedSpecsReasons": "rambda doesn't have 'R.into` method"
+    "failedSpecsReasons": "rambda doesn't have 'R.into` method",
+    "failedSpecsCount": 3
   },
   "takeLast": {
     "typing": "takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]",
@@ -1050,7 +1086,8 @@
     "explanation": "It applies function `fn` to input `x` and returns `x`. \n\nOne use case is debuging in the middle of `R.compose`.",
     "example": "const list = [1, 2, 3]\n\nR.compose(\n  R.map(x => x * 2)\n  R.tap(console.log),\n  R.filter(x => x > 1)\n)(list)\n// => `2` and `3` will be logged",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\nvar listXf = require('./helpers/listXf');\nvar _curry2 = require('rambda/internal/_curry2');\n\ndescribe('tap', function() {\n  var pushToList = _curry2(function(lst, x) { lst.push(x); });\n  it('can act as a transducer', function() {\n    var sideEffect = [];\n    var numbers = [1,2,3,4,5];\n    var xf = R.compose(R.map(R.identity), R.tap(pushToList(sideEffect)));\n    eq(R.into([], xf, numbers), numbers);\n    eq(sideEffect, numbers);\n  });\n  it('dispatches to transformer objects', function() {\n    var sideEffect = [];\n    var pushToSideEffect = pushToList(sideEffect);\n    eq(R.tap(pushToSideEffect, listXf), {\n      f: pushToSideEffect,\n      xf: listXf\n    });\n  });\n});",
-    "failedSpecsReasons": "ramda can act as a transducer"
+    "failedSpecsReasons": "ramda can act as a transducer",
+    "failedSpecsCount": 2
   },
   "test": {
     "typing": "test(regExpression: RegExp): (str: string) => boolean",
@@ -1112,7 +1149,8 @@
     "rambdaSpecs": "import { trim } from './trim'\n\ntest('trim', () => {\n  expect(trim(' foo ')).toEqual('foo')\n})",
     "example": "R.trim('  foo  ') \n// => 'foo'",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('trim', function() {\n  var test = '\\x09\\x0A\\x0B\\x0C\\x0D\\x20\\xA0\\u1680\\u180E\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200A\\u202F\\u205F\\u3000\\u2028\\u2029\\uFEFFHello, World!\\x09\\x0A\\x0B\\x0C\\x0D\\x20\\xA0\\u1680\\u180E\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200A\\u202F\\u205F\\u3000\\u2028\\u2029\\uFEFF';\n  it('trims all ES5 whitespace', function() {\n    eq(R.trim(test), 'Hello, World!');\n    eq(R.trim(test).length, 13);\n  });\n  if (typeof String.prototype.trim !== 'function') {\n    it('falls back to a shim if String.prototype.trim is not present', function() {\n      eq(R.trim('   xyz  '), 'xyz');\n      eq(R.trim(test), 'Hello, World!');\n      eq(R.trim(test).length, 13);\n      eq(R.trim('\\u200b'), '\\u200b');\n      eq(R.trim('\\u200b').length, 1);\n    });\n  }\n});",
-    "failedSpecsReasons": "ramda trims all ES5 whitespace"
+    "failedSpecsReasons": "ramda trims all ES5 whitespace",
+    "failedSpecsCount": 1
   },
   "type": {
     "typing": "type(x: any): \"Object\" | \"Number\" | \"Boolean\" | \"String\" | \"Null\" | \"Array\" | \"Function\" | \"Undefined\" | \"Async\" | \"Promise\" | \"RegExp\" | \"NaN\"",
@@ -1128,7 +1166,8 @@
     "example": "const list = [1, 1, {a: 1}, {a: 2}, {a:1}]\n\nR.uniq(list)\n// => [1, {a: 1}, {a: 2}]",
     "typescriptDefinitionTest": "import {uniq} from 'rambda'\n\ndescribe('uniq', () => {\n  it('happy', () => {\n    const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])\n    result // $ExpectType number[]\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('uniq', function() {\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.uniq([-0, -0]).length, 1);\n    eq(R.uniq([0, -0]).length, 2);\n    eq(R.uniq([NaN, NaN]).length, 1);\n    eq(R.uniq([[1], [1]]).length, 1);\n    eq(R.uniq([new Just([42]), new Just([42])]).length, 1);\n  it('handles null and undefined elements', function() {\n    eq(R.uniq([void 0, null, void 0, null]), [void 0, null]);\n  it('uses reference equality for functions', function() {\n    eq(R.uniq([R.add, R.identity, R.add, R.identity, R.add, R.identity]).length, 2);\n});",
-    "failedSpecsReasons": "ramda pass to `uniq` method | ramda method uses reference equality for functions"
+    "failedSpecsReasons": "ramda pass to `uniq` method | ramda method uses reference equality for functions",
+    "failedSpecsCount": 2
   },
   "uniqWith": {
     "typing": "uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[]",
@@ -1148,7 +1187,8 @@
     "example": "const index = 2\nconst newValue = 88\nconst list = [1, 2, 3, 4, 5]\n\nconst result = update(index, newValue, list)\n// => [1, 2, 88, 4, 5]",
     "typescriptDefinitionTest": "import {update} from 'rambda'\n\ndescribe('update', () => {\n  it('happy', () => {\n    const result = update(1, 0, [1, 2, 3])\n    result // $ExpectType number[]\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('update', function() {\n  it('accepts an array-like object', function() {\n    function args() {\n      return arguments;\n    }\n    eq(R.update(2, 4, args(0, 1, 2, 3)), [0, 1, 4, 3]);\n  });\n});",
-    "failedSpecsReasons": "ramda accepts an array-like object"
+    "failedSpecsReasons": "ramda accepts an array-like object",
+    "failedSpecsCount": 1
   },
   "values": {
     "typing": "values<T extends object, K extends keyof T>(obj: T): T[K][]",
@@ -1179,7 +1219,8 @@
     "example": "const result = [\n  xor(true, true),\n  xor(false, false),\n  xor(false, true),\n]\n// => [false, false, true]",
     "typescriptDefinitionTest": "import {xor} from 'rambda'\n\ndescribe('xor', () => {\n  it('happy', () => {\n    xor(true, false) // $ExpectType boolean\n  })\n  it('curry', () => {\n    xor(true)(false) // $ExpectType boolean\n  })\n})",
     "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('xor', function() {\n  it('returns a curried function', function() {\n    eq(R.xor()(true)(true), false);\n    eq(R.xor()(true)(false), true);\n    eq(R.xor()(false)(true), true);\n    eq(R.xor()(false)(false), false);\n  });\n});",
-    "failedSpecsReasons": "ramda support empty call of method"
+    "failedSpecsReasons": "ramda support empty call of method",
+    "failedSpecsCount": 1
   },
   "zip": {
     "typing": "zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[]",
