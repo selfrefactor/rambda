@@ -6,7 +6,13 @@
       "request": "launch",
       "name": "Jest single run all tests",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": ["--verbose", "-i", "--no-cache", "source/add.spec.js"],
+      "args": [
+        "--verbose", 
+        "-i", 
+        "--no-cache", 
+        "scripts/all-scripts/all-scripts.spec.js"
+      ],
+      "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }

@@ -4508,6 +4508,25 @@ describe('dropLast', function() {
 either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
 
+It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
+
+This `predicate` function will return `true`, if any of the two input predicates return `true`.
+
+```javascript
+const firstPredicate = x => x > 10
+const secondPredicate = x => x % 2 === 0
+const predicate = R.either(firstPredicate, secondPredicate)
+
+const result = [
+  predicate(15),
+  predicate(8),
+  predicate(7),
+]
+//=> [true, true, false]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20firstPredicate%20%3D%20x%20%3D%3E%20x%20%3E%2010%0Aconst%20secondPredicate%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%200%0Aconst%20predicate%20%3D%20R.either(firstPredicate%2C%20secondPredicate)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20predicate(15)%2C%0A%20%20predicate(8)%2C%0A%20%20predicate(7)%2C%0A%5D%0A%2F%2F%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try the above <strong>R.either</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -4515,6 +4534,106 @@ either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```typescript
 either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.either</strong> source</summary>
+
+```javascript
+export function either(firstPredicate, secondPredicate){
+  if (arguments.length === 1){
+    return _secondPredicate => either(firstPredicate, _secondPredicate)
+  }
+
+  return (...input) =>
+    Boolean(firstPredicate(...input) || secondPredicate(...input))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { either } from './either'
+
+test('with multiple inputs', () => {
+  const between = function (
+    a, b, c
+  ){
+    return a < b && b < c
+  }
+  const total20 = function (
+    a, b, c
+  ){
+    return a + b + c === 20
+  }
+  const fn = either(between, total20)
+  expect(fn(
+    7, 8, 5
+  )).toBeTrue()
+})
+
+test('skip evaluation of the second expression', () => {
+  let effect = 'not evaluated'
+  const F = function (){
+    return true
+  }
+  const Z = function (){
+    effect = 'Z got evaluated'
+  }
+  either(F, Z)()
+
+  expect(effect).toBe('not evaluated')
+})
+
+test('case 1', () => {
+  const firstFn = val => val > 0
+  const secondFn = val => val * 5 > 10
+
+  expect(either(firstFn, secondFn)(1)).toBeTrue()
+})
+
+test('case 2', () => {
+  const firstFn = val => val > 0
+  const secondFn = val => val === -10
+  const fn = either(firstFn)(secondFn)
+
+  expect(fn(-10)).toBeTrue()
+})
+```
+
+</details>
+
+<details>
+
+<summary>1 failed <italic>Ramda.either</italic> specs
+
+> Reason for the failure: ramda supports fantasy-land
+</summary>
+
+```javascript
+var S = require('sanctuary');
+
+var R = require('../../../../dist/rambda.js');
+var eq = require('./shared/eq');
+describe('either', function() {
+  it('accepts fantasy-land applicative functors', function() {
+    var Just = S.Just;
+    var Nothing = S.Nothing;
+    eq(R.either(Just(true), Just(true)), Just(true));
+    eq(R.either(Just(true), Just(false)), Just(true));
+    eq(R.either(Just(false), Just(false)), Just(false));
+    eq(R.either(Just(true), Nothing()), Nothing());
+    eq(R.either(Nothing(), Just(false)), Nothing());
+    eq(R.either(Nothing(), Nothing()), Nothing());
+  });
+});
 ```
 
 </details>

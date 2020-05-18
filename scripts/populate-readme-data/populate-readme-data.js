@@ -1,14 +1,20 @@
-import { outputFile } from 'fs-extra'
+import { outputFile, readJson } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, template } from 'rambdax'
 
 import { buildStep } from '../build-step/build-step'
-import methodsDataRambdax from '../populate-docs-data/data-rambdax.json'
-import methodsDataRambda from '../populate-docs-data/data.json'
 import { createMethodData } from './create-method-data'
 import { getIntro } from './get-intro'
 import { getTail } from './get-tail'
 import { rambdaRepl } from './rambda-repl'
+
+async function getMethodsData(withRambdax){
+  const rambdaPath = resolve(__dirname, '../populate-docs-data/data.json')
+  const rambdaxPath = resolve(__dirname, '../populate-docs-data/data-rambdax.json')
+  if(withRambdax) return readJson(rambdaxPath)
+
+  return readJson(rambdaPath)
+}
 
 const removeDoubleNewLines = replace(/\n{3,5}/g, '\n\n')
 
@@ -36,7 +42,7 @@ function getOutputPath(withRambdax){
 export async function populateReadmeData({ withRambdax }){
   await buildStep(withRambdax)
 
-  const methodsData = withRambdax ? methodsDataRambdax : methodsDataRambda
+  const methodsData = await getMethodsData(withRambdax)
 
   const methods = map(x => {
     if (!x.example) return x

@@ -291,7 +291,14 @@
   },
   "either": {
     "typing": "either(firstPredicate: Pred, secondPredicate: Pred): Pred",
-    "allTypings": "either(firstPredicate: Pred, secondPredicate: Pred): Pred;\neither(firstPredicate: Pred): (secondPredicate: Pred) => Pred;"
+    "allTypings": "either(firstPredicate: Pred, secondPredicate: Pred): Pred;\neither(firstPredicate: Pred): (secondPredicate: Pred) => Pred;",
+    "rambdaSource": "export function either(firstPredicate, secondPredicate){\n  if (arguments.length === 1){\n    return _secondPredicate => either(firstPredicate, _secondPredicate)\n  }\n\n  return (...input) =>\n    Boolean(firstPredicate(...input) || secondPredicate(...input))\n}",
+    "rambdaSpecs": "import { either } from './either'\n\ntest('with multiple inputs', () => {\n  const between = function (\n    a, b, c\n  ){\n    return a < b && b < c\n  }\n  const total20 = function (\n    a, b, c\n  ){\n    return a + b + c === 20\n  }\n  const fn = either(between, total20)\n  expect(fn(\n    7, 8, 5\n  )).toBeTrue()\n})\n\ntest('skip evaluation of the second expression', () => {\n  let effect = 'not evaluated'\n  const F = function (){\n    return true\n  }\n  const Z = function (){\n    effect = 'Z got evaluated'\n  }\n  either(F, Z)()\n\n  expect(effect).toBe('not evaluated')\n})\n\ntest('case 1', () => {\n  const firstFn = val => val > 0\n  const secondFn = val => val * 5 > 10\n\n  expect(either(firstFn, secondFn)(1)).toBeTrue()\n})\n\ntest('case 2', () => {\n  const firstFn = val => val > 0\n  const secondFn = val => val === -10\n  const fn = either(firstFn)(secondFn)\n\n  expect(fn(-10)).toBeTrue()\n})",
+    "explanation": "It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.\n\nThis `predicate` function will return `true`, if any of the two input predicates return `true`.",
+    "example": "const firstPredicate = x => x > 10\nconst secondPredicate = x => x % 2 === 0\nconst predicate = R.either(firstPredicate, secondPredicate)\n\nconst result = [\n  predicate(15),\n  predicate(8),\n  predicate(7),\n]\n//=> [true, true, false]",
+    "failedRamdaSpecs": "var S = require('sanctuary');\n\nvar R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\ndescribe('either', function() {\n  it('accepts fantasy-land applicative functors', function() {\n    var Just = S.Just;\n    var Nothing = S.Nothing;\n    eq(R.either(Just(true), Just(true)), Just(true));\n    eq(R.either(Just(true), Just(false)), Just(true));\n    eq(R.either(Just(false), Just(false)), Just(false));\n    eq(R.either(Just(true), Nothing()), Nothing());\n    eq(R.either(Nothing(), Just(false)), Nothing());\n    eq(R.either(Nothing(), Nothing()), Nothing());\n  });\n});",
+    "failedSpecsReasons": "ramda supports fantasy-land",
+    "failedSpecsCount": 1
   },
   "endsWith": {
     "typing": "endsWith(target: string, str: string): boolean",
