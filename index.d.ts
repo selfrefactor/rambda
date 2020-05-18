@@ -225,6 +225,9 @@ export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0)
 export function clamp(min: number, max: number, input: number): number;
 export function clamp(min: number, max: number): (input: number) => number;
 
+/**
+ * It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
+ */
 export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 

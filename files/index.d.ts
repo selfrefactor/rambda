@@ -514,7 +514,7 @@ export function clamp(min: number, max: number, input: number): number;
 export function clamp(min: number, max: number): (input: number) => number;
 
 /*
-Method:
+Method: clone
 
 Explanation: It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
 
