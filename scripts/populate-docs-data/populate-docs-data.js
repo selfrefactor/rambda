@@ -1,4 +1,5 @@
-import { outputJSON } from 'fs-extra'
+import { resolve } from 'path'
+import { outputJSON, existsSync } from 'fs-extra'
 import { map, piped } from 'rambdax'
 
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
@@ -27,6 +28,27 @@ function appendData({ input, prop, hash }){
       [ prop ] : hash[ methodName ],
     }
   })(input)
+}
+
+async function save({withRambdax, toSave}){
+  const output = withRambdax ?
+  `${ __dirname }/data-rambdax.json` :
+  `${ __dirname }/data.json`
+
+  await outputJSON(
+    output, toSave, { spaces : 2 }
+  )
+
+  const docsDir = resolve(__dirname, '../../../rambda-docs')
+  if(!existsSync(docsDir)) return
+
+  const docsOutput = withRambdax ?
+  `${ docsDir }/data-rambdax.json` :
+  `${ docsDir }/data.json`
+  
+  await outputJSON(
+    docsOutput, toSave, { spaces : 2 }
+  )
 }
 
 export async function populateDocsData({ withRambdax }){
@@ -113,13 +135,7 @@ export async function populateDocsData({ withRambdax }){
       })
   )
 
-  const output = withRambdax ?
-    `${ __dirname }/data-rambdax.json` :
-    `${ __dirname }/data.json`
-
-  await outputJSON(
-    output, toSave, { spaces : 2 }
-  )
+  await save({withRambdax, toSave})    
 
   return toSave
 }
