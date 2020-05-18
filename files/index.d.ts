@@ -922,7 +922,7 @@ export function dropLast<T>(howManyToDrop: number): {
 };
 
 /*
-Method:
+Method: either
 
 Explanation: It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
 

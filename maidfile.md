@@ -2,7 +2,7 @@
 
 ```bash
 jest scripts/lint/lint.spec.js
-``` 
+```
 
 ## lint:ts
 
