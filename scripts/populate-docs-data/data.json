@@ -447,7 +447,11 @@
   },
   "head": {
     "typing": "head<T>(listOrString: T[]): T | undefined",
-    "allTypings": "head<T>(listOrString: T[]): T | undefined;\nhead(listOrString: string): string;"
+    "allTypings": "head<T>(listOrString: T[]): T | undefined;\nhead(listOrString: string): string;",
+    "rambdaSource": "export function head(listOrString){\n  if (typeof listOrString === 'string') return listOrString[ 0 ] || ''\n\n  return listOrString[ 0 ]\n}",
+    "rambdaSpecs": "import { head } from './head'\n\ntest('head', () => {\n  expect(head([ 'fi', 'fo', 'fum' ])).toEqual('fi')\n  expect(head([])).toEqual(undefined)\n  expect(head('foo')).toEqual('f')\n  expect(head('')).toEqual('')\n})",
+    "explanation": "It returns the first element of `listOrString`.",
+    "example": "const result = [\n  R.head([1, 2, 3]),\n  R.head('foo') \n]\n// => [1, 'f']"
   },
   "identical": {
     "typing": "identical<T>(a: T, b: T): boolean",
@@ -488,7 +492,14 @@
   },
   "includes": {
     "typing": "includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean",
-    "allTypings": "includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;\nincludes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;\nincludes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;\nincludes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;"
+    "allTypings": "includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;\nincludes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;\nincludes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;\nincludes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;",
+    "rambdaSource": "import { equals } from './equals'\n\nexport function includes(valueToFind, input){\n  if (arguments.length === 1) return _input => includes(valueToFind, _input)\n\n  if (typeof input === 'string'){\n    return input.includes(valueToFind)\n  }\n  if (!Array.isArray(input)) return false\n\n  let index = -1\n\n  while (++index < input.length){\n    if (equals(input[ index ], valueToFind)){\n      return true\n    }\n  }\n\n  return false\n}",
+    "rambdaSpecs": "import R from 'ramda'\n\nimport { includes } from './includes'\n\ntest('includes with string', () => {\n  const str = 'more is less'\n\n  expect(includes('less')(str)).toBeTrue()\n  expect(R.includes('less')(str)).toBeTrue()\n  expect(includes('never', str)).toBeFalse()\n  expect(R.includes('never', str)).toBeFalse()\n})\n\ntest('includes with array', () => {\n  const arr = [ 1, 2, 3 ]\n\n  expect(includes(2)(arr)).toBeTrue()\n  expect(R.includes(2)(arr)).toBeTrue()\n\n  expect(includes(4, arr)).toBeFalse()\n  expect(R.includes(4, arr)).toBeFalse()\n})\n\ntest('return false if input is falsy', () => {\n  expect(includes(2, null)).toBeFalse()\n  expect(() => R.includes(2, null)).toThrowWithMessage(TypeError,\n    'Cannot read property \\'indexOf\\' of null')\n  expect(includes(4, undefined)).toBeFalse()\n  expect(() => R.includes(4, undefined)).toThrowWithMessage(TypeError,\n    'Cannot read property \\'indexOf\\' of undefined')\n})",
+    "explanation": "If `input` is string, then this method work as native `String.includes`.\n\nIf `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.",
+    "example": "const result = [\n  R.includes('oo', 'foo'),\n  R.includes({a: 1}, [{a: 1}])\n]\n// => [true, true ]",
+    "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('includes', function() {\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.includes(0, [-0]), false);\n    eq(R.includes(-0, [0]), false);\n    eq(R.includes(NaN, [NaN]), true);\n    eq(R.includes(new Just([42]), [new Just([42])]), true);\n  });\n});",
+    "failedSpecsReasons": "ramda method pass to `equals` method if available",
+    "failedSpecsCount": 1
   },
   "indexBy": {
     "typing": "indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T }",
@@ -899,7 +910,12 @@
   },
   "prop": {
     "typing": "prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]",
-    "allTypings": "prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];\nprop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;\nprop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;"
+    "allTypings": "prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];\nprop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;\nprop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;",
+    "rambdaSource": "export function prop(propToFind, obj){\n  if (arguments.length === 1) return _obj => prop(propToFind, _obj)\n\n  if (!obj) return undefined\n\n  return obj[ propToFind ]\n}",
+    "rambdaSpecs": "import { prop } from './prop'\n\ntest('prop', () => {\n  expect(prop('foo')({ foo : 'baz' })).toEqual('baz')\n\n  expect(prop('bar')({ foo : 'baz' })).toEqual(undefined)\n\n  expect(prop('bar')(null)).toEqual(undefined)\n})",
+    "explanation": "It returns the value of property `propToFind` in `obj`.\n\nIf there is no such property, it returns `undefined`.",
+    "example": "const result = [\n  R.prop('x', {x: 100}), \n  R.prop('x', {a: 1}) \n]\n// => [100, undefined]",
+    "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('prop', function() {\n  var fred = {name: 'Fred', age: 23};\n  it('handles number as property', function() {\n    var deities = ['Cthulhu', 'Dagon', 'Yog-Sothoth'];\n    eq(R.prop(0, deities), 'Cthulhu');\n    eq(R.prop(1, deities), 'Dagon');\n    eq(R.prop(2, deities), 'Yog-Sothoth');\n    eq(R.prop(-1, deities), 'Yog-Sothoth');\n  });\n});"
   },
   "propEq": {
     "typing": "propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean",
@@ -981,7 +997,11 @@
   },
   "reverse": {
     "typing": "reverse<T>(listOrString: ReadonlyArray<T>): T[]",
-    "allTypings": "reverse<T>(listOrString: ReadonlyArray<T>): T[];\nreverse(listOrString: string): string;"
+    "allTypings": "reverse<T>(listOrString: ReadonlyArray<T>): T[];\nreverse(listOrString: string): string;",
+    "rambdaSource": "export function reverse(listOrString){\n  if (typeof listOrString === 'string'){\n    return listOrString.split('').reverse()\n      .join('')\n  }\n\n  const clone = listOrString.slice()\n\n  return clone.reverse()\n}",
+    "rambdaSpecs": "import { reverse } from './reverse'\n\ntest('happy', () => {\n  expect(reverse([ 1, 2, 3 ])).toEqual([ 3, 2, 1 ])\n})\n\ntest('with string', () => {\n  expect(reverse('baz')).toEqual('zab')\n})\n\ntest('it doesn\\'t mutate', () => {\n  const arr = [ 1, 2, 3 ]\n\n  expect(reverse(arr)).toEqual([ 3, 2, 1 ])\n\n  expect(arr).toEqual([ 1, 2, 3 ])\n})",
+    "explanation": "It returns a reversed copy of `listOrString` input.",
+    "example": "const result = [\n  R.reverse('foo'),\n  R.reverse([1, 2, 3])\n]\n// => ['oof', [3, 2, 1]"
   },
   "slice": {
     "typing": "slice(from: number, to: number, list: string): string",
@@ -1024,7 +1044,11 @@
   },
   "splitEvery": {
     "typing": "splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]",
-    "allTypings": "splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];\nsplitEvery(sliceLength: number, listOrString: string): string[];\nsplitEvery(sliceLength: number): {\n  (listOrString: string): string[];\n  <T>(listOrString: ReadonlyArray<T>): T[][];\n};"
+    "allTypings": "splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];\nsplitEvery(sliceLength: number, listOrString: string): string[];\nsplitEvery(sliceLength: number): {\n  (listOrString: string): string[];\n  <T>(listOrString: ReadonlyArray<T>): T[][];\n};",
+    "rambdaSource": "export function splitEvery(sliceLength, listOrString){\n  if (arguments.length === 1){\n    return _listOrString => splitEvery(sliceLength, _listOrString)\n  }\n\n  if (sliceLength < 1){\n    throw new Error('First argument to splitEvery must be a positive integer')\n  }\n\n  const willReturn = []\n  let counter = 0\n\n  while (counter < listOrString.length){\n    willReturn.push(listOrString.slice(counter, counter += sliceLength))\n  }\n\n  return willReturn\n}",
+    "rambdaSpecs": "import { splitEvery } from './splitEvery'\n\ntest('happy', () => {\n  expect(splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])).toEqual([\n    [ 1, 2, 3 ],\n    [ 4, 5, 6 ],\n    [ 7 ],\n  ])\n\n  expect(splitEvery(3)('foobarbaz')).toEqual([ 'foo', 'bar', 'baz' ])\n})\n\ntest('with bad input', () => {\n  expect(() =>\n    expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrow('First argument to splitEvery must be a positive integer')\n})",
+    "explanation": "It splits `listOrString` into slices of `sliceLength`.",
+    "example": "const result = [\n  R.splitEvery(2, [1, 2, 3]), \n  R.splitEvery(3, 'foobar') \n]\n\nconst expected = [\n  [[1, 2], [3]],\n  ['foo', 'bar']\n]\n// => `result` is equal to `expected`"
   },
   "startsWith": {
     "typing": "startsWith(target: string, str: string): boolean",
@@ -1040,7 +1064,11 @@
   },
   "subtract": {
     "typing": "subtract(x: number, y: number): number",
-    "allTypings": "subtract(x: number, y: number): number;\nsubtract(x: number): (y: number) => number;"
+    "allTypings": "subtract(x: number, y: number): number;\nsubtract(x: number): (y: number) => number;",
+    "rambdaSource": "export function subtract(a, b){\n  if (arguments.length === 1) return _b => subtract(a, _b)\n\n  return a - b\n}",
+    "rambdaSpecs": "import { subtract } from './subtract'\n\ntest('happy', () => {\n  expect(subtract(2, 1)).toEqual(1)\n  expect(subtract(2)(1)).toEqual(1)\n})",
+    "explanation": "Curried version of `x - y`",
+    "example": "const x = 3\nconst y = 1\n\nR.subtract(x, y) \n// => 2"
   },
   "sum": {
     "typing": "sum(list: ReadonlyArray<number>): number",
@@ -1168,7 +1196,15 @@
   },
   "type": {
     "typing": "type(x: any): \"Object\" | \"Number\" | \"Boolean\" | \"String\" | \"Null\" | \"Array\" | \"Function\" | \"Undefined\" | \"Async\" | \"Promise\" | \"RegExp\" | \"NaN\"",
-    "allTypings": "type(x: any): \"Object\" | \"Number\" | \"Boolean\" | \"String\" | \"Null\" | \"Array\" | \"Function\" | \"Undefined\" | \"Async\" | \"Promise\" | \"RegExp\" | \"NaN\";"
+    "allTypings": "type(x: any): \"Object\" | \"Number\" | \"Boolean\" | \"String\" | \"Null\" | \"Array\" | \"Function\" | \"Undefined\" | \"Async\" | \"Promise\" | \"RegExp\" | \"NaN\";",
+    "notes": "`NaN`, `Promise` and `Async` are types specific for **Rambda**.",
+    "rambdaSource": "export function type(input){\n  const typeOf = typeof input\n\n  if (input === null){\n    return 'Null'\n  } else if (input === undefined){\n    return 'Undefined'\n  } else if (typeOf === 'boolean'){\n    return 'Boolean'\n  } else if (typeOf === 'number'){\n    return Number.isNaN(input) ? 'NaN' : 'Number'\n  } else if (typeOf === 'string'){\n    return 'String'\n  } else if (Array.isArray(input)){\n    return 'Array'\n  } else if (input instanceof RegExp){\n    return 'RegExp'\n  }\n\n  const asStr = input && input.toString ? input.toString() : ''\n\n  if ([ 'true', 'false' ].includes(asStr)) return 'Boolean'\n  if (!Number.isNaN(Number(asStr))) return 'Number'\n  if (asStr.startsWith('async')) return 'Async'\n  if (asStr === '[object Promise]') return 'Promise'\n  if (typeOf === 'function') return 'Function'\n  if (input instanceof String) return 'String'\n\n  return 'Object'\n}",
+    "rambdaSpecs": "import { type as ramdaType } from 'ramda'\n\nimport { type } from './type'\n\ntest('with simple promise', () => {\n  expect(type(Promise.resolve(1))).toBe('Promise')\n})\n\ntest('with new Boolean', () => {\n  expect(type(new Boolean(true))).toBe('Boolean')\n})\n\ntest('with new String', () => {\n  expect(type(new String('I am a String object'))).toEqual('String')\n})\n\ntest('with new Number', () => {\n  expect(type(new Number(1))).toBe('Number')\n})\n\ntest('with new promise', () => {\n  const delay = ms =>\n    new Promise(resolve => {\n      setTimeout(() => {\n        resolve(ms + 110)\n      }, ms)\n    })\n\n  expect(type(delay(10))).toEqual('Promise')\n})\n\ntest('async function', () => {\n  expect(type(async () => {})).toEqual('Async')\n})\n\ntest('async arrow', () => {\n  const asyncArrow = async () => {}\n  expect(type(asyncArrow)).toBe('Async')\n})\n\ntest('function', () => {\n  const fn1 = () => {}\n  const fn2 = function (){}\n\n  function fn3(){}\n\n  ;[ () => {}, fn1, fn2, fn3 ].map(val => {\n    expect(type(val)).toEqual('Function')\n  })\n})\n\ntest('object', () => {\n  expect(type({})).toEqual('Object')\n})\n\ntest('number', () => {\n  expect(type(1)).toEqual('Number')\n})\n\ntest('boolean', () => {\n  expect(type(false)).toEqual('Boolean')\n})\n\ntest('string', () => {\n  expect(type('foo')).toEqual('String')\n})\n\ntest('null', () => {\n  expect(type(null)).toEqual('Null')\n})\n\ntest('array', () => {\n  expect(type([])).toEqual('Array')\n  expect(type([ 1, 2, 3 ])).toEqual('Array')\n})\n\ntest('regex', () => {\n  expect(type(/\\s/g)).toEqual('RegExp')\n})\n\ntest('undefined', () => {\n  expect(type(undefined)).toEqual('Undefined')\n})\n\ntest('not a number', () => {\n  expect(type(Number('s'))).toBe('NaN')\n})\n\ntest('function inside object 1', () => {\n  const obj = {\n    f(){\n      return 4\n    },\n  }\n\n  expect(type(obj.f)).toBe('Function')\n  expect(ramdaType(obj.f)).toBe('Function')\n})\n\ntest('function inside object 2', () => {\n  const name = 'f'\n  const obj = {\n    [ name ](){\n      return 4\n    },\n  }\n  expect(type(obj.f)).toBe('Function')\n  expect(ramdaType(obj.f)).toBe('Function')\n})",
+    "explanation": "It accepts any input and it returns its type.",
+    "example": "R.type(() => {}) // => 'Function'\nR.type(async () => {}) // => 'Async'\nR.type([]) // => 'Array'\nR.type({}) // => 'Object'\nR.type('foo') // => 'String'\nR.type(1) // => 'Number'\nR.type(true) // => 'Boolean'\nR.type(null) // => 'Null'\nR.type(/[A-z]/) // => 'RegExp'\nR.type('foo'*1) // => 'NaN'\n\nconst delay = ms => new Promise(resolve => {\n  setTimeout(function () {\n    resolve()\n  }, ms)\n})\nR.type(delay) // => 'Promise'",
+    "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('type', function() {\n  // it('\"Arguments\" if given an arguments object', function() {\n  //   var args = (function() { return arguments; }());\n  //   eq(R.type(args), 'Arguments');\n  // });\n  it('\"Number\" if given the NaN value', function() {\n    eq(R.type(NaN), 'Number');\n  });\n});",
+    "failedSpecsReasons": "ramda returns 'Number' type to NaN input, while rambda returns 'NaN'",
+    "failedSpecsCount": 1
   },
   "uniq": {
     "typing": "uniq<T>(list: ReadonlyArray<T>): T[]",
@@ -1223,7 +1259,15 @@
   },
   "without": {
     "typing": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]",
-    "allTypings": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];\nwithout<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];"
+    "allTypings": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];\nwithout<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];",
+    "notes": "`R.equals` is used to determine equality",
+    "rambdaSource": "import { includes } from './includes'\nimport { reduce } from './reduce'\n\nexport function without(matchAgainst, source){\n  if (source === undefined){\n    return _source => without(matchAgainst, _source)\n  }\n\n  return reduce(\n    (prev, current) =>\n      includes(current, matchAgainst) ? prev : prev.concat(current),\n    [],\n    source\n  )\n}",
+    "rambdaSpecs": "import { without } from './without'\n\ntest('should return a new list without values in the first argument ', () => {\n  const itemsToOmit = [ 'A', 'B', 'C' ]\n  const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]\n\n  expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])\n  expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])\n})\n\ntest('ramda test', () => {\n  expect(without([ 1, 2 ])([ 1, 2, 1, 3, 4 ])).toEqual([ 3, 4 ])\n})",
+    "explanation": "It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.",
+    "example": "const source = [1, 2, 3, 4]\nconst matchAgainst = [2, 3]\n\nconst result = R.without(matchAgainst, source)\n// => [1, 4]",
+    "failedRamdaSpecs": "var R = require('../../../../dist/rambda.js');\nvar eq = require('./shared/eq');\n\ndescribe('without', function() {\n  it('can act as a transducer', function() {\n    eq(R.into([], R.without([1]), [1]), []);\n  });\n  it('has R.equals semantics', function() {\n    function Just(x) { this.value = x; }\n    Just.prototype.equals = function(x) {\n      return x instanceof Just && R.equals(x.value, this.value);\n    };\n    eq(R.without([0], [-0]).length, 1);\n    eq(R.without([-0], [0]).length, 1);\n    eq(R.without([NaN], [NaN]).length, 0);\n    eq(R.without([[1]], [[1]]).length, 0);\n    eq(R.without([new Just([42])], [new Just([42])]).length, 0);\n  });\n});",
+    "failedSpecsReasons": "ramda method act as a transducer | ramda method pass to `equals` method",
+    "failedSpecsCount": 2
   },
   "xor": {
     "typing": "xor(x: boolean, y: boolean): boolean",

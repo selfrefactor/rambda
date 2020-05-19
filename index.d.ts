@@ -327,6 +327,11 @@ export function dropLast<T>(howManyToDrop: number): {
   (listOrString: string): string;
 };
 
+/**
+ * It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
+ * 
+ * This `predicate` function will return `true`, if any of the two input predicates return `true`.
+ */
 export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
@@ -429,6 +434,9 @@ export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): 
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
 
+/**
+ * It returns the first element of `listOrString`.
+ */
 export function head<T>(listOrString: T[]): T | undefined;
 export function head(listOrString: string): string;
 
@@ -458,6 +466,11 @@ export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Ar
  */
 export function inc(x: number): number;
 
+/**
+ * If `input` is string, then this method work as native `String.includes`.
+ * 
+ * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
+ */
 export function includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
 export function includes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
 export function includes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
@@ -779,6 +792,11 @@ export function prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 export function product(list: ReadonlyArray<number>): number;
 
+/**
+ * It returns the value of property `propToFind` in `obj`.
+ * 
+ * If there is no such property, it returns `undefined`.
+ */
 export function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 export function prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
 export function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
@@ -840,6 +858,9 @@ export function replace(strOrRegex: RegExp | string, replacer: string, str: stri
 export function replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
 export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
+/**
+ * It returns a reversed copy of `listOrString` input.
+ */
 export function reverse<T>(listOrString: ReadonlyArray<T>): T[];
 export function reverse(listOrString: string): string;
 
@@ -875,6 +896,9 @@ export function sortBy(sortFn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => 
 export function split(separator: string | RegExp): (str: string) => string[];
 export function split(separator: string | RegExp, str: string): string[];
 
+/**
+ * It splits `listOrString` into slices of `sliceLength`.
+ */
 export function splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][];
 export function splitEvery(sliceLength: number, listOrString: string): string[];
 export function splitEvery(sliceLength: number): {
@@ -888,6 +912,9 @@ export function splitEvery(sliceLength: number): {
 export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
 
+/**
+ * Curried version of `x - y`
+ */
 export function subtract(x: number, y: number): number;
 export function subtract(x: number): (y: number) => number;
 
@@ -964,6 +991,9 @@ export function transpose<T>(list: T[][]): T[][];
 
 export function trim(str: string): string;
 
+/**
+ * It accepts any input and it returns its type.
+ */
 export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 
 /**

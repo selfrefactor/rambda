@@ -113,7 +113,8 @@
     "fix": [
       "small",
       "dep",
-      "scripts"
+      "scripts",
+      "docs"
     ],
     "workInProgress": ""
   }

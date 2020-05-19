@@ -1338,7 +1338,7 @@ export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
 
 /*
-Method:
+Method: head
 
 Explanation: It returns the first element of `listOrString`.
 
@@ -1457,7 +1457,7 @@ Notes:
 export function inc(x: number): number;
 
 /*
-Method:
+Method: includes
 
 Explanation: If `input` is string, then this method work as native `String.includes`.
 
@@ -2893,7 +2893,7 @@ Notes:
 export function product(list: ReadonlyArray<number>): number;
 
 /*
-Method:
+Method: prop
 
 Explanation: It returns the value of property `propToFind` in `obj`.
 
@@ -3134,7 +3134,7 @@ export function replace(strOrRegex: RegExp | string, replacer: string): (str: st
 export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
 /*
-Method:
+Method: reverse
 
 Explanation: It returns a reversed copy of `listOrString` input. 
 
@@ -3286,7 +3286,7 @@ export function split(separator: string | RegExp): (str: string) => string[];
 export function split(separator: string | RegExp, str: string): string[];
 
 /*
-Method:
+Method: splitEvery
 
 Explanation: It splits `listOrString` into slices of `sliceLength`.
 
@@ -3345,7 +3345,7 @@ export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
 
 /*
-Method: substract
+Method: subtract
 
 Explanation: Curried version of `x - y`
 
@@ -3355,7 +3355,7 @@ Example:
 const x = 3
 const y = 1
 
-R.substract(x, y) 
+R.subtract(x, y) 
 // => 2
 ```
 
@@ -3729,7 +3729,7 @@ Notes:
 export function trim(str: string): string;
 
 /*
-Method:
+Method: type
 
 Explanation: It accepts any input and it returns its type.
 
@@ -3923,7 +3923,7 @@ export function when<T>(
 ): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
 /*
-Method:
+Method: without
 
 Explanation: It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
 
