@@ -35,7 +35,7 @@
     "is-ci": "2.0.0",
     "jest": "26.0.1",
     "jest-extended": "0.11.5",
-    "lint-fn": "2.4.2",
+    "lint-fn": "2.8.0",
     "lodash": "4.17.15",
     "maided": "0.1.2",
     "rambdax": "3.7.0",
