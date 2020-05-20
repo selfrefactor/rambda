@@ -26,7 +26,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.9.5",
     "@babel/preset-env": "7.9.0",
     "@types/jest": "25.2.1",
-    "@types/ramda": "0.27.0",
+    "@types/ramda": "0.27.6",
     "cross-env": "7.0.2",
     "dayjs": "^1.8.26",
     "dtslint": "3.5.2",
