@@ -1,8 +1,6 @@
 process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/benchmark_results'
-import dayjs from 'dayjs'
 import fdir from 'fdir'
-import { outputJson } from 'fs-extra'
 import { createBenchmark } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsyncLimit } from 'rambdax'
@@ -27,10 +25,6 @@ export async function runSingleBenchmark(singleMethod){
   createBenchmark({ [ singleMethod ] : required })
 }
 
-function benchmarkTime(){
-  return dayjs().format('dddd, MMMM D YYYY')
-}
-
 export async function runAllBenchmarks(){
   console.time('run.all.benchmarks')
   const methodsWithBenchmarks = await getAllBenchmarks()
@@ -43,6 +37,4 @@ export async function runAllBenchmarks(){
     iterable, 5, methodsWithBenchmarks
   )
   console.timeEnd('run.all.benchmarks')
-
-  await outputJson(`${ __dirname }/time.json`, { benchmarkTime : benchmarkTime() })
 }

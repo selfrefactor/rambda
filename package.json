@@ -28,7 +28,6 @@
     "@types/jest": "25.2.1",
     "@types/ramda": "0.27.6",
     "cross-env": "7.0.2",
-    "dayjs": "^1.8.26",
     "dtslint": "3.5.2",
     "fdir": "2.1.1",
     "helpers-fn": "0.2.0",

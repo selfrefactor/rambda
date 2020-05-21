@@ -236,7 +236,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The date of running the benchmarks is *Thursday, May 14 2020*
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.15) and *Ramda*(0.27.0).
 
 </summary>
 

@@ -2,9 +2,9 @@ import { readFile } from 'fs-extra'
 import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
+import {devDependencies} from '../../package.json'
 
 import { rambdaMethods } from '../constants'
-import { benchmarkTime } from '../run-benchmarks/time.json'
 
 function getMissingMethods(){
   const missingMethodsTemplate = `
@@ -54,7 +54,7 @@ There are methods which are benchmarked only with \`Ramda\` and \`Rambda\`(i.e. 
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The date of running the benchmarks is *{{benchmarkTime}}*
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*({{lodashVersion}}) and *Ramda*({{ramdaVersion}}).
 
 </summary>
 
@@ -89,6 +89,7 @@ export async function getIntro(withRambdax){
     intro          : introContent.toString(),
     summary        : summaryContent.toString(),
     usedBy         : usedByContent.toString(),
-    benchmarkTime,
+    lodashVersion: devDependencies.lodash,
+    ramdaVersion: devDependencies.ramda,
   })
 }
