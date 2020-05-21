@@ -820,26 +820,26 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@definitelytyped/header-parser@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/header-parser/-/header-parser-0.0.29.tgz#81e72279f16ffb7d2c5b2ae7a19982b40544b52d"
-  integrity sha512-d6FgX8LhSY75fa6cpjsTkLsbFuRKxT4k9EV2oc38wznndlkaWLjP9FW1GT24AMg5hkRuA9AJUbKRO1QhSqvSpA==
+"@definitelytyped/header-parser@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/header-parser/-/header-parser-0.0.34.tgz#892c83ae0cdbc52ee439dfc3ac34244903b8a5ee"
+  integrity sha512-/yTifMAhYKB8SFH3pSlAQmcBzrk7UyqpEz9/vJKaMKdzRpJrxmc1zWMP+hwJtJTVCjAK+Ul4m3i1GZQrTZfymw==
   dependencies:
-    "@definitelytyped/typescript-versions" "^0.0.29"
+    "@definitelytyped/typescript-versions" "^0.0.34"
     "@types/parsimmon" "^1.10.1"
     parsimmon "^1.13.0"
 
-"@definitelytyped/typescript-versions@0.0.29", "@definitelytyped/typescript-versions@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/typescript-versions/-/typescript-versions-0.0.29.tgz#1f1a3bb35e2a8d31ce83763481f6e5530f0f92a0"
-  integrity sha512-jMWqu0U5MiEVuTBtAbLwxKoF1ZWzbrcFrmX6nuzPzwxNHzUJlACq9RnIH93//bU7JOxkW6UrZy/8V8W5jxmiFA==
+"@definitelytyped/typescript-versions@0.0.34", "@definitelytyped/typescript-versions@^0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/typescript-versions/-/typescript-versions-0.0.34.tgz#6167363d378670ad7ef9485b7cff7d198106dcdf"
+  integrity sha512-7IqWcbHKYbfY8Lt7AigXDa29cbz3gynzBHMjwMUCeLnex8D682M6OW8uBLouvVHCr+YENL58tQB3dn0Zos8mFQ==
 
-"@definitelytyped/utils@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/utils/-/utils-0.0.29.tgz#dfa642cbec49e6f44789083ff24c182e0da0fb0b"
-  integrity sha512-cqUjvXijj9PgEbVH+DwS5kLHjB700CmeQhFjfRlxn9CeRzSUoa5D0uOdz9b5Hl4XKDQfo1A1lY04nc6z486Nqw==
+"@definitelytyped/utils@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/utils/-/utils-0.0.34.tgz#7d34d4b411b68c95c1b3460071cee3efa4fc5b8b"
+  integrity sha512-C1mlA9ixRfv7PPmO99hJZ8Ii2roKY+7GoIwBPh5uYSF6WfABoVlzyWX3LsF6fy1MwpZbempC+r81iDm2QeYTsw==
   dependencies:
-    "@definitelytyped/typescript-versions" "^0.0.29"
+    "@definitelytyped/typescript-versions" "^0.0.34"
     "@types/node" "^12.12.29"
     charm "^1.0.2"
     fs-extra "^8.1.0"
@@ -2172,11 +2172,6 @@ dayjs@1.8.23:
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
   integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
 
-dayjs@^1.8.26:
-  version "1.8.26"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.26.tgz#c6d62ccdf058ca72a8d14bb93a23501058db9f1e"
-  integrity sha512-KqtAuIfdNfZR5sJY1Dixr2Is4ZvcCqhb0dZpCOt5dGEFiMzoIbjkTSzUb4QKTCsP+WNpGwUjAFIZrnZvUxxkhw==
-
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -2301,27 +2296,28 @@ domexception@^2.0.1:
   dependencies:
     webidl-conversions "^5.0.0"
 
-dts-critic@^3.0.2:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/dts-critic/-/dts-critic-3.1.0.tgz#bbbe707f1fb6efa08e85aeaf1ee9dd7a184dca98"
-  integrity sha512-cNn4SsrlnGqnqxXE0GdPORurDrr+Y8k6yy5eBpjM6lu0C80QgabU8ypq+uAQ+JYeJ/ykQVUNo9zdLQfZHvnSVQ==
+dts-critic@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/dts-critic/-/dts-critic-3.2.3.tgz#892c9a02fd620a1d30449b26b314cd4820d9ba9c"
+  integrity sha512-CErYGgQiloLH0PZ/vrLH5+WgpPbHiOj77qFF+6pGuGtlQzb43oFUSS9Qetr4y9fAg2ZOG9ZvGp7h+jhh0kkbAg==
   dependencies:
-    "@definitelytyped/header-parser" "0.0.29"
+    "@definitelytyped/header-parser" "0.0.34"
     command-exists "^1.2.8"
     rimraf "^3.0.2"
     semver "^6.2.0"
-    typescript "^3.7.5"
+    tmp "^0.2.1"
+    typescript "^3.9.2"
     yargs "^12.0.5"
 
-dtslint@3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-3.5.2.tgz#56d70b47415e70a3b689c242d19e20d15be7c7e7"
-  integrity sha512-i76Ai9Oo8uD8IQhGcb8X0AHNs/fo7RUnVSOk+a/OYkO9WXkM7l8oHGnZGZSMu2TbSRE1JQD/hWK56R94e+uXrQ==
+dtslint@3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-3.6.4.tgz#f7439e0306c6c1b58e04d68fb6679d2f9549721f"
+  integrity sha512-D9qwC0N945ge+CENZ1Dtm6I72fc8dAgQpyAde1XoiChR+mk8dC9uzToJNORe7SI0P3dSSULofwjsg7rzQ/iplw==
   dependencies:
-    "@definitelytyped/header-parser" "0.0.29"
-    "@definitelytyped/typescript-versions" "0.0.29"
-    "@definitelytyped/utils" "0.0.29"
-    dts-critic "^3.0.2"
+    "@definitelytyped/header-parser" "0.0.34"
+    "@definitelytyped/typescript-versions" "0.0.34"
+    "@definitelytyped/utils" "0.0.34"
+    dts-critic "^3.2.3"
     fs-extra "^6.0.1"
     json-stable-stringify "^1.0.1"
     strip-json-comments "^2.0.1"
@@ -5955,6 +5951,13 @@ tmp@^0.0.33:
   dependencies:
     os-tmpdir "~1.0.2"
 
+tmp@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.1.tgz#8457fc3037dcf4719c251367a1af6500ee1ccf14"
+  integrity sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==
+  dependencies:
+    rimraf "^3.0.0"
+
 tmpl@1.0.x:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
@@ -6127,15 +6130,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.9.3:
+typescript@3.9.3, typescript@^3.9.2:
   version "3.9.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.3.tgz#d3ac8883a97c26139e42df5e93eeece33d610b8a"
   integrity sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==
-
-typescript@^3.7.5:
-  version "3.8.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
-  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
 typescript@next:
   version "4.0.0-dev.20200512"
