@@ -814,8 +814,12 @@ export function propEq(propToFind: string | number): {
 /**
  * It returns `true` if `property` of `obj` is from `target` type.
  */
-export function propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
-export function propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
+export function propIs(type: any, name: string, obj: any): boolean;
+export function propIs(type: any, name: string): (obj: any) => boolean;
+export function propIs(type: any): {
+    (name: string, obj: any): boolean;
+    (name: string): (obj: any) => boolean;
+};
 
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
@@ -1025,6 +1029,9 @@ export function when<T>(
   rule: Func<boolean>
 ): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
+/**
+ * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
+ */
 export function without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 export function without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];
 

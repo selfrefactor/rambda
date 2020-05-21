@@ -14,6 +14,10 @@ test('when false', () => {
 
 test('supports function', () => {
   expect(anyTrue(
-    false, false, false, () => false, () => true
+    false,
+    false,
+    false,
+    () => false,
+    () => true
   )).toBeTruthy()
 })

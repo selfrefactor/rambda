@@ -5416,9 +5416,9 @@ export function filter(predicate, list){
 
 ```javascript
 import Ramda from 'ramda'
-
 import { filter } from './filter'
 import { T } from './T'
+import { F } from './F'
 
 const sampleObject = {
   a : 1,
@@ -5440,11 +5440,11 @@ test('happy', () => {
 
 test('bad inputs', () => {
   expect(filter(T)(undefined)).toEqual([])
-  expect(filter(T, null)).toEqual([])
+  expect(filter(F, null)).toEqual([])
   expect(() => Ramda.filter(T, null)).toThrow()
   expect(() => Ramda.filter(T, undefined)).toThrow()
 })
-
+ 
 test('predicate when input is object', () => {
   const obj = {
     a : 1,
@@ -12087,7 +12087,7 @@ describe('propEq', function() {
 ### propIs
 
 ```typescript
-propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean
+propIs(type: any, name: string, obj: any): boolean
 ```
 
 It returns `true` if `property` of `obj` is from `target` type.
@@ -12110,8 +12110,12 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
-propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
+propIs(type: any, name: string, obj: any): boolean;
+propIs(type: any, name: string): (obj: any) => boolean;
+propIs(type: any): {
+    (name: string, obj: any): boolean;
+    (name: string): (obj: any) => boolean;
+};
 ```
 
 </details>
@@ -12158,6 +12162,33 @@ test('when false', () => {
   expect(propIs(
     String, property, {}
   )).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {propIs} from 'rambda'
+
+const property = 'a'
+const obj = {a: 1}
+
+describe('propIs', () => {
+  it('happy', () => {
+    const result = propIs(
+      Number, property, obj
+    )
+    result // $ExpectType boolean
+  })
+
+  it('curried', () => {
+    const result = propIs(Number, property)(obj)
+    result // $ExpectType boolean
+  })
 })
 ```
 
@@ -16251,6 +16282,10 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- 5.4.1
+
+> Close [Issue #458](https://github.com/selfrefactor/rambda/issues/458) - wrong `R.propIs` typing
 
 - 5.4.0
 

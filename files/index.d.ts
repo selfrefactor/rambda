@@ -2977,8 +2977,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
-export function propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;
+export function propIs(type: any, name: string, obj: any): boolean;
+export function propIs(type: any, name: string): (obj: any) => boolean;
+export function propIs(type: any): {
+    (name: string, obj: any): boolean;
+    (name: string): (obj: any) => boolean;
+};
 
 /*
 

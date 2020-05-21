@@ -1,3 +1,7 @@
+- 5.4.1
+
+> Close [Issue #458](https://github.com/selfrefactor/rambda/issues/458) - wrong `R.propIs` typing
+
 - 5.4.0
 
 > Close [Issue #408](https://github.com/selfrefactor/rambda/issues/408) - add `R.chain`
