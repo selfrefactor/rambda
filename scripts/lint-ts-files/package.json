@@ -6,7 +6,7 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "fdir": "2.1.0",
+    "fdir": "2.1.1",
     "lint-fn": "2.8.0",
     "typescript": "3.9.3"
   },
