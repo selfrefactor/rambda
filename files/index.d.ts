@@ -4036,10 +4036,14 @@ Method: allFalse
 
 Explanation: It returns `true` if all `inputs` arguments are falsy according to `R.isFalsy`.
 
+Functions are valid inputs, but these functions cannot have their own arguments.
+
+This method is very similar to `R.anyFalse`, `R.anyTrue` and `R.allTrue`
+
 Example:
 
 ```
-R.allFalse(null, undefined, '', () => false)
+R.allFalse(0, null, [], {}, '', () => false)
 // => true
 ```
 
@@ -4054,16 +4058,16 @@ export function allFalse(...inputs: any[]): boolean;
 /*
 Method: anyFalse
 
-Explanation: It returns `true` if any `inputs` is falsy according to `R.isFalsy`.
+Explanation: It returns `true` if any of `inputs` is falsy according to `R.isFalsy`.
 
 Example:
 
 ```
-R.anyFalse(2, , '', () => false)
+R.anyFalse(1, {a: 1}, [1], () => false)
 // => true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -4072,19 +4076,18 @@ Notes:
 export function anyFalse(...input: any[]): boolean;
 
 /*
-Method:
+Method: allTrue
 
-Explanation:
-
-
+Explanation: It returns `true` if all `inputs` arguments are truthy according to `R.isTruthy`.
 
 Example:
 
 ```
-
+R.allTrue(1, true, {a: 1}, [1], 'foo', () => true)
+// => true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -4093,26 +4096,24 @@ Notes:
 export function allTrue(...input: any[]): boolean;
 
 /*
-Method:
+Method: anyTrue
 
-Explanation:
-
-
+Explanation: It returns `true` if any of `inputs` arguments are truthy according to `R.isTruthy`.
 
 Example:
 
 ```
-
+R.anyTrue(0, null, [], {}, '', () => true)
+// => true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function anyTrue(...input: any[]): boolean;
-
 
 /*
 Method:
