@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
 import rambdaData from './populate-docs-data/data.json'
-const typingsPath = resolve(__dirname, '../../rambda/files/index.d.ts')
+const typingsPath = resolve(__dirname, '../files/index.d.ts')
 
 export const BOTH_LIBRARIES = readFileSync(typingsPath).toString()
 export const [ intro ] = BOTH_LIBRARIES.split('// API_MARKER')

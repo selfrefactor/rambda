@@ -1,6 +1,5 @@
-import fdir from 'fdir'
 import { outputFile, readFile } from 'fs-extra'
-import { execSafe, spawn } from 'helpers-fn'
+import { execSafe, spawn, scanFolder } from 'helpers-fn'
 import { parse } from 'path'
 import { mapAsync, replace } from 'rambdax'
 
@@ -30,7 +29,7 @@ async function cloneRamda(){
 async function replaceImports(){
   const toReturn = [ 'lenses' ]
 
-  const allFiles = await fdir.async(`${ __dirname }/ramda/test`)
+  const allFiles = await scanFolder({folder: `${ __dirname }/ramda/test`})
   const goodFiles = allFiles.filter(filePath => {
     if (!filePath.endsWith('.js')) return false
     if (filePath.endsWith('lenses.js')) return true

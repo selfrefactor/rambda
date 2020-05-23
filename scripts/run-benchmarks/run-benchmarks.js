@@ -1,14 +1,13 @@
 process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/benchmark_results'
-import fdir from 'fdir'
-import { createBenchmark } from 'helpers-fn'
+import { createBenchmark, scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsyncLimit } from 'rambdax'
 
 const benchmarksDir = resolve(__dirname, '../../source/benchmarks')
 
 async function getAllBenchmarks(){
-  const files = await fdir.async(benchmarksDir)
+  const files = await scanFolder({folder: benchmarksDir})
 
   return files
     .filter(filePath => !filePath.includes('benchmark_results'))

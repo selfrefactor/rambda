@@ -1,4 +1,3 @@
-import fdir from 'fdir'
 import {
   copy,
   outputFile,
@@ -11,6 +10,7 @@ import { filter, mapAsync, pick, pipedAsync } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
 import { rambdaMethods } from '../constants'
+import { scanFolder } from 'helpers-fn'
 import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method
@@ -42,7 +42,7 @@ async function rambdaxBuildStep(){
 
   const rambdaxDeps = pick(buildDeps, devDependencies)
   const tsToolbelt = resolve(__dirname, '../../_ts-toolbelt')
-  const sourceFiles = resolve(__dirname, '../../source')
+  const sourceFileDir = resolve(__dirname, '../../source')
   const dir = resolve(__dirname, '../../../rambdax')
   const tsToolbeltOutput = `${ dir }/_ts-toolbelt`
   const packageJsonOutput = `${ dir }/package.json`
@@ -60,8 +60,8 @@ async function rambdaxBuildStep(){
 
   const allMethods = []
   await pipedAsync(
-    sourceFiles,
-    async x => fdir.async(x),
+    sourceFileDir,
+    async dir => scanFolder({folder:dir}),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
 
@@ -85,12 +85,12 @@ async function rambdaxBuildStep(){
 }
 
 async function rambdaBuildStep(){
-  const sourceFiles = resolve(__dirname, '../../source')
+  const sourceFileDir = resolve(__dirname, '../../source')
   const output = resolve(__dirname, '../../src')
 
   await pipedAsync(
-    sourceFiles,
-    async x => fdir.async(x),
+    sourceFileDir,
+    async dir => scanFolder({folder:dir}),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
 
