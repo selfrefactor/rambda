@@ -87,31 +87,5 @@
   "bugs": {
     "url": "https://github.com/selfrefactor/rambda/issues"
   },
-  "homepage": "https://github.com/selfrefactor/rambda#readme",
-  "commitMessage": {
-    "support": [
-      "script",
-      "build",
-      "prepublish",
-      "lint",
-      "typings",
-      "benchmark",
-      "refactor"
-    ],
-    "feature": [
-      "method",
-      "script"
-    ],
-    "test": [
-      "typings",
-      "fix"
-    ],
-    "fix": [
-      "small",
-      "dep",
-      "scripts",
-      "docs"
-    ],
-    "workInProgress": ""
-  }
+  "homepage": "https://github.com/selfrefactor/rambda#readme"
 }
