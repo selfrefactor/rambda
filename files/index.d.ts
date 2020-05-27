@@ -4170,19 +4170,65 @@ Notes: `targetType` is one of the possible returns of `R.type`
 export function anyType(targetType: RambdaTypes): (...input: any[]) => boolean;
 
 /*
-Method:
+Method: change
 
-Explanation:
+Explanation: It helps changing object's properties if there are below 3 levels deep.
 
+It is intended for usage inside unit tests, when you need more powerful method to change object's properties.
 
+`path` input argument allows you to specify which object's sub-branch you want to manipulate. You should pass an empty string if you target the whole `origin` object.
+
+`changeData` can be a direct value. If it is a object, then this object is used to edit or add new properties to the selected sub-branch.
 
 Example:
 
 ```
+const simpleResult = R.change(
+  { a: 1, b: { c: 2 } },
+  'b.c',
+  3
+)
+const expectedSimpleResult = {
+  a: 1,
+  b: { c: 3 }
+}
+// simpleResult === expectedSimpleResult
 
+const origin = {
+  a   : 0,
+  foo : {
+    bar : 1,
+    bax : { nested : 2 },
+  }
+}
+
+const changeData = {
+  bar: 2,
+  bay: 3,
+  bax: { baq: 9 }
+}
+
+const result = R.change(
+  origin,
+  'foo',
+  changeData
+)
+
+const expected = {
+  a   : 0,
+  foo : {
+    bar : 2,
+    bay : 3,
+    bax : {
+      nested : 2,
+      baq: 9
+    },
+  },
+}
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -4193,13 +4239,11 @@ export function change<T>(
   path: string,
   changeData: any
 ): T;
-
 export function change<Input, Output>(
   origin: Input,
   path: string,
   changeData: any
 ): Output;
-
 
 /*
 Method:
