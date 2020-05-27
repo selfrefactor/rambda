@@ -2685,6 +2685,128 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 </details>
 
+### compact
+
+```typescript
+compact<T>(x: any[]): T[]
+```
+
+It returns a clone of `list` without the falsy or empty elements.
+
+```javascript
+const list = [null, '', {}, [], 1]
+
+const result = R.compact(list)
+// => [1]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5Bnull%2C%20''%2C%20%7B%7D%2C%20%5B%5D%2C%201%5D%0A%0Aconst%20result%20%3D%20R.compact(list)%0A%2F%2F%20%3D%3E%20%5B1%5D">Try the above <strong>R.compact</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+compact<T>(x: any[]): T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.compact</strong> source</summary>
+
+```javascript
+import { equals } from './equals'
+import { type } from './type'
+
+const forbidden = [ 'Null', 'Undefined', 'RegExp' ]
+const allowed = [ 'Number', 'Boolean' ]
+const notEmpty = [ 'Array', 'String' ]
+
+export function compact(list){
+  const toReturn = []
+
+  list.forEach(a => {
+    const currentType = type(a)
+    if (forbidden.includes(currentType)) return
+
+    if (allowed.includes(currentType)) return toReturn.push(a)
+
+    if (currentType === 'Object'){
+      if (!equals(a, {})) toReturn.push(a)
+
+      return
+    }
+
+    if (!notEmpty.includes(currentType)) return
+    if (a.length === 0) return
+
+    toReturn.push(a)
+  })
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { compact } from './compact'
+
+test('happy', () => {
+  const arr = [
+    1,
+    null,
+    undefined,
+    false,
+    '',
+    ' ',
+    () => {},
+    'foo',
+    {},
+    [],
+    [ 1 ],
+    /\s/g,
+  ]
+
+  const result = compact(arr)
+  const expected = [ 1, false, ' ', 'foo', [ 1 ] ]
+
+  expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {compact} from 'rambda'
+
+const list = [ '', 2, 3 ]
+
+describe('chain', () => {
+  it('happy', () => {
+    const result = compact(list)
+    result // $ExpectType unknown[]
+  })
+  
+  it('passing type', () => {
+    const result = compact<number>(list)
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
 ### complement
 
 ```typescript
@@ -16282,6 +16404,12 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- 5.5.0 
+
+Add the following methods:
+
+`R.compact`
 
 - 5.4.1
 

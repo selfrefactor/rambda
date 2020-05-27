@@ -1,3 +1,9 @@
+- 5.5.0 
+
+Add the following methods:
+
+`R.compact`
+
 - 5.4.1
 
 > Close [Issue #458](https://github.com/selfrefactor/rambda/issues/458) - wrong `R.propIs` typing

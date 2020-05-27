@@ -2,6 +2,10 @@
 
 4.0.0
 
+Move the following methods to `Ramda`:
+
+- `R.compact`
+
 Deprecate the following methods:
 
 - `R.headObject`

@@ -232,6 +232,11 @@ export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /**
+ * It returns a clone of `list` without the falsy or empty elements.
+ */
+export function compact<T>(x: any[]): T[];
+
+/**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.

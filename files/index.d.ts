@@ -540,6 +540,28 @@ export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /*
+Method: compact
+
+Explanation: It returns a clone of `list` without the falsy or empty elements.
+
+Example:
+
+```
+const list = [null, '', {}, [], 1]
+
+const result = R.compact(list)
+// => [1]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function compact<T>(x: any[]): T[];
+
+/*
 Method: complement
 
 Explanation: It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -4244,28 +4266,6 @@ export function change<Input, Output>(
   path: string,
   changeData: any
 ): Output;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function compact<T>(x: any[]): T[];
-
 
 /*
 Method:

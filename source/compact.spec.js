@@ -1,6 +1,6 @@
 import { compact } from './compact'
 
-test('', () => {
+test('happy', () => {
   const arr = [
     1,
     null,
@@ -17,7 +17,7 @@ test('', () => {
   ]
 
   const result = compact(arr)
-  const expectedResult = [ 1, false, ' ', 'foo', [ 1 ] ]
+  const expected = [ 1, false, ' ', 'foo', [ 1 ] ]
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toEqual(expected)
 })
