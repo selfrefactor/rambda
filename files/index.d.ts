@@ -4120,27 +4120,54 @@ Notes:
 export function anyTrue(...input: any[]): boolean;
 
 /*
-Method:
+Method: allType
 
-Explanation:
-
-
+Explanation: It returns a function which will return `true` if all of its `inputs` arguments belong to `targetType`.
 
 Example:
 
 ```
+const targetType = 'String'
 
+const result = R.allType(
+  targetType
+)('foo', 'bar', 'baz')
+// => true
 ```
 
-Categories:
+Categories: Logic
 
-Notes:
+Notes: `targetType` is one of the possible returns of `R.type`
 
 */
 // @SINGLE_MARKER
 export function allType(targetType: RambdaTypes): (...input: any[]) => boolean;
-export function anyType(targetType: RambdaTypes): (...input: any[]) => boolean;
 
+/*
+Method: anyType
+
+Explanation: It returns a function which will return `true` if at least one of its `inputs` arguments belongs to `targetType`.
+
+`targetType` is one of the possible returns of `R.type`
+
+Example:
+
+```
+const targetType = 'String'
+
+const result = R.anyType(
+  targetType
+)(1, {}, 'foo')
+// => true
+```
+
+Categories: Logic
+
+Notes: `targetType` is one of the possible returns of `R.type`
+
+*/
+// @SINGLE_MARKER
+export function anyType(targetType: RambdaTypes): (...input: any[]) => boolean;
 
 /*
 Method:
