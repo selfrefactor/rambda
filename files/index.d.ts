@@ -2369,14 +2369,16 @@ const result = [
 
 Categories: Object
 
-Notes:
+Notes: When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type. 
 
 */
 // @SINGLE_MARKER
-export function omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
-export function omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-export function omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
-export function omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
+export function omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+export function omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
+export function omit<T, U>(propsToOmit: string, obj: T): U;
+export function omit<T, U>(propsToOmit: string): (obj: T) => U;
+export function omit<T>(propsToOmit: string, obj: object): T;
+export function omit<T>(propsToOmit: string): (obj: object) => T;
 
 /*
 Method: partial
@@ -2526,7 +2528,11 @@ export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) =>
 /*
 Method: pick
 
-Explanation: It returns a partial copy of an `obj`  containing only `propsToPick` properties.
+Explanation: It returns a partial copy of an `input` containing only `propsToPick` properties.
+
+`input` can be either an object or an array.
+
+String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 Example:
 
@@ -2536,6 +2542,7 @@ const obj = {
   b : false,
   foo: 'cherry'
 }
+const list = [1, 2, 3, 4]
 const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
@@ -2544,28 +2551,32 @@ const result = [
   R.pick(propsToPickList, obj),
   R.pick('a,bar', obj),
   R.pick('bar', obj),
+  R.pick([0, 3], list),
+  R.pick('0,3', list),
 ]
+
 const expected = [
   {a:1, foo: 'cherry'},
   {a:1, foo: 'cherry'},
   {a:1},
-  {}
+  {},
+  [1,4],
+  [1,4]
 ]
 // => `result` is equal to `expected`
 ```
 
-Categories: Object
+Categories: Object, List
 
-Notes: String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
-
+Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type.
 */
 // @SINGLE_MARKER
-export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<T, U>(propsToPick: string, obj: T): U;
-export function pick<T, U>(propsToPick: string): (obj: T) => U;
-export function pick<T>(propsToPick: string, obj: object): T;
-export function pick<T>(propsToPick: string): (obj: object) => T;
+export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, U>(propsToPick: string, input: T): U;
+export function pick<T, U>(propsToPick: string): (input: T) => U;
+export function pick<T>(propsToPick: string, input: object): T;
+export function pick<T>(propsToPick: string): (input: object) => T;
 
 /*
 Method: pickAll

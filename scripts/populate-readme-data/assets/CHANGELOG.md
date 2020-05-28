@@ -1,9 +1,12 @@
-- 5.4.2 
+- 5.4.3
+
+Fix `R.omit` typings
+
+- 5.4.2
 
 Fix `R.pick` typings
 
 > Close [Issue #460](https://github.com/selfrefactor/rambda/issues/460) - `R.paths` should be curried
-
 
 - 5.4.1
 

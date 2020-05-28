@@ -708,10 +708,12 @@ export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
  */
-export function omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
-export function omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-export function omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
-export function omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
+export function omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+export function omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
+export function omit<T, U>(propsToOmit: string, obj: T): U;
+export function omit<T, U>(propsToOmit: string): (obj: T) => U;
+export function omit<T>(propsToOmit: string, obj: object): T;
+export function omit<T>(propsToOmit: string): (obj: object) => T;
 
 /**
  * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
@@ -755,14 +757,18 @@ export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
 
 /**
- * It returns a partial copy of an `obj`  containing only `propsToPick` properties.
+ * It returns a partial copy of an `input` containing only `propsToPick` properties.
+ * 
+ * `input` can be either an object or an array.
+ * 
+ * String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
-export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<T, U>(propsToPick: string, obj: T): U;
-export function pick<T, U>(propsToPick: string): (obj: T) => U;
-export function pick<T>(propsToPick: string, obj: object): T;
-export function pick<T>(propsToPick: string): (obj: object) => T;
+export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, U>(propsToPick: string, input: T): U;
+export function pick<T, U>(propsToPick: string): (input: T) => U;
+export function pick<T>(propsToPick: string, input: object): T;
+export function pick<T>(propsToPick: string): (input: object) => T;
 
 /**
  * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.

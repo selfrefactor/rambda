@@ -1,7 +1,7 @@
-export function pick(propsToPick, obj){
-  if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
+export function pick(propsToPick, input){
+  if (arguments.length === 1) return _input => pick(propsToPick, _input)
 
-  if (obj === null || obj === undefined){
+  if (input === null || input === undefined){
     return undefined
   }
   const keys =
@@ -11,8 +11,8 @@ export function pick(propsToPick, obj){
   let counter = 0
 
   while (counter < keys.length){
-    if (keys[ counter ] in obj){
-      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+    if (keys[ counter ] in input){
+      willReturn[ keys[ counter ] ] = input[ keys[ counter ] ]
     }
     counter++
   }

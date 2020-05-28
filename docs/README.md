@@ -10347,7 +10347,7 @@ test('with negative index', () => {
 ### omit
 
 ```typescript
-omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>
+omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>
 ```
 
 It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -10371,10 +10371,12 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
-omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
-omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;
+omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
+omit<T, U>(propsToOmit: string, obj: T): U;
+omit<T, U>(propsToOmit: string): (obj: T) => U;
+omit<T>(propsToOmit: string, obj: object): T;
+omit<T>(propsToOmit: string): (obj: object) => T;
 ```
 
 </details>
@@ -10461,53 +10463,76 @@ test('happy', () => {
 ```typescript
 import {omit} from 'rambda'
 
-describe('omit with string as props input', () => {
-  it('one type', () => {
-    const x = omit<number>('a,c', {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit<number>('a,c')({a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    y // $ExpectType Dictionary<number>
+describe('R.omit with array as props input', () => {
+  it('allow Typescript to infer object type', () => {
+    const input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = omit(['b,c'], input)
+
+    result.a // $ExpectType string
+    result.d // $ExpectType number
+
+    const curriedResult = omit(['a,c'], input)
+
+    curriedResult.a // $ExpectType string
+    curriedResult.d // $ExpectType number
   })
-  it('two types', () => {
-    interface Output {
-      b: string,
-      d: number,
+
+  it('declare type of input object', () => {
+    type Input = {
+      a: string
+      b: number
+      c: number
+      d: number
     }
+    const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = omit(['b,c'], input)
+    result // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
 
-    const x = omit<string | number, Output>('a,c', {
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    x // $ExpectType Output
-    x.b // $ExpectType string
-    const y = omit<string | number, Output>('a,c')({
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    y // $ExpectType Output
-    y.d // $ExpectType number
-  })
+    result.a // $ExpectType string
+    result.d // $ExpectType number
 
-  it('infered input type', () => {
-    const x = omit('a,c', {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit('a,c', {a: 1, b: '1', c: 3, d: 4}) // $ExpectType Dictionary<string | number>
-    y // $ExpectType Dictionary<string | number>
-    const q = omit('a,c')({a: 1, b: 1, c: 3, d: 4}) // $ExpectType Dictionary<unknown>
-    q // $ExpectType Dictionary<unknown>
+    const curriedResult = omit(['a,c'], input)
+
+    curriedResult.a // $ExpectType string
+    curriedResult.d // $ExpectType number
   })
 })
 
-describe('omit with array as props input', () => {
-  it('one type', () => {
-    const x = omit<number>(['a,c'], {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit<number>(['a,c'])({a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    y // $ExpectType Dictionary<number>
+describe('R.omit with string as props input', () => {
+  type Output = {
+    b: number
+    d: number
+  }
+
+  it('explicitly declare output', () => {
+    const result = omit<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.b // $ExpectType number
+
+    const curriedResult = omit<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.b // $ExpectType number
+  })
+
+  it('explicitly declare input and output', () => {
+    type Input = {
+      a: number
+      b: number
+      c: number
+      d: number
+    }
+    const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.b // $ExpectType number
+
+    const curriedResult = omit<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.b // $ExpectType number
+  })
+
+  it('without passing type', () => {
+    const result = omit('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType unknown
   })
 })
 ```
@@ -11061,10 +11086,10 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
-  if(arguments.length === 1){
+  if (arguments.length === 1){
     return _obj => paths(pathsToSearch, _obj)
   }
-  
+
   return pathsToSearch.map(singlePath => path(singlePath, obj))
 }
 ```
@@ -11215,10 +11240,14 @@ describe('paths', function() {
 ### pick
 
 ```typescript
-pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
 ```
 
-It returns a partial copy of an `obj`  containing only `propsToPick` properties.
+It returns a partial copy of an `input` containing only `propsToPick` properties.
+
+`input` can be either an object or an array.
+
+String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 ```javascript
 const obj = {
@@ -11226,6 +11255,7 @@ const obj = {
   b : false,
   foo: 'cherry'
 }
+const list = [1, 2, 3, 4]
 const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
@@ -11234,29 +11264,34 @@ const result = [
   R.pick(propsToPickList, obj),
   R.pick('a,bar', obj),
   R.pick('bar', obj),
+  R.pick([0, 3], list),
+  R.pick('0,3', list),
 ]
+
 const expected = [
   {a:1, foo: 'cherry'},
   {a:1, foo: 'cherry'},
   {a:1},
-  {}
+  {},
+  [1,4],
+  [1,4]
 ]
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20obj)%2C%0A%20%20R.pick(propsToPickList%2C%20obj)%2C%0A%20%20R.pick('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pick('bar'%2C%20obj)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.pick</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20obj)%2C%0A%20%20R.pick(propsToPickList%2C%20obj)%2C%0A%20%20R.pick('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pick('bar'%2C%20obj)%2C%0A%20%20R.pick(%5B0%2C%203%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%5B1%2C4%5D%2C%0A%20%20%5B1%2C4%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.pick</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-pick<T, U>(propsToPick: string, obj: T): U;
-pick<T, U>(propsToPick: string): (obj: T) => U;
-pick<T>(propsToPick: string, obj: object): T;
-pick<T>(propsToPick: string): (obj: object) => T;
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<T, U>(propsToPick: string, input: T): U;
+pick<T, U>(propsToPick: string): (input: T) => U;
+pick<T>(propsToPick: string, input: object): T;
+pick<T>(propsToPick: string): (input: object) => T;
 ```
 
 </details>
@@ -11266,10 +11301,10 @@ pick<T>(propsToPick: string): (obj: object) => T;
 <summary><strong>R.pick</strong> source</summary>
 
 ```javascript
-export function pick(propsToPick, obj){
-  if (arguments.length === 1) return _obj => pick(propsToPick, _obj)
+export function pick(propsToPick, input){
+  if (arguments.length === 1) return _input => pick(propsToPick, _input)
 
-  if (obj === null || obj === undefined){
+  if (input === null || input === undefined){
     return undefined
   }
   const keys =
@@ -11279,8 +11314,8 @@ export function pick(propsToPick, obj){
   let counter = 0
 
   while (counter < keys.length){
-    if (keys[ counter ] in obj){
-      willReturn[ keys[ counter ] ] = obj[ keys[ counter ] ]
+    if (keys[ counter ] in input){
+      willReturn[ keys[ counter ] ] = input[ keys[ counter ] ]
     }
     counter++
   }
@@ -11298,7 +11333,7 @@ export function pick(propsToPick, obj){
 ```javascript
 import { pick } from './pick'
 
-test('pick with string as condition', () => {
+test('props to pick is a string', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -11315,7 +11350,7 @@ test('pick with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('pick', () => {
+test('props to pick is an array', () => {
   expect(pick([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',
@@ -11333,6 +11368,31 @@ test('pick', () => {
 
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })
+
+test('works with list as input and number as props - props to pick is an array', () => {
+  const result = pick([ 1, 2 ], [ 'a', 'b', 'c', 'd' ])
+  expect(result).toEqual({
+    1 : 'b',
+    2 : 'c',
+  })
+})
+
+test('works with list as input and number as props - props to pick is a string', () => {
+  const result = pick('1,2', [ 'a', 'b', 'c', 'd' ])
+  expect(result).toEqual({
+    1 : 'b',
+    2 : 'c',
+  })
+})
+
+test('with symbol', () => {
+  const symbolProp = Symbol('s')
+  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot(`
+    Object {
+      Symbol(s): "a",
+    }
+  `)
+})
 ```
 
 </details>
@@ -11344,7 +11404,41 @@ test('pick', () => {
 ```typescript
 import {pick} from 'rambda'
 
-describe('pick with string as props input', () => {
+describe('pick with array as props input', () => {
+  type Input = {
+    a: string
+    b: number
+    c: number
+    d: number
+  }
+
+  it('need to declare the types of input and props to pick - string as prop', () => {
+    const input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = pick<Input, string>(['a,c'], input)
+    result // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
+    result.a // $ExpectType string
+    result.b // $ExpectType number
+
+    const curriedResult = pick<Input, string>(['a,c'], input)
+    curriedResult // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
+  })
+
+  it('need to declare the types of input and props to pick - number as prop', () => {
+    const result = pick<Array<string>, number>([1, 2], ["a", "b", "c", "d"]);
+    result[1] // $ExpectType string
+    result[2] // $ExpectType string
+    result[3] // should not be possible but it is
+  })
+
+  it('need to declare the types of input and props to pick - symbol as prop', () => {
+    const symbolProp = Symbol('s')
+    const result = pick([ symbolProp ], { [ symbolProp ] : 'a' })
+    
+    result // $ExpectType Pick<{ [symbolProp]: string; }, typeof symbolProp>
+  })
+})
+
+describe('R.pick with string as props input', () => {
   type Output = {
     a: number
     c: number
@@ -11379,41 +11473,6 @@ describe('pick with string as props input', () => {
   it('without passing type', () => {
     const result = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType unknown
-  })
-})
-
-describe('pick with array as props input', () => {
-  type Foo = {
-    a: string
-    b: number
-    c: number
-    d: number
-  }
-  it('one type', () => {
-    const input: Foo = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = pick<Foo, string>(['a,c'], input)
-    result // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
-    result.a // $ExpectType string
-    result.b // $ExpectType number
-
-    const curriedResult = pick<Foo, string>(['a,c'], input)
-    curriedResult // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
-  })
-})
-
-describe('R.pick bug', () => {
-  type MyObject = {
-    id?: number;
-    type: string;
-    value: string;
-  }
-  const myObj: MyObject = { id: 0, type: 'classA', value: 'foo' };
-
-  it('happy', () => {
-    const result = pick<MyObject, string>(['type', 'value'], myObj);
-    result // $ExpectType Pick<MyObject, "type" | "value" | "id">
-    result.id // $ExpectType number | undefined
-    result.type // $ExpectType string
   })
 })
 ```
@@ -16316,7 +16375,11 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
-- 5.4.2 
+- 5.4.3
+
+Fix `R.omit` typings
+
+- 5.4.2
 
 Fix `R.pick` typings
 

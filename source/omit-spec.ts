@@ -1,51 +1,74 @@
 import {omit} from 'rambda'
 
-describe('omit with string as props input', () => {
-  it('one type', () => {
-    const x = omit<number>('a,c', {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit<number>('a,c')({a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    y // $ExpectType Dictionary<number>
+describe('R.omit with array as props input', () => {
+  it('allow Typescript to infer object type', () => {
+    const input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = omit(['b,c'], input)
+
+    result.a // $ExpectType string
+    result.d // $ExpectType number
+
+    const curriedResult = omit(['a,c'], input)
+
+    curriedResult.a // $ExpectType string
+    curriedResult.d // $ExpectType number
   })
-  it('two types', () => {
-    interface Output {
-      b: string,
-      d: number,
+
+  it('declare type of input object', () => {
+    type Input = {
+      a: string
+      b: number
+      c: number
+      d: number
     }
+    const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = omit(['b,c'], input)
+    result // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
 
-    const x = omit<string | number, Output>('a,c', {
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    x // $ExpectType Output
-    x.b // $ExpectType string
-    const y = omit<string | number, Output>('a,c')({
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    y // $ExpectType Output
-    y.d // $ExpectType number
-  })
+    result.a // $ExpectType string
+    result.d // $ExpectType number
 
-  it('infered input type', () => {
-    const x = omit('a,c', {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit('a,c', {a: 1, b: '1', c: 3, d: 4}) // $ExpectType Dictionary<string | number>
-    y // $ExpectType Dictionary<string | number>
-    const q = omit('a,c')({a: 1, b: 1, c: 3, d: 4}) // $ExpectType Dictionary<unknown>
-    q // $ExpectType Dictionary<unknown>
+    const curriedResult = omit(['a,c'], input)
+
+    curriedResult.a // $ExpectType string
+    curriedResult.d // $ExpectType number
   })
 })
 
-describe('omit with array as props input', () => {
-  it('one type', () => {
-    const x = omit<number>(['a,c'], {a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    x // $ExpectType Dictionary<number>
-    const y = omit<number>(['a,c'])({a: 1, b: 2, c: 3, d: 4}) // $ExpectType Dictionary<number>
-    y // $ExpectType Dictionary<number>
+describe('R.omit with string as props input', () => {
+  type Output = {
+    b: number
+    d: number
+  }
+
+  it('explicitly declare output', () => {
+    const result = omit<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.b // $ExpectType number
+
+    const curriedResult = omit<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.b // $ExpectType number
+  })
+
+  it('explicitly declare input and output', () => {
+    type Input = {
+      a: number
+      b: number
+      c: number
+      d: number
+    }
+    const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.b // $ExpectType number
+
+    const curriedResult = omit<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.b // $ExpectType number
+  })
+
+  it('without passing type', () => {
+    const result = omit('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType unknown
   })
 })

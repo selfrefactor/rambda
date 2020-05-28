@@ -1,6 +1,6 @@
 import { pick } from './pick'
 
-test('pick with string as condition', () => {
+test('props to pick is a string', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -17,7 +17,7 @@ test('pick with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('pick', () => {
+test('props to pick is an array', () => {
   expect(pick([ 'a', 'c' ])({
     a : 'foo',
     b : 'bar',
@@ -34,4 +34,29 @@ test('pick', () => {
   })).toEqual({ a : 'foo' })
 
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
+})
+
+test('works with list as input and number as props - props to pick is an array', () => {
+  const result = pick([ 1, 2 ], [ 'a', 'b', 'c', 'd' ])
+  expect(result).toEqual({
+    1 : 'b',
+    2 : 'c',
+  })
+})
+
+test('works with list as input and number as props - props to pick is a string', () => {
+  const result = pick('1,2', [ 'a', 'b', 'c', 'd' ])
+  expect(result).toEqual({
+    1 : 'b',
+    2 : 'c',
+  })
+})
+
+test('with symbol', () => {
+  const symbolProp = Symbol('s')
+  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot(`
+    Object {
+      Symbol(s): "a",
+    }
+  `)
 })

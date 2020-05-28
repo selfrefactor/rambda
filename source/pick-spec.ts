@@ -1,6 +1,40 @@
 import {pick} from 'rambda'
 
-describe('pick with string as props input', () => {
+describe('pick with array as props input', () => {
+  type Input = {
+    a: string
+    b: number
+    c: number
+    d: number
+  }
+
+  it('need to declare the types of input and props to pick - string as prop', () => {
+    const input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = pick<Input, string>(['a,c'], input)
+    result // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
+    result.a // $ExpectType string
+    result.b // $ExpectType number
+
+    const curriedResult = pick<Input, string>(['a,c'], input)
+    curriedResult // $ExpectType Pick<Input, "a" | "b" | "c" | "d">
+  })
+
+  it('need to declare the types of input and props to pick - number as prop', () => {
+    const result = pick<Array<string>, number>([1, 2], ["a", "b", "c", "d"]);
+    result[1] // $ExpectType string
+    result[2] // $ExpectType string
+    result[3] // should not be possible but it is
+  })
+
+  it('need to declare the types of input and props to pick - symbol as prop', () => {
+    const symbolProp = Symbol('s')
+    const result = pick([ symbolProp ], { [ symbolProp ] : 'a' })
+    
+    result // $ExpectType Pick<{ [symbolProp]: string; }, typeof symbolProp>
+  })
+})
+
+describe('R.pick with string as props input', () => {
   type Output = {
     a: number
     c: number
@@ -35,40 +69,5 @@ describe('pick with string as props input', () => {
   it('without passing type', () => {
     const result = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType unknown
-  })
-})
-
-describe('pick with array as props input', () => {
-  type Foo = {
-    a: string
-    b: number
-    c: number
-    d: number
-  }
-  it('one type', () => {
-    const input: Foo = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = pick<Foo, string>(['a,c'], input)
-    result // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
-    result.a // $ExpectType string
-    result.b // $ExpectType number
-
-    const curriedResult = pick<Foo, string>(['a,c'], input)
-    curriedResult // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
-  })
-})
-
-describe('R.pick bug', () => {
-  type MyObject = {
-    id?: number;
-    type: string;
-    value: string;
-  }
-  const myObj: MyObject = { id: 0, type: 'classA', value: 'foo' };
-
-  it('happy', () => {
-    const result = pick<MyObject, string>(['type', 'value'], myObj);
-    result // $ExpectType Pick<MyObject, "type" | "value" | "id">
-    result.id // $ExpectType number | undefined
-    result.type // $ExpectType string
   })
 })
