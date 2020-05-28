@@ -75,8 +75,6 @@ interface Filter<T> {
 
 type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
 
-type ReplaceReturnType<T, TNewReturn> = (...a: ArgumentTypes<T>) => TNewReturn;
-
 type isfn<T> = (x: any, y: any) => T;
 
 interface Switchem<T> {
@@ -118,6 +116,8 @@ interface IsValidAsync {
 type Async<T> = (x: any) => Promise<T>;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
+
+export const DELAY: 'RAMBDAX_DELAY'
 
 
 /**

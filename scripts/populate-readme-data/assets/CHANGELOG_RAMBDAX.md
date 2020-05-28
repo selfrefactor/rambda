@@ -6,6 +6,8 @@ Move the following methods to `Ramda`:
 
 Deprecate the following methods:
 
+- `R.defaultToStrict`
+
 - `R.headObject`
 
 - `R.composed`

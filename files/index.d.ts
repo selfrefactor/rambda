@@ -75,8 +75,6 @@ interface Filter<T> {
 
 type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
 
-type ReplaceReturnType<T, TNewReturn> = (...a: ArgumentTypes<T>) => TNewReturn;
-
 type isfn<T> = (x: any, y: any) => T;
 
 interface Switchem<T> {
@@ -118,6 +116,8 @@ interface IsValidAsync {
 type Async<T> = (x: any) => Promise<T>;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
+
+export const DELAY: 'RAMBDAX_DELAY'
 
 // API_MARKER
 
@@ -4281,21 +4281,29 @@ Notes:
 export function compact<T>(x: any[]): T[];
 
 /*
-Method:
+Method: composeAsync
 
-Explanation:
-
-
+Explanation: Asynchronous version of `R.compose`
 
 Example:
 
 ```
+const add = async x => {
+  await R.delay(500)
+  return x + 1
+}
+const passOn = async x => fn(x)
 
+const result = R.composeAsync(
+  add,
+  passOn
+)(0)
+// `result` resolves to `2`
 ```
 
-Categories:
+Categories: Function, Async
 
-Notes:
+Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
 
 */
 // @SINGLE_MARKER
@@ -4307,97 +4315,86 @@ export function pipeAsync<Out>(
 ): (input: any) => Promise<Out>;
 
 /*
-Method:
+Method: count
 
-Explanation:
-
-
+Explanation: It counts how many times `searchFor` is within `list` according to `R.equals`.
 
 Example:
 
 ```
+const list = [1, {a:1}, 1, 'foo']
+const searchFor = 1
 
+const result = R.count(searchFor, list)
+// => 2
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function count<T>(target: T, list: any[]): number;
-export function count<T>(target: T): (list: any[]) => number;
+export function count<T>(searchFor: T, list: any[]): number;
+export function count<T>(searchFor: T): (list: any[]) => number;
 
 /*
-Method:
+Method: debounce
 
-Explanation:
-
-
+Explanation: It creates a debounced function that delays invoking `fn` until after wait milliseconds `ms` have elapsed since the last time the debounced function was invoked.
 
 Example:
 
 ```
+let counter = 0
+const increment = () => {
+  counter++
+}
 
+const debounced = R.debounce(increment, 1000)
+
+const result = async function(){
+  debounced()
+  await R.delay(500)
+  debounced()
+  await R.delay(800)
+  console.log(counter) // => 0
+
+  await R.delay(1200)
+  console.log(counter) // => 1
+
+  return counter
+}
+// `result` resolves to `1`
 ```
 
-Categories:
+Categories: Function
 
-Notes:
+Notes: Description is taken from `Lodash` docs
 
 */
 // @SINGLE_MARKER
-export function debounce<T>(fn: T, ms: number): ReplaceReturnType<T, void>;
-
+export function debounce<T>(fn: T, ms: number): (input: T) => T;
 
 /*
-Method:
+Method: delay
 
-Explanation:
-
-
+Explanation: `setTimeout` as a promise that resolves to `R.DELAY` variable after `ms` milliseconds.
 
 Example:
 
 ```
-
+const result = R.delay(1000)
+// `result` resolves to `RAMBDAX_DELAY`
 ```
 
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function defaultToStrict<T>(
-  fallback: T,
-  ...inputs: T[]
-): T;
-
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
+Categories: Async
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function delay(ms: number): Promise<'RAMBDAX_DELAY'>;
-
-//  export const DELAY: 'RAMBDAX_DELAY'
-
 
 /*
 Method:
@@ -5351,7 +5348,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function throttle<T>(fn: T, ms: number): ReplaceReturnType<T, void>;
+export function throttle<T>(fn: T, ms: number): (input: T) => T;
 
 /*
 Method:
