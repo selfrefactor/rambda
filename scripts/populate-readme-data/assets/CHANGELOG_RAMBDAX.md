@@ -6,23 +6,17 @@ Move the following methods to `Ramda`:
 
 Deprecate the following methods:
 
-- `R.defaultToStrict`
-
-- `R.headObject`
-
 - `R.composed`
-
-- `R.whenAsync`
-
-- `R.opposite`
-
+- `R.defaultToStrict`
+- `R.findInObject`
+- `R.headObject`
+- `R.includesType`
 - `R.inject`
-
 - `R.isAttach`
-
+- `R.opposite`
 - `R.otherwise`
-
 - `R.resolve`
+- `R.whenAsync`
 
 Also these changes:
 

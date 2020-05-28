@@ -4397,11 +4397,36 @@ Notes:
 export function delay(ms: number): Promise<'RAMBDAX_DELAY'>;
 
 /*
-Method:
+Method: filterAsync
+
+Explanation: Asynchronous version of `R.filter`
+
+Example:
+
+```
+const predicate = async x => {
+  await R.delay(100)
+  return x % 2 === 1
+}
+const result = await R.filterAsync(predicate, [ 1, 2, 3 ])
+// => [ 1, 3 ]
+```
+
+Categories: List, Object, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterAsync<T>(fn: (x: T) => Promise<boolean>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: (x: T) => Promise<boolean>, obj: object): Promise<{
+  [prop: string]: T
+}>;
+
+/*
+Method: glue
 
 Explanation:
-
-
 
 Example:
 
@@ -4554,33 +4579,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includesType(
-  targetType: RambdaTypes,
-): (list: any[]) => boolean;
-export function includesType(
-  targetType: RambdaTypes,
-  list: any[]
-): boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
 export function isFalsy(input: any): boolean;
 export function isType(targetType: RambdaTypes, input: any): boolean;
 
@@ -4650,30 +4648,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function maybe<T>(ifRule: any, whenIf: any, whenElse: any, maybeInput?: any): T;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, list: T[]): Promise<T[]>;
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, obj: object): Promise<{
-  [prop: string]: T
-}>;
 
 /*
 Method:
