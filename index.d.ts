@@ -232,11 +232,6 @@ export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /**
- * It returns a clone of `list` without the falsy or empty elements.
- */
-export function compact<T>(x: any[]): T[];
-
-/**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
@@ -762,10 +757,12 @@ export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) =>
 /**
  * It returns a partial copy of an `obj`  containing only `propsToPick` properties.
  */
-export function pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
-export function pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-export function pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
-export function pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
+export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, U>(propsToPick: string, obj: T): U;
+export function pick<T, U>(propsToPick: string): (obj: T) => U;
+export function pick<T>(propsToPick: string, obj: object): T;
+export function pick<T>(propsToPick: string): (obj: object) => T;
 
 /**
  * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.

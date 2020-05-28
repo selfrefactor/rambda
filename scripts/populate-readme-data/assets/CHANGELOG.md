@@ -1,8 +1,9 @@
-- 5.5.0 
+- 5.4.2 
 
-Add the following methods:
+Fix `R.pick` typings
 
-`R.compact`
+> Close [Issue #460](https://github.com/selfrefactor/rambda/issues/460) - `R.paths` should be curried
+
 
 - 5.4.1
 

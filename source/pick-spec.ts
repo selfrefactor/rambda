@@ -1,51 +1,74 @@
 import {pick} from 'rambda'
 
 describe('pick with string as props input', () => {
-  it('one type', () => {
-    const x = pick<number>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick<number>('a,c')({a: 1, b: 2, c: 3, d: 4})
-    y // $ExpectType Dictionary<number>
+  type Output = {
+    a: number
+    c: number
+  }
+
+  it('explicitly declare output', () => {
+    const result = pick<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.a // $ExpectType number
+
+    const curriedResult = pick<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.a // $ExpectType number
   })
-  it('two types', () => {
-    interface Output {
-      a: number,
-      c: number,
+
+  it('explicitly declare input and output', () => {
+    type Input = {
+      a: number
+      b: number
+      c: number
+      d: number
     }
+    const result = pick<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.a // $ExpectType number
 
-    const x = pick<string | number, Output>('a,c', {
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    x // $ExpectType Output
-    x.a // $ExpectType number
-    const y = pick<string | number, Output>('a,c')({
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    y // $ExpectType Output
-    y.a // $ExpectType number
+    const curriedResult = pick<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.a // $ExpectType number
   })
 
-  it('infered input type', () => {
-    const x = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick('a,c', {a: 1, b: '1', c: 3, d: 4}) 
-    y // $ExpectType Dictionary<string | number>
-    const q = pick('a,c')({a: 1, b: 1, c: 3, d: 4}) 
-    q // $ExpectType Dictionary<unknown>
+  it('without passing type', () => {
+    const result = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType unknown
   })
 })
 
 describe('pick with array as props input', () => {
+  type Foo = {
+    a: string
+    b: number
+    c: number
+    d: number
+  }
   it('one type', () => {
-    const x = pick<number>(['a,c'], {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick<number>(['a,c'])({a: 1, b: 2, c: 3, d: 4})
-    y // $ExpectType Dictionary<number>
+    const input: Foo = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = pick<Foo, string>(['a,c'], input)
+    result // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
+    result.a // $ExpectType string
+    result.b // $ExpectType number
+
+    const curriedResult = pick<Foo, string>(['a,c'], input)
+    curriedResult // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
+  })
+})
+
+describe('R.pick bug', () => {
+  type MyObject = {
+    id?: number;
+    type: string;
+    value: string;
+  }
+  const myObj: MyObject = { id: 0, type: 'classA', value: 'foo' };
+
+  it('happy', () => {
+    const result = pick<MyObject, string>(['type', 'value'], myObj);
+    result // $ExpectType Pick<MyObject, "type" | "value" | "id">
+    result.id // $ExpectType number | undefined
+    result.type // $ExpectType string
   })
 })

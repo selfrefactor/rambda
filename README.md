@@ -2685,128 +2685,6 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 </details>
 
-### compact
-
-```typescript
-compact<T>(x: any[]): T[]
-```
-
-It returns a clone of `list` without the falsy or empty elements.
-
-```javascript
-const list = [null, '', {}, [], 1]
-
-const result = R.compact(list)
-// => [1]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5Bnull%2C%20''%2C%20%7B%7D%2C%20%5B%5D%2C%201%5D%0A%0Aconst%20result%20%3D%20R.compact(list)%0A%2F%2F%20%3D%3E%20%5B1%5D">Try the above <strong>R.compact</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-compact<T>(x: any[]): T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.compact</strong> source</summary>
-
-```javascript
-import { equals } from './equals'
-import { type } from './type'
-
-const forbidden = [ 'Null', 'Undefined', 'RegExp' ]
-const allowed = [ 'Number', 'Boolean' ]
-const notEmpty = [ 'Array', 'String' ]
-
-export function compact(list){
-  const toReturn = []
-
-  list.forEach(a => {
-    const currentType = type(a)
-    if (forbidden.includes(currentType)) return
-
-    if (allowed.includes(currentType)) return toReturn.push(a)
-
-    if (currentType === 'Object'){
-      if (!equals(a, {})) toReturn.push(a)
-
-      return
-    }
-
-    if (!notEmpty.includes(currentType)) return
-    if (a.length === 0) return
-
-    toReturn.push(a)
-  })
-
-  return toReturn
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compact } from './compact'
-
-test('happy', () => {
-  const arr = [
-    1,
-    null,
-    undefined,
-    false,
-    '',
-    ' ',
-    () => {},
-    'foo',
-    {},
-    [],
-    [ 1 ],
-    /\s/g,
-  ]
-
-  const result = compact(arr)
-  const expected = [ 1, false, ' ', 'foo', [ 1 ] ]
-
-  expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {compact} from 'rambda'
-
-const list = [ '', 2, 3 ]
-
-describe('chain', () => {
-  it('happy', () => {
-    const result = compact(list)
-    result // $ExpectType unknown[]
-  })
-  
-  it('passing type', () => {
-    const result = compact<number>(list)
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 ### complement
 
 ```typescript
@@ -11329,7 +11207,7 @@ describe('paths', function() {
 ### pick
 
 ```typescript
-pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
 ```
 
 It returns a partial copy of an `obj`  containing only `propsToPick` properties.
@@ -11365,10 +11243,12 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
-pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
-pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<T, U>(propsToPick: string, obj: T): U;
+pick<T, U>(propsToPick: string): (obj: T) => U;
+pick<T>(propsToPick: string, obj: object): T;
+pick<T>(propsToPick: string): (obj: object) => T;
 ```
 
 </details>
@@ -11457,52 +11337,75 @@ test('pick', () => {
 import {pick} from 'rambda'
 
 describe('pick with string as props input', () => {
-  it('one type', () => {
-    const x = pick<number>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick<number>('a,c')({a: 1, b: 2, c: 3, d: 4})
-    y // $ExpectType Dictionary<number>
+  type Output = {
+    a: number
+    c: number
+  }
+
+  it('explicitly declare output', () => {
+    const result = pick<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.a // $ExpectType number
+
+    const curriedResult = pick<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.a // $ExpectType number
   })
-  it('two types', () => {
-    interface Output {
-      a: number,
-      c: number,
+
+  it('explicitly declare input and output', () => {
+    type Input = {
+      a: number
+      b: number
+      c: number
+      d: number
     }
+    const result = pick<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType Output
+    result.a // $ExpectType number
 
-    const x = pick<string | number, Output>('a,c', {
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    x // $ExpectType Output
-    x.a // $ExpectType number
-    const y = pick<string | number, Output>('a,c')({
-      a: 1,
-      b: '2',
-      c: 3,
-      d: 4,
-    })
-    y // $ExpectType Output
-    y.a // $ExpectType number
+    const curriedResult = pick<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+
+    curriedResult.a // $ExpectType number
   })
 
-  it('infered input type', () => {
-    const x = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick('a,c', {a: 1, b: '1', c: 3, d: 4}) 
-    y // $ExpectType Dictionary<string | number>
-    const q = pick('a,c')({a: 1, b: 1, c: 3, d: 4}) 
-    q // $ExpectType Dictionary<unknown>
+  it('without passing type', () => {
+    const result = pick('a,c', {a: 1, b: 2, c: 3, d: 4})
+    result // $ExpectType unknown
   })
 })
 
 describe('pick with array as props input', () => {
+  type Foo = {
+    a: string
+    b: number
+    c: number
+    d: number
+  }
   it('one type', () => {
-    const x = pick<number>(['a,c'], {a: 1, b: 2, c: 3, d: 4})
-    x // $ExpectType Dictionary<number>
-    const y = pick<number>(['a,c'])({a: 1, b: 2, c: 3, d: 4})
-    y // $ExpectType Dictionary<number>
+    const input: Foo = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = pick<Foo, string>(['a,c'], input)
+    result // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
+    result.a // $ExpectType string
+    result.b // $ExpectType number
+
+    const curriedResult = pick<Foo, string>(['a,c'], input)
+    curriedResult // $ExpectType Pick<Foo, "a" | "b" | "c" | "d">
+  })
+})
+
+describe('R.pick bug', () => {
+  type MyObject = {
+    id?: number;
+    type: string;
+    value: string;
+  }
+  const myObj: MyObject = { id: 0, type: 'classA', value: 'foo' };
+
+  it('happy', () => {
+    const result = pick<MyObject, string>(['type', 'value'], myObj);
+    result // $ExpectType Pick<MyObject, "type" | "value" | "id">
+    result.id // $ExpectType number | undefined
+    result.type // $ExpectType string
   })
 })
 ```
@@ -16405,11 +16308,11 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
-- 5.5.0 
+- 5.4.2 
 
-Add the following methods:
+Fix `R.pick` typings
 
-`R.compact`
+> Close [Issue #460](https://github.com/selfrefactor/rambda/issues/460) - `R.paths` should be curried
 
 - 5.4.1
 

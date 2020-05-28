@@ -540,28 +540,6 @@ export function clone<T>(input: T): T;
 export function clone<T>(input: ReadonlyArray<T>): T[];
 
 /*
-Method: compact
-
-Explanation: It returns a clone of `list` without the falsy or empty elements.
-
-Example:
-
-```
-const list = [null, '', {}, [], 1]
-
-const result = R.compact(list)
-// => [1]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function compact<T>(x: any[]): T[];
-
-/*
 Method: complement
 
 Explanation: It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -2582,10 +2560,12 @@ Notes: String anotation of `propsToPick` is one of the differences between `Ramb
 
 */
 // @SINGLE_MARKER
-export function pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
-export function pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-export function pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
-export function pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;
+export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, U>(propsToPick: string, obj: T): U;
+export function pick<T, U>(propsToPick: string): (obj: T) => U;
+export function pick<T>(propsToPick: string, obj: object): T;
+export function pick<T>(propsToPick: string): (obj: object) => T;
 
 /*
 Method: pickAll
@@ -4266,6 +4246,28 @@ export function change<Input, Output>(
   path: string,
   changeData: any
 ): Output;
+
+/*
+Method: compact
+
+Explanation: It returns a clone of `list` without the falsy or empty elements.
+
+Example:
+
+```
+const list = [null, '', {}, [], 1]
+
+const result = R.compact(list)
+// => [1]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function compact<T>(x: any[]): T[];
 
 /*
 Method:
