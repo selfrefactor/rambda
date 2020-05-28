@@ -11061,6 +11061,10 @@ paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 import { path } from './path'
 
 export function paths(pathsToSearch, obj){
+  if(arguments.length === 1){
+    return _obj => paths(pathsToSearch, _obj)
+  }
+  
   return pathsToSearch.map(singlePath => path(singlePath, obj))
 }
 ```
@@ -11088,10 +11092,14 @@ const obj = {
   },
 }
 
-test('with string path', () => {
-  const result = paths([ 'a.b.d', 'p.q' ], obj)
+test('with string path + curry', () => {
+  const pathsInput = [ 'a.b.d', 'p.q' ]
+  const expected = [ 2, undefined ]
+  const result = paths(pathsInput, obj)
+  const curriedResult = paths(pathsInput)(obj)
 
-  expect(result).toEqual([ 2, undefined ])
+  expect(result).toEqual(expected)
+  expect(curriedResult).toEqual(expected)
 })
 
 test('with array path', () => {

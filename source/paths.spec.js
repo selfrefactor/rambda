@@ -14,10 +14,14 @@ const obj = {
   },
 }
 
-test('with string path', () => {
-  const result = paths([ 'a.b.d', 'p.q' ], obj)
+test('with string path + curry', () => {
+  const pathsInput = [ 'a.b.d', 'p.q' ]
+  const expected = [ 2, undefined ]
+  const result = paths(pathsInput, obj)
+  const curriedResult = paths(pathsInput)(obj)
 
-  expect(result).toEqual([ 2, undefined ])
+  expect(result).toEqual(expected)
+  expect(curriedResult).toEqual(expected)
 })
 
 test('with array path', () => {
