@@ -50,6 +50,7 @@
     "typescript": "3.9.3"
   },
   "jest": {
+    "testEnvironment": "node",
     "testRegex": ".*\\.spec\\.js$",
     "setupFilesAfterEnv": [
       "jest-extended"
