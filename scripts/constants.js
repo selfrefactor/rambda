@@ -1,5 +1,18 @@
 import { readFileSync } from 'fs'
+import { readJson } from 'fs-extra'
 import { resolve } from 'path'
+
+export async function getRambdaData(){
+  const rambdaData = await readJson(`${__dirname}/populate-docs-data/data.json`)
+
+  return rambdaData
+}
+
+export async function getRambdaMethods(){
+  const rambdaData = await getRambdaData()
+
+  return Object.keys(rambdaData)
+}
 
 import rambdaData from './populate-docs-data/data.json'
 const typingsPath = resolve(__dirname, '../files/index.d.ts')
