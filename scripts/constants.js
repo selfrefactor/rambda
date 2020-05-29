@@ -8,10 +8,22 @@ export async function getRambdaData(){
   return rambdaData
 }
 
+export async function getRambdaxData(){
+  const rambdaData = await readJson(`${__dirname}/populate-docs-data/data-rambdax.json`)
+
+  return rambdaData
+}
+
 export async function getRambdaMethods(){
   const rambdaData = await getRambdaData()
 
   return Object.keys(rambdaData)
+}
+
+export async function getRambdaxMethods(){
+  const rambdaxData = await getRambdaxData()
+
+  return Object.keys(rambdaxData)
 }
 
 import rambdaData from './populate-docs-data/data.json'

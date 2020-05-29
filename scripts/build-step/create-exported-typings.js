@@ -2,8 +2,7 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, trim } from 'rambdax'
 
-import { intro } from '../constants.js'
-import methodsData from '../populate-docs-data/data.json'
+import { intro, getRambdaData, getRambdaxData } from '../constants.js'
 const fixToolbeltImport = replace('../_ts-toolbelt', './_ts-toolbelt')
 
 function attachExports({ methodName, allTypings }){
@@ -19,7 +18,8 @@ function attachExports({ methodName, allTypings }){
  */
 export async function createExportedTypings(withRambdax = false){
   let toSave = intro
-  const fn = (x, methodName) => {
+
+  const applyForSingleMethod = (x, methodName) => {
     const allTypings = attachExports({
       methodName,
       allTypings : x.allTypings,
@@ -28,6 +28,7 @@ export async function createExportedTypings(withRambdax = false){
     if (!x.explanation){
       return toSave += `\n${ allTypings }\n`
     }
+
     const explanation = x.explanation
       .split('\n')
       .map(trim)
@@ -38,7 +39,12 @@ export async function createExportedTypings(withRambdax = false){
 
     return toSave += `\n${ methodData }\n`
   }
-  map(fn)(methodsData)
+
+  const methodsData = withRambdax ?
+    await getRambdaxData() : 
+    await getRambdaData()
+
+  map(applyForSingleMethod, methodsData)
 
   const output = withRambdax ?
     resolve(__dirname, '../../../rambdax/index.d.ts') :
