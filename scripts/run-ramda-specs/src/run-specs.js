@@ -50,7 +50,7 @@ export async function runSingleSpec(method, skipDelete = false){
 
   const testOutput = readFileSync(outputPath).toString()
   if (!testOutput.includes('failing')){
-    log(method, 'success')
+    log(`All tests are passing for method 'R.${method}'`, 'success')
 
     return unlinkSync(outputPath)
   }
@@ -72,9 +72,6 @@ export async function runSingleSpec(method, skipDelete = false){
   unlinkSync(outputPath)
 }
 
-export async function runSpecs(methodsWithSpecs, singleMethod){
-  if (singleMethod){
-    return runSingleSpec(singleMethod)
-  }
+export async function runSpecs(methodsWithSpecs){
   await mapAsync(async method => runSingleSpec(method))(methodsWithSpecs)
 }
