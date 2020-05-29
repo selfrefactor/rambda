@@ -2095,10 +2095,12 @@ Example:
 
 ```
 const result = [
-  R.match('a', 'foo'),
-  R.match(/([a-z]a)/g, 'bananas')
+  R.mathMod(-17, 5),
+  R.mathMod(17, 5),
+  R.mathMod(17, -5),  
+  R.mathMod(17, 0)   
 ]
-// => [[], ['ba', 'na', 'na']]
+// => [3, 2, NaN, NaN]
 ```
 
 Categories: Number

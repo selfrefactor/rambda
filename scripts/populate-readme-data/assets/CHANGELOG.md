@@ -2,6 +2,8 @@
 
 Add `R.hasPath` method
 
+Add `R.mathMod` typings
+
 - 5.4.3
 
 Fix `R.omit` typings
