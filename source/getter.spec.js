@@ -5,11 +5,25 @@ afterEach(() => {
   reset()
 })
 
-test('', () => {
+test('happy', () => {
   const key = 'foo'
   setter(key, 1)
 
   expect(getter(key)).toBe(1)
+})
+
+test('docs example', () => {
+  setter('foo', 'bar')
+  setter('a', 1)
+  expect(getter([ 'foo', 'a' ])).toEqual({
+    foo : 'bar',
+    a   : 1,
+  })
+
+  setter('a', 2)
+  expect(getter('a')).toBe(2)
+  reset()
+  expect(getter('a')).toBeUndefined()
 })
 
 test('when array is key in getter', () => {

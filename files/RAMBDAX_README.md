@@ -14,45 +14,7 @@ R.getter('b')
 
 [Test](https://github.com/selfrefactor/rambdax/blob/master/src/setter.spec.js)
 
----
-#### getter
 
-> getter(key: undefined|string|string[]): any
-
-It provides access to the cache object.
-
-If `undefined` is used as a key, this method will return the whole cache object.
-
-If `string` is passed, then it will return cache value for this key.
-
-If array of `string` is passed, then it assume that this is array of keys and it will return the corresponding cache values for these keys.
-
-```
-R.setter('foo','bar')
-R.setter('a', 1)
-R.getter(['foo','a'])
-// => {foo:'baz', a:1}
-```
-
-[Test](https://github.com/selfrefactor/rambdax/blob/master/src/getter.spec.js)
-
----
-#### reset
-
-> reset(): void
-
-It resets the cache object.
-
-```
-R.setter({a: 1,b: 'bar'})
-R.getter('b') // => 'bar'
-R.reset()
-R.getter('b') // => undefined
-```
-
-[Test](https://github.com/selfrefactor/rambdax/blob/master/src/reset.spec.js)
-
----
 #### glue
 
 > glue(input: string, glueString?: string): string

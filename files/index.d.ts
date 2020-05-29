@@ -4426,15 +4426,20 @@ export function filterAsync<T>(fn: (x: T) => Promise<boolean>, obj: object): Pro
 /*
 Method: glue
 
-Explanation:
+Explanation: It transforms multiline string to single line by gluing together the separate lines with the `glueString` and removing the empty spaces. By default `glueString` is equal to single space, so if that is what you need, then you can just pass a single argument.
 
 Example:
 
 ```
-
+const result = R.glue(`
+  foo
+  bar
+  baz
+`)
+// => 'foo bar baz'
 ```
 
-Categories:
+Categories: String
 
 Notes:
 
@@ -4442,21 +4447,33 @@ Notes:
 // @SINGLE_MARKER
 export function glue(input: string, glueString?: string): string;
 
-
 /*
-Method:
+Method: getter
 
-Explanation:
+Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access comminicate indirectly via shared cache object. 
 
+Usually these methods show that you might need to refactor to classes. Still, they can be helpful meanwhile.
 
+`R.getter`: It provides access to the cache object. If `undefined` is used as a key, this method will return the whole cache object. If `string` is passed, then it will return cache value for this key. If array of `string` is passed, then it assume that this is array of keys and it will return the corresponding cache values for these keys.
+
+`R.setter`: It allows cache object's keys to be changed. You can either set individual key-value pairs with `R.setter(key, value)` or you pass directly object, which will be merged with the cache object.
+
+`R.reset`: It resets the cache object.
 
 Example:
 
 ```
+R.setter('foo','bar')
+R.setter('a', 1)
+R.getter(['foo','a']) // => {foo:'bar', a:1}
 
+R.setter('a', 2)
+R.getter('a') // => 2
+R.reset()
+R.getter('a') // => undefined
 ```
 
-Categories:
+Categories: Experimental
 
 Notes:
 
@@ -4464,13 +4481,10 @@ Notes:
 // @SINGLE_MARKER
 export function getter<T>(keyOrKeys: string | string[] | undefined): T;
 
-
 /*
-Method:
+Method: setter
 
-Explanation:
-
-
+Explanation: Check `R.getter` explanation.
 
 Example:
 
@@ -4478,7 +4492,7 @@ Example:
 
 ```
 
-Categories:
+Categories: Experimental
 
 Notes:
 
@@ -4487,11 +4501,9 @@ Notes:
 export function setter(keyOrObject: string | object, value?: any): void;
 
 /*
-Method:
+Method: reset
 
-Explanation:
-
-
+Explanation: Check `R.getter` explanation.
 
 Example:
 
@@ -4499,14 +4511,13 @@ Example:
 
 ```
 
-Categories:
+Categories: Experimental
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function reset(): void;
-
 
 /*
 Method:
