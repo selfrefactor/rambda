@@ -2087,6 +2087,30 @@ export function match(regExpression: RegExp, str: string): any[];
 export function match(regExpression: RegExp): (str: string) => any[];
 
 /*
+Method: mathMod
+
+Explanation: `R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+
+Example:
+
+```
+const result = [
+  R.match('a', 'foo'),
+  R.match(/([a-z]a)/g, 'bananas')
+]
+// => [[], ['ba', 'na', 'na']]
+```
+
+Categories: Number
+
+Notes: Explanation is taken from `Ramda` documentation site.
+
+*/
+// @SINGLE_MARKER
+export function mathMod(x: number, y: number): number;
+export function mathMod(x: number): (y: number) => number;
+
+/*
 Method: max
 
 Explanation: It returns the greater value between `x` and `y`.
