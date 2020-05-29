@@ -445,6 +445,14 @@
     "failedSpecsReasons": "rambda does check properties from the prototype chain",
     "failedSpecsCount": 1
   },
+  "hasPath": {
+    "typing": "hasPath<T>(\n  path: string | string[],\n  input: object\n): boolean",
+    "allTypings": "hasPath<T>(\n  path: string | string[],\n  input: object\n): boolean;\nhasPath<T>(\n  path: string | string[]\n): (input: object) => boolean;",
+    "rambdaSource": "import { path } from './path'\n\nexport function hasPath(maybePath, obj){\n  if (arguments.length === 1){\n    return objHolder => hasPath(maybePath, objHolder)\n  }\n\n  return path(maybePath, obj) !== undefined\n}",
+    "rambdaSpecs": "import { hasPath } from './hasPath'\n\ntest('when true', () => {\n  const path = 'a.b'\n  const obj = { a : { b : [] } }\n\n  const result = hasPath(path)(obj)\n  const expectedResult = true\n\n  expect(result).toEqual(expectedResult)\n})\n\ntest('when false', () => {\n  const path = 'a.b'\n  const obj = {}\n\n  const result = hasPath(path, obj)\n  const expectedResult = false\n\n  expect(result).toEqual(expectedResult)\n})",
+    "explanation": "It will return true, if `input` object has truthy `path`(calculated with `R.path`).",
+    "example": "const path = 'a.b'\nconst pathAsArray = ['a', 'b']\nconst obj = {a: {b: []}}\n\nconst result = [\n  R.hasPath(path, obj),\n  R.hasPath(pathAsArray, obj),\n  R.hasPath('a.c', obj),\n]\n// => [true, true, false]"
+  },
   "head": {
     "typing": "head<T>(listOrString: T[]): T | undefined",
     "allTypings": "head<T>(listOrString: T[]): T | undefined;\nhead(listOrString: string): string;",
@@ -695,6 +703,15 @@
     "rambdaSpecs": "import { equals } from './equals'\nimport { match } from './match'\n\ntest('happy', () => {\n  expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])\n})\n\ntest('fallback', () => {\n  expect(match(/a./g)('foo')).toEqual([])\n})\n\ntest('with string', () => {\n  expect(match('a', 'foo')).toEqual([])\n  expect(equals(match('o', 'foo'), [ 'o' ])).toBeTrue()\n})\n\ntest('throwing', () => {\n  expect(() => {\n    match(/a./g, null)\n  }).toThrowWithMessage(TypeError, 'Cannot read property \\'match\\' of null')\n})",
     "explanation": "Curried version of `String.prototype.match` which returns empty array, when there is no match.",
     "example": "const result = [\n  R.match('a', 'foo'),\n  R.match(/([a-z]a)/g, 'bananas')\n]\n// => [[], ['ba', 'na', 'na']]"
+  },
+  "mathMod": {
+    "typing": "mathMod(x: number, y: number): number",
+    "allTypings": "mathMod(x: number, y: number): number;\nmathMod(x: number): (y: number) => number;",
+    "notes": "Explanation is taken from `Ramda` documentation site.",
+    "rambdaSource": "import _isInteger from './_internals/_isInteger'\n\nexport function mathMod(x, y){\n  if (arguments.length === 1) return _y => mathMod(x, _y)\n  if (!_isInteger(x) || !_isInteger(y) || y < 1) return NaN\n\n  return (x % y + y) % y\n}",
+    "rambdaSpecs": "import { mathMod } from './mathMod'\n\ntest('happy', () => {\n  expect(mathMod(-17)(5)).toEqual(3)\n  expect(mathMod(17, 5)).toEqual(2)\n  expect(mathMod(17, -5)).toBeNaN()\n  expect(mathMod(17, 0)).toBeNaN()\n  expect(mathMod('17', 5)).toBeNaN()\n  expect(mathMod({}, 2)).toBeNaN()\n  expect(mathMod([], 2)).toBeNaN()\n  expect(mathMod(Symbol(), 2)).toBeNaN()\n})",
+    "explanation": "`R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.",
+    "example": "const result = [\n  R.mathMod(-17, 5),\n  R.mathMod(17, 5),\n  R.mathMod(17, -5),  \n  R.mathMod(17, 0)   \n]\n// => [3, 2, NaN, NaN]"
   },
   "max": {
     "typing": "max<T extends Ord>(x: T, y: T): T",
