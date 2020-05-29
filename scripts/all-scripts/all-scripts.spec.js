@@ -15,48 +15,87 @@ jest.setTimeout(ms('30 minutes'))
 
 test('run many scripts and generate readme', async () => {
   // Unless you are developing for Ramdax, leave that `false`
-  // ============================================
   const withRambdax = false
 
-  // If the change is regarding Typescript definitions
-  // or edit of method's examples or explanation
-  // then you should change `files/index.d.ts`
+  /*
+    If the change is regarding Typescript definitions
+    or edit of method's examples or explanation
+    then you should change `files/index.d.ts`.
+  */
 
   await populateDocsData({ withRambdax })
 
-  // In case that you need to update a single benchmark:
+  // ============================================
+  // ============================================
 
+  /*
+    In case that you need to update a single benchmark:
+  */
+ 
   // await runSingleBenchmark('foo')
 
-  // In the rare case, where you want to run all benchmarks:
+  // ============================================
+  // ============================================
 
-  // This step is very slow that is why the Jest timeout is set to 30 minutes
-  // Note that benchmarks will run in parallel, so I hope you have a fast machine
+  /*
+    In the rare case, where you want to run all benchmarks:
+    This step is very slow that is why the Jest timeout is set to 30 minutes.
+    Note that benchmarks will run in parallel, so I hope you have a fast machine.
+  */
 
   // await runAllBenchmarks()
 
-  // If benchmarks are changed, so should be their summary
+  // ============================================
+  // ============================================
 
-  await benchmarkSummary()
+  /*
+    If benchmarks are changed, so should be their summary.
+  */
 
-  // Important and long step, when we are adding new method
-  // This step will rerun all Rambda methods in Ramda test environment
-  // Make sure to declare any expected failures
-  // in '/scripts/run-ramda-specs/allDifferences.json' file.
-  // Also the tests are running against the bundle file
-  // so you need to run `yarn build` before that
+  // await benchmarkSummary()
 
-  // On the very first step, `withInitialStep` should be `true`
+  // ============================================
+  // ============================================
+
+  /*
+    Important and long step, when we are adding new method.
+    This step will rerun all Rambda methods in Ramda test environment.
+
+    Make sure to declare any expected failures
+    in '/scripts/run-ramda-specs/allDifferences.json' file.
+    
+    Also the tests are running against the bundle file
+    so you need to run `yarn build` before that.
+
+    On the very first step, `withInitialStep` should be `true`.
+  */
 
   // await runRamdaSpecs({ withInitialStep : true })
 
-  // This step is to run Ramda tests on a single Rambda method
+  // ============================================
+  // ============================================
+  
+  /*
+  This step is to run Ramda tests on a single Rambda method
+  */
 
   // await runSingleSpec('foo')
 
-  // In order to build the final README.md file
+  // ============================================
+  // ============================================
+
+  /*
+  In order to build the final README.md file
+  */
+
   await populateReadmeData({ withRambdax })
 
-  // In order to prepare for `yarn build`
+  // ============================================
+  // ============================================
+
+  /*
+  In order to prepare for `yarn build`
+  */
+ 
   await buildStep({ withRambdax })
 })

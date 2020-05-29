@@ -50,7 +50,7 @@ export async function runSingleSpec(method, skipDelete = false){
 
   const testOutput = readFileSync(outputPath).toString()
   if (!testOutput.includes('failing')){
-    log(`All tests are passing for method 'R.${method}'`, 'success')
+    log(`All tests are passing for method 'R.${ method }'`, 'success')
 
     return unlinkSync(outputPath)
   }
