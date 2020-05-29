@@ -6,10 +6,10 @@ import {
   remove as removeFS,
 } from 'fs-extra'
 import { parse, resolve } from 'path'
-import { filter, mapAsync, pick, pipedAsync } from 'rambdax'
+import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
-import { rambdaMethods } from '../constants'
+import { getRambdaMethods } from '../constants'
 import { scanFolder } from 'helpers-fn'
 import { createExportedTypings } from './create-exported-typings'
 
@@ -17,7 +17,16 @@ import { createExportedTypings } from './create-exported-typings'
 // ============================================
 const rambdaxMethodsAsInternals = [ 'isFunction' ]
 
-async function createMainFile({ allMethods, rambdaMethods, dir }){
+async function createMainFile({ allMethods, dir }){
+  console.log(allMethods.includes('mathMod'))
+  const content = allMethods
+    .map(x => `export * from './src/${ x }'`)
+    .join('\n')
+
+  await outputFile(`${ dir }/rambda.js`, content)
+}
+
+async function createMainFileRambdax({ allMethods, rambdaMethods, dir }){
   const content = [ ...allMethods, ...rambdaMethods ]
     .map(x => `export * from './src/${ x }'`)
     .join('\n')
@@ -26,6 +35,7 @@ async function createMainFile({ allMethods, rambdaMethods, dir }){
 }
 
 async function rambdaxBuildStep(){
+  const rambdaMethods = await getRambdaMethods()
   const buildDeps = [
     '@babel/core',
     '@babel/plugin-proposal-object-rest-spread',
@@ -77,7 +87,7 @@ async function rambdaxBuildStep(){
     })
   )
 
-  await createMainFile({
+  await createMainFileRambdax({
     allMethods,
     rambdaMethods,
     dir,
@@ -85,6 +95,7 @@ async function rambdaxBuildStep(){
 }
 
 async function rambdaBuildStep(){
+  const rambdaMethods = await getRambdaMethods()
   const sourceFileDir = resolve(__dirname, '../../source')
   const output = resolve(__dirname, '../../src')
 
@@ -103,13 +114,20 @@ async function rambdaBuildStep(){
         x.includes('internals') ||
         x.includes('benchmarks') ||
         !rambdaMethods.includes(name) &&
-          !rambdaxMethodsAsInternals.includes(name)
+        !rambdaxMethodsAsInternals.includes(name)
 
       if (shouldSkip) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)
-    })
+      return remove('.js', fileName)
+    }),
+    filter(Boolean),
+    filter(x => !rambdaxMethodsAsInternals.includes(x)),
+    async allMethods => {
+      const dir = resolve(__dirname, '../../')
+      await createMainFile({allMethods, dir}) 
+    }
   )
 }
 
