@@ -2582,7 +2582,9 @@ test('with R.equals', () => {
 
 <summary>9 failed <italic>Ramda.clone</italic> specs
 
-> Reason for the failure: rambda method work only with objects and arrays
+> :boom: Reason for the failure: rambda method work only with objects and arrays
+
+:boom: Reason for the failure: rambda method work only with objects and arrays
 </summary>
 
 ```javascript
