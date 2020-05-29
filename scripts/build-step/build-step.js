@@ -5,12 +5,12 @@ import {
   readJson,
   remove as removeFS,
 } from 'fs-extra'
+import { scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
 import { getRambdaMethods } from '../constants'
-import { scanFolder } from 'helpers-fn'
 import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method
@@ -18,7 +18,6 @@ import { createExportedTypings } from './create-exported-typings'
 const rambdaxMethodsAsInternals = [ 'isFunction' ]
 
 async function createMainFile({ allMethods, dir }){
-  console.log(allMethods.includes('mathMod'))
   const content = allMethods
     .map(x => `export * from './src/${ x }'`)
     .join('\n')
@@ -71,7 +70,7 @@ async function rambdaxBuildStep(){
   const allMethods = []
   await pipedAsync(
     sourceFileDir,
-    async dir => scanFolder({folder:dir}),
+    async dir => scanFolder({ folder : dir }),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
 
@@ -101,7 +100,7 @@ async function rambdaBuildStep(){
 
   await pipedAsync(
     sourceFileDir,
-    async dir => scanFolder({folder:dir}),
+    async dir => scanFolder({ folder : dir }),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
 
@@ -114,19 +113,23 @@ async function rambdaBuildStep(){
         x.includes('internals') ||
         x.includes('benchmarks') ||
         !rambdaMethods.includes(name) &&
-        !rambdaxMethodsAsInternals.includes(name)
+          !rambdaxMethodsAsInternals.includes(name)
 
       if (shouldSkip) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)
+
       return remove('.js', fileName)
     }),
     filter(Boolean),
     filter(x => !rambdaxMethodsAsInternals.includes(x)),
     async allMethods => {
       const dir = resolve(__dirname, '../../')
-      await createMainFile({allMethods, dir}) 
+      await createMainFile({
+        allMethods,
+        dir,
+      })
     }
   )
 }

@@ -6,4 +6,3 @@ export function mathMod(x, y){
 
   return (x % y + y) % y
 }
- 
