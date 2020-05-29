@@ -4,6 +4,8 @@
 
 Move the following methods to `Ramda`:
 
+- `R.hasPath`
+
 Deprecate the following methods:
 
 - `R.composed`

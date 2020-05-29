@@ -1,3 +1,7 @@
+- 5.5.0
+
+Add `R.hasPath` method
+
 - 5.4.3
 
 Fix `R.omit` typings

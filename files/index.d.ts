@@ -82,11 +82,6 @@ interface Switchem<T> {
   default: IdentityFunction<T>;
 }
 
-interface HeadObject<T> {
-  prop: string;
-  value: T;
-}
-
 interface Reduced {
   [index: number]: any;
   [index: string]: any;
@@ -1336,6 +1331,40 @@ Notes:
 // @SINGLE_MARKER
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
+
+/*
+Method: hasPath
+
+Explanation: It will return true, if `input` object has truthy `path`(calculated with `R.path`).
+
+Example:
+
+```
+const path = 'a.b'
+const pathAsArray = ['a', 'b']
+const obj = {a: {b: []}}
+
+const result = [
+  R.hasPath(path, obj),
+  R.hasPath(pathAsArray, obj),
+  R.hasPath('a.c', obj),
+]
+// => [true, true, false]
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean;
+export function hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;
 
 /*
 Method: head
@@ -4465,7 +4494,7 @@ Example:
 ```
 R.setter('foo','bar')
 R.setter('a', 1)
-R.getter(['foo','a']) // => {foo:'bar', a:1}
+R.getter(['foo','a']) // => {foo: 'bar', a: 1}
 
 R.setter('a', 2)
 R.getter('a') // => 2
@@ -4484,7 +4513,7 @@ export function getter<T>(keyOrKeys: string | string[] | undefined): T;
 /*
 Method: setter
 
-Explanation: Check `R.getter` explanation.
+Explanation:
 
 Example:
 
@@ -4494,7 +4523,7 @@ Example:
 
 Categories: Experimental
 
-Notes:
+Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
 
 */
 // @SINGLE_MARKER
@@ -4503,7 +4532,7 @@ export function setter(keyOrObject: string | object, value?: any): void;
 /*
 Method: reset
 
-Explanation: Check `R.getter` explanation.
+Explanation: 
 
 Example:
 
@@ -4513,7 +4542,7 @@ Example:
 
 Categories: Experimental
 
-Notes:
+Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
 
 */
 // @SINGLE_MARKER
@@ -4523,35 +4552,6 @@ export function reset(): void;
 Method:
 
 Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function hasPath<T>(
-  path: string | string[],
-  input: object
-): boolean;
-export function hasPath<T>(
-  path: string | string[]
-): (input: object) => boolean;
-
-/*
-Method:
-
-Explanation:
-
-
 
 Example:
 
