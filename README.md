@@ -2582,9 +2582,7 @@ test('with R.equals', () => {
 
 <summary>9 failed <italic>Ramda.clone</italic> specs
 
-> :boom: Reason for the failure: rambda method work only with objects and arrays
-
-:boom: Reason for the failure: rambda method work only with objects and arrays
+> Reason for the failure: rambda method work only with objects and arrays
 </summary>
 
 ```javascript
@@ -6839,6 +6837,96 @@ describe('has', function() {
 
 </details>
 
+### hasPath
+
+```typescript
+hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean
+```
+
+It will return true, if `input` object has truthy `path`(calculated with `R.path`).
+
+```javascript
+const path = 'a.b'
+const pathAsArray = ['a', 'b']
+const obj = {a: {b: []}}
+
+const result = [
+  R.hasPath(path, obj),
+  R.hasPath(pathAsArray, obj),
+  R.hasPath('a.c', obj),
+]
+// => [true, true, false]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20pathAsArray%20%3D%20%5B'a'%2C%20'b'%5D%0Aconst%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%20%5B%5D%7D%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.hasPath(path%2C%20obj)%2C%0A%20%20R.hasPath(pathAsArray%2C%20obj)%2C%0A%20%20R.hasPath('a.c'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try the above <strong>R.hasPath</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean;
+hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.hasPath</strong> source</summary>
+
+```javascript
+import { path } from './path'
+
+export function hasPath(maybePath, obj){
+  if (arguments.length === 1){
+    return objHolder => hasPath(maybePath, objHolder)
+  }
+
+  return path(maybePath, obj) !== undefined
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { hasPath } from './hasPath'
+
+test('when true', () => {
+  const path = 'a.b'
+  const obj = { a : { b : [] } }
+
+  const result = hasPath(path)(obj)
+  const expectedResult = true
+
+  expect(result).toEqual(expectedResult)
+})
+
+test('when false', () => {
+  const path = 'a.b'
+  const obj = {}
+
+  const result = hasPath(path, obj)
+  const expectedResult = false
+
+  expect(result).toEqual(expectedResult)
+})
+```
+
+</details>
+
 ### head
 
 ```typescript
@@ -9527,6 +9615,75 @@ test('throwing', () => {
   expect(() => {
     match(/a./g, null)
   }).toThrowWithMessage(TypeError, 'Cannot read property \'match\' of null')
+})
+```
+
+</details>
+
+### mathMod
+
+```typescript
+mathMod(x: number, y: number): number
+```
+
+`R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+
+```javascript
+const result = [
+  R.mathMod(-17, 5),
+  R.mathMod(17, 5),
+  R.mathMod(17, -5),  
+  R.mathMod(17, 0)   
+]
+// => [3, 2, NaN, NaN]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.mathMod(-17%2C%205)%2C%0A%20%20R.mathMod(17%2C%205)%2C%0A%20%20R.mathMod(17%2C%20-5)%2C%20%20%0A%20%20R.mathMod(17%2C%200)%20%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B3%2C%202%2C%20NaN%2C%20NaN%5D">Try the above <strong>R.mathMod</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+mathMod(x: number, y: number): number;
+mathMod(x: number): (y: number) => number;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mathMod</strong> source</summary>
+
+```javascript
+import _isInteger from './_internals/_isInteger'
+
+export function mathMod(x, y){
+  if (arguments.length === 1) return _y => mathMod(x, _y)
+  if (!_isInteger(x) || !_isInteger(y) || y < 1) return NaN
+
+  return (x % y + y) % y
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mathMod } from './mathMod'
+
+test('happy', () => {
+  expect(mathMod(-17)(5)).toEqual(3)
+  expect(mathMod(17, 5)).toEqual(2)
+  expect(mathMod(17, -5)).toBeNaN()
+  expect(mathMod(17, 0)).toBeNaN()
+  expect(mathMod('17', 5)).toBeNaN()
+  expect(mathMod({}, 2)).toBeNaN()
+  expect(mathMod([], 2)).toBeNaN()
+  expect(mathMod(Symbol(), 2)).toBeNaN()
 })
 ```
 
@@ -16376,6 +16533,12 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- 5.5.0
+
+Add `R.hasPath` method
+
+Add `R.mathMod` typings
 
 - 5.4.3
 

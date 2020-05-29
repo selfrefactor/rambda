@@ -82,11 +82,6 @@ interface Switchem<T> {
   default: IdentityFunction<T>;
 }
 
-interface HeadObject<T> {
-  prop: string;
-  value: T;
-}
-
 interface Reduced {
   [index: number]: any;
   [index: string]: any;
@@ -435,6 +430,17 @@ export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
 
 /**
+ * It will return true, if `input` object has truthy `path`(calculated with `R.path`).
+ */
+export function hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean;
+export function hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;
+
+/**
  * It returns the first element of `listOrString`.
  */
 export function head<T>(listOrString: T[]): T | undefined;
@@ -631,6 +637,12 @@ export function map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
  */
 export function match(regExpression: RegExp, str: string): any[];
 export function match(regExpression: RegExp): (str: string) => any[];
+
+/**
+ * `R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+ */
+export function mathMod(x: number, y: number): number;
+export function mathMod(x: number): (y: number) => number;
 
 /**
  * It returns the greater value between `x` and `y`.

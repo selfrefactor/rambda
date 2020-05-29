@@ -1,8 +1,8 @@
 import _isInteger from './_internals/_isInteger'
 
-export function mathMod(m, p){
-  if (arguments.length === 1) return _p => mathMod(m, _p)
-  if (!_isInteger(m) || !_isInteger(p) || p < 1) return NaN
+export function mathMod(x, y){
+  if (arguments.length === 1) return _y => mathMod(x, _y)
+  if (!_isInteger(x) || !_isInteger(y) || y < 1) return NaN
 
-  return (m % p + p) % p
+  return (x % y + y) % y
 }
