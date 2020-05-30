@@ -14,6 +14,7 @@ const folders = [
   'scripts/populate-docs-data',
   'scripts/populate-readme-data',
   'scripts/run-benchmarks',
+  'scripts/dynamic-ts-toolbelt',
 ]
 
 const files = [

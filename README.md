@@ -1228,8 +1228,8 @@ export function append(x, listOrString){
 
 ```javascript
 import { append } from './append'
-import { compose } from './compose.js'
-import { flatten } from './flatten.js'
+import { compose } from './compose'
+import { flatten } from './flatten'
 import { map } from './map'
 
 test('with strings', () => {
@@ -2302,7 +2302,7 @@ export function chain(fn, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { chain } from './chain.js'
+import { chain } from './chain'
 
 const duplicate = n => [ n, n ]
 
@@ -3116,10 +3116,10 @@ export function cond(conditions){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { always } from './always.js'
+import { always } from './always'
 import { cond } from './cond'
-import { equals } from './equals.js'
-import { T } from './T.js'
+import { equals } from './equals'
+import { T } from './T'
 
 test('returns a function', () => {
   expect(typeof cond([])).toEqual('function')
@@ -3384,7 +3384,7 @@ curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 ```javascript
 import { curryN } from './curryN'
 
-export function curry(fn) {
+export function curry(fn){
   return curryN(fn.length, fn)
 }
 ```
@@ -5414,9 +5414,10 @@ export function filter(predicate, list){
 
 ```javascript
 import Ramda from 'ramda'
+
+import { F } from './F'
 import { filter } from './filter'
 import { T } from './T'
-import { F } from './F'
 
 const sampleObject = {
   a : 1,
@@ -5442,7 +5443,7 @@ test('bad inputs', () => {
   expect(() => Ramda.filter(T, null)).toThrow()
   expect(() => Ramda.filter(T, undefined)).toThrow()
 })
- 
+
 test('predicate when input is object', () => {
   const obj = {
     a : 1,
@@ -6082,27 +6083,29 @@ flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(
 <summary><strong>R.flip</strong> source</summary>
 
 ```javascript
-import { curryN } from './curryN.js'
+import { curryN } from './curryN'
 
-function flipExport(fn) {
+function flipExport(fn){
   const flipedFn = (...input) => {
-    const missing = fn.length - input.length;
+    const missing = fn.length - input.length
 
-    if (missing <= 0)
-      return fn(input[1], input[0], ...input.slice(2))
+    if (missing <= 0) return fn(
+      input[ 1 ], input[ 0 ], ...input.slice(2)
+    )
 
-    if (input.length === 0)
-      return flipedFn
+    if (input.length === 0) return flipedFn
 
     if (input.length === 1)
       return curryN(missing, (...rest) => {
-        const args = [rest[0], input[0], ...rest.slice(1)]
+        const args = [ rest[ 0 ], input[ 0 ], ...rest.slice(1) ]
+
         return fn(...args)
       })
 
     // input.length >= 2
     return curryN(missing, (...rest) => {
-      const args = [input[1], input[0], ...input.slice(2), ...rest]
+      const args = [ input[ 1 ], input[ 0 ], ...input.slice(2), ...rest ]
+
       return fn(...args)
     })
   }
@@ -6139,26 +6142,35 @@ test('function with arity of 2', () => {
 test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
-  const result = updateFlipped(88, 0, [ 1, 2, 3 ])
-  const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
-  const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+  const result = updateFlipped(
+    8, 0, [ 1, 2, 3 ]
+  )
+  const curriedResult = updateFlipped(8, 0)([ 1, 2, 3 ])
+  const tripleCurriedResult = updateFlipped(8)(0)([ 1, 2, 3 ])
 
-  expect(result).toEqual([ 88, 2, 3 ])
-  expect(curriedResult).toEqual([ 88, 2, 3 ])
-  expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
+  expect(result).toEqual([ 8, 2, 3 ])
+  expect(curriedResult).toEqual([ 8, 2, 3 ])
+  expect(tripleCurriedResult).toEqual([ 8, 2, 3 ])
 })
 
 test('function with arity of 4', () => {
-  const testFunction = (a, b, c, d) =>
-    `${a},${b},${c},${d}`
+  const testFunction = (
+    a, b, c, d
+  ) => `${ a },${ b },${ c },${ d }`
 
   const flippedFn = flip(testFunction)
 
   const result1 = flippedFn(2)(1)(3)(4)
-  const result2 = flippedFn(2)(1, 3, 4)
+  const result2 = flippedFn(2)(
+    1, 3, 4
+  )
   const result3 = flippedFn(2, 1)(3, 4)
-  const result4 = flippedFn(2, 1, 3)(4)
-  const result5 = flippedFn(2, 1, 3, 4)
+  const result4 = flippedFn(
+    2, 1, 3
+  )(4)
+  const result5 = flippedFn(
+    2, 1, 3, 4
+  )
 
   const expected = '1,2,3,4'
 
@@ -7139,7 +7151,7 @@ export function identical(a, b){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { F, T } from '../rambda.js'
+import { F, T } from '../rambda'
 import { _isInteger } from './_internals/_isInteger'
 import { _objectIs } from './_internals/_objectIs'
 import { identical } from './identical'
@@ -7292,7 +7304,7 @@ export const ifElse = curry(ifElseFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { always } from './always.js'
+import { always } from './always'
 import { has } from './has'
 import { identity } from './identity'
 import { ifElse } from './ifElse'
@@ -8310,7 +8322,7 @@ isEmpty<T>(x: T): boolean;
 <summary><strong>R.isEmpty</strong> source</summary>
 
 ```javascript
-import { type } from './type.js'
+import { type } from './type'
 
 export function isEmpty(input){
   const inputType = type(input)
@@ -8541,7 +8553,7 @@ export function keys(x){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { keys } from './keys.js'
+import { keys } from './keys'
 
 test('happy', () => {
   expect(keys({ a : 1 })).toEqual([ 'a' ])
@@ -10926,7 +10938,8 @@ import { type } from './type'
 
 const greet = (
   salutation, title, firstName, lastName
-) => salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
+) =>
+  salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
 
 test('happy', () => {
   const canPassAnyNumberOfArguments = partial(
@@ -12474,7 +12487,7 @@ propIs(type: any): {
 <summary><strong>R.propIs</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
+import { curry } from './curry'
 import { is } from './is'
 
 function propIsFn(
@@ -13668,7 +13681,7 @@ export function sortBy(sortFn, list){
 import { compose } from './compose'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
-import { toLower } from './toLower.js'
+import { toLower } from './toLower'
 
 test('happy', () => {
   const input = [ { a : 2 }, { a : 1 }, { a : 1 }, { a : 3 } ]
@@ -15771,7 +15784,7 @@ import { update } from './update'
 const list = [ 1, 2, 3 ]
 
 test('happy', () => {
-  const newValue = 88
+  const newValue = 8
   const index = 1
   const result = update(
     index, newValue, list
@@ -15779,14 +15792,14 @@ test('happy', () => {
   const curriedResult = update(index, newValue)(list)
   const tripleCurriedResult = update(index)(newValue)(list)
 
-  const expected = [ 1, 88, 3 ]
+  const expected = [ 1, 8, 3 ]
   expect(result).toEqual(expected)
   expect(curriedResult).toEqual(expected)
   expect(tripleCurriedResult).toEqual(expected)
 })
 
 test('list has no such index', () => {
-  const newValue = 88
+  const newValue = 8
   const index = 10
   const result = update(
     index, newValue, list
@@ -15870,7 +15883,7 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 <summary><strong>R.values</strong> source</summary>
 
 ```javascript
-import { type } from './type.js'
+import { type } from './type'
 
 export function values(obj){
   if (type(obj) !== 'Object') return []
