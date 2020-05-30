@@ -6,3 +6,4 @@ scripts/run-ramda-specs/ramda
 scripts/run-ramda-specs/ramda/*
 scripts/lint-ts-files/assets
 scripts/lint-ts-files/assets/*
+scripts/dynamic-ts-toolbelt/ts-toolbelt
