@@ -1,5 +1,7 @@
+import { _isArray } from './_internals/_isArray'
+
 export function groupWith(compareFn, list){
-  if (!Array.isArray(list))
+  if (!_isArray(list))
     throw new TypeError('list.reduce is not a function')
 
   const clone = list.slice()

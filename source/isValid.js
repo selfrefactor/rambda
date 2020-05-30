@@ -1,3 +1,4 @@
+import { _isArray } from './_internals/_isArray'
 import { all } from './all'
 import { any } from './any'
 import { includes } from './includes'
@@ -36,7 +37,7 @@ const typesWithoutPrototype = [ 'any', 'promise', 'async', 'function' ]
 
 export function fromPrototypeToString(rule){
   if (
-    Array.isArray(rule) ||
+    _isArray(rule) ||
     rule === undefined ||
     rule === null ||
     rule.prototype === undefined ||

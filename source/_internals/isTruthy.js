@@ -1,7 +1,8 @@
+import { _isArray } from './_isArray'
 import { type } from '../type'
 
 export function isTruthy(x){
-  if (Array.isArray(x)){
+  if (_isArray(x)){
     return x.length > 0
   }
   if (type(x) === 'Object'){

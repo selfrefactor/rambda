@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 function mapObject(fn, obj){
   const willReturn = {}
 
@@ -16,7 +18,7 @@ export function map(fn, list){
   if (list === undefined){
     return []
   }
-  if (!Array.isArray(list)){
+  if (!_isArray(list)){
     return mapObject(fn, list)
   }
 

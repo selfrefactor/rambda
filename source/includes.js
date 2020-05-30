@@ -1,3 +1,4 @@
+import { _isArray } from './_internals/_isArray'
 import { equals } from './equals'
 
 export function includes(valueToFind, input){
@@ -6,7 +7,7 @@ export function includes(valueToFind, input){
   if (typeof input === 'string'){
     return input.includes(valueToFind)
   }
-  if (!Array.isArray(input)) return false
+  if (!_isArray(input)) return false
 
   let index = -1
 

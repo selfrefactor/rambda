@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -17,7 +19,7 @@ export function filter(predicate, list){
 
   if (!list) return []
 
-  if (!Array.isArray(list)){
+  if (!_isArray(list)){
     return filterObject(predicate, list)
   }
 
