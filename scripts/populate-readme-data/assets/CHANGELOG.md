@@ -2,6 +2,8 @@
 
 Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
 
+Close [Issue #468](https://github.com/selfrefactor/rambda/issues/468) - `fs-extra` should be dev dependency as it was wrongly added as production dependency in `5.2.0`
+
 `R.flip` typings now match `@types/ramda` typings
 
 Add `R.hasPath` method

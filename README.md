@@ -61,6 +61,8 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
+Still, you need to be aware that due to [variadic arguments Typescript proposal](https://github.com/microsoft/TypeScript/issues/5453) being still open and unresolved, using **R.compose/R.pipe** is far from smooth. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no visible solution to it.
+
 - More generic methods
 
 `Ramda` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. `Rambda` has smaller method counts and that could be seen as advantage.
@@ -16635,6 +16637,8 @@ describe('zipObj', () => {
 - 5.5.0
 
 Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
+
+Close [Issue #468](https://github.com/selfrefactor/rambda/issues/468) - `fs-extra` should be dev dependency as it was wrongly added as production dependency in `5.2.0`
 
 `R.flip` typings now match `@types/ramda` typings
 
