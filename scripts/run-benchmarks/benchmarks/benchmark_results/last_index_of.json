@@ -1,19 +1,19 @@
 {
   "name": "LAST_INDEX_OF",
-  "date": "2020-05-13T22:14:23.261Z",
+  "date": "2020-05-30T14:08:56.051Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 517177,
-      "margin": 2.03,
+      "ops": 523774,
+      "margin": 0.55,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 301377,
-      "margin": 2.07,
-      "percentSlower": 41.73
+      "ops": 314646,
+      "margin": 1.13,
+      "percentSlower": 39.93
     }
   ],
   "fastest": {

@@ -1,24 +1,24 @@
 {
   "name": "FILTER",
-  "date": "2020-05-13T22:11:45.178Z",
+  "date": "2020-05-30T14:06:17.805Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 4119636,
-      "margin": 2.36,
-      "percentSlower": 72.76
+      "ops": 4658836,
+      "margin": 0.44,
+      "percentSlower": 66.61
     },
     {
       "name": "Ramda",
-      "ops": 1912423,
-      "margin": 0.47,
-      "percentSlower": 87.36
+      "ops": 1821638,
+      "margin": 1.25,
+      "percentSlower": 86.94
     },
     {
       "name": "Lodash",
-      "ops": 15125906,
-      "margin": 1.01,
+      "ops": 13952565,
+      "margin": 2.78,
       "percentSlower": 0
     }
   ],

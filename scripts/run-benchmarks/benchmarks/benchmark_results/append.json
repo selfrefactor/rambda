@@ -1,19 +1,19 @@
 {
   "name": "APPEND",
-  "date": "2020-05-13T22:09:01.651Z",
+  "date": "2020-05-30T14:03:33.884Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 10860539,
-      "margin": 3.04,
+      "ops": 11875512,
+      "margin": 0.49,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1889592,
-      "margin": 1.74,
-      "percentSlower": 82.6
+      "ops": 2034429,
+      "margin": 0.93,
+      "percentSlower": 82.87
     }
   ],
   "fastest": {
