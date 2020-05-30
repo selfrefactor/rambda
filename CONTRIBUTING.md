@@ -14,6 +14,8 @@
 
 ## Fix a Typescript definition
 
+Please be aware, that due to [variadic arguments Typescript proposal](https://github.com/microsoft/TypeScript/issues/5453) being still open and unresolved, using **R.compose/R.pipe** is far from smooth. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no visible solution to it.
+
 1. If there is already `source/foo-spec.ts` then add a new test to reproduce the bug(otherwise you need to create such file).
 
 2. Apply your fix to `files/index.d.ts`
