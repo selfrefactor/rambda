@@ -1,5 +1,9 @@
 - 5.5.0
 
+Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
+
+`R.flip` typings now match `@types/ramda` typings
+
 Add `R.hasPath` method
 
 Add `R.mathMod` typings

@@ -1,4 +1,4 @@
-import { FToolbelt } from "../_ts-toolbelt/src/index";
+import { FunctionToolbelt, TupleToolbelt } from "../_ts-toolbelt/src/index";
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -426,7 +426,7 @@ Notes: Object
 // @SINGLE_MARKER
 export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
+export function assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
 
 /*
 Method: both
@@ -728,7 +728,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
+export function curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 
 /*
 Method: curryN
@@ -1193,11 +1193,12 @@ const result = [
 
 Categories: Function
 
-Notes: Rambda's **flip** works only for functions expecting two arguments.
+Notes: Rambda's **flip** will throw if arity of the input function is greater than 4.
 
 */
 // @SINGLE_MARKER
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
+export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 
 /*
 Method: forEach
@@ -2157,7 +2158,7 @@ Notes:
 // @SINGLE_MARKER
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+export function maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 /*
 Method: mean
@@ -2268,7 +2269,7 @@ Notes:
 // @SINGLE_MARKER
 export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+export function minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 
 /*
@@ -2578,7 +2579,7 @@ Notes:
 // @SINGLE_MARKER
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
+export function pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
 
 /*
 Method: pick
