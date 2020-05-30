@@ -1,9 +1,8 @@
-import {True, False} from '../Boolean/Boolean'
-
-/** Check whether **`A1`** is equal to **`A2`** or not.
+/**
+ * Check whether **`A1`** is equal to **`A2`** or not.
  * @param A1
  * @param A2
- * @returns **`Boolean`**
+ * @returns [[Boolean]]
  * @example
  * ```ts
  * import {A} from 'ts-toolbelt'
@@ -14,8 +13,10 @@ import {True, False} from '../Boolean/Boolean'
  * ```
  */
 export type Equals<A1 extends any, A2 extends any> =
-    (<A>() => A extends A1 ? True : False) extends (<A>() => A extends A2 ? True : False)
-    ? True
-    : False
+    (<A>() => A extends A2 ? 1 : 0) extends (<A>() => A extends A1 ? 1 : 0)
+    ? (<A>() => A extends A1 ? 1 : 0) extends (<A>() => A extends A2 ? 1 : 0)
+      ? 1
+      : 0
+    : 0
 
 // Credit https://stackoverflow.com/a/52473108/3570903

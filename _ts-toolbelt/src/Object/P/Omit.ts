@@ -2,34 +2,56 @@ import {IterationOf} from '../../Iteration/IterationOf'
 import {Iteration} from '../../Iteration/Iteration'
 import {Pos} from '../../Iteration/Pos'
 import {Next} from '../../Iteration/Next'
-import {Path as PPath} from './_Internal'
-import {Index} from '../../Any/Index'
-import {LastIndex} from '../../Tuple/LastIndex'
-import {Tuple} from '../../Tuple/Tuple'
-import {Select} from '../Select'
-import {Key} from '../../Iteration/Key'
+import {Key} from '../../Any/Key'
+import {_Omit as _OOmit} from '../Omit'
+import {LastIndex} from '../../List/LastIndex'
+import {List} from '../../List/List'
+import {Boolean} from '../../Boolean/Boolean'
 
-type _Omit<O extends object, Path extends Tuple<Index>, I extends Iteration = IterationOf<'0'>> = Select<{                                // No `never` fields
-    [K in keyof O]:
-      O[K] extends infer Prop                 // Needed for the below to be distributive
-      ? K extends Path[Pos<I>]                // If K is part of Path
-        ? Key<I> extends LastIndex<Path, 's'> // & if it's the target
-          ? never // don't pick               // Update - target
-          : Prop extends object               // If it's an object
-            ? _Omit<Prop, Path, Next<I>>      // Continue diving
-            : Prop // pick it                 // Part of path, but not object - x
-        : Prop // pick it                     // Not part of path - x
-      : never
-}, any> & {}
+/**
+@hidden
+*/
+type OmitObject<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
+  O extends object                                        // If it's an object
+  ? Pos<I> extends LastIndex<Path>                        // If it's the last index
+    ? _OOmit<O, Path[Pos<I>]>                              // Use standard Omit
+    : {
+        [K in keyof O]: K extends Path[Pos<I>]            // If K is part of Path
+                        ? OmitObject<O[K], Path, Next<I>> // Continue diving
+                        : O[K]                            // Not part of path - x
+      } & {}
+  : O                                                     // Not an object - x
 
-/** Remove out of **`O`** the fields at **`Path`**
- * (⚠️ this type is expensive)
- * @param O to remove from
- * @param Path to be followed
- * @returns **`object`**
- * @example
- * ```ts
- * ```
- */
-export type Omit<O extends object, Path extends PPath> =
-    _Omit<O, Path>
+/**
+@hidden
+*/
+type OmitList<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
+  O extends object                  // Same as above, but
+  ? O extends (infer A)[]           // If O is an array
+    ? {
+        1: OmitList<A, Path, I>[] // Dive into the array (TS <3.7)
+        0: never
+      }[O extends List ? 1 : 0]
+    : Pos<I> extends LastIndex<Path>
+      ? _OOmit<O, Path[Pos<I>]>
+      : {
+          [K in keyof O]: K extends Path[Pos<I>]
+                          ? OmitList<O[K], Path, Next<I>>
+                          : O[K]
+        } & {}
+  : O
+
+/**
+Remove out of **`O`** the fields at **`Path`**
+@param O to remove from
+@param Path to be followed
+@param list (?=`0`) `1` to work within object lists
+@returns [[Object]]
+@example
+```ts
+```
+*/
+export type Omit<O extends object, Path extends List<Key>, list extends Boolean = 0> = {
+  0: OmitObject<O, Path>
+  1: OmitList<O, Path>
+}[list]

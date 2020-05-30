@@ -1,14 +1,26 @@
-import {FilterKeys} from './FilterKeys'
-import {Index} from '../Any/Index'
+import {Key} from '../Any/Key'
 
-/** Get the keys of **`O`** that are compulsory
- * @param O
- * @returns **`keyof`**
- * @example
- * ```ts
- * ```
- */
+/**
+@hidden
+*/
+export type _CompulsoryKeys<O extends object> = {
+    [K in keyof O]: [O[K] & (undefined | null)] extends [never]
+                    ? K
+                    : never
+}[keyof O]
+
+/**
+Get the keys of **`O`** that are [[Compulsory]]
+(⚠️ needs `--strictNullChecks` enabled)
+@param O
+@returns [[Key]]
+@example
+```ts
+```
+*/
 export type CompulsoryKeys<O extends object> =
-    FilterKeys<O, undefined, '<-extends'> &
-    FilterKeys<O, null, '<-extends'> &
-    Index
+    (
+        O extends unknown
+        ? _CompulsoryKeys<O>
+        : never
+    ) & Key

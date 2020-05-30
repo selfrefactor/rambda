@@ -1,42 +1,60 @@
-import {Record} from '../../Object/Record'
 import {IterationOf} from '../../Iteration/IterationOf'
 import {Iteration} from '../../Iteration/Iteration'
 import {Pos} from '../../Iteration/Pos'
 import {Next} from '../../Iteration/Next'
+import {Key} from '../../Any/Key'
 import {Readonly as OReadonly} from '../Readonly'
-import {Last} from '../../Tuple/Last'
-import {Pop} from '../../Tuple/Pop'
+import {LastIndex} from '../../List/LastIndex'
+import {List} from '../../List/List'
 import {Depth} from '../_Internal'
-import {Path as PPath} from './_Internal'
-import {Prepend} from '../../Tuple/Prepend'
-import {Index} from '../../Any/Index'
-import {LastIndex} from '../../Tuple/LastIndex'
-import {Tuple} from '../../Tuple/Tuple'
-import {Key} from '../../Iteration/Key'
+import {Boolean} from '../../Boolean/Boolean'
 
-type _Readonly<O extends object, Path extends Tuple<Index>, K extends Index, depth extends Depth, I extends Iteration = IterationOf<'0'>> = {
-  [P in keyof O]:
-    O[P] extends infer Prop                          // Needed for the below to be distributive
-    ? P extends Path[Pos<I>]                         // If K is part of Path
-      ? Prop extends object                          // & prop is object
-        ? Key<I> extends LastIndex<Path, 's'>        // & if it's the target
-          ? OReadonly<Prop, K, depth> // immutable   // Update - target
-          : _Readonly<Prop, Path, K, depth, Next<I>> // Or continue diving
-        : Prop // don't update                       // Part of path, but not object - x
-      : Prop // don't update                         // Not part of path - x
-    : never
-} & {}
+/**
+@hidden
+*/
+type ReadonlyObject<O, Path extends List<Key>, depth extends Depth, I extends Iteration = IterationOf<'0'>> =
+  O extends object                                                   // If it's an object
+  ? Pos<I> extends LastIndex<Path>                                   // If it's the last index
+    ? OReadonly<O, Path[Pos<I>], depth>                              // Use standard ReadOnly
+    : {
+        [K in keyof O]: K extends Path[Pos<I>]                       // If K is part of Path
+                        ? ReadonlyObject<O[K], Path, depth, Next<I>> // Continue diving
+                        : O[K]                                       // Not part of path - x
+      } & {}
+  : O                                                                // Not an object - x
 
-/** Make some fields of **`O`** readonly at **`Path`** (deeply or not)
- * (⚠️ this type is expensive)
- * @param O to make readonly
- * @param Path to be followed
- * @param depth to do it deeply (?=`'flat'`)
- * @returns **`object`**
- * @example
- * ```ts
- * ```
- */
-export type Readonly<O extends object, Path extends PPath, depth extends Depth = 'flat'> =
-    _Readonly<Record<'_', O>, Pop<Prepend<Path, '_'>>, Last<Path>, depth>['_']
-    // We have nested `O` to be able to perform 0-depth operations as well
+/**
+@hidden
+*/
+type ReadonlyArrays<O, Path extends List<Key>, depth extends Depth, I extends Iteration = IterationOf<'0'>> =
+  O extends object                             // Same as above, but
+  ? O extends (infer A)[]                      // If O is an array
+    ? {
+        1: ReadonlyArrays<A, Path, depth, I>[] // Dive into the array (TS <3.7)
+        0: never
+      }[O extends List ? 1 : 0]
+    : Pos<I> extends LastIndex<Path>
+      ? OReadonly<O, Path[Pos<I>], depth>
+      : {
+          [K in keyof O]: K extends Path[Pos<I>]
+                          ? ReadonlyArrays<O[K], Path, depth, Next<I>>
+                          : O[K]
+        } & {}
+  : O
+
+/**
+Make some fields of **`O`** readonly at **`Path`** (deeply or not)
+@param O to make readonly
+@param Path to be followed
+@param depth (?=`'flat'`) to do it deeply
+@param list (?=`0`) `1` to work within object lists
+@returns [[Object]]
+@example
+```ts
+```
+*/
+export type Readonly<O extends object, Path extends List<Key>, depth extends Depth = 'flat', list extends Boolean = 0> = {
+  0: ReadonlyObject<O, Path, depth>
+  1: ReadonlyArrays<O, Path, depth>
+}[list]
+

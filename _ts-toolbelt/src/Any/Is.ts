@@ -3,12 +3,13 @@ import {Extends} from './Extends'
 import {Equals} from './Equals'
 import {Implements} from './Implements'
 
-/** Check whether `A` is similar to `A1` or not. In other words, it is a compact
- * type that bundles `Equals`, `Extends` and `Implements` comparison types.
+/**
+ * Check whether **`A`** is similar to **`A1`** or not. In other words, it is a compact
+ * type that bundles [[Equals]], [[Extends]] and [[Implements]] comparison types.
  * @param A to be compared
  * @param A1 to compare to
- * @param match to change precision (?=`'default'`)
- * @returns **`Boolean`**
+ * @param match (?=`'default'`) to change precision
+ * @returns [[Boolean]]
  * @example
  * ```ts
  * import {A} from 'ts-toolbelt'

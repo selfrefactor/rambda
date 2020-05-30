@@ -1,66 +1,32 @@
-import {IterationMap} from '../Iteration/IterationOf'
-import {SelectKeys} from '../Object/SelectKeys'
-import {Numbers} from './_Internal'
 import {Key} from '../Iteration/Key'
+import {Pos} from '../Iteration/Pos'
+import {Numbers, KnownIterationMapKeys} from './_Internal'
+import {NumberMap} from '../Misc/Iteration/Number'
+import {Map} from '../Misc/Iteration/Map'
 
-type NumberToIterationMap = {
-    0 : ['-1', '1', '0', 0, '0']
-    1 : ['0', '2', '1', 1, '+'],
-    2 : ['1', '3', '2', 2, '+'],
-    3 : ['2', '4', '3', 3, '+'],
-    4 : ['3', '5', '4', 4, '+'],
-    5 : ['4', '6', '5', 5, '+'],
-    6 : ['5', '7', '6', 6, '+'],
-    7 : ['6', '8', '7', 7, '+'],
-    8 : ['7', '9', '8', 8, '+'],
-    9 : ['8', '10', '9', 9, '+'],
-    10: ['9', '11', '10', 10, '+'],
-    11: ['10', '12', '11', 11, '+'],
-    12: ['11', '13', '12', 12, '+'],
-    13: ['12', '14', '13', 13, '+'],
-    14: ['13', '15', '14', 14, '+'],
-    15: ['14', '16', '15', 15, '+'],
-    16: ['15', '17', '16', 16, '+'],
-    17: ['16', '18', '17', 17, '+'],
-    18: ['17', '19', '18', 18, '+'],
-    19: ['18', '20', '19', 19, '+'],
-    20: ['19', '21', '20', 20, '+'],
-    21: ['20', '22', '21', 21, '+'],
-    22: ['21', '23', '22', 22, '+'],
-    23: ['22', '24', '23', 23, '+'],
-    24: ['23', '25', '24', 24, '+'],
-    25: ['24', '26', '25', 25, '+'],
-    26: ['25', '27', '26', 26, '+'],
-    27: ['26', '28', '27', 27, '+'],
-    28: ['27', '29', '28', 28, '+'],
-    29: ['28', '30', '29', 29, '+'],
-    30: ['29', '31', '30', 30, '+'],
-    31: ['30', '32', '31', 31, '+'],
-    32: ['31', '33', '32', 32, '+'],
-    33: ['32', '34', '33', 33, '+'],
-    34: ['33', '35', '34', 34, '+'],
-    35: ['34', '36', '35', 35, '+'],
-    36: ['35', '37', '36', 36, '+'],
-    37: ['36', '38', '37', 37, '+'],
-    38: ['37', '39', '38', 38, '+'],
-    39: ['38', '40', '39', 39, '+'],
-    40: ['39', '__', '40', 40, '+'],
-}
+/**
+@hidden
+*/
+export type _NumberOf<N extends number, IMap extends Map> = {
+    [K in keyof IMap]: Pos<IMap[K], IMap> extends N
+                       ? Key<IMap[K], IMap>
+                       : never
+}[KnownIterationMapKeys<IMap>]
 
-/** Transform a **`number`** into a **`Number`**
- * @param N to stringify
- * @returns **`string`**
- * @example
- * ```ts
- * import {N} from 'ts-toolbelt'
- *
- * type test0 = N.StringOf<5>  //  '5'
- * type test1 = N.StringOf<-5> // '-5'
- * ```
- */
-export type NumberOf<N extends number> =
-    N extends keyof NumberToIterationMap
-    ? Key<NumberToIterationMap[N]>
-    : N extends Numbers['number']['-'] // expensive with negative numbers
-      ? Key<IterationMap[SelectKeys<IterationMap, [any, any, any, N, any]>]>
-    : string // out of range
+/**
+Transform a **`number`** into a [[Number]]
+@param N to stringify
+@param IMap to operate with another set of numbers
+@returns [[String]]
+@example
+```ts
+import {N} from 'ts-toolbelt'
+
+type test0 = N.StringOf<5>  //  '5'
+type test1 = N.StringOf<-5> // '-5'
+```
+*/
+export type NumberOf<N extends number, IMap extends Map = NumberMap> =
+    N extends Numbers<IMap>['number']['all']
+    ? _NumberOf<N, IMap>
+    : string

@@ -1,33 +1,44 @@
-import {Merge} from './Merge'
+import {MergeFlat} from './Merge'
 import {Pick} from './Pick'
 import {Depth} from './_Internal'
-import {Index} from '../Any/Index'
+import {Key} from '../Any/Key'
 import {Implements} from '../Any/Implements'
+import {Keys} from '../Union/Keys'
 
-type ReadonlyFlat<O> = {
+/**
+@hidden
+*/
+export type ReadonlyFlat<O> = {
     +readonly [K in keyof O]: O[K]
-}
+} & {}
 
-type ReadonlyDeep<O> = {
+/**
+@hidden
+*/
+export type ReadonlyDeep<O> = {
     +readonly [K in keyof O]: ReadonlyDeep<O[K]>
 }
 
+/**
+@hidden
+*/
 type ReadonlyPart<O extends object, depth extends Depth> = {
     'flat': ReadonlyFlat<O>,
     'deep': ReadonlyDeep<O>,
 }[depth]
 
-/** Make some fields of **`O`** readonly (deeply or not)
- * @param O to make readonly
- * @param K to choose fields (?=`keyof O`)
- * @param depth to do it deeply (?=`'default'`)
- * @returns **`object`**
- * @example
- * ```ts
- * ```
- */
-export type Readonly<O extends object, K extends Index = keyof O, depth extends Depth = 'flat'> = {
+/**
+Make some fields of **`O`** readonly (deeply or not)
+@param O to make readonly
+@param K (?=`Key`) to choose fields
+@param depth (?=`'default'`) to do it deeply
+@returns [[Object]]
+@example
+```ts
+```
+*/
+export type Readonly<O extends object, K extends Key = Key, depth extends Depth = 'flat'> = {
     1: ReadonlyPart<O, depth>
-    0: Merge<ReadonlyPart<Pick<O, K>, depth>, O>
+    0: MergeFlat<ReadonlyPart<Pick<O, K>, depth>, O>
     // Pick a part of O (with K) -> nullable -> merge it with O
-}[Implements<keyof O, K>]
+}[Implements<Keys<O>, K>] & {}

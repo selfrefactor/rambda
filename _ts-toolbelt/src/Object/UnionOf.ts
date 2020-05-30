@@ -1,11 +1,13 @@
 import {Keys} from './Keys'
+import {At} from './At'
 
-/** Transform an **`object`** into an **union**
- * @param O to transform
- * @returns **`any`**
- * @example
- * ```ts
- * ```
- */
+/**
+Transform an [[Object]] into an [[Union]]
+@param O to transform
+@returns **`any`**
+@example
+```ts
+```
+*/
 export type UnionOf<O extends object> =
-    O[Keys<O>]
+    At<O, Keys<O>>
