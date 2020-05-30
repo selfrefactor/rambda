@@ -15,40 +15,32 @@ test('function with arity of 2', () => {
 test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
-  const result = updateFlipped(
-    88, 0, [ 1, 2, 3 ]
-  )
+  const result = updateFlipped(88, 0, [ 1, 2, 3 ])
   const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
   const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+
   expect(result).toEqual([ 88, 2, 3 ])
   expect(curriedResult).toEqual([ 88, 2, 3 ])
   expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
 })
 
 test('function with arity of 4', () => {
-  const testFunction = (
-    a, b, c, d
-  ) => `${ a - b }==${ c - d }`
-  const testFunctionFlipped = flip(testFunction)
+  const testFunction = (a, b, c, d) =>
+    `${a},${b},${c},${d}`
 
-  const result = testFunction(
-    1, 2, 3, 4
-  )
-  const flippedResult = testFunctionFlipped(
-    2, 1, 3, 4
-  )
-  expect(result).toEqual(flippedResult)
-  expect(result).toEqual('-1==-1')
-})
+  const flippedFn = flip(testFunction)
 
-test('function with arity of 5', () => {
-  const testFunction = (
-    a, b, c, d, e
-  ) => `${ a - b }==${ c - d - e }`
-  const testFunctionFlipped = flip(testFunction)
+  const result1 = flippedFn(2)(1)(3)(4)
+  const result2 = flippedFn(2)(1, 3, 4)
+  const result3 = flippedFn(2, 1)(3, 4)
+  const result4 = flippedFn(2, 1, 3)(4)
+  const result5 = flippedFn(2, 1, 3, 4)
 
-  expect(() => testFunctionFlipped(
-    1, 2, 3, 4, 5
-  )).toThrowWithMessage(Error,
-    'R.flip doesn\'t work with arity > 4')
+  const expected = '1,2,3,4'
+
+  expect(result1).toEqual(expected)
+  expect(result2).toEqual(expected)
+  expect(result3).toEqual(expected)
+  expect(result4).toEqual(expected)
+  expect(result5).toEqual(expected)
 })
