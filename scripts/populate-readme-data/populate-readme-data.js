@@ -10,8 +10,9 @@ import { rambdaRepl } from './rambda-repl'
 
 async function getMethodsData(withRambdax){
   const rambdaPath = resolve(__dirname, '../populate-docs-data/data.json')
-  const rambdaxPath = resolve(__dirname, '../populate-docs-data/data-rambdax.json')
-  if(withRambdax) return readJson(rambdaxPath)
+  const rambdaxPath = resolve(__dirname,
+    '../populate-docs-data/data-rambdax.json')
+  if (withRambdax) return readJson(rambdaxPath)
 
   return readJson(rambdaPath)
 }

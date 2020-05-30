@@ -1,6 +1,6 @@
 import { append } from './append'
-import { compose } from './compose.js'
-import { flatten } from './flatten.js'
+import { compose } from './compose'
+import { flatten } from './flatten'
 import { map } from './map'
 
 test('with strings', () => {

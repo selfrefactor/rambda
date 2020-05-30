@@ -2,8 +2,8 @@ import { readFile } from 'fs-extra'
 import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
-import {devDependencies} from '../../package.json'
 
+import { devDependencies } from '../../package'
 import { rambdaMethods } from '../constants'
 
 function getMissingMethods(){
@@ -89,7 +89,7 @@ export async function getIntro(withRambdax){
     intro          : introContent.toString(),
     summary        : summaryContent.toString(),
     usedBy         : usedByContent.toString(),
-    lodashVersion: devDependencies.lodash,
-    ramdaVersion: devDependencies.ramda,
+    lodashVersion  : devDependencies.lodash,
+    ramdaVersion   : devDependencies.ramda,
   })
 }

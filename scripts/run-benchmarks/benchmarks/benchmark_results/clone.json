@@ -1,25 +1,25 @@
 {
   "name": "CLONE",
-  "date": "2020-05-13T22:09:45.414Z",
+  "date": "2020-05-30T14:04:17.481Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 3591401,
-      "margin": 2.2,
+      "ops": 4057722,
+      "margin": 0.44,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 631016,
-      "margin": 2.36,
-      "percentSlower": 82.43
+      "ops": 677920,
+      "margin": 0.22,
+      "percentSlower": 83.29
     },
     {
       "name": "Lodash.cloneDeep",
-      "ops": 1343515,
-      "margin": 2.24,
-      "percentSlower": 62.59
+      "ops": 1456621,
+      "margin": 0.39,
+      "percentSlower": 64.1
     }
   ],
   "fastest": {

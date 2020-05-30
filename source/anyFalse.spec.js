@@ -7,13 +7,13 @@ test('when true', () => {
 })
 
 test('when false', () => {
-  expect(anyFalse(
-    true, true
-  )).toBeFalsy()
+  expect(anyFalse(true, true)).toBeFalsy()
 })
 
 test('supports function', () => {
   expect(anyFalse(
-     true,() => true, () => false
+    true,
+    () => true,
+    () => false
   )).toBeTruthy()
 })

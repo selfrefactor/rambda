@@ -17,8 +17,98 @@
     return Number(a) + Number(b);
   }
 
-  function curry(fn, args = []) {
-    return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
+  function _curryN(n, cache, fn) {
+    return function () {
+      let ci = 0;
+      let ai = 0;
+      const cl = cache.length;
+      const al = arguments.length;
+      const args = new Array(cl + al);
+
+      while (ci < cl) {
+        args[ci] = cache[ci];
+        ci++;
+      }
+
+      while (ai < al) {
+        args[cl + ai] = arguments[ai];
+        ai++;
+      }
+
+      const remaining = n - args.length;
+      return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+    };
+  }
+
+  function _arity(n, fn) {
+    switch (n) {
+      case 0:
+        return function () {
+          return fn.apply(this, arguments);
+        };
+
+      case 1:
+        return function (_1) {
+          return fn.apply(this, arguments);
+        };
+
+      case 2:
+        return function (_1, _2) {
+          return fn.apply(this, arguments);
+        };
+
+      case 3:
+        return function (_1, _2, _3) {
+          return fn.apply(this, arguments);
+        };
+
+      case 4:
+        return function (_1, _2, _3, _4) {
+          return fn.apply(this, arguments);
+        };
+
+      case 5:
+        return function (_1, _2, _3, _4, _5) {
+          return fn.apply(this, arguments);
+        };
+
+      case 6:
+        return function (_1, _2, _3, _4, _5, _6) {
+          return fn.apply(this, arguments);
+        };
+
+      case 7:
+        return function (_1, _2, _3, _4, _5, _6, _7) {
+          return fn.apply(this, arguments);
+        };
+
+      case 8:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+          return fn.apply(this, arguments);
+        };
+
+      case 9:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+          return fn.apply(this, arguments);
+        };
+
+      case 10:
+        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+          return fn.apply(this, arguments);
+        };
+
+      default:
+        throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+    }
+  }
+
+  function curryN(n, fn) {
+    if (arguments.length === 1) return _fn => curryN(n, _fn);
+    return _arity(n, _curryN(n, [], fn));
+  }
+
+  function curry(fn) {
+    return curryN(fn.length, fn);
   }
 
   function adjustFn(index, replaceFn, list) {
@@ -305,96 +395,6 @@
       });
       return toReturn;
     };
-  }
-
-  function _curryN(n, cache, fn) {
-    return function () {
-      let ci = 0;
-      let ai = 0;
-      const cl = cache.length;
-      const al = arguments.length;
-      const args = new Array(cl + al);
-
-      while (ci < cl) {
-        args[ci] = cache[ci];
-        ci++;
-      }
-
-      while (ai < al) {
-        args[cl + ai] = arguments[ai];
-        ai++;
-      }
-
-      const remaining = n - args.length;
-      return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
-    };
-  }
-
-  function _arity(n, fn) {
-    switch (n) {
-      case 0:
-        return function () {
-          return fn.apply(this, arguments);
-        };
-
-      case 1:
-        return function (_1) {
-          return fn.apply(this, arguments);
-        };
-
-      case 2:
-        return function (_1, _2) {
-          return fn.apply(this, arguments);
-        };
-
-      case 3:
-        return function (_1, _2, _3) {
-          return fn.apply(this, arguments);
-        };
-
-      case 4:
-        return function (_1, _2, _3, _4) {
-          return fn.apply(this, arguments);
-        };
-
-      case 5:
-        return function (_1, _2, _3, _4, _5) {
-          return fn.apply(this, arguments);
-        };
-
-      case 6:
-        return function (_1, _2, _3, _4, _5, _6) {
-          return fn.apply(this, arguments);
-        };
-
-      case 7:
-        return function (_1, _2, _3, _4, _5, _6, _7) {
-          return fn.apply(this, arguments);
-        };
-
-      case 8:
-        return function (_1, _2, _3, _4, _5, _6, _7, _8) {
-          return fn.apply(this, arguments);
-        };
-
-      case 9:
-        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
-          return fn.apply(this, arguments);
-        };
-
-      case 10:
-        return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
-          return fn.apply(this, arguments);
-        };
-
-      default:
-        throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
-    }
-  }
-
-  function curryN(n, fn) {
-    if (arguments.length === 1) return _fn => curryN(n, _fn);
-    return _arity(n, _curryN(n, [], fn));
   }
 
   function mapObject(fn, obj) {
@@ -779,19 +779,21 @@
   }
 
   function flipExport(fn) {
-    return (...input) => {
-      if (input.length === 1) {
-        return holder => fn(holder, input[0]);
-      } else if (input.length === 2) {
-        return fn(input[1], input[0]);
-      } else if (input.length === 3) {
-        return fn(input[1], input[0], input[2]);
-      } else if (input.length === 4) {
-        return fn(input[1], input[0], input[2], input[3]);
-      }
-
-      throw new Error('R.flip doesn\'t work with arity > 4');
+    const flipedFn = (...input) => {
+      const missing = fn.length - input.length;
+      if (missing <= 0) return fn(input[1], input[0], ...input.slice(2));
+      if (input.length === 0) return flipedFn;
+      if (input.length === 1) return curryN(missing, (...rest) => {
+        const args = [rest[0], input[0], ...rest.slice(1)];
+        return fn(...args);
+      });
+      return curryN(missing, (...rest) => {
+        const args = [input[1], input[0], ...input.slice(2), ...rest];
+        return fn(...args);
+      });
     };
+
+    return flipedFn;
   }
 
   function flip(fn) {
@@ -1112,16 +1114,12 @@
     return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
   }
 
-  function update(index, newValue, list) {
-    if (newValue === undefined) {
-      return (_val, _list) => update(index, _val, _list);
-    } else if (list === undefined) {
-      return _list => update(index, newValue, _list);
-    }
-
+  function updateFn(index, newValue, list) {
     const arrClone = list.slice();
     return arrClone.fill(newValue, index, index + 1);
   }
+
+  const update = curry(updateFn);
 
   function lensIndex(index) {
     return lens(nth(index), update(index));

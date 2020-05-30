@@ -1,4 +1,4 @@
-import { extractExample } from './extract-example.js'
+import { extractExample } from './extract-example'
 
 test('happy', () => {
   expect(extractExample()).toMatchSnapshot()

@@ -7,11 +7,12 @@ jest.setTimeout(ms('12 minutes'))
 
 // The test are running agains the bundle file, build before this
 // ============================================
-test('run all specs', async () => {
+test.skip('run all specs', async () => {
   const withInitialStep = false
   await runRamdaSpecs({ withInitialStep })
 })
 
 test('run single spec', async () => {
-  await runSingleSpec('hasPath')
+  const skipDelete = true
+  await runSingleSpec('curry', skipDelete)
 })

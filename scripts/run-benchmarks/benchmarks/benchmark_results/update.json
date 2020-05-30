@@ -1,19 +1,19 @@
 {
   "name": "UPDATE",
-  "date": "2020-05-13T22:20:13.241Z",
+  "date": "2020-05-30T18:04:03.313Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 7552589,
-      "margin": 1.26,
+      "ops": 1664563,
+      "margin": 2.38,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1016403,
-      "margin": 0.79,
-      "percentSlower": 86.54
+      "ops": 1105042,
+      "margin": 1.73,
+      "percentSlower": 33.61
     }
   ],
   "fastest": {

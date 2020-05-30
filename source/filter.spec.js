@@ -1,7 +1,8 @@
 import Ramda from 'ramda'
+
+import { F } from './F'
 import { filter } from './filter'
 import { T } from './T'
-import { F } from './F'
 
 const sampleObject = {
   a : 1,
@@ -27,7 +28,7 @@ test('bad inputs', () => {
   expect(() => Ramda.filter(T, null)).toThrow()
   expect(() => Ramda.filter(T, undefined)).toThrow()
 })
- 
+
 test('predicate when input is object', () => {
   const obj = {
     a : 1,

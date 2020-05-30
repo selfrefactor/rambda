@@ -1,4 +1,4 @@
-import { isFalsy } from './_internals/isFalsy.js'
+import { isFalsy } from './_internals/isFalsy'
 import { type } from './type'
 
 export function allTrue(...inputs){

@@ -1,3 +1,7 @@
+- 5.6.0
+
+Approve [PR #469](https://github.com/selfrefactor/rambda/pull/469) - R.flip supports any arity | implement `R.curry` with `R.curryN` add `R.applySpec`
+
 - 5.5.0
 
 Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
@@ -48,9 +52,9 @@ Release new documentation site
 
 Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
 
-> Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
+Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
 
-> Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
+Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
 
 - 5.0.0
 

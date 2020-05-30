@@ -2,8 +2,8 @@ import isCI from 'is-ci'
 
 import { delay } from './delay'
 import { mapAsync } from './mapAsync'
-import { mapAsyncLimit } from './mapAsyncLimit.js'
-import { toDecimal } from './toDecimal.js'
+import { mapAsyncLimit } from './mapAsyncLimit'
+import { toDecimal } from './toDecimal'
 
 jest.setTimeout(30000)
 

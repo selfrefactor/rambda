@@ -242,62 +242,62 @@ The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 96.31% slower | 96.28% slower | 🚀 Fastest
- *adjust* | 🚀 Fastest | 3.15% slower | 🔳
- *all* | 🚀 Fastest | 94.35% slower | 🔳
- *allPass* | 🚀 Fastest | 98.94% slower | 🔳
- *any* | 🚀 Fastest | 98.13% slower | 1.44% slower
- *anyPass* | 🚀 Fastest | 99.09% slower | 🔳
- *append* | 🚀 Fastest | 82.6% slower | 🔳
- *applySpec* | 🚀 Fastest | 66.53% slower | 🔳
- *assoc* | 86.73% slower | 52.15% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 82.43% slower | 62.59% slower
- *compose* | 🚀 Fastest | 95.45% slower | 73.78% slower
- *converge* | 44.9% slower | 🚀 Fastest | 🔳
- *curry* | 🚀 Fastest | 31.93% slower | 🔳
- *curryN* | 55.07% slower | 🚀 Fastest | 🔳
- *defaultTo* | 🚀 Fastest | 62.94% slower | 🔳
- *drop* | 🚀 Fastest | 97.08% slower | 🔳
- *dropLast* | 🚀 Fastest | 96.68% slower | 🔳
- *equals* | 76.94% slower | 78.52% slower | 🚀 Fastest
- *filter* | 72.76% slower | 87.36% slower | 🚀 Fastest
- *find* | 🚀 Fastest | 91.33% slower | 51.26% slower
- *findIndex* | 🚀 Fastest | 97.9% slower | 76.76% slower
- *flatten* | 95.68% slower | 94.49% slower | 🚀 Fastest
- *ifElse* | 🚀 Fastest | 63.06% slower | 🔳
- *includes* | 🚀 Fastest | 68.05% slower | 🔳
- *indexOf* | 7.01% slower | 85.46% slower | 🚀 Fastest
- *init* | 94.02% slower | 96.66% slower | 🚀 Fastest
- *is* | 🚀 Fastest | 12.21% slower | 🔳
- *isEmpty* | 62.71% slower | 93.35% slower | 🚀 Fastest
- *last* | 3.21% slower | 99.62% slower | 🚀 Fastest
- *lastIndexOf* | 🚀 Fastest | 41.73% slower | 🔳
- *map* | 30.91% slower | 63.2% slower | 🚀 Fastest
- *match* | 🚀 Fastest | 41.44% slower | 🔳
- *merge* | 62.29% slower | 🚀 Fastest | 52.15% slower
- *none* | 🚀 Fastest | 87.49% slower | 🔳
- *omit* | 🚀 Fastest | 71.15% slower | 97.62% slower
- *over* | 🚀 Fastest | 57.7% slower | 🔳
- *path* | 6.33% slower | 74.51% slower | 🚀 Fastest
- *pick* | 🚀 Fastest | 22.61% slower | 85.66% slower
- *prop* | 🚀 Fastest | 88.53% slower | 🔳
- *propEq* | 🚀 Fastest | 93.89% slower | 🔳
- *range* | 95.33% slower | 90.36% slower | 🚀 Fastest
- *reduce* | 56.8% slower | 72.82% slower | 🚀 Fastest
- *repeat* | 84.33% slower | 95.02% slower | 🚀 Fastest
- *replace* | 1.27% slower | 31.5% slower | 🚀 Fastest
- *set* | 🚀 Fastest | 47.8% slower | 🔳
- *sort* | 🚀 Fastest | 62.07% slower | 🔳
- *sortBy* | 🚀 Fastest | 59.7% slower | 87.81% slower
- *split* | 🚀 Fastest | 85% slower | 32.38% slower
- *splitEvery* | 🚀 Fastest | 89.27% slower | 🔳
- *take* | 92.41% slower | 97.76% slower | 🚀 Fastest
- *takeLast* | 92.71% slower | 98.79% slower | 🚀 Fastest
- *test* | 🚀 Fastest | 93.95% slower | 🔳
- *type* | 38.93% slower | 🚀 Fastest | 🔳
- *uniq* | 99.25% slower | 96.57% slower | 🚀 Fastest
- *update* | 🚀 Fastest | 86.54% slower | 🔳
- *view* | 🚀 Fastest | 77.47% slower | 🔳
+ *add* | 96.29% slower | 96.36% slower | 🔳
+ *adjust* | 🚀 Fastest | 7.73% slower | 🔳
+ *all* | 🚀 Fastest | 94.56% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.98% slower | 🔳
+ *any* | 🚀 Fastest | 98.17% slower | 🔳
+ *anyPass* | 🚀 Fastest | 99.05% slower | 🔳
+ *append* | 🚀 Fastest | 82.87% slower | 🔳
+ *applySpec* | 🚀 Fastest | 68.62% slower | 🔳
+ *assoc* | 86.8% slower | 54.81% slower | 🔳
+ *clone* | 🚀 Fastest | 83.29% slower | 🔳
+ *compose* | 🚀 Fastest | 96.3% slower | 🔳
+ *converge* | 41.29% slower | 🚀 Fastest | 🔳
+ *curry* | 🚀 Fastest | 43.32% slower | 🔳
+ *curryN* | 59.09% slower | 🚀 Fastest | 🔳
+ *defaultTo* | 🚀 Fastest | 58.91% slower | 🔳
+ *drop* | 🚀 Fastest | 97.25% slower | 🔳
+ *dropLast* | 🚀 Fastest | 96.77% slower | 🔳
+ *equals* | 75.91% slower | 78.74% slower | 🔳
+ *filter* | 66.61% slower | 86.94% slower | 🔳
+ *find* | 🚀 Fastest | 91.46% slower | 🔳
+ *findIndex* | 🚀 Fastest | 97.77% slower | 🔳
+ *flatten* | 96.45% slower | 95.36% slower | 🔳
+ *ifElse* | 🚀 Fastest | 67.27% slower | 🔳
+ *includes* | 🚀 Fastest | 68.65% slower | 🔳
+ *indexOf* | 7.68% slower | 85.52% slower | 🔳
+ *init* | 93.7% slower | 97.03% slower | 🔳
+ *is* | 🚀 Fastest | 13.5% slower | 🔳
+ *isEmpty* | 62.67% slower | 93.81% slower | 🔳
+ *last* | 0.35% slower | 99.63% slower | 🔳
+ *lastIndexOf* | 🚀 Fastest | 39.93% slower | 🔳
+ *map* | 36.87% slower | 66.32% slower | 🔳
+ *match* | 🚀 Fastest | 44.9% slower | 🔳
+ *merge* | 62.07% slower | 🚀 Fastest | 🔳
+ *none* | 🚀 Fastest | 88.45% slower | 🔳
+ *omit* | 🚀 Fastest | 72.59% slower | 🔳
+ *over* | 🚀 Fastest | 51.03% slower | 🔳
+ *path* | 🚀 Fastest | 75.54% slower | 🔳
+ *pick* | 🚀 Fastest | 23.56% slower | 🔳
+ *prop* | 🚀 Fastest | 89.38% slower | 🔳
+ *propEq* | 🚀 Fastest | 95.03% slower | 🔳
+ *range* | 95.18% slower | 90.24% slower | 🔳
+ *reduce* | 53.68% slower | 77.06% slower | 🔳
+ *repeat* | 83.23% slower | 94.91% slower | 🔳
+ *replace* | 🚀 Fastest | 32.01% slower | 🔳
+ *set* | 🚀 Fastest | 41.28% slower | 🔳
+ *sort* | 🚀 Fastest | 63.24% slower | 🔳
+ *sortBy* | 🚀 Fastest | 60.24% slower | 🔳
+ *split* | 🚀 Fastest | 84.91% slower | 🔳
+ *splitEvery* | 🚀 Fastest | 89.38% slower | 🔳
+ *take* | 92.22% slower | 97.8% slower | 🔳
+ *takeLast* | 92.59% slower | 98.75% slower | 🔳
+ *test* | 🚀 Fastest | 94.01% slower | 🔳
+ *type* | 37.42% slower | 🚀 Fastest | 🔳
+ *uniq* | 99.2% slower | 96.53% slower | 🔳
+ *update* | 🚀 Fastest | 33.61% slower | 🔳
+ *view* | 🚀 Fastest | 77.49% slower | 🔳
 
 </details>
 
@@ -3382,12 +3382,10 @@ curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 <summary><strong>R.curry</strong> source</summary>
 
 ```javascript
-export function curry(fn, args = []){
-  return (..._args) =>
-    (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
-      ...args,
-      ..._args,
-    ])
+import { curryN } from './curryN'
+
+export function curry(fn) {
+  return curryN(fn.length, fn)
 }
 ```
 
@@ -3442,9 +3440,9 @@ test('when called via multiple curry stages', () => {
 
 <details>
 
-<summary>5 failed <italic>Ramda.curry</italic> specs
+<summary>3 failed <italic>Ramda.curry</italic> specs
 
-> :boom: Reason for the failure: ramda passes context to functions
+> :boom: Reason for the failure: ramda support placeholder(R.__)
 </summary>
 
 ```javascript
@@ -6084,24 +6082,32 @@ flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(
 <summary><strong>R.flip</strong> source</summary>
 
 ```javascript
-function flipExport(fn){
-  return (...input) => {
-    if (input.length === 1){
-      return holder => fn(holder, input[ 0 ])
-    } else if (input.length === 2){
-      return fn(input[ 1 ], input[ 0 ])
-    } else if (input.length === 3){
-      return fn(
-        input[ 1 ], input[ 0 ], input[ 2 ]
-      )
-    } else if (input.length === 4){
-      return fn(
-        input[ 1 ], input[ 0 ], input[ 2 ], input[ 3 ]
-      )
-    }
+import { curryN } from './curryN.js'
 
-    throw new Error('R.flip doesn\'t work with arity > 4')
+function flipExport(fn) {
+  const flipedFn = (...input) => {
+    const missing = fn.length - input.length;
+
+    if (missing <= 0)
+      return fn(input[1], input[0], ...input.slice(2))
+
+    if (input.length === 0)
+      return flipedFn
+
+    if (input.length === 1)
+      return curryN(missing, (...rest) => {
+        const args = [rest[0], input[0], ...rest.slice(1)]
+        return fn(...args)
+      })
+
+    // input.length >= 2
+    return curryN(missing, (...rest) => {
+      const args = [input[1], input[0], ...input.slice(2), ...rest]
+      return fn(...args)
+    })
   }
+
+  return flipedFn
 }
 
 export function flip(fn){
@@ -6133,42 +6139,34 @@ test('function with arity of 2', () => {
 test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
-  const result = updateFlipped(
-    88, 0, [ 1, 2, 3 ]
-  )
+  const result = updateFlipped(88, 0, [ 1, 2, 3 ])
   const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
   const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+
   expect(result).toEqual([ 88, 2, 3 ])
   expect(curriedResult).toEqual([ 88, 2, 3 ])
   expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
 })
 
 test('function with arity of 4', () => {
-  const testFunction = (
-    a, b, c, d
-  ) => `${ a - b }==${ c - d }`
-  const testFunctionFlipped = flip(testFunction)
+  const testFunction = (a, b, c, d) =>
+    `${a},${b},${c},${d}`
 
-  const result = testFunction(
-    1, 2, 3, 4
-  )
-  const flippedResult = testFunctionFlipped(
-    2, 1, 3, 4
-  )
-  expect(result).toEqual(flippedResult)
-  expect(result).toEqual('-1==-1')
-})
+  const flippedFn = flip(testFunction)
 
-test('function with arity of 5', () => {
-  const testFunction = (
-    a, b, c, d, e
-  ) => `${ a - b }==${ c - d - e }`
-  const testFunctionFlipped = flip(testFunction)
+  const result1 = flippedFn(2)(1)(3)(4)
+  const result2 = flippedFn(2)(1, 3, 4)
+  const result3 = flippedFn(2, 1)(3, 4)
+  const result4 = flippedFn(2, 1, 3)(4)
+  const result5 = flippedFn(2, 1, 3, 4)
 
-  expect(() => testFunctionFlipped(
-    1, 2, 3, 4, 5
-  )).toThrowWithMessage(Error,
-    'R.flip doesn\'t work with arity > 4')
+  const expected = '1,2,3,4'
+
+  expect(result1).toEqual(expected)
+  expect(result2).toEqual(expected)
+  expect(result3).toEqual(expected)
+  expect(result4).toEqual(expected)
+  expect(result5).toEqual(expected)
 })
 ```
 
@@ -15746,25 +15744,19 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 <summary><strong>R.update</strong> source</summary>
 
 ```javascript
-export function update(
+import { curry } from './curry'
+
+function updateFn(
   index, newValue, list
 ){
-  if (newValue === undefined){
-    return (_val, _list) => update(
-      index, _val, _list
-    )
-  } else if (list === undefined){
-    return _list => update(
-      index, newValue, _list
-    )
-  }
-
   const arrClone = list.slice()
 
   return arrClone.fill(
     newValue, index, index + 1
   )
 }
+
+export const update = curry(updateFn)
 ```
 
 </details>
@@ -15776,11 +15768,31 @@ export function update(
 ```javascript
 import { update } from './update'
 
-test('update', () => {
-  expect(update(1)(0)([ 1, 2, 3 ])).toEqual([ 1, 0, 3 ])
-  expect(update(
-    1, 11, [ 0, 1, 2 ]
-  )).toEqual([ 0, 11, 2 ])
+const list = [ 1, 2, 3 ]
+
+test('happy', () => {
+  const newValue = 88
+  const index = 1
+  const result = update(
+    index, newValue, list
+  )
+  const curriedResult = update(index, newValue)(list)
+  const tripleCurriedResult = update(index)(newValue)(list)
+
+  const expected = [ 1, 88, 3 ]
+  expect(result).toEqual(expected)
+  expect(curriedResult).toEqual(expected)
+  expect(tripleCurriedResult).toEqual(expected)
+})
+
+test('list has no such index', () => {
+  const newValue = 88
+  const index = 10
+  const result = update(
+    index, newValue, list
+  )
+
+  expect(result).toEqual(list)
 })
 ```
 
@@ -16634,6 +16646,10 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
+- 5.6.0
+
+Approve [PR #469](https://github.com/selfrefactor/rambda/pull/469) - R.flip supports any arity | implement `R.curry` with `R.curryN` add `R.applySpec`
+
 - 5.5.0
 
 Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
@@ -16684,9 +16700,9 @@ Release new documentation site
 
 Add `R.converge` and `R.curryN` from [PR #412](https://github.com/selfrefactor/rambda/pull/412)
 
-> Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
+Close [Issue #410](https://github.com/selfrefactor/rambda/issues/410) - wrong implementation of `R.groupWith`
 
-> Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
+Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change the order of declared `R.map` typings rules
 
 - 5.0.0
 

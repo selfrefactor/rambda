@@ -2,7 +2,7 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, trim } from 'rambdax'
 
-import { intro, getRambdaData, getRambdaxData } from '../constants.js'
+import { getRambdaData, getRambdaxData, intro } from '../constants'
 const fixToolbeltImport = replace('../_ts-toolbelt', './_ts-toolbelt')
 
 function attachExports({ methodName, allTypings }){
@@ -41,7 +41,7 @@ export async function createExportedTypings(withRambdax = false){
   }
 
   const methodsData = withRambdax ?
-    await getRambdaxData() : 
+    await getRambdaxData() :
     await getRambdaData()
 
   map(applyForSingleMethod, methodsData)

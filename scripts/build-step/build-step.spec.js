@@ -1,4 +1,4 @@
-import { buildStep } from './build-step.js'
+import { buildStep } from './build-step'
 
 test('happy', async () => {
   const withRambdax = false

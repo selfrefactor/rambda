@@ -1,6 +1,6 @@
 import { ms } from 'string-fn'
 
-import { buildStep } from '../build-step/build-step.js'
+import { buildStep } from '../build-step/build-step'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'
 import { benchmarkSummary } from '../read-benchmarks/benchmark-summary'
@@ -8,7 +8,7 @@ import {
   runAllBenchmarks,
   runSingleBenchmark,
 } from '../run-benchmarks/run-benchmarks'
-import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs.js'
+import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs'
 import { runSingleSpec } from '../run-ramda-specs/src/run-specs'
 
 jest.setTimeout(ms('30 minutes'))
@@ -31,7 +31,7 @@ test('run many scripts and generate readme', async () => {
   /*
     In case that you need to update a single benchmark:
   */
- 
+
   // await runSingleBenchmark('foo')
 
   // ============================================
@@ -52,7 +52,7 @@ test('run many scripts and generate readme', async () => {
     If benchmarks are changed, so should be their summary.
   */
 
-  // await benchmarkSummary()
+  await benchmarkSummary()
 
   // ============================================
   // ============================================
@@ -63,7 +63,7 @@ test('run many scripts and generate readme', async () => {
 
     Make sure to declare any expected failures
     in '/scripts/run-ramda-specs/allDifferences.json' file.
-    
+
     Also the tests are running against the bundle file
     so you need to run `yarn build` before that.
 
@@ -74,7 +74,7 @@ test('run many scripts and generate readme', async () => {
 
   // ============================================
   // ============================================
-  
+
   /*
   This step is to run Ramda tests on a single Rambda method
   */
@@ -96,6 +96,6 @@ test('run many scripts and generate readme', async () => {
   /*
   In order to prepare for `yarn build`
   */
- 
+
   await buildStep({ withRambdax })
 })

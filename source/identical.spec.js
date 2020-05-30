@@ -1,4 +1,4 @@
-import { F, T } from '../rambda.js'
+import { F, T } from '../rambda'
 import { _isInteger } from './_internals/_isInteger'
 import { _objectIs } from './_internals/_objectIs'
 import { identical } from './identical'

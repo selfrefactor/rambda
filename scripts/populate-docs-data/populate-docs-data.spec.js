@@ -1,4 +1,4 @@
-import { populateDocsData } from './populate-docs-data.js'
+import { populateDocsData } from './populate-docs-data'
 
 test('happy', async () => {
   const withRambdax = false

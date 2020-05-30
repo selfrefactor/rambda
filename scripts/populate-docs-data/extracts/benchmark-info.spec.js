@@ -1,4 +1,4 @@
-import { benchmarkInfo } from './benchmark-info.js'
+import { benchmarkInfo } from './benchmark-info'
 
 test('happy', async () => {
   expect(await benchmarkInfo()).toMatchSnapshot()

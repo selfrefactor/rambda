@@ -1,4 +1,4 @@
-import { extractExplanation } from './extract-explanation.js'
+import { extractExplanation } from './extract-explanation'
 
 test('happy', () => {
   expect(extractExplanation()).toMatchSnapshot()

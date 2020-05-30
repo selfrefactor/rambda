@@ -15,7 +15,7 @@ const lintSingleFile = async filePath => {
 
 async function lintTypingsTests(singleMethod) {
   const srcPath = resolve(__dirname, '../../source')
-  const allFiles = await scanFolder({folder:srcPath})
+  const allFiles = await scanFolder({folder: srcPath})
   const allTests = allFiles
     .filter(filePath => filePath.endsWith('-spec.ts'))
     .filter(filePath =>

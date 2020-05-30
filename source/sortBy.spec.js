@@ -1,7 +1,7 @@
 import { compose } from './compose'
 import { prop } from './prop'
 import { sortBy } from './sortBy'
-import { toLower } from './toLower.js'
+import { toLower } from './toLower'
 
 test('happy', () => {
   const input = [ { a : 2 }, { a : 1 }, { a : 1 }, { a : 3 } ]

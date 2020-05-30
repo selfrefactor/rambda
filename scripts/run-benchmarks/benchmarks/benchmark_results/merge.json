@@ -1,25 +1,25 @@
 {
   "name": "MERGE",
-  "date": "2020-05-13T22:15:07.358Z",
+  "date": "2020-05-30T14:09:39.476Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 3471796,
-      "margin": 1.91,
-      "percentSlower": 62.29
+      "ops": 3809570,
+      "margin": 1.48,
+      "percentSlower": 62.07
     },
     {
       "name": "Ramda",
-      "ops": 9205601,
-      "margin": 2.59,
+      "ops": 10043301,
+      "margin": 1.08,
       "percentSlower": 0
     },
     {
       "name": "Lodash",
-      "ops": 4404614,
-      "margin": 0.91,
-      "percentSlower": 52.15
+      "ops": 4651317,
+      "margin": 0.57,
+      "percentSlower": 53.69
     }
   ],
   "fastest": {
