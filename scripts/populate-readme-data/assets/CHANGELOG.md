@@ -1,3 +1,7 @@
+- Next
+
+Update `ts-toolbelt` files as now there is update pipeline for it.
+
 - 5.6.0
 
 Approve [PR #469](https://github.com/selfrefactor/rambda/pull/469) - R.flip supports any arity | implement `R.curry` with `R.curryN` add `R.applySpec`
