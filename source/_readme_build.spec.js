@@ -12,4 +12,4 @@ test('can build readme', async () => {
     }
   )
   expect(status).toBe(0)
-}) 
+})

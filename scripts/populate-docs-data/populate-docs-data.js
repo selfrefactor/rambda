@@ -1,5 +1,5 @@
+import { existsSync, outputJSON } from 'fs-extra'
 import { resolve } from 'path'
-import { outputJSON, existsSync } from 'fs-extra'
 import { map, piped } from 'rambdax'
 
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
@@ -9,8 +9,8 @@ import { extractExplanation } from './extract-from-typings/extract-explanation'
 import { extractNotes } from './extract-from-typings/extract-notes'
 import { benchmarkInfo as benchmarkInfoMethod } from './extracts/benchmark-info'
 import { failedRamdaTests } from './extracts/failed-ramda-tests'
-import { failedTestsReasons } from './extracts/failed-tests-reasons'
 import { failedTestsCount } from './extracts/failed-tests-count'
+import { failedTestsReasons } from './extracts/failed-tests-reasons'
 import { rambdaSource as rambdaSourceMethod } from './extracts/rambda-source'
 import { rambdaSpecs as rambdaSpecsMethod } from './extracts/rambda-specs'
 import { typingsTests as typingsTestsMethod } from './extracts/typings-tests'
@@ -30,22 +30,22 @@ function appendData({ input, prop, hash }){
   })(input)
 }
 
-async function save({withRambdax, toSave}){
+async function save({ withRambdax, toSave }){
   const output = withRambdax ?
-  `${ __dirname }/data-rambdax.json` :
-  `${ __dirname }/data.json`
+    `${ __dirname }/data-rambdax.json` :
+    `${ __dirname }/data.json`
 
   await outputJSON(
     output, toSave, { spaces : 2 }
   )
 
   const docsDir = resolve(__dirname, '../../../rambda-docs')
-  if(!existsSync(docsDir)) return
+  if (!existsSync(docsDir)) return
 
   const docsOutput = withRambdax ?
-  `${ docsDir }/data-rambdax.json` :
-  `${ docsDir }/data.json`
-  
+    `${ docsDir }/data-rambdax.json` :
+    `${ docsDir }/data.json`
+
   await outputJSON(
     docsOutput, toSave, { spaces : 2 }
   )
@@ -64,7 +64,7 @@ export async function populateDocsData({ withRambdax }){
   const failedRamdaSpecs = failedRamdaTests()
   const failedSpecsReasons = failedTestsReasons()
   const failedSpecsCount = failedTestsCount()
-  
+
   const toSave = piped(
     initiateData(definitions, 'typing'),
     input =>
@@ -135,7 +135,10 @@ export async function populateDocsData({ withRambdax }){
       })
   )
 
-  await save({withRambdax, toSave})    
+  await save({
+    withRambdax,
+    toSave,
+  })
 
   return toSave
 }

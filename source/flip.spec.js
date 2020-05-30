@@ -15,7 +15,9 @@ test('function with arity of 2', () => {
 test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
-  const result = updateFlipped(88, 0, [ 1, 2, 3 ])
+  const result = updateFlipped(
+    88, 0, [ 1, 2, 3 ]
+  )
   const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
   const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
 
@@ -25,16 +27,23 @@ test('function with arity of 3', () => {
 })
 
 test('function with arity of 4', () => {
-  const testFunction = (a, b, c, d) =>
-    `${a},${b},${c},${d}`
+  const testFunction = (
+    a, b, c, d
+  ) => `${ a },${ b },${ c },${ d }`
 
   const flippedFn = flip(testFunction)
 
   const result1 = flippedFn(2)(1)(3)(4)
-  const result2 = flippedFn(2)(1, 3, 4)
+  const result2 = flippedFn(2)(
+    1, 3, 4
+  )
   const result3 = flippedFn(2, 1)(3, 4)
-  const result4 = flippedFn(2, 1, 3)(4)
-  const result5 = flippedFn(2, 1, 3, 4)
+  const result4 = flippedFn(
+    2, 1, 3
+  )(4)
+  const result5 = flippedFn(
+    2, 1, 3, 4
+  )
 
   const expected = '1,2,3,4'
 

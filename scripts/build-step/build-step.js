@@ -9,7 +9,7 @@ import { scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
-import { devDependencies } from '../../package.json'
+import { devDependencies } from '../../package'
 import { getRambdaMethods } from '../constants'
 import { createExportedTypings } from './create-exported-typings'
 

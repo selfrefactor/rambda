@@ -1,5 +1,5 @@
 import { delay } from './delay'
-import { isValidAsync } from './isValidAsync.js'
+import { isValidAsync } from './isValidAsync'
 
 const simplePredicate = async x => {
   await delay(100)

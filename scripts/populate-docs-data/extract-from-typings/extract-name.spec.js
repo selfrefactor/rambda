@@ -1,5 +1,5 @@
-import { extractName } from './extract-name.js'
-import { extractRawInfo } from './extract-raw-info.js'
+import { extractName } from './extract-name'
+import { extractRawInfo } from './extract-raw-info'
 
 test('happy', () => {
   const firstName = extractName(extractRawInfo()[ 0 ])

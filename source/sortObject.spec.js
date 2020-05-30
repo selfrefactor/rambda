@@ -1,6 +1,6 @@
 import { runTests } from 'helpers-fn'
 
-import { equals } from './equals.js'
+import { equals } from './equals'
 import { sortObject } from './sortObject'
 
 const obj = {

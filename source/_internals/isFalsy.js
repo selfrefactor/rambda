@@ -1,4 +1,4 @@
-import { type } from '../type.js'
+import { type } from '../type'
 
 export function isFalsy(x){
   if (Array.isArray(x)){

@@ -1,4 +1,4 @@
-import { always } from './always.js'
+import { always } from './always'
 import { has } from './has'
 import { identity } from './identity'
 import { ifElse } from './ifElse'

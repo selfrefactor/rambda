@@ -1,4 +1,4 @@
-import { type } from './type.js'
+import { type } from './type'
 
 export function values(obj){
   if (type(obj) !== 'Object') return []

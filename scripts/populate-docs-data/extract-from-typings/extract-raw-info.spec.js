@@ -1,7 +1,7 @@
-import { extractRawInfo } from "./extract-raw-info.js";
+import { extractRawInfo } from './extract-raw-info'
 
-test("happy", () => {
-  const [result] = extractRawInfo();
+test('happy', () => {
+  const [ result ] = extractRawInfo()
   expect(result).toMatchInlineSnapshot(`
     "/*
     Method: add
@@ -22,5 +22,5 @@ test("happy", () => {
 
     */
     // "
-  `);
-});
+  `)
+})

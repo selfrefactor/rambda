@@ -23,8 +23,9 @@ function createFailedSpec(method){
 > :boom: Reason for the failure: {{failedSpecsReasons}}
 `
 
-  const templateToUse = method.failedRamdaSpecs ? 
-    summaryTemplate : shortSummaryTemplate
+  const templateToUse = method.failedRamdaSpecs ?
+    summaryTemplate :
+    shortSummaryTemplate
 
   return template(templateToUse, method)
 }

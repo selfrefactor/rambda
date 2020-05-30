@@ -2,7 +2,7 @@ import { all } from './all'
 import { any } from './any'
 import { includes } from './includes'
 import { init } from './init'
-import { test } from './test.js'
+import { test } from './test'
 import { toLower } from './toLower'
 import { type } from './type'
 

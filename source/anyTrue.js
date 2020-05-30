@@ -1,5 +1,5 @@
-import { isTruthy } from './_internals/isTruthy.js'
-import { type } from './type.js'
+import { isTruthy } from './_internals/isTruthy'
+import { type } from './type'
 
 export function anyTrue(...inputs){
   let counter = 0

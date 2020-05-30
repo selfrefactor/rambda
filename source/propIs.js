@@ -1,4 +1,4 @@
-import { curry } from './curry.js'
+import { curry } from './curry'
 import { is } from './is'
 
 function propIsFn(

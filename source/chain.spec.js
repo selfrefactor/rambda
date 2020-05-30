@@ -1,4 +1,4 @@
-import { chain } from './chain.js'
+import { chain } from './chain'
 
 const duplicate = n => [ n, n ]
 

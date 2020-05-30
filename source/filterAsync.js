@@ -1,5 +1,5 @@
-import { filter } from './filter.js'
-import { mapAsync } from './mapAsync.js'
+import { filter } from './filter'
+import { mapAsync } from './mapAsync'
 
 export function filterAsync(predicate, listOrObject){
   if (arguments.length === 1){
@@ -14,7 +14,8 @@ export function filterAsync(predicate, listOrObject){
 
           return resolve(filtered)
         }
-        const filtered = filter((_, prop) => predicateResult[ prop ], listOrObject)
+        const filtered = filter((_, prop) => predicateResult[ prop ],
+          listOrObject)
 
         return resolve(filtered)
       })

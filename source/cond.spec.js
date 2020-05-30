@@ -1,7 +1,7 @@
-import { always } from './always.js'
+import { always } from './always'
 import { cond } from './cond'
-import { equals } from './equals.js'
-import { T } from './T.js'
+import { equals } from './equals'
+import { T } from './T'
 
 test('returns a function', () => {
   expect(typeof cond([])).toEqual('function')
