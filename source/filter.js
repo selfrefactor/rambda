@@ -22,7 +22,6 @@ export function filter(predicate, list){
   }
 
   let index = 0
-  let resIndex = 0
   const len = list.length
   const willReturn = []
 
@@ -30,7 +29,7 @@ export function filter(predicate, list){
     const value = list[ index ]
 
     if (predicate(value, index)){
-      willReturn[ resIndex++ ] = value
+      willReturn.push(value)
     }
 
     index++
