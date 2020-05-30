@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 function whenObject(predicate, input){
   const yes = {}
   const no = {}
@@ -16,7 +18,7 @@ export function partition(predicate, input){
   if (arguments.length === 1){
     return listHolder => partition(predicate, listHolder)
   }
-  if (!Array.isArray(input)) return whenObject(predicate, input)
+  if (!_isArray(input)) return whenObject(predicate, input)
 
   const yes = []
   const no = []

@@ -1,10 +1,11 @@
 //Its lodash's set method taken from
 //https://github.com/lodash/lodash/blob/4.5.0-npm-packages
+import { _isArray } from './_internals/_isArray'
 import { set } from './_internals/set'
 import { partition } from './partition'
 
 const isObject = x => {
-  const ok = x !== null && !Array.isArray(x) && typeof x === 'object'
+  const ok = x !== null && !_isArray(x) && typeof x === 'object'
   if (!ok){
     return false
   }
