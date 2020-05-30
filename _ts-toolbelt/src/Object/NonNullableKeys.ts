@@ -1,12 +1,26 @@
-import {FilterKeys} from './FilterKeys'
+import {Key} from '../Any/Key'
 
-/** Get the keys of **`O`** that are non-nullable
- * @param O
- * @returns **`keyof`**
- * @example
- * ```ts
- * ```
- */
+/**
+@hidden
+*/
+export type _NonNullableKeys<O extends object> = {
+    [K in keyof O]: [O[K] & (undefined | null)] extends [never]
+                    ? K
+                    : never
+}[keyof O]
+
+/**
+Get the keys of **`O`** that are non-nullable
+(⚠️ needs `--strictNullChecks` enabled)
+@param O
+@returns [[Key]]
+@example
+```ts
+```
+*/
 export type NonNullableKeys<O extends object> =
-    FilterKeys<O, undefined, '<-extends'>
-    & FilterKeys<O, null, '<-extends'>
+    (
+        O extends unknown
+        ? _NonNullableKeys<O>
+        : never
+    ) & Key

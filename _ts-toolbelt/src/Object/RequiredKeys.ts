@@ -1,13 +1,23 @@
-import {Keys} from './Keys'
-import {Pick} from './Pick'
+import {Key} from '../Any/Key'
 
-/** Get the keys of **`O`** that are required
- * @param O
- * @returns **`keyof`**
- * @example
- * ```ts
- * ```
- */
-export type RequiredKeys<O extends object> = {
+/**
+@hidden
+*/
+export type _RequiredKeys<O extends object> = {
     [K in keyof O]-?: {} extends Pick<O, K> ? never : K
-}[Keys<O>]
+}[keyof O]
+
+/**
+Get the keys of **`O`** that are required
+@param O
+@returns [[Key]]
+@example
+```ts
+```
+*/
+export type RequiredKeys<O extends object> =
+    (
+        O extends unknown
+        ? _RequiredKeys<O>
+        : never
+    ) & Key

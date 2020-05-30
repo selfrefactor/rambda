@@ -1,50 +1,128 @@
+
 import {At} from './At'
-import {Depth} from './_Internal'
-import {Kind} from '../Any/Kind'
 import {OptionalKeys} from './OptionalKeys'
-import {Index} from '../Any/Index'
-import {Optional} from './Optional'
-import {NullableKeys} from './NullableKeys'
-import {Select} from '../Union/Select'
+import {Key} from '../Any/Key'
+import {Extends} from '../Any/Extends'
+import {Boolean} from '../Boolean/Boolean'
+import {Or} from '../Boolean/Or'
+import {ObjectOf} from '../List/ObjectOf'
+import {ListOf} from './ListOf'
+import {List} from '../List/List'
+import {Depth, Anyfy} from './_Internal'
 import {NonNullable} from '../Union/NonNullable'
-import {Tuple} from '../Tuple/Tuple'
 
-type MergeUpProp<O extends object, O1 extends object, K extends Index, OOK extends Index> =
-    K extends OOK                                       // if K is a `OptionalKey` of `O`
-    ? NonNullable<At<O, K>> | At<O1, K>                 // complete `O[K]` with `O1[K]`
-    : [At<O, K>] extends [never] ? At<O1, K> : At<O, K> // or patch `O[K]` with `O1[K]`
+/**
+@hidden
+*/
+type MergeUpProp<OK, O1K, K extends Key, OOK extends Key, libStyle extends Boolean> =
+    K extends OOK                            // if prop of `O` is optional
+    ? NonNullable<OK> | O1K                  // merge it with prop of `O1`
+    : [OK] extends [never]                   // if it does not exist
+      ? O1K                                  // complete with prop of `O1`
+      : {
+          1: undefined extends OK ? OK  : OK // ramda : keep  undefined
+          0: undefined extends OK ? O1K : OK // lodash: leave undefined
+      }[libStyle]
 
-type MergeUpFlat<O extends object, O1 extends object> =
-O extends object ? O1 extends object ? ({ // forces distribution
-    [K in keyof (O & O1)]: MergeUpProp<O, O1, K, OptionalKeys<O>>
-} & {}) : never : never
+/**
+@hidden
+*/
+type NoArray<A> =
+    A extends Array<any>
+    ? ObjectOf<A>
+    : A
 
-type MergeUpDeep<O extends object, O1 extends object, OOK extends Index = OptionalKeys<O>, NOK extends Index = NullableKeys<O>, NO1K extends Index = NullableKeys<O1>> =
-O extends object ? O1 extends object ? ({
-    [K in keyof (O & O1)]:  Kind<NonNullable<At<O, K> & At<O1, K>>> extends 'object'
-                            ? MergeUpDeep< // the above makes sure it's only objects
-                            // then if parent is `Nullable`, make children optional
-                            K extends NOK  ? Optional<NonNullable<At<O, K>> & {}>  : At<O, K> & {},
-                            K extends NO1K ? Optional<NonNullable<At<O1, K>> & {}> : At<O1, K> & {}
-                            // and if not optional, we re-add eventual `undefined | null`
-                            > | (K extends OOK ? never : Select<At<O, K>, undefined | null>)
-                            : MergeUpProp<O, O1, K, OOK>
-} & {}) : never : never
+/**
+@hidden
+*/
+export type MergeUpFlat<O extends object, O1 extends object, libStyle extends Boolean, OOK extends Key = OptionalKeys<O>> = {
+    [K in keyof (Anyfy<O> & O1)]: MergeUpProp<At<O, K>, At<O1, K>, K, OOK, libStyle>
+}
 
-/** Accurately complete the fields of **`O`** with the ones of **`O1`**.
- * This is a version of `Merge` that handles optional fields. It understands
- * that merged optional fields are no longer optional (have been completed).
- * @param O to complete
- * @param O1 to copy from
- * @param depth to do it deeply (?=`'flat'`)
- * @returns **`object`**
- * @example
- * ```ts
- * ```
- */
-export type MergeUp<O extends object, O1 extends object, depth extends Depth = 'flat'> = {
-    'flat': MergeUpFlat<(O extends Tuple ? Optional<O, keyof any[]> : O), O1>
-    'deep': MergeUpDeep<(O extends Tuple ? Optional<O, keyof any[]> : O), O1>
-    // between parenthesis helps with edge-case of tuple/array merging
-    // because even if merge is successful, length stays incorrect
+/**
+@hidden
+*/
+type ___MergeUpDeep<O extends object, O1 extends object, libStyle extends Boolean, OOK extends Key = OptionalKeys<O>> = {
+    [K in keyof (Anyfy<O> & O1)]: _MergeUpDeep<At<O, K>, At<O1, K>, K, OOK, libStyle>
+}
+
+/**
+@hidden
+*/
+type __MergeUpDeep<OK, O1K, K extends Key, OOK extends Key, libStyle extends Boolean> =
+    Or<Extends<[OK], [never]>, Extends<[O1K], [never]>> extends 1 // filter fallthrough `never`
+    ? MergeUpProp<OK, O1K, K, OOK, libStyle>   // `O | O1`  not object, merge prop
+    : OK extends object ? O1K extends object   // if both are of type `object`
+      ? ___MergeUpDeep<OK, O1K, libStyle>      // merge if both are `object`
+      : MergeUpProp<OK, O1K, K, OOK, libStyle> // `O`  not object, merge prop
+      : MergeUpProp<OK, O1K, K, OOK, libStyle> // `O1` not object, merge prop
+
+/**
+@hidden
+*/
+type _MergeUpDeep<O, O1, K extends Key, OOK extends Key, libStyle extends Boolean> =
+    // when we merge, we systematically remove inconvenient array methods
+    __MergeUpDeep<NoArray<O>, NoArray<O1>, K, OOK, libStyle> extends infer X
+    ? { // so that we can merge `object` and arrays in the very same way
+        1: X                                                // ramda
+        0: Extends<O, List> extends 1 ? ListOf<X & {}> : X  // lodash
+    }[libStyle] // for lodash, we preserve (restore) arrays like it does
+                // arrays are broken with `NoArray`, restored by `ListOf`
+    : never
+
+/**
+@hidden
+*/
+export type MergeUpDeep<O extends object, O1 extends object, libStyle extends Boolean> =
+    _MergeUpDeep<O, O1, never, never, libStyle> & {}
+
+/**
+Accurately complete the fields of **`O`** with the ones of **`O1`**.
+This is a version of `Merge` that handles optional fields. It understands
+that merged optional fields are no longer optional (have been completed).
+And it is able to deal with the merging of **`Union`s** of [[Object]]s.
+@param O to complete
+@param O1 to copy from
+@param depth (?=`'flat'`) to do it deeply
+@param style (?=1) 1 = ramda, 0 = lodash
+@returns [[Object]]
+@example
+```ts
+import {O} from 'ts-toolbelt'
+
+type O = {
+    name?: string
+    age? : number
+    zip? : string
+    pay  : {
+        cvv?: number
+    }
+}
+
+type O1 = {
+    age : number
+    zip?: number
+    city: string
+    pay : {
+        cvv : number
+        ccn?: string
+    }
+}
+
+type test = O.MergeUp<O, O1, 'deep'>
+// {
+//     name?: string;
+//     age: number;
+//     zip?: string | number;
+//     pay: {
+//         cvv: number;
+//         ccn?: string;
+//     };
+//     city: string;
+// }
+```
+*/
+export type MergeUp<O extends object, O1 extends object, depth extends Depth = 'flat', style extends Boolean = 1> = {
+    'flat': MergeUpFlat<O, O1, style>
+    'deep': MergeUpDeep<O, O1, style>
 }[depth]

@@ -1,3 +1,5 @@
+/** @ignore *//** */
+
 export {Diff} from './Diff'
 export {Exclude} from './Exclude'
 export {Filter} from './Filter'
@@ -13,4 +15,5 @@ export {Pop} from './Pop'
 export {Replace} from './Replace'
 export {Select} from './Select'
 export {Strict} from './Strict'
-export {TupleOf} from './TupleOf'
+export {ListOf} from './ListOf'
+export {Union} from './Union'

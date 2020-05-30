@@ -16,14 +16,14 @@ test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
   const result = updateFlipped(
-    88, 0, [ 1, 2, 3 ]
+    8, 0, [ 1, 2, 3 ]
   )
-  const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
-  const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+  const curriedResult = updateFlipped(8, 0)([ 1, 2, 3 ])
+  const tripleCurriedResult = updateFlipped(8)(0)([ 1, 2, 3 ])
 
-  expect(result).toEqual([ 88, 2, 3 ])
-  expect(curriedResult).toEqual([ 88, 2, 3 ])
-  expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
+  expect(result).toEqual([ 8, 2, 3 ])
+  expect(curriedResult).toEqual([ 8, 2, 3 ])
+  expect(tripleCurriedResult).toEqual([ 8, 2, 3 ])
 })
 
 test('function with arity of 4', () => {

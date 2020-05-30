@@ -2,35 +2,56 @@ import {IterationOf} from '../../Iteration/IterationOf'
 import {Iteration} from '../../Iteration/Iteration'
 import {Pos} from '../../Iteration/Pos'
 import {Next} from '../../Iteration/Next'
-import {Path as PPath} from './_Internal'
-import {Index} from '../../Any/Index'
-import {Pick as OPick} from '../Pick'
-import {LastIndex} from '../../Tuple/LastIndex'
-import {Tuple} from '../../Tuple/Tuple'
-import {Key} from '../../Iteration/Key'
+import {Key} from '../../Any/Key'
+import {_Pick as _OPick} from '../Pick'
+import {LastIndex} from '../../List/LastIndex'
+import {List} from '../../List/List'
+import {Boolean} from '../../Boolean/Boolean'
 
-type _Pick<O extends object, Path extends Tuple<Index>, I extends Iteration = IterationOf<'0'>> =
-  OPick<O, Path[Pos<I>]> extends infer Picked // Pick the first Path
-  ? {
-      [K in keyof Picked]:
-        Picked[K] extends infer Prop            // Needed for the below to be distributive
-        ? Prop extends object                   // > If it's an object
-          ? Key<I> extends LastIndex<Path, 's'> // & If it's the target
-            ? Prop                              // 1-1: Pick it
-            : _Pick<Prop, Path, Next<I>>        // 1-0: Continue diving
-          : Prop                                // 0: Pick property
-        : never
-    } & {}
-  : never
+/**
+@hidden
+*/
+type PickObject<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
+  O extends object                                // If it's an object
+  ? _OPick<O, Path[Pos<I>]> extends infer Picked  // Pick the current index
+    ? Pos<I> extends LastIndex<Path>              // If it's the last index
+      ? Picked                                    // Return the picked object
+      : {                                         // Otherwise, continue diving
+          [K in keyof Picked]: PickObject<Picked[K], Path, Next<I>>
+        } & {}
+    : never
+  : O                                             // Not an object - x
 
-/** Extract out of **`O`** the fields at **`Path`**
- * (⚠️ this type is expensive)
- * @param O to extract from
- * @param Path to be followed
- * @returns **`object`**
- * @example
- * ```ts
- * ```
- */
-export type Pick<O extends object, Path extends PPath> =
-    _Pick<O, Path>
+/**
+@hidden
+*/
+type PickList<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
+  O extends object                  // Same as above, but
+  ? O extends (infer A)[]           // If O is an array
+    ? {
+        1: PickList<A, Path, I>[] // Dive into the array (TS <3.7)
+        0: never
+      }[O extends List ? 1 : 0]
+    : _OPick<O, Path[Pos<I>]> extends infer Picked
+      ? Pos<I> extends LastIndex<Path>
+        ? Picked
+        : {
+            [K in keyof Picked]: PickList<Picked[K], Path, Next<I>>
+          } & {}
+      : never
+  : O
+
+/**
+Extract out of **`O`** the fields at **`Path`**
+@param O to extract from
+@param Path to be followed
+@param list (?=`0`) `1` to work within object lists
+@returns [[Object]]
+@example
+```ts
+```
+*/
+export type Pick<O extends object, Path extends List<Key>, list extends Boolean = 0> = {
+  0: PickObject<O, Path>
+  1: PickList<O, Path>
+}[list]

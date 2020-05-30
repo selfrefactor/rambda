@@ -1,7 +1,14 @@
-/** Describes function modes
- * * `sync`: Normal function
- * * `async`: Promise result
- */
+/**
+Describes function modes
+* `sync` : Normal function
+* `async`: Promised result
+*/
 export type Mode = 'sync' | 'async'
 
-export type _Function = Function
+/**
+Describes function parameter input
+* `multi`: ( a, b, c ... n ) => X
+* `list` : ([a, b, c ... n]) => X
+*/
+export type Input = 'multi' | 'list'
+
