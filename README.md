@@ -67,7 +67,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 <details>
 <summary>
-  Click to see the full list of 118 Ramda methods not implemented in Rambda 
+  Click to see the full list of 116 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -103,7 +103,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - gt
 - gte
 - hasIn
-- hasPath
 - innerJoin
 - insert
 - insertAll
@@ -120,7 +119,6 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 - mapAccum
 - mapAccumRight
 - mapObjIndexed
-- mathMod
 - memoizeWith
 - mergeAll
 - mergeDeepLeft
@@ -509,7 +507,7 @@ test('when index is out of bounds', () => {
 
 <summary>1 failed <italic>Ramda.adjust</italic> specs
 
-> Reason for the failure: ramda accepts an array-like object
+> :boom: Reason for the failure: ramda accepts an array-like object
 </summary>
 
 ```javascript
@@ -755,7 +753,7 @@ describe('allPass', () => {
 
 <summary>1 failed <italic>Ramda.allPass</italic> specs
 
-> Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
+> :boom: Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
 ```javascript
@@ -1149,7 +1147,7 @@ describe('anyPass', () => {
 
 <summary>1 failed <italic>Ramda.anyPass</italic> specs
 
-> Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
+> :boom: Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
 ```javascript
@@ -1867,7 +1865,7 @@ R.assocPath(path, newValue, obj)
 ```typescript
 assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
+assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
 ```
 
 </details>
@@ -2228,7 +2226,7 @@ describe('both + curry', () => {
 
 <summary>1 failed <italic>Ramda.both</italic> specs
 
-> Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda supports fantasy-land
 </summary>
 
 ```javascript
@@ -2364,7 +2362,7 @@ describe('chain', () => {
 
 *5 failed Ramda.chain specs*
 
-> Reason for the failure: ramda passes to `chain` if available | ramda supports fantasy-land
+> :boom: Reason for the failure: ramda passes to `chain` if available | ramda supports fantasy-land
 
 ### clamp
 
@@ -2582,7 +2580,7 @@ test('with R.equals', () => {
 
 <summary>9 failed <italic>Ramda.clone</italic> specs
 
-> Reason for the failure: rambda method work only with objects and arrays
+> :boom: Reason for the failure: rambda method work only with objects and arrays
 </summary>
 
 ```javascript
@@ -2764,7 +2762,7 @@ test('with multiple parameters', () => {
 
 <summary>1 failed <italic>Ramda.complement</italic> specs
 
-> Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda supports fantasy-land
 </summary>
 
 ```javascript
@@ -2893,7 +2891,7 @@ test('ramda spec', () => {
 
 <summary>3 failed <italic>Ramda.compose</italic> specs
 
-> Reason for the failure: ramda passes context to functions | rambda composed functions have no length
+> :boom: Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
 ```javascript
@@ -3022,7 +3020,7 @@ test('with strings', () => {
 
 <summary>1 failed <italic>Ramda.concat</italic> specs
 
-> Reason for the failure: ramda pass to concat method if present
+> :boom: Reason for the failure: ramda pass to concat method if present
 </summary>
 
 ```javascript
@@ -3193,7 +3191,7 @@ describe('cond', () => {
 
 <summary>2 failed <italic>Ramda.cond</italic> specs
 
-> Reason for the failure: pass to transformer is not applied in rambda
+> :boom: Reason for the failure: pass to transformer is not applied in rambda
 </summary>
 
 ```javascript
@@ -3352,7 +3350,7 @@ test('works with empty functions list', () => {
 ### curry
 
 ```typescript
-curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>
+curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>
 ```
 
 It expects a function as input and returns its curried version.
@@ -3372,7 +3370,7 @@ const result = sum(3) // => 6
 <summary>All Typescript definitions</summary>
 
 ```typescript
-curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
+curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 ```
 
 </details>
@@ -3444,7 +3442,7 @@ test('when called via multiple curry stages', () => {
 
 <summary>5 failed <italic>Ramda.curry</italic> specs
 
-> Reason for the failure: ramda passes context to functions
+> :boom: Reason for the failure: ramda passes context to functions
 </summary>
 
 ```javascript
@@ -4089,7 +4087,7 @@ test('should use R.equals', () => {
 
 <summary>1 failed <italic>Ramda.difference</italic> specs
 
-> Reason for the failure: ramda supports negative zero
+> :boom: Reason for the failure: ramda supports negative zero
 </summary>
 
 ```javascript
@@ -4483,7 +4481,7 @@ test('should return copy', () => {
 
 <summary>5 failed <italic>Ramda.dropLast</italic> specs
 
-> Reason for the failure: ramda method can act as a transducer
+> :boom: Reason for the failure: ramda method can act as a transducer
 </summary>
 
 ```javascript
@@ -4614,7 +4612,7 @@ test('case 2', () => {
 
 <summary>1 failed <italic>Ramda.either</italic> specs
 
-> Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda supports fantasy-land
 </summary>
 
 ```javascript
@@ -4704,7 +4702,7 @@ test('does not work with arrays', () => {
 
 <summary>4 failed <italic>Ramda.endsWith</italic> specs
 
-> Reason for the failure: rambda doesn't support arrays
+> :boom: Reason for the failure: rambda doesn't support arrays
 </summary>
 
 ```javascript
@@ -5112,7 +5110,7 @@ test('various examples', () => {
 
 <summary>14 failed <italic>Ramda.equals</italic> specs
 
-> Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
+> :boom: Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
 </summary>
 
 ```javascript
@@ -5574,7 +5572,7 @@ describe('filter with objects', () => {
 
 <summary>1 failed <italic>Ramda.filter</italic> specs
 
-> Reason for the failure: ramda dispatches to `filter` method of object
+> :boom: Reason for the failure: ramda dispatches to `filter` method of object
 </summary>
 
 ```javascript
@@ -6074,6 +6072,7 @@ const result = [
 
 ```typescript
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
+flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 ```
 
 </details>
@@ -6089,9 +6088,17 @@ function flipExport(fn){
       return holder => fn(holder, input[ 0 ])
     } else if (input.length === 2){
       return fn(input[ 1 ], input[ 0 ])
+    } else if (input.length === 3){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ]
+      )
+    } else if (input.length === 4){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ], input[ 3 ]
+      )
     }
 
-    return undefined
+    throw new Error('R.flip doesn\'t work with arity > 4')
   }
 }
 
@@ -6109,15 +6116,106 @@ export function flip(fn){
 ```javascript
 import { flip } from './flip'
 import { subtract } from './subtract'
+import { update } from './update'
 
-test('flip', () => {
-  const fn = flip(subtract)
+test('function with arity of 2', () => {
+  const subtractFlipped = flip(subtract)
 
-  expect(fn(1)(7)).toEqual(6)
-  expect(fn(1, 7)).toEqual(6)
-  expect(fn(
+  expect(subtractFlipped(1)(7)).toEqual(6)
+  expect(subtractFlipped(1, 7)).toEqual(6)
+  expect(subtractFlipped(
     1, 7, 9
-  )).toEqual(undefined)
+  )).toEqual(6)
+})
+
+test('function with arity of 3', () => {
+  const updateFlipped = flip(update)
+
+  const result = updateFlipped(
+    88, 0, [ 1, 2, 3 ]
+  )
+  const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
+  const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+  expect(result).toEqual([ 88, 2, 3 ])
+  expect(curriedResult).toEqual([ 88, 2, 3 ])
+  expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
+})
+
+test('function with arity of 4', () => {
+  const testFunction = (
+    a, b, c, d
+  ) => `${ a - b }==${ c - d }`
+  const testFunctionFlipped = flip(testFunction)
+
+  const result = testFunction(
+    1, 2, 3, 4
+  )
+  const flippedResult = testFunctionFlipped(
+    2, 1, 3, 4
+  )
+  expect(result).toEqual(flippedResult)
+  expect(result).toEqual('-1==-1')
+})
+
+test('function with arity of 5', () => {
+  const testFunction = (
+    a, b, c, d, e
+  ) => `${ a - b }==${ c - d - e }`
+  const testFunctionFlipped = flip(testFunction)
+
+  expect(() => testFunctionFlipped(
+    1, 2, 3, 4, 5
+  )).toThrowWithMessage(Error,
+    'R.flip doesn\'t work with arity > 4')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import * as R from 'ramda'
+import {flip, subtract} from 'rambda'
+
+describe('R.flip', () => {
+  it('function with arity of 2', () => {
+    const subtractFlipped = flip(subtract)
+    const result = subtractFlipped(1, 7)
+    const curriedResult = subtractFlipped(1)(7)
+    curriedResult // $ExpectType number
+     
+    // This is wrong
+    // ============================================
+    result // $ExpectType (y: number) => number
+  })
+
+  it('function with arity of 3', () => {
+    function testFunction(a: number, b: string, c: number): string {
+      return `${b}==${(a+c)}`
+    }
+    const flippedTestFunction = flip(testFunction)
+
+    const result = flippedTestFunction(
+      'foo', 1, 2
+    )
+    result // $ExpectType string
+  })
+})
+
+describe('Ramda.flip', () => {
+  it('function with arity of 2', () => {
+    const subtractFlipped = R.flip(R.subtract)
+    const result = subtractFlipped(1, 7)
+    const curriedResult = subtractFlipped(1)(7)
+    curriedResult // $ExpectType number
+     
+    // This is wrong
+    // ============================================
+    result // $ExpectType (b: number) => number
+  })
 })
 ```
 
@@ -6127,7 +6225,7 @@ test('flip', () => {
 
 <summary>4 failed <italic>Ramda.flip</italic> specs
 
-> Reason for the failure: rambda flip work only for functions with two arguments
+> :boom: Reason for the failure: rambda flip work only for functions with two arguments
 </summary>
 
 ```javascript
@@ -6325,7 +6423,7 @@ test('pass index as second argument', () => {
 
 <summary>1 failed <italic>Ramda.forEach</italic> specs
 
-> Reason for the failure: ramda method dispatches to `forEach` method
+> :boom: Reason for the failure: ramda method dispatches to `forEach` method
 </summary>
 
 ```javascript
@@ -6539,7 +6637,7 @@ test('groupBy', () => {
 
 <summary>1 failed <italic>Ramda.groupBy</italic> specs
 
-> Reason for the failure: ramda support transforms
+> :boom: Reason for the failure: ramda support transforms
 </summary>
 
 ```javascript
@@ -6816,7 +6914,7 @@ test('with non-object', () => {
 
 <summary>1 failed <italic>Ramda.has</italic> specs
 
-> Reason for the failure: rambda does check properties from the prototype chain
+> :boom: Reason for the failure: rambda does check properties from the prototype chain
 </summary>
 
 ```javascript
@@ -7274,7 +7372,7 @@ test('curry 2', () => {
 
 <summary>2 failed <italic>Ramda.ifElse</italic> specs
 
-> Reason for the failure: rambda doesn't return a curried function
+> :boom: Reason for the failure: rambda doesn't return a curried function
 </summary>
 
 ```javascript
@@ -7466,7 +7564,7 @@ test('return false if input is falsy', () => {
 
 <summary>1 failed <italic>Ramda.includes</italic> specs
 
-> Reason for the failure: ramda method pass to `equals` method if available
+> :boom: Reason for the failure: ramda method pass to `equals` method if available
 </summary>
 
 ```javascript
@@ -7701,7 +7799,7 @@ describe('indexBy', () => {
 
 <summary>1 failed <italic>Ramda.indexBy</italic> specs
 
-> Reason for the failure: ramda method can act as a transducer
+> :boom: Reason for the failure: ramda method can act as a transducer
 </summary>
 
 ```javascript
@@ -7803,7 +7901,7 @@ test('indexOf', () => {
 
 <summary>2 failed <italic>Ramda.indexOf</italic> specs
 
-> Reason for the failure: ramda method dispatches to `indexOf` method
+> :boom: Reason for the failure: ramda method dispatches to `indexOf` method
 </summary>
 
 ```javascript
@@ -8263,7 +8361,7 @@ test('happy', () => {
 
 <summary>1 failed <italic>Ramda.isEmpty</italic> specs
 
-> Reason for the failure: ramda supports typed arrays
+> :boom: Reason for the failure: ramda supports typed arrays
 </summary>
 
 ```javascript
@@ -8456,7 +8554,7 @@ test('happy', () => {
 
 <summary>1 failed <italic>Ramda.keys</italic> specs
 
-> Reason for the failure: ramda method works for primitives
+> :boom: Reason for the failure: ramda method works for primitives
 </summary>
 
 ```javascript
@@ -8633,7 +8731,7 @@ test('false', () => {
 
 <summary>3 failed <italic>Ramda.lastIndexOf</italic> specs
 
-> Reason for the failure: ramda method dispatches to `lastIndexOf` method
+> :boom: Reason for the failure: ramda method dispatches to `lastIndexOf` method
 </summary>
 
 ```javascript
@@ -8765,7 +8863,7 @@ test('with bad input returns NaN', () => {
 
 <summary>1 failed <italic>Ramda.length</italic> specs
 
-> Reason for the failure: ramda method supports object with `length` method
+> :boom: Reason for the failure: ramda method supports object with `length` method
 </summary>
 
 ```javascript
@@ -9774,7 +9872,7 @@ R.maxBy(compareFn, 5, -7) // => -7
 ```typescript
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 ```
 
 </details>
@@ -10100,7 +10198,7 @@ R.minBy(compareFn, -5, 2) // => -5
 ```typescript
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 ```
 
 </details>
@@ -11063,7 +11161,7 @@ describe('path with specified input', () => {
 
 <summary>1 failed <italic>Ramda.path</italic> specs
 
-> Reason for the failure: ramda method supports negative indices
+> :boom: Reason for the failure: ramda method supports negative indices
 </summary>
 
 ```javascript
@@ -11117,7 +11215,7 @@ const result = [
 ```typescript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
+pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
 ```
 
 </details>
@@ -11366,7 +11464,7 @@ describe('paths', () => {
 
 <summary>1 failed <italic>Ramda.paths</italic> specs
 
-> Reason for the failure: ramda method supports negative indices
+> :boom: Reason for the failure: ramda method supports negative indices
 </summary>
 
 ```javascript
@@ -11837,7 +11935,7 @@ test('with bad input', () => {
 
 <summary>3 failed <italic>Ramda.pipe</italic> specs
 
-> Reason for the failure: ramda passes context to functions | rambda composed functions have no length
+> :boom: Reason for the failure: ramda passes context to functions | rambda composed functions have no length
 </summary>
 
 ```javascript
@@ -12003,7 +12101,7 @@ describe('pluck', () => {
 
 <summary>1 failed <italic>Ramda.pluck</italic> specs
 
-> Reason for the failure: ramda method behaves as a transducer
+> :boom: Reason for the failure: ramda method behaves as a transducer
 </summary>
 
 ```javascript
@@ -12302,7 +12400,7 @@ test('happy', () => {
 
 <summary>1 failed <italic>Ramda.propEq</italic> specs
 
-> Reason for the failure: ramda method pass to `equals` method if available
+> :boom: Reason for the failure: ramda method pass to `equals` method if available
 </summary>
 
 ```javascript
@@ -12789,7 +12887,7 @@ describe('reduce', () => {
 
 <summary>2 failed <italic>Ramda.reduce</italic> specs
 
-> Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
+> :boom: Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
 </summary>
 
 ```javascript
@@ -13026,7 +13124,7 @@ describe('reject with objects', () => {
 
 <summary>1 failed <italic>Ramda.reject</italic> specs
 
-> Reason for the failure: ramda method dispatches to `filter` method
+> :boom: Reason for the failure: ramda method dispatches to `filter` method
 </summary>
 
 ```javascript
@@ -13634,7 +13732,7 @@ describe('sortBy', () => {
 
 <summary>1 failed <italic>Ramda.sortBy</italic> specs
 
-> Reason for the failure: ramda works with array-like objects
+> :boom: Reason for the failure: ramda works with array-like objects
 </summary>
 
 ```javascript
@@ -13887,7 +13985,7 @@ test('false', () => {
 
 <summary>4 failed <italic>Ramda.startsWith</italic> specs
 
-> Reason for the failure: rambda doesn't support arrays
+> :boom: Reason for the failure: rambda doesn't support arrays
 </summary>
 
 ```javascript
@@ -14290,7 +14388,7 @@ test('with zero index', () => {
 
 <summary>3 failed <italic>Ramda.take</italic> specs
 
-> Reason for the failure: rambda doesn't have 'R.into` method
+> :boom: Reason for the failure: rambda doesn't have 'R.into` method
 </summary>
 
 ```javascript
@@ -14487,7 +14585,7 @@ test('tap', () => {
 
 <summary>2 failed <italic>Ramda.tap</italic> specs
 
-> Reason for the failure: ramda can act as a transducer
+> :boom: Reason for the failure: ramda can act as a transducer
 </summary>
 
 ```javascript
@@ -15026,7 +15124,7 @@ test('trim', () => {
 
 <summary>1 failed <italic>Ramda.trim</italic> specs
 
-> Reason for the failure: ramda trims all ES5 whitespace
+> :boom: Reason for the failure: ramda trims all ES5 whitespace
 </summary>
 
 ```javascript
@@ -15254,7 +15352,7 @@ test('function inside object 2', () => {
 
 <summary>1 failed <italic>Ramda.type</italic> specs
 
-> Reason for the failure: ramda returns 'Number' type to NaN input, while rambda returns 'NaN'
+> :boom: Reason for the failure: ramda returns 'Number' type to NaN input, while rambda returns 'NaN'
 </summary>
 
 ```javascript
@@ -15364,7 +15462,7 @@ describe('uniq', () => {
 
 <summary>2 failed <italic>Ramda.uniq</italic> specs
 
-> Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
+> :boom: Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
 </summary>
 
 ```javascript
@@ -15624,11 +15722,11 @@ const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
-const result = update(index, newValue, list)
+const result = R.update(index, newValue, list)
 // => [1, 2, 88, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try the above <strong>R.update</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try the above <strong>R.update</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -15647,22 +15745,22 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
 
 ```javascript
 export function update(
-  idx, val, list
+  index, newValue, list
 ){
-  if (val === undefined){
+  if (newValue === undefined){
     return (_val, _list) => update(
-      idx, _val, _list
+      index, _val, _list
     )
   } else if (list === undefined){
     return _list => update(
-      idx, val, _list
+      index, newValue, _list
     )
   }
 
   const arrClone = list.slice()
 
   return arrClone.fill(
-    val, idx, idx + 1
+    newValue, index, index + 1
   )
 }
 ```
@@ -15707,7 +15805,7 @@ describe('update', () => {
 
 <summary>1 failed <italic>Ramda.update</italic> specs
 
-> Reason for the failure: ramda accepts an array-like object
+> :boom: Reason for the failure: ramda accepts an array-like object
 </summary>
 
 ```javascript
@@ -16126,7 +16224,7 @@ test('ramda test', () => {
 
 <summary>2 failed <italic>Ramda.without</italic> specs
 
-> Reason for the failure: ramda method act as a transducer | ramda method pass to `equals` method
+> :boom: Reason for the failure: ramda method act as a transducer | ramda method pass to `equals` method
 </summary>
 
 ```javascript
@@ -16279,7 +16377,7 @@ describe('xor', () => {
 
 <summary>1 failed <italic>Ramda.xor</italic> specs
 
-> Reason for the failure: ramda support empty call of method
+> :boom: Reason for the failure: ramda support empty call of method
 </summary>
 
 ```javascript
@@ -16535,6 +16633,10 @@ describe('zipObj', () => {
 ## CHANGELOG
 
 - 5.5.0
+
+Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - `R.flip` should handle functions with arity above 2
+
+`R.flip` typings now match `@types/ramda` typings
 
 Add `R.hasPath` method
 

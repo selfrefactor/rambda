@@ -1,4 +1,4 @@
-import { FToolbelt } from "./_ts-toolbelt/src/index";
+import { FunctionToolbelt, TupleToolbelt } from "./_ts-toolbelt/src/index";
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -191,7 +191,7 @@ export function assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) =>
  */
 export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;
+export function assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
 
 /**
  * It returns a function with `input` argument.
@@ -266,7 +266,7 @@ export function converge(after: ((...a: readonly any[]) => any), fns: Array<((..
 /**
  * It expects a function as input and returns its curried version.
  */
-export function curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;
+export function curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 
 /**
  * It returns a curried equivalent of the provided function, with the specified arity.
@@ -393,6 +393,7 @@ export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyAr
  * It returns function which calls `fn` with exchanged first and second argument.
  */
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
+export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
@@ -655,7 +656,7 @@ export function max<T extends Ord>(x: T): (y: T) => T;
  */
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+export function maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 /**
  * It returns the mean value of `list` input.
@@ -684,7 +685,7 @@ export function min<T extends Ord>(x: T): (y: T) => T;
  */
 export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;
+export function minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 /**
  * Curried version of `x%y`.
@@ -766,7 +767,7 @@ export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[]
  */
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;
+export function pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
 
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.

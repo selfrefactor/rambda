@@ -6,7 +6,7 @@ function createFailedSpec(method){
 
 <summary>{{failedSpecsCount}} failed <italic>Ramda.{{methodName}}</italic> specs
 
-> Reason for the failure: {{failedSpecsReasons}}
+> :boom: Reason for the failure: {{failedSpecsReasons}}
 </summary>
 
 \`\`\`javascript
@@ -20,7 +20,7 @@ function createFailedSpec(method){
   const shortSummaryTemplate = `
 *{{failedSpecsCount}} failed Ramda.{{methodName}} specs*
 
-> Reason for the failure: {{failedSpecsReasons}}
+> :boom: Reason for the failure: {{failedSpecsReasons}}
 `
 
   const templateToUse = method.failedRamdaSpecs ? 

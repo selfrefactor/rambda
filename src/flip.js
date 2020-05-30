@@ -4,9 +4,17 @@ function flipExport(fn){
       return holder => fn(holder, input[ 0 ])
     } else if (input.length === 2){
       return fn(input[ 1 ], input[ 0 ])
+    } else if (input.length === 3){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ]
+      )
+    } else if (input.length === 4){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ], input[ 3 ]
+      )
     }
 
-    return undefined
+    throw new Error('R.flip doesn\'t work with arity > 4')
   }
 }
 
