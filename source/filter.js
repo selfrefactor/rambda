@@ -23,17 +23,19 @@ export function filter(predicate, list){
     return filterObject(predicate, list)
   }
 
-  let index = -1
+  let index = 0
   let resIndex = 0
   const len = list.length
   const willReturn = []
 
-  while (++index < len){
+  while (index < len){
     const value = list[ index ]
 
     if (predicate(value, index)){
       willReturn[ resIndex++ ] = value
     }
+
+    index++
   }
 
   return willReturn
