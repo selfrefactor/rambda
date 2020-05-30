@@ -44,8 +44,8 @@
     "reason": "ramda passes context to functions | rambda composed functions have no length"
   },
   "curry": {
-    "count": 5,
-    "reason": "ramda passes context to functions"
+    "count": 3,
+    "reason": "ramda support placeholder(R.__)"
   },
   "concat": {
     "count": 1,

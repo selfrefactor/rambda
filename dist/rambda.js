@@ -15,8 +15,98 @@ function add(a, b) {
   return Number(a) + Number(b);
 }
 
-function curry(fn, args = []) {
-  return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
+function _curryN(n, cache, fn) {
+  return function () {
+    let ci = 0;
+    let ai = 0;
+    const cl = cache.length;
+    const al = arguments.length;
+    const args = new Array(cl + al);
+
+    while (ci < cl) {
+      args[ci] = cache[ci];
+      ci++;
+    }
+
+    while (ai < al) {
+      args[cl + ai] = arguments[ai];
+      ai++;
+    }
+
+    const remaining = n - args.length;
+    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+  };
+}
+
+function _arity(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments);
+      };
+
+    case 1:
+      return function (_1) {
+        return fn.apply(this, arguments);
+      };
+
+    case 2:
+      return function (_1, _2) {
+        return fn.apply(this, arguments);
+      };
+
+    case 3:
+      return function (_1, _2, _3) {
+        return fn.apply(this, arguments);
+      };
+
+    case 4:
+      return function (_1, _2, _3, _4) {
+        return fn.apply(this, arguments);
+      };
+
+    case 5:
+      return function (_1, _2, _3, _4, _5) {
+        return fn.apply(this, arguments);
+      };
+
+    case 6:
+      return function (_1, _2, _3, _4, _5, _6) {
+        return fn.apply(this, arguments);
+      };
+
+    case 7:
+      return function (_1, _2, _3, _4, _5, _6, _7) {
+        return fn.apply(this, arguments);
+      };
+
+    case 8:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+        return fn.apply(this, arguments);
+      };
+
+    case 9:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+        return fn.apply(this, arguments);
+      };
+
+    case 10:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+        return fn.apply(this, arguments);
+      };
+
+    default:
+      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+}
+
+function curryN(n, fn) {
+  if (arguments.length === 1) return _fn => curryN(n, _fn);
+  return _arity(n, _curryN(n, [], fn));
+}
+
+function curry(fn) {
+  return curryN(fn.length, fn);
 }
 
 function adjustFn(index, replaceFn, list) {
@@ -303,96 +393,6 @@ function cond(conditions) {
     });
     return toReturn;
   };
-}
-
-function _curryN(n, cache, fn) {
-  return function () {
-    let ci = 0;
-    let ai = 0;
-    const cl = cache.length;
-    const al = arguments.length;
-    const args = new Array(cl + al);
-
-    while (ci < cl) {
-      args[ci] = cache[ci];
-      ci++;
-    }
-
-    while (ai < al) {
-      args[cl + ai] = arguments[ai];
-      ai++;
-    }
-
-    const remaining = n - args.length;
-    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
-  };
-}
-
-function _arity(n, fn) {
-  switch (n) {
-    case 0:
-      return function () {
-        return fn.apply(this, arguments);
-      };
-
-    case 1:
-      return function (_1) {
-        return fn.apply(this, arguments);
-      };
-
-    case 2:
-      return function (_1, _2) {
-        return fn.apply(this, arguments);
-      };
-
-    case 3:
-      return function (_1, _2, _3) {
-        return fn.apply(this, arguments);
-      };
-
-    case 4:
-      return function (_1, _2, _3, _4) {
-        return fn.apply(this, arguments);
-      };
-
-    case 5:
-      return function (_1, _2, _3, _4, _5) {
-        return fn.apply(this, arguments);
-      };
-
-    case 6:
-      return function (_1, _2, _3, _4, _5, _6) {
-        return fn.apply(this, arguments);
-      };
-
-    case 7:
-      return function (_1, _2, _3, _4, _5, _6, _7) {
-        return fn.apply(this, arguments);
-      };
-
-    case 8:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
-        return fn.apply(this, arguments);
-      };
-
-    case 9:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
-        return fn.apply(this, arguments);
-      };
-
-    case 10:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
-        return fn.apply(this, arguments);
-      };
-
-    default:
-      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
-  }
-}
-
-function curryN(n, fn) {
-  if (arguments.length === 1) return _fn => curryN(n, _fn);
-  return _arity(n, _curryN(n, [], fn));
 }
 
 function mapObject(fn, obj) {
@@ -777,19 +777,21 @@ function flatten(list, input) {
 }
 
 function flipExport(fn) {
-  return (...input) => {
-    if (input.length === 1) {
-      return holder => fn(holder, input[0]);
-    } else if (input.length === 2) {
-      return fn(input[1], input[0]);
-    } else if (input.length === 3) {
-      return fn(input[1], input[0], input[2]);
-    } else if (input.length === 4) {
-      return fn(input[1], input[0], input[2], input[3]);
-    }
-
-    throw new Error('R.flip doesn\'t work with arity > 4');
+  const flipedFn = (...input) => {
+    const missing = fn.length - input.length;
+    if (missing <= 0) return fn(input[1], input[0], ...input.slice(2));
+    if (input.length === 0) return flipedFn;
+    if (input.length === 1) return curryN(missing, (...rest) => {
+      const args = [rest[0], input[0], ...rest.slice(1)];
+      return fn(...args);
+    });
+    return curryN(missing, (...rest) => {
+      const args = [input[1], input[0], ...input.slice(2), ...rest];
+      return fn(...args);
+    });
   };
+
+  return flipedFn;
 }
 
 function flip(fn) {
@@ -1110,16 +1112,316 @@ function nth(index, list) {
   return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
 }
 
-function update(index, newValue, list) {
-  if (newValue === undefined) {
-    return (_val, _list) => update(index, _val, _list);
-  } else if (list === undefined) {
-    return _list => update(index, newValue, _list);
+const FUNC_ERROR_TEXT = 'Expected a function';
+const HASH_UNDEFINED = '__lodash_hash_undefined__';
+const INFINITY = 1 / 0;
+const funcTag = '[object Function]',
+      genTag = '[object GeneratorFunction]',
+      symbolTag = '[object Symbol]';
+const reLeadingDot = /^\./,
+      rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+const reEscapeChar = /\\(\\)?/g;
+const reIsHostCtor = /^\[object .+?Constructor\]$/;
+const freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
+const freeSelf = typeof self === 'object' && self && self.Object === Object && self;
+const root = freeGlobal || freeSelf || Function('return this')();
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+function isHostObject(value) {
+  let result = false;
+  if (value != null && typeof value.toString !== 'function') {
+    try {
+      result = Boolean(String(value));
+    } catch (e) {}
   }
+  return result;
+}
+const arrayProto = Array.prototype,
+      funcProto = Function.prototype,
+      objectProto = Object.prototype;
+const coreJsData = root['__core-js_shared__'];
+const maskSrcKey = function () {
+  const uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+const funcToString = funcProto.toString;
+const {
+  hasOwnProperty
+} = objectProto;
+const objectToString = objectProto.toString;
+const reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+const {
+  Symbol: Symbol$1
+} = root,
+      {
+  splice
+} = arrayProto;
+const Map = getNative(root, 'Map'),
+      nativeCreate = getNative(Object, 'create');
+const symbolProto = Symbol$1 ? Symbol$1.prototype : undefined,
+      symbolToString = symbolProto ? symbolProto.toString : undefined;
+function Hash(entries) {
+  let index = -1,
+      length = entries ? entries.length : 0;
+  this.clear();
+  while (++index < length) {
+    const entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+}
+function hashDelete(key) {
+  return this.has(key) && delete this.__data__[key];
+}
+function hashGet(key) {
+  const data = this.__data__;
+  if (nativeCreate) {
+    const result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+function hashHas(key) {
+  const data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+function hashSet(key, value) {
+  const data = this.__data__;
+  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  return this;
+}
+Hash.prototype.clear = hashClear;
+Hash.prototype.delete = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+function ListCache(entries) {
+  let index = -1;
+  const length = entries ? entries.length : 0;
+  this.clear();
+  while (++index < length) {
+    const entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function listCacheClear() {
+  this.__data__ = [];
+}
+function listCacheDelete(key) {
+  const data = this.__data__,
+        index = assocIndexOf(data, key);
+  if (index < 0) {
+    return false;
+  }
+  const lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  return true;
+}
+function listCacheGet(key) {
+  const data = this.__data__,
+        index = assocIndexOf(data, key);
+  return index < 0 ? undefined : data[index][1];
+}
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+function listCacheSet(key, value) {
+  const data = this.__data__,
+        index = assocIndexOf(data, key);
+  if (index < 0) {
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype.delete = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+function MapCache(entries) {
+  let index = -1;
+  const length = entries ? entries.length : 0;
+  this.clear();
+  while (++index < length) {
+    const entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function mapCacheClear() {
+  this.__data__ = {
+    hash: new Hash(),
+    map: new (Map || ListCache)(),
+    string: new Hash()
+  };
+}
+function mapCacheDelete(key) {
+  return getMapData(this, key).delete(key);
+}
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+function mapCacheSet(key, value) {
+  getMapData(this, key).set(key, value);
+  return this;
+}
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype.delete = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+function assocIndexOf(array, key) {
+  let {
+    length
+  } = array;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  const pattern = isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+function baseToString(value) {
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  const result = String(value);
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
+}
+function getMapData(map, key) {
+  const data = map.__data__;
+  return isKeyable(key) ? data[typeof key === 'string' ? 'string' : 'hash'] : data.map;
+}
+function getNative(object, key) {
+  const value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+function isKeyable(value) {
+  const type = typeof value;
+  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
+}
+function isMasked(func) {
+  return Boolean(maskSrcKey) && maskSrcKey in func;
+}
+var stringToPath = memoize(string => {
+  string = toString(string);
+  const result = [];
+  if (reLeadingDot.test(string)) {
+    result.push('');
+  }
+  string.replace(rePropName, (match, number, quote, string) => {
+    result.push(quote ? string.replace(reEscapeChar, '$1') : number || match);
+  });
+  return result;
+});
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return String(func);
+    } catch (e) {}
+  }
+  return '';
+}
+function memoize(func, resolver) {
+  if (typeof func !== 'function' || resolver && typeof resolver !== 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function () {
+    const args = arguments,
+          key = resolver ? resolver.apply(this, args) : args[0],
+          {
+      cache
+    } = memoized;
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = func.apply(this, args);
+    memoized.cache = cache.set(key, result);
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache)();
+  return memoized;
+}
+memoize.Cache = MapCache;
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+function isFunction(value) {
+  const tag = isObject(value) ? objectToString.call(value) : '';
+  return tag == funcTag || tag == genTag;
+}
+function isObject(value) {
+  const type = typeof value;
+  return Boolean(value) && (type == 'object' || type == 'function');
+}
+function isObjectLike(value) {
+  return Boolean(value) && typeof value === 'object';
+}
+function isSymbol(value) {
+  return typeof value === 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+}
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+function range(from, to) {
+  if (arguments.length === 1) return _to => range(from, _to);
+  if (Number.isNaN(Number(from)) || Number.isNaN(Number(to))) {
+    throw new TypeError('Both arguments to range must be numbers');
+  }
+  if (to < from) return [];
+  const len = to - from;
+  const willReturn = Array(len);
+  for (let i = 0; i < len; i++) {
+    willReturn[i] = from + i;
+  }
+  return willReturn;
+}
+const charCodesString = [...range(65, 90), ...range(97, 122)];
+const charCodes = [...charCodesString, ...range(49, 57)];
+function curry$1(fn, args = []) {
+  return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry$1(fn, rest))([...args, ..._args]);
+}
+function multiply(a, b) {
+  if (arguments.length === 1) return _b => multiply(a, _b);
+  return a * b;
+}
+function reduceFn$1(fn, acc, list) {
+  return list.reduce(fn, acc);
+}
+const reduce$1 = curry$1(reduceFn$1);
+const product = reduce$1(multiply, 1);
 
+function updateFn(index, newValue, list) {
   const arrClone = list.slice();
   return arrClone.fill(newValue, index, index + 1);
 }
+
+const update = curry$1(updateFn);
 
 function lensIndex(index) {
   return lens(nth(index), update(index));
@@ -1195,8 +1497,8 @@ function modulo(x, y) {
   return x % y;
 }
 
-function multiply(x, y) {
-  if (arguments.length === 1) return _y => multiply(x, _y);
+function multiply$1(x, y) {
+  if (arguments.length === 1) return _y => multiply$1(x, _y);
   return x * y;
 }
 
@@ -1336,7 +1638,7 @@ function prepend(x, listOrString) {
   return [x].concat(listOrString);
 }
 
-const product = reduce(multiply, 1);
+const product$1 = reduce(multiply$1, 1);
 
 function propEqFn(propToFind, valueToMatch, obj) {
   if (!obj) return false;
@@ -1358,8 +1660,8 @@ function propOrFn(defaultValue, property, obj) {
 
 const propOr = curry(propOrFn);
 
-function range(start, end) {
-  if (arguments.length === 1) return _end => range(start, _end);
+function range$1(start, end) {
+  if (arguments.length === 1) return _end => range$1(start, _end);
 
   if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
     throw new TypeError('Both arguments to range must be numbers');
@@ -1523,7 +1825,7 @@ function times(fn, howMany) {
     throw new RangeError('n must be an integer');
   }
 
-  return map(fn, range(0, howMany));
+  return map(fn, range$1(0, howMany));
 }
 
 function toLower(str) {
@@ -1534,7 +1836,7 @@ function toPairs(obj) {
   return Object.entries(obj);
 }
 
-function toString(val) {
+function toString$1(val) {
   return val.toString();
 }
 
@@ -1586,7 +1888,7 @@ function view(lens, target) {
   return lens(Const)(target).x;
 }
 
-function isFunction(fn) {
+function isFunction$1(fn) {
   return ['Async', 'Promise', 'Function'].includes(type(fn));
 }
 
@@ -1597,7 +1899,7 @@ function when(rule, resultOrFunction) {
 
   return input => {
     if (!rule(input)) return input;
-    return isFunction(resultOrFunction) ? resultOrFunction(input) : resultOrFunction;
+    return isFunction$1(resultOrFunction) ? resultOrFunction(input) : resultOrFunction;
   };
 }
 
@@ -1718,7 +2020,7 @@ exports.min = min;
 exports.minBy = minBy;
 exports.minByFn = minByFn;
 exports.modulo = modulo;
-exports.multiply = multiply;
+exports.multiply = multiply$1;
 exports.negate = negate;
 exports.none = none;
 exports.not = not;
@@ -1734,12 +2036,12 @@ exports.pickAll = pickAll;
 exports.pipe = pipe;
 exports.pluck = pluck;
 exports.prepend = prepend;
-exports.product = product;
+exports.product = product$1;
 exports.prop = prop;
 exports.propEq = propEq;
 exports.propIs = propIs;
 exports.propOr = propOr;
-exports.range = range;
+exports.range = range$1;
 exports.reduce = reduce;
 exports.reject = reject;
 exports.repeat = repeat;
@@ -1763,7 +2065,7 @@ exports.test = test;
 exports.times = times;
 exports.toLower = toLower;
 exports.toPairs = toPairs;
-exports.toString = toString;
+exports.toString = toString$1;
 exports.toUpper = toUpper;
 exports.transpose = transpose;
 exports.trim = trim;
