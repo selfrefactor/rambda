@@ -15,13 +15,15 @@ async function getAllBenchmarks(){
 }
 
 export async function runSingleBenchmark(singleMethod){
+  console.time(`run.${singleMethod}.benchmark`)
   const methodsWithBenchmarks = await getAllBenchmarks()
   if (!methodsWithBenchmarks.includes(singleMethod)){
     throw new Error('this method has no benchmark')
   }
 
   const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
-  createBenchmark({ [ singleMethod ] : required })
+  await createBenchmark({ [ singleMethod ] : required })
+  console.timeEnd(`run.${singleMethod}.benchmark`)
 }
 
 export async function runAllBenchmarks(){
