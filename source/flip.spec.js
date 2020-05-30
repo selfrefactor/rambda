@@ -40,3 +40,14 @@ test('function with arity of 4', () => {
   expect(result).toEqual(flippedResult)
   expect(result).toEqual('-1==-1')
 })
+
+test('function with arity of 5', () => {
+  const testFunction = (
+    a, b, c, d, e
+  ) => `${ a - b }==${ c - d - e }`
+  const testFunctionFlipped = flip(testFunction)
+
+  expect(() => testFunctionFlipped(
+    1, 2, 3, 4, 5
+  )).toThrowWithMessage(Error, `R.flip doesn't work with arity > 4`)
+})
