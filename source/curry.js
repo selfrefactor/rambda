@@ -1,5 +1,5 @@
 import { curryN } from './curryN'
 
-export function curry(fn, args = []){
+export function curry(fn) {
   return curryN(fn.length, fn)
 }
