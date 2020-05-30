@@ -1,8 +1,28 @@
 import { update } from './update'
 
-test('update', () => {
-  expect(update(1)(0)([ 1, 2, 3 ])).toEqual([ 1, 0, 3 ])
-  expect(update(
-    1, 11, [ 0, 1, 2 ]
-  )).toEqual([ 0, 11, 2 ])
+const list = [ 1, 2, 3 ]
+
+test('happy', () => {
+  const newValue = 88
+  const index = 1
+  const result = update(
+    index, newValue, list
+  )
+  const curriedResult = update(index, newValue)(list)
+  const tripleCurriedResult = update(index)(newValue)(list)
+
+  const expected = [ 1, 88, 3 ]
+  expect(result).toEqual(expected)
+  expect(curriedResult).toEqual(expected)
+  expect(tripleCurriedResult).toEqual(expected)
+})
+
+test('list has no such index', () => {
+  const newValue = 88
+  const index = 10
+  const result = update(
+    index, newValue, list
+  )
+
+  expect(result).toEqual(list)
 })

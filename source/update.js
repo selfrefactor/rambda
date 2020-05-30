@@ -1,4 +1,4 @@
-import { curry } from 'rambdax'
+import { curry } from './curry'
 
 function updateFn(
   index, newValue, list

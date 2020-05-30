@@ -52,7 +52,7 @@ test('run many scripts and generate readme', async () => {
     If benchmarks are changed, so should be their summary.
   */
 
-  // await benchmarkSummary()
+  await benchmarkSummary()
 
   // ============================================
   // ============================================

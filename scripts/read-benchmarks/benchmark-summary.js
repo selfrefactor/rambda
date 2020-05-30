@@ -2,7 +2,7 @@ const { camelCase } = require('string-fn')
 const { readdirSync } = require('fs')
 
 const { readJsonSync, outputFile, outputJson } = require('fs-extra')
-const { remove, head,  piped,toLower, split } = require('rambdax')
+const { remove, head, piped, toLower, split } = require('rambdax')
 const { resolve } = require('path')
 const resultsDir = resolve(__dirname,
   '../run-benchmarks/benchmarks/benchmark_results')
@@ -32,8 +32,8 @@ export async function benchmarkSummary(){
 
     results.forEach(result => {
       if (result.name === 'Rambda') rambda = result
-      if (result.name === 'Ramda')    ramda = result
-      if (result.name.includes('Lodash'))    summaryCounter.lodash++
+      if (result.name === 'Ramda') ramda = result
+      if (result.name.includes('Lodash')) summaryCounter.lodash++
     })
 
     const columns = [ rambda, ramda, lodash ]
@@ -41,12 +41,9 @@ export async function benchmarkSummary(){
         if (!x) return '🔳'
         if (x.percentSlower === 0){
           const winner = piped(
-            x.name,
-            split('.'),
-            head,
-            toLower
+            x.name, split('.'), head, toLower
           )
-          summaryCounter[winner]++
+          summaryCounter[ winner ]++
         }
 
         return x.percentSlower === 0 ?
