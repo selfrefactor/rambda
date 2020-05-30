@@ -3907,7 +3907,7 @@ const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
-const result = update(index, newValue, list)
+const result = R.update(index, newValue, list)
 // => [1, 2, 88, 4, 5]
 ```
 

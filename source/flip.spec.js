@@ -49,5 +49,6 @@ test('function with arity of 5', () => {
 
   expect(() => testFunctionFlipped(
     1, 2, 3, 4, 5
-  )).toThrowWithMessage(Error, `R.flip doesn't work with arity > 4`)
+  )).toThrowWithMessage(Error,
+    'R.flip doesn\'t work with arity > 4')
 })
