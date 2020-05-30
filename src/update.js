@@ -1,19 +1,19 @@
 export function update(
-  idx, val, list
+  index, newValue, list
 ){
-  if (val === undefined){
+  if (newValue === undefined){
     return (_val, _list) => update(
-      idx, _val, _list
+      index, _val, _list
     )
   } else if (list === undefined){
     return _list => update(
-      idx, val, _list
+      index, newValue, _list
     )
   }
 
   const arrClone = list.slice()
 
   return arrClone.fill(
-    val, idx, idx + 1
+    newValue, index, index + 1
   )
 }

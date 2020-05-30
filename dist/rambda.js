@@ -241,6 +241,14 @@ function chain(fn, list) {
   return [].concat(...list.map(fn));
 }
 
+function clampFn(min, max, input) {
+  if (input >= min && input <= max) return input;
+  if (input > max) return max;
+  if (input < min) return min;
+}
+
+const clamp = curry(clampFn);
+
 function clone(input) {
   const out = Array.isArray(input) ? Array(input.length) : {};
   if (input && input.getTime) return new Date(input.getTime());
@@ -281,6 +289,20 @@ function compose(...fns) {
 function concat(x, y) {
   if (arguments.length === 1) return _y => concat(x, _y);
   return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+function cond(conditions) {
+  return input => {
+    let done = false;
+    let toReturn;
+    conditions.forEach(([predicate, resultClosure]) => {
+      if (!done && predicate(input)) {
+        done = true;
+        toReturn = resultClosure(input);
+      }
+    });
+    return toReturn;
+  };
 }
 
 function _curryN(n, cache, fn) {
@@ -424,28 +446,6 @@ function converge(fn, transformers) {
     return fn.apply(this, map(g => g.apply(this, arguments), transformers));
   });
 }
-
-function cond(conditions) {
-  return input => {
-    let done = false;
-    let toReturn;
-    conditions.forEach(([predicate, resultClosure]) => {
-      if (!done && predicate(input)) {
-        done = true;
-        toReturn = resultClosure(input);
-      }
-    });
-    return toReturn;
-  };
-}
-
-function clampFn(min, max, input) {
-  if (input >= min && input <= max) return input;
-  if (input > max) return max;
-  if (input < min) return min;
-}
-
-const clamp = curry(clampFn);
 
 const dec = x => x - 1;
 
@@ -736,19 +736,6 @@ function findIndex(predicate, list) {
   return -1;
 }
 
-function findLastIndex(fn, list) {
-  if (arguments.length === 1) return _list => findLastIndex(fn, _list);
-  let index = list.length;
-
-  while (--index >= 0) {
-    if (fn(list[index], index)) {
-      return index;
-    }
-  }
-
-  return -1;
-}
-
 function findLast(predicate, list) {
   if (arguments.length === 1) return _list => findLast(predicate, _list);
   let index = list.length;
@@ -760,6 +747,19 @@ function findLast(predicate, list) {
   }
 
   return undefined;
+}
+
+function findLastIndex(fn, list) {
+  if (arguments.length === 1) return _list => findLastIndex(fn, _list);
+  let index = list.length;
+
+  while (--index >= 0) {
+    if (fn(list[index], index)) {
+      return index;
+    }
+  }
+
+  return -1;
 }
 
 function flatten(list, input) {
@@ -782,9 +782,13 @@ function flipExport(fn) {
       return holder => fn(holder, input[0]);
     } else if (input.length === 2) {
       return fn(input[1], input[0]);
+    } else if (input.length === 3) {
+      return fn(input[1], input[0], input[2]);
+    } else if (input.length === 4) {
+      return fn(input[1], input[0], input[2], input[3]);
     }
 
-    return undefined;
+    throw new Error('R.flip doesn\'t work with arity > 4');
   };
 }
 
@@ -860,6 +864,37 @@ function has(prop, obj) {
   return obj[prop] !== undefined;
 }
 
+function path(list, obj) {
+  if (arguments.length === 1) return _obj => path(list, _obj);
+
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+
+  let willReturn = obj;
+  let counter = 0;
+  const pathArrValue = typeof list === 'string' ? list.split('.') : list;
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
+      return undefined;
+    }
+
+    willReturn = willReturn[pathArrValue[counter]];
+    counter++;
+  }
+
+  return willReturn;
+}
+
+function hasPath(maybePath, obj) {
+  if (arguments.length === 1) {
+    return objHolder => hasPath(maybePath, objHolder);
+  }
+
+  return path(maybePath, obj) !== undefined;
+}
+
 function head(listOrString) {
   if (typeof listOrString === 'string') return listOrString[0] || '';
   return listOrString[0];
@@ -898,29 +933,6 @@ function ifElseFn(condition, onTrue, onFalse) {
 const ifElse = curry(ifElseFn);
 
 const inc = x => x + 1;
-
-function path(list, obj) {
-  if (arguments.length === 1) return _obj => path(list, _obj);
-
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-
-  let willReturn = obj;
-  let counter = 0;
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list;
-
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
-      return undefined;
-    }
-
-    willReturn = willReturn[pathArrValue[counter]];
-    counter++;
-  }
-
-  return willReturn;
-}
 
 function indexByPath(pathInput, list) {
   const toReturn = {};
@@ -998,6 +1010,11 @@ function init(listOrString) {
   return listOrString.length ? baseSlice(listOrString, 0, -1) : [];
 }
 
+function intersection(listA, listB) {
+  if (arguments.length === 1) return _list => intersection(listA, _list);
+  return filter(value => includes(value, listB), listA);
+}
+
 function intersperse(separator, list) {
   if (arguments.length === 1) return _list => intersperse(separator, _list);
   let index = -1;
@@ -1013,11 +1030,6 @@ function intersperse(separator, list) {
   }
 
   return willReturn;
-}
-
-function intersection(listA, listB) {
-  if (arguments.length === 1) return _list => intersection(listA, _list);
-  return filter(value => includes(value, listB), listA);
 }
 
 function is(targetPrototype, x) {
@@ -1098,15 +1110,15 @@ function nth(index, list) {
   return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
 }
 
-function update(idx, val, list) {
-  if (val === undefined) {
-    return (_val, _list) => update(idx, _val, _list);
+function update(index, newValue, list) {
+  if (newValue === undefined) {
+    return (_val, _list) => update(index, _val, _list);
   } else if (list === undefined) {
-    return _list => update(idx, val, _list);
+    return _list => update(index, newValue, _list);
   }
 
   const arrClone = list.slice();
-  return arrClone.fill(val, idx, idx + 1);
+  return arrClone.fill(newValue, index, index + 1);
 }
 
 function lensIndex(index) {
@@ -1133,10 +1145,10 @@ function match(pattern, input) {
   return willReturn === null ? [] : willReturn;
 }
 
-function mathMod(m, p) {
-  if (arguments.length === 1) return _p => mathMod(m, _p);
-  if (!_isInteger$1(m) || !_isInteger$1(p) || p < 1) return NaN;
-  return (m % p + p) % p;
+function mathMod(x, y) {
+  if (arguments.length === 1) return _y => mathMod(x, _y);
+  if (!_isInteger$1(x) || !_isInteger$1(y) || y < 1) return NaN;
+  return (x % y + y) % y;
 }
 
 function maxByFn(compareFn, x, y) {
@@ -1242,6 +1254,12 @@ function partial(fn, ...args) {
   };
 }
 
+function pathOrFn(defaultValue, list, obj) {
+  return defaultTo(defaultValue, path(list, obj));
+}
+
+const pathOr = curry(pathOrFn);
+
 function paths(pathsToSearch, obj) {
   if (arguments.length === 1) {
     return _obj => paths(pathsToSearch, _obj);
@@ -1249,12 +1267,6 @@ function paths(pathsToSearch, obj) {
 
   return pathsToSearch.map(singlePath => path(singlePath, obj));
 }
-
-function pathOrFn(defaultValue, list, obj) {
-  return defaultTo(defaultValue, path(list, obj));
-}
-
-const pathOr = curry(pathOrFn);
 
 function pick(propsToPick, input) {
   if (arguments.length === 1) return _input => pick(propsToPick, _input);
@@ -1574,14 +1586,6 @@ function view(lens, target) {
   return lens(Const)(target).x;
 }
 
-function without(matchAgainst, source) {
-  if (source === undefined) {
-    return _source => without(matchAgainst, _source);
-  }
-
-  return reduce((prev, current) => includes(current, matchAgainst) ? prev : prev.concat(current), [], source);
-}
-
 function isFunction(fn) {
   return ['Async', 'Promise', 'Function'].includes(type(fn));
 }
@@ -1595,6 +1599,14 @@ function when(rule, resultOrFunction) {
     if (!rule(input)) return input;
     return isFunction(resultOrFunction) ? resultOrFunction(input) : resultOrFunction;
   };
+}
+
+function without(matchAgainst, source) {
+  if (source === undefined) {
+    return _source => without(matchAgainst, _source);
+  }
+
+  return reduce((prev, current) => includes(current, matchAgainst) ? prev : prev.concat(current), [], source);
 }
 
 function xor(a, b) {
@@ -1669,6 +1681,7 @@ exports.fromPairs = fromPairs;
 exports.groupBy = groupBy;
 exports.groupWith = groupWith;
 exports.has = has;
+exports.hasPath = hasPath;
 exports.head = head;
 exports.identical = identical;
 exports.identity = identity;
