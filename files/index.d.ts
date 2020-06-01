@@ -4576,17 +4576,35 @@ Notes: `R.getter` method contains explanations, tests and source information of 
 export function reset(): void;
 
 /*
-Method:
+Method: ifElseAsync
 
-Explanation:
+Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous.
 
 Example:
 
 ```
+const condition = async x => {
+  await R.delay(100)
+  return x>1
+}
+const ifFn = async x => {
+  await R.delay(100)
+  return x+1
+}
+const elseFn = async x => {
+  await R.delay(100)
+  return x-1
+}
 
+const result = R.ifElseAsync(
+  condition,
+  ifFn,
+  elseFn  
+)(1)
+// => result resolves to `0`
 ```
 
-Categories:
+Categories: Async, Logic
 
 Notes:
 
@@ -4611,13 +4629,54 @@ Example:
 
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function isFalsy(input: any): boolean;
+
+/*
+Method:
+
+Explanation:
+
+
+
+Example:
+
+```
+
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isTruthy(input: any): boolean;
+
+/*
+Method:
+
+Explanation:
+
+
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
 export function isType(targetType: RambdaTypes, input: any): boolean;
 
 /*
