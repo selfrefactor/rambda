@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "dependencies": {
     "helpers-fn": "0.3.3",
-    "lint-fn": "2.8.0",
+    "lint-fn": "2.8.1",
     "typescript": "3.9.3"
   },
   "license": "MIT"
