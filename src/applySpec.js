@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
   for (const key in spec){
@@ -72,13 +74,13 @@ function __applySpecWithArity(
       )
 
   // handle spec as Array
-  if (Array.isArray(spec)){
+  if (_isArray(spec)){
     const ret = []
     let i = 0
     const l = spec.length
     for (; i < l; i++){
       // handle recursive spec inside array
-      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
+      if (typeof spec[ i ] === 'object' || _isArray(spec[ i ])){
         ret[ i ] = __applySpecWithArity(
           spec[ i ], arity, cache
         )

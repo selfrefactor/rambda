@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -17,21 +19,22 @@ export function filter(predicate, list){
 
   if (!list) return []
 
-  if (!Array.isArray(list)){
+  if (!_isArray(list)){
     return filterObject(predicate, list)
   }
 
-  let index = -1
-  let resIndex = 0
+  let index = 0
   const len = list.length
   const willReturn = []
 
-  while (++index < len){
+  while (index < len){
     const value = list[ index ]
 
     if (predicate(value, index)){
-      willReturn[ resIndex++ ] = value
+      willReturn.push(value)
     }
+
+    index++
   }
 
   return willReturn

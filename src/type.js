@@ -1,3 +1,5 @@
+import { _isArray } from './_internals/_isArray'
+
 export function type(input){
   const typeOf = typeof input
 
@@ -11,7 +13,7 @@ export function type(input){
     return Number.isNaN(input) ? 'NaN' : 'Number'
   } else if (typeOf === 'string'){
     return 'String'
-  } else if (Array.isArray(input)){
+  } else if (_isArray(input)){
     return 'Array'
   } else if (input instanceof RegExp){
     return 'RegExp'

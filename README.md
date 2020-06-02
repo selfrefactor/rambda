@@ -1320,6 +1320,8 @@ applySpec<T>(spec: any): (...args: readonly any[]) => T;
 <summary><strong>R.applySpec</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 // recursively traverse the given spec object to find the highest arity function
 function __findHighestArity(spec, max = 0){
   for (const key in spec){
@@ -1394,13 +1396,13 @@ function __applySpecWithArity(
       )
 
   // handle spec as Array
-  if (Array.isArray(spec)){
+  if (_isArray(spec)){
     const ret = []
     let i = 0
     const l = spec.length
     for (; i < l; i++){
       // handle recursive spec inside array
-      if (typeof spec[ i ] === 'object' || Array.isArray(spec[ i ])){
+      if (typeof spec[ i ] === 'object' || _isArray(spec[ i ])){
         ret[ i ] = __applySpecWithArity(
           spec[ i ], arity, cache
         )
@@ -1877,6 +1879,7 @@ assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
 <summary><strong>R.assocPath</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
@@ -1908,7 +1911,7 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)){
+  if (_isInteger(parseInt(index, 10)) && _isArray(input)){
     const arr = input.slice()
     arr[ index ] = newValue
 
@@ -2494,8 +2497,10 @@ clone<T>(input: ReadonlyArray<T>): T[];
 <summary><strong>R.clone</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 export function clone(input){
-  const out = Array.isArray(input) ? Array(input.length) : {}
+  const out = _isArray(input) ? Array(input.length) : {}
   if (input && input.getTime) return new Date(input.getTime())
 
   for (const key in input){
@@ -5366,6 +5371,8 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 <summary><strong>R.filter</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 function filterObject(fn, obj){
   const willReturn = {}
 
@@ -5385,21 +5392,22 @@ export function filter(predicate, list){
 
   if (!list) return []
 
-  if (!Array.isArray(list)){
+  if (!_isArray(list)){
     return filterObject(predicate, list)
   }
 
-  let index = -1
-  let resIndex = 0
+  let index = 0
   const len = list.length
   const willReturn = []
 
-  while (++index < len){
+  while (index < len){
     const value = list[ index ]
 
     if (predicate(value, index)){
-      willReturn[ resIndex++ ] = value
+      willReturn.push(value)
     }
+
+    index++
   }
 
   return willReturn
@@ -5636,7 +5644,18 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
 
-  return list.find(predicate)
+  let index = 0
+  const len = list.length
+
+  while (index < len){
+    const value = list[ index ]
+
+    if (predicate(value, index)){
+      return value
+    }
+
+    index++
+  }
 }
 ```
 
@@ -6005,11 +6024,13 @@ flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArra
 <summary><strong>R.flatten</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 export function flatten(list, input){
   const willReturn = input === undefined ? [] : input
 
   for (let i = 0; i < list.length; i++){
-    if (Array.isArray(list[ i ])){
+    if (_isArray(list[ i ])){
       flatten(list[ i ], willReturn)
     } else {
       willReturn.push(list[ i ])
@@ -6707,8 +6728,10 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 <summary><strong>R.groupWith</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 export function groupWith(compareFn, list){
-  if (!Array.isArray(list))
+  if (!_isArray(list))
     throw new TypeError('list.reduce is not a function')
 
   const clone = list.slice()
@@ -7508,6 +7531,7 @@ includes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 <summary><strong>R.includes</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
 import { equals } from './equals'
 
 export function includes(valueToFind, input){
@@ -7516,7 +7540,7 @@ export function includes(valueToFind, input){
   if (typeof input === 'string'){
     return input.includes(valueToFind)
   }
-  if (!Array.isArray(input)) return false
+  if (!_isArray(input)) return false
 
   let index = -1
 
@@ -9446,6 +9470,8 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 <summary><strong>R.map</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 function mapObject(fn, obj){
   const willReturn = {}
 
@@ -9464,7 +9490,7 @@ export function map(fn, list){
   if (list === undefined){
     return []
   }
-  if (!Array.isArray(list)){
+  if (!_isArray(list)){
     return mapObject(fn, list)
   }
 
@@ -15025,10 +15051,12 @@ transpose<T>(list: T[][]): T[][];
 <summary><strong>R.transpose</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 export function transpose(array){
   return array.reduce((acc, el) => {
     el.forEach((nestedEl, i) =>
-      Array.isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]))
+      _isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]))
 
     return acc
   }, [])
@@ -15209,6 +15237,8 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 <summary><strong>R.type</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
+
 export function type(input){
   const typeOf = typeof input
 
@@ -15222,7 +15252,7 @@ export function type(input){
     return Number.isNaN(input) ? 'NaN' : 'Number'
   } else if (typeOf === 'string'){
     return 'String'
-  } else if (Array.isArray(input)){
+  } else if (_isArray(input)){
     return 'Array'
   } else if (input instanceof RegExp){
     return 'RegExp'
@@ -16658,6 +16688,10 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- Next
+
+Update `ts-toolbelt` files as now there is update pipeline for it.
 
 - 5.6.0
 

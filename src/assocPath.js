@@ -1,3 +1,4 @@
+import { _isArray } from './_internals/_isArray'
 import { _isInteger } from './_internals/_isInteger'
 import { assoc } from './assoc'
 import { curry } from './curry'
@@ -29,7 +30,7 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)){
+  if (_isInteger(parseInt(index, 10)) && _isArray(input)){
     const arr = input.slice()
     arr[ index ] = newValue
 

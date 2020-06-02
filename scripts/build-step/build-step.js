@@ -110,17 +110,17 @@ async function rambdaBuildStep(){
       const { name } = parse(x)
 
       const shouldSkip =
-        x.includes('internals') ||
         x.includes('benchmarks') ||
         !rambdaMethods.includes(name) &&
           !rambdaxMethodsAsInternals.includes(name)
 
-      if (shouldSkip) return
+      if(x.includes('internals'))console.log({name, shouldSkip, x})    
+      if (shouldSkip && !x.includes('internals')) return
 
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)
 
-      return remove('.js', fileName)
+      return x.includes('internals') ? undefined :remove('.js', fileName)
     }),
     filter(Boolean),
     filter(x => !rambdaxMethodsAsInternals.includes(x)),
