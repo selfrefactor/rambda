@@ -114,7 +114,6 @@ async function rambdaBuildStep(){
         !rambdaMethods.includes(name) &&
           !rambdaxMethodsAsInternals.includes(name)
 
-      if(x.includes('internals'))console.log({name, shouldSkip, x})    
       if (shouldSkip && !x.includes('internals')) return
 
       const [ , fileName ] = x.split('source/')
