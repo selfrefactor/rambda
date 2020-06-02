@@ -1,25 +1,25 @@
 {
   "name": "SPLIT",
-  "date": "2020-05-30T14:13:13.793Z",
+  "date": "2020-06-02T12:13:31.077Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 9816632,
-      "margin": 0.36,
+      "ops": 9159406,
+      "margin": 0.82,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1481390,
-      "margin": 0.64,
-      "percentSlower": 84.91
+      "ops": 1287419,
+      "margin": 1.01,
+      "percentSlower": 85.94
     },
     {
       "name": "Lodash",
-      "ops": 6487772,
-      "margin": 0.7,
-      "percentSlower": 33.91
+      "ops": 5806063,
+      "margin": 1.62,
+      "percentSlower": 36.61
     }
   ],
   "fastest": {

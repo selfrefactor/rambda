@@ -1,19 +1,19 @@
 {
   "name": "NONE",
-  "date": "2020-05-30T14:09:50.567Z",
+  "date": "2020-06-02T12:10:09.272Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 7375252,
-      "margin": 0.72,
+      "ops": 6827637,
+      "margin": 0.76,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 851636,
-      "margin": 0.66,
-      "percentSlower": 88.45
+      "ops": 794390,
+      "margin": 0.58,
+      "percentSlower": 88.37
     }
   ],
   "fastest": {

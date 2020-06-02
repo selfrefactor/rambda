@@ -1,19 +1,19 @@
 {
   "name": "SPLIT_EVERY",
-  "date": "2020-05-30T14:13:24.655Z",
+  "date": "2020-06-02T12:13:42.186Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 8671450,
-      "margin": 1.14,
+      "ops": 6430984,
+      "margin": 5.07,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 921223,
-      "margin": 1.06,
-      "percentSlower": 89.38
+      "ops": 816302,
+      "margin": 2.01,
+      "percentSlower": 87.31
     }
   ],
   "fastest": {

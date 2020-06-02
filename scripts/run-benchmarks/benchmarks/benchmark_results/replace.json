@@ -1,30 +1,30 @@
 {
   "name": "REPLACE",
-  "date": "2020-05-30T14:12:18.734Z",
+  "date": "2020-06-02T12:12:36.233Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 6401456,
-      "margin": 0.49,
-      "percentSlower": 0
+      "ops": 5625150,
+      "margin": 1.9,
+      "percentSlower": 3.62
     },
     {
       "name": "Ramda",
-      "ops": 4352358,
-      "margin": 0.4,
-      "percentSlower": 32.01
+      "ops": 3817415,
+      "margin": 2.03,
+      "percentSlower": 34.6
     },
     {
       "name": "Lodash",
-      "ops": 6384707,
-      "margin": 0.84,
-      "percentSlower": 0.26
+      "ops": 5836729,
+      "margin": 1.57,
+      "percentSlower": 0
     }
   ],
   "fastest": {
-    "name": "Rambda",
-    "index": 0
+    "name": "Lodash",
+    "index": 2
   },
   "slowest": {
     "name": "Ramda",

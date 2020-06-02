@@ -1,19 +1,19 @@
 {
   "name": "OVER",
-  "date": "2020-05-30T14:10:17.966Z",
+  "date": "2020-06-02T12:10:36.603Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1213972,
-      "margin": 1.02,
+      "ops": 908929,
+      "margin": 1.38,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 594507,
-      "margin": 0.66,
-      "percentSlower": 51.03
+      "ops": 542885,
+      "margin": 1.6,
+      "percentSlower": 40.27
     }
   ],
   "fastest": {

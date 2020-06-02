@@ -1,19 +1,19 @@
 {
   "name": "IF_ELSE",
-  "date": "2020-05-30T14:07:18.082Z",
+  "date": "2020-06-02T12:07:36.645Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1583599,
-      "margin": 1.98,
+      "ops": 611297,
+      "margin": 2.28,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 518303,
-      "margin": 2.12,
-      "percentSlower": 67.27
+      "ops": 484470,
+      "margin": 2.46,
+      "percentSlower": 20.75
     }
   ],
   "fastest": {

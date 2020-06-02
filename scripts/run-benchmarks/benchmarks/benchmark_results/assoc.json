@@ -1,24 +1,24 @@
 {
   "name": "ASSOC",
-  "date": "2020-05-30T14:04:01.146Z",
+  "date": "2020-06-02T12:04:20.624Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 2581399,
-      "margin": 0.62,
-      "percentSlower": 86.8
+      "ops": 1592246,
+      "margin": 1.02,
+      "percentSlower": 91.44
     },
     {
       "name": "Ramda",
-      "ops": 8838349,
-      "margin": 0.15,
-      "percentSlower": 54.81
+      "ops": 7671094,
+      "margin": 1.59,
+      "percentSlower": 58.77
     },
     {
       "name": "Lodash.set",
-      "ops": 19559735,
-      "margin": 0.24,
+      "ops": 18604019,
+      "margin": 0.73,
       "percentSlower": 0
     }
   ],
