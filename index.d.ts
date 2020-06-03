@@ -825,11 +825,11 @@ export function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
-export function propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
-export function propEq(propToFind: string | number): {
-  <T>(valueToMatch: T, obj: any): boolean;
-  <T>(valueToMatch: T): (obj: any) => boolean;
+export function propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean;
+export function propEq<K extends string | number, V>(propToFind: K, valueToMatch: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(propToFind: K): {
+    <V>(valueToMatch: V, obj: Record<K, V>): boolean;
+    <V>(valueToMatch: V): (obj: Record<K, V>) => boolean;
 };
 
 /**

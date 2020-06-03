@@ -12360,7 +12360,7 @@ test('prop', () => {
 ### propEq
 
 ```typescript
-propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean
+propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -12386,11 +12386,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
-propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
-propEq(propToFind: string | number): {
-  <T>(valueToMatch: T, obj: any): boolean;
-  <T>(valueToMatch: T): (obj: any) => boolean;
+propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean;
+propEq<K extends string | number, V>(propToFind: K, valueToMatch: V): (obj: Record<K, V>) => boolean;
+propEq<K extends string | number>(propToFind: K): {
+    <V>(valueToMatch: V, obj: Record<K, V>): boolean;
+    <V>(valueToMatch: V): (obj: Record<K, V>) => boolean;
 };
 ```
 
@@ -12430,6 +12430,37 @@ test('happy', () => {
   expect(propEq(
     'foo', 'bar', null
   )).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {propEq} from 'rambda'
+
+const property = 'foo'
+const numberProperty = 1
+const value = 'bar'
+const obj = { [property]: value }
+const objWithNumberIndex = { [numberProperty]: value }
+
+describe('propEq', () => {
+  it('happy', () => {
+    const result = propEq(
+      property, value, obj
+    )
+    result // $ExpectType boolean
+  })
+  it('number is property', () => {
+    const result = propEq(
+      1, value, objWithNumberIndex
+    )
+    result // $ExpectType boolean
+  })
 })
 ```
 

@@ -12,7 +12,7 @@ import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs'
 import { runSingleSpec } from '../run-ramda-specs/src/run-specs'
 
 jest.setTimeout(ms('30 minutes'))
-  
+
 test('run many scripts and generate readme', async () => {
   // Unless you are developing for Ramdax, leave that `false`
   const withRambdax = false
