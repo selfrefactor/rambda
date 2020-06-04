@@ -14,9 +14,9 @@ test('with empty list', () => {
   expect(find(propEq('a', 4))([])).toEqual(undefined)
 })
 
-test('without native Array.prototype.find', () => {
+test.skip('without native Array.prototype.find', () => {
   const list = [ 1, 2, 3 ]
   list.find = undefined
-
+  // with ramda
   expect(find(equals(2), list)).toEqual(2)
 })

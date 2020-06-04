@@ -1,4 +1,22 @@
+## build:main
+
+```bash
+cross-env NODE_ENV=build rollup -c files/rollup.config.js
+```
+
+## build:web
+
+```bash
+cross-env NODE_ENV=build rollup -c files/rollup.web.config.js
+```
+
+## build
+
+Run tasks `build:main` and `build:web`
+
 ## benchmark
+
+Run tasks `out` and `build:main` before this
 
 ```bash
 jest scripts/run-benchmarks/run-benchmarks.spec.js
@@ -6,7 +24,7 @@ jest scripts/run-benchmarks/run-benchmarks.spec.js
 
 ## benchmarkx
 
-Run experimental benchmarks
+Run tasks `out` and `build:main` before this
 
 ```bash
 jest scripts/run-benchmarks/run-experimental.spec.js
