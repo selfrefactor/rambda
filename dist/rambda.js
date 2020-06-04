@@ -193,6 +193,8 @@ function append(x, listOrString) {
   return clone;
 }
 
+const _isArray = Array.isArray;
+
 function __findHighestArity(spec, max = 0) {
   for (const key in spec) {
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue;
@@ -231,13 +233,13 @@ function __applySpecWithArity(spec, arity, cache) {
   if (remaining === 4) return (x, y, z, a) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z, a));
   if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
 
-  if (Array.isArray(spec)) {
+  if (_isArray(spec)) {
     const ret = [];
     let i = 0;
     const l = spec.length;
 
     for (; i < l; i++) {
-      if (typeof spec[i] === 'object' || Array.isArray(spec[i])) {
+      if (typeof spec[i] === 'object' || _isArray(spec[i])) {
         ret[i] = __applySpecWithArity(spec[i], arity, cache);
       }
 
@@ -307,7 +309,7 @@ function assocPathFn(list, newValue, input) {
     newValue = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), newValue, nextinput);
   }
 
-  if (_isInteger(parseInt(index, 10)) && Array.isArray(input)) {
+  if (_isInteger(parseInt(index, 10)) && _isArray(input)) {
     const arr = input.slice();
     arr[index] = newValue;
     return arr;
@@ -340,7 +342,7 @@ function clampFn(min, max, input) {
 const clamp = curry(clampFn);
 
 function clone(input) {
-  const out = Array.isArray(input) ? Array(input.length) : {};
+  const out = _isArray(input) ? Array(input.length) : {};
   if (input && input.getTime) return new Date(input.getTime());
 
   for (const key in input) {
@@ -412,7 +414,7 @@ function map(fn, list) {
     return [];
   }
 
-  if (!Array.isArray(list)) {
+  if (!_isArray(list)) {
     return mapObject(fn, list);
   }
 
@@ -494,7 +496,7 @@ function type(input) {
     return Number.isNaN(input) ? 'NaN' : 'Number';
   } else if (typeOf === 'string') {
     return 'String';
-  } else if (Array.isArray(input)) {
+  } else if (_isArray(input)) {
     return 'Array';
   } else if (input instanceof RegExp) {
     return 'RegExp';
@@ -605,7 +607,7 @@ function includes(valueToFind, input) {
     return input.includes(valueToFind);
   }
 
-  if (!Array.isArray(input)) return false;
+  if (!_isArray(input)) return false;
   let index = -1;
 
   while (++index < input.length) {
@@ -697,21 +699,22 @@ function filter(predicate, list) {
   if (arguments.length === 1) return _list => filter(predicate, _list);
   if (!list) return [];
 
-  if (!Array.isArray(list)) {
+  if (!_isArray(list)) {
     return filterObject(predicate, list);
   }
 
-  let index = -1;
-  let resIndex = 0;
+  let index = 0;
   const len = list.length;
   const willReturn = [];
 
-  while (++index < len) {
+  while (index < len) {
     const value = list[index];
 
     if (predicate(value, index)) {
-      willReturn[resIndex++] = value;
+      willReturn.push(value);
     }
+
+    index++;
   }
 
   return willReturn;
@@ -719,7 +722,18 @@ function filter(predicate, list) {
 
 function find(predicate, list) {
   if (arguments.length === 1) return _list => find(predicate, _list);
-  return list.find(predicate);
+  let index = 0;
+  const len = list.length;
+
+  while (index < len) {
+    const value = list[index];
+
+    if (predicate(value, index)) {
+      return value;
+    }
+
+    index++;
+  }
 }
 
 function findIndex(predicate, list) {
@@ -766,7 +780,7 @@ function flatten(list, input) {
   const willReturn = input === undefined ? [] : input;
 
   for (let i = 0; i < list.length; i++) {
-    if (Array.isArray(list[i])) {
+    if (_isArray(list[i])) {
       flatten(list[i], willReturn);
     } else {
       willReturn.push(list[i]);
@@ -829,7 +843,7 @@ function groupBy(groupFn, list) {
 }
 
 function groupWith(compareFn, list) {
-  if (!Array.isArray(list)) throw new TypeError('list.reduce is not a function');
+  if (!_isArray(list)) throw new TypeError('list.reduce is not a function');
   const clone = list.slice();
   const toReturn = [];
   let holder = [];
@@ -1542,7 +1556,7 @@ function toUpper(str) {
 
 function transpose(array) {
   return array.reduce((acc, el) => {
-    el.forEach((nestedEl, i) => Array.isArray(acc[i]) ? acc[i].push(nestedEl) : acc.push([nestedEl]));
+    el.forEach((nestedEl, i) => _isArray(acc[i]) ? acc[i].push(nestedEl) : acc.push([nestedEl]));
     return acc;
   }, []);
 }

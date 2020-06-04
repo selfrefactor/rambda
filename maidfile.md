@@ -4,6 +4,14 @@
 jest scripts/run-benchmarks/run-benchmarks.spec.js
 ```
 
+## benchmarkx
+
+Run experimental benchmarks
+
+```bash
+jest scripts/run-benchmarks/run-experimental.spec.js
+```
+
 ## lint:js
 
 ```bash
