@@ -1,10 +1,10 @@
 process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/experimental_results'
 import { createBenchmark, scanFolder } from 'helpers-fn'
-import { parse, resolve } from 'path'
-import { mapAsyncLimit } from 'rambdax'
+import { parse } from 'path'
+import { mapAsync } from 'rambdax'
 
-const benchmarksDir = `${__dirname}/experimental`
+const benchmarksDir = `${ __dirname }/experimental`
 
 async function getAllBenchmarks(){
   const files = await scanFolder({ folder : benchmarksDir })
@@ -33,7 +33,5 @@ export async function runExperimental(){
     createBenchmark({ [ singleMethod ] : required })
   }
 
-  await mapAsyncLimit(
-    iterable, 5, methodsWithBenchmarks
-  )
+  await mapAsync(iterable, methodsWithBenchmarks)
 }

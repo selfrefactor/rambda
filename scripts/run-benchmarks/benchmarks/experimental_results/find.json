@@ -1,51 +1,39 @@
 {
   "name": "FIND",
-  "date": "2020-06-04T08:41:55.238Z",
+  "date": "2020-06-04T12:59:01.044Z",
   "version": null,
   "results": [
     {
-      "name": "Rambda1",
-      "ops": 12079,
-      "margin": 2.87,
-      "percentSlower": 99.99
+      "name": "Rambda#slow",
+      "ops": 23702,
+      "margin": 0.56,
+      "percentSlower": 99.95
     },
     {
-      "name": "Rambda2",
-      "ops": 191816944,
-      "margin": 0.27,
+      "name": "Rambda#fast",
+      "ops": 49797515,
+      "margin": 1.69,
       "percentSlower": 0
     },
     {
-      "name": "Ramda1",
-      "ops": 54059,
-      "margin": 0.87,
-      "percentSlower": 99.97
+      "name": "Ramda#slow",
+      "ops": 20495,
+      "margin": 0.85,
+      "percentSlower": 99.96
     },
     {
-      "name": "Ramda2",
-      "ops": 3932398,
-      "margin": 0.4,
-      "percentSlower": 97.95
-    },
-    {
-      "name": "Lodash1",
-      "ops": 54787,
-      "margin": 0.35,
-      "percentSlower": 99.97
-    },
-    {
-      "name": "Lodash2",
-      "ops": 20787753,
-      "margin": 0.53,
-      "percentSlower": 89.16
+      "name": "Ramda#fast",
+      "ops": 3816826,
+      "margin": 1.44,
+      "percentSlower": 92.34
     }
   ],
   "fastest": {
-    "name": "Rambda2",
+    "name": "Rambda#fast",
     "index": 1
   },
   "slowest": {
-    "name": "Rambda1",
-    "index": 0
+    "name": "Ramda#slow",
+    "index": 2
   }
 }
