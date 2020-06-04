@@ -5644,10 +5644,10 @@ find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
   let index = 0
+  const len = list.length
 
-  while (index < list.length){
+  while (index < len){
     const value = list[ index ]
-
     if (predicate(value, index)){
       return value
     }
@@ -5664,27 +5664,23 @@ export function find(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { equals } from './equals'
 import { find } from './find'
 import { propEq } from './propEq'
 
+const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+
 test('happy', () => {
-  expect(find(propEq('a', 2), [ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual({ a : 2 })
+  const fn = propEq('a', 2)
+  expect(find(fn, list)).toEqual({ a : 2 })
 })
 
 test('with curry', () => {
-  expect(find(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(undefined)
+  const fn = propEq('a', 4)
+  expect(find(fn)(list)).toBeUndefined()
 })
 
 test('with empty list', () => {
-  expect(find(propEq('a', 4))([])).toEqual(undefined)
-})
-
-test.skip('without native Array.prototype.find', () => {
-  const list = [ 1, 2, 3 ]
-  list.find = undefined
-  // with ramda
-  expect(find(equals(2), list)).toEqual(2)
+  expect(find(() => true, [])).toBeUndefined()
 })
 ```
 

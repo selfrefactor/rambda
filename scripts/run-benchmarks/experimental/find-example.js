@@ -3,9 +3,9 @@ const R = require('../../../dist/rambda.js')
 const Ramda = require('ramda')
 const Utils = require('../utils.js')
 
-const LIMIT = 10000
+const LIMIT = 50
 const list = Utils.range(0, LIMIT)
-const fn = Utils.F
+const fn = (_, i) => i === (LIMIT - 10)
 
 const lodash = {
   label : 'Lodash',

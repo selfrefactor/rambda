@@ -1,25 +1,25 @@
 {
-  "name": "FIND_SLOW",
-  "date": "2020-06-04T18:30:05.657Z",
+  "name": "FIND_EXAMPLE",
+  "date": "2020-06-04T18:29:32.874Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 177883987,
-      "margin": 0.79,
+      "ops": 1800211,
+      "margin": 2.02,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 2201487,
-      "margin": 0.72,
-      "percentSlower": 98.76
+      "ops": 847416,
+      "margin": 0.84,
+      "percentSlower": 52.93
     },
     {
       "name": "Lodash",
-      "ops": 14592211,
-      "margin": 0.68,
-      "percentSlower": 91.8
+      "ops": 1409625,
+      "margin": 1.7,
+      "percentSlower": 21.7
     }
   ],
   "fastest": {

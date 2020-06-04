@@ -1,30 +1,30 @@
 {
   "name": "FIND_FAST",
-  "date": "2020-06-04T14:58:13.943Z",
+  "date": "2020-06-04T18:29:49.272Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 56088,
-      "margin": 1.2,
-      "percentSlower": 0
+      "ops": 8302,
+      "margin": 2.27,
+      "percentSlower": 6.35
     },
     {
       "name": "Ramda",
-      "ops": 54577,
-      "margin": 0.78,
-      "percentSlower": 2.69
+      "ops": 7622,
+      "margin": 1.11,
+      "percentSlower": 14.02
     },
     {
       "name": "Lodash",
-      "ops": 55250,
-      "margin": 2.28,
-      "percentSlower": 1.49
+      "ops": 8865,
+      "margin": 2.33,
+      "percentSlower": 0
     }
   ],
   "fastest": {
-    "name": "Rambda",
-    "index": 0
+    "name": "Lodash",
+    "index": 2
   },
   "slowest": {
     "name": "Ramda",
