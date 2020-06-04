@@ -6,6 +6,7 @@
     "cover:spec": "jest source --coverage --no-cache -w 1",
     "cover": "yarn typings&&yarn cover:spec",
     "out": "maided out",
+    "benchmark": "maided benchmark",
     "toolbelt": "maided toolbelt",
     "build": "yarn build:main&&yarn build:web",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",

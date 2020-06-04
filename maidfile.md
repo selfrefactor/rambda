@@ -1,3 +1,9 @@
+## benchmark
+
+```bash
+jest scripts/run-benchmarks/run-benchmarks.spec.js
+```
+
 ## lint:js
 
 ```bash
