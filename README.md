@@ -16726,9 +16726,13 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
-- Next
+- 5.6.1
 
 Update `ts-toolbelt` files as now there is update pipeline for it.
+
+Approve [PR #474](https://github.com/selfrefactor/rambda/pull/474) - intruduce internal `isArray` helper
+
+Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - typesafe `R.propEq` definitions
 
 - 5.6.0
 
