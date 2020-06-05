@@ -1,0 +1,33 @@
+{
+  "name": "FIND.fast",
+  "date": "2020-06-05T12:07:49.247Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 187520035,
+      "margin": 0.44,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 3585239,
+      "margin": 1.13,
+      "percentSlower": 98.09
+    },
+    {
+      "name": "Lodash",
+      "ops": 20391455,
+      "margin": 0.45,
+      "percentSlower": 89.13
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}
