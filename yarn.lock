@@ -3075,10 +3075,10 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-helpers-fn@0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.3.3.tgz#30b15ef7f3914f05fc64e695a18a014b58eef659"
-  integrity sha512-WBokYcdyhOvXogzsYj+EmZzTAZpimtdfVspmdaSLmUptc4m1yaUa1Pdmas7BJcKqQ4PxDITQCguw1JhA4IV26A==
+helpers-fn@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.4.0.tgz#9545eed62540853ca048111c39bfb07ff2b7a190"
+  integrity sha512-/OcbmmNRq0eS6H2ipSNVcx56fSuI1r8LFndDr2VN4hIhbCBM+Vrg1F6aF1tf76+tjzgTMQaed+E+EbPb8877dA==
   dependencies:
     benny "3.6.14"
     boxen "4.2.0"
@@ -3090,7 +3090,7 @@ helpers-fn@0.3.3:
     figures "3.2.0"
     fs-extra "^9.0.0"
     gradient-string "1.2.0"
-    log-symbols "3.0.0"
+    log-symbols "4.0.0"
     ora "4.0.3"
     q-i "2.0.1"
     rambdax "3.7.0"
@@ -4219,7 +4219,14 @@ lodash@4.17.15, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-log-symbols@3.0.0, log-symbols@^3.0.0:
+log-symbols@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
+  integrity sha512-FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==
+  dependencies:
+    chalk "^4.0.0"
+
+log-symbols@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
   integrity sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
