@@ -5,6 +5,9 @@ export function groupWith(compareFn, list){
     throw new TypeError('list.reduce is not a function')
 
   const clone = list.slice()
+
+  if (list.length === 1) return [ clone ];
+
   const toReturn = []
   let holder = []
 
