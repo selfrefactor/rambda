@@ -6737,10 +6737,12 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 import { _isArray } from './_internals/_isArray'
 
 export function groupWith(compareFn, list){
-  if (!_isArray(list))
-    throw new TypeError('list.reduce is not a function')
+  if (!_isArray(list)) throw new TypeError('list.reduce is not a function')
 
   const clone = list.slice()
+
+  if (list.length === 1) return [ clone ]
+
   const toReturn = []
   let holder = []
 
@@ -6876,6 +6878,13 @@ test('from ramda 3', () => {
     [ 9 ],
     [ 3, 4 ],
   ])
+})
+
+test('list with single item', () => {
+  const result = groupWith(equals, [ 0 ])
+
+  const expected = [ [ 0 ] ]
+  expect(result).toEqual(expected)
 })
 ```
 
