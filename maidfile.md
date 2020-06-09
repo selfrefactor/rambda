@@ -27,7 +27,7 @@ jest scripts/run-benchmarks/run-benchmarks.spec.js
 Run tasks `out` and `build:main` before this
 
 ```bash
-jest scripts/run-benchmarks/run-experimental.spec.js
+jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
 ```
 
 ## lint:js
