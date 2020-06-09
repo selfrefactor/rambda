@@ -195,10 +195,16 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 - **yarn add rambda**
 
-- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
+- For UMD usage either use `./dist/rambda.umd.js` or the following CDN link:
 
 ```
 https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
+```
+
+- with deno
+
+```
+import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
 
 ## Differences between Rambda and Ramda
