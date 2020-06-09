@@ -3015,11 +3015,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean;
-export function propEq<K extends string | number, V>(propToFind: K, valueToMatch: V): (obj: Record<K, V>) => boolean;
-export function propEq<K extends string | number>(propToFind: K): {
-    <V>(valueToMatch: V, obj: Record<K, V>): boolean;
-    <V>(valueToMatch: V): (obj: Record<K, V>) => boolean;
+export function propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
+export function propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
+export function propEq<T, K extends keyof T>(propToFind: K): {
+   (valueToMatch: T[K], obj: T): boolean;
+   (valueToMatch: T[K]): (obj: T) => boolean;
 };
 
 /*

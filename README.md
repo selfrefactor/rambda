@@ -12375,7 +12375,7 @@ test('prop', () => {
 ### propEq
 
 ```typescript
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -12401,11 +12401,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean;
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V): (obj: Record<K, V>) => boolean;
-propEq<K extends string | number>(propToFind: K): {
-    <V>(valueToMatch: V, obj: Record<K, V>): boolean;
-    <V>(valueToMatch: V): (obj: Record<K, V>) => boolean;
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
+propEq<T, K extends keyof T>(propToFind: K): {
+   (valueToMatch: T[K], obj: T): boolean;
+   (valueToMatch: T[K]): (obj: T) => boolean;
 };
 ```
 
@@ -12475,6 +12475,19 @@ describe('propEq', () => {
       1, value, objWithNumberIndex
     )
     result // $ExpectType boolean
+  })
+  it('with optional property', () => {
+    interface MyType {
+        optional?: string | number;
+    }
+    
+    const myObject: MyType = {};
+    const valueToFind = '1111';
+    const optionalValueToFind: string | number | undefined = '1111';
+    const result = propEq('optional', valueToFind, myObject)
+    const result2 = propEq('optional', optionalValueToFind, myObject)
+    result // $ExpectType boolean
+    result2 // $ExpectType boolean
   })
 })
 ```

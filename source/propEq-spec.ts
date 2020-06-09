@@ -19,4 +19,17 @@ describe('propEq', () => {
     )
     result // $ExpectType boolean
   })
+  it('with optional property', () => {
+    interface MyType {
+        optional?: string | number;
+    }
+    
+    const myObject: MyType = {};
+    const valueToFind = '1111';
+    const optionalValueToFind: string | number | undefined = '1111';
+    const result = propEq('optional', valueToFind, myObject)
+    const result2 = propEq('optional', optionalValueToFind, myObject)
+    result // $ExpectType boolean
+    result2 // $ExpectType boolean
+  })
 })
