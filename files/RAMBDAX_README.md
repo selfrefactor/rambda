@@ -1,35 +1,3 @@
-#### isFalsy
-
-> isFalsy(x: any): boolean
-
-It returns `true` if `x` is falsy.
-
-```
-const result = R.map(
-  R.isFalsy
-)([null, '', [], {}])
-// => [ true, true, true, true ]
-```
-
-[Test](https://github.com/selfrefactor/rambdax/blob/master/src/isFalsy.spec.js)
-
----
-#### isFunction
-
-> isFunction(x: any): boolean
-
-It returns `true` if type of `x` is one among `Promise`, `Async` or `Function`.
-
-```
-const result = R.isFunction(
-  x => x
-)
-// => true
-```
-
-[Test](https://github.com/selfrefactor/rambdax/blob/master/src/isFunction.spec.js)
-
----
 #### isNil
 
 > isNil(x: any): boolean

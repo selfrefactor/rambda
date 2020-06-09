@@ -4617,16 +4617,20 @@ export function ifElseAsync<T>(
 ): Async<T>;
 
 /*
-Method:
+Method: isFalsy
 
-Explanation:
-
-
+Explanation: It returns `true` if `input` is falsy.
 
 Example:
 
 ```
-
+const result = [
+  R.ifFalsy(null),
+  R.ifFalsy(''),
+  R.ifFalsy([]),
+  R.ifFalsy({})
+]
+// => [true, true, true, true]
 ```
 
 Categories: Logic
@@ -4638,16 +4642,18 @@ Notes:
 export function isFalsy(input: any): boolean;
 
 /*
-Method:
+Method: isFunction
 
-Explanation:
-
-
+Explanation: It returns `true` if **R.type** of `input` is `Async` or `Function`.
 
 Example:
 
 ```
-
+const result = [
+  R.isFunction(R.mapAsync),
+  R.isFunction(R.add),
+]
+// => [true, true]
 ```
 
 Categories: Logic
