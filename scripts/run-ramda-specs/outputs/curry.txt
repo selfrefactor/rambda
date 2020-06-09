@@ -11,11 +11,11 @@
     ✓ forwards extra arguments
 
   curry properties
-    ✓ curries multiple values (75ms)
+    ✓ curries multiple values (104ms)
     3) curries with placeholder
 
 
-  7 passing (153ms)
+  7 passing (207ms)
   3 failing
 
   1) curry
@@ -32,37 +32,9 @@
 
   3) curry properties
        curries with placeholder:
-     TypeError: Failed after 1 tests and 5 shrinks. rngState: 8ca89e61cb3074f2d5; Counterexample: Function of arity3; []; []; []; Exception: g(...) is not a function
+     TypeError: Failed after 1 tests and 1 shrinks. rngState: 08f93c57ea0b1682d4; Counterexample: Function of arity3; []; []; false; Exception: g(...) is not a function
       at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/test/curry.js:143:7
       at Object.bind (node_modules/jsverify/lib/functor.js:48:11)
-      at test (node_modules/jsverify/lib/jsverify.js:212:20)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:151:13
-      at Cons.consFold [as fold] (node_modules/lazy-seq/index.js:225:10)
-      at Object.fold (node_modules/lazy-seq/index.js:440:17)
-      at shrinkResult (node_modules/jsverify/lib/jsverify.js:150:25)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:233:16
-      at Object.bind (node_modules/jsverify/lib/functor.js:63:12)
-      at test (node_modules/jsverify/lib/jsverify.js:212:20)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:151:13
-      at Cons.consFold [as fold] (node_modules/lazy-seq/index.js:225:10)
-      at Object.fold (node_modules/lazy-seq/index.js:440:17)
-      at shrinkResult (node_modules/jsverify/lib/jsverify.js:150:25)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:233:16
-      at Object.bind (node_modules/jsverify/lib/functor.js:63:12)
-      at test (node_modules/jsverify/lib/jsverify.js:212:20)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:151:13
-      at Cons.consFold [as fold] (node_modules/lazy-seq/index.js:225:10)
-      at Object.fold (node_modules/lazy-seq/index.js:440:17)
-      at shrinkResult (node_modules/jsverify/lib/jsverify.js:150:25)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:233:16
-      at Object.bind (node_modules/jsverify/lib/functor.js:63:12)
-      at test (node_modules/jsverify/lib/jsverify.js:212:20)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:151:13
-      at Cons.consFold [as fold] (node_modules/lazy-seq/index.js:225:10)
-      at Object.fold (node_modules/lazy-seq/index.js:440:17)
-      at shrinkResult (node_modules/jsverify/lib/jsverify.js:150:25)
-      at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:233:16
-      at Object.bind (node_modules/jsverify/lib/functor.js:63:12)
       at test (node_modules/jsverify/lib/jsverify.js:212:20)
       at /home/s/repos/rambda/scripts/run-ramda-specs/ramda/node_modules/jsverify/lib/jsverify.js:151:13
       at Cons.consFold [as fold] (node_modules/lazy-seq/index.js:225:10)

@@ -1,11 +1,11 @@
 import {pick} from 'rambda'
 
 describe('pick with array as props input', () => {
-  type Input = {
-    a: string
-    b: number
-    c: number
-    d: number
+  interface Input {
+    a: string,
+    b: number,
+    c: number,
+    d: number,
   }
 
   it('need to declare the types of input and props to pick - string as prop', () => {
@@ -20,7 +20,7 @@ describe('pick with array as props input', () => {
   })
 
   it('need to declare the types of input and props to pick - number as prop', () => {
-    const result = pick<Array<string>, number>([1, 2], ["a", "b", "c", "d"]);
+    const result = pick<string[], number>([1, 2], ['a', 'b', 'c', 'd'])
     result[1] // $ExpectType string
     result[2] // $ExpectType string
     result[3] // should not be possible but it is
@@ -28,16 +28,16 @@ describe('pick with array as props input', () => {
 
   it('need to declare the types of input and props to pick - symbol as prop', () => {
     const symbolProp = Symbol('s')
-    const result = pick([ symbolProp ], { [ symbolProp ] : 'a' })
-    
+    const result = pick([symbolProp], {[symbolProp]: 'a'})
+
     result // $ExpectType Pick<{ [symbolProp]: string; }, typeof symbolProp>
   })
 })
 
 describe('R.pick with string as props input', () => {
-  type Output = {
-    a: number
-    c: number
+  interface Output {
+    a: number,
+    c: number,
   }
 
   it('explicitly declare output', () => {
@@ -51,17 +51,22 @@ describe('R.pick with string as props input', () => {
   })
 
   it('explicitly declare input and output', () => {
-    type Input = {
-      a: number
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: number,
+      b: number,
+      c: number,
+      d: number,
     }
     const result = pick<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType Output
     result.a // $ExpectType number
 
-    const curriedResult = pick<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+    const curriedResult = pick<Input, Output>('a,c')({
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+    })
 
     curriedResult.a // $ExpectType number
   })

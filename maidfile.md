@@ -41,7 +41,7 @@ jest scripts/lint/lint.spec.js
 It required local `yarn install` run as it uses its own dependencies.
 
 ```bash
-jest scripts/lint/lint.spec.js
+cd scripts/lint-ts-files&&node lint-typings-tests.js
 ```
 
 ## lint

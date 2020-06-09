@@ -9,7 +9,7 @@ test('when function', () => {
 test('when promise', () => {
   const fn = Promise.resolve(2)
 
-  expect(isFunction(fn)).toEqual(true)
+  expect(isFunction(fn)).toBeFalse()
 })
 
 test('when async', () => {

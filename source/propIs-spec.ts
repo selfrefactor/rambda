@@ -5,9 +5,7 @@ const obj = {a: 1}
 
 describe('propIs', () => {
   it('happy', () => {
-    const result = propIs(
-      Number, property, obj
-    )
+    const result = propIs(Number, property, obj)
     result // $ExpectType boolean
   })
 

@@ -15,11 +15,11 @@ describe('R.omit with array as props input', () => {
   })
 
   it('declare type of input object', () => {
-    type Input = {
-      a: string
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: string,
+      b: number,
+      c: number,
+      d: number,
     }
     const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
@@ -36,9 +36,9 @@ describe('R.omit with array as props input', () => {
 })
 
 describe('R.omit with string as props input', () => {
-  type Output = {
-    b: number
-    d: number
+  interface Output {
+    b: number,
+    d: number,
   }
 
   it('explicitly declare output', () => {
@@ -52,17 +52,22 @@ describe('R.omit with string as props input', () => {
   })
 
   it('explicitly declare input and output', () => {
-    type Input = {
-      a: number
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: number,
+      b: number,
+      c: number,
+      d: number,
     }
     const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType Output
     result.b // $ExpectType number
 
-    const curriedResult = omit<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+    const curriedResult = omit<Input, Output>('a,c')({
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+    })
 
     curriedResult.b // $ExpectType number
   })

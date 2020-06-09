@@ -5,7 +5,7 @@ const Utils = require('../utils.js')
 
 const LIMIT = 50
 const list = Utils.range(0, LIMIT)
-const fn = (_, i) => i === (LIMIT - 10)
+const fn = (_, i) => i === LIMIT - 10
 
 const lodash = {
   label : 'Lodash',
