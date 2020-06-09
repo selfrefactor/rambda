@@ -4642,6 +4642,31 @@ Notes:
 export function isFalsy(input: any): boolean;
 
 /*
+Method: isTruthy
+
+Explanation: It returns `true` if `input` is truthy.
+
+Example:
+
+```
+const result = [
+  R.isTruthy([]),
+  R.isTruthy({}),
+  R.isTruthy([1]),
+  R.isTruthy({a: 1})
+]
+// => [false, false, true, true]
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isTruthy(input: any): boolean;
+
+/*
 Method: isFunction
 
 Explanation: It returns `true` if **R.type** of `input` is `Async` or `Function`.
@@ -4662,74 +4687,80 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isTruthy(input: any): boolean;
+export function isFunction(input: any): boolean;
 
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It returns true if `input` is either asynchronous function or unresolved promise.
 
 Example:
 
 ```
-
+R.isPromise(R.delay)
+// => true
 ```
 
-Categories:
+Categories: Logic, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isPromise(input: any): boolean;
+
+/*
+Method: isType
+
+Explanation: It returns true if `targetType` is equal to type of `input` according to `R.type`.
+
+Example:
+
+```
+R.isType('Promise',Promise.resolve(1))
+// => true
+```
+
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function isType(targetType: RambdaTypes, input: any): boolean;
+export function isType(targetType: RambdaTypes) : (input: any) => boolean;
 
 /*
-Method:
+Method: isValid
 
-Explanation:
+Explanation: It checks if `input` is following `schema` specifications.
 
+If validation fails, it returns `false`.
 
+Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description of this method.
+
+Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
 
 Example:
 
 ```
-
+const input = { a: ['foo', 'bar'] }
+const invalidInput = { a: ['foo', 'bar', 1] }
+const schema = {a: ['string'] }
+const result = [
+  R.isValid({schema, input}),
+  R.isValid({schema, invalidInput}),
+]
+// => [true, false]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function isPromise(
-  maybePromiseOrAsync: any
-): boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isFunction(
-  maybePromiseFunctionOrAsync: any
-): boolean;
+export function isValid({input: object, schema: Schema}): boolean;
 
 /*
 Method:
@@ -4994,27 +5025,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isValid(x: IsValid): boolean;
 
 /*
 Method:
