@@ -87,6 +87,10 @@
     "count": 1,
     "reason": "ramda support transforms"
   },
+  "groupWith": {
+    "count": 2,
+    "reason": "ramda support string"
+  },
   "has": {
     "count": 1,
     "reason": "rambda does check properties from the prototype chain"

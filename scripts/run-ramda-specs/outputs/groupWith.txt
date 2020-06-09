@@ -8,7 +8,7 @@
     2) also works on strings
 
 
-  3 passing (93ms)
+  3 passing (89ms)
   2 failing
 
   1) groupWith
@@ -20,7 +20,7 @@
   2) groupWith
        also works on strings:
      TypeError: list.reduce is not a function
-      at Object.groupWith (/home/s/repos/rambda/dist/rambda.js:682:35)
+      at Object.groupWith (/home/s/repos/rambda/dist/rambda.js:846:30)
       at Context.groupWith (test/groupWith.js:34:10)
       at processImmediate (internal/timers.js:456:21)
 

@@ -195,10 +195,16 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 - **yarn add rambda**
 
-- For UMD usage either use `./dist/rambda.umd.js` or following CDN link:
+- For UMD usage either use `./dist/rambda.umd.js` or the following CDN link:
 
 ```
 https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
+```
+
+- with deno
+
+```
+import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
 
 ## Differences between Rambda and Ramda
@@ -6886,6 +6892,33 @@ test('list with single item', () => {
   const expected = [ [ 0 ] ]
   expect(result).toEqual(expected)
 })
+```
+
+</details>
+
+<details>
+
+<summary>2 failed <italic>Ramda.groupWith</italic> specs
+
+> :boom: Reason for the failure: ramda support string
+</summary>
+
+```javascript
+var R = require('../../../../dist/rambda.js');
+var eq = require('./shared/eq');
+
+describe('groupWith', function() {
+  it('can be turned into the original list through concatenation', function() {
+    var list = [1, 1, 2, 3, 4, 4, 5, 5];
+    eq(R.unnest(R.groupWith(R.equals, list)), list);
+    eq(R.unnest(R.groupWith(R.complement(R.equals), list)), list);
+    eq(R.unnest(R.groupWith(R.T, list)), list);
+    eq(R.unnest(R.groupWith(R.F, list)), list);
+  });
+  it('also works on strings', function() {
+    eq(R.groupWith(R.equals)('Mississippi'), ['M','i','ss','i','ss','i','pp','i']);
+  });
+});
 ```
 
 </details>
