@@ -119,7 +119,7 @@ async function rambdaBuildStep(){
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ output }/${ fileName }`)
 
-      return x.includes('internals') ? undefined :remove('.js', fileName)
+      return x.includes('internals') ? undefined : remove('.js', fileName)
     }),
     filter(Boolean),
     filter(x => !rambdaxMethodsAsInternals.includes(x)),

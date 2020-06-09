@@ -5,6 +5,8 @@ const {copy} = require('fs-extra')
 const {parse} = require('path')
 const {mapAsyncLimit} = require('rambdax')
 
+const filterFn = x => x.endsWith('-spec.ts')
+
 const lintSingleFile = async filePath => {
   const {name} = parse(filePath)
   const dist = `${__dirname}/assets/${name}.ts`
@@ -15,16 +17,9 @@ const lintSingleFile = async filePath => {
 
 async function lintTypingsTests(singleMethod) {
   const srcPath = resolve(__dirname, '../../source')
-  const allFiles = await scanFolder({folder: srcPath})
-  const allTests = allFiles
-    .filter(filePath => filePath.endsWith('-spec.ts'))
-    .filter(filePath =>
-      singleMethod === undefined
-        ? true
-        : filePath.endsWith(`${singleMethod}-spec.ts`)
-    )
+  const allFiles = await scanFolder({folder: srcPath, filterFn})
 
-  await mapAsyncLimit(lintSingleFile, 5, allTests)
+  await mapAsyncLimit(lintSingleFile, 5, allFiles)
 }
 
 async function lintRambdaDefinitions() {
@@ -32,5 +27,7 @@ async function lintRambdaDefinitions() {
   await lintSingleFile(filePath)
 }
 
-lintTypingsTests()
-lintRambdaDefinitions()
+void async function lintAll(){
+  await lintTypingsTests()
+  await lintRambdaDefinitions()
+}()

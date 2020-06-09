@@ -7,7 +7,7 @@ describe('R.flip', () => {
     const result = subtractFlipped(1, 7)
     const curriedResult = subtractFlipped(1)(7)
     curriedResult // $ExpectType number
-     
+
     // This is wrong
     // ============================================
     result // $ExpectType (y: number) => number
@@ -15,13 +15,11 @@ describe('R.flip', () => {
 
   it('function with arity of 3', () => {
     function testFunction(a: number, b: string, c: number): string {
-      return `${b}==${(a+c)}`
+      return `${b}==${a + c}`
     }
     const flippedTestFunction = flip(testFunction)
 
-    const result = flippedTestFunction(
-      'foo', 1, 2
-    )
+    const result = flippedTestFunction('foo', 1, 2)
     result // $ExpectType string
   })
 })
@@ -32,7 +30,7 @@ describe('Ramda.flip', () => {
     const result = subtractFlipped(1, 7)
     const curriedResult = subtractFlipped(1)(7)
     curriedResult // $ExpectType number
-     
+
     // This is wrong
     // ============================================
     result // $ExpectType (b: number) => number
