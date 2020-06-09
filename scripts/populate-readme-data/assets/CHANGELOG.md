@@ -1,10 +1,14 @@
+- 5.6.2
+
+Close [Issue #476](https://github.com/selfrefactor/rambda/issues/476) - typesafe `R.propEq` definitions
+
+Approve [PR #477](https://github.com/selfrefactor/rambda/pull/477) - fix `R.groupWith` when list length is 1
+
 - 5.6.1
 
 Update `ts-toolbelt` files as now there is update pipeline for it.
 
 Approve [PR #474](https://github.com/selfrefactor/rambda/pull/474) - intruduce internal `isArray` helper
-
-Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - typesafe `R.propEq` definitions
 
 - 5.6.0
 
