@@ -725,8 +725,9 @@
   function find(predicate, list) {
     if (arguments.length === 1) return _list => find(predicate, _list);
     let index = 0;
+    const len = list.length;
 
-    while (index < list.length) {
+    while (index < len) {
       const value = list[index];
 
       if (predicate(value, index)) {
@@ -846,6 +847,7 @@
   function groupWith(compareFn, list) {
     if (!_isArray(list)) throw new TypeError('list.reduce is not a function');
     const clone = list.slice();
+    if (list.length === 1) return [clone];
     const toReturn = [];
     let holder = [];
     clone.reduce((prev, current, i) => {

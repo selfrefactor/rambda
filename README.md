@@ -6737,10 +6737,12 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
 import { _isArray } from './_internals/_isArray'
 
 export function groupWith(compareFn, list){
-  if (!_isArray(list))
-    throw new TypeError('list.reduce is not a function')
+  if (!_isArray(list)) throw new TypeError('list.reduce is not a function')
 
   const clone = list.slice()
+
+  if (list.length === 1) return [ clone ]
+
   const toReturn = []
   let holder = []
 
@@ -6876,6 +6878,13 @@ test('from ramda 3', () => {
     [ 9 ],
     [ 3, 4 ],
   ])
+})
+
+test('list with single item', () => {
+  const result = groupWith(equals, [ 0 ])
+
+  const expected = [ [ 0 ] ]
+  expect(result).toEqual(expected)
 })
 ```
 
@@ -12366,7 +12375,7 @@ test('prop', () => {
 ### propEq
 
 ```typescript
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -12392,11 +12401,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V, obj: Record<K, V>): boolean;
-propEq<K extends string | number, V>(propToFind: K, valueToMatch: V): (obj: Record<K, V>) => boolean;
-propEq<K extends string | number>(propToFind: K): {
-    <V>(valueToMatch: V, obj: Record<K, V>): boolean;
-    <V>(valueToMatch: V): (obj: Record<K, V>) => boolean;
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
+propEq<T, K extends keyof T>(propToFind: K): {
+   (valueToMatch: T[K], obj: T): boolean;
+   (valueToMatch: T[K]): (obj: T) => boolean;
 };
 ```
 
@@ -12466,6 +12475,19 @@ describe('propEq', () => {
       1, value, objWithNumberIndex
     )
     result // $ExpectType boolean
+  })
+  it('with optional property', () => {
+    interface MyType {
+        optional?: string | number;
+    }
+    
+    const myObject: MyType = {};
+    const valueToFind = '1111';
+    const optionalValueToFind: string | number | undefined = '1111';
+    const result = propEq('optional', valueToFind, myObject)
+    const result2 = propEq('optional', optionalValueToFind, myObject)
+    result // $ExpectType boolean
+    result2 // $ExpectType boolean
   })
 })
 ```
@@ -16726,13 +16748,17 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
+- 5.6.2
+
+Close [Issue #476](https://github.com/selfrefactor/rambda/issues/476) - typesafe `R.propEq` definitions
+
+Approve [PR #477](https://github.com/selfrefactor/rambda/pull/477) - fix `R.groupWith` when list length is 1
+
 - 5.6.1
 
 Update `ts-toolbelt` files as now there is update pipeline for it.
 
 Approve [PR #474](https://github.com/selfrefactor/rambda/pull/474) - intruduce internal `isArray` helper
-
-Close [Issue #464](https://github.com/selfrefactor/rambda/issues/464) - typesafe `R.propEq` definitions
 
 - 5.6.0
 

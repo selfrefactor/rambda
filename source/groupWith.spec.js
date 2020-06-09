@@ -89,3 +89,10 @@ test('from ramda 3', () => {
     [ 3, 4 ],
   ])
 })
+
+test('list with single item', () => {
+  const result = groupWith(equals, [ 0 ])
+
+  const expected = [ [ 0 ] ]
+  expect(result).toEqual(expected)
+})
