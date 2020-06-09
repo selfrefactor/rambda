@@ -4737,7 +4737,7 @@ Explanation: It checks if `input` is following `schema` specifications.
 
 If validation fails, it returns `false`.
 
-Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description of this method.
+Please [check the detailed explanation](https://github.com/selfrefactor/rambda/wiki/Detailed-explanation-of-%60R.isValid%60-method) as it is hard to write a short description of this method.
 
 Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
 

@@ -399,10 +399,7 @@ import {add} from 'rambda'
 
 describe('add', () => {
   it('number', () => {
-    const result = [
-      add(4)(1),
-      add(4,1)
-    ]  
+    const result = [add(4)(1), add(4, 1)]
     result[0] // $ExpectType number
     result[1] // $ExpectType number
   })
@@ -2347,8 +2344,8 @@ test('flattens only one level', () => {
 ```typescript
 import {chain} from 'rambda'
 
-const list = [ 1, 2, 3 ]
-const duplicate = (n: number) => [ n, n ]
+const list = [1, 2, 3]
+const duplicate = (n: number) => [n, n]
 
 describe('chain', () => {
   it('without passing type', () => {
@@ -2357,10 +2354,7 @@ describe('chain', () => {
   })
 
   it('passing types', () => {
-    const duplicateAndModify = (x: number) => [
-      `||${x}||`,
-      `||${x}||`
-    ]
+    const duplicateAndModify = (x: number) => [`||${x}||`, `||${x}||`]
     const result = chain<number, string>(duplicateAndModify, list)
     const resultCurried = chain<number, string>(duplicateAndModify)(list)
     result // $ExpectType string[]
@@ -6231,7 +6225,7 @@ describe('R.flip', () => {
     const result = subtractFlipped(1, 7)
     const curriedResult = subtractFlipped(1)(7)
     curriedResult // $ExpectType number
-     
+
     // This is wrong
     // ============================================
     result // $ExpectType (y: number) => number
@@ -6239,13 +6233,11 @@ describe('R.flip', () => {
 
   it('function with arity of 3', () => {
     function testFunction(a: number, b: string, c: number): string {
-      return `${b}==${(a+c)}`
+      return `${b}==${a + c}`
     }
     const flippedTestFunction = flip(testFunction)
 
-    const result = flippedTestFunction(
-      'foo', 1, 2
-    )
+    const result = flippedTestFunction('foo', 1, 2)
     result // $ExpectType string
   })
 })
@@ -6256,7 +6248,7 @@ describe('Ramda.flip', () => {
     const result = subtractFlipped(1, 7)
     const curriedResult = subtractFlipped(1)(7)
     curriedResult // $ExpectType number
-     
+
     // This is wrong
     // ============================================
     result // $ExpectType (b: number) => number
@@ -10821,11 +10813,11 @@ describe('R.omit with array as props input', () => {
   })
 
   it('declare type of input object', () => {
-    type Input = {
-      a: string
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: string,
+      b: number,
+      c: number,
+      d: number,
     }
     const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
@@ -10842,9 +10834,9 @@ describe('R.omit with array as props input', () => {
 })
 
 describe('R.omit with string as props input', () => {
-  type Output = {
-    b: number
-    d: number
+  interface Output {
+    b: number,
+    d: number,
   }
 
   it('explicitly declare output', () => {
@@ -10858,17 +10850,22 @@ describe('R.omit with string as props input', () => {
   })
 
   it('explicitly declare input and output', () => {
-    type Input = {
-      a: number
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: number,
+      b: number,
+      c: number,
+      d: number,
     }
     const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType Output
     result.b // $ExpectType number
 
-    const curriedResult = omit<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+    const curriedResult = omit<Input, Output>('a,c')({
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+    })
 
     curriedResult.b // $ExpectType number
   })
@@ -11749,11 +11746,11 @@ test('with symbol', () => {
 import {pick} from 'rambda'
 
 describe('pick with array as props input', () => {
-  type Input = {
-    a: string
-    b: number
-    c: number
-    d: number
+  interface Input {
+    a: string,
+    b: number,
+    c: number,
+    d: number,
   }
 
   it('need to declare the types of input and props to pick - string as prop', () => {
@@ -11768,7 +11765,7 @@ describe('pick with array as props input', () => {
   })
 
   it('need to declare the types of input and props to pick - number as prop', () => {
-    const result = pick<Array<string>, number>([1, 2], ["a", "b", "c", "d"]);
+    const result = pick<string[], number>([1, 2], ['a', 'b', 'c', 'd'])
     result[1] // $ExpectType string
     result[2] // $ExpectType string
     result[3] // should not be possible but it is
@@ -11776,16 +11773,16 @@ describe('pick with array as props input', () => {
 
   it('need to declare the types of input and props to pick - symbol as prop', () => {
     const symbolProp = Symbol('s')
-    const result = pick([ symbolProp ], { [ symbolProp ] : 'a' })
-    
+    const result = pick([symbolProp], {[symbolProp]: 'a'})
+
     result // $ExpectType Pick<{ [symbolProp]: string; }, typeof symbolProp>
   })
 })
 
 describe('R.pick with string as props input', () => {
-  type Output = {
-    a: number
-    c: number
+  interface Output {
+    a: number,
+    c: number,
   }
 
   it('explicitly declare output', () => {
@@ -11799,17 +11796,22 @@ describe('R.pick with string as props input', () => {
   })
 
   it('explicitly declare input and output', () => {
-    type Input = {
-      a: number
-      b: number
-      c: number
-      d: number
+    interface Input {
+      a: number,
+      b: number,
+      c: number,
+      d: number,
     }
     const result = pick<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType Output
     result.a // $ExpectType number
 
-    const curriedResult = pick<Input, Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
+    const curriedResult = pick<Input, Output>('a,c')({
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+    })
 
     curriedResult.a // $ExpectType number
   })
@@ -12493,30 +12495,26 @@ import {propEq} from 'rambda'
 const property = 'foo'
 const numberProperty = 1
 const value = 'bar'
-const obj = { [property]: value }
-const objWithNumberIndex = { [numberProperty]: value }
+const obj = {[property]: value}
+const objWithNumberIndex = {[numberProperty]: value}
 
 describe('propEq', () => {
   it('happy', () => {
-    const result = propEq(
-      property, value, obj
-    )
+    const result = propEq(property, value, obj)
     result // $ExpectType boolean
   })
   it('number is property', () => {
-    const result = propEq(
-      1, value, objWithNumberIndex
-    )
+    const result = propEq(1, value, objWithNumberIndex)
     result // $ExpectType boolean
   })
   it('with optional property', () => {
     interface MyType {
-        optional?: string | number;
+      optional?: string | number,
     }
-    
-    const myObject: MyType = {};
-    const valueToFind = '1111';
-    const optionalValueToFind: string | number | undefined = '1111';
+
+    const myObject: MyType = {}
+    const valueToFind = '1111'
+    const optionalValueToFind: string | number | undefined = '1111'
     const result = propEq('optional', valueToFind, myObject)
     const result2 = propEq('optional', optionalValueToFind, myObject)
     result // $ExpectType boolean
@@ -12659,9 +12657,7 @@ const obj = {a: 1}
 
 describe('propIs', () => {
   it('happy', () => {
-    const result = propIs(
-      Number, property, obj
-    )
+    const result = propIs(Number, property, obj)
     result // $ExpectType boolean
   })
 
@@ -16248,10 +16244,7 @@ const rule = (x: number) => x > 2
 describe('when', () => {
   it('without passing type - happy', () => {
     const fn = when(rule, ruleResult)
-    const result = [
-      fn(1),
-      fn(2)
-    ]
+    const result = [fn(1), fn(2)]
     result[0] // $ExpectType number
     result[1] // $ExpectType number
   })
@@ -16259,34 +16252,28 @@ describe('when', () => {
   it('without passing type - second argument is function', () => {
     const fn = when(rule, add(1))
     const fnCurried = when(rule)(add(1))
-    const [result1, result2] = [
-      fn(1),
-      fnCurried(2),
-    ]
+    const [result1, result2] = [fn(1), fnCurried(2)]
     result1 // $ExpectType number
     result2 // $ExpectType unknown
   })
 
   it('with passing type', () => {
     const fn = when<number>(rule, ruleResult)
-    const result = fn(1) 
+    const result = fn(1)
     result // $ExpectType number
   })
 
   it('with passing type - second argument is function', () => {
     const fn = when<number>(rule, add(1))
     const fnCurried = when<number>(rule)(add(1))
-    const [result1, result2] = [
-      fn(1),
-      fnCurried(2),
-    ]
+    const [result1, result2] = [fn(1), fnCurried(2)]
     result1 // $ExpectType number
     result2 // $ExpectType number
   })
 
   it('curry', () => {
     const fn = when<number>(rule)(ruleResult)
-    const result = fn(1) 
+    const result = fn(1)
     result // $ExpectType number
   })
 })
