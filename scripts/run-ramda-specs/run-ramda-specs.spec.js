@@ -14,5 +14,5 @@ test.skip('run all specs', async () => {
 
 test('run single spec', async () => {
   const skipDelete = true
-  await runSingleSpec('curry', skipDelete)
+  await runSingleSpec('groupWith', skipDelete)
 })
