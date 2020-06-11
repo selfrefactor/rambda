@@ -4529,7 +4529,7 @@ R.reset()
 R.getter('a') // => undefined
 ```
 
-Categories: Experimental
+Categories:
 
 Notes:
 
@@ -4548,7 +4548,7 @@ Example:
 
 ```
 
-Categories: Experimental
+Categories:
 
 Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
 
@@ -4567,7 +4567,7 @@ Example:
 
 ```
 
-Categories: Experimental
+Categories:
 
 Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
 
@@ -4763,40 +4763,24 @@ Notes:
 export function isValid({input: object, schema: Schema}): boolean;
 
 /*
-Method:
+Method: mapAsync
 
-Explanation:
-
-
+Explanation: Sequential asynchronous mapping with `fn` over members of `list`.
 
 Example:
 
 ```
+async function fn(x){
+  await R.delay(1000)
 
+  return x+1
+}
+
+const result = R.mapAsync(fn, [1, 2, 3])
+// `result` resolves after 3 seconds to `[2, 3, 4]`
 ```
 
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function maybe<T>(ifRule: any, whenIf: any, whenElse: any, maybeInput?: any): T;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
+Categories: Async, List
 
 Notes:
 
@@ -4808,19 +4792,24 @@ export function mapAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise<T[]
 export function mapAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
 
 /*
-Method:
+Method: mapFastAsync
 
-Explanation:
-
-
+Explanation: Parrallel asynchronous mapping with `fn` over members of `list`.
 
 Example:
 
 ```
+async function fn(x){
+  await R.delay(1000)
 
+  return x+1
+}
+
+const result = R.mapFastAsync(fn, [1, 2, 3])
+// `result` resolves after 1 second to `[2, 3, 4]`
 ```
 
-Categories:
+Categories: Async, List
 
 Notes:
 
@@ -4832,11 +4821,11 @@ export function mapFastAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise
 export function mapFastAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
 
 /*
-Method:
+Method: mapAsyncLimit
 
-Explanation:
+Explanation: It is similar to `R.mapFastAsync` in that it uses `Promise.all` but not over the whole list, rather than with only slice from `list` with length `limit`.
 
-
+The result is a promise resolvable to an array of type matching the return type of `fn`.
 
 Example:
 
@@ -4844,29 +4833,34 @@ Example:
 
 ```
 
-Categories:
+Categories: Async, List
 
-Notes:
+Notes: For example usage, please check method's tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, U>(iterable: (x: T) => Promise<U>, limit: number, list: T[]): Promise<U[]>;
-export function mapAsyncLimit<T, U>(iterable: (x: T) => Promise<U>, limit: number): (list: T[]) => Promise<U[]>;
+export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number, list: T[]): Promise<U[]>;
+export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number): (list: T[]) => Promise<U[]>;
 
 /*
-Method:
+Method: mapToObject
 
-Explanation:
+Explanation: This method allows to generate an object from a list using input function `fn`.
 
-
+This function must return an object for every member of `list` input. All of the returns will be merged in the final result. 
 
 Example:
 
 ```
+const list = [1, 2, 3]
+const fn = x => x%2 ? {[x]: x+1}: {[x]: x+10}
 
+const result = mapToObject(fn, list)
+const expected = { '1': 2, '2': 12, '3': 4 }
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -4874,6 +4868,40 @@ Notes:
 // @SINGLE_MARKER
 export function mapToObject<T, U>(fn: (input: T) => object, list: T[]): U;
 export function mapToObject<T, U>(fn: (input: T) => object): (list: T[]) => U;
+
+
+/*
+Method: maybe
+
+Explanation: It acts as ternary operator and it is helpful when we have nested ternaries. 
+
+All of the inputs can be either direct values or anonymous functions. This is helpful if we don't want to evaluate certain paths as we can wrap this logic in a function.
+
+Example:
+
+```
+const x = 4
+const y = 8
+
+const ifRule = x > 2
+const elseRule = y > 10 ? 3 : 7
+const whenElse = () => JSON.parse('{a:')
+
+const result = R.maybe(
+  ifRule,
+  elseRule,
+  whenElse,
+)
+// `result` is `7`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function maybe<T>(ifRule: any, whenIf: any, whenElse: any): T;
 
 /*
 Method:

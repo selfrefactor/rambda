@@ -1,4 +1,14 @@
 import { mapToObject } from './mapToObject'
+import { result } from 'lodash'
+
+test('simple', ()=> {
+  const list = [1, 2, 3]
+  const fn = x => x%2 ? {[x]: x+1}: {[x]: x+10}
+  const result = mapToObject(fn, list)
+  const expected = { '1': 2, '2': 12, '3': 4 }
+
+  expect(result).toEqual(expected)
+})
 
 test('happy', () => {
   const list = 'auto?bar=false?foo?baz=1.5?s=more?k=2'.split('?')
