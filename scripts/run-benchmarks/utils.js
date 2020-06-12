@@ -11,3 +11,4 @@ function range(start, end){
 exports.range = range
 exports.F = () => false
 exports.T = () => true
+exports.Noop = () => {}
