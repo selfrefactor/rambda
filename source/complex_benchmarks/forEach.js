@@ -101,7 +101,8 @@ const objectLarge = [
     label : 'Rambda',
     fn    : () => {
       const LIMIT = 10000
-      const obj = Utils.range(0, LIMIT).map(i => ({i}))
+      const obj = {}
+      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
       const fn = Utils.Noop
 
       return () => R.forEach(fn, obj)
@@ -111,7 +112,8 @@ const objectLarge = [
     label : 'Ramda',
     fn    : () => {
       const LIMIT = 10000
-      const obj = Utils.range(0, LIMIT).map(i => ({i}))
+      const obj = {}
+      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
       const fn = Utils.Noop
 
       return () => Ramda.forEachObjIndexed(fn, obj)
@@ -121,7 +123,8 @@ const objectLarge = [
     label : 'Lodash',
     fn    : () => {
       const LIMIT = 10000
-      const obj = Utils.range(0, LIMIT).map(i => ({i}))
+      const obj = {}
+      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
       const fn = Utils.Noop
 
       return () => _.forEach(obj, fn)
