@@ -3,10 +3,11 @@ import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
-import { devDependencies } from '../../package'
-import { rambdaMethods } from '../constants'
+import { devDependencies } from '../../package.json'
+import { getRambdaMethods } from '../constants'
 
-function getMissingMethods(){
+async function getMissingMethods(){
+  const rambdaMethods = await getRambdaMethods()
   const missingMethodsTemplate = `
 - More generic methods
 
@@ -83,9 +84,11 @@ export async function getIntro(withRambdax){
   const usedByContent = await readFile(`${ __dirname }/assets/USED_BY.md`)
   const summaryContent = await readFile(resolve(__dirname, '../read-benchmarks/summary.txt'))
 
+  const missingMethods = await getMissingMethods()
+
   return template(templateIntro, {
     introEnd       : introEndContent.toString(),
-    missingMethods : getMissingMethods(),
+    missingMethods,
     intro          : introContent.toString(),
     summary        : summaryContent.toString(),
     usedBy         : usedByContent.toString(),
