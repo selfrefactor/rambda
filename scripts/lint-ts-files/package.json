@@ -1,7 +1,7 @@
 {
   "name": "lint-ts-files",
   "scripts": {
-    "on": "node lint-typings-tests.js"
+    "lint": "node lint-typings-tests.js"
   },
   "main": "index.js",
   "version": "1.0.0",

@@ -399,15 +399,7 @@
     };
   }
 
-  function mapObject(fn, obj) {
-    const willReturn = {};
-
-    for (const prop in obj) {
-      willReturn[prop] = fn(obj[prop], prop, obj);
-    }
-
-    return willReturn;
-  }
+  const _keys = Object.keys;
 
   function map(fn, list) {
     if (arguments.length === 1) return _list => map(fn, _list);
@@ -416,19 +408,33 @@
       return [];
     }
 
-    if (!_isArray(list)) {
-      return mapObject(fn, list);
+    if (_isArray(list)) {
+      let index = 0;
+      const len = list.length;
+      const willReturn = Array(len);
+
+      while (index < len) {
+        willReturn[index] = fn(list[index], index, list);
+        index++;
+      }
+
+      return willReturn;
+    } else {
+      let index = 0;
+
+      const keys = _keys(list);
+
+      const len = keys.length;
+      const willReturn = {};
+
+      while (index < len) {
+        const key = keys[index];
+        willReturn[key] = fn(list[key], key, list);
+        index++;
+      }
+
+      return willReturn;
     }
-
-    let index = -1;
-    const len = list.length;
-    const willReturn = Array(len);
-
-    while (++index < len) {
-      willReturn[index] = fn(list[index], index);
-    }
-
-    return willReturn;
   }
 
   function max(x, y) {
@@ -814,9 +820,35 @@
     return flipExport(fn);
   }
 
-  function forEach(predicate, list) {
-    if (arguments.length === 1) return _list => forEach(predicate, _list);
-    map(predicate, list);
+  function forEach(fn, list) {
+    if (arguments.length === 1) return _list => forEach(fn, _list);
+
+    if (list === undefined) {
+      return;
+    }
+
+    if (_isArray(list)) {
+      let index = 0;
+      const len = list.length;
+
+      while (index < len) {
+        fn(list[index], index, list);
+        index++;
+      }
+    } else {
+      let index = 0;
+
+      const keys = _keys(list);
+
+      const len = keys.length;
+
+      while (index < len) {
+        const key = keys[index];
+        fn(list[key], key, list);
+        index++;
+      }
+    }
+
     return list;
   }
 
@@ -1602,7 +1634,7 @@
   }
 
   function isFunction(fn) {
-    return ['Async', 'Promise', 'Function'].includes(type(fn));
+    return ['Async', 'Function'].includes(type(fn));
   }
 
   function when(rule, resultOrFunction) {
