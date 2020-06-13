@@ -15,19 +15,9 @@ const lintSingleFile = async filePath => {
   await copy(dist, filePath)
 }
 
-async function lintTypingsTests(singleMethod) {
+void async function lintTypingsTests(){
   const srcPath = resolve(__dirname, '../../source')
   const allFiles = await scanFolder({folder: srcPath, filterFn})
-
+  
   await mapAsyncLimit(lintSingleFile, 5, allFiles)
-}
-
-async function lintRambdaDefinitions() {
-  const filePath = resolve(__dirname, '../../index.d.ts')
-  await lintSingleFile(filePath)
-}
-
-void async function lintAll(){
-  await lintTypingsTests()
-  await lintRambdaDefinitions()
 }()

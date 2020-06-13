@@ -1,3 +1,7 @@
+- Next
+
+Remove `dist` folder from Rambda repo
+
 - 5.6.2
 
 Close [Issue #476](https://github.com/selfrefactor/rambda/issues/476) - typesafe `R.propEq` definitions

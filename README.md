@@ -6340,12 +6340,35 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 <summary><strong>R.forEach</strong> source</summary>
 
 ```javascript
-import { map } from './map'
+import {_isArray} from './_internals/_isArray'
+import {_keys} from './_internals/_keys'
 
-export function forEach(predicate, list){
-  if (arguments.length === 1) return _list => forEach(predicate, _list)
+export function forEach(fn, list){
+  if (arguments.length === 1) return _list => forEach(fn, _list)
 
-  map(predicate, list)
+  if (list === undefined){
+    return
+  }
+
+  if (_isArray(list)) {
+    let index = 0
+    const len = list.length
+
+    while (index < len){
+      fn(list[ index ], index, list)
+      index++
+    }
+  } else {
+    let index = 0
+    const keys = _keys(list)
+    const len = keys.length
+
+    while (index < len){
+      const key = keys[ index ]
+      fn(list[ key ], key, list)
+      index++
+    }
+  }
 
   return list
 }
@@ -9511,18 +9534,7 @@ map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 ```javascript
 import { _isArray } from './_internals/_isArray'
-
-function mapObject(fn, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    willReturn[ prop ] = fn(
-      obj[ prop ], prop, obj
-    )
-  }
-
-  return willReturn
-}
+import { _keys } from './_internals/_keys'
 
 export function map(fn, list){
   if (arguments.length === 1) return _list => map(fn, _list)
@@ -9530,19 +9542,32 @@ export function map(fn, list){
   if (list === undefined){
     return []
   }
-  if (!_isArray(list)){
-    return mapObject(fn, list)
+
+  if (_isArray(list)){
+    let index = 0
+    const len = list.length
+    const willReturn = Array(len)
+
+    while (index < len){
+      willReturn[ index ] = fn(list[ index ], index, list)
+      index++
+    }
+
+    return willReturn
+  } else {
+    let index = 0
+    const keys = _keys(list)
+    const len = keys.length
+    const willReturn = {}
+
+    while (index < len){
+      const key = keys[ index ]
+      willReturn[ key ] = fn(list[ key ], key, list)
+      index++
+    }
+
+    return willReturn
   }
-
-  let index = -1
-  const len = list.length
-  const willReturn = Array(len)
-
-  while (++index < len){
-    willReturn[ index ] = fn(list[ index ], index)
-  }
-
-  return willReturn
 }
 ```
 

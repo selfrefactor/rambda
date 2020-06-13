@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const R = require('rambda')
+const R = require('../../dist/rambda')
 const Ramda = require('ramda')
 const Utils = require('../../scripts/run-benchmarks/utils')
 

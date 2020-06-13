@@ -4697,11 +4697,11 @@ Explanation: It returns true if `input` is either asynchronous function or unres
 Example:
 
 ```
-R.isPromise(R.delay)
+R.isPromise(R.delay(1000))
 // => true
 ```
 
-Categories: Logic, Async
+Categories: Logic
 
 Notes:
 
@@ -4717,7 +4717,7 @@ Explanation: It returns true if `targetType` is equal to type of `input` accordi
 Example:
 
 ```
-R.isType('Promise',Promise.resolve(1))
+R.isType('Async',R.delay(1000))
 // => true
 ```
 
@@ -4728,7 +4728,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function isType(targetType: RambdaTypes, input: any): boolean;
-export function isType(targetType: RambdaTypes) : (input: any) => boolean;
+export function isType(targetType: RambdaTypes): (input: any) => boolean;
 
 /*
 Method: isValid
@@ -4737,13 +4737,15 @@ Explanation: It checks if `input` is following `schema` specifications.
 
 If validation fails, it returns `false`.
 
-Please [check the detailed explanation](https://github.com/selfrefactor/rambda/wiki/Detailed-explanation-of-%60R.isValid%60-method) as it is hard to write a short description of this method.
+Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description of this method.
 
 Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
 
 Example:
 
 ```
+R.isType('Promise',Promise.resolve(1))
+// => true
 const input = { a: ['foo', 'bar'] }
 const invalidInput = { a: ['foo', 'bar', 1] }
 const schema = {a: ['string'] }

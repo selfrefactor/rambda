@@ -26,7 +26,6 @@ export async function getRambdaxMethods(){
   return Object.keys(rambdaxData)
 }
 
-import rambdaData from './populate-docs-data/data.json'
 const typingsPath = resolve(__dirname, '../files/index.d.ts')
 
 export const BOTH_LIBRARIES = readFileSync(typingsPath).toString()
@@ -38,4 +37,3 @@ export const ORIGIN = rambda
 export const getOrigin = (withRambdax = false) =>
   withRambdax ? BOTH_LIBRARIES : ORIGIN
 export const wayTooLongTypings = [ 'pipe', 'compose' ]
-export const rambdaMethods = Object.keys(rambdaData)

@@ -1,7 +1,6 @@
 {
   "name": "rambda",
   "scripts": {
-    "prove": "jest source --json",
     "test": "jest source --bail=true",
     "cover:spec": "jest source --coverage --no-cache -w 1",
     "cover": "yarn typings&&yarn cover:spec",
