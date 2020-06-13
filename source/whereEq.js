@@ -1,15 +1,15 @@
 import { equals } from './equals'
 import { filter } from './filter'
-import { type } from './type'
 
-export function whereEq(rule, input){
+export function whereEq(condition, input){
   if (arguments.length === 1){
-    return inputHolder => whereEq(rule, inputHolder)
+    return _input => whereEq(condition, _input)
   }
-  if (type(input) !== 'Object') return false
 
-  const result = filter((ruleValue, ruleProp) => equals(ruleValue, input[ ruleProp ]),
-    rule)
+  const result = filter(
+    (conditionValue, conditionProp) => equals(conditionValue, input[ conditionProp ]),
+    condition
+  )
 
-  return Object.keys(result).length === Object.keys(rule).length
+  return Object.keys(result).length === Object.keys(condition).length
 }

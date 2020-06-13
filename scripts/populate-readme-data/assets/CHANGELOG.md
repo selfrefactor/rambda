@@ -1,3 +1,7 @@
+- After Next
+
+Add `R.whereEq`
+
 - Next
 
 Remove `dist` folder from Rambda repo

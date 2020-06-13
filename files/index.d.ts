@@ -5648,26 +5648,31 @@ Notes:
 export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
 
 /*
-Method:
+Method: whereEq
 
-Explanation:
-
-
+Explanation: It will return `true` if all of `input` object fully or partially include `rule` object.
 
 Example:
 
 ```
+const condition = { a : { b : 1 } }
+const input = {
+  a : { b : 1 },
+  c : 2
+}
 
+const result = whereEq(condition, input)
+//=> true
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: Move to Rambda
 
 */
 // @SINGLE_MARKER
-export function whereEq(rule: object, input: any): boolean;
-export function whereEq(rule: object): (input: any) => boolean;
+export function whereEq<T, U>(condition: T, input: U): boolean;
+export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================
