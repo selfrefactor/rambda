@@ -1,11 +1,16 @@
-import { mapToObject } from './mapToObject'
 import { result } from 'lodash'
 
-test('simple', ()=> {
-  const list = [1, 2, 3]
-  const fn = x => x%2 ? {[x]: x+1}: {[x]: x+10}
+import { mapToObject } from './mapToObject'
+
+test('simple', () => {
+  const list = [ 1, 2, 3 ]
+  const fn = x => x % 2 ? { [ x ] : x + 1 } : { [ x ] : x + 10 }
   const result = mapToObject(fn, list)
-  const expected = { '1': 2, '2': 12, '3': 4 }
+  const expected = {
+    1 : 2,
+    2 : 12,
+    3 : 4,
+  }
 
   expect(result).toEqual(expected)
 })

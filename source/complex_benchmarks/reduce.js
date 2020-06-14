@@ -10,7 +10,9 @@ const listEmpty = [
       const list = []
       const fn = Utils.Noop
 
-      return () => R.reduce(fn, 0, list)
+      return () => R.reduce(
+        fn, 0, list
+      )
     },
   },
   {
@@ -19,7 +21,9 @@ const listEmpty = [
       const list = []
       const fn = Utils.Noop
 
-      return () => Ramda.reduce(fn, 0, list)
+      return () => Ramda.reduce(
+        fn, 0, list
+      )
     },
   },
   {
@@ -28,7 +32,9 @@ const listEmpty = [
       const list = []
       const fn = Utils.Noop
 
-      return () => _.reduce(list, fn, 0)
+      return () => _.reduce(
+        list, fn, 0
+      )
     },
   },
 ]
@@ -41,7 +47,9 @@ const listLarge = [
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
 
-      return () => R.reduce(fn, 0, list)
+      return () => R.reduce(
+        fn, 0, list
+      )
     },
   },
   {
@@ -51,7 +59,9 @@ const listLarge = [
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
 
-      return () => Ramda.reduce(fn, 0, list)
+      return () => Ramda.reduce(
+        fn, 0, list
+      )
     },
   },
   {
@@ -61,7 +71,9 @@ const listLarge = [
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
 
-      return () => _.reduce(list, fn, 0)
+      return () => _.reduce(
+        list, fn, 0
+      )
     },
   },
 ]
@@ -73,7 +85,9 @@ const objectEmpty = [
       const obj = {}
       const fn = Utils.Noop
 
-      return () => R.reduce(fn, 0, obj)
+      return () => R.reduce(
+        fn, 0, obj
+      )
     },
   },
   {
@@ -82,7 +96,9 @@ const objectEmpty = [
       const obj = {}
       const fn = Utils.Noop
 
-      return () => _.reduce(obj, fn, 0)
+      return () => _.reduce(
+        obj, fn, 0
+      )
     },
   },
 ]
@@ -93,7 +109,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => R.reduce(fn, obj)
@@ -104,7 +120,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => _.reduce(obj, fn)
@@ -113,8 +129,20 @@ const objectLarge = [
 ]
 
 module.exports = [
-  {label: 'reduce#listEmpty', suites: listEmpty},
-  {label: 'reduce#listLarge', suites: listLarge},
-  {label: 'reduce#objectEmpty', suites: objectEmpty},
-  {label: 'reduce#objectLarge', suites: objectLarge},
+  {
+    label  : 'reduce#listEmpty',
+    suites : listEmpty,
+  },
+  {
+    label  : 'reduce#listLarge',
+    suites : listLarge,
+  },
+  {
+    label  : 'reduce#objectEmpty',
+    suites : objectEmpty,
+  },
+  {
+    label  : 'reduce#objectLarge',
+    suites : objectLarge,
+  },
 ]

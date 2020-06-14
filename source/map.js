@@ -14,23 +14,27 @@ export function map(fn, list){
     const willReturn = Array(len)
 
     while (index < len){
-      willReturn[ index ] = fn(list[ index ], index, list)
-      index++
-    }
-
-    return willReturn
-  } else {
-    let index = 0
-    const keys = _keys(list)
-    const len = keys.length
-    const willReturn = {}
-
-    while (index < len){
-      const key = keys[ index ]
-      willReturn[ key ] = fn(list[ key ], key, list)
+      willReturn[ index ] = fn(
+        list[ index ], index, list
+      )
       index++
     }
 
     return willReturn
   }
+  let index = 0
+  const keys = _keys(list)
+  const len = keys.length
+  const willReturn = {}
+
+  while (index < len){
+    const key = keys[ index ]
+    willReturn[ key ] = fn(
+      list[ key ], key, list
+    )
+    index++
+  }
+
+  return willReturn
+
 }

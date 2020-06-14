@@ -58,6 +58,5 @@ export function ok(...inputs){
 
       throw new Error(errorMessage)
     }
-
   }
 }

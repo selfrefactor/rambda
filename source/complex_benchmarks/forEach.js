@@ -102,7 +102,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => R.forEach(fn, obj)
@@ -113,7 +113,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => Ramda.forEachObjIndexed(fn, obj)
@@ -124,7 +124,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => _.forEach(obj, fn)
@@ -133,8 +133,20 @@ const objectLarge = [
 ]
 
 module.exports = [
-  {label: 'forEach#listEmpty', suites: listEmpty},
-  {label: 'forEach#listLarge', suites: listLarge},
-  {label: 'forEach#objectEmpty', suites: objectEmpty},
-  {label: 'forEach#objectLarge', suites: objectLarge},
+  {
+    label  : 'forEach#listEmpty',
+    suites : listEmpty,
+  },
+  {
+    label  : 'forEach#listLarge',
+    suites : listLarge,
+  },
+  {
+    label  : 'forEach#objectEmpty',
+    suites : objectEmpty,
+  },
+  {
+    label  : 'forEach#objectLarge',
+    suites : objectLarge,
+  },
 ]

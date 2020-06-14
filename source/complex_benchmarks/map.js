@@ -102,7 +102,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => R.map(fn, obj)
@@ -113,7 +113,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => Ramda.mapObjIndexed(fn, obj)
@@ -124,7 +124,7 @@ const objectLarge = [
     fn    : () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[i] = i)
+      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
       const fn = Utils.Noop
 
       return () => _.map(obj, fn)
@@ -133,8 +133,20 @@ const objectLarge = [
 ]
 
 module.exports = [
-  {label: 'map#listEmpty', suites: listEmpty},
-  {label: 'map#listLarge', suites: listLarge},
-  {label: 'map#objectEmpty', suites: objectEmpty},
-  {label: 'map#objectLarge', suites: objectLarge},
+  {
+    label  : 'map#listEmpty',
+    suites : listEmpty,
+  },
+  {
+    label  : 'map#listLarge',
+    suites : listLarge,
+  },
+  {
+    label  : 'map#objectEmpty',
+    suites : objectEmpty,
+  },
+  {
+    label  : 'map#objectLarge',
+    suites : objectLarge,
+  },
 ]

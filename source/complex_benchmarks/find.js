@@ -8,7 +8,7 @@ const lodash = {
   fn    : () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
-    const fn = (_, i) => i === (LIMIT - 10)
+    const fn = (_, i) => i === LIMIT - 10
 
     return () => _.find(list, fn)
   },
@@ -18,7 +18,7 @@ const lodashSlow = {
   label : 'Lodash',
   fn    : () => {
     const fn = Utils.F
-    const list = Utils.range(0,1000)
+    const list = Utils.range(0, 1000)
 
     return () => _.find(list, fn)
   },
@@ -39,9 +39,9 @@ const ramda = {
   fn    : () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
-    const fn = (_, i) => i === (LIMIT - 10)
+    const fn = (_, i) => i === LIMIT - 10
 
-    return  () =>Ramda.find(fn, list)
+    return () => Ramda.find(fn, list)
   },
 }
 
@@ -51,7 +51,7 @@ const ramdaFast = {
     const fn = Utils.F
     const list = []
 
-    return  () =>Ramda.find(fn, list)
+    return () => Ramda.find(fn, list)
   },
 }
 
@@ -59,9 +59,9 @@ const ramdaSlow = {
   label : 'Ramda',
   fn    : () => {
     const fn = Utils.F
-    const list = Utils.range(0,1000)
+    const list = Utils.range(0, 1000)
 
-    return  () =>Ramda.find(fn, list)
+    return () => Ramda.find(fn, list)
   },
 }
 
@@ -70,9 +70,9 @@ const rambda = {
   fn    : () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
-    const fn = (_, i) => i === (LIMIT - 10)
+    const fn = (_, i) => i === LIMIT - 10
 
-    return  () =>R.find(fn,list)
+    return () => R.find(fn, list)
   },
 }
 
@@ -82,21 +82,30 @@ const rambdaFast = {
     const fn = Utils.F
     const list = []
 
-    return  () =>R.find(fn, list)
+    return () => R.find(fn, list)
   },
 }
 const rambdaSlow = {
   label : 'Rambda',
   fn    : () => {
     const fn = Utils.F
-    const list = Utils.range(0,1000)
+    const list = Utils.range(0, 1000)
 
-    return  () =>R.find(fn, list)
+    return () => R.find(fn, list)
   },
 }
 
 module.exports = [
-  {label: 'find', suites: [ rambda, ramda, lodash ]},
-  {label: 'find#slow', suites: [ rambdaSlow, ramdaSlow, lodashSlow ]},
-  {label: 'find#fast', suites: [ rambdaFast, ramdaFast, lodashFast ]},
+  {
+    label  : 'find',
+    suites : [ rambda, ramda, lodash ],
+  },
+  {
+    label  : 'find#slow',
+    suites : [ rambdaSlow, ramdaSlow, lodashSlow ],
+  },
+  {
+    label  : 'find#fast',
+    suites : [ rambdaFast, ramdaFast, lodashFast ],
+  },
 ]

@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
-import { devDependencies } from '../../package.json'
+import { devDependencies } from '../../package'
 import { getRambdaMethods } from '../utils'
 
 function getInstallInfo(withRambdax){

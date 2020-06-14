@@ -6,10 +6,9 @@ export function whereEq(condition, input){
     return _input => whereEq(condition, _input)
   }
 
-  const result = filter(
-    (conditionValue, conditionProp) => equals(conditionValue, input[ conditionProp ]),
-    condition
-  )
+  const result = filter((conditionValue, conditionProp) =>
+    equals(conditionValue, input[ conditionProp ]),
+  condition)
 
   return Object.keys(result).length === Object.keys(condition).length
 }

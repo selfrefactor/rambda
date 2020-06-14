@@ -9,9 +9,9 @@ import { getTail } from './get-tail'
 import { rambdaRepl } from './rambda-repl'
 
 async function getMethodsData(withRambdax){
-  const dataFile = withRambdax ? 'data-rambdax.json': 'data.json'
+  const dataFile = withRambdax ? 'data-rambdax.json' : 'data.json'
 
-  return readJson(resolve(__dirname,`../populate-docs-data/${dataFile}`))
+  return readJson(resolve(__dirname, `../populate-docs-data/${ dataFile }`))
 }
 
 const removeDoubleNewLines = replace(/\n{3,5}/g, '\n\n')
@@ -38,7 +38,7 @@ function getOutputPath(withRambdax){
 }
 
 export async function populateReadmeData({ withRambdax }){
-  await buildStep({withRambdax})
+  await buildStep({ withRambdax })
 
   const methodsData = await getMethodsData(withRambdax)
 

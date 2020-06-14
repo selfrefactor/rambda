@@ -583,9 +583,9 @@ export function all(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { all } from './all'
+import {all} from './all'
 
-const numArr = [ 0, 1, 2, 3, 4 ]
+const numArr = [0, 1, 2, 3, 4]
 
 test('when true', () => {
   const fn = x => x > -1
@@ -606,9 +606,9 @@ test('pass index as second argument', () => {
 
     return x > 5
   }
-  all(fn, [ 10, 12, 14 ])
+  all(fn, [10, 12, 14])
 
-  expect(indexes).toEqual([ 0, 1, 2 ])
+  expect(indexes).toEqual([0, 1, 2])
 })
 ```
 
@@ -16825,6 +16825,7 @@ Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`
+Add `R.pathEq`
 
 - Next
 
