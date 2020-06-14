@@ -34,7 +34,7 @@ async function createMainFileRambdax({ allMethods, rambdaMethods, dir }){
 }
 
 async function rambdaxBuildStep(){
-  const rambdaxOutput = resolve(__dirname, '../../../rambdax/src') 
+  const rambdaxOutput = resolve(__dirname, '../../../rambdax/src')
   await removeFS(rambdaxOutput)
 
   const rambdaMethods = await getRambdaMethods()
