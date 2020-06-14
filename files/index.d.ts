@@ -361,8 +361,9 @@ const result = R.applySpec(spec, json) // => { name: 'barry' }
 const getMetrics = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
-});
-getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+})
+getMetrics(2, 4)
+// => { sum: 6, nested: { mul: 8 } }
 ```
 
 Categories: Function
