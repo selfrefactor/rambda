@@ -1,5 +1,4 @@
 import { add, applySpec, reject, and, transpose } from 'rambda'
-import { paths } from 'ramda'
 
 const applySpecResult = applySpec({
   a: add(1)
