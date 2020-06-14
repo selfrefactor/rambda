@@ -10,6 +10,7 @@ import {
 } from '../run-benchmarks/run-benchmarks'
 import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs'
 import { runSingleSpec } from '../run-ramda-specs/src/run-specs'
+import { build } from '../utils'
 
 jest.setTimeout(ms('30 minutes'))
 
@@ -64,12 +65,11 @@ test('run many scripts and generate readme', async () => {
     Make sure to declare any expected failures
     in '/scripts/run-ramda-specs/allDifferences.json' file.
 
-    Also the tests are running against the bundle file
-    so you need to run `yarn build` before that.
-
     On the very first step, `withInitialStep` should be `true`.
-  */
 
+    Benchmarks runs against the bundle file, which explains `await build()` line.
+  */
+  // await build()
   // await runRamdaSpecs({ withInitialStep : true })
 
   // ============================================

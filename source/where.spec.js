@@ -1,7 +1,7 @@
 import { equals } from './equals'
 import { where } from './where'
 
-test('1', () => {
+test('when true', () => {
   const pred = where({
     a : equals('foo'),
     b : equals('bar'),
@@ -14,7 +14,7 @@ test('1', () => {
   })).toEqual(true)
 })
 
-test('2', () => {
+test('when false', () => {
   const pred = where({
     a : equals('foo'),
     b : equals('baz'),

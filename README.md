@@ -583,9 +583,9 @@ export function all(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { all } from './all'
+import {all} from './all'
 
-const numArr = [ 0, 1, 2, 3, 4 ]
+const numArr = [0, 1, 2, 3, 4]
 
 test('when true', () => {
   const fn = x => x > -1
@@ -606,9 +606,9 @@ test('pass index as second argument', () => {
 
     return x > 5
   }
-  all(fn, [ 10, 12, 14 ])
+  all(fn, [10, 12, 14])
 
-  expect(indexes).toEqual([ 0, 1, 2 ])
+  expect(indexes).toEqual([0, 1, 2])
 })
 ```
 
@@ -1297,11 +1297,12 @@ const result = R.applySpec(spec, json) // => { name: 'barry' }
 const getMetrics = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
-});
-getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+})
+getMetrics(2, 4) 
+// => { sum: 6, nested: { mul: 8 } }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.firstname')%0A%7D%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D%0A%0A%2F%2F%20Second%20example%0Aconst%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%3B%0AgetMetrics(2%2C%204)%3B%20%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try the above <strong>R.applySpec</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.firstname')%0A%7D%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D%0A%0A%2F%2F%20Second%20example%0Aconst%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%0AgetMetrics(2%2C%204)%20%0A%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try the above <strong>R.applySpec</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6100,7 +6101,7 @@ const result = [
 
 ```typescript
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
+flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: ListToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 ```
 
 </details>
@@ -10146,7 +10147,7 @@ test('median', () => {
 ### merge
 
 ```typescript
-merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>
+merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
 ```
 
 It creates a copy of `target` object with overidden `newProps` properties.
@@ -10166,8 +10167,8 @@ const result = R.merge(target, newProps)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
-merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
+merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
+merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
 ```
 
 </details>
@@ -12899,13 +12900,37 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 ```javascript
 import { curry } from './curry'
+import { _isArray } from './_internals/_isArray'
+import { _keys } from './_internals/_keys'
 
 function reduceFn(
   reducer, acc, list
 ){
-  const clone = list.slice()
+  if (list === undefined){
+    return acc
+  }
 
-  return clone.reduce(reducer, acc)
+  if (_isArray(list)){
+    let index = 0
+    const len = list.length
+
+    while (index < len){
+      acc = reducer(acc, list[ index ], index, list)
+      index++
+    }
+  } else {
+    let index = 0
+    const keys = _keys(list)
+    const len = keys.length
+
+    while (index < len){
+      const key = keys[ index ]
+      acc = reducer(acc, key, list[ key ], list)
+      index++
+    }
+  }
+
+  return acc
 }
 
 export const reduce = curry(reduceFn)
@@ -16792,6 +16817,21 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- WIP
+
+Add `R.mergeDeepRight`
+Add `R.whereEq`
+Add `R.tryCatch`
+Add `R.where`
+Add `R.unless`
+Add `R.pathEq`
+
+- Next
+
+- `R.merge` definitions match those of `@types/ramda`
+
+- Remove `dist` folder from Rambda repo
 
 - 5.6.2
 

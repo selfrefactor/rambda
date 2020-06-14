@@ -1,0 +1,13 @@
+
+
+  where
+    ✓ returns true if the test object satisfies the spec
+    ✓ does not need the spec and the test object to have the same interface (the test object will have a superset of the specs properties)
+    ✓ matches specs that have undefined properties
+    ✓ is true for an empty spec
+    ✓ matches inherited properties
+    ✓ does not match inherited spec
+
+
+  6 passing (52ms)
+

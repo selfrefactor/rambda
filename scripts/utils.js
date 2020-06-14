@@ -1,15 +1,16 @@
 import { readFileSync } from 'fs'
 import { readJson } from 'fs-extra'
+import { spawn } from 'helpers-fn'
 import { resolve } from 'path'
 
 export async function getRambdaData(){
-  const rambdaData = await readJson(`${__dirname}/populate-docs-data/data.json`)
+  const rambdaData = await readJson(`${ __dirname }/populate-docs-data/data.json`)
 
   return rambdaData
 }
 
 export async function getRambdaxData(){
-  const rambdaData = await readJson(`${__dirname}/populate-docs-data/data-rambdax.json`)
+  const rambdaData = await readJson(`${ __dirname }/populate-docs-data/data-rambdax.json`)
 
   return rambdaData
 }
@@ -36,4 +37,13 @@ export const ORIGIN = rambda
 
 export const getOrigin = (withRambdax = false) =>
   withRambdax ? BOTH_LIBRARIES : ORIGIN
+
 export const wayTooLongTypings = [ 'pipe', 'compose' ]
+
+export async function build(){
+  await spawn({
+    cwd     : resolve(__dirname, '../'),
+    command : 'yarn',
+    inputs  : [ 'build' ],
+  })
+}

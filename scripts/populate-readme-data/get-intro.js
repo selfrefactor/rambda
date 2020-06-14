@@ -3,8 +3,29 @@ import { resolve } from 'path'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
-import { devDependencies } from '../../package.json'
-import { getRambdaMethods } from '../constants'
+import { devDependencies } from '../../package'
+import { getRambdaMethods } from '../utils'
+
+function getInstallInfo(withRambdax){
+  const installInfoTemplate = `## Install
+
+- **yarn add {{lib}}**
+
+- For UMD usage either use \`./dist/{{lib}}.umd.js\` or the following CDN link:
+
+\`\`\`
+https://unpkg.com/{{lib}}@CURRENT_VERSION/dist/{{lib}}.umd.js
+\`\`\`
+
+- with deno
+
+\`\`\`
+import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib}}/master/dist/{{lib}}.esm.js'
+\`\`\`
+`
+
+  return template(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda' })
+}
 
 async function getMissingMethods(){
   const rambdaMethods = await getRambdaMethods()
@@ -42,6 +63,7 @@ async function getMissingMethods(){
 const templateIntro = `
 {{intro}}
 {{missingMethods}}
+{{installInfo}}
 {{introEnd}}
 
 ## Benchmarks
@@ -85,14 +107,16 @@ export async function getIntro(withRambdax){
   const summaryContent = await readFile(resolve(__dirname, '../read-benchmarks/summary.txt'))
 
   const missingMethods = await getMissingMethods()
+  const installInfo = getInstallInfo(withRambdax)
 
   return template(templateIntro, {
-    introEnd       : introEndContent.toString(),
+    introEnd      : introEndContent.toString(),
     missingMethods,
-    intro          : introContent.toString(),
-    summary        : summaryContent.toString(),
-    usedBy         : usedByContent.toString(),
-    lodashVersion  : devDependencies.lodash,
-    ramdaVersion   : devDependencies.ramda,
+    installInfo,
+    intro         : introContent.toString(),
+    summary       : summaryContent.toString(),
+    usedBy        : usedByContent.toString(),
+    lodashVersion : devDependencies.lodash,
+    ramdaVersion  : devDependencies.ramda,
   })
 }

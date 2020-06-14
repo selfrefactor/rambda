@@ -2,7 +2,7 @@ import { outputFile } from 'fs-extra'
 import { resolve } from 'path'
 import { map, replace, trim } from 'rambdax'
 
-import { getRambdaData, getRambdaxData, intro } from '../constants'
+import { getRambdaData, getRambdaxData, intro } from '../utils'
 const fixToolbeltImport = replace('../_ts-toolbelt', './_ts-toolbelt')
 
 function attachExports({ methodName, allTypings }){

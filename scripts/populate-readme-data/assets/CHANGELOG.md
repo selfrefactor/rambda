@@ -1,6 +1,17 @@
+- WIP
+
+Add `R.mergeDeepRight`
+Add `R.whereEq`
+Add `R.tryCatch`
+Add `R.where`
+Add `R.unless`
+Add `R.pathEq`
+
 - Next
 
-Remove `dist` folder from Rambda repo
+- `R.merge` definitions match those of `@types/ramda`
+
+- Remove `dist` folder from Rambda repo
 
 - 5.6.2
 

@@ -3,7 +3,7 @@ import { filter } from './filter'
 import { map } from './map'
 import { piped } from './piped'
 
-test('', () => {
+test('happy', () => {
   const result = piped(
     [ 1, 2, 3 ],
     filter(x => x > 1),

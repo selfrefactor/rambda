@@ -1,6 +1,6 @@
 import { head, init, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import { getOrigin, wayTooLongTypings } from '../../constants'
+import { getOrigin, wayTooLongTypings } from '../../utils'
 
 export function extractAllDefinitions(withRambdax){
   const matches = match(/\/\/\s@SINGLE_MARKER\nexport\sfunction.([^*])+/gm,

@@ -2,13 +2,24 @@
 
 4.0.0
 
-Move the following methods to `Ramda`:
+Move the following methods to `Rambda` and change their logic to match `Ramda` implementation(if necessary):
 
-- `R.hasPath`
+- `R.hasPath`(already there)
+
+The rest will need `Ramda` compatibility specs to be started again
+
+- `R.unless`
+- `R.pathEq`
+- `R.tryCatch`
+- `R.where`
+- `R.whereEq`
 
 Deprecate the following methods:
 
+- `R.s`
+- `R.toggle`
 - `R.composed`
+- `R.pushUniq`
 - `R.defaultToStrict`
 - `R.findInObject`
 - `R.headObject`
@@ -17,12 +28,16 @@ Deprecate the following methods:
 - `R.isAttach`
 - `R.opposite`
 - `R.otherwise`
-- `R.resolve`
+- `R.resolve` ?
 - `R.whenAsync`
 
 Also these changes:
 
 - Improve `R.ok` throwed error message
+
+- `R.ok` returns `undefined` instead of `true` when validation passes.
+
+- `R.mergeDeep` is renamed to `R.mergeDeepLeft`
 
 - Add `R.pipeAsync`
 

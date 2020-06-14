@@ -1,4 +1,5 @@
-import { mergeDeep } from './mergeDeep'
+// import { mergeDeepRight } from 'ramda'
+import { mergeDeepRight } from './mergeDeepRight'
 
 const slave = {
   name    : 'evilMe',
@@ -14,9 +15,9 @@ const master = {
   songs   : { title : 'Remains the same' },
 }
 
-test('', () => {
-  const result = mergeDeep(slave, master)
-  const curryResult = mergeDeep(slave)(master)
+test('happy', () => {
+  const result = mergeDeepRight(slave, master)
+  const curryResult = mergeDeepRight(slave)(master)
   const expected = {
     age     : 40,
     name    : 'evilMe',
@@ -42,7 +43,7 @@ test('ramda compatible test 1', () => {
     b : 5,
     c : { d : 6 },
   }
-  const result = mergeDeep(a, b)
+  const result = mergeDeepRight(a, b)
   const expected = {
     w : 1,
     x : 2,
@@ -70,7 +71,7 @@ test('ramda compatible test 2', () => {
     },
     z : 0,
   }
-  const result = mergeDeep(a, b)
+  const result = mergeDeepRight(a, b)
   const expected = {
     a : {
       b : 3,
@@ -89,7 +90,7 @@ test('ramda compatible test 3', () => {
     w : 1,
     x : { y : 2 },
   }
-  const result = mergeDeep(a, { x : { y : 3 } })
+  const result = mergeDeepRight(a, { x : { y : 3 } })
   const expected = {
     w : 1,
     x : { y : 3 },

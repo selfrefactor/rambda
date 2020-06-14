@@ -1,6 +1,6 @@
 import { head, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import { getOrigin } from '../../constants'
+import { getOrigin } from '../../utils'
 
 export function extractDefinition(withRambdax){
   const matches = match(/\/\/ @SINGLE_MARKER\nexport function[^;]+/gm,

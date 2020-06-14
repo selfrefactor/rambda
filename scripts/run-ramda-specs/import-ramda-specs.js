@@ -3,7 +3,7 @@ import { execSafe, scanFolder, spawn } from 'helpers-fn'
 import { parse } from 'path'
 import { mapAsync, replace } from 'rambdax'
 
-import { rambdaMethods } from '../constants'
+import { getRambdaMethods } from '../utils'
 
 const cloneCommandInputs = 'clone --depth 1 https://github.com/ramda/ramda'.split(' ')
 
@@ -27,6 +27,7 @@ async function cloneRamda(){
 }
 
 async function replaceImports(){
+  const rambdaMethods = await getRambdaMethods()
   const toReturn = [ 'lenses' ]
 
   const allFiles = await scanFolder({ folder : `${ __dirname }/ramda/test` })

@@ -9,8 +9,8 @@ import { scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
-import { devDependencies } from '../../package.json'
-import { getRambdaMethods } from '../constants'
+import { devDependencies } from '../../package'
+import { getRambdaMethods } from '../utils'
 import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method
@@ -34,6 +34,9 @@ async function createMainFileRambdax({ allMethods, rambdaMethods, dir }){
 }
 
 async function rambdaxBuildStep(){
+  const rambdaxOutput = resolve(__dirname, '../../../rambdax/src')
+  await removeFS(rambdaxOutput)
+
   const rambdaMethods = await getRambdaMethods()
   const buildDeps = [
     '@babel/core',
@@ -73,14 +76,16 @@ async function rambdaxBuildStep(){
     async dir => scanFolder({ folder : dir }),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
+      if (x.includes('benchmark')) return false
 
       return x.endsWith('.js')
     }),
     mapAsync(async x => {
       const { name } = parse(x)
-      if (!x.includes('internals') && !rambdaMethods.includes(name)){
-        allMethods.push(name)
-      }
+      const isValidMethod =
+        !x.includes('internals') && !rambdaMethods.includes(name)
+      if (isValidMethod) allMethods.push(name)
+
       const [ , fileName ] = x.split('source/')
       await copy(x, `${ dir }/src/${ fileName }`)
     })
