@@ -4,6 +4,7 @@ import { buildStep } from '../build-step/build-step'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'
 import { benchmarkSummary } from '../read-benchmarks/benchmark-summary'
+import { build } from '../utils'
 import {
   runAllBenchmarks,
   runSingleBenchmark,
@@ -15,7 +16,7 @@ jest.setTimeout(ms('30 minutes'))
 
 test('run many scripts and generate readme', async () => {
   // Unless you are developing for Ramdax, leave that `false`
-  const withRambdax = false
+  const withRambdax = true
 
   /*
     If the change is regarding Typescript definitions
@@ -64,12 +65,11 @@ test('run many scripts and generate readme', async () => {
     Make sure to declare any expected failures
     in '/scripts/run-ramda-specs/allDifferences.json' file.
 
-    Also the tests are running against the bundle file
-    so you need to run `yarn build` before that.
-
     On the very first step, `withInitialStep` should be `true`.
-  */
 
+    Benchmarks runs against the bundle file, which explains `await build()` line.
+  */
+  // await build()
   // await runRamdaSpecs({ withInitialStep : true })
 
   // ============================================
