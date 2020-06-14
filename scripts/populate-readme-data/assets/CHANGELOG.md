@@ -8,7 +8,9 @@ Add `R.unless`
 
 - Next
 
-Remove `dist` folder from Rambda repo
+- `R.merge` definitions match those of `@types/ramda`
+
+- Remove `dist` folder from Rambda repo
 
 - 5.6.2
 

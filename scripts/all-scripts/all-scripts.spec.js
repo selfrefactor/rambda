@@ -4,13 +4,13 @@ import { buildStep } from '../build-step/build-step'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'
 import { benchmarkSummary } from '../read-benchmarks/benchmark-summary'
-import { build } from '../utils'
 import {
   runAllBenchmarks,
   runSingleBenchmark,
 } from '../run-benchmarks/run-benchmarks'
 import { runRamdaSpecs } from '../run-ramda-specs/run-ramda-specs'
 import { runSingleSpec } from '../run-ramda-specs/src/run-specs'
+import { build } from '../utils'
 
 jest.setTimeout(ms('30 minutes'))
 

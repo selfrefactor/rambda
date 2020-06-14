@@ -19,7 +19,7 @@ async function copyToRambdax(){
 
   await copy(
     source, destination, { overwrite : true }
-  ) 
+  )
 }
 
 export async function dynamicTsToolbelt(){
@@ -44,15 +44,19 @@ export async function dynamicTsToolbelt(){
     filePath     : `${ __dirname }/assets/index.ts`,
     toolbeltPath : 'index.ts',
   }
-  const tupleFile = {
-    filePath     : `${ __dirname }/assets/tuple.ts`,
+  const listFile = {
+    filePath     : `${ __dirname }/assets/list.ts`,
     toolbeltPath : 'List/_api.ts',
   }
   const functionFile = {
     filePath     : `${ __dirname }/assets/function.ts`,
     toolbeltPath : 'Function/_api.ts',
   }
+  const objectFile = {
+    filePath     : `${ __dirname }/assets/object.ts`,
+    toolbeltPath : 'Object/_api.ts',
+  }
 
-  await mapAsync(moveFile)([ indexFile, tupleFile, functionFile ])
+  await mapAsync(moveFile)([ indexFile, objectFile, functionFile, listFile ])
   await copyToRambdax()
 }

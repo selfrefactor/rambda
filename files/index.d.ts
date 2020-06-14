@@ -1,4 +1,4 @@
-import { FunctionToolbelt, TupleToolbelt } from "../_ts-toolbelt/src/index";
+import { FunctionToolbelt, ObjectToolbelt, ListToolbelt } from "../_ts-toolbelt/src/index";
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
@@ -41,7 +41,7 @@ interface Dictionary<T> {
   [index: string]: T;
 }
 
-type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
+type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth>;
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -362,7 +362,7 @@ const getMetrics = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
 })
-getMetrics(2, 4)
+getMetrics(2, 4) 
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
@@ -1199,7 +1199,7 @@ Notes: Rambda's **flip** will throw if arity of the input function is greater th
 */
 // @SINGLE_MARKER
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
+export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: ListToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 
 /*
 Method: forEach
@@ -2222,8 +2222,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
-export function merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;
+export function merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
+export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
 
 /*
 Method: min
@@ -4367,7 +4367,7 @@ Notes: It doesn't work with promises or function returning promises such as `con
 export function composeAsync<Out>(
   ...fns: (Async<any> | Func<any>)[]
 ): (input: any) => Promise<Out>;
-export function pipeAsync<Out>(
+export function composeAsync<Out>(
   ...fns: (Async<any> | Func<any>)[]
 ): (input: any) => Promise<Out>;
 
