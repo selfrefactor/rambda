@@ -12,6 +12,16 @@ async function moveFile({ filePath, toolbeltPath }){
   )
 }
 
+async function copyToRambdax(){
+  const source = resolve(__dirname, '../../_ts-toolbelt/')
+  const destination = resolve(__dirname, '../../../rambdax/_ts-toolbelt')
+  await remove(`${ __dirname }/ts-toolbelt`)
+
+  await copy(
+    source, destination, { overwrite : true }
+  ) 
+}
+
 export async function dynamicTsToolbelt(){
   const destinationDir = resolve(__dirname, '../../_ts-toolbelt/src')
   await remove(`${ __dirname }/ts-toolbelt`)
@@ -44,4 +54,5 @@ export async function dynamicTsToolbelt(){
   }
 
   await mapAsync(moveFile)([ indexFile, tupleFile, functionFile ])
+  await copyToRambdax()
 }

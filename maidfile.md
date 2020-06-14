@@ -66,7 +66,7 @@ jest scripts/populate-readme-data/populate-readme-data.spec.js
 
 ## toolbelt
 
-It syncs `ts-toolbelt` dependency with local `toolbelt` folder.
+It syncs `ts-toolbelt` dependency with local and Rambdax's `_ts-toolbelt` folders.
 
 ```bash
 jest scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js
