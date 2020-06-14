@@ -33,6 +33,10 @@ Also these changes:
 
 - Improve `R.ok` throwed error message
 
+- `R.ok` returns `undefined` instead of `true` when validation passes.
+
+- `R.mergeDeep` is renamed to `R.mergeDeepLeft`
+
 - Add `R.pipeAsync`
 
 - Change how Typescript definitions are exported

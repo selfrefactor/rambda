@@ -4827,8 +4827,6 @@ Method: mapAsyncLimit
 
 Explanation: It is similar to `R.mapFastAsync` in that it uses `Promise.all` but not over the whole list, rather than with only slice from `list` with length `limit`.
 
-The result is a promise resolvable to an array of type matching the return type of `fn`.
-
 Example:
 
 ```
@@ -4837,7 +4835,7 @@ Example:
 
 Categories: Async, List
 
-Notes: For example usage, please check method's tests.
+Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
@@ -4870,7 +4868,6 @@ Notes:
 // @SINGLE_MARKER
 export function mapToObject<T, U>(fn: (input: T) => object, list: T[]): U;
 export function mapToObject<T, U>(fn: (input: T) => object): (list: T[]) => U;
-
 
 /*
 Method: maybe
@@ -4906,19 +4903,27 @@ Notes:
 export function maybe<T>(ifRule: any, whenIf: any, whenElse: any): T;
 
 /*
-Method:
+Method: memoize
 
-Explanation:
-
-
+Explanation: When `fn` is called for a second time with the same input, then the cache result is returned instead of calling again `fn`.
 
 Example:
 
 ```
+let result = 0
+const fn = (a,b) =>{
+  result++
 
+  return a + b
+}
+const memoized = R.memoize(fn)
+memoized(1, 2)
+memoized(1, 2)
+
+// => `result` is equal to `1`
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -4927,19 +4932,51 @@ Notes:
 export function memoize<T>(fn: Func<any> | Async<any>): T;
 
 /*
-Method:
+Method: mergeAll
 
-Explanation:
-
-
+Explanation: It merges all objects of `list` array sequentially and returns the result.
 
 Example:
 
 ```
-
+const list = [
+  {a: 1},
+  {b: 2},
+  {c: 3}
+]
+const result = R.mergeAll(list)
+const expected = {
+  a: 1,
+  b: 2,
+  c: 3
+}
+// => `result` is equal to `expected`
 ```
 
 Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeAll(list: object[]): object;
+
+/*
+Method: mergeRight
+
+Explanation: Same as `R.merge`, but in opposite direction.
+
+Example:
+
+```
+const result = R.merge(
+  {a:10},
+  {a: 1, b: 2}
+)
+// => {a:10, b: 2}
+```
+
+Categories: Object
 
 Notes:
 
@@ -4949,70 +4986,89 @@ export function mergeRight(x: object, y: object): object;
 export function mergeRight(x: object): (y: object) => object;
 
 /*
-Method:
+Method: mergeDeepRight
 
-Explanation:
+Explanation: Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
 
-
+  - and both values are objects, the two values will be recursively merged
+  - otherwise the value from the second object will be used.
 
 Example:
 
 ```
+const x = { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
+const y = { age: 40, contact: { email: 'baa@example.com' }}
 
+const result = R.mergeDeepRight(x, y)
+const expected = { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: Explanation and example are taken from `Ramda` documentation. moveto
 
 */
 // @SINGLE_MARKER
-export function mergeAll(input: object[]): object;
-export function mergeDeep<T>(slave: object, master: object): T;
+export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
+export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
 
 /*
-Method:
+Method: nextIndex
 
-Explanation:
+Explanation: It returns the next index of the list.
 
-
+If we have reached the end of the list, then it will return `0`.
 
 Example:
 
 ```
+const list = [1, 2, 3]
 
+const result = [
+  R.nextIndex(0, list),
+  R.nextIndex(1, list),
+  R.nextIndex(2, list),
+  R.nextIndex(10, list)
+]
+// => [1, 2, 0, 0]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
 export function nextIndex(index: number, list: any[]): number;
-export function nextIndex(index: number, list: number): number;
 
 /*
-Method:
+Method: prevIndex
 
-Explanation:
+Explanation: It returns the next index of the list when the order is descending.
 
-
+If we have reached the beginning of the list, then it will return the last index of the list.
 
 Example:
 
 ```
+const list = [1, 2, 3]
 
+const result = [
+  R.prevIndex(0, list),
+  R.prevIndex(1, list),
+  R.prevIndex(2, list),
+]
+// => [2, 0, 1]
 ```
 
-Categories:
+Categories: List
 
-Notes:
+Notes: Unlike `R.nextIndex`, which safeguards against index out of bounds, this method does not.
 
 */
 // @SINGLE_MARKER
 export function prevIndex(index: number, list: any[]): number;
-export function prevIndex(index: number, list: number): number;
 
 /*
 Method: ok

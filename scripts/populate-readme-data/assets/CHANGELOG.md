@@ -1,5 +1,6 @@
 - WIP
 
+Add `R.mergeDeepRight`
 Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
