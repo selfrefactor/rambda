@@ -5015,40 +5015,52 @@ export function prevIndex(index: number, list: any[]): number;
 export function prevIndex(index: number, list: number): number;
 
 /*
-Method:
+Method: ok
 
-Explanation:
+Explanation: It checks if `inputs` are following `schemas` specifications according to `R.isValid`.
 
-
+If validation fails, it throws.
 
 Example:
 
 ```
-
+const result = R.ok(
+  1,
+  ['foo', 'bar']
+)(
+  Number,
+  [String]
+)
+// => undefined
 ```
 
 Categories:
 
-Notes:
+Notes: It is same as `R.pass` but instead of returning `false`, it throws an error.
 
 */
 // @SINGLE_MARKER
-export function ok(...inputs: any[]): (...rules: any[]) => true | never;
+export function ok(...inputs: any[]): (...schemas: any[]) => void | never;
 
 /*
-Method:
+Method: pass
 
-Explanation:
-
-
+Explanation: It checks if `inputs` are following `schemas` specifications according to `R.isValid`.
 
 Example:
 
 ```
-
+const result = R.pass(
+  1,
+  ['foo','bar']
+)(
+  Number,
+  [String]
+)
+// => true
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -5078,19 +5090,22 @@ Notes:
 export function isValidAsync(x: IsValidAsync): Promise<boolean>;
 
 /*
-Method:
+Method: once
 
-Explanation:
-
-
+Explanation: It returns a function, which invokes only once `fn` function.
 
 Example:
 
 ```
+let result = 0
+const addOnce = R.once((x) => result = result + x)
 
+addOnce(1)
+addOnce(1)
+// => 1
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -5099,95 +5114,90 @@ Notes:
 export function once(fn: Func<any>): Func<any>;
 
 /*
-Method:
+Method: partition
 
-Explanation:
+Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function partition<T>(
-  rule: PartitionPredicate<T>,
-  input: { [key: string]: T }
-): [object, object];
-export function partition<T>(
-  rule: PartitionPredicate<T>
-): (input: { [key: string]: T }) => [object, object];
-
-/*
-Method:
-
-Explanation:
-
-
+`input` can be either an object or an array.
 
 Example:
 
 ```
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2, c: 3}
+const predicate = x => x > 2
 
+const result = [
+  R.partition(predicate, list),
+  R.partition(predicate, obj)
+]
+const expected = [
+  [[3], [1, 2]],
+  [{c: 3},  {a: 1, b: 2}],
+]
+// `result` is equal to `expected`
 ```
 
-Categories:
+Categories: List, Object
 
-Notes:
+Notes: moveto TODO - improve typings
 
 */
 // @SINGLE_MARKER
 export function partition<T>(
-  rule: Predicatex<T>,
+  predicate: Predicatex<T>,
   input: T[]
 ): [T[], T[]];
 export function partition<T>(
-  rule: Predicatex<T>
+  predicate: Predicatex<T>
 ): (input: T[]) => [T[], T[]];
 
 /*
-Method:
+Method: pathEq
 
 Explanation:
-
-
 
 Example:
 
 ```
+const path = 'a.b'
+const target = 1
+const input = {a: {b:1}}
 
+const result = R.pathEq(
+  path,
+  target,
+  input
+)
+// => true
 ```
 
-Categories:
+Categories: Object
 
-Notes:
+Notes: moveto
 
 */
 // @SINGLE_MARKER
-export function pathEq(path: string | string[], target: any, obj: object): boolean;
-export function pathEq(path: string | string[], target: any): (obj: object) => boolean;
+export function pathEq(path: string | string[], target: any, input: object): boolean;
+export function pathEq(path: string | string[], target: any): (input: object) => boolean;
 
 /*
-Method:
+Method: piped
 
-Explanation:
-
-
+Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument.
 
 Example:
 
 ```
-
+const result = piped(
+  [1, 2, 3],
+  R.filter(x => x > 1),
+  R.map(x => x*10),
+)
+// => [20, 30]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -5198,19 +5208,30 @@ export function piped<T>(input: any, ...fnList: Func<any>[]): T;
 /*
 Method:
 
-Explanation:
-
-
+Explanation: It accepts input as first argument and series of functions as next arguments. It is same as `R.pipe` but with support for asynchronous functions.
 
 Example:
 
 ```
-
+const result = R.pipedAsync(
+  100,
+  async x => {
+    await R.delay(100)
+    return x + 2
+  },
+  R.add(2),
+  async x => {
+    const delayed = await R.delay(100)
+    return delayed + x
+  }
+)
+const expected = 'RAMBDAX_DELAY104'
+// `result` resolves to `expected`
 ```
 
-Categories:
+Categories: Async
 
-Notes:
+Notes: Functions that return `Promise` will be handled as regular function not asynchronous. Such example is `const foo = input => new Promise(...)`.
 
 */
 // @SINGLE_MARKER
@@ -5220,46 +5241,69 @@ export function pipedAsync<T>(
 ): Promise<T>;
 
 /*
-Method:
+Method: produce
 
-Explanation:
+Explanation: It returns an object created by applying each value of `rules` to `input` argument
 
+`rules` input is an object with synchronous or asynchronous functions as values.
 
+If there is at least one member of `rules` that is asynchronous, then the return value is a promise.
 
 Example:
 
 ```
+const rules = {
+  foo: x =>  > 10,
+  bar: x => ({baz: x})
+}
+const input = 7
+const result = R.produce(rules, input)
 
+const expected = {
+  foo: false,
+  bar: {baz: 7}
+}
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Function, Async
 
-Notes:
+Notes: It is very similar to `R.applySpec`. TODO - improve typings
 
 */
 // @SINGLE_MARKER
 export function produce<T>(
-  conditions: any,
+  rules: any,
   input: any
 ): T;
 export function produce<T>(
-  conditions: any,
+  rules: any,
 ): (input: any) => T;
 
 /*
-Method:
+Method: promiseAllObject
 
-Explanation:
-
-
+Explanation: `Promise.all` version, which accept object of asynchronous functions as input.
 
 Example:
 
 ```
+const fn = ms => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(ms + 10)
+  }, ms)
+})
+const promises = {
+  a : fn(1),
+  b : fn(2),
+}
 
+const result = R.promiseAllObject(promises)
+const expected = { a:11, b:12 }
+// `result` resolves to `expected`
 ```
 
-Categories:
+Categories: Async
 
 Notes:
 
@@ -5270,11 +5314,9 @@ export function promiseAllObject<T>(
 ): Promise<T>;
 
 /*
-Method:
+Method: random
 
-Explanation:
-
-
+Explanation: It returns a random number between `min` inclusive and `max` inclusive.
 
 Example:
 
@@ -5282,7 +5324,7 @@ Example:
 
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
@@ -5291,11 +5333,9 @@ Notes:
 export function random(minInclusive: number, maxInclusive: number): number;
 
 /*
-Method:
+Method: randomString
 
 Explanation:
-
-
 
 Example:
 
@@ -5309,20 +5349,43 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
+
+/*
+Method: remove
+
+Explanation: It will remove all `toRemove` entries from `text` sequentially. 
+
+`toRemove` argument can be either a list of strings/regular expressions or a single string/regular expression.
+
+Example:
+
+```
+const result = remove(
+  ['foo','bar'],
+  'foo bar baz foo'
+)
+// => 'baz foo'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
 export function remove(
-  inputs: string | RegExp | (string | RegExp)[],
+  toRemove: string | RegExp | (string | RegExp)[],
   text: string
 ): string;
 export function remove(
-  inputs: string | RegExp | (string | RegExp)[]
+  toRemove: string | RegExp | (string | RegExp)[]
 ): (text: string) => string;
 
 /*
-Method:
+Method: renameProps
 
-Explanation:
-
-
+Explanation: If property `prop` of `rules` is also a property in `input`, then rename `input` property to `rules[prop]`.
 
 Example:
 
@@ -5336,15 +5399,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function renameProps(fromKeyToProp: object, input: object): object;
-export function renameProps(fromKeyToProp: object): (input: object) => object;
+export function renameProps(rules: object, input: object): object;
+export function renameProps(rules: object): (input: object) => object;
 
 /*
-Method:
+Method: shuffle
 
-Explanation:
-
-
+Explanation: It returns a randomized copy of array.
 
 Example:
 
@@ -5352,56 +5413,36 @@ Example:
 
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function s(): boolean;
+export function shuffle<T>(list: T[]): T[];
 
 /*
-Method:
+Method: sortObject
 
-Explanation:
-
-
+Explanation: It returns a sorted version of `input` object.
 
 Example:
 
 ```
+const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
+const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+// => {b: 4, c: 2, a: 1}
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function shuffle<T>(arr: T[]): T[];
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function sortObject<T>(predicate: SortObjectPredicate<T>, obj: { [key: string]: T }): { [keyOutput: string]: T };
-export function sortObject<T>(predicate: SortObjectPredicate<T>): (obj: { [key: string]: T }) => { [keyOutput: string]: T };
+export function sortObject<T>(predicate: SortObjectPredicate<T>, input: { [key: string]: T }): { [keyOutput: string]: T };
+export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key: string]: T }) => { [keyOutput: string]: T };
 
 /*
 Method: switcher
@@ -5556,27 +5597,6 @@ export function tryCatch<T>(
   fn: any,
   fallback: any
 ): (...inputs: any[]) => Async<T> | T;
-
-/*
-Method: randomString
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
 
 /*
 Method: unless

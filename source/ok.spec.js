@@ -1,12 +1,13 @@
 import { ok, schemaToString } from './ok'
 
-test('ok', () => {
-  const result = ok(
-    1, 'foo', {}
-  )(
-    'number', 'string', 'object'
-  )
-  expect(result).toBe(true)
+test('happy', () => {
+  expect(() => {
+    ok(
+      1, 'foo', {}
+    )(
+      'number', 'string', 'object'
+    )
+  }).not.toThrow()
 })
 
 test('when validation fails', () => {

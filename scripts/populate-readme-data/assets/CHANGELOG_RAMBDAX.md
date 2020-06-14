@@ -15,6 +15,7 @@ The rest will need `Ramda` compatibility specs to be started again
 
 Deprecate the following methods:
 
+- `R.s`
 - `R.toggle`
 - `R.composed`
 - `R.defaultToStrict`
