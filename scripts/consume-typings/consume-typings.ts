@@ -1,4 +1,12 @@
+import * as Rambda from 'rambda'
+import * as Rambdax from 'rambdax'
 import { add, applySpec, reject, and, transpose } from 'rambdax'
+
+console.log({
+  // onlyRambdax: Object.keys(Rambdax).filter(x => !Object.keys(Rambda).includes(x)), 
+  numRambda: Object.keys(Rambda).length,
+  numRambdax: Object.keys(Rambdax).length,
+})
 
 const applySpecResult = applySpec({
   a: add(1)

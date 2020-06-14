@@ -5,6 +5,7 @@ Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`
+Add `R.pathEq`
 
 - Next
 

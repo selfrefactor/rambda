@@ -1,6 +1,13 @@
 "use strict";
 exports.__esModule = true;
+var Rambda = require("rambda");
+var Rambdax = require("rambdax");
 var rambdax_1 = require("rambdax");
+console.log({
+    onlyRambdax: Object.keys(Rambdax).filter(function (x) { return !Object.keys(Rambda).includes(x); }),
+    numRambda: Object.keys(Rambda).length,
+    numRambdax: Object.keys(Rambdax).length
+});
 var applySpecResult = rambdax_1.applySpec({
     a: rambdax_1.add(1)
 })(1);
