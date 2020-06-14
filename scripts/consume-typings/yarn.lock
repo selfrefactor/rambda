@@ -13,6 +13,10 @@
   version "5.6.0"
   resolved "https://github.com/selfrefactor/rambda#77862b4a0371f9ddfebd28498e2bf91d97d02d47"
 
+"rambdax@https://github.com/selfrefactor/rambdax#4.0.0-alpha":
+  version "3.7.0"
+  resolved "https://github.com/selfrefactor/rambdax#b9e44f6bac6a71f6b4f403560ec74fb9803f9624"
+
 ramda@0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
