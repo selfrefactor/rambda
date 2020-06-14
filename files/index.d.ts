@@ -5535,25 +5535,37 @@ export function tryCatch<T>(
 ): Async<T> | T;
 
 /*
-Method:
+Method: where
 
-Explanation:
-
-
+Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
 
 Example:
 
 ```
+const condition = R.where({
+  a : x => typeof x === "string",
+  b : x => x === 4
+})
+const input = {
+  a : "foo",
+  b : 4,
+  c : 11,
+}
 
+const result = condition(input) 
+// => true
 ```
 
-Categories:
+Categories: Object, Logic
 
-Notes:
+Notes: moveto
 
 */
 // @SINGLE_MARKER
-export function where(conditions: object, input: object): boolean;
+export function where<T, U>(conditions: T, input: U): boolean;
+export function where<T>(conditions: T): <U>(input: U) => boolean;
+export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 /*
 Method:
@@ -5667,7 +5679,7 @@ const result = whereEq(condition, input)
 
 Categories: Object
 
-Notes: Move to Rambda
+Notes: moveto
 
 */
 // @SINGLE_MARKER

@@ -1,3 +1,5 @@
+import { spawn } from 'helpers-fn'
+import { resolve } from 'path'
 import { ms } from 'string-fn'
 
 import { runRamdaSpecs } from './run-ramda-specs'
@@ -14,5 +16,5 @@ test.skip('run all specs', async () => {
 
 test('run single spec', async () => {
   const skipDelete = true
-  await runSingleSpec('groupWith', skipDelete)
+  await runSingleSpec('where', skipDelete)
 })

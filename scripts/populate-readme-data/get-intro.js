@@ -4,7 +4,7 @@ import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
 import { devDependencies } from '../../package.json'
-import { getRambdaMethods } from '../constants'
+import { getRambdaMethods } from '../utils'
 
 async function getMissingMethods(){
   const rambdaMethods = await getRambdaMethods()

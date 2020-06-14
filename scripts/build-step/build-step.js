@@ -10,7 +10,7 @@ import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
 import { devDependencies } from '../../package.json'
-import { getRambdaMethods } from '../constants'
+import { getRambdaMethods } from '../utils'
 import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method

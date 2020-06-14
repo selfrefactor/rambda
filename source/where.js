@@ -1,10 +1,10 @@
-export function where(conditions, obj){
-  if (obj === undefined){
-    return objHolder => where(conditions, objHolder)
+export function where(conditions, input){
+  if (input === undefined){
+    return _input => where(conditions, _input)
   }
   let flag = true
   for (const prop in conditions){
-    const result = conditions[ prop ](obj[ prop ])
+    const result = conditions[ prop ](input[ prop ])
     if (flag && result === false){
       flag = false
     }

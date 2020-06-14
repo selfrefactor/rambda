@@ -22,21 +22,24 @@ any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;",
   "append": "append<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 append<T>(x: T): <T>(listOrString: ReadonlyArray<T>) => T[];",
   "applySpec": "applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
-  spec: Spec
+  conditions: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-applySpec<T>(spec: any): (...args: readonly any[]) => T;",
+applySpec<T>(conditions: any): (...args: readonly any[]) => T;",
   "assoc": "assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
 assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
 assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;",
   "assocPath": "assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-assocPath<T, U>(path: Path): FToolbelt.Curry<(a: T, b: U) => U>;",
+assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;",
   "both": "both(pred1: Pred, pred2: Pred): Pred;
 both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
 both(pred1: Pred): (pred2: Pred) => Pred;",
+  "chain": "chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
+chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
+chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;",
   "clamp": "clamp(min: number, max: number, input: number): number;
 clamp(min: number, max: number): (input: number) => number;",
   "clone": "clone<T>(input: T): T;
@@ -53,7 +56,7 @@ concat(x: string): (y: string) => string;",
   "cond": "cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any;
 cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...a: readonly A[]) => B;",
   "converge": "converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;",
-  "curry": "curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>;",
+  "curry": "curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;",
   "curryN": "curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;",
   "dec": "dec(x: number): number;",
   "defaultTo": "defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T;
@@ -96,7 +99,8 @@ findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;",
   "findLastIndex": "findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
 findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;",
   "flatten": "flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];",
-  "flip": "flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;",
+  "flip": "flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
+flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: TupleToolbelt.Merge<[P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;",
   "forEach": "forEach<T>(fn: (x: T) => void, list: T[]): T[];
 forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
@@ -112,6 +116,13 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
 groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];",
   "has": "has<T>(prop: string, obj: T): boolean;
 has(prop: string): <T>(obj: T) => boolean;",
+  "hasPath": "hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean;
+hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;",
   "head": "head<T>(listOrString: T[]): T | undefined;
 head(listOrString: string): string;",
   "identical": "identical<T>(a: T, b: T): boolean;
@@ -165,11 +176,13 @@ map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
 map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];",
   "match": "match(regExpression: RegExp, str: string): any[];
 match(regExpression: RegExp): (str: string) => any[];",
+  "mathMod": "mathMod(x: number, y: number): number;
+mathMod(x: number): (y: number) => number;",
   "max": "max<T extends Ord>(x: T, y: T): T;
 max<T extends Ord>(x: T): (y: T) => T;",
   "maxBy": "maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-maxBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;",
+maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;",
   "mean": "mean(list: ReadonlyArray<number>): number;",
   "median": "median(list: ReadonlyArray<number>): number;",
   "merge": "merge<T1, T2>(target: T1, newProps: T2): Merge<T2, T1>;
@@ -178,7 +191,7 @@ merge<T1>(target: T1): <T2>(newProps: T2) => Merge<T2, T1>;",
 min<T extends Ord>(x: T): (y: T) => T;",
   "minBy": "minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-minBy<T>(compareFn: (input: T) => Ord): FToolbelt.Curry<(x: T, y: T) => T>;",
+minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;",
   "modulo": "modulo(x: number, y: number): number;
 modulo(x: number): (y: number) => number;",
   "multiply": "multiply(x: number, y: number): number;
@@ -189,10 +202,12 @@ none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;",
   "not": "not(input: any): boolean;",
   "nth": "nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
 nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;",
-  "omit": "omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>;
-omit<T>(propsToOmit: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-omit<T, U>(propsToOmit: string | string[], obj: Dictionary<T>): U;
-omit<T, U>(propsToOmit: string | string[]): (obj: Dictionary<T>) => U;",
+  "omit": "omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
+omit<T, U>(propsToOmit: string, obj: T): U;
+omit<T, U>(propsToOmit: string): (obj: T) => U;
+omit<T>(propsToOmit: string, obj: object): T;
+omit<T>(propsToOmit: string): (obj: object) => T;",
   "over": "over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
 over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
@@ -212,15 +227,17 @@ path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
 path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;",
   "pathOr": "pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-pathOr<T>(defaultValue: T): FToolbelt.Curry<(a: Path, b: any) => T>;",
+pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;",
   "paths": "paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
 paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
 paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
 paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];",
-  "pick": "pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>;
-pick<T>(propsToPick: string | string[]): (obj: Dictionary<T>) => Dictionary<T>;
-pick<T, U>(propsToPick: string | string[], obj: Dictionary<T>): U;
-pick<T, U>(propsToPick: string | string[]): (obj: Dictionary<T>) => U;",
+  "pick": "pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<T, U>(propsToPick: string, input: T): U;
+pick<T, U>(propsToPick: string): (input: T) => U;
+pick<T>(propsToPick: string, input: object): T;
+pick<T>(propsToPick: string): (input: object) => T;",
   "pickAll": "pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
 pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;",
   "pipe": "pipe<T1>(fn0: () => T1): () => T1;
@@ -237,14 +254,18 @@ prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];",
   "prop": "prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
 prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;",
-  "propEq": "propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean;
-propEq<T>(propToFind: string | number, valueToMatch: T): (obj: any) => boolean;
-propEq(propToFind: string | number): {
-  <T>(valueToMatch: T, obj: any): boolean;
-  <T>(valueToMatch: T): (obj: any) => boolean;
+  "propEq": "propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
+propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
+propEq<T, K extends keyof T>(propToFind: K): {
+   (valueToMatch: T[K], obj: T): boolean;
+   (valueToMatch: T[K]): (obj: T) => boolean;
 };",
-  "propIs": "propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean;
-propIs<P extends string>(target: any, property: P, obj): <T>(obj: Record<P, T>) => boolean;",
+  "propIs": "propIs(type: any, name: string, obj: any): boolean;
+propIs(type: any, name: string): (obj: any) => boolean;
+propIs(type: any): {
+    (name: string, obj: any): boolean;
+    (name: string): (obj: any) => boolean;
+};",
   "propOr": "propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
 propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
 propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;",
@@ -333,11 +354,11 @@ update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];",
   "view": "view<T, U>(lens: Lens): (target: T) => U;
 view<T, U>(lens: Lens, target: T): U;",
   "when": "when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>;
 when<T>(
   rule: Func<boolean>
-): (ruleResult: T) =>  IdentityFunction<T>;",
+): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;",
   "without": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];
 without<T>(matchAgainst: ReadonlyArray<T>): (source: ReadonlyArray<T>) => T[];",
   "xor": "xor(x: boolean, y: boolean): boolean;

@@ -14,13 +14,14 @@ Object {
   "anyPass": "anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>",
   "append": "append<T>(x: T, listOrString: ReadonlyArray<T>): T[]",
   "applySpec": "applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
-  spec: Spec
+  conditions: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }",
   "assoc": "assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U",
   "assocPath": "assocPath<T, U>(path: Path, newValue: T, obj: U): U",
   "both": "both(pred1: Pred, pred2: Pred): Pred",
+  "chain": "chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[]",
   "clamp": "clamp(min: number, max: number, input: number): number",
   "clone": "clone<T>(input: T): T",
   "complement": "complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean",
@@ -28,7 +29,7 @@ Object {
   "concat": "concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]",
   "cond": "cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any",
   "converge": "converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any",
-  "curry": "curry<F extends (...args: any) => any>(f: F): FToolbelt.Curry<F>",
+  "curry": "curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>",
   "curryN": "curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any",
   "dec": "dec(x: number): number",
   "defaultTo": "defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T",
@@ -52,6 +53,10 @@ Object {
   "groupBy": "groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }",
   "groupWith": "groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]",
   "has": "has<T>(prop: string, obj: T): boolean",
+  "hasPath": "hasPath<T>(
+  path: string | string[],
+  input: object
+): boolean",
   "head": "head<T>(listOrString: T[]): T | undefined",
   "identical": "identical<T>(a: T, b: T): boolean",
   "identity": "identity<T>(input: T): T",
@@ -78,6 +83,7 @@ Object {
   <T, U>(obj: T): U",
   "map": "map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>",
   "match": "match(regExpression: RegExp, str: string): any[]",
+  "mathMod": "mathMod(x: number, y: number): number",
   "max": "max<T extends Ord>(x: T, y: T): T",
   "maxBy": "maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T",
   "mean": "mean(list: ReadonlyArray<number>): number",
@@ -91,21 +97,21 @@ Object {
   "none": "none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean",
   "not": "not(input: any): boolean",
   "nth": "nth<T>(index: number, list: ReadonlyArray<T>): T | undefined",
-  "omit": "omit<T>(propsToOmit: string | string[], obj: Dictionary<T>): Dictionary<T>",
+  "omit": "omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>",
   "over": "over<T>(lens: Lens, fn: Arity1Fn, value: T): T",
   "partial": "partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T",
   "path": "path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined",
   "pathOr": "pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T",
   "paths": "paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]",
-  "pick": "pick<T>(propsToPick: string | string[], obj: Dictionary<T>): Dictionary<T>",
+  "pick": "pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>",
   "pickAll": "pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U",
   "pipe": "pipe<T1>(fn0: () => T1): () => T1",
   "pluck": "pluck<T>(property: number, list: ReadonlyArray<T>): T",
   "prepend": "prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[]",
   "product": "product(list: ReadonlyArray<number>): number",
   "prop": "prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]",
-  "propEq": "propEq<T>(propToFind: string | number, valueToMatch: T, obj: any): boolean",
-  "propIs": "propIs<P extends keyof T, T>(target: any, property: P, obj: T): boolean",
+  "propEq": "propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean",
+  "propIs": "propIs(type: any, name: string, obj: any): boolean",
   "propOr": "propOr<T, U, V>(defaultValue: T, property: string, obj: U): V",
   "range": "range(start: number, end: number): number[]",
   "reduce": "reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult",
@@ -142,7 +148,7 @@ Object {
   "values": "values<T extends object, K extends keyof T>(obj: T): T[K][]",
   "view": "view<T, U>(lens: Lens): (target: T) => U",
   "when": "when<T>(
-  rule: Func<boolean>, ruleResult: T
+  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>",
   "without": "without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]",
   "xor": "xor(x: boolean, y: boolean): boolean",

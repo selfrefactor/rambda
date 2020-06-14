@@ -922,18 +922,3 @@ const result = condition({
 
 <a href="https://rambda.now.sh?const%20condition%20%3D%20R.where(%7B%0A%20%20a%20%3A%20aProp%20%3D%3E%20typeof%20aProp%20%3D%3D%3D%20%22string%22%2C%0A%20%20b%20%3A%20bProp%20%3D%3E%20bProp%20%3D%3D%3D%204%0A%7D)%0A%0Aconst%20result%20%3D%20condition(%7B%0A%20%20a%20%3A%20%22foo%22%2C%0A%20%20b%20%3A%204%2C%0A%20%20c%20%3A%2011%2C%0A%7D)%20%2F%2F%3D%3E%20true">Try in REPL</a>
 
-#### when
-
-> when(rule: Function|boolean, whenTrue: Function|any): Function
-
-Note that unlike **Ramda**'s `when`, this method accept values as `whenTrue` argument.
-
-```
-const truncate = R.when(
-  x => x.length > 5,
-  R.compose(x => `${x}...`, R.take(5))
-)
-
-const result = truncate('12345678')
-// => '12345...'
-```
