@@ -37,4 +37,13 @@ export const ORIGIN = rambda
 
 export const getOrigin = (withRambdax = false) =>
   withRambdax ? BOTH_LIBRARIES : ORIGIN
+
 export const wayTooLongTypings = [ 'pipe', 'compose' ]
+
+export async function build(){
+  await spawn({
+    cwd     : resolve(__dirname, '../'),
+    command : 'yarn',
+    inputs  : [ 'build' ],
+  })
+}
