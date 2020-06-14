@@ -9,11 +9,13 @@ Move the following methods to `Rambda` and change their logic to match `Ramda` i
 The rest will need `Ramda` compatibility specs to be started again
 
 - `R.unless`
+- `R.tryCatch`
 - `R.where`
 - `R.whereEq`
 
 Deprecate the following methods:
 
+- `R.toggle`
 - `R.composed`
 - `R.defaultToStrict`
 - `R.findInObject`

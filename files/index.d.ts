@@ -5404,19 +5404,25 @@ export function sortObject<T>(predicate: SortObjectPredicate<T>, obj: { [key: st
 export function sortObject<T>(predicate: SortObjectPredicate<T>): (obj: { [key: string]: T }) => { [keyOutput: string]: T };
 
 /*
-Method:
+Method: switcher
 
-Explanation:
-
-
+Explanation: Edited fork of [Switchem](https://github.com/planttheidea/switchem) library.
 
 Example:
 
 ```
+const valueToMatch = {foo: 1}
 
+const result = R.switcher(valueToMatch)
+  .is('baz', 'is baz')
+  .is(x => typeof x === 'boolean', 'is boolean')
+  .is({foo: 1}, 'Property foo is 1')
+  .default('is bar')
+
+// => 'Property foo is 1'
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -5425,11 +5431,9 @@ Notes:
 export function switcher<T>(valueToMatch: any): Switchem<T>;
 
 /*
-Method:
+Method: tapAsync
 
-Explanation:
-
-
+Explanation: Asynchronous version of `R.tap`.
 
 Example:
 
@@ -5437,7 +5441,7 @@ Example:
 
 ```
 
-Categories:
+Categories: Async
 
 Notes:
 
@@ -5447,19 +5451,56 @@ export function tapAsync<T>(fn: Func<any> | Promise<any>, input: T): T;
 export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
 
 /*
-Method:
+Method: template
 
-Explanation:
-
-
+Explanation: It generages a new string from `inputWithTags` by replacing all `{{x}}` occurances with values provided by `templateArguments`.
 
 Example:
 
 ```
+const inputWithTags = 'foo is {{bar}} even {{a}} more'
+const templateArguments = {"bar":"BAR", a: 1}
 
+const result = R.template(inputWithTags, templateArguments)
+const expected = 'foo is BAR even 1 more'
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function template(inputWithTags: string, templateArguments: object): string;
+export function template(inputWithTags: string): (templateArguments: object) => string;
+
+/*
+Method: throttle
+
+Explanation: It creates a throttled function that invokes `fn` maximum once for a `period` of milliseconds.
+
+Example:
+
+```
+let counter = 0
+const inc = () => {
+  counter++
+}
+
+const throttledInc = R.throttle(inc, 800)
+
+const result = async () => {
+  throttledInc()
+  await R.delay(500)
+  throttledInc()
+
+  return counter
+}
+// `result` resolves to `1`
+```
+
+Categories: Function
 
 Notes:
 
@@ -5468,16 +5509,14 @@ Notes:
 export function throttle<T>(fn: T, ms: number): (input: T) => T;
 
 /*
-Method:
+Method: toDecimal
 
 Explanation:
-
-
 
 Example:
 
 ```
-
+R.toDecimal(2.45464,2) // => 2.45
 ```
 
 Categories:
@@ -5491,51 +5530,35 @@ export function toDecimal(num: number, charsAfterDecimalPoint?: number): number;
 /*
 Method:
 
-Explanation:
+Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
 
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function template(inputWithTags: string, templateArguments: object): string;
-export function template(inputWithTags: string): (templateArguments: object) => string;
-
-/*
-Method:
-
-Explanation:
-
-
+Please check the tests of `R.tryCatch` to fully understand how this method works.
 
 Example:
 
 ```
+const fn = x => x.foo
 
+const result = [
+  R.tryCatch(fn, false)(null),
+  R.tryCatch(fn, false)({foo: 'bar'})
+]
+// => [false, 'bar']
 ```
 
-Categories:
+Categories: Async, Function
 
-Notes:
+Notes: There are significant differences between `Ramda.tryCatch` is its `Rambda` implementation, so be aware of this, when you are using this method. moveto
 
 */
 // @SINGLE_MARKER
 export function tryCatch<T>(
   fn: any,
   fallback: any
-): Async<T> | T;
+): (...inputs: any[]) => Async<T> | T;
 
 /*
-Method:
+Method: randomString
 
 Explanation:
 
