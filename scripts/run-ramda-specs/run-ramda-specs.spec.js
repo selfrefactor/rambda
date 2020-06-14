@@ -1,7 +1,7 @@
-import { build } from '../utils'
 import { resolve } from 'path'
 import { ms } from 'string-fn'
 
+import { build } from '../utils'
 import { runRamdaSpecs } from './run-ramda-specs'
 import { runSingleSpec } from './src/run-specs'
 
@@ -17,4 +17,4 @@ test('run single spec', async () => {
   await build()
   const skipDelete = true
   await runSingleSpec('where', skipDelete)
-}) 
+})

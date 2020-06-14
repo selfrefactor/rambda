@@ -5535,6 +5535,108 @@ export function tryCatch<T>(
 ): Async<T> | T;
 
 /*
+Method:
+
+Explanation:
+
+
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
+
+/*
+Method: unless
+
+Explanation: The method returns function that will be called with argument `input`.
+
+If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`. 
+
+In the other case, the final output will be the `input` itself.
+
+Example:
+
+```
+const fn = R.unless(
+  x => x > 2,
+  x => x + 10
+)
+
+const result = [
+  fn(1),
+  fn(5)
+]
+// => [11, 5]
+```
+
+Categories: Logic, Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unless<T, U>(predicate: (a: T) => boolean, whenFalseFn: (a: T) => U, obj: T): U;
+export function unless<T, U>(predicate: (a: T) => boolean, whenFalseFn: (a: T) => U): (obj: T) => U;
+
+/*
+Method: wait
+
+Explanation: It provides `Golang`-like interface for handling promises.
+
+Example:
+
+```
+const [result, err] = await R.wait(R.delay(1000))
+// => err is undefined
+// => result is `RAMBDAX_DELAY`
+```
+
+Categories: Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function wait<T>(fn: Async<T>): Promise<[T, Error]>;
+
+/*
+Method: waitFor
+
+Explanation: It returns `true`, if `condition` returns `true` within `howLong` milisececonds time period.
+
+The method accepts an optional third argument `loops`(default to 10), which is the number of times `waitForTrueCondition` will be evaluated for `howLong` period. Once this function returns a value different from `false`, this value will be the final result. 
+
+Otherwise, `R.waitFor` will return `false`.
+
+Example:
+
+```
+
+```
+
+Categories: Async, Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function waitFor(
+  waitForTrueCondition: () => any | Promise<any>,
+  howLong: number,
+  loops?: number
+): (input?: any) => Promise<any>;
+
+/*
 Method: where
 
 Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
@@ -5566,98 +5668,6 @@ export function where<T, U>(conditions: T, input: U): boolean;
 export function where<T>(conditions: T): <U>(input: U) => boolean;
 export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
 export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function wait<T>(fn: Async<T>): Promise<[T, Error]>;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function waitFor(
-  waitForTrueCondition: () => any | Promise<any>,
-  msHowLong: number
-): (input?: any) => Promise<boolean>;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function unless<T>(
-  rule: Func<boolean> | boolean, ruleFalse: any
-): IdentityFunction<T>;
-export function unless<T>(
-  ruleFalse: Func<boolean> | boolean
-): (ruleTrue: any) => IdentityFunction<T>;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
 
 /*
 Method: whereEq

@@ -2,9 +2,15 @@
 
 4.0.0
 
-Move the following methods to `Ramda`:
+Move the following methods to `Rambda` and change their logic to match `Ramda` implementation(if necessary):
 
-- `R.hasPath`
+- `R.hasPath`(already there)
+
+The rest will need `Ramda` compatibility specs to be started again
+
+- `R.unless`
+- `R.where`
+- `R.whereEq`
 
 Deprecate the following methods:
 
@@ -17,7 +23,7 @@ Deprecate the following methods:
 - `R.isAttach`
 - `R.opposite`
 - `R.otherwise`
-- `R.resolve`
+- `R.resolve` ?
 - `R.whenAsync`
 
 Also these changes:

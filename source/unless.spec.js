@@ -2,26 +2,15 @@ import { inc } from './inc'
 import { isNil } from './isNil'
 import { unless } from './unless'
 
-test('whenFalse can be other than function', () => {
-  const result = unless(isNil, 2)('foo')
+const safeInc = unless(isNil, inc)
 
-  expect(result).toBe(2)
-})
-
-test('use boolean', () => {
-  const safeInc = unless(isNil)(inc)
-
-  expect(safeInc(null)).toBe(null)
+test('happy', () => {
+  expect(safeInc(null)).toBeNull()
   expect(safeInc(1)).toBe(2)
 })
 
-test('rule can be plain boolean', () => {
-  const safeInc = unless(false)(inc)
-
+test('curried', () => {
+  const safeIncCurried = unless(isNil)(inc)
+  expect(safeInc(null)).toBeNull()
   expect(safeInc(1)).toBe(2)
-})
-
-test('rule and whenFalse are plain values', () => {
-  expect(unless(false, 'foo')(1)).toBe('foo')
-  expect(unless(true, 'foo')(1)).toBe(1)
 })

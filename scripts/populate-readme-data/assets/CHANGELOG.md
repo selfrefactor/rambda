@@ -1,6 +1,8 @@
 - After Next
 
 Add `R.whereEq`
+Add `R.where`
+Add `R.unless`
 
 - Next
 
