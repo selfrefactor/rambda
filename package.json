@@ -64,8 +64,7 @@
     "dist",
     "src",
     "_ts-toolbelt",
-    "index.d.ts",
-    "tools.d.ts"
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -73,7 +72,7 @@
   },
   "license": "MIT",
   "author": "self_refactor",
-  "description": "Lightweight faster alternative to Ramda",
+  "description": "Lightweight and faster alternative to Ramda",
   "module": "./dist/rambda.esm.js",
   "umd": "./dist/rambda.umd.js",
   "sideEffects": false,
