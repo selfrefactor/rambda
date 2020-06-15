@@ -77,7 +77,7 @@
   },
   "flip": {
     "count": 4,
-    "reason": "rambda flip work only for functions with two arguments"
+    "reason": "ramda.flip returns a curried function | rambda.flip work only for functions with arity below 5"
   },
   "forEach": {
     "count": 1,

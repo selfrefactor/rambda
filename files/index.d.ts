@@ -1187,14 +1187,14 @@ const subtractFlip = R.flip(R.subtract)
 
 const result = [
   subtractFlip(1,7),
-  R.flip(1,6)
+  R.flip(1, 6)
 ]  
 // => [6, -6]
 ```
 
 Categories: Function
 
-Notes: Rambda's **flip** will throw if arity of the input function is greater than 4.
+Notes: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
 
 */
 // @SINGLE_MARKER

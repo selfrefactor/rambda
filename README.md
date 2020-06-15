@@ -3425,10 +3425,12 @@ curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
 <summary><strong>R.curry</strong> source</summary>
 
 ```javascript
-import { curryN } from './curryN'
-
-export function curry(fn){
-  return curryN(fn.length, fn)
+export function curry(fn, args = []){
+  return (..._args) =>
+    (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
+      ...args,
+      ..._args,
+    ])
 }
 ```
 
@@ -6125,12 +6127,12 @@ const subtractFlip = R.flip(R.subtract)
 
 const result = [
   subtractFlip(1,7),
-  R.flip(1,6)
+  R.flip(1, 6)
 ]  
 // => [6, -6]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20subtractFlip(1%2C7)%2C%0A%20%20R.flip(1%2C6)%0A%5D%20%20%0A%2F%2F%20%3D%3E%20%5B6%2C%20-6%5D">Try the above <strong>R.flip</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20subtractFlip(1%2C7)%2C%0A%20%20R.flip(1%2C%206)%0A%5D%20%20%0A%2F%2F%20%3D%3E%20%5B6%2C%20-6%5D">Try the above <strong>R.flip</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6148,38 +6150,28 @@ flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(
 <summary><strong>R.flip</strong> source</summary>
 
 ```javascript
-import { curryN } from './curryN'
+function flipFn(fn){
+  return (...input) => {
+    if (input.length === 1){
+      return holder => fn(holder, input[ 0 ])
+    } else if (input.length === 2){
+      return fn(input[ 1 ], input[ 0 ])
+    } else if (input.length === 3){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ]
+      )
+    } else if (input.length === 4){
+      return fn(
+        input[ 1 ], input[ 0 ], input[ 2 ], input[ 3 ]
+      )
+    }
 
-function flipExport(fn){
-  const flipedFn = (...input) => {
-    const missing = fn.length - input.length
-
-    if (missing <= 0) return fn(
-      input[ 1 ], input[ 0 ], ...input.slice(2)
-    )
-
-    if (input.length === 0) return flipedFn
-
-    if (input.length === 1)
-      return curryN(missing, (...rest) => {
-        const args = [ rest[ 0 ], input[ 0 ], ...rest.slice(1) ]
-
-        return fn(...args)
-      })
-
-    // input.length >= 2
-    return curryN(missing, (...rest) => {
-      const args = [ input[ 1 ], input[ 0 ], ...input.slice(2), ...rest ]
-
-      return fn(...args)
-    })
+    throw new Error('R.flip doesn\'t work with arity > 4')
   }
-
-  return flipedFn
 }
 
 export function flip(fn){
-  return flipExport(fn)
+  return flipFn(fn)
 }
 ```
 
@@ -6208,42 +6200,41 @@ test('function with arity of 3', () => {
   const updateFlipped = flip(update)
 
   const result = updateFlipped(
-    8, 0, [ 1, 2, 3 ]
+    88, 0, [ 1, 2, 3 ]
   )
-  const curriedResult = updateFlipped(8, 0)([ 1, 2, 3 ])
-  const tripleCurriedResult = updateFlipped(8)(0)([ 1, 2, 3 ])
-
-  expect(result).toEqual([ 8, 2, 3 ])
-  expect(curriedResult).toEqual([ 8, 2, 3 ])
-  expect(tripleCurriedResult).toEqual([ 8, 2, 3 ])
+  const curriedResult = updateFlipped(88, 0)([ 1, 2, 3 ])
+  const tripleCurriedResult = updateFlipped(88)(0)([ 1, 2, 3 ])
+  expect(result).toEqual([ 88, 2, 3 ])
+  expect(curriedResult).toEqual([ 88, 2, 3 ])
+  expect(tripleCurriedResult).toEqual([ 88, 2, 3 ])
 })
 
 test('function with arity of 4', () => {
   const testFunction = (
     a, b, c, d
-  ) => `${ a },${ b },${ c },${ d }`
+  ) => `${ a - b }==${ c - d }`
+  const testFunctionFlipped = flip(testFunction)
 
-  const flippedFn = flip(testFunction)
-
-  const result1 = flippedFn(2)(1)(3)(4)
-  const result2 = flippedFn(2)(
-    1, 3, 4
+  const result = testFunction(
+    1, 2, 3, 4
   )
-  const result3 = flippedFn(2, 1)(3, 4)
-  const result4 = flippedFn(
-    2, 1, 3
-  )(4)
-  const result5 = flippedFn(
+  const flippedResult = testFunctionFlipped(
     2, 1, 3, 4
   )
+  expect(result).toEqual(flippedResult)
+  expect(result).toEqual('-1==-1')
+})
 
-  const expected = '1,2,3,4'
+test('function with arity of 5', () => {
+  const testFunction = (
+    a, b, c, d, e
+  ) => `${ a - b }==${ c - d - e }`
+  const testFunctionFlipped = flip(testFunction)
 
-  expect(result1).toEqual(expected)
-  expect(result2).toEqual(expected)
-  expect(result3).toEqual(expected)
-  expect(result4).toEqual(expected)
-  expect(result5).toEqual(expected)
+  expect(() => testFunctionFlipped(
+    1, 2, 3, 4, 5
+  )).toThrowWithMessage(Error,
+    'R.flip doesn\'t work with arity > 4')
 })
 ```
 
@@ -6300,7 +6291,7 @@ describe('Ramda.flip', () => {
 
 <summary>4 failed <italic>Ramda.flip</italic> specs
 
-> :boom: Reason for the failure: rambda flip work only for functions with two arguments
+> :boom: Reason for the failure: ramda.flip returns a curried function | rambda.flip work only for functions with arity below 5
 </summary>
 
 ```javascript
@@ -17063,7 +17054,15 @@ Add `R.where`
 Add `R.unless`
 Add `R.pathEq`
 
-- 5.6.3
+- 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
+
+- 5.6.3 Merge several PRs of [@farwayer](https://github.com/farwayer)
+
+- [PR #482](https://github.com/selfrefactor/rambda/pull/482) - improve `R.forEach` performance by not using `R.map`
+
+- [PR #485](https://github.com/selfrefactor/rambda/pull/485) - improve `R.map` performance
+
+- [PR #482](https://github.com/selfrefactor/rambda/pull/486) - improve `R.reduce` performance
 
 - Fix missing high arity typings for `R.compose/pipe`
 

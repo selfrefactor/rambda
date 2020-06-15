@@ -16,5 +16,5 @@ test.skip('run all specs', async () => {
 test('run single spec', async () => {
   await build()
   const skipDelete = true
-  await runSingleSpec('where', skipDelete)
+  await runSingleSpec('flip', skipDelete)
 })

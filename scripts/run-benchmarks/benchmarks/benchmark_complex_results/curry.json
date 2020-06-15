@@ -1,18 +1,18 @@
 {
   "name": "CURRY",
-  "date": "2020-06-15T19:22:58.815Z",
+  "date": "2020-06-15T19:25:51.622Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 4785315,
-      "margin": 0.4,
-      "percentSlower": 80.16
+      "ops": 15058523,
+      "margin": 1.51,
+      "percentSlower": 37.69
     },
     {
       "name": "Ramda",
-      "ops": 24121928,
-      "margin": 2.34,
+      "ops": 24167483,
+      "margin": 1.68,
       "percentSlower": 0
     }
   ],

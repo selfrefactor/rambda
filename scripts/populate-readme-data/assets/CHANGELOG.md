@@ -7,7 +7,15 @@ Add `R.where`
 Add `R.unless`
 Add `R.pathEq`
 
-- 5.6.3
+- 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
+
+- 5.6.3 Merge several PRs of [@farwayer](https://github.com/farwayer)
+
+- [PR #482](https://github.com/selfrefactor/rambda/pull/482) - improve `R.forEach` performance by not using `R.map`
+
+- [PR #485](https://github.com/selfrefactor/rambda/pull/485) - improve `R.map` performance
+
+- [PR #482](https://github.com/selfrefactor/rambda/pull/486) - improve `R.reduce` performance
 
 - Fix missing high arity typings for `R.compose/pipe`
 
