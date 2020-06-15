@@ -1,6 +1,6 @@
-import { curry } from './curry'
 import { _isArray } from './_internals/_isArray'
 import { _keys } from './_internals/_keys'
+import { curry } from './curry'
 
 function reduceFn(
   reducer, acc, list
@@ -14,7 +14,9 @@ function reduceFn(
     const len = list.length
 
     while (index < len){
-      acc = reducer(acc, list[ index ], index, list)
+      acc = reducer(
+        acc, list[ index ], index, list
+      )
       index++
     }
   } else {
@@ -24,7 +26,9 @@ function reduceFn(
 
     while (index < len){
       const key = keys[ index ]
-      acc = reducer(acc, key, list[ key ], list)
+      acc = reducer(
+        acc, key, list[ key ], list
+      )
       index++
     }
   }

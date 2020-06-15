@@ -1,6 +1,6 @@
 import { head, init, mapToObject, match, piped, remove, trim } from 'rambdax'
 
-import { getOrigin, wayTooLongTypings } from '../../utils'
+import { getOrigin } from '../../utils'
 
 export function extractAllDefinitions(withRambdax){
   const matches = match(/\/\/\s@SINGLE_MARKER\nexport\sfunction.([^*])+/gm,
@@ -20,13 +20,7 @@ export function extractAllDefinitions(withRambdax){
     )
 
     const methodTypings = remove(/export\sfunction\s/g, allTypings)
-    const partialReturn = { [ name ] : methodTypings }
-
-    if (!wayTooLongTypings.includes(name)) return partialReturn
-
-    const [ firstPart ] = methodTypings.split('\n\n')
-
-    return { [ name ] : firstPart }
+    return { [ name ] : methodTypings }
   }, matches)
 
   return result

@@ -7,7 +7,9 @@ Add `R.where`
 Add `R.unless`
 Add `R.pathEq`
 
-- Next
+- 5.6.3
+
+- Fix missing high arity typings for `R.compose/pipe`
 
 - `R.merge` definitions match those of `@types/ramda`
 

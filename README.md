@@ -583,9 +583,9 @@ export function all(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import {all} from './all'
+import { all } from './all'
 
-const numArr = [0, 1, 2, 3, 4]
+const numArr = [ 0, 1, 2, 3, 4 ]
 
 test('when true', () => {
   const fn = x => x > -1
@@ -606,9 +606,9 @@ test('pass index as second argument', () => {
 
     return x > 5
   }
-  all(fn, [10, 12, 14])
+  all(fn, [ 10, 12, 14 ])
 
-  expect(indexes).toEqual([0, 1, 2])
+  expect(indexes).toEqual([ 0, 1, 2 ])
 })
 ```
 
@@ -2819,6 +2819,43 @@ compose<T1>(fn0: () => T1): () => T1;
 compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
 compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
+
+compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
+compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
+compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
+compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
+
+compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
+compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
+compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
+compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
+
+compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
+compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
+compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
+compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
+
+compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
+compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
+compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
+compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
+
+compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
+compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
+compose<V0, V1, T1, T2, T3, T4, T5, T6>(
+  fn5: (x: T5) => T6,
+  fn4: (x: T4) => T5,
+  fn3: (x: T3) => T4,
+  fn2: (x: T2) => T3,
+  fn1: (x: T1) => T2,
+  fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
+compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
+  fn5: (x: T5) => T6,
+  fn4: (x: T4) => T5,
+  fn3: (x: T3) => T4,
+  fn2: (x: T2) => T3,
+  fn1: (x: T1) => T2,
+  fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 ```
 
 </details>
@@ -6341,8 +6378,8 @@ forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj
 <summary><strong>R.forEach</strong> source</summary>
 
 ```javascript
-import {_isArray} from './_internals/_isArray'
-import {_keys} from './_internals/_keys'
+import { _isArray } from './_internals/_isArray'
+import { _keys } from './_internals/_keys'
 
 export function forEach(fn, list){
   if (arguments.length === 1) return _list => forEach(fn, _list)
@@ -6351,12 +6388,14 @@ export function forEach(fn, list){
     return
   }
 
-  if (_isArray(list)) {
+  if (_isArray(list)){
     let index = 0
     const len = list.length
 
     while (index < len){
-      fn(list[ index ], index, list)
+      fn(
+        list[ index ], index, list
+      )
       index++
     }
   } else {
@@ -6366,7 +6405,9 @@ export function forEach(fn, list){
 
     while (index < len){
       const key = keys[ index ]
-      fn(list[ key ], key, list)
+      fn(
+        list[ key ], key, list
+      )
       index++
     }
   }
@@ -9550,25 +9591,29 @@ export function map(fn, list){
     const willReturn = Array(len)
 
     while (index < len){
-      willReturn[ index ] = fn(list[ index ], index, list)
-      index++
-    }
-
-    return willReturn
-  } else {
-    let index = 0
-    const keys = _keys(list)
-    const len = keys.length
-    const willReturn = {}
-
-    while (index < len){
-      const key = keys[ index ]
-      willReturn[ key ] = fn(list[ key ], key, list)
+      willReturn[ index ] = fn(
+        list[ index ], index, list
+      )
       index++
     }
 
     return willReturn
   }
+  let index = 0
+  const keys = _keys(list)
+  const len = keys.length
+  const willReturn = {}
+
+  while (index < len){
+    const key = keys[ index ]
+    willReturn[ key ] = fn(
+      list[ key ], key, list
+    )
+    index++
+  }
+
+  return willReturn
+
 }
 ```
 
@@ -12000,6 +12045,193 @@ pipe<T1>(fn0: () => T1): () => T1;
 pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
 pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
 pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
+
+pipe<T1, T2>(fn0: () => T1, fn1: (x: T1) => T2): () => T2;
+pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
+pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
+pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
+
+pipe<T1, T2, T3>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): () => T3;
+pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
+pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
+pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
+
+pipe<T1, T2, T3, T4>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): () => T4;
+pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
+pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
+pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
+
+pipe<T1, T2, T3, T4, T5>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): () => T5;
+pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
+pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
+
+pipe<T1, T2, T3, T4, T5, T6>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): () => T6;
+pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
+pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
+  fn0: (x0: V0, x1: V1, x2: V2) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
+
+pipe<T1, T2, T3, T4, T5, T6, T7>(
+  fn0: () => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn: (x: T6) => T7): () => T7;
+pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
+  fn0: (x: V0) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn: (x: T6) => T7): (x: V0) => T7;
+pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(
+  fn0: (x0: V0, x1: V1) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(
+  fn0: (x0: V0, x1: V1, x2: V2) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
+
+pipe<T1, T2, T3, T4, T5, T6, T7, T8>(
+  fn0: () => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn: (x: T7) => T8): () => T8;
+pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+  fn0: (x: V0) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn: (x: T7) => T8): (x: V0) => T8;
+pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(
+  fn0: (x0: V0, x1: V1) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
+  fn0: (x0: V0, x1: V1, x2: V2) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+
+pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+  fn0: () => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9): () => T9;
+pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+  fn0: (x0: V0) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9): (x0: V0) => T9;
+pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+  fn0: (x0: V0, x1: V1) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+  fn0: (x0: V0, x1: V1, x2: V2) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
+
+pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+  fn0: () => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9,
+  fn9: (x: T9) => T10): () => T10;
+pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+  fn0: (x0: V0) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9,
+  fn9: (x: T9) => T10): (x0: V0) => T10;
+pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+  fn0: (x0: V0, x1: V1) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9,
+  fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
+pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+  fn0: (x0: V0, x1: V1, x2: V2) => T1,
+  fn1: (x: T1) => T2,
+  fn2: (x: T2) => T3,
+  fn3: (x: T3) => T4,
+  fn4: (x: T4) => T5,
+  fn5: (x: T5) => T6,
+  fn6: (x: T6) => T7,
+  fn7: (x: T7) => T8,
+  fn8: (x: T8) => T9,
+  fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 ```
 
 </details>
@@ -12899,9 +13131,9 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 <summary><strong>R.reduce</strong> source</summary>
 
 ```javascript
-import { curry } from './curry'
 import { _isArray } from './_internals/_isArray'
 import { _keys } from './_internals/_keys'
+import { curry } from './curry'
 
 function reduceFn(
   reducer, acc, list
@@ -12915,7 +13147,9 @@ function reduceFn(
     const len = list.length
 
     while (index < len){
-      acc = reducer(acc, list[ index ], index, list)
+      acc = reducer(
+        acc, list[ index ], index, list
+      )
       index++
     }
   } else {
@@ -12925,7 +13159,9 @@ function reduceFn(
 
     while (index < len){
       const key = keys[ index ]
-      acc = reducer(acc, key, list[ key ], list)
+      acc = reducer(
+        acc, key, list[ key ], list
+      )
       index++
     }
   }
@@ -16827,7 +17063,9 @@ Add `R.where`
 Add `R.unless`
 Add `R.pathEq`
 
-- Next
+- 5.6.3
+
+- Fix missing high arity typings for `R.compose/pipe`
 
 - `R.merge` definitions match those of `@types/ramda`
 
