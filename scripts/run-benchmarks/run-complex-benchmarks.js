@@ -14,12 +14,13 @@ async function getAllBenchmarks(){
     .map(filePath => parse(filePath).name)
 }
 
+export async function runSingleComplexBenchmark(singleMethod){
+  const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
+  createComplexBenchmark(required)
+}
+
 export async function runAllComplexBenchmarks(){
   const methodsWithBenchmarks = await getAllBenchmarks()
-  const iterable = async singleMethod => {
-    const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
-    createComplexBenchmark(required)
-  }
 
-  await mapAsync(iterable, methodsWithBenchmarks)
+  await mapAsync(runSingleComplexBenchmark, methodsWithBenchmarks)
 }
