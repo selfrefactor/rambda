@@ -221,9 +221,6 @@ test('type can be `async`', () => {
 test('type can be `promise`', () => {
   const input = { a : delay(1999) }
   const schema = { a : 'promise' }
-  // TODO
-  // ============================================
-  // const schema = { a : Promise }
   expect(isValid({
     input,
     schema,

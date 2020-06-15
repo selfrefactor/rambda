@@ -17393,9 +17393,11 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 ## Additional info
 
-> Running benchmarks
+> Most influential contributors
 
-TODO
+- [@farwayer](https://github.com/farwayer)
+- [@synthet1c](https://github.com/synthet1c)
+- [@vlad-zhukov](https://github.com/vlad-zhukov)
 
 > Rambda references
 
