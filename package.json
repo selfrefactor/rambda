@@ -17,7 +17,7 @@
   },
   "typings": "./index.d.ts",
   "main": "./dist/rambda.js",
-  "version": "5.6.3",
+  "version": "5.7.0",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.10.2",
