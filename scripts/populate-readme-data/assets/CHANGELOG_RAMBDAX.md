@@ -30,6 +30,7 @@ Deprecate the following methods:
 - `R.otherwise`
 - `R.resolve` ?
 - `R.whenAsync`
+- `R.mergeRight`
 
 Also these changes:
 

@@ -721,6 +721,12 @@ export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O
 export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
 
 /**
+ * Same as `R.merge`, but in opposite direction.
+ */
+export function mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
+export function mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+
+/**
  * It returns the lesser value between `x` and `y`.
  */
 export function min<T extends Ord>(x: T, y: T): T;

@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 115 Ramda methods not implemented in Rambda 
+  Click to see the full list of 114 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -126,7 +126,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - mergeDeepLeft
 - mergeDeepWith
 - mergeDeepWithKey
-- mergeLeft
 - mergeRight
 - mergeWith
 - mergeWithKey
@@ -10260,15 +10259,23 @@ export function merge(target, newProps){
 ```javascript
 import { merge } from './merge'
 
-const sample = {
-  foo : 'bar',
-  bar : 'bar',
+const obj = {
+  foo : 1,
+  bar : 2,
 }
 
-test('merge', () => {
-  expect(merge(sample)({ bar : 'baz' })).toEqual({
-    foo : 'bar',
-    bar : 'baz',
+test('happy', () => {
+  expect(merge(obj, { bar : 20 })).toEqual({
+    foo : 1,
+    bar : 20,
+  })
+})
+
+test('curry', () => {
+  expect(merge(obj)({ baz : 3 })).toEqual({
+    foo : 1,
+    bar : 2,
+    baz : 3,
   })
 })
 
@@ -10277,9 +10284,28 @@ test('merge', () => {
  */
 test('when undefined or null instead of object', () => {
   expect(merge(null, undefined)).toEqual({})
-  expect(merge(sample, null)).toEqual(sample)
-  expect(merge(sample, undefined)).toEqual(sample)
-  expect(merge(undefined, sample)).toEqual(sample)
+  expect(merge(obj, null)).toEqual(obj)
+  expect(merge(obj, undefined)).toEqual(obj)
+  expect(merge(undefined, obj)).toEqual(obj)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {merge} from 'rambda'
+
+describe('merge', () => {
+  const result = merge({ foo: 1 }, { bar: 2 }); 
+  const curriedResult = merge({ foo: 1 })({ bar: 2 }); 
+  
+  result.foo // $ExpectType number
+  result.bar // $ExpectType number
+  curriedResult.bar // $ExpectType number
 })
 ```
 
@@ -10457,6 +10483,107 @@ import {mergeDeepRight} from 'rambda'
 describe('mergeDeepRight', () => {
   const result = mergeDeepRight({ foo: { bar: 1 } }, { foo: { bar: 2 } }); 
   result.foo.bar // $ExpectType number
+})
+```
+
+</details>
+
+### mergeLeft
+
+```typescript
+mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
+```
+
+Same as `R.merge`, but in opposite direction.
+
+```javascript
+const result = R.mergeLeft(
+  {a: 10},
+  {a: 1, b: 2}
+)
+// => {a:10, b: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeLeft(%0A%20%20%7Ba%3A%2010%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%0A)%0A%2F%2F%20%3D%3E%20%7Ba%3A10%2C%20b%3A%202%7D">Try the above <strong>R.mergeLeft</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
+mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mergeLeft</strong> source</summary>
+
+```javascript
+import { merge } from './merge'
+
+export function mergeLeft(x, y){
+  if (arguments.length === 1) return _y => mergeLeft(x, _y)
+
+  return merge(y, x)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mergeLeft } from './mergeLeft'
+
+const obj = {
+  foo : 1,
+  bar : 2,
+}
+
+test('happy', () => {
+  expect(mergeLeft({ bar : 20 }, obj)).toEqual({
+    foo : 1,
+    bar : 20,
+  })
+})
+
+test('curry', () => {
+  expect(mergeLeft({ baz : 3 })(obj)).toEqual({
+    foo : 1,
+    bar : 2,
+    baz : 3,
+  })
+})
+
+test('when undefined or null instead of object', () => {
+  expect(mergeLeft(null, undefined)).toEqual({})
+  expect(mergeLeft(obj, null)).toEqual(obj)
+  expect(mergeLeft(obj, undefined)).toEqual(obj)
+  expect(mergeLeft(undefined, obj)).toEqual(obj)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {mergeLeft} from 'rambda'
+
+describe('mergeLeft', () => {
+  const result = mergeLeft({ foo: 1 }, { bar: 2 }); 
+  const curriedResult = mergeLeft({ foo: 1 })({ bar: 2 }); 
+  
+  result.foo // $ExpectType number
+  result.bar // $ExpectType number
+  curriedResult.bar // $ExpectType number
 })
 ```
 
@@ -17253,7 +17380,12 @@ describe('zipObj', () => {
 - WIP
 
 Add `R.mergeDeepRight`
+Add `R.mergeLeft`
+
+waiting for:
+
 Add `R.whereEq`
+Add `R.mergeAll`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`

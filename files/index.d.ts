@@ -2255,6 +2255,30 @@ export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y:
 
 
 /*
+Method: mergeLeft
+
+Explanation: Same as `R.merge`, but in opposite direction.
+
+Example:
+
+```
+const result = R.mergeLeft(
+  {a: 10},
+  {a: 1, b: 2}
+)
+// => {a:10, b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
+export function mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+
+/*
 Method: min
 
 Explanation: It returns the lesser value between `x` and `y`.
@@ -4990,30 +5014,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mergeAll(list: object[]): object;
-
-/*
-Method: mergeRight
-
-Explanation: Same as `R.merge`, but in opposite direction.
-
-Example:
-
-```
-const result = R.merge(
-  {a:10},
-  {a: 1, b: 2}
-)
-// => {a:10, b: 2}
-```
-
-Categories: Object
-
-Notes: moveto
-
-*/
-// @SINGLE_MARKER
-export function mergeRight(x: object, y: object): object;
-export function mergeRight(x: object): (y: object) => object;
 
 /*
 Method: nextIndex

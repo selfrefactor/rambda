@@ -1,0 +1,12 @@
+
+
+  mergeLeft
+    ✓ takes two objects, merges their own properties and returns a new object
+    ✓ overrides properties in the second object with properties in the first object
+    ✓ is not destructive
+    ✓ reports only own properties
+    ✓ is shallow
+
+
+  5 passing (85ms)
+

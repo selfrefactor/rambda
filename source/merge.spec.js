@@ -1,14 +1,22 @@
 import { merge } from './merge'
 
-const sample = {
-  foo : 'bar',
-  bar : 'bar',
+const obj = {
+  foo : 1,
+  bar : 2,
 }
 
-test('merge', () => {
-  expect(merge(sample)({ bar : 'baz' })).toEqual({
-    foo : 'bar',
-    bar : 'baz',
+test('happy', () => {
+  expect(merge(obj, { bar : 20 })).toEqual({
+    foo : 1,
+    bar : 20,
+  })
+})
+
+test('curry', () => {
+  expect(merge(obj)({ baz : 3 })).toEqual({
+    foo : 1,
+    bar : 2,
+    baz : 3,
   })
 })
 
@@ -17,7 +25,7 @@ test('merge', () => {
  */
 test('when undefined or null instead of object', () => {
   expect(merge(null, undefined)).toEqual({})
-  expect(merge(sample, null)).toEqual(sample)
-  expect(merge(sample, undefined)).toEqual(sample)
-  expect(merge(undefined, sample)).toEqual(sample)
+  expect(merge(obj, null)).toEqual(obj)
+  expect(merge(obj, undefined)).toEqual(obj)
+  expect(merge(undefined, obj)).toEqual(obj)
 })
