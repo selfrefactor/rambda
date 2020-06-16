@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 114 Ramda methods not implemented in Rambda 
+  Click to see the full list of 113 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -122,7 +122,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - mapAccumRight
 - mapObjIndexed
 - memoizeWith
-- mergeAll
 - mergeDeepLeft
 - mergeDeepWith
 - mergeDeepWithKey
@@ -10306,6 +10305,123 @@ describe('merge', () => {
   result.foo // $ExpectType number
   result.bar // $ExpectType number
   curriedResult.bar // $ExpectType number
+})
+```
+
+</details>
+
+### mergeAll
+
+```typescript
+mergeAll<T>(list: object[]): T
+```
+
+It merges all objects of `list` array sequentially and returns the result.
+
+```javascript
+const list = [
+  {a: 1},
+  {b: 2},
+  {c: 3}
+]
+const result = R.mergeAll(list)
+const expected = {
+  a: 1,
+  b: 2,
+  c: 3
+}
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Bb%3A%202%7D%2C%0A%20%20%7Bc%3A%203%7D%0A%5D%0Aconst%20result%20%3D%20R.mergeAll(list)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%202%2C%0A%20%20c%3A%203%0A%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.mergeAll</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+mergeAll<T>(list: object[]): T;
+mergeAll(list: object[]): object;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mergeAll</strong> source</summary>
+
+```javascript
+import { map } from './map'
+import { merge } from './merge'
+
+export function mergeAll(arr){
+  let willReturn = {}
+  map(val => {
+    willReturn = merge(willReturn, val)
+  }, arr)
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mergeAll } from './mergeAll'
+
+test('case 1', () => {
+  const arr = [ { a : 1 }, { b : 2 }, { c : 3 } ]
+  const expectedResult = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+  expect(mergeAll(arr)).toEqual(expectedResult)
+})
+
+test('case 2', () => {
+  expect(mergeAll([ { foo : 1 }, { bar : 2 }, { baz : 3 } ])).toEqual({
+    foo : 1,
+    bar : 2,
+    baz : 3,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {mergeAll} from 'rambda'
+
+describe('mergeAll', () => {
+  it('with passing type', () => {
+    interface Output{
+      foo: number
+      bar: number
+    }
+    const result = mergeAll<Output>([
+      {foo: 1},
+      {bar: 2},
+    ])
+    result.foo // $ExpectType number
+    result.bar // $ExpectType number
+  })
+
+  it('without passing type', () => {
+    const result = mergeAll([
+      {foo: 1},
+      {bar: 2},
+    ])
+    result // $ExpectType unknown
+  })
 })
 ```
 

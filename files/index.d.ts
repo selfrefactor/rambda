@@ -2226,6 +2226,37 @@ export function merge<O1 extends object, O2 extends object>(target: O1, newProps
 export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
 
 /*
+Method: mergeAll
+
+Explanation: It merges all objects of `list` array sequentially and returns the result.
+
+Example:
+
+```
+const list = [
+  {a: 1},
+  {b: 2},
+  {c: 3}
+]
+const result = R.mergeAll(list)
+const expected = {
+  a: 1,
+  b: 2,
+  c: 3
+}
+// => `result` is equal to `expected`
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeAll<T>(list: object[]): T;
+export function mergeAll(list: object[]): object;
+
+/*
 Method: mergeDeepRight
 
 Explanation: Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
@@ -4984,36 +5015,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function memoize<T>(fn: Func<any> | Async<any>): T;
-
-/*
-Method: mergeAll
-
-Explanation: It merges all objects of `list` array sequentially and returns the result.
-
-Example:
-
-```
-const list = [
-  {a: 1},
-  {b: 2},
-  {c: 3}
-]
-const result = R.mergeAll(list)
-const expected = {
-  a: 1,
-  b: 2,
-  c: 3
-}
-// => `result` is equal to `expected`
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeAll(list: object[]): object;
 
 /*
 Method: nextIndex

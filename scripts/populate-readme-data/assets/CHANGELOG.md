@@ -2,11 +2,11 @@
 
 Add `R.mergeDeepRight`
 Add `R.mergeLeft`
+Add `R.mergeAll`
 
 waiting for:
 
 Add `R.whereEq`
-Add `R.mergeAll`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`

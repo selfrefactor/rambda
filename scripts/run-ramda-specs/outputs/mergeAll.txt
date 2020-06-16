@@ -1,0 +1,10 @@
+
+
+  mergeAll
+    ✓ merges a list of objects together into one object
+    ✓ gives precedence to later objects in the list
+    ✓ ignores inherited properties
+
+
+  3 passing (74ms)
+

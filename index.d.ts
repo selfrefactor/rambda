@@ -712,6 +712,12 @@ export function merge<O1 extends object, O2 extends object>(target: O1, newProps
 export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
 
 /**
+ * It merges all objects of `list` array sequentially and returns the result.
+ */
+export function mergeAll<T>(list: object[]): T;
+export function mergeAll(list: object[]): object;
+
+/**
  * Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
  * 
  * - and both values are objects, the two values will be recursively merged

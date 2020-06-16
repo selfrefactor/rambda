@@ -14,10 +14,10 @@ test('run all specs', async () => {
   const withInitialStep = false
   await runRamdaSpecs({ withInitialStep })
 })
-
+ 
 test('run single spec', async () => {
   if (RUN_ALL) return
   await build()
   const skipDelete = true
-  await runSingleSpec('mergeLeft', skipDelete)
-})  
+  await runSingleSpec('mergeAll', skipDelete)
+})
