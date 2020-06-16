@@ -2226,6 +2226,35 @@ export function merge<O1 extends object, O2 extends object>(target: O1, newProps
 export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
 
 /*
+Method: mergeDeepRight
+
+Explanation: Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
+
+  - and both values are objects, the two values will be recursively merged
+  - otherwise the value from the second object will be used.
+
+Example:
+
+```
+const x = { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
+const y = { age: 40, contact: { email: 'baa@example.com' }}
+
+const result = R.mergeDeepRight(x, y)
+const expected = { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes: Explanation and example are taken from `Ramda` documentation.
+
+*/
+// @SINGLE_MARKER
+export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
+export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
+
+
+/*
 Method: min
 
 Explanation: It returns the lesser value between `x` and `y`.
@@ -4979,40 +5008,12 @@ const result = R.merge(
 
 Categories: Object
 
-Notes:
+Notes: moveto
 
 */
 // @SINGLE_MARKER
 export function mergeRight(x: object, y: object): object;
 export function mergeRight(x: object): (y: object) => object;
-
-/*
-Method: mergeDeepRight
-
-Explanation: Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
-
-  - and both values are objects, the two values will be recursively merged
-  - otherwise the value from the second object will be used.
-
-Example:
-
-```
-const x = { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
-const y = { age: 40, contact: { email: 'baa@example.com' }}
-
-const result = R.mergeDeepRight(x, y)
-const expected = { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
-// => `result` is equal to `expected`
-```
-
-Categories: Object
-
-Notes: Explanation and example are taken from `Ramda` documentation. moveto
-
-*/
-// @SINGLE_MARKER
-export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
-export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
 
 /*
 Method: nextIndex

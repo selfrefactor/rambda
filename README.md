@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 116 Ramda methods not implemented in Rambda 
+  Click to see the full list of 115 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -124,7 +124,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - memoizeWith
 - mergeAll
 - mergeDeepLeft
-- mergeDeepRight
 - mergeDeepWith
 - mergeDeepWithKey
 - mergeLeft
@@ -2927,6 +2926,35 @@ test('ramda spec', () => {
   expect(g(
     1, 2, 3
   )).toEqual([ 1, 2, 3 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {compose, add, subtract} from 'rambda'
+
+describe('compose', () => {
+  it('happy', () => {
+    const result = compose(
+      subtract(11),
+      add(1),
+      add(1),
+    )(1)
+    result // $ExpectType number
+  })
+
+  it('with void', () => {
+    const result = compose(
+      () => {},
+      () => {}
+    )();
+    result // $ExpectType void
+  })
 })
 ```
 
@@ -10252,6 +10280,183 @@ test('when undefined or null instead of object', () => {
   expect(merge(sample, null)).toEqual(sample)
   expect(merge(sample, undefined)).toEqual(sample)
   expect(merge(undefined, sample)).toEqual(sample)
+})
+```
+
+</details>
+
+### mergeDeepRight
+
+```typescript
+mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>
+```
+
+Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
+
+  - and both values are objects, the two values will be recursively merged
+  - otherwise the value from the second object will be used.
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
+mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mergeDeepRight</strong> source</summary>
+
+```javascript
+import { type } from './type'
+
+export function mergeDeepRight(target, source){
+  if (arguments.length === 1){
+    return sourceHolder => mergeDeepRight(target, sourceHolder)
+  }
+
+  const willReturn = JSON.parse(JSON.stringify(target))
+
+  Object.keys(source).forEach(key => {
+    if (type(source[ key ]) === 'Object'){
+      if (type(target[ key ]) === 'Object'){
+        willReturn[ key ] = mergeDeepRight(target[ key ], source[ key ])
+      } else {
+        willReturn[ key ] = source[ key ]
+      }
+    } else {
+      willReturn[ key ] = source[ key ]
+    }
+  })
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+// import { mergeDeepRight } from 'ramda'
+import { mergeDeepRight } from './mergeDeepRight'
+
+const slave = {
+  name    : 'evilMe',
+  age     : 10,
+  contact : {
+    a     : 1,
+    email : 'foo@example.com',
+  },
+}
+const master = {
+  age     : 40,
+  contact : { email : 'baz@example.com' },
+  songs   : { title : 'Remains the same' },
+}
+
+test('happy', () => {
+  const result = mergeDeepRight(slave, master)
+  const curryResult = mergeDeepRight(slave)(master)
+  const expected = {
+    age     : 40,
+    name    : 'evilMe',
+    contact : {
+      a     : 1,
+      email : 'baz@example.com',
+    },
+    songs : { title : 'Remains the same' },
+  }
+
+  expect(result).toEqual(expected)
+  expect(curryResult).toEqual(expected)
+})
+
+test('ramda compatible test 1', () => {
+  const a = {
+    w : 1,
+    x : 2,
+    y : { z : 3 },
+  }
+  const b = {
+    a : 4,
+    b : 5,
+    c : { d : 6 },
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    w : 1,
+    x : 2,
+    y : { z : 3 },
+    a : 4,
+    b : 5,
+    c : { d : 6 },
+  }
+
+  expect(result).toEqual(expected)
+})
+
+test('ramda compatible test 2', () => {
+  const a = {
+    a : {
+      b : 1,
+      c : 2,
+    },
+    y : 0,
+  }
+  const b = {
+    a : {
+      b : 3,
+      d : 4,
+    },
+    z : 0,
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    a : {
+      b : 3,
+      c : 2,
+      d : 4,
+    },
+    y : 0,
+    z : 0,
+  }
+
+  expect(result).toEqual(expected)
+})
+
+test('ramda compatible test 3', () => {
+  const a = {
+    w : 1,
+    x : { y : 2 },
+  }
+  const result = mergeDeepRight(a, { x : { y : 3 } })
+  const expected = {
+    w : 1,
+    x : { y : 3 },
+  }
+  expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {mergeDeepRight} from 'rambda'
+
+describe('mergeDeepRight', () => {
+  const result = mergeDeepRight({ foo: { bar: 1 } }, { foo: { bar: 2 } }); 
+  result.foo.bar // $ExpectType number
 })
 ```
 
