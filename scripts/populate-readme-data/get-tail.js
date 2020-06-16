@@ -1,14 +1,9 @@
 import { readFile } from 'fs-extra'
 import { template } from 'rambdax'
 
-const mostInfluentialContributors = [
-  'farwayer',
-  'synthet1c',
-  'vlad-zhukov'
-]
+const mostInfluentialContributors = [ 'farwayer', 'synthet1c', 'vlad-zhukov', 'jpgorman', 'romgrk', 'WhoAteDaCake', 'helmuthdu','ku8ar', 'squidfunk' ]
 
 function getAdditionalInfo(){
-
   const additionalInfoTemplate = `
 ## Additional info
 
@@ -31,11 +26,11 @@ function getAdditionalInfo(){
 - (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]  
 `
 
-  const contributors = mostInfluentialContributors.map(
-    x => `- [@${x}](https://github.com/${x})`
-  ).join('\n')
+  const contributors = mostInfluentialContributors
+    .map(x => `- [@${ x }](https://github.com/${ x })`)
+    .join('\n')
 
-  return template(additionalInfoTemplate, {contributors})
+  return template(additionalInfoTemplate, { contributors })
 }
 
 const templateTail = `

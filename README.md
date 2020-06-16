@@ -17398,6 +17398,12 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - [@farwayer](https://github.com/farwayer)
 - [@synthet1c](https://github.com/synthet1c)
 - [@vlad-zhukov](https://github.com/vlad-zhukov)
+- [@jpgorman](https://github.com/jpgorman)
+- [@romgrk](https://github.com/romgrk)
+- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
+- [@helmuthdu](https://github.com/helmuthdu)
+- [@ku8ar](https://github.com/ku8ar)
+- [@squidfunk](https://github.com/squidfunk)
 
 > Rambda references
 

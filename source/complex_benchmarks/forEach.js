@@ -134,19 +134,19 @@ const objectLarge = [
 
 module.exports = [
   {
-    label  : 'forEach#listEmpty',
+    label  : 'forEach#empty.list',
     suites : listEmpty,
   },
   {
-    label  : 'forEach#listLarge',
+    label  : 'forEach#large.list',
     suites : listLarge,
   },
   {
-    label  : 'forEach#objectEmpty',
+    label  : 'forEach#empty.object',
     suites : objectEmpty,
   },
   {
-    label  : 'forEach#objectLarge',
+    label  : 'forEach#large.object',
     suites : objectLarge,
   },
 ]
