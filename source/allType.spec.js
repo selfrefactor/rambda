@@ -5,7 +5,7 @@ test('when true', () => {
     [ 1, 2, 3 ], [], [ null ]
   )
 
-  expect(result).toBe(true)
+  expect(result).toBeTrue()
 })
 
 test('when false', () => {
@@ -13,5 +13,5 @@ test('when false', () => {
     1, undefined, null, []
   )
 
-  expect(result).toBe(false)
+  expect(result).toBeFalse()
 })

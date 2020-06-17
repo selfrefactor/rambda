@@ -136,5 +136,5 @@ test('throw error', async () => {
     flag = false
   }
 
-  expect(flag).toBe(false)
+  expect(flag).toBeFalse()
 })

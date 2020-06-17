@@ -1,0 +1,32 @@
+
+
+  pathEq
+    ✓ returns true if the path matches the value
+    ✓ returns false for non matches
+    ✓ returns false for non existing values
+    ✓ accepts empty path
+    1) has R.equals semantics
+
+
+  4 passing (106ms)
+  1 failing
+
+  1) pathEq
+       has R.equals semantics:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'true'
+- 'false'
+      + expected - actual
+
+      -true
+      +false
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/pathEq.js:42:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

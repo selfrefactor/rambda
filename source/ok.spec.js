@@ -45,7 +45,7 @@ test('error contains schema', () => {
     )(
       { a : Number }, String, String
     )
-    expect(false).toBe(true)
+    expect(false).toBeTrue()
   } catch (e){
     expect(e.message.startsWith('Failed R.ok -')).toBeTruthy()
     expect(e).toBeInstanceOf(Error)

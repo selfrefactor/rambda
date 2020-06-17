@@ -11,7 +11,7 @@ test('throws when fn is not function', () => {
 test('when fallback is used', () => {
   const fn = x => x.x
 
-  expect(tryCatch(fn, false)(null)).toBe(false)
+  expect(tryCatch(fn, false)(null)).toBeFalse()
 })
 
 test('with json parse', () => {
@@ -46,7 +46,7 @@ test('when async + fallback', async () => {
   }
 
   expect(await tryCatch(fn, 'fallback')(100)).toBe('fallback')
-  expect(called).toBe(true)
+  expect(called).toBeTrue()
 })
 
 test('when async + fallback is function', async () => {
@@ -60,7 +60,7 @@ test('when async + fallback is function', async () => {
   }
 
   expect(await tryCatch(fn, x => x + 1)(100)).toBe(101)
-  expect(called).toBe(true)
+  expect(called).toBeTrue()
 })
 
 test('when async + fallback is async', async () => {
@@ -78,7 +78,7 @@ test('when async + fallback is async', async () => {
   }
 
   expect(await tryCatch(fn, fallback)(100)).toBe(101)
-  expect(called).toBe(true)
+  expect(called).toBeTrue()
 })
 
 test('when async + fn', async () => {
@@ -92,5 +92,5 @@ test('when async + fn', async () => {
   }
 
   expect(await tryCatch(fn, 'fallback')(100)).toBe(101)
-  expect(called).toBe(true)
+  expect(called).toBeTrue()
 })

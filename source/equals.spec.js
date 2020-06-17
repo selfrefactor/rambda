@@ -15,7 +15,7 @@ test('with regex', () => {
 })
 
 test('not a number', () => {
-  expect(equals([ NaN ], [ NaN ])).toBe(true)
+  expect(equals([ NaN ], [ NaN ])).toBeTrue()
 })
 
 test('new number', () => {

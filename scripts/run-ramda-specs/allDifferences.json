@@ -133,15 +133,19 @@
   },
   "partition": {
     "count": 1,
-    "reason": "ramda method supports fantasy land methods"
+    "reason": "ramda supports fantasy-land"
   },
   "path": {
     "count": 1,
-    "reason": "ramda method supports negative indices"
+    "reason": "ramda method supports negative indexes"
+  },
+  "pathEq": {
+    "count": 1,
+    "reason": "ramda supports fantasy-land"
   },
   "paths": {
     "count": 1,
-    "reason": "ramda method supports negative indices"
+    "reason": "ramda method supports negative indexes"
   },
   "pluck": {
     "count": 1,

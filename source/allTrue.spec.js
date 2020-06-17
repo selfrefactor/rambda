@@ -7,7 +7,7 @@ test('with functions', () => {
   const result = allTrue(
     foo, bar, baz
   )
-  expect(result).toBe(false)
+  expect(result).toBeFalse()
 })
 
 test('usage with non boolean', () => {
@@ -17,7 +17,7 @@ test('usage with non boolean', () => {
   const result = allTrue(
     foo, foo, baz
   )
-  expect(result).toBe(true)
+  expect(result).toBeTrue()
 })
 
 test('usage with boolean', () => {
@@ -25,19 +25,19 @@ test('usage with boolean', () => {
   const baz = [ 1, 2, 3 ]
 
   const result = allTrue(foo > 2, baz.length === 3)
-  expect(result).toBe(true)
+  expect(result).toBeTrue()
 })
 
 test('escapes early - case 0', () => {
   const foo = undefined
   const result = allTrue(foo, () => foo.a)
-  expect(result).toBe(false)
+  expect(result).toBeFalse()
 })
 
 test('escapes early - case 1', () => {
   const foo = null
   const result = allTrue(foo, () => foo.a)
-  expect(result).toBe(false)
+  expect(result).toBeFalse()
 })
 
 test('escapes early - case 2', () => {
@@ -45,7 +45,7 @@ test('escapes early - case 2', () => {
   const result = allTrue(
     foo, foo.a, foo.a.b
   )
-  expect(result).toBe(false)
+  expect(result).toBeFalse()
 })
 
 test('escapes early - case 3', () => {
@@ -55,5 +55,5 @@ test('escapes early - case 3', () => {
     () => foo.a,
     () => foo.a.b
   )
-  expect(result).toBe(true)
+  expect(result).toBeTrue()
 })

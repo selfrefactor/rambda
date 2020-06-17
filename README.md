@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 112 Ramda methods not implemented in Rambda 
+  Click to see the full list of 111 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -139,7 +139,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - otherwise
 - pair
 - partialRight
-- pathEq
 - pathSatisfies
 - pickBy
 - pipeK
@@ -879,10 +878,10 @@ export function and(a, b){
 import { and } from './and'
 
 test('happy', () => {
-  expect(and(true, true)).toBe(true)
-  expect(and(true, false)).toBe(false)
-  expect(and(false, true)).toBe(false)
-  expect(and(false, false)).toBe(false)
+  expect(and(true, true)).toBeTrue()
+  expect(and(true, false)).toBeFalse()
+  expect(and(false, true)).toBeFalse()
+  expect(and(false, false)).toBeFalse()
 })
 ```
 
@@ -4957,7 +4956,7 @@ test('with regex', () => {
 })
 
 test('not a number', () => {
-  expect(equals([ NaN ], [ NaN ])).toBe(true)
+  expect(equals([ NaN ], [ NaN ])).toBeTrue()
 })
 
 test('new number', () => {
@@ -7301,18 +7300,18 @@ import { _objectIs } from './_internals/_objectIs'
 import { identical } from './identical'
 
 test('with boolean', () => {
-  expect(F()).toBe(false)
-  expect(T()).toBe(true)
+  expect(F()).toBeFalse()
+  expect(T()).toBeTrue()
 })
 
 test('internal isInteger', () => {
-  expect(_isInteger(1)).toBe(true)
-  expect(_isInteger(0.3)).toBe(false)
+  expect(_isInteger(1)).toBeTrue()
+  expect(_isInteger(0.3)).toBeFalse()
 })
 
 test('internal objectIs', () => {
-  expect(_objectIs(1, 1)).toBe(true)
-  expect(_objectIs(NaN, NaN)).toBe(true)
+  expect(_objectIs(1, 1)).toBeTrue()
+  expect(_objectIs(NaN, NaN)).toBeTrue()
 })
 
 test('identical', () => {
@@ -11802,7 +11801,7 @@ describe('partition', () => {
 
 *1 failed Ramda.partition specs*
 
-> :boom: Reason for the failure: ramda method supports fantasy land methods
+> :boom: Reason for the failure: ramda supports fantasy-land
 
 ### path
 
@@ -11979,7 +11978,7 @@ describe('path with specified input', () => {
 
 <summary>1 failed <italic>Ramda.path</italic> specs
 
-> :boom: Reason for the failure: ramda method supports negative indices
+> :boom: Reason for the failure: ramda method supports negative indexes
 </summary>
 
 ```javascript
@@ -11996,6 +11995,138 @@ describe('path', function() {
 ```
 
 </details>
+
+### pathEq
+
+```typescript
+pathEq(pathToSearch: string | string[], target: any, input: object): boolean
+```
+
+It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
+
+`pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
+
+```javascript
+const path = 'a.b'
+const target = {c: 1}
+const input = {a: {b: {c: 1}}}
+
+const result = R.pathEq(
+  path,
+  target,
+  input
+)
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20target%20%3D%20%7Bc%3A%201%7D%0Aconst%20input%20%3D%20%7Ba%3A%20%7Bb%3A%20%7Bc%3A%201%7D%7D%7D%0A%0Aconst%20result%20%3D%20R.pathEq(%0A%20%20path%2C%0A%20%20target%2C%0A%20%20input%0A)%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.pathEq</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+pathEq(pathToSearch: string | string[], target: any, input: object): boolean;
+pathEq(pathToSearch: string | string[], target: any): (input: object) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.pathEq</strong> source</summary>
+
+```javascript
+import { curry } from './curry'
+import { equals } from './equals'
+import { path } from './path'
+
+function pathEqFn(
+  pathToSearch, target, input
+){
+  return equals(path(pathToSearch, input), target)
+}
+
+export const pathEq = curry(pathEqFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { pathEq } from './pathEq'
+
+test('when true', () => {
+  const path = 'a.b'
+  const obj = { a : { b : { c : 1 } } }
+  const target = { c : 1 }
+
+  expect(pathEq(
+    path, target, obj
+  )).toBeTrue()
+})
+
+test('when false', () => {
+  const path = 'a.b'
+  const obj = { a : { b : 1 } }
+  const target = 2
+
+  expect(pathEq(path, target)(obj)).toBeFalse()
+})
+
+test('when wrong path', () => {
+  const path = 'foo.bar'
+  const obj = { a : { b : 1 } }
+  const target = 2
+
+  expect(pathEq(
+    path, target, obj
+  )).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {pathEq} from 'rambda'
+
+describe('path', () => {
+  it('with string path', () => {
+    const pathToSearch = 'a.b.c'
+    const input = { a : { b : { c : 1 } } }
+    const target = { c : 1 }
+
+    const result = pathEq(pathToSearch, input, target)
+    const curriedResult = pathEq(pathToSearch, input, target)
+    result // $ExpectType boolean
+    curriedResult // $ExpectType boolean
+  })
+
+  it('with array path', () => {
+    const pathToSearch = ['a', 'b', 'c']
+    const input = { a : { b : { c : 1 } } }
+    const target = { c : 1 }
+
+    const result = pathEq(pathToSearch, input, target)
+    const curriedResult = pathEq(pathToSearch, input, target)
+    result // $ExpectType boolean
+    curriedResult // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.pathEq specs*
+
+> :boom: Reason for the failure: ramda supports fantasy-land
 
 ### pathOr
 
@@ -12282,7 +12413,7 @@ describe('paths', () => {
 
 <summary>1 failed <italic>Ramda.paths</italic> specs
 
-> :boom: Reason for the failure: ramda method supports negative indices
+> :boom: Reason for the failure: ramda method supports negative indexes
 </summary>
 
 ```javascript
@@ -17723,6 +17854,7 @@ Add `R.mergeDeepRight`
 Add `R.mergeLeft`
 Add `R.mergeAll`
 Add `R.partition`
+Add `R.pathEq`
 
 waiting for:
 
@@ -17730,7 +17862,6 @@ Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`
-Add `R.pathEq`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
 

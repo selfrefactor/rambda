@@ -1,8 +1,8 @@
 import { and } from './and'
 
 test('happy', () => {
-  expect(and(true, true)).toBe(true)
-  expect(and(true, false)).toBe(false)
-  expect(and(false, true)).toBe(false)
-  expect(and(false, false)).toBe(false)
+  expect(and(true, true)).toBeTrue()
+  expect(and(true, false)).toBeFalse()
+  expect(and(false, true)).toBeFalse()
+  expect(and(false, false)).toBeFalse()
 })

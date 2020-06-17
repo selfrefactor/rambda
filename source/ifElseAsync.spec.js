@@ -36,8 +36,8 @@ test('ok', async () => {
     conditionFalse, ifFn, elseFn
   )(7)
 
-  expect(result).toBe(true)
-  expect(resultFalse).toBe(false)
+  expect(result).toBeTrue()
+  expect(resultFalse).toBeFalse()
 })
 
 test('works with regular functions', async () => {

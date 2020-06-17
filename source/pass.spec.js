@@ -7,7 +7,7 @@ test('true on success', () => {
     'number', 'string', 'object'
   )
 
-  expect(result).toBe(true)
+  expect(result).toBeTrue()
 })
 
 test('false on failure', () => {
@@ -15,19 +15,19 @@ test('false on failure', () => {
     1, 'foo', {}
   )(
     'number', 'string', 'string'
-  )).toBe(false)
+  )).toBeFalse()
 })
 
 test('true when single schema', () => {
   expect(pass(
     1, 2, 3
-  )('number')).toBe(true)
+  )('number')).toBeTrue()
 })
 
 test('false when single schema', () => {
   expect(pass(
     1, 'foo', {}
-  )('number')).toBe(false)
+  )('number')).toBeFalse()
 })
 
 test('array of schemas', () => {

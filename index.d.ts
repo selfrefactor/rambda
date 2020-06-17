@@ -831,6 +831,14 @@ export function path<T>(pathToSearch: string | string[]): (obj: any) => T | unde
 export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 /**
+ * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
+ * 
+ * `pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
+ */
+export function pathEq(pathToSearch: string | string[], target: any, input: object): boolean;
+export function pathEq(pathToSearch: string | string[], target: any): (input: object) => boolean;
+
+/**
  * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
  * 
  * Because it calls `R.path`, then `singlePath` can be either string or a list.

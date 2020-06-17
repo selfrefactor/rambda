@@ -2,12 +2,12 @@ import { pathEq } from './pathEq'
 
 test('when true', () => {
   const path = 'a.b'
-  const obj = { a : { b : 1 } }
-  const target = 1
+  const obj = { a : { b : { c : 1 } } }
+  const target = { c : 1 }
 
   expect(pathEq(
     path, target, obj
-  )).toBe(true)
+  )).toBeTrue()
 })
 
 test('when false', () => {
@@ -15,7 +15,7 @@ test('when false', () => {
   const obj = { a : { b : 1 } }
   const target = 2
 
-  expect(pathEq(path, target)(obj)).toBe(false)
+  expect(pathEq(path, target)(obj)).toBeFalse()
 })
 
 test('when wrong path', () => {
@@ -25,5 +25,5 @@ test('when wrong path', () => {
 
   expect(pathEq(
     path, target, obj
-  )).toBe(false)
+  )).toBeFalse()
 })

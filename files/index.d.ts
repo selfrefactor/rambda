@@ -2639,6 +2639,37 @@ export function path<T>(pathToSearch: string | string[]): (obj: any) => T | unde
 export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 
 /*
+Method: pathEq
+
+Explanation: It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
+
+`pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
+
+Example:
+
+```
+const path = 'a.b'
+const target = {c: 1}
+const input = {a: {b: {c: 1}}}
+
+const result = R.pathEq(
+  path,
+  target,
+  input
+)
+// => true
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pathEq(pathToSearch: string | string[], target: any, input: object): boolean;
+export function pathEq(pathToSearch: string | string[], target: any): (input: object) => boolean;
+
+/*
 Method: paths
 
 Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
@@ -5217,35 +5248,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function once(fn: Func<any>): Func<any>;
-
-/*
-Method: pathEq
-
-Explanation:
-
-Example:
-
-```
-const path = 'a.b'
-const target = 1
-const input = {a: {b:1}}
-
-const result = R.pathEq(
-  path,
-  target,
-  input
-)
-// => true
-```
-
-Categories: Object
-
-Notes: moveto
-
-*/
-// @SINGLE_MARKER
-export function pathEq(path: string | string[], target: any, input: object): boolean;
-export function pathEq(path: string | string[], target: any): (input: object) => boolean;
 
 /*
 Method: piped

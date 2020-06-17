@@ -4,18 +4,18 @@ import { _objectIs } from './_internals/_objectIs'
 import { identical } from './identical'
 
 test('with boolean', () => {
-  expect(F()).toBe(false)
-  expect(T()).toBe(true)
+  expect(F()).toBeFalse()
+  expect(T()).toBeTrue()
 })
 
 test('internal isInteger', () => {
-  expect(_isInteger(1)).toBe(true)
-  expect(_isInteger(0.3)).toBe(false)
+  expect(_isInteger(1)).toBeTrue()
+  expect(_isInteger(0.3)).toBeFalse()
 })
 
 test('internal objectIs', () => {
-  expect(_objectIs(1, 1)).toBe(true)
-  expect(_objectIs(NaN, NaN)).toBe(true)
+  expect(_objectIs(1, 1)).toBeTrue()
+  expect(_objectIs(NaN, NaN)).toBeTrue()
 })
 
 test('identical', () => {
