@@ -2560,6 +2560,52 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 /*
+Method: partition
+
+Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+
+`input` can be either an object or an array unlike `Ramda` where only array is a valid input.
+
+Example:
+
+```
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2, c: 3}
+const predicate = x => x > 2
+
+const result = [
+  R.partition(predicate, list),
+  R.partition(predicate, obj)
+]
+const expected = [
+  [[3], [1, 2]],
+  [{c: 3},  {a: 1, b: 2}],
+]
+// `result` is equal to `expected`
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partition<T>(
+  predicate: Predicatex<T>,
+  input: T[]
+): [T[], T[]];
+export function partition<T>(
+  predicate: Predicatex<T>
+): (input: T[]) => [T[], T[]];
+export function partition<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partition<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+
+/*
 Method: path
 
 Explanation: If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
@@ -5171,45 +5217,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function once(fn: Func<any>): Func<any>;
-
-/*
-Method: partition
-
-Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
-
-`input` can be either an object or an array.
-
-Example:
-
-```
-const list = [1, 2, 3]
-const obj = {a: 1, b: 2, c: 3}
-const predicate = x => x > 2
-
-const result = [
-  R.partition(predicate, list),
-  R.partition(predicate, obj)
-]
-const expected = [
-  [[3], [1, 2]],
-  [{c: 3},  {a: 1, b: 2}],
-]
-// `result` is equal to `expected`
-```
-
-Categories: List, Object
-
-Notes: moveto TODO - improve typings
-
-*/
-// @SINGLE_MARKER
-export function partition<T>(
-  predicate: Predicatex<T>,
-  input: T[]
-): [T[], T[]];
-export function partition<T>(
-  predicate: Predicatex<T>
-): (input: T[]) => [T[], T[]];
 
 /*
 Method: pathEq

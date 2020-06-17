@@ -801,6 +801,26 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
 /**
+ * It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+ * 
+ * `input` can be either an object or an array unlike `Ramda` where only array is a valid input.
+ */
+export function partition<T>(
+  predicate: Predicatex<T>,
+  input: T[]
+): [T[], T[]];
+export function partition<T>(
+  predicate: Predicatex<T>
+): (input: T[]) => [T[], T[]];
+export function partition<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partition<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+
+/**
  * If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
  * 
  * It will return `undefined`, if such path is not found.

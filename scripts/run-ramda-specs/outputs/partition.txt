@@ -1,0 +1,30 @@
+
+
+  partition
+    ✓ splits a list into two lists according to a predicate
+    ✓ works with objects
+    1) works with other filterables
+
+
+  2 passing (57ms)
+  1 failing
+
+  1) partition
+       works with other filterables:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '[{}, {"value": 3}]'
+- '[Nothing(), Just(3)]'
+      + expected - actual
+
+      -[{}, {"value": 3}]
+      +[Nothing(), Just(3)]
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/partition.js:30:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

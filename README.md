@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 113 Ramda methods not implemented in Rambda 
+  Click to see the full list of 112 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -139,7 +139,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - otherwise
 - pair
 - partialRight
-- partition
 - pathEq
 - pathSatisfies
 - pickBy
@@ -11580,6 +11579,231 @@ test('ramda spec', () => {
 
 </details>
 
+### partition
+
+```typescript
+partition<T>(
+  predicate: Predicatex<T>,
+  input: T[]
+): [T[], T[]]
+```
+
+It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+
+`input` can be either an object or an array unlike `Ramda` where only array is a valid input.
+
+```javascript
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2, c: 3}
+const predicate = x => x > 2
+
+const result = [
+  R.partition(predicate, list),
+  R.partition(predicate, obj)
+]
+const expected = [
+  [[3], [1, 2]],
+  [{c: 3},  {a: 1, b: 2}],
+]
+// `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.partition(predicate%2C%20list)%2C%0A%20%20R.partition(predicate%2C%20obj)%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B3%5D%2C%20%5B1%2C%202%5D%5D%2C%0A%20%20%5B%7Bc%3A%203%7D%2C%20%20%7Ba%3A%201%2C%20b%3A%202%7D%5D%2C%0A%5D%0A%2F%2F%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.partition</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+partition<T>(
+  predicate: Predicatex<T>,
+  input: T[]
+): [T[], T[]];
+partition<T>(
+  predicate: Predicatex<T>
+): (input: T[]) => [T[], T[]];
+partition<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+partition<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.partition</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+
+function whenObject(predicate, input){
+  const yes = {}
+  const no = {}
+  Object.entries(input).forEach(([ prop, value ]) => {
+    if (predicate(value, prop)){
+      yes[ prop ] = value
+    } else {
+      no[ prop ] = value
+    }
+  })
+
+  return [ yes, no ]
+}
+
+export function partition(predicate, input){
+  if (arguments.length === 1){
+    return listHolder => partition(predicate, listHolder)
+  }
+  if (!_isArray(input)) return whenObject(predicate, input)
+
+  const yes = []
+  const no = []
+  let counter = -1
+
+  while (counter++ < input.length - 1){
+    if (predicate(input[ counter ], counter)){
+      yes.push(input[ counter ])
+    } else {
+      no.push(input[ counter ])
+    }
+  }
+
+  return [ yes, no ]
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { partition } from './partition'
+
+test('with array', () => {
+  const predicate = (x, i) => {
+    expect(typeof i).toBe('number')
+
+    return x > 2
+  }
+  const list = [ 1, 2, 3, 4 ]
+
+  const result = partition(predicate, list)
+  const expectedResult = [
+    [ 3, 4 ],
+    [ 1, 2 ],
+  ]
+
+  expect(result).toEqual(expectedResult)
+})
+
+test('with object', () => {
+  const predicate = (value, prop) => {
+    expect(typeof prop).toBe('string')
+
+    return value > 2
+  }
+  const hash = {
+    a : 1,
+    b : 2,
+    c : 3,
+    d : 4,
+  }
+
+  const result = partition(predicate)(hash)
+  const expectedResult = [
+    {
+      c : 3,
+      d : 4,
+    },
+    {
+      a : 1,
+      b : 2,
+    },
+  ]
+
+  expect(result).toEqual(expectedResult)
+})
+
+test('readme example', () => {
+  const list = [ 1, 2, 3 ]
+  const obj = {
+    a : 1,
+    b : 2,
+    c : 3,
+  }
+  const predicate = x => x > 2
+
+  const result = [ partition(predicate, list), partition(predicate, obj) ]
+  const expected = [
+    [ [ 3 ], [ 1, 2 ] ],
+    [
+      { c : 3 },
+      {
+        a : 1,
+        b : 2,
+      },
+    ],
+  ]
+  expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {partition} from 'rambda'
+
+describe('partition', () => {
+  it('with array', () => {
+    const predicate = (x: number, i: number) => {
+      return x > 2
+    }
+    const list = [ 1, 2, 3, 4 ]
+  
+    const result = partition(predicate, list)
+    const curriedResult = partition(predicate)(list)
+    result // $ExpectType [number[], number[]]
+    curriedResult // $ExpectType [number[], number[]]
+  })
+  
+  it('with object', () => {
+    const predicate = (value:number, prop?: string) => {
+  
+      return value > 2
+    }
+    const hash = {
+      a : 1,
+      b : 2,
+      c : 3,
+      d : 4,
+    }
+  
+    const result = partition(predicate, hash)
+    const curriedResult = partition(predicate)(hash)
+    result[0] // $ExpectType { [key: string]: number; }
+    result[1] // $ExpectType { [key: string]: number; }
+    curriedResult[0] // $ExpectType { [key: string]: number; }
+    curriedResult[1] // $ExpectType { [key: string]: number; }
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.partition specs*
+
+> :boom: Reason for the failure: ramda method supports fantasy land methods
+
 ### path
 
 ```typescript
@@ -17497,11 +17721,12 @@ describe('zipObj', () => {
 
 Add `R.mergeDeepRight`
 Add `R.mergeLeft`
+Add `R.mergeAll`
+Add `R.partition`
 
 waiting for:
 
 Add `R.whereEq`
-Add `R.mergeAll`
 Add `R.tryCatch`
 Add `R.where`
 Add `R.unless`

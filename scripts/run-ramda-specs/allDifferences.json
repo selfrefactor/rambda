@@ -131,6 +131,10 @@
     "count": 1,
     "reason": "ramda method works for primitives"
   },
+  "partition": {
+    "count": 1,
+    "reason": "ramda method supports fantasy land methods"
+  },
   "path": {
     "count": 1,
     "reason": "ramda method supports negative indices"

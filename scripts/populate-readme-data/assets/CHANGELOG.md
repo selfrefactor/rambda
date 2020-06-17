@@ -3,6 +3,7 @@
 Add `R.mergeDeepRight`
 Add `R.mergeLeft`
 Add `R.mergeAll`
+Add `R.partition`
 
 waiting for:
 
