@@ -11,6 +11,7 @@ test('happy', () => {
 
 test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
-  expect(safeInc(null)).toBeNull()
-  expect(safeInc(1)).toBe(2)
+  expect(safeIncCurried(null)).toBeNull()
+  expect(safeIncCurried(1)).toBe(2)
 })
+ 

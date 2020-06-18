@@ -1306,6 +1306,16 @@ export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyAr
 export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
 /**
+ * The method returns function that will be called with argument `input`.
+ * 
+ * If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
+ * 
+ * In the other case, the final output will be the `input` itself.
+ */
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+
+/**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
  */
 export function update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];

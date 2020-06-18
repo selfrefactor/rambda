@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 111 Ramda methods not implemented in Rambda 
+  Click to see the full list of 110 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -172,7 +172,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - union
 - unionWith
 - uniqBy
-- unless
 - unnest
 - until
 - useWith
@@ -16920,6 +16919,118 @@ describe('uniqWith', () => {
 
 </details>
 
+### unless
+
+```typescript
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U
+```
+
+The method returns function that will be called with argument `input`.
+
+If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
+
+In the other case, the final output will be the `input` itself.
+
+```javascript
+const fn = R.unless(
+  x => x > 2,
+  x => x + 10
+)
+
+const result = [
+  fn(1),
+  fn(5)
+]
+// => [11, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.unless(%0A%20%20x%20%3D%3E%20x%20%3E%202%2C%0A%20%20x%20%3D%3E%20x%20%2B%2010%0A)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(1)%2C%0A%20%20fn(5)%0A%5D%0A%2F%2F%20%3D%3E%20%5B11%2C%205%5D">Try the above <strong>R.unless</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.unless</strong> source</summary>
+
+```javascript
+export function unless(predicate, whenFalse){
+  if (arguments.length === 1){
+    return _whenFalse => unless(predicate, _whenFalse)
+  }
+
+  return input => {
+    if (predicate(input)) return input
+
+    return whenFalse(input)
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { inc } from './inc'
+import { isNil } from './isNil'
+import { unless } from './unless'
+
+const safeInc = unless(isNil, inc)
+
+test('happy', () => {
+  expect(safeInc(null)).toBeNull()
+  expect(safeInc(1)).toBe(2)
+})
+
+test('curried', () => {
+  const safeIncCurried = unless(isNil)(inc)
+  expect(safeIncCurried(null)).toBeNull()
+  expect(safeIncCurried(1)).toBe(2)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {unless, isNil, inc} from 'rambda'
+
+describe('unless', () => {
+  it('happy', () => {
+    const safeInc = unless<any,number>(isNil, inc)
+    const result = [safeInc(null), safeInc(1)]
+    result[0] // $ExpectType number
+    result[1] // $ExpectType number
+  })
+
+  it('it needs explicitly declared types', () => {
+    const safeInc = unless(x => x > 5, inc)
+    const result = safeInc(1)
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
+*4 failed Ramda.unless specs*
+
+> :boom: Reason for the failure: rambda doesn't have `R.of`
+
 ### update
 
 ```typescript
@@ -17855,13 +17966,13 @@ Add `R.mergeLeft`
 Add `R.mergeAll`
 Add `R.partition`
 Add `R.pathEq`
+Add `R.unless`
 
 waiting for:
 
 Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
-Add `R.unless`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
 

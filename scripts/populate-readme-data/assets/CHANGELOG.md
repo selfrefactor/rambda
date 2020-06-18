@@ -5,13 +5,13 @@ Add `R.mergeLeft`
 Add `R.mergeAll`
 Add `R.partition`
 Add `R.pathEq`
+Add `R.unless`
 
 waiting for:
 
 Add `R.whereEq`
 Add `R.tryCatch`
 Add `R.where`
-Add `R.unless`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
 

@@ -175,6 +175,10 @@
     "count": 1,
     "reason": "ramda returns 'Number' type to NaN input, while rambda returns 'NaN'"
   },
+  "unless": {
+    "count": 4,
+    "reason": "rambda doesn't have `R.of`"
+  },
   "uniq": {
     "count": 2,
     "reason": "ramda pass to `uniq` method | ramda method uses reference equality for functions"

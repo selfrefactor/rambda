@@ -4058,6 +4058,39 @@ export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyAr
 export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
 /*
+Method: unless
+
+Explanation: The method returns function that will be called with argument `input`.
+
+If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
+
+In the other case, the final output will be the `input` itself.
+
+Example:
+
+```
+const fn = R.unless(
+  x => x > 2,
+  x => x + 10
+)
+
+const result = [
+  fn(1),
+  fn(5)
+]
+// => [11, 5]
+```
+
+Categories: Logic, Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+
+/*
 Method: update
 
 Explanation: It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -5665,39 +5698,6 @@ export function tryCatch<T>(
   fn: any,
   fallback: any
 ): (...inputs: any[]) => Async<T> | T;
-
-/*
-Method: unless
-
-Explanation: The method returns function that will be called with argument `input`.
-
-If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`. 
-
-In the other case, the final output will be the `input` itself.
-
-Example:
-
-```
-const fn = R.unless(
-  x => x > 2,
-  x => x + 10
-)
-
-const result = [
-  fn(1),
-  fn(5)
-]
-// => [11, 5]
-```
-
-Categories: Logic, Function
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function unless<T, U>(predicate: (a: T) => boolean, whenFalseFn: (a: T) => U, obj: T): U;
-export function unless<T, U>(predicate: (a: T) => boolean, whenFalseFn: (a: T) => U): (obj: T) => U;
 
 /*
 Method: wait
