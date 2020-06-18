@@ -1,59 +1,59 @@
 {
   "adjust": {
     "count": 1,
-    "reason": "ramda accepts an array-like object"
+    "reason": "ramda method accepts an array-like object"
   },
   "allPass": {
     "count": 1,
-    "reason": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+    "reason": "ramda method returns a curried function whose arity matches that of the highest-arity predicate"
   },
   "anyPass": {
     "count": 1,
-    "reason": "ramda returns a curried function whose arity matches that of the highest-arity predicate"
+    "reason": "ramda method returns a curried function whose arity matches that of the highest-arity predicate"
   },
   "isEmpty": {
     "count": 1,
-    "reason": "ramda supports typed arrays"
+    "reason": "ramda method supports typed arrays"
   },
   "both": {
     "count": 1,
-    "reason": "ramda supports fantasy-land"
+    "reason": "ramda library supports fantasy-land"
   },
   "chain": {
     "count": 5,
-    "reason": "ramda passes to `chain` if available | ramda supports fantasy-land"
+    "reason": "ramda method passes to `chain` property if available | ramda library supports fantasy-land"
   },
   "either": {
     "count": 1,
-    "reason": "ramda supports fantasy-land"
+    "reason": "ramda library supports fantasy-land"
   },
   "complement": {
     "count": 1,
-    "reason": "ramda supports fantasy-land"
+    "reason": "ramda library supports fantasy-land"
   },
   "difference": {
     "count": 1,
-    "reason": "ramda supports negative zero"
+    "reason": "ramda method supports negative zero"
   },
   "compose": {
     "count": 3,
-    "reason": "ramda passes context to functions | rambda composed functions have no length"
+    "reason": "ramda method passes context to functions | rambda composed functions have no length"
   },
   "pipe": {
     "count": 3,
-    "reason": "ramda passes context to functions | rambda composed functions have no length"
+    "reason": "ramda method passes context to functions | rambda composed functions have no length"
   },
   "curry": {
     "count": 3,
-    "reason": "ramda support placeholder(R.__)"
+    "reason": "ramda library support placeholder(R.__)"
   },
   "concat": {
     "count": 1,
-    "reason": "ramda pass to concat method if present"
+    "reason": "ramda method pass to `concat` property if present"
   },
   "cond": {
     "count": 2,
-    "reason": "pass to transformer is not applied in rambda"
+    "reason": "pass to transformer is not applied in rambda method"
   },
   "dropLast": {
     "count": 5,
@@ -65,15 +65,15 @@
   },
   "endsWith": {
     "count": 4,
-    "reason": "rambda doesn't support arrays"
+    "reason": "rambda method doesn't support arrays"
   },
   "equals": {
     "count": 14,
-    "reason": "rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively"
+    "reason": "rambda method doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively"
   },
   "filter": {
     "count": 1,
-    "reason": "ramda dispatches to `filter` method of object"
+    "reason": "ramda method dispatches to `filter` method of object"
   },
   "flip": {
     "count": 4,
@@ -85,19 +85,19 @@
   },
   "groupBy": {
     "count": 1,
-    "reason": "ramda support transforms"
+    "reason": "ramda method support transforms"
   },
   "groupWith": {
     "count": 2,
-    "reason": "ramda support string"
+    "reason": "ramda method support string"
   },
   "has": {
     "count": 1,
-    "reason": "rambda does check properties from the prototype chain"
+    "reason": "rambda method does check properties from the prototype chain"
   },
   "ifElse": {
     "count": 2,
-    "reason": "rambda doesn't return a curried function"
+    "reason": "rambda method doesn't return a curried function"
   },
   "includes": {
     "count": 1,
@@ -109,7 +109,7 @@
   },
   "reduce": {
     "count": 2,
-    "reason": "rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method"
+    "reason": "rambda library doesn't have `R.reduced` method | ramda method pass to `reduce` method"
   },
   "reject": {
     "count": 1,
@@ -133,7 +133,7 @@
   },
   "partition": {
     "count": 1,
-    "reason": "ramda supports fantasy-land"
+    "reason": "ramda library supports fantasy-land"
   },
   "path": {
     "count": 1,
@@ -141,7 +141,7 @@
   },
   "pathEq": {
     "count": 1,
-    "reason": "ramda supports fantasy-land"
+    "reason": "ramda library supports fantasy-land"
   },
   "paths": {
     "count": 1,
@@ -157,35 +157,39 @@
   },
   "sortBy": {
     "count": 1,
-    "reason":"ramda works with array-like objects"
+    "reason":"ramda method works with array-like objects"
   },
   "take": {
     "count": 3,
-    "reason":"rambda doesn't have 'R.into` method"
+    "reason":"rambda library doesn't have 'R.into` method"
   },
   "tap": {
     "count": 2,
-    "reason":"ramda can act as a transducer"
+    "reason":"ramda method can act as a transducer"
   },
   "trim": {
     "count": 1,
-    "reason":"ramda trims all ES5 whitespace"
+    "reason":"ramda method trims all ES5 whitespace"
+  },
+  "tryCatch": {
+    "count": 1,
+    "reason":"ramda method returns a function with the same arity"
   },
   "type": {
     "count": 1,
-    "reason": "ramda returns 'Number' type to NaN input, while rambda returns 'NaN'"
+    "reason": "ramda method returns 'Number' type to NaN input, while rambda method returns 'NaN'"
   },
   "unless": {
     "count": 4,
-    "reason": "rambda doesn't have `R.of`"
+    "reason": "rambda library doesn't have `R.of`"
   },
   "uniq": {
     "count": 2,
-    "reason": "ramda pass to `uniq` method | ramda method uses reference equality for functions"
+    "reason": "ramda method pass to `uniq` method | ramda method uses reference equality for functions"
   },
   "update": {
     "count": 1,
-    "reason": "ramda accepts an array-like object"
+    "reason": "ramda method accepts an array-like object"
   },
   "without": {
     "count": 2,
@@ -193,10 +197,10 @@
   },
   "startsWith": {
     "count": 4,
-    "reason": "rambda doesn't support arrays"
+    "reason": "rambda method doesn't support arrays"
   },
   "xor": {
     "count": 1,
-    "reason": "ramda support empty call of method"
+    "reason": "ramda method support empty call of method"
   }
 }

@@ -505,7 +505,7 @@ test('when index is out of bounds', () => {
 
 <summary>1 failed <italic>Ramda.adjust</italic> specs
 
-> :boom: Reason for the failure: ramda accepts an array-like object
+> :boom: Reason for the failure: ramda method accepts an array-like object
 </summary>
 
 ```javascript
@@ -751,7 +751,7 @@ describe('allPass', () => {
 
 <summary>1 failed <italic>Ramda.allPass</italic> specs
 
-> :boom: Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
+> :boom: Reason for the failure: ramda method returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
 ```javascript
@@ -1145,7 +1145,7 @@ describe('anyPass', () => {
 
 <summary>1 failed <italic>Ramda.anyPass</italic> specs
 
-> :boom: Reason for the failure: ramda returns a curried function whose arity matches that of the highest-arity predicate
+> :boom: Reason for the failure: ramda method returns a curried function whose arity matches that of the highest-arity predicate
 </summary>
 
 ```javascript
@@ -2228,7 +2228,7 @@ describe('both + curry', () => {
 
 <summary>1 failed <italic>Ramda.both</italic> specs
 
-> :boom: Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda library supports fantasy-land
 </summary>
 
 ```javascript
@@ -2361,7 +2361,7 @@ describe('chain', () => {
 
 *5 failed Ramda.chain specs*
 
-> :boom: Reason for the failure: ramda passes to `chain` if available | ramda supports fantasy-land
+> :boom: Reason for the failure: ramda method passes to `chain` property if available | ramda library supports fantasy-land
 
 ### clamp
 
@@ -2763,7 +2763,7 @@ test('with multiple parameters', () => {
 
 <summary>1 failed <italic>Ramda.complement</italic> specs
 
-> :boom: Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda library supports fantasy-land
 </summary>
 
 ```javascript
@@ -2977,7 +2977,7 @@ describe('compose', () => {
 
 <summary>3 failed <italic>Ramda.compose</italic> specs
 
-> :boom: Reason for the failure: ramda passes context to functions | rambda composed functions have no length
+> :boom: Reason for the failure: ramda method passes context to functions | rambda composed functions have no length
 </summary>
 
 ```javascript
@@ -3106,7 +3106,7 @@ test('with strings', () => {
 
 <summary>1 failed <italic>Ramda.concat</italic> specs
 
-> :boom: Reason for the failure: ramda pass to concat method if present
+> :boom: Reason for the failure: ramda method pass to `concat` property if present
 </summary>
 
 ```javascript
@@ -3277,7 +3277,7 @@ describe('cond', () => {
 
 <summary>2 failed <italic>Ramda.cond</italic> specs
 
-> :boom: Reason for the failure: pass to transformer is not applied in rambda
+> :boom: Reason for the failure: pass to transformer is not applied in rambda method
 </summary>
 
 ```javascript
@@ -3528,7 +3528,7 @@ test('when called via multiple curry stages', () => {
 
 <summary>3 failed <italic>Ramda.curry</italic> specs
 
-> :boom: Reason for the failure: ramda support placeholder(R.__)
+> :boom: Reason for the failure: ramda library support placeholder(R.__)
 </summary>
 
 ```javascript
@@ -4173,7 +4173,7 @@ test('should use R.equals', () => {
 
 <summary>1 failed <italic>Ramda.difference</italic> specs
 
-> :boom: Reason for the failure: ramda supports negative zero
+> :boom: Reason for the failure: ramda method supports negative zero
 </summary>
 
 ```javascript
@@ -4698,7 +4698,7 @@ test('case 2', () => {
 
 <summary>1 failed <italic>Ramda.either</italic> specs
 
-> :boom: Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda library supports fantasy-land
 </summary>
 
 ```javascript
@@ -4788,7 +4788,7 @@ test('does not work with arrays', () => {
 
 <summary>4 failed <italic>Ramda.endsWith</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't support arrays
+> :boom: Reason for the failure: rambda method doesn't support arrays
 </summary>
 
 ```javascript
@@ -5196,7 +5196,7 @@ test('various examples', () => {
 
 <summary>14 failed <italic>Ramda.equals</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
+> :boom: Reason for the failure: rambda method doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | ramda dispatches to `equals` method recursively
 </summary>
 
 ```javascript
@@ -5662,7 +5662,7 @@ describe('filter with objects', () => {
 
 <summary>1 failed <italic>Ramda.filter</italic> specs
 
-> :boom: Reason for the failure: ramda dispatches to `filter` method of object
+> :boom: Reason for the failure: ramda method dispatches to `filter` method of object
 </summary>
 
 ```javascript
@@ -6771,7 +6771,7 @@ test('groupBy', () => {
 
 <summary>1 failed <italic>Ramda.groupBy</italic> specs
 
-> :boom: Reason for the failure: ramda support transforms
+> :boom: Reason for the failure: ramda method support transforms
 </summary>
 
 ```javascript
@@ -6989,7 +6989,7 @@ test('list with single item', () => {
 
 <summary>2 failed <italic>Ramda.groupWith</italic> specs
 
-> :boom: Reason for the failure: ramda support string
+> :boom: Reason for the failure: ramda method support string
 </summary>
 
 ```javascript
@@ -7086,7 +7086,7 @@ test('with non-object', () => {
 
 <summary>1 failed <italic>Ramda.has</italic> specs
 
-> :boom: Reason for the failure: rambda does check properties from the prototype chain
+> :boom: Reason for the failure: rambda method does check properties from the prototype chain
 </summary>
 
 ```javascript
@@ -7544,7 +7544,7 @@ test('curry 2', () => {
 
 <summary>2 failed <italic>Ramda.ifElse</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't return a curried function
+> :boom: Reason for the failure: rambda method doesn't return a curried function
 </summary>
 
 ```javascript
@@ -8534,7 +8534,7 @@ test('happy', () => {
 
 <summary>1 failed <italic>Ramda.isEmpty</italic> specs
 
-> :boom: Reason for the failure: ramda supports typed arrays
+> :boom: Reason for the failure: ramda method supports typed arrays
 </summary>
 
 ```javascript
@@ -11818,7 +11818,7 @@ describe('partition', () => {
 
 *1 failed Ramda.partition specs*
 
-> :boom: Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda library supports fantasy-land
 
 ### path
 
@@ -12143,7 +12143,7 @@ describe('path', () => {
 
 *1 failed Ramda.pathEq specs*
 
-> :boom: Reason for the failure: ramda supports fantasy-land
+> :boom: Reason for the failure: ramda library supports fantasy-land
 
 ### pathOr
 
@@ -13093,7 +13093,7 @@ test('with bad input', () => {
 
 <summary>3 failed <italic>Ramda.pipe</italic> specs
 
-> :boom: Reason for the failure: ramda passes context to functions | rambda composed functions have no length
+> :boom: Reason for the failure: ramda method passes context to functions | rambda composed functions have no length
 </summary>
 
 ```javascript
@@ -14111,7 +14111,7 @@ describe('reduce', () => {
 
 <summary>2 failed <italic>Ramda.reduce</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't have `R.reduced` method | ramda method pass to `reduce` method
+> :boom: Reason for the failure: rambda library doesn't have `R.reduced` method | ramda method pass to `reduce` method
 </summary>
 
 ```javascript
@@ -14956,7 +14956,7 @@ describe('sortBy', () => {
 
 <summary>1 failed <italic>Ramda.sortBy</italic> specs
 
-> :boom: Reason for the failure: ramda works with array-like objects
+> :boom: Reason for the failure: ramda method works with array-like objects
 </summary>
 
 ```javascript
@@ -15209,7 +15209,7 @@ test('false', () => {
 
 <summary>4 failed <italic>Ramda.startsWith</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't support arrays
+> :boom: Reason for the failure: rambda method doesn't support arrays
 </summary>
 
 ```javascript
@@ -15612,7 +15612,7 @@ test('with zero index', () => {
 
 <summary>3 failed <italic>Ramda.take</italic> specs
 
-> :boom: Reason for the failure: rambda doesn't have 'R.into` method
+> :boom: Reason for the failure: rambda library doesn't have 'R.into` method
 </summary>
 
 ```javascript
@@ -15809,7 +15809,7 @@ test('tap', () => {
 
 <summary>2 failed <italic>Ramda.tap</italic> specs
 
-> :boom: Reason for the failure: ramda can act as a transducer
+> :boom: Reason for the failure: ramda method can act as a transducer
 </summary>
 
 ```javascript
@@ -16350,7 +16350,7 @@ test('trim', () => {
 
 <summary>1 failed <italic>Ramda.trim</italic> specs
 
-> :boom: Reason for the failure: ramda trims all ES5 whitespace
+> :boom: Reason for the failure: ramda method trims all ES5 whitespace
 </summary>
 
 ```javascript
@@ -16446,7 +16446,7 @@ export function tryCatch(fn, fallback){
       try {
         return fn(...inputs)
       } catch (e){
-        return passFallback ? fallback(...inputs) : fallback
+        return passFallback ? fallback(e, ...inputs) : fallback
       }
     }
   }
@@ -16504,7 +16504,7 @@ test('with json parse', () => {
 test('when fallback is function', () => {
   const fn = x => x.x
 
-  expect(tryCatch(fn, x => x)(null)).toBe(null)
+  expect(tryCatch(fn, () => 1)(null)).toBe(1)
 })
 
 test('when fn is used', () => {
@@ -16512,6 +16512,43 @@ test('when fn is used', () => {
 
   expect(tryCatch(fn, false)({})).toBe(undefined)
   expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
+})
+
+test('fallback receives error object and all initial inputs', () => {
+  function thrower(
+    a, b, c
+  ){
+    void c
+    throw new Error('throwerError')
+  }
+
+  function catchFn(
+    e, a, b, c
+  ){
+    return [ e.message, a, b, c ].join('|')
+  }
+
+  const willThrow = tryCatch(thrower, catchFn)
+  const result = willThrow(
+    'A', 'B', 'C'
+  )
+  expect(result).toBe('throwerError|A|B|C')
+})
+
+test('fallback receives error object', () => {
+  function throwFn(){
+    throw new Error(10)
+  }
+
+  function eCatcher(
+    e, a, b
+  ){
+    return e.message
+  }
+
+  const willThrow = tryCatch(throwFn, eCatcher)
+  expect(willThrow([])).toBe('10')
+  expect(willThrow([ {}, {}, {} ])).toBe('10')
 })
 
 test('when async + fallback', async () => {
@@ -16623,6 +16660,10 @@ describe('tryCatch', () => {
 ```
 
 </details>
+
+*1 failed Ramda.tryCatch specs*
+
+> :boom: Reason for the failure: ramda method returns a function with the same arity
 
 ### type
 
@@ -16827,7 +16868,7 @@ test('function inside object 2', () => {
 
 <summary>1 failed <italic>Ramda.type</italic> specs
 
-> :boom: Reason for the failure: ramda returns 'Number' type to NaN input, while rambda returns 'NaN'
+> :boom: Reason for the failure: ramda method returns 'Number' type to NaN input, while rambda method returns 'NaN'
 </summary>
 
 ```javascript
@@ -16937,7 +16978,7 @@ describe('uniq', () => {
 
 <summary>2 failed <italic>Ramda.uniq</italic> specs
 
-> :boom: Reason for the failure: ramda pass to `uniq` method | ramda method uses reference equality for functions
+> :boom: Reason for the failure: ramda method pass to `uniq` method | ramda method uses reference equality for functions
 </summary>
 
 ```javascript
@@ -17294,7 +17335,7 @@ describe('unless', () => {
 
 *4 failed Ramda.unless specs*
 
-> :boom: Reason for the failure: rambda doesn't have `R.of`
+> :boom: Reason for the failure: rambda library doesn't have `R.of`
 
 ### update
 
@@ -17406,7 +17447,7 @@ describe('update', () => {
 
 <summary>1 failed <italic>Ramda.update</italic> specs
 
-> :boom: Reason for the failure: ramda accepts an array-like object
+> :boom: Reason for the failure: ramda method accepts an array-like object
 </summary>
 
 ```javascript
@@ -17969,7 +18010,7 @@ describe('xor', () => {
 
 <summary>1 failed <italic>Ramda.xor</italic> specs
 
-> :boom: Reason for the failure: ramda support empty call of method
+> :boom: Reason for the failure: ramda method support empty call of method
 </summary>
 
 ```javascript
