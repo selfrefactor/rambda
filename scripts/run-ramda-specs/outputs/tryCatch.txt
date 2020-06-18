@@ -5,11 +5,11 @@
     1) returns a function with the same arity as the `tryer` function
     ✓ returns the value of the first function if it does not throw
     ✓ returns the value of the second function if the first function throws
-    2) the second function gets passed the error object and the same arguments as the first function
+    ✓ the second function gets passed the error object and the same arguments as the first function
 
 
-  3 passing (54ms)
-  2 failing
+  4 passing (58ms)
+  1 failing
 
   1) tryCatch
        returns a function with the same arity as the `tryer` function:
@@ -25,24 +25,6 @@
       
       at strictEqual (test/shared/eq.js:8:10)
       at Context.eq (test/tryCatch.js:26:5)
-      at processImmediate (internal/timers.js:456:21)
-
-  2) tryCatch
-       the second function gets passed the error object and the same arguments as the first function:
-
-      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-+ actual - expected
-
-+ '"throwerError   "'
-- '"throwerError A B C"'
-                 ^
-      + expected - actual
-
-      -"throwerError   "
-      +"throwerError A B C"
-      
-      at strictEqual (test/shared/eq.js:8:10)
-      at Context.eq (test/tryCatch.js:65:5)
       at processImmediate (internal/timers.js:456:21)
 
 

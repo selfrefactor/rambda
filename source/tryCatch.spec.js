@@ -35,18 +35,41 @@ test('when fn is used', () => {
   expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
 })
 
-test('ramda', () => {
-  function throw10(){
+test('fallback receives error object and all initial inputs', () => {
+  function thrower(
+    a, b, c
+  ){
+    void c
+    throw new Error('throwerError')
+  }
+
+  function catchFn(
+    e, a, b, c
+  ){
+    return [ e.message, a, b, c ].join('|')
+  }
+
+  const willThrow = tryCatch(thrower, catchFn)
+  const result = willThrow(
+    'A', 'B', 'C'
+  )
+  expect(result).toBe('throwerError|A|B|C')
+})
+
+test('fallback receives error object', () => {
+  function throwFn(){
     throw new Error(10)
   }
 
-  function eCatcher(e){
-    return Number(e.message)
+  function eCatcher(
+    e, a, b
+  ){
+    return e.message
   }
 
-  const willThrow = tryCatch(throw10, eCatcher)
-  expect(willThrow([])).toBe(10)
-  expect(willThrow([ {}, {}, {} ])).toBe(10)
+  const willThrow = tryCatch(throwFn, eCatcher)
+  expect(willThrow([])).toBe('10')
+  expect(willThrow([ {}, {}, {} ])).toBe('10')
 })
 
 test('when async + fallback', async () => {

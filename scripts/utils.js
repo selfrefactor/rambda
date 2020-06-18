@@ -42,6 +42,11 @@ export async function build(){
   await spawn({
     cwd     : resolve(__dirname, '../'),
     command : 'yarn',
+    inputs  : [ 'out' ],
+  })
+  await spawn({
+    cwd     : resolve(__dirname, '../'),
+    command : 'yarn',
     inputs  : [ 'build' ],
   })
 }
