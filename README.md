@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 110 Ramda methods not implemented in Rambda 
+  Click to see the full list of 109 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -164,7 +164,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - toPairsIn
 - transduce
 - traverse
-- tryCatch
 - unapply
 - unary
 - uncurryN
@@ -16359,6 +16358,253 @@ describe('trim', function() {
 
 </details>
 
+### tryCatch
+
+```typescript
+tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: U
+): (input: T) => U
+```
+
+It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
+
+Please check the tests of `R.tryCatch` to fully understand how this method works.
+
+```javascript
+const fn = x => x.foo
+
+const result = [
+  R.tryCatch(fn, false)(null),
+  R.tryCatch(fn, false)({foo: 'bar'})
+]
+// => [false, 'bar']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x.foo%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.tryCatch(fn%2C%20false)(null)%2C%0A%20%20R.tryCatch(fn%2C%20false)(%7Bfoo%3A%20'bar'%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20'bar'%5D">Try the above <strong>R.tryCatch</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: U
+): (input: T) => U;
+tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: (input: T) => U
+): (input: T) => U;
+tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: T
+): (input: any) => Promise<T>;
+tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: (input: any) => Promise<any>,
+): (input: any) => Promise<T>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.tryCatch</strong> source</summary>
+
+```javascript
+import { isFunction } from './isFunction'
+import { isPromise } from './isPromise'
+
+export function tryCatch(fn, fallback){
+  if (!isFunction(fn)){
+    throw new Error(`R.tryCatch | fn '${ fn }'`)
+  }
+  const passFallback = isFunction(fallback)
+
+  if (!isPromise(fn)){
+    return (...inputs) => {
+      try {
+        return fn(...inputs)
+      } catch (e){
+        return passFallback ? fallback(...inputs) : fallback
+      }
+    }
+  }
+
+  return (...inputs) =>
+    new Promise(resolve => {
+      fn(...inputs)
+        .then(resolve)
+        .catch(() => {
+          if (!passFallback){
+            return resolve(fallback)
+          }
+
+          if (!isPromise(fallback)){
+            return resolve(fallback(...inputs))
+          }
+
+          fallback(...inputs).then(resolve)
+        })
+    })
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { delay } from './delay'
+import { prop } from './prop'
+import { tryCatch } from './tryCatch'
+
+test('throws when fn is not function', () => {
+  const fn = 'foo'
+
+  expect(() => tryCatch(fn, false)(null)).toThrow('R.tryCatch | fn \'foo\'')
+})
+
+test('when fallback is used', () => {
+  const fn = x => x.x
+
+  expect(tryCatch(fn, false)(null)).toBeFalse()
+})
+
+test('with json parse', () => {
+  const good = () => JSON.parse(JSON.stringify({ a : 1 }))
+  const bad = () => JSON.parse('a{a')
+
+  expect(tryCatch(good, 1)(null)).toEqual({ a : 1 })
+  expect(tryCatch(bad, 1)(null)).toBe(1)
+})
+
+test('when fallback is function', () => {
+  const fn = x => x.x
+
+  expect(tryCatch(fn, x => x)(null)).toBe(null)
+})
+
+test('when fn is used', () => {
+  const fn = prop('x')
+
+  expect(tryCatch(fn, false)({})).toBe(undefined)
+  expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
+})
+
+test('when async + fallback', async () => {
+  let called = false
+
+  const fn = async input => {
+    await delay(input)
+    called = true
+
+    return JSON.parse('{a:')
+  }
+
+  expect(await tryCatch(fn, 'fallback')(100)).toBe('fallback')
+  expect(called).toBeTrue()
+})
+
+test('when async + fallback is function', async () => {
+  let called = false
+
+  const fn = async input => {
+    await delay(input)
+    called = true
+
+    return JSON.parse('{a:')
+  }
+
+  expect(await tryCatch(fn, x => x + 1)(100)).toBe(101)
+  expect(called).toBeTrue()
+})
+
+test('when async + fallback is async', async () => {
+  let called = false
+  const fn = async input => {
+    await delay(input)
+    called = true
+
+    return JSON.parse('{a:')
+  }
+  const fallback = async input => {
+    await delay(10)
+
+    return input + 1
+  }
+
+  expect(await tryCatch(fn, fallback)(100)).toBe(101)
+  expect(called).toBeTrue()
+})
+
+test('when async + fn', async () => {
+  let called = false
+
+  const fn = async input => {
+    await delay(input)
+    called = true
+
+    return input + 1
+  }
+
+  expect(await tryCatch(fn, 'fallback')(100)).toBe(101)
+  expect(called).toBeTrue()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {tryCatch, delay} from 'rambda'
+
+describe('tryCatch', () => {
+  it('synchronous', () => {
+    const fn = (x: any) => x.x === 1
+
+    const result = tryCatch(fn, false)(null)
+    result // $ExpectType boolean
+  })
+  it('synchronous + fallback is function', () => {
+    const fn = (x: any) => typeof x.x
+    const fallback = (x: any) => typeof x
+    const result = tryCatch<any, string>(fn, fallback)(null)
+    result // $ExpectType string
+  })
+
+  it('asynchronous', async () => {
+    const fn = async (input: any) => {
+  
+      return typeof JSON.parse('{a:')
+    }
+    const result = await tryCatch<string>(fn, 'fallback')(100)
+    result // $ExpectType string
+  })
+
+  it('asynchronous + fallback is asynchronous', async () => {
+    const fn = async (input: any) => {
+      await delay(100)
+      return JSON.parse(`{a:${input}`)
+    }
+    const fallback = async (input: any) => {
+      await delay(100)
+      return 'foo'
+    }
+    const result = await tryCatch<string>(fn, fallback)(100)
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
 ### type
 
 ```typescript
@@ -17967,11 +18213,11 @@ Add `R.mergeAll`
 Add `R.partition`
 Add `R.pathEq`
 Add `R.unless`
+Add `R.tryCatch`
 
 waiting for:
 
 Add `R.whereEq`
-Add `R.tryCatch`
 Add `R.where`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5

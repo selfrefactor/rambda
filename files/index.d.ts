@@ -3964,6 +3964,48 @@ Notes:
 export function trim(str: string): string;
 
 /*
+Method: tryCatch
+
+Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
+
+Please check the tests of `R.tryCatch` to fully understand how this method works.
+
+Example:
+
+```
+const fn = x => x.foo
+
+const result = [
+  R.tryCatch(fn, false)(null),
+  R.tryCatch(fn, false)({foo: 'bar'})
+]
+// => [false, 'bar']
+```
+
+Categories: Async, Function
+
+Notes: There are significant differences between `Ramda.tryCatch` is its `Rambda` implementation, so be aware of this, when you are using this method. moveto
+
+*/
+// @SINGLE_MARKER
+export function tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: U
+): (input: T) => U;
+export function tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: (input: T) => U
+): (input: T) => U;
+export function tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: T
+): (input: any) => Promise<T>;
+export function tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: (input: any) => Promise<any>,
+): (input: any) => Promise<T>;
+
+/*
 Method: type
 
 Explanation: It accepts any input and it returns its type.
@@ -5668,36 +5710,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function toDecimal(num: number, charsAfterDecimalPoint?: number): number;
-
-/*
-Method:
-
-Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
-
-Please check the tests of `R.tryCatch` to fully understand how this method works.
-
-Example:
-
-```
-const fn = x => x.foo
-
-const result = [
-  R.tryCatch(fn, false)(null),
-  R.tryCatch(fn, false)({foo: 'bar'})
-]
-// => [false, 'bar']
-```
-
-Categories: Async, Function
-
-Notes: There are significant differences between `Ramda.tryCatch` is its `Rambda` implementation, so be aware of this, when you are using this method. moveto
-
-*/
-// @SINGLE_MARKER
-export function tryCatch<T>(
-  fn: any,
-  fallback: any
-): (...inputs: any[]) => Async<T> | T;
 
 /*
 Method: wait

@@ -1,0 +1,45 @@
+
+
+  tryCatch
+    1) takes two functions and return a function
+    2) returns a function with the same arity as the `tryer` function
+    3) returns the value of the first function if it does not throw
+    4) returns the value of the second function if the first function throws
+    5) the second function gets passed the error object and the same arguments as the first function
+
+
+  0 passing (85ms)
+  5 failing
+
+  1) tryCatch
+       takes two functions and return a function:
+     TypeError: R.tryCatch is not a function
+      at Context.tryCatch (test/tryCatch.js:16:22)
+      at processImmediate (internal/timers.js:456:21)
+
+  2) tryCatch
+       returns a function with the same arity as the `tryer` function:
+     TypeError: R.tryCatch is not a function
+      at Context.tryCatch (test/tryCatch.js:26:10)
+      at processImmediate (internal/timers.js:456:21)
+
+  3) tryCatch
+       returns the value of the first function if it does not throw:
+     TypeError: R.tryCatch is not a function
+      at Context.tryCatch (test/tryCatch.js:33:22)
+      at processImmediate (internal/timers.js:456:21)
+
+  4) tryCatch
+       returns the value of the second function if the first function throws:
+     TypeError: R.tryCatch is not a function
+      at Context.tryCatch (test/tryCatch.js:46:22)
+      at processImmediate (internal/timers.js:456:21)
+
+  5) tryCatch
+       the second function gets passed the error object and the same arguments as the first function:
+     TypeError: R.tryCatch is not a function
+      at Context.tryCatch (test/tryCatch.js:64:22)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

@@ -1290,6 +1290,28 @@ export function transpose<T>(list: T[][]): T[][];
 export function trim(str: string): string;
 
 /**
+ * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
+ * 
+ * Please check the tests of `R.tryCatch` to fully understand how this method works.
+ */
+export function tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: U
+): (input: T) => U;
+export function tryCatch<T, U>(
+  fn: (input: T) => U,
+  fallback: (input: T) => U
+): (input: T) => U;
+export function tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: T
+): (input: any) => Promise<T>;
+export function tryCatch<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: (input: any) => Promise<any>,
+): (input: any) => Promise<T>;
+
+/**
  * It accepts any input and it returns its type.
  */
 export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
