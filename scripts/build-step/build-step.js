@@ -9,13 +9,13 @@ import { scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { filter, mapAsync, pick, pipedAsync, remove } from 'rambdax'
 
-import { devDependencies } from '../../package'
+import { devDependencies } from '../../package.json'
 import { getRambdaMethods } from '../utils'
 import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method
 // ============================================
-const rambdaxMethodsAsInternals = [ 'isFunction' ]
+const rambdaxMethodsAsInternals = [ 'isFunction', 'isPromise' ]
 
 async function createMainFile({ allMethods, dir }){
   const content = allMethods

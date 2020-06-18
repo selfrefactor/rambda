@@ -12,7 +12,7 @@ export function tryCatch(fn, fallback){
       try {
         return fn(...inputs)
       } catch (e){
-        return passFallback ? fallback(...inputs) : fallback
+        return passFallback ? fallback(e) : fallback
       }
     }
   }

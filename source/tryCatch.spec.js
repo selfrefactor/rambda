@@ -25,7 +25,7 @@ test('with json parse', () => {
 test('when fallback is function', () => {
   const fn = x => x.x
 
-  expect(tryCatch(fn, x => x)(null)).toBe(null)
+  expect(tryCatch(fn, () => 1)(null)).toBe(1)
 })
 
 test('when fn is used', () => {
@@ -33,6 +33,20 @@ test('when fn is used', () => {
 
   expect(tryCatch(fn, false)({})).toBe(undefined)
   expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
+})
+
+test('ramda', () => {
+  function throw10(){
+    throw new Error(10)
+  }
+
+  function eCatcher(e){
+    return Number(e.message)
+  }
+
+  const willThrow = tryCatch(throw10, eCatcher)
+  expect(willThrow([])).toBe(10)
+  expect(willThrow([ {}, {}, {} ])).toBe(10)
 })
 
 test('when async + fallback', async () => {
