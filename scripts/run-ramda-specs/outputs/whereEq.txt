@@ -1,0 +1,51 @@
+
+
+  whereEq
+    ✓ returns true if the test object satisfies the spec
+    ✓ does not need the spec and the test object to have the same interface (the test object will have a superset of the specs properties)
+    ✓ matches specs that have undefined properties
+    ✓ is true for an empty spec
+    1) reports true when the object equals the spec
+    ✓ matches inherited props
+    2) does not match inherited spec
+
+
+  5 passing (55ms)
+  2 failing
+
+  1) whereEq
+       reports true when the object equals the spec:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'false'
+- 'true'
+      + expected - actual
+
+      -false
+      +true
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/whereEq.js:45:5)
+      at processImmediate (internal/timers.js:456:21)
+
+  2) whereEq
+       does not match inherited spec:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'false'
+- 'true'
+      + expected - actual
+
+      -false
+      +true
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/whereEq.js:63:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

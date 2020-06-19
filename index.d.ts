@@ -1357,6 +1357,12 @@ export function when<T>(
 ): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
 /**
+ * It will return `true` if all of `input` object fully or partially include `rule` object.
+ */
+export function whereEq<T, U>(condition: T, input: U): boolean;
+export function whereEq<T>(condition: T): <U>(input: U) => boolean;
+
+/**
  * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
  */
 export function without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[];

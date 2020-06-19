@@ -2,9 +2,9 @@
 
 4.0.0
 
-Move the following methods to `Rambda` and change their logic to match `Ramda` implementation(if necessary):
+Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
-- `R.hasPath`(already there)
+- `R.hasPath`
 
 The rest will need `Ramda` compatibility specs to be started again
 
@@ -16,21 +16,22 @@ The rest will need `Ramda` compatibility specs to be started again
 
 Deprecate the following methods:
 
-- `R.s`
-- `R.toggle`
 - `R.composed`
-- `R.pushUniq`
 - `R.defaultToStrict`
 - `R.findInObject`
 - `R.headObject`
 - `R.includesType`
 - `R.inject`
 - `R.isAttach`
+- `R.mergeRight`
 - `R.opposite`
 - `R.otherwise`
+- `R.pushUniq`
 - `R.resolve` ?
+- `R.s`
+- `R.toggle`
+- `R.uuid`
 - `R.whenAsync`
-- `R.mergeRight`
 
 Also these changes:
 

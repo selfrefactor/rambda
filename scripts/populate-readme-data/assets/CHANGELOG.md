@@ -7,12 +7,12 @@ Add `R.partition`
 Add `R.pathEq`
 Add `R.unless`
 Add `R.tryCatch`
+Add `R.whereEq`
 
 - Add `R.last` typing for empty array
 
 waiting for:
 
-Add `R.whereEq`
 Add `R.where`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5

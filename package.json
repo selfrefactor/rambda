@@ -76,7 +76,7 @@
   "module": "./dist/rambda.esm.js",
   "umd": "./dist/rambda.umd.js",
   "sideEffects": false,
-  "commitLabels":[
+  "commitLabels": [
     "rambdax"
   ],
   "keywords": [
