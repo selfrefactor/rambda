@@ -587,10 +587,11 @@ export function keys<T extends object>(x: T): (keyof T)[];
 export function keys<T>(x: T): string[];
 
 /**
- * It returns the last element of `listOrString`.
+ * It returns the last element of `input`, as the `input` can be either a string or an array.
  */
-export function last<T>(listOrString: T[]): T | undefined;
-export function last(listOrString: string): string;
+export function last(str: string): string;
+export function last(emptyList: readonly []): undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.

@@ -1767,7 +1767,7 @@ export function keys<T>(x: T): string[];
 /*
 Method: last
 
-Explanation: It returns the last element of `listOrString`.
+Explanation: It returns the last element of `input`, as the `input` can be either a string or an array.
 
 Example:
 
@@ -1785,8 +1785,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last<T>(listOrString: T[]): T | undefined;
-export function last(listOrString: string): string;
+export function last(str: string): string;
+export function last(emptyList: readonly []): undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /*
 Method: lastIndexOf

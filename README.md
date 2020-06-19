@@ -2931,7 +2931,6 @@ test('ramda spec', () => {
 
 ```typescript
 import {add, subtract, compose} from 'rambda'
-// import { kebabCase } from 'string-fn';
 
 describe('compose', () => {
   it('happy', () => {
@@ -2950,24 +2949,6 @@ describe('compose', () => {
     )();
     result // $ExpectType void
   })
-
-  // TODO
-  /*
-  it('example', () => {
-    const label = compose(
-      kebabCase,
-      last,
-      split('/')
-    )(url)
-
-    const result = compose(
-      kebabCase,
-      (x: string[]) => x[0],
-      (x: string) => x.split('/')
-    )('url')
-    result // $ExpectType void
-  })
-  */
 })
 ```
 
@@ -8759,10 +8740,10 @@ describe('keys', function() {
 ### last
 
 ```typescript
-last<T>(listOrString: T[]): T | undefined
+last(str: string): string
 ```
 
-It returns the last element of `listOrString`.
+It returns the last element of `input`, as the `input` can be either a string or an array.
 
 ```javascript
 const result = [
@@ -8779,8 +8760,9 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-last<T>(listOrString: T[]): T | undefined;
-last(listOrString: string): string;
+last(str: string): string;
+last(emptyList: readonly []): undefined;
+last<T extends any>(list: readonly T[]): T | undefined;
 ```
 
 </details>
@@ -8813,6 +8795,33 @@ test('happy', () => {
   expect(last([])).toEqual(undefined)
   expect(last('abc')).toEqual('c')
   expect(last('')).toEqual('')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {last} from 'rambda'
+
+describe('R.last', () => {
+  it('string', () => {
+    const result = last('foo')
+    result // $ExpectType string
+  })
+
+  it('array', () => {
+    const result = last([1, 2, 3])
+    result // $ExpectType number | undefined
+  })
+
+  it('empty array', () => {
+    const result = last([])
+    result // $ExpectType undefined
+  })
 })
 ```
 
@@ -18274,6 +18283,8 @@ Add `R.partition`
 Add `R.pathEq`
 Add `R.unless`
 Add `R.tryCatch`
+
+- Add `R.last` typing for empty array
 
 waiting for:
 

@@ -8,6 +8,8 @@ Add `R.pathEq`
 Add `R.unless`
 Add `R.tryCatch`
 
+- Add `R.last` typing for empty array
+
 waiting for:
 
 Add `R.whereEq`
