@@ -76,6 +76,9 @@
   "module": "./dist/rambda.esm.js",
   "umd": "./dist/rambda.umd.js",
   "sideEffects": false,
+  "commitLabels":[
+    "rambdax"
+  ],
   "keywords": [
     "ramda",
     "fp",
