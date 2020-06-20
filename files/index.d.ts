@@ -5796,10 +5796,25 @@ Notes:
 */
 // @SINGLE_MARKER
 export function waitFor(
-  waitForTrueCondition: () => any | Promise<any>,
+  waitForTrueCondition: () => boolean,
   howLong: number,
   loops?: number
-): (input?: any) => Promise<any>;
+): () => Promise<boolean>;
+export function waitFor(
+  waitForTrueCondition: () => Promise<boolean>,
+  howLong: number,
+  loops?: number
+): () => Promise<boolean>;
+export function waitFor<T>(
+  waitForTrueCondition: (input: T) => Promise<boolean>,
+  howLong: number,
+  loops?: number
+): (input: T) => Promise<boolean>;
+export function waitFor<T>(
+  waitForTrueCondition: (input: T) => boolean,
+  howLong: number,
+  loops?: number
+): (input: T) => Promise<boolean>;
 
 // RAMBDAX_MARKER_END
 // ============================================

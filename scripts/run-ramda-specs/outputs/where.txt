@@ -9,7 +9,7 @@
     2) does not match inherited spec
 
 
-  4 passing (54ms)
+  4 passing (63ms)
   2 failing
 
   1) where
