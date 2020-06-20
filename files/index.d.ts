@@ -5504,25 +5504,6 @@ Notes:
 export function random(minInclusive: number, maxInclusive: number): number;
 
 /*
-Method: randomString
-
-Explanation:
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function randomString(length?: number, alphabetOnlyFlag?: boolean): string;
-
-/*
 Method: remove
 
 Explanation: It will remove all `toRemove` entries from `text` sequentially. 
