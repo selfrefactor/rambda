@@ -135,8 +135,8 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 
 */
 // @SINGLE_MARKER
-export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
+export function add(a: number, b: number): number;
 
 /*
 Method: adjust
@@ -161,8 +161,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
-export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+export function adjust<T>(index: number, replaceFn: (x: T) => T, list: ReadonlyArray<T>): T[];
+export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: ReadonlyArray<T>) => T[];
 
 /*
 Method: all
@@ -5732,7 +5732,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function throttle<T>(fn: T, ms: number): (input: T) => T;
+export function throttle<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
+export function throttle<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
+export function throttle<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
 
 /*
 Method: toDecimal
@@ -5745,7 +5747,7 @@ Example:
 R.toDecimal(2.45464,2) // => 2.45
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
