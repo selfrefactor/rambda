@@ -5772,7 +5772,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function wait<T>(fn: Async<T>): Promise<[T, Error]>;
+export function wait<T>(fn: Promise<T>): Promise<[T, Error|undefined]>;
+export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined]>;
 
 /*
 Method: waitFor
@@ -5786,7 +5787,17 @@ Otherwise, `R.waitFor` will return `false`.
 Example:
 
 ```
+const howLong = 1000
+let counter = 0
+const waitForTrueCondition = async x => {
+  await R.delay(100)
+  counter = counter + x
 
+  return counter > 10
+}
+
+const result = await R.waitFor(waitForTrueCondition, howLong)(2)
+// => true
 ```
 
 Categories: Async, Logic
