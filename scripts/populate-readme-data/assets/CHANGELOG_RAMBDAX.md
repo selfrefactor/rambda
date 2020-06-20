@@ -5,9 +5,6 @@
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
 - `R.hasPath`
-
-The rest will need `Ramda` compatibility specs to be started again
-
 - `R.unless`
 - `R.pathEq`
 - `R.tryCatch`
@@ -46,6 +43,8 @@ Also these changes:
 - Change how Typescript definitions are exported
 
 - Take `R.partialCurry` from `Rambda` as it is deprecated there
+
+- Fix many typings due to `dtslint` tests
 
 3.7.0
 
