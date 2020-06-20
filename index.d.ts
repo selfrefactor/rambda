@@ -1357,6 +1357,14 @@ export function when<T>(
 ): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
 
 /**
+ * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
+ */
+export function where<T, U>(conditions: T, input: U): boolean;
+export function where<T>(conditions: T): <U>(input: U) => boolean;
+export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+
+/**
  * It will return `true` if all of `input` object fully or partially include `rule` object.
  */
 export function whereEq<T, U>(condition: T, input: U): boolean;

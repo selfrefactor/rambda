@@ -199,6 +199,10 @@
     "count": 4,
     "reason": "Rambda method doesn't support arrays"
   },
+  "where": {
+    "count": 2,
+    "reason": "Ramba method looks inside `prototype` property"
+  },
   "whereEq": {
     "count": 2,
     "reason": "Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions"

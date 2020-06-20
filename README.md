@@ -69,7 +69,7 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 
 <details>
 <summary>
-  Click to see the full list of 108 Ramda methods not implemented in Rambda 
+  Click to see the full list of 107 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -175,7 +175,6 @@ Still, you need to be aware that due to [variadic arguments Typescript proposal]
 - until
 - useWith
 - valuesIn
-- where
 - xprod
 - zipWith
 - thunkify
@@ -17786,6 +17785,137 @@ describe('when', () => {
 
 </details>
 
+### where
+
+```typescript
+where<T, U>(conditions: T, input: U): boolean
+```
+
+It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
+
+```javascript
+const condition = R.where({
+  a : x => typeof x === "string",
+  b : x => x === 4
+})
+const input = {
+  a : "foo",
+  b : 4,
+  c : 11,
+}
+
+const result = condition(input) 
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20condition%20%3D%20R.where(%7B%0A%20%20a%20%3A%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20%22string%22%2C%0A%20%20b%20%3A%20x%20%3D%3E%20x%20%3D%3D%3D%204%0A%7D)%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%3A%20%22foo%22%2C%0A%20%20b%20%3A%204%2C%0A%20%20c%20%3A%2011%2C%0A%7D%0A%0Aconst%20result%20%3D%20condition(input)%20%0A%2F%2F%20%3D%3E%20true">Try the above <strong>R.where</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+where<T, U>(conditions: T, input: U): boolean;
+where<T>(conditions: T): <U>(input: U) => boolean;
+where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.where</strong> source</summary>
+
+```javascript
+export function where(conditions, input){
+  if (input === undefined){
+    return _input => where(conditions, _input)
+  }
+  let flag = true
+  for (const prop in conditions){
+    const result = conditions[ prop ](input[ prop ])
+    if (flag && result === false){
+      flag = false
+    }
+  }
+
+  return flag
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { equals } from './equals'
+import { where } from './where'
+
+test('when true', () => {
+  const predicate = where({
+    a : equals('foo'),
+    b : equals('bar'),
+  })
+  expect(predicate({
+    a : 'foo',
+    b : 'bar',
+    x : 11,
+    y : 19,
+  })).toEqual(true)
+})
+
+test('when false', () => {
+  const predicate = where({
+    a : equals('foo'),
+    b : equals('baz'),
+  })
+  expect(predicate({
+    a : 'foo',
+    b : 'bar',
+    x : 11,
+    y : 19,
+  })).toEqual(false)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {where, equals} from 'rambda'
+
+describe('R.where', () => {
+  it('happy', () => {
+    const input = {
+      a : 'foo',
+      b : 'bar',
+      x : 11,
+      y : 19,
+    }
+    const conditions ={
+      a : equals('foo'),
+      b : equals('bar'),
+    }
+    const result = where(conditions, input)
+    const curriedResult = where(conditions)(input)
+    result // $ExpectType boolean
+    curriedResult // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+*2 failed Ramda.where specs*
+
+> :boom: Reason for the failure: Ramba method looks inside `prototype` property
+
 ### whereEq
 
 ```typescript
@@ -18407,22 +18537,19 @@ describe('zipObj', () => {
 
 ## CHANGELOG
 
-- WIP
+- 5.8.0
 
+Add `R.mergeAll`
 Add `R.mergeDeepRight`
 Add `R.mergeLeft`
-Add `R.mergeAll`
 Add `R.partition`
 Add `R.pathEq`
-Add `R.unless`
 Add `R.tryCatch`
+Add `R.unless`
 Add `R.whereEq`
+Add `R.where`
 
 - Add `R.last` typing for empty array
-
-waiting for:
-
-Add `R.where`
 
 - 5.7.0 Revert [PR #469](https://github.com/selfrefactor/rambda/pull/469) as `R.curry` was slow | Also now `R.flip` throws if arity is greater than or equal to 5
 

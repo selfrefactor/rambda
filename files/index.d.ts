@@ -3985,7 +3985,7 @@ const result = [
 
 Categories: Async, Function
 
-Notes: There are significant differences between `Ramda.tryCatch` is its `Rambda` implementation, so be aware of this, when you are using this method. moveto
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -4232,6 +4232,39 @@ export function when<T>(
 export function when<T>(
   rule: Func<boolean>
 ): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
+
+/*
+Method: where
+
+Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
+
+Example:
+
+```
+const condition = R.where({
+  a : x => typeof x === "string",
+  b : x => x === 4
+})
+const input = {
+  a : "foo",
+  b : 4,
+  c : 11,
+}
+
+const result = condition(input) 
+// => true
+```
+
+Categories: Object, Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function where<T, U>(conditions: T, input: U): boolean;
+export function where<T>(conditions: T): <U>(input: U) => boolean;
+export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 /*
 Method: whereEq
@@ -5767,39 +5800,6 @@ export function waitFor(
   howLong: number,
   loops?: number
 ): (input?: any) => Promise<any>;
-
-/*
-Method: where
-
-Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
-
-Example:
-
-```
-const condition = R.where({
-  a : x => typeof x === "string",
-  b : x => x === 4
-})
-const input = {
-  a : "foo",
-  b : 4,
-  c : 11,
-}
-
-const result = condition(input) 
-// => true
-```
-
-Categories: Object, Logic
-
-Notes: moveto
-
-*/
-// @SINGLE_MARKER
-export function where<T, U>(conditions: T, input: U): boolean;
-export function where<T>(conditions: T): <U>(input: U) => boolean;
-export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
-export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================
