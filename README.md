@@ -31,7 +31,11 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 - Tree-shaking
 
-Currently **Rambda** is more tree-shakable than **Ramda**
+Currently **Rambda** is more tree-shakable than **Ramda** as you can see in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
+
+The repo holds 2 `Angular9` applications: one with small example code of **Ramda** and the other - same code but with **Rambda** as import library.
+
+Currently the **Ramda** bundle is **2.03 MB** less than its **Ramda** counterpart.
 
 - Speed
 
@@ -317,7 +321,7 @@ method | Rambda | Ramda | Lodash
 ### add
 
 ```typescript
-add(a: number, b: number): number
+add(a: number): (b: number) => number
 ```
 
 It adds `a` and `b`.
@@ -333,8 +337,8 @@ R.add(2, 3) // =>  5
 <summary>All Typescript definitions</summary>
 
 ```typescript
-add(a: number, b: number): number;
 add(a: number): (b: number) => number;
+add(a: number, b: number): number;
 ```
 
 </details>
@@ -402,7 +406,7 @@ describe('add', () => {
 ### adjust
 
 ```typescript
-adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[]
+adjust<T>(index: number, replaceFn: (x: T) => T, list: ReadonlyArray<T>): T[]
 ```
 
 It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
@@ -422,8 +426,8 @@ R.adjust(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
-adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+adjust<T>(index: number, replaceFn: (x: T) => T, list: ReadonlyArray<T>): T[];
+adjust<T>(index: number, replaceFn: (x: T) => T): (list: ReadonlyArray<T>) => T[];
 ```
 
 </details>

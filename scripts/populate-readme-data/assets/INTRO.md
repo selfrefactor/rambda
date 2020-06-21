@@ -31,7 +31,11 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 - Tree-shaking
 
-Currently **Rambda** is more tree-shakable than **Ramda**
+Currently **Rambda** is more tree-shakable than **Ramda** as you can see in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
+
+The repo holds 2 `Angular9` applications: one with small example code of **Ramda** and the other - same code but with **Rambda** as import library.
+
+Currently the **Ramda** bundle is **{{rambdaTreeShakingInfo}} MB** less than its **Ramda** counterpart.
 
 - Speed
 
