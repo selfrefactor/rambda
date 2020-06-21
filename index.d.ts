@@ -118,14 +118,14 @@ export const DELAY: 'RAMBDAX_DELAY'
 /**
  * It adds `a` and `b`.
  */
-export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
+export function add(a: number, b: number): number;
 
 /**
  * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
  */
-export function adjust<T>(index: number, replaceFn: (a: T) => T, list: ReadonlyArray<T>): T[];
-export function adjust<T>(index: number, replaceFn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+export function adjust<T>(index: number, replaceFn: (x: T) => T, list: ReadonlyArray<T>): T[];
+export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: ReadonlyArray<T>) => T[];
 
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.

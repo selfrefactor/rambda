@@ -1,5 +1,7 @@
-import { readFile } from 'fs-extra'
+import { log } from 'helpers-fn'
+import { readFile, readJson } from 'fs-extra'
 import { resolve } from 'path'
+import { existsSync } from 'fs'
 import { template } from 'rambdax'
 import * as Ramda from 'ramda'
 
@@ -92,12 +94,27 @@ method | Rambda | Ramda | Lodash
 {{usedBy}}
 `
 
+async function getTreeShakingInfo(){
+  const fallback = `2`
+  const comparedPath = resolve(__dirname,'../../../rambda-tree-shaking/compared.json')
+  if(!existsSync(comparedPath)){
+    log('Using fallback in tree shaking info','box')
+    return fallback
+  }
+  const compared = await readJson(comparedPath)
+
+  return compared.ramdaVsRambda
+}
+
 async function getIntroContent(withRambdax){
   const filePath = withRambdax ?
     `${ __dirname }/assets/INTRO_RAMBDAX.md` :
     `${ __dirname }/assets/INTRO.md`
 
-  return readFile(filePath)
+  const content = await readFile(filePath)
+  const rambdaTreeShakingInfo = await getTreeShakingInfo()
+
+  return template(content.toString(), {rambdaTreeShakingInfo})
 }
 
 export async function getIntro(withRambdax){
