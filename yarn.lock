@@ -3348,10 +3348,10 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-helpers-fn@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.4.0.tgz#9545eed62540853ca048111c39bfb07ff2b7a190"
-  integrity sha512-/OcbmmNRq0eS6H2ipSNVcx56fSuI1r8LFndDr2VN4hIhbCBM+Vrg1F6aF1tf76+tjzgTMQaed+E+EbPb8877dA==
+helpers-fn@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.4.1.tgz#ad913f09fca57fe4e3d3c1c8b2a0d59ef13e3c83"
+  integrity sha512-5jdgAeGOM0ClGMwN7i+NqQNQvMR6rWP4AC71FR2YEtYGN5UK9XyUrYqHBzyQlcpR6NIF5a3MOdorE0AoUqbxNA==
   dependencies:
     benny "3.6.14"
     boxen "4.2.0"
