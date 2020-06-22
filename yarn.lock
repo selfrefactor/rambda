@@ -5980,6 +5980,13 @@ string-fn@2.11.1:
   dependencies:
     rambdax "3.7.0"
 
+string-fn@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.12.0.tgz#826e65ff9b327e5c653382ba79bb5da98e596549"
+  integrity sha512-qSIvp2GnPFkwm4Xd/skWHkhFawb/xul6QtJ0IWAj1sOfC4etUsHa/5TgN3aXZaDMqSWbso/JJ5k+46YENHtRYg==
+  dependencies:
+    rambdax "3.7.0"
+
 string-length@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/string-length/-/string-length-4.0.1.tgz#4a973bf31ef77c4edbceadd6af2611996985f8a1"
