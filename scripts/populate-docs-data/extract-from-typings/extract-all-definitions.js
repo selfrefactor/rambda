@@ -20,6 +20,7 @@ export function extractAllDefinitions(withRambdax){
     )
 
     const methodTypings = remove(/export\sfunction\s/g, allTypings)
+
     return { [ name ] : methodTypings }
   }, matches)
 

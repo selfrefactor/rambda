@@ -1,20 +1,20 @@
-import {delay,waitFor} from 'rambda'
+import {delay, waitFor} from 'rambda'
 
 describe('waitFor', () => {
-  it('async condition with input', async () => {
+  it('async condition with input', async() => {
     let counter = 0
-    const condition = async (x: number) => {
+    const condition = async(x: number) => {
       await delay(10)
-      counter +=x
+      counter += x
       return counter > 2
     }
     const result = await waitFor(condition, 1000, 6)(6)
 
     result // $ExpectType boolean
   })
-  it('async condition without input', async () => {
+  it('async condition without input', async() => {
     let counter = 0
-    const condition = async () => {
+    const condition = async() => {
       await delay(10)
       counter++
       return counter > 2
@@ -23,17 +23,17 @@ describe('waitFor', () => {
 
     result // $ExpectType boolean
   })
-  it('sync condition with input', async () => {
+  it('sync condition with input', async() => {
     let counter = 0
     const condition = (x: number) => {
-      counter +=x
+      counter += x
       return counter > 2
     }
     const result = await waitFor(condition, 1000, 6)(6)
 
     result // $ExpectType boolean
   })
-  it('sync condition without input', async () => {
+  it('sync condition without input', async() => {
     let counter = 0
     const condition = () => {
       counter++

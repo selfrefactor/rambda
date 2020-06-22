@@ -16,4 +16,3 @@ describe('R.last', () => {
     result // $ExpectType undefined
   })
 })
-

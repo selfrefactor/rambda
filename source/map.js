@@ -36,5 +36,4 @@ export function map(fn, list){
   }
 
   return willReturn
-
 }

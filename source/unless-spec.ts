@@ -2,7 +2,7 @@ import {unless, isNil, inc} from 'rambda'
 
 describe('unless', () => {
   it('happy', () => {
-    const safeInc = unless<any,number>(isNil, inc)
+    const safeInc = unless<any, number>(isNil, inc)
     const result = [safeInc(null), safeInc(1)]
     result[0] // $ExpectType number
     result[1] // $ExpectType number

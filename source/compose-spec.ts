@@ -2,11 +2,7 @@ import {add, subtract, compose} from 'rambda'
 
 describe('compose', () => {
   it('happy', () => {
-    const result = compose(
-      subtract(11),
-      add(1),
-      add(1),
-    )(1)
+    const result = compose(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
   })
 
@@ -14,7 +10,7 @@ describe('compose', () => {
     const result = compose(
       () => {},
       () => {}
-    )();
+    )()
     result // $ExpectType void
   })
 })

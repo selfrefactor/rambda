@@ -14,4 +14,3 @@ test('curried', () => {
   expect(safeIncCurried(null)).toBeNull()
   expect(safeIncCurried(1)).toBe(2)
 })
- 

@@ -15,8 +15,7 @@ const add2 = rambdax_1.add(1)(3)
 const morebs = rambdax_1.transpose([ [ 1, 2 ], [], [ 1, 2, 3 ], [ 3 ] ])
 console.log({ morebs : morebs })
 const bs = rambdax_1.and(1)(2)
-const a = rambdax_1.reject((a, c) => a > 1,
-  [ 1, 2, 3 ])
+const a = rambdax_1.reject((a, c) => a > 1, [ 1, 2, 3 ])
 function fn(input){
   return input.c ? input.a : input.b
 }
