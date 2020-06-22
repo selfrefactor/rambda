@@ -26,7 +26,7 @@
     "@types/jest": "25.2.3",
     "@types/ramda": "0.27.6",
     "cross-env": "7.0.2",
-    "dtslint": "3.6.4",
+    "dtslint": "3.6.12",
     "helpers-fn": "0.4.1",
     "is-ci": "2.0.0",
     "fs-extra": "9.0.0",
