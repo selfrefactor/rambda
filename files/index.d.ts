@@ -864,8 +864,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function divide(a: number, b: number): number;
 export function divide(a: number): (b: number) => number;
+export function divide(a: number, b: number): number;
 
 /*
 Method: drop

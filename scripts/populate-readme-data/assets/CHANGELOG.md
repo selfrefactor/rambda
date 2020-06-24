@@ -1,6 +1,6 @@
 - WIP
 
-All curried Typescript definitions are moved in front of their uncurried counterparts.
+Several curried Typescript definitions are moved in front of their uncurried counterparts.
 
 - 5.8.0
 
