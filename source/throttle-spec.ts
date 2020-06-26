@@ -1,23 +1,37 @@
-import {throttle, add, delay, divide, either, endsWith} from 'rambda'
+import {
+  add,
+  delay,
+  divide,
+  either,
+  endsWith,
+  throttle,
+  equals,
+} from 'rambda'
 
-describe('throttle', () => {
-  it('curry first issue - endsWith', () => {
+describe('curry first issue', () => {
+  it('equals', () => {
+    const fn = throttle(equals, 1000)
+    const result = fn('f','foo')
+    result // $ExpectType boolean
+  })
+  it('endsWith', () => {
     const fn = throttle(endsWith, 1000)
     const result = fn('f','foo')
     result // $ExpectType boolean
   })
-
-  it('curry first issue - either', () => {
+  it('either', () => {
     const fn = throttle(either, 1000)
     const result = fn(x => x> 1,x => x > 4)(5)
     result // $ExpectType boolean
   })
-
-  it('curry first issue - divide', () => {
+  it('divide', () => {
     const fn = throttle(divide, 1000)
     fn(1,2)
   })
+})
 
+
+describe('throttle', () => {
   it('arity of 1', async() => {
     const fn = throttle((x: number) => x + 1, 1000)
     const result1 = fn(1)

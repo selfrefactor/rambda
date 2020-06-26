@@ -992,8 +992,8 @@ Notes: It doesn't handle cyclical data structures.
 
 */
 // @SINGLE_MARKER
-export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
+export function equals<T>(a: T, b: T): boolean;
 
 /*
 Method: F
