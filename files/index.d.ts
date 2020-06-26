@@ -945,8 +945,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 
 /*
 Method: endsWith
