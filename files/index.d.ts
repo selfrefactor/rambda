@@ -969,8 +969,8 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string, str: string): boolean;
 export function endsWith(target: string): (str: string) => boolean;
+export function endsWith(target: string, str: string): boolean;
 
 /*
 Method: equals

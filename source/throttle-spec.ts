@@ -1,10 +1,16 @@
-import {throttle, add, delay, divide, either} from 'rambda'
+import {throttle, add, delay, divide, either, endsWith} from 'rambda'
 
 describe('throttle', () => {
+  it('curry first issue - endsWith', () => {
+    const fn = throttle(endsWith, 1000)
+    const result = fn('f','foo')
+    result // $ExpectType boolean
+  })
+
   it('curry first issue - either', () => {
     const fn = throttle(either, 1000)
     const result = fn(x => x> 1,x => x > 4)(5)
-    result // $ExpectType number
+    result // $ExpectType boolean
   })
 
   it('curry first issue - divide', () => {
