@@ -1,23 +1,17 @@
-import {throttle, add, delay, divide, compose} from 'rambda'
+import {throttle, add, delay, divide, either} from 'rambda'
 
 describe('throttle', () => {
-  it('curry first issue - divide', () => {
-    const fn = throttle(divide, 1000)
-    fn(1,2)
-    const result = compose(
-      divide(2)
-    )(2)
+  it('curry first issue - either', () => {
+    const fn = throttle(either, 1000)
+    const result = fn(x => x> 1,x => x > 4)(5)
     result // $ExpectType number
   })
 
   it('curry first issue - divide', () => {
     const fn = throttle(divide, 1000)
     fn(1,2)
-    const result = compose(
-      divide(2)
-    )(2)
-    result // $ExpectType number
   })
+
   it('arity of 1', async() => {
     const fn = throttle((x: number) => x + 1, 1000)
     const result1 = fn(1)
