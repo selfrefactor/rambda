@@ -6,9 +6,22 @@ import {
   endsWith,
   throttle,
   equals,
+  findIndex,
+  findLastIndex,
 } from 'rambda'
+// import {find} from 'ramda'
 
 describe('curry first issue', () => {
+  it('findLastIndex', () => {
+    const fn = throttle(findLastIndex, 1000)
+    const result = fn(x => x === 1, [1, 2, 3])
+    result // $ExpectType number
+  })
+  it('findIndex', () => {
+    const fn = throttle(findIndex, 1000)
+    const result = fn(x => x === 1, [1, 2, 3])
+    result // $ExpectType number
+  })
   it('equals', () => {
     const fn = throttle(equals, 1000)
     const result = fn('f','foo')
