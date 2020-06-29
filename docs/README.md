@@ -2938,11 +2938,7 @@ import {add, subtract, compose} from 'rambda'
 
 describe('compose', () => {
   it('happy', () => {
-    const result = compose(
-      subtract(11),
-      add(1),
-      add(1),
-    )(1)
+    const result = compose(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
   })
 
@@ -2950,7 +2946,7 @@ describe('compose', () => {
     const result = compose(
       () => {},
       () => {}
-    )();
+    )()
     result // $ExpectType void
   })
 })
@@ -4314,7 +4310,7 @@ test('includes prototype properties', () => {
 ### divide
 
 ```typescript
-divide(a: number, b: number): number
+divide(a: number): (b: number) => number
 ```
 
 ```javascript
@@ -4328,8 +4324,8 @@ R.divide(71, 100) // => 0.71
 <summary>All Typescript definitions</summary>
 
 ```typescript
-divide(a: number, b: number): number;
 divide(a: number): (b: number) => number;
+divide(a: number, b: number): number;
 ```
 
 </details>
@@ -4574,7 +4570,7 @@ describe('dropLast', function() {
 ### either
 
 ```typescript
-either(firstPredicate: Pred, secondPredicate: Pred): Pred
+either(firstPredicate: Pred): (secondPredicate: Pred) => Pred
 ```
 
 It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
@@ -4601,8 +4597,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 ```
 
 </details>
@@ -4710,7 +4706,7 @@ describe('either', function() {
 ### endsWith
 
 ```typescript
-endsWith(target: string, str: string): boolean
+endsWith(target: string): (str: string) => boolean
 ```
 
 Curried version of `String.prototype.endsWith`
@@ -4730,8 +4726,8 @@ const result = R.endsWith(target, str)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-endsWith(target: string, str: string): boolean;
 endsWith(target: string): (str: string) => boolean;
+endsWith(target: string, str: string): boolean;
 ```
 
 </details>
@@ -4801,7 +4797,7 @@ describe('startsWith', function() {
 ### equals
 
 ```typescript
-equals<T>(a: T, b: T): boolean
+equals<T>(a: T): (b: T) => boolean
 ```
 
 It deeply compares `a` and `b` and returns `true` if they are equal.
@@ -4820,8 +4816,8 @@ R.equals(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-equals<T>(a: T, b: T): boolean;
 equals<T>(a: T): (b: T) => boolean;
+equals<T>(a: T, b: T): boolean;
 ```
 
 </details>
@@ -5674,7 +5670,7 @@ describe('filter', function() {
 ### find
 
 ```typescript
-find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined
+find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined
 ```
 
 It returns the first element of `list` that satisfy the `predicate`.
@@ -5696,8 +5692,8 @@ const result = R.find(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
-find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
+find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
+find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
 ```
 
 </details>
@@ -5755,7 +5751,7 @@ test('with empty list', () => {
 ### findIndex
 
 ```typescript
-findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number
+findIndex<T>(predicate: (a: T) => boolean): (list: ReadonlyArray<T>) => number
 ```
 
 It returns the index of the first element of `list` satisfying the `predicate` function.
@@ -5777,8 +5773,8 @@ const result = R.findIndex(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
-findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
+findIndex<T>(predicate: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
+findIndex<T>(predicate: (a: T) => boolean, list: ReadonlyArray<T>): number;
 ```
 
 </details>
@@ -5835,7 +5831,7 @@ test('pass index as second argument', () => {
 ### findLast
 
 ```typescript
-findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined
+findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined
 ```
 
 It returns the last element of `list` satisfying the `predicate` function.
@@ -5857,8 +5853,8 @@ const result = R.findLast(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
-findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
+findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
 ```
 
 </details>
@@ -5949,7 +5945,7 @@ test('ramda 4', () => {
 ### findLastIndex
 
 ```typescript
-findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number
+findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number
 ```
 
 It returns the index of the last element of `list` satisfying the `predicate` function.
@@ -5971,8 +5967,8 @@ const result = R.findLastIndex(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
 findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
 ```
 
 </details>
@@ -9658,7 +9654,6 @@ export function map(fn, list){
   }
 
   return willReturn
-
 }
 ```
 
@@ -10327,9 +10322,9 @@ test('when undefined or null instead of object', () => {
 import {merge} from 'rambda'
 
 describe('merge', () => {
-  const result = merge({ foo: 1 }, { bar: 2 }); 
-  const curriedResult = merge({ foo: 1 })({ bar: 2 }); 
-  
+  const result = merge({foo: 1}, {bar: 2})
+  const curriedResult = merge({foo: 1})({bar: 2})
+
   result.foo // $ExpectType number
   result.bar // $ExpectType number
   curriedResult.bar // $ExpectType number
@@ -10431,23 +10426,17 @@ import {mergeAll} from 'rambda'
 
 describe('mergeAll', () => {
   it('with passing type', () => {
-    interface Output{
-      foo: number
-      bar: number
+    interface Output {
+      foo: number,
+      bar: number,
     }
-    const result = mergeAll<Output>([
-      {foo: 1},
-      {bar: 2},
-    ])
+    const result = mergeAll<Output>([{foo: 1}, {bar: 2}])
     result.foo // $ExpectType number
     result.bar // $ExpectType number
   })
 
   it('without passing type', () => {
-    const result = mergeAll([
-      {foo: 1},
-      {bar: 2},
-    ])
+    const result = mergeAll([{foo: 1}, {bar: 2}])
     result // $ExpectType unknown
   })
 })
@@ -10625,7 +10614,7 @@ test('ramda compatible test 3', () => {
 import {mergeDeepRight} from 'rambda'
 
 describe('mergeDeepRight', () => {
-  const result = mergeDeepRight({ foo: { bar: 1 } }, { foo: { bar: 2 } }); 
+  const result = mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}})
   result.foo.bar // $ExpectType number
 })
 ```
@@ -10722,9 +10711,9 @@ test('when undefined or null instead of object', () => {
 import {mergeLeft} from 'rambda'
 
 describe('mergeLeft', () => {
-  const result = mergeLeft({ foo: 1 }, { bar: 2 }); 
-  const curriedResult = mergeLeft({ foo: 1 })({ bar: 2 }); 
-  
+  const result = mergeLeft({foo: 1}, {bar: 2})
+  const curriedResult = mergeLeft({foo: 1})({bar: 2})
+
   result.foo // $ExpectType number
   result.bar // $ExpectType number
   curriedResult.bar // $ExpectType number
@@ -11797,26 +11786,25 @@ describe('partition', () => {
     const predicate = (x: number, i: number) => {
       return x > 2
     }
-    const list = [ 1, 2, 3, 4 ]
-  
+    const list = [1, 2, 3, 4]
+
     const result = partition(predicate, list)
     const curriedResult = partition(predicate)(list)
     result // $ExpectType [number[], number[]]
     curriedResult // $ExpectType [number[], number[]]
   })
-  
+
   it('with object', () => {
-    const predicate = (value:number, prop?: string) => {
-  
+    const predicate = (value: number, prop?: string) => {
       return value > 2
     }
     const hash = {
-      a : 1,
-      b : 2,
-      c : 3,
-      d : 4,
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
     }
-  
+
     const result = partition(predicate, hash)
     const curriedResult = partition(predicate)(hash)
     result[0] // $ExpectType { [key: string]: number; }
@@ -12130,8 +12118,8 @@ import {pathEq} from 'rambda'
 describe('path', () => {
   it('with string path', () => {
     const pathToSearch = 'a.b.c'
-    const input = { a : { b : { c : 1 } } }
-    const target = { c : 1 }
+    const input = {a: {b: {c: 1}}}
+    const target = {c: 1}
 
     const result = pathEq(pathToSearch, input, target)
     const curriedResult = pathEq(pathToSearch, input, target)
@@ -12141,8 +12129,8 @@ describe('path', () => {
 
   it('with array path', () => {
     const pathToSearch = ['a', 'b', 'c']
-    const input = { a : { b : { c : 1 } } }
-    const target = { c : 1 }
+    const input = {a: {b: {c: 1}}}
+    const target = {c: 1}
 
     const result = pathEq(pathToSearch, input, target)
     const curriedResult = pathEq(pathToSearch, input, target)
@@ -14772,7 +14760,7 @@ const sortFn = (x, y) => {
   return x.a > y.a ? 1 : -1
 }
 
-const result = R.sort(list, sortFn)
+const result = R.sort(sortFn, list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -14781,7 +14769,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(list%2C%20sortFn)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sort</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sort</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14852,7 +14840,7 @@ const list = [
 ]
 const sortFn = x => x.a
 
-const result = R.sortBy(list, sortFn)
+const result = R.sortBy(sortFn, list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -14861,7 +14849,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortBy(list%2C%20sortFn)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sortBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortBy(sortFn%2C%20list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.sortBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -16648,21 +16636,20 @@ describe('tryCatch', () => {
     result // $ExpectType string
   })
 
-  it('asynchronous', async () => {
-    const fn = async (input: any) => {
-  
+  it('asynchronous', async() => {
+    const fn = async(input: any) => {
       return typeof JSON.parse('{a:')
     }
     const result = await tryCatch<string>(fn, 'fallback')(100)
     result // $ExpectType string
   })
 
-  it('asynchronous + fallback is asynchronous', async () => {
-    const fn = async (input: any) => {
+  it('asynchronous + fallback is asynchronous', async() => {
+    const fn = async(input: any) => {
       await delay(100)
       return JSON.parse(`{a:${input}`)
     }
-    const fallback = async (input: any) => {
+    const fallback = async(input: any) => {
       await delay(100)
       return 'foo'
     }
@@ -17330,7 +17317,7 @@ import {unless, isNil, inc} from 'rambda'
 
 describe('unless', () => {
   it('happy', () => {
-    const safeInc = unless<any,number>(isNil, inc)
+    const safeInc = unless<any, number>(isNil, inc)
     const result = [safeInc(null), safeInc(1)]
     result[0] // $ExpectType number
     result[1] // $ExpectType number
@@ -17899,14 +17886,14 @@ import {where, equals} from 'rambda'
 describe('R.where', () => {
   it('happy', () => {
     const input = {
-      a : 'foo',
-      b : 'bar',
-      x : 11,
-      y : 19,
+      a: 'foo',
+      b: 'bar',
+      x: 11,
+      y: 19,
     }
-    const conditions ={
-      a : equals('foo'),
-      b : equals('bar'),
+    const conditions = {
+      a: equals('foo'),
+      b: equals('bar'),
     }
     const result = where(conditions, input)
     const curriedResult = where(conditions)(input)
@@ -17967,12 +17954,7 @@ export function whereEq(condition, input){
     return _input => whereEq(condition, _input)
   }
 
-  const result = filter(
-    (conditionValue, conditionProp) => {
-      return equals(conditionValue, input[ conditionProp ])
-    },
-    condition
-  )
+  const result = filter((conditionValue, conditionProp) => equals(conditionValue, input[ conditionProp ]), condition)
 
   return Object.keys(result).length === Object.keys(condition).length
 }
@@ -18542,6 +18524,10 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+- WIP
+
+Several curried Typescript definitions are moved in front of their uncurried counterparts.
 
 - 5.8.0
 

@@ -3447,7 +3447,7 @@ const sortFn = (x, y) => {
   return x.a > y.a ? 1 : -1
 }
 
-const result = R.sort(list, sortFn)
+const result = R.sort(sortFn, list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -3480,7 +3480,7 @@ const list = [
 ]
 const sortFn = x => x.a
 
-const result = R.sortBy(list, sortFn)
+const result = R.sortBy(sortFn, list)
 const expected = [
   {a: 1},
   {a: 2},
