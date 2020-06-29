@@ -1280,8 +1280,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
 
 /*
 Method: groupWith

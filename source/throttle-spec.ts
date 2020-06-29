@@ -7,11 +7,21 @@ import {
   throttle,
   equals,
   findIndex,
+  groupWith,
   findLastIndex,
 } from 'rambda'
-// import {find} from 'ramda'
 
 describe('curry first issue', () => {
+  // it('groupWith', () => {
+  //   const groupWithFn = (x: string, y: string) => x.length > y.length
+  //   const list = ['foo', 'barr', 'bazzz']
+
+  //   const result = groupWith(groupWithFn, list)
+  //   result // $ExpectType { [index: string]: string[]; }
+  //   const fn = throttle(groupWith, 1000)
+  //   const result1 = fn(groupWithFn, list)
+  //   result // $ExpectType { [index: string]: string[]; }
+  // })
   it('findLastIndex', () => {
     const fn = throttle(findLastIndex, 1000)
     const result = fn(x => x === 1, [1, 2, 3])
