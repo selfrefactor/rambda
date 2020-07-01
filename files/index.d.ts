@@ -1417,8 +1417,8 @@ Notes: Values are identical if they reference the same memory. `NaN` is identica
 
 */
 // @SINGLE_MARKER
-export function identical<T>(a: T, b: T): boolean;
-export function identical<T>(a: T): (b: T) => boolean;
+export function identical<T>(x: T): (y: T) => boolean;
+export function identical<T>(x: T, y: T): boolean;
 
 /*
 Method: identity
@@ -1465,8 +1465,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 
 /*
 Method: inc

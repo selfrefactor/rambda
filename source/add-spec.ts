@@ -1,6 +1,6 @@
 import {add} from 'rambda'
 
-describe('add', () => {
+describe('R.add', () => {
   it('number', () => {
     const result = [add(4)(1), add(4, 1)]
     result[0] // $ExpectType number
