@@ -14,7 +14,7 @@ test('typings are correct', async () => {
       stdio : 'inherit',
       cwd   : DIR,
     }
-  ) 
+  )  
 
   expect(status).toBe(0)
 })

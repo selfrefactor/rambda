@@ -1331,8 +1331,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
+export function has<T>(prop: string, obj: T): boolean;
 
 /*
 Method: hasPath
