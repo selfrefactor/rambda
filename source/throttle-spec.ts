@@ -8,10 +8,16 @@ import {
   equals,
   findIndex,
   has,
+  hasPath,
   findLastIndex,
 } from 'rambda'
 
 describe('curry first issue', () => {
+  it('hasPath', () => {
+    const fn = throttle(hasPath, 1000)
+    const result = fn('a', {a:1})
+    result // $ExpectType boolean
+  })
   it('has', () => {
     const fn = throttle(has, 1000)
     const result = fn('fi', {a:1})

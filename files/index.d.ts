@@ -1361,12 +1361,12 @@ Notes:
 */
 // @SINGLE_MARKER
 export function hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;
+export function hasPath<T>(
   path: string | string[],
   input: object
 ): boolean;
-export function hasPath<T>(
-  path: string | string[]
-): (input: object) => boolean;
 
 /*
 Method: head
