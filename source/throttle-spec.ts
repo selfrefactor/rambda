@@ -18,7 +18,7 @@ describe('curry first issue', () => {
   it('ifElse', () => {
     const fn = throttle(ifElse, 1000)
     const result = fn(x => x > 1, () => 10, () => 2)(3)
-    result // $ExpectType boolean
+    result // $ExpectType any
   })
   it('identical', () => {
     const fn = throttle(identical, 1000)

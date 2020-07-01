@@ -7,6 +7,6 @@ describe('R.head', () => {
   })
   it('array', () => {
     const result = head([1, 2, 3])
-    result // $ExpectType number
+    result // $ExpectType number | undefined
   })
 })
