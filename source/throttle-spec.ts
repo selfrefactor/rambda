@@ -12,9 +12,15 @@ import {
   identical,
   ifElse,
   findLastIndex,
+  indexOf,
 } from 'rambda'
 
 describe('curry first issue', () => {
+  it('indexOf', () => {
+    const fn = throttle(indexOf, 1000)
+    const result = fn(1,[1, 2, 3])
+    result // $ExpectType number
+  })
   it('ifElse', () => {
     const fn = throttle(ifElse, 1000)
     const result = fn(x => x > 1, () => 10, () => 2)(3)

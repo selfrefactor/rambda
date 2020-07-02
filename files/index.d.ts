@@ -1580,8 +1580,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
 export function indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
+export function indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
 
 /*
 Method: init
