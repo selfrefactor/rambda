@@ -4,14 +4,13 @@ import {
   divide,
   either,
   endsWith,
-  throttle,
   equals,
   findIndex,
+  findLastIndex, 
   has,
   hasPath,
   identical,
-  ifElse,
-  findLastIndex,
+  ifElse, throttle
 } from 'rambda'
 
 describe('curry first issue', () => {
