@@ -11,17 +11,11 @@ import {
   identical,
   findLastIndex,
   indexOf,
-  intersection,
   ifElse, 
-  throttle
+  throttle,
 } from 'rambda'
 
 describe('curry first issue', () => {
-  it('intersection', () => {
-    const fn = throttle(intersection, 1000)
-    const result = fn([1,2], [2,3])
-    result // $ExpectType number[]
-  })
   it('indexOf', () => {
     const fn = throttle(indexOf, 1000)
     const result = fn(1,[1, 2, 3])

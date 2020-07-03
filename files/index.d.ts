@@ -1628,8 +1628,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 export function intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[];
+export function intersection<T>(listA: ReadonlyArray<T>): (listB: ReadonlyArray<T>) => T[];
 
 /*
 Method: intersperse
