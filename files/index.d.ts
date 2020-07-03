@@ -1675,8 +1675,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function is(targetPrototype: any, x: any): boolean;
 export function is(targetPrototype: any): (x: any) => boolean;
+export function is(targetPrototype: any, x: any): boolean;
 
 /*
 Method: isEmpty

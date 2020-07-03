@@ -12,10 +12,24 @@ import {
   findLastIndex,
   indexOf,
   ifElse, 
+  is, 
+  last,
+  pipe,
   throttle,
 } from 'rambda'
 
 describe('curry first issue', () => {
+  it('is', () => {
+    const pipeResult = pipe(
+      last,
+      is(Number)
+    )([1, 2, 3])
+    
+    const fn = throttle(is, 1000)
+    const result = fn(Number, 1)
+    result // $ExpectType boolean
+    pipeResult // $ExpectType boolean
+  })
   it('indexOf', () => {
     const fn = throttle(indexOf, 1000)
     const result = fn(1,[1, 2, 3])
