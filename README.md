@@ -8337,7 +8337,7 @@ test('intersperse', () => {
 is(targetPrototype: any, x: any): boolean
 ```
 
-It returns `true` is `x` is instance of `targetPrototype`.
+It returns `true` if `x` is instance of `targetPrototype`.
 
 ```javascript
 const result = [
@@ -8437,7 +8437,7 @@ test('does not consider primitives to be instances of Object', () => {
 isEmpty<T>(x: T): boolean
 ```
 
-It returns `true` is `x` is `empty`.
+It returns `true` if `x` is `empty`.
 
 ```javascript
 const result = [
@@ -8542,7 +8542,7 @@ describe('isEmpty', function() {
 isNil(x: any): x is null | undefined
 ```
 
-It returns `true` is `x` is either `null` or `undefined`.
+It returns `true` if `x` is either `null` or `undefined`.
 
 ```javascript
 const result = [
