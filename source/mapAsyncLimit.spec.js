@@ -1,5 +1,6 @@
 import isCI from 'is-ci'
 
+import { composeAsync } from './composeAsync'
 import { delay } from './delay'
 import { mapAsync } from './mapAsync'
 import { mapAsyncLimit } from './mapAsyncLimit'

@@ -1,7 +1,7 @@
 import { equals } from './equals'
 
-test('happy', () => {
-  const result = equals([ 1, { a : 1 }, [ { b : 3 } ] ], [ 1, { a : 2 }, [ { b : 3 } ] ])
+test('with array of objects', () => {
+  const result = equals([ { a : 1 }, [ { b : 3 } ] ], [ { a : 2 }, [ { b : 3 } ] ])
 
   expect(result).toBeFalse()
 })
@@ -229,4 +229,22 @@ test('various examples', () => {
   expect(equals(null, null)).toBeTrue()
 
   expect(equals(false)(null)).toBeFalse()
+})
+
+test('with custom functions', () => {
+  function foo(){
+    return 1
+  }
+  foo.prototype.toString = () => ''
+  const result = equals(foo, foo)
+
+  expect(result).toBeFalse()
+})
+
+test('with classes', () => {
+  class Foo{}
+  const foo = new Foo()
+  const result = equals(foo, foo)
+
+  expect(result).toBeTrue()
 })

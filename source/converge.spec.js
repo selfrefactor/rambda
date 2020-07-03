@@ -33,7 +33,7 @@ const f3 = converge(mult, [
 ])
 
 test('passes the results of applying the arguments individually to two separate functions into a single one', () => {
-  expect(converge(mult, [ add(1), add(3) ])(2)).toEqual(15) // mult(add1(2), add3(2)) = mult(3, 5) = 3 * 15;
+  expect(converge(mult)([ add(1), add(3) ])(2)).toEqual(15)
 })
 
 test('returns a function with the length of the "longest" argument', () => {

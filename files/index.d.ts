@@ -5138,7 +5138,6 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 */
 // @SINGLE_MARKER
 export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number, list: T[]): Promise<U[]>;
-export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number): (list: T[]) => Promise<U[]>;
 
 /*
 Method: mapToObject

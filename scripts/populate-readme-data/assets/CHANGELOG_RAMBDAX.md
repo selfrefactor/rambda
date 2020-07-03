@@ -32,6 +32,8 @@ Deprecate the following methods:
 
 Also these changes:
 
+-  `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
+
 - Improve `R.ok` throwed error message
 
 - `R.ok` returns `undefined` instead of `true` when validation passes.

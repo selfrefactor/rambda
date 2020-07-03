@@ -78,6 +78,13 @@ test('with empty list', () => {
   expect(result).toEqual(list)
 })
 
+test('with wrong input', () => {
+  const list = undefined
+  const result = forEach(x => x * x)(list)
+
+  expect(result).toBeUndefined()
+})
+
 test('returns the input', () => {
   const list = [ 1, 2, 3 ]
   const result = forEach(x => x * x)(list)

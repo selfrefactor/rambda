@@ -1,5 +1,3 @@
-import { result } from 'lodash'
-
 import { mapToObject } from './mapToObject'
 
 test('simple', () => {

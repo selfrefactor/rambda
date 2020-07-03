@@ -7,7 +7,7 @@ test('happy', async () => {
 
     return x % 2 === 1
   }
-  const result = await filterAsync(predicate, [ 1, 2, 3 ])
+  const result = await filterAsync(predicate)([ 1, 2, 3 ])
   expect(result).toEqual([ 1, 3 ])
 })
 
