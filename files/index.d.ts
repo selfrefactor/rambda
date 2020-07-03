@@ -1657,7 +1657,7 @@ export function intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 /*
 Method: is
 
-Explanation: It returns `true` is `x` is instance of `targetPrototype`.
+Explanation: It returns `true` if `x` is instance of `targetPrototype`.
 
 Example:
 
@@ -1681,7 +1681,7 @@ export function is(targetPrototype: any, x: any): boolean;
 /*
 Method: isEmpty
 
-Explanation: It returns `true` is `x` is `empty`.
+Explanation: It returns `true` if `x` is `empty`.
 
 Example:
 
@@ -1704,7 +1704,7 @@ export function isEmpty<T>(x: T): boolean;
 /*
 Method: isNil
 
-Explanation: It returns `true` is `x` is either `null` or `undefined`.
+Explanation: It returns `true` if `x` is either `null` or `undefined`.
 
 Example:
 
