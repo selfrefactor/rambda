@@ -9,6 +9,7 @@ import {
   hasPath,
   identical,
   indexOf,
+  join,
   ifElse, 
   is, 
   last,
@@ -27,6 +28,11 @@ describe('curry first issue', () => {
     const result = fn(Number, 1)
     result // $ExpectType boolean
     pipeResult // $ExpectType boolean
+  })
+  it('join', () => {
+    const fn = throttle(join, 1000)
+    const result = fn('|',[1, 2, 3])
+    result // $ExpectType number
   })
   it('indexOf', () => {
     const fn = throttle(indexOf, 1000)

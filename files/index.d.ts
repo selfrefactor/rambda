@@ -1737,7 +1737,7 @@ export function isNil(x: any): x is null | undefined;
 /*
 Method: join
 
-Explanation: It returns a string representing `list` instances joined with `glue`.
+Explanation: It returns a string of all `list` instances joined with a `glue`.
 
 Example:
 
@@ -1751,8 +1751,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function join(x: string, xs: ReadonlyArray<any>): string;
-export function join(x: string): (xs: ReadonlyArray<any>) => string;
+export function join<T>(glue: string): (list: ReadonlyArray<T>) => string;
+export function join<T>(glue: string, list: ReadonlyArray<T>): string;
 
 /*
 Method: keys
