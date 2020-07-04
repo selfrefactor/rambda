@@ -1,6 +1,7 @@
 import { runTests } from 'helpers-fn'
 
 import { equals } from './equals'
+import { allTrue } from './allTrue'
 import { sortObject } from './sortObject'
 
 const obj = {
@@ -8,10 +9,13 @@ const obj = {
   a : 2,
   b : 3,
 }
+
 const predicateA = (
   propA, propB, valueA, valueB
 ) => propA > propB ? -1 : 1
+
 const expectationA = [ 'c', 'b', 'a' ]
+
 const predicateB = (
   propA, propB, valueA, valueB
 ) => propA < propB ? -1 : 1
@@ -24,10 +28,18 @@ const expectationC = [ 'b', 'a', 'c' ]
 
 const fn = ([ predicate, expectation ]) => {
   const result = sortObject(predicate, obj)
+  const curriedResult = sortObject(predicate)(obj)
   const sortedKeys = Object.keys(result)
+  const sortedKeysCurried = Object.keys(curriedResult)
   const isSameObject = equals(obj, result)
+  const isSameObjectCurried = equals(obj, curriedResult)
 
-  return isSameObject && equals(sortedKeys, expectation)
+  return allTrue(
+    isSameObject,
+    isSameObjectCurried,
+    equals(sortedKeys, expectation),
+    equals(sortedKeysCurried, expectation),
+  )
 }
 
 const testData = {
