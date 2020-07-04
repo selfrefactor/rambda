@@ -1,41 +1,43 @@
 import {any} from 'rambda'
 
 describe('any', () => {
-  it('1', () => {
-    const x = any<number>(
-      (y, i) => {
-        y // $ExpectType number
-        i // $ExpectType number
-        return y > 2
+  it('happy', () => {
+    const result = any(
+      (x) => {
+        x // $ExpectType number
+        return x > 2
       },
       [1, 2, 3]
     )
-    x // $ExpectType boolean
-  })
-  it('2', () => {
-    const x = any<number>(
-      y => {
-        y // $ExpectType number
-        return y > 2
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType boolean
+    result // $ExpectType boolean
   })
 
-  it('1 curry', () => {
-    const x = any<number>((y, i) => {
-      y // $ExpectType number
-      i // $ExpectType number
-      return y > 2
-    })([1, 2, 3])
-    x // $ExpectType boolean
+  it('when curried needs a type', () => {
+    const result = any<number>(
+      (x) => {
+        x // $ExpectType number
+        return x > 2
+      })([1, 2, 3])
+    result // $ExpectType boolean
   })
-  it('2 curry', () => {
-    const x = any<number>(y => {
-      y // $ExpectType number
-      return y > 2
-    })([1, 2, 3])
-    x // $ExpectType boolean
+  it('pass index as second argument', () => {
+    const result = any(
+      (x, i) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 2
+      },
+      [1, 2, 3]
+    )
+    result // $ExpectType boolean
+  })
+  it('pass index as second argument when curried needs a type', () => {
+    const result = any<number>(
+      (x, i) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 2
+      })([1, 2, 3])
+    result // $ExpectType boolean
   })
 })
