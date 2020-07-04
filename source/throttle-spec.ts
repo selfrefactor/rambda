@@ -12,14 +12,24 @@ import {
   indexOf,
   join,
   ifElse, 
+  mathMod, 
   is, 
   last,
   lastIndexOf,
   pipe,
+  max,
   throttle,
 } from 'rambda'
 
 describe('curry first issue', () => {
+  it('mathMod', () => {
+    const fn = throttle(mathMod, 1000)
+    fn(1,2)
+  })
+  it('max', () => {
+    const fn = throttle(max, 1000)
+    fn(1,2)
+  })
   it('is', () => {
     const pipeResult = pipe(
       last,

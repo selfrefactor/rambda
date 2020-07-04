@@ -2122,8 +2122,8 @@ Notes: Explanation is taken from `Ramda` documentation site.
 
 */
 // @SINGLE_MARKER
-export function mathMod(x: number, y: number): number;
 export function mathMod(x: number): (y: number) => number;
+export function mathMod(x: number, y: number): number;
 
 /*
 Method: max
@@ -2146,8 +2146,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function max<T extends Ord>(x: T, y: T): T;
 export function max<T extends Ord>(x: T): (y: T) => T;
+export function max<T extends Ord>(x: T, y: T): T;
 
 /*
 Method: maxBy
