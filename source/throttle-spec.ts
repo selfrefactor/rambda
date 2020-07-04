@@ -6,6 +6,7 @@ import {
   endsWith,
   equals,
   has,
+  match,
   hasPath,
   identical,
   indexOf,
@@ -13,6 +14,7 @@ import {
   ifElse, 
   is, 
   last,
+  lastIndexOf,
   pipe,
   throttle,
 } from 'rambda'
@@ -29,10 +31,18 @@ describe('curry first issue', () => {
     result // $ExpectType boolean
     pipeResult // $ExpectType boolean
   })
+  it('lastIndexOf', () => {
+    const fn = throttle(lastIndexOf, 1000)
+    fn([1, 2, 3])
+  })
+  it('match', () => {
+    const fn = throttle(match, 1000)
+    fn(/foo/,'foo bar')
+  })
   it('join', () => {
     const fn = throttle(join, 1000)
     const result = fn('|',[1, 2, 3])
-    result // $ExpectType number
+    result // $ExpectType string
   })
   it('indexOf', () => {
     const fn = throttle(indexOf, 1000)

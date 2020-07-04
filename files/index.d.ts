@@ -2096,8 +2096,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp, str: string): any[];
-export function match(regExpression: RegExp): (str: string) => any[];
+export function match(regExpression: RegExp): (str: string) => string[];
+export function match(regExpression: RegExp, str: string): string[];
 
 /*
 Method: mathMod
