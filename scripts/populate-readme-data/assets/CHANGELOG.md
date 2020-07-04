@@ -2,7 +2,13 @@
 
 - `R.reduce` - drop support for object as iterable. Now it throws the same error as Ramda. Also instead of returning the initial value when iterable is `undefined`, now it throws.
 
-Several curried Typescript definitions are moved in front of their uncurried counterparts.
+Add index as additional argument to the Typescript definitions of the following methods:
+
+- R.all
+
+Several curried Typescript definitions are moved in front of their uncurried counterparts:
+
+- R.add
 
 - 5.8.0
 

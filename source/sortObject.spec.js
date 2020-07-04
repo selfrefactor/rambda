@@ -1,7 +1,7 @@
 import { runTests } from 'helpers-fn'
 
-import { equals } from './equals'
 import { allTrue } from './allTrue'
+import { equals } from './equals'
 import { sortObject } from './sortObject'
 
 const obj = {
@@ -38,7 +38,7 @@ const fn = ([ predicate, expectation ]) => {
     isSameObject,
     isSameObjectCurried,
     equals(sortedKeys, expectation),
-    equals(sortedKeysCurried, expectation),
+    equals(sortedKeysCurried, expectation)
   )
 }
 

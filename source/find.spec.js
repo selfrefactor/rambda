@@ -1,4 +1,6 @@
-import { find } from './find'
+import { find } from 'ramda'
+
+// import { find } from './find'
 import { propEq } from './propEq'
 
 const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
@@ -15,4 +17,11 @@ test('with curry', () => {
 
 test('with empty list', () => {
   expect(find(() => true, [])).toBeUndefined()
+})
+
+test('pass index', () => {
+  find((_, i) => {
+    expect(i).toBe(0)
+  },
+  [ 'foo' ])
 })
