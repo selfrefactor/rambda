@@ -1072,7 +1072,9 @@ Notes:
 */
 // @SINGLE_MARKER
 export function find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
+export function find<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): T | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => T | undefined;
 
 /*
 Method: findIndex
@@ -1097,8 +1099,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(predicate: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
-export function findIndex<T>(predicate: (a: T) => boolean, list: ReadonlyArray<T>): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
+export function findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
 
 /*
 Method: findLast
@@ -1124,7 +1128,9 @@ Notes:
 */
 // @SINGLE_MARKER
 export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
 
 /*
 Method: findLastIndex
@@ -1149,8 +1155,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
-export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(fn: (x: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(fn: (x: T, index: number) => boolean, list: T[]): number;
+export function findLastIndex<T>(fn: (x: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(fn: (x: T, index: number) => boolean): (list: T[]) => number;
 
 /*
 Method: flatten

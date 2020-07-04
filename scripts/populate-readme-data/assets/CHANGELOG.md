@@ -5,6 +5,10 @@
 Add index as additional argument to the Typescript definitions of the following methods:
 
 - R.all
+- R.find
+- R.findLast
+- R.findIndex
+- R.findLastIndex
 
 Several curried Typescript definitions are moved in front of their uncurried counterparts:
 

@@ -1,6 +1,4 @@
-import { find } from 'ramda'
-
-// import { find } from './find'
+import { find } from './find'
 import { propEq } from './propEq'
 
 const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]

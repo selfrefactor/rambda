@@ -5,11 +5,9 @@ import {
   either,
   endsWith,
   equals,
-  findIndex,
   has,
   hasPath,
   identical,
-  findLastIndex,
   indexOf,
   ifElse, 
   is, 
@@ -55,15 +53,6 @@ describe('curry first issue', () => {
     const result = fn('fi', {a:1})
     result // $ExpectType boolean
   })
-  it('findLastIndex', () => {
-    const fn = throttle(findLastIndex, 1000)
-    const result = fn(x => x === 1, [1, 2, 3])
-    result // $ExpectType number
-  })
-  it('findIndex', () => {
-    const fn = throttle(findIndex, 1000)
-    const result = fn(x => x === 1, [1, 2, 3])
-    result // $ExpectType number
   })
   it('equals', () => {
     const fn = throttle(equals, 1000)
