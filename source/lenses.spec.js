@@ -55,9 +55,7 @@ test('over', () => {
     },
   })
 
-  expect(over(
-    headLens, toUpper, alice.address
-  )).toEqual([
+  expect(over(headLens, toUpper)(alice.address)).toEqual([
     '22 WALNUT ST',
     'San Francisco',
     'CA',
