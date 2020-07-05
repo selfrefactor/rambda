@@ -1,5 +1,7 @@
 - WIP
 
+- `R.pickAll` definition allows string as path to search.
+
 - `R.propEq` definition is now similar to that in `@types/ramda`.
 
 - `R.none` matches `R.all` implementation and pass index as second argument to predicate input.

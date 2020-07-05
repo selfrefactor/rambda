@@ -15,13 +15,28 @@ import {
   mathMod, 
   is, 
   last,
+  prepend,
   lastIndexOf,
   pipe,
+  range,
   max,
+  repeat,
   throttle,
 } from 'rambda'
 
 describe('curry first issue', () => {
+  it('repeat', () => {
+    const fn = throttle(repeat, 1000)
+    fn(1, 4)
+  })
+  it('range', () => {
+    const fn = throttle(range, 1000)
+    fn(1, 4)
+  })
+  it('prepend', () => {
+    const fn = throttle(prepend, 1000)
+    fn(1, ['a', 'b', 'c'])
+  })
   it('mathMod', () => {
     const fn = throttle(mathMod, 1000)
     fn(1,2)

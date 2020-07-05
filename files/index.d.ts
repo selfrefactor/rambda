@@ -3114,8 +3114,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 export function prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
+export function prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
 
 /*
 Method: product
@@ -3277,8 +3277,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(start: number, end: number): number[];
 export function range(start: number): (end: number) => number[];
+export function range(start: number, end: number): number[];
 
 /*
 Method: reduce
@@ -3355,8 +3355,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function repeat<T>(x: T, timesToRepeat: number): T[];
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
+export function repeat<T>(x: T, timesToRepeat: number): T[];
 
 /*
 Method: replace
