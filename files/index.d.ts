@@ -135,8 +135,8 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 
 */
 // @SINGLE_MARKER
-export function add(a: number): (b: number) => number;
 export function add(a: number, b: number): number;
+export function add(a: number): (b: number) => number;
 
 /*
 Method: adjust
@@ -185,10 +185,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
 Method: allPass
@@ -866,8 +866,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function divide(a: number): (b: number) => number;
-export function divide(a: number, b: number): number;
+export function divide(x: number, y: number): number;
+export function divide(x: number): (y: number) => number;
 
 /*
 Method: drop
@@ -947,8 +947,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
 Method: endsWith
@@ -971,13 +971,13 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string): (str: string) => boolean;
 export function endsWith(target: string, str: string): boolean;
+export function endsWith(target: string): (str: string) => boolean;
 
 /*
 Method: equals
 
-Explanation: It deeply compares `a` and `b` and returns `true` if they are equal.
+Explanation: It deeply compares `x` and `y` and returns `true` if they are equal.
 
 Example:
 
@@ -990,12 +990,12 @@ R.equals(
 
 Categories: Logic
 
-Notes: It doesn't handle cyclical data structures.
+Notes: It doesn't handle cyclical data structures and functions
 
 */
 // @SINGLE_MARKER
-export function equals<T>(a: T): (b: T) => boolean;
-export function equals<T>(a: T, b: T): boolean;
+export function equals<T>(x: T, y: T): boolean;
+export function equals<T>(x: T): (y: T) => boolean;
 
 /*
 Method: F
@@ -1099,10 +1099,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
-export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
 export function findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
 export function findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
 
 /*
 Method: findLast
@@ -1127,10 +1127,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
-export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 
 /*
 Method: findLastIndex
@@ -1155,10 +1155,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLastIndex<T>(fn: (x: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(fn: (x: T, index: number) => boolean, list: T[]): number;
-export function findLastIndex<T>(fn: (x: T) => boolean): (list: T[]) => number;
-export function findLastIndex<T>(fn: (x: T, index: number) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(predicate: (x: T, index: number) => boolean, list: T[]): number;
+export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => number;
 
 /*
 Method: flatten
@@ -1290,8 +1290,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 export function groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
 /*
 Method: groupWith
@@ -1341,8 +1341,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function has(prop: string): <T>(obj: T) => boolean;
 export function has<T>(prop: string, obj: T): boolean;
+export function has(prop: string): <T>(obj: T) => boolean;
 
 /*
 Method: hasPath
@@ -1371,12 +1371,12 @@ Notes:
 */
 // @SINGLE_MARKER
 export function hasPath<T>(
-  path: string | string[]
-): (input: object) => boolean;
-export function hasPath<T>(
   path: string | string[],
   input: object
 ): boolean;
+export function hasPath<T>(
+  path: string | string[]
+): (input: object) => boolean;
 
 /*
 Method: head
@@ -1427,8 +1427,8 @@ Notes: Values are identical if they reference the same memory. `NaN` is identica
 
 */
 // @SINGLE_MARKER
-export function identical<T>(x: T): (y: T) => boolean;
 export function identical<T>(x: T, y: T): boolean;
+export function identical<T>(x: T): (y: T) => boolean;
 
 /*
 Method: identity
@@ -1590,8 +1590,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 export function indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number;
+export function indexOf<T>(valueToFind: T): (list: ReadonlyArray<T>) => number;
 
 /*
 Method: init
@@ -1685,8 +1685,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function is(targetPrototype: any): (x: any) => boolean;
 export function is(targetPrototype: any, x: any): boolean;
+export function is(targetPrototype: any): (x: any) => boolean;
 
 /*
 Method: isEmpty
@@ -1751,8 +1751,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function join<T>(glue: string): (list: ReadonlyArray<T>) => string;
 export function join<T>(glue: string, list: ReadonlyArray<T>): string;
+export function join<T>(glue: string): (list: ReadonlyArray<T>) => string;
 
 /*
 Method: keys
@@ -2096,8 +2096,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp): (str: string) => string[];
 export function match(regExpression: RegExp, str: string): string[];
+export function match(regExpression: RegExp): (str: string) => string[];
 
 /*
 Method: mathMod
@@ -2122,8 +2122,8 @@ Notes: Explanation is taken from `Ramda` documentation site.
 
 */
 // @SINGLE_MARKER
-export function mathMod(x: number): (y: number) => number;
 export function mathMod(x: number, y: number): number;
+export function mathMod(x: number): (y: number) => number;
 
 /*
 Method: max
@@ -2146,8 +2146,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function max<T extends Ord>(x: T): (y: T) => T;
 export function max<T extends Ord>(x: T, y: T): T;
+export function max<T extends Ord>(x: T): (y: T) => T;
 
 /*
 Method: maxBy
@@ -2341,8 +2341,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function min<T extends Ord>(x: T): (y: T) => T;
 export function min<T extends Ord>(x: T, y: T): T;
+export function min<T extends Ord>(x: T): (y: T) => T;
 
 /*
 Method: minBy
@@ -2385,8 +2385,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modulo(x: number): (y: number) => number;
 export function modulo(x: number, y: number): number;
+export function modulo(x: number): (y: number) => number;
 
 /*
 Method: multiply
@@ -2406,8 +2406,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function multiply(x: number): (y: number) => number;
 export function multiply(x: number, y: number): number;
+export function multiply(x: number): (y: number) => number;
 
 /*
 Method: negate
@@ -2449,10 +2449,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*
 Method: not
@@ -2499,8 +2499,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: readonly T[]): T | undefined;
-export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
+export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;	
+export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 /*
 Method: omit
@@ -3116,8 +3116,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 export function prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[];
+export function prepend<T>(x: T): (listOrString: ReadonlyArray<T>) => T[];
 
 /*
 Method: product
@@ -3279,8 +3279,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(start: number): (end: number) => number[];
 export function range(start: number, end: number): number[];
+export function range(start: number): (end: number) => number[];
 
 /*
 Method: reduce

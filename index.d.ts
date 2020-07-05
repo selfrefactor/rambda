@@ -118,8 +118,8 @@ export const DELAY: 'RAMBDAX_DELAY'
 /**
  * It adds `a` and `b`.
  */
-export function add(a: number): (b: number) => number;
 export function add(a: number, b: number): number;
+export function add(a: number): (b: number) => number;
 
 /**
  * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
@@ -130,7 +130,9 @@ export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: Readonl
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
  */
+export function all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /**
@@ -336,8 +338,8 @@ export function difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[]
 export function dissoc<T>(prop: string, obj: any): T;
 export function dissoc(prop: string): <U>(obj: any) => U;
 
-export function divide(a: number, b: number): number;
-export function divide(a: number): (b: number) => number;
+export function divide(x: number, y: number): number;
+export function divide(x: number): (y: number) => number;
 
 /**
  * It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
@@ -374,10 +376,10 @@ export function endsWith(target: string, str: string): boolean;
 export function endsWith(target: string): (str: string) => boolean;
 
 /**
- * It deeply compares `a` and `b` and returns `true` if they are equal.
+ * It deeply compares `x` and `y` and returns `true` if they are equal.
  */
-export function equals<T>(a: T, b: T): boolean;
-export function equals<T>(a: T): (b: T) => boolean;
+export function equals<T>(x: T, y: T): boolean;
+export function equals<T>(x: T): (y: T) => boolean;
 
 export function F(): boolean;
 
@@ -394,32 +396,40 @@ export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>):
  * 
  * If there is no such element, it returns `undefined`.
  */
-export function find<T>(predicate: (a: T) => boolean, arr: ReadonlyArray<T>): T | undefined;
-export function find<T>(predicate: (a: T) => boolean): (arr: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
+export function find<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => T | undefined;
 
 /**
  * It returns the index of the first element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findIndex<T>(findFn: (a: T) => boolean, arr: ReadonlyArray<T>): number;
-export function findIndex<T>(findFn: (a: T) => boolean): (arr: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
+export function findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
 
 /**
  * It returns the last element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `undefined` is returned.
  */
-export function findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 
 /**
  * It returns the index of the last element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(predicate: (x: T, index: number) => boolean, list: T[]): number;
+export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => number;
 
 /**
  * It deeply flattens an array.
@@ -451,8 +461,8 @@ export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
  */
-export function groupBy<T>(groupFn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
 /**
  * It returns separated version of `list`, where separation is done with equality `compareFn` function.
@@ -489,8 +499,8 @@ export function head(listOrString: string): string;
  * 
  * Otherwise, it returns `false`.
  */
-export function identical<T>(a: T, b: T): boolean;
-export function identical<T>(a: T): (b: T) => boolean;
+export function identical<T>(x: T, y: T): boolean;
+export function identical<T>(x: T): (y: T) => boolean;
 
 /**
  * It just passes back the supplied `input` argument.
@@ -502,8 +512,8 @@ export function identity<T>(input: T): T;
  * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
-export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 
 /**
  * It increments a number.
@@ -559,26 +569,26 @@ export function intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
 export function intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
 
 /**
- * It returns `true` is `x` is instance of `targetPrototype`.
+ * It returns `true` if `x` is instance of `targetPrototype`.
  */
 export function is(targetPrototype: any, x: any): boolean;
 export function is(targetPrototype: any): (x: any) => boolean;
 
 /**
- * It returns `true` is `x` is `empty`.
+ * It returns `true` if `x` is `empty`.
  */
 export function isEmpty<T>(x: T): boolean;
 
 /**
- * It returns `true` is `x` is either `null` or `undefined`.
+ * It returns `true` if `x` is either `null` or `undefined`.
  */
 export function isNil(x: any): x is null | undefined;
 
 /**
- * It returns a string representing `list` instances joined with `glue`.
+ * It returns a string of all `list` instances joined with a `glue`.
  */
-export function join(x: string, xs: ReadonlyArray<any>): string;
-export function join(x: string): (xs: ReadonlyArray<any>) => string;
+export function join<T>(glue: string, list: ReadonlyArray<T>): string;
+export function join<T>(glue: string): (list: ReadonlyArray<T>) => string;
 
 /**
  * It applies `Object.keys` over `x` and returns its keys.
@@ -674,8 +684,8 @@ export function map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
-export function match(regExpression: RegExp, str: string): any[];
-export function match(regExpression: RegExp): (str: string) => any[];
+export function match(regExpression: RegExp, str: string): string[];
+export function match(regExpression: RegExp): (str: string) => string[];
 
 /**
  * `R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
@@ -763,7 +773,9 @@ export function negate(x: number): number;
 /**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
  */
+export function none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /**
@@ -774,7 +786,7 @@ export function not(input: any): boolean;
 /**
  * Curried version of `list[index]`.
  */
-export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
+export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;	
 export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
 /**
@@ -836,8 +848,9 @@ export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) =>
  * 
  * `pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
  */
-export function pathEq(pathToSearch: string | string[], target: any, input: object): boolean;
-export function pathEq(pathToSearch: string | string[], target: any): (input: object) => boolean;
+export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
+export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
+export function pathEq(pathToSearch: Path): FunctionToolbelt.Curry<(a: any, b: any) => boolean>;
 
 /**
  * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
@@ -873,8 +886,10 @@ export function pick<T>(propsToPick: string): (input: object) => T;
 /**
  * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
  */
-export function pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
-export function pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string, input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string): (input: T) => U;
 
 /**
  * It performs left-to-right function composition.
@@ -1147,8 +1162,8 @@ export function reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>):
 /**
  * It returns a list of `x` input repeated `timesToRepeat` input.
  */
-export function repeat<T>(x: T, timesToRepeat: number): T[];
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
+export function repeat<T>(x: T, timesToRepeat: number): T[];
 
 /**
  * It replaces `strOrRegex` found in `str` with `replacer`.

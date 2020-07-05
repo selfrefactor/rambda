@@ -2,7 +2,6 @@ function _curryN(
   n, cache, fn
 ){
   return function (){
-    // concat cache and the arguments as fast as possible https://jsperf.com/concat-two-arrays-quickly
     let ci = 0
     let ai = 0
     const cl = cache.length
