@@ -2341,8 +2341,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function min<T extends Ord>(x: T, y: T): T;
 export function min<T extends Ord>(x: T): (y: T) => T;
+export function min<T extends Ord>(x: T, y: T): T;
 
 /*
 Method: minBy
@@ -2385,8 +2385,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modulo(x: number, y: number): number;
 export function modulo(x: number): (y: number) => number;
+export function modulo(x: number, y: number): number;
 
 /*
 Method: multiply
@@ -2406,8 +2406,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function multiply(x: number, y: number): number;
 export function multiply(x: number): (y: number) => number;
+export function multiply(x: number, y: number): number;
 
 /*
 Method: negate
@@ -2449,8 +2449,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
+export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
+export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
 
 /*
 Method: not
