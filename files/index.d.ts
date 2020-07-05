@@ -2499,8 +2499,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;
-export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+export function nth<T>(index: number, list: readonly T[]): T | undefined;
+export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
 
 /*
 Method: omit
@@ -2679,8 +2679,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pathEq(pathToSearch: string | string[], target: any, input: object): boolean;
-export function pathEq(pathToSearch: string | string[], target: any): (input: object) => boolean;
+export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
+export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
+export function pathEq(pathToSearch: Path): FunctionToolbelt.Curry<(a: any, b: any) => boolean>;
 
 /*
 Method: paths

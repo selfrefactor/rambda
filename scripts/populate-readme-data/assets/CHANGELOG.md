@@ -1,5 +1,7 @@
 - WIP
 
+- `R.propEq` definition is now similar to that in `@types/ramda`.
+
 - `R.none` matches `R.all` implementation and pass index as second argument to predicate input.
 
 - `R.reduce` - drop support for object as iterable. Now it throws the same error as Ramda. Also instead of returning the initial value when iterable is `undefined`, now it throws.
