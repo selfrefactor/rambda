@@ -30,4 +30,3 @@ describe('R.findLastIndex', () => {
     result // $ExpectType number
   })
 })
-

@@ -8,7 +8,7 @@ describe('R.identical', () => {
     curriedResult // $ExpectType boolean
   })
   it('with object', () => {
-    const result = identical({a:1},{b:2})
+    const result = identical({a: 1}, {b: 2})
     result // $ExpectType boolean
   })
 })

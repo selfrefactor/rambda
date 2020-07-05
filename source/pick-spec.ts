@@ -4,7 +4,7 @@ const input = {a: 'foo', b: 2, c: 3, d: 4}
 
 describe('R.pick with array as props input', () => {
   it('without passing type', () => {
-    const result = pick(['a','c'], input)
+    const result = pick(['a', 'c'], input)
     result.a // $ExpectType string
     result.c // $ExpectType number
   })

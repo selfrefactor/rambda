@@ -1,6 +1,6 @@
-import {findLast} from 'rambda'
+import { findLast } from 'rambda'
 
-const list = [1, 2, 3]
+const list = [ 1, 2, 3 ]
 
 describe('R.findLast', () => {
   it('happy', () => {
@@ -16,6 +16,7 @@ describe('R.findLast', () => {
   it('pass index as second argument', () => {
     const predicate = (x: number, index: number) => {
       index // $ExpectType number
+
       return x > 2
     }
     const result = findLast(predicate, list)
@@ -24,10 +25,10 @@ describe('R.findLast', () => {
   it('pass index as second argument | curried', () => {
     const predicate = (x: number, index: number) => {
       index // $ExpectType number
+
       return x > 2
     }
     const result = findLast(predicate)(list)
     result // $ExpectType number | undefined
   })
 })
-

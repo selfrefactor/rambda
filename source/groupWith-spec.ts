@@ -1,6 +1,4 @@
-import {
-  groupWith,
-} from 'rambda'
+import {groupWith} from 'rambda'
 
 describe('R.groupWith', () => {
   it('happy', () => {

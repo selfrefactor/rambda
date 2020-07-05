@@ -24,10 +24,14 @@ describe('path', () => {
   })
 })
 
-
 describe('ramda specs', () => {
-  const testPath = ['x', 0, 'y'];
-  const testObj = { x: [{ y: 2, z: 3 }, { y: 4, z: 5 }] };
+  const testPath = ['x', 0, 'y']
+  const testObj = {
+    x: [
+      {y: 2, z: 3},
+      {y: 4, z: 5},
+    ],
+  }
 
   const result1 = pathEq(testPath, 2, testObj)
   const result2 = pathEq(testPath, 2)(testObj)

@@ -5,9 +5,9 @@ describe('R.ifElse', () => {
     const fn = ifElse(
       x => x > 2,
       () => 10,
-      () => 1,
+      () => 1
     )
-     const result = fn(3) 
+    const result = fn(3)
     result // $ExpectType any
   })
 })

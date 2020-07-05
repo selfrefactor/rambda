@@ -1,7 +1,4 @@
-import {
-  delay,
-  throttle,
-} from 'rambda'
+import {delay, throttle} from 'rambda'
 
 describe('throttle', () => {
   it('arity of 1', async() => {
@@ -13,7 +10,7 @@ describe('throttle', () => {
     result2 // $ExpectType number
   })
   it('arity of 2', () => {
-    function add(x:number, y: number){
+    function add(x: number, y: number) {
       return x + y
     }
     const fn = throttle(add, 1000)

@@ -1,6 +1,4 @@
-import {
-  hasPath,
-} from 'rambda'
+import {hasPath} from 'rambda'
 
 describe('R.hasPath', () => {
   it('string path', () => {
@@ -18,4 +16,3 @@ describe('R.hasPath', () => {
     curriedResult // $ExpectType boolean
   })
 })
-

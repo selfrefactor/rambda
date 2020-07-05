@@ -30,4 +30,3 @@ describe('R.find', () => {
     result // $ExpectType number | undefined
   })
 })
-

@@ -14,20 +14,20 @@ const input = {a: 'foo', b: 2, c: 3, d: 4}
 
 describe('R.pickAll with array as props input', () => {
   it('without passing type', () => {
-    const result = pickAll(['a','c'], input)
+    const result = pickAll(['a', 'c'], input)
     result // $ExpectType unknown
   })
   it('without passing type + curry', () => {
-    const result = pickAll(['a','c'])(input)
+    const result = pickAll(['a', 'c'])(input)
     result // $ExpectType unknown
   })
   it('explicitly passing types', () => {
-    const result = pickAll<Input, Output>(['a','c'], input)
+    const result = pickAll<Input, Output>(['a', 'c'], input)
     result.a // $ExpectType string | undefined
     result.c // $ExpectType number | undefined
   })
   it('explicitly passing types + curry', () => {
-    const result = pickAll<Input, Output>(['a','c'])(input)
+    const result = pickAll<Input, Output>(['a', 'c'])(input)
     result.a // $ExpectType string | undefined
     result.c // $ExpectType number | undefined
   })

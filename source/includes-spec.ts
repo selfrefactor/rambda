@@ -1,4 +1,4 @@
-import { includes } from 'ramda'
+import {includes} from 'ramda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
 

@@ -1,6 +1,6 @@
 import {prepend} from 'rambda'
 
-const list = [ 1, 2, 3]
+const list = [1, 2, 3]
 
 describe('R.prepend', () => {
   it('happy', () => {

@@ -1,6 +1,6 @@
 import {prop} from 'rambda'
 
-const obj = { a: 1, b: 'foo'}
+const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
   it('happy', () => {

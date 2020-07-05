@@ -13,10 +13,8 @@ test('happy', () => {
 })
 
 test('can accepts initially two arguments', () => {
-  const result = compose(
-    map(x => x * 2),
-    (list, limit) => filter(x => x > limit, list)
-  )([ 1, 2, 3, 4, false ], 2)
+  const result = compose(map(x => x * 2),
+    (list, limit) => filter(x => x > limit, list))([ 1, 2, 3, 4, false ], 2)
 
   expect(result).toEqual([ 6, 8 ])
 })
@@ -32,7 +30,7 @@ test('ramda spec', () => {
     return [ a, b, c ]
   }
   const g = compose(f)
-  
+
   expect(g(
     1, 2, 3
   )).toEqual([ 1, 2, 3 ])

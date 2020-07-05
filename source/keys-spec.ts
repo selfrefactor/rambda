@@ -1,6 +1,6 @@
 import {keys} from 'rambda'
 
-const obj = {a: 1 , b: 2}
+const obj = {a: 1, b: 2}
 
 describe('R.keys', () => {
   it('happy', () => {

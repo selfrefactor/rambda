@@ -631,18 +631,24 @@ import {all} from 'rambda'
 
 describe('all', () => {
   it('happy', () => {
-    const result = all(x => {
-      x // $ExpectType number
-      return x > 0
-    }, [1, 2, 3])
+    const result = all(
+      x => {
+        x // $ExpectType number
+        return x > 0
+      },
+      [1, 2, 3]
+    )
     result // $ExpectType boolean
   })
   it('pass index', () => {
-    const result = all((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
-      return x > 0
-    }, [1, 2, 3])
+    const result = all(
+      (x, i) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 0
+      },
+      [1, 2, 3]
+    )
     result // $ExpectType boolean
   })
   it('pass index + curry', () => {
@@ -1016,7 +1022,7 @@ import {any} from 'rambda'
 describe('any', () => {
   it('happy', () => {
     const result = any(
-      (x) => {
+      x => {
         x // $ExpectType number
         return x > 2
       },
@@ -1026,11 +1032,10 @@ describe('any', () => {
   })
 
   it('when curried needs a type', () => {
-    const result = any<number>(
-      (x) => {
-        x // $ExpectType number
-        return x > 2
-      })([1, 2, 3])
+    const result = any<number>(x => {
+      x // $ExpectType number
+      return x > 2
+    })([1, 2, 3])
     result // $ExpectType boolean
   })
   it('pass index as second argument', () => {
@@ -1045,12 +1050,11 @@ describe('any', () => {
     result // $ExpectType boolean
   })
   it('pass index as second argument when curried needs a type', () => {
-    const result = any<number>(
-      (x, i) => {
-        x // $ExpectType number
-        i // $ExpectType number
-        return x > 2
-      })([1, 2, 3])
+    const result = any<number>((x, i) => {
+      x // $ExpectType number
+      i // $ExpectType number
+      return x > 2
+    })([1, 2, 3])
     result // $ExpectType boolean
   })
 })
@@ -2944,10 +2948,8 @@ test('happy', () => {
 })
 
 test('can accepts initially two arguments', () => {
-  const result = compose(
-    map(x => x * 2),
-    (list, limit) => filter(x => x > limit, list)
-  )([ 1, 2, 3, 4, false ], 2)
+  const result = compose(map(x => x * 2),
+    (list, limit) => filter(x => x > limit, list))([ 1, 2, 3, 4, false ], 2)
 
   expect(result).toEqual([ 6, 8 ])
 })
@@ -2963,7 +2965,7 @@ test('ramda spec', () => {
     return [ a, b, c ]
   }
   const g = compose(f)
-  
+
   expect(g(
     1, 2, 3
   )).toEqual([ 1, 2, 3 ])
@@ -5765,7 +5767,7 @@ find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) =
 ```javascript
 export function find(predicate, list){
   if (arguments.length === 1) return _list => find(predicate, _list)
-  
+
   let index = 0
   const len = list.length
 
@@ -6957,9 +6959,7 @@ test('groupBy', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {
-  groupBy,
-} from 'rambda'
+import {groupBy} from 'rambda'
 
 describe('R.groupBy', () => {
   it('happy', () => {
@@ -7199,9 +7199,7 @@ test('list with single item', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {
-  groupWith,
-} from 'rambda'
+import {groupWith} from 'rambda'
 
 describe('R.groupWith', () => {
   it('happy', () => {
@@ -7320,14 +7318,12 @@ test('with non-object', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {
-  has,
-} from 'rambda'
+import {has} from 'rambda'
 
 describe('R.has', () => {
   it('happy', () => {
-    const result = has('foo', {a:1})
-    const curriedResult = has('bar')({a:1})
+    const result = has('foo', {a: 1})
+    const curriedResult = has('bar')({a: 1})
     result // $ExpectType boolean
     curriedResult // $ExpectType boolean
   })
@@ -7456,9 +7452,7 @@ test('when false', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {
-  hasPath,
-} from 'rambda'
+import {hasPath} from 'rambda'
 
 describe('R.hasPath', () => {
   it('string path', () => {
@@ -7665,7 +7659,7 @@ describe('R.identical', () => {
     curriedResult // $ExpectType boolean
   })
   it('with object', () => {
-    const result = identical({a:1},{b:2})
+    const result = identical({a: 1}, {b: 2})
     result // $ExpectType boolean
   })
 })
@@ -7887,9 +7881,9 @@ describe('R.ifElse', () => {
     const fn = ifElse(
       x => x > 2,
       () => 10,
-      () => 1,
+      () => 1
     )
-     const result = fn(3) 
+    const result = fn(3)
     result // $ExpectType any
   })
 })
@@ -8095,7 +8089,7 @@ test('return false if input is falsy', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { includes } from 'ramda'
+import {includes} from 'ramda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
 
@@ -8471,7 +8465,7 @@ describe('R.indexOf', () => {
     const list = [1, 2, 3]
     const result = indexOf(1, list)
     const curriedResult = indexOf(1)(list)
-    
+
     result // $ExpectType number
     curriedResult // $ExpectType number
   })
@@ -8690,8 +8684,8 @@ import {intersection} from 'rambda'
 
 describe('R.intersection', () => {
   it('happy', () => {
-    const result = intersection([1, 2, 3], [1,3,5])
-    const curriedResult = intersection([1, 2, 3])([1,3,5])
+    const result = intersection([1, 2, 3], [1, 3, 5])
+    const curriedResult = intersection([1, 2, 3])([1, 3, 5])
     result // $ExpectType number[]
     curriedResult // $ExpectType number[]
   })
@@ -8788,7 +8782,7 @@ import {intersperse} from 'rambda'
 
 describe('R.intersperse', () => {
   it('happy', () => {
-    const result = intersperse(1, [1,2,3])
+    const result = intersperse(1, [1, 2, 3])
     result // $ExpectType number[]
   })
   it('curried', () => {
@@ -9218,7 +9212,7 @@ test('happy', () => {
 ```typescript
 import {keys} from 'rambda'
 
-const obj = {a: 1 , b: 2}
+const obj = {a: 1, b: 2}
 
 describe('R.keys', () => {
   it('happy', () => {
@@ -11855,18 +11849,24 @@ import {none} from 'rambda'
 
 describe('R.none', () => {
   it('happy', () => {
-    const result = none(x => {
-      x // $ExpectType number
-      return x > 0
-    }, [1, 2, 3])
+    const result = none(
+      x => {
+        x // $ExpectType number
+        return x > 0
+      },
+      [1, 2, 3]
+    )
     result // $ExpectType boolean
   })
   it('pass index', () => {
-    const result = none((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
-      return x > 0
-    }, [1, 2, 3])
+    const result = none(
+      (x, i) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 0
+      },
+      [1, 2, 3]
+    )
     result // $ExpectType boolean
   })
   it('pass index + curry', () => {
@@ -12026,7 +12026,7 @@ test('with negative index', () => {
 ```typescript
 import {nth} from 'rambda'
 
-const list = [ 1, 2, 3]
+const list = [1, 2, 3]
 
 describe('R.nth', () => {
   it('happy', () => {
@@ -12979,8 +12979,13 @@ describe('path', () => {
 })
 
 describe('ramda specs', () => {
-  const testPath = ['x', 0, 'y'];
-  const testObj = { x: [{ y: 2, z: 3 }, { y: 4, z: 5 }] };
+  const testPath = ['x', 0, 'y']
+  const testObj = {
+    x: [
+      {y: 2, z: 3},
+      {y: 4, z: 5},
+    ],
+  }
 
   const result1 = pathEq(testPath, 2, testObj)
   const result2 = pathEq(testPath, 2)(testObj)
@@ -13491,7 +13496,7 @@ const input = {a: 'foo', b: 2, c: 3, d: 4}
 
 describe('R.pick with array as props input', () => {
   it('without passing type', () => {
-    const result = pick(['a','c'], input)
+    const result = pick(['a', 'c'], input)
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
@@ -13682,20 +13687,20 @@ const input = {a: 'foo', b: 2, c: 3, d: 4}
 
 describe('R.pickAll with array as props input', () => {
   it('without passing type', () => {
-    const result = pickAll(['a','c'], input)
+    const result = pickAll(['a', 'c'], input)
     result // $ExpectType unknown
   })
   it('without passing type + curry', () => {
-    const result = pickAll(['a','c'])(input)
+    const result = pickAll(['a', 'c'])(input)
     result // $ExpectType unknown
   })
   it('explicitly passing types', () => {
-    const result = pickAll<Input, Output>(['a','c'], input)
+    const result = pickAll<Input, Output>(['a', 'c'], input)
     result.a // $ExpectType string | undefined
     result.c // $ExpectType number | undefined
   })
   it('explicitly passing types + curry', () => {
-    const result = pickAll<Input, Output>(['a','c'])(input)
+    const result = pickAll<Input, Output>(['a', 'c'])(input)
     result.a // $ExpectType string | undefined
     result.c // $ExpectType number | undefined
   })
@@ -14259,7 +14264,7 @@ test('prepend', () => {
 ```typescript
 import {prepend} from 'rambda'
 
-const list = [ 1, 2, 3]
+const list = [1, 2, 3]
 
 describe('R.prepend', () => {
   it('happy', () => {
@@ -14405,7 +14410,7 @@ test('prop', () => {
 ```typescript
 import {prop} from 'rambda'
 
-const obj = { a: 1, b: 'foo'}
+const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
   it('happy', () => {
@@ -18948,7 +18953,9 @@ export function whereEq(condition, input){
     return _input => whereEq(condition, _input)
   }
 
-  const result = filter((conditionValue, conditionProp) => equals(conditionValue, input[ conditionProp ]), condition)
+  const result = filter((conditionValue, conditionProp) =>
+    equals(conditionValue, input[ conditionProp ]),
+  condition)
 
   return Object.keys(result).length === Object.keys(condition).length
 }

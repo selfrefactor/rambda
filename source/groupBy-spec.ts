@@ -1,6 +1,4 @@
-import {
-  groupBy,
-} from 'rambda'
+import {groupBy} from 'rambda'
 
 describe('R.groupBy', () => {
   it('happy', () => {
