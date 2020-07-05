@@ -1,6 +1,6 @@
-- WIP
+- 5.9.0
 
-- `R.pickAll` definition allows string as path to search.
+- `R.pickAll` definition allows passing string as path to search.
 
 - `R.propEq` definition is now similar to that in `@types/ramda`.
 
@@ -15,10 +15,6 @@ Add index as additional argument to the Typescript definitions of the following 
 - R.findLast
 - R.findIndex
 - R.findLastIndex
-
-Several curried Typescript definitions are moved in front of their uncurried counterparts:
-
-- R.add
 
 - 5.8.0
 

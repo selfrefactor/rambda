@@ -1,11 +1,12 @@
 import { pick } from './pick'
 
+const obj = {
+  a : 1,
+  b : 2,
+  c : 3,
+}
+
 test('props to pick is a string', () => {
-  const obj = {
-    a : 1,
-    b : 2,
-    c : 3,
-  }
   const result = pick('a,c', obj)
   const resultCurry = pick('a,c')(obj)
   const expectedResult = {
@@ -15,6 +16,11 @@ test('props to pick is a string', () => {
 
   expect(result).toEqual(expectedResult)
   expect(resultCurry).toEqual(expectedResult)
+})
+
+test('when prop is missing', () => {
+  const result = pick('a,d,f', obj)
+  expect(result).toEqual({ a : 1 })
 })
 
 test('props to pick is an array', () => {

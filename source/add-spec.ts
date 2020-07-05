@@ -12,3 +12,4 @@ describe('R.add', () => {
     result // $ExpectType number
   })
 })
+ 

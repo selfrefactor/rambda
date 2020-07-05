@@ -2800,7 +2800,7 @@ const expected = [
 
 Categories: Object, List
 
-Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type.
+Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 */
 // @SINGLE_MARKER
 export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
@@ -2843,12 +2843,14 @@ const expected = [
 
 Categories: Object
 
-Notes:
+Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, U>(propsToPick: ReadonlyArray<string>, obj: T): U;
-export function pickAll(propsToPick: ReadonlyArray<string>): <T, U>(obj: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string, input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string): (input: T) => U;
 
 /*
 Method: pipe
