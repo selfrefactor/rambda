@@ -1,0 +1,33 @@
+{
+  "name": "MERGE",
+  "date": "2020-07-06T06:51:42.499Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 3605089,
+      "margin": 0.46,
+      "percentSlower": 63.55
+    },
+    {
+      "name": "Ramda",
+      "ops": 9889715,
+      "margin": 0.36,
+      "percentSlower": 0
+    },
+    {
+      "name": "Lodash",
+      "ops": 4425352,
+      "margin": 0.57,
+      "percentSlower": 55.25
+    }
+  ],
+  "fastest": {
+    "name": "Ramda",
+    "index": 1
+  },
+  "slowest": {
+    "name": "Rambda",
+    "index": 0
+  }
+}

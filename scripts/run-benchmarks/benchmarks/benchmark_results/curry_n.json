@@ -1,0 +1,27 @@
+{
+  "name": "CURRY_N",
+  "date": "2020-07-06T06:47:09.278Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 1229942,
+      "margin": 0.79,
+      "percentSlower": 63.32
+    },
+    {
+      "name": "Ramda",
+      "ops": 3352935,
+      "margin": 0.62,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Ramda",
+    "index": 1
+  },
+  "slowest": {
+    "name": "Rambda",
+    "index": 0
+  }
+}

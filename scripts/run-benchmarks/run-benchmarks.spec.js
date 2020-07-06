@@ -4,7 +4,14 @@ import { runAllBenchmarks, runSingleBenchmark } from './run-benchmarks'
 
 jest.setTimeout(ms('15 minutes'))
 
-test('happy', async () => {
-  // await runAllBenchmarks()
+const RUN_ALL = true
+
+test('run all', async () => {
+  if (!RUN_ALL) return
+  await runAllBenchmarks()
+})
+
+test('run single', async () => {
+  if (RUN_ALL) return
   await runSingleBenchmark('update')
 })

@@ -1,0 +1,33 @@
+{
+  "name": "CLONE",
+  "date": "2020-07-06T06:46:20.222Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 17161966,
+      "margin": 0.54,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 681945,
+      "margin": 2.13,
+      "percentSlower": 96.03
+    },
+    {
+      "name": "Lodash.cloneDeep",
+      "ops": 1415814,
+      "margin": 0.55,
+      "percentSlower": 91.75
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

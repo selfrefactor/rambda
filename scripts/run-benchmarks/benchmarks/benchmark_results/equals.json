@@ -1,0 +1,33 @@
+{
+  "name": "EQUALS",
+  "date": "2020-07-06T06:48:04.015Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 135389,
+      "margin": 0.39,
+      "percentSlower": 72.11
+    },
+    {
+      "name": "Ramda",
+      "ops": 99599,
+      "margin": 0.73,
+      "percentSlower": 79.48
+    },
+    {
+      "name": "Lodash",
+      "ops": 485492,
+      "margin": 0.84,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Lodash",
+    "index": 2
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "REDUCE",
+  "date": "2020-07-06T06:53:47.759Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 7109288,
+      "margin": 1,
+      "percentSlower": 52.76
+    },
+    {
+      "name": "Ramda",
+      "ops": 3910466,
+      "margin": 2.23,
+      "percentSlower": 74.02
+    },
+    {
+      "name": "Lodash",
+      "ops": 15049242,
+      "margin": 0.47,
+      "percentSlower": 0
+    }
+  ],
+  "fastest": {
+    "name": "Lodash",
+    "index": 2
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

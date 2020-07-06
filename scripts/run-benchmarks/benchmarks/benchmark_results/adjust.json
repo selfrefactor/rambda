@@ -1,0 +1,27 @@
+{
+  "name": "ADJUST",
+  "date": "2020-07-06T06:44:35.546Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 3803028,
+      "margin": 0.95,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 3593240,
+      "margin": 1.39,
+      "percentSlower": 5.52
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}

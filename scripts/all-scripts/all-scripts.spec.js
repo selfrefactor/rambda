@@ -50,15 +50,6 @@ test('run many scripts and generate readme', async () => {
   // ============================================
 
   /*
-    If benchmarks are changed, so should be their summary.
-  */
-
-  // await benchmarkSummary()
-
-  // ============================================
-  // ============================================
-
-  /*
     Important and long step, when we are adding new method.
     This step will rerun all Rambda methods in Ramda test environment.
 
@@ -71,6 +62,15 @@ test('run many scripts and generate readme', async () => {
   */
   // await build()
   // await runRamdaSpecs({ withInitialStep : true })
+
+  // ============================================
+  // ============================================
+
+  /*
+      If benchmarks are changed, so should be their summary.
+  */
+
+  await benchmarkSummary()
 
   // ============================================
   // ============================================

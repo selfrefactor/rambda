@@ -1,0 +1,33 @@
+{
+  "name": "FILTER",
+  "date": "2020-07-06T06:48:20.644Z",
+  "version": null,
+  "results": [
+    {
+      "name": "Rambda",
+      "ops": 36004713,
+      "margin": 0.76,
+      "percentSlower": 0
+    },
+    {
+      "name": "Ramda",
+      "ops": 1893294,
+      "margin": 0.18,
+      "percentSlower": 94.74
+    },
+    {
+      "name": "Lodash",
+      "ops": 15057264,
+      "margin": 1.88,
+      "percentSlower": 58.18
+    }
+  ],
+  "fastest": {
+    "name": "Rambda",
+    "index": 0
+  },
+  "slowest": {
+    "name": "Ramda",
+    "index": 1
+  }
+}
