@@ -6,7 +6,7 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "@types/ramda": "0.27.6",
+    "@types/ramda": "0.27.7",
     "rambdax": "https://github.com/selfrefactor/rambdax#4.0.0-beta",
     "rambda": "https://github.com/selfrefactor/rambda#5.6.0",
     "ramda": "0.27.0",
