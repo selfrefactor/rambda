@@ -33,7 +33,7 @@ export async function benchmarkSummary(){
     results.forEach(result => {
       if (result.name === 'Rambda') rambda = result
       if (result.name === 'Ramda') ramda = result
-      if (result.name.includes('Lodash')) summaryCounter.lodash++
+      if (result.name.includes('Lodash')) lodash = result
     })
 
     const columns = [ rambda, ramda, lodash ]
