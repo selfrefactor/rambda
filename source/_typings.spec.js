@@ -13,7 +13,7 @@ test('typings are correct', async () => {
     'yarn', [ 'typings' ], {
       stdio : 'inherit',
       cwd   : DIR,
-    } 
+    }
   )
 
   expect(status).toBe(0)

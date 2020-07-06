@@ -3767,8 +3767,8 @@ Notes:
 export function takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function takeLast(howMany: number, listOrString: string): string;
 export function takeLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*

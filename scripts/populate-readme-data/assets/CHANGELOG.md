@@ -1,3 +1,7 @@
+WIP
+
+- Fix curried definition for `R.takeLast`
+
 - 5.9.0
 
 - `R.pickAll` definition allows passing string as path to search.
