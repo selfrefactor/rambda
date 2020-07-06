@@ -1,30 +1,30 @@
-import {drop} from 'rambda'
+import {dropLast} from 'rambda'
 
 const list = [1, 2,3, 4]
 const str = 'foobar'
 const howMany = 2
 
-describe('R.drop - array', () => {
+describe('R.dropLast - array', () => {
   it('happy', () => {
-    const result = drop(howMany, list)
+    const result = dropLast(howMany, list)
 
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = drop(howMany)(list)
+    const result = dropLast(howMany)(list)
 
     result // $ExpectType number[]
   })
 })
 
-describe('R.drop - string', () => {
+describe('R.dropLast - string', () => {
   it('happy', () => {
-    const result = drop(howMany, str)
+    const result = dropLast(howMany, str)
 
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = drop(howMany)(str)
+    const result = dropLast(howMany)(str)
 
     result // $ExpectType string
   })

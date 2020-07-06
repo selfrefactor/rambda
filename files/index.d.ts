@@ -872,7 +872,7 @@ export function divide(x: number): (y: number) => number;
 /*
 Method: drop
 
-Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+Explanation: It returns `listOrString` with `howMany` items dropped from its beginning.
 
 Example:
 
@@ -887,17 +887,17 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, listOrString: string): string;
-export function drop<T>(howManyToDrop: number): {
+export function drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function drop(howMany: number, listOrString: string): string;
+export function drop<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
 Method: dropLast
 
-Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its end.
+Explanation: It returns `listOrString` with `howMany` items dropped from its end.
 
 Example:
 
@@ -912,10 +912,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, listOrString: string): string;
-export function dropLast<T>(howManyToDrop: number): {
-  (listOrString: ReadonlyArray<T>): T[];
+export function dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function dropLast(howMany: number, listOrString: string): string;
+export function dropLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
 };
 
@@ -3736,8 +3736,8 @@ Notes:
 export function take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function take(howMany: number, listOrString: string): string;
 export function take<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
