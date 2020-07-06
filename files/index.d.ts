@@ -5648,6 +5648,10 @@ Method: switcher
 
 Explanation: Edited fork of [Switchem](https://github.com/planttheidea/switchem) library.
 
+The method return a value if the matched option is a value.
+
+If the matched option is a function, then `R.switcher` returns a function which expects input. Tests of the method explain it better than this short description.
+
 Example:
 
 ```
