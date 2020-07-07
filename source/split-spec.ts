@@ -3,7 +3,7 @@ import {split} from 'rambda'
 const str = 'foo|bar|baz'
 const splitChar = '|'
 
-describe('R.splitEvery', () => {
+describe('R.split', () => {
   it('happy', () => {
     const result = split(splitChar, str)
 

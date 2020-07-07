@@ -7,7 +7,7 @@ describe('R.switcher', () => {
     .is('foo', 3)
     .default(4)
 
-    result // $ExpectType number[]
+    result // $ExpectType number
   })
   it('returns a function', () => {
     type Input = (x: number) => boolean

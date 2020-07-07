@@ -54,7 +54,7 @@ type MapFn<In, Out> = (x: In, index: number) => Out;
 type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean;
 type PartitionPredicate<T> = (x: T, prop?: string) => boolean;
 type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out;
-type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue?: T, bValue?: T) => number;
+type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
 interface MapInterface<T> {
   (list: T[]): T[];

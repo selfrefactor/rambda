@@ -11,4 +11,3 @@ test('happy', () => {
 test('curried', () => {
   expect(split(splitChar)(str)).toEqual(expected)
 })
-
