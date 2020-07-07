@@ -2,14 +2,13 @@ import { merge } from './merge'
 import { omit } from './omit'
 
 export function renameProps(conditions, inputObject){
-  if (inputObject === undefined){
+  if (arguments.length === 1){
     return inputObjectHolder => renameProps(conditions, inputObjectHolder)
   }
   const renamed = {}
-  Object.keys(conditions).forEach(renameConditionProp => {
-    if (Object.keys(inputObject).includes(renameConditionProp)){
-      renamed[ conditions[ renameConditionProp ] ] =
-        inputObject[ renameConditionProp ]
+  Object.keys(conditions).forEach(condition => {
+    if (Object.keys(inputObject).includes(condition)){
+      renamed[ conditions[ condition ] ] = inputObject[ condition ]
     }
   })
 

@@ -5600,6 +5600,8 @@ Notes:
 // @SINGLE_MARKER
 export function renameProps(rules: object, input: object): object;
 export function renameProps(rules: object): (input: object) => object;
+export function renameProps<Output>(rules: object, input: object): Output;
+export function renameProps<Output>(rules: object): (input: object) => Output;
 
 /*
 Method: shuffle
