@@ -17,8 +17,8 @@ describe('R.sortBy', () => {
     const result = sortBy(fn, input)
     const curriedResult = sortBy(fn2)(input)
 
-    result // $ExpectType {a: number; } []
-    curriedResult // $ExpectType {a: number; } []
+    result // $ExpectType { a: number; }[]
+    curriedResult // $ExpectType { a: number; }[]
     result[0].a // $ExpectType number
   })
   it('passing type to sort function and list', () => {
