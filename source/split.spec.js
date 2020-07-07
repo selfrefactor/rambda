@@ -1,7 +1,14 @@
 import { split } from './split'
 
-test('split', () => {
-  expect(split('|')('foo|bar|baz')).toEqual([ 'foo', 'bar', 'baz' ])
+const str = 'foo|bar|baz'
+const splitChar = '|'
+const expected = [ 'foo', 'bar', 'baz' ]
 
-  expect(split('.', 'a.b.c.xyz.d')).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
+test('happy', () => {
+  expect(split(splitChar, str)).toEqual(expected)
 })
+
+test('curried', () => {
+  expect(split(splitChar)(str)).toEqual(expected)
+})
+
