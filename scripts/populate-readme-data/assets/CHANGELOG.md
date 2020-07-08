@@ -1,5 +1,7 @@
 WIP
 
+- Fix definition of `R.propOr`
+
 - Fix curried definitions of `R.take`, `R.takeLast`, `R.drop` and `R.dropLast`
 
 - 5.9.0

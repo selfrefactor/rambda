@@ -3257,9 +3257,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
-export function propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
-export function propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
+export function propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T;
+export function propOr<T>(defaultValue: T, property: string): (obj: { [key: string]: T}) => T;
+export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 
 /*
 Method: range
