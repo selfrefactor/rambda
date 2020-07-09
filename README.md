@@ -8,8 +8,8 @@
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
 ![All contributors](https://img.shields.io/github/all-contributors/selfrefactor/rambda/master?style=for-the-badge)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
-[![PRs Welcome][prs-badge]][prs]
-[![Foo][https://npm-stat.com/charts.html?package=rambda&from=2016-02-12]
+![Foo][https://npm-stat.com/charts.html?package=rambda&from=2016-02-12]
+![PRs Welcome][prs-badge]
 
 ## Example use
 
