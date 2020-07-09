@@ -1,20 +1,26 @@
 import {promiseAllObject, delay} from 'rambda'
 
-const promises = {
-  foo: async () => {
-    await delay(100)
-    return 10
-  },
-  bar: async () => {
-    await delay(100)
-    return 10
-  }
+interface Output {
+  foo: number,
+  bar: number,
 }
 
 describe('R.promiseAllObject', () => {
-  it('happy', async () => {
-    const result = await promiseAllObject(promises)
+  it('with asynchronous functions', async () => {
+    const promises = {
+      foo: async () => {
+        await delay(100)
+        return 10
+      },
+      bar: async () => {
+        await delay(100)
+        return 20
+      },
+      baz: () => 30
+    }
 
-    result // $ExpectType number
+    const result = await promiseAllObject<Output>(promises)
+
+    result // $ExpectType Output
   })
 })

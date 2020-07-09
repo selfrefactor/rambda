@@ -8,10 +8,9 @@ export function promiseAllObject(promises){
 
     for (const prop in promises){
       props[ counter ] = prop
-      const toPush =
-        type(promises[ prop ]) === 'Async' ?
-          promises[ prop ]() :
-          promises[ prop ]
+      const toPush = [ 'Function', 'Async' ].includes(type(promises[ prop ])) ?
+        promises[ prop ]() :
+        promises[ prop ]
 
       promisedArr.push(toPush)
       counter++

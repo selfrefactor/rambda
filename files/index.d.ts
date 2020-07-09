@@ -88,7 +88,7 @@ interface Reduced {
 }
 
 interface ObjectWithPromises {
-  [key: string]: Promise<any>;
+  [key: string]: Promise<any>|NoInputAsync<any>|NoInputFunction<any>;
 }
 
 interface Schema {
@@ -109,6 +109,8 @@ interface IsValidAsync {
 }
 
 type Async<T> = (x: any) => Promise<T>;
+type NoInputAsync<T> = () => Promise<T>;
+type NoInputFunction<T> = () => T;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
@@ -5501,23 +5503,25 @@ export function produce<T>(
 /*
 Method: promiseAllObject
 
-Explanation: `Promise.all` version, which accept object of asynchronous functions as input.
+Explanation: `Promise.all` version, which accept object of asynchronous/synchronous functions and promises as input. Note that these functions/promises shouldn't expect any input as showed in the example code below.
 
 Example:
 
 ```
-const fn = ms => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(ms + 10)
-  }, ms)
-})
 const promises = {
-  a : fn(1),
-  b : fn(2),
+  foo: async () => {
+    await R.delay(100)
+    return 10
+  },
+  bar: new Promise(resolve => {
+    R.delay(100).then(() => resolve(20))
+  }),
+  baz: () => 30
 }
 
-const result = R.promiseAllObject(promises)
-const expected = { a:11, b:12 }
+
+const result = await R.promiseAllObject(promises)
+const expected = { foo:10, bar:20, baz: 30 }
 // `result` resolves to `expected`
 ```
 

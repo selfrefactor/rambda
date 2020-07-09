@@ -2,7 +2,7 @@
 
 4.0.0
 
-`R.promiseAllObject` supports async functions, not only promises.
+`R.promiseAllObject` supports asynchronous and synchronous functions, not only promises as inputs.
 
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
