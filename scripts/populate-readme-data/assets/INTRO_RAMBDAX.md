@@ -6,7 +6,9 @@ Extended version of Rambda(utility library) - [Documentation](https://selfrefact
 
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
-[![dependencies Status](https://david-dm.org/selfrefactor/rambdax/status.svg)](https://david-dm.org/selfrefactor/rambda)
+[![dependencies Status](https://david-dm.org/selfrefactor/rambdax/status.svg)](https://david-dm.org/selfrefactor/rambdax)
+![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambdax)
+![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambdax)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambdax)
 
 ## Differences between Rambda and Ramdax
