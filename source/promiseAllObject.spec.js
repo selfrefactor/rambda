@@ -1,4 +1,5 @@
-import { promiseAllObject } from './promiseAllObject'
+import {promiseAllObject } from './promiseAllObject'
+import {delay} from './delay'
 
 test('happy', async () => {
   const delay = ms =>
@@ -19,4 +20,23 @@ test('happy', async () => {
     b : 2,
     c : 3,
   })
+})
+
+test.only('with R.delay', async () => {
+  const promises = {
+    foo : async () => {
+      await delay(100)
+
+      return 10
+    },
+    bar : async () => {
+      await delay(100)
+
+      return 20
+    },
+  }
+
+  const result = await promiseAllObject(promises)
+  expect(result).toEqual({ foo: 10, bar: 20 }
+    )
 })

@@ -1,3 +1,5 @@
+import { type } from './type'
+
 export function promiseAllObject(promises){
   return new Promise((res, rej) => {
     let counter = 0
@@ -6,7 +8,12 @@ export function promiseAllObject(promises){
 
     for (const prop in promises){
       props[ counter ] = prop
-      promisedArr.push(promises[ prop ])
+      const toPush =
+        type(promises[ prop ]) === 'Async' ?
+          promises[ prop ]() :
+          promises[ prop ]()
+
+      promisedArr.push(toPush)
       counter++
     }
 
