@@ -11,7 +11,7 @@ export function promiseAllObject(promises){
       const toPush =
         type(promises[ prop ]) === 'Async' ?
           promises[ prop ]() :
-          promises[ prop ]()
+          promises[ prop ]
 
       promisedArr.push(toPush)
       counter++
