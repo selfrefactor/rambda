@@ -2,6 +2,8 @@
 
 4.0.0
 
+`R.promiseAllObject` supports async functions, not only promises.
+
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
 - `R.hasPath`
