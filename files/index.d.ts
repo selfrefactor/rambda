@@ -5243,7 +5243,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function memoize<T>(fn: Func<any> | Async<any>): T;
+export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
 Method: nextIndex
