@@ -5402,6 +5402,36 @@ Notes:
 export function once(fn: Func<any>): Func<any>;
 
 /*
+Method: partialCurry
+
+Explanation: `R.partialCurry` is a curry helper designed specifically for functions accepting object as a single argument.
+
+Initially the function knows only a part from the whole input object and then `R.partialCurry` helps in preparing the function for the second part, when it receives the rest of the input.
+
+Example:
+
+```
+const fn = ({ a, b, c }) => a + b + c
+const curried = partialCurry(fn, { a : 1 })
+const result = curried({
+  b : 2,
+  c : 3,
+})
+// => 6
+```
+
+Categories: Function, Async
+
+Notes: Curried function can be asynchronous
+
+*/
+// @SINGLE_MARKER
+export function partialCurry<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
+
+/*
 Method: piped
 
 Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument.
