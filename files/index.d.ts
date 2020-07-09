@@ -87,7 +87,6 @@ interface Reduced {
   [index: string]: any;
 }
 
-
 interface Schema {
   [key: string]: any;
 }
@@ -105,6 +104,12 @@ interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
+
+type ProduceRules<Input> = {
+  [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
+}
+type ProduceFunctionRule<Input> = (input: Input) => any
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
@@ -5487,13 +5492,15 @@ Notes: It is very similar to `R.applySpec`. TODO - improve typings
 
 */
 // @SINGLE_MARKER
-export function produce<T>(
-  rules: any,
-  input: any
-): T;
-export function produce<T>(
-  rules: any,
-): (input: any) => T;
+export function produce<Input, Output>(
+  rules: ProduceRules<Input>,
+  input: Input
+): Output;
+export function produce<Input, Output>(
+  rules: ProduceRules<Input>
+): (
+  input: Input
+) => Output;
 
 /*
 Method: random

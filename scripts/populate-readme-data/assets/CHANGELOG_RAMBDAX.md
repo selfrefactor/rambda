@@ -33,7 +33,9 @@ Deprecate the following methods:
 
 Also these changes:
 
--  `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
+- `R.produce` - fix typings
+
+- `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
 
 - Improve `R.ok` throwed error message
 
