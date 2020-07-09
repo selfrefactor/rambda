@@ -5399,7 +5399,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once(fn: Func<any>): Func<any>;
+export function once<T extends (...args: any[]) => any>(func: T): T;
 
 /*
 Method: partialCurry
