@@ -2,8 +2,6 @@
 
 4.0.0
 
-`R.promiseAllObject` supports asynchronous and synchronous functions, not only promises as inputs.
-
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
 - `R.hasPath`
@@ -15,7 +13,8 @@ Move the following methods to `Rambda` and change their logic to match `Ramda` i
 
 Deprecate the following methods:
 
-- `R.composed`
+- `R.promiseAllObject` - because `R.produce` serves the same purpose
+- `R.composed` - because `R.piped` makes more sense, when we want to pass the input at the start of the function
 - `R.defaultToStrict`
 - `R.findInObject`
 - `R.headObject`

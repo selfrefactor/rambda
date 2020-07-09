@@ -87,9 +87,6 @@ interface Reduced {
   [index: string]: any;
 }
 
-interface ObjectWithPromises {
-  [key: string]: Promise<any>|NoInputAsync<any>|NoInputFunction<any>;
-}
 
 interface Schema {
   [key: string]: any;
@@ -109,8 +106,6 @@ interface IsValidAsync {
 }
 
 type Async<T> = (x: any) => Promise<T>;
-type NoInputAsync<T> = () => Promise<T>;
-type NoInputFunction<T> = () => T;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
@@ -5499,41 +5494,6 @@ export function produce<T>(
 export function produce<T>(
   rules: any,
 ): (input: any) => T;
-
-/*
-Method: promiseAllObject
-
-Explanation: `Promise.all` version, which accept object of asynchronous/synchronous functions and promises as input. Note that these functions/promises shouldn't expect any input as showed in the example code below.
-
-Example:
-
-```
-const promises = {
-  foo: async () => {
-    await R.delay(100)
-    return 10
-  },
-  bar: new Promise(resolve => {
-    R.delay(100).then(() => resolve(20))
-  }),
-  baz: () => 30
-}
-
-
-const result = await R.promiseAllObject(promises)
-const expected = { foo:10, bar:20, baz: 30 }
-// `result` resolves to `expected`
-```
-
-Categories: Async
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function promiseAllObject<T>(
-  input: ObjectWithPromises
-): Promise<T>;
 
 /*
 Method: random
