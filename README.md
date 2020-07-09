@@ -6,10 +6,8 @@
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
-![All contributors](https://img.shields.io/github/all-contributors/selfrefactor/rambda/master?style=for-the-badge)
+![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
-![Foo][https://npm-stat.com/charts.html?package=rambda&from=2016-02-12]
-![PRs Welcome][prs-badge]
 
 ## Example use
 
