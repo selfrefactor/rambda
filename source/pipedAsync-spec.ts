@@ -1,13 +1,18 @@
-import {add} from 'rambda'
+import {pipedAsync, delay} from 'rambda'
 
-describe('R.add', () => {
-  it('happy', () => {
-    const result = add(4, 1)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = add(4)(1)
+describe('R.pipedAsync', () => {
+  it('happy', async () => {
+    const result = await pipedAsync<number>(
+      4,
+      async x => {
+        await delay(100)
+        return x + 1
+      },
+      async x => {
+        await delay(100)
+        return x + 10
+      }
+    )
 
     result // $ExpectType number
   })
