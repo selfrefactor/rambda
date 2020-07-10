@@ -7,7 +7,7 @@ const second = 2
 describe('R.maxBy', () => {
   it('happy', () => {
     const result = maxBy(compareFn, first, second)
-    result // $ExpectType number
+    result // $ExpectType 1 | 2
   })
   it('curried 1', () => {
     const result = maxBy(compareFn)(first, second)

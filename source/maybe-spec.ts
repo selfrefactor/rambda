@@ -1,9 +1,10 @@
 import {maybe} from 'rambda'
 
+const foo: any = {a:1}
+
 describe('R.maybe', () => {
   it('happy', () => {
     const ifRule = true
-    const foo = {a:1}
     const result = maybe(
       ifRule,
       foo.b ? 1: 2,
@@ -14,7 +15,6 @@ describe('R.maybe', () => {
   })
   it('can explicitly pass a type', () => {
     const ifRule = true
-    const foo = {a:1}
     const result = maybe<number>(
       ifRule,
       () => foo.b ? 1: 2,
@@ -25,7 +25,6 @@ describe('R.maybe', () => {
   })
   it('ifRule is a function', () => {
     const ifRule = () => true
-    const foo = {a:1}
     const result = maybe(
       ifRule,
       () => foo.b ? 1: 2,
@@ -36,13 +35,12 @@ describe('R.maybe', () => {
   })
   it('all inputs are functions', () => {
     const ifRule = () => true
-    const foo = {a:1}
     const result = maybe(
       ifRule,
       () => foo.b ? 1: 2,
       () => 3
     )
 
-    result // $ExpectType 1 | 2 | 3
+    result // $ExpectType number
   })
 })
