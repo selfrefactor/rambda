@@ -1,13 +1,13 @@
 import { type } from './type'
 
 export function maybe(
-  ifRule, whenIfRaw, whenElseRaw
+  ifRule, whenIf, whenElse
 ){
-  const whenIf =
-    ifRule && type(whenIfRaw) === 'Function' ? whenIfRaw() : whenIfRaw
+  const whenIfInput =
+    ifRule && type(whenIf) === 'Function' ? whenIf() : whenIf
 
-  const whenElse =
-    !ifRule && type(whenElseRaw) === 'Function' ? whenElseRaw() : whenElseRaw
+  const whenElseInput =
+    !ifRule && type(whenElse) === 'Function' ? whenElse() : whenElse
 
-  return ifRule ? whenIf : whenElse
+  return ifRule ? whenIfInput : whenElseInput
 }

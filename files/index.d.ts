@@ -46,6 +46,7 @@ type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> 
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
+type VoidInputFunc<T> = () => T;
 type Predicatex<T> = (input: T, index: number) => boolean;
 type Fn<In, Out> = (x: In) => Out;
 type FnTwo<In, Out> = (x: In, y: In) => Out;
@@ -2198,7 +2199,6 @@ export function mean(list: ReadonlyArray<number>): number;
 Method: median
 
 Explanation: It returns the median value of `list` input.
-
 
 Example:
 
@@ -5197,12 +5197,15 @@ const x = 4
 const y = 8
 
 const ifRule = x > 2
-const elseRule = y > 10 ? 3 : 7
-const whenElse = () => JSON.parse('{a:')
+const whenIf = y > 10 ? 3 : 7
+const whenElse = () => {
+  // just to show that it won't be evaluated
+  return JSON.parse('{a:')
+}
 
 const result = R.maybe(
   ifRule,
-  elseRule,
+  whenIf,
   whenElse,
 )
 // `result` is `7`
@@ -5214,7 +5217,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function maybe<T>(ifRule: any, whenIf: any, whenElse: any): T;
+export function maybe<T>(ifRule: boolean, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
+export function maybe<T>(ifRule: VoidInputFunc<boolean>, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
 
 /*
 Method: memoize

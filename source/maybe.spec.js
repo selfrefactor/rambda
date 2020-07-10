@@ -1,7 +1,7 @@
 import { maybe } from './maybe'
 
-const whenIf = 7
-const whenElse = 9
+const WHEN_IF = 'WHEN_IF'
+const WHEN_ELSE = 'WHEN_ELSE'
 
 test('prevent type error', () => {
   const x = 5
@@ -9,46 +9,53 @@ test('prevent type error', () => {
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule, whenIf, () => y.a === 'foo'
+    ifRule, WHEN_IF, () => y.a === 'foo'
   )
-  const expectedResult = 7
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toBe(WHEN_IF)
 })
 
-test('function as whenElse', () => {
+test('whenElse is a function', () => {
   const x = 2
   const y = { a : 1 }
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule, whenIf, () => y.a === 'foo'
+    ifRule, WHEN_IF, () => y.a === 'foo'
   )
-  const expectedResult = false
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toBeFalse()
 })
 
-test('when if', () => {
+test('whenIf', () => {
   const x = 5
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule, whenIf, whenElse
+    ifRule, WHEN_IF, WHEN_ELSE
   )
-  const expectedResult = 7
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toBe(WHEN_IF)
 })
 
-test('when else', () => {
+test('whenIf is a function', () => {
+  const x = 5
+  const ifRule = () => x > 3
+
+  const result = maybe(
+    ifRule, () => WHEN_IF, WHEN_ELSE
+  )
+
+  expect(result).toBe(WHEN_IF)
+})
+
+test('whenElse', () => {
   const x = 1
   const ifRule = x > 3
 
   const result = maybe(
-    ifRule, whenIf, whenElse
+    ifRule, WHEN_IF, WHEN_ELSE
   )
-  const expectedResult = 9
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toBe(WHEN_ELSE)
 })
