@@ -4894,30 +4894,30 @@ export function reset(): void;
 /*
 Method: ifElseAsync
 
-Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous.
+Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous function.
 
 Example:
 
 ```
 const condition = async x => {
   await R.delay(100)
-  return x>1
+  return x > 1
 }
 const ifFn = async x => {
   await R.delay(100)
-  return x+1
+  return x + 1
 }
 const elseFn = async x => {
   await R.delay(100)
-  return x-1
+  return x - 1
 }
 
-const result = R.ifElseAsync(
+const result = await R.ifElseAsync(
   condition,
   ifFn,
   elseFn  
 )(1)
-// => result resolves to `0`
+// => 0
 ```
 
 Categories: Async, Logic
@@ -4928,8 +4928,8 @@ Notes:
 // @SINGLE_MARKER
 export function ifElseAsync<T>(
   condition: Async<any> | Func<any>,
-  ifFn: Async<any> | Func<any>,
-  elseFn: Async<any> | Func<any>
+  ifFn: Async<T> | Func<T>,
+  elseFn: Async<T> | Func<T>
 ): Async<T>;
 
 /*
@@ -5053,32 +5053,58 @@ Explanation: It checks if `input` is following `schema` specifications.
 
 If validation fails, it returns `false`.
 
-Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description of this method.
-
-Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
+Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description for this method.
 
 Example:
 
 ```
-R.isType('Promise',Promise.resolve(1))
-// => true
-const input = { a: ['foo', 'bar'] }
-const invalidInput = { a: ['foo', 'bar', 1] }
-const schema = {a: ['string'] }
+const input = {a: ['foo', 'bar']}
+const invalidInput = {a: ['foo', 'bar', 1]}
+const schema = {a: [String]}
 const result = [
   R.isValid({schema, input}),
-  R.isValid({schema, invalidInput}),
+  R.isValid({schema, input: invalidInput})
 ]
 // => [true, false]
 ```
 
 Categories: Logic
 
-Notes:
+Notes: Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
 
 */
 // @SINGLE_MARKER
 export function isValid({input: object, schema: Schema}): boolean;
+
+/*
+Method: isValidAsync
+
+Explanation: Asynchronous version of `R.isValid`
+
+Example:
+
+```
+const input = {a: 1, b: 2}
+const invalidInput = {a: 1, b: 'foo'}
+const schema = {a: Number, b: async x => {
+  await R.delay(100)
+  return typeof x === 'number'
+}}
+
+const result = await Promise.all([
+  R.isValid({schema, input}),
+  R.isValid({schema, input: invalidInput})
+])
+// => [true, false]
+```
+
+Categories: Logic, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isValidAsync(x: IsValidAsync): Promise<boolean>;
 
 /*
 Method: mapAsync
@@ -5155,7 +5181,8 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number, list: T[]): Promise<U[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncWithMap<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncWithMapIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
 
 /*
 Method: mapToObject
@@ -5386,27 +5413,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
-
-/*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isValidAsync(x: IsValidAsync): Promise<boolean>;
 
 /*
 Method: once
