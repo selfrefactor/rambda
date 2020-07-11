@@ -33,6 +33,8 @@ Deprecate the following methods:
 
 Also these changes:
 
+- `R.ifElseAsync` - accept any number of arguments for the returned function
+
 - `R.produce` - fix typings
 
 - `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`

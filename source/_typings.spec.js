@@ -17,4 +17,4 @@ test('typings are correct', async () => {
   )
 
   expect(status).toBe(0)
-}) 
+})
