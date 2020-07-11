@@ -22,11 +22,13 @@ test('happy', () => {
   })).toEqual({ b : 2 })
 })
 
-test('bad inputs', () => {
+test('bad inputs difference between Ramda and Rambda', () => {
   expect(filter(T)(undefined)).toEqual([])
   expect(filter(F, null)).toEqual([])
-  expect(() => Ramda.filter(T, null)).toThrow()
-  expect(() => Ramda.filter(T, undefined)).toThrow()
+  expect(() => Ramda.filter(T, null)).toThrowWithMessage(TypeError,
+    'Cannot read property \'filter\' of null')
+  expect(() => Ramda.filter(T, undefined)).toThrowWithMessage(TypeError,
+    'Cannot read property \'filter\' of undefined')
 })
 
 test('predicate when input is object', () => {

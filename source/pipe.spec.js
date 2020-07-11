@@ -12,5 +12,6 @@ test('happy', () => {
 })
 
 test('with bad input', () => {
-  expect(() => pipe()).toThrow('pipe requires at least one argument')
+  expect(() => pipe()).toThrowWithMessage(Error,
+    'pipe requires at least one argument')
 })

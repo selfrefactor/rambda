@@ -24,7 +24,7 @@ test('with function that throws an error', () => {
     curried({
       b : 2,
       c : 3,
-    })).toThrow('foo')
+    })).toThrowWithMessage(Error, 'foo')
 })
 
 test('with async', async () => {
