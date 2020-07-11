@@ -70,3 +70,23 @@ test('curry 2', () => {
   expect(fn({ foo : 'bar' })).toEqual(3)
   expect(fn({ fo : 'bar' })).toEqual(false)
 })
+
+test('simple arity of 1', () => {
+  const condition = x => x > 5
+  const onTrue = x => x + 1
+  const onFalse = x => x + 10
+  const result = ifElse(
+    condition, onTrue, onFalse
+  )(1)
+  expect(result).toBe(11)
+})
+
+test('simple arity of 2', () => {
+  const condition = (x, y) => x + y > 5
+  const onTrue = (x, y) => x + y + 1
+  const onFalse = (x, y) => x + y + 10
+  const result = ifElse(
+    condition, onTrue, onFalse
+  )(1, 10)
+  expect(result).toBe(12)
+})

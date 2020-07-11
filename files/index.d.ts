@@ -1479,8 +1479,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
-export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+export function ifElse<T, U>(
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+): (x: T) => U;
+export function ifElse<T, K, U>(
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => U;
 
 /*
 Method: inc
