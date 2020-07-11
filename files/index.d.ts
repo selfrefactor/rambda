@@ -112,7 +112,8 @@ type ProduceRules<Input> = {
 type ProduceFunctionRule<Input> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
-type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
+type AsyncWithMap<T, K> = (x: T) => Promise<K>;
+type AsyncWithMapIndexed<T, K> = (x: T, i: number) => Promise<K>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY'
@@ -5103,10 +5104,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapAsync<T>(fn: AsyncWithMap<any>, list: any[]): Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithProp<any>, obj: object): Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
+export function mapAsync<T, K>(fn: AsyncWithMap<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncWithMapIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncWithMap<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncWithMapIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapFastAsync
@@ -5132,10 +5133,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T>(fn: AsyncWithMap<any>, list: any[]): Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithProp<any>, obj: object): Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
+export function mapFastAsync<T, K>(fn: AsyncWithMap<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncWithMapIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncWithMap<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncWithMapIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapAsyncLimit
