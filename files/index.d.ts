@@ -5161,16 +5161,23 @@ Method: mapToObject
 
 Explanation: This method allows to generate an object from a list using input function `fn`.
 
-This function must return an object for every member of `list` input. All of the returns will be merged in the final result. 
+This function must return either an object or `false` for every member of `list` input. 
+
+If `false` is returned, then this element of `list` will be skipped in the calculation of the result.
+
+All of returned objects will be merged to generate the final result.
 
 Example:
 
 ```
-const list = [1, 2, 3]
-const fn = x => x%2 ? {[x]: x+1}: {[x]: x+10}
+const list = [1, 2, 3, 12]
+const fn = x => {
+  if(x > 10) return false
+  return x % 2 ? {[x]: x + 1}: {[x]: x + 10}
+}
 
 const result = mapToObject(fn, list)
-const expected = { '1': 2, '2': 12, '3': 4 }
+const expected = {'1': 2, '2': 12, '3': 4}
 // => `result` is equal to `expected`
 ```
 
@@ -5180,8 +5187,27 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObject<T, U>(fn: (input: T) => object, list: T[]): U;
-export function mapToObject<T, U>(fn: (input: T) => object): (list: T[]) => U;
+export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
+export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+
+/*
+Method: mapToObjectAsync
+
+Explanation: Asynchronous version of `R.mapToObject`
+
+Example:
+
+```
+
+```
+
+Categories: List, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
 
 /*
 Method: maybe

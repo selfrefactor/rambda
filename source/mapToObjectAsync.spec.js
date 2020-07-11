@@ -1,14 +1,21 @@
+import { delay } from './delay'
 import { mapToObjectAsync } from './mapToObjectAsync'
 
-test('simple', async () => {
-  const list = [ 1, 2, 3 ]
-  const fn = async x => x % 2 ? { [ x ] : x + 1 } : { [ x ] : x + 10 }
-  const result = await mapToObjectAsync(fn, list)
-  const expected = {
-    1 : 2,
-    2 : 12,
-    3 : 4,
-  }
+const list = [ 1, 2, 3, 12 ]
+const fn = async x => {
+  await delay(100)
+  if (x > 10) return false
 
+  return x % 2 ? { [ `key${ x }` ] : x + 1 } : { [ `key${ x }` ] : x + 10 }
+}
+
+const expected = {
+  key1 : 2,
+  key2 : 12,
+  key3 : 4,
+}
+
+test('happy', async () => {
+  const result = await mapToObjectAsync(fn, list)
   expect(result).toEqual(expected)
 })

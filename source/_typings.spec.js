@@ -15,6 +15,6 @@ test('typings are correct', async () => {
       cwd   : DIR,
     }
   )
- 
+
   expect(status).toBe(0)
 })
