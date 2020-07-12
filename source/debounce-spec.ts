@@ -1,8 +1,8 @@
-import {delay, throttle} from 'rambda'
+import {delay, debounce} from 'rambda'
 
-describe('R.throttle', () => {
+describe('R.debounce', () => {
   it('arity of 1', async() => {
-    const fn = throttle((x: number) => x + 1, 1000)
+    const fn = debounce((x: number) => x + 1, 1000)
     const result1 = fn(1)
     await delay(100)
     const result2 = fn(1)
@@ -13,17 +13,17 @@ describe('R.throttle', () => {
     function add(x: number, y: number) {
       return x + y
     }
-    const fn = throttle(add, 1000)
+    const fn = debounce(add, 1000)
     const result = fn(1, 2)
     result // $ExpectType number
   })
   it('arity of 3', () => {
-    const toThrottle = (x: number, y: string, z: boolean) => {
+    const todebounce = (x: number, y: string, z: boolean) => {
       if (z) return 'foo'
       return `${x}${y}`
     }
 
-    const fn = throttle(toThrottle, 1000)
+    const fn = debounce(todebounce, 1000)
     const result = fn(1, 'bar', true)
     result // $ExpectType string
   })

@@ -1,7 +1,7 @@
 import { debounce } from './debounce'
 import { delay } from './delay'
 
-test('', async () => {
+test('happy', async () => {
   let counter = 0
   let aHolder
   let bHolder

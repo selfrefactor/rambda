@@ -33,11 +33,9 @@ Deprecate the following methods:
 
 Also these changes:
 
-- `R.filterAsync` - improve typings
-
 - `R.ifElseAsync` - accept any number of arguments for the returned function
 
-- `R.produce` - fix typings
+- `R.produce`, `R.filterAsync`, `R.debounce`, `R.throttle` - fix typings
 
 - `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
 

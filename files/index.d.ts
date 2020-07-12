@@ -4759,7 +4759,9 @@ Notes: Description is taken from `Lodash` docs
 
 */
 // @SINGLE_MARKER
-export function debounce<T>(fn: T, ms: number): (input: T) => T;
+export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
 
 /*
 Method: delay
