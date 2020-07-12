@@ -1238,12 +1238,12 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
-export function forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-export function forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-export function forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
+export function forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
+export function forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
+export function forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 /*
 Method: fromPairs
