@@ -112,8 +112,10 @@ type ProduceRules<Input> = {
 type ProduceFunctionRule<Input> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
-type AsyncWithMap<T, K> = (x: T) => Promise<K>;
-type AsyncWithMapIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncIterable<T, K> = (x: T) => Promise<K>;
+type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncPredicate<T> = (x: T) => Promise<boolean>;
+type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY'
@@ -4799,10 +4801,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, list: T[]): Promise<T[]>;
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, obj: object): Promise<{
-  [prop: string]: T
-}>;
+export function filterAsync<T>(fn: AsyncPredicate<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: T[]) => Promise<T[]>;
 
 /*
 Method: glue
@@ -5164,10 +5166,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapAsync<T, K>(fn: AsyncWithMap<T, K>, list: T[]): Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncWithMapIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncWithMap<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncWithMapIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapFastAsync
@@ -5193,10 +5195,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T, K>(fn: AsyncWithMap<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncWithMapIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncWithMap<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncWithMapIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapAsyncLimit
@@ -5215,8 +5217,8 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, K>(fn: AsyncWithMap<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncWithMapIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
 
 /*
 Method: mapToObject

@@ -33,6 +33,8 @@ Deprecate the following methods:
 
 Also these changes:
 
+- `R.filterAsync` - improve typings
+
 - `R.ifElseAsync` - accept any number of arguments for the returned function
 
 - `R.produce` - fix typings
@@ -50,8 +52,6 @@ Also these changes:
 - Change how Typescript definitions are exported
 
 - Take `R.partialCurry` from `Rambda` as it is deprecated there
-
-- Fix many typings due to `dtslint` tests
 
 3.7.0
 
