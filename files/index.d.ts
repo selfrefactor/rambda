@@ -4934,32 +4934,32 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse<T, U>(
+export function ifElseAsync<T, U>(
   condition: (x: T) => Promise<boolean>, 
   onTrue: (x: T) => U, 
   onFalse: (x: T) => U, 
   ): (x: T) => Promise<U>;
-export function ifElse<T, U>(
+export function ifElseAsync<T, U>(
   condition: (x: T) => boolean, 
   onTrue: (x: T) => Promise<U>, 
   onFalse: (x: T) => Promise<U>, 
 ): (x: T) => Promise<U>;
-export function ifElse<T, U>(
+export function ifElseAsync<T, U>(
   condition: (x: T) => Promise<boolean>, 
   onTrue: (x: T) => Promise<U>, 
   onFalse: (x: T) => Promise<U>, 
 ): (x: T) => Promise<U>;
-export function ifElse<T, K, U>(
+export function ifElseAsync<T, K, U>(
   condition: (x: T, y: K) => Promise<boolean>, 
   onTrue: (x: T, y: K) => U, 
   onFalse: (x: T, y: K) => U, 
 ): (x: T, y: K) => Promise<U>;
-export function ifElse<T, K, U>(
+export function ifElseAsync<T, K, U>(
   condition: (x: T, y: K) => boolean, 
   onTrue: (x: T, y: K) => Promise<U>, 
   onFalse: (x: T, y: K) => Promise<U>, 
 ): (x: T, y: K) => Promise<U>;
-export function ifElse<T, K, U>(
+export function ifElseAsync<T, K, U>(
   condition: (x: T, y: K) => Promise<boolean>, 
   onTrue: (x: T, y: K) => Promise<U>, 
   onFalse: (x: T, y: K) => Promise<U>, 
