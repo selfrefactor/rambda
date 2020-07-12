@@ -1,5 +1,7 @@
 WIP
 
+- Definitions of `R.either` is same as that of `R.both`
+
 - Definitions of `R.ifElse` no longer use `any` type
 
 - Definition of `R.flatten` requires passing type for the output

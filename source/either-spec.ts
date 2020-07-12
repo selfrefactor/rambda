@@ -1,8 +1,8 @@
-import {both} from 'rambda'
+import {either} from 'rambda'
 
-describe('R.both', () => {
+describe('R.either', () => {
   it('with passed type', () => {
-    const fn = both<number>(
+    const fn = either<number>(
       x => x > 1,
       x =>x % 2 === 0
     )
@@ -11,7 +11,7 @@ describe('R.both', () => {
     result // $ExpectType boolean
   })
   it('with passed type - curried', () => {
-    const fn = both<number>(
+    const fn = either<number>(
       x => x > 1
       )(
         x =>x % 2 === 0
@@ -21,7 +21,7 @@ describe('R.both', () => {
     result // $ExpectType boolean
   })
   it('no type passed', () => {
-    const fn = both(
+    const fn = either(
       x => {
         x // $ExpectType any
         return x > 1
@@ -35,7 +35,7 @@ describe('R.both', () => {
     result // $ExpectType boolean
   })
   it('no type passed - curried', () => {
-    const fn = both(
+    const fn = either(
       x => {
         x // $ExpectType any
         return x > 1
