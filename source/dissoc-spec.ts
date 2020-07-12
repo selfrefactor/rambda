@@ -1,4 +1,4 @@
-import {dissoc} from 'rambda'
+import {dissoc, pipe, identity} from 'rambda'
 
 const obj = {
   a : 1,
@@ -16,6 +16,14 @@ describe('R.dissoc', () => {
   })
   it('curried', () => {
     const result = dissoc<Output>('b')(obj)
+
+    result // $ExpectType Output
+  })
+  it('within R.pipe', () => {
+    const result = pipe<object, object, Output>(
+      identity,
+      dissoc('b')
+    )(obj)
 
     result // $ExpectType Output
   })
