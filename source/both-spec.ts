@@ -36,12 +36,12 @@ describe('R.both', () => {
   })
   it('no type passed - curried', () => {
     const fn = both(
-      x => {
-        x // $ExpectType any
+      (x:number) => {
+        x // $ExpectType number
         return x > 1
       })(
-        x => {
-          x // $ExpectType any
+        (x:number) => {
+          x // $ExpectType number
           return x % 2 === 0
         }
     )

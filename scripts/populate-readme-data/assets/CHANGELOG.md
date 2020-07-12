@@ -1,5 +1,7 @@
 WIP
 
+- Definition of `R.curry` are not same as those of `@types/ramda`
+
 - Definitions of `R.either` is same as that of `R.both`
 
 - Definitions of `R.ifElse` no longer use `any` type

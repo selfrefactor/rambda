@@ -36,12 +36,12 @@ describe('R.either', () => {
   })
   it('no type passed - curried', () => {
     const fn = either(
-      x => {
-        x // $ExpectType any
+      (x:number) => {
+        x // $ExpectType number
         return x > 1
       })(
-        x => {
-          x // $ExpectType any
+        (x:number) => {
+          x // $ExpectType number
           return x % 2 === 0
         }
     )

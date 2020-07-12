@@ -737,7 +737,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
+export function curry(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /*
 Method: curryN

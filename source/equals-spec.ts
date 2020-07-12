@@ -3,7 +3,7 @@ import {equals} from 'rambda'
 describe('R.equals', () => {
   it('happy', () => {
     const result = equals(4, 1)
-    result // $ExpectType boolnea
+    result // $ExpectType boolean
   })
   it('with object', () => {
     const foo = {a:1}
