@@ -2,6 +2,8 @@ WIP
 
 - Definitions of `R.ifElse` no longer use `any` type
 
+- Definition of `R.flatten` requires passing type for the output
+
 - Fix definition of `R.propOr`
 
 - Fix curried definitions of `R.take`, `R.takeLast`, `R.drop` and `R.dropLast`

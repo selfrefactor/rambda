@@ -1187,7 +1187,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
+export function flatten<T>(list: ReadonlyArray<any>): T[];
 
 /*
 Method: flip
