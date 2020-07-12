@@ -853,7 +853,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+export function dissoc<T>(prop: string): (obj: any) => T;
 
 /*
 Method: divide

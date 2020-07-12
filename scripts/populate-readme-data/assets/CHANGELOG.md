@@ -6,7 +6,7 @@ WIP
 
 - Definition of `R.flatten` requires passing type for the output
 
-- Fix definition of `R.propOr`
+- Fix definition of `R.propOr`, `R.dissoc`
 
 - Fix curried definitions of `R.take`, `R.takeLast`, `R.drop` and `R.dropLast`
 
