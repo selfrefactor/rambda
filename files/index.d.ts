@@ -2534,6 +2534,26 @@ export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
 export function omit<T>(propsToOmit: string): (obj: object) => T;
 
+
+/*
+Method: of
+
+Explanation: It returns a partial copy of an `obj` without `propsToOmit` properties.
+
+Example:
+
+```
+R.of(null); //=> [null]
+R.of([42]); //=> [[42]]
+```
+
+Categories: Function
+
+Notes: This of is different from the ES6 of; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
+
+*/
+export function of(x: any): => boolean;
+
 /*
 Method: partial
 
