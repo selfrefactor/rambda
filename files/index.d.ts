@@ -2568,7 +2568,7 @@ Categories: Function
 Notes: This of is different from the ES6 of; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
 
 */
-export function of(x: any): => boolean;
+export function of<T>(x: T): T[];
 
 /*
 Method: partial

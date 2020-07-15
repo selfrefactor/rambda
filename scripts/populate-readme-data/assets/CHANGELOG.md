@@ -1,5 +1,7 @@
 WIP
 
+- [PR #508](https://github.com/selfrefactor/rambda/pull/508) - add `R.of`
+
 - Definition of `R.curry` are not same as those of `@types/ramda`
 
 - Definitions of `R.either` is same as that of `R.both`
