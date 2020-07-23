@@ -2885,8 +2885,8 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 // @SINGLE_MARKER
 export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
 export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
-export function pickAll<T, U>(propsToPick: readonly string, input: T): U;
-export function pickAll<T, U>(propsToPick: readonly string): (input: T) => U;
+export function pickAll<T, U>(propsToPick: string, input: T): U;
+export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
 /*
 Method: pipe
