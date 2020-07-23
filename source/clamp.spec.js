@@ -1,5 +1,12 @@
 import { clamp } from './clamp'
 
+test('when min is greater than max', () => {
+  expect(() => clamp(
+    -5, -10, 5
+  )).toThrowWithMessage(Error,
+    'min must not be greater than max in clamp(min, max, value)')
+})
+
 test('rambda specs', () => {
   expect(clamp(
     1, 10, 0

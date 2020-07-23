@@ -18,14 +18,14 @@ test('with array', () => {
 })
 
 test('with object', () => {
-  const arr = {
+  const obj = {
     a : 1,
     b : 2,
     c : 3,
     d : [ 1, 2, 3 ],
     e : new Date(),
   }
-  expect(clone(arr)).toEqual(arr)
+  expect(clone(obj)).toEqual(obj)
 })
 
 test('with date', () => {
