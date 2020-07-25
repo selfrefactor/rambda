@@ -1,5 +1,7 @@
 WIP
 
+Close [Issue #510](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
+
 Close [Issue #510](https://github.com/selfrefactor/rambda/issues/510) - `R.clamp` should throw if min argument is greater than max argument
 
 - [PR #508](https://github.com/selfrefactor/rambda/pull/508) - add `R.of`
