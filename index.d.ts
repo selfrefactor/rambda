@@ -46,6 +46,7 @@ type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> 
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
+type VoidInputFunc<T> = () => T;
 type Predicatex<T> = (input: T, index: number) => boolean;
 type Fn<In, Out> = (x: In) => Out;
 type FnTwo<In, Out> = (x: In, y: In) => Out;
@@ -111,7 +112,10 @@ type ProduceRules<Input> = {
 type ProduceFunctionRule<Input> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
-type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
+type AsyncIterable<T, K> = (x: T) => Promise<K>;
+type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncPredicate<T> = (x: T) => Promise<boolean>;
+type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY'
@@ -307,7 +311,7 @@ export function converge(after: ((...a: readonly any[]) => any), fns: Array<((..
 /**
  * It expects a function as input and returns its curried version.
  */
-export function curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
+export function curry(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /**
  * It returns a curried equivalent of the provided function, with the specified arity.
@@ -338,7 +342,7 @@ export function difference<T>(a: ReadonlyArray<T>): (b: ReadonlyArray<T>) => T[]
  * It returns a new object that does not contain property `prop`.
  */
 export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+export function dissoc<T>(prop: string): (obj: any) => T;
 
 export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
@@ -368,7 +372,9 @@ export function dropLast<T>(howMany: number): {
  * 
  * This `predicate` function will return `true`, if any of the two input predicates return `true`.
  */
-export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either(firstPredicate: Pred, firstPredicate: Pred): Pred;
+export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
+export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /**
@@ -436,7 +442,7 @@ export function findLastIndex<T>(predicate: (x: T, index: number) => boolean): (
 /**
  * It deeply flattens an array.
  */
-export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
+export function flatten<T>(list: ReadonlyArray<any>): T[];
 
 /**
  * It returns function which calls `fn` with exchanged first and second argument.
@@ -447,12 +453,12 @@ export function flip<F extends (...args: any) => any, P extends FunctionToolbelt
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
  */
-export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
-export function forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-export function forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-export function forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
+export function forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
+export function forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
+export function forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 /**
  * It transforms a `listOfPairs` to an object.
@@ -514,8 +520,16 @@ export function identity<T>(input: T): T;
  * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
-export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
-export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+export function ifElse<T, U>(
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+): (x: T) => U;
+export function ifElse<T, K, U>(
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => U;
 
 /**
  * It increments a number.
@@ -801,19 +815,13 @@ export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
 export function omit<T>(propsToOmit: string): (obj: object) => T;
 
-/**
- * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
- * 
- * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
- * The name comes from the fact that you partially inject the inputs.
- */
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0, x1: V1): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0, x1: V1, x2: V2): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0, x1: V1): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
+export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
+export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]): (...a: readonly any[]) => T;
 
 /**
  * It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
@@ -890,8 +898,8 @@ export function pick<T>(propsToPick: string): (input: object) => T;
  */
 export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
 export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
-export function pickAll<T, U>(propsToPick: readonly string, input: T): U;
-export function pickAll<T, U>(propsToPick: readonly string): (input: T) => U;
+export function pickAll<T, U>(propsToPick: string, input: T): U;
+export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
 /**
  * It performs left-to-right function composition.

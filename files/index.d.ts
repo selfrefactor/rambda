@@ -1274,7 +1274,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-// export function fromPairs<V>(listOfPairs: Array<[string, V]>): { [index: string]: V };
 export function fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
 export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 

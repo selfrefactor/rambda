@@ -246,6 +246,10 @@
   }
 
   function clampFn(min, max, input) {
+    if (min > max) {
+      throw new Error('min must not be greater than max in clamp(min, max, value)');
+    }
+
     if (input >= min && input <= max) return input;
     if (input > max) return max;
     if (input < min) return min;
@@ -862,12 +866,6 @@
     }
 
     return list;
-  }
-
-  function fromPairs(listOfPairs) {
-    const toReturn = {};
-    listOfPairs.forEach(([prop, value]) => toReturn[prop] = value);
-    return toReturn;
   }
 
   function groupBy(groupFn, list) {
@@ -1888,7 +1886,6 @@
   exports.flatten = flatten;
   exports.flip = flip;
   exports.forEach = forEach;
-  exports.fromPairs = fromPairs;
   exports.groupBy = groupBy;
   exports.groupWith = groupWith;
   exports.has = has;

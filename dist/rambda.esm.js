@@ -240,6 +240,10 @@ function chain(fn, list) {
 }
 
 function clampFn(min, max, input) {
+  if (min > max) {
+    throw new Error('min must not be greater than max in clamp(min, max, value)');
+  }
+
   if (input >= min && input <= max) return input;
   if (input > max) return max;
   if (input < min) return min;
@@ -856,12 +860,6 @@ function forEach(fn, list) {
   }
 
   return list;
-}
-
-function fromPairs(listOfPairs) {
-  const toReturn = {};
-  listOfPairs.forEach(([prop, value]) => toReturn[prop] = value);
-  return toReturn;
 }
 
 function groupBy(groupFn, list) {
@@ -1839,4 +1837,4 @@ function zipObj(keys, values) {
   }, {});
 }
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, partition, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, either, endsWith, equals, filter, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, multiply, negate, none, not, nth, omit, over, partial, partition, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitEvery, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj };
