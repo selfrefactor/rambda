@@ -3,7 +3,7 @@ import isCI from 'is-ci'
 import { resolve } from 'path'
 
 jest.setTimeout(3 * 60 * 1000)
-
+ 
 const DIR = resolve(__dirname, '../')
 
 test('typings are correct', async () => {

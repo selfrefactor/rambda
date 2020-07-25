@@ -15,7 +15,7 @@ async function moveFile({ filePath, toolbeltPath }){
 async function copyToRambdax(){
   const source = resolve(__dirname, '../../_ts-toolbelt/')
   const destination = resolve(__dirname, '../../../rambdax/_ts-toolbelt')
-  await remove(`${ __dirname }/ts-toolbelt`)
+  // await remove(`${ __dirname }/ts-toolbelt`)
 
   await copy(
     source, destination, { overwrite : true }
