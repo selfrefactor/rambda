@@ -41,7 +41,7 @@ interface Dictionary<T> {
   [index: string]: T;
 }
 
-type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth>;
+type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -372,7 +372,7 @@ export function dropLast<T>(howMany: number): {
  * 
  * This `predicate` function will return `true`, if any of the two input predicates return `true`.
  */
-export function either(firstPredicate: Pred, firstPredicate: Pred): Pred;
+export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
 export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;

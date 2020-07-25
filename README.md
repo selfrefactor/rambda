@@ -4881,7 +4881,7 @@ describe('dropLast', function() {
 ### either
 
 ```typescript
-either(firstPredicate: Pred, firstPredicate: Pred): Pred
+either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
 
 It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
@@ -4908,7 +4908,7 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-either(firstPredicate: Pred, firstPredicate: Pred): Pred;
+either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
 either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
 either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
