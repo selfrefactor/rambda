@@ -22,7 +22,7 @@ async function copyToRambdax(){
   )
 }
 
-export async function dynamicTsToolbelt(){
+export async function dynamicTsToolbelt(commitHash){
   const destinationDir = resolve(__dirname, '../../_ts-toolbelt/src')
   await remove(`${ __dirname }/ts-toolbelt`)
   await remove(destinationDir)
@@ -33,10 +33,18 @@ export async function dynamicTsToolbelt(){
     inputs  : [
       'clone',
       '--depth',
-      '1',
+      '200',
       'https://github.com/pirix-gh/ts-toolbelt',
     ],
   })
+  if (commitHash){
+    console.log(commitHash)
+    await spawn({
+      cwd     : `${ __dirname }/ts-toolbelt`,
+      command : 'git',
+      inputs  : [ 'reset', '--hard', commitHash ],
+    })
+  }
   const sourceDir = `${ __dirname }/ts-toolbelt/src`
   await copy(sourceDir, destinationDir)
 

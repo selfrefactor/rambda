@@ -6,15 +6,14 @@ import {Next} from '../Iteration/Next'
 import {_Append} from '../List/Append'
 import {Exclude} from '../Union/Exclude'
 import {List} from '../List/List'
-import {Extends} from '../Any/Extends'
-import {At} from './At'
+import {Extends} from '../Any/_api'
 
 /**
 @hidden
 */
 type PickIfEntry<O extends object, LN extends List, I extends Iteration> =
     Key<I> extends keyof O
-    ? _Append<LN, O[Key<I>]>
+    ? _Append<LN, O[Cast<Key<I>, keyof O>]>
     : LN
 
 /**
@@ -28,14 +27,10 @@ type ___ListOf<O extends object, K, LN extends List = [], I extends Iteration = 
 /**
 @hidden
 */
-type __ListOf<O extends object> =
+export type __ListOf<O extends object> =
     number extends keyof O
-    ? At<O, number>[]
-    : string extends keyof O
-      ? At<O, string>[]
-      : symbol extends keyof O
-        ? At<O, symbol>[]
-        : ___ListOf<O, keyof O>
+    ? O[never][]
+    : ___ListOf<O, keyof O>
 
 /**
 @hidden
