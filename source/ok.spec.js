@@ -11,11 +11,17 @@ test('happy', () => {
 })
 
 test('when validation fails', () => {
-  expect(() => ok(
-    1, 'foo', {}
-  )(
-    'number', 'string', 'string'
-  )).toThrow()
+  const errorMessage = `Failed R.ok -
+reason: {"input":{},"schema":"string"}
+all inputs: [1,"foo",{}]
+all schemas: ["number","string","string"]`
+
+  expect(() =>
+    ok(
+      1, 'foo', {}
+    )(
+      'number', 'string', 'string'
+    )).toThrowWithMessage(Error, errorMessage)
 })
 
 /*
@@ -62,4 +68,8 @@ test('when throws with single schema', () => {
   expect(() => ok(
     1, 2, '3'
   )('number')).toThrow()
+})
+
+test('when throws with single input', () => {
+  expect(() => ok('3')('number')).toThrow()
 })

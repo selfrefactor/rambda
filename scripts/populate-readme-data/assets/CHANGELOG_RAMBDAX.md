@@ -13,7 +13,8 @@ Move the following methods to `Rambda` and change their logic to match `Ramda` i
 
 Deprecate the following methods:
 
-- `R.composed`
+- `R.promiseAllObject` - because `R.produce` serves the same purpose
+- `R.composed` - because `R.piped` makes more sense, when we want to pass the input at the start of the function
 - `R.defaultToStrict`
 - `R.findInObject`
 - `R.headObject`
@@ -32,7 +33,11 @@ Deprecate the following methods:
 
 Also these changes:
 
--  `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
+- `R.ifElseAsync` - accept any number of arguments for the returned function
+
+- `R.produce`, `R.filterAsync`, `R.debounce`, `R.throttle` - fix typings
+
+- `R.mapAsyncLimit` - drop support for curring and therefore for usage with `R.composeAsync`
 
 - Improve `R.ok` throwed error message
 
@@ -45,8 +50,6 @@ Also these changes:
 - Change how Typescript definitions are exported
 
 - Take `R.partialCurry` from `Rambda` as it is deprecated there
-
-- Fix many typings due to `dtslint` tests
 
 3.7.0
 

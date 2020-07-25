@@ -15,7 +15,7 @@ describe('R.identical', () => {
 
 /*
     in curried version Typescript correctly catch errors
-    but it does do so in the standart definition
+    but it doesn't do so in the standart definition
     
     identical({a:1},{b:2})
     identical({a:1})({b:2})

@@ -5,8 +5,9 @@
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
-![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
-![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
+![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
+![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
+![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
 ## Example use
 

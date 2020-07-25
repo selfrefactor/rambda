@@ -1,3 +1,23 @@
+WIP
+
+Close [Issue #510](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
+
+Close [Issue #510](https://github.com/selfrefactor/rambda/issues/510) - `R.clamp` should throw if min argument is greater than max argument
+
+- [PR #508](https://github.com/selfrefactor/rambda/pull/508) - add `R.of`
+
+- Definition of `R.curry` are not same as those of `@types/ramda`
+
+- Definitions of `R.either` is same as that of `R.both`
+
+- Definitions of `R.ifElse` no longer use `any` type
+
+- Definition of `R.flatten` requires passing type for the output
+
+- Fix definition of `R.propOr`, `R.dissoc`
+
+- Fix curried definitions of `R.take`, `R.takeLast`, `R.drop` and `R.dropLast`
+
 - 5.9.0
 
 - `R.pickAll` definition allows passing string as path to search.

@@ -46,6 +46,7 @@ type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> 
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
+type VoidInputFunc<T> = () => T;
 type Predicatex<T> = (input: T, index: number) => boolean;
 type Fn<In, Out> = (x: In) => Out;
 type FnTwo<In, Out> = (x: In, y: In) => Out;
@@ -54,7 +55,7 @@ type MapFn<In, Out> = (x: In, index: number) => Out;
 type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean;
 type PartitionPredicate<T> = (x: T, prop?: string) => boolean;
 type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out;
-type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue?: T, bValue?: T) => number;
+type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
 interface MapInterface<T> {
   (list: T[]): T[];
@@ -87,10 +88,6 @@ interface Reduced {
   [index: string]: any;
 }
 
-interface ObjectWithPromises {
-  [key: string]: Promise<any>;
-}
-
 interface Schema {
   [key: string]: any;
 }
@@ -108,8 +105,17 @@ interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
+
+type ProduceRules<Input> = {
+  [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
+}
+type ProduceFunctionRule<Input> = (input: Input) => any
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
-type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
+type AsyncIterable<T, K> = (x: T) => Promise<K>;
+type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncPredicate<T> = (x: T) => Promise<boolean>;
+type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY'
@@ -731,7 +737,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry<F extends (...args: any) => any>(f: F): FunctionToolbelt.Curry<F>;
+export function curry(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /*
 Method: curryN
@@ -847,7 +853,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+export function dissoc<T>(prop: string): (obj: any) => T;
 
 /*
 Method: divide
@@ -872,7 +878,7 @@ export function divide(x: number): (y: number) => number;
 /*
 Method: drop
 
-Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+Explanation: It returns `listOrString` with `howMany` items dropped from its beginning.
 
 Example:
 
@@ -887,17 +893,17 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, listOrString: string): string;
-export function drop<T>(howManyToDrop: number): {
+export function drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function drop(howMany: number, listOrString: string): string;
+export function drop<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
 Method: dropLast
 
-Explanation: It returns `listOrString` with `howManyToDrop` items dropped from its end.
+Explanation: It returns `listOrString` with `howMany` items dropped from its end.
 
 Example:
 
@@ -912,10 +918,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, listOrString: string): string;
-export function dropLast<T>(howManyToDrop: number): {
-  (listOrString: ReadonlyArray<T>): T[];
+export function dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function dropLast(howMany: number, listOrString: string): string;
+export function dropLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
 };
 
@@ -947,7 +953,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either(firstPredicate: Pred, firstPredicate: Pred): Pred;
+export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
+export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
@@ -1183,7 +1191,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
+export function flatten<T>(list: ReadonlyArray<any>): T[];
 
 /*
 Method: flip
@@ -1234,12 +1242,12 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T>(fn: (x: T) => void, list: T[]): T[];
-export function forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-export function forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-export function forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void, obj: { [key: string]: T }): void;
-export function forEach<T>(fn: (value: T, key: string, obj: { [key: string]: T }) => void): (obj: { [key: string]: T }) => void;
+export function forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
+export function forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
+export function forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
 
 /*
 Method: fromPairs
@@ -1266,6 +1274,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+// export function fromPairs<V>(listOfPairs: Array<[string, V]>): { [index: string]: V };
 export function fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V };
 export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: number]: V };
 
@@ -1475,8 +1484,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse(condition: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
-export function ifElse(condition: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+export function ifElse<T, U>(
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+): (x: T) => U;
+export function ifElse<T, K, U>(
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => U;
 
 /*
 Method: inc
@@ -2197,7 +2214,6 @@ Method: median
 
 Explanation: It returns the median value of `list` input.
 
-
 Example:
 
 ```
@@ -2552,7 +2568,7 @@ Categories: Function
 Notes: This of is different from the ES6 of; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
 
 */
-export function of(x: any): => boolean;
+export function of<T>(x: T): T[];
 
 /*
 Method: partial
@@ -2584,13 +2600,13 @@ Notes: Rambda's **partial** doesn't need the input arguments to be wrapped as ar
 
 */
 // @SINGLE_MARKER
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, x0: V0): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0, x1: V1): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, x0: V0): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0, x1: V1, x2: V2): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0, x1: V1): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, x0: V0): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
+export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
+export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
+export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]): (...a: readonly any[]) => T;
 
 /*
 Method: partition
@@ -2869,8 +2885,8 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 // @SINGLE_MARKER
 export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
 export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
-export function pickAll<T, U>(propsToPick: readonly string, input: T): U;
-export function pickAll<T, U>(propsToPick: readonly string): (input: T) => U;
+export function pickAll<T, U>(propsToPick: string, input: T): U;
+export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
 /*
 Method: pipe
@@ -3277,9 +3293,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
-export function propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
-export function propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
+export function propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T;
+export function propOr<T>(defaultValue: T, property: string): (obj: { [key: string]: T}) => T;
+export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 
 /*
 Method: range
@@ -3756,8 +3772,8 @@ Notes:
 export function take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function take(howMany: number, listOrString: string): string;
 export function take<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
@@ -3787,8 +3803,8 @@ Notes:
 export function takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function takeLast(howMany: number, listOrString: string): string;
 export function takeLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /*
@@ -4763,7 +4779,9 @@ Notes: Description is taken from `Lodash` docs
 
 */
 // @SINGLE_MARKER
-export function debounce<T>(fn: T, ms: number): (input: T) => T;
+export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
 
 /*
 Method: delay
@@ -4807,10 +4825,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, list: T[]): Promise<T[]>;
-export function filterAsync<T>(fn: (x: T) => Promise<boolean>, obj: object): Promise<{
-  [prop: string]: T
-}>;
+export function filterAsync<T>(fn: AsyncPredicate<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: T[]) => Promise<T[]>;
 
 /*
 Method: glue
@@ -4911,30 +4929,30 @@ export function reset(): void;
 /*
 Method: ifElseAsync
 
-Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous.
+Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous function.
 
 Example:
 
 ```
 const condition = async x => {
   await R.delay(100)
-  return x>1
+  return x > 1
 }
 const ifFn = async x => {
   await R.delay(100)
-  return x+1
+  return x + 1
 }
 const elseFn = async x => {
   await R.delay(100)
-  return x-1
+  return x - 1
 }
 
-const result = R.ifElseAsync(
+const result = await R.ifElseAsync(
   condition,
   ifFn,
   elseFn  
 )(1)
-// => result resolves to `0`
+// => 0
 ```
 
 Categories: Async, Logic
@@ -4943,11 +4961,36 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElseAsync<T>(
-  condition: Async<any> | Func<any>,
-  ifFn: Async<any> | Func<any>,
-  elseFn: Async<any> | Func<any>
-): Async<T>;
+export function ifElseAsync<T, U>(
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+  ): (x: T) => Promise<U>;
+export function ifElseAsync<T, U>(
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
+export function ifElseAsync<T, U>(
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
 
 /*
 Method: isFalsy
@@ -5070,32 +5113,58 @@ Explanation: It checks if `input` is following `schema` specifications.
 
 If validation fails, it returns `false`.
 
-Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description of this method.
-
-Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
+Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description for this method.
 
 Example:
 
 ```
-R.isType('Promise',Promise.resolve(1))
-// => true
-const input = { a: ['foo', 'bar'] }
-const invalidInput = { a: ['foo', 'bar', 1] }
-const schema = {a: ['string'] }
+const input = {a: ['foo', 'bar']}
+const invalidInput = {a: ['foo', 'bar', 1]}
+const schema = {a: [String]}
 const result = [
   R.isValid({schema, input}),
-  R.isValid({schema, invalidInput}),
+  R.isValid({schema, input: invalidInput})
 ]
 // => [true, false]
 ```
 
 Categories: Logic
 
-Notes:
+Notes: Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
 
 */
 // @SINGLE_MARKER
 export function isValid({input: object, schema: Schema}): boolean;
+
+/*
+Method: isValidAsync
+
+Explanation: Asynchronous version of `R.isValid`
+
+Example:
+
+```
+const input = {a: 1, b: 2}
+const invalidInput = {a: 1, b: 'foo'}
+const schema = {a: Number, b: async x => {
+  await R.delay(100)
+  return typeof x === 'number'
+}}
+
+const result = await Promise.all([
+  R.isValid({schema, input}),
+  R.isValid({schema, input: invalidInput})
+])
+// => [true, false]
+```
+
+Categories: Logic, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isValidAsync(x: IsValidAsync): Promise<boolean>;
 
 /*
 Method: mapAsync
@@ -5121,10 +5190,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapAsync<T>(fn: AsyncWithMap<any>, list: any[]): Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithProp<any>, obj: object): Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise<T[]>;
-export function mapAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapFastAsync
@@ -5150,10 +5219,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T>(fn: AsyncWithMap<any>, list: any[]): Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithProp<any>, obj: object): Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithMap<any>): (list: any[]) => Promise<T[]>;
-export function mapFastAsync<T>(fn: AsyncWithProp<any>): (obj: object) => Promise<T[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapAsyncLimit
@@ -5172,23 +5241,31 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, U>(fn: (x: T) => Promise<U>, limit: number, list: T[]): Promise<U[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
 
 /*
 Method: mapToObject
 
 Explanation: This method allows to generate an object from a list using input function `fn`.
 
-This function must return an object for every member of `list` input. All of the returns will be merged in the final result. 
+This function must return either an object or `false` for every member of `list` input. 
+
+If `false` is returned, then this element of `list` will be skipped in the calculation of the result.
+
+All of returned objects will be merged to generate the final result.
 
 Example:
 
 ```
-const list = [1, 2, 3]
-const fn = x => x%2 ? {[x]: x+1}: {[x]: x+10}
+const list = [1, 2, 3, 12]
+const fn = x => {
+  if(x > 10) return false
+  return x % 2 ? {[x]: x + 1}: {[x]: x + 10}
+}
 
 const result = mapToObject(fn, list)
-const expected = { '1': 2, '2': 12, '3': 4 }
+const expected = {'1': 2, '2': 12, '3': 4}
 // => `result` is equal to `expected`
 ```
 
@@ -5198,8 +5275,27 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObject<T, U>(fn: (input: T) => object, list: T[]): U;
-export function mapToObject<T, U>(fn: (input: T) => object): (list: T[]) => U;
+export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
+export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+
+/*
+Method: mapToObjectAsync
+
+Explanation: Asynchronous version of `R.mapToObject`
+
+Example:
+
+```
+
+```
+
+Categories: List, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
 
 /*
 Method: maybe
@@ -5215,12 +5311,15 @@ const x = 4
 const y = 8
 
 const ifRule = x > 2
-const elseRule = y > 10 ? 3 : 7
-const whenElse = () => JSON.parse('{a:')
+const whenIf = y > 10 ? 3 : 7
+const whenElse = () => {
+  // just to show that it won't be evaluated
+  return JSON.parse('{a:')
+}
 
 const result = R.maybe(
   ifRule,
-  elseRule,
+  whenIf,
   whenElse,
 )
 // `result` is `7`
@@ -5232,7 +5331,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function maybe<T>(ifRule: any, whenIf: any, whenElse: any): T;
+export function maybe<T>(ifRule: boolean, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
+export function maybe<T>(ifRule: VoidInputFunc<boolean>, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
 
 /*
 Method: memoize
@@ -5261,7 +5361,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function memoize<T>(fn: Func<any> | Async<any>): T;
+export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
 Method: nextIndex
@@ -5375,27 +5475,6 @@ Notes:
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
 
 /*
-Method:
-
-Explanation:
-
-
-
-Example:
-
-```
-
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isValidAsync(x: IsValidAsync): Promise<boolean>;
-
-/*
 Method: once
 
 Explanation: It returns a function, which invokes only once `fn` function.
@@ -5417,7 +5496,37 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once(fn: Func<any>): Func<any>;
+export function once<T extends (...args: any[]) => any>(func: T): T;
+
+/*
+Method: partialCurry
+
+Explanation: `R.partialCurry` is a curry helper designed specifically for functions accepting object as a single argument.
+
+Initially the function knows only a part from the whole input object and then `R.partialCurry` helps in preparing the function for the second part, when it receives the rest of the input.
+
+Example:
+
+```
+const fn = ({ a, b, c }) => a + b + c
+const curried = partialCurry(fn, { a : 1 })
+const result = curried({
+  b : 2,
+  c : 3,
+})
+// => 6
+```
+
+Categories: Function, Async
+
+Notes: Curried function can be asynchronous
+
+*/
+// @SINGLE_MARKER
+export function partialCurry<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 /*
 Method: piped
@@ -5510,46 +5619,15 @@ Notes: It is very similar to `R.applySpec`. TODO - improve typings
 
 */
 // @SINGLE_MARKER
-export function produce<T>(
-  rules: any,
-  input: any
-): T;
-export function produce<T>(
-  rules: any,
-): (input: any) => T;
-
-/*
-Method: promiseAllObject
-
-Explanation: `Promise.all` version, which accept object of asynchronous functions as input.
-
-Example:
-
-```
-const fn = ms => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(ms + 10)
-  }, ms)
-})
-const promises = {
-  a : fn(1),
-  b : fn(2),
-}
-
-const result = R.promiseAllObject(promises)
-const expected = { a:11, b:12 }
-// `result` resolves to `expected`
-```
-
-Categories: Async
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function promiseAllObject<T>(
-  input: ObjectWithPromises
-): Promise<T>;
+export function produce<Input, Output>(
+  rules: ProduceRules<Input>,
+  input: Input
+): Output;
+export function produce<Input, Output>(
+  rules: ProduceRules<Input>
+): (
+  input: Input
+) => Output;
 
 /*
 Method: random
@@ -5620,6 +5698,8 @@ Notes:
 // @SINGLE_MARKER
 export function renameProps(rules: object, input: object): object;
 export function renameProps(rules: object): (input: object) => object;
+export function renameProps<Output>(rules: object, input: object): Output;
+export function renameProps<Output>(rules: object): (input: object) => Output;
 
 /*
 Method: shuffle
@@ -5667,6 +5747,10 @@ export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key
 Method: switcher
 
 Explanation: Edited fork of [Switchem](https://github.com/planttheidea/switchem) library.
+
+The method return a value if the matched option is a value.
+
+If the matched option is a function, then `R.switcher` returns a function which expects input. Tests of the method explain it better than this short description.
 
 Example:
 

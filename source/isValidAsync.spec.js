@@ -1,3 +1,5 @@
+import { result } from 'lodash'
+
 import { delay } from './delay'
 import { isValidAsync } from './isValidAsync'
 
@@ -70,4 +72,34 @@ test('without async rules', async () => {
 
   expect(result).toBeTruthy()
   expect(invalidResult).toBeFalsy()
+})
+
+test('readme example', async () => {
+  const input = {
+    a : 1,
+    b : 2,
+  }
+  const invalidInput = {
+    a : 1,
+    b : 'foo',
+  }
+  const schema = {
+    a : Number,
+    b : async x => {
+      await delay(100)
+
+      return typeof x === 'number'
+    },
+  }
+  const result = await Promise.all([
+    isValidAsync({
+      schema,
+      input,
+    }),
+    isValidAsync({
+      schema,
+      input : invalidInput,
+    }),
+  ])
+  expect(result).toEqual([ true, false ])
 })

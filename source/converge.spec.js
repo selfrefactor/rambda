@@ -32,6 +32,12 @@ const f3 = converge(mult, [
   },
 ])
 
+test('happy', () => {
+  expect(f2(6)(7)).toEqual(42)
+  expect(f2(6, 7)).toEqual(42)
+  expect(f3().length).toEqual(3)
+})
+
 test('passes the results of applying the arguments individually to two separate functions into a single one', () => {
   expect(converge(mult)([ add(1), add(3) ])(2)).toEqual(15)
 })
@@ -61,11 +67,6 @@ test('passes context to its functions', () => {
   expect(a.call(context, 1)).toEqual(2)
   expect(b.call(context, 1)).toEqual(3)
   expect(d.call(context, 1)).toEqual(5)
-})
-
-test('returns a curried function', () => {
-  expect(f2(6)(7)).toEqual(42)
-  expect(f3().length).toEqual(3)
 })
 
 test('works with empty functions list', () => {

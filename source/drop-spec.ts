@@ -1,14 +1,31 @@
 import {drop} from 'rambda'
 
-describe('drop', () => {
+const list = [1, 2,3, 4]
+const str = 'foobar'
+const howMany = 2
+
+describe('R.drop - array', () => {
   it('happy', () => {
-    const x = drop(2, 'foo') // $ExpectType string
-    x // $ExpectType string
-    const xx = drop(2)('foo') // $ExpectType string
-    xx // $ExpectType string
-    const y = drop(2, [1, 2, 3]) // $ExpectType number[]
-    y // $ExpectType number[]
-    const yy = drop<number>(2)([1, 2, 3]) // $ExpectType number[]
-    yy // $ExpectType number[]
+    const result = drop(howMany, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = drop(howMany)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('R.drop - string', () => {
+  it('happy', () => {
+    const result = drop(howMany, str)
+
+    result // $ExpectType string
+  })
+  it('curried', () => {
+    const result = drop(howMany)(str)
+
+    result // $ExpectType string
   })
 })

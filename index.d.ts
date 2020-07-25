@@ -54,7 +54,7 @@ type MapFn<In, Out> = (x: In, index: number) => Out;
 type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean;
 type PartitionPredicate<T> = (x: T, prop?: string) => boolean;
 type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out;
-type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue?: T, bValue?: T) => number;
+type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
 interface MapInterface<T> {
   (list: T[]): T[];
@@ -87,10 +87,6 @@ interface Reduced {
   [index: string]: any;
 }
 
-interface ObjectWithPromises {
-  [key: string]: Promise<any>;
-}
-
 interface Schema {
   [key: string]: any;
 }
@@ -108,6 +104,12 @@ interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
+
+type ProduceRules<Input> = {
+  [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
+}
+type ProduceFunctionRule<Input> = (input: Input) => any
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncWithMap<T> = (x: any, i?: number) => Promise<T>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
@@ -342,22 +344,22 @@ export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
 
 /**
- * It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+ * It returns `listOrString` with `howMany` items dropped from its beginning.
  */
-export function drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function drop(howManyToDrop: number, listOrString: string): string;
-export function drop<T>(howManyToDrop: number): {
+export function drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function drop(howMany: number, listOrString: string): string;
+export function drop<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /**
- * It returns `listOrString` with `howManyToDrop` items dropped from its end.
+ * It returns `listOrString` with `howMany` items dropped from its end.
  */
-export function dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-export function dropLast(howManyToDrop: number, listOrString: string): string;
-export function dropLast<T>(howManyToDrop: number): {
-  (listOrString: ReadonlyArray<T>): T[];
+export function dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+export function dropLast(howMany: number, listOrString: string): string;
+export function dropLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
 };
 
@@ -1134,9 +1136,9 @@ export function propIs(type: any): {
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
  */
-export function propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
-export function propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
-export function propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
+export function propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T;
+export function propOr<T>(defaultValue: T, property: string): (obj: { [key: string]: T}) => T;
+export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 
 /**
  * It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
@@ -1254,8 +1256,8 @@ export function tail(listOrString: string): string;
 export function take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function take(howMany: number, listOrString: string): string;
 export function take<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /**
@@ -1264,8 +1266,8 @@ export function take<T>(howMany: number): {
 export function takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 export function takeLast(howMany: number, listOrString: string): string;
 export function takeLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 
 /**

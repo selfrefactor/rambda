@@ -11,7 +11,6 @@ test('with plain function', () => {
     b : 2,
     c : 3,
   })).toEqual(6)
-  expect(true).toBeTruthy()
 })
 
 test('with function that throws an error', () => {
@@ -25,7 +24,7 @@ test('with function that throws an error', () => {
     curried({
       b : 2,
       c : 3,
-    })).toThrow('foo')
+    })).toThrowWithMessage(Error, 'foo')
 })
 
 test('with async', async () => {

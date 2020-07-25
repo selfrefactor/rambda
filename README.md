@@ -5,8 +5,9 @@
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 [![dependencies Status](https://david-dm.org/selfrefactor/rambda/status.svg)](https://david-dm.org/selfrefactor/rambda)
-![Normal size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js)
-![Gzip size](https://img.badgesize.io/selfrefactor/rambda/master/dist/rambda.js?compression=gzip)
+![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
+![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
+![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
 ## Example use
 
@@ -4404,10 +4405,10 @@ test('happy', () => {
 ### drop
 
 ```typescript
-drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
+drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
-It returns `listOrString` with `howManyToDrop` items dropped from its beginning.
+It returns `listOrString` with `howMany` items dropped from its beginning.
 
 ```javascript
 R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
@@ -4421,11 +4422,11 @@ R.drop(2, 'foobar')  // => 'obar'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-drop<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-drop(howManyToDrop: number, listOrString: string): string;
-drop<T>(howManyToDrop: number): {
+drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+drop(howMany: number, listOrString: string): string;
+drop<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 ```
 
@@ -4487,16 +4488,33 @@ test('should return copy', () => {
 ```typescript
 import {drop} from 'rambda'
 
-describe('drop', () => {
+const list = [1, 2,3, 4]
+const str = 'foobar'
+const howMany = 2
+
+describe('R.drop - array', () => {
   it('happy', () => {
-    const x = drop(2, 'foo') // $ExpectType string
-    x // $ExpectType string
-    const xx = drop(2)('foo') // $ExpectType string
-    xx // $ExpectType string
-    const y = drop(2, [1, 2, 3]) // $ExpectType number[]
-    y // $ExpectType number[]
-    const yy = drop<number>(2)([1, 2, 3]) // $ExpectType number[]
-    yy // $ExpectType number[]
+    const result = drop(howMany, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = drop(howMany)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('R.drop - string', () => {
+  it('happy', () => {
+    const result = drop(howMany, str)
+
+    result // $ExpectType string
+  })
+  it('curried', () => {
+    const result = drop(howMany)(str)
+
+    result // $ExpectType string
   })
 })
 ```
@@ -4506,10 +4524,10 @@ describe('drop', () => {
 ### dropLast
 
 ```typescript
-dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[]
+dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
-It returns `listOrString` with `howManyToDrop` items dropped from its end.
+It returns `listOrString` with `howMany` items dropped from its end.
 
 ```javascript
 R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
@@ -4523,10 +4541,10 @@ R.dropLast(2, 'foobar')  // => 'foob'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-dropLast<T>(howManyToDrop: number, listOrString: ReadonlyArray<T>): T[];
-dropLast(howManyToDrop: number, listOrString: string): string;
-dropLast<T>(howManyToDrop: number): {
-  (listOrString: ReadonlyArray<T>): T[];
+dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
+dropLast(howMany: number, listOrString: string): string;
+dropLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
 };
 ```
@@ -4581,6 +4599,46 @@ test('should return copy', () => {
 
   assert.notStrictEqual(dropLast(0, xs), xs)
   assert.notStrictEqual(dropLast(-1, xs), xs)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropLast} from 'rambda'
+
+const list = [1, 2,3, 4]
+const str = 'foobar'
+const howMany = 2
+
+describe('R.dropLast - array', () => {
+  it('happy', () => {
+    const result = dropLast(howMany, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = dropLast(howMany)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('R.dropLast - string', () => {
+  it('happy', () => {
+    const result = dropLast(howMany, str)
+
+    result // $ExpectType string
+  })
+  it('curried', () => {
+    const result = dropLast(howMany)(str)
+
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -8600,6 +8658,29 @@ test('with string', () => {
   expect(init('foo')).toEqual('fo')
   expect(init('f')).toEqual('')
   expect(init('')).toEqual('')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {init} from 'rambda'
+
+describe('R.init', () => {
+  it('with string', () => {
+    const result = init('foo')
+
+    result // $ExpectType string
+  })
+  it('with list', () => {
+    const result = init([1, 2, 3])
+
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -13117,6 +13198,35 @@ test('curry case (x,y)(z)', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { pathOr } from 'rambda'
+
+describe('pathOr', () => {
+  it('with string path', () => {
+    const x = pathOr<string>('foo', 'x.y', { x : { y : 'bar' } })
+    x // $ExpectType string
+  });
+  it('with array path', () => {
+    const x = pathOr<string>('foo', ['x','y'], { x : { y : 'bar' } })
+    x // $ExpectType string
+  });
+  it('without passing type looks bad', () => {
+    const x = pathOr('foo', 'x.y', { x : { y : 'bar' } })
+    x // $ExpectType "foo"
+  });
+  it('curry', () => {
+    const x = pathOr<string>('foo', 'x.y')({ x : { y : 'bar' } })
+    x // $ExpectType string
+  });
+});
+```
+
+</details>
+
 ### paths
 
 ```typescript
@@ -14694,7 +14804,7 @@ describe('propIs', () => {
 ### propOr
 
 ```typescript
-propOr<T, U, V>(defaultValue: T, property: string, obj: U): V
+propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T
 ```
 
 It returns either `defaultValue` or the value of `property` in `obj`.
@@ -14718,9 +14828,9 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propOr<T, U, V>(defaultValue: T, property: string, obj: U): V;
-propOr<T>(defaultValue: T, property: string): <U, V>(obj: U) => V;
-propOr<T>(defaultValue: T): <U, V>(property: string, obj: U) => V;
+propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T;
+propOr<T>(defaultValue: T, property: string): (obj: { [key: string]: T}) => T;
+propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 ```
 
 </details>
@@ -14772,6 +14882,39 @@ test('propOr (currying)', () => {
   expect(propOr('default', 'a')(obj)).toEqual(1)
   expect(propOr('default')('notExist', obj)).toEqual('default')
   expect(propOr('default', 'notExist')(obj)).toEqual('default')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {propOr} from 'rambda'
+
+const obj = { foo : 'bar' }
+const property = 'foo'
+const fallback = 'fallback'
+
+describe('propOr', () => {
+  it('happy', () => {
+    const result = propOr(fallback, property, obj)
+    result // $ExpectType string
+  })
+  it('curry 1', () => {
+    const result = propOr(fallback)(property,obj)
+    result // $ExpectType string
+  })
+  it('curry 2', () => {
+    const result = propOr(fallback, property)(obj)
+    result // $ExpectType string
+  })
+  it('curry 3', () => {
+    const result = propOr(fallback)(property)(obj)
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -15523,6 +15666,45 @@ test('3', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {replace} from 'rambda'
+
+const str = 'foo bar foo'
+const replacer = 'bar'
+
+describe('R.replace', () => {
+  it('happy', () => {
+    const result = replace(/foo/g, replacer, str)
+
+    result // $ExpectType string
+  })
+  it('with string as search pattern', () => {
+    const result = replace('foo', replacer, str)
+
+    result // $ExpectType string
+  })
+})
+
+describe('R.replace - curried', () => {
+  it('happy', () => {
+    const result = replace(/foo/g, replacer)(str)
+
+    result // $ExpectType string
+  })
+  it('with string as search pattern', () => {
+    const result = replace('foo', replacer)(str)
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
 ### reverse
 
 ```typescript
@@ -15592,6 +15774,25 @@ test('it doesn\'t mutate', () => {
   expect(reverse(arr)).toEqual([ 3, 2, 1 ])
 
   expect(arr).toEqual([ 1, 2, 3 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {reverse} from 'rambda'
+
+const list = [1, 2, 3, 4, 5]
+
+describe('R.reverse', () => {
+  it('happy', () => {
+    const result = reverse(list)
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -15741,6 +15942,29 @@ test('slice', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {slice} from 'rambda'
+
+const list = [1, 2, 3, 4, 5]
+
+describe('R.slice', () => {
+  it('happy', () => {
+    const result = slice(1, 3, list)
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = slice(1, 3)(list)
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
 ### sort
 
 ```typescript
@@ -15818,6 +16042,33 @@ test('it doesn\'t mutate', () => {
   expect(list[ 0 ]).toBe('foo')
   expect(list[ 1 ]).toBe('bar')
   expect(list[ 2 ]).toBe('baz')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {sort} from 'rambda'
+
+const list = [3,0,5,2,1]
+
+function sortFn(a: number, b: number): number {
+  return a > b ? 1 : -1
+}
+
+describe('R.sort', () => {
+  it('happy', () => {
+    const result = sort(sortFn, list)
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = sort(sortFn)(list)
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -15931,20 +16182,38 @@ test('with compose', () => {
 ```typescript
 import {sortBy} from 'rambda'
 
-describe('sortBy', () => {
-  it('happy', () => {
-    interface Input {
-      a: number,
+interface Input {
+  a: number,
+}
+
+describe('R.sortBy', () => {
+  it('passing type to sort function', () => {
+    function fn(x: any): number {
+      return x.a
+    }
+    function fn2(x: Input): number {
+      return x.a
     }
 
+    const input = [{a: 2}, {a: 1}, {a: 0}]
+    const result = sortBy(fn, input)
+    const curriedResult = sortBy(fn2)(input)
+
+    result // $ExpectType { a: number; }[]
+    curriedResult // $ExpectType { a: number; }[]
+    result[0].a // $ExpectType number
+  })
+  it('passing type to sort function and list', () => {
     function fn(x: Input): number {
       return x.a
     }
 
     const input: Input[] = [{a: 2}, {a: 1}, {a: 0}]
     const result = sortBy(fn, input)
+    const curriedResult = sortBy(fn)(input)
 
     result // $ExpectType Input[]
+    curriedResult // $ExpectType Input[]
     result[0].a // $ExpectType number
   })
 })
@@ -16039,10 +16308,42 @@ export function split(separator, str){
 ```javascript
 import { split } from './split'
 
-test('split', () => {
-  expect(split('|')('foo|bar|baz')).toEqual([ 'foo', 'bar', 'baz' ])
+const str = 'foo|bar|baz'
+const splitChar = '|'
+const expected = [ 'foo', 'bar', 'baz' ]
 
-  expect(split('.', 'a.b.c.xyz.d')).toEqual([ 'a', 'b', 'c', 'xyz', 'd' ])
+test('happy', () => {
+  expect(split(splitChar, str)).toEqual(expected)
+})
+
+test('curried', () => {
+  expect(split(splitChar)(str)).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {split} from 'rambda'
+
+const str = 'foo|bar|baz'
+const splitChar = '|'
+
+describe('R.split', () => {
+  it('happy', () => {
+    const result = split(splitChar, str)
+
+    result // $ExpectType string[]
+  })
+  it('curried', () => {
+    const result = split(splitChar)(str)
+  
+    result // $ExpectType string[]
+  })
 })
 ```
 
@@ -16138,6 +16439,31 @@ test('with bad input', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {splitEvery} from 'rambda'
+
+const list =  [ 1, 2, 3, 4, 5, 6, 7 ]
+
+describe('R.splitEvery', () => {
+  it('happy', () => {
+    const result = splitEvery(3,list)
+
+    result // $ExpectType number[][]
+  })
+  it('curried', () => {
+    const result = splitEvery(3)(list)
+
+    result // $ExpectType number[][]
+  })
+})
+```
+
+</details>
+
 ### startsWith
 
 ```typescript
@@ -16200,6 +16526,32 @@ test('false', () => {
   const result = startsWith('baz')('foo-bar')
 
   expect(result).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {startsWith} from 'rambda'
+
+const target = 'foo'
+const input = 'foo bar'
+
+describe('R.startsWith', () => {
+  it('happy', () => {
+    const result = startsWith(target, input)
+
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = startsWith(target)(input)
+
+    result // $ExpectType boolean
+  })
 })
 ```
 
@@ -16420,6 +16772,34 @@ test('symmetricDifference with objects', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {symmetricDifference} from 'rambda'
+
+describe('R.symmetricDifference', () => {
+  it('happy', () => {
+    const list1 = [ 1, 2, 3, 4 ]
+    const list2 = [ 3, 4, 5, 6 ]
+    const result = symmetricDifference(list1, list2)
+
+    result // $ExpectType number[]
+  })
+  
+  it('curried', () => {
+    const list1 = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
+    const list2 = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
+    const result = symmetricDifference(list1)(list2)
+    
+    result // $ExpectType { id: number; }[]
+  })
+})
+```
+
+</details>
+
 ### T
 
 ```typescript
@@ -16520,6 +16900,29 @@ test('tail', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {tail} from 'rambda'
+
+describe('R.tail', () => {
+  it('with string', () => {
+    const result = tail('foo')
+
+    result // $ExpectType string
+  })
+  it('with list', () => {
+    const result = tail([1, 2, 3])
+
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
 ### take
 
 ```typescript
@@ -16548,8 +16951,8 @@ const result = [
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 take(howMany: number, listOrString: string): string;
 take<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 ```
 
@@ -16603,6 +17006,46 @@ test('with negative index', () => {
 
 test('with zero index', () => {
   expect(take(0, [ 1, 2, 3 ])).toEqual([])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {take} from 'rambda'
+
+const list = [1, 2,3, 4]
+const str = 'foobar'
+const howMany = 2
+
+describe('R.take - array', () => {
+  it('happy', () => {
+    const result = take(howMany, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = take(howMany)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('R.take - string', () => {
+  it('happy', () => {
+    const result = take(howMany, str)
+
+    result // $ExpectType string
+  })
+  it('curried', () => {
+    const result = take(howMany)(str)
+
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -16668,8 +17111,8 @@ const result = [
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[];
 takeLast(howMany: number, listOrString: string): string;
 takeLast<T>(howMany: number): {
+  <T>(listOrString: readonly T[]): T[];
   (listOrString: string): string;
-  (listOrString: ReadonlyArray<T>): T[];
 };
 ```
 
@@ -16731,6 +17174,46 @@ test('with strings', () => {
 test('with negative index', () => {
   expect(takeLast(-1, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
   expect(takeLast(-Infinity, [ 1, 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {takeLast} from 'rambda'
+
+const list = [1, 2,3, 4]
+const str = 'foobar'
+const howMany = 2
+
+describe('R.takeLast - array', () => {
+  it('happy', () => {
+    const result = takeLast(howMany, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = takeLast(howMany)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('R.takeLast - string', () => {
+  it('happy', () => {
+    const result = takeLast(howMany, str)
+
+    result // $ExpectType string
+  })
+  it('curried', () => {
+    const result = takeLast(howMany)(str)
+
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -16800,6 +17283,28 @@ test('tap', () => {
   expect(tap(sayX, 100)).toEqual(100)
   expect(tap(sayX)(100)).toEqual(100)
   expect(a).toEqual(100)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {tap, pipe} from 'rambda'
+
+describe('R.tap', () => {
+  it('happy', () => {
+    pipe(
+      tap(x => {
+        x // $ExpectType number[]
+        console.log({x})
+      }),
+      (x: number[]) => x.length
+    )([1, 2]) 
+  })
 })
 ```
 
@@ -16904,6 +17409,32 @@ test('throws if first argument is not regex', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {test} from 'rambda'
+
+const input = 'foo   '
+const regex = /foo/
+
+describe('R.test', () => {
+  it('happy', () => {
+    const result = test(regex, input)
+
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = test(regex)(input)
+
+    result // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
 ### times
 
 ```typescript
@@ -16984,6 +17515,23 @@ test('curry', () => {
   const result = times(identity)(5)
 
   expect(result).toEqual([ 0, 1, 2, 3, 4 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {times, identity} from 'rambda'
+
+describe('R.times', () => {
+  it('happy', () => {
+    const result = times(identity, 5)
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -17107,6 +17655,30 @@ test('happy', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {toPairs} from 'rambda'
+
+const obj = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+
+describe('R.toPairs', () => {
+  it('happy', () => {
+    const result = toPairs(obj)
+
+    result // $ExpectType [string, number | number[]][]
+  })
+})
+```
+
+</details>
+
 ### toString
 
 ```typescript
@@ -17135,8 +17707,8 @@ toString<T>(x: T): string;
 <summary><strong>R.toString</strong> source</summary>
 
 ```javascript
-export function toString(val){
-  return val.toString()
+export function toString(x){
+  return x.toString()
 }
 ```
 
@@ -17297,6 +17869,30 @@ test('array with falsy values', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {transpose} from 'rambda'
+
+const input = [
+  [ 'a', 1 ],
+  [ 'b', 2 ],
+  [ 'c', 3 ],
+]
+
+describe('R.transpose', () => {
+  it('happy', () => {
+    const result = transpose(input)
+
+    result // $ExpectType (string | number)[][]
+  })
+})
+```
+
+</details>
+
 ### trim
 
 ```typescript
@@ -17341,6 +17937,24 @@ import { trim } from './trim'
 
 test('trim', () => {
   expect(trim(' foo ')).toEqual('foo')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {trim} from 'rambda'
+
+describe('R.trim', () => {
+  it('happy', () => {
+    const result = trim('foo  ')
+
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -17858,6 +18472,24 @@ test('function inside object 2', () => {
   }
   expect(type(obj.f)).toBe('Function')
   expect(ramdaType(obj.f)).toBe('Function')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {type} from 'rambda'
+
+describe('R.type', () => {
+  it('happy', () => {
+    const result = type(4)
+
+    result // $ExpectType "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN"
+  })
 })
 ```
 
@@ -19116,6 +19748,32 @@ test('ramda test', () => {
 
 <details>
 
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {without} from 'rambda'
+
+const itemsToOmit = [ 'A', 'B', 'C' ]
+const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+
+describe('R.without', () => {
+  it('happy', () => {
+    const result = without(itemsToOmit, collection)
+
+    result // $ExpectType string[]
+  })
+  it('curried', () => {
+    const result = without(itemsToOmit)(collection)
+  
+    result // $ExpectType string[]
+  })
+})
+```
+
+</details>
+
+<details>
+
 <summary>2 failed <italic>Ramda.without</italic> specs
 
 > :boom: Reason for the failure: Ramda method act as a transducer | Ramda method pass to `equals` method
@@ -19525,6 +20183,12 @@ describe('zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+WIP
+
+- Fix definition of `R.propOr`
+
+- Fix curried definitions of `R.take`, `R.takeLast`, `R.drop` and `R.dropLast`
 
 - 5.9.0
 

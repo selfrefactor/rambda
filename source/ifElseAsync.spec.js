@@ -1,51 +1,116 @@
 import { delay } from './delay'
-import { F } from './F'
 import { ifElseAsync } from './ifElseAsync'
-import { T } from './T'
-import { type } from './type'
 
-test('ok', async () => {
+test('arity of 1 - condition is async', async () => {
   const condition = async x => {
-    const delayed = await delay(x * 80)
+    await delay(100)
 
-    return type(delayed) === 'String'
+    return x > 4
   }
-  const conditionFalse = async x => {
-    const delayed = await delay(x * 80)
-
-    return type(delayed) === 'Array'
-  }
-
-  const ifFn = async x => {
-    await delay(x * 60)
-
-    return true
-  }
-
-  const elseFn = async x => {
-    await delay(x * 60)
-
-    return false
-  }
-
-  const result = await ifElseAsync(
-    condition, ifFn, elseFn
-  )(7)
-
-  const resultFalse = await ifElseAsync(
-    conditionFalse, ifFn, elseFn
-  )(7)
-
-  expect(result).toBeTrue()
-  expect(resultFalse).toBeFalse()
+  const whenTrue = x => x + 1
+  const whenFalse = x => x + 10
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(5), fn(1) ])
+  expect(result).toEqual([ 6, 11 ])
 })
 
-test('works with regular functions', async () => {
-  const result = await ifElseAsync(
-    async x => type(await delay(x * 80)) === 'String',
-    T,
-    F
-  )(7)
+test('arity of 1 - condition is sync', async () => {
+  const condition = x => x > 4
+  const whenTrue = async x => {
+    await delay(100)
 
-  expect(result).toEqual(true)
+    return x + 1
+  }
+  const whenFalse = async x => {
+    await delay(100)
+
+    return x + 10
+  }
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(5), fn(1) ])
+  expect(result).toEqual([ 6, 11 ])
+})
+
+test('arity of 1 - all inputs are async', async () => {
+  const condition = async x => {
+    await delay(100)
+
+    return x > 4
+  }
+  const whenTrue = async x => {
+    await delay(100)
+
+    return x + 1
+  }
+  const whenFalse = async x => {
+    await delay(100)
+
+    return x + 10
+  }
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(5), fn(1) ])
+  expect(result).toEqual([ 6, 11 ])
+})
+
+test('arity of 2 - condition is async', async () => {
+  const condition = async (x, y) => {
+    await delay(100)
+
+    return x + y > 4
+  }
+  const whenTrue = (x, y) => x + y + 1
+  const whenFalse = (x, y) => x + y + 10
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
+  expect(result).toEqual([ 35, 14 ])
+})
+
+test('arity of 2 - condition is sync', async () => {
+  const condition = (x, y) => x + y > 4
+  const whenTrue = async (x, y) => {
+    await delay(100)
+
+    return x + y + 1
+  }
+  const whenFalse = async (x, y) => {
+    await delay(100)
+
+    return x + y + 10
+  }
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
+  expect(result).toEqual([ 35, 14 ])
+})
+
+test('arity of 2 - all inputs are async', async () => {
+  const condition = async (x, y) => {
+    await delay(100)
+
+    return x + y > 4
+  }
+  const whenTrue = async (x, y) => {
+    await delay(100)
+
+    return x + y + 1
+  }
+  const whenFalse = async (x, y) => {
+    await delay(100)
+
+    return x + y + 10
+  }
+  const fn = ifElseAsync(
+    condition, whenTrue, whenFalse
+  )
+  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
+  expect(result).toEqual([ 35, 14 ])
 })

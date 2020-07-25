@@ -5,9 +5,7 @@ import {Boolean} from '../Boolean/Boolean'
 @hidden
 */
 type AtStrict<O extends object, K extends Key> =
-    [K & keyof O] extends [never]
-    ? never
-    : O[K & keyof O] // this is so that we can query `string | number`
+    O[K & keyof O] // this is so that we can query `string | number`
 
 /**
 @hidden

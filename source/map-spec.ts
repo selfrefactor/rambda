@@ -1,8 +1,8 @@
 import {map} from 'rambda'
 
-describe('map with arrays', () => {
-  it('only one type', () => {
-    const x = map<number>(
+describe('R.map with arrays', () => {
+  it('iterable returns the same type as the input', () => {
+    const result = map<number>(
       (a, b) => {
         a // $ExpectType number
         b // $ExpectType number
@@ -10,18 +10,18 @@ describe('map with arrays', () => {
       },
       [1, 2, 3]
     )
-    x // $ExpectType number[]
+    result // $ExpectType number[]
   })
-  it('only one type + curry', () => {
-    const x = map<number>((a, b) => {
+  it('iterable returns the same type as the input - curried', () => {
+    const result = map<number>((a, b) => {
       a // $ExpectType number
       b // $ExpectType number
       return a + 2
     })([1, 2, 3])
-    x // $ExpectType number[]
+    result // $ExpectType number[]
   })
-  it('2 types', () => {
-    const x = map<number, string>(
+  it('iterable with index argument', () => {
+    const result = map<number, string>(
       (a, b) => {
         a // $ExpectType number
         b // $ExpectType number
@@ -29,33 +29,33 @@ describe('map with arrays', () => {
       },
       [1, 2, 3]
     )
-    x // $ExpectType string[]
+    result // $ExpectType string[]
   })
-  it('2 types + curry', () => {
-    const x = map<number, string>((a, b) => {
+  it('iterable with index argument - curried', () => {
+    const result = map<number, string>((a, b) => {
       a // $ExpectType number
       b // $ExpectType number
       return `${a}`
     })([1, 2, 3])
-    x // $ExpectType string[]
+    result // $ExpectType string[]
   })
 })
 
-describe('map with objects', () => {
-  it('curry', () => {
+describe('R.map with objects', () => {
+  it('iterable with all three arguments - curried', () => {
     // It requires dummy third typing argument
     // in order to distinguish compared to curry typings for arrays
     // ============================================
-    const x = map<number, string, any>((a, b, c) => {
+    const result = map<number, string, any>((a, b, c) => {
       a // $ExpectType number
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
       return `${a}`
     })({a: 1, b: 2})
-    x // $ExpectType Dictionary<string>
+    result // $ExpectType Dictionary<string>
   })
-  it('1', () => {
-    const x = map<number, string>(
+  it('iterable with all three arguments', () => {
+    const result = map<number, string>(
       (a, b, c) => {
         a // $ExpectType number
         b // $ExpectType string
@@ -64,10 +64,10 @@ describe('map with objects', () => {
       },
       {a: 1, b: 2}
     )
-    x // $ExpectType Dictionary<string>
+    result // $ExpectType Dictionary<string>
   })
-  it('2', () => {
-    const x = map<number, string>(
+  it('iterable with property argument', () => {
+    const result = map<number, string>(
       (a, b) => {
         a // $ExpectType number
         b // $ExpectType string
@@ -75,16 +75,16 @@ describe('map with objects', () => {
       },
       {a: 1, b: 2}
     )
-    x // $ExpectType Dictionary<string>
+    result // $ExpectType Dictionary<string>
   })
-  it('3', () => {
-    const x = map<number, string>(
+  it('iterable with no property argument', () => {
+    const result = map<number, string>(
       a => {
         a // $ExpectType number
         return `${a}`
       },
       {a: 1, b: 2}
     )
-    x // $ExpectType Dictionary<string>
+    result // $ExpectType Dictionary<string>
   })
 })

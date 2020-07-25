@@ -1,6 +1,6 @@
 import {isValid} from 'rambda'
 
-describe('isValid', () => {
+describe('R.isValid', () => {
   it('happy', () => {
     const input = {a: ['foo', 'bar']}
     const schema = {a: ['string']}

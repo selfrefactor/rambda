@@ -56,5 +56,5 @@ test('async condition | false', async () => {
 test('throws when fn is not function', () => {
   const fn = 'foo'
 
-  expect(() => waitFor(fn, howLong)()).toThrow('R.waitFor')
+  expect(() => waitFor(fn, howLong)()).toThrowWithMessage(Error, 'R.waitFor')
 })

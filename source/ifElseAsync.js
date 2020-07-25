@@ -1,24 +1,25 @@
-function createThenable(x){
-  return async function (input){
-    return x(input)
+function createThenable(fn){
+  return async function (...input){
+    return fn(...input)
   }
 }
 
 export function ifElseAsync(
   condition, ifFn, elseFn
 ){
-  return input =>
+  return (...inputs) =>
     new Promise((resolve, reject) => {
       const conditionPromise = createThenable(condition)
       const ifFnPromise = createThenable(ifFn)
       const elseFnPromise = createThenable(elseFn)
 
-      conditionPromise(input)
+      conditionPromise(...inputs)
         .then(conditionResult => {
           const promised =
             conditionResult === true ? ifFnPromise : elseFnPromise
 
-          promised(input).then(resolve)
+          promised(...inputs)
+            .then(resolve)
             .catch(reject)
         })
         .catch(reject)
