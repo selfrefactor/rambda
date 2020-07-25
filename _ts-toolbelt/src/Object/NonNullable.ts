@@ -1,10 +1,10 @@
-import {MergeFlat} from './Merge'
 import {NonNullable as UNonNullable} from '../Union/NonNullable'
 import {Depth} from './_Internal'
 import {Pick} from './Pick'
 import {Key} from '../Any/Key'
-import {Implements} from '../Any/Implements'
+import {Contains} from '../Any/Contains'
 import {Keys} from './Keys'
+import {__PatchFlat} from './Patch'
 
 /**
 @hidden
@@ -41,6 +41,6 @@ Make some fields of **`O`** not nullable (deeply or not)
 */
 export type NonNullable<O extends object, K extends Key = Key, depth extends Depth = 'flat'> = {
     1: NonNullablePart<O, depth>
-    0: MergeFlat<NonNullablePart<Pick<O, K>, depth>, O>
+    0: __PatchFlat<NonNullablePart<Pick<O, K>, depth>, O>
     // Pick a part of O (with K) -> non-nullable -> merge it with O
-}[Implements<Keys<O>, K>] & {}
+}[Contains<Keys<O>, K>] & {}

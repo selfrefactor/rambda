@@ -1,9 +1,9 @@
-import {MergeFlat} from './Merge'
 import {Depth} from './_Internal'
 import {Pick} from './Pick'
 import {Key} from '../Any/Key'
-import {Implements} from '../Any/Implements'
+import {Contains} from '../Any/Contains'
 import {Keys} from './Keys'
+import {__PatchFlat} from './Patch'
 
 /**
 @hidden
@@ -39,6 +39,6 @@ Make some fields of **`O`** **`undefined`** (deeply or not)
 */
 export type Undefinable<O extends object, K extends Key = Key, depth extends Depth = 'flat'> = {
     1: UndefinablePart<O, depth>
-    0: MergeFlat<UndefinablePart<Pick<O, K>, depth>, O>
+    0: __PatchFlat<UndefinablePart<Pick<O, K>, depth>, O>
     // Pick a part of O (with K) -> Undefinable -> merge it with O
-}[Implements<Keys<O>, K>] & {}
+}[Contains<Keys<O>, K>] & {}

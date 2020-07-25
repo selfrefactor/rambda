@@ -1,9 +1,9 @@
-import {MergeFlat} from './Merge'
 import {Pick} from './Pick'
 import {Depth} from './_Internal'
 import {Key} from '../Any/Key'
-import {Implements} from '../Any/Implements'
+import {Contains} from '../Any/Contains'
 import {Keys} from './Keys'
+import {__PatchFlat} from './Patch'
 
 /**
 @hidden
@@ -22,7 +22,7 @@ export type OptionalDeep<O> = {
 /**
 @hidden
 */
-type OptionalPart<O extends object, depth extends Depth> = {
+export type OptionalPart<O extends object, depth extends Depth> = {
     'flat': OptionalFlat<O>,
     'deep': OptionalDeep<O>,
 }[depth]
@@ -31,7 +31,7 @@ type OptionalPart<O extends object, depth extends Depth> = {
 Make some fields of **`O`** optional (deeply or not)
 @param O to make optional
 @param K (?=`Key`) to choose fields
-@param depth (?=`'default'`) to do it deeply
+@param depth (?=`'flat'`) to do it deeply
 @returns [[Object]]
 @example
 ```ts
@@ -39,6 +39,6 @@ Make some fields of **`O`** optional (deeply or not)
 */
 export type Optional<O extends object, K extends Key = Key, depth extends Depth = 'flat'> = {
     1: OptionalPart<O, depth>
-    0: MergeFlat<OptionalPart<Pick<O, K>, depth>, O>
+    0: __PatchFlat<OptionalPart<Pick<O, K>, depth>, O>
     // Pick a part of O (with K) -> nullable -> merge it with O
-}[Implements<Keys<O>, K>] & {}
+}[Contains<Keys<O>, K>] & {}

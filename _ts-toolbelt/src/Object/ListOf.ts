@@ -6,6 +6,7 @@ import {Next} from '../Iteration/Next'
 import {_Append} from '../List/Append'
 import {Exclude} from '../Union/Exclude'
 import {List} from '../List/List'
+import {Extends} from '../Any/Extends'
 import {At} from './At'
 
 /**
@@ -13,29 +14,34 @@ import {At} from './At'
 */
 type PickIfEntry<O extends object, LN extends List, I extends Iteration> =
     Key<I> extends keyof O
-    ? _Append<LN, O[Cast<Key<I>, keyof O>]>
+    ? _Append<LN, O[Key<I>]>
     : LN
 
 /**
 @hidden
 */
-type __ListOf<O extends object, K, LN extends List = [], I extends Iteration = IterationOf<'0'>> = {
-    0: __ListOf<O, Exclude<K, Key<I>>, PickIfEntry<O, LN, I>, Next<I>>
+type ___ListOf<O extends object, K, LN extends List = [], I extends Iteration = IterationOf<'0'>> = {
+    0: ___ListOf<O, Exclude<K, Key<I>>, PickIfEntry<O, LN, I>, Next<I>>
     1: LN
-    2: At<O, number>[]
-}[
-    [K] extends [never]
-    ? 1
-    : number extends K
-      ? 2
-      : 0
-]
+}[Extends<[K], [never]>]
+
+/**
+@hidden
+*/
+type __ListOf<O extends object> =
+    number extends keyof O
+    ? At<O, number>[]
+    : string extends keyof O
+      ? At<O, string>[]
+      : symbol extends keyof O
+        ? At<O, symbol>[]
+        : ___ListOf<O, keyof O>
 
 /**
 @hidden
 */
 export type _ListOf<O extends object> =
-    __ListOf<O, keyof O> extends infer X
+    __ListOf<O> extends infer X
     ? Cast<X, List>
     : never
 
