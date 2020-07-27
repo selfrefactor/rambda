@@ -15,7 +15,7 @@ async function moveFile({ filePath, toolbeltPath }){
 async function copyToRambdax(){
   const source = resolve(__dirname, '../../_ts-toolbelt/')
   const destination = resolve(__dirname, '../../../rambdax/_ts-toolbelt')
-  // await remove(`${ __dirname }/ts-toolbelt`)
+  await remove(`${ __dirname }/ts-toolbelt`)
 
   await copy(
     source, destination, { overwrite : true }
@@ -32,13 +32,10 @@ export async function dynamicTsToolbelt(commitHash){
     command : 'git',
     inputs  : [
       'clone',
-      '--depth',
-      '200',
       'https://github.com/pirix-gh/ts-toolbelt',
     ],
   })
   if (commitHash){
-    console.log(commitHash)
     await spawn({
       cwd     : `${ __dirname }/ts-toolbelt`,
       command : 'git',
