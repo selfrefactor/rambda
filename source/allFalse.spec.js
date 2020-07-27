@@ -2,13 +2,15 @@ import { runTests } from 'helpers-fn'
 
 import { allFalse } from './allFalse'
 
-const first = { ok : [ () => 2 > 10, () => [], () => {}, null, [] ] }
-const second = { fail : [ () => 2 > 10, () => [], () => ({ a : 1 }) ] }
-const third = { fail : [ () => 2 > 10, () => [], true ] }
+const happy = { ok : [ () => false, () => [], () => {}, null, false, [] ] }
+const withArray = { fail : [ ...happy.ok, [ 1 ] ] }
+const withObject = { fail : [ ...happy.ok, { a : 1 } ] }
+const withFunction = { fail : [ ...happy.ok, () => ({ a : 1 }) ] }
+const withBoolean = { fail : [ ...happy.ok, true ] }
 
 const testData = {
-  label : 'foo',
-  data  : [ first, second, third ],
+  label : 'R.allFalse',
+  data  : [ happy, withArray, withObject, withFunction, withBoolean ],
   fn    : input => allFalse(...input),
 }
 runTests(testData)

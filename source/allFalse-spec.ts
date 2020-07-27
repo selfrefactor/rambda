@@ -1,6 +1,6 @@
 import {allFalse} from 'rambda'
 
-describe('allFalse', () => {
+describe('R.allFalse', ()           => {
   it('happy', () => {
     const x = allFalse(null, false, undefined, () => false)
     x // $ExpectType boolean
