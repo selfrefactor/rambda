@@ -2,7 +2,7 @@ import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
   expect(assocPath(
-    'a', 1, {}
+    [ 'a' ], 1, {}
   )).toEqual({ a : 1 })
 })
 
@@ -111,7 +111,7 @@ test('assignment is shallow', () => {
   )).toEqual({ a : { b : 2 } })
 })
 
-test('happy', () => {
+test('empty array as path', () => {
   const result = assocPath(
     [], 3, {
       a : 1,

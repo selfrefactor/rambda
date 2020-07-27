@@ -4593,56 +4593,45 @@ Explanation: It helps changing object's properties if there are below 3 levels d
 
 It is intended for usage inside unit tests, when you need more powerful method to change object's properties.
 
-`path` input argument allows you to specify which object's sub-branch you want to manipulate. You should pass an empty string if you target the whole `origin` object.
+`path` input argument allows you to specify which object's sub-branch you want to focus on. You must pass an empty string if you target the whole `origin` object.
 
-`changeData` can be a direct value. If it is a object, then this object is used to edit or add new properties to the selected sub-branch.
+`changeData` can be a direct value or an object. If it is a object, then this object is used to edit or add new properties to the selected sub-branch.
 
 Example:
 
 ```
-const simpleResult = R.change(
+const result = R.change(
   { a: 1, b: { c: 2 } },
   'b.c',
-  3
+  10
 )
-const expectedSimpleResult = {
-  a: 1,
-  b: { c: 3 }
-}
-// simpleResult === expectedSimpleResult
-
-const origin = {
-  a   : 0,
-  foo : {
-    bar : 1,
-    bax : { nested : 2 },
-  }
-}
-
-const changeData = {
-  bar: 2,
-  bay: 3,
-  bax: { baq: 9 }
-}
-
-const result = R.change(
-  origin,
-  'foo',
-  changeData
-)
-
 const expected = {
-  a   : 0,
-  foo : {
-    bar : 2,
-    bay : 3,
-    bax : {
-      nested : 2,
-      baq: 9
-    },
-  },
+  a: 1,
+  b: { c: 10 }
 }
 // => `result` is equal to `expected`
+
+const origin = {
+  foo : 1,
+  bar : { nested : 2 },
+}
+const changeData = {
+  bar : { a : 3 },
+  baz : 4,
+}
+const complexResult = R.change(
+  origin, '', changeData
+)
+
+const complexExpected = {
+  foo : 1,
+  bar : {
+    a : 3,
+    nested : 2,
+  },
+  baz: 4
+}
+// => `complexResult` is equal to `complexExpected`
 ```
 
 Categories: Object

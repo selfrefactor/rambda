@@ -1,6 +1,6 @@
 import {any} from 'rambda'
 
-describe('any', () => {
+describe('R.any', () => {
   it('happy', () => {
     const result = any(
       x => {

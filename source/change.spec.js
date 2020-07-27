@@ -1,5 +1,30 @@
 import { change } from './change'
 
+test('happy', () => {
+  const localOrigin = {
+    foo : 1,
+    bar : { nested : 2 },
+  }
+  const changeData = {
+    bar : { a : 3 },
+    baz : 4,
+  }
+  const result = change(
+    localOrigin, '', changeData
+  )
+
+  const expected = {
+    foo   : 1,
+    bar : {
+      a : 3,
+      nested : 2,
+    },
+    baz: 4
+  }
+
+  expect(result).toEqual(expected)
+})
+
 const origin = {
   a   : 0,
   foo : {
@@ -22,6 +47,9 @@ const origin = {
 }
 
 test('when rule is not an object', () => {
+  const result = change(
+    origin, 'foo.bax.nested', 7
+  )
   const expected = {
     a   : 0,
     foo : {
@@ -29,23 +57,9 @@ test('when rule is not an object', () => {
       baz : false,
       bax : { nested : 7 },
     },
-    first : {
-      second : {
-        third : {
-          fourthA : 3,
-          fourthB : 4,
-          fourth  : {
-            a     : 1,
-            fifth : { unreachable : 22 },
-          },
-        },
-      },
-    },
+    first : origin.first
   }
 
-  const result = change(
-    origin, 'foo.bax.nested', 7
-  )
   expect(result).toEqual(expected)
 })
 
@@ -60,11 +74,18 @@ test('works with 4 levels deep nesting', () => {
         b     : 7,
         third : {
           fourthA : 9,
+          // This is 5th level nesting
+          // so we will receive a full change property
+          // instead of merge
+          ///////////////////////////
           fourth  : { a : 2 },
         },
       },
     },
   }
+  const result = change(
+    origin, '', changeData
+  )
   const expected = {
     a   : 0,
     foo : {
@@ -80,50 +101,11 @@ test('works with 4 levels deep nesting', () => {
         third : {
           fourthA : 9,
           fourthB : 4,
-          // This is 5th level nesting
-          // So we get the full change property
-          // Instead of merge with the origin
-          ///////////////////////////
           fourth  : { a : 2 },
         },
         b : 7,
       },
     },
   }
-  const result = change(
-    origin, '', changeData
-  )
   expect(result).toEqual(expected)
-})
-
-test('simpler', () => {
-  const localOrigin = {
-    a   : 0,
-    foo : {
-      bar : 1,
-      bax : { nested : 2 },
-    },
-  }
-  const changeData = {
-    bar : 2,
-    bay : 3,
-    bax : { baq : 9 },
-  }
-  const result = change(
-    localOrigin, 'foo', changeData
-  )
-
-  const expectedResult = {
-    a   : 0,
-    foo : {
-      bar : 2,
-      bay : 3,
-      bax : {
-        nested : 2,
-        baq    : 9,
-      },
-    },
-  }
-
-  expect(result).toEqual(expectedResult)
 })
