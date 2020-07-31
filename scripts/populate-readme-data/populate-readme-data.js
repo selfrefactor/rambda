@@ -59,7 +59,7 @@ export async function populateReadmeData({ withRambdax }){
     }))
     .sort((x, y) =>
       x.methodName.toLowerCase() > y.methodName.toLowerCase() ? 1 : -1)
-    .map(createMethodData)
+    .map(method => createMethodData(method, withRambdax))
 
   const intro = await getIntro(withRambdax)
   const tail = await getTail(withRambdax)

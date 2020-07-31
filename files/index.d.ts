@@ -4233,7 +4233,7 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 /*
 Method: when
 
-Example: It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
+Explanation: It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
 
 This function will return `input` if `rule(input)` is false.
 

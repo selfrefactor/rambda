@@ -133,8 +133,9 @@ function createReplReadme({ replLink, methodName }){
   return `\n<a title="redirect to Rambda Repl site" href="${ replLink }">Try the above <strong>R.${ methodName }</strong> example in Rambda REPL</a>`
 }
 
-export function createMethodData(method){
+export function createMethodData(method, withRambdax){
   const data = getIntro(method)
+  const extended = !withRambdax
 
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
@@ -144,14 +145,15 @@ export function createMethodData(method){
   if (method.replLink) data.push('\n')
   if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
-  if (method.rambdaSource) data.push(createRambdaSourceReadme(method))
+  if (method.rambdaSource&& extended) data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
-  if (method.typescriptDefinitionTest)
+  if (method.typescriptDefinitionTest&& extended){
     data.push(createTypescriptTest(method))
+  }
 
-  if (method.benchmarkInfo) data.push(createBenchmarkInfo(method))
-  if (method.failedSpecsReasons) data.push(createFailedSpec(method))
+  if (method.benchmarkInfo && extended) data.push(createBenchmarkInfo(method))
+  if (method.failedSpecsReasons&& extended) data.push(createFailedSpec(method))
 
   return data.join('')
 }

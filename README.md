@@ -4304,7 +4304,7 @@ import {defaultTo} from 'rambda'
 
 describe('R.defaultTo with Ramda spec', () => {
   it('input is falsy', () => {
-    const result = defaultTo('foo', undefined) // $ExpectType string
+    const result = defaultTo('foo', undefined)
     result // $ExpectType "foo"
   })
   it('input is truthy', () => {
@@ -20059,45 +20059,6 @@ when<T>(
   rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
 ): IdentityFunction<T>
 ```
-
-```javascript
-It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
-
-This function will return `input` if `rule(input)` is false.
-
-If `resultOrFunction` is function, it will return `resultOrFunction(input)`.
-
-If `resultOrFunction` is not function, it will return `resultOrFunction`.
-
-Maybe the example use will do a better job in explaining this method.
-
-const rule = x => typeof x === 'number'
-const whenTrueResult = 6345789
-const whenTrueFn = R.add(11)
-
-const fnWithResult = when(rule, whenTrueResult)
-const fnWithFunction = when(rule, whenTrueFn)
-
-const goodInput = 88
-const badInput = 'foo'
-
-const result = [
-  fnWithResult(goodInput),
-  fnWithResult(badInput),
-  fnWithFn(goodInput)
-  fnWithFn(badInput),
-]
-
-const expected = [
-  6345789,
-  'foo',
-  99,
-  'foo'
-]
-// => `result` is equal to `expected`
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?It%20accepts%20%60rule%60%20and%20%60resultOrFunction%60%20as%20arguments%20and%20returns%20a%20function%20with%20%60input%60.%0A%0AThis%20function%20will%20return%20%60input%60%20if%20%60rule(input)%60%20is%20false.%0A%0AIf%20%60resultOrFunction%60%20is%20function%2C%20it%20will%20return%20%60resultOrFunction(input)%60.%0A%0AIf%20%60resultOrFunction%60%20is%20not%20function%2C%20it%20will%20return%20%60resultOrFunction%60.%0A%0AMaybe%20the%20example%20use%20will%20do%20a%20better%20job%20in%20explaining%20this%20method.%0A%0A%0Aconst%20rule%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20whenTrueResult%20%3D%206345789%0Aconst%20whenTrueFn%20%3D%20R.add(11)%0A%0Aconst%20fnWithResult%20%3D%20when(rule%2C%20whenTrueResult)%0Aconst%20fnWithFunction%20%3D%20when(rule%2C%20whenTrueFn)%0A%0Aconst%20goodInput%20%3D%2088%0Aconst%20badInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fnWithResult(goodInput)%2C%0A%20%20fnWithResult(badInput)%2C%0A%20%20fnWithFn(goodInput)%0A%20%20fnWithFn(badInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%206345789%2C%0A%20%20'foo'%2C%0A%20%2099%2C%0A%20%20'foo'%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try the above <strong>R.when</strong> example in Rambda REPL</a>
 
 <details>
 
