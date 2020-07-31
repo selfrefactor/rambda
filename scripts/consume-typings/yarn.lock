@@ -13,9 +13,9 @@
   version "5.6.0"
   resolved "https://github.com/selfrefactor/rambda#77862b4a0371f9ddfebd28498e2bf91d97d02d47"
 
-"rambdax@https://github.com/selfrefactor/rambdax#4.0.0-beta":
+"rambdax@https://github.com/selfrefactor/rambdax#4.0.0":
   version "3.7.0"
-  resolved "https://github.com/selfrefactor/rambdax#9c3c79ef6b2fd2db96fa25c85a53d7a8513c3897"
+  resolved "https://github.com/selfrefactor/rambdax#e3f0386c11f3c600b98365aa39b177ca5f42111b"
 
 ramda@0.27.0:
   version "0.27.0"
