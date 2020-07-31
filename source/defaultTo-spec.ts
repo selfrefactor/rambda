@@ -23,7 +23,14 @@ describe('R.defaultTo can have many inputs', () => {
   })
 
   it('with two possible types', () => {
-    const result = defaultTo<string, number>('foo', undefined, 1, null, 2, 'bar') // $ExpectType string | number
+    const result = defaultTo<string, number>(
+      'foo',
+      undefined,
+      1,
+      null,
+      2,
+      'bar'
+    ) // $ExpectType string | number
     result // $ExpectType string | number
   })
 })

@@ -7,7 +7,7 @@ describe('R.groupBy', () => {
 
     const result = groupBy(groupByFn, list)
     result // $ExpectType { [index: string]: string[]; }
-    
+
     const curriedResult = groupBy(groupByFn)(list)
     curriedResult // $ExpectType { [index: string]: string[]; }
   })

@@ -1,10 +1,10 @@
 import {converge} from 'rambda'
 
-const mult = (a: number, b: number)=> {
+const mult = (a: number, b: number) => {
   return a * b
 }
 const fn = converge(mult, [
-  (a: number) =>{
+  (a: number) => {
     return a
   },
   (a: number, b: number) => {
