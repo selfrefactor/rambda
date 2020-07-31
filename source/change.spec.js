@@ -14,12 +14,12 @@ test('happy', () => {
   )
 
   const expected = {
-    foo   : 1,
+    foo : 1,
     bar : {
-      a : 3,
+      a      : 3,
       nested : 2,
     },
-    baz: 4
+    baz : 4,
   }
 
   expect(result).toEqual(expected)
@@ -57,7 +57,7 @@ test('when rule is not an object', () => {
       baz : false,
       bax : { nested : 7 },
     },
-    first : origin.first
+    first : origin.first,
   }
 
   expect(result).toEqual(expected)

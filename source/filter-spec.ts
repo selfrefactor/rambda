@@ -1,77 +1,53 @@
 import {filter} from 'rambda'
 
-describe('filter with array', () => {
-  it('1 curry', () => {
-    const x = filter<number>(a => {
-      a // $ExpectType number
-      return a > 1
-    })([1, 2, 3])
-    x // $ExpectType number[]
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2}
+
+describe('R.filter with array', () => {
+  it('happy', () => {
+    const result = filter<number>(x => {
+      x // $ExpectType number
+      return x > 1
+    },list)
+    result // $ExpectType number[]
   })
-  it('1', () => {
-    const x = filter<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType number[]
+  it('curried', () => {
+    const result = filter<number>(x => {
+      x // $ExpectType number
+      return x > 1
+    })(list)
+    result // $ExpectType number[]
   })
-  it('2', () => {
-    const x = filter<number>(
-      (a, b) => {
-        a // $ExpectType number
-        return a > 1
+  it('pass index as second argument', () => {
+    filter<number>(
+      (x, index) => {
+        index // $ExpectType number
+        return x > 1
       },
-      [1, 2, 3]
+      list
     )
-    x // $ExpectType number[]
   })
 })
 
-describe('filter with objects', () => {
-  it('curry', () => {
-    const x = filter<number, number>((a, b, c) => {
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+describe('R.filter with objects', () => {
+  it('happy', () => {
+    const result = filter<number>((val, prop, origin) => {
+      val // $ExpectType number
+      prop // $ExpectType string
+      origin // $ExpectType Dictionary<number>
 
-      return a > 1
-    })({a: 1, b: 2})
-    x // $ExpectType Dictionary<number>
+      return val > 1
+    },obj)
+    result // $ExpectType Dictionary<number>
   })
+  it('curried version requires second dummy type', () => {
+    const result = filter<number, any>((val, prop, origin) => {
+      val // $ExpectType number
+      prop // $ExpectType string
+      origin // $ExpectType Dictionary<number>
 
-  it('object with three arguments predicate', () => {
-    const x = filter<number>(
-      (a, b, c) => {
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
-  })
-
-  it('object with two arguments predicate', () => {
-    const x = filter<number>(
-      (a, b) => {
-        b // $ExpectType string
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
-  })
-  it('object with one argument predicate', () => {
-    const x = filter<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
+      return val > 1
+    })(obj)
+    result // $ExpectType Dictionary<number>
   })
 })

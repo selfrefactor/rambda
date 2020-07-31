@@ -1,16 +1,16 @@
 import {dissoc, pipe, identity} from 'rambda'
 
 const obj = {
-  a : 1,
-  b : 2,
+  a: 1,
+  b: 2,
 }
 interface Output {
-  a: string
+  a: string,
 }
 
 describe('R.dissoc', () => {
   it('happy', () => {
-    const result = dissoc<Output>('b',obj)
+    const result = dissoc<Output>('b', obj)
 
     result // $ExpectType Output
   })
@@ -20,10 +20,7 @@ describe('R.dissoc', () => {
     result // $ExpectType Output
   })
   it('within R.pipe', () => {
-    const result = pipe<object, object, Output>(
-      identity,
-      dissoc('b')
-    )(obj)
+    const result = pipe<object, object, Output>(identity, dissoc('b'))(obj)
 
     result // $ExpectType Output
   })

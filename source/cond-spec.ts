@@ -1,6 +1,6 @@
 import {cond, always, equals} from 'rambda'
 
-describe('cond', () => {
+describe('R.cond', () => {
   it('happy', () => {
     const fn = cond<number, string>([
       [equals(0), always('water freezes at 0°C')],
@@ -13,7 +13,7 @@ describe('cond', () => {
       ],
     ])
 
-    const a = fn(0)
-    a // $ExpectType string
+    const result = fn(0)
+    result // $ExpectType string
   })
 })

@@ -13,11 +13,14 @@ describe('R.glue', () => {
   })
 
   it('with specified glue char', () => {
-    const result = glue(`
+    const result = glue(
+      `
       Foo
       ${baz}
       Bar
-    `, '|')
+    `,
+      '|'
+    )
     result // $ExpectType string
   })
 })

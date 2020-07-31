@@ -2,7 +2,7 @@ import {compact} from 'rambda'
 
 const list = ['', 2, 3]
 
-describe('chain', () => {
+describe('R.compact', () => {
   it('happy', () => {
     const result = compact(list)
     result // $ExpectType unknown[]

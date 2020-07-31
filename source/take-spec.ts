@@ -1,6 +1,6 @@
 import {take} from 'rambda'
 
-const list = [1, 2,3, 4]
+const list = [1, 2, 3, 4]
 const str = 'foobar'
 const howMany = 2
 

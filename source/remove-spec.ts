@@ -4,8 +4,8 @@ const text = 'foo bar baz foo'
 
 describe('R.remove', () => {
   it('with array of patterns', () => {
-    const inputs = [ /foo/, /not\shere/, /also/, 'bar' ]
-  
+    const inputs = [/foo/, /not\shere/, /also/, 'bar']
+
     const result = remove(inputs, text)
     const curriedResult = remove(inputs)(text)
 

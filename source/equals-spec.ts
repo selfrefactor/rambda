@@ -6,9 +6,9 @@ describe('R.equals', () => {
     result // $ExpectType boolean
   })
   it('with object', () => {
-    const foo = {a:1}
-    const bar = {a:2}
-    const result = equals(foo,bar)
+    const foo = {a: 1}
+    const bar = {a: 2}
+    const result = equals(foo, bar)
     result // $ExpectType boolean
   })
   it('curried', () => {

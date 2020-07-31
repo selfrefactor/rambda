@@ -8,4 +8,3 @@ describe('R.always', () => {
     result // $ExpectType string
   })
 })
- 

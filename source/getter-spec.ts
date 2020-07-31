@@ -11,12 +11,12 @@ describe('R.getter | R.setter | R.reset', () => {
   })
 
   it('using lists of keys and whole object', () => {
-    interface Output{
-      a: number
-      foo: number
+    interface Output {
+      a: number,
+      foo: number,
     }
-    setter({a:1, b:2, foo: 3})
-    const result = getter<Output>(['a',KEY])
+    setter({a: 1, b: 2, foo: 3})
+    const result = getter<Output>(['a', KEY])
     result // $ExpectType Output
   })
 })

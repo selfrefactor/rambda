@@ -1,9 +1,9 @@
 import {transpose} from 'rambda'
 
 const input = [
-  [ 'a', 1 ],
-  [ 'b', 2 ],
-  [ 'c', 3 ],
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
 ]
 
 describe('R.transpose', () => {

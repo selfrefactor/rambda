@@ -11,7 +11,7 @@ describe('R.split', () => {
   })
   it('curried', () => {
     const result = split(splitChar)(str)
-  
+
     result // $ExpectType string[]
   })
 })

@@ -6,9 +6,9 @@ interface Output {
 }
 
 describe('R.produce', () => {
-  it('rules contains asynchronous function', async () => {
+  it('rules contains asynchronous function', async() => {
     const rules = {
-      foo: async (x: number) => {
+      foo: async(x: number) => {
         await delay(100)
         return x + 10
       },

@@ -1,9 +1,9 @@
 import {max} from 'rambda'
 
 const first = 1
-const second = 2        
+const second = 2
 
-describe('R.max', () => {     
+describe('R.max', () => {
   it('happy', () => {
     const result = max(first, second)
     result // $ExpectType 1 | 2

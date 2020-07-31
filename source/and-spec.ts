@@ -10,4 +10,3 @@ describe('R.and', () => {
     result // $ExpectType boolean
   })
 })
- 

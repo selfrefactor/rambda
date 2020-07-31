@@ -6,4 +6,3 @@ describe('R.identity', () => {
     result // $ExpectType 4
   })
 })
-

@@ -1,6 +1,6 @@
 import {sort} from 'rambda'
 
-const list = [3,0,5,2,1]
+const list = [3, 0, 5, 2, 1]
 
 function sortFn(a: number, b: number): number {
   return a > b ? 1 : -1

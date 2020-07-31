@@ -1,6 +1,6 @@
 import {propOr} from 'rambda'
 
-const obj = { foo : 'bar' }
+const obj = {foo: 'bar'}
 const property = 'foo'
 const fallback = 'fallback'
 
@@ -10,7 +10,7 @@ describe('propOr', () => {
     result // $ExpectType string
   })
   it('curry 1', () => {
-    const result = propOr(fallback)(property,obj)
+    const result = propOr(fallback)(property, obj)
     result // $ExpectType string
   })
   it('curry 2', () => {

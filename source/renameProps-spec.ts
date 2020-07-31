@@ -1,12 +1,12 @@
 import {renameProps} from 'rambda'
 
 const rules = {
-  f : 'foo',
-  b : 'bar',
+  f: 'foo',
+  b: 'bar',
 }
 const input = {
-  f : 1,
-  b : 2,
+  f: 1,
+  b: 2,
 }
 
 describe('R.renameProps', () => {
@@ -27,7 +27,7 @@ describe('R.renameProps - explicitly passed output type', () => {
     foo: number,
     bar: number,
   }
-  
+
   it('happy', () => {
     const result = renameProps<Output>(rules, input)
 

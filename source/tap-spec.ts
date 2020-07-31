@@ -8,6 +8,6 @@ describe('R.tap', () => {
         console.log({x})
       }),
       (x: number[]) => x.length
-    )([1, 2]) 
+    )([1, 2])
   })
 })

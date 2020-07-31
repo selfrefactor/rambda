@@ -30,10 +30,7 @@ export async function dynamicTsToolbelt(commitHash){
   await spawn({
     cwd     : __dirname,
     command : 'git',
-    inputs  : [
-      'clone',
-      'https://github.com/pirix-gh/ts-toolbelt',
-    ],
+    inputs  : [ 'clone', 'https://github.com/pirix-gh/ts-toolbelt' ],
   })
   if (commitHash){
     await spawn({

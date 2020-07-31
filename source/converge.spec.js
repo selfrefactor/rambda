@@ -1,48 +1,37 @@
 import { add } from './add'
 import { converge } from './converge'
 
-const mult = function (a, b){
+const mult = (a, b)=>{
   return a * b
 }
 
 const f1 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (a){
-    return a
-  },
+  (a) => a + 1,
+  (a)=>a + 10,
 ])
 const f2 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (a, b){
-    return b
-  },
+  (a)=> a + 1,
+  (a, b)=> a + b + 10,
 ])
 const f3 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (
+  (a)=> a + 1,
+ (
     a, b, c
-  ){
-    return c
+  ) => {
+    return a + b + c + 10
   },
 ])
-
+ 
 test('happy', () => {
-  expect(f2(6)(7)).toEqual(42)
-  expect(f2(6, 7)).toEqual(42)
-  expect(f3().length).toEqual(3)
+  expect(f2(6, 7)).toEqual(161)
 })
 
-test('passes the results of applying the arguments individually to two separate functions into a single one', () => {
-  expect(converge(mult)([ add(1), add(3) ])(2)).toEqual(15)
+test('passes the results of applying the arguments individually', () => {
+  const result = converge(mult)([ add(1), add(3) ])(2)
+  expect(result).toEqual(15)
 })
 
-test('returns a function with the length of the "longest" argument', () => {
+test('returns a function with the length of the longest argument', () => {
   expect(f1.length).toEqual(1)
   expect(f2.length).toEqual(2)
   expect(f3.length).toEqual(3)
