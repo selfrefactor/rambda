@@ -22,7 +22,7 @@ async function createMainFile({ allMethods, dir }){
     .map(x => `export * from './src/${ x }'`)
     .join('\n')
 
-  await outputFile(`${ dir }/rambda.js`, content)
+  await outputFile(`${ dir }/rambda.js`, `${ content }\n`)
 }
 
 async function createMainFileRambdax({ allMethods, rambdaMethods, dir }){
@@ -30,7 +30,7 @@ async function createMainFileRambdax({ allMethods, rambdaMethods, dir }){
     .map(x => `export * from './src/${ x }'`)
     .join('\n')
 
-  await outputFile(`${ dir }/rambdax.js`, content)
+  await outputFile(`${ dir }/rambdax.js`, `${ content }\n`)
 }
 
 async function rambdaxBuildStep(){
