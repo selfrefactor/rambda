@@ -1,5 +1,3 @@
-# CHANGELOG
-
 4.0.0
 
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:

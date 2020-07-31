@@ -20959,7 +20959,7 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-WIP
+5.10.0
 
 Close [Issue #514](https://github.com/selfrefactor/rambda/issues/514) -
 wrong `R.length` with empty string
