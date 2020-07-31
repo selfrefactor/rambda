@@ -199,7 +199,7 @@ export function assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) =>
  */
 export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
+export function assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(newValue: T, obj: U) => U>;
 
 /**
  * It returns a function with `input` argument.

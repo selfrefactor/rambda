@@ -15,7 +15,7 @@ jest.setTimeout(ms('30 minutes'))
 
 test('run many scripts and generate readme', async () => {
   // Unless you are developing for Ramdax, leave that `false`
-  const withRambdax = true
+  const withRambdax = false
 
   /*
     If the change is regarding Typescript definitions

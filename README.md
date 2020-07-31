@@ -877,6 +877,25 @@ test('f', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {always} from 'rambda'
+
+describe('R.always', () => {
+  it('happy', () => {
+    const fn = always('foo')
+    fn // $ExpectType () => string
+    const result = fn()
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
 ### and
 
 ```typescript
@@ -926,9 +945,32 @@ import { and } from './and'
 
 test('happy', () => {
   expect(and(true, true)).toBeTrue()
+  expect(and(true)(true)).toBeTrue()
+  expect(and(4)(2)).toBe(2)
   expect(and(true, false)).toBeFalse()
   expect(and(false, true)).toBeFalse()
   expect(and(false, false)).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {and} from 'rambda'
+
+describe('R.and', () => {
+  it('happy', () => {
+    const result = and(true, false)
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = and(true)(false)
+    result // $ExpectType boolean
+  })
 })
 ```
 
@@ -1020,7 +1062,7 @@ test('passes index to predicate', () => {
 ```typescript
 import {any} from 'rambda'
 
-describe('any', () => {
+describe('R.any', () => {
   it('happy', () => {
     const result = any(
       x => {
@@ -1304,6 +1346,31 @@ test('should not modify arguments', () => {
 
   expect(a).toEqual([ 1, 2, 3 ])
   expect(b).toEqual([ 1, 2, 3, 4 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {append} from 'rambda'
+
+const list = [1, 2, 3]
+
+describe('R.append', () => {
+  it('happy', () => {
+    const result = append(4, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = append(4)(list)
+
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -1915,7 +1982,7 @@ R.assocPath(path, newValue, obj)
 ```typescript
 assocPath<T, U>(path: Path, newValue: T, obj: U): U;
 assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(a: T, b: U) => U>;
+assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(newValue: T, obj: U) => U>;
 ```
 
 </details>
@@ -1983,7 +2050,7 @@ import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
   expect(assocPath(
-    'a', 1, {}
+    [ 'a' ], 1, {}
   )).toEqual({ a : 1 })
 })
 
@@ -2092,7 +2159,7 @@ test('assignment is shallow', () => {
   )).toEqual({ a : { b : 2 } })
 })
 
-test('happy', () => {
+test('empty array as path', () => {
   const result = assocPath(
     [], 3, {
       a : 1,
@@ -2108,6 +2175,24 @@ test('happy', () => {
     [ 'foo', 'bar', 'baz' ], 42, { foo : null }
   )
   expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {assocPath} from 'rambda'
+
+describe('R.assocPath', () => {
+  it('happy', () => {
+    const result = assocPath(['b'], 2, {a: 1})
+
+    result // $ExpectType { a: number; }
+  })
 })
 ```
 
@@ -2223,18 +2308,14 @@ describe('R.both', () => {
   it('with passed type', () => {
     const fn = both<number>(
       x => x > 1,
-      x =>x % 2 === 0
+      x => x % 2 === 0
     )
     fn // $ExpectType Predicate<number>
     const result = fn(2) // $ExpectType boolean
     result // $ExpectType boolean
   })
   it('with passed type - curried', () => {
-    const fn = both<number>(
-      x => x > 1
-      )(
-        x =>x % 2 === 0
-      )
+    const fn = both<number>(x => x > 1)(x => x % 2 === 0)
     fn // $ExpectType Predicate<number>
     const result = fn(2)
     result // $ExpectType boolean
@@ -2254,16 +2335,13 @@ describe('R.both', () => {
     result // $ExpectType boolean
   })
   it('no type passed - curried', () => {
-    const fn = both(
-      (x:number) => {
-        x // $ExpectType number
-        return x > 1
-      })(
-        (x:number) => {
-          x // $ExpectType number
-          return x % 2 === 0
-        }
-    )
+    const fn = both((x: number) => {
+      x // $ExpectType number
+      return x > 1
+    })((x: number) => {
+      x // $ExpectType number
+      return x % 2 === 0
+    })
     const result = fn(2)
     result // $ExpectType boolean
   })
@@ -2387,19 +2465,13 @@ test('flattens only one level', () => {
 import {chain} from 'rambda'
 
 const list = [1, 2, 3]
-const duplicate = (n: number) => [n, n]
+const fn = (x: number) => [`${x}`, `${x}`]
 
-describe('chain', () => {
+describe('R.chain', () => {
   it('without passing type', () => {
-    const result = chain(duplicate, list)
-    result // $ExpectType number[]
-  })
-
-  it('passing types', () => {
-    const duplicateAndModify = (x: number) => [`||${x}||`, `||${x}||`]
-    const result = chain<number, string>(duplicateAndModify, list)
-    const resultCurried = chain<number, string>(duplicateAndModify)(list)
+    const result = chain(fn, list)
     result // $ExpectType string[]
+    const resultCurried = chain(fn)(list)
     resultCurried // $ExpectType string[]
   })
 })
@@ -2508,6 +2580,23 @@ test('rambda specs', () => {
   expect(clamp(
     -15, 3, 0
   )).toEqual(0)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {clamp} from 'rambda'
+
+describe('R.clamp', () => {
+  it('happy', () => {
+    const result = clamp(1, 10, 20)
+    result // $ExpectType number
+  })
 })
 ```
 
@@ -2842,7 +2931,7 @@ test('with multiple parameters', () => {
 ```typescript
 import {complement, isNil} from 'rambda'
 
-describe('R.add', () => {
+describe('R.complement', () => {
   it('happy', () => {
     const fn = complement(isNil)
     const result = fn(null)
@@ -3027,7 +3116,7 @@ test('ramda spec', () => {
 ```typescript
 import {add, subtract, compose} from 'rambda'
 
-describe('compose', () => {
+describe('R.compose', () => {
   it('happy', () => {
     const result = compose(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
@@ -3350,7 +3439,7 @@ test('predicates are tested in order', () => {
 ```typescript
 import {cond, always, equals} from 'rambda'
 
-describe('cond', () => {
+describe('R.cond', () => {
   it('happy', () => {
     const fn = cond<number, string>([
       [equals(0), always('water freezes at 0°C')],
@@ -3363,8 +3452,8 @@ describe('cond', () => {
       ],
     ])
 
-    const a = fn(0)
-    a // $ExpectType string
+    const result = fn(0)
+    result // $ExpectType string
   })
 })
 ```
@@ -3453,48 +3542,24 @@ export function converge(fn, transformers){
 import { add } from './add'
 import { converge } from './converge'
 
-const mult = function (a, b){
-  return a * b
-}
+const mult = (a, b) => a * b
 
-const f1 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (a){
-    return a
-  },
-])
-const f2 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (a, b){
-    return b
-  },
-])
-const f3 = converge(mult, [
-  function (a){
-    return a
-  },
-  function (
-    a, b, c
-  ){
-    return c
-  },
-])
+const f1 = converge(mult, [ a => a + 1, a => a + 10 ])
+const f2 = converge(mult, [ a => a + 1, (a, b) => a + b + 10 ])
+const f3 = converge(mult, [ a => a + 1, (
+  a, b, c
+) => a + b + c + 10 ])
 
 test('happy', () => {
-  expect(f2(6)(7)).toEqual(42)
-  expect(f2(6, 7)).toEqual(42)
-  expect(f3().length).toEqual(3)
+  expect(f2(6, 7)).toEqual(161)
 })
 
-test('passes the results of applying the arguments individually to two separate functions into a single one', () => {
-  expect(converge(mult)([ add(1), add(3) ])(2)).toEqual(15)
+test('passes the results of applying the arguments individually', () => {
+  const result = converge(mult)([ add(1), add(3) ])(2)
+  expect(result).toEqual(15)
 })
 
-test('returns a function with the length of the "longest" argument', () => {
+test('returns a function with the length of the longest argument', () => {
   expect(f1.length).toEqual(1)
   expect(f2.length).toEqual(2)
   expect(f3.length).toEqual(3)
@@ -3539,21 +3604,21 @@ test('works with empty functions list', () => {
 ```typescript
 import {converge} from 'rambda'
 
-const mult = function (a: number, b: number){
+const mult = (a: number, b: number) => {
   return a * b
 }
 const fn = converge(mult, [
-  function (a: number){
+  (a: number) => {
     return a
   },
-  function (a: number, b: number){
+  (a: number, b: number) => {
     return b
   },
 ])
 
 describe('R.converge', () => {
   it('happy', () => {
-    const result = fn(2,3)
+    const result = fn(2, 3)
     const curriedResult = fn(2)(3)
 
     result // $ExpectType any
@@ -3662,9 +3727,7 @@ test('when called via multiple curry stages', () => {
 ```typescript
 import {curry} from 'rambda'
 
-function source(
-  a: number, b: number, c: number, d: number
-){
+function source(a: number, b: number, c: number, d: number) {
   void d
 
   return a * b * c
@@ -3675,9 +3738,9 @@ describe('R.curry', () => {
     const curried = curry(source)
 
     const result1 = curried(1)(2)(3)
-    const result2 = curried(1,2)(3)
-    const result3 = curried(1)(2,3)
-    const result4 = curried(1,2,3)
+    const result2 = curried(1, 2)(3)
+    const result3 = curried(1)(2, 3)
+    const result4 = curried(1, 2, 3)
 
     result1 // $ExpectType any
     result2 // $ExpectType any
@@ -3998,9 +4061,7 @@ test('forwards extra arguments', () => {
 ```typescript
 import {curryN} from 'ramda'
 
-function source(
-  a: number, b: number, c: number, d: number
-){
+function source(a: number, b: number, c: number, d: number) {
   void d
 
   return a * b * c
@@ -4011,9 +4072,9 @@ describe('R.curryN', () => {
     const curried = curryN(3, source)
 
     const result1 = curried(1)(2)(3)
-    const result2 = curried(1,2)(3)
-    const result3 = curried(1)(2,3)
-    const result4 = curried(1,2,3)
+    const result2 = curried(1, 2)(3)
+    const result3 = curried(1)(2, 3)
+    const result4 = curried(1, 2, 3)
 
     result1 // $ExpectType any
     result2 // $ExpectType any
@@ -4241,44 +4302,38 @@ test('default extends to indefinite input arguments - case 6', () => {
 ```typescript
 import {defaultTo} from 'rambda'
 
-describe('defaultTo with Ramda spec', () => {
-  it('happy', () => {
-    const x = defaultTo<string>('foo', undefined) // $ExpectType string
-    x // $ExpectType string
+describe('R.defaultTo with Ramda spec', () => {
+  it('input is falsy', () => {
+    const result = defaultTo('foo', undefined) // $ExpectType string
+    result // $ExpectType "foo"
   })
-  it('fallback', () => {
-    const x = defaultTo('foo', undefined) // $ExpectType "foo"
-    x // $ExpectType "foo"
-    const y = defaultTo('foo', 'bar') // $ExpectType "foo" | "bar"
-    y // $ExpectType "foo" | "bar"
-  })
-  it('with one type', () => {
-    const x = defaultTo<string>('foo', 'bar') // $ExpectType string
-    x // $ExpectType string
-  })
-  it('with two types', () => {
-    const x = defaultTo<string, number>('foo', 1) // $ExpectType string | number
-    x // $ExpectType string | number
+  it('input is truthy', () => {
+    const result = defaultTo('foo', 'bar')
+    result // $ExpectType "foo" | "bar"
   })
 })
 
-describe('defaultTo with Rambda spec', () => {
+describe('R.defaultTo can have many inputs', () => {
   it('happy', () => {
-    const x = defaultTo<string>('foo', undefined, 'bar') // $ExpectType string
-    x // $ExpectType string
+    const result = defaultTo('foo', undefined, 'bar')
+    result // $ExpectType "foo" | "bar"
   })
 
-  it('happy with curry', () => {
-    const fn = defaultTo<string>('foo')
-    const x = fn(undefined, 'bar', null) // $ExpectType string
-    x // $ExpectType string
-    const y = fn(undefined) // $ExpectType string
-    y // $ExpectType string
+  it('curried', () => {
+    const result = defaultTo('foo')(undefined, 'bar')
+    result // $ExpectType string
   })
 
-  it('with two types', () => {
-    const x = defaultTo<string, number>('foo', undefined, 1, null, 2, 'bar') // $ExpectType string | number
-    x // $ExpectType string | number
+  it('with two possible types', () => {
+    const result = defaultTo<string, number>(
+      'foo',
+      undefined,
+      1,
+      null,
+      2,
+      'bar'
+    ) // $ExpectType string | number
+    result // $ExpectType string | number
   })
 })
 ```
@@ -4360,6 +4415,32 @@ test('no duplicates in first list', () => {
 
 test('should use R.equals', () => {
   expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {difference} from 'rambda'
+
+const list1 = [1, 2, 3]
+const list2 = [1, 2, 4]
+
+describe('R.difference', () => {
+  it('happy', () => {
+    const result = difference(list1, list2)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = difference(list1)(list2)
+
+    result // $ExpectType number[]
+  })
 })
 ```
 
@@ -4530,16 +4611,16 @@ test('includes prototype properties', () => {
 import {dissoc, pipe, identity} from 'rambda'
 
 const obj = {
-  a : 1,
-  b : 2,
+  a: 1,
+  b: 2,
 }
 interface Output {
-  a: string
+  a: string,
 }
 
 describe('R.dissoc', () => {
   it('happy', () => {
-    const result = dissoc<Output>('b',obj)
+    const result = dissoc<Output>('b', obj)
 
     result // $ExpectType Output
   })
@@ -4549,10 +4630,7 @@ describe('R.dissoc', () => {
     result // $ExpectType Output
   })
   it('within R.pipe', () => {
-    const result = pipe<object, object, Output>(
-      identity,
-      dissoc('b')
-    )(obj)
+    const result = pipe<object, object, Output>(identity, dissoc('b'))(obj)
 
     result // $ExpectType Output
   })
@@ -4699,19 +4777,17 @@ test('should return copy', () => {
 ```typescript
 import {drop} from 'rambda'
 
-const list = [1, 2,3, 4]
+const list = [1, 2, 3, 4]
 const str = 'foobar'
 const howMany = 2
 
 describe('R.drop - array', () => {
   it('happy', () => {
     const result = drop(howMany, list)
-
     result // $ExpectType number[]
   })
   it('curried', () => {
     const result = drop(howMany)(list)
-
     result // $ExpectType number[]
   })
 })
@@ -4719,12 +4795,10 @@ describe('R.drop - array', () => {
 describe('R.drop - string', () => {
   it('happy', () => {
     const result = drop(howMany, str)
-
     result // $ExpectType string
   })
   it('curried', () => {
     const result = drop(howMany)(str)
-
     result // $ExpectType string
   })
 })
@@ -4822,19 +4896,17 @@ test('should return copy', () => {
 ```typescript
 import {dropLast} from 'rambda'
 
-const list = [1, 2,3, 4]
+const list = [1, 2, 3, 4]
 const str = 'foobar'
 const howMany = 2
 
 describe('R.dropLast - array', () => {
   it('happy', () => {
     const result = dropLast(howMany, list)
-
     result // $ExpectType number[]
   })
   it('curried', () => {
     const result = dropLast(howMany)(list)
-
     result // $ExpectType number[]
   })
 })
@@ -4842,12 +4914,10 @@ describe('R.dropLast - array', () => {
 describe('R.dropLast - string', () => {
   it('happy', () => {
     const result = dropLast(howMany, str)
-
     result // $ExpectType string
   })
   it('curried', () => {
     const result = dropLast(howMany)(str)
-
     result // $ExpectType string
   })
 })
@@ -4999,18 +5069,14 @@ describe('R.either', () => {
   it('with passed type', () => {
     const fn = either<number>(
       x => x > 1,
-      x =>x % 2 === 0
+      x => x % 2 === 0
     )
     fn // $ExpectType Predicate<number>
     const result = fn(2) // $ExpectType boolean
     result // $ExpectType boolean
   })
   it('with passed type - curried', () => {
-    const fn = either<number>(
-      x => x > 1
-      )(
-        x =>x % 2 === 0
-      )
+    const fn = either<number>(x => x > 1)(x => x % 2 === 0)
     fn // $ExpectType Predicate<number>
     const result = fn(2)
     result // $ExpectType boolean
@@ -5030,16 +5096,13 @@ describe('R.either', () => {
     result // $ExpectType boolean
   })
   it('no type passed - curried', () => {
-    const fn = either(
-      (x:number) => {
-        x // $ExpectType number
-        return x > 1
-      })(
-        (x:number) => {
-          x // $ExpectType number
-          return x % 2 === 0
-        }
-    )
+    const fn = either((x: number) => {
+      x // $ExpectType number
+      return x > 1
+    })((x: number) => {
+      x // $ExpectType number
+      return x % 2 === 0
+    })
     const result = fn(2)
     result // $ExpectType boolean
   })
@@ -5604,9 +5667,9 @@ describe('R.equals', () => {
     result // $ExpectType boolean
   })
   it('with object', () => {
-    const foo = {a:1}
-    const bar = {a:2}
-    const result = equals(foo,bar)
+    const foo = {a: 1}
+    const bar = {a: 2}
+    const result = equals(foo, bar)
     result // $ExpectType boolean
   })
   it('curried', () => {
@@ -6008,79 +6071,52 @@ test('with object', () => {
 ```typescript
 import {filter} from 'rambda'
 
-describe('filter with array', () => {
-  it('1 curry', () => {
-    const x = filter<number>(a => {
-      a // $ExpectType number
-      return a > 1
-    })([1, 2, 3])
-    x // $ExpectType number[]
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2}
+
+describe('R.filter with array', () => {
+  it('happy', () => {
+    const result = filter<number>(x => {
+      x // $ExpectType number
+      return x > 1
+    }, list)
+    result // $ExpectType number[]
   })
-  it('1', () => {
-    const x = filter<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType number[]
+  it('curried', () => {
+    const result = filter<number>(x => {
+      x // $ExpectType number
+      return x > 1
+    })(list)
+    result // $ExpectType number[]
   })
-  it('2', () => {
-    const x = filter<number>(
-      (a, b) => {
-        a // $ExpectType number
-        return a > 1
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType number[]
+  it('pass index as second argument', () => {
+    filter<number>((x, index) => {
+      index // $ExpectType number
+      return x > 1
+    }, list)
   })
 })
 
-describe('filter with objects', () => {
-  it('curry', () => {
-    const x = filter<number, number>((a, b, c) => {
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+describe('R.filter with objects', () => {
+  it('happy', () => {
+    const result = filter<number>((val, prop, origin) => {
+      val // $ExpectType number
+      prop // $ExpectType string
+      origin // $ExpectType Dictionary<number>
 
-      return a > 1
-    })({a: 1, b: 2})
-    x // $ExpectType Dictionary<number>
+      return val > 1
+    }, obj)
+    result // $ExpectType Dictionary<number>
   })
+  it('curried version requires second dummy type', () => {
+    const result = filter<number, any>((val, prop, origin) => {
+      val // $ExpectType number
+      prop // $ExpectType string
+      origin // $ExpectType Dictionary<number>
 
-  it('object with three arguments predicate', () => {
-    const x = filter<number>(
-      (a, b, c) => {
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
-  })
-
-  it('object with two arguments predicate', () => {
-    const x = filter<number>(
-      (a, b) => {
-        b // $ExpectType string
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
-  })
-  it('object with one argument predicate', () => {
-    const x = filter<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
+      return val > 1
+    })(obj)
+    result // $ExpectType Dictionary<number>
   })
 })
 ```
@@ -6773,9 +6809,7 @@ import {flatten} from 'rambda'
 
 describe('flatten', () => {
   it('happy', () => {
-    const result = flatten<number>(
-      [1, 2,[3, [4]]]
-    )
+    const result = flatten<number>([1, 2, [3, [4]]])
     result // $ExpectType number[]
   })
 })
@@ -7398,20 +7432,20 @@ import {fromPairs} from 'rambda'
 
 describe('R.fromPairs - require explicit type for input list', () => {
   it('with string index', () => {
-    const list: Array<[string, number]> = [
-      [ 'a', 1 ],
-      [ 'b', 2 ],
-      [ 'c', 3 ],
+    const list: [string, number][] = [
+      ['a', 1],
+      ['b', 2],
+      ['c', 3],
     ]
     const result = fromPairs(list)
 
     result // $ExpectType { [index: string]: number; }
   })
   it('with number index', () => {
-    const list: Array<[ number, string]> = [
-      [ 10, 'foo' ],
-      [ 20, 'bar' ],
-      [ 30, 'baz' ],
+    const list: [number, string][] = [
+      [10, 'foo'],
+      [20, 'bar'],
+      [30, 'baz'],
     ]
     const result = fromPairs(list)
 
@@ -7547,8 +7581,9 @@ describe('R.groupBy', () => {
     const list = ['foo', 'barr', 'bazzz']
 
     const result = groupBy(groupByFn, list)
-    const curriedResult = groupBy(groupByFn)(list)
     result // $ExpectType { [index: string]: string[]; }
+
+    const curriedResult = groupBy(groupByFn)(list)
     curriedResult // $ExpectType { [index: string]: string[]; }
   })
 })
@@ -8508,28 +8543,20 @@ import {ifElse} from 'rambda'
 describe('R.ifElse', () => {
   it('happy', () => {
     const condition = (x: number) => x > 5
-  const onTrue = (x: number) => `foo${x}`
-  const onFalse = (x: number) => `bar${x}`
-  const fn = ifElse(
-    condition, 
-    onTrue, 
-    onFalse
-  )
+    const onTrue = (x: number) => `foo${x}`
+    const onFalse = (x: number) => `bar${x}`
+    const fn = ifElse(condition, onTrue, onFalse)
     fn // $ExpectType (x: number) => string
     const result = fn(3)
     result // $ExpectType string
   })
   it('arity of 2', () => {
     const condition = (x: number, y: string) => x + y.length > 5
-  const onTrue = (x: number, y: string) => `foo${x}-${y}`
-  const onFalse = (x: number, y: string) => `bar${x}-${y}`
-  const fn = ifElse(
-    condition, 
-    onTrue, 
-    onFalse
-  )
+    const onTrue = (x: number, y: string) => `foo${x}-${y}`
+    const onFalse = (x: number, y: string) => `bar${x}-${y}`
+    const fn = ifElse(condition, onTrue, onFalse)
     fn // $ExpectType (x: number, y: string) => string
-    const result = fn(3,'hello')
+    const result = fn(3, 'hello')
     result // $ExpectType string
   })
 })
@@ -9351,11 +9378,15 @@ test('intersection with objects', () => {
 ```typescript
 import {intersection} from 'rambda'
 
+const list1 = [1, 2, 3]
+const list2 = [1, 3, 5]
+
 describe('R.intersection', () => {
   it('happy', () => {
-    const result = intersection([1, 2, 3], [1, 3, 5])
-    const curriedResult = intersection([1, 2, 3])([1, 3, 5])
+    const result = intersection(list1, list2)
     result // $ExpectType number[]
+
+    const curriedResult = intersection(list1)(list2)
     curriedResult // $ExpectType number[]
   })
 })
@@ -9659,6 +9690,23 @@ test('happy', () => {
   expect(isEmpty(0)).toEqual(false)
   expect(isEmpty(NaN)).toEqual(false)
   expect(isEmpty([ '' ])).toEqual(false)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {isEmpty} from 'rambda'
+
+describe('R.isEmpty', () => {
+  it('happy', () => {
+    const result = isEmpty('foo')
+    result // $ExpectType boolean
+  })
 })
 ```
 
@@ -10220,7 +10268,7 @@ length<T>(listOrString: ReadonlyArray<T>): number;
 
 ```javascript
 export function length(x){
-  if (!x || x.length === undefined){
+  if (!x && x !== '' || x.length === undefined){
     return NaN
   }
 
@@ -10241,6 +10289,10 @@ test('happy', () => {
   expect(length('foo')).toEqual(3)
   expect(length([ 1, 2, 3 ])).toEqual(3)
   expect(length([])).toEqual(0)
+})
+
+test('with empty string', () => {
+  expect(length('')).toEqual(0)
 })
 
 test('with bad input returns NaN', () => {
@@ -10473,8 +10525,6 @@ test('composed lenses', () => {
 
 ```typescript
 import {lens, lensIndex, lensPath, lensProp, view} from 'rambda'
-
-// Rambda typings are not great for this method
 import {assoc} from 'ramda'
 
 interface Dictionary<T> {
@@ -11188,7 +11238,7 @@ describe('R.map with arrays', () => {
 describe('R.map with objects', () => {
   it('iterable with all three arguments - curried', () => {
     // It requires dummy third typing argument
-    // in order to distinguish compared to curry typings for arrays
+    // in order to identify compared to curry typings for arrays
     // ============================================
     const result = map<number, string, any>((a, b, c) => {
       a // $ExpectType number
@@ -11411,9 +11461,9 @@ test('happy', () => {
 import {mathMod} from 'rambda'
 
 const first = 1
-const second = 2        
+const second = 2
 
-describe('R.mathMod', () => {     
+describe('R.mathMod', () => {
   it('happy', () => {
     const result = mathMod(first, second)
     result // $ExpectType number
@@ -11497,9 +11547,9 @@ test('with string', () => {
 import {max} from 'rambda'
 
 const first = 1
-const second = 2        
+const second = 2
 
-describe('R.max', () => {     
+describe('R.max', () => {
   it('happy', () => {
     const result = max(first, second)
     result // $ExpectType 1 | 2
@@ -11595,7 +11645,7 @@ test('curried', () => {
 ```typescript
 import {maxBy} from 'rambda'
 
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1 
+const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
 const first = 1
 const second = 2
 
@@ -11875,7 +11925,7 @@ test('when undefined or null instead of object', () => {
 ```typescript
 import {merge} from 'rambda'
 
-describe('merge', () => {
+describe('R.merge', () => {
   const result = merge({foo: 1}, {bar: 2})
   const curriedResult = merge({foo: 1})({bar: 2})
 
@@ -11978,7 +12028,7 @@ test('case 2', () => {
 ```typescript
 import {mergeAll} from 'rambda'
 
-describe('mergeAll', () => {
+describe('R.mergeAll', () => {
   it('with passing type', () => {
     interface Output {
       foo: number,
@@ -12167,7 +12217,7 @@ test('ramda compatible test 3', () => {
 ```typescript
 import {mergeDeepRight} from 'rambda'
 
-describe('mergeDeepRight', () => {
+describe('R.mergeDeepRight', () => {
   const result = mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}})
   result.foo.bar // $ExpectType number
 })
@@ -12264,7 +12314,7 @@ test('when undefined or null instead of object', () => {
 ```typescript
 import {mergeLeft} from 'rambda'
 
-describe('mergeLeft', () => {
+describe('R.mergeLeft', () => {
   const result = mergeLeft({foo: 1}, {bar: 2})
   const curriedResult = mergeLeft({foo: 1})({bar: 2})
 
@@ -12440,7 +12490,7 @@ test('curried', () => {
 ```typescript
 import {minBy} from 'rambda'
 
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1 
+const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
 const first = 1
 const second = 2
 
@@ -13436,7 +13486,7 @@ test('readme example', () => {
 ```typescript
 import {partition} from 'rambda'
 
-describe('partition', () => {
+describe('R.partition', () => {
   it('with array', () => {
     const predicate = (x: number, i: number) => {
       return x > 2
@@ -13594,7 +13644,7 @@ interface Input {
   },
 }
 
-describe('path', () => {
+describe('R.path', () => {
   it('without specified input type', () => {
     const input = {a: 1, b: {c: true}}
     const result = path<boolean>('a.b.c', input)
@@ -13771,7 +13821,7 @@ test('when wrong path', () => {
 ```typescript
 import {pathEq} from 'rambda'
 
-describe('path', () => {
+describe('R.pathEq', () => {
   it('with string path', () => {
     const pathToSearch = 'a.b.c'
     const input = {a: {b: {c: 1}}}
@@ -13795,7 +13845,7 @@ describe('path', () => {
   })
 })
 
-describe('ramda specs', () => {
+describe('with ramda specs', () => {
   const testPath = ['x', 0, 'y']
   const testObj = {
     x: [
@@ -13939,26 +13989,26 @@ test('curry case (x,y)(z)', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { pathOr } from 'rambda'
+import {pathOr} from 'rambda'
 
-describe('pathOr', () => {
+describe('R.pathOr', () => {
   it('with string path', () => {
-    const x = pathOr<string>('foo', 'x.y', { x : { y : 'bar' } })
+    const x = pathOr<string>('foo', 'x.y', {x: {y: 'bar'}})
     x // $ExpectType string
-  });
+  })
   it('with array path', () => {
-    const x = pathOr<string>('foo', ['x','y'], { x : { y : 'bar' } })
+    const x = pathOr<string>('foo', ['x', 'y'], {x: {y: 'bar'}})
     x // $ExpectType string
-  });
+  })
   it('without passing type looks bad', () => {
-    const x = pathOr('foo', 'x.y', { x : { y : 'bar' } })
+    const x = pathOr('foo', 'x.y', {x: {y: 'bar'}})
     x // $ExpectType "foo"
-  });
-  it('curry', () => {
-    const x = pathOr<string>('foo', 'x.y')({ x : { y : 'bar' } })
+  })
+  it('curried', () => {
+    const x = pathOr<string>('foo', 'x.y')({x: {y: 'bar'}})
     x // $ExpectType string
-  });
-});
+  })
+})
 ```
 
 </details>
@@ -14106,7 +14156,7 @@ interface Input {
 
 const input: Input = {a: 1, b: 2, c: 3}
 
-describe('paths', () => {
+describe('R.paths', () => {
   it('with dot notation', () => {
     const result = paths<number>(['a.b.c', 'foo.bar'], input)
     result // $ExpectType (number | undefined)[]
@@ -14122,7 +14172,7 @@ describe('paths', () => {
     result // $ExpectType (number | undefined)[]
   })
 
-  it('with curry', () => {
+  it('curried', () => {
     const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)
     result // $ExpectType (number | undefined)[]
   })
@@ -14845,7 +14895,7 @@ test('with bad input', () => {
 ```typescript
 import {add, subtract, pipe} from 'rambda'
 
-describe('pipe', () => {
+describe('R.pipe', () => {
   it('happy', () => {
     const result = pipe(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
@@ -14997,7 +15047,7 @@ test('with number', () => {
 ```typescript
 import {pluck} from 'rambda'
 
-describe('pluck', () => {
+describe('R.pluck', () => {
   it('with object', () => {
     interface ListMember {
       a: number,
@@ -15209,6 +15259,24 @@ test('bad input', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {product} from 'rambda'
+
+describe('R.product', () => {
+  it('happy', () => {
+    const result = product([1, 2, 3])
+
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### prop
 
 ```typescript
@@ -15391,7 +15459,7 @@ const value = 'bar'
 const obj = {[property]: value}
 const objWithNumberIndex = {[numberProperty]: value}
 
-describe('propEq', () => {
+describe('R.propEq', () => {
   it('happy', () => {
     const result = propEq(property, value, obj)
     result // $ExpectType boolean
@@ -15548,7 +15616,7 @@ import {propIs} from 'rambda'
 const property = 'a'
 const obj = {a: 1}
 
-describe('propIs', () => {
+describe('R.propIs', () => {
   it('happy', () => {
     const result = propIs(Number, property, obj)
     result // $ExpectType boolean
@@ -15656,17 +15724,17 @@ test('propOr (currying)', () => {
 ```typescript
 import {propOr} from 'rambda'
 
-const obj = { foo : 'bar' }
+const obj = {foo: 'bar'}
 const property = 'foo'
 const fallback = 'fallback'
 
-describe('propOr', () => {
+describe('R.propOr', () => {
   it('happy', () => {
     const result = propOr(fallback, property, obj)
     result // $ExpectType string
   })
   it('curry 1', () => {
-    const result = propOr(fallback)(property,obj)
+    const result = propOr(fallback)(property, obj)
     result // $ExpectType string
   })
   it('curry 2', () => {
@@ -15900,7 +15968,7 @@ test('with undefined as iterable', () => {
 ```typescript
 import {reduce} from 'rambda'
 
-describe('reduce', () => {
+describe('R.reduce', () => {
   it('happy', () => {
     const result = reduce<number, number>(
       (acc, elem) => {
@@ -16147,7 +16215,7 @@ test('pass index as second argument', () => {
 ```typescript
 import {reject} from 'rambda'
 
-describe('reject with array', () => {
+describe('R.reject with array', () => {
   it('1 curry', () => {
     const x = reject<number>(a => {
       a // $ExpectType number
@@ -16177,8 +16245,8 @@ describe('reject with array', () => {
   })
 })
 
-describe('reject with objects', () => {
-  it('curry', () => {
+describe('R.reject with objects', () => {
+  it('curried', () => {
     const x = reject<number, number>((a, b, c) => {
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
@@ -16816,7 +16884,7 @@ test('it doesn\'t mutate', () => {
 ```typescript
 import {sort} from 'rambda'
 
-const list = [3,0,5,2,1]
+const list = [3, 0, 5, 2, 1]
 
 function sortFn(a: number, b: number): number {
   return a > b ? 1 : -1
@@ -17103,7 +17171,7 @@ describe('R.split', () => {
   })
   it('curried', () => {
     const result = split(splitChar)(str)
-  
+
     result // $ExpectType string[]
   })
 })
@@ -17209,11 +17277,11 @@ test('with bad input', () => {
 ```typescript
 import {splitEvery} from 'rambda'
 
-const list =  [ 1, 2, 3, 4, 5, 6, 7 ]
+const list = [1, 2, 3, 4, 5, 6, 7]
 
 describe('R.splitEvery', () => {
   it('happy', () => {
-    const result = splitEvery(3,list)
+    const result = splitEvery(3, list)
 
     result // $ExpectType number[][]
   })
@@ -17544,18 +17612,18 @@ import {symmetricDifference} from 'rambda'
 
 describe('R.symmetricDifference', () => {
   it('happy', () => {
-    const list1 = [ 1, 2, 3, 4 ]
-    const list2 = [ 3, 4, 5, 6 ]
+    const list1 = [1, 2, 3, 4]
+    const list2 = [3, 4, 5, 6]
     const result = symmetricDifference(list1, list2)
 
     result // $ExpectType number[]
   })
-  
+
   it('curried', () => {
-    const list1 = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
-    const list2 = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
+    const list1 = [{id: 1}, {id: 2}, {id: 3}, {id: 4}]
+    const list2 = [{id: 3}, {id: 4}, {id: 5}, {id: 6}]
     const result = symmetricDifference(list1)(list2)
-    
+
     result // $ExpectType { id: number; }[]
   })
 })
@@ -17781,7 +17849,7 @@ test('with zero index', () => {
 ```typescript
 import {take} from 'rambda'
 
-const list = [1, 2,3, 4]
+const list = [1, 2, 3, 4]
 const str = 'foobar'
 const howMany = 2
 
@@ -17949,7 +18017,7 @@ test('with negative index', () => {
 ```typescript
 import {takeLast} from 'rambda'
 
-const list = [1, 2,3, 4]
+const list = [1, 2, 3, 4]
 const str = 'foobar'
 const howMany = 2
 
@@ -18063,10 +18131,9 @@ describe('R.tap', () => {
     pipe(
       tap(x => {
         x // $ExpectType number[]
-        console.log({x})
       }),
       (x: number[]) => x.length
-    )([1, 2]) 
+    )([1, 2])
   })
 })
 ```
@@ -18427,9 +18494,9 @@ test('happy', () => {
 import {toPairs} from 'rambda'
 
 const obj = {
-  a : 1,
-  b : 2,
-  c : [ 3, 4 ],
+  a: 1,
+  b: 2,
+  c: [3, 4],
 }
 
 describe('R.toPairs', () => {
@@ -18641,9 +18708,9 @@ test('array with falsy values', () => {
 import {transpose} from 'rambda'
 
 const input = [
-  [ 'a', 1 ],
-  [ 'b', 2 ],
-  [ 'c', 3 ],
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
 ]
 
 describe('R.transpose', () => {
@@ -18701,24 +18768,6 @@ import { trim } from './trim'
 
 test('trim', () => {
   expect(trim(' foo ')).toEqual('foo')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {trim} from 'rambda'
-
-describe('R.trim', () => {
-  it('happy', () => {
-    const result = trim('foo  ')
-
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -19000,7 +19049,7 @@ test('when async + fn', async () => {
 ```typescript
 import {tryCatch, delay} from 'rambda'
 
-describe('tryCatch', () => {
+describe('R.tryCatch', () => {
   it('synchronous', () => {
     const fn = (x: any) => x.x === 1
 
@@ -19360,7 +19409,7 @@ test('uniq', () => {
 ```typescript
 import {uniq} from 'rambda'
 
-describe('uniq', () => {
+describe('R.uniq', () => {
   it('happy', () => {
     const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
     result // $ExpectType number[]
@@ -19586,7 +19635,7 @@ test('uniqWith', () => {
 ```typescript
 import {uniqWith} from 'rambda'
 
-describe('uniqWith', () => {
+describe('R.uniqWith', () => {
   it('happy', () => {
     const input = [
       {
@@ -19711,7 +19760,7 @@ test('curried', () => {
 ```typescript
 import {unless, isNil, inc} from 'rambda'
 
-describe('unless', () => {
+describe('R.unless', () => {
   it('happy', () => {
     const safeInc = unless<any, number>(isNil, inc)
     const result = [safeInc(null), safeInc(1)]
@@ -19829,7 +19878,7 @@ test('list has no such index', () => {
 ```typescript
 import {update} from 'rambda'
 
-describe('update', () => {
+describe('R.update', () => {
   it('happy', () => {
     const result = update(1, 0, [1, 2, 3])
     result // $ExpectType number[]
@@ -19942,7 +19991,7 @@ test('with bad input', () => {
 ```typescript
 import {values} from 'rambda'
 
-describe('values', () => {
+describe('R.values', () => {
   it('happy', () => {
     const result = values({
       a: 1,
@@ -20134,7 +20183,7 @@ import {when, add} from 'rambda'
 const ruleResult = 88
 const rule = (x: number) => x > 2
 
-describe('when', () => {
+describe('R.when', () => {
   it('without passing type - happy', () => {
     const fn = when(rule, ruleResult)
     const result = [fn(1), fn(2)]
@@ -20518,8 +20567,8 @@ test('ramda test', () => {
 ```typescript
 import {without} from 'rambda'
 
-const itemsToOmit = [ 'A', 'B', 'C' ]
-const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+const itemsToOmit = ['A', 'B', 'C']
+const collection = ['A', 'B', 'C', 'D', 'E', 'F']
 
 describe('R.without', () => {
   it('happy', () => {
@@ -20529,7 +20578,7 @@ describe('R.without', () => {
   })
   it('curried', () => {
     const result = without(itemsToOmit)(collection)
-  
+
     result // $ExpectType string[]
   })
 })
@@ -20678,7 +20727,7 @@ test.skip('returns a curried function', () => {
 ```typescript
 import {xor} from 'rambda'
 
-describe('xor', () => {
+describe('R.xor', () => {
   it('happy', () => {
     xor(true, false) // $ExpectType boolean
   })
@@ -20819,7 +20868,7 @@ test('should truncate result to length of shorted input list', () => {
 ```typescript
 import {zip} from 'rambda'
 
-describe('zip', () => {
+describe('R.zip', () => {
   it('happy', () => {
     const array1 = [1, 2, 3]
     const array2 = ['A', 'B', 'C']
@@ -20937,7 +20986,7 @@ test('ignore extra keys', () => {
 ```typescript
 import {zipObj} from 'rambda'
 
-describe('zipObj', () => {
+describe('R.zipObj', () => {
   it('happy', () => {
     const result = zipObj(['a', 'b', 'c', 'd', 'e', 'f'], [1, 2, 3])
     result // $ExpectType { [index: string]: number; }
@@ -20951,7 +21000,10 @@ describe('zipObj', () => {
 
 WIP
 
-Close [Issue #510](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
+Close [Issue #514](https://github.com/selfrefactor/rambda/issues/514) -
+wrong `R.length` with empty string
+
+Close [Issue #511](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
 
 Close [Issue #510](https://github.com/selfrefactor/rambda/issues/510) - `R.clamp` should throw if min argument is greater than max argument
 
