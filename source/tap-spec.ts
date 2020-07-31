@@ -5,7 +5,6 @@ describe('R.tap', () => {
     pipe(
       tap(x => {
         x // $ExpectType number[]
-        console.log({x})
       }),
       (x: number[]) => x.length
     )([1, 2])

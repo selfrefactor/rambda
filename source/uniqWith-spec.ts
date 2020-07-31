@@ -1,6 +1,6 @@
 import {uniqWith} from 'rambda'
 
-describe('uniqWith', () => {
+describe('R.uniqWith', () => {
   it('happy', () => {
     const input = [
       {

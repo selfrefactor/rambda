@@ -1,6 +1,6 @@
 import {values} from 'rambda'
 
-describe('values', () => {
+describe('R.values', () => {
   it('happy', () => {
     const result = values({
       a: 1,

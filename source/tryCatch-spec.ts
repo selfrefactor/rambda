@@ -1,6 +1,6 @@
 import {tryCatch, delay} from 'rambda'
 
-describe('tryCatch', () => {
+describe('R.tryCatch', () => {
   it('synchronous', () => {
     const fn = (x: any) => x.x === 1
 

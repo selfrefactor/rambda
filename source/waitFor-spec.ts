@@ -1,6 +1,6 @@
 import {delay, waitFor} from 'rambda'
 
-describe('waitFor', () => {
+describe('R.waitFor', () => {
   it('async condition with input', async() => {
     let counter = 0
     const condition = async(x: number) => {

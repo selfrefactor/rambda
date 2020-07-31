@@ -1,6 +1,6 @@
 import {xor} from 'rambda'
 
-describe('xor', () => {
+describe('R.xor', () => {
   it('happy', () => {
     xor(true, false) // $ExpectType boolean
   })

@@ -1,6 +1,6 @@
 import {unless, isNil, inc} from 'rambda'
 
-describe('unless', () => {
+describe('R.unless', () => {
   it('happy', () => {
     const safeInc = unless<any, number>(isNil, inc)
     const result = [safeInc(null), safeInc(1)]

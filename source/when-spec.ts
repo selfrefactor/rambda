@@ -3,7 +3,7 @@ import {when, add} from 'rambda'
 const ruleResult = 88
 const rule = (x: number) => x > 2
 
-describe('when', () => {
+describe('R.when', () => {
   it('without passing type - happy', () => {
     const fn = when(rule, ruleResult)
     const result = [fn(1), fn(2)]

@@ -1,6 +1,6 @@
 import {zip} from 'rambda'
 
-describe('zip', () => {
+describe('R.zip', () => {
   it('happy', () => {
     const array1 = [1, 2, 3]
     const array2 = ['A', 'B', 'C']
