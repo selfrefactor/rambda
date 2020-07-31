@@ -5,12 +5,9 @@ const mult = (a, b) => a * b
 
 const f1 = converge(mult, [ a => a + 1, a => a + 10 ])
 const f2 = converge(mult, [ a => a + 1, (a, b) => a + b + 10 ])
-const f3 = converge(mult, [
-  a => a + 1,
-  (
-    a, b, c
-  ) => a + b + c + 10,
-])
+const f3 = converge(mult, [ a => a + 1, (
+  a, b, c
+) => a + b + c + 10 ])
 
 test('happy', () => {
   expect(f2(6, 7)).toEqual(161)

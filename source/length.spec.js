@@ -6,6 +6,10 @@ test('happy', () => {
   expect(length([])).toEqual(0)
 })
 
+test('with empty string', () => {
+  expect(length('')).toEqual(0)
+})
+
 test('with bad input returns NaN', () => {
   expect(length(0)).toBeNaN()
   expect(length({})).toBeNaN()

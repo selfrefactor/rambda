@@ -1,6 +1,9 @@
 WIP
 
-Close [Issue #510](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
+Close [Issue #514](https://github.com/selfrefactor/rambda/issues/514) -
+wrong `R.length` with empty string
+
+Close [Issue #511](https://github.com/selfrefactor/rambda/issues/511) - error in `ts-toolbelt` library
 
 Close [Issue #510](https://github.com/selfrefactor/rambda/issues/510) - `R.clamp` should throw if min argument is greater than max argument
 
