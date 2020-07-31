@@ -1,6 +1,6 @@
 import {reduce} from 'rambda'
 
-describe('reduce', () => {
+describe('R.reduce', () => {
   it('happy', () => {
     const result = reduce<number, number>(
       (acc, elem) => {

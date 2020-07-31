@@ -6,7 +6,7 @@ const value = 'bar'
 const obj = {[property]: value}
 const objWithNumberIndex = {[numberProperty]: value}
 
-describe('propEq', () => {
+describe('R.propEq', () => {
   it('happy', () => {
     const result = propEq(property, value, obj)
     result // $ExpectType boolean

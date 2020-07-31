@@ -7,7 +7,7 @@ interface Input {
   },
 }
 
-describe('path', () => {
+describe('R.path', () => {
   it('without specified input type', () => {
     const input = {a: 1, b: {c: true}}
     const result = path<boolean>('a.b.c', input)

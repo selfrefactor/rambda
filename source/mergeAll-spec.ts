@@ -1,6 +1,6 @@
 import {mergeAll} from 'rambda'
 
-describe('mergeAll', () => {
+describe('R.mergeAll', () => {
   it('with passing type', () => {
     interface Output {
       foo: number,

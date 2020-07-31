@@ -1,6 +1,6 @@
 import {pathOr} from 'rambda'
 
-describe('pathOr', () => {
+describe('R.pathOr', () => {
   it('with string path', () => {
     const x = pathOr<string>('foo', 'x.y', {x: {y: 'bar'}})
     x // $ExpectType string
@@ -13,7 +13,7 @@ describe('pathOr', () => {
     const x = pathOr('foo', 'x.y', {x: {y: 'bar'}})
     x // $ExpectType "foo"
   })
-  it('curry', () => {
+  it('curried', () => {
     const x = pathOr<string>('foo', 'x.y')({x: {y: 'bar'}})
     x // $ExpectType string
   })

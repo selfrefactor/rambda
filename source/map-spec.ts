@@ -44,7 +44,7 @@ describe('R.map with arrays', () => {
 describe('R.map with objects', () => {
   it('iterable with all three arguments - curried', () => {
     // It requires dummy third typing argument
-    // in order to distinguish compared to curry typings for arrays
+    // in order to identify compared to curry typings for arrays
     // ============================================
     const result = map<number, string, any>((a, b, c) => {
       a // $ExpectType number

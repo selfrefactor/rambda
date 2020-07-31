@@ -1,6 +1,4 @@
 import {lens, lensIndex, lensPath, lensProp, view} from 'rambda'
-
-// Rambda typings are not great for this method
 import {assoc} from 'ramda'
 
 interface Dictionary<T> {

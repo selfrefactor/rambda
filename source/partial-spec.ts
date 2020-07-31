@@ -1,6 +1,6 @@
 import {partial} from 'rambda'
 
-describe('partial', () => {
+describe('R.partial', () => {
   it('happy', () => {
     function greet(
       salutation: string,

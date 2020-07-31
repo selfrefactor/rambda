@@ -1,6 +1,6 @@
 import {partition} from 'rambda'
 
-describe('partition', () => {
+describe('R.partition', () => {
   it('with array', () => {
     const predicate = (x: number, i: number) => {
       return x > 2

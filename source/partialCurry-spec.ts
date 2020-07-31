@@ -1,6 +1,6 @@
 import {partialCurry, delay} from 'rambda'
 
-describe('partialCurry', () => {
+describe('R.partialCurry', () => {
   it('happy', () => {
     interface Input {
       a: number,

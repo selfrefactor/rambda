@@ -1,6 +1,6 @@
 import {pluck} from 'rambda'
 
-describe('pluck', () => {
+describe('R.pluck', () => {
   it('with object', () => {
     interface ListMember {
       a: number,

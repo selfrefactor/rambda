@@ -1,6 +1,6 @@
 import {mergeLeft} from 'rambda'
 
-describe('mergeLeft', () => {
+describe('R.mergeLeft', () => {
   const result = mergeLeft({foo: 1}, {bar: 2})
   const curriedResult = mergeLeft({foo: 1})({bar: 2})
 

@@ -1,6 +1,6 @@
 import {reject} from 'rambda'
 
-describe('reject with array', () => {
+describe('R.reject with array', () => {
   it('1 curry', () => {
     const x = reject<number>(a => {
       a // $ExpectType number
@@ -30,8 +30,8 @@ describe('reject with array', () => {
   })
 })
 
-describe('reject with objects', () => {
-  it('curry', () => {
+describe('R.reject with objects', () => {
+  it('curried', () => {
     const x = reject<number, number>((a, b, c) => {
       b // $ExpectType string
       c // $ExpectType Dictionary<number>

@@ -1,6 +1,6 @@
 import {once} from 'rambda'
 
-describe('once', () => {
+describe('R.once', () => {
   it('happy', () => {
     const runOnce = once((x: number) => {
       return x + 2

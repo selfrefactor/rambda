@@ -8,7 +8,7 @@ interface Input {
 
 const input: Input = {a: 1, b: 2, c: 3}
 
-describe('paths', () => {
+describe('R.paths', () => {
   it('with dot notation', () => {
     const result = paths<number>(['a.b.c', 'foo.bar'], input)
     result // $ExpectType (number | undefined)[]
@@ -24,7 +24,7 @@ describe('paths', () => {
     result // $ExpectType (number | undefined)[]
   })
 
-  it('with curry', () => {
+  it('curried', () => {
     const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)
     result // $ExpectType (number | undefined)[]
   })

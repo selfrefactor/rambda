@@ -1,6 +1,6 @@
 import {pathEq} from 'rambda'
 
-describe('path', () => {
+describe('R.pathEq', () => {
   it('with string path', () => {
     const pathToSearch = 'a.b.c'
     const input = {a: {b: {c: 1}}}
@@ -24,7 +24,7 @@ describe('path', () => {
   })
 })
 
-describe('ramda specs', () => {
+describe('with ramda specs', () => {
   const testPath = ['x', 0, 'y']
   const testObj = {
     x: [
