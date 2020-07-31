@@ -4455,7 +4455,7 @@ export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T
 /*
 Method: allFalse
 
-Explanation: It returns `true` if all `inputs` arguments are falsy according to `R.isFalsy`.
+Explanation: It returns `true` if all `inputs` arguments are falsy(empty objects and empty arrays are considered falsy).
 
 Functions are valid inputs, but these functions cannot have their own arguments.
 
@@ -4479,7 +4479,7 @@ export function allFalse(...inputs: any[]): boolean;
 /*
 Method: anyFalse
 
-Explanation: It returns `true` if any of `inputs` is falsy according to `R.isFalsy`.
+Explanation: It returns `true` if any of `inputs` is falsy(empty objects and empty arrays are considered falsy).
 
 Example:
 
@@ -4499,7 +4499,7 @@ export function anyFalse(...input: any[]): boolean;
 /*
 Method: allTrue
 
-Explanation: It returns `true` if all `inputs` arguments are truthy according to `R.isTruthy`.
+Explanation: It returns `true` if all `inputs` arguments are truthy(empty objects and empty arrays are considered falsy).
 
 Example:
 
@@ -4519,7 +4519,7 @@ export function allTrue(...input: any[]): boolean;
 /*
 Method: anyTrue
 
-Explanation: It returns `true` if any of `inputs` arguments are truthy according to `R.isTruthy`.
+Explanation: It returns `true` if any of `inputs` arguments are truthy(empty objects and empty arrays are considered falsy).
 
 Example:
 
@@ -4979,56 +4979,6 @@ export function ifElseAsync<T, K, U>(
   onTrue: (x: T, y: K) => Promise<U>, 
   onFalse: (x: T, y: K) => Promise<U>, 
 ): (x: T, y: K) => Promise<U>;
-
-/*
-Method: isFalsy
-
-Explanation: It returns `true` if `input` is falsy.
-
-Example:
-
-```
-const result = [
-  R.ifFalsy(null),
-  R.ifFalsy(''),
-  R.ifFalsy([]),
-  R.ifFalsy({})
-]
-// => [true, true, true, true]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isFalsy(input: any): boolean;
-
-/*
-Method: isTruthy
-
-Explanation: It returns `true` if `input` is truthy.
-
-Example:
-
-```
-const result = [
-  R.isTruthy([]),
-  R.isTruthy({}),
-  R.isTruthy([1]),
-  R.isTruthy({a: 1})
-]
-// => [false, false, true, true]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isTruthy(input: any): boolean;
 
 /*
 Method: isFunction
