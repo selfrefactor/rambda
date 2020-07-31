@@ -2,7 +2,7 @@ import {defaultTo} from 'rambda'
 
 describe('R.defaultTo with Ramda spec', () => {
   it('input is falsy', () => {
-    const result = defaultTo('foo', undefined) // $ExpectType string
+    const result = defaultTo('foo', undefined)
     result // $ExpectType "foo"
   })
   it('input is truthy', () => {
