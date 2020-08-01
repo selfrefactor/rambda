@@ -1,4 +1,5 @@
 import { ms } from 'string-fn'
+import { defaultTo } from 'rambdax'
 import { buildStep } from '../build-step/build-step'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'
@@ -15,7 +16,7 @@ jest.setTimeout(ms('30 minutes'))
 
 test('run many scripts and generate readme', async () => {
   // Unless you are developing for Ramdax, leave that `false`
-  const withRambdax = false
+  const withRambdax = defaultTo(false, process.env.WITH_RAMBDAX === 'ON')
 
   /*
     If the change is regarding Typescript definitions

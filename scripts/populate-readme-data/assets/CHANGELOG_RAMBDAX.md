@@ -1,5 +1,25 @@
 4.0.0
 
+Deprecate the following methods:
+
+- `R.promiseAllObject` - because `R.produce` serves the same purpose
+- `R.composed` - because `R.piped` makes more sense, when we want to pass the input at the start of the function
+- `R.defaultToStrict` - confusing logic
+- `R.findInObject` - overestimated importance
+- `R.headObject` - overestimated importance
+- `R.includesType` - overestimated importance
+- `R.inject` - confusing logic
+- `R.isAttach` - confusing logic
+- `R.mergeRight` - overestimated importance
+- `R.opposite` - overestimated importance
+- `R.otherwise` - overestimated importance
+- `R.pushUniq` - overestimated importance
+- `R.resolve` - overestimated importance
+- `R.s` - overestimated importance
+- `R.toggle` - overestimated importance
+- `R.uuid` - not suitable
+- `R.whenAsync` - overestimated importance
+
 Move the following methods to `Rambda` and change their logic to match `Ramda` implementation:
 
 - `R.hasPath`
@@ -8,26 +28,6 @@ Move the following methods to `Rambda` and change their logic to match `Ramda` i
 - `R.tryCatch`
 - `R.where`
 - `R.whereEq`
-
-Deprecate the following methods:
-
-- `R.promiseAllObject` - because `R.produce` serves the same purpose
-- `R.composed` - because `R.piped` makes more sense, when we want to pass the input at the start of the function
-- `R.defaultToStrict`
-- `R.findInObject`
-- `R.headObject`
-- `R.includesType`
-- `R.inject`
-- `R.isAttach`
-- `R.mergeRight`
-- `R.opposite`
-- `R.otherwise`
-- `R.pushUniq`
-- `R.resolve` ?
-- `R.s`
-- `R.toggle`
-- `R.uuid`
-- `R.whenAsync`
 
 Also these changes:
 
@@ -44,8 +44,6 @@ Also these changes:
 - `R.mergeDeep` is renamed to `R.mergeDeepLeft`
 
 - Add `R.pipeAsync`
-
-- Change how Typescript definitions are exported
 
 - Take `R.partialCurry` from `Rambda` as it is deprecated there
 

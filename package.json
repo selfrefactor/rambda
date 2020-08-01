@@ -5,6 +5,7 @@
     "cover:spec": "jest source --coverage --no-cache -w 1",
     "cover": "yarn typings&&yarn cover:spec",
     "out": "maided out",
+    "x": "maided rambdax",
     "benchmark": "maided benchmark",
     "benchmarkx": "maided benchmarkx",
     "toolbelt": "maided toolbelt",
