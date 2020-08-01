@@ -30,7 +30,7 @@ describe('R.defaultTo can have many inputs', () => {
       null,
       2,
       'bar'
-    ) // $ExpectType string | number
+    )
     result // $ExpectType string | number
   })
 })
