@@ -1,3 +1,7 @@
+5.10.1
+
+Forgot to export `R.of` because of wrong marker in `files/index.d.ts`
+
 5.10.0
 
 Close [Issue #514](https://github.com/selfrefactor/rambda/issues/514) -

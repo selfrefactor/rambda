@@ -2549,7 +2549,6 @@ export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
 export function omit<T>(propsToOmit: string): (obj: object) => T;
 
-
 /*
 Method: of
 
@@ -2567,6 +2566,7 @@ Categories: Function
 Notes: This of is different from the ES6 of; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
 
 */
+// @SINGLE_MARKER
 export function of<T>(x: T): T[];
 
 /*
@@ -2576,7 +2576,6 @@ Explanation: It is very similar to `R.curry`, but you can pass initial arguments
 
 `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
 The name comes from the fact that you partially inject the inputs.
-
 
 Example:
 
@@ -2595,7 +2594,7 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 
 Categories: Logic
 
-Notes: Rambda's **partial** doesn't need the input arguments to be wrapped as array.
+Notes: Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 */
 // @SINGLE_MARKER

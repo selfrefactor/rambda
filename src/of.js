@@ -1,3 +1,3 @@
 export function of(value){
-  return [value]
+  return [ value ]
 }

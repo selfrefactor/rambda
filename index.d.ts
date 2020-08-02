@@ -815,6 +815,17 @@ export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
 export function omit<T>(propsToOmit: string): (obj: object) => T;
 
+/**
+ * It returns a partial copy of an `obj` without `propsToOmit` properties.
+ */
+export function of<T>(x: T): T[];
+
+/**
+ * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
+ * 
+ * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
+ * The name comes from the fact that you partially inject the inputs.
+ */
 export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
 export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
 export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
