@@ -3,6 +3,8 @@ jest.setTimeout(ms('4 minutes'))
 
 import { importRamdaSpecs } from './import-ramda-specs'
 
+const WITH_INITIAL_STEP = false
+
 test('happy', async () => {
-  await importRamdaSpecs()
+  await importRamdaSpecs(WITH_INITIAL_STEP)
 })

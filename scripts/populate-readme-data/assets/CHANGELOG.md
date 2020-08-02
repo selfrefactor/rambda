@@ -1,5 +1,7 @@
 5.12.0
 
+- `R.equals` now supports negative zero just like `Ramda.equals`
+
 - Add `R.union` method
 
 - `R.replace` use `R.curry`

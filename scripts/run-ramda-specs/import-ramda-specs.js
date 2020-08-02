@@ -28,11 +28,17 @@ async function cloneRamda(){
 
 async function replaceImports(){
   const rambdaMethods = await getRambdaMethods()
+
+  // Because Ramda pattern for spec name has exception
+  // ============================================
   const toReturn = [ 'lenses' ]
 
   const allFiles = await scanFolder({ folder : `${ __dirname }/ramda/test` })
   const goodFiles = allFiles.filter(filePath => {
     if (!filePath.endsWith('.js')) return false
+
+    // Because Ramda pattern for spec name has exception
+    // ============================================
     if (filePath.endsWith('lenses.js')) return true
     const { name } = parse(filePath)
     toReturn.push(name)
@@ -55,7 +61,7 @@ async function replaceImports(){
   return toReturn
 }
 
-export async function importRamdaSpecs(withInitialStep = false){
+export async function importRamdaSpecs(withInitialStep){
   if (withInitialStep) await cloneRamda()
 
   return replaceImports()

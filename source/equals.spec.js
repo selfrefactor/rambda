@@ -1,9 +1,13 @@
+// import { equals } from 'ramda'
 import { equals } from './equals'
 
 test('with array of objects', () => {
-  const result = equals([ { a : 1 }, [ { b : 3 } ] ], [ { a : 2 }, [ { b : 3 } ] ])
+  const list1 = [ { a : 1 }, [ { b : 2 } ] ]
+  const list2 = [ { a : 1 }, [ { b : 2 } ] ]
+  const list3 = [ { a : 1 }, [ { b : 3 } ] ]
 
-  expect(result).toBeFalse()
+  expect(equals(list1, list2)).toBeTrue()
+  expect(equals(list1, list3)).toBeFalse()
 })
 
 test('with regex', () => {
@@ -247,4 +251,11 @@ test('with classes', () => {
   const result = equals(foo, foo)
 
   expect(result).toBeTrue()
+})
+
+test('with negative zero', () => {
+  expect(equals(-0, -0)).toBeTrue()
+  expect(equals(-0, 0)).toBeFalse()
+  expect(equals(0, 0)).toBeTrue()
+  expect(equals(-0, 1)).toBeFalse()
 })

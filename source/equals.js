@@ -25,7 +25,14 @@ export function equals(a, b){
   const aType = type(a)
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if ([ 'Boolean', 'Number', 'String' ].includes(aType)){
+
+  if (aType === 'Number'){
+    if (Object.is(-0, a) !== Object.is(-0, b)) return false
+
+    return a.toString() === b.toString()
+  }
+
+  if ([ 'String', 'Boolean' ].includes(aType)){
     return a.toString() === b.toString()
   }
 

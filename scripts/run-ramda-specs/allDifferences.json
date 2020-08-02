@@ -31,10 +31,6 @@
     "count": 1,
     "reason": "Ramda library supports fantasy-land"
   },
-  "difference": {
-    "count": 1,
-    "reason": "Ramda method supports negative zero"
-  },
   "compose": {
     "count": 3,
     "reason": "Ramda method passes context to functions | Rambda composed functions have no length"
@@ -206,6 +202,10 @@
   "whereEq": {
     "count": 2,
     "reason": "Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions"
+  },
+  "union": {
+    "count": 1,
+    "reason": "Ramda library supports fantasy-land"
   },
   "xor": {
     "count": 1,

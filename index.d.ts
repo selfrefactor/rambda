@@ -1354,6 +1354,14 @@ export function tryCatch<T>(
 export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 
 /**
+ * It takes two lists and return a new list containing a merger of both list with removed duplicates.
+ * 
+ * `R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+ */
+export function union<T>(x: Array<T>, y: Array<T>): Array<T>;
+export function union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+
+/**
  * It returns a new array containing only one copy of each element of `list`.
  */
 export function uniq<T>(list: ReadonlyArray<T>): T[];

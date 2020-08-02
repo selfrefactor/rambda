@@ -79,7 +79,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 <details>
 <summary>
-  Click to see the full list of 106 Ramda methods not implemented in Rambda 
+  Click to see the full list of 105 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -177,7 +177,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - unary
 - uncurryN
 - unfold
-- union
 - unionWith
 - uniqBy
 - unnest
@@ -353,9 +352,8 @@ add(a: number): (b: number) => number;
 <summary><strong>R.add</strong> source</summary>
 
 ```javascript
-export function add(a, b) {
-  if (arguments.length === 1)
-    return (_b) => add(a, _b)
+export function add(a, b){
+  if (arguments.length === 1) return _b => add(a, _b)
 
   return Number(a) + Number(b)
 }
@@ -4449,39 +4447,6 @@ describe('R.difference', () => {
 
 </details>
 
-<details>
-
-<summary>1 failed <italic>Ramda.difference</italic> specs
-
-> :boom: Reason for the failure: Ramda method supports negative zero
-</summary>
-
-```javascript
-var R = require('../../../../dist/rambda.js');
-var eq = require('./shared/eq');
-
-describe('difference', function() {
-  var M = [1, 2, 3, 4];
-  var M2 = [1, 2, 3, 4, 1, 2, 3, 4];
-  var N = [3, 4, 5, 6];
-  var N2 = [3, 3, 4, 4, 5, 5, 6, 6];
-  var Z = [3, 4, 5, 6, 10];
-  var Z2 = [1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8];
-  it('has R.equals semantics', function() {
-    function Just(x) { this.value = x; }
-    Just.prototype.equals = function(x) {
-      return x instanceof Just && R.equals(x.value, this.value);
-    };
-    eq(R.difference([0], [-0]).length, 1);
-    eq(R.difference([-0], [0]).length, 1);
-    eq(R.difference([NaN], [NaN]).length, 0);
-    eq(R.difference([new Just([42])], [new Just([42])]).length, 0);
-  });
-});
-```
-
-</details>
-
 ### dissoc
 
 ```typescript
@@ -5320,7 +5285,14 @@ export function equals(a, b){
   const aType = type(a)
   if (aType !== type(b)) return false
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
-  if ([ 'Boolean', 'Number', 'String' ].includes(aType)){
+
+  if (aType === 'Number'){
+    if (Object.is(-0, a) !== Object.is(-0, b)) return false
+
+    return a.toString() === b.toString()
+  }
+
+  if ([ 'String', 'Boolean' ].includes(aType)){
     return a.toString() === b.toString()
   }
 
@@ -5403,12 +5375,16 @@ export function equals(a, b){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
+// import { equals } from 'ramda'
 import { equals } from './equals'
 
 test('with array of objects', () => {
-  const result = equals([ { a : 1 }, [ { b : 3 } ] ], [ { a : 2 }, [ { b : 3 } ] ])
+  const list1 = [ { a : 1 }, [ { b : 2 } ] ]
+  const list2 = [ { a : 1 }, [ { b : 2 } ] ]
+  const list3 = [ { a : 1 }, [ { b : 3 } ] ]
 
-  expect(result).toBeFalse()
+  expect(equals(list1, list2)).toBeTrue()
+  expect(equals(list1, list3)).toBeFalse()
 })
 
 test('with regex', () => {
@@ -5652,6 +5628,13 @@ test('with classes', () => {
   const result = equals(foo, foo)
 
   expect(result).toBeTrue()
+})
+
+test('with negative zero', () => {
+  expect(equals(-0, -0)).toBeTrue()
+  expect(equals(-0, 0)).toBeFalse()
+  expect(equals(0, 0)).toBeTrue()
+  expect(equals(-0, 1)).toBeFalse()
 })
 ```
 
@@ -16669,21 +16652,15 @@ replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => str
 <summary><strong>R.replace</strong> source</summary>
 
 ```javascript
-export function replace(
+import { curry } from './curry'
+
+function replaceFn(
   pattern, replacer, str
 ){
-  if (replacer === undefined){
-    return (_replacer, _str) => replace(
-      pattern, _replacer, _str
-    )
-  } else if (str === undefined){
-    return _str => replace(
-      pattern, replacer, _str
-    )
-  }
-
   return str.replace(pattern, replacer)
 }
+
+export const replace = curry(replaceFn)
 ```
 
 </details>
@@ -19553,6 +19530,132 @@ describe('type', function() {
 
 </details>
 
+### union
+
+```typescript
+union<T>(x: Array<T>, y: Array<T>): Array<T>
+```
+
+It takes two lists and return a new list containing a merger of both list with removed duplicates. 
+
+`R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+
+```javascript
+const result = R.union([1,2,3], [3,4,5]);
+//=> [1, 2, 3, 4, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D%2C%20%5B3%2C4%2C5%5D)%3B%0A%2F%2F%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try the above <strong>R.union</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+union<T>(x: Array<T>, y: Array<T>): Array<T>;
+union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.union</strong> source</summary>
+
+```javascript
+import { includes } from './includes.js'
+
+export function union(x, y){
+  if (arguments.length === 1) return _y => union(x, _y)
+
+  const toReturn = x.slice()
+
+  y.forEach(yInstance => {
+    if (!includes(yInstance, x)) toReturn.push(yInstance)
+  })
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { union } from './union'
+
+test('happy', () => {
+  expect(union([ 1, 2 ], [ 2, 3 ])).toEqual([ 1, 2, 3 ])
+})
+
+test('with list of objects', () => {
+  const list1 = [ { a : 1 }, { a : 2 } ]
+  const list2 = [ { a : 2 }, { a : 3 } ]
+  const result = union(list1)(list2)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {union} from 'rambda'
+
+describe('R.union', () => {
+  it('happy', () => {
+    const result = union([1, 2], [2,3])
+
+    result // $ExpectType number[]
+  })
+  it('with array of objects - case 1', () => {
+    const list1 = [{a:1}, {a: 2}]
+    const list2 = [{a: 2}, {a:3}]
+    const result = union(list1, list2)
+    result // $ExpectType  { a: number; }[]
+  })
+  it('with array of objects - case 2', () => {
+    const list1 = [{a:1, b:1}, {a: 2}]
+    const list2 = [{a: 2}, {a:3, b:3 }]
+    const result = union(list1, list2)
+    result[0].a // $ExpectType number
+    result[0].b // $ExpectType number | undefined
+  })
+})
+
+describe('R.union - curried', () => {
+  it('happy', () => {
+    const result = union([1, 2])([2,3])
+
+    result // $ExpectType number[]
+  })
+  it('with array of objects - case 1', () => {
+    const list1 = [{a:1}, {a: 2}]
+    const list2 = [{a: 2}, {a:3}]
+    const result = union(list1)(list2)
+    result // $ExpectType  { a: number; }[]
+  })
+  it('with array of objects - case 2', () => {
+    const list1 = [{a:1, b:1}, {a: 2}]
+    const list2 = [{a: 2}, {a:3, b:3 }]
+    const result = union(list1)(list2)
+    result[0].a // $ExpectType number
+    result[0].b // $ExpectType number | undefined
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.union specs*
+
+> :boom: Reason for the failure: Ramda library supports fantasy-land
+
 ### uniq
 
 ```typescript
@@ -21178,6 +21281,18 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+5.12.0
+
+- `R.equals` now supports negative zero just like `Ramda.equals`
+
+- Add `R.union` method
+
+- `R.replace` use `R.curry`
+
+5.11.0
+
+Forgot to export `R.of` because of wrong marker in `files/index.d.ts`
 
 5.10.0
 

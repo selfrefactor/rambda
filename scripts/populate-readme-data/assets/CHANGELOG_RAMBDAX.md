@@ -1,8 +1,10 @@
 4.1.0
 
-- Add `R.replaceAll` method
-
 - `R.template` is renamed to `R.interpolate`
+
+- `R.equals` now supports negative zero just like `Ramda.equals`
+
+- Add `R.replaceAll` method
 
 4.0.1
 

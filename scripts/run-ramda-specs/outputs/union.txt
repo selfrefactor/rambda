@@ -1,0 +1,28 @@
+
+
+  union
+    ✓ combines two lists into the set of all their elements
+    1) has R.equals semantics
+
+
+  1 passing (29ms)
+  1 failing
+
+  1) union
+       has R.equals semantics:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'1' !== '2'
+
+      + expected - actual
+
+      -1
+      +2
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/union.js:18:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

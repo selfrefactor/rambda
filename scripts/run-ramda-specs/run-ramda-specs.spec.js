@@ -18,5 +18,5 @@ test('run single spec', async () => {
   if (RUN_ALL) return
   await build()
   const skipDelete = true
-  await runSingleSpec('where', skipDelete)
+  await runSingleSpec('difference', skipDelete)
 })
