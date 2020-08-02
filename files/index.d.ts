@@ -5663,6 +5663,33 @@ export function renameProps(rules: object): (input: object) => object;
 export function renameProps<Output>(rules: object, input: object): Output;
 export function renameProps<Output>(rules: object): (input: object) => Output;
 
+
+/*
+Method: replaceAll
+ 
+Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+
+Example:
+
+```
+const replacer = '|'
+const patterns = [ /foo/g, 'bar' ]
+const input = 'foo bar baz foo bar'
+
+const result = replaceAll(patterns, replacer, input)
+// => '| | baz | bar'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function replaceAll(patterns: Array<RegExp | string>, replacer: string, input: string): string;
+export function replaceAll(patterns: Array<RegExp | string>, replacer: string): (input: string) => string;
+export function replaceAll(patterns: Array<RegExp | string>): (replacer: string) => (input: string) => string;
+
 /*
 Method: shuffle
 

@@ -1,3 +1,7 @@
+5.12.0
+
+- `R.replace` use `R.curry`
+
 5.11.0
 
 Forgot to export `R.of` because of wrong marker in `files/index.d.ts`

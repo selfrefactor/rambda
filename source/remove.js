@@ -13,7 +13,7 @@ export function remove(inputs, text){
   if (type(inputs) !== 'Array'){
     return replace(
       inputs, '', text
-    ).trim()
+    )
   }
 
   let textCopy = text

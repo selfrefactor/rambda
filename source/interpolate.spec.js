@@ -1,4 +1,4 @@
-import {  interpolate } from './interpolate'
+import { interpolate } from './interpolate'
 
 test('within bracets', () => {
   const input = 'foo is { {{bar}} } even {{a}} more'

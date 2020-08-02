@@ -1,6 +1,8 @@
 4.1.0
 
-`R.template` is renamed to `R.interpolate`
+- Add `R.replaceAll` method
+
+- `R.template` is renamed to `R.interpolate`
 
 4.0.1
 

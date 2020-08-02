@@ -53,7 +53,7 @@ test('with single rule', () => {
   const text = 'foo bar baz foo'
 
   const result = remove(inputs, text)
-  const expectedResult = 'bar baz'
+  const expectedResult = ' bar baz '
 
   expect(result).toEqual(expectedResult)
 })
