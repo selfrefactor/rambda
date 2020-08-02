@@ -1,5 +1,7 @@
 5.12.0
 
+- Add `R.union` method
+
 - `R.replace` use `R.curry`
 
 5.11.0

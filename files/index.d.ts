@@ -4091,6 +4091,29 @@ Notes: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
 export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
 
 /*
+Method: union
+
+Explanation: It takes two lists and return a new list containing a merger of both list with removed duplicates. 
+
+`R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+
+Example:
+
+```
+const result = R.union([1,2,3], [3,4,5]);
+//=> [1, 2, 3, 4, 5]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function union<T>(x: Array<T>, y: Array<T>): Array<T>;
+export function union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+
+/*
 Method: uniq
 
 Explanation: It returns a new array containing only one copy of each element of `list`.
