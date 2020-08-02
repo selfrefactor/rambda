@@ -6,6 +6,8 @@
 
 - Add `R.replaceAll` method
 
+- Add `R.lensEq` method
+
 4.0.1
 
 Forgot to export `R.of` because of wrong marker in `files/index.d.ts`

@@ -143,7 +143,7 @@ export async function populateDocsData({ withRambdax }){
       })
   )
   const categories = extractCategories(withRambdax)
-  
+
   await save({
     categories,
     withRambdax,
