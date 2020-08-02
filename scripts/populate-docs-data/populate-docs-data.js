@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { map, piped } from 'rambdax'
 
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
+import { extractCategories } from './extract-from-typings/extract-categories'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
@@ -30,7 +31,7 @@ function appendData({ input, prop, hash }){
   })(input)
 }
 
-async function save({ withRambdax, toSave }){
+async function save({ withRambdax, toSave, categories }){
   const output = withRambdax ?
     `${ __dirname }/data-rambdax.json` :
     `${ __dirname }/data.json`
@@ -42,12 +43,19 @@ async function save({ withRambdax, toSave }){
   const docsDir = resolve(__dirname, '../../../rambda-docs')
   if (!existsSync(docsDir)) return
 
+  const categoriesOutput = withRambdax ?
+    `${ docsDir }/categories-rambdax.json` :
+    `${ docsDir }/categories.json`
+
   const docsOutput = withRambdax ?
     `${ docsDir }/data-rambdax.json` :
     `${ docsDir }/data.json`
 
   await outputJSON(
     docsOutput, toSave, { spaces : 2 }
+  )
+  await outputJSON(
+    categoriesOutput, categories, { spaces : 2 }
   )
 }
 
@@ -134,8 +142,10 @@ export async function populateDocsData({ withRambdax }){
         hash : failedSpecsCount,
       })
   )
-
+  const categories = extractCategories(withRambdax)
+  
   await save({
+    categories,
     withRambdax,
     toSave,
   })
