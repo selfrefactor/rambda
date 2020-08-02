@@ -1,4 +1,4 @@
-5.10.1
+5.11.0
 
 Forgot to export `R.of` because of wrong marker in `files/index.d.ts`
 

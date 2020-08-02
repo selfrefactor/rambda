@@ -1,3 +1,7 @@
+4.0.1
+
+Forgot to export `R.of` because of wrong marker in `files/index.d.ts`
+
 4.0.0
 
 Deprecate the following methods:
