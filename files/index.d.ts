@@ -4685,13 +4685,13 @@ const add = async x => {
   await R.delay(500)
   return x + 1
 }
-const passOn = async x => fn(x)
+const identity = async x => x
 
-const result = R.composeAsync(
+const result = await R.composeAsync(
   add,
-  passOn
+  identity
 )(0)
-// `result` resolves to `2`
+// `result` resolves to `1`
 ```
 
 Categories: Function, Async

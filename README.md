@@ -1,6 +1,6 @@
 # Rambda
 
-`Rambda` is faster and smaller alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
+`Rambda` is smaller and faster alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 [![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
@@ -30,19 +30,25 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 ## Rambda's advantages
 
+- Typescript included
+
+Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
+
+Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
+
+- Smaller size
+
+The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
+
 - Tree-shaking
 
 Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
 
-The repo holds two Angular9 applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
+The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-Currently the **Ramda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
+Currently the **Ramda** bundle size is **{{rambdaTreeShakingInfo}} MB** less than its **Ramda** counterpart.
 
 > actually tree-shaking is the initial reason for creation of `Rambda`
-
-- Speed
-
-**Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
 - dot notation for `R.path` and `R.paths`
 
@@ -60,15 +66,12 @@ Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
 ```
 R.pick('a,b', {a: 1 , b: 2, c: 3} })
-
 // No space allowed between properties
 ```
 
-- Typescript included
+- Speed
 
-Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
-
-Still, you need to be aware that due to [variadic arguments Typescript proposal](https://github.com/microsoft/TypeScript/issues/5453) being still open and unresolved, using **R.compose/R.pipe** is far from smooth. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no visible solution to it.
+**Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
 - More generic methods
 
@@ -351,8 +354,9 @@ add(a: number): (b: number) => number;
 <summary><strong>R.add</strong> source</summary>
 
 ```javascript
-export function add(a, b){
-  if (arguments.length === 1) return _b => add(a, _b)
+export function add(a, b) {
+  if (arguments.length === 1)
+    return (_b) => add(a, _b)
 
   return Number(a) + Number(b)
 }
@@ -4332,7 +4336,7 @@ describe('R.defaultTo can have many inputs', () => {
       null,
       2,
       'bar'
-    ) // $ExpectType string | number
+    )
     result // $ExpectType string | number
   })
 })

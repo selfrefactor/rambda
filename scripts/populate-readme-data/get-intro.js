@@ -114,9 +114,13 @@ async function getIntroContent(withRambdax){
     `${ __dirname }/assets/INTRO.md`
 
   const content = await readFile(filePath)
+  const advantages = await readFile(`${ __dirname }/assets/ADVANTAGES.md`)
   const rambdaTreeShakingInfo = await getTreeShakingInfo()
 
-  return template(content.toString(), { rambdaTreeShakingInfo })
+  return template(content.toString(), {
+    rambdaTreeShakingInfo,
+    advantages,
+  })
 }
 
 export async function getIntro(withRambdax){
