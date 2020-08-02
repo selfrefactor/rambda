@@ -1,3 +1,7 @@
+4.1.0
+
+`R.template` is renamed to `R.interpolate`
+
 4.0.1
 
 Forgot to export `R.of` because of wrong marker in `files/index.d.ts`

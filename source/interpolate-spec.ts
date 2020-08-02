@@ -1,16 +1,16 @@
-import {template} from 'rambda'
+import {interpolate} from 'rambda'
 
 const templateInput = 'foo {{x}} baz'
 const templateArguments = {x: 'led zeppelin'}
 
-describe('R.template', () => {
+describe('R.interpolate', () => {
   it('happy', () => {
-    const result = template(templateInput, templateArguments)
+    const result = interpolate(templateInput, templateArguments)
 
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = template(templateInput)(templateArguments)
+    const result = interpolate(templateInput)(templateArguments)
 
     result // $ExpectType string
   })

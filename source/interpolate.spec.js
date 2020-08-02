@@ -1,4 +1,4 @@
-import { template } from './template'
+import {  interpolate } from './interpolate'
 
 test('within bracets', () => {
   const input = 'foo is { {{bar}} } even {{a}} more'
@@ -7,7 +7,7 @@ test('within bracets', () => {
     a   : 1,
   }
 
-  const result = template(input, templateInput)
+  const result = interpolate(input, templateInput)
   const expectedResult = 'foo is { BAR } even 1 more'
 
   expect(result).toEqual(expectedResult)
@@ -20,7 +20,7 @@ test('happy', () => {
     a   : 1,
   }
 
-  const result = template(input, templateInput)
+  const result = interpolate(input, templateInput)
   const expectedResult = 'foo is BAR even 1 more'
 
   expect(result).toEqual(expectedResult)
@@ -30,7 +30,7 @@ test('no interpolation + curry', () => {
   const input = 'foo is bar even more'
   const templateInput = { bar : 'BAR' }
 
-  const result = template(input)(templateInput)
+  const result = interpolate(input)(templateInput)
   const expectedResult = 'foo is bar even more'
 
   expect(result).toEqual(expectedResult)
@@ -43,7 +43,7 @@ test('with missing template input', () => {
     a   : 1,
   }
 
-  const result = template(input, templateInput)
+  const result = interpolate(input, templateInput)
   const expectedResult = 'foo is {{bar}} even 1 more'
 
   expect(result).toEqual(expectedResult)
@@ -54,7 +54,7 @@ test('with arbitrary expression', () => {
   const templateInput = {}
 
   const expectedResult = '1 + 2 = 3'
-  const result = template(input, templateInput)
+  const result = interpolate(input, templateInput)
 
   expect(result).toEqual(expectedResult)
 })

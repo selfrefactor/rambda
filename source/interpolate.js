@@ -9,9 +9,9 @@ const replace = ({ inputHolder, prop, replacer }) =>
   inputHolder.replace(new RegExp(`{{\\s*${ escapeSpecialCharacters(prop) }\\s*}}`),
     replacer)
 
-export function template(input, templateInput){
+export function interpolate(input, templateInput){
   if (arguments.length === 1){
-    return templateInputHolder => template(input, templateInputHolder)
+    return _templateInput => interpolate(input, _templateInput)
   }
 
   const occurances = getOccurances(input)

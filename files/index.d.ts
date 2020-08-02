@@ -4914,6 +4914,31 @@ Notes: `R.getter` method contains explanations, tests and source information of 
 export function reset(): void;
 
 /*
+Method: interpolate
+
+Explanation: It generages a new string from `inputWithTags` by replacing all `{{x}}` occurances with values provided by `templateArguments`.
+
+Example:
+
+```
+const inputWithTags = 'foo is {{bar}} even {{a}} more'
+const templateArguments = {"bar":"BAR", a: 1}
+
+const result = R.interpolate(inputWithTags, templateArguments)
+const expected = 'foo is BAR even 1 more'
+// => `result` is equal to `expected`
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function interpolate(inputWithTags: string, templateArguments: object): string;
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
+
+/*
 Method: ifElseAsync
 
 Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous function.
@@ -5730,31 +5755,6 @@ Notes:
 // @SINGLE_MARKER
 export function tapAsync<T>(fn: Func<any> | Promise<any>, input: T): T;
 export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
-
-/*
-Method: template
-
-Explanation: It generages a new string from `inputWithTags` by replacing all `{{x}}` occurances with values provided by `templateArguments`.
-
-Example:
-
-```
-const inputWithTags = 'foo is {{bar}} even {{a}} more'
-const templateArguments = {"bar":"BAR", a: 1}
-
-const result = R.template(inputWithTags, templateArguments)
-const expected = 'foo is BAR even 1 more'
-// => `result` is equal to `expected`
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function template(inputWithTags: string, templateArguments: object): string;
-export function template(inputWithTags: string): (templateArguments: object) => string;
 
 /*
 Method: throttle
