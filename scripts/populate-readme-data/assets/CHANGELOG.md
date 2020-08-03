@@ -2,6 +2,8 @@
 
 - Add `R.union` method
 
+- `R.defaultTo`, `R.over` and `R.set` use `R.curry` instead of manual currying
+
 - `R.lensPath` typings support string as path, i.e. `'a.b'` instead of `['a', 'b']`
 
 - `R.equals` now supports negative zero just like `Ramda.equals`

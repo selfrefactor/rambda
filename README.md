@@ -4169,6 +4169,8 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 <summary><strong>R.defaultTo</strong> source</summary>
 
 ```javascript
+import {curry} from './curry'
+
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -4177,13 +4179,7 @@ function flagIs(inputArguments){
   )
 }
 
-export function defaultTo(defaultArgument, ...inputArguments){
-  if (arguments.length === 1){
-    return _inputArguments => defaultTo(defaultArgument, _inputArguments)
-  } else if (arguments.length === 2){
-    return flagIs(inputArguments[ 0 ]) ? defaultArgument : inputArguments[ 0 ]
-  }
-
+function defaultToFn(defaultArgument, ...inputArguments){
   const limit = inputArguments.length - 1
   let len = limit + 1
   let ready = false
@@ -4204,6 +4200,8 @@ export function defaultTo(defaultArgument, ...inputArguments){
 
   return holder === undefined ? defaultArgument : holder
 }
+
+export const defaultTo = curry(defaultToFn)
 ```
 
 </details>
@@ -10534,6 +10532,7 @@ const nameLens = lens<Input, string, string>((x: Input) => {
 const addressLens = lensProp('address')
 const headLens = lensIndex(0)
 const dogLens = lensPath(['pets', 'dog'])
+const dogLensAsString = lensPath('pets.doc')
 
 describe('lenses', () => {
   it('lens', () => {
@@ -10542,6 +10541,10 @@ describe('lenses', () => {
   })
   it('lens path', () => {
     const result = view<Input, string>(dogLens, MockObject)
+    result // $ExpectType string
+  })
+  it('lens path as string', () => {
+    const result = view<Input, string>(dogLensAsString, MockObject)
     result // $ExpectType string
   })
   it('lens prop', () => {
@@ -10699,6 +10702,7 @@ R.over(xHeadYLens, R.negate, input)
 
 ```typescript
 lensPath(path: RamdaPath): Lens;
+lensPath(path: string): Lens;
 ```
 
 </details>
@@ -13322,24 +13326,20 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 <summary><strong>R.over</strong> source</summary>
 
 ```javascript
+import {curry} from './curry'
+
 const Identity = x => ({
   x,
   map : fn => Identity(fn(x)),
 })
 
-export function over(
+function overFn(
   lens, fn, object
 ){
-  if (arguments.length === 1)
-    return (_fn, _object) => over(
-      lens, _fn, _object
-    )
-  if (arguments.length === 2) return _object => over(
-    lens, fn, _object
-  )
-
   return lens(x => Identity(fn(x)))(object).x
 }
+
+export const over = curry(overFn)
 ```
 
 </details>
@@ -16862,21 +16862,17 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 ```javascript
 import { always } from './always'
 import { over } from './over'
+import {curry} from './curry'
 
-export function set(
+function setFn(
   lens, replacer, x
 ){
-  if (arguments.length === 1) return (_v, _x) => set(
-    lens, _v, _x
-  )
-  if (arguments.length === 2) return _x => set(
-    lens, replacer, _x
-  )
-
   return over(
     lens, always(replacer), x
   )
 }
+
+export const set = curry(setFn)
 ```
 
 </details>
@@ -19617,7 +19613,7 @@ describe('R.union', () => {
     const list1 = [{a:1}, {a: 2}]
     const list2 = [{a: 2}, {a:3}]
     const result = union(list1, list2)
-    result // $ExpectType  { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a:1, b:1}, {a: 2}]
@@ -19638,7 +19634,7 @@ describe('R.union - curried', () => {
     const list1 = [{a:1}, {a: 2}]
     const list2 = [{a: 2}, {a:3}]
     const result = union(list1)(list2)
-    result // $ExpectType  { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a:1, b:1}, {a: 2}]
@@ -21284,9 +21280,13 @@ describe('R.zipObj', () => {
 
 5.12.0
 
-- `R.equals` now supports negative zero just like `Ramda.equals`
-
 - Add `R.union` method
+
+- `R.defaultTo`, `R.over` and `R.set` use `R.curry` instead of manual currying
+
+- `R.lensPath` typings support string as path, i.e. `'a.b'` instead of `['a', 'b']`
+
+- `R.equals` now supports negative zero just like `Ramda.equals`
 
 - `R.replace` use `R.curry`
 

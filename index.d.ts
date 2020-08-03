@@ -653,6 +653,7 @@ export function lensIndex(index: number): Lens;
  * It returns a lens that focuses on specified `path`.
  */
 export function lensPath(path: RamdaPath): Lens;
+export function lensPath(path: string): Lens;
 
 /**
  * It returns a lens that focuses on specified property `prop`.
