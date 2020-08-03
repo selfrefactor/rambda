@@ -10,7 +10,7 @@ describe('R.union', () => {
     const list1 = [{a:1}, {a: 2}]
     const list2 = [{a: 2}, {a:3}]
     const result = union(list1, list2)
-    result // $ExpectType  { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a:1, b:1}, {a: 2}]
@@ -31,7 +31,7 @@ describe('R.union - curried', () => {
     const list1 = [{a:1}, {a: 2}]
     const list2 = [{a: 2}, {a:3}]
     const result = union(list1)(list2)
-    result // $ExpectType  { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a:1, b:1}, {a: 2}]
