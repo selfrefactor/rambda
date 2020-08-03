@@ -1,8 +1,10 @@
 5.12.0
 
-- `R.equals` now supports negative zero just like `Ramda.equals`
-
 - Add `R.union` method
+
+- `R.lensPath` typings support string as path, i.e. `'a.b'` instead of `['a', 'b']`
+
+- `R.equals` now supports negative zero just like `Ramda.equals`
 
 - `R.replace` use `R.curry`
 

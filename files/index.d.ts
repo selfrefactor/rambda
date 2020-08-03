@@ -1946,6 +1946,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function lensPath(path: RamdaPath): Lens;
+export function lensPath(path: string): Lens;
 
 /*
 Method: lensProp
@@ -5933,6 +5934,33 @@ export function waitFor<T>(
   howLong: number,
   loops?: number
 ): (input: T) => Promise<boolean>;
+
+/*
+Method: lensEq
+
+Explanation: It returns `true` if data structure focused by the given lens equals to the `target` value.
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const list = [ 1, 2, 3 ]
+const lens = lensIndex(0)
+const result = lensEq(
+  lens, 1, list
+)
+// => true
+```
+
+Categories: Lenses
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function lensEq<T>(lens: Lens, target: T, input: Array<T>): boolean;
+export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================

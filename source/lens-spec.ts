@@ -22,6 +22,7 @@ const nameLens = lens<Input, string, string>((x: Input) => {
 const addressLens = lensProp('address')
 const headLens = lensIndex(0)
 const dogLens = lensPath(['pets', 'dog'])
+const dogLensAsString = lensPath('pets.doc')
 
 describe('lenses', () => {
   it('lens', () => {
@@ -30,6 +31,10 @@ describe('lenses', () => {
   })
   it('lens path', () => {
     const result = view<Input, string>(dogLens, MockObject)
+    result // $ExpectType string
+  })
+  it('lens path as string', () => {
+    const result = view<Input, string>(dogLensAsString, MockObject)
     result // $ExpectType string
   })
   it('lens prop', () => {

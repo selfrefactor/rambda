@@ -1,7 +1,6 @@
 import { lensEq } from './lensEq'
 import { lensIndex } from './lensIndex'
 import { lensPath } from './lensPath'
-import { view } from './view'
 
 test('with list', () => {
   const list = [ 1, 2, 3 ]
