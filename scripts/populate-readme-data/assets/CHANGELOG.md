@@ -1,5 +1,7 @@
 5.12.0
 
+- Change `R.when` implementation and typings to match those of `Ramda`
+
 - Add `R.union` method
 
 - `R.over` and `R.set` use `R.curry` instead of manual currying

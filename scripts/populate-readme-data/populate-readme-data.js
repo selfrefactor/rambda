@@ -1,6 +1,6 @@
 import { outputFile, readJson } from 'fs-extra'
 import { resolve } from 'path'
-import { map, replace, template } from 'rambdax'
+import { map, replace, interpolate } from 'rambdax'
 
 import { buildStep } from '../build-step/build-step'
 import { createMethodData } from './create-method-data'
@@ -69,7 +69,7 @@ export async function populateReadmeData({ withRambdax }){
     methods : sortedMethods.join('\n\n'),
   }
 
-  const readme = template(readmeTemplate, templateData).trim()
+  const readme = interpolate(readmeTemplate, templateData).trim()
   const output = getOutputPath(withRambdax)
 
   const finalReadme = removeDoubleNewLines(readme)

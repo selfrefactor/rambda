@@ -2,7 +2,7 @@ import { existsSync } from 'fs'
 import { readFile, readJson } from 'fs-extra'
 import { log } from 'helpers-fn'
 import { resolve } from 'path'
-import { template } from 'rambdax'
+import { interpolate } from 'rambdax'
 import * as Ramda from 'ramda'
 
 import { devDependencies } from '../../package'
@@ -26,7 +26,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib
 \`\`\`
 `
 
-  return template(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda' })
+  return interpolate(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda' })
 }
 
 async function getMissingMethods(){
@@ -56,7 +56,7 @@ async function getMissingMethods(){
     .filter(Boolean)
     .join('')
 
-  return template(missingMethodsTemplate, {
+  return interpolate(missingMethodsTemplate, {
     missingMethods,
     counter,
   })
@@ -117,7 +117,7 @@ async function getIntroContent(withRambdax){
   const advantages = await readFile(`${ __dirname }/assets/ADVANTAGES.md`)
   const rambdaTreeShakingInfo = await getTreeShakingInfo()
 
-  return template(content.toString(), {
+  return interpolate(content.toString(), {
     rambdaTreeShakingInfo,
     advantages,
   })
@@ -132,7 +132,7 @@ export async function getIntro(withRambdax){
   const missingMethods = await getMissingMethods()
   const installInfo = getInstallInfo(withRambdax)
 
-  return template(templateIntro, {
+  return interpolate(templateIntro, {
     introEnd      : introEndContent.toString(),
     missingMethods,
     installInfo,

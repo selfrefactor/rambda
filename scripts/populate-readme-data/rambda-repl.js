@@ -18,7 +18,7 @@ export function rambdaRepl(input){
   const consoleLogFlag = getConsoleLog(input)
   const resultVariableFlag = getResultVariableLog(input)
   const flag = resultVariableFlag || consoleLogFlag
-  const code = when(!flag, attachResultVariable)(input)
+  const code = when(() => !flag, attachResultVariable)(input)
   const encoded = encodeURIComponent(code.trim())
 
   return `${ REPL_URL }?${ encoded }`

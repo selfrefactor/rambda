@@ -327,6 +327,7 @@ method | Rambda | Ramda | Lodash
 ### add
 
 ```typescript
+
 add(a: number, b: number): number
 ```
 
@@ -417,6 +418,7 @@ describe('R.add', () => {
 ### adjust
 
 ```typescript
+
 adjust<T>(index: number, replaceFn: (x: T) => T, list: ReadonlyArray<T>): T[]
 ```
 
@@ -544,6 +546,7 @@ describe('adjust', function() {
 ### all
 
 ```typescript
+
 all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
@@ -678,6 +681,7 @@ describe('all', () => {
 ### allPass
 
 ```typescript
+
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
 
@@ -820,6 +824,7 @@ describe('allPass', function() {
 ### always
 
 ```typescript
+
 always<T>(x: T): () => T
 ```
 
@@ -902,6 +907,7 @@ describe('R.always', () => {
 ### and
 
 ```typescript
+
 and<T extends { and?: ((...a: readonly any[]) => any)
 ```
 
@@ -982,6 +988,7 @@ describe('R.and', () => {
 ### any
 
 ```typescript
+
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
@@ -1111,6 +1118,7 @@ describe('R.any', () => {
 ### anyPass
 
 ```typescript
+
 anyPass<T>(predicates: ReadonlyArray<SafePred<T>>): SafePred<T>
 ```
 
@@ -1264,6 +1272,7 @@ describe('anyPass', function() {
 ### append
 
 ```typescript
+
 append<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -1382,6 +1391,7 @@ describe('R.append', () => {
 ### applySpec
 
 ```typescript
+
 applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
@@ -1831,6 +1841,7 @@ describe('applySpec', () => {
 ### assoc
 
 ```typescript
+
 assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U
 ```
 
@@ -1962,6 +1973,7 @@ test('assignment is shallow', () => {
 ### assocPath
 
 ```typescript
+
 assocPath<T, U>(path: Path, newValue: T, obj: U): U
 ```
 
@@ -2204,6 +2216,7 @@ describe('R.assocPath', () => {
 ### both
 
 ```typescript
+
 both(pred1: Pred, pred2: Pred): Pred
 ```
 
@@ -2383,6 +2396,7 @@ describe('both', function() {
 ### chain
 
 ```typescript
+
 chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[]
 ```
 
@@ -2489,6 +2503,7 @@ describe('R.chain', () => {
 ### clamp
 
 ```typescript
+
 clamp(min: number, max: number, input: number): number
 ```
 
@@ -2608,6 +2623,7 @@ describe('R.clamp', () => {
 ### clone
 
 ```typescript
+
 clone<T>(input: T): T
 ```
 
@@ -2855,6 +2871,7 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 ### complement
 
 ```typescript
+
 complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
 ```
 
@@ -2973,6 +2990,7 @@ describe('complement', function() {
 ### compose
 
 ```typescript
+
 compose<T1>(fn0: () => T1): () => T1
 ```
 
@@ -3201,6 +3219,7 @@ describe('compose properties', function() {
 ### concat
 
 ```typescript
+
 concat<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
@@ -3323,6 +3342,7 @@ describe('concat', function() {
 ### cond
 
 ```typescript
+
 cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...a: readonly any[]) => any
 ```
 
@@ -3497,6 +3517,7 @@ describe('cond', function() {
 ### converge
 
 ```typescript
+
 converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any
 ```
 
@@ -3635,6 +3656,7 @@ describe('R.converge', () => {
 ### curry
 
 ```typescript
+
 curry(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any
 ```
 
@@ -3860,6 +3882,7 @@ describe('curry properties', function() {
 ### curryN
 
 ```typescript
+
 curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any
 ```
 
@@ -4092,6 +4115,7 @@ describe('R.curryN', () => {
 ### dec
 
 ```typescript
+
 dec(x: number): number
 ```
 
@@ -4134,6 +4158,7 @@ test('happy', () => {
 ### defaultTo
 
 ```typescript
+
 defaultTo<T>(defaultValue: T): (...inputArguments: (T | null | undefined)[]) => T
 ```
 
@@ -4345,6 +4370,7 @@ describe('R.defaultTo can have many inputs', () => {
 ### difference
 
 ```typescript
+
 difference<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[]
 ```
 
@@ -4451,6 +4477,7 @@ describe('R.difference', () => {
 ### dissoc
 
 ```typescript
+
 dissoc<T>(prop: string, obj: any): T
 ```
 
@@ -4611,6 +4638,7 @@ describe('R.dissoc', () => {
 ### divide
 
 ```typescript
+
 divide(x: number, y: number): number
 ```
 
@@ -4663,6 +4691,7 @@ test('happy', () => {
 ### drop
 
 ```typescript
+
 drop<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -4778,6 +4807,7 @@ describe('R.drop - string', () => {
 ### dropLast
 
 ```typescript
+
 dropLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -4920,6 +4950,7 @@ describe('dropLast', function() {
 ### either
 
 ```typescript
+
 either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
 
@@ -5111,6 +5142,7 @@ describe('either', function() {
 ### endsWith
 
 ```typescript
+
 endsWith(target: string, str: string): boolean
 ```
 
@@ -5229,6 +5261,7 @@ describe('startsWith', function() {
 ### equals
 
 ```typescript
+
 equals<T>(x: T, y: T): boolean
 ```
 
@@ -5856,6 +5889,7 @@ describe('equals', function() {
 ### F
 
 ```typescript
+
 F(): boolean
 ```
 
@@ -5890,6 +5924,7 @@ export function F(){
 ### filter
 
 ```typescript
+
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
@@ -6141,6 +6176,7 @@ describe('filter', function() {
 ### find
 
 ```typescript
+
 find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined
 ```
 
@@ -6273,6 +6309,7 @@ describe('R.find', () => {
 ### findIndex
 
 ```typescript
+
 findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number
 ```
 
@@ -6396,6 +6433,7 @@ describe('R.findIndex', () => {
 ### findLast
 
 ```typescript
+
 findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined
 ```
 
@@ -6553,6 +6591,7 @@ describe('R.findLast', () => {
 ### findLastIndex
 
 ```typescript
+
 findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number
 ```
 
@@ -6711,6 +6750,7 @@ describe('R.findLastIndex', () => {
 ### flatten
 
 ```typescript
+
 flatten<T>(list: ReadonlyArray<any>): T[]
 ```
 
@@ -6807,6 +6847,7 @@ describe('flatten', () => {
 ### flip
 
 ```typescript
+
 flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult
 ```
 
@@ -7022,6 +7063,7 @@ describe('flip properties', function() {
 ### forEach
 
 ```typescript
+
 forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>
 ```
 
@@ -7340,6 +7382,7 @@ describe('forEach', function() {
 ### fromPairs
 
 ```typescript
+
 fromPairs<V>(listOfPairs: KeyValuePair<string, V>[]): { [index: string]: V }
 ```
 
@@ -7446,6 +7489,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
 ### groupBy
 
 ```typescript
+
 groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }
 ```
 
@@ -7608,6 +7652,7 @@ describe('groupBy', function() {
 ### groupWith
 
 ```typescript
+
 groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][]
 ```
 
@@ -7848,6 +7893,7 @@ describe('groupWith', function() {
 ### has
 
 ```typescript
+
 has<T>(prop: string, obj: T): boolean
 ```
 
@@ -7962,6 +8008,7 @@ describe('has', function() {
 ### hasPath
 
 ```typescript
+
 hasPath<T>(
   path: string | string[],
   input: object
@@ -8079,6 +8126,7 @@ describe('R.hasPath', () => {
 ### head
 
 ```typescript
+
 head<T>(listOrString: T[]): T | undefined
 ```
 
@@ -8160,6 +8208,7 @@ describe('R.head', () => {
 ### identical
 
 ```typescript
+
 identical<T>(x: T, y: T): boolean
 ```
 
@@ -8280,6 +8329,7 @@ describe('R.identical', () => {
 ### identity
 
 ```typescript
+
 identity<T>(input: T): T
 ```
 
@@ -8349,6 +8399,7 @@ describe('R.identity', () => {
 ### ifElse
 
 ```typescript
+
 ifElse<T, U>(
   condition: (x: T) => boolean, 
   onTrue: (x: T) => U, 
@@ -8596,6 +8647,7 @@ describe('ifElse', function() {
 ### inc
 
 ```typescript
+
 inc(x: number): number
 ```
 
@@ -8644,6 +8696,7 @@ test('happy', () => {
 ### includes
 
 ```typescript
+
 includes(valueToFind: string, input: ReadonlyArray<string> | string): boolean
 ```
 
@@ -8806,6 +8859,7 @@ describe('includes', function() {
 ### indexBy
 
 ```typescript
+
 indexBy<T>(condition: (x: T) => string, list: ReadonlyArray<T>): { [key: string]: T }
 ```
 
@@ -9042,6 +9096,7 @@ describe('indexBy', function() {
 ### indexOf
 
 ```typescript
+
 indexOf<T>(valueToFind: T, list: ReadonlyArray<T>): number
 ```
 
@@ -9196,6 +9251,7 @@ describe('indexOf', function() {
 ### init
 
 ```typescript
+
 init<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -9291,6 +9347,7 @@ describe('R.init', () => {
 ### intersection
 
 ```typescript
+
 intersection<T>(listA: ReadonlyArray<T>, listB: ReadonlyArray<T>): T[]
 ```
 
@@ -9384,6 +9441,7 @@ describe('R.intersection', () => {
 ### intersperse
 
 ```typescript
+
 intersperse<T>(separator: T, list: ReadonlyArray<T>): T[]
 ```
 
@@ -9484,6 +9542,7 @@ describe('R.intersperse', () => {
 ### is
 
 ```typescript
+
 is(targetPrototype: any, x: any): boolean
 ```
 
@@ -9605,6 +9664,7 @@ describe('R.is', () => {
 ### isEmpty
 
 ```typescript
+
 isEmpty<T>(x: T): boolean
 ```
 
@@ -9727,6 +9787,7 @@ describe('isEmpty', function() {
 ### isNil
 
 ```typescript
+
 isNil(x: any): x is null | undefined
 ```
 
@@ -9785,6 +9846,7 @@ test('happy', () => {
 ### join
 
 ```typescript
+
 join<T>(glue: string, list: ReadonlyArray<T>): string
 ```
 
@@ -9861,6 +9923,7 @@ describe('R.join', () => {
 ### keys
 
 ```typescript
+
 keys<T extends object>(x: T): (keyof T)[]
 ```
 
@@ -9964,6 +10027,7 @@ describe('keys', function() {
 ### last
 
 ```typescript
+
 last(str: string): string
 ```
 
@@ -10054,6 +10118,7 @@ describe('R.last', () => {
 ### lastIndexOf
 
 ```typescript
+
 lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number
 ```
 
@@ -10224,6 +10289,7 @@ describe('lastIndexOf', function() {
 ### length
 
 ```typescript
+
 length<T>(listOrString: ReadonlyArray<T>): number
 ```
 
@@ -10323,6 +10389,7 @@ describe('length', function() {
 ### lens
 
 ```typescript
+
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens
 ```
 
@@ -10569,6 +10636,7 @@ describe('lenses', () => {
 ### lensIndex
 
 ```typescript
+
 lensIndex(index: number): Lens
 ```
 
@@ -10679,6 +10747,7 @@ test('get (set(set s v1) v2) === v2', () => {
 ### lensPath
 
 ```typescript
+
 lensPath(path: RamdaPath): Lens
 ```
 
@@ -10862,6 +10931,7 @@ test('get (set(set s v1) v2) === v2', () => {
 ### lensProp
 
 ```typescript
+
 lensProp(prop: string): {
   <T, U>(obj: T): U
 ```
@@ -11018,6 +11088,7 @@ test('get (set(set s v1) v2) === v2', () => {
 ### map
 
 ```typescript
+
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>
 ```
 
@@ -11282,6 +11353,7 @@ describe('R.map with objects', () => {
 ### match
 
 ```typescript
+
 match(regExpression: RegExp, str: string): string[]
 ```
 
@@ -11380,6 +11452,7 @@ describe('R.match', () => {
 ### mathMod
 
 ```typescript
+
 mathMod(x: number, y: number): number
 ```
 
@@ -11473,6 +11546,7 @@ describe('R.mathMod', () => {
 ### max
 
 ```typescript
+
 max<T extends Ord>(x: T, y: T): T
 ```
 
@@ -11567,6 +11641,7 @@ describe('R.max', () => {
 ### maxBy
 
 ```typescript
+
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
@@ -11667,6 +11742,7 @@ describe('R.maxBy', () => {
 ### mean
 
 ```typescript
+
 mean(list: ReadonlyArray<number>): number
 ```
 
@@ -11742,6 +11818,7 @@ describe('R.mean', () => {
 ### median
 
 ```typescript
+
 median(list: ReadonlyArray<number>): number
 ```
 
@@ -11829,6 +11906,7 @@ describe('R.median', () => {
 ### merge
 
 ```typescript
+
 merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
 ```
 
@@ -11933,6 +12011,7 @@ describe('R.merge', () => {
 ### mergeAll
 
 ```typescript
+
 mergeAll<T>(list: object[]): T
 ```
 
@@ -12044,6 +12123,7 @@ describe('R.mergeAll', () => {
 ### mergeDeepRight
 
 ```typescript
+
 mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>
 ```
 
@@ -12221,6 +12301,7 @@ describe('R.mergeDeepRight', () => {
 ### mergeLeft
 
 ```typescript
+
 mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
 ```
 
@@ -12322,6 +12403,7 @@ describe('R.mergeLeft', () => {
 ### min
 
 ```typescript
+
 min<T extends Ord>(x: T, y: T): T
 ```
 
@@ -12412,6 +12494,7 @@ describe('R.min', () => {
 ### minBy
 
 ```typescript
+
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
 ```
 
@@ -12515,6 +12598,7 @@ describe('R.minBy', () => {
 ### modulo
 
 ```typescript
+
 modulo(x: number, y: number): number
 ```
 
@@ -12592,6 +12676,7 @@ describe('R.modulo', () => {
 ### multiply
 
 ```typescript
+
 multiply(x: number, y: number): number
 ```
 
@@ -12669,6 +12754,7 @@ describe('R.multiply', () => {
 ### negate
 
 ```typescript
+
 negate(x: number): number
 ```
 
@@ -12718,6 +12804,7 @@ test('negate', () => {
 ### none
 
 ```typescript
+
 none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
@@ -12845,6 +12932,7 @@ describe('R.none', () => {
 ### not
 
 ```typescript
+
 not(input: any): boolean
 ```
 
@@ -12916,6 +13004,7 @@ describe('R.not', () => {
 ### nth
 
 ```typescript
+
 nth<T>(index: number, list: ReadonlyArray<T>): T | undefined
 ```
 
@@ -13018,6 +13107,7 @@ describe('R.nth', () => {
 ### of
 
 ```typescript
+
 of<T>(x: T): T[]
 ```
 
@@ -13096,6 +13186,7 @@ describe('R.of', () => {
 ### omit
 
 ```typescript
+
 omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>
 ```
 
@@ -13296,6 +13387,7 @@ describe('R.omit with string as props input', () => {
 ### over
 
 ```typescript
+
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T
 ```
 
@@ -13350,6 +13442,7 @@ export const over = curry(overFn)
 ### partial
 
 ```typescript
+
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T
 ```
 
@@ -13511,6 +13604,7 @@ describe('R.partial', () => {
 ### partition
 
 ```typescript
+
 partition<T>(
   predicate: Predicatex<T>,
   input: T[]
@@ -13735,6 +13829,7 @@ describe('R.partition', () => {
 ### path
 
 ```typescript
+
 path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined
 ```
 
@@ -13928,6 +14023,7 @@ describe('path', function() {
 ### pathEq
 
 ```typescript
+
 pathEq(pathToSearch: Path, target: any, input: any): boolean
 ```
 
@@ -14080,6 +14176,7 @@ describe('with ramda specs', () => {
 ### pathOr
 
 ```typescript
+
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
@@ -14222,6 +14319,7 @@ describe('R.pathOr', () => {
 ### paths
 
 ```typescript
+
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
@@ -14424,6 +14522,7 @@ describe('paths', function() {
 ### pick
 
 ```typescript
+
 pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
 ```
 
@@ -14648,6 +14747,7 @@ describe('R.pick with string as props input', () => {
 ### pickAll
 
 ```typescript
+
 pickAll<T, U>(propsToPick: readonly string[], input: T): U
 ```
 
@@ -14835,6 +14935,7 @@ describe('R.pickAll with string as props input', () => {
 ### pipe
 
 ```typescript
+
 pipe<T1>(fn0: () => T1): () => T1
 ```
 
@@ -15171,6 +15272,7 @@ describe('pipe', function() {
 ### pluck
 
 ```typescript
+
 pluck<T>(property: number, list: ReadonlyArray<T>): T
 ```
 
@@ -15315,6 +15417,7 @@ describe('pluck', function() {
 ### prepend
 
 ```typescript
+
 prepend<T>(x: T, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -15413,6 +15516,7 @@ describe('R.prepend', () => {
 ### product
 
 ```typescript
+
 product(list: ReadonlyArray<number>): number
 ```
 
@@ -15486,6 +15590,7 @@ describe('R.product', () => {
 ### prop
 
 ```typescript
+
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
 ```
 
@@ -15577,6 +15682,7 @@ describe('R.prop', () => {
 ### propEq
 
 ```typescript
+
 propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean
 ```
 
@@ -15732,6 +15838,7 @@ describe('propEq', function() {
 ### propIs
 
 ```typescript
+
 propIs(type: any, name: string, obj: any): boolean
 ```
 
@@ -15840,6 +15947,7 @@ describe('R.propIs', () => {
 ### propOr
 
 ```typescript
+
 propOr<T>(defaultValue: T, property: string, obj: { [key: string]: T}): T
 ```
 
@@ -15959,6 +16067,7 @@ describe('R.propOr', () => {
 ### range
 
 ```typescript
+
 range(start: number, end: number): number[]
 ```
 
@@ -16064,6 +16173,7 @@ describe('R.range', () => {
 ### reduce
 
 ```typescript
+
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult
 ```
 
@@ -16330,6 +16440,7 @@ describe('reduce', function() {
 ### reject
 
 ```typescript
+
 reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
@@ -16537,6 +16648,7 @@ describe('reject', function() {
 ### repeat
 
 ```typescript
+
 repeat<T>(x: T): (timesToRepeat: number) => T[]
 ```
 
@@ -16624,6 +16736,7 @@ describe('R.repeat', () => {
 ### replace
 
 ```typescript
+
 replace(strOrRegex: RegExp | string, replacer: string, str: string): string
 ```
 
@@ -16738,6 +16851,7 @@ describe('R.replace - curried', () => {
 ### reverse
 
 ```typescript
+
 reverse<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -16831,6 +16945,7 @@ describe('R.reverse', () => {
 ### set
 
 ```typescript
+
 set<T, U>(lens: Lens, replacer: U, obj: T): T
 ```
 
@@ -16883,6 +16998,7 @@ export const set = curry(setFn)
 ### slice
 
 ```typescript
+
 slice(from: number, to: number, list: string): string
 ```
 
@@ -16994,6 +17110,7 @@ describe('R.slice', () => {
 ### sort
 
 ```typescript
+
 sort<T>(sortFn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[]
 ```
 
@@ -17103,6 +17220,7 @@ describe('R.sort', () => {
 ### sortBy
 
 ```typescript
+
 sortBy<T>(sortFn: (a: T) => Ord, list: ReadonlyArray<T>): T[]
 ```
 
@@ -17288,6 +17406,7 @@ describe('sortBy', function() {
 ### split
 
 ```typescript
+
 split(separator: string | RegExp): (str: string) => string[]
 ```
 
@@ -17378,6 +17497,7 @@ describe('R.split', () => {
 ### splitEvery
 
 ```typescript
+
 splitEvery<T>(sliceLength: number, listOrString: ReadonlyArray<T>): T[][]
 ```
 
@@ -17494,6 +17614,7 @@ describe('R.splitEvery', () => {
 ### startsWith
 
 ```typescript
+
 startsWith(target: string, str: string): boolean
 ```
 
@@ -17616,6 +17737,7 @@ describe('startsWith', function() {
 ### subtract
 
 ```typescript
+
 subtract(x: number, y: number): number
 ```
 
@@ -17674,6 +17796,7 @@ test('happy', () => {
 ### sum
 
 ```typescript
+
 sum(list: ReadonlyArray<number>): number
 ```
 
@@ -17723,6 +17846,7 @@ test('happy', () => {
 ### symmetricDifference
 
 ```typescript
+
 symmetricDifference<T>(x: ReadonlyArray<T>, y: ReadonlyArray<T>): T[]
 ```
 
@@ -17830,6 +17954,7 @@ describe('R.symmetricDifference', () => {
 ### T
 
 ```typescript
+
 T(): boolean
 ```
 
@@ -17865,6 +17990,7 @@ export function T(){
 ### tail
 
 ```typescript
+
 tail<T>(listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -17953,6 +18079,7 @@ describe('R.tail', () => {
 ### take
 
 ```typescript
+
 take<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -18113,6 +18240,7 @@ describe('take', function() {
 ### takeLast
 
 ```typescript
+
 takeLast<T>(howMany: number, listOrString: ReadonlyArray<T>): T[]
 ```
 
@@ -18249,6 +18377,7 @@ describe('R.takeLast - string', () => {
 ### tap
 
 ```typescript
+
 tap<T>(fn: (a: T) => any, x: T): T
 ```
 
@@ -18374,6 +18503,7 @@ describe('tap', function() {
 ### test
 
 ```typescript
+
 test(regExpression: RegExp): (str: string) => boolean
 ```
 
@@ -18465,6 +18595,7 @@ describe('R.test', () => {
 ### times
 
 ```typescript
+
 times<T>(fn: (i: number) => T, howMany: number): T[]
 ```
 
@@ -18567,6 +18698,7 @@ describe('R.times', () => {
 ### toLower
 
 ```typescript
+
 toLower(str: string): string
 ```
 
@@ -18616,6 +18748,7 @@ test('toLower', () => {
 ### toPairs
 
 ```typescript
+
 toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][]
 ```
 
@@ -18709,6 +18842,7 @@ describe('R.toPairs', () => {
 ### toString
 
 ```typescript
+
 toString<T>(x: T): string
 ```
 
@@ -18758,6 +18892,7 @@ test('happy', () => {
 ### toUpper
 
 ```typescript
+
 toUpper(str: string): string
 ```
 
@@ -18807,6 +18942,7 @@ test('toUpper', () => {
 ### transpose
 
 ```typescript
+
 transpose<T>(list: T[][]): T[][]
 ```
 
@@ -18923,6 +19059,7 @@ describe('R.transpose', () => {
 ### trim
 
 ```typescript
+
 trim(str: string): string
 ```
 
@@ -19003,6 +19140,7 @@ describe('trim', function() {
 ### tryCatch
 
 ```typescript
+
 tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
@@ -19291,6 +19429,7 @@ describe('R.tryCatch', () => {
 ### type
 
 ```typescript
+
 type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN"
 ```
 
@@ -19532,6 +19671,7 @@ describe('type', function() {
 ### union
 
 ```typescript
+
 union<T>(x: Array<T>, y: Array<T>): Array<T>
 ```
 
@@ -19658,6 +19798,7 @@ describe('R.union - curried', () => {
 ### uniq
 
 ```typescript
+
 uniq<T>(list: ReadonlyArray<T>): T[]
 ```
 
@@ -19775,6 +19916,7 @@ describe('uniq', function() {
 ### uniqWith
 
 ```typescript
+
 uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[]
 ```
 
@@ -19995,6 +20137,7 @@ describe('R.uniqWith', () => {
 ### unless
 
 ```typescript
+
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U
 ```
 
@@ -20107,6 +20250,7 @@ describe('R.unless', () => {
 ### update
 
 ```typescript
+
 update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[]
 ```
 
@@ -20236,6 +20380,7 @@ describe('update', function() {
 ### values
 
 ```typescript
+
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
@@ -20330,6 +20475,7 @@ describe('R.values', () => {
 ### view
 
 ```typescript
+
 view<T, U>(lens: Lens): (target: T) => U
 ```
 
@@ -20377,9 +20523,8 @@ export function view(lens, target){
 ### when
 
 ```typescript
-when<T>(
-  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
-): IdentityFunction<T>
+
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U
 ```
 
 <details>
@@ -20387,12 +20532,9 @@ when<T>(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-when<T>(
-  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
-): IdentityFunction<T>;
-when<T>(
-  rule: Func<boolean>
-): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U;
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => U;
+when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => U>;
 ```
 
 </details>
@@ -20402,21 +20544,17 @@ when<T>(
 <summary><strong>R.when</strong> source</summary>
 
 ```javascript
-import { isFunction } from './isFunction'
+import { curry } from './curry.js'
 
-export function when(rule, resultOrFunction){
-  if (arguments.length === 1){
-    return whenTrueHolder => when(rule, whenTrueHolder)
-  }
+function whenFn(
+  predicate, whenTrueFn, input
+){
+  if (!predicate(input)) return input
 
-  return input => {
-    if (!rule(input)) return input
-
-    return isFunction(resultOrFunction) ?
-      resultOrFunction(input) :
-      resultOrFunction
-  }
+  return whenTrueFn(input)
 }
+
+export const when = curry(whenFn)
 ```
 
 </details>
@@ -20427,30 +20565,14 @@ export function when(rule, resultOrFunction){
 
 ```javascript
 import { add } from './add'
-import { is } from './is'
 import { when } from './when'
 
-const ruleResult = 'RULE_RESULT'
-const rule = x => typeof x === 'number'
-const fn = when(rule, ruleResult)
-const curriedFn = when(rule)(ruleResult)
+const predicate = x => typeof x === 'number'
 
-test('when rule returns true', () => {
-  const input = 7
-
-  expect(fn(input)).toBe(ruleResult)
-})
-
-test('when rule returns false', () => {
-  const input = 'foo'
-
-  expect(fn(input)).toBe(input)
-  expect(curriedFn(input)).toBe(input)
-})
-
-test('second argument can be a function', () => {
-  const fn = when(is(Number), add(1))
-  expect(fn(10)).toBe(11)
+test('happy', () => {
+  const fn = when(predicate, add(11))
+  expect(fn(11)).toBe(22)
+  expect(fn('foo')).toBe('foo')
 })
 ```
 
@@ -20461,44 +20583,31 @@ test('second argument can be a function', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {when, add} from 'rambda'
+import {when} from 'rambda'
 
-const ruleResult = 88
-const rule = (x: number) => x > 2
+const predicate = (x: number) => x > 2
+const whenTrueFn = (x: number) => x + 2
 
 describe('R.when', () => {
-  it('without passing type - happy', () => {
-    const fn = when(rule, ruleResult)
-    const result = [fn(1), fn(2)]
-    result[0] // $ExpectType number
-    result[1] // $ExpectType number
+  it('happy', () => {
+    const result = when(predicate, whenTrueFn, 1)
+    result // $ExpectType number
   })
 
-  it('without passing type - second argument is function', () => {
-    const fn = when(rule, add(1))
-    const fnCurried = when(rule)(add(1))
-    const [result1, result2] = [fn(1), fnCurried(2)]
-    result1 // $ExpectType number
-    result2 // $ExpectType unknown
-  })
-
-  it('with passing type', () => {
-    const fn = when<number>(rule, ruleResult)
+  it('curry 1', () => {
+    const fn = when(predicate, whenTrueFn)
     const result = fn(1)
     result // $ExpectType number
   })
 
-  it('with passing type - second argument is function', () => {
-    const fn = when<number>(rule, add(1))
-    const fnCurried = when<number>(rule)(add(1))
-    const [result1, result2] = [fn(1), fnCurried(2)]
-    result1 // $ExpectType number
-    result2 // $ExpectType number
+  it('curry 2 require explicit types', () => {
+    const fn = when<number, number>(predicate)(whenTrueFn)
+    const result = fn(1)
+    result // $ExpectType number
   })
 
-  it('curry', () => {
-    const fn = when<number>(rule)(ruleResult)
-    const result = fn(1)
+  it('curry 3 require explicit types', () => {
+    const result = when<number, number>(predicate)(whenTrueFn, 1)
     result // $ExpectType number
   })
 })
@@ -20509,6 +20618,7 @@ describe('R.when', () => {
 ### where
 
 ```typescript
+
 where<T, U>(conditions: T, input: U): boolean
 ```
 
@@ -20640,6 +20750,7 @@ describe('R.where', () => {
 ### whereEq
 
 ```typescript
+
 whereEq<T, U>(condition: T, input: U): boolean
 ```
 
@@ -20771,6 +20882,7 @@ describe('R.whereEq', () => {
 ### without
 
 ```typescript
+
 without<T>(matchAgainst: ReadonlyArray<T>, source: ReadonlyArray<T>): T[]
 ```
 
@@ -20903,6 +21015,7 @@ describe('without', function() {
 ### xor
 
 ```typescript
+
 xor(x: boolean, y: boolean): boolean
 ```
 
@@ -21048,6 +21161,7 @@ describe('xor', function() {
 ### zip
 
 ```typescript
+
 zip<K, V>(x: ReadonlyArray<K>, y: ReadonlyArray<V>): KeyValuePair<K, V>[]
 ```
 
@@ -21167,6 +21281,7 @@ describe('R.zip', () => {
 ### zipObj
 
 ```typescript
+
 zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
 ```
 
@@ -21282,6 +21397,8 @@ describe('R.zipObj', () => {
 ## CHANGELOG
 
 5.12.0
+
+- Change `R.when` implementation and typings to match those of `Ramda`
 
 - Add `R.union` method
 
@@ -21693,7 +21810,6 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Most influential contributors
 
-- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
 - [@farwayer](https://github.com/farwayer)
 - [@thejohnfreeman](https://github.com/thejohnfreeman)
 - [@helmuthdu](https://github.com/helmuthdu)
@@ -21703,6 +21819,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - [@squidfunk](https://github.com/squidfunk)
 - [@synthet1c](https://github.com/synthet1c)
 - [@vlad-zhukov](https://github.com/vlad-zhukov)
+- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
 
 > Rambda references
 

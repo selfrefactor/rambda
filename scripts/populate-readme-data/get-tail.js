@@ -1,5 +1,5 @@
 import { readFile } from 'fs-extra'
-import { template } from 'rambdax'
+import { interpolate } from 'rambdax'
 
 const mostInfluentialContributors = [
   'farwayer',
@@ -41,7 +41,7 @@ function getAdditionalInfo(){
     .map(x => `- [@${ x }](https://github.com/${ x })`)
     .join('\n')
 
-  return template(additionalInfoTemplate, { contributors })
+  return interpolate(additionalInfoTemplate, { contributors })
 }
 
 const templateTail = `
@@ -59,7 +59,7 @@ export async function getTail(withRambdax){
 
   const changelogContent = await readFile(changelogSource)
 
-  return template(templateTail, {
+  return interpolate(templateTail, {
     additionalInfo : getAdditionalInfo(),
     changelog      : changelogContent.toString(),
   })

@@ -1,4 +1,4 @@
-import { template } from 'rambdax'
+import { interpolate } from 'rambdax'
 
 function createFailedSpec(method){
   const summaryTemplate = `
@@ -27,7 +27,7 @@ function createFailedSpec(method){
     summaryTemplate :
     shortSummaryTemplate
 
-  return template(templateToUse, method)
+  return interpolate(templateToUse, method)
 }
 
 function createRambdaSpecReadme(method){
@@ -43,7 +43,7 @@ function createRambdaSpecReadme(method){
 </details>
 `
 
-  return template(summaryTemplate, method)
+  return interpolate(summaryTemplate, method)
 }
 
 function createRambdaSourceReadme(method){
@@ -59,7 +59,7 @@ function createRambdaSourceReadme(method){
 </details>
 `
 
-  return template(summaryTemplate, method)
+  return interpolate(summaryTemplate, method)
 }
 
 function createTypescriptTest(method){
@@ -75,7 +75,7 @@ function createTypescriptTest(method){
 </details>
 `
 
-  return template(summaryTemplate, method)
+  return interpolate(summaryTemplate, method)
 }
 
 function createBenchmarkInfo(method){
@@ -91,7 +91,7 @@ function createBenchmarkInfo(method){
 </details>
 `
 
-  return template(summaryTemplate, method.benchmarkInfo)
+  return interpolate(summaryTemplate, method.benchmarkInfo)
 }
 
 function attachAllTypings(method){
@@ -107,7 +107,7 @@ function attachAllTypings(method){
 </details>
 `
 
-  return template(allTypingsTemplate, method)
+  return interpolate(allTypingsTemplate, method)
 }
 
 const createExampleReadme = ({ example }) => `
