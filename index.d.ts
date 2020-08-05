@@ -1394,12 +1394,9 @@ export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) 
  */
 export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
-export function when<T>(
-  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
-): IdentityFunction<T>;
-export function when<T>(
-  rule: Func<boolean>
-): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => U;
+export function when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => U>;
 
 /**
  * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.

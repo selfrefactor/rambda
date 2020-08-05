@@ -1,15 +1,11 @@
-import { isFunction } from './isFunction'
+import { curry } from './curry.js'
 
-export function when(rule, resultOrFunction){
-  if (arguments.length === 1){
-    return whenTrueHolder => when(rule, whenTrueHolder)
-  }
+function whenFn(
+  predicate, whenTrueFn, input
+){
+  if (!predicate(input)) return input
 
-  return input => {
-    if (!rule(input)) return input
-
-    return isFunction(resultOrFunction) ?
-      resultOrFunction(input) :
-      resultOrFunction
-  }
+  return whenTrueFn(input)
 }
+
+export const when = curry(whenFn)

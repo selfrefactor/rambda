@@ -4256,39 +4256,27 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 /*
 Method: when
 
-Explanation: It accepts `rule` and `resultOrFunction` as arguments and returns a function with `input`.
+Explanation: It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`. 
 
-This function will return `input` if `rule(input)` is false.
-
-If `resultOrFunction` is function, it will return `resultOrFunction(input)`.
-
-If `resultOrFunction` is not function, it will return `resultOrFunction`.
-
-Maybe the example use will do a better job in explaining this method.
+If the `predicate` returns `false`, then it will simply return `input`.
 
 ```
-const rule = x => typeof x === 'number'
-const whenTrueResult = 6345789
+const predicate = x => typeof x === 'number'
 const whenTrueFn = R.add(11)
 
-const fnWithResult = when(rule, whenTrueResult)
-const fnWithFunction = when(rule, whenTrueFn)
+const fn = when(predicate, whenTrueResult)
 
-const goodInput = 88
-const badInput = 'foo'
+const positiveInput = 88
+const negativeInput = 'foo'
 
 const result = [
-  fnWithResult(goodInput),
-  fnWithResult(badInput),
-  fnWithFn(goodInput)
-  fnWithFn(badInput),
+  fn(positiveInput),
+  fn(positiveInput),
 ]
 
 const expected = [
-  6345789,
-  'foo',
   99,
-  'foo'
+  'foo',
 ]
 // => `result` is equal to `expected`
 ```
@@ -4299,12 +4287,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function when<T>(
-  rule: Func<boolean>, resultOrFunction: T | IdentityFunction<T>
-): IdentityFunction<T>;
-export function when<T>(
-  rule: Func<boolean>
-): (resultOrFunction: T | IdentityFunction<T>) => IdentityFunction<T>;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => U;
+export function when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => U>;
 
 /*
 Method: where
