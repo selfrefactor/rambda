@@ -1,5 +1,3 @@
-import {curry} from './curry'
-
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -8,7 +6,12 @@ function flagIs(inputArguments){
   )
 }
 
-function defaultToFn(defaultArgument, ...inputArguments){
+export function defaultTo(defaultArgument, ...inputArguments){
+  if (arguments.length === 1){
+    return (..._inputArguments) =>
+      defaultTo(defaultArgument, ..._inputArguments)
+  }
+
   const limit = inputArguments.length - 1
   let len = limit + 1
   let ready = false
@@ -29,5 +32,3 @@ function defaultToFn(defaultArgument, ...inputArguments){
 
   return holder === undefined ? defaultArgument : holder
 }
-
-export const defaultTo = curry(defaultToFn)

@@ -5532,7 +5532,7 @@ const result = piped(
 
 Categories: Function
 
-Notes:
+Notes: Independently, similar method is implemented in `Ramada` library, but there the name of the method is `pipe` - [Remeda.pipe](https://remedajs.com/docs#pipe)
 
 */
 // @SINGLE_MARKER

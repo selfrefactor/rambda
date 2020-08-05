@@ -2,15 +2,16 @@ import { readFile } from 'fs-extra'
 import { template } from 'rambdax'
 
 const mostInfluentialContributors = [
+  'WhoAteDaCake',
   'farwayer',
+  'thejohnfreeman',
+  'helmuthdu',
+  'jpgorman',
+  'ku8ar',
+  'romgrk',
+  'squidfunk',
   'synthet1c',
   'vlad-zhukov',
-  'jpgorman',
-  'romgrk',
-  'WhoAteDaCake',
-  'helmuthdu',
-  'ku8ar',
-  'squidfunk',
 ]
 
 function getAdditionalInfo(){

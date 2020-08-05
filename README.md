@@ -4169,8 +4169,6 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 <summary><strong>R.defaultTo</strong> source</summary>
 
 ```javascript
-import {curry} from './curry'
-
 function flagIs(inputArguments){
   return (
     inputArguments === undefined ||
@@ -4179,7 +4177,12 @@ function flagIs(inputArguments){
   )
 }
 
-function defaultToFn(defaultArgument, ...inputArguments){
+export function defaultTo(defaultArgument, ...inputArguments){
+  if (arguments.length === 1){
+    return (..._inputArguments) =>
+      defaultTo(defaultArgument, ..._inputArguments)
+  }
+
   const limit = inputArguments.length - 1
   let len = limit + 1
   let ready = false
@@ -4200,8 +4203,6 @@ function defaultToFn(defaultArgument, ...inputArguments){
 
   return holder === undefined ? defaultArgument : holder
 }
-
-export const defaultTo = curry(defaultToFn)
 ```
 
 </details>
@@ -21282,7 +21283,7 @@ describe('R.zipObj', () => {
 
 - Add `R.union` method
 
-- `R.defaultTo`, `R.over` and `R.set` use `R.curry` instead of manual currying
+- `R.over` and `R.set` use `R.curry` instead of manual currying
 
 - `R.lensPath` typings support string as path, i.e. `'a.b'` instead of `['a', 'b']`
 
@@ -21690,15 +21691,16 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Most influential contributors
 
+- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
 - [@farwayer](https://github.com/farwayer)
+- [@thejohnfreeman](https://github.com/thejohnfreeman)
+- [@helmuthdu](https://github.com/helmuthdu)
+- [@jpgorman](https://github.com/jpgorman)
+- [@ku8ar](https://github.com/ku8ar)
+- [@romgrk](https://github.com/romgrk)
+- [@squidfunk](https://github.com/squidfunk)
 - [@synthet1c](https://github.com/synthet1c)
 - [@vlad-zhukov](https://github.com/vlad-zhukov)
-- [@jpgorman](https://github.com/jpgorman)
-- [@romgrk](https://github.com/romgrk)
-- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
-- [@helmuthdu](https://github.com/helmuthdu)
-- [@ku8ar](https://github.com/ku8ar)
-- [@squidfunk](https://github.com/squidfunk)
 
 > Rambda references
 
