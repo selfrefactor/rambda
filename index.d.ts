@@ -1161,10 +1161,10 @@ export function propOr<T>(defaultValue: T, property: string): (obj: { [key: stri
 export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 
 /**
- * It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
+ * It returns list of numbers between `startInclusive` to `endExclusive` numbers.
  */
-export function range(start: number, end: number): number[];
-export function range(start: number): (end: number) => number[];
+export function range(startInclusive: number, endExclusive: number): number[];
+export function range(startInclusive: number): (endExclusive: number) => number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: ReadonlyArray<T>): TResult;

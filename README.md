@@ -16068,10 +16068,10 @@ describe('R.propOr', () => {
 
 ```typescript
 
-range(start: number, end: number): number[]
+range(startInclusive: number, endExclusive: number): number[]
 ```
 
-It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
+It returns list of numbers between `startInclusive` to `endExclusive` numbers.
 
 ```javascript
 R.range(0, 5)
@@ -16085,8 +16085,8 @@ R.range(0, 5)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-range(start: number, end: number): number[];
-range(start: number): (end: number) => number[];
+range(startInclusive: number, endExclusive: number): number[];
+range(startInclusive: number): (endExclusive: number) => number[];
 ```
 
 </details>

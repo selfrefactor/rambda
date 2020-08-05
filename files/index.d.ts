@@ -3299,7 +3299,7 @@ export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: st
 /*
 Method: range
 
-Explanation: It returns list of numbers between `start`(inclusive) to `end`(exclusive) numbers.
+Explanation: It returns list of numbers between `startInclusive` to `endExclusive` numbers.
 
 Example:
 
@@ -3314,8 +3314,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(start: number, end: number): number[];
-export function range(start: number): (end: number) => number[];
+export function range(startInclusive: number, endExclusive: number): number[];
+export function range(startInclusive: number): (endExclusive: number) => number[];
 
 /*
 Method: reduce
