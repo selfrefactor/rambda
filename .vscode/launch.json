@@ -9,9 +9,12 @@
       "args": [
         "--verbose", 
         "-i", 
-        "--no-cache", 
+        "--no-cache",
         "scripts/all-scripts/all-scripts.spec.js"
       ],
+      "env":{
+        "WITH_RAMBDAX": "ON"
+      },
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
