@@ -16,6 +16,8 @@ The repo holds two `Angular9` applications: one with small example code of *Ramd
 
 Currently the **Ramda** bundle size is **{{rambdaTreeShakingInfo}} MB** less than its **Ramda** counterpart.
 
+There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
+
 > actually tree-shaking is the initial reason for creation of `Rambda`
 
 - dot notation for `R.path` and `R.paths`
