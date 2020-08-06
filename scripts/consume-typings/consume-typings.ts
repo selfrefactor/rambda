@@ -1,4 +1,4 @@
-import { add, applySpec, reject, and, transpose } from 'rambdax'
+import { add, applySpec, reject, and, transpose } from 'rambda'
 
 const applySpecResult = applySpec({
   a: add(1)

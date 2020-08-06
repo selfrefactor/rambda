@@ -1,16 +1,16 @@
 "use strict";
 exports.__esModule = true;
-var rambdax_1 = require("rambdax");
-var applySpecResult = rambdax_1.applySpec({
-    a: rambdax_1.add(1)
+var rambda_1 = require("rambda");
+var applySpecResult = rambda_1.applySpec({
+    a: rambda_1.add(1)
 })(1);
 console.log({ applySpecResult: applySpecResult });
-var add1 = rambdax_1.add(1)(2);
-var add2 = rambdax_1.add(1)(3);
-var morebs = rambdax_1.transpose([[1, 2], [], [1, 2, 3], [3]]);
+var add1 = rambda_1.add(1)(2);
+var add2 = rambda_1.add(1)(3);
+var morebs = rambda_1.transpose([[1, 2], [], [1, 2, 3], [3]]);
 console.log({ morebs: morebs });
-var bs = rambdax_1.and(1)(2);
-var a = rambdax_1.reject(function (a, c) { return a > 1; }, [1, 2, 3]);
+var bs = rambda_1.and(1)(2);
+var a = rambda_1.reject(function (a, c) { return a > 1; }, [1, 2, 3]);
 function fn(input) {
     return input.c ? input.a : input.b;
 }

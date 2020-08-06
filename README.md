@@ -21396,6 +21396,11 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
+5.12.1
+
+Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
+`ts-toolbelt` needs other type of export with `--isolatedModules` flag
+
 5.12.0
 
 - Change `R.when` implementation and typings to match those of `Ramda`
