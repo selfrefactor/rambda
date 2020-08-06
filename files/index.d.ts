@@ -5944,8 +5944,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensEq<T>(lens: Lens, target: T, input: Array<T>): boolean;
 export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
+export function lensEq<T, U>(lens: Lens, target: T):  (input: U) => boolean;
+export function lensEq<T>(lens: Lens, target: T, input: Array<T>): boolean;
+export function lensEq<T>(lens: Lens, target: T): (input: Array<T>) => boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================

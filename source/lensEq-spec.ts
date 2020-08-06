@@ -1,6 +1,5 @@
 import {lensEq, lensIndex, lensPath} from 'rambda'
 
-// curried
 describe('R.lensEq', () => {
   it('with list', () => {
     const list = [ 1, 2, 3 ]
@@ -9,6 +8,9 @@ describe('R.lensEq', () => {
       lens, 1, list
     )
     result // $ExpectType boolean
+
+    const curriedResult = lensEq<number>(lens, 1)(list)
+    curriedResult // $ExpectType boolean
   })
   it('with object', () => {
     const input = { a : { b : { c : 1 } } }
@@ -18,5 +20,8 @@ describe('R.lensEq', () => {
       lens, target, input
     )
     result // $ExpectType boolean
+
+    const curriedResult = lensEq(lens, target)(input)
+    curriedResult // $ExpectType boolean
   })
 })
