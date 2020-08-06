@@ -1,7 +1,7 @@
-import { copy, remove } from 'fs-extra'
-import { spawn } from 'helpers-fn'
+import { copy, remove, readFile, writeFile } from 'fs-extra'
+import { scanFolder, spawn, log } from 'helpers-fn'
 import { resolve } from 'path'
-import { mapAsync } from 'rambdax'
+import { mapAsync, mapFastAsync, replace } from 'rambdax'
 
 async function moveFile({ filePath, toolbeltPath }){
   const destinationPath = resolve(__dirname,
@@ -22,16 +22,27 @@ async function copyToRambdax(){
   )
 }
 
+async function fixWrongExports(files){
+  await mapFastAsync(async filePath => {
+    const content = (await readFile(filePath)).toString()
+    const newContent = replace(/export\s/g, 'export type ', content)
+    await writeFile(filePath, newContent)
+  })(files)
+}
+
 export async function dynamicTsToolbelt(commitHash){
   const destinationDir = resolve(__dirname, '../../_ts-toolbelt/src')
+
   await remove(`${ __dirname }/ts-toolbelt`)
   await remove(destinationDir)
 
+  log('start clone', 'info')
   await spawn({
     cwd     : __dirname,
     command : 'git',
     inputs  : [ 'clone', 'https://github.com/pirix-gh/ts-toolbelt' ],
   })
+  log('end clone', 'info')
   if (commitHash){
     await spawn({
       cwd     : `${ __dirname }/ts-toolbelt`,
@@ -60,5 +71,12 @@ export async function dynamicTsToolbelt(commitHash){
   }
 
   await mapAsync(moveFile)([ indexFile, objectFile, functionFile, listFile ])
+
+  const filesWithWrongExports = await scanFolder({ 
+    folder: destinationDir, 
+    filterFn: x => x.endsWith('_api.ts')
+  })
+
+  await fixWrongExports(filesWithWrongExports)
   await copyToRambdax()
 }

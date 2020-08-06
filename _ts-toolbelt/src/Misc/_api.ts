@@ -1,11 +1,11 @@
 /** @ignore *//** */
 
-export * as JSON from './JSON/_api'
+export type * as JSON from './JSON/_api'
 
-export {BuiltInObject} from './BuiltInObject'
-export {Primitive} from './Primitive'
+export type {BuiltInObject} from './BuiltInObject'
+export type {Primitive} from './Primitive'
 
 // LEGACY
 
-export {Promisable} from '../Any/Promisable'
-export * as Iteration from '../Iteration/Maps/_api'
+export type {Promisable} from '../Any/Promisable'
+export type * as Iteration from '../Iteration/Maps/_api'

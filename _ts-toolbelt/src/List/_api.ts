@@ -1,2 +1,2 @@
-export * from './Merge'
-export * from './ObjectOf'
+export type * from './Merge'
+export type * from './ObjectOf'

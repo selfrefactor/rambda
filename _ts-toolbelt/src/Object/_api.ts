@@ -1,1 +1,1 @@
-export {Merge as MergeUp} from './Merge'
+export type {Merge as MergeUp} from './Merge'

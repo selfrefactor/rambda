@@ -18,6 +18,21 @@
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Dynamic TS toolbelt",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "args": [
+        "--verbose", 
+        "-i", 
+        "--no-cache",
+        "scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js"
+      ],
+      "disableOptimisticBPs": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

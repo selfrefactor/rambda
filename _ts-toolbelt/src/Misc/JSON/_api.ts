@@ -1,6 +1,6 @@
 /** @ignore *//** */
 
-export {List as Array} from './Array'
-export {Object} from './Object'
-export {Primitive} from './Primitive'
-export {Value} from './Value'
+export type {List as Array} from './Array'
+export type {Object} from './Object'
+export type {Primitive} from './Primitive'
+export type {Value} from './Value'

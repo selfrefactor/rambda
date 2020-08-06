@@ -1,4 +1,4 @@
 /** @ignore *//** */
 
-export {NumberMap as Number} from './Number'
-export {PixelMap as Pixel} from './Pixel'
+export type {NumberMap as Number} from './Number'
+export type {PixelMap as Pixel} from './Pixel'

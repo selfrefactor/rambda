@@ -1,9 +1,9 @@
 /** @ignore *//** */
 
-export {Class} from './Class'
-export {InstanceOf} from './InstanceOf'
-export {Parameters} from './Parameters'
+export type {Class} from './Class'
+export type {InstanceOf} from './InstanceOf'
+export type {Parameters} from './Parameters'
 
 // LEGACY
 
-export {PromiseOf} from '../Any/PromiseOf'
+export type {PromiseOf} from '../Any/PromiseOf'

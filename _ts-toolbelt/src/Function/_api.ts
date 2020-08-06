@@ -1,3 +1,3 @@
-export * from './Curry'
-export * from './Parameters'
-export * from './Return'
+export type * from './Curry'
+export type * from './Parameters'
+export type * from './Return'
