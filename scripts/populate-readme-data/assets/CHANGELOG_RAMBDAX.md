@@ -1,5 +1,3 @@
-4.2.0
-
 4.1.0
 
 - `R.template` is renamed to `R.interpolate`
@@ -46,6 +44,8 @@ Move the following methods to `Rambda` and change their logic to match `Ramda` i
 - `R.whereEq`
 
 Also these changes:
+
+- `R.flatMap` - renamed to `R.chain` and moved to `Rambda`
 
 - `R.ifElseAsync` - accept any number of arguments for the returned function
 
