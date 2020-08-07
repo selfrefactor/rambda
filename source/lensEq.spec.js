@@ -8,9 +8,7 @@ test('with list', () => {
   expect(lensEq(
     lens, 1, list
   )).toBeTrue()
-  expect(lensEq(
-    lens, 2, list
-  )).toBeFalse()
+  expect(lensEq(lens, 2)(list)).toBeFalse()
 })
 
 test('with R.lensPath', () => {

@@ -5931,11 +5931,38 @@ Example:
 
 ```
 const list = [ 1, 2, 3 ]
-const lens = lensIndex(0)
-const result = lensEq(
+const lens = R.lensIndex(0)
+const result = R.lensEq(
   lens, 1, list
 )
 // => true
+```
+
+Categories: Lenses
+
+Notes: Idea for this method comes from https://char0n.github.io/ramda-adjunct/2.26.0/RA.html#.lensEq
+
+*/
+// @SINGLE_MARKER
+export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
+export function lensEq<T, U>(lens: Lens, target: T):  (input: U) => boolean;
+export function lensEq<T>(lens: Lens, target: T, input: Array<T>): boolean;
+export function lensEq<T>(lens: Lens, target: T): (input: Array<T>) => boolean;
+
+/*
+Method: lensSatisfies
+
+Explanation: It returns `true` if data structure focused by the given lens satisfies the predicate.
+
+Example:
+
+```
+const fn = R.lensSatisfies(x => x > 5, R.lensIndex(0))
+const result = [
+  fn([10, 20, 30]),
+  fn([1, 2, 3]),
+]
+// => [true, false]
 ```
 
 Categories: Lenses
@@ -5944,10 +5971,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
-export function lensEq<T, U>(lens: Lens, target: T):  (input: U) => boolean;
-export function lensEq<T>(lens: Lens, target: T, input: Array<T>): boolean;
-export function lensEq<T>(lens: Lens, target: T): (input: Array<T>) => boolean;
+export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
+export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: Array<T>): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: Array<T>) => boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================

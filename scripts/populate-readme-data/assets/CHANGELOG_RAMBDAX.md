@@ -1,4 +1,6 @@
-4.1.1
+4.2.0
+
+- Add `R.lensSatisfies` method
 
 - Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 `ts-toolbelt` needs other type of export with `--isolatedModules` flag
