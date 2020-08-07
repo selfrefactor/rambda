@@ -6025,6 +6025,40 @@ export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (
 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: Array<T>): boolean;
 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: Array<T>) => boolean;
 
+
+/*
+Method: sortByPath
+
+Explanation: It returns copy of `list` sorted by `sortPath` value. 
+
+As `sortPath` is passed to `R.path`, it can be either a string or an array of strings.
+
+Example:
+
+```
+const list = [
+  {a: {b: 2}},
+  {a: {b: 1}},
+  {a: {b: 3}}
+]
+const result = R.sortByPath('a.b', list)
+const expected = [
+  {a: {b: 1}},
+  {a: {b: 2}},
+  {a: {b: 3}}
+]
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes: `sortFn` function must return a value to compare.
+
+*/
+// @SINGLE_MARKER
+export function sortByPath<T>(sortPath: Path, list: ReadonlyArray<T>): T[];
+export function sortByPath(sortPath: Path): <T>(list: ReadonlyArray<T>) => T[];
+
 // RAMBDAX_MARKER_END
 // ============================================
 
