@@ -1,4 +1,4 @@
-import { includes } from './includes.js'
+import { includes } from './includes'
 
 export function union(x, y){
   if (arguments.length === 1) return _y => union(x, _y)

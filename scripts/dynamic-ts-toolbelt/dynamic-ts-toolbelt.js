@@ -1,5 +1,5 @@
-import { copy, remove, readFile, writeFile } from 'fs-extra'
-import { scanFolder, spawn, log } from 'helpers-fn'
+import { copy, readFile, remove, writeFile } from 'fs-extra'
+import { log, scanFolder, spawn } from 'helpers-fn'
 import { resolve } from 'path'
 import { mapFastAsync, replace } from 'rambdax'
 
@@ -16,14 +16,18 @@ async function copyToRambdax(){
 async function fixWrongExports(files){
   await mapFastAsync(async filePath => {
     const content = (await readFile(filePath)).toString()
-    
-    const newContent = content.split('\n')
+
+    const newContent = content
+      .split('\n')
       .map(singleLine => {
-        if(singleLine.includes('*')) return singleLine
-        return replace(/export\s/g, 'export type ', singleLine)
+        if (singleLine.includes('*')) return singleLine
+
+        return replace(
+          /export\s/g, 'export type ', singleLine
+        )
       })
       .join('\n')
-      
+
     await writeFile(filePath, newContent)
   })(files)
 }
@@ -51,9 +55,9 @@ export async function dynamicTsToolbelt(commitHash){
   const sourceDir = `${ __dirname }/ts-toolbelt/src`
   await copy(sourceDir, destinationDir)
 
-  const filesWithWrongExports = await scanFolder({ 
-    folder: destinationDir, 
-    filterFn: x => x.endsWith('_api.ts')
+  const filesWithWrongExports = await scanFolder({
+    folder   : destinationDir,
+    filterFn : x => x.endsWith('_api.ts'),
   })
 
   await fixWrongExports(filesWithWrongExports)

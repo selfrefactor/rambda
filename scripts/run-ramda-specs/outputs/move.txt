@@ -1,0 +1,30 @@
+
+
+  move
+    1) moves an element from an index to another
+    2) does nothing when indexes are outside the list outbounds
+
+
+  0 passing (31ms)
+  2 failing
+
+  1) move
+       moves an element from an index to another:
+     Error: Rambda.move does not support negative indexes
+      at moveFn (/home/s/repos/rambda/dist/rambda.js:1297:11)
+      at /home/s/repos/rambda/dist/rambda.js:19:60
+      at Object.move (/home/s/repos/rambda/dist/rambda.js:19:90)
+      at Context.move (test/move.js:10:10)
+      at processImmediate (internal/timers.js:456:21)
+
+  2) move
+       does nothing when indexes are outside the list outbounds:
+     Error: Rambda.move does not support negative indexes
+      at moveFn (/home/s/repos/rambda/dist/rambda.js:1297:11)
+      at /home/s/repos/rambda/dist/rambda.js:19:60
+      at Object.move (/home/s/repos/rambda/dist/rambda.js:19:90)
+      at Context.move (test/move.js:15:10)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

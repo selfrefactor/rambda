@@ -1,5 +1,6 @@
-import { ms } from 'string-fn'
 import { defaultTo } from 'rambdax'
+import { ms } from 'string-fn'
+
 import { buildStep } from '../build-step/build-step'
 import { populateDocsData } from '../populate-docs-data/populate-docs-data'
 import { populateReadmeData } from '../populate-readme-data/populate-readme-data'

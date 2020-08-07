@@ -1,6 +1,6 @@
 import { always } from './always'
+import { curry } from './curry'
 import { over } from './over'
-import {curry} from './curry'
 
 function setFn(
   lens, replacer, x

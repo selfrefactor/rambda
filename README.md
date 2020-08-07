@@ -12709,13 +12709,19 @@ move(fromIndex: number): {
 <summary><strong>R.move</strong> source</summary>
 
 ```javascript
-import { curry } from "./curry"
+import { curry } from './curry'
 
-function moveFn(fromIndex, toIndex, list){
+function moveFn(
+  fromIndex, toIndex, list
+){
+  if (fromIndex < 0 || toIndex < 0){
+    throw new Error('Rambda.move does not support negative indexes')
+  }
+  if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list
+
   const clone = list.slice()
-  
-  clone[fromIndex] = list[toIndex]
-  clone[toIndex] = list[fromIndex]
+  clone[ fromIndex ] = list[ toIndex ]
+  clone[ toIndex ] = list[ fromIndex ]
 
   return clone
 }
@@ -12731,15 +12737,36 @@ export const move = curry(moveFn)
 
 ```javascript
 import { move } from './move'
-
-const list = [ 1, 2, 3 ]
+const list = [ 1, 2, 3, 4 ]
 
 test('happy', () => {
   const result = move(
     0, 1, list
   )
 
-  expect(result).toEqual([ 2, 1, 3 ])
+  expect(result).toEqual([ 2, 1, 3, 4 ])
+})
+
+test('with negative index', () => {
+  const errorMessage = 'Rambda.move does not support negative indexes'
+  expect(() => move(
+    0, -1, list
+  )).toThrowWithMessage(Error, errorMessage)
+  expect(() => move(
+    -1, 0, list
+  )).toThrowWithMessage(Error, errorMessage)
+})
+
+test('when indexes are outside the list outbounds', () => {
+  const result1 = move(
+    10, 1, list
+  )
+  const result2 = move(
+    1, 10, list
+  )
+
+  expect(result1).toEqual(list)
+  expect(result2).toEqual(list)
 })
 ```
 
@@ -12762,18 +12789,22 @@ describe('R.move', () => {
   })
   it('curried 1', () => {
     const result = move(0, 1)(list)
-  
+
     result // $ExpectType number[]
   })
   it('curried 2', () => {
     const result = move(0)(1)(list)
-  
+
     result // $ExpectType number[]
   })
 })
 ```
 
 </details>
+
+*2 failed Ramda.move specs*
+
+> :boom: Reason for the failure: Ramda method does not support negative indexes
 
 ### multiply
 
@@ -13523,7 +13554,7 @@ over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 <summary><strong>R.over</strong> source</summary>
 
 ```javascript
-import {curry} from './curry'
+import { curry } from './curry'
 
 const Identity = x => ({
   x,
@@ -17081,8 +17112,8 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 ```javascript
 import { always } from './always'
+import { curry } from './curry'
 import { over } from './over'
-import {curry} from './curry'
 
 function setFn(
   lens, replacer, x
@@ -19804,7 +19835,7 @@ union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
 <summary><strong>R.union</strong> source</summary>
 
 ```javascript
-import { includes } from './includes.js'
+import { includes } from './includes'
 
 export function union(x, y){
   if (arguments.length === 1) return _y => union(x, _y)
@@ -19850,19 +19881,19 @@ import {union} from 'rambda'
 
 describe('R.union', () => {
   it('happy', () => {
-    const result = union([1, 2], [2,3])
+    const result = union([1, 2], [2, 3])
 
     result // $ExpectType number[]
   })
   it('with array of objects - case 1', () => {
-    const list1 = [{a:1}, {a: 2}]
-    const list2 = [{a: 2}, {a:3}]
+    const list1 = [{a: 1}, {a: 2}]
+    const list2 = [{a: 2}, {a: 3}]
     const result = union(list1, list2)
     result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
-    const list1 = [{a:1, b:1}, {a: 2}]
-    const list2 = [{a: 2}, {a:3, b:3 }]
+    const list1 = [{a: 1, b: 1}, {a: 2}]
+    const list2 = [{a: 2}, {a: 3, b: 3}]
     const result = union(list1, list2)
     result[0].a // $ExpectType number
     result[0].b // $ExpectType number | undefined
@@ -19871,19 +19902,19 @@ describe('R.union', () => {
 
 describe('R.union - curried', () => {
   it('happy', () => {
-    const result = union([1, 2])([2,3])
+    const result = union([1, 2])([2, 3])
 
     result // $ExpectType number[]
   })
   it('with array of objects - case 1', () => {
-    const list1 = [{a:1}, {a: 2}]
-    const list2 = [{a: 2}, {a:3}]
+    const list1 = [{a: 1}, {a: 2}]
+    const list2 = [{a: 2}, {a: 3}]
     const result = union(list1)(list2)
     result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
-    const list1 = [{a:1, b:1}, {a: 2}]
-    const list2 = [{a: 2}, {a:3, b:3 }]
+    const list1 = [{a: 1, b: 1}, {a: 2}]
+    const list2 = [{a: 2}, {a: 3, b: 3}]
     const result = union(list1)(list2)
     result[0].a // $ExpectType number
     result[0].b // $ExpectType number | undefined
@@ -20646,7 +20677,7 @@ when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a
 <summary><strong>R.when</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
+import { curry } from './curry'
 
 function whenFn(
   predicate, whenTrueFn, input
@@ -21500,7 +21531,7 @@ describe('R.zipObj', () => {
 
 5.13.0
 
-- Add `R.move` method(need more tests + ramda compatibility)
+- Add `R.move` method
 
 5.12.1
 

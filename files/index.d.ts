@@ -2419,7 +2419,7 @@ const result = R.move(0, 1, list)
 
 Categories: List
 
-Notes:
+Notes: Rambda.move doesn't support negative indexes - it throws an error
 
 */
 // @SINGLE_MARKER
@@ -5293,6 +5293,29 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
+
+/*
+Method: mapKeys
+
+Explanation: It takes an object and returns a new object with changed keys according to `changeKeyFn` function.
+
+Example:
+
+```
+const obj = {a: 1, b: 2}
+const changeKeyFn = prop => `{prop}_foo`
+const result = R.mapKeys(changeKeyFn, obj)
+// => {a_foo: 1, b_foo: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string, obj: { [key: string]: T}): U;
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string): (obj: { [key: string]: T}) => U;
 
 /*
 Method: maybe

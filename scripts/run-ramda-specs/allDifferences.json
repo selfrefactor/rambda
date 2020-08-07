@@ -103,6 +103,10 @@
     "count": 1,
     "reason": "Ramda method can act as a transducer"
   },
+  "move": {
+    "count": 2,
+    "reason": "Ramda method does not support negative indexes"
+  },
   "reduce": {
     "count": 2,
     "reason": "Rambda library doesn't have `R.reduced` method | Ramda method pass to `reduce` method"

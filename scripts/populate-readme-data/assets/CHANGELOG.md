@@ -1,6 +1,6 @@
 5.13.0
 
-- Add `R.move` method(need more tests + ramda compatibility)
+- Add `R.move` method
 
 5.12.1
 

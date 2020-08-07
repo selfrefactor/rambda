@@ -4,6 +4,8 @@
 
 - Add `R.lensSatisfies` method
 
+- Add `R.mapKeys` method
+
 - Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 `ts-toolbelt` needs other type of export with `--isolatedModules` flag
 

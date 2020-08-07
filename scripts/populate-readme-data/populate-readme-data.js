@@ -1,6 +1,6 @@
 import { outputFile, readJson } from 'fs-extra'
 import { resolve } from 'path'
-import { map, replace, interpolate } from 'rambdax'
+import { interpolate, map, replace } from 'rambdax'
 
 import { buildStep } from '../build-step/build-step'
 import { createMethodData } from './create-method-data'

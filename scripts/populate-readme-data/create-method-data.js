@@ -145,15 +145,18 @@ export function createMethodData(method, withRambdax){
   if (method.replLink) data.push('\n')
   if (method.allTypings) data.push(attachAllTypings(method))
   if (method.note) data.push(createNoteReadme(method))
-  if (method.rambdaSource&& extended) data.push(createRambdaSourceReadme(method))
+  if (method.rambdaSource && extended)
+    data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
 
-  if (method.typescriptDefinitionTest&& extended){
+  if (method.typescriptDefinitionTest && extended){
     data.push(createTypescriptTest(method))
   }
 
-  if (method.benchmarkInfo && extended) data.push(createBenchmarkInfo(method))
-  if (method.failedSpecsReasons&& extended) data.push(createFailedSpec(method))
+  if (method.benchmarkInfo && extended)
+    data.push(createBenchmarkInfo(method))
+  if (method.failedSpecsReasons && extended)
+    data.push(createFailedSpec(method))
 
   return data.join('')
 }

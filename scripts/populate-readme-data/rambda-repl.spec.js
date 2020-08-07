@@ -12,7 +12,5 @@ const result = await R.composeAsync(
 `.trim()
 
 test('happy', () => {
-  expect(
-    rambdaRepl(input)
-  ).toMatchSnapshot()
+  expect(rambdaRepl(input)).toMatchSnapshot()
 })

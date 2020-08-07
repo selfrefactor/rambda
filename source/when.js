@@ -1,4 +1,4 @@
-import { curry } from './curry.js'
+import { curry } from './curry'
 
 function whenFn(
   predicate, whenTrueFn, input
