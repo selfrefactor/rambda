@@ -1,24 +1,29 @@
-import {path} from './path'
+import { path } from './path'
 
-function singleSort(a,b, paths){
+function singleSort(
+  a, b, sortPaths
+){
   let toReturn = 0
-  paths.forEach(singlePath => {
-    if(toReturn!== 0) return
-    const aResult = path(singlePath, a)  
+  sortPaths.forEach(singlePath => {
+    if (toReturn !== 0) return
+    const aResult = path(singlePath, a)
     const bResult = path(singlePath, b)
-    if([aResult, bResult].includes(undefined)) return
-    if(aResult === bResult) return
+    if ([ aResult, bResult ].includes(undefined)) return
+    if (aResult === bResult) return
 
     toReturn = aResult > bResult ? 1 : -1
-  });
+  })
 
   return toReturn
 }
 
-export function sortByProps(paths, list){
+export function sortByProps(sortPaths, list){
+  if (arguments.length === 1) return _list => sortByProps(sortPaths, _list)
   const clone = list.slice()
 
-  clone.sort((a,b) => singleSort(a,b, paths))
+  clone.sort((a, b) => singleSort(
+    a, b, sortPaths
+  ))
 
   return clone
 }
