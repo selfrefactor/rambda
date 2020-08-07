@@ -81,7 +81,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 <details>
 <summary>
-  Click to see the full list of 105 Ramda methods not implemented in Rambda 
+  Click to see the full list of 104 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -140,7 +140,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - mergeRight
 - mergeWith
 - mergeWithKey
-- move
 - nAry
 - nthArg
 - o
@@ -11456,7 +11455,7 @@ describe('R.match', () => {
 mathMod(x: number, y: number): number
 ```
 
-`R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+`R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
 
 ```javascript
 const result = [
@@ -12667,6 +12666,109 @@ describe('R.modulo', () => {
     const result = modulo(4)(1)
 
     result // $ExpectType number
+  })
+})
+```
+
+</details>
+
+### move
+
+```typescript
+
+move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[]
+```
+
+It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
+
+```javascript
+const list = [1, 2, 3]
+const result = R.move(0, 1, list)
+// => [2, 1, 3]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20result%20%3D%20R.move(0%2C%201%2C%20list)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%2C%203%5D">Try the above <strong>R.move</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
+move(fromIndex: number): {
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
+};
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.move</strong> source</summary>
+
+```javascript
+import { curry } from "./curry"
+
+function moveFn(fromIndex, toIndex, list){
+  const clone = list.slice()
+  
+  clone[fromIndex] = list[toIndex]
+  clone[toIndex] = list[fromIndex]
+
+  return clone
+}
+
+export const move = curry(moveFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { move } from './move'
+
+const list = [ 1, 2, 3 ]
+
+test('happy', () => {
+  const result = move(
+    0, 1, list
+  )
+
+  expect(result).toEqual([ 2, 1, 3 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {move} from 'rambda'
+
+const list = [1, 2, 3]
+
+describe('R.move', () => {
+  it('happy', () => {
+    const result = move(0, 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried 1', () => {
+    const result = move(0, 1)(list)
+  
+    result // $ExpectType number[]
+  })
+  it('curried 2', () => {
+    const result = move(0)(1)(list)
+  
+    result // $ExpectType number[]
   })
 })
 ```
@@ -21395,6 +21497,10 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+5.13.0
+
+- Add `R.move` method(need more tests + ramda compatibility)
 
 5.12.1
 

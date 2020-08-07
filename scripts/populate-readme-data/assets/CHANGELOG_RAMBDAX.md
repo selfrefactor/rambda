@@ -1,5 +1,7 @@
 4.2.0
 
+- Add `R.move` method
+
 - Add `R.lensSatisfies` method
 
 - Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -

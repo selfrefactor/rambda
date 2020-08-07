@@ -1,3 +1,7 @@
+5.13.0
+
+- Add `R.move` method(need more tests + ramda compatibility)
+
 5.12.1
 
 Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -

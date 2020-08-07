@@ -705,7 +705,7 @@ export function match(regExpression: RegExp, str: string): string[];
 export function match(regExpression: RegExp): (str: string) => string[];
 
 /**
- * `R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+ * `R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
  */
 export function mathMod(x: number, y: number): number;
 export function mathMod(x: number): (y: number) => number;
@@ -778,6 +778,16 @@ export function minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(
  */
 export function modulo(x: number, y: number): number;
 export function modulo(x: number): (y: number) => number;
+
+/**
+ * It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
+ */
+export function move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+export function move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
+export function move(fromIndex: number): {
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
+};
 
 /**
  * Curried version of `x*y`.

@@ -2119,7 +2119,7 @@ export function match(regExpression: RegExp): (str: string) => string[];
 /*
 Method: mathMod
 
-Explanation: `R.mathMod` behaves like the modulo operator should mathematically, unlike the % operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
+Explanation: `R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
 
 Example:
 
@@ -2403,6 +2403,32 @@ Notes:
 // @SINGLE_MARKER
 export function modulo(x: number, y: number): number;
 export function modulo(x: number): (y: number) => number;
+
+/*
+Method: move
+
+Explanation: It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
+
+Example:
+
+```
+const list = [1, 2, 3]
+const result = R.move(0, 1, list)
+// => [2, 1, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+export function move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
+export function move(fromIndex: number): {
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
+};
 
 /*
 Method: multiply
