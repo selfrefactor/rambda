@@ -21,9 +21,9 @@
   "version": "5.11.0",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
-    "@babel/preset-env": "7.10.4",
+    "@babel/core": "7.11.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.11.0",
+    "@babel/preset-env": "7.11.0",
     "@types/jest": "25.2.3",
     "@types/fs-extra": "9.0.1",
     "@types/ramda": "0.27.7",
