@@ -6028,12 +6028,21 @@ export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (inp
 /*
 Method: viewOr
 
-Explanation: 
+Explanation: A combination between `R.defaultTo` and `R.view.
 
 Example:
 
 ```
+const lens = R.lensProp('a');
+const input = {a: 'foo'}
+const fallbackInput = {b: 'bar'}
+const fallback = 'FALLBACK'
 
+const result = [
+  R.viewOr(fallback, lens, input),
+  R.viewOr(fallback, lens, fallbackInput)
+]
+// => ['foo', 'FALLBACK']
 ```
 
 Categories: Lenses
