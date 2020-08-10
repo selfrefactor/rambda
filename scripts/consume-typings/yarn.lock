@@ -9,10 +9,10 @@
   dependencies:
     ts-toolbelt "^6.3.3"
 
-rambda@5.11.0:
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/rambda/-/rambda-5.11.0.tgz#59e2c714775ff539a3bb838c23499d29515c48b7"
-  integrity sha512-IwUN0KmyM5UYZT1h7p4K09TF04EgMkK1Y0m97XlDjIZxH7W9TJ9YuzvCE1WuagpfcT6aLzugTiV4L3V+YE5seQ==
+rambda@5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-5.12.0.tgz#c6e9c0a13290a47c333dc7ccd573c5dc4c4170ec"
+  integrity sha512-5InFhxr+gAcqvRK2abqsBatBfugiZ2xmsk++fpjM4MqFxfWrScxIml7cUHRK7jLcoyCIliht18b1BQH1FgENRg==
 
 "rambdax@https://github.com/selfrefactor/rambdax#4.0.0":
   version "3.7.0"

@@ -1,17 +1,18 @@
-import { add, applySpec, reject, and, transpose } from 'rambda'
+import { add, applySpec, reject, and, transpose, move, union } from 'rambda'
+
+const moveResult = move(1,2, [1,2,3])
+const unionResult = union([1,2,4], [1,2,3])
 
 const applySpecResult = applySpec({
   a: add(1)
 })(1)
-console.log({applySpecResult})
-const add1 = add(1)(2)
-const add2 = add(1)(3)
 
-const morebs = transpose([[1,2],[],[1,2,3],[3]])
-console.log({morebs})
+const transposeResult = transpose([[1,2],[],[1,2,3],[3]])
+console.log({applySpecResult, transposeResult, moveResult, unionResult})
+
 const bs = and(1)(2)
 
-const a = reject((a,c)=> a > 1, [1,2,3])
+const a = reject((a)=> a > 1, [1,2,3])
 
 interface Input{
   a: number
