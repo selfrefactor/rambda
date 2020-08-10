@@ -5989,7 +5989,7 @@ const result = R.lensEq(
 
 Categories: Lenses
 
-Notes: Idea for this method comes from https://char0n.github.io/ramda-adjunct/2.26.0/RA.html#.lensEq
+Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
@@ -6016,7 +6016,7 @@ const result = [
 
 Categories: Lenses
 
-Notes:
+Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
@@ -6051,13 +6051,12 @@ const expected = [
 
 Categories: List
 
-Notes: `sortFn` function must return a value to compare.
+Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
 export function sortByPath<T>(sortPath: Path, list: ReadonlyArray<T>): T[];
 export function sortByPath(sortPath: Path): <T>(list: ReadonlyArray<T>) => T[];
-
 
 /*
 Method: sortByProps
@@ -6085,11 +6084,10 @@ const expected = [
 
 Categories: List
 
-Notes: `sortFn` function must return a value to compare.
+Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-
 export function sortByProps<T>(sortPaths: string[], list: ReadonlyArray<T>): T[];
 export function sortByProps(sortPaths: string[]): <T>(list: ReadonlyArray<T>) => T[];
 
