@@ -75,6 +75,12 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
+- Support
+
+Most of the valid issues are fixed within 2-5 days.
+
+Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
+
 - More generic methods
 
 `Ramda` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. `Rambda` has smaller method counts and that could be seen as advantage.
