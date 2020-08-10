@@ -14,9 +14,9 @@ rambda@5.12.0:
   resolved "https://registry.yarnpkg.com/rambda/-/rambda-5.12.0.tgz#c6e9c0a13290a47c333dc7ccd573c5dc4c4170ec"
   integrity sha512-5InFhxr+gAcqvRK2abqsBatBfugiZ2xmsk++fpjM4MqFxfWrScxIml7cUHRK7jLcoyCIliht18b1BQH1FgENRg==
 
-"rambdax@https://github.com/selfrefactor/rambdax#4.0.0":
-  version "3.7.0"
-  resolved "https://github.com/selfrefactor/rambdax#e3f0386c11f3c600b98365aa39b177ca5f42111b"
+"rambdax@https://github.com/selfrefactor/rambdax#4.2.0":
+  version "4.1.0"
+  resolved "https://github.com/selfrefactor/rambdax#5959d0f3d11f9f0e5a359357578707e853edbed3"
 
 ramda@0.27.0:
   version "0.27.0"

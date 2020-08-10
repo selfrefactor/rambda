@@ -1,4 +1,10 @@
 import { add, applySpec, reject, and, transpose, move, union } from 'rambda'
+import {sortByProps} from 'rambdax'
+
+const sortByPropsResult = sortByProps(['a.b', 'a.c'], [
+  {a: {b: 2, c: 4}},
+  {a: {b: 2, c: 3}},
+])
 
 const moveResult = move(1,2, [1,2,3])
 const unionResult = union([1,2,4], [1,2,3])
@@ -8,7 +14,7 @@ const applySpecResult = applySpec({
 })(1)
 
 const transposeResult = transpose([[1,2],[],[1,2,3],[3]])
-console.log({applySpecResult, transposeResult, moveResult, unionResult})
+console.log({applySpecResult,sortByPropsResult: sortByPropsResult[0], transposeResult, moveResult, unionResult})
 
 const bs = and(1)(2)
 
