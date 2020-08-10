@@ -9,9 +9,10 @@
   dependencies:
     ts-toolbelt "^6.3.3"
 
-"rambda@https://github.com/selfrefactor/rambda#5.12.1-fixed":
+"rambda@https://github.com/selfrefactor/rambda#5.12.1":
   version "5.11.0"
-  resolved "https://github.com/selfrefactor/rambda#5b4b55133b28a701c8739390b0548babb6ae4b40"
+  uid "0160ba66be0de6e38764808395b61dcfb921834c"
+  resolved "https://github.com/selfrefactor/rambda#0160ba66be0de6e38764808395b61dcfb921834c"
 
 "rambdax@https://github.com/selfrefactor/rambdax#4.0.0":
   version "3.7.0"
