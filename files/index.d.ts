@@ -6026,6 +6026,26 @@ export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input
 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: Array<T>) => boolean;
 
 /*
+Method: viewOr
+
+Explanation: 
+
+Example:
+
+```
+
+```
+
+Categories: Lenses
+
+Notes: Idea for this method comes from `@meltwater/phi` library
+
+*/
+// @SINGLE_MARKER
+export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
+export function viewOr<Input, Output>(fallback: Output): FunctionToolbelt.Curry<(lens: Lens, input: Input) => Output>;
+/*
 Method: sortByPath
 
 Explanation: It returns copy of `list` sorted by `sortPath` value. 
