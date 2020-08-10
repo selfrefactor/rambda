@@ -2,11 +2,15 @@
 
 - Add `R.move` method
 
+- Add `R.union` method
+
 - Add `R.lensSatisfies` method
 
 - Add `R.mapKeys` method
 
 - Add `R.sortByPath` method
+
+- Add `R.sortByProps` method *
 
 - Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 `ts-toolbelt` needs other type of export with `--isolatedModules` flag

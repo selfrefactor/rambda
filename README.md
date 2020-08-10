@@ -21529,20 +21529,16 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-5.13.0
+5.12.0
 
 - Add `R.move` method
 
-5.12.1
+- Add `R.union` method
 
-Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
+- Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 `ts-toolbelt` needs other type of export with `--isolatedModules` flag
 
-5.12.0
-
 - Change `R.when` implementation and typings to match those of `Ramda`
-
-- Add `R.union` method
 
 - `R.over` and `R.set` use `R.curry` instead of manual currying
 
@@ -21550,7 +21546,7 @@ Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 
 - `R.equals` now supports negative zero just like `Ramda.equals`
 
-- `R.replace` use `R.curry`
+- `R.replace` uses `R.curry`
 
 5.11.0
 

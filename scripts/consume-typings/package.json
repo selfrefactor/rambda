@@ -7,8 +7,9 @@
   "version": "1.0.0",
   "dependencies": {
     "@types/ramda": "0.27.7",
+
     "rambdax": "https://github.com/selfrefactor/rambdax#4.0.0",
-    "rambda": "https://github.com/selfrefactor/rambda#5.12.1-fixed",
+    "rambda": "5.11.0",
     "ramda": "0.27.0",
     "typescript": "4.0.0-dev.20200530"
   },
