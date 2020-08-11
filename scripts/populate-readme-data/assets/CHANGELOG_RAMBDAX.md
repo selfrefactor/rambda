@@ -1,3 +1,7 @@
+4.3.0
+
+- Add `R.viewOr` method
+
 4.2.0
 
 - Add `R.move` method
@@ -10,7 +14,7 @@
 
 - Add `R.sortByPath` method
 
-- Add `R.sortByProps` method *
+- Add `R.sortByProps` method
 
 - Close [Issue #519](https://github.com/selfrefactor/rambda/issues/519) -
 `ts-toolbelt` needs other type of export with `--isolatedModules` flag

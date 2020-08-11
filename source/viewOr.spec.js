@@ -1,13 +1,15 @@
-import {viewOr} from './viewOr'
-import {lensProp} from './lensProp'
+import { lensProp } from './lensProp'
+import { viewOr } from './viewOr'
 
-const lens = lensProp('a');
-const input = {a: 'foo'}
-const fallbackInput = {b: 'bar'}
+const lens = lensProp('a')
+const input = { a : 'foo' }
+const fallbackInput = { b : 'bar' }
 const fallback = 'FALLBACK'
 
 test('happy', () => {
-  const result = viewOr(fallback, lens, fallbackInput)
+  const result = viewOr(
+    fallback, lens, fallbackInput
+  )
   expect(result).toBe(fallback)
 })
 
