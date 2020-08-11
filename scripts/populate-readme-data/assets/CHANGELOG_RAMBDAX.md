@@ -2,6 +2,8 @@
 
 - Add `R.viewOr` method
 
+- Add `R.removeIndex` method *
+
 4.2.0
 
 - Add `R.move` method
