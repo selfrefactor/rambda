@@ -6,7 +6,7 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "helpers-fn": "0.4.1",
+    "helpers-fn": "0.5.0",
     "lint-fn": "2.8.1",
     "typescript": "3.9.3"
   },
