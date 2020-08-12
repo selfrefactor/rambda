@@ -6120,6 +6120,27 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 export function sortByProps<T>(sortPaths: string[], list: ReadonlyArray<T>): T[];
 export function sortByProps(sortPaths: string[]): <T>(list: ReadonlyArray<T>) => T[];
 
+/*
+Method: removeIndex
+
+Explanation: It returns a copy of `list` input with removed `index`. 
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const result = R.removeIndex(1, list)
+// => [1, 3, 4]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function removeIndex<T>(index: number, list: ReadonlyArray<T>): T[];
+
 // RAMBDAX_MARKER_END
 // ============================================
 
