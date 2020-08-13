@@ -6,6 +6,8 @@
 
 - Add `R.excludes` method
 
+- Add `R.updateObject` method
+
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
 4.2.0

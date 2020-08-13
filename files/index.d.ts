@@ -6169,6 +6169,48 @@ export function excludes(valueToFind: string): (input: ReadonlyArray<string> | s
 export function excludes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
 export function excludes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
 
+/*
+Method: updateObject
+
+Explanation: Similar to `R.assocPath` but it applies list of updates instead of only a single update.
+
+It return a copy of `obj` input with changed properties according to `rules` input.
+
+Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then this path is created.
+
+As it uses `R.path` underneath, object path can be either string or array of strings(in Typescript object path can be only a string).
+
+Example:
+
+```
+const obj = {
+  a: {b: 1},
+  foo: {bar: 10},
+}
+const rules = [
+  ['a.b', 2],
+  ['foo.bar', 20],
+  ['q.z', 300],
+]
+const result = R.updateObject(rules, obj)
+
+const expected = {
+  a: {b: 2},
+  foo: {bar: 20},
+  q: {z: 300},
+}
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function updateObject<Output>(rules: Array<[string, any]>, input: object): Output;
+export function updateObject<Output>(rules: Array<[string, any]>): (input: object) => Output;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
