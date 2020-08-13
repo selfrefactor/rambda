@@ -6142,6 +6142,33 @@ Notes:
 export function removeIndex<T>(index: number, list: ReadonlyArray<T>): T[];
 export function removeIndex(index: number): <T>(list: ReadonlyArray<T>) => T[];
 
+
+/*
+Method: excludes
+
+Explanation: Opposite of `R.includes`
+
+Example:
+
+```
+const result = [
+  R.excludes('ar', 'foo'),
+  R.excludes({a: 2}, [{a: 1}])
+]
+// => [true, true ]
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function excludes(valueToFind: string, input: ReadonlyArray<string> | string): boolean;
+export function excludes(valueToFind: string): (input: ReadonlyArray<string> | string) => boolean;
+export function excludes<T>(valueToFind: T, input: ReadonlyArray<T>): boolean;
+export function excludes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolean;
+
 // RAMBDAX_MARKER_END
 // ============================================
 

@@ -1,3 +1,7 @@
+5.13.0 
+
+- `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
+
 5.12.0
 
 - Add `R.move` method

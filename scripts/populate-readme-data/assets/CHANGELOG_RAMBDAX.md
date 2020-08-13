@@ -4,6 +4,10 @@
 
 - Add `R.removeIndex` method
 
+- Add `R.excludes` method
+
+- `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
+
 4.2.0
 
 - Add `R.move` method
