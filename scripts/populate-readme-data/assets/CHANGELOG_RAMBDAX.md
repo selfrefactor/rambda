@@ -1,12 +1,15 @@
 4.3.0
 
+- Add `R.updateObject` method
+
+- Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`
+
 - Add `R.viewOr` method
 
 - Add `R.removeIndex` method
 
 - Add `R.excludes` method
 
-- Add `R.updateObject` method
 
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
