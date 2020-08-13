@@ -2,7 +2,7 @@
 
 - Add `R.viewOr` method
 
-- Add `R.removeIndex` method *
+- Add `R.removeIndex` method
 
 4.2.0
 

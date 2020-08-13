@@ -4,7 +4,7 @@ const list = [ 1, 2, 3, 4 ]
 
 test('first or before first index', () => {
   expect(removeIndex(list, 0)).toEqual([ 2, 3, 4 ])
-  expect(removeIndex(list, -2)).toEqual([ 2, 3, 4 ])
+  expect(removeIndex(list)(-2)).toEqual([ 2, 3, 4 ])
 })
 
 test('last or after last index', () => {

@@ -6140,6 +6140,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function removeIndex<T>(index: number, list: ReadonlyArray<T>): T[];
+export function removeIndex(index: number): <T>(list: ReadonlyArray<T>) => T[];
 
 // RAMBDAX_MARKER_END
 // ============================================
