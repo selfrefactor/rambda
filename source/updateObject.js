@@ -1,10 +1,15 @@
-import {assocPath} from './assocPath'
-import {path} from './path'
+import { assocPath } from './assocPath'
 
 export function updateObject(rules, obj){
-  const clone = {...obj}
+  if (arguments.length === 1) return _obj => updateObject(rules, _obj)
+
+  let clone = { ...obj }
 
   rules.forEach((objectPath, newValue) => {
-    const found = 
+    clone = assocPath(
+      objectPath, newValue, clone
+    )
   })
+
+  return clone
 }

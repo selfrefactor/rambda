@@ -102,6 +102,7 @@ async function rambdaBuildStep(){
   const rambdaMethods = await getRambdaMethods()
   const sourceFileDir = resolve(__dirname, '../../source')
   const output = resolve(__dirname, '../../src')
+  await removeFS(output)
 
   await pipedAsync(
     sourceFileDir,

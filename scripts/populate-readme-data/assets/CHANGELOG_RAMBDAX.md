@@ -1,8 +1,6 @@
-4.3.0
+5.0.0
 
 - Add `R.updateObject` method
-
-- Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`
 
 - Add `R.viewOr` method
 
@@ -10,8 +8,11 @@
 
 - Add `R.excludes` method
 
-
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
+
+- Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`.
+
+- Deprecate `R.compact` method - vague use case; `R.filter` does the same job.
 
 4.2.0
 

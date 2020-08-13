@@ -4686,28 +4686,6 @@ export function change<Input, Output>(
 ): Output;
 
 /*
-Method: compact
-
-Explanation: It returns a clone of `list` without the falsy or empty elements.
-
-Example:
-
-```
-const list = [null, '', {}, [], 1]
-
-const result = R.compact(list)
-// => [1]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function compact<T>(x: any[]): T[];
-
-/*
 Method: composeAsync
 
 Explanation: Asynchronous version of `R.compose`
@@ -6172,11 +6150,11 @@ export function excludes<T>(valueToFind: T): (input: ReadonlyArray<T>) => boolea
 /*
 Method: updateObject
 
-Explanation: Similar to `R.assocPath` but it applies list of updates instead of only a single update.
+Explanation: Very similar to `R.assocPath` but it applies list of updates instead of only a single update.
 
 It return a copy of `obj` input with changed properties according to `rules` input.
 
-Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then this path is created.
+Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then such object path is created.
 
 As it uses `R.path` underneath, object path can be either string or array of strings(in Typescript object path can be only a string).
 
@@ -6208,8 +6186,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function updateObject<Output>(rules: Array<[string, any]>, input: object): Output;
-export function updateObject<Output>(rules: Array<[string, any]>): (input: object) => Output;
+export function updateObject<Output>(rules: [string, any][], input: object): Output;
+export function updateObject<Output>(rules: [string, any][]): (input: object) => Output;
 
 // RAMBDAX_MARKER_END
 // ============================================

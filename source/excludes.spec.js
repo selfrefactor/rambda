@@ -5,7 +5,7 @@ test('excludes with string', () => {
 
   expect(excludes('less')(str)).toBeFalse()
   expect(excludes('never', str)).toBeTrue()
-}) 
+})
 
 test('excludes with array', () => {
   const arr = [ 1, 2, 3 ]

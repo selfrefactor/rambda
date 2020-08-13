@@ -4,9 +4,9 @@ import { assoc } from './assoc'
 import { curry } from './curry'
 
 function assocPathFn(
-  list, newValue, input
+  path, newValue, input
 ){
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  const pathArrValue = typeof path === 'string' ? path.split('.') : path
   if (pathArrValue.length === 0){
     return newValue
   }
@@ -23,6 +23,7 @@ function assocPathFn(
         [] :
         {} :
       input[ index ]
+
     newValue = assocPathFn(
       Array.prototype.slice.call(pathArrValue, 1),
       newValue,

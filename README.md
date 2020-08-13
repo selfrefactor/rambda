@@ -2018,9 +2018,9 @@ import { assoc } from './assoc'
 import { curry } from './curry'
 
 function assocPathFn(
-  list, newValue, input
+  path, newValue, input
 ){
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  const pathArrValue = typeof path === 'string' ? path.split('.') : path
   if (pathArrValue.length === 0){
     return newValue
   }
@@ -2037,6 +2037,7 @@ function assocPathFn(
         [] :
         {} :
       input[ index ]
+
     newValue = assocPathFn(
       Array.prototype.slice.call(pathArrValue, 1),
       newValue,
@@ -8742,9 +8743,11 @@ import { equals } from './equals'
 
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
-
   if (typeof input === 'string'){
     return input.includes(valueToFind)
+  }
+  if (!input){
+    throw new TypeError(`Cannot read property \'indexOf\' of ${ input }`)
   }
   if (!_isArray(input)) return false
 
@@ -8790,12 +8793,21 @@ test('includes with array', () => {
   expect(R.includes(4, arr)).toBeFalse()
 })
 
-test('return false if input is falsy', () => {
-  expect(includes(2, null)).toBeFalse()
+test('with wrong input that does not throw', () => {
+  const result = includes(1, /foo/g)
+  const ramdaResult = R.includes(1, /foo/g)
+  expect(result).toBeFalse()
+  expect(ramdaResult).toBeFalse()
+})
+
+test('throws on wrong input - match ramda behaviour', () => {
+  expect(() => includes(2, null)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of null')
   expect(() => R.includes(2, null)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of null')
-  expect(includes(4, undefined)).toBeFalse()
-  expect(() => R.includes(4, undefined)).toThrowWithMessage(TypeError,
+  expect(() => includes(2, undefined)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of undefined')
+  expect(() => R.includes(2, undefined)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of undefined')
 })
 ```
@@ -21534,6 +21546,10 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+5.13.0 
+
+- `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
 5.12.0
 
