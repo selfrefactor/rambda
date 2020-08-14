@@ -52,13 +52,6 @@ test('adds a nested key to a non-empty object - curry case 1', () => {
   })
 })
 
-test('adds a nested array to a non-empty object - curry case 1', () => {
-  expect(assocPath('b.0', 2)({ a : 1 })).toEqual({
-    a : 1,
-    b : [ 2 ],
-  })
-})
-
 test('adds a key to a non-empty object - curry case 2', () => {
   expect(assocPath('b')(2, { a : 1 })).toEqual({
     a : 1,

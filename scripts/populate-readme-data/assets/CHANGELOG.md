@@ -1,4 +1,7 @@
-5.13.0 
+5.12.1 
+
+- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
+ wrong `R.assocPath` when path includes numbers
 
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 

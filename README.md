@@ -2045,13 +2045,6 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(parseInt(index, 10)) && _isArray(input)){
-    const arr = input.slice()
-    arr[ index ] = newValue
-
-    return arr
-  }
-
   return assoc(
     index, newValue, input
   )
@@ -2118,13 +2111,6 @@ test('adds a nested key to a non-empty object - curry case 1', () => {
   expect(assocPath('b.c', 2)({ a : 1 })).toEqual({
     a : 1,
     b : { c : 2 },
-  })
-})
-
-test('adds a nested array to a non-empty object - curry case 1', () => {
-  expect(assocPath('b.0', 2)({ a : 1 })).toEqual({
-    a : 1,
-    b : [ 2 ],
   })
 })
 
@@ -21547,7 +21533,10 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-5.13.0 
+5.12.1 
+
+- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
+ wrong `R.assocPath` when path includes numbers
 
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 

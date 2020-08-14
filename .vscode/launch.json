@@ -4,7 +4,25 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Jest single run all tests",
+      "name": "Run single method test",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "args": [
+        "--verbose", 
+        "-i", 
+        "--no-cache",
+        "source/assocPath.spec.js"
+      ],
+      "env":{
+        "WITH_RAMBDAX": "ON"
+      },
+      "disableOptimisticBPs": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run build script",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 

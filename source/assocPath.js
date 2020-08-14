@@ -31,13 +31,6 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(parseInt(index, 10)) && _isArray(input)){
-    const arr = input.slice()
-    arr[ index ] = newValue
-
-    return arr
-  }
-
   return assoc(
     index, newValue, input
   )
