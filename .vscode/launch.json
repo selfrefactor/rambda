@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/assocPath.spec.js"
+        "source/partitionAsync.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

@@ -1,5 +1,9 @@
 5.0.0
 
+- Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`.
+
+- Deprecate `R.compact` method - vague use case; `R.filter` does the same job.
+
 - Add `R.updateObject` method
 
 - Add `R.viewOr` method
@@ -10,9 +14,9 @@
 
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
-- Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`.
+- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
 
-- Deprecate `R.compact` method - vague use case; `R.filter` does the same job.
+- Fix currying for all async methods
 
 4.2.0
 

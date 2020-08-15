@@ -12,8 +12,8 @@ async function mapAsyncFn(fn, arr){
   }
 
   const willReturn = {}
-  for (const prop in arr){
-    willReturn[ prop ] = await fn(arr[ prop ], prop)
+  for (const i in arr){
+    willReturn[ i ] = await fn(arr[ i ], Number(i))
   }
 
   return willReturn
