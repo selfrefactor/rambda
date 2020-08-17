@@ -8,6 +8,9 @@
 
 - Add `R.viewOr` method
 
+- Add `R.pipeAsync` method *
+- Add `R.filterAsync` method *
+
 - Add `R.removeIndex` method
 
 - Add `R.excludes` method
@@ -16,7 +19,9 @@
 
 - Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
 
-- Fix currying for all async methods
+- `R.produce` always returns a promise *
+
+- Fix currying for several async methods - `R.tapAsync`, `R.produce`
 
 4.2.0
 

@@ -14,7 +14,7 @@ async function whenObject(predicate, input){
   return [ yes, no ]
 }
 
-async function partitionAsyncpredicate(predicate, input){
+async function partitionAsyncFn(predicate, input){
   if (!_isArray(input)) return whenObject(predicate, input)
 
   const yes = []
@@ -33,11 +33,11 @@ async function partitionAsyncpredicate(predicate, input){
 
 export function partitionAsync(predicate, list){
   if (arguments.length === 1){
-    return async holder => partitionAsyncpredicate(predicate, holder)
+    return async _list => partitionAsyncFn(predicate, _list)
   }
 
   return new Promise((resolve, reject) => {
-    partitionAsyncpredicate(predicate, list).then(resolve)
+    partitionAsyncFn(predicate, list).then(resolve)
       .catch(reject)
   })
 }

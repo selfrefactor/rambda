@@ -35,17 +35,3 @@ test('async with error', async () => {
     expect(e.message).toBe('LED_ZEPPELIN')
   }
 })
-
-test('sync', () => {
-  const fn = produce({
-    foo : x => x + 1,
-    bar : inputArgument => inputArgument === 5,
-  })
-  const expected = {
-    foo : 6,
-    bar : true,
-  }
-
-  const result = fn(5)
-  expect(result).toEqual(expected)
-})

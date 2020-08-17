@@ -1,16 +1,16 @@
 import { map } from './map'
 import { type } from './type'
 
-function helper({ condition, inputArgument, prop }){
+function promisify({ condition, input, prop }){
   return new Promise((resolve, reject) => {
     if (type(condition) !== 'Async'){
       return resolve({
         type    : prop,
-        payload : condition(inputArgument),
+        payload : condition(input),
       })
     }
 
-    condition(inputArgument)
+    condition(input)
       .then(result => {
         resolve({
           type    : prop,
@@ -21,10 +21,7 @@ function helper({ condition, inputArgument, prop }){
   })
 }
 
-export function produce(conditions, inputArgument){
-  if (arguments.length === 1){
-    return inputArgumentHolder => produce(conditions, inputArgumentHolder)
-  }
+function produceFn(conditions, input){
   let asyncConditionsFlag = false
   for (const prop in conditions){
     if (
@@ -38,7 +35,7 @@ export function produce(conditions, inputArgument){
   if (asyncConditionsFlag === false){
     const willReturn = {}
     for (const prop in conditions){
-      willReturn[ prop ] = conditions[ prop ](inputArgument)
+      willReturn[ prop ] = conditions[ prop ](input)
     }
 
     return willReturn
@@ -47,8 +44,8 @@ export function produce(conditions, inputArgument){
   const promised = []
   for (const prop in conditions){
     const condition = conditions[ prop ]
-    promised.push(helper({
-      inputArgument,
+    promised.push(promisify({
+      input,
       condition,
       prop,
     }))
@@ -64,5 +61,16 @@ export function produce(conditions, inputArgument){
         resolve(willReturn)
       })
       .catch(err => reject(err))
+  })
+}
+
+export function produce(conditions, input){
+  if (arguments.length === 1){
+    return async _input => produceFn(conditions, _input)
+  }
+
+  return new Promise((resolve, reject) => {
+    produceFn(conditions, input).then(resolve)
+      .catch(reject)
   })
 }

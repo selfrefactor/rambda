@@ -12,7 +12,7 @@ test.only('with composeAsync', async () => {
   const list = [ 1, 2, 3, 4, 11 ]
 
   const result = await composeAsync(partitionAsync(predicate), x =>
-    x.filter(xx => x < 10))
+    x.filter(xx => xx < 10))(list)
   const expectedResult = [
     [ 3, 4 ],
     [ 1, 2 ],
