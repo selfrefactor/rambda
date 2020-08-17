@@ -6,7 +6,7 @@ interface Output {
 }
 
 describe('R.produce', () => {
-  it('rules contains asynchronous function', async() => {
+  it('happy', async() => {
     const rules = {
       foo: async(x: number) => {
         await delay(100)
@@ -17,27 +17,13 @@ describe('R.produce', () => {
       },
     }
 
-    const result = await produce<number, Promise<Output>>(rules, 10)
-    const curriedResult = await produce<number, Promise<Output>>(rules)(10)
-
+    const result = await produce<number, Output>(rules, 10)
     result // $ExpectType Output
-    curriedResult // $ExpectType Output
-  })
 
-  it('rules contains only synchronous functions', () => {
-    const rules = {
-      foo: (x: number) => {
-        return x + 10
-      },
-      bar: (x: number) => {
-        return x + 20
-      },
-    }
+    const fn = produce<number, Output>(rules)
+    const curriedResult = await fn(10)
 
-    const result = produce<number, Output>(rules, 10)
-    const curriedResult = produce<number, Output>(rules)(10)
-
-    result // $ExpectType Output
+    fn // $ExpectType (input: number) => Promise<Output>
     curriedResult // $ExpectType Output
   })
 })

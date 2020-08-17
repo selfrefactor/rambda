@@ -5554,7 +5554,7 @@ Notes: Independently, similar method is implemented in `Ramada` library, but the
 export function piped<T>(input: any, ...fnList: Func<any>[]): T;
 
 /*
-Method:
+Method: pipedAsync
 
 Explanation: It accepts input as first argument and series of functions as next arguments. It is same as `R.pipe` but with support for asynchronous functions.
 
@@ -5595,21 +5595,24 @@ Explanation: It returns an object created by applying each value of `rules` to `
 
 `rules` input is an object with synchronous or asynchronous functions as values.
 
-If there is at least one member of `rules` that is asynchronous, then the return value is a promise.
+The return value is wrapped in a promise, even if all `rules` are synchronous functions.
 
 Example:
 
 ```
 const rules = {
-  foo: x =>  > 10,
+  foo: async x => {
+    await R.delay(100)
+    return x > 1
+  },
   bar: x => ({baz: x})
 }
-const input = 7
-const result = R.produce(rules, input)
+const input = 2
+const result = await R.produce(rules, input)
 
 const expected = {
-  foo: false,
-  bar: {baz: 7}
+  foo: true,
+  bar: {baz: 2}
 }
 // => `result` is equal to `expected`
 ```
@@ -5623,12 +5626,12 @@ Notes: It is very similar to `R.applySpec`. TODO - improve typings
 export function produce<Input, Output>(
   rules: ProduceRules<Input>,
   input: Input
-): Output;
+): Promise<Output>;
 export function produce<Input, Output>(
   rules: ProduceRules<Input>
 ): (
   input: Input
-) => Output;
+) => Promise<Output>;
 
 /*
 Method: random

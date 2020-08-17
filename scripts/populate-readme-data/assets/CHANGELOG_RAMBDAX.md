@@ -4,6 +4,8 @@
 
 - Deprecate `R.compact` method - vague use case; `R.filter` does the same job.
 
+- `R.produce` always returns a promise
+
 - Add `R.updateObject` method
 
 - Add `R.viewOr` method
@@ -18,11 +20,10 @@
 
 - Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
 
-- `R.produce` always returns a promise *
 
 - `R.mapToObjectAsync` supports currying
 
-- `R.mapAsyncLimit` supports currying *
+- `R.mapAsyncLimit` supports currying
 
 - Fix `R.mapAsync` to pass property to iterator, when input is an object.
 
