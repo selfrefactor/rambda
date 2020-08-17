@@ -13,52 +13,47 @@ test('happy', async () => {
   const fn1 = async x => {
     await delay(100)
 
-    return x + 1
+    return x.map(xx => xx + 1)
   }
   const fn2 = async x => {
     await delay(100)
 
-    return x * 2
+    return x.map(xx => xx * 2)
   }
   const result = await pipeAsync(fn1,
     fn2)(await Promise.all([ identity(1), identity(2), identity(3) ]))
-  console.log(result)
-  // expect(result).toEqual([ 'foo', 'bar' ])
+
+  expect(result).toEqual([ 4, 6, 8 ])
 })
 
 const delayFn = ms =>
   new Promise(resolve => {
-    resolve(ms + 7)
+    resolve(ms + 1)
   })
 
-// test('known issue - function returning promise', async () => {
-//   const result = await pipeAsync(
-//     a => a,
-//     a => a + 1000,
-//     delayFn,
-//     a => a + 11
-//   )(20)
+test('with function returning promise', async () => {
+  const result = await pipeAsync(
+    x => x,
+    x => x + 1,
+    delayFn,
+    x => x
+  )(1)
 
-//   expect(result).toEqual('[object Promise]1000')
-// })
+  expect(result).toEqual(3)
+})
 
-// test('throw error', async () => {
-//   const delay = async () => {
-//     await delayFn(1)
-//     JSON.parse('{foo')
-//   }
+test('throw error', async () => {
+  const fn = async () => {
+    await delay(1)
+    JSON.parse('{foo')
+  }
 
-//   let didThrow = false
-//   try {
-//     await pipeAsync(
-//       a => a,
-//       a => a + 1000,
-//       async () => delay(),
-//       a => a + 11
-//     )(20)
-//   } catch (e){
-//     didThrow = false
-//   }
+  let didThrow = false
+  try {
+    await pipeAsync(x => x, fn)(20)
+  } catch (e){
+    didThrow = true
+  }
 
-//   expect(didThrow).toBeTrue()
-// })
+  expect(didThrow).toBeTrue()
+})

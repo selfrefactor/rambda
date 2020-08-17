@@ -30,21 +30,19 @@ test('happy', async () => {
 })
 
 const delayFn = ms =>
-  new Promise((res, rej) => {
-    const b = ms + 7
-
-    res(b)
+  new Promise(resolve => {
+    resolve(ms + 1)
   })
 
-test('known issue - function returning promise', async () => {
+test.only('bug - with function returning promise', async () => {
   const result = await composeAsync(
-    a => a,
-    a => a + 1000,
+    x => x,
+    x => x + 1,
     delayFn,
-    a => a + 11
-  )(20)
-
-  expect(result).toEqual('[object Promise]1000')
+    x => x
+  )(1)
+  console.log(result)
+  // expect(result).toEqual(3)
 })
 
 test('throw error', async () => {
