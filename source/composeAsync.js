@@ -14,10 +14,7 @@ export function composeAsync(...inputArguments){
         argumentsToPass = fn(argumentsToPass)
         if(type(argumentsToPass) === 'Promise'){
           argumentsToPass = await argumentsToPass
-          console.log(23)
         }
-        const a = type(argumentsToPass)
-        console.log(argumentsToPass,a )
       }
     }
 
