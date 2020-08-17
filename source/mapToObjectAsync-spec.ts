@@ -18,4 +18,8 @@ describe('R.mapToObjectAsync', () => {
     const result = await mapToObjectAsync<number, Output>(fn, list)
     result // $ExpectType Output
   })
+  it('curried', async() => {
+    const result = await mapToObjectAsync<number, Output>(fn)(list)
+    result // $ExpectType Output
+  })
 })

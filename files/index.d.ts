@@ -5271,6 +5271,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>): (list: T[]) => Promise<U>;
 
 /*
 Method: mapKeys

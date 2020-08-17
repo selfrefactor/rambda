@@ -1,3 +1,4 @@
+import { composeAsync } from './composeAsync'
 import { delay } from './delay'
 import { mapToObjectAsync } from './mapToObjectAsync'
 
@@ -18,4 +19,14 @@ const expected = {
 test('happy', async () => {
   const result = await mapToObjectAsync(fn, list)
   expect(result).toEqual(expected)
+})
+
+test('with R.composeAsync', async () => {
+  const result = await composeAsync(mapToObjectAsync(fn), x =>
+    x.filter(xx => xx > 1))(list)
+
+  expect(result).toEqual({
+    key2 : 12,
+    key3 : 4,
+  })
 })

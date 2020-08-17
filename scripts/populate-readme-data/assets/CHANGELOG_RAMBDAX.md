@@ -22,7 +22,7 @@
 
 - `R.produce` always returns a promise *
 
-- Fix currying for several async methods - `R.tapAsync`, `R.produce`
+- Fix currying for several async methods - `R.tapAsync`, `R.produce`, `R.mapToObjectAsync`
 
 4.2.0
 

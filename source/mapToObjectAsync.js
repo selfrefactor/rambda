@@ -1,6 +1,6 @@
 import { mapAsync } from './mapAsync'
 
-export async function mapToObjectAsync(fn, list){
+export async function mapToObjectAsyncFn(fn, list){
   let toReturn = {}
 
   const innerIterable = async x => {
@@ -15,4 +15,15 @@ export async function mapToObjectAsync(fn, list){
   await mapAsync(innerIterable, list)
 
   return toReturn
+}
+
+export function mapToObjectAsync(fn, list){
+  if (arguments.length === 1){
+    return async _list => mapToObjectAsyncFn(fn, _list)
+  }
+
+  return new Promise((resolve, reject) => {
+    mapToObjectAsyncFn(fn, list).then(resolve)
+      .catch(reject)
+  })
 }
