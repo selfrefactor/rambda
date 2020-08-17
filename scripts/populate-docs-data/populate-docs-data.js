@@ -4,6 +4,7 @@ import { map, piped } from 'rambdax'
 
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
 import { extractCategories } from './extract-from-typings/extract-categories'
+import { getCategories } from './extract-from-typings/get-categories'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
@@ -61,6 +62,7 @@ async function save({ withRambdax, toSave, categories }){
 
 export async function populateDocsData({ withRambdax }){
   const definitions = extractDefinition(withRambdax)
+  const categories = extractCategories(withRambdax)
   const allDefinitions = extractAllDefinitions(withRambdax)
   const rambdaSource = await rambdaSourceMethod(withRambdax)
   const rambdaSpecs = await rambdaSpecsMethod(withRambdax)
@@ -80,6 +82,12 @@ export async function populateDocsData({ withRambdax }){
         input,
         prop : 'allTypings',
         hash : allDefinitions,
+      }),
+    input =>
+      appendData({
+        input,
+        prop : 'categories',
+        hash : categories,
       }),
     input =>
       appendData({
@@ -142,10 +150,9 @@ export async function populateDocsData({ withRambdax }){
         hash : failedSpecsCount,
       })
   )
-  const categories = extractCategories(withRambdax)
 
   await save({
-    categories,
+    categories: getCategories(withRambdax),
     withRambdax,
     toSave,
   })
