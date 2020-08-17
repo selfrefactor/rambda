@@ -23,3 +23,14 @@ describe('R.mapAsyncLimit', () => {
     result // $ExpectType number[]
   })
 })
+
+describe('curried', () => {
+  it('happy', async() => {
+    const result = await mapAsyncLimit(fn, limit)(list)
+    result // $ExpectType number[]
+  })
+  it('with index', async() => {
+    const result = await mapAsyncLimit(fnWithIndex, limit)(list)
+    result // $ExpectType number[]
+  })
+})
