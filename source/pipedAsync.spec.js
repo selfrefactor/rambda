@@ -2,22 +2,25 @@ import { add } from './add'
 import { delay } from './delay'
 import { pipedAsync } from './pipedAsync'
 
-test('', async () => {
+const fn1= async x => {
+  await delay(100)
+
+  return x + 2
+}
+const fn2 = async x => {
+  await delay(100)
+
+  return x + 3
+}
+
+test('happy', async () => {
   const result = await pipedAsync(
-    100,
-    async x => {
-      await delay(100)
-
-      return x + 2
-    },
+    1,
+    fn1,
     add(2),
-    async x => {
-      const delayed = await delay(100)
-
-      return delayed + x
-    }
+    fn2
   )
-  const expectedResult = 'RAMBDAX_DELAY104'
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toBe(8)
 })
+ 
