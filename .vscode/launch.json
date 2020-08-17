@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/compose.spec.js"
+        "source/composeAsync.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

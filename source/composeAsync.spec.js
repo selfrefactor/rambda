@@ -1,10 +1,5 @@
 import { composeAsync } from './composeAsync'
 import { delay } from './delay'
-import { equals } from './equals'
-import { map } from './map'
-import { mapAsync } from './mapAsync'
-import { prop } from './prop'
-import { tapAsync } from './tapAsync'
 
 async function identity(x){
   await delay(100)
@@ -34,34 +29,32 @@ const delayFn = ms =>
     resolve(ms + 1)
   })
 
-test.only('bug - with function returning promise', async () => {
+test('with function returning promise', async () => {
   const result = await composeAsync(
     x => x,
     x => x + 1,
     delayFn,
     x => x
   )(1)
-  console.log(result)
-  // expect(result).toEqual(3)
+
+  expect(result).toEqual(3)
 })
 
 test('throw error', async () => {
-  const delay = async () => {
-    await delayFn(1)
+  const fn = async () => {
+    await delay(1)
     JSON.parse('{foo')
   }
 
-  let flag = true
+  let didThrow = false
   try {
     await composeAsync(
-      a => a,
-      a => a + 1000,
-      async () => delay(),
-      a => a + 11
+      fn,
+      x => x + 1
     )(20)
   } catch (e){
-    flag = false
+    didThrow = true
   }
-
-  expect(flag).toBeFalse()
+ 
+  expect(didThrow).toBeTrue()
 })
