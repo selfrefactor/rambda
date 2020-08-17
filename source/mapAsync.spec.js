@@ -1,20 +1,7 @@
 import { composeAsync } from './composeAsync'
+import { delay } from './delay'
 import { map } from './map'
 import { mapAsync } from './mapAsync'
-
-const delay = a =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(a + 20)
-    }, 100)
-  })
-
-const tap = a =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(a)
-    }, 100)
-  })
 
 const rejectDelay = a =>
   new Promise((_, reject) => {
@@ -23,39 +10,44 @@ const rejectDelay = a =>
     }, 100)
   })
 
-test('', async () => {
-  const result = await mapAsync(delay, [ 1, 2, 3 ])
-  expect(result).toEqual([ 21, 22, 23 ])
+test('happy', async () => {
+  const fn = async (x, prop) => {
+    await delay(100)
+    expect(prop).toBeNumber()
+
+    return x + 1
+  }
+  const result = await mapAsync(fn, [ 1, 2, 3 ])
+  expect(result).toEqual([ 2, 3, 4 ])
 })
 
 test('with object', async () => {
-  const result = await mapAsync(delay, {
+  const fn = async (x, prop) => {
+    expect(prop).toBeString()
+
+    return x + 1
+  }
+  const result = await mapAsync(fn, {
     a : 1,
     b : 2,
-    c : 3,
   })
   expect(result).toEqual({
-    a : 21,
-    b : 22,
-    c : 23,
+    a : 2,
+    b : 3,
   })
 })
 
-test('with array', async () => {
-  await mapAsync((x, i) => {
-    expect(x % 10).toBe(0)
-    expect(typeof i).toBe('number')
-  },
-  [ 10, 20, 30 ])
-})
-
-test('composeAsync', async () => {
+test('with R.composeAsync', async () => {
   const result = await composeAsync(
-    mapAsync(delay),
-    mapAsync(async a => delay(a)),
-    map(a => a * 10)
-  )(await tap([ 1, 2, 3 ]))
-  expect(result).toEqual([ 50, 60, 70 ])
+    map(x => x + 1),
+    mapAsync(async x => {
+      delay(x)
+
+      return x
+    }),
+    map(x => x * 10)
+  )([ 1, 2, 3 ])
+  expect(result).toEqual([ 11, 21, 31 ])
 })
 
 test('error', async () => {

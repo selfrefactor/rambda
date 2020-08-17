@@ -1,4 +1,4 @@
-import {mapToObjectAsync} from 'rambda'
+import {mapToObjectAsync, composeAsync} from 'rambda'
 
 interface Output {
   key1: string,
@@ -20,6 +20,14 @@ describe('R.mapToObjectAsync', () => {
   })
   it('curried', async() => {
     const result = await mapToObjectAsync<number, Output>(fn)(list)
+    result // $ExpectType Output
+  })
+  it('with R.composeAsync', async() => {
+    const result = await composeAsync<Output>(
+      mapToObjectAsync(fn),
+      (x: number[]) => x.filter((xx: number) => xx > 2)
+    )(list) 
+    
     result // $ExpectType Output
   })
 })

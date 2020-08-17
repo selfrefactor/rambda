@@ -10,8 +10,6 @@
 
 - Add `R.pipeAsync` method *
 
-- Add `R.filterAsync` method *
-
 - Add `R.removeIndex` method
 
 - Add `R.excludes` method
@@ -22,7 +20,11 @@
 
 - `R.produce` always returns a promise *
 
-- Fix currying for several async methods - `R.tapAsync`, `R.produce`, `R.mapToObjectAsync`
+- `R.mapToObjectAsync` supports currying
+
+- Fix `R.mapAsync` to pass property to iterator, when input is an object.
+
+- Fix currying for several async methods - `R.tapAsync`, `R.produce`, `R.mapToObjectAsync`, `R.filterAsync` *(extend typings)
 
 4.2.0
 

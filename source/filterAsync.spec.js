@@ -2,7 +2,8 @@ import { delay } from './delay'
 import { filterAsync } from './filterAsync'
 
 test('happy', async () => {
-  const predicate = async x => {
+  const predicate = async (x, i) => {
+    expect(i).toBeNumber()
     await delay(100)
 
     return x % 2 === 1
@@ -13,7 +14,7 @@ test('happy', async () => {
 
 test('with object', async () => {
   const predicate = async (x, prop) => {
-    expect(typeof prop).toBe('string')
+    expect(prop).toBeString()
     await delay(100)
 
     return x % 2 === 1

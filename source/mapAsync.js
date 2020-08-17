@@ -1,10 +1,10 @@
 import { _isArray } from './_internals/_isArray'
 
-async function mapAsyncFn(fn, arr){
-  if (_isArray(arr)){
+async function mapAsyncFn(fn, listOrObject){
+  if (_isArray(listOrObject)){
     const willReturn = []
     let i = 0
-    for (const a of arr){
+    for (const a of listOrObject){
       willReturn.push(await fn(a, i++))
     }
 
@@ -12,20 +12,20 @@ async function mapAsyncFn(fn, arr){
   }
 
   const willReturn = {}
-  for (const i in arr){
-    willReturn[ i ] = await fn(arr[ i ], Number(i))
+  for (const prop in listOrObject){
+    willReturn[ prop ] = await fn(listOrObject[ prop ], prop)
   }
 
   return willReturn
 }
 
-export function mapAsync(fn, arr){
+export function mapAsync(fn, listOrObject){
   if (arguments.length === 1){
-    return async holder => mapAsyncFn(fn, holder)
+    return async _listOrObject => mapAsyncFn(fn, _listOrObject)
   }
 
   return new Promise((resolve, reject) => {
-    mapAsyncFn(fn, arr).then(resolve)
+    mapAsyncFn(fn, listOrObject).then(resolve)
       .catch(reject)
   })
 }
