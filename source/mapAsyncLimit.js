@@ -1,7 +1,7 @@
 import { mapFastAsync, mapFastAsyncFn } from './mapFastAsync'
 import { splitEvery } from './splitEvery'
 
-export async function mapAsyncLimit(
+async function mapAsyncLimitFn(
   iterable, limit, list
 ){
   if (list.length < limit) return mapFastAsync(iterable, list)
@@ -15,4 +15,21 @@ export async function mapAsyncLimit(
   }
 
   return toReturn
+}
+
+export function mapAsyncLimit(
+  iterable, limit, list
+){
+  if (arguments.length === 2){
+    return async _list => mapAsyncLimitFn(
+      iterable, limit, _list
+    )
+  }
+
+  return new Promise((resolve, reject) => {
+    mapAsyncLimitFn(
+      iterable, limit, list
+    ).then(resolve)
+      .catch(reject)
+  })
 }

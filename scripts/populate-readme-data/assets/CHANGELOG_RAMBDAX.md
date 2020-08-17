@@ -22,9 +22,11 @@
 
 - `R.mapToObjectAsync` supports currying
 
+- `R.mapAsyncLimit` supports currying *
+
 - Fix `R.mapAsync` to pass property to iterator, when input is an object.
 
-- Fix currying for several async methods - `R.tapAsync`, `R.produce`, `R.mapToObjectAsync`, `R.filterAsync` *(extend typings)
+- Fix currying for several async methods - `R.tapAsync`, `R.produce`, `R.filterAsync` *(extend typings)
 
 4.2.0
 

@@ -32,3 +32,22 @@ test('happy', async () => {
   expect(result).toEqual([ 2, 3, 4, 5, 6, 7, 8, 9, 10 ])
   if (!isCI) expect(methodScale).toBe(limit)
 })
+
+const fn = async x => {
+  await delay(100)
+
+  return x + 1
+}
+
+test('with R.composeAsync', async () => {
+  const result = await composeAsync(mapAsyncLimit(fn, 2), x =>
+    x.map(xx => xx + 1))([ 1, 2, 3, 4, 5, 6 ])
+  expect(result).toEqual([ 3, 4, 5, 6, 7, 8 ])
+})
+
+test('fallback to R.mapFastAsync', async () => {
+  const result = await mapAsyncLimit(
+    fn, 4, [ 1, 2, 3 ]
+  )
+  expect(result).toEqual([ 2, 3, 4 ])
+})

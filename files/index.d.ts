@@ -5127,8 +5127,8 @@ const schema = {a: Number, b: async x => {
 }}
 
 const result = await Promise.all([
-  R.isValid({schema, input}),
-  R.isValid({schema, input: invalidInput})
+  R.isValidAsync({schema, input}),
+  R.isValidAsync({schema, input: invalidInput})
 ])
 // => [true, false]
 ```
