@@ -48,13 +48,10 @@ test('throw error', async () => {
 
   let didThrow = false
   try {
-    await composeAsync(
-      fn,
-      x => x + 1
-    )(20)
+    await composeAsync(fn, x => x + 1)(20)
   } catch (e){
     didThrow = true
   }
- 
+
   expect(didThrow).toBeTrue()
 })

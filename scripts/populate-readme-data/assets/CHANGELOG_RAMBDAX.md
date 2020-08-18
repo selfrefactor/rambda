@@ -10,7 +10,7 @@
 
 - Add `R.viewOr` method
 
-- Add `R.pipeAsync` method *
+- Add `R.pipeAsync` method
 
 - Add `R.removeIndex` method
 

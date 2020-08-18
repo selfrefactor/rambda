@@ -12,6 +12,9 @@ export function pipeAsync(...inputArguments){
         argumentsToPass = await fn(argumentsToPass)
       } else {
         argumentsToPass = fn(argumentsToPass)
+        if(type(argumentsToPass) === 'Promise'){
+          argumentsToPass = await argumentsToPass
+        }
       }
     }
 

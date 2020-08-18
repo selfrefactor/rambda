@@ -4694,16 +4694,19 @@ Example:
 
 ```
 const add = async x => {
-  await R.delay(500)
+  await R.delay(100)
   return x + 1
 }
-const identity = async x => x
+const multiply = async x => {
+  await R.delay(100)
+  return x * 2 
+}
 
 const result = await R.composeAsync(
   add,
-  identity
-)(0)
-// `result` resolves to `1`
+  multiply
+)(1)
+// `result` resolves to `3`
 ```
 
 Categories: Function, Async
@@ -4716,6 +4719,43 @@ export function composeAsync<Out>(
   ...fns: (Async<any> | Func<any>)[]
 ): (input: any) => Promise<Out>;
 export function composeAsync<Out>(
+  ...fns: (Async<any> | Func<any>)[]
+): (input: any) => Promise<Out>;
+
+/*
+Method: pipeAsync
+
+Explanation: Asynchronous version of `R.pipe`
+
+Example:
+
+```
+const add = async x => {
+  await R.delay(100)
+  return x + 1
+}
+const multiply = async x => {
+  await R.delay(100)
+  return x * 2 
+}
+
+const result = await R.pipeAsync(
+  add,
+  multiply
+)(1)
+// `result` resolves to `4`
+```
+
+Categories: Function, Async
+
+Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
+
+*/
+// @SINGLE_MARKER
+export function pipeAsync<Out>(
+  ...fns: (Async<any> | Func<any>)[]
+): (input: any) => Promise<Out>;
+export function pipeAsync<Out>(
   ...fns: (Async<any> | Func<any>)[]
 ): (input: any) => Promise<Out>;
 
