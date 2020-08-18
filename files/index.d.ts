@@ -3833,6 +3833,30 @@ export function takeLast<T>(howMany: number): {
 };
 
 /*
+Method: takeWhile
+
+Explanation:
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const predicate = (x) => x < 3
+const result = takeWhile(predicate, list)
+
+// => [1, 2, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+
+/*
 Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 

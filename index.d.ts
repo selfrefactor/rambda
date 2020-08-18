@@ -1300,6 +1300,9 @@ export function takeLast<T>(howMany: number): {
   (listOrString: string): string;
 };
 
+export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 

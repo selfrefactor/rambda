@@ -87,7 +87,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 104 Ramda methods not implemented in Rambda 
+  Click to see the full list of 103 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -175,7 +175,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - splitWhen
 - symmetricDifferenceWith
 - takeLastWhile
-- takeWhile
 - andThen
 - toPairsIn
 - transduce
@@ -18511,6 +18510,115 @@ describe('R.takeLast - string', () => {
 
 </details>
 
+### takeWhile
+
+```typescript
+
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[]
+```
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = (x) => x < 3
+const result = takeWhile(predicate, list)
+
+// => [1, 2, 3]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20(x)%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20takeWhile(predicate%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try the above <strong>R.takeWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.takeWhile</strong> source</summary>
+
+```javascript
+export function takeWhile(predicate, list){
+  const toReturn = []
+  let stopFlag = false
+  let counter = -1
+
+  while (stopFlag === false && counter++ < list.length){
+    if (!predicate(list[ counter ])){
+      stopFlag = true
+    } else {
+      toReturn.push(list[ counter ])
+    }
+  }
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { takeWhile } from './takeWhile'
+
+const list = [ 1, 2, 3, 4, 5, 6 ]
+
+test('happy', () => {
+  const result = takeWhile(x => x < 4, list)
+  expect(result).toEqual([ 1, 2, 3 ])
+})
+
+test('predicate never returns true', () => {
+  const result = takeWhile(x => x < 10, list)
+  expect(result).toEqual(list)
+})
+
+test('predicate initially returns false', () => {
+  const result = takeWhile(x => x > 2, list)
+  expect(result).toEqual([])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {takeWhile} from 'rambda'
+
+const list = [1, 2, 3, 4]
+const predicate = (x: number) => x > 3
+
+describe('R.takeWhile', () => {
+  it('happy', () => {
+    const result = takeWhile(predicate, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = takeWhile(predicate)(list)
+
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+*2 failed Ramda.takeWhile specs*
+
+> :boom: Reason for the failure: Ramda method works with strings not only arrays
+
 ### tap
 
 ```typescript
@@ -21533,7 +21641,11 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-5.12.1 
+5.13.0
+
+- Add `R.takeWhile` method
+
+5.12.1
 
 - Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
  wrong `R.assocPath` when path includes numbers

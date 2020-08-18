@@ -15,7 +15,7 @@ test('run single spec', async () => {
 
   await build()
   await importRamdaSpecs(WITH_INITIAL_STEP)
-  await runSingleSpec('move', SKIP_DELETE)
+  await runSingleSpec('takeWhile', SKIP_DELETE)
 })
 
 test('run all specs', async () => {

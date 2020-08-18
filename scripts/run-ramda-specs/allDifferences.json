@@ -211,6 +211,10 @@
     "count": 1,
     "reason": "Ramda library supports fantasy-land"
   },
+  "takeWhile": {
+    "count": 2,
+    "reason": "Ramda method works with strings not only arrays"
+  },
   "xor": {
     "count": 1,
     "reason": "Ramda method support empty call of method"
