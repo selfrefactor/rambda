@@ -8,6 +8,8 @@
 
 - Add `R.updateObject` method
 
+- Add `R.takeWhile` method
+
 - Add `R.viewOr` method
 
 - Add `R.pipeAsync` method

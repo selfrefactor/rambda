@@ -1,4 +1,8 @@
-5.12.1 
+5.13.0
+
+- Add `R.takeWhile` method
+
+5.12.1
 
 - Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
  wrong `R.assocPath` when path includes numbers
