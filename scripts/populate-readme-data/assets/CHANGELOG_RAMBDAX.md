@@ -20,8 +20,7 @@
 
 - `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
-- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
-
+- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) - `R.assocPath` wrong logic when number is used in array path input.
 
 - `R.mapToObjectAsync` supports currying
 
