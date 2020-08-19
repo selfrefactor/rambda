@@ -30,29 +30,29 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 ## Rambda's advantages
 
-- Typescript included
+### Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
-- Smaller size
+### Smaller size
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
 
-- Tree-shaking
+### Tree-shaking
 
 Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-Currently the **Ramda** bundle size is **{{rambdaTreeShakingInfo}} MB** less than its **Ramda** counterpart.
+Currently the **Ramda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
 > actually tree-shaking is the initial reason for creation of `Rambda`
 
-- dot notation for `R.path` and `R.paths`
+### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -62,7 +62,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-- comma notation for `R.pick` and `R.omit`
+### Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
@@ -71,13 +71,13 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-- Speed
+### Speed
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
-- Support
+### Support
 
-Most of the valid issues are fixed within 2-5 days.
+Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
 
@@ -87,7 +87,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 104 Ramda methods not implemented in Rambda 
+  Click to see the full list of 103 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -175,7 +175,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - splitWhen
 - symmetricDifferenceWith
 - takeLastWhile
-- takeWhile
 - andThen
 - toPairsIn
 - transduce
@@ -2018,9 +2017,12 @@ import { assoc } from './assoc'
 import { curry } from './curry'
 
 function assocPathFn(
-  list, newValue, input
+  path, newValue, input
 ){
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  const pathArrValue =
+    typeof path === 'string' ?
+      path.split('.').map(x => _isInteger(Number(x)) ? Number(x) : x) :
+      path
   if (pathArrValue.length === 0){
     return newValue
   }
@@ -2033,10 +2035,11 @@ function assocPathFn(
       !input.hasOwnProperty(index)
 
     const nextinput = condition ?
-      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
+      _isInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]
+
     newValue = assocPathFn(
       Array.prototype.slice.call(pathArrValue, 1),
       newValue,
@@ -2044,7 +2047,7 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(parseInt(index, 10)) && _isArray(input)){
+  if (_isInteger(index) && _isArray(input)){
     const arr = input.slice()
     arr[ index ] = newValue
 
@@ -2067,6 +2070,42 @@ export const assocPath = curry(assocPathFn)
 
 ```javascript
 import { assocPath } from './assocPath'
+
+test('string can be used as path input', () => {
+  const testObj = {
+    a : [ { b : 1 }, { b : 2 } ],
+    d : 3,
+  }
+  const result = assocPath(
+    'a.0.b', 10, testObj
+  )
+  const expected = {
+    a : [ { b : 10 }, { b : 2 } ],
+    d : 3,
+  }
+  expect(result).toEqual(expected)
+})
+
+test('bug', () => {
+  /*
+    https://github.com/selfrefactor/rambda/issues/524
+  */
+  const state = {}
+
+  const withDateLike = assocPath(
+    [ 'outerProp', '2020-03-10' ],
+    { prop : 2 },
+    state
+  )
+  const withNumber = assocPath(
+    [ 'outerProp', '5' ], { prop : 2 }, state
+  )
+
+  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
+  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
+  expect(withDateLike).toEqual(withDateLikeExpected)
+  expect(withNumber).toEqual(withNumberExpected)
+})
 
 test('adds a key to an empty object', () => {
   expect(assocPath(
@@ -2117,13 +2156,6 @@ test('adds a nested key to a non-empty object - curry case 1', () => {
   expect(assocPath('b.c', 2)({ a : 1 })).toEqual({
     a : 1,
     b : { c : 2 },
-  })
-})
-
-test('adds a nested array to a non-empty object - curry case 1', () => {
-  expect(assocPath('b.0', 2)({ a : 1 })).toEqual({
-    a : 1,
-    b : [ 2 ],
   })
 })
 
@@ -8742,9 +8774,11 @@ import { equals } from './equals'
 
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
-
   if (typeof input === 'string'){
     return input.includes(valueToFind)
+  }
+  if (!input){
+    throw new TypeError(`Cannot read property \'indexOf\' of ${ input }`)
   }
   if (!_isArray(input)) return false
 
@@ -8790,12 +8824,21 @@ test('includes with array', () => {
   expect(R.includes(4, arr)).toBeFalse()
 })
 
-test('return false if input is falsy', () => {
-  expect(includes(2, null)).toBeFalse()
+test('with wrong input that does not throw', () => {
+  const result = includes(1, /foo/g)
+  const ramdaResult = R.includes(1, /foo/g)
+  expect(result).toBeFalse()
+  expect(ramdaResult).toBeFalse()
+})
+
+test('throws on wrong input - match ramda behaviour', () => {
+  expect(() => includes(2, null)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of null')
   expect(() => R.includes(2, null)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of null')
-  expect(includes(4, undefined)).toBeFalse()
-  expect(() => R.includes(4, undefined)).toThrowWithMessage(TypeError,
+  expect(() => includes(2, undefined)).toThrowWithMessage(TypeError,
+    'Cannot read property \'indexOf\' of undefined')
+  expect(() => R.includes(2, undefined)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of undefined')
 })
 ```
@@ -18513,6 +18556,115 @@ describe('R.takeLast - string', () => {
 
 </details>
 
+### takeWhile
+
+```typescript
+
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[]
+```
+
+```javascript
+const list = [1, 2, 3, 4, 5]
+const predicate = x => x < 3
+const result = takeWhile(predicate, list)
+
+// => [1, 2, 3]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20takeWhile(predicate%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try the above <strong>R.takeWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.takeWhile</strong> source</summary>
+
+```javascript
+export function takeWhile(predicate, list){
+  const toReturn = []
+  let stopFlag = false
+  let counter = -1
+
+  while (stopFlag === false && counter++ < list.length - 1){
+    if (!predicate(list[ counter ])){
+      stopFlag = true
+    } else {
+      toReturn.push(list[ counter ])
+    }
+  }
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { takeWhile } from './takeWhile'
+
+const list = [ 1, 2, 3, 4, 5, 6 ]
+
+test('happy', () => {
+  const result = takeWhile(x => x < 4, list)
+  expect(result).toEqual([ 1, 2, 3 ])
+})
+
+test('predicate always returns true', () => {
+  const result = takeWhile(x => x < 10, list)
+  expect(result).toEqual(list)
+}) 
+
+test('predicate alwats returns false', () => {
+  const result = takeWhile(x => x > 10, list)
+  expect(result).toEqual([])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {takeWhile} from 'rambda'
+
+const list = [1, 2, 3, 4]
+const predicate = (x: number) => x > 3
+
+describe('R.takeWhile', () => {
+  it('happy', () => {
+    const result = takeWhile(predicate, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = takeWhile(predicate)(list)
+
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+*2 failed Ramda.takeWhile specs*
+
+> :boom: Reason for the failure: Ramda method works with strings not only arrays
+
 ### tap
 
 ```typescript
@@ -21534,6 +21686,19 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+5.13.0
+
+- Add `R.takeWhile` method
+
+- Fix `R.lensPath` issue when using string as path input. The issue was introduced when fixing [Issue #524](https://github.com/selfrefactor/rambda/issues/524) in the previous release.
+
+5.12.1
+
+- Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -
+ wrong `R.assocPath` when path includes numbers
+
+- `R.includes` throws on wrong input, i.e. `R.includes(1, null)`
 
 5.12.0
 
