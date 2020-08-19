@@ -1,6 +1,6 @@
 import { assocPath } from './assocPath'
 
-test('adds a key to an empty object', () => {
+test('string can be used as path input', () => {
   const testObj = {
     a : [ { b : 1 }, { b : 2 } ],
     d : 3,
@@ -8,35 +8,32 @@ test('adds a key to an empty object', () => {
   const result = assocPath(
     'a.0.b', 10, testObj
   )
-  console.log(result)
+  const expected = {
+    a : [ { b : 10 }, { b : 2 } ],
+    d : 3,
+  }
+  expect(result).toEqual(expected)
 })
 
-test.only('bug', () => {
+test('bug', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
   */
   const state = {}
 
-  const result = assocPath(
-    [ 'outerProp', '2020-03-10' ], { prop : 2 }, state
+  const withDateLike = assocPath(
+    [ 'outerProp', '2020-03-10' ],
+    { prop : 2 },
+    state
   )
-  const incorrect = assocPath(
+  const withNumber = assocPath(
     [ 'outerProp', '5' ], { prop : 2 }, state
   )
 
-  const expected = { outerProp : { '2020-03-10' : { prop : 2 } } }
-  const incorrectExpected = {
-    outerProp : [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      { prop : 2 },
-    ],
-  }
-  expect(result).toEqual(expected)
-  expect(incorrect).toEqual(incorrectExpected)
+  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
+  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
+  expect(withDateLike).toEqual(withDateLikeExpected)
+  expect(withNumber).toEqual(withNumberExpected)
 })
 
 test('adds a key to an empty object', () => {

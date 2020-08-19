@@ -1,7 +1,6 @@
 import { compose } from './compose'
 import { identity } from './identity'
 import { inc } from './inc'
-// import { lensPath } from 'ramda'
 import { lensPath } from './lensPath'
 import { lensProp } from './lensProp'
 import { over } from './over'
@@ -14,7 +13,6 @@ const testObj = {
 }
 
 test('view', () => {
-  console.log(view(lensPath([ 'a', 0, 'b' ]), testObj))
   expect(view(lensPath('d'), testObj)).toEqual(3)
   expect(view(lensPath('a.0.b'), testObj)).toEqual(1)
   // this is different to ramda, ramda will return a clone of the input object

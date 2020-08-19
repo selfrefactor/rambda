@@ -6,7 +6,10 @@ import { curry } from './curry'
 function assocPathFn(
   path, newValue, input
 ){
-  const pathArrValue = typeof path === 'string' ? path.split('.') : path
+  const pathArrValue =
+    typeof path === 'string' ?
+      path.split('.').map(x => _isInteger(Number(x)) ? Number(x) : x) :
+      path
   if (pathArrValue.length === 0){
     return newValue
   }
@@ -19,7 +22,7 @@ function assocPathFn(
       !input.hasOwnProperty(index)
 
     const nextinput = condition ?
-      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
+      _isInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]
@@ -31,7 +34,7 @@ function assocPathFn(
     )
   }
 
-  if (_isInteger(Number(index)) && _isArray(input)){
+  if (_isInteger(index) && _isArray(input)){
     const arr = input.slice()
     arr[ index ] = newValue
 

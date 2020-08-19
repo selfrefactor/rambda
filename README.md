@@ -2019,7 +2019,10 @@ import { curry } from './curry'
 function assocPathFn(
   path, newValue, input
 ){
-  const pathArrValue = typeof path === 'string' ? path.split('.') : path
+  const pathArrValue =
+    typeof path === 'string' ?
+      path.split('.').map(x => _isInteger(Number(x)) ? Number(x) : x) :
+      path
   if (pathArrValue.length === 0){
     return newValue
   }
@@ -2032,7 +2035,7 @@ function assocPathFn(
       !input.hasOwnProperty(index)
 
     const nextinput = condition ?
-      _isInteger(parseInt(pathArrValue[ 1 ], 10)) ?
+      _isInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]
@@ -2042,6 +2045,13 @@ function assocPathFn(
       newValue,
       nextinput
     )
+  }
+
+  if (_isInteger(index) && _isArray(input)){
+    const arr = input.slice()
+    arr[ index ] = newValue
+
+    return arr
   }
 
   return assoc(
@@ -2060,6 +2070,42 @@ export const assocPath = curry(assocPathFn)
 
 ```javascript
 import { assocPath } from './assocPath'
+
+test('string can be used as path input', () => {
+  const testObj = {
+    a : [ { b : 1 }, { b : 2 } ],
+    d : 3,
+  }
+  const result = assocPath(
+    'a.0.b', 10, testObj
+  )
+  const expected = {
+    a : [ { b : 10 }, { b : 2 } ],
+    d : 3,
+  }
+  expect(result).toEqual(expected)
+})
+
+test('bug', () => {
+  /*
+    https://github.com/selfrefactor/rambda/issues/524
+  */
+  const state = {}
+
+  const withDateLike = assocPath(
+    [ 'outerProp', '2020-03-10' ],
+    { prop : 2 },
+    state
+  )
+  const withNumber = assocPath(
+    [ 'outerProp', '5' ], { prop : 2 }, state
+  )
+
+  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
+  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
+  expect(withDateLike).toEqual(withDateLikeExpected)
+  expect(withNumber).toEqual(withNumberExpected)
+})
 
 test('adds a key to an empty object', () => {
   expect(assocPath(
@@ -21644,6 +21690,10 @@ describe('R.zipObj', () => {
 5.13.0
 
 - Add `R.takeWhile` method
+
+- Add `R.takeUntil` method
+
+- Restore `R.assocPath` change made when fixing [Issue #524](https://github.com/selfrefactor/rambda/issues/524) - this change caused `R.lensPath` to stop working with string as a path.
 
 5.12.1
 
