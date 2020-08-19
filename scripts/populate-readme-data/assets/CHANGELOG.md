@@ -2,6 +2,10 @@
 
 - Add `R.takeWhile` method
 
+- Add `R.takeUntil` method
+
+- Restore `R.assocPath` change made when fixing [Issue #524](https://github.com/selfrefactor/rambda/issues/524) - this change caused `R.lensPath` to stop working with string as a path.
+
 5.12.1
 
 - Close [Issue #524](https://github.com/selfrefactor/rambda/issues/524) -

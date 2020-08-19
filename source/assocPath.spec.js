@@ -1,6 +1,45 @@
 import { assocPath } from './assocPath'
 
 test('adds a key to an empty object', () => {
+  const testObj = {
+    a : [ { b : 1 }, { b : 2 } ],
+    d : 3,
+  }
+  const result = assocPath(
+    'a.0.b', 10, testObj
+  )
+  console.log(result)
+})
+
+test.only('bug', () => {
+  /*
+    https://github.com/selfrefactor/rambda/issues/524
+  */
+  const state = {}
+
+  const result = assocPath(
+    [ 'outerProp', '2020-03-10' ], { prop : 2 }, state
+  )
+  const incorrect = assocPath(
+    [ 'outerProp', '5' ], { prop : 2 }, state
+  )
+
+  const expected = { outerProp : { '2020-03-10' : { prop : 2 } } }
+  const incorrectExpected = {
+    outerProp : [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      { prop : 2 },
+    ],
+  }
+  expect(result).toEqual(expected)
+  expect(incorrect).toEqual(incorrectExpected)
+})
+
+test('adds a key to an empty object', () => {
   expect(assocPath(
     [ 'a' ], 1, {}
   )).toEqual({ a : 1 })

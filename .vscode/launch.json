@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/pipeAsync.spec.js"
+        "source/assocPath.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

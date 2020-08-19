@@ -31,6 +31,13 @@ function assocPathFn(
     )
   }
 
+  if (_isInteger(Number(index)) && _isArray(input)){
+    const arr = input.slice()
+    arr[ index ] = newValue
+
+    return arr
+  }
+
   return assoc(
     index, newValue, input
   )
