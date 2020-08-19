@@ -1,3 +1,7 @@
+5.13.1
+
+- Fix wrong `R.takeWhile`
+
 5.13.0
 
 - Add `R.takeWhile` method

@@ -109,15 +109,21 @@ async function getTreeShakingInfo(){
 }
 
 async function getIntroContent(withRambdax){
+  const rambdaTreeShakingInfo = await getTreeShakingInfo()
+
   const filePath = withRambdax ?
     `${ __dirname }/assets/INTRO_RAMBDAX.md` :
     `${ __dirname }/assets/INTRO.md`
 
-  const content = await readFile(filePath)
-  const advantages = await readFile(`${ __dirname }/assets/ADVANTAGES.md`)
-  const rambdaTreeShakingInfo = await getTreeShakingInfo()
+  const advantagesFilePath = withRambdax ? 
+    `${ __dirname }/assets/ADVANTAGES_RAMBDAX.md` :
+    `${ __dirname }/assets/ADVANTAGES.md`
+  const advantagesTemplate = (await readFile(advantagesFilePath)).toString()
 
-  return interpolate(content.toString(), {
+  const advantages = interpolate(advantagesTemplate, {rambdaTreeShakingInfo})
+  const content = (await readFile(filePath)).toString()
+
+  return interpolate(content, {
     rambdaTreeShakingInfo,
     advantages,
   })

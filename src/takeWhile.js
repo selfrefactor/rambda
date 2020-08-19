@@ -3,7 +3,7 @@ export function takeWhile(predicate, list){
   let stopFlag = false
   let counter = -1
 
-  while (stopFlag === false && counter++ < list.length){
+  while (stopFlag === false && counter++ < list.length - 1){
     if (!predicate(list[ counter ])){
       stopFlag = true
     } else {
