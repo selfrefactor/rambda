@@ -21691,9 +21691,7 @@ describe('R.zipObj', () => {
 
 - Add `R.takeWhile` method
 
-- Add `R.takeUntil` method
-
-- Restore `R.assocPath` change made when fixing [Issue #524](https://github.com/selfrefactor/rambda/issues/524) - this change caused `R.lensPath` to stop working with string as a path.
+- Fix `R.lensPath` issue when using string as path input. The issue was introduced when fixing [Issue #524](https://github.com/selfrefactor/rambda/issues/524) in the previous release.
 
 5.12.1
 
