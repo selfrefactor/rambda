@@ -3840,8 +3840,8 @@ Explanation:
 Example:
 
 ```
-const list = [1, 2, 3, 4]
-const predicate = (x) => x < 3
+const list = [1, 2, 3, 4, 5]
+const predicate = x => x < 3
 const result = takeWhile(predicate, list)
 
 // => [1, 2, 3]
@@ -6193,6 +6193,31 @@ Notes:
 // @SINGLE_MARKER
 export function updateObject<Output>(rules: [string, any][], input: object): Output;
 export function updateObject<Output>(rules: [string, any][]): (input: object) => Output;
+
+/*
+Method: takeUntil
+
+Explanation:
+
+Example:
+
+```
+const list = [1, 2, 3, 4, 5]
+const predicate = x => x > 3
+const result = takeUntil(predicate, list)
+
+// => [1, 2, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function takeUntil<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeUntil<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+
 
 // RAMBDAX_MARKER_END
 // ============================================

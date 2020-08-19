@@ -1,10 +1,10 @@
-export function takeWhile(predicate, list){
+export function takeUntil(predicate, list){
   const toReturn = []
   let stopFlag = false
   let counter = -1
 
   while (stopFlag === false && counter++ < list.length - 1){
-    if (!predicate(list[ counter ])){
+    if (predicate(list[ counter ])){
       stopFlag = true
     } else {
       toReturn.push(list[ counter ])

@@ -7,12 +7,12 @@ test('happy', () => {
   expect(result).toEqual([ 1, 2, 3 ])
 })
 
-test('predicate never returns true', () => {
+test('predicate always returns true', () => {
   const result = takeWhile(x => x < 10, list)
   expect(result).toEqual(list)
-})
+}) 
 
-test('predicate initially returns false', () => {
-  const result = takeWhile(x => x > 2, list)
+test('predicate alwats returns false', () => {
+  const result = takeWhile(x => x > 10, list)
   expect(result).toEqual([])
 })

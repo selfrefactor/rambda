@@ -1,3 +1,7 @@
+WIP 5.1.0
+
+- Add `R.takeUntil` method
+
 5.0.0
 
 - Deprecate `R.change` method - it does too much; partially replaced with `R.updateObject`.
