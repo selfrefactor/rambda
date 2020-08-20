@@ -18625,7 +18625,7 @@ test('happy', () => {
 test('predicate always returns true', () => {
   const result = takeWhile(x => x < 10, list)
   expect(result).toEqual(list)
-}) 
+})
 
 test('predicate alwats returns false', () => {
   const result = takeWhile(x => x > 10, list)
@@ -22123,16 +22123,23 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Most influential contributors
 
-- [@farwayer](https://github.com/farwayer)
-- [@thejohnfreeman](https://github.com/thejohnfreeman)
-- [@helmuthdu](https://github.com/helmuthdu)
-- [@jpgorman](https://github.com/jpgorman)
-- [@ku8ar](https://github.com/ku8ar)
-- [@romgrk](https://github.com/romgrk)
-- [@squidfunk](https://github.com/squidfunk)
-- [@synthet1c](https://github.com/synthet1c)
-- [@vlad-zhukov](https://github.com/vlad-zhukov)
-- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
+- [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
+
+- [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
+
+- [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
+
+- [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
+
+- [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
+
+- [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
+
+- [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
+
+- [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
+
+- [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
 
 > Rambda references
 

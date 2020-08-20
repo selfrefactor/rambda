@@ -18625,7 +18625,7 @@ test('happy', () => {
 test('predicate always returns true', () => {
   const result = takeWhile(x => x < 10, list)
   expect(result).toEqual(list)
-}) 
+})
 
 test('predicate alwats returns false', () => {
   const result = takeWhile(x => x > 10, list)
@@ -22123,16 +22123,23 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Most influential contributors
 
-- [@farwayer](https://github.com/farwayer)
-- [@thejohnfreeman](https://github.com/thejohnfreeman)
-- [@helmuthdu](https://github.com/helmuthdu)
-- [@jpgorman](https://github.com/jpgorman)
-- [@ku8ar](https://github.com/ku8ar)
-- [@romgrk](https://github.com/romgrk)
-- [@squidfunk](https://github.com/squidfunk)
-- [@synthet1c](https://github.com/synthet1c)
-- [@vlad-zhukov](https://github.com/vlad-zhukov)
-- [@WhoAteDaCake](https://github.com/WhoAteDaCake)
+- [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
+
+- [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
+
+- [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
+
+- [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
+
+- [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
+
+- [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
+
+- [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
+
+- [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
+
+- [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
 
 > Rambda references
 
@@ -22142,8 +22149,37 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Links to Rambda
 
-- (https://mailchi.mp/webtoolsweekly/web-tools-280)[Web Tools Weekly]
+- [https://mailchi.mp/webtoolsweekly/web-tools-280](Web Tools Weekly)
 
-- (https://github.com/stoeffel/awesome-fp-js)[awesome-fp-js]
+- [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
 
-- (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]
+- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)  
+
+## My other libraries
+
+<table>
+    <tbody>
+        <tr valign="top">
+            <td width="20%" align="center">
+                <h4>Niketa theme</h4>
+                <a href="https://marketplace.visualstudio.com/items?itemName=selfrefactor.Niketa-theme">Collection of 9 light VSCode themes</a>
+            </td>
+            <td width="20%" align="center">
+                <h4>Niketa dark theme</h4>
+                <a href="https://marketplace.visualstudio.com/items?itemName=selfrefactor.niketa-dark-theme">Collection of 9 dark VSCode themes</a>
+            </td>
+            <td width="20%" align="center">
+                <h4>String-fn</h4>
+                <a href="https://github.com/selfrefactor/services/tree/master/packages/string-fn">String utility library</a>
+            </td>
+            <td width="20%" align="center">
+                <h4>Useful Javascript libraries</h4>
+                <a href="https://github.com/selfrefactor/useful-javascript-libraries">Large collection of JavaScript,Typescript and Angular related repos links</a>
+            </td>
+            <td width="20%" align="center">
+                <h4>Run-fn</h4>
+                <a href="https://github.com/selfrefactor/services/tree/master/packages/run-fn">CLI commands for lint JS/TS files, commit git changes and upgrade of dependencies</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

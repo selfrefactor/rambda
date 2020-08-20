@@ -10,7 +10,7 @@ test('happy', () => {
 test('predicate always returns true', () => {
   const result = takeWhile(x => x < 10, list)
   expect(result).toEqual(list)
-}) 
+})
 
 test('predicate alwats returns false', () => {
   const result = takeWhile(x => x > 10, list)
