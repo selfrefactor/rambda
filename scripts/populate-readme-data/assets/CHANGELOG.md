@@ -1,3 +1,7 @@
+WIP 5.13.2
+
+- Typings of `R.assoc` match its `@types/ramda` counterpart.
+
 5.13.1
 
 - Fix wrong `R.takeWhile`

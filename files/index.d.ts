@@ -43,6 +43,11 @@ interface Dictionary<T> {
 
 type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
+interface AssocPartialOne<K extends keyof any> {
+  <T>(val: T): <U>(obj: U) => Record<K, T> & U;
+  <T, U>(val: T, obj: U): Record<K, T> & U;
+}
+
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
@@ -91,6 +96,7 @@ interface Reduced {
 interface Schema {
   [key: string]: any;
 }
+
 interface SchemaAsync {
   [key: string]: Promise<boolean>;
 }
@@ -407,9 +413,9 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
-export function assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /*
 Method: assocPath
