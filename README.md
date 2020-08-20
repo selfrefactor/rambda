@@ -22142,11 +22142,11 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Links to Rambda
 
-- (https://mailchi.mp/webtoolsweekly/web-tools-280)[Web Tools Weekly]
+- [https://mailchi.mp/webtoolsweekly/web-tools-280](Web Tools Weekly)
 
-- (https://github.com/stoeffel/awesome-fp-js)[awesome-fp-js]
+- [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
 
-- (https://github.com/docsifyjs/awesome-docsify)[awesome-docsify]  
+- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)  
 
 ## My other libraries
 
