@@ -10626,7 +10626,7 @@ test('composed lenses', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {lens, lensIndex, lensPath, lensProp, view} from 'rambda'
+import {lens, lensIndex, lensProp, view} from 'rambda'
 import {assoc} from 'ramda'
 
 interface Dictionary<T> {
@@ -10649,20 +10649,10 @@ const nameLens = lens<Input, string, string>((x: Input) => {
 }, assoc('name'))
 const addressLens = lensProp('address')
 const headLens = lensIndex(0)
-const dogLens = lensPath(['pets', 'dog'])
-const dogLensAsString = lensPath('pets.doc')
 
 describe('lenses', () => {
   it('lens', () => {
     const result = view<Input, string>(nameLens, MockObject)
-    result // $ExpectType string
-  })
-  it('lens path', () => {
-    const result = view<Input, string>(dogLens, MockObject)
-    result // $ExpectType string
-  })
-  it('lens path as string', () => {
-    const result = view<Input, string>(dogLensAsString, MockObject)
     result // $ExpectType string
   })
   it('lens prop', () => {
@@ -10971,6 +10961,45 @@ test('get (set(set s v1) v2) === v2', () => {
       lensPath(q), 10, testObj
     )
   ))).toEqual(11)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {lensPath, view} from 'rambda'
+
+interface Dictionary<T> {
+  [index: string]: T,
+}
+interface Input {
+  name: string,
+  address: string[],
+  pets: Dictionary<string>,
+}
+
+const MockObject: Input = {
+  name: 'Alice Jones',
+  address: ['22 Walnut St', 'San Francisco', 'CA'],
+  pets: {dog: 'joker', cat: 'batman'},
+}
+
+const path = lensPath(['pets', 'dog'])
+const pathAsString = lensPath('pets.doc')
+
+describe('R.lensPath', () => {
+  it('happy', () => {
+    const result = view<Input, string>(path, MockObject)
+    result // $ExpectType string
+  })
+  it('using string as path input', () => {
+    const result = view<Input, string>(pathAsString, MockObject)
+    result // $ExpectType string
+  })
 })
 ```
 
