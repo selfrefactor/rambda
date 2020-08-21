@@ -32,68 +32,6 @@ test('view', () => {
   expect(view(headLens, alice.address)).toEqual('22 Walnut St')
 })
 
-test('over', () => {
-  expect(over(
-    nameLens, toUpper, alice
-  )).toEqual({
-    name    : 'ALICE JONES',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
-
-  expect(over(
-    dogLens, toUpper, alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'JOKER',
-      cat : 'batman',
-    },
-  })
-
-  expect(over(headLens, toUpper)(alice.address)).toEqual([
-    '22 WALNUT ST',
-    'San Francisco',
-    'CA',
-  ])
-})
-
-test('set', () => {
-  expect(set(
-    nameLens, 'Alice Smith', alice
-  )).toEqual({
-    name    : 'Alice Smith',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
-
-  expect(set(
-    dogLens, 'bane', alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'bane',
-      cat : 'batman',
-    },
-  })
-
-  expect(set(
-    headLens, '52 Crane Ave', alice.address
-  )).toEqual([
-    '52 Crane Ave',
-    'San Francisco',
-    'CA',
-  ])
-})
-
 test('composed lenses', () => {
   const composedStreetLens = compose(addressLens, headLens)
   const composedDogLens = compose(lensPath('pets'), lensPath('dog'))

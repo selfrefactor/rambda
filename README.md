@@ -1846,7 +1846,7 @@ describe('applySpec', () => {
 
 ```typescript
 
-assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U
+assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U
 ```
 
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -1863,9 +1863,9 @@ R.assoc('c', 3, {a: 1, b: 2})
 <summary>All Typescript definitions</summary>
 
 ```typescript
-assoc<T, U, K extends string>(prop: K, newValue: T, obj: U): Record<K, T> & U;
-assoc<T, K extends string>(prop: K, newValue: T): <U>(obj: U) => Record<K, T> & U;
-assoc<K extends string>(prop: K): <T, U>(newValue: T, obj: U) => Record<K, T> & U;
+assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
+assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+assoc<K extends string>(prop: K): AssocPartialOne<K>;
 ```
 
 </details>
@@ -1974,11 +1974,46 @@ test('assignment is shallow', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {assoc} from 'rambda'
+
+const obj = {a: 1}
+const newValue = 2
+const newProp = 'b'
+
+describe('R.assoc', () => {
+  it('happy', () => {
+    const result = assoc(newProp, newValue, obj)
+
+    result.a // $ExpectType number
+    result.b // $ExpectType number
+  })
+  it('curried 1', () => {
+    const result = assoc(newProp, newValue)(obj)
+
+    result.a // $ExpectType number
+    result.b // $ExpectType number
+  })
+  it('curried 2', () => {
+    const result = assoc(newProp)(newValue)(obj)
+
+    result.a // $ExpectType number
+    result.b // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### assocPath
 
 ```typescript
 
-assocPath<T, U>(path: Path, newValue: T, obj: U): U
+assocPath<Output>(path: Path, newValue: any, obj: object): Output
 ```
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
@@ -1999,9 +2034,9 @@ R.assocPath(path, newValue, obj)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-assocPath<T, U>(path: Path, newValue: T, obj: U): U;
-assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(newValue: T, obj: U) => U>;
+assocPath<Output>(path: Path, newValue: any, obj: object): Output;
+assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
+assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: object) => Output>;
 ```
 
 </details>
@@ -2239,11 +2274,34 @@ test('happy', () => {
 ```typescript
 import {assocPath} from 'rambda'
 
-describe('R.assocPath', () => {
-  it('happy', () => {
-    const result = assocPath(['b'], 2, {a: 1})
+interface Output {
+  a: number,
+  foo: {bar: number},
+}
 
-    result // $ExpectType { a: number; }
+describe('R.assocPath - user must explicitly set type of output', () => {
+  it('with array as path input', () => {
+    const result = assocPath<Output>(['foo', 'bar'], 2, {a: 1})
+
+    result // $ExpectType Output
+  })
+  it('with string as path input', () => {
+    const result = assocPath<Output>('foo.bar', 2, {a: 1})
+
+    result // $ExpectType Output
+  })
+})
+
+describe('R.assocPath - curried', () => {
+  it('with array as path input', () => {
+    const result = assocPath<Output>(['foo', 'bar'], 2)({a: 1})
+
+    result // $ExpectType Output
+  })
+  it('with string as path input', () => {
+    const result = assocPath<Output>('foo.bar', 2)({a: 1})
+
+    result // $ExpectType Output
   })
 })
 ```
@@ -10499,9 +10557,9 @@ import { lensPath } from './lensPath'
 import { lensProp } from './lensProp'
 import { over } from './over'
 import { prop } from './prop'
-import { set } from './set'
 import { toUpper } from './toUpper'
 import { view } from './view'
+import { set } from './set'
 
 const alice = {
   name    : 'Alice Jones',
@@ -10555,38 +10613,6 @@ test('over', () => {
   ])
 })
 
-test('set', () => {
-  expect(set(
-    nameLens, 'Alice Smith', alice
-  )).toEqual({
-    name    : 'Alice Smith',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
-
-  expect(set(
-    dogLens, 'bane', alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'bane',
-      cat : 'batman',
-    },
-  })
-
-  expect(set(
-    headLens, '52 Crane Ave', alice.address
-  )).toEqual([
-    '52 Crane Ave',
-    'San Francisco',
-    'CA',
-  ])
-})
-
 test('composed lenses', () => {
   const composedStreetLens = compose(addressLens, headLens)
   const composedDogLens = compose(lensPath('pets'), lensPath('dog'))
@@ -10626,8 +10652,7 @@ test('composed lenses', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {lens, lensIndex, lensProp, view} from 'rambda'
-import {assoc} from 'ramda'
+import {lens, assoc} from 'rambda'
 
 interface Dictionary<T> {
   [index: string]: T,
@@ -10638,33 +10663,12 @@ interface Input {
   pets: Dictionary<string>,
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
-}
-
-const nameLens = lens<Input, string, string>((x: Input) => {
-  return x.name
-}, assoc('name'))
-const addressLens = lensProp('address')
-const headLens = lensIndex(0)
-
-describe('lenses', () => {
-  it('lens', () => {
-    const result = view<Input, string>(nameLens, MockObject)
-    result // $ExpectType string
-  })
-  it('lens prop', () => {
-    const result = view<Input, string>(addressLens, MockObject)
-    result // $ExpectType string
-  })
-  it('lens index', () => {
-    const result = view<Input['address'], string>(
-      headLens,
-      MockObject.address
-    )
-    result // $ExpectType string
+describe('R.lens', () => {
+  it('happy', () => {
+    const fn = lens<Input, string, string>((x: Input) => {
+      return x.name
+    }, assoc('name'))
+    fn // $ExpectType Lens
   })
 })
 ```
@@ -11157,6 +11161,40 @@ test('get (set(set s v1) v2) === v2', () => {
         lensProp('a'), 10, testObj
       )
     ))).toEqual(11)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {lensProp, view} from 'rambda'
+
+interface Dictionary<T> {
+  [index: string]: T,
+}
+interface Input {
+  name: string,
+  address: string[],
+  pets: Dictionary<string>,
+}
+
+const MockObject: Input = {
+  name: 'Alice Jones',
+  address: ['22 Walnut St', 'San Francisco', 'CA'],
+  pets: {dog: 'joker', cat: 'batman'},
+}
+
+const addressLens = lensProp('address')
+
+describe('R.lensProp', () => {
+  it('happy', () => {
+    const result = view<Input, string>(addressLens, MockObject)
+    result // $ExpectType string
+  })
 })
 ```
 
@@ -13646,6 +13684,70 @@ function overFn(
 }
 
 export const over = curry(overFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { assoc } from './assoc'
+import { lens } from './lens'
+import { lensIndex } from './lensIndex'
+import { lensPath } from './lensPath'
+import { lensProp } from './lensProp'
+import { over } from './over'
+import { prop } from './prop'
+import { toUpper } from './toUpper'
+ 
+const alice = {
+  name    : 'Alice Jones',
+  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+  pets    : {
+    dog : 'joker',
+    cat : 'batman',
+  },
+}
+
+const assocLens = lens(prop('name'), assoc('name'))
+const addressLens = lensProp('address')
+const indexLens = lensIndex(0)
+const pathLens = lensPath('pets.dog')
+
+test('assoc lens', () => {
+  expect(over(
+    assocLens, toUpper, alice
+  )).toEqual({
+    name    : 'ALICE JONES',
+    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+    pets    : {
+      dog : 'joker',
+      cat : 'batman',
+    },
+  })
+})
+
+test('path lens', () => {
+  expect(over(
+    pathLens, toUpper, alice
+  )).toEqual({
+    name    : 'Alice Jones',
+    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+    pets    : {
+      dog : 'JOKER',
+      cat : 'batman',
+    },
+  })
+})
+test('index lens', () => {
+  expect(over(indexLens, toUpper)(alice.address)).toEqual([
+    '22 WALNUT ST',
+    'San Francisco',
+    'CA',
+  ])
+})
 ```
 
 </details>
@@ -17202,6 +17304,70 @@ function setFn(
 }
 
 export const set = curry(setFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { assoc } from './assoc'
+import { lens } from './lens'
+import { lensIndex } from './lensIndex'
+import { lensPath } from './lensPath'
+import { prop } from './prop'
+import { set } from './set'
+
+const alice = {
+  name    : 'Alice Jones',
+  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+  pets    : {
+    dog : 'joker',
+    cat : 'batman',
+  },
+}
+
+const assocLens = lens(prop('name'), assoc('name'))
+const indexLens = lensIndex(0)
+const pathLens = lensPath('pets.dog')
+
+test('assoc lens', () => {
+  expect(set(
+    assocLens, 'Alice Smith', alice
+  )).toEqual({
+    name    : 'Alice Smith',
+    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+    pets    : {
+      dog : 'joker',
+      cat : 'batman',
+    },
+  })
+})
+
+test('path lens', () => {
+  expect(set(
+    pathLens, 'bane', alice
+  )).toEqual({
+    name    : 'Alice Jones',
+    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+    pets    : {
+      dog : 'bane',
+      cat : 'batman',
+    },
+  })
+})
+
+test('index lens', () => {
+  expect(set(
+    indexLens, '52 Crane Ave', alice.address
+  )).toEqual([
+    '52 Crane Ave',
+    'San Francisco',
+    'CA',
+  ])
+})
 ```
 
 </details>
@@ -20840,6 +21006,70 @@ export function view(lens, target){
 
 </details>
 
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { assoc } from './assoc'
+import { lens } from './lens'
+import { prop } from './prop'
+import { view } from './view'
+
+const alice = {
+  name    : 'Alice Jones',
+  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
+  pets    : {
+    dog : 'joker',
+    cat : 'batman',
+  },
+}
+
+const nameLens = lens(prop('name'), assoc('name'))
+
+test('happy', () => {
+  expect(view(nameLens, alice)).toEqual('Alice Jones')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {lens, view, assoc} from 'rambda'
+
+interface Dictionary<T> {
+  [index: string]: T,
+}
+interface Input {
+  name: string,
+  address: string[],
+  pets: Dictionary<string>,
+}
+
+const MockObject: Input = {
+  name: 'Alice Jones',
+  address: ['22 Walnut St', 'San Francisco', 'CA'],
+  pets: {dog: 'joker', cat: 'batman'},
+}
+
+const nameLens = lens<Input, string, string>((x: Input) => {
+  return x.name
+}, assoc('name'))
+
+describe('R.view', () => {
+  it('happt', () => {
+    const result = view<Input, string>(nameLens, MockObject)
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
 ### when
 
 ```typescript
@@ -21715,6 +21945,12 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+WIP 5.13.2
+
+- Change `R.assocPath` typings so the user can explicitly sets type of the new object
+
+- Typings of `R.assoc` match its `@types/ramda` counterpart.
 
 5.13.1
 
