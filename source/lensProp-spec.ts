@@ -1,25 +1,18 @@
 import {lensProp, view} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: string
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
+const testObject: Input = {
+  foo : 'Led Zeppelin',
 }
 
-const addressLens = lensProp('address')
+const lens = lensProp('foo')
 
 describe('R.lensProp', () => {
   it('happy', () => {
-    const result = view<Input, string>(addressLens, MockObject)
+    const result = view<Input, string>(lens, testObject)
     result // $ExpectType string
   })
 })

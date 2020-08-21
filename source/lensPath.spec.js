@@ -15,7 +15,7 @@ const testObj = {
 test('view', () => {
   expect(view(lensPath('d'), testObj)).toEqual(3)
   expect(view(lensPath('a.0.b'), testObj)).toEqual(1)
-  // this is different to ramda, ramda will return a clone of the input object
+  // this is different to ramda, as ramda will return a clone of the input object
   expect(view(lensPath(''), testObj)).toEqual(undefined)
 })
 

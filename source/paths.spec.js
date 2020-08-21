@@ -7,9 +7,9 @@ const obj = {
       d : 2,
     },
   },
-  p : [ { q : 3 }, 'Hi' ],
+  p : [ { q : 3 } ],
   x : {
-    y : 'Alice',
+    y : 'FOO',
     z : [ [ {} ] ],
   },
 }
@@ -31,7 +31,7 @@ test('with array path', () => {
   ],
   obj)
 
-  expect(result).toEqual([ 1, 'Alice' ])
+  expect(result).toEqual([ 1, 'FOO' ])
 })
 
 test('takes a paths that contains indices into arrays', () => {

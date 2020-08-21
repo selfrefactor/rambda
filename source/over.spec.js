@@ -7,30 +7,27 @@ import { prop } from './prop'
 import { toUpper } from './toUpper'
 
 const testObject = {
-  foo : 'Led Zeppelin',
-  bar : [ 1, 2 ],
+  foo : 'bar',
   baz : {
     a : 'x',
     b : 'y',
   },
 }
 
-const assocLens = lens(prop('foo'), assoc('foo'))
-const indexLens = lensIndex(0)
-const pathLens = lensPath('baz.a')
-
 test('assoc lens', () => {
+  const assocLens = lens(prop('foo'), assoc('foo'))
   const result = over(
     assocLens, toUpper, testObject
-  )
-  const expected = {
-    ...testObject,
-    foo : 'LED ZEPPELIN',
-  }
-  expect(result).toEqual(expected)
-})
-
-test('path lens', () => {
+    )
+    const expected = {
+      ...testObject,
+      foo : 'BAR',
+    }
+    expect(result).toEqual(expected)
+  })
+  
+  test('path lens', () => {
+    const pathLens = lensPath('baz.a')
   const result = over(
     pathLens, toUpper, testObject
   )
@@ -45,6 +42,7 @@ test('path lens', () => {
 })
 
 test('index lens', () => {
-  const result = over(indexLens, x => x + 1)(testObject.bar)
-  expect(result).toEqual([ 2, 2 ])
+  const indexLens = lensIndex(0)
+  const result = over(indexLens, toUpper)(['foo', 'bar'])
+  expect(result).toEqual([ 'FOO', 'bar' ])
 })

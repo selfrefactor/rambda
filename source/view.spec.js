@@ -3,17 +3,10 @@ import { lens } from './lens'
 import { prop } from './prop'
 import { view } from './view'
 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
-  },
-}
+const testObject = { foo : 'Led Zeppelin' }
 
-const nameLens = lens(prop('name'), assoc('name'))
+const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {
-  expect(view(nameLens, alice)).toEqual('Alice Jones')
+  expect(view(assocLens, testObject)).toEqual('Led Zeppelin')
 })

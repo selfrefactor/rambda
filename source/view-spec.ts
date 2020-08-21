@@ -1,27 +1,20 @@
 import {lens, view, assoc} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: string
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
+const testObject: Input = {
+  foo : 'Led Zeppelin',
 }
 
-const nameLens = lens<Input, string, string>((x: Input) => {
-  return x.name
-}, assoc('name'))
+const fooLens = lens<Input, string, string>((x: Input) => {
+  return x.foo
+}, assoc('foo'))
 
 describe('R.view', () => {
   it('happt', () => {
-    const result = view<Input, string>(nameLens, MockObject)
+    const result = view<Input, string>(fooLens, testObject)
     result // $ExpectType string
   })
 })

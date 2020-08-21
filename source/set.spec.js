@@ -5,51 +5,46 @@ import { lensPath } from './lensPath'
 import { prop } from './prop'
 import { set } from './set'
 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
+const testObject = {
+  foo : 'bar',
+  baz : {
+    a : 'x',
+    b : 'y',
   },
 }
 
-const assocLens = lens(prop('name'), assoc('name'))
-const indexLens = lensIndex(0)
-const pathLens = lensPath('pets.dog')
-
 test('assoc lens', () => {
-  expect(set(
-    assocLens, 'Alice Smith', alice
-  )).toEqual({
-    name    : 'Alice Smith',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
+  const assocLens = lens(prop('foo'), assoc('foo'))
+  const result = set(
+    assocLens, 'FOO', testObject
+  )
+  const expected = {
+    ...testObject,
+    foo : 'FOO',
+  }
+  expect(result).toEqual(expected)
 })
 
 test('path lens', () => {
-  expect(set(
-    pathLens, 'bane', alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'bane',
-      cat : 'batman',
+  const pathLens = lensPath('baz.a')
+  const result = set(
+    pathLens, 'z', testObject
+  )
+  const expected = {
+    ...testObject,
+    baz : {
+      a : 'z',
+      b : 'y',
     },
-  })
+  }
+  expect(result).toEqual(expected)
 })
 
 test('index lens', () => {
-  expect(set(
-    indexLens, '52 Crane Ave', alice.address
-  )).toEqual([
-    '52 Crane Ave',
-    'San Francisco',
-    'CA',
-  ])
+  const indexLens = lensIndex(0)
+
+  const result = set(
+    indexLens, 3, [ 1, 2 ]
+  )
+  expect(result).toEqual([ 3, 2 ])
 })

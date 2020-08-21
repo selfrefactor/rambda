@@ -1,25 +1,23 @@
 import {lensPath, view} from 'rambda'
 
 interface Input {
-  foo: string
-  bar: number[]
-  baz: {
+  foo: number[]
+  bar: {
     a: string
     b: string
   }
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
-  bar : [ 1, 2 ],
-  baz : {
+  foo : [ 1, 2 ],
+  bar : {
     a : 'x',
     b : 'y',
   },
 }
 
-const path = lensPath(['baz', 'a'])
-const pathAsString = lensPath('baz.a')
+const path = lensPath(['bar', 'a'])
+const pathAsString = lensPath('bar.a')
 
 describe('R.lensPath', () => {
   it('happy', () => {
