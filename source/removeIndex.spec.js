@@ -1,4 +1,4 @@
-import { removeIndex } from './removeIndex.js'
+import { removeIndex } from './removeIndex'
 
 const list = [ 1, 2, 3, 4 ]
 

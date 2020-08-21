@@ -1,9 +1,11 @@
-import {curry} from './curry'
-import {view} from './view'
-import {defaultTo} from './defaultTo'
+import { curry } from './curry'
+import { defaultTo } from './defaultTo'
+import { view } from './view'
 
-function viewOrFn(fallback, lens, input){
-  return defaultTo(fallback,view(lens, input))
+function viewOrFn(
+  fallback, lens, input
+){
+  return defaultTo(fallback, view(lens, input))
 }
 
 export const viewOr = curry(viewOrFn)

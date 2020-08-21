@@ -1,14 +1,14 @@
 import {mapKeys} from 'rambda'
 
 const obj = {
-  a : 1,
-  b : 2,
+  a: 1,
+  b: 2,
 }
-const changeKeyFn = (prop: string) => `${ prop }_foo`
+const changeKeyFn = (prop: string) => `${prop}_foo`
 
-interface Output{
-  a_foo: string
-  b_foo: string
+interface Output {
+  a_foo: string,
+  b_foo: string,
 }
 
 describe('R.mapKeys', () => {

@@ -1,4 +1,4 @@
-import {lens, assoc, lensIndex, lensProp, view} from 'rambda'
+import {lens, assoc, lensIndex, view} from 'rambda'
 
 interface Dictionary<T> {
   [index: string]: T,
@@ -18,16 +18,11 @@ const MockObject: Input = {
 const nameLens = lens<Input, string, string>((x: Input) => {
   return x.name
 }, assoc('name'))
-const addressLens = lensProp('address')
 const headLens = lensIndex(0)
 
 describe('lenses', () => {
   it('lens', () => {
     const result = view<Input, string>(nameLens, MockObject)
-    result // $ExpectType string
-  })
-  it('lens prop', () => {
-    const result = view<Input, string>(addressLens, MockObject)
     result // $ExpectType string
   })
   it('lens index', () => {

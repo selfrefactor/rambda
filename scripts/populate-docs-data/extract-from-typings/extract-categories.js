@@ -1,13 +1,7 @@
-import {
-  trim,
-  anyFalse,
-  mapToObject,
-  match,
-  remove,
-} from 'rambdax'
+import { anyFalse, mapToObject, match, remove, trim } from 'rambdax'
 
-import { extractRawInfo } from './extract-raw-info'
 import { extractName } from './extract-name'
+import { extractRawInfo } from './extract-raw-info'
 
 export function extractCategories(withRambdax){
   const rawInfo = extractRawInfo(withRambdax)

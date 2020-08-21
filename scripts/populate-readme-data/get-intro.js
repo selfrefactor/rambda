@@ -115,12 +115,12 @@ async function getIntroContent(withRambdax){
     `${ __dirname }/assets/INTRO_RAMBDAX.md` :
     `${ __dirname }/assets/INTRO.md`
 
-  const advantagesFilePath = withRambdax ? 
+  const advantagesFilePath = withRambdax ?
     `${ __dirname }/assets/ADVANTAGES_RAMBDAX.md` :
     `${ __dirname }/assets/ADVANTAGES.md`
   const advantagesTemplate = (await readFile(advantagesFilePath)).toString()
 
-  const advantages = interpolate(advantagesTemplate, {rambdaTreeShakingInfo})
+  const advantages = interpolate(advantagesTemplate, { rambdaTreeShakingInfo })
   const content = (await readFile(filePath)).toString()
 
   return interpolate(content, {

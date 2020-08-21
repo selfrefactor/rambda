@@ -12,7 +12,7 @@ export function composeAsync(...inputArguments){
         argumentsToPass = await fn(argumentsToPass)
       } else {
         argumentsToPass = fn(argumentsToPass)
-        if(type(argumentsToPass) === 'Promise'){
+        if (type(argumentsToPass) === 'Promise'){
           argumentsToPass = await argumentsToPass
         }
       }

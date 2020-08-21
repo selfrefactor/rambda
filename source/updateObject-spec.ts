@@ -8,14 +8,14 @@ const rules: [string, number][] = [
   ['foo.bar', 20],
 ]
 interface Output {
-  a: {b: number}
-  foo: {bar: number}
+  a: {b: number},
+  foo: {bar: number},
 }
 
 describe('R.updateObject', () => {
   it('happy', () => {
     const result = updateObject<Output>(rules, obj)
-    
+
     result // $ExpectType Output
   })
   it('curried', () => {

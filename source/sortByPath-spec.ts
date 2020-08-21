@@ -1,7 +1,7 @@
 import {sortByPath} from 'rambda'
 
 interface Input {
-  a: {b: number}
+  a: {b: number},
 }
 
 describe('R.sortByPath', () => {
@@ -16,8 +16,8 @@ describe('R.sortByPath', () => {
   })
   it('with list of strings as path', () => {
     const input: Input[] = [{a: {b: 2}}, {a: {b: 1}}]
-    const result = sortByPath(['a','b'], input)
-    const curriedResult = sortByPath(['a','b'])(input)
+    const result = sortByPath(['a', 'b'], input)
+    const curriedResult = sortByPath(['a', 'b'])(input)
 
     result // $ExpectType Input[]
     curriedResult // $ExpectType Input[]

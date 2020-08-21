@@ -4,11 +4,11 @@ import { map, piped } from 'rambdax'
 
 import { extractAllDefinitions } from './extract-from-typings/extract-all-definitions'
 import { extractCategories } from './extract-from-typings/extract-categories'
-import { getCategories } from './extract-from-typings/get-categories'
 import { extractDefinition } from './extract-from-typings/extract-definition'
 import { extractExample } from './extract-from-typings/extract-example'
 import { extractExplanation } from './extract-from-typings/extract-explanation'
 import { extractNotes } from './extract-from-typings/extract-notes'
+import { getCategories } from './extract-from-typings/get-categories'
 import { benchmarkInfo as benchmarkInfoMethod } from './extracts/benchmark-info'
 import { failedRamdaTests } from './extracts/failed-ramda-tests'
 import { failedTestsCount } from './extracts/failed-tests-count'
@@ -152,7 +152,7 @@ export async function populateDocsData({ withRambdax }){
   )
 
   await save({
-    categories: getCategories(withRambdax),
+    categories : getCategories(withRambdax),
     withRambdax,
     toSave,
   })

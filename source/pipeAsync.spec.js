@@ -30,7 +30,7 @@ const delayFn = ms =>
   new Promise(resolve => {
     resolve(ms + 1)
   })
- 
+
 test('with function returning promise', async () => {
   const result = await pipeAsync(
     x => x,
