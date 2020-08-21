@@ -1,5 +1,7 @@
 WIP 5.13.2
 
+- Change `R.assocPath` typings so the user can explicitly sets type of the new object
+
 - Typings of `R.assoc` match its `@types/ramda` counterpart.
 
 5.13.1

@@ -439,9 +439,9 @@ Notes: Object
 
 */
 // @SINGLE_MARKER
-export function assocPath<T, U>(path: Path, newValue: T, obj: U): U;
-export function assocPath<T, U>(path: Path, newValue: T): (obj: U) => U;
-export function assocPath<T, U>(path: Path): FunctionToolbelt.Curry<(newValue: T, obj: U) => U>;
+export function assocPath<Output>(path: Path, newValue: any, obj: object): Output;
+export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
+export function assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: object) => Output>;
 
 /*
 Method: both
