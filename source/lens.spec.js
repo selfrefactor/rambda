@@ -7,7 +7,7 @@ import { toUpper } from './toUpper'
 import { view } from './view'
 
 const testObject = {
-  foo : ['a','b','c'],
+  foo : [ 'a', 'b', 'c' ],
   baz : {
     a : 'x',
     b : 'y',
@@ -28,5 +28,8 @@ test('composed lenses', () => {
 
   expect(over(
     composedLens, toUpper, testObject
-  )).toEqual({...testObject, foo: ['a','b','C']})
+  )).toEqual({
+    ...testObject,
+    foo : [ 'a', 'b', 'C' ],
+  })
 })
