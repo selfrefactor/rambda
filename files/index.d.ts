@@ -124,6 +124,10 @@ type AsyncPredicate<T> = (x: T) => Promise<boolean>;
 type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
+type ApplyDiffUpdate = {op:'update', path: string, value: any}
+type ApplyDiffAdd = {op:'add', path: string, value: any}
+type ApplyDiffRemove = {op:'remove', path: string}
+type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove
 export const DELAY: 'RAMBDAX_DELAY'
 
 // API_MARKER
@@ -6223,6 +6227,38 @@ Notes:
 // @SINGLE_MARKER
 export function takeUntil<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
 export function takeUntil<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+
+/*
+Method: applyDiff
+
+Explanation: It changes paths in an object according to a list of operations. Valid operations are `add`, `update` and `delete`. Its use-case is while writing tests and you need to change the test data.
+
+Note, that you cannot use `update` operation, if the object path is missing in the input object.
+Also, you cannot use `add` operation, if the object path has a value.
+
+Example:
+
+```
+const obj = {a: {b:1, c:2}}
+const rules = [
+  {op: 'remove', path: 'a.c'},
+  {op: 'add', path: 'a.d', value: 4},
+  {op: 'update', path: 'a.b', value: 2},
+]
+const result = applyDiff(rules, obj)
+const expected = {a: {b: 2, d: 4}}
+
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function applyDiff<Output>(rules: ApplyDiffRule[], obj: object): Output;
+export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Output;
 
 
 // RAMBDAX_MARKER_END

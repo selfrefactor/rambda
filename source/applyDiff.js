@@ -31,8 +31,8 @@ export function removeAtPath(path, obj){
   }
 }
 
-export function diffApply(rules, obj){
-  if (arguments.length === 1) return _obj => diffApply(rules, _obj)
+export function applyDiff(rules, obj){
+  if (arguments.length === 1) return _obj => applyDiff(rules, _obj)
 
   let clone = { ...obj }
 

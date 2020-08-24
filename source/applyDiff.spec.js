@@ -1,4 +1,4 @@
-import { diffApply } from './diffApply'
+import { applyDiff } from './applyDiff'
 
 test('remove operation', () => {
   const rules = [
@@ -7,7 +7,7 @@ test('remove operation', () => {
       path : 'a.b',
     },
   ]
-  const result = diffApply(rules, {
+  const result = applyDiff(rules, {
     a : {
       b : 1,
       c : 2,
@@ -34,16 +34,16 @@ test('update operation', () => {
       value : 3,
     },
   ]
-  const result = diffApply(rules, {
+  const result = applyDiff(rules, {
     a : {
       b : 1,
-      c : [1,2],
+      c : [ 1, 2 ],
     },
   })
   expect(result).toEqual({
     a : {
       b : 3,
-      c : [1,3],
+      c : [ 1, 3 ],
     },
   })
 })
@@ -61,7 +61,7 @@ test('add operation', () => {
       value : 3,
     },
   ]
-  const result = diffApply(rules, {
+  const result = applyDiff(rules, {
     a : {
       b : 1,
       c : 2,
