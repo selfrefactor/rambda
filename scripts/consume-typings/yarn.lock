@@ -28,7 +28,7 @@ ts-toolbelt@^6.3.3:
   resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.9.4.tgz#cc3a070d99c557c552b4f69e36f13d430c47a760"
   integrity sha512-muRZZqfOTOVvLk5cdnp7YWm6xX+kD/WL2cS/L4zximBRcbQSuMoTbQQ2ZZBVMs1gB0EZw1qThP+HrIQB35OmEw==
 
-typescript@4.0.0-dev.20200530:
-  version "4.0.0-dev.20200530"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200530.tgz#1e4bb80031ebac4c418dd97134651fef3154fd27"
-  integrity sha512-4NeVeGEF0Uegn4LyLF3fuCv7N1jeBcdKhLTN+dRkdSJ2ElkBC47N6Vl+RhIWL4S2eoWXwu2MjxuW9e9BRAJH/A==
+typescript@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
+  integrity sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
