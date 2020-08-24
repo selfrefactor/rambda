@@ -32,7 +32,7 @@
     "helpers-fn": "0.5.0",
     "is-ci": "2.0.0",
     "fs-extra": "9.0.1",
-    "jest": "26.1.0",
+    "jest": "26.4.2",
     "jest-extended": "0.11.5",
     "lint-fn": "2.8.1",
     "lodash": "4.17.19",
