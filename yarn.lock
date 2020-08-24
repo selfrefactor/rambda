@@ -5350,10 +5350,10 @@ rambdax@4.0.1:
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-4.0.1.tgz#237a7104d6656e72ee0a9aaeb0afe559104072e3"
   integrity sha512-MZLy3YDGltrhG1KqPiyD6xmHovfdxXfHt2wOD+0uMlXtCuZy76S+9U67LZFfCD8TwHeD2dIAnxn4m74gNTeARQ==
 
-rambdax@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-4.1.0.tgz#9bfc33340259aed3750d7a9b2e58b4d328e8b1fc"
-  integrity sha512-nJhofRpmhFE7r7jH1j6KRtUFF/REFZF+Z8GPJZASkytxJ/yshSPIb03ItHkSyLRec6xSlw1Am5FOQZcrz9oEEQ==
+rambdax@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-5.1.0.tgz#a232d3ab84fdad4c27bbfccdb37a8a8877f78794"
+  integrity sha512-zd5gaAza8e/fnqNkroL5ebOoihB1k8mwQAj1FlWillfmGDoFDI7QD6NZygcRgQMI4R/cXK/YjdZjWiwXqatKLQ==
 
 ramda@0.27.0:
   version "0.27.0"
