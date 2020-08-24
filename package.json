@@ -28,7 +28,7 @@
     "@types/fs-extra": "9.0.1",
     "@types/ramda": "0.27.7",
     "cross-env": "7.0.2",
-    "dtslint": "3.6.14",
+    "dtslint": "3.7.0",
     "helpers-fn": "0.5.0",
     "is-ci": "2.0.0",
     "fs-extra": "9.0.1",
