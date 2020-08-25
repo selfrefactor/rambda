@@ -1,5 +1,5 @@
-export function path(list, obj){
-  if (arguments.length === 1) return _obj => path(list, _obj)
+export function path(pathInput, obj){
+  if (arguments.length === 1) return _obj => path(pathInput, _obj)
 
   if (obj === null || obj === undefined){
     return undefined
@@ -7,7 +7,8 @@ export function path(list, obj){
   let willReturn = obj
   let counter = 0
 
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  const pathArrValue =
+    typeof pathInput === 'string' ? pathInput.split('.') : pathInput
 
   while (counter < pathArrValue.length){
     if (willReturn === null || willReturn === undefined){

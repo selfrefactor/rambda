@@ -124,6 +124,10 @@ type AsyncPredicate<T> = (x: T) => Promise<boolean>;
 type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
+type ApplyDiffUpdate = {op:'update', path: string, value: any}
+type ApplyDiffAdd = {op:'add', path: string, value: any}
+type ApplyDiffRemove = {op:'remove', path: string}
+type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove
 export const DELAY: 'RAMBDAX_DELAY'
 
 
@@ -164,7 +168,7 @@ export function and<T extends { and?: ((...a: readonly any[]) => any); } | numbe
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 /**
- * It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+ * It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
  */
 export function any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
@@ -398,7 +402,7 @@ export function equals<T>(x: T): (y: T) => boolean;
 export function F(): boolean;
 
 /**
- * It filters list or object `input` with `predicate`.
+ * It filters a list or an object `input` using a `predicate` function.
  */
 export function filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 export function filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
@@ -459,12 +463,10 @@ export function flip<F extends (...args: any) => any, P extends FunctionToolbelt
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
  */
-export function forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
-export function forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
-export function forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
-export function forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-export function forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
 
 /**
  * It transforms a `listOfPairs` to an object.
@@ -1189,8 +1191,6 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
 
 /**
  * It has the opposite effect of `R.filter`.
- * 
- * It will return those members of `list` that return `false` when applied to `predicate` function.
  */
 export function reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
 export function reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];

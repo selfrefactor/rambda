@@ -75,6 +75,12 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
+### Usage of `foo`, `bar` and `baz` in documentation
+
+Those placeholders exists for a reason. `Ramda` documentation often uses other placeholders, which could be confusing.
+
+`Ramda` documentation and tests on the other hand, try to use them as much as possible.
+
 ### Support
 
 Most of the valid issues are fixed within 2-3 days.
@@ -222,17 +228,17 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Rambda's **pick** and **omit** accept comma notation - `'x,y' same as ['x','y']`
 
-- Rambda's **map**, **reject** and **forEach** can iterate over objects not only arrays.
+- Rambda's **forEach** can iterate over objects not only arrays.
 
 - Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
 
-- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
+- Rambda's **all**, **any**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
 
-- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+- Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
@@ -996,7 +1002,7 @@ describe('R.and', () => {
 any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
-It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
 
 ```javascript
 const list = [1, 2, 3]
@@ -1049,14 +1055,14 @@ export function any(predicate, list){
 ```javascript
 import { any } from './any'
 
-const arr = [ 1, 2 ]
+const arr = [ 1, 2, 3 ]
 
-test('no curry', () => {
+test('happy', () => {
   expect(any(val => val < 0, arr)).toBeFalse()
 })
 
 test('with curry', () => {
-  expect(any(val => val < 2)(arr)).toBeTrue()
+  expect(any(x => x > 2)(arr)).toBeTrue()
 })
 
 test('passes index to predicate', () => {
@@ -6023,7 +6029,7 @@ export function F(){
 filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 ```
 
-It filters list or object `input` with `predicate`.
+It filters a list or an object `input` using a `predicate` function.
 
 ```javascript
 const list = [3, 4, 3, 2]
@@ -7159,7 +7165,7 @@ describe('flip properties', function() {
 
 ```typescript
 
-forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>
+forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
@@ -7181,12 +7187,10 @@ result //=> [1, 2]
 <summary>All Typescript definitions</summary>
 
 ```typescript
-forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
-forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
-forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
-forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
-forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
 ```
 
 </details>
@@ -7353,90 +7357,63 @@ test('pass index as second argument', () => {
 ```typescript
 import {forEach} from 'rambda'
 
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2}
+
 describe('R.forEach with arrays', () => {
-  it('iterable returns the same type as the input', () => {
-    const result = forEach<number>(
+  it('happy', () => {
+    const result = forEach(
       (a, b) => {
         a // $ExpectType number
         b // $ExpectType number
-        return a + 2
       },
-      [1, 2, 3]
+      list
     )
     result // $ExpectType number[]
   })
-  it('iterable returns the same type as the input - curried', () => {
+  it('iterator without index', () => {
+    const result = forEach<number>(
+      (a) => {
+        a // $ExpectType number
+      },
+      list
+    )
+    result // $ExpectType number[]
+  })
+  it('curried require an input typing', () => {
     const result = forEach<number>((a, b) => {
       a // $ExpectType number
       b // $ExpectType number
-      return a + 2
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-  it('iterable with index argument', () => {
-    const result = forEach<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return `${a}`
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('iterable with index argument - curried', () => {
-    const result = forEach<number, string>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return `${a}`
-    })([1, 2, 3])
+    })(list)
     result // $ExpectType number[]
   })
 })
 
 describe('R.forEach with objects', () => {
-  it('iterable with all three arguments - curried', () => {
-    // It requires dummy third typing argument
-    // in order to distinguish compared to curry typings for arrays
-    // ============================================
-    const result = forEach<number, string, any>((a, b, c) => {
+  it('happy', () => {
+    const result = forEach((a, b, c) => {
       a // $ExpectType number
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
       return `${a}`
-    })({a: 1, b: 2})
+    }, obj)
     result // $ExpectType Dictionary<number>
   })
-  it('iterable with all three arguments', () => {
-    const result = forEach<number, string>(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
+  it('curried require an input typing and a dummy third typing', () => {
+    // Required in order all typings to work
+    const result = forEach<number, any>((a, b, c) => {
+      a // $ExpectType number
+      b // $ExpectType string
+      c // $ExpectType Dictionary<number>
+    })(obj)
     result // $ExpectType Dictionary<number>
   })
-  it('iterable with property argument', () => {
-    const result = forEach<number, string>(
-      (a, b) => {
+  it('iterator without property', () => {
+    const result = forEach(
+      (a) => {
         a // $ExpectType number
-        b // $ExpectType string
-        return `${a}`
       },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<number>
-  })
-  it('iterable with no property argument', () => {
-    const result = forEach<number, string>(
-      a => {
-        a // $ExpectType number
-        return `${a}`
-      },
-      {a: 1, b: 2}
+      list
     )
     result // $ExpectType Dictionary<number>
   })
@@ -10549,98 +10526,39 @@ export function lens(getter, setter){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { assoc } from './assoc'
 import { compose } from './compose'
-import { lens } from './lens'
 import { lensIndex } from './lensIndex'
 import { lensPath } from './lensPath'
 import { lensProp } from './lensProp'
 import { over } from './over'
-import { prop } from './prop'
 import { toUpper } from './toUpper'
 import { view } from './view'
-import { set } from './set'
 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
+const testObject = {
+  foo : [ 'a', 'b', 'c' ],
+  baz : {
+    a : 'x',
+    b : 'y',
   },
 }
 
-const nameLens = lens(prop('name'), assoc('name'))
-const addressLens = lensProp('address')
-const headLens = lensIndex(0)
-const dogLens = lensPath('pets.dog')
+const propLens = lensProp('foo')
+const indexLens = lensIndex(2)
+const composedLens = compose(propLens, indexLens)
 
-test('view', () => {
-  expect(view(nameLens, alice)).toEqual('Alice Jones')
-
-  expect(view(dogLens, alice)).toEqual('joker')
-
-  expect(view(headLens, alice.address)).toEqual('22 Walnut St')
-})
-
-test('over', () => {
-  expect(over(
-    nameLens, toUpper, alice
-  )).toEqual({
-    name    : 'ALICE JONES',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
-
-  expect(over(
-    dogLens, toUpper, alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'JOKER',
-      cat : 'batman',
-    },
-  })
-
-  expect(over(headLens, toUpper)(alice.address)).toEqual([
-    '22 WALNUT ST',
-    'San Francisco',
-    'CA',
-  ])
-})
+const pathLens = lensPath('baz.a')
+const composedPathLens = compose(lensPath('baz'), lensPath('a'))
 
 test('composed lenses', () => {
-  const composedStreetLens = compose(addressLens, headLens)
-  const composedDogLens = compose(lensPath('pets'), lensPath('dog'))
+  expect(view(composedPathLens, testObject)).toEqual(view(pathLens, testObject))
 
-  expect(view(composedDogLens, alice)).toEqual(view(dogLens, alice))
-
-  expect(view(composedStreetLens, alice)).toEqual('22 Walnut St')
+  expect(view(composedLens, testObject)).toEqual('c')
 
   expect(over(
-    composedStreetLens, toUpper, alice
+    composedLens, toUpper, testObject
   )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 WALNUT ST', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
-
-  expect(set(
-    composedStreetLens, '52 Crane Ave', alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '52 Crane Ave', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
+    ...testObject,
+    foo : [ 'a', 'b', 'C' ],
   })
 })
 ```
@@ -10654,19 +10572,15 @@ test('composed lenses', () => {
 ```typescript
 import {lens, assoc} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: string
 }
 
 describe('R.lens', () => {
   it('happy', () => {
     const fn = lens<Input, string, string>((x: Input) => {
-      return x.name
+      x.foo // $ExpectType string
+      return x.foo
     }, assoc('name'))
     fn // $ExpectType Lens
   })
@@ -10786,6 +10700,29 @@ test('get (set(set s v1) v2) === v2', () => {
 
 </details>
 
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {view, lensIndex} from 'rambda'
+
+interface Input {
+  a: number
+}
+const testList: Input[] = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+
+describe('R.lensIndex', () => {
+  it('happy', () => {
+    const result = view<Input[], Input>(lensIndex(0), testList)
+    result // $ExpectType Input
+    result.a // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### lensPath
 
 ```typescript
@@ -10859,7 +10796,7 @@ const testObj = {
 test('view', () => {
   expect(view(lensPath('d'), testObj)).toEqual(3)
   expect(view(lensPath('a.0.b'), testObj)).toEqual(1)
-  // this is different to ramda, ramda will return a clone of the input object
+  // this is different to ramda, as ramda will return a clone of the input object
   expect(view(lensPath(''), testObj)).toEqual(undefined)
 })
 
@@ -10977,31 +10914,32 @@ test('get (set(set s v1) v2) === v2', () => {
 ```typescript
 import {lensPath, view} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: number[]
+  bar: {
+    a: string
+    b: string
+  }
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
+const testObject: Input = {
+  foo : [ 1, 2 ],
+  bar : {
+    a : 'x',
+    b : 'y',
+  },
 }
 
-const path = lensPath(['pets', 'dog'])
-const pathAsString = lensPath('pets.doc')
+const path = lensPath(['bar', 'a'])
+const pathAsString = lensPath('bar.a')
 
 describe('R.lensPath', () => {
   it('happy', () => {
-    const result = view<Input, string>(path, MockObject)
+    const result = view<Input, string>(path, testObject)
     result // $ExpectType string
   })
   it('using string as path input', () => {
-    const result = view<Input, string>(pathAsString, MockObject)
+    const result = view<Input, string>(pathAsString, testObject)
     result // $ExpectType string
   })
 })
@@ -11173,26 +11111,19 @@ test('get (set(set s v1) v2) === v2', () => {
 ```typescript
 import {lensProp, view} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: string
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
+const testObject: Input = {
+  foo : 'Led Zeppelin',
 }
 
-const addressLens = lensProp('address')
+const lens = lensProp('foo')
 
 describe('R.lensProp', () => {
   it('happy', () => {
-    const result = view<Input, string>(addressLens, MockObject)
+    const result = view<Input, string>(lens, testObject)
     result // $ExpectType string
   })
 })
@@ -13697,56 +13628,49 @@ import { assoc } from './assoc'
 import { lens } from './lens'
 import { lensIndex } from './lensIndex'
 import { lensPath } from './lensPath'
-import { lensProp } from './lensProp'
 import { over } from './over'
 import { prop } from './prop'
 import { toUpper } from './toUpper'
- 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
+
+const testObject = {
+  foo : 'bar',
+  baz : {
+    a : 'x',
+    b : 'y',
   },
 }
 
-const assocLens = lens(prop('name'), assoc('name'))
-const addressLens = lensProp('address')
-const indexLens = lensIndex(0)
-const pathLens = lensPath('pets.dog')
-
 test('assoc lens', () => {
-  expect(over(
-    assocLens, toUpper, alice
-  )).toEqual({
-    name    : 'ALICE JONES',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
+  const assocLens = lens(prop('foo'), assoc('foo'))
+  const result = over(
+    assocLens, toUpper, testObject
+    )
+    const expected = {
+      ...testObject,
+      foo : 'BAR',
+    }
+    expect(result).toEqual(expected)
   })
+  
+  test('path lens', () => {
+    const pathLens = lensPath('baz.a')
+  const result = over(
+    pathLens, toUpper, testObject
+  )
+  const expected = {
+    ...testObject,
+    baz : {
+      a : 'X',
+      b : 'y',
+    },
+  }
+  expect(result).toEqual(expected)
 })
 
-test('path lens', () => {
-  expect(over(
-    pathLens, toUpper, alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'JOKER',
-      cat : 'batman',
-    },
-  })
-})
 test('index lens', () => {
-  expect(over(indexLens, toUpper)(alice.address)).toEqual([
-    '22 WALNUT ST',
-    'San Francisco',
-    'CA',
-  ])
+  const indexLens = lensIndex(0)
+  const result = over(indexLens, toUpper)(['foo', 'bar'])
+  expect(result).toEqual([ 'FOO', 'bar' ])
 })
 ```
 
@@ -14183,8 +14107,8 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 <summary><strong>R.path</strong> source</summary>
 
 ```javascript
-export function path(list, obj){
-  if (arguments.length === 1) return _obj => path(list, _obj)
+export function path(pathInput, obj){
+  if (arguments.length === 1) return _obj => path(pathInput, _obj)
 
   if (obj === null || obj === undefined){
     return undefined
@@ -14192,7 +14116,8 @@ export function path(list, obj){
   let willReturn = obj
   let counter = 0
 
-  const pathArrValue = typeof list === 'string' ? list.split('.') : list
+  const pathArrValue =
+    typeof pathInput === 'string' ? pathInput.split('.') : pathInput
 
   while (counter < pathArrValue.length){
     if (willReturn === null || willReturn === undefined){
@@ -14705,9 +14630,9 @@ const obj = {
       d : 2,
     },
   },
-  p : [ { q : 3 }, 'Hi' ],
+  p : [ { q : 3 } ],
   x : {
-    y : 'Alice',
+    y : 'FOO',
     z : [ [ {} ] ],
   },
 }
@@ -14729,7 +14654,7 @@ test('with array path', () => {
   ],
   obj)
 
-  expect(result).toEqual([ 1, 'Alice' ])
+  expect(result).toEqual([ 1, 'FOO' ])
 })
 
 test('takes a paths that contains indices into arrays', () => {
@@ -16759,19 +16684,19 @@ reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
 
 It has the opposite effect of `R.filter`.
 
-It will return those members of `list` that return `false` when applied to `predicate` function.
-
 ```javascript
 const list = [1, 2, 3, 4]
-const predicate = x => x > 2
+const obj = {a: 1, b: 2}
+const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list)
+  R.reject(predicate, obj)
 ]
-// => [1, 2]
+// => [[1, 2], {a: 1}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try the above <strong>R.reject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%0A%20%20R.reject(predicate%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20%7Ba%3A%201%7D%5D">Try the above <strong>R.reject</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -17320,53 +17245,48 @@ import { lensPath } from './lensPath'
 import { prop } from './prop'
 import { set } from './set'
 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
+const testObject = {
+  foo : 'bar',
+  baz : {
+    a : 'x',
+    b : 'y',
   },
 }
 
-const assocLens = lens(prop('name'), assoc('name'))
-const indexLens = lensIndex(0)
-const pathLens = lensPath('pets.dog')
-
 test('assoc lens', () => {
-  expect(set(
-    assocLens, 'Alice Smith', alice
-  )).toEqual({
-    name    : 'Alice Smith',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'joker',
-      cat : 'batman',
-    },
-  })
+  const assocLens = lens(prop('foo'), assoc('foo'))
+  const result = set(
+    assocLens, 'FOO', testObject
+  )
+  const expected = {
+    ...testObject,
+    foo : 'FOO',
+  }
+  expect(result).toEqual(expected)
 })
 
 test('path lens', () => {
-  expect(set(
-    pathLens, 'bane', alice
-  )).toEqual({
-    name    : 'Alice Jones',
-    address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-    pets    : {
-      dog : 'bane',
-      cat : 'batman',
+  const pathLens = lensPath('baz.a')
+  const result = set(
+    pathLens, 'z', testObject
+  )
+  const expected = {
+    ...testObject,
+    baz : {
+      a : 'z',
+      b : 'y',
     },
-  })
+  }
+  expect(result).toEqual(expected)
 })
 
 test('index lens', () => {
-  expect(set(
-    indexLens, '52 Crane Ave', alice.address
-  )).toEqual([
-    '52 Crane Ave',
-    'San Francisco',
-    'CA',
-  ])
+  const indexLens = lensIndex(0)
+
+  const result = set(
+    indexLens, 3, [ 1, 2 ]
+  )
+  expect(result).toEqual([ 3, 2 ])
 })
 ```
 
@@ -21016,19 +20936,12 @@ import { lens } from './lens'
 import { prop } from './prop'
 import { view } from './view'
 
-const alice = {
-  name    : 'Alice Jones',
-  address : [ '22 Walnut St', 'San Francisco', 'CA' ],
-  pets    : {
-    dog : 'joker',
-    cat : 'batman',
-  },
-}
+const testObject = { foo : 'Led Zeppelin' }
 
-const nameLens = lens(prop('name'), assoc('name'))
+const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {
-  expect(view(nameLens, alice)).toEqual('Alice Jones')
+  expect(view(assocLens, testObject)).toEqual('Led Zeppelin')
 })
 ```
 
@@ -21041,28 +20954,21 @@ test('happy', () => {
 ```typescript
 import {lens, view, assoc} from 'rambda'
 
-interface Dictionary<T> {
-  [index: string]: T,
-}
 interface Input {
-  name: string,
-  address: string[],
-  pets: Dictionary<string>,
+  foo: string
 }
 
-const MockObject: Input = {
-  name: 'Alice Jones',
-  address: ['22 Walnut St', 'San Francisco', 'CA'],
-  pets: {dog: 'joker', cat: 'batman'},
+const testObject: Input = {
+  foo : 'Led Zeppelin',
 }
 
-const nameLens = lens<Input, string, string>((x: Input) => {
-  return x.name
-}, assoc('name'))
+const fooLens = lens<Input, string, string>((x: Input) => {
+  return x.foo
+}, assoc('foo'))
 
 describe('R.view', () => {
   it('happt', () => {
-    const result = view<Input, string>(nameLens, MockObject)
+    const result = view<Input, string>(fooLens, testObject)
     result // $ExpectType string
   })
 })
@@ -21951,6 +21857,8 @@ WIP 5.13.2
 - Change `R.assocPath` typings so the user can explicitly sets type of the new object
 
 - Typings of `R.assoc` match its `@types/ramda` counterpart.
+
+- Simplify `R.forEach` typings
 
 5.13.1
 

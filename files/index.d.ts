@@ -1037,7 +1037,7 @@ export function F(): boolean;
 /*
 Method: filter
 
-Explanation: It filters list or object `input` with `predicate`.
+Explanation: It filters a list or an object `input` using a `predicate` function.
 
 Example:
 
@@ -3383,23 +3383,23 @@ Method: reject
 
 Explanation: It has the opposite effect of `R.filter`.
 
-It will return those members of `list` that return `false` when applied to `predicate` function.
-
 Example:
 
 ```
 const list = [1, 2, 3, 4]
-const predicate = x => x > 2
+const obj = {a: 1, b: 2}
+const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list)
+  R.reject(predicate, obj)
 ]
-// => [1, 2]
+// => [[1, 2], {a: 1}]
 ```
 
-Categories: List
+Categories: List, Object
 
-Notes: As it uses `R.filter`, this method works also with objects.
+Notes:
 
 */
 // @SINGLE_MARKER
