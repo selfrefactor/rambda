@@ -56,7 +56,7 @@ describe('R.forEach with objects', () => {
       (a) => {
         a // $ExpectType number
       },
-      list
+      obj
     )
     result // $ExpectType Dictionary<number>
   })
