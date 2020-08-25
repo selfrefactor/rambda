@@ -278,7 +278,7 @@ export function and<T extends { and?: ((...a: readonly any[]) => any); } | numbe
 /*
 Method: any
 
-Explanation: It returns `true`, if at least one member of `list` returns true, when passed to `predicate` function.
+Explanation: It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
 
 Example:
 
@@ -1252,12 +1252,10 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T, U>(fn: MapFunctionArray<T, U>, list: T[]): T[];
-export function forEach<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => T[];
-export function forEach<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<T>;
-export function forEach<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-export function forEach<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
 
 /*
 Method: fromPairs

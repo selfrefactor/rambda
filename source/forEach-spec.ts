@@ -1,89 +1,62 @@
 import {forEach} from 'rambda'
 
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2}
+
 describe('R.forEach with arrays', () => {
-  it('iterable returns the same type as the input', () => {
-    const result = forEach<number>(
+  it('happy', () => {
+    const result = forEach(
       (a, b) => {
         a // $ExpectType number
         b // $ExpectType number
-        return a + 2
       },
-      [1, 2, 3]
+      list
     )
     result // $ExpectType number[]
   })
-  it('iterable returns the same type as the input - curried', () => {
+  it('iterator without index', () => {
+    const result = forEach<number>(
+      (a) => {
+        a // $ExpectType number
+      },
+      list
+    )
+    result // $ExpectType number[]
+  })
+  it('curried require an input typing', () => {
     const result = forEach<number>((a, b) => {
       a // $ExpectType number
       b // $ExpectType number
-      return a + 2
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-  it('iterable with index argument', () => {
-    const result = forEach<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return `${a}`
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('iterable with index argument - curried', () => {
-    const result = forEach<number, string>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return `${a}`
-    })([1, 2, 3])
+    })(list)
     result // $ExpectType number[]
   })
 })
 
 describe('R.forEach with objects', () => {
-  it('iterable with all three arguments - curried', () => {
-    // It requires dummy third typing argument
-    // in order to distinguish compared to curry typings for arrays
-    // ============================================
-    const result = forEach<number, string, any>((a, b, c) => {
+  it('happy', () => {
+    const result = forEach((a, b, c) => {
       a // $ExpectType number
       b // $ExpectType string
       c // $ExpectType Dictionary<number>
       return `${a}`
-    })({a: 1, b: 2})
+    }, obj)
     result // $ExpectType Dictionary<number>
   })
-  it('iterable with all three arguments', () => {
-    const result = forEach<number, string>(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
+  it('curried require an input typing and a dummy third typing', () => {
+    // Required in order all typings to work
+    const result = forEach<number, any>((a, b, c) => {
+      a // $ExpectType number
+      b // $ExpectType string
+      c // $ExpectType Dictionary<number>
+    })(obj)
     result // $ExpectType Dictionary<number>
   })
-  it('iterable with property argument', () => {
-    const result = forEach<number, string>(
-      (a, b) => {
+  it('iterator without property', () => {
+    const result = forEach(
+      (a) => {
         a // $ExpectType number
-        b // $ExpectType string
-        return `${a}`
       },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<number>
-  })
-  it('iterable with no property argument', () => {
-    const result = forEach<number, string>(
-      a => {
-        a // $ExpectType number
-        return `${a}`
-      },
-      {a: 1, b: 2}
+      list
     )
     result // $ExpectType Dictionary<number>
   })
