@@ -1,4 +1,6 @@
-WIP 5.13.2
+WIP 6.0.0
+
+- Breaking change - `R.map` doesn't pass index as second argument when looping over arrays.
 
 - Change `R.assocPath` typings so the user can explicitly sets type of the new object
 

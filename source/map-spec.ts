@@ -3,41 +3,20 @@ import {map} from 'rambda'
 describe('R.map with arrays', () => {
   it('iterable returns the same type as the input', () => {
     const result = map<number>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return a + 2
+      (x) => {
+        x // $ExpectType number
+        return x + 2
       },
       [1, 2, 3]
     )
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return a + 2
+    const result = map<number>((x) => {
+      x // $ExpectType number
+      return x + 2
     })([1, 2, 3])
     result // $ExpectType number[]
-  })
-  it('iterable with index argument', () => {
-    const result = map<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return `${a}`
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType string[]
-  })
-  it('iterable with index argument - curried', () => {
-    const result = map<number, string>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return `${a}`
-    })([1, 2, 3])
-    result // $ExpectType string[]
   })
 })
 
