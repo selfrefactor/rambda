@@ -13,13 +13,6 @@ test('with array', () => {
   expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
 })
 
-test('pass index as second argument', () => {
-  map((x, i) => {
-    expect(i).toBeNumber()
-  },
-  [ 10, 20, 30 ])
-})
-
 test('with object', () => {
   const obj = {
     a : 1,

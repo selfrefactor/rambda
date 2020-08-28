@@ -15,7 +15,7 @@ export function map(fn, list){
 
     while (index < len){
       willReturn[ index ] = fn(
-        list[ index ], index, list
+        list[ index ]
       )
       index++
     }

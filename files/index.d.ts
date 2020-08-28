@@ -6,6 +6,7 @@ type FilterFunctionArray<T> = (x: T, index: number) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T, index: number) => U;
+type MapIterator<T> = (x: T) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
 
@@ -2072,7 +2073,7 @@ It works with both array and object.
 Example:
 
 ```
-const fn = (x, i) => (x * 2) + i
+const fn = x => x * 2
 const fnWhenObject = (val, prop)=>{
   return `${prop}-${val}`
 }
@@ -2084,7 +2085,7 @@ const result = [
   R.map(fn, list),
   R.map(fnWhenObject, obj)
 ]
-// => [ [2, 5], {a: 'a-1', b: 'b-2'}] 
+// => [ [1, 4], {a: 'a-1', b: 'b-2'}] 
 ```
 
 Categories: List, Object
@@ -2094,11 +2095,11 @@ Notes: Unlike Ramda's `map`, here array keys are passed as second argument to `f
 */
 // @SINGLE_MARKER
 export function map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
-export function map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
+export function map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
 export function map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-export function map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+export function map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, list: ReadonlyArray<T>): T[];
 
 /*
 Method: match
