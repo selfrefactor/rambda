@@ -3404,10 +3404,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-export function reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
-export function reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
+export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+export function reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: repeat
