@@ -47,15 +47,6 @@ test('predicate when input is object', () => {
   expect(filter(predicate, obj)).toEqual({ a : 1 })
 })
 
-test('pass index as second argument', () => {
-  let counter = 0
-  filter((x, i) => {
-    expect(i).toBe(counter)
-    counter++
-  },
-  [ 10, 20, 30 ])
-})
-
 test('with object', () => {
   const isEven = n => n % 2 === 0
   const result = filter(isEven, sampleObject)

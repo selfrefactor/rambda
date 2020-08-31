@@ -18,12 +18,6 @@ describe('R.filter with array', () => {
     })(list)
     result // $ExpectType number[]
   })
-  it('pass index as second argument', () => {
-    filter<number>((x, index) => {
-      index // $ExpectType number
-      return x > 1
-    }, list)
-  })
 })
 
 describe('R.filter with objects', () => {

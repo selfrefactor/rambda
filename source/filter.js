@@ -30,7 +30,7 @@ export function filter(predicate, list){
   while (index < len){
     const value = list[ index ]
 
-    if (predicate(value, index)){
+    if (predicate(value)){
       willReturn.push(value)
     }
 
