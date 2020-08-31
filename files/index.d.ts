@@ -2,7 +2,7 @@ import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from ".
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
-type FilterFunctionArray<T> = (x: T, index: number) => boolean;
+type FilterFunctionArray<T> = (x: T) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T, index: number) => U;
