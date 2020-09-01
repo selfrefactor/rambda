@@ -202,9 +202,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /*

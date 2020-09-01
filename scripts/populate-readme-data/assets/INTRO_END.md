@@ -10,8 +10,6 @@
 
 - Rambda's **forEach** can iterate over objects not only arrays.
 
-- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
-
 - Rambda's **all**, **any**, **findIndex** , **findLastIndex** are passing index as second argument to the predicate function.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
