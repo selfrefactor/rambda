@@ -294,10 +294,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
-export function any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: anyPass

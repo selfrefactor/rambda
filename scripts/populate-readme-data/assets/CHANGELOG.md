@@ -1,6 +1,8 @@
 WIP 6.0.0
 
-- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.all` doesn't pass index as second argument when looping over arrays.
+- Breaking change - `R.map`/`R.filter`/`R.reject` doesn't pass index as second argument when looping over arrays.
+
+- Breaking change - `R.all`/`R.any` doesn't pass index as second argument.
 
 - Change `R.assocPath` typings so the user can explicitly sets type of the new object
 
