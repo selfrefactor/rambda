@@ -2632,8 +2632,6 @@ Method: partition
 
 Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
-`input` can be either an object or an array unlike `Ramda` where only array is a valid input.
-
 Example:
 
 ```
