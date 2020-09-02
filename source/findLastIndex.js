@@ -4,7 +4,7 @@ export function findLastIndex(fn, list){
   let index = list.length
 
   while (--index >= 0){
-    if (fn(list[ index ], index)){
+    if (fn(list[ index ])){
       return index
     }
   }

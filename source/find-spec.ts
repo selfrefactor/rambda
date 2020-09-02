@@ -13,20 +13,4 @@ describe('R.find', () => {
     const result = find(predicate)(list)
     result // $ExpectType number | undefined
   })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = find(predicate, list)
-    result // $ExpectType number | undefined
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = find(predicate)(list)
-    result // $ExpectType number | undefined
-  })
 })

@@ -53,7 +53,6 @@ interface AssocPartialOne<K extends keyof any> {
 // ============================================
 type Func<T> = (input: any) => T;
 type VoidInputFunc<T> = () => T;
-type Predicatex<T> = (input: T, index: number) => boolean;
 type Fn<In, Out> = (x: In) => Out;
 type FnTwo<In, Out> = (x: In, y: In) => Out;
 type MapFn<In, Out> = (x: In, index: number) => Out;
@@ -1086,10 +1085,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-export function find<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): T | undefined;
-export function find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
-export function find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
 Method: findIndex
@@ -1114,10 +1111,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
-export function findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
-export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
-export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
 Method: findLast
@@ -1143,9 +1138,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
-export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 
 /*
 Method: findLastIndex
@@ -1171,9 +1164,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(predicate: (x: T, index: number) => boolean, list: T[]): number;
 export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
-export function findLastIndex<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => number;
 
 /*
 Method: flatten
@@ -2496,10 +2487,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
-export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: not
@@ -2670,11 +2659,11 @@ Notes:
 */
 // @SINGLE_MARKER
 export function partition<T>(
-  predicate: Predicatex<T>,
+  predicate: Predicate<T>,
   input: T[]
 ): [T[], T[]];
 export function partition<T>(
-  predicate: Predicatex<T>
+  predicate: Predicate<T>
 ): (input: T[]) => [T[], T[]];
 export function partition<T>(
   predicate: (x: T, prop?: string) => boolean,

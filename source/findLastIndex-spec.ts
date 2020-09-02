@@ -13,20 +13,4 @@ describe('R.findLastIndex', () => {
     const result = findLastIndex(predicate)(list)
     result // $ExpectType number
   })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findLastIndex(predicate, list)
-    result // $ExpectType number
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findLastIndex(predicate)(list)
-    result // $ExpectType number
-  })
 })

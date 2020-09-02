@@ -230,10 +230,6 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Rambda's **forEach** can iterate over objects not only arrays.
 
-- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
-
-- Rambda's **all**, **any**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
-
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Ramda's **includes** will throw an error if input is neither `string` nor `array`, while **Rambda** version will return `false`.
@@ -365,10 +361,11 @@ add(a: number): (b: number) => number;
 <summary><strong>R.add</strong> source</summary>
 
 ```javascript
-export function add(a, b){
-  if (arguments.length === 1) return _b => add(a, _b)
+export function add(a, b) {
+  if (arguments.length === 1)
+    return (_b) => add(a, _b);
 
-  return Number(a) + Number(b)
+  return Number(a) + Number(b);
 }
 ```
 
@@ -557,7 +554,7 @@ describe('adjust', function() {
 
 ```typescript
 
-all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean
+all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean
 ```
 
 It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
@@ -577,9 +574,7 @@ const result = R.all(predicate, arr)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 ```
 
@@ -594,7 +589,7 @@ export function all(predicate, list){
   if (arguments.length === 1) return _list => all(predicate, _list)
 
   for (let i = 0; i < list.length; i++){
-    if (!predicate(list[ i ], i)) return false
+    if (!predicate(list[ i ])) return false
   }
 
   return true
@@ -610,30 +605,18 @@ export function all(predicate, list){
 ```javascript
 import { all } from './all'
 
-const numArr = [ 0, 1, 2, 3, 4 ]
+const list = [ 0, 1, 2, 3, 4 ]
 
 test('when true', () => {
   const fn = x => x > -1
 
-  expect(all(fn)(numArr)).toBeTrue()
+  expect(all(fn)(list)).toBeTrue()
 })
 
 test('when false', () => {
   const fn = x => x > 2
 
-  expect(all(fn, numArr)).toBeFalse()
-})
-
-test('pass index as second argument', () => {
-  const indexes = []
-  const fn = (x, i) => {
-    indexes.push(i)
-
-    return x > 5
-  }
-  all(fn, [ 10, 12, 14 ])
-
-  expect(indexes).toEqual([ 0, 1, 2 ])
+  expect(all(fn, list)).toBeFalse()
 })
 ```
 
@@ -655,25 +638,6 @@ describe('all', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType boolean
-  })
-  it('pass index', () => {
-    const result = all(
-      (x, i) => {
-        x // $ExpectType number
-        i // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('pass index + curry', () => {
-    const result = all<number>((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
     result // $ExpectType boolean
   })
   it('curried needs a type', () => {
@@ -999,7 +963,7 @@ describe('R.and', () => {
 
 ```typescript
 
-any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean
+any<T>(predicate: (x: T) => boolean, list: T[]): boolean
 ```
 
 It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
@@ -1018,10 +982,8 @@ R.any(fn, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
-any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 ```
 
 </details>
@@ -1055,21 +1017,14 @@ export function any(predicate, list){
 ```javascript
 import { any } from './any'
 
-const arr = [ 1, 2, 3 ]
+const list = [ 1, 2, 3 ]
 
 test('happy', () => {
-  expect(any(val => val < 0, arr)).toBeFalse()
+  expect(any(x => x < 0, list)).toBeFalse()
 })
 
 test('with curry', () => {
-  expect(any(x => x > 2)(arr)).toBeTrue()
-})
-
-test('passes index to predicate', () => {
-  any((x, i) => {
-    expect(typeof x).toBe('string')
-    expect(typeof i).toBe('number')
-  })([ 'foo', 'bar' ])
+  expect(any(x => x > 2)(list)).toBeTrue()
 })
 ```
 
@@ -1097,25 +1052,6 @@ describe('R.any', () => {
   it('when curried needs a type', () => {
     const result = any<number>(x => {
       x // $ExpectType number
-      return x > 2
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
-  it('pass index as second argument', () => {
-    const result = any(
-      (x, i) => {
-        x // $ExpectType number
-        i // $ExpectType number
-        return x > 2
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('pass index as second argument when curried needs a type', () => {
-    const result = any<number>((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
       return x > 2
     })([1, 2, 3])
     result // $ExpectType boolean
@@ -6097,7 +6033,7 @@ export function filter(predicate, list){
   while (index < len){
     const value = list[ index ]
 
-    if (predicate(value, index)){
+    if (predicate(value)){
       willReturn.push(value)
     }
 
@@ -6164,15 +6100,6 @@ test('predicate when input is object', () => {
   expect(filter(predicate, obj)).toEqual({ a : 1 })
 })
 
-test('pass index as second argument', () => {
-  let counter = 0
-  filter((x, i) => {
-    expect(i).toBe(counter)
-    counter++
-  },
-  [ 10, 20, 30 ])
-})
-
 test('with object', () => {
   const isEven = n => n % 2 === 0
   const result = filter(isEven, sampleObject)
@@ -6211,12 +6138,6 @@ describe('R.filter with array', () => {
       return x > 1
     })(list)
     result // $ExpectType number[]
-  })
-  it('pass index as second argument', () => {
-    filter<number>((x, index) => {
-      index // $ExpectType number
-      return x > 1
-    }, list)
   })
 })
 
@@ -6278,7 +6199,7 @@ describe('filter', function() {
 
 ```typescript
 
-find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined
+find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined
 ```
 
 It returns the first element of `list` that satisfy the `predicate`.
@@ -6300,10 +6221,8 @@ const result = R.find(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-find<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): T | undefined;
-find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
-find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
+find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 ```
 
 </details>
@@ -6321,7 +6240,7 @@ export function find(predicate, list){
 
   while (index < len){
     const x = list[ index ]
-    if (predicate(x, index)){
+    if (predicate(x)){
       return x
     }
 
@@ -6355,13 +6274,6 @@ test('with curry', () => {
 test('with empty list', () => {
   expect(find(() => true, [])).toBeUndefined()
 })
-
-test('pass index', () => {
-  find((_, i) => {
-    expect(i).toBe(0)
-  },
-  [ 'foo' ])
-})
 ```
 
 </details>
@@ -6386,22 +6298,6 @@ describe('R.find', () => {
     const result = find(predicate)(list)
     result // $ExpectType number | undefined
   })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = find(predicate, list)
-    result // $ExpectType number | undefined
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = find(predicate)(list)
-    result // $ExpectType number | undefined
-  })
 })
 ```
 
@@ -6411,7 +6307,7 @@ describe('R.find', () => {
 
 ```typescript
 
-findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number
+findIndex<T>(predicate: (x: T) => boolean, list: T[]): number
 ```
 
 It returns the index of the first element of `list` satisfying the `predicate` function.
@@ -6433,10 +6329,8 @@ const result = R.findIndex(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
-findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
-findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
-findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
+findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 ```
 
 </details>
@@ -6453,7 +6347,7 @@ export function findIndex(predicate, list){
   let index = -1
 
   while (++index < len){
-    if (predicate(list[ index ], index)){
+    if (predicate(list[ index ])){
       return index
     }
   }
@@ -6472,19 +6366,14 @@ export function findIndex(predicate, list){
 import { findIndex } from './findIndex'
 import { propEq } from './propEq'
 
+const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+
 test('happy', () => {
-  expect(findIndex(propEq('a', 2))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(1)
+  expect(findIndex(propEq('a', 2), list)).toEqual(1)
 
-  expect(findIndex(propEq('a', 1))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(0)
+  expect(findIndex(propEq('a', 1))(list)).toEqual(0)
 
-  expect(findIndex(propEq('a', 4))([ { a : 1 }, { a : 2 }, { a : 3 } ])).toEqual(-1)
-})
-
-test('pass index as second argument', () => {
-  findIndex((x, i) => {
-    expect(typeof x).toBe('number')
-    expect(typeof i).toBe('number')
-  })([ 10, 12, 15 ])
+  expect(findIndex(propEq('a', 4))(list)).toEqual(-1)
 })
 ```
 
@@ -6507,22 +6396,6 @@ describe('R.findIndex', () => {
   })
   it('curried', () => {
     const predicate = (x: number) => x > 2
-    const result = findIndex(predicate)(list)
-    result // $ExpectType number
-  })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findIndex(predicate, list)
-    result // $ExpectType number
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
     const result = findIndex(predicate)(list)
     result // $ExpectType number
   })
@@ -6558,9 +6431,7 @@ const result = R.findLast(predicate, list)
 
 ```typescript
 findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
 findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
-findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 ```
 
 </details>
@@ -6576,7 +6447,7 @@ export function findLast(predicate, list){
   let index = list.length
 
   while (--index >= 0){
-    if (predicate(list[ index ], index)){
+    if (predicate(list[ index ])){
       return list[ index ]
     }
   }
@@ -6595,12 +6466,11 @@ export function findLast(predicate, list){
 import { findLast } from './findLast'
 
 test('happy', () => {
-  const result = findLast((x, i) => {
-    expect(typeof i).toBe('number')
-
+  const result = findLast(x => {
     return x > 1
   },
-  [ 1, 1, 1, 2, 3, 4, 1 ])
+  [ 1, 1, 1, 2, 3, 4, 1 ]
+  )
   expect(result).toEqual(4)
 
   expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
@@ -6668,22 +6538,6 @@ describe('R.findLast', () => {
     const result = findLast(predicate)(list)
     result // $ExpectType number | undefined
   })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findLast(predicate, list)
-    result // $ExpectType number | undefined
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findLast(predicate)(list)
-    result // $ExpectType number | undefined
-  })
 })
 ```
 
@@ -6716,9 +6570,7 @@ const result = R.findLastIndex(predicate, list)
 
 ```typescript
 findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-findLastIndex<T>(predicate: (x: T, index: number) => boolean, list: T[]): number;
 findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
-findLastIndex<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => number;
 ```
 
 </details>
@@ -6734,7 +6586,7 @@ export function findLastIndex(fn, list){
   let index = list.length
 
   while (--index >= 0){
-    if (fn(list[ index ], index)){
+    if (fn(list[ index ])){
       return index
     }
   }
@@ -6753,8 +6605,7 @@ export function findLastIndex(fn, list){
 import { findLastIndex } from './findLastIndex'
 
 test('happy', () => {
-  const result = findLastIndex((x, i) => {
-    expect(typeof i).toBe('number')
+  const result = findLastIndex((x) => {
 
     return x > 1
   },
@@ -6824,22 +6675,6 @@ describe('R.findLastIndex', () => {
   })
   it('curried', () => {
     const predicate = (x: number) => x > 2
-    const result = findLastIndex(predicate)(list)
-    result // $ExpectType number
-  })
-  it('pass index as second argument', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
-    const result = findLastIndex(predicate, list)
-    result // $ExpectType number
-  })
-  it('pass index as second argument | curried', () => {
-    const predicate = (x: number, index: number) => {
-      index // $ExpectType number
-      return x > 2
-    }
     const result = findLastIndex(predicate)(list)
     result // $ExpectType number
   })
@@ -7413,7 +7248,7 @@ describe('R.forEach with objects', () => {
       (a) => {
         a // $ExpectType number
       },
-      list
+      obj
     )
     result // $ExpectType Dictionary<number>
   })
@@ -11143,7 +10978,7 @@ It returns the result of looping through `list` with `fn`.
 It works with both array and object.
 
 ```javascript
-const fn = (x, i) => (x * 2) + i
+const fn = x => x * 2
 const fnWhenObject = (val, prop)=>{
   return `${prop}-${val}`
 }
@@ -11155,10 +10990,10 @@ const result = [
   R.map(fn, list),
   R.map(fnWhenObject, obj)
 ]
-// => [ [2, 5], {a: 'a-1', b: 'b-2'}]
+// => [ [1, 4], {a: 'a-1', b: 'b-2'}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(x%2C%20i)%20%3D%3E%20(x%20*%202)%20%2B%20i%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20list%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B2%2C%205%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try the above <strong>R.map</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20list%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B1%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try the above <strong>R.map</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11166,11 +11001,11 @@ const result = [
 
 ```typescript
 map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
-map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
+map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
+map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
 map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
+map<T>(fn: MapIterator<T, T>, list: ReadonlyArray<T>): T[];
 ```
 
 </details>
@@ -11197,7 +11032,7 @@ export function map(fn, list){
 
     while (index < len){
       willReturn[ index ] = fn(
-        list[ index ], index, list
+        list[ index ]
       )
       index++
     }
@@ -11241,13 +11076,6 @@ const sampleObject = {
 
 test('with array', () => {
   expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
-})
-
-test('pass index as second argument', () => {
-  map((x, i) => {
-    expect(i).toBeNumber()
-  },
-  [ 10, 20, 30 ])
 })
 
 test('with object', () => {
@@ -11307,41 +11135,20 @@ import {map} from 'rambda'
 describe('R.map with arrays', () => {
   it('iterable returns the same type as the input', () => {
     const result = map<number>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return a + 2
+      (x) => {
+        x // $ExpectType number
+        return x + 2
       },
       [1, 2, 3]
     )
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return a + 2
+    const result = map<number>((x) => {
+      x // $ExpectType number
+      return x + 2
     })([1, 2, 3])
     result // $ExpectType number[]
-  })
-  it('iterable with index argument', () => {
-    const result = map<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-        return `${a}`
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType string[]
-  })
-  it('iterable with index argument - curried', () => {
-    const result = map<number, string>((a, b) => {
-      a // $ExpectType number
-      b // $ExpectType number
-      return `${a}`
-    })([1, 2, 3])
-    result // $ExpectType string[]
   })
 })
 
@@ -12985,7 +12792,7 @@ test('negate', () => {
 
 ```typescript
 
-none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean
+none<T>(predicate: (x: T) => boolean, list: T[]): boolean
 ```
 
 It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
@@ -13005,10 +12812,8 @@ const result = R.none(predicate, arr)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
-none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 ```
 
 </details>
@@ -13022,7 +12827,7 @@ export function none(predicate, list){
   if (arguments.length === 1) return _list => none(predicate, _list)
 
   for (let i = 0; i < list.length; i++){
-    if (!predicate(list[ i ], i)) return true
+    if (!predicate(list[ i ])) return true
   }
 
   return false
@@ -13049,13 +12854,6 @@ test('when true', () => {
 test('when false curried', () => {
   expect(none(isOdd)(arr)).toBeFalse()
 })
-
-test('passes index to predicate', () => {
-  none((x, i) => {
-    expect(typeof x).toBe('number')
-    expect(typeof i).toBe('number')
-  })([ 1, 2, 3 ])
-})
 ```
 
 </details>
@@ -13076,25 +12874,6 @@ describe('R.none', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType boolean
-  })
-  it('pass index', () => {
-    const result = none(
-      (x, i) => {
-        x // $ExpectType number
-        i // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('pass index + curry', () => {
-    const result = none<number>((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
     result // $ExpectType boolean
   })
   it('curried needs a type', () => {
@@ -13843,7 +13622,7 @@ describe('R.partial', () => {
 ```typescript
 
 partition<T>(
-  predicate: Predicatex<T>,
+  predicate: Predicate<T>,
   input: T[]
 ): [T[], T[]]
 ```
@@ -13876,11 +13655,11 @@ const expected = [
 
 ```typescript
 partition<T>(
-  predicate: Predicatex<T>,
+  predicate: Predicate<T>,
   input: T[]
 ): [T[], T[]];
 partition<T>(
-  predicate: Predicatex<T>
+  predicate: Predicate<T>
 ): (input: T[]) => [T[], T[]];
 partition<T>(
   predicate: (x: T, prop?: string) => boolean,
@@ -13925,7 +13704,7 @@ export function partition(predicate, input){
   let counter = -1
 
   while (counter++ < input.length - 1){
-    if (predicate(input[ counter ], counter)){
+    if (predicate(input[ counter ])){
       yes.push(input[ counter ])
     } else {
       no.push(input[ counter ])
@@ -13946,8 +13725,7 @@ export function partition(predicate, input){
 import { partition } from './partition'
 
 test('with array', () => {
-  const predicate = (x, i) => {
-    expect(typeof i).toBe('number')
+  const predicate = (x) => {
 
     return x > 2
   }
@@ -14025,7 +13803,7 @@ import {partition} from 'rambda'
 
 describe('R.partition', () => {
   it('with array', () => {
-    const predicate = (x: number, i: number) => {
+    const predicate = (x: number) => {
       return x > 2
     }
     const list = [1, 2, 3, 4]
@@ -16679,7 +16457,7 @@ describe('reduce', function() {
 
 ```typescript
 
-reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
+reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -16703,10 +16481,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
-reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
+reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
+reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
 ```
 
 </details>
@@ -16721,7 +16499,7 @@ import { filter } from './filter'
 export function reject(predicate, list){
   if (arguments.length === 1) return _list => reject(predicate, _list)
 
-  return filter((x, i) => !predicate(x, i), list)
+  return filter(x => !predicate(x), list)
 }
 ```
 
@@ -16737,27 +16515,21 @@ import { reject } from './reject'
 const isOdd = n => n % 2 === 1
 
 test('with array', () => {
-  expect(reject(isOdd, [ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
+  expect(reject(isOdd)([ 1, 2, 3, 4 ])).toEqual([ 2, 4 ])
 })
 
 test('with object', () => {
-  expect(reject(isOdd, {
+  const obj = {
     a : 1,
     b : 2,
     c : 3,
     d : 4,
-  })).toEqual({
+  }
+  
+  expect(reject(isOdd, obj)).toEqual({
     b : 2,
     d : 4,
   })
-})
-
-test('pass index as second argument', () => {
-  reject((x, i) => {
-    expect(typeof x).toBe('number')
-    expect(typeof i).toBe('number')
-  },
-  [ 10, 12, 15 ])
 })
 ```
 
@@ -16771,49 +16543,30 @@ test('pass index as second argument', () => {
 import {reject} from 'rambda'
 
 describe('R.reject with array', () => {
-  it('1 curry', () => {
-    const x = reject<number>(a => {
-      a // $ExpectType number
-      return a > 1
+  it('happy', () => {
+    const result = reject(
+      x => {
+        x // $ExpectType number
+        return x > 1
+      },
+      [1, 2, 3]
+    )
+    result // $ExpectType number[]
+  })
+  it('curried require explicit type', () => {
+    const result = reject<number>(x => {
+      x // $ExpectType number
+      return x > 1
     })([1, 2, 3])
-    x // $ExpectType number[]
-  })
-  it('1', () => {
-    const x = reject<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType number[]
-  })
-  it('2', () => {
-    const x = reject<number>(
-      (a, b) => {
-        a // $ExpectType number
-        return a > 1
-      },
-      [1, 2, 3]
-    )
-    x // $ExpectType number[]
+    result // $ExpectType number[]
   })
 })
 
 describe('R.reject with objects', () => {
-  it('curried', () => {
-    const x = reject<number, number>((a, b, c) => {
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-
-      return a > 1
-    })({a: 1, b: 2})
-    x // $ExpectType Dictionary<number>
-  })
-
-  it('object with three arguments predicate', () => {
-    const x = reject<number>(
+  it('happy', () => {
+    const result = reject(
       (a, b, c) => {
+        a // $ExpectType number
         b // $ExpectType string
         c // $ExpectType Dictionary<number>
 
@@ -16821,27 +16574,15 @@ describe('R.reject with objects', () => {
       },
       {a: 1, b: 2}
     )
-    x // $ExpectType Dictionary<number>
+    result // $ExpectType Dictionary<number>
   })
+  it('curried require dummy type', () => {
+    const x = reject<number, any>((a, b, c) => {
+      b // $ExpectType string
+      c // $ExpectType Dictionary<number>
 
-  it('object with two arguments predicate', () => {
-    const x = reject<number>(
-      (a, b) => {
-        b // $ExpectType string
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
-    x // $ExpectType Dictionary<number>
-  })
-  it('object with one argument predicate', () => {
-    const x = reject<number>(
-      a => {
-        a // $ExpectType number
-        return a > 1
-      },
-      {a: 1, b: 2}
-    )
+      return a > 1
+    })({a: 1, b: 2})
     x // $ExpectType Dictionary<number>
   })
 })
@@ -21852,7 +21593,11 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-WIP 5.13.2
+WIP 6.0.0
+
+- Breaking change - `R.map`/`R.filter`/`R.reject`/ doesn't pass index as second argument to the predicate, when looping over arrays.
+
+- Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
 
 - Change `R.assocPath` typings so the user can explicitly sets type of the new object
 
