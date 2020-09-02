@@ -16,10 +16,3 @@ test('with curry', () => {
 test('with empty list', () => {
   expect(find(() => true, [])).toBeUndefined()
 })
-
-test('pass index', () => {
-  find((_, i) => {
-    expect(i).toBe(0)
-  },
-  [ 'foo' ])
-})

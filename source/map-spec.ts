@@ -3,7 +3,7 @@ import {map} from 'rambda'
 describe('R.map with arrays', () => {
   it('iterable returns the same type as the input', () => {
     const result = map<number>(
-      (x) => {
+      (x: number) => {
         x // $ExpectType number
         return x + 2
       },
@@ -12,7 +12,7 @@ describe('R.map with arrays', () => {
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x) => {
+    const result = map<number>((x:number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])

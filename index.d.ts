@@ -2,10 +2,11 @@ import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from ".
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
-type FilterFunctionArray<T> = (x: T, index: number) => boolean;
+type FilterFunctionArray<T> = (x: T) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T, index: number) => U;
+type MapIterator<T> = (x: T) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
 
@@ -52,7 +53,6 @@ interface AssocPartialOne<K extends keyof any> {
 // ============================================
 type Func<T> = (input: any) => T;
 type VoidInputFunc<T> = () => T;
-type Predicatex<T> = (input: T, index: number) => boolean;
 type Fn<In, Out> = (x: In) => Out;
 type FnTwo<In, Out> = (x: In, y: In) => Out;
 type MapFn<In, Out> = (x: In, index: number) => Out;
@@ -146,9 +146,7 @@ export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: Readonl
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
  */
-export function all<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
 export function all<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function all<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
 
 /**
@@ -170,10 +168,8 @@ export function and<T extends { and?: ((...a: readonly any[]) => any); } | numbe
 /**
  * It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
  */
-export function any<T>(predicate: (x: T, i: number) => boolean, list: ReadonlyArray<T>): boolean;
-export function any<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function any<T>(predicate: (x: T, i: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function any<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /**
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
@@ -414,20 +410,16 @@ export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>):
  * 
  * If there is no such element, it returns `undefined`.
  */
-export function find<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-export function find<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): T | undefined;
-export function find<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
-export function find<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /**
  * It returns the index of the first element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findIndex<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): number;
-export function findIndex<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): number;
-export function findIndex<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => number;
-export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /**
  * It returns the last element of `list` satisfying the `predicate` function.
@@ -435,9 +427,7 @@ export function findIndex<T>(predicate: (x: T, index: number) => boolean): (list
  * If there is no such element, then `undefined` is returned.
  */
 export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (x: T, index: number) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
-export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) => T | undefined;
 
 /**
  * It returns the index of the last element of `list` satisfying the `predicate` function.
@@ -445,9 +435,7 @@ export function findLast<T>(fn: (x: T, index: number) => boolean): (list: T[]) =
  * If there is no such element, then `-1` is returned.
  */
 export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(predicate: (x: T, index: number) => boolean, list: T[]): number;
 export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
-export function findLastIndex<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => number;
 
 /**
  * It deeply flattens an array.
@@ -700,11 +688,11 @@ export function view<T, U>(lens: Lens, target: T): U;
  * It works with both array and object.
  */
 export function map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapFunctionArray<T, U>, list: T[]): U[];
-export function map<T, U>(fn: MapFunctionArray<T, U>): (list: T[]) => U[];
+export function map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
 export function map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapFunctionArray<T, T>): (list: T[]) => T[];
-export function map<T>(fn: MapFunctionArray<T, T>, list: ReadonlyArray<T>): T[];
+export function map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, list: ReadonlyArray<T>): T[];
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -808,10 +796,8 @@ export function negate(x: number): number;
 /**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
  */
-export function none<T>(predicate: (x: T, index: number) => boolean, list: ReadonlyArray<T>): boolean;
-export function none<T>(predicate: (x: T) => boolean, list: ReadonlyArray<T>): boolean;
-export function none<T>(predicate: (x: T, index: number) => boolean): (list: ReadonlyArray<T>) => boolean;
-export function none<T>(predicate: (x: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /**
  * It returns a boolean negated version of `input`.
@@ -859,11 +845,11 @@ export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]
  * `input` can be either an object or an array unlike `Ramda` where only array is a valid input.
  */
 export function partition<T>(
-  predicate: Predicatex<T>,
+  predicate: Predicate<T>,
   input: T[]
 ): [T[], T[]];
 export function partition<T>(
-  predicate: Predicatex<T>
+  predicate: Predicate<T>
 ): (input: T[]) => [T[], T[]];
 export function partition<T>(
   predicate: (x: T, prop?: string) => boolean,
@@ -1192,10 +1178,10 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
 /**
  * It has the opposite effect of `R.filter`.
  */
-export function reject<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-export function reject<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
-export function reject<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function reject<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
+export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+export function reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /**
  * It returns a list of `x` input repeated `timesToRepeat` input.

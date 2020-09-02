@@ -5,7 +5,7 @@ export function findIndex(predicate, list){
   let index = -1
 
   while (++index < len){
-    if (predicate(list[ index ], index)){
+    if (predicate(list[ index ])){
       return index
     }
   }

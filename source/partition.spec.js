@@ -1,8 +1,7 @@
 import { partition } from './partition'
 
 test('with array', () => {
-  const predicate = (x, i) => {
-    expect(typeof i).toBe('number')
+  const predicate = (x) => {
 
     return x > 2
   }

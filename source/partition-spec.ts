@@ -2,7 +2,7 @@ import {partition} from 'rambda'
 
 describe('R.partition', () => {
   it('with array', () => {
-    const predicate = (x: number, i: number) => {
+    const predicate = (x: number) => {
       return x > 2
     }
     const list = [1, 2, 3, 4]

@@ -25,7 +25,7 @@ export function partition(predicate, input){
   let counter = -1
 
   while (counter++ < input.length - 1){
-    if (predicate(input[ counter ], counter)){
+    if (predicate(input[ counter ])){
       yes.push(input[ counter ])
     } else {
       no.push(input[ counter ])

@@ -1,8 +1,7 @@
 import { findLastIndex } from './findLastIndex'
 
 test('happy', () => {
-  const result = findLastIndex((x, i) => {
-    expect(typeof i).toBe('number')
+  const result = findLastIndex((x) => {
 
     return x > 1
   },
