@@ -21530,7 +21530,7 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-WIP 6.0.0
+6.0.0
 
 - Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
 
