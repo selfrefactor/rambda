@@ -13,9 +13,7 @@ export function forEach(fn, list){
     const len = list.length
 
     while (index < len){
-      fn(
-        list[ index ], index, list
-      )
+      fn(list[ index ])
       index++
     }
   } else {

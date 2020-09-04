@@ -224,10 +224,6 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Rambda's **type** handles *NaN* input, in which case it returns `NaN`.
 
-- Rambda's **path** and **paths** accept dot notation - `'x.y' same as ['x','y']`
-
-- Rambda's **pick** and **omit** accept comma notation - `'x,y' same as ['x','y']`
-
 - Rambda's **forEach** can iterate over objects not only arrays.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
@@ -7000,7 +6996,7 @@ describe('flip properties', function() {
 
 ```typescript
 
-forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>
+forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[]
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
@@ -7022,10 +7018,10 @@ result //=> [1, 2]
 <summary>All Typescript definitions</summary>
 
 ```typescript
-forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
-forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
-forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
 forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
+forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 ```
 
 </details>
@@ -7050,9 +7046,7 @@ export function forEach(fn, list){
     const len = list.length
 
     while (index < len){
-      fn(
-        list[ index ], index, list
-      )
+      fn(list[ index ])
       index++
     }
   } else {
@@ -7119,40 +7113,6 @@ test('happy', () => {
   })
 })
 
-test('happy 2', () => {
-  const list = [
-    {
-      x : 1,
-      y : 2,
-    },
-    {
-      x : 100,
-      y : 200,
-    },
-    {
-      x : 300,
-      y : 400,
-    },
-    {
-      x : 234,
-      y : 345,
-    },
-  ]
-  const sideEffect = {}
-  const result = forEach(elem => {
-    sideEffect[ elem.x ] = elem.y
-  }, list)
-  const expectedSideEffect = {
-    1   : 2,
-    100 : 200,
-    300 : 400,
-    234 : 345,
-  }
-
-  expect(sideEffect).toEqual(expectedSideEffect)
-  expect(result).toEqual(list)
-})
-
 test('with empty list', () => {
   const list = []
   const result = forEach(x => x * x)(list)
@@ -7173,14 +7133,6 @@ test('returns the input', () => {
 
   expect(result).toEqual(list)
 })
-
-test('pass index as second argument', () => {
-  const list = [ 11, 21, 31 ]
-  const indexes = []
-  const result = forEach((x, i) => indexes.push(i))(list)
-
-  expect(indexes).toEqual([ 0, 1, 2 ])
-})
 ```
 
 </details>
@@ -7198,16 +7150,6 @@ const obj = {a: 1, b: 2}
 describe('R.forEach with arrays', () => {
   it('happy', () => {
     const result = forEach(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-      },
-      list
-    )
-    result // $ExpectType number[]
-  })
-  it('iterator without index', () => {
-    const result = forEach<number>(
       (a) => {
         a // $ExpectType number
       },
@@ -7215,10 +7157,9 @@ describe('R.forEach with arrays', () => {
     )
     result // $ExpectType number[]
   })
-  it('curried require an input typing', () => {
-    const result = forEach<number>((a, b) => {
+  it('curried require an explicit typing', () => {
+    const result = forEach<number>((a) => {
       a // $ExpectType number
-      b // $ExpectType number
     })(list)
     result // $ExpectType number[]
   })
@@ -7397,7 +7338,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
 
 ```typescript
 
-groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] }
+groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] }
 ```
 
 It splits `list` according to a provided `groupFn` function and returns an object.
@@ -7417,8 +7358,8 @@ const result = R.groupBy(groupFn, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
+groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
 ```
 
 </details>
@@ -11135,7 +11076,7 @@ import {map} from 'rambda'
 describe('R.map with arrays', () => {
   it('iterable returns the same type as the input', () => {
     const result = map<number>(
-      (x) => {
+      (x: number) => {
         x // $ExpectType number
         return x + 2
       },
@@ -11144,7 +11085,7 @@ describe('R.map with arrays', () => {
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x) => {
+    const result = map<number>((x:number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])
@@ -12964,7 +12905,7 @@ describe('R.not', () => {
 
 ```typescript
 
-nth<T>(index: number, list: ReadonlyArray<T>): T | undefined
+nth<T>(index: number, list: T[]): T | undefined
 ```
 
 Curried version of `list[index]`.
@@ -12988,8 +12929,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;	
-nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+nth<T>(index: number, list: T[]): T | undefined;	
+nth(index: number): <T>(list: T[]) => T | undefined;
 ```
 
 </details>
@@ -13628,8 +13569,6 @@ partition<T>(
 ```
 
 It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
-
-`input` can be either an object or an array unlike `Ramda` where only array is a valid input.
 
 ```javascript
 const list = [1, 2, 3]
@@ -20398,7 +20337,7 @@ describe('R.unless', () => {
 
 ```typescript
 
-update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[]
+update<T>(index: number, newValue: T, list: T[]): T[]
 ```
 
 It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -20419,8 +20358,8 @@ const result = R.update(index, newValue, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
-update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
+update<T>(index: number, newValue: T, list: T[]): T[];
+update<T>(index: number, newValue: T): (list: T[]) => T[];
 ```
 
 </details>
@@ -21479,7 +21418,7 @@ describe('R.zip', () => {
 
 ```typescript
 
-zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T }
+zipObj<T>(keys: string[], values: T[]): { [index: string]: T }
 ```
 
 It will return a new object with keys of `keys` array and values of `values` array.
@@ -21502,8 +21441,8 @@ R.zipObj(keys, [1, 2])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
-zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
+zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
 ```
 
 </details>
@@ -21595,7 +21534,7 @@ describe('R.zipObj', () => {
 
 WIP 6.0.0
 
-- Breaking change - `R.map`/`R.filter`/`R.reject`/ doesn't pass index as second argument to the predicate, when looping over arrays.
+- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
 
 - Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
 

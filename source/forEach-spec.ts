@@ -6,16 +6,6 @@ const obj = {a: 1, b: 2}
 describe('R.forEach with arrays', () => {
   it('happy', () => {
     const result = forEach(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType number
-      },
-      list
-    )
-    result // $ExpectType number[]
-  })
-  it('iterator without index', () => {
-    const result = forEach<number>(
       (a) => {
         a // $ExpectType number
       },
@@ -23,10 +13,9 @@ describe('R.forEach with arrays', () => {
     )
     result // $ExpectType number[]
   })
-  it('curried require an input typing', () => {
-    const result = forEach<number>((a, b) => {
+  it('curried require an explicit typing', () => {
+    const result = forEach<number>((a) => {
       a // $ExpectType number
-      b // $ExpectType number
     })(list)
     result // $ExpectType number[]
   })

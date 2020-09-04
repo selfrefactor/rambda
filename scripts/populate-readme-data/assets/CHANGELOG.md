@@ -1,8 +1,8 @@
 WIP 6.0.0
 
-- Breaking change - `R.map`/`R.filter`/`R.reject`/ doesn't pass index as second argument to the predicate, when looping over arrays.
+- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
 
-- Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex`/`R.partition` doesn't pass index as second argument to the predicate.
+- Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
 
 - Change `R.assocPath` typings so the user can explicitly sets type of the new object
 

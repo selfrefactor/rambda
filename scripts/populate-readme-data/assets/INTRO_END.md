@@ -4,10 +4,6 @@
 
 - Rambda's **type** handles *NaN* input, in which case it returns `NaN`.
 
-- Rambda's **path** and **paths** accept dot notation - `'x.y' same as ['x','y']`
-
-- Rambda's **pick** and **omit** accept comma notation - `'x,y' same as ['x','y']`
-
 - Rambda's **forEach** can iterate over objects not only arrays.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.

@@ -5,7 +5,7 @@ type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array"
 type FilterFunctionArray<T> = (x: T) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
-type MapFunctionArray<T, U> = (x: T, index: number) => U;
+type MapFunctionArray<T, U> = (x: T) => U;
 type MapIterator<T> = (x: T) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
@@ -1240,10 +1240,10 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
-export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
 export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: fromPairs
@@ -1294,8 +1294,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
 
 /*
 Method: groupWith
@@ -2535,8 +2535,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;	
-export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+export function nth<T>(index: number, list: T[]): T | undefined;	
+export function nth(index: number): <T>(list: T[]) => T | undefined;
 
 /*
 Method: omit
@@ -4270,8 +4270,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
-export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
+export function update<T>(index: number, newValue: T, list: T[]): T[];
+export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 /*
 Method: values
@@ -4497,8 +4497,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
-export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+export function zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
+export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
 
 // RAMBDAX_MARKER_START
 

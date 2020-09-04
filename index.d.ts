@@ -5,7 +5,7 @@ type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array"
 type FilterFunctionArray<T> = (x: T) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
-type MapFunctionArray<T, U> = (x: T, index: number) => U;
+type MapFunctionArray<T, U> = (x: T) => U;
 type MapIterator<T> = (x: T) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
@@ -451,10 +451,10 @@ export function flip<F extends (...args: any) => any, P extends FunctionToolbelt
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
  */
-export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
-export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
 export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /**
  * It transforms a `listOfPairs` to an object.
@@ -465,8 +465,8 @@ export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
  */
-export function groupBy<T>(groupFn: (x: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
 
 /**
  * It returns separated version of `list`, where separation is done with equality `compareFn` function.
@@ -807,8 +807,8 @@ export function not(input: any): boolean;
 /**
  * Curried version of `list[index]`.
  */
-export function nth<T>(index: number, list: ReadonlyArray<T>): T | undefined;	
-export function nth(index: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+export function nth<T>(index: number, list: T[]): T | undefined;	
+export function nth(index: number): <T>(list: T[]) => T | undefined;
 
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -841,8 +841,6 @@ export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]
 
 /**
  * It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
- * 
- * `input` can be either an object or an array unlike `Ramda` where only array is a valid input.
  */
 export function partition<T>(
   predicate: Predicate<T>,
@@ -1391,8 +1389,8 @@ export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) =
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
  */
-export function update<T>(index: number, newValue: T, list: ReadonlyArray<T>): T[];
-export function update<T>(index: number, newValue: T): (list: ReadonlyArray<T>) => T[];
+export function update<T>(index: number, newValue: T, list: T[]): T[];
+export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 /**
  * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
@@ -1437,5 +1435,5 @@ export function zip<K>(x: ReadonlyArray<K>): <V>(y: ReadonlyArray<V>) => KeyValu
 /**
  * It will return a new object with keys of `keys` array and values of `values` array.
  */
-export function zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
-export function zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+export function zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
+export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
