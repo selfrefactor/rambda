@@ -3,10 +3,10 @@ import R from 'ramda'
 import { includes } from './includes'
 
 test('includes with string', () => {
-  const str = 'more is less'
+  const str = 'foo bar'
 
-  expect(includes('less')(str)).toBeTrue()
-  expect(R.includes('less')(str)).toBeTrue()
+  expect(includes('bar')(str)).toBeTrue()
+  expect(R.includes('bar')(str)).toBeTrue()
   expect(includes('never', str)).toBeFalse()
   expect(R.includes('never', str)).toBeFalse()
 })
