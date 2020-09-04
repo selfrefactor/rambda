@@ -10,6 +10,8 @@ WIP 6.0.0
 
 - Simplify `R.forEach` typings
 
+- Remove `ReadonlyArray<T>` pattern from Typescript definitions - not enough value for the noise  it adds.
+
 5.13.1
 
 - Fix wrong `R.takeWhile`
