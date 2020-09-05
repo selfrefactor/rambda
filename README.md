@@ -329,6 +329,8 @@ add(a: number, b: number): number
 
 It adds `a` and `b`.
 
+> :boom: It doesn't work with strings, as the inputs are parsed to numbers before calculation.
+
 ```javascript
 R.add(2, 3) // =>  5
 ```
@@ -345,9 +347,6 @@ add(a: number): (b: number) => number;
 ```
 
 </details>
-
-> Note
-It doesn't work with strings, as the inputs are parsed to numbers before calculation.
 
 <details>
 
@@ -1341,6 +1340,8 @@ applySpec<Spec extends Record<string, (...args: any[]) => any>>(
 It returns a curried function with the same arity as the longest function in the spec object.
 Arguments will be applied to the spec methods recursively.
 
+> :boom: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
+
 ```javascript
 const spec = {
   name: R.path('deeply.nested.firstname')
@@ -1379,9 +1380,6 @@ applySpec<T>(spec: any): (...args: any[]) => T;
 ```
 
 </details>
-
-> Note
-The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 <details>
 
@@ -1789,6 +1787,10 @@ assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U
 
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
 
+> :boom: This copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
+
 ```javascript
 R.assoc('c', 3, {a: 1, b: 2})
 //=> {a: 1, b: 2, c: 3}
@@ -1807,11 +1809,6 @@ assoc<K extends string>(prop: K): AssocPartialOne<K>;
 ```
 
 </details>
-
-> Note
-This copies and flattens prototype properties
-onto the new object as well. All non-primitive properties are copied by
-reference.
 
 <details>
 
@@ -1961,6 +1958,8 @@ assocPath<Output>(path: Path, newValue: any, obj: object): Output
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
+> :boom: Object
+
 ```javascript
 const path = 'b.c'
 const newValue = 2
@@ -1983,9 +1982,6 @@ assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: objec
 ```
 
 </details>
-
-> Note
-Object
 
 <details>
 
@@ -3929,6 +3925,8 @@ curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any
 
 It returns a curried equivalent of the provided function, with the specified arity.
 
+> :boom: Function
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -3938,9 +3936,6 @@ curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
 ```
 
 </details>
-
-> Note
-Function
 
 <details>
 
@@ -4210,6 +4205,8 @@ It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or
 
 Else, it returns the first truthy `inputArguments` instance(from left to right).
 
+> :boom: Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+
 ```javascript
 // With single input argument
 R.defaultTo('foo', 'bar') // => 'bar'
@@ -4234,9 +4231,6 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 ```
 
 </details>
-
-> Note
-Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 <details>
 
@@ -5195,6 +5189,8 @@ endsWith(target: string, str: string): boolean
 
 Curried version of `String.prototype.endsWith`
 
+> :boom: It doesn't work with arrays unlike its corresponding **Ramda** method.
+
 ```javascript
 const str = 'foo-bar'
 const target = '-bar'
@@ -5215,9 +5211,6 @@ endsWith(target: string): (str: string) => boolean;
 ```
 
 </details>
-
-> Note
-It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 <details>
 
@@ -5317,6 +5310,8 @@ equals<T>(x: T, y: T): boolean
 
 It deeply compares `x` and `y` and returns `true` if they are equal.
 
+> :boom: It doesn't handle cyclical data structures and functions
+
 ```javascript
 R.equals(
   [1, {a:2}, [{b: 3}]],
@@ -5336,9 +5331,6 @@ equals<T>(x: T): (y: T) => boolean;
 ```
 
 </details>
-
-> Note
-It doesn't handle cyclical data structures and functions
 
 <details>
 
@@ -6805,6 +6797,8 @@ flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => T
 
 It returns function which calls `fn` with exchanged first and second argument.
 
+> :boom: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
+
 ```javascript
 const subtractFlip = R.flip(R.subtract)
 
@@ -6827,9 +6821,6 @@ flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(
 ```
 
 </details>
-
-> Note
-Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
 
 <details>
 
@@ -7024,6 +7015,8 @@ forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[]
 
 It applies `iterable` function over all members of `list` and returns `list`.
 
+> :boom: It works with objects, unlike `Ramda`.
+
 ```javascript
 const sideEffect = {}
 const result = R.forEach(
@@ -7048,9 +7041,6 @@ forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictiona
 ```
 
 </details>
-
-> Note
-It works with objects, unlike `Ramda`.
 
 <details>
 
@@ -8090,6 +8080,8 @@ It returns `true` if its arguments `a` and `b` are identical.
 
 Otherwise, it returns `false`.
 
+> :boom: Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
+
 ```javascript
 const obj = {a: 1};
 R.identical(obj, obj); //=> true
@@ -8112,9 +8104,6 @@ identical<T>(x: T): (y: T) => boolean;
 ```
 
 </details>
-
-> Note
-Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
 
 <details>
 
@@ -8212,6 +8201,8 @@ identity<T>(input: T): T
 
 It just passes back the supplied `input` argument.
 
+> :boom: Logic
+
 ```javascript
 R.identity(7) // => 7
 ```
@@ -8227,9 +8218,6 @@ identity<T>(input: T): T;
 ```
 
 </details>
-
-> Note
-Logic
 
 <details>
 
@@ -10950,6 +10938,8 @@ It returns the result of looping through `list` with `fn`.
 
 It works with both array and object.
 
+> :boom: Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
+
 ```javascript
 const fn = x => x * 2
 const fnWhenObject = (val, prop)=>{
@@ -10982,9 +10972,6 @@ map<T>(fn: MapIterator<T, T>, list: T[]): T[];
 ```
 
 </details>
-
-> Note
-Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
 
 <details>
 
@@ -11287,6 +11274,8 @@ mathMod(x: number, y: number): number
 
 `R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
 
+> :boom: Explanation is taken from `Ramda` documentation site.
+
 ```javascript
 const result = [
   R.mathMod(-17, 5),
@@ -11309,9 +11298,6 @@ mathMod(x: number): (y: number) => number;
 ```
 
 </details>
-
-> Note
-Explanation is taken from `Ramda` documentation site.
 
 <details>
 
@@ -12514,6 +12500,8 @@ move<T>(fromIndex: number, toIndex: number, list: T[]): T[]
 
 It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
 
+> :boom: Rambda.move doesn't support negative indexes - it throws an error
+
 ```javascript
 const list = [1, 2, 3]
 const result = R.move(0, 1, list)
@@ -12536,9 +12524,6 @@ move(fromIndex: number): {
 ```
 
 </details>
-
-> Note
-Rambda.move doesn't support negative indexes - it throws an error
 
 <details>
 
@@ -13131,6 +13116,8 @@ omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>
 
 It returns a partial copy of an `obj` without `propsToOmit` properties.
 
+> :boom: When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type.
+
 ```javascript
 const obj = {a: 1, b: 2, c: 3}
 const propsToOmit = 'a,c,d'
@@ -13159,9 +13146,6 @@ omit<T>(propsToOmit: string): (obj: object) => T;
 ```
 
 </details>
-
-> Note
-When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type.
 
 <details>
 
@@ -13450,6 +13434,8 @@ It is very similar to `R.curry`, but you can pass initial arguments when you cre
 `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
 The name comes from the fact that you partially inject the inputs.
 
+> :boom: Rambda's partial doesn't need the input arguments to be wrapped as array.
+
 ```javascript
 const fn = (title, firstName, lastName) => {
   return title + ' ' + firstName + ' ' + lastName + '!'
@@ -13480,9 +13466,6 @@ partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) => T;
 ```
 
 </details>
-
-> Note
-Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 <details>
 
@@ -13836,6 +13819,8 @@ If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
 It will return `undefined`, if such path is not found.
 
+> :boom: String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
+
 ```javascript
 const obj = {a: {b: 1}}
 const pathToSearch = 'a.b'
@@ -13863,9 +13848,6 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 ```
 
 </details>
-
-> Note
-String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
 
 <details>
 
@@ -14535,6 +14517,8 @@ It returns a partial copy of an `input` containing only `propsToPick` properties
 
 String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
+> :boom: When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
+
 ```javascript
 const obj = {
   a : 1,
@@ -14581,9 +14565,6 @@ pick<T>(propsToPick: string): (input: object) => T;
 ```
 
 </details>
-
-> Note
-When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 
 <details>
 
@@ -14759,6 +14740,8 @@ pickAll<T, U>(propsToPick: string[], input: T): U
 
 Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
 
+> :boom: When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
+
 ```javascript
 const obj = {
   a : 1,
@@ -14797,9 +14780,6 @@ pickAll<T, U>(propsToPick: string): (input: T) => U;
 ```
 
 </details>
-
-> Note
-When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 
 <details>
 
@@ -16186,6 +16166,8 @@ describe('R.range', () => {
 reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult
 ```
 
+> :boom: It passes index of the list as third argument to `reducer` function.
+
 ```javascript
 const list = [1, 2, 3]
 const initialValue = 10
@@ -16209,9 +16191,6 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 ```
 
 </details>
-
-> Note
-It passes index of the list as third argument to `reducer` function.
 
 <details>
 
@@ -17153,6 +17132,8 @@ sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[]
 
 It returns copy of `list` sorted by `sortFn` function.
 
+> :boom: `sortFn` function must return a number.
+
 ```javascript
 const list = [
   {a: 2},
@@ -17184,9 +17165,6 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 ```
 
 </details>
-
-> Note
-`sortFn` function must return a number.
 
 <details>
 
@@ -17266,6 +17244,8 @@ sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[]
 
 It returns copy of `list` sorted by `sortFn` function.
 
+> :boom: `sortFn` function must return a value to compare.
+
 ```javascript
 const list = [
   {a: 2},
@@ -17295,9 +17275,6 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 ```
 
 </details>
-
-> Note
-`sortFn` function must return a value to compare.
 
 <details>
 
@@ -17663,6 +17640,8 @@ startsWith(target: string, str: string): boolean
 
 Curried version of `String.prototype.startsWith`
 
+> :boom: It doesn't work with arrays unlike its corresponding **Ramda** method.
+
 ```javascript
 const str = 'foo-bar'
 
@@ -17685,9 +17664,6 @@ startsWith(target: string): (str: string) => boolean;
 ```
 
 </details>
-
-> Note
-It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 <details>
 
@@ -17898,6 +17874,8 @@ symmetricDifference<T>(x: T[], y: T[]): T[]
 
 It returns a merged list of `x` and `y` with all equal elements removed.
 
+> :boom: `R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
+
 ```javascript
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
@@ -17918,9 +17896,6 @@ symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
 ```
 
 </details>
-
-> Note
-`R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
 
 <details>
 
@@ -19593,6 +19568,8 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 
 It accepts any input and it returns its type.
 
+> :boom: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
+
 ```javascript
 R.type(() => {}) // => 'Function'
 R.type(async () => {}) // => 'Async'
@@ -19624,9 +19601,6 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 ```
 
 </details>
-
-> Note
-`NaN`, `Promise` and `Async` are types specific for **Rambda**.
 
 <details>
 
@@ -19965,6 +19939,8 @@ uniq<T>(list: T[]): T[]
 
 It returns a new array containing only one copy of each element of `list`.
 
+> :boom: `R.equals` is used to determine equality
+
 ```javascript
 const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
 
@@ -19983,9 +19959,6 @@ uniq<T>(list: T[]): T[];
 ```
 
 </details>
-
-> Note
-`R.equals` is used to determine equality
 
 <details>
 
@@ -21102,6 +21075,8 @@ without<T>(matchAgainst: T[], source: T[]): T[]
 
 It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
 
+> :boom: `R.equals` is used to determine equality
+
 ```javascript
 const source = [1, 2, 3, 4]
 const matchAgainst = [2, 3]
@@ -21122,9 +21097,6 @@ without<T>(matchAgainst: T[]): (source: T[]) => T[];
 ```
 
 </details>
-
-> Note
-`R.equals` is used to determine equality
 
 <details>
 

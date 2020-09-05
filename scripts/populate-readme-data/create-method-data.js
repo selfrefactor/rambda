@@ -117,8 +117,8 @@ ${ example }
 `
 
 const createNoteReadme = ({ notes }) => `
-> Note
-${ notes }
+
+> :boom: ${ notes }
 `
 
 const attachTyping = ({ typing }) => `
@@ -140,11 +140,11 @@ export function createMethodData(method, withRambdax){
   if (method.typing) data.push(attachTyping(method))
   if (method.explanation) data.push(method.explanation)
   if (method.explanation) data.push('\n')
+  if (method.notes) data.push(createNoteReadme(method))
   if (method.example) data.push(createExampleReadme(method))
   if (method.replLink) data.push(createReplReadme(method))
   if (method.replLink) data.push('\n')
   if (method.allTypings) data.push(attachAllTypings(method))
-  if (method.notes) data.push(createNoteReadme(method))
   if (method.rambdaSource && extended)
     data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))
