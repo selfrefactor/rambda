@@ -6196,7 +6196,7 @@ Example:
 ```
 const list = [1, 2, 3, 4, 5]
 const predicate = x => x > 3
-const result = takeUntil(predicate, list)
+const result = R.takeUntil(predicate, list)
 
 // => [1, 2, 3]
 ```
@@ -6227,7 +6227,7 @@ const rules = [
   {op: 'add', path: 'a.d', value: 4},
   {op: 'update', path: 'a.b', value: 2},
 ]
-const result = applyDiff(rules, obj)
+const result = R.applyDiff(rules, obj)
 const expected = {a: {b: 2, d: 4}}
 
 // => `result` is equal to `expected`
