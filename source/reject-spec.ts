@@ -23,24 +23,20 @@ describe('R.reject with array', () => {
 describe('R.reject with objects', () => {
   it('happy', () => {
     const result = reject(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
+      x => {
+        x // $ExpectType number
 
-        return a > 1
+        return x > 1
       },
       {a: 1, b: 2}
     )
     result // $ExpectType Dictionary<number>
   })
   it('curried require dummy type', () => {
-    const x = reject<number, any>((a, b, c) => {
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+    const result = reject<number, any>((x) => {
 
-      return a > 1
+      return x > 1
     })({a: 1, b: 2})
-    x // $ExpectType Dictionary<number>
+    result // $ExpectType Dictionary<number>
   })
 })

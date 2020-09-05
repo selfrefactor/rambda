@@ -6,6 +6,8 @@
 
 - Rambda's **forEach** can iterate over objects not only arrays.
 
+- Rambda's **map**, **filter**, **partition** when they iterate over objects, they pass property and input object as predicate's argument.
+
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.

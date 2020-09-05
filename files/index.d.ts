@@ -2573,7 +2573,7 @@ export function omit<T>(propsToOmit: string): (obj: object) => T;
 /*
 Method: of
 
-Explanation: It returns a partial copy of an `obj` without `propsToOmit` properties.
+Explanation:
 
 Example:
 
@@ -2582,9 +2582,9 @@ R.of(null); //=> [null]
 R.of([42]); //=> [[42]]
 ```
 
-Categories: Function
+Categories:
 
-Notes: This of is different from the ES6 of; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
+Notes: 
 
 */
 // @SINGLE_MARKER
@@ -3389,8 +3389,8 @@ Notes:
 // @SINGLE_MARKER
 export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
 export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
-export function reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
-export function reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
+export function reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: repeat

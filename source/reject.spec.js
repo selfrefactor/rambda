@@ -13,7 +13,14 @@ test('with object', () => {
     c : 3,
     d : 4,
   }
-  
+  const fn = (
+    a, b, c
+  ) => console.log({
+    a,
+    b,
+    c,
+  })
+  reject(fn, obj)
   expect(reject(isOdd, obj)).toEqual({
     b : 2,
     d : 4,

@@ -820,9 +820,6 @@ export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
 export function omit<T>(propsToOmit: string): (obj: object) => T;
 
-/**
- * It returns a partial copy of an `obj` without `propsToOmit` properties.
- */
 export function of<T>(x: T): T[];
 
 /**
@@ -1178,8 +1175,8 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
  */
 export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
 export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
-export function reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
-export function reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
+export function reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /**
  * It returns a list of `x` input repeated `timesToRepeat` input.

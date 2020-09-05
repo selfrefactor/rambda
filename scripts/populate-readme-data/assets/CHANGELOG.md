@@ -1,3 +1,7 @@
+6.0.1
+
+- Fix typing of `R.reject` as it wrongly declares that with object, it pass property to predicate.
+
 6.0.0
 
 - Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
