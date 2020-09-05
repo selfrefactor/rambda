@@ -756,9 +756,9 @@ Example:
 
 ```
 
-Categories:
+Categories: Function
 
-Notes: Function
+Notes:
 
 */
 // @SINGLE_MARKER

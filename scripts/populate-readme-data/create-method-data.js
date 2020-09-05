@@ -130,7 +130,7 @@ ${ typing }
 const getIntro = ({ methodName }) => [ `### ${ methodName }`, '\n\n' ]
 
 function createReplReadme({ replLink, methodName }){
-  return `\n<a title="redirect to Rambda Repl site" href="${ replLink }">Try the above <strong>R.${ methodName }</strong> example in Rambda REPL</a>`
+  return `\n<a title="redirect to Rambda Repl site" href="${ replLink }">Try this <strong>R.${ methodName }</strong> example in Rambda REPL</a>`
 }
 
 export function createMethodData(method, withRambdax){
