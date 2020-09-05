@@ -1958,8 +1958,6 @@ assocPath<Output>(path: Path, newValue: any, obj: object): Output
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
-> :boom: Object
-
 ```javascript
 const path = 'b.c'
 const newValue = 2

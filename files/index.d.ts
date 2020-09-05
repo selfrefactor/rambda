@@ -433,9 +433,9 @@ R.assocPath(path, newValue, obj)
 // => { a : 1, b : { c : 2 }}
 ```
 
-Categories:
+Categories: Object
 
-Notes: Object
+Notes:
 
 */
 // @SINGLE_MARKER
