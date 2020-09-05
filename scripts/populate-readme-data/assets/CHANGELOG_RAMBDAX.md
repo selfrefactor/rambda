@@ -1,3 +1,21 @@
+6.0.0
+
+- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
+
+- Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
+
+- Add `R.applyDiff` method
+
+- Change `R.assocPath` typings so the user can explicitly sets type of the new object
+
+- Typings of `R.assoc` match its `@types/ramda` counterpart.
+
+- Simplify `R.forEach` typings
+
+- Remove `ReadonlyArray<T>` pattern from Typescript definitions - not enough value for the noise  it adds.
+
+- Fix typing of `R.reject` as it wrongly declares that with object, it pass property to predicate.
+
 5.1.0
 
 - Add `R.takeUntil` method

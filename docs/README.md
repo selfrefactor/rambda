@@ -75,12 +75,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
-### Usage of `foo`, `bar` and `baz` in documentation
-
-Those placeholders exists for a reason. `Ramda` documentation often uses other placeholders, which could be confusing.
-
-`Ramda` documentation and tests on the other hand, try to use them as much as possible.
-
 ### Support
 
 Most of the valid issues are fixed within 2-3 days.
@@ -225,6 +219,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 - Rambda's **type** handles *NaN* input, in which case it returns `NaN`.
 
 - Rambda's **forEach** can iterate over objects not only arrays.
+
+- Rambda's **map**, **filter**, **partition** when they iterate over objects, they pass property and input object as predicate's argument.
 
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
@@ -13009,8 +13005,6 @@ describe('R.nth', () => {
 of<T>(x: T): T[]
 ```
 
-It returns a partial copy of an `obj` without `propsToOmit` properties.
-
 ```javascript
 R.of(null); //=> [null]
 R.of([42]); //=> [[42]]
@@ -16420,8 +16414,8 @@ const result = [
 ```typescript
 reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
 reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
-reject<T>(predicate: FilterFunctionObject<T>, obj: Dictionary<T>): Dictionary<T>;
-reject<T, U>(predicate: FilterFunctionObject<T>): (obj: Dictionary<T>) => Dictionary<T>;
+reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
+reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 ```
 
 </details>
@@ -16462,7 +16456,14 @@ test('with object', () => {
     c : 3,
     d : 4,
   }
-  
+  const fn = (
+    a, b, c
+  ) => console.log({
+    a,
+    b,
+    c,
+  })
+  reject(fn, obj)
   expect(reject(isOdd, obj)).toEqual({
     b : 2,
     d : 4,
@@ -16502,25 +16503,21 @@ describe('R.reject with array', () => {
 describe('R.reject with objects', () => {
   it('happy', () => {
     const result = reject(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
+      x => {
+        x // $ExpectType number
 
-        return a > 1
+        return x > 1
       },
       {a: 1, b: 2}
     )
     result // $ExpectType Dictionary<number>
   })
   it('curried require dummy type', () => {
-    const x = reject<number, any>((a, b, c) => {
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+    const result = reject<number, any>((x) => {
 
-      return a > 1
+      return x > 1
     })({a: 1, b: 2})
-    x // $ExpectType Dictionary<number>
+    result // $ExpectType Dictionary<number>
   })
 })
 ```
@@ -21529,6 +21526,10 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+6.0.1
+
+- Fix typing of `R.reject` as it wrongly declares that with object, it pass property to predicate.
 
 6.0.0
 

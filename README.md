@@ -75,12 +75,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
-### Usage of `foo`, `bar` and `baz` in documentation
-
-Those placeholders exists for a reason. `Ramda` documentation often uses other placeholders, which could be confusing.
-
-`Ramda` documentation and tests on the other hand, try to use them as much as possible.
-
 ### Support
 
 Most of the valid issues are fixed within 2-3 days.
