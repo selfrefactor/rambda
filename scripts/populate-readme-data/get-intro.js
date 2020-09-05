@@ -32,9 +32,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib
 async function getMissingMethods(){
   const rambdaMethods = await getRambdaMethods()
   const missingMethodsTemplate = `
-- More generic methods
-
-\`Ramda\` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. \`Rambda\` has smaller method counts and that could be seen as advantage.
+## Missing Ramda methods
 
 <details>
 <summary>
