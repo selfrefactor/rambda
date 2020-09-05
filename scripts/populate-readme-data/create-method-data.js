@@ -116,9 +116,9 @@ ${ example }
 \`\`\`
 `
 
-const createNoteReadme = ({ note }) => `
+const createNoteReadme = ({ notes }) => `
 > Note
-${ note }
+${ notes }
 `
 
 const attachTyping = ({ typing }) => `
@@ -144,7 +144,7 @@ export function createMethodData(method, withRambdax){
   if (method.replLink) data.push(createReplReadme(method))
   if (method.replLink) data.push('\n')
   if (method.allTypings) data.push(attachAllTypings(method))
-  if (method.note) data.push(createNoteReadme(method))
+  if (method.notes) data.push(createNoteReadme(method))
   if (method.rambdaSource && extended)
     data.push(createRambdaSourceReadme(method))
   if (method.rambdaSpecs) data.push(createRambdaSpecReadme(method))

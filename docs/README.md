@@ -346,6 +346,9 @@ add(a: number): (b: number) => number;
 
 </details>
 
+> Note
+It doesn't work with strings, as the inputs are parsed to numbers before calculation.
+
 <details>
 
 <summary><strong>R.add</strong> source</summary>
@@ -1377,6 +1380,9 @@ applySpec<T>(spec: any): (...args: any[]) => T;
 
 </details>
 
+> Note
+The currying in this function works best with functions with 4 arguments or less. (arity of 4)
+
 <details>
 
 <summary><strong>R.applySpec</strong> source</summary>
@@ -1802,6 +1808,11 @@ assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 </details>
 
+> Note
+This copies and flattens prototype properties
+onto the new object as well. All non-primitive properties are copied by
+reference.
+
 <details>
 
 <summary><strong>R.assoc</strong> source</summary>
@@ -1972,6 +1983,9 @@ assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: objec
 ```
 
 </details>
+
+> Note
+Object
 
 <details>
 
@@ -3925,6 +3939,9 @@ curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
 
 </details>
 
+> Note
+Function
+
 <details>
 
 <summary><strong>R.curryN</strong> source</summary>
@@ -4217,6 +4234,9 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U | null | undefine
 ```
 
 </details>
+
+> Note
+Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 <details>
 
@@ -5196,6 +5216,9 @@ endsWith(target: string): (str: string) => boolean;
 
 </details>
 
+> Note
+It doesn't work with arrays unlike its corresponding **Ramda** method.
+
 <details>
 
 <summary><strong>R.endsWith</strong> source</summary>
@@ -5313,6 +5336,9 @@ equals<T>(x: T): (y: T) => boolean;
 ```
 
 </details>
+
+> Note
+It doesn't handle cyclical data structures and functions
 
 <details>
 
@@ -6802,6 +6828,9 @@ flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(
 
 </details>
 
+> Note
+Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
+
 <details>
 
 <summary><strong>R.flip</strong> source</summary>
@@ -7019,6 +7048,9 @@ forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictiona
 ```
 
 </details>
+
+> Note
+It works with objects, unlike `Ramda`.
 
 <details>
 
@@ -8081,6 +8113,9 @@ identical<T>(x: T): (y: T) => boolean;
 
 </details>
 
+> Note
+Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
+
 <details>
 
 <summary><strong>R.identical</strong> source</summary>
@@ -8192,6 +8227,9 @@ identity<T>(input: T): T;
 ```
 
 </details>
+
+> Note
+Logic
 
 <details>
 
@@ -10945,6 +10983,9 @@ map<T>(fn: MapIterator<T, T>, list: T[]): T[];
 
 </details>
 
+> Note
+Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
+
 <details>
 
 <summary><strong>R.map</strong> source</summary>
@@ -11268,6 +11309,9 @@ mathMod(x: number): (y: number) => number;
 ```
 
 </details>
+
+> Note
+Explanation is taken from `Ramda` documentation site.
 
 <details>
 
@@ -12493,6 +12537,9 @@ move(fromIndex: number): {
 
 </details>
 
+> Note
+Rambda.move doesn't support negative indexes - it throws an error
+
 <details>
 
 <summary><strong>R.move</strong> source</summary>
@@ -13113,6 +13160,9 @@ omit<T>(propsToOmit: string): (obj: object) => T;
 
 </details>
 
+> Note
+When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type.
+
 <details>
 
 <summary><strong>R.omit</strong> source</summary>
@@ -13430,6 +13480,9 @@ partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) => T;
 ```
 
 </details>
+
+> Note
+Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 <details>
 
@@ -13810,6 +13863,9 @@ path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
 ```
 
 </details>
+
+> Note
+String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
 
 <details>
 
@@ -14526,6 +14582,9 @@ pick<T>(propsToPick: string): (input: object) => T;
 
 </details>
 
+> Note
+When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
+
 <details>
 
 <summary><strong>R.pick</strong> source</summary>
@@ -14738,6 +14797,9 @@ pickAll<T, U>(propsToPick: string): (input: T) => U;
 ```
 
 </details>
+
+> Note
+When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 
 <details>
 
@@ -16148,6 +16210,9 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, 
 
 </details>
 
+> Note
+It passes index of the list as third argument to `reducer` function.
+
 <details>
 
 <summary><strong>R.reduce</strong> source</summary>
@@ -17120,6 +17185,9 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 
 </details>
 
+> Note
+`sortFn` function must return a number.
+
 <details>
 
 <summary><strong>R.sort</strong> source</summary>
@@ -17227,6 +17295,9 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 ```
 
 </details>
+
+> Note
+`sortFn` function must return a value to compare.
 
 <details>
 
@@ -17615,6 +17686,9 @@ startsWith(target: string): (str: string) => boolean;
 
 </details>
 
+> Note
+It doesn't work with arrays unlike its corresponding **Ramda** method.
+
 <details>
 
 <summary><strong>R.startsWith</strong> source</summary>
@@ -17844,6 +17918,9 @@ symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
 ```
 
 </details>
+
+> Note
+`R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
 
 <details>
 
@@ -19548,6 +19625,9 @@ type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "F
 
 </details>
 
+> Note
+`NaN`, `Promise` and `Async` are types specific for **Rambda**.
+
 <details>
 
 <summary><strong>R.type</strong> source</summary>
@@ -19903,6 +19983,9 @@ uniq<T>(list: T[]): T[];
 ```
 
 </details>
+
+> Note
+`R.equals` is used to determine equality
 
 <details>
 
@@ -21039,6 +21122,9 @@ without<T>(matchAgainst: T[]): (source: T[]) => T[];
 ```
 
 </details>
+
+> Note
+`R.equals` is used to determine equality
 
 <details>
 
