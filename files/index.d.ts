@@ -5662,7 +5662,7 @@ const result = remove(
 
 Categories: String
 
-Notes:
+Notes: This is the only case where Rambdax exports clashes with Ramda API, as Ramda has `remove` method. If `Rambda.remove` is introduced, then this method will be renamed.
 
 */
 // @SINGLE_MARKER
