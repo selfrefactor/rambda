@@ -10,10 +10,6 @@ const { readFile, outputFile } = require("fs-extra");
 const RAMBDA_MARKER = '// RAMBDAX_MARKER_START'
 const RAMBDAX_MARKER = '// RAMBDAX_MARKER_END'
 
-async function addNewRambdaxMethod(methodName){
-
-}
-
 const methodTemplate = `
 export function {{name}}(foo, bar) {
   if (arguments.length === 1){
@@ -106,7 +102,7 @@ async function createTestFile(methodName, ramdaSpecs){
   const content = ramdaSpecs ? 
   interpolate(testTemplateWithComment, {name: methodName, ramdaSpecs}) :
   interpolate(testTemplate, {name: methodName})
-  
+
   await outputFile(testPath, content)
 }
 
@@ -121,7 +117,6 @@ async function addNewMethod(methodName){
     return log(`${methodName} already exists`,'error')
   }
   const isRambdax = Object.keys(R).includes(methodName)
-  if(isRambdax) return addNewRambdaxMethod(methodName)
   const ramdaSpecPath = `../run-ramda-specs/ramda/test/${methodName}.js`
   const ramdaSpecs = existsSync(resolve(__dirname, ramdaSpecPath)) ?
     (await readFile(ramdaSpecPath)).toString() :
@@ -135,6 +130,7 @@ async function addNewMethod(methodName){
   await createTestFile(methodName, ramdaSpecs)
   await createTypescriptTestFile(methodName)
   await outputFile(`${__dirname}/index.d.ts`, newDescriptions)
+  log(`${methodName} is created`, 'success');
 }
 
 void async function cli(){
