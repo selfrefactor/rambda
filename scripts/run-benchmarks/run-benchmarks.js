@@ -2,7 +2,7 @@ process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/benchmark_results'
 import { createBenchmark, scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
-import { mapAsyncLimit } from 'rambdax'
+import { mapAsync } from 'rambdax'
 
 const benchmarksDir = resolve(__dirname, '../../source/benchmarks')
 
@@ -31,11 +31,11 @@ export async function runAllBenchmarks(){
   const methodsWithBenchmarks = await getAllBenchmarks()
   const iterable = async singleMethod => {
     const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
-    createBenchmark({ [ singleMethod ] : required })
+    await createBenchmark({ [ singleMethod ] : required })
   }
 
-  await mapAsyncLimit(
-    iterable, 5, methodsWithBenchmarks
+  await mapAsync(
+    iterable, methodsWithBenchmarks
   )
   console.timeEnd('run.all.benchmarks')
 }

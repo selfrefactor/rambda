@@ -21,3 +21,5 @@ Methods to add:
 - propSatisfies
 - pickBy
 - pathSatisfies
+
+- Run benchmarks should count if winner is changed

@@ -14,22 +14,6 @@ cross-env NODE_ENV=build rollup -c files/rollup.web.config.js
 
 Run tasks `build:main` and `build:web`
 
-## benchmark
-
-Run tasks `out` and `build:main` before this
-
-```bash
-jest scripts/run-benchmarks/run-benchmarks.spec.js
-```
-
-## benchmarkx
-
-Run tasks `out` and `build:main` before this
-
-```bash
-jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
-```
-
 ## lint:js
 
 ```bash
