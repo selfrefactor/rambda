@@ -7,6 +7,7 @@ type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => 
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
 type MapIterator<T> = (x: T) => U;
+type MapIndexedIterator<T, U> = (x: T, i: number) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
 
@@ -683,16 +684,16 @@ export function view<T, U>(lens: Lens): (target: T) => U;
 export function view<T, U>(lens: Lens, target: T): U;
 
 /**
- * It returns the result of looping through `list` with `fn`.
+ * It returns the result of looping through `iterable` with `fn`.
  * 
  * It works with both array and object.
  */
-export function map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
-export function map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
-export function map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
-export function map<T>(fn: MapIterator<T, T>, list: T[]): T[];
+export function map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+export function map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -809,6 +810,11 @@ export function not(input: any): boolean;
  */
 export function nth<T>(index: number, list: T[]): T | undefined;	
 export function nth(index: number): <T>(list: T[]) => T | undefined;
+
+/**
+ * It returns a function, which invokes only once `fn` function.
+ */
+export function once<T extends (...args: any[]) => any>(func: T): T;
 
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.

@@ -1,6 +1,6 @@
 import { _isArray } from './_internals/_isArray'
 
-function filterObject(fn, obj){
+export function filterObject(fn, obj){
   const willReturn = {}
 
   for (const prop in obj){
@@ -14,28 +14,33 @@ function filterObject(fn, obj){
   return willReturn
 }
 
-export function filter(predicate, list){
-  if (arguments.length === 1) return _list => filter(predicate, _list)
-
-  if (!list) return []
-
-  if (!_isArray(list)){
-    return filterObject(predicate, list)
-  }
-
+export function filterArray(
+  predicate, list, indexed = false
+){
   let index = 0
   const len = list.length
   const willReturn = []
 
   while (index < len){
-    const value = list[ index ]
-
-    if (predicate(value)){
-      willReturn.push(value)
+    const predicateResult = indexed ?
+      predicate(list[ index ], index) :
+      predicate(list[ index ])
+    if (predicateResult){
+      willReturn.push(list[ index ])
     }
 
     index++
   }
 
   return willReturn
+}
+
+export function filter(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => filter(predicate, _iterable)
+  }
+  if (!iterable) return []
+  if (_isArray(iterable)) return filterArray(predicate, iterable)
+
+  return filterObject(predicate, iterable)
 }

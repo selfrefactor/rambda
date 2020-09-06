@@ -2540,6 +2540,30 @@ export function nth<T>(index: number, list: T[]): T | undefined;
 export function nth(index: number): <T>(list: T[]) => T | undefined;
 
 /*
+Method: once
+
+Explanation: It returns a function, which invokes only once `fn` function.
+
+Example:
+
+```
+let result = 0
+const addOnce = R.once((x) => result = result + x)
+
+addOnce(1)
+addOnce(1)
+// => 1
+```
+
+Categories: Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function once<T extends (...args: any[]) => any>(func: T): T;
+
+/*
 Method: omit
 
 Explanation: It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -5466,30 +5490,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
-
-/*
-Method: once
-
-Explanation: It returns a function, which invokes only once `fn` function.
-
-Example:
-
-```
-let result = 0
-const addOnce = R.once((x) => result = result + x)
-
-addOnce(1)
-addOnce(1)
-// => 1
-```
-
-Categories: Function
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function once<T extends (...args: any[]) => any>(func: T): T;
 
 /*
 Method: partialCurry

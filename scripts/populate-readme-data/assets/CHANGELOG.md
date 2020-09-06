@@ -1,3 +1,7 @@
+6.1.0 WIP
+
+- Add `R.once`
+
 6.0.1
 
 - Fix typing of `R.reject` as it wrongly declares that with object, it pass property to predicate.
