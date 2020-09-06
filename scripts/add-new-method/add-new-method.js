@@ -86,7 +86,7 @@ function attachDescription({methodName, allDescriptions, isRambdax}){
 
   return replace(
     RAMBDAX_MARKER,
-    `\n${description}\n${marker}`,
+    `${description}\n\n${marker}\n`,
     allDescriptions
     )
 }
@@ -116,20 +116,20 @@ async function addNewMethod(methodName){
   if(Object.keys(Rambda).includes(methodName)){
     return log(`${methodName} already exists`,'error')
   }
-  const isRambdax = Object.keys(R).includes(methodName)
-  const ramdaSpecPath = `../run-ramda-specs/ramda/test/${methodName}.js`
+  const isRambdax = Object.keys(R).includes(methodName) === false
+  const ramdaSpecPath = resolve(__dirname,`../run-ramda-specs/ramda/test/${methodName}.js`)
   const ramdaSpecs = existsSync(resolve(__dirname, ramdaSpecPath)) ?
     (await readFile(ramdaSpecPath)).toString() :
     false
 
   const descriptionPath = resolve(__dirname, '../../files/index.d.ts')
-
   const descriptions = (await readFile(descriptionPath)).toString()
   const newDescriptions = attachDescription({allDescriptions: descriptions, isRambdax, methodName})
+  
   await createMethodFile(methodName)
   await createTestFile(methodName, ramdaSpecs)
   await createTypescriptTestFile(methodName)
-  await outputFile(`${__dirname}/index.d.ts`, newDescriptions)
+  await outputFile(descriptionPath, newDescriptions)
   log(`${methodName} is created`, 'success');
 }
 

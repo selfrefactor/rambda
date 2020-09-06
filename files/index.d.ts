@@ -6242,7 +6242,6 @@ Notes:
 export function applyDiff<Output>(rules: ApplyDiffRule[], obj: object): Output;
 export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Output;
 
-
 // RAMBDAX_MARKER_END
 // ============================================
 
