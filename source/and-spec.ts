@@ -6,7 +6,7 @@ describe('R.and', () => {
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = and(true)(false)
-    result // $ExpectType boolean
+    const result = and('foo')(1)
+    result // $ExpectType string | 1
   })
 })

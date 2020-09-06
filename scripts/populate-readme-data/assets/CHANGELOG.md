@@ -1,6 +1,10 @@
 6.1.0 WIP
 
+- Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.
+
 - Add `R.once`
+
+- Add `R.or`
 
 6.0.1
 
