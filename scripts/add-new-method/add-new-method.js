@@ -85,7 +85,7 @@ function attachDescription({methodName, allDescriptions, isRambdax}){
   const marker = isRambdax ? RAMBDAX_MARKER : RAMBDA_MARKER
 
   return replace(
-    RAMBDAX_MARKER,
+    marker,
     `${description}\n\n${marker}\n`,
     allDescriptions
     )
@@ -125,7 +125,7 @@ async function addNewMethod(methodName){
   const descriptionPath = resolve(__dirname, '../../files/index.d.ts')
   const descriptions = (await readFile(descriptionPath)).toString()
   const newDescriptions = attachDescription({allDescriptions: descriptions, isRambdax, methodName})
-  
+
   await createMethodFile(methodName)
   await createTestFile(methodName, ramdaSpecs)
   await createTypescriptTestFile(methodName)
