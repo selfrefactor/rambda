@@ -7,6 +7,7 @@ type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => 
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
 type MapIterator<T> = (x: T) => U;
+type MapIndexedIterator<T> = (x: T, i: number) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
 
@@ -2053,7 +2054,7 @@ export function view<T, U>(lens: Lens, target: T): U;
 /*
 Method: map
 
-Explanation: It returns the result of looping through `list` with `fn`.
+Explanation: It returns the result of looping through `iterable` with `fn`.
 
 It works with both array and object. 
 
@@ -2065,7 +2066,7 @@ const fnWhenObject = (val, prop)=>{
   return `${prop}-${val}`
 }
 
-const list = [1, 2]
+const iterable = [1, 2]
 const obj = {a: 1, b: 2}
 
 const result = [ 
@@ -2077,16 +2078,16 @@ const result = [
 
 Categories: List, Object
 
-Notes: Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
+Notes: Unlike Ramda's `map`, here property and input object are passed as arguments to `fn`, when `iterable` is an object.
 
 */
 // @SINGLE_MARKER
-export function map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
-export function map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
-export function map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
-export function map<T>(fn: MapIterator<T, T>, list: T[]): T[];
+export function map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+export function map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
 
 /*
 Method: match
@@ -6258,7 +6259,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapIndexed<T>(x: T): T;
+export function mamapIndexedp<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>, iterable: T[]): U[];
+export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>): (iterable: T[]) => U[];
+export function mapIndexed<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function mapIndexed<T>(fn: MapIndexedIterator<T, T>): (iterable: T[]) => T[];
+export function mapIndexed<T>(fn: MapIndexedIterator<T, T>, iterable: T[]): T[];
+export function <T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================
