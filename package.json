@@ -1,6 +1,7 @@
 {
   "name": "rambda",
   "scripts": {
+    "new": "node scripts/add-new-method/add-new-method.js",
     "test": "jest source --bail=true",
     "cover:spec": "jest source --coverage --no-cache -w 1",
     "cover": "yarn typings&&yarn cover:spec",
