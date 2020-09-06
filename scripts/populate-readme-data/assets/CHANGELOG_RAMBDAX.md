@@ -1,6 +1,10 @@
 6.1.0 
 
 - Add `R.mapIndexed`
+
+- Add `R.filterIndexed`
+
+- Add `R.forEachIndexed`
  
 6.0.0
 

@@ -7,6 +7,7 @@ type FilterPredicateIndexed<T> = (x: T, i: number) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
+type MapFunctionArrayIndexed<T, U> = (x: T, i: number) => U;
 type MapIterator<T> = (x: T) => U;
 type MapIndexedIterator<T, U> = (x: T, i: number) => U;
 
@@ -6310,6 +6311,27 @@ export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>): (x: T[])
 export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
+Method: forEachIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>, list: T[]): T[];
+export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>): (list: T[]) => T[];
+export function forEachIndexed<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEachIndexed<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 // RAMBDAX_MARKER_END
 // ============================================

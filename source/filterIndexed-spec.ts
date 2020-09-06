@@ -18,16 +18,3 @@ describe('R.filterIndexed with array', () => {
     result // $ExpectType number[]
   })
 })
-
-describe('R.filterIndexed', () => {
-  it('happy', () => {
-    const result = filterIndexed()
-    
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = filterIndexed()
-
-    result // $ExpectType number
-  })
-})
