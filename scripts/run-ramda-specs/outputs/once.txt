@@ -7,7 +7,7 @@
     1) retains arity
 
 
-  3 passing (39ms)
+  3 passing (33ms)
   1 failing
 
   1) once

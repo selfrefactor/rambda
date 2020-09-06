@@ -1,5 +1,5 @@
 const allDifferences = require('../allDifferences.json')
-import { readFileSync, unlinkSync } from 'fs'
+import { readFileSync } from 'fs'
 import { exec, log } from 'helpers-fn'
 import { resolve } from 'path'
 import { glue, map, mapAsync } from 'rambdax'
@@ -50,23 +50,23 @@ export async function runSingleSpec(method){
 
   const testOutput = readFileSync(outputPath).toString()
   if (!testOutput.includes('failing')){
-    return log(`All tests are passing for method 'R.${ method }'`, 'success')
+    log(`All tests are passing for method 'R.${ method }'`, 'success')
+    return true
   }
 
   const numberFailing = getNumberFailing(testOutput)
-  console.log({
-    numberFailing,
-    declared : KNOWN_FAILING_TESTS[ method ],
-  })
 
   if (
     !KNOWN_FAILING_TESTS[ method ] ||
     numberFailing > KNOWN_FAILING_TESTS[ method ]
   ){
-    throw new Error(`'${ method }' has '${ numberFailing }' tests`)
+    log(`'${ method }' has '${ numberFailing }' tests`,'error')
+    return false
   }
+
+  return true
 }
 
 export async function runSpecs(methodsWithSpecs){
-  await mapAsync(async method => runSingleSpec(method))(methodsWithSpecs)
+  return mapAsync(async method => runSingleSpec(method))(methodsWithSpecs)
 }
