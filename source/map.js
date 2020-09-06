@@ -1,15 +1,14 @@
 import { _isArray } from './_internals/_isArray'
 import { _keys } from './_internals/_keys'
 
-export function mapArray(fn, list, isIndexed = false){
+export function mapArray(
+  fn, list, isIndexed = false
+){
   let index = 0
   const willReturn = Array(list.length)
 
   while (index < list.length){
-    willReturn[ index ] = isIndexed ? fn(
-      list[ index ],
-      index
-    ) : fn(list[ index ])
+    willReturn[ index ] = isIndexed ? fn(list[ index ], index) : fn(list[ index ])
 
     index++
   }
@@ -36,7 +35,7 @@ export function mapObject(fn, obj){
 
 export function map(fn, list){
   if (arguments.length === 1) return _list => map(fn, _list)
-  if (list === undefined)return []
+  if (list === undefined) return []
   if (_isArray(list)) return mapArray(fn, list)
 
   return mapObject(fn, list)
