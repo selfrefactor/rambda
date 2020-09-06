@@ -7,6 +7,7 @@ const base = resolve(__dirname, '../../')
 const folders = [
   'source',
   'scripts/all-scripts',
+  'scripts/add-new-method',
   'scripts/build-step',
   'scripts/consume-typings',
   'scripts/lint',
