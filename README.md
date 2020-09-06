@@ -13434,6 +13434,10 @@ describe('R.once', () => {
 
 </details>
 
+*1 failed Ramda.once specs*
+
+> :boom: Reason for the failure: Ramda method retains arity
+
 ### or
 
 ```typescript
@@ -21789,7 +21793,7 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
-6.1.0 WIP
+6.1.0
 
 - Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.
 
@@ -21803,7 +21807,7 @@ describe('R.zipObj', () => {
 
 6.0.0
 
-- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays. 
+- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays. The old behaviour of *map*, *filter* and *forEach* can be found in Rambdax methods *R.mapIndexed*, *R.filterIndexed* and *R.forEachIndexed*.
 
 - Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
 

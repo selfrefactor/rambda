@@ -215,6 +215,10 @@
     "count": 2,
     "reason": "Ramda method works with strings not only arrays"
   },
+  "once": {
+    "count": 1,
+    "reason": "Ramda method retains arity"
+  },
   "xor": {
     "count": 1,
     "reason": "Ramda method support empty call of method"

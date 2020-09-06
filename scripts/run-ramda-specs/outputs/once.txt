@@ -1,0 +1,30 @@
+
+
+  once
+    ✓ returns a function that calls the supplied function only the first time called
+    ✓ passes along arguments supplied
+    ✓ retains and returns the first value calculated, even if different arguments are passed later
+    1) retains arity
+
+
+  3 passing (39ms)
+  1 failing
+
+  1) once
+       retains arity:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'0' !== '2'
+
+      + expected - actual
+
+      -0
+      +2
+      
+      at strictEqual (test/shared/eq.js:8:10)
+      at Context.eq (test/once.js:36:5)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

@@ -38,7 +38,7 @@ function getNumberFailing(testOutput){
   return Number(numberFailing.trim())
 }
 
-export async function runSingleSpec(method, skipDelete = false){
+export async function runSingleSpec(method){
   console.log({ methodToRun : method })
   const { command, outputPath } = getCommand(method)
 
@@ -50,11 +50,8 @@ export async function runSingleSpec(method, skipDelete = false){
 
   const testOutput = readFileSync(outputPath).toString()
   if (!testOutput.includes('failing')){
-    log(`All tests are passing for method 'R.${ method }'`, 'success')
-    
-    return skipDelete ? undefined : unlinkSync(outputPath)
+    return log(`All tests are passing for method 'R.${ method }'`, 'success')
   }
-  if (skipDelete) return
 
   const numberFailing = getNumberFailing(testOutput)
   console.log({
@@ -68,8 +65,6 @@ export async function runSingleSpec(method, skipDelete = false){
   ){
     throw new Error(`'${ method }' has '${ numberFailing }' tests`)
   }
-
-  unlinkSync(outputPath)
 }
 
 export async function runSpecs(methodsWithSpecs){

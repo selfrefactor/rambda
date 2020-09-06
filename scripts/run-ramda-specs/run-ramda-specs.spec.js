@@ -11,11 +11,10 @@ const RUN_ALL = false
 test('run single spec', async () => {
   if (RUN_ALL) return
   const WITH_INITIAL_STEP = false
-  const SKIP_DELETE = true
 
   await build()
   await importRamdaSpecs(WITH_INITIAL_STEP)
-  await runSingleSpec('takeWhile', SKIP_DELETE)
+  await runSingleSpec('once')
 })
 
 test('run all specs', async () => {
