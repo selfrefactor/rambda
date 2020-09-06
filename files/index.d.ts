@@ -7,7 +7,7 @@ type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => 
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
 type MapIterator<T> = (x: T) => U;
-type MapIndexedIterator<T> = (x: T, i: number) => U;
+type MapIndexedIterator<T, U> = (x: T, i: number) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
 
@@ -6259,13 +6259,30 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mamapIndexedp<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapIndexed<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
 export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>, iterable: T[]): U[];
 export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>): (iterable: T[]) => U[];
 export function mapIndexed<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
 export function mapIndexed<T>(fn: MapIndexedIterator<T, T>): (iterable: T[]) => T[];
 export function mapIndexed<T>(fn: MapIndexedIterator<T, T>, iterable: T[]): T[];
-export function <T>(x: T): T;
+
+/*
+Method: filterIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterIndexed<T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================
