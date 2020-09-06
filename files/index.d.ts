@@ -3,6 +3,7 @@ import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from ".
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
 type FilterFunctionArray<T> = (x: T) => boolean;
+type FilterPredicateIndexed<T> = (x: T, i: number) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
@@ -6269,14 +6270,14 @@ export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Out
 /*
 Method: mapIndexed
 
-Explanation: Same as `R.map` but it passes index as second argument to the predicate, when looping over arrays.
+Explanation: Same as `R.map`, but it passes index as second argument to the iterator, when looping over arrays.
 
 Example:
 
 ```
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
@@ -6292,20 +6293,23 @@ export function mapIndexed<T>(fn: MapIndexedIterator<T, T>, iterable: T[]): T[];
 /*
 Method: filterIndexed
 
-Explanation:
+Explanation: Same as `R.filter`, but it passes index as second argument to the predicate, when looping over arrays.
 
 Example:
 
 ```
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function filterIndexed<T>(x: T): T;
+export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>): (x: T[]) => T[];
+export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>, x: T[]): T[];
+export function filterIndexed<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filterIndexed<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
 // RAMBDAX_MARKER_END
 // ============================================

@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 102 Ramda methods not implemented in Rambda 
+  Click to see the full list of 101 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -148,7 +148,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - nthArg
 - o
 - objOf
-- or
 - otherwise
 - pair
 - partialRight
@@ -222,6 +221,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
+
+- Typescript definitions between `rambda` and `@types/ramda` may vary. List of all differences will be added soon. 
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
@@ -873,25 +874,26 @@ describe('R.always', () => {
 
 ```typescript
 
-and<T extends { and?: ((...a: any[]) => any)
+and<T, U>(x: T, y: U): T | U
 ```
 
-Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+Logical AND
 
 ```javascript
 R.and(true, true); // => true
 R.and(false, true); // => false
+R.and(true, 'foo'); // => 'foo'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false">Try this <strong>R.and</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false%0AR.and(true%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.and</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T, y: any): boolean;
-and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T): (y: any) => boolean;
+and<T, U>(x: T, y: U): T | U;
+and<T>(x: T): <U>(y: U) => T | U;
 ```
 
 </details>
@@ -918,9 +920,9 @@ export function and(a, b){
 import { and } from './and'
 
 test('happy', () => {
+  expect(and(1, 'foo')).toBe('foo')
   expect(and(true, true)).toBeTrue()
   expect(and(true)(true)).toBeTrue()
-  expect(and(4)(2)).toBe(2)
   expect(and(true, false)).toBeFalse()
   expect(and(false, true)).toBeFalse()
   expect(and(false, false)).toBeFalse()
@@ -942,8 +944,8 @@ describe('R.and', () => {
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = and(true)(false)
-    result // $ExpectType boolean
+    const result = and('foo')(1)
+    result // $ExpectType string | 1
   })
 })
 ```
@@ -13432,6 +13434,86 @@ describe('R.once', () => {
 
 </details>
 
+### or
+
+```typescript
+
+or<T, U>(a: T, b: U): T | U
+```
+
+Logical OR
+
+```javascript
+R.or(false, true); // => true
+R.or(false, false); // => false
+R.or(false, 'foo'); // => 'foo'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.or(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.or(false%2C%20false)%3B%20%2F%2F%20%3D%3E%20false%0AR.or(false%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.or</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+or<T, U>(a: T, b: U): T | U;
+or<T>(a: T): <U>(b: U) => T | U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.or</strong> source</summary>
+
+```javascript
+export function or(a, b){
+  if (arguments.length === 1) return _b => or(a, _b)
+
+  return a || b
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { or } from './or'
+
+test('happy', () => {
+  expect(or(0, 'foo')).toBe('foo')
+  expect(or(true, true)).toBeTrue()
+  expect(or(false)(true)).toBeTrue()
+  expect(or(false, false)).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {or} from 'ramda'
+
+describe('R.or', () => {
+  it('happy', () => {
+    const result = or(true, false)
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = or(1)('foo')
+    result // $ExpectType number | "foo"
+  })
+})
+```
+
+</details>
+
 ### over
 
 ```typescript
@@ -21709,7 +21791,11 @@ describe('R.zipObj', () => {
 
 6.1.0 WIP
 
+- Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.
+
 - Add `R.once`
+
+- Add `R.or`
 
 6.0.1
 

@@ -3,6 +3,7 @@ import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from ".
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
 type FilterFunctionArray<T> = (x: T) => boolean;
+type FilterPredicateIndexed<T> = (x: T, i: number) => boolean;
 type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
@@ -161,10 +162,16 @@ export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boo
 export function always<T>(x: T): () => T;
 
 /**
- * Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+ * Logical AND
  */
-export function and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T, y: any): boolean;
-export function and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T): (y: any) => boolean;
+export function and<T, U>(x: T, y: U): T | U;
+export function and<T>(x: T): <U>(y: U) => T | U;
+
+/**
+ * Logical OR
+ */
+export function or<T, U>(a: T, b: U): T | U;
+export function or<T>(a: T): <U>(b: U) => T | U;
 
 /**
  * It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
