@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 103 Ramda methods not implemented in Rambda 
+  Click to see the full list of 101 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -148,8 +148,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - nthArg
 - o
 - objOf
-- once
-- or
 - otherwise
 - pair
 - partialRight
@@ -223,6 +221,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 - Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
+
+- Typescript definitions between `rambda` and `@types/ramda` may vary. List of all differences will be added soon. 
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
@@ -874,25 +874,26 @@ describe('R.always', () => {
 
 ```typescript
 
-and<T extends { and?: ((...a: any[]) => any)
+and<T, U>(x: T, y: U): T | U
 ```
 
-Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+Logical AND
 
 ```javascript
 R.and(true, true); // => true
 R.and(false, true); // => false
+R.and(true, 'foo'); // => 'foo'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false">Try this <strong>R.and</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false%0AR.and(true%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.and</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T, y: any): boolean;
-and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T): (y: any) => boolean;
+and<T, U>(x: T, y: U): T | U;
+and<T>(x: T): <U>(y: U) => T | U;
 ```
 
 </details>
@@ -919,9 +920,9 @@ export function and(a, b){
 import { and } from './and'
 
 test('happy', () => {
+  expect(and(1, 'foo')).toBe('foo')
   expect(and(true, true)).toBeTrue()
   expect(and(true)(true)).toBeTrue()
-  expect(and(4)(2)).toBe(2)
   expect(and(true, false)).toBeFalse()
   expect(and(false, true)).toBeFalse()
   expect(and(false, false)).toBeFalse()
@@ -943,8 +944,8 @@ describe('R.and', () => {
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = and(true)(false)
-    result // $ExpectType boolean
+    const result = and('foo')(1)
+    result // $ExpectType string | 1
   })
 })
 ```
@@ -6007,7 +6008,7 @@ filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 ```javascript
 import { _isArray } from './_internals/_isArray'
 
-function filterObject(fn, obj){
+export function filterObject(fn, obj){
   const willReturn = {}
 
   for (const prop in obj){
@@ -6021,30 +6022,35 @@ function filterObject(fn, obj){
   return willReturn
 }
 
-export function filter(predicate, list){
-  if (arguments.length === 1) return _list => filter(predicate, _list)
-
-  if (!list) return []
-
-  if (!_isArray(list)){
-    return filterObject(predicate, list)
-  }
-
+export function filterArray(
+  predicate, list, indexed = false
+){
   let index = 0
   const len = list.length
   const willReturn = []
 
   while (index < len){
-    const value = list[ index ]
-
-    if (predicate(value)){
-      willReturn.push(value)
+    const predicateResult = indexed ?
+      predicate(list[ index ], index) :
+      predicate(list[ index ])
+    if (predicateResult){
+      willReturn.push(list[ index ])
     }
 
     index++
   }
 
   return willReturn
+}
+
+export function filter(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => filter(predicate, _iterable)
+  }
+  if (!iterable) return []
+  if (_isArray(iterable)) return filterArray(predicate, iterable)
+
+  return filterObject(predicate, iterable)
 }
 ```
 
@@ -10927,14 +10933,14 @@ describe('R.lensProp', () => {
 
 ```typescript
 
-map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>
+map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>
 ```
 
-It returns the result of looping through `list` with `fn`.
+It returns the result of looping through `iterable` with `fn`.
 
 It works with both array and object.
 
-> :boom: Unlike Ramda's `map`, here array keys are passed as second argument to `fn` when `list` is an array.
+> :boom: Unlike Ramda's `map`, here property and input object are passed as arguments to `fn`, when `iterable` is an object.
 
 ```javascript
 const fn = x => x * 2
@@ -10942,7 +10948,7 @@ const fnWhenObject = (val, prop)=>{
   return `${prop}-${val}`
 }
 
-const list = [1, 2]
+const iterable = [1, 2]
 const obj = {a: 1, b: 2}
 
 const result = [ 
@@ -10952,19 +10958,19 @@ const result = [
 // => [ [1, 4], {a: 'a-1', b: 'b-2'}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20list%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B1%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B1%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-map<T, U>(fn: MapFunctionObject<T, U>, list: Dictionary<T>): Dictionary<U>;
-map<T, U>(fn: MapIterator<T, U>, list: T[]): U[];
-map<T, U>(fn: MapIterator<T, U>): (list: T[]) => U[];
-map<T, U, S>(fn: MapFunctionObject<T, U>): (list: Dictionary<T>) => Dictionary<U>;
-map<T>(fn: MapIterator<T, T>): (list: T[]) => T[];
-map<T>(fn: MapIterator<T, T>, list: T[]): T[];
+map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
+map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
+map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
 ```
 
 </details>
@@ -10977,41 +10983,44 @@ map<T>(fn: MapIterator<T, T>, list: T[]): T[];
 import { _isArray } from './_internals/_isArray'
 import { _keys } from './_internals/_keys'
 
-export function map(fn, list){
-  if (arguments.length === 1) return _list => map(fn, _list)
-
-  if (list === undefined){
-    return []
-  }
-
-  if (_isArray(list)){
-    let index = 0
-    const len = list.length
-    const willReturn = Array(len)
-
-    while (index < len){
-      willReturn[ index ] = fn(
-        list[ index ]
-      )
-      index++
-    }
-
-    return willReturn
-  }
+export function mapArray(
+  fn, list, isIndexed = false
+){
   let index = 0
-  const keys = _keys(list)
+  const willReturn = Array(list.length)
+
+  while (index < list.length){
+    willReturn[ index ] = isIndexed ? fn(list[ index ], index) : fn(list[ index ])
+
+    index++
+  }
+
+  return willReturn
+}
+
+export function mapObject(fn, obj){
+  let index = 0
+  const keys = _keys(obj)
   const len = keys.length
   const willReturn = {}
 
   while (index < len){
     const key = keys[ index ]
     willReturn[ key ] = fn(
-      list[ key ], key, list
+      obj[ key ], key, obj
     )
     index++
   }
 
   return willReturn
+}
+
+export function map(fn, list){
+  if (arguments.length === 1) return _list => map(fn, _list)
+  if (list === undefined) return []
+  if (_isArray(list)) return mapArray(fn, list)
+
+  return mapObject(fn, list)
 }
 ```
 
@@ -13300,6 +13309,209 @@ describe('R.omit with string as props input', () => {
   it('without passing type', () => {
     const result = omit('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType unknown
+  })
+})
+```
+
+</details>
+
+### once
+
+```typescript
+
+once<T extends (...args: any[]) => any>(func: T): T
+```
+
+It returns a function, which invokes only once `fn` function.
+
+```javascript
+let result = 0
+const addOnce = R.once((x) => result = result + x)
+
+addOnce(1)
+addOnce(1)
+// => 1
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20let%20result%20%3D%200%0Aconst%20addOnce%20%3D%20R.once((x)%20%3D%3E%20result%20%3D%20result%20%2B%20x)%0A%0AaddOnce(1)%0AaddOnce(1)%0A%2F%2F%20%3D%3E%201">Try this <strong>R.once</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+once<T extends (...args: any[]) => any>(func: T): T;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.once</strong> source</summary>
+
+```javascript
+import { curry } from './curry'
+
+function onceFn(fn, context){
+  let result
+
+  return function (){
+    if (fn){
+      result = fn.apply(context || this, arguments)
+      fn = null
+    }
+
+    return result
+  }
+}
+
+export function once(fn, context){
+  if (arguments.length === 1){
+    const wrap = onceFn(fn, context)
+
+    return curry(wrap)
+  }
+
+  return onceFn(fn, context)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { once } from './once'
+
+test('with counter', () => {
+  let counter = 0
+  const runOnce = once(x => {
+    counter++
+
+    return x + 2
+  })
+  expect(runOnce(1)).toEqual(3)
+  runOnce(1)
+  runOnce(1)
+  runOnce(1)
+  expect(counter).toEqual(1)
+})
+
+test('happy path', () => {
+  const addOneOnce = once((
+    a, b, c
+  ) => a + b + c, 1)
+
+  expect(addOneOnce(
+    10, 20, 30
+  )).toBe(60)
+  expect(addOneOnce(40)).toEqual(60)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {once} from 'rambda'
+
+describe('R.once', () => {
+  it('happy', () => {
+    const runOnce = once((x: number) => {
+      return x + 2
+    })
+
+    const result = runOnce(1)
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.once specs*
+
+> :boom: Reason for the failure: Ramda method retains arity
+
+### or
+
+```typescript
+
+or<T, U>(a: T, b: U): T | U
+```
+
+Logical OR
+
+```javascript
+R.or(false, true); // => true
+R.or(false, false); // => false
+R.or(false, 'foo'); // => 'foo'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.or(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.or(false%2C%20false)%3B%20%2F%2F%20%3D%3E%20false%0AR.or(false%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.or</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+or<T, U>(a: T, b: U): T | U;
+or<T>(a: T): <U>(b: U) => T | U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.or</strong> source</summary>
+
+```javascript
+export function or(a, b){
+  if (arguments.length === 1) return _b => or(a, _b)
+
+  return a || b
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { or } from './or'
+
+test('happy', () => {
+  expect(or(0, 'foo')).toBe('foo')
+  expect(or(true, true)).toBeTrue()
+  expect(or(false)(true)).toBeTrue()
+  expect(or(false, false)).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {or} from 'ramda'
+
+describe('R.or', () => {
+  it('happy', () => {
+    const result = or(true, false)
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = or(1)('foo')
+    result // $ExpectType number | "foo"
   })
 })
 ```
@@ -21581,13 +21793,21 @@ describe('R.zipObj', () => {
 
 ## CHANGELOG
 
+6.1.0
+
+- Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.
+
+- Add `R.once`
+
+- Add `R.or`
+
 6.0.1
 
 - Fix typing of `R.reject` as it wrongly declares that with object, it pass property to predicate.
 
 6.0.0
 
-- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays.
+- Breaking change - `R.map`/`R.filter`/`R.reject`/`R.forEach`/`R.partition` doesn't pass index as second argument to the predicate, when looping over arrays. The old behaviour of *map*, *filter* and *forEach* can be found in Rambdax methods *R.mapIndexed*, *R.filterIndexed* and *R.forEachIndexed*.
 
 - Breaking change - `R.all`/`R.none`/`R.any`/`R.find`/`R.findLast`/`R.findIndex`/`R.findLastIndex` doesn't pass index as second argument to the predicate.
 
