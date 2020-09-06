@@ -3,7 +3,7 @@ import { runAllBenchmarks, runSingleBenchmark } from './run-benchmarks'
 
 jest.setTimeout(ms('15 minutes'))
 
-const RUN_ALL = true
+const RUN_ALL = false
 
 test('run all', async () => {
   if (!RUN_ALL) return
@@ -12,5 +12,5 @@ test('run all', async () => {
 
 test('run single', async () => {
   if (RUN_ALL) return
-  await runSingleBenchmark('update')
+  await runSingleBenchmark('map')
 })
