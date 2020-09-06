@@ -22,7 +22,19 @@ Please be aware, that due to [variadic arguments Typescript proposal](https://gi
 
 3. Run `yarn typings` to confirm your fix
 
-## Add new `Ramda` method
+## Add new `Rambda` method using helper
+
+There is helper script to assist you, when creating a new method in Rambda/Rambdax.
+
+1. Run `yarn new NEW_METHOD_NAME`, e.g. `yarn new zip.with`. Note that the method name should be written without a space in between.
+
+2. Edit `source/NEW_METHOD_NAME.js`
+
+3. Edit `source/NEW_METHOD_NAME.spec.js`
+
+3. Edit `source/NEW_METHOD_NAME-spec.ts`
+
+## Add new method manually
 
 The new method should have exact or very close implementation compared to the corresponding `Ramda` method.
 

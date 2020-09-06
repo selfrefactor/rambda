@@ -86,7 +86,7 @@ function attachDescription({methodName, allDescriptions, isRambdax}){
 
   return replace(
     marker,
-    `${description}\n\n${marker}\n`,
+    `${description}\n\n${marker}`,
     allDescriptions
     )
 }
