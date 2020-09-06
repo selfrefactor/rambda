@@ -256,13 +256,14 @@ export function always<T>(x: T): () => T;
 /*
 Method: and
 
-Explanation: Returns `true` if both arguments are `true`. Otherwise, it returns `false`.
+Explanation: Logical AND
 
 Example:
 
 ```
 R.and(true, true); // => true
 R.and(false, true); // => false
+R.and(true, 'foo'); // => 'foo'
 ```  
 
 Categories: Logic
@@ -271,8 +272,30 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T, y: any): boolean;
-export function and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(x: T): (y: any) => boolean;
+export function and<T, U>(x: T, y: U): T | U;
+export function and<T>(x: T): <U>(y: U) => T | U;
+
+/*
+Method: or
+
+Explanation: Logical OR
+
+Example:
+
+```
+R.or(false, true); // => true
+R.or(false, false); // => false
+R.or(false, 'foo'); // => 'foo'
+```  
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function or<T, U>(a: T, b: U): T | U;
+export function or<T>(a: T): <U>(b: U) => T | U;
 
 /*
 Method: any
