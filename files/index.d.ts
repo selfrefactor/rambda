@@ -6242,6 +6242,24 @@ Notes:
 export function applyDiff<Output>(rules: ApplyDiffRule[], obj: object): Output;
 export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Output;
 
+/*
+Method: mapIndexed
+
+Explanation: Same as `R.map` but it passes index as second argument to the predicate, when looping over arrays.
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapIndexed<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
