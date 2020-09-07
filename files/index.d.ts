@@ -4572,6 +4572,33 @@ export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>):
 export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
 export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 
+/*
+Method: zipWith
+
+Explanation:
+
+Example:
+
+```
+const list1 = [ 10, 20, 30, 40 ]
+const list2 = [ 100, 200 ]
+
+const result = R.zipWith(
+  R.add, list1, list2
+)
+// => [110, 220]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+
 // RAMBDAX_MARKER_START
 
 /*

@@ -1455,3 +1455,7 @@ export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T
 export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
 export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
 export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
+
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];

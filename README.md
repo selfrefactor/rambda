@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 100 Ramda methods not implemented in Rambda 
+  Click to see the full list of 99 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -185,7 +185,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - useWith
 - valuesIn
 - xprod
-- zipWith
 - thunkify
 - default
 
@@ -16313,43 +16312,13 @@ export function props(propsToPick, obj){
 ```javascript
 import { props } from './props'
 
-const obj = {a: 1, b: 2, c: 3}
+const obj = {a: 1, b: 2}
 
 test('happy', () => {
-  const result = props(['a', 'b'], obj)
+  const result = props(['a', 'c'], obj)
   console.log(result)
-  expect(result).toEqual([1,2])
+  expect(result).toEqual([1,undefined])
 })
-
-/*
-var R = require('../source');
-var eq = require('./shared/eq');
-
-describe('props', function() {
-  var obj = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6};
-
-  it('returns empty array if no properties requested', function() {
-    eq(R.props([], obj), []);
-  });
-
-  it('returns values for requested properties', function() {
-    eq(R.props(['a', 'e'], obj), [1, 5]);
-  });
-
-  it('preserves order', function() {
-    eq(R.props(['f', 'c', 'e'], obj), [6, 3, 5]);
-  });
-
-  it('returns undefined for nonexistent properties', function() {
-    var ps = R.props(['a', 'nonexistent'], obj);
-    eq(ps.length, 2);
-    eq(ps[0], 1);
-    eq(ps[1], void 0);
-  });
-
-});
-
-*/
 ```
 
 </details>
@@ -21903,6 +21872,120 @@ describe('R.zipObj', () => {
   it('happy', () => {
     const result = zipObj(['a', 'b', 'c', 'd', 'e', 'f'], [1, 2, 3])
     result // $ExpectType { [index: string]: number; }
+  })
+})
+```
+
+</details>
+
+### zipWith
+
+```typescript
+
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[]
+```
+
+```javascript
+const list1 = [ 10, 20, 30, 40 ]
+const list2 = [ 100, 200 ]
+
+const result = R.zipWith(
+  R.add, list1, list2
+)
+// => [110, 220]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B%2010%2C%2020%2C%2030%2C%2040%20%5D%0Aconst%20list2%20%3D%20%5B%20100%2C%20200%20%5D%0A%0Aconst%20result%20%3D%20R.zipWith(%0A%20%20R.add%2C%20list1%2C%20list2%0A)%0A%2F%2F%20%3D%3E%20%5B110%2C%20220%5D">Try this <strong>R.zipWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.zipWith</strong> source</summary>
+
+```javascript
+import { curry } from './curry'
+import { take } from './take'
+
+function zipWithFn(
+  fn, x, y
+){
+  return take(x.length > y.length ? y.length : x.length,
+    x).map((xInstance, i) => fn(xInstance, y[ i ]))
+}
+
+export const zipWith = curry(zipWithFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { add } from './add'
+import { zipWith } from './zipWith'
+
+const list1 = [ 1, 2, 3 ]
+const list2 = [ 10, 20, 30, 40 ]
+const list3 = [ 100, 200 ]
+
+test('when second list is shorter', () => {
+  const result = zipWith(
+    add, list1, list3
+  )
+  expect(result).toEqual([ 101, 202 ])
+})
+
+test('when second list is longer', () => {
+  const result = zipWith(
+    add, list1, list2
+  )
+  expect(result).toEqual([ 11, 22, 33 ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { zipWith } from 'ramda'
+
+const list1 = [ 1, 2 ]
+const list2 = [ 10, 20, 30 ]
+
+describe('R.zipWith', () => {
+  it('happy', () => {
+    const result = zipWith((x, y) => {
+      x // $ExpectType number
+      y // $ExpectType number
+      return `${x}-${y}`
+    }, list1, list2)
+    
+    result // $ExpectType string[]
+  })
+  it('curried', () => {
+    const result = zipWith((x, y) => {
+      x // $ExpectType number
+      y // $ExpectType number
+      return `${x}-${y}`
+    })(list1, list2)
+    
+    result // $ExpectType string[]
   })
 })
 ```

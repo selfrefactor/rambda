@@ -2,6 +2,8 @@ WIP 6.2.0
 
 - Add `R.props`
 
+- Add `R.zipWith`
+
 
 6.1.0
 

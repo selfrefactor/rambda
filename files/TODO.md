@@ -6,8 +6,6 @@ Methods to compatability test:
 
 Methods to add:  
 
-- props
-- zipWith
 - splitAt
 - splitWhen
 - takeLastWhile
