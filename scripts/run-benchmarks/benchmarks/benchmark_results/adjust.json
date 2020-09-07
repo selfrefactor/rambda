@@ -1,27 +1,27 @@
 {
   "name": "ADJUST",
-  "date": "2020-07-06T06:44:35.546Z",
+  "date": "2020-09-07T07:45:50.640Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 3803028,
-      "margin": 0.95,
-      "percentSlower": 0
+      "ops": 3450104,
+      "margin": 1.05,
+      "percentSlower": 7.45
     },
     {
       "name": "Ramda",
-      "ops": 3593240,
-      "margin": 1.39,
-      "percentSlower": 5.52
+      "ops": 3727997,
+      "margin": 0.7,
+      "percentSlower": 0
     }
   ],
   "fastest": {
-    "name": "Rambda",
-    "index": 0
-  },
-  "slowest": {
     "name": "Ramda",
     "index": 1
+  },
+  "slowest": {
+    "name": "Rambda",
+    "index": 0
   }
 }

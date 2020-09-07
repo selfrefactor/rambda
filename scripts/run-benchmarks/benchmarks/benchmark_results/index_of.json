@@ -1,25 +1,25 @@
 {
   "name": "INDEX_OF",
-  "date": "2020-07-06T06:49:48.129Z",
+  "date": "2020-09-07T07:51:01.046Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 157359737,
-      "margin": 0.97,
+      "ops": 152279970,
+      "margin": 0.94,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 25046676,
-      "margin": 0.57,
-      "percentSlower": 84.08
+      "ops": 23725451,
+      "margin": 0.33,
+      "percentSlower": 84.42
     },
     {
       "name": "Lodash",
-      "ops": 144996408,
-      "margin": 0.95,
-      "percentSlower": 7.86
+      "ops": 139598112,
+      "margin": 0.91,
+      "percentSlower": 8.33
     }
   ],
   "fastest": {

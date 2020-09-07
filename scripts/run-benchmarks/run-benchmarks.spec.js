@@ -3,7 +3,7 @@ import { runAllBenchmarks, runSingleBenchmark } from './run-benchmarks'
 
 jest.setTimeout(ms('15 minutes'))
 
-const RUN_ALL = false
+const RUN_ALL = true
 
 test('run all', async () => {
   if (!RUN_ALL) return

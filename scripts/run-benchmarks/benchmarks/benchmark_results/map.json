@@ -1,25 +1,25 @@
 {
   "name": "MAP",
-  "date": "2020-09-06T14:38:42.205Z",
+  "date": "2020-09-07T07:52:28.132Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 5302695,
-      "margin": 1.07,
+      "ops": 4289018,
+      "margin": 1.13,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1486316,
-      "margin": 0.89,
-      "percentSlower": 71.97
+      "ops": 1245914,
+      "margin": 0.91,
+      "percentSlower": 70.95
     },
     {
       "name": "Lodash",
-      "ops": 4260827,
-      "margin": 0.18,
-      "percentSlower": 19.65
+      "ops": 3960050,
+      "margin": 0.33,
+      "percentSlower": 7.67
     }
   ],
   "fastest": {

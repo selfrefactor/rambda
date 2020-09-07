@@ -1,19 +1,19 @@
 {
   "name": "MATCH",
-  "date": "2020-07-06T06:51:26.043Z",
+  "date": "2020-09-07T07:52:38.881Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 3602704,
-      "margin": 1.85,
+      "ops": 3465439,
+      "margin": 1.13,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 1918453,
-      "margin": 2.58,
-      "percentSlower": 46.75
+      "ops": 1842106,
+      "margin": 0.37,
+      "percentSlower": 46.84
     }
   ],
   "fastest": {

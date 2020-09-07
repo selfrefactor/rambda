@@ -1,19 +1,19 @@
 {
   "name": "ALL_PASS",
-  "date": "2020-07-06T06:44:57.390Z",
+  "date": "2020-09-07T07:46:12.353Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 41652381,
-      "margin": 2.69,
+      "ops": 40528983,
+      "margin": 1.6,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 435608,
-      "margin": 2.26,
-      "percentSlower": 98.95
+      "ops": 479412,
+      "margin": 0.91,
+      "percentSlower": 98.82
     }
   ],
   "fastest": {

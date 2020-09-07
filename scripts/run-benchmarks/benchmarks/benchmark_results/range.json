@@ -1,24 +1,24 @@
 {
   "name": "RANGE",
-  "date": "2020-07-06T06:53:31.484Z",
+  "date": "2020-09-07T07:54:44.331Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1022954,
-      "margin": 1.14,
+      "ops": 996366,
+      "margin": 0.25,
       "percentSlower": 95.17
     },
     {
       "name": "Ramda",
-      "ops": 2071600,
-      "margin": 0.78,
-      "percentSlower": 90.22
+      "ops": 2052596,
+      "margin": 0.94,
+      "percentSlower": 90.04
     },
     {
       "name": "Lodash",
-      "ops": 21183058,
-      "margin": 0.66,
+      "ops": 20615872,
+      "margin": 0.34,
       "percentSlower": 0
     }
   ],

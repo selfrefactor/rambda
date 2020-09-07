@@ -2,9 +2,10 @@ process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/benchmark_results'
 import { existsSync } from 'fs'
 import { readJson } from 'fs-extra'
-import { createBenchmark, scanFolder } from 'helpers-fn'
+import { createBenchmark, scanFolder, log } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsyncLimit, paths } from 'rambdax'
+import { snakeCase } from 'string-fn'
 
 const benchmarksDir = resolve(__dirname, '../../source/benchmarks')
 
@@ -33,22 +34,18 @@ export async function runSingleBenchmark(singleMethod){
   if (prevWinner === undefined)
     return console.log(`No previous benchmark "${ singleMethod }"`)
   if (prevWinner !== currentWinner){
-    console.log({
+    log({
       method : singleMethod,
       prevWinner,
       prevLoser,
       currentLoser,
       currentWinner,
-    })
+    }, 'obj')
   }
 }
 
 async function getPreviousBenchmark(singleMethod){
-  const resultPath = `${ __dirname }/benchmarks/benchmark_results/${ singleMethod }.json`
-  console.log({
-    resultPath,
-    e : existsSync(resultPath),
-  })
+  const resultPath = `${ __dirname }/benchmarks/benchmark_results/${ snakeCase(singleMethod) }.json`
   if (!existsSync(resultPath)) return {}
 
   const result = await readJson(resultPath)
@@ -68,31 +65,27 @@ function extractWinnerLoser(input){
 export async function runAllBenchmarks(){
   console.time('run.all.benchmarks')
   const methodsWithBenchmarks = await getAllBenchmarks()
+  const winnerChanged = []
   const iterable = async singleMethod => {
     const {
       winner: prevWinner,
-      loser: prevLoser,
     } = await getPreviousBenchmark(singleMethod)
 
     const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
     const result = await createBenchmark({ [ singleMethod ] : required })
-    const { winner: currentWinner, loser: currentLoser } = extractWinnerLoser(result)
+    const { winner: currentWinner } = extractWinnerLoser(result)
 
     if (prevWinner === undefined)
       return console.log(`No previous benchmark "${ singleMethod }"`)
     if (prevWinner !== currentWinner){
-      return console.log({
-        method : singleMethod,
-        prevWinner,
-        prevLoser,
-        currentLoser,
-        currentWinner,
-      })
+      winnerChanged.push(singleMethod)
     }
+    log(`Same winner - ${currentWinner}`,'box')
   }
 
   await mapAsyncLimit(
     iterable, 5, methodsWithBenchmarks
   )
   console.timeEnd('run.all.benchmarks')
+  console.log(winnerChanged)
 }

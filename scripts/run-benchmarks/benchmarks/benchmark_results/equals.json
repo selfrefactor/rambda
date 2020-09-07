@@ -1,24 +1,24 @@
 {
   "name": "EQUALS",
-  "date": "2020-07-06T06:48:04.015Z",
+  "date": "2020-09-07T07:49:06.739Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 135389,
-      "margin": 0.39,
-      "percentSlower": 72.11
+      "ops": 129156,
+      "margin": 0.25,
+      "percentSlower": 72.1
     },
     {
       "name": "Ramda",
-      "ops": 99599,
-      "margin": 0.73,
-      "percentSlower": 79.48
+      "ops": 93223,
+      "margin": 0.32,
+      "percentSlower": 79.87
     },
     {
       "name": "Lodash",
-      "ops": 485492,
-      "margin": 0.84,
+      "ops": 462994,
+      "margin": 1.18,
       "percentSlower": 0
     }
   ],

@@ -1,19 +1,19 @@
 {
   "name": "SET",
-  "date": "2020-07-06T06:54:31.489Z",
+  "date": "2020-09-07T07:55:44.417Z",
   "version": null,
   "results": [
     {
       "name": "Rambda",
-      "ops": 1127155,
-      "margin": 0.32,
+      "ops": 776328,
+      "margin": 0.51,
       "percentSlower": 0
     },
     {
       "name": "Ramda",
-      "ops": 718466,
-      "margin": 0.46,
-      "percentSlower": 36.26
+      "ops": 678851,
+      "margin": 0.28,
+      "percentSlower": 12.56
     }
   ],
   "fastest": {
