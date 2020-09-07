@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 101 Ramda methods not implemented in Rambda 
+  Click to see the full list of 100 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -158,7 +158,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - pipeWith
 - project
 - propSatisfies
-- props
 - reduceBy
 - reduceRight
 - reduceWhile
@@ -16261,6 +16260,125 @@ describe('R.propOr', () => {
 
 </details>
 
+### props
+
+```typescript
+
+props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[]
+```
+
+It takes list with properties `propsToPick` and returns a list with property values in `obj`.
+
+```javascript
+const result = R.props(['a', 'b'], {a:1, c:3})
+// => [1, undefined]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.props(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A1%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20undefined%5D">Try this <strong>R.props</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
+props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
+props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.props</strong> source</summary>
+
+```javascript
+import { mapArray } from './map'
+
+export function props(propsToPick, obj){
+  if (arguments.length === 1){
+    return _obj => props(propsToPick, _obj)
+  }
+
+  return mapArray(prop => obj[ prop ], propsToPick)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { props } from './props'
+
+const obj = {a: 1, b: 2, c: 3}
+
+test('happy', () => {
+  const result = props(['a', 'b'], obj)
+  console.log(result)
+  expect(result).toEqual([1,2])
+})
+
+/*
+var R = require('../source');
+var eq = require('./shared/eq');
+
+describe('props', function() {
+  var obj = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6};
+
+  it('returns empty array if no properties requested', function() {
+    eq(R.props([], obj), []);
+  });
+
+  it('returns values for requested properties', function() {
+    eq(R.props(['a', 'e'], obj), [1, 5]);
+  });
+
+  it('preserves order', function() {
+    eq(R.props(['f', 'c', 'e'], obj), [6, 3, 5]);
+  });
+
+  it('returns undefined for nonexistent properties', function() {
+    var ps = R.props(['a', 'nonexistent'], obj);
+    eq(ps.length, 2);
+    eq(ps[0], 1);
+    eq(ps[1], void 0);
+  });
+
+});
+
+*/
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { props } from 'rambda'
+
+const obj = {a: 1, b: 2}
+
+describe('R.props', () => {
+  it('happy', () => {
+    const result = props(['a','b'], obj)
+    
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = props(['a','b'])(obj)
+
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
 ### range
 
 ```typescript
@@ -21792,6 +21910,10 @@ describe('R.zipObj', () => {
 </details>
 
 ## CHANGELOG
+
+WIP 6.2.0
+
+- Add `R.props`
 
 6.1.0
 

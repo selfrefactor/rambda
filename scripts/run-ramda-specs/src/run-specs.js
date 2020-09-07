@@ -51,6 +51,7 @@ export async function runSingleSpec(method){
   const testOutput = readFileSync(outputPath).toString()
   if (!testOutput.includes('failing')){
     log(`All tests are passing for method 'R.${ method }'`, 'success')
+
     return true
   }
 
@@ -60,7 +61,8 @@ export async function runSingleSpec(method){
     !KNOWN_FAILING_TESTS[ method ] ||
     numberFailing > KNOWN_FAILING_TESTS[ method ]
   ){
-    log(`'${ method }' has '${ numberFailing }' tests`,'error')
+    log(`'${ method }' has '${ numberFailing }' tests`, 'error')
+
     return false
   }
 

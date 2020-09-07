@@ -1,3 +1,8 @@
+WIP 6.2.0
+
+- Add `R.props`
+
+
 6.1.0
 
 - Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.

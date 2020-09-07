@@ -1448,3 +1448,10 @@ export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
  */
 export function zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
 export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
+
+/**
+ * It takes list with properties `propsToPick` and returns a list with property values in `obj`.
+ */
+export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
+export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
+export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];

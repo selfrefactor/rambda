@@ -4550,6 +4550,28 @@ Notes:
 export function zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
 export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
 
+/*
+Method: props
+
+Explanation: It takes list with properties `propsToPick` and returns a list with property values in `obj`.
+
+Example:
+
+```
+const result = R.props(['a', 'b'], {a:1, c:3})
+// => [1, undefined]
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
+export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
+export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*
