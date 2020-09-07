@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 99 Ramda methods not implemented in Rambda 
+  Click to see the full list of 98 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -166,7 +166,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - scan
 - sequence
 - sortWith
-- splitAt
 - splitWhen
 - symmetricDifferenceWith
 - takeLastWhile
@@ -17809,6 +17808,102 @@ describe('R.split', () => {
 
 </details>
 
+### splitAt
+
+```typescript
+
+splitAt<T>(x: T): T
+```
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+splitAt<T>(x: T): T;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.splitAt</strong> source</summary>
+
+```javascript
+export function splitAt(foo, bar) {
+  if (arguments.length === 1){
+    return (_bar) => splitAt(foo, _bar);
+  }
+
+  return
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { splitAt } from './splitAt'
+
+test('happy', () => {
+  const result = splitAt()
+  console.log(result)
+})
+
+/*
+var R = require('../source');
+var eq = require('./shared/eq');
+
+describe('splitAt', function() {
+  it('splits an array at a given index', function() {
+    eq(R.splitAt(1, [1, 2, 3]), [[1], [2, 3]]);
+  });
+
+  it('splits a string at a given index', function() {
+    eq(R.splitAt(5, 'hello world'), ['hello', ' world']);
+  });
+
+  it('can handle index greater than array length', function() {
+    eq(R.splitAt(4, [1, 2]), [[1, 2], []]);
+  });
+
+  it('can support negative index', function() {
+    eq(R.splitAt(-1, 'foobar'), ['fooba', 'r']);
+  });
+
+});
+
+*/
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { splitAt } from 'rambda'
+
+describe('R.splitAt', () => {
+  it('happy', () => {
+    const result = splitAt()
+    
+    result // $ExpectType number
+  })
+  it('curried', () => {
+    const result = splitAt()
+
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### splitEvery
 
 ```typescript
@@ -21997,6 +22092,10 @@ describe('R.zipWith', () => {
 WIP 6.2.0
 
 - Add `R.props`
+
+- Add `R.zipWith`
+
+- Add `R.splitAt`
 
 6.1.0
 

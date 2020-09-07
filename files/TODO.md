@@ -1,12 +1,9 @@
-Methods to compatability test:
+R.switchem with undefined as valid and possible input
 
-- or
-- and
-- once
+---
 
 Methods to add:  
 
-- splitAt
 - splitWhen
 - takeLastWhile
 - dropLastWhile
@@ -20,4 +17,3 @@ Methods to add:
 - pickBy
 - pathSatisfies
 
-- Run benchmarks should count if winner is changed

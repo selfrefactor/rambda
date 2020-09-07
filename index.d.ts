@@ -1459,3 +1459,5 @@ export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+
+export function splitAt<T>(x: T): T;

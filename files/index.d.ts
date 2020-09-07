@@ -4599,6 +4599,24 @@ export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], 
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
 
+/*
+Method: splitAt
+
+Explanation: It splits string or array at a given index.
+
+Example:
+
+```
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function splitAt<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*

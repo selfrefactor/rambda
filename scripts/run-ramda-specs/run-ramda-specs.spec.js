@@ -12,7 +12,6 @@ test('run single spec', async () => {
   if (RUN_ALL) return
   const WITH_INITIAL_STEP = false
 
-  // await documentationBuild()
   await build()
   await importRamdaSpecs(WITH_INITIAL_STEP)
   expect(await runSingleSpec('zipWith')).toBeTrue()

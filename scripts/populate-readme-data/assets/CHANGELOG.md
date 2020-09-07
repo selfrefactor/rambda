@@ -4,6 +4,8 @@ WIP 6.2.0
 
 - Add `R.zipWith`
 
+- Add `R.splitAt`
+
 
 6.1.0
 

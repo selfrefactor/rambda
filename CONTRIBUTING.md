@@ -26,7 +26,7 @@ Please be aware, that due to [variadic arguments Typescript proposal](https://gi
 
 There is helper script to assist you, when creating a new method in Rambda/Rambdax.
 
-1. Run `yarn new NEW_METHOD_NAME`, e.g. `yarn new zip.with`. Note that the method name should be written without a space in between.
+1. Run `yarn new NEW_METHOD_NAME`, e.g. `yarn new zip.with` or `yarn new zipWith`.
 
 2. Edit `source/NEW_METHOD_NAME.js`
 
