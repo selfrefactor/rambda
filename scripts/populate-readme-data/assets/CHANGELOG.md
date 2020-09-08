@@ -6,6 +6,7 @@ WIP 6.2.0
 
 - Add `R.splitAt`
 
+- Add `R.splitWhen`
 
 6.1.0
 

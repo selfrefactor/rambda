@@ -1,10 +1,9 @@
 import { splitAt as splitAtRamda } from 'ramda'
+
 import { splitAt } from './splitAt'
 
 const list = [ 1, 2, 3 ]
 const str = 'foo bar'
-const badInputs = [ 1, true, /foo/g, {} ]
-const throwingBadInputs = [ null, undefined ]
 
 test('with array', () => {
   const result = splitAt(2, list)
@@ -12,12 +11,12 @@ test('with array', () => {
 })
 
 test('with array - index is negative number', () => {
-  const result = splitAt(-6,list)
-  expect(result).toEqual([ [ ], list ])
+  const result = splitAt(-6, list)
+  expect(result).toEqual([ [], list ])
 })
 
 test('with array - index is out of scope', () => {
-  const result = splitAt(4,list)
+  const result = splitAt(4, list)
   expect(result).toEqual([ [ 1, 2, 3 ], [] ])
 })
 
@@ -41,6 +40,9 @@ test('with array - index is out of scope', () => {
   const result = splitAt(4)(list)
   expect(result).toEqual([ [ 1, 2, 3 ], [] ])
 })
+
+const badInputs = [ 1, true, /foo/g, {} ]
+const throwingBadInputs = [ null, undefined ]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {

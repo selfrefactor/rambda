@@ -4607,6 +4607,9 @@ Explanation: It splits string or array at a given index.
 Example:
 
 ```
+const list = [ 1, 2, 3 ]
+const result = splitAt(2, list)
+// => [[ 1, 2 ], [ 3 ]]
 ```
 
 Categories: List, String
@@ -4621,6 +4624,30 @@ export function splitAt(index: number): {
     <T>(input: T[]): [T[], T[]];
     (input: string): [string, string];
 };
+
+/*
+Method: splitWhen
+
+Explanation: It splits `list` to two arrays according to a `predicate` function. 
+
+The first array contains all members of `list` before `predicate` returns `true`.
+
+Example:
+
+```
+const list = [1, 2, 1, 2]
+const result = R.splitWhen(R.equals(2), list)
+// => [[1], [2, 1, 2]]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
+export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];
 
 // RAMBDAX_MARKER_START
 

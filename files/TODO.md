@@ -4,7 +4,6 @@ R.switchem with undefined as valid and possible input
 
 Methods to add:  
 
-- splitWhen
 - takeLastWhile
 - dropLastWhile
 - addIndex

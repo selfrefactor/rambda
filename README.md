@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 98 Ramda methods not implemented in Rambda 
+  Click to see the full list of 97 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -166,7 +166,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - scan
 - sequence
 - sortWith
-- splitWhen
 - symmetricDifferenceWith
 - takeLastWhile
 - andThen
@@ -17821,6 +17820,14 @@ splitAt<T>(index: number, input: T[]): [T[], T[]]
 
 It splits string or array at a given index.
 
+```javascript
+const list = [ 1, 2, 3 ]
+const result = splitAt(2, list)
+// => [[ 1, 2 ], [ 3 ]]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0Aconst%20result%20%3D%20splitAt(2%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B%201%2C%202%20%5D%2C%20%5B%203%20%5D%5D">Try this <strong>R.splitAt</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -17872,12 +17879,11 @@ export function splitAt(index, input){
 
 ```javascript
 import { splitAt as splitAtRamda } from 'ramda'
+
 import { splitAt } from './splitAt'
 
 const list = [ 1, 2, 3 ]
 const str = 'foo bar'
-const badInputs = [ 1, true, /foo/g, {} ]
-const throwingBadInputs = [ null, undefined ]
 
 test('with array', () => {
   const result = splitAt(2, list)
@@ -17885,12 +17891,12 @@ test('with array', () => {
 })
 
 test('with array - index is negative number', () => {
-  const result = splitAt(-6,list)
-  expect(result).toEqual([ [ ], list ])
+  const result = splitAt(-6, list)
+  expect(result).toEqual([ [], list ])
 })
 
 test('with array - index is out of scope', () => {
-  const result = splitAt(4,list)
+  const result = splitAt(4, list)
   expect(result).toEqual([ [ 1, 2, 3 ], [] ])
 })
 
@@ -17914,6 +17920,9 @@ test('with array - index is out of scope', () => {
   const result = splitAt(4)(list)
   expect(result).toEqual([ [ 1, 2, 3 ], [] ])
 })
+
+const badInputs = [ 1, true, /foo/g, {} ]
+const throwingBadInputs = [ null, undefined ]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
@@ -18087,6 +18096,139 @@ describe('R.splitEvery', () => {
   it('curried', () => {
     const result = splitEvery(3)(list)
 
+    result // $ExpectType number[][]
+  })
+})
+```
+
+</details>
+
+### splitWhen
+
+```typescript
+
+splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][]
+```
+
+It splits `list` to two arrays according to a `predicate` function. 
+
+The first array contains all members of `list` before `predicate` returns `true`.
+
+```javascript
+const list = [1, 2, 1, 2]
+const result = R.splitWhen(R.equals(2), list)
+// => [[1], [2, 1, 2]]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%201%2C%202%5D%0Aconst%20result%20%3D%20R.splitWhen(R.equals(2)%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C%201%2C%202%5D%5D">Try this <strong>R.splitWhen</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
+splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.splitWhen</strong> source</summary>
+
+```javascript
+export function splitWhen(predicate, input){
+  if (arguments.length === 1){
+    return _input => splitWhen(predicate, _input)
+  }
+  if (!input)
+    throw new TypeError(`Cannot read property 'length' of ${ input }`)
+
+  const preFound = []
+  const postFound = []
+  let found = false
+  let counter = -1
+
+  while (counter++ < input.length - 1){
+    if (found){
+      postFound.push(input[ counter ])
+    } else if (predicate(input[ counter ])){
+      postFound.push(input[ counter ])
+      found = true
+    } else {
+      preFound.push(input[ counter ])
+    }
+  }
+
+  return [ preFound, postFound ]
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { splitWhen as splitWhenRamda } from 'ramda'
+
+import { equals } from './equals'
+import { splitWhen } from './splitWhen'
+
+const list = [ 1, 2, 1, 2 ]
+
+test('happy', () => {
+  const result = splitWhen(equals(2), list)
+  expect(result).toEqual([ [ 1 ], [ 2, 1, 2 ] ])
+})
+
+test('when predicate returns false', () => {
+  const result = splitWhen(equals(3))(list)
+  expect(result).toEqual([ list, [] ])
+})
+
+const badInputs = [ 1, true, /foo/g, {} ]
+const throwingBadInputs = [ null, undefined ]
+
+test('with bad inputs', () => {
+  throwingBadInputs.forEach(badInput => {
+    expect(() => splitWhen(equals(2), badInput)).toThrowWithMessage(TypeError,
+      `Cannot read property 'length' of ${ badInput }`)
+    expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(TypeError,
+      `Cannot read property 'length' of ${ badInput }`)
+  })
+
+  badInputs.forEach(badInput => {
+    const result = splitWhen(equals(2), badInput)
+    const ramdaResult = splitWhenRamda(equals(2), badInput)
+    expect(result).toEqual(ramdaResult)
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { splitWhen } from 'rambda'
+
+const list = [ 1, 2, 1, 2 ]
+const predicate = (x:number) => x === 2
+
+describe('R.splitWhen', () => {
+  it('happy', () => {
+    const result = splitWhen(predicate, list)
+    
+    result // $ExpectType number[][]
+  })
+  it('curried', () => {
+    const result = splitWhen(predicate)(list)
+    
     result // $ExpectType number[][]
   })
 })
@@ -22169,6 +22311,8 @@ WIP 6.2.0
 - Add `R.zipWith`
 
 - Add `R.splitAt`
+
+- Add `R.splitWhen`
 
 6.1.0
 

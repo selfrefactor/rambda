@@ -1469,3 +1469,11 @@ export function splitAt(index: number): {
     <T>(input: T[]): [T[], T[]];
     (input: string): [string, string];
 };
+
+/**
+ * It splits `list` to two arrays according to a `predicate` function.
+ * 
+ * The first array contains all members of `list` before `predicate` returns `true`.
+ */
+export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
+export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];

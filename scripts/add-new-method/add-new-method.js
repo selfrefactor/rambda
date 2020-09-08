@@ -69,6 +69,8 @@ Explanation:
 Example:
 
 \`\`\`
+const result = R.{{name}}()
+// => 
 \`\`\`
 
 Categories:
