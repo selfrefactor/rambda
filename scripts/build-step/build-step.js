@@ -15,7 +15,7 @@ import { createExportedTypings } from './create-exported-typings'
 
 // Rambdax methods which are used in creation of Rambda method
 // ============================================
-const rambdaxMethodsAsInternals = [ 'isFunction', 'isPromise' ]
+const rambdaxMethodsAsInternals = [ 'isFunction', 'isPromise', 'maybe' ]
 
 async function createMainFile({ allMethods, dir }){
   const content = allMethods

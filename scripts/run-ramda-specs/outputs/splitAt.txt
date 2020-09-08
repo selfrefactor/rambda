@@ -1,0 +1,11 @@
+
+
+  splitAt
+    ✓ splits an array at a given index
+    ✓ splits a string at a given index
+    ✓ can handle index greater than array length
+    ✓ can support negative index
+
+
+  4 passing (26ms)
+

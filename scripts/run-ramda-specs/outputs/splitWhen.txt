@@ -1,0 +1,10 @@
+
+
+  splitWhen
+    ✓ splits an array at the first instance to satisfy the predicate
+    ✓ retains all original elements
+    ✓ only splits once
+
+
+  3 passing (33ms)
+
