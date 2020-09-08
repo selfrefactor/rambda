@@ -13851,10 +13851,10 @@ partition<T>(
 ```javascript
 import { _isArray } from './_internals/_isArray'
 
-function whenObject(predicate, input){
+export function partitionObject(predicate, iterable){
   const yes = {}
   const no = {}
-  Object.entries(input).forEach(([ prop, value ]) => {
+  Object.entries(iterable).forEach(([ prop, value ]) => {
     if (predicate(value, prop)){
       yes[ prop ] = value
     } else {
@@ -13865,25 +13865,29 @@ function whenObject(predicate, input){
   return [ yes, no ]
 }
 
-export function partition(predicate, input){
-  if (arguments.length === 1){
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!_isArray(input)) return whenObject(predicate, input)
-
+export function partitionArray(predicate, list){
   const yes = []
   const no = []
   let counter = -1
 
-  while (counter++ < input.length - 1){
-    if (predicate(input[ counter ])){
-      yes.push(input[ counter ])
+  while (counter++ < list.length - 1){
+    if (predicate(list[ counter ])){
+      yes.push(list[ counter ])
     } else {
-      no.push(input[ counter ])
+      no.push(list[ counter ])
     }
   }
 
   return [ yes, no ]
+}
+
+export function partition(predicate, iterable){
+  if (arguments.length === 1){
+    return listHolder => partition(predicate, listHolder)
+  }
+  if (!_isArray(iterable)) return partitionObject(predicate, iterable)
+
+  return partitionArray(predicate, iterable)
 }
 ```
 
@@ -17812,15 +17816,22 @@ describe('R.split', () => {
 
 ```typescript
 
-splitAt<T>(x: T): T
+splitAt<T>(index: number, input: T[]): [T[], T[]]
 ```
+
+It splits string or array at a given index.
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-splitAt<T>(x: T): T;
+splitAt<T>(index: number, input: T[]): [T[], T[]];
+splitAt(index: number, input: string): [string, string];
+splitAt(index: number): {
+    <T>(input: T[]): [T[], T[]];
+    (input: string): [string, string];
+};
 ```
 
 </details>
@@ -17830,12 +17841,26 @@ splitAt<T>(x: T): T;
 <summary><strong>R.splitAt</strong> source</summary>
 
 ```javascript
-export function splitAt(foo, bar) {
-  if (arguments.length === 1){
-    return (_bar) => splitAt(foo, _bar);
-  }
+import { _isArray } from './_internals/_isArray'
+import { drop } from './drop'
+import { maybe } from './maybe'
+import { take } from './take'
 
-  return
+export function splitAt(index, input){
+  if (arguments.length === 1){
+    return _list => splitAt(index, _list)
+  }
+  if (!input) throw new TypeError(`Cannot read property 'slice' of ${ input }`)
+
+  if (!_isArray(input) && typeof input !== 'string') return [ [], [] ]
+  
+  const correctIndex = maybe(
+    index < 0,
+    input.length + index < 0 ? 0 : input.length + index,
+    index
+  )
+
+  return [ take(correctIndex, input), drop(correctIndex, input) ]
 }
 ```
 
@@ -17846,37 +17871,68 @@ export function splitAt(foo, bar) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
+import { splitAt as splitAtRamda } from 'ramda'
 import { splitAt } from './splitAt'
 
-test('happy', () => {
-  const result = splitAt()
-  console.log(result)
+const list = [ 1, 2, 3 ]
+const str = 'foo bar'
+const badInputs = [ 1, true, /foo/g, {} ]
+const throwingBadInputs = [ null, undefined ]
+
+test('with array', () => {
+  const result = splitAt(2, list)
+  expect(result).toEqual([ [ 1, 2 ], [ 3 ] ])
 })
 
-/*
-var R = require('../source');
-var eq = require('./shared/eq');
+test('with array - index is negative number', () => {
+  const result = splitAt(-6,list)
+  expect(result).toEqual([ [ ], list ])
+})
 
-describe('splitAt', function() {
-  it('splits an array at a given index', function() {
-    eq(R.splitAt(1, [1, 2, 3]), [[1], [2, 3]]);
-  });
+test('with array - index is out of scope', () => {
+  const result = splitAt(4,list)
+  expect(result).toEqual([ [ 1, 2, 3 ], [] ])
+})
 
-  it('splits a string at a given index', function() {
-    eq(R.splitAt(5, 'hello world'), ['hello', ' world']);
-  });
+test('with string', () => {
+  const result = splitAt(4, str)
+  console.log(result)
+  expect(result).toEqual([ 'foo ', 'bar' ])
+})
 
-  it('can handle index greater than array length', function() {
-    eq(R.splitAt(4, [1, 2]), [[1, 2], []]);
-  });
+test('with string - index is negative number', () => {
+  const result = splitAt(-2, str)
+  expect(result).toEqual([ 'foo b', 'ar' ])
+})
 
-  it('can support negative index', function() {
-    eq(R.splitAt(-1, 'foobar'), ['fooba', 'r']);
-  });
+test('with string - index is out of scope', () => {
+  const result = splitAt(10, str)
+  expect(result).toEqual([ str, '' ])
+})
 
-});
+test('with array - index is out of scope', () => {
+  const result = splitAt(4)(list)
+  expect(result).toEqual([ [ 1, 2, 3 ], [] ])
+})
 
-*/
+test('with bad inputs', () => {
+  throwingBadInputs.forEach(badInput => {
+    expect(() => splitAt(1, badInput)).toThrowWithMessage(TypeError,
+      `Cannot read property 'slice' of ${ badInput }`)
+    expect(() => splitAtRamda(1, badInput)).toThrowWithMessage(TypeError,
+      `Cannot read property 'slice' of ${ badInput }`)
+  })
+
+  badInputs.forEach(badInput => {
+    const result = splitAt(1, badInput)
+    const ramdaResult = splitAtRamda(1, badInput)
+    console.log({
+      result,
+      ramdaResult,
+    })
+    expect(result).toEqual(ramdaResult)
+  })
+})
 ```
 
 </details>
@@ -17886,18 +17942,35 @@ describe('splitAt', function() {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { splitAt } from 'rambda'
+import { splitAt } from 'ramda'
 
-describe('R.splitAt', () => {
+const index = 1
+const str = 'foo'
+const list = [1, 2, 3]
+
+describe('R.splitAt with array', () => {
   it('happy', () => {
-    const result = splitAt()
+    const result = splitAt(index, list)
     
-    result // $ExpectType number
+    result // $ExpectType [number[], number[]]
   })
   it('curried', () => {
-    const result = splitAt()
+    const result = splitAt(index)(list)
+    
+    result // $ExpectType [number[], number[]]
+  })
+})
 
-    result // $ExpectType number
+describe('R.splitAt with string', () => {
+  it('happy', () => {
+    const result = splitAt(index, str)
+    
+    result // $ExpectType [string, string]
+  })
+  it('curried', () => {
+    const result = splitAt(index)(str)
+
+    result // $ExpectType [string, string]
   })
 })
 ```

@@ -1460,4 +1460,12 @@ export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], 
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
 
-export function splitAt<T>(x: T): T;
+/**
+ * It splits string or array at a given index.
+ */
+export function splitAt<T>(index: number, input: T[]): [T[], T[]];
+export function splitAt(index: number, input: string): [string, string];
+export function splitAt(index: number): {
+    <T>(input: T[]): [T[], T[]];
+    (input: string): [string, string];
+};

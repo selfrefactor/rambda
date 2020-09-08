@@ -1,9 +1,9 @@
 import { _isArray } from './_internals/_isArray'
 
-function whenObject(predicate, input){
+export function partitionObject(predicate, iterable){
   const yes = {}
   const no = {}
-  Object.entries(input).forEach(([ prop, value ]) => {
+  Object.entries(iterable).forEach(([ prop, value ]) => {
     if (predicate(value, prop)){
       yes[ prop ] = value
     } else {
@@ -14,23 +14,27 @@ function whenObject(predicate, input){
   return [ yes, no ]
 }
 
-export function partition(predicate, input){
-  if (arguments.length === 1){
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!_isArray(input)) return whenObject(predicate, input)
-
+export function partitionArray(predicate, list){
   const yes = []
   const no = []
   let counter = -1
 
-  while (counter++ < input.length - 1){
-    if (predicate(input[ counter ])){
-      yes.push(input[ counter ])
+  while (counter++ < list.length - 1){
+    if (predicate(list[ counter ])){
+      yes.push(list[ counter ])
     } else {
-      no.push(input[ counter ])
+      no.push(list[ counter ])
     }
   }
 
   return [ yes, no ]
+}
+
+export function partition(predicate, iterable){
+  if (arguments.length === 1){
+    return listHolder => partition(predicate, listHolder)
+  }
+  if (!_isArray(iterable)) return partitionObject(predicate, iterable)
+
+  return partitionArray(predicate, iterable)
 }
