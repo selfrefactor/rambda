@@ -22290,8 +22290,8 @@ describe('R.zipWith', () => {
   })
   it('curried', () => {
     const result = zipWith((x, y) => {
-      x // $ExpectType number
-      y // $ExpectType number
+      x // $ExpectType unknown
+      y // $ExpectType unknown
       return `${x}-${y}`
     })(list1, list2)
     
