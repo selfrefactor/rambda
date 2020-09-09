@@ -304,7 +304,7 @@ method | Rambda | Ramda | Lodash
 
 - [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk)
 
-- Walmart, Canada - used in several internal projects (this was conveyed to me in a private email from one Walmart Canada developer).
+- [Walmart Canada](https://www.walmart.ca) reported by [w-b-dev](https://github.com/w-b-dev) 
 
 - [VSCode Slack intergration](https://github.com/verydanny/vcslack)
 
@@ -22273,7 +22273,7 @@ test('when second list is longer', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { zipWith } from 'ramda'
+import { zipWith } from 'rambda'
 
 const list1 = [ 1, 2 ]
 const list2 = [ 10, 20, 30 ]

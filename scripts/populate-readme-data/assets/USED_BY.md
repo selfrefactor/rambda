@@ -2,7 +2,7 @@
 
 - [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk)
 
-- Walmart, Canada - used in several internal projects (this was conveyed to me in a private email from one Walmart Canada developer).
+- [Walmart Canada](https://www.walmart.ca) reported by [w-b-dev](https://github.com/w-b-dev) 
 
 - [VSCode Slack intergration](https://github.com/verydanny/vcslack)
 
