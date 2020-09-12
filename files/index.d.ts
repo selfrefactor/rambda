@@ -3791,7 +3791,7 @@ export function T(): boolean;
 /*
 Method: tail
 
-Explanation: It returns all but the first element of `listOrString`.
+Explanation: It returns all but the first element of `input`.
 
 Example:
 
@@ -3809,13 +3809,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T>(listOrString: T[]): T[];
-export function tail(listOrString: string): string;
+export function tail<T>(input: readonly T[]): T[];
+export function tail(input: string): string;
 
 /*
 Method: take
 
-Explanation: It returns the first `howMany` elements of `listOrString`.
+Explanation: It returns the first `howMany` elements of `input`.
 
 
 Example:
@@ -3836,18 +3836,17 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(howMany: number, listOrString: T[]): T[];
-export function take(howMany: number, listOrString: string): string;
+export function take<T>(howMany: number, input: readonly T[]): T[];
+export function take(howMany: number, input: string): string;
 export function take<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /*
 Method: takeLast
 
-Explanation: It returns the last `howMany` elements of `listOrString`.
-
+Explanation: It returns the last `howMany` elements of `input`.
 
 Example:
 
@@ -3867,11 +3866,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(howMany: number, listOrString: T[]): T[];
-export function takeLast(howMany: number, listOrString: string): string;
+export function takeLast<T>(howMany: number, input: readonly T[]): T[];
+export function takeLast(howMany: number, input: string): string;
 export function takeLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /*
@@ -3895,8 +3894,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile<T>(predicate: (x: T) => boolean, list: T[]): T[];
-export function takeWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /*
 Method: tap
@@ -3925,8 +3924,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tap<T>(fn: (a: T) => any, x: T): T;
-export function tap<T>(fn: (a: T) => any): (x: T) => T;
+export function tap<T>(fn: (x: T) => void, input: T): T;
+export function tap<T>(fn: (x: T) => void): (input: T) => T;
 
 /*
 Method: test
@@ -4084,7 +4083,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function transpose<T>(list: T[][]): T[][];
+export function transpose<T>(list: readonly T[][]): T[][];
 
 /*
 Method: trim
@@ -4111,8 +4110,6 @@ Method: tryCatch
 
 Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
 
-Please check the tests of `R.tryCatch` to fully understand how this method works.
-
 Example:
 
 ```
@@ -4127,7 +4124,7 @@ const result = [
 
 Categories: Async, Function
 
-Notes:
+Notes: Please check the tests of `R.tryCatch` to fully understand how this method works.
 
 */
 // @SINGLE_MARKER
@@ -4203,8 +4200,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function union<T>(x: Array<T>, y: Array<T>): Array<T>;
-export function union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+export function union<T>(x: readonly T[], y: readonly T[]): T[];
+export function union<T>(x: readonly T[]): (y: readonly T[]) => T[];
 
 /*
 Method: uniq
@@ -4226,7 +4223,7 @@ Notes: `R.equals` is used to determine equality
 
 */
 // @SINGLE_MARKER
-export function uniq<T>(list: T[]): T[];
+export function uniq<T>(list: readonly T[]): T[];
 
 /*
 Method: uniqWith
@@ -4262,8 +4259,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: T[]): T[];
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 
 /*
 Method: unless
@@ -4320,8 +4317,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function update<T>(index: number, newValue: T, list: T[]): T[];
-export function update<T>(index: number, newValue: T): (list: T[]) => T[];
+export function update<T>(index: number, newValue: T, list: readonly T[]): T[];
+export function update<T>(index: number, newValue: T): (list: readonly T[]) => T[];
 
 /*
 Method: values
@@ -4464,8 +4461,8 @@ Notes: `R.equals` is used to determine equality
 
 */
 // @SINGLE_MARKER
-export function without<T>(matchAgainst: T[], source: T[]): T[];
-export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
+export function without<T>(matchAgainst: readonly T[], source: readonly T[]): T[];
+export function without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => T[];
 
 /*
 Method: xor
@@ -4520,8 +4517,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
-export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
+export function zip<K, V>(x: readonly K[], y: readonly V[]): KeyValuePair<K, V>[];
+export function zip<K>(x: readonly K[]): <V>(y: readonly V[]) => KeyValuePair<K, V>[];
 
 /*
 Method: zipObj
@@ -4595,9 +4592,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[], list2: readonly U[]): TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[]): (list2: readonly U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: readonly T[], list2: readonly U[]) => TResult[];
 
 /*
 Method: splitAt
