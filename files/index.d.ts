@@ -3538,14 +3538,14 @@ Notes:
 */
 // @SINGLE_MARKER
 export function slice(from: number, to: number, list: string): string;
-export function slice<T>(from: number, to: number, list: T[]): T[];
+export function slice<T>(from: number, to: number, list: readonly T[]): T[];
 export function slice(from: number, to: number): {
   (list: string): string;
-  <T>(list: T[]): T[];
+  <T>(list: readonly T[]): T[];
 };
 export function slice(from: number): {
   (to: number, list: string): string;
-  <T>(to: number, list: T[]): T[];
+  <T>(to: number, list: readonly T[]): T[];
 };
 
 /*
@@ -3580,8 +3580,8 @@ Notes: `sortFn` function must return a number.
 
 */
 // @SINGLE_MARKER
-export function sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
-export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+export function sort<T>(sortFn: (a: T, b: T) => number, list: readonly T[]): T[];
+export function sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) => T[];
 
 /*
 Method: sortBy
@@ -3613,8 +3613,8 @@ Notes: `sortFn` function must return a value to compare.
 
 */
 // @SINGLE_MARKER
-export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
-export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
+export function sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): T[];
+export function sortBy(sortFn: (a: any) => Ord): <T>(list: readonly T[]) => T[];
 
 /*
 Method: split
@@ -3642,7 +3642,7 @@ export function split(separator: string | RegExp, str: string): string[];
 /*
 Method: splitEvery
 
-Explanation: It splits `listOrString` into slices of `sliceLength`.
+Explanation: It splits `input` into slices of `sliceLength`.
 
 Example:
 
@@ -3665,11 +3665,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitEvery<T>(sliceLength: number, listOrString: T[]): T[][];
-export function splitEvery(sliceLength: number, listOrString: string): string[];
+export function splitEvery<T>(sliceLength: number, input: readonly T[]): T[][];
+export function splitEvery(sliceLength: number, input: string): string[];
 export function splitEvery(sliceLength: number): {
-  (listOrString: string): string[];
-  <T>(listOrString: T[]): T[][];
+  (input: string): string[];
+  <T>(input: readonly T[]): T[][];
 };
 
 /*
@@ -3740,7 +3740,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sum(list: number[]): number;
+export function sum(list: readonly number[]): number;
 
 /*
 Method: symmetricDifference
@@ -3763,8 +3763,8 @@ Notes: `R.equals` is used to determine equality, i.e. it can be safely used with
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(x: T[], y: T[]): T[];
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+export function symmetricDifference<T>(x: readonly T[], y: readonly T[]): T[];
+export function symmetricDifference<T>(x: readonly T[]): <T>(y: readonly T[]) => T[];
 
 /*
 Method: T
