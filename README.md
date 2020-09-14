@@ -1208,30 +1208,27 @@ describe('anyPass', function() {
 
 ```typescript
 
-append<T>(x: T, listOrString: T[]): T[]
+append<T>(x: T, input: T[]): T[]
 ```
 
-It adds element `x` at the end of `listOrString`.
+It adds element `x` at the end of a list.
 
 ```javascript
 const x = 'foo'
 
-const result = [
-  R.append(x, 'cherry_'),
-  R.append(x, ['bar', 'baz'])
-]
-// => ['cherry_foo', ['bar', 'baz', 'foo']]
+const result = R.append(x, ['bar', 'baz'])
+// => ['bar', 'baz', 'foo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.append(x%2C%20'cherry_')%2C%0A%20%20R.append(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'cherry_foo'%2C%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D%5D">Try this <strong>R.append</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20R.append(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try this <strong>R.append</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-append<T>(x: T, listOrString: T[]): T[];
-append<T>(x: T): <T>(listOrString: T[]) => T[];
+append<T>(x: T, input: T[]): T[];
+append<T>(x: T): <T>(input: T[]) => T[];
 ```
 
 </details>
@@ -1241,13 +1238,12 @@ append<T>(x: T): <T>(listOrString: T[]) => T[];
 <summary><strong>R.append</strong> source</summary>
 
 ```javascript
-export function append(x, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => append(x, _listOrString)
+export function append(x, input){
+  if (arguments.length === 1) return _input => append(x, _input)
 
-  if (typeof listOrString === 'string') return `${ listOrString }${ x }`
+  if (typeof input === 'string') return input.split('').concat(x)
 
-  const clone = listOrString.slice()
+  const clone = input.slice()
   clone.push(x)
 
   return clone
@@ -1262,15 +1258,8 @@ export function append(x, listOrString){
 
 ```javascript
 import { append } from './append'
-import { compose } from './compose'
-import { flatten } from './flatten'
-import { map } from './map'
 
-test('with strings', () => {
-  expect(append('o', 'fo')).toEqual('foo')
-})
-
-test('with arrays', () => {
+test('happy', () => {
   expect(append('tests', [ 'write', 'more' ])).toEqual([
     'write',
     'more',
@@ -1279,20 +1268,11 @@ test('with arrays', () => {
 })
 
 test('append to empty array', () => {
-  expect(append('tests', [])).toEqual([ 'tests' ])
+  expect(append('tests')([])).toEqual([ 'tests' ])
 })
 
-test('happy', () => {
-  const result = compose(flatten, map(append(0)))([ [ 1 ], [ 2 ], [ 3 ] ])
-  expect(result).toEqual([ 1, 0, 2, 0, 3, 0 ])
-})
-
-test('should not modify arguments', () => {
-  const a = [ 1, 2, 3 ]
-  const b = append(4, a)
-
-  expect(a).toEqual([ 1, 2, 3 ])
-  expect(b).toEqual([ 1, 2, 3, 4 ])
+test('with strings', () => {
+  expect(append('o', 'fo')).toEqual([ 'f', 'o', 'o' ])
 })
 ```
 
@@ -15615,30 +15595,25 @@ describe('pluck', function() {
 
 ```typescript
 
-prepend<T>(x: T, listOrString: T[]): T[]
+prepend<T>(x: T, input: T[]): T[]
 ```
 
-It adds element `x` at the beginning of `listOrString`.
+It adds element `x` at the beginning of `list`.
 
 ```javascript
-const x = 'foo'
-
-const result = [
-  R.prepend(x, '_cherry'),
-  R.prepend(x, ['bar', 'baz'])
-]
-// => ['foo_cherry', ['foo', 'bar', 'baz']]
+const result = R.prepend('foo', ['bar', 'baz'])
+// => ['foo', 'bar', 'baz']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.prepend(x%2C%20'_cherry')%2C%0A%20%20R.prepend(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5B'foo_cherry'%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.prepend('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-prepend<T>(x: T, listOrString: T[]): T[];
-prepend<T>(x: T): (listOrString: T[]) => T[];
+prepend<T>(x: T, input: T[]): T[];
+prepend<T>(x: T): (input: T[]) => T[];
 ```
 
 </details>
@@ -15648,13 +15623,12 @@ prepend<T>(x: T): (listOrString: T[]) => T[];
 <summary><strong>R.prepend</strong> source</summary>
 
 ```javascript
-export function prepend(x, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => prepend(x, _listOrString)
+export function prepend(x, input){
+  if (arguments.length === 1) return _input => prepend(x, _input)
 
-  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
+  if (typeof input === 'string') return [ x ].concat(input.split(''))
 
-  return [ x ].concat(listOrString)
+  return [ x ].concat(input)
 }
 ```
 
@@ -15668,18 +15642,20 @@ export function prepend(x, listOrString){
 import { prepend } from './prepend'
 
 test('happy', () => {
-  expect(prepend('f', 'oo')).toEqual('foo')
-})
-
-test('prepend', () => {
   expect(prepend('yes', [ 'foo', 'bar', 'baz' ])).toEqual([
     'yes',
     'foo',
     'bar',
     'baz',
   ])
+})
 
+test('with empty list', () => {
   expect(prepend('foo')([])).toEqual([ 'foo' ])
+})
+
+test('with string instead of array', () => {
+  expect(prepend('foo')('bar')).toEqual([ 'foo', 'b', 'a', 'r' ])
 })
 ```
 
@@ -15714,7 +15690,7 @@ describe('R.prepend', () => {
 
 ```typescript
 
-product(list: number[]): number
+product(list: readonly number[]): number
 ```
 
 ```javascript
@@ -15729,7 +15705,7 @@ R.product([ 2, 3, 4 ])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-product(list: number[]): number;
+product(list: readonly number[]): number;
 ```
 
 </details>
@@ -16357,7 +16333,7 @@ describe('R.props', () => {
 range(startInclusive: number, endExclusive: number): number[]
 ```
 
-It returns list of numbers between `startInclusive` to `endExclusive` numbers.
+It returns list of numbers between `startInclusive` to `endExclusive` markers.
 
 ```javascript
 R.range(0, 5)
@@ -16729,7 +16705,7 @@ describe('reduce', function() {
 
 ```typescript
 
-reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[]
+reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -16753,8 +16729,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
-reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[];
+reject<T>(predicate: FilterFunctionArray<T>): (list: readonly T[]) => T[];
 reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
 reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 ```
@@ -16905,8 +16881,6 @@ describe('reject', function() {
 
 repeat<T>(x: T): (timesToRepeat: number) => T[]
 ```
-
-It returns a list of `x` input repeated `timesToRepeat` input.
 
 ```javascript
 R.repeat('foo', 3)
@@ -17106,10 +17080,10 @@ describe('R.replace - curried', () => {
 
 ```typescript
 
-reverse<T>(listOrString: T[]): T[]
+reverse<T>(input: readonly T[]): T[]
 ```
 
-It returns a reversed copy of `listOrString` input.
+It returns a reversed copy of list or string `input`.
 
 ```javascript
 const result = [
@@ -17126,8 +17100,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-reverse<T>(listOrString: T[]): T[];
-reverse(listOrString: string): string;
+reverse<T>(input: readonly T[]): T[];
+reverse(input: string): string;
 ```
 
 </details>
@@ -17312,10 +17286,8 @@ test('index lens', () => {
 
 ```typescript
 
-slice(from: number, to: number, list: string): string
+slice(from: number, to: number, input: string): string
 ```
-
-It returns `listOrString` between `from` and `to` indexes.
 
 ```javascript
 const list = [0, 1, 2, 3, 4, 5]
@@ -17337,15 +17309,15 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-slice(from: number, to: number, list: string): string;
-slice<T>(from: number, to: number, list: T[]): T[];
+slice(from: number, to: number, input: string): string;
+slice<T>(from: number, to: number, input: readonly T[]): T[];
 slice(from: number, to: number): {
-  (list: string): string;
-  <T>(list: T[]): T[];
+  (input: string): string;
+  <T>(input: readonly T[]): T[];
 };
 slice(from: number): {
-  (to: number, list: string): string;
-  <T>(to: number, list: T[]): T[];
+  (to: number, input: string): string;
+  <T>(to: number, input: readonly T[]): T[];
 };
 ```
 
@@ -17424,7 +17396,7 @@ describe('R.slice', () => {
 
 ```typescript
 
-sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[]
+sort<T>(sortFn: (a: T, b: T) => number, list: readonly T[]): T[]
 ```
 
 It returns copy of `list` sorted by `sortFn` function.
@@ -17457,8 +17429,8 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
-sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+sort<T>(sortFn: (a: T, b: T) => number, list: readonly T[]): T[];
+sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) => T[];
 ```
 
 </details>
@@ -17536,7 +17508,7 @@ describe('R.sort', () => {
 
 ```typescript
 
-sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[]
+sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): T[]
 ```
 
 It returns copy of `list` sorted by `sortFn` function.
@@ -17567,8 +17539,8 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
-sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
+sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): T[];
+sortBy(sortFn: (a: any) => Ord): <T>(list: readonly T[]) => T[];
 ```
 
 </details>
@@ -17990,10 +17962,10 @@ describe('R.splitAt with string', () => {
 
 ```typescript
 
-splitEvery<T>(sliceLength: number, listOrString: T[]): T[][]
+splitEvery<T>(sliceLength: number, input: readonly T[]): T[][]
 ```
 
-It splits `listOrString` into slices of `sliceLength`.
+It splits `input` into slices of `sliceLength`.
 
 ```javascript
 const result = [
@@ -18015,11 +17987,11 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-splitEvery<T>(sliceLength: number, listOrString: T[]): T[][];
-splitEvery(sliceLength: number, listOrString: string): string[];
+splitEvery<T>(sliceLength: number, input: readonly T[]): T[][];
+splitEvery(sliceLength: number, input: string): string[];
 splitEvery(sliceLength: number): {
-  (listOrString: string): string[];
-  <T>(listOrString: T[]): T[][];
+  (input: string): string[];
+  <T>(input: readonly T[]): T[][];
 };
 ```
 
@@ -18424,7 +18396,7 @@ test('happy', () => {
 
 ```typescript
 
-sum(list: number[]): number
+sum(list: readonly number[]): number
 ```
 
 ```javascript
@@ -18439,7 +18411,7 @@ R.sum([1, 2, 3, 4, 5])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-sum(list: number[]): number;
+sum(list: readonly number[]): number;
 ```
 
 </details>
@@ -18474,7 +18446,7 @@ test('happy', () => {
 
 ```typescript
 
-symmetricDifference<T>(x: T[], y: T[]): T[]
+symmetricDifference<T>(x: readonly T[], y: readonly T[]): T[]
 ```
 
 It returns a merged list of `x` and `y` with all equal elements removed.
@@ -18496,8 +18468,8 @@ const result = symmetricDifference(x, y)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-symmetricDifference<T>(x: T[], y: T[]): T[];
-symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+symmetricDifference<T>(x: readonly T[], y: readonly T[]): T[];
+symmetricDifference<T>(x: readonly T[]): <T>(y: readonly T[]) => T[];
 ```
 
 </details>
@@ -18620,10 +18592,10 @@ export function T(){
 
 ```typescript
 
-tail<T>(listOrString: T[]): T[]
+tail<T>(input: readonly T[]): T[]
 ```
 
-It returns all but the first element of `listOrString`.
+It returns all but the first element of `input`.
 
 ```javascript
 const result = [
@@ -18640,8 +18612,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-tail<T>(listOrString: T[]): T[];
-tail(listOrString: string): string;
+tail<T>(input: readonly T[]): T[];
+tail(input: string): string;
 ```
 
 </details>
@@ -18709,10 +18681,10 @@ describe('R.tail', () => {
 
 ```typescript
 
-take<T>(howMany: number, listOrString: T[]): T[]
+take<T>(howMany: number, input: readonly T[]): T[]
 ```
 
-It returns the first `howMany` elements of `listOrString`.
+It returns the first `howMany` elements of `input`.
 
 ```javascript
 const howMany = 2
@@ -18731,11 +18703,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-take<T>(howMany: number, listOrString: T[]): T[];
-take(howMany: number, listOrString: string): string;
+take<T>(howMany: number, input: readonly T[]): T[];
+take(howMany: number, input: string): string;
 take<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 ```
 
@@ -18870,10 +18842,10 @@ describe('take', function() {
 
 ```typescript
 
-takeLast<T>(howMany: number, listOrString: T[]): T[]
+takeLast<T>(howMany: number, input: readonly T[]): T[]
 ```
 
-It returns the last `howMany` elements of `listOrString`.
+It returns the last `howMany` elements of `input`.
 
 ```javascript
 const howMany = 2
@@ -18892,11 +18864,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-takeLast<T>(howMany: number, listOrString: T[]): T[];
-takeLast(howMany: number, listOrString: string): string;
+takeLast<T>(howMany: number, input: readonly T[]): T[];
+takeLast(howMany: number, input: string): string;
 takeLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 ```
 
@@ -19007,7 +18979,7 @@ describe('R.takeLast - string', () => {
 
 ```typescript
 
-takeWhile<T>(predicate: (x: T) => boolean, list: T[]): T[]
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[]
 ```
 
 ```javascript
@@ -19025,8 +18997,8 @@ const result = takeWhile(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-takeWhile<T>(predicate: (x: T) => boolean, list: T[]): T[];
-takeWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
+takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
 ```
 
 </details>
@@ -19116,7 +19088,7 @@ describe('R.takeWhile', () => {
 
 ```typescript
 
-tap<T>(fn: (a: T) => any, x: T): T
+tap<T>(fn: (x: T) => void, input: T): T
 ```
 
 It applies function `fn` to input `x` and returns `x`. 
@@ -19141,8 +19113,8 @@ R.compose(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-tap<T>(fn: (a: T) => any, x: T): T;
-tap<T>(fn: (a: T) => any): (x: T) => T;
+tap<T>(fn: (x: T) => void, input: T): T;
+tap<T>(fn: (x: T) => void): (input: T) => T;
 ```
 
 </details>
@@ -19681,7 +19653,7 @@ test('toUpper', () => {
 
 ```typescript
 
-transpose<T>(list: T[][]): T[][]
+transpose<T>(list: readonly T[][]): T[][]
 ```
 
 ```javascript
@@ -19699,7 +19671,7 @@ const result = R.transpose(list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-transpose<T>(list: T[][]): T[][];
+transpose<T>(list: readonly T[][]): T[][];
 ```
 
 </details>
@@ -19887,7 +19859,7 @@ tryCatch<T, U>(
 
 It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
 
-Please check the tests of `R.tryCatch` to fully understand how this method works.
+> :boom: Please check the tests of `R.tryCatch` to fully understand how this method works.
 
 ```javascript
 const fn = x => x.foo
@@ -20412,7 +20384,7 @@ describe('type', function() {
 
 ```typescript
 
-union<T>(x: Array<T>, y: Array<T>): Array<T>
+union<T>(x: readonly T[], y: readonly T[]): T[]
 ```
 
 It takes two lists and return a new list containing a merger of both list with removed duplicates. 
@@ -20431,8 +20403,8 @@ const result = R.union([1,2,3], [3,4,5]);
 <summary>All Typescript definitions</summary>
 
 ```typescript
-union<T>(x: Array<T>, y: Array<T>): Array<T>;
-union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+union<T>(x: readonly T[], y: readonly T[]): T[];
+union<T>(x: readonly T[]): (y: readonly T[]) => T[];
 ```
 
 </details>
@@ -20539,7 +20511,7 @@ describe('R.union - curried', () => {
 
 ```typescript
 
-uniq<T>(list: T[]): T[]
+uniq<T>(list: readonly T[]): T[]
 ```
 
 It returns a new array containing only one copy of each element of `list`.
@@ -20560,7 +20532,7 @@ R.uniq(list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-uniq<T>(list: T[]): T[];
+uniq<T>(list: readonly T[]): T[];
 ```
 
 </details>
@@ -20659,7 +20631,7 @@ describe('uniq', function() {
 
 ```typescript
 
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: T[]): T[]
+uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): T[]
 ```
 
 It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
@@ -20692,8 +20664,8 @@ const result = R.uniqWith(uniqFn, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: T[]): T[];
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: T[]) => T[];
+uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): T[];
+uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 ```
 
 </details>
@@ -20993,7 +20965,7 @@ describe('R.unless', () => {
 
 ```typescript
 
-update<T>(index: number, newValue: T, list: T[]): T[]
+update<T>(index: number, newValue: T, list: readonly T[]): T[]
 ```
 
 It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -21014,8 +20986,8 @@ const result = R.update(index, newValue, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-update<T>(index: number, newValue: T, list: T[]): T[];
-update<T>(index: number, newValue: T): (list: T[]) => T[];
+update<T>(index: number, newValue: T, list: readonly T[]): T[];
+update<T>(index: number, newValue: T): (list: readonly T[]) => T[];
 ```
 
 </details>
@@ -21675,7 +21647,7 @@ describe('R.whereEq', () => {
 
 ```typescript
 
-without<T>(matchAgainst: T[], source: T[]): T[]
+without<T>(matchAgainst: readonly T[], source: readonly T[]): T[]
 ```
 
 It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
@@ -21697,8 +21669,8 @@ const result = R.without(matchAgainst, source)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-without<T>(matchAgainst: T[], source: T[]): T[];
-without<T>(matchAgainst: T[]): (source: T[]) => T[];
+without<T>(matchAgainst: readonly T[], source: readonly T[]): T[];
+without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => T[];
 ```
 
 </details>
@@ -21956,7 +21928,7 @@ describe('xor', function() {
 
 ```typescript
 
-zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[]
+zip<K, V>(x: readonly K[], y: readonly V[]): KeyValuePair<K, V>[]
 ```
 
 It will return a new array containing tuples of equally positions items from both `x` and `y` lists. 
@@ -21981,8 +21953,8 @@ R.zip([...x, 3], ['A', 'B'])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
-zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
+zip<K, V>(x: readonly K[], y: readonly V[]): KeyValuePair<K, V>[];
+zip<K>(x: readonly K[]): <V>(y: readonly V[]) => KeyValuePair<K, V>[];
 ```
 
 </details>
@@ -22192,7 +22164,7 @@ describe('R.zipObj', () => {
 
 ```typescript
 
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[]
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[], list2: readonly U[]): TResult[]
 ```
 
 ```javascript
@@ -22212,9 +22184,9 @@ const result = R.zipWith(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[], list2: readonly U[]): TResult[];
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[]): (list2: readonly U[]) => TResult[];
+zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: readonly T[], list2: readonly U[]) => TResult[];
 ```
 
 </details>
@@ -22314,6 +22286,8 @@ WIP 6.2.0
 
 - Add `R.splitWhen`
 
+- `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
+  
 6.1.0
 
 - Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.

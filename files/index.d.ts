@@ -353,18 +353,15 @@ export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 /*
 Method: append
 
-Explanation: It adds element `x` at the end of `listOrString`.
+Explanation: It adds element `x` at the end of a list.
 
 Example:
 
 ```
 const x = 'foo'
 
-const result = [
-  R.append(x, 'cherry_'),
-  R.append(x, ['bar', 'baz'])
-]
-// => ['cherry_foo', ['bar', 'baz', 'foo']]
+const result = R.append(x, ['bar', 'baz'])
+// => ['bar', 'baz', 'foo']
 ```
 
 Categories: List
@@ -373,8 +370,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(x: T, listOrString: T[]): T[];
-export function append<T>(x: T): <T>(listOrString: T[]) => T[];
+export function append<T>(x: T, input: T[]): T[];
+export function append<T>(x: T): <T>(input: T[]) => T[];
 
 /*
 Method: applySpec
@@ -3199,28 +3196,23 @@ export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) 
 /*
 Method: prepend
 
-Explanation: It adds element `x` at the beginning of `listOrString`.
+Explanation: It adds element `x` at the beginning of `list`.
 
 Example:
 
 ```
-const x = 'foo'
-
-const result = [
-  R.prepend(x, '_cherry'),
-  R.prepend(x, ['bar', 'baz'])
-]
-// => ['foo_cherry', ['foo', 'bar', 'baz']]
+const result = R.prepend('foo', ['bar', 'baz'])
+// => ['foo', 'bar', 'baz']
 ```
 
-Categories: List, String
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(x: T, listOrString: T[]): T[];
-export function prepend<T>(x: T): (listOrString: T[]) => T[];
+export function prepend<T>(x: T, input: T[]): T[];
+export function prepend<T>(x: T): (input: T[]) => T[];
 
 /*
 Method: product
@@ -3240,7 +3232,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function product(list: number[]): number;
+export function product(list: readonly number[]): number;
 
 /*
 Method: prop
@@ -3367,7 +3359,7 @@ export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: st
 /*
 Method: range
 
-Explanation: It returns list of numbers between `startInclusive` to `endExclusive` numbers.
+Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
 
 Example:
 
@@ -3437,15 +3429,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
-export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+export function reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[];
+export function reject<T>(predicate: FilterFunctionArray<T>): (list: readonly T[]) => T[];
 export function reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
 export function reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: repeat
 
-Explanation: It returns a list of `x` input repeated `timesToRepeat` input.
+Explanation: 
 
 Example:
 
@@ -3490,7 +3482,7 @@ export function replace(strOrRegex: RegExp | string): (replacer: string) => (str
 /*
 Method: reverse
 
-Explanation: It returns a reversed copy of `listOrString` input. 
+Explanation: It returns a reversed copy of list or string `input`. 
 
 Example:
 
@@ -3508,13 +3500,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reverse<T>(listOrString: T[]): T[];
-export function reverse(listOrString: string): string;
+export function reverse<T>(input: readonly T[]): T[];
+export function reverse(input: string): string;
 
 /*
 Method: slice
 
-Explanation: It returns `listOrString` between `from` and `to` indexes. 
+Explanation: 
 
 Example:
 
@@ -3537,15 +3529,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function slice(from: number, to: number, list: string): string;
-export function slice<T>(from: number, to: number, list: readonly T[]): T[];
+export function slice(from: number, to: number, input: string): string;
+export function slice<T>(from: number, to: number, input: readonly T[]): T[];
 export function slice(from: number, to: number): {
-  (list: string): string;
-  <T>(list: readonly T[]): T[];
+  (input: string): string;
+  <T>(input: readonly T[]): T[];
 };
 export function slice(from: number): {
-  (to: number, list: string): string;
-  <T>(to: number, list: readonly T[]): T[];
+  (to: number, input: string): string;
+  <T>(to: number, input: readonly T[]): T[];
 };
 
 /*

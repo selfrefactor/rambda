@@ -186,10 +186,10 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 
 /**
- * It adds element `x` at the end of `listOrString`.
+ * It adds element `x` at the end of a list.
  */
-export function append<T>(x: T, listOrString: T[]): T[];
-export function append<T>(x: T): <T>(listOrString: T[]) => T[];
+export function append<T>(x: T, input: T[]): T[];
+export function append<T>(x: T): <T>(input: T[]) => T[];
 
 /**
  * It returns a curried function with the same arity as the longest function in the spec object.
@@ -1130,12 +1130,12 @@ export function pluck(property: number): <T>(list: T[]) => T;
 export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
 
 /**
- * It adds element `x` at the beginning of `listOrString`.
+ * It adds element `x` at the beginning of `list`.
  */
-export function prepend<T>(x: T, listOrString: T[]): T[];
-export function prepend<T>(x: T): (listOrString: T[]) => T[];
+export function prepend<T>(x: T, input: T[]): T[];
+export function prepend<T>(x: T): (input: T[]) => T[];
 
-export function product(list: number[]): number;
+export function product(list: readonly number[]): number;
 
 /**
  * It returns the value of property `propToFind` in `obj`.
@@ -1174,7 +1174,7 @@ export function propOr<T>(defaultValue: T, property: string): (obj: { [key: stri
 export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { [key: string]: T}) => T>;
 
 /**
- * It returns list of numbers between `startInclusive` to `endExclusive` numbers.
+ * It returns list of numbers between `startInclusive` to `endExclusive` markers.
  */
 export function range(startInclusive: number, endExclusive: number): number[];
 export function range(startInclusive: number): (endExclusive: number) => number[];
@@ -1187,14 +1187,11 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
 /**
  * It has the opposite effect of `R.filter`.
  */
-export function reject<T>(predicate: FilterFunctionArray<T>, list: T[]): T[];
-export function reject<T>(predicate: FilterFunctionArray<T>): (list: T[]) => T[];
+export function reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[];
+export function reject<T>(predicate: FilterFunctionArray<T>): (list: readonly T[]) => T[];
 export function reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
 export function reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
-/**
- * It returns a list of `x` input repeated `timesToRepeat` input.
- */
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
 export function repeat<T>(x: T, timesToRepeat: number): T[];
 
@@ -1206,36 +1203,33 @@ export function replace(strOrRegex: RegExp | string, replacer: string): (str: st
 export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
 /**
- * It returns a reversed copy of `listOrString` input.
+ * It returns a reversed copy of list or string `input`.
  */
-export function reverse<T>(listOrString: T[]): T[];
-export function reverse(listOrString: string): string;
+export function reverse<T>(input: readonly T[]): T[];
+export function reverse(input: string): string;
 
-/**
- * It returns `listOrString` between `from` and `to` indexes.
- */
-export function slice(from: number, to: number, list: string): string;
-export function slice<T>(from: number, to: number, list: T[]): T[];
+export function slice(from: number, to: number, input: string): string;
+export function slice<T>(from: number, to: number, input: readonly T[]): T[];
 export function slice(from: number, to: number): {
-  (list: string): string;
-  <T>(list: T[]): T[];
+  (input: string): string;
+  <T>(input: readonly T[]): T[];
 };
 export function slice(from: number): {
-  (to: number, list: string): string;
-  <T>(to: number, list: T[]): T[];
+  (to: number, input: string): string;
+  <T>(to: number, input: readonly T[]): T[];
 };
 
 /**
  * It returns copy of `list` sorted by `sortFn` function.
  */
-export function sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
-export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+export function sort<T>(sortFn: (a: T, b: T) => number, list: readonly T[]): T[];
+export function sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) => T[];
 
 /**
  * It returns copy of `list` sorted by `sortFn` function.
  */
-export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
-export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
+export function sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): T[];
+export function sortBy(sortFn: (a: any) => Ord): <T>(list: readonly T[]) => T[];
 
 /**
  * Curried version of `String.prototype.split`
@@ -1244,13 +1238,13 @@ export function split(separator: string | RegExp): (str: string) => string[];
 export function split(separator: string | RegExp, str: string): string[];
 
 /**
- * It splits `listOrString` into slices of `sliceLength`.
+ * It splits `input` into slices of `sliceLength`.
  */
-export function splitEvery<T>(sliceLength: number, listOrString: T[]): T[][];
-export function splitEvery(sliceLength: number, listOrString: string): string[];
+export function splitEvery<T>(sliceLength: number, input: readonly T[]): T[][];
+export function splitEvery(sliceLength: number, input: string): string[];
 export function splitEvery(sliceLength: number): {
-  (listOrString: string): string[];
-  <T>(listOrString: T[]): T[][];
+  (input: string): string[];
+  <T>(input: readonly T[]): T[][];
 };
 
 /**
@@ -1265,52 +1259,52 @@ export function startsWith(target: string): (str: string) => boolean;
 export function subtract(x: number, y: number): number;
 export function subtract(x: number): (y: number) => number;
 
-export function sum(list: number[]): number;
+export function sum(list: readonly number[]): number;
 
 /**
  * It returns a merged list of `x` and `y` with all equal elements removed.
  */
-export function symmetricDifference<T>(x: T[], y: T[]): T[];
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+export function symmetricDifference<T>(x: readonly T[], y: readonly T[]): T[];
+export function symmetricDifference<T>(x: readonly T[]): <T>(y: readonly T[]) => T[];
 
 export function T(): boolean;
 
 /**
- * It returns all but the first element of `listOrString`.
+ * It returns all but the first element of `input`.
  */
-export function tail<T>(listOrString: T[]): T[];
-export function tail(listOrString: string): string;
+export function tail<T>(input: readonly T[]): T[];
+export function tail(input: string): string;
 
 /**
- * It returns the first `howMany` elements of `listOrString`.
+ * It returns the first `howMany` elements of `input`.
  */
-export function take<T>(howMany: number, listOrString: T[]): T[];
-export function take(howMany: number, listOrString: string): string;
+export function take<T>(howMany: number, input: readonly T[]): T[];
+export function take(howMany: number, input: string): string;
 export function take<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /**
- * It returns the last `howMany` elements of `listOrString`.
+ * It returns the last `howMany` elements of `input`.
  */
-export function takeLast<T>(howMany: number, listOrString: T[]): T[];
-export function takeLast(howMany: number, listOrString: string): string;
+export function takeLast<T>(howMany: number, input: readonly T[]): T[];
+export function takeLast(howMany: number, input: string): string;
 export function takeLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
-export function takeWhile<T>(predicate: (x: T) => boolean, list: T[]): T[];
-export function takeWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
  * One use case is debuging in the middle of `R.compose`.
  */
-export function tap<T>(fn: (a: T) => any, x: T): T;
-export function tap<T>(fn: (a: T) => any): (x: T) => T;
+export function tap<T>(fn: (x: T) => void, input: T): T;
+export function tap<T>(fn: (x: T) => void): (input: T) => T;
 
 /**
  * It determines whether `str` matches `regExpression`.
@@ -1337,14 +1331,12 @@ export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [strin
 
 export function toString<T>(x: T): string;
 
-export function transpose<T>(list: T[][]): T[][];
+export function transpose<T>(list: readonly T[][]): T[][];
 
 export function trim(str: string): string;
 
 /**
  * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
- * 
- * Please check the tests of `R.tryCatch` to fully understand how this method works.
  */
 export function tryCatch<T, U>(
   fn: (input: T) => U,
@@ -1373,19 +1365,19 @@ export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null
  * 
  * `R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
  */
-export function union<T>(x: Array<T>, y: Array<T>): Array<T>;
-export function union<T>(x: Array<T>): (y: Array<T>) => Array<T>;
+export function union<T>(x: readonly T[], y: readonly T[]): T[];
+export function union<T>(x: readonly T[]): (y: readonly T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element of `list`.
  */
-export function uniq<T>(list: T[]): T[];
+export function uniq<T>(list: readonly T[]): T[];
 
 /**
  * It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
  */
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: T[]): T[];
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): T[];
+export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 
 /**
  * The method returns function that will be called with argument `input`.
@@ -1400,8 +1392,8 @@ export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) =
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
  */
-export function update<T>(index: number, newValue: T, list: T[]): T[];
-export function update<T>(index: number, newValue: T): (list: T[]) => T[];
+export function update<T>(index: number, newValue: T, list: readonly T[]): T[];
+export function update<T>(index: number, newValue: T): (list: readonly T[]) => T[];
 
 /**
  * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
@@ -1429,8 +1421,8 @@ export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 /**
  * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
  */
-export function without<T>(matchAgainst: T[], source: T[]): T[];
-export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
+export function without<T>(matchAgainst: readonly T[], source: readonly T[]): T[];
+export function without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => T[];
 
 export function xor(x: boolean, y: boolean): boolean;
 export function xor(y: boolean): (y: boolean) => boolean;
@@ -1440,8 +1432,8 @@ export function xor(y: boolean): (y: boolean) => boolean;
  * 
  * The returned list will be truncated to match the length of the shortest supplied list.
  */
-export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
-export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
+export function zip<K, V>(x: readonly K[], y: readonly V[]): KeyValuePair<K, V>[];
+export function zip<K>(x: readonly K[]): <V>(y: readonly V[]) => KeyValuePair<K, V>[];
 
 /**
  * It will return a new object with keys of `keys` array and values of `values` array.
@@ -1456,9 +1448,9 @@ export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>):
 export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
 export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[], list2: readonly U[]): TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[]): (list2: readonly U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: readonly T[], list2: readonly U[]) => TResult[];
 
 /**
  * It splits string or array at a given index.

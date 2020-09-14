@@ -1,8 +1,7 @@
-export function prepend(x, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => prepend(x, _listOrString)
+export function prepend(x, input){
+  if (arguments.length === 1) return _input => prepend(x, _input)
 
-  if (typeof listOrString === 'string') return `${ x }${ listOrString }`
+  if (typeof input === 'string') return [ x ].concat(input.split(''))
 
-  return [ x ].concat(listOrString)
+  return [ x ].concat(input)
 }
