@@ -1,10 +1,16 @@
 import { add } from './add'
-import { delay } from './delay'
-import { identity } from './identity'
 import { switcher } from './switcher'
 import { tap } from './tap'
 import { trim } from './trim'
-import { type } from './type'
+
+test('with undefined', () => {
+  const result = switcher(undefined)
+    .is(x => x === 0, '0')
+    .is(x => x === undefined, 'UNDEFINED')
+    .default('3')
+
+  expect(result).toEqual('UNDEFINED')
+})
 
 test('happy', () => {
   const a = true

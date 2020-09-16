@@ -1,3 +1,7 @@
+WIP 6.2.0
+
+- `R.switcher` accepts `undefined` as valid input
+
 6.1.0 
 
 - Add `R.mapIndexed`

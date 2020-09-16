@@ -38,7 +38,7 @@ class Switchem{
     defaultValue, cases, willMatch
   ){
     if (
-      defaultValue !== undefined &&
+      // defaultValue !== undefined &&
       cases === undefined &&
       willMatch === undefined
     ){
