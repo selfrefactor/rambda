@@ -14696,7 +14696,7 @@ describe('paths', function() {
 
 ```typescript
 
-pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
 ```
 
 It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -14744,8 +14744,8 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-pick<K extends string | number | symbol>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 pick<T, U>(propsToPick: string, input: T): U;
 pick<T, U>(propsToPick: string): (input: T) => U;
 pick<T>(propsToPick: string, input: object): T;
@@ -14923,7 +14923,7 @@ describe('R.pick with string as props input', () => {
 
 ```typescript
 
-pickAll<T, U>(propsToPick: string[], input: T): U
+pickAll<T, U>(propsToPick: readonly string[], input: T): U
 ```
 
 Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
@@ -14961,8 +14961,8 @@ const expected = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pickAll<T, U>(propsToPick: string[], input: T): U;
-pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+pickAll<T, U>(propsToPick: readonly string[], input: T): U;
+pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
 pickAll<T, U>(propsToPick: string, input: T): U;
 pickAll<T, U>(propsToPick: string): (input: T) => U;
 ```
@@ -15450,7 +15450,7 @@ describe('pipe', function() {
 
 ```typescript
 
-pluck<T>(property: number, list: T[]): T
+pluck<K extends keyof T, T>(property: K, list: readonly T[]): Array<T[K]>
 ```
 
 It returns list of the values of `property` taken from the all objects inside `list`.
@@ -15470,10 +15470,10 @@ R.pluck(list, property)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pluck<T>(property: number, list: T[]): T;
-pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
-pluck(property: number): <T>(list: T[]) => T;
-pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+pluck<K extends keyof T, T>(property: K, list: readonly T[]): Array<T[K]>;
+pluck<T>(property: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
+pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+pluck(property: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
 ```
 
 </details>
@@ -22287,7 +22287,9 @@ WIP 6.2.0
 - Add `R.splitWhen`
 
 - `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
-  
+
+- Sync `R.pluck` typings with `@types/ramda` as there was a tiny difference.
+
 6.1.0
 
 - Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.

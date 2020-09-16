@@ -911,8 +911,8 @@ export function pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: 
  * 
  * String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
-export function pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string | number | symbol>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 export function pick<T, U>(propsToPick: string, input: T): U;
 export function pick<T, U>(propsToPick: string): (input: T) => U;
 export function pick<T>(propsToPick: string, input: object): T;
@@ -921,8 +921,8 @@ export function pick<T>(propsToPick: string): (input: object) => T;
 /**
  * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
  */
-export function pickAll<T, U>(propsToPick: string[], input: T): U;
-export function pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
@@ -1124,10 +1124,10 @@ export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
  */
-export function pluck<T>(property: number, list: T[]): T;
-export function pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
-export function pluck(property: number): <T>(list: T[]) => T;
-export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): Array<T[K]>;
+export function pluck<T>(property: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
+export function pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+export function pluck(property: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
 
 /**
  * It adds element `x` at the beginning of `list`.

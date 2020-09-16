@@ -3166,7 +3166,6 @@ export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
   fn8: (x: T8) => T9,
   fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
-
 /*
 Method: pluck
 
@@ -3189,9 +3188,9 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): Array<T[K]>;
-export function pluck<T>(property: number, list: Array<{ [k: number]: T }>): T[];
-export function pluck<P extends string>(property: P): <T>(list: Array<Record<P, T>>) => T[];
-export function pluck(property: number): <T>(list: Array<{ [k: number]: T }>) => T[];
+export function pluck<T>(property: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
+export function pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
+export function pluck(property: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
 
 /*
 Method: prepend
