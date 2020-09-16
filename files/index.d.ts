@@ -2947,8 +2947,8 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, U>(propsToPick: string[], input: T): U;
-export function pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
+export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
@@ -3188,10 +3188,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pluck<T>(property: number, list: T[]): T;
-export function pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
-export function pluck(property: number): <T>(list: T[]) => T;
-export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): Array<T[K]>;
+export function pluck<T>(property: number, list: Array<{ [k: number]: T }>): T[];
+export function pluck<P extends string>(property: P): <T>(list: Array<Record<P, T>>) => T[];
+export function pluck(property: number): <T>(list: Array<{ [k: number]: T }>) => T[];
 
 /*
 Method: prepend

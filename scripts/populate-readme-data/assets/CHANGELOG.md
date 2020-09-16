@@ -9,7 +9,9 @@ WIP 6.2.0
 - Add `R.splitWhen`
 
 - `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
-  
+
+- Sync `R.pluck` typings with `@types/ramda` as there was a tiny difference.
+
 6.1.0
 
 - Fix `R.and` wrong definition, because the function doesn't convert the result to boolean. This introduce another difference with `@types/ramda`.
