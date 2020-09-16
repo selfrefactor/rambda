@@ -25,7 +25,7 @@
     "@babel/core": "7.11.6",
     "@babel/plugin-proposal-object-rest-spread": "7.11.0",
     "@babel/preset-env": "7.11.5",
-    "@types/jest": "26.0.10",
+    "@types/jest": "26.0.14",
     "@types/fs-extra": "9.0.1",
     "@types/ramda": "0.27.7",
     "cross-env": "7.0.2",
