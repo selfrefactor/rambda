@@ -9,10 +9,8 @@
   dependencies:
     ts-toolbelt "^6.3.3"
 
-rambda@5.12.0:
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/rambda/-/rambda-5.12.0.tgz#c6e9c0a13290a47c333dc7ccd573c5dc4c4170ec"
-  integrity sha512-5InFhxr+gAcqvRK2abqsBatBfugiZ2xmsk++fpjM4MqFxfWrScxIml7cUHRK7jLcoyCIliht18b1BQH1FgENRg==
+"rambda@file:../..":
+  version "6.1.0"
 
 "rambdax@https://github.com/selfrefactor/rambdax#4.2.0":
   version "4.1.0"
