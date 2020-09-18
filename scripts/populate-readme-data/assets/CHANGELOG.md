@@ -8,6 +8,8 @@ WIP 6.2.0
 
 - Add `R.splitWhen`
 
+- Close [Issue #547](https://github.com/selfrefactor/rambda/issues/547) - restore `readonly` declaration in Typescript definitions.
+
 - `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
 
 - Sync `R.pluck` typings with `@types/ramda` as there was a tiny difference.

@@ -17,8 +17,8 @@ type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
 type Ord = number | string | boolean | Date;
 
-type Path = string | (number | string)[];
-type RamdaPath = (number | string)[];
+type Path = string | readonly (number | string)[];
+type RamdaPath = readonly (number | string)[];
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -37,9 +37,9 @@ type Arity1Fn = (a: any) => any;
 
 type Arity2Fn = (a: any, b: any) => any;
 
-type Pred = (...a: any[]) => boolean;
+type Pred = (...x: readonly any[]) => boolean;
 type Predicate<T> = (input: T) => boolean;
-type SafePred<T> = (...a: T[]) => boolean;
+type SafePred<T> = (...x: readonly T[]) => boolean;
 
 interface Dictionary<T> {
   [index: string]: T;
@@ -2610,8 +2610,8 @@ Notes: When using this method with `TypeScript`, it is much easier to pass `prop
 
 */
 // @SINGLE_MARKER
-export function omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
-export function omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
+export function omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+export function omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
 export function omit<T, U>(propsToOmit: string, obj: T): U;
 export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
@@ -2705,11 +2705,11 @@ Notes:
 // @SINGLE_MARKER
 export function partition<T>(
   predicate: Predicate<T>,
-  input: T[]
+  input: readonly T[]
 ): [T[], T[]];
 export function partition<T>(
   predicate: Predicate<T>
-): (input: T[]) => [T[], T[]];
+): (input: readonly T[]) => [T[], T[]];
 export function partition<T>(
   predicate: (x: T, prop?: string) => boolean,
   input: { [key: string]: T}
@@ -2746,10 +2746,10 @@ Notes: String anotation of `pathToSearch` is one of the differences between `Ram
 
 */
 // @SINGLE_MARKER
-export function path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
-export function path<T>(pathToSearch: string | string[], obj: any): T | undefined;
-export function path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
-export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+export function path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
+export function path<T>(pathToSearch: Path, obj: any): T | undefined;
+export function path<T>(pathToSearch: Path): (obj: any) => T | undefined;
+export function path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
 
 /*
 Method: pathEq
