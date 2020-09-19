@@ -8,7 +8,7 @@ type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => 
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
 type MapFunctionArrayIndexed<T, U> = (x: T, i: number) => U;
-type MapIterator<T> = (x: T) => U;
+type MapIterator<T, U> = (x: T) => U;
 type MapIndexedIterator<T, U> = (x: T, i: number) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
@@ -1832,7 +1832,7 @@ Notes:
 // @SINGLE_MARKER
 export function last(str: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /*
 Method: lastIndexOf
@@ -1860,13 +1860,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lastIndexOf<T>(target: T, list: T[]): number;
-export function lastIndexOf<T>(target: T): (list: T[]) => number;
+export function lastIndexOf<T>(target: T, list: readonly T[]): number;
+export function lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 
 /*
 Method: length
 
-Explanation: It returns the `length` property of `listOrString`.
+Explanation: It returns the `length` property of list or string `input`.
 
 Example:
 
@@ -1884,7 +1884,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function length<T>(listOrString: T[]): number;
+export function length<T>(input: readonly T[]): number;
 
 /*
 Method: lens
@@ -2018,11 +2018,11 @@ Notes:
 */
 // @SINGLE_MARKER
 export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
+export function over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
+export function over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
 export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 /*
 Method: set
@@ -2105,11 +2105,11 @@ Notes: Unlike Ramda's `map`, here property and input object are passed as argume
 */
 // @SINGLE_MARKER
 export function map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
-export function map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+export function map<T, U>(fn: MapIterator<T, U>, iterable: readonly T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (iterable: readonly T[]) => U[];
 export function map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
-export function map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
+export function map<T>(fn: MapIterator<T, T>): (iterable: readonly T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, iterable: readonly T[]): T[];
 
 /*
 Method: match
@@ -2226,7 +2226,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mean(list: number[]): number;
+export function mean(list: readonly number[]): number;
 
 /*
 Method: median
@@ -2245,7 +2245,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function median(list: number[]): number;
+export function median(list: readonly number[]): number;
 
 /*
 Method: merge
@@ -2438,15 +2438,15 @@ const result = R.move(0, 1, list)
 
 Categories: List
 
-Notes: Rambda.move doesn't support negative indexes - it throws an error
+Notes: Rambda.move doesn't support negative indexes - it throws an error.
 
 */
 // @SINGLE_MARKER
-export function move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
-export function move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
+export function move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+export function move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
 export function move(fromIndex: number): {
-    <T>(toIndex: number, list: T[]): T[];
-    (toIndex: number): <T>(list: T[]) => T[];
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
 };
 
 /*
@@ -2510,8 +2510,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+export function none<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 
 /*
 Method: not
