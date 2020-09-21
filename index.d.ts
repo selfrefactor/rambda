@@ -8,7 +8,7 @@ type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => 
 type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type MapFunctionArray<T, U> = (x: T) => U;
 type MapFunctionArrayIndexed<T, U> = (x: T, i: number) => U;
-type MapIterator<T> = (x: T) => U;
+type MapIterator<T, U> = (x: T) => U;
 type MapIndexedIterator<T, U> = (x: T, i: number) => U;
 
 type SimplePredicate<T> = (x: T) => boolean;
