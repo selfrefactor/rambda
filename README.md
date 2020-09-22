@@ -952,7 +952,7 @@ describe('R.and', () => {
 
 ```typescript
 
-any<T>(predicate: (x: T) => boolean, list: T[]): boolean
+any<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean
 ```
 
 It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
@@ -971,8 +971,8 @@ R.any(fn, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+any<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 ```
 
 </details>
@@ -1208,10 +1208,10 @@ describe('anyPass', function() {
 
 ```typescript
 
-append<T>(x: T, input: T[]): T[]
+append<T>(x: T, list: readonly T[]): T[]
 ```
 
-It adds element `x` at the end of a list.
+It adds element `x` at the end of `list`.
 
 ```javascript
 const x = 'foo'
@@ -1227,8 +1227,8 @@ const result = R.append(x, ['bar', 'baz'])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-append<T>(x: T, input: T[]): T[];
-append<T>(x: T): <T>(input: T[]) => T[];
+append<T>(x: T, list: readonly T[]): T[];
+append<T>(x: T): <T>(list: readonly T[]) => T[];
 ```
 
 </details>
@@ -9907,7 +9907,7 @@ const result = [
 ```typescript
 last(str: string): string;
 last(emptyList: []): undefined;
-last<T extends any>(list: T[]): T | undefined;
+last<T extends any>(list: readonly T[]): T | undefined;
 ```
 
 </details>
@@ -9976,7 +9976,7 @@ describe('R.last', () => {
 
 ```typescript
 
-lastIndexOf<T>(target: T, list: T[]): number
+lastIndexOf<T>(target: T, list: readonly T[]): number
 ```
 
 It returns the last index of `target` in `list` array.
@@ -10001,8 +10001,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-lastIndexOf<T>(target: T, list: T[]): number;
-lastIndexOf<T>(target: T): (list: T[]) => number;
+lastIndexOf<T>(target: T, list: readonly T[]): number;
+lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 ```
 
 </details>
@@ -10147,10 +10147,10 @@ describe('lastIndexOf', function() {
 
 ```typescript
 
-length<T>(listOrString: T[]): number
+length<T>(input: readonly T[]): number
 ```
 
-It returns the `length` property of `listOrString`.
+It returns the `length` property of list or string `input`.
 
 ```javascript
 const result = [
@@ -10167,7 +10167,7 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-length<T>(listOrString: T[]): number;
+length<T>(input: readonly T[]): number;
 ```
 
 </details>
@@ -10942,11 +10942,11 @@ const result = [
 
 ```typescript
 map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
-map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+map<T, U>(fn: MapIterator<T, U>, iterable: readonly T[]): U[];
+map<T, U>(fn: MapIterator<T, U>): (iterable: readonly T[]) => U[];
 map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
-map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
+map<T>(fn: MapIterator<T, T>): (iterable: readonly T[]) => T[];
+map<T>(fn: MapIterator<T, T>, iterable: readonly T[]): T[];
 ```
 
 </details>
@@ -11542,7 +11542,7 @@ describe('R.maxBy', () => {
 
 ```typescript
 
-mean(list: number[]): number
+mean(list: readonly number[]): number
 ```
 
 It returns the mean value of `list` input.
@@ -11559,7 +11559,7 @@ R.mean([ 2, 7 ])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mean(list: number[]): number;
+mean(list: readonly number[]): number;
 ```
 
 </details>
@@ -11618,7 +11618,7 @@ describe('R.mean', () => {
 
 ```typescript
 
-median(list: number[]): number
+median(list: readonly number[]): number
 ```
 
 It returns the median value of `list` input.
@@ -11634,7 +11634,7 @@ R.median([ 7, 2, 10, 9 ]) // => 8
 <summary>All Typescript definitions</summary>
 
 ```typescript
-median(list: number[]): number;
+median(list: readonly number[]): number;
 ```
 
 </details>
@@ -12476,12 +12476,12 @@ describe('R.modulo', () => {
 
 ```typescript
 
-move<T>(fromIndex: number, toIndex: number, list: T[]): T[]
+move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[]
 ```
 
 It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
 
-> :boom: Rambda.move doesn't support negative indexes - it throws an error
+> :boom: Rambda.move doesn't support negative indexes - it throws an error.
 
 ```javascript
 const list = [1, 2, 3]
@@ -12496,11 +12496,11 @@ const result = R.move(0, 1, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
-move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
+move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
 move(fromIndex: number): {
-    <T>(toIndex: number, list: T[]): T[];
-    (toIndex: number): <T>(list: T[]) => T[];
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
 };
 ```
 
@@ -12740,7 +12740,7 @@ test('negate', () => {
 
 ```typescript
 
-none<T>(predicate: (x: T) => boolean, list: T[]): boolean
+none<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean
 ```
 
 It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
@@ -12760,8 +12760,8 @@ const result = R.none(predicate, arr)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+none<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+none<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 ```
 
 </details>
@@ -12912,7 +12912,7 @@ describe('R.not', () => {
 
 ```typescript
 
-nth<T>(index: number, list: T[]): T | undefined
+nth<T>(index: number, list: readonly T[]): T | undefined
 ```
 
 Curried version of `list[index]`.
@@ -12936,8 +12936,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-nth<T>(index: number, list: T[]): T | undefined;	
-nth(index: number): <T>(list: T[]) => T | undefined;
+nth<T>(index: number, list: readonly T[]): T | undefined;	
+nth(index: number): <T>(list: readonly T[]) => T | undefined;
 ```
 
 </details>
@@ -13092,7 +13092,7 @@ describe('R.of', () => {
 
 ```typescript
 
-omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>
+omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>
 ```
 
 It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -13118,8 +13118,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
-omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
+omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
 omit<T, U>(propsToOmit: string, obj: T): U;
 omit<T, U>(propsToOmit: string): (obj: T) => U;
 omit<T>(propsToOmit: string, obj: object): T;
@@ -13517,11 +13517,11 @@ R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
 
 ```typescript
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
+over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
+over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
 over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 ```
 
 </details>
@@ -13776,7 +13776,7 @@ describe('R.partial', () => {
 
 partition<T>(
   predicate: Predicate<T>,
-  input: T[]
+  input: readonly T[]
 ): [T[], T[]]
 ```
 
@@ -13807,11 +13807,11 @@ const expected = [
 ```typescript
 partition<T>(
   predicate: Predicate<T>,
-  input: T[]
+  input: readonly T[]
 ): [T[], T[]];
 partition<T>(
   predicate: Predicate<T>
-): (input: T[]) => [T[], T[]];
+): (input: readonly T[]) => [T[], T[]];
 partition<T>(
   predicate: (x: T, prop?: string) => boolean,
   input: { [key: string]: T}
@@ -14000,7 +14000,7 @@ describe('R.partition', () => {
 
 ```typescript
 
-path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined
+path<Input, T>(pathToSearch: Path, obj: Input): T | undefined
 ```
 
 If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
@@ -14029,10 +14029,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
-path<T>(pathToSearch: string | string[], obj: any): T | undefined;
-path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
-path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
+path<T>(pathToSearch: Path, obj: any): T | undefined;
+path<T>(pathToSearch: Path): (obj: any) => T | undefined;
+path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
 ```
 
 </details>
@@ -22285,6 +22285,8 @@ WIP 6.2.0
 - Add `R.splitAt`
 
 - Add `R.splitWhen`
+
+- Close [Issue #547](https://github.com/selfrefactor/rambda/issues/547) - restore `readonly` declaration in Typescript definitions.
 
 - `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
 

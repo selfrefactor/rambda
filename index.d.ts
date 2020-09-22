@@ -17,8 +17,8 @@ type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
 type Ord = number | string | boolean | Date;
 
-type Path = string | (number | string)[];
-type RamdaPath = (number | string)[];
+type Path = string | readonly (number | string)[];
+type RamdaPath = readonly (number | string)[];
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -37,9 +37,9 @@ type Arity1Fn = (a: any) => any;
 
 type Arity2Fn = (a: any, b: any) => any;
 
-type Pred = (...a: any[]) => boolean;
+type Pred = (...x: readonly any[]) => boolean;
 type Predicate<T> = (input: T) => boolean;
-type SafePred<T> = (...a: T[]) => boolean;
+type SafePred<T> = (...x: readonly T[]) => boolean;
 
 interface Dictionary<T> {
   [index: string]: T;
@@ -177,8 +177,8 @@ export function or<T>(a: T): <U>(b: U) => T | U;
 /**
  * It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
  */
-export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+export function any<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
@@ -186,10 +186,10 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 
 /**
- * It adds element `x` at the end of a list.
+ * It adds element `x` at the end of `list`.
  */
-export function append<T>(x: T, input: T[]): T[];
-export function append<T>(x: T): <T>(input: T[]) => T[];
+export function append<T>(x: T, list: readonly T[]): T[];
+export function append<T>(x: T): <T>(list: readonly T[]) => T[];
 
 /**
  * It returns a curried function with the same arity as the longest function in the spec object.
@@ -622,7 +622,7 @@ export function keys<T>(x: T): string[];
  */
 export function last(str: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -631,13 +631,13 @@ export function last<T extends any>(list: T[]): T | undefined;
  * 
  * If there is no such index, then `-1` is returned.
  */
-export function lastIndexOf<T>(target: T, list: T[]): number;
-export function lastIndexOf<T>(target: T): (list: T[]) => number;
+export function lastIndexOf<T>(target: T, list: readonly T[]): number;
+export function lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 
 /**
- * It returns the `length` property of `listOrString`.
+ * It returns the `length` property of list or string `input`.
  */
-export function length<T>(listOrString: T[]): number;
+export function length<T>(input: readonly T[]): number;
 
 /**
  * It returns a `lens` for the given `getter` and `setter` functions.
@@ -672,11 +672,11 @@ export function lensProp(prop: string): {
  * It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
  */
 export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
+export function over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
 export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
+export function over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
 export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
 
 /**
  * It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
@@ -697,11 +697,11 @@ export function view<T, U>(lens: Lens, target: T): U;
  * It works with both array and object.
  */
 export function map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapIterator<T, U>, iterable: T[]): U[];
-export function map<T, U>(fn: MapIterator<T, U>): (iterable: T[]) => U[];
+export function map<T, U>(fn: MapIterator<T, U>, iterable: readonly T[]): U[];
+export function map<T, U>(fn: MapIterator<T, U>): (iterable: readonly T[]) => U[];
 export function map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapIterator<T, T>): (iterable: T[]) => T[];
-export function map<T>(fn: MapIterator<T, T>, iterable: T[]): T[];
+export function map<T>(fn: MapIterator<T, T>): (iterable: readonly T[]) => T[];
+export function map<T>(fn: MapIterator<T, T>, iterable: readonly T[]): T[];
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -731,12 +731,12 @@ export function maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(
 /**
  * It returns the mean value of `list` input.
  */
-export function mean(list: number[]): number;
+export function mean(list: readonly number[]): number;
 
 /**
  * It returns the median value of `list` input.
  */
-export function median(list: number[]): number;
+export function median(list: readonly number[]): number;
 
 /**
  * It creates a copy of `target` object with overidden `newProps` properties.
@@ -787,11 +787,11 @@ export function modulo(x: number): (y: number) => number;
 /**
  * It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
  */
-export function move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
-export function move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
+export function move<T>(fromIndex: number, toIndex: number, list: readonly T[]): T[];
+export function move(fromIndex: number, toIndex: number): <T>(list: readonly T[]) => T[];
 export function move(fromIndex: number): {
-    <T>(toIndex: number, list: T[]): T[];
-    (toIndex: number): <T>(list: T[]) => T[];
+    <T>(toIndex: number, list: readonly T[]): T[];
+    (toIndex: number): <T>(list: readonly T[]) => T[];
 };
 
 /**
@@ -805,8 +805,8 @@ export function negate(x: number): number;
 /**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
  */
-export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+export function none<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
  * It returns a boolean negated version of `input`.
@@ -816,8 +816,8 @@ export function not(input: any): boolean;
 /**
  * Curried version of `list[index]`.
  */
-export function nth<T>(index: number, list: T[]): T | undefined;	
-export function nth(index: number): <T>(list: T[]) => T | undefined;
+export function nth<T>(index: number, list: readonly T[]): T | undefined;	
+export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
 
 /**
  * It returns a function, which invokes only once `fn` function.
@@ -827,8 +827,8 @@ export function once<T extends (...args: any[]) => any>(func: T): T;
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
  */
-export function omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
-export function omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
+export function omit<T, K extends string>(propsToOmit: readonly K[], obj: T): Omit<T, K>;
+export function omit<K extends string>(propsToOmit: readonly K[]): <T>(obj: T) => Omit<T, K>;
 export function omit<T, U>(propsToOmit: string, obj: T): U;
 export function omit<T, U>(propsToOmit: string): (obj: T) => U;
 export function omit<T>(propsToOmit: string, obj: object): T;
@@ -855,11 +855,11 @@ export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) =
  */
 export function partition<T>(
   predicate: Predicate<T>,
-  input: T[]
+  input: readonly T[]
 ): [T[], T[]];
 export function partition<T>(
   predicate: Predicate<T>
-): (input: T[]) => [T[], T[]];
+): (input: readonly T[]) => [T[], T[]];
 export function partition<T>(
   predicate: (x: T, prop?: string) => boolean,
   input: { [key: string]: T}
@@ -873,10 +873,10 @@ export function partition<T>(
  * 
  * It will return `undefined`, if such path is not found.
  */
-export function path<Input, T>(pathToSearch: string | string[], obj: Input): T | undefined;
-export function path<T>(pathToSearch: string | string[], obj: any): T | undefined;
-export function path<T>(pathToSearch: string | string[]): (obj: any) => T | undefined;
-export function path<Input, T>(pathToSearch: string | string[]): (obj: Input) => T | undefined;
+export function path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
+export function path<T>(pathToSearch: Path, obj: any): T | undefined;
+export function path<T>(pathToSearch: Path): (obj: any) => T | undefined;
+export function path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
 
 /**
  * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.

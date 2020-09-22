@@ -319,8 +319,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
-export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+export function any<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 
 /*
 Method: anyPass
@@ -353,7 +353,7 @@ export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 /*
 Method: append
 
-Explanation: It adds element `x` at the end of a list.
+Explanation: It adds element `x` at the end of `list`.
 
 Example:
 
@@ -370,8 +370,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(x: T, input: T[]): T[];
-export function append<T>(x: T): <T>(input: T[]) => T[];
+export function append<T>(x: T, list: readonly T[]): T[];
+export function append<T>(x: T): <T>(list: readonly T[]) => T[];
 
 /*
 Method: applySpec
@@ -2558,8 +2558,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: T[]): T | undefined;	
-export function nth(index: number): <T>(list: T[]) => T | undefined;
+export function nth<T>(index: number, list: readonly T[]): T | undefined;	
+export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
 
 /*
 Method: once
