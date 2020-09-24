@@ -318,8 +318,8 @@ export function concat(x: string): (y: string) => string;
  * 
  * If no winner is found, then `fn` returns `undefined`.
  */
-export function cond(conditions: [Pred, (...a: any[]) => any][]): (...x: any[]) => any;
-export function cond<A, B>(conditions: [SafePred<A>, (...a: A[]) => B][]): (...x: A[]) => B;
+export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...x: readonly any[]) => any;
+export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...x: readonly A[]) => B;
 
 export function converge(after: ((...a: any[]) => any), fns: Array<((...x: any[]) => any)>): (...y: any[]) => any;
 
@@ -331,7 +331,7 @@ export function curry(fn: (...args: any[]) => any): (...a: any[]) => any;
 /**
  * It returns a curried equivalent of the provided function, with the specified arity.
  */
-export function curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /**
  * It decrements a number.
@@ -350,8 +350,8 @@ export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: (T | U |
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
  */
-export function difference<T>(a: T[], b: T[]): T[];
-export function difference<T>(a: T[]): (b: T[]) => T[];
+export function difference<T>(a: readonly T[], b: readonly T[]): T[];
+export function difference<T>(a: readonly T[]): (b: readonly T[]) => T[];
 
 /**
  * It returns a new object that does not contain property `prop`.
@@ -363,23 +363,23 @@ export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
 
 /**
- * It returns `listOrString` with `howMany` items dropped from its beginning.
+ * It returns `howMany` items dropped from beginning of list or string `input`.
  */
-export function drop<T>(howMany: number, listOrString: T[]): T[];
-export function drop(howMany: number, listOrString: string): string;
+export function drop<T>(howMany: number, input: readonly T[]): T[];
+export function drop(howMany: number, input: string): string;
 export function drop<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /**
- * It returns `listOrString` with `howMany` items dropped from its end.
+ * It returns `howMany` items dropped from the end of list or string `input`.
  */
-export function dropLast<T>(howMany: number, listOrString: T[]): T[];
-export function dropLast(howMany: number, listOrString: string): string;
+export function dropLast<T>(howMany: number, input: readonly T[]): T[];
+export function dropLast(howMany: number, input: string): string;
 export function dropLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /**
@@ -407,10 +407,10 @@ export function equals<T>(x: T): (y: T) => boolean;
 export function F(): boolean;
 
 /**
- * It filters a list or an object `input` using a `predicate` function.
+ * It filters list or object `input` using a `predicate` function.
  */
-export function filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-export function filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+export function filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[];
+export function filter<T>(predicate: FilterFunctionArray<T>, input: readonly T[]): T[];
 export function filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
@@ -419,8 +419,8 @@ export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>):
  * 
  * If there is no such element, it returns `undefined`.
  */
-export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
-export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
+export function find<T>(predicate: (x: T) => boolean, list: readonly T[]): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
  * It returns the index of the first element of `list` satisfying the `predicate` function.

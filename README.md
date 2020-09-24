@@ -3355,7 +3355,7 @@ describe('concat', function() {
 
 ```typescript
 
-cond(conditions: [Pred, (...a: any[]) => any][]): (...x: any[]) => any
+cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...x: readonly any[]) => any
 ```
 
 It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
@@ -3388,8 +3388,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-cond(conditions: [Pred, (...a: any[]) => any][]): (...x: any[]) => any;
-cond<A, B>(conditions: [SafePred<A>, (...a: A[]) => B][]): (...x: A[]) => B;
+cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...x: readonly any[]) => any;
+cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...x: readonly A[]) => B;
 ```
 
 </details>
@@ -3895,7 +3895,7 @@ describe('curry properties', function() {
 
 ```typescript
 
-curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any
+curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any
 ```
 
 It returns a curried equivalent of the provided function, with the specified arity.
@@ -3905,7 +3905,7 @@ It returns a curried equivalent of the provided function, with the specified ari
 <summary>All Typescript definitions</summary>
 
 ```typescript
-curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
+curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 ```
 
 </details>
@@ -4385,7 +4385,7 @@ describe('R.defaultTo can have many inputs', () => {
 
 ```typescript
 
-difference<T>(a: T[], b: T[]): T[]
+difference<T>(a: readonly T[], b: readonly T[]): T[]
 ```
 
 It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
@@ -4405,8 +4405,8 @@ const result = difference(a, b)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-difference<T>(a: T[], b: T[]): T[];
-difference<T>(a: T[]): (b: T[]) => T[];
+difference<T>(a: readonly T[], b: readonly T[]): T[];
+difference<T>(a: readonly T[]): (b: readonly T[]) => T[];
 ```
 
 </details>
@@ -4706,10 +4706,10 @@ test('happy', () => {
 
 ```typescript
 
-drop<T>(howMany: number, listOrString: T[]): T[]
+drop<T>(howMany: number, input: readonly T[]): T[]
 ```
 
-It returns `listOrString` with `howMany` items dropped from its beginning.
+It returns `howMany` items dropped from beginning of list or string `input`.
 
 ```javascript
 R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
@@ -4723,11 +4723,11 @@ R.drop(2, 'foobar')  // => 'obar'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-drop<T>(howMany: number, listOrString: T[]): T[];
-drop(howMany: number, listOrString: string): string;
+drop<T>(howMany: number, input: readonly T[]): T[];
+drop(howMany: number, input: string): string;
 drop<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 ```
 
@@ -4822,10 +4822,10 @@ describe('R.drop - string', () => {
 
 ```typescript
 
-dropLast<T>(howMany: number, listOrString: T[]): T[]
+dropLast<T>(howMany: number, input: readonly T[]): T[]
 ```
 
-It returns `listOrString` with `howMany` items dropped from its end.
+It returns `howMany` items dropped from the end of list or string `input`.
 
 ```javascript
 R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
@@ -4839,11 +4839,11 @@ R.dropLast(2, 'foobar')  // => 'foob'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-dropLast<T>(howMany: number, listOrString: T[]): T[];
-dropLast(howMany: number, listOrString: string): string;
+dropLast<T>(howMany: number, input: readonly T[]): T[];
+dropLast(howMany: number, input: string): string;
 dropLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 ```
 
@@ -5943,14 +5943,14 @@ export function F(){
 
 ```typescript
 
-filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[]
+filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[]
 ```
 
-It filters a list or an object `input` using a `predicate` function.
+It filters list or object `input` using a `predicate` function.
 
 ```javascript
 const list = [3, 4, 3, 2]
-const listPredicate = (x, index) => x - index > 2
+const listPredicate = x => x > 2
 
 const object = {abc: 'fo', xyz: 'bar', baz: 'foo'}
 const objectPredicate = (x, prop) => x.length + prop.length > 5
@@ -5962,15 +5962,15 @@ const result = [
 // => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B3%2C%204%2C%203%2C%202%5D%0Aconst%20listPredicate%20%3D%20(x%2C%20index)%20%3D%3E%20x%20-%20index%20%3E%202%0A%0Aconst%20object%20%3D%20%7Babc%3A%20'fo'%2C%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%0Aconst%20objectPredicate%20%3D%20(x%2C%20prop)%20%3D%3E%20x.length%20%2B%20prop.length%20%3E%205%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.filter(listPredicate%2C%20list)%2C%0A%20%20R.filter(objectPredicate%2C%20object)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B3%2C%204%5D%2C%20%7B%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%20%5D">Try this <strong>R.filter</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B3%2C%204%2C%203%2C%202%5D%0Aconst%20listPredicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20object%20%3D%20%7Babc%3A%20'fo'%2C%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%0Aconst%20objectPredicate%20%3D%20(x%2C%20prop)%20%3D%3E%20x.length%20%2B%20prop.length%20%3E%205%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.filter(listPredicate%2C%20list)%2C%0A%20%20R.filter(objectPredicate%2C%20object)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B3%2C%204%5D%2C%20%7B%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%20%5D">Try this <strong>R.filter</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[];
+filter<T>(predicate: FilterFunctionArray<T>, input: readonly T[]): T[];
 filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
 filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 ```
@@ -6185,7 +6185,7 @@ describe('filter', function() {
 
 ```typescript
 
-find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined
+find<T>(predicate: (x: T) => boolean, list: readonly T[]): T | undefined
 ```
 
 It returns the first element of `list` that satisfy the `predicate`.
@@ -6207,8 +6207,8 @@ const result = R.find(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
-find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
+find<T>(predicate: (x: T) => boolean, list: readonly T[]): T | undefined;
+find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 ```
 
 </details>

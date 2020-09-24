@@ -927,7 +927,7 @@ export function drop<T>(howMany: number): {
 /*
 Method: dropLast
 
-Explanation: It returns `listOrString` with `howMany` items dropped from its end.
+Explanation: It returns `howMany` items dropped from the end of list or string `input`.
 
 Example:
 
@@ -942,11 +942,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howMany: number, listOrString: T[]): T[];
-export function dropLast(howMany: number, listOrString: string): string;
+export function dropLast<T>(howMany: number, input: readonly T[]): T[];
+export function dropLast(howMany: number, input: string): string;
 export function dropLast<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /*
@@ -1051,13 +1051,13 @@ export function F(): boolean;
 /*
 Method: filter
 
-Explanation: It filters a list or an object `input` using a `predicate` function.
+Explanation: It filters list or object `input` using a `predicate` function.
 
 Example:
 
 ```
 const list = [3, 4, 3, 2]
-const listPredicate = (x, index) => x - index > 2
+const listPredicate = x => x > 2
 
 const object = {abc: 'fo', xyz: 'bar', baz: 'foo'}
 const objectPredicate = (x, prop) => x.length + prop.length > 5
@@ -1075,8 +1075,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filter<T>(predicate: FilterFunctionArray<T>): (x: T[]) => T[];
-export function filter<T>(predicate: FilterFunctionArray<T>, x: T[]): T[];
+export function filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[];
+export function filter<T>(predicate: FilterFunctionArray<T>, input: readonly T[]): T[];
 export function filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
@@ -1103,8 +1103,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
-export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
+export function find<T>(predicate: (x: T) => boolean, list: readonly T[]): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /*
 Method: findIndex
