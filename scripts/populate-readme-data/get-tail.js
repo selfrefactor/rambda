@@ -37,7 +37,11 @@ function getAdditionalInfo(){
 
 - [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
 
-- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)  
+- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
+
+> Releases
+
+[Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
 `
   let contributors = ''
 
