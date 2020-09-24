@@ -720,15 +720,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function cond(conditions: [Pred, (...a: any[]) => any][]): (...x: any[]) => any;
-export function cond<A, B>(conditions: [SafePred<A>, (...a: A[]) => B][]): (...x: A[]) => B;
+export function cond(conditions: [Pred, (...a: readonly any[]) => any][]): (...x: readonly any[]) => any;
+export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][]): (...x: readonly A[]) => B;
 
 /*
 Method: converge
 
 Explanation:
-
-
 
 Example:
 
@@ -784,14 +782,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
 
 /*
 Method: dec
 
 Explanation: It decrements a number.
-
-
 
 Example:
 
@@ -859,8 +855,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function difference<T>(a: T[], b: T[]): T[];
-export function difference<T>(a: T[]): (b: T[]) => T[];
+export function difference<T>(a: readonly T[], b: readonly T[]): T[];
+export function difference<T>(a: readonly T[]): (b: readonly T[]) => T[];
 
 /*
 Method: dissoc
@@ -906,7 +902,7 @@ export function divide(x: number): (y: number) => number;
 /*
 Method: drop
 
-Explanation: It returns `listOrString` with `howMany` items dropped from its beginning.
+Explanation: It returns `howMany` items dropped from beginning of list or string `input`.
 
 Example:
 
@@ -921,11 +917,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howMany: number, listOrString: T[]): T[];
-export function drop(howMany: number, listOrString: string): string;
+export function drop<T>(howMany: number, input: readonly T[]): T[];
+export function drop(howMany: number, input: string): string;
 export function drop<T>(howMany: number): {
-  <T>(listOrString: T[]): T[];
-  (listOrString: string): string;
+  <T>(input: readonly T[]): T[];
+  (input: string): string;
 };
 
 /*
