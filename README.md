@@ -1307,7 +1307,7 @@ describe('R.append', () => {
 
 ```typescript
 
-applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
@@ -1348,12 +1348,12 @@ getMetrics(2, 4)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-applySpec<T>(spec: any): (...args: any[]) => T;
+applySpec<T>(spec: any): (...args: readonly any[]) => T;
 ```
 
 </details>
@@ -2409,7 +2409,7 @@ describe('both', function() {
 
 ```typescript
 
-chain<T, U>(fn: (n: T) => U[], list: T[]): U[]
+chain<T, U>(fn: (n: T) => U[], list: readonly T[]): U[]
 ```
 
 The method is also known as `flatMap`.
@@ -2429,8 +2429,8 @@ const result = chain(duplicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
-chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
+chain<T, U>(fn: (n: T) => U[], list: readonly T[]): U[];
+chain<T, U>(fn: (n: T) => U[]): (list: readonly T[]) => U[];
 chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 ```
 
@@ -2659,7 +2659,7 @@ const result = [
 
 ```typescript
 clone<T>(input: T): T;
-clone<T>(input: T[]): T[];
+clone<T>(input: readonly T[]): T[];
 ```
 
 </details>
@@ -2884,7 +2884,7 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 ```typescript
 
-complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
+complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean
 ```
 
 It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -2908,7 +2908,7 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
+complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
 ```
 
 </details>
@@ -3232,7 +3232,7 @@ describe('compose properties', function() {
 
 ```typescript
 
-concat<T>(x: T[], y: T[]): T[]
+concat<T>(x: readonly T[], y: readonly T[]): T[]
 ```
 
 It returns a new string or array, which is the result of merging `x` and `y`.
@@ -3249,8 +3249,8 @@ R.concat('foo', 'bar') // => 'foobar'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-concat<T>(x: T[], y: T[]): T[];
-concat<T>(x: T[]): (y: T[]) => T[];
+concat<T>(x: readonly T[], y: readonly T[]): T[];
+concat<T>(x: readonly T[]): (y: readonly T[]) => T[];
 concat(x: string, y: string): string;
 concat(x: string): (y: string) => string;
 ```

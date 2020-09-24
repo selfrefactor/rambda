@@ -195,12 +195,12 @@ export function append<T>(x: T): <T>(list: readonly T[]) => T[];
  * It returns a curried function with the same arity as the longest function in the spec object.
  * Arguments will be applied to the spec methods recursively.
  */
-export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: any[]) => T;
+export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -229,8 +229,8 @@ export function both(pred1: Pred): (pred2: Pred) => Pred;
 /**
  * The method is also known as `flatMap`.
  */
-export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
-export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
+export function chain<T, U>(fn: (n: T) => U[], list: readonly T[]): U[];
+export function chain<T, U>(fn: (n: T) => U[]): (list: readonly T[]) => U[];
 export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
@@ -247,14 +247,14 @@ export function clamp(min: number, max: number): (input: number) => number;
  * It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
  */
 export function clone<T>(input: T): T;
-export function clone<T>(input: T[]): T[];
+export function clone<T>(input: readonly T[]): T[];
 
 /**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
  */
-export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
+export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
 
 /**
  * It performs right-to-left function composition.
@@ -304,8 +304,8 @@ export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
 /**
  * It returns a new string or array, which is the result of merging `x` and `y`.
  */
-export function concat<T>(x: T[], y: T[]): T[];
-export function concat<T>(x: T[]): (y: T[]) => T[];
+export function concat<T>(x: readonly T[], y: readonly T[]): T[];
+export function concat<T>(x: readonly T[]): (y: readonly T[]) => T[];
 export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
 

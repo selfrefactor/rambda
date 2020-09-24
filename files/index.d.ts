@@ -409,12 +409,12 @@ Notes: The currying in this function works best with functions with 4 arguments 
 
 */
 // @SINGLE_MARKER
-export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: any[]) => T;
+export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 
 /*
 Method: assoc
@@ -516,8 +516,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
-export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
+export function chain<T, U>(fn: (n: T) => U[], list: readonly T[]): U[];
+export function chain<T, U>(fn: (n: T) => U[]): (list: readonly T[]) => U[];
 export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /*
@@ -570,7 +570,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function clone<T>(input: T): T;
-export function clone<T>(input: T[]): T[];
+export function clone<T>(input: readonly T[]): T[];
 
 /*
 Method: complement
@@ -578,7 +578,6 @@ Method: complement
 Explanation: It returns `inverted` version of `origin` function that accept `input` as argument.
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
-
 
 Example:
 
@@ -598,7 +597,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
+export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
 
 /*
 Method: compose
@@ -682,8 +681,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function concat<T>(x: T[], y: T[]): T[];
-export function concat<T>(x: T[]): (y: T[]) => T[];
+export function concat<T>(x: readonly T[], y: readonly T[]): T[];
+export function concat<T>(x: readonly T[]): (y: readonly T[]) => T[];
 export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
 
