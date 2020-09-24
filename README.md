@@ -6293,7 +6293,7 @@ describe('R.find', () => {
 
 ```typescript
 
-findIndex<T>(predicate: (x: T) => boolean, list: T[]): number
+findIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number
 ```
 
 It returns the index of the first element of `list` satisfying the `predicate` function.
@@ -6315,8 +6315,8 @@ const result = R.findIndex(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+findIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+findIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 ```
 
 </details>
@@ -6394,7 +6394,7 @@ describe('R.findIndex', () => {
 
 ```typescript
 
-findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined
+findLast<T>(fn: (x: T) => boolean, list: readonly T[]): T | undefined
 ```
 
 It returns the last element of `list` satisfying the `predicate` function.
@@ -6416,8 +6416,8 @@ const result = R.findLast(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+findLast<T>(fn: (x: T) => boolean, list: readonly T[]): T | undefined;
+findLast<T>(fn: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 ```
 
 </details>
@@ -6533,7 +6533,7 @@ describe('R.findLast', () => {
 
 ```typescript
 
-findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number
+findLastIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number
 ```
 
 It returns the index of the last element of `list` satisfying the `predicate` function.
@@ -6555,8 +6555,8 @@ const result = R.findLastIndex(predicate, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+findLastIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+findLastIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 ```
 
 </details>
@@ -6673,7 +6673,7 @@ describe('R.findLastIndex', () => {
 
 ```typescript
 
-flatten<T>(list: any[]): T[]
+flatten<T>(list: readonly any[]): T[]
 ```
 
 It deeply flattens an array.
@@ -6695,7 +6695,7 @@ const result = R.flatten([
 <summary>All Typescript definitions</summary>
 
 ```typescript
-flatten<T>(list: any[]): T[];
+flatten<T>(list: readonly any[]): T[];
 ```
 
 </details>
@@ -6988,7 +6988,7 @@ describe('flip properties', function() {
 
 ```typescript
 
-forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[]
+forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[]
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
@@ -7012,8 +7012,8 @@ result //=> [1, 2]
 <summary>All Typescript definitions</summary>
 
 ```typescript
-forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
-forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[];
+forEach<T>(fn: MapFunctionArray<T, void>): (list: readonly T[]) => T[];
 forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
 forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 ```
@@ -7332,7 +7332,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
 
 ```typescript
 
-groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] }
+groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { [index: string]: T[] }
 ```
 
 It splits `list` according to a provided `groupFn` function and returns an object.
@@ -7352,8 +7352,8 @@ const result = R.groupBy(groupFn, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
-groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
+groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { [index: string]: T[] };
+groupBy<T>(groupFn: (x: T) => string): (list: readonly T[]) => { [index: string]: T[] };
 ```
 
 </details>
@@ -7495,10 +7495,10 @@ describe('groupBy', function() {
 
 ```typescript
 
-groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: T[]) => T[][]
+groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => T[][]
 ```
 
-It returns separated version of `list`, where separation is done with equality `compareFn` function.
+It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
 
 ```javascript
 const compareFn = (x, y) => x === y
@@ -7515,9 +7515,9 @@ const result = R.groupWith(isConsecutive, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: T[]) => T[][];
-groupWith<T>(compareFn: (x: T, y: T) => boolean, list: T[]): T[][];
-groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
+groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => T[][];
+groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): T[][];
+groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 ```
 
 </details>

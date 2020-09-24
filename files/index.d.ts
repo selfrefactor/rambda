@@ -1129,8 +1129,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /*
 Method: findLast
@@ -1155,8 +1155,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T) => boolean, list: readonly T[]): T | undefined;
+export function findLast<T>(fn: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /*
 Method: findLastIndex
@@ -1181,8 +1181,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+export function findLastIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /*
 Method: flatten
@@ -1207,7 +1207,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flatten<T>(list: any[]): T[];
+export function flatten<T>(list: readonly any[]): T[];
 
 /*
 Method: flip
@@ -1258,8 +1258,8 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
-export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: readonly T[]) => T[];
 export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
@@ -1312,13 +1312,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: readonly T[]) => { [index: string]: T[] };
 
 /*
 Method: groupWith
 
-Explanation: It returns separated version of `list`, where separation is done with equality `compareFn` function.
+Explanation: It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
 
 Example:
 
@@ -1330,15 +1330,15 @@ const result = R.groupWith(isConsecutive, list)
 // => [[1], [2,2], [1,1], [2]]
 ```
 
-Categories: List
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: T[]) => T[][];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: T[]): T[][];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
 /*
 Method: has

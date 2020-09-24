@@ -427,29 +427,29 @@ export function find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /**
  * It returns the last element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `undefined` is returned.
  */
-export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
-export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
+export function findLast<T>(fn: (x: T) => boolean, list: readonly T[]): T | undefined;
+export function findLast<T>(fn: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
  * It returns the index of the last element of `list` satisfying the `predicate` function.
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
-export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+export function findLastIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+export function findLastIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /**
  * It deeply flattens an array.
  */
-export function flatten<T>(list: any[]): T[];
+export function flatten<T>(list: readonly any[]): T[];
 
 /**
  * It returns function which calls `fn` with exchanged first and second argument.
@@ -460,8 +460,8 @@ export function flip<F extends (...args: any) => any, P extends FunctionToolbelt
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
  */
-export function forEach<T>(fn: MapFunctionArray<T, void>, list: T[]): T[];
-export function forEach<T>(fn: MapFunctionArray<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[];
+export function forEach<T>(fn: MapFunctionArray<T, void>): (list: readonly T[]) => T[];
 export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
@@ -474,15 +474,15 @@ export function fromPairs<V>(listOfPairs: KeyValuePair<number, V>[]): { [index: 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
  */
-export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: readonly T[]) => { [index: string]: T[] };
 
 /**
- * It returns separated version of `list`, where separation is done with equality `compareFn` function.
+ * It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
  */
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (list: T[]) => T[][];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: T[]): T[][];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, list: string): string[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): T[][];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
 /**
  * It returns `true` if `obj` has property `prop`.
