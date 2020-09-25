@@ -494,18 +494,18 @@ export function has(prop: string): <T>(obj: T) => boolean;
  * It will return true, if `input` object has truthy `path`(calculated with `R.path`).
  */
 export function hasPath<T>(
-  path: string | string[],
+  path: string | readonly string[],
   input: object
 ): boolean;
 export function hasPath<T>(
-  path: string | string[]
+  path: string | readonly string[]
 ): (input: object) => boolean;
 
 /**
- * It returns the first element of `listOrString`.
+ * It returns the first element of list or string `input`.
  */
-export function head<T>(listOrString: T[]): T | undefined;
-export function head(listOrString: string): string;
+export function head<T>(input: readonly T[]): T | undefined;
+export function head(input: string): string;
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -546,10 +546,10 @@ export function inc(x: number): number;
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes(valueToFind: string, input: string[] | string): boolean;
-export function includes(valueToFind: string): (input: string[] | string) => boolean;
-export function includes<T>(valueToFind: T, input: T[]): boolean;
-export function includes<T>(valueToFind: T): (input: T[]) => boolean;
+export function includes(valueToFind: string, input: readonly string[] | string): boolean;
+export function includes(valueToFind: string): (input: readonly string[] | string) => boolean;
+export function includes<T>(valueToFind: T, input: readonly T[]): boolean;
+export function includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
 
 /**
  * It generates object with properties provided by `condition` and values provided by `list` array.

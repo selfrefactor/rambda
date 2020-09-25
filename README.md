@@ -7852,7 +7852,7 @@ describe('has', function() {
 ```typescript
 
 hasPath<T>(
-  path: string | string[],
+  path: string | readonly string[],
   input: object
 ): boolean
 ```
@@ -7880,11 +7880,11 @@ const result = [
 
 ```typescript
 hasPath<T>(
-  path: string | string[],
+  path: string | readonly string[],
   input: object
 ): boolean;
 hasPath<T>(
-  path: string | string[]
+  path: string | readonly string[]
 ): (input: object) => boolean;
 ```
 
@@ -7969,10 +7969,10 @@ describe('R.hasPath', () => {
 
 ```typescript
 
-head<T>(listOrString: T[]): T | undefined
+head<T>(input: readonly T[]): T | undefined
 ```
 
-It returns the first element of `listOrString`.
+It returns the first element of list or string `input`.
 
 ```javascript
 const result = [
@@ -7989,8 +7989,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-head<T>(listOrString: T[]): T | undefined;
-head(listOrString: string): string;
+head<T>(input: readonly T[]): T | undefined;
+head(input: string): string;
 ```
 
 </details>
@@ -8543,7 +8543,7 @@ test('happy', () => {
 
 ```typescript
 
-includes(valueToFind: string, input: string[] | string): boolean
+includes(valueToFind: string, input: readonly string[] | string): boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -8565,10 +8565,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-includes(valueToFind: string, input: string[] | string): boolean;
-includes(valueToFind: string): (input: string[] | string) => boolean;
-includes<T>(valueToFind: T, input: T[]): boolean;
-includes<T>(valueToFind: T): (input: T[]) => boolean;
+includes(valueToFind: string, input: readonly string[] | string): boolean;
+includes(valueToFind: string): (input: readonly string[] | string) => boolean;
+includes<T>(valueToFind: T, input: readonly T[]): boolean;
+includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
 ```
 
 </details>

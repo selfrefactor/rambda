@@ -1393,17 +1393,17 @@ Notes:
 */
 // @SINGLE_MARKER
 export function hasPath<T>(
-  path: string | string[],
+  path: string | readonly string[],
   input: object
 ): boolean;
 export function hasPath<T>(
-  path: string | string[]
+  path: string | readonly string[]
 ): (input: object) => boolean;
 
 /*
 Method: head
 
-Explanation: It returns the first element of `listOrString`.
+Explanation: It returns the first element of list or string `input`.
 
 Example:
 
@@ -1421,8 +1421,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(listOrString: T[]): T | undefined;
-export function head(listOrString: string): string;
+export function head<T>(input: readonly T[]): T | undefined;
+export function head(input: string): string;
 
 /*
 Method: identical
@@ -1550,10 +1550,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes(valueToFind: string, input: string[] | string): boolean;
-export function includes(valueToFind: string): (input: string[] | string) => boolean;
-export function includes<T>(valueToFind: T, input: T[]): boolean;
-export function includes<T>(valueToFind: T): (input: T[]) => boolean;
+export function includes(valueToFind: string, input: readonly string[] | string): boolean;
+export function includes(valueToFind: string): (input: readonly string[] | string) => boolean;
+export function includes<T>(valueToFind: T, input: readonly T[]): boolean;
+export function includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
 
 /*
 Method: indexBy
