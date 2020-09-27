@@ -6,5 +6,5 @@
     ✓ only splits once
 
 
-  3 passing (33ms)
+  3 passing (31ms)
 
