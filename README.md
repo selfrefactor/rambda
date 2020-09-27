@@ -8717,7 +8717,7 @@ describe('includes', function() {
 
 ```typescript
 
-indexBy<T>(condition: (x: T) => string, list: T[]): { [key: string]: T }
+indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T }
 ```
 
 It generates object with properties provided by `condition` and values provided by `list` array.
@@ -8751,10 +8751,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-indexBy<T>(condition: (x: T) => string, list: T[]): { [key: string]: T };
-indexBy<T>(condition: string, list: T[]): { [key: string]: T };
-indexBy<T>(condition: (x: T) => string): (list: T[]) => { [key: string]: T };
-indexBy<T>(condition: string): (list: T[]) => { [key: string]: T };
+indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
+indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
+indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 ```
 
 </details>
@@ -8954,7 +8954,7 @@ describe('indexBy', function() {
 
 ```typescript
 
-indexOf<T>(valueToFind: T, list: T[]): number
+indexOf<T>(valueToFind: T, list: readonly T[]): number
 ```
 
 It returns the index of the first element of `list` equals to `valueToFind`.
@@ -8978,8 +8978,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-indexOf<T>(valueToFind: T, list: T[]): number;
-indexOf<T>(valueToFind: T): (list: T[]) => number;
+indexOf<T>(valueToFind: T, list: readonly T[]): number;
+indexOf<T>(valueToFind: T): (list: readonly T[]) => number;
 ```
 
 </details>
@@ -9109,10 +9109,10 @@ describe('indexOf', function() {
 
 ```typescript
 
-init<T>(listOrString: T[]): T[]
+init<T>(input: readonly T[]): T[]
 ```
 
-It returns all but the last element of `listOrString`.
+It returns all but the last element of list or string `input`.
 
 ```javascript
 const result = [
@@ -9129,8 +9129,8 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-init<T>(listOrString: T[]): T[];
-init(listOrString: string): string;
+init<T>(input: readonly T[]): T[];
+init(input: string): string;
 ```
 
 </details>
@@ -9205,7 +9205,7 @@ describe('R.init', () => {
 
 ```typescript
 
-intersection<T>(listA: T[], listB: T[]): T[]
+intersection<T>(listA: readonly T[], listB: readonly T[]): T[]
 ```
 
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -9225,8 +9225,8 @@ const result = intersection(listA, listB)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-intersection<T>(listA: T[], listB: T[]): T[];
-intersection<T>(listA: T[]): (listB: T[]) => T[];
+intersection<T>(listA: readonly T[], listB: readonly T[]): T[];
+intersection<T>(listA: readonly T[]): (listB: readonly T[]) => T[];
 ```
 
 </details>
@@ -9299,7 +9299,7 @@ describe('R.intersection', () => {
 
 ```typescript
 
-intersperse<T>(separator: T, list: T[]): T[]
+intersperse<T>(separator: T, list: readonly T[]): T[]
 ```
 
 It adds a `separator` between members of `list`.
@@ -9318,8 +9318,8 @@ const result = intersperse(separator, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-intersperse<T>(separator: T, list: T[]): T[];
-intersperse<T>(separator: T): (list: T[]) => T[];
+intersperse<T>(separator: T, list: readonly T[]): T[];
+intersperse<T>(separator: T): (list: readonly T[]) => T[];
 ```
 
 </details>
@@ -9704,7 +9704,7 @@ test('happy', () => {
 
 ```typescript
 
-join<T>(glue: string, list: T[]): string
+join<T>(glue: string, list: readonly T[]): string
 ```
 
 It returns a string of all `list` instances joined with a `glue`.
@@ -9720,8 +9720,8 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-join<T>(glue: string, list: T[]): string;
-join<T>(glue: string): (list: T[]) => string;
+join<T>(glue: string, list: readonly T[]): string;
+join<T>(glue: string): (list: readonly T[]) => string;
 ```
 
 </details>

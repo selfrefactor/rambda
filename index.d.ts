@@ -558,36 +558,36 @@ export function includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
  * 
  * If `condition` is a string, then all list members are passed through `R.path(condition)`.
  */
-export function indexBy<T>(condition: (x: T) => string, list: T[]): { [key: string]: T };
-export function indexBy<T>(condition: string, list: T[]): { [key: string]: T };
-export function indexBy<T>(condition: (x: T) => string): (list: T[]) => { [key: string]: T };
-export function indexBy<T>(condition: string): (list: T[]) => { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
+export function indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 
 /**
  * It returns the index of the first element of `list` equals to `valueToFind`.
  * 
  * If there is no such element, it returns `-1`.
  */
-export function indexOf<T>(valueToFind: T, list: T[]): number;
-export function indexOf<T>(valueToFind: T): (list: T[]) => number;
+export function indexOf<T>(valueToFind: T, list: readonly T[]): number;
+export function indexOf<T>(valueToFind: T): (list: readonly T[]) => number;
 
 /**
- * It returns all but the last element of `listOrString`.
+ * It returns all but the last element of list or string `input`.
  */
-export function init<T>(listOrString: T[]): T[];
-export function init(listOrString: string): string;
+export function init<T>(input: readonly T[]): T[];
+export function init(input: string): string;
 
 /**
  * It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
-export function intersection<T>(listA: T[], listB: T[]): T[];
-export function intersection<T>(listA: T[]): (listB: T[]) => T[];
+export function intersection<T>(listA: readonly T[], listB: readonly T[]): T[];
+export function intersection<T>(listA: readonly T[]): (listB: readonly T[]) => T[];
 
 /**
  * It adds a `separator` between members of `list`.
  */
-export function intersperse<T>(separator: T, list: T[]): T[];
-export function intersperse<T>(separator: T): (list: T[]) => T[];
+export function intersperse<T>(separator: T, list: readonly T[]): T[];
+export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
 
 /**
  * It returns `true` if `x` is instance of `targetPrototype`.
@@ -608,8 +608,8 @@ export function isNil(x: any): x is null | undefined;
 /**
  * It returns a string of all `list` instances joined with a `glue`.
  */
-export function join<T>(glue: string, list: T[]): string;
-export function join<T>(glue: string): (list: T[]) => string;
+export function join<T>(glue: string, list: readonly T[]): string;
+export function join<T>(glue: string): (list: readonly T[]) => string;
 
 /**
  * It applies `Object.keys` over `x` and returns its keys.

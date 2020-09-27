@@ -1590,10 +1590,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexBy<T>(condition: (x: T) => string, list: T[]): { [key: string]: T };
-export function indexBy<T>(condition: string, list: T[]): { [key: string]: T };
-export function indexBy<T>(condition: (x: T) => string): (list: T[]) => { [key: string]: T };
-export function indexBy<T>(condition: string): (list: T[]) => { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
+export function indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 
 /*
 Method: indexOf
@@ -1620,13 +1620,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexOf<T>(valueToFind: T, list: T[]): number;
-export function indexOf<T>(valueToFind: T): (list: T[]) => number;
+export function indexOf<T>(valueToFind: T, list: readonly T[]): number;
+export function indexOf<T>(valueToFind: T): (list: readonly T[]) => number;
 
 /*
 Method: init
 
-Explanation: It returns all but the last element of `listOrString`.
+Explanation: It returns all but the last element of list or string `input`.
 
 Example:
 
@@ -1644,8 +1644,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T>(listOrString: T[]): T[];
-export function init(listOrString: string): string;
+export function init<T>(input: readonly T[]): T[];
+export function init(input: string): string;
 
 /*
 Method: intersection
@@ -1668,8 +1668,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersection<T>(listA: T[], listB: T[]): T[];
-export function intersection<T>(listA: T[]): (listB: T[]) => T[];
+export function intersection<T>(listA: readonly T[], listB: readonly T[]): T[];
+export function intersection<T>(listA: readonly T[]): (listB: readonly T[]) => T[];
 
 /*
 Method: intersperse
@@ -1691,8 +1691,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersperse<T>(separator: T, list: T[]): T[];
-export function intersperse<T>(separator: T): (list: T[]) => T[];
+export function intersperse<T>(separator: T, list: readonly T[]): T[];
+export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
 
 /*
 Method: is
@@ -1781,8 +1781,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function join<T>(glue: string, list: T[]): string;
-export function join<T>(glue: string): (list: T[]) => string;
+export function join<T>(glue: string, list: readonly T[]): string;
+export function join<T>(glue: string): (list: readonly T[]) => string;
 
 /*
 Method: keys
@@ -4863,8 +4863,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function count<T>(searchFor: T, list: any[]): number;
-export function count<T>(searchFor: T): (list: any[]) => number;
+export function count<T>(searchFor: T, list: readonly any[]): number;
+export function count<T>(searchFor: T): (list: readonly any[]) => number;
 
 /*
 Method: debounce
@@ -4948,10 +4948,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterAsync<T>(fn: AsyncPredicate<T>, list: T[]): Promise<T[]>;
-export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: T[]): Promise<T[]>;
-export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: T[]) => Promise<T[]>;
-export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>, list: readonly T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: readonly T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: readonly T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: readonly T[]) => Promise<T[]>;
 
 /*
 Method: glue
@@ -5288,10 +5288,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: readonly T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: readonly T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: readonly T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: readonly T[]) => Promise<K[]>;
 
 /*
 Method: mapFastAsync
@@ -5317,10 +5317,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: readonly T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: readonly T[]): Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: readonly T[]) => Promise<K[]>;
+export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: readonly T[]) => Promise<K[]>;
 
 /*
 Method: mapAsyncLimit
@@ -5339,10 +5339,10 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: readonly T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: readonly T[]) => Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: readonly T[]): Promise<K[]>;
+export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: readonly T[]) => Promise<K[]>;
 
 /*
 Method: mapToObject
@@ -5375,8 +5375,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
-export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+export function mapToObject<T, U>(fn: (input: T) => object|false, list: readonly T[]): U;
+export function mapToObject<T, U>(fn: (input: T) => object|false): (list: readonly T[]) => U;
 
 /*
 Method: mapToObjectAsync
@@ -5395,8 +5395,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
-export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>): (list: T[]) => Promise<U>;
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: readonly T[]): Promise<U>;
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>): (list: readonly T[]) => Promise<U>;
 
 /*
 Method: mapKeys
@@ -5514,7 +5514,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nextIndex(index: number, list: any[]): number;
+export function nextIndex(index: number, list: readonly any[]): number;
 
 /*
 Method: prevIndex
@@ -5542,7 +5542,7 @@ Notes: Unlike `R.nextIndex`, which safeguards against index out of bounds, this 
 
 */
 // @SINGLE_MARKER
-export function prevIndex(index: number, list: any[]): number;
+export function prevIndex(index: number, list: readonly any[]): number;
 
 /*
 Method: ok
@@ -5718,7 +5718,7 @@ const expected = {
 
 Categories: Function, Async
 
-Notes: It is very similar to `R.applySpec`. TODO - improve typings
+Notes: It is very similar to `R.applySpec`.
 
 */
 // @SINGLE_MARKER
@@ -5848,7 +5848,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function shuffle<T>(list: T[]): T[];
+export function shuffle<T>(list: readonly T[]): T[];
 
 /*
 Method: sortObject
@@ -6167,8 +6167,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function sortByPath<T>(sortPath: Path, list: T[]): T[];
-export function sortByPath(sortPath: Path): <T>(list: T[]) => T[];
+export function sortByPath<T>(sortPath: Path, list: readonly T[]): T[];
+export function sortByPath(sortPath: Path): <T>(list: readonly T[]) => T[];
 
 /*
 Method: sortByProps
@@ -6222,8 +6222,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function removeIndex<T>(index: number, list: T[]): T[];
-export function removeIndex(index: number): <T>(list: T[]) => T[];
+export function removeIndex<T>(index: number, list: readonly T[]): T[];
+export function removeIndex(index: number): <T>(list: readonly T[]) => T[];
 
 
 /*
@@ -6315,8 +6315,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeUntil<T>(predicate: (x: T) => boolean, list: T[]): T[];
-export function takeUntil<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
+export function takeUntil<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
+export function takeUntil<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /*
 Method: applyDiff
@@ -6367,11 +6367,11 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapIndexed<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>, iterable: T[]): U[];
-export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>): (iterable: T[]) => U[];
+export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>, iterable: readonly T[]): U[];
+export function mapIndexed<T, U>(fn: MapIndexedIterator<T, U>): (iterable: readonly T[]) => U[];
 export function mapIndexed<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-export function mapIndexed<T>(fn: MapIndexedIterator<T, T>): (iterable: T[]) => T[];
-export function mapIndexed<T>(fn: MapIndexedIterator<T, T>, iterable: T[]): T[];
+export function mapIndexed<T>(fn: MapIndexedIterator<T, T>): (iterable: readonly T[]) => T[];
+export function mapIndexed<T>(fn: MapIndexedIterator<T, T>, iterable: readonly T[]): T[];
 
 /*
 Method: filterIndexed
@@ -6389,8 +6389,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>): (x: T[]) => T[];
-export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>, x: T[]): T[];
+export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>): (x: readonly T[]) => T[];
+export function filterIndexed<T>(predicate: FilterPredicateIndexed<T>, x: readonly T[]): T[];
 export function filterIndexed<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
 
@@ -6410,8 +6410,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>, list: T[]): T[];
-export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>): (list: T[]) => T[];
+export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>, list: readonly T[]): T[];
+export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>): (list: readonly T[]) => T[];
 export function forEachIndexed<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEachIndexed<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 

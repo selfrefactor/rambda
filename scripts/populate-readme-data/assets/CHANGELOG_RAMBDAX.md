@@ -1,6 +1,20 @@
-WIP 6.2.0
+6.2.0
 
 - `R.switcher` accepts `undefined` as valid input
+
+- Add `R.props`
+
+- Add `R.zipWith`
+
+- Add `R.splitAt`
+
+- Add `R.splitWhen`
+
+- Close [Issue #547](https://github.com/selfrefactor/rambda/issues/547) - restore `readonly` declaration in Rambda Typescript definitions.
+
+- `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
+
+- Sync `R.pluck` typings with `@types/ramda` as there was a tiny difference.
 
 6.1.0 
 
