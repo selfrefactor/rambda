@@ -22276,7 +22276,7 @@ describe('R.zipWith', () => {
 
 ## CHANGELOG
 
-WIP 6.2.0
+6.2.0
 
 - Add `R.props`
 
