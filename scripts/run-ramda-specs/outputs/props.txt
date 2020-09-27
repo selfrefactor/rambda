@@ -7,5 +7,5 @@
     ✓ returns undefined for nonexistent properties
 
 
-  4 passing (32ms)
+  4 passing (27ms)
 

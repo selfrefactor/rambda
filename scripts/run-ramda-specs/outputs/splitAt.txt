@@ -7,5 +7,5 @@
     ✓ can support negative index
 
 
-  4 passing (29ms)
+  4 passing (23ms)
 
