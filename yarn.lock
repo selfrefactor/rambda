@@ -4429,12 +4429,12 @@ joycon@^2.1.2, joycon@^2.2.5:
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
   integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
 
-js-cleanup@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/js-cleanup/-/js-cleanup-1.0.1.tgz#1d38080c7ee92e1d2d2b94054d0a33c48951e0df"
-  integrity sha512-wyHeWKqbcQV78/tiMJ6pgJrkG7p2u3b2xX9IJFvvurpJL9/++89dHfkUebhWvSMS84LG0uQ7BnG5GGyAzY21Ag==
+js-cleanup@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/js-cleanup/-/js-cleanup-1.2.0.tgz#8dbc65954b1d38b255f1e8cf02cd17b3f7a053f9"
+  integrity sha512-JeDD0yiiSt80fXzAVa/crrS0JDPQljyBG/RpOtaSbyDq03VHa9szJWMaWOYU/bcTn412uMN2MxApXq8v79cUiQ==
   dependencies:
-    magic-string "^0.25.1"
+    magic-string "^0.25.7"
     perf-regexes "^1.0.1"
     skip-regex "^1.0.2"
 
@@ -4730,7 +4730,7 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-magic-string@^0.25.1, magic-string@^0.25.2:
+magic-string@^0.25.2, magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
   integrity sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==
@@ -5727,13 +5727,13 @@ rollup-plugin-babel@4.4.0:
     "@babel/helper-module-imports" "^7.0.0"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-cleanup@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-cleanup/-/rollup-plugin-cleanup-3.1.1.tgz#d012faab5e212b1c4bfa8144ace70fc6ac7b3315"
-  integrity sha512-wMS9JQm4ShvlMqno1pOfqvh0yYgNLO2ZgmzDsVvKuDt4XCn+9DcMoUwRQ5t9p9b113dR5FhPFFUHnvvQ/yuEtA==
+rollup-plugin-cleanup@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-cleanup/-/rollup-plugin-cleanup-3.2.1.tgz#8cbc92ecf58babd7c210051929797f137bbf777c"
+  integrity sha512-zuv8EhoO3TpnrU8MX8W7YxSbO4gmOR0ny06Lm3nkFfq0IVKdBUtHwhVzY1OAJyNCIAdLiyPnOrU0KnO0Fri1GQ==
   dependencies:
-    js-cleanup "^1.0.1"
-    rollup-pluginutils "^2.3.3"
+    js-cleanup "^1.2.0"
+    rollup-pluginutils "^2.8.2"
 
 rollup-plugin-commonjs@10.1.0:
   version "10.1.0"
@@ -5780,7 +5780,7 @@ rollup-plugin-sourcemaps@0.6.2:
     "@rollup/pluginutils" "^3.0.9"
     source-map-resolve "^0.6.0"
 
-rollup-pluginutils@^2.3.3, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0, rollup-pluginutils@^2.8.1:
+rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0, rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
