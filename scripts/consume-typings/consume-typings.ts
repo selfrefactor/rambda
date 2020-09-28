@@ -1,4 +1,4 @@
-import { add, applySpec, reject, and, transpose, move, union } from 'rambda'
+import { add, applySpec, reject, and, transpose, move, union, reduce } from 'rambda'
 import {sortByProps} from 'rambdax'
 
 const sortByPropsResult = sortByProps(['a.b', 'a.c'], [
@@ -38,6 +38,9 @@ interface Foo {
 const foo: Foo = {
   bar: ['1', '2', '3'],
 }
+
+const readonlyNumberArray: readonly number[] = [1, 2, 3];
+reduce<number, readonly number[]>((acc, x) => [...acc, x], [])(readonlyNumberArray)
 
 // const curried = partialCurry<Input, PartialInput, string|number>(fn, {a:1, b:'foo'});  
 // curried // $ExpectType (input: Pick<Input, "c">) => string | number

@@ -10,7 +10,7 @@
     ts-toolbelt "^6.3.3"
 
 "rambda@file:../..":
-  version "6.1.0"
+  version "6.2.0"
 
 "rambdax@https://github.com/selfrefactor/rambdax#4.2.0":
   version "4.1.0"
