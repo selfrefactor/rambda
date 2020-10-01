@@ -6130,13 +6130,6 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-string-fn@2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.12.0.tgz#826e65ff9b327e5c653382ba79bb5da98e596549"
-  integrity sha512-qSIvp2GnPFkwm4Xd/skWHkhFawb/xul6QtJ0IWAj1sOfC4etUsHa/5TgN3aXZaDMqSWbso/JJ5k+46YENHtRYg==
-  dependencies:
-    rambdax "3.7.0"
-
 string-fn@2.12.2:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-2.12.2.tgz#a79a903c5905d28d4700cf9eb67a47048765c5fd"
