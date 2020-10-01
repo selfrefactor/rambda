@@ -1,0 +1,10 @@
+
+
+  takeLastWhile
+    ✓ continues taking elements while the function reports `true`
+    ✓ starts at the right arg and acknowledges undefined
+    ✓ can operate on strings
+
+
+  3 passing (25ms)
+

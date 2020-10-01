@@ -46,7 +46,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 97 Ramda methods not implemented in Rambda 
+  Click to see the full list of 96 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -167,7 +167,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - symmetricDifferenceWith
-- takeLastWhile
 - andThen
 - toPairsIn
 - transduce
@@ -18975,6 +18974,151 @@ describe('R.takeLast - string', () => {
 
 </details>
 
+### takeLastWhile
+
+```typescript
+
+takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[]
+```
+
+```javascript
+const result = R.takeLastWhile(
+  x => x > 2,
+  [1, 2, 3, 4]
+)
+// => [3, 4]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.takeLastWhile(%0A%20%20x%20%3D%3E%20x%20%3E%202%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%0A)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try this <strong>R.takeLastWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
+takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
+takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.takeLastWhile</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray.js'
+
+export function takeLastWhile(predicate, input){
+  if (arguments.length === 1){
+    return _input => takeLastWhile(predicate, _input)
+  }
+  if (input.length === 0) return input
+  let found = false
+  const toReturn = []
+  let counter = input.length
+
+  while (!found || counter === 0){
+    counter--
+    if (predicate(input[ counter ]) === false){
+      found = true
+    } else if (!found){
+      toReturn.push(input[ counter ])
+    }
+  }
+
+  return _isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { takeLastWhile } from './takeLastWhile'
+const assert = require('assert')
+
+const list = [ 1, 2, 3, 4 ]
+
+test('happy', () => {
+  const predicate = x => x > 2
+  const result = takeLastWhile(predicate, list)
+  expect(result).toEqual([ 3, 4 ])
+})
+
+test('predicate is always true', () => {
+  const predicate = x => x > 0
+  const result = takeLastWhile(predicate)(list)
+  expect(result).toEqual(list)
+})
+
+test('predicate is always false', () => {
+  const predicate = x => x < 0
+  const result = takeLastWhile(predicate, list)
+  expect(result).toEqual([])
+})
+
+test('with string', () => {
+  const result = takeLastWhile(x => x !== 'F', 'FOOBAR')
+  expect(result).toEqual('OOBAR')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { takeLastWhile } from 'rambda'
+
+const list = [1, 2, 3]
+const str = 'FOO'
+
+describe('R.takeLastWhile', () => {
+  it('with array', () => {
+    const result = takeLastWhile(
+      x => x > 1,
+      list
+    )
+    
+    result // $ExpectType number[]
+  })
+  it('with array - curried', () => {
+    const result = takeLastWhile(
+      x => x > 1,
+      list
+    )
+    
+    result // $ExpectType number[]
+  })
+  it('with string', () => {
+    const result = takeLastWhile(
+      x => x !== 'F',
+      str
+    )
+    
+    result // $ExpectType string
+  })
+  it('with array - curried', () => {
+    const result = takeLastWhile(
+      x => x !== 'F',
+      str
+    )
+    
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
 ### takeWhile
 
 ```typescript
@@ -22275,6 +22419,10 @@ describe('R.zipWith', () => {
 </details>
 
 ## CHANGELOG
+
+WIP 6.3.0
+
+- Add `R.takeLastWhile`
 
 6.2.0
 

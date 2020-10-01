@@ -4632,6 +4632,32 @@ Notes:
 export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
 export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];
 
+/*
+Method: takeLastWhile
+
+Explanation: 
+
+Example:
+
+```
+const result = R.takeLastWhile(
+  x => x > 2,
+  [1, 2, 3, 4]
+)
+// => [3, 4]
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
+export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
+export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*

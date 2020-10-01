@@ -37,11 +37,7 @@ class Switchem{
   constructor(
     defaultValue, cases, willMatch
   ){
-    if (
-      // defaultValue !== undefined &&
-      cases === undefined &&
-      willMatch === undefined
-    ){
+    if (cases === undefined && willMatch === undefined){
       this.cases = []
       this.defaultValue = undefined
       this.willMatch = defaultValue

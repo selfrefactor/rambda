@@ -1469,3 +1469,8 @@ export function splitAt(index: number): {
  */
 export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
 export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];
+
+export function takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
+export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
+export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
