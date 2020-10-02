@@ -1,4 +1,4 @@
-R.switchem with undefined as valid and possible input
+R.produce becomes produceAsync and R.produce is for synchronous functions
 
 Add explanation to missing Ramda methods
 
@@ -11,6 +11,7 @@ Fix `If you need more Ramda methods in Rambda, you may either submit a PR or che
 
 Methods to add:  
 
+- evolve
 - takeLastWhile
 - dropLastWhile
 - addIndex
@@ -23,3 +24,12 @@ Methods to add:
 - pickBy
 - pathSatisfies
 
+
+---
+
+R.xnor
+
+assert.isTrue(RA.xnor(true, true));
+assert.isFalse(RA.xnor(false, true));
+assert.isFalse(RA.xnor(true, false));
+assert.isTrue(RA.xnor(false, false));
