@@ -115,7 +115,7 @@ interface IsValidAsync {
 }
 
 
-type ProduceRules<Input> = {
+type ProduceAsyncRules<Input> = {
   [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
 }
 type ProduceFunctionRule<Input> = (input: Input) => any
@@ -5714,9 +5714,9 @@ export function pipedAsync<T>(
 ): Promise<T>;
 
 /*
-Method: produce
+Method: produceAsync
 
-Explanation: It returns an object created by applying each value of `rules` to `input` argument
+Explanation: It returns an object created by applying each value of `rules` to `input` argument.
 
 `rules` input is an object with synchronous or asynchronous functions as values.
 
@@ -5733,7 +5733,7 @@ const rules = {
   bar: x => ({baz: x})
 }
 const input = 2
-const result = await R.produce(rules, input)
+const result = await R.produceAsync(rules, input)
 
 const expected = {
   foo: true,
@@ -5744,16 +5744,16 @@ const expected = {
 
 Categories: Function, Async
 
-Notes: It is very similar to `R.applySpec`.
+Notes:
 
 */
 // @SINGLE_MARKER
-export function produce<Input, Output>(
-  rules: ProduceRules<Input>,
+export function produceAsync<Input, Output>(
+  rules: ProduceAsyncRules<Input>,
   input: Input
 ): Promise<Output>;
-export function produce<Input, Output>(
-  rules: ProduceRules<Input>
+export function produceAsync<Input, Output>(
+  rules: ProduceAsyncRules<Input>
 ): (
   input: Input
 ) => Promise<Output>;

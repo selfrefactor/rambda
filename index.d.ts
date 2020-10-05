@@ -115,7 +115,7 @@ interface IsValidAsync {
 }
 
 
-type ProduceRules<Input> = {
+type ProduceAsyncRules<Input> = {
   [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
 }
 type ProduceFunctionRule<Input> = (input: Input) => any

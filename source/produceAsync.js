@@ -64,7 +64,7 @@ function produceFn(conditions, input){
   })
 }
 
-export function produce(conditions, input){
+export function produceAsync(conditions, input){
   if (arguments.length === 1){
     return async _input => produceFn(conditions, _input)
   }

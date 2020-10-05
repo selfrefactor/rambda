@@ -1,3 +1,9 @@
+WIP 7.0.0
+
+- Rename `R.produce` to `R.produceAsync`
+
+- Add `R.produce` which is synchronous version of `R.produceAsync`
+
 6.2.0
 
 - `R.switcher` accepts `undefined` as valid input

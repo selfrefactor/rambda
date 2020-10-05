@@ -1,11 +1,11 @@
-import {produce, delay} from 'rambda'
+import {produceAsync, delay} from 'rambda'
 
 interface Output {
   foo: number,
   bar: number,
 }
 
-describe('R.produce', () => {
+describe('R.produceAsync', () => {
   it('happy', async() => {
     const rules = {
       foo: async(x: number) => {
@@ -17,10 +17,10 @@ describe('R.produce', () => {
       },
     }
 
-    const result = await produce<number, Output>(rules, 10)
+    const result = await produceAsync<number, Output>(rules, 10)
     result // $ExpectType Output
 
-    const fn = produce<number, Output>(rules)
+    const fn = produceAsync<number, Output>(rules)
     const curriedResult = await fn(10)
 
     fn // $ExpectType (input: number) => Promise<Output>

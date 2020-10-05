@@ -1,8 +1,8 @@
 import { delay } from './delay'
-import { produce } from './produce'
+import { produceAsync } from './produceAsync'
 
-test('async', async () => {
-  const fn = produce({
+test('happy', async () => {
+  const fn = produceAsync({
     foo : async x => {
       await delay(100)
 
@@ -19,8 +19,8 @@ test('async', async () => {
   expect(result).toEqual(expected)
 })
 
-test('async with error', async () => {
-  const fn = produce({
+test('with error', async () => {
+  const fn = produceAsync({
     foo : async x => {
       await delay(100)
       throw new Error(`${ x }_ZEPPELIN`)
