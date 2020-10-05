@@ -24,7 +24,17 @@ Methods to add:
 - pickBy
 - pathSatisfies
 
-
+https://github.com/smartprocure/futil-js#differentlast
+https://github.com/smartprocure/futil-js#whentruthy
+findApply
+compactMap
+compactJoin
+flattenObject
+simpleDiff
+highlight
+on
+off
+includeLens?
 ---
 
 R.xnor
