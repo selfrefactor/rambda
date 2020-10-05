@@ -114,11 +114,13 @@ interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
-
-type ProduceAsyncRules<Input> = {
-  [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
+type ProduceRules<Output,K extends keyof Output, Input> = {
+  [P in K]: (input: Input) => Output[P];
 }
-type ProduceFunctionRule<Input> = (input: Input) => any
+type ProduceAsyncRules<Input> = {
+  [key: string]: (input: Input) => any | ProduceAsyncRule<Input>
+}
+type ProduceFunctionRule<Output> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncIterable<T, K> = (x: T) => Promise<K>;

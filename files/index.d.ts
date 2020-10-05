@@ -114,11 +114,13 @@ interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
-
-type ProduceAsyncRules<Input> = {
-  [key: string]: ProduceFunctionRule<Input> | ProduceAsyncRule<Input>
+type ProduceRules<Output,K extends keyof Output, Input> = {
+  [P in K]: (input: Input) => Output[P];
 }
-type ProduceFunctionRule<Input> = (input: Input) => any
+type ProduceAsyncRules<Input> = {
+  [key: string]: (input: Input) => any | ProduceAsyncRule<Input>
+}
+type ProduceFunctionRule<Output> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncIterable<T, K> = (x: T) => Promise<K>;
@@ -5714,6 +5716,44 @@ export function pipedAsync<T>(
 ): Promise<T>;
 
 /*
+Method: produce
+
+Explanation: It returns an object created by applying each value of `rules` to `input` argument.
+
+Example:
+
+```
+const rules = {
+  foo: R.pipe(R.add(1), R.add(2)),
+  bar: x => ({baz: x})
+}
+const input = i
+const result = await R.produce(rules, input)
+
+const expected = {
+  foo: 4,
+  bar: {baz: 1}
+}
+// => `result` is equal to `expected`
+```
+
+Categories: Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function produce<Input extends any, Output>(
+  rules: ProduceRules<Output, keyof Output, Input>,
+  input: Input
+): Output;
+export function produce<Input extends any, Output>(
+  rules: ProduceRules<Output, keyof Output, Input>
+): <Input>(
+  input: Input
+) => Output;
+
+/*
 Method: produceAsync
 
 Explanation: It returns an object created by applying each value of `rules` to `input` argument.
@@ -6440,6 +6480,26 @@ export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>, list: re
 export function forEachIndexed<T>(fn: MapFunctionArrayIndexed<T, void>): (list: readonly T[]) => T[];
 export function forEachIndexed<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEachIndexed<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+
+/*
+Method: produce
+
+Explanation:
+
+Example:
+
+```
+const result = R.produce()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function produce<T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================
