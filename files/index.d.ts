@@ -117,8 +117,8 @@ interface IsValidAsync {
 type ProduceRules<Output,K extends keyof Output, Input> = {
   [P in K]: (input: Input) => Output[P];
 }
-type ProduceAsyncRules<Input> = {
-  [key: string]: (input: Input) => any | ProduceAsyncRule<Input>
+type ProduceAsyncRules<Output,K extends keyof Output, Input> = {
+  [P in K]: (input: Input) => Promise<Output[P]>;
 }
 type ProduceFunctionRule<Output> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
@@ -5788,15 +5788,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function produceAsync<Input, Output>(
-  rules: ProduceAsyncRules<Input>,
+export function produceAsync<Input extends any, Output>(
+  rules: ProduceAsyncRules<Output, keyof Output, Input>,
   input: Input
 ): Promise<Output>;
-export function produceAsync<Input, Output>(
-  rules: ProduceAsyncRules<Input>
-): (
+export function produceAsync<Input extends any, Output>(
+  rules: ProduceAsyncRules<Output, keyof Output, Input>
+): <Input>(
   input: Input
 ) => Promise<Output>;
+
 
 /*
 Method: random

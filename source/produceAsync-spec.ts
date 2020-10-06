@@ -2,28 +2,29 @@ import {produceAsync, delay} from 'rambda'
 
 interface Output {
   foo: number,
-  bar: number,
 }
 
 describe('R.produceAsync', () => {
   it('happy', async() => {
-    const rules = {
-      foo: async(x: number) => {
+    const result = await produceAsync({
+      foo: async(x) => {
+        x // $ExpectType number
         await delay(100)
         return x + 10
       },
-      bar: (x: number) => {
+      bar: async (x) => {
         return x + 20
       },
-    }
+    }, 10)
 
-    const result = await produceAsync<number, Output>(rules, 10)
-    result // $ExpectType Output
+    result.foo // $ExpectType number
+    result.bar // $ExpectType number
+  })
+  
+  it('happy', async() => {
+    const fn = produceAsync<number, Output>({foo: async x => x + 1})
+    const result = await fn(10)
 
-    const fn = produceAsync<number, Output>(rules)
-    const curriedResult = await fn(10)
-
-    fn // $ExpectType (input: number) => Promise<Output>
-    curriedResult // $ExpectType Output
+    result.foo // $ExpectType number
   })
 })
