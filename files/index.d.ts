@@ -120,7 +120,6 @@ type ProduceRules<Output,K extends keyof Output, Input> = {
 type ProduceAsyncRules<Output,K extends keyof Output, Input> = {
   [P in K]: (input: Input) => Promise<Output[P]>;
 }
-type ProduceFunctionRule<Output> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncIterable<T, K> = (x: T) => Promise<K>;
@@ -378,30 +377,16 @@ export function append<T>(x: T): <T>(list: readonly T[]) => T[];
 /*
 Method: applySpec
 
-Explanation: It returns a curried function with the same arity as the longest function in the spec object.
-Arguments will be applied to the spec methods recursively.
+Explanation: 
 
 Example:
 
 ```
-const spec = {
-  name: R.path('deeply.nested.firstname')
-}
-const json = {
-  deeply: {
-   nested: {
-      firstname: 'barry'
-    }
-  }
-}
-const result = R.applySpec(spec, json) // => { name: 'barry' }
-
-// Second example
-const getMetrics = R.applySpec({
+const fn = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
 })
-getMetrics(2, 4) 
+const result = fn(2, 4) 
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
@@ -4655,10 +4640,30 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
 export function takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
 export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
-export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
-export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
+
+/*
+Method: evolve
+
+Explanation:
+
+Example:
+
+```
+const result = R.evolve()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function evolve<T>(x: T): T;
 
 // RAMBDAX_MARKER_START
 

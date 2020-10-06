@@ -28,11 +28,8 @@ describe('R.takeLastWhile', () => {
     
     result // $ExpectType string
   })
-  it('with array - curried', () => {
-    const result = takeLastWhile(
-      x => x !== 'F',
-      str
-    )
+  it('with string - curried', () => {
+    const result = takeLastWhile(x => x !== 'F')(str)
     
     result // $ExpectType string
   })

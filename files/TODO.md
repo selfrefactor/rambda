@@ -1,4 +1,4 @@
-R.produce becomes produceAsync and R.produce is for synchronous functions
+R.evolve spec require permutation helper?
 
 Add explanation to missing Ramda methods
 
