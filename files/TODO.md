@@ -1,5 +1,3 @@
-R.evolve spec require permutation helper?
-
 Add explanation to missing Ramda methods
 
 Improve R.produce typings

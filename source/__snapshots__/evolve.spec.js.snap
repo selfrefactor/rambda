@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with error inputs Null Array 1`] = `
+Object {
+  "iterableInput": Array [],
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": null,
+}
+`;
+
+exports[`with error inputs Null Array 2`] = `
+Object {
+  "error": "Cannot read property '0' of null",
+  "iterableInput": Array [
+    1,
+  ],
+  "rulesInput": null,
+}
+`;
+
+exports[`with error inputs Null Null 1`] = `
+Object {
+  "iterableInput": null,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": null,
+}
+`;
+
+exports[`with error inputs Null String 1`] = `
+Object {
+  "iterableInput": "",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": null,
+}
+`;
+
+exports[`with error inputs Null Undefined 1`] = `
+Object {
+  "iterableInput": undefined,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": null,
+}
+`;
+
+exports[`with error inputs Object Null 1`] = `
+Object {
+  "iterableInput": null,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`with error inputs Object String 1`] = `
+Object {
+  "iterableInput": "",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`with error inputs Object Undefined 1`] = `
+Object {
+  "iterableInput": undefined,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`with error inputs String Array 1`] = `
+Object {
+  "iterableInput": Array [],
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": "",
+}
+`;
+
+exports[`with error inputs String Null 1`] = `
+Object {
+  "iterableInput": null,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": "",
+}
+`;
+
+exports[`with error inputs String String 1`] = `
+Object {
+  "iterableInput": "",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": "",
+}
+`;
+
+exports[`with error inputs String Undefined 1`] = `
+Object {
+  "iterableInput": undefined,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": "",
+}
+`;
+
+exports[`with error inputs Undefined Array 1`] = `
+Object {
+  "iterableInput": Array [],
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": undefined,
+}
+`;
+
+exports[`with error inputs Undefined Array 2`] = `
+Object {
+  "error": "Cannot read property '0' of undefined",
+  "iterableInput": Array [
+    1,
+  ],
+  "rulesInput": undefined,
+}
+`;
+
+exports[`with error inputs Undefined Null 1`] = `
+Object {
+  "iterableInput": null,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": undefined,
+}
+`;
+
+exports[`with error inputs Undefined String 1`] = `
+Object {
+  "iterableInput": "",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": undefined,
+}
+`;
+
+exports[`with error inputs Undefined Undefined 1`] = `
+Object {
+  "iterableInput": undefined,
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": undefined,
+}
+`;
