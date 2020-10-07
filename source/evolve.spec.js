@@ -1,8 +1,9 @@
-import combinate from "combinate";
-import { evolve } from './evolve'
-import { equals } from './equals.js'
+import combinate from 'combinate'
 import { evolve as evolveRamda } from 'ramda'
+
 import { add, type } from '../rambda.js'
+import { equals } from './equals.js'
+import { evolve } from './evolve'
 
 test('happy', () => {
   const rules = {
@@ -100,14 +101,14 @@ describe('with bad inputs', () => {
 })
 
 const combinations = combinate({
-  rules: [null, undefined, rules, ''],
-  input: [null, undefined, '', [], [1]],
-});
+  rules : [ null, undefined, rules, '' ],
+  input : [ null, undefined, '', [], [ 1 ] ],
+})
 const PENDING = 'PENDING'
 
-describe.only('with error inputs', () => {
-  combinations.forEach(({rules: rulesInput, input: iterableInput }) => {
-    test(`${ type(rulesInput) } ${ type(iterableInput) }`, () => {
+describe('with error inputs', () => {
+  combinations.forEach(({ rules: rulesInput, input: iterableInput }) => {
+    it(`${ type(rulesInput) } ${ type(iterableInput) }`, () => {
       let ramdaResult = PENDING
       let result = PENDING
       let ramdaError = PENDING
@@ -122,16 +123,31 @@ describe.only('with error inputs', () => {
       } catch (e){
         ramdaError = e
       }
-      if(equals(result, ramdaResult) && result !== PENDING){
-        expect({result, ramdaResult, rulesInput, iterableInput}).toMatchSnapshot()
-      }else if(equals(error, ramdaError) && error !== PENDING){
-        expect({error: error.message, rulesInput, iterableInput}).toMatchSnapshot()
-      }else if(result !== PENDING){
+      if (equals(result, ramdaResult) && result !== PENDING){
+        expect({
+          result,
+          ramdaResult,
+          rulesInput,
+          iterableInput,
+        }).toMatchSnapshot()
+      } else if (equals(error, ramdaError) && error !== PENDING){
+        expect({
+          error : error.message,
+          rulesInput,
+          iterableInput,
+        }).toMatchSnapshot()
+      } else if (result !== PENDING){
         expect(result).toEqual(ramdaResult)
-      }else if(error !== PENDING){
+      } else if (error !== PENDING){
         expect(error).toEqual(ramdaError)
-      }else{
-        expect({result, error}).toEqual({result: ramdaResult, error: ramdaError})
+      } else {
+        expect({
+          result,
+          error,
+        }).toEqual({
+          result : ramdaResult,
+          error  : ramdaError,
+        })
       }
     })
   })

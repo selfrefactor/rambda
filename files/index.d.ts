@@ -5730,21 +5730,21 @@ Example:
 ```
 const rules = {
   foo: R.pipe(R.add(1), R.add(2)),
-  bar: x => ({baz: x})
+  a: {b: add(3)}
 }
 const input = i
 const result = await R.produce(rules, input)
 
 const expected = {
   foo: 4,
-  bar: {baz: 1}
+  a: {b: 4}
 }
 // => `result` is equal to `expected`
 ```
 
-Categories: Function
+Categories: Object
 
-Notes:
+Notes: In Typescript context, `rules` properties must be only functions. In Javescript context, they can be either function or object with functions.
 
 */
 // @SINGLE_MARKER
