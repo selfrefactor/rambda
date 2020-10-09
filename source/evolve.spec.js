@@ -1,8 +1,7 @@
-import combinate from 'combinate'
 import { evolve as evolveRamda } from 'ramda'
 
-import { add, type } from '../rambda.js'
-import { equals } from './equals.js'
+import { add } from '../rambda.js'
+import { compareCombinations, compareToRamda } from './_internals/testUtils'
 import { evolve } from './evolve'
 
 test('happy', () => {
@@ -73,112 +72,25 @@ test('with array', () => {
   expect(result).toEqual(expected)
 })
 
-const rules = { a : add(1) }
+const rulesObject = { a : add(1) }
+const rulesList = [add(1)]
+const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], {a: 1} ]
+const possibleRules = [ ...possibleIterables, rulesList, rulesObject]
 
-const badInputs = [
-  [ rules, 42 ],
-  [ rules, undefined ],
-  [ rules, null ],
-  [ rules, '' ],
-  [ '', '' ],
-  [ null, null ],
-  [ undefined, undefined ],
-  [ undefined, [] ],
-  [ null, [] ],
-]
-
-const errorInputs = [
-  [ null, [ 1 ] ],
-  [ undefined, [ 1 ] ],
-]
-
-
-const possibleInputs = [ null, undefined, '', 42, rules, [], [ 1 ] ]
-const combinations = combinate({
-  rules : possibleInputs,
-  input : possibleInputs,
+describe('R.evolve', () =>{
+  compareCombinations({
+    firstInput  : possibleRules,
+    secondInput : possibleIterables,
+    fn          : evolve,
+    fnRamda     : evolveRamda,
+  })
 })
-const PENDING = 'PENDING'
-const RESULTS_EQUAL = 'results are equal'
-const ERRORS_EQUAL = 'errors are equal'
-const SHOULD_THROW = 'Rambda should throw'
-const SHOULD_NOT_THROW = 'Rambda should throw'
 
-function compareToRamda(fn, fnRamda){
-  return (...inputs) => {
-    let ramdaResult = PENDING
-    let result = PENDING
-    let ramdaError = PENDING
-    let error = PENDING
-    try {
-      result = fn(...inputs)
-    } catch (e){
-      error = e.message
-    }
-    try {
-      ramdaResult = fnRamda(...inputs)
-    } catch (e){
-      ramdaError = e.message
-    }
-    const toReturn = {
-      result,
-      ramdaResult,
-      ramdaError,
-      error,
-    }
-    if (result !== PENDING && equals(result, ramdaResult)){
-      return {
-        ...toReturn,
-        ok    : true,
-        label : RESULTS_EQUAL,
-      }
-    } else if (error !== PENDING && equals(error, ramdaError)){
-      return {
-        ...toReturn,
-        ok    : true,
-        label : ERRORS_EQUAL,
-      }
-    } else if (result !== PENDING){
-      return {
-        ...toReturn,
-        ok    : false,
-        label : SHOULD_THROW,
-      }
-    } else if (error !== PENDING){
-      return {
-        ...toReturn,
-        ok    : false,
-        label : SHOULD_NOT_THROW,
-      }
-    }
-
-    return {
-      ...toReturn,
-      ok    : false,
-      label : 'unknown',
-    }
-  }
-}
-const compareOutputs = compareToRamda(evolve, evolveRamda)
-
-test.only('foo', () => {
+test.skip('foo', () => {
+  const compareOutputs = compareToRamda(evolve, evolveRamda)
+  
   const rulesInput = []
   const iterableInput = 42
   const compared = compareOutputs(rulesInput, iterableInput)
   console.log(compared)
-})
-
-const show = x => x
-const getTestTitle = (...inputs) => inputs.map(x => `${ type(x) } ${ show(x) }`).join(' | ')
-
-combinations.forEach(({ rules: rulesInput, input: iterableInput }) => {
-  test(getTestTitle(rulesInput, iterableInput), () => {
-    const compared = compareOutputs(rulesInput, iterableInput)
-    // expect(compared.ok).toBeTrue()
-    expect({
-      ...compared,
-      rulesInput,
-      iterableInput,
-    }).toMatchSnapshot()
-  })
 })
