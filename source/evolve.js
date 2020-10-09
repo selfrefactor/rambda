@@ -2,6 +2,10 @@ import { mapArray, mapObject } from './map'
 import { type } from './type'
 
 export function evolveArray(rules, list){
+  if (!list){
+    return {}
+  }
+
   return mapArray(
     (x, i) => {
       if (type(rules[ i ]) === 'Function'){

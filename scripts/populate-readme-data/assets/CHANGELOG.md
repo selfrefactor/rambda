@@ -2,6 +2,8 @@ WIP 6.3.0
 
 - Add `R.takeLastWhile`
 
+- Add `R.evolve`
+
 6.2.0
 
 - Add `R.props`

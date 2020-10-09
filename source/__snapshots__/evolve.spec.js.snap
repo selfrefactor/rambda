@@ -1,160 +1,726 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with error inputs Null Array 1`] = `
+exports[`Array  | Array  1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | Array 1 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [
+    1,
+  ],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": Array [
+    1,
+  ],
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | Null null 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | Number 42 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Array [
+    undefined,
+  ],
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {
+    "a": [Function],
+  },
+  "result": Array [
+    undefined,
+  ],
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | String  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array  | Undefined undefined 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [],
+}
+`;
+
+exports[`Array 1 | Array  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | Array 1 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [
+    1,
+  ],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": Array [
+    1,
+  ],
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | Null null 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | Number 42 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Array [
+    undefined,
+  ],
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {
+    "a": [Function],
+  },
+  "result": Array [
+    undefined,
+  ],
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | String  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Array 1 | Undefined undefined 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Null null | Array  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Array [],
   "result": Array [],
   "rulesInput": null,
 }
 `;
 
-exports[`with error inputs Null Array 2`] = `
+exports[`Null null | Array 1 1`] = `
 Object {
   "error": "Cannot read property '0' of null",
   "iterableInput": Array [
     1,
   ],
+  "label": "errors are equal",
+  "ok": true,
+  "ramdaError": "Cannot read property '0' of null",
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
   "rulesInput": null,
 }
 `;
 
-exports[`with error inputs Null Null 1`] = `
+exports[`Null null | Null null 1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": null,
 }
 `;
 
-exports[`with error inputs Null String 1`] = `
+exports[`Null null | Number 42 1`] = `
 Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": null,
+}
+`;
+
+exports[`Null null | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "Cannot read property 'a' of null",
+  "ramdaResult": "PENDING",
+  "result": Object {},
+  "rulesInput": null,
+}
+`;
+
+exports[`Null null | String  1`] = `
+Object {
+  "error": "PENDING",
   "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": null,
 }
 `;
 
-exports[`with error inputs Null Undefined 1`] = `
+exports[`Null null | Undefined undefined 1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": null,
 }
 `;
 
-exports[`with error inputs Object Null 1`] = `
+exports[`Number 42 | Array  1`] = `
 Object {
-  "iterableInput": null,
-  "ramdaResult": Object {},
-  "result": Object {},
-  "rulesInput": Object {
-    "a": [Function],
-  },
-}
-`;
-
-exports[`with error inputs Object String 1`] = `
-Object {
-  "iterableInput": "",
-  "ramdaResult": Object {},
-  "result": Object {},
-  "rulesInput": Object {
-    "a": [Function],
-  },
-}
-`;
-
-exports[`with error inputs Object Undefined 1`] = `
-Object {
-  "iterableInput": undefined,
-  "ramdaResult": Object {},
-  "result": Object {},
-  "rulesInput": Object {
-    "a": [Function],
-  },
-}
-`;
-
-exports[`with error inputs String Array 1`] = `
-Object {
+  "error": "PENDING",
   "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Array [],
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | Array 1 1`] = `
+Object {
+  "error": "Cannot read property '0' of 42",
+  "iterableInput": Array [
+    1,
+  ],
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": "PENDING",
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | Null null 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | Number 42 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {
+    "a": [Function],
+  },
+  "result": Object {},
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | String  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": 42,
+}
+`;
+
+exports[`Number 42 | Undefined undefined 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": 42,
+}
+`;
+
+exports[`Object [object Object] | Array  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [],
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | Array 1 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [
+    1,
+  ],
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | Null null 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | Number 42 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {
+    "a": NaN,
+  },
+  "result": Object {
+    "a": NaN,
+  },
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | String  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`Object [object Object] | Undefined undefined 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": Object {
+    "a": [Function],
+  },
+}
+`;
+
+exports[`String  | Array  1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Array [],
   "result": Array [],
   "rulesInput": "",
 }
 `;
 
-exports[`with error inputs String Null 1`] = `
+exports[`String  | Array 1 1`] = `
 Object {
+  "error": "Cannot read property '0' of ",
+  "iterableInput": Array [
+    1,
+  ],
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": "PENDING",
+  "rulesInput": "",
+}
+`;
+
+exports[`String  | Null null 1`] = `
+Object {
+  "error": "PENDING",
   "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": "",
 }
 `;
 
-exports[`with error inputs String String 1`] = `
+exports[`String  | Number 42 1`] = `
 Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": "",
+}
+`;
+
+exports[`String  | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {
+    "a": [Function],
+  },
+  "result": Object {},
+  "rulesInput": "",
+}
+`;
+
+exports[`String  | String  1`] = `
+Object {
+  "error": "PENDING",
   "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": "",
 }
 `;
 
-exports[`with error inputs String Undefined 1`] = `
+exports[`String  | Undefined undefined 1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": "",
 }
 `;
 
-exports[`with error inputs Undefined Array 1`] = `
+exports[`Undefined undefined | Array  1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": Array [],
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Array [],
   "result": Array [],
   "rulesInput": undefined,
 }
 `;
 
-exports[`with error inputs Undefined Array 2`] = `
+exports[`Undefined undefined | Array 1 1`] = `
 Object {
   "error": "Cannot read property '0' of undefined",
   "iterableInput": Array [
     1,
   ],
+  "label": "errors are equal",
+  "ok": true,
+  "ramdaError": "Cannot read property '0' of undefined",
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
   "rulesInput": undefined,
 }
 `;
 
-exports[`with error inputs Undefined Null 1`] = `
+exports[`Undefined undefined | Null null 1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": null,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": undefined,
 }
 `;
 
-exports[`with error inputs Undefined String 1`] = `
+exports[`Undefined undefined | Number 42 1`] = `
 Object {
+  "error": "PENDING",
+  "iterableInput": 42,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
+  "ramdaResult": Object {},
+  "result": Object {},
+  "rulesInput": undefined,
+}
+`;
+
+exports[`Undefined undefined | Object [object Object] 1`] = `
+Object {
+  "error": "PENDING",
+  "iterableInput": Object {
+    "a": [Function],
+  },
+  "label": "Rambda should throw",
+  "ok": false,
+  "ramdaError": "Cannot read property 'a' of undefined",
+  "ramdaResult": "PENDING",
+  "result": Object {},
+  "rulesInput": undefined,
+}
+`;
+
+exports[`Undefined undefined | String  1`] = `
+Object {
+  "error": "PENDING",
   "iterableInput": "",
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": undefined,
 }
 `;
 
-exports[`with error inputs Undefined Undefined 1`] = `
+exports[`Undefined undefined | Undefined undefined 1`] = `
 Object {
+  "error": "PENDING",
   "iterableInput": undefined,
+  "label": "results are equal",
+  "ok": true,
+  "ramdaError": "PENDING",
   "ramdaResult": Object {},
   "result": Object {},
   "rulesInput": undefined,

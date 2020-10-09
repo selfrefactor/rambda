@@ -92,85 +92,93 @@ const errorInputs = [
   [ undefined, [ 1 ] ],
 ]
 
-describe('with bad inputs', () => {
-  badInputs.forEach(([ rulesInput, iterableInput ]) => {
-    it(`${ type(rulesInput) } ${ type(iterableInput) }`, () => {
-      expect(evolve(rulesInput, iterableInput)).toEqual(evolveRamda(rulesInput, iterableInput))
-    })
-  })
-})
 
+const possibleInputs = [ null, undefined, '', 42, rules, [], [ 1 ] ]
 const combinations = combinate({
-  rules : [ null, undefined, rules, '' ],
-  input : [ null, undefined, '', [], [ 1 ] ],
+  rules : possibleInputs,
+  input : possibleInputs,
 })
 const PENDING = 'PENDING'
+const RESULTS_EQUAL = 'results are equal'
+const ERRORS_EQUAL = 'errors are equal'
+const SHOULD_THROW = 'Rambda should throw'
+const SHOULD_NOT_THROW = 'Rambda should throw'
 
-describe('with error inputs', () => {
-  combinations.forEach(({ rules: rulesInput, input: iterableInput }) => {
-    it(`${ type(rulesInput) } ${ type(iterableInput) }`, () => {
-      let ramdaResult = PENDING
-      let result = PENDING
-      let ramdaError = PENDING
-      let error = PENDING
-      try {
-        result = evolve(rulesInput, iterableInput)
-      } catch (e){
-        error = e
+function compareToRamda(fn, fnRamda){
+  return (...inputs) => {
+    let ramdaResult = PENDING
+    let result = PENDING
+    let ramdaError = PENDING
+    let error = PENDING
+    try {
+      result = fn(...inputs)
+    } catch (e){
+      error = e.message
+    }
+    try {
+      ramdaResult = fnRamda(...inputs)
+    } catch (e){
+      ramdaError = e.message
+    }
+    const toReturn = {
+      result,
+      ramdaResult,
+      ramdaError,
+      error,
+    }
+    if (result !== PENDING && equals(result, ramdaResult)){
+      return {
+        ...toReturn,
+        ok    : true,
+        label : RESULTS_EQUAL,
       }
-      try {
-        ramdaResult = evolveRamda(rulesInput, iterableInput)
-      } catch (e){
-        ramdaError = e
+    } else if (error !== PENDING && equals(error, ramdaError)){
+      return {
+        ...toReturn,
+        ok    : true,
+        label : ERRORS_EQUAL,
       }
-      if (equals(result, ramdaResult) && result !== PENDING){
-        expect({
-          result,
-          ramdaResult,
-          rulesInput,
-          iterableInput,
-        }).toMatchSnapshot()
-      } else if (equals(error, ramdaError) && error !== PENDING){
-        expect({
-          error : error.message,
-          rulesInput,
-          iterableInput,
-        }).toMatchSnapshot()
-      } else if (result !== PENDING){
-        expect(result).toEqual(ramdaResult)
-      } else if (error !== PENDING){
-        expect(error).toEqual(ramdaError)
-      } else {
-        expect({
-          result,
-          error,
-        }).toEqual({
-          result : ramdaResult,
-          error  : ramdaError,
-        })
+    } else if (result !== PENDING){
+      return {
+        ...toReturn,
+        ok    : false,
+        label : SHOULD_THROW,
       }
-    })
-  })
+    } else if (error !== PENDING){
+      return {
+        ...toReturn,
+        ok    : false,
+        label : SHOULD_NOT_THROW,
+      }
+    }
+
+    return {
+      ...toReturn,
+      ok    : false,
+      label : 'unknown',
+    }
+  }
+}
+const compareOutputs = compareToRamda(evolve, evolveRamda)
+
+test.only('foo', () => {
+  const rulesInput = []
+  const iterableInput = 42
+  const compared = compareOutputs(rulesInput, iterableInput)
+  console.log(compared)
 })
 
-describe('with error inputs', () => {
-  errorInputs.forEach(([ rulesInput, iterableInput ]) => {
-    it(`${ type(rulesInput) } ${ type(iterableInput) }`, () => {
-      let ramdaError
-      let error
-      try {
-        console.log(evolve(rulesInput, iterableInput))
-      } catch (e){
-        error = e
-      }
-      try {
-        evolveRamda(rulesInput, iterableInput)
-      } catch (e){
-        ramdaError = e
-      }
-      expect(ramdaError).toBeTruthy()
-      expect(error).toBeTruthy()
-      expect(error).toEqual(ramdaError)
-    })
+const show = x => x
+const getTestTitle = (...inputs) => inputs.map(x => `${ type(x) } ${ show(x) }`).join(' | ')
+
+combinations.forEach(({ rules: rulesInput, input: iterableInput }) => {
+  test(getTestTitle(rulesInput, iterableInput), () => {
+    const compared = compareOutputs(rulesInput, iterableInput)
+    // expect(compared.ok).toBeTrue()
+    expect({
+      ...compared,
+      rulesInput,
+      iterableInput,
+    }).toMatchSnapshot()
   })
 })
