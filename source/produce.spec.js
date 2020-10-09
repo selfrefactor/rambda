@@ -9,7 +9,7 @@ const rules = {
     e : add(10),
   },
 }
- 
+
 const expected = {
   a : 6,
   b : { foo : 1 },

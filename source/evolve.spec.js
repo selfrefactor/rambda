@@ -67,9 +67,9 @@ test('ignores primitive value transformations', () => {
 
 test('with array', () => {
   const transf = [ add(1), add(-1) ]
-  const object = [ 100, 1400 ]
+  const list = [ 100, 1400 ]
   const expected = [ 101, 1399 ]
-  const result = evolve(transf, object)
+  const result = evolve(transf, list)
   expect(result).toEqual(expected)
 })
 
