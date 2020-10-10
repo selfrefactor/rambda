@@ -1,154 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.evolve Array  | Number 42 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    42,
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {},
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Array  | Object [object Object] 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
-      "a": 1,
-    },
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {
-    "a": 1,
-  },
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Array _b => add(a, _b) | Number 42 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [
-      [Function],
-    ],
-    42,
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {},
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Array _b => add(a, _b) | Object [object Object] 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [
-      [Function],
-    ],
-    Object {
-      "a": 1,
-    },
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {
-    "a": 1,
-  },
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Array 1 | Number 42 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [
-      1,
-    ],
-    42,
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {},
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Array 1 | Object [object Object] 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Array [
-      1,
-    ],
-    Object {
-      "a": 1,
-    },
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {
-    "a": 1,
-  },
-  "result": Array [
-    undefined,
-  ],
-}
-`;
-
-exports[`R.evolve Null null | Object [object Object] 1`] = `
+exports[`r.evolve Null null | Array  1`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
     null,
-    Object {
-      "a": 1,
-    },
+    Array [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Object {},
+}
+`;
+
+exports[`r.evolve Null null | Array 1 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    null,
+    Array [
+      1,
+    ],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": "Cannot read property 'a' of null",
+  "ramdaError": "Cannot read property '0' of null",
   "ramdaResult": "PENDING",
   "result": Object {},
 }
 `;
 
-exports[`R.evolve Number 42 | Array 1 1`] = `
+exports[`r.evolve Number 42 | Array  1`] = `
 Object {
-  "error": "Cannot read property '0' of 42",
+  "error": "PENDING",
+  "inputs": Array [
+    42,
+    Array [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Object {},
+}
+`;
+
+exports[`r.evolve Number 42 | Array 1 1`] = `
+Object {
+  "error": "PENDING",
   "inputs": Array [
     42,
     Array [
       1,
     ],
   ],
-  "label": "Rambda should throw",
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    1,
+  ],
+  "result": Object {},
+}
+`;
+
+exports[`r.evolve Object [object Object] | Array  1`] = `
+Object {
+  "error": "Cannot read property '0' of ",
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    Array [],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`r.evolve Object [object Object] | Array  2`] = `
+Object {
+  "error": "Cannot read property '0' of ",
+  "inputs": Array [
+    Object {
+      "a": [Function],
+    },
+    Array [],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`r.evolve Object [object Object] | Array 1 1`] = `
+Object {
+  "error": "Cannot read property '0' of 1",
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    Array [
+      1,
+    ],
+  ],
+  "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Array [
@@ -158,83 +121,9 @@ Object {
 }
 `;
 
-exports[`R.evolve Number 42 | Object [object Object] 1`] = `
+exports[`r.evolve Object [object Object] | Array 1 2`] = `
 Object {
-  "error": "PENDING",
-  "inputs": Array [
-    42,
-    Object {
-      "a": 1,
-    },
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {
-    "a": 1,
-  },
-  "result": Object {},
-}
-`;
-
-exports[`R.evolve Object [object Object] | Array  1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Object {
-      "a": 1,
-    },
-    Array [],
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Array [],
-  "result": Object {},
-}
-`;
-
-exports[`R.evolve Object [object Object] | Array  2`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Object {
-      "a": [Function],
-    },
-    Array [],
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Array [],
-  "result": Object {},
-}
-`;
-
-exports[`R.evolve Object [object Object] | Array 1 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Object {
-      "a": 1,
-    },
-    Array [
-      1,
-    ],
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Array [
-    1,
-  ],
-  "result": Object {},
-}
-`;
-
-exports[`R.evolve Object [object Object] | Array 1 2`] = `
-Object {
-  "error": "PENDING",
+  "error": "Cannot read property '0' of 1",
   "inputs": Array [
     Object {
       "a": [Function],
@@ -243,26 +132,41 @@ Object {
       1,
     ],
   ],
-  "label": "Rambda should throw",
+  "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Array [
     1,
   ],
-  "result": Object {},
+  "result": "PENDING",
 }
 `;
 
-exports[`R.evolve String  | Array 1 1`] = `
+exports[`r.evolve String  | Array  1`] = `
 Object {
   "error": "Cannot read property '0' of ",
   "inputs": Array [
     "",
+    Array [],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`r.evolve String  | Array 1 1`] = `
+Object {
+  "error": "Cannot read property '0' of 1",
+  "inputs": Array [
+    "",
     Array [
       1,
     ],
   ],
-  "label": "Rambda should throw",
+  "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Array [
@@ -272,37 +176,33 @@ Object {
 }
 `;
 
-exports[`R.evolve String  | Object [object Object] 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    "",
-    Object {
-      "a": 1,
-    },
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Object {
-    "a": 1,
-  },
-  "result": Object {},
-}
-`;
-
-exports[`R.evolve Undefined undefined | Object [object Object] 1`] = `
+exports[`r.evolve Undefined undefined | Array  1`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
     undefined,
-    Object {
-      "a": 1,
-    },
+    Array [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": Object {},
+}
+`;
+
+exports[`r.evolve Undefined undefined | Array 1 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    undefined,
+    Array [
+      1,
+    ],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": "Cannot read property 'a' of undefined",
+  "ramdaError": "Cannot read property '0' of undefined",
   "ramdaResult": "PENDING",
   "result": Object {},
 }

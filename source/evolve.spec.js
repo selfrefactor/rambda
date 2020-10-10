@@ -73,13 +73,18 @@ test('with array', () => {
 })
 
 const rulesObject = { a : add(1) }
-const rulesList = [add(1)]
-const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], {a: 1} ]
-const possibleRules = [ ...possibleIterables, rulesList, rulesObject]
+const rulesList = [ add(1) ]
+const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
+const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
-describe('R.evolve', () =>{
+describe('r.evolve', () => {
+  let counter = 0
+  afterAll(() => {
+    console.log({ counter })
+  })
   compareCombinations({
     firstInput  : possibleRules,
+    setCounter  : () => counter++,
     secondInput : possibleIterables,
     fn          : evolve,
     fnRamda     : evolveRamda,
@@ -88,9 +93,11 @@ describe('R.evolve', () =>{
 
 test.skip('foo', () => {
   const compareOutputs = compareToRamda(evolve, evolveRamda)
-  
-  const rulesInput = []
-  const iterableInput = 42
+
+  const rulesInput = null
+  const iterableInput = { a : 1 }
   const compared = compareOutputs(rulesInput, iterableInput)
   console.log(compared)
+  console.log(compared.ramdaResult)
+  console.log(compared.label)
 })

@@ -1,6 +1,8 @@
 Add explanation to missing Ramda methods
 
 Improve R.produce typings
+
+R.equals support for 'Function' as it makes sense in deep unit testing.
 ---
 
 Fix `If you need more Ramda methods in Rambda, you may either submit a PR or check the extended version of Rambda - Rambdax. In case of the former, you may want to consult with Rambda contribution guidelines.` in Rambdax

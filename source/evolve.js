@@ -1,11 +1,8 @@
+import { _isArray } from './_internals/_isArray'
 import { mapArray, mapObject } from './map'
 import { type } from './type'
 
 export function evolveArray(rules, list){
-  if (!list){
-    return {}
-  }
-
   return mapArray(
     (x, i) => {
       if (type(rules[ i ]) === 'Function'){
@@ -19,10 +16,7 @@ export function evolveArray(rules, list){
   )
 }
 
-export function evolveObject(rules, input){
-  const inputType = type(input)
-  if (inputType !== 'Object') return {}
-
+export function evolveObject(rules, iterable){
   return mapObject((x, prop) => {
     if (type(x) === 'Object'){
       const typeRule = type(rules[ prop ])
@@ -40,25 +34,53 @@ export function evolveObject(rules, input){
     }
 
     return x
-  }, input)
+  }, iterable)
 }
 
-export function evolve(rules, input){
+export function evolve(rules, iterable){
   if (arguments.length === 1){
-    return _input => evolve(rules, _input)
+    return _iterable => evolve(rules, _iterable)
   }
   const rulesType = type(rules)
-  if (rulesType === 'Array') return evolveArray(rules, input)
-  if (rulesType === 'Object') return evolveObject(rules, input)
-  const inputType = type(input)
+  const iterableType = type(iterable)
+  // console.log(rulesType, iterableType)
 
-  if (inputType === 'Array'){
-    if (input.length > 0){
-      throw new TypeError(`Cannot read property '0' of ${ rules }`)
+  if (iterableType !== rulesType){
+    if ([ iterableType, rulesType ].includes('Object')){
+      if (iterableType === 'Object'){
+        if (![ 'Null', 'Undefined' ].includes(rulesType)) return iterable
+        if (Object.keys(iterable).length === 0) return {}
+
+        throw new TypeError(`Cannot read property '${ Object.keys(iterable)[ 0 ] }' of ${ rules }`)
+      }
     }
 
-    return []
+    if ([ iterableType, rulesType ].includes('Array')){
+      if ([ 'Number', 'Null', 'Undefined', 'Array' ].includes(rulesType)){
+        return {}
+      }
+
+      throw new TypeError(`Cannot read property '0' of ${ iterable }`)
+    }
+
+    return {}
   }
 
-  return {}
+  if (![ 'Object', 'Array' ].includes(rulesType)){
+    if (iterableType === 'Array'){
+      if (iterable.length > 0){
+        throw new TypeError(`Cannot read property '0' of ${ rules }`)
+      }
+
+      return []
+    }
+
+    return {}
+  }
+
+  if (iterableType === 'Object'){
+    return evolveObject(rules, iterable)
+  }
+
+  return evolveArray(rules, iterable)
 }

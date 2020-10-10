@@ -3,9 +3,10 @@ import { equals, filter, type } from 'rambdax'
 
 const PENDING = 'PENDING'
 const RESULTS_EQUAL = 'results are equal'
+const RESULTS_DIFFERENT = 'results are different'
 const ERRORS_EQUAL = 'errors are equal'
 const SHOULD_THROW = 'Rambda should throw'
-const SHOULD_NOT_THROW = 'Rambda should throw'
+const SHOULD_NOT_THROW = 'Rambda should not throw'
 
 export function compareToRamda(fn, fnRamda){
   return (...inputs) => {
@@ -42,6 +43,14 @@ export function compareToRamda(fn, fnRamda){
         label : ERRORS_EQUAL,
       }
     } else if (result !== PENDING){
+      if (ramdaError === PENDING){
+        return {
+          ...toReturn,
+          ok    : false,
+          label : RESULTS_DIFFERENT,
+        }
+      }
+
       return {
         ...toReturn,
         ok    : false,
@@ -71,6 +80,7 @@ export const compareCombinations = ({
   firstInput,
   secondInput = undefined,
   thirdInput = undefined,
+  setCounter = () => {},
   fn,
   fnRamda,
 }) => {
@@ -94,6 +104,7 @@ export const compareCombinations = ({
       const compared = compareOutputs(...inputs)
 
       if (!compared.ok){
+        setCounter()
         expect({
           ...compared,
           inputs,
