@@ -43,7 +43,7 @@ export function evolve(rules, iterable){
   }
   const rulesType = type(rules)
   const iterableType = type(iterable)
-  // console.log(rulesType, iterableType)
+  console.log(rulesType, iterableType)
 
   if (iterableType !== rulesType){
     if ([ iterableType, rulesType ].includes('Object')){
@@ -56,10 +56,12 @@ export function evolve(rules, iterable){
     }
 
     if ([ iterableType, rulesType ].includes('Array')){
-      if ([ 'Number', 'Null', 'Undefined', 'Array' ].includes(rulesType)){
+      if ([ 'Number', 'Undefined', 'Array' ].includes(rulesType)){
         return {}
       }
-
+      if (rulesType === 'Null'){
+        throw new TypeError(`Cannot read property '0' of ${ rules }`)
+      }
       throw new TypeError(`Cannot read property '0' of ${ iterable }`)
     }
 

@@ -2,33 +2,19 @@
 
 exports[`r.evolve Null null | Array  1`] = `
 Object {
-  "error": "PENDING",
+  "error": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
   "inputs": Array [
     null,
     Array [],
   ],
-  "label": "results are different",
+  "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Array [],
-  "result": Object {},
-}
-`;
-
-exports[`r.evolve Null null | Array 1 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    null,
-    Array [
-      1,
-    ],
-  ],
-  "label": "Rambda should throw",
-  "ok": false,
-  "ramdaError": "Cannot read property '0' of null",
-  "ramdaResult": "PENDING",
-  "result": Object {},
+  "result": "PENDING",
 }
 `;
 
@@ -68,7 +54,10 @@ Object {
 
 exports[`r.evolve Object [object Object] | Array  1`] = `
 Object {
-  "error": "Cannot read property '0' of ",
+  "error": Object {
+    "message": "Cannot read property '0' of ",
+    "type": "TypeError",
+  },
   "inputs": Array [
     Object {
       "a": 1,
@@ -85,7 +74,10 @@ Object {
 
 exports[`r.evolve Object [object Object] | Array  2`] = `
 Object {
-  "error": "Cannot read property '0' of ",
+  "error": Object {
+    "message": "Cannot read property '0' of ",
+    "type": "TypeError",
+  },
   "inputs": Array [
     Object {
       "a": [Function],
@@ -102,7 +94,10 @@ Object {
 
 exports[`r.evolve Object [object Object] | Array 1 1`] = `
 Object {
-  "error": "Cannot read property '0' of 1",
+  "error": Object {
+    "message": "Cannot read property '0' of 1",
+    "type": "TypeError",
+  },
   "inputs": Array [
     Object {
       "a": 1,
@@ -123,7 +118,10 @@ Object {
 
 exports[`r.evolve Object [object Object] | Array 1 2`] = `
 Object {
-  "error": "Cannot read property '0' of 1",
+  "error": Object {
+    "message": "Cannot read property '0' of 1",
+    "type": "TypeError",
+  },
   "inputs": Array [
     Object {
       "a": [Function],
@@ -144,7 +142,10 @@ Object {
 
 exports[`r.evolve String  | Array  1`] = `
 Object {
-  "error": "Cannot read property '0' of ",
+  "error": Object {
+    "message": "Cannot read property '0' of ",
+    "type": "TypeError",
+  },
   "inputs": Array [
     "",
     Array [],
@@ -159,7 +160,10 @@ Object {
 
 exports[`r.evolve String  | Array 1 1`] = `
 Object {
-  "error": "Cannot read property '0' of 1",
+  "error": Object {
+    "message": "Cannot read property '0' of 1",
+    "type": "TypeError",
+  },
   "inputs": Array [
     "",
     Array [
@@ -202,7 +206,10 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": "Cannot read property '0' of undefined",
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of undefined",
+    "type": "TypeError",
+  },
   "ramdaResult": "PENDING",
   "result": Object {},
 }

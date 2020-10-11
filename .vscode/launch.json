@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/switcher.spec.js"
+        "source/evolve.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

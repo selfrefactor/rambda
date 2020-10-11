@@ -78,16 +78,19 @@ const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
 const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
 describe('r.evolve', () => {
-  let counter = 0
+  let counter = 1
+  let globalCounter = 1
   afterAll(() => {
     console.log({ counter })
+    console.log({ globalCounter })
   })
   compareCombinations({
-    firstInput  : possibleRules,
-    setCounter  : () => counter++,
-    secondInput : possibleIterables,
-    fn          : evolve,
-    fnRamda     : evolveRamda,
+    firstInput       : possibleRules,
+    setCounter       : () => counter++,
+    setGlobalCounter : () => globalCounter++,
+    secondInput      : possibleIterables,
+    fn               : evolve,
+    fnRamda          : evolveRamda,
   })
 })
 
@@ -95,7 +98,8 @@ test.skip('foo', () => {
   const compareOutputs = compareToRamda(evolve, evolveRamda)
 
   const rulesInput = null
-  const iterableInput = { a : 1 }
+  const iterableInput = [ 1 ]
+  // const iterableInput = { a : 1 }
   const compared = compareOutputs(rulesInput, iterableInput)
   console.log(compared)
   console.log(compared.ramdaResult)
