@@ -23,22 +23,55 @@ function parseError(err){
   }
 }
 
-export function compareToRamda(fn, fnRamda){
-  return (...inputs) => {
-    let ramdaResult = PENDING
+function executeSync(fn, inputs){
     let result = PENDING
-    let ramdaError = { ok : false }
     let error = { ok : false }
     try {
       result = fn(...inputs)
     } catch (e){
       error = parseError(e)
     }
-    try {
-      ramdaResult = fnRamda(...inputs)
-    } catch (e){
-      ramdaError = parseError(e)
-    }
+   
+    return {result, error}
+}
+
+export function profileMethod(
+  firstInput,
+  secondInput = undefined,
+  thirdInput = undefined,
+  fn,
+){
+  const combinationsInput = filter(Boolean, {
+    firstInput,
+    secondInput,
+    thirdInput,
+  })
+  const inputKeys = Object.keys(combinationsInput)
+  const combinations = combinate(combinationsInput)
+
+  combinations.forEach(combination => {
+    const inputs = [
+      combination.firstInput,
+      combination.secondInput,
+      combination.thirdInput,
+    ].filter((_, i) => i < inputKeys.length)
+
+    test(getTestTitle(...inputs), () => {
+      const {result, error} = executeSync(fn,inputs)
+      expect({
+        result,
+        error,
+        inputs,
+      }).toMatchSnapshot()
+    })
+  })
+}
+
+export function compareToRamda(fn, fnRamda){
+  return (...inputs) => {
+    const {result, error} = executeSync(fn, inputs)
+    const {result: ramdaResult, error: ramdaError} = executeSync(fnRamda, inputs)
+
     const toReturn = {
       result,
       ramdaResult,
