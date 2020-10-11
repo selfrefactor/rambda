@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/evolve.spec.js"
+        "source/produceAsync.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

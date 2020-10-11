@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`profile Number 1 | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    1,
+    1,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Number 1 | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    1,
+    Object {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Number 1 | Promise  1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    1,
+    Promise {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Number 1 | RegExp /foo/g 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    1,
+    /foo/g,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":""} | Number 1 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Object {
+      "a": [Function],
+    },
+    1,
+  ],
+  "result": Object {
+    "a": 2,
+  },
+}
+`;
+
+exports[`profile Object {"a":""} | Object {} 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Object {
+      "a": [Function],
+    },
+    Object {},
+  ],
+  "result": Object {
+    "a": "[object Object]1",
+  },
+}
+`;
+
+exports[`profile Object {"a":""} | Promise  1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Object {
+      "a": [Function],
+    },
+    Promise {},
+  ],
+  "result": Object {
+    "a": "[object Promise]1",
+  },
+}
+`;
+
+exports[`profile Object {"a":""} | RegExp /foo/g 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Object {
+      "a": [Function],
+    },
+    /foo/g,
+  ],
+  "result": Object {
+    "a": "/foo/g1",
+  },
+}
+`;
+
+exports[`profile Object {"a":"[1]"} | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": Array [
+        1,
+      ],
+    },
+    1,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":"[1]"} | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": Array [
+        1,
+      ],
+    },
+    Object {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":"[1]"} | Promise  1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": Array [
+        1,
+      ],
+    },
+    Promise {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":"[1]"} | RegExp /foo/g 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": Array [
+        1,
+      ],
+    },
+    /foo/g,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":1} | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    1,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":1} | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    Object {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":1} | Promise  1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    Promise {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile Object {"a":1} | RegExp /foo/g 1`] = `
+Object {
+  "error": Object {
+    "message": "conditions[prop] is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {
+      "a": 1,
+    },
+    /foo/g,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile String  | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    "",
+    1,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile String  | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    "",
+    Object {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile String  | Promise  1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    "",
+    Promise {},
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`profile String  | RegExp /foo/g 1`] = `
+Object {
+  "error": Object {
+    "message": "produceFn(...).then is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    "",
+    /foo/g,
+  ],
+  "result": "PENDING",
+}
+`;
