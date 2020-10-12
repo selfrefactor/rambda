@@ -4662,18 +4662,32 @@ export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: reado
 /*
 Method: evolve
 
-Explanation:
+Explanation: It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
 
 Example:
 
 ```
-const result = R.evolve()
-// => 
+const rules = {
+  foo : add(1),
+  bar : add(-1),
+}
+const input = {
+  a   : 1,
+  foo : 2,
+  bar : 3,
+}
+const result = evolve(rules, input)
+const expected = {
+  a   : 1,
+  foo : 3,
+  bar : 2,
+})
+// => `result` is equal to `expected`
 ```
 
-Categories:
+Categories: Object, List
 
-Notes:
+Notes: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct. Full details for this mismatch are listed in `source/_snapshots/evolve.spec.js.snap` file.
 
 */
 // @SINGLE_MARKER

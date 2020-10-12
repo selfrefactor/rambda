@@ -1,5 +1,5 @@
 import combinate from 'combinate'
-import { equals, filter, map, omit, switcher, type } from 'rambdax'
+import { equals, filter, forEach, map, omit, switcher, type } from 'rambdax'
 
 const omitOk = omit('ok')
 
@@ -10,14 +10,20 @@ const ERRORS_EQUAL = 'errors are equal'
 const ERRORS_MISMATCH = 'errors are different'
 const SHOULD_THROW = 'Rambda should throw'
 const SHOULD_NOT_THROW = 'Rambda should not throw'
-
+const ALL_ERROR_LABELS = {
+  RESULTS_MISMATCH,
+  ERRORS_MISMATCH,
+  SHOULD_NOT_THROW,
+  SHOULD_THROW,
+}
 const MISSING = 'Missing error handle in parseError'
 
 function parseError(err){
   const typeError = switcher(err)
     .is(x => x instanceof TypeError, 'TypeError')
-    .is(x => x instanceof TypeError, 'TypeError')
-    .is(x => x instanceof TypeError, 'TypeError')
+    .is(x => x instanceof SyntaxError, 'SyntaxError')
+    .is(x => x instanceof RangeError, 'RangeError')
+    .is(x => x instanceof Error, 'Error')
     .default(MISSING)
 
   if (typeError === MISSING){
@@ -78,6 +84,7 @@ async function executeAsync(fn, inputs){
   let error = { ok : false }
   try {
     result = await fn(...inputs)
+    console.log(result)
   } catch (e){
     error = parseError(e)
   }
@@ -87,6 +94,8 @@ async function executeAsync(fn, inputs){
     error,
   }
 }
+
+function countErrors(){}
 
 export function profileMethod(
   firstInput,
@@ -126,9 +135,7 @@ export function profileMethodAsync({
   secondInput = undefined,
   thirdInput = undefined,
   fn,
-  callback,
 }){
-  afterAll(() => callback())
   const combinationsInput = filter(Boolean, {
     firstInput,
     secondInput,
@@ -225,9 +232,28 @@ export const compareCombinations = ({
   thirdInput = undefined,
   setCounter = () => {},
   setGlobalCounter = () => {},
+  callback = x => {},
   fn,
   fnRamda,
 }) => {
+  const counter = {
+    RESULTS_MISMATCH : 0,
+    SHOULD_THROW     : 0,
+    SHOULD_NOT_THROW : 0,
+    ERRORS_MISMATCH  : 0,
+    ERRORS_DIFFERENT : 0,
+  }
+
+  const increaseCounter = comparedResult => {
+    if (comparedResult.ok) return
+    let counterProp
+    forEach((x, prop) => {
+      if (x === comparedResult.label) counterProp = prop
+    }, ALL_ERROR_LABELS)
+    counter[ counterProp ]++
+    1
+  }
+
   const combinationsInput = filter(Boolean, {
     firstInput,
     secondInput,
@@ -236,7 +262,7 @@ export const compareCombinations = ({
   const inputKeys = Object.keys(combinationsInput)
   const combinations = combinate(combinationsInput)
   const compareOutputs = compareToRamda(fn, fnRamda)
-
+  afterAll(() => callback(counter))
   combinations.forEach(combination => {
     const inputs = [
       combination.firstInput,
@@ -247,7 +273,9 @@ export const compareCombinations = ({
     test(getTestTitle(...inputs), () => {
       const compared = compareOutputs(...inputs)
       setGlobalCounter()
+
       if (!compared.ok){
+        increaseCounter(compared)
         setCounter()
         expect({
           ...compared,
@@ -257,3 +285,34 @@ export const compareCombinations = ({
     })
   })
 }
+
+/*
+  describe("r.evolve", () => {
+  let counter = 0;
+  let globalCounter = 0;
+
+  afterAll(() => {
+    console.log({ counter });
+    console.log({ globalCounter });
+  });
+  compareCombinations({
+    firstInput: possibleRules,
+    setCounter: () => counter++,
+    setGlobalCounter: () => globalCounter++,
+    secondInput: possibleIterables,
+    fn: evolve,
+    fnRamda: evolveRamda,
+  });
+});
+
+test.skip("foo", () => {
+  const compareOutputs = compareToRamda(evolve, evolveRamda);
+
+  const rulesInput = null;
+  const iterableInput = [];
+  const compared = compareOutputs(rulesInput, iterableInput);
+
+  console.log(compared.ramdaResult);
+  console.log(compared.label);
+});
+*/

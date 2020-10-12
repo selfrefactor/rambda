@@ -1,6 +1,5 @@
-import { evolve as evolveRamda } from 'ramda'
-
 import { add } from '../rambda.js'
+import {evolve as evolveRamda} from 'ramda'
 import { compareCombinations, compareToRamda } from './_internals/testUtils'
 import { evolve } from './evolve'
 
@@ -23,7 +22,7 @@ test('happy', () => {
 })
 
 test('is recursive', () => {
-  const transf = {
+  const rules = {
     nested : {
       second : add(-1),
       third  : add(1),
@@ -43,12 +42,12 @@ test('is recursive', () => {
       third  : 4,
     },
   }
-  const result = evolve(transf, object)
+  const result = evolve(rules, object)
   expect(result).toEqual(expected)
 })
 
-test('ignores primitive value transformations', () => {
-  const transf = {
+test('ignores primitive value rulesormations', () => {
+  const rules = {
     n : 2,
     m : 'foo',
   }
@@ -60,15 +59,15 @@ test('ignores primitive value transformations', () => {
     n : 0,
     m : 1,
   }
-  const result = evolve(transf, object)
+  const result = evolve(rules, object)
   expect(result).toEqual(expected)
 })
 
 test('with array', () => {
-  const transf = [ add(1), add(-1) ]
+  const rules = [ add(1), add(-1) ]
   const list = [ 100, 1400 ]
   const expected = [ 101, 1399 ]
-  const result = evolve(transf, list)
+  const result = evolve(rules, list)
   expect(result).toEqual(expected)
 })
 
@@ -77,31 +76,22 @@ const rulesList = [ add(1) ]
 const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
 const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
-describe('r.evolve', () => {
-  let counter = 1
-  let globalCounter = 1
-  afterAll(() => {
-    console.log({ counter })
-    console.log({ globalCounter })
-  })
+describe('brute force', () => {
   compareCombinations({
     firstInput       : possibleRules,
-    setCounter       : () => counter++,
-    setGlobalCounter : () => globalCounter++,
-    secondInput      : possibleIterables,
-    fn               : evolve,
-    fnRamda          : evolveRamda,
+    callback         : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_DIFFERENT": 0,
+          "ERRORS_MISMATCH": 4,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 51,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleIterables,
+    fn          : evolve,
+    fnRamda     : evolveRamda,
   })
-})
-
-test.skip('foo', () => {
-  const compareOutputs = compareToRamda(evolve, evolveRamda)
-
-  const rulesInput = null
-  const iterableInput = [ 1 ]
-  // const iterableInput = { a : 1 }
-  const compared = compareOutputs(rulesInput, iterableInput)
-  console.log(compared)
-  console.log(compared.ramdaResult)
-  console.log(compared.label)
-})
+}) 

@@ -43,41 +43,13 @@ export function evolve(rules, iterable){
   }
   const rulesType = type(rules)
   const iterableType = type(iterable)
-  console.log(rulesType, iterableType)
 
   if (iterableType !== rulesType){
-    if ([ iterableType, rulesType ].includes('Object')){
-      if (iterableType === 'Object'){
-        if (![ 'Null', 'Undefined' ].includes(rulesType)) return iterable
-        if (Object.keys(iterable).length === 0) return {}
-
-        throw new TypeError(`Cannot read property '${ Object.keys(iterable)[ 0 ] }' of ${ rules }`)
-      }
-    }
-
-    if ([ iterableType, rulesType ].includes('Array')){
-      if ([ 'Number', 'Undefined', 'Array' ].includes(rulesType)){
-        return {}
-      }
-      if (rulesType === 'Null'){
-        throw new TypeError(`Cannot read property '0' of ${ rules }`)
-      }
-      throw new TypeError(`Cannot read property '0' of ${ iterable }`)
-    }
-
-    return {}
+    throw new Error('iterableType !== rulesType')
   }
 
   if (![ 'Object', 'Array' ].includes(rulesType)){
-    if (iterableType === 'Array'){
-      if (iterable.length > 0){
-        throw new TypeError(`Cannot read property '0' of ${ rules }`)
-      }
-
-      return []
-    }
-
-    return {}
+    throw new Error(`iterableType and rulesType are from wrong type ${ rulesType }`)
   }
 
   if (iterableType === 'Object'){

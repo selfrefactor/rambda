@@ -52,14 +52,11 @@ const rules = [
   '',
 ]
 const inputs = [ 1, /foo/g, {}, delay(100) ]
- 
-describe.only('profile', done => {
+
+describe('profile', () => {
   profileMethodAsync({
     fn          : produceAsync,
     firstInput  : rules,
     secondInput : inputs,
-    callback    : () => {
-      1
-    },
   })
 })
