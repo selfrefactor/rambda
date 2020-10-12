@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brute force Number 1 1`] = `
+exports[`brute force Number 1`] = `
 Object {
   "error": Object {
     "message": "1 is not a list",
@@ -19,7 +19,7 @@ Object {
 }
 `;
 
-exports[`brute force Promise  1`] = `
+exports[`brute force Promise 1`] = `
 Object {
   "error": Object {
     "message": "[object Promise] is not a list",
@@ -38,7 +38,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g 1`] = `
+exports[`brute force RegExp 1`] = `
 Object {
   "error": Object {
     "message": "/foo/g is not a list",

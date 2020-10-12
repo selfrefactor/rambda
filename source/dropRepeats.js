@@ -5,7 +5,7 @@ export function dropRepeats(list){
   if(!_isArray(list)){
     throw new Error(`${list} is not a list`)
   }
-  
+   
   const toReturn = []
 
   list.reduce((prev, current) => {
@@ -18,3 +18,4 @@ export function dropRepeats(list){
 
   return toReturn
 }
+ 

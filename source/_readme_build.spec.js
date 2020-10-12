@@ -5,6 +5,7 @@ jest.setTimeout(1 * 60 * 1000)
 const DIR = resolve(__dirname, '../')
 
 test('can build readme', async () => {
+  if(process.env.WALLABY === 'ON') return
   const { status } = spawnSync(
     'yarn', [ 'out' ], {
       stdio : 'inherit',

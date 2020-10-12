@@ -237,62 +237,63 @@ The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 96.25% slower | 96.24% slower | 🚀 Fastest
- *adjust* | 🚀 Fastest | 5.52% slower | 🔳
- *all* | 🚀 Fastest | 94.95% slower | 🔳
- *allPass* | 🚀 Fastest | 98.95% slower | 🔳
- *any* | 🚀 Fastest | 98.18% slower | 6.18% slower
- *anyPass* | 🚀 Fastest | 99.09% slower | 🔳
- *append* | 🚀 Fastest | 84.09% slower | 🔳
- *applySpec* | 🚀 Fastest | 75.73% slower | 🔳
- *assoc* | 87.98% slower | 57.39% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 96.03% slower | 91.75% slower
- *compose* | 🚀 Fastest | 96.45% slower | 77.83% slower
- *converge* | 49.12% slower | 🚀 Fastest | 🔳
- *curry* | 🚀 Fastest | 34.9% slower | 🔳
- *curryN* | 63.32% slower | 🚀 Fastest | 🔳
- *defaultTo* | 🚀 Fastest | 50.3% slower | 🔳
- *drop* | 🚀 Fastest | 97.45% slower | 🔳
- *dropLast* | 🚀 Fastest | 97.07% slower | 🔳
- *equals* | 72.11% slower | 79.48% slower | 🚀 Fastest
- *filter* | 🚀 Fastest | 94.74% slower | 58.18% slower
- *find* | 🚀 Fastest | 98.2% slower | 88.96% slower
- *findIndex* | 🚀 Fastest | 97.97% slower | 79.39% slower
- *flatten* | 6.56% slower | 95.38% slower | 🚀 Fastest
- *ifElse* | 🚀 Fastest | 70.97% slower | 🔳
- *includes* | 🚀 Fastest | 71.7% slower | 🔳
- *indexOf* | 🚀 Fastest | 84.08% slower | 7.86% slower
- *init* | 94.42% slower | 97.55% slower | 🚀 Fastest
- *is* | 🚀 Fastest | 11.72% slower | 🔳
- *isEmpty* | 51.68% slower | 93.82% slower | 🚀 Fastest
- *last* | 🚀 Fastest | 99.64% slower | 1.05% slower
- *lastIndexOf* | 🚀 Fastest | 42.38% slower | 🔳
- *map* | 🚀 Fastest | 69.63% slower | 4.68% slower
- *match* | 🚀 Fastest | 46.75% slower | 🔳
- *merge* | 63.55% slower | 🚀 Fastest | 55.25% slower
- *none* | 🚀 Fastest | 98.22% slower | 🔳
- *omit* | 🚀 Fastest | 70.66% slower | 97.56% slower
- *over* | 🚀 Fastest | 50.77% slower | 🔳
- *path* | 🚀 Fastest | 74.94% slower | 5.72% slower
- *pick* | 🚀 Fastest | 26.29% slower | 86.82% slower
- *prop* | 🚀 Fastest | 89.89% slower | 🔳
- *propEq* | 🚀 Fastest | 95.26% slower | 🔳
- *range* | 95.17% slower | 90.22% slower | 🚀 Fastest
- *reduce* | 52.76% slower | 74.02% slower | 🚀 Fastest
- *repeat* | 85.91% slower | 95.31% slower | 🚀 Fastest
- *replace* | 0.47% slower | 28.13% slower | 🚀 Fastest
- *set* | 🚀 Fastest | 36.26% slower | 🔳
- *sort* | 🚀 Fastest | 63.15% slower | 🔳
- *sortBy* | 🚀 Fastest | 61.57% slower | 88.88% slower
- *split* | 🚀 Fastest | 85.34% slower | 33.69% slower
- *splitEvery* | 🚀 Fastest | 90.18% slower | 🔳
- *take* | 93.44% slower | 98.04% slower | 🚀 Fastest
- *takeLast* | 92.61% slower | 98.83% slower | 🚀 Fastest
- *test* | 🚀 Fastest | 94.42% slower | 🔳
- *type* | 18.91% slower | 🚀 Fastest | 🔳
- *uniq* | 98.98% slower | 96.58% slower | 🚀 Fastest
- *update* | 🚀 Fastest | 38.88% slower | 🔳
- *view* | 🚀 Fastest | 82.21% slower | 🔳
+ *add* | 96.44% slower | 96.46% slower | 🚀 Fastest
+ *adjust* | 7.45% slower | 🚀 Fastest | 🔳
+ *all* | 🚀 Fastest | 94.7% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.82% slower | 🔳
+ *and* | 🚀 Fastest | 1.52% slower | 🔳
+ *any* | 🚀 Fastest | 98.18% slower | 6.17% slower
+ *anyPass* | 🚀 Fastest | 99% slower | 🔳
+ *append* | 🚀 Fastest | 87.86% slower | 🔳
+ *applySpec* | 🚀 Fastest | 75.29% slower | 🔳
+ *assoc* | 87.56% slower | 56.69% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 95.99% slower | 91.52% slower
+ *compose* | 🚀 Fastest | 96.66% slower | 77.9% slower
+ *converge* | 49.35% slower | 🚀 Fastest | 🔳
+ *curry* | 🚀 Fastest | 42.09% slower | 🔳
+ *curryN* | 60.98% slower | 🚀 Fastest | 🔳
+ *defaultTo* | 🚀 Fastest | 8.28% slower | 🔳
+ *drop* | 🚀 Fastest | 97.51% slower | 🔳
+ *dropLast* | 🚀 Fastest | 97.11% slower | 🔳
+ *equals* | 72.1% slower | 79.87% slower | 🚀 Fastest
+ *filter* | 🚀 Fastest | 94.51% slower | 55.65% slower
+ *find* | 🚀 Fastest | 98.09% slower | 88.87% slower
+ *findIndex* | 🚀 Fastest | 98.05% slower | 80.16% slower
+ *flatten* | 14.03% slower | 95.46% slower | 🚀 Fastest
+ *ifElse* | 🚀 Fastest | 72.79% slower | 🔳
+ *includes* | 🚀 Fastest | 73% slower | 🔳
+ *indexOf* | 🚀 Fastest | 84.42% slower | 8.33% slower
+ *init* | 94.36% slower | 97.57% slower | 🚀 Fastest
+ *is* | 🚀 Fastest | 11.73% slower | 🔳
+ *isEmpty* | 47.79% slower | 93.45% slower | 🚀 Fastest
+ *last* | 🚀 Fastest | 99.64% slower | 0.52% slower
+ *lastIndexOf* | 🚀 Fastest | 7.31% slower | 🔳
+ *map* | 🚀 Fastest | 70.95% slower | 7.67% slower
+ *match* | 🚀 Fastest | 46.84% slower | 🔳
+ *merge* | 62.53% slower | 🚀 Fastest | 54.67% slower
+ *none* | 🚀 Fastest | 98.25% slower | 🔳
+ *omit* | 🚀 Fastest | 70.16% slower | 97.74% slower
+ *over* | 🚀 Fastest | 40.65% slower | 🔳
+ *path* | 🚀 Fastest | 75.86% slower | 7.82% slower
+ *pick* | 🚀 Fastest | 23.41% slower | 86.39% slower
+ *prop* | 🚀 Fastest | 89.59% slower | 🔳
+ *propEq* | 🚀 Fastest | 95.27% slower | 🔳
+ *range* | 95.17% slower | 90.04% slower | 🚀 Fastest
+ *reduce* | 52.54% slower | 72.35% slower | 🚀 Fastest
+ *repeat* | 85.78% slower | 95.3% slower | 🚀 Fastest
+ *replace* | 34.08% slower | 30.38% slower | 🚀 Fastest
+ *set* | 🚀 Fastest | 12.56% slower | 🔳
+ *sort* | 🚀 Fastest | 64.02% slower | 🔳
+ *sortBy* | 🚀 Fastest | 59.39% slower | 89.22% slower
+ *split* | 🚀 Fastest | 85.36% slower | 32.63% slower
+ *splitEvery* | 🚀 Fastest | 89.88% slower | 🔳
+ *take* | 93.37% slower | 98.08% slower | 🚀 Fastest
+ *takeLast* | 92.65% slower | 98.75% slower | 🚀 Fastest
+ *test* | 🚀 Fastest | 94.29% slower | 🔳
+ *type* | 21.23% slower | 🚀 Fastest | 🔳
+ *uniq* | 99.43% slower | 96.53% slower | 🚀 Fastest
+ *update* | 🚀 Fastest | 41.75% slower | 🔳
+ *view* | 🚀 Fastest | 82.42% slower | 🔳
 
 </details>
 
@@ -5201,7 +5202,7 @@ import { dropRepeats } from './dropRepeats'
 const list = [ 1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a : 1 }, { a : 1 } ]
 const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
 
-test('happy', () => {
+test('happy', () => { 
   const result = dropRepeats(list)
   expect(result).toEqual(listClean)
 })

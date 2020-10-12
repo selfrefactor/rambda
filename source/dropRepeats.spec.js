@@ -9,6 +9,7 @@ const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
 
 test('happy', () => {
   const result = dropRepeats(list)
+  console.log(result)
   expect(result).toEqual(listClean)
 })
 

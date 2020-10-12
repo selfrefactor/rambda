@@ -223,8 +223,7 @@ export function compareToRamda(fn, fnRamda){
   }
 }
 
-export const getTestTitle = (...inputs) =>
-  inputs.map(x => `${ type(x) } ${ show(x) }`).join(' | ')
+export const getTestTitle = (...inputs) => inputs.map(type).join(' | ')
 
 export const compareCombinations = ({
   firstInput,
@@ -251,7 +250,6 @@ export const compareCombinations = ({
       if (x === comparedResult.label) counterProp = prop
     }, ALL_ERROR_LABELS)
     counter[ counterProp ]++
-    1
   }
 
   const combinationsInput = filter(Boolean, {
