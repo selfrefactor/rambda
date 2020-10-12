@@ -47,17 +47,30 @@ interface Dictionary<T> {
 type Partial<T> = {
   [P in keyof T]?: T[P];
 };
+
 type Evolvable<E extends Evolver> = {
   [P in keyof E]?: Evolved<E[P]>;
 };
+
 type Evolver<T extends Evolvable<any> = any> = {
   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };
+
+type Evolver<T extends Evolvable<any> = any> = {
+  [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
+};
+
 type Evolve<O extends Evolvable<E>, E extends Evolver> = {
   [P in keyof O]: P extends keyof E
                   ? EvolveValue<O[P], E[P]>
                   : O[P];
 };
+type EvolveValue<V, E> =
+    E extends (value: V) => any
+    ? ReturnType<E>
+    : E extends Evolver
+      ? EvolveNestedValue<V, E>
+      : never;
 
 type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
@@ -4691,10 +4704,11 @@ Notes: Error handling of this method differs between Ramda and Rambda. Ramda for
 
 */
 // @SINGLE_MARKER
-export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
-export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
-export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
-export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
+// export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+// export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+// export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+// export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
 
 /*
 Method: dropLastWhile

@@ -299,20 +299,14 @@ export const compareCombinations = ({
     firstInput: possibleRules,
     setCounter: () => counter++,
     setGlobalCounter: () => globalCounter++,
+    callback: errorsCounter => {
+      expect(
+        errorsCounter
+      ).toMatchInlineSnapshot()
+    },
     secondInput: possibleIterables,
     fn: evolve,
     fnRamda: evolveRamda,
   });
-});
-
-test.skip("foo", () => {
-  const compareOutputs = compareToRamda(evolve, evolveRamda);
-
-  const rulesInput = null;
-  const iterableInput = [];
-  const compared = compareOutputs(rulesInput, iterableInput);
-
-  console.log(compared.ramdaResult);
-  console.log(compared.label);
 });
 */

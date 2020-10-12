@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 94 Ramda methods not implemented in Rambda 
+  Click to see the full list of 93 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -109,7 +109,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
-- dropRepeats
 - dropRepeatsWith
 - dropWhile
 - empty
@@ -5135,6 +5134,132 @@ describe('R.dropLastWhile', () => {
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
 
+### dropRepeats
+
+```typescript
+
+dropRepeats<T>(x: T): T
+```
+
+```javascript
+const result = R.dropRepeats()
+// =>
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeats()%0A%2F%2F%20%3D%3E">Try this <strong>R.dropRepeats</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropRepeats<T>(x: T): T;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropRepeats</strong> source</summary>
+
+```javascript
+import { equals } from './equals'
+import { _isArray } from './_internals/_isArray'
+
+export function dropRepeats(list){
+  if(!_isArray(list)){
+    throw new Error(`${list} is not a list`)
+  }
+  
+  const toReturn = []
+
+  list.reduce((prev, current) => {
+    if (!equals(prev, current)){
+      toReturn.push(current)
+    }
+
+    return current
+  }, undefined)
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropRepeats as dropRepeatsRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
+import { add } from './add'
+import { dropRepeats } from './dropRepeats'
+
+const list = [ 1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a : 1 }, { a : 1 } ]
+const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
+
+test('happy', () => {
+  const result = dropRepeats(list)
+  expect(result).toEqual(listClean)
+})
+
+const possibleLists = [
+  [ add(1), async () => {}, [ 1 ], [ 1 ], [ 2 ], [ 2 ] ],
+  [ add(1), add(1), add(2) ],
+  [],
+  1,
+  /foo/g,
+  Promise.resolve(1),
+]
+
+describe('brute force', () => {
+  compareCombinations({
+    firstInput : possibleLists,
+    callback   : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_DIFFERENT": 0,
+          "ERRORS_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 3,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    fn      : dropRepeats,
+    fnRamda : dropRepeatsRamda,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { dropRepeats } from 'rambda'
+
+describe('R.dropRepeats', () => {
+  it('happy', () => {
+    const result = dropRepeats()
+    
+    result // $ExpectType number
+  })
+  it('curried', () => {
+    const result = dropRepeats()
+
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
 ### either
 
 ```typescript
@@ -6082,7 +6207,7 @@ describe('equals', function() {
 
 ```typescript
 
-evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[]
+evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>
 ```
 
 It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
@@ -6115,10 +6240,11 @@ const expected = {
 <summary>All Typescript definitions</summary>
 
 ```typescript
-evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
-evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
-evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
-evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
+// evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+// evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+// evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+// evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
 ```
 
 </details>
@@ -6304,7 +6430,7 @@ describe('brute force', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {evolve, add} from 'rambda'
+import {evolve, add} from 'ramda'
 
 describe('R.evolve', () => {
   it('happy', () => {
