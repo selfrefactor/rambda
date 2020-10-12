@@ -31,6 +31,6 @@ module.exports = function (wallaby){
       }
     },
     testFramework: 'jest',
-    debug: true,
+    debug: false,
   }
 }

@@ -35,11 +35,11 @@ test('with array', async () => {
     [ 3, 4 ],
     [ 1, 2 ],
   ]
-
+  result
   expect(result).toEqual(expectedResult)
 })
 
-test.skip('with object', () => {
+test('with object', async () => {
   const predicate = (value, prop) => {
     expect(typeof prop).toBe('string')
 
@@ -52,7 +52,7 @@ test.skip('with object', () => {
     d : 4,
   }
 
-  const result = partitionAsync(predicate)(hash)
+  const result = await partitionAsync(predicate)(hash)
   const expectedResult = [
     {
       c : 3,
@@ -63,11 +63,10 @@ test.skip('with object', () => {
       b : 2,
     },
   ]
-
   expect(result).toEqual(expectedResult)
 })
 
-test.skip('readme example', () => {
+test('readme example', async () => {
   const list = [ 1, 2, 3 ]
   const obj = {
     a : 1,
@@ -76,10 +75,10 @@ test.skip('readme example', () => {
   }
   const predicate = x => x > 2
 
-  const result = [
+  const result = await Promise.all([
     partitionAsync(predicate, list),
     partitionAsync(predicate, obj),
-  ]
+  ])
   const expected = [
     [ [ 3 ], [ 1, 2 ] ],
     [
