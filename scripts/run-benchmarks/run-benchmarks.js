@@ -2,7 +2,7 @@ process.env.BENCHMARK_FOLDER =
   'scripts/run-benchmarks/benchmarks/benchmark_results'
 import { existsSync } from 'fs'
 import { readJson } from 'fs-extra'
-import { createBenchmark, scanFolder, log } from 'helpers-fn'
+import { createBenchmark, log, scanFolder } from 'helpers-fn'
 import { parse, resolve } from 'path'
 import { mapAsyncLimit, paths } from 'rambdax'
 import { snakeCase } from 'string-fn'
@@ -40,7 +40,8 @@ export async function runSingleBenchmark(singleMethod){
       prevLoser,
       currentLoser,
       currentWinner,
-    }, 'obj')
+    },
+    'obj')
   }
 }
 
@@ -67,9 +68,7 @@ export async function runAllBenchmarks(){
   const methodsWithBenchmarks = await getAllBenchmarks()
   const winnerChanged = []
   const iterable = async singleMethod => {
-    const {
-      winner: prevWinner,
-    } = await getPreviousBenchmark(singleMethod)
+    const { winner: prevWinner } = await getPreviousBenchmark(singleMethod)
 
     const required = require(`${ benchmarksDir }/${ singleMethod }.js`)
     const result = await createBenchmark({ [ singleMethod ] : required })
@@ -80,7 +79,7 @@ export async function runAllBenchmarks(){
     if (prevWinner !== currentWinner){
       winnerChanged.push(singleMethod)
     }
-    log(`Same winner - ${currentWinner}`,'box')
+    log(`Same winner - ${ currentWinner }`, 'box')
   }
 
   await mapAsyncLimit(

@@ -44,6 +44,20 @@ type SafePred<T> = (...x: readonly T[]) => boolean;
 interface Dictionary<T> {
   [index: string]: T;
 }
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+type Evolvable<E extends Evolver> = {
+  [P in keyof E]?: Evolved<E[P]>;
+};
+type Evolver<T extends Evolvable<any> = any> = {
+  [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
+};
+type Evolve<O extends Evolvable<E>, E extends Evolver> = {
+  [P in keyof O]: P extends keyof E
+                  ? EvolveValue<O[P], E[P]>
+                  : O[P];
+};
 
 type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
@@ -117,10 +131,9 @@ interface IsValidAsync {
 type ProduceRules<Output,K extends keyof Output, Input> = {
   [P in K]: (input: Input) => Output[P];
 }
-type ProduceAsyncRules<Input> = {
-  [key: string]: (input: Input) => any | ProduceAsyncRule<Input>
+type ProduceAsyncRules<Output,K extends keyof Output, Input> = {
+  [P in K]: (input: Input) => Promise<Output[P]>;
 }
-type ProduceFunctionRule<Output> = (input: Input) => any
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
 type Async<T> = (x: any) => Promise<T>;
 type AsyncIterable<T, K> = (x: T) => Promise<K>;
@@ -193,10 +206,6 @@ export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 export function append<T>(x: T, list: readonly T[]): T[];
 export function append<T>(x: T): <T>(list: readonly T[]) => T[];
 
-/**
- * It returns a curried function with the same arity as the longest function in the spec object.
- * Arguments will be applied to the spec methods recursively.
- */
 export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
   spec: Spec
 ): (
@@ -1472,7 +1481,15 @@ export function splitAt(index: number): {
 export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): U[][];
 export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => U[][];
 
+export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
 export function takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
 export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
-export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
-export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
+
+/**
+ * It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+ */
+export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;

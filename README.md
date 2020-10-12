@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 96 Ramda methods not implemented in Rambda 
+  Click to see the full list of 95 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -116,7 +116,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - empty
 - eqBy
 - eqProps
-- evolve
 - forEachObjIndexed
 - gt
 - gte
@@ -217,7 +216,9 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
-- Typescript definitions between `rambda` and `@types/ramda` may vary. List of all differences will be added soon. 
+- Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
+
+- Typescript definitions between `rambda` and `@types/ramda` may vary.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
@@ -1313,34 +1314,18 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }
 ```
 
-It returns a curried function with the same arity as the longest function in the spec object.
-Arguments will be applied to the spec methods recursively.
-
 > :boom: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 ```javascript
-const spec = {
-  name: R.path('deeply.nested.firstname')
-}
-const json = {
-  deeply: {
-   nested: {
-      firstname: 'barry'
-    }
-  }
-}
-const result = R.applySpec(spec, json) // => { name: 'barry' }
-
-// Second example
-const getMetrics = R.applySpec({
+const fn = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
 })
-getMetrics(2, 4) 
+const result = fn(2, 4) 
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.firstname')%0A%7D%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D%0A%0A%2F%2F%20Second%20example%0Aconst%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%0AgetMetrics(2%2C%204)%20%0A%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try this <strong>R.applySpec</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%0Aconst%20result%20%3D%20fn(2%2C%204)%20%0A%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try this <strong>R.applySpec</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5903,6 +5888,271 @@ describe('equals', function() {
 
 </details>
 
+### evolve
+
+```typescript
+
+evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[]
+```
+
+It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+
+> :boom: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct. Full details for this mismatch are listed in `source/_snapshots/evolve.spec.js.snap` file.
+
+```javascript
+const rules = {
+  foo : add(1),
+  bar : add(-1),
+}
+const input = {
+  a   : 1,
+  foo : 2,
+  bar : 3,
+}
+const result = evolve(rules, input)
+const expected = {
+  a   : 1,
+  foo : 3,
+  bar : 2,
+})
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20add(1)%2C%0A%20%20bar%20%3A%20add(-1)%2C%0A%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%0Aconst%20result%20%3D%20evolve(rules%2C%20input)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.evolve</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+import { mapArray, mapObject } from './map'
+import { type } from './type'
+
+export function evolveArray(rules, list){
+  return mapArray(
+    (x, i) => {
+      if (type(rules[ i ]) === 'Function'){
+        return rules[ i ](x)
+      }
+
+      return x
+    },
+    list,
+    true
+  )
+}
+
+export function evolveObject(rules, iterable){
+  return mapObject((x, prop) => {
+    if (type(x) === 'Object'){
+      const typeRule = type(rules[ prop ])
+      if (typeRule === 'Function'){
+        return rules[ prop ](x)
+      }
+      if (typeRule === 'Object'){
+        return evolve(rules[ prop ], x)
+      }
+
+      return x
+    }
+    if (type(rules[ prop ]) === 'Function'){
+      return rules[ prop ](x)
+    }
+
+    return x
+  }, iterable)
+}
+
+export function evolve(rules, iterable){
+  if (arguments.length === 1){
+    return _iterable => evolve(rules, _iterable)
+  }
+  const rulesType = type(rules)
+  const iterableType = type(iterable)
+
+  if (iterableType !== rulesType){
+    throw new Error('iterableType !== rulesType')
+  }
+
+  if (![ 'Object', 'Array' ].includes(rulesType)){
+    throw new Error(`iterableType and rulesType are from wrong type ${ rulesType }`)
+  }
+
+  if (iterableType === 'Object'){
+    return evolveObject(rules, iterable)
+  }
+
+  return evolveArray(rules, iterable)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { evolve as evolveRamda } from 'ramda'
+
+import { add } from '../rambda.js'
+import { compareCombinations, compareToRamda } from './_internals/testUtils'
+import { evolve } from './evolve'
+
+test('happy', () => {
+  const rules = {
+    foo : add(1),
+    bar : add(-1),
+  }
+  const input = {
+    a   : 1,
+    foo : 2,
+    bar : 3,
+  }
+  const result = evolve(rules, input)
+  expect(result).toEqual({
+    a   : 1,
+    foo : 3,
+    bar : 2,
+  })
+})
+
+test('is recursive', () => {
+  const rules = {
+    nested : {
+      second : add(-1),
+      third  : add(1),
+    },
+  }
+  const object = {
+    first  : 1,
+    nested : {
+      second : 2,
+      third  : 3,
+    },
+  }
+  const expected = {
+    first  : 1,
+    nested : {
+      second : 1,
+      third  : 4,
+    },
+  }
+  const result = evolve(rules, object)
+  expect(result).toEqual(expected)
+})
+
+test('ignores primitive value rulesormations', () => {
+  const rules = {
+    n : 2,
+    m : 'foo',
+  }
+  const object = {
+    n : 0,
+    m : 1,
+  }
+  const expected = {
+    n : 0,
+    m : 1,
+  }
+  const result = evolve(rules, object)
+  expect(result).toEqual(expected)
+})
+
+test('with array', () => {
+  const rules = [ add(1), add(-1) ]
+  const list = [ 100, 1400 ]
+  const expected = [ 101, 1399 ]
+  const result = evolve(rules, list)
+  expect(result).toEqual(expected)
+})
+
+const rulesObject = { a : add(1) }
+const rulesList = [ add(1) ]
+const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
+const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
+
+describe('brute force', () => {
+  compareCombinations({
+    firstInput : possibleRules,
+    callback   : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_DIFFERENT": 0,
+          "ERRORS_MISMATCH": 4,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 51,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleIterables,
+    fn          : evolve,
+    fnRamda     : evolveRamda,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {evolve, add} from 'rambda'
+
+describe('R.evolve', () => {
+  it('happy', () => {
+    const input = {
+      foo: 2,
+      nested: {
+        a: 1,
+        bar: 3,
+      },
+    }
+    const rules = {
+      foo: add(1),
+      nested: {
+        a: add(-1),
+        bar: add(1),
+      },
+    }
+    const result = evolve(rules, input)
+    const curriedResult = evolve(rules)(input)
+
+    result.nested.a // $ExpectType number
+    curriedResult.nested.a // $ExpectType number
+    result.nested.bar // $ExpectType number
+    result.foo // $ExpectType number
+  })
+  it('with array', () => {
+    const rules = [String, String]
+    const input = [100, 1400]
+    const result = evolve(rules, input)
+    const curriedResult = evolve(rules)(input)
+    result // $ExpectType string[]
+    curriedResult // $ExpectType string[]
+  })
+})
+```
+
+</details>
+
 ### F
 
 ```typescript
@@ -7142,16 +7392,13 @@ const obj = {a: 1, b: 2}
 
 describe('R.forEach with arrays', () => {
   it('happy', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      list
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, list)
     result // $ExpectType number[]
   })
   it('curried require an explicit typing', () => {
-    const result = forEach<number>((a) => {
+    const result = forEach<number>(a => {
       a // $ExpectType number
     })(list)
     result // $ExpectType number[]
@@ -7178,12 +7425,9 @@ describe('R.forEach with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('iterator without property', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      obj
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, obj)
     result // $ExpectType Dictionary<number>
   })
 })
@@ -10346,7 +10590,7 @@ test('composed lenses', () => {
 import {lens, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 describe('R.lens', () => {
@@ -10481,9 +10725,9 @@ test('get (set(set s v1) v2) === v2', () => {
 import {view, lensIndex} from 'rambda'
 
 interface Input {
-  a: number
+  a: number,
 }
-const testList: Input[] = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
 
 describe('R.lensIndex', () => {
   it('happy', () => {
@@ -10688,18 +10932,18 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensPath, view} from 'rambda'
 
 interface Input {
-  foo: number[]
+  foo: number[],
   bar: {
-    a: string
-    b: string
-  }
+    a: string,
+    b: string,
+  },
 }
 
 const testObject: Input = {
-  foo : [ 1, 2 ],
-  bar : {
-    a : 'x',
-    b : 'y',
+  foo: [1, 2],
+  bar: {
+    a: 'x',
+    b: 'y',
   },
 }
 
@@ -10885,11 +11129,11 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensProp, view} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
+  foo: 'Led Zeppelin',
 }
 
 const lens = lensProp('foo')
@@ -11087,7 +11331,7 @@ describe('R.map with arrays', () => {
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x:number) => {
+    const result = map<number>((x: number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])
@@ -16305,18 +16549,18 @@ test('happy', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { props } from 'rambda'
+import {props} from 'rambda'
 
 const obj = {a: 1, b: 2}
 
 describe('R.props', () => {
   it('happy', () => {
-    const result = props(['a','b'], obj)
-    
+    const result = props(['a', 'b'], obj)
+
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = props(['a','b'])(obj)
+    const result = props(['a', 'b'])(obj)
 
     result // $ExpectType number[]
   })
@@ -16829,8 +17073,7 @@ describe('R.reject with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('curried require dummy type', () => {
-    const result = reject<number, any>((x) => {
-
+    const result = reject<number, any>(x => {
       return x > 1
     })({a: 1, b: 2})
     result // $ExpectType Dictionary<number>
@@ -17922,7 +18165,7 @@ test('with bad inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { splitAt } from 'ramda'
+import {splitAt} from 'ramda'
 
 const index = 1
 const str = 'foo'
@@ -17931,12 +18174,12 @@ const list = [1, 2, 3]
 describe('R.splitAt with array', () => {
   it('happy', () => {
     const result = splitAt(index, list)
-    
+
     result // $ExpectType [number[], number[]]
   })
   it('curried', () => {
     const result = splitAt(index)(list)
-    
+
     result // $ExpectType [number[], number[]]
   })
 })
@@ -17944,7 +18187,7 @@ describe('R.splitAt with array', () => {
 describe('R.splitAt with string', () => {
   it('happy', () => {
     const result = splitAt(index, str)
-    
+
     result // $ExpectType [string, string]
   })
   it('curried', () => {
@@ -18186,20 +18429,20 @@ test('with bad inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { splitWhen } from 'rambda'
+import {splitWhen} from 'rambda'
 
-const list = [ 1, 2, 1, 2 ]
-const predicate = (x:number) => x === 2
+const list = [1, 2, 1, 2]
+const predicate = (x: number) => x === 2
 
 describe('R.splitWhen', () => {
   it('happy', () => {
     const result = splitWhen(predicate, list)
-    
+
     result // $ExpectType number[][]
   })
   it('curried', () => {
     const result = splitWhen(predicate)(list)
-    
+
     result // $ExpectType number[][]
   })
 })
@@ -18978,7 +19221,7 @@ describe('R.takeLast - string', () => {
 
 ```typescript
 
-takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[]
+takeLastWhile(predicate: (x: string) => boolean, input: string): string
 ```
 
 ```javascript
@@ -18996,10 +19239,10 @@ const result = R.takeLastWhile(
 <summary>All Typescript definitions</summary>
 
 ```typescript
+takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
 takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
 takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
-takeLastWhile(predicate: (x: string) => boolean, input: string): string;
-takeLastWhile(predicate: (x: string) => boolean): (input: string) => T[];
 ```
 
 </details>
@@ -19076,42 +19319,30 @@ test('with string', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { takeLastWhile } from 'rambda'
+import {takeLastWhile} from 'rambda'
 
 const list = [1, 2, 3]
 const str = 'FOO'
 
 describe('R.takeLastWhile', () => {
   it('with array', () => {
-    const result = takeLastWhile(
-      x => x > 1,
-      list
-    )
-    
+    const result = takeLastWhile(x => x > 1, list)
+
     result // $ExpectType number[]
   })
   it('with array - curried', () => {
-    const result = takeLastWhile(
-      x => x > 1,
-      list
-    )
-    
+    const result = takeLastWhile(x => x > 1, list)
+
     result // $ExpectType number[]
   })
   it('with string', () => {
-    const result = takeLastWhile(
-      x => x !== 'F',
-      str
-    )
-    
+    const result = takeLastWhile(x => x !== 'F', str)
+
     result // $ExpectType string
   })
-  it('with array - curried', () => {
-    const result = takeLastWhile(
-      x => x !== 'F',
-      str
-    )
-    
+  it('with string - curried', () => {
+    const result = takeLastWhile(x => x !== 'F')(str)
+
     result // $ExpectType string
   })
 })
@@ -21407,11 +21638,11 @@ test('happy', () => {
 import {lens, view, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
+  foo: 'Led Zeppelin',
 }
 
 const fooLens = lens<Input, string, string>((x: Input) => {
@@ -22389,19 +22620,23 @@ test('when second list is longer', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { zipWith } from 'rambda'
+import {zipWith} from 'rambda'
 
-const list1 = [ 1, 2 ]
-const list2 = [ 10, 20, 30 ]
+const list1 = [1, 2]
+const list2 = [10, 20, 30]
 
 describe('R.zipWith', () => {
   it('happy', () => {
-    const result = zipWith((x, y) => {
-      x // $ExpectType number
-      y // $ExpectType number
-      return `${x}-${y}`
-    }, list1, list2)
-    
+    const result = zipWith(
+      (x, y) => {
+        x // $ExpectType number
+        y // $ExpectType number
+        return `${x}-${y}`
+      },
+      list1,
+      list2
+    )
+
     result // $ExpectType string[]
   })
   it('curried', () => {
@@ -22410,7 +22645,7 @@ describe('R.zipWith', () => {
       y // $ExpectType unknown
       return `${x}-${y}`
     })(list1, list2)
-    
+
     result // $ExpectType string[]
   })
 })
@@ -22423,6 +22658,8 @@ describe('R.zipWith', () => {
 WIP 6.3.0
 
 - Add `R.takeLastWhile`
+
+- Add `R.evolve`
 
 6.2.0
 

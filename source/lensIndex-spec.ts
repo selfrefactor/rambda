@@ -1,9 +1,9 @@
 import {view, lensIndex} from 'rambda'
 
 interface Input {
-  a: number
+  a: number,
 }
-const testList: Input[] = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
 
 describe('R.lensIndex', () => {
   it('happy', () => {

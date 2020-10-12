@@ -5,16 +5,13 @@ const obj = {a: 1, b: 2}
 
 describe('R.forEach with arrays', () => {
   it('happy', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      list
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, list)
     result // $ExpectType number[]
   })
   it('curried require an explicit typing', () => {
-    const result = forEach<number>((a) => {
+    const result = forEach<number>(a => {
       a // $ExpectType number
     })(list)
     result // $ExpectType number[]
@@ -41,12 +38,9 @@ describe('R.forEach with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('iterator without property', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      obj
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, obj)
     result // $ExpectType Dictionary<number>
   })
 })

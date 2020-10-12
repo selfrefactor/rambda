@@ -1,11 +1,11 @@
 import {lens, view, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
+  foo: 'Led Zeppelin',
 }
 
 const fooLens = lens<Input, string, string>((x: Input) => {

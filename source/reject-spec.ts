@@ -33,8 +33,7 @@ describe('R.reject with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('curried require dummy type', () => {
-    const result = reject<number, any>((x) => {
-
+    const result = reject<number, any>(x => {
       return x > 1
     })({a: 1, b: 2})
     result // $ExpectType Dictionary<number>

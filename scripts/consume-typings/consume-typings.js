@@ -3,17 +3,20 @@ exports.__esModule = true
 const rambda_1 = require('rambda')
 const rambdax_1 = require('rambdax')
 const sortByPropsResult = rambdax_1.sortByProps([ 'a.b', 'a.c' ],
-  [ {
-    a : {
-      b : 2,
-      c : 4,
+  [
+    {
+      a : {
+        b : 2,
+        c : 4,
+      },
     },
-  }, {
-    a : {
-      b : 2,
-      c : 3,
+    {
+      a : {
+        b : 2,
+        c : 3,
+      },
     },
-  } ])
+  ])
 const moveResult = rambda_1.move(
   1, 2, [ 1, 2, 3 ]
 )
@@ -28,8 +31,7 @@ console.log({
   unionResult       : unionResult,
 })
 const bs = rambda_1.and(1)(2)
-const a = rambda_1.reject(a => a > 1,
-  [ 1, 2, 3 ])
+const a = rambda_1.reject(a => a > 1, [ 1, 2, 3 ])
 function fn(input){
   return input.c ? input.a : input.b
 }

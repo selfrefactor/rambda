@@ -1,5 +1,6 @@
+import { evolve as evolveRamda } from 'ramda'
+
 import { add } from '../rambda.js'
-import {evolve as evolveRamda} from 'ramda'
 import { compareCombinations, compareToRamda } from './_internals/testUtils'
 import { evolve } from './evolve'
 
@@ -78,8 +79,8 @@ const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput       : possibleRules,
-    callback         : errorsCounters => {
+    firstInput : possibleRules,
+    callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_DIFFERENT": 0,
@@ -94,4 +95,4 @@ describe('brute force', () => {
     fn          : evolve,
     fnRamda     : evolveRamda,
   })
-}) 
+})

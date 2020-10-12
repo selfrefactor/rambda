@@ -1,4 +1,4 @@
-import { mapIndexed } from 'rambda'
+import {mapIndexed} from 'rambda'
 
 const fn = (x: number, i: number) => {
   x // $ExpectType number
@@ -9,7 +9,7 @@ const list = [1, 2, 3]
 
 describe('R.mapIndexed', () => {
   it('happy', () => {
-    const result = mapIndexed<number>(fn,list)
+    const result = mapIndexed<number>(fn, list)
     result // $ExpectType number[]
   })
   it('curried', () => {

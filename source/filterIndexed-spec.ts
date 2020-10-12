@@ -1,4 +1,4 @@
-import { filterIndexed } from 'rambda'
+import {filterIndexed} from 'rambda'
 
 const list = [1, 2, 3]
 
