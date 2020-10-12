@@ -6,9 +6,11 @@ module.exports = function (wallaby){
     files: [
       { pattern: 'rambda.js', load: false },
       { pattern: 'package.json', load: false },
-      { pattern: 'source/**/*.js', load: false },
+      { pattern: 'source/*.js', load: false },
+      { pattern: 'source/_internals/*.js', load: false },
       { pattern: '!scripts/**/*.js', load: false, instrument:false },
-      { pattern: 'src/**/*.js', load: false },
+      { pattern: 'src/*.js', load: false },
+      { pattern: 'src/_internals/*.js', load: false },
       { pattern: '!source/**/*.spec.js', load: false },
     ],
     tests: [
