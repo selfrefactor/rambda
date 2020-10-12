@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 95 Ramda methods not implemented in Rambda 
+  Click to see the full list of 94 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -109,7 +109,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
-- dropLastWhile
 - dropRepeats
 - dropRepeatsWith
 - dropWhile
@@ -4945,6 +4944,197 @@ describe('dropLast', function() {
 
 </details>
 
+### dropLastWhile
+
+```typescript
+
+dropLastWhile(predicate: (x: string) => boolean, iterable: string): string
+```
+
+```javascript
+const list = [1, 2, 3, 4, 5];
+const predicate = x => x >= 3
+
+const result = dropLastWhile(predicate, list);
+// => [1, 2]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%3B%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%3D%203%0A%0Aconst%20result%20%3D%20dropLastWhile(predicate%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropLastWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
+dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
+dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
+dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropLastWhile</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray.js'
+
+export function dropLastWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => dropLastWhile(predicate, _iterable)
+  }
+  if (iterable.length === 0) return iterable
+  const isArray = _isArray(iterable)
+
+  if (typeof predicate !== 'function'){
+    throw new Error(`'predicate' is from wrong type ${ typeof predicate }`)
+  }
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error(`'iterable' is from wrong type ${ typeof iterable }`)
+  }
+
+  let found = false
+  const toReturn = []
+  let counter = iterable.length
+
+  while (counter > 0){
+    counter--
+    if (!found && predicate(iterable[ counter ]) === false){
+      found = true
+      toReturn.push(iterable[ counter ])
+    } else if (found){
+      toReturn.push(iterable[ counter ])
+    }
+  }
+
+  return isArray ? toReturn.reverse() : toReturn.reverse().join('')
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropLastWhile as dropLastWhileRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
+import { dropLastWhile } from './dropLastWhile'
+
+const list = [ 1, 2, 3, 4, 5 ]
+const str = 'foobar'
+
+test('with list', () => {
+  const result = dropLastWhile(x => x >= 3, list)
+  expect(result).toEqual([ 1, 2 ])
+})
+
+test('with string', () => {
+  const result = dropLastWhile(x => x !== 'b')(str)
+  expect(result).toBe('foob')
+})
+
+test('with empty list', () => {
+  expect(dropLastWhile(() => true, [])).toEqual([])
+  expect(dropLastWhile(() => false, [])).toEqual([])
+})
+
+const possiblePredicates = [
+  x => x > 2,
+  x => x < 2,
+  x => x < -2,
+  x => x > 10,
+  '',
+  [],
+  [ 1 ],
+]
+
+const possibleIterables = [
+  list,
+  [ {}, '1', 2 ],
+  str,
+  `${ str }${ str }`,
+  /foo/g,
+  Promise.resolve('foo'),
+  2,
+]
+
+test.skip('foo', () => {
+  const predicate = []
+  const iterable = 2
+  const a = dropLastWhile(predicate, iterable)
+  const b = dropLastWhileRamda(predicate, iterable)
+  console.log({ a })
+  console.log({ b })
+})
+
+describe('brute force', () => {
+  compareCombinations({
+    fn          : dropLastWhile,
+    fnRamda     : dropLastWhileRamda,
+    firstInput  : possiblePredicates,
+    secondInput : possibleIterables,
+    callback    : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_DIFFERENT": 0,
+          "ERRORS_MISMATCH": 12,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 21,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropLastWhile} from 'rambda'
+
+const list = [1, 2, 3]
+const str = 'FOO'
+
+describe('R.dropLastWhile', () => {
+  it('with array', () => {
+    const result = dropLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with array - curried', () => {
+    const result = dropLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with string', () => {
+    const result = dropLastWhile(x => x !== 'F', str)
+
+    result // $ExpectType string
+  })
+  it('with string - curried', () => {
+    const result = dropLastWhile(x => x !== 'F')(str)
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.dropLastWhile specs*
+
+> :boom: Reason for the failure: Ramda method can act as a transducer
+
 ### either
 
 ```typescript
@@ -5989,7 +6179,7 @@ export function evolve(rules, iterable){
   }
 
   if (![ 'Object', 'Array' ].includes(rulesType)){
-    throw new Error(`iterableType and rulesType are from wrong type ${ rulesType }`)
+    throw new Error(`'iterable' and 'rules' are from wrong type ${ rulesType }`)
   }
 
   if (iterableType === 'Object'){
@@ -22662,6 +22852,8 @@ describe('R.zipWith', () => {
 WIP 6.3.0
 
 - Add `R.takeLastWhile`
+
+- Add `R.dropLastWhile`
 
 - Add `R.evolve`
 

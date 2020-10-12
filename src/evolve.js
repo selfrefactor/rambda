@@ -49,7 +49,7 @@ export function evolve(rules, iterable){
   }
 
   if (![ 'Object', 'Array' ].includes(rulesType)){
-    throw new Error(`iterableType and rulesType are from wrong type ${ rulesType }`)
+    throw new Error(`'iterable' and 'rules' are from wrong type ${ rulesType }`)
   }
 
   if (iterableType === 'Object'){

@@ -1,0 +1,21 @@
+
+
+  dropLastWhile
+    ✓ skips elements while the function reports `true`
+    ✓ returns an empty list for an empty list
+    ✓ starts at the right arg and acknowledges undefined
+    ✓ can operate on strings
+    1) can act as a transducer
+
+
+  4 passing (34ms)
+  1 failing
+
+  1) dropLastWhile
+       can act as a transducer:
+     TypeError: R.into is not a function
+      at Context.into (test/dropLastWhile.js:29:10)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

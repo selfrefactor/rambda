@@ -223,6 +223,10 @@
     "count": 1,
     "reason": "Ramda method support empty call of method"
   },
+  "dropLastWhile": {
+    "count": 1,
+    "reason": "Ramda method can act as a transducer"
+  },
   "evolve": {
     "count": 1,
     "reason": "Rambda throws if `iterable` input is neither array nor object"

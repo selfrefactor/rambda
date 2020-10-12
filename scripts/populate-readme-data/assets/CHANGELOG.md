@@ -2,6 +2,8 @@ WIP 6.3.0
 
 - Add `R.takeLastWhile`
 
+- Add `R.dropLastWhile`
+
 - Add `R.evolve`
 
 6.2.0

@@ -346,7 +346,7 @@ Object {
 exports[`brute force Null null | Null null 1`] = `
 Object {
   "error": Object {
-    "message": "iterableType and rulesType are from wrong type Null",
+    "message": "'iterable' and 'rules' are from wrong type Null",
     "type": "Error",
   },
   "inputs": Array [
@@ -499,7 +499,7 @@ Object {
 exports[`brute force Number 42 | Number 42 1`] = `
 Object {
   "error": Object {
-    "message": "iterableType and rulesType are from wrong type Number",
+    "message": "'iterable' and 'rules' are from wrong type Number",
     "type": "Error",
   },
   "inputs": Array [
@@ -921,7 +921,7 @@ Object {
 exports[`brute force String  | String  1`] = `
 Object {
   "error": Object {
-    "message": "iterableType and rulesType are from wrong type String",
+    "message": "'iterable' and 'rules' are from wrong type String",
     "type": "Error",
   },
   "inputs": Array [
@@ -1075,7 +1075,7 @@ Object {
 exports[`brute force Undefined undefined | Undefined undefined 1`] = `
 Object {
   "error": Object {
-    "message": "iterableType and rulesType are from wrong type Undefined",
+    "message": "'iterable' and 'rules' are from wrong type Undefined",
     "type": "Error",
   },
   "inputs": Array [

@@ -1493,3 +1493,8 @@ export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
 export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
 export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+
+export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
+export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
+export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
+export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];

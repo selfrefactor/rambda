@@ -4696,6 +4696,32 @@ export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
 export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
+/*
+Method: dropLastWhile
+
+Explanation:
+
+Example:
+
+```
+const list = [1, 2, 3, 4, 5];
+const predicate = x => x >= 3
+
+const result = dropLastWhile(predicate, list);
+// => [1, 2]
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
+export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
+export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
+export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*
