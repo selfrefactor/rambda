@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brute force Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "1 is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    undefined,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Promise  1`] = `
+Object {
+  "error": Object {
+    "message": "[object Promise] is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Promise {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    undefined,
+  ],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g 1`] = `
+Object {
+  "error": Object {
+    "message": "/foo/g is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    /foo/g,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    undefined,
+  ],
+  "result": "PENDING",
+}
+`;

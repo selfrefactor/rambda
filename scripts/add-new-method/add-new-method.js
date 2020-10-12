@@ -31,6 +31,7 @@ test('happy', () => {
 
 const testTemplateWithComment = `
 import { {{name}} } from './{{name}}'
+import { {{name}} as {{name}}Ramda } from 'ramda'
 
 test('happy', () => {
   const result = {{name}}()

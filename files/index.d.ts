@@ -4722,6 +4722,26 @@ export function dropLastWhile(predicate: (x: string) => boolean): (iterable: str
 export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
 export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];
 
+/*
+Method: dropRepeats
+
+Explanation:
+
+Example:
+
+```
+const result = R.dropRepeats()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dropRepeats<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*

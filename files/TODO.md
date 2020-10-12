@@ -11,8 +11,6 @@ Fix `If you need more Ramda methods in Rambda, you may either submit a PR or che
 
 Methods to add:  
 
-- dropLastWhile
-- addIndex
 - dropRepeats
 - dropRepeatsWith
 - dropWhile
