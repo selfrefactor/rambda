@@ -6,5 +6,5 @@
     ✓ can operate on strings
 
 
-  3 passing (25ms)
+  3 passing (40ms)
 

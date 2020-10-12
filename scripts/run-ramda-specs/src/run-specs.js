@@ -1,4 +1,4 @@
-const allDifferences = require('../allDifferences.json')
+const allDifferences = require('../all-differences.json')
 import { readFileSync } from 'fs'
 import { exec, log } from 'helpers-fn'
 import { resolve } from 'path'

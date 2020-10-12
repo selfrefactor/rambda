@@ -1,0 +1,25 @@
+
+
+  evolve
+    ✓ creates a new object by evolving the `object` according to the `transformation` functions
+    ✓ does not invoke function if object does not contain the key
+    ✓ is not destructive
+    ✓ is recursive
+    ✓ ignores primitive value transformations
+    ✓ ignores null transformations
+    ✓ creates a new array by evolving the `array` according to the `transformation` functions
+    1) ignores transformations if the input value is not Array and Object
+
+
+  7 passing (43ms)
+  1 failing
+
+  1) evolve
+       ignores transformations if the input value is not Array and Object:
+     Error: iterableType !== rulesType
+      at Object.evolve (/home/s/repos/rambda/dist/rambda.js:756:11)
+      at Context.evolve (test/evolve.js:58:10)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

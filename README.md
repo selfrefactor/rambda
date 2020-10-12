@@ -6153,6 +6153,10 @@ describe('R.evolve', () => {
 
 </details>
 
+*1 failed Ramda.evolve specs*
+
+> :boom: Reason for the failure: Rambda throws if `iterable` input is neither array nor object
+
 ### F
 
 ```typescript

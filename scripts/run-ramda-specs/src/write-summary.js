@@ -1,4 +1,4 @@
-const allDifferences = require('../allDifferences.json')
+const allDifferences = require('../all-differences.json')
 const R = require('rambda')
 const { emptyDirSync, writeJson } = require('fs-extra')
 const { getIndent, indent } = require('string-fn')

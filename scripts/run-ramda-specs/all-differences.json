@@ -222,5 +222,9 @@
   "xor": {
     "count": 1,
     "reason": "Ramda method support empty call of method"
+  },
+  "evolve": {
+    "count": 1,
+    "reason": "Rambda throws if `iterable` input is neither array nor object"
   }
 }

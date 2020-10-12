@@ -55,7 +55,7 @@ test('run many scripts and generate readme', async () => {
     This step will rerun all Rambda methods in Ramda test environment.
 
     Make sure to declare any expected failures
-    in '/scripts/run-ramda-specs/allDifferences.json' file.
+    in '/scripts/run-ramda-specs/all-differences.json' file.
 
     On the very first step, `withInitialStep` should be `true`.
 
