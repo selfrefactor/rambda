@@ -7,12 +7,14 @@ const PENDING = 'PENDING'
 const RESULTS_EQUAL = 'results are equal'
 const RESULTS_MISMATCH = 'results are different'
 const ERRORS_EQUAL = 'errors are equal'
-const ERRORS_MISMATCH = 'errors are different'
+const ERRORS_MESSAGE_MISMATCH = 'errors messages are different'
+const ERRORS_TYPE_MISMATCH = 'errors types are different'
 const SHOULD_THROW = 'Rambda should throw'
 const SHOULD_NOT_THROW = 'Rambda should not throw'
 const ALL_ERROR_LABELS = {
   RESULTS_MISMATCH,
-  ERRORS_MISMATCH,
+  ERRORS_MESSAGE_MISMATCH,
+  ERRORS_TYPE_MISMATCH,
   SHOULD_NOT_THROW,
   SHOULD_THROW,
 }
@@ -94,8 +96,6 @@ async function executeAsync(fn, inputs){
     error,
   }
 }
-
-function countErrors(){}
 
 export function profileMethod(
   firstInput,
@@ -211,7 +211,10 @@ export function compareToRamda(fn, fnRamda){
       return {
         ...toReturn,
         ok    : false,
-        label : ERRORS_MISMATCH,
+        label :
+          ramdaError.type === error.type ?
+            ERRORS_MESSAGE_MISMATCH :
+            ERRORS_TYPE_MISMATCH,
       }
     }
 
@@ -236,11 +239,12 @@ export const compareCombinations = ({
   fnRamda,
 }) => {
   const counter = {
-    RESULTS_MISMATCH : 0,
-    SHOULD_THROW     : 0,
-    SHOULD_NOT_THROW : 0,
-    ERRORS_MISMATCH  : 0,
-    ERRORS_DIFFERENT : 0,
+    RESULTS_MISMATCH        : 0,
+    SHOULD_THROW            : 0,
+    SHOULD_NOT_THROW        : 0,
+    ERRORS_TYPE_MISMATCH    : 0,
+    ERRORS_MESSAGE_MISMATCH : 0,
+    ERRORS_DIFFERENT        : 0,
   }
 
   const increaseCounter = comparedResult => {
@@ -285,7 +289,7 @@ export const compareCombinations = ({
 }
 
 /*
-  describe("r.evolve", () => {
+  describe("r.foo", () => {
   let counter = 0;
   let globalCounter = 0;
 

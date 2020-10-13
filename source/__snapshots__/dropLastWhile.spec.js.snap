@@ -16,7 +16,7 @@ Object {
       5,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -45,7 +45,7 @@ Object {
       5,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -70,7 +70,7 @@ Object {
       2,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -97,7 +97,7 @@ Object {
       2,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -232,7 +232,7 @@ Object {
     Array [],
     "foobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -255,7 +255,7 @@ Object {
     ],
     "foobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -276,7 +276,7 @@ Object {
     Array [],
     "foobarfoobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -299,7 +299,7 @@ Object {
     ],
     "foobarfoobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -542,7 +542,7 @@ Object {
       5,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -567,7 +567,7 @@ Object {
       2,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -642,7 +642,7 @@ Object {
     "",
     "foobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",
@@ -663,7 +663,7 @@ Object {
     "",
     "foobarfoobar",
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "pred is not a function",

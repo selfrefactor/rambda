@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 93 Ramda methods not implemented in Rambda 
+  Click to see the full list of 92 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -109,7 +109,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
-- dropRepeatsWith
 - dropWhile
 - empty
 - eqBy
@@ -1573,12 +1572,17 @@ test('works with a spec defining a map key', () => {
   expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
 })
 
-test.skip('retains the highest arity', () => {
+test('cannot retains the highest arity', () => {
   const f = applySpec({
     f1 : nAry(2, T),
     f2 : nAry(5, T),
   })
-  expect(f.length).toBe(5)
+  const fRamda = applySpecRamda({
+    f1 : nAry(2, T),
+    f2 : nAry(5, T),
+  })
+  expect(f.length).toBe(0)
+  expect(fRamda.length).toBe(5)
 })
 
 test('returns a curried function', () => {
@@ -5019,77 +5023,69 @@ export function dropLastWhile(predicate, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropLastWhile as dropLastWhileRamda } from 'ramda'
+import { dropLastWhile as dropLastWhileRamda } from "ramda";
 
-import { compareCombinations } from './_internals/testUtils'
-import { dropLastWhile } from './dropLastWhile'
+import { compareCombinations } from "./_internals/testUtils";
+import { dropLastWhile } from "./dropLastWhile";
 
-const list = [ 1, 2, 3, 4, 5 ]
-const str = 'foobar'
+const list = [1, 2, 3, 4, 5];
+const str = "foobar";
 
-test('with list', () => {
-  const result = dropLastWhile(x => x >= 3, list)
-  expect(result).toEqual([ 1, 2 ])
-})
+test("with list", () => {
+  const result = dropLastWhile((x) => x >= 3, list);
+  expect(result).toEqual([1, 2]);
+});
 
-test('with string', () => {
-  const result = dropLastWhile(x => x !== 'b')(str)
-  expect(result).toBe('foob')
-})
+test("with string", () => {
+  const result = dropLastWhile((x) => x !== "b")(str);
+  expect(result).toBe("foob");
+});
 
-test('with empty list', () => {
-  expect(dropLastWhile(() => true, [])).toEqual([])
-  expect(dropLastWhile(() => false, [])).toEqual([])
-})
+test("with empty list", () => {
+  expect(dropLastWhile(() => true, [])).toEqual([]);
+  expect(dropLastWhile(() => false, [])).toEqual([]);
+});
 
 const possiblePredicates = [
-  x => x > 2,
-  x => x < 2,
-  x => x < -2,
-  x => x > 10,
-  '',
+  (x) => x > 2,
+  (x) => x < 2,
+  (x) => x < -2,
+  (x) => x > 10,
+  "",
   [],
-  [ 1 ],
-]
+  [1],
+];
 
 const possibleIterables = [
   list,
-  [ {}, '1', 2 ],
+  [{}, "1", 2],
   str,
-  `${ str }${ str }`,
+  `${str}${str}`,
   /foo/g,
-  Promise.resolve('foo'),
+  Promise.resolve("foo"),
   2,
-]
+];
 
-test.skip('foo', () => {
-  const predicate = []
-  const iterable = 2
-  const a = dropLastWhile(predicate, iterable)
-  const b = dropLastWhileRamda(predicate, iterable)
-  console.log({ a })
-  console.log({ b })
-})
-
-describe('brute force', () => {
+describe("brute force", () => {
   compareCombinations({
-    fn          : dropLastWhile,
-    fnRamda     : dropLastWhileRamda,
-    firstInput  : possiblePredicates,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    fn: dropLastWhile,
+    fnRamda: dropLastWhileRamda,
+    firstInput: possiblePredicates,
+    secondInput: possibleIterables,
+    callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_DIFFERENT": 0,
-          "ERRORS_MISMATCH": 12,
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 12,
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 21,
           "SHOULD_THROW": 0,
         }
-      `)
+      `);
     },
-  })
-})
+  });
+});
 ```
 
 </details>
@@ -5151,10 +5147,10 @@ const result = R.dropRepeats([
   {a:1}, 
   1
 ])
-// => [1, {a:1}, 1]
+// => [1, {a: 1}, 1]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeats(%5B%0A%20%201%2C%20%0A%20%201%2C%20%0A%20%20%7Ba%3A%201%7D%2C%20%0A%20%20%7Ba%3A1%7D%2C%20%0A%20%201%0A%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20%7Ba%3A1%7D%2C%201%5D">Try this <strong>R.dropRepeats</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeats(%5B%0A%20%201%2C%20%0A%20%201%2C%20%0A%20%20%7Ba%3A%201%7D%2C%20%0A%20%20%7Ba%3A1%7D%2C%20%0A%20%201%0A%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20%7Ba%3A%201%7D%2C%201%5D">Try this <strong>R.dropRepeats</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5230,7 +5226,8 @@ describe('brute force', () => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_DIFFERENT": 0,
-          "ERRORS_MISMATCH": 0,
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 3,
           "SHOULD_THROW": 0,
@@ -5266,6 +5263,190 @@ describe('R.dropRepeats', () => {
 *1 failed Ramda.dropRepeats specs*
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
+
+### dropRepeatsWith
+
+```typescript
+
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[]
+```
+
+```javascript
+const result = R.dropRepeatsWith()
+// =>
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeatsWith()%0A%2F%2F%20%3D%3E">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropRepeatsWith</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+
+export function dropRepeatsWith(predicate, list){
+  if (arguments.length === 1){
+    return _iterable => dropRepeatsWith(predicate, _iterable)
+  }
+
+  if (!_isArray(list)){
+    throw new Error(`${ list } is not a list`)
+  }
+
+  const toReturn = []
+
+  list.reduce((prev, current) => {
+    if (prev === undefined){
+      toReturn.push(current)
+
+      return current
+    }
+    if (!predicate(prev, current)){
+      toReturn.push(current)
+    }
+
+    return current
+  }, undefined)
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from "ramda";
+
+import { compareCombinations } from "./_internals/testUtils";
+import { dropRepeatsWith } from "./dropRepeatsWith";
+import { path } from "./path";
+
+const eqI = eqProps("i");
+
+test("happy", () => {
+  const list = [{ i: 1 }, { i: 2 }, { i: 2 }, { i: 3 }];
+  const expected = [{ i: 1 }, { i: 2 }, { i: 3 }];
+  const result = dropRepeatsWith(eqI, list);
+  expect(result).toEqual(expected);
+});
+
+test("keeps elements from the left predicate input", () => {
+  const list = [
+    {
+      i: 1,
+      n: 1,
+    },
+    {
+      i: 1,
+      n: 2,
+    },
+    {
+      i: 1,
+      n: 3,
+    },
+    {
+      i: 4,
+      n: 1,
+    },
+    {
+      i: 4,
+      n: 2,
+    },
+  ];
+  const expected = [
+    {
+      i: 1,
+      n: 1,
+    },
+    {
+      i: 4,
+      n: 1,
+    },
+  ];
+  const result = dropRepeatsWith(eqI, list);
+  expect(result).toEqual(expected);
+});
+
+const possiblePredicates = [
+  null,
+  undefined,
+  (x) => x + 1,
+  (x) => true,
+  (x) => false,
+  (x) => "",
+  path(["a", "b"]),
+];
+const possibleLists = [
+  null,
+  undefined,
+  [],
+  [1],
+  [{ a: { b: 1 } }, { a: { b: 1 } }],
+  [/foo/g, /foo/g],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possiblePredicates,
+    secondInput: possibleLists,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_DIFFERENT": 0,
+          "ERRORS_MESSAGE_MISMATCH": 4,
+          "ERRORS_TYPE_MISMATCH": 14,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    fn: dropRepeatsWith,
+    fnRamda: dropRepeatsWithRamda,
+  });
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { dropRepeatsWith } from 'rambda'
+
+describe('R.dropRepeatsWith', () => {
+  it('happy', () => {
+    const result = dropRepeatsWith()
+    
+    result // $ExpectType number
+  })
+  it('curried', () => {
+    const result = dropRepeatsWith()
+
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
 
 ### either
 
@@ -6329,104 +6510,105 @@ export function evolve(rules, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { evolve as evolveRamda } from 'ramda'
+import { evolve as evolveRamda } from "ramda";
 
-import { add } from '../rambda.js'
-import { compareCombinations, compareToRamda } from './_internals/testUtils'
-import { evolve } from './evolve'
+import { add } from "../rambda.js";
+import { compareCombinations, compareToRamda } from "./_internals/testUtils";
+import { evolve } from "./evolve";
 
-test('happy', () => {
+test("happy", () => {
   const rules = {
-    foo : add(1),
-    bar : add(-1),
-  }
+    foo: add(1),
+    bar: add(-1),
+  };
   const input = {
-    a   : 1,
-    foo : 2,
-    bar : 3,
-  }
-  const result = evolve(rules, input)
+    a: 1,
+    foo: 2,
+    bar: 3,
+  };
+  const result = evolve(rules, input);
   expect(result).toEqual({
-    a   : 1,
-    foo : 3,
-    bar : 2,
-  })
-})
+    a: 1,
+    foo: 3,
+    bar: 2,
+  });
+});
 
-test('is recursive', () => {
+test("is recursive", () => {
   const rules = {
-    nested : {
-      second : add(-1),
-      third  : add(1),
+    nested: {
+      second: add(-1),
+      third: add(1),
     },
-  }
+  };
   const object = {
-    first  : 1,
-    nested : {
-      second : 2,
-      third  : 3,
+    first: 1,
+    nested: {
+      second: 2,
+      third: 3,
     },
-  }
+  };
   const expected = {
-    first  : 1,
-    nested : {
-      second : 1,
-      third  : 4,
+    first: 1,
+    nested: {
+      second: 1,
+      third: 4,
     },
-  }
-  const result = evolve(rules, object)
-  expect(result).toEqual(expected)
-})
+  };
+  const result = evolve(rules, object);
+  expect(result).toEqual(expected);
+});
 
-test('ignores primitive value rulesormations', () => {
+test("ignores primitive value rulesormations", () => {
   const rules = {
-    n : 2,
-    m : 'foo',
-  }
+    n: 2,
+    m: "foo",
+  };
   const object = {
-    n : 0,
-    m : 1,
-  }
+    n: 0,
+    m: 1,
+  };
   const expected = {
-    n : 0,
-    m : 1,
-  }
-  const result = evolve(rules, object)
-  expect(result).toEqual(expected)
-})
+    n: 0,
+    m: 1,
+  };
+  const result = evolve(rules, object);
+  expect(result).toEqual(expected);
+});
 
-test('with array', () => {
-  const rules = [ add(1), add(-1) ]
-  const list = [ 100, 1400 ]
-  const expected = [ 101, 1399 ]
-  const result = evolve(rules, list)
-  expect(result).toEqual(expected)
-})
+test("with array", () => {
+  const rules = [add(1), add(-1)];
+  const list = [100, 1400];
+  const expected = [101, 1399];
+  const result = evolve(rules, list);
+  expect(result).toEqual(expected);
+});
 
-const rulesObject = { a : add(1) }
-const rulesList = [ add(1) ]
-const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
-const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
+const rulesObject = { a: add(1) };
+const rulesList = [add(1)];
+const possibleIterables = [null, undefined, "", 42, [], [1], { a: 1 }];
+const possibleRules = [...possibleIterables, rulesList, rulesObject];
 
-describe('brute force', () => {
+describe("brute force", () => {
   compareCombinations({
-    firstInput : possibleRules,
-    callback   : errorsCounters => {
+    firstInput: possibleRules,
+    callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_DIFFERENT": 0,
-          "ERRORS_MISMATCH": 4,
-          "RESULTS_MISMATCH": 1,
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 4,
+          "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 51,
           "SHOULD_THROW": 0,
         }
-      `)
-    }, 
-    secondInput : possibleIterables,
-    fn          : evolve,
-    fnRamda     : evolveRamda,
-  })
-})
+      `);
+    },
+    secondInput: possibleIterables,
+    fn: evolve,
+    fnRamda: evolveRamda,
+  });
+});
 ```
 
 </details>
@@ -16859,12 +17041,14 @@ export function props(propsToPick, obj){
 ```javascript
 import { props } from './props'
 
-const obj = {a: 1, b: 2}
+const obj = {
+  a : 1,
+  b : 2,
+}
 
 test('happy', () => {
-  const result = props(['a', 'c'], obj)
-  console.log(result)
-  expect(result).toEqual([1,undefined])
+  const result = props([ 'a', 'c' ], obj)
+  expect(result).toEqual([ 1, undefined ])
 })
 ```
 
@@ -17342,14 +17526,6 @@ test('with object', () => {
     c : 3,
     d : 4,
   }
-  const fn = (
-    a, b, c
-  ) => console.log({
-    a,
-    b,
-    c,
-  })
-  reject(fn, obj)
   expect(reject(isOdd, obj)).toEqual({
     b : 2,
     d : 4,
@@ -18442,7 +18618,6 @@ test('with array - index is out of scope', () => {
 
 test('with string', () => {
   const result = splitAt(4, str)
-  console.log(result)
   expect(result).toEqual([ 'foo ', 'bar' ])
 })
 
@@ -18475,10 +18650,6 @@ test('with bad inputs', () => {
   badInputs.forEach(badInput => {
     const result = splitAt(1, badInput)
     const ramdaResult = splitAtRamda(1, badInput)
-    console.log({
-      result,
-      ramdaResult,
-    })
     expect(result).toEqual(ramdaResult)
   })
 })
@@ -22571,13 +22742,6 @@ test('when one argument is truthy and the other is falsy, it should return true'
   expect(xor(0, new Date())).toEqual(true)
   expect(xor([], null)).toEqual(true)
   expect(xor(undefined, [])).toEqual(true)
-})
-
-test.skip('returns a curried function', () => {
-  expect(xor()(true)(true)).toEqual(false)
-  expect(xor()(true)(false)).toEqual(true)
-  expect(xor()(false)(true)).toEqual(true)
-  expect(xor()(false)(false)).toEqual(false)
 })
 ```
 

@@ -22,7 +22,6 @@ test('with array - index is out of scope', () => {
 
 test('with string', () => {
   const result = splitAt(4, str)
-  console.log(result)
   expect(result).toEqual([ 'foo ', 'bar' ])
 })
 
@@ -55,10 +54,6 @@ test('with bad inputs', () => {
   badInputs.forEach(badInput => {
     const result = splitAt(1, badInput)
     const ramdaResult = splitAtRamda(1, badInput)
-    console.log({
-      result,
-      ramdaResult,
-    })
     expect(result).toEqual(ramdaResult)
   })
 })

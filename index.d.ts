@@ -1520,3 +1520,6 @@ export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: re
  * It removes any successive duplicates according to `R.equals`.
  */
 export function dropRepeats<T>(list: readonly T[]): T[];
+
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];

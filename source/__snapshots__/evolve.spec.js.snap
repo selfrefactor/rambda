@@ -332,7 +332,7 @@ Object {
       1,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "Cannot read property '0' of null",
@@ -391,7 +391,7 @@ Object {
       "a": 1,
     },
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "Cannot read property 'a' of null",
@@ -984,7 +984,7 @@ Object {
       1,
     ],
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "Cannot read property '0' of undefined",
@@ -1043,7 +1043,7 @@ Object {
       "a": 1,
     },
   ],
-  "label": "errors are different",
+  "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
     "message": "Cannot read property 'a' of undefined",

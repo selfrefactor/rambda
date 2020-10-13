@@ -14,6 +14,7 @@ Methods to add:
 - dropRepeatsWith
 - dropWhile
 - takeWhile
+- eqProps
 - uniqBy
 - propSatisfies
 - pickBy

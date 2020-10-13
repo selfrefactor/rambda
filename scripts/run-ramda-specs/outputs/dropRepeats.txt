@@ -7,7 +7,7 @@
     ✓ has R.equals semantics
 
 
-  3 passing (37ms)
+  3 passing (30ms)
   1 failing
 
   1) dropRepeats

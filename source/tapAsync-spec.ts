@@ -6,7 +6,6 @@ describe('R.tapAsync', () => {
       tapAsync(async x => {
         await delay(100)
         x // $ExpectType any
-        console.log({x})
       }),
       (x: number[]) => x.length
     )([1, 2])

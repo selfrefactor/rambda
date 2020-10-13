@@ -4754,7 +4754,7 @@ const result = R.dropRepeats([
   {a:1}, 
   1
 ])
-// => [1, {a:1}, 1]
+// => [1, {a: 1}, 1]
 ```
 
 Categories: List
@@ -4764,6 +4764,27 @@ Notes:
 */
 // @SINGLE_MARKER
 export function dropRepeats<T>(list: readonly T[]): T[];
+
+/*
+Method: dropRepeatsWith
+
+Explanation:
+
+Example:
+
+```
+const result = R.dropRepeatsWith()
+// => 
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 
 // RAMBDAX_MARKER_START
 

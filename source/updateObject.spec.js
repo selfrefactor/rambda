@@ -17,6 +17,10 @@ const expected = {
 
 test('happy', () => {
   const result = updateObject(rules, obj)
-  console.log(result)
-  // expect(result).toEqual(expected)
+  expect(result).toEqual(expected)
+})
+
+test('curried', () => {
+  const result = updateObject(rules)(obj)
+  expect(result).toEqual(expected)
 })

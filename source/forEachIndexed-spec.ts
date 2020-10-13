@@ -7,7 +7,6 @@ describe('R.forEachIndexed', () => {
     const result = forEachIndexed((x, i) => {
       x // $ExpectType number
       i // $ExpectType number
-      console.log(x, i)
     }, list)
 
     result // $ExpectType number[]
@@ -16,7 +15,6 @@ describe('R.forEachIndexed', () => {
     const result = forEachIndexed<number>((x, i) => {
       x // $ExpectType number
       i // $ExpectType number
-      console.log(x, i)
     })(list)
 
     result // $ExpectType number[]

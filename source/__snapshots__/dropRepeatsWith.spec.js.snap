@@ -1,0 +1,407 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brute force Function | Null 1`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Null 2`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Null 3`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Null 4`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Null 5`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 2`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 3`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 4`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 5`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null | Array 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    null,
+    Array [
+      Object {
+        "a": Object {
+          "b": 1,
+        },
+      },
+      Object {
+        "a": Object {
+          "b": 1,
+        },
+      },
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null | Array 2`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    null,
+    Array [
+      /foo/g,
+      /foo/g,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null | Null 1`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null | Undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined | Array 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    Array [
+      Object {
+        "a": Object {
+          "b": 1,
+        },
+      },
+      Object {
+        "a": Object {
+          "b": 1,
+        },
+      },
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined | Array 2`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    Array [
+      /foo/g,
+      /foo/g,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined | Null 1`] = `
+Object {
+  "error": Object {
+    "message": "null is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined | Undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
