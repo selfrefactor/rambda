@@ -5,12 +5,9 @@ export function props(propsToPick, obj){
   if (arguments.length === 1){
     return _obj => props(propsToPick, _obj)
   }
-  if (_isArray(propsToPick)){
-    return mapArray(prop => obj[ prop ], propsToPick)
-  }
-  if (typeof propsToPick === 'string'){
-    return mapArray(prop => obj[ prop ], propsToPick.split(','))
+  if (!_isArray(propsToPick)){
+    throw new Error('propsToPick is not a list')
   }
 
-  throw new Error('propsToPick is neither list nor a string')
+  return mapArray(prop => obj[ prop ], propsToPick)
 }

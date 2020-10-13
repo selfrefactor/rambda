@@ -4558,7 +4558,8 @@ Explanation: It takes list with properties `propsToPick` and returns a list with
 Example:
 
 ```
-const result = R.props(['a', 'b'], {a:1, c:3})
+const result = [
+  R.props(['a', 'b'], {a:1, c:3})
 // => [1, undefined]
 ```
 

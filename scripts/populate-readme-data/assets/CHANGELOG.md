@@ -8,8 +8,6 @@ WIP 6.3.0
 
 - Add `R.evolve`
 
-- Add `R.props` support comma notation, similar to `R.omit`
-
 6.2.0
 
 - Add `R.props`
