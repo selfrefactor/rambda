@@ -5,7 +5,12 @@ const obj = {
   b : 2,
 }
 
-test('happy', () => {
+test('with string as set of selected props', () => {
+  const result = props('a,c')(obj)
+  expect(result).toEqual([ 1, undefined ])
+})
+
+test('with list as set of selected props', () => {
   const result = props([ 'a', 'c' ], obj)
   expect(result).toEqual([ 1, undefined ])
 })

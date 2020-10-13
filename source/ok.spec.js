@@ -41,7 +41,18 @@ test('schema in error message', () => {
     h  : Object,
   })
 
-  expect(JSON.stringify(result)).toMatchInlineSnapshot('"{\\"_a\\":\\"Array\\",\\"a\\":\\"number\\",\\"b\\":\\"Function\\",\\"c\\":\\"Array\\",\\"d\\":\\"Array\\",\\"e\\":\\"String\\",\\"f\\":\\"array\\",\\"h\\":\\"object\\"}"')
+  expect(result).toMatchInlineSnapshot(`
+    Object {
+      "_a": "Array",
+      "a": "number",
+      "b": "Function",
+      "c": "Array",
+      "d": "Array",
+      "e": "String",
+      "f": "array",
+      "h": "object",
+    }
+  `)
 })
 
 test('error contains schema', () => {
