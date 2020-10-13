@@ -1,14 +1,21 @@
 import { dropRepeatsWith } from 'rambda'
 
+interface Foo{a: number}
+
 describe('R.dropRepeatsWith', () => {
   it('happy', () => {
-    const result = dropRepeatsWith()
+    const result = dropRepeatsWith((x: Foo, y: Foo) => {
+       return x.a > y.a
+    }, [{a:2}, {a:1}])
     
-    result // $ExpectType number
+    result // $ExpectType { a: number; }[]
+    result[0].a // $ExpectType number
   })
   it('curried', () => {
-    const result = dropRepeatsWith()
-
-    result // $ExpectType number
+    const result = dropRepeatsWith((x: Foo, y: Foo) => {
+      return x.a > y.a
+     })([{a:2}, {a:1}])
+   
+     result // $ExpectType Foo[]
   })
 })
