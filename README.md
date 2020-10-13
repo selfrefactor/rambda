@@ -5272,11 +5272,13 @@ dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[]
 ```
 
 ```javascript
-const result = R.dropRepeatsWith()
-// =>
+const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+const result = R.dropRepeatsWith(R.prop('a'))
+
+// => [{a:1,b:2}, {a:2, b:4}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeatsWith()%0A%2F%2F%20%3D%3E">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A1%2Cb%3A3%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D%0Aconst%20result%20%3D%20R.dropRepeatsWith(R.prop('a'))%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -23122,6 +23124,8 @@ WIP 6.3.0
 - Add `R.dropLastWhile`
 
 - Add `R.dropRepeats`
+
+- Add `R.dropRepeatsWith`
 
 - Add `R.evolve`
 

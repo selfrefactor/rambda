@@ -4773,8 +4773,10 @@ Explanation:
 Example:
 
 ```
-const result = R.dropRepeatsWith()
-// => 
+const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+const result = R.dropRepeatsWith(R.prop('a'))
+
+// => [{a:1,b:2}, {a:2, b:4}]
 ```
 
 Categories: List

@@ -6,6 +6,8 @@ WIP 6.3.0
 
 - Add `R.dropRepeats`
 
+- Add `R.dropRepeatsWith`
+
 - Add `R.evolve`
 
 6.2.0
