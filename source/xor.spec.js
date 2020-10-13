@@ -43,10 +43,3 @@ test('when one argument is truthy and the other is falsy, it should return true'
   expect(xor([], null)).toEqual(true)
   expect(xor(undefined, [])).toEqual(true)
 })
-
-test.skip('returns a curried function', () => {
-  expect(xor()(true)(true)).toEqual(false)
-  expect(xor()(true)(false)).toEqual(true)
-  expect(xor()(false)(true)).toEqual(true)
-  expect(xor()(false)(false)).toEqual(false)
-})

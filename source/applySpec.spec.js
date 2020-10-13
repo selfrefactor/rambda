@@ -85,12 +85,17 @@ test('works with a spec defining a map key', () => {
   expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
 })
 
-test.skip('retains the highest arity', () => {
+test('cannot retains the highest arity', () => {
   const f = applySpec({
     f1 : nAry(2, T),
     f2 : nAry(5, T),
   })
-  expect(f.length).toBe(5)
+  const fRamda = applySpecRamda({
+    f1 : nAry(2, T),
+    f2 : nAry(5, T),
+  })
+  expect(f.length).toBe(0)
+  expect(fRamda.length).toBe(5)
 })
 
 test('returns a curried function', () => {

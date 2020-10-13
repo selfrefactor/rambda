@@ -5171,14 +5171,14 @@ dropRepeats<T>(list: readonly T[]): T[];
 <summary><strong>R.dropRepeats</strong> source</summary>
 
 ```javascript
-import { equals } from './equals'
 import { _isArray } from './_internals/_isArray'
+import { equals } from './equals'
 
 export function dropRepeats(list){
-  if(!_isArray(list)){
-    throw new Error(`${list} is not a list`)
+  if (!_isArray(list)){
+    throw new Error(`${ list } is not a list`)
   }
-   
+
   const toReturn = []
 
   list.reduce((prev, current) => {
@@ -5211,7 +5211,6 @@ const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
 
 test('happy', () => {
   const result = dropRepeats(list)
-  console.log(result)
   expect(result).toEqual(listClean)
 })
 
@@ -5251,18 +5250,22 @@ describe('brute force', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { dropRepeats } from 'rambda'
+import {dropRepeats} from 'rambda'
 
 describe('R.dropRepeats', () => {
   it('happy', () => {
-    const result = dropRepeats([1,2,2,3])
-    
+    const result = dropRepeats([1, 2, 2, 3])
+
     result // $ExpectType number[]
   })
 })
 ```
 
 </details>
+
+*1 failed Ramda.dropRepeats specs*
+
+> :boom: Reason for the failure: Ramda method can act as a transducer
 
 ### either
 
@@ -22983,6 +22986,8 @@ WIP 6.3.0
 - Add `R.takeLastWhile`
 
 - Add `R.dropLastWhile`
+
+- Add `R.dropRepeats`
 
 - Add `R.evolve`
 

@@ -41,15 +41,6 @@ const possibleIterables = [
   2,
 ]
 
-test.skip('foo', () => {
-  const predicate = []
-  const iterable = 2
-  const a = dropLastWhile(predicate, iterable)
-  const b = dropLastWhileRamda(predicate, iterable)
-  console.log({ a })
-  console.log({ b })
-})
-
 describe('brute force', () => {
   compareCombinations({
     fn          : dropLastWhile,

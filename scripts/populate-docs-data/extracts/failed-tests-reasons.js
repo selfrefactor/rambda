@@ -1,6 +1,6 @@
 import { mapToObject } from 'rambdax'
 
-import allDifferences from '../../run-ramda-specs/all-differences.json'
+import allDifferences from '../../run-ramda-specs/all-differences'
 import { getMethods } from '../extract-from-typings/get-methods'
 
 export function failedTestsReasons(){
