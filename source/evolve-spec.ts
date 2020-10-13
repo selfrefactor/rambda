@@ -1,4 +1,4 @@
-import {evolve, add} from 'ramda'
+import {evolve, add} from 'rambda'
 
 describe('R.evolve', () => {
   it('happy', () => {

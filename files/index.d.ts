@@ -61,6 +61,14 @@ type Evolve<O extends Evolvable<E>, E extends Evolver> = {
                   ? EvolveValue<O[P], E[P]>
                   : O[P];
 };
+
+type EvolveNestedValue<O, E extends Evolver> =
+    O extends object
+    ? O extends Evolvable<E>
+      ? Evolve<O, E>
+      : never
+    : never;
+
 type EvolveValue<V, E> =
     E extends (value: V) => any
     ? ReturnType<E>
@@ -4700,11 +4708,10 @@ Notes: Error handling of this method differs between Ramda and Rambda. Ramda for
 
 */
 // @SINGLE_MARKER
-export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
-// export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
-// export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
-// export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
-// export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /*
 Method: dropLastWhile
@@ -4744,13 +4751,13 @@ const result = R.dropRepeats()
 // => 
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeats<T>(x: T): T;
+export function dropRepeats<T>(list: readonly T[]): T[];
 
 // RAMBDAX_MARKER_START
 
