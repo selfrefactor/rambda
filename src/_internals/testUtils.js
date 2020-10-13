@@ -86,7 +86,6 @@ async function executeAsync(fn, inputs){
   let error = { ok : false }
   try {
     result = await fn(...inputs)
-    console.log(result)
   } catch (e){
     error = parseError(e)
   }

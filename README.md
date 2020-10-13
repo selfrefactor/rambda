@@ -5432,16 +5432,23 @@ describe("brute force", () => {
 ```typescript
 import { dropRepeatsWith } from 'rambda'
 
+interface Foo{a: number}
+
 describe('R.dropRepeatsWith', () => {
   it('happy', () => {
-    const result = dropRepeatsWith()
+    const result = dropRepeatsWith((x: Foo, y: Foo) => {
+       return x.a > y.a
+    }, [{a:2}, {a:1}])
     
-    result // $ExpectType number
+    result // $ExpectType { a: number; }[]
+    result[0].a // $ExpectType number
   })
   it('curried', () => {
-    const result = dropRepeatsWith()
-
-    result // $ExpectType number
+    const result = dropRepeatsWith((x: Foo, y: Foo) => {
+      return x.a > y.a
+     })([{a:2}, {a:1}])
+   
+     result // $ExpectType Foo[]
   })
 })
 ```
@@ -11023,7 +11030,6 @@ R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 
 ```typescript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
-lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ```
 
 </details>
@@ -11034,58 +11040,12 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 ```javascript
 export function lens(getter, setter){
-  if (arguments.length === 1) return _setter => lens(getter, _setter)
-
   return function (functor){
     return function (target){
       return functor(getter(target)).map(focus => setter(focus, target))
     }
   }
 }
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compose } from './compose'
-import { lensIndex } from './lensIndex'
-import { lensPath } from './lensPath'
-import { lensProp } from './lensProp'
-import { over } from './over'
-import { toUpper } from './toUpper'
-import { view } from './view'
-
-const testObject = {
-  foo : [ 'a', 'b', 'c' ],
-  baz : {
-    a : 'x',
-    b : 'y',
-  },
-}
-
-const propLens = lensProp('foo')
-const indexLens = lensIndex(2)
-const composedLens = compose(propLens, indexLens)
-
-const pathLens = lensPath('baz.a')
-const composedPathLens = compose(lensPath('baz'), lensPath('a'))
-
-test('composed lenses', () => {
-  expect(view(composedPathLens, testObject)).toEqual(view(pathLens, testObject))
-
-  expect(view(composedLens, testObject)).toEqual('c')
-
-  expect(over(
-    composedLens, toUpper, testObject
-  )).toEqual({
-    ...testObject,
-    foo : [ 'a', 'b', 'C' ],
-  })
-})
 ```
 
 </details>
@@ -12425,7 +12385,7 @@ import { median } from './median'
 
 test('happy', () => {
   expect(median([ 2 ])).toEqual(2)
-  expect(median([ 7, 2, 10, 9 ])).toEqual(8)
+  expect(median([ 7, 2, 10, 2, 9 ])).toEqual(7)
 })
 
 test('with empty array', () => {
@@ -13003,7 +12963,7 @@ import { min } from './min'
 
 test('happy', () => {
   expect(min(2, 1)).toBe(1)
-  expect(min(2)(1)).toBe(1)
+  expect(min(1)(2)).toBe(1)
 })
 ```
 
@@ -16998,11 +16958,12 @@ props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[]
 It takes list with properties `propsToPick` and returns a list with property values in `obj`.
 
 ```javascript
-const result = R.props(['a', 'b'], {a:1, c:3})
+const result = [
+  R.props(['a', 'b'], {a:1, c:3})
 // => [1, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.props(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A1%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20undefined%5D">Try this <strong>R.props</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.props(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A1%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20undefined%5D">Try this <strong>R.props</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -17021,11 +16982,15 @@ props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 <summary><strong>R.props</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
 import { mapArray } from './map'
 
 export function props(propsToPick, obj){
   if (arguments.length === 1){
     return _obj => props(propsToPick, _obj)
+  }
+  if (!_isArray(propsToPick)){
+    throw new Error('propsToPick is not a list')
   }
 
   return mapArray(prop => obj[ prop ], propsToPick)
@@ -17045,9 +17010,15 @@ const obj = {
   a : 1,
   b : 2,
 }
+const propsToPick = [ 'a', 'c' ]
 
 test('happy', () => {
-  const result = props([ 'a', 'c' ], obj)
+  const result = props(propsToPick, obj)
+  expect(result).toEqual([ 1, undefined ])
+})
+
+test('curried', () => {
+  const result = props(propsToPick)(obj)
   expect(result).toEqual([ 1, undefined ])
 })
 ```
@@ -22117,7 +22088,6 @@ import { prop } from './prop'
 import { view } from './view'
 
 const testObject = { foo : 'Led Zeppelin' }
-
 const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {

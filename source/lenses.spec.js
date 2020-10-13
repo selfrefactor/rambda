@@ -22,7 +22,7 @@ test('composed lenses', () => {
   const composedPathLens = compose(lensPath('baz'), lensPath('a'))
   expect(view(composedPathLens, testObject)).toEqual(view(pathLens, testObject))
 
-  expect(view(composedLens, testObject)).toEqual('c')
+  expect(view(composedLens)(testObject)).toEqual('c')
 
   expect(over(
     composedLens, toUpper, testObject

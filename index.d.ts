@@ -675,7 +675,6 @@ export function length<T>(input: readonly T[]): number;
  * The setter should not mutate the data structure.
  */
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 /**
  * It returns a lens that focuses on specified `index`.
