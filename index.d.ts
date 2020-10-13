@@ -56,10 +56,6 @@ type Evolver<T extends Evolvable<any> = any> = {
   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };
 
-type Evolver<T extends Evolvable<any> = any> = {
-  [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
-};
-
 type Evolve<O extends Evolvable<E>, E extends Evolver> = {
   [P in keyof O]: P extends keyof E
                   ? EvolveValue<O[P], E[P]>

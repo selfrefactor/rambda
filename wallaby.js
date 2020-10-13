@@ -2,6 +2,8 @@ const options = { targets : { node : 'current' } }
 
 module.exports = function (wallaby){
   return {
+    name: 'Rambda',
+    filesWithNoCoverageCalculated: ['src/**/*.js'],
     runMode: 'onsave',
     files: [
       { pattern: 'rambda.js', load: false },

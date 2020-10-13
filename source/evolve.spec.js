@@ -85,12 +85,12 @@ describe('brute force', () => {
         Object {
           "ERRORS_DIFFERENT": 0,
           "ERRORS_MISMATCH": 4,
-          "RESULTS_MISMATCH": 0,
+          "RESULTS_MISMATCH": 1,
           "SHOULD_NOT_THROW": 51,
           "SHOULD_THROW": 0,
         }
       `)
-    },
+    }, 
     secondInput : possibleIterables,
     fn          : evolve,
     fnRamda     : evolveRamda,

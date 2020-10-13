@@ -8,7 +8,7 @@
     1) can act as a transducer
 
 
-  4 passing (34ms)
+  4 passing (32ms)
   1 failing
 
   1) dropLastWhile
