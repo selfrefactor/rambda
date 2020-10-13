@@ -6,9 +6,4 @@ describe('R.dropRepeats', () => {
     
     result // $ExpectType number[]
   })
-  it('curried', () => {
-    const result = dropRepeats([1, 'foo', 'foo'])
-
-    result // $ExpectType (string | number)[]
-  })
 })

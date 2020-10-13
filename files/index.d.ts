@@ -4742,13 +4742,19 @@ export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: re
 /*
 Method: dropRepeats
 
-Explanation:
+Explanation: It removes any successive duplicates according to `R.equals`.
 
 Example:
 
 ```
-const result = R.dropRepeats()
-// => 
+const result = R.dropRepeats([
+  1, 
+  1, 
+  {a: 1}, 
+  {a:1}, 
+  1
+])
+// => [1, {a:1}, 1]
 ```
 
 Categories: List

@@ -4,6 +4,8 @@ WIP 6.3.0
 
 - Add `R.dropLastWhile`
 
+- Add `R.dropRepeats`
+
 - Add `R.evolve`
 
 6.2.0

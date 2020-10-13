@@ -1,0 +1,20 @@
+
+
+  dropRepeats
+    ✓ removes repeated elements
+    ✓ returns an empty array for an empty array
+    1) can act as a transducer
+    ✓ has R.equals semantics
+
+
+  3 passing (37ms)
+  1 failing
+
+  1) dropRepeats
+       can act as a transducer:
+     TypeError: R.into is not a function
+      at Context.into (test/dropRepeats.js:19:10)
+      at processImmediate (internal/timers.js:456:21)
+
+
+

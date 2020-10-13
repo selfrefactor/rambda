@@ -61,6 +61,14 @@ type Evolve<O extends Evolvable<E>, E extends Evolver> = {
                   ? EvolveValue<O[P], E[P]>
                   : O[P];
 };
+
+type EvolveNestedValue<O, E extends Evolver> =
+    O extends object
+    ? O extends Evolvable<E>
+      ? Evolve<O, E>
+      : never
+    : never;
+
 type EvolveValue<V, E> =
     E extends (value: V) => any
     ? ReturnType<E>
@@ -1498,15 +1506,17 @@ export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: reado
 /**
  * It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
  */
-export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
-// evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
-// evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
-// evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
-// evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+export function evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
 export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
 export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
 export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];
 
-export function dropRepeats<T>(x: T): T;
+/**
+ * It removes any successive duplicates according to `R.equals`.
+ */
+export function dropRepeats<T>(list: readonly T[]): T[];
