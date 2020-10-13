@@ -1,16 +1,5 @@
-import { isPromise } from './isPromise'
-
-function tapAsyncFn(fn, input){
-  if (isPromise(fn) === true){
-    return new Promise((resolve, reject) => {
-      fn(input)
-        .then(() => {
-          resolve(input)
-        })
-        .catch(reject)
-    })
-  }
-  fn(input)
+async function tapAsyncFn(fn, input){
+  await fn(input)
 
   return input
 }
