@@ -8,7 +8,7 @@ const DIR = resolve(__dirname, '../')
 
 test('typings are correct', async () => {
   if (isCI) return
-  if(process.env.WALLABY === 'ON') return
+  if (process.env.WALLABY === 'ON') return
 
   const { status } = spawnSync(
     'yarn', [ 'typings' ], {
@@ -18,4 +18,4 @@ test('typings are correct', async () => {
   )
 
   expect(status).toBe(0)
-}) 
+})

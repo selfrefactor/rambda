@@ -1925,7 +1925,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 /*
 Method: lensIndex
