@@ -1,0 +1,11 @@
+
+
+  dropWhile
+    ✓ skips elements while the function reports `true`
+    ✓ returns an empty list for an empty list
+    ✓ starts at the right arg and acknowledges undefined
+    ✓ can operate on strings
+
+
+  4 passing (25ms)
+

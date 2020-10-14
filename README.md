@@ -5488,12 +5488,32 @@ dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
 <summary><strong>R.dropWhile</strong> source</summary>
 
 ```javascript
-export function dropWhile(foo, bar) {
-  if (arguments.length === 1){
-    return (_bar) => dropWhile(foo, _bar);
-  }
+import { _isArray } from '../src/_internals/_isArray'
 
-  return
+export function dropWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => dropWhile(predicate, _iterable)
+  }
+  const isArray = _isArray(iterable)
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error('`iterable` is neither list nor a string')
+  }
+  let flag = false
+  const holder = []
+  let counter = -1
+
+  while (counter++ < iterable.length - 1){
+    if (flag){
+      holder.push(iterable[ counter ])
+    } else if (!predicate(iterable[ counter ])){
+      if (!flag) flag = true
+
+      holder.push(iterable[ counter ])
+    }
+  }
+  holder
+
+  return isArray ? holder : holder.join('')
 }
 ```
 
@@ -5504,43 +5524,79 @@ export function dropWhile(foo, bar) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropWhile } from './dropWhile'
 import { dropWhile as dropWhileRamda } from 'ramda'
 
+import { compareCombinations } from './_internals/testUtils'
+import { dropWhile } from './dropWhile'
+
+const list = [ 1, 2, 3, 4 ]
+
 test('happy', () => {
-  const result = dropWhile()
-  console.log(result)
+  const predicate = x => x > 2
+  const result = dropWhile(predicate, list)
+  expect(result).toEqual(list)
 })
 
-/*
-var R = require('../source');
-var eq = require('./shared/eq');
+test('always true', () => {
+  const predicate = () => true
+  const result = dropWhileRamda(predicate, list)
+  expect(result).toEqual([])
+})
 
-describe('dropWhile', function() {
-  it('skips elements while the function reports `true`', function() {
-    eq(R.dropWhile(function(x) {return x < 5;}, [1, 3, 5, 7, 9]), [5, 7, 9]);
-  });
+test('always false', () => {
+  const predicate = () => 0
+  const result = dropWhile(predicate, list)
+  expect(result).toEqual(list)
+})
 
-  it('returns an empty list for an empty list', function() {
-    eq(R.dropWhile(function() { return false; }, []), []);
-    eq(R.dropWhile(function() { return true; }, []), []);
-  });
+test('works with string as iterable', () => {
+  const iterable = 'foobar'
+  const predicate = x => x !== 'b'
+  const result = dropWhile(predicate, iterable)
+  expect(result).toBe('bar')
+})
 
-  it('starts at the right arg and acknowledges undefined', function() {
-    var sublist = R.dropWhile(function(x) {return x !== void 0;}, [1, 3, void 0, 5, 7]);
-    eq(sublist.length, 3);
-    eq(sublist[0], void 0);
-    eq(sublist[1], 5);
-    eq(sublist[2], 7);
-  });
+const possiblePredicates = [
+  null,
+  undefined,
+  () => 0,
+  () => true,
+  /foo/g,
+  {},
+  [],
+]
 
-  it('can operate on strings', function() {
-    eq(R.dropWhile(function(x) { return x !== 'd'; }, 'Ramda'), 'da');
-  });
+const possibleIterables = [
+  null,
+  undefined,
+  [],
+  {},
+  1,
+  '',
+  'foobar',
+  [ '' ],
+  [ 1, 2, 3, 4, 5 ],
+]
 
-});
-
-*/
+describe('brute force', () => {
+  compareCombinations({
+    firstInput : possiblePredicates,
+    callback   : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 15,
+          "ERRORS_TYPE_MISMATCH": 14,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 14,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleIterables,
+    fn          : dropWhile,
+    fnRamda     : dropWhileRamda,
+  })
+})
 ```
 
 </details>
@@ -23233,6 +23289,8 @@ describe('R.zipWith', () => {
 WIP 6.3.0
 
 - Add `R.takeLastWhile`
+
+- Add `R.dropWhile`
 
 - Add `R.dropLastWhile`
 

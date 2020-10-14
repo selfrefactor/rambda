@@ -2,6 +2,8 @@ WIP 6.3.0
 
 - Add `R.takeLastWhile`
 
+- Add `R.dropWhile`
+
 - Add `R.dropLastWhile`
 
 - Add `R.dropRepeats`

@@ -11,7 +11,7 @@ export function dropWhile(predicate, iterable){
   let flag = false
   const holder = []
   let counter = -1
-   
+
   while (counter++ < iterable.length - 1){
     if (flag){
       holder.push(iterable[ counter ])
