@@ -1,17 +1,14 @@
-import {takeWhile} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const predicate = (x: number) => x > 3
+import { takeWhile } from 'rambda'
 
 describe('R.takeWhile', () => {
   it('happy', () => {
-    const result = takeWhile(predicate, list)
-
-    result // $ExpectType number[]
+    const result = takeWhile()
+    
+    result // $ExpectType number
   })
   it('curried', () => {
-    const result = takeWhile(predicate)(list)
+    const result = takeWhile()
 
-    result // $ExpectType number[]
+    result // $ExpectType number
   })
 })

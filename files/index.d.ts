@@ -4811,6 +4811,26 @@ Notes:
 export function dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
 export function dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
 
+/*
+Method: takeWhile
+
+Explanation:
+
+Example:
+
+```
+const result = R.takeWhile()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function takeWhile<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*

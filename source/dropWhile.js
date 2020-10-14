@@ -21,7 +21,6 @@ export function dropWhile(predicate, iterable){
       holder.push(iterable[ counter ])
     }
   }
-  holder
 
   return isArray ? holder : holder.join('')
 }

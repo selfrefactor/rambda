@@ -1,18 +1,70 @@
-import { takeWhile } from './takeWhile'
+import { takeWhile as takeWhileRamda } from "ramda";
 
-const list = [ 1, 2, 3, 4, 5, 6 ]
+import { takeWhile } from "./takeWhile";
+import { compareCombinations } from "./_internals/testUtils";
 
-test('happy', () => {
-  const result = takeWhile(x => x < 4, list)
-  expect(result).toEqual([ 1, 2, 3 ])
-})
+const list = [1, 2, 3, 4, 5];
 
-test('predicate always returns true', () => {
-  const result = takeWhile(x => x < 10, list)
-  expect(result).toEqual(list)
-})
+test("happy", () => {
+  const result = takeWhile((x) => x < 3, list);
+  expect(result).toEqual([1, 2]);
+});
 
-test('predicate alwats returns false', () => {
-  const result = takeWhile(x => x > 10, list)
-  expect(result).toEqual([])
-})
+test("always true", () => {
+  const result = takeWhile((x) => true, list);
+  expect(result).toEqual(list);
+});
+
+test("always false", () => {
+  const result = takeWhile((x) => 0, list);
+  expect(result).toEqual([]);
+});
+
+test("with string", () => {
+  const result = takeWhile((x) => x !== "b", "foobar");
+  console.log(result);
+  expect(result).toBe("foo");
+});
+
+const possiblePredicates = [
+  null,
+  undefined,
+  () => 0,
+  () => true,
+  (x) => x !== "b",
+  /foo/g,
+  {},
+  [],
+];
+
+const possibleIterables = [
+  null,
+  undefined,
+  [],
+  {},
+  1,
+  "",
+  "foobar",
+  [""],
+  [1, 2, 3, 4, 5],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possiblePredicates,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 15,
+          "ERRORS_TYPE_MISMATCH": 16,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 16,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    secondInput: possibleIterables,
+    fn: takeWhile,
+    fnRamda: takeWhileRamda,
+  });
+});
