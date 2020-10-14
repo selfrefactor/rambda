@@ -11,7 +11,6 @@ Fix `If you need more Ramda methods in Rambda, you may either submit a PR or che
 
 Methods to add:  
 
-- dropRepeatsWith
 - dropWhile
 - takeWhile
 - eqProps
@@ -19,6 +18,7 @@ Methods to add:
 - propSatisfies
 - pickBy
 - pathSatisfies
+- gte
 
 https://github.com/smartprocure/futil-js#differentlast
 https://github.com/smartprocure/futil-js#whentruthy

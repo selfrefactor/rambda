@@ -1,0 +1,902 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brute force Array [] | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Array [],
+    Array [
+      "",
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Array [1, 2, 3, 4, 5] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Array [],
+    Array [
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | String foobar 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Array [],
+    "foobar",
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => 0 | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => 0 | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => 0 | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => 0 | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => true | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => true | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => true | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function () => true | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    null,
+    Array [
+      "",
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Array [1, 2, 3, 4, 5] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    null,
+    Array [
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | String foobar 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    null,
+    "foobar",
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {},
+    Array [
+      "",
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Array [1, 2, 3, 4, 5] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {},
+    Array [
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | String foobar 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Object {},
+    "foobar",
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    /foo/g,
+    Array [
+      "",
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Array [1, 2, 3, 4, 5] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    /foo/g,
+    Array [
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    /foo/g,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    /foo/g,
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    /foo/g,
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | String foobar 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    /foo/g,
+    "foobar",
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force RegExp /foo/g | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    /foo/g,
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    Array [
+      "",
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Array [1, 2, 3, 4, 5] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    Array [
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Number 1 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | String foobar 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    "foobar",
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    undefined,
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;

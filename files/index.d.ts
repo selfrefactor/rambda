@@ -4788,6 +4788,29 @@ Notes:
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 
+/*
+Method: dropWhile
+
+Explanation:
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const predicate = x => x > 2
+const result = R.dropWhile(predicate, list)
+// => [1, 2]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
+export function dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*

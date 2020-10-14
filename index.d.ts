@@ -1522,3 +1522,6 @@ export function dropRepeats<T>(list: readonly T[]): T[];
 
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
+
+export function dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
+export function dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];

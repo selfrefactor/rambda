@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 92 Ramda methods not implemented in Rambda 
+  Click to see the full list of 91 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -109,7 +109,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
-- dropWhile
 - empty
 - eqBy
 - eqProps
@@ -5451,6 +5450,120 @@ describe('R.dropRepeatsWith', () => {
      })([{a:2}, {a:1}])
    
      result // $ExpectType Foo[]
+  })
+})
+```
+
+</details>
+
+### dropWhile
+
+```typescript
+
+dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[]
+```
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = x => x > 2
+const result = R.dropWhile(predicate, list)
+// => [1, 2]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0Aconst%20result%20%3D%20R.dropWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
+dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropWhile</strong> source</summary>
+
+```javascript
+export function dropWhile(foo, bar) {
+  if (arguments.length === 1){
+    return (_bar) => dropWhile(foo, _bar);
+  }
+
+  return
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropWhile } from './dropWhile'
+import { dropWhile as dropWhileRamda } from 'ramda'
+
+test('happy', () => {
+  const result = dropWhile()
+  console.log(result)
+})
+
+/*
+var R = require('../source');
+var eq = require('./shared/eq');
+
+describe('dropWhile', function() {
+  it('skips elements while the function reports `true`', function() {
+    eq(R.dropWhile(function(x) {return x < 5;}, [1, 3, 5, 7, 9]), [5, 7, 9]);
+  });
+
+  it('returns an empty list for an empty list', function() {
+    eq(R.dropWhile(function() { return false; }, []), []);
+    eq(R.dropWhile(function() { return true; }, []), []);
+  });
+
+  it('starts at the right arg and acknowledges undefined', function() {
+    var sublist = R.dropWhile(function(x) {return x !== void 0;}, [1, 3, void 0, 5, 7]);
+    eq(sublist.length, 3);
+    eq(sublist[0], void 0);
+    eq(sublist[1], 5);
+    eq(sublist[2], 7);
+  });
+
+  it('can operate on strings', function() {
+    eq(R.dropWhile(function(x) { return x !== 'd'; }, 'Ramda'), 'da');
+  });
+
+});
+
+*/
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { dropWhile } from 'rambda'
+
+const list = [1, 2, 3, 4]
+
+describe('R.dropWhile', () => {
+  it('happy', () => {
+    const result = dropWhile(x => x > 2, list)
+    
+    result // $ExpectType number[]
+  })
+  it('curried require explicit type', () => {
+    const result = dropWhile<number>(x => x > 2)(list)
+
+    result // $ExpectType number[]
   })
 })
 ```
