@@ -3877,30 +3877,6 @@ export function takeLast<T>(howMany: number): {
 };
 
 /*
-Method: takeWhile
-
-Explanation:
-
-Example:
-
-```
-const list = [1, 2, 3, 4, 5]
-const predicate = x => x < 3
-const result = takeWhile(predicate, list)
-
-// => [1, 2, 3]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
-export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
-
-/*
 Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 
@@ -4797,19 +4773,21 @@ Example:
 
 ```
 const list = [1, 2, 3, 4]
-const predicate = x => x > 2
+const predicate = x => x < 3
 const result = R.dropWhile(predicate, list)
-// => [1, 2]
+// => [3, 4]
 ```
 
-Categories: List
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
-export function dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
+export function dropWhile(fn: Predicate<string>, iterable: string): string;
+export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
+export function dropWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+export function dropWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
 
 /*
 Method: takeWhile
@@ -4819,17 +4797,23 @@ Explanation:
 Example:
 
 ```
-const result = R.takeWhile()
-// => 
+const list = [1, 2, 3, 4]
+const predicate = x => x < 3
+
+const result = R.takeWhile(predicate, list)
+// => [1, 2]
 ```
 
-Categories:
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile<T>(x: T): T;
+export function takeWhile(fn: Predicate<string>, iterable: string): string;
+export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
+export function takeWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
 
 // RAMBDAX_MARKER_START
 

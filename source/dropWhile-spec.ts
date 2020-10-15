@@ -14,3 +14,17 @@ describe('R.dropWhile', () => {
     result // $ExpectType number[]
   })
 })
+
+describe('with string as iterable', () => {
+  const str = 'foobar'
+  it('happy', () => {
+    const result = dropWhile(x => x !== 'b', str)
+    
+    result // $ExpectType string
+  })
+  it('curried require explicit type', () => {
+    const result = dropWhile(x => x !== 'b')(str)
+
+    result // $ExpectType string
+  })
+})

@@ -1,15 +1,25 @@
-export function takeWhile(predicate, list){
-  const toReturn = []
-  let stopFlag = false
+import { _isArray } from '../src/_internals/_isArray'
+
+export function takeWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => takeWhile(predicate, _iterable)
+  }
+  const isArray = _isArray(iterable)
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error('`iterable` is neither list nor a string')
+  }
+  let flag = true
+  const holder = []
   let counter = -1
 
-  while (stopFlag === false && counter++ < list.length - 1){
-    if (!predicate(list[ counter ])){
-      stopFlag = true
-    } else {
-      toReturn.push(list[ counter ])
+  while (counter++ < iterable.length - 1){
+    if (!predicate(iterable[ counter ])){
+      if (flag) flag = false
+    } else if (flag){
+      holder.push(iterable[ counter ])
     }
   }
+  holder
 
-  return toReturn
+  return isArray ? holder : holder.join('')
 }

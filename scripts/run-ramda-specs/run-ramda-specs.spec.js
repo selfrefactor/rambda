@@ -14,7 +14,7 @@ test('run single spec', async () => {
 
   await build()
   await importRamdaSpecs(WITH_INITIAL_STEP)
-  expect(await runSingleSpec('dropWhile')).toBeTrue()
+  expect(await runSingleSpec('takeWhile')).toBeTrue()
 })
 
 test('run all specs', async () => {

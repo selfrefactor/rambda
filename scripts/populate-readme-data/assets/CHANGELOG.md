@@ -1,5 +1,7 @@
 WIP 6.3.0
 
+- Add typings for `R.takeWhile` when iterable is a string
+
 - Add `R.takeLastWhile`
 
 - Add `R.dropWhile`

@@ -5460,25 +5460,27 @@ describe('R.dropRepeatsWith', () => {
 
 ```typescript
 
-dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[]
+dropWhile(fn: Predicate<string>, iterable: string): string
 ```
 
 ```javascript
 const list = [1, 2, 3, 4]
-const predicate = x => x > 2
+const predicate = x => x < 3
 const result = R.dropWhile(predicate, list)
-// => [1, 2]
+// => [3, 4]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0Aconst%20result%20%3D%20R.dropWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropWhile</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20R.dropWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try this <strong>R.dropWhile</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
-dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
+dropWhile(fn: Predicate<string>, iterable: string): string;
+dropWhile(fn: Predicate<string>): (iterable: string) => string;
+dropWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+dropWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
 ```
 
 </details>
@@ -5511,7 +5513,6 @@ export function dropWhile(predicate, iterable){
       holder.push(iterable[ counter ])
     }
   }
-  holder
 
   return isArray ? holder : holder.join('')
 }
@@ -5532,9 +5533,9 @@ import { dropWhile } from './dropWhile'
 const list = [ 1, 2, 3, 4 ]
 
 test('happy', () => {
-  const predicate = x => x > 2
+  const predicate = x => x < 3
   const result = dropWhile(predicate, list)
-  expect(result).toEqual(list)
+  expect(result).toEqual([3,4])
 })
 
 test('always true', () => {
@@ -5620,6 +5621,20 @@ describe('R.dropWhile', () => {
     const result = dropWhile<number>(x => x > 2)(list)
 
     result // $ExpectType number[]
+  })
+})
+
+describe('with string as iterable', () => {
+  const str = 'foobar'
+  it('happy', () => {
+    const result = dropWhile(x => x !== 'b', str)
+    
+    result // $ExpectType string
+  })
+  it('curried require explicit type', () => {
+    const result = dropWhile(x => x !== 'b')(str)
+
+    result // $ExpectType string
   })
 })
 ```
@@ -19993,26 +20008,28 @@ describe('R.takeLastWhile', () => {
 
 ```typescript
 
-takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[]
+takeWhile(fn: Predicate<string>, iterable: string): string
 ```
 
 ```javascript
-const list = [1, 2, 3, 4, 5]
+const list = [1, 2, 3, 4]
 const predicate = x => x < 3
-const result = takeWhile(predicate, list)
 
-// => [1, 2, 3]
+const result = R.takeWhile(predicate, list)
+// => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20takeWhile(predicate%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try this <strong>R.takeWhile</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0A%0Aconst%20result%20%3D%20R.takeWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.takeWhile</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
-takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+takeWhile(fn: Predicate<string>, iterable: string): string;
+takeWhile(fn: Predicate<string>): (iterable: string) => string;
+takeWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
 ```
 
 </details>
@@ -20022,20 +20039,30 @@ takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
 <summary><strong>R.takeWhile</strong> source</summary>
 
 ```javascript
-export function takeWhile(predicate, list){
-  const toReturn = []
-  let stopFlag = false
+import { _isArray } from '../src/_internals/_isArray'
+
+export function takeWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => takeWhile(predicate, _iterable)
+  }
+  const isArray = _isArray(iterable)
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error('`iterable` is neither list nor a string')
+  }
+  let flag = true
+  const holder = []
   let counter = -1
 
-  while (stopFlag === false && counter++ < list.length - 1){
-    if (!predicate(list[ counter ])){
-      stopFlag = true
-    } else {
-      toReturn.push(list[ counter ])
+  while (counter++ < iterable.length - 1){
+    if (!predicate(iterable[ counter ])){
+      if (flag) flag = false
+    } else if (flag){
+      holder.push(iterable[ counter ])
     }
   }
+  holder
 
-  return toReturn
+  return isArray ? holder : holder.join('')
 }
 ```
 
@@ -20046,24 +20073,76 @@ export function takeWhile(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeWhile } from './takeWhile'
+import { takeWhile as takeWhileRamda } from "ramda";
 
-const list = [ 1, 2, 3, 4, 5, 6 ]
+import { takeWhile } from "./takeWhile";
+import { compareCombinations } from "./_internals/testUtils";
 
-test('happy', () => {
-  const result = takeWhile(x => x < 4, list)
-  expect(result).toEqual([ 1, 2, 3 ])
-})
+const list = [1, 2, 3, 4, 5];
 
-test('predicate always returns true', () => {
-  const result = takeWhile(x => x < 10, list)
-  expect(result).toEqual(list)
-})
+test("happy", () => {
+  const result = takeWhile((x) => x < 3, list);
+  expect(result).toEqual([1, 2]);
+});
 
-test('predicate alwats returns false', () => {
-  const result = takeWhile(x => x > 10, list)
-  expect(result).toEqual([])
-})
+test("always true", () => {
+  const result = takeWhile((x) => true, list);
+  expect(result).toEqual(list);
+});
+
+test("always false", () => {
+  const result = takeWhile((x) => 0, list);
+  expect(result).toEqual([]);
+});
+
+test("with string", () => {
+  const result = takeWhile((x) => x !== "b", "foobar");
+  console.log(result);
+  expect(result).toBe("foo");
+});
+
+const possiblePredicates = [
+  null,
+  undefined,
+  () => 0,
+  () => true,
+  (x) => x !== "b",
+  /foo/g,
+  {},
+  [],
+];
+
+const possibleIterables = [
+  null,
+  undefined,
+  [],
+  {},
+  1,
+  "",
+  "foobar",
+  [""],
+  [1, 2, 3, 4, 5],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possiblePredicates,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 15,
+          "ERRORS_TYPE_MISMATCH": 16,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 16,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    secondInput: possibleIterables,
+    fn: takeWhile,
+    fnRamda: takeWhileRamda,
+  });
+});
 ```
 
 </details>
@@ -20073,21 +20152,34 @@ test('predicate alwats returns false', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {takeWhile} from 'rambda'
+import { takeWhile } from 'rambda'
 
 const list = [1, 2, 3, 4]
-const predicate = (x: number) => x > 3
 
 describe('R.takeWhile', () => {
   it('happy', () => {
-    const result = takeWhile(predicate, list)
+    const result = takeWhile(x => x > 2, list)
+    
+    result // $ExpectType number[]
+  })
+  it('curried require explicit type', () => {
+    const result = takeWhile<number>(x => x > 2)(list)
 
     result // $ExpectType number[]
   })
-  it('curried', () => {
-    const result = takeWhile(predicate)(list)
+})
 
-    result // $ExpectType number[]
+describe('with string as iterable', () => {
+  const str = 'foobar'
+  it('happy', () => {
+    const result = takeWhile(x => x !== 'b', str)
+    
+    result // $ExpectType string
+  })
+  it('curried require explicit type', () => {
+    const result = takeWhile(x => x !== 'b')(str)
+
+    result // $ExpectType string
   })
 })
 ```
@@ -23287,6 +23379,8 @@ describe('R.zipWith', () => {
 ## CHANGELOG
 
 WIP 6.3.0
+
+- Add typings for `R.takeWhile` when iterable is a string
 
 - Add `R.takeLastWhile`
 

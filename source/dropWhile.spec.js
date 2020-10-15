@@ -6,9 +6,9 @@ import { dropWhile } from './dropWhile'
 const list = [ 1, 2, 3, 4 ]
 
 test('happy', () => {
-  const predicate = x => x > 2
+  const predicate = x => x < 3
   const result = dropWhile(predicate, list)
-  expect(result).toEqual(list)
+  expect(result).toEqual([3,4])
 })
 
 test('always true', () => {

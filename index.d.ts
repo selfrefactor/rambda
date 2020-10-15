@@ -1322,9 +1322,6 @@ export function takeLast<T>(howMany: number): {
   (input: string): string;
 };
 
-export function takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
-export function takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
-
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
@@ -1523,5 +1520,12 @@ export function dropRepeats<T>(list: readonly T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
 
-export function dropWhile<T>(fn: Predicate<T>, list: readonly T[]): T[];
-export function dropWhile<T>(fn: Predicate<T>): (list: readonly T[]) => T[];
+export function dropWhile(fn: Predicate<string>, iterable: string): string;
+export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
+export function dropWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+export function dropWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
+
+export function takeWhile(fn: Predicate<string>, iterable: string): string;
+export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
+export function takeWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
