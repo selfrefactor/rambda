@@ -14,7 +14,7 @@ export type _Pick<O extends object, K extends Key> =
     __Pick<O, keyof O & K>
 
 /**
-Extract out of **`O`** the fields of key **`K`**
+Extract out of `O` the fields of key `K`
 @param O to extract from
 @param K to chose fields
 @returns [[Object]]
@@ -24,5 +24,5 @@ Extract out of **`O`** the fields of key **`K`**
 */
 export type Pick<O extends object, K extends Key> =
     O extends unknown
-    ? _Pick<O, K & keyof O>
+    ? _Pick<O, K>
     : never

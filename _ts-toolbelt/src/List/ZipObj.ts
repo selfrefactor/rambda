@@ -15,7 +15,7 @@ import {PatchFlat} from '../Object/Patch'
 @hidden
 */
 type __ZipObj<LKeys extends List<Key>, LFields extends List, O extends object = {}, I extends Iteration = IterationOf<'0'>> = {
-    0: __ZipObj<LKeys, LFields, PatchFlat<O, Record<LKeys[Pos<I>], LFields[Pos<I>]>, 1>, Next<I>>
+    0: __ZipObj<LKeys, LFields, PatchFlat<O, Record<LKeys[Pos<I>], LFields[Pos<I>]>>, Next<I>>
     1: O
 }[Extends<Pos<I>, Length<LKeys>>]
 

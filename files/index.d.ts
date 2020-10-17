@@ -76,7 +76,7 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = ObjectToolbelt.MergeUp<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
+type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;

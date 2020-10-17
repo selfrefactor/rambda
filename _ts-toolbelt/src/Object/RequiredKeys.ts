@@ -1,4 +1,3 @@
-import {Key} from '../Any/Key'
 
 /**
 @hidden
@@ -8,7 +7,7 @@ export type _RequiredKeys<O extends object> = {
 }[keyof O]
 
 /**
-Get the keys of **`O`** that are required
+Get the keys of `O` that are required
 @param O
 @returns [[Key]]
 @example
@@ -16,8 +15,6 @@ Get the keys of **`O`** that are required
 ```
 */
 export type RequiredKeys<O extends object> =
-    (
-        O extends unknown
-        ? _RequiredKeys<O>
-        : never
-    ) & Key
+    O extends unknown
+    ? _RequiredKeys<O>
+    : never

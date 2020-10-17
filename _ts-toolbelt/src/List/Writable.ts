@@ -1,11 +1,9 @@
 import {Depth} from '../Object/_Internal'
-import {Writable as OWritable} from '../Object/Writable'
-import {Cast} from '../Any/Cast'
+import {WritablePart} from '../Object/Writable'
 import {List} from './List'
-import {Key} from '../Any/Key'
 
 /**
-Make **`L`** writable (deeply or not)
+Make `L` writable (deeply or not)
 @param L to make writable
 @param depth (?=`'flat'`) to do it deeply
 @returns [[List]]
@@ -14,4 +12,4 @@ Make **`L`** writable (deeply or not)
 ```
 */
 export type Writable<L extends List, depth extends Depth = 'flat'> =
-    Cast<OWritable<L, Key, depth>, List>
+    WritablePart<L, depth>

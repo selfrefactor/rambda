@@ -40,7 +40,7 @@ type MergeList<O, Path extends List<Key>, O1 extends object, depth extends Depth
     : O
 
 /**
-Complete the fields of **`O`** at **`Path`** with the ones of **`O1`**
+Complete the fields of `O` at `Path` with the ones of `O1`
 @param O to complete
 @param Path to be followed
 @param O1 to copy from
@@ -55,3 +55,5 @@ export type Merge<O extends object, Path extends List<Key>, O1 extends object, d
   0: MergeObject<O, Path, O1, depth>
   1: MergeList<O, Path, O1, depth>
 }[list]
+
+// TODO: deprecate list option and integrate noMerge

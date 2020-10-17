@@ -1,7 +1,7 @@
 /**
-Get the instance type wrapped within a **`Promise`**
-@param P **`Promise`**
-@returns **`any`**
+Get the instance type wrapped within a `Promise`
+@param P A promise
+@returns [[Any]]
 @example
 ```ts
 import {C} from 'ts-toolbelt'
@@ -12,7 +12,7 @@ type test0 = C.PromiseOf<typeof promise>  // string
 type test1 = C.PromiseOf<Promise<number>> // number
 ```
 */
-export type PromiseOf<P extends any> =
+export type PromiseType<P extends any> =
     P extends Promise<infer A>
     ? A
     : P

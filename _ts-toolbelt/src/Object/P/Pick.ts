@@ -7,13 +7,22 @@ import {_Pick as _OPick} from '../Pick'
 import {LastIndex} from '../../List/LastIndex'
 import {List} from '../../List/List'
 import {Boolean} from '../../Boolean/Boolean'
+import {_ListOf} from '../ListOf'
+
+/**
+@hidden
+*/
+type Action<O extends object, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
+  O extends List
+  ? _ListOf<_OPick<O, Path[Pos<I>]>>
+  : _OPick<O, Path[Pos<I>]>
 
 /**
 @hidden
 */
 type PickObject<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>> =
   O extends object                                // If it's an object
-  ? _OPick<O, Path[Pos<I>]> extends infer Picked  // Pick the current index
+  ? Action<O, Path, I> extends infer Picked       // Pick the current index
     ? Pos<I> extends LastIndex<Path>              // If it's the last index
       ? Picked                                    // Return the picked object
       : {                                         // Otherwise, continue diving
@@ -39,7 +48,7 @@ type PickList<O, Path extends List<Key>, I extends Iteration = IterationOf<'0'>>
   : O
 
 /**
-Extract out of **`O`** the fields at **`Path`**
+Extract out of `O` the fields at `Path`
 @param O to extract from
 @param Path to be followed
 @param list (?=`0`) `1` to work within object lists
@@ -52,3 +61,5 @@ export type Pick<O extends object, Path extends List<Key>, list extends Boolean 
   0: PickObject<O, Path>
   1: PickList<O, Path>
 }[list]
+
+// todo propagate this new way of doing, remove mcpower version

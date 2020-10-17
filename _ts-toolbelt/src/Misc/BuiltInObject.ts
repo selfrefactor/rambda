@@ -14,7 +14,7 @@ type Errors =
  * @hidden
  */
 type Numeric =
-    | Number
+    // | Number
     // | BigInt // not needed
     // | Math
     | Date
@@ -23,7 +23,7 @@ type Numeric =
  * @hidden
  */
 type Textual =
-    | String
+    // | String
     | RegExp
 
 /**
@@ -48,9 +48,9 @@ type Arrays =
  * @hidden
  */
 type Maps =
-    | Map<unknown, unknown>
+    // | Map<unknown, unknown>
+    // | Set<unknown>
     | ReadonlyMap<unknown, unknown>
-    | Set<unknown>
     | ReadonlySet<unknown>
     | WeakMap<object, unknown>
     | WeakSet<object>
@@ -72,7 +72,7 @@ type Abstractions =
     | Function
     | Promise<unknown>
     | Generator
-    | GeneratorFunction
+    // | GeneratorFunction
 
 /**
  * @hidden

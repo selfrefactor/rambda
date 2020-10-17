@@ -1,9 +1,10 @@
 import {Key} from '../Any/Key'
 import {List} from './List'
 import {Update as OUpdate} from '../Object/Update'
+import {Depth} from '../Object/_Internal'
 
 /**
-Update in **`L`** the entries of key **`K`** with **`A`**.
+Update in `L` the entries of key `K` with `A`.
 Use the [[x]] placeholder to get the current field type.
 @param L to update
 @param K to chose fields
@@ -13,5 +14,5 @@ Use the [[x]] placeholder to get the current field type.
 ```ts
 ```
 */
-export type Update<L extends List, K extends Key, A extends any> =
-    OUpdate<L, K, A>
+export type Update<L extends List, K extends Key, A extends any, depth extends Depth = 'flat'> =
+    OUpdate<L, K, A, depth>

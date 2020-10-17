@@ -12,25 +12,23 @@ export type AtBasic<O extends object, K extends Key> =
 /**
 @hidden
 */
-type AtStrict<O extends object, K extends Key> =
-    [K & keyof O] extends [never]
-    ? never
-    : O[K & keyof O] // this is so that we can query `string | number`
+export type AtStrict<O extends object, K extends Key> =
+    O[K & keyof O] // this is so that we can query `string | number`
 
 /**
 @hidden
 */
-type AtLoose<O extends object, K extends Key> =
+export type AtLoose<O extends object, K extends Key> =
     O extends unknown
     ? AtStrict<O, K>
     : never
 
 /**
-Get in **`O`** the type of a field of key **`K`**
+Get in `O` the type of a field of key `K`
 @param O to extract from
 @param K to extract at
 @param strict (?=`1`) `0` to work with unions
-@returns **`any`**
+@returns [[Any]]
 @example
 ```ts
 import {O} from 'ts-toolbelt'

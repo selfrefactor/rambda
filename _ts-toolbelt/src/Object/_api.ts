@@ -1,6 +1,8 @@
 /** @ignore *//** */
 
-export * as P from './P/_api'
+import * as P from './P/_api'
+
+export type {P}
 export type {Assign} from './Assign'
 export type {At} from './At'
 export type {AtLeast} from './AtLeast'
@@ -20,7 +22,7 @@ export type {IntersectKeys} from './IntersectKeys'
 export type {Invert} from './Invert'
 export type {Keys} from './Keys'
 export type {ListOf} from './ListOf'
-export type {Patch as Merge} from './Patch' // LEGACY
+export type {Merge} from './Merge'
 export type {MergeAll} from './MergeAll'
 export type {Modify} from './Modify'
 export type {NonNullable} from './NonNullable'
@@ -54,10 +56,3 @@ export type {UnionOf} from './UnionOf'
 export type {Update} from './Update'
 export type {Writable} from './Writable'
 export type {WritableKeys} from './WritableKeys'
-
-// LEGACY
-
-export type {Merge as MergeUp} from './Merge'
-export type {Assign as AssignUp} from './Assign'
-export type {PatchAll as Compact} from './PatchAll'
-export type {MergeAll as CompactUp} from './MergeAll'

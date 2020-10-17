@@ -1,31 +1,60 @@
 /** @ignore *//** */
 
-export * as Test from './Test'
-export * as A from './Any/_api'
-export * as B from './Boolean/_api'
-export * as C from './Class/_api'
-export * as Community from './Community/_api'
-export * as F from './Function/_api'
-export * as I from './Iteration/_api'
-export * as M from './Misc/_api'
-export * as N from './Number/_api'
-export * as O from './Object/_api'
-export * as S from './String/_api'
-export * as T from './List/_api'
-export * as L from './List/_api'
-export * as U from './Union/_api'
-export * as Any from './Any/_api'
-export * as Boolean from './Boolean/_api'
-export * as Class from './Class/_api'
-export * as Function from './Function/_api'
-export * as Iteration from './Iteration/_api'
-export * as Misc from './Misc/_api'
-export * as Number from './Number/_api'
-export * as Object from './Object/_api'
-export * as String from './String/_api'
-export * as Tuple from './List/_api'
-export * as List from './List/_api'
-export * as Union from './Union/_api'
+import * as Test from './Test'
+import * as A from './Any/_api'
+import * as B from './Boolean/_api'
+import * as C from './Class/_api'
+import * as Community from './Community/_api'
+import * as F from './Function/_api'
+import * as I from './Iteration/_api'
+import * as M from './Misc/_api'
+import * as N from './Number/_api'
+import * as O from './Object/_api'
+import * as S from './String/_api'
+import * as T from './List/_api'
+import * as L from './List/_api'
+import * as U from './Union/_api'
+import * as Any from './Any/_api'
+import * as Boolean from './Boolean/_api'
+import * as Class from './Class/_api'
+import * as Function from './Function/_api'
+import * as Iteration from './Iteration/_api'
+import * as Misc from './Misc/_api'
+import * as Number from './Number/_api'
+import * as Object from './Object/_api'
+import * as String from './String/_api'
+import * as Tuple from './List/_api'
+import * as List from './List/_api'
+import * as Union from './Union/_api'
+
+export {
+    Test,
+    A,
+    Any,
+    B,
+    Boolean,
+    C,
+    Class,
+    Community,
+    F,
+    Function,
+    I,
+    Iteration,
+    L,
+    List,
+    M,
+    Misc,
+    N,
+    Number,
+    O,
+    Object,
+    S,
+    String,
+    T,
+    Tuple,
+    U,
+    Union,
+}
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 // NOTES /////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +71,7 @@ export * as Union from './Union/_api'
 // ! we can only do this if the mapped type is not intended to go deep (recurse)
 // ! because `& {}` forces computation, if we do it deeply => resolves to `any`
 // ! this happens only when a type is nested within itself => infinite recursion
+// This technique also lowers the memory consumption and the RAM that is needed
 
 // ---------------------------------------------------------------------------------------
 // 2. Avoid fall-through `never`
@@ -73,7 +103,7 @@ export * as Union from './Union/_api'
 //
 // => If you wonder what the `type _<name>` means, it's a "step" in the implementation (a bare implementation)
 //    (Usually, the first step `_` takes care of parameters. But you can also find 2 steps `__` (eg. recursive))
-// -> Perf tip: When building utilities, always check if a type has an exported `_` version & decide if needed
+// => !\ Perf: Always check if a type has an EXPORTED `_` version, decide if needed
 // -> Remember:
 //              - ALL EXPORTED `_` types are/must be NON-distributed types
 //              - ALL `_` types are parameter processors, they handle params
@@ -89,6 +119,9 @@ export * as Union from './Union/_api'
 //
 // => Distributed types MUST USE NON-distributed types as much as possible
 // -> This will avoid `<type> extends unknown`-hell loops (and re-looping)
+//
+// => Avoiding unnecessary intersections on large unions will compute time
+// => This is also valid for `extends`, for distributing over large unions
 
 // ---------------------------------------------------------------------------------------
 // 5. Keys & Tuples
@@ -108,36 +141,50 @@ export * as Union from './Union/_api'
 // -> We use `NumberOf` on those `K`s to make them `Number`s (ie. `string`s)
 //    (Yes, `NumberOf` yields a `string` bcs numbers are handled as strings)
 
+// ---------------------------------------------------------------------------------------
+// 6. Distribution
+//
+// => An easy way to test if distribution is happening correctly is to test the
+// type with `never`, then it should yield `never`. However, this might differ
+// or not be true for a few utilities.
+//
+// => Perf: Always check if a type has an EXPORTED `_` version, decide if needed
+//
+// => !\ Excessive type distribution is known to cause type metadata loss
+//    TypeScript's inference stops following if too much distribution is done
+//    ALWAYS build a type version with `_` utilities, then distribute the type
+
 // ///////////////////////////////////////////////////////////////////////////////////////
 // TODO //////////////////////////////////////////////////////////////////////////////////
 
 // remove legacy tools and rename MergeUp to Merge in the tests
 
-// type O<V> = {
-//     a: number[]
-//     b: {a: V}[]
-//     c: O<V>
+// type Oo<V> = {
+//     e: [V]
+//     f: [[V]]
+//     g: [[[V]]]
+//     h: [[[[V]]]]
+//     i: [[[[[V]]]]]
+//     j: [[[[[[V]]]]]]
+//     k: [[[[[[[V]]]]]]]
+//     l: [[[[[[[[V]]]]]]]]
 // }
 
-// type t1 = O.MergeAll<{}, [
-//     O<[0]>,
-//     O<[1, 2]>,
-//     O<[1, 2, 3]>,
-//     O<[1, 2, 3, 4]>,
-//     O<[1, 2, 3, 4, 5]>,
-//     O<[1, 2, 3, 4, 5, 6]>,
-//     O<[1, 2, 3, 4, 5, 6, 7]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]>,
-//     O<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20]>,
-// ], 'deep', 0>
-
+// type t1 = O.PatchAll<{}, [
+//     Oo<[1, 2, 3, 4]>,
+//     Oo<[1, 2, 3, 4, 5]>,
+//     Oo<[1, 2, 3, 4, 5, 6]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]>,
+//     Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]>,
+//     // Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]>,
+//     // Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]>,
+//     // Oo<[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20]>,
+// ], 'deep', 2>['l'][0][0][0][0][0][0][0][0]

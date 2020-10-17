@@ -30,7 +30,7 @@ export type {LastIndex} from './LastIndex'
 export type {Length} from './Length'
 export type {List} from './List'
 export type {Longest} from './Longest'
-export type {Patch as Merge} from './Patch' // LEGACY
+export type {Merge} from './Merge'
 export type {MergeAll} from './MergeAll'
 export type {Modify} from './Modify'
 export type {NonNullable} from './NonNullable'
@@ -74,10 +74,3 @@ export type {Writable} from './Writable'
 export type {WritableKeys} from './WritableKeys'
 export type {Zip} from './Zip'
 export type {ZipObj} from './ZipObj'
-
-// LEGACY
-
-export type {Merge as MergeUp} from './Merge'
-export type {Assign as AssignUp} from './Assign'
-export type {PatchAll as Compact} from './PatchAll'
-export type {MergeAll as CompactUp} from './MergeAll'

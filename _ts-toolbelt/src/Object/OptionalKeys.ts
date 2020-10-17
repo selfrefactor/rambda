@@ -1,5 +1,3 @@
-import {Key} from '../Any/Key'
-
 /**
 @hidden
 */
@@ -10,7 +8,7 @@ export type _OptionalKeys<O extends object> = {
 }[keyof O]
 
 /**
-Get the keys of **`O`** that are optional
+Get the keys of `O` that are optional
 @param O
 @returns [[Key]]
 @example
@@ -18,8 +16,6 @@ Get the keys of **`O`** that are optional
 ```
 */
 export type OptionalKeys<O extends object> =
-    (
-        O extends unknown
-        ? _OptionalKeys<O>
-        : never
-    ) & Key
+    O extends unknown
+    ? _OptionalKeys<O>
+    : never

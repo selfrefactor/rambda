@@ -10,7 +10,7 @@ import {Key} from '../Iteration/Key'
 import {Key as AKey} from '../Any/Key'
 import {List} from '../List/List'
 import {Length} from '../List/Length'
-import {Extends} from '../Any/_api'
+import {Extends} from '../Any/Extends'
 
 /**
 @hidden
@@ -20,7 +20,7 @@ type ValidatePath<O, Path extends List<AKey>, I extends Iteration> =
         Path,
         Key<I>,
         [At<O & {}, Path[Pos<I>]>] extends [never]
-        ? never
+        ? keyof O
         : Path[Pos<I>]
     >
 
@@ -44,7 +44,7 @@ export type _PathValid<O extends object, Path extends List<AKey>> =
  * Replaces invalid parts of a path with `never`
  * @param O to be inspected
  * @param Path to be validated
- * @returns **`Index[]`**
+ * @returns [[Index]][]
  * @example
  * ```ts
  * import {A, L, O} from 'ts-toolbelt'

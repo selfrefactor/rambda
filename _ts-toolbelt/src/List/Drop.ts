@@ -30,7 +30,7 @@ type DropBack<L extends List, N extends Iteration, I extends Iteration = Prev<N>
 /**
 @hidden
 */
-type __Drop<L extends List, N extends Iteration, way extends Way = '->'> = {
+type __Drop<L extends List, N extends Iteration, way extends Way> = {
     '->': DropForth<L, N>
     '<-': DropBack<L, N>
 }[way]
@@ -44,7 +44,7 @@ export type _Drop<L extends List, N extends Number, way extends Way = '->'> =
     : never
 
 /**
-Remove **`N`** entries out of **`L`**
+Remove `N` entries out of `L`
 @param L to remove from
 @param N to remove out
 @param way (?=`'->'`) from front: '->', from end: '<-'

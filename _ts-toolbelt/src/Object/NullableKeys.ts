@@ -1,16 +1,14 @@
-import {Key} from '../Any/Key'
-
 /**
 @hidden
 */
 export type _NullableKeys<O extends object> = {
-    [K in keyof O]: [O[K] & (undefined | null)] extends [never]
-                    ? never
-                    : K
+    [K in keyof O]-?: [O[K] & (undefined | null)] extends [never]
+                      ? never
+                      : K
 }[keyof O]
 
 /**
-Get the keys of **`O`** that are nullable
+Get the keys of `O` that are nullable
 
 (⚠️ needs `--strictNullChecks` enabled)
 @param O
@@ -20,8 +18,6 @@ Get the keys of **`O`** that are nullable
 ```
 */
 export type NullableKeys<O extends object> =
-    (
-        O extends unknown
-        ? _NullableKeys<O>
-        : never
-    ) & Key
+    O extends unknown
+    ? _NullableKeys<O>
+    : never

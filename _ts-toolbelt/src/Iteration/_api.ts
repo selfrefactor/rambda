@@ -1,6 +1,8 @@
 /** @ignore *//** */
 
-export * as Maps from './Maps/_api'
+import * as Maps from './Maps/_api'
+
+export type {Maps}
 export type {Format} from './Format'
 export type {Iteration} from './Iteration'
 export type {IterationOf} from './IterationOf'
