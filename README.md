@@ -3517,6 +3517,17 @@ describe('cond', function() {
 converge(after: ((...a: any[]) => any), fns: Array<((...x: any[]) => any)>): (...y: any[]) => any
 ```
 
+Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
+
+> :boom: Explanation is taken from `Ramda` documentation
+
+```javascript
+const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
+// => 15
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.converge(R.multiply)(%5B%20R.add(1)%2C%20R.add(3)%20%5D)(2)%0A%2F%2F%20%3D%3E%2015">Try this <strong>R.converge</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -3561,12 +3572,11 @@ export function converge(fn, transformers){
 ```javascript
 import { add } from './add'
 import { converge } from './converge'
+import { multiply } from './multiply'
 
-const mult = (a, b) => a * b
-
-const f1 = converge(mult, [ a => a + 1, a => a + 10 ])
-const f2 = converge(mult, [ a => a + 1, (a, b) => a + b + 10 ])
-const f3 = converge(mult, [ a => a + 1, (
+const f1 = converge(multiply, [ a => a + 1, a => a + 10 ])
+const f2 = converge(multiply, [ a => a + 1, (a, b) => a + b + 10 ])
+const f3 = converge(multiply, [ a => a + 1, (
   a, b, c
 ) => a + b + c + 10 ])
 
@@ -3575,7 +3585,7 @@ test('happy', () => {
 })
 
 test('passes the results of applying the arguments individually', () => {
-  const result = converge(mult)([ add(1), add(3) ])(2)
+  const result = converge(multiply)([ add(1), add(3) ])(2)
   expect(result).toEqual(15)
 })
 
@@ -3622,7 +3632,7 @@ test('works with empty functions list', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {converge} from 'rambda'
+import {converge} from 'ramda'
 
 const mult = (a: number, b: number) => {
   return a * b

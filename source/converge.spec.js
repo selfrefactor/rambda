@@ -1,11 +1,10 @@
 import { add } from './add'
 import { converge } from './converge'
+import { multiply } from './multiply'
 
-const mult = (a, b) => a * b
-
-const f1 = converge(mult, [ a => a + 1, a => a + 10 ])
-const f2 = converge(mult, [ a => a + 1, (a, b) => a + b + 10 ])
-const f3 = converge(mult, [ a => a + 1, (
+const f1 = converge(multiply, [ a => a + 1, a => a + 10 ])
+const f2 = converge(multiply, [ a => a + 1, (a, b) => a + b + 10 ])
+const f3 = converge(multiply, [ a => a + 1, (
   a, b, c
 ) => a + b + c + 10 ])
 
@@ -14,7 +13,7 @@ test('happy', () => {
 })
 
 test('passes the results of applying the arguments individually', () => {
-  const result = converge(mult)([ add(1), add(3) ])(2)
+  const result = converge(multiply)([ add(1), add(3) ])(2)
   expect(result).toEqual(15)
 })
 

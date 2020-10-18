@@ -744,17 +744,18 @@ export function cond<A, B>(conditions: [SafePred<A>, (...a: readonly A[]) => B][
 /*
 Method: converge
 
-Explanation:
+Explanation: Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
 
 Example:
 
 ```
-
+const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
+// => 15
 ```
 
-Categories:
+Categories: Function
 
-Notes:
+Notes: Explanation is taken from `Ramda` documentation
 
 */
 // @SINGLE_MARKER
