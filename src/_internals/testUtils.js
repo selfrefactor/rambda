@@ -239,7 +239,6 @@ export const compareCombinations = ({
   secondInput = undefined,
   thirdInput = undefined,
   setCounter = () => {},
-  setGlobalCounter = () => {},
   callback = x => {},
   fn,
   fnRamda,
@@ -269,7 +268,9 @@ export const compareCombinations = ({
   const inputKeys = Object.keys(combinationsInput)
   const combinations = combinate(combinationsInput)
   const compareOutputs = compareToRamda(fn, fnRamda)
+
   afterAll(() => callback(counter))
+
   combinations.forEach(combination => {
     const inputs = [
       combination.firstInput,
@@ -279,11 +280,10 @@ export const compareCombinations = ({
 
     test(getTestTitle(...inputs), () => {
       const compared = compareOutputs(...inputs)
-      setGlobalCounter()
+      setCounter()
 
       if (!compared.ok){
         increaseCounter(compared)
-        setCounter()
         expect({
           ...compared,
           inputs,
@@ -294,18 +294,16 @@ export const compareCombinations = ({
 }
 
 /*
-  describe("r.foo", () => {
+  describe("brute force", () => {
   let counter = 0;
-  let globalCounter = 0;
 
   afterAll(() => {
     console.log({ counter });
-    console.log({ globalCounter });
   });
+
   compareCombinations({
     firstInput: possibleRules,
     setCounter: () => counter++,
-    setGlobalCounter: () => globalCounter++,
     callback: errorsCounter => {
       expect(
         errorsCounter

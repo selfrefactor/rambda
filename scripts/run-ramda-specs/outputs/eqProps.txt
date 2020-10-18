@@ -1,0 +1,9 @@
+
+
+  eqProps
+    ✓ reports whether two objects have the same value for a given property
+    ✓ has R.equals semantics
+
+
+  2 passing (27ms)
+

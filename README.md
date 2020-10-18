@@ -85,7 +85,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 91 Ramda methods not implemented in Rambda 
+  Click to see the full list of 90 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -111,7 +111,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - dissocPath
 - empty
 - eqBy
-- eqProps
 - forEachObjIndexed
 - gt
 - gte
@@ -5074,7 +5073,6 @@ describe("brute force", () => {
     callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
-          "ERRORS_DIFFERENT": 0,
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 12,
           "RESULTS_MISMATCH": 0,
@@ -5195,48 +5193,47 @@ export function dropRepeats(list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropRepeats as dropRepeatsRamda } from 'ramda'
+import { dropRepeats as dropRepeatsRamda } from "ramda";
 
-import { compareCombinations } from './_internals/testUtils'
-import { add } from './add'
-import { dropRepeats } from './dropRepeats'
+import { compareCombinations } from "./_internals/testUtils";
+import { add } from "./add";
+import { dropRepeats } from "./dropRepeats";
 
-const list = [ 1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a : 1 }, { a : 1 } ]
-const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
+const list = [1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a: 1 }, { a: 1 }];
+const listClean = [1, 2, 3, 4, 5, 3, 2, { a: 1 }];
 
-test('happy', () => {
-  const result = dropRepeats(list)
-  expect(result).toEqual(listClean)
-})
+test("happy", () => {
+  const result = dropRepeats(list);
+  expect(result).toEqual(listClean);
+});
 
 const possibleLists = [
-  [ add(1), async () => {}, [ 1 ], [ 1 ], [ 2 ], [ 2 ] ],
-  [ add(1), add(1), add(2) ],
+  [add(1), async () => {}, [1], [1], [2], [2]],
+  [add(1), add(1), add(2)],
   [],
   1,
   /foo/g,
   Promise.resolve(1),
-]
+];
 
-describe('brute force', () => {
+describe("brute force", () => {
   compareCombinations({
-    firstInput : possibleLists,
-    callback   : errorsCounters => {
+    firstInput: possibleLists,
+    callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
-          "ERRORS_DIFFERENT": 0,
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 0,
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 3,
           "SHOULD_THROW": 0,
         }
-      `)
+      `);
     },
-    fn      : dropRepeats,
-    fnRamda : dropRepeatsRamda,
-  })
-})
+    fn: dropRepeats,
+    fnRamda: dropRepeatsRamda,
+  });
+});
 ```
 
 </details>
@@ -5409,7 +5406,6 @@ describe("brute force", () => {
     callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
-          "ERRORS_DIFFERENT": 0,
           "ERRORS_MESSAGE_MISMATCH": 4,
           "ERRORS_TYPE_MISMATCH": 14,
           "RESULTS_MISMATCH": 0,
@@ -5950,6 +5946,174 @@ describe('startsWith', function() {
     eq(R.endsWith(['a', 'b'], ['a', 'b', 'c']), false);
   });
 });
+```
+
+</details>
+
+### eqProps
+
+```typescript
+
+eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean
+```
+
+It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
+
+```javascript
+const obj1 = {a: 1, b:2}
+const obj2 = {a: 1, b:3}
+const result = R.eqProps('a', obj1, obj2)
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj1%20%3D%20%7Ba%3A%201%2C%20b%3A2%7D%0Aconst%20obj2%20%3D%20%7Ba%3A%201%2C%20b%3A3%7D%0Aconst%20result%20%3D%20R.eqProps('a'%2C%20obj1%2C%20obj2)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.eqProps</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
+eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
+eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.eqProps</strong> source</summary>
+
+```javascript
+import { curry } from "./curry";
+import { equals } from "./equals";
+
+function eqPropsFn(prop, obj1, obj2) {
+  if(!obj1 || !obj2){
+    throw new Error('wrong object inputs are passed to R.eqProps')
+  }
+
+  return equals(obj1[prop], obj2[prop])
+}
+
+export const eqProps = curry(eqPropsFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { eqProps as eqPropsRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
+import { eqProps } from './eqProps'
+
+const obj1 = {
+  a : 1,
+  b : 2,
+}
+const obj2 = {
+  a : 1,
+  b : 3,
+}
+
+test('props are equal', () => {
+  const result = eqProps(
+    'a', obj1, obj2
+  )
+  expect(result).toBeTrue()
+})
+
+test('props are not equal', () => {
+  const result = eqProps(
+    'b', obj1, obj2
+  )
+  expect(result).toBeFalse()
+})
+
+test('prop does not exist ', () => {
+  const result = eqProps(
+    'c', obj1, obj2
+  )
+  expect(result).toBeTrue()
+})
+
+const possibleProps = [ 'a', 'a.b', null, false, 0, 1, {}, [] ]
+
+const possibleObjects = [
+  { a : 1 },
+  {
+    a : 1,
+    b : 2,
+  },
+  {},
+  [],
+  null,
+  {
+    a : { b : 1 },
+    c : 2,
+  },
+  {
+    a : { b : 1 },
+    c : 3,
+  },
+  { a : { b : 2 } },
+]
+
+describe('brute force', () => {
+  let totalTestsCounter = 0
+
+  compareCombinations({
+    firstInput : possibleProps,
+    setCounter : () => totalTestsCounter++,
+    callback   : errorsCounters => {
+      // console.log({ totalTestsCounter })
+
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 120,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleObjects,
+    thirdInput  : possibleObjects,
+    fn          : eqProps,
+    fnRamda     : eqPropsRamda,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import { eqProps } from 'rambda'
+
+const obj1 = {a: {b: 1}, c: 2}
+const obj2 = {a: {b: 1}, c: 3}
+
+describe('R.eqProps', () => {
+  it('happy', () => {
+    const result = eqProps('a', obj1, obj2)
+    
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = eqProps('a', obj1)(obj2)
+    
+    result // $ExpectType boolean
+  })
+})
 ```
 
 </details>
@@ -6788,7 +6952,6 @@ describe("brute force", () => {
     callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
-          "ERRORS_DIFFERENT": 0,
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 4,
           "RESULTS_MISMATCH": 0,
@@ -23385,6 +23548,8 @@ WIP 6.3.0
 - Add `R.takeLastWhile`
 
 - Add `R.dropWhile`
+
+- Add `R.eqProps`
 
 - Add `R.dropLastWhile`
 

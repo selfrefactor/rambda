@@ -4815,6 +4815,32 @@ export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
 export function takeWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
 export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
 
+/*
+Method: eqProps
+
+Explanation: It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
+
+
+
+Example:
+
+```
+const obj1 = {a: 1, b:2}
+const obj2 = {a: 1, b:3}
+const result = R.eqProps('a', obj1, obj2)
+// => true 
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
+export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
+export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+
 // RAMBDAX_MARKER_START
 
 /*

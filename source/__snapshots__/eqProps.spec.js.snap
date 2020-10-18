@@ -1,0 +1,2945 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brute force Array [] | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Array [] | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Array [],
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '[object Array]' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Boolean false | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    false,
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'false' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null null | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    null,
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'null' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 0 | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    0,
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '0' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number 1 | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    1,
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '1' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object {} | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    Object {},
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property '#<Object>' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a",
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Array [] | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Array [],
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Array [] 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Array [],
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {"a":"{\\"b\\":1}","c":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {"a":"{\\"b\\":1}","c":3} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {"a":"{\\"b\\":2}"} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {"a":1,"b":2} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {"a":1} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {
+      "a": 1,
+    },
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Null null | Object {} 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    null,
+    Object {},
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {"a":"{\\"b\\":1}","c":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {"a":"{\\"b\\":1}","c":3} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {
+      "a": Object {
+        "b": 1,
+      },
+      "c": 3,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {"a":"{\\"b\\":2}"} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {
+      "a": Object {
+        "b": 2,
+      },
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {"a":1,"b":2} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {
+      "a": 1,
+      "b": 2,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {"a":1} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {
+      "a": 1,
+    },
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force String a.b | Object {} | Null null 1`] = `
+Object {
+  "error": Object {
+    "message": "wrong object inputs are passed to R.eqProps",
+    "type": "Error",
+  },
+  "inputs": Array [
+    "a.b",
+    Object {},
+    null,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'a.b' of null",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;

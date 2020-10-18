@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brute force Function | Null 1`] = `
+exports[`brute force Function _obj => path(pathInput, _obj) | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -21,7 +21,28 @@ Object {
 }
 `;
 
-exports[`brute force Function | Null 2`] = `
+exports[`brute force Function _obj => path(pathInput, _obj) | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function x => "" | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -42,7 +63,28 @@ Object {
 }
 `;
 
-exports[`brute force Function | Null 3`] = `
+exports[`brute force Function x => "" | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function x => false | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -63,7 +105,28 @@ Object {
 }
 `;
 
-exports[`brute force Function | Null 4`] = `
+exports[`brute force Function x => false | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function x => true | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -84,7 +147,28 @@ Object {
 }
 `;
 
-exports[`brute force Function | Null 5`] = `
+exports[`brute force Function x => true | Undefined undefined 1`] = `
+Object {
+  "error": Object {
+    "message": "undefined is not a list",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'length' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function x => x + 1 | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -105,7 +189,7 @@ Object {
 }
 `;
 
-exports[`brute force Function | Undefined 1`] = `
+exports[`brute force Function x => x + 1 | Undefined undefined 1`] = `
 Object {
   "error": Object {
     "message": "undefined is not a list",
@@ -126,20 +210,23 @@ Object {
 }
 `;
 
-exports[`brute force Function | Undefined 2`] = `
+exports[`brute force Null null | Array [/foo/g, /foo/g] 1`] = `
 Object {
   "error": Object {
-    "message": "undefined is not a list",
-    "type": "Error",
+    "message": "predicate is not a function",
+    "type": "TypeError",
   },
   "inputs": Array [
-    [Function],
-    undefined,
+    null,
+    Array [
+      /foo/g,
+      /foo/g,
+    ],
   ],
-  "label": "errors types are different",
+  "label": "errors messages are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "pred is not a function",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -147,70 +234,7 @@ Object {
 }
 `;
 
-exports[`brute force Function | Undefined 3`] = `
-Object {
-  "error": Object {
-    "message": "undefined is not a list",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    undefined,
-  ],
-  "label": "errors types are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Function | Undefined 4`] = `
-Object {
-  "error": Object {
-    "message": "undefined is not a list",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    undefined,
-  ],
-  "label": "errors types are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Function | Undefined 5`] = `
-Object {
-  "error": Object {
-    "message": "undefined is not a list",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    undefined,
-  ],
-  "label": "errors types are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Null | Array 1`] = `
+exports[`brute force Null null | Array [{"a":"{\\"b\\":1}"}, {"a":"{\\"b\\":1}"}] 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -242,31 +266,7 @@ Object {
 }
 `;
 
-exports[`brute force Null | Array 2`] = `
-Object {
-  "error": Object {
-    "message": "predicate is not a function",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    null,
-    Array [
-      /foo/g,
-      /foo/g,
-    ],
-  ],
-  "label": "errors messages are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "pred is not a function",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Null | Null 1`] = `
+exports[`brute force Null null | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -287,7 +287,7 @@ Object {
 }
 `;
 
-exports[`brute force Null | Undefined 1`] = `
+exports[`brute force Null null | Undefined undefined 1`] = `
 Object {
   "error": Object {
     "message": "undefined is not a list",
@@ -308,7 +308,31 @@ Object {
 }
 `;
 
-exports[`brute force Undefined | Array 1`] = `
+exports[`brute force Undefined undefined | Array [/foo/g, /foo/g] 1`] = `
+Object {
+  "error": Object {
+    "message": "predicate is not a function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    undefined,
+    Array [
+      /foo/g,
+      /foo/g,
+    ],
+  ],
+  "label": "errors messages are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "pred is not a function",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Undefined undefined | Array [{"a":"{\\"b\\":1}"}, {"a":"{\\"b\\":1}"}] 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -340,31 +364,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined | Array 2`] = `
-Object {
-  "error": Object {
-    "message": "predicate is not a function",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    undefined,
-    Array [
-      /foo/g,
-      /foo/g,
-    ],
-  ],
-  "label": "errors messages are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "pred is not a function",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Undefined | Null 1`] = `
+exports[`brute force Undefined undefined | Null null 1`] = `
 Object {
   "error": Object {
     "message": "null is not a list",
@@ -385,7 +385,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined | Undefined 1`] = `
+exports[`brute force Undefined undefined | Undefined undefined 1`] = `
 Object {
   "error": Object {
     "message": "undefined is not a list",

@@ -6,6 +6,8 @@ WIP 6.3.0
 
 - Add `R.dropWhile`
 
+- Add `R.eqProps`
+
 - Add `R.dropLastWhile`
 
 - Add `R.dropRepeats`

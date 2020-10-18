@@ -8,7 +8,5 @@ test('happy', async () => {
   await dynamicTsToolbelt()
 })
 
-// This is currently not required
+// Passing `commitHash` is currently not required
 // Still, there are unused variables that brake `dtslint` tests
-// Because of https://github.com/selfrefactor/rambda/issues/511
-// const commitHash = '3fdfe4d6a87a6ae19899adea9f68c1bce49d940b'

@@ -305,7 +305,7 @@ Object {
 }
 `;
 
-exports[`brute force Function x => x !== 'b' | Null null 1`] = `
+exports[`brute force Function x => x !== "b" | Null null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -326,7 +326,7 @@ Object {
 }
 `;
 
-exports[`brute force Function x => x !== 'b' | Number 1 1`] = `
+exports[`brute force Function x => x !== "b" | Number 1 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -344,7 +344,7 @@ Object {
 }
 `;
 
-exports[`brute force Function x => x !== 'b' | Object {} 1`] = `
+exports[`brute force Function x => x !== "b" | Object {} 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -362,7 +362,7 @@ Object {
 }
 `;
 
-exports[`brute force Function x => x !== 'b' | Undefined undefined 1`] = `
+exports[`brute force Function x => x !== "b" | Undefined undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
