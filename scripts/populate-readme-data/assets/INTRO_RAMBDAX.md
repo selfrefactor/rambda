@@ -9,13 +9,13 @@ Extended version of Rambda(utility library) - [Documentation](https://selfrefact
 [![dependencies Status](https://david-dm.org/selfrefactor/rambdax/status.svg)](https://david-dm.org/selfrefactor/rambdax)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambdax)
 
-## ➤ Differences between Rambda and Ramdax
+## ➤ Differences between Rambda and Rambdax
 
 Rambdax passthrough all [Rambda](https://github.com/selfrefactor/rambda) methods and introduce some new functions.
 
 The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatibility.
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-differences-between-rambda-and-ramdax)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-differences-between-rambda-and-rambdax)
 
 ## ➤ Example use
 
