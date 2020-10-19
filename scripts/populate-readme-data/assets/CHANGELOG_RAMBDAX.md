@@ -4,6 +4,24 @@ WIP 7.0.0
 
 - Add `R.produce` which is synchronous version of `R.produceAsync`
 
+- Remove try/catch block in `R.interpolate` and stop supporting expression inside template's props.
+
+- Add typings for `R.takeWhile` when iterable is a string
+
+- Add `R.takeLastWhile`
+
+- Add `R.dropWhile`
+
+- Add `R.eqProps`
+
+- Add `R.dropLastWhile`
+
+- Add `R.dropRepeats`
+
+- Add `R.dropRepeatsWith`
+
+- Add `R.evolve`
+
 6.2.0
 
 - `R.switcher` accepts `undefined` as valid input

@@ -44,7 +44,7 @@ test('with missing template input', () => {
   }
 
   const result = interpolate(input, templateInput)
-  const expectedResult = 'foo is {{bar}} even 1 more'
+  const expectedResult = 'foo is undefined even 1 more'
 
   expect(result).toEqual(expectedResult)
 })
@@ -53,8 +53,7 @@ test('with arbitrary expression', () => {
   const input = '1 + 2 = {{ 1 + 2 }}'
   const templateInput = {}
 
-  const expectedResult = '1 + 2 = 3'
   const result = interpolate(input, templateInput)
 
-  expect(result).toEqual(expectedResult)
+  expect(result).toEqual(input)
 })

@@ -1,13 +1,13 @@
-const escapeSpecialCharacters = s =>
-  s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-
 const getOccurances = input => input.match(/{{\s*.+?\s*}}/g)
 
 const getOccuranceProp = occurance => occurance.replace(/{{\s*|\s*}}/g, '')
 
-const replace = ({ inputHolder, prop, replacer }) =>
-  inputHolder.replace(new RegExp(`{{\\s*${ escapeSpecialCharacters(prop) }\\s*}}`),
-    replacer)
+const replace = ({ inputHolder, prop, replacer }) => {
+  const regexBase = `{{${ prop }}}`
+  const regex = new RegExp(regexBase, 'g')
+
+  return inputHolder.replace(regex, replacer)
+}
 
 export function interpolate(input, templateInput){
   if (arguments.length === 1){
@@ -17,19 +17,15 @@ export function interpolate(input, templateInput){
   const occurances = getOccurances(input)
   if (occurances === null) return input
   let inputHolder = input
+
   for (const occurance of occurances){
     const prop = getOccuranceProp(occurance)
 
-    try {
-      const replacer = new Function('templateInput',
-        `with(templateInput) { return ${ prop } }`)(templateInput)
-
-      inputHolder = replace({
-        inputHolder,
-        prop,
-        replacer,
-      })
-    } catch (e){}
+    inputHolder = replace({
+      inputHolder,
+      prop,
+      replacer : templateInput[ prop ],
+    })
   }
 
   return inputHolder

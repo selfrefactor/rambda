@@ -10,11 +10,8 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/dropLastWhile.spec.js"
+        "source/interpolate.spec.js"
       ],
-      "env":{
-        "WITH_RAMBDAX": "ON"
-      },
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
