@@ -181,7 +181,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 </details>
 
-  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
+![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)
   
 ## ➤ Install
 
@@ -295,7 +295,7 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
+![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)
 
 ## ➤ Used by
 
@@ -313,7 +313,7 @@ method | Rambda | Ramda | Lodash
 
 - [Mobx decorators](https://github.com/farwayer/mobx-decorators)
 
-  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
+![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)
 
 ## API
 
