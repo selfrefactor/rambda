@@ -7,6 +7,10 @@ export function getSeparator(label){
   return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-${label})`
 }
 
+export function getMethodSeparator(label){
+  return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#${label})`
+}
+
 export async function getRambdaData(){
   const rambdaData = await readJson(`${ __dirname }/populate-docs-data/data.json`)
 
