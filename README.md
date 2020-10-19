@@ -81,7 +81,7 @@ Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
 
-## Missing Ramda methods
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
@@ -183,7 +183,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
   [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
   
-## Install
+## ➤ Install
 
 - **yarn add rambda**
 
@@ -219,7 +219,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
-## Benchmarks
+## ➤ Benchmarks
 
 <details>
 
@@ -297,7 +297,7 @@ method | Rambda | Ramda | Lodash
 
   [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
 
-## Used by
+## ➤ Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 

@@ -9,7 +9,7 @@ import { devDependencies } from '../../package'
 import { getRambdaMethods, getSeparator} from '../utils'
 
 function getInstallInfo(withRambdax){
-  const installInfoTemplate = `## Install
+  const installInfoTemplate = `## ➤ Install
 
 - **yarn add {{lib}}**
 
@@ -32,7 +32,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib
 async function getMissingMethods(){
   const rambdaMethods = await getRambdaMethods()
   const missingMethodsTemplate = `
-## Missing Ramda methods
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
@@ -69,7 +69,7 @@ const templateIntro = `
 {{installInfo}}
 {{introEnd}}
 
-## Benchmarks
+## ➤ Benchmarks
 
 <details>
 
@@ -92,7 +92,7 @@ method | Rambda | Ramda | Lodash
 
 {{separator}}
 
-## Used by
+## ➤ Used by
 
 {{usedBy}}
 
