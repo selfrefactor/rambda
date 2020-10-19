@@ -15,7 +15,7 @@ Rambdax passthrough all [Rambda](https://github.com/selfrefactor/rambda) methods
 
 The idea of **Rambdax** is to extend **Rambda** without worring for **Ramda** compatibility.
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-differences-between-rambda-and-rambdax)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-rambdax)
 
 ## ➤ Example use
 
@@ -39,10 +39,10 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-example-use)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
 
 ## ➤ Rambdax's advantages
 
 {{advantages}}
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-rambdaxs-advantages)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdaxs-advantages)

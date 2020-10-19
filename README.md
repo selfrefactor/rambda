@@ -28,7 +28,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-example-use)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
 
 ## ➤ Rambda's advantages
 
@@ -83,7 +83,7 @@ Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-rambdas-advantages)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
 
 ## ➤ Missing Ramda methods
 
@@ -185,7 +185,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-missing-ramda-methods)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
   
 ## ➤ Install
 
@@ -203,7 +203,7 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-install)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-install)
 
 ## Differences between Rambda and Ramda
 
@@ -225,7 +225,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-differences-between-rambda-and-ramda)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
 
 ## ➤ Benchmarks
 
@@ -303,7 +303,7 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-benchmarks)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
 
 ## ➤ Used by
 
@@ -321,7 +321,7 @@ method | Rambda | Ramda | Lodash
 
 - [Mobx decorators](https://github.com/farwayer/mobx-decorators)
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-used-by)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-used-by)
 
 ## API
 
@@ -419,7 +419,7 @@ describe('R.add', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#add)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### adjust
 
@@ -549,7 +549,7 @@ describe('adjust', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#adjust)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#adjust)
 
 ### all
 
@@ -653,7 +653,7 @@ describe('all', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#all)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
 ### allPass
 
@@ -798,7 +798,7 @@ describe('allPass', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#allPass)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#allPass)
 
 ### always
 
@@ -883,7 +883,7 @@ describe('R.always', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#always)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#always)
 
 ### and
 
@@ -967,7 +967,7 @@ describe('R.and', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#and)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#and)
 
 ### any
 
@@ -1071,7 +1071,7 @@ describe('R.any', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#any)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#any)
 
 ### anyPass
 
@@ -1227,7 +1227,7 @@ describe('anyPass', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#anyPass)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#anyPass)
 
 ### append
 
@@ -1328,7 +1328,7 @@ describe('R.append', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#append)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#append)
 
 ### applySpec
 
@@ -1771,7 +1771,7 @@ describe('applySpec', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#applySpec)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
 
 ### assoc
 
@@ -1944,7 +1944,7 @@ describe('R.assoc', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#assoc)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assoc)
 
 ### assocPath
 
@@ -2245,7 +2245,7 @@ describe('R.assocPath - curried', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#assocPath)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
 
 ### both
 
@@ -2427,7 +2427,7 @@ describe('both', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#both)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#both)
 
 ### chain
 
@@ -2536,7 +2536,7 @@ describe('R.chain', () => {
 
 > :boom: Reason for the failure: Ramda method passes to `chain` property if available | Ramda library supports fantasy-land
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#chain)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#chain)
 
 ### clamp
 
@@ -2658,7 +2658,7 @@ describe('R.clamp', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#clamp)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clamp)
 
 ### clone
 
@@ -2908,7 +2908,7 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#clone)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
 
 ### complement
 
@@ -3029,7 +3029,7 @@ describe('complement', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#complement)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#complement)
 
 ### compose
 
@@ -3260,7 +3260,7 @@ describe('compose properties', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#compose)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#compose)
 
 ### concat
 
@@ -3385,7 +3385,7 @@ describe('concat', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#concat)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#concat)
 
 ### cond
 
@@ -3562,7 +3562,7 @@ describe('cond', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#cond)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#cond)
 
 ### converge
 
@@ -3713,7 +3713,7 @@ describe('R.converge', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#converge)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
 ### curry
 
@@ -3941,7 +3941,7 @@ describe('curry properties', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#curry)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curry)
 
 ### curryN
 
@@ -4176,7 +4176,7 @@ describe('R.curryN', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#curryN)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curryN)
 
 ### dec
 
@@ -4221,7 +4221,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dec)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dec)
 
 ### defaultTo
 
@@ -4437,7 +4437,7 @@ describe('R.defaultTo can have many inputs', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#defaultTo)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
 
 ### difference
 
@@ -4546,7 +4546,7 @@ describe('R.difference', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#difference)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#difference)
 
 ### dissoc
 
@@ -4709,7 +4709,7 @@ describe('R.dissoc', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dissoc)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissoc)
 
 ### divide
 
@@ -4764,7 +4764,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#divide)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#divide)
 
 ### drop
 
@@ -4882,7 +4882,7 @@ describe('R.drop - string', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#drop)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#drop)
 
 ### dropLast
 
@@ -5027,7 +5027,7 @@ describe('dropLast', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dropLast)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLast)
 
 ### dropLastWhile
 
@@ -5211,7 +5211,7 @@ describe('R.dropLastWhile', () => {
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dropLastWhile)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLastWhile)
 
 ### dropRepeats
 
@@ -5346,7 +5346,7 @@ describe('R.dropRepeats', () => {
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dropRepeats)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeats)
 
 ### dropRepeatsWith
 
@@ -5540,7 +5540,7 @@ describe('R.dropRepeatsWith', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dropRepeatsWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
 
 ### dropWhile
 
@@ -5727,7 +5727,7 @@ describe('with string as iterable', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#dropWhile)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropWhile)
 
 ### either
 
@@ -5921,7 +5921,7 @@ describe('either', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#either)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
 
 ### endsWith
 
@@ -6044,7 +6044,7 @@ describe('startsWith', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#endsWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#endsWith)
 
 ### eqProps
 
@@ -6214,7 +6214,7 @@ describe('R.eqProps', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#eqProps)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#eqProps)
 
 ### equals
 
@@ -6846,7 +6846,7 @@ describe('equals', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#equals)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#equals)
 
 ### evolve
 
@@ -7117,7 +7117,7 @@ describe('R.evolve', () => {
 
 > :boom: Reason for the failure: Rambda throws if `iterable` input is neither array nor object
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#evolve)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#evolve)
 
 ### F
 
@@ -7154,7 +7154,7 @@ export function F(){
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#F)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#F)
 
 ### filter
 
@@ -7398,7 +7398,7 @@ describe('filter', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#filter)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
 
 ### find
 
@@ -7508,7 +7508,7 @@ describe('R.find', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#find)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#find)
 
 ### findIndex
 
@@ -7611,7 +7611,7 @@ describe('R.findIndex', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#findIndex)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findIndex)
 
 ### findLast
 
@@ -7752,7 +7752,7 @@ describe('R.findLast', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#findLast)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLast)
 
 ### findLastIndex
 
@@ -7894,7 +7894,7 @@ describe('R.findLastIndex', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#findLastIndex)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLastIndex)
 
 ### flatten
 
@@ -7993,7 +7993,7 @@ describe('flatten', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#flatten)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flatten)
 
 ### flip
 
@@ -8213,7 +8213,7 @@ describe('flip properties', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#flip)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flip)
 
 ### forEach
 
@@ -8446,7 +8446,7 @@ describe('forEach', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#forEach)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#forEach)
 
 ### fromPairs
 
@@ -8555,7 +8555,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#fromPairs)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#fromPairs)
 
 ### groupBy
 
@@ -8720,7 +8720,7 @@ describe('groupBy', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#groupBy)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupBy)
 
 ### groupWith
 
@@ -8963,7 +8963,7 @@ describe('groupWith', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#groupWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
 
 ### has
 
@@ -9080,7 +9080,7 @@ describe('has', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#has)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#has)
 
 ### hasPath
 
@@ -9200,7 +9200,7 @@ describe('R.hasPath', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#hasPath)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#hasPath)
 
 ### head
 
@@ -9284,7 +9284,7 @@ describe('R.head', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#head)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#head)
 
 ### identical
 
@@ -9409,7 +9409,7 @@ describe('R.identical', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#identical)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identical)
 
 ### identity
 
@@ -9483,7 +9483,7 @@ describe('R.identity', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#identity)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identity)
 
 ### ifElse
 
@@ -9733,7 +9733,7 @@ describe('ifElse', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#ifElse)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ifElse)
 
 ### inc
 
@@ -9784,7 +9784,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#inc)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#inc)
 
 ### includes
 
@@ -9960,7 +9960,7 @@ describe('includes', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#includes)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#includes)
 
 ### indexBy
 
@@ -10199,7 +10199,7 @@ describe('indexBy', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#indexBy)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
 
 ### indexOf
 
@@ -10356,7 +10356,7 @@ describe('indexOf', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#indexOf)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexOf)
 
 ### init
 
@@ -10454,7 +10454,7 @@ describe('R.init', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#init)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
 
 ### intersection
 
@@ -10550,7 +10550,7 @@ describe('R.intersection', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#intersection)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
 
 ### intersperse
 
@@ -10653,7 +10653,7 @@ describe('R.intersperse', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#intersperse)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
 
 ### is
 
@@ -10777,7 +10777,7 @@ describe('R.is', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#is)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#is)
 
 ### isEmpty
 
@@ -10902,7 +10902,7 @@ describe('isEmpty', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#isEmpty)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isEmpty)
 
 ### isNil
 
@@ -10963,7 +10963,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#isNil)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
 
 ### join
 
@@ -11042,7 +11042,7 @@ describe('R.join', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#join)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#join)
 
 ### keys
 
@@ -11148,7 +11148,7 @@ describe('keys', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#keys)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#keys)
 
 ### last
 
@@ -11241,7 +11241,7 @@ describe('R.last', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#last)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#last)
 
 ### lastIndexOf
 
@@ -11414,7 +11414,7 @@ describe('lastIndexOf', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#lastIndexOf)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
 
 ### length
 
@@ -11516,7 +11516,7 @@ describe('length', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#length)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#length)
 
 ### lens
 
@@ -11591,7 +11591,7 @@ describe('R.lens', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#lens)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lens)
 
 ### lensIndex
 
@@ -11727,7 +11727,7 @@ describe('R.lensIndex', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#lensIndex)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensIndex)
 
 ### lensPath
 
@@ -11953,7 +11953,7 @@ describe('R.lensPath', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#lensPath)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
 
 ### lensProp
 
@@ -12139,7 +12139,7 @@ describe('R.lensProp', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#lensProp)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensProp)
 
 ### map
 
@@ -12383,7 +12383,7 @@ describe('R.map with objects', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#map)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
 
 ### match
 
@@ -12484,7 +12484,7 @@ describe('R.match', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#match)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#match)
 
 ### mathMod
 
@@ -12582,7 +12582,7 @@ describe('R.mathMod', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#mathMod)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mathMod)
 
 ### max
 
@@ -12679,7 +12679,7 @@ describe('R.max', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#max)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
 
 ### maxBy
 
@@ -12782,7 +12782,7 @@ describe('R.maxBy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#maxBy)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#maxBy)
 
 ### mean
 
@@ -12860,7 +12860,7 @@ describe('R.mean', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#mean)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mean)
 
 ### median
 
@@ -12950,7 +12950,7 @@ describe('R.median', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#median)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#median)
 
 ### merge
 
@@ -13057,7 +13057,7 @@ describe('R.merge', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#merge)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
 ### mergeAll
 
@@ -13171,7 +13171,7 @@ describe('R.mergeAll', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#mergeAll)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
 
 ### mergeDeepRight
 
@@ -13351,7 +13351,7 @@ describe('R.mergeDeepRight', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#mergeDeepRight)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepRight)
 
 ### mergeLeft
 
@@ -13455,7 +13455,7 @@ describe('R.mergeLeft', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#mergeLeft)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeLeft)
 
 ### min
 
@@ -13548,7 +13548,7 @@ describe('R.min', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#min)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
@@ -13654,7 +13654,7 @@ describe('R.minBy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#minBy)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
 
 ### modulo
 
@@ -13734,7 +13734,7 @@ describe('R.modulo', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#modulo)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modulo)
 
 ### move
 
@@ -13872,7 +13872,7 @@ describe('R.move', () => {
 
 > :boom: Reason for the failure: Ramda method does not support negative indexes
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#move)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#move)
 
 ### multiply
 
@@ -13952,7 +13952,7 @@ describe('R.multiply', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#multiply)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#multiply)
 
 ### negate
 
@@ -14004,7 +14004,7 @@ test('negate', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#negate)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#negate)
 
 ### none
 
@@ -14106,7 +14106,7 @@ describe('R.none', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#none)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
 
 ### not
 
@@ -14180,7 +14180,7 @@ describe('R.not', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#not)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#not)
 
 ### nth
 
@@ -14285,7 +14285,7 @@ describe('R.nth', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#nth)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#nth)
 
 ### of
 
@@ -14364,7 +14364,7 @@ describe('R.of', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#of)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#of)
 
 ### omit
 
@@ -14569,7 +14569,7 @@ describe('R.omit with string as props input', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#omit)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
 
 ### once
 
@@ -14694,7 +14694,7 @@ describe('R.once', () => {
 
 > :boom: Reason for the failure: Ramda method retains arity
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#once)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#once)
 
 ### or
 
@@ -14776,7 +14776,7 @@ describe('R.or', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#or)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#or)
 
 ### over
 
@@ -14890,7 +14890,7 @@ test('index lens', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#over)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#over)
 
 ### partial
 
@@ -15056,7 +15056,7 @@ describe('R.partial', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#partial)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partial)
 
 ### partition
 
@@ -15284,7 +15284,7 @@ describe('R.partition', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#partition)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partition)
 
 ### path
 
@@ -15483,7 +15483,7 @@ describe('path', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#path)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#path)
 
 ### pathEq
 
@@ -15638,7 +15638,7 @@ describe('with ramda specs', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pathEq)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathEq)
 
 ### pathOr
 
@@ -15783,7 +15783,7 @@ describe('R.pathOr', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pathOr)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathOr)
 
 ### paths
 
@@ -15988,7 +15988,7 @@ describe('paths', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#paths)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#paths)
 
 ### pick
 
@@ -16217,7 +16217,7 @@ describe('R.pick with string as props input', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pick)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pick)
 
 ### pickAll
 
@@ -16409,7 +16409,7 @@ describe('R.pickAll with string as props input', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pickAll)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
 
 ### pipe
 
@@ -16748,7 +16748,7 @@ describe('pipe', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pipe)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
 
 ### pluck
 
@@ -16895,7 +16895,7 @@ describe('pluck', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#pluck)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pluck)
 
 ### prepend
 
@@ -16992,7 +16992,7 @@ describe('R.prepend', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#prepend)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prepend)
 
 ### product
 
@@ -17068,7 +17068,7 @@ describe('R.product', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#product)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#product)
 
 ### prop
 
@@ -17162,7 +17162,7 @@ describe('R.prop', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#prop)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prop)
 
 ### propEq
 
@@ -17320,7 +17320,7 @@ describe('propEq', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#propEq)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
 
 ### propIs
 
@@ -17431,7 +17431,7 @@ describe('R.propIs', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#propIs)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propIs)
 
 ### propOr
 
@@ -17553,7 +17553,7 @@ describe('R.propOr', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#propOr)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propOr)
 
 ### props
 
@@ -17657,7 +17657,7 @@ describe('R.props', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#props)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#props)
 
 ### range
 
@@ -17765,7 +17765,7 @@ describe('R.range', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#range)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
 
 ### reduce
 
@@ -18036,7 +18036,7 @@ describe('reduce', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#reduce)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
 
 ### reject
 
@@ -18203,7 +18203,7 @@ describe('reject', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#reject)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reject)
 
 ### repeat
 
@@ -18291,7 +18291,7 @@ describe('R.repeat', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#repeat)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
 
 ### replace
 
@@ -18408,7 +18408,7 @@ describe('R.replace - curried', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#replace)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
 
 ### reverse
 
@@ -18504,7 +18504,7 @@ describe('R.reverse', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#reverse)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reverse)
 
 ### set
 
@@ -18618,7 +18618,7 @@ test('index lens', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#set)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#set)
 
 ### slice
 
@@ -18730,7 +18730,7 @@ describe('R.slice', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#slice)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#slice)
 
 ### sort
 
@@ -18844,7 +18844,7 @@ describe('R.sort', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#sort)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sort)
 
 ### sortBy
 
@@ -19034,7 +19034,7 @@ describe('sortBy', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#sortBy)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortBy)
 
 ### split
 
@@ -19127,7 +19127,7 @@ describe('R.split', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#split)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#split)
 
 ### splitAt
 
@@ -19299,7 +19299,7 @@ describe('R.splitAt with string', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#splitAt)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitAt)
 
 ### splitEvery
 
@@ -19418,7 +19418,7 @@ describe('R.splitEvery', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#splitEvery)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitEvery)
 
 ### splitWhen
 
@@ -19553,7 +19553,7 @@ describe('R.splitWhen', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#splitWhen)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitWhen)
 
 ### startsWith
 
@@ -19680,7 +19680,7 @@ describe('startsWith', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#startsWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#startsWith)
 
 ### subtract
 
@@ -19741,7 +19741,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#subtract)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#subtract)
 
 ### sum
 
@@ -19793,7 +19793,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#sum)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### symmetricDifference
 
@@ -19905,7 +19905,7 @@ describe('R.symmetricDifference', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#symmetricDifference)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#symmetricDifference)
 
 ### T
 
@@ -19943,7 +19943,7 @@ export function T(){
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#T)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#T)
 
 ### tail
 
@@ -20034,7 +20034,7 @@ describe('R.tail', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#tail)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tail)
 
 ### take
 
@@ -20197,7 +20197,7 @@ describe('take', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#take)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#take)
 
 ### takeLast
 
@@ -20336,7 +20336,7 @@ describe('R.takeLast - string', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#takeLast)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLast)
 
 ### takeLastWhile
 
@@ -20471,7 +20471,7 @@ describe('R.takeLastWhile', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#takeLastWhile)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLastWhile)
 
 ### takeWhile
 
@@ -20659,7 +20659,7 @@ describe('with string as iterable', () => {
 
 > :boom: Reason for the failure: Ramda method works with strings not only arrays
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#takeWhile)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeWhile)
 
 ### tap
 
@@ -20787,7 +20787,7 @@ describe('tap', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#tap)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tap)
 
 ### test
 
@@ -20881,7 +20881,7 @@ describe('R.test', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#test)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
 
 ### times
 
@@ -20986,7 +20986,7 @@ describe('R.times', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#times)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#times)
 
 ### toLower
 
@@ -21038,7 +21038,7 @@ test('toLower', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#toLower)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toLower)
 
 ### toPairs
 
@@ -21134,7 +21134,7 @@ describe('R.toPairs', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#toPairs)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toPairs)
 
 ### toString
 
@@ -21186,7 +21186,7 @@ test('happy', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#toString)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toString)
 
 ### toUpper
 
@@ -21238,7 +21238,7 @@ test('toUpper', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#toUpper)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toUpper)
 
 ### transpose
 
@@ -21357,7 +21357,7 @@ describe('R.transpose', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#transpose)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transpose)
 
 ### trim
 
@@ -21440,7 +21440,7 @@ describe('trim', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#trim)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#trim)
 
 ### tryCatch
 
@@ -21731,7 +21731,7 @@ describe('R.tryCatch', () => {
 
 > :boom: Reason for the failure: Ramda method returns a function with the same arity
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#tryCatch)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tryCatch)
 
 ### type
 
@@ -21977,7 +21977,7 @@ describe('type', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#type)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#type)
 
 ### union
 
@@ -22106,7 +22106,7 @@ describe('R.union - curried', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#union)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#union)
 
 ### uniq
 
@@ -22228,7 +22228,7 @@ describe('uniq', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#uniq)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniq)
 
 ### uniqWith
 
@@ -22451,7 +22451,7 @@ describe('R.uniqWith', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#uniqWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqWith)
 
 ### unless
 
@@ -22566,7 +22566,7 @@ describe('R.unless', () => {
 
 > :boom: Reason for the failure: Rambda library doesn't have `R.of`
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#unless)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
 
 ### update
 
@@ -22698,7 +22698,7 @@ describe('update', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#update)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#update)
 
 ### values
 
@@ -22795,7 +22795,7 @@ describe('R.values', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#values)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#values)
 
 ### view
 
@@ -22894,7 +22894,7 @@ describe('R.view', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#view)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#view)
 
 ### when
 
@@ -22991,7 +22991,7 @@ describe('R.when', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#when)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#when)
 
 ### where
 
@@ -23125,7 +23125,7 @@ describe('R.where', () => {
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#where)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#where)
 
 ### whereEq
 
@@ -23259,7 +23259,7 @@ describe('R.whereEq', () => {
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#whereEq)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#whereEq)
 
 ### without
 
@@ -23396,7 +23396,7 @@ describe('without', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#without)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#without)
 
 ### xor
 
@@ -23537,7 +23537,7 @@ describe('xor', function() {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#xor)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#xor)
 
 ### zip
 
@@ -23659,7 +23659,7 @@ describe('R.zip', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#zip)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zip)
 
 ### zipObj
 
@@ -23777,7 +23777,7 @@ describe('R.zipObj', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#zipObj)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipObj)
 
 ### zipWith
 
@@ -23897,7 +23897,7 @@ describe('R.zipWith', () => {
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#zipWith)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ➤ CHANGELOG
 
@@ -24393,7 +24393,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-changelog)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-changelog)
 
 ## ➤ Additional info
 
@@ -24435,7 +24435,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 [Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-additional-info)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-additional-info)
 
 ## My other libraries
 
