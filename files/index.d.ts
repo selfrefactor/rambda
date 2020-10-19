@@ -226,7 +226,7 @@ Example:
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
-const result = R.all(predicate, arr)
+const result = R.all(predicate, list)
 // => true
 ```
 
