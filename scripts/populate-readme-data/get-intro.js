@@ -24,9 +24,11 @@ https://unpkg.com/{{lib}}@CURRENT_VERSION/dist/{{lib}}.umd.js
 \`\`\`
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib}}/master/dist/{{lib}}.esm.js'
 \`\`\`
+
+{{separator}}
 `
 
-  return interpolate(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda' })
+  return interpolate(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda', separator: getSeparator('install') })
 }
 
 async function getMissingMethods(){

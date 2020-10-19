@@ -32,17 +32,17 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 ## ➤ Rambda's advantages
 
-### ➤ Typescript included
+### Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
-### ➤ Smaller size
+### Smaller size
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
 
-### ➤ Tree-shaking
+### Tree-shaking
 
 Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
 
@@ -54,7 +54,7 @@ There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including seve
 
 > actually tree-shaking is the initial reason for creation of `Rambda`
 
-### ➤ Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
+### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -64,7 +64,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-### ➤ Comma notation for `R.pick` and `R.omit`
+### Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
@@ -73,11 +73,11 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-### ➤ Speed
+### Speed
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
-### ➤ Support
+### Support
 
 Most of the valid issues are fixed within 2-3 days.
 
@@ -202,6 +202,8 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 ```
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-install)
 
 ## Differences between Rambda and Ramda
 
