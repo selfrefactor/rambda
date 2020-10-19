@@ -4,7 +4,7 @@ import { spawn } from 'helpers-fn'
 import { resolve } from 'path'
 
 export function getSeparator(){
-  return `![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)`
+  return `![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)(#)`
 }
 
 export async function getRambdaData(){
