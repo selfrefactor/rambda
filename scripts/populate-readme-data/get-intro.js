@@ -59,7 +59,7 @@ async function getMissingMethods(){
   return interpolate(missingMethodsTemplate, {
     missingMethods,
     counter,
-    separator: getSeparator()
+    separator: getSeparator('missing-ramda-methods')
   })
 }
 
@@ -90,13 +90,13 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-{{separator}}
+{{benchmarksSeparator}}
 
 ## ➤ Used by
 
 {{usedBy}}
 
-{{separator}}
+{{usedBySeparator}}
 `
 
 async function getTreeShakingInfo(){
@@ -131,7 +131,7 @@ async function getIntroContent(withRambdax){
   return interpolate(content, {
     rambdaTreeShakingInfo,
     advantages,
-    separator: getSeparator()
+    separator: getSeparator('foo')
   })
 }
 
@@ -145,7 +145,8 @@ export async function getIntro(withRambdax){
   const installInfo = getInstallInfo(withRambdax)
 
   return interpolate(templateIntro, {
-    separator: getSeparator(),
+    benchmarksSeparator: getSeparator('benchmarks'),
+    usedBySeparator: getSeparator('used-by'),
     introEnd      : introEndContent.toString(),
     missingMethods,
     installInfo,

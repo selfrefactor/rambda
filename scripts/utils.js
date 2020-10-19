@@ -3,8 +3,8 @@ import { readJson } from 'fs-extra'
 import { spawn } from 'helpers-fn'
 import { resolve } from 'path'
 
-export function getSeparator(){
-  return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#)`
+export function getSeparator(label){
+  return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-${label})`
 }
 
 export async function getRambdaData(){
