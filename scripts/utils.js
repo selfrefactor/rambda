@@ -3,6 +3,14 @@ import { readJson } from 'fs-extra'
 import { spawn } from 'helpers-fn'
 import { resolve } from 'path'
 
+export function getSeparator(label){
+  return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-${label})`
+}
+
+export function getMethodSeparator(label){
+  return `[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#${label})`
+}
+
 export async function getRambdaData(){
   const rambdaData = await readJson(`${ __dirname }/populate-docs-data/data.json`)
 

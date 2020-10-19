@@ -6,10 +6,10 @@ import { interpolate } from 'rambdax'
 import * as Ramda from 'ramda'
 
 import { devDependencies } from '../../package'
-import { getRambdaMethods } from '../utils'
+import { getRambdaMethods, getSeparator} from '../utils'
 
 function getInstallInfo(withRambdax){
-  const installInfoTemplate = `## Install
+  const installInfoTemplate = `## ➤ Install
 
 - **yarn add {{lib}}**
 
@@ -24,15 +24,17 @@ https://unpkg.com/{{lib}}@CURRENT_VERSION/dist/{{lib}}.umd.js
 \`\`\`
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/{{lib}}/master/dist/{{lib}}.esm.js'
 \`\`\`
+
+{{separator}}
 `
 
-  return interpolate(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda' })
+  return interpolate(installInfoTemplate, { lib : withRambdax ? 'rambdax' : 'rambda', separator: getSeparator('install') })
 }
 
 async function getMissingMethods(){
   const rambdaMethods = await getRambdaMethods()
   const missingMethodsTemplate = `
-## Missing Ramda methods
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
@@ -41,6 +43,8 @@ async function getMissingMethods(){
 
 {{missingMethods}}
 </details>
+
+{{separator}}
   `
 
   let counter = 0
@@ -57,6 +61,7 @@ async function getMissingMethods(){
   return interpolate(missingMethodsTemplate, {
     missingMethods,
     counter,
+    separator: getSeparator('missing-ramda-methods')
   })
 }
 
@@ -66,7 +71,7 @@ const templateIntro = `
 {{installInfo}}
 {{introEnd}}
 
-## Benchmarks
+## ➤ Benchmarks
 
 <details>
 
@@ -87,20 +92,26 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-## Used by
+{{benchmarksSeparator}}
+
+## ➤ Used by
 
 {{usedBy}}
+
+{{usedBySeparator}}
 `
 
 async function getTreeShakingInfo(){
   const fallback = '2'
   const comparedPath = resolve(__dirname,
     '../../../rambda-tree-shaking/compared.json')
+
   if (!existsSync(comparedPath)){
     log('Using fallback in tree shaking info', 'box')
 
     return fallback
   }
+
   const compared = await readJson(comparedPath)
 
   return compared.ramdaVsRambda
@@ -137,6 +148,8 @@ export async function getIntro(withRambdax){
   const installInfo = getInstallInfo(withRambdax)
 
   return interpolate(templateIntro, {
+    benchmarksSeparator: getSeparator('benchmarks'),
+    usedBySeparator: getSeparator('used-by'),
     introEnd      : introEndContent.toString(),
     missingMethods,
     installInfo,

@@ -1,4 +1,5 @@
 import { interpolate } from 'rambdax'
+import { getMethodSeparator } from '../utils'
 
 function createFailedSpec(method){
   const summaryTemplate = `
@@ -157,6 +158,8 @@ export function createMethodData(method, withRambdax){
     data.push(createBenchmarkInfo(method))
   if (method.failedSpecsReasons && extended)
     data.push(createFailedSpec(method))
+
+  data.push(`\n${getMethodSeparator(method.methodName)}\n`)
 
   return data.join('')
 }

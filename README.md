@@ -9,7 +9,7 @@
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## Example use
+## ➤ Example use
 
 ```javascript
 import { compose, map, filter } from 'rambda'
@@ -28,7 +28,9 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-## Rambda's advantages
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
+
+## ➤ Rambda's advantages
 
 ### Typescript included
 
@@ -81,7 +83,9 @@ Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
 
-## Missing Ramda methods
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
+
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
@@ -180,8 +184,10 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - default
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
   
-## Install
+## ➤ Install
 
 - **yarn add rambda**
 
@@ -196,6 +202,8 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 ```
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-install)
 
 ## Differences between Rambda and Ramda
 
@@ -217,7 +225,9 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
-## Benchmarks
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
+
+## ➤ Benchmarks
 
 <details>
 
@@ -293,7 +303,9 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-## Used by
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
+
+## ➤ Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
@@ -308,6 +320,8 @@ method | Rambda | Ramda | Lodash
 - [MobX-State-Tree decorators](https://github.com/farwayer/mst-decorators)
 
 - [Mobx decorators](https://github.com/farwayer/mobx-decorators)
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-used-by)
 
 ## API
 
@@ -404,6 +418,8 @@ describe('R.add', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### adjust
 
@@ -533,6 +549,8 @@ describe('adjust', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#adjust)
+
 ### all
 
 ```typescript
@@ -634,6 +652,8 @@ describe('all', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
 ### allPass
 
@@ -778,6 +798,8 @@ describe('allPass', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#allPass)
+
 ### always
 
 ```typescript
@@ -861,6 +883,8 @@ describe('R.always', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#always)
+
 ### and
 
 ```typescript
@@ -942,6 +966,8 @@ describe('R.and', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#and)
 
 ### any
 
@@ -1044,6 +1070,8 @@ describe('R.any', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#any)
 
 ### anyPass
 
@@ -1199,6 +1227,8 @@ describe('anyPass', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#anyPass)
+
 ### append
 
 ```typescript
@@ -1297,6 +1327,8 @@ describe('R.append', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#append)
 
 ### applySpec
 
@@ -1739,6 +1771,8 @@ describe('applySpec', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
+
 ### assoc
 
 ```typescript
@@ -1909,6 +1943,8 @@ describe('R.assoc', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assoc)
 
 ### assocPath
 
@@ -2209,6 +2245,8 @@ describe('R.assocPath - curried', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
+
 ### both
 
 ```typescript
@@ -2389,6 +2427,8 @@ describe('both', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#both)
+
 ### chain
 
 ```typescript
@@ -2495,6 +2535,8 @@ describe('R.chain', () => {
 *5 failed Ramda.chain specs*
 
 > :boom: Reason for the failure: Ramda method passes to `chain` property if available | Ramda library supports fantasy-land
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#chain)
 
 ### clamp
 
@@ -2615,6 +2657,8 @@ describe('R.clamp', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clamp)
 
 ### clone
 
@@ -2864,6 +2908,8 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
+
 ### complement
 
 ```typescript
@@ -2982,6 +3028,8 @@ describe('complement', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#complement)
 
 ### compose
 
@@ -3212,6 +3260,8 @@ describe('compose properties', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#compose)
+
 ### concat
 
 ```typescript
@@ -3334,6 +3384,8 @@ describe('concat', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#concat)
 
 ### cond
 
@@ -3510,6 +3562,8 @@ describe('cond', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#cond)
+
 ### converge
 
 ```typescript
@@ -3658,6 +3712,8 @@ describe('R.converge', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
 ### curry
 
@@ -3884,6 +3940,8 @@ describe('curry properties', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curry)
 
 ### curryN
 
@@ -4118,6 +4176,8 @@ describe('R.curryN', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curryN)
+
 ### dec
 
 ```typescript
@@ -4160,6 +4220,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dec)
 
 ### defaultTo
 
@@ -4375,6 +4437,8 @@ describe('R.defaultTo can have many inputs', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
+
 ### difference
 
 ```typescript
@@ -4481,6 +4545,8 @@ describe('R.difference', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#difference)
 
 ### dissoc
 
@@ -4643,6 +4709,8 @@ describe('R.dissoc', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissoc)
+
 ### divide
 
 ```typescript
@@ -4695,6 +4763,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#divide)
 
 ### drop
 
@@ -4811,6 +4881,8 @@ describe('R.drop - string', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#drop)
 
 ### dropLast
 
@@ -4954,6 +5026,8 @@ describe('dropLast', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLast)
 
 ### dropLastWhile
 
@@ -5137,6 +5211,8 @@ describe('R.dropLastWhile', () => {
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLastWhile)
+
 ### dropRepeats
 
 ```typescript
@@ -5269,6 +5345,8 @@ describe('R.dropRepeats', () => {
 *1 failed Ramda.dropRepeats specs*
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeats)
 
 ### dropRepeatsWith
 
@@ -5462,6 +5540,8 @@ describe('R.dropRepeatsWith', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
+
 ### dropWhile
 
 ```typescript
@@ -5646,6 +5726,8 @@ describe('with string as iterable', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropWhile)
 
 ### either
 
@@ -5839,6 +5921,8 @@ describe('either', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
+
 ### endsWith
 
 ```typescript
@@ -5959,6 +6043,8 @@ describe('startsWith', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#endsWith)
 
 ### eqProps
 
@@ -6127,6 +6213,8 @@ describe('R.eqProps', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#eqProps)
 
 ### equals
 
@@ -6758,6 +6846,8 @@ describe('equals', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#equals)
+
 ### evolve
 
 ```typescript
@@ -7027,6 +7117,8 @@ describe('R.evolve', () => {
 
 > :boom: Reason for the failure: Rambda throws if `iterable` input is neither array nor object
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#evolve)
+
 ### F
 
 ```typescript
@@ -7061,6 +7153,8 @@ export function F(){
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#F)
 
 ### filter
 
@@ -7304,6 +7398,8 @@ describe('filter', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
+
 ### find
 
 ```typescript
@@ -7412,6 +7508,8 @@ describe('R.find', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#find)
+
 ### findIndex
 
 ```typescript
@@ -7512,6 +7610,8 @@ describe('R.findIndex', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findIndex)
 
 ### findLast
 
@@ -7651,6 +7751,8 @@ describe('R.findLast', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLast)
 
 ### findLastIndex
 
@@ -7792,6 +7894,8 @@ describe('R.findLastIndex', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLastIndex)
+
 ### flatten
 
 ```typescript
@@ -7888,6 +7992,8 @@ describe('flatten', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flatten)
 
 ### flip
 
@@ -8106,6 +8212,8 @@ describe('flip properties', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flip)
 
 ### forEach
 
@@ -8338,6 +8446,8 @@ describe('forEach', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#forEach)
+
 ### fromPairs
 
 ```typescript
@@ -8444,6 +8554,8 @@ describe('R.fromPairs - require explicit type for input list', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#fromPairs)
 
 ### groupBy
 
@@ -8607,6 +8719,8 @@ describe('groupBy', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupBy)
 
 ### groupWith
 
@@ -8849,6 +8963,8 @@ describe('groupWith', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
+
 ### has
 
 ```typescript
@@ -8963,6 +9079,8 @@ describe('has', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#has)
 
 ### hasPath
 
@@ -9082,6 +9200,8 @@ describe('R.hasPath', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#hasPath)
+
 ### head
 
 ```typescript
@@ -9163,6 +9283,8 @@ describe('R.head', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#head)
 
 ### identical
 
@@ -9287,6 +9409,8 @@ describe('R.identical', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identical)
+
 ### identity
 
 ```typescript
@@ -9358,6 +9482,8 @@ describe('R.identity', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identity)
 
 ### ifElse
 
@@ -9607,6 +9733,8 @@ describe('ifElse', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ifElse)
+
 ### inc
 
 ```typescript
@@ -9655,6 +9783,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#inc)
 
 ### includes
 
@@ -9829,6 +9959,8 @@ describe('includes', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#includes)
 
 ### indexBy
 
@@ -10067,6 +10199,8 @@ describe('indexBy', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
+
 ### indexOf
 
 ```typescript
@@ -10222,6 +10356,8 @@ describe('indexOf', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexOf)
+
 ### init
 
 ```typescript
@@ -10318,6 +10454,8 @@ describe('R.init', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
+
 ### intersection
 
 ```typescript
@@ -10411,6 +10549,8 @@ describe('R.intersection', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
 
 ### intersperse
 
@@ -10512,6 +10652,8 @@ describe('R.intersperse', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
 
 ### is
 
@@ -10634,6 +10776,8 @@ describe('R.is', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#is)
 
 ### isEmpty
 
@@ -10758,6 +10902,8 @@ describe('isEmpty', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isEmpty)
+
 ### isNil
 
 ```typescript
@@ -10816,6 +10962,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
 
 ### join
 
@@ -10893,6 +11041,8 @@ describe('R.join', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#join)
 
 ### keys
 
@@ -10998,6 +11148,8 @@ describe('keys', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#keys)
+
 ### last
 
 ```typescript
@@ -11088,6 +11240,8 @@ describe('R.last', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#last)
 
 ### lastIndexOf
 
@@ -11260,6 +11414,8 @@ describe('lastIndexOf', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
+
 ### length
 
 ```typescript
@@ -11360,6 +11516,8 @@ describe('length', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#length)
+
 ### lens
 
 ```typescript
@@ -11432,6 +11590,8 @@ describe('R.lens', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lens)
 
 ### lensIndex
 
@@ -11566,6 +11726,8 @@ describe('R.lensIndex', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensIndex)
 
 ### lensPath
 
@@ -11791,6 +11953,8 @@ describe('R.lensPath', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
+
 ### lensProp
 
 ```typescript
@@ -11974,6 +12138,8 @@ describe('R.lensProp', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensProp)
 
 ### map
 
@@ -12217,6 +12383,8 @@ describe('R.map with objects', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
+
 ### match
 
 ```typescript
@@ -12316,6 +12484,8 @@ describe('R.match', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#match)
+
 ### mathMod
 
 ```typescript
@@ -12412,6 +12582,8 @@ describe('R.mathMod', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mathMod)
+
 ### max
 
 ```typescript
@@ -12506,6 +12678,8 @@ describe('R.max', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
 
 ### maxBy
 
@@ -12608,6 +12782,8 @@ describe('R.maxBy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#maxBy)
+
 ### mean
 
 ```typescript
@@ -12683,6 +12859,8 @@ describe('R.mean', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mean)
 
 ### median
 
@@ -12771,6 +12949,8 @@ describe('R.median', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#median)
 
 ### merge
 
@@ -12876,6 +13056,8 @@ describe('R.merge', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
 ### mergeAll
 
@@ -12988,6 +13170,8 @@ describe('R.mergeAll', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
 
 ### mergeDeepRight
 
@@ -13167,6 +13351,8 @@ describe('R.mergeDeepRight', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepRight)
+
 ### mergeLeft
 
 ```typescript
@@ -13269,6 +13455,8 @@ describe('R.mergeLeft', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeLeft)
+
 ### min
 
 ```typescript
@@ -13359,6 +13547,8 @@ describe('R.min', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
@@ -13464,6 +13654,8 @@ describe('R.minBy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
+
 ### modulo
 
 ```typescript
@@ -13541,6 +13733,8 @@ describe('R.modulo', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modulo)
 
 ### move
 
@@ -13678,6 +13872,8 @@ describe('R.move', () => {
 
 > :boom: Reason for the failure: Ramda method does not support negative indexes
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#move)
+
 ### multiply
 
 ```typescript
@@ -13756,6 +13952,8 @@ describe('R.multiply', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#multiply)
+
 ### negate
 
 ```typescript
@@ -13805,6 +14003,8 @@ test('negate', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#negate)
 
 ### none
 
@@ -13906,6 +14106,8 @@ describe('R.none', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
+
 ### not
 
 ```typescript
@@ -13977,6 +14179,8 @@ describe('R.not', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#not)
 
 ### nth
 
@@ -14081,6 +14285,8 @@ describe('R.nth', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#nth)
+
 ### of
 
 ```typescript
@@ -14157,6 +14363,8 @@ describe('R.of', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#of)
 
 ### omit
 
@@ -14361,6 +14569,8 @@ describe('R.omit with string as props input', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
+
 ### once
 
 ```typescript
@@ -14484,6 +14694,8 @@ describe('R.once', () => {
 
 > :boom: Reason for the failure: Ramda method retains arity
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#once)
+
 ### or
 
 ```typescript
@@ -14563,6 +14775,8 @@ describe('R.or', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#or)
 
 ### over
 
@@ -14675,6 +14889,8 @@ test('index lens', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#over)
 
 ### partial
 
@@ -14839,6 +15055,8 @@ describe('R.partial', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partial)
 
 ### partition
 
@@ -15066,6 +15284,8 @@ describe('R.partition', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partition)
+
 ### path
 
 ```typescript
@@ -15263,6 +15483,8 @@ describe('path', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#path)
+
 ### pathEq
 
 ```typescript
@@ -15416,6 +15638,8 @@ describe('with ramda specs', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathEq)
+
 ### pathOr
 
 ```typescript
@@ -15558,6 +15782,8 @@ describe('R.pathOr', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathOr)
 
 ### paths
 
@@ -15761,6 +15987,8 @@ describe('paths', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#paths)
 
 ### pick
 
@@ -15989,6 +16217,8 @@ describe('R.pick with string as props input', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pick)
+
 ### pickAll
 
 ```typescript
@@ -16178,6 +16408,8 @@ describe('R.pickAll with string as props input', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
 
 ### pipe
 
@@ -16516,6 +16748,8 @@ describe('pipe', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
+
 ### pluck
 
 ```typescript
@@ -16661,6 +16895,8 @@ describe('pluck', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pluck)
+
 ### prepend
 
 ```typescript
@@ -16756,6 +16992,8 @@ describe('R.prepend', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prepend)
+
 ### product
 
 ```typescript
@@ -16829,6 +17067,8 @@ describe('R.product', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#product)
 
 ### prop
 
@@ -16921,6 +17161,8 @@ describe('R.prop', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prop)
 
 ### propEq
 
@@ -17078,6 +17320,8 @@ describe('propEq', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
+
 ### propIs
 
 ```typescript
@@ -17186,6 +17430,8 @@ describe('R.propIs', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propIs)
 
 ### propOr
 
@@ -17307,6 +17553,8 @@ describe('R.propOr', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propOr)
+
 ### props
 
 ```typescript
@@ -17408,6 +17656,8 @@ describe('R.props', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#props)
 
 ### range
 
@@ -17514,6 +17764,8 @@ describe('R.range', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
 
 ### reduce
 
@@ -17784,6 +18036,8 @@ describe('reduce', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
+
 ### reject
 
 ```typescript
@@ -17949,6 +18203,8 @@ describe('reject', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reject)
+
 ### repeat
 
 ```typescript
@@ -18034,6 +18290,8 @@ describe('R.repeat', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
 
 ### replace
 
@@ -18150,6 +18408,8 @@ describe('R.replace - curried', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
+
 ### reverse
 
 ```typescript
@@ -18243,6 +18503,8 @@ describe('R.reverse', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reverse)
 
 ### set
 
@@ -18356,6 +18618,8 @@ test('index lens', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#set)
+
 ### slice
 
 ```typescript
@@ -18465,6 +18729,8 @@ describe('R.slice', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#slice)
 
 ### sort
 
@@ -18577,6 +18843,8 @@ describe('R.sort', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sort)
 
 ### sortBy
 
@@ -18766,6 +19034,8 @@ describe('sortBy', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortBy)
+
 ### split
 
 ```typescript
@@ -18856,6 +19126,8 @@ describe('R.split', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#split)
 
 ### splitAt
 
@@ -19027,6 +19299,8 @@ describe('R.splitAt with string', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitAt)
+
 ### splitEvery
 
 ```typescript
@@ -19143,6 +19417,8 @@ describe('R.splitEvery', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitEvery)
 
 ### splitWhen
 
@@ -19277,6 +19553,8 @@ describe('R.splitWhen', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitWhen)
+
 ### startsWith
 
 ```typescript
@@ -19402,6 +19680,8 @@ describe('startsWith', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#startsWith)
+
 ### subtract
 
 ```typescript
@@ -19461,6 +19741,8 @@ test('happy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#subtract)
+
 ### sum
 
 ```typescript
@@ -19510,6 +19792,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### symmetricDifference
 
@@ -19621,6 +19905,8 @@ describe('R.symmetricDifference', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#symmetricDifference)
+
 ### T
 
 ```typescript
@@ -19656,6 +19942,8 @@ export function T(){
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#T)
 
 ### tail
 
@@ -19745,6 +20033,8 @@ describe('R.tail', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tail)
 
 ### take
 
@@ -19907,6 +20197,8 @@ describe('take', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#take)
+
 ### takeLast
 
 ```typescript
@@ -20044,6 +20336,8 @@ describe('R.takeLast - string', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLast)
+
 ### takeLastWhile
 
 ```typescript
@@ -20176,6 +20470,8 @@ describe('R.takeLastWhile', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLastWhile)
 
 ### takeWhile
 
@@ -20363,6 +20659,8 @@ describe('with string as iterable', () => {
 
 > :boom: Reason for the failure: Ramda method works with strings not only arrays
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeWhile)
+
 ### tap
 
 ```typescript
@@ -20489,6 +20787,8 @@ describe('tap', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tap)
+
 ### test
 
 ```typescript
@@ -20580,6 +20880,8 @@ describe('R.test', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
 
 ### times
 
@@ -20684,6 +20986,8 @@ describe('R.times', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#times)
+
 ### toLower
 
 ```typescript
@@ -20733,6 +21037,8 @@ test('toLower', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toLower)
 
 ### toPairs
 
@@ -20828,6 +21134,8 @@ describe('R.toPairs', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toPairs)
+
 ### toString
 
 ```typescript
@@ -20878,6 +21186,8 @@ test('happy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toString)
+
 ### toUpper
 
 ```typescript
@@ -20927,6 +21237,8 @@ test('toUpper', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toUpper)
 
 ### transpose
 
@@ -21045,6 +21357,8 @@ describe('R.transpose', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transpose)
+
 ### trim
 
 ```typescript
@@ -21125,6 +21439,8 @@ describe('trim', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#trim)
 
 ### tryCatch
 
@@ -21415,6 +21731,8 @@ describe('R.tryCatch', () => {
 
 > :boom: Reason for the failure: Ramda method returns a function with the same arity
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tryCatch)
+
 ### type
 
 ```typescript
@@ -21659,6 +21977,8 @@ describe('type', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#type)
+
 ### union
 
 ```typescript
@@ -21786,6 +22106,8 @@ describe('R.union - curried', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#union)
+
 ### uniq
 
 ```typescript
@@ -21905,6 +22227,8 @@ describe('uniq', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniq)
 
 ### uniqWith
 
@@ -22127,6 +22451,8 @@ describe('R.uniqWith', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqWith)
+
 ### unless
 
 ```typescript
@@ -22239,6 +22565,8 @@ describe('R.unless', () => {
 *4 failed Ramda.unless specs*
 
 > :boom: Reason for the failure: Rambda library doesn't have `R.of`
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
 
 ### update
 
@@ -22370,6 +22698,8 @@ describe('update', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#update)
+
 ### values
 
 ```typescript
@@ -22464,6 +22794,8 @@ describe('R.values', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#values)
 
 ### view
 
@@ -22562,6 +22894,8 @@ describe('R.view', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#view)
+
 ### when
 
 ```typescript
@@ -22656,6 +22990,8 @@ describe('R.when', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#when)
 
 ### where
 
@@ -22789,6 +23125,8 @@ describe('R.where', () => {
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#where)
+
 ### whereEq
 
 ```typescript
@@ -22920,6 +23258,8 @@ describe('R.whereEq', () => {
 *2 failed Ramda.whereEq specs*
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#whereEq)
 
 ### without
 
@@ -23055,6 +23395,8 @@ describe('without', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#without)
 
 ### xor
 
@@ -23195,6 +23537,8 @@ describe('xor', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#xor)
+
 ### zip
 
 ```typescript
@@ -23315,6 +23659,8 @@ describe('R.zip', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zip)
+
 ### zipObj
 
 ```typescript
@@ -23430,6 +23776,8 @@ describe('R.zipObj', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipObj)
 
 ### zipWith
 
@@ -23549,7 +23897,9 @@ describe('R.zipWith', () => {
 
 </details>
 
-## CHANGELOG
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
+
+## ➤ CHANGELOG
 
 WIP 6.3.0
 
@@ -24043,7 +24393,9 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
-## Additional info
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-changelog)
+
+## ➤ Additional info
 
 > Most influential contributors
 
@@ -24082,6 +24434,8 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 > Releases
 
 [Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-additional-info)
 
 ## My other libraries
 

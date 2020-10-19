@@ -9,7 +9,7 @@
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## Example use
+## ➤ Example use
 
 ```javascript
 import { compose, map, filter } from 'rambda'
@@ -28,6 +28,10 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-## Rambda's advantages
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
+
+## ➤ Rambda's advantages
 
 {{advantages}}
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
