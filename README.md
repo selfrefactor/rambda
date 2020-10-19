@@ -180,6 +180,8 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - default
 
 </details>
+
+  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
   
 ## Install
 
@@ -293,6 +295,8 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
+  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
+
 ## Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
@@ -308,6 +312,8 @@ method | Rambda | Ramda | Lodash
 - [MobX-State-Tree decorators](https://github.com/farwayer/mst-decorators)
 
 - [Mobx decorators](https://github.com/farwayer/mobx-decorators)
+
+  [![-----------------------------------------------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#foo)
 
 ## API
 

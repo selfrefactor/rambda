@@ -6,7 +6,7 @@ import { interpolate } from 'rambdax'
 import * as Ramda from 'ramda'
 
 import { devDependencies } from '../../package'
-import { getRambdaMethods } from '../utils'
+import { getRambdaMethods, getSeparator} from '../utils'
 
 function getInstallInfo(withRambdax){
   const installInfoTemplate = `## Install
@@ -41,6 +41,8 @@ async function getMissingMethods(){
 
 {{missingMethods}}
 </details>
+
+{{separator}}
   `
 
   let counter = 0
@@ -57,6 +59,7 @@ async function getMissingMethods(){
   return interpolate(missingMethodsTemplate, {
     missingMethods,
     counter,
+    separator: getSeparator()
   })
 }
 
@@ -87,9 +90,13 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
+{{separator}}
+
 ## Used by
 
 {{usedBy}}
+
+{{separator}}
 `
 
 async function getTreeShakingInfo(){
@@ -124,6 +131,7 @@ async function getIntroContent(withRambdax){
   return interpolate(content, {
     rambdaTreeShakingInfo,
     advantages,
+    separator: getSeparator()
   })
 }
 
@@ -137,6 +145,7 @@ export async function getIntro(withRambdax){
   const installInfo = getInstallInfo(withRambdax)
 
   return interpolate(templateIntro, {
+    separator: getSeparator(),
     introEnd      : introEndContent.toString(),
     missingMethods,
     installInfo,
