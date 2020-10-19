@@ -103,11 +103,13 @@ async function getTreeShakingInfo(){
   const fallback = '2'
   const comparedPath = resolve(__dirname,
     '../../../rambda-tree-shaking/compared.json')
+
   if (!existsSync(comparedPath)){
     log('Using fallback in tree shaking info', 'box')
 
     return fallback
   }
+
   const compared = await readJson(comparedPath)
 
   return compared.ramdaVsRambda
@@ -131,7 +133,6 @@ async function getIntroContent(withRambdax){
   return interpolate(content, {
     rambdaTreeShakingInfo,
     advantages,
-    separator: getSeparator('foo')
   })
 }
 

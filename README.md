@@ -9,7 +9,7 @@
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## Example use
+## ➤ Example use
 
 ```javascript
 import { compose, map, filter } from 'rambda'
@@ -28,19 +28,21 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-## Rambda's advantages
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-example-use)
 
-### Typescript included
+## ➤ Rambda's advantages
+
+### ➤ Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
 
 Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
-### Smaller size
+### ➤ Smaller size
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
 
-### Tree-shaking
+### ➤ Tree-shaking
 
 Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
 
@@ -52,7 +54,7 @@ There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including seve
 
 > actually tree-shaking is the initial reason for creation of `Rambda`
 
-### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
+### ➤ Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
 
@@ -62,7 +64,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-### Comma notation for `R.pick` and `R.omit`
+### ➤ Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
 
@@ -71,15 +73,17 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-### Speed
+### ➤ Speed
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
 
-### Support
+### ➤ Support
 
 Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-rambdas-advantages)
 
 ## ➤ Missing Ramda methods
 
@@ -23555,7 +23559,7 @@ describe('R.zipWith', () => {
 
 </details>
 
-## CHANGELOG
+## ➤ CHANGELOG
 
 WIP 6.3.0
 
@@ -24049,7 +24053,9 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
-## Additional info
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-changelog)
+
+## ➤ Additional info
 
 > Most influential contributors
 
@@ -24088,6 +24094,8 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 > Releases
 
 [Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/improve-readme-seperators/files/separator.png)](#-additional-info)
 
 ## My other libraries
 

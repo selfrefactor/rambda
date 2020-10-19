@@ -1,5 +1,6 @@
 import { readFile } from 'fs-extra'
 import { forEach, interpolate } from 'rambdax'
+import { getSeparator } from '../utils'
 
 const mostInfluentialContributors = {
   'farwayer' :
@@ -19,7 +20,7 @@ const mostInfluentialContributors = {
 
 function getAdditionalInfo(){
   const additionalInfoTemplate = `
-## Additional info
+## ➤ Additional info
 
 > Most influential contributors
 
@@ -47,17 +48,21 @@ function getAdditionalInfo(){
 
   forEach((reason, contributor) => {
     contributors += `- [@${ contributor }](https://github.com/${ contributor }) - ${ reason }\n\n`
-  })(mostInfluentialContributors)
+  }, mostInfluentialContributors)
 
   return interpolate(additionalInfoTemplate, { contributors })
 }
 
 const templateTail = `
-## CHANGELOG
+## ➤ CHANGELOG
 
 {{changelog}}
 
+{{changelogSeparator}}
+
 {{additionalInfo}}
+
+{{additionalInfoSeparator}}
 
 {{myLibraries}}
 `
@@ -102,8 +107,10 @@ export async function getTail(withRambdax){
   const changelogContent = await readFile(changelogSource)
 
   return interpolate(templateTail, {
+    additionalInfoSeparator : getSeparator('additional-info'),
     additionalInfo : getAdditionalInfo(),
     myLibraries,
+    changelogSeparator : getSeparator('changelog'),
     changelog      : changelogContent.toString(),
   })
 }
