@@ -1,6 +1,4 @@
-WIP 6.3.0
-
-- Add typings for `R.takeWhile` when iterable is a string
+6.3.0
 
 - Add `R.takeLastWhile`
 
@@ -15,6 +13,8 @@ WIP 6.3.0
 - Add `R.dropRepeatsWith`
 
 - Add `R.evolve`
+
+- Add typings for `R.takeWhile` when iterable is a string
 
 6.2.0
 

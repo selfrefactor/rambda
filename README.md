@@ -5515,25 +5515,30 @@ describe("brute force", () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { dropRepeatsWith } from 'rambda'
+import {dropRepeatsWith} from 'rambda'
 
-interface Foo{a: number}
+interface Foo {
+  a: number,
+}
 
 describe('R.dropRepeatsWith', () => {
   it('happy', () => {
-    const result = dropRepeatsWith((x: Foo, y: Foo) => {
-       return x.a > y.a
-    }, [{a:2}, {a:1}])
-    
+    const result = dropRepeatsWith(
+      (x: Foo, y: Foo) => {
+        return x.a > y.a
+      },
+      [{a: 2}, {a: 1}]
+    )
+
     result // $ExpectType { a: number; }[]
     result[0].a // $ExpectType number
   })
   it('curried', () => {
     const result = dropRepeatsWith((x: Foo, y: Foo) => {
       return x.a > y.a
-     })([{a:2}, {a:1}])
-   
-     result // $ExpectType Foo[]
+    })([{a: 2}, {a: 1}])
+
+    result // $ExpectType Foo[]
   })
 })
 ```
@@ -5693,14 +5698,14 @@ describe('brute force', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { dropWhile } from 'rambda'
+import {dropWhile} from 'rambda'
 
 const list = [1, 2, 3, 4]
 
 describe('R.dropWhile', () => {
   it('happy', () => {
     const result = dropWhile(x => x > 2, list)
-    
+
     result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
@@ -5714,7 +5719,7 @@ describe('with string as iterable', () => {
   const str = 'foobar'
   it('happy', () => {
     const result = dropWhile(x => x !== 'b', str)
-    
+
     result // $ExpectType string
   })
   it('curried require explicit type', () => {
@@ -6193,7 +6198,7 @@ describe('brute force', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { eqProps } from 'rambda'
+import {eqProps} from 'rambda'
 
 const obj1 = {a: {b: 1}, c: 2}
 const obj2 = {a: {b: 1}, c: 3}
@@ -6201,12 +6206,12 @@ const obj2 = {a: {b: 1}, c: 3}
 describe('R.eqProps', () => {
   it('happy', () => {
     const result = eqProps('a', obj1, obj2)
-    
+
     result // $ExpectType boolean
   })
   it('curried', () => {
     const result = eqProps('a', obj1)(obj2)
-    
+
     result // $ExpectType boolean
   })
 })
@@ -20621,14 +20626,14 @@ describe("brute force", () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { takeWhile } from 'rambda'
+import {takeWhile} from 'rambda'
 
 const list = [1, 2, 3, 4]
 
 describe('R.takeWhile', () => {
   it('happy', () => {
     const result = takeWhile(x => x > 2, list)
-    
+
     result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
@@ -20642,7 +20647,7 @@ describe('with string as iterable', () => {
   const str = 'foobar'
   it('happy', () => {
     const result = takeWhile(x => x !== 'b', str)
-    
+
     result // $ExpectType string
   })
   it('curried require explicit type', () => {
@@ -23901,9 +23906,7 @@ describe('R.zipWith', () => {
 
 ## ➤ CHANGELOG
 
-WIP 6.3.0
-
-- Add typings for `R.takeWhile` when iterable is a string
+6.3.0
 
 - Add `R.takeLastWhile`
 
@@ -23918,6 +23921,8 @@ WIP 6.3.0
 - Add `R.dropRepeatsWith`
 
 - Add `R.evolve`
+
+- Add typings for `R.takeWhile` when iterable is a string
 
 6.2.0
 

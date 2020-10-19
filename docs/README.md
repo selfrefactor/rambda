@@ -9,7 +9,7 @@
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## Example use
+## ➤ Example use
 
 ```javascript
 import { compose, map, filter } from 'rambda'
@@ -28,7 +28,9 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 * [API](#api)
 * [Changelog](#changelog)
 
-## Rambda's advantages
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
+
+## ➤ Rambda's advantages
 
 ### Typescript included
 
@@ -81,11 +83,13 @@ Most of the valid issues are fixed within 2-3 days.
 
 Closing the issue is usually accompanied by publishing a new patch version of `Rambda` to NPM.
 
-## Missing Ramda methods
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
+
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
-  Click to see the full list of 97 Ramda methods not implemented in Rambda 
+  Click to see the full list of 90 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -109,14 +113,8 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
-- dropLastWhile
-- dropRepeats
-- dropRepeatsWith
-- dropWhile
 - empty
 - eqBy
-- eqProps
-- evolve
 - forEachObjIndexed
 - gt
 - gte
@@ -167,7 +165,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - symmetricDifferenceWith
-- takeLastWhile
 - andThen
 - toPairsIn
 - transduce
@@ -187,8 +184,10 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - default
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
   
-## Install
+## ➤ Install
 
 - **yarn add rambda**
 
@@ -204,6 +203,8 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 ```
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-install)
+
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detects async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
@@ -218,11 +219,15 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
-- Typescript definitions between `rambda` and `@types/ramda` may vary. List of all differences will be added soon. 
+- Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
+
+- Typescript definitions between `rambda` and `@types/ramda` may vary.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a `PR` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
-## Benchmarks
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
+
+## ➤ Benchmarks
 
 <details>
 
@@ -298,7 +303,9 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-## Used by
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
+
+## ➤ Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
@@ -313,6 +320,8 @@ method | Rambda | Ramda | Lodash
 - [MobX-State-Tree decorators](https://github.com/farwayer/mst-decorators)
 
 - [Mobx decorators](https://github.com/farwayer/mobx-decorators)
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-used-by)
 
 ## API
 
@@ -409,6 +418,8 @@ describe('R.add', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### adjust
 
@@ -538,6 +549,8 @@ describe('adjust', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#adjust)
+
 ### all
 
 ```typescript
@@ -551,11 +564,11 @@ It returns `true`, if all members of array `list` returns `true`, when applied a
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
-const result = R.all(predicate, arr)
+const result = R.all(predicate, list)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(predicate%2C%20arr)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.all</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%20-1%0A%0Aconst%20result%20%3D%20R.all(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.all</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -639,6 +652,8 @@ describe('all', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
 ### allPass
 
@@ -783,6 +798,8 @@ describe('allPass', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#allPass)
+
 ### always
 
 ```typescript
@@ -866,6 +883,8 @@ describe('R.always', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#always)
+
 ### and
 
 ```typescript
@@ -947,6 +966,8 @@ describe('R.and', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#and)
 
 ### any
 
@@ -1049,6 +1070,8 @@ describe('R.any', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#any)
 
 ### anyPass
 
@@ -1204,6 +1227,8 @@ describe('anyPass', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#anyPass)
+
 ### append
 
 ```typescript
@@ -1303,6 +1328,8 @@ describe('R.append', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#append)
+
 ### applySpec
 
 ```typescript
@@ -1314,34 +1341,18 @@ applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> }
 ```
 
-It returns a curried function with the same arity as the longest function in the spec object.
-Arguments will be applied to the spec methods recursively.
-
 > :boom: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
 ```javascript
-const spec = {
-  name: R.path('deeply.nested.firstname')
-}
-const json = {
-  deeply: {
-   nested: {
-      firstname: 'barry'
-    }
-  }
-}
-const result = R.applySpec(spec, json) // => { name: 'barry' }
-
-// Second example
-const getMetrics = R.applySpec({
+const fn = R.applySpec({
   sum: R.add,
   nested: { mul: R.multiply }
 })
-getMetrics(2, 4) 
+const result = fn(2, 4) 
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20spec%20%3D%20%7B%0A%20%20name%3A%20R.path('deeply.nested.firstname')%0A%7D%0Aconst%20json%20%3D%20%7B%0A%20%20deeply%3A%20%7B%0A%20%20%20nested%3A%20%7B%0A%20%20%20%20%20%20firstname%3A%20'barry'%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Aconst%20result%20%3D%20R.applySpec(spec%2C%20json)%20%2F%2F%20%3D%3E%20%7B%20name%3A%20'barry'%20%7D%0A%0A%2F%2F%20Second%20example%0Aconst%20getMetrics%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%0AgetMetrics(2%2C%204)%20%0A%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try this <strong>R.applySpec</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.applySpec(%7B%0A%20%20sum%3A%20R.add%2C%0A%20%20nested%3A%20%7B%20mul%3A%20R.multiply%20%7D%0A%7D)%0Aconst%20result%20%3D%20fn(2%2C%204)%20%0A%2F%2F%20%3D%3E%20%7B%20sum%3A%206%2C%20nested%3A%20%7B%20mul%3A%208%20%7D%20%7D">Try this <strong>R.applySpec</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -1591,12 +1602,17 @@ test('works with a spec defining a map key', () => {
   expect(applySpec({ map : prop('a') })({ a : 1 })).toEqual({ map : 1 })
 })
 
-test.skip('retains the highest arity', () => {
+test('cannot retains the highest arity', () => {
   const f = applySpec({
     f1 : nAry(2, T),
     f2 : nAry(5, T),
   })
-  expect(f.length).toBe(5)
+  const fRamda = applySpecRamda({
+    f1 : nAry(2, T),
+    f2 : nAry(5, T),
+  })
+  expect(f.length).toBe(0)
+  expect(fRamda.length).toBe(5)
 })
 
 test('returns a curried function', () => {
@@ -1754,6 +1770,8 @@ describe('applySpec', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
 
 ### assoc
 
@@ -1925,6 +1943,8 @@ describe('R.assoc', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assoc)
 
 ### assocPath
 
@@ -2225,6 +2245,8 @@ describe('R.assocPath - curried', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
+
 ### both
 
 ```typescript
@@ -2405,6 +2427,8 @@ describe('both', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#both)
+
 ### chain
 
 ```typescript
@@ -2511,6 +2535,8 @@ describe('R.chain', () => {
 *5 failed Ramda.chain specs*
 
 > :boom: Reason for the failure: Ramda method passes to `chain` property if available | Ramda library supports fantasy-land
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#chain)
 
 ### clamp
 
@@ -2631,6 +2657,8 @@ describe('R.clamp', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clamp)
 
 ### clone
 
@@ -2880,6 +2908,8 @@ describe('Let `R.clone` use an arbitrary user defined `clone` method', function(
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
+
 ### complement
 
 ```typescript
@@ -2998,6 +3028,8 @@ describe('complement', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#complement)
 
 ### compose
 
@@ -3228,6 +3260,8 @@ describe('compose properties', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#compose)
+
 ### concat
 
 ```typescript
@@ -3350,6 +3384,8 @@ describe('concat', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#concat)
 
 ### cond
 
@@ -3526,12 +3562,25 @@ describe('cond', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#cond)
+
 ### converge
 
 ```typescript
 
 converge(after: ((...a: any[]) => any), fns: Array<((...x: any[]) => any)>): (...y: any[]) => any
 ```
+
+Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
+
+> :boom: Explanation is taken from `Ramda` documentation
+
+```javascript
+const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
+// => 15
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.converge(R.multiply)(%5B%20R.add(1)%2C%20R.add(3)%20%5D)(2)%0A%2F%2F%20%3D%3E%2015">Try this <strong>R.converge</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -3577,12 +3626,11 @@ export function converge(fn, transformers){
 ```javascript
 import { add } from './add'
 import { converge } from './converge'
+import { multiply } from './multiply'
 
-const mult = (a, b) => a * b
-
-const f1 = converge(mult, [ a => a + 1, a => a + 10 ])
-const f2 = converge(mult, [ a => a + 1, (a, b) => a + b + 10 ])
-const f3 = converge(mult, [ a => a + 1, (
+const f1 = converge(multiply, [ a => a + 1, a => a + 10 ])
+const f2 = converge(multiply, [ a => a + 1, (a, b) => a + b + 10 ])
+const f3 = converge(multiply, [ a => a + 1, (
   a, b, c
 ) => a + b + c + 10 ])
 
@@ -3591,7 +3639,7 @@ test('happy', () => {
 })
 
 test('passes the results of applying the arguments individually', () => {
-  const result = converge(mult)([ add(1), add(3) ])(2)
+  const result = converge(multiply)([ add(1), add(3) ])(2)
   expect(result).toEqual(15)
 })
 
@@ -3638,7 +3686,7 @@ test('works with empty functions list', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {converge} from 'rambda'
+import {converge} from 'ramda'
 
 const mult = (a: number, b: number) => {
   return a * b
@@ -3664,6 +3712,8 @@ describe('R.converge', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
 ### curry
 
@@ -3890,6 +3940,8 @@ describe('curry properties', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curry)
 
 ### curryN
 
@@ -4124,6 +4176,8 @@ describe('R.curryN', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curryN)
+
 ### dec
 
 ```typescript
@@ -4166,6 +4220,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dec)
 
 ### defaultTo
 
@@ -4381,6 +4437,8 @@ describe('R.defaultTo can have many inputs', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
+
 ### difference
 
 ```typescript
@@ -4487,6 +4545,8 @@ describe('R.difference', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#difference)
 
 ### dissoc
 
@@ -4649,6 +4709,8 @@ describe('R.dissoc', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissoc)
+
 ### divide
 
 ```typescript
@@ -4701,6 +4763,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#divide)
 
 ### drop
 
@@ -4817,6 +4881,8 @@ describe('R.drop - string', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#drop)
 
 ### dropLast
 
@@ -4960,6 +5026,713 @@ describe('dropLast', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLast)
+
+### dropLastWhile
+
+```typescript
+
+dropLastWhile(predicate: (x: string) => boolean, iterable: string): string
+```
+
+```javascript
+const list = [1, 2, 3, 4, 5];
+const predicate = x => x >= 3
+
+const result = dropLastWhile(predicate, list);
+// => [1, 2]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%3B%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%3D%203%0A%0Aconst%20result%20%3D%20dropLastWhile(predicate%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropLastWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
+dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
+dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): T[];
+dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropLastWhile</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray.js'
+
+export function dropLastWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => dropLastWhile(predicate, _iterable)
+  }
+  if (iterable.length === 0) return iterable
+  const isArray = _isArray(iterable)
+
+  if (typeof predicate !== 'function'){
+    throw new Error(`'predicate' is from wrong type ${ typeof predicate }`)
+  }
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error(`'iterable' is from wrong type ${ typeof iterable }`)
+  }
+
+  let found = false
+  const toReturn = []
+  let counter = iterable.length
+
+  while (counter > 0){
+    counter--
+    if (!found && predicate(iterable[ counter ]) === false){
+      found = true
+      toReturn.push(iterable[ counter ])
+    } else if (found){
+      toReturn.push(iterable[ counter ])
+    }
+  }
+
+  return isArray ? toReturn.reverse() : toReturn.reverse().join('')
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropLastWhile as dropLastWhileRamda } from "ramda";
+
+import { compareCombinations } from "./_internals/testUtils";
+import { dropLastWhile } from "./dropLastWhile";
+
+const list = [1, 2, 3, 4, 5];
+const str = "foobar";
+
+test("with list", () => {
+  const result = dropLastWhile((x) => x >= 3, list);
+  expect(result).toEqual([1, 2]);
+});
+
+test("with string", () => {
+  const result = dropLastWhile((x) => x !== "b")(str);
+  expect(result).toBe("foob");
+});
+
+test("with empty list", () => {
+  expect(dropLastWhile(() => true, [])).toEqual([]);
+  expect(dropLastWhile(() => false, [])).toEqual([]);
+});
+
+const possiblePredicates = [
+  (x) => x > 2,
+  (x) => x < 2,
+  (x) => x < -2,
+  (x) => x > 10,
+  "",
+  [],
+  [1],
+];
+
+const possibleIterables = [
+  list,
+  [{}, "1", 2],
+  str,
+  `${str}${str}`,
+  /foo/g,
+  Promise.resolve("foo"),
+  2,
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    fn: dropLastWhile,
+    fnRamda: dropLastWhileRamda,
+    firstInput: possiblePredicates,
+    secondInput: possibleIterables,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 12,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 21,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+  });
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropLastWhile} from 'rambda'
+
+const list = [1, 2, 3]
+const str = 'FOO'
+
+describe('R.dropLastWhile', () => {
+  it('with array', () => {
+    const result = dropLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with array - curried', () => {
+    const result = dropLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with string', () => {
+    const result = dropLastWhile(x => x !== 'F', str)
+
+    result // $ExpectType string
+  })
+  it('with string - curried', () => {
+    const result = dropLastWhile(x => x !== 'F')(str)
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.dropLastWhile specs*
+
+> :boom: Reason for the failure: Ramda method can act as a transducer
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLastWhile)
+
+### dropRepeats
+
+```typescript
+
+dropRepeats<T>(list: readonly T[]): T[]
+```
+
+It removes any successive duplicates according to `R.equals`.
+
+```javascript
+const result = R.dropRepeats([
+  1, 
+  1, 
+  {a: 1}, 
+  {a:1}, 
+  1
+])
+// => [1, {a: 1}, 1]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeats(%5B%0A%20%201%2C%20%0A%20%201%2C%20%0A%20%20%7Ba%3A%201%7D%2C%20%0A%20%20%7Ba%3A1%7D%2C%20%0A%20%201%0A%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20%7Ba%3A%201%7D%2C%201%5D">Try this <strong>R.dropRepeats</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropRepeats<T>(list: readonly T[]): T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropRepeats</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+import { equals } from './equals'
+
+export function dropRepeats(list){
+  if (!_isArray(list)){
+    throw new Error(`${ list } is not a list`)
+  }
+
+  const toReturn = []
+
+  list.reduce((prev, current) => {
+    if (!equals(prev, current)){
+      toReturn.push(current)
+    }
+
+    return current
+  }, undefined)
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropRepeats as dropRepeatsRamda } from "ramda";
+
+import { compareCombinations } from "./_internals/testUtils";
+import { add } from "./add";
+import { dropRepeats } from "./dropRepeats";
+
+const list = [1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a: 1 }, { a: 1 }];
+const listClean = [1, 2, 3, 4, 5, 3, 2, { a: 1 }];
+
+test("happy", () => {
+  const result = dropRepeats(list);
+  expect(result).toEqual(listClean);
+});
+
+const possibleLists = [
+  [add(1), async () => {}, [1], [1], [2], [2]],
+  [add(1), add(1), add(2)],
+  [],
+  1,
+  /foo/g,
+  Promise.resolve(1),
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possibleLists,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 3,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    fn: dropRepeats,
+    fnRamda: dropRepeatsRamda,
+  });
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropRepeats} from 'rambda'
+
+describe('R.dropRepeats', () => {
+  it('happy', () => {
+    const result = dropRepeats([1, 2, 2, 3])
+
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.dropRepeats specs*
+
+> :boom: Reason for the failure: Ramda method can act as a transducer
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeats)
+
+### dropRepeatsWith
+
+```typescript
+
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[]
+```
+
+```javascript
+const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+const result = R.dropRepeatsWith(R.prop('a'))
+
+// => [{a:1,b:2}, {a:2, b:4}]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A1%2Cb%3A3%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D%0Aconst%20result%20%3D%20R.dropRepeatsWith(R.prop('a'))%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): T[];
+dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropRepeatsWith</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+
+export function dropRepeatsWith(predicate, list){
+  if (arguments.length === 1){
+    return _iterable => dropRepeatsWith(predicate, _iterable)
+  }
+
+  if (!_isArray(list)){
+    throw new Error(`${ list } is not a list`)
+  }
+
+  const toReturn = []
+
+  list.reduce((prev, current) => {
+    if (prev === undefined){
+      toReturn.push(current)
+
+      return current
+    }
+    if (!predicate(prev, current)){
+      toReturn.push(current)
+    }
+
+    return current
+  }, undefined)
+
+  return toReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from "ramda";
+
+import { compareCombinations } from "./_internals/testUtils";
+import { dropRepeatsWith } from "./dropRepeatsWith";
+import { path } from "./path";
+
+const eqI = eqProps("i");
+
+test("happy", () => {
+  const list = [{ i: 1 }, { i: 2 }, { i: 2 }, { i: 3 }];
+  const expected = [{ i: 1 }, { i: 2 }, { i: 3 }];
+  const result = dropRepeatsWith(eqI, list);
+  expect(result).toEqual(expected);
+});
+
+test("keeps elements from the left predicate input", () => {
+  const list = [
+    {
+      i: 1,
+      n: 1,
+    },
+    {
+      i: 1,
+      n: 2,
+    },
+    {
+      i: 1,
+      n: 3,
+    },
+    {
+      i: 4,
+      n: 1,
+    },
+    {
+      i: 4,
+      n: 2,
+    },
+  ];
+  const expected = [
+    {
+      i: 1,
+      n: 1,
+    },
+    {
+      i: 4,
+      n: 1,
+    },
+  ];
+  const result = dropRepeatsWith(eqI, list);
+  expect(result).toEqual(expected);
+});
+
+const possiblePredicates = [
+  null,
+  undefined,
+  (x) => x + 1,
+  (x) => true,
+  (x) => false,
+  (x) => "",
+  path(["a", "b"]),
+];
+const possibleLists = [
+  null,
+  undefined,
+  [],
+  [1],
+  [{ a: { b: 1 } }, { a: { b: 1 } }],
+  [/foo/g, /foo/g],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possiblePredicates,
+    secondInput: possibleLists,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 4,
+          "ERRORS_TYPE_MISMATCH": 14,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    fn: dropRepeatsWith,
+    fnRamda: dropRepeatsWithRamda,
+  });
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropRepeatsWith} from 'rambda'
+
+interface Foo {
+  a: number,
+}
+
+describe('R.dropRepeatsWith', () => {
+  it('happy', () => {
+    const result = dropRepeatsWith(
+      (x: Foo, y: Foo) => {
+        return x.a > y.a
+      },
+      [{a: 2}, {a: 1}]
+    )
+
+    result // $ExpectType { a: number; }[]
+    result[0].a // $ExpectType number
+  })
+  it('curried', () => {
+    const result = dropRepeatsWith((x: Foo, y: Foo) => {
+      return x.a > y.a
+    })([{a: 2}, {a: 1}])
+
+    result // $ExpectType Foo[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
+
+### dropWhile
+
+```typescript
+
+dropWhile(fn: Predicate<string>, iterable: string): string
+```
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = x => x < 3
+const result = R.dropWhile(predicate, list)
+// => [3, 4]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20R.dropWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try this <strong>R.dropWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+dropWhile(fn: Predicate<string>, iterable: string): string;
+dropWhile(fn: Predicate<string>): (iterable: string) => string;
+dropWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+dropWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.dropWhile</strong> source</summary>
+
+```javascript
+import { _isArray } from '../src/_internals/_isArray'
+
+export function dropWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => dropWhile(predicate, _iterable)
+  }
+  const isArray = _isArray(iterable)
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error('`iterable` is neither list nor a string')
+  }
+  let flag = false
+  const holder = []
+  let counter = -1
+
+  while (counter++ < iterable.length - 1){
+    if (flag){
+      holder.push(iterable[ counter ])
+    } else if (!predicate(iterable[ counter ])){
+      if (!flag) flag = true
+
+      holder.push(iterable[ counter ])
+    }
+  }
+
+  return isArray ? holder : holder.join('')
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { dropWhile as dropWhileRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
+import { dropWhile } from './dropWhile'
+
+const list = [ 1, 2, 3, 4 ]
+
+test('happy', () => {
+  const predicate = x => x < 3
+  const result = dropWhile(predicate, list)
+  expect(result).toEqual([3,4])
+})
+
+test('always true', () => {
+  const predicate = () => true
+  const result = dropWhileRamda(predicate, list)
+  expect(result).toEqual([])
+})
+
+test('always false', () => {
+  const predicate = () => 0
+  const result = dropWhile(predicate, list)
+  expect(result).toEqual(list)
+})
+
+test('works with string as iterable', () => {
+  const iterable = 'foobar'
+  const predicate = x => x !== 'b'
+  const result = dropWhile(predicate, iterable)
+  expect(result).toBe('bar')
+})
+
+const possiblePredicates = [
+  null,
+  undefined,
+  () => 0,
+  () => true,
+  /foo/g,
+  {},
+  [],
+]
+
+const possibleIterables = [
+  null,
+  undefined,
+  [],
+  {},
+  1,
+  '',
+  'foobar',
+  [ '' ],
+  [ 1, 2, 3, 4, 5 ],
+]
+
+describe('brute force', () => {
+  compareCombinations({
+    firstInput : possiblePredicates,
+    callback   : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 15,
+          "ERRORS_TYPE_MISMATCH": 14,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 14,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleIterables,
+    fn          : dropWhile,
+    fnRamda     : dropWhileRamda,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {dropWhile} from 'rambda'
+
+const list = [1, 2, 3, 4]
+
+describe('R.dropWhile', () => {
+  it('happy', () => {
+    const result = dropWhile(x => x > 2, list)
+
+    result // $ExpectType number[]
+  })
+  it('curried require explicit type', () => {
+    const result = dropWhile<number>(x => x > 2)(list)
+
+    result // $ExpectType number[]
+  })
+})
+
+describe('with string as iterable', () => {
+  const str = 'foobar'
+  it('happy', () => {
+    const result = dropWhile(x => x !== 'b', str)
+
+    result // $ExpectType string
+  })
+  it('curried require explicit type', () => {
+    const result = dropWhile(x => x !== 'b')(str)
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropWhile)
 
 ### either
 
@@ -5153,6 +5926,8 @@ describe('either', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
+
 ### endsWith
 
 ```typescript
@@ -5273,6 +6048,178 @@ describe('startsWith', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#endsWith)
+
+### eqProps
+
+```typescript
+
+eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean
+```
+
+It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
+
+```javascript
+const obj1 = {a: 1, b:2}
+const obj2 = {a: 1, b:3}
+const result = R.eqProps('a', obj1, obj2)
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj1%20%3D%20%7Ba%3A%201%2C%20b%3A2%7D%0Aconst%20obj2%20%3D%20%7Ba%3A%201%2C%20b%3A3%7D%0Aconst%20result%20%3D%20R.eqProps('a'%2C%20obj1%2C%20obj2)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.eqProps</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
+eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
+eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.eqProps</strong> source</summary>
+
+```javascript
+import { curry } from "./curry";
+import { equals } from "./equals";
+
+function eqPropsFn(prop, obj1, obj2) {
+  if(!obj1 || !obj2){
+    throw new Error('wrong object inputs are passed to R.eqProps')
+  }
+
+  return equals(obj1[prop], obj2[prop])
+}
+
+export const eqProps = curry(eqPropsFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { eqProps as eqPropsRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
+import { eqProps } from './eqProps'
+
+const obj1 = {
+  a : 1,
+  b : 2,
+}
+const obj2 = {
+  a : 1,
+  b : 3,
+}
+
+test('props are equal', () => {
+  const result = eqProps(
+    'a', obj1, obj2
+  )
+  expect(result).toBeTrue()
+})
+
+test('props are not equal', () => {
+  const result = eqProps(
+    'b', obj1, obj2
+  )
+  expect(result).toBeFalse()
+})
+
+test('prop does not exist ', () => {
+  const result = eqProps(
+    'c', obj1, obj2
+  )
+  expect(result).toBeTrue()
+})
+
+const possibleProps = [ 'a', 'a.b', null, false, 0, 1, {}, [] ]
+
+const possibleObjects = [
+  { a : 1 },
+  {
+    a : 1,
+    b : 2,
+  },
+  {},
+  [],
+  null,
+  {
+    a : { b : 1 },
+    c : 2,
+  },
+  {
+    a : { b : 1 },
+    c : 3,
+  },
+  { a : { b : 2 } },
+]
+
+describe('brute force', () => {
+  let totalTestsCounter = 0
+
+  compareCombinations({
+    firstInput : possibleProps,
+    setCounter : () => totalTestsCounter++,
+    callback   : errorsCounters => {
+      // console.log({ totalTestsCounter })
+
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 120,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+        }
+      `)
+    },
+    secondInput : possibleObjects,
+    thirdInput  : possibleObjects,
+    fn          : eqProps,
+    fnRamda     : eqPropsRamda,
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {eqProps} from 'rambda'
+
+const obj1 = {a: {b: 1}, c: 2}
+const obj2 = {a: {b: 1}, c: 3}
+
+describe('R.eqProps', () => {
+  it('happy', () => {
+    const result = eqProps('a', obj1, obj2)
+
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = eqProps('a', obj1)(obj2)
+
+    result // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#eqProps)
 
 ### equals
 
@@ -5904,6 +6851,279 @@ describe('equals', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#equals)
+
+### evolve
+
+```typescript
+
+evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[]
+```
+
+It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+
+> :boom: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct. Full details for this mismatch are listed in `source/_snapshots/evolve.spec.js.snap` file.
+
+```javascript
+const rules = {
+  foo : add(1),
+  bar : add(-1),
+}
+const input = {
+  a   : 1,
+  foo : 2,
+  bar : 3,
+}
+const result = evolve(rules, input)
+const expected = {
+  a   : 1,
+  foo : 3,
+  bar : 2,
+})
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20add(1)%2C%0A%20%20bar%20%3A%20add(-1)%2C%0A%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%0Aconst%20result%20%3D%20evolve(rules%2C%20input)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+evolve<T, U>(rules: Array<(x: T) => U>, list: T[]): U[];
+evolve<T, U>(rules: Array<(x: T) => U>) : (list: T[]) => U[];
+evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.evolve</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray'
+import { mapArray, mapObject } from './map'
+import { type } from './type'
+
+export function evolveArray(rules, list){
+  return mapArray(
+    (x, i) => {
+      if (type(rules[ i ]) === 'Function'){
+        return rules[ i ](x)
+      }
+
+      return x
+    },
+    list,
+    true
+  )
+}
+
+export function evolveObject(rules, iterable){
+  return mapObject((x, prop) => {
+    if (type(x) === 'Object'){
+      const typeRule = type(rules[ prop ])
+      if (typeRule === 'Function'){
+        return rules[ prop ](x)
+      }
+      if (typeRule === 'Object'){
+        return evolve(rules[ prop ], x)
+      }
+
+      return x
+    }
+    if (type(rules[ prop ]) === 'Function'){
+      return rules[ prop ](x)
+    }
+
+    return x
+  }, iterable)
+}
+
+export function evolve(rules, iterable){
+  if (arguments.length === 1){
+    return _iterable => evolve(rules, _iterable)
+  }
+  const rulesType = type(rules)
+  const iterableType = type(iterable)
+
+  if (iterableType !== rulesType){
+    throw new Error('iterableType !== rulesType')
+  }
+
+  if (![ 'Object', 'Array' ].includes(rulesType)){
+    throw new Error(`'iterable' and 'rules' are from wrong type ${ rulesType }`)
+  }
+
+  if (iterableType === 'Object'){
+    return evolveObject(rules, iterable)
+  }
+
+  return evolveArray(rules, iterable)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { evolve as evolveRamda } from "ramda";
+
+import { add } from "../rambda.js";
+import { compareCombinations, compareToRamda } from "./_internals/testUtils";
+import { evolve } from "./evolve";
+
+test("happy", () => {
+  const rules = {
+    foo: add(1),
+    bar: add(-1),
+  };
+  const input = {
+    a: 1,
+    foo: 2,
+    bar: 3,
+  };
+  const result = evolve(rules, input);
+  expect(result).toEqual({
+    a: 1,
+    foo: 3,
+    bar: 2,
+  });
+});
+
+test("is recursive", () => {
+  const rules = {
+    nested: {
+      second: add(-1),
+      third: add(1),
+    },
+  };
+  const object = {
+    first: 1,
+    nested: {
+      second: 2,
+      third: 3,
+    },
+  };
+  const expected = {
+    first: 1,
+    nested: {
+      second: 1,
+      third: 4,
+    },
+  };
+  const result = evolve(rules, object);
+  expect(result).toEqual(expected);
+});
+
+test("ignores primitive value rulesormations", () => {
+  const rules = {
+    n: 2,
+    m: "foo",
+  };
+  const object = {
+    n: 0,
+    m: 1,
+  };
+  const expected = {
+    n: 0,
+    m: 1,
+  };
+  const result = evolve(rules, object);
+  expect(result).toEqual(expected);
+});
+
+test("with array", () => {
+  const rules = [add(1), add(-1)];
+  const list = [100, 1400];
+  const expected = [101, 1399];
+  const result = evolve(rules, list);
+  expect(result).toEqual(expected);
+});
+
+const rulesObject = { a: add(1) };
+const rulesList = [add(1)];
+const possibleIterables = [null, undefined, "", 42, [], [1], { a: 1 }];
+const possibleRules = [...possibleIterables, rulesList, rulesObject];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possibleRules,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 4,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 51,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    secondInput: possibleIterables,
+    fn: evolve,
+    fnRamda: evolveRamda,
+  });
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {evolve, add} from 'rambda'
+
+describe('R.evolve', () => {
+  it('happy', () => {
+    const input = {
+      foo: 2,
+      nested: {
+        a: 1,
+        bar: 3,
+      },
+    }
+    const rules = {
+      foo: add(1),
+      nested: {
+        a: add(-1),
+        bar: add(1),
+      },
+    }
+    const result = evolve(rules, input)
+    const curriedResult = evolve(rules)(input)
+
+    result.nested.a // $ExpectType number
+    curriedResult.nested.a // $ExpectType number
+    result.nested.bar // $ExpectType number
+    result.foo // $ExpectType number
+  })
+  it('with array', () => {
+    const rules = [String, String]
+    const input = [100, 1400]
+    const result = evolve(rules, input)
+    const curriedResult = evolve(rules)(input)
+    result // $ExpectType string[]
+    curriedResult // $ExpectType string[]
+  })
+})
+```
+
+</details>
+
+*1 failed Ramda.evolve specs*
+
+> :boom: Reason for the failure: Rambda throws if `iterable` input is neither array nor object
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#evolve)
+
 ### F
 
 ```typescript
@@ -5938,6 +7158,8 @@ export function F(){
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#F)
 
 ### filter
 
@@ -6181,6 +7403,8 @@ describe('filter', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
+
 ### find
 
 ```typescript
@@ -6289,6 +7513,8 @@ describe('R.find', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#find)
+
 ### findIndex
 
 ```typescript
@@ -6389,6 +7615,8 @@ describe('R.findIndex', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findIndex)
 
 ### findLast
 
@@ -6528,6 +7756,8 @@ describe('R.findLast', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLast)
 
 ### findLastIndex
 
@@ -6669,6 +7899,8 @@ describe('R.findLastIndex', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLastIndex)
+
 ### flatten
 
 ```typescript
@@ -6765,6 +7997,8 @@ describe('flatten', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flatten)
 
 ### flip
 
@@ -6984,6 +8218,8 @@ describe('flip properties', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flip)
+
 ### forEach
 
 ```typescript
@@ -7143,16 +8379,13 @@ const obj = {a: 1, b: 2}
 
 describe('R.forEach with arrays', () => {
   it('happy', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      list
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, list)
     result // $ExpectType number[]
   })
   it('curried require an explicit typing', () => {
-    const result = forEach<number>((a) => {
+    const result = forEach<number>(a => {
       a // $ExpectType number
     })(list)
     result // $ExpectType number[]
@@ -7179,12 +8412,9 @@ describe('R.forEach with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('iterator without property', () => {
-    const result = forEach(
-      (a) => {
-        a // $ExpectType number
-      },
-      obj
-    )
+    const result = forEach(a => {
+      a // $ExpectType number
+    }, obj)
     result // $ExpectType Dictionary<number>
   })
 })
@@ -7220,6 +8450,8 @@ describe('forEach', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#forEach)
 
 ### fromPairs
 
@@ -7327,6 +8559,8 @@ describe('R.fromPairs - require explicit type for input list', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#fromPairs)
 
 ### groupBy
 
@@ -7490,6 +8724,8 @@ describe('groupBy', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupBy)
 
 ### groupWith
 
@@ -7732,6 +8968,8 @@ describe('groupWith', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
+
 ### has
 
 ```typescript
@@ -7846,6 +9084,8 @@ describe('has', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#has)
 
 ### hasPath
 
@@ -7965,6 +9205,8 @@ describe('R.hasPath', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#hasPath)
+
 ### head
 
 ```typescript
@@ -8046,6 +9288,8 @@ describe('R.head', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#head)
 
 ### identical
 
@@ -8170,6 +9414,8 @@ describe('R.identical', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identical)
+
 ### identity
 
 ```typescript
@@ -8241,6 +9487,8 @@ describe('R.identity', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identity)
 
 ### ifElse
 
@@ -8490,6 +9738,8 @@ describe('ifElse', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ifElse)
+
 ### inc
 
 ```typescript
@@ -8538,6 +9788,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#inc)
 
 ### includes
 
@@ -8712,6 +9964,8 @@ describe('includes', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#includes)
 
 ### indexBy
 
@@ -8950,6 +10204,8 @@ describe('indexBy', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
+
 ### indexOf
 
 ```typescript
@@ -9105,6 +10361,8 @@ describe('indexOf', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexOf)
+
 ### init
 
 ```typescript
@@ -9201,6 +10459,8 @@ describe('R.init', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
+
 ### intersection
 
 ```typescript
@@ -9294,6 +10554,8 @@ describe('R.intersection', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
 
 ### intersperse
 
@@ -9395,6 +10657,8 @@ describe('R.intersperse', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
 
 ### is
 
@@ -9517,6 +10781,8 @@ describe('R.is', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#is)
 
 ### isEmpty
 
@@ -9641,6 +10907,8 @@ describe('isEmpty', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isEmpty)
+
 ### isNil
 
 ```typescript
@@ -9699,6 +10967,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
 
 ### join
 
@@ -9776,6 +11046,8 @@ describe('R.join', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#join)
 
 ### keys
 
@@ -9881,6 +11153,8 @@ describe('keys', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#keys)
+
 ### last
 
 ```typescript
@@ -9971,6 +11245,8 @@ describe('R.last', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#last)
 
 ### lastIndexOf
 
@@ -10143,6 +11419,8 @@ describe('lastIndexOf', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
+
 ### length
 
 ```typescript
@@ -10243,6 +11521,8 @@ describe('length', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#length)
+
 ### lens
 
 ```typescript
@@ -10272,7 +11552,6 @@ R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 
 ```typescript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
-lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ```
 
 </details>
@@ -10283,8 +11562,6 @@ lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 ```javascript
 export function lens(getter, setter){
-  if (arguments.length === 1) return _setter => lens(getter, _setter)
-
   return function (functor){
     return function (target){
       return functor(getter(target)).map(focus => setter(focus, target))
@@ -10297,57 +11574,13 @@ export function lens(getter, setter){
 
 <details>
 
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compose } from './compose'
-import { lensIndex } from './lensIndex'
-import { lensPath } from './lensPath'
-import { lensProp } from './lensProp'
-import { over } from './over'
-import { toUpper } from './toUpper'
-import { view } from './view'
-
-const testObject = {
-  foo : [ 'a', 'b', 'c' ],
-  baz : {
-    a : 'x',
-    b : 'y',
-  },
-}
-
-const propLens = lensProp('foo')
-const indexLens = lensIndex(2)
-const composedLens = compose(propLens, indexLens)
-
-const pathLens = lensPath('baz.a')
-const composedPathLens = compose(lensPath('baz'), lensPath('a'))
-
-test('composed lenses', () => {
-  expect(view(composedPathLens, testObject)).toEqual(view(pathLens, testObject))
-
-  expect(view(composedLens, testObject)).toEqual('c')
-
-  expect(over(
-    composedLens, toUpper, testObject
-  )).toEqual({
-    ...testObject,
-    foo : [ 'a', 'b', 'C' ],
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
 import {lens, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 describe('R.lens', () => {
@@ -10362,6 +11595,8 @@ describe('R.lens', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lens)
 
 ### lensIndex
 
@@ -10482,9 +11717,9 @@ test('get (set(set s v1) v2) === v2', () => {
 import {view, lensIndex} from 'rambda'
 
 interface Input {
-  a: number
+  a: number,
 }
-const testList: Input[] = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
 
 describe('R.lensIndex', () => {
   it('happy', () => {
@@ -10496,6 +11731,8 @@ describe('R.lensIndex', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensIndex)
 
 ### lensPath
 
@@ -10689,18 +11926,18 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensPath, view} from 'rambda'
 
 interface Input {
-  foo: number[]
+  foo: number[],
   bar: {
-    a: string
-    b: string
-  }
+    a: string,
+    b: string,
+  },
 }
 
 const testObject: Input = {
-  foo : [ 1, 2 ],
-  bar : {
-    a : 'x',
-    b : 'y',
+  foo: [1, 2],
+  bar: {
+    a: 'x',
+    b: 'y',
   },
 }
 
@@ -10720,6 +11957,8 @@ describe('R.lensPath', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
 
 ### lensProp
 
@@ -10886,11 +12125,11 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensProp, view} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
+  foo: 'Led Zeppelin',
 }
 
 const lens = lensProp('foo')
@@ -10904,6 +12143,8 @@ describe('R.lensProp', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensProp)
 
 ### map
 
@@ -11088,7 +12329,7 @@ describe('R.map with arrays', () => {
     result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x:number) => {
+    const result = map<number>((x: number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])
@@ -11146,6 +12387,8 @@ describe('R.map with objects', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
 
 ### match
 
@@ -11246,6 +12489,8 @@ describe('R.match', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#match)
+
 ### mathMod
 
 ```typescript
@@ -11342,6 +12587,8 @@ describe('R.mathMod', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mathMod)
+
 ### max
 
 ```typescript
@@ -11436,6 +12683,8 @@ describe('R.max', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
 
 ### maxBy
 
@@ -11538,6 +12787,8 @@ describe('R.maxBy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#maxBy)
+
 ### mean
 
 ```typescript
@@ -11614,6 +12865,8 @@ describe('R.mean', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mean)
+
 ### median
 
 ```typescript
@@ -11674,7 +12927,7 @@ import { median } from './median'
 
 test('happy', () => {
   expect(median([ 2 ])).toEqual(2)
-  expect(median([ 7, 2, 10, 9 ])).toEqual(8)
+  expect(median([ 7, 2, 10, 2, 9 ])).toEqual(7)
 })
 
 test('with empty array', () => {
@@ -11701,6 +12954,8 @@ describe('R.median', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#median)
 
 ### merge
 
@@ -11806,6 +13061,8 @@ describe('R.merge', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
 ### mergeAll
 
@@ -11918,6 +13175,8 @@ describe('R.mergeAll', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
 
 ### mergeDeepRight
 
@@ -12097,6 +13356,8 @@ describe('R.mergeDeepRight', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepRight)
+
 ### mergeLeft
 
 ```typescript
@@ -12199,6 +13460,8 @@ describe('R.mergeLeft', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeLeft)
+
 ### min
 
 ```typescript
@@ -12252,7 +13515,7 @@ import { min } from './min'
 
 test('happy', () => {
   expect(min(2, 1)).toBe(1)
-  expect(min(2)(1)).toBe(1)
+  expect(min(1)(2)).toBe(1)
 })
 ```
 
@@ -12289,6 +13552,8 @@ describe('R.min', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
@@ -12394,6 +13659,8 @@ describe('R.minBy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
+
 ### modulo
 
 ```typescript
@@ -12471,6 +13738,8 @@ describe('R.modulo', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modulo)
 
 ### move
 
@@ -12608,6 +13877,8 @@ describe('R.move', () => {
 
 > :boom: Reason for the failure: Ramda method does not support negative indexes
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#move)
+
 ### multiply
 
 ```typescript
@@ -12686,6 +13957,8 @@ describe('R.multiply', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#multiply)
+
 ### negate
 
 ```typescript
@@ -12735,6 +14008,8 @@ test('negate', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#negate)
 
 ### none
 
@@ -12836,6 +14111,8 @@ describe('R.none', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
+
 ### not
 
 ```typescript
@@ -12907,6 +14184,8 @@ describe('R.not', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#not)
 
 ### nth
 
@@ -13011,6 +14290,8 @@ describe('R.nth', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#nth)
+
 ### of
 
 ```typescript
@@ -13087,6 +14368,8 @@ describe('R.of', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#of)
 
 ### omit
 
@@ -13291,6 +14574,8 @@ describe('R.omit with string as props input', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
+
 ### once
 
 ```typescript
@@ -13414,6 +14699,8 @@ describe('R.once', () => {
 
 > :boom: Reason for the failure: Ramda method retains arity
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#once)
+
 ### or
 
 ```typescript
@@ -13493,6 +14780,8 @@ describe('R.or', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#or)
 
 ### over
 
@@ -13605,6 +14894,8 @@ test('index lens', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#over)
 
 ### partial
 
@@ -13769,6 +15060,8 @@ describe('R.partial', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partial)
 
 ### partition
 
@@ -13996,6 +15289,8 @@ describe('R.partition', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partition)
+
 ### path
 
 ```typescript
@@ -14193,6 +15488,8 @@ describe('path', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#path)
+
 ### pathEq
 
 ```typescript
@@ -14346,6 +15643,8 @@ describe('with ramda specs', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathEq)
+
 ### pathOr
 
 ```typescript
@@ -14488,6 +15787,8 @@ describe('R.pathOr', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathOr)
 
 ### paths
 
@@ -14691,6 +15992,8 @@ describe('paths', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#paths)
 
 ### pick
 
@@ -14919,6 +16222,8 @@ describe('R.pick with string as props input', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pick)
+
 ### pickAll
 
 ```typescript
@@ -15108,6 +16413,8 @@ describe('R.pickAll with string as props input', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
 
 ### pipe
 
@@ -15446,6 +16753,8 @@ describe('pipe', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
+
 ### pluck
 
 ```typescript
@@ -15591,6 +16900,8 @@ describe('pluck', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pluck)
+
 ### prepend
 
 ```typescript
@@ -15686,6 +16997,8 @@ describe('R.prepend', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prepend)
+
 ### product
 
 ```typescript
@@ -15759,6 +17072,8 @@ describe('R.product', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#product)
 
 ### prop
 
@@ -15851,6 +17166,8 @@ describe('R.prop', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prop)
 
 ### propEq
 
@@ -16008,6 +17325,8 @@ describe('propEq', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
+
 ### propIs
 
 ```typescript
@@ -16116,6 +17435,8 @@ describe('R.propIs', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propIs)
 
 ### propOr
 
@@ -16237,6 +17558,8 @@ describe('R.propOr', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propOr)
+
 ### props
 
 ```typescript
@@ -16247,11 +17570,12 @@ props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[]
 It takes list with properties `propsToPick` and returns a list with property values in `obj`.
 
 ```javascript
-const result = R.props(['a', 'b'], {a:1, c:3})
+const result = [
+  R.props(['a', 'b'], {a:1, c:3})
 // => [1, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.props(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A1%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20undefined%5D">Try this <strong>R.props</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.props(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A1%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%5B1%2C%20undefined%5D">Try this <strong>R.props</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -16270,11 +17594,15 @@ props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 <summary><strong>R.props</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray'
 import { mapArray } from './map'
 
 export function props(propsToPick, obj){
   if (arguments.length === 1){
     return _obj => props(propsToPick, _obj)
+  }
+  if (!_isArray(propsToPick)){
+    throw new Error('propsToPick is not a list')
   }
 
   return mapArray(prop => obj[ prop ], propsToPick)
@@ -16290,12 +17618,20 @@ export function props(propsToPick, obj){
 ```javascript
 import { props } from './props'
 
-const obj = {a: 1, b: 2}
+const obj = {
+  a : 1,
+  b : 2,
+}
+const propsToPick = [ 'a', 'c' ]
 
 test('happy', () => {
-  const result = props(['a', 'c'], obj)
-  console.log(result)
-  expect(result).toEqual([1,undefined])
+  const result = props(propsToPick, obj)
+  expect(result).toEqual([ 1, undefined ])
+})
+
+test('curried', () => {
+  const result = props(propsToPick)(obj)
+  expect(result).toEqual([ 1, undefined ])
 })
 ```
 
@@ -16306,18 +17642,18 @@ test('happy', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { props } from 'rambda'
+import {props} from 'rambda'
 
 const obj = {a: 1, b: 2}
 
 describe('R.props', () => {
   it('happy', () => {
-    const result = props(['a','b'], obj)
-    
+    const result = props(['a', 'b'], obj)
+
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = props(['a','b'])(obj)
+    const result = props(['a', 'b'])(obj)
 
     result // $ExpectType number[]
   })
@@ -16325,6 +17661,8 @@ describe('R.props', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#props)
 
 ### range
 
@@ -16432,11 +17770,13 @@ describe('R.range', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
+
 ### reduce
 
 ```typescript
 
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult
+reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: readonly T[]): TResult
 ```
 
 > :boom: It passes index of the list as third argument to `reducer` function.
@@ -16457,10 +17797,10 @@ const result = R.reduce(reducer, initialValue, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: T[]): TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: T[]) => TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
+reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: readonly T[]): TResult;
+reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: readonly T[]): TResult;
+reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: readonly T[]) => TResult;
+reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
 ```
 
 </details>
@@ -16701,6 +18041,8 @@ describe('reduce', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
+
 ### reject
 
 ```typescript
@@ -16773,14 +18115,6 @@ test('with object', () => {
     c : 3,
     d : 4,
   }
-  const fn = (
-    a, b, c
-  ) => console.log({
-    a,
-    b,
-    c,
-  })
-  reject(fn, obj)
   expect(reject(isOdd, obj)).toEqual({
     b : 2,
     d : 4,
@@ -16830,8 +18164,7 @@ describe('R.reject with objects', () => {
     result // $ExpectType Dictionary<number>
   })
   it('curried require dummy type', () => {
-    const result = reject<number, any>((x) => {
-
+    const result = reject<number, any>(x => {
       return x > 1
     })({a: 1, b: 2})
     result // $ExpectType Dictionary<number>
@@ -16874,6 +18207,8 @@ describe('reject', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reject)
 
 ### repeat
 
@@ -16960,6 +18295,8 @@ describe('R.repeat', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
 
 ### replace
 
@@ -17076,6 +18413,8 @@ describe('R.replace - curried', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
+
 ### reverse
 
 ```typescript
@@ -17169,6 +18508,8 @@ describe('R.reverse', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reverse)
 
 ### set
 
@@ -17282,6 +18623,8 @@ test('index lens', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#set)
+
 ### slice
 
 ```typescript
@@ -17391,6 +18734,8 @@ describe('R.slice', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#slice)
 
 ### sort
 
@@ -17503,6 +18848,8 @@ describe('R.sort', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sort)
 
 ### sortBy
 
@@ -17692,6 +19039,8 @@ describe('sortBy', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortBy)
+
 ### split
 
 ```typescript
@@ -17782,6 +19131,8 @@ describe('R.split', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#split)
 
 ### splitAt
 
@@ -17874,7 +19225,6 @@ test('with array - index is out of scope', () => {
 
 test('with string', () => {
   const result = splitAt(4, str)
-  console.log(result)
   expect(result).toEqual([ 'foo ', 'bar' ])
 })
 
@@ -17907,10 +19257,6 @@ test('with bad inputs', () => {
   badInputs.forEach(badInput => {
     const result = splitAt(1, badInput)
     const ramdaResult = splitAtRamda(1, badInput)
-    console.log({
-      result,
-      ramdaResult,
-    })
     expect(result).toEqual(ramdaResult)
   })
 })
@@ -17923,7 +19269,7 @@ test('with bad inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { splitAt } from 'ramda'
+import {splitAt} from 'ramda'
 
 const index = 1
 const str = 'foo'
@@ -17932,12 +19278,12 @@ const list = [1, 2, 3]
 describe('R.splitAt with array', () => {
   it('happy', () => {
     const result = splitAt(index, list)
-    
+
     result // $ExpectType [number[], number[]]
   })
   it('curried', () => {
     const result = splitAt(index)(list)
-    
+
     result // $ExpectType [number[], number[]]
   })
 })
@@ -17945,7 +19291,7 @@ describe('R.splitAt with array', () => {
 describe('R.splitAt with string', () => {
   it('happy', () => {
     const result = splitAt(index, str)
-    
+
     result // $ExpectType [string, string]
   })
   it('curried', () => {
@@ -17957,6 +19303,8 @@ describe('R.splitAt with string', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitAt)
 
 ### splitEvery
 
@@ -18075,6 +19423,8 @@ describe('R.splitEvery', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitEvery)
+
 ### splitWhen
 
 ```typescript
@@ -18187,26 +19537,28 @@ test('with bad inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { splitWhen } from 'rambda'
+import {splitWhen} from 'rambda'
 
-const list = [ 1, 2, 1, 2 ]
-const predicate = (x:number) => x === 2
+const list = [1, 2, 1, 2]
+const predicate = (x: number) => x === 2
 
 describe('R.splitWhen', () => {
   it('happy', () => {
     const result = splitWhen(predicate, list)
-    
+
     result // $ExpectType number[][]
   })
   it('curried', () => {
     const result = splitWhen(predicate)(list)
-    
+
     result // $ExpectType number[][]
   })
 })
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitWhen)
 
 ### startsWith
 
@@ -18333,6 +19685,8 @@ describe('startsWith', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#startsWith)
+
 ### subtract
 
 ```typescript
@@ -18392,6 +19746,8 @@ test('happy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#subtract)
+
 ### sum
 
 ```typescript
@@ -18441,6 +19797,8 @@ test('happy', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### symmetricDifference
 
@@ -18552,6 +19910,8 @@ describe('R.symmetricDifference', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#symmetricDifference)
+
 ### T
 
 ```typescript
@@ -18587,6 +19947,8 @@ export function T(){
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#T)
 
 ### tail
 
@@ -18676,6 +20038,8 @@ describe('R.tail', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tail)
 
 ### take
 
@@ -18838,6 +20202,8 @@ describe('take', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#take)
+
 ### takeLast
 
 ```typescript
@@ -18975,53 +20341,64 @@ describe('R.takeLast - string', () => {
 
 </details>
 
-### takeWhile
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLast)
+
+### takeLastWhile
 
 ```typescript
 
-takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[]
+takeLastWhile(predicate: (x: string) => boolean, input: string): string
 ```
 
 ```javascript
-const list = [1, 2, 3, 4, 5]
-const predicate = x => x < 3
-const result = takeWhile(predicate, list)
-
-// => [1, 2, 3]
+const result = R.takeLastWhile(
+  x => x > 2,
+  [1, 2, 3, 4]
+)
+// => [3, 4]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20takeWhile(predicate%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try this <strong>R.takeWhile</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.takeLastWhile(%0A%20%20x%20%3D%3E%20x%20%3E%202%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%0A)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try this <strong>R.takeLastWhile</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-takeWhile<T>(predicate: (x: T) => boolean, list: readonly T[]): T[];
-takeWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T[];
+takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
+takeLastWhile<T>(predicate: (x: T) => boolean, input: readonly T[]): T[];
+takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => T[];
 ```
 
 </details>
 
 <details>
 
-<summary><strong>R.takeWhile</strong> source</summary>
+<summary><strong>R.takeLastWhile</strong> source</summary>
 
 ```javascript
-export function takeWhile(predicate, list){
-  const toReturn = []
-  let stopFlag = false
-  let counter = -1
+import { _isArray } from './_internals/_isArray.js'
 
-  while (stopFlag === false && counter++ < list.length - 1){
-    if (!predicate(list[ counter ])){
-      stopFlag = true
-    } else {
-      toReturn.push(list[ counter ])
+export function takeLastWhile(predicate, input){
+  if (arguments.length === 1){
+    return _input => takeLastWhile(predicate, _input)
+  }
+  if (input.length === 0) return input
+  let found = false
+  const toReturn = []
+  let counter = input.length
+
+  while (!found || counter === 0){
+    counter--
+    if (predicate(input[ counter ]) === false){
+      found = true
+    } else if (!found){
+      toReturn.push(input[ counter ])
     }
   }
 
-  return toReturn
+  return _isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
 }
 ```
 
@@ -19032,24 +20409,214 @@ export function takeWhile(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeWhile } from './takeWhile'
+import { takeLastWhile } from './takeLastWhile'
+const assert = require('assert')
 
-const list = [ 1, 2, 3, 4, 5, 6 ]
+const list = [ 1, 2, 3, 4 ]
 
 test('happy', () => {
-  const result = takeWhile(x => x < 4, list)
-  expect(result).toEqual([ 1, 2, 3 ])
+  const predicate = x => x > 2
+  const result = takeLastWhile(predicate, list)
+  expect(result).toEqual([ 3, 4 ])
 })
 
-test('predicate always returns true', () => {
-  const result = takeWhile(x => x < 10, list)
+test('predicate is always true', () => {
+  const predicate = x => x > 0
+  const result = takeLastWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
-test('predicate alwats returns false', () => {
-  const result = takeWhile(x => x > 10, list)
+test('predicate is always false', () => {
+  const predicate = x => x < 0
+  const result = takeLastWhile(predicate, list)
   expect(result).toEqual([])
 })
+
+test('with string', () => {
+  const result = takeLastWhile(x => x !== 'F', 'FOOBAR')
+  expect(result).toEqual('OOBAR')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {takeLastWhile} from 'rambda'
+
+const list = [1, 2, 3]
+const str = 'FOO'
+
+describe('R.takeLastWhile', () => {
+  it('with array', () => {
+    const result = takeLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with array - curried', () => {
+    const result = takeLastWhile(x => x > 1, list)
+
+    result // $ExpectType number[]
+  })
+  it('with string', () => {
+    const result = takeLastWhile(x => x !== 'F', str)
+
+    result // $ExpectType string
+  })
+  it('with string - curried', () => {
+    const result = takeLastWhile(x => x !== 'F')(str)
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLastWhile)
+
+### takeWhile
+
+```typescript
+
+takeWhile(fn: Predicate<string>, iterable: string): string
+```
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = x => x < 3
+
+const result = R.takeWhile(predicate, list)
+// => [1, 2]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0A%0Aconst%20result%20%3D%20R.takeWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.takeWhile</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+takeWhile(fn: Predicate<string>, iterable: string): string;
+takeWhile(fn: Predicate<string>): (iterable: string) => string;
+takeWhile<T>(fn: Predicate<T>, iterable: readonly T[]): T[];
+takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.takeWhile</strong> source</summary>
+
+```javascript
+import { _isArray } from '../src/_internals/_isArray'
+
+export function takeWhile(predicate, iterable){
+  if (arguments.length === 1){
+    return _iterable => takeWhile(predicate, _iterable)
+  }
+  const isArray = _isArray(iterable)
+  if (!isArray && typeof iterable !== 'string'){
+    throw new Error('`iterable` is neither list nor a string')
+  }
+  let flag = true
+  const holder = []
+  let counter = -1
+
+  while (counter++ < iterable.length - 1){
+    if (!predicate(iterable[ counter ])){
+      if (flag) flag = false
+    } else if (flag){
+      holder.push(iterable[ counter ])
+    }
+  }
+  holder
+
+  return isArray ? holder : holder.join('')
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { takeWhile as takeWhileRamda } from "ramda";
+
+import { takeWhile } from "./takeWhile";
+import { compareCombinations } from "./_internals/testUtils";
+
+const list = [1, 2, 3, 4, 5];
+
+test("happy", () => {
+  const result = takeWhile((x) => x < 3, list);
+  expect(result).toEqual([1, 2]);
+});
+
+test("always true", () => {
+  const result = takeWhile((x) => true, list);
+  expect(result).toEqual(list);
+});
+
+test("always false", () => {
+  const result = takeWhile((x) => 0, list);
+  expect(result).toEqual([]);
+});
+
+test("with string", () => {
+  const result = takeWhile((x) => x !== "b", "foobar");
+  console.log(result);
+  expect(result).toBe("foo");
+});
+
+const possiblePredicates = [
+  null,
+  undefined,
+  () => 0,
+  () => true,
+  (x) => x !== "b",
+  /foo/g,
+  {},
+  [],
+];
+
+const possibleIterables = [
+  null,
+  undefined,
+  [],
+  {},
+  1,
+  "",
+  "foobar",
+  [""],
+  [1, 2, 3, 4, 5],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    firstInput: possiblePredicates,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 15,
+          "ERRORS_TYPE_MISMATCH": 16,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 16,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    secondInput: possibleIterables,
+    fn: takeWhile,
+    fnRamda: takeWhileRamda,
+  });
+});
 ```
 
 </details>
@@ -19062,18 +20629,31 @@ test('predicate alwats returns false', () => {
 import {takeWhile} from 'rambda'
 
 const list = [1, 2, 3, 4]
-const predicate = (x: number) => x > 3
 
 describe('R.takeWhile', () => {
   it('happy', () => {
-    const result = takeWhile(predicate, list)
+    const result = takeWhile(x => x > 2, list)
 
     result // $ExpectType number[]
   })
-  it('curried', () => {
-    const result = takeWhile(predicate)(list)
+  it('curried require explicit type', () => {
+    const result = takeWhile<number>(x => x > 2)(list)
 
     result // $ExpectType number[]
+  })
+})
+
+describe('with string as iterable', () => {
+  const str = 'foobar'
+  it('happy', () => {
+    const result = takeWhile(x => x !== 'b', str)
+
+    result // $ExpectType string
+  })
+  it('curried require explicit type', () => {
+    const result = takeWhile(x => x !== 'b')(str)
+
+    result // $ExpectType string
   })
 })
 ```
@@ -19083,6 +20663,8 @@ describe('R.takeWhile', () => {
 *2 failed Ramda.takeWhile specs*
 
 > :boom: Reason for the failure: Ramda method works with strings not only arrays
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeWhile)
 
 ### tap
 
@@ -19210,6 +20792,8 @@ describe('tap', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tap)
+
 ### test
 
 ```typescript
@@ -19301,6 +20885,8 @@ describe('R.test', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
 
 ### times
 
@@ -19405,6 +20991,8 @@ describe('R.times', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#times)
+
 ### toLower
 
 ```typescript
@@ -19454,6 +21042,8 @@ test('toLower', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toLower)
 
 ### toPairs
 
@@ -19549,6 +21139,8 @@ describe('R.toPairs', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toPairs)
+
 ### toString
 
 ```typescript
@@ -19599,6 +21191,8 @@ test('happy', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toString)
+
 ### toUpper
 
 ```typescript
@@ -19648,6 +21242,8 @@ test('toUpper', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toUpper)
 
 ### transpose
 
@@ -19766,6 +21362,8 @@ describe('R.transpose', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transpose)
+
 ### trim
 
 ```typescript
@@ -19846,6 +21444,8 @@ describe('trim', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#trim)
 
 ### tryCatch
 
@@ -20136,6 +21736,8 @@ describe('R.tryCatch', () => {
 
 > :boom: Reason for the failure: Ramda method returns a function with the same arity
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tryCatch)
+
 ### type
 
 ```typescript
@@ -20380,6 +21982,8 @@ describe('type', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#type)
+
 ### union
 
 ```typescript
@@ -20507,6 +22111,8 @@ describe('R.union - curried', () => {
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#union)
+
 ### uniq
 
 ```typescript
@@ -20626,6 +22232,8 @@ describe('uniq', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniq)
 
 ### uniqWith
 
@@ -20848,6 +22456,8 @@ describe('R.uniqWith', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqWith)
+
 ### unless
 
 ```typescript
@@ -20960,6 +22570,8 @@ describe('R.unless', () => {
 *4 failed Ramda.unless specs*
 
 > :boom: Reason for the failure: Rambda library doesn't have `R.of`
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
 
 ### update
 
@@ -21091,6 +22703,8 @@ describe('update', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#update)
+
 ### values
 
 ```typescript
@@ -21186,6 +22800,8 @@ describe('R.values', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#values)
+
 ### view
 
 ```typescript
@@ -21245,7 +22861,6 @@ import { prop } from './prop'
 import { view } from './view'
 
 const testObject = { foo : 'Led Zeppelin' }
-
 const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {
@@ -21263,11 +22878,11 @@ test('happy', () => {
 import {lens, view, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {
-  foo : 'Led Zeppelin',
+  foo: 'Led Zeppelin',
 }
 
 const fooLens = lens<Input, string, string>((x: Input) => {
@@ -21283,6 +22898,8 @@ describe('R.view', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#view)
 
 ### when
 
@@ -21378,6 +22995,8 @@ describe('R.when', () => {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#when)
 
 ### where
 
@@ -21511,6 +23130,8 @@ describe('R.where', () => {
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#where)
+
 ### whereEq
 
 ```typescript
@@ -21642,6 +23263,8 @@ describe('R.whereEq', () => {
 *2 failed Ramda.whereEq specs*
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#whereEq)
 
 ### without
 
@@ -21778,6 +23401,8 @@ describe('without', function() {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#without)
+
 ### xor
 
 ```typescript
@@ -21871,13 +23496,6 @@ test('when one argument is truthy and the other is falsy, it should return true'
   expect(xor([], null)).toEqual(true)
   expect(xor(undefined, [])).toEqual(true)
 })
-
-test.skip('returns a curried function', () => {
-  expect(xor()(true)(true)).toEqual(false)
-  expect(xor()(true)(false)).toEqual(true)
-  expect(xor()(false)(true)).toEqual(true)
-  expect(xor()(false)(false)).toEqual(false)
-})
 ```
 
 </details>
@@ -21923,6 +23541,8 @@ describe('xor', function() {
 ```
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#xor)
 
 ### zip
 
@@ -22044,6 +23664,8 @@ describe('R.zip', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zip)
+
 ### zipObj
 
 ```typescript
@@ -22160,6 +23782,8 @@ describe('R.zipObj', () => {
 
 </details>
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipObj)
+
 ### zipWith
 
 ```typescript
@@ -22245,19 +23869,23 @@ test('when second list is longer', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { zipWith } from 'rambda'
+import {zipWith} from 'rambda'
 
-const list1 = [ 1, 2 ]
-const list2 = [ 10, 20, 30 ]
+const list1 = [1, 2]
+const list2 = [10, 20, 30]
 
 describe('R.zipWith', () => {
   it('happy', () => {
-    const result = zipWith((x, y) => {
-      x // $ExpectType number
-      y // $ExpectType number
-      return `${x}-${y}`
-    }, list1, list2)
-    
+    const result = zipWith(
+      (x, y) => {
+        x // $ExpectType number
+        y // $ExpectType number
+        return `${x}-${y}`
+      },
+      list1,
+      list2
+    )
+
     result // $ExpectType string[]
   })
   it('curried', () => {
@@ -22266,7 +23894,7 @@ describe('R.zipWith', () => {
       y // $ExpectType unknown
       return `${x}-${y}`
     })(list1, list2)
-    
+
     result // $ExpectType string[]
   })
 })
@@ -22274,7 +23902,27 @@ describe('R.zipWith', () => {
 
 </details>
 
-## CHANGELOG
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
+
+## ➤ CHANGELOG
+
+6.3.0
+
+- Add `R.takeLastWhile`
+
+- Add `R.dropWhile`
+
+- Add `R.eqProps`
+
+- Add `R.dropLastWhile`
+
+- Add `R.dropRepeats`
+
+- Add `R.dropRepeatsWith`
+
+- Add `R.evolve`
+
+- Add typings for `R.takeWhile` when iterable is a string
 
 6.2.0
 
@@ -22750,7 +24398,9 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 0.7.0 Close [issue #5](https://github.com/selfrefactor/rambda/issues/5) - change name of `curry` to `partialCurry`; add new method `curry`, which works just like Ramda's `curry`
 - 0.6.2 Add separate documentation site via `docsify`
 
-## Additional info
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-changelog)
+
+## ➤ Additional info
 
 > Most influential contributors
 
@@ -22789,6 +24439,8 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 > Releases
 
 [Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-additional-info)
 
 ## My other libraries
 
