@@ -1,3 +1,7 @@
+7.0.1
+
+- Fix missing `Evolved` declaration in Typescript definition
+
 7.0.0
 
 - Rename `R.produce` to `R.produceAsync`
