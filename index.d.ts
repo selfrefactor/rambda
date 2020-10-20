@@ -62,6 +62,13 @@ type Evolve<O extends Evolvable<E>, E extends Evolver> = {
                   : O[P];
 };
 
+type Evolved<A> =
+    A extends (value: infer V) => any
+    ? V
+    : A extends Evolver
+      ? Evolvable<A>
+      : never;
+
 type EvolveNestedValue<O, E extends Evolver> =
     O extends object
     ? O extends Evolvable<E>

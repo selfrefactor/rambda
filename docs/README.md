@@ -23906,6 +23906,10 @@ describe('R.zipWith', () => {
 
 ## ➤ CHANGELOG
 
+6.3.1
+
+- Fix missing `Evolved` declaration in Typescript definition
+
 6.3.0
 
 - Add `R.takeLastWhile`
