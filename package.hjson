@@ -1,5 +1,8 @@
+const DOCSIFY = docsi init ./docs
+const NAME = rambda
+
 {
-  "name": "rambda",
+  name: {{NAME}}
   "scripts": {
     "parse": "node scripts/parse-package-json/parse-package-json",
     "new": "node scripts/add-new-method/add-new-method.js",
@@ -14,7 +17,7 @@
     "build": "maided build",
     "lint": "maided lint",
     "readme": "maided readme",
-    "docs": "docsi init ./docs,",
+    "docs": {{DOCSIFY}},
     "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "fix": "mkdir $HOME/.dts/perf -p"
   },

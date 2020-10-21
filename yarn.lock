@@ -3598,10 +3598,10 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-helpers-fn@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.7.0.tgz#9c61c1a020000c8b9b2af7be5ee2a070becb2bde"
-  integrity sha512-Fhq012cBcCY4fFK4MxnLFCl1dwZbVe0OduFM/Cs3VHTK/v6BfGkDVfeGNRtwjmULkOP0sMJFhyyrhAgaf8P5Zg==
+helpers-fn@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.8.0.tgz#d532760c5ea9d8645823c4381b1ebac7979201af"
+  integrity sha512-YeDXs1WlGj1kyT0iznmB0rysYU3m/LVPR2xq+jELf/y2OxAFMwc4LsQfyJFOq8OkEbFbuMOA0+FVeD+OuUwFhg==
   dependencies:
     benny "3.6.14"
     boxen "4.2.0"
@@ -3613,10 +3613,17 @@ helpers-fn@0.7.0:
     figures "3.2.0"
     fs-extra "9.0.1"
     gradient-string "1.2.0"
+    hjson-js "https://github.com/selfrefactor/hjson-js#1.1.0"
     log-symbols "4.0.0"
     q-i "2.0.1"
-    rambdax "6.1.0"
+    rambdax "7.0.1"
     string-fn "2.12.2"
+
+"hjson-js@git+https://github.com/selfrefactor/hjson-js.git#1.1.0":
+  version "3.2.1"
+  resolved "git+https://github.com/selfrefactor/hjson-js.git#4051a23548bb4a9f121826c05b1cb1e6f783ffde"
+  dependencies:
+    rambdax "7.0.1"
 
 hosted-git-info@^2.1.4, hosted-git-info@^2.7.1:
   version "2.8.8"
@@ -5452,15 +5459,15 @@ rambdax@5.1.0:
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-5.1.0.tgz#a232d3ab84fdad4c27bbfccdb37a8a8877f78794"
   integrity sha512-zd5gaAza8e/fnqNkroL5ebOoihB1k8mwQAj1FlWillfmGDoFDI7QD6NZygcRgQMI4R/cXK/YjdZjWiwXqatKLQ==
 
-rambdax@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-6.1.0.tgz#fcf9f129bb10931ed02b1ce2371bef1979123e7d"
-  integrity sha512-8hvhYASuwAOtC1WS0Wbw9jJg6iii1yYsBKY/4KNX0MRTv8EmkneN03a3KcDutAMZig/3IPy6+SH2TVmlKVhrHA==
+rambdax@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-7.0.1.tgz#6a1b3184abcf4cf6df5dffc27fc0d71100aa21ec"
+  integrity sha512-Xrrp45dg1PLt40LMcjfNyVDcPBndzpR2t+AXGAcc9iqU9lD9bnk/b1B+n4W5tFXoSKDmZmgckcA8ajgVzbtxGA==
 
-ramda@0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
-  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
+ramda@0.27.1:
+  version "0.27.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.1.tgz#66fc2df3ef873874ffc2da6aa8984658abacf5c9"
+  integrity sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==
 
 react-is@^16.12.0, react-is@^16.8.4:
   version "16.13.1"
