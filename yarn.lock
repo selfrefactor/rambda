@@ -3598,10 +3598,10 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-helpers-fn@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.8.0.tgz#d532760c5ea9d8645823c4381b1ebac7979201af"
-  integrity sha512-YeDXs1WlGj1kyT0iznmB0rysYU3m/LVPR2xq+jELf/y2OxAFMwc4LsQfyJFOq8OkEbFbuMOA0+FVeD+OuUwFhg==
+helpers-fn@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/helpers-fn/-/helpers-fn-0.8.1.tgz#12d946161254594ded09052faa69aafcf78287e4"
+  integrity sha512-2sDjjU5BvVxLf4sVBYGjEZeNbENFVgxO6eLqNa3cuRVt3APearKh4m0f7v4WKi/00LQnm8OuiLd4Oabk6a2MPg==
   dependencies:
     benny "3.6.14"
     boxen "4.2.0"
@@ -3613,15 +3613,15 @@ helpers-fn@0.8.0:
     figures "3.2.0"
     fs-extra "9.0.1"
     gradient-string "1.2.0"
-    hjson-js "https://github.com/selfrefactor/hjson-js#1.1.0"
+    hjson-js "https://github.com/selfrefactor/hjson-js#1.1.2"
     log-symbols "4.0.0"
     q-i "2.0.1"
     rambdax "7.0.1"
     string-fn "2.12.2"
 
-"hjson-js@git+https://github.com/selfrefactor/hjson-js.git#1.1.0":
+"hjson-js@git+https://github.com/selfrefactor/hjson-js.git#1.1.2":
   version "3.2.1"
-  resolved "git+https://github.com/selfrefactor/hjson-js.git#4051a23548bb4a9f121826c05b1cb1e6f783ffde"
+  resolved "git+https://github.com/selfrefactor/hjson-js.git#4b2cc987be6b603967888719f18c56c0118907d4"
   dependencies:
     rambdax "7.0.1"
 

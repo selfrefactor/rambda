@@ -1,10 +1,10 @@
 const DOCSIFY = docsi init ./docs
 const NAME = rambda
 const BUILD = cross-env NODE_ENV=build rollup -c files/
-const LINTJS = jest scripts/lint/lint.spec.js
-const LINTTS = cd scripts/lint-ts-files&&node lint-typings-tests.js
-const CREATEDOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
-const CREATEREADME = jest scripts/populate-readme-data/populate-readme-data.spec.js
+const LINT_JS = jest scripts/lint/lint.spec.js
+const LINT_TS = cd scripts/lint-ts-files&&node lint-typings-tests.js
+const CREATE_DOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
+const CREATE_README = jest scripts/populate-readme-data/populate-readme-data.spec.js
 const TOOLBELT = jest scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
@@ -20,18 +20,18 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     x: {{OUTX}}
 
     // It creates JSON data used afterwards by the documentation site
-    docs: {{CREATEDOCS}}
+    docs: {{CREATE_DOCS}}
 
     // It creates `README.md` file for both `Rambda` and `Rambdax` libraries
-    readme: {{CREATEREADME}}
+    readme: {{CREATE_README}}
 
     // Update `ts-toolbelt` dependency
     toolbelt: {{TOOLBELT}}
 
     // Lint all files including those in `scripts` folder
     lint: yarn lint:js&&yarn lint:ts
-    "lint:ts": {{LINTTS}}
-    "lint:js": {{LINTJS}}
+    "lint:ts": {{LINT_TS}}
+    "lint:js": {{LINT_JS}}
 
     // Release
     docs: {{DOCSIFY}}
