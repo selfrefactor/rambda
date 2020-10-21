@@ -1,25 +1,56 @@
 const DOCSIFY = docsi init ./docs
 const NAME = rambda
+const BUILD = cross-env NODE_ENV=build rollup -c files/
+const LINTJS = jest scripts/lint/lint.spec.js
+const LINTTS = cd scripts/lint-ts-files&&node lint-typings-tests.js
+const CREATEDOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
+const CREATEREADME = jest scripts/populate-readme-data/populate-readme-data.spec.js
+const TOOLBELT = jest scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js
+const OUT = jest scripts/all-scripts/all-scripts.spec.js
+const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
 {
   name: {{NAME}}
   "scripts": {
-    "parse": "node scripts/parse-package-json/parse-package-json",
-    "new": "node scripts/add-new-method/add-new-method.js",
-    "test": "jest source -u --bail=false",
-    "cover:spec": "jest source --coverage --no-cache -w 1",
-    "cover": "yarn typings&&yarn cover:spec",
-    "out": "maided out",
-    "x": "maided rambdax",
-    "benchmark": "jest scripts/run-benchmarks/run-benchmarks.spec.js",
-    "benchmarkx": "jest scripts/run-benchmarks/run-complex-benchmarks.spec.js",
-    "toolbelt": "maided toolbelt",
-    "build": "maided build",
-    "lint": "maided lint",
-    "readme": "maided readme",
-    "docs": {{DOCSIFY}},
-    "typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
-    "fix": "mkdir $HOME/.dts/perf -p"
+
+    // It runs all scripts needed to prepare for `Rambda` release.
+    out: {{OUT}}
+
+    // It runs all scripts needed to prepare for `Rambdax` release.
+    x: {{OUTX}}
+
+    // It creates JSON data used afterwards by the documentation site
+    docs: {{CREATEDOCS}}
+
+    // It creates `README.md` file for both `Rambda` and `Rambdax` libraries
+    readme: {{CREATEREADME}}
+
+    // Update `ts-toolbelt` dependency
+    toolbelt: {{TOOLBELT}}
+
+    // Lint all files including those in `scripts` folder
+    lint: yarn lint:js&&yarn lint:ts
+    "lint:ts": {{LINTTS}}
+    "lint:js": {{LINTJS}}
+
+    // Release
+    docs: {{DOCSIFY}}
+    build: yarn build:main&&yarn build:web
+    "build:web": {{BUILD}} files/rollup.web.config.js
+    "build:main": {{BUILD}} files/rollup.config.js
+    
+    // HJSON
+    parse: node scripts/parse-package-json/parse-package-json
+    
+    new: node scripts/add-new-method/add-new-method.js
+    test: jest source -u --bail=false
+    
+    "cover:spec": jest source --coverage --no-cache -w 1
+    cover: yarn typings&&yarn cover:spec
+    benchmark: jest scripts/run-benchmarks/run-benchmarks.spec.js
+    benchmarkx: jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
+    typings: dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source
+    fix: "mkdir $HOME/.dts/perf -p"
   },
   "typings": "./index.d.ts",
   "main": "./dist/rambda.js",
