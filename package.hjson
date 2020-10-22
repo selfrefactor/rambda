@@ -1,6 +1,6 @@
 const DOCSIFY = docsi init ./docs
 const NAME = rambda
-const BUILD = cross-env NODE_ENV=build rollup -c files/
+const BUILD = cross-env NODE_ENV=build rollup -c
 const LINT_JS = jest scripts/lint/lint.spec.js
 const LINT_TS = cd scripts/lint-ts-files&&node lint-typings-tests.js
 const CREATE_DOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
@@ -50,41 +50,41 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     benchmark: jest scripts/run-benchmarks/run-benchmarks.spec.js
     benchmarkx: jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
     typings: dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source
-    fix: "mkdir $HOME/.dts/perf -p"
+    fix: mkdir $HOME/.dts/perf -p
   },
-  "typings": "./index.d.ts",
-  "main": "./dist/rambda.js",
-  "version": "6.3.1",
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "7.11.6",
-    "@babel/plugin-proposal-object-rest-spread": "7.11.0",
-    "@babel/preset-env": "7.11.5",
-    "@types/fs-extra": "9.0.1",
-    "@types/jest": "26.0.14",
-    "@types/ramda": "0.27.7",
-    "combinate": "1.1.1",
-    "cross-env": "7.0.2",
-    "dtslint": "4.0.4",
-    "fs-extra": "9.0.1",
-    "helpers-fn": "0.8.0",
-    "is-ci": "2.0.0",
-    "jest": "26.4.2",
-    "jest-extended": "0.11.5",
-    "lint-fn": "2.10.0",
-    "lodash": "4.17.19",
-    "rambdax": "4.1.0",
-    "ramda": "0.27.1",
-    "rollup": "2.28.2",
-    "rollup-plugin-babel": "4.4.0",
-    "rollup-plugin-cleanup": "3.2.1",
-    "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-json": "4.0.0",
-    "rollup-plugin-node-resolve": "5.2.0",
-    "rollup-plugin-replace": "2.2.0",
-    "rollup-plugin-sourcemaps": "0.6.2",
-    "string-fn": "2.12.2",
-    "typescript": "4.0.3"
+  typings: ./index.d.ts
+  main: ./dist/rambda.js
+  version: 6.3.1
+  dependencies: {}
+  devDependencies: {
+    @babel/core: 7.11.6
+    @babel/plugin-proposal-object-rest-spread: 7.11.0
+    @babel/preset-env: 7.11.5
+    @types/fs-extra: 9.0.1
+    @types/jest: 26.0.14
+    @types/ramda: 0.27.7
+    combinate: 1.1.1
+    cross-env: 7.0.2
+    dtslint: 4.0.4
+    fs-extra: 9.0.1
+    helpers-fn: 0.8.0
+    is-ci: 2.0.0
+    jest: 26.4.2
+    jest-extended: 0.11.5
+    lint-fn: 2.10.0
+    lodash: 4.17.19
+    rambdax: 4.1.0
+    ramda: 0.27.1
+    rollup: 2.28.2
+    rollup-plugin-babel: 4.4.0
+    rollup-plugin-cleanup: 3.2.1
+    rollup-plugin-commonjs: 10.1.0
+    rollup-plugin-json: 4.0.0
+    rollup-plugin-node-resolve: 5.2.0
+    rollup-plugin-replace: 2.2.0
+    rollup-plugin-sourcemaps: 0.6.2
+    string-fn: 2.12.2
+    typescript: 4.0.3
   },
   "jest": {
     "testEnvironment": "node",
