@@ -201,9 +201,10 @@ export function compareToRamda(fn, fnRamda){
 const list = [ 1, 2, 3, 4 ]
 
 export function show(input){
-  if (process.env.WALLABY === 'ON'){
-    return input
-  }
+  return String(input)
+  // if (process.env.WALLABY === 'ON' || isCI){
+  //   return input
+  // }
 
   const typeInput = type(input)
   if ([ 'Promise', 'Async' ].includes(typeInput)){
@@ -231,8 +232,7 @@ export function show(input){
   return input.toString()
 }
 
-export const getTestTitle = (...inputs) =>
-  inputs.map(x => `${ type(x) } ${ show(x) }`).join(' | ')
+export const getTestTitle = (...inputs) => inputs.map(type).join(' | ')
 
 export const compareCombinations = ({
   firstInput,

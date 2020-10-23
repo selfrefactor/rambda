@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brute force Array [] | Array [] 1`] = `
+exports[`brute force Array | Array 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -23,7 +23,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | Array [1, 2, 3, 4, 5] 1`] = `
+exports[`brute force Array | Array 2`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -50,7 +50,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | Null null 1`] = `
+exports[`brute force Array | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -71,7 +71,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | Number 1 1`] = `
+exports[`brute force Array | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -89,7 +89,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | Object {} 1`] = `
+exports[`brute force Array | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -107,7 +107,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | String foobar 1`] = `
+exports[`brute force Array | String 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -128,7 +128,7 @@ Object {
 }
 `;
 
-exports[`brute force Array [] | Undefined undefined 1`] = `
+exports[`brute force Array | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -149,7 +149,7 @@ Object {
 }
 `;
 
-exports[`brute force Function () => 0 | Null null 1`] = `
+exports[`brute force Function | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -170,64 +170,7 @@ Object {
 }
 `;
 
-exports[`brute force Function () => 0 | Number 1 1`] = `
-Object {
-  "error": Object {
-    "message": "\`iterable\` is neither list nor a string",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    1,
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Array [],
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Function () => 0 | Object {} 1`] = `
-Object {
-  "error": Object {
-    "message": "\`iterable\` is neither list nor a string",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    Object {},
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": Array [],
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Function () => 0 | Undefined undefined 1`] = `
-Object {
-  "error": Object {
-    "message": "\`iterable\` is neither list nor a string",
-    "type": "Error",
-  },
-  "inputs": Array [
-    [Function],
-    undefined,
-  ],
-  "label": "errors types are different",
-  "ok": false,
-  "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
-    "type": "TypeError",
-  },
-  "ramdaResult": "PENDING",
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Function () => true | Null null 1`] = `
+exports[`brute force Function | Null 2`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -248,7 +191,7 @@ Object {
 }
 `;
 
-exports[`brute force Function () => true | Number 1 1`] = `
+exports[`brute force Function | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -266,7 +209,25 @@ Object {
 }
 `;
 
-exports[`brute force Function () => true | Object {} 1`] = `
+exports[`brute force Function | Number 2`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    1,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -284,7 +245,25 @@ Object {
 }
 `;
 
-exports[`brute force Function () => true | Undefined undefined 1`] = `
+exports[`brute force Function | Object 2`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    Object {},
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [],
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Function | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -305,7 +284,28 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Array [] 1`] = `
+exports[`brute force Function | Undefined 2`] = `
+Object {
+  "error": Object {
+    "message": "\`iterable\` is neither list nor a string",
+    "type": "Error",
+  },
+  "inputs": Array [
+    [Function],
+    undefined,
+  ],
+  "label": "errors types are different",
+  "ok": false,
+  "ramdaError": Object {
+    "message": "Cannot read property 'dropWhile' of undefined",
+    "type": "TypeError",
+  },
+  "ramdaResult": "PENDING",
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Null | Array 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -328,7 +328,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Array [1, 2, 3, 4, 5] 1`] = `
+exports[`brute force Null | Array 2`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -355,7 +355,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Null null 1`] = `
+exports[`brute force Null | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -376,7 +376,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Number 1 1`] = `
+exports[`brute force Null | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -394,7 +394,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Object {} 1`] = `
+exports[`brute force Null | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -412,7 +412,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | String foobar 1`] = `
+exports[`brute force Null | String 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -433,7 +433,7 @@ Object {
 }
 `;
 
-exports[`brute force Null null | Undefined undefined 1`] = `
+exports[`brute force Null | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -454,7 +454,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Array [] 1`] = `
+exports[`brute force Object | Array 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -477,7 +477,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Array [1, 2, 3, 4, 5] 1`] = `
+exports[`brute force Object | Array 2`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -504,7 +504,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Null null 1`] = `
+exports[`brute force Object | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -525,7 +525,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Number 1 1`] = `
+exports[`brute force Object | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -543,7 +543,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Object {} 1`] = `
+exports[`brute force Object | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -561,7 +561,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | String foobar 1`] = `
+exports[`brute force Object | String 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -582,7 +582,7 @@ Object {
 }
 `;
 
-exports[`brute force Object {} | Undefined undefined 1`] = `
+exports[`brute force Object | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -603,7 +603,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Array [] 1`] = `
+exports[`brute force RegExp | Array 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -626,7 +626,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Array [1, 2, 3, 4, 5] 1`] = `
+exports[`brute force RegExp | Array 2`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -653,7 +653,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Null null 1`] = `
+exports[`brute force RegExp | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -674,7 +674,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Number 1 1`] = `
+exports[`brute force RegExp | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -692,7 +692,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Object {} 1`] = `
+exports[`brute force RegExp | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -710,7 +710,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | String foobar 1`] = `
+exports[`brute force RegExp | String 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -731,7 +731,7 @@ Object {
 }
 `;
 
-exports[`brute force RegExp /foo/g | Undefined undefined 1`] = `
+exports[`brute force RegExp | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -752,7 +752,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Array [] 1`] = `
+exports[`brute force Undefined | Array 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -775,7 +775,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Array [1, 2, 3, 4, 5] 1`] = `
+exports[`brute force Undefined | Array 2`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -802,7 +802,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Null null 1`] = `
+exports[`brute force Undefined | Null 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -823,7 +823,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Number 1 1`] = `
+exports[`brute force Undefined | Number 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -841,7 +841,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Object {} 1`] = `
+exports[`brute force Undefined | Object 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",
@@ -859,7 +859,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | String foobar 1`] = `
+exports[`brute force Undefined | String 1`] = `
 Object {
   "error": Object {
     "message": "predicate is not a function",
@@ -880,7 +880,7 @@ Object {
 }
 `;
 
-exports[`brute force Undefined undefined | Undefined undefined 1`] = `
+exports[`brute force Undefined | Undefined 1`] = `
 Object {
   "error": Object {
     "message": "\`iterable\` is neither list nor a string",

@@ -1,6 +1,5 @@
 import combinate from 'combinate'
 import { equals, filter, forEach, map, omit, switcher, type } from 'rambdax'
-import isCI from 'is-ci'
 
 const omitOk = omit('ok')
 
@@ -201,8 +200,8 @@ export function compareToRamda(fn, fnRamda){
 
 const list = [ 1, 2, 3, 4 ]
 
-export function show(input){
-  if (process.env.WALLABY === 'ON' || isCI){
+function show(input){
+  if (process.env.WALLABY === 'ON'){
     return input
   }
 
@@ -232,8 +231,7 @@ export function show(input){
   return input.toString()
 }
 
-export const getTestTitle = (...inputs) =>
-  inputs.map(x => `${ type(x) } ${ show(x) }`).join(' | ')
+export const getTestTitle = (...inputs) => inputs.map(type).join(' | ')
 
 export const compareCombinations = ({
   firstInput,
