@@ -1,5 +1,5 @@
 import combinate from 'combinate'
-import { equals, filter, forEach, map, omit, switcher, type } from 'rambdax'
+import { equals, filter, forEach, omit, switcher, type } from 'rambdax'
 
 const omitOk = omit('ok')
 
@@ -198,40 +198,6 @@ export function compareToRamda(fn, fnRamda){
   }
 }
 
-const list = [ 1, 2, 3, 4 ]
-
-export function show(input){
-  return String(input)
-  // if (process.env.WALLABY === 'ON' || isCI){
-  //   return input
-  // }
-
-  const typeInput = type(input)
-  if ([ 'Promise', 'Async' ].includes(typeInput)){
-    return ''
-  }
-
-  if (typeInput === 'Array'){
-    if (input.length === 0) return '[]'
-
-    return `[${ input.map(show).join(', ') }]`
-  }
-
-  if (typeInput === 'Object'){
-    if (Object.keys(input).length === 0) return '{}'
-
-    return JSON.stringify(map(show, input))
-  }
-  if ([ 'Boolean', 'Number', 'String' ].includes(typeInput)){
-    return input
-  }
-  if ([ 'Null', 'Undefined' ].includes(typeInput)){
-    return typeInput.toLowerCase()
-  }
-
-  return input.toString()
-}
-
 export const getTestTitle = (...inputs) => inputs.map(type).join(' | ')
 
 export const compareCombinations = ({
@@ -292,26 +258,3 @@ export const compareCombinations = ({
     })
   })
 }
-
-/*
-  describe("brute force", () => {
-  let counter = 0;
-
-  afterAll(() => {
-    console.log({ counter });
-  });
-
-  compareCombinations({
-    firstInput: possibleRules,
-    setCounter: () => counter++,
-    callback: errorsCounter => {
-      expect(
-        errorsCounter
-      ).toMatchInlineSnapshot()
-    },
-    secondInput: possibleIterables,
-    fn: evolve,
-    fnRamda: evolveRamda,
-  });
-});
-*/
