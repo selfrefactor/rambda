@@ -238,7 +238,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.19) and *Ramda*(0.27.1).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.20) and *Ramda*(0.27.1).
 
 </summary>
 
@@ -9911,19 +9911,13 @@ test('throws on wrong input - match ramda behaviour', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {includes} from 'ramda'
+import {includes} from 'rambda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
 
 describe('R.includes', () => {
   it('happy', () => {
     const result = includes({a: {b: '1'}}, list)
-    /*
-      should work:
-
-      const resultCurried = includes({a: {b: '1'}})(list)
-    */
-    result // $ExpectType boolean
     result // $ExpectType boolean
   })
   it('with string', () => {
@@ -23905,6 +23899,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ➤ CHANGELOG
+
+WIP 6.4.0
+
+- Upgrade all `rollup` related dependencies
+
+- Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 
 6.3.1
 

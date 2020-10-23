@@ -1,5 +1,6 @@
-const DOCSIFY = docsi init ./docs
 const NAME = rambda
+const AUTHOR = selfrefactor
+const DOCSIFY = docsi init ./docs
 const BUILD = cross-env NODE_ENV=build rollup -c
 const LINT_JS = jest scripts/lint/lint.spec.js
 const LINT_TS = cd scripts/lint-ts-files&&node lint-typings-tests.js
@@ -11,7 +12,7 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
 {
   name: {{NAME}}
-  "scripts": {
+  scripts: {
 
     // It runs all scripts needed to prepare for `Rambda` release.
     out: {{OUT}}
@@ -48,10 +49,16 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     "cover:spec": jest source --coverage --no-cache -w 1
     cover: yarn typings&&yarn cover:spec
     benchmark: jest scripts/run-benchmarks/run-benchmarks.spec.js
+
+    // Complex benchmarks - still WIP
     benchmarkx: jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
+    
     typings: dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source
+    
+    // Needed because of CI build error
     fix: mkdir $HOME/.dts/perf -p
-  },
+  }
+
   devDependencies: {
     @babel/core: 7.12.3
     @babel/plugin-proposal-object-rest-spread: 7.12.1
@@ -81,45 +88,56 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     rollup: 2.32.1
     string-fn: 2.12.2
     typescript: 4.1.0-dev.20201022
-  },
-   "jest": {
-    "testEnvironment": "node",
-    "testRegex": ".*\\.spec\\.js$",
-    "setupFilesAfterEnv": [
-      "jest-extended"
+  }
+
+  jest: {
+    testEnvironment: node
+
+    // Quotes are required as HJSON has its limits
+    testRegex: ".*\\.spec\\.js$"
+    setupFilesAfterEnv: [
+      jest-extended
     ],
-    "collectCoverageFrom": [
-      "source/*.js",
-      "!_internals",
-      "!benchmarks"
+    collectCoverageFrom: [
+      source/*.js
+      !_internals
+      !benchmarks
     ]
-  },
-    "files": [
-    "dist",
-    "src",
-    "_ts-toolbelt",
-    "index.d.ts"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/selfrefactor/rambda.git"
-  },
-  "license": "MIT",
-  "author": "self_refactor",
-  "description": "Lightweight and faster alternative to Ramda",
-  "module": "./dist/rambda.esm.js",
+  }
+
+
+  // Which files/folders are exposed as npm package
+  files: [
+    dist
+    src
+    _ts-toolbelt
+    index.d.ts
+  ]
+
+  repository: {
+    type: git
+    url: git+https://github.com/{{AUTHOR}}/{{NAME}}.git
+  }
+  
+  license: MIT
+  author: self_refactor
+  description: Lightweight and faster alternative to Ramda
+  module: ./dist/rambda.esm.js
   main: ./dist/rambda
-  "umd": "./dist/rambda.umd.js",
-  "sideEffects": false,
-  "keywords": [
-    "ramda",
-    "fp",
-    "functional",
-    "utility",
-    "lodash"
-  ],
-  "bugs": {
-    "url": "https://github.com/selfrefactor/rambda/issues"
-  },
-  "homepage": "https://github.com/selfrefactor/rambda#readme"
+  umd: ./dist/rambda.umd.js
+  sideEffects: false
+
+  keywords: [
+    ramda
+    fp
+    functional
+    utility
+    lodash
+  ]
+
+  bugs: {
+    url: https://github.com/{{AUTHOR}}/{{NAME}}/issues
+  }
+
+  homepage: https://github.com/{{AUTHOR}}/{{NAME}}#readme
 }
