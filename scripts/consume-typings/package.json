@@ -1,7 +1,7 @@
 {
   "name": "consume-typings",
   "scripts": {
-    "start": "yarn install --force&&yarn test",
+    "start": "npm install --force&&yarn test",
     "test": "tsc consume-typings.ts&&node consume-typings.js"
   },
   "main": "index.js",
