@@ -42,13 +42,13 @@ async function rambdaxBuildStep(){
     '@babel/core',
     '@babel/plugin-proposal-object-rest-spread',
     '@babel/preset-env',
+    '@rollup/plugin-babel',
+    '@rollup/plugin-commonjs',
+    '@rollup/plugin-json',
+    '@rollup/plugin-node-resolve',
+    '@rollup/plugin-replace',
     'rollup',
-    'rollup-plugin-babel',
     'rollup-plugin-cleanup',
-    'rollup-plugin-commonjs',
-    'rollup-plugin-json',
-    'rollup-plugin-node-resolve',
-    'rollup-plugin-replace',
     'rollup-plugin-sourcemaps',
   ]
 
