@@ -1,3 +1,9 @@
+WIP 6.4.0
+
+- Upgrade all `rollup` related dependencies
+
+- Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
+
 6.3.1
 
 - Fix missing `Evolved` declaration in Typescript definition

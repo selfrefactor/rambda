@@ -1,22 +1,24 @@
-const babel = require('rollup-plugin-babel')
-const cleanup = require('rollup-plugin-cleanup')
-const replace = require('rollup-plugin-replace')
-const resolve = require('rollup-plugin-node-resolve')
+import babel from '@rollup/plugin-babel';
+import cleanup from 'rollup-plugin-cleanup'
+import replace from '@rollup/plugin-replace'
+import {nodeResolve}  from '@rollup/plugin-node-resolve'
 
 const extensions = [ '.js' ]
 
 export default {
   plugins : [
     replace({ 'process.env.NODE_ENV' : JSON.stringify('production') }),
-    resolve({
+    nodeResolve({
       extensions,
+      browser: false,
       preferBuiltins : true,
     }),
     cleanup(),
-    babel({
-      extensions,
-      exclude : [ 'node_modules/**' ],
-    }),
+    babel({ 
+      babelHelpers: 'bundled',
+        extensions,
+        exclude : [ 'node_modules/**' ],
+    })
   ],
   input  : 'rambda.js',
   output : [
@@ -28,12 +30,9 @@ export default {
       file   : './dist/rambda.esm.js',
       format : 'es',
     },
-    // --experimental-modules
-    // https://github.com/ramda/ramda/pull/2678/files
-    // ============================================
-    // {
-    //   file   : './dist/rambda.mjs',
-    //   format : 'esm',
-    // },
+    {
+      file   : './dist/rambda.mjs',
+      format : 'esm',
+    },
   ],
 }
