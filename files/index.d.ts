@@ -590,7 +590,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
+export function complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
 
 /*
 Method: compose

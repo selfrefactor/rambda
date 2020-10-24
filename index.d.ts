@@ -257,7 +257,7 @@ export function clone<T>(input: readonly T[]): T[];
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
  */
-export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
+export function complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
 
 /**
  * It performs right-to-left function composition.

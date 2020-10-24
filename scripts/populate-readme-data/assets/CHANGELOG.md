@@ -4,7 +4,7 @@ WIP 6.4.0
 
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 
-- Import `R.indexBy`/`R.when`/`R.zipObj`/`R.propEq` changes from recent `@types/ramda` release.
+- Import `R.indexBy`/`R.when`/`R.zipObj`/`R.propEq`/`R.complement` changes from recent `@types/ramda` release.
 
 6.3.1
 
