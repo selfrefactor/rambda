@@ -1,3 +1,7 @@
+ R.type(Symbol()) => 'Symbol'
+
+Use release to test remove of extension in `main` prop as string-fn had issues
+
 Can R.switchem throw error in `.default` case.
 
 Add R.mapToList which takes object and returns a list

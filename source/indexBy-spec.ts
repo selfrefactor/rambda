@@ -4,16 +4,16 @@ const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
 
 describe('indexBy', () => {
   it('happy', () => {
-    const result = indexBy<any>(x => x.a.b, list)
+    const result = indexBy(x => x.a.b, list)
     const resultCurried = indexBy<any>(x => x.a.b)(list)
-    result // $ExpectType { [key: string]: any; }
-    resultCurried // $ExpectType { [key: string]: any; }
+    result.foo?.a.b // $ExpectType string | undefined
+    resultCurried // $ExpectType { [x: string]: any; }
   })
 
   it('with string', () => {
-    const result = indexBy<any>('a.b', list)
+    const result = indexBy('a.b', list)
     const resultCurried = indexBy<any>('a.b')(list)
-    result // $ExpectType { [key: string]: any; }
+    result.foo?.a.b // $ExpectType string | undefined
     resultCurried // $ExpectType { [key: string]: any; }
   })
 
@@ -30,7 +30,7 @@ describe('indexBy', () => {
       x.a // $ExpectType string
       return x.a
     })(interfaceList)
-    result // $ExpectType { [key: string]: Foo; }
-    resultCurried // $ExpectType { [key: string]: Foo; }
+    result // $ExpectType { [x: string]: Foo; }
+    resultCurried // $ExpectType { [x: string]: Foo; }
   })
 })

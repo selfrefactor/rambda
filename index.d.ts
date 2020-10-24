@@ -564,9 +564,11 @@ export function includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
  * 
  * If `condition` is a string, then all list members are passed through `R.path(condition)`.
  */
-export function indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: readonly T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 export function indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
-export function indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
 export function indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 
 /**

@@ -1584,9 +1584,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: readonly T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 export function indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
-export function indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
 export function indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 
 /*

@@ -9966,7 +9966,7 @@ describe('includes', function() {
 
 ```typescript
 
-indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T }
+indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: readonly T[]): { [key in K]: T }
 ```
 
 It generates object with properties provided by `condition` and values provided by `list` array.
@@ -10000,9 +10000,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-indexBy<T>(condition: (x: T) => string, list: readonly T[]): { [key: string]: T };
+indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: readonly T[]): { [key in K]: T };
+indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+indexBy<T, K extends string | number = string>(condition: (key: T) => K): (list: readonly T[]) => { [key in K]: T };
+indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 indexBy<T>(condition: string, list: readonly T[]): { [key: string]: T };
-indexBy<T>(condition: (x: T) => string): (list: readonly T[]) => { [key: string]: T };
 indexBy<T>(condition: string): (list: readonly T[]) => { [key: string]: T };
 ```
 
@@ -10137,16 +10139,16 @@ const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
 
 describe('indexBy', () => {
   it('happy', () => {
-    const result = indexBy<any>(x => x.a.b, list)
+    const result = indexBy(x => x.a.b, list)
     const resultCurried = indexBy<any>(x => x.a.b)(list)
-    result // $ExpectType { [key: string]: any; }
-    resultCurried // $ExpectType { [key: string]: any; }
+    result.foo?.a.b // $ExpectType string | undefined
+    resultCurried // $ExpectType { [x: string]: any; }
   })
 
   it('with string', () => {
-    const result = indexBy<any>('a.b', list)
+    const result = indexBy('a.b', list)
     const resultCurried = indexBy<any>('a.b')(list)
-    result // $ExpectType { [key: string]: any; }
+    result.foo?.a.b // $ExpectType string | undefined
     resultCurried // $ExpectType { [key: string]: any; }
   })
 
@@ -10163,8 +10165,8 @@ describe('indexBy', () => {
       x.a // $ExpectType string
       return x.a
     })(interfaceList)
-    result // $ExpectType { [key: string]: Foo; }
-    resultCurried // $ExpectType { [key: string]: Foo; }
+    result // $ExpectType { [x: string]: Foo; }
+    resultCurried // $ExpectType { [x: string]: Foo; }
   })
 })
 ```
@@ -23906,6 +23908,8 @@ WIP 6.4.0
 - Upgrade all `rollup` related dependencies
 
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
+
+- Import `R.indexBy` changes from recent `@types/ramda` release.
 
 6.3.1
 
