@@ -17170,7 +17170,7 @@ describe('R.prop', () => {
 
 ```typescript
 
-propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean
+propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -17196,11 +17196,11 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
-propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
-propEq<T, K extends keyof T>(propToFind: K): {
-   (valueToMatch: T[K], obj: T): boolean;
-   (valueToMatch: T[K]): (obj: T) => boolean;
+propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
+propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
+propEq<K extends string | number>(propToFind: K): {
+  (valueToMatch: any, obj: Record<K, any>): boolean;
+  (valueToMatch: any): (obj: Record<K, any>) => boolean;
 };
 ```
 
@@ -17263,10 +17263,12 @@ describe('R.propEq', () => {
     const result = propEq(property, value, obj)
     result // $ExpectType boolean
   })
+
   it('number is property', () => {
     const result = propEq(1, value, objWithNumberIndex)
     result // $ExpectType boolean
   })
+
   it('with optional property', () => {
     interface MyType {
       optional?: string | number,
@@ -17274,11 +17276,26 @@ describe('R.propEq', () => {
 
     const myObject: MyType = {}
     const valueToFind = '1111'
-    const optionalValueToFind: string | number | undefined = '1111'
-    const result = propEq('optional', valueToFind, myObject)
-    const result2 = propEq('optional', optionalValueToFind, myObject)
+    // $ExpectError
+    propEq('optional', valueToFind, myObject)
+
+    // $ExpectError
+    propEq('optional', valueToFind, myObject)
+  })
+
+  it('imported from @types/ramda', () => {
+    interface A {
+      foo: string | null;
+    }
+    const obj: A = {
+      foo: 'bar',
+    };
+    const value = '';
+    const result = propEq('foo', value)(obj);
     result // $ExpectType boolean
-    result2 // $ExpectType boolean
+    
+    // $ExpectError
+    propEq('bar', value)(obj);
   })
 })
 ```
@@ -23667,7 +23684,7 @@ describe('R.zip', () => {
 
 ```typescript
 
-zipObj<T>(keys: string[], values: T[]): { [index: string]: T }
+zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T }
 ```
 
 It will return a new object with keys of `keys` array and values of `values` array.
@@ -23690,8 +23707,10 @@ R.zipObj(keys, [1, 2])
 <summary>All Typescript definitions</summary>
 
 ```typescript
-zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
-zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
+zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+zipObj<K extends string>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
 ```
 
 </details>
@@ -23771,8 +23790,15 @@ import {zipObj} from 'rambda'
 
 describe('R.zipObj', () => {
   it('happy', () => {
-    const result = zipObj(['a', 'b', 'c', 'd', 'e', 'f'], [1, 2, 3])
-    result // $ExpectType { [index: string]: number; }
+    // this is wrong since `@types/ramda` changes are imported 24.10.2020
+    const result = zipObj(['a', 'b', 'c', 'd'], [1, 2, 3])
+    result // $ExpectType { b: number; a: number; c: number; d: number; }
+  })
+  it('imported from @types/ramda', () => {
+    const result = zipObj(['a', 'b', 'c'], [1, 2, 3]);
+    const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3]);
+    result // $ExpectType { b: number; a: number; c: number; }
+    curriedResult // $ExpectType { b: number; a: number; c: number; }
   })
 })
 ```
@@ -23909,7 +23935,7 @@ WIP 6.4.0
 
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 
-- Import `R.indexBy`/`R.when` changes from recent `@types/ramda` release.
+- Import `R.indexBy`/`R.when`/`R.zipObj`/`R.propEq` changes from recent `@types/ramda` release.
 
 6.3.1
 

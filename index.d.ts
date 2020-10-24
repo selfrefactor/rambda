@@ -1156,11 +1156,11 @@ export function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K], obj: T): boolean;
-export function propEq<T, K extends keyof T>(propToFind: K, valueToMatch: T[K]): (obj: T) => boolean;
-export function propEq<T, K extends keyof T>(propToFind: K): {
-   (valueToMatch: T[K], obj: T): boolean;
-   (valueToMatch: T[K]): (obj: T) => boolean;
+export function propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
+export function propEq<K extends string | number>(propToFind: K): {
+  (valueToMatch: any, obj: Record<K, any>): boolean;
+  (valueToMatch: any): (obj: Record<K, any>) => boolean;
 };
 
 /**
@@ -1442,8 +1442,10 @@ export function zip<K>(x: readonly K[]): <V>(y: readonly V[]) => KeyValuePair<K,
 /**
  * It will return a new object with keys of `keys` array and values of `values` array.
  */
-export function zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
-export function zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
+export function zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends string>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+export function zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
 
 /**
  * It takes list with properties `propsToPick` and returns a list with property values in `obj`.

@@ -11,10 +11,12 @@ describe('R.propEq', () => {
     const result = propEq(property, value, obj)
     result // $ExpectType boolean
   })
+
   it('number is property', () => {
     const result = propEq(1, value, objWithNumberIndex)
     result // $ExpectType boolean
   })
+
   it('with optional property', () => {
     interface MyType {
       optional?: string | number,
@@ -22,10 +24,25 @@ describe('R.propEq', () => {
 
     const myObject: MyType = {}
     const valueToFind = '1111'
-    const optionalValueToFind: string | number | undefined = '1111'
-    const result = propEq('optional', valueToFind, myObject)
-    const result2 = propEq('optional', optionalValueToFind, myObject)
+    // $ExpectError
+    propEq('optional', valueToFind, myObject)
+
+    // $ExpectError
+    propEq('optional', valueToFind, myObject)
+  })
+
+  it('imported from @types/ramda', () => {
+    interface A {
+      foo: string | null;
+    }
+    const obj: A = {
+      foo: 'bar',
+    };
+    const value = '';
+    const result = propEq('foo', value)(obj);
     result // $ExpectType boolean
-    result2 // $ExpectType boolean
+    
+    // $ExpectError
+    propEq('bar', value)(obj);
   })
 })
