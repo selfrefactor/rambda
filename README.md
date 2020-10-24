@@ -22902,7 +22902,7 @@ describe('R.view', () => {
 
 ```typescript
 
-when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U
 ```
 
 <details>
@@ -22910,9 +22910,9 @@ when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U
 <summary>All Typescript definitions</summary>
 
 ```typescript
-when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): U;
-when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => U;
-when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => U>;
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
+when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
+when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => T | U>;
 ```
 
 </details>
@@ -22964,29 +22964,29 @@ test('happy', () => {
 import {when} from 'rambda'
 
 const predicate = (x: number) => x > 2
-const whenTrueFn = (x: number) => x + 2
+const whenTrueFn = (x: number) => String(x)
 
 describe('R.when', () => {
   it('happy', () => {
     const result = when(predicate, whenTrueFn, 1)
-    result // $ExpectType number
+    result // $ExpectType string | 1
   })
 
   it('curry 1', () => {
     const fn = when(predicate, whenTrueFn)
     const result = fn(1)
-    result // $ExpectType number
+    result // $ExpectType string | number
   })
 
   it('curry 2 require explicit types', () => {
-    const fn = when<number, number>(predicate)(whenTrueFn)
+    const fn = when<number, string>(predicate)(whenTrueFn)
     const result = fn(1)
-    result // $ExpectType number
+    result // $ExpectType string | number
   })
 
   it('curry 3 require explicit types', () => {
-    const result = when<number, number>(predicate)(whenTrueFn, 1)
-    result // $ExpectType number
+    const result = when<number, string>(predicate)(whenTrueFn, 1)
+    result // $ExpectType string | number
   })
 })
 ```
@@ -23909,7 +23909,7 @@ WIP 6.4.0
 
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 
-- Import `R.indexBy` changes from recent `@types/ramda` release.
+- Import `R.indexBy`/`R.when` changes from recent `@types/ramda` release.
 
 6.3.1
 
