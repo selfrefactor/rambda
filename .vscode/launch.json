@@ -19,13 +19,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run build script",
+      "name": "Debug a script",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
         "-i", 
         "--no-cache",
-        "scripts/all-scripts/all-scripts.spec.js"
+        "scripts/verify-used-by/verify-used-by.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

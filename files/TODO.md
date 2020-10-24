@@ -1,3 +1,9 @@
+Can R.switchem throw error in `.default` case.
+
+Add R.mapToList which takes object and returns a list
+
+Fix `this` issue explained in `rambda-docs`
+
 Add explanation to missing Ramda methods
 
 Improve R.produce typings
