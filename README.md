@@ -358,11 +358,10 @@ add(a: number): (b: number) => number;
 <summary><strong>R.add</strong> source</summary>
 
 ```javascript
-export function add(a, b) {
-  if (arguments.length === 1)
-    return (_b) => add(a, _b);
+export function add(a, b){
+  if (arguments.length === 1) return _b => add(a, _b)
 
-  return Number(a) + Number(b);
+  return Number(a) + Number(b)
 }
 ```
 
@@ -7165,7 +7164,7 @@ export function F(){
 
 ```typescript
 
-filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[]
+filter<T>(predicate: Predicate<T>): (input: readonly T[]) => T[]
 ```
 
 It filters list or object `input` using a `predicate` function.
@@ -7191,10 +7190,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[];
-filter<T>(predicate: FilterFunctionArray<T>, input: readonly T[]): T[];
-filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+filter<T>(predicate: Predicate<T>): (input: readonly T[]) => T[];
+filter<T>(predicate: Predicate<T>, input: readonly T[]): T[];
+filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 ```
 
 </details>
@@ -8224,7 +8223,7 @@ describe('flip properties', function() {
 
 ```typescript
 
-forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[]
+forEach<T>(fn: Iterator<T, void>, list: readonly T[]): T[]
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
@@ -8248,10 +8247,10 @@ result //=> [1, 2]
 <summary>All Typescript definitions</summary>
 
 ```typescript
-forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[];
-forEach<T>(fn: MapFunctionArray<T, void>): (list: readonly T[]) => T[];
-forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
-forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+forEach<T>(fn: Iterator<T, void>, list: readonly T[]): T[];
+forEach<T>(fn: Iterator<T, void>): (list: readonly T[]) => T[];
+forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
+forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 ```
 
 </details>
@@ -12144,7 +12143,7 @@ describe('R.lensProp', () => {
 
 ```typescript
 
-map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>
+map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>
 ```
 
 It returns the result of looping through `iterable` with `fn`.
@@ -12176,12 +12175,12 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-map<T, U>(fn: MapIterator<T, U>, iterable: readonly T[]): U[];
-map<T, U>(fn: MapIterator<T, U>): (iterable: readonly T[]) => U[];
-map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-map<T>(fn: MapIterator<T, T>): (iterable: readonly T[]) => T[];
-map<T>(fn: MapIterator<T, T>, iterable: readonly T[]): T[];
+map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+map<T, U>(fn: Iterator<T, U>, iterable: readonly T[]): U[];
+map<T, U>(fn: Iterator<T, U>): (iterable: readonly T[]) => U[];
+map<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+map<T>(fn: Iterator<T, T>): (iterable: readonly T[]) => T[];
+map<T>(fn: Iterator<T, T>, iterable: readonly T[]): T[];
 ```
 
 </details>
@@ -18041,7 +18040,7 @@ describe('reduce', function() {
 
 ```typescript
 
-reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[]
+reject<T>(predicate: Predicate<T>, list: readonly T[]): T[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -18065,10 +18064,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[];
-reject<T>(predicate: FilterFunctionArray<T>): (list: readonly T[]) => T[];
-reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
-reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
+reject<T>(predicate: Predicate<T>, list: readonly T[]): T[];
+reject<T>(predicate: Predicate<T>): (list: readonly T[]) => T[];
+reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
+reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
 ```
 
 </details>

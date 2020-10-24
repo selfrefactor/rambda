@@ -2,22 +2,16 @@ import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from ".
 
 type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise";
 
-type FilterFunctionArray<T> = (x: T) => boolean;
-type FilterPredicateIndexed<T> = (x: T, i: number) => boolean;
-type FilterFunctionObject<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
-type MapFunctionObject<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
-type MapFunctionArray<T, U> = (x: T) => U;
-type MapFunctionArrayIndexed<T, U> = (x: T, i: number) => U;
-type MapIterator<T, U> = (x: T) => U;
-type MapIndexedIterator<T, U> = (x: T, i: number) => U;
-
-type SimplePredicate<T> = (x: T) => boolean;
-
 type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
+type IndexedIterator<T, U> = (x: T, i: number) => U;
+type Iterator<T, U> = (x: T) => U;
+type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
-
 type Path = string | readonly (number | string)[];
+type Predicate<T> = (x: T) => boolean;
+type IndexedPredicate<T> = (x: T, i: number) => boolean;
+type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type RamdaPath = readonly (number | string)[];
 
 type ValueOfRecord<R> =
@@ -29,24 +23,20 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   0: K;
   1: V;
 }
+
 interface Lens {
   <T, U>(obj: T): U;
   set<T, U>(str: string, obj: T): U;
 }
-type Arity1Fn = (a: any) => any;
 
-type Arity2Fn = (a: any, b: any) => any;
+type Arity1Fn = (x: any) => any;
+type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: readonly any[]) => boolean;
-type Predicate<T> = (input: T) => boolean;
 type SafePred<T> = (...x: readonly T[]) => boolean;
 
-interface Dictionary<T> {
-  [index: string]: T;
-}
-type Partial<T> = {
-  [P in keyof T]?: T[P];
-};
+interface Dictionary<T> {[index: string]: T}
+type Partial<T> = { [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = {
   [P in keyof E]?: Evolved<E[P]>;
@@ -95,23 +85,7 @@ interface AssocPartialOne<K extends keyof any> {
 type Func<T> = (input: any) => T;
 type VoidInputFunc<T> = () => T;
 type Fn<In, Out> = (x: In) => Out;
-type FnTwo<In, Out> = (x: In, y: In) => Out;
-type MapFn<In, Out> = (x: In, index: number) => Out;
-
-type FilterFunction<T> = (x: T, prop?: string, inputObj?: object) => boolean;
-type PartitionPredicate<T> = (x: T, prop?: string) => boolean;
-type MapFunction<In, Out> = (x: In, prop?: string, inputObj?: object) => Out;
 type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
-
-interface MapInterface<T> {
-  (list: T[]): T[];
-  (obj: Dictionary<T>): Dictionary<T>;
-}
-
-interface HeadObject<T> {
-  prop: string;
-  value: T;
-}
 
 type IdentityFunction<T> = (x: T) => T;
 
@@ -121,17 +95,11 @@ interface Filter<T> {
 }
 
 type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
-
 type isfn<T> = (x: any, y: any) => T;
 
 interface Switchem<T> {
   is: isfn<Switchem<T>>;
   default: IdentityFunction<T>;
-}
-
-interface Reduced {
-  [index: number]: any;
-  [index: string]: any;
 }
 
 interface Schema {
@@ -154,11 +122,11 @@ interface IsValidAsync {
 
 type ProduceRules<Output,K extends keyof Output, Input> = {
   [P in K]: (input: Input) => Output[P];
-}
+};
 type ProduceAsyncRules<Output,K extends keyof Output, Input> = {
   [P in K]: (input: Input) => Promise<Output[P]>;
-}
-type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
+};
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>;
 type Async<T> = (x: any) => Promise<T>;
 type AsyncIterable<T, K> = (x: T) => Promise<K>;
 type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
@@ -166,11 +134,11 @@ type AsyncPredicate<T> = (x: T) => Promise<boolean>;
 type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
-type ApplyDiffUpdate = {op:'update', path: string, value: any}
-type ApplyDiffAdd = {op:'add', path: string, value: any}
-type ApplyDiffRemove = {op:'remove', path: string}
-type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove
-export const DELAY: 'RAMBDAX_DELAY'
+type ApplyDiffUpdate = {op:'update', path: string, value: any};
+type ApplyDiffAdd = {op:'add', path: string, value: any};
+type ApplyDiffRemove = {op:'remove', path: string};
+type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
+export const DELAY: 'RAMBDAX_DELAY';
 
 
 /**
@@ -447,10 +415,10 @@ export function F(): boolean;
 /**
  * It filters list or object `input` using a `predicate` function.
  */
-export function filter<T>(predicate: FilterFunctionArray<T>): (input: readonly T[]) => T[];
-export function filter<T>(predicate: FilterFunctionArray<T>, input: readonly T[]): T[];
-export function filter<T, U>(predicate: FilterFunctionObject<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filter<T>(predicate: FilterFunctionObject<T>, x: Dictionary<T>): Dictionary<T>;
+export function filter<T>(predicate: Predicate<T>): (input: readonly T[]) => T[];
+export function filter<T>(predicate: Predicate<T>, input: readonly T[]): T[];
+export function filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /**
  * It returns the first element of `list` that satisfy the `predicate`.
@@ -498,10 +466,10 @@ export function flip<F extends (...args: any) => any, P extends FunctionToolbelt
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
  */
-export function forEach<T>(fn: MapFunctionArray<T, void>, list: readonly T[]): T[];
-export function forEach<T>(fn: MapFunctionArray<T, void>): (list: readonly T[]) => T[];
-export function forEach<T>(fn: MapFunctionObject<T, void>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T, U>(fn: MapFunctionObject<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: Iterator<T, void>, list: readonly T[]): T[];
+export function forEach<T>(fn: Iterator<T, void>): (list: readonly T[]) => T[];
+export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /**
  * It transforms a `listOfPairs` to an object.
@@ -733,12 +701,12 @@ export function view<T, U>(lens: Lens, target: T): U;
  * 
  * It works with both array and object.
  */
-export function map<T, U>(fn: MapFunctionObject<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: MapIterator<T, U>, iterable: readonly T[]): U[];
-export function map<T, U>(fn: MapIterator<T, U>): (iterable: readonly T[]) => U[];
-export function map<T, U, S>(fn: MapFunctionObject<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: MapIterator<T, T>): (iterable: readonly T[]) => T[];
-export function map<T>(fn: MapIterator<T, T>, iterable: readonly T[]): T[];
+export function map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function map<T, U>(fn: Iterator<T, U>, iterable: readonly T[]): U[];
+export function map<T, U>(fn: Iterator<T, U>): (iterable: readonly T[]) => U[];
+export function map<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function map<T>(fn: Iterator<T, T>): (iterable: readonly T[]) => T[];
+export function map<T>(fn: Iterator<T, T>, iterable: readonly T[]): T[];
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -1224,10 +1192,10 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: numb
 /**
  * It has the opposite effect of `R.filter`.
  */
-export function reject<T>(predicate: FilterFunctionArray<T>, list: readonly T[]): T[];
-export function reject<T>(predicate: FilterFunctionArray<T>): (list: readonly T[]) => T[];
-export function reject<T>(predicate: FilterFunctionArray<T>, obj: Dictionary<T>): Dictionary<T>;
-export function reject<T, U>(predicate: FilterFunctionArray<T>): (obj: Dictionary<T>) => Dictionary<T>;
+export function reject<T>(predicate: Predicate<T>, list: readonly T[]): T[];
+export function reject<T>(predicate: Predicate<T>): (list: readonly T[]) => T[];
+export function reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
 export function repeat<T>(x: T, timesToRepeat: number): T[];
