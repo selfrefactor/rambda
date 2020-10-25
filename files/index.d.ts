@@ -4135,7 +4135,7 @@ Notes: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
 
 */
 // @SINGLE_MARKER
-export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
+export function type(x: any): RambdaTypes;
 
 /*
 Method: union

@@ -21756,7 +21756,7 @@ describe('R.tryCatch', () => {
 
 ```typescript
 
-type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN"
+type(x: any): RambdaTypes
 ```
 
 It accepts any input and it returns its type.
@@ -21790,7 +21790,7 @@ R.type(delay) // => 'Promise'
 <summary>All Typescript definitions</summary>
 
 ```typescript
-type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
+type(x: any): RambdaTypes;
 ```
 
 </details>

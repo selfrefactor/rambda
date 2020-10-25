@@ -1362,7 +1362,7 @@ export function tryCatch<T>(
 /**
  * It accepts any input and it returns its type.
  */
-export function type(x: any): "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "Function" | "Undefined" | "Async" | "Promise" | "RegExp" | "NaN";
+export function type(x: any): RambdaTypes;
 
 /**
  * It takes two lists and return a new list containing a merger of both list with removed duplicates.
