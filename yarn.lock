@@ -5807,10 +5807,10 @@ string-fn@2.12.2:
   dependencies:
     rambdax "3.7.0"
 
-string-fn@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-3.0.1.tgz#555485abceae57a653f1b4a1d49f6017c0cbb781"
-  integrity sha512-mQxd5r2PkWp+xqnA+g5xe+UryjL+PDVYJeKX7TmBMVlj3Y4MztrRjkq4CYxaKipAqb3f2CrAPn329XppFotOlA==
+string-fn@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/string-fn/-/string-fn-3.0.2.tgz#cc0d4de6316d10cb3018bf638d45ad2d0cb957ee"
+  integrity sha512-shj5alzeQipmImTuGsY+u7em+QV5FOyGpVkg5mKH8KtHVp+nY98YHEalXs9dTCUk/QCW094ffOYr+uBmYlpdHg==
   dependencies:
     rambdax "7.0.1"
 

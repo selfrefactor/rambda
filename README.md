@@ -21817,6 +21817,8 @@ export function type(input){
     return 'String'
   } else if (_isArray(input)){
     return 'Array'
+  } else if (typeOf === 'symbol'){
+    return 'Symbol'
   } else if (input instanceof RegExp){
     return 'RegExp'
   }
@@ -21844,6 +21846,10 @@ export function type(input){
 import { type as ramdaType } from 'ramda'
 
 import { type } from './type'
+
+test('with symbol', () => {
+  expect(type(Symbol())).toBe('Symbol')
+})
 
 test('with simple promise', () => {
   expect(type(Promise.resolve(1))).toBe('Promise')
@@ -23932,6 +23938,8 @@ describe('R.zipWith', () => {
 WIP 6.4.0
 
 - Upgrade all `rollup` related dependencies
+
+- `R.type` supports `Symbol` just like *Ramda*.
 
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 

@@ -15,6 +15,8 @@ export function type(input){
     return 'String'
   } else if (_isArray(input)){
     return 'Array'
+  } else if (typeOf === 'symbol'){
+    return 'Symbol'
   } else if (input instanceof RegExp){
     return 'RegExp'
   }
