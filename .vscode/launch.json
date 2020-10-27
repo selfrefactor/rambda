@@ -4,13 +4,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run single method test",
+      "name": "Jest",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/interpolate.spec.js"
+        "source/tryCatchAsync.spec.js"
       ],
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",

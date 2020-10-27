@@ -6663,6 +6663,40 @@ Notes:
 // @SINGLE_MARKER
 export function produce<T>(x: T): T;
 
+/*
+Method: tryCatchAsync
+
+Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
+
+Example:
+
+```
+const x = {foo: 1}
+const fnFoo = async () => x.foo
+const fnBar = async () => x.bar
+
+const result = await Promise.all([
+  R.tryCatchAsync (fnFoo, false)(),
+  R.tryCatchAsync(fnBar, false)()
+])
+// => [1, false]
+```
+
+Categories: Async, Function
+
+Notes: Please check the tests of `R.tryCatchAsync` to fully understand how this method works.
+
+*/
+// @SINGLE_MARKER
+export function tryCatchAsync<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: T
+): (input: any) => Promise<T>;
+export function tryCatchAsync<T>(
+  fn: (input: any) => Promise<any>,
+  fallback: (input: any) => Promise<any>,
+): (input: any) => Promise<T>;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
