@@ -321,8 +321,6 @@ method | Rambda | Ramda | Lodash
 
 - [MineFlayer plugin](https://github.com/G07cha/MineflayerArmorManager)
 
-- [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk) - This repo doesn't uses `Rambda` since *October/2020* but it remains in this list because of SAP's authority. [commit that removes Rambda](https://github.com/SAP/cloud-sdk/commit/b29b4f915c4e4e9c2441e7b6b67cf83dac1fdac3)
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-used-by)
 
 ## API
@@ -21566,6 +21564,17 @@ import { delay } from './delay'
 import { prop } from './prop'
 import { tryCatch } from './tryCatch'
 
+test.only('happy', async () => {
+  async function download(url, dir){
+    await delay(100)
+    JSON.parse('0}')
+  }
+  const result = await tryCatch(async () => download('url', 'outputDir'),
+    () => true)()
+  console.log(result)
+  // expect(result).toEqual(expected)
+})
+
 test('throws when fn is not function', () => {
   const fn = 'foo'
 
@@ -24478,6 +24487,10 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
 
 - [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
+
+> Deprecated from `Used by` section
+
+- [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk) - This repo doesn't uses `Rambda` since *October/2020* [commit that removes Rambda](https://github.com/SAP/cloud-sdk/commit/b29b4f915c4e4e9c2441e7b6b67cf83dac1fdac3)
 
 > Releases
 

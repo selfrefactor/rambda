@@ -40,6 +40,10 @@ function getAdditionalInfo(){
 
 - [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
 
+> Deprecated from \`Used by\` section
+
+- [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk) - This repo doesn't uses \`Rambda\` since *October/2020* [commit that removes Rambda](https://github.com/SAP/cloud-sdk/commit/b29b4f915c4e4e9c2441e7b6b67cf83dac1fdac3)
+
 > Releases
 
 [Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.

@@ -1,3 +1,7 @@
+WIP 7.1.0
+
+Add `R.tryCatchAsync`
+
 7.0.1
 
 - Fix missing `Evolved` declaration in Typescript definition
