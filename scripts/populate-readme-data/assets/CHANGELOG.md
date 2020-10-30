@@ -8,6 +8,8 @@ WIP 6.4.0
 
 - Import `R.indexBy`/`R.when`/`R.zipObj`/`R.propEq`/`R.complement` changes from recent `@types/ramda` release.
 
+- `R.tryCatch` stop supporting asynchronous functions; the previous behaviour is exported to *Rambdax* as `R.tryCatchAsync`
+
 6.3.1
 
 - Fix missing `Evolved` declaration in Typescript definition
