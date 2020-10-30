@@ -67,11 +67,15 @@ function executeSync(
   }
 }
 
-async function executeAsync(fn, inputs){
+async function executeAsync(
+  fn, inputs, returnsFunctionFlag
+){
   let result = PENDING
   let error = { ok : false }
   try {
-    result = await fn(...inputs)
+    result = returnsFunctionFlag ?
+      await fn(...init(inputs))(last(inputs)) :
+      await fn(...inputs)
   } catch (e){
     error = parseError(e)
   }
@@ -82,12 +86,13 @@ async function executeAsync(fn, inputs){
   }
 }
 
-export function profileMethod(
+export function profileMethod({
   firstInput,
   secondInput = undefined,
   thirdInput = undefined,
-  fn
-){
+  returnsFunctionFlag = false,
+  fn,
+}){
   const combinationsInput = filter(Boolean, {
     firstInput,
     secondInput,
@@ -104,7 +109,9 @@ export function profileMethod(
     ].filter((_, i) => i < inputKeys.length)
 
     test(getTestTitle(...inputs), () => {
-      const { result, error } = executeSync(fn, inputs)
+      const { result, error } = executeSync(
+        fn, inputs, returnsFunctionFlag
+      )
 
       expect({
         result,
@@ -119,6 +126,7 @@ export function profileMethodAsync({
   firstInput,
   secondInput = undefined,
   thirdInput = undefined,
+  returnsFunctionFlag = false,
   fn,
 }){
   const combinationsInput = filter(Boolean, {
@@ -136,7 +144,11 @@ export function profileMethodAsync({
       combination.thirdInput,
     ].filter((_, i) => i < inputKeys.length)
     test(getTestTitle(...inputs), async () => {
-      const { result, error } = await executeAsync(fn, inputs)
+      const { result, error } = await executeAsync(
+        fn,
+        inputs,
+        returnsFunctionFlag
+      )
 
       expect({
         result,
@@ -151,7 +163,9 @@ export function compareToRamda(
   fn, fnRamda, returnsFunctionFlag
 ){
   return (...inputs) => {
-    const { result, error } = executeSync(fn, inputs)
+    const { result, error } = executeSync(
+      fn, inputs, returnsFunctionFlag
+    )
     const { result: ramdaResult, error: ramdaError } = executeSync(
       fnRamda,
       inputs,
@@ -270,6 +284,10 @@ export const compareCombinations = ({
       setCounter()
 
       if (!compared.ok){
+        // if (compared.label === RESULTS_MISMATCH){
+        //   const log = {combination, }
+        //   console.log(log);
+        // }
         increaseCounter(compared)
         expect({
           ...compared,

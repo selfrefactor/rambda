@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/tryCatchAsync.spec.js"
+        "source/tryCatch.spec.js"
       ],
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",
