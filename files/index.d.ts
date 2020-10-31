@@ -516,7 +516,7 @@ export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0)
 /*
 Method: clamp
 
-Explanation: Restrict a number `input` to be withing `min` and `max` limits.
+Explanation: Restrict a number `input` to be within `min` and `max` limits.
 
 If `input` is bigger than `max`, then the result is `max`.
 
@@ -525,9 +525,12 @@ If `input` is smaller than `min`, then the result is `min`.
 Example:
 
 ```
-R.clamp(0, 10, 5) //=> 5
-R.clamp(0, 10, -1) //=> 0
-R.clamp(0, 10, 11) //=> 10
+const result = [
+  R.clamp(0, 10, 5), 
+  R.clamp(0, 10, -1),
+  R.clamp(0, 10, 11)
+]
+//=> [5, 0, 10]
 ```
 
 Categories: Other
