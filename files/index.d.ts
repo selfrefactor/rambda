@@ -138,7 +138,6 @@ type ApplyDiffUpdate = {op:'update', path: string, value: any};
 type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
-export const DELAY: 'RAMBDAX_DELAY';
 
 // API_MARKER
 
@@ -533,7 +532,7 @@ const result = [
 //=> [5, 0, 10]
 ```
 
-Categories: Other
+Categories: Math
 
 Notes:
 
@@ -5892,7 +5891,7 @@ const rules = {
   a: {b: add(3)}
 }
 const input = i
-const result = await R.produce(rules, input)
+const result = R.produce(rules, input)
 
 const expected = {
   foo: 4,
@@ -6699,6 +6698,8 @@ export function tryCatchAsync<T>(
   fn: (input: any) => Promise<any>,
   fallback: (input: any) => Promise<any>,
 ): (input: any) => Promise<T>;
+
+export const DELAY: 'RAMBDAX_DELAY';
 
 // RAMBDAX_MARKER_END
 // ============================================

@@ -138,7 +138,6 @@ type ApplyDiffUpdate = {op:'update', path: string, value: any};
 type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
-export const DELAY: 'RAMBDAX_DELAY';
 
 
 /**
@@ -237,7 +236,7 @@ export function chain<T, U>(fn: (n: T) => U[]): (list: readonly T[]) => U[];
 export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
- * Restrict a number `input` to be withing `min` and `max` limits.
+ * Restrict a number `input` to be within `min` and `max` limits.
  * 
  * If `input` is bigger than `max`, then the result is `max`.
  * 

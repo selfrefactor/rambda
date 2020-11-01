@@ -13,12 +13,12 @@ test("when fallback throws", async () => {
     return x.x;
   };
   const fallback = async (err, xx) => {
-    return xx.x;
+    return xx.y;
   };
 
   const result = await tryCatchAsync(fn, fallback)(null);
   expect(result.message).toMatchInlineSnapshot(
-    `"Cannot read property 'x' of null"`
+    `"Cannot read property 'y' of null"`
   );
 });
 

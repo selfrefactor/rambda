@@ -1,5 +1,4 @@
 import { isFunction } from './isFunction'
-import { isPromise } from './isPromise'
 
 export function tryCatch(fn, fallback){
   if (!isFunction(fn)){
@@ -7,7 +6,6 @@ export function tryCatch(fn, fallback){
   }
   const passFallback = isFunction(fallback)
 
-  if (!isPromise(fn)){
     return (...inputs) => {
       try {
         return fn(...inputs)
@@ -15,22 +13,4 @@ export function tryCatch(fn, fallback){
         return passFallback ? fallback(e, ...inputs) : fallback
       }
     }
-  }
-
-  return (...inputs) =>
-    new Promise(resolve => {
-      fn(...inputs)
-        .then(resolve)
-        .catch(() => {
-          if (!passFallback){
-            return resolve(fallback)
-          }
-
-          if (!isPromise(fallback)){
-            return resolve(fallback(...inputs))
-          }
-
-          fallback(...inputs).then(resolve)
-        })
-    })
 }

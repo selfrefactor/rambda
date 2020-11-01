@@ -2544,19 +2544,22 @@ describe('R.chain', () => {
 clamp(min: number, max: number, input: number): number
 ```
 
-Restrict a number `input` to be withing `min` and `max` limits.
+Restrict a number `input` to be within `min` and `max` limits.
 
 If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
 ```javascript
-R.clamp(0, 10, 5) //=> 5
-R.clamp(0, 10, -1) //=> 0
-R.clamp(0, 10, 11) //=> 10
+const result = [
+  R.clamp(0, 10, 5), 
+  R.clamp(0, 10, -1),
+  R.clamp(0, 10, 11)
+]
+//=> [5, 0, 10]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.clamp(0%2C%2010%2C%205)%20%2F%2F%3D%3E%205%0AR.clamp(0%2C%2010%2C%20-1)%20%2F%2F%3D%3E%200%0AR.clamp(0%2C%2010%2C%2011)%20%2F%2F%3D%3E%2010">Try this <strong>R.clamp</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.clamp(0%2C%2010%2C%205)%2C%20%0A%20%20R.clamp(0%2C%2010%2C%20-1)%2C%0A%20%20R.clamp(0%2C%2010%2C%2011)%0A%5D%0A%2F%2F%3D%3E%20%5B5%2C%200%2C%2010%5D">Try this <strong>R.clamp</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -21516,7 +21519,6 @@ tryCatch<T>(
 
 ```javascript
 import { isFunction } from './isFunction'
-import { isPromise } from './isPromise'
 
 export function tryCatch(fn, fallback){
   if (!isFunction(fn)){
@@ -21524,7 +21526,6 @@ export function tryCatch(fn, fallback){
   }
   const passFallback = isFunction(fallback)
 
-  if (!isPromise(fn)){
     return (...inputs) => {
       try {
         return fn(...inputs)
@@ -21532,24 +21533,6 @@ export function tryCatch(fn, fallback){
         return passFallback ? fallback(e, ...inputs) : fallback
       }
     }
-  }
-
-  return (...inputs) =>
-    new Promise(resolve => {
-      fn(...inputs)
-        .then(resolve)
-        .catch(() => {
-          if (!passFallback){
-            return resolve(fallback)
-          }
-
-          if (!isPromise(fallback)){
-            return resolve(fallback(...inputs))
-          }
-
-          fallback(...inputs).then(resolve)
-        })
-    })
 }
 ```
 
@@ -21560,26 +21543,18 @@ export function tryCatch(fn, fallback){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { delay } from './delay'
+import { tryCatch as tryCatchRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils'
 import { prop } from './prop'
 import { tryCatch } from './tryCatch'
 
-test.only('happy', async () => {
-  async function download(url, dir){
-    await delay(100)
-    JSON.parse('0}')
+test('happy', () => {
+  const fn = () => {
+    throw new Error('foo')
   }
-  const result = await tryCatch(async () => download('url', 'outputDir'),
-    () => true)()
-  console.log(result)
-  // expect(result).toEqual(expected)
-})
-
-test('throws when fn is not function', () => {
-  const fn = 'foo'
-
-  expect(() => tryCatch(fn, false)(null)).toThrowWithMessage(Error,
-    'R.tryCatch | fn \'foo\'')
+  const result = tryCatch(fn, () => true)()
+  expect(result).toBeTrue()
 })
 
 test('when fallback is used', () => {
@@ -21592,8 +21567,8 @@ test('with json parse', () => {
   const good = () => JSON.parse(JSON.stringify({ a : 1 }))
   const bad = () => JSON.parse('a{a')
 
-  expect(tryCatch(good, 1)(null)).toEqual({ a : 1 })
-  expect(tryCatch(bad, 1)(null)).toBe(1)
+  expect(tryCatch(good, 1)()).toEqual({ a : 1 })
+  expect(tryCatch(bad, 1)()).toBe(1)
 })
 
 test('when fallback is function', () => {
@@ -21646,64 +21621,53 @@ test('fallback receives error object', () => {
   expect(willThrow([ {}, {}, {} ])).toBe('10')
 })
 
-test('when async + fallback', async () => {
-  let called = false
+const possibleFns = [
+  null,
+  () => 1,
+  () => 0,
+  () => JSON.parse('{a:1'),
+  () => {
+    const x = {}
 
-  const fn = async input => {
-    await delay(input)
-    called = true
+    return x.x
+  },
+  x => x.foo,
+  () => {
+    throw new Error('foo')
+  },
+]
 
-    return JSON.parse('{a:')
-  }
+const possibleCatchers = [
+  null,
+  e => e.message.length,
+  (e, ...inputs) => `${ e.message.length } ${ inputs.length }`,
+  () => {
+    throw new Error('bar')
+  },
+]
 
-  expect(await tryCatch(fn, 'fallback')(100)).toBe('fallback')
-  expect(called).toBeTrue()
-})
+const possibleInputs = [ null, {}, { foo : 1 } ]
 
-test('when async + fallback is function', async () => {
-  let called = false
-
-  const fn = async input => {
-    await delay(input)
-    called = true
-
-    return JSON.parse('{a:')
-  }
-
-  expect(await tryCatch(fn, x => x + 1)(100)).toBe(101)
-  expect(called).toBeTrue()
-})
-
-test('when async + fallback is async', async () => {
-  let called = false
-  const fn = async input => {
-    await delay(input)
-    called = true
-
-    return JSON.parse('{a:')
-  }
-  const fallback = async input => {
-    await delay(10)
-
-    return input + 1
-  }
-
-  expect(await tryCatch(fn, fallback)(100)).toBe(101)
-  expect(called).toBeTrue()
-})
-
-test('when async + fn', async () => {
-  let called = false
-
-  const fn = async input => {
-    await delay(input)
-    called = true
-
-    return input + 1
-  }
-
-  expect(await tryCatch(fn, 'fallback')(100)).toBe(101)
-  expect(called).toBeTrue()
+describe('brute force', () => {
+  compareCombinations({
+    returnsFunctionFlag : true,
+    firstInput          : possibleFns,
+    callback            : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 12,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 7,
+        }
+      `)
+    },
+    secondInput : possibleCatchers,
+    thirdInput  : possibleInputs,
+    fn          : tryCatch,
+    fnRamda     : tryCatchRamda,
+  })
 })
 ```
 
@@ -23953,6 +23917,8 @@ WIP 6.4.0
 - Remove file extension in `main` property in `package.json` in order to allow `experimental-modules`. See also this Ramda's PR - https://github.com/ramda/ramda/pull/2678/files
 
 - Import `R.indexBy`/`R.when`/`R.zipObj`/`R.propEq`/`R.complement` changes from recent `@types/ramda` release.
+
+- `R.tryCatch` stop supporting asynchronous functions; the previous behaviour is exported to *Rambdax* as `R.tryCatchAsync`
 
 6.3.1
 
