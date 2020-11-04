@@ -532,7 +532,7 @@ const result = [
 //=> [5, 0, 10]
 ```
 
-Categories: Math
+Categories:
 
 Notes:
 
@@ -4081,7 +4081,7 @@ const result = [
 // => [false, 'bar']
 ```
 
-Categories: Async, Function
+Categories: Function
 
 Notes: Please check the tests of `R.tryCatch` to fully understand how this method works.
 

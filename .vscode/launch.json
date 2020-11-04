@@ -25,7 +25,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "scripts/verify-used-by/verify-used-by.spec.js"
+        "scripts/populate-docs-data/populate-docs-data.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

@@ -51,8 +51,9 @@ export async function benchmarkInfo(){
 
   return mapToObjectAsync(async method => {
     const filePath = resolve(__dirname,
-      `../../run-benchmarks/benchmarks/${ method }.js`)
-    if (!existsSync(filePath)) return false
+      `../../../source/benchmarks/${ method }.js`)
+    const okExists = existsSync(filePath)
+    if (!okExists) return false
     const benchmarkContentRaw = await readFile(filePath)
     const benchmarkContent = clean(benchmarkContentRaw.toString().trim())
     const methodSummary = getMethodSummary(method, benchmarkSummary)
