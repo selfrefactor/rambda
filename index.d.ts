@@ -1149,8 +1149,8 @@ function product(list: readonly number[]): number;
  * If there is no such property, it returns `undefined`.
  */
 function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
-function prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
-function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
+function prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
+function prop<P extends string | number, T>(p: P): (propToFind: Record<P, T>) => T;
 
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.

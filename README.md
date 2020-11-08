@@ -18436,8 +18436,8 @@ const result = [
 
 ```typescript
 function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
-function prop<P extends string>(p: P): <T>(propToFind: Record<P, T>) => T;
-function prop<P extends string, T>(p: P): (propToFind: Record<P, T>) => T;
+function prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
+function prop<P extends string | number, T>(p: P): (propToFind: Record<P, T>) => T;
 ```
 
 </details>
@@ -18495,6 +18495,21 @@ describe('R.prop', () => {
     const result = prop('b')(obj)
 
     result // $ExpectType string
+  })
+})
+
+describe('with number as prop', () => {
+  const list = [1, 2, 3]
+  const index = 1
+  it('happy', () => {
+    const result = prop(index, list)
+    
+    result // $ExpectType number
+  })
+  it('curried require explicit type', () => {
+    const result = prop<number>(index)(list)
+
+    result // $ExpectType number
   })
 })
 ```
