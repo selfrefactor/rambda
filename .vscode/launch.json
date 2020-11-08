@@ -19,13 +19,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug a script",
+      "name": "Debug build script",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
         "-i", 
         "--no-cache",
-        "scripts/populate-docs-data/populate-docs-data.spec.js"
+        "scripts/populate-readme-data/populate-readme-data.spec.js"
       ],
       "env":{
         "WITH_RAMBDAX": "ON"

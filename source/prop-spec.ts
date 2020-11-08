@@ -14,3 +14,18 @@ describe('R.prop', () => {
     result // $ExpectType string
   })
 })
+
+describe('with number as prop', () => {
+  const list = [1, 2, 3]
+  const index = 1
+  it('happy', () => {
+    const result = prop(index, list)
+    
+    result // $ExpectType number
+  })
+  it('curried require explicit type', () => {
+    const result = prop<number>(index)(list)
+
+    result // $ExpectType number
+  })
+})
