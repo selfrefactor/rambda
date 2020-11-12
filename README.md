@@ -22383,7 +22383,6 @@ test("always false", () => {
 
 test("with string", () => {
   const result = takeWhile((x) => x !== "b", "foobar");
-  console.log(result);
   expect(result).toBe("foo");
 });
 
@@ -25883,6 +25882,8 @@ describe('R.zipWith', () => {
 WIP 6.4.0
 
 - Upgrade all `rollup` related dependencies
+
+- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - ...
 
 - `R.type` supports `Symbol` just like *Ramda*.
 

@@ -22,7 +22,6 @@ test("always false", () => {
 
 test("with string", () => {
   const result = takeWhile((x) => x !== "b", "foobar");
-  console.log(result);
   expect(result).toBe("foo");
 });
 
