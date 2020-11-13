@@ -6691,12 +6691,12 @@ Notes: Please check the tests of `R.tryCatchAsync` to fully understand how this 
 */
 // @SINGLE_MARKER
 export function tryCatchAsync<T>(
-  fn: (input: any) => Promise<any>,
+  fn: (input: any) => Promise<T>,
   fallback: T
 ): (input: any) => Promise<T>;
 export function tryCatchAsync<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: (input: any) => Promise<any>,
+  fn: (input: any) => Promise<T>,
+  fallback: (input: any) => Promise<T>,
 ): (input: any) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY';
