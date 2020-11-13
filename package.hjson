@@ -13,7 +13,7 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
 {
   name: {{NAME}}
-  version: 6.4.0
+  version: 6.3.1
   scripts: {
 
     // It runs all scripts needed to prepare for `Rambda` release.

@@ -3389,9 +3389,9 @@ helpers-fn@1.0.0:
     rambdax "7.0.1"
     string-fn "2.12.2"
 
-"hjson-js@git+https://github.com/selfrefactor/hjson-js.git#1.1.2":
+"hjson-js@https://github.com/selfrefactor/hjson-js#1.1.2":
   version "3.2.1"
-  resolved "git+https://github.com/selfrefactor/hjson-js.git#4b2cc987be6b603967888719f18c56c0118907d4"
+  resolved "https://github.com/selfrefactor/hjson-js#4b2cc987be6b603967888719f18c56c0118907d4"
   dependencies:
     rambdax "7.0.1"
 
