@@ -19,8 +19,13 @@ export function extractAllDefinitions(withRambdax){
       remove('export function ')
     )
 
-    const methodTypings = remove(/export\s/g, allTypings)
-    // const methodTypings = remove(/export\sfunction\s/g, allTypings)
+      
+    const methodTypings = remove(/export\sfunction\s/g, allTypings)
+    
+    /*
+      needed in relation to `rambda-docs` repl
+      const methodTypings = remove(/export\s/g, allTypings)
+    */
 
     return { [ name ] : methodTypings }
   }, matches)
