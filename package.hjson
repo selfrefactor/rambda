@@ -3,11 +3,11 @@ const AUTHOR = selfrefactor
 const DOCSIFY = docsi init ./docs
 const BUILD = cross-env NODE_ENV=build rollup -c
 const LINT_JS = jest scripts/lint/lint.spec.js
-const VERIFY_USED_BY = jest scripts/verify-used-by/verify-used-by.spec.js
 const LINT_TS = cd scripts/lint-ts-files&&node lint-typings-tests.js
 const CREATE_DOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
 const CREATE_README = jest scripts/populate-readme-data/populate-readme-data.spec.js
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
+const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
@@ -80,7 +80,6 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     cross-env: 7.0.2
     dtslint: 4.0.5
     fs-extra: 9.0.1
-    got: 11.8.0
     helpers-fn: 1.0.0
     is-ci: 2.0.0
     jest: 26.6.3

@@ -1,4 +1,4 @@
-after rambda-scripts, remove hjson, move my hjson to `services`
+bring updated deps back to Hjson file
 
 add tryCatchAsync and sync R.tryCatch. 
 
