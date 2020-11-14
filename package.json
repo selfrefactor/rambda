@@ -6,7 +6,7 @@
     "x": "WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js",
     "docs": "docsi init ./docs",
     "readme": "jest scripts/populate-readme-data/populate-readme-data.spec.js",
-    "toolbelt": "jest scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js",
+    "toolbelt": "cd ../rambda-scripts&&yarn toolbelt",
     "usedby": "jest scripts/verify-used-by/verify-used-by.spec.js",
     "lint": "yarn lint:js&&yarn lint:ts",
     "lint:ts": "cd scripts/lint-ts-files&&node lint-typings-tests.js",

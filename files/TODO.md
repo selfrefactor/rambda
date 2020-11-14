@@ -1,3 +1,5 @@
+after rambda-scripts, remove hjson, move my hjson to `services`
+
 add tryCatchAsync and sync R.tryCatch. 
 
 ```
@@ -48,6 +50,7 @@ Methods to add:
 - pickBy
 - pathSatisfies
 - gte
+- mapObjIndexed(types from @types/ramda)
 
 https://github.com/smartprocure/futil-js#differentlast
 https://github.com/smartprocure/futil-js#whentruthy
