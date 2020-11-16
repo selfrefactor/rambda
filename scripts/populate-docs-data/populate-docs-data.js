@@ -48,13 +48,13 @@ async function save({ withRambdax, toSave, categories }){
     `${ docsDir }/categories-rambdax.json` :
     `${ docsDir }/categories.json`
 
-  const docsOutput = withRambdax ?
-    `${ docsDir }/data-rambdax.json` :
-    `${ docsDir }/data.json`
+  // const docsOutput = withRambdax ?
+  //   `${ docsDir }/data-rambdax.json` :
+  //   `${ docsDir }/data.json`
 
-  await outputJSON(
-    docsOutput, toSave, { spaces : 2 }
-  )
+  // await outputJSON(
+  //   docsOutput, toSave, { spaces : 2 }
+  // )
   await outputJSON(
     categoriesOutput, categories, { spaces : 2 }
   )

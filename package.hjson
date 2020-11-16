@@ -8,6 +8,7 @@ const CREATE_DOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
 const CREATE_README = jest scripts/populate-readme-data/populate-readme-data.spec.js
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
 const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
+const DOCS = cd ../rambda-scripts&&yarn highlighter
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
@@ -40,7 +41,8 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     "lint:js": {{LINT_JS}}
 
     // Release
-    docs: {{DOCSIFY}}
+    docs: {{DOCS}}
+    docsify: {{DOCSIFY}}
     build: yarn build:main&&yarn build:web
     "build:web": {{BUILD}} files/rollup.web.config.js
     "build:main": {{BUILD}} files/rollup.config.js
