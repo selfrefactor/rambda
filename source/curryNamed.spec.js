@@ -1,8 +1,8 @@
-import { partiallyApplyNamed } from "./partiallyApplyNamed";
+import { namedCurry } from "./namedCurry";
 
 test("happy", () => {
   const addFourNumbers = ({ a, b, c, d }) => a + b + c + d;
-  const partiallyAppliedAddFourNumbers = partiallyApplyNamed(addFourNumbers, [
+  const partiallyAppliedAddFourNumbers = namedCurry(addFourNumbers, [
     "a",
     "b",
     "c",
@@ -15,7 +15,7 @@ test("happy", () => {
 });
 
 test("when called with more arguments", () => {
-  const add = partiallyApplyNamed(({ n, n2 }) => n + n2, ["n", "n2"]);
+  const add = namedCurry(({ n, n2 }) => n + n2, ["n", "n2"]);
 
   expect(
     add({
@@ -27,14 +27,14 @@ test("when called with more arguments", () => {
 });
 
 test("when called with zero arguments", () => {
-  const sub = partiallyApplyNamed(({ a, b }) => a - b, ["a", "b"]);
+  const sub = namedCurry(({ a, b }) => a - b, ["a", "b"]);
   const s0 = sub();
 
   expect(s0({ a: 5, b: 2 })).toEqual(3);
 });
 
 test("when called via multiple partial application stages", () => {
-  const join = partiallyApplyNamed(({ a, b, c, d }) => [a, b, c, d].join("-"), [
+  const join = namedCurry(({ a, b, c, d }) => [a, b, c, d].join("-"), [
     "a",
     "b",
     "c",

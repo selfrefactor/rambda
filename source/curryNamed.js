@@ -4,10 +4,10 @@ import { difference } from "./difference";
 import { keys } from "./keys";
 import { mergeDeepRight } from "./mergeDeepRight";
 
-export const partiallyApplyNamed = (any_function, array_argument_keys) => {
+export const namedCurry = (any_function, array_argument_keys) => {
   if (equals(1, length(arguments)))
     return (array_argument_keys) =>
-      partiallyApplyNamed(any_function, array_argument_keys);
+      namedCurry(any_function, array_argument_keys);
   const partially_apply_named = (object_argument) =>
     equals(void 0, object_argument)
       ? partially_apply_named
