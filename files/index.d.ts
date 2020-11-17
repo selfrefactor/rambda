@@ -6701,6 +6701,26 @@ export function tryCatchAsync<T>(
 
 export const DELAY: 'RAMBDAX_DELAY';
 
+/*
+Method: partiallyApplyNamed
+
+Explanation:
+
+Example:
+
+```
+const result = R.partiallyApplyNamed()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partiallyApplyNamed<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 

@@ -26,13 +26,15 @@ Please be aware, that due to [variadic arguments Typescript proposal](https://gi
 
 There is helper script to assist you, when creating a new method in Rambda/Rambdax.
 
-1. Run `yarn new NEW_METHOD_NAME`, e.g. `yarn new zip.with` or `yarn new zipWith`.
+1. Run `yarn`.
 
-2. Edit `source/NEW_METHOD_NAME.js`
+2. Run `yarn new NEW_METHOD_NAME`, e.g. `yarn new zip.with` or `yarn new zipWith`.
 
-3. Edit `source/NEW_METHOD_NAME.spec.js`
+3. Edit `source/NEW_METHOD_NAME.js`
 
-3. Edit `source/NEW_METHOD_NAME-spec.ts`
+4. Edit `source/NEW_METHOD_NAME.spec.js`
+
+5. Edit `source/NEW_METHOD_NAME-spec.ts`
 
 ## Add new method manually
 
@@ -132,7 +134,7 @@ Note the consistency of `fn` and `input` throughout the example, the actual meth
 
  Any method, which takes more than one argument, should be curried.
 
-We can use the standard curring used throughout `Rambda`.
+We can use the standard currying used throughout `Rambda`.
 ```
 export function foo(x, y){
   if(arguments.length === 1)return _y => foo(x, _y)
@@ -162,4 +164,4 @@ export const foo = curry(fooFn)
 
 ### Final step
 
-Run `yarn out` and commit
+Run `yarn out`, `git add -A`, and commit
