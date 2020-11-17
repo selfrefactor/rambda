@@ -6701,6 +6701,35 @@ export function tryCatchAsync<T>(
 
 export const DELAY: 'RAMBDAX_DELAY';
 
+/*
+Method: namedCurry
+
+Explanation: Takes a function that uses named arguments (i.e., one that uses a single object to contain its arguments) and returns a version that allows for partial application.
+
+Example:
+
+```
+const add = ({ a, b, c }) => a + b + c;
+const partially_applied_add = R.namedCurry(add, ["a", "b", "c"]);
+
+// Works when arguments are provided all at once.
+console.log(partially_applied_add({ a: 1, b: 1, c: 1 })); // 3
+// Works when arguments are provided piecemeal.
+console.log(partially_applied_add({ a: 1, b: 1 })({ c: 1 })); // 3
+console.log(partially_applied_add({ a: 1 })({ b: 1, c: 1 })); // 3
+console.log(partially_applied_add({ a: 1 })({ b: 1 })({ c: 1 })); // 3
+// Works when arguments are provided out of order.
+console.log(partially_applied_add({ c: 1 })({ b: 1 })({ a: 1 })); // 3
+```
+
+Categories: Function
+
+Notes: See also `R.curry`.
+
+*/
+// @SINGLE_MARKER
+export function namedCurry<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
