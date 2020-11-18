@@ -132,7 +132,7 @@ Note the consistency of `fn` and `input` throughout the example, the actual meth
 
 ### Currying
 
- Any method, which takes more than one argument, should be curried.
+Any method, which takes more than one argument, should be curried.
 
 We can use the standard currying used throughout `Rambda`.
 ```
@@ -164,4 +164,4 @@ export const foo = curry(fooFn)
 
 ### Final step
 
-Run `yarn out`, `git add -A`, and commit
+Run `yarn out` to generate output files and you are ready to commit.

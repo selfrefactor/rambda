@@ -48,7 +48,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -18493,6 +18493,9 @@ const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
   it('happy', () => {
+    const testa = prop('e')({ e: 'test1', d: 'test2' })
+    const testaa = prop('e',{ e: 'test1', d: 'test2' })
+
     const result = prop('a', obj)
 
     result // $ExpectType number
