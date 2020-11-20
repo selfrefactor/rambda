@@ -11,6 +11,7 @@ const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const DOCS = cd ../rambda-scripts&&yarn highlighter
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
+const IMMUTABLE_LINT=eslint -c files/.eslint.config.js index.d.ts --fix
 
 {
   name: {{NAME}}
@@ -31,6 +32,9 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 
     // Update `ts-toolbelt` dependency
     toolbelt: {{TOOLBELT}}
+
+    // It adds `readonly` to Typescript definitions
+    immutable: {{IMMUTABLE_LINT}}
 
     // Runs a script to check if all repos listed in `Used by` section are actually using Rambda or Rambdax
     usedby: {{VERIFY_USED_BY}}
@@ -79,6 +83,10 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     @types/jest: 26.0.15
     @types/ramda: 0.27.32
     combinate: 1.1.1
+    eslint-plugin-functional: 3.1.0
+    eslint: 7.13.0
+    @typescript-eslint/eslint-plugin: 4.8.1
+    @typescript-eslint/parser: 4.8.1
     cross-env: 7.0.2
     dtslint: 4.0.5
     fs-extra: 9.0.1
