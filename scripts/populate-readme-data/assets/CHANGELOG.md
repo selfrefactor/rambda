@@ -2,6 +2,8 @@ WIP 6.5.0
 
 - Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - problem with curried typings of `R.prop`
 
+- Immutable lint - link to issue
+
 6.4.0
 
 - Upgrade all `rollup` related dependencies
