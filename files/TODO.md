@@ -1,3 +1,5 @@
+strip `readonly` from docs typings
+
 this is wrong
 
 export function last<T extends any>(list: readonly T[]): T | undefined;
