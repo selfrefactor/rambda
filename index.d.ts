@@ -1175,9 +1175,12 @@ export function propIs(type: any): {
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
  */
-export function propOr<T>(defaultValue: T, property: string, obj: { readonly [key: string]: T}): T;
-export function propOr<T>(defaultValue: T, property: string): (obj: { readonly [key: string]: T}) => T;
-export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { readonly [key: string]: T}) => T>;
+export function propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
+export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+export function propOr<T>(defaultValue: T): {
+  <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
+  <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+}
 
 /**
  * It returns list of numbers between `startInclusive` to `endExclusive` markers.

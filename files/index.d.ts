@@ -3343,9 +3343,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T>(defaultValue: T, property: string, obj: { readonly [key: string]: T}): T;
-export function propOr<T>(defaultValue: T, property: string): (obj: { readonly [key: string]: T}) => T;
-export function propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { readonly [key: string]: T}) => T>;
+export function propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
+export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+export function propOr<T>(defaultValue: T): {
+  <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
+  <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+}
 
 /*
 Method: range

@@ -18902,7 +18902,7 @@ describe('R.propIs', () => {
 
 ```typescript
 
-propOr<T>(defaultValue: T, property: string, obj: { readonly [key: string]: T}): T
+propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T
 ```
 
 It returns either `defaultValue` or the value of `property` in `obj`.
@@ -18926,9 +18926,12 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propOr<T>(defaultValue: T, property: string, obj: { readonly [key: string]: T}): T;
-propOr<T>(defaultValue: T, property: string): (obj: { readonly [key: string]: T}) => T;
-propOr<T>(defaultValue: T): FunctionToolbelt.Curry<(property: string, obj: { readonly [key: string]: T}) => T>;
+propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
+propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+propOr<T>(defaultValue: T): {
+  <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
+  <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+}
 ```
 
 </details>
@@ -25895,6 +25898,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ➤ CHANGELOG
+
+WIP 6.6.0
+
+- Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 
 6.5.0
 
