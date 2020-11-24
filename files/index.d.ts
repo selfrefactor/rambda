@@ -4429,9 +4429,7 @@ export function without<T>(matchAgainst: readonly T[]): (source: readonly T[]) =
 /*
 Method: xor
 
-Explanation:
-
-
+Explanation: Logical XOR
 
 Example:
 
@@ -6703,6 +6701,32 @@ export function tryCatchAsync<T>(
 ): (input: any) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY';
+
+/*
+Method: xnor
+
+Explanation: Logical XNOR
+
+Example:
+
+```
+const result = [
+  R.xnor(1, 0),
+  R.xnor(0, 1),
+  R.xnor(0, 0),
+  R.xnor(1, 1),
+]
+// => [true, false, false, true]
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function xnor(x: boolean, y: boolean): boolean;
+export function xnor(y: boolean): (y: boolean) => boolean;
 
 // RAMBDAX_MARKER_END
 // ============================================

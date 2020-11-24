@@ -1,6 +1,8 @@
 WIP 7.1.0
 
-Add `R.tryCatchAsync`
+- Add `R.tryCatchAsync`
+
+- Add `R.xnor`
 
 7.0.1
 
