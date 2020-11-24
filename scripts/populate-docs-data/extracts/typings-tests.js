@@ -1,5 +1,6 @@
 import { existsSync, readFile } from 'fs-extra'
 import { resolve } from 'path'
+import { remove } from 'rambdax'
 
 import { mapToObjectAsync } from '../../../source/mapToObjectAsync'
 import { getMethods } from '../extract-from-typings/get-methods'
@@ -10,6 +11,6 @@ export async function typingsTests(withRambdax){
     if (!existsSync(filePath)) return false
     const rambdaSpec = await readFile(filePath)
 
-    return { [ method ] : rambdaSpec.toString().trim() }
+    return { [ method ] : remove(/readonly\s/g,rambdaSpec.toString().trim()) }
   }, getMethods(withRambdax))
 }

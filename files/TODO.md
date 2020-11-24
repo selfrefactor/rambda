@@ -2,10 +2,6 @@ strip `readonly` from docs typings
 
 search for TODO
 
-doesn't work
-
-// const challengeID = last(process.argv)
-
 bring updated deps back to Hjson file
 
 add tryCatchAsync and sync R.tryCatch. 

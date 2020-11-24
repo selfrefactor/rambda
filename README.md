@@ -1527,12 +1527,12 @@ describe('R.append', () => {
   it('happy', () => {
     const result = append(4, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = append(4)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -1990,7 +1990,7 @@ describe('applySpec', () => {
       v: inc,
       u: dec,
     })(1)
-    result // $ExpectType { readonly v: number; readonly u: number; }
+    result // $ExpectType { v: number; u: number; }
   })
   it('ramda 1', () => {
     interface Output {
@@ -2850,10 +2850,10 @@ const fn = (x: number) => [`${x}`, `${x}`]
 describe('R.chain', () => {
   it('without passing type', () => {
     const result = chain(fn, list)
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
 
     const curriedResult = chain(fn)(list)
-    curriedResult // $ExpectType readonly string[]
+    curriedResult // $ExpectType string[]
   })
 })
 ```
@@ -3746,12 +3746,12 @@ describe('R.concat', () => {
   it('happy', () => {
     const result = concat(list1, list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = concat(list1)(list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -5071,12 +5071,12 @@ describe('R.difference', () => {
   it('happy', () => {
     const result = difference(list1, list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = difference(list1)(list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -5397,11 +5397,11 @@ const howMany = 2
 describe('R.drop - array', () => {
   it('happy', () => {
     const result = drop(howMany, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = drop(howMany)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -5546,11 +5546,11 @@ const howMany = 2
 describe('R.dropLast - array', () => {
   it('happy', () => {
     const result = dropLast(howMany, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = dropLast(howMany)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -5776,12 +5776,12 @@ describe('R.dropLastWhile', () => {
   it('with array', () => {
     const result = dropLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with array - curried', () => {
     const result = dropLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with string', () => {
     const result = dropLastWhile(x => x !== 'F', str)
@@ -5926,7 +5926,7 @@ describe('R.dropRepeats', () => {
   it('happy', () => {
     const result = dropRepeats([1, 2, 2, 3])
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -6121,7 +6121,7 @@ describe('R.dropRepeatsWith', () => {
       [{a: 2}, {a: 1}]
     )
 
-    result // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
     result[0].a // $ExpectType number
   })
   it('curried', () => {
@@ -6129,7 +6129,7 @@ describe('R.dropRepeatsWith', () => {
       return x.a > y.a
     })([{a: 2}, {a: 1}])
 
-    result // $ExpectType readonly Foo[]
+    result // $ExpectType Foo[]
   })
 })
 ```
@@ -6297,12 +6297,12 @@ describe('R.dropWhile', () => {
   it('happy', () => {
     const result = dropWhile(x => x > 2, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = dropWhile<number>(x => x > 2)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -7735,8 +7735,8 @@ describe('R.evolve', () => {
     const input = [100, 1400]
     const result = evolve(rules, input)
     const curriedResult = evolve(rules)(input)
-    result // $ExpectType readonly string[]
-    curriedResult // $ExpectType readonly string[]
+    result // $ExpectType string[]
+    curriedResult // $ExpectType string[]
   })
 })
 ```
@@ -7963,14 +7963,14 @@ describe('R.filter with array', () => {
       x // $ExpectType number
       return x > 1
     }, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = filter<number>(x => {
       x // $ExpectType number
       return x > 1
     })(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -8717,7 +8717,7 @@ import {flatten} from 'rambda'
 describe('flatten', () => {
   it('happy', () => {
     const result = flatten<number>([1, 2, [3, [4]]])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -9141,13 +9141,13 @@ describe('R.forEach with arrays', () => {
     const result = forEach(a => {
       a // $ExpectType number
     }, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require an explicit typing', () => {
     const result = forEach<number>(a => {
       a // $ExpectType number
     })(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -9302,7 +9302,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
     ]
     const result = fromPairs(list)
 
-    result // $ExpectType { readonly [index: string]: number; }
+    result // $ExpectType { [index: string]: number; }
   })
   it('with number index', () => {
     const list: [number, string][] = [
@@ -9312,7 +9312,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
     ]
     const result = fromPairs(list)
 
-    result // $ExpectType { readonly [index: number]: string; }
+    result // $ExpectType { [index: number]: string; }
   })
 })
 ```
@@ -9447,10 +9447,10 @@ describe('R.groupBy', () => {
     const list = ['foo', 'barr', 'bazzz']
 
     const result = groupBy(groupByFn, list)
-    result // $ExpectType { readonly [index: string]: readonly string[]; }
+    result // $ExpectType { [index: string]: string[]; }
 
     const curriedResult = groupBy(groupByFn)(list)
-    curriedResult // $ExpectType { readonly [index: string]: readonly string[]; }
+    curriedResult // $ExpectType { [index: string]: string[]; }
   })
 })
 ```
@@ -9692,8 +9692,8 @@ describe('R.groupWith', () => {
 
     const result = groupWith(groupWithFn, list)
     const curriedResult = groupWith(groupWithFn)(list)
-    result // $ExpectType readonly (readonly string[])[]
-    curriedResult // $ExpectType readonly (readonly string[])[]
+    result // $ExpectType (string[])[]
+    curriedResult // $ExpectType (string[])[]
   })
 })
 ```
@@ -10980,14 +10980,14 @@ describe('indexBy', () => {
     const result = indexBy(x => x.a.b, list)
     const curriedResult = indexBy<any>(x => x.a.b)(list)
     result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { readonly [x: string]: any; }
+    curriedResult // $ExpectType { [x: string]: any; }
   })
 
   it('with string', () => {
     const result = indexBy('a.b', list)
     const curriedResult = indexBy<any>('a.b')(list)
     result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { readonly [key: string]: any; }
+    curriedResult // $ExpectType { [key: string]: any; }
   })
 
   it('with interface', () => {
@@ -11003,8 +11003,8 @@ describe('indexBy', () => {
       x.a // $ExpectType string
       return x.a
     })(interfaceList)
-    result // $ExpectType { readonly [x: string]: Foo; }
-    curriedResult // $ExpectType { readonly [x: string]: Foo; }
+    result // $ExpectType { [x: string]: Foo; }
+    curriedResult // $ExpectType { [x: string]: Foo; }
   })
 })
 ```
@@ -11321,7 +11321,7 @@ describe('R.init', () => {
   it('with list', () => {
     const result = init([1, 2, 3])
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -11447,10 +11447,10 @@ const list2 = [1, 3, 5]
 describe('R.intersection', () => {
   it('happy', () => {
     const result = intersection(list1, list2)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
 
     const curriedResult = intersection(list1)(list2)
-    curriedResult // $ExpectType readonly number[]
+    curriedResult // $ExpectType number[]
   })
 })
 ```
@@ -11549,11 +11549,11 @@ import {intersperse} from 'rambda'
 describe('R.intersperse', () => {
   it('happy', () => {
     const result = intersperse(1, [1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = intersperse('|')(['foo', 'bar'])
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })
 ```
@@ -12120,7 +12120,7 @@ const obj = {a: 1, b: 2}
 describe('R.keys', () => {
   it('happy', () => {
     const result = keys(obj)
-    result // $ExpectType readonly ("b" | "a")[]
+    result // $ExpectType ("b" | "a")[]
   })
 })
 ```
@@ -13399,14 +13399,14 @@ describe('R.map with arrays', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('iterable returns the same type as the input - curried', () => {
     const result = map<number>((x: number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -13584,11 +13584,11 @@ const str = 'foo bar'
 describe('R.match', () => {
   it('happy', () => {
     const result = match(/foo/, str)
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
   it('curried', () => {
     const result = match(/foo/)(str)
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })
 ```
@@ -15025,17 +15025,17 @@ describe('R.move', () => {
   it('happy', () => {
     const result = move(0, 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried 1', () => {
     const result = move(0, 1)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried 2', () => {
     const result = move(0)(1)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -16525,8 +16525,8 @@ describe('R.partition', () => {
 
     const result = partition(predicate, list)
     const curriedResult = partition(predicate)(list)
-    result // $ExpectType readonly [readonly number[], readonly number[]]
-    curriedResult // $ExpectType readonly [readonly number[], readonly number[]]
+    result // $ExpectType [number[], number[]]
+    curriedResult // $ExpectType [number[], number[]]
   })
 
   /*
@@ -17244,22 +17244,22 @@ const input: Input = {a: 1, b: 2, c: 3}
 describe('R.paths', () => {
   it('with dot notation', () => {
     const result = paths<number>(['a.b.c', 'foo.bar'], input)
-    result // $ExpectType readonly (number | undefined)[]
+    result // $ExpectType (number | undefined)[]
   })
 
   it('without type', () => {
     const result = paths(['a.b.c', 'foo.bar'], input)
-    result // $ExpectType readonly unknown[]
+    result // $ExpectType unknown[]
   })
 
   it('with array as path', () => {
     const result = paths<number>([['a', 'b', 'c'], ['foo.bar']], input)
-    result // $ExpectType readonly (number | undefined)[]
+    result // $ExpectType (number | undefined)[]
   })
 
   it('curried', () => {
     const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)
-    result // $ExpectType readonly (number | undefined)[]
+    result // $ExpectType (number | undefined)[]
   })
 })
 ```
@@ -18197,8 +18197,8 @@ describe('R.pluck', () => {
     ]
     const resultA = pluck('a', input)
     const resultB = pluck('b')(input)
-    resultA // $ExpectType readonly number[]
-    resultB // $ExpectType readonly string[]
+    resultA // $ExpectType number[]
+    resultB // $ExpectType string[]
   })
 
   it('with array', () => {
@@ -18209,8 +18209,8 @@ describe('R.pluck', () => {
     ]
     const result = pluck(0, input)
     const resultCurry = pluck(0)(input)
-    result // $ExpectType readonly number[]
-    resultCurry // $ExpectType readonly number[]
+    result // $ExpectType number[]
+    resultCurry // $ExpectType number[]
   })
 })
 ```
@@ -18329,12 +18329,12 @@ describe('R.prepend', () => {
   it('happy', () => {
     const result = prepend(4, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = prepend(4)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -19110,12 +19110,12 @@ describe('R.props', () => {
   it('happy', () => {
     const result = props(['a', 'b'], obj)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = props(['a', 'b'])(obj)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -19218,12 +19218,12 @@ describe('R.range', () => {
   it('happy', () => {
     const result = range(1, 4)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = range(1)(4)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -19674,14 +19674,14 @@ describe('R.reject with array', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = reject<number>(x => {
       x // $ExpectType number
       return x > 1
     })([1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -19818,12 +19818,12 @@ describe('R.repeat', () => {
   it('happy', () => {
     const result = repeat(4, 7)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = repeat(4)(7)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -20107,7 +20107,7 @@ const list = [1, 2, 3, 4, 5]
 describe('R.reverse', () => {
   it('happy', () => {
     const result = reverse(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -20360,11 +20360,11 @@ const list = [1, 2, 3, 4, 5]
 describe('R.slice', () => {
   it('happy', () => {
     const result = slice(1, 3, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = slice(1, 3)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -20474,11 +20474,11 @@ function sortFn(a: number, b: number): number {
 describe('R.sort', () => {
   it('happy', () => {
     const result = sort(sortFn, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = sort(sortFn)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -20645,8 +20645,8 @@ describe('R.sortBy', () => {
     const result = sortBy(fn, input)
     const curriedResult = sortBy(fn2)(input)
 
-    result // $ExpectType readonly { a: number; }[]
-    curriedResult // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
+    curriedResult // $ExpectType { a: number; }[]
     result[0].a // $ExpectType number
   })
   it('passing type to sort function and list', () => {
@@ -20658,8 +20658,8 @@ describe('R.sortBy', () => {
     const result = sortBy(fn, input)
     const curriedResult = sortBy(fn)(input)
 
-    result // $ExpectType readonly Input[]
-    curriedResult // $ExpectType readonly Input[]
+    result // $ExpectType Input[]
+    curriedResult // $ExpectType Input[]
     result[0].a // $ExpectType number
   })
 })
@@ -20820,12 +20820,12 @@ describe('R.split', () => {
   it('happy', () => {
     const result = split(splitChar, str)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
   it('curried', () => {
     const result = split(splitChar)(str)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })
 ```
@@ -21145,12 +21145,12 @@ describe('R.splitEvery', () => {
   it('happy', () => {
     const result = splitEvery(3, list)
 
-    result // $ExpectType readonly (readonly number[])[]
+    result // $ExpectType (number[])[]
   })
   it('curried', () => {
     const result = splitEvery(3)(list)
 
-    result // $ExpectType readonly (readonly number[])[]
+    result // $ExpectType (number[])[]
   })
 })
 ```
@@ -21307,12 +21307,12 @@ describe('R.splitWhen', () => {
   it('happy', () => {
     const result = splitWhen(predicate, list)
 
-    result // $ExpectType readonly (readonly number[])[]
+    result // $ExpectType (number[])[]
   })
   it('curried', () => {
     const result = splitWhen(predicate)(list)
 
-    result // $ExpectType readonly (readonly number[])[]
+    result // $ExpectType (number[])[]
   })
 })
 ```
@@ -21656,7 +21656,7 @@ describe('R.symmetricDifference', () => {
     const list2 = [3, 4, 5, 6]
     const result = symmetricDifference(list1, list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 
   it('curried', () => {
@@ -21664,7 +21664,7 @@ describe('R.symmetricDifference', () => {
     const list2 = [{id: 3}, {id: 4}, {id: 5}, {id: 6}]
     const result = symmetricDifference(list1)(list2)
 
-    result // $ExpectType readonly { id: number; }[]
+    result // $ExpectType { id: number; }[]
   })
 })
 ```
@@ -21793,7 +21793,7 @@ describe('R.tail', () => {
   it('with list', () => {
     const result = tail([1, 2, 3])
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -21906,12 +21906,12 @@ describe('R.take - array', () => {
   it('happy', () => {
     const result = take(howMany, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = take(howMany)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -22111,12 +22111,12 @@ describe('R.takeLast - array', () => {
   it('happy', () => {
     const result = takeLast(howMany, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = takeLast(howMany)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -22283,12 +22283,12 @@ describe('R.takeLastWhile', () => {
   it('with array', () => {
     const result = takeLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with array - curried', () => {
     const result = takeLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with string', () => {
     const result = takeLastWhile(x => x !== 'F', str)
@@ -22462,12 +22462,12 @@ describe('R.takeWhile', () => {
   it('happy', () => {
     const result = takeWhile(x => x > 2, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = takeWhile<number>(x => x > 2)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
@@ -22839,7 +22839,7 @@ import {times, identity} from 'rambda'
 describe('R.times', () => {
   it('happy', () => {
     const result = times(identity, 5)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -22987,7 +22987,7 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType readonly (readonly [string, number | number[]])[]
+    result // $ExpectType ([string, number | number[]])[]
   })
 })
 ```
@@ -23210,7 +23210,7 @@ describe('R.transpose', () => {
   it('happy', () => {
     const result = transpose(input)
 
-    result // $ExpectType readonly (readonly (string | number)[])[]
+    result // $ExpectType ((string | number)[])[]
   })
 })
 ```
@@ -23950,13 +23950,13 @@ describe('R.union', () => {
   it('happy', () => {
     const result = union([1, 2], [2, 3])
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with array of objects - case 1', () => {
     const list1 = [{a: 1}, {a: 2}]
     const list2 = [{a: 2}, {a: 3}]
     const result = union(list1, list2)
-    result // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a: 1, b: 1}, {a: 2}]
@@ -23971,13 +23971,13 @@ describe('R.union - curried', () => {
   it('happy', () => {
     const result = union([1, 2])([2, 3])
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with array of objects - case 1', () => {
     const list1 = [{a: 1}, {a: 2}]
     const list2 = [{a: 2}, {a: 3}]
     const result = union(list1)(list2)
-    result // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a: 1, b: 1}, {a: 2}]
@@ -24079,7 +24079,7 @@ import {uniq} from 'rambda'
 describe('R.uniq', () => {
   it('happy', () => {
     const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -24366,7 +24366,7 @@ describe('R.uniqWith', () => {
     const fn = (x: any, y: any) => x.title === y.title
 
     const result = uniqWith(fn, input)
-    result // $ExpectType readonly { id: number; title: string; }[]
+    result // $ExpectType { id: number; title: string; }[]
   })
 })
 ```
@@ -24590,7 +24590,7 @@ import {update} from 'rambda'
 describe('R.update', () => {
   it('happy', () => {
     const result = update(1, 0, [1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -24747,7 +24747,7 @@ describe('R.values', () => {
       b: 2,
       c: 3,
     })
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 ```
@@ -25339,12 +25339,12 @@ describe('R.without', () => {
   it('happy', () => {
     const result = without(itemsToOmit, collection)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
   it('curried', () => {
     const result = without(itemsToOmit)(collection)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })
 ```
@@ -25638,7 +25638,7 @@ describe('R.zip', () => {
     const array2 = ['A', 'B', 'C']
 
     const result = zip(array1)(array2)
-    result // $ExpectType readonly KeyValuePair<number, string>[]
+    result // $ExpectType KeyValuePair<number, string>[]
   })
 })
 ```
@@ -25759,13 +25759,13 @@ describe('R.zipObj', () => {
   it('happy', () => {
     // this is wrong since 24.10.2020 `@types/ramda` changes
     const result = zipObj(['a', 'b', 'c', 'd'], [1, 2, 3])
-    result // $ExpectType { readonly b: number; readonly a: number; readonly c: number; readonly d: number; }
+    result // $ExpectType { b: number; a: number; c: number; d: number; }
   })
   it('imported from @types/ramda', () => {
     const result = zipObj(['a', 'b', 'c'], [1, 2, 3]);
     const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3]);
-    result // $ExpectType { readonly b: number; readonly a: number; readonly c: number; }
-    curriedResult // $ExpectType { readonly b: number; readonly a: number; readonly c: number; }
+    result // $ExpectType { b: number; a: number; c: number; }
+    curriedResult // $ExpectType { b: number; a: number; c: number; }
   })
 })
 ```
@@ -25876,7 +25876,7 @@ describe('R.zipWith', () => {
       list2
     )
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
   it('curried', () => {
     const result = zipWith((x, y) => {
@@ -25885,7 +25885,7 @@ describe('R.zipWith', () => {
       return `${x}-${y}`
     })(list1, list2)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })
 ```
