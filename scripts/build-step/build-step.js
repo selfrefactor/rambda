@@ -109,6 +109,7 @@ async function rambdaBuildStep(){
     async dir => scanFolder({ folder : dir }),
     filter(x => {
       if (x.endsWith('.spec.js')) return false
+      if (x.endsWith('/testUtils.js')) return false
 
       return x.endsWith('.js')
     }),
