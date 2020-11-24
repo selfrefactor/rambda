@@ -3250,7 +3250,7 @@ Notes:
 // @SINGLE_MARKER
 export function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 export function prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
-export function prop<P extends string | number, T>(p: P): (propToFind: Record<P, T>) => T;
+export function prop<P extends keyof T, T>(p: P): (propToFind: Record<P, T>) => T;
 
 /*
 Method: propEq

@@ -18444,7 +18444,7 @@ const result = [
 ```typescript
 prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
-prop<P extends string | number, T>(p: P): (propToFind: Record<P, T>) => T;
+prop<P extends keyof T, T>(p: P): (propToFind: Record<P, T>) => T;
 ```
 
 </details>
@@ -18493,9 +18493,14 @@ import {prop} from 'rambda'
 const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
+  it('issue #553', () => {
+    const result = prop('e',{ e: 'test1', d: 'test2' })
+    const curriedResult = prop<string>('e')({ e: 'test1', d: 'test2' })
+
+    result // $ExpectType string
+    curriedResult // $ExpectType string
+  })
   it('happy', () => {
-    // const testa = prop('e')({ e: 'test1', d: 'test2' })
-    // const testaa = prop('e',{ e: 'test1', d: 'test2' })
     const result = prop('a', obj)
 
     result // $ExpectType number
@@ -25890,9 +25895,9 @@ describe('R.zipWith', () => {
 
 WIP 6.5.0
 
-- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - problem with curried typings of `R.prop`
+- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint
 
-- Immutable lint - link to issue
+- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - problem with curried typings of `R.prop`
 
 6.4.0
 

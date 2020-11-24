@@ -1,8 +1,8 @@
-WIP 6.5.0
+6.5.0
 
-- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - problem with curried typings of `R.prop`
+- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint
 
-- Immutable lint - link to issue
+- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`
 
 6.4.0
 
