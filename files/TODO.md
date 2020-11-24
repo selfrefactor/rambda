@@ -1,23 +1,5 @@
 strip `readonly` from docs typings
 
-search for TODO
-
-bring updated deps back to Hjson file
-
-add tryCatchAsync and sync R.tryCatch. 
-
-```
-/**
- * It accepts input as first argument and series of functions as next arguments. It is same as `R.pipe` but with support for asynchronous functions.
- */
-export function pipedAsync<T>(
-  input: any,
-  ...fns: (Func<any> | Async<any>)[]
-): Promise<T>;
-
-export function produce<T>(x: T): T;
-```
-
 `
 export const DELAY: 'RAMBDAX_DELAY';
 ` is part of exported definitions
@@ -77,3 +59,5 @@ assert.isTrue(RA.xnor(true, true));
 assert.isFalse(RA.xnor(false, true));
 assert.isFalse(RA.xnor(true, false));
 assert.isTrue(RA.xnor(false, false));
+
+search for TODO

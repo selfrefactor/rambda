@@ -12,10 +12,11 @@ const IMMUTABLE_LINT = cd ../rambda-scripts&&yarn immutable
 const DOCS = cd ../rambda-scripts&&yarn highlighter
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
+const VERSION = 6.4.0
 
 {
   name: {{NAME}}
-  version: 6.3.1
+  version: {{VERSION}}
   scripts: {
 
     // It runs all scripts needed to prepare for `Rambda` release.
@@ -47,12 +48,13 @@ const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
     // Release
     docs: {{DOCS}}
     docsify: {{DOCSIFY}}
-    build: yarn build:main&&yarn build:web
+    build: yarn build:main&&yarn build:web&&yarn deps
     "build:web": {{BUILD}} files/rollup.web.config.js
     "build:main": {{BUILD}} files/rollup.config.js
     
     // HJSON
     parse: node scripts/parse-package-json/parse-package-json
+    deps: node scripts/parse-package-json/after-deps-update
     
     new: node scripts/add-new-method/add-new-method.js
     test: jest source -u --bail=false

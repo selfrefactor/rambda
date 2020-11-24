@@ -6686,7 +6686,7 @@ const result = await Promise.all([
 
 Categories: Async, Function
 
-Notes: Please check the tests of `R.tryCatchAsync` to fully understand how this method works.
+Notes:
 
 */
 // @SINGLE_MARKER
