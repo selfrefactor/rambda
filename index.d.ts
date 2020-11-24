@@ -1430,6 +1430,9 @@ export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 export function without<T>(matchAgainst: readonly T[], source: readonly T[]): readonly T[];
 export function without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => readonly T[];
 
+/**
+ * Logical XOR
+ */
 export function xor(x: boolean, y: boolean): boolean;
 export function xor(y: boolean): (y: boolean) => boolean;
 

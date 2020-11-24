@@ -9066,6 +9066,16 @@ export function forEach(fn, list){
 import { forEach } from './forEach'
 import { type } from './type'
 
+test('happy', () => {
+  const sideEffect = {}
+  forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
+
+  expect(sideEffect).toEqual({
+    foo1 : 11,
+    foo2 : 12,
+  })
+})
+
 test('iterate over object', () => {
   const obj = {
     a : 1,
@@ -9090,16 +9100,6 @@ test('iterate over object', () => {
 
   expect(result).toEqual(expected)
   expect(returned).toEqual(obj)
-})
-
-test('happy', () => {
-  const sideEffect = {}
-  forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
-
-  expect(sideEffect).toEqual({
-    foo1 : 11,
-    foo2 : 12,
-  })
 })
 
 test('with empty list', () => {
@@ -25393,6 +25393,8 @@ describe('without', function() {
 
 xor(x: boolean, y: boolean): boolean
 ```
+
+Logical XOR
 
 ```javascript
 const result = [

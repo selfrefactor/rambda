@@ -5903,7 +5903,7 @@ const expected = {
 
 Categories: Object
 
-Notes: In Typescript context, `rules` properties must be only functions. In Javescript context, they can be either function or object with functions.
+Notes: In Typescript context, `rules` functions can be only 1 level deep. In Javascript context, there is no such restriction.
 
 */
 // @SINGLE_MARKER
