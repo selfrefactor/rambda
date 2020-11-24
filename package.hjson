@@ -10,6 +10,8 @@ const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
 const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const IMMUTABLE_LINT = cd ../rambda-scripts&&yarn immutable
 const DOCS = cd ../rambda-scripts&&yarn highlighter
+const PARSE_HJSON = cd ../rambda-scripts&&yarn hjson:parse
+const FIX_HJSON = cd ../rambda-scripts&&yarn hjson:fix
 const OUT = jest scripts/all-scripts/all-scripts.spec.js
 const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 const VERSION = 6.4.0
@@ -53,8 +55,8 @@ const VERSION = 6.4.0
     "build:main": {{BUILD}} files/rollup.config.js
     
     // HJSON
-    parse: node scripts/parse-package-json/parse-package-json
-    deps: node scripts/parse-package-json/after-deps-update
+    parse: {{PARSE_HJSON}}
+    deps: {{FIX_HJSON}}
     
     new: node scripts/add-new-method/add-new-method.js
     test: jest source -u --bail=false
