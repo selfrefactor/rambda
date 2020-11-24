@@ -8,7 +8,7 @@ describe('R.last', () => {
 
   it('array', () => {
     const result = last([1, 2, 3])
-    result // $ExpectType number | undefined
+    result // $ExpectType number
   })
 
   it('empty array', () => {

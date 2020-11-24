@@ -1,8 +1,10 @@
 6.5.0
 
-- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint
+- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions
 
 - Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`
+
+- Fix wrong `R.last` typing
 
 6.4.0
 

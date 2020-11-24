@@ -12188,7 +12188,7 @@ const result = [
 ```typescript
 last(str: string): string;
 last(emptyList: readonly []): undefined;
-last<T extends any>(list: readonly T[]): T | undefined;
+last<T extends any>(list: readonly T[]): T;
 ```
 
 </details>
@@ -12216,9 +12216,12 @@ export function last(listOrString){
 ```javascript
 import { last } from './last'
 
-test('happy', () => {
-  expect(last([ 'foo', 'bar', 'baz' ])).toEqual('baz')
-  expect(last([])).toEqual(undefined)
+test('with list', () => {
+  expect(last([ 1, 2, 3 ])).toBe(3)
+  expect(last([])).toBeUndefined()
+})
+
+test('with string', () => {
   expect(last('abc')).toEqual('c')
   expect(last('')).toEqual('')
 })
@@ -12241,7 +12244,7 @@ describe('R.last', () => {
 
   it('array', () => {
     const result = last([1, 2, 3])
-    result // $ExpectType number | undefined
+    result // $ExpectType number
   })
 
   it('empty array', () => {
@@ -25893,11 +25896,13 @@ describe('R.zipWith', () => {
 
 ## ➤ CHANGELOG
 
-WIP 6.5.0
+6.5.0
 
-- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint
+- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions
 
-- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - problem with curried typings of `R.prop`
+- Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`
+
+- Fix wrong `R.last` typing
 
 6.4.0
 
