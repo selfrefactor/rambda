@@ -1,5 +1,18 @@
-// import { equals } from 'ramda'
 import { equals } from './equals'
+
+test('compare functions', () => {
+  function foo(){}
+  function bar(){}
+  const baz = () => {}
+
+  const expectTrue = equals(foo, foo)
+  const expectFalseFirst = equals(foo, bar)
+  const expectFalseSecond = equals(foo, baz)
+  
+  expect(expectTrue).toBeTrue()
+  expect(expectFalseFirst).toBeFalse()
+  expect(expectFalseSecond).toBeFalse()
+})
 
 test('with array of objects', () => {
   const list1 = [ { a : 1 }, [ { b : 2 } ] ]
@@ -242,7 +255,7 @@ test('with custom functions', () => {
   foo.prototype.toString = () => ''
   const result = equals(foo, foo)
 
-  expect(result).toBeFalse()
+  expect(result).toBeTrue()
 })
 
 test('with classes', () => {

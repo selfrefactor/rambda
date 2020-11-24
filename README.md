@@ -6874,6 +6874,10 @@ export function equals(a, b){
 
   const aType = type(a)
   if (aType !== type(b)) return false
+  if (aType === 'Function'){
+    return a.name === undefined ? false : a.name === b.name
+  }
+  
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
 
   if (aType === 'Number'){
@@ -6965,8 +6969,21 @@ export function equals(a, b){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-// import { equals } from 'ramda'
 import { equals } from './equals'
+
+test('compare functions', () => {
+  function foo(){}
+  function bar(){}
+  const baz = () => {}
+
+  const expectTrue = equals(foo, foo)
+  const expectFalseFirst = equals(foo, bar)
+  const expectFalseSecond = equals(foo, baz)
+  
+  expect(expectTrue).toBeTrue()
+  expect(expectFalseFirst).toBeFalse()
+  expect(expectFalseSecond).toBeFalse()
+})
 
 test('with array of objects', () => {
   const list1 = [ { a : 1 }, [ { b : 2 } ] ]
@@ -7209,7 +7226,7 @@ test('with custom functions', () => {
   foo.prototype.toString = () => ''
   const result = equals(foo, foo)
 
-  expect(result).toBeFalse()
+  expect(result).toBeTrue()
 })
 
 test('with classes', () => {
@@ -25902,6 +25919,8 @@ describe('R.zipWith', () => {
 ## ➤ CHANGELOG
 
 WIP 6.6.0
+
+- `R.equals` supports equality of functions.
 
 - Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 

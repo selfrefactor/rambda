@@ -24,6 +24,10 @@ export function equals(a, b){
 
   const aType = type(a)
   if (aType !== type(b)) return false
+  if (aType === 'Function'){
+    return a.name === undefined ? false : a.name === b.name
+  }
+  
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
 
   if (aType === 'Number'){

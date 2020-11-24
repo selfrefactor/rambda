@@ -1,5 +1,7 @@
 WIP 6.6.0
 
+- `R.equals` supports equality of functions.
+
 - Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 
 6.5.0

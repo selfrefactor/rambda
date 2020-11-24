@@ -1,5 +1,3 @@
-R.equals support for 'Function' as it makes sense in deep unit testing.
-
 strip `readonly` from docs typings
 
 Edit Contributing.md
