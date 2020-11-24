@@ -9,14 +9,14 @@ describe('R.map with arrays', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('iterable returns the same type as the input - curried', () => {
     const result = map<number>((x: number) => {
       x // $ExpectType number
       return x + 2
     })([1, 2, 3])
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })
 

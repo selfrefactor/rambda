@@ -29,7 +29,7 @@ describe('R.evolve', () => {
     const input = [100, 1400]
     const result = evolve(rules, input)
     const curriedResult = evolve(rules)(input)
-    result // $ExpectType string[]
-    curriedResult // $ExpectType string[]
+    result // $ExpectType readonly string[]
+    curriedResult // $ExpectType readonly string[]
   })
 })

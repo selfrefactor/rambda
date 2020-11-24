@@ -6,7 +6,7 @@ describe('applySpec', () => {
       v: inc,
       u: dec,
     })(1)
-    result // $ExpectType { v: number; u: number; }
+    result // $ExpectType { readonly v: number; readonly u: number; }
   })
   it('ramda 1', () => {
     interface Output {

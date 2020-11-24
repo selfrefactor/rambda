@@ -7,7 +7,7 @@ describe('R.groupWith', () => {
 
     const result = groupWith(groupWithFn, list)
     const curriedResult = groupWith(groupWithFn)(list)
-    result // $ExpectType string[][]
-    curriedResult // $ExpectType string[][]
+    result // $ExpectType readonly (readonly string[])[]
+    curriedResult // $ExpectType readonly (readonly string[])[]
   })
 })

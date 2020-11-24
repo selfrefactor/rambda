@@ -12,8 +12,8 @@ describe('R.pluck', () => {
     ]
     const resultA = pluck('a', input)
     const resultB = pluck('b')(input)
-    resultA // $ExpectType number[]
-    resultB // $ExpectType string[]
+    resultA // $ExpectType readonly number[]
+    resultB // $ExpectType readonly string[]
   })
 
   it('with array', () => {
@@ -24,7 +24,7 @@ describe('R.pluck', () => {
     ]
     const result = pluck(0, input)
     const resultCurry = pluck(0)(input)
-    result // $ExpectType number[]
-    resultCurry // $ExpectType number[]
+    result // $ExpectType readonly number[]
+    resultCurry // $ExpectType readonly number[]
   })
 })

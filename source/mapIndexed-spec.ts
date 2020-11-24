@@ -10,10 +10,10 @@ const list = [1, 2, 3]
 describe('R.mapIndexed', () => {
   it('happy', () => {
     const result = mapIndexed<number>(fn, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = mapIndexed<number>(fn)(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

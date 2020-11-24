@@ -6,11 +6,11 @@ describe('R.sortByProps', () => {
   it('happy', () => {
     const result = sortByProps(['foo.bar', 'a.b'], list)
 
-    result // $ExpectType { a: { b: number; }; }[]
+    result // $ExpectType readonly { a: { b: number; }; }[]
   })
   it('curried', () => {
     const result = sortByProps(['foo.bar', 'a.b'])(list)
 
-    result // $ExpectType { a: { b: number; }; }[]
+    result // $ExpectType readonly { a: { b: number; }; }[]
   })
 })

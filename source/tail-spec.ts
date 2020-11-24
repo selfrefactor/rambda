@@ -9,6 +9,6 @@ describe('R.tail', () => {
   it('with list', () => {
     const result = tail([1, 2, 3])
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

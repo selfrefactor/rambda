@@ -8,13 +8,13 @@ describe('R.filterIndexed with array', () => {
       x // $ExpectType number
       return x > 1
     }, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried require explicit type', () => {
     const result = filterIndexed<number>(x => {
       x // $ExpectType number
       return x > 1
     })(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

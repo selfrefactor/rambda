@@ -9,8 +9,8 @@ describe('R.partition', () => {
 
     const result = partition(predicate, list)
     const curriedResult = partition(predicate)(list)
-    result // $ExpectType [number[], number[]]
-    curriedResult // $ExpectType [number[], number[]]
+    result // $ExpectType readonly [readonly number[], readonly number[]]
+    curriedResult // $ExpectType readonly [readonly number[], readonly number[]]
   })
 
   /*
@@ -31,10 +31,10 @@ describe('R.partition', () => {
   
       const result = partition(predicate, hash)
       const curriedResult = partition(predicate)(hash)
-      result[0] // $ExpectType { [key: string]: number; }
-      result[1] // $ExpectType { [key: string]: number; }
-      curriedResult[0] // $ExpectType { [key: string]: number; }
-      curriedResult[1] // $ExpectType { [key: string]: number; }
+      result[0] // $xExpectType { [key: string]: number; }
+      result[1] // $xExpectType { [key: string]: number; }
+      curriedResult[0] // $xExpectType { [key: string]: number; }
+      curriedResult[1] // $xExpectType { [key: string]: number; }
     })
     */
 })

@@ -9,10 +9,10 @@ function sortFn(a: number, b: number): number {
 describe('R.sort', () => {
   it('happy', () => {
     const result = sort(sortFn, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = sort(sortFn)(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

@@ -9,6 +9,6 @@ describe('R.init', () => {
   it('with list', () => {
     const result = init([1, 2, 3])
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

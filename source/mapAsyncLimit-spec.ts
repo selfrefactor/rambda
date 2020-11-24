@@ -16,21 +16,21 @@ const fnWithIndex = async(x: string, i: number) => {
 describe('R.mapAsyncLimit', () => {
   it('happy', async() => {
     const result = await mapAsyncLimit(fn, limit, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with index', async() => {
     const result = await mapAsyncLimit(fnWithIndex, limit, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })
 
 describe('curried', () => {
   it('happy', async() => {
     const result = await mapAsyncLimit(fn, limit)(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with index', async() => {
     const result = await mapAsyncLimit(fnWithIndex, limit)(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

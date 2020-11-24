@@ -10,6 +10,6 @@ describe('R.transpose', () => {
   it('happy', () => {
     const result = transpose(input)
 
-    result // $ExpectType (string | number)[][]
+    result // $ExpectType readonly (readonly (string | number)[])[]
   })
 })

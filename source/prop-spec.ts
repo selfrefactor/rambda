@@ -4,9 +4,8 @@ const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
   it('happy', () => {
-    const testa = prop('e')({ e: 'test1', d: 'test2' })
-    const testaa = prop('e',{ e: 'test1', d: 'test2' })
-
+    // const testa = prop('e')({ e: 'test1', d: 'test2' })
+    // const testaa = prop('e',{ e: 'test1', d: 'test2' })
     const result = prop('a', obj)
 
     result // $ExpectType number

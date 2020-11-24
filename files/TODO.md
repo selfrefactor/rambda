@@ -1,5 +1,7 @@
 strip `readonly` from docs typings
 
+search for TODO
+
 this is wrong
 
 export function last<T extends any>(list: readonly T[]): T | undefined;

@@ -8,12 +8,12 @@ describe('R.take - array', () => {
   it('happy', () => {
     const result = take(howMany, list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = take(howMany)(list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })
 

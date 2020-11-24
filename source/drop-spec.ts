@@ -7,11 +7,11 @@ const howMany = 2
 describe('R.drop - array', () => {
   it('happy', () => {
     const result = drop(howMany, list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = drop(howMany)(list)
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })
 

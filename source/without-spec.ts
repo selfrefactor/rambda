@@ -7,11 +7,11 @@ describe('R.without', () => {
   it('happy', () => {
     const result = without(itemsToOmit, collection)
 
-    result // $ExpectType string[]
+    result // $ExpectType readonly string[]
   })
   it('curried', () => {
     const result = without(itemsToOmit)(collection)
 
-    result // $ExpectType string[]
+    result // $ExpectType readonly string[]
   })
 })

@@ -6,11 +6,11 @@ describe('R.splitEvery', () => {
   it('happy', () => {
     const result = splitEvery(3, list)
 
-    result // $ExpectType number[][]
+    result // $ExpectType readonly (readonly number[])[]
   })
   it('curried', () => {
     const result = splitEvery(3)(list)
 
-    result // $ExpectType number[][]
+    result // $ExpectType readonly (readonly number[])[]
   })
 })

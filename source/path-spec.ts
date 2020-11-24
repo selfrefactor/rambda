@@ -11,9 +11,9 @@ describe('R.path', () => {
   it('without specified input type', () => {
     const input = {a: 1, b: {c: true}}
     const result = path<boolean>('a.b.c', input)
-    const resultCurried = path<boolean>('a.b.c')(input)
+    const curriedResult = path<boolean>('a.b.c')(input)
     result // $ExpectType boolean | undefined
-    resultCurried // $ExpectType boolean | undefined
+    curriedResult // $ExpectType boolean | undefined
   })
 
   it('without specified output type', () => {

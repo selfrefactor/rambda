@@ -6,9 +6,9 @@ describe('R.groupBy', () => {
     const list = ['foo', 'barr', 'bazzz']
 
     const result = groupBy(groupByFn, list)
-    result // $ExpectType { [index: string]: string[]; }
+    result // $ExpectType { readonly [index: string]: readonly string[]; }
 
     const curriedResult = groupBy(groupByFn)(list)
-    curriedResult // $ExpectType { [index: string]: string[]; }
+    curriedResult // $ExpectType { readonly [index: string]: readonly string[]; }
   })
 })

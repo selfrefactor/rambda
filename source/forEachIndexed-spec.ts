@@ -9,7 +9,7 @@ describe('R.forEachIndexed', () => {
       i // $ExpectType number
     }, list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = forEachIndexed<number>((x, i) => {
@@ -17,6 +17,6 @@ describe('R.forEachIndexed', () => {
       i // $ExpectType number
     })(list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

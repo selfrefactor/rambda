@@ -16,7 +16,7 @@ describe('R.sortObjectEvery', () => {
       return propA > propB ? -1 : 1
     }, obj)
 
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { readonly [keyOutput: string]: number; }
   })
 
   it('predicate with only property arguments', () => {
@@ -26,7 +26,7 @@ describe('R.sortObjectEvery', () => {
       return propA > propB ? -1 : 1
     }, obj)
 
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { readonly [keyOutput: string]: number; }
   })
 })
 
@@ -40,7 +40,7 @@ describe('R.sortObjectEvery - curried version needs to pass a type', () => {
       return propA > propB ? -1 : 1
     })(obj)
 
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { readonly [keyOutput: string]: number; }
   })
 
   it('predicate with only property arguments', () => {
@@ -50,6 +50,6 @@ describe('R.sortObjectEvery - curried version needs to pass a type', () => {
       return propA > propB ? -1 : 1
     })(obj)
 
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { readonly [keyOutput: string]: number; }
   })
 })

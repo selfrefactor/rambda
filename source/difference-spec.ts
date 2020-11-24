@@ -7,11 +7,11 @@ describe('R.difference', () => {
   it('happy', () => {
     const result = difference(list1, list2)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('curried', () => {
     const result = difference(list1)(list2)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
 })

@@ -7,11 +7,11 @@ describe('R.splitWhen', () => {
   it('happy', () => {
     const result = splitWhen(predicate, list)
 
-    result // $ExpectType number[][]
+    result // $ExpectType readonly (readonly number[])[]
   })
   it('curried', () => {
     const result = splitWhen(predicate)(list)
 
-    result // $ExpectType number[][]
+    result // $ExpectType readonly (readonly number[])[]
   })
 })

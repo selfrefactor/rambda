@@ -9,9 +9,9 @@ describe('R.includes', () => {
   })
   it('with string', () => {
     const result = includes('oo', 'foo')
-    const resultCurried = includes('oo')('foo')
+    const curriedResult = includes('oo')('foo')
 
     result // $ExpectType boolean
-    resultCurried // $ExpectType boolean
+    curriedResult // $ExpectType boolean
   })
 })

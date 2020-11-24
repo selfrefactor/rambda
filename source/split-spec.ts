@@ -7,11 +7,11 @@ describe('R.split', () => {
   it('happy', () => {
     const result = split(splitChar, str)
 
-    result // $ExpectType string[]
+    result // $ExpectType readonly string[]
   })
   it('curried', () => {
     const result = split(splitChar)(str)
 
-    result // $ExpectType string[]
+    result // $ExpectType readonly string[]
   })
 })

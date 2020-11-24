@@ -7,12 +7,12 @@ describe('R.dropLastWhile', () => {
   it('with array', () => {
     const result = dropLastWhile(x => x > 1, list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with array - curried', () => {
     const result = dropLastWhile(x => x > 1, list)
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with string', () => {
     const result = dropLastWhile(x => x !== 'F', str)

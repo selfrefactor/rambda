@@ -6,8 +6,9 @@ const fn = (x: number) => [`${x}`, `${x}`]
 describe('R.chain', () => {
   it('without passing type', () => {
     const result = chain(fn, list)
-    result // $ExpectType string[]
-    const resultCurried = chain(fn)(list)
-    resultCurried // $ExpectType string[]
+    result // $ExpectType readonly string[]
+
+    const curriedResult = chain(fn)(list)
+    curriedResult // $ExpectType readonly string[]
   })
 })

@@ -9,7 +9,7 @@ describe('R.fromPairs - require explicit type for input list', () => {
     ]
     const result = fromPairs(list)
 
-    result // $ExpectType { [index: string]: number; }
+    result // $ExpectType { readonly [index: string]: number; }
   })
   it('with number index', () => {
     const list: [number, string][] = [
@@ -19,6 +19,6 @@ describe('R.fromPairs - require explicit type for input list', () => {
     ]
     const result = fromPairs(list)
 
-    result // $ExpectType { [index: number]: string; }
+    result // $ExpectType { readonly [index: number]: string; }
   })
 })

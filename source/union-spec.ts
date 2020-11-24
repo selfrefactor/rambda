@@ -4,13 +4,13 @@ describe('R.union', () => {
   it('happy', () => {
     const result = union([1, 2], [2, 3])
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with array of objects - case 1', () => {
     const list1 = [{a: 1}, {a: 2}]
     const list2 = [{a: 2}, {a: 3}]
     const result = union(list1, list2)
-    result // $ExpectType { a: number; }[]
+    result // $ExpectType readonly { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a: 1, b: 1}, {a: 2}]
@@ -25,13 +25,13 @@ describe('R.union - curried', () => {
   it('happy', () => {
     const result = union([1, 2])([2, 3])
 
-    result // $ExpectType number[]
+    result // $ExpectType readonly number[]
   })
   it('with array of objects - case 1', () => {
     const list1 = [{a: 1}, {a: 2}]
     const list2 = [{a: 2}, {a: 3}]
     const result = union(list1)(list2)
-    result // $ExpectType { a: number; }[]
+    result // $ExpectType readonly { a: number; }[]
   })
   it('with array of objects - case 2', () => {
     const list1 = [{a: 1, b: 1}, {a: 2}]
