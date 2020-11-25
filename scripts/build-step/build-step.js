@@ -75,6 +75,7 @@ async function rambdaxBuildStep(){
     sourceFileDir,
     async dir => scanFolder({ folder : dir }),
     filter(x => {
+      if (x.endsWith('/testUtils.js')) return false
       if (x.endsWith('.spec.js')) return false
       if (x.includes('benchmark')) return false
 

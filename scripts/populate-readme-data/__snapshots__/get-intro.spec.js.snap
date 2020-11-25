@@ -13,7 +13,7 @@ exports[`happy 1`] = `
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## Example use
+## ➤ Example use
 
 \`\`\`javascript
 import { compose, map, filter } from 'rambda'
@@ -32,29 +32,33 @@ You can test this example in <a href=\\"https://rambda.now.sh?const%20result%20%
 * [API](#api)
 * [Changelog](#changelog)
 
-## Rambda's advantages
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
 
-- Typescript included
+## ➤ Rambda's advantages
+
+### Typescript included
 
 Typescript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install \`@types/ramda\`.
 
 Still, you need to be aware that functional programming features in \`Typescript\` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
-- Smaller size
+### Smaller size
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
 
-- Tree-shaking
+### Tree-shaking
 
 Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
 
 The repo holds two \`Angular9\` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-Currently the **Ramda** bundle size is **{{rambdaTreeShakingInfo}} MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
+
+There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including \`Ramda\`, \`Rambda\` and \`Rambdax\`. 
 
 > actually tree-shaking is the initial reason for creation of \`Rambda\`
 
-- dot notation for \`R.path\` and \`R.paths\`
+### Dot notation for \`R.path\`, \`R.paths\`, \`R.assocPath\` and \`R.lensPath\`
 
 Standard usage of \`R.path\` is \`R.path(['a', 'b'], {a: {b: 1} })\`.
 
@@ -64,7 +68,7 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 \`\`\`
 
-- comma notation for \`R.pick\` and \`R.omit\`
+### Comma notation for \`R.pick\` and \`R.omit\`
 
 Similar to dot notation, but the separator is comma(\`,\`) instead of dot(\`.\`).
 
@@ -73,18 +77,24 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 \`\`\`
 
-- Speed
+### Speed
 
 **Rambda** is generally more performant than \`Ramda\` as the [benchmarks](#benchmarks) can prove that.
 
+### Support
 
-- More generic methods
+Most of the valid issues are fixed within 2-3 days.
 
-\`Ramda\` has an overwhelming list of methods, as one could get lost putting all these methods in one's head. \`Rambda\` has smaller method counts and that could be seen as advantage.
+Closing the issue is usually accompanied by publishing a new patch version of \`Rambda\` to NPM.
+
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
+
+## ➤ Missing Ramda methods
 
 <details>
 <summary>
-  Click to see the full list of 107 Ramda methods not implemented in Rambda 
+  Click to see the full list of 90 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -108,14 +118,8 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - descend
 - differenceWith
 - dissocPath
-- dropLastWhile
-- dropRepeats
-- dropRepeatsWith
-- dropWhile
 - empty
 - eqBy
-- eqProps
-- evolve
 - forEachObjIndexed
 - gt
 - gte
@@ -143,14 +147,10 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - mergeRight
 - mergeWith
 - mergeWithKey
-- move
 - nAry
 - nthArg
 - o
 - objOf
-- of
-- once
-- or
 - otherwise
 - pair
 - partialRight
@@ -161,7 +161,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - pipeWith
 - project
 - propSatisfies
-- props
 - reduceBy
 - reduceRight
 - reduceWhile
@@ -170,11 +169,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - scan
 - sequence
 - sortWith
-- splitAt
-- splitWhen
 - symmetricDifferenceWith
-- takeLastWhile
-- takeWhile
 - andThen
 - toPairsIn
 - transduce
@@ -183,7 +178,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - unary
 - uncurryN
 - unfold
-- union
 - unionWith
 - uniqBy
 - unnest
@@ -191,13 +185,14 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 - useWith
 - valuesIn
 - xprod
-- zipWith
 - thunkify
 - default
 
 </details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
   
-## Install
+## ➤ Install
 
 - **yarn add rambda**
 
@@ -213,31 +208,31 @@ https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
 import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambda/master/dist/rambda.esm.js'
 \`\`\`
 
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-install)
+
 ## Differences between Rambda and Ramda
 
 - Rambda's **type** detects async functions and unresolved \`Promises\`. The returned values are \`'Async'\` and \`'Promise'\`.
 
 - Rambda's **type** handles *NaN* input, in which case it returns \`NaN\`.
 
-- Rambda's **path** and **paths** accept dot notation - \`'x.y' same as ['x','y']\`
+- Rambda's **forEach** can iterate over objects not only arrays.
 
-- Rambda's **pick** and **omit** accept comma notation - \`'x,y' same as ['x','y']\`
-
-- Rambda's **map**, **reject** and **forEach** can iterate over objects not only arrays.
-
-- Rambda's **map** and **filter** pass array index as second argument when mapping over arrays.
-
-- Rambda's **adjust**, **all**, **allPass**, **any**, **anyPass**, **findIndex** , **findLastIndex** and **reject** are passing index as second argument to the predicate function.
+- Rambda's **map**, **filter**, **partition** when they iterate over objects, they pass property and input object as predicate's argument.
 
 - Rambda's **filter** returns empty array with bad input(\`null\` or \`undefined\`), while Ramda throws.
 
-- Ramda's **includes** will throw an error if input is neither \`string\` nor \`array\`, while **Rambda** version will return \`false\`.
+- Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
-- Ramda's **clamp** work for letters, while Rambda's method work only for numbers.
+- Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
+
+- Typescript definitions between \`rambda\` and \`@types/ramda\` may vary.
 
 > If you need more **Ramda** methods in **Rambda**, you may either submit a \`PR\` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
 
-## Benchmarks
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
+
+## ➤ Benchmarks
 
 <details>
 
@@ -248,7 +243,7 @@ There are methods which are benchmarked only with \`Ramda\` and \`Rambda\`(i.e. 
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.19) and *Ramda*(0.27.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.20) and *Ramda*(0.27.1).
 
 </summary>
 
@@ -313,11 +308,13 @@ method | Rambda | Ramda | Lodash
 
 </details>
 
-## Used by
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
+
+## ➤ Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
-- [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk)
+- [Walmart Canada](https://www.walmart.ca) reported by [w-b-dev](https://github.com/w-b-dev) 
 
 - [VSCode Slack intergration](https://github.com/verydanny/vcslack)
 
@@ -325,6 +322,10 @@ method | Rambda | Ramda | Lodash
 
 - [MobX-State-Tree decorators](https://github.com/farwayer/mst-decorators)
 
-- [Mobx decorators](https://github.com/farwayer/mobx-decorators)
+- [Rewrite of the Betaflight configurator](https://github.com/freshollie/fresh-configurator)
+
+- [MineFlayer plugin](https://github.com/G07cha/MineflayerArmorManager)
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-used-by)
 "
 `;

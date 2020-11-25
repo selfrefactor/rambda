@@ -138,19 +138,28 @@ async function getIntroContent(withRambdax){
   })
 }
 
+async function getIntroEnd(withRambdax){
+  const introEndContent = (await readFile(`${ __dirname }/assets/INTRO_END.md`)).toString()
+  const suggestPR = `
+> If you need more **Ramda** methods in **Rambda**, you may either submit a \`PR\` or check the extended version of **Rambda** - [Rambdax](https://github.com/selfrefactor/rambdax). In case of the former, you may want to consult with [Rambda contribution guidelines.](CONTRIBUTING.md)
+`.trim()
+
+  return interpolate(introEndContent, {suggestPR: withRambdax ? '\n': '\n' + suggestPR + '\n'})
+}
+
+
 export async function getIntro(withRambdax){
   const introContent = await getIntroContent(withRambdax)
-  const introEndContent = await readFile(`${ __dirname }/assets/INTRO_END.md`)
   const usedByContent = await readFile(`${ __dirname }/assets/USED_BY.md`)
   const summaryContent = await readFile(resolve(__dirname, '../read-benchmarks/summary.txt'))
-
+  const introEndContent = await getIntroEnd(withRambdax)
   const missingMethods = await getMissingMethods()
   const installInfo = getInstallInfo(withRambdax)
 
   return interpolate(templateIntro, {
     benchmarksSeparator: getSeparator('benchmarks'),
     usedBySeparator: getSeparator('used-by'),
-    introEnd      : introEndContent.toString(),
+    introEnd      : introEndContent,
     missingMethods,
     installInfo,
     intro         : introContent.toString(),

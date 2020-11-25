@@ -18514,8 +18514,8 @@ const obj = {a: 1, b: 'foo'}
 
 describe('R.prop', () => {
   it('issue #553', () => {
-    const result = prop('e',{ e: 'test1', d: 'test2' })
-    const curriedResult = prop<string>('e')({ e: 'test1', d: 'test2' })
+    const result = prop('e', {e: 'test1', d: 'test2'})
+    const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
 
     result // $ExpectType string
     curriedResult // $ExpectType string
@@ -18537,7 +18537,7 @@ describe('with number as prop', () => {
   const index = 1
   it('happy', () => {
     const result = prop(index, list)
-    
+
     result // $ExpectType number
   })
   it('curried require explicit type', () => {
@@ -18704,17 +18704,17 @@ describe('R.propEq', () => {
 
   it('imported from @types/ramda', () => {
     interface A {
-      foo: string | null;
+      foo: string | null,
     }
     const obj: A = {
       foo: 'bar',
-    };
-    const value = '';
-    const result = propEq('foo', value)(obj);
+    }
+    const value = ''
+    const result = propEq('foo', value)(obj)
     result // $ExpectType boolean
-    
+
     // $ExpectError
-    propEq('bar', value)(obj);
+    propEq('bar', value)(obj)
   })
 })
 ```
@@ -25784,8 +25784,8 @@ describe('R.zipObj', () => {
     result // $ExpectType { b: number; a: number; c: number; d: number; }
   })
   it('imported from @types/ramda', () => {
-    const result = zipObj(['a', 'b', 'c'], [1, 2, 3]);
-    const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3]);
+    const result = zipObj(['a', 'b', 'c'], [1, 2, 3])
+    const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3])
     result // $ExpectType { b: number; a: number; c: number; }
     curriedResult // $ExpectType { b: number; a: number; c: number; }
   })
