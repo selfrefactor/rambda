@@ -1,5 +1,9 @@
 # Contribution guidelines
 
+You need to have the code of `selfrefactor/rambda-scripts` repo on the same level as `selfrefactor/rambda` as that repo contains some of the build logic.
+
+`git clone https://github.com/selfrefactor/rambda-scripts.git`
+
 ## Fix a method
 
 1. If the error is in `R.foo` then you need to write a test in `source/foo.spec.js`, that reproduces the bug.

@@ -1,8 +1,5 @@
 strip `readonly` from docs typings
 
-Edit Contributing.md
-
-use .toThrowErrorMatchingInlineSnapshot
 ---
 
 Fix `If you need more Ramda methods in Rambda, you may either submit a PR or check the extended version of Rambda - Rambdax. In case of the former, you may want to consult with Rambda contribution guidelines.` in Rambdax
@@ -44,6 +41,8 @@ More usage of $ExpectError
 Add marker/category for Rambdax methods that doesn't belong to Rambda
 
 search for TODO
+
+use .toThrowErrorMatchingInlineSnapshot
 
 ## Holder
 

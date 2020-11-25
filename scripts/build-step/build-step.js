@@ -13,7 +13,7 @@ import { devDependencies } from '../../package'
 import { getRambdaMethods } from '../utils'
 import { createExportedTypings } from './create-exported-typings'
 
-// Rambdax methods which are used in creation of Rambda method
+// Rambdax methods which are used in creation of Rambda methods
 // ============================================
 const rambdaxMethodsAsInternals = [ 'isFunction', 'isPromise', 'maybe' ]
 
@@ -55,9 +55,9 @@ async function rambdaxBuildStep(){
   const rambdaxDeps = pick(buildDeps, devDependencies)
   const tsToolbelt = resolve(__dirname, '../../_ts-toolbelt')
   const sourceFileDir = resolve(__dirname, '../../source')
-  const dir = resolve(__dirname, '../../../rambdax')
-  const tsToolbeltOutput = `${ dir }/_ts-toolbelt`
-  const packageJsonOutput = `${ dir }/package.json`
+  const rambdaxDir = resolve(__dirname, '../../../rambdax')
+  const tsToolbeltOutput = `${ rambdaxDir }/_ts-toolbelt`
+  const packageJsonOutput = `${ rambdaxDir }/package.json`
   const packageJson = await readJson(packageJsonOutput)
   const newPackageJson = {
     ...packageJson,
@@ -87,14 +87,14 @@ async function rambdaxBuildStep(){
       if (isValidMethod) allMethods.push(name)
 
       const [ , fileName ] = x.split('source/')
-      await copy(x, `${ dir }/src/${ fileName }`)
+      await copy(x, `${ rambdaxDir }/src/${ fileName }`)
     })
   )
 
   await createMainFileRambdax({
     allMethods,
     rambdaMethods,
-    dir,
+    dir: rambdaxDir,
   })
 }
 

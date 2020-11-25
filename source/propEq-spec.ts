@@ -33,16 +33,16 @@ describe('R.propEq', () => {
 
   it('imported from @types/ramda', () => {
     interface A {
-      foo: string | null;
+      foo: string | null,
     }
     const obj: A = {
       foo: 'bar',
-    };
-    const value = '';
-    const result = propEq('foo', value)(obj);
+    }
+    const value = ''
+    const result = propEq('foo', value)(obj)
     result // $ExpectType boolean
-    
+
     // $ExpectError
-    propEq('bar', value)(obj);
+    propEq('bar', value)(obj)
   })
 })

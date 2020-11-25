@@ -1,9 +1,9 @@
-import { xnor } from 'rambda'
+import {xnor} from 'rambda'
 
 describe('R.xnor', () => {
   it('happy', () => {
     const result = xnor(true, false)
-    
+
     result // $ExpectType boolean
   })
   it('curried', () => {
