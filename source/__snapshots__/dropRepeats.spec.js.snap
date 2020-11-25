@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`brute force Array 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Array [
+      [Function],
+      [Function],
+      [Function],
+    ],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": Array [
+    [Function],
+    [Function],
+    [Function],
+  ],
+  "result": Array [
+    [Function],
+  ],
+}
+`;
+
 exports[`brute force Number 1`] = `
 Object {
   "error": Object {

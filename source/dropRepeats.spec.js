@@ -29,7 +29,7 @@ describe("brute force", () => {
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 0,
+          "RESULTS_MISMATCH": 1,
           "SHOULD_NOT_THROW": 3,
           "SHOULD_THROW": 0,
         }
