@@ -4,6 +4,10 @@
 
 - Add `R.xnor`
 
+- `R.equals` supports equality of functions.
+
+- Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
+
 - Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions
 
 - Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`

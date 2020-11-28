@@ -30,19 +30,29 @@ includeLens?
 
 ## Can postpone
 
+fetch contributors github's avatars
+
 Add explanation to missing Ramda methods
 
 Add R.mapToList which takes object and returns a list
 
 R.renamePropsWith
 
+Use new `Promise.allSettled`
+
 More usage of $ExpectError
 
 Add marker/category for Rambdax methods that doesn't belong to Rambda
 
+repl needs `const result =` and not all methods are correct
+
 search for TODO
 
 use .toThrowErrorMatchingInlineSnapshot
+
+R.map sanity check is different than R.filter - fixable with global change of wrong inputs
+
+Apply for https://github.com/sorrycc/awesome-javascript#functional-programming
 
 ## Holder
 

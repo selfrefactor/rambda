@@ -122,7 +122,8 @@ async function addNewMethod(methodName){
   }
   const isRambdax = Object.keys(R).includes(methodName) === false
   const ramdaSpecPath = resolve(__dirname,
-    `../run-ramda-specs/ramda/test/${ methodName }.js`)
+    `../../../rambda-scripts/src/run-ramda-specs/ramda/test/${ methodName }.js`)
+
   const ramdaSpecs = existsSync(resolve(__dirname, ramdaSpecPath)) ?
     (await readFile(ramdaSpecPath)).toString() :
     false
