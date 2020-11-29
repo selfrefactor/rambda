@@ -52,8 +52,6 @@ use .toThrowErrorMatchingInlineSnapshot
 
 R.map sanity check is different than R.filter - fixable with global change of wrong inputs
 
-Apply for https://github.com/sorrycc/awesome-javascript#functional-programming
-
 ## Holder
 
 ```
