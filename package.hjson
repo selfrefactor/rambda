@@ -2,18 +2,17 @@ const NAME = rambda
 const AUTHOR = selfrefactor
 const DOCSIFY = docsi init ./docs
 const BUILD = cross-env NODE_ENV=build rollup -c
-const LINT_JS = jest scripts/lint/lint.spec.js
-const LINT_TS = cd scripts/lint-ts-files&&node lint-typings-tests.js
-const CREATE_DOCS = jest scripts/populate-docs-data/populate-docs-data.spec.js
-const CREATE_README = jest scripts/populate-readme-data/populate-readme-data.spec.js
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
 const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const IMMUTABLE_LINT = cd ../rambda-scripts&&yarn immutable
 const DOCS = cd ../rambda-scripts&&yarn highlighter
+const LINT = cd ../rambda-scripts&&yarn lint
+const POPULATE_DOCS = cd ../rambda-scripts&&yarn populate:docs
+const POPULATE_DOCS_X = cd ../rambda-scripts&&yarn populate:docs:rambdax
+const POPULATE_README = cd ../rambda-scripts&&yarn populate:readme
+const POPULATE_README_X = cd ../rambda-scripts&&yarn populate:readme:rambdax
 const PARSE_HJSON = cd ../rambda-scripts&&yarn hjson:parse
 const FIX_HJSON = cd ../rambda-scripts&&yarn hjson:fix
-const OUT = jest scripts/all-scripts/all-scripts.spec.js
-const OUTX = WITH_RAMBDAX=ON jest scripts/all-scripts/all-scripts.spec.js
 const VERSION = 6.4.0
 
 {
@@ -22,16 +21,13 @@ const VERSION = 6.4.0
   scripts: {
 
     // It runs all scripts needed to prepare for `Rambda` release.
-    out: {{OUT}}
+    out: {{POPULATE_DOCS}}&&{{POPULATE_README}}
 
     // It runs all scripts needed to prepare for `Rambdax` release.
-    x: {{OUTX}}
+    x: {{POPULATE_DOCS_X}}&&{{POPULATE_README_X}}
 
     // It creates JSON data used afterwards by the documentation site
-    docs: {{CREATE_DOCS}}
-
-    // It creates `README.md` file for both `Rambda` and `Rambdax` libraries
-    readme: {{CREATE_README}}
+    docs: {{DOCS}}
 
     // Update `ts-toolbelt` dependency
     toolbelt: {{TOOLBELT}}
@@ -43,13 +39,9 @@ const VERSION = 6.4.0
     usedby: {{VERIFY_USED_BY}}
 
     // Lint all files including those in `scripts` folder
-    lint: yarn lint:js&&yarn lint:ts
-    "lint:ts": {{LINT_TS}}
-    "lint:js": {{LINT_JS}}
+    lint: {{LINT}}
 
-    // Release
-    docs: {{DOCS}}
-    docsify: {{DOCSIFY}}
+    // Build
     build: yarn build:main&&yarn build:web&&yarn deps
     "build:web": {{BUILD}} files/rollup.web.config.js
     "build:main": {{BUILD}} files/rollup.config.js
@@ -58,6 +50,7 @@ const VERSION = 6.4.0
     parse: {{PARSE_HJSON}}
     deps: {{FIX_HJSON}}
     
+    docsify: {{DOCSIFY}}
     new: node scripts/add-new-method/add-new-method.js
     test: jest source -u --bail=false
     
