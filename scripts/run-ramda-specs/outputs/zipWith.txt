@@ -1,9 +1,0 @@
-
-
-  zipWith
-    ✓ returns an array created by applying its passed-in function pair-wise on its passed in arrays
-    ✓ returns an array whose length is equal to the shorter of its input arrays
-
-
-  2 passing (22ms)
-

@@ -3,6 +3,9 @@ const AUTHOR = selfrefactor
 const DOCSIFY = docsi init ./docs
 const BUILD = cross-env NODE_ENV=build rollup -c
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
+const NEW_METHOD = cd ../rambda-scripts&&yarn new
+const RUN_BENCHMARKS = cd ../rambda-scripts&&yarn benchmarks
+const RUN_COMPLEX_BENCHMARKS = cd ../rambda-scripts&&yarn benchmarksx
 const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const IMMUTABLE_LINT = cd ../rambda-scripts&&yarn immutable
 const DOCS = cd ../rambda-scripts&&yarn highlighter
@@ -51,15 +54,15 @@ const VERSION = 6.4.0
     deps: {{FIX_HJSON}}
     
     docsify: {{DOCSIFY}}
-    new: node scripts/add-new-method/add-new-method.js
+    new: {{NEW_METHOD}}
     test: jest source -u --bail=false
     
     "cover:spec": jest source --coverage --no-cache -w 1
     cover: yarn typings&&yarn cover:spec
-    benchmark: jest scripts/run-benchmarks/run-benchmarks.spec.js
+    benchmark: {{RUN_BENCHMARKS}}
 
     // Complex benchmarks - still WIP
-    benchmarkx: jest scripts/run-benchmarks/run-complex-benchmarks.spec.js
+    benchmarkx: {{RUN_COMPLEX_BENCHMARKS}}
     
     typings: dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source
     
