@@ -48,7 +48,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -418,37 +418,6 @@ describe('R.add', () => {
 
 </details>
 
-<details>
-
-<summary>Lodash is fastest. Rambda is 96.25% slower and Ramda is 96.24% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const add = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.add(1, 1)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.add(1, 1)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.add(1, 1)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### adjust
@@ -552,41 +521,6 @@ test('when index is out of bounds', () => {
     -5, add(1), list
   )).toEqual(list)
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 5.52%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 0, 1, 2 ]
-const fn = x => x + 1
-const index = 1
-
-const adjust = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.adjust(
-        index, fn, list
-      )
-      R.adjust(index, fn)(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.adjust(
-        index, fn, list
-      )
-      Ramda.adjust(index, fn)(list)
-    },
-  },
-]
 ```
 
 </details>
@@ -718,39 +652,6 @@ describe('all', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 94.95%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ 1, 2, 3, 4 ]
-
-const all = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const fn = x => x > 2
-
-      R.all(fn, input)
-      R.all(fn)(input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const fn = x => x > 2
-
-      Ramda.all(fn, input)
-      Ramda.all(fn)(input)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
 ### allPass
@@ -866,33 +767,6 @@ describe('allPass', () => {
     x // $ExpectType boolean
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 98.95%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
-
-const allPass = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.allPass(rules)(11)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.allPass(rules)(11)
-    },
-  },
-]
 ```
 
 </details>
@@ -1092,31 +966,6 @@ describe('R.and', () => {
 
 </details>
 
-<details>
-
-<summary></summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const and = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.and(true, true)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.and(true, true)
-    },
-  }
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#and)
 
 ### any
@@ -1217,40 +1066,6 @@ describe('R.any', () => {
     result // $ExpectType boolean
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 98.18% slower and Lodash is 6.18% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ 1, 2, 3, 4 ]
-const fn = val => val > 2
-
-const any = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.any(fn, input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.any(fn, input)
-    },
-  },
-  {
-    label : 'Lodash.some',
-    fn    : () => {
-      _.some(input, fn)
-    },
-  },
-]
 ```
 
 </details>
@@ -1387,33 +1202,6 @@ describe('anyPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 99.09%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const rules = [ x => typeof x === 'boolean', x => x > 20, x => x * 7 < 100 ]
-
-const anyPass = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.anyPass(rules)(11)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.anyPass(rules)(11)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.anyPass</italic> specs
 
 > :boom: Reason for the failure: Ramda method returns a curried function whose arity matches that of the highest-arity predicate
@@ -1535,33 +1323,6 @@ describe('R.append', () => {
     result // $ExpectType number[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 84.09%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const append = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.append(0)([ 1, 2, 3, 4 ])
-      R.append('bar')('foo')
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.append(0)([ 1, 2, 3, 4 ])
-      Ramda.append('bar')('foo')
-    },
-  },
-]
 ```
 
 </details>
@@ -2009,51 +1770,6 @@ describe('applySpec', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 75.73%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const curryN = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const data = {
-        a : {
-          b : { c : 1 },
-          d : 2,
-        },
-      }
-      const spec = {
-        c : R.path([ 'a', 'b', 'c' ]),
-        d : R.path([ 'a', 'd' ]),
-      }
-      R.applySpec(spec, data)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const data = {
-        a : {
-          b : { c : 1 },
-          d : 2,
-        },
-      }
-      const spec = {
-        c : Ramda.path([ 'a', 'b', 'c' ]),
-        d : Ramda.path([ 'a', 'd' ]),
-      }
-      Ramda.applySpec(spec, data)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
 
 ### assoc
@@ -2223,50 +1939,6 @@ describe('R.assoc', () => {
     result.b // $ExpectType number
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 87.98% slower and Ramda is 57.39% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = {
-  a : 1,
-  b : 2,
-}
-const key = 'c'
-const value = 3
-
-const assoc = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.assoc(
-        key, value, input
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.assoc(
-        key, value, input
-      )
-    },
-  },
-  {
-    label : 'Lodash.set',
-    fn    : () => {
-      _.set(
-        input, key, value
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -3134,42 +2806,6 @@ describe('R.clone', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 96.03% slower and Lodash is 91.75% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = {
-  a : 1,
-  b : 2,
-}
-
-const clone = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.clone(input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.clone(input)
-    },
-  },
-  {
-    label : 'Lodash.cloneDeep',
-    fn    : () => {
-      _.cloneDeep(input)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>9 failed <italic>Ramda.clone</italic> specs
 
 > :boom: Reason for the failure: Rambda method work only with objects and arrays
@@ -3562,40 +3198,6 @@ describe('R.compose', () => {
     result // $ExpectType void
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 96.45% slower and Lodash is 77.83% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ 1, 2, 3, 4 ]
-const fns = [ val => val + 1, val => val.length ]
-
-const compose = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.compose(...fns)(input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.compose(...fns)(input)
-    },
-  },
-  {
-    label : 'Lodash.flowRight',
-    fn    : () => {
-      _.flowRight(...fns)(input)
-    },
-  },
-]
 ```
 
 </details>
@@ -4114,35 +3716,6 @@ describe('R.converge', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is slower than Ramda with 49.12%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const converge = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const fn = Ramda.converge(Ramda.multiply, [ Ramda.add(1), Ramda.add(3) ])
-
-      fn(4)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const fn = R.converge(R.multiply, [ R.add(1), R.add(3) ])
-
-      fn(4)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
 ### curry
@@ -4265,43 +3838,6 @@ describe('R.curry', () => {
     result4 // $ExpectType any
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 34.9%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const addFourNumbers = (
-  a, b, c, d
-) => a + b + c + d
-
-const curry = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const curriedAddFourNumbers = R.curry(addFourNumbers)
-      const f = curriedAddFourNumbers(1, 2)
-      const g = f(3)
-
-      g(4)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const curriedAddFourNumbers = Ramda.curry(addFourNumbers)
-      const f = curriedAddFourNumbers(1, 2)
-      const g = f(3)
-
-      g(4)
-    },
-  },
-]
 ```
 
 </details>
@@ -4643,43 +4179,6 @@ describe('R.curryN', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is slower than Ramda with 63.32%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const addFourNumbers = (
-  a, b, c, d
-) => a + b + c + d
-
-const curryN = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const curriedAddFourNumbers = R.curryN(4, addFourNumbers)
-      const f = curriedAddFourNumbers(1, 2)
-      const g = f(3)
-
-      g(4)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const curriedAddFourNumbers = Ramda.curryN(4, addFourNumbers)
-      const f = curriedAddFourNumbers(1, 2)
-      const g = f(3)
-
-      g(4)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curryN)
 
 ### dec
@@ -4937,39 +4436,6 @@ describe('R.defaultTo can have many inputs', () => {
     result // $ExpectType string | number
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 50.3%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ null, undefined, 5 ]
-
-const defaultTo = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.defaultTo(3, input[ 0 ])
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.defaultTo(3, input[ 0 ])
-    },
-  },
-  {
-    label : 'Rambda with multiple arguments',
-    fn    : () => {
-      R.defaultTo(3, ...input)
-    },
-  },
-]
 ```
 
 </details>
@@ -5419,33 +4885,6 @@ describe('R.drop - string', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 97.45%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ 1, 2, 3, 4 ]
-
-const drop = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.drop(3, input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.drop(3, input)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#drop)
 
 ### dropLast
@@ -5564,33 +5003,6 @@ describe('R.dropLast - string', () => {
     result // $ExpectType string
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 97.07%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = [ 1, 2, 3, 4 ]
-
-const dropLast = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.dropLast(3, input)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.dropLast(3, input)
-    },
-  },
-]
 ```
 
 </details>
@@ -7277,40 +6689,6 @@ describe('R.equals', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 72.11% slower and Ramda is 79.48% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const a = { a : { b : { c : 1 } } }
-const b = { a : { b : { c : 1 } } }
-
-const equals = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.equals(a, b)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.equals(a, b)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.isEqual(a, b)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>14 failed <italic>Ramda.equals</italic> specs
 
 > :boom: Reason for the failure: Rambda method doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | Ramda dispatches to `equals` method recursively | Rambda method doesn't support equality of functions
@@ -8019,39 +7397,6 @@ describe('R.filter with objects', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 94.74% slower and Lodash is 58.18% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const arr = [ 1, 2, 3, 4 ]
-const fn = x => x > 2
-const filter = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.filter(fn, arr)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.filter(fn, arr)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.filter(arr, fn)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.filter</italic> specs
 
 > :boom: Reason for the failure: Ramda method dispatches to `filter` method of object
@@ -8188,40 +7533,6 @@ describe('R.find', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is fastest. Ramda is 98.2% slower and Lodash is 88.96% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const fn = x => x > 2
-const list = [ 1, 2, 3, 4 ]
-
-const find = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.find(fn, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.find(fn, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.find(list, fn)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#find)
 
 ### findIndex
@@ -8321,40 +7632,6 @@ describe('R.findIndex', () => {
     result // $ExpectType number
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 97.97% slower and Lodash is 79.39% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const fn = x => x > 2
-const list = [ 1, 2, 3, 4 ]
-
-const findIndex = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.findIndex(fn, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.findIndex(fn, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.findIndex(list, fn)
-    },
-  },
-]
 ```
 
 </details>
@@ -8737,39 +8014,6 @@ describe('flatten', () => {
     result // $ExpectType number[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 6.56% slower and Ramda is 95.38% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, [ 2, [ 3, 4, 6 ] ] ]
-
-const flatten = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.flatten(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.flatten(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.flatten(list)
-    },
-  },
-]
 ```
 
 </details>
@@ -10474,55 +9718,6 @@ describe('R.ifElse', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 70.97%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const condition = R.has('foo')
-const v = function (a){
-  return typeof a === 'number'
-}
-const t = function (a){
-  return a + 1
-}
-const ifFn = x => R.prop('foo', x).length
-const elseFn = () => false
-
-const ifElse = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      const fn = R.ifElse(condition, ifFn)(elseFn)
-
-      fn({ foo : 'bar' })
-      fn({ fo : 'bar' })
-
-      const ifIsNumber = R.ifElse(v)
-      ifIsNumber(t, R.identity)(15)
-      ifIsNumber(t, R.identity)('hello')
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      const fn = Ramda.ifElse(condition, ifFn)(elseFn)
-
-      fn({ foo : 'bar' })
-      fn({ fo : 'bar' })
-
-      const ifIsNumber = Ramda.ifElse(v)
-      ifIsNumber(t, R.identity)(15)
-      ifIsNumber(t, R.identity)('hello')
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>2 failed <italic>Ramda.ifElse</italic> specs
 
 > :boom: Reason for the failure: Rambda method doesn't return a curried function
@@ -10753,37 +9948,6 @@ describe('R.includes', () => {
     curriedResult // $ExpectType boolean
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 71.7%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const str = 'more is less'
-
-const includes = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.includes('less')(str)
-      R.includes('more', str)
-      R.includes('foo', str)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.includes('less')(str)
-      Ramda.includes('more', str)
-      Ramda.includes('foo', str)
-    },
-  },
-]
 ```
 
 </details>
@@ -11156,40 +10320,6 @@ describe('R.indexOf', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 84.08% slower and Lodash is 7.86% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const target = 4
-const list = [ 1, 2, 3, 4 ]
-
-const indexOf = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.indexOf(target, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.indexOf(target, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.indexOf(list, target)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>2 failed <italic>Ramda.indexOf</italic> specs
 
 > :boom: Reason for the failure: Ramda method dispatches to `indexOf` method
@@ -11341,39 +10471,6 @@ describe('R.init', () => {
     result // $ExpectType number[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 94.42% slower and Ramda is 97.55% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, 2, 3, 4 ]
-
-const init = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.init(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.init(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.initial(list)
-    },
-  },
-]
 ```
 
 </details>
@@ -11701,47 +10798,6 @@ describe('R.is', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 11.72%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const is = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.is(Array, undefined)
-      R.is(Array)([])
-      R.is(Boolean, new Boolean(false))
-      R.is(Date, new Date())
-      R.is(Function, () => {})
-      R.is(Number, new Number(0))
-      R.is(Object, {})
-      R.is(RegExp, /(?:)/)
-      R.is(String, new String(''))
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.is(Array, undefined)
-      Ramda.is(Array)([])
-      Ramda.is(Boolean, new Boolean(false))
-      Ramda.is(Date, new Date())
-      Ramda.is(Function, () => {})
-      Ramda.is(Number, new Number(0))
-      Ramda.is(Object, {})
-      Ramda.is(RegExp, /(?:)/)
-      Ramda.is(String, new String(''))
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#is)
 
 ### isEmpty
@@ -11838,70 +10894,6 @@ describe('R.isEmpty', () => {
     result // $ExpectType boolean
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 51.68% slower and Ramda is 93.82% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const isEmpty = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.isEmpty(undefined)
-      R.isEmpty('')
-      R.isEmpty(null)
-      R.isEmpty(' ')
-      R.isEmpty(new RegExp(''))
-      R.isEmpty([])
-      R.isEmpty([ [] ])
-      R.isEmpty({})
-      R.isEmpty({ x : 0 })
-      R.isEmpty(0)
-      R.isEmpty(NaN)
-      R.isEmpty([ '' ])
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.isEmpty(undefined)
-      Ramda.isEmpty('')
-      Ramda.isEmpty(null)
-      Ramda.isEmpty(' ')
-      Ramda.isEmpty(new RegExp(''))
-      Ramda.isEmpty([])
-      Ramda.isEmpty([ [] ])
-      Ramda.isEmpty({})
-      Ramda.isEmpty({ x : 0 })
-      Ramda.isEmpty(0)
-      Ramda.isEmpty(NaN)
-      Ramda.isEmpty([ '' ])
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.isEmpty(undefined)
-      _.isEmpty('')
-      _.isEmpty(null)
-      _.isEmpty(' ')
-      _.isEmpty(new RegExp(''))
-      _.isEmpty([])
-      _.isEmpty([ [] ])
-      _.isEmpty({})
-      _.isEmpty({ x : 0 })
-      _.isEmpty(0)
-      _.isEmpty(NaN)
-      _.isEmpty([ '' ])
-    },
-  },
-]
 ```
 
 </details>
@@ -12273,39 +11265,6 @@ describe('R.last', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is fastest. Ramda is 99.64% slower and Lodash is 1.05% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, 2, 3, 4 ]
-
-const last = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.last(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.last(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.last(list)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#last)
 
 ### lastIndexOf
@@ -12410,36 +11369,6 @@ describe('R.lastIndexOf', () => {
     result // $ExpectType number
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 42.38%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const isEven = n => n % 2 === 0
-const arr = [ 1, 3, 5, 7, 9, 11 ]
-
-const lastIndexOf = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.lastIndexOf(1, [ 1, 2, 3, 1, 2 ])
-      R.lastIndexOf(1)([ 1, 2, 3, 1, 2 ])
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.lastIndexOf(1, [ 1, 2, 3, 1, 2 ])
-      Ramda.lastIndexOf(1)([ 1, 2, 3, 1, 2 ])
-    },
-  },
-]
 ```
 
 </details>
@@ -13478,39 +12407,6 @@ describe('R.map with objects', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is fastest. Ramda is 69.63% slower and Lodash is 4.68% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const arr = [ 1, 2, 3, 4 ]
-const fn = x => x * 2
-const map = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.map(fn, arr)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.map(fn, arr)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.map(arr, fn)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
 
 ### match
@@ -13608,33 +12504,6 @@ describe('R.match', () => {
     result // $ExpectType string[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 46.75%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const match = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.match(/a./g)('foo bar baz')
-      R.match(/a./g, 'foo bar baz')
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.match(/a./g)('foo bar baz')
-      Ramda.match(/a./g, 'foo bar baz')
-    },
-  },
-]
 ```
 
 </details>
@@ -14208,42 +13077,6 @@ describe('R.merge', () => {
   result.bar // $ExpectType number
   curriedResult.bar // $ExpectType number
 })
-```
-
-</details>
-
-<details>
-
-<summary>Ramda is fastest. Rambda is 63.55% slower and Lodash is 55.25% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = { bar : 'yes' }
-const a = {
-  foo : 'bar',
-  bar : 'baz',
-}
-const merge = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.merge(a, obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.merge(a, obj)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.merge(a, obj)
-    },
-  },
-]
 ```
 
 </details>
@@ -15297,36 +14130,6 @@ describe('R.none', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 98.22%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const isEven = n => n % 2 === 0
-const arr = [ 1, 3, 5, 7, 9, 11 ]
-
-const none = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.none(isEven, arr)
-      R.none(isEven)(arr)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.none(isEven, arr)
-      Ramda.none(isEven)(arr)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
 
 ### not
@@ -15790,43 +14593,6 @@ describe('R.omit with string as props input', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is fastest. Ramda is 70.66% slower and Lodash is 97.56% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = {
-  a : 'foo',
-  b : 'bar',
-  c : 'baz',
-}
-const toOmit = [ 'a', 'c' ]
-const omit = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.omit(toOmit, obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.omit(toOmit, obj)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.omit(obj, toOmit)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
 
 ### once
@@ -16144,37 +14910,6 @@ test('index lens', () => {
   const result = over(indexLens, toUpper)(['foo', 'bar'])
   expect(result).toEqual([ 'FOO', 'bar' ])
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 50.77%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const testObj = { a : 1 }
-
-const last = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.over(
-        R.lensProp('a'), R.inc, testObj
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.over(
-        Ramda.lensProp('a'), Ramda.inc, testObj
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -16752,40 +15487,6 @@ describe('path with specified input', () => {
     resultB // $ExpectType boolean | undefined
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 74.94% slower and Lodash is 5.72% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = { a : { b : 2 } }
-const pathInput = [ 'a', 'b' ]
-
-const path = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.path(pathInput, obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.path(pathInput, obj)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.get(obj, pathInput)
-    },
-  },
-]
 ```
 
 </details>
@@ -17542,43 +16243,6 @@ describe('R.pick with string as props input', () => {
     result // $ExpectType unknown
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 26.29% slower and Lodash is 86.82% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = {
-  a : 'foo',
-  b : 'bar',
-  c : 'baz',
-}
-const pickInput = [ 'a', 'c' ]
-const pick = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.pick(pickInput, obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.pick(pickInput, obj)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.pick(obj, pickInput)
-    },
-  },
-]
 ```
 
 </details>
@@ -18550,39 +17214,6 @@ describe('with number as prop', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 89.89%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = {
-  a : { c : 2 },
-  b : 1,
-}
-const propInput = 'b'
-
-const prop = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.prop(propInput, obj)
-      R.prop(propInput)(obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.prop(propInput, obj)
-      Ramda.prop(propInput)(obj)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prop)
 
 ### propEq
@@ -18717,50 +17348,6 @@ describe('R.propEq', () => {
     propEq('bar', value)(obj)
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 95.26%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const obj = {
-  a : { c : 2 },
-  b : 1,
-}
-const propInput = 'b'
-const expected = { c : 2 }
-
-const propEq = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.propEq('a')(expected)(obj)
-
-      R.propEq('a', expected)(obj)
-
-      R.propEq(
-        'a', expected, obj
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.propEq('a')(expected)(obj)
-
-      Ramda.propEq('a', expected)(obj)
-
-      Ramda.propEq(
-        'a', expected, obj
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -19250,39 +17837,6 @@ describe('R.range', () => {
 
 </details>
 
-<details>
-
-<summary>Lodash is fastest. Rambda is 95.17% slower and Ramda is 90.22% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const start = 12
-const end = 22
-const range = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.range(start, end)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.range(start, end)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.range(start, end)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
 
 ### reduce
@@ -19486,47 +18040,6 @@ describe('R.reduce', () => {
     result // $ExpectType string
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 52.76% slower and Ramda is 74.02% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const fn = (acc, value) => acc + value
-const holder = [ 1, 2, 3 ]
-const acc = ''
-
-const reduce = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.reduce(
-        fn, acc, holder
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.reduce(
-        fn, acc, holder
-      )
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.reduce(
-        holder, fn, acc
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -19850,40 +18363,6 @@ describe('R.repeat', () => {
 
 </details>
 
-<details>
-
-<summary>Lodash is fastest. Rambda is 85.91% slower and Ramda is 95.31% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const num = 10
-const str = 'foo'
-
-const repeat = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.repeat(str, num)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.repeat(str, num)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.repeat(str, num)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
 
 ### replace
@@ -19997,43 +18476,6 @@ describe('R.replace - curried', () => {
     result // $ExpectType string
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 0.47% slower and Ramda is 28.13% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const replace = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.replace(
-        /\s/g, '|', 'foo bar baz'
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.replace(
-        /\s/g, '|', 'foo bar baz'
-      )
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.replace(
-        'foo bar baz', /\s/g, '|'
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -20244,37 +18686,6 @@ test('index lens', () => {
   )
   expect(result).toEqual([ 3, 2 ])
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 36.26%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const testObj = { a : 1 }
-
-const last = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.set(
-        R.lensProp('a'), 2, testObj
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.set(
-        Ramda.lensProp('a'), 2, testObj
-      )
-    },
-  },
-]
 ```
 
 </details>
@@ -20505,36 +18916,6 @@ describe('R.sort', () => {
 
 </details>
 
-<details>
-
-<summary>Rambda is faster than Ramda with 63.15%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 'foo', 'bar', 'baz' ]
-const fn = (a, b) => a > b ? -1 : 1
-
-const replace = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.sort(fn, list)
-      R.sort(fn)(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.sort(fn, list)
-      Ramda.sort(fn)(list)
-    },
-  },
-]
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sort)
 
 ### sortBy
@@ -20689,40 +19070,6 @@ describe('R.sortBy', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 61.57% slower and Lodash is 88.88% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ { a : 2 }, { a : 1 }, { a : 0 } ]
-const fn = x => x.a
-
-const replace = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.sortBy(fn, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.sortBy(fn, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.sortBy(list, fn)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.sortBy</italic> specs
 
 > :boom: Reason for the failure: Ramda method works with array-like objects
@@ -20848,40 +19195,6 @@ describe('R.split', () => {
     result // $ExpectType string[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 85.34% slower and Lodash is 33.69% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const str = 'foo|bar|baz'
-const sep = '|'
-
-const split = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.split(sep, str)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.split(sep, str)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.split(str, sep)
-    },
-  },
-]
 ```
 
 </details>
@@ -21173,33 +19486,6 @@ describe('R.splitEvery', () => {
     result // $ExpectType (number[])[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 90.18%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, 2, 3, 4, 5, 6, 7 ]
-
-const splitEvery = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.splitEvery(3, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.splitEvery(3, list)
-    },
-  },
-]
 ```
 
 </details>
@@ -21953,40 +20239,6 @@ describe('R.take - string', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 93.44% slower and Ramda is 98.04% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, 2, 3, 4 ]
-const num = 2
-
-const take = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.take(num, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.take(num, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.take(list, num)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>3 failed <italic>Ramda.take</italic> specs
 
 > :boom: Reason for the failure: Rambda library doesn't have 'R.into` method
@@ -22152,40 +20404,6 @@ describe('R.takeLast - string', () => {
     result // $ExpectType string
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 92.61% slower and Ramda is 98.83% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 1, 2, 3, 4 ]
-const num = 2
-
-const takeLast = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.takeLast(num, list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.takeLast(num, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.takeRight(list, num)
-    },
-  },
-]
 ```
 
 </details>
@@ -22730,33 +20948,6 @@ describe('R.test', () => {
     result // $ExpectType boolean
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 94.42%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const test = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.test(/\s/g, 'x y z')
-      R.test(/\s/g)('x y z')
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.test(/\s/g, 'x y z')
-      Ramda.test(/\s/g)('x y z')
-    },
-  },
-]
 ```
 
 </details>
@@ -23813,57 +22004,6 @@ describe('R.type', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 18.91%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const fn1 = () => {}
-const fn2 = function (){}
-function fn3(){}
-
-const test = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.type(new Boolean(true))
-      R.type(new String('I am a String object'))
-      R.type(fn1)
-      R.type(fn2)
-      R.type(fn3)
-      R.type(1)
-      R.type({ a : 1 })
-      R.type(null)
-      R.type(undefined)
-      R.type(Number('foo'))
-      R.type([ 12, 3 ])
-      R.type(/\s/g)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.type(new Boolean(true))
-      Ramda.type(new String('I am a String object'))
-      Ramda.type(fn1)
-      Ramda.type(fn2)
-      Ramda.type(fn3)
-      Ramda.type(1)
-      Ramda.type({ a : 1 })
-      Ramda.type(null)
-      Ramda.type(undefined)
-      Ramda.type(Number('foo'))
-      Ramda.type([ 12, 3 ])
-      Ramda.type(/\s/g)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.type</italic> specs
 
 > :boom: Reason for the failure: Ramda method returns 'Number' type to NaN input, while Rambda method returns 'NaN'
@@ -24102,39 +22242,6 @@ describe('R.uniq', () => {
     result // $ExpectType number[]
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 98.98% slower and Ramda is 96.58% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 4, 1, 3, 5, 4, 2, 3, 4 ]
-
-const uniq = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.uniq(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.uniq(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.uniq(list)
-    },
-  },
-]
 ```
 
 </details>
@@ -24619,43 +22726,6 @@ describe('R.update', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 38.88%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const list = [ 0, 1, 2 ]
-const index = 1
-const replacer = 7
-
-const update = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.update(
-        replacer, index, list
-      )
-      R.update(replacer, index)(list)
-      R.update(replacer)(index)(list)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.update(
-        replacer, index, list
-      )
-      Ramda.update(replacer, index)(list)
-      Ramda.update(replacer)(index)(list)
-    },
-  },
-]
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.update</italic> specs
 
 > :boom: Reason for the failure: Ramda method accepts an array-like object
@@ -24869,33 +22939,6 @@ describe('R.view', () => {
     result // $ExpectType string
   })
 })
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 82.21%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const testObj = { a : 1 }
-
-const last = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.view(R.lensProp('a'), testObj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.view(Ramda.lensProp('a'), testObj)
-    },
-  },
-]
 ```
 
 </details>
