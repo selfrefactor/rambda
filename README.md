@@ -395,29 +395,6 @@ test('ramda specs', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {add} from 'rambda'
-
-describe('R.add', () => {
-  it('happy', () => {
-    const result = add(4, 1)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = add(4)(1)
-
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### adjust
@@ -622,36 +599,6 @@ test('when false', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {all} from 'rambda'
-
-describe('all', () => {
-  it('happy', () => {
-    const result = all(
-      x => {
-        x // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('curried needs a type', () => {
-    const result = all<number>(x => {
-      x // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
 ### allPass
@@ -740,32 +687,6 @@ test('when returns false', () => {
     a : 1,
     b : 2,
   })).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {allPass} from 'rambda'
-
-describe('allPass', () => {
-  it('happy', () => {
-    const x = allPass<number>([
-      y => {
-        y // $ExpectType number
-        return typeof y === 'number'
-      },
-      y => {
-        return y > 0
-      },
-    ])(11)
-
-    x // $ExpectType boolean
-  })
 })
 ```
 
@@ -863,25 +784,6 @@ test('f', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {always} from 'rambda'
-
-describe('R.always', () => {
-  it('happy', () => {
-    const fn = always('foo')
-    fn // $ExpectType () => string
-    const result = fn()
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#always)
 
 ### and
@@ -940,27 +842,6 @@ test('happy', () => {
   expect(and(true, false)).toBeFalse()
   expect(and(false, true)).toBeFalse()
   expect(and(false, false)).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {and} from 'rambda'
-
-describe('R.and', () => {
-  it('happy', () => {
-    const result = and(true, false)
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = and('foo')(1)
-    result // $ExpectType string | 1
-  })
 })
 ```
 
@@ -1034,37 +915,6 @@ test('happy', () => {
 
 test('with curry', () => {
   expect(any(x => x > 2)(list)).toBeTrue()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {any} from 'rambda'
-
-describe('R.any', () => {
-  it('happy', () => {
-    const result = any(
-      x => {
-        x // $ExpectType number
-        return x > 2
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-
-  it('when curried needs a type', () => {
-    const result = any<number>(x => {
-      x // $ExpectType number
-      return x > 2
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -1176,32 +1026,6 @@ test('happy', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {anyPass} from 'rambda'
-
-describe('anyPass', () => {
-  it('happy', () => {
-    const x = anyPass<number>([
-      y => {
-        y // $ExpectType number
-        return typeof y === 'number'
-      },
-      y => {
-        return y > 0
-      },
-    ])(11)
-
-    x // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.anyPass</italic> specs
 
 > :boom: Reason for the failure: Ramda method returns a curried function whose arity matches that of the highest-arity predicate
@@ -1297,31 +1121,6 @@ test('append to empty array', () => {
 
 test('with strings', () => {
   expect(append('o', 'fo')).toEqual([ 'f', 'o', 'o' ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {append} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.append', () => {
-  it('happy', () => {
-    const result = append(4, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = append(4)(list)
-
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -1738,38 +1537,6 @@ test('restructure json object', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {multiply, applySpec, inc, dec, add} from 'rambda'
-
-describe('applySpec', () => {
-  it('ramda 1', () => {
-    const result = applySpec({
-      v: inc,
-      u: dec,
-    })(1)
-    result // $ExpectType { v: number; u: number; }
-  })
-  it('ramda 1', () => {
-    interface Output {
-      sum: number,
-      multiplied: number,
-    }
-    const result = applySpec<Output>({
-      sum: add,
-      multiplied: multiply,
-    })(1, 2)
-
-    result // $ExpectType Output
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
 
 ### assoc
@@ -1903,41 +1670,6 @@ test('assignment is shallow', () => {
   expect(assoc(
     'a', { b : 2 }, { a : { c : 3 } }
   )).toEqual({ a : { b : 2 } })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {assoc} from 'rambda'
-
-const obj = {a: 1}
-const newValue = 2
-const newProp = 'b'
-
-describe('R.assoc', () => {
-  it('happy', () => {
-    const result = assoc(newProp, newValue, obj)
-
-    result.a // $ExpectType number
-    result.b // $ExpectType number
-  })
-  it('curried 1', () => {
-    const result = assoc(newProp, newValue)(obj)
-
-    result.a // $ExpectType number
-    result.b // $ExpectType number
-  })
-  it('curried 2', () => {
-    const result = assoc(newProp)(newValue)(obj)
-
-    result.a // $ExpectType number
-    result.b // $ExpectType number
-  })
 })
 ```
 
@@ -2203,47 +1935,6 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {assocPath} from 'rambda'
-
-interface Output {
-  a: number,
-  foo: {bar: number},
-}
-
-describe('R.assocPath - user must explicitly set type of output', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2, {a: 1})
-
-    result // $ExpectType Output
-  })
-  it('with string as path input', () => {
-    const result = assocPath<Output>('foo.bar', 2, {a: 1})
-
-    result // $ExpectType Output
-  })
-})
-
-describe('R.assocPath - curried', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2)({a: 1})
-
-    result // $ExpectType Output
-  })
-  it('with string as path input', () => {
-    const result = assocPath<Output>('foo.bar', 2)({a: 1})
-
-    result // $ExpectType Output
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
 
 ### both
@@ -2341,59 +2032,6 @@ test('skip evaluation of the second expression', () => {
   both(F, Z)()
 
   expect(effect).toBe('not evaluated')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {both} from 'rambda'
-
-describe('R.both', () => {
-  it('with passed type', () => {
-    const fn = both<number>(
-      x => x > 1,
-      x => x % 2 === 0
-    )
-    fn // $ExpectType Predicate<number>
-    const result = fn(2) // $ExpectType boolean
-    result // $ExpectType boolean
-  })
-  it('with passed type - curried', () => {
-    const fn = both<number>(x => x > 1)(x => x % 2 === 0)
-    fn // $ExpectType Predicate<number>
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed', () => {
-    const fn = both(
-      x => {
-        x // $ExpectType any
-        return x > 1
-      },
-      x => {
-        x // $ExpectType any
-        return x % 2 === 0
-      }
-    )
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed - curried', () => {
-    const fn = both((x: number) => {
-      x // $ExpectType number
-      return x > 1
-    })((x: number) => {
-      x // $ExpectType number
-      return x % 2 === 0
-    })
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -2509,29 +2147,6 @@ test('flattens only one level', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {chain} from 'rambda'
-
-const list = [1, 2, 3]
-const fn = (x: number) => [`${x}`, `${x}`]
-
-describe('R.chain', () => {
-  it('without passing type', () => {
-    const result = chain(fn, list)
-    result // $ExpectType string[]
-
-    const curriedResult = chain(fn)(list)
-    curriedResult // $ExpectType string[]
-  })
-})
-```
-
-</details>
-
 *5 failed Ramda.chain specs*
 
 > :boom: Reason for the failure: Ramda method passes to `chain` property if available | Ramda library supports fantasy-land
@@ -2639,23 +2254,6 @@ test('rambda specs', () => {
   expect(clamp(
     -15, 3, 0
   )).toEqual(0)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {clamp} from 'rambda'
-
-describe('R.clamp', () => {
-  it('happy', () => {
-    const result = clamp(1, 10, 20)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -2781,24 +2379,6 @@ test('with R.equals', () => {
     equals(objects[ 0 ], objectsClone[ 0 ]),
   ]
   expect(result).toEqual([ true, true ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {clone} from 'rambda'
-
-describe('R.clone', () => {
-  it('happy', () => {
-    const obj = {a: 1, b: 2}
-    const result = clone(obj)
-    result // $ExpectType { a: number; b: number; }
-  })
 })
 ```
 
@@ -2991,24 +2571,6 @@ test('with multiple parameters', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {complement, isNil} from 'rambda'
-
-describe('R.complement', () => {
-  it('happy', () => {
-    const fn = complement(isNil)
-    const result = fn(null)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.complement</italic> specs
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
@@ -3179,31 +2741,6 @@ test('ramda spec', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {add, subtract, compose} from 'rambda'
-
-describe('R.compose', () => {
-  it('happy', () => {
-    const result = compose(subtract(11), add(1), add(1))(1)
-    result // $ExpectType number
-  })
-
-  it('with void', () => {
-    const result = compose(
-      () => {},
-      () => {}
-    )()
-    result // $ExpectType void
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>3 failed <italic>Ramda.compose</italic> specs
 
 > :boom: Reason for the failure: Ramda method passes context to functions | Rambda composed functions have no length
@@ -3329,32 +2866,6 @@ test('happy', () => {
 
 test('with strings', () => {
   expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {concat} from 'rambda'
-
-const list1 = [1, 2, 3]
-const list2 = [4, 5, 6]
-
-describe('R.concat', () => {
-  it('happy', () => {
-    const result = concat(list1, list2)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = concat(list1)(list2)
-
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -3501,34 +3012,6 @@ test('predicates are tested in order', () => {
     [ T, always('baz') ],
   ])
   expect(fn()).toEqual('foo')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {cond, always, equals} from 'rambda'
-
-describe('R.cond', () => {
-  it('happy', () => {
-    const fn = cond<number, string>([
-      [equals(0), always('water freezes at 0°C')],
-      [equals(100), always('water boils at 100°C')],
-      [
-        () => true,
-        function(temp) {
-          return 'nothing special happens at ' + temp + '°C'
-        },
-      ],
-    ])
-
-    const result = fn(0)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -3684,38 +3167,6 @@ test('works with empty functions list', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {converge} from 'ramda'
-
-const mult = (a: number, b: number) => {
-  return a * b
-}
-const fn = converge(mult, [
-  (a: number) => {
-    return a
-  },
-  (a: number, b: number) => {
-    return b
-  },
-])
-
-describe('R.converge', () => {
-  it('happy', () => {
-    const result = fn(2, 3)
-    const curriedResult = fn(2)(3)
-
-    result // $ExpectType any
-    curriedResult // $ExpectType any
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
 ### curry
@@ -3805,38 +3256,6 @@ test('when called via multiple curry stages', () => {
   const stage2 = stage1('B', 'C')
 
   expect(stage2('D')).toEqual('A-B-C-D')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {curry} from 'rambda'
-
-function source(a: number, b: number, c: number, d: number) {
-  void d
-
-  return a * b * c
-}
-
-describe('R.curry', () => {
-  it('happy', () => {
-    const curried = curry(source)
-
-    const result1 = curried(1)(2)(3)
-    const result2 = curried(1, 2)(3)
-    const result3 = curried(1)(2, 3)
-    const result4 = curried(1, 2, 3)
-
-    result1 // $ExpectType any
-    result2 // $ExpectType any
-    result3 // $ExpectType any
-    result4 // $ExpectType any
-  })
 })
 ```
 
@@ -4147,38 +3566,6 @@ test('forwards extra arguments', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {curryN} from 'ramda'
-
-function source(a: number, b: number, c: number, d: number) {
-  void d
-
-  return a * b * c
-}
-
-describe('R.curryN', () => {
-  it('happy', () => {
-    const curried = curryN(3, source)
-
-    const result1 = curried(1)(2)(3)
-    const result2 = curried(1, 2)(3)
-    const result3 = curried(1)(2, 3)
-    const result4 = curried(1, 2, 3)
-
-    result1 // $ExpectType any
-    result2 // $ExpectType any
-    result3 // $ExpectType any
-    result4 // $ExpectType any
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curryN)
 
 ### dec
@@ -4395,51 +3782,6 @@ test('default extends to indefinite input arguments - case 6', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {defaultTo} from 'rambda'
-
-describe('R.defaultTo with Ramda spec', () => {
-  it('input is falsy', () => {
-    const result = defaultTo('foo', undefined)
-    result // $ExpectType "foo"
-  })
-  it('input is truthy', () => {
-    const result = defaultTo('foo', 'bar')
-    result // $ExpectType "foo" | "bar"
-  })
-})
-
-describe('R.defaultTo can have many inputs', () => {
-  it('happy', () => {
-    const result = defaultTo('foo', undefined, 'bar')
-    result // $ExpectType "foo" | "bar"
-  })
-
-  it('curried', () => {
-    const result = defaultTo('foo')(undefined, 'bar')
-    result // $ExpectType string
-  })
-
-  it('with two possible types', () => {
-    const result = defaultTo<string, number>(
-      'foo',
-      undefined,
-      1,
-      null,
-      2,
-      'bar'
-    )
-    result // $ExpectType string | number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
 
 ### difference
@@ -4518,32 +3860,6 @@ test('no duplicates in first list', () => {
 
 test('should use R.equals', () => {
   expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {difference} from 'rambda'
-
-const list1 = [1, 2, 3]
-const list2 = [1, 2, 4]
-
-describe('R.difference', () => {
-  it('happy', () => {
-    const result = difference(list1, list2)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = difference(list1)(list2)
-
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -4670,42 +3986,6 @@ test('includes prototype properties', () => {
     width  : 7,
     height : 6,
     area   : area,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dissoc, pipe, identity} from 'rambda'
-
-const obj = {
-  a: 1,
-  b: 2,
-}
-interface Output {
-  a: string,
-}
-
-describe('R.dissoc', () => {
-  it('happy', () => {
-    const result = dissoc<Output>('b', obj)
-
-    result // $ExpectType Output
-  })
-  it('curried', () => {
-    const result = dissoc<Output>('b')(obj)
-
-    result // $ExpectType Output
-  })
-  it('within R.pipe', () => {
-    const result = pipe<object, object, Output>(identity, dissoc('b'))(obj)
-
-    result // $ExpectType Output
   })
 })
 ```
@@ -4849,42 +4129,6 @@ test('should return copy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {drop} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
-
-describe('R.drop - array', () => {
-  it('happy', () => {
-    const result = drop(howMany, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = drop(howMany)(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.drop - string', () => {
-  it('happy', () => {
-    const result = drop(howMany, str)
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = drop(howMany)(str)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#drop)
 
 ### dropLast
@@ -4966,42 +4210,6 @@ test('should return copy', () => {
 
   assert.notStrictEqual(dropLast(0, xs), xs)
   assert.notStrictEqual(dropLast(-1, xs), xs)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropLast} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
-
-describe('R.dropLast - array', () => {
-  it('happy', () => {
-    const result = dropLast(howMany, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = dropLast(howMany)(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.dropLast - string', () => {
-  it('happy', () => {
-    const result = dropLast(howMany, str)
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = dropLast(howMany)(str)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -5174,42 +4382,6 @@ describe("brute force", () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropLastWhile} from 'rambda'
-
-const list = [1, 2, 3]
-const str = 'FOO'
-
-describe('R.dropLastWhile', () => {
-  it('with array', () => {
-    const result = dropLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with array - curried', () => {
-    const result = dropLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with string', () => {
-    const result = dropLastWhile(x => x !== 'F', str)
-
-    result // $ExpectType string
-  })
-  it('with string - curried', () => {
-    const result = dropLastWhile(x => x !== 'F')(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 *1 failed Ramda.dropLastWhile specs*
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
@@ -5323,24 +4495,6 @@ describe("brute force", () => {
     fnRamda: dropRepeatsRamda,
   });
 });
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropRepeats} from 'rambda'
-
-describe('R.dropRepeats', () => {
-  it('happy', () => {
-    const result = dropRepeats([1, 2, 2, 3])
-
-    result // $ExpectType number[]
-  })
-})
 ```
 
 </details>
@@ -5513,41 +4667,6 @@ describe("brute force", () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropRepeatsWith} from 'rambda'
-
-interface Foo {
-  a: number,
-}
-
-describe('R.dropRepeatsWith', () => {
-  it('happy', () => {
-    const result = dropRepeatsWith(
-      (x: Foo, y: Foo) => {
-        return x.a > y.a
-      },
-      [{a: 2}, {a: 1}]
-    )
-
-    result // $ExpectType { a: number; }[]
-    result[0].a // $ExpectType number
-  })
-  it('curried', () => {
-    const result = dropRepeatsWith((x: Foo, y: Foo) => {
-      return x.a > y.a
-    })([{a: 2}, {a: 1}])
-
-    result // $ExpectType Foo[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
 
 ### dropWhile
@@ -5696,45 +4815,6 @@ describe('brute force', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropWhile} from 'rambda'
-
-const list = [1, 2, 3, 4]
-
-describe('R.dropWhile', () => {
-  it('happy', () => {
-    const result = dropWhile(x => x > 2, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried require explicit type', () => {
-    const result = dropWhile<number>(x => x > 2)(list)
-
-    result // $ExpectType number[]
-  })
-})
-
-describe('with string as iterable', () => {
-  const str = 'foobar'
-  it('happy', () => {
-    const result = dropWhile(x => x !== 'b', str)
-
-    result // $ExpectType string
-  })
-  it('curried require explicit type', () => {
-    const result = dropWhile(x => x !== 'b')(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropWhile)
 
 ### either
@@ -5850,59 +4930,6 @@ test('case 2', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {either} from 'rambda'
-
-describe('R.either', () => {
-  it('with passed type', () => {
-    const fn = either<number>(
-      x => x > 1,
-      x => x % 2 === 0
-    )
-    fn // $ExpectType Predicate<number>
-    const result = fn(2) // $ExpectType boolean
-    result // $ExpectType boolean
-  })
-  it('with passed type - curried', () => {
-    const fn = either<number>(x => x > 1)(x => x % 2 === 0)
-    fn // $ExpectType Predicate<number>
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed', () => {
-    const fn = either(
-      x => {
-        x // $ExpectType any
-        return x > 1
-      },
-      x => {
-        x // $ExpectType any
-        return x % 2 === 0
-      }
-    )
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed - curried', () => {
-    const fn = either((x: number) => {
-      x // $ExpectType number
-      return x > 1
-    })((x: number) => {
-      x // $ExpectType number
-      return x % 2 === 0
-    })
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.either</italic> specs
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
@@ -5992,32 +5019,6 @@ test('happy', () => {
 test('does not work with arrays', () => {
   expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrowWithMessage(Error,
     'str.endsWith is not a function')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {endsWith} from 'rambda'
-
-const target = 'foo'
-const input = 'foo bar'
-
-describe('R.endsWith', () => {
-  it('happy', () => {
-    const result = endsWith(target, input)
-
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = endsWith(target)(input)
-
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -6190,32 +5191,6 @@ describe('brute force', () => {
     thirdInput  : possibleObjects,
     fn          : eqProps,
     fnRamda     : eqPropsRamda,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {eqProps} from 'rambda'
-
-const obj1 = {a: {b: 1}, c: 2}
-const obj2 = {a: {b: 1}, c: 3}
-
-describe('R.eqProps', () => {
-  it('happy', () => {
-    const result = eqProps('a', obj1, obj2)
-
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = eqProps('a', obj1)(obj2)
-
-    result // $ExpectType boolean
   })
 })
 ```
@@ -6661,34 +5636,6 @@ test('with negative zero', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {equals} from 'rambda'
-
-describe('R.equals', () => {
-  it('happy', () => {
-    const result = equals(4, 1)
-    result // $ExpectType boolean
-  })
-  it('with object', () => {
-    const foo = {a: 1}
-    const bar = {a: 2}
-    const result = equals(foo, bar)
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = equals(4)(1)
-
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>14 failed <italic>Ramda.equals</italic> specs
 
 > :boom: Reason for the failure: Rambda method doesn't support recursive data structures, objects with same enumerable properties, map/weakmap type of variables | Ramda dispatches to `equals` method recursively | Rambda method doesn't support equality of functions
@@ -7094,50 +6041,6 @@ describe("brute force", () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {evolve, add} from 'rambda'
-
-describe('R.evolve', () => {
-  it('happy', () => {
-    const input = {
-      foo: 2,
-      nested: {
-        a: 1,
-        bar: 3,
-      },
-    }
-    const rules = {
-      foo: add(1),
-      nested: {
-        a: add(-1),
-        bar: add(1),
-      },
-    }
-    const result = evolve(rules, input)
-    const curriedResult = evolve(rules)(input)
-
-    result.nested.a // $ExpectType number
-    curriedResult.nested.a // $ExpectType number
-    result.nested.bar // $ExpectType number
-    result.foo // $ExpectType number
-  })
-  it('with array', () => {
-    const rules = [String, String]
-    const input = [100, 1400]
-    const result = evolve(rules, input)
-    const curriedResult = evolve(rules)(input)
-    result // $ExpectType string[]
-    curriedResult // $ExpectType string[]
-  })
-})
-```
-
-</details>
-
 *1 failed Ramda.evolve specs*
 
 > :boom: Reason for the failure: Rambda throws if `iterable` input is neither array nor object
@@ -7344,59 +6247,6 @@ test('with object', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {filter} from 'rambda'
-
-const list = [1, 2, 3]
-const obj = {a: 1, b: 2}
-
-describe('R.filter with array', () => {
-  it('happy', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    })(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.filter with objects', () => {
-  it('happy', () => {
-    const result = filter<number>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried version requires second dummy type', () => {
-    const result = filter<number, any>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.filter</italic> specs
 
 > :boom: Reason for the failure: Ramda method dispatches to `filter` method of object
@@ -7508,31 +6358,6 @@ test('with empty list', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {find} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.find', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = find(predicate, list)
-    result // $ExpectType number | undefined
-  })
-  it('curried', () => {
-    const predicate = (x: number) => x > 2
-    const result = find(predicate)(list)
-    result // $ExpectType number | undefined
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#find)
 
 ### findIndex
@@ -7606,31 +6431,6 @@ test('happy', () => {
   expect(findIndex(propEq('a', 1))(list)).toEqual(0)
 
   expect(findIndex(propEq('a', 4))(list)).toEqual(-1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {findIndex} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.findIndex', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = findIndex(predicate, list)
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const predicate = (x: number) => x > 2
-    const result = findIndex(predicate)(list)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -7747,31 +6547,6 @@ test('ramda 3', () => {
 
 test('ramda 4', () => {
   expect(findLast(even, [])).toEqual(undefined)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {findLast} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.findLast', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = findLast(predicate, list)
-    result // $ExpectType number | undefined
-  })
-  it('curried', () => {
-    const predicate = (x: number) => x > 2
-    const result = findLast(predicate)(list)
-    result // $ExpectType number | undefined
-  })
 })
 ```
 
@@ -7894,31 +6669,6 @@ test('ramda 4', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {findLastIndex} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.findLastIndex', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = findLastIndex(predicate, list)
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const predicate = (x: number) => x > 2
-    const result = findLastIndex(predicate)(list)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#findLastIndex)
 
 ### flatten
@@ -7996,23 +6746,6 @@ test('happy', () => {
 test('readme example', () => {
   const result = flatten([ 1, 2, [ 3, 30, [ 300 ] ], [ 4 ] ])
   expect(result).toEqual([ 1, 2, 3, 30, 300, 4 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {flatten} from 'rambda'
-
-describe('flatten', () => {
-  it('happy', () => {
-    const result = flatten<number>([1, 2, [3, [4]]])
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -8144,53 +6877,6 @@ test('function with arity of 5', () => {
     1, 2, 3, 4, 5
   )).toThrowWithMessage(Error,
     'R.flip doesn\'t work with arity > 4')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import * as R from 'ramda'
-import {flip, subtract} from 'rambda'
-
-describe('R.flip', () => {
-  it('function with arity of 2', () => {
-    const subtractFlipped = flip(subtract)
-    const result = subtractFlipped(1, 7)
-    const curriedResult = subtractFlipped(1)(7)
-    curriedResult // $ExpectType number
-
-    // This is wrong
-    // ============================================
-    result // $ExpectType (y: number) => number
-  })
-
-  it('function with arity of 3', () => {
-    function testFunction(a: number, b: string, c: number): string {
-      return `${b}==${a + c}`
-    }
-    const flippedTestFunction = flip(testFunction)
-
-    const result = flippedTestFunction('foo', 1, 2)
-    result // $ExpectType string
-  })
-})
-
-describe('Ramda.flip', () => {
-  it('function with arity of 2', () => {
-    const subtractFlipped = R.flip(R.subtract)
-    const result = subtractFlipped(1, 7)
-    const curriedResult = subtractFlipped(1)(7)
-    curriedResult // $ExpectType number
-
-    // This is wrong
-    // ============================================
-    result // $ExpectType (b: number) => number
-  })
 })
 ```
 
@@ -8389,61 +7075,6 @@ test('returns the input', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {forEach} from 'rambda'
-
-const list = [1, 2, 3]
-const obj = {a: 1, b: 2}
-
-describe('R.forEach with arrays', () => {
-  it('happy', () => {
-    const result = forEach(a => {
-      a // $ExpectType number
-    }, list)
-    result // $ExpectType number[]
-  })
-  it('curried require an explicit typing', () => {
-    const result = forEach<number>(a => {
-      a // $ExpectType number
-    })(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.forEach with objects', () => {
-  it('happy', () => {
-    const result = forEach((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-      return `${a}`
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried require an input typing and a dummy third typing', () => {
-    // Required in order all typings to work
-    const result = forEach<number, any>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('iterator without property', () => {
-    const result = forEach(a => {
-      a // $ExpectType number
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.forEach</italic> specs
 
 > :boom: Reason for the failure: Ramda method dispatches to `forEach` method
@@ -8542,39 +7173,6 @@ const expected = {
 
 test('happy', () => {
   expect(fromPairs(list)).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {fromPairs} from 'rambda'
-
-describe('R.fromPairs - require explicit type for input list', () => {
-  it('with string index', () => {
-    const list: [string, number][] = [
-      ['a', 1],
-      ['b', 2],
-      ['c', 3],
-    ]
-    const result = fromPairs(list)
-
-    result // $ExpectType { [index: string]: number; }
-  })
-  it('with number index', () => {
-    const list: [number, string][] = [
-      [10, 'foo'],
-      [20, 'bar'],
-      [30, 'baz'],
-    ]
-    const result = fromPairs(list)
-
-    result // $ExpectType { [index: number]: string; }
-  })
 })
 ```
 
@@ -8690,29 +7288,6 @@ test('groupBy', () => {
 
   expect(groupBy(prop('age'))(list)).toEqual(expectedResult)
   expect(groupBy(prop('age'), list)).toEqual(expectedResult)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {groupBy} from 'rambda'
-
-describe('R.groupBy', () => {
-  it('happy', () => {
-    const groupByFn = (x: string) => String(x.length)
-    const list = ['foo', 'barr', 'bazzz']
-
-    const result = groupBy(groupByFn, list)
-    result // $ExpectType { [index: string]: string[]; }
-
-    const curriedResult = groupBy(groupByFn)(list)
-    curriedResult // $ExpectType { [index: string]: string[]; }
-  })
 })
 ```
 
@@ -8941,28 +7516,6 @@ test('list with single item', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {groupWith} from 'rambda'
-
-describe('R.groupWith', () => {
-  it('happy', () => {
-    const groupWithFn = (x: string, y: string) => x.length === y.length
-    const list = ['foo', 'bar', 'bazzz']
-
-    const result = groupWith(groupWithFn, list)
-    const curriedResult = groupWith(groupWithFn)(list)
-    result // $ExpectType (string[])[]
-    curriedResult // $ExpectType (string[])[]
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>2 failed <italic>Ramda.groupWith</italic> specs
 
 > :boom: Reason for the failure: Ramda method support string
@@ -9056,25 +7609,6 @@ test('with non-object', () => {
   expect(has('a', true)).toEqual(false)
   expect(has('a', '')).toEqual(false)
   expect(has('a', /a/)).toEqual(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {has} from 'rambda'
-
-describe('R.has', () => {
-  it('happy', () => {
-    const result = has('foo', {a: 1})
-    const curriedResult = has('bar')({a: 1})
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
 })
 ```
 
@@ -9198,33 +7732,6 @@ test('when false', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {hasPath} from 'rambda'
-
-describe('R.hasPath', () => {
-  it('string path', () => {
-    const obj = {a: {b: 1}}
-    const result = hasPath('a.b', obj)
-    const curriedResult = hasPath('a.c')(obj)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-  it('array path', () => {
-    const obj = {a: {b: 1}}
-    const result = hasPath(['a', 'b'], obj)
-    const curriedResult = hasPath(['a', 'c'])(obj)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#hasPath)
 
 ### head
@@ -9283,27 +7790,6 @@ test('head', () => {
   expect(head([])).toEqual(undefined)
   expect(head('foo')).toEqual('f')
   expect(head('')).toEqual('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {head} from 'rambda'
-
-describe('R.head', () => {
-  it('string', () => {
-    const result = head('foo')
-    result // $ExpectType string
-  })
-  it('array', () => {
-    const result = head([1, 2, 3])
-    result // $ExpectType number | undefined
-  })
 })
 ```
 
@@ -9403,37 +7889,6 @@ test('identical', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {identical} from 'rambda'
-
-describe('R.identical', () => {
-  it('happy', () => {
-    const result = identical(4, 1)
-    const curriedResult = identical(4)(1)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-  it('with object', () => {
-    const result = identical({a: 1}, {b: 2})
-    result // $ExpectType boolean
-  })
-})
-
-/*
-    in curried version Typescript correctly catch errors
-    but it doesn't do so in the standart definition
-    
-    identical({a:1},{b:2})
-    identical({a:1})({b:2})
-*/
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#identical)
 
 ### identity
@@ -9486,23 +7941,6 @@ test('happy', () => {
   expect(identity(7)).toEqual(7)
   expect(identity(true)).toEqual(true)
   expect(identity({ a : 1 })).toEqual({ a : 1 })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {identity} from 'rambda'
-
-describe('R.identity', () => {
-  it('happy', () => {
-    const result = identity(4)
-    result // $ExpectType 4
-  })
 })
 ```
 
@@ -9680,37 +8118,6 @@ test('simple arity of 2', () => {
     condition, onTrue, onFalse
   )(1, 10)
   expect(result).toBe(12)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {ifElse} from 'rambda'
-
-describe('R.ifElse', () => {
-  it('happy', () => {
-    const condition = (x: number) => x > 5
-    const onTrue = (x: number) => `foo${x}`
-    const onFalse = (x: number) => `bar${x}`
-    const fn = ifElse(condition, onTrue, onFalse)
-    fn // $ExpectType (x: number) => string
-    const result = fn(3)
-    result // $ExpectType string
-  })
-  it('arity of 2', () => {
-    const condition = (x: number, y: string) => x + y.length > 5
-    const onTrue = (x: number, y: string) => `foo${x}-${y}`
-    const onFalse = (x: number, y: string) => `bar${x}-${y}`
-    const fn = ifElse(condition, onTrue, onFalse)
-    fn // $ExpectType (x: number, y: string) => string
-    const result = fn(3, 'hello')
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -9928,32 +8335,6 @@ test('throws on wrong input - match ramda behaviour', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {includes} from 'rambda'
-
-const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
-
-describe('R.includes', () => {
-  it('happy', () => {
-    const result = includes({a: {b: '1'}}, list)
-    result // $ExpectType boolean
-  })
-  it('with string', () => {
-    const result = includes('oo', 'foo')
-    const curriedResult = includes('oo')('foo')
-
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.includes</italic> specs
 
 > :boom: Reason for the failure: Ramda method pass to `equals` method if available
@@ -10149,51 +8530,6 @@ test('with string - bad path', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {indexBy} from 'rambda'
-
-const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
-
-describe('indexBy', () => {
-  it('happy', () => {
-    const result = indexBy(x => x.a.b, list)
-    const curriedResult = indexBy<any>(x => x.a.b)(list)
-    result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { [x: string]: any; }
-  })
-
-  it('with string', () => {
-    const result = indexBy('a.b', list)
-    const curriedResult = indexBy<any>('a.b')(list)
-    result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { [key: string]: any; }
-  })
-
-  it('with interface', () => {
-    interface Foo {
-      a: string,
-    }
-    const interfaceList = [{a: 'foo'}, {a: 'bar'}]
-    const result = indexBy<Foo>(x => {
-      x.a // $ExpectType string
-      return x.a
-    }, interfaceList)
-    const curriedResult = indexBy<Foo>(x => {
-      x.a // $ExpectType string
-      return x.a
-    })(interfaceList)
-    result // $ExpectType { [x: string]: Foo; }
-    curriedResult // $ExpectType { [x: string]: Foo; }
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.indexBy</italic> specs
 
 > :boom: Reason for the failure: Ramda method can act as a transducer
@@ -10292,27 +8628,6 @@ test('happy', () => {
   expect(indexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
 
   expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {indexOf} from 'rambda'
-
-describe('R.indexOf', () => {
-  it('happy', () => {
-    const list = [1, 2, 3]
-    const result = indexOf(1, list)
-    const curriedResult = indexOf(1)(list)
-
-    result // $ExpectType number
-    curriedResult // $ExpectType number
-  })
 })
 ```
 
@@ -10452,29 +8767,6 @@ test('with string', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {init} from 'rambda'
-
-describe('R.init', () => {
-  it('with string', () => {
-    const result = init('foo')
-
-    result // $ExpectType string
-  })
-  it('with list', () => {
-    const result = init([1, 2, 3])
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
 
 ### intersection
@@ -10543,29 +8835,6 @@ test('intersection with objects', () => {
   const list1 = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
   const list2 = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
   expect(intersection(list1)(list2)).toEqual([ { id : 3 }, { id : 4 } ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {intersection} from 'rambda'
-
-const list1 = [1, 2, 3]
-const list2 = [1, 3, 5]
-
-describe('R.intersection', () => {
-  it('happy', () => {
-    const result = intersection(list1, list2)
-    result // $ExpectType number[]
-
-    const curriedResult = intersection(list1)(list2)
-    curriedResult // $ExpectType number[]
-  })
 })
 ```
 
@@ -10648,27 +8917,6 @@ test('intersperse', () => {
   ])
 
   expect(intersperse('!')([])).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {intersperse} from 'rambda'
-
-describe('R.intersperse', () => {
-  it('happy', () => {
-    const result = intersperse(1, [1, 2, 3])
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = intersperse('|')(['foo', 'bar'])
-    result // $ExpectType string[]
-  })
 })
 ```
 
@@ -10777,27 +9025,6 @@ test('does not consider primitives to be instances of Object', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {is} from 'rambda'
-
-describe('R.is', () => {
-  it('happy', () => {
-    const result = is(String, 'foo')
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = is(Number)(1)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#is)
 
 ### isEmpty
@@ -10876,23 +9103,6 @@ test('happy', () => {
   expect(isEmpty(0)).toEqual(false)
   expect(isEmpty(NaN)).toEqual(false)
   expect(isEmpty([ '' ])).toEqual(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {isEmpty} from 'rambda'
-
-describe('R.isEmpty', () => {
-  it('happy', () => {
-    const result = isEmpty('foo')
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -11046,23 +9256,6 @@ test('curry', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {join} from 'rambda'
-
-describe('R.join', () => {
-  it('happy', () => {
-    const result = join('|', [1, 2, 3])
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#join)
 
 ### keys
@@ -11112,25 +9305,6 @@ import { keys } from './keys'
 
 test('happy', () => {
   expect(keys({ a : 1 })).toEqual([ 'a' ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {keys} from 'rambda'
-
-const obj = {a: 1, b: 2}
-
-describe('R.keys', () => {
-  it('happy', () => {
-    const result = keys(obj)
-    result // $ExpectType ("b" | "a")[]
-  })
 })
 ```
 
@@ -11238,33 +9412,6 @@ test('with string', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {last} from 'rambda'
-
-describe('R.last', () => {
-  it('string', () => {
-    const result = last('foo')
-    result // $ExpectType string
-  })
-
-  it('array', () => {
-    const result = last([1, 2, 3])
-    result // $ExpectType number
-  })
-
-  it('empty array', () => {
-    const result = last([])
-    result // $ExpectType undefined
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#last)
 
 ### lastIndexOf
@@ -11345,29 +9492,6 @@ test('false', () => {
   const a = lastIndexOf(10, [ 1, 2, 3, 1, 2 ])
 
   expect(a).toEqual(-1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {lastIndexOf} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.lastIndexOf', () => {
-  it('happy', () => {
-    const result = lastIndexOf(2, list)
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = lastIndexOf(2)(list)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -11591,30 +9715,6 @@ export function lens(getter, setter){
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {lens, assoc} from 'rambda'
-
-interface Input {
-  foo: string,
-}
-
-describe('R.lens', () => {
-  it('happy', () => {
-    const fn = lens<Input, string, string>((x: Input) => {
-      x.foo // $ExpectType string
-      return x.foo
-    }, assoc('name'))
-    fn // $ExpectType Lens
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lens)
 
 ### lensIndex
@@ -11723,29 +9823,6 @@ test('get (set(set s v1) v2) === v2', () => {
         lensIndex(0), 10, testList
       )
     ))).toEqual(11)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {view, lensIndex} from 'rambda'
-
-interface Input {
-  a: number,
-}
-const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
-
-describe('R.lensIndex', () => {
-  it('happy', () => {
-    const result = view<Input[], Input>(lensIndex(0), testList)
-    result // $ExpectType Input
-    result.a // $ExpectType number
-  })
 })
 ```
 
@@ -11937,46 +10014,6 @@ test('get (set(set s v1) v2) === v2', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {lensPath, view} from 'rambda'
-
-interface Input {
-  foo: number[],
-  bar: {
-    a: string,
-    b: string,
-  },
-}
-
-const testObject: Input = {
-  foo: [1, 2],
-  bar: {
-    a: 'x',
-    b: 'y',
-  },
-}
-
-const path = lensPath(['bar', 'a'])
-const pathAsString = lensPath('bar.a')
-
-describe('R.lensPath', () => {
-  it('happy', () => {
-    const result = view<Input, string>(path, testObject)
-    result // $ExpectType string
-  })
-  it('using string as path input', () => {
-    const result = view<Input, string>(pathAsString, testObject)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
 
 ### lensProp
@@ -12131,33 +10168,6 @@ test('get (set(set s v1) v2) === v2', () => {
         lensProp('a'), 10, testObj
       )
     ))).toEqual(11)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {lensProp, view} from 'rambda'
-
-interface Input {
-  foo: string,
-}
-
-const testObject: Input = {
-  foo: 'Led Zeppelin',
-}
-
-const lens = lensProp('foo')
-
-describe('R.lensProp', () => {
-  it('happy', () => {
-    const result = view<Input, string>(lens, testObject)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -12329,84 +10339,6 @@ test('when undefined instead of array', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {map} from 'rambda'
-
-describe('R.map with arrays', () => {
-  it('iterable returns the same type as the input', () => {
-    const result = map<number>(
-      (x: number) => {
-        x // $ExpectType number
-        return x + 2
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x: number) => {
-      x // $ExpectType number
-      return x + 2
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.map with objects', () => {
-  it('iterable with all three arguments - curried', () => {
-    // It requires dummy third typing argument
-    // in order to identify compared to curry typings for arrays
-    // ============================================
-    const result = map<number, string, any>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-      return `${a}`
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with all three arguments', () => {
-    const result = map<number, string>(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with property argument', () => {
-    const result = map<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with no property argument', () => {
-    const result = map<number, string>(
-      a => {
-        a // $ExpectType number
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
 
 ### match
@@ -12480,29 +10412,6 @@ test('throwing', () => {
   expect(() => {
     match(/a./g, null)
   }).toThrowWithMessage(TypeError, 'Cannot read property \'match\' of null')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {match} from 'rambda'
-
-const str = 'foo bar'
-
-describe('R.match', () => {
-  it('happy', () => {
-    const result = match(/foo/, str)
-    result // $ExpectType string[]
-  })
-  it('curried', () => {
-    const result = match(/foo/)(str)
-    result // $ExpectType string[]
-  })
 })
 ```
 
@@ -12582,30 +10491,6 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mathMod} from 'rambda'
-
-const first = 1
-const second = 2
-
-describe('R.mathMod', () => {
-  it('happy', () => {
-    const result = mathMod(first, second)
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = mathMod(first, second)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mathMod)
 
 ### max
@@ -12666,38 +10551,6 @@ test('with number', () => {
 test('with string', () => {
   expect(max('foo')('bar')).toBe('foo')
   expect(max('bar')('baz')).toBe('baz')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {max} from 'rambda'
-
-const first = 1
-const second = 2
-
-describe('R.max', () => {
-  it('happy', () => {
-    const result = max(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried', () => {
-    const result = max(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried - cann pass type', () => {
-    const result = max<number>(first, second)
-    result // $ExpectType number
-  })
-  it('can pass type', () => {
-    const result = max<number>(first, second)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -12773,39 +10626,6 @@ test('curried', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {maxBy} from 'rambda'
-
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
-const first = 1
-const second = 2
-
-describe('R.maxBy', () => {
-  it('happy', () => {
-    const result = maxBy(compareFn, first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried 1', () => {
-    const result = maxBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    const result = maxBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = maxBy(compareFn)(first)(second)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#maxBy)
 
 ### mean
@@ -12861,24 +10681,6 @@ test('happy', () => {
 
 test('with NaN', () => {
   expect(mean([])).toBeNaN()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mean} from 'rambda'
-
-describe('R.mean', () => {
-  it('happy', () => {
-    const result = mean([1, 2, 3])
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -12951,24 +10753,6 @@ test('happy', () => {
 
 test('with empty array', () => {
   expect(median([])).toBeNaN()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {median} from 'rambda'
-
-describe('R.median', () => {
-  it('happy', () => {
-    const result = median([1, 2, 3])
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -13062,25 +10846,6 @@ test('when undefined or null instead of object', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {merge} from 'rambda'
-
-describe('R.merge', () => {
-  const result = merge({foo: 1}, {bar: 2})
-  const curriedResult = merge({foo: 1})({bar: 2})
-
-  result.foo // $ExpectType number
-  result.bar // $ExpectType number
-  curriedResult.bar // $ExpectType number
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
 ### mergeAll
@@ -13162,33 +10927,6 @@ test('case 2', () => {
     foo : 1,
     bar : 2,
     baz : 3,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mergeAll} from 'rambda'
-
-describe('R.mergeAll', () => {
-  it('with passing type', () => {
-    interface Output {
-      foo: number,
-      bar: number,
-    }
-    const result = mergeAll<Output>([{foo: 1}, {bar: 2}])
-    result.foo // $ExpectType number
-    result.bar // $ExpectType number
-  })
-
-  it('without passing type', () => {
-    const result = mergeAll([{foo: 1}, {bar: 2}])
-    result // $ExpectType unknown
   })
 })
 ```
@@ -13360,21 +11098,6 @@ test('ramda compatible test 3', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mergeDeepRight} from 'rambda'
-
-describe('R.mergeDeepRight', () => {
-  const result = mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}})
-  result.foo.bar // $ExpectType number
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepRight)
 
 ### mergeLeft
@@ -13460,25 +11183,6 @@ test('when undefined or null instead of object', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mergeLeft} from 'rambda'
-
-describe('R.mergeLeft', () => {
-  const result = mergeLeft({foo: 1}, {bar: 2})
-  const curriedResult = mergeLeft({foo: 1})({bar: 2})
-
-  result.foo // $ExpectType number
-  result.bar // $ExpectType number
-  curriedResult.bar // $ExpectType number
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeLeft)
 
 ### min
@@ -13535,38 +11239,6 @@ import { min } from './min'
 test('happy', () => {
   expect(min(2, 1)).toBe(1)
   expect(min(1)(2)).toBe(1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {min} from 'rambda'
-
-const first = 1
-const second = 2
-
-describe('R.min', () => {
-  it('happy', () => {
-    const result = min(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried', () => {
-    const result = min(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried - cann pass type', () => {
-    const result = min<number>(first, second)
-    result // $ExpectType number
-  })
-  it('can pass type', () => {
-    const result = min<number>(first, second)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -13642,42 +11314,6 @@ test('curried', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {minBy} from 'rambda'
-
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
-const first = 1
-const second = 2
-
-describe('R.minBy', () => {
-  it('happy', () => {
-    const result = minBy(compareFn, first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried 1', () => {
-    const result = minBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    /*
-      Than should be the case, but passing type is required for some reason
-    */
-    const result = minBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = minBy(compareFn)(first)(second)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
 
 ### modulo
@@ -13730,29 +11366,6 @@ import { modulo } from './modulo'
 test('happy', () => {
   expect(modulo(17, 3)).toEqual(2)
   expect(modulo(15)(6)).toEqual(3)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {modulo} from 'rambda'
-
-describe('R.modulo', () => {
-  it('happy', () => {
-    const result = modulo(4, 1)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = modulo(4)(1)
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -13862,36 +11475,6 @@ test('when indexes are outside the list outbounds', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {move} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.move', () => {
-  it('happy', () => {
-    const result = move(0, 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried 1', () => {
-    const result = move(0, 1)(list)
-
-    result // $ExpectType number[]
-  })
-  it('curried 2', () => {
-    const result = move(0)(1)(list)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 *2 failed Ramda.move specs*
 
 > :boom: Reason for the failure: Ramda method does not support negative indexes
@@ -13948,29 +11531,6 @@ import { multiply } from './multiply'
 test('happy', () => {
   expect(multiply(2, 4)).toEqual(8)
   expect(multiply(2)(4)).toEqual(8)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {multiply} from 'rambda'
-
-describe('R.multiply', () => {
-  it('happy', () => {
-    const result = multiply(4, 1)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = multiply(4)(1)
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -14100,36 +11660,6 @@ test('when false curried', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {none} from 'rambda'
-
-describe('R.none', () => {
-  it('happy', () => {
-    const result = none(
-      x => {
-        x // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('curried needs a type', () => {
-    const result = none<number>(x => {
-      x // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
 
 ### not
@@ -14181,24 +11711,6 @@ test('not', () => {
   expect(not(true)).toEqual(false)
   expect(not(0)).toEqual(true)
   expect(not(1)).toEqual(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {not} from 'rambda'
-
-describe('R.not', () => {
-  it('happy', () => {
-    const result = not(4)
-
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -14284,31 +11796,6 @@ test('with negative index', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {nth} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.nth', () => {
-  it('happy', () => {
-    const result = nth(4, list)
-
-    result // $ExpectType number | undefined
-  })
-  it('curried', () => {
-    const result = nth(1)(list)
-
-    result // $ExpectType number | undefined
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#nth)
 
 ### of
@@ -14358,31 +11845,6 @@ test('happy', () => {
   expect(of(3)).toEqual([ 3 ])
 
   expect(of(null)).toEqual([ null ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {of} from 'ramda'
-
-const list = [1, 2, 3]
-
-describe('R.of', () => {
-  it('happy', () => {
-    const result = of(4)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = of(list)
-
-    result // $ExpectType number[][]
-  })
 })
 ```
 
@@ -14505,94 +11967,6 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {omit} from 'rambda'
-
-describe('R.omit with array as props input', () => {
-  it('allow Typescript to infer object type', () => {
-    const input = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = omit(['b,c'], input)
-
-    result.a // $ExpectType string
-    result.d // $ExpectType number
-
-    const curriedResult = omit(['a,c'], input)
-
-    curriedResult.a // $ExpectType string
-    curriedResult.d // $ExpectType number
-  })
-
-  it('declare type of input object', () => {
-    interface Input {
-      a: string,
-      b: number,
-      c: number,
-      d: number,
-    }
-    const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = omit(['b,c'], input)
-    result // $ExpectType Pick<Input, "b" | "a" | "c" | "d">
-
-    result.a // $ExpectType string
-    result.d // $ExpectType number
-
-    const curriedResult = omit(['a,c'], input)
-
-    curriedResult.a // $ExpectType string
-    curriedResult.d // $ExpectType number
-  })
-})
-
-describe('R.omit with string as props input', () => {
-  interface Output {
-    b: number,
-    d: number,
-  }
-
-  it('explicitly declare output', () => {
-    const result = omit<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType Output
-    result.b // $ExpectType number
-
-    const curriedResult = omit<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
-
-    curriedResult.b // $ExpectType number
-  })
-
-  it('explicitly declare input and output', () => {
-    interface Input {
-      a: number,
-      b: number,
-      c: number,
-      d: number,
-    }
-    const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType Output
-    result.b // $ExpectType number
-
-    const curriedResult = omit<Input, Output>('a,c')({
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 4,
-    })
-
-    curriedResult.b // $ExpectType number
-  })
-
-  it('without passing type', () => {
-    const result = omit('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType unknown
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
 
 ### once
@@ -14693,27 +12067,6 @@ test('happy path', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {once} from 'rambda'
-
-describe('R.once', () => {
-  it('happy', () => {
-    const runOnce = once((x: number) => {
-      return x + 2
-    })
-
-    const result = runOnce(1)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 *1 failed Ramda.once specs*
 
 > :boom: Reason for the failure: Ramda method retains arity
@@ -14774,27 +12127,6 @@ test('happy', () => {
   expect(or(true, true)).toBeTrue()
   expect(or(false)(true)).toBeTrue()
   expect(or(false, false)).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {or} from 'ramda'
-
-describe('R.or', () => {
-  it('happy', () => {
-    const result = or(true, false)
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = or(1)('foo')
-    result // $ExpectType number | "foo"
-  })
 })
 ```
 
@@ -15052,34 +12384,6 @@ test('ramda spec', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {partial} from 'rambda'
-
-describe('R.partial', () => {
-  it('happy', () => {
-    function greet(
-      salutation: string,
-      title: string,
-      firstName: string,
-      lastName: string
-    ) {
-      return `${salutation}, ${title} ${firstName} ${lastName}!`
-    }
-
-    const sayHello = partial(greet, ['Hello'])
-    const sayHelloToMs = partial(sayHello, ['Ms.'])
-    const result = sayHelloToMs('Jane', 'Jones')
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#partial)
 
 ### partition
@@ -15261,55 +12565,6 @@ test('readme example', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {partition} from 'rambda'
-
-describe('R.partition', () => {
-  it('with array', () => {
-    const predicate = (x: number) => {
-      return x > 2
-    }
-    const list = [1, 2, 3, 4]
-
-    const result = partition(predicate, list)
-    const curriedResult = partition(predicate)(list)
-    result // $ExpectType [number[], number[]]
-    curriedResult // $ExpectType [number[], number[]]
-  })
-
-  /*
-    TODO
-    revert to old version of `dtslint` and `R.partition` typing
-    as there is diff between VSCode types(correct) and dtslint(incorrect)
-    
-    it('with object', () => {
-      const predicate = (value: number, prop?: string) => {
-        return value > 2
-      }
-      const hash = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4,
-      }
-  
-      const result = partition(predicate, hash)
-      const curriedResult = partition(predicate)(hash)
-      result[0] // $xExpectType { [key: string]: number; }
-      result[1] // $xExpectType { [key: string]: number; }
-      curriedResult[0] // $xExpectType { [key: string]: number; }
-      curriedResult[1] // $xExpectType { [key: string]: number; }
-    })
-    */
-})
-```
-
-</details>
-
 *1 failed Ramda.partition specs*
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
@@ -15419,73 +12674,6 @@ test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
 
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {path} from 'rambda'
-
-interface Input {
-  a: number,
-  b: {
-    c: boolean,
-  },
-}
-
-describe('R.path', () => {
-  it('without specified input type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path<boolean>('a.b.c', input)
-    const curriedResult = path<boolean>('a.b.c')(input)
-    result // $ExpectType boolean | undefined
-    curriedResult // $ExpectType boolean | undefined
-  })
-
-  it('without specified output type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path('a.b.c', input)
-    result // $ExpectType unknown
-  })
-
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>('a.b.c', input)
-    const resultB = path<boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
-  it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>(['a', 'b', 'c'], input)
-    const resultB = path<boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
-})
-
-describe('path with specified input', () => {
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    // const wrongInput = { a: 1, b: true }
-    // const resultA = path<Input, boolean>('a.b.c', wrongInput)
-    const resultA = path<Input, boolean>('a.b.c', input)
-    const resultB = path<Input, boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
-  it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<Input, boolean>(['a', 'b', 'c'], input)
-    const resultB = path<Input, boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
 })
 ```
 
@@ -15611,59 +12799,6 @@ test('when wrong path', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {pathEq} from 'rambda'
-
-describe('R.pathEq', () => {
-  it('with string path', () => {
-    const pathToSearch = 'a.b.c'
-    const input = {a: {b: {c: 1}}}
-    const target = {c: 1}
-
-    const result = pathEq(pathToSearch, input, target)
-    const curriedResult = pathEq(pathToSearch, input, target)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-
-  it('with array path', () => {
-    const pathToSearch = ['a', 'b', 'c']
-    const input = {a: {b: {c: 1}}}
-    const target = {c: 1}
-
-    const result = pathEq(pathToSearch, input, target)
-    const curriedResult = pathEq(pathToSearch, input, target)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-})
-
-describe('with ramda specs', () => {
-  const testPath = ['x', 0, 'y']
-  const testObj = {
-    x: [
-      {y: 2, z: 3},
-      {y: 4, z: 5},
-    ],
-  }
-
-  const result1 = pathEq(testPath, 2, testObj)
-  const result2 = pathEq(testPath, 2)(testObj)
-  const result3 = pathEq(testPath)(2)(testObj)
-  const result4 = pathEq(testPath)(2, testObj)
-  result1 // $ExpectType boolean
-  result2 // $ExpectType boolean
-  result3 // $ExpectType boolean
-  result4 // $ExpectType boolean
-})
-```
-
-</details>
-
 *1 failed Ramda.pathEq specs*
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
@@ -15779,35 +12914,6 @@ test('curry case (x,y)(z)', () => {
   const result = pathOr('foo')('x.y.z', { x : { y : { a : 1 } } })
 
   expect(result).toEqual('foo')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {pathOr} from 'rambda'
-
-describe('R.pathOr', () => {
-  it('with string path', () => {
-    const x = pathOr<string>('foo', 'x.y', {x: {y: 'bar'}})
-    x // $ExpectType string
-  })
-  it('with array path', () => {
-    const x = pathOr<string>('foo', ['x', 'y'], {x: {y: 'bar'}})
-    x // $ExpectType string
-  })
-  it('without passing type looks bad', () => {
-    const x = pathOr('foo', 'x.y', {x: {y: 'bar'}})
-    x // $ExpectType "foo"
-  })
-  it('curried', () => {
-    const x = pathOr<string>('foo', 'x.y')({x: {y: 'bar'}})
-    x // $ExpectType string
-  })
 })
 ```
 
@@ -15939,46 +13045,6 @@ test('gets a deep property\'s value from objects', () => {
 test('returns undefined for items not found', () => {
   expect(paths([ [ 'a', 'x', 'y' ] ], obj)).toEqual([ undefined ])
   expect(paths([ [ 'p', 2 ] ], obj)).toEqual([ undefined ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {paths} from 'rambda'
-
-interface Input {
-  a: number,
-  b: number,
-  c: number,
-}
-
-const input: Input = {a: 1, b: 2, c: 3}
-
-describe('R.paths', () => {
-  it('with dot notation', () => {
-    const result = paths<number>(['a.b.c', 'foo.bar'], input)
-    result // $ExpectType (number | undefined)[]
-  })
-
-  it('without type', () => {
-    const result = paths(['a.b.c', 'foo.bar'], input)
-    result // $ExpectType unknown[]
-  })
-
-  it('with array as path', () => {
-    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']], input)
-    result // $ExpectType (number | undefined)[]
-  })
-
-  it('curried', () => {
-    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)
-    result // $ExpectType (number | undefined)[]
-  })
 })
 ```
 
@@ -16189,64 +13255,6 @@ test('with symbol', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {pick} from 'rambda'
-
-const input = {a: 'foo', b: 2, c: 3, d: 4}
-
-describe('R.pick with array as props input', () => {
-  it('without passing type', () => {
-    const result = pick(['a', 'c'], input)
-    result.a // $ExpectType string
-    result.c // $ExpectType number
-  })
-})
-
-describe('R.pick with string as props input', () => {
-  interface Input {
-    a: string,
-    b: number,
-    c: number,
-    d: number,
-  }
-  interface Output {
-    a: string,
-    c: number,
-  }
-  it('explicitly declare output', () => {
-    const result = pick<Output>('a,c', input)
-    result // $ExpectType Output
-    result.a // $ExpectType string
-    result.c // $ExpectType number
-
-    const curriedResult = pick<Output>('a,c')(input)
-
-    curriedResult.a // $ExpectType string
-  })
-
-  it('explicitly declare input and output', () => {
-    const result = pick<Input, Output>('a,c', input)
-    result // $ExpectType Output
-    result.a // $ExpectType string
-
-    const curriedResult = pick<Input, Output>('a,c')(input)
-
-    curriedResult.a // $ExpectType string
-  })
-
-  it('without passing type', () => {
-    const result = pick('a,c', input)
-    result // $ExpectType unknown
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pick)
 
 ### pickAll
@@ -16369,70 +13377,6 @@ test('with array as condition', () => {
     a : 'foo',
     b : undefined,
     c : 'baz',
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {pickAll} from 'rambda'
-
-interface Input {
-  a: string,
-  b: number,
-  c: number,
-  d: number,
-}
-interface Output {
-  a?: string,
-  c?: number,
-}
-const input = {a: 'foo', b: 2, c: 3, d: 4}
-
-describe('R.pickAll with array as props input', () => {
-  it('without passing type', () => {
-    const result = pickAll(['a', 'c'], input)
-    result // $ExpectType unknown
-  })
-  it('without passing type + curry', () => {
-    const result = pickAll(['a', 'c'])(input)
-    result // $ExpectType unknown
-  })
-  it('explicitly passing types', () => {
-    const result = pickAll<Input, Output>(['a', 'c'], input)
-    result.a // $ExpectType string | undefined
-    result.c // $ExpectType number | undefined
-  })
-  it('explicitly passing types + curry', () => {
-    const result = pickAll<Input, Output>(['a', 'c'])(input)
-    result.a // $ExpectType string | undefined
-    result.c // $ExpectType number | undefined
-  })
-})
-
-describe('R.pickAll with string as props input', () => {
-  it('without passing type', () => {
-    const result = pickAll('a,c', input)
-    result // $ExpectType unknown
-  })
-  it('without passing type + curry', () => {
-    const result = pickAll('a,c')(input)
-    result // $ExpectType unknown
-  })
-  it('explicitly passing types', () => {
-    const result = pickAll<Input, Output>('a,c', input)
-    result.a // $ExpectType string | undefined
-    result.c // $ExpectType number | undefined
-  })
-  it('explicitly passing types + curry', () => {
-    const result = pickAll<Input, Output>('a,c')(input)
-    result.a // $ExpectType string | undefined
-    result.c // $ExpectType number | undefined
   })
 })
 ```
@@ -16706,31 +13650,6 @@ test('with bad input', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {add, subtract, pipe} from 'rambda'
-
-describe('R.pipe', () => {
-  it('happy', () => {
-    const result = pipe(subtract(11), add(1), add(1))(1)
-    result // $ExpectType number
-  })
-
-  it('with void', () => {
-    const result = pipe(
-      () => {},
-      () => {}
-    )()
-    result // $ExpectType void
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>3 failed <italic>Ramda.pipe</italic> specs
 
 > :boom: Reason for the failure: Ramda method passes context to functions | Rambda composed functions have no length
@@ -16861,45 +13780,6 @@ test('with number', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {pluck} from 'rambda'
-
-describe('R.pluck', () => {
-  it('with object', () => {
-    interface ListMember {
-      a: number,
-      b: string,
-    }
-    const input: ListMember[] = [
-      {a: 1, b: 'foo'},
-      {a: 2, b: 'bar'},
-    ]
-    const resultA = pluck('a', input)
-    const resultB = pluck('b')(input)
-    resultA // $ExpectType number[]
-    resultB // $ExpectType string[]
-  })
-
-  it('with array', () => {
-    const input = [
-      [1, 2],
-      [3, 4],
-      [5, 6],
-    ]
-    const result = pluck(0, input)
-    const resultCurry = pluck(0)(input)
-    result // $ExpectType number[]
-    resultCurry // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.pluck</italic> specs
 
 > :boom: Reason for the failure: Ramda method behaves as a transducer
@@ -16997,31 +13877,6 @@ test('with string instead of array', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {prepend} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.prepend', () => {
-  it('happy', () => {
-    const result = prepend(4, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = prepend(4)(list)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prepend)
 
 ### product
@@ -17075,24 +13930,6 @@ test('happy', () => {
 test('bad input', () => {
   expect(product([ null ])).toEqual(0)
   expect(product([])).toEqual(1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {product} from 'rambda'
-
-describe('R.product', () => {
-  it('happy', () => {
-    const result = product([1, 2, 3])
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -17162,53 +13999,6 @@ test('prop', () => {
   expect(prop('bar')({ foo : 'baz' })).toEqual(undefined)
 
   expect(prop('bar')(null)).toEqual(undefined)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {prop} from 'rambda'
-
-const obj = {a: 1, b: 'foo'}
-
-describe('R.prop', () => {
-  it('issue #553', () => {
-    const result = prop('e', {e: 'test1', d: 'test2'})
-    const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
-
-    result // $ExpectType string
-    curriedResult // $ExpectType string
-  })
-  it('happy', () => {
-    const result = prop('a', obj)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = prop('b')(obj)
-
-    result // $ExpectType string
-  })
-})
-
-describe('with number as prop', () => {
-  const list = [1, 2, 3]
-  const index = 1
-  it('happy', () => {
-    const result = prop(index, list)
-
-    result // $ExpectType number
-  })
-  it('curried require explicit type', () => {
-    const result = prop<number>(index)(list)
-
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -17290,63 +14080,6 @@ test('happy', () => {
   expect(propEq(
     'foo', 'bar', null
   )).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {propEq} from 'rambda'
-
-const property = 'foo'
-const numberProperty = 1
-const value = 'bar'
-const obj = {[property]: value}
-const objWithNumberIndex = {[numberProperty]: value}
-
-describe('R.propEq', () => {
-  it('happy', () => {
-    const result = propEq(property, value, obj)
-    result // $ExpectType boolean
-  })
-
-  it('number is property', () => {
-    const result = propEq(1, value, objWithNumberIndex)
-    result // $ExpectType boolean
-  })
-
-  it('with optional property', () => {
-    interface MyType {
-      optional?: string | number,
-    }
-
-    const myObject: MyType = {}
-    const valueToFind = '1111'
-    // $ExpectError
-    propEq('optional', valueToFind, myObject)
-
-    // $ExpectError
-    propEq('optional', valueToFind, myObject)
-  })
-
-  it('imported from @types/ramda', () => {
-    interface A {
-      foo: string | null,
-    }
-    const obj: A = {
-      foo: 'bar',
-    }
-    const value = ''
-    const result = propEq('foo', value)(obj)
-    result // $ExpectType boolean
-
-    // $ExpectError
-    propEq('bar', value)(obj)
-  })
 })
 ```
 
@@ -17475,31 +14208,6 @@ test('when false', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {propIs} from 'rambda'
-
-const property = 'a'
-const obj = {a: 1}
-
-describe('R.propIs', () => {
-  it('happy', () => {
-    const result = propIs(Number, property, obj)
-    result // $ExpectType boolean
-  })
-
-  it('curried', () => {
-    const result = propIs(Number, property)(obj)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propIs)
 
 ### propOr
@@ -17592,39 +14300,6 @@ test('propOr (currying)', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {propOr} from 'rambda'
-
-const obj = {foo: 'bar'}
-const property = 'foo'
-const fallback = 'fallback'
-
-describe('R.propOr', () => {
-  it('happy', () => {
-    const result = propOr(fallback, property, obj)
-    result // $ExpectType string
-  })
-  it('curry 1', () => {
-    const result = propOr(fallback)(property, obj)
-    result // $ExpectType string
-  })
-  it('curry 2', () => {
-    const result = propOr(fallback, property)(obj)
-    result // $ExpectType string
-  })
-  it('curry 3', () => {
-    const result = propOr(fallback)(property)(obj)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propOr)
 
 ### props
@@ -17699,31 +14374,6 @@ test('happy', () => {
 test('curried', () => {
   const result = props(propsToPick)(obj)
   expect(result).toEqual([ 1, undefined ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {props} from 'rambda'
-
-const obj = {a: 1, b: 2}
-
-describe('R.props', () => {
-  it('happy', () => {
-    const result = props(['a', 'b'], obj)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = props(['a', 'b'])(obj)
-
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -17809,29 +14459,6 @@ test('with bad input', () => {
 
 test('curry', () => {
   expect(range(0)(10)).toEqual([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {range} from 'rambda'
-
-describe('R.range', () => {
-  it('happy', () => {
-    const result = range(1, 4)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = range(1)(4)
-
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -17943,102 +14570,6 @@ test('with undefined as iterable', () => {
     reducer, initialValue, undefined
   )).toThrowWithMessage(TypeError,
     'reduce: list must be array or iterable')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {reduce} from 'rambda'
-
-describe('R.reduce', () => {
-  it('happy', () => {
-    const result = reduce<number, number>(
-      (acc, elem) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        return acc + elem
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('with two types', () => {
-    const result = reduce<number, string>(
-      (acc, elem) => {
-        acc // $ExpectType string
-        elem // $ExpectType number
-
-        return `${acc}${elem}`
-      },
-      'foo',
-      [1, 2, 3]
-    )
-
-    result // $ExpectType string
-  })
-
-  it('with index', () => {
-    const result = reduce<number, number>(
-      (acc, elem, i) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        i // $ExpectType number
-        return acc + elem
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback', () => {
-    const result = reduce(
-      (acc, val) => {
-        acc // $ExpectType number
-        return acc + val
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback with index', () => {
-    const result = reduce(
-      (acc, val, i) => {
-        acc // $ExpectType number
-        i // $ExpectType number
-        return acc + val
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback with two types', () => {
-    const result = reduce(
-      (acc, val) => {
-        acc // $ExpectType string
-        return acc + val
-      },
-      'foo',
-      [1, 2, 3]
-    )
-
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -18193,56 +14724,6 @@ test('with object', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {reject} from 'rambda'
-
-describe('R.reject with array', () => {
-  it('happy', () => {
-    const result = reject(
-      x => {
-        x // $ExpectType number
-        return x > 1
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('curried require explicit type', () => {
-    const result = reject<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.reject with objects', () => {
-  it('happy', () => {
-    const result = reject(
-      x => {
-        x // $ExpectType number
-
-        return x > 1
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried require dummy type', () => {
-    const result = reject<number, any>(x => {
-      return x > 1
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<number>
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.reject</italic> specs
 
 > :boom: Reason for the failure: Ramda method dispatches to `filter` method
@@ -18340,29 +14821,6 @@ test('repeat', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {repeat} from 'rambda'
-
-describe('R.repeat', () => {
-  it('happy', () => {
-    const result = repeat(4, 7)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = repeat(4)(7)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
 
 ### replace
@@ -18441,45 +14899,6 @@ test('3', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {replace} from 'rambda'
-
-const str = 'foo bar foo'
-const replacer = 'bar'
-
-describe('R.replace', () => {
-  it('happy', () => {
-    const result = replace(/foo/g, replacer, str)
-
-    result // $ExpectType string
-  })
-  it('with string as search pattern', () => {
-    const result = replace('foo', replacer, str)
-
-    result // $ExpectType string
-  })
-})
-
-describe('R.replace - curried', () => {
-  it('happy', () => {
-    const result = replace(/foo/g, replacer)(str)
-
-    result // $ExpectType string
-  })
-  it('with string as search pattern', () => {
-    const result = replace('foo', replacer)(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
 
 ### reverse
@@ -18552,25 +14971,6 @@ test('it doesn\'t mutate', () => {
   expect(reverse(arr)).toEqual([ 3, 2, 1 ])
 
   expect(arr).toEqual([ 1, 2, 3 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {reverse} from 'rambda'
-
-const list = [1, 2, 3, 4, 5]
-
-describe('R.reverse', () => {
-  it('happy', () => {
-    const result = reverse(list)
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -18779,29 +15179,6 @@ test('slice', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {slice} from 'rambda'
-
-const list = [1, 2, 3, 4, 5]
-
-describe('R.slice', () => {
-  it('happy', () => {
-    const result = slice(1, 3, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = slice(1, 3)(list)
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#slice)
 
 ### sort
@@ -18884,33 +15261,6 @@ test('it doesn\'t mutate', () => {
   expect(list[ 0 ]).toBe('foo')
   expect(list[ 1 ]).toBe('bar')
   expect(list[ 2 ]).toBe('baz')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {sort} from 'rambda'
-
-const list = [3, 0, 5, 2, 1]
-
-function sortFn(a: number, b: number): number {
-  return a > b ? 1 : -1
-}
-
-describe('R.sort', () => {
-  it('happy', () => {
-    const result = sort(sortFn, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = sort(sortFn)(list)
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -19024,52 +15374,6 @@ test('with compose', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {sortBy} from 'rambda'
-
-interface Input {
-  a: number,
-}
-
-describe('R.sortBy', () => {
-  it('passing type to sort function', () => {
-    function fn(x: any): number {
-      return x.a
-    }
-    function fn2(x: Input): number {
-      return x.a
-    }
-
-    const input = [{a: 2}, {a: 1}, {a: 0}]
-    const result = sortBy(fn, input)
-    const curriedResult = sortBy(fn2)(input)
-
-    result // $ExpectType { a: number; }[]
-    curriedResult // $ExpectType { a: number; }[]
-    result[0].a // $ExpectType number
-  })
-  it('passing type to sort function and list', () => {
-    function fn(x: Input): number {
-      return x.a
-    }
-
-    const input: Input[] = [{a: 2}, {a: 1}, {a: 0}]
-    const result = sortBy(fn, input)
-    const curriedResult = sortBy(fn)(input)
-
-    result // $ExpectType Input[]
-    curriedResult // $ExpectType Input[]
-    result[0].a // $ExpectType number
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.sortBy</italic> specs
 
 > :boom: Reason for the failure: Ramda method works with array-like objects
@@ -19168,32 +15472,6 @@ test('happy', () => {
 
 test('curried', () => {
   expect(split(splitChar)(str)).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {split} from 'rambda'
-
-const str = 'foo|bar|baz'
-const splitChar = '|'
-
-describe('R.split', () => {
-  it('happy', () => {
-    const result = split(splitChar, str)
-
-    result // $ExpectType string[]
-  })
-  it('curried', () => {
-    const result = split(splitChar)(str)
-
-    result // $ExpectType string[]
-  })
 })
 ```
 
@@ -19331,46 +15609,6 @@ test('with bad inputs', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {splitAt} from 'ramda'
-
-const index = 1
-const str = 'foo'
-const list = [1, 2, 3]
-
-describe('R.splitAt with array', () => {
-  it('happy', () => {
-    const result = splitAt(index, list)
-
-    result // $ExpectType [number[], number[]]
-  })
-  it('curried', () => {
-    const result = splitAt(index)(list)
-
-    result // $ExpectType [number[], number[]]
-  })
-})
-
-describe('R.splitAt with string', () => {
-  it('happy', () => {
-    const result = splitAt(index, str)
-
-    result // $ExpectType [string, string]
-  })
-  it('curried', () => {
-    const result = splitAt(index)(str)
-
-    result // $ExpectType [string, string]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitAt)
 
 ### splitEvery
@@ -19460,31 +15698,6 @@ test('with bad input', () => {
   expect(() =>
     expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrowWithMessage(Error,
     'First argument to splitEvery must be a positive integer')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {splitEvery} from 'rambda'
-
-const list = [1, 2, 3, 4, 5, 6, 7]
-
-describe('R.splitEvery', () => {
-  it('happy', () => {
-    const result = splitEvery(3, list)
-
-    result // $ExpectType (number[])[]
-  })
-  it('curried', () => {
-    const result = splitEvery(3)(list)
-
-    result // $ExpectType (number[])[]
-  })
 })
 ```
 
@@ -19599,32 +15812,6 @@ test('with bad inputs', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {splitWhen} from 'rambda'
-
-const list = [1, 2, 1, 2]
-const predicate = (x: number) => x === 2
-
-describe('R.splitWhen', () => {
-  it('happy', () => {
-    const result = splitWhen(predicate, list)
-
-    result // $ExpectType (number[])[]
-  })
-  it('curried', () => {
-    const result = splitWhen(predicate)(list)
-
-    result // $ExpectType (number[])[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitWhen)
 
 ### startsWith
@@ -19692,32 +15879,6 @@ test('false', () => {
   const result = startsWith('baz')('foo-bar')
 
   expect(result).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {startsWith} from 'rambda'
-
-const target = 'foo'
-const input = 'foo bar'
-
-describe('R.startsWith', () => {
-  it('happy', () => {
-    const result = startsWith(target, input)
-
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = startsWith(target)(input)
-
-    result // $ExpectType boolean
-  })
 })
 ```
 
@@ -19949,34 +16110,6 @@ test('symmetricDifference with objects', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {symmetricDifference} from 'rambda'
-
-describe('R.symmetricDifference', () => {
-  it('happy', () => {
-    const list1 = [1, 2, 3, 4]
-    const list2 = [3, 4, 5, 6]
-    const result = symmetricDifference(list1, list2)
-
-    result // $ExpectType number[]
-  })
-
-  it('curried', () => {
-    const list1 = [{id: 1}, {id: 2}, {id: 3}, {id: 4}]
-    const list2 = [{id: 3}, {id: 4}, {id: 5}, {id: 6}]
-    const result = symmetricDifference(list1)(list2)
-
-    result // $ExpectType { id: number; }[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#symmetricDifference)
 
 ### T
@@ -20083,29 +16216,6 @@ test('tail', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {tail} from 'rambda'
-
-describe('R.tail', () => {
-  it('with string', () => {
-    const result = tail('foo')
-
-    result // $ExpectType string
-  })
-  it('with list', () => {
-    const result = tail([1, 2, 3])
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tail)
 
 ### take
@@ -20192,46 +16302,6 @@ test('with negative index', () => {
 
 test('with zero index', () => {
   expect(take(0, [ 1, 2, 3 ])).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {take} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
-
-describe('R.take - array', () => {
-  it('happy', () => {
-    const result = take(howMany, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = take(howMany)(list)
-
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.take - string', () => {
-  it('happy', () => {
-    const result = take(howMany, str)
-
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = take(howMany)(str)
-
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -20368,46 +16438,6 @@ test('with negative index', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {takeLast} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
-
-describe('R.takeLast - array', () => {
-  it('happy', () => {
-    const result = takeLast(howMany, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = takeLast(howMany)(list)
-
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.takeLast - string', () => {
-  it('happy', () => {
-    const result = takeLast(howMany, str)
-
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = takeLast(howMany)(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLast)
 
 ### takeLastWhile
@@ -20502,42 +16532,6 @@ test('predicate is always false', () => {
 test('with string', () => {
   const result = takeLastWhile(x => x !== 'F', 'FOOBAR')
   expect(result).toEqual('OOBAR')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {takeLastWhile} from 'rambda'
-
-const list = [1, 2, 3]
-const str = 'FOO'
-
-describe('R.takeLastWhile', () => {
-  it('with array', () => {
-    const result = takeLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with array - curried', () => {
-    const result = takeLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with string', () => {
-    const result = takeLastWhile(x => x !== 'F', str)
-
-    result // $ExpectType string
-  })
-  it('with string - curried', () => {
-    const result = takeLastWhile(x => x !== 'F')(str)
-
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -20687,45 +16681,6 @@ describe("brute force", () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {takeWhile} from 'rambda'
-
-const list = [1, 2, 3, 4]
-
-describe('R.takeWhile', () => {
-  it('happy', () => {
-    const result = takeWhile(x => x > 2, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried require explicit type', () => {
-    const result = takeWhile<number>(x => x > 2)(list)
-
-    result // $ExpectType number[]
-  })
-})
-
-describe('with string as iterable', () => {
-  const str = 'foobar'
-  it('happy', () => {
-    const result = takeWhile(x => x !== 'b', str)
-
-    result // $ExpectType string
-  })
-  it('curried require explicit type', () => {
-    const result = takeWhile(x => x !== 'b')(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 *2 failed Ramda.takeWhile specs*
 
 > :boom: Reason for the failure: Ramda method works with strings not only arrays
@@ -20797,27 +16752,6 @@ test('tap', () => {
   expect(tap(sayX, 100)).toEqual(100)
   expect(tap(sayX)(100)).toEqual(100)
   expect(a).toEqual(100)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {tap, pipe} from 'rambda'
-
-describe('R.tap', () => {
-  it('happy', () => {
-    pipe(
-      tap(x => {
-        x // $ExpectType number[]
-      }),
-      (x: number[]) => x.length
-    )([1, 2])
-  })
 })
 ```
 
@@ -20926,32 +16860,6 @@ test('throws if first argument is not regex', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {test} from 'rambda'
-
-const input = 'foo   '
-const regex = /foo/
-
-describe('R.test', () => {
-  it('happy', () => {
-    const result = test(regex, input)
-
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = test(regex)(input)
-
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
 
 ### times
@@ -21035,23 +16943,6 @@ test('curry', () => {
   const result = times(identity)(5)
 
   expect(result).toEqual([ 0, 1, 2, 3, 4 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {times, identity} from 'rambda'
-
-describe('R.times', () => {
-  it('happy', () => {
-    const result = times(identity, 5)
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -21176,30 +17067,6 @@ const expected = [
 
 test('happy', () => {
   expect(toPairs(obj)).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {toPairs} from 'rambda'
-
-const obj = {
-  a: 1,
-  b: 2,
-  c: [3, 4],
-}
-
-describe('R.toPairs', () => {
-  it('happy', () => {
-    const result = toPairs(obj)
-
-    result // $ExpectType ([string, number | number[]])[]
-  })
 })
 ```
 
@@ -21399,30 +17266,6 @@ test('array with falsy values', () => {
     [ null, true ],
   ]
   expect(actual).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {transpose} from 'rambda'
-
-const input = [
-  ['a', 1],
-  ['b', 2],
-  ['c', 3],
-]
-
-describe('R.transpose', () => {
-  it('happy', () => {
-    const result = transpose(input)
-
-    result // $ExpectType ((string | number)[])[]
-  })
 })
 ```
 
@@ -21724,52 +17567,6 @@ describe('brute force', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {tryCatch, delay} from 'rambda'
-
-describe('R.tryCatch', () => {
-  it('synchronous', () => {
-    const fn = (x: any) => x.x === 1
-
-    const result = tryCatch(fn, false)(null)
-    result // $ExpectType boolean
-  })
-  it('synchronous + fallback is function', () => {
-    const fn = (x: any) => typeof x.x
-    const fallback = (x: any) => typeof x
-    const result = tryCatch<any, string>(fn, fallback)(null)
-    result // $ExpectType string
-  })
-
-  it('asynchronous', async() => {
-    const fn = async(input: any) => {
-      return typeof JSON.parse('{a:')
-    }
-    const result = await tryCatch<string>(fn, 'fallback')(100)
-    result // $ExpectType string
-  })
-
-  it('asynchronous + fallback is asynchronous', async() => {
-    const fn = async(input: any) => {
-      await delay(100)
-      return JSON.parse(`{a:${input}`)
-    }
-    const fallback = async(input: any) => {
-      await delay(100)
-      return 'foo'
-    }
-    const result = await tryCatch<string>(fn, fallback)(100)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 *1 failed Ramda.tryCatch specs*
 
 > :boom: Reason for the failure: Ramda method returns a function with the same arity
@@ -21986,24 +17783,6 @@ test('function inside object 2', () => {
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {type} from 'rambda'
-
-describe('R.type', () => {
-  it('happy', () => {
-    const result = type(4)
-
-    result // $ExpectType RambdaTypes
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.type</italic> specs
 
 > :boom: Reason for the failure: Ramda method returns 'Number' type to NaN input, while Rambda method returns 'NaN'
@@ -22099,58 +17878,6 @@ test('with list of objects', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {union} from 'rambda'
-
-describe('R.union', () => {
-  it('happy', () => {
-    const result = union([1, 2], [2, 3])
-
-    result // $ExpectType number[]
-  })
-  it('with array of objects - case 1', () => {
-    const list1 = [{a: 1}, {a: 2}]
-    const list2 = [{a: 2}, {a: 3}]
-    const result = union(list1, list2)
-    result // $ExpectType { a: number; }[]
-  })
-  it('with array of objects - case 2', () => {
-    const list1 = [{a: 1, b: 1}, {a: 2}]
-    const list2 = [{a: 2}, {a: 3, b: 3}]
-    const result = union(list1, list2)
-    result[0].a // $ExpectType number
-    result[0].b // $ExpectType number | undefined
-  })
-})
-
-describe('R.union - curried', () => {
-  it('happy', () => {
-    const result = union([1, 2])([2, 3])
-
-    result // $ExpectType number[]
-  })
-  it('with array of objects - case 1', () => {
-    const list1 = [{a: 1}, {a: 2}]
-    const list2 = [{a: 2}, {a: 3}]
-    const result = union(list1)(list2)
-    result // $ExpectType { a: number; }[]
-  })
-  it('with array of objects - case 2', () => {
-    const list1 = [{a: 1, b: 1}, {a: 2}]
-    const list2 = [{a: 2}, {a: 3, b: 3}]
-    const result = union(list1)(list2)
-    result[0].a // $ExpectType number
-    result[0].b // $ExpectType number | undefined
-  })
-})
-```
-
-</details>
-
 *1 failed Ramda.union specs*
 
 > :boom: Reason for the failure: Ramda library supports fantasy-land
@@ -22224,23 +17951,6 @@ test('uniq', () => {
   expect(uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
   expect([ 1, '1' ]).toEqual([ 1, '1' ])
   expect(uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {uniq} from 'rambda'
-
-describe('R.uniq', () => {
-  it('happy', () => {
-    const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -22458,48 +18168,6 @@ test('uniqWith', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {uniqWith} from 'rambda'
-
-describe('R.uniqWith', () => {
-  it('happy', () => {
-    const input = [
-      {
-        id: 0,
-        title: 'foo',
-      },
-      {
-        id: 1,
-        title: 'bar',
-      },
-      {
-        id: 2,
-        title: 'baz',
-      },
-      {
-        id: 3,
-        title: 'foo',
-      },
-      {
-        id: 4,
-        title: 'bar',
-      },
-    ]
-
-    const fn = (x: any, y: any) => x.title === y.title
-
-    const result = uniqWith(fn, input)
-    result // $ExpectType { id: number; title: string; }[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqWith)
 
 ### unless
@@ -22581,31 +18249,6 @@ test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
   expect(safeIncCurried(null)).toBeNull()
   expect(safeIncCurried(1)).toBe(2)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {unless, isNil, inc} from 'rambda'
-
-describe('R.unless', () => {
-  it('happy', () => {
-    const safeInc = unless<any, number>(isNil, inc)
-    const result = [safeInc(null), safeInc(1)]
-    result[0] // $ExpectType number
-    result[1] // $ExpectType number
-  })
-
-  it('it needs explicitly declared types', () => {
-    const safeInc = unless(x => x > 5, inc)
-    const result = safeInc(1)
-    result // $ExpectType number
-  })
 })
 ```
 
@@ -22702,23 +18345,6 @@ test('list has no such index', () => {
   )
 
   expect(result).toEqual(list)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {update} from 'rambda'
-
-describe('R.update', () => {
-  it('happy', () => {
-    const result = update(1, 0, [1, 2, 3])
-    result // $ExpectType number[]
-  })
 })
 ```
 
@@ -22823,27 +18449,6 @@ test('with bad input', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {values} from 'rambda'
-
-describe('R.values', () => {
-  it('happy', () => {
-    const result = values({
-      a: 1,
-      b: 2,
-      c: 3,
-    })
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#values)
 
 ### view
@@ -22914,35 +18519,6 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {lens, view, assoc} from 'rambda'
-
-interface Input {
-  foo: string,
-}
-
-const testObject: Input = {
-  foo: 'Led Zeppelin',
-}
-
-const fooLens = lens<Input, string, string>((x: Input) => {
-  return x.foo
-}, assoc('foo'))
-
-describe('R.view', () => {
-  it('happt', () => {
-    const result = view<Input, string>(fooLens, testObject)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#view)
 
 ### when
@@ -22998,43 +18574,6 @@ test('happy', () => {
   const fn = when(predicate, add(11))
   expect(fn(11)).toBe(22)
   expect(fn('foo')).toBe('foo')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {when} from 'rambda'
-
-const predicate = (x: number) => x > 2
-const whenTrueFn = (x: number) => String(x)
-
-describe('R.when', () => {
-  it('happy', () => {
-    const result = when(predicate, whenTrueFn, 1)
-    result // $ExpectType string | 1
-  })
-
-  it('curry 1', () => {
-    const fn = when(predicate, whenTrueFn)
-    const result = fn(1)
-    result // $ExpectType string | number
-  })
-
-  it('curry 2 require explicit types', () => {
-    const fn = when<number, string>(predicate)(whenTrueFn)
-    const result = fn(1)
-    result // $ExpectType string | number
-  })
-
-  it('curry 3 require explicit types', () => {
-    const result = when<number, string>(predicate)(whenTrueFn, 1)
-    result // $ExpectType string | number
-  })
 })
 ```
 
@@ -23136,35 +18675,6 @@ test('when false', () => {
     x : 11,
     y : 19,
   })).toEqual(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {where, equals} from 'rambda'
-
-describe('R.where', () => {
-  it('happy', () => {
-    const input = {
-      a: 'foo',
-      b: 'bar',
-      x: 11,
-      y: 19,
-    }
-    const conditions = {
-      a: equals('foo'),
-      b: equals('bar'),
-    }
-    const result = where(conditions, input)
-    const curriedResult = where(conditions)(input)
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
 })
 ```
 
@@ -23285,25 +18795,6 @@ test('with wrong input', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {whereEq} from 'rambda'
-
-describe('R.whereEq', () => {
-  it('happy', () => {
-    const result = whereEq({a: {b: 2}}, {b: 2})
-    const curriedResult = whereEq({a: {b: 2}})({b: 2})
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
 *2 failed Ramda.whereEq specs*
 
 > :boom: Reason for the failure: Ramba method looks inside `prototype` property | Rambda.equals doesn't support equality of functions
@@ -23383,32 +18874,6 @@ test('should return a new list without values in the first argument ', () => {
 
 test('ramda test', () => {
   expect(without([ 1, 2 ])([ 1, 2, 1, 3, 4 ])).toEqual([ 3, 4 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {without} from 'rambda'
-
-const itemsToOmit = ['A', 'B', 'C']
-const collection = ['A', 'B', 'C', 'D', 'E', 'F']
-
-describe('R.without', () => {
-  it('happy', () => {
-    const result = without(itemsToOmit, collection)
-
-    result // $ExpectType string[]
-  })
-  it('curried', () => {
-    const result = without(itemsToOmit)(collection)
-
-    result // $ExpectType string[]
-  })
 })
 ```
 
@@ -23548,25 +19013,6 @@ test('when one argument is truthy and the other is falsy, it should return true'
 
 <details>
 
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {xor} from 'rambda'
-
-describe('R.xor', () => {
-  it('happy', () => {
-    xor(true, false) // $ExpectType boolean
-  })
-  it('curry', () => {
-    xor(true)(false) // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-<details>
-
 <summary>1 failed <italic>Ramda.xor</italic> specs
 
 > :boom: Reason for the failure: Ramda method support empty call of method
@@ -23690,26 +19136,6 @@ test('should truncate result to length of shorted input list', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {zip} from 'rambda'
-
-describe('R.zip', () => {
-  it('happy', () => {
-    const array1 = [1, 2, 3]
-    const array2 = ['A', 'B', 'C']
-
-    const result = zip(array1)(array2)
-    result // $ExpectType KeyValuePair<number, string>[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zip)
 
 ### zipObj
@@ -23813,30 +19239,6 @@ test('ignore extra keys', () => {
 
 </details>
 
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {zipObj} from 'rambda'
-
-describe('R.zipObj', () => {
-  it('happy', () => {
-    // this is wrong since 24.10.2020 `@types/ramda` changes
-    const result = zipObj(['a', 'b', 'c', 'd'], [1, 2, 3])
-    result // $ExpectType { b: number; a: number; c: number; d: number; }
-  })
-  it('imported from @types/ramda', () => {
-    const result = zipObj(['a', 'b', 'c'], [1, 2, 3])
-    const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3])
-    result // $ExpectType { b: number; a: number; c: number; }
-    curriedResult // $ExpectType { b: number; a: number; c: number; }
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipObj)
 
 ### zipWith
@@ -23914,44 +19316,6 @@ test('when second list is longer', () => {
     add, list1, list2
   )
   expect(result).toEqual([ 11, 22, 33 ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {zipWith} from 'rambda'
-
-const list1 = [1, 2]
-const list2 = [10, 20, 30]
-
-describe('R.zipWith', () => {
-  it('happy', () => {
-    const result = zipWith(
-      (x, y) => {
-        x // $ExpectType number
-        y // $ExpectType number
-        return `${x}-${y}`
-      },
-      list1,
-      list2
-    )
-
-    result // $ExpectType string[]
-  })
-  it('curried', () => {
-    const result = zipWith((x, y) => {
-      x // $ExpectType unknown
-      y // $ExpectType unknown
-      return `${x}-${y}`
-    })(list1, list2)
-
-    result // $ExpectType string[]
-  })
 })
 ```
 
