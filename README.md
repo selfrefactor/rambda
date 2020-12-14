@@ -19330,6 +19330,8 @@ WIP 6.6.0
 
 - Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 
+- Add `CHANGELOG.md` file in release files list
+
 6.5.0
 
 - Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions

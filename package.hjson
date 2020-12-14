@@ -118,6 +118,7 @@ const VERSION = 6.4.0
     dist
     src
     _ts-toolbelt
+    CHANGELOG.md
     index.d.ts
   ]
 

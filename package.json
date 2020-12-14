@@ -66,6 +66,7 @@
     "dist",
     "src",
     "_ts-toolbelt",
+    "CHANGELOG.md",
     "index.d.ts"
   ],
   "repository": {
