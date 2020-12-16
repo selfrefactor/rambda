@@ -9,7 +9,7 @@
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 
-## ➤ Example use
+## ❯ Example use
 
 ```javascript
 import { compose, map, filter } from 'rambda'
@@ -29,7 +29,7 @@ You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
 
-## ➤ Rambda's advantages
+## ❯ Rambda's advantages
 
 ### Typescript included
 
@@ -84,7 +84,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
 
-## ➤ Missing Ramda methods
+## ❯ Missing Ramda methods
 
 <details>
 <summary>
@@ -186,7 +186,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
   
-## ➤ Install
+## ❯ Install
 
 - **yarn add rambda**
 
@@ -226,7 +226,7 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
 
-## ➤ Benchmarks
+## ❯ Benchmarks
 
 <details>
 
@@ -304,7 +304,7 @@ method | Rambda | Ramda | Lodash
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
 
-## ➤ Used by
+## ❯ Used by
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
@@ -19322,7 +19322,7 @@ test('when second list is longer', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
-## ➤ CHANGELOG
+## ❯ CHANGELOG
 
 WIP 6.6.0
 
@@ -19850,7 +19850,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-changelog)
 
-## ➤ Additional info
+## ❯ Additional info
 
 > Most influential contributors
 
