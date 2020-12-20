@@ -1,3 +1,17 @@
+## typings of last and head
+
+```
+const parse = pipe(split('.'), head) is wrong
+but
+const parse = pipe(split('.'), last) is correct
+```
+
+## Wrong use of releases
+
+Use github CLI as it offers API to make a release
+
+## Other
+
 strip `readonly` from docs typings
 
 add function to typings
@@ -29,6 +43,8 @@ includeLens?
 ---
 
 ## Can postpone
+
+- R.mapKeys (name inspiration from https://github.com/AlexGalays/spacelift#objectmapvalues)
 
 fetch contributors github's avatars
 
