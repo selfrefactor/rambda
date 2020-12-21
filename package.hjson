@@ -5,6 +5,7 @@ const BUILD = cross-env NODE_ENV=build rollup -c
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
 const NEW_METHOD = cd ../rambda-scripts&&yarn new
 const RUN_BENCHMARKS = cd ../rambda-scripts&&yarn benchmarks
+const GITHUB_RELEASE = cd ../rambda-scripts&&yarn github
 const RUN_COMPLEX_BENCHMARKS = cd ../rambda-scripts&&yarn benchmarksx
 const VERIFY_USED_BY = cd ../rambda-scripts&&yarn usedby
 const IMMUTABLE_LINT = cd ../rambda-scripts&&yarn immutable
@@ -28,6 +29,10 @@ const VERSION = 6.4.0
 
     // It runs all scripts needed to prepare for `Rambdax` release.
     x: {{POPULATE_DOCS_X}}&&{{POPULATE_README_X}}
+
+    // It generates Github release, after NPM version is published
+    // It fails silently if such release is already made
+    github: {{GITHUB_RELEASE}}
 
     // It creates JSON data used afterwards by the documentation site
     docs: {{DOCS}}

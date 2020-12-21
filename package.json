@@ -4,6 +4,7 @@
   "scripts": {
     "out": "cd ../rambda-scripts&&yarn populate:docs&&cd ../rambda-scripts&&yarn populate:readme",
     "x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
+    "github": "cd ../rambda-scripts&&yarn github",
     "docs": "cd ../rambda-scripts&&yarn highlighter",
     "toolbelt": "cd ../rambda-scripts&&yarn toolbelt",
     "immutable": "cd ../rambda-scripts&&yarn immutable",

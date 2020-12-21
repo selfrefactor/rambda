@@ -1,3 +1,11 @@
+## Export types
+
+Also check other questions from the last issue.
+
+## Readme limit
+
+Exit build process if README.md is larger than 500kB. Also check what difference make if separator is removed.
+
 ## typings of last and head
 
 ```
