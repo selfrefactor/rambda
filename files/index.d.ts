@@ -35,7 +35,7 @@ type Arity2Fn = (x: any, y: any) => any;
 type Pred = (...x: readonly any[]) => boolean;
 type SafePred<T> = (...x: readonly T[]) => boolean;
 
-interface Dictionary<T> {readonly [index: string]: T}
+export interface Dictionary<T> {readonly [index: string]: T}
 type Partial<T> = { readonly [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = { readonly
@@ -6727,6 +6727,27 @@ Notes:
 // @SINGLE_MARKER
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
+
+/*
+Method: dropEmpty
+
+Explanation:
+
+Example:
+
+```
+const result = R.dropEmpty()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+// export function dropEmpty<T>(input: readonly T[]): readonly T[]
+// export function dropEmpty<T>(input: Dictionary<T>): Dictionary<T>
 
 // RAMBDAX_MARKER_END
 // ============================================

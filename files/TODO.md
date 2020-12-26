@@ -1,3 +1,22 @@
+## isValid with functions
+
+only arrow function works
+
+```
+ok(repos)(fn)  
+  // ok(repos)(x => {
+  //     console.log({x})
+  //   })
+```
+
+also not possible is array of function schema
+
+```
+ok(repos)([x => {
+      console.log({x})
+    }])
+```
+
 ## Export types
 
 Also check other questions from the last issue.
