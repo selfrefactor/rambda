@@ -6728,27 +6728,6 @@ Notes:
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
 
-/*
-Method: dropEmpty
-
-Explanation:
-
-Example:
-
-```
-const result = R.dropEmpty()
-// => 
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-// export function dropEmpty<T>(input: readonly T[]): readonly T[]
-// export function dropEmpty<T>(input: Dictionary<T>): Dictionary<T>
-
 // RAMBDAX_MARKER_END
 // ============================================
 
