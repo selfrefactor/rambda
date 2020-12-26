@@ -12,8 +12,8 @@ function dropEmpty<T>(input : readonly T[] | Dictionary<T>) {
 describe('R.dropEmpty', () => {
   it('happy', () => {
     const list = [1,2,3, '']
-    const result = dropEmpty(list)
+    const result: any = dropEmpty(list)
     
-    result // $ExpectType number
+    result // $ExpectType any
   })
 })
