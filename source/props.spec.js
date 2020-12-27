@@ -15,3 +15,7 @@ test('curried', () => {
   const result = props(propsToPick)(obj)
   expect(result).toEqual([ 1, undefined ])
 })
+
+test('wrong input', () => {
+  expect(() => props(null)(obj)).toThrowError()
+})
