@@ -1,3 +1,7 @@
+## Uncommited changelog
+
+R.produceAsync returns promise even if all rules are synchronous.
+
 ## isValid with functions
 
 only arrow function works

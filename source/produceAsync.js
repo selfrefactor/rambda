@@ -38,7 +38,7 @@ function produceFn(conditions, input){
       willReturn[ prop ] = conditions[ prop ](input)
     }
 
-    return willReturn
+    return Promise.resolve(willReturn)
   }
 
   const promised = []
