@@ -4,13 +4,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Jest",
+      "name": "Single method",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
         "-i", 
         "--no-cache",
-        "source/tryCatch.spec.js"
+        "source/evolve.spec.js"
       ],
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",

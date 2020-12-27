@@ -4,18 +4,18 @@ import { add } from "../rambda.js";
 import { compareCombinations, compareToRamda } from "./_internals/testUtils";
 import { evolve } from "./evolve";
 
-test("happy", () => {
+test.only("happy", () => {
   const rules = {
     foo: add(1),
     nested: {
-      bar: add(-1),
+      bar: x => Object.keys(x).length,
     }
   };
   const input = {
     a: 1,
     foo: 2,
     nested: {
-      bar: 3,
+      bar: {z: 3},
     }
   };
   const result = evolve(rules, input);
@@ -23,7 +23,7 @@ test("happy", () => {
     a: 1,
     foo: 3,
     nested: {
-      bar: 2,
+      bar: 1,
     }
   });
 });
