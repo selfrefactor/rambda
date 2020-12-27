@@ -2,6 +2,10 @@
 
 R.produceAsync returns promise even if all rules are synchronous.
 
+## Blacklist methods
+
+Methods such as compose, curryN doesn't need anything more than description and example. This should keep size of docs smaller.
+
 ## isValid with functions
 
 only arrow function works
