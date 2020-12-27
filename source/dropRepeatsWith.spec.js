@@ -1,8 +1,8 @@
 import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from "ramda";
-
-import { compareCombinations } from "./_internals/testUtils";
 import { dropRepeatsWith } from "./dropRepeatsWith";
 import { path } from "./path";
+import { compareCombinations } from "./_internals/testUtils";
+
 
 const eqI = eqProps("i");
 
@@ -46,7 +46,7 @@ test("keeps elements from the left predicate input", () => {
       n: 1,
     },
   ];
-  const result = dropRepeatsWith(eqI, list);
+  const result = dropRepeatsWith(eqI)(list);
   expect(result).toEqual(expected);
 });
 

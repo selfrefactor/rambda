@@ -11,7 +11,7 @@ test("happy", () => {
 });
 
 test("always true", () => {
-  const result = takeWhile((x) => true, list);
+  const result = takeWhile((x) => true)(list);
   expect(result).toEqual(list);
 });
 

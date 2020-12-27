@@ -19,7 +19,7 @@ test('always true', () => {
 
 test('always false', () => {
   const predicate = () => 0
-  const result = dropWhile(predicate, list)
+  const result = dropWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
