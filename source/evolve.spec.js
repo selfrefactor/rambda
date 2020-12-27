@@ -4,7 +4,7 @@ import { add } from "../rambda.js";
 import { compareCombinations, compareToRamda } from "./_internals/testUtils";
 import { evolve } from "./evolve";
 
-test.only("happy", () => {
+test("happy", () => {
   const rules = {
     foo: add(1),
     nested: {
@@ -24,6 +24,30 @@ test.only("happy", () => {
     foo: 3,
     nested: {
       bar: 1,
+    }
+  });
+});
+
+test("nested rule is wrong", () => {
+  const rules = {
+    foo: add(1),
+    nested: {
+      bar: 10,
+    }
+  };
+  const input = {
+    a: 1,
+    foo: 2,
+    nested: {
+      bar: {z: 3},
+    }
+  };
+  const result = evolve(rules)(input);
+  expect(result).toEqual({
+    a: 1,
+    foo: 3,
+    nested: {
+      bar: {z: 3},
     }
   });
 });
@@ -53,7 +77,7 @@ test("is recursive", () => {
   expect(result).toEqual(expected);
 });
 
-test("ignores primitive value rulesormations", () => {
+test("ignores primitive values", () => {
   const rules = {
     n: 2,
     m: "foo",
