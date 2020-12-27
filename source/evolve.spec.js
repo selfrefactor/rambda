@@ -7,18 +7,24 @@ import { evolve } from "./evolve";
 test("happy", () => {
   const rules = {
     foo: add(1),
-    bar: add(-1),
+    nested: {
+      bar: add(-1),
+    }
   };
   const input = {
     a: 1,
     foo: 2,
-    bar: 3,
+    nested: {
+      bar: 3,
+    }
   };
   const result = evolve(rules, input);
   expect(result).toEqual({
     a: 1,
     foo: 3,
-    bar: 2,
+    nested: {
+      bar: 2,
+    }
   });
 });
 
