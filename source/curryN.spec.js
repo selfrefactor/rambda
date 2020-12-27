@@ -66,6 +66,13 @@ test('preserves context', () => {
   expect(g.call(ctx, 2).call(ctx, 4)).toEqual(42)
 })
 
+test('number of arguments is 4', () => {
+  const fn = curryN(4, multiply)
+  expect(fn(
+    1, 2, 3, 4
+  )).toEqual(6)
+})
+
 test('number of arguments is 5', () => {
   const fn = curryN(5, multiply)
   expect(fn(
