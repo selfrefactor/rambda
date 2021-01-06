@@ -10,6 +10,8 @@ no need for infinite inputs
 
 Methods such as compose, curryN doesn't need anything more than description and example. This should keep size of docs smaller.
 
+Also methods that are too common or too small in order to further reduce the size. 
+
 ## isValid with functions
 
 only arrow function works
