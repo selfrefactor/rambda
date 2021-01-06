@@ -4190,7 +4190,9 @@ export function uniq<T>(list: readonly T[]): readonly T[];
 /*
 Method: uniqWith
 
-Explanation: It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
+Explanation: It returns a new array containing only one copy of each element in `list` according to `predicate` function.
+
+This predicate should return true, if two elements are equal.
 
 Example:
 
@@ -4209,9 +4211,9 @@ const expected = [
   {id: 2, title:'baz'},
 ]
 
-const uniqFn = (x,y) => x.title === y.title
+const predicate = (x,y) => x.title === y.title
 
-const result = R.uniqWith(uniqFn, list)
+const result = R.uniqWith(predicate, list)
 // => `result` is equal to `expected`
 ```
 
@@ -4221,8 +4223,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 
 /*
 Method: unless
