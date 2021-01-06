@@ -417,7 +417,7 @@ Example:
 
 ```
 R.assoc('c', 3, {a: 1, b: 2})
-//=> {a: 1, b: 2, c: 3}
+// => {a: 1, b: 2, c: 3}
 ```
 
 Categories: Object
@@ -529,7 +529,7 @@ const result = [
   R.clamp(0, 10, -1),
   R.clamp(0, 10, 11)
 ]
-//=> [5, 0, 10]
+// => [5, 0, 10]
 ```
 
 Categories:
@@ -863,7 +863,7 @@ Example:
 
 ```
 R.dissoc('b', {a: 1, b: 2, c: 3})
-//=> {a: 1, c: 3}
+// => {a: 1, c: 3}
 ```
 
 Categories: Object
@@ -964,7 +964,7 @@ const result = [
   predicate(8),
   predicate(7),
 ]
-//=> [true, true, false]
+// => [true, true, false]
 ```
 
 Categories: Function
@@ -1244,8 +1244,8 @@ const result = R.forEach(
   x => sideEffect[`foo${x}`] = x
 )([1, 2])
 
-sideEffect //=> {foo1: 1, foo2: 2}
-result //=> [1, 2]
+sideEffect // => {foo1: 1, foo2: 2}
+result // => [1, 2]
 ```
 
 Categories: List, Object
@@ -1431,12 +1431,12 @@ Example:
 
 ```
 const obj = {a: 1};
-R.identical(obj, obj); //=> true
-R.identical(1, 1); //=> true
-R.identical(1, '1'); //=> false
-R.identical([], []); //=> false
-R.identical(0, -0); //=> false
-R.identical(NaN, NaN); //=> true
+R.identical(obj, obj); // => true
+R.identical(1, 1); // => true
+R.identical(1, '1'); // => false
+R.identical([], []); // => false
+R.identical(0, -0); // => false
+R.identical(NaN, NaN); // => true
 ```
 
 Categories: Logic
@@ -1941,13 +1941,13 @@ Example:
 const lensPath = R.lensPath(['x', 0, 'y'])
 const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
 
-R.view(lensPath, input) //=> 2
+R.view(lensPath, input) // => 2
 
 R.set(lensPath, 1, input) 
-//=> {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
 
 R.over(xHeadYLens, R.negate, input) 
-//=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 ```
 
 Categories: Lenses
@@ -2000,7 +2000,7 @@ Example:
 ```
 const headLens = R.lensIndex(0)
  
-R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
+R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) // => ['FOO', 'bar', 'baz']
 ```
 
 Categories: Lenses
@@ -2027,8 +2027,8 @@ Example:
 const input = {x: 1, y: 2}
 const xLens = R.lensProp('x')
 
-R.set(xLens, 4, input) //=> {x: 4, y: 2}
-R.set(xLens, 8, input) //=> {x: 8, y: 2}
+R.set(xLens, 4, input) // => {x: 4, y: 2}
+R.set(xLens, 8, input) // => {x: 8, y: 2}
 
 ```
 
@@ -2052,8 +2052,8 @@ Example:
 ```
 const lens = R.lensProp('x')
 
-R.view(lens, {x: 1, y: 2}) //=> 1
-R.view(lens, {x: 4, y: 2}) //=> 4
+R.view(lens, {x: 1, y: 2}) // => 1
+R.view(lens, {x: 4, y: 2}) // => 4
 ```
 
 Categories: Lenses
@@ -2617,8 +2617,8 @@ Explanation:
 Example:
 
 ```
-R.of(null); //=> [null]
-R.of([42]); //=> [[42]]
+R.of(null); // => [null]
+R.of([42]); // => [[42]]
 ```
 
 Categories:
@@ -3731,7 +3731,9 @@ export function sum(list: readonly number[]): number;
 /*
 Method: symmetricDifference
 
-Explanation: It returns a merged list of `x` and `y` with all equal elements removed. 
+Explanation: It returns a merged list of `x` and `y` with all equal elements removed.
+
+`R.equals` is used to determine equality.
 
 Example:
 
@@ -3745,7 +3747,7 @@ const result = symmetricDifference(x, y)
 
 Categories: List
 
-Notes: `R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3924,7 +3926,7 @@ const fn = x => x * 2
 const howMany = 5
 
 R.times(fn, howMany)
-//=> [0, 2, 4, 6, 8]
+// => [0, 2, 4, 6, 8]
 ```
 
 Categories:
@@ -4147,13 +4149,13 @@ Method: union
 
 Explanation: It takes two lists and return a new list containing a merger of both list with removed duplicates. 
 
-`R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+`R.equals` is used to compare for duplication.
 
 Example:
 
 ```
 const result = R.union([1,2,3], [3,4,5]);
-//=> [1, 2, 3, 4, 5]
+// => [1, 2, 3, 4, 5]
 ```
 
 Categories: List
@@ -4170,6 +4172,8 @@ Method: uniq
 
 Explanation: It returns a new array containing only one copy of each element of `list`.
 
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
@@ -4181,7 +4185,7 @@ R.uniq(list)
 
 Categories: List
 
-Notes: `R.equals` is used to determine equality
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -4392,7 +4396,7 @@ const input = {
 }
 
 const result = whereEq(condition, input)
-//=> true
+// => true
 ```
 
 Categories: Object
@@ -4409,6 +4413,8 @@ Method: without
 
 Explanation: It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
 
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
@@ -4421,7 +4427,7 @@ const result = R.without(matchAgainst, source)
 
 Categories: List
 
-Notes: `R.equals` is used to determine equality
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -4493,11 +4499,11 @@ Example:
 const keys = ['a', 'b', 'c']
 
 R.zipObj(keys, [1, 2, 3])
-//=> {a: 1, b: 2, c: 3}
+// => {a: 1, b: 2, c: 3}
 
 // truncates to shortest list
 R.zipObj(keys, [1, 2])
-//=> {a: 1, b: 2}
+// => {a: 1, b: 2}
 ```
 
 Categories: List
@@ -4804,8 +4810,6 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => read
 Method: eqProps
 
 Explanation: It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
-
-
 
 Example:
 
