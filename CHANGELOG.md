@@ -1,4 +1,8 @@
-6.6.0
+6.5.1
+
+Fix wrong versions in changelog
+
+6.5.0
 
 - `R.defaultTo` no longer accepts infinite inputs, thus it follows Ramda implementation.
 
@@ -12,15 +16,13 @@
 
 - Add `CHANGELOG.md` file in release files list
 
-6.5.0
+6.4.0
 
 - Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions
 
 - Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`
 
 - Fix wrong `R.last` typing
-
-6.4.0
 
 - Upgrade all `rollup` related dependencies
 
