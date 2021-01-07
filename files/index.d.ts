@@ -1,18 +1,18 @@
 import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "../_ts-toolbelt/src/ts-toolbelt";
 
-type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
 
 type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
-type IndexedIterator<T, U> = (x: T, i: number) => U;
-type Iterator<T, U> = (x: T) => U;
-type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
+export type IndexedIterator<T, U> = (x: T, i: number) => U;
+export type Iterator<T, U> = (x: T) => U;
+export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
-type IndexedPredicate<T> = (x: T, i: number) => boolean;
-type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
-type RamdaPath = readonly (number | string)[];
+export type IndexedPredicate<T> = (x: T, i: number) => boolean;
+export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
+export type RamdaPath = readonly (number | string)[];
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -24,7 +24,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   readonly 1: V;
 }
 
-interface Lens {
+export interface Lens {
   <T, U>(obj: T): U;
   set<T, U>(str: string, obj: T): U;
 }
@@ -73,7 +73,7 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
+export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;

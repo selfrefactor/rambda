@@ -81,19 +81,21 @@ function _arity(n, fn){
     ){
       return fn.apply(this, arguments)
     }
-  case 10:
+  default:
     return function (
       _1, _2, _3, _4, _5, _6, _7, _8, _9, _10
     ){
       return fn.apply(this, arguments)
     }
-  default:
-    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
   }
 }
 
 export function curryN(n, fn){
   if (arguments.length === 1) return _fn => curryN(n, _fn)
+
+  if(n> 10){
+    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
+  }
 
   return _arity(n, _curryN(
     n, [], fn

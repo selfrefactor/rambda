@@ -1,6 +1,12 @@
-WIP 6.6.0
+6.6.0
+
+- `R.defaultTo` no longer accepts infinite inputs, thus it follows Ramda implementation.
 
 - `R.equals` supports equality of functions.
+
+- `R.pipe` doesn't use `R.compose`.
+
+- Close [Issue #561](https://github.com/selfrefactor/rambda/issues/561) - export several internal TS interfaces and types
 
 - Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 

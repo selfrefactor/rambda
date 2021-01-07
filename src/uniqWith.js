@@ -1,7 +1,7 @@
 import { any } from './any'
 
-export function uniqWith(fn, list){
-  if (arguments.length === 1) return _list => uniqWith(fn, _list)
+export function uniqWith(predicate, list){
+  if (arguments.length === 1) return _list => uniqWith(predicate, _list)
 
   let index = -1
   const len = list.length
@@ -9,7 +9,7 @@ export function uniqWith(fn, list){
 
   while (++index < len){
     const value = list[ index ]
-    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+    const flag = any(willReturnInstance => predicate(value, willReturnInstance),
       willReturn)
 
     if (!flag){

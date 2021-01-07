@@ -1553,10 +1553,10 @@ reference.
 
 ```javascript
 R.assoc('c', 3, {a: 1, b: 2})
-//=> {a: 1, b: 2, c: 3}
+// => {a: 1, b: 2, c: 3}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try this <strong>R.assoc</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try this <strong>R.assoc</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2171,10 +2171,10 @@ const result = [
   R.clamp(0, 10, -1),
   R.clamp(0, 10, 11)
 ]
-//=> [5, 0, 10]
+// => [5, 0, 10]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.clamp(0%2C%2010%2C%205)%2C%20%0A%20%20R.clamp(0%2C%2010%2C%20-1)%2C%0A%20%20R.clamp(0%2C%2010%2C%2011)%0A%5D%0A%2F%2F%3D%3E%20%5B5%2C%200%2C%2010%5D">Try this <strong>R.clamp</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.clamp(0%2C%2010%2C%205)%2C%20%0A%20%20R.clamp(0%2C%2010%2C%20-1)%2C%0A%20%20R.clamp(0%2C%2010%2C%2011)%0A%5D%0A%2F%2F%20%3D%3E%20%5B5%2C%200%2C%2010%5D">Try this <strong>R.clamp</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -3471,19 +3471,21 @@ function _arity(n, fn){
     ){
       return fn.apply(this, arguments)
     }
-  case 10:
+  default:
     return function (
       _1, _2, _3, _4, _5, _6, _7, _8, _9, _10
     ){
       return fn.apply(this, arguments)
     }
-  default:
-    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
   }
 }
 
 export function curryN(n, fn){
   if (arguments.length === 1) return _fn => curryN(n, _fn)
+
+  if(n> 10){
+    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
+  }
 
   return _arity(n, _curryN(
     n, [], fn
@@ -3500,16 +3502,39 @@ export function curryN(n, fn){
 ```javascript
 import { curryN } from './curryN'
 
-function source(
-  a, b, c, d
+function multiply(
+  a, b, c, d, e, f, g, h, i, j, k, l
 ){
-  void d
+  if (l){
+    return a * b * c * d * e * f * g * h * i * j * k * l
+  }
+  if (k){
+    return a * b * c * d * e * f * g * h * i * j * k
+  }
+  if (j){
+    return a * b * c * d * e * f * g * h * i * j
+  }
+  if (i){
+    return a * b * c * d * e * f * g * h * i
+  }
+  if (h){
+    return a * b * c * d * e * f * g * h
+  }
+  if (g){
+    return a * b * c * d * e * f * g
+  }
+  if (f){
+    return a * b * c * d * e * f
+  }
+  if (e){
+    return a * b * c * d * e
+  }
 
   return a * b * c
 }
 
 test('accepts an arity', () => {
-  const curried = curryN(3, source)
+  const curried = curryN(3, multiply)
   expect(curried(1)(2)(3)).toEqual(6)
   expect(curried(1, 2)(3)).toEqual(6)
   expect(curried(1)(2, 3)).toEqual(6)
@@ -3520,7 +3545,7 @@ test('accepts an arity', () => {
 
 test('can be partially applied', () => {
   const curry3 = curryN(3)
-  const curried = curry3(source)
+  const curried = curry3(multiply)
   expect(curried.length).toEqual(3)
   expect(curried(1)(2)(3)).toEqual(6)
   expect(curried(1, 2)(3)).toEqual(6)
@@ -3543,23 +3568,82 @@ test('preserves context', () => {
   expect(g.call(ctx, 2).call(ctx, 4)).toEqual(42)
 })
 
+test('number of arguments is 4', () => {
+  const fn = curryN(4, multiply)
+  expect(fn(
+    1, 2, 3, 4
+  )).toEqual(6)
+})
+
+test('number of arguments is 5', () => {
+  const fn = curryN(5, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5
+  )).toEqual(120)
+})
+
+test('number of arguments is 6', () => {
+  const fn = curryN(6, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5, 6
+  )).toEqual(720)
+})
+
+test('number of arguments is 7', () => {
+  const fn = curryN(7, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5, 6, 7
+  )).toEqual(5040)
+})
+
+test('number of arguments is 8', () => {
+  const fn = curryN(8, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5, 6, 7, 8
+  )).toEqual(40320)
+})
+
+test('number of arguments is 9', () => {
+  const fn = curryN(9, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5, 6, 7, 8, 9
+  )).toEqual(362880)
+})
+
+test('number of arguments is 10', () => {
+  const fn = curryN(10, multiply)
+  expect(fn(
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+  )).toEqual(3628800)
+})
+
+test('number of arguments is 11', () => {
+  expect(() => {
+    const fn = curryN(11, multiply)
+    fn(
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    )
+  }).toThrowWithMessage(Error,
+    'First argument to _arity must be a non-negative integer no greater than ten')
+})
+
 test('forwards extra arguments', () => {
-  const f = function (){
+  const createArray = function (){
     return Array.prototype.slice.call(arguments)
   }
-  const g = curryN(3, f)
+  const fn = curryN(3, createArray)
 
-  expect(g(
+  expect(fn(
     1, 2, 3
   )).toEqual([ 1, 2, 3 ])
-  expect(g(
+  expect(fn(
     1, 2, 3, 4
   )).toEqual([ 1, 2, 3, 4 ])
-  expect(g(1, 2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
-  expect(g(1)(
+  expect(fn(1, 2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
+  expect(fn(1)(
     2, 3, 4
   )).toEqual([ 1, 2, 3, 4 ])
-  expect(g(1)(2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
+  expect(fn(1)(2)(3, 4)).toEqual([ 1, 2, 3, 4 ])
 })
 ```
 
@@ -3655,39 +3739,21 @@ defaultTo<T, U>(defaultValue: T | U, ...inputArguments: readonly (T | U | null |
 <summary><strong>R.defaultTo</strong> source</summary>
 
 ```javascript
-function flagIs(inputArguments){
+function isFalsy(input){
   return (
-    inputArguments === undefined ||
-    inputArguments === null ||
-    Number.isNaN(inputArguments) === true
+    input === undefined ||
+    input === null ||
+    Number.isNaN(input) === true
   )
 }
 
-export function defaultTo(defaultArgument, ...inputArguments){
+export function defaultTo(defaultArgument, input){
   if (arguments.length === 1){
-    return (..._inputArguments) =>
-      defaultTo(defaultArgument, ..._inputArguments)
+    return (_input) =>
+      defaultTo(defaultArgument, _input)
   }
 
-  const limit = inputArguments.length - 1
-  let len = limit + 1
-  let ready = false
-  let holder
-
-  while (!ready){
-    const instance = inputArguments[ limit - len + 1 ]
-
-    if (len === 0){
-      ready = true
-    } else if (flagIs(instance)){
-      len -= 1
-    } else {
-      holder = instance
-      ready = true
-    }
-  }
-
-  return holder === undefined ? defaultArgument : holder
+  return isFalsy(input) ? defaultArgument : input
 }
 ```
 
@@ -3722,60 +3788,6 @@ test('with false', () => {
 
 test('when inputArgument passes initial check', () => {
   expect(defaultTo('foo', 'bar')).toEqual('bar')
-})
-
-test('default extends to indefinite input arguments - case 1', () => {
-  const result = defaultTo(
-    'foo', null, 'bar'
-  )
-  const expected = 'bar'
-
-  expect(result).toEqual(expected)
-})
-
-test('default extends to indefinite input arguments - case 2', () => {
-  const result = defaultTo(
-    'foo', null, NaN, 'bar'
-  )
-  const expected = 'bar'
-
-  expect(result).toEqual(expected)
-})
-
-test('default extends to indefinite input arguments - case 3', () => {
-  const result = defaultTo(
-    'foo', null, NaN, undefined
-  )
-  const expected = 'foo'
-
-  expect(result).toEqual(expected)
-})
-
-test('default extends to indefinite input arguments - case 4', () => {
-  const result = defaultTo(
-    'foo', null, NaN, undefined, 'bar'
-  )
-  const expected = 'bar'
-
-  expect(result).toEqual(expected)
-})
-
-test('default extends to indefinite input arguments - case 5', () => {
-  const result = defaultTo(
-    'foo', null, NaN, 'bar', 'baz'
-  )
-  const expected = 'bar'
-
-  expect(result).toEqual(expected)
-})
-
-test('default extends to indefinite input arguments - case 6', () => {
-  const result = defaultTo(
-    'foo', null, NaN, undefined, null, NaN
-  )
-  const expected = 'foo'
-
-  expect(result).toEqual(expected)
 })
 ```
 
@@ -3877,10 +3889,10 @@ It returns a new object that does not contain property `prop`.
 
 ```javascript
 R.dissoc('b', {a: 1, b: 2, c: 3})
-//=> {a: 1, c: 3}
+// => {a: 1, c: 3}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try this <strong>R.dissoc</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try this <strong>R.dissoc</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4574,10 +4586,9 @@ export function dropRepeatsWith(predicate, list){
 
 ```javascript
 import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from "ramda";
-
-import { compareCombinations } from "./_internals/testUtils";
 import { dropRepeatsWith } from "./dropRepeatsWith";
 import { path } from "./path";
+import { compareCombinations } from "./_internals/testUtils";
 
 const eqI = eqProps("i");
 
@@ -4621,7 +4632,7 @@ test("keeps elements from the left predicate input", () => {
       n: 1,
     },
   ];
-  const result = dropRepeatsWith(eqI, list);
+  const result = dropRepeatsWith(eqI)(list);
   expect(result).toEqual(expected);
 });
 
@@ -4758,7 +4769,7 @@ test('always true', () => {
 
 test('always false', () => {
   const predicate = () => 0
-  const result = dropWhile(predicate, list)
+  const result = dropWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
@@ -4837,10 +4848,10 @@ const result = [
   predicate(8),
   predicate(7),
 ]
-//=> [true, true, false]
+// => [true, true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20firstPredicate%20%3D%20x%20%3D%3E%20x%20%3E%2010%0Aconst%20secondPredicate%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%200%0Aconst%20predicate%20%3D%20R.either(firstPredicate%2C%20secondPredicate)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20predicate(15)%2C%0A%20%20predicate(8)%2C%0A%20%20predicate(7)%2C%0A%5D%0A%2F%2F%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.either</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20firstPredicate%20%3D%20x%20%3D%3E%20x%20%3E%2010%0Aconst%20secondPredicate%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%200%0Aconst%20predicate%20%3D%20R.either(firstPredicate%2C%20secondPredicate)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20predicate(15)%2C%0A%20%20predicate(8)%2C%0A%20%20predicate(7)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.either</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5947,18 +5958,48 @@ import { evolve } from "./evolve";
 test("happy", () => {
   const rules = {
     foo: add(1),
-    bar: add(-1),
+    nested: {
+      bar: x => Object.keys(x).length,
+    }
   };
   const input = {
     a: 1,
     foo: 2,
-    bar: 3,
+    nested: {
+      bar: {z: 3},
+    }
   };
   const result = evolve(rules, input);
   expect(result).toEqual({
     a: 1,
     foo: 3,
-    bar: 2,
+    nested: {
+      bar: 1,
+    }
+  });
+});
+
+test("nested rule is wrong", () => {
+  const rules = {
+    foo: add(1),
+    nested: {
+      bar: 10,
+    }
+  };
+  const input = {
+    a: 1,
+    foo: 2,
+    nested: {
+      bar: {z: 3},
+    }
+  };
+  const result = evolve(rules)(input);
+  expect(result).toEqual({
+    a: 1,
+    foo: 3,
+    nested: {
+      bar: {z: 3},
+    }
   });
 });
 
@@ -5987,7 +6028,7 @@ test("is recursive", () => {
   expect(result).toEqual(expected);
 });
 
-test("ignores primitive value rulesormations", () => {
+test("ignores primitive values", () => {
   const rules = {
     n: 2,
     m: "foo",
@@ -6942,11 +6983,11 @@ const result = R.forEach(
   x => sideEffect[`foo${x}`] = x
 )([1, 2])
 
-sideEffect //=> {foo1: 1, foo2: 2}
-result //=> [1, 2]
+sideEffect // => {foo1: 1, foo2: 2}
+result // => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0AsideEffect%20%2F%2F%3D%3E%20%7Bfoo1%3A%201%2C%20foo2%3A%202%7D%0Aresult%20%2F%2F%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.forEach</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20sideEffect%20%3D%20%7B%7D%0Aconst%20result%20%3D%20R.forEach(%0A%20%20x%20%3D%3E%20sideEffect%5B%60foo%24%7Bx%7D%60%5D%20%3D%20x%0A)(%5B1%2C%202%5D)%0A%0AsideEffect%20%2F%2F%20%3D%3E%20%7Bfoo1%3A%201%2C%20foo2%3A%202%7D%0Aresult%20%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.forEach</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7811,15 +7852,15 @@ Otherwise, it returns `false`.
 
 ```javascript
 const obj = {a: 1};
-R.identical(obj, obj); //=> true
-R.identical(1, 1); //=> true
-R.identical(1, '1'); //=> false
-R.identical([], []); //=> false
-R.identical(0, -0); //=> false
-R.identical(NaN, NaN); //=> true
+R.identical(obj, obj); // => true
+R.identical(1, 1); // => true
+R.identical(1, '1'); // => false
+R.identical([], []); // => false
+R.identical(0, -0); // => false
+R.identical(NaN, NaN); // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7Ba%3A%201%7D%3B%0AR.identical(obj%2C%20obj)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%201)%3B%20%2F%2F%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%3D%3E%20false%0AR.identical(NaN%2C%20NaN)%3B%20%2F%2F%3D%3E%20true">Try this <strong>R.identical</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20obj%20%3D%20%7Ba%3A%201%7D%3B%0AR.identical(obj%2C%20obj)%3B%20%2F%2F%20%3D%3E%20true%0AR.identical(1%2C%201)%3B%20%2F%2F%20%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(NaN%2C%20NaN)%3B%20%2F%2F%20%3D%3E%20true">Try this <strong>R.identical</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -9842,16 +9883,16 @@ It returns a lens that focuses on specified `path`.
 const lensPath = R.lensPath(['x', 0, 'y'])
 const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
 
-R.view(lensPath, input) //=> 2
+R.view(lensPath, input) // => 2
 
 R.set(lensPath, 1, input) 
-//=> {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
 
 R.over(xHeadYLens, R.negate, input) 
-//=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11805,11 +11846,11 @@ of<T>(x: T): readonly T[]
 ```
 
 ```javascript
-R.of(null); //=> [null]
-R.of([42]); //=> [[42]]
+R.of(null); // => [null]
+R.of([42]); // => [[42]]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.of(null)%3B%20%2F%2F%3D%3E%20%5Bnull%5D%0AR.of(%5B42%5D)%3B%20%2F%2F%3D%3E%20%5B%5B42%5D%5D">Try this <strong>R.of</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.of(null)%3B%20%2F%2F%20%3D%3E%20%5Bnull%5D%0AR.of(%5B42%5D)%3B%20%2F%2F%20%3D%3E%20%5B%5B42%5D%5D">Try this <strong>R.of</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12145,10 +12186,10 @@ It returns a copied **Object** or **Array** with modified value received by appl
 ```javascript
 const headLens = R.lensIndex(0)
  
-R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) //=> ['FOO', 'bar', 'baz']
+R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) // => ['FOO', 'bar', 'baz']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20headLens%20%3D%20R.lensIndex(0)%0A%20%0AR.over(headLens%2C%20R.toUpper%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%3D%3E%20%5B'FOO'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.over</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20headLens%20%3D%20R.lensIndex(0)%0A%20%0AR.over(headLens%2C%20R.toUpper%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'FOO'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.over</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13609,13 +13650,22 @@ pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 <summary><strong>R.pipe</strong> source</summary>
 
 ```javascript
-import { compose } from './compose'
-
 export function pipe(...fns){
   if (fns.length === 0)
     throw new Error('pipe requires at least one argument')
 
-  return compose(...fns.reverse())
+  return (...args) => {
+    const list = fns.slice()
+    if (list.length > 0){
+      const fn = list.shift()
+      let result = fn(...args)
+      while (list.length > 0){
+        result = list.shift()(result)
+      }
+
+      return result
+    }
+  }  
 }
 ```
 
@@ -14374,6 +14424,10 @@ test('curried', () => {
   const result = props(propsToPick)(obj)
   expect(result).toEqual([ 1, undefined ])
 })
+
+test('wrong input', () => {
+  expect(() => props(null)(obj)).toThrowError()
+})
 ```
 
 </details>
@@ -14990,11 +15044,11 @@ It returns a copied **Object** or **Array** with modified `lens` focus set to `r
 const input = {x: 1, y: 2}
 const xLens = R.lensProp('x')
 
-R.set(xLens, 4, input) //=> {x: 4, y: 2}
-R.set(xLens, 8, input) //=> {x: 8, y: 2}
+R.set(xLens, 4, input) // => {x: 4, y: 2}
+R.set(xLens, 8, input) // => {x: 8, y: 2}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0Aconst%20xLens%20%3D%20R.lensProp('x')%0A%0AR.set(xLens%2C%204%2C%20input)%20%2F%2F%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0AR.set(xLens%2C%208%2C%20input)%20%2F%2F%3D%3E%20%7Bx%3A%208%2C%20y%3A%202%7D">Try this <strong>R.set</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0Aconst%20xLens%20%3D%20R.lensProp('x')%0A%0AR.set(xLens%2C%204%2C%20input)%20%2F%2F%20%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0AR.set(xLens%2C%208%2C%20input)%20%2F%2F%20%3D%3E%20%7Bx%3A%208%2C%20y%3A%202%7D">Try this <strong>R.set</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -16036,7 +16090,7 @@ symmetricDifference<T>(x: readonly T[], y: readonly T[]): readonly T[]
 
 It returns a merged list of `x` and `y` with all equal elements removed.
 
-> :boom: `R.equals` is used to determine equality, i.e. it can be safely used with list of objects.
+`R.equals` is used to determine equality.
 
 ```javascript
 const x = [ 1, 2, 3, 4 ]
@@ -16620,7 +16674,7 @@ test("happy", () => {
 });
 
 test("always true", () => {
-  const result = takeWhile((x) => true, list);
+  const result = takeWhile((x) => true)(list);
   expect(result).toEqual(list);
 });
 
@@ -16877,10 +16931,10 @@ const fn = x => x * 2
 const howMany = 5
 
 R.times(fn, howMany)
-//=> [0, 2, 4, 6, 8]
+// => [0, 2, 4, 6, 8]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20howMany%20%3D%205%0A%0AR.times(fn%2C%20howMany)%0A%2F%2F%3D%3E%20%5B0%2C%202%2C%204%2C%206%2C%208%5D">Try this <strong>R.times</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20howMany%20%3D%205%0A%0AR.times(fn%2C%20howMany)%0A%2F%2F%20%3D%3E%20%5B0%2C%202%2C%204%2C%206%2C%208%5D">Try this <strong>R.times</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -17815,14 +17869,14 @@ union<T>(x: readonly T[], y: readonly T[]): readonly T[]
 
 It takes two lists and return a new list containing a merger of both list with removed duplicates. 
 
-`R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+`R.equals` is used to compare for duplication.
 
 ```javascript
 const result = R.union([1,2,3], [3,4,5]);
-//=> [1, 2, 3, 4, 5]
+// => [1, 2, 3, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D%2C%20%5B3%2C4%2C5%5D)%3B%0A%2F%2F%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D%2C%20%5B3%2C4%2C5%5D)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -17892,7 +17946,7 @@ uniq<T>(list: readonly T[]): readonly T[]
 
 It returns a new array containing only one copy of each element of `list`.
 
-> :boom: `R.equals` is used to determine equality
+`R.equals` is used to determine equality.
 
 ```javascript
 const list = [1, 1, {a: 1}, {a: 2}, {a:1}]
@@ -17992,10 +18046,12 @@ describe('uniq', function() {
 
 ```typescript
 
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): readonly T[]
+uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[]
 ```
 
-It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
+It returns a new array containing only one copy of each element in `list` according to `predicate` function.
+
+This predicate should return true, if two elements are equal.
 
 ```javascript
 const list = [
@@ -18012,21 +18068,21 @@ const expected = [
   {id: 2, title:'baz'},
 ]
 
-const uniqFn = (x,y) => x.title === y.title
+const predicate = (x,y) => x.title === y.title
 
-const result = R.uniqWith(uniqFn, list)
+const result = R.uniqWith(predicate, list)
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%20%20%7Bid%3A%203%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%204%2C%20title%3A'bar'%7D%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%5D%0A%0Aconst%20uniqFn%20%3D%20(x%2Cy)%20%3D%3E%20x.title%20%3D%3D%3D%20y.title%0A%0Aconst%20result%20%3D%20R.uniqWith(uniqFn%2C%20list)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.uniqWith</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%20%20%7Bid%3A%203%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%204%2C%20title%3A'bar'%7D%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Bid%3A%200%2C%20title%3A'foo'%7D%2C%0A%20%20%7Bid%3A%201%2C%20title%3A'bar'%7D%2C%0A%20%20%7Bid%3A%202%2C%20title%3A'baz'%7D%2C%0A%5D%0A%0Aconst%20predicate%20%3D%20(x%2Cy)%20%3D%3E%20x.title%20%3D%3D%3D%20y.title%0A%0Aconst%20result%20%3D%20R.uniqWith(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.uniqWith</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
-uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
+uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
+uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 ```
 
 </details>
@@ -18038,8 +18094,8 @@ uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => readonl
 ```javascript
 import { any } from './any'
 
-export function uniqWith(fn, list){
-  if (arguments.length === 1) return _list => uniqWith(fn, _list)
+export function uniqWith(predicate, list){
+  if (arguments.length === 1) return _list => uniqWith(predicate, _list)
 
   let index = -1
   const len = list.length
@@ -18047,7 +18103,7 @@ export function uniqWith(fn, list){
 
   while (++index < len){
     const value = list[ index ]
-    const flag = any(willReturnInstance => fn(value, willReturnInstance),
+    const flag = any(willReturnInstance => predicate(value, willReturnInstance),
       willReturn)
 
     if (!flag){
@@ -18462,11 +18518,11 @@ It returns the value of `lens` focus over `target` object.
 ```javascript
 const lens = R.lensProp('x')
 
-R.view(lens, {x: 1, y: 2}) //=> 1
-R.view(lens, {x: 4, y: 2}) //=> 4
+R.view(lens, {x: 1, y: 2}) // => 1
+R.view(lens, {x: 4, y: 2}) // => 4
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lens%20%3D%20R.lensProp('x')%0A%0AR.view(lens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%3D%3E%201%0AR.view(lens%2C%20%7Bx%3A%204%2C%20y%3A%202%7D)%20%2F%2F%3D%3E%204">Try this <strong>R.view</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20lens%20%3D%20R.lensProp('x')%0A%0AR.view(lens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%201%0AR.view(lens%2C%20%7Bx%3A%204%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%204">Try this <strong>R.view</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -18702,10 +18758,10 @@ const input = {
 }
 
 const result = whereEq(condition, input)
-//=> true
+// => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20condition%20%3D%20%7B%20a%20%3A%20%7B%20b%20%3A%201%20%7D%20%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%3A%20%7B%20b%20%3A%201%20%7D%2C%0A%20%20c%20%3A%202%0A%7D%0A%0Aconst%20result%20%3D%20whereEq(condition%2C%20input)%0A%2F%2F%3D%3E%20true">Try this <strong>R.whereEq</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20condition%20%3D%20%7B%20a%20%3A%20%7B%20b%20%3A%201%20%7D%20%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%3A%20%7B%20b%20%3A%201%20%7D%2C%0A%20%20c%20%3A%202%0A%7D%0A%0Aconst%20result%20%3D%20whereEq(condition%2C%20input)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.whereEq</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -18809,7 +18865,7 @@ without<T>(matchAgainst: readonly T[], source: readonly T[]): readonly T[]
 
 It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
 
-> :boom: `R.equals` is used to determine equality
+`R.equals` is used to determine equality.
 
 ```javascript
 const source = [1, 2, 3, 4]
@@ -19150,14 +19206,14 @@ It will return a new object with keys of `keys` array and values of `values` arr
 const keys = ['a', 'b', 'c']
 
 R.zipObj(keys, [1, 2, 3])
-//=> {a: 1, b: 2, c: 3}
+// => {a: 1, b: 2, c: 3}
 
 // truncates to shortest list
 R.zipObj(keys, [1, 2])
-//=> {a: 1, b: 2}
+// => {a: 1, b: 2}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20keys%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%5D%0A%0AR.zipObj(keys%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zipObj(keys%2C%20%5B1%2C%202%5D)%0A%2F%2F%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%7D">Try this <strong>R.zipObj</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20keys%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%5D%0A%0AR.zipObj(keys%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A%0A%2F%2F%20truncates%20to%20shortest%20list%0AR.zipObj(keys%2C%20%5B1%2C%202%5D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%7D">Try this <strong>R.zipObj</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -19324,9 +19380,15 @@ test('when second list is longer', () => {
 
 ## ❯ CHANGELOG
 
-WIP 6.6.0
+6.6.0
+
+- `R.defaultTo` no longer accepts infinite inputs, thus it follows Ramda implementation.
 
 - `R.equals` supports equality of functions.
+
+- `R.pipe` doesn't use `R.compose`.
+
+- Close [Issue #561](https://github.com/selfrefactor/rambda/issues/561) - export several internal TS interfaces and types
 
 - Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
 
@@ -19892,7 +19954,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 > Releases
 
-[Rambda's releases](https://github.com/selfrefactor/rambda/releases) are used mostly for testing purposes, so it is not advisable to be used.
+[Rambda's releases](https://github.com/selfrefactor/rambda/releases) before **6.4.0** were used mostly for testing purposes.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-additional-info)
 

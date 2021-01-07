@@ -1,18 +1,18 @@
 import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "./_ts-toolbelt/src/ts-toolbelt";
 
-type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
 
 type CommonKeys<T1, T2> = keyof T1 & keyof T2;
 
-type IndexedIterator<T, U> = (x: T, i: number) => U;
-type Iterator<T, U> = (x: T) => U;
-type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
+export type IndexedIterator<T, U> = (x: T, i: number) => U;
+export type Iterator<T, U> = (x: T) => U;
+export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
-type IndexedPredicate<T> = (x: T, i: number) => boolean;
-type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
-type RamdaPath = readonly (number | string)[];
+export type IndexedPredicate<T> = (x: T, i: number) => boolean;
+export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
+export type RamdaPath = readonly (number | string)[];
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -24,7 +24,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   readonly 1: V;
 }
 
-interface Lens {
+export interface Lens {
   <T, U>(obj: T): U;
   set<T, U>(str: string, obj: T): U;
 }
@@ -35,7 +35,7 @@ type Arity2Fn = (x: any, y: any) => any;
 type Pred = (...x: readonly any[]) => boolean;
 type SafePred<T> = (...x: readonly T[]) => boolean;
 
-interface Dictionary<T> {readonly [index: string]: T}
+export interface Dictionary<T> {readonly [index: string]: T}
 type Partial<T> = { readonly [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = { readonly
@@ -73,7 +73,7 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
+export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
@@ -1272,6 +1272,8 @@ export function sum(list: readonly number[]): number;
 
 /**
  * It returns a merged list of `x` and `y` with all equal elements removed.
+ * 
+ * `R.equals` is used to determine equality.
  */
 export function symmetricDifference<T>(x: readonly T[], y: readonly T[]): readonly T[];
 export function symmetricDifference<T>(x: readonly T[]): <T>(y: readonly T[]) => readonly T[];
@@ -1369,21 +1371,25 @@ export function type(x: any): RambdaTypes;
 /**
  * It takes two lists and return a new list containing a merger of both list with removed duplicates.
  * 
- * `R.equals` is used to compare for duplication, which means that it can be safely used with array of objects.
+ * `R.equals` is used to compare for duplication.
  */
 export function union<T>(x: readonly T[], y: readonly T[]): readonly T[];
 export function union<T>(x: readonly T[]): (y: readonly T[]) => readonly T[];
 
 /**
  * It returns a new array containing only one copy of each element of `list`.
+ * 
+ * `R.equals` is used to determine equality.
  */
 export function uniq<T>(list: readonly T[]): readonly T[];
 
 /**
- * It returns a new array containing only one copy of each element in `list` according to boolean returning function `uniqFn`.
+ * It returns a new array containing only one copy of each element in `list` according to `predicate` function.
+ * 
+ * This predicate should return true, if two elements are equal.
  */
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
-export function uniqWith<T, U>(uniqFn: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 
 /**
  * The method returns function that will be called with argument `input`.
@@ -1426,6 +1432,8 @@ export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 
 /**
  * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
+ * 
+ * `R.equals` is used to determine equality.
  */
 export function without<T>(matchAgainst: readonly T[], source: readonly T[]): readonly T[];
 export function without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => readonly T[];
