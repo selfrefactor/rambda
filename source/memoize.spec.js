@@ -53,7 +53,9 @@ test('async function', async () => {
     new Promise(resolve => {
       setTimeout(resolve, ms)
     })
-  const fn = async (ms, a, b) => {
+  const fn = async (
+    ms, a, b
+  ) => {
     await delay(ms)
     counter++
 

@@ -13,8 +13,9 @@ export function tryCatchAsync(fn, fallback){
           if (!isPromise(fallback)){
             return resolve(fallback(err, ...inputs))
           }
-          
-          fallback(err, ...inputs).then(resolve).catch(resolve) 
+
+          fallback(err, ...inputs).then(resolve)
+            .catch(resolve)
         })
     })
 }

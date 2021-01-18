@@ -8,7 +8,7 @@ test('compare functions', () => {
   const expectTrue = equals(foo, foo)
   const expectFalseFirst = equals(foo, bar)
   const expectFalseSecond = equals(foo, baz)
-  
+
   expect(expectTrue).toBeTrue()
   expect(expectFalseFirst).toBeFalse()
   expect(expectFalseSecond).toBeFalse()

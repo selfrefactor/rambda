@@ -3483,7 +3483,7 @@ function _arity(n, fn){
 export function curryN(n, fn){
   if (arguments.length === 1) return _fn => curryN(n, _fn)
 
-  if(n> 10){
+  if (n > 10){
     throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
   }
 
@@ -3745,7 +3745,7 @@ function isFalsy(input){
 
 export function defaultTo(defaultArgument, input){
   if (arguments.length === 1){
-    return (_input) =>
+    return _input =>
       defaultTo(defaultArgument, _input)
   }
 
@@ -4282,7 +4282,7 @@ dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => r
 <summary><strong>R.dropLastWhile</strong> source</summary>
 
 ```javascript
-import { _isArray } from './_internals/_isArray.js'
+import { _isArray } from './_internals/_isArray'
 
 export function dropLastWhile(predicate, iterable){
   if (arguments.length === 1){
@@ -4323,56 +4323,56 @@ export function dropLastWhile(predicate, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropLastWhile as dropLastWhileRamda } from "ramda";
+import { dropLastWhile as dropLastWhileRamda } from 'ramda'
 
-import { compareCombinations } from "./_internals/testUtils";
-import { dropLastWhile } from "./dropLastWhile";
+import { compareCombinations } from './_internals/testUtils'
+import { dropLastWhile } from './dropLastWhile'
 
-const list = [1, 2, 3, 4, 5];
-const str = "foobar";
+const list = [ 1, 2, 3, 4, 5 ]
+const str = 'foobar'
 
-test("with list", () => {
-  const result = dropLastWhile((x) => x >= 3, list);
-  expect(result).toEqual([1, 2]);
-});
+test('with list', () => {
+  const result = dropLastWhile(x => x >= 3, list)
+  expect(result).toEqual([ 1, 2 ])
+})
 
-test("with string", () => {
-  const result = dropLastWhile((x) => x !== "b")(str);
-  expect(result).toBe("foob");
-});
+test('with string', () => {
+  const result = dropLastWhile(x => x !== 'b')(str)
+  expect(result).toBe('foob')
+})
 
-test("with empty list", () => {
-  expect(dropLastWhile(() => true, [])).toEqual([]);
-  expect(dropLastWhile(() => false, [])).toEqual([]);
-});
+test('with empty list', () => {
+  expect(dropLastWhile(() => true, [])).toEqual([])
+  expect(dropLastWhile(() => false, [])).toEqual([])
+})
 
 const possiblePredicates = [
-  (x) => x > 2,
-  (x) => x < 2,
-  (x) => x < -2,
-  (x) => x > 10,
-  "",
+  x => x > 2,
+  x => x < 2,
+  x => x < -2,
+  x => x > 10,
+  '',
   [],
-  [1],
-];
+  [ 1 ],
+]
 
 const possibleIterables = [
   list,
-  [{}, "1", 2],
+  [ {}, '1', 2 ],
   str,
-  `${str}${str}`,
+  `${ str }${ str }`,
   /foo/g,
-  Promise.resolve("foo"),
+  Promise.resolve('foo'),
   2,
-];
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    fn: dropLastWhile,
-    fnRamda: dropLastWhileRamda,
-    firstInput: possiblePredicates,
-    secondInput: possibleIterables,
-    callback: (errorsCounters) => {
+    fn          : dropLastWhile,
+    fnRamda     : dropLastWhileRamda,
+    firstInput  : possiblePredicates,
+    secondInput : possibleIterables,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -4381,10 +4381,10 @@ describe("brute force", () => {
           "SHOULD_NOT_THROW": 21,
           "SHOULD_THROW": 0,
         }
-      `);
+      `)
     },
-  });
-});
+  })
+})
 ```
 
 </details>
@@ -4461,33 +4461,33 @@ export function dropRepeats(list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropRepeats as dropRepeatsRamda } from "ramda";
+import { dropRepeats as dropRepeatsRamda } from 'ramda'
 
-import { compareCombinations } from "./_internals/testUtils";
-import { add } from "./add";
-import { dropRepeats } from "./dropRepeats";
+import { compareCombinations } from './_internals/testUtils'
+import { add } from './add'
+import { dropRepeats } from './dropRepeats'
 
-const list = [1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a: 1 }, { a: 1 }];
-const listClean = [1, 2, 3, 4, 5, 3, 2, { a: 1 }];
+const list = [ 1, 2, 2, 2, 3, 4, 4, 5, 5, 3, 2, 2, { a : 1 }, { a : 1 } ]
+const listClean = [ 1, 2, 3, 4, 5, 3, 2, { a : 1 } ]
 
-test("happy", () => {
-  const result = dropRepeats(list);
-  expect(result).toEqual(listClean);
-});
+test('happy', () => {
+  const result = dropRepeats(list)
+  expect(result).toEqual(listClean)
+})
 
 const possibleLists = [
-  [add(1), async () => {}, [1], [1], [2], [2]],
-  [add(1), add(1), add(2)],
+  [ add(1), async () => {}, [ 1 ], [ 1 ], [ 2 ], [ 2 ] ],
+  [ add(1), add(1), add(2) ],
   [],
   1,
   /foo/g,
   Promise.resolve(1),
-];
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    firstInput: possibleLists,
-    callback: (errorsCounters) => {
+    firstInput : possibleLists,
+    callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -4496,12 +4496,12 @@ describe("brute force", () => {
           "SHOULD_NOT_THROW": 3,
           "SHOULD_THROW": 0,
         }
-      `);
+      `)
     },
-    fn: dropRepeats,
-    fnRamda: dropRepeatsRamda,
-  });
-});
+    fn      : dropRepeats,
+    fnRamda : dropRepeatsRamda,
+  })
+})
 ```
 
 </details>
@@ -4581,80 +4581,81 @@ export function dropRepeatsWith(predicate, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from "ramda";
-import { dropRepeatsWith } from "./dropRepeatsWith";
-import { path } from "./path";
-import { compareCombinations } from "./_internals/testUtils";
+import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from 'ramda'
 
-const eqI = eqProps("i");
+import { compareCombinations } from './_internals/testUtils'
+import { dropRepeatsWith } from './dropRepeatsWith'
+import { path } from './path'
 
-test("happy", () => {
-  const list = [{ i: 1 }, { i: 2 }, { i: 2 }, { i: 3 }];
-  const expected = [{ i: 1 }, { i: 2 }, { i: 3 }];
-  const result = dropRepeatsWith(eqI, list);
-  expect(result).toEqual(expected);
-});
+const eqI = eqProps('i')
 
-test("keeps elements from the left predicate input", () => {
+test('happy', () => {
+  const list = [ { i : 1 }, { i : 2 }, { i : 2 }, { i : 3 } ]
+  const expected = [ { i : 1 }, { i : 2 }, { i : 3 } ]
+  const result = dropRepeatsWith(eqI, list)
+  expect(result).toEqual(expected)
+})
+
+test('keeps elements from the left predicate input', () => {
   const list = [
     {
-      i: 1,
-      n: 1,
+      i : 1,
+      n : 1,
     },
     {
-      i: 1,
-      n: 2,
+      i : 1,
+      n : 2,
     },
     {
-      i: 1,
-      n: 3,
+      i : 1,
+      n : 3,
     },
     {
-      i: 4,
-      n: 1,
+      i : 4,
+      n : 1,
     },
     {
-      i: 4,
-      n: 2,
+      i : 4,
+      n : 2,
     },
-  ];
+  ]
   const expected = [
     {
-      i: 1,
-      n: 1,
+      i : 1,
+      n : 1,
     },
     {
-      i: 4,
-      n: 1,
+      i : 4,
+      n : 1,
     },
-  ];
-  const result = dropRepeatsWith(eqI)(list);
-  expect(result).toEqual(expected);
-});
+  ]
+  const result = dropRepeatsWith(eqI)(list)
+  expect(result).toEqual(expected)
+})
 
 const possiblePredicates = [
   null,
   undefined,
-  (x) => x + 1,
-  (x) => true,
-  (x) => false,
-  (x) => "",
-  path(["a", "b"]),
-];
+  x => x + 1,
+  x => true,
+  x => false,
+  x => '',
+  path([ 'a', 'b' ]),
+]
 const possibleLists = [
   null,
   undefined,
   [],
-  [1],
-  [{ a: { b: 1 } }, { a: { b: 1 } }],
-  [/foo/g, /foo/g],
-];
+  [ 1 ],
+  [ { a : { b : 1 } }, { a : { b : 1 } } ],
+  [ /foo/g, /foo/g ],
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    firstInput: possiblePredicates,
-    secondInput: possibleLists,
-    callback: (errorsCounters) => {
+    firstInput  : possiblePredicates,
+    secondInput : possibleLists,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 4,
@@ -4663,12 +4664,12 @@ describe("brute force", () => {
           "SHOULD_NOT_THROW": 0,
           "SHOULD_THROW": 0,
         }
-      `);
+      `)
     },
-    fn: dropRepeatsWith,
-    fnRamda: dropRepeatsWithRamda,
-  });
-});
+    fn      : dropRepeatsWith,
+    fnRamda : dropRepeatsWithRamda,
+  })
+})
 ```
 
 </details>
@@ -4754,7 +4755,7 @@ const list = [ 1, 2, 3, 4 ]
 test('happy', () => {
   const predicate = x => x < 3
   const result = dropWhile(predicate, list)
-  expect(result).toEqual([3,4])
+  expect(result).toEqual([ 3, 4 ])
 })
 
 test('always true', () => {
@@ -5096,15 +5097,17 @@ eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 <summary><strong>R.eqProps</strong> source</summary>
 
 ```javascript
-import { curry } from "./curry";
-import { equals } from "./equals";
+import { curry } from './curry'
+import { equals } from './equals'
 
-function eqPropsFn(prop, obj1, obj2) {
-  if(!obj1 || !obj2){
+function eqPropsFn(
+  prop, obj1, obj2
+){
+  if (!obj1 || !obj2){
     throw new Error('wrong object inputs are passed to R.eqProps')
   }
 
-  return equals(obj1[prop], obj2[prop])
+  return equals(obj1[ prop ], obj2[ prop ])
 }
 
 export const eqProps = curry(eqPropsFn)
@@ -5270,7 +5273,7 @@ export function equals(a, b){
   if (aType === 'Function'){
     return a.name === undefined ? false : a.name === b.name
   }
-  
+
   if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
 
   if (aType === 'Number'){
@@ -5372,7 +5375,7 @@ test('compare functions', () => {
   const expectTrue = equals(foo, foo)
   const expectFalseFirst = equals(foo, bar)
   const expectFalseSecond = equals(foo, baz)
-  
+
   expect(expectTrue).toBeTrue()
   expect(expectFalseFirst).toBeFalse()
   expect(expectFalseSecond).toBeFalse()
@@ -5945,119 +5948,107 @@ export function evolve(rules, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { evolve as evolveRamda } from "ramda";
+import { evolve as evolveRamda } from 'ramda'
 
-import { add } from "../rambda.js";
-import { compareCombinations, compareToRamda } from "./_internals/testUtils";
-import { evolve } from "./evolve";
+import { add } from '../rambda'
+import { compareCombinations, compareToRamda } from './_internals/testUtils'
+import { evolve } from './evolve'
 
-test("happy", () => {
+test('happy', () => {
   const rules = {
-    foo: add(1),
-    nested: {
-      bar: x => Object.keys(x).length,
-    }
-  };
+    foo    : add(1),
+    nested : { bar : x => Object.keys(x).length },
+  }
   const input = {
-    a: 1,
-    foo: 2,
-    nested: {
-      bar: {z: 3},
-    }
-  };
-  const result = evolve(rules, input);
+    a      : 1,
+    foo    : 2,
+    nested : { bar : { z : 3 } },
+  }
+  const result = evolve(rules, input)
   expect(result).toEqual({
-    a: 1,
-    foo: 3,
-    nested: {
-      bar: 1,
-    }
-  });
-});
+    a      : 1,
+    foo    : 3,
+    nested : { bar : 1 },
+  })
+})
 
-test("nested rule is wrong", () => {
+test('nested rule is wrong', () => {
   const rules = {
-    foo: add(1),
-    nested: {
-      bar: 10,
-    }
-  };
+    foo    : add(1),
+    nested : { bar : 10 },
+  }
   const input = {
-    a: 1,
-    foo: 2,
-    nested: {
-      bar: {z: 3},
-    }
-  };
-  const result = evolve(rules)(input);
+    a      : 1,
+    foo    : 2,
+    nested : { bar : { z : 3 } },
+  }
+  const result = evolve(rules)(input)
   expect(result).toEqual({
-    a: 1,
-    foo: 3,
-    nested: {
-      bar: {z: 3},
-    }
-  });
-});
+    a      : 1,
+    foo    : 3,
+    nested : { bar : { z : 3 } },
+  })
+})
 
-test("is recursive", () => {
+test('is recursive', () => {
   const rules = {
-    nested: {
-      second: add(-1),
-      third: add(1),
+    nested : {
+      second : add(-1),
+      third  : add(1),
     },
-  };
+  }
   const object = {
-    first: 1,
-    nested: {
-      second: 2,
-      third: 3,
+    first  : 1,
+    nested : {
+      second : 2,
+      third  : 3,
     },
-  };
+  }
   const expected = {
-    first: 1,
-    nested: {
-      second: 1,
-      third: 4,
+    first  : 1,
+    nested : {
+      second : 1,
+      third  : 4,
     },
-  };
-  const result = evolve(rules, object);
-  expect(result).toEqual(expected);
-});
+  }
+  const result = evolve(rules, object)
+  expect(result).toEqual(expected)
+})
 
-test("ignores primitive values", () => {
+test('ignores primitive values', () => {
   const rules = {
-    n: 2,
-    m: "foo",
-  };
+    n : 2,
+    m : 'foo',
+  }
   const object = {
-    n: 0,
-    m: 1,
-  };
+    n : 0,
+    m : 1,
+  }
   const expected = {
-    n: 0,
-    m: 1,
-  };
-  const result = evolve(rules, object);
-  expect(result).toEqual(expected);
-});
+    n : 0,
+    m : 1,
+  }
+  const result = evolve(rules, object)
+  expect(result).toEqual(expected)
+})
 
-test("with array", () => {
-  const rules = [add(1), add(-1)];
-  const list = [100, 1400];
-  const expected = [101, 1399];
-  const result = evolve(rules, list);
-  expect(result).toEqual(expected);
-});
+test('with array', () => {
+  const rules = [ add(1), add(-1) ]
+  const list = [ 100, 1400 ]
+  const expected = [ 101, 1399 ]
+  const result = evolve(rules, list)
+  expect(result).toEqual(expected)
+})
 
-const rulesObject = { a: add(1) };
-const rulesList = [add(1)];
-const possibleIterables = [null, undefined, "", 42, [], [1], { a: 1 }];
-const possibleRules = [...possibleIterables, rulesList, rulesObject];
+const rulesObject = { a : add(1) }
+const rulesList = [ add(1) ]
+const possibleIterables = [ null, undefined, '', 42, [], [ 1 ], { a : 1 } ]
+const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    firstInput: possibleRules,
-    callback: (errorsCounters) => {
+    firstInput : possibleRules,
+    callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -6066,13 +6057,13 @@ describe("brute force", () => {
           "SHOULD_NOT_THROW": 51,
           "SHOULD_THROW": 0,
         }
-      `);
+      `)
     },
-    secondInput: possibleIterables,
-    fn: evolve,
-    fnRamda: evolveRamda,
-  });
-});
+    secondInput : possibleIterables,
+    fn          : evolve,
+    fnRamda     : evolveRamda,
+  })
+})
 ```
 
 </details>
@@ -6536,11 +6527,8 @@ export function findLast(predicate, list){
 import { findLast } from './findLast'
 
 test('happy', () => {
-  const result = findLast(x => {
-    return x > 1
-  },
-  [ 1, 1, 1, 2, 3, 4, 1 ]
-  )
+  const result = findLast(x => x > 1,
+    [ 1, 1, 1, 2, 3, 4, 1 ])
   expect(result).toEqual(4)
 
   expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
@@ -6652,11 +6640,8 @@ export function findLastIndex(fn, list){
 import { findLastIndex } from './findLastIndex'
 
 test('happy', () => {
-  const result = findLastIndex((x) => {
-
-    return x > 1
-  },
-  [ 1, 1, 1, 2, 3, 4, 1 ])
+  const result = findLastIndex(x => x > 1,
+    [ 1, 1, 1, 2, 3, 4, 1 ])
 
   expect(result).toEqual(5)
 
@@ -12250,16 +12235,16 @@ test('assoc lens', () => {
   const assocLens = lens(prop('foo'), assoc('foo'))
   const result = over(
     assocLens, toUpper, testObject
-    )
-    const expected = {
-      ...testObject,
-      foo : 'BAR',
-    }
-    expect(result).toEqual(expected)
-  })
-  
-  test('path lens', () => {
-    const pathLens = lensPath('baz.a')
+  )
+  const expected = {
+    ...testObject,
+    foo : 'BAR',
+  }
+  expect(result).toEqual(expected)
+})
+
+test('path lens', () => {
+  const pathLens = lensPath('baz.a')
   const result = over(
     pathLens, toUpper, testObject
   )
@@ -12275,7 +12260,7 @@ test('assoc lens', () => {
 
 test('index lens', () => {
   const indexLens = lensIndex(0)
-  const result = over(indexLens, toUpper)(['foo', 'bar'])
+  const result = over(indexLens, toUpper)([ 'foo', 'bar' ])
   expect(result).toEqual([ 'FOO', 'bar' ])
 })
 ```
@@ -12532,10 +12517,7 @@ export function partition(predicate, iterable){
 import { partition } from './partition'
 
 test('with array', () => {
-  const predicate = (x) => {
-
-    return x > 2
-  }
+  const predicate = x => x > 2
   const list = [ 1, 2, 3, 4 ]
 
   const result = partition(predicate, list)
@@ -13661,7 +13643,7 @@ export function pipe(...fns){
 
       return result
     }
-  }  
+  }
 }
 ```
 
@@ -14422,7 +14404,7 @@ test('curried', () => {
 })
 
 test('wrong input', () => {
-  expect(() => props(null)(obj)).toThrowError()
+  expect(() => props(null)(obj)).toThrow()
 })
 ```
 
@@ -15577,7 +15559,7 @@ export function splitAt(index, input){
   if (!input) throw new TypeError(`Cannot read property 'slice' of ${ input }`)
 
   if (!_isArray(input) && typeof input !== 'string') return [ [], [] ]
-  
+
   const correctIndex = maybe(
     index < 0,
     input.length + index < 0 ? 0 : input.length + index,
@@ -16524,7 +16506,7 @@ takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: readonly T[]) => read
 <summary><strong>R.takeLastWhile</strong> source</summary>
 
 ```javascript
-import { _isArray } from './_internals/_isArray.js'
+import { _isArray } from './_internals/_isArray'
 
 export function takeLastWhile(predicate, input){
   if (arguments.length === 1){
@@ -16657,43 +16639,43 @@ export function takeWhile(predicate, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeWhile as takeWhileRamda } from "ramda";
+import { takeWhile as takeWhileRamda } from 'ramda'
 
-import { takeWhile } from "./takeWhile";
-import { compareCombinations } from "./_internals/testUtils";
+import { compareCombinations } from './_internals/testUtils'
+import { takeWhile } from './takeWhile'
 
-const list = [1, 2, 3, 4, 5];
+const list = [ 1, 2, 3, 4, 5 ]
 
-test("happy", () => {
-  const result = takeWhile((x) => x < 3, list);
-  expect(result).toEqual([1, 2]);
-});
+test('happy', () => {
+  const result = takeWhile(x => x < 3, list)
+  expect(result).toEqual([ 1, 2 ])
+})
 
-test("always true", () => {
-  const result = takeWhile((x) => true)(list);
-  expect(result).toEqual(list);
-});
+test('always true', () => {
+  const result = takeWhile(x => true)(list)
+  expect(result).toEqual(list)
+})
 
-test("always false", () => {
-  const result = takeWhile((x) => 0, list);
-  expect(result).toEqual([]);
-});
+test('always false', () => {
+  const result = takeWhile(x => 0, list)
+  expect(result).toEqual([])
+})
 
-test("with string", () => {
-  const result = takeWhile((x) => x !== "b", "foobar");
-  expect(result).toBe("foo");
-});
+test('with string', () => {
+  const result = takeWhile(x => x !== 'b', 'foobar')
+  expect(result).toBe('foo')
+})
 
 const possiblePredicates = [
   null,
   undefined,
   () => 0,
   () => true,
-  (x) => x !== "b",
+  x => x !== 'b',
   /foo/g,
   {},
   [],
-];
+]
 
 const possibleIterables = [
   null,
@@ -16701,16 +16683,16 @@ const possibleIterables = [
   [],
   {},
   1,
-  "",
-  "foobar",
-  [""],
-  [1, 2, 3, 4, 5],
-];
+  '',
+  'foobar',
+  [ '' ],
+  [ 1, 2, 3, 4, 5 ],
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    firstInput: possiblePredicates,
-    callback: (errorsCounters) => {
+    firstInput : possiblePredicates,
+    callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 15,
@@ -16719,13 +16701,13 @@ describe("brute force", () => {
           "SHOULD_NOT_THROW": 16,
           "SHOULD_THROW": 0,
         }
-      `);
+      `)
     },
-    secondInput: possibleIterables,
-    fn: takeWhile,
-    fnRamda: takeWhileRamda,
-  });
-});
+    secondInput : possibleIterables,
+    fn          : takeWhile,
+    fnRamda     : takeWhileRamda,
+  })
+})
 ```
 
 </details>
@@ -17469,13 +17451,13 @@ export function tryCatch(fn, fallback){
   }
   const passFallback = isFunction(fallback)
 
-    return (...inputs) => {
-      try {
-        return fn(...inputs)
-      } catch (e){
-        return passFallback ? fallback(e, ...inputs) : fallback
-      }
+  return (...inputs) => {
+    try {
+      return fn(...inputs)
+    } catch (e){
+      return passFallback ? fallback(e, ...inputs) : fallback
     }
+  }
 }
 ```
 
@@ -19378,7 +19360,9 @@ test('when second list is longer', () => {
 
 6.5.2
 
-Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
+- Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
+
+- Update dependencies
 
 6.5.1
 

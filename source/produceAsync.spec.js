@@ -21,10 +21,7 @@ test('happy', async () => {
 
 test('when all rules are synchronous', async () => {
   const result = await produceAsync({
-    foo : x => {
-
-      return `${ x }_ZEPPELIN`
-    },
+    foo : x => `${ x }_ZEPPELIN`,
     bar : x => x.length === 3,
   },
   'LED')

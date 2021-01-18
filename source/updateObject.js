@@ -5,7 +5,7 @@ export function updateObject(rules, obj){
 
   let clone = { ...obj } /*?.*/
 
-  rules.forEach(([objectPath, newValue]) => {
+  rules.forEach(([ objectPath, newValue ]) => {
     clone = assocPath(
       objectPath, newValue, clone
     )

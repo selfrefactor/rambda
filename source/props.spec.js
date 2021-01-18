@@ -17,5 +17,5 @@ test('curried', () => {
 })
 
 test('wrong input', () => {
-  expect(() => props(null)(obj)).toThrowError()
+  expect(() => props(null)(obj)).toThrow()
 })

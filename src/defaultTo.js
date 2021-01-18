@@ -8,7 +8,7 @@ function isFalsy(input){
 
 export function defaultTo(defaultArgument, input){
   if (arguments.length === 1){
-    return (_input) =>
+    return _input =>
       defaultTo(defaultArgument, _input)
   }
 

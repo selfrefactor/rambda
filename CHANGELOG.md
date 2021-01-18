@@ -1,6 +1,8 @@
 6.5.2
 
-Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
+- Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
+
+- Update dependencies
 
 6.5.1
 

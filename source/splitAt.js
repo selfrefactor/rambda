@@ -10,7 +10,7 @@ export function splitAt(index, input){
   if (!input) throw new TypeError(`Cannot read property 'slice' of ${ input }`)
 
   if (!_isArray(input) && typeof input !== 'string') return [ [], [] ]
-  
+
   const correctIndex = maybe(
     index < 0,
     input.length + index < 0 ? 0 : input.length + index,

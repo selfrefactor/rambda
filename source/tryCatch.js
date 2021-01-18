@@ -6,11 +6,11 @@ export function tryCatch(fn, fallback){
   }
   const passFallback = isFunction(fallback)
 
-    return (...inputs) => {
-      try {
-        return fn(...inputs)
-      } catch (e){
-        return passFallback ? fallback(e, ...inputs) : fallback
-      }
+  return (...inputs) => {
+    try {
+      return fn(...inputs)
+    } catch (e){
+      return passFallback ? fallback(e, ...inputs) : fallback
     }
+  }
 }

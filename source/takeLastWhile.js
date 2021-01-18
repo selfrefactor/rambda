@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { _isArray } from './_internals/_isArray'
 
 export function takeLastWhile(predicate, input){
   if (arguments.length === 1){

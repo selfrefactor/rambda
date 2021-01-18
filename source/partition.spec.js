@@ -1,10 +1,7 @@
 import { partition } from './partition'
 
 test('with array', () => {
-  const predicate = (x) => {
-
-    return x > 2
-  }
+  const predicate = x => x > 2
   const list = [ 1, 2, 3, 4 ]
 
   const result = partition(predicate, list)

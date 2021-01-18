@@ -93,7 +93,7 @@ function _arity(n, fn){
 export function curryN(n, fn){
   if (arguments.length === 1) return _fn => curryN(n, _fn)
 
-  if(n> 10){
+  if (n > 10){
     throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
   }
 

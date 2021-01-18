@@ -13,7 +13,7 @@ const and = [
     fn    : () => {
       Ramda.and(true, true)
     },
-  }
+  },
 ]
 
 module.exports = and

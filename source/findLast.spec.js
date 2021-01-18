@@ -1,11 +1,8 @@
 import { findLast } from './findLast'
 
 test('happy', () => {
-  const result = findLast(x => {
-    return x > 1
-  },
-  [ 1, 1, 1, 2, 3, 4, 1 ]
-  )
+  const result = findLast(x => x > 1,
+    [ 1, 1, 1, 2, 3, 4, 1 ])
   expect(result).toEqual(4)
 
   expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)

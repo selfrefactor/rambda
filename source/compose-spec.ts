@@ -7,7 +7,10 @@ describe('R.compose', () => {
   })
 
   it('with R.filter', () => {
-    const result = compose(filter<number>(x => x > 2),map(add(1)))([1,2,3])
+    const result = compose(
+      filter<number>(x => x > 2),
+      map(add(1))
+    )([1, 2, 3])
     result // $ExpectType readonly number[]
   })
 

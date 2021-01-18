@@ -18,16 +18,16 @@ test('assoc lens', () => {
   const assocLens = lens(prop('foo'), assoc('foo'))
   const result = over(
     assocLens, toUpper, testObject
-    )
-    const expected = {
-      ...testObject,
-      foo : 'BAR',
-    }
-    expect(result).toEqual(expected)
-  })
-  
-  test('path lens', () => {
-    const pathLens = lensPath('baz.a')
+  )
+  const expected = {
+    ...testObject,
+    foo : 'BAR',
+  }
+  expect(result).toEqual(expected)
+})
+
+test('path lens', () => {
+  const pathLens = lensPath('baz.a')
   const result = over(
     pathLens, toUpper, testObject
   )
@@ -43,6 +43,6 @@ test('assoc lens', () => {
 
 test('index lens', () => {
   const indexLens = lensIndex(0)
-  const result = over(indexLens, toUpper)(['foo', 'bar'])
+  const result = over(indexLens, toUpper)([ 'foo', 'bar' ])
   expect(result).toEqual([ 'FOO', 'bar' ])
 })

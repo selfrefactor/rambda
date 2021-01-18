@@ -13,5 +13,5 @@ export function pipe(...fns){
 
       return result
     }
-  }  
+  }
 }
