@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "6.5.1",
+	"version": "6.5.2",
 	"scripts": {
 		"out": "cd ../rambda-scripts&&yarn populate:docs&&cd ../rambda-scripts&&yarn populate:readme",
 		"x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
@@ -25,9 +25,7 @@
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.12.10",
 		"@babel/plugin-proposal-object-rest-spread": "7.12.1",
