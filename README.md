@@ -3700,7 +3700,7 @@ test('happy', () => {
 
 ```typescript
 
-defaultTo<T>(defaultValue: T): (...inputArguments: readonly (T | null | undefined)[]) => T
+defaultTo<T>(defaultValue: T, input: T | null | undefined): T
 ```
 
 It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
@@ -3710,26 +3710,22 @@ Else, it returns the first truthy `inputArguments` instance(from left to right).
 > :boom: Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 ```javascript
-// With single input argument
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', undefined) // => 'foo'
 
-// With multiple input arguments
-R.defaultTo('foo', undefined, null, NaN) // => 'foo'
-R.defaultTo('foo', undefined, 'bar', NaN, 'qux') // => 'bar'
-R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
+// Important - emtpy string is not falsy value(same as Ramda)
+R.defaultTo('foo', '') // => 'foo'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%2F%2F%20With%20single%20input%20argument%0AR.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0A%0A%2F%2F%20With%20multiple%20input%20arguments%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN)%20%2F%2F%20%3D%3E%20'foo'%0AR.defaultTo('foo'%2C%20undefined%2C%20'bar'%2C%20NaN%2C%20'qux')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined%2C%20null%2C%20NaN%2C%20'quz')%20%2F%2F%20%3D%3E%20'qux'">Try this <strong>R.defaultTo</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.defaultTo('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'bar'%0AR.defaultTo('foo'%2C%20undefined)%20%2F%2F%20%3D%3E%20'foo'%0A%0A%2F%2F%20Important%20-%20emtpy%20string%20is%20not%20falsy%20value(same%20as%20Ramda)%0AR.defaultTo('foo'%2C%20'')%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.defaultTo</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-defaultTo<T>(defaultValue: T): (...inputArguments: readonly (T | null | undefined)[]) => T;
-defaultTo<T>(defaultValue: T, ...inputArguments: readonly (T | null | undefined)[]): T;
-defaultTo<T, U>(defaultValue: T | U, ...inputArguments: readonly (T | U | null | undefined)[]): T | U;
+defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
+defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
 ```
 
 </details>
@@ -19379,6 +19375,10 @@ test('when second list is longer', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+6.5.2
+
+Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
 
 6.5.1
 

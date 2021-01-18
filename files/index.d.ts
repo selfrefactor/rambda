@@ -810,14 +810,11 @@ Else, it returns the first truthy `inputArguments` instance(from left to right).
 Example:
 
 ```
-// With single input argument
 R.defaultTo('foo', 'bar') // => 'bar'
 R.defaultTo('foo', undefined) // => 'foo'
 
-// With multiple input arguments
-R.defaultTo('foo', undefined, null, NaN) // => 'foo'
-R.defaultTo('foo', undefined, 'bar', NaN, 'qux') // => 'bar'
-R.defaultTo('foo', undefined, null, NaN, 'quz') // => 'qux'
+// Important - emtpy string is not falsy value(same as Ramda)
+R.defaultTo('foo', '') // => 'foo'
 ```
 
 Categories: Logic
@@ -826,9 +823,8 @@ Notes: Rambda's **defaultTo** accept indefinite number of arguments when non cur
 
 */
 // @SINGLE_MARKER
-export function defaultTo<T>(defaultValue: T): (...inputArguments: readonly (T | null | undefined)[]) => T;
-export function defaultTo<T>(defaultValue: T, ...inputArguments: readonly (T | null | undefined)[]): T;
-export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: readonly (T | U | null | undefined)[]): T | U;
+export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
+export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
 
 /*
 Method: difference

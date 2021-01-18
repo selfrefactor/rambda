@@ -348,9 +348,8 @@ export function dec(x: number): number;
  * 
  * Else, it returns the first truthy `inputArguments` instance(from left to right).
  */
-export function defaultTo<T>(defaultValue: T): (...inputArguments: readonly (T | null | undefined)[]) => T;
-export function defaultTo<T>(defaultValue: T, ...inputArguments: readonly (T | null | undefined)[]): T;
-export function defaultTo<T, U>(defaultValue: T | U, ...inputArguments: readonly (T | U | null | undefined)[]): T | U;
+export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
+export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
 
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.

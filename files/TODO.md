@@ -1,10 +1,12 @@
-## Uncommited changelog
+## Readme limit
 
-R.produceAsync returns promise even if all rules are synchronous.
+Rambdax is still broken
 
-## defaultTo
+## https://github.com/selfrefactor/rambdax/pull/61/files
 
-no need for infinite inputs
+## R.resolve
+
+https://github.com/verydanny/vcslack/blob/master/src/api.ts
 
 ## Blacklist methods
 
@@ -31,13 +33,7 @@ ok(repos)([x => {
     }])
 ```
 
-## Export types
-
-Also check other questions from the last issue.
-
-## Readme limit
-
-Exit build process if README.md is larger than 500kB. Also check what difference make if separator is removed.
+## Update https://github.com/selfrefactor/rambda-tree-shaking
 
 ## typings of last and head
 

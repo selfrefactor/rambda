@@ -1,3 +1,7 @@
+6.5.2
+
+Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
+
 6.5.1
 
 Fix wrong versions in changelog
