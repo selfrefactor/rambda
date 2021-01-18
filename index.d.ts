@@ -353,6 +353,8 @@ export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => 
 
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
+ * 
+ * It uses `R.equals` underneath.
  */
 export function difference<T>(a: readonly T[], b: readonly T[]): readonly T[];
 export function difference<T>(a: readonly T[]): (b: readonly T[]) => readonly T[];

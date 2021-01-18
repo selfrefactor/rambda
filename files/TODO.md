@@ -1,3 +1,7 @@
+## R.equals dependents
+
+All methods using it, need to have this info in their typings.
+
 ## Readme limit
 
 Rambdax is still broken

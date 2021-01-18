@@ -829,7 +829,9 @@ export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => 
 /*
 Method: difference
 
-Explanation: It returns the uniq set of all elements in the first list `a` not contained in the second list `b`. 
+Explanation: It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
+
+It uses `R.equals` underneath.
 
 Example:
 

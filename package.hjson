@@ -1,6 +1,6 @@
 const NAME = rambda
 const AUTHOR = selfrefactor
-const DOCSIFY = docsi init ./docs
+const DOCSIFY = docsify init ./docs
 const BUILD = cross-env NODE_ENV=build rollup -c
 const TOOLBELT = cd ../rambda-scripts&&yarn toolbelt
 const NEW_METHOD = cd ../rambda-scripts&&yarn new
@@ -17,7 +17,7 @@ const POPULATE_README = cd ../rambda-scripts&&yarn populate:readme
 const POPULATE_README_X = cd ../rambda-scripts&&yarn populate:readme:rambdax
 const PARSE_HJSON = cd ../rambda-scripts&&yarn hjson:parse
 const FIX_HJSON = cd ../rambda-scripts&&yarn hjson:fix
-const VERSION = 6.5.1
+const VERSION = 6.5.2
 
 {
   name: {{NAME}}
