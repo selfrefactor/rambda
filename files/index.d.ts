@@ -5428,7 +5428,7 @@ Notes: Independently, somebody else came with very similar idea called [superstr
 
 */
 // @SINGLE_MARKER
-export function isValid({input: object, schema: Schema}): boolean;
+export function isValid({input: object, schema: Schema}: IsValid): boolean;
 
 /*
 Method: isValidAsync
