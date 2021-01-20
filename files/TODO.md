@@ -1,22 +1,10 @@
-## R.equals dependents
-
-All methods using it, need to have this info in their typings.
-
 ## Readme limit
 
 Rambdax is still broken
 
-## https://github.com/selfrefactor/rambdax/pull/61/files
-
 ## R.resolve
 
 https://github.com/verydanny/vcslack/blob/master/src/api.ts
-
-## Blacklist methods
-
-Methods such as compose, curryN doesn't need anything more than description and example. This should keep size of docs smaller.
-
-Also methods that are too common or too small in order to further reduce the size. 
 
 ## isValid with functions
 
@@ -85,6 +73,20 @@ includeLens?
 
 ## Can postpone
 
+### Alternative pipeAsync Typings
+
+### deprecate R.renameProps in favour of https://jmlweb.github.io/ramdu/global.html#evolveKeys
+
+### Maybe https://github.com/13d-io/maybe-just-maybe
+
+### Faster isObject?
+
+https://github.com/neotan/simda/blob/master/src/internal/_isObject.js
+
+---
+
+https://github.com/MartinPavlik/ramda-async/blob/master/index.ts
+
 - R.mapKeys (name inspiration from https://github.com/AlexGalays/spacelift#objectmapvalues)
 
 fetch contributors github's avatars
@@ -112,7 +114,7 @@ R.map sanity check is different than R.filter - fixable with global change of wr
 ## Holder
 
 ```
-test('happy', () => {
+test('happy', () => {https://github.com/MartinPavlik/ramda-async/blob/master/index.ts
   class Foo{
     constructor(){
       this.obj = {}

@@ -831,7 +831,7 @@ Method: difference
 
 Explanation: It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
 
-It uses `R.equals` underneath.
+`R.equals` is used to determine equality.
 
 Example:
 
@@ -4351,6 +4351,8 @@ Method: where
 
 Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
 
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
@@ -4383,6 +4385,8 @@ export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 Method: whereEq
 
 Explanation: It will return `true` if all of `input` object fully or partially include `rule` object.
+
+`R.equals` is used to determine equality.
 
 Example:
 
@@ -6117,6 +6121,8 @@ The method return a value if the matched option is a value.
 
 If the matched option is a function, then `R.switcher` returns a function which expects input. Tests of the method explain it better than this short description.
 
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
@@ -6466,6 +6472,8 @@ Method: excludes
 
 Explanation: Opposite of `R.includes`
 
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
@@ -6649,26 +6657,6 @@ export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: readonly T
 export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: readonly T[]) => readonly T[];
 export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
-
-/*
-Method: produce
-
-Explanation:
-
-Example:
-
-```
-const result = R.produce()
-// => 
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function produce<T>(x: T): T;
 
 /*
 Method: tryCatchAsync
