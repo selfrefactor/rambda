@@ -39,6 +39,13 @@ const parse = pipe(split('.'), last) is correct
 
 Use github CLI as it offers API to make a release
 
+## Deno info
+
+To use directly in [Deno](https://deno.land):
+```javascript
+import * as R from "https://deno.land/x/rambda/rambda.js";
+```
+
 ## Other
 
 strip `readonly` from docs typings

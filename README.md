@@ -7589,6 +7589,18 @@ includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
 import { _isArray } from './_internals/_isArray'
 import { equals } from './equals'
 
+export function includesArray(valueToFind, input){
+  let index = -1
+
+  while (++index < input.length){
+    if (equals(input[ index ], valueToFind)){
+      return true
+    }
+  }
+
+  return false
+}
+
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
   if (typeof input === 'string'){
@@ -7599,15 +7611,7 @@ export function includes(valueToFind, input){
   }
   if (!_isArray(input)) return false
 
-  let index = -1
-
-  while (++index < input.length){
-    if (equals(input[ index ], valueToFind)){
-      return true
-    }
-  }
-
-  return false
+  return includesArray(valueToFind, input)
 }
 ```
 
@@ -18907,7 +18911,7 @@ export function uniq(list){
 ```javascript
 import { uniq } from './uniq'
 
-test('uniq', () => {
+test('happy', () => {
   expect(uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])).toEqual([ 1, 2, 3, 0 ])
   expect(uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
   expect([ 1, '1' ]).toEqual([ 1, '1' ])
@@ -20072,7 +20076,7 @@ without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => readonly T[];
 <summary><strong>R.without</strong> source</summary>
 
 ```javascript
-import { includes } from './includes'
+import { includesArray } from './includes'
 import { reduce } from './reduce'
 
 export function without(matchAgainst, source){
@@ -20082,7 +20086,7 @@ export function without(matchAgainst, source){
 
   return reduce(
     (prev, current) =>
-      includes(current, matchAgainst) ? prev : prev.concat(current),
+    includesArray(current, matchAgainst) ? prev : prev.concat(current),
     [],
     source
   )
@@ -20104,6 +20108,12 @@ test('should return a new list without values in the first argument ', () => {
 
   expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
   expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])
+})
+
+test('ramda bug', () => {
+  expect(
+    without("0:1", ["0", "0:1"])
+  ).toEqual(['0:1'])
 })
 
 test('ramda test', () => {
@@ -20631,6 +20641,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+6.5.3
+
+- Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
+
+This is Ramda bug, that Rambda also has before this release - https://github.com/ramda/ramda/issues/3086
 
 6.5.2
 

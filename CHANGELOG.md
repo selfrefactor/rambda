@@ -1,3 +1,9 @@
+6.5.3
+
+- Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
+
+This is Ramda bug, that Rambda also has before this release - https://github.com/ramda/ramda/issues/3086
+
 6.5.2
 
 - Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.

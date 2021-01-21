@@ -1,6 +1,18 @@
 import { _isArray } from './_internals/_isArray'
 import { equals } from './equals'
 
+export function includesArray(valueToFind, input){
+  let index = -1
+
+  while (++index < input.length){
+    if (equals(input[ index ], valueToFind)){
+      return true
+    }
+  }
+
+  return false
+}
+
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
   if (typeof input === 'string'){
@@ -11,13 +23,5 @@ export function includes(valueToFind, input){
   }
   if (!_isArray(input)) return false
 
-  let index = -1
-
-  while (++index < input.length){
-    if (equals(input[ index ], valueToFind)){
-      return true
-    }
-  }
-
-  return false
+  return includesArray(valueToFind, input)
 }

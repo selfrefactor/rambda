@@ -1,4 +1,4 @@
-import { includes } from './includes'
+import { includesArray } from './includes'
 import { reduce } from './reduce'
 
 export function without(matchAgainst, source){
@@ -8,7 +8,7 @@ export function without(matchAgainst, source){
 
   return reduce(
     (prev, current) =>
-      includes(current, matchAgainst) ? prev : prev.concat(current),
+    includesArray(current, matchAgainst) ? prev : prev.concat(current),
     [],
     source
   )
