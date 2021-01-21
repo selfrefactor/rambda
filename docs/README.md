@@ -3785,7 +3785,7 @@ difference<T>(a: readonly T[], b: readonly T[]): readonly T[]
 
 It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
 
-It uses `R.equals` underneath.
+`R.equals` is used to determine equality.
 
 ```javascript
 const a = [ 1, 2, 3, 4 ]
@@ -4206,11 +4206,6 @@ const dropLast = [
 
 ### dropLastWhile
 
-```typescript
-
-dropLastWhile(predicate: (x: string) => boolean, iterable: string): string
-```
-
 ```javascript
 const list = [1, 2, 3, 4, 5];
 const predicate = x => x >= 3
@@ -4220,167 +4215,6 @@ const result = dropLastWhile(predicate, list);
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%3B%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%3D%203%0A%0Aconst%20result%20%3D%20dropLastWhile(predicate%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropLastWhile</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
-dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
-dropLastWhile<T>(predicate: (x: T) => boolean, iterable: readonly T[]): readonly T[];
-dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: readonly T[]) => readonly T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.dropLastWhile</strong> source</summary>
-
-```javascript
-import { _isArray } from './_internals/_isArray'
-
-export function dropLastWhile(predicate, iterable){
-  if (arguments.length === 1){
-    return _iterable => dropLastWhile(predicate, _iterable)
-  }
-  if (iterable.length === 0) return iterable
-  const isArray = _isArray(iterable)
-
-  if (typeof predicate !== 'function'){
-    throw new Error(`'predicate' is from wrong type ${ typeof predicate }`)
-  }
-  if (!isArray && typeof iterable !== 'string'){
-    throw new Error(`'iterable' is from wrong type ${ typeof iterable }`)
-  }
-
-  let found = false
-  const toReturn = []
-  let counter = iterable.length
-
-  while (counter > 0){
-    counter--
-    if (!found && predicate(iterable[ counter ]) === false){
-      found = true
-      toReturn.push(iterable[ counter ])
-    } else if (found){
-      toReturn.push(iterable[ counter ])
-    }
-  }
-
-  return isArray ? toReturn.reverse() : toReturn.reverse().join('')
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { dropLastWhile as dropLastWhileRamda } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils'
-import { dropLastWhile } from './dropLastWhile'
-
-const list = [ 1, 2, 3, 4, 5 ]
-const str = 'foobar'
-
-test('with list', () => {
-  const result = dropLastWhile(x => x >= 3, list)
-  expect(result).toEqual([ 1, 2 ])
-})
-
-test('with string', () => {
-  const result = dropLastWhile(x => x !== 'b')(str)
-  expect(result).toBe('foob')
-})
-
-test('with empty list', () => {
-  expect(dropLastWhile(() => true, [])).toEqual([])
-  expect(dropLastWhile(() => false, [])).toEqual([])
-})
-
-const possiblePredicates = [
-  x => x > 2,
-  x => x < 2,
-  x => x < -2,
-  x => x > 10,
-  '',
-  [],
-  [ 1 ],
-]
-
-const possibleIterables = [
-  list,
-  [ {}, '1', 2 ],
-  str,
-  `${ str }${ str }`,
-  /foo/g,
-  Promise.resolve('foo'),
-  2,
-]
-
-describe('brute force', () => {
-  compareCombinations({
-    fn          : dropLastWhile,
-    fnRamda     : dropLastWhileRamda,
-    firstInput  : possiblePredicates,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 12,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 21,
-          "SHOULD_THROW": 0,
-        }
-      `)
-    },
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropLastWhile} from 'rambda'
-
-const list = [1, 2, 3]
-const str = 'FOO'
-
-describe('R.dropLastWhile', () => {
-  it('with array', () => {
-    const result = dropLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with array - curried', () => {
-    const result = dropLastWhile(x => x > 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('with string', () => {
-    const result = dropLastWhile(x => x !== 'F', str)
-
-    result // $ExpectType string
-  })
-  it('with string - curried', () => {
-    const result = dropLastWhile(x => x !== 'F')(str)
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLastWhile)
 
@@ -4517,11 +4351,6 @@ describe('R.dropRepeats', () => {
 
 ### dropRepeatsWith
 
-```typescript
-
-dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[]
-```
-
 ```javascript
 const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
 const result = R.dropRepeatsWith(R.prop('a'))
@@ -4530,187 +4359,6 @@ const result = R.dropRepeatsWith(R.prop('a'))
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A1%2Cb%3A3%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D%0Aconst%20result%20%3D%20R.dropRepeatsWith(R.prop('a'))%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: readonly T[]): readonly T[];
-dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.dropRepeatsWith</strong> source</summary>
-
-```javascript
-import { _isArray } from './_internals/_isArray'
-
-export function dropRepeatsWith(predicate, list){
-  if (arguments.length === 1){
-    return _iterable => dropRepeatsWith(predicate, _iterable)
-  }
-
-  if (!_isArray(list)){
-    throw new Error(`${ list } is not a list`)
-  }
-
-  const toReturn = []
-
-  list.reduce((prev, current) => {
-    if (prev === undefined){
-      toReturn.push(current)
-
-      return current
-    }
-    if (!predicate(prev, current)){
-      toReturn.push(current)
-    }
-
-    return current
-  }, undefined)
-
-  return toReturn
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils'
-import { dropRepeatsWith } from './dropRepeatsWith'
-import { path } from './path'
-
-const eqI = eqProps('i')
-
-test('happy', () => {
-  const list = [ { i : 1 }, { i : 2 }, { i : 2 }, { i : 3 } ]
-  const expected = [ { i : 1 }, { i : 2 }, { i : 3 } ]
-  const result = dropRepeatsWith(eqI, list)
-  expect(result).toEqual(expected)
-})
-
-test('keeps elements from the left predicate input', () => {
-  const list = [
-    {
-      i : 1,
-      n : 1,
-    },
-    {
-      i : 1,
-      n : 2,
-    },
-    {
-      i : 1,
-      n : 3,
-    },
-    {
-      i : 4,
-      n : 1,
-    },
-    {
-      i : 4,
-      n : 2,
-    },
-  ]
-  const expected = [
-    {
-      i : 1,
-      n : 1,
-    },
-    {
-      i : 4,
-      n : 1,
-    },
-  ]
-  const result = dropRepeatsWith(eqI)(list)
-  expect(result).toEqual(expected)
-})
-
-const possiblePredicates = [
-  null,
-  undefined,
-  x => x + 1,
-  x => true,
-  x => false,
-  x => '',
-  path([ 'a', 'b' ]),
-]
-const possibleLists = [
-  null,
-  undefined,
-  [],
-  [ 1 ],
-  [ { a : { b : 1 } }, { a : { b : 1 } } ],
-  [ /foo/g, /foo/g ],
-]
-
-describe('brute force', () => {
-  compareCombinations({
-    firstInput  : possiblePredicates,
-    secondInput : possibleLists,
-    callback    : errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
-          "ERRORS_MESSAGE_MISMATCH": 4,
-          "ERRORS_TYPE_MISMATCH": 14,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 0,
-        }
-      `)
-    },
-    fn      : dropRepeatsWith,
-    fnRamda : dropRepeatsWithRamda,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {dropRepeatsWith} from 'rambda'
-
-interface Foo {
-  a: number,
-}
-
-describe('R.dropRepeatsWith', () => {
-  it('happy', () => {
-    const result = dropRepeatsWith(
-      (x: Foo, y: Foo) => {
-        return x.a > y.a
-      },
-      [{a: 2}, {a: 1}]
-    )
-
-    result // $ExpectType { a: number; }[]
-    result[0].a // $ExpectType number
-  })
-  it('curried', () => {
-    const result = dropRepeatsWith((x: Foo, y: Foo) => {
-      return x.a > y.a
-    })([{a: 2}, {a: 1}])
-
-    result // $ExpectType Foo[]
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
 
@@ -7941,6 +7589,18 @@ includes<T>(valueToFind: T): (input: readonly T[]) => boolean;
 import { _isArray } from './_internals/_isArray'
 import { equals } from './equals'
 
+export function includesArray(valueToFind, input){
+  let index = -1
+
+  while (++index < input.length){
+    if (equals(input[ index ], valueToFind)){
+      return true
+    }
+  }
+
+  return false
+}
+
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
   if (typeof input === 'string'){
@@ -7951,15 +7611,7 @@ export function includes(valueToFind, input){
   }
   if (!_isArray(input)) return false
 
-  let index = -1
-
-  while (++index < input.length){
-    if (equals(input[ index ], valueToFind)){
-      return true
-    }
-  }
-
-  return false
+  return includesArray(valueToFind, input)
 }
 ```
 
@@ -19259,7 +18911,7 @@ export function uniq(list){
 ```javascript
 import { uniq } from './uniq'
 
-test('uniq', () => {
+test('happy', () => {
   expect(uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])).toEqual([ 1, 2, 3, 0 ])
   expect(uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
   expect([ 1, '1' ]).toEqual([ 1, '1' ])
@@ -20132,6 +19784,8 @@ where<T, U>(conditions: T, input: U): boolean
 
 It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
 
+`R.equals` is used to determine equality.
+
 ```javascript
 const condition = R.where({
   a : x => typeof x === "string",
@@ -20261,6 +19915,8 @@ whereEq<T, U>(condition: T, input: U): boolean
 ```
 
 It will return `true` if all of `input` object fully or partially include `rule` object.
+
+`R.equals` is used to determine equality.
 
 ```javascript
 const condition = { a : { b : 1 } }
@@ -20420,7 +20076,7 @@ without<T>(matchAgainst: readonly T[]): (source: readonly T[]) => readonly T[];
 <summary><strong>R.without</strong> source</summary>
 
 ```javascript
-import { includes } from './includes'
+import { includesArray } from './includes'
 import { reduce } from './reduce'
 
 export function without(matchAgainst, source){
@@ -20430,7 +20086,7 @@ export function without(matchAgainst, source){
 
   return reduce(
     (prev, current) =>
-      includes(current, matchAgainst) ? prev : prev.concat(current),
+    includesArray(current, matchAgainst) ? prev : prev.concat(current),
     [],
     source
   )
@@ -20452,6 +20108,12 @@ test('should return a new list without values in the first argument ', () => {
 
   expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
   expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])
+})
+
+test('ramda bug', () => {
+  expect(
+    without("0:1", ["0", "0:1"])
+  ).toEqual(['0:1'])
 })
 
 test('ramda test', () => {
@@ -20979,6 +20641,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+6.5.3
+
+- Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
+
+This is Ramda bug, that Rambda also has before this release - https://github.com/ramda/ramda/issues/3086
 
 6.5.2
 
