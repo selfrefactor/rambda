@@ -2,6 +2,7 @@ import babel from '@rollup/plugin-babel';
 import cleanup from 'rollup-plugin-cleanup'
 import replace from '@rollup/plugin-replace'
 import {nodeResolve}  from '@rollup/plugin-node-resolve'
+import { uglify } from 'rollup-plugin-uglify'
 
 const extensions = [ '.js' ]
 
@@ -18,6 +19,15 @@ export default {
       babelHelpers: 'bundled',
         extensions,
         exclude : [ 'node_modules/**' ],
+        presets: [['@babel/preset-env', { targets: { ie: '11' } }]]
+    }),
+    uglify({
+      compress: {
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+      },
+      warnings: false
     })
   ],
   input  : 'rambda.js',
