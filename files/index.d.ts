@@ -5850,7 +5850,8 @@ Notes: Independently, similar method is implemented in `Ramada` library, but the
 
 */
 // @SINGLE_MARKER
-export function piped<T>(input: any, ...fnList: readonly Func<any>[]): T;
+export function piped<A, B>(input: A, fn: (x: A) => B) : B;
+export function piped<A, B, C>(input: A, fn1: (x: A) => B, fn2: (x: B) => C) : C;
 
 /*
 Method: pipedAsync

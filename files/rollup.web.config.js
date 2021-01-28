@@ -1,7 +1,7 @@
-import babel from '@rollup/plugin-babel';
-import cleanup from 'rollup-plugin-cleanup'
+import babel from '@rollup/plugin-babel'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
-import {nodeResolve}  from '@rollup/plugin-node-resolve'
+import cleanup from 'rollup-plugin-cleanup'
 import { uglify } from 'rollup-plugin-uglify'
 
 const extensions = [ '.js' ]
@@ -11,24 +11,24 @@ export default {
     replace({ 'process.env.NODE_ENV' : JSON.stringify('production') }),
     nodeResolve({
       extensions,
-      browser: true,
+      browser        : true,
       preferBuiltins : true,
     }),
     cleanup(),
-    babel({ 
-      babelHelpers: 'bundled',
-        extensions,
-        exclude : [ 'node_modules/**' ],
-        presets: [['@babel/preset-env', { targets: { ie: '11' } }]]
+    babel({
+      babelHelpers : 'bundled',
+      extensions,
+      exclude      : [ 'node_modules/**' ],
+      presets      : [ [ '@babel/preset-env', { targets : { ie : '11' } } ] ],
     }),
     uglify({
-      compress: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
+      compress : {
+        pure_getters : true,
+        unsafe       : true,
+        unsafe_comps : true,
       },
-      warnings: false
-    })
+      warnings : false,
+    }),
   ],
   input  : 'rambda.js',
   output : [
@@ -37,5 +37,5 @@ export default {
       format : 'umd',
       name   : 'R',
     },
-  ]
+  ],
 }
