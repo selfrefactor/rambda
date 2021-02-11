@@ -1,6 +1,10 @@
-## Readme limit
+## Tstoolbelt
 
-Rambdax is still broken
+node_modules/rambdax/_ts-toolbelt/src/List/Append.ts:13:6 - error TS1256: A rest element must be last in a tuple type.
+
+## Dictionary - type vs interface
+
+https://github.com/selfrefactor/rambda/issues/459#issuecomment-771519978
 
 ## R.resolve
 
