@@ -2552,6 +2552,24 @@ export function nth<T>(index: number, list: readonly T[]): T | undefined;
 export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
 
 /*
+Method: objOf
+
+Explanation: It returns a new object with the provided key and value.
+
+Example:
+
+```
+R.objOf('foo', 42)
+// => {foo: 42}
+```
+
+Categories: Object
+*/
+// @SINGLE_MARKER
+export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
+export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
+
+/*
 Method: once
 
 Explanation: It returns a function, which invokes only once `fn` function.
