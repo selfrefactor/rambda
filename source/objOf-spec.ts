@@ -1,16 +1,16 @@
-import {objOf} from 'rambda'
+import {objOf} from 'ramda'
 
-const newKey = 'foo'
-const newValue = 42
+const key = 'foo'
+const value = 42
 
 describe('R.objOf', () => {
   it('happy', () => {
-    const result = objOf(newKey, newValue)
+    const result = objOf(key, value)
 
     result.foo // $ExpectType number
   })
-  it('curried 1', () => {
-    const result = objOf(newKey)(newValue)
+  it('curried', () => {
+    const result = objOf(key)(value)
 
     result.foo // $ExpectType number
   })

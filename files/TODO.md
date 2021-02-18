@@ -1,3 +1,5 @@
+## Add lint staged
+
 ## Tstoolbelt
 
 node_modules/rambdax/_ts-toolbelt/src/List/Append.ts:13:6 - error TS1256: A rest element must be last in a tuple type.

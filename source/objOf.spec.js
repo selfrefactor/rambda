@@ -1,6 +1,38 @@
-import { objOf } from './objOf'
+import { objOf } from "./objOf";
+import { objOf as objOfRamda } from "ramda";
+import { compareCombinations } from "./_internals/testUtils";
 
-test('creates an object containing a single key:value pair', function () {
-  expect(objOf('foo', 42)).toEqual({ foo: 42 })
-  expect(objOf('foo')(42)).toEqual({ foo: 42 })
-})
+test("happy", function () {
+  expect(objOf("foo", 42)).toEqual({ foo: 42 });
+});
+
+test("with bad key input", function () {
+  expect(objOf(null, 42)).toEqual({ null: 42 });
+});
+
+test("curried", function () {
+  expect(objOf("foo")(42)).toEqual({ foo: 42 });
+});
+
+describe("brute force", () => {
+  const possibleInputs = [0, 1, null, undefined, [], {}];
+
+  compareCombinations({
+    firstInput: possibleInputs,
+    secondInput: possibleInputs,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+        }
+      `);
+    },
+    fn: objOf,
+    fnRamda: objOfRamda,
+  });
+});
+

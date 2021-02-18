@@ -827,6 +827,12 @@ export function nth<T>(index: number, list: readonly T[]): T | undefined;
 export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
 
 /**
+ * It returns a new object with the provided key and value.
+ */
+export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
+export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
+
+/**
  * It returns a function, which invokes only once `fn` function.
  */
 export function once<T extends (...args: readonly any[]) => any>(func: T): T;

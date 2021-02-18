@@ -2559,8 +2559,11 @@ Explanation: It returns a new object with the provided key and value.
 Example:
 
 ```
-R.objOf('foo', 42)
-// => {foo: 42}
+const result = [
+  R.objOf('foo', 42),
+  R.objOf('foo', null),
+]
+// => [{foo: 42}, {}]
 ```
 
 Categories: Object
