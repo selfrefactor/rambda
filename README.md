@@ -11317,12 +11317,12 @@ It returns a new object with the provided key and value.
 ```javascript
 const result = [
   R.objOf('foo', 42),
-  R.objOf('foo', null),
+  R.objOf(null, undefined),
 ]
-// => [{foo: 42}, {}]
+// => [{foo: 42}, {null: undefined}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.objOf('foo'%2C%2042)%2C%0A%20%20R.objOf('foo'%2C%20null)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bfoo%3A%2042%7D%2C%20%7B%7D%5D">Try this <strong>R.objOf</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.objOf('foo'%2C%2042)%2C%0A%20%20R.objOf(null%2C%20undefined)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bfoo%3A%2042%7D%2C%20%7Bnull%3A%20undefined%7D%5D">Try this <strong>R.objOf</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11344,6 +11344,7 @@ export function objOf(key, value) {
   if (arguments.length === 1) {
     return (_value) => objOf(key, _value)
   }
+  
   return {
     [key]: value
   }
@@ -11365,8 +11366,8 @@ test("happy", function () {
   expect(objOf("foo", 42)).toEqual({ foo: 42 });
 });
 
-test("with bad key input", function () {
-  expect(objOf(null, 42)).toEqual({ null: 42 });
+test("with bad inputs", function () {
+  expect(objOf(null, undefined)).toEqual({ null: undefined });
 });
 
 test("curried", function () {
@@ -11403,7 +11404,7 @@ describe("brute force", () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {objOf} from 'ramda'
+import {objOf} from 'rambda'
 
 const key = 'foo'
 const value = 42

@@ -6,8 +6,8 @@ test("happy", function () {
   expect(objOf("foo", 42)).toEqual({ foo: 42 });
 });
 
-test("with bad key input", function () {
-  expect(objOf(null, 42)).toEqual({ null: 42 });
+test("with bad inputs", function () {
+  expect(objOf(null, undefined)).toEqual({ null: undefined });
 });
 
 test("curried", function () {

@@ -1,4 +1,4 @@
-import {objOf} from 'ramda'
+import {objOf} from 'rambda'
 
 const key = 'foo'
 const value = 42

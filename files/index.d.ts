@@ -2561,9 +2561,9 @@ Example:
 ```
 const result = [
   R.objOf('foo', 42),
-  R.objOf('foo', null),
+  R.objOf(null, undefined),
 ]
-// => [{foo: 42}, {}]
+// => [{foo: 42}, {null: undefined}]
 ```
 
 Categories: Object
