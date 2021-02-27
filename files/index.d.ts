@@ -1215,7 +1215,7 @@ const subtractFlip = R.flip(R.subtract)
 
 const result = [
   subtractFlip(1,7),
-  R.flip(1, 6)
+  R.subtract(1, 6)
 ]  
 // => [6, -6]
 ```
