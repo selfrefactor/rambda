@@ -356,10 +356,11 @@ add(a: number): (b: number) => number;
 <summary><strong>R.add</strong> source</summary>
 
 ```javascript
-export function add(a, b){
-  if (arguments.length === 1) return _b => add(a, _b)
+export function add(a, b) {
+  if (arguments.length === 1)
+    return (_b) => add(a, _b);
 
-  return Number(a) + Number(b)
+  return Number(a) + Number(b);
 }
 ```
 
@@ -8921,11 +8922,11 @@ lensPath(path: string): Lens;
 <summary><strong>R.lensPath</strong> source</summary>
 
 ```javascript
-import { assocPath } from './assocPath'
-import { lens } from './lens'
-import { path } from './path'
+import {assocPath} from './assocPath'
+import {lens} from './lens'
+import {path} from './path'
 
-export function lensPath(key){
+export function lensPath(key) {
   return lens(path(key), assocPath(key))
 }
 ```
@@ -13687,11 +13688,11 @@ It returns list of the values of `property` taken from the all objects inside `l
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-R.pluck(list, property) 
+R.pluck(property, list) 
 // => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D%0Aconst%20property%20%3D%20'a'%0A%0AR.pluck(list%2C%20property)%20%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.pluck</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D%0Aconst%20property%20%3D%20'a'%0A%0AR.pluck(property%2C%20list)%20%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.pluck</strong> example in Rambda REPL</a>
 
 <details>
 

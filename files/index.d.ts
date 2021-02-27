@@ -3188,7 +3188,7 @@ Example:
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-R.pluck(list, property) 
+R.pluck(property, list) 
 // => [1, 2]
 ```
 
