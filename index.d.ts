@@ -474,8 +474,8 @@ export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>
 /**
  * It transforms a `listOfPairs` to an object.
  */
-export function fromPairs<V>(listOfPairs: readonly KeyValuePair<string, V>[]): { readonly [index: string]: V };
-export function fromPairs<V>(listOfPairs: readonly KeyValuePair<number, V>[]): { readonly [index: number]: V };
+export function fromPairs<V>(listOfPairs: readonly (readonly [number, V])[]): { readonly [index: number]: V };
+export function fromPairs<V>(listOfPairs: readonly (readonly [string, V])[]): { readonly [index: string]: V };
 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
