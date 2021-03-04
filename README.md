@@ -74,7 +74,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 ### Speed
 
-**Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
+**Rambda** is generally more performant than `Ramda` as the [benchmarks](#-benchmarks) can prove that.
 
 ### Support
 
@@ -20798,6 +20798,8 @@ describe('R.zipWith', () => {
 WIP 6.6.0
 
 - Use uglify plugin for UMD bundle
+
+- Improve `R.fromPairs` typings - [Issue #567](https://github.com/selfrefactor/rambda/issues/567)
 
 6.5.3
 

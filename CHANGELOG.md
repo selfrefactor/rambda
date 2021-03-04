@@ -2,6 +2,8 @@ WIP 6.6.0
 
 - Use uglify plugin for UMD bundle
 
+- Improve `R.fromPairs` typings - [Issue #567](https://github.com/selfrefactor/rambda/issues/567)
+
 6.5.3
 
 - Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
