@@ -217,6 +217,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
+- Ramda's **intersection** does not preserve the original order.
+
 - Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
 
 - Typescript definitions between `rambda` and `@types/ramda` may vary.
@@ -7908,6 +7910,7 @@ const init = [
 ### intersection
 
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+Unlike Ramda's version, Rambda's `intersection` does not voluntarily change the order of elements.
 
 ```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
