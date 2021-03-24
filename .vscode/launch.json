@@ -15,39 +15,6 @@
       "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug build script",
-      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": [
-        "--verbose", 
-        "-i", 
-        "--no-cache",
-        "scripts/all-scripts/all-scripts.spec.js"
-      ],
-      "env":{
-        "WITH_RAMBDAX": "ON"
-      },
-      "disableOptimisticBPs": true,
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Dynamic TS toolbelt",
-      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": [
-        "--verbose", 
-        "-i", 
-        "--no-cache",
-        "scripts/dynamic-ts-toolbelt/dynamic-ts-toolbelt.spec.js"
-      ],
-      "disableOptimisticBPs": true,
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

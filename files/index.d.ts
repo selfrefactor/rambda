@@ -1,4 +1,4 @@
-import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "../_ts-toolbelt/src/ts-toolbelt";
+import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "ts-toolbelt";
 
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
 

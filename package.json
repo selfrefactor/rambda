@@ -23,6 +23,9 @@
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
 	"dependencies": {},
+	"peerDependencies": {
+		"ts-toolbelt": "8.0.7"
+	},
 	"devDependencies": {
 		"@babel/core": "7.12.13",
 		"@babel/plugin-proposal-object-rest-spread": "7.12.13",
@@ -48,6 +51,7 @@
 		"rollup-plugin-cleanup": "3.2.1",
 		"rollup-plugin-sourcemaps": "0.6.3",
 		"rollup-plugin-uglify": "6.0.4",
+		"ts-toolbelt": "8.0.7",
 		"typescript": "4.1.5"
 	},
 	"jest": {
