@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "6.7.0-beta.0",
+	"version": "6.7.0",
 	"scripts": {
 		"out": "cd ../rambda-scripts&&yarn populate:docs&&cd ../rambda-scripts&&yarn populate:readme",
 		"x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
