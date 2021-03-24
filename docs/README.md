@@ -74,7 +74,7 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 ### Speed
 
-**Rambda** is generally more performant than `Ramda` as the [benchmarks](#benchmarks) can prove that.
+**Rambda** is generally more performant than `Ramda` as the [benchmarks](#-benchmarks) can prove that.
 
 ### Support
 
@@ -20795,9 +20795,16 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-WIP 6.6.0
+6.6.0
+- Change `R.piped` typings to mimic that of `R.pipe`. Main difference is that `R.pipe` is focused on unary functions.
 
-- Use uglify plugin for UMD bundle
+- Fix wrong logic when `R.without` use `R.includes` while it should use array version of `R.includes`.
+
+- Use uglify plugin for UMD bundle.
+
+- Remove `dist` folder from `.gitignore` in order to fix `Deno` broken package. [Issue #570](https://github.com/selfrefactor/rambda/issues/570)
+
+- Improve `R.fromPairs` typings - [Issue #567](https://github.com/selfrefactor/rambda/issues/567)
 
 6.5.3
 
