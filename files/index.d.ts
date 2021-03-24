@@ -2190,6 +2190,8 @@ Notes:
 */
 // @SINGLE_MARKER
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function maxBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 /*
 Method: mean

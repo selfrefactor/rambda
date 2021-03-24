@@ -1,15 +1,15 @@
 WIP 6.7.0
 
-- Remove `ts-toolbelt` types from Typescript definitions. This includes remove curried versions for the following methods:
+- Remove `ts-toolbelt` types from Typescript definitions. Most affected are the following methods, which lose one of its curried definitions:
 
 1. R.maxBy
 2. R.minBy
-2. R.pathEq
-2. R.viewOr
-2. R.when
-3. R.merge
-3. R.mergeDeepRight
-3. R.mergeLeft
+3. R.pathEq
+4. R.viewOr
+5. R.when
+6. R.merge
+7. R.mergeDeepRight
+8. R.mergeLeft
 
 6.6.0
 

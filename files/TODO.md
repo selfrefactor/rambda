@@ -4,10 +4,6 @@ npm version 6.7.0-beta.0
 
 npm publish --tag beta
 
-## Tstoolbelt
-
-node_modules/rambdax/_ts-toolbelt/src/List/Append.ts:13:6 - error TS1256: A rest element must be last in a tuple type.
-
 ## Dictionary - type vs interface
 
 https://github.com/selfrefactor/rambda/issues/459#issuecomment-771519978

@@ -727,6 +727,8 @@ export function max<T extends Ord>(x: T): (y: T) => T;
  * It returns the greater value between `x` and `y` according to `compareFn` function.
  */
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function maxBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 /**
  * It returns the mean value of `list` input.
