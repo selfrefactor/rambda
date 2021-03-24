@@ -14,4 +14,9 @@ describe('R.piped', () => {
 
     result // $ExpectType number
   })
+  it('issue #63', () => {
+    const result = piped(1, x => x)
+
+    result // $ExpectType number
+  })
 })
