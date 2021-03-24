@@ -1,8 +1,13 @@
 import {mergeLeft} from 'rambda'
 
+interface Output{
+  foo: number
+  bar: number
+}
+
 describe('R.mergeLeft', () => {
-  const result = mergeLeft({foo: 1}, {bar: 2})
-  const curriedResult = mergeLeft({foo: 1})({bar: 2})
+  const result = mergeLeft<Output>({foo: 1}, {bar: 2})
+  const curriedResult = mergeLeft<Output>({foo: 1})({bar: 2})
 
   result.foo // $ExpectType number
   result.bar // $ExpectType number

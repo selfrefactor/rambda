@@ -9,19 +9,4 @@ describe('R.minBy', () => {
     const result = minBy(compareFn, first, second)
     result // $ExpectType 1 | 2
   })
-  it('curried 1', () => {
-    const result = minBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    /*
-      Than should be the case, but passing type is required for some reason
-    */
-    const result = minBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = minBy(compareFn)(first)(second)
-    result // $ExpectType number
-  })
 })

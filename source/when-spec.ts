@@ -20,9 +20,4 @@ describe('R.when', () => {
     const result = fn(1)
     result // $ExpectType string | number
   })
-
-  it('curry 3 require explicit types', () => {
-    const result = when<number, string>(predicate)(whenTrueFn, 1)
-    result // $ExpectType string | number
-  })
 })

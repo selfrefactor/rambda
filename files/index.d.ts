@@ -1,5 +1,3 @@
-import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "ts-toolbelt";
-
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
 
 type CommonKeys<T1, T2> = keyof T1 & keyof T2;
@@ -72,8 +70,6 @@ type EvolveValue<V, E> =
     : E extends Evolver
       ? EvolveNestedValue<V, E>
       : never;
-
-export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
@@ -456,7 +452,7 @@ Notes:
 // @SINGLE_MARKER
 export function assocPath<Output>(path: Path, newValue: any, obj: object): Output;
 export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
-export function assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: object) => Output>;
+export function assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 
 /*
 Method: both
@@ -1227,7 +1223,6 @@ Notes: Rambda's **flip** will throw if the arity of the input function is greate
 */
 // @SINGLE_MARKER
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: ListToolbelt.Merge<readonly [P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 
 /*
 Method: forEach
@@ -2195,8 +2190,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
-export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 /*
 Method: mean
@@ -2258,8 +2251,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+export function merge<Output>(target: object, newProps: object): Output;
+export function merge<Output>(target: object): (newProps: object) => Output;
 
 /*
 Method: mergeAll
@@ -2317,8 +2310,8 @@ Notes: Explanation and example are taken from `Ramda` documentation.
 
 */
 // @SINGLE_MARKER
-export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
-export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
+export function mergeDeepRight<Output>(target: object, newProps: object): Output;
+export function mergeDeepRight<Output>(target: object): (newProps: object) => Output;
 
 
 /*
@@ -2342,8 +2335,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-export function mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+export function mergeLeft<Output>(newProps: object, target: object): Output;
+export function mergeLeft<Output>(newProps: object): (target: object) => Output;
 
 /*
 Method: min
@@ -2390,7 +2383,7 @@ Notes:
 // @SINGLE_MARKER
 export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
+export function minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 
 /*
@@ -2792,7 +2785,7 @@ Notes:
 // @SINGLE_MARKER
 export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
 export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
-export function pathEq(pathToSearch: Path): FunctionToolbelt.Curry<(a: any, b: any) => boolean>;
+export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 
 /*
 Method: paths
@@ -2866,7 +2859,7 @@ Notes:
 // @SINGLE_MARKER
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
+export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 
 /*
 Method: pick
@@ -4365,7 +4358,7 @@ Notes:
 // @SINGLE_MARKER
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
-export function when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => T | U>;
+export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
 
 /*
 Method: where
@@ -6405,7 +6398,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 // @SINGLE_MARKER
 export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
 export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
-export function viewOr<Input, Output>(fallback: Output): FunctionToolbelt.Curry<(lens: Lens, input: Input) => Output>;
+export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
+
 /*
 Method: sortByPath
 

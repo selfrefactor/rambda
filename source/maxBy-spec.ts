@@ -9,16 +9,4 @@ describe('R.maxBy', () => {
     const result = maxBy(compareFn, first, second)
     result // $ExpectType 1 | 2
   })
-  it('curried 1', () => {
-    const result = maxBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    const result = maxBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = maxBy(compareFn)(first)(second)
-    result // $ExpectType number
-  })
 })

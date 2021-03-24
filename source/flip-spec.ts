@@ -12,16 +12,6 @@ describe('R.flip', () => {
     // ============================================
     result // $ExpectType (y: number) => number
   })
-
-  it('function with arity of 3', () => {
-    function testFunction(a: number, b: string, c: number): string {
-      return `${b}==${a + c}`
-    }
-    const flippedTestFunction = flip(testFunction)
-
-    const result = flippedTestFunction('foo', 1, 2)
-    result // $ExpectType string
-  })
 })
 
 describe('Ramda.flip', () => {
