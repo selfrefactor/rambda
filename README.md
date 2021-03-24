@@ -2223,7 +2223,7 @@ R.assocPath(path, newValue, obj)
 ```typescript
 assocPath<Output>(path: Path, newValue: any, obj: object): Output;
 assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
-assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: object) => Output>;
+assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 ```
 
 </details>
@@ -9838,8 +9838,6 @@ R.maxBy(compareFn, 5, -7) // => -7
 
 ```typescript
 maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
-maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 ```
 
 </details>
@@ -9898,18 +9896,6 @@ describe('R.maxBy', () => {
   it('happy', () => {
     const result = maxBy(compareFn, first, second)
     result // $ExpectType 1 | 2
-  })
-  it('curried 1', () => {
-    const result = maxBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    const result = maxBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = maxBy(compareFn)(first)(second)
-    result // $ExpectType number
   })
 })
 ```
@@ -10090,7 +10076,7 @@ describe('R.median', () => {
 
 ```typescript
 
-merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
+merge<Output>(target: object, newProps: object): Output
 ```
 
 It creates a copy of `target` object with overidden `newProps` properties.
@@ -10110,8 +10096,8 @@ const result = R.merge(target, newProps)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+merge<Output>(target: object, newProps: object): Output;
+merge<Output>(target: object): (newProps: object) => Output;
 ```
 
 </details>
@@ -10179,9 +10165,14 @@ test('when undefined or null instead of object', () => {
 ```typescript
 import {merge} from 'rambda'
 
+interface Output{
+  foo: number
+  bar: number
+}
+
 describe('R.merge', () => {
-  const result = merge({foo: 1}, {bar: 2})
-  const curriedResult = merge({foo: 1})({bar: 2})
+  const result = merge<Output>({foo: 1}, {bar: 2})
+  const curriedResult = merge<Output>({foo: 1})({bar: 2})
 
   result.foo // $ExpectType number
   result.bar // $ExpectType number
@@ -10347,7 +10338,7 @@ describe('R.mergeAll', () => {
 
 ```typescript
 
-mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>
+mergeDeepRight<Output>(target: object, newProps: object): Output
 ```
 
 Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
@@ -10360,8 +10351,8 @@ Creates a new object with the own properties of the first object merged with the
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
-mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
+mergeDeepRight<Output>(target: object, newProps: object): Output;
+mergeDeepRight<Output>(target: object): (newProps: object) => Output;
 ```
 
 </details>
@@ -10513,8 +10504,14 @@ test('ramda compatible test 3', () => {
 ```typescript
 import {mergeDeepRight} from 'rambda'
 
+interface Output{
+  foo: {
+    bar: number
+  }
+}
+
 describe('R.mergeDeepRight', () => {
-  const result = mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}})
+  const result = mergeDeepRight<Output>({foo: {bar: 1}}, {foo: {bar: 2}})
   result.foo.bar // $ExpectType number
 })
 ```
@@ -10527,7 +10524,7 @@ describe('R.mergeDeepRight', () => {
 
 ```typescript
 
-mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>
+mergeLeft<Output>(newProps: object, target: object): Output
 ```
 
 Same as `R.merge`, but in opposite direction.
@@ -10547,8 +10544,8 @@ const result = R.mergeLeft(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+mergeLeft<Output>(newProps: object, target: object): Output;
+mergeLeft<Output>(newProps: object): (target: object) => Output;
 ```
 
 </details>
@@ -10613,9 +10610,14 @@ test('when undefined or null instead of object', () => {
 ```typescript
 import {mergeLeft} from 'rambda'
 
+interface Output{
+  foo: number
+  bar: number
+}
+
 describe('R.mergeLeft', () => {
-  const result = mergeLeft({foo: 1}, {bar: 2})
-  const curriedResult = mergeLeft({foo: 1})({bar: 2})
+  const result = mergeLeft<Output>({foo: 1}, {bar: 2})
+  const curriedResult = mergeLeft<Output>({foo: 1})({bar: 2})
 
   result.foo // $ExpectType number
   result.bar // $ExpectType number
@@ -10744,7 +10746,7 @@ R.minBy(compareFn, -5, 2) // => -5
 ```typescript
 minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
+minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 ```
 
 </details>
@@ -10803,21 +10805,6 @@ describe('R.minBy', () => {
   it('happy', () => {
     const result = minBy(compareFn, first, second)
     result // $ExpectType 1 | 2
-  })
-  it('curried 1', () => {
-    const result = minBy(compareFn)(first, second)
-    result // $ExpectType number
-  })
-  it('curried 2', () => {
-    /*
-      Than should be the case, but passing type is required for some reason
-    */
-    const result = minBy<number>(compareFn, first)(second)
-    result // $ExpectType number
-  })
-  it('curried 3', () => {
-    const result = minBy(compareFn)(first)(second)
-    result // $ExpectType number
   })
 })
 ```
@@ -12765,7 +12752,7 @@ const result = R.pathEq(
 ```typescript
 pathEq(pathToSearch: Path, target: any, input: any): boolean;
 pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
-pathEq(pathToSearch: Path): FunctionToolbelt.Curry<(a: any, b: any) => boolean>;
+pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 ```
 
 </details>
@@ -12871,11 +12858,9 @@ describe('with ramda specs', () => {
   const result1 = pathEq(testPath, 2, testObj)
   const result2 = pathEq(testPath, 2)(testObj)
   const result3 = pathEq(testPath)(2)(testObj)
-  const result4 = pathEq(testPath)(2, testObj)
   result1 // $ExpectType boolean
   result2 // $ExpectType boolean
   result3 // $ExpectType boolean
-  result4 // $ExpectType boolean
 })
 ```
 
@@ -12920,7 +12905,7 @@ const result = [
 ```typescript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
+pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 ```
 
 </details>
@@ -19845,7 +19830,7 @@ when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T |
 ```typescript
 when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
-when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => T | U>;
+when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
 ```
 
 </details>
@@ -19914,11 +19899,6 @@ describe('R.when', () => {
   it('curry 2 require explicit types', () => {
     const fn = when<number, string>(predicate)(whenTrueFn)
     const result = fn(1)
-    result // $ExpectType string | number
-  })
-
-  it('curry 3 require explicit types', () => {
-    const result = when<number, string>(predicate)(whenTrueFn, 1)
     result // $ExpectType string | number
   })
 })
@@ -20795,7 +20775,21 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+WIP 6.7.0
+
+- Remove `ts-toolbelt` types from Typescript definitions. This includes remove curried versions for the following methods:
+
+1. R.maxBy
+2. R.minBy
+2. R.pathEq
+2. R.viewOr
+2. R.when
+3. R.merge
+3. R.mergeDeepRight
+3. R.mergeLeft
+
 6.6.0
+
 - Change `R.piped` typings to mimic that of `R.pipe`. Main difference is that `R.pipe` is focused on unary functions.
 
 - Fix wrong logic when `R.without` use `R.includes` while it should use array version of `R.includes`.

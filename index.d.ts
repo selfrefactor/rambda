@@ -1,5 +1,3 @@
-import { F as FunctionToolbelt, O as ObjectToolbelt, L as ListToolbelt } from "./_ts-toolbelt/src/ts-toolbelt";
-
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
 
 type CommonKeys<T1, T2> = keyof T1 & keyof T2;
@@ -72,8 +70,6 @@ type EvolveValue<V, E> =
     : E extends Evolver
       ? EvolveNestedValue<V, E>
       : never;
-
-export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =  ObjectToolbelt.Merge<ListToolbelt.ObjectOf<O1>, ListToolbelt.ObjectOf<O2>, Depth, 1>;
 
 interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
@@ -216,7 +212,7 @@ export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
  */
 export function assocPath<Output>(path: Path, newValue: any, obj: object): Output;
 export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
-export function assocPath<Output>(path: Path): FunctionToolbelt.Curry<(newValue: any, obj: object) => Output>;
+export function assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 
 /**
  * It returns a function with `input` argument.
@@ -461,7 +457,6 @@ export function flatten<T>(list: readonly any[]): readonly T[];
  * It returns function which calls `fn` with exchanged first and second argument.
  */
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-export function flip<F extends (...args: any) => any, P extends FunctionToolbelt.Parameters<F>>(fn: F): FunctionToolbelt.Curry<(...args: ListToolbelt.Merge<readonly [P[1], P[0]], P>) => FunctionToolbelt.Return<F>>;
 
 /**
  * It applies `iterable` function over all members of `list` and returns `list`.
@@ -732,8 +727,6 @@ export function max<T extends Ord>(x: T): (y: T) => T;
  * It returns the greater value between `x` and `y` according to `compareFn` function.
  */
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
-export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function maxBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
 
 /**
  * It returns the mean value of `list` input.
@@ -748,8 +741,8 @@ export function median(list: readonly number[]): number;
 /**
  * It creates a copy of `target` object with overidden `newProps` properties.
  */
-export function merge<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+export function merge<Output>(target: object, newProps: object): Output;
+export function merge<Output>(target: object): (newProps: object) => Output;
 
 /**
  * It merges all objects of `list` array sequentially and returns the result.
@@ -763,14 +756,14 @@ export function mergeAll(list: readonly object[]): object;
  * - and both values are objects, the two values will be recursively merged
  * - otherwise the value from the second object will be used.
  */
-export function mergeDeepRight<O1 extends object, O2 extends object>(x: O1, y: O2): Merge<O2, O1, 'deep'>;
-export function mergeDeepRight<O1 extends object>(x: O1): <O2 extends object>(y: O2) => Merge<O2, O1, 'deep'>;
+export function mergeDeepRight<Output>(target: object, newProps: object): Output;
+export function mergeDeepRight<Output>(target: object): (newProps: object) => Output;
 
 /**
  * Same as `R.merge`, but in opposite direction.
  */
-export function mergeLeft<O1 extends object, O2 extends object>(target: O1, newProps: O2): Merge<O2, O1, 'flat'>;
-export function mergeLeft<O1 extends object>(target: O1): <O2 extends object>(newProps: O2) => Merge<O2, O1, 'flat'>;
+export function mergeLeft<Output>(newProps: object, target: object): Output;
+export function mergeLeft<Output>(newProps: object): (target: object) => Output;
 
 /**
  * It returns the lesser value between `x` and `y`.
@@ -783,7 +776,7 @@ export function min<T extends Ord>(x: T): (y: T) => T;
  */
 export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function minBy<T>(compareFn: (input: T) => Ord): FunctionToolbelt.Curry<(x: T, y: T) => T>;
+export function minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 /**
  * Curried version of `x%y`.
@@ -898,7 +891,7 @@ export function path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefine
  */
 export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
 export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
-export function pathEq(pathToSearch: Path): FunctionToolbelt.Curry<(a: any, b: any) => boolean>;
+export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 
 /**
  * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
@@ -915,7 +908,7 @@ export function paths<T>(pathsToSearch: readonly Path[]): (obj: any) => readonly
  */
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): FunctionToolbelt.Curry<(a: Path, b: any) => T>;
+export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -1421,7 +1414,7 @@ export function values<T extends object, K extends keyof T>(obj: T): readonly T[
 
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
-export function when<T, U>(predicate: (x: T) => boolean): FunctionToolbelt.Curry<(whenTrueFn: (a: T) => U, input: T) => T | U>;
+export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
 
 /**
  * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.

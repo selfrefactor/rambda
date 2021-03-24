@@ -1,4 +1,18 @@
+WIP 6.7.0
+
+- Remove `ts-toolbelt` types from Typescript definitions. This includes remove curried versions for the following methods:
+
+1. R.maxBy
+2. R.minBy
+2. R.pathEq
+2. R.viewOr
+2. R.when
+3. R.merge
+3. R.mergeDeepRight
+3. R.mergeLeft
+
 6.6.0
+
 - Change `R.piped` typings to mimic that of `R.pipe`. Main difference is that `R.pipe` is focused on unary functions.
 
 - Fix wrong logic when `R.without` use `R.includes` while it should use array version of `R.includes`.
