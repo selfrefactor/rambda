@@ -2,9 +2,8 @@ import { inc } from './inc'
 import { isNil } from './isNil'
 import { unless } from './unless'
 
-const safeInc = unless(isNil, inc)
-
 test('happy', () => {
+  const safeInc = unless(isNil, inc)
   expect(safeInc(null)).toBeNull()
   expect(safeInc(1)).toBe(2)
 })
@@ -12,5 +11,4 @@ test('happy', () => {
 test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
   expect(safeIncCurried(null)).toBeNull()
-  expect(safeIncCurried(1)).toBe(2)
 })

@@ -1,7 +1,13 @@
 import {uniq} from './uniq'
 
 test('happy', () => {
-  expect(uniq([1, 2, 3, 3, 3, 1, 2, 0])).toEqual([1, 2, 3, 0])
+  const list = [1, 2, 3, 3, 3, 1, 2, 0]
+  expect(uniq(list)).toEqual([1, 2, 3, 0])
+})
+
+test('with object', () => {
+  const list = [{a: 1}, {a: 2}, {a: 1}]
+  expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
 
 test('with nested array', () => {

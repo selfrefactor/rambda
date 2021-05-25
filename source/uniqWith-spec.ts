@@ -2,32 +2,14 @@ import {uniqWith} from 'rambda'
 
 describe('R.uniqWith', () => {
   it('happy', () => {
-    const input = [
-      {
-        id: 0,
-        title: 'foo',
-      },
-      {
-        id: 1,
-        title: 'bar',
-      },
-      {
-        id: 2,
-        title: 'baz',
-      },
-      {
-        id: 3,
-        title: 'foo',
-      },
-      {
-        id: 4,
-        title: 'bar',
-      },
+    const list = [
+      {a: 1},
+      {a: 1},
     ]
 
-    const fn = (x: any, y: any) => x.title === y.title
+    const fn = (x: any, y: any) => x.a === y.a
 
-    const result = uniqWith(fn, input)
-    result // $ExpectType readonly { id: number; title: string; }[]
+    const result = uniqWith(fn, list)
+    result // $ExpectType readonly { a: number }[]
   })
 })

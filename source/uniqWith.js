@@ -4,12 +4,11 @@ export function uniqWith(predicate, list){
   if (arguments.length === 1) return _list => uniqWith(predicate, _list)
 
   let index = -1
-  const len = list.length
   const willReturn = []
 
-  while (++index < len){
+  while (++index < list.length){
     const value = list[ index ]
-    const flag = any(willReturnInstance => predicate(value, willReturnInstance),
+    const flag = any(x => predicate(value, x),
       willReturn)
 
     if (!flag){
