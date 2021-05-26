@@ -217,6 +217,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
+- Ramda's **intersection** result may differ from Rambda's counterpart in ordering.
+
 - Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
 
 - Typescript definitions between `rambda` and `@types/ramda` may vary.
@@ -7920,6 +7922,17 @@ const result = intersection(listA, listB)
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listA%20%3D%20%5B%20%7B%20id%20%3A%201%20%7D%2C%20%7B%20id%20%3A%202%20%7D%2C%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%20%5D%0Aconst%20listB%20%3D%20%5B%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%2C%20%7B%20id%20%3A%205%20%7D%2C%20%7B%20id%20%3A%206%20%7D%20%5D%0A%0Aconst%20result%20%3D%20intersection(listA%2C%20listB)%0A%2F%2F%20%3D%3E%20%5B%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%5D">Try this <strong>R.intersection</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
+
+Note: there's a difference in order preservation in Ramda and Rambda. In some cases it will affect the result:
+
+```
+Ramda.intersection(['a', 'b', 'c', 'd'], ['b', 'c']) // [ 'b', 'c' ]
+Ramda.intersection(['a', 'b', 'c', 'd'], ['c', 'b']) // [ 'c', 'b' ]
+Rambda.intersection(['a', 'b', 'c', 'd'], ['b', 'c']) // [ 'b', 'c' ]
+Rambda.intersection(['a', 'b', 'c', 'd'], ['c', 'b']) // [ 'b', 'c' ]
+```
+
+Ramda takes the order of the shortest of two arrays. Rambda preserves the order of the first array.
 
 ### intersperse
 
