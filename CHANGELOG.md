@@ -1,4 +1,8 @@
-WIP 6.7.0
+WIP 6.8.0
+
+readonly task
+
+6.7.0
 
 - Remove `ts-toolbelt` types from Typescript definitions. Most affected are the following methods, which lose one of its curried definitions:
 

@@ -217,8 +217,6 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
-- Ramda's **intersection** result may differ from Rambda's counterpart in ordering.
-
 - Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
 
 - Typescript definitions between `rambda` and `@types/ramda` may vary.
@@ -7911,6 +7909,19 @@ const init = [
 
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
+> :boom: There's a difference in order preservation in Ramda and Rambda. In some cases it will affect the result:
+
+```
+const list = ['a', 'b', 'c', 'd']
+Ramda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
+Ramda.intersection(list, ['c', 'b']) // [ 'c', 'b' ]
+
+Rambda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
+Rambda.intersection(list, ['c', 'b']) // [ 'b', 'c' ]
+```
+
+Ramda takes the order of the shortest of two arrays. Rambda preserves the order of the first array.
+
 ```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
@@ -7922,17 +7933,6 @@ const result = intersection(listA, listB)
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listA%20%3D%20%5B%20%7B%20id%20%3A%201%20%7D%2C%20%7B%20id%20%3A%202%20%7D%2C%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%20%5D%0Aconst%20listB%20%3D%20%5B%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%2C%20%7B%20id%20%3A%205%20%7D%2C%20%7B%20id%20%3A%206%20%7D%20%5D%0A%0Aconst%20result%20%3D%20intersection(listA%2C%20listB)%0A%2F%2F%20%3D%3E%20%5B%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%5D">Try this <strong>R.intersection</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
-
-Note: there's a difference in order preservation in Ramda and Rambda. In some cases it will affect the result:
-
-```
-Ramda.intersection(['a', 'b', 'c', 'd'], ['b', 'c']) // [ 'b', 'c' ]
-Ramda.intersection(['a', 'b', 'c', 'd'], ['c', 'b']) // [ 'c', 'b' ]
-Rambda.intersection(['a', 'b', 'c', 'd'], ['b', 'c']) // [ 'b', 'c' ]
-Rambda.intersection(['a', 'b', 'c', 'd'], ['c', 'b']) // [ 'b', 'c' ]
-```
-
-Ramda takes the order of the shortest of two arrays. Rambda preserves the order of the first array.
 
 ### intersperse
 
@@ -19062,13 +19062,28 @@ export function uniq(list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { uniq } from './uniq'
+import {uniq} from './uniq'
 
 test('happy', () => {
-  expect(uniq([ 1, 2, 3, 3, 3, 1, 2, 0 ])).toEqual([ 1, 2, 3, 0 ])
-  expect(uniq([ 1, 1, 2, 1 ])).toEqual([ 1, 2 ])
-  expect([ 1, '1' ]).toEqual([ 1, '1' ])
-  expect(uniq([ [ 42 ], [ 42 ] ])).toEqual([ [ 42 ] ])
+  const list = [1, 2, 3, 3, 3, 1, 2, 0]
+  expect(uniq(list)).toEqual([1, 2, 3, 0])
+})
+
+test('with object', () => {
+  const list = [{a: 1}, {a: 2}, {a: 1}]
+  expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
+})
+
+test('with nested array', () => {
+  expect(uniq([[42], [42]])).toEqual([[42]])
+})
+
+test('with falsy values', () => {
+  expect(uniq([undefined, null])).toEqual([undefined, null])
+})
+
+test('can distinct between string and number', () => {
+  expect(uniq([1, '1'])).toEqual([1, '1'])
 })
 ```
 
@@ -19182,12 +19197,11 @@ export function uniqWith(predicate, list){
   if (arguments.length === 1) return _list => uniqWith(predicate, _list)
 
   let index = -1
-  const len = list.length
   const willReturn = []
 
-  while (++index < len){
+  while (++index < list.length){
     const value = list[ index ]
-    const flag = any(willReturnInstance => predicate(value, willReturnInstance),
+    const flag = any(x => predicate(value, x),
       willReturn)
 
     if (!flag){
@@ -19208,100 +19222,23 @@ export function uniqWith(predicate, list){
 ```javascript
 import { uniqWith } from './uniqWith'
 
+const list = [
+  {a: 1},
+  {a: 1},
+]
+
 test('happy', () => {
-  const input = [
-    {
-      id    : 0,
-      title : 'foo',
-    },
-    {
-      id    : 1,
-      title : 'bar',
-    },
-    {
-      id    : 2,
-      title : 'baz',
-    },
-    {
-      id    : 3,
-      title : 'foo',
-    },
-    {
-      id    : 4,
-      title : 'bar',
-    },
-  ]
+  const fn = (x, y) => x.a === y.a
 
-  const expectedResult = [
-    {
-      id    : 0,
-      title : 'foo',
-    },
-    {
-      id    : 1,
-      title : 'bar',
-    },
-    {
-      id    : 2,
-      title : 'baz',
-    },
-  ]
-
-  const fn = (x, y) => x.title === y.title
-
-  const result = uniqWith(fn, input)
-  const curriedResult = uniqWith(fn)(input)
-
-  expect(result).toEqual(expectedResult)
-
-  expect(curriedResult).toEqual(expectedResult)
+  const result = uniqWith(fn, list)
+  expect(result).toEqual([{a:1}])
 })
 
-test('uniqWith', () => {
-  const input = [
-    {
-      id    : 0,
-      title : 'foo',
-    },
-    {
-      id    : 1,
-      title : 'bar',
-    },
-    {
-      id    : 2,
-      title : 'baz',
-    },
-    {
-      id    : 3,
-      title : 'foo',
-    },
-    {
-      id    : 4,
-      title : 'bar',
-    },
-  ]
+test('curried', () => {
+  const fn = (x, y) => x.a === y.a
 
-  const expectedResult = [
-    {
-      id    : 0,
-      title : 'foo',
-    },
-    {
-      id    : 1,
-      title : 'bar',
-    },
-    {
-      id    : 2,
-      title : 'baz',
-    },
-  ]
-
-  const fn = (x, y) => x.title === y.title
-
-  const result = uniqWith(fn, input)
-  //const result = uniqWith(Ramda.eqBy(Ramda.prop('title')), input)
-
-  expect(result).toEqual(expectedResult)
+  const result = uniqWith(fn)(list)
+  expect(result).toEqual([{a:1}])
 })
 ```
 
@@ -19316,33 +19253,15 @@ import {uniqWith} from 'rambda'
 
 describe('R.uniqWith', () => {
   it('happy', () => {
-    const input = [
-      {
-        id: 0,
-        title: 'foo',
-      },
-      {
-        id: 1,
-        title: 'bar',
-      },
-      {
-        id: 2,
-        title: 'baz',
-      },
-      {
-        id: 3,
-        title: 'foo',
-      },
-      {
-        id: 4,
-        title: 'bar',
-      },
+    const list = [
+      {a: 1},
+      {a: 1},
     ]
 
-    const fn = (x: any, y: any) => x.title === y.title
+    const fn = (x: any, y: any) => x.a === y.a
 
-    const result = uniqWith(fn, input)
-    result // $ExpectType { id: number; title: string; }[]
+    const result = uniqWith(fn, list)
+    result // $ExpectType { a: number }[]
   })
 })
 ```
@@ -19400,11 +19319,7 @@ export function unless(predicate, whenFalse){
     return _whenFalse => unless(predicate, _whenFalse)
   }
 
-  return input => {
-    if (predicate(input)) return input
-
-    return whenFalse(input)
-  }
+  return input => predicate(input) ? input : whenFalse(input)
 }
 ```
 
@@ -19419,9 +19334,8 @@ import { inc } from './inc'
 import { isNil } from './isNil'
 import { unless } from './unless'
 
-const safeInc = unless(isNil, inc)
-
 test('happy', () => {
+  const safeInc = unless(isNil, inc)
   expect(safeInc(null)).toBeNull()
   expect(safeInc(1)).toBe(2)
 })
@@ -19429,7 +19343,6 @@ test('happy', () => {
 test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
   expect(safeIncCurried(null)).toBeNull()
-  expect(safeIncCurried(1)).toBe(2)
 })
 ```
 
@@ -19440,17 +19353,10 @@ test('curried', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {unless, isNil, inc} from 'rambda'
+import {unless, inc} from 'rambda'
 
 describe('R.unless', () => {
   it('happy', () => {
-    const safeInc = unless<any, number>(isNil, inc)
-    const result = [safeInc(null), safeInc(1)]
-    result[0] // $ExpectType number
-    result[1] // $ExpectType number
-  })
-
-  it('it needs explicitly declared types', () => {
     const safeInc = unless(x => x > 5, inc)
     const result = safeInc(1)
     result // $ExpectType number
@@ -20790,7 +20696,11 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-WIP 6.7.0
+WIP 6.8.0
+
+readonly task
+
+6.7.0
 
 - Remove `ts-toolbelt` types from Typescript definitions. Most affected are the following methods, which lose one of its curried definitions:
 

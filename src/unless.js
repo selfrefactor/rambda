@@ -3,9 +3,5 @@ export function unless(predicate, whenFalse){
     return _whenFalse => unless(predicate, _whenFalse)
   }
 
-  return input => {
-    if (predicate(input)) return input
-
-    return whenFalse(input)
-  }
+  return input => predicate(input) ? input : whenFalse(input)
 }
