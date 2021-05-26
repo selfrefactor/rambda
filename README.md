@@ -7909,19 +7909,6 @@ const init = [
 
 It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
-> :boom: There's a difference in order preservation in Ramda and Rambda. In some cases it will affect the result:
-
-```
-const list = ['a', 'b', 'c', 'd']
-Ramda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
-Ramda.intersection(list, ['c', 'b']) // [ 'c', 'b' ]
-
-Rambda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
-Rambda.intersection(list, ['c', 'b']) // [ 'b', 'c' ]
-```
-
-Ramda takes the order of the shortest of two arrays. Rambda preserves the order of the first array.
-
 ```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]

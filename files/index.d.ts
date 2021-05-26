@@ -1655,19 +1655,6 @@ const result = intersection(listA, listB)
 
 Categories: List
 
-Notes: There's a difference in order preservation in Ramda and Rambda. In some cases it will affect the result:
-
-```
-const list = ['a', 'b', 'c', 'd']
-Ramda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
-Ramda.intersection(list, ['c', 'b']) // [ 'c', 'b' ]
-
-Rambda.intersection(list, ['b', 'c']) // [ 'b', 'c' ]
-Rambda.intersection(list, ['c', 'b']) // [ 'b', 'c' ]
-```
-
-Ramda takes the order of the shortest of two arrays. Rambda preserves the order of the first array.
-
 */
 // @SINGLE_MARKER
 export function intersection<T>(listA: readonly T[], listB: readonly T[]): readonly T[];
