@@ -1,18 +1,18 @@
-import { removeIndex } from './removeIndex'
+import {removeIndex} from './removeIndex'
 
-const list = [ 1, 2, 3, 4 ]
+const list = [1, 2, 3, 4]
 
 test('first or before first index', () => {
-  expect(removeIndex(list, 0)).toEqual([ 2, 3, 4 ])
-  expect(removeIndex(list)(-2)).toEqual([ 2, 3, 4 ])
+  expect(removeIndex(-2, list)).toEqual([2, 3, 4])
+  expect(removeIndex(-2)(list)).toEqual([2, 3, 4])
 })
 
 test('last or after last index', () => {
-  expect(removeIndex(list, 4)).toEqual([ 1, 2, 3 ])
-  expect(removeIndex(list, 10)).toEqual([ 1, 2, 3 ])
+  expect(removeIndex(4, list)).toEqual([1, 2, 3])
+  expect(removeIndex(10, list)).toEqual([1, 2, 3])
 })
 
 test('middle index', () => {
-  expect(removeIndex(list, 1)).toEqual([ 1, 3, 4 ])
-  expect(removeIndex(list, 2)).toEqual([ 1, 2, 4 ])
+  expect(removeIndex(1, list)).toEqual([1, 3, 4])
+  expect(removeIndex(2, list)).toEqual([1, 2, 4])
 })
