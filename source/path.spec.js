@@ -25,3 +25,9 @@ test('path', () => {
 
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
 })
+
+test("null is not a valid path", () => {
+  expect(
+    path('audio_tracks', {a: 1, audio_tracks: null})
+  ).toBeUndefined()
+})

@@ -1,6 +1,8 @@
-WIP 6.8.0
+6.7.1
 
-readonly task
+- Fix `R.intersection` wrong order compared to Ramda.
+
+- `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
 
 6.7.0
 
