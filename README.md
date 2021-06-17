@@ -12572,6 +12572,8 @@ export function path(pathInput, obj){
     if (willReturn === null || willReturn === undefined){
       return undefined
     }
+    if(willReturn[ pathArrValue[ counter ] ] === null) return undefined
+
     willReturn = willReturn[ pathArrValue[ counter ] ]
     counter++
   }
@@ -12613,6 +12615,12 @@ test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
 
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
+})
+
+test("null is not a valid path", () => {
+  expect(
+    path('audio_tracks', {a: 1, audio_tracks: null})
+  ).toBeUndefined()
 })
 ```
 
@@ -19248,7 +19256,7 @@ describe('R.uniqWith', () => {
     const fn = (x: any, y: any) => x.a === y.a
 
     const result = uniqWith(fn, list)
-    result // $ExpectType { a: number }[]
+    result // $ExpectType { a: number; }[]
   })
 })
 ```
@@ -20683,9 +20691,11 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-WIP 6.8.0
+6.7.1
 
-readonly task
+- Fix `R.intersection` wrong order compared to Ramda.
+
+- `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
 
 6.7.0
 
