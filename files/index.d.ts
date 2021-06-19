@@ -6639,6 +6639,27 @@ export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: readonly T[
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: readonly T[]): readonly T[];
 
 /*
+Method: mapObject
+
+Explanation:
+
+Example:
+
+```
+const result = R.mapObject(x => x + 1, {a:1, b:2})
+// => {a:2, b:3}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/*
 Method: filterIndexed
 
 Explanation: Same as `R.filter`, but it passes index as second argument to the predicate, when looping over arrays.
