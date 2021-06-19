@@ -4,6 +4,8 @@
 
 - `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
 
+- Expose `non-strict.ts` typings which are Rambda typings without `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
+
 6.7.0
 
 - Remove `ts-toolbelt` types from Typescript definitions. Most affected are the following methods, which lose one of its curried definitions:
