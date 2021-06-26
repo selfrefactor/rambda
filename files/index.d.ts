@@ -6681,6 +6681,31 @@ export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictiona
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
+Method: filterObject
+
+Explanation:
+
+Example:
+
+```
+const obj = {a: 1, b:2}
+const result = R.filterObject(
+  x => x > 1,
+  obj
+)
+// => {b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
 Method: forEachIndexed
 
 Explanation:
