@@ -7,11 +7,11 @@ describe('R.concat', () => {
   it('happy', () => {
     const result = concat(list1, list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = concat(list1)(list2)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })

@@ -8,13 +8,13 @@ describe('R.forEach with arrays', () => {
     const result = forEach(a => {
       a // $ExpectType number
     }, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require an explicit typing', () => {
     const result = forEach<number>(a => {
       a // $ExpectType number
     })(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 

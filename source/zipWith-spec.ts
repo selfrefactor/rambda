@@ -15,7 +15,7 @@ describe('R.zipWith', () => {
       list2
     )
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
   it('curried', () => {
     const result = zipWith((x, y) => {
@@ -24,6 +24,6 @@ describe('R.zipWith', () => {
       return `${x}-${y}`
     })(list1, list2)
 
-    result // $ExpectType readonly string[]
+    result // $ExpectType string[]
   })
 })

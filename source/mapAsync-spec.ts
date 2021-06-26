@@ -15,18 +15,18 @@ const fnWithIndex = async(x: string, i: number) => {
 describe('R.mapAsync', () => {
   it('happy', async() => {
     const result = await mapAsync(fn, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', async() => {
     const result = await mapAsync(fn)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with index', async() => {
     const result = await mapAsync(fnWithIndex, list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with index curried', async() => {
     const result = await mapAsync(fnWithIndex)(list)
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })

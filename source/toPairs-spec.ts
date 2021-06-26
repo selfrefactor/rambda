@@ -10,6 +10,6 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType readonly (readonly [string, number | number[]])[]
+    result // $ExpectType ([string, number | number[]])[]
   })
 })

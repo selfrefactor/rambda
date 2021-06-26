@@ -11,7 +11,7 @@ describe('R.compose', () => {
       filter<number>(x => x > 2),
       map(add(1))
     )([1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 
   it('with void', () => {

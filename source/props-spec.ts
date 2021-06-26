@@ -6,11 +6,11 @@ describe('R.props', () => {
   it('happy', () => {
     const result = props(['a', 'b'], obj)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = props(['a', 'b'])(obj)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
