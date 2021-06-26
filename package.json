@@ -2,7 +2,10 @@
 	"name": "rambda",
 	"version": "6.7.0",
 	"scripts": {
-		"out": "cd ../rambda-scripts&&yarn populate:docs&&cd ../rambda-scripts&&yarn populate:readme",
+		"readonly":"cd ../rambda-scripts && yarn readonly",
+		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
+		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
+		"out": "yarn populatedocs && yarn populatereadme && yarn readonly",
 		"x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
 		"github": "cd ../rambda-scripts&&yarn github",
 		"immutable": "cd ../rambda-scripts&&yarn immutable",
@@ -66,7 +69,8 @@
 		"src",
 		"_ts-toolbelt",
 		"CHANGELOG.md",
-		"index.d.ts"
+		"index.d.ts",
+		"non-strict.ts"
 	],
 	"repository": {
 		"type": "git",
