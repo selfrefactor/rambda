@@ -4,7 +4,7 @@
 	"scripts": {
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-		"out": "yarn populatedocs && yarn populatereadme && yarn immutable",
+		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
 		"x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
 		"github": "cd ../rambda-scripts&&yarn github",
 		"immutable": "cd ../rambda-scripts&&yarn immutable",

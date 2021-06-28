@@ -3422,7 +3422,7 @@ describe('R.cond', () => {
 
 ```typescript
 
-converge(after: ((...a: any[]) => any), fns: rray<((...x: any[]) => any)>): (...y: any[]) => any
+converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...x: any[]) => any)>): (...y: any[]) => any
 ```
 
 Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
@@ -3441,7 +3441,7 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-converge(after: ((...a: any[]) => any), fns: rray<((...x: any[]) => any)>): (...y: any[]) => any;
+converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...x: any[]) => any)>): (...y: any[]) => any;
 ```
 
 </details>
@@ -5152,7 +5152,7 @@ const equals = [
 
 ```typescript
 
-evolve<T, U>(rules: rray<(x: T) => U>, list: T[]): U[]
+evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: T[]): U[]
 ```
 
 It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
@@ -5185,8 +5185,8 @@ const expected = {
 <summary>All Typescript definitions</summary>
 
 ```typescript
-evolve<T, U>(rules: rray<(x: T) => U>, list: T[]): U[];
-evolve<T, U>(rules: rray<(x: T) => U>) : (list: T[]) => U[];
+evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: T[]): U[];
+evolve<T, U>(rules: ReadonlyArray<(x: T) => U>) : (list: T[]) => U[];
 evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 ```
@@ -6875,8 +6875,8 @@ describe('R.groupWith', () => {
 
     const result = groupWith(groupWithFn, list)
     const curriedResult = groupWith(groupWithFn)(list)
-    result // $ExpectType (string[])[]
-    curriedResult // $ExpectType (string[])[]
+    result // $ExpectType string[][]
+    curriedResult // $ExpectType string[][]
   })
 })
 ```
@@ -13673,7 +13673,7 @@ const result = R.pipe(
 
 ```typescript
 
-pluck<K extends keyof T, T>(property: K, list: T[]): rray<T[K]>
+pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>
 ```
 
 It returns list of the values of `property` taken from the all objects inside `list`.
@@ -13693,10 +13693,10 @@ R.pluck(property, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pluck<K extends keyof T, T>(property: K, list: T[]): rray<T[K]>;
-pluck<T>(property: number, list: rray<{ [k: number]: T }>): T[];
-pluck<P extends string>(property: P): <T>(list: rray<Record<P, T>>) => T[];
-pluck(property: number): <T>(list: rray<{ [k: number]: T }>) => T[];
+pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>;
+pluck<T>(property: number, list: ReadonlyArray<{ readonly [k: number]: T }>): readonly T[];
+pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => readonly T[];
+pluck(property: number): <T>(list: ReadonlyArray<{ readonly [k: number]: T }>) => readonly T[];
 ```
 
 </details>
@@ -16522,12 +16522,12 @@ describe('R.splitEvery', () => {
   it('happy', () => {
     const result = splitEvery(3, list)
 
-    result // $ExpectType (number[])[]
+    result // $ExpectType number[][]
   })
   it('curried', () => {
     const result = splitEvery(3)(list)
 
-    result // $ExpectType (number[])[]
+    result // $ExpectType number[][]
   })
 })
 ```
@@ -16684,12 +16684,12 @@ describe('R.splitWhen', () => {
   it('happy', () => {
     const result = splitWhen(predicate, list)
 
-    result // $ExpectType (number[])[]
+    result // $ExpectType number[][]
   })
   it('curried', () => {
     const result = splitWhen(predicate)(list)
 
-    result // $ExpectType (number[])[]
+    result // $ExpectType number[][]
   })
 })
 ```
@@ -18050,7 +18050,7 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType ([string, number | number[]])[]
+    result // $ExpectType [string, number | number[]][]
   })
 })
 ```
@@ -18273,7 +18273,7 @@ describe('R.transpose', () => {
   it('happy', () => {
     const result = transpose(input)
 
-    result // $ExpectType ((string | number)[])[]
+    result // $ExpectType (string | number)[][]
   })
 })
 ```
@@ -19041,7 +19041,8 @@ export function uniq(list){
   while (++index < list.length){
     const value = list[ index ]
 
-    if (!includes(value, willReturn)){
+    if (!willReturn.includes(value)){
+    // if (!includes(value, willReturn)){
       willReturn.push(value)
     }
   }
@@ -19108,7 +19109,7 @@ describe('R.uniq', () => {
 ```text
 const R = require('../../dist/rambda.js')
 
-const list = [ 4, 1, 3, 5, 4, 2, 3, 4 ]
+const list = Array(10000).fill('').map(() => String(Math.floor(Math.random() * 1000)))
 
 const uniq = [
   {

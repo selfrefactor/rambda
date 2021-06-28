@@ -315,7 +315,7 @@ export function cond<A, B>(conditions: readonly (readonly [SafePred<A>, (...a: r
 /**
  * Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
  */
-export function converge(after: ((...a: readonly any[]) => any), fns: rray<((...x: readonly any[]) => any)>): (...y: readonly any[]) => any;
+export function converge(after: ((...a: readonly any[]) => any), fns: ReadonlyArray<((...x: readonly any[]) => any)>): (...y: readonly any[]) => any;
 
 /**
  * It expects a function as input and returns its curried version.
@@ -1125,10 +1125,10 @@ export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
  */
-export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): rray<T[K]>;
-export function pluck<T>(property: number, list: rray<{ readonly [k: number]: T }>): readonly T[];
-export function pluck<P extends string>(property: P): <T>(list: rray<Record<P, T>>) => readonly T[];
-export function pluck(property: number): <T>(list: rray<{ readonly [k: number]: T }>) => readonly T[];
+export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>;
+export function pluck<T>(property: number, list: ReadonlyArray<{ readonly [k: number]: T }>): readonly T[];
+export function pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => readonly T[];
+export function pluck(property: number): <T>(list: ReadonlyArray<{ readonly [k: number]: T }>) => readonly T[];
 
 /**
  * It adds element `x` at the beginning of `list`.
@@ -1496,8 +1496,8 @@ export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: reado
 /**
  * It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
  */
-export function evolve<T, U>(rules: rray<(x: T) => U>, list: readonly T[]): readonly U[];
-export function evolve<T, U>(rules: rray<(x: T) => U>) : (list: readonly T[]) => readonly U[];
+export function evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: readonly T[]): readonly U[];
+export function evolve<T, U>(rules: ReadonlyArray<(x: T) => U>) : (list: readonly T[]) => readonly U[];
 export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
