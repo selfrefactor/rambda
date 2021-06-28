@@ -1,4 +1,5 @@
 .idea
 *.log
+TODO.md
 coverage
 node_modules
