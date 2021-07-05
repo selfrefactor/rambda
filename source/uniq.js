@@ -1,6 +1,8 @@
 import { includes } from './includes'
+import { uniq as uniqRamda } from 'ramda'
 
 export function uniq(list){
+  return uniqRamda(list)
   let index = -1
   const willReturn = []
 
