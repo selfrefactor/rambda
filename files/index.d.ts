@@ -6080,9 +6080,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replaceAll(patterns: RegExp | string[], replacer: string, input: string): string;
-export function replaceAll(patterns: RegExp | string[], replacer: string): (input: string) => string;
-export function replaceAll(patterns: RegExp | string[]: (replacer: string) => (input: string) => string;
+export function replaceAll(patterns: (RegExp | string)[], replacer: string, input: string): string;
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+export function replaceAll(patterns: (RegExp | string)[]): (replacer: string) => (input: string) => string;
 
 /*
 Method: shuffle
