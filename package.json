@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "6.8.0",
+	"version": "6.8.1",
 	"scripts": {
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
