@@ -69,7 +69,7 @@
 		"_ts-toolbelt",
 		"CHANGELOG.md",
 		"index.d.ts",
-		"immutable.ts"
+		"immutable.d.ts"
 	],
 	"repository": {
 		"type": "git",
