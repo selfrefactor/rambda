@@ -12,11 +12,3 @@ describe('R.identical', () => {
     result // $ExpectType boolean
   })
 })
-
-/*
-    in curried version Typescript correctly catch errors
-    but it doesn't do so in the standart definition
-    
-    identical({a:1},{b:2})
-    identical({a:1})({b:2})
-*/
