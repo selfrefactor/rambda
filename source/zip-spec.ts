@@ -6,6 +6,6 @@ describe('R.zip', () => {
     const array2 = ['A', 'B', 'C']
 
     const result = zip(array1)(array2)
-    result // $ExpectType readonly KeyValuePair<number, string>[]
+    result // $ExpectType KeyValuePair<number, string>[]
   })
 })

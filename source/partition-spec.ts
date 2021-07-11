@@ -9,8 +9,8 @@ describe('R.partition', () => {
 
     const result = partition(predicate, list)
     const curriedResult = partition(predicate)(list)
-    result // $ExpectType readonly [readonly number[], readonly number[]]
-    curriedResult // $ExpectType readonly [readonly number[], readonly number[]]
+    result // $ExpectType [number[], number[]]
+    curriedResult // $ExpectType [number[], number[]]
   })
 
   /*
