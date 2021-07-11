@@ -24,6 +24,7 @@
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
 	"dependencies": {},
+	"typings": "./index.d.ts",
 	"devDependencies": {
 		"@babel/core": "7.12.13",
 		"@babel/plugin-proposal-object-rest-spread": "7.12.13",
