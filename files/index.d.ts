@@ -725,7 +725,7 @@ Notes: Explanation is taken from `Ramda` documentation
 
 */
 // @SINGLE_MARKER
-export function converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...x: any[]) => any)>): (...y: any[]) => any;
+export function converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any;
 
 /*
 Method: curry
@@ -3184,10 +3184,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>;
-export function pluck<T>(property: number, list: ReadonlyArray<{ readonly [k: number]: T }>): readonly T[];
-export function pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => readonly T[];
-export function pluck(property: number): <T>(list: ReadonlyArray<{ readonly [k: number]: T }>) => readonly T[];
+export function pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
+export function pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
+export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+export function pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
 
 /*
 Method: prepend
@@ -4684,8 +4684,8 @@ Notes: Error handling of this method differs between Ramda and Rambda. Ramda for
 
 */
 // @SINGLE_MARKER
-export function evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: T[]): U[];
-export function evolve<T, U>(rules: ReadonlyArray<(x: T) => U>) : (list: T[]) => U[];
+export function evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[];
+export function evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
 export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
@@ -6080,9 +6080,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replaceAll(patterns: Array<RegExp | string>, replacer: string, input: string): string;
-export function replaceAll(patterns: Array<RegExp | string>, replacer: string): (input: string) => string;
-export function replaceAll(patterns: Array<RegExp | string>): (replacer: string) => (input: string) => string;
+export function replaceAll(patterns: RegExp | string[], replacer: string, input: string): string;
+export function replaceAll(patterns: RegExp | string[], replacer: string): (input: string) => string;
+export function replaceAll(patterns: RegExp | string[]: (replacer: string) => (input: string) => string;
 
 /*
 Method: shuffle
