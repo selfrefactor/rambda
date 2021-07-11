@@ -47,7 +47,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -3422,7 +3422,7 @@ describe('R.cond', () => {
 
 ```typescript
 
-converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...x: any[]) => any)>): (...y: any[]) => any
+converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any
 ```
 
 Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
@@ -3441,7 +3441,7 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...x: any[]) => any)>): (...y: any[]) => any;
+converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any;
 ```
 
 </details>
@@ -5152,7 +5152,7 @@ const equals = [
 
 ```typescript
 
-evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: T[]): U[]
+evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[]
 ```
 
 It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
@@ -5185,8 +5185,8 @@ const expected = {
 <summary>All Typescript definitions</summary>
 
 ```typescript
-evolve<T, U>(rules: ReadonlyArray<(x: T) => U>, list: T[]): U[];
-evolve<T, U>(rules: ReadonlyArray<(x: T) => U>) : (list: T[]) => U[];
+evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[];
+evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
 evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 ```
@@ -6922,12 +6922,12 @@ has(prop: string): <T>(obj: T) => boolean;
 <summary><strong>R.has</strong> source</summary>
 
 ```javascript
-export function has(prop, obj){
+export function has(prop, obj) {
   if (arguments.length === 1) return _obj => has(prop, _obj)
 
   if (!obj) return false
 
-  return obj[ prop ] !== undefined
+  return obj.hasOwnProperty(prop)
 }
 ```
 
@@ -13673,7 +13673,7 @@ const result = R.pipe(
 
 ```typescript
 
-pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>
+pluck<K extends keyof T, T>(property: K, list: T[]): T[K][]
 ```
 
 It returns list of the values of `property` taken from the all objects inside `list`.
@@ -13693,10 +13693,10 @@ R.pluck(property, list)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pluck<K extends keyof T, T>(property: K, list: readonly T[]): ReadonlyArray<T[K]>;
-pluck<T>(property: number, list: ReadonlyArray<{ readonly [k: number]: T }>): readonly T[];
-pluck<P extends string>(property: P): <T>(list: ReadonlyArray<Record<P, T>>) => readonly T[];
-pluck(property: number): <T>(list: ReadonlyArray<{ readonly [k: number]: T }>) => readonly T[];
+pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
+pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
+pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
 ```
 
 </details>
@@ -19041,8 +19041,7 @@ export function uniq(list){
   while (++index < list.length){
     const value = list[ index ]
 
-    if (!willReturn.includes(value)){
-    // if (!includes(value, willReturn)){
+    if (!includes(value, willReturn)){
       willReturn.push(value)
     }
   }
@@ -20692,13 +20691,15 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-6.7.1
+6.8.0
+
+- `R.has` use `Object.prototype.hasOwnProperty`- [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+
+- Expose `immutable.ts` typings which are Rambda typings with `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
 
 - Fix `R.intersection` wrong order compared to Ramda.
 
 - `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
-
-- Expose `non-strict.ts` typings which are Rambda typings without `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
 
 6.7.0
 

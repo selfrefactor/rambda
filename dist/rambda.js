@@ -1094,7 +1094,7 @@ function groupWith(compareFn, list) {
 function has(prop, obj) {
   if (arguments.length === 1) return _obj => has(prop, _obj);
   if (!obj) return false;
-  return obj[prop] !== undefined;
+  return obj.hasOwnProperty(prop);
 }
 
 function path(pathInput, obj) {
@@ -1113,6 +1113,7 @@ function path(pathInput, obj) {
       return undefined;
     }
 
+    if (willReturn[pathArrValue[counter]] === null) return undefined;
     willReturn = willReturn[pathArrValue[counter]];
     counter++;
   }
@@ -1245,7 +1246,7 @@ function init(listOrString) {
 
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
-  return filter(value => includes(value, listB), listA);
+  return filter(x => includes(x, listA), listB);
 }
 
 function intersperse(separator, list) {
@@ -1491,6 +1492,16 @@ function none(predicate, list) {
 
 function not(input) {
   return !input;
+}
+
+function objOf(key, value) {
+  if (arguments.length === 1) {
+    return _value => objOf(key, _value);
+  }
+
+  return {
+    [key]: value
+  };
 }
 
 function of(value) {
@@ -2047,12 +2058,11 @@ function union(x, y) {
 function uniqWith(predicate, list) {
   if (arguments.length === 1) return _list => uniqWith(predicate, _list);
   let index = -1;
-  const len = list.length;
   const willReturn = [];
 
-  while (++index < len) {
+  while (++index < list.length) {
     const value = list[index];
-    const flag = any(willReturnInstance => predicate(value, willReturnInstance), willReturn);
+    const flag = any(x => predicate(value, x), willReturn);
 
     if (!flag) {
       willReturn.push(value);
@@ -2067,10 +2077,7 @@ function unless(predicate, whenFalse) {
     return _whenFalse => unless(predicate, _whenFalse);
   }
 
-  return input => {
-    if (predicate(input)) return input;
-    return whenFalse(input);
-  };
+  return input => predicate(input) ? input : whenFalse(input);
 }
 
 function values(obj) {
@@ -2267,6 +2274,7 @@ exports.negate = negate;
 exports.none = none;
 exports.not = not;
 exports.nth = nth;
+exports.objOf = objOf;
 exports.of = of;
 exports.omit = omit;
 exports.once = once;
