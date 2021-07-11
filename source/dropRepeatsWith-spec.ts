@@ -13,7 +13,7 @@ describe('R.dropRepeatsWith', () => {
       [{a: 2}, {a: 1}]
     )
 
-    result // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
     result[0].a // $ExpectType number
   })
   it('curried', () => {
@@ -21,6 +21,6 @@ describe('R.dropRepeatsWith', () => {
       return x.a > y.a
     })([{a: 2}, {a: 1}])
 
-    result // $ExpectType readonly Foo[]
+    result // $ExpectType Foo[]
   })
 })

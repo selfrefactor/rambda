@@ -10,8 +10,8 @@ describe('R.sortByPath', () => {
     const result = sortByPath('a.b', input)
     const curriedResult = sortByPath('a.b')(input)
 
-    result // $ExpectType readonly Input[]
-    curriedResult // $ExpectType readonly Input[]
+    result // $ExpectType Input[]
+    curriedResult // $ExpectType Input[]
     result[0].a.b // $ExpectType number
   })
   it('with list of strings as path', () => {
@@ -19,8 +19,8 @@ describe('R.sortByPath', () => {
     const result = sortByPath(['a', 'b'], input)
     const curriedResult = sortByPath(['a', 'b'])(input)
 
-    result // $ExpectType readonly Input[]
-    curriedResult // $ExpectType readonly Input[]
+    result // $ExpectType Input[]
+    curriedResult // $ExpectType Input[]
     result[0].a.b // $ExpectType number
   })
 })

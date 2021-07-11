@@ -6,12 +6,12 @@ describe('R.dropWhile', () => {
   it('happy', () => {
     const result = dropWhile(x => x > 2, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = dropWhile<number>(x => x > 2)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
