@@ -2,25 +2,33 @@ const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const list = [ 4, 1, 3, 5, 4, 2, 3, 4 ]
+const mode = 0
+const limit = 10000
+
+let strings = R.map(() => Math.floor(Math.random() * 1000) + "", R.range(0,limit))
+
+const modes = [
+  strings
+]
+const activeMode = modes[mode]
 
 const uniq = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.uniq(list)
+      R.uniq(activeMode)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.uniq(list)
+      Ramda.uniq(activeMode)
     },
   },
   {
     label : 'Lodash',
     fn    : () => {
-      _.uniq(list)
+      _.uniq(activeMode)
     },
   },
 ]
