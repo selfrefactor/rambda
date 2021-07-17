@@ -4,7 +4,7 @@ const Ramda = require('ramda')
 const mode = 0
 const limit = 10000
 
-let strings = R.map(() => Math.floor(Math.random() * 1000) + "", R.range(0,limit))
+const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
 
 const modes = [
   strings
