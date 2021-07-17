@@ -6632,6 +6632,50 @@ export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[]
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
 /*
+Method: mapObject
+
+Explanation:
+
+Example:
+
+```
+const result = R.mapObject(x => x + 1, {a:1, b:2})
+// => {a:2, b:3}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/*
+Method: mapArray
+
+Explanation:
+
+Example:
+
+```
+const result = R.mapArray(x => x + 1, [1, 2])
+// => [2, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapArray<T>(fn: Iterator<T, T>, iterable: T[]): T[];
+export function mapArray<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
+export function mapArray<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
+export function mapArray<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
+
+/*
 Method: filterIndexed
 
 Explanation: Same as `R.filter`, but it passes index as second argument to the predicate, when looping over arrays.
@@ -6651,6 +6695,55 @@ export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
+Method: filterObject
+
+Explanation:
+
+Example:
+
+```
+const obj = {a: 1, b:2}
+const result = R.filterObject(
+  x => x > 1,
+  obj
+)
+// => {b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
+Method: filterArray
+
+Explanation:
+
+Example:
+
+```
+const result = R.filterArray(
+  x => x > 1,
+  [1, 2, 3]
+)
+// => [1, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterArray<T>(predicate: Predicate<T>): (input: T[]) => T[];
+export function filterArray<T>(predicate: Predicate<T>, input: T[]): T[];
 
 /*
 Method: forEachIndexed
