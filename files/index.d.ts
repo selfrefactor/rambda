@@ -6634,7 +6634,7 @@ export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 /*
 Method: filterIndexed
 
-Explanation: Same as `R.filter`, but it passes index as second argument to the predicate, when looping over arrays.
+Explanation: Same as `R.filter`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
 
 Example:
 
@@ -6651,6 +6651,36 @@ export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+
+/*
+Method: rejectIndexed
+
+Explanation: Same as `R.reject`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const obj = {a: 1, b: 2}
+
+const result = [
+  R.reject((x, index) => x > 1, list)
+  R.reject((x, property) => x > 1, obj)
+]
+// => [[1], {a: 1}]
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
 Method: forEachIndexed
