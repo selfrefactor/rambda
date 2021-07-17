@@ -10,6 +10,6 @@ describe('R.uniqWith', () => {
     const fn = (x: any, y: any) => x.a === y.a
 
     const result = uniqWith(fn, list)
-    result // $ExpectType readonly { a: number; }[]
+    result // $ExpectType { a: number; }[]
   })
 })

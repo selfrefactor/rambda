@@ -7,6 +7,6 @@ describe('R.values', () => {
       b: 2,
       c: 3,
     })
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })

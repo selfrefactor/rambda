@@ -2,7 +2,7 @@ const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const list = [ 4, 1, 3, 5, 4, 2, 3, 4 ]
+const list = Array(10000).fill('').map(() => String(Math.floor(Math.random() * 1000)))
 
 const uniq = [
   {

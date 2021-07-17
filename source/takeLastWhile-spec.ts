@@ -7,12 +7,12 @@ describe('R.takeLastWhile', () => {
   it('with array', () => {
     const result = takeLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with array - curried', () => {
     const result = takeLastWhile(x => x > 1, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('with string', () => {
     const result = takeLastWhile(x => x !== 'F', str)

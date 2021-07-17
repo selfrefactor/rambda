@@ -6,12 +6,12 @@ describe('R.takeWhile', () => {
   it('happy', () => {
     const result = takeWhile(x => x > 2, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = takeWhile<number>(x => x > 2)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 

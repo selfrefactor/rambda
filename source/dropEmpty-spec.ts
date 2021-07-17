@@ -1,6 +1,6 @@
 import {Dictionary, filter} from 'rambda'
 
-function dropEmpty<T>(input: readonly T[] | Dictionary<T>) {
+function dropEmpty<T>(input: T[] | Dictionary<T>) {
   if (input instanceof Array) {
     // <-- this check is necessary to calm down the TS compiler ... @_@
     return filter<T>(Boolean, input) // <-- notice the same

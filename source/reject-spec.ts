@@ -9,14 +9,14 @@ describe('R.reject with array', () => {
       },
       [1, 2, 3]
     )
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried require explicit type', () => {
     const result = reject<number>(x => {
       x // $ExpectType number
       return x > 1
     })([1, 2, 3])
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
