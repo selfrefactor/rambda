@@ -6664,7 +6664,7 @@ const result = R.mapArray(x => x + 1, [1, 2])
 // => [2, 3]
 ```
 
-Categories: Object
+Categories: List
 
 Notes:
 
@@ -6720,6 +6720,30 @@ Notes:
 // @SINGLE_MARKER
 export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterObject<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+/*
+Method: filterArray
+
+Explanation:
+
+Example:
+
+```
+const result = R.filterArray(
+  x => x > 1,
+  [1, 2, 3]
+)
+// => [1, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterArray<T>(predicate: Predicate<T>): (input: T[]) => T[];
+export function filterArray<T>(predicate: Predicate<T>, input: T[]): T[];
 
 /*
 Method: forEachIndexed
