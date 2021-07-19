@@ -1,7 +1,11 @@
-import { filter } from './filter'
+import { filterArray, filterObject } from './filter'
+import { _isArray } from './_internals/_isArray'
 
-export function rejectIndexed(predicate, list){
-  if (arguments.length === 1) return _list => rejectIndexed(predicate, _list)
+export function rejectIndexed(predicate, iterable){
+  if (arguments.length === 1) return _iterable => rejectIndexed(predicate, _iterable)
 
-  return filter((x, i) => !predicate(x, i), list)
+  if (!iterable) throw new Error(`"${iterable}" is not iterable`)
+  if (_isArray(iterable)) return filterArray((x, i) => !predicate(x, i), iterable, true)
+
+  return filterObject((x, prop) => !predicate(x, prop), iterable, true)
 }
