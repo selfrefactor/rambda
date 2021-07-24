@@ -1,32 +1,37 @@
 import {mapArray} from 'rambda'
 
-describe('R.mapArray with arrays', () => {
-  it('iterable returns the same type as the input', () => {
-    const result = mapArray(
-      (x) => {
-        x // $ExpectType number
-        return x + 2
-      },
-      [1, 2, 3]
-    )
+const list =[1, 2, 3] 
+
+describe('R.mapArray without transform', () => {
+  it('happy', () => {
+    const result = mapArray((x) => {
+      x // $ExpectType number
+      return x+1
+    }, list)
     result // $ExpectType number[]
   })
-  it('iterable returns the same type as the input - curried', () => {
+  it('curried required explicit type', () => {
     const result = mapArray<number>((x) => {
       x // $ExpectType number
-      return x + 2
-    })([1, 2, 3])
+      return x+1
+    })(list)
     result // $ExpectType number[]
   })
-  it('iterable returns different type as the input', () => {
-    const result = mapArray(
-      (x, i) => {
-        x // $ExpectType number
-        i // $ExpectType number
-        return String(x)
-      },
-      [1, 2, 3]
-    )
+})
+
+describe('R.mapArray with transform', () => {
+  it('happy', () => {
+    const result = mapArray((x) => {
+      x // $ExpectType number
+      return String(x+1)
+    }, list)
+    result // $ExpectType string[]
+  })
+  it('curried required explicit types', () => {
+    const result = mapArray<number, string>((x) => {
+      x // $ExpectType number
+      return String(x+1)
+    })(list)
     result // $ExpectType string[]
   })
 })
