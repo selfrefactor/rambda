@@ -2674,7 +2674,7 @@ export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) =
 /*
 Method: partition
 
-Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
 Example:
 
@@ -6681,6 +6681,38 @@ export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+
+/*
+Method: partitionIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>,
+  input: T[]
+): [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>
+): (input: T[]) => [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
 
 /*
 Method: forEachIndexed
