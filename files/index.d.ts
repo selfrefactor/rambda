@@ -6736,6 +6736,27 @@ export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
+Method: mapArray
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapArray<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
+export function mapArray<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
+export function mapArray<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
+export function mapArray<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
+
+/*
 Method: mapObject
 
 Explanation: 
