@@ -1,14 +1,10 @@
 import { _isArray } from './_internals/_isArray'
 
-export function filterObject(predicate, obj, indexed = false){
+export function filterObject(predicate, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    const predicateResult = indexed ?
-      predicate(obj[ prop ], prop) :
-      predicate(obj[ prop ])
-
-    if (predicateResult){
+    if (predicate(obj[ prop ], prop, obj)){
       willReturn[ prop ] = obj[ prop ]
     }
   }
