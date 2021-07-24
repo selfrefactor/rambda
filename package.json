@@ -69,7 +69,8 @@
 		"src",
 		"CHANGELOG.md",
 		"index.d.ts",
-		"immutable.d.ts"
+		"immutable.d.ts",
+		"immutable.js"
 	],
 	"repository": {
 		"type": "git",
