@@ -1,4 +1,5 @@
 import {mapArray} from 'rambda'
+
 const list =[1, 2, 3] 
 
 describe('R.mapArray without transform', () => {

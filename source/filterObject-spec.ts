@@ -4,7 +4,7 @@ const obj = {a: 1, b: 2}
 
 describe('R.filterObject', () => {
   it('happy', () => {
-    const result = filterObject<number>((val, prop, origin) => {
+    const result = filterObject((val, prop, origin) => {
       val // $ExpectType number
       prop // $ExpectType string
       origin // $ExpectType Dictionary<number>
@@ -13,7 +13,7 @@ describe('R.filterObject', () => {
     }, obj)
     result // $ExpectType Dictionary<number>
   })
-  it('curried', () => {
+  it('curried version requires explicit type', () => {
     const result = filterObject<number>((val, prop, origin) => {
       val // $ExpectType number
       prop // $ExpectType string
