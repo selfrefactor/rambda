@@ -6871,25 +6871,6 @@ export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>
 export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
 
 /*
-Method: filterObject
-
-Explanation: 
-
-Example:
-
-```
-```
-
-Categories: Object
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function filterObject<T>(fn: ObjectIterator<T, boolean>, iterable: Dictionary<T>): Dictionary<T>;
-export function filterObject<T>(fn: ObjectIterator<T, boolean>): (iterable: Dictionary<T>) => Dictionary<T>;
-
-/*
 Method: tryCatchAsync
 
 Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
