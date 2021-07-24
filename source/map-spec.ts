@@ -18,6 +18,16 @@ describe('R.map with arrays', () => {
     })([1, 2, 3])
     result // $ExpectType number[]
   })
+  it('iterable returns different type as the input', () => {
+    const result = map<number, string>(
+      (x: number) => {
+        x // $ExpectType number
+        return String(x)
+      },
+      [1, 2, 3]
+    )
+    result // $ExpectType string[]
+  })
 })
 
 describe('R.map with objects', () => {

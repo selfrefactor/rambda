@@ -14,13 +14,13 @@ export function partitionObject(predicate, iterable){
   return [ yes, no ]
 }
 
-export function partitionArray(predicate, list){
+export function partitionArray(predicate, list, indexed = false){
   const yes = []
   const no = []
   let counter = -1
 
   while (counter++ < list.length - 1){
-    if (predicate(list[ counter ])){
+    if (indexed ? predicate(list[ counter ], counter) : predicate(list[ counter ])){
       yes.push(list[ counter ])
     } else {
       no.push(list[ counter ])

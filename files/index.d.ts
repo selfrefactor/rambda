@@ -2674,7 +2674,7 @@ export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) =
 /*
 Method: partition
 
-Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
 Example:
 
@@ -6678,7 +6678,7 @@ export function mapArray<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 /*
 Method: filterIndexed
 
-Explanation: Same as `R.filter`, but it passes index as second argument to the predicate, when looping over arrays.
+Explanation: Same as `R.filter`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
 
 Example:
 
@@ -6695,6 +6695,68 @@ export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+
+/*
+Method: rejectIndexed
+
+Explanation: Same as `R.reject`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const obj = {a: 1, b: 2}
+
+const result = [
+  R.reject((x, index) => x > 1, list)
+  R.reject((x, property) => x > 1, obj)
+]
+// => [[1], {a: 1}]
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
+
+/*
+Method: partitionIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>,
+  input: T[]
+): [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>
+): (input: T[]) => [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
 
 /*
 Method: filterObject
@@ -6755,7 +6817,7 @@ Example:
 ```
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
@@ -6765,6 +6827,67 @@ export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: T[]): T[];
 export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: T[]) => T[];
 export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+
+/*
+Method: mapArray
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapArray<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
+export function mapArray<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
+export function mapArray<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
+export function mapArray<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
+
+/*
+Method: mapObject
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/*
+Method: filterObject
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function filterObject<T>(fn: ObjectIterator<T, boolean>, iterable: Dictionary<T>): Dictionary<T>;
+export function filterObject<T>(fn: ObjectIterator<T, boolean>): (iterable: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: tryCatchAsync
