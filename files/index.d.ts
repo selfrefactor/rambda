@@ -6724,7 +6724,7 @@ Example:
 ```
 ```
 
-Categories:
+Categories: List, Object
 
 Notes:
 
@@ -6734,6 +6734,25 @@ export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: T[]): T[];
 export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: T[]) => T[];
 export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+
+/*
+Method: mapObject
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
 
 /*
 Method: tryCatchAsync
