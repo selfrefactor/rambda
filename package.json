@@ -67,7 +67,6 @@
 	"files": [
 		"dist",
 		"src",
-		"_ts-toolbelt",
 		"CHANGELOG.md",
 		"index.d.ts",
 		"immutable.d.ts"
@@ -78,7 +77,7 @@
 	},
 	"license": "MIT",
 	"author": "self_refactor",
-	"description": "Lightweight and faster alternative to Ramda",
+	"description": "Lightweight and faster alternative to Ramda with included TS definitions",
 	"module": "./dist/rambda.esm.js",
 	"main": "./dist/rambda",
 	"umd": "./dist/rambda.umd.js",
