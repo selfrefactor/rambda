@@ -6632,27 +6632,6 @@ export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[]
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
 /*
-Method: mapObject
-
-Explanation:
-
-Example:
-
-```
-const result = R.mapObject(x => x + 1, {a:1, b:2})
-// => {a:2, b:3}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-
-/*
 Method: mapArray
 
 Explanation:
@@ -6828,27 +6807,6 @@ export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
-Method: mapArray
-
-Explanation: 
-
-Example:
-
-```
-```
-
-Categories: List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function mapArray<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
-export function mapArray<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
-export function mapArray<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
-export function mapArray<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
-
-/*
 Method: mapObject
 
 Explanation: 
@@ -6856,6 +6814,8 @@ Explanation:
 Example:
 
 ```
+const result = R.mapObject(x => x + 1, {a:1, b:2})
+// => {a:2, b:3}
 ```
 
 Categories: Object
