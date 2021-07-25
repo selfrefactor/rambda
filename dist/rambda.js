@@ -432,6 +432,7 @@ function mapObject(fn, obj) {
 
   return willReturn;
 }
+const mapObjIndexed = mapObject;
 function map(fn, list) {
   if (arguments.length === 1) return _list => map(fn, _list);
   if (list === undefined) return [];
@@ -874,11 +875,11 @@ function evolve(rules, iterable) {
   return evolveArray(rules, iterable);
 }
 
-function filterObject(fn, obj) {
+function filterObject(predicate, obj) {
   const willReturn = {};
 
   for (const prop in obj) {
-    if (fn(obj[prop], prop, obj)) {
+    if (predicate(obj[prop], prop, obj)) {
       willReturn[prop] = obj[prop];
     }
   }
@@ -1587,13 +1588,13 @@ function partitionObject(predicate, iterable) {
   });
   return [yes, no];
 }
-function partitionArray(predicate, list) {
+function partitionArray(predicate, list, indexed = false) {
   const yes = [];
   const no = [];
   let counter = -1;
 
   while (counter++ < list.length - 1) {
-    if (predicate(list[counter])) {
+    if (indexed ? predicate(list[counter], counter) : predicate(list[counter])) {
       yes.push(list[counter]);
     } else {
       no.push(list[counter]);
@@ -2252,6 +2253,7 @@ exports.lensPath = lensPath;
 exports.lensProp = lensProp;
 exports.map = map;
 exports.mapArray = mapArray;
+exports.mapObjIndexed = mapObjIndexed;
 exports.mapObject = mapObject;
 exports.match = match;
 exports.mathMod = mathMod;

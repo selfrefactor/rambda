@@ -8,6 +8,9 @@ describe('R.objOf', () => {
     const result = objOf(key, value)
 
     result.foo // $ExpectType number
+    
+    // $ExpectError
+    result.bar // `bar` is no property of `result`; TODO - use it more often
   })
   it('curried', () => {
     const result = objOf(key)(value)

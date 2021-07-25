@@ -2088,6 +2088,35 @@ export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
 
 /*
+Method: mapObjIndexed
+
+Explanation: It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+
+Example:
+
+```
+const fn = (val, prop) => {
+  return `${prop}-${val}`
+}
+
+const obj = {a: 1, b: 2}
+
+const result = R.map(mapObjIndexed, obj)
+// => {a: 'a-1', b: 'b-2'}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/*
 Method: match
 
 Explanation: Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -2540,19 +2569,19 @@ export function nth(index: number): <T>(list: T[]) => T | undefined;
 /*
 Method: objOf
 
-Explanation: It returns a new object with the provided key and value.
+Explanation: It creates an object with a single key-value pair.
 
 Example:
 
 ```
-const result = [
-  R.objOf('foo', 42),
-  R.objOf(null, undefined),
-]
-// => [{foo: 42}, {null: undefined}]
+const result = R.objOf('foo', 'bar')
+// => {foo: 'bar'}
 ```
 
 Categories: Object
+
+Notes:
+
 */
 // @SINGLE_MARKER
 export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
@@ -6632,27 +6661,6 @@ export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[]
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
 /*
-Method: mapObject
-
-Explanation:
-
-Example:
-
-```
-const result = R.mapObject(x => x + 1, {a:1, b:2})
-// => {a:2, b:3}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-
-/*
 Method: mapArray
 
 Explanation:
@@ -6695,7 +6703,6 @@ export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
-
 
 /*
 Method: rejectIndexed
@@ -6829,27 +6836,6 @@ export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<
 export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
-Method: mapArray
-
-Explanation: 
-
-Example:
-
-```
-```
-
-Categories: List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function mapArray<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
-export function mapArray<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
-export function mapArray<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
-export function mapArray<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
-
-/*
 Method: mapObject
 
 Explanation: 
@@ -6857,6 +6843,8 @@ Explanation:
 Example:
 
 ```
+const result = R.mapObject(x => x + 1, {a:1, b:2})
+// => {a:2, b:3}
 ```
 
 Categories: Object

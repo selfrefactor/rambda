@@ -699,6 +699,14 @@ export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
 
 /**
+ * It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+ */
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
 export function match(regExpression: RegExp, str: string): string[];
@@ -815,7 +823,7 @@ export function nth<T>(index: number, list: T[]): T | undefined;
 export function nth(index: number): <T>(list: T[]) => T | undefined;
 
 /**
- * It returns a new object with the provided key and value.
+ * It creates an object with a single key-value pair.
  */
 export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
 export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
@@ -852,7 +860,7 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) => T;
 
 /**
- * It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+ * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
  */
 export function partition<T>(
   predicate: Predicate<T>,
