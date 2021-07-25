@@ -1,12 +1,10 @@
 import { _isArray } from './_internals/_isArray'
 
-export function filterObject(fn, obj){
+export function filterObject(predicate, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    if (fn(
-      obj[ prop ], prop, obj
-    )){
+    if (predicate(obj[ prop ], prop, obj)){
       willReturn[ prop ] = obj[ prop ]
     }
   }

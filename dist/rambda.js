@@ -432,6 +432,7 @@ function mapObject(fn, obj) {
 
   return willReturn;
 }
+const mapObjIndexed = mapObject;
 function map(fn, list) {
   if (arguments.length === 1) return _list => map(fn, _list);
   if (list === undefined) return [];
@@ -874,11 +875,11 @@ function evolve(rules, iterable) {
   return evolveArray(rules, iterable);
 }
 
-function filterObject(fn, obj) {
+function filterObject(predicate, obj) {
   const willReturn = {};
 
   for (const prop in obj) {
-    if (fn(obj[prop], prop, obj)) {
+    if (predicate(obj[prop], prop, obj)) {
       willReturn[prop] = obj[prop];
     }
   }
@@ -1094,7 +1095,7 @@ function groupWith(compareFn, list) {
 function has(prop, obj) {
   if (arguments.length === 1) return _obj => has(prop, _obj);
   if (!obj) return false;
-  return obj[prop] !== undefined;
+  return obj.hasOwnProperty(prop);
 }
 
 function path(pathInput, obj) {
@@ -1113,6 +1114,7 @@ function path(pathInput, obj) {
       return undefined;
     }
 
+    if (willReturn[pathArrValue[counter]] === null) return undefined;
     willReturn = willReturn[pathArrValue[counter]];
     counter++;
   }
@@ -1245,7 +1247,7 @@ function init(listOrString) {
 
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
-  return filter(value => includes(value, listB), listA);
+  return filter(x => includes(x, listA), listB);
 }
 
 function intersperse(separator, list) {
@@ -1493,6 +1495,16 @@ function not(input) {
   return !input;
 }
 
+function objOf(key, value) {
+  if (arguments.length === 1) {
+    return _value => objOf(key, _value);
+  }
+
+  return {
+    [key]: value
+  };
+}
+
 function of(value) {
   return [value];
 }
@@ -1576,13 +1588,13 @@ function partitionObject(predicate, iterable) {
   });
   return [yes, no];
 }
-function partitionArray(predicate, list) {
+function partitionArray(predicate, list, indexed = false) {
   const yes = [];
   const no = [];
   let counter = -1;
 
   while (counter++ < list.length - 1) {
-    if (predicate(list[counter])) {
+    if (indexed ? predicate(list[counter], counter) : predicate(list[counter])) {
       yes.push(list[counter]);
     } else {
       no.push(list[counter]);
@@ -2047,12 +2059,11 @@ function union(x, y) {
 function uniqWith(predicate, list) {
   if (arguments.length === 1) return _list => uniqWith(predicate, _list);
   let index = -1;
-  const len = list.length;
   const willReturn = [];
 
-  while (++index < len) {
+  while (++index < list.length) {
     const value = list[index];
-    const flag = any(willReturnInstance => predicate(value, willReturnInstance), willReturn);
+    const flag = any(x => predicate(value, x), willReturn);
 
     if (!flag) {
       willReturn.push(value);
@@ -2067,10 +2078,7 @@ function unless(predicate, whenFalse) {
     return _whenFalse => unless(predicate, _whenFalse);
   }
 
-  return input => {
-    if (predicate(input)) return input;
-    return whenFalse(input);
-  };
+  return input => predicate(input) ? input : whenFalse(input);
 }
 
 function values(obj) {
@@ -2245,6 +2253,7 @@ exports.lensPath = lensPath;
 exports.lensProp = lensProp;
 exports.map = map;
 exports.mapArray = mapArray;
+exports.mapObjIndexed = mapObjIndexed;
 exports.mapObject = mapObject;
 exports.match = match;
 exports.mathMod = mathMod;
@@ -2267,6 +2276,7 @@ exports.negate = negate;
 exports.none = none;
 exports.not = not;
 exports.nth = nth;
+exports.objOf = objOf;
 exports.of = of;
 exports.omit = omit;
 exports.once = once;

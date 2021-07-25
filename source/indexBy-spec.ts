@@ -7,14 +7,14 @@ describe('indexBy', () => {
     const result = indexBy(x => x.a.b, list)
     const curriedResult = indexBy<any>(x => x.a.b)(list)
     result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { readonly [x: string]: any; }
+    curriedResult // $ExpectType { [x: string]: any; }
   })
 
   it('with string', () => {
     const result = indexBy('a.b', list)
     const curriedResult = indexBy<any>('a.b')(list)
     result.foo?.a.b // $ExpectType string | undefined
-    curriedResult // $ExpectType { readonly [key: string]: any; }
+    curriedResult // $ExpectType { [key: string]: any; }
   })
 
   it('with interface', () => {
@@ -30,7 +30,7 @@ describe('indexBy', () => {
       x.a // $ExpectType string
       return x.a
     })(interfaceList)
-    result // $ExpectType { readonly [x: string]: Foo; }
-    curriedResult // $ExpectType { readonly [x: string]: Foo; }
+    result // $ExpectType { [x: string]: Foo; }
+    curriedResult // $ExpectType { [x: string]: Foo; }
   })
 })

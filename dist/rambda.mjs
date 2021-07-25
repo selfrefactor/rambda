@@ -428,6 +428,7 @@ function mapObject(fn, obj) {
 
   return willReturn;
 }
+const mapObjIndexed = mapObject;
 function map(fn, list) {
   if (arguments.length === 1) return _list => map(fn, _list);
   if (list === undefined) return [];
@@ -870,11 +871,11 @@ function evolve(rules, iterable) {
   return evolveArray(rules, iterable);
 }
 
-function filterObject(fn, obj) {
+function filterObject(predicate, obj) {
   const willReturn = {};
 
   for (const prop in obj) {
-    if (fn(obj[prop], prop, obj)) {
+    if (predicate(obj[prop], prop, obj)) {
       willReturn[prop] = obj[prop];
     }
   }
@@ -1090,7 +1091,7 @@ function groupWith(compareFn, list) {
 function has(prop, obj) {
   if (arguments.length === 1) return _obj => has(prop, _obj);
   if (!obj) return false;
-  return obj[prop] !== undefined;
+  return obj.hasOwnProperty(prop);
 }
 
 function path(pathInput, obj) {
@@ -1109,6 +1110,7 @@ function path(pathInput, obj) {
       return undefined;
     }
 
+    if (willReturn[pathArrValue[counter]] === null) return undefined;
     willReturn = willReturn[pathArrValue[counter]];
     counter++;
   }
@@ -1241,7 +1243,7 @@ function init(listOrString) {
 
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
-  return filter(value => includes(value, listB), listA);
+  return filter(x => includes(x, listA), listB);
 }
 
 function intersperse(separator, list) {
@@ -1489,6 +1491,16 @@ function not(input) {
   return !input;
 }
 
+function objOf(key, value) {
+  if (arguments.length === 1) {
+    return _value => objOf(key, _value);
+  }
+
+  return {
+    [key]: value
+  };
+}
+
 function of(value) {
   return [value];
 }
@@ -1572,13 +1584,13 @@ function partitionObject(predicate, iterable) {
   });
   return [yes, no];
 }
-function partitionArray(predicate, list) {
+function partitionArray(predicate, list, indexed = false) {
   const yes = [];
   const no = [];
   let counter = -1;
 
   while (counter++ < list.length - 1) {
-    if (predicate(list[counter])) {
+    if (indexed ? predicate(list[counter], counter) : predicate(list[counter])) {
       yes.push(list[counter]);
     } else {
       no.push(list[counter]);
@@ -2043,12 +2055,11 @@ function union(x, y) {
 function uniqWith(predicate, list) {
   if (arguments.length === 1) return _list => uniqWith(predicate, _list);
   let index = -1;
-  const len = list.length;
   const willReturn = [];
 
-  while (++index < len) {
+  while (++index < list.length) {
     const value = list[index];
-    const flag = any(willReturnInstance => predicate(value, willReturnInstance), willReturn);
+    const flag = any(x => predicate(value, x), willReturn);
 
     if (!flag) {
       willReturn.push(value);
@@ -2063,10 +2074,7 @@ function unless(predicate, whenFalse) {
     return _whenFalse => unless(predicate, _whenFalse);
   }
 
-  return input => {
-    if (predicate(input)) return input;
-    return whenFalse(input);
-  };
+  return input => predicate(input) ? input : whenFalse(input);
 }
 
 function values(obj) {
@@ -2157,4 +2165,4 @@ function zipWithFn(fn, x, y) {
 
 const zipWith = curry(zipWithFn);
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, includesArray, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, of, omit, once, or, over, partial, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, props, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, union, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj, zipWith };
+export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, includesArray, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, once, or, over, partial, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, props, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, union, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj, zipWith };

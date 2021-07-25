@@ -6,11 +6,11 @@ describe('R.append', () => {
   it('happy', () => {
     const result = append(4, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = append(4)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })

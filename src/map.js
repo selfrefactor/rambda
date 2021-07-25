@@ -33,6 +33,8 @@ export function mapObject(fn, obj){
   return willReturn
 }
 
+export const mapObjIndexed = mapObject
+
 export function map(fn, list){
   if (arguments.length === 1) return _list => map(fn, _list)
   if (list === undefined) return []

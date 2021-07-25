@@ -1,10 +1,22 @@
-6.7.1
+6.8.3
+
+- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+
+- Add `R.objOf` method
+
+- Add `R.mapObjIndexed` method
+
+- Publish shorter README.md version to NPM
+
+6.8.0
+
+- `R.has` use `Object.prototype.hasOwnProperty`- [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+
+- Expose `immutable.ts` typings which are Rambda typings with `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
 
 - Fix `R.intersection` wrong order compared to Ramda.
 
 - `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
-
-- Expose `non-strict.ts` typings which are Rambda typings without `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
 
 6.7.0
 

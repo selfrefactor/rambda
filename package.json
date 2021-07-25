@@ -1,11 +1,10 @@
 {
 	"name": "rambda",
-	"version": "6.7.0",
+	"version": "6.8.3",
 	"scripts": {
-		"readonly":"cd ../rambda-scripts && yarn readonly",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-		"out": "yarn populatedocs && yarn populatereadme && yarn readonly",
+		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
 		"x": "cd ../rambda-scripts&&yarn populate:docs:rambdax&&cd ../rambda-scripts&&yarn populate:readme:rambdax",
 		"github": "cd ../rambda-scripts&&yarn github",
 		"immutable": "cd ../rambda-scripts&&yarn immutable",
@@ -25,6 +24,7 @@
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
 	"dependencies": {},
+	"typings": "./index.d.ts",
 	"devDependencies": {
 		"@babel/core": "7.12.13",
 		"@babel/plugin-proposal-object-rest-spread": "7.12.13",
@@ -67,10 +67,10 @@
 	"files": [
 		"dist",
 		"src",
-		"_ts-toolbelt",
 		"CHANGELOG.md",
 		"index.d.ts",
-		"non-strict.ts"
+		"immutable.d.ts",
+		"immutable.js"
 	],
 	"repository": {
 		"type": "git",
@@ -78,7 +78,7 @@
 	},
 	"license": "MIT",
 	"author": "self_refactor",
-	"description": "Lightweight and faster alternative to Ramda",
+	"description": "Lightweight and faster alternative to Ramda with included TS definitions",
 	"module": "./dist/rambda.esm.js",
 	"main": "./dist/rambda",
 	"umd": "./dist/rambda.umd.js",

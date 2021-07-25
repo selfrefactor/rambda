@@ -8,12 +8,12 @@ describe('R.takeLast - array', () => {
   it('happy', () => {
     const result = takeLast(howMany, list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
   it('curried', () => {
     const result = takeLast(howMany)(list)
 
-    result // $ExpectType readonly number[]
+    result // $ExpectType number[]
   })
 })
 
