@@ -2540,19 +2540,19 @@ export function nth(index: number): <T>(list: T[]) => T | undefined;
 /*
 Method: objOf
 
-Explanation: It returns a new object with the provided key and value.
+Explanation: It creates an object with a single key-value pair.
 
 Example:
 
 ```
-const result = [
-  R.objOf('foo', 42),
-  R.objOf(null, undefined),
-]
-// => [{foo: 42}, {null: undefined}]
+const result = R.objOf('foo', 'bar')
+// => {foo: 'bar'}
 ```
 
 Categories: Object
+
+Notes:
+
 */
 // @SINGLE_MARKER
 export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
@@ -6695,7 +6695,6 @@ export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
 export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
 export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
-
 
 /*
 Method: rejectIndexed
