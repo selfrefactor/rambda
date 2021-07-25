@@ -90,7 +90,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 89 Ramda methods not implemented in Rambda 
+  Click to see the full list of 88 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -135,7 +135,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - lte
 - mapAccum
 - mapAccumRight
-- mapObjIndexed
 - memoizeWith
 - mergeDeepLeft
 - mergeDeepWith
@@ -5099,15 +5098,11 @@ filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 ```javascript
 import { _isArray } from './_internals/_isArray'
 
-export function filterObject(predicate, obj, indexed = false){
+export function filterObject(predicate, obj){
   const willReturn = {}
 
   for (const prop in obj){
-    const predicateResult = indexed ?
-      predicate(obj[ prop ], prop) :
-      predicate(obj[ prop ])
-
-    if (predicateResult){
+    if (predicate(obj[ prop ], prop, obj)){
       willReturn[ prop ] = obj[ prop ]
     }
   }
@@ -5187,7 +5182,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
     'Cannot read property \'filter\' of undefined')
 })
 
-test('predicate when input is object', () => {
+test.only('predicate when input is object', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -8558,6 +8553,8 @@ export function mapObject(fn, obj){
   return willReturn
 }
 
+export const mapObjIndexed = mapObject
+
 export function map(fn, list){
   if (arguments.length === 1) return _list => map(fn, _list)
   if (list === undefined) return []
@@ -8578,59 +8575,50 @@ import { map } from './map'
 
 const double = x => x * 2
 
-const sampleObject = {
-  a : 1,
-  b : 2,
-  c : 3,
-  d : 4,
-}
+describe(`with array`, () => {
+  test('happy', () => {
+    expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
+  })
 
-test('with array', () => {
-  expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
+  test('when undefined instead of array', () => {
+    /**
+     * https://github.com/selfrefactor/rambda/issues/77
+     */
+    expect(map(double)(undefined)).toEqual([])
+  })
 })
 
-test('with object', () => {
+describe(`with object`, () => {
   const obj = {
     a : 1,
     b : 2,
   }
 
-  expect(map(double, obj)).toEqual({
-    a : 2,
-    b : 4,
+  test('happy', () => {
+    expect(map(double, obj)).toEqual({
+      a : 2,
+      b : 4,
+    })
   })
-})
-
-test('pass input object as third argument', () => {
-  const obj = {
-    a : 1,
-    b : 2,
-  }
-  const iterator = (
-    val, prop, inputObject
-  ) => {
-    expect(inputObject).toEqual(obj)
-
-    return val * 2
-  }
-
-  expect(map(iterator, obj)).toEqual({
-    a : 2,
-    b : 4,
+  test('property as second and input object as third argument', () => {
+    const obj = {
+      a : 1,
+      b : 2,
+    }
+    const iterator = (
+      val, prop, inputObject
+    ) => {
+      expect(prop).toBeString()
+      expect(inputObject).toEqual(obj)
+  
+      return val * 2
+    }
+  
+    expect(map(iterator)(obj)).toEqual({
+      a : 2,
+      b : 4,
+    })
   })
-})
-
-test('with object passes property as second argument', () => {
-  map((_, prop) => {
-    expect(typeof prop).toEqual('string')
-  })(sampleObject)
-})
-
-/**
- * https://github.com/selfrefactor/rambda/issues/77
- */
-test('when undefined instead of array', () => {
-  expect(map(double, undefined)).toEqual([])
 })
 ```
 
@@ -8758,6 +8746,81 @@ const map = [
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#map)
+
+### mapObjIndexed
+
+```typescript
+
+mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>
+```
+
+It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {mapObjIndexed} from 'rambda'
+
+const obj = {a: 1, b: 2, c: 3}
+
+describe('R.mapObjIndexed', () => {
+  it('without type transform', () => {
+    const result = mapObjIndexed((x, prop, obj) => {
+      x // $ExpectType number
+      prop // $ExpectType string
+      obj // $ExpectType Dictionary<number>
+      return x + 2
+    }, obj)
+    result // $ExpectType Dictionary<number>
+  })
+  it('without type transform - curried', () => {
+    const result = mapObjIndexed<number>((x, prop, obj) => {
+      x // $ExpectType number
+      prop // $ExpectType string
+      obj // $ExpectType Dictionary<number>
+      return x + 2
+    })(obj)
+    result // $ExpectType Dictionary<number>
+  })
+  it('change of type', () => {
+    const result = mapObjIndexed((x, prop, obj) => {
+      x // $ExpectType number
+      prop // $ExpectType string
+      obj // $ExpectType Dictionary<number>
+      return String(x + 2)
+    }, obj)
+    result // $ExpectType Dictionary<string>
+  })
+  it('change of type - curried', () => {
+    const result = mapObjIndexed<number, string>((x, prop, obj) => {
+      x // $ExpectType number
+      prop // $ExpectType string
+      obj // $ExpectType Dictionary<number>
+      return String(x + 2)
+    })(obj)
+    result // $ExpectType Dictionary<string>
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapObjIndexed)
 
 ### match
 
@@ -10322,7 +10385,7 @@ describe('R.nth', () => {
 objOf<T, K extends string>(key: K, value: T): Record<K, T>
 ```
 
-It returns a new object with the provided key and value.
+It creates an object with a single key-value pair.
 
 <details>
 
@@ -10414,6 +10477,9 @@ describe('R.objOf', () => {
     const result = objOf(key, value)
 
     result.foo // $ExpectType number
+    
+    // $ExpectError
+    result.bar // `bar` is no property of `result`; TODO - use it more often
   })
   it('curried', () => {
     const result = objOf(key)(value)
@@ -18825,9 +18891,13 @@ describe('R.zipWith', () => {
 
 6.8.3
 
+- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+
 - Add `R.objOf` method
 
-- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+- Add `R.mapObjIndexed` method
+
+- Publish shorter README.md version to NPM
 
 6.8.0
 

@@ -699,6 +699,14 @@ export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
 
 /**
+ * It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+ */
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
 export function match(regExpression: RegExp, str: string): string[];
@@ -815,7 +823,7 @@ export function nth<T>(index: number, list: T[]): T | undefined;
 export function nth(index: number): <T>(list: T[]) => T | undefined;
 
 /**
- * It returns a new object with the provided key and value.
+ * It creates an object with a single key-value pair.
  */
 export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
 export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;

@@ -2088,6 +2088,35 @@ export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
 
 /*
+Method: mapObjIndexed
+
+Explanation: It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+
+Example:
+
+```
+const fn = (val, prop) => {
+  return `${prop}-${val}`
+}
+
+const obj = {a: 1, b: 2}
+
+const result = R.map(mapObjIndexed, obj)
+// => {a: 'a-1', b: 'b-2'}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+
+/*
 Method: match
 
 Explanation: Curried version of `String.prototype.match` which returns empty array, when there is no match.
