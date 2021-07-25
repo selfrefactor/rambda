@@ -67,6 +67,7 @@
 	"files": [
 		"dist",
 		"src",
+		"README.md",
 		"CHANGELOG.md",
 		"index.d.ts",
 		"immutable.d.ts",
