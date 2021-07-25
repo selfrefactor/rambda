@@ -852,7 +852,7 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) => T;
 
 /**
- * It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+ * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
  */
 export function partition<T>(
   predicate: Predicate<T>,

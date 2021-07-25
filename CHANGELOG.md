@@ -1,3 +1,9 @@
+6.8.3
+
+- Add `R.objOf` method
+
+- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+
 6.8.0
 
 - `R.has` use `Object.prototype.hasOwnProperty`- [Issue #572](https://github.com/selfrefactor/rambda/issues/572)

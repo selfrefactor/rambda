@@ -1,4 +1,4 @@
-# Rambda test
+# Rambda
 
 `Rambda` is smaller and faster alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
@@ -37,6 +37,8 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
+> Alternative TS definitions are available as `rambda/immutable`. These are Rambda definitions linted with ESLint `functional/prefer-readonly-type` plugin.
+
 ### Smaller size
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
@@ -47,7 +49,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -5515,13 +5517,15 @@ filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 ```javascript
 import { _isArray } from './_internals/_isArray'
 
-export function filterObject(fn, obj){
+export function filterObject(predicate, obj, indexed = false){
   const willReturn = {}
 
   for (const prop in obj){
-    if (fn(
-      obj[ prop ], prop, obj
-    )){
+    const predicateResult = indexed ?
+      predicate(obj[ prop ], prop) :
+      predicate(obj[ prop ])
+
+    if (predicateResult){
       willReturn[ prop ] = obj[ prop ]
     }
   }
@@ -9482,6 +9486,16 @@ describe('R.map with arrays', () => {
     })([1, 2, 3])
     result // $ExpectType number[]
   })
+  it('iterable returns different type as the input', () => {
+    const result = map<number, string>(
+      (x: number) => {
+        x // $ExpectType number
+        return String(x)
+      },
+      [1, 2, 3]
+    )
+    result // $ExpectType string[]
+  })
 })
 
 describe('R.map with objects', () => {
@@ -12293,7 +12307,7 @@ partition<T>(
 ): [T[], T[]]
 ```
 
-It will return array of two objects/arrays according to `predicate` function. The first member holds all instanses of `input` that pass the `predicate` function, while the second member - those who doesn't.
+It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
 ```javascript
 const list = [1, 2, 3]
@@ -12357,13 +12371,13 @@ export function partitionObject(predicate, iterable){
   return [ yes, no ]
 }
 
-export function partitionArray(predicate, list){
+export function partitionArray(predicate, list, indexed = false){
   const yes = []
   const no = []
   let counter = -1
 
   while (counter++ < list.length - 1){
-    if (predicate(list[ counter ])){
+    if (indexed ? predicate(list[ counter ], counter) : predicate(list[ counter ])){
       yes.push(list[ counter ])
     } else {
       no.push(list[ counter ])
@@ -20690,6 +20704,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+6.8.3
+
+- Add `R.objOf` method
+
+- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
 
 6.8.0
 
