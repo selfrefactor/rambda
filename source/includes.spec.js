@@ -2,7 +2,7 @@ import R from 'ramda'
 
 import { includes } from './includes'
 
-test('includes with string', () => {
+test('with string as iterable', () => {
   const str = 'foo bar'
 
   expect(includes('bar')(str)).toBeTrue()
@@ -11,7 +11,7 @@ test('includes with string', () => {
   expect(R.includes('never', str)).toBeFalse()
 })
 
-test('includes with array', () => {
+test('with array as iterable', () => {
   const arr = [ 1, 2, 3 ]
 
   expect(includes(2)(arr)).toBeTrue()
@@ -19,6 +19,13 @@ test('includes with array', () => {
 
   expect(includes(4, arr)).toBeFalse()
   expect(R.includes(4, arr)).toBeFalse()
+})
+
+test('with list of objects as iterable', () => {
+  const arr = [ {a:1}, {b:2}, {c:3} ]
+
+  expect(includes({c:3}, arr)).toBeTrue()
+  expect(R.includes({c:3}, arr)).toBeTrue()
 })
 
 test('with wrong input that does not throw', () => {
