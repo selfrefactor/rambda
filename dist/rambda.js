@@ -618,6 +618,9 @@ function equals(a, b) {
 }
 
 function includesArray(valueToFind, input) {
+  // return input.includes(valueToFind);
+  return input.indexOf(valueToFind) > -1;
+  return input.some(value => value === valueToFind);
   let index = -1;
 
   while (++index < input.length) {

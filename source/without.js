@@ -1,5 +1,5 @@
-import { includesArray } from './includes'
 import { reduce } from './reduce'
+import { _indexOf } from './_internals/_indexOf'
 
 export function without(matchAgainst, source){
   if (source === undefined){
@@ -7,8 +7,10 @@ export function without(matchAgainst, source){
   }
 
   return reduce(
-    (prev, current) =>
-    includesArray(current, matchAgainst) ? prev : prev.concat(current),
+    (prev, current) =>{
+      console.log(prev, current, matchAgainst, '||')
+      return _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current)
+    },
     [],
     source
   )
