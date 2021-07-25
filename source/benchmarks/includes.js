@@ -1,4 +1,5 @@
 const R = require('../../dist/rambda.js')
+// const R = require('rambdax')
 const Ramda = require('ramda')
 
 const mode = 0

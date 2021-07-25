@@ -21,7 +21,8 @@
 		"test": "jest source -u --bail=false",
 		"cover:spec": "jest source --coverage --no-cache -w 1",
 		"cover": "yarn typings&&yarn cover:spec",
-		"benchmark": "yarn out && cd ../rambda-scripts&&yarn benchmark",
+		"benchmark": "yarn populatedocs && yarn populatereadme && yarn build:main && yarn benchmark:method",
+		"benchmark:method": "cd ../rambda-scripts&&METHOD=uniq yarn benchmark",
 		"benchmarkx": "cd ../rambda-scripts&&yarn benchmarkx",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"fix": "mkdir $HOME/.dts/perf -p"
