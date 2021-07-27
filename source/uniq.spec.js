@@ -6,7 +6,7 @@ test('happy', () => {
   expect(uniq(list)).toEqual([1, 2, 3, 0])
 })
 
-test.only('with object', () => {
+test('with object', () => {
   const list = [{a: 1}, {a: 2}, {a: 1}, {a:2}]
   expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
