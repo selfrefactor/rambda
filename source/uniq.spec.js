@@ -1,5 +1,5 @@
 import {uniq} from './uniq'
-import {uniq as ramdaUniq} from 'ramda'
+import {uniq as uniqRamda} from 'ramda'
 
 test('happy', () => {
   const list = [1, 2, 3, 3, 3, 1, 2, 0]
@@ -11,9 +11,7 @@ test('with object', () => {
   expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
 
-test.skip('with nested array', () => {
-  const result = ramdaUniq([[42], [42]])
-  console.log(`result`, result )
+test('with nested array', () => {
   expect(uniq([[42], [42]])).toEqual([[42]])
 })
 

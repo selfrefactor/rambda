@@ -1,7 +1,11 @@
 import { equals } from './equals'
 import {_isIterable} from './_internals/isIterable'
+import { _isArray } from './_internals/_isArray'
 
 export function _indexOf(valueToFind, list) {
+  if (!_isArray(list)){
+    throw new Error(`Cannot read property 'indexOf' of ${list}`)
+  }
   if (!_isIterable(valueToFind)) return list.indexOf(valueToFind)
 
   let index = -1
@@ -16,7 +20,7 @@ export function _indexOf(valueToFind, list) {
 
 export function indexOf(valueToFind, list){
   if (arguments.length === 1){
-    return _list => indexOf(valueToFind, _list)
+    return _list => _indexOf(valueToFind, _list)
   }
 
   return _indexOf(valueToFind, list)
