@@ -14,6 +14,9 @@ test('with object', () => {
 test('with nested array', () => {
   expect(uniq([[42], [42]])).toEqual([[42]])
 })
+test('with booleans', () => {
+  expect(uniq([[false], [false], [true]])).toEqual([[false], [true]])
+})
 
 test('with falsy values', () => {
   expect(uniq([undefined, null])).toEqual([undefined, null])

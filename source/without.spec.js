@@ -1,5 +1,5 @@
 import {without} from './without'
-import {without as ramdaWithout} from 'ramda'
+import {without as withoutRamda} from 'ramda'
 
 test('should return a new list without values in the first argument', () => {
   const itemsToOmit = ['A', 'B', 'C']
@@ -15,11 +15,12 @@ test('with list of objects', () => {
   const expected = [{b: 2}, {d: 4}]
 
   expect(without(itemsToOmit, collection)).toEqual(expected)
-  expect(ramdaWithout(itemsToOmit, collection)).toEqual(expected)
+  expect(withoutRamda(itemsToOmit, collection)).toEqual(expected)
 })
 
-test('ramda bug', () => {
-  expect(without('0:1', ['0', '0:1'])).toEqual([])
+test('ramda accepts string as target input while rambda throws', () => {
+  expect(withoutRamda('0:1', ['0', '0:1'])).toEqual([])
+  expect(() => without('0:1', ['0', '0:1'])).toThrow()
   expect(without(['0:1'], ['0', '0:1'])).toEqual(['0'])
 })
 
