@@ -243,62 +243,64 @@ The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4
 
 method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
- *add* | 96.25% slower | 96.24% slower | 🚀 Fastest
- *adjust* | 🚀 Fastest | 5.52% slower | 🔳
- *all* | 🚀 Fastest | 94.95% slower | 🔳
- *allPass* | 🚀 Fastest | 98.95% slower | 🔳
- *any* | 🚀 Fastest | 98.18% slower | 6.18% slower
- *anyPass* | 🚀 Fastest | 99.09% slower | 🔳
- *append* | 🚀 Fastest | 84.09% slower | 🔳
- *applySpec* | 🚀 Fastest | 75.73% slower | 🔳
- *assoc* | 87.98% slower | 57.39% slower | 🚀 Fastest
- *clone* | 🚀 Fastest | 96.03% slower | 91.75% slower
- *compose* | 🚀 Fastest | 96.45% slower | 77.83% slower
- *converge* | 49.12% slower | 🚀 Fastest | 🔳
- *curry* | 🚀 Fastest | 34.9% slower | 🔳
- *curryN* | 63.32% slower | 🚀 Fastest | 🔳
- *defaultTo* | 🚀 Fastest | 50.3% slower | 🔳
- *drop* | 🚀 Fastest | 97.45% slower | 🔳
- *dropLast* | 🚀 Fastest | 97.07% slower | 🔳
- *equals* | 72.11% slower | 79.48% slower | 🚀 Fastest
- *filter* | 🚀 Fastest | 94.74% slower | 58.18% slower
- *find* | 🚀 Fastest | 98.2% slower | 88.96% slower
- *findIndex* | 🚀 Fastest | 97.97% slower | 79.39% slower
- *flatten* | 6.56% slower | 95.38% slower | 🚀 Fastest
- *ifElse* | 🚀 Fastest | 70.97% slower | 🔳
- *includes* | 🚀 Fastest | 71.7% slower | 🔳
- *indexOf* | 🚀 Fastest | 84.08% slower | 7.86% slower
- *init* | 94.42% slower | 97.55% slower | 🚀 Fastest
- *is* | 🚀 Fastest | 11.72% slower | 🔳
- *isEmpty* | 51.68% slower | 93.82% slower | 🚀 Fastest
- *last* | 🚀 Fastest | 99.64% slower | 1.05% slower
- *lastIndexOf* | 🚀 Fastest | 42.38% slower | 🔳
- *map* | 🚀 Fastest | 69.63% slower | 4.68% slower
- *match* | 🚀 Fastest | 46.75% slower | 🔳
- *merge* | 63.55% slower | 🚀 Fastest | 55.25% slower
- *none* | 🚀 Fastest | 98.22% slower | 🔳
- *omit* | 🚀 Fastest | 70.66% slower | 97.56% slower
- *over* | 🚀 Fastest | 50.77% slower | 🔳
- *path* | 🚀 Fastest | 74.94% slower | 5.72% slower
- *pick* | 🚀 Fastest | 26.29% slower | 86.82% slower
- *prop* | 🚀 Fastest | 89.89% slower | 🔳
- *propEq* | 🚀 Fastest | 95.26% slower | 🔳
- *range* | 95.17% slower | 90.22% slower | 🚀 Fastest
- *reduce* | 52.76% slower | 74.02% slower | 🚀 Fastest
- *repeat* | 85.91% slower | 95.31% slower | 🚀 Fastest
- *replace* | 0.47% slower | 28.13% slower | 🚀 Fastest
- *set* | 🚀 Fastest | 36.26% slower | 🔳
- *sort* | 🚀 Fastest | 63.15% slower | 🔳
- *sortBy* | 🚀 Fastest | 61.57% slower | 88.88% slower
- *split* | 🚀 Fastest | 85.34% slower | 33.69% slower
- *splitEvery* | 🚀 Fastest | 90.18% slower | 🔳
- *take* | 93.44% slower | 98.04% slower | 🚀 Fastest
- *takeLast* | 92.61% slower | 98.83% slower | 🚀 Fastest
- *test* | 🚀 Fastest | 94.42% slower | 🔳
- *type* | 18.91% slower | 🚀 Fastest | 🔳
- *uniq* | 98.98% slower | 96.58% slower | 🚀 Fastest
- *update* | 🚀 Fastest | 38.88% slower | 🔳
- *view* | 🚀 Fastest | 82.21% slower | 🔳
+ *add* | 🚀 Fastest | 26.91% slower | 85.31% slower
+ *adjust* | 🚀 Fastest | 3.2% slower | 🔳
+ *all* | 🚀 Fastest | 93.1% slower | 🔳
+ *allPass* | 🚀 Fastest | 98.56% slower | 🔳
+ *and* | 🚀 Fastest | 89.09% slower | 🔳
+ *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
+ *anyPass* | 🚀 Fastest | 98.25% slower | 🔳
+ *append* | 🚀 Fastest | 2.07% slower | 🔳
+ *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
+ *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
+ *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
+ *compose* | 🚀 Fastest | 93.76% slower | 72.65% slower
+ *converge* | 78.63% slower | 🚀 Fastest | 🔳
+ *curry* | 🚀 Fastest | 28.86% slower | 🔳
+ *curryN* | 🚀 Fastest | 41.05% slower | 🔳
+ *defaultTo* | 🚀 Fastest | 48.91% slower | 🔳
+ *drop* | 🚀 Fastest | 82.35% slower | 🔳
+ *dropLast* | 🚀 Fastest | 86.74% slower | 🔳
+ *equals* | 58.37% slower | 96.73% slower | 🚀 Fastest
+ *filter* | 6.7% slower | 72.03% slower | 🚀 Fastest
+ *find* | 🚀 Fastest | 85.14% slower | 42.65% slower
+ *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
+ *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
+ *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
+ *includes* | 6.14% slower | 🚀 Fastest | 🔳
+ *indexOf* | 43.02% slower | 57.73% slower | 🚀 Fastest
+ *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
+ *is* | 🚀 Fastest | 57.69% slower | 🔳
+ *isEmpty* | 🚀 Fastest | 97.14% slower | 54.99% slower
+ *last* | 🚀 Fastest | 93.43% slower | 5.28% slower
+ *lastIndexOf* | 🚀 Fastest | 85.19% slower | 🔳
+ *map* | 🚀 Fastest | 86.6% slower | 11.73% slower
+ *match* | 🚀 Fastest | 44.83% slower | 🔳
+ *merge* | 🚀 Fastest | 12.21% slower | 55.76% slower
+ *none* | 🚀 Fastest | 96.48% slower | 🔳
+ *objOf* | 🚀 Fastest | 38.05% slower | 🔳
+ *omit* | 🚀 Fastest | 69.95% slower | 97.34% slower
+ *over* | 🚀 Fastest | 56.23% slower | 🔳
+ *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
+ *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
+ *prop* | 🚀 Fastest | 87.95% slower | 🔳
+ *propEq* | 🚀 Fastest | 91.92% slower | 🔳
+ *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
+ *reduce* | 60.48% slower | 77.1% slower | 🚀 Fastest
+ *repeat* | 48.57% slower | 68.98% slower | 🚀 Fastest
+ *replace* | 33.45% slower | 33.99% slower | 🚀 Fastest
+ *set* | 🚀 Fastest | 50.35% slower | 🔳
+ *sort* | 🚀 Fastest | 44.29% slower | 🔳
+ *sortBy* | 🚀 Fastest | 25.29% slower | 56.88% slower
+ *split* | 🚀 Fastest | 55.37% slower | 17.64% slower
+ *splitEvery* | 🚀 Fastest | 71.98% slower | 🔳
+ *take* | 🚀 Fastest | 91.96% slower | 4.72% slower
+ *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
+ *test* | 🚀 Fastest | 82.34% slower | 🔳
+ *type* | 🚀 Fastest | 78.86% slower | 🔳
+ *uniq* | 🚀 Fastest | 71.45% slower | 🔳
+ *update* | 🚀 Fastest | 52.35% slower | 🔳
+ *view* | 🚀 Fastest | 76.15% slower | 🔳
 
 </details>
 
@@ -411,7 +413,7 @@ describe('R.add', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 96.25% slower and Ramda is 96.24% slower</summary>
+<summary>Rambda is fastest. Ramda is 26.91% slower and Lodash is 85.31% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -539,7 +541,7 @@ test('when index is out of bounds', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 5.52%</summary>
+<summary>Rambda is faster than Ramda with 3.2%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -668,7 +670,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 94.95%</summary>
+<summary>Rambda is faster than Ramda with 93.1%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -806,7 +808,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 98.95%</summary>
+<summary>Rambda is faster than Ramda with 98.56%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -986,7 +988,7 @@ describe('R.and', () => {
 
 <details>
 
-<summary></summary>
+<summary>Rambda is faster than Ramda with 89.09%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1106,7 +1108,7 @@ describe('R.any', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 98.18% slower and Lodash is 6.18% slower</summary>
+<summary>Rambda is fastest. Ramda is 92.87% slower and Lodash is 45.82% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1255,7 +1257,7 @@ describe('anyPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 99.09%</summary>
+<summary>Rambda is faster than Ramda with 98.25%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1374,7 +1376,7 @@ describe('R.append', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 84.09%</summary>
+<summary>Rambda is faster than Ramda with 2.07%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1831,7 +1833,7 @@ describe('applySpec', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 75.73%</summary>
+<summary>Rambda is faster than Ramda with 80.43%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -2038,7 +2040,7 @@ describe('R.assoc', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 87.98% slower and Ramda is 57.39% slower</summary>
+<summary>Lodash is fastest. Rambda is 72.32% slower and Ramda is 60.08% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -2857,7 +2859,7 @@ describe('R.clone', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 96.03% slower and Lodash is 91.75% slower</summary>
+<summary>Rambda is fastest. Ramda is 91.86% slower and Lodash is 86.48% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -3344,7 +3346,7 @@ describe('R.converge', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 49.12%</summary>
+<summary>Rambda is slower than Ramda with 78.63%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -3495,7 +3497,7 @@ describe('R.defaultTo with Ramda spec', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 50.3%</summary>
+<summary>Rambda is faster than Ramda with 48.91%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -3752,7 +3754,7 @@ describe('R.drop - string', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 97.45%</summary>
+<summary>Rambda is faster than Ramda with 82.35%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -3894,7 +3896,7 @@ describe('R.dropLast - string', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 97.07%</summary>
+<summary>Rambda is faster than Ramda with 86.74%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -4744,7 +4746,7 @@ describe('R.equals', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 72.11% slower and Ramda is 79.48% slower</summary>
+<summary>Lodash is fastest. Rambda is 58.37% slower and Ramda is 96.73% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -5276,7 +5278,7 @@ describe('R.filter with objects', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 94.74% slower and Lodash is 58.18% slower</summary>
+<summary>Lodash is fastest. Rambda is 6.7% slower and Ramda is 72.03% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -5409,7 +5411,7 @@ describe('R.find', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 98.2% slower and Lodash is 88.96% slower</summary>
+<summary>Rambda is fastest. Ramda is 85.14% slower and Lodash is 42.65% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -5536,7 +5538,7 @@ describe('R.findIndex', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 97.97% slower and Lodash is 79.39% slower</summary>
+<summary>Rambda is fastest. Ramda is 86.48% slower and Lodash is 72.27% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -5914,7 +5916,7 @@ describe('flatten', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 6.56% slower and Ramda is 95.38% slower</summary>
+<summary>Rambda is fastest. Ramda is 95.26% slower and Lodash is 10.27% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -6889,7 +6891,7 @@ describe('R.ifElse', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 70.97%</summary>
+<summary>Rambda is faster than Ramda with 58.56%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -7082,7 +7084,7 @@ describe('R.includes', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 71.7%</summary>
+<summary>Rambda is slower than Ramda with 6.14%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -7224,7 +7226,7 @@ describe('R.init', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 94.42% slower and Ramda is 97.55% slower</summary>
+<summary>Rambda is fastest. Ramda is 92.24% slower and Lodash is 13.3% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -7365,7 +7367,7 @@ describe('R.isEmpty', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 51.68% slower and Ramda is 93.82% slower</summary>
+<summary>Rambda is fastest. Ramda is 97.14% slower and Lodash is 54.99% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -7706,7 +7708,7 @@ describe('R.last', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 99.64% slower and Lodash is 1.05% slower</summary>
+<summary>Rambda is fastest. Ramda is 93.43% slower and Lodash is 5.28% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -7836,7 +7838,7 @@ describe('R.lastIndexOf', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 42.38%</summary>
+<summary>Rambda is faster than Ramda with 85.19%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -8729,7 +8731,7 @@ describe('R.map with objects', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 69.63% slower and Lodash is 4.68% slower</summary>
+<summary>Rambda is fastest. Ramda is 86.6% slower and Lodash is 11.73% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -8859,7 +8861,7 @@ describe('R.match', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 46.75%</summary>
+<summary>Rambda is faster than Ramda with 44.83%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -9319,7 +9321,7 @@ describe('R.merge', () => {
 
 <details>
 
-<summary>Ramda is fastest. Rambda is 63.55% slower and Lodash is 55.25% slower</summary>
+<summary>Rambda is fastest. Ramda is 12.21% slower and Lodash is 55.76% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -10135,7 +10137,7 @@ describe('R.none', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 98.22%</summary>
+<summary>Rambda is faster than Ramda with 96.48%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -10591,7 +10593,7 @@ describe('R.omit with string as props input', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 70.66% slower and Lodash is 97.56% slower</summary>
+<summary>Rambda is fastest. Ramda is 69.95% slower and Lodash is 97.34% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -10918,7 +10920,7 @@ test('index lens', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 50.77%</summary>
+<summary>Rambda is faster than Ramda with 56.23%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -11475,7 +11477,7 @@ describe('path with specified input', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 74.94% slower and Lodash is 5.72% slower</summary>
+<summary>Lodash is fastest. Rambda is 37.81% slower and Ramda is 77.81% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -12113,7 +12115,7 @@ describe('R.pick with string as props input', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 26.29% slower and Lodash is 86.82% slower</summary>
+<summary>Rambda is fastest. Ramda is 19.07% slower and Lodash is 80.2% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -12695,7 +12697,7 @@ describe('with number as prop', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 89.89%</summary>
+<summary>Rambda is faster than Ramda with 87.95%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -12850,7 +12852,7 @@ describe('R.propEq', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 95.26%</summary>
+<summary>Rambda is faster than Ramda with 91.92%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -13304,7 +13306,7 @@ describe('R.range', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 95.17% slower and Ramda is 90.22% slower</summary>
+<summary>Rambda is fastest. Ramda is 61.8% slower and Lodash is 57.44% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -13531,7 +13533,7 @@ describe('R.reduce', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 52.76% slower and Ramda is 74.02% slower</summary>
+<summary>Lodash is fastest. Rambda is 60.48% slower and Ramda is 77.1% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -13772,7 +13774,7 @@ describe('R.repeat', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 85.91% slower and Ramda is 95.31% slower</summary>
+<summary>Lodash is fastest. Rambda is 48.57% slower and Ramda is 68.98% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -13914,7 +13916,7 @@ describe('R.replace - curried', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 0.47% slower and Ramda is 28.13% slower</summary>
+<summary>Lodash is fastest. Rambda is 33.45% slower and Ramda is 33.99% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14141,7 +14143,7 @@ test('index lens', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 36.26%</summary>
+<summary>Rambda is faster than Ramda with 50.35%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14360,7 +14362,7 @@ describe('R.sort', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 63.15%</summary>
+<summary>Rambda is faster than Ramda with 44.29%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14521,7 +14523,7 @@ describe('R.sortBy', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 61.57% slower and Lodash is 88.88% slower</summary>
+<summary>Rambda is fastest. Ramda is 25.29% slower and Lodash is 56.88% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14639,7 +14641,7 @@ describe('R.split', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 85.34% slower and Lodash is 33.69% slower</summary>
+<summary>Rambda is fastest. Ramda is 55.37% slower and Lodash is 17.64% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14941,7 +14943,7 @@ describe('R.splitEvery', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 90.18%</summary>
+<summary>Rambda is faster than Ramda with 71.98%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -15563,7 +15565,7 @@ describe('R.take - string', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 93.44% slower and Ramda is 98.04% slower</summary>
+<summary>Rambda is fastest. Ramda is 91.96% slower and Lodash is 4.72% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -15724,7 +15726,7 @@ describe('R.takeLast - string', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 92.61% slower and Ramda is 98.83% slower</summary>
+<summary>Rambda is fastest. Ramda is 93.39% slower and Lodash is 19.22% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -16054,7 +16056,7 @@ describe('R.test', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 94.42%</summary>
+<summary>Rambda is faster than Ramda with 82.34%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -16996,7 +16998,7 @@ describe('R.type', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 18.91%</summary>
+<summary>Rambda is faster than Ramda with 78.86%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17274,7 +17276,7 @@ describe('R.uniq', () => {
 
 <details>
 
-<summary>Lodash is fastest. Rambda is 98.98% slower and Ramda is 96.58% slower</summary>
+<summary>Rambda is faster than Ramda with 71.45%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17596,7 +17598,7 @@ describe('R.update', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 38.88%</summary>
+<summary>Rambda is faster than Ramda with 52.35%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17811,7 +17813,7 @@ describe('R.view', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 82.21%</summary>
+<summary>Rambda is faster than Ramda with 76.15%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
