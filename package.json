@@ -72,6 +72,7 @@
 	"files": [
 		"dist",
 		"src",
+		"README.md",
 		"CHANGELOG.md",
 		"index.d.ts",
 		"immutable.d.ts",
@@ -95,8 +96,5 @@
 		"utility",
 		"lodash"
 	],
-	"bugs": {
-		"url": "https://github.com/selfrefactor/rambda/issues"
-	},
 	"homepage": "https://github.com/selfrefactor/rambda#readme"
 }
