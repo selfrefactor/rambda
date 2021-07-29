@@ -1,4 +1,5 @@
 import {uniq} from './uniq'
+import {uniq as uniqRamda} from 'ramda'
 
 test('happy', () => {
   const list = [1, 2, 3, 3, 3, 1, 2, 0]
@@ -6,12 +7,15 @@ test('happy', () => {
 })
 
 test('with object', () => {
-  const list = [{a: 1}, {a: 2}, {a: 1}]
+  const list = [{a: 1}, {a: 2}, {a: 1}, {a:2}]
   expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
 
 test('with nested array', () => {
   expect(uniq([[42], [42]])).toEqual([[42]])
+})
+test('with booleans', () => {
+  expect(uniq([[false], [false], [true]])).toEqual([[false], [true]])
 })
 
 test('with falsy values', () => {

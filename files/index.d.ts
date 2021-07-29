@@ -1600,7 +1600,7 @@ const result = [
 
 Categories: List
 
-Notes:
+Notes: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
 
 */
 // @SINGLE_MARKER

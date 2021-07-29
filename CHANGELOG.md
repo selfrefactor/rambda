@@ -1,3 +1,9 @@
+6.9.0
+
+- Fix slow `R.uniq`, `R.without`, `R.includes` methods.
+
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it returns empty array, which is fine as this is also Ramda's behaviour. 
+
 6.8.3
 
 - Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)

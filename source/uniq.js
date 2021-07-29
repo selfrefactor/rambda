@@ -1,16 +1,13 @@
-import { includes } from './includes'
+import { _Set } from './_internals/set'
 
-export function uniq(list){
-  let index = -1
+export function uniq(list) {
+  const set = new _Set()
   const willReturn = []
-
-  while (++index < list.length){
-    const value = list[ index ]
-
-    if (!includes(value, willReturn)){
-      willReturn.push(value)
+  list.forEach(item => {
+    if (set.checkUniqueness(item)) {
+      willReturn.push(item)
     }
-  }
-
+  })
+  
   return willReturn
 }

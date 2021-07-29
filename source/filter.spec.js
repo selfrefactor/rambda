@@ -31,7 +31,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
     'Cannot read property \'filter\' of undefined')
 })
 
-test.only('predicate when input is object', () => {
+test('predicate when input is object', () => {
   const obj = {
     a : 1,
     b : 2,
