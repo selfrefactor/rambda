@@ -35,6 +35,13 @@ const possibleTargets = [
   /foo/,
   "foo",
   { a: 1 },
+  true,
+  3,
+  null,
+  /bar/g,
+  NaN,
+  undefined,
+  4,
   [],
   [[]],
   [[1], [2]],
@@ -44,6 +51,18 @@ const possibleTargets = [
 ];
 
 const possibleIterables = [
+  [
+    1,
+    2,
+    new Boolean(true),
+    false,
+    true,
+    new String("foo"),
+    new Number(3),
+    null,
+    undefined,
+  ],
+  [/foo/g, /bar/, /bar/g, NaN],
   [1, 2, 3],
   [1, [[], []]],
   [{ a: 3 }, { a: 2 }, { a: 1 }],
@@ -64,9 +83,9 @@ describe("brute force", () => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 20,
+          "ERRORS_TYPE_MISMATCH": 34,
           "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 30,
+          "SHOULD_NOT_THROW": 51,
           "SHOULD_THROW": 0,
         }
       `);

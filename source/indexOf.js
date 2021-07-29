@@ -7,7 +7,7 @@ export function _indexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
   const typeOfValue = type(valueToFind)
-  if (!['Object', 'Array', 'NaN'].includes(typeOfValue)) return list.indexOf(valueToFind)
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.indexOf(valueToFind)
   
   let foundIndex = -1
   list.forEach((x, i) => {
