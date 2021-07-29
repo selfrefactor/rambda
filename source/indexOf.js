@@ -1,20 +1,21 @@
 import { equals } from './equals'
-import {_isIterable} from './_internals/isIterable'
+import { type } from './type'
 import { _isArray } from './_internals/_isArray'
 
 export function _indexOf(valueToFind, list) {
   if (!_isArray(list)){
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
-  if (!_isIterable(valueToFind)) return list.indexOf(valueToFind)
-
-  let index = -1
+  const typeOfValue = type(valueToFind)
+  if (!['Object', 'Array', 'NaN'].includes(typeOfValue)) return list.indexOf(valueToFind)
+  
+  let foundIndex = -1
   list.forEach((x, i) => {
-    if (index > -1) return
-    if (equals(x, valueToFind)) index = i
+    if (foundIndex > -1) return
+    if (equals(x, valueToFind)) foundIndex = i
   })
 
-  return index
+  return foundIndex
 }
 
 

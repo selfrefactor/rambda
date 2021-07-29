@@ -2,7 +2,11 @@ import { indexOf } from "./indexOf";
 import { indexOf as indexOfRamda } from "ramda";
 import { compareCombinations } from "./_internals/testUtils";
 
-test("1", () => {
+test("with NaN", () => {
+  expect(indexOf(NaN, [NaN])).toEqual(0);
+});
+
+test("will throw with bad input", () => {
   expect(indexOfRamda([], true)).toEqual(-1);
   expect(() => indexOf([], true)).toThrow();
 });
