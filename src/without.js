@@ -1,14 +1,14 @@
-import { includesArray } from './includes'
-import { reduce } from './reduce'
+import {reduce} from './reduce'
+import {_indexOf} from './indexOf'
 
-export function without(matchAgainst, source){
-  if (source === undefined){
+export function without(matchAgainst, source) {
+  if (source === undefined) {
     return _source => without(matchAgainst, _source)
   }
 
   return reduce(
     (prev, current) =>
-    includesArray(current, matchAgainst) ? prev : prev.concat(current),
+      _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current),
     [],
     source
   )

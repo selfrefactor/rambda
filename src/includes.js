@@ -1,17 +1,5 @@
 import { _isArray } from './_internals/_isArray'
-import { equals } from './equals'
-
-export function includesArray(valueToFind, input){
-  let index = -1
-
-  while (++index < input.length){
-    if (equals(input[ index ], valueToFind)){
-      return true
-    }
-  }
-
-  return false
-}
+import { _indexOf } from './indexOf'
 
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
@@ -23,5 +11,5 @@ export function includes(valueToFind, input){
   }
   if (!_isArray(input)) return false
 
-  return includesArray(valueToFind, input)
+  return _indexOf(valueToFind, input) > -1
 }

@@ -3573,6 +3573,7 @@ export function difference(a, b){
 
 ```javascript
 import { difference } from './difference'
+import { difference as differenceRamda } from 'ramda'
 
 test('difference', () => {
   const a = [ 1, 2, 3, 4 ]
@@ -3595,7 +3596,8 @@ test('no duplicates in first list', () => {
 })
 
 test('should use R.equals', () => {
-  expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
+  expect(difference([ 1 ], [ 1 ]).length).toEqual(0)
+  expect(differenceRamda([ NaN ], [ NaN ]).length).toEqual(0)
 })
 ```
 
@@ -4747,26 +4749,33 @@ describe('R.equals', () => {
 ```text
 const R = require('../../dist/rambda.js')
 
-const a = { a : { b : { c : 1 } } }
-const b = { a : { b : { c : 1 } } }
+const mode = 0
+const limit = 10000
+
+const strings = Array(limit).fill(null).map(() => Math.floor(Math.random() * 1000))
+
+const modes = [
+  strings
+]
+const activeMode = modes[mode]
 
 const equals = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.equals(a, b)
+      activeMode.forEach(x => R.equals(x,'ss' ))
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.equals(a, b)
+      activeMode.forEach(x => Ramda.equals(x,'ss' ))
     },
   },
   {
     label : 'Lodash',
     fn    : () => {
-      _.isEqual(a, b)
+      activeMode.forEach(x => _.isEqual(x,'ss' ))
     },
   },
 ]
@@ -5182,7 +5191,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
     'Cannot read property \'filter\' of undefined')
 })
 
-test.only('predicate when input is object', () => {
+test('predicate when input is object', () => {
   const obj = {
     a : 1,
     b : 2,
@@ -6965,19 +6974,7 @@ includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 ```javascript
 import { _isArray } from './_internals/_isArray'
-import { equals } from './equals'
-
-export function includesArray(valueToFind, input){
-  let index = -1
-
-  while (++index < input.length){
-    if (equals(input[ index ], valueToFind)){
-      return true
-    }
-  }
-
-  return false
-}
+import { _indexOf } from './indexOf'
 
 export function includes(valueToFind, input){
   if (arguments.length === 1) return _input => includes(valueToFind, _input)
@@ -6989,7 +6986,7 @@ export function includes(valueToFind, input){
   }
   if (!_isArray(input)) return false
 
-  return includesArray(valueToFind, input)
+  return _indexOf(valueToFind, input) > -1
 }
 ```
 
@@ -7000,32 +6997,45 @@ export function includes(valueToFind, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import R from 'ramda'
-
 import { includes } from './includes'
+import { includes as includesRamda } from 'ramda'
 
-test('includes with string', () => {
+test('with string as iterable', () => {
   const str = 'foo bar'
 
   expect(includes('bar')(str)).toBeTrue()
-  expect(R.includes('bar')(str)).toBeTrue()
+  expect(includesRamda('bar')(str)).toBeTrue()
   expect(includes('never', str)).toBeFalse()
-  expect(R.includes('never', str)).toBeFalse()
+  expect(includesRamda('never', str)).toBeFalse()
 })
 
-test('includes with array', () => {
+test('with array as iterable', () => {
   const arr = [ 1, 2, 3 ]
 
   expect(includes(2)(arr)).toBeTrue()
-  expect(R.includes(2)(arr)).toBeTrue()
+  expect(includesRamda(2)(arr)).toBeTrue()
 
   expect(includes(4, arr)).toBeFalse()
-  expect(R.includes(4, arr)).toBeFalse()
+  expect(includesRamda(4, arr)).toBeFalse()
+})
+
+test('with list of objects as iterable', () => {
+  const arr = [ {a:1}, {b:2}, {c:3} ]
+
+  expect(includes({c:3}, arr)).toBeTrue()
+  expect(includesRamda({c:3}, arr)).toBeTrue()
+})
+
+test('with NaN', () => {
+  const result = includes(NaN, [NaN])
+  const ramdaResult = includesRamda(NaN, [NaN])
+  expect(result).toBeTrue()
+  expect(ramdaResult).toBeTrue()
 })
 
 test('with wrong input that does not throw', () => {
   const result = includes(1, /foo/g)
-  const ramdaResult = R.includes(1, /foo/g)
+  const ramdaResult = includesRamda(1, /foo/g)
   expect(result).toBeFalse()
   expect(ramdaResult).toBeFalse()
 })
@@ -7033,11 +7043,11 @@ test('with wrong input that does not throw', () => {
 test('throws on wrong input - match ramda behaviour', () => {
   expect(() => includes(2, null)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of null')
-  expect(() => R.includes(2, null)).toThrowWithMessage(TypeError,
+  expect(() => includesRamda(2, null)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of null')
   expect(() => includes(2, undefined)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of undefined')
-  expect(() => R.includes(2, undefined)).toThrowWithMessage(TypeError,
+  expect(() => includesRamda(2, undefined)).toThrowWithMessage(TypeError,
     'Cannot read property \'indexOf\' of undefined')
 })
 ```
@@ -7076,24 +7086,29 @@ describe('R.includes', () => {
 
 ```text
 const R = require('../../dist/rambda.js')
+// const R = require('rambdax')
 
-const str = 'more is less'
+const mode = 0
+const limit = 10000
+
+const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
+
+const modes = [
+  strings
+]
+const activeMode = modes[mode]
 
 const includes = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.includes('less')(str)
-      R.includes('more', str)
-      R.includes('foo', str)
+      R.includes('0', activeMode)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.includes('less')(str)
-      Ramda.includes('more', str)
-      Ramda.includes('foo', str)
+      Ramda.includes('0', activeMode)
     },
   },
 ]
@@ -8749,76 +8764,7 @@ const map = [
 
 ### mapObjIndexed
 
-```typescript
-
-mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>
-```
-
 It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
-mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
-mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mapObjIndexed} from 'rambda'
-
-const obj = {a: 1, b: 2, c: 3}
-
-describe('R.mapObjIndexed', () => {
-  it('without type transform', () => {
-    const result = mapObjIndexed((x, prop, obj) => {
-      x // $ExpectType number
-      prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
-      return x + 2
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('without type transform - curried', () => {
-    const result = mapObjIndexed<number>((x, prop, obj) => {
-      x // $ExpectType number
-      prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
-      return x + 2
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('change of type', () => {
-    const result = mapObjIndexed((x, prop, obj) => {
-      x // $ExpectType number
-      prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
-      return String(x + 2)
-    }, obj)
-    result // $ExpectType Dictionary<string>
-  })
-  it('change of type - curried', () => {
-    const result = mapObjIndexed<number, string>((x, prop, obj) => {
-      x // $ExpectType number
-      prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
-      return String(x + 2)
-    })(obj)
-    result // $ExpectType Dictionary<string>
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapObjIndexed)
 
@@ -10380,148 +10326,7 @@ describe('R.nth', () => {
 
 ### objOf
 
-```typescript
-
-objOf<T, K extends string>(key: K, value: T): Record<K, T>
-```
-
 It creates an object with a single key-value pair.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-objOf<T, K extends string>(key: K, value: T): Record<K, T>;
-objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.objOf</strong> source</summary>
-
-```javascript
-export function objOf(key, value) {
-  if (arguments.length === 1) {
-    return (_value) => objOf(key, _value)
-  }
-  
-  return {
-    [key]: value
-  }
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { objOf } from "./objOf";
-import { objOf as objOfRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
-
-test("happy", function () {
-  expect(objOf("foo", 42)).toEqual({ foo: 42 });
-});
-
-test("with bad inputs", function () {
-  expect(objOf(null, undefined)).toEqual({ null: undefined });
-});
-
-test("curried", function () {
-  expect(objOf("foo")(42)).toEqual({ foo: 42 });
-});
-
-describe("brute force", () => {
-  const possibleInputs = [0, 1, null, undefined, [], {}];
-
-  compareCombinations({
-    firstInput: possibleInputs,
-    secondInput: possibleInputs,
-    callback: (errorsCounters) => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 0,
-        }
-      `);
-    },
-    fn: objOf,
-    fnRamda: objOfRamda,
-  });
-});
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {objOf} from 'rambda'
-
-const key = 'foo'
-const value = 42
-
-describe('R.objOf', () => {
-  it('happy', () => {
-    const result = objOf(key, value)
-
-    result.foo // $ExpectType number
-    
-    // $ExpectError
-    result.bar // `bar` is no property of `result`; TODO - use it more often
-  })
-  it('curried', () => {
-    const result = objOf(key)(value)
-
-    result.foo // $ExpectType number
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary></summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const key = 'foo'
-const value = 42
-
-const assoc = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.objOf(
-        key, value
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.objOf(
-        key, value
-      )
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#objOf)
 
@@ -17200,39 +17005,50 @@ const fn1 = () => {}
 const fn2 = function (){}
 function fn3(){}
 
+const mode = 0
+const limit = 10000
+
+const modes = [
+  new Boolean(true)
+]
+
+function applyBenchmark(fn){
+  Array(limit).fill(modes[mode]).forEach(x => fn(x))  
+}
+
 const test = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.type(new Boolean(true))
-      R.type(new String('I am a String object'))
-      R.type(fn1)
-      R.type(fn2)
-      R.type(fn3)
-      R.type(1)
-      R.type({ a : 1 })
-      R.type(null)
-      R.type(undefined)
-      R.type(Number('foo'))
-      R.type([ 12, 3 ])
-      R.type(/\s/g)
+      applyBenchmark(R.type)
+      // R.type(new String('I am a String object'))
+      // R.type(fn1)
+      // R.type(fn2)
+      // R.type(fn3)
+      // R.type(1)
+      // R.type({ a : 1 })
+      // R.type(null)
+      // R.type(undefined)
+      // R.type(Number('foo'))
+      // R.type([ 12, 3 ])
+      // R.type(/\s/g)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.type(new Boolean(true))
-      Ramda.type(new String('I am a String object'))
-      Ramda.type(fn1)
-      Ramda.type(fn2)
-      Ramda.type(fn3)
-      Ramda.type(1)
-      Ramda.type({ a : 1 })
-      Ramda.type(null)
-      Ramda.type(undefined)
-      Ramda.type(Number('foo'))
-      Ramda.type([ 12, 3 ])
-      Ramda.type(/\s/g)
+      applyBenchmark(Ramda.type)
+      // Ramda.type(new String('I am a String object'))
+      // Ramda.type(fn1)
+      // Ramda.type(fn2)
+      // Ramda.type(fn3)
+      // Ramda.type(1)
+      // Ramda.type({ a : 1 })
+      // Ramda.type(null)
+      // Ramda.type(undefined)
+      // Ramda.type(Number('foo'))
+      // Ramda.type([ 12, 3 ])
+      // Ramda.type(/\s/g)
     },
   },
 ]
@@ -17386,20 +17202,17 @@ uniq<T>(list: T[]): T[];
 <summary><strong>R.uniq</strong> source</summary>
 
 ```javascript
-import { includes } from './includes'
+import { _Set } from './_internals/set'
 
-export function uniq(list){
-  let index = -1
+export function uniq(list) {
+  const set = new _Set()
   const willReturn = []
-
-  while (++index < list.length){
-    const value = list[ index ]
-
-    if (!includes(value, willReturn)){
-      willReturn.push(value)
+  list.forEach(item => {
+    if (set.checkUniqueness(item)) {
+      willReturn.push(item)
     }
-  }
-
+  })
+  
   return willReturn
 }
 ```
@@ -17412,6 +17225,7 @@ export function uniq(list){
 
 ```javascript
 import {uniq} from './uniq'
+import {uniq as uniqRamda} from 'ramda'
 
 test('happy', () => {
   const list = [1, 2, 3, 3, 3, 1, 2, 0]
@@ -17419,12 +17233,15 @@ test('happy', () => {
 })
 
 test('with object', () => {
-  const list = [{a: 1}, {a: 2}, {a: 1}]
+  const list = [{a: 1}, {a: 2}, {a: 1}, {a:2}]
   expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
 
 test('with nested array', () => {
   expect(uniq([[42], [42]])).toEqual([[42]])
+})
+test('with booleans', () => {
+  expect(uniq([[false], [false], [true]])).toEqual([[false], [true]])
 })
 
 test('with falsy values', () => {
@@ -17462,25 +17279,27 @@ describe('R.uniq', () => {
 ```text
 const R = require('../../dist/rambda.js')
 
-const list = Array(10000).fill('').map(() => String(Math.floor(Math.random() * 1000)))
+const mode = 0
+const limit = 10000
+
+const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
+
+const modes = [
+  strings
+]
+const activeMode = modes[mode]
 
 const uniq = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.uniq(list)
+      R.uniq(activeMode)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.uniq(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.uniq(list)
+      Ramda.uniq(activeMode)
     },
   },
 ]
@@ -18372,17 +18191,17 @@ without<T>(matchAgainst: T[]): (source: T[]) => T[];
 <summary><strong>R.without</strong> source</summary>
 
 ```javascript
-import { includesArray } from './includes'
-import { reduce } from './reduce'
+import {reduce} from './reduce'
+import {_indexOf} from './indexOf'
 
-export function without(matchAgainst, source){
-  if (source === undefined){
+export function without(matchAgainst, source) {
+  if (source === undefined) {
     return _source => without(matchAgainst, _source)
   }
 
   return reduce(
     (prev, current) =>
-    includesArray(current, matchAgainst) ? prev : prev.concat(current),
+      _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current),
     [],
     source
   )
@@ -18396,24 +18215,34 @@ export function without(matchAgainst, source){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { without } from './without'
+import {without} from './without'
+import {without as withoutRamda} from 'ramda'
 
-test('should return a new list without values in the first argument ', () => {
-  const itemsToOmit = [ 'A', 'B', 'C' ]
-  const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+test('should return a new list without values in the first argument', () => {
+  const itemsToOmit = ['A', 'B', 'C']
+  const collection = ['A', 'B', 'C', 'D', 'E', 'F']
 
-  expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
-  expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])
+  expect(without(itemsToOmit, collection)).toEqual(['D', 'E', 'F'])
+  expect(without(itemsToOmit)(collection)).toEqual(['D', 'E', 'F'])
 })
 
-test('ramda bug', () => {
-  expect(
-    without("0:1", ["0", "0:1"])
-  ).toEqual(['0:1'])
+test('with list of objects', () => {
+  const itemsToOmit = [{a: 1}, {c: 3}]
+  const collection = [{a: 1}, {b: 2}, {c: 3}, {d: 4}]
+  const expected = [{b: 2}, {d: 4}]
+
+  expect(without(itemsToOmit, collection)).toEqual(expected)
+  expect(withoutRamda(itemsToOmit, collection)).toEqual(expected)
+})
+
+test('ramda accepts string as target input while rambda throws', () => {
+  expect(withoutRamda('0:1', ['0', '0:1'])).toEqual([])
+  expect(() => without('0:1', ['0', '0:1'])).toThrow()
+  expect(without(['0:1'], ['0', '0:1'])).toEqual(['0'])
 })
 
 test('ramda test', () => {
-  expect(without([ 1, 2 ])([ 1, 2, 1, 3, 4 ])).toEqual([ 3, 4 ])
+  expect(without([1, 2])([1, 2, 1, 3, 4])).toEqual([3, 4])
 })
 ```
 
@@ -18888,6 +18717,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+6.9.0
+
+- Fix slow `R.uniq`, `R.without`, `R.includes` methods.
+
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it returns empty array, which is fine as this is also Ramda's behaviour. 
 
 6.8.3
 

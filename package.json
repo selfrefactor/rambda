@@ -22,6 +22,7 @@
 		"cover:spec": "jest source --coverage --no-cache -w 1",
 		"cover": "yarn typings&&yarn cover:spec",
 		"benchmark": "yarn populatedocs && yarn populatereadme && yarn build:main && yarn benchmark:method",
+		"benchmark:all": "yarn populatedocs && yarn populatereadme && yarn build:main && cd ../rambda-scripts&&yarn benchmark:all",
 		"benchmark:method": "cd ../rambda-scripts&&METHOD=uniq yarn benchmark",
 		"benchmarkx": "cd ../rambda-scripts&&yarn benchmarkx",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
