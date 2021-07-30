@@ -298,7 +298,7 @@ method | Rambda | Ramda | Lodash
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
  *type* | 🚀 Fastest | 78.86% slower | 🔳
- *uniq* | 🚀 Fastest | 71.45% slower | 🔳
+ *uniq* | 🚀 Fastest | 88.46% slower | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
 
@@ -17276,32 +17276,38 @@ describe('R.uniq', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 71.45%</summary>
+<summary>Rambda is faster than Ramda with 88.46%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
 
-const mode = 0
-const limit = 10000
+const { uniqListOfString, uniqListOfBooleans, uniqListOfNumbers, uniqListOfLists, uniqListOfObjects } = require('./_utils.js')
 
-const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
+const limit = 100
 
 const modes = [
-  strings
+  uniqListOfString(limit),
+  uniqListOfBooleans(limit),
+  uniqListOfNumbers(limit),
+  uniqListOfLists(limit),
+  uniqListOfObjects(limit),
 ]
-const activeMode = modes[mode]
 
 const uniq = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.uniq(activeMode)
+      modes.forEach(mode => {
+        R.uniq(mode)
+      })
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.uniq(activeMode)
+      modes.forEach(mode => {
+        Ramda.uniq(mode)
+      })
     },
   },
 ]
