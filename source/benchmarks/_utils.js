@@ -1,3 +1,24 @@
+const fn1 = () => {}
+const fn2 = function (){}
+function fn3(){}
+
+const listOfVariousTypes = [
+  new Boolean(true),
+  true,
+  new String('foobarbaz'),
+  'foo',
+  1,
+  new Number(1),
+  fn1,
+  fn2,
+  fn3,
+  undefined, 
+  null,
+  NaN,
+  /foo/g,
+  [1,2,3]
+]
+
 const uniqListOfBooleans = limit =>
   Array(limit)
     .fill(null)
@@ -37,3 +58,4 @@ exports.uniqListOfNumbers = uniqListOfNumbers
 exports.uniqListOfString = uniqListOfString
 exports.uniqListOfObjects = uniqListOfObjects
 exports.uniqListOfLists = uniqListOfLists
+exports.listOfVariousTypes = listOfVariousTypes
