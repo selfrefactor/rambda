@@ -1,4 +1,3 @@
-const {delay} = require('../delay')
 const fn1 = () => {}
 const fn2 = function (){}
 function fn3(){}
@@ -54,26 +53,7 @@ const uniqListOfLists = limit =>
     .fill(null)
     .map(() => [NaN, null, String(Math.floor(Math.random() * 1000))])
 
-async function delayedKill(){
-  await delay(2000);
-  process.exit()
-}
 
-function applyBenchmarkFn(singleFn, modes, index){
-  if(modes[index] === undefined){
-    delayedKill()
-
-    return
-  }
-  if(index > -1){
-    singleFn(modes[index])
-    return
-  }
-  modes.forEach(x => singleFn(x))
-}
-
-exports.applyBenchmarkFn = applyBenchmarkFn
-exports.delayedKill = delayedKill
 exports.uniqListOfBooleans = uniqListOfBooleans
 exports.uniqListOfNumbers = uniqListOfNumbers
 exports.uniqListOfString = uniqListOfString
