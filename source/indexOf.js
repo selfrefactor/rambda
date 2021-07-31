@@ -2,7 +2,7 @@ import { equals } from './equals'
 import { type } from './type'
 import { _isArray } from './_internals/_isArray'
 
-export function _indexOf(valueToFind, list) {
+export function _indexOf(valueToFind, list, transformFn) {
   if (!_isArray(list)){
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
@@ -12,7 +12,7 @@ export function _indexOf(valueToFind, list) {
   let foundIndex = -1
   list.forEach((x, i) => {
     if (foundIndex > -1) return
-    if (equals(x, valueToFind)) foundIndex = i
+    if (equals(x, transformFn ? transformFn(valueToFind) : valueToFind)) foundIndex = i
   })
 
   return foundIndex
