@@ -268,7 +268,7 @@ method | Rambda | Ramda | Lodash
  *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
  *includes* | 6.14% slower | 🚀 Fastest | 🔳
- *indexOf* | 43.02% slower | 57.73% slower | 🚀 Fastest
+ *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
  *isEmpty* | 🚀 Fastest | 97.14% slower | 54.99% slower
@@ -297,8 +297,9 @@ method | Rambda | Ramda | Lodash
  *take* | 🚀 Fastest | 91.96% slower | 4.72% slower
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
- *type* | 🚀 Fastest | 78.86% slower | 🔳
+ *type* | 🚀 Fastest | 48.6% slower | 🔳
  *uniq* | 🚀 Fastest | 88.46% slower | 🔳
+ *uniqWith* | 14.23% slower | 🚀 Fastest | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
 
@@ -16998,24 +16999,19 @@ describe('R.type', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 78.86%</summary>
+<summary>Rambda is faster than Ramda with 48.6%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
 
-const fn1 = () => {}
-const fn2 = function (){}
-function fn3(){}
+const {listOfVariousTypes} = require('./_utils')
 
-const mode = 0
-const limit = 10000
-
-const modes = [
-  new Boolean(true)
-]
+const limit = 1000
 
 function applyBenchmark(fn){
-  Array(limit).fill(modes[mode]).forEach(x => fn(x))  
+  listOfVariousTypes.forEach(mode => {
+    Array(limit).fill(mode).forEach(x => fn(x))  
+  })
 }
 
 const test = [
@@ -17023,34 +17019,12 @@ const test = [
     label : 'Rambda',
     fn    : () => {
       applyBenchmark(R.type)
-      // R.type(new String('I am a String object'))
-      // R.type(fn1)
-      // R.type(fn2)
-      // R.type(fn3)
-      // R.type(1)
-      // R.type({ a : 1 })
-      // R.type(null)
-      // R.type(undefined)
-      // R.type(Number('foo'))
-      // R.type([ 12, 3 ])
-      // R.type(/\s/g)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
       applyBenchmark(Ramda.type)
-      // Ramda.type(new String('I am a String object'))
-      // Ramda.type(fn1)
-      // Ramda.type(fn2)
-      // Ramda.type(fn3)
-      // Ramda.type(1)
-      // Ramda.type({ a : 1 })
-      // Ramda.type(null)
-      // Ramda.type(undefined)
-      // Ramda.type(Number('foo'))
-      // Ramda.type([ 12, 3 ])
-      // Ramda.type(/\s/g)
     },
   },
 ]
@@ -17417,6 +17391,56 @@ describe('R.uniqWith', () => {
     result // $ExpectType { a: number; }[]
   })
 })
+```
+
+</details>
+
+<details>
+
+<summary>Rambda is slower than Ramda with 14.23%</summary>
+
+```text
+const R = require('../../dist/rambda.js')
+
+const {
+  uniqListOfString,
+  uniqListOfBooleans,
+  uniqListOfNumbers,
+  uniqListOfLists,
+  uniqListOfObjects,
+} = require('./_utils.js')
+
+const limit = 100
+
+const modes = [
+  [uniqListOfString(limit), (x, y) => x.startsWith('o0') && y.length > 2],
+  [uniqListOfBooleans(limit), (x, y) => x !== y],
+  [
+    uniqListOfNumbers(limit),
+    (x, y) => (x % 2 === 1 && y % 2 === 1),
+  ],
+  [uniqListOfLists(limit), (x, y) => x.length !== y.length],
+  [uniqListOfObjects(limit), (x, y) => x.a === y.a],
+]
+
+const uniqWith = [
+  {
+    label: 'Rambda',
+    fn: () => {
+      modes.forEach(([mode, fn]) => {
+        R.uniqWith(fn, mode)
+      })
+    },
+  },
+  {
+    label: 'Ramda',
+    fn: () => {
+      modes.forEach(([mode, fn]) => {
+        Ramda.uniqWith(fn, mode)
+      })
+    },
+  },
+]
 ```
 
 </details>
@@ -17946,8 +17970,6 @@ where<T, U>(conditions: T, input: U): boolean
 ```
 
 It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
-
-`R.equals` is used to determine equality.
 
 <details>
 
@@ -18728,9 +18750,18 @@ describe('R.zipWith', () => {
 
 6.9.0
 
-- Fix slow `R.uniq`, `R.without`, `R.includes` methods.
+- Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it returns empty array, which is fine as this is also Ramda's behaviour. 
+Fixing `R.uniq` was done by improving `R.indexOf` which has performance implication to all methods importing `R.indexOf`:
+
+- R.includes
+- R.intersection
+- R.difference
+- R.excludes
+- R.symmetricDifference
+- R.union
+
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list. 
 
 6.8.3
 
