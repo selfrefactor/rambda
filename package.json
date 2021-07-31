@@ -21,10 +21,9 @@
 		"test": "jest source -u --bail=false",
 		"cover:spec": "jest source --coverage --no-cache -w 1",
 		"cover": "yarn typings&&yarn cover:spec",
-		"benchmark": "yarn populatedocs && yarn populatereadme && yarn build:main && yarn benchmark:method",
-		"benchmark:all": "yarn populatedocs && yarn populatereadme && yarn build:main && cd ../rambda-scripts&&yarn benchmark:all",
 		"benchmark:method": "cd ../rambda-scripts && METHOD=uniqWith yarn benchmark",
-		"benchmarkx": "cd ../rambda-scripts&&yarn benchmarkx",
+		"benchmark:all": "yarn populatedocs && yarn populatereadme && yarn build:main && cd ../rambda-scripts && yarn benchmark:all",
+		"benchmark": "yarn populatedocs && yarn populatereadme && yarn build:main && yarn benchmark:method",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
