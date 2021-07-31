@@ -83,9 +83,9 @@ describe("brute force", () => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 34,
           "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 34,
+          "SHOULD_NOT_THROW": 51,
           "SHOULD_THROW": 0,
         }
       `);
