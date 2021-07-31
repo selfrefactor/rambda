@@ -15,9 +15,8 @@ const modes = [
 ]
 
 function applyBenchmark(fn){
-  const singleFn = x => fn(x)
-  const allFn = list => list.forEach(x => fn(x))
-  applyBenchmarkFn(modes, INDEX, singleFn, allFn)
+  applyBenchmarkFn(modes, INDEX, fn)
+  // applyBenchmarkFn(modes, INDEX, x => fn(x))
 }
 
 const uniq = [

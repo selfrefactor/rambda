@@ -59,7 +59,7 @@ async function delayedKill(){
   process.exit()
 }
 
-function applyBenchmarkFn(singleFn, allFn, modes, index){
+function applyBenchmarkFn(singleFn, modes, index){
   if(modes[index] === undefined){
     delayedKill()
 
@@ -69,7 +69,7 @@ function applyBenchmarkFn(singleFn, allFn, modes, index){
     singleFn(modes[index])
     return
   }
-  allFn(modes)
+  modes.forEach(x => singleFn(x))
 }
 
 exports.applyBenchmarkFn = applyBenchmarkFn
