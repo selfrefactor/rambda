@@ -613,17 +613,35 @@ function equals(a, b) {
   return false;
 }
 
-function includesArray(valueToFind, input) {
-  let index = -1;
+function _indexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`);
+  }
 
-  while (++index < input.length) {
-    if (equals(input[index], valueToFind)) {
-      return true;
+  const typeOfValue = type(valueToFind);
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.indexOf(valueToFind);
+  let index = -1;
+  let foundIndex = -1;
+  const {
+    length
+  } = list;
+
+  while (++index < length && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index;
     }
   }
 
-  return false;
+  return foundIndex;
 }
+function indexOf(valueToFind, list) {
+  if (arguments.length === 1) {
+    return _list => _indexOf(valueToFind, _list);
+  }
+
+  return _indexOf(valueToFind, list);
+}
+
 function includes(valueToFind, input) {
   if (arguments.length === 1) return _input => includes(valueToFind, _input);
 
@@ -636,21 +654,56 @@ function includes(valueToFind, input) {
   }
 
   if (!_isArray(input)) return false;
-  return includesArray(valueToFind, input);
+  return _indexOf(valueToFind, input) > -1;
+}
+
+class _Set {
+  constructor() {
+    this.set = new Set();
+    this.items = {};
+  }
+
+  checkUniqueness(item) {
+    const type$1 = type(item);
+
+    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
+      if (type$1 in this.items) {
+        return false;
+      }
+
+      this.items[type$1] = true;
+      return true;
+    }
+
+    if (!['Object', 'Array'].includes(type$1)) {
+      const prevSize = this.set.size;
+      this.set.add(item);
+      return this.set.size !== prevSize;
+    }
+
+    if (!(type$1 in this.items)) {
+      this.items[type$1] = [item];
+      return true;
+    }
+
+    if (_indexOf(item, this.items[type$1]) === -1) {
+      this.items[type$1].push(item);
+      return true;
+    }
+
+    return false;
+  }
+
 }
 
 function uniq(list) {
-  let index = -1;
+  const set = new _Set();
   const willReturn = [];
-
-  while (++index < list.length) {
-    const value = list[index];
-
-    if (!includes(value, willReturn)) {
-      willReturn.push(value);
+  list.forEach(item => {
+    if (set.checkUniqueness(item)) {
+      willReturn.push(item);
     }
-  }
-
+  });
   return willReturn;
 }
 
@@ -1193,25 +1246,6 @@ function indexBy(condition, list) {
   }
 
   return toReturn;
-}
-
-function indexOf(valueToFind, list) {
-  if (arguments.length === 1) {
-    return _list => indexOf(valueToFind, _list);
-  }
-
-  let index = -1;
-  const {
-    length
-  } = list;
-
-  while (++index < length) {
-    if (list[index] === valueToFind) {
-      return index;
-    }
-  }
-
-  return -1;
 }
 
 function baseSlice(array, start, end) {
@@ -2131,7 +2165,7 @@ function without(matchAgainst, source) {
     return _source => without(matchAgainst, _source);
   }
 
-  return reduce((prev, current) => includesArray(current, matchAgainst) ? prev : prev.concat(current), [], source);
+  return reduce((prev, current) => _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current), [], source);
 }
 
 function xor(a, b) {
@@ -2165,4 +2199,4 @@ function zipWithFn(fn, x, y) {
 
 const zipWith = curry(zipWithFn);
 
-export { F, T, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, includesArray, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, once, or, over, partial, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, props, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, union, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj, zipWith };
+export { F, T, _indexOf, add, adjust, all, allPass, always, and, any, anyPass, append, applySpec, assoc, assocPath, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, once, or, over, partial, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, props, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, union, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj, zipWith };

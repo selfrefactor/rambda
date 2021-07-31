@@ -617,20 +617,35 @@ function equals(a, b) {
   return false;
 }
 
-function includesArray(valueToFind, input) {
-  // return input.includes(valueToFind);
-  return input.indexOf(valueToFind) > -1;
-  return input.some(value => value === valueToFind);
-  let index = -1;
+function _indexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`);
+  }
 
-  while (++index < input.length) {
-    if (equals(input[index], valueToFind)) {
-      return true;
+  const typeOfValue = type(valueToFind);
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.indexOf(valueToFind);
+  let index = -1;
+  let foundIndex = -1;
+  const {
+    length
+  } = list;
+
+  while (++index < length && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index;
     }
   }
 
-  return false;
+  return foundIndex;
 }
+function indexOf(valueToFind, list) {
+  if (arguments.length === 1) {
+    return _list => _indexOf(valueToFind, _list);
+  }
+
+  return _indexOf(valueToFind, list);
+}
+
 function includes(valueToFind, input) {
   if (arguments.length === 1) return _input => includes(valueToFind, _input);
 
@@ -643,21 +658,56 @@ function includes(valueToFind, input) {
   }
 
   if (!_isArray(input)) return false;
-  return includesArray(valueToFind, input);
+  return _indexOf(valueToFind, input) > -1;
+}
+
+class _Set {
+  constructor() {
+    this.set = new Set();
+    this.items = {};
+  }
+
+  checkUniqueness(item) {
+    const type$1 = type(item);
+
+    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
+      if (type$1 in this.items) {
+        return false;
+      }
+
+      this.items[type$1] = true;
+      return true;
+    }
+
+    if (!['Object', 'Array'].includes(type$1)) {
+      const prevSize = this.set.size;
+      this.set.add(item);
+      return this.set.size !== prevSize;
+    }
+
+    if (!(type$1 in this.items)) {
+      this.items[type$1] = [item];
+      return true;
+    }
+
+    if (_indexOf(item, this.items[type$1]) === -1) {
+      this.items[type$1].push(item);
+      return true;
+    }
+
+    return false;
+  }
+
 }
 
 function uniq(list) {
-  let index = -1;
+  const set = new _Set();
   const willReturn = [];
-
-  while (++index < list.length) {
-    const value = list[index];
-
-    if (!includes(value, willReturn)) {
-      willReturn.push(value);
+  list.forEach(item => {
+    if (set.checkUniqueness(item)) {
+      willReturn.push(item);
     }
-  }
-
+  });
   return willReturn;
 }
 
@@ -1200,25 +1250,6 @@ function indexBy(condition, list) {
   }
 
   return toReturn;
-}
-
-function indexOf(valueToFind, list) {
-  if (arguments.length === 1) {
-    return _list => indexOf(valueToFind, _list);
-  }
-
-  let index = -1;
-  const {
-    length
-  } = list;
-
-  while (++index < length) {
-    if (list[index] === valueToFind) {
-      return index;
-    }
-  }
-
-  return -1;
 }
 
 function baseSlice(array, start, end) {
@@ -2138,7 +2169,7 @@ function without(matchAgainst, source) {
     return _source => without(matchAgainst, _source);
   }
 
-  return reduce((prev, current) => includesArray(current, matchAgainst) ? prev : prev.concat(current), [], source);
+  return reduce((prev, current) => _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current), [], source);
 }
 
 function xor(a, b) {
@@ -2174,6 +2205,7 @@ const zipWith = curry(zipWithFn);
 
 exports.F = F;
 exports.T = T;
+exports._indexOf = _indexOf;
 exports.add = add;
 exports.adjust = adjust;
 exports.all = all;
@@ -2236,7 +2268,6 @@ exports.identity = identity;
 exports.ifElse = ifElse;
 exports.inc = inc;
 exports.includes = includes;
-exports.includesArray = includesArray;
 exports.indexBy = indexBy;
 exports.indexOf = indexOf;
 exports.init = init;
