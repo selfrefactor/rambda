@@ -1,27 +1,34 @@
-const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
+const { uniqListOfString, uniqListOfBooleans, uniqListOfNumbers, uniqListOfLists, uniqListOfObjects } = require('./_utils.js')
 
-const target = 4
-const list = [ 1, 2, 3, 4 ]
+const limit = 100
+
+const modes = [
+  [uniqListOfString(limit), 'Rambda'],
+  [uniqListOfBooleans(limit), null],
+  [uniqListOfNumbers(limit), -2],
+  [uniqListOfLists(limit), [1]],
+  [uniqListOfObjects(limit), { a: 1 }],
+]
+
+const applyBenchmark = (fn) => {
+  modes.forEach(( [list, target] ) => {
+    fn(target, list)
+  })
+}
 
 const indexOf = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.indexOf(target, list)
+      applyBenchmark(R.indexOf)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.indexOf(target, list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.indexOf(list, target)
+      applyBenchmark(Ramda.indexOf)
     },
   },
 ]
