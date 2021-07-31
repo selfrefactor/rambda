@@ -1600,7 +1600,7 @@ const result = [
 
 Categories: List
 
-Notes:
+Notes: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
 
 */
 // @SINGLE_MARKER
@@ -4386,8 +4386,6 @@ export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) =
 Method: where
 
 Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
-
-`R.equals` is used to determine equality.
 
 Example:
 

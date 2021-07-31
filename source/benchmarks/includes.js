@@ -1,23 +1,28 @@
 const R = require('../../dist/rambda.js')
+// const R = require('rambdax')
 const Ramda = require('ramda')
 
-const str = 'more is less'
+const mode = 0
+const limit = 10000
+
+const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
+
+const modes = [
+  strings
+]
+const activeMode = modes[mode]
 
 const includes = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.includes('less')(str)
-      R.includes('more', str)
-      R.includes('foo', str)
+      R.includes('0', activeMode)
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.includes('less')(str)
-      Ramda.includes('more', str)
-      Ramda.includes('foo', str)
+      Ramda.includes('0', activeMode)
     },
   },
 ]

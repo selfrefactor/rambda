@@ -1,26 +1,32 @@
-const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
+const { uniqListOfString, uniqListOfBooleans, uniqListOfNumbers, uniqListOfLists, uniqListOfObjects } = require('./_utils.js')
 
-const list = Array(10000).fill('').map(() => String(Math.floor(Math.random() * 1000)))
+const limit = 100
+
+const modes = [
+  uniqListOfString(limit),
+  uniqListOfBooleans(limit),
+  uniqListOfNumbers(limit),
+  uniqListOfLists(limit),
+  uniqListOfObjects(limit),
+]
 
 const uniq = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.uniq(list)
+      modes.forEach(mode => {
+        R.uniq(mode)
+      })
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.uniq(list)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.uniq(list)
+      modes.forEach(mode => {
+        Ramda.uniq(mode)
+      })
     },
   },
 ]

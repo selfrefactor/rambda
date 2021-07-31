@@ -1,4 +1,5 @@
 import { difference } from './difference'
+import { difference as differenceRamda } from 'ramda'
 
 test('difference', () => {
   const a = [ 1, 2, 3, 4 ]
@@ -21,5 +22,6 @@ test('no duplicates in first list', () => {
 })
 
 test('should use R.equals', () => {
-  expect(difference([ NaN ], [ NaN ]).length).toEqual(0)
+  expect(difference([ 1 ], [ 1 ]).length).toEqual(0)
+  expect(differenceRamda([ NaN ], [ NaN ]).length).toEqual(0)
 })
