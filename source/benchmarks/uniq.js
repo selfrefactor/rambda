@@ -1,27 +1,32 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
+const { uniqListOfString, uniqListOfBooleans, uniqListOfNumbers, uniqListOfLists, uniqListOfObjects } = require('./_utils.js')
 
-const mode = 0
-const limit = 10000
-
-const strings = Array(limit).fill(null).map(() => String(Math.floor(Math.random() * 1000)))
+const limit = 100
 
 const modes = [
-  strings
+  uniqListOfString(limit),
+  uniqListOfBooleans(limit),
+  uniqListOfNumbers(limit),
+  uniqListOfLists(limit),
+  uniqListOfObjects(limit),
 ]
-const activeMode = modes[mode]
 
 const uniq = [
   {
     label : 'Rambda',
     fn    : () => {
-      R.uniq(activeMode)
+      modes.forEach(mode => {
+        R.uniq(mode)
+      })
     },
   },
   {
     label : 'Ramda',
     fn    : () => {
-      Ramda.uniq(activeMode)
+      modes.forEach(mode => {
+        Ramda.uniq(mode)
+      })
     },
   },
 ]

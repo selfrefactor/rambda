@@ -1,8 +1,17 @@
 6.9.0
 
-- Fix slow `R.uniq`, `R.without`, `R.includes` methods.
+- Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it returns empty array, which is fine as this is also Ramda's behaviour. 
+Fixing `R.uniq` was done by improving `R.indexOf` which has performance implication to all methods importing `R.indexOf`:
+
+- R.includes
+- R.intersection
+- R.difference
+- R.excludes
+- R.symmetricDifference
+- R.union
+
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list. 
 
 6.8.3
 
