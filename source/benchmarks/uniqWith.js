@@ -21,23 +21,19 @@ const modes = [
   [uniqListOfObjects(limit), (x, y) => x.a === y.a],
 ]
 
-const uniqWith = [
+function applyBenchmark(fn, input) {
+  fn(input[1], input[0])
+}
+
+const tests = [
   {
     label: 'Rambda',
-    fn: () => {
-      modes.forEach(([mode, fn]) => {
-        R.uniqWith(fn, mode)
-      })
-    },
+    fn: R.uniqWith,
   },
   {
     label: 'Ramda',
-    fn: () => {
-      modes.forEach(([mode, fn]) => {
-        Ramda.uniqWith(fn, mode)
-      })
-    },
+    fn: () => Ramda.uniqWith,
   },
 ]
 
-module.exports = uniqWith
+module.exports = {modes, tests, applyBenchmark}
