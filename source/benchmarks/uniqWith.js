@@ -11,18 +11,18 @@ const {
 const limit = 100
 
 const modes = [
-  [uniqListOfString(limit), (x, y) => x.startsWith('o0') && y.length > 2],
-  [uniqListOfBooleans(limit), (x, y) => x !== y],
+  [uniqListOfString(limit), (x, y) => x.length === y.length],
+  [uniqListOfBooleans(limit), (x, y) => x === y],
   [
     uniqListOfNumbers(limit),
-    (x, y) => (x % 2 === 1 && y % 2 === 1),
+    (x, y) => x > y,
   ],
-  [uniqListOfLists(limit), (x, y) => x.length !== y.length],
-  [uniqListOfObjects(limit), (x, y) => x.a === y.a],
+  [uniqListOfLists(limit), (x, y) => x.length === y.length],
+  [uniqListOfObjects(limit), (x) => (x, y) => Object.keys(x).length === Object.keys(y).length],
 ]
 
 function applyBenchmark(fn, input) {
-  fn(input[1], input[0])
+  return fn(input[1], input[0])
 }
 
 const tests = [
@@ -32,7 +32,7 @@ const tests = [
   },
   {
     label: 'Ramda',
-    fn: () => Ramda.uniqWith,
+    fn: Ramda.uniqWith,
   },
 ]
 

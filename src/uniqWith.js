@@ -1,17 +1,28 @@
-import { any } from './any'
+function includesWith(predicate, target, list) {
+  let willReturn = false
+  let index = -1
 
-export function uniqWith(predicate, list){
+  while (++index < list.length && !willReturn) {
+    const value = list[index]
+
+    if (predicate(target, value)) {
+      willReturn = true
+    }
+  }
+
+  return willReturn
+}
+
+export function uniqWith(predicate, list) {
   if (arguments.length === 1) return _list => uniqWith(predicate, _list)
 
   let index = -1
   const willReturn = []
 
-  while (++index < list.length){
-    const value = list[ index ]
-    const flag = any(x => predicate(value, x),
-      willReturn)
+  while (++index < list.length) {
+    const value = list[index]
 
-    if (!flag){
+    if (!includesWith(predicate, value, willReturn)) {
       willReturn.push(value)
     }
   }
