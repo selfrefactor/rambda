@@ -24,10 +24,9 @@
 		"build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
 		"benchmark:check:apply": "cd ../rambda-scripts && yarn check-benchmark",
 		"benchmark:check": "yarn build:step && yarn benchmark:check:apply",
-		"benchmark:method": "cd ../rambda-scripts && METHOD=uniqWith yarn benchmark",
-		"benchmark:dev": "cd ../rambda-scripts && yarn benchmark",
+		"benchmark:dev": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
-		"benchmark": "yarn build:step && yarn benchmark:method",
+		"benchmark": "yarn build:step && yarn benchmark:dev",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},

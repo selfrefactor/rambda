@@ -1,7 +1,7 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 const {
-  uniqListOfString,
+  uniqListOfStrings,
   uniqListOfBooleans,
   uniqListOfNumbers,
   uniqListOfLists,
@@ -11,7 +11,7 @@ const {
 const limit = 100
 
 const modes = [
-  [uniqListOfString(limit), (x, y) => x.length === y.length],
+  [uniqListOfStrings(limit), (x, y) => x.length === y.length],
   [uniqListOfBooleans(limit), (x, y) => x === y],
   [
     uniqListOfNumbers(limit),

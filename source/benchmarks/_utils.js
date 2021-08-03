@@ -37,7 +37,7 @@ const rangeOfNumbers = limit =>
     .fill(null)
     .map((_,i) => i)
 
-const uniqListOfString = limit =>
+const uniqListOfStrings = limit =>
   Array(limit)
     .fill(null)
     .map(() => String(Math.floor(Math.random() * 1000)))
@@ -60,7 +60,7 @@ const uniqListOfLists = limit =>
 
 exports.uniqListOfBooleans = uniqListOfBooleans
 exports.uniqListOfNumbers = uniqListOfNumbers
-exports.uniqListOfString = uniqListOfString
+exports.uniqListOfStrings = uniqListOfStrings
 exports.uniqListOfObjects = uniqListOfObjects
 exports.uniqListOfLists = uniqListOfLists
 exports.listOfVariousTypes = listOfVariousTypes
