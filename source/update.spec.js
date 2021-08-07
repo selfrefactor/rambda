@@ -26,3 +26,13 @@ test('list has no such index', () => {
 
   expect(result).toEqual(list)
 })
+
+test('index is -1', () => {
+  const newValue = 8
+  const index = -1
+  const result = update(
+    index, newValue, list
+  )
+  const expected = [ 1, 2, 8 ]
+  expect(result).toEqual(list)
+})
