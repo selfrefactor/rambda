@@ -6387,8 +6387,8 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 // @SINGLE_MARKER
 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: rray<T>): boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: rray<T>) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
 
 /*
 Method: viewOr
