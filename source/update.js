@@ -4,7 +4,8 @@ function updateFn(
   index, newValue, list
 ){
   const arrClone = list.slice()
-
+  if(index === -1)return arrClone.fill(newValue, index)
+  
   return arrClone.fill(
     newValue, index, index + 1
   )
