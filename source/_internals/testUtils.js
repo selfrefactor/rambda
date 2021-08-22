@@ -248,6 +248,7 @@ export const compareCombinations = ({
     SHOULD_NOT_THROW        : 0,
     ERRORS_TYPE_MISMATCH    : 0,
     ERRORS_MESSAGE_MISMATCH : 0,
+    TOTAL_TESTS: 0
   }
 
   const increaseCounter = comparedResult => {
@@ -285,14 +286,13 @@ export const compareCombinations = ({
 
       if (!compared.ok){
         // if (compared.label === RESULTS_MISMATCH){
-        //   const log = {combination, }
-        //   console.log(log);
-        // }
         increaseCounter(compared)
         expect({
           ...compared,
           inputs,
         }).toMatchSnapshot()
+      }else{
+        counter.TOTAL_TESTS++
       }
     })
   })
