@@ -1,5 +1,5 @@
-import { delay } from './delay'
-import { ifElseAsync } from './ifElseAsync'
+import {delay} from './delay'
+import {ifElseAsync} from './ifElseAsync'
 
 test('arity of 1 - condition is async', async () => {
   const condition = async x => {
@@ -9,11 +9,9 @@ test('arity of 1 - condition is async', async () => {
   }
   const whenTrue = x => x + 1
   const whenFalse = x => x + 10
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(5), fn(1) ])
-  expect(result).toEqual([ 6, 11 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(5), fn(1)])
+  expect(result).toEqual([6, 11])
 })
 
 test('arity of 1 - condition is sync', async () => {
@@ -28,11 +26,9 @@ test('arity of 1 - condition is sync', async () => {
 
     return x + 10
   }
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(5), fn(1) ])
-  expect(result).toEqual([ 6, 11 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(5), fn(1)])
+  expect(result).toEqual([6, 11])
 })
 
 test('arity of 1 - all inputs are async', async () => {
@@ -51,11 +47,9 @@ test('arity of 1 - all inputs are async', async () => {
 
     return x + 10
   }
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(5), fn(1) ])
-  expect(result).toEqual([ 6, 11 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(5), fn(1)])
+  expect(result).toEqual([6, 11])
 })
 
 test('arity of 2 - condition is async', async () => {
@@ -66,11 +60,9 @@ test('arity of 2 - condition is async', async () => {
   }
   const whenTrue = (x, y) => x + y + 1
   const whenFalse = (x, y) => x + y + 10
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
-  expect(result).toEqual([ 35, 14 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(14, 20), fn(1, 3)])
+  expect(result).toEqual([35, 14])
 })
 
 test('arity of 2 - condition is sync', async () => {
@@ -85,11 +77,9 @@ test('arity of 2 - condition is sync', async () => {
 
     return x + y + 10
   }
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
-  expect(result).toEqual([ 35, 14 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(14, 20), fn(1, 3)])
+  expect(result).toEqual([35, 14])
 })
 
 test('arity of 2 - all inputs are async', async () => {
@@ -108,9 +98,7 @@ test('arity of 2 - all inputs are async', async () => {
 
     return x + y + 10
   }
-  const fn = ifElseAsync(
-    condition, whenTrue, whenFalse
-  )
-  const result = await Promise.all([ fn(14, 20), fn(1, 3) ])
-  expect(result).toEqual([ 35, 14 ])
+  const fn = ifElseAsync(condition, whenTrue, whenFalse)
+  const result = await Promise.all([fn(14, 20), fn(1, 3)])
+  expect(result).toEqual([35, 14])
 })

@@ -1,8 +1,8 @@
 import {mergeLeft} from 'rambda'
 
-interface Output{
-  foo: number
-  bar: number
+interface Output {
+  foo: number,
+  bar: number,
 }
 
 describe('R.mergeLeft', () => {

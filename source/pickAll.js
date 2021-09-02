@@ -1,7 +1,7 @@
-export function pickAll(propsToPick, obj){
+export function pickAll(propsToPick, obj) {
   if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
 
-  if (obj === null || obj === undefined){
+  if (obj === null || obj === undefined) {
     return undefined
   }
   const keysValue =
@@ -10,11 +10,11 @@ export function pickAll(propsToPick, obj){
   const willReturn = {}
   let counter = 0
 
-  while (counter < keysValue.length){
-    if (keysValue[ counter ] in obj){
-      willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ]
+  while (counter < keysValue.length) {
+    if (keysValue[counter] in obj) {
+      willReturn[keysValue[counter]] = obj[keysValue[counter]]
     } else {
-      willReturn[ keysValue[ counter ] ] = undefined
+      willReturn[keysValue[counter]] = undefined
     }
     counter++
   }

@@ -1,32 +1,24 @@
-import { replaceAll } from './replaceAll'
+import {replaceAll} from './replaceAll'
 
 const replacer = '|'
-const patterns = [ /foo/g, 'bar' ]
+const patterns = [/foo/g, 'bar']
 const input = 'foo bar baz foo bar'
 
 test('happy', () => {
-  const result = replaceAll(
-    patterns, replacer, input
-  )
+  const result = replaceAll(patterns, replacer, input)
   const expected = '| | baz | bar'
 
   expect(result).toEqual(expected)
 })
 
 test('throws when wrong patterns', () => {
-  expect(() => replaceAll(
-    {}, replacer, input
-  )).toThrow()
+  expect(() => replaceAll({}, replacer, input)).toThrow()
 })
 
 test('throws when wrong input', () => {
-  expect(() => replaceAll(
-    patterns, replacer, []
-  )).toThrow()
+  expect(() => replaceAll(patterns, replacer, [])).toThrow()
 })
 
 test('throws when wrong replacer', () => {
-  expect(() => replaceAll(
-    patterns, null, input
-  )).toThrow()
+  expect(() => replaceAll(patterns, null, input)).toThrow()
 })

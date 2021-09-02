@@ -1,6 +1,6 @@
 const fn1 = () => {}
-const fn2 = function (){}
-function fn3(){}
+const fn2 = function () {}
+function fn3() {}
 
 const listOfVariousTypes = [
   new Boolean(true),
@@ -12,11 +12,11 @@ const listOfVariousTypes = [
   fn1,
   fn2,
   fn3,
-  undefined, 
+  undefined,
   null,
   NaN,
   /foo/g,
-  [1,2,3]
+  [1, 2, 3],
 ]
 
 const uniqListOfBooleans = limit =>
@@ -35,7 +35,7 @@ const uniqListOfNumbers = limit =>
 const rangeOfNumbers = limit =>
   Array(limit)
     .fill(null)
-    .map((_,i) => i)
+    .map((_, i) => i)
 
 const uniqListOfStrings = limit =>
   Array(limit)
@@ -56,7 +56,6 @@ const uniqListOfLists = limit =>
   Array(limit)
     .fill(null)
     .map(() => [NaN, null, String(Math.floor(Math.random() * 1000))])
-
 
 exports.uniqListOfBooleans = uniqListOfBooleans
 exports.uniqListOfNumbers = uniqListOfNumbers

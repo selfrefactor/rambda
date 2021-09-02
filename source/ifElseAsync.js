@@ -1,12 +1,10 @@
-function createThenable(fn){
-  return async function (...input){
+function createThenable(fn) {
+  return async function (...input) {
     return fn(...input)
   }
 }
 
-export function ifElseAsync(
-  condition, ifFn, elseFn
-){
+export function ifElseAsync(condition, ifFn, elseFn) {
   return (...inputs) =>
     new Promise((resolve, reject) => {
       const conditionPromise = createThenable(condition)

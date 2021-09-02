@@ -1,9 +1,9 @@
-import { assoc } from './assoc'
-import { lens } from './lens'
-import { prop } from './prop'
-import { view } from './view'
+import {assoc} from './assoc'
+import {lens} from './lens'
+import {prop} from './prop'
+import {view} from './view'
 
-const testObject = { foo : 'Led Zeppelin' }
+const testObject = {foo: 'Led Zeppelin'}
 const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {

@@ -1,5 +1,5 @@
-import { sum } from './sum'
+import {sum} from './sum'
 
 test('happy', () => {
-  expect(sum([ 1, 2, 3, 4, 5 ])).toBe(15)
+  expect(sum([1, 2, 3, 4, 5])).toBe(15)
 })

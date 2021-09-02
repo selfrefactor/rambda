@@ -3,27 +3,27 @@ const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
 const obj = {
-  a : 'foo',
-  b : 'bar',
-  c : 'baz',
+  a: 'foo',
+  b: 'bar',
+  c: 'baz',
 }
-const toOmit = [ 'a', 'c' ]
+const toOmit = ['a', 'c']
 const omit = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       R.omit(toOmit, obj)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       Ramda.omit(toOmit, obj)
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       _.omit(obj, toOmit)
     },
   },

@@ -2,25 +2,25 @@ const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const list = [ { a : 2 }, { a : 1 }, { a : 0 } ]
+const list = [{a: 2}, {a: 1}, {a: 0}]
 const fn = x => x.a
 
 const replace = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       R.sortBy(fn, list)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       Ramda.sortBy(fn, list)
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       _.sortBy(list, fn)
     },
   },

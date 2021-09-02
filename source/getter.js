@@ -1,6 +1,6 @@
-import { merge } from './merge'
-import { pick } from './pick'
-import { type } from './type'
+import {merge} from './merge'
+import {pick} from './pick'
+import {type} from './type'
 
 let holder = {}
 
@@ -9,26 +9,26 @@ let holder = {}
  * Pass array to get object of values
  * Pass undefined to get all data
  */
-export function getter(key){
+export function getter(key) {
   const typeKey = type(key)
 
-  if (typeKey === 'String') return holder[ key ]
+  if (typeKey === 'String') return holder[key]
 
   if (typeKey === 'Array') return pick(key, holder)
 
   return holder
 }
 
-export function setter(maybeKey, maybeValue){
+export function setter(maybeKey, maybeValue) {
   const typeKey = type(maybeKey)
   const typeValue = type(maybeValue)
 
-  if (typeKey === 'String'){
-    if (typeValue === 'Function'){
-      return holder[ maybeKey ] = maybeValue(holder[ maybeKey ])
+  if (typeKey === 'String') {
+    if (typeValue === 'Function') {
+      return (holder[maybeKey] = maybeValue(holder[maybeKey]))
     }
 
-    return holder[ maybeKey ] = maybeValue
+    return (holder[maybeKey] = maybeValue)
   }
 
   if (typeKey !== 'Object') return
@@ -36,6 +36,6 @@ export function setter(maybeKey, maybeValue){
   holder = merge(holder, maybeKey)
 }
 
-export function reset(){
+export function reset() {
   holder = {}
 }

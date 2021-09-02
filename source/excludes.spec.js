@@ -1,4 +1,4 @@
-import { excludes } from './excludes'
+import {excludes} from './excludes'
 
 test('excludes with string', () => {
   const str = 'more is less'
@@ -8,7 +8,7 @@ test('excludes with string', () => {
 })
 
 test('excludes with array', () => {
-  const arr = [ 1, 2, 3 ]
+  const arr = [1, 2, 3]
 
   expect(excludes(2)(arr)).toBeFalse()
   expect(excludes(4, arr)).toBeTrue()

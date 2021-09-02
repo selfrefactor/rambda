@@ -1,10 +1,10 @@
-import { whereEq } from './whereEq'
+import {whereEq} from './whereEq'
 
 test('when true', () => {
-  const condition = { a : 1 }
+  const condition = {a: 1}
   const input = {
-    a : 1,
-    b : 2,
+    a: 1,
+    b: 2,
   }
 
   const result = whereEq(condition, input)
@@ -14,8 +14,8 @@ test('when true', () => {
 })
 
 test('when false', () => {
-  const condition = { a : 1 }
-  const input = { b : 2 }
+  const condition = {a: 1}
+  const input = {b: 2}
 
   const result = whereEq(condition, input)
   const expectedResult = false
@@ -24,10 +24,10 @@ test('when false', () => {
 })
 
 test('with nested object', () => {
-  const condition = { a : { b : 1 } }
+  const condition = {a: {b: 1}}
   const input = {
-    a : { b : 1 },
-    c : 2,
+    a: {b: 1},
+    c: 2,
   }
 
   const result = whereEq(condition)(input)
@@ -37,8 +37,10 @@ test('with nested object', () => {
 })
 
 test('with wrong input', () => {
-  const condition = { a : { b : 1 } }
+  const condition = {a: {b: 1}}
 
-  expect(() => whereEq(condition, null)).toThrowWithMessage(TypeError,
-    'Cannot read property \'a\' of null')
+  expect(() => whereEq(condition, null)).toThrowWithMessage(
+    TypeError,
+    "Cannot read property 'a' of null"
+  )
 })

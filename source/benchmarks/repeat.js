@@ -6,20 +6,20 @@ const str = 'foo'
 
 const repeat = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       R.repeat(str, num)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       Ramda.repeat(str, num)
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       _.repeat(str, num)
     },
   },

@@ -1,5 +1,5 @@
-import { add } from './add'
-import { when } from './when'
+import {add} from './add'
+import {when} from './when'
 
 const predicate = x => typeof x === 'number'
 

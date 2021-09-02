@@ -13,12 +13,12 @@ const limit = 100
 const modes = [
   [uniqListOfStrings(limit), (x, y) => x.length === y.length],
   [uniqListOfBooleans(limit), (x, y) => x === y],
-  [
-    uniqListOfNumbers(limit),
-    (x, y) => x > y,
-  ],
+  [uniqListOfNumbers(limit), (x, y) => x > y],
   [uniqListOfLists(limit), (x, y) => x.length === y.length],
-  [uniqListOfObjects(limit), (x) => (x, y) => Object.keys(x).length === Object.keys(y).length],
+  [
+    uniqListOfObjects(limit),
+    x => (x, y) => Object.keys(x).length === Object.keys(y).length,
+  ],
 ]
 
 function applyBenchmark(fn, input) {

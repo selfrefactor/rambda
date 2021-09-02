@@ -4,8 +4,8 @@ const Ramda = require('ramda')
 const Utils = require('../../scripts/run-benchmarks/utils')
 
 const lodash = {
-  label : 'Lodash',
-  fn    : () => {
+  label: 'Lodash',
+  fn: () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
     const fn = (_, i) => i === LIMIT - 10
@@ -15,8 +15,8 @@ const lodash = {
 }
 
 const lodashSlow = {
-  label : 'Lodash',
-  fn    : () => {
+  label: 'Lodash',
+  fn: () => {
     const fn = Utils.F
     const list = Utils.range(0, 1000)
 
@@ -25,8 +25,8 @@ const lodashSlow = {
 }
 
 const lodashFast = {
-  label : 'Lodash',
-  fn    : () => {
+  label: 'Lodash',
+  fn: () => {
     const fn = Utils.F
     const list = []
 
@@ -35,8 +35,8 @@ const lodashFast = {
 }
 
 const ramda = {
-  label : 'Ramda',
-  fn    : () => {
+  label: 'Ramda',
+  fn: () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
     const fn = (_, i) => i === LIMIT - 10
@@ -46,8 +46,8 @@ const ramda = {
 }
 
 const ramdaFast = {
-  label : 'Ramda',
-  fn    : () => {
+  label: 'Ramda',
+  fn: () => {
     const fn = Utils.F
     const list = []
 
@@ -56,8 +56,8 @@ const ramdaFast = {
 }
 
 const ramdaSlow = {
-  label : 'Ramda',
-  fn    : () => {
+  label: 'Ramda',
+  fn: () => {
     const fn = Utils.F
     const list = Utils.range(0, 1000)
 
@@ -66,8 +66,8 @@ const ramdaSlow = {
 }
 
 const rambda = {
-  label : 'Rambda',
-  fn    : () => {
+  label: 'Rambda',
+  fn: () => {
     const LIMIT = 50
     const list = Utils.range(0, LIMIT)
     const fn = (_, i) => i === LIMIT - 10
@@ -77,8 +77,8 @@ const rambda = {
 }
 
 const rambdaFast = {
-  label : 'Rambda',
-  fn    : () => {
+  label: 'Rambda',
+  fn: () => {
     const fn = Utils.F
     const list = []
 
@@ -86,8 +86,8 @@ const rambdaFast = {
   },
 }
 const rambdaSlow = {
-  label : 'Rambda',
-  fn    : () => {
+  label: 'Rambda',
+  fn: () => {
     const fn = Utils.F
     const list = Utils.range(0, 1000)
 
@@ -97,15 +97,15 @@ const rambdaSlow = {
 
 module.exports = [
   {
-    label  : 'find',
-    suites : [ rambda, ramda, lodash ],
+    label: 'find',
+    suites: [rambda, ramda, lodash],
   },
   {
-    label  : 'find#slow',
-    suites : [ rambdaSlow, ramdaSlow, lodashSlow ],
+    label: 'find#slow',
+    suites: [rambdaSlow, ramdaSlow, lodashSlow],
   },
   {
-    label  : 'find#fast',
-    suites : [ rambdaFast, ramdaFast, lodashFast ],
+    label: 'find#fast',
+    suites: [rambdaFast, ramdaFast, lodashFast],
   },
 ]

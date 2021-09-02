@@ -1,9 +1,19 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
-const {uniqListOfStrings, uniqListOfBooleans, uniqListOfObjects, uniqListOfLists, listOfVariousTypes, rangeOfNumbers} = require('./_utils.js')
+const {
+  uniqListOfStrings,
+  uniqListOfBooleans,
+  uniqListOfObjects,
+  uniqListOfLists,
+  listOfVariousTypes,
+  rangeOfNumbers,
+} = require('./_utils.js')
 
 const limit = 100
-const additionalModes = listOfVariousTypes.map(unknownType => ([unknownType, uniqListOfLists(limit)]))
+const additionalModes = listOfVariousTypes.map(unknownType => [
+  unknownType,
+  uniqListOfLists(limit),
+])
 
 const modes = [
   [99, rangeOfNumbers(limit)],

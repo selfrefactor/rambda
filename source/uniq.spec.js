@@ -7,7 +7,7 @@ test('happy', () => {
 })
 
 test('with object', () => {
-  const list = [{a: 1}, {a: 2}, {a: 1}, {a:2}]
+  const list = [{a: 1}, {a: 2}, {a: 1}, {a: 2}]
   expect(uniq(list)).toEqual([{a: 1}, {a: 2}])
 })
 

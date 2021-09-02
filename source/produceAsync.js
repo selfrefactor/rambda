@@ -1,54 +1,56 @@
-import { map } from './map'
-import { type } from './type'
+import {map} from './map'
+import {type} from './type'
 
-function promisify({ condition, input, prop }){
+function promisify({condition, input, prop}) {
   return new Promise((resolve, reject) => {
-    if (type(condition) !== 'Async'){
+    if (type(condition) !== 'Async') {
       return resolve({
-        type    : prop,
-        payload : condition(input),
+        type: prop,
+        payload: condition(input),
       })
     }
 
     condition(input)
       .then(result => {
         resolve({
-          type    : prop,
-          payload : result,
+          type: prop,
+          payload: result,
         })
       })
       .catch(err => reject(err))
   })
 }
 
-function produceFn(conditions, input){
+function produceFn(conditions, input) {
   let asyncConditionsFlag = false
-  for (const prop in conditions){
+  for (const prop in conditions) {
     if (
       asyncConditionsFlag === false &&
-      type(conditions[ prop ]) === 'Async'
-    ){
+      type(conditions[prop]) === 'Async'
+    ) {
       asyncConditionsFlag = true
     }
   }
 
-  if (asyncConditionsFlag === false){
+  if (asyncConditionsFlag === false) {
     const willReturn = {}
-    for (const prop in conditions){
-      willReturn[ prop ] = conditions[ prop ](input)
+    for (const prop in conditions) {
+      willReturn[prop] = conditions[prop](input)
     }
 
     return Promise.resolve(willReturn)
   }
 
   const promised = []
-  for (const prop in conditions){
-    const condition = conditions[ prop ]
-    promised.push(promisify({
-      input,
-      condition,
-      prop,
-    }))
+  for (const prop in conditions) {
+    const condition = conditions[prop]
+    promised.push(
+      promisify({
+        input,
+        condition,
+        prop,
+      })
+    )
   }
 
   return new Promise((resolve, reject) => {
@@ -56,7 +58,7 @@ function produceFn(conditions, input){
       .then(results => {
         const willReturn = {}
 
-        map(result => willReturn[ result.type ] = result.payload, results)
+        map(result => (willReturn[result.type] = result.payload), results)
 
         resolve(willReturn)
       })
@@ -64,13 +66,12 @@ function produceFn(conditions, input){
   })
 }
 
-export function produceAsync(conditions, input){
-  if (arguments.length === 1){
+export function produceAsync(conditions, input) {
+  if (arguments.length === 1) {
     return async _input => produceFn(conditions, _input)
   }
 
   return new Promise((resolve, reject) => {
-    produceFn(conditions, input).then(resolve)
-      .catch(reject)
+    produceFn(conditions, input).then(resolve).catch(reject)
   })
 }

@@ -1,17 +1,17 @@
-import { pick } from './pick'
+import {pick} from './pick'
 
 const obj = {
-  a : 1,
-  b : 2,
-  c : 3,
+  a: 1,
+  b: 2,
+  c: 3,
 }
 
 test('props to pick is a string', () => {
   const result = pick('a,c', obj)
   const resultCurry = pick('a,c')(obj)
   const expectedResult = {
-    a : 1,
-    c : 3,
+    a: 1,
+    c: 3,
   }
 
   expect(result).toEqual(expectedResult)
@@ -20,47 +20,51 @@ test('props to pick is a string', () => {
 
 test('when prop is missing', () => {
   const result = pick('a,d,f', obj)
-  expect(result).toEqual({ a : 1 })
+  expect(result).toEqual({a: 1})
 })
 
 test('props to pick is an array', () => {
-  expect(pick([ 'a', 'c' ])({
-    a : 'foo',
-    b : 'bar',
-    c : 'baz',
-  })).toEqual({
-    a : 'foo',
-    c : 'baz',
+  expect(
+    pick(['a', 'c'])({
+      a: 'foo',
+      b: 'bar',
+      c: 'baz',
+    })
+  ).toEqual({
+    a: 'foo',
+    c: 'baz',
   })
 
-  expect(pick([ 'a', 'd', 'e', 'f' ])({
-    a : 'foo',
-    b : 'bar',
-    c : 'baz',
-  })).toEqual({ a : 'foo' })
+  expect(
+    pick(['a', 'd', 'e', 'f'])({
+      a: 'foo',
+      b: 'bar',
+      c: 'baz',
+    })
+  ).toEqual({a: 'foo'})
 
   expect(pick('a,d,e,f')(null)).toEqual(undefined)
 })
 
 test('works with list as input and number as props - props to pick is an array', () => {
-  const result = pick([ 1, 2 ], [ 'a', 'b', 'c', 'd' ])
+  const result = pick([1, 2], ['a', 'b', 'c', 'd'])
   expect(result).toEqual({
-    1 : 'b',
-    2 : 'c',
+    1: 'b',
+    2: 'c',
   })
 })
 
 test('works with list as input and number as props - props to pick is a string', () => {
-  const result = pick('1,2', [ 'a', 'b', 'c', 'd' ])
+  const result = pick('1,2', ['a', 'b', 'c', 'd'])
   expect(result).toEqual({
-    1 : 'b',
-    2 : 'c',
+    1: 'b',
+    2: 'c',
   })
 })
 
 test('with symbol', () => {
   const symbolProp = Symbol('s')
-  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot(`
+  expect(pick([symbolProp], {[symbolProp]: 'a'})).toMatchInlineSnapshot(`
     Object {
       Symbol(s): "a",
     }

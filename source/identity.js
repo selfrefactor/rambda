@@ -1,3 +1,3 @@
-export function identity(input){
+export function identity(input) {
   return input
 }

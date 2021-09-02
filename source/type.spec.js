@@ -1,6 +1,6 @@
-import { type as ramdaType } from 'ramda'
+import {type as ramdaType} from 'ramda'
 
-import { type } from './type'
+import {type} from './type'
 
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
@@ -44,11 +44,11 @@ test('async arrow', () => {
 
 test('function', () => {
   const fn1 = () => {}
-  const fn2 = function (){}
+  const fn2 = function () {}
 
-  function fn3(){}
+  function fn3() {}
 
-  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
+  ;[() => {}, fn1, fn2, fn3].map(val => {
     expect(type(val)).toEqual('Function')
   })
 })
@@ -75,7 +75,7 @@ test('null', () => {
 
 test('array', () => {
   expect(type([])).toEqual('Array')
-  expect(type([ 1, 2, 3 ])).toEqual('Array')
+  expect(type([1, 2, 3])).toEqual('Array')
 })
 
 test('regex', () => {
@@ -92,7 +92,7 @@ test('not a number', () => {
 
 test('function inside object 1', () => {
   const obj = {
-    f(){
+    f() {
       return 4
     },
   }
@@ -104,7 +104,7 @@ test('function inside object 1', () => {
 test('function inside object 2', () => {
   const name = 'f'
   const obj = {
-    [ name ](){
+    [name]() {
       return 4
     },
   }

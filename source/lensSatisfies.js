@@ -1,9 +1,7 @@
-import { curry } from './curry'
-import { view } from './view'
+import {curry} from './curry'
+import {view} from './view'
 
-function lensSatisfiesFn(
-  predicate, lens, input
-){
+function lensSatisfiesFn(predicate, lens, input) {
   return Boolean(predicate(view(lens, input)))
 }
 

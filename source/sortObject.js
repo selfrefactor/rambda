@@ -1,17 +1,15 @@
-import { sort } from './sort'
+import {sort} from './sort'
 
-export function sortObject(predicate, obj){
-  if (arguments.length === 1){
+export function sortObject(predicate, obj) {
+  if (arguments.length === 1) {
     return _obj => sortObject(predicate, _obj)
   }
   const keys = Object.keys(obj)
-  const sortedKeys = sort((a, b) => predicate(
-    a, b, obj[ a ], obj[ b ]
-  ), keys)
+  const sortedKeys = sort((a, b) => predicate(a, b, obj[a], obj[b]), keys)
 
   const toReturn = {}
   sortedKeys.forEach(singleKey => {
-    toReturn[ singleKey ] = obj[ singleKey ]
+    toReturn[singleKey] = obj[singleKey]
   })
 
   return toReturn

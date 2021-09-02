@@ -1,34 +1,34 @@
-import { dropWhile as dropWhileRamda } from "ramda";
+import {dropWhile as dropWhileRamda} from 'ramda'
 
-import { compareCombinations } from "./_internals/testUtils";
-import { dropWhile } from "./dropWhile";
+import {compareCombinations} from './_internals/testUtils'
+import {dropWhile} from './dropWhile'
 
-const list = [1, 2, 3, 4];
+const list = [1, 2, 3, 4]
 
-test("happy", () => {
-  const predicate = (x) => x < 3;
-  const result = dropWhile(predicate, list);
-  expect(result).toEqual([3, 4]);
-});
+test('happy', () => {
+  const predicate = x => x < 3
+  const result = dropWhile(predicate, list)
+  expect(result).toEqual([3, 4])
+})
 
-test("always true", () => {
-  const predicate = () => true;
-  const result = dropWhileRamda(predicate, list);
-  expect(result).toEqual([]);
-});
+test('always true', () => {
+  const predicate = () => true
+  const result = dropWhileRamda(predicate, list)
+  expect(result).toEqual([])
+})
 
-test("always false", () => {
-  const predicate = () => 0;
-  const result = dropWhile(predicate)(list);
-  expect(result).toEqual(list);
-});
+test('always false', () => {
+  const predicate = () => 0
+  const result = dropWhile(predicate)(list)
+  expect(result).toEqual(list)
+})
 
-test("works with string as iterable", () => {
-  const iterable = "foobar";
-  const predicate = (x) => x !== "b";
-  const result = dropWhile(predicate, iterable);
-  expect(result).toBe("bar");
-});
+test('works with string as iterable', () => {
+  const iterable = 'foobar'
+  const predicate = x => x !== 'b'
+  const result = dropWhile(predicate, iterable)
+  expect(result).toBe('bar')
+})
 
 const possiblePredicates = [
   null,
@@ -38,7 +38,7 @@ const possiblePredicates = [
   /foo/g,
   {},
   [],
-];
+]
 
 const possibleIterables = [
   null,
@@ -46,16 +46,16 @@ const possibleIterables = [
   [],
   {},
   1,
-  "",
-  "foobar",
-  [""],
+  '',
+  'foobar',
+  [''],
   [1, 2, 3, 4, 5],
-];
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
     firstInput: possiblePredicates,
-    callback: (errorsCounters) => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 15,
@@ -65,10 +65,10 @@ describe("brute force", () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 63,
         }
-      `);
+      `)
     },
     secondInput: possibleIterables,
     fn: dropWhile,
     fnRamda: dropWhileRamda,
-  });
-});
+  })
+})

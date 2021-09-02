@@ -1,10 +1,10 @@
-import { product } from './product'
+import {product} from './product'
 
 test('happy', () => {
-  expect(product([ 2, 3, 4 ])).toEqual(24)
+  expect(product([2, 3, 4])).toEqual(24)
 })
 
 test('bad input', () => {
-  expect(product([ null ])).toEqual(0)
+  expect(product([null])).toEqual(0)
   expect(product([])).toEqual(1)
 })

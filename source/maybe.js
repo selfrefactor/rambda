@@ -1,8 +1,6 @@
-import { type } from './type'
+import {type} from './type'
 
-export function maybe(
-  ifRule, whenIf, whenElse
-){
+export function maybe(ifRule, whenIf, whenElse) {
   const whenIfInput =
     ifRule && type(whenIf) === 'Function' ? whenIf() : whenIf
 

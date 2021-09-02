@@ -1,6 +1,12 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
-const { uniqListOfStrings, uniqListOfBooleans, uniqListOfNumbers, uniqListOfLists, uniqListOfObjects } = require('./_utils.js')
+const {
+  uniqListOfStrings,
+  uniqListOfBooleans,
+  uniqListOfNumbers,
+  uniqListOfLists,
+  uniqListOfObjects,
+} = require('./_utils.js')
 
 const limit = 100
 
@@ -9,7 +15,7 @@ const modes = [
   [uniqListOfBooleans(limit), null],
   [uniqListOfNumbers(limit), -2],
   [uniqListOfLists(limit), [1]],
-  [uniqListOfObjects(limit), { a: 1 }],
+  [uniqListOfObjects(limit), {a: 1}],
 ]
 
 function applyBenchmark(fn, input) {

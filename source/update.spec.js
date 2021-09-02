@@ -1,5 +1,4 @@
 import {update} from './update'
-import {update as updateRamda} from 'ramda'
 
 const list = [1, 2, 3]
 
@@ -25,19 +24,9 @@ test('list has no such index', () => {
 })
 
 test('with negative index', () => {
-  expect(
-    update(-1, 10, [1])
-  ).toEqual([10])
-  expect(
-    update(-1, 10, [])
-  ).toEqual([])
-  expect(
-    update(-1, 10, list)
-  ).toEqual([1,2,10])
-  expect(
-    update(-2, 10, list)
-  ).toEqual([1,10,3])
-  expect(
-    update(-3, 10, list)
-  ).toEqual([10,2,3])
+  expect(update(-1, 10, [1])).toEqual([10])
+  expect(update(-1, 10, [])).toEqual([])
+  expect(update(-1, 10, list)).toEqual([1, 2, 10])
+  expect(update(-2, 10, list)).toEqual([1, 10, 3])
+  expect(update(-3, 10, list)).toEqual([10, 2, 3])
 })

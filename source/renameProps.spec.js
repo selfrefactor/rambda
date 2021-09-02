@@ -1,38 +1,38 @@
-import { renameProps } from './renameProps'
+import {renameProps} from './renameProps'
 
 test('renameProps', () => {
   const rules = {
-    f : 'foo',
-    b : 'bar',
-    q : 'x',
+    f: 'foo',
+    b: 'bar',
+    q: 'x',
   }
   const input = {
-    f : 1,
-    b : 2,
-    a : 3,
+    f: 1,
+    b: 2,
+    a: 3,
   }
   const result = renameProps(rules, input)
   const expectedResult = {
-    foo : 1,
-    bar : 2,
-    a   : 3,
+    foo: 1,
+    bar: 2,
+    a: 3,
   }
   expect(result).toEqual(expectedResult)
 })
 
 test('curry', () => {
   const rules = {
-    f : 'foo',
-    b : 'bar',
+    f: 'foo',
+    b: 'bar',
   }
   const input = {
-    f : 1,
-    b : 2,
+    f: 1,
+    b: 2,
   }
   const result = renameProps(rules)(input)
   const expectedResult = {
-    foo : 1,
-    bar : 2,
+    foo: 1,
+    bar: 2,
   }
   expect(result).toEqual(expectedResult)
 })

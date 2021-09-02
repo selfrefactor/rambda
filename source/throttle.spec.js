@@ -1,5 +1,5 @@
-import { delay } from './delay'
-import { throttle } from './throttle'
+import {delay} from './delay'
+import {throttle} from './throttle'
 
 test('', async () => {
   let counter = 0

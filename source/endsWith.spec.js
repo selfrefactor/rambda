@@ -1,4 +1,4 @@
-import { endsWith } from './endsWith'
+import {endsWith} from './endsWith'
 
 test('happy', () => {
   expect(endsWith('bar', 'foo-bar')).toBeTrue()
@@ -6,6 +6,8 @@ test('happy', () => {
 })
 
 test('does not work with arrays', () => {
-  expect(() => endsWith([ 'c' ], [ 'a', 'b', 'c' ])).toThrowWithMessage(Error,
-    'str.endsWith is not a function')
+  expect(() => endsWith(['c'], ['a', 'b', 'c'])).toThrowWithMessage(
+    Error,
+    'str.endsWith is not a function'
+  )
 })

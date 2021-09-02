@@ -1,6 +1,6 @@
-import { isType } from './isType'
+import {isType} from './isType'
 
-const list = [ 1, 2, 3 ]
+const list = [1, 2, 3]
 
 test('array', () => {
   expect(isType('Array', list)).toBeTruthy()

@@ -1,22 +1,22 @@
-import { mergeLeft } from './mergeLeft'
+import {mergeLeft} from './mergeLeft'
 
 const obj = {
-  foo : 1,
-  bar : 2,
+  foo: 1,
+  bar: 2,
 }
 
 test('happy', () => {
-  expect(mergeLeft({ bar : 20 }, obj)).toEqual({
-    foo : 1,
-    bar : 20,
+  expect(mergeLeft({bar: 20}, obj)).toEqual({
+    foo: 1,
+    bar: 20,
   })
 })
 
 test('curry', () => {
-  expect(mergeLeft({ baz : 3 })(obj)).toEqual({
-    foo : 1,
-    bar : 2,
-    baz : 3,
+  expect(mergeLeft({baz: 3})(obj)).toEqual({
+    foo: 1,
+    bar: 2,
+    baz: 3,
   })
 })
 

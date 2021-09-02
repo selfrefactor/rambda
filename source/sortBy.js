@@ -1,4 +1,4 @@
-export function sortBy(sortFn, list){
+export function sortBy(sortFn, list) {
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
   const clone = list.slice()

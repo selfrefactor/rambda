@@ -1,12 +1,14 @@
-import { glue } from './glue'
+import {glue} from './glue'
 
 test('empty string as a glue', () => {
-  const result = glue(`
+  const result = glue(
+    `
     foo
     bar
     baz
   `,
-  '')
+    ''
+  )
 
   const expectedResult = 'foobarbaz'
 
@@ -19,13 +21,13 @@ test('case 0', () => {
   const last = '-- src/a.spec.js'
   const flag = false
   const result = glue(`
-    ${ zero }
-    ${ first }
-    ${ flag ? '--env=node' : '' }
-    ${ last }
+    ${zero}
+    ${first}
+    ${flag ? '--env=node' : ''}
+    ${last}
   `)
 
-  const expectedResult = `${ zero } ${ first } ${ last }`
+  const expectedResult = `${zero} ${first} ${last}`
 
   expect(result).toBe(expectedResult)
 })
@@ -36,13 +38,13 @@ test('case 1', () => {
   const last = '-- src/a.spec.js'
   const flag = true
   const result = glue(`
-    ${ zero }
-    ${ first }
-    ${ flag ? '--env=node' : '' }
-    ${ last }
+    ${zero}
+    ${first}
+    ${flag ? '--env=node' : ''}
+    ${last}
   `)
 
-  const expectedResult = `${ zero } ${ first } --env=node ${ last }`
+  const expectedResult = `${zero} ${first} --env=node ${last}`
 
   expect(result).toBe(expectedResult)
 })
@@ -51,10 +53,10 @@ test('case 2', () => {
   const first = '--runInBand'
   const result = glue(`
     zero
-    ${ first }
+    ${first}
     last
   `)
-  const expectedResult = `zero ${ first } last`
+  const expectedResult = `zero ${first} last`
 
   expect(result).toBe(expectedResult)
 })
@@ -72,12 +74,14 @@ test('case 3', () => {
 })
 
 test('with glue', () => {
-  const result = glue(`
+  const result = glue(
+    `
     foo
     bar
     baz
   `,
-  '==')
+    '=='
+  )
 
   const expectedResult = 'foo==bar==baz'
 

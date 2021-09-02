@@ -1,7 +1,7 @@
-import { result } from 'lodash'
+import {result} from 'lodash'
 
-import { delay } from './delay'
-import { isValidAsync } from './isValidAsync'
+import {delay} from './delay'
+import {isValidAsync} from './isValidAsync'
 
 const simplePredicate = async x => {
   await delay(100)
@@ -11,25 +11,25 @@ const simplePredicate = async x => {
 
 test('happy', async () => {
   const input = {
-    a          : 1,
-    b          : 7,
-    c          : 9,
-    additional : 'foo',
+    a: 1,
+    b: 7,
+    c: 9,
+    additional: 'foo',
   }
   const invalidInput = {
-    a : 1,
-    b : 2,
-    c : 9,
+    a: 1,
+    b: 2,
+    c: 9,
   }
   const schema = {
-    a : Number,
-    b : simplePredicate,
-    c : simplePredicate,
+    a: Number,
+    b: simplePredicate,
+    c: simplePredicate,
   }
   const invalidSchema = {
-    a : Boolean,
-    b : simplePredicate,
-    c : simplePredicate,
+    a: Boolean,
+    b: simplePredicate,
+    c: simplePredicate,
   }
   const result = await isValidAsync({
     input,
@@ -37,10 +37,10 @@ test('happy', async () => {
   })
   const invalidResult = await isValidAsync({
     input,
-    schema : invalidSchema,
+    schema: invalidSchema,
   })
   const withInvalidInput = await isValidAsync({
-    input : invalidInput,
+    input: invalidInput,
     schema,
   })
   expect(result).toBeTruthy()
@@ -50,16 +50,16 @@ test('happy', async () => {
 
 test('without async rules', async () => {
   const input = {
-    a : 1,
-    b : 7,
+    a: 1,
+    b: 7,
   }
   const schema = {
-    a : Number,
-    b : x => x > 2,
+    a: Number,
+    b: x => x > 2,
   }
   const invalidSchema = {
-    a : Number,
-    b : Boolean,
+    a: Number,
+    b: Boolean,
   }
   const result = await isValidAsync({
     input,
@@ -67,7 +67,7 @@ test('without async rules', async () => {
   })
   const invalidResult = await isValidAsync({
     input,
-    schema : invalidSchema,
+    schema: invalidSchema,
   })
 
   expect(result).toBeTruthy()
@@ -76,16 +76,16 @@ test('without async rules', async () => {
 
 test('readme example', async () => {
   const input = {
-    a : 1,
-    b : 2,
+    a: 1,
+    b: 2,
   }
   const invalidInput = {
-    a : 1,
-    b : 'foo',
+    a: 1,
+    b: 'foo',
   }
   const schema = {
-    a : Number,
-    b : async x => {
+    a: Number,
+    b: async x => {
       await delay(100)
 
       return typeof x === 'number'
@@ -98,8 +98,8 @@ test('readme example', async () => {
     }),
     isValidAsync({
       schema,
-      input : invalidInput,
+      input: invalidInput,
     }),
   ])
-  expect(result).toEqual([ true, false ])
+  expect(result).toEqual([true, false])
 })

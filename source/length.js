@@ -1,5 +1,5 @@
-export function length(x){
-  if (!x && x !== '' || x.length === undefined){
+export function length(x) {
+  if ((!x && x !== '') || x.length === undefined) {
     return NaN
   }
 

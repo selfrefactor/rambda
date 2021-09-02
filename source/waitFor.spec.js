@@ -1,5 +1,5 @@
-import { delay } from './delay'
-import { waitFor } from './waitFor'
+import {delay} from './delay'
+import {waitFor} from './waitFor'
 
 const howLong = 1000
 

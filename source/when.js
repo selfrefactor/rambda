@@ -1,8 +1,6 @@
-import { curry } from './curry'
+import {curry} from './curry'
 
-function whenFn(
-  predicate, whenTrueFn, input
-){
+function whenFn(predicate, whenTrueFn, input) {
   if (!predicate(input)) return input
 
   return whenTrueFn(input)

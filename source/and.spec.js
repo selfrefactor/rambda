@@ -1,4 +1,4 @@
-import { and } from './and'
+import {and} from './and'
 
 test('happy', () => {
   expect(and(1, 'foo')).toBe('foo')

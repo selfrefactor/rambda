@@ -1,16 +1,13 @@
-import { uniqWith } from './uniqWith'
-import { uniqWith as uniqWithRamda } from 'ramda'
+import {uniqWith} from './uniqWith'
+import {uniqWith as uniqWithRamda} from 'ramda'
 
-const list = [
-  {a: 1},
-  {a: 1},
-]
+const list = [{a: 1}, {a: 1}]
 
 test('happy', () => {
   const fn = (x, y) => x.a === y.a
 
   const result = uniqWith(fn, list)
-  expect(result).toEqual([{a:1}])
+  expect(result).toEqual([{a: 1}])
 })
 
 test('with list of strings', () => {

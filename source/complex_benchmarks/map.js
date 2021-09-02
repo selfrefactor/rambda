@@ -5,8 +5,8 @@ const Utils = require('../../scripts/run-benchmarks/utils')
 
 const listEmpty = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       const list = []
       const fn = Utils.Noop
 
@@ -14,8 +14,8 @@ const listEmpty = [
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       const list = []
       const fn = Utils.Noop
 
@@ -23,8 +23,8 @@ const listEmpty = [
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       const list = []
       const fn = Utils.Noop
 
@@ -35,8 +35,8 @@ const listEmpty = [
 
 const listLarge = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       const LIMIT = 10000
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
@@ -45,8 +45,8 @@ const listLarge = [
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       const LIMIT = 10000
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
@@ -55,8 +55,8 @@ const listLarge = [
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       const LIMIT = 10000
       const list = Utils.range(0, LIMIT)
       const fn = Utils.Noop
@@ -68,8 +68,8 @@ const listLarge = [
 
 const objectEmpty = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       const obj = {}
       const fn = Utils.Noop
 
@@ -77,8 +77,8 @@ const objectEmpty = [
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       const obj = {}
       const fn = Utils.Noop
 
@@ -86,8 +86,8 @@ const objectEmpty = [
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       const obj = {}
       const fn = Utils.Noop
 
@@ -98,33 +98,33 @@ const objectEmpty = [
 
 const objectLarge = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
+      Utils.range(0, LIMIT).forEach(i => (obj[i] = i))
       const fn = Utils.Noop
 
       return () => R.map(fn, obj)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
+      Utils.range(0, LIMIT).forEach(i => (obj[i] = i))
       const fn = Utils.Noop
 
       return () => Ramda.mapObjIndexed(fn, obj)
     },
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    label: 'Lodash',
+    fn: () => {
       const LIMIT = 10000
       const obj = {}
-      Utils.range(0, LIMIT).forEach(i => obj[ i ] = i)
+      Utils.range(0, LIMIT).forEach(i => (obj[i] = i))
       const fn = Utils.Noop
 
       return () => _.map(obj, fn)
@@ -134,19 +134,19 @@ const objectLarge = [
 
 module.exports = [
   {
-    label  : 'map#listEmpty',
-    suites : listEmpty,
+    label: 'map#listEmpty',
+    suites: listEmpty,
   },
   {
-    label  : 'map#listLarge',
-    suites : listLarge,
+    label: 'map#listLarge',
+    suites: listLarge,
   },
   {
-    label  : 'map#objectEmpty',
-    suites : objectEmpty,
+    label: 'map#objectEmpty',
+    suites: objectEmpty,
   },
   {
-    label  : 'map#objectLarge',
-    suites : objectLarge,
+    label: 'map#objectLarge',
+    suites: objectLarge,
   },
 ]

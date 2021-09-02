@@ -1,5 +1,5 @@
-import { includes } from './includes'
-import { includes as includesRamda } from 'ramda'
+import {includes} from './includes'
+import {includes as includesRamda} from 'ramda'
 
 test('with string as iterable', () => {
   const str = 'foo bar'
@@ -11,7 +11,7 @@ test('with string as iterable', () => {
 })
 
 test('with array as iterable', () => {
-  const arr = [ 1, 2, 3 ]
+  const arr = [1, 2, 3]
 
   expect(includes(2)(arr)).toBeTrue()
   expect(includesRamda(2)(arr)).toBeTrue()
@@ -21,10 +21,10 @@ test('with array as iterable', () => {
 })
 
 test('with list of objects as iterable', () => {
-  const arr = [ {a:1}, {b:2}, {c:3} ]
+  const arr = [{a: 1}, {b: 2}, {c: 3}]
 
-  expect(includes({c:3}, arr)).toBeTrue()
-  expect(includesRamda({c:3}, arr)).toBeTrue()
+  expect(includes({c: 3}, arr)).toBeTrue()
+  expect(includesRamda({c: 3}, arr)).toBeTrue()
 })
 
 test('with NaN', () => {
@@ -42,12 +42,20 @@ test('with wrong input that does not throw', () => {
 })
 
 test('throws on wrong input - match ramda behaviour', () => {
-  expect(() => includes(2, null)).toThrowWithMessage(TypeError,
-    'Cannot read property \'indexOf\' of null')
-  expect(() => includesRamda(2, null)).toThrowWithMessage(TypeError,
-    'Cannot read property \'indexOf\' of null')
-  expect(() => includes(2, undefined)).toThrowWithMessage(TypeError,
-    'Cannot read property \'indexOf\' of undefined')
-  expect(() => includesRamda(2, undefined)).toThrowWithMessage(TypeError,
-    'Cannot read property \'indexOf\' of undefined')
+  expect(() => includes(2, null)).toThrowWithMessage(
+    TypeError,
+    "Cannot read property 'indexOf' of null"
+  )
+  expect(() => includesRamda(2, null)).toThrowWithMessage(
+    TypeError,
+    "Cannot read property 'indexOf' of null"
+  )
+  expect(() => includes(2, undefined)).toThrowWithMessage(
+    TypeError,
+    "Cannot read property 'indexOf' of undefined"
+  )
+  expect(() => includesRamda(2, undefined)).toThrowWithMessage(
+    TypeError,
+    "Cannot read property 'indexOf' of undefined"
+  )
 })

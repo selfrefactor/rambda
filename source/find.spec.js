@@ -1,11 +1,11 @@
-import { find } from './find'
-import { propEq } from './propEq'
+import {find} from './find'
+import {propEq} from './propEq'
 
-const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+const list = [{a: 1}, {a: 2}, {a: 3}]
 
 test('happy', () => {
   const fn = propEq('a', 2)
-  expect(find(fn, list)).toEqual({ a : 2 })
+  expect(find(fn, list)).toEqual({a: 2})
 })
 
 test('with curry', () => {

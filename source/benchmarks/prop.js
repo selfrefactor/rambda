@@ -3,22 +3,22 @@ const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
 const obj = {
-  a : { c : 2 },
-  b : 1,
+  a: {c: 2},
+  b: 1,
 }
 const propInput = 'b'
 
 const prop = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       R.prop(propInput, obj)
       R.prop(propInput)(obj)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       Ramda.prop(propInput, obj)
       Ramda.prop(propInput)(obj)
     },

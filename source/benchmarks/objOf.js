@@ -6,19 +6,15 @@ const value = 42
 
 const assoc = [
   {
-    label : 'Rambda',
-    fn    : () => {
-      R.objOf(
-        key, value
-      )
+    label: 'Rambda',
+    fn: () => {
+      R.objOf(key, value)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.objOf(
-        key, value
-      )
+    label: 'Ramda',
+    fn: () => {
+      Ramda.objOf(key, value)
     },
   },
 ]

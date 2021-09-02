@@ -1,9 +1,7 @@
-import { replace } from './replace'
+import {replace} from './replace'
 
 test('happy', () => {
-  expect(replace(
-    'foo', 'yes', 'foo bar baz'
-  )).toEqual('yes bar baz')
+  expect(replace('foo', 'yes', 'foo bar baz')).toEqual('yes bar baz')
 })
 
 test('1', () => {

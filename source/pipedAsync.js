@@ -1,15 +1,15 @@
-import { type } from './type'
+import {type} from './type'
 
-export async function pipedAsync(...inputs){
-  const [ input, ...fnList ] = inputs
+export async function pipedAsync(...inputs) {
+  const [input, ...fnList] = inputs
 
   let argumentsToPass = input
 
-  while (fnList.length !== 0){
+  while (fnList.length !== 0) {
     const fn = fnList.shift()
     const typeFn = type(fn)
 
-    if (typeFn === 'Async'){
+    if (typeFn === 'Async') {
       argumentsToPass = await fn(argumentsToPass)
     } else {
       argumentsToPass = fn(argumentsToPass)

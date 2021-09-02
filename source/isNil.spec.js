@@ -1,4 +1,4 @@
-import { isNil } from './isNil'
+import {isNil} from './isNil'
 
 test('happy', () => {
   expect(isNil(null)).toBeTrue()

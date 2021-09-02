@@ -1,16 +1,16 @@
-import { isFalsy } from './_internals/isFalsy'
-import { type } from './type'
+import {isFalsy} from './_internals/isFalsy'
+import {type} from './type'
 
-export function anyFalse(...inputs){
+export function anyFalse(...inputs) {
   let counter = 0
-  while (counter < inputs.length){
-    const x = inputs[ counter ]
+  while (counter < inputs.length) {
+    const x = inputs[counter]
 
-    if (type(x) === 'Function'){
-      if (isFalsy(x())){
+    if (type(x) === 'Function') {
+      if (isFalsy(x())) {
         return true
       }
-    } else if (isFalsy(x)){
+    } else if (isFalsy(x)) {
       return true
     }
 

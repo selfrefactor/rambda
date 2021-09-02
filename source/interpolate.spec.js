@@ -1,10 +1,10 @@
-import { interpolate } from './interpolate'
+import {interpolate} from './interpolate'
 
 test('within bracets', () => {
   const input = 'foo is { {{bar}} } even {{a}} more'
   const templateInput = {
-    bar : 'BAR',
-    a   : 1,
+    bar: 'BAR',
+    a: 1,
   }
 
   const result = interpolate(input, templateInput)
@@ -16,8 +16,8 @@ test('within bracets', () => {
 test('happy', () => {
   const input = 'foo is {{bar}} even {{a}} more'
   const templateInput = {
-    bar : 'BAR',
-    a   : 1,
+    bar: 'BAR',
+    a: 1,
   }
 
   const result = interpolate(input, templateInput)
@@ -28,7 +28,7 @@ test('happy', () => {
 
 test('no interpolation + curry', () => {
   const input = 'foo is bar even more'
-  const templateInput = { bar : 'BAR' }
+  const templateInput = {bar: 'BAR'}
 
   const result = interpolate(input)(templateInput)
   const expectedResult = 'foo is bar even more'
@@ -39,8 +39,8 @@ test('no interpolation + curry', () => {
 test('with missing template input', () => {
   const input = 'foo is {{bar}} even {{a}} more'
   const templateInput = {
-    baz : 'BAR',
-    a   : 1,
+    baz: 'BAR',
+    a: 1,
   }
 
   const result = interpolate(input, templateInput)
