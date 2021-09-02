@@ -55,7 +55,7 @@ describe("brute force", () => {
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 21,
           "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 16,
+          "TOTAL_TESTS": 49,
         }
       `);
     },

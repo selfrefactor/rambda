@@ -283,7 +283,6 @@ export const compareCombinations = ({
     test(getTestTitle(...inputs), () => {
       const compared = compareOutputs(...inputs)
       setCounter()
-
       if (!compared.ok){
         // if (compared.label === RESULTS_MISMATCH){
         increaseCounter(compared)
@@ -291,9 +290,8 @@ export const compareCombinations = ({
           ...compared,
           inputs,
         }).toMatchSnapshot()
-      }else{
-        counter.TOTAL_TESTS++
       }
+      counter.TOTAL_TESTS++
     })
   })
 }
