@@ -90,6 +90,11 @@ test('not a number', () => {
   expect(type(Number('s'))).toBe('NaN')
 })
 
+test('set', () => {
+  expect(type(new Set([1,2,3,1]))).toBe('Set')
+  expect(ramdaType(new Set([1,2,3,1]))).toBe('Set')
+})
+
 test('function inside object 1', () => {
   const obj = {
     f() {

@@ -1,4 +1,12 @@
 import {equals} from './equals'
+import {equals as ramdaEquals} from 'ramda'
+
+test('compare sets', () => {
+  expect(equals(new Set(['3', '2', '0']), new Set(['2', '3', '3', '2', '1']))).toBeFalsy();
+  // expect(equals(new Set(['3', '2', '1']), new Set(['2', '3', '3', '2', '1']))).toBeTruthy();
+  // expect(ramdaEquals(new Set(['3', '2', '0']), new Set(['2', '3', '3', '2', '1']))).toBeFalsy();
+  // expect(ramdaEquals(new Set(['3', '2', '0']), new Set(['2', '3', '3', '2', '1']))).toBeFalsy();
+})
 
 test('compare functions', () => {
   function foo() {}

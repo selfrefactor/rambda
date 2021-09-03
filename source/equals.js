@@ -85,7 +85,7 @@ export function equals(a, b) {
       ? aError[0] === bError[0] && aError[1] === bError[1]
       : false
   }
-
+console.log(`aType`, aType)
   if (aType === 'Object') {
     const aKeys = Object.keys(a)
 
