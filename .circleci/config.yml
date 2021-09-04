@@ -13,9 +13,6 @@ commands:
           name: Install dependencies
           command: yarn
       - run:
-          name: Foo
-          command: npx patch-package rambdax
-      - run:
           name: Foox
           command: npx patch-package lodash
       - run:
