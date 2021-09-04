@@ -14,7 +14,10 @@ commands:
           command: yarn
       - run:
           name: Foo
-          command: npx patch-package rambda
+          command: npx patch-package rambdax
+      - run:
+          name: Foox
+          command: npx patch-package lodash
       - run:
           name: Typings fix
           command: mkdir /home/circleci/.dts/perf -p    
