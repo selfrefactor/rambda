@@ -13,9 +13,6 @@ commands:
           name: Install dependencies
           command: yarn
       - run:
-          name: Foox
-          command: npx patch-package lodash
-      - run:
           name: Typings fix
           command: mkdir /home/circleci/.dts/perf -p    
       - run:

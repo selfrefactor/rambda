@@ -1,6 +1,5 @@
-import {type as ramdaType} from 'ramda'
-
 import {type} from './type'
+import {type as ramdaType} from 'ramda'
 
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
