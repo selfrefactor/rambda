@@ -91,8 +91,9 @@ test('not a number', () => {
 })
 
 test('set', () => {
-  expect(type(new Set([1,2,3,1]))).toBe('Set')
-  expect(ramdaType(new Set([1,2,3,1]))).toBe('Set')
+  const exampleSet = new Set([1,2,3]) 
+  expect(type(exampleSet)).toBe('Set')
+  expect(ramdaType(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {

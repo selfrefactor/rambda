@@ -64,3 +64,46 @@ exports.uniqListOfObjects = uniqListOfObjects
 exports.uniqListOfLists = uniqListOfLists
 exports.listOfVariousTypes = listOfVariousTypes
 exports.rangeOfNumbers = rangeOfNumbers
+
+function* generatorFn() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const setInstance = new Set([1,2,3,4,1])
+const weakSetInstance = new WeakSet()
+const weakMapInstance = new WeakMap()
+const mapInstance = new Map()
+
+const target = {
+  message1: "hello",
+  message2: "everyone"
+};
+
+const handler = {};
+
+const proxyInstance = new Proxy(target, handler)
+weakSetInstance.add({a:1})
+weakMapInstance.set({a:1}, 'bar')
+mapInstance.set('foo', 'bar')
+
+exports.variousTypes = [
+  -0,
+  -Infinity,
+  BigInt(9007199254740991),
+  Date.now(),
+  Infinity,
+  Math.E,
+  Symbol('foo'),
+  generatorFn,
+  mapInstance,
+  new ArrayBuffer(8),
+  new DataView(new ArrayBuffer(2)),
+  new Error('bar'),
+  new Int16Array(2),
+  setInstance,
+  proxyInstance,
+  weakMapInstance,
+  weakSetInstance,
+]

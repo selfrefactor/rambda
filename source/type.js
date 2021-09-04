@@ -29,6 +29,7 @@ export function type(input) {
   if (asStr === '[object Promise]') return 'Promise'
   if (typeOf === 'function') return 'Function'
   if (input instanceof String) return 'String'
+  if (input instanceof Set) return 'Set'
 
   return 'Object'
 }

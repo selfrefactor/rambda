@@ -1,4 +1,14 @@
 import {type} from './type'
+import {_indexOf} from './indexOf'
+
+function _arrayFromIterator(iter) {
+  const list = []
+  let next
+  while (!(next = iter.next()).done) {
+    list.push(next.value)
+  }
+  return list
+}
 
 function parseError(maybeError) {
   const typeofError = maybeError.__proto__.toString()
@@ -17,6 +27,19 @@ function parseRegex(maybeRegex) {
   if (maybeRegex.constructor !== RegExp) return [false]
 
   return [true, maybeRegex.toString()]
+}
+
+function equalsSets(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+  const aList = _arrayFromIterator(a.values())
+  const bList = _arrayFromIterator(b.values())
+
+  const filtered = aList.filter(
+    aInstance => _indexOf(aInstance, bList) === -1
+  )
+  return filtered.length === 0
 }
 
 export function equals(a, b) {
@@ -85,7 +108,9 @@ export function equals(a, b) {
       ? aError[0] === bError[0] && aError[1] === bError[1]
       : false
   }
-console.log(`aType`, aType)
+  if (aType === 'Set') {
+    return equalsSets(a, b)
+  }
   if (aType === 'Object') {
     const aKeys = Object.keys(a)
 
