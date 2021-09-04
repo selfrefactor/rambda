@@ -107,3 +107,6 @@ exports.variousTypes = [
   weakMapInstance,
   weakSetInstance,
 ]
+
+exports.weakMapInstance = weakMapInstance
+exports.mapInstance = mapInstance
