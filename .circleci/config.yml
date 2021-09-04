@@ -13,6 +13,9 @@ commands:
           name: Install dependencies
           command: yarn
       - run:
+          name: Foo
+          command: npx patch-package rambda
+      - run:
           name: Typings fix
           command: mkdir /home/circleci/.dts/perf -p    
       - run:
