@@ -4866,6 +4866,69 @@ export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
 export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
+/*
+Method: unapply
+
+Explanation: It calls a function `fn` with the list of values of the returned function. `R.unapply` is the inverse of `R.apply`
+
+Example:
+
+```
+R.unapply(JSON.stringify)(1, 2, 3)
+//=> '[1,2,3]'
+```
+
+Categories: Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
+
+/*
+Method: apply
+
+Explanation: It applies function fn to the argument list args. This is useful for creating a fixed-arity function from a variadic function. fn should be a bound function if context is significant.
+
+Example:
+
+```
+const result = R.apply(Math.max, [42, -Infinity, 1337])
+// => 1337
+```
+
+Categories: Function
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
+export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
+
+/*
+Method: bind
+
+Explanation: Creates a function that is bound to a context.
+
+Example:
+
+```
+const log = R.bind(console.log, console)
+const result = R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))({a: 1}); // => {a: 3}
+// => logs {a: 2}
+```
+
+Categories: Function
+
+Notes: R.bind does not provide the additional argument-binding capabilities of [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+
+*/
+// @SINGLE_MARKER
+export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -6387,8 +6450,8 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 // @SINGLE_MARKER
 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: rray<T>): boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: rray<T>) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
 
 /*
 Method: viewOr
