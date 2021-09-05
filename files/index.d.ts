@@ -4898,7 +4898,7 @@ const result = R.apply(Math.max, [42, -Infinity, 1337])
 // => 1337
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -4910,18 +4910,19 @@ export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 /*
 Method: bind
 
-Explanation:
+Explanation: Creates a function that is bound to a context.
 
 Example:
 
 ```
-const result = R.bind()
-// => 
+const log = R.bind(console.log, console)
+const result = R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))({a: 1}); // => {a: 3}
+// => logs {a: 2}
 ```
 
-Categories:
+Categories: Function
 
-Notes:
+Notes: R.bind does not provide the additional argument-binding capabilities of [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
 
 */
 // @SINGLE_MARKER
