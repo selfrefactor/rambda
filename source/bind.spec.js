@@ -1,4 +1,4 @@
-import { bind } from './bind'
+import { bind} from './bind'
 
 function Foo(x) {
   this.x = x;
@@ -16,7 +16,7 @@ Bar.prototype.getX = function() {
 };
 
 test('returns a function', function() {
-  expect(typeof bind(add, Foo)).toEqual('function');
+  expect(typeof bind(add)(Foo)).toEqual('function');
 });
 
 test('returns a function bound to the specified context object', function() {

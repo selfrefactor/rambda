@@ -4869,7 +4869,9 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 /*
 Method: unapply
 
-Explanation: It calls a function `fn` with the list of values of the returned function. `R.unapply` is the inverse of `R.apply`
+Explanation: It calls a function `fn` with the list of values of the returned function. 
+
+`R.unapply` is the opposite of `R.apply` method.
 
 Example:
 
@@ -4889,7 +4891,9 @@ export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
 /*
 Method: apply
 
-Explanation: It applies function fn to the argument list args. This is useful for creating a fixed-arity function from a variadic function. fn should be a bound function if context is significant.
+Explanation: It applies function `fn` to the list of arguments. 
+
+This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
 
 Example:
 
@@ -4916,8 +4920,13 @@ Example:
 
 ```
 const log = R.bind(console.log, console)
-const result = R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))({a: 1}); // => {a: 3}
-// => logs {a: 2}
+const result = R.pipe(
+  R.assoc('a', 2), 
+  R.tap(log), 
+  R.assoc('a', 3)
+)({a: 1}); 
+// => result is `{a: 3}`
+// => logs is `{a: 2}`
 ```
 
 Categories: Function
