@@ -4777,7 +4777,7 @@ Example:
 
 ```
 const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
-const result = R.dropRepeatsWith(R.prop('a'))
+const result = R.dropRepeatsWith(R.prop('a'), list)
 
 // => [{a:1,b:2}, {a:2, b:4}]
 ```

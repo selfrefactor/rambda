@@ -3,6 +3,7 @@ import {dropRepeatsWith as dropRepeatsWithRamda, eqProps} from 'ramda'
 import {compareCombinations} from './_internals/testUtils'
 import {dropRepeatsWith} from './dropRepeatsWith'
 import {path} from './path'
+import {prop} from './prop'
 
 const eqI = eqProps('i')
 
@@ -11,6 +12,12 @@ test('happy', () => {
   const expected = [{i: 1}, {i: 2}, {i: 3}]
   const result = dropRepeatsWith(eqI, list)
   expect(result).toEqual(expected)
+})
+
+test('readme example', () => {
+  const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+  const result = dropRepeatsWith(prop('a'), list)
+  expect(result).toEqual([ { a: 1, b: 2 } ])
 })
 
 test('keeps elements from the left predicate input', () => {
