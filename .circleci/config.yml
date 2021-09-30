@@ -32,17 +32,17 @@ commands:
 jobs:
   node-base:
     docker:
-      - image: node:10
+      - image: node:13
     steps:
       - test-nodejs
   node-middle:
     docker:
-      - image: node:12
+      - image: node:14
     steps:
       - test-nodejs
   node-latest:
     docker:
-      - image: node:14
+      - image: node:15
     steps:
       - test-nodejs
 
