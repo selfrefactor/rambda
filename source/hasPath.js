@@ -1,9 +1,9 @@
 import {path} from './path'
 
-export function hasPath(maybePath, obj) {
+export function hasPath(pathInput, obj) {
   if (arguments.length === 1) {
-    return objHolder => hasPath(maybePath, objHolder)
+    return objHolder => hasPath(pathInput, objHolder)
   }
 
-  return path(maybePath, obj) !== undefined
+  return path(pathInput, obj) !== undefined
 }
