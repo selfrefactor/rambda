@@ -3,9 +3,6 @@ import {_keys} from './_internals/_keys'
 import {curry} from './curry'
 
 function reduceFn(reducer, acc, list) {
-  if (list == null) {
-    return acc;
-  }
   if (!_isArray(list)) {
     throw new TypeError('reduce: list must be array or iterable')
   }
