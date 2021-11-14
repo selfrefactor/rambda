@@ -1,4 +1,6 @@
 import {reduce} from './reduce'
+import {concat} from './concat'
+import {add} from './add'
 
 const reducer = (prev, current, i) => {
   expect(i).toBeNumber()
@@ -21,9 +23,9 @@ test('with object as iterable', () => {
   ).toThrowWithMessage(TypeError, 'reduce: list must be array or iterable')
 })
 
-test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, initialValue, undefined)).toThrowWithMessage(
-    TypeError,
-    'reduce: list must be array or iterable'
-  )
+test('with falsy iterables', () => {
+  expect(reduce(add, 0, null)).toBe(0)
+  expect(reduce(concat, [], null)).toEqual([])
+  expect(reduce(add, 0, undefined)).toBe(0)
+  expect(reduce(concat, [], undefined)).toEqual([])
 })
