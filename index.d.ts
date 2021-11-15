@@ -1,4 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set";
 
 type AnyFunction = (...args: any[]) => any;
 type LengthOfTuple<Tuple extends unknown[]> = Tuple['length'];
@@ -171,14 +171,6 @@ export function and<T, U>(x: T, y: U): T | U;
 export function and<T>(x: T): <U>(y: U) => T | U;
 
 /**
- *
- * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding capabilities of Function.prototype.bind.
- */
-export function bind<T, U>(fn: (this: T, x: any) => U, y: any): U;
-export function bind<T, U>(fn: (x: any) => U, y: any): U;
-
-
-/**
  * Logical OR
  */
 export function or<T, U>(a: T, b: U): T | U;
@@ -200,15 +192,6 @@ export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
  */
 export function append<T>(x: T, list: T[]): T[];
 export function append<T>(x: T): <T>(list: T[]) => T[];
-
-/**
- * It applies function fn to the argument list args. This is useful for creating a fixed-arity function from a variadic function. fn should be a bound function if context is significant.
- */
-export function apply<T, U>(fn: (...args: T[]) => U, ...args: T[]): U;
-export function apply<T, U>(fn: (...args: T[]) => U): (...args: T[]) => U;
-export function apply<T>(fn: (...args: any[]) => T, ...args: any[]): T;
-export function apply<T>(fn: (...args: any[]) => T): (...args: any[]) => T;
-
 
 export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
   spec: Spec
@@ -1524,3 +1507,24 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
 export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+
+/**
+ * It calls a function `fn` with the list of values of the returned function.
+ * 
+ * `R.unapply` is the opposite of `R.apply` method.
+ */
+export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
+
+/**
+ * It applies function `fn` to the list of arguments.
+ * 
+ * This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
+ */
+export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
+export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
+
+/**
+ * Creates a function that is bound to a context.
+ */
+export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;

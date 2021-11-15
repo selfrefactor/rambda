@@ -1,3 +1,13 @@
+6.10.0 
+
+- Missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+
+- `R.type` can return `Set` as result.
+
+- Improve performance of `R.uniqWith`
+
+- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
+
 6.9.0
 
 - Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
@@ -11,7 +21,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 - R.symmetricDifference
 - R.union
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list. 
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086. 
 
 6.8.3
 

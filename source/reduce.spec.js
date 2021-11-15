@@ -8,6 +8,7 @@ const reducer = (prev, current, i) => {
 const initialValue = 1
 const list = [1, 2, 3]
 const ERROR = 'reduce: list must be array or iterable'
+
 test('happy', () => {
   expect(reduce(reducer, initialValue, list)).toEqual(7)
 })

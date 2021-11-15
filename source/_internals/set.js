@@ -1,5 +1,5 @@
 import {type as typeMethod} from '../type'
-import {_indexOf} from '../indexOf'
+import {_indexOf} from '../equals'
 
 export class _Set {
   constructor() {

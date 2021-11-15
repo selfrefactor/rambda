@@ -103,6 +103,14 @@ function append(x, input) {
   return clone;
 }
 
+function apply(fn, args) {
+  if (arguments.length === 1) {
+    return _args => apply(fn, _args);
+  }
+
+  return fn.apply(this, args);
+}
+
 const _isArray = Array.isArray;
 
 function __findHighestArity(spec, max = 0) {
@@ -230,87 +238,6 @@ function assocPathFn(path, newValue, input) {
 
 const assocPath = curry(assocPathFn);
 
-function both(f, g) {
-  if (arguments.length === 1) return _g => both(f, _g);
-  return (...input) => f(...input) && g(...input);
-}
-
-function chain(fn, list) {
-  if (arguments.length === 1) {
-    return _list => chain(fn, _list);
-  }
-
-  return [].concat(...list.map(fn));
-}
-
-function clampFn(min, max, input) {
-  if (min > max) {
-    throw new Error('min must not be greater than max in clamp(min, max, value)');
-  }
-
-  if (input >= min && input <= max) return input;
-  if (input > max) return max;
-  if (input < min) return min;
-}
-
-const clamp = curry(clampFn);
-
-function clone(input) {
-  const out = _isArray(input) ? Array(input.length) : {};
-  if (input && input.getTime) return new Date(input.getTime());
-
-  for (const key in input) {
-    const v = input[key];
-    out[key] = typeof v === 'object' && v !== null ? v.getTime ? new Date(v.getTime()) : clone(v) : v;
-  }
-
-  return out;
-}
-
-function complement(fn) {
-  return (...input) => !fn(...input);
-}
-
-function compose(...fns) {
-  if (fns.length === 0) {
-    throw new Error('compose requires at least one argument');
-  }
-
-  return (...args) => {
-    const list = fns.slice();
-
-    if (list.length > 0) {
-      const fn = list.pop();
-      let result = fn(...args);
-
-      while (list.length > 0) {
-        result = list.pop()(result);
-      }
-
-      return result;
-    }
-  };
-}
-
-function concat(x, y) {
-  if (arguments.length === 1) return _y => concat(x, _y);
-  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
-}
-
-function cond(conditions) {
-  return input => {
-    let done = false;
-    let toReturn;
-    conditions.forEach(([predicate, resultClosure]) => {
-      if (!done && predicate(input)) {
-        done = true;
-        toReturn = resultClosure(input);
-      }
-    });
-    return toReturn;
-  };
-}
-
 function _curryN(n, cache, fn) {
   return function () {
     let ci = 0;
@@ -401,6 +328,95 @@ function curryN(n, fn) {
   }
 
   return _arity(n, _curryN(n, [], fn));
+}
+
+function bind(fn, thisObj) {
+  if (arguments.length === 1) {
+    return _thisObj => bind(fn, _thisObj);
+  }
+
+  return curryN(fn.length, (...args) => fn.apply(thisObj, args));
+}
+
+function both(f, g) {
+  if (arguments.length === 1) return _g => both(f, _g);
+  return (...input) => f(...input) && g(...input);
+}
+
+function chain(fn, list) {
+  if (arguments.length === 1) {
+    return _list => chain(fn, _list);
+  }
+
+  return [].concat(...list.map(fn));
+}
+
+function clampFn(min, max, input) {
+  if (min > max) {
+    throw new Error('min must not be greater than max in clamp(min, max, value)');
+  }
+
+  if (input >= min && input <= max) return input;
+  if (input > max) return max;
+  if (input < min) return min;
+}
+
+const clamp = curry(clampFn);
+
+function clone(input) {
+  const out = _isArray(input) ? Array(input.length) : {};
+  if (input && input.getTime) return new Date(input.getTime());
+
+  for (const key in input) {
+    const v = input[key];
+    out[key] = typeof v === 'object' && v !== null ? v.getTime ? new Date(v.getTime()) : clone(v) : v;
+  }
+
+  return out;
+}
+
+function complement(fn) {
+  return (...input) => !fn(...input);
+}
+
+function compose(...fns) {
+  if (fns.length === 0) {
+    throw new Error('compose requires at least one argument');
+  }
+
+  return (...args) => {
+    const list = fns.slice();
+
+    if (list.length > 0) {
+      const fn = list.pop();
+      let result = fn(...args);
+
+      while (list.length > 0) {
+        result = list.pop()(result);
+      }
+
+      return result;
+    }
+  };
+}
+
+function concat(x, y) {
+  if (arguments.length === 1) return _y => concat(x, _y);
+  return typeof x === 'string' ? `${x}${y}` : [...x, ...y];
+}
+
+function cond(conditions) {
+  return input => {
+    let done = false;
+    let toReturn;
+    conditions.forEach(([predicate, resultClosure]) => {
+      if (!done && predicate(input)) {
+        done = true;
+        toReturn = resultClosure(input);
+      }
+    });
+    return toReturn;
+  };
 }
 
 const _keys = Object.keys;
@@ -513,7 +529,54 @@ function type(input) {
   if (asStr === '[object Promise]') return 'Promise';
   if (typeOf === 'function') return 'Function';
   if (input instanceof String) return 'String';
+  if (input instanceof Set) return 'Set';
   return 'Object';
+}
+
+function _indexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`);
+  }
+
+  const typeOfValue = type(valueToFind);
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.indexOf(valueToFind);
+  let index = -1;
+  let foundIndex = -1;
+  const {
+    length
+  } = list;
+
+  while (++index < length && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index;
+    }
+  }
+
+  return foundIndex;
+}
+
+function _arrayFromIterator(iter) {
+  const list = [];
+  let next;
+
+  while (!(next = iter.next()).done) {
+    list.push(next.value);
+  }
+
+  return list;
+}
+
+function _equalsSets(a, b) {
+  if (a.size !== b.size) {
+    return false;
+  }
+
+  const aList = _arrayFromIterator(a.values());
+
+  const bList = _arrayFromIterator(b.values());
+
+  const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
+  return filtered.length === 0;
 }
 
 function parseError(maybeError) {
@@ -593,6 +656,10 @@ function equals(a, b) {
     return bError[0] ? aError[0] === bError[0] && aError[1] === bError[1] : false;
   }
 
+  if (aType === 'Set') {
+    return _equalsSets(a, b);
+  }
+
   if (aType === 'Object') {
     const aKeys = Object.keys(a);
 
@@ -615,35 +682,6 @@ function equals(a, b) {
   }
 
   return false;
-}
-
-function _indexOf(valueToFind, list) {
-  if (!_isArray(list)) {
-    throw new Error(`Cannot read property 'indexOf' of ${list}`);
-  }
-
-  const typeOfValue = type(valueToFind);
-  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.indexOf(valueToFind);
-  let index = -1;
-  let foundIndex = -1;
-  const {
-    length
-  } = list;
-
-  while (++index < length && foundIndex === -1) {
-    if (equals(list[index], valueToFind)) {
-      foundIndex = index;
-    }
-  }
-
-  return foundIndex;
-}
-function indexOf(valueToFind, list) {
-  if (arguments.length === 1) {
-    return _list => _indexOf(valueToFind, _list);
-  }
-
-  return _indexOf(valueToFind, list);
 }
 
 function includes(valueToFind, input) {
@@ -1048,7 +1086,7 @@ function flipFn(fn) {
       return fn(input[1], input[0], input[2], input[3]);
     }
 
-    throw new Error('R.flip doesn\'t work with arity > 4');
+    throw new Error("R.flip doesn't work with arity > 4");
   };
 }
 
@@ -1175,12 +1213,12 @@ function path(pathInput, obj) {
   return willReturn;
 }
 
-function hasPath(maybePath, obj) {
+function hasPath(pathInput, obj) {
   if (arguments.length === 1) {
-    return objHolder => hasPath(maybePath, objHolder);
+    return objHolder => hasPath(pathInput, objHolder);
   }
 
-  return path(maybePath, obj) !== undefined;
+  return path(pathInput, obj) !== undefined;
 }
 
 function head(listOrString) {
@@ -1250,6 +1288,14 @@ function indexBy(condition, list) {
   }
 
   return toReturn;
+}
+
+function indexOf(valueToFind, list) {
+  if (arguments.length === 1) {
+    return _list => _indexOf(valueToFind, _list);
+  }
+
+  return _indexOf(valueToFind, list);
 }
 
 function baseSlice(array, start, end) {
@@ -1357,10 +1403,6 @@ function lastIndexOf(target, list) {
 }
 
 function length(x) {
-  if (!x && x !== '' || x.length === undefined) {
-    return NaN;
-  }
-
   return x.length;
 }
 
@@ -1380,6 +1422,7 @@ function nth(index, list) {
 
 function updateFn(index, newValue, list) {
   const arrClone = list.slice();
+  if (index === -1) return arrClone.fill(newValue, index);
   return arrClone.fill(newValue, index, index + 1);
 }
 
@@ -2081,6 +2124,12 @@ function tryCatch(fn, fallback) {
   };
 }
 
+function unapply(fn) {
+  return function (...args) {
+    return fn.call(this, args);
+  };
+}
+
 function union(x, y) {
   if (arguments.length === 1) return _y => union(x, _y);
   const toReturn = x.slice();
@@ -2090,6 +2139,21 @@ function union(x, y) {
   return toReturn;
 }
 
+function includesWith(predicate, target, list) {
+  let willReturn = false;
+  let index = -1;
+
+  while (++index < list.length && !willReturn) {
+    const value = list[index];
+
+    if (predicate(target, value)) {
+      willReturn = true;
+    }
+  }
+
+  return willReturn;
+}
+
 function uniqWith(predicate, list) {
   if (arguments.length === 1) return _list => uniqWith(predicate, _list);
   let index = -1;
@@ -2097,9 +2161,8 @@ function uniqWith(predicate, list) {
 
   while (++index < list.length) {
     const value = list[index];
-    const flag = any(x => predicate(value, x), willReturn);
 
-    if (!flag) {
+    if (!includesWith(predicate, value, willReturn)) {
       willReturn.push(value);
     }
   }
@@ -2215,9 +2278,11 @@ exports.and = and;
 exports.any = any;
 exports.anyPass = anyPass;
 exports.append = append;
+exports.apply = apply;
 exports.applySpec = applySpec;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
+exports.bind = bind;
 exports.both = both;
 exports.chain = chain;
 exports.clamp = clamp;
@@ -2369,6 +2434,7 @@ exports.transpose = transpose;
 exports.trim = trim;
 exports.tryCatch = tryCatch;
 exports.type = type;
+exports.unapply = unapply;
 exports.union = union;
 exports.uniq = uniq;
 exports.uniqWith = uniqWith;

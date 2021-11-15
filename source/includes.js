@@ -1,5 +1,5 @@
 import {_isArray} from './_internals/_isArray'
-import {_indexOf} from './indexOf'
+import {_indexOf} from './equals'
 
 export function includes(valueToFind, input) {
   if (arguments.length === 1) return _input => includes(valueToFind, _input)

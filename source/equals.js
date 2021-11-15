@@ -1,5 +1,26 @@
 import {type} from './type'
-import {_indexOf} from './indexOf'
+import {_isArray} from './_internals/_isArray'
+
+export function _indexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`)
+  }
+  const typeOfValue = type(valueToFind)
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue))
+    return list.indexOf(valueToFind)
+
+  let index = -1
+  let foundIndex = -1
+  const {length} = list
+
+  while (++index < length && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index
+    }
+  }
+
+  return foundIndex
+}
 
 function _arrayFromIterator(iter) {
   const list = []
@@ -8,6 +29,19 @@ function _arrayFromIterator(iter) {
     list.push(next.value)
   }
   return list
+}
+
+function _equalsSets(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+  const aList = _arrayFromIterator(a.values())
+  const bList = _arrayFromIterator(b.values())
+
+  const filtered = aList.filter(
+    aInstance => _indexOf(aInstance, bList) === -1
+  )
+  return filtered.length === 0
 }
 
 function parseError(maybeError) {
@@ -110,7 +144,7 @@ export function equals(a, b) {
       : false
   }
   if (aType === 'Set') {
-    return equalsSets(a, b)
+    return _equalsSets(a, b)
   }
   if (aType === 'Object') {
     const aKeys = Object.keys(a)
