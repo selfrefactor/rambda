@@ -8990,9 +8990,9 @@ length<T>(input: T[]): number;
 
 ```javascript
 export function length(x) {
-  // if ((!x && x !== '') || !x.length) {
-  //   return NaN
-  // }
+  if ((!x && x !== '') || x.length === undefined) {
+    return NaN
+  }
 
   return x.length
 }
@@ -9005,54 +9005,24 @@ export function length(x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { length } from "./length";
-import { lengthRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
+import {length} from './length'
 
-// test("happy", () => {
-//   expect(length("foo")).toEqual(3);
-//   expect(length([1, 2, 3])).toEqual(3);
-//   expect(length([])).toEqual(0);
-// });
+test('happy', () => {
+  expect(length('foo')).toEqual(3)
+  expect(length([1, 2, 3])).toEqual(3)
+  expect(length([])).toEqual(0)
+})
 
-// test("with empty string", () => {
-//   expect(length("")).toEqual(0);
-// });
+test('with empty string', () => {
+  expect(length('')).toEqual(0)
+})
 
-// test("with bad input returns NaN", () => {
-//   expect(length(0)).toBeNaN();
-//   expect(length({})).toBeNaN();
-//   expect(length(null)).toBeNaN();
-//   expect(length(undefined)).toBeNaN();
-// });
-
-const possibleInputs = [
-  { length: "1.23" },
-  { length: "foo" },
-  { length: null },
-  /foo/g,
-  { length: "" },
-];
-
-describe("brute force", () => {
-  compareCombinations({
-    fn: length,
-    fnRamda: lengthRamda,
-    firstInput: possibleInputs,
-    callback: (errorsCounters) => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 5,
-          "TOTAL_TESTS": 5,
-        }
-      `);
-    },
-  });
-});
+test('with bad input returns NaN', () => {
+  expect(length(0)).toBeNaN()
+  expect(length({})).toBeNaN()
+  expect(length(null)).toBeNaN()
+  expect(length(undefined)).toBeNaN()
+})
 ```
 
 </details>
