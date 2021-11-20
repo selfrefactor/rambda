@@ -8211,12 +8211,13 @@ length<T>(input: T[]): number;
 <summary><strong>R.length</strong> source</summary>
 
 ```javascript
-export function length(x) {
-  if ((!x && x !== '') || x.length === undefined) {
-    return NaN
-  }
+import {_isArray} from './_internals/_isArray'
 
-  return x.length
+export function length(x) {
+  if(_isArray(x)) return x.length
+  if(typeof x === 'string') return x.length
+  
+  return NaN
 }
 ```
 
@@ -8228,6 +8229,7 @@ export function length(x) {
 
 ```javascript
 import {length} from './length'
+import {length as lengthRamda} from 'ramda'
 
 test('happy', () => {
   expect(length('foo')).toEqual(3)
@@ -8244,6 +8246,19 @@ test('with bad input returns NaN', () => {
   expect(length({})).toBeNaN()
   expect(length(null)).toBeNaN()
   expect(length(undefined)).toBeNaN()
+})
+
+test('with length as property', () => {
+  const input1 = {length: '123'}
+  const input2 = {length: null}
+  const input3 = {length: ''}
+
+  expect(length(input1)).toBeNaN()
+  expect(lengthRamda(input1)).toBeNaN()
+  expect(length(input2)).toBeNaN()
+  expect(lengthRamda(input2)).toBeNaN()
+  expect(length(input3)).toBeNaN()
+  expect(lengthRamda(input3)).toBeNaN()
 })
 ```
 
@@ -19090,6 +19105,8 @@ describe('R.zipWith', () => {
 - Missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
 
 - `R.type` can return `Set` as result.
+
+- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606)
 
 - Improve performance of `R.uniqWith`
 

@@ -4,6 +4,8 @@
 
 - `R.type` can return `Set` as result.
 
+- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606)
+
 - Improve performance of `R.uniqWith`
 
 - Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)

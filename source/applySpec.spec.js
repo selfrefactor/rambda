@@ -1,5 +1,4 @@
 import {applySpec as applySpecRamda, nAry} from 'ramda'
-
 import {add, always, compose, dec, inc, map, path, prop, T} from '../rambda'
 import {applySpec} from './applySpec'
 
