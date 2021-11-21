@@ -29,3 +29,10 @@ test('when returns false', () => {
     })
   ).toBeFalse()
 })
+
+test('works with multiple inputs', () => {
+  var fn = function(w, x, y, z) {
+    return w + x === y + z; 
+  };
+  expect(allPass([fn])(3,3,3,3)).toBeTrue()
+})
