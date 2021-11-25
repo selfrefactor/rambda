@@ -10,7 +10,9 @@ describe('R.head', () => {
     result // $ExpectType number | undefined
   })
   it('empty array', () => {
-    const result = head([])
-    result // $ExpectType undefined
+    const arr: string[] = [];
+    const l = head(arr);
+    // $ExpectError
+    l.toLowerCase();
   })
 })
