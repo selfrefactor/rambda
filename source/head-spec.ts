@@ -9,4 +9,8 @@ describe('R.head', () => {
     const result = head([1, 2, 3])
     result // $ExpectType number | undefined
   })
+  it('empty array', () => {
+    const result = head([])
+    result // $ExpectType undefined
+  })
 })
