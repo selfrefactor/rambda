@@ -8,11 +8,6 @@ describe('R.last', () => {
 
   it('array', () => {
     const result = last([1, 2, 3])
-    result // $ExpectType number
-  })
-
-  it('empty array', () => {
-    const result = last([])
-    result // $ExpectType undefined
+    result // $ExpectType number | undefined
   })
 })
