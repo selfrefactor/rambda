@@ -1,5 +1,4 @@
-import {add, subtract, compose, map, filter} from 'rambda'
-import {compose as composeRamda} from 'ramda'
+import {add, subtract, compose, map, filter, identity, dissoc} from 'rambda'
 
 describe('R.compose', () => {
   it('happy', () => {
@@ -18,15 +17,6 @@ describe('R.compose', () => {
   it('with native filter', () => {
     const result = compose(
       (list: number[]) => list.filter(x => x > 2),
-      list => {
-        list // $ExpectType any
-        return list
-      },
-      map(add(1))
-    )([1, 2, 3])
-
-    const ramdaResult = composeRamda(
-      (list: number[]) => list.filter(x => x > 2),
       // $ExpectError
       list => {
         list // $ExpectType unknown
@@ -37,7 +27,6 @@ describe('R.compose', () => {
     )([1, 2, 3])
 
     result // $ExpectType number[]
-    ramdaResult // $ExpectType number[]
   })
 
   it('with void', () => {
@@ -46,5 +35,23 @@ describe('R.compose', () => {
       () => {}
     )()
     result // $ExpectType void
+  })
+
+  it('with explicit types', () => {
+    interface Input {
+      a: string,
+      b: string,
+    }
+    const obj: Input = {
+      a: 'foo',
+      b: 'bar',
+    }
+    interface Output {
+      a: string,
+    }
+    
+    const result = compose<Input, Input, Output>(identity, dissoc('b'))(obj)
+
+    result // $ExpectType Output
   })
 })

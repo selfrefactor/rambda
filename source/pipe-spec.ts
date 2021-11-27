@@ -1,4 +1,4 @@
-import {add, subtract, pipe, map, filter} from 'rambda'
+import {add, subtract, pipe, map, filter, identity, dissoc} from 'rambda'
 
 describe('R.pipe', () => {
   it('happy', () => {
@@ -18,7 +18,7 @@ describe('R.pipe', () => {
     const result = pipe(
       (list: number[]) => list.filter(x => x > 2),
       list => {
-        list // $ExpectType any
+        list // $ExpectType number[]
         return list
       },
       map(add(1))
@@ -33,5 +33,23 @@ describe('R.pipe', () => {
       () => {}
     )()
     result // $ExpectType void
+  })
+
+  it('with explicit types', () => {
+    interface Input {
+      a: string,
+      b: string,
+    }
+    const obj: Input = {
+      a: 'foo',
+      b: 'bar',
+    }
+    interface Output {
+      a: string,
+    }
+    
+    const result = pipe<Input, Input, Output>(identity, dissoc('b'))(obj)
+
+    result // $ExpectType Output
   })
 })
