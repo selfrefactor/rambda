@@ -1,5 +1,5 @@
 import {add, subtract, compose, map, filter} from 'rambda'
-import {compose as ramdaCompose} from 'ramda'
+import {compose as composeRamda} from 'ramda'
 
 describe('R.compose', () => {
   it('happy', () => {
@@ -25,7 +25,7 @@ describe('R.compose', () => {
       map(add(1))
     )([1, 2, 3])
 
-    const ramdaResult = ramdaCompose(
+    const ramdaResult = composeRamda(
       (list: number[]) => list.filter(x => x > 2),
       // $ExpectError
       list => {
