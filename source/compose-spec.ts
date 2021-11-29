@@ -1,6 +1,14 @@
 import {add, subtract, compose, map, filter, identity, dissoc} from 'rambda'
 import {compose as composeRamda} from 'ramda'
 
+interface Input {
+  a: string,
+  b: string,
+}
+interface Output {
+  a: string,
+}
+
 describe('R.compose', () => {
   it('happy', () => {
     const result = compose(subtract(11), add(1), add(1))(1)
@@ -51,7 +59,26 @@ describe('R.compose', () => {
     result // $ExpectType void
   })
 
-  it('with explicit types', () => {
+  it('with explicit types - correct', () => {
+    const obj: Input = {
+      a: 'foo',
+      b: 'bar',
+    }
+    
+    const result = compose<Input, Output, Output>(identity, dissoc('b'))(obj)
+    result // $ExpectType Output
+  })
+  it('with explicit types - wrong', () => {
+    const obj: Input = {
+      a: 'foo',
+      b: 'bar',
+    }
+
+    // $ExpectError
+    const result = compose<string, number, Output>(identity, dissoc('b'))(obj)
+    result // $ExpectType number
+  })
+  it('with explicit types - wrong with ramda', () => {
     interface Input {
       a: string,
       b: string,
@@ -64,8 +91,9 @@ describe('R.compose', () => {
       a: string,
     }
     
-    const result = compose<Input, Input, Output>(identity, dissoc('b'))(obj)
+    // $ExpectError
+    const result = composeRamda<Output, number, string>(identity, dissoc('b'))(obj)
 
-    result // $ExpectType Output
+    result // $ExpectType number
   })
 })
