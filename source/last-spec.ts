@@ -18,6 +18,6 @@ describe('R.last', () => {
   it('empty array - case 2', () => {
     const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
     const result = last(list)
-    result // $ExpectType number | undefined
+    result // $ExpectType string | undefined
   })
 })

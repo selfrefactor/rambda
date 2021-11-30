@@ -1413,8 +1413,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(input: T[]): T | undefined;
 export function head(input: string): string;
+export function head(emptyList: []): undefined;
+export function head<T>(input: T[]): T | undefined;
 
 /*
 Method: identical
