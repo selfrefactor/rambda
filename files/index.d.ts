@@ -1819,7 +1819,7 @@ Notes:
 // @SINGLE_MARKER
 export function last(str: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T;
+export function last<T extends any>(list: T[]): T | undefined;
 
 /*
 Method: lastIndexOf
