@@ -1,0 +1,42 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "fix method",
+  "steps": [
+    {
+      "file": "source/add.js",
+      "description": "create a method",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 6,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "source/add.spec.js",
+      "description": "write unit tests",
+      "line": 5,
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 1
+        },
+        "end": {
+          "line": 8,
+          "character": 3
+        }
+      }
+    },
+    {
+      "file": "source/add.spec.js",
+      "description": "write multiple tests using mostly bad inputs. The idea is to catch any differences between Rambda and Ramda",
+      "line": 34
+    }
+  ],
+  "ref": "master"
+}
