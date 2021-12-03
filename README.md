@@ -242,8 +242,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 🚀 Fastest | 11.02% slower | 🔳
- *allPass* | 🚀 Fastest | 87.87% slower | 🔳
+ *all* | 🚀 Fastest | 3.42% slower | 🔳
+ *allPass* | 🚀 Fastest | 91.2% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -690,7 +690,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 11.02%</summary>
+<summary>Rambda is faster than Ramda with 3.42%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -847,7 +847,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 87.87%</summary>
+<summary>Rambda is faster than Ramda with 91.2%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -5072,33 +5072,29 @@ describe('R.equals', () => {
 ```text
 const R = require('../../dist/rambda.js')
 
-const mode = 0
 const limit = 10000
 
 const strings = Array(limit)
   .fill(null)
   .map(() => Math.floor(Math.random() * 1000))
 
-const modes = [strings]
-const activeMode = modes[mode]
-
 const equals = [
   {
     label: 'Rambda',
     fn: () => {
-      activeMode.forEach(x => R.equals(x, 'ss'))
+      strings.forEach(x => R.equals(x, 'ss'))
     },
   },
   {
     label: 'Ramda',
     fn: () => {
-      activeMode.forEach(x => Ramda.equals(x, 'ss'))
+      strings.forEach(x => Ramda.equals(x, 'ss'))
     },
   },
   {
     label: 'Lodash',
     fn: () => {
-      activeMode.forEach(x => _.isEqual(x, 'ss'))
+      strings.forEach(x => _.isEqual(x, 'ss'))
     },
   },
 ]
