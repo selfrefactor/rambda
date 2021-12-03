@@ -1,4 +1,4 @@
-import { _Set } from './_internals/set'
+import {_Set} from './_internals/set'
 
 export function uniq(list) {
   const set = new _Set()
@@ -8,6 +8,6 @@ export function uniq(list) {
       willReturn.push(item)
     }
   })
-  
+
   return willReturn
 }

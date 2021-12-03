@@ -234,7 +234,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.20) and *Ramda*(0.27.1).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.27.1).
 
 </summary>
 
@@ -242,8 +242,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 6.5% slower | 🚀 Fastest | 🔳
- *allPass* | 🚀 Fastest | 91.64% slower | 🔳
+ *all* | 🚀 Fastest | 11.02% slower | 🔳
+ *allPass* | 🚀 Fastest | 87.87% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -718,7 +718,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 6.5%</summary>
+<summary>Rambda is faster than Ramda with 11.02%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -798,10 +798,10 @@ allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 ```javascript
 export function allPass(predicates) {
-  return input => {
+  return (...input) => {
     let counter = 0
     while (counter < predicates.length) {
-      if (!predicates[counter](input)) {
+      if (!predicates[counter](...input)) {
         return false
       }
       counter++
@@ -850,6 +850,13 @@ test('when returns false', () => {
     })
   ).toBeFalse()
 })
+
+test('works with multiple inputs', () => {
+  var fn = function(w, x, y, z) {
+    return w + x === y + z; 
+  };
+  expect(allPass([fn])(3,3,3,3)).toBeTrue()
+})
 ```
 
 </details>
@@ -882,7 +889,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 91.64%</summary>
+<summary>Rambda is faster than Ramda with 87.87%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1308,10 +1315,10 @@ anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 
 ```javascript
 export function anyPass(predicates) {
-  return input => {
+  return (...input) => {
     let counter = 0
     while (counter < predicates.length) {
-      if (predicates[counter](input)) {
+      if (predicates[counter](...input)) {
         return true
       }
       counter++
@@ -1363,8 +1370,16 @@ test('when returns false + curry', () => {
   expect(anyPass(conditionArr)(obj)).toBeFalse()
 })
 
-test('happy', () => {
+test('with empty predicates list', () => {
   expect(anyPass([])(3)).toEqual(false)
+})
+
+test('works with multiple inputs', () => {
+  var fn = function(w, x, y, z) {
+    console.log(w, x, y, z)
+    return w + x === y + z; 
+  };
+  expect(anyPass([fn])(3,3,3,3)).toBeTrue()
 })
 ```
 
@@ -1814,7 +1829,6 @@ export function applySpec(spec, ...args) {
 
 ```javascript
 import {applySpec as applySpecRamda, nAry} from 'ramda'
-
 import {add, always, compose, dec, inc, map, path, prop, T} from '../rambda'
 import {applySpec} from './applySpec'
 
@@ -7441,7 +7455,7 @@ describe('R.hasPath', () => {
 
 ```typescript
 
-head<T>(input: T[]): T | undefined
+head(input: string): string
 ```
 
 It returns the first element of list or string `input`.
@@ -7461,8 +7475,9 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-head<T>(input: T[]): T | undefined;
 head(input: string): string;
+head(emptyList: []): undefined;
+head<T>(input: T[]): T | undefined;
 ```
 
 </details>
@@ -7510,9 +7525,20 @@ describe('R.head', () => {
     const result = head('foo')
     result // $ExpectType string
   })
+
   it('array', () => {
     const result = head([1, 2, 3])
     result // $ExpectType number | undefined
+  })
+
+  it('empty array - case 1', () => {
+    const result = head([])
+    result // $ExpectType undefined
+  })
+  it('empty array - case 2', () => {
+    const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
+    const result = head(list)
+    result // $ExpectType string | undefined
   })
 })
 ```
@@ -7575,8 +7601,8 @@ identity<T>(input: T): T;
 <summary><strong>R.identity</strong> source</summary>
 
 ```javascript
-export function identity(input) {
-  return input
+export function identity(x) {
+  return x
 }
 ```
 
@@ -7918,17 +7944,17 @@ includes<T>(valueToFind: T): (input: T[]) => boolean;
 import {_isArray} from './_internals/_isArray'
 import {_indexOf} from './equals'
 
-export function includes(valueToFind, input) {
-  if (arguments.length === 1) return _input => includes(valueToFind, _input)
-  if (typeof input === 'string') {
-    return input.includes(valueToFind)
+export function includes(valueToFind, iterable) {
+  if (arguments.length === 1) return _iterable => includes(valueToFind, _iterable)
+  if (typeof iterable === 'string') {
+    return iterable.includes(valueToFind)
   }
-  if (!input) {
-    throw new TypeError(`Cannot read property \'indexOf\' of ${input}`)
+  if (!iterable) {
+    throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
   }
-  if (!_isArray(input)) return false
+  if (!_isArray(iterable)) return false
 
-  return _indexOf(valueToFind, input) > -1
+  return _indexOf(valueToFind, iterable) > -1
 }
 ```
 
@@ -8714,7 +8740,7 @@ const result = [
 ```typescript
 last(str: string): string;
 last(emptyList: []): undefined;
-last<T extends any>(list: T[]): T;
+last<T extends any>(list: T[]): T | undefined;
 ```
 
 </details>
@@ -8770,12 +8796,17 @@ describe('R.last', () => {
 
   it('array', () => {
     const result = last([1, 2, 3])
-    result // $ExpectType number
+    result // $ExpectType number | undefined
   })
 
-  it('empty array', () => {
+  it('empty array - case 1', () => {
     const result = last([])
     result // $ExpectType undefined
+  })
+  it('empty array - case 2', () => {
+    const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
+    const result = last(list)
+    result // $ExpectType string | undefined
   })
 })
 ```
@@ -21025,9 +21056,13 @@ describe('R.zipWith', () => {
 
 6.10.0 
 
-- Missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+- REMOVE Improve typings of `R.compose` and `R.pipe` - [PR #602](https://github.com/selfrefactor/rambda/pull/602)
+
+- Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
 
 - `R.type` can return `Set` as result.
+
+- Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
 
 - Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606)
 

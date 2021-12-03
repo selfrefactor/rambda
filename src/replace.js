@@ -1,8 +1,6 @@
-import { curry } from './curry'
+import {curry} from './curry'
 
-function replaceFn(
-  pattern, replacer, str
-){
+function replaceFn(pattern, replacer, str) {
   return str.replace(pattern, replacer)
 }
 

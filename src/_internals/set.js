@@ -1,5 +1,5 @@
 import {type as typeMethod} from '../type'
-import { _indexOf } from '../indexOf'
+import {_indexOf} from '../equals'
 
 export class _Set {
   constructor() {
@@ -9,13 +9,13 @@ export class _Set {
   checkUniqueness(item) {
     const type = typeMethod(item)
     if (['Null', 'Undefined', 'NaN'].includes(type)) {
-      if(type in this.items) {
+      if (type in this.items) {
         return false
-      } 
+      }
       this.items[type] = true
       return true
     }
-    if (!['Object', 'Array'].includes( type)) {
+    if (!['Object', 'Array'].includes(type)) {
       const prevSize = this.set.size
       this.set.add(item)
       return this.set.size !== prevSize

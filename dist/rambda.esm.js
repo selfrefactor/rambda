@@ -36,11 +36,11 @@ function all(predicate, list) {
 }
 
 function allPass(predicates) {
-  return input => {
+  return (...input) => {
     let counter = 0;
 
     while (counter < predicates.length) {
-      if (!predicates[counter](input)) {
+      if (!predicates[counter](...input)) {
         return false;
       }
 
@@ -76,11 +76,11 @@ function any(predicate, list) {
 }
 
 function anyPass(predicates) {
-  return input => {
+  return (...input) => {
     let counter = 0;
 
     while (counter < predicates.length) {
-      if (predicates[counter](input)) {
+      if (predicates[counter](...input)) {
         return true;
       }
 
@@ -380,12 +380,12 @@ function compose(...fns) {
     throw new Error('compose requires at least one argument');
   }
 
-  return (...args) => {
+  return function (...args) {
     const list = fns.slice();
 
     if (list.length > 0) {
       const fn = list.pop();
-      let result = fn(...args);
+      let result = fn.apply(this, args);
 
       while (list.length > 0) {
         result = list.pop()(result);
@@ -680,19 +680,19 @@ function equals(a, b) {
   return false;
 }
 
-function includes(valueToFind, input) {
-  if (arguments.length === 1) return _input => includes(valueToFind, _input);
+function includes(valueToFind, iterable) {
+  if (arguments.length === 1) return _iterable => includes(valueToFind, _iterable);
 
-  if (typeof input === 'string') {
-    return input.includes(valueToFind);
+  if (typeof iterable === 'string') {
+    return iterable.includes(valueToFind);
   }
 
-  if (!input) {
-    throw new TypeError(`Cannot read property \'indexOf\' of ${input}`);
+  if (!iterable) {
+    throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`);
   }
 
-  if (!_isArray(input)) return false;
-  return _indexOf(valueToFind, input) > -1;
+  if (!_isArray(iterable)) return false;
+  return _indexOf(valueToFind, iterable) > -1;
 }
 
 class _Set {
@@ -1236,8 +1236,8 @@ function identical(a, b) {
   return _objectIs$1(a, b);
 }
 
-function identity(input) {
-  return input;
+function identity(x) {
+  return x;
 }
 
 function ifElseFn(condition, onTrue, onFalse) {
@@ -1399,7 +1399,9 @@ function lastIndexOf(target, list) {
 }
 
 function length(x) {
-  return x.length;
+  if (_isArray(x)) return x.length;
+  if (typeof x === 'string') return x.length;
+  return NaN;
 }
 
 function lens(getter, setter) {

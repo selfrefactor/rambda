@@ -1,8 +1,12 @@
 6.10.0 
 
-- Missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+- REMOVE Improve typings of `R.compose` and `R.pipe` - [PR #602](https://github.com/selfrefactor/rambda/pull/602)
+
+- Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
 
 - `R.type` can return `Set` as result.
+
+- Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
 
 - Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606)
 

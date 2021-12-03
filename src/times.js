@@ -1,9 +1,9 @@
-import { map } from './map'
-import { range } from './range'
+import {map} from './map'
+import {range} from './range'
 
-export function times(fn, howMany){
+export function times(fn, howMany) {
   if (arguments.length === 1) return _howMany => times(fn, _howMany)
-  if (!Number.isInteger(howMany) || howMany < 0){
+  if (!Number.isInteger(howMany) || howMany < 0) {
     throw new RangeError('n must be an integer')
   }
 
