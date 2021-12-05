@@ -18,7 +18,7 @@
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
 		"docs": "docsify init ./docs",
 		"new": "cd ../rambda-scripts && yarn new",
-		"test": "jest source -u --bail=false",
+		"test": "jest source -u --bail=true",
 		"cover:spec": "jest source --coverage --no-cache -w 1",
 		"cover": "yarn typings && yarn cover:spec",
 		"build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
