@@ -76,7 +76,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -99,7 +99,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -127,7 +127,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -274,7 +274,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -297,7 +297,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -325,7 +325,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -364,7 +364,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -421,7 +421,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -460,7 +460,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -517,7 +517,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -556,7 +556,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -613,7 +613,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -652,7 +652,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -709,7 +709,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -766,7 +766,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -787,7 +787,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -880,7 +880,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -901,7 +901,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -984,7 +984,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1007,7 +1007,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1030,7 +1030,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1173,7 +1173,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1196,7 +1196,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1219,7 +1219,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1258,7 +1258,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1315,7 +1315,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1372,7 +1372,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1393,7 +1393,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1486,7 +1486,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1507,7 +1507,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1546,7 +1546,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1603,7 +1603,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1642,7 +1642,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of null (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of null",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1699,7 +1699,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read properties of undefined (reading 'indexOf')",
+    "message": "Cannot read property 'indexOf' of undefined",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
