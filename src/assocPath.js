@@ -2,6 +2,7 @@ import {_isArray} from './_internals/_isArray'
 import {_isInteger} from './_internals/_isInteger'
 import {assoc} from './assoc'
 import {curry} from './curry'
+import { cloneList } from './_internals/cloneList'
 
 function assocPathFn(path, newValue, input) {
   const pathArrValue =
@@ -33,7 +34,7 @@ function assocPathFn(path, newValue, input) {
   }
 
   if (_isInteger(index) && _isArray(input)) {
-    const arr = input.slice()
+    const arr = cloneList(input)
     arr[index] = newValue
 
     return arr

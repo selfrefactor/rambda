@@ -15,10 +15,14 @@ function curry(fn, args = []) {
   return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
 }
 
+function cloneList(list) {
+  return Array.prototype.slice.call(list);
+}
+
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index;
   if (index >= list.length || actualIndex < 0) return list;
-  const clone = list.slice();
+  const clone = cloneList(list);
   clone[actualIndex] = replaceFn(clone[actualIndex]);
   return clone;
 }
@@ -94,7 +98,7 @@ function anyPass(predicates) {
 function append(x, input) {
   if (arguments.length === 1) return _input => append(x, _input);
   if (typeof input === 'string') return input.split('').concat(x);
-  const clone = input.slice();
+  const clone = cloneList(input);
   clone.push(x);
   return clone;
 }
@@ -224,7 +228,7 @@ function assocPathFn(path, newValue, input) {
   }
 
   if (_isInteger(index) && _isArray(input)) {
-    const arr = input.slice();
+    const arr = cloneList(input);
     arr[index] = newValue;
     return arr;
   }
@@ -1882,8 +1886,7 @@ const slice = curry(sliceFn);
 
 function sort(sortFn, list) {
   if (arguments.length === 1) return _list => sort(sortFn, _list);
-  const clone = list.slice();
-  return clone.sort(sortFn);
+  return cloneList(list).sort(sortFn);
 }
 
 function sortBy(sortFn, list) {

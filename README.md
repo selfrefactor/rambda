@@ -242,8 +242,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 🚀 Fastest | 3.42% slower | 🔳
- *allPass* | 🚀 Fastest | 91.2% slower | 🔳
+ *all* | 🚀 Fastest | 13.71% slower | 🔳
+ *allPass* | 🚀 Fastest | 90.89% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -252,7 +252,7 @@ method | Rambda | Ramda | Lodash
  *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
  *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
- *compose* | 🚀 Fastest | 93.76% slower | 72.65% slower
+ *compose* | 23.65% slower | 20.84% slower | 🚀 Fastest
  *converge* | 78.63% slower | 🚀 Fastest | 🔳
  *curry* | 🚀 Fastest | 28.86% slower | 🔳
  *curryN* | 🚀 Fastest | 41.05% slower | 🔳
@@ -265,8 +265,8 @@ method | Rambda | Ramda | Lodash
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
  *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
- *includes* | 6.14% slower | 🚀 Fastest | 🔳
- *indexOf* | 🚀 Fastest | 82.37% slower | 🔳
+ *includes* | 🚀 Fastest | 85.21% slower | 🔳
+ *indexOf* | 🚀 Fastest | 81.11% slower | 🔳
  *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
@@ -289,7 +289,7 @@ method | Rambda | Ramda | Lodash
  *repeat* | 48.57% slower | 68.98% slower | 🚀 Fastest
  *replace* | 33.45% slower | 33.99% slower | 🚀 Fastest
  *set* | 🚀 Fastest | 50.35% slower | 🔳
- *sort* | 🚀 Fastest | 44.29% slower | 🔳
+ *sort* | 🚀 Fastest | 40.23% slower | 🔳
  *sortBy* | 🚀 Fastest | 25.29% slower | 56.88% slower
  *split* | 🚀 Fastest | 55.37% slower | 17.64% slower
  *splitEvery* | 🚀 Fastest | 71.98% slower | 🔳
@@ -297,7 +297,8 @@ method | Rambda | Ramda | Lodash
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
  *type* | 🚀 Fastest | 48.6% slower | 🔳
- *uniq* | 🚀 Fastest | 88.4% slower | 🔳
+ *uniq* | 🚀 Fastest | 90.24% slower | 🔳
+ *uniqWith* | 25.38% slower | 🚀 Fastest | 🔳
  *uniqWith* | 14.23% slower | 🚀 Fastest | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
@@ -504,12 +505,13 @@ adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 ```javascript
 import {curry} from './curry'
+import { cloneList } from './_internals/cloneList'
 
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index
   if (index >= list.length || actualIndex < 0) return list
 
-  const clone = list.slice()
+  const clone = cloneList(list)
   clone[actualIndex] = replaceFn(clone[actualIndex])
 
   return clone
@@ -690,7 +692,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 3.42%</summary>
+<summary>Rambda is faster than Ramda with 13.71%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -847,7 +849,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 91.2%</summary>
+<summary>Rambda is faster than Ramda with 90.89%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -1383,12 +1385,14 @@ append<T>(x: T): <T>(list: T[]) => T[];
 <summary><strong>R.append</strong> source</summary>
 
 ```javascript
+import { cloneList } from "./_internals/cloneList"
+
 export function append(x, input) {
   if (arguments.length === 1) return _input => append(x, _input)
 
   if (typeof input === 'string') return input.split('').concat(x)
 
-  const clone = input.slice()
+  const clone = cloneList(input)
   clone.push(x)
 
   return clone
@@ -2209,6 +2213,7 @@ import {_isArray} from './_internals/_isArray'
 import {_isInteger} from './_internals/_isInteger'
 import {assoc} from './assoc'
 import {curry} from './curry'
+import { cloneList } from './_internals/cloneList'
 
 function assocPathFn(path, newValue, input) {
   const pathArrValue =
@@ -2240,7 +2245,7 @@ function assocPathFn(path, newValue, input) {
   }
 
   if (_isInteger(index) && _isArray(input)) {
-    const arr = input.slice()
+    const arr = cloneList(input)
     arr[index] = newValue
 
     return arr
@@ -7412,7 +7417,7 @@ describe('R.includes', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 6.14%</summary>
+<summary>Rambda is faster than Ramda with 85.21%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -14502,12 +14507,12 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 <summary><strong>R.sort</strong> source</summary>
 
 ```javascript
+import { cloneList } from "./_internals/cloneList"
+
 export function sort(sortFn, list) {
   if (arguments.length === 1) return _list => sort(sortFn, _list)
 
-  const clone = list.slice()
-
-  return clone.sort(sortFn)
+  return cloneList(list).sort(sortFn)
 }
 ```
 
@@ -14568,7 +14573,7 @@ describe('R.sort', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 44.29%</summary>
+<summary>Rambda is faster than Ramda with 40.23%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17624,7 +17629,7 @@ describe('R.uniq', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 88.4%</summary>
+<summary>Rambda is faster than Ramda with 90.24%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17781,7 +17786,7 @@ describe('R.uniqWith', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 14.23%</summary>
+<summary>Rambda is slower than Ramda with 25.38%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -19127,11 +19132,15 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-6.10.0 
+7.0.0
 
-- REMOVE Improve typings of `R.compose` and `R.pipe` - [PR #602](https://github.com/selfrefactor/rambda/pull/602)
+- Braking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. 
+
+Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
 
 - Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+
+- Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
 
 - `R.type` can return `Set` as result.
 

@@ -1,8 +1,12 @@
-6.10.0 
+7.0.0
 
-- REMOVE Improve typings of `R.compose` and `R.pipe` - [PR #602](https://github.com/selfrefactor/rambda/pull/602)
+- Braking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. 
+
+Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
 
 - Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+
+- Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
 
 - `R.type` can return `Set` as result.
 
