@@ -239,7 +239,8 @@ Example:
 ```
 const fn = R.always(7)
 
-console.log(fn())// => 7
+const result = fn()
+// => 7
 ```
 
 Categories: Function
@@ -248,7 +249,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function always<T>(x: T): () => T;
+export function always<T>(x: T): (...args: unknown[]) => T;
 
 /*
 Method: and
@@ -499,7 +500,6 @@ Notes:
 // @SINGLE_MARKER
 export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
 export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /*
 Method: clamp
@@ -581,7 +581,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
+export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 
 /*
 Method: compose
@@ -714,8 +714,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function cond(conditions: ([Pred, (...a: any[]) => any])[]): (...x: any[]) => any;
-export function cond<A, B>(conditions: ([SafePred<A>, (...a: A[]) => B])[]): (...x: A[]) => B;
+export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
 
 /*
 Method: converge
@@ -1498,16 +1497,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse<T, U>(
-  condition: (x: T) => boolean, 
-  onTrue: (x: T) => U, 
-  onFalse: (x: T) => U, 
-): (x: T) => U;
-export function ifElse<T, K, U>(
-  condition: (x: T, y: K) => boolean, 
-  onTrue: (x: T, y: K) => U, 
-  onFalse: (x: T, y: K) => U, 
-): (x: T, y: K) => U;
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /*
 Method: inc
