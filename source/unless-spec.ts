@@ -2,8 +2,58 @@ import {unless, inc} from 'rambda'
 
 describe('R.unless', () => {
   it('happy', () => {
-    const safeInc = unless(x => x > 5, inc)
-    const result = safeInc(1)
+    const fn = unless(x => x > 5, inc)
+    const result = fn(1)
     result // $ExpectType number
+  })
+  it('with one explicit type', () => {
+    const result = unless(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return x + 1
+    }, 1)
+    result // $ExpectType number
+  })
+  it('with two different explicit types', () => {
+    const result = unless(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return `${x}-foo`
+    }, 1)
+    result // $ExpectType 1 | string
+  })
+})
+
+describe('R.unless - curried', () => {
+  it('happy', () => {
+    const fn = unless(x => x > 5, inc)
+    const result = fn(1)
+    result // $ExpectType number
+  })
+  it('with one explicit type', () => {
+    const fn = unless<number>(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return x + 1
+    })
+    const result = fn(1)
+    result // $ExpectType number
+  })
+  it('with two different explicit types', () => {
+    const fn = unless<number, string>(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return `${x}-foo`
+    })
+    const result = fn(1)
+    result // $ExpectType number | string
   })
 })
