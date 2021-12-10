@@ -978,26 +978,32 @@ export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 /*
 Method: endsWith
 
-Explanation: Curried version of `String.prototype.endsWith`
+Explanation: When iterable is a string, then it behaves as `String.prototype.endsWith`.
+When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
 
 Example:
 
 ```
 const str = 'foo-bar'
-const target = '-bar'
+const list = [{a:1}, {a:2}, {a:3}]
 
-const result = R.endsWith(target, str)
-// => true
+const result = [
+  R.endsWith('bar', str),
+  R.endsWith([{a:1}, {a:2}], list)
+]
+// => [true, true]
 ```
 
-Categories: String
+Categories: String, List
 
-Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string, str: string): boolean;
-export function endsWith(target: string): (str: string) => boolean;
+export function endsWith(target: string, iterable: string): boolean;
+export function endsWith(target: string): (iterable: string) => boolean;
+export function endsWith<T>(target: T[], list: T[]): boolean;
+export function endsWith<T>(target: T[]): (list: T[]) => boolean;
 
 /*
 Method: equals
@@ -3572,21 +3578,23 @@ export function splitEvery(sliceLength: number): {
 /*
 Method: startsWith
 
-Explanation: Curried version of `String.prototype.startsWith`
+Explanation: When iterable is a string, then it behaves as `String.prototype.startsWith`.
+When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
 
 Example:
 
 ```
 const str = 'foo-bar'
+const list = [{a:1}, {a:2}, {a:3}]
 
 const result = [
   R.startsWith('foo', str),
-  R.startsWith('bar', str)
+  R.startsWith([{a:1}, {a:2}], list)
 ]
-// => [true, false]
+// => [true, true]
 ```
 
-Categories: String
+Categories: String, List
 
 Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
@@ -3594,6 +3602,8 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 // @SINGLE_MARKER
 export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
+export function startsWith<T>(target: T[], list: T[]): boolean;
+export function startsWith<T>(target: T[]): (list: T[]) => boolean;
 
 /*
 Method: subtract
