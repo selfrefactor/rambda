@@ -30,7 +30,12 @@ test('list of arrays uses R.equals', () => {
   expect(indexOf([2, 3, 5], listOfLists)).toBe(-1)
 })
 
-const possibleTargets = [
+test('with string as iterable', () => {
+  expect(() => indexOf('a', 'abc')).toThrowWithMessage(Error, `Cannot read property 'indexOf' of abc`)
+  expect(indexOfRamda('a', 'abc')).toBe(0)
+})
+
+export const possibleTargets = [
   x => x > 2,
   /foo/,
   'foo',
@@ -50,7 +55,7 @@ const possibleTargets = [
   Promise.resolve(1),
 ]
 
-const possibleIterables = [
+export const possibleIterables = [
   [
     1,
     2,

@@ -3935,7 +3935,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toString<T>(x: T): string;
+export function toString(x: unknown): string;
 
 /*
 Method: transpose
