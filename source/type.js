@@ -21,6 +21,8 @@ export function type(input) {
     return 'RegExp'
   }
 
+  if(input instanceof Error) return 'Error'
+
   const asStr = input && input.toString ? input.toString() : ''
 
   if (['true', 'false'].includes(asStr)) return 'Boolean'

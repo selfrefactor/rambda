@@ -1,5 +1,5 @@
 import {type} from './type'
-import {type as ramdaType} from 'ramda'
+import {type as typeRamda} from 'ramda'
 
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
@@ -19,6 +19,11 @@ test('with new String', () => {
 
 test('with new Number', () => {
   expect(type(new Number(1))).toBe('Number')
+})
+
+test('with error', () => {
+  expect(type(Error(`foo`))).toBe('Error')
+  expect(typeRamda(Error(`foo`))).toBe('Error')
 })
 
 test('with new promise', () => {
@@ -92,7 +97,7 @@ test('not a number', () => {
 test('set', () => {
   const exampleSet = new Set([1,2,3]) 
   expect(type(exampleSet)).toBe('Set')
-  expect(ramdaType(exampleSet)).toBe('Set')
+  expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
@@ -103,7 +108,7 @@ test('function inside object 1', () => {
   }
 
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })
 
 test('function inside object 2', () => {
@@ -114,5 +119,5 @@ test('function inside object 2', () => {
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })
