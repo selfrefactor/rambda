@@ -1,4 +1,4 @@
-import {add, subtract, compose, map, filter, identity, dissoc} from 'rambda'
+import {add, subtract, compose, map, filter, identity, inc, negate, dissoc} from 'rambda'
 
 interface Input {
   a: string,
@@ -34,8 +34,10 @@ describe('R.compose with explicit types', () => {
       a: 'foo',
       b: 'bar',
     }
-    
-    const result = compose<Input[], Output, Output>(identity, dissoc('b'))(obj)
+    const result = compose<Input[], Output, Output>(identity, (input) => {
+      input // $ExpectType Input
+      return input as unknown as Output
+    })(obj)
     result // $ExpectType Output
   })
   it('with explicit types - wrong', () => {
@@ -55,8 +57,8 @@ describe('R.compose', () => {
     const result = compose(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
   })
-  it('happy - more comples', () => {
-    const result = composeRamda((x: number) => x + 1, (x: string) => x.length+1)('foo')
+  it('happy - more complex', () => {
+    const result = compose((x: number) => x + 1, (x: string) => x.length+1)('foo')
     result // $ExpectType number
   })
 
@@ -89,3 +91,22 @@ describe('R.compose', () => {
     result // $ExpectType void
   })
 })
+
+describe('R.compose - @types/ramda tests', () => {
+  test('complex', () => {
+    const fn = compose(
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      negate,
+      Math.pow,
+    );
+    const result = fn(3, 4);
+    result // $ExpectType number
+  })
+})  

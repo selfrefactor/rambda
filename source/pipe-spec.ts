@@ -1,4 +1,4 @@
-import {add, subtract, pipe, map, filter, identity, dissoc} from 'rambda'
+import {add, subtract, pipe, map, filter, identity, dissoc, inc, negate} from 'rambda'
 
 interface Input {
   a: string,
@@ -35,7 +35,10 @@ describe('R.pipe with explicit types', () => {
       b: 'bar',
     }
     
-    const result = pipe<Input[], Output, Output>(identity, dissoc('b'))(obj)
+    const result = pipe<Input[], Output, Output>((input) => {
+      input // $ExpectType Input
+      return input as unknown as Output
+    }, identity)(obj)
     result // $ExpectType Output
   })
   it('with explicit types - wrong', () => {
@@ -55,8 +58,8 @@ describe('R.pipe', () => {
     const result = pipe(subtract(11), add(1), add(1))(1)
     result // $ExpectType number
   })
-  it('happy - more comples', () => {
-    const result = pipeRamda((x: number) => x + 1, (x: string) => x.length+1)('foo')
+  it('happy - more complex', () => {
+    const result = pipe((x: string) => x.length+1, (x: number) => x + 1)('foo')
     result // $ExpectType number
   })
 
@@ -89,3 +92,23 @@ describe('R.pipe', () => {
     result // $ExpectType void
   })
 })
+
+describe('R.pipe - @types/ramda tests', () => {
+  test('complex', () => {
+    const fn = pipe(
+      Math.pow,
+      negate,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+      inc,
+    );
+    const result = fn(3, 4);
+    result // $ExpectType number
+  })
+})  
+
