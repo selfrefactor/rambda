@@ -3790,7 +3790,6 @@ Explanation: It applies function `fn` to input `x` and returns `x`.
 
 One use case is debuging in the middle of `R.compose`.
 
-
 Example:
 
 ```

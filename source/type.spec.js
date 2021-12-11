@@ -26,6 +26,13 @@ test('with error', () => {
   expect(typeRamda(Error(`foo`))).toBe('Error')
 })
 
+test('with error - wrong @types/ramda test', () => {
+  // @types/ramda expect the result to be 'Error' but it is not
+  class ExtendedError extends Error {}
+  expect(type(ExtendedError)).toBe('Function')
+  expect(typeRamda(ExtendedError)).toBe('Function')
+})
+
 test('with new promise', () => {
   const delay = ms =>
     new Promise(resolve => {
