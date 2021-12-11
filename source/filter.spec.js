@@ -1,8 +1,6 @@
-import Ramda from 'ramda'
-
-import {F} from './F'
-import {filter} from './filter'
 import {T} from './T'
+import {filter} from './filter'
+import {filter as filterRamda} from 'ramda'
 
 const sampleObject = {
   a: 1,
@@ -22,19 +20,6 @@ test('happy', () => {
       d: 3,
     })
   ).toEqual({b: 2})
-})
-
-test('bad inputs difference between Ramda and Rambda', () => {
-  expect(filter(T)(undefined)).toEqual([])
-  expect(filter(F, null)).toEqual([])
-  expect(() => Ramda.filter(T, null)).toThrowWithMessage(
-    TypeError,
-    "Cannot read property 'filter' of null"
-  )
-  expect(() => Ramda.filter(T, undefined)).toThrowWithMessage(
-    TypeError,
-    "Cannot read property 'filter' of undefined"
-  )
 })
 
 test('predicate when input is object', () => {
@@ -60,4 +45,23 @@ test('with object', () => {
   }
 
   expect(result).toEqual(expectedResult)
+})
+
+test('bad inputs difference between Ramda and Rambda', () => {
+  expect(() => filter(T, null)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => filter(T)(undefined)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => filterRamda(T, null)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of null (reading 'filter')`
+  )
+  expect(() => filterRamda(T, undefined)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of undefined (reading 'filter')`
+  )
 })

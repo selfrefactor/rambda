@@ -1,4 +1,5 @@
 import {map} from './map'
+import {map as mapRamda} from 'ramda'
 
 const double = x => x * 2
 
@@ -6,12 +7,9 @@ describe(`with array`, () => {
   test('happy', () => {
     expect(map(double, [1, 2, 3])).toEqual([2, 4, 6])
   })
-
-  test('when undefined instead of array', () => {
-    /**
-     * https://github.com/selfrefactor/rambda/issues/77
-     */
-    expect(map(double)(undefined)).toEqual([])
+  
+  test('curried', () => {
+    expect(map(double)([1, 2, 3])).toEqual([2, 4, 6])
   })
 })
 
@@ -45,3 +43,23 @@ describe(`with object`, () => {
     })
   })
 })
+
+test('bad inputs difference between Ramda and Rambda', () => {
+  expect(() => map(double, null)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => map(double)(undefined)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => mapRamda(double, null)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of null (reading 'fantasy-land/map')`
+  )
+  expect(() => mapRamda(double, undefined)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of undefined (reading 'fantasy-land/map')`
+  )
+})
+
