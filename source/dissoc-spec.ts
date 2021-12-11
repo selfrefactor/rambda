@@ -8,19 +8,19 @@ const obj: Input = {
   a: 'foo',
   b: 'bar',
 }
-interface Output {
-  a: string,
-}
 
 describe('R.dissoc', () => {
   it('happy', () => {
-    const result = dissoc<Output>('b', obj)
+    const result = dissoc('b', obj)
 
-    result // $ExpectType Output
+    result.a // $ExpectType string
+    
+    // $ExpectError
+    result.b 
   })
   it('curried', () => {
-    const result = dissoc<Output>('b')(obj)
+    const result = dissoc('b')(obj)
 
-    result // $ExpectType Output
+    result.a // $ExpectType string
   })
 })

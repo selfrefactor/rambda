@@ -9,6 +9,9 @@ type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 export type RamdaPath = (number | string)[];
+type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
+type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any;
+
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -418,8 +421,8 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /*
@@ -868,8 +871,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc<T>(prop: string): (obj: any) => T;
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 /*
 Method: divide
@@ -1706,8 +1709,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function is(targetPrototype: any, x: any): boolean;
-export function is(targetPrototype: any): (x: any) => boolean;
+export function is<C extends () => any>(targetPrototype: C, val: any): val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C, val: any): val is InstanceType<C>;
+export function is<C extends () => any>(targetPrototype: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C): (val: any) => val is InstanceType<C>;
 
 /*
 Method: isEmpty
@@ -3217,15 +3222,20 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs(type: any, name: string, obj: any): boolean;
-export function propIs(type: any, name: string): (obj: any) => boolean;
-export function propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+export function propIs<C extends new (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 
 /*
-
 Method: propOr
 
 Explanation: It returns either `defaultValue` or the value of `property` in `obj`.
@@ -3507,6 +3517,7 @@ Notes: `sortFn` function must return a value to compare.
 */
 // @SINGLE_MARKER
 export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
+export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
 /*
@@ -3867,6 +3878,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
 /*
@@ -3887,6 +3899,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /*
@@ -3915,7 +3928,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): ([string, S])[];
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /*
 Method: toString

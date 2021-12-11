@@ -1,4 +1,4 @@
-import {sortBy} from 'rambda'
+import {sortBy, pipe} from 'rambda'
 
 interface Input {
   a: number,
@@ -33,5 +33,14 @@ describe('R.sortBy', () => {
     result // $ExpectType Input[]
     curriedResult // $ExpectType Input[]
     result[0].a // $ExpectType number
+  })
+  it('with R.pipe', () => {
+    interface Obj { value: number; }
+    const fn = pipe(
+      sortBy<Obj>(x => x.value)
+    );
+  
+    const result = fn([{ value: 1 }, { value: 2 }]);
+    result // $ExpectType Obj[]
   })
 })
