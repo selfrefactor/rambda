@@ -6,7 +6,7 @@ interface Output {
 }
 
 describe('R.merge', () => {
-  const result = merge<Output>({foo: 1}, {bar: 2})
+  const result = merge({foo: 1}, {bar: 2})
   const curriedResult = merge<Output>({foo: 1})({bar: 2})
 
   result.foo // $ExpectType number

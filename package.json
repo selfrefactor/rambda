@@ -92,17 +92,19 @@
 	"author": "self_refactor",
 	"description": "Lightweight and faster alternative to Ramda with included TS definitions",
 	"type": "module",
+	"sideEffects": false,
+	"main": "./dist/rambda.js",
+	"umd": "./dist/rambda.umd.js",
+	"module": "./dist/rambda.esm.js",
+	"types": "./index.d.ts",
 	"exports": {
 			".": {
 					"import": "./dist/index.esm.js",
 					"require": "./dist/rambda.js",
+					"default": "./dist/rambda.js",
 					"types": "./index.d.ts"
 			}
 	},
-	"umd": "./dist/rambda.umd.js",
-	"sideEffects": false,
-	"main": "./dist/rambda.js",
-	"types": "./index.d.ts",
 	"keywords": [
 		"ramda",
 		"fp",

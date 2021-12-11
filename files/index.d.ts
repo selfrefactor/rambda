@@ -2300,8 +2300,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<Output>(target: object, newProps: object): Output;
-export function merge<Output>(target: object): (newProps: object) => Output;
+export function merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output;
 
 /*
 Method: mergeAll
