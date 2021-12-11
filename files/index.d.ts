@@ -1450,8 +1450,10 @@ Otherwise, it returns `false`.
 Example:
 
 ```
-const obj = {a: 1};
-R.identical(obj, obj); // => true
+const objA = {a: 1};
+const objB = {a: 1};
+R.identical(objA, objA); // => true
+R.identical(objA, objB); // => false
 R.identical(1, 1); // => true
 R.identical(1, '1'); // => false
 R.identical([], []); // => false

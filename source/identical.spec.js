@@ -3,7 +3,7 @@ import {_isInteger} from './_internals/_isInteger'
 import {_objectIs} from './_internals/_objectIs'
 import {identical} from './identical'
 
-test('with boolean', () => {
+test('R.F and R.T', () => {
   expect(F()).toBeFalse()
   expect(T()).toBeTrue()
 })
@@ -19,13 +19,17 @@ test('internal objectIs', () => {
 })
 
 test('identical', () => {
-  const a = {}
+  const a = {a:1}
+  const b = {a:1}
+  const c = {a:1, b:2}
 
-  expect(identical(100)(100)).toEqual(true)
-  expect(identical(100, '100')).toEqual(false)
-  expect(identical('string', 'string')).toEqual(true)
-  expect(identical([], [])).toEqual(false)
-  expect(identical(a, a)).toEqual(true)
-  expect(identical(undefined, undefined)).toEqual(true)
-  expect(identical(null, undefined)).toEqual(false)
+  expect(identical(100)(100)).toBeTrue()
+  expect(identical(100, '100')).toBeFalse()
+  expect(identical('string', 'string')).toBeTrue()
+  expect(identical([], [])).toBeFalse()
+  expect(identical(a, a)).toBeTrue()
+  expect(identical(a, b)).toBeFalse()
+  expect(identical(a, c)).toBeTrue()
+  expect(identical(undefined, undefined)).toBeTrue()
+  expect(identical(null, undefined)).toBeFalse()
 })
