@@ -1,6 +1,27 @@
 import {type} from './type'
 import {_isArray} from './_internals/_isArray'
 
+export function _lastIndexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`)
+  }
+  const typeOfValue = type(valueToFind)
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue))
+    return list.lastIndexOf(valueToFind)
+
+  const {length} = list
+  let index = length
+  let foundIndex = -1
+
+  while (--index > -1 && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index
+    }
+  }
+  
+  return foundIndex
+}
+
 export function _indexOf(valueToFind, list) {
   if (!_isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)

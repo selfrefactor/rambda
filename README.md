@@ -215,6 +215,8 @@ import {compose, add} from 'https://raw.githubusercontent.com/selfrefactor/rambd
 
 - Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
 
+- Ramda's **indexOf/lastIndexOf** work with strings and lists, while Rambda's method work only with lists as iterable input.
+
 - Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
 
 - Typescript definitions between `rambda` and `@types/ramda` may vary.
@@ -907,7 +909,7 @@ const tests = [
 
 ```typescript
 
-always<T>(x: T): () => T
+always<T>(x: T): (...args: unknown[]) => T
 ```
 
 It returns function that always returns `x`.
@@ -917,7 +919,7 @@ It returns function that always returns `x`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-always<T>(x: T): () => T;
+always<T>(x: T): (...args: unknown[]) => T;
 ```
 
 </details>
@@ -2007,7 +2009,7 @@ const curryN = [
 
 ```typescript
 
-assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U
+assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>
 ```
 
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -2017,8 +2019,8 @@ It makes a shallow clone of `obj` with setting or overriding the property `prop`
 <summary>All Typescript definitions</summary>
 
 ```typescript
-assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 assoc<K extends string>(prop: K): AssocPartialOne<K>;
 ```
 
@@ -2754,7 +2756,6 @@ The method is also known as `flatMap`.
 ```typescript
 chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
 chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
-chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 ```
 
 </details>
@@ -2781,6 +2782,7 @@ export function chain(fn, list) {
 
 ```javascript
 import {chain} from './chain'
+import {chain as chainRamda} from 'ramda'
 
 const duplicate = n => [n, n]
 
@@ -2804,6 +2806,39 @@ test('maps then flattens one level - curry', () => {
 test('flattens only one level', () => {
   const nest = n => [[n]]
   expect(chain(nest, [1, 2, 3])).toEqual([[1], [2], [3]])
+})
+
+test('can compose', () => {
+  function dec(x) {
+    return [x - 1]
+  }
+  function times2(x) {
+    return [x * 2]
+  }
+
+  var mdouble = chain(times2)
+  var mdec = chain(dec)
+  expect(mdec(mdouble([10, 20, 30]))).toEqual([19, 39, 59])
+})
+
+test('@types/ramda broken test', () => {
+  const score = {
+    maths: 90,
+    physics: 80,
+  };
+
+  const calculateTotal = (score) => {
+    const { maths, physics } = score;
+    return maths + physics;
+  };
+
+  const assocTotalToScore = (total, score) => ({ ...score, total });
+
+  const calculateAndAssocTotalToScore = chainRamda(
+    assocTotalToScore,
+    calculateTotal
+  );
+  expect(() => calculateAndAssocTotalToScore(score)).toThrow()
 })
 ```
 
@@ -3097,7 +3132,7 @@ const clone = [
 
 ```typescript
 
-complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean
+complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean
 ```
 
 It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -3109,7 +3144,7 @@ The return value of `inverted` is the negative boolean value of `origin(input)`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
+complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 ```
 
 </details>
@@ -3271,7 +3306,7 @@ describe('R.concat', () => {
 
 ```typescript
 
-cond(conditions: ([Pred, (...a: any[]) => any])[]): (...x: any[]) => any
+cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R
 ```
 
 It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
@@ -3287,8 +3322,7 @@ If no winner is found, then `fn` returns `undefined`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-cond(conditions: ([Pred, (...a: any[]) => any])[]): (...x: any[]) => any;
-cond<A, B>(conditions: ([SafePred<A>, (...a: A[]) => B])[]): (...x: A[]) => B;
+cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
 ```
 
 </details>
@@ -4390,18 +4424,21 @@ describe('R.either', () => {
 
 ```typescript
 
-endsWith(target: string, str: string): boolean
+endsWith(target: string, iterable: string): boolean
 ```
 
-Curried version of `String.prototype.endsWith`
+When iterable is a string, then it behaves as `String.prototype.endsWith`.
+When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-endsWith(target: string, str: string): boolean;
-endsWith(target: string): (str: string) => boolean;
+endsWith(target: string, iterable: string): boolean;
+endsWith(target: string): (iterable: string) => boolean;
+endsWith<T>(target: T[], list: T[]): boolean;
+endsWith<T>(target: T[]): (list: T[]) => boolean;
 ```
 
 </details>
@@ -4411,10 +4448,29 @@ endsWith(target: string): (str: string) => boolean;
 <summary><strong>R.endsWith</strong> source</summary>
 
 ```javascript
-export function endsWith(target, str) {
-  if (arguments.length === 1) return _str => endsWith(target, _str)
+import {equals} from './equals.js';
+import { _isArray } from './_internals/_isArray.js';
 
-  return str.endsWith(target)
+export function endsWith(target, iterable) {
+  if (arguments.length === 1) return _iterable => endsWith(target, _iterable)
+
+  if (typeof iterable === 'string') {
+    return iterable.endsWith(target)
+  }
+  if(!_isArray(target)) return false
+
+  const diff = iterable.length - target.length
+  let correct = true
+  const filtered = target.filter(
+    (x, index) => {
+      if(!correct) return false
+      const result = equals(x, iterable[index + diff])
+      if(!result) correct = false
+      return result
+    } 
+  )  
+
+  return filtered.length === target.length
 }
 ```
 
@@ -4425,19 +4481,62 @@ export function endsWith(target, str) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import {endsWith} from './endsWith'
+import { endsWith } from "./endsWith";
+import { endsWith as endsWithRamda } from "ramda";
+import { compareCombinations } from "./_internals/testUtils";
 
-test('happy', () => {
-  expect(endsWith('bar', 'foo-bar')).toBeTrue()
-  expect(endsWith('baz')('foo-bar')).toBeFalse()
-})
+test("with string", () => {
+  expect(endsWith("bar", "foo-bar")).toBeTrue();
+  expect(endsWith("baz")("foo-bar")).toBeFalse();
+});
 
-test('does not work with arrays', () => {
-  expect(() => endsWith(['c'], ['a', 'b', 'c'])).toThrowWithMessage(
-    Error,
-    'str.endsWith is not a function'
-  )
-})
+test("use R.equals with array", () => {
+  const list = [{ a: 1 }, { a: 2 }, { a: 3 }];
+  expect(endsWith({ a: 3 }, list)).toBeFalse(),
+    expect(endsWith([{ a: 3 }], list)).toBeTrue();
+  expect(endsWith([{ a: 2 }, { a: 3 }], list)).toBeTrue();
+  expect(endsWith(list, list)).toBeTrue();
+  expect(endsWith([{ a: 1 }], list)).toBeFalse();
+});
+
+export const possibleTargets = [
+  NaN,
+  [NaN],
+  /foo/,
+  [/foo/],
+  Promise.resolve(1),
+  [Promise.resolve(1)],
+  Error("foo"),
+  [Error("foo")],
+];
+
+export const possibleIterables = [
+  [Promise.resolve(1), Promise.resolve(2)],
+  [/foo/, /bar/],
+  [NaN],
+  [Error("foo"), Error("bar")],
+];
+
+describe("brute force", () => {
+  compareCombinations({
+    fn: endsWith,
+    fnRamda: endsWithRamda,
+    firstInput: possibleTargets,
+    secondInput: possibleIterables,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 32,
+        }
+      `);
+    },
+  });
+});
 ```
 
 </details>
@@ -4449,17 +4548,31 @@ test('does not work with arrays', () => {
 ```typescript
 import {endsWith} from 'rambda'
 
-const target = 'foo'
-const input = 'foo bar'
-
-describe('R.endsWith', () => {
+describe('R.endsWith - array as iterable', () => {
+  const target = [{a:2}]
+  const iterable = [{a:1}, {a:2}]
   it('happy', () => {
-    const result = endsWith(target, input)
+    const result = endsWith(target, iterable)
 
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = endsWith(target)(input)
+    const result = endsWith(target)(iterable)
+
+    result // $ExpectType boolean
+  })
+})
+
+describe('R.endsWith - string as iterable', () => {
+  const target = 'bar'
+  const iterable = 'foo bar'
+  it('happy', () => {
+    const result = endsWith(target, iterable)
+
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = endsWith(target)(iterable)
 
     result // $ExpectType boolean
   })
@@ -4503,6 +4616,27 @@ equals<T>(x: T): (y: T) => boolean;
 ```javascript
 import {type} from './type'
 import {_isArray} from './_internals/_isArray'
+
+export function _lastIndexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`)
+  }
+  const typeOfValue = type(valueToFind)
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue))
+    return list.lastIndexOf(valueToFind)
+
+  const {length} = list
+  let index = length
+  let foundIndex = -1
+
+  while (--index > -1 && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index
+    }
+  }
+  
+  return foundIndex
+}
 
 export function _indexOf(valueToFind, list) {
   if (!_isArray(list)) {
@@ -5466,10 +5600,11 @@ export function filterArray(predicate, list, indexed = false) {
 }
 
 export function filter(predicate, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => filter(predicate, _iterable)
-  }
-  if (!iterable) return []
+  if (arguments.length === 1) return _iterable => filter(predicate, _iterable)
+  if (!iterable){
+    throw new Error('Incorrect iterable input')
+  }  
+  
   if (_isArray(iterable)) return filterArray(predicate, iterable)
 
   return filterObject(predicate, iterable)
@@ -5483,11 +5618,9 @@ export function filter(predicate, iterable) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import Ramda from 'ramda'
-
-import {F} from './F'
-import {filter} from './filter'
 import {T} from './T'
+import {filter} from './filter'
+import {filter as filterRamda} from 'ramda'
 
 const sampleObject = {
   a: 1,
@@ -5507,19 +5640,6 @@ test('happy', () => {
       d: 3,
     })
   ).toEqual({b: 2})
-})
-
-test('bad inputs difference between Ramda and Rambda', () => {
-  expect(filter(T)(undefined)).toEqual([])
-  expect(filter(F, null)).toEqual([])
-  expect(() => Ramda.filter(T, null)).toThrowWithMessage(
-    TypeError,
-    "Cannot read property 'filter' of null"
-  )
-  expect(() => Ramda.filter(T, undefined)).toThrowWithMessage(
-    TypeError,
-    "Cannot read property 'filter' of undefined"
-  )
 })
 
 test('predicate when input is object', () => {
@@ -5545,6 +5665,25 @@ test('with object', () => {
   }
 
   expect(result).toEqual(expectedResult)
+})
+
+test('bad inputs difference between Ramda and Rambda', () => {
+  expect(() => filter(T, null)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => filter(T)(undefined)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => filterRamda(T, null)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of null (reading 'filter')`
+  )
+  expect(() => filterRamda(T, undefined)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of undefined (reading 'filter')`
+  )
 })
 ```
 
@@ -6507,11 +6646,12 @@ groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
 ```javascript
 import {_isArray} from './_internals/_isArray'
+import {cloneList} from './_internals/cloneList'
 
 export function groupWith(compareFn, list) {
   if (!_isArray(list)) throw new TypeError('list.reduce is not a function')
 
-  const clone = list.slice()
+  const clone = cloneList(list)
 
   if (list.length === 1) return [clone]
 
@@ -7035,11 +7175,7 @@ describe('R.identity', () => {
 
 ```typescript
 
-ifElse<T, U>(
-  condition: (x: T) => boolean, 
-  onTrue: (x: T) => U, 
-  onFalse: (x: T) => U, 
-): (x: T) => U
+ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult
 ```
 
 It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. 
@@ -7051,16 +7187,7 @@ When `fn`` is called with `input` argument, it will return either `onTrue(input)
 <summary>All Typescript definitions</summary>
 
 ```typescript
-ifElse<T, U>(
-  condition: (x: T) => boolean, 
-  onTrue: (x: T) => U, 
-  onFalse: (x: T) => U, 
-): (x: T) => U;
-ifElse<T, K, U>(
-  condition: (x: T, y: K) => boolean, 
-  onTrue: (x: T, y: K) => U, 
-  onFalse: (x: T, y: K) => U, 
-): (x: T, y: K) => U;
+ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 ```
 
 </details>
@@ -8121,20 +8248,14 @@ lastIndexOf<T>(target: T): (list: T[]) => number;
 <summary><strong>R.lastIndexOf</strong> source</summary>
 
 ```javascript
-import {equals} from './equals'
+import {_lastIndexOf} from './equals'
 
-export function lastIndexOf(target, list) {
-  if (arguments.length === 1) return _list => lastIndexOf(target, _list)
-
-  let index = list.length
-
-  while (--index > 0) {
-    if (equals(list[index], target)) {
-      return index
-    }
+export function lastIndexOf(valueToFind, list) {
+  if (arguments.length === 1) {
+    return _list => _lastIndexOf(valueToFind, _list)
   }
 
-  return -1
+  return _lastIndexOf(valueToFind, list)
 }
 ```
 
@@ -8146,19 +8267,65 @@ export function lastIndexOf(target, list) {
 
 ```javascript
 import {lastIndexOf} from './lastIndexOf'
+import {lastIndexOf as lastIndexOfRamda} from 'ramda'
+import {compareCombinations} from './_internals/testUtils'
+import {possibleTargets, possibleIterables} from './indexOf.spec.js'
 
-test('happy', () => {
-  const a = lastIndexOf(1, [1, 2, 3, 1, 2])
-  const b = lastIndexOf(1)([1, 2, 3, 1, 2])
-
-  expect(a).toEqual(3)
-  expect(b).toEqual(3)
+test('with NaN', () => {
+  expect(lastIndexOf(NaN, [NaN])).toEqual(0)
 })
 
-test('false', () => {
-  const a = lastIndexOf(10, [1, 2, 3, 1, 2])
+test('will throw with bad input', () => {
+  expect(lastIndexOfRamda([], true)).toEqual(-1)
+  expect(() => indexOf([], true)).toThrow()
+})
 
-  expect(a).toEqual(-1)
+test('without list of objects - no R.equals', () => {
+  expect(lastIndexOf(3, [1, 2, 3, 4])).toEqual(2)
+  expect(lastIndexOf(10)([1, 2, 3, 4])).toEqual(-1)
+})
+
+test('list of objects uses R.equals', () => {
+  const listOfObjects = [{a: 1}, {b: 2}, {c: 3}]
+  expect(lastIndexOf({c: 4}, listOfObjects)).toBe(-1)
+  expect(lastIndexOf({c: 3}, listOfObjects)).toBe(2)
+})
+
+test('list of arrays uses R.equals', () => {
+  const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []]
+  expect(lastIndexOf([], listOfLists)).toBe(5)
+  expect(lastIndexOf([1], listOfLists)).toBe(4)
+  expect(lastIndexOf([2, 3, 4], listOfLists)).toBe(2)
+  expect(lastIndexOf([2, 3, 5], listOfLists)).toBe(-1)
+})
+
+test('with string as iterable', () => {
+  expect(() => lastIndexOf('a', 'abc')).toThrowWithMessage(
+    Error,
+    `Cannot read property 'indexOf' of abc`
+  )
+  expect(lastIndexOfRamda('a', 'abc')).toBe(0)
+})
+
+describe('brute force', () => {
+  compareCombinations({
+    fn: lastIndexOf,
+    fnRamda: lastIndexOfRamda,
+    firstInput: possibleTargets,
+    secondInput: possibleIterables,
+    callback: errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 34,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 51,
+          "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 170,
+        }
+      `)
+    },
+  })
 })
 ```
 
@@ -8898,12 +9065,15 @@ export function mapObject(fn, obj) {
 
 export const mapObjIndexed = mapObject
 
-export function map(fn, list) {
-  if (arguments.length === 1) return _list => map(fn, _list)
-  if (list === undefined) return []
-  if (_isArray(list)) return mapArray(fn, list)
+export function map(fn, iterable) {
+  if (arguments.length === 1) return _iterable => map(fn, _iterable)
+  if (!iterable){
+    throw new Error('Incorrect iterable input')
+  }  
+  
+  if (_isArray(iterable)) return mapArray(fn, iterable)
 
-  return mapObject(fn, list)
+  return mapObject(fn, iterable)
 }
 ```
 
@@ -8915,6 +9085,7 @@ export function map(fn, list) {
 
 ```javascript
 import {map} from './map'
+import {map as mapRamda} from 'ramda'
 
 const double = x => x * 2
 
@@ -8922,12 +9093,9 @@ describe(`with array`, () => {
   test('happy', () => {
     expect(map(double, [1, 2, 3])).toEqual([2, 4, 6])
   })
-
-  test('when undefined instead of array', () => {
-    /**
-     * https://github.com/selfrefactor/rambda/issues/77
-     */
-    expect(map(double)(undefined)).toEqual([])
+  
+  test('curried', () => {
+    expect(map(double)([1, 2, 3])).toEqual([2, 4, 6])
   })
 })
 
@@ -8960,6 +9128,25 @@ describe(`with object`, () => {
       b: 4,
     })
   })
+})
+
+test('bad inputs difference between Ramda and Rambda', () => {
+  expect(() => map(double, null)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => map(double)(undefined)).toThrowWithMessage(
+    Error,
+    `Incorrect iterable input`
+  )
+  expect(() => mapRamda(double, null)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of null (reading 'fantasy-land/map')`
+  )
+  expect(() => mapRamda(double, undefined)).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of undefined (reading 'fantasy-land/map')`
+  )
 })
 ```
 
@@ -9545,7 +9732,8 @@ describe('R.median', () => {
 
 ```typescript
 
-merge<Output>(target: object, newProps: object): Output
+merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output
 ```
 
 It creates a copy of `target` object with overidden `newProps` properties.
@@ -9555,8 +9743,8 @@ It creates a copy of `target` object with overidden `newProps` properties.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-merge<Output>(target: object, newProps: object): Output;
-merge<Output>(target: object): (newProps: object) => Output;
+merge<A, B>(target: A, newProps: B): A & B
+merge<Output>(target: any): (newProps: any) => Output;
 ```
 
 </details>
@@ -9628,7 +9816,7 @@ interface Output {
 }
 
 describe('R.merge', () => {
-  const result = merge<Output>({foo: 1}, {bar: 2})
+  const result = merge({foo: 1}, {bar: 2})
   const curriedResult = merge<Output>({foo: 1})({bar: 2})
 
   result.foo // $ExpectType number
@@ -10257,6 +10445,7 @@ move(fromIndex: number): {
 
 ```javascript
 import {curry} from './curry'
+import {cloneList} from './_internals/cloneList'
 
 function moveFn(fromIndex, toIndex, list) {
   if (fromIndex < 0 || toIndex < 0) {
@@ -10264,7 +10453,7 @@ function moveFn(fromIndex, toIndex, list) {
   }
   if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list
 
-  const clone = list.slice()
+  const clone = cloneList(list)
   clone[fromIndex] = list[toIndex]
   clone[toIndex] = list[fromIndex]
 
@@ -11953,8 +12142,8 @@ import {curry} from './curry'
 import {defaultTo} from './defaultTo'
 import {path} from './path'
 
-function pathOrFn(defaultValue, list, obj) {
-  return defaultTo(defaultValue, path(list, obj))
+function pathOrFn(defaultValue, pathInput, obj) {
+  return defaultTo(defaultValue, path(pathInput, obj))
 }
 
 export const pathOr = curry(pathOrFn)
@@ -13178,7 +13367,7 @@ const propEq = [
 
 ```typescript
 
-propIs(type: any, name: string, obj: any): boolean
+propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>
 ```
 
 It returns `true` if `property` of `obj` is from `target` type.
@@ -13188,11 +13377,17 @@ It returns `true` if `property` of `obj` is from `target` type.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propIs(type: any, name: string, obj: any): boolean;
-propIs(type: any, name: string): (obj: any) => boolean;
-propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+propIs<C extends (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+propIs<C extends new (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 ```
 
@@ -14618,6 +14813,7 @@ It returns copy of `list` sorted by `sortFn` function.
 
 ```typescript
 sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
+sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 ```
 
@@ -14628,10 +14824,12 @@ sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 <summary><strong>R.sortBy</strong> source</summary>
 
 ```javascript
+import {cloneList} from './_internals/cloneList'
+
 export function sortBy(sortFn, list) {
   if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
-  const clone = list.slice()
+  const clone = cloneList(list)
 
   return clone.sort((a, b) => {
     const aSortResult = sortFn(a)
@@ -14691,7 +14889,7 @@ test('with compose', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {sortBy} from 'rambda'
+import {sortBy, pipe} from 'rambda'
 
 interface Input {
   a: number,
@@ -14726,6 +14924,15 @@ describe('R.sortBy', () => {
     result // $ExpectType Input[]
     curriedResult // $ExpectType Input[]
     result[0].a // $ExpectType number
+  })
+  it('with R.pipe', () => {
+    interface Obj { value: number; }
+    const fn = pipe(
+      sortBy<Obj>(x => x.value)
+    );
+  
+    const result = fn([{ value: 1 }, { value: 2 }]);
+    result // $ExpectType Obj[]
   })
 })
 ```
@@ -15328,7 +15535,8 @@ describe('R.splitWhen', () => {
 startsWith(target: string, str: string): boolean
 ```
 
-Curried version of `String.prototype.startsWith`
+When iterable is a string, then it behaves as `String.prototype.startsWith`.
+When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
 
 <details>
 
@@ -15337,6 +15545,8 @@ Curried version of `String.prototype.startsWith`
 ```typescript
 startsWith(target: string, str: string): boolean;
 startsWith(target: string): (str: string) => boolean;
+startsWith<T>(target: T[], list: T[]): boolean;
+startsWith<T>(target: T[]): (list: T[]) => boolean;
 ```
 
 </details>
@@ -15346,10 +15556,28 @@ startsWith(target: string): (str: string) => boolean;
 <summary><strong>R.startsWith</strong> source</summary>
 
 ```javascript
-export function startsWith(target, str) {
-  if (arguments.length === 1) return _str => startsWith(target, _str)
+import {equals} from './equals.js';
+import { _isArray } from './_internals/_isArray.js';
 
-  return str.startsWith(target)
+export function startsWith(target, iterable) {
+  if (arguments.length === 1) return _iterable => startsWith(target, _iterable)
+
+  if (typeof iterable === 'string') {
+    return iterable.startsWith(target)
+  }
+  if(!_isArray(target)) return false
+
+  let correct = true
+  const filtered = target.filter(
+    (x, index) => {
+      if(!correct) return false
+      const result = equals(x, iterable[index])
+      if(!result) correct = false
+      return result
+    } 
+  )  
+
+  return filtered.length === target.length
 }
 ```
 
@@ -15360,19 +15588,45 @@ export function startsWith(target, str) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import {startsWith} from './startsWith'
+import { startsWith } from "./startsWith";
+import { possibleTargets, possibleIterables } from "./endsWith.spec";
+import { startsWith as startsWithRamda } from "ramda";
+import { compareCombinations } from "./_internals/testUtils";
 
-test('true', () => {
-  const result = startsWith('foo', 'foo-bar')
+test("with string", () => {
+  expect(startsWith("foo", "foo-bar")).toBeTrue();
+  expect(startsWith("baz")("foo-bar")).toBeFalse();
+});
 
-  expect(result).toBeTrue()
-})
+test("use R.equals with array", () => {
+  const list = [{ a: 1 }, { a: 2 }, { a: 3 }];
+  expect(startsWith({ a: 1 }, list)).toBeFalse();
+  expect(startsWith([{ a: 1 }], list)).toBeTrue();
+  expect(startsWith([{ a: 1 }, { a: 2 }], list)).toBeTrue();
+  expect(startsWith(list, list)).toBeTrue();
+  expect(startsWith([{ a: 2 }], list)).toBeFalse();
+});
 
-test('false', () => {
-  const result = startsWith('baz')('foo-bar')
-
-  expect(result).toBeFalse()
-})
+describe("brute force", () => {
+  compareCombinations({
+    fn: startsWith,
+    fnRamda: startsWithRamda,
+    firstInput: possibleTargets,
+    secondInput: possibleIterables,
+    callback: (errorsCounters) => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 32,
+        }
+      `);
+    },
+  });
+});
 ```
 
 </details>
@@ -15384,17 +15638,31 @@ test('false', () => {
 ```typescript
 import {startsWith} from 'rambda'
 
-const target = 'foo'
-const input = 'foo bar'
-
-describe('R.startsWith', () => {
+describe('R.startsWith - array as iterable', () => {
+  const target = [{a:1}]
+  const iterable = [{a:1}, {a:2}]
   it('happy', () => {
-    const result = startsWith(target, input)
+    const result = startsWith(target, iterable)
 
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = startsWith(target)(input)
+    const result = startsWith(target)(iterable)
+
+    result // $ExpectType boolean
+  })
+})
+
+describe('R.startsWith - string as iterable', () => {
+  const target = 'foo'
+  const iterable = 'foo bar'
+  it('happy', () => {
+    const result = startsWith(target, iterable)
+
+    result // $ExpectType boolean
+  })
+  it('curried', () => {
+    const result = startsWith(target)(iterable)
 
     result // $ExpectType boolean
   })
@@ -16408,7 +16676,7 @@ describe('R.times', () => {
 
 ```typescript
 
-toLower(str: string): string
+toLower<S extends string>(str: S): Lowercase<S>
 ```
 
 <details>
@@ -16416,6 +16684,7 @@ toLower(str: string): string
 <summary>All Typescript definitions</summary>
 
 ```typescript
+toLower<S extends string>(str: S): Lowercase<S>;
 toLower(str: string): string;
 ```
 
@@ -16453,7 +16722,7 @@ test('toLower', () => {
 
 ```typescript
 
-toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): ([string, S])[]
+toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>
 ```
 
 It transforms an object to a list.
@@ -16463,7 +16732,8 @@ It transforms an object to a list.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): ([string, S])[];
+toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 ```
 
 </details>
@@ -16522,7 +16792,7 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType [string, number | number[]][]
+    result // $ExpectType (["a", number] | ["b", number] | ["c", number[]])[]
   })
 })
 ```
@@ -16535,7 +16805,7 @@ describe('R.toPairs', () => {
 
 ```typescript
 
-toString<T>(x: T): string
+toString(x: unknown): string
 ```
 
 <details>
@@ -16543,7 +16813,7 @@ toString<T>(x: T): string
 <summary>All Typescript definitions</summary>
 
 ```typescript
-toString<T>(x: T): string;
+toString(x: unknown): string;
 ```
 
 </details>
@@ -16580,7 +16850,7 @@ test('happy', () => {
 
 ```typescript
 
-toUpper(str: string): string
+toUpper<S extends string>(str: S): Uppercase<S>
 ```
 
 <details>
@@ -16588,6 +16858,7 @@ toUpper(str: string): string
 <summary>All Typescript definitions</summary>
 
 ```typescript
+toUpper<S extends string>(str: S): Uppercase<S>;
 toUpper(str: string): string;
 ```
 
@@ -17038,40 +17309,17 @@ type(x: any): RambdaTypes;
 <summary><strong>R.type</strong> source</summary>
 
 ```javascript
-import {_isArray} from './_internals/_isArray'
-
 export function type(input) {
-  const typeOf = typeof input
-
   if (input === null) {
     return 'Null'
   } else if (input === undefined) {
     return 'Undefined'
-  } else if (typeOf === 'boolean') {
-    return 'Boolean'
-  } else if (typeOf === 'number') {
-    return Number.isNaN(input) ? 'NaN' : 'Number'
-  } else if (typeOf === 'string') {
-    return 'String'
-  } else if (_isArray(input)) {
-    return 'Array'
-  } else if (typeOf === 'symbol') {
-    return 'Symbol'
-  } else if (input instanceof RegExp) {
-    return 'RegExp'
+  } else if (Number.isNaN(input)){
+    return 'NaN'
   }
+  const typeResult=Object.prototype.toString.call(input).slice(8, -1)
 
-  const asStr = input && input.toString ? input.toString() : ''
-
-  if (['true', 'false'].includes(asStr)) return 'Boolean'
-  if (!Number.isNaN(Number(asStr))) return 'Number'
-  if (asStr.startsWith('async')) return 'Async'
-  if (asStr === '[object Promise]') return 'Promise'
-  if (typeOf === 'function') return 'Function'
-  if (input instanceof String) return 'String'
-  if (input instanceof Set) return 'Set'
-
-  return 'Object'
+  return typeResult === 'AsyncFunction' ? 'Async' : typeResult
 }
 ```
 
@@ -17083,7 +17331,7 @@ export function type(input) {
 
 ```javascript
 import {type} from './type'
-import {type as ramdaType} from 'ramda'
+import {type as typeRamda} from 'ramda'
 
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
@@ -17103,6 +17351,18 @@ test('with new String', () => {
 
 test('with new Number', () => {
   expect(type(new Number(1))).toBe('Number')
+})
+
+test('with error', () => {
+  expect(type(Error(`foo`))).toBe('Error')
+  expect(typeRamda(Error(`foo`))).toBe('Error')
+})
+
+test('with error - wrong @types/ramda test', () => {
+  // @types/ramda expect the result to be 'Error' but it is not
+  class ExtendedError extends Error {}
+  expect(type(ExtendedError)).toBe('Function')
+  expect(typeRamda(ExtendedError)).toBe('Function')
 })
 
 test('with new promise', () => {
@@ -17176,7 +17436,7 @@ test('not a number', () => {
 test('set', () => {
   const exampleSet = new Set([1,2,3]) 
   expect(type(exampleSet)).toBe('Set')
-  expect(ramdaType(exampleSet)).toBe('Set')
+  expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
@@ -17187,7 +17447,7 @@ test('function inside object 1', () => {
   }
 
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })
 
 test('function inside object 2', () => {
@@ -17198,7 +17458,7 @@ test('function inside object 2', () => {
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })
 ```
 
@@ -17441,11 +17701,12 @@ union<T>(x: T[]): (y: T[]) => T[];
 
 ```javascript
 import {includes} from './includes'
+import {cloneList} from './_internals/cloneList'
 
 export function union(x, y) {
   if (arguments.length === 1) return _y => union(x, _y)
 
-  const toReturn = x.slice()
+  const toReturn = cloneList(x)
 
   y.forEach(yInstance => {
     if (!includes(yInstance, x)) toReturn.push(yInstance)
@@ -17836,7 +18097,7 @@ const tests = [
 
 ```typescript
 
-unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U
+unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T
 ```
 
 The method returns function that will be called with argument `input`.
@@ -17850,8 +18111,10 @@ In the other case, the final output will be the `input` itself.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
-unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
+unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
 ```
 
 </details>
@@ -17904,9 +18167,59 @@ import {unless, inc} from 'rambda'
 
 describe('R.unless', () => {
   it('happy', () => {
-    const safeInc = unless(x => x > 5, inc)
-    const result = safeInc(1)
+    const fn = unless(x => x > 5, inc)
+    const result = fn(1)
     result // $ExpectType number
+  })
+  it('with one explicit type', () => {
+    const result = unless(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return x + 1
+    }, 1)
+    result // $ExpectType number
+  })
+  it('with two different explicit types', () => {
+    const result = unless(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return `${x}-foo`
+    }, 1)
+    result // $ExpectType 1 | string
+  })
+})
+
+describe('R.unless - curried', () => {
+  it('happy', () => {
+    const fn = unless(x => x > 5, inc)
+    const result = fn(1)
+    result // $ExpectType number
+  })
+  it('with one explicit type', () => {
+    const fn = unless<number>(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return x + 1
+    })
+    const result = fn(1)
+    result // $ExpectType number
+  })
+  it('with two different explicit types', () => {
+    const fn = unless<number, string>(x => {
+      // $ExpectType number
+      return x > 5
+    }, x => {
+      // $ExpectType number
+      return `${x}-foo`
+    })
+    const result = fn(1)
+    result // $ExpectType number | string
   })
 })
 ```
@@ -17941,12 +18254,13 @@ update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 ```javascript
 import {curry} from './curry'
+import {cloneList} from './_internals/cloneList'
 
 function updateFn(index, newValue, list) {
-  const arrClone = list.slice()
-  if (index === -1) return arrClone.fill(newValue, index)
+  const clone = cloneList(list)
+  if (index === -1) return clone.fill(newValue, index)
 
-  return arrClone.fill(newValue, index, index + 1)
+  return clone.fill(newValue, index, index + 1)
 }
 
 export const update = curry(updateFn)
@@ -19138,19 +19452,53 @@ describe('R.zipWith', () => {
 
 Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
 
+There are several other changes in `@types/ramda` as stated in [this comment](https://github.com/ramda/ramda/issues/2976#issuecomment-990408945). This leads to change of typings for the following methods in **Rambda**:
+
+-- R.unless
+-- R.toString
+-- R.ifElse
+-- R.always
+-- R.complement
+-- R.cond
+-- R.is
+-- R.sortBy
+-- R.dissoc
+-- R.toPairs
+-- R.assoc
+-- R.toLower
+-- R.toUpper
+
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
+
+- Change export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+
+- Remove unused typing for `R.chain`.
+
+- `R.map`/`R.filter` no longer accept bad inputs as iterable. This way, Rambda behaves more like Ramda, which also throws.
+
+- Make `R.lastIndexOf` follow the logic of `R.indexOf`.
+
+- Change `R.type` logic to Ramda logic. This way, `R.type` can return `Error` and `Set` as results.
+
 - Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
 
 - Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
 
-- `R.type` can return `Set` as result.
-
 - Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
 
-- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606)
+- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606).
 
-- Improve performance of `R.uniqWith`
+- Improve non-curry typings of `R.merge` by using types from [mobily/ts-belt](https://github.com/mobily/ts-belt).
+
+- Improve performance of `R.uniqWith`.
 
 - Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
+
+- Make `R.eqProps` safe for falsy inputs - based on [this opened Ramda PR](https://github.com/ramda/ramda/pull/2943).
+
+- Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
+
+- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609) 
 
 6.9.0
 

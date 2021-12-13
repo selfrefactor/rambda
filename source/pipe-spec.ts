@@ -48,8 +48,7 @@ describe('R.pipe with explicit types', () => {
     }
 
     // $ExpectError
-    const result = pipe<string, number, Output>(identity, dissoc('b'))(obj)
-    result // $ExpectType number
+    pipe<string, number, Output>(identity, dissoc('b'))(obj)
   })
 })
 

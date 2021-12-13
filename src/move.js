@@ -1,4 +1,5 @@
 import {curry} from './curry'
+import {cloneList} from './_internals/cloneList'
 
 function moveFn(fromIndex, toIndex, list) {
   if (fromIndex < 0 || toIndex < 0) {
@@ -6,7 +7,7 @@ function moveFn(fromIndex, toIndex, list) {
   }
   if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list
 
-  const clone = list.slice()
+  const clone = cloneList(list)
   clone[fromIndex] = list[toIndex]
   clone[toIndex] = list[fromIndex]
 

@@ -47,8 +47,7 @@ describe('R.compose with explicit types', () => {
     }
 
     // $ExpectError
-    const result = compose<string, number, Output>(identity, dissoc('b'))(obj)
-    result // $ExpectType number
+    compose<string, number, Output>(identity, dissoc('b'))(obj)
   })
 })
 

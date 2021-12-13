@@ -1,3 +1,3 @@
-export function cloneList(list){
-  return Array.prototype.slice.call(list)
+export const cloneList(list){
+  return (list)
 }

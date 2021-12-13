@@ -1,10 +1,11 @@
 import {curry} from './curry'
+import {cloneList} from './_internals/cloneList'
 
 function updateFn(index, newValue, list) {
-  const arrClone = list.slice()
-  if (index === -1) return arrClone.fill(newValue, index)
+  const clone = cloneList(list)
+  if (index === -1) return clone.fill(newValue, index)
 
-  return arrClone.fill(newValue, index, index + 1)
+  return clone.fill(newValue, index, index + 1)
 }
 
 export const update = curry(updateFn)
