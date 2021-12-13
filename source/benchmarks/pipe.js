@@ -14,23 +14,23 @@ const modes = [
 
 const applyBenchmark = (fn, input) => {
   if(input.special) {
-    return fn(...input.fns)(`foo`, `bar`)
+    return fn(...input.fns.reverse())(`foo`, `bar`)
   }
-  return fn(...input)(uniqListOfStrings(100))
+  return fn(...input.reverse())(uniqListOfStrings(100))
 }
 
 const tests = [
   {
     label: 'Rambda',
-    fn: R.compose,
+    fn: R.pipe,
   },
   {
     label: 'Ramda',
-    fn: Ramda.compose,
+    fn: Ramda.pipe,
   },
   {
     label: 'Lodash',
-    fn: _.flowRight,
+    fn: _.flowLeft,
   },
 ]
 
