@@ -8,23 +8,23 @@ describe('R.unless', () => {
   })
   it('with one explicit type', () => {
     const result = unless(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x + 1
     }, 1)
     result // $ExpectType number
   })
   it('with two different explicit types', () => {
     const result = unless(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return `${x}-foo`
     }, 1)
-    result // $ExpectType 1 | string
+    result // $ExpectType string | number
   })
 })
 
@@ -36,10 +36,10 @@ describe('R.unless - curried', () => {
   })
   it('with one explicit type', () => {
     const fn = unless<number>(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x + 1
     })
     const result = fn(1)
@@ -47,13 +47,13 @@ describe('R.unless - curried', () => {
   })
   it('with two different explicit types', () => {
     const fn = unless<number, string>(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return `${x}-foo`
     })
     const result = fn(1)
-    result // $ExpectType number | string
+    result // $ExpectType string | number
   })
 })
