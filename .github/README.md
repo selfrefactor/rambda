@@ -3674,11 +3674,6 @@ describe('R.cond', () => {
 
 ### converge
 
-```typescript
-
-converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any
-```
-
 Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
 
 > :boom: Explanation is taken from `Ramda` documentation
@@ -3689,164 +3684,6 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.converge(R.multiply)(%5B%20R.add(1)%2C%20R.add(3)%20%5D)(2)%0A%2F%2F%20%3D%3E%2015">Try this <strong>R.converge</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.converge</strong> source</summary>
-
-```javascript
-import {curryN} from './curryN'
-import {map} from './map'
-import {max} from './max'
-import {reduce} from './reduce'
-
-export function converge(fn, transformers) {
-  if (arguments.length === 1)
-    return _transformers => converge(fn, _transformers)
-
-  const highestArity = reduce((a, b) => max(a, b.length), 0, transformers)
-
-  return curryN(highestArity, function () {
-    return fn.apply(
-      this,
-      map(g => g.apply(this, arguments), transformers)
-    )
-  })
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {add} from './add'
-import {converge} from './converge'
-import {multiply} from './multiply'
-
-const f1 = converge(multiply, [a => a + 1, a => a + 10])
-const f2 = converge(multiply, [a => a + 1, (a, b) => a + b + 10])
-const f3 = converge(multiply, [a => a + 1, (a, b, c) => a + b + c + 10])
-
-test('happy', () => {
-  expect(f2(6, 7)).toEqual(161)
-})
-
-test('passes the results of applying the arguments individually', () => {
-  const result = converge(multiply)([add(1), add(3)])(2)
-  expect(result).toEqual(15)
-})
-
-test('returns a function with the length of the longest argument', () => {
-  expect(f1.length).toEqual(1)
-  expect(f2.length).toEqual(2)
-  expect(f3.length).toEqual(3)
-})
-
-test('passes context to its functions', () => {
-  const a = function (x) {
-    return this.f1(x)
-  }
-  const b = function (x) {
-    return this.f2(x)
-  }
-  const c = function (x, y) {
-    return this.f3(x, y)
-  }
-  const d = converge(c, [a, b])
-  const context = {
-    f1: add(1),
-    f2: add(2),
-    f3: add,
-  }
-  expect(a.call(context, 1)).toEqual(2)
-  expect(b.call(context, 1)).toEqual(3)
-  expect(d.call(context, 1)).toEqual(5)
-})
-
-test('works with empty functions list', () => {
-  const fn = converge(function () {
-    return arguments.length
-  }, [])
-  expect(fn.length).toEqual(0)
-  expect(fn()).toEqual(0)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {converge} from 'rambda'
-
-const mult = (a: number, b: number) => {
-  return a * b
-}
-const fn = converge(mult, [
-  (a: number) => {
-    return a
-  },
-  (a: number, b: number) => {
-    return b
-  },
-])
-
-describe('R.converge', () => {
-  it('happy', () => {
-    const result = fn(2, 3)
-    const curriedResult = fn(2)(3)
-
-    result // $ExpectType any
-    curriedResult // $ExpectType any
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is slower than Ramda with 78.63%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const converge = [
-  {
-    label: 'Rambda',
-    fn: () => {
-      const fn = Ramda.converge(Ramda.multiply, [Ramda.add(1), Ramda.add(3)])
-
-      fn(4)
-    },
-  },
-  {
-    label: 'Ramda',
-    fn: () => {
-      const fn = R.converge(R.multiply, [R.add(1), R.add(3)])
-
-      fn(4)
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
 
@@ -4860,23 +4697,23 @@ export function endsWith(target, iterable) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { endsWith } from "./endsWith";
-import { endsWith as endsWithRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
+import {endsWith} from './endsWith'
+import {endsWith as endsWithRamda} from 'ramda'
+import {compareCombinations} from './_internals/testUtils'
 
-test("with string", () => {
-  expect(endsWith("bar", "foo-bar")).toBeTrue();
-  expect(endsWith("baz")("foo-bar")).toBeFalse();
-});
+test('with string', () => {
+  expect(endsWith('bar', 'foo-bar')).toBeTrue()
+  expect(endsWith('baz')('foo-bar')).toBeFalse()
+})
 
-test("use R.equals with array", () => {
-  const list = [{ a: 1 }, { a: 2 }, { a: 3 }];
-  expect(endsWith({ a: 3 }, list)).toBeFalse(),
-    expect(endsWith([{ a: 3 }], list)).toBeTrue();
-  expect(endsWith([{ a: 2 }, { a: 3 }], list)).toBeTrue();
-  expect(endsWith(list, list)).toBeTrue();
-  expect(endsWith([{ a: 1 }], list)).toBeFalse();
-});
+test('use R.equals with array', () => {
+  const list = [{a: 1}, {a: 2}, {a: 3}]
+  expect(endsWith({a: 3}, list)).toBeFalse(),
+    expect(endsWith([{a: 3}], list)).toBeTrue()
+  expect(endsWith([{a: 2}, {a: 3}], list)).toBeTrue()
+  expect(endsWith(list, list)).toBeTrue()
+  expect(endsWith([{a: 1}], list)).toBeFalse()
+})
 
 export const possibleTargets = [
   NaN,
@@ -4885,24 +4722,24 @@ export const possibleTargets = [
   [/foo/],
   Promise.resolve(1),
   [Promise.resolve(1)],
-  Error("foo"),
-  [Error("foo")],
-];
+  Error('foo'),
+  [Error('foo')],
+]
 
 export const possibleIterables = [
   [Promise.resolve(1), Promise.resolve(2)],
   [/foo/, /bar/],
   [NaN],
-  [Error("foo"), Error("bar")],
-];
+  [Error('foo'), Error('bar')],
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
     fn: endsWith,
     fnRamda: endsWithRamda,
     firstInput: possibleTargets,
     secondInput: possibleIterables,
-    callback: (errorsCounters) => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -4912,10 +4749,10 @@ describe("brute force", () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 32,
         }
-      `);
+      `)
     },
-  });
-});
+  })
+})
 ```
 
 </details>
@@ -5215,87 +5052,87 @@ export function equals(a, b) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import {equals} from './equals'
-import {equals as equalsRamda} from 'ramda'
-import {compareCombinations} from './_internals/testUtils'
-import {variousTypes} from './benchmarks/_utils'
+import { equals } from "./equals";
+import { equals as equalsRamda } from "ramda";
+import { compareCombinations } from "./_internals/testUtils";
+import { variousTypes } from "./benchmarks/_utils";
 
-test('compare functions', () => {
+test("compare functions", () => {
   function foo() {}
   function bar() {}
-  const baz = () => {}
+  const baz = () => {};
 
-  const expectTrue = equals(foo, foo)
-  const expectFalseFirst = equals(foo, bar)
-  const expectFalseSecond = equals(foo, baz)
+  const expectTrue = equals(foo, foo);
+  const expectFalseFirst = equals(foo, bar);
+  const expectFalseSecond = equals(foo, baz);
 
-  expect(expectTrue).toBeTrue()
-  expect(expectFalseFirst).toBeFalse()
-  expect(expectFalseSecond).toBeFalse()
-})
+  expect(expectTrue).toBeTrue();
+  expect(expectFalseFirst).toBeFalse();
+  expect(expectFalseSecond).toBeFalse();
+});
 
-test('with array of objects', () => {
-  const list1 = [{a: 1}, [{b: 2}]]
-  const list2 = [{a: 1}, [{b: 2}]]
-  const list3 = [{a: 1}, [{b: 3}]]
+test("with array of objects", () => {
+  const list1 = [{ a: 1 }, [{ b: 2 }]];
+  const list2 = [{ a: 1 }, [{ b: 2 }]];
+  const list3 = [{ a: 1 }, [{ b: 3 }]];
 
-  expect(equals(list1, list2)).toBeTrue()
-  expect(equals(list1, list3)).toBeFalse()
-})
+  expect(equals(list1, list2)).toBeTrue();
+  expect(equals(list1, list3)).toBeFalse();
+});
 
-test('with regex', () => {
-  expect(equals(/s/, /s/)).toEqual(true)
-  expect(equals(/s/, /d/)).toEqual(false)
-  expect(equals(/a/gi, /a/gi)).toEqual(true)
-  expect(equals(/a/gim, /a/gim)).toEqual(true)
-  expect(equals(/a/gi, /a/i)).toEqual(false)
-})
+test("with regex", () => {
+  expect(equals(/s/, /s/)).toEqual(true);
+  expect(equals(/s/, /d/)).toEqual(false);
+  expect(equals(/a/gi, /a/gi)).toEqual(true);
+  expect(equals(/a/gim, /a/gim)).toEqual(true);
+  expect(equals(/a/gi, /a/i)).toEqual(false);
+});
 
-test('not a number', () => {
-  expect(equals([NaN], [NaN])).toBeTrue()
-})
+test("not a number", () => {
+  expect(equals([NaN], [NaN])).toBeTrue();
+});
 
-test('new number', () => {
-  expect(equals(new Number(0), new Number(0))).toEqual(true)
-  expect(equals(new Number(0), new Number(1))).toEqual(false)
-  expect(equals(new Number(1), new Number(0))).toEqual(false)
-})
+test("new number", () => {
+  expect(equals(new Number(0), new Number(0))).toEqual(true);
+  expect(equals(new Number(0), new Number(1))).toEqual(false);
+  expect(equals(new Number(1), new Number(0))).toEqual(false);
+});
 
-test('new string', () => {
-  expect(equals(new String(''), new String(''))).toEqual(true)
-  expect(equals(new String(''), new String('x'))).toEqual(false)
-  expect(equals(new String('x'), new String(''))).toEqual(false)
-  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
-  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
-  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
-})
+test("new string", () => {
+  expect(equals(new String(""), new String(""))).toEqual(true);
+  expect(equals(new String(""), new String("x"))).toEqual(false);
+  expect(equals(new String("x"), new String(""))).toEqual(false);
+  expect(equals(new String("foo"), new String("foo"))).toEqual(true);
+  expect(equals(new String("foo"), new String("bar"))).toEqual(false);
+  expect(equals(new String("bar"), new String("foo"))).toEqual(false);
+});
 
-test('new Boolean', () => {
-  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
-  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
-  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
-  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
-})
+test("new Boolean", () => {
+  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true);
+  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true);
+  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false);
+  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false);
+});
 
-test('new Error', () => {
-  expect(equals(new Error('XXX'), {})).toEqual(false)
-  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
-  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
-})
+test("new Error", () => {
+  expect(equals(new Error("XXX"), {})).toEqual(false);
+  expect(equals(new Error("XXX"), new TypeError("XXX"))).toEqual(false);
+  expect(equals(new Error("XXX"), new Error("YYY"))).toEqual(false);
+  expect(equals(new Error("XXX"), new Error("XXX"))).toEqual(true);
+  expect(equals(new Error("XXX"), new TypeError("YYY"))).toEqual(false);
+});
 
-test('with dates', () => {
-  expect(equals(new Date(0), new Date(0))).toEqual(true)
-  expect(equals(new Date(1), new Date(1))).toEqual(true)
-  expect(equals(new Date(0), new Date(1))).toEqual(false)
-  expect(equals(new Date(1), new Date(0))).toEqual(false)
-  expect(equals(new Date(0), {})).toEqual(false)
-  expect(equals({}, new Date(0))).toEqual(false)
-})
+test("with dates", () => {
+  expect(equals(new Date(0), new Date(0))).toEqual(true);
+  expect(equals(new Date(1), new Date(1))).toEqual(true);
+  expect(equals(new Date(0), new Date(1))).toEqual(false);
+  expect(equals(new Date(1), new Date(0))).toEqual(false);
+  expect(equals(new Date(0), {})).toEqual(false);
+  expect(equals({}, new Date(0))).toEqual(false);
+});
 
-test('ramda spec', () => {
-  expect(equals({}, {})).toEqual(true)
+test("ramda spec", () => {
+  expect(equals({}, {})).toEqual(true);
 
   expect(
     equals(
@@ -5308,7 +5145,7 @@ test('ramda spec', () => {
         b: 2,
       }
     )
-  ).toEqual(true)
+  ).toEqual(true);
 
   expect(
     equals(
@@ -5321,7 +5158,7 @@ test('ramda spec', () => {
         a: 2,
       }
     )
-  ).toEqual(true)
+  ).toEqual(true);
 
   expect(
     equals(
@@ -5334,7 +5171,7 @@ test('ramda spec', () => {
         b: 3,
       }
     )
-  ).toEqual(false)
+  ).toEqual(false);
 
   expect(
     equals(
@@ -5348,76 +5185,76 @@ test('ramda spec', () => {
         b: 3,
       }
     )
-  ).toEqual(false)
-})
+  ).toEqual(false);
+});
 
-test('works with boolean tuple', () => {
-  expect(equals([true, false], [true, false])).toBeTrue()
-  expect(equals([true, false], [true, true])).toBeFalse()
-})
+test("works with boolean tuple", () => {
+  expect(equals([true, false], [true, false])).toBeTrue();
+  expect(equals([true, false], [true, true])).toBeFalse();
+});
 
-test('works with equal objects within array', () => {
+test("works with equal objects within array", () => {
   const objFirst = {
     a: {
       b: 1,
       c: 2,
       d: [1],
     },
-  }
+  };
   const objSecond = {
     a: {
       b: 1,
       c: 2,
       d: [1],
     },
-  }
+  };
 
-  const x = [1, 2, objFirst, null, '', []]
-  const y = [1, 2, objSecond, null, '', []]
-  expect(equals(x, y)).toBeTrue()
-})
+  const x = [1, 2, objFirst, null, "", []];
+  const y = [1, 2, objSecond, null, "", []];
+  expect(equals(x, y)).toBeTrue();
+});
 
-test('works with different objects within array', () => {
-  const objFirst = {a: {b: 1}}
-  const objSecond = {a: {b: 2}}
+test("works with different objects within array", () => {
+  const objFirst = { a: { b: 1 } };
+  const objSecond = { a: { b: 2 } };
 
-  const x = [1, 2, objFirst, null, '', []]
-  const y = [1, 2, objSecond, null, '', []]
-  expect(equals(x, y)).toBeFalse()
-})
+  const x = [1, 2, objFirst, null, "", []];
+  const y = [1, 2, objSecond, null, "", []];
+  expect(equals(x, y)).toBeFalse();
+});
 
-test('works with undefined as second argument', () => {
-  expect(equals(1, undefined)).toBeFalse()
+test("works with undefined as second argument", () => {
+  expect(equals(1, undefined)).toBeFalse();
 
-  expect(equals(undefined, undefined)).toBeTrue()
-})
+  expect(equals(undefined, undefined)).toBeTrue();
+});
 
-test('compare sets', () => {
-  const toCompareDifferent = new Set([{a: 1}, {a: 2}])
-  const toCompareSame = new Set([{a: 1}, {a: 2}, {a: 1}])
-  const testSet = new Set([{a: 1}, {a: 2}, {a: 1}])
-  expect(equals(toCompareSame, testSet)).toBeTruthy()
-  expect(equals(toCompareDifferent, testSet)).toBeFalsy()
-  expect(equalsRamda(toCompareSame, testSet)).toBeTruthy()
-  expect(equalsRamda(toCompareDifferent, testSet)).toBeFalsy()
-})
+test("compare sets", () => {
+  const toCompareDifferent = new Set([{ a: 1 }, { a: 2 }]);
+  const toCompareSame = new Set([{ a: 1 }, { a: 2 }, { a: 1 }]);
+  const testSet = new Set([{ a: 1 }, { a: 2 }, { a: 1 }]);
+  expect(equals(toCompareSame, testSet)).toBeTruthy();
+  expect(equals(toCompareDifferent, testSet)).toBeFalsy();
+  expect(equalsRamda(toCompareSame, testSet)).toBeTruthy();
+  expect(equalsRamda(toCompareDifferent, testSet)).toBeFalsy();
+});
 
-test('compare simple sets', () => {
-  const testSet = new Set(['2', '3', '3', '2', '1'])
-  expect(equals(new Set(['3', '2', '1']), testSet)).toBeTruthy()
-  expect(equals(new Set(['3', '2', '0']), testSet)).toBeFalsy()
-})
+test("compare simple sets", () => {
+  const testSet = new Set(["2", "3", "3", "2", "1"]);
+  expect(equals(new Set(["3", "2", "1"]), testSet)).toBeTruthy();
+  expect(equals(new Set(["3", "2", "0"]), testSet)).toBeFalsy();
+});
 
-test('various examples', () => {
-  expect(equals([1, 2, 3])([1, 2, 3])).toBeTrue()
+test("various examples", () => {
+  expect(equals([1, 2, 3])([1, 2, 3])).toBeTrue();
 
-  expect(equals([1, 2, 3], [1, 2])).toBeFalse()
+  expect(equals([1, 2, 3], [1, 2])).toBeFalse();
 
-  expect(equals(1, 1)).toBeTrue()
+  expect(equals(1, 1)).toBeTrue();
 
-  expect(equals(1, '1')).toBeFalse()
+  expect(equals(1, "1")).toBeFalse();
 
-  expect(equals({}, {})).toBeTrue()
+  expect(equals({}, {})).toBeTrue();
 
   expect(
     equals(
@@ -5430,7 +5267,7 @@ test('various examples', () => {
         a: 1,
       }
     )
-  ).toBeTrue()
+  ).toBeTrue();
 
   expect(
     equals(
@@ -5443,7 +5280,7 @@ test('various examples', () => {
         b: 1,
       }
     )
-  ).toBeFalse()
+  ).toBeFalse();
 
   expect(
     equals(
@@ -5456,7 +5293,7 @@ test('various examples', () => {
         b: 1,
       }
     )
-  ).toBeFalse()
+  ).toBeFalse();
 
   expect(
     equals(
@@ -5470,7 +5307,7 @@ test('various examples', () => {
         c: 3,
       }
     )
-  ).toBeFalse()
+  ).toBeFalse();
 
   expect(
     equals(
@@ -5488,7 +5325,7 @@ test('various examples', () => {
         },
       }
     )
-  ).toBeFalse()
+  ).toBeFalse();
 
   expect(
     equals(
@@ -5501,76 +5338,76 @@ test('various examples', () => {
         a: 1,
       }
     )
-  ).toBeFalse()
+  ).toBeFalse();
 
-  expect(equals({a: {b: {c: 1}}}, {a: {b: {c: 1}}})).toBeTrue()
+  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 1 } } })).toBeTrue();
 
-  expect(equals({a: {b: {c: 1}}}, {a: {b: {c: 2}}})).toBeFalse()
+  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 2 } } })).toBeFalse();
 
-  expect(equals({a: {}}, {a: {}})).toBeTrue()
+  expect(equals({ a: {} }, { a: {} })).toBeTrue();
 
-  expect(equals('', '')).toBeTrue()
+  expect(equals("", "")).toBeTrue();
 
-  expect(equals('foo', 'foo')).toBeTrue()
+  expect(equals("foo", "foo")).toBeTrue();
 
-  expect(equals('foo', 'bar')).toBeFalse()
+  expect(equals("foo", "bar")).toBeFalse();
 
-  expect(equals(0, false)).toBeFalse()
+  expect(equals(0, false)).toBeFalse();
 
-  expect(equals(/\s/g, null)).toBeFalse()
+  expect(equals(/\s/g, null)).toBeFalse();
 
-  expect(equals(null, null)).toBeTrue()
+  expect(equals(null, null)).toBeTrue();
 
-  expect(equals(false)(null)).toBeFalse()
-})
+  expect(equals(false)(null)).toBeFalse();
+});
 
-test('with custom functions', () => {
+test("with custom functions", () => {
   function foo() {
-    return 1
+    return 1;
   }
-  foo.prototype.toString = () => ''
-  const result = equals(foo, foo)
+  foo.prototype.toString = () => "";
+  const result = equals(foo, foo);
 
-  expect(result).toBeTrue()
-})
+  expect(result).toBeTrue();
+});
 
-test('with classes', () => {
+test("with classes", () => {
   class Foo {}
-  const foo = new Foo()
-  const result = equals(foo, foo)
+  const foo = new Foo();
+  const result = equals(foo, foo);
 
-  expect(result).toBeTrue()
-})
+  expect(result).toBeTrue();
+});
 
-test('with negative zero', () => {
-  expect(equals(-0, -0)).toBeTrue()
-  expect(equals(-0, 0)).toBeFalse()
-  expect(equals(0, 0)).toBeTrue()
-  expect(equals(-0, 1)).toBeFalse()
-})
+test("with negative zero", () => {
+  expect(equals(-0, -0)).toBeTrue();
+  expect(equals(-0, 0)).toBeFalse();
+  expect(equals(0, 0)).toBeTrue();
+  expect(equals(-0, 1)).toBeFalse();
+});
 
-const possibleInputs = variousTypes
+const possibleInputs = variousTypes;
 
-describe('brute force', () => {
+describe("brute force", () => {
   compareCombinations({
     fn: equals,
     fnRamda: equalsRamda,
     firstInput: possibleInputs,
     secondInput: possibleInputs,
-    callback: errorsCounters => {
+    callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 25,
-          "SHOULD_NOT_THROW": 16,
+          "RESULTS_MISMATCH": 5,
+          "SHOULD_NOT_THROW": 4,
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 289,
         }
-      `)
+      `);
     },
-  })
-})
+  });
+});
 ```
 
 </details>
@@ -7169,11 +7006,6 @@ const result = R.groupBy(groupFn, list)
 
 ### groupWith
 
-```typescript
-
-groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: T[]) => (T[])[]
-```
-
 It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
 
 ```javascript
@@ -7185,202 +7017,6 @@ const result = R.groupWith(isConsecutive, list)
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20compareFn%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%0Aconst%20list%20%3D%20%5B1%2C%202%2C%202%2C%201%2C%201%2C%202%5D%0A%0Aconst%20result%20%3D%20R.groupWith(isConsecutive%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C2%5D%2C%20%5B1%2C1%5D%2C%20%5B2%5D%5D">Try this <strong>R.groupWith</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: T[]) => (T[])[];
-groupWith<T>(compareFn: (x: T, y: T) => boolean, input: T[]): (T[])[];
-groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.groupWith</strong> source</summary>
-
-```javascript
-import {_isArray} from './_internals/_isArray'
-import {cloneList} from './_internals/cloneList'
-
-export function groupWith(compareFn, list) {
-  if (!_isArray(list)) throw new TypeError('list.reduce is not a function')
-
-  const clone = cloneList(list)
-
-  if (list.length === 1) return [clone]
-
-  const toReturn = []
-  let holder = []
-
-  clone.reduce((prev, current, i) => {
-    if (i === 0) return current
-
-    const okCompare = compareFn(prev, current)
-    const holderIsEmpty = holder.length === 0
-    const lastCall = i === list.length - 1
-
-    if (okCompare) {
-      if (holderIsEmpty) holder.push(prev)
-      holder.push(current)
-      if (lastCall) toReturn.push(holder)
-
-      return current
-    }
-
-    if (holderIsEmpty) {
-      toReturn.push([prev])
-      if (lastCall) toReturn.push([current])
-
-      return current
-    }
-
-    toReturn.push(holder)
-    if (lastCall) toReturn.push([current])
-    holder = []
-
-    return current
-  }, undefined)
-
-  return toReturn
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {equals} from './equals'
-import {groupWith} from './groupWith'
-
-test('issue is fixed', () => {
-  const result = groupWith(equals, [1, 2, 2, 3])
-  const expected = [[1], [2, 2], [3]]
-  expect(result).toEqual(expected)
-})
-
-test('long list', () => {
-  const result = groupWith(equals, [
-    0,
-    1,
-    1,
-    2,
-    3,
-    5,
-    8,
-    13,
-    21,
-    21,
-    21,
-    1,
-    2,
-  ])
-
-  const expected = [
-    [0],
-    [1, 1],
-    [2],
-    [3],
-    [5],
-    [8],
-    [13],
-    [21, 21, 21],
-    [1],
-    [2],
-  ]
-  expect(result).toEqual(expected)
-})
-
-test('readme example', () => {
-  const list = [4, 3, 6, 2, 2, 1]
-
-  const result = groupWith((a, b) => a - b === 1, list)
-  const expected = [[4, 3], [6], [2], [2, 1]]
-  expect(result).toEqual(expected)
-})
-
-test('throw with string as input', () => {
-  expect(() => groupWith(equals, 'Mississippi')).toThrowWithMessage(
-    TypeError,
-    'list.reduce is not a function'
-  )
-})
-
-const isConsecutive = function (a, b) {
-  return a + 1 === b
-}
-
-test('fix coverage', () => {
-  expect(groupWith(isConsecutive, [1, 2, 3, 0])).toEqual([[1, 2, 3], [0]])
-})
-
-test('from ramda 0', () => {
-  expect(groupWith(equals, [])).toEqual([])
-  expect(groupWith(isConsecutive, [])).toEqual([])
-})
-
-test('from ramda 1', () => {
-  expect(groupWith(isConsecutive, [4, 3, 2, 1])).toEqual([
-    [4],
-    [3],
-    [2],
-    [1],
-  ])
-})
-
-test('from ramda 2', () => {
-  expect(groupWith(isConsecutive, [1, 2, 3, 4])).toEqual([[1, 2, 3, 4]])
-})
-
-test('from ramda 3', () => {
-  expect(groupWith(isConsecutive, [1, 2, 2, 3])).toEqual([
-    [1, 2],
-    [2, 3],
-  ])
-  expect(groupWith(isConsecutive, [1, 2, 9, 3, 4])).toEqual([
-    [1, 2],
-    [9],
-    [3, 4],
-  ])
-})
-
-test('list with single item', () => {
-  const result = groupWith(equals, [0])
-
-  const expected = [[0]]
-  expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {groupWith} from 'rambda'
-
-describe('R.groupWith', () => {
-  it('happy', () => {
-    const groupWithFn = (x: string, y: string) => x.length === y.length
-    const list = ['foo', 'bar', 'bazzz']
-
-    const result = groupWith(groupWithFn, list)
-    const curriedResult = groupWith(groupWithFn)(list)
-    result // $ExpectType string[][]
-    curriedResult // $ExpectType string[][]
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
 
@@ -8149,7 +7785,7 @@ test('throws on wrong input - match ramda behaviour', () => {
   )
   expect(() => includesRamda(2, null)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'indexOf' of null"
+    `Cannot read properties of null (reading 'indexOf')`
   )
   expect(() => includes(2, undefined)).toThrowWithMessage(
     TypeError,
@@ -8157,7 +7793,7 @@ test('throws on wrong input - match ramda behaviour', () => {
   )
   expect(() => includesRamda(2, undefined)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'indexOf' of undefined"
+    `Cannot read properties of undefined (reading 'indexOf')`
   )
 })
 ```
@@ -10219,7 +9855,7 @@ test('with string', () => {
 test('throwing', () => {
   expect(() => {
     match(/a./g, null)
-  }).toThrowWithMessage(TypeError, "Cannot read property 'match' of null")
+  }).toThrowWithMessage(TypeError, `Cannot read properties of null (reading 'match')`)
 })
 ```
 
@@ -16711,7 +16347,7 @@ test('with bad inputs', () => {
     )
     expect(() => splitAtRamda(1, badInput)).toThrowWithMessage(
       TypeError,
-      `Cannot read property 'slice' of ${badInput}`
+      `Cannot read properties of ${badInput} (reading 'slice')`
     )
   })
 
@@ -17015,7 +16651,7 @@ test('with bad inputs', () => {
     )
     expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(
       TypeError,
-      `Cannot read property 'length' of ${badInput}`
+      `Cannot read properties of ${badInput} (reading 'length')`
     )
   })
 
@@ -20742,7 +20378,7 @@ test('with wrong input', () => {
 
   expect(() => whereEq(condition, null)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'a' of null"
+    `Cannot read properties of null (reading 'a')`
   )
 })
 ```

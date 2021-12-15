@@ -19,9 +19,9 @@ function curry(fn, args = []) {
   return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
 }
 
-function cloneList(list) {
+const cloneList = list => {
   return Array.prototype.slice.call(list);
-}
+};
 
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index;
@@ -453,11 +453,15 @@ function mapObject(fn, obj) {
   return willReturn;
 }
 const mapObjIndexed = mapObject;
-function map(fn, list) {
-  if (arguments.length === 1) return _list => map(fn, _list);
-  if (list === undefined) return [];
-  if (_isArray(list)) return mapArray(fn, list);
-  return mapObject(fn, list);
+function map(fn, iterable) {
+  if (arguments.length === 1) return _iterable => map(fn, _iterable);
+
+  if (!iterable) {
+    throw new Error('Incorrect iterable input');
+  }
+
+  if (_isArray(iterable)) return mapArray(fn, iterable);
+  return mapObject(fn, iterable);
 }
 
 function max(x, y) {
@@ -506,37 +510,39 @@ function defaultTo(defaultArgument, input) {
 }
 
 function type(input) {
-  const typeOf = typeof input;
-
   if (input === null) {
     return 'Null';
   } else if (input === undefined) {
     return 'Undefined';
-  } else if (typeOf === 'boolean') {
-    return 'Boolean';
-  } else if (typeOf === 'number') {
-    return Number.isNaN(input) ? 'NaN' : 'Number';
-  } else if (typeOf === 'string') {
-    return 'String';
-  } else if (_isArray(input)) {
-    return 'Array';
-  } else if (typeOf === 'symbol') {
-    return 'Symbol';
-  } else if (input instanceof RegExp) {
-    return 'RegExp';
+  } else if (Number.isNaN(input)) {
+    return 'NaN';
   }
 
-  const asStr = input && input.toString ? input.toString() : '';
-  if (['true', 'false'].includes(asStr)) return 'Boolean';
-  if (!Number.isNaN(Number(asStr))) return 'Number';
-  if (asStr.startsWith('async')) return 'Async';
-  if (asStr === '[object Promise]') return 'Promise';
-  if (typeOf === 'function') return 'Function';
-  if (input instanceof String) return 'String';
-  if (input instanceof Set) return 'Set';
-  return 'Object';
+  const typeResult = Object.prototype.toString.call(input).slice(8, -1);
+  return typeResult === 'AsyncFunction' ? 'Async' : typeResult;
 }
 
+function _lastIndexOf(valueToFind, list) {
+  if (!_isArray(list)) {
+    throw new Error(`Cannot read property 'indexOf' of ${list}`);
+  }
+
+  const typeOfValue = type(valueToFind);
+  if (!['Object', 'Array', 'NaN', 'RegExp'].includes(typeOfValue)) return list.lastIndexOf(valueToFind);
+  const {
+    length
+  } = list;
+  let index = length;
+  let foundIndex = -1;
+
+  while (--index > -1 && foundIndex === -1) {
+    if (equals(list[index], valueToFind)) {
+      foundIndex = index;
+    }
+  }
+
+  return foundIndex;
+}
 function _indexOf(valueToFind, list) {
   if (!_isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`);
@@ -900,17 +906,33 @@ function either(firstPredicate, secondPredicate) {
   return (...input) => Boolean(firstPredicate(...input) || secondPredicate(...input));
 }
 
-function endsWith(target, str) {
-  if (arguments.length === 1) return _str => endsWith(target, _str);
-  return str.endsWith(target);
-}
+function endsWith(target, iterable) {
+  if (arguments.length === 1) return _iterable => endsWith(target, _iterable);
 
-function eqPropsFn(prop, obj1, obj2) {
-  if (!obj1 || !obj2) {
-    throw new Error('wrong object inputs are passed to R.eqProps');
+  if (typeof iterable === 'string') {
+    return iterable.endsWith(target);
   }
 
-  return equals(obj1[prop], obj2[prop]);
+  if (!_isArray(target)) return false;
+  const diff = iterable.length - target.length;
+  let correct = true;
+  const filtered = target.filter((x, index) => {
+    if (!correct) return false;
+    const result = equals(x, iterable[index + diff]);
+    if (!result) correct = false;
+    return result;
+  });
+  return filtered.length === target.length;
+}
+
+function prop(propToFind, obj) {
+  if (arguments.length === 1) return _obj => prop(propToFind, _obj);
+  if (!obj) return undefined;
+  return obj[propToFind];
+}
+
+function eqPropsFn(property, objA, objB) {
+  return equals(prop(property, objA), prop(property, objB));
 }
 
 const eqProps = curry(eqPropsFn);
@@ -999,11 +1021,12 @@ function filterArray(predicate, list, indexed = false) {
   return willReturn;
 }
 function filter(predicate, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => filter(predicate, _iterable);
+  if (arguments.length === 1) return _iterable => filter(predicate, _iterable);
+
+  if (!iterable) {
+    throw new Error('Incorrect iterable input');
   }
 
-  if (!iterable) return [];
   if (_isArray(iterable)) return filterArray(predicate, iterable);
   return filterObject(predicate, iterable);
 }
@@ -1156,7 +1179,7 @@ function groupBy(groupFn, list) {
 
 function groupWith(compareFn, list) {
   if (!_isArray(list)) throw new TypeError('list.reduce is not a function');
-  const clone = list.slice();
+  const clone = cloneList(list);
   if (list.length === 1) return [clone];
   const toReturn = [];
   let holder = [];
@@ -1393,17 +1416,12 @@ function last(listOrString) {
   return listOrString[listOrString.length - 1];
 }
 
-function lastIndexOf(target, list) {
-  if (arguments.length === 1) return _list => lastIndexOf(target, _list);
-  let index = list.length;
-
-  while (--index > 0) {
-    if (equals(list[index], target)) {
-      return index;
-    }
+function lastIndexOf(valueToFind, list) {
+  if (arguments.length === 1) {
+    return _list => _lastIndexOf(valueToFind, _list);
   }
 
-  return -1;
+  return _lastIndexOf(valueToFind, list);
 }
 
 function length(x) {
@@ -1427,9 +1445,9 @@ function nth(index, list) {
 }
 
 function updateFn(index, newValue, list) {
-  const arrClone = list.slice();
-  if (index === -1) return arrClone.fill(newValue, index);
-  return arrClone.fill(newValue, index, index + 1);
+  const clone = cloneList(list);
+  if (index === -1) return clone.fill(newValue, index);
+  return clone.fill(newValue, index, index + 1);
 }
 
 const update = curry(updateFn);
@@ -1440,12 +1458,6 @@ function lensIndex(index) {
 
 function lensPath(key) {
   return lens(path(key), assocPath(key));
-}
-
-function prop(propToFind, obj) {
-  if (arguments.length === 1) return _obj => prop(propToFind, _obj);
-  if (!obj) return undefined;
-  return obj[propToFind];
 }
 
 function lensProp(key) {
@@ -1547,7 +1559,7 @@ function moveFn(fromIndex, toIndex, list) {
   }
 
   if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list;
-  const clone = list.slice();
+  const clone = cloneList(list);
   clone[fromIndex] = list[toIndex];
   clone[toIndex] = list[fromIndex];
   return clone;
@@ -1701,8 +1713,8 @@ function pathEqFn(pathToSearch, target, input) {
 
 const pathEq = curry(pathEqFn);
 
-function pathOrFn(defaultValue, list, obj) {
-  return defaultTo(defaultValue, path(list, obj));
+function pathOrFn(defaultValue, pathInput, obj) {
+  return defaultTo(defaultValue, path(pathInput, obj));
 }
 
 const pathOr = curry(pathOrFn);
@@ -1895,7 +1907,7 @@ function sort(sortFn, list) {
 
 function sortBy(sortFn, list) {
   if (arguments.length === 1) return _list => sortBy(sortFn, _list);
-  const clone = list.slice();
+  const clone = cloneList(list);
   return clone.sort((a, b) => {
     const aSortResult = sortFn(a);
     const bSortResult = sortFn(b);
@@ -1977,9 +1989,22 @@ function splitWhen(predicate, input) {
   return [preFound, postFound];
 }
 
-function startsWith(target, str) {
-  if (arguments.length === 1) return _str => startsWith(target, _str);
-  return str.startsWith(target);
+function startsWith(target, iterable) {
+  if (arguments.length === 1) return _iterable => startsWith(target, _iterable);
+
+  if (typeof iterable === 'string') {
+    return iterable.startsWith(target);
+  }
+
+  if (!_isArray(target)) return false;
+  let correct = true;
+  const filtered = target.filter((x, index) => {
+    if (!correct) return false;
+    const result = equals(x, iterable[index]);
+    if (!result) correct = false;
+    return result;
+  });
+  return filtered.length === target.length;
 }
 
 function subtract(a, b) {
@@ -2137,7 +2162,7 @@ function unapply(fn) {
 
 function union(x, y) {
   if (arguments.length === 1) return _y => union(x, _y);
-  const toReturn = x.slice();
+  const toReturn = cloneList(x);
   y.forEach(yInstance => {
     if (!includes(yInstance, x)) toReturn.push(yInstance);
   });
@@ -2274,6 +2299,7 @@ const zipWith = curry(zipWithFn);
 exports.F = F;
 exports.T = T;
 exports._indexOf = _indexOf;
+exports._lastIndexOf = _lastIndexOf;
 exports.add = add;
 exports.adjust = adjust;
 exports.all = all;
