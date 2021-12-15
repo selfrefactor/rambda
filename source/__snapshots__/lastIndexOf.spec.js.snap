@@ -2461,13 +2461,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1430,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     true,
   ],
   "label": "Rambda should not throw",
@@ -2485,13 +2479,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1502,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     true,
   ],
   "label": "Rambda should not throw",
@@ -2509,13 +2497,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1430,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     null,
   ],
   "label": "errors types are different",
@@ -2536,13 +2518,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1502,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     null,
   ],
   "label": "errors types are different",
@@ -2563,13 +2539,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1430,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     Object {},
   ],
   "label": "Rambda should not throw",
@@ -2587,13 +2557,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1502,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     Object {},
   ],
   "label": "Rambda should not throw",
@@ -2611,13 +2575,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1430,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     "foo",
   ],
   "label": "Rambda should not throw",
@@ -2635,13 +2593,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1502,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     "foo",
   ],
   "label": "Rambda should not throw",
@@ -2659,13 +2611,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1430,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     undefined,
   ],
   "label": "errors types are different",
@@ -2686,13 +2632,7 @@ Object {
     "type": "Error",
   },
   "inputs": Array [
-    Promise {
-      Symbol(async_id_symbol): 1502,
-      Symbol(trigger_async_id_symbol): 1374,
-      Symbol(destroyed): Object {
-        "destroyed": false,
-      },
-    },
+    Promise {},
     undefined,
   ],
   "label": "errors types are different",

@@ -1,10 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`brute force Function | Function 1`] = `
+Object {
+  "error": Object {
+    "message": "Function.prototype.toString requires that 'this' be a Function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    [Function],
+    [Function],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number | Number 1`] = `
+Object {
+  "error": Object {
+    "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    9007199254740991n,
+    9007199254740991n,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
 exports[`brute force Object | Object 1`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
-    ArrayBuffer [],
+    Map {
+      "foo" => "bar",
+    },
     Map {
       "foo" => "bar",
     },
@@ -12,8 +50,8 @@ Object {
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 
@@ -21,427 +59,33 @@ exports[`brute force Object | Object 2`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
-    DataView [],
-    Map {
-      "foo" => "bar",
-    },
+    ArrayBuffer [],
+    ArrayBuffer [],
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 
 exports[`brute force Object | Object 3`] = `
 Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
+  "error": "PENDING",
   "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    Map {
-      "foo" => "bar",
-    },
+    DataView [],
+    DataView [],
   ],
-  "label": "Rambda should not throw",
+  "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 
 exports[`brute force Object | Object 4`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakMap {},
-    Map {
-      "foo" => "bar",
-    },
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 5`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakSet {},
-    Map {
-      "foo" => "bar",
-    },
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 6`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
-    ArrayBuffer [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 7`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    DataView [],
-    ArrayBuffer [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 8`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    ArrayBuffer [],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 9`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakMap {},
-    ArrayBuffer [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 10`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakSet {},
-    ArrayBuffer [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 11`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
-    DataView [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 12`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    ArrayBuffer [],
-    DataView [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 13`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    DataView [],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 14`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakMap {},
-    DataView [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 15`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakSet {},
-    DataView [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 16`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
-    [Error: bar],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 17`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    ArrayBuffer [],
-    [Error: bar],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 18`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    DataView [],
-    [Error: bar],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 19`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    [Error: bar],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 20`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakMap {},
-    [Error: bar],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 21`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakSet {},
-    [Error: bar],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 22`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 23`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    ArrayBuffer [],
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 24`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    DataView [],
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 25`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    [Error: bar],
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 26`] = `
 Object {
   "error": Object {
     "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
@@ -465,259 +109,33 @@ Object {
 }
 `;
 
-exports[`brute force Object | Object 27`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Object {
-      "message1": "hello",
-      "message2": "everyone",
-    },
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 28`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    WeakMap {},
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 29`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    WeakSet {},
-    Int16Array [
-      0,
-      0,
-    ],
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 30`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    Object {
-      "message1": "hello",
-      "message2": "everyone",
-    },
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 31`] = `
+exports[`brute force Object | Object 5`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
+    WeakMap {},
     WeakMap {},
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 
-exports[`brute force Object | Object 32`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    ArrayBuffer [],
-    WeakMap {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 33`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    DataView [],
-    WeakMap {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 34`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    WeakMap {},
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 35`] = `
+exports[`brute force Object | Object 6`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
     WeakSet {},
-    WeakMap {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 36`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
     WeakSet {},
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 37`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    ArrayBuffer [],
-    WeakSet {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 38`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    DataView [],
-    WeakSet {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
-}
-`;
-
-exports[`brute force Object | Object 39`] = `
-Object {
-  "error": Object {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
-  "inputs": Array [
-    Int16Array [
-      0,
-      0,
-    ],
-    WeakSet {},
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": "PENDING",
-}
-`;
-
-exports[`brute force Object | Object 40`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakMap {},
-    WeakSet {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": false,
-  "result": true,
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 

@@ -335,7 +335,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property '0' of null",
+    "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -394,7 +394,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'a' of null",
+    "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -987,7 +987,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property '0' of undefined",
+    "message": "Cannot read properties of undefined (reading '0')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -1046,7 +1046,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'a' of undefined",
+    "message": "Cannot read properties of undefined (reading 'a')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",

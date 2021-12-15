@@ -20,9 +20,9 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 -- R.toLower
 -- R.toUpper
 
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
+- One more reason for the braking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
-- Change export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior. 
 
 - Remove unused typing for `R.chain`.
 

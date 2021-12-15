@@ -48,7 +48,7 @@ test('throws on wrong input - match ramda behaviour', () => {
   )
   expect(() => includesRamda(2, null)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'indexOf' of null"
+    `Cannot read properties of null (reading 'indexOf')`
   )
   expect(() => includes(2, undefined)).toThrowWithMessage(
     TypeError,
@@ -56,6 +56,6 @@ test('throws on wrong input - match ramda behaviour', () => {
   )
   expect(() => includesRamda(2, undefined)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'indexOf' of undefined"
+    `Cannot read properties of undefined (reading 'indexOf')`
   )
 })

@@ -244,8 +244,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 🚀 Fastest | 13.71% slower | 🔳
- *allPass* | 🚀 Fastest | 90.89% slower | 🔳
+ *all* | 🚀 Fastest | 1.81% slower | 🔳
+ *allPass* | 🚀 Fastest | 91.09% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -254,7 +254,7 @@ method | Rambda | Ramda | Lodash
  *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
  *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
- *compose* | 23.65% slower | 20.84% slower | 🚀 Fastest
+ *compose* | 🚀 Fastest | 32.45% slower | 13.68% slower
  *converge* | 78.63% slower | 🚀 Fastest | 🔳
  *curry* | 🚀 Fastest | 28.86% slower | 🔳
  *curryN* | 🚀 Fastest | 41.05% slower | 🔳
@@ -267,8 +267,8 @@ method | Rambda | Ramda | Lodash
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
  *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
- *includes* | 🚀 Fastest | 85.21% slower | 🔳
- *indexOf* | 🚀 Fastest | 81.11% slower | 🔳
+ *includes* | 🚀 Fastest | 84.63% slower | 🔳
+ *indexOf* | 🚀 Fastest | 76.63% slower | 🔳
  *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
@@ -284,6 +284,7 @@ method | Rambda | Ramda | Lodash
  *over* | 🚀 Fastest | 56.23% slower | 🔳
  *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
+ *pipe* | 7.26% slower | 🚀 Fastest | 🔳
  *prop* | 🚀 Fastest | 87.95% slower | 🔳
  *propEq* | 🚀 Fastest | 91.92% slower | 🔳
  *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
@@ -694,7 +695,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 13.71%</summary>
+<summary>Rambda is faster than Ramda with 1.81%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -851,7 +852,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 90.89%</summary>
+<summary>Rambda is faster than Ramda with 91.09%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -971,7 +972,7 @@ import {always} from 'rambda'
 describe('R.always', () => {
   it('happy', () => {
     const fn = always('foo')
-    fn // $ExpectType () => string
+    fn // $ExpectType (...args: unknown[]) => string
     const result = fn()
     result // $ExpectType string
   })
@@ -3409,12 +3410,13 @@ import {cond, always, equals} from 'rambda'
 
 describe('R.cond', () => {
   it('happy', () => {
-    const fn = cond<number, string>([
+    const fn = cond<number[], string>([
       [equals(0), always('water freezes at 0°C')],
       [equals(100), always('water boils at 100°C')],
       [
         () => true,
         function(temp) {
+          temp // $ExpectType number
           return 'nothing special happens at ' + temp + '°C'
         },
       ],
@@ -7544,7 +7546,7 @@ describe('R.includes', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 85.21%</summary>
+<summary>Rambda is faster than Ramda with 84.63%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -11030,7 +11032,7 @@ describe('R.omit with array as props input', () => {
     }
     const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
-    result // $ExpectType Pick<Input, "b" | "a" | "c" | "d">
+    result // $ExpectType Omit<Input, "b,c">
 
     result.a // $ExpectType string
     result.d // $ExpectType number
@@ -14909,8 +14911,9 @@ describe('R.sortBy', () => {
     const curriedResult = sortBy(fn2)(input)
 
     result // $ExpectType { a: number; }[]
-    curriedResult // $ExpectType { a: number; }[]
+    curriedResult // $ExpectType Input[]
     result[0].a // $ExpectType number
+    curriedResult[0].a // $ExpectType number
   })
   it('passing type to sort function and list', () => {
     function fn(x: Input): number {
@@ -16792,7 +16795,7 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType (["a", number] | ["b", number] | ["c", number[]])[]
+    result // $ExpectType (["b", number] | ["a", number] | ["c", number[]])[]
   })
 })
 ```
@@ -18097,7 +18100,7 @@ const tests = [
 
 ```typescript
 
-unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T
+unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U
 ```
 
 The method returns function that will be called with argument `input`.
@@ -18111,10 +18114,10 @@ In the other case, the final output will be the `input` itself.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
-unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 ```
 
 </details>
@@ -18173,23 +18176,23 @@ describe('R.unless', () => {
   })
   it('with one explicit type', () => {
     const result = unless(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x + 1
     }, 1)
     result // $ExpectType number
   })
   it('with two different explicit types', () => {
     const result = unless(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return `${x}-foo`
     }, 1)
-    result // $ExpectType 1 | string
+    result // $ExpectType string | number
   })
 })
 
@@ -18201,10 +18204,10 @@ describe('R.unless - curried', () => {
   })
   it('with one explicit type', () => {
     const fn = unless<number>(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x + 1
     })
     const result = fn(1)
@@ -18212,14 +18215,14 @@ describe('R.unless - curried', () => {
   })
   it('with two different explicit types', () => {
     const fn = unless<number, string>(x => {
-      // $ExpectType number
+      x // $ExpectType number
       return x > 5
     }, x => {
-      // $ExpectType number
+      x // $ExpectType number
       return `${x}-foo`
     })
     const result = fn(1)
-    result // $ExpectType number | string
+    result // $ExpectType string | number
   })
 })
 ```
@@ -19468,9 +19471,9 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 -- R.toLower
 -- R.toUpper
 
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
+- One more reason for the braking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
-- Change export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior. 
 
 - Remove unused typing for `R.chain`.
 

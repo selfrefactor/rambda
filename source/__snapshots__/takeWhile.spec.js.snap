@@ -63,7 +63,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -141,7 +141,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -162,7 +162,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -183,7 +183,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -204,7 +204,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -333,7 +333,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -354,7 +354,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -375,7 +375,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -446,7 +446,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -524,7 +524,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -595,7 +595,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -673,7 +673,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -744,7 +744,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -822,7 +822,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -893,7 +893,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of null",
+    "message": "Cannot read properties of null (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -971,7 +971,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'takeWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'takeWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",

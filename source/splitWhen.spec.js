@@ -26,7 +26,7 @@ test('with bad inputs', () => {
     )
     expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(
       TypeError,
-      `Cannot read property 'length' of ${badInput}`
+      `Cannot read properties of ${badInput} (reading 'length')`
     )
   })
 

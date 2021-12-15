@@ -41,6 +41,6 @@ test('with wrong input', () => {
 
   expect(() => whereEq(condition, null)).toThrowWithMessage(
     TypeError,
-    "Cannot read property 'a' of null"
+    `Cannot read properties of null (reading 'a')`
   )
 })

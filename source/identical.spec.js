@@ -29,7 +29,7 @@ test('identical', () => {
   expect(identical([], [])).toBeFalse()
   expect(identical(a, a)).toBeTrue()
   expect(identical(a, b)).toBeFalse()
-  expect(identical(a, c)).toBeTrue()
+  expect(identical(a, c)).toBeFalse()
   expect(identical(undefined, undefined)).toBeTrue()
   expect(identical(null, undefined)).toBeFalse()
 })

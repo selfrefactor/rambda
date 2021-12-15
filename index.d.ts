@@ -11,7 +11,7 @@ export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) =
 export type RamdaPath = (number | string)[];
 type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
 type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any;
-
+type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -1301,10 +1301,10 @@ export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) 
  * 
  * In the other case, the final output will be the `input` itself.
  */
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
 export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.

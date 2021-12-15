@@ -51,7 +51,7 @@ test('with bad inputs', () => {
     )
     expect(() => splitAtRamda(1, badInput)).toThrowWithMessage(
       TypeError,
-      `Cannot read property 'slice' of ${badInput}`
+      `Cannot read properties of ${badInput} (reading 'slice')`
     )
   })
 
