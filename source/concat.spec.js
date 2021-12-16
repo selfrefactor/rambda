@@ -1,12 +1,12 @@
-import { concat } from './concat'
+import {concat} from './concat'
 
 test('happy', () => {
-  const arr1 = [ 'a', 'b', 'c' ]
-  const arr2 = [ 'd', 'e', 'f' ]
+  const arr1 = ['a', 'b', 'c']
+  const arr2 = ['d', 'e', 'f']
 
   const a = concat(arr1, arr2)
   const b = concat(arr1)(arr2)
-  const expectedResult = [ 'a', 'b', 'c', 'd', 'e', 'f' ]
+  const expectedResult = ['a', 'b', 'c', 'd', 'e', 'f']
 
   expect(a).toEqual(expectedResult)
   expect(b).toEqual(expectedResult)

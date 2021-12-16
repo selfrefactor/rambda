@@ -1,6 +1,6 @@
-import { delay } from './delay'
-import { pipedAsync } from './pipedAsync'
-import { tapAsync } from './tapAsync'
+import {delay} from './delay'
+import {pipedAsync} from './pipedAsync'
+import {tapAsync} from './tapAsync'
 
 test('happy', async () => {
   const result = await tapAsync(delay, 1)
@@ -9,7 +9,7 @@ test('happy', async () => {
 
 test('complex', async () => {
   let marker = false
-  const fn = () => marker = true
+  const fn = () => (marker = true)
   const result = await pipedAsync(
     1,
     async x => {

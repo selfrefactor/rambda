@@ -4,22 +4,24 @@ const {listOfVariousTypes} = require('./_utils')
 
 const limit = 1000
 
-function applyBenchmark(fn){
+function applyBenchmark(fn) {
   listOfVariousTypes.forEach(mode => {
-    Array(limit).fill(mode).forEach(x => fn(x))  
+    Array(limit)
+      .fill(mode)
+      .forEach(x => fn(x))
   })
 }
 
 const test = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    label: 'Rambda',
+    fn: () => {
       applyBenchmark(R.type)
     },
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    label: 'Ramda',
+    fn: () => {
       applyBenchmark(Ramda.type)
     },
   },

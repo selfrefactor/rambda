@@ -1,6 +1,6 @@
-import { nextIndex } from './nextIndex'
+import {nextIndex} from './nextIndex'
 
-const list = [ 1, 2, 3, 4 ]
+const list = [1, 2, 3, 4]
 
 test('happy path', () => {
   expect(nextIndex(2, list)).toEqual(3)

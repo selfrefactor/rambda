@@ -1,7 +1,7 @@
-export function sort(sortFn, list){
+import {cloneList} from './_internals/cloneList'
+
+export function sort(sortFn, list) {
   if (arguments.length === 1) return _list => sort(sortFn, _list)
 
-  const clone = list.slice()
-
-  return clone.sort(sortFn)
+  return cloneList(list).sort(sortFn)
 }

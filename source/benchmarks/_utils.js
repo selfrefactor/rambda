@@ -1,6 +1,6 @@
 const fn1 = () => {}
-const fn2 = function (){}
-function fn3(){}
+const fn2 = function () {}
+function fn3() {}
 
 const listOfVariousTypes = [
   new Boolean(true),
@@ -12,11 +12,11 @@ const listOfVariousTypes = [
   fn1,
   fn2,
   fn3,
-  undefined, 
+  undefined,
   null,
   NaN,
   /foo/g,
-  [1,2,3]
+  [1, 2, 3],
 ]
 
 const uniqListOfBooleans = limit =>
@@ -32,8 +32,12 @@ const uniqListOfNumbers = limit =>
   Array(limit)
     .fill(null)
     .map(() => Number(Math.floor(Math.random() * 1000)))
+const rangeOfNumbers = limit =>
+  Array(limit)
+    .fill(null)
+    .map((_, i) => i)
 
-const uniqListOfString = limit =>
+const uniqListOfStrings = limit =>
   Array(limit)
     .fill(null)
     .map(() => String(Math.floor(Math.random() * 1000)))
@@ -55,7 +59,54 @@ const uniqListOfLists = limit =>
 
 exports.uniqListOfBooleans = uniqListOfBooleans
 exports.uniqListOfNumbers = uniqListOfNumbers
-exports.uniqListOfString = uniqListOfString
+exports.uniqListOfStrings = uniqListOfStrings
 exports.uniqListOfObjects = uniqListOfObjects
 exports.uniqListOfLists = uniqListOfLists
 exports.listOfVariousTypes = listOfVariousTypes
+exports.rangeOfNumbers = rangeOfNumbers
+
+function* generatorFn() {
+  yield 1
+  yield 2
+  yield 3
+}
+
+const setInstance = new Set([1, 2, 3, 4, 1])
+const weakSetInstance = new WeakSet()
+const weakMapInstance = new WeakMap()
+const mapInstance = new Map()
+
+const target = {
+  message1: 'hello',
+  message2: 'everyone',
+}
+
+const handler = {}
+
+const proxyInstance = new Proxy(target, handler)
+weakSetInstance.add({a: 1})
+weakMapInstance.set({a: 1}, 'bar')
+mapInstance.set('foo', 'bar')
+
+exports.variousTypes = [
+  -0,
+  -Infinity,
+  BigInt(9007199254740991),
+  Date.now(),
+  Infinity,
+  Math.E,
+  Symbol('foo'),
+  generatorFn,
+  mapInstance,
+  new ArrayBuffer(8),
+  new DataView(new ArrayBuffer(2)),
+  new Error('bar'),
+  new Int16Array(2),
+  setInstance,
+  proxyInstance,
+  weakMapInstance,
+  weakSetInstance,
+]
+
+exports.weakMapInstance = weakMapInstance
+exports.mapInstance = mapInstance

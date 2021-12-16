@@ -1,6 +1,6 @@
 import baseSlice from './_internals/baseSlice'
 
-export function takeLast(howMany, listOrString){
+export function takeLast(howMany, listOrString) {
   if (arguments.length === 1)
     return _listOrString => takeLast(howMany, _listOrString)
 
@@ -13,7 +13,5 @@ export function takeLast(howMany, listOrString){
 
   numValue = len - numValue
 
-  return baseSlice(
-    listOrString, numValue, len
-  )
+  return baseSlice(listOrString, numValue, len)
 }

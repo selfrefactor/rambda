@@ -1,4 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error";
 
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -9,6 +9,7 @@ type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 export type RamdaPath = readonly (number | string)[];
+type CondPair<T extends readonly any[], R> = readonly [(...val: T) => boolean, (...val: T) => R]
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -155,7 +156,7 @@ export function allPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: 
 /**
  * It returns function that always returns `x`.
  */
-export function always<T>(x: T): () => T;
+export function always<T>(x: T): (...args: readonly unknown[]) => T;
 
 /**
  * Logical AND
@@ -196,8 +197,8 @@ export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
  */
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /**
@@ -222,7 +223,6 @@ export function both(pred1: Pred): (pred2: Pred) => Pred;
  */
 export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): readonly U[];
 export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => readonly U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restrict a number `input` to be within `min` and `max` limits.
@@ -245,52 +245,75 @@ export function clone<T>(input: readonly T[]): readonly T[];
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
  */
-export function complement<T extends readonly any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
+export function complement<T extends readonly any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 
 /**
  * It performs right-to-left function composition.
  */
-export function compose<T1>(fn0: () => T1): () => T1;
-export function compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-export function compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-export function compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
-
-export function compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
-export function compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
-export function compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
-export function compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
-
-export function compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
-export function compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
-export function compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
-export function compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
-
-export function compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
-export function compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
-export function compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
-export function compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
-
-export function compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
-export function compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
-export function compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
-export function compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
-
-export function compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
-export function compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
-export function compose<V0, V1, T1, T2, T3, T4, T5, T6>(
-  fn5: (x: T5) => T6,
-  fn4: (x: T4) => T5,
-  fn3: (x: T3) => T4,
-  fn2: (x: T2) => T3,
-  fn1: (x: T1) => T2,
-  fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
-export function compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-  fn5: (x: T5) => T6,
-  fn4: (x: T4) => T5,
-  fn3: (x: T3) => T4,
-  fn2: (x: T2) => T3,
-  fn1: (x: T1) => T2,
-  fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...func: readonly [
+      fnLast: (a: any) => TResult,
+      ...func: ReadonlyArray<(a: any) => any>,
+      f7: (a: R6) => R7,
+      f6: (a: R5) => R6,
+      f5: (a: R4) => R5,
+      f4: (a: R3) => R4,
+      f3: (a: R2) => R3,
+      f2: (a: R1) => R2,
+      f1: (...args: TArgs) => R1
+  ]
+): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7>(
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6>(
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R6;
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5>(
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R5;
+export function compose<TArgs extends readonly any[], R1, R2, R3, R4>(
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R4;
+export function compose<TArgs extends readonly any[], R1, R2, R3>(
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R3;
+export function compose<TArgs extends readonly any[], R1, R2>(
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R2;
+export function compose<TArgs extends readonly any[], R1>(
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /**
  * It returns a new string or array, which is the result of merging `x` and `y`.
@@ -309,8 +332,7 @@ export function concat(x: string): (y: string) => string;
  * 
  * If no winner is found, then `fn` returns `undefined`.
  */
-export function cond(conditions: readonly (readonly [Pred, (...a: readonly any[]) => any])[]): (...x: readonly any[]) => any;
-export function cond<A, B>(conditions: readonly (readonly [SafePred<A>, (...a: readonly A[]) => B])[]): (...x: readonly A[]) => B;
+export function cond<T extends readonly any[], R>(conditions: ReadonlyArray<CondPair<T, R>>): (...args: T) => R;
 
 /**
  * Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
@@ -351,8 +373,8 @@ export function difference<T>(a: readonly T[]): (b: readonly T[]) => readonly T[
 /**
  * It returns a new object that does not contain property `prop`.
  */
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc<T>(prop: string): (obj: any) => T;
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
@@ -388,10 +410,13 @@ export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predi
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /**
- * Curried version of `String.prototype.endsWith`
+ * When iterable is a string, then it behaves as `String.prototype.endsWith`.
+ * When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
  */
-export function endsWith(target: string, str: string): boolean;
-export function endsWith(target: string): (str: string) => boolean;
+export function endsWith(target: string, iterable: string): boolean;
+export function endsWith(target: string): (iterable: string) => boolean;
+export function endsWith<T>(target: readonly T[], list: readonly T[]): boolean;
+export function endsWith<T>(target: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -470,6 +495,8 @@ export function fromPairs<V>(listOfPairs: readonly (readonly [string, V])[]): { 
  */
 export function groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { readonly [index: string]: readonly T[] };
 export function groupBy<T>(groupFn: (x: T) => string): (list: readonly T[]) => { readonly [index: string]: readonly T[] };
+export function groupBy<T, U>(groupFn: (x: T) => string, list: readonly T[]): U;
+export function groupBy<T, U>(groupFn: (x: T) => string): (list: readonly T[]) => U;
 
 /**
  * It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
@@ -498,8 +525,9 @@ export function hasPath<T>(
 /**
  * It returns the first element of list or string `input`.
  */
-export function head<T>(input: readonly T[]): T | undefined;
 export function head(input: string): string;
+export function head(emptyList: readonly []): undefined;
+export function head<T>(input: readonly T[]): T | undefined;
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -519,16 +547,7 @@ export function identity<T>(input: T): T;
  * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
-export function ifElse<T, U>(
-  condition: (x: T) => boolean, 
-  onTrue: (x: T) => U, 
-  onFalse: (x: T) => U, 
-): (x: T) => U;
-export function ifElse<T, K, U>(
-  condition: (x: T, y: K) => boolean, 
-  onTrue: (x: T, y: K) => U, 
-  onFalse: (x: T, y: K) => U, 
-): (x: T, y: K) => U;
+export function ifElse<TArgs extends readonly any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /**
  * It increments a number.
@@ -588,8 +607,10 @@ export function intersperse<T>(separator: T): (list: readonly T[]) => readonly T
 /**
  * It returns `true` if `x` is instance of `targetPrototype`.
  */
-export function is(targetPrototype: any, x: any): boolean;
-export function is(targetPrototype: any): (x: any) => boolean;
+export function is<C extends () => any>(targetPrototype: C, val: any): val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C, val: any): val is InstanceType<C>;
+export function is<C extends () => any>(targetPrototype: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C): (val: any) => val is InstanceType<C>;
 
 /**
  * It returns `true` if `x` is `empty`.
@@ -618,7 +639,7 @@ export function keys<T>(x: T): readonly string[];
  */
 export function last(str: string): string;
 export function last(emptyList: readonly []): undefined;
-export function last<T extends any>(list: readonly T[]): T;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -744,8 +765,8 @@ export function median(list: readonly number[]): number;
 /**
  * It creates a copy of `target` object with overidden `newProps` properties.
  */
-export function merge<Output>(target: object, newProps: object): Output;
-export function merge<Output>(target: object): (newProps: object) => Output;
+export function merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output;
 
 /**
  * It merges all objects of `list` array sequentially and returns the result.
@@ -938,197 +959,61 @@ export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 /**
  * It performs left-to-right function composition.
  */
-export function pipe<T1>(fn0: () => T1): () => T1;
-export function pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-export function pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-export function pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
-
-export function pipe<T1, T2>(fn0: () => T1, fn1: (x: T1) => T2): () => T2;
-export function pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
-export function pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
-export function pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
-
-export function pipe<T1, T2, T3>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): () => T3;
-export function pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
-export function pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
-export function pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
-
-export function pipe<T1, T2, T3, T4>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): () => T4;
-export function pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
-export function pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
-export function pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
-
-export function pipe<T1, T2, T3, T4, T5>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): () => T5;
-export function pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
-export function pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
-
-export function pipe<T1, T2, T3, T4, T5, T6>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): () => T6;
-export function pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
-export function pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-  fn0: (x0: V0, x1: V1, x2: V2) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
-
-export function pipe<T1, T2, T3, T4, T5, T6, T7>(
-  fn0: () => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn: (x: T6) => T7): () => T7;
-export function pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
-  fn0: (x: V0) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn: (x: T6) => T7): (x: V0) => T7;
-export function pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(
-  fn0: (x0: V0, x1: V1) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(
-  fn0: (x0: V0, x1: V1, x2: V2) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
-
-export function pipe<T1, T2, T3, T4, T5, T6, T7, T8>(
-  fn0: () => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn: (x: T7) => T8): () => T8;
-export function pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
-  fn0: (x: V0) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn: (x: T7) => T8): (x: V0) => T8;
-export function pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(
-  fn0: (x0: V0, x1: V1) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
-  fn0: (x0: V0, x1: V1, x2: V2) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
-
-export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-  fn0: () => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9): () => T9;
-export function pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-  fn0: (x0: V0) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9): (x0: V0) => T9;
-export function pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-  fn0: (x0: V0, x1: V1) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-  fn0: (x0: V0, x1: V1, x2: V2) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
-
-export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-  fn0: () => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9,
-  fn9: (x: T9) => T10): () => T10;
-export function pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-  fn0: (x0: V0) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9,
-  fn9: (x: T9) => T10): (x0: V0) => T10;
-export function pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-  fn0: (x0: V0, x1: V1) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9,
-  fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
-export function pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-  fn0: (x0: V0, x1: V1, x2: V2) => T1,
-  fn1: (x: T1) => T2,
-  fn2: (x: T2) => T3,
-  fn3: (x: T3) => T4,
-  fn4: (x: T4) => T5,
-  fn5: (x: T5) => T6,
-  fn6: (x: T6) => T7,
-  fn7: (x: T7) => T8,
-  fn8: (x: T8) => T9,
-  fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
+export function pipe<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...funcs: readonly [
+      f1: (...args: TArgs) => R1,
+      f2: (a: R1) => R2,
+      f3: (a: R2) => R3,
+      f4: (a: R3) => R4,
+      f5: (a: R4) => R5,
+      f6: (a: R5) => R6,
+      f7: (a: R6) => R7,
+      ...func: ReadonlyArray<(a: any) => any>,
+      fnLast: (a: any) => TResult
+  ]
+): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+export function pipe<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7
+): (...args: TArgs) => R7;
+export function pipe<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6
+): (...args: TArgs) => R6;
+export function pipe<TArgs extends readonly any[], R1, R2, R3, R4, R5>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5
+): (...args: TArgs) => R5;
+export function pipe<TArgs extends readonly any[], R1, R2, R3, R4>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4
+): (...args: TArgs) => R4;
+export function pipe<TArgs extends readonly any[], R1, R2, R3>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3
+): (...args: TArgs) => R3;
+export function pipe<TArgs extends readonly any[], R1, R2>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2
+): (...args: TArgs) => R2;
+export function pipe<TArgs extends readonly any[], R1>(
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
@@ -1168,11 +1053,17 @@ export function propEq<K extends string | number>(propToFind: K): {
 /**
  * It returns `true` if `property` of `obj` is from `target` type.
  */
-export function propIs(type: any, name: string, obj: any): boolean;
-export function propIs(type: any, name: string): (obj: any) => boolean;
-export function propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+export function propIs<C extends (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: readonly any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+export function propIs<C extends new (...args: readonly any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 
 /**
@@ -1241,6 +1132,7 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) =>
  * It returns copy of `list` sorted by `sortFn` function.
  */
 export function sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): readonly T[];
+export function sortBy<T>(sortFn: (a: T) => Ord): (list: readonly T[]) => readonly T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: readonly T[]) => readonly T[];
 
 /**
@@ -1260,10 +1152,13 @@ export function splitEvery(sliceLength: number): {
 };
 
 /**
- * Curried version of `String.prototype.startsWith`
+ * When iterable is a string, then it behaves as `String.prototype.startsWith`.
+ * When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
  */
 export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
+export function startsWith<T>(target: readonly T[], list: readonly T[]): boolean;
+export function startsWith<T>(target: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Curried version of `x - y`
@@ -1331,16 +1226,19 @@ export function test(regExpression: RegExp, str: string): boolean;
 export function times<T>(fn: (i: number) => T, howMany: number): readonly T[];
 export function times<T>(fn: (i: number) => T): (howMany: number) => readonly T[];
 
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /**
  * It transforms an object to a list.
  */
-export function toPairs<S>(obj: { readonly [k: string]: S } | { readonly [k: number]: S }): readonly (readonly [string, S])[];
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): ReadonlyArray<{ readonly [key in K]: readonly [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): ReadonlyArray<readonly [string, S]>;
 
-export function toString<T>(x: T): string;
+export function toString(x: unknown): string;
 
 export function transpose<T>(list: readonly (readonly T[])[]): readonly (readonly T[])[];
 
@@ -1401,8 +1299,10 @@ export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: reado
  * 
  * In the other case, the final output will be the `input` itself.
  */
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -1536,3 +1436,24 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => read
 export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
 export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+
+/**
+ * It calls a function `fn` with the list of values of the returned function.
+ * 
+ * `R.unapply` is the opposite of `R.apply` method.
+ */
+export function unapply<T = any>(fn: (args: readonly any[]) => T): (...args: readonly any[]) => T;
+
+/**
+ * It applies function `fn` to the list of arguments.
+ * 
+ * This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
+ */
+export function apply<T = any>(fn: (...args: readonly any[]) => T, args: readonly any[]): T;
+export function apply<T = any>(fn: (...args: readonly any[]) => T): (args: readonly any[]) => T;
+
+/**
+ * Creates a function that is bound to a context.
+ */
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;

@@ -1,4 +1,4 @@
-import { max } from './max'
+import {max} from './max'
 
 test('with number', () => {
   expect(max(2, 1)).toBe(2)

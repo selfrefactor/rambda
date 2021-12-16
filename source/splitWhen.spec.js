@@ -1,29 +1,33 @@
-import { splitWhen as splitWhenRamda } from 'ramda'
+import {splitWhen as splitWhenRamda} from 'ramda'
 
-import { equals } from './equals'
-import { splitWhen } from './splitWhen'
+import {equals} from './equals'
+import {splitWhen} from './splitWhen'
 
-const list = [ 1, 2, 1, 2 ]
+const list = [1, 2, 1, 2]
 
 test('happy', () => {
   const result = splitWhen(equals(2), list)
-  expect(result).toEqual([ [ 1 ], [ 2, 1, 2 ] ])
+  expect(result).toEqual([[1], [2, 1, 2]])
 })
 
 test('when predicate returns false', () => {
   const result = splitWhen(equals(3))(list)
-  expect(result).toEqual([ list, [] ])
+  expect(result).toEqual([list, []])
 })
 
-const badInputs = [ 1, true, /foo/g, {} ]
-const throwingBadInputs = [ null, undefined ]
+const badInputs = [1, true, /foo/g, {}]
+const throwingBadInputs = [null, undefined]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
-    expect(() => splitWhen(equals(2), badInput)).toThrowWithMessage(TypeError,
-      `Cannot read property 'length' of ${ badInput }`)
-    expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(TypeError,
-      `Cannot read property 'length' of ${ badInput }`)
+    expect(() => splitWhen(equals(2), badInput)).toThrowWithMessage(
+      TypeError,
+      `Cannot read property 'length' of ${badInput}`
+    )
+    expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(
+      TypeError,
+      `Cannot read properties of ${badInput} (reading 'length')`
+    )
   })
 
   badInputs.forEach(badInput => {

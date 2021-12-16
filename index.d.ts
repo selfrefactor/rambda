@@ -1,15 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol";
-
-type AnyFunction = (...args: any[]) => any;
-type LengthOfTuple<Tuple extends unknown[]> = Tuple['length'];
-type DropFirstInTuple<T extends unknown[]> = T extends [arg: any, ...rest: infer U] ? U : T;
-type LastInTuple<Tuple extends unknown[]> = Tuple[LengthOfTuple<DropFirstInTuple<Tuple>>];
-
-type ParametersOfLastInTuple<TFunctions extends AnyFunction[]> = Parameters<LastInTuple<TFunctions>>;
-type ReturnTypeOfLastInTuple<TFunctions extends AnyFunction[]> = ReturnType<LastInTuple<TFunctions>>;
-
-type ParametersOfFirstInTuple<TFunctions extends AnyFunction[]> = Parameters<TFunctions[0]>;
-type ReturnTypeOfFirstInTuple<TFunctions extends AnyFunction[]> = ReturnType<TFunctions[0]>;
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error";
 
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -20,6 +9,7 @@ type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 export type RamdaPath = (number | string)[];
+type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -166,21 +156,13 @@ export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boo
 /**
  * It returns function that always returns `x`.
  */
-export function always<T>(x: T): () => T;
+export function always<T>(x: T): (...args: unknown[]) => T;
 
 /**
  * Logical AND
  */
 export function and<T, U>(x: T, y: U): T | U;
 export function and<T>(x: T): <U>(y: U) => T | U;
-
-/**
- *
- * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding capabilities of Function.prototype.bind.
- */
-export function bind<T, U>(fn: (this: T, x: any) => U, y: any): U;
-export function bind<T, U>(fn: (x: any) => U, y: any): U;
-
 
 /**
  * Logical OR
@@ -205,15 +187,6 @@ export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
 export function append<T>(x: T, list: T[]): T[];
 export function append<T>(x: T): <T>(list: T[]) => T[];
 
-/**
- * It applies function fn to the argument list args. This is useful for creating a fixed-arity function from a variadic function. fn should be a bound function if context is significant.
- */
-export function apply<T, U>(fn: (...args: T[]) => U, ...args: T[]): U;
-export function apply<T, U>(fn: (...args: T[]) => U): (...args: T[]) => U;
-export function apply<T>(fn: (...args: any[]) => T, ...args: any[]): T;
-export function apply<T>(fn: (...args: any[]) => T): (...args: any[]) => T;
-
-
 export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
   spec: Spec
 ): (
@@ -224,8 +197,8 @@ export function applySpec<T>(spec: any): (...args: any[]) => T;
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
  */
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /**
@@ -250,7 +223,6 @@ export function both(pred1: Pred): (pred2: Pred) => Pred;
  */
 export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
 export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restrict a number `input` to be within `min` and `max` limits.
@@ -273,16 +245,75 @@ export function clone<T>(input: T[]): T[];
  * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
  */
-export function complement<T extends any[]>(pred: (...args: T) => boolean): (...args: T) => boolean;
+export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 
 /**
  * It performs right-to-left function composition.
  */
-export function compose<
-  TFunctions extends AnyFunction[],
-  TParameters extends ParametersOfLastInTuple<TFunctions>,
-  TReturn extends ReturnTypeOfFirstInTuple<TFunctions>
->(...fns: TFunctions): (...args: TParameters) => TReturn;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...func: [
+      fnLast: (a: any) => TResult,
+      ...func: Array<(a: any) => any>,
+      f7: (a: R6) => R7,
+      f6: (a: R5) => R6,
+      f5: (a: R4) => R5,
+      f4: (a: R3) => R4,
+      f3: (a: R2) => R3,
+      f2: (a: R1) => R2,
+      f1: (...args: TArgs) => R1
+  ]
+): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R6;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R5;
+export function compose<TArgs extends any[], R1, R2, R3, R4>(
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R4;
+export function compose<TArgs extends any[], R1, R2, R3>(
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R3;
+export function compose<TArgs extends any[], R1, R2>(
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R2;
+export function compose<TArgs extends any[], R1>(
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /**
  * It returns a new string or array, which is the result of merging `x` and `y`.
@@ -301,8 +332,7 @@ export function concat(x: string): (y: string) => string;
  * 
  * If no winner is found, then `fn` returns `undefined`.
  */
-export function cond(conditions: ([Pred, (...a: any[]) => any])[]): (...x: any[]) => any;
-export function cond<A, B>(conditions: ([SafePred<A>, (...a: A[]) => B])[]): (...x: A[]) => B;
+export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
 
 /**
  * Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
@@ -343,8 +373,8 @@ export function difference<T>(a: T[]): (b: T[]) => T[];
 /**
  * It returns a new object that does not contain property `prop`.
  */
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc<T>(prop: string): (obj: any) => T;
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
@@ -380,10 +410,13 @@ export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predi
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /**
- * Curried version of `String.prototype.endsWith`
+ * When iterable is a string, then it behaves as `String.prototype.endsWith`.
+ * When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
  */
-export function endsWith(target: string, str: string): boolean;
-export function endsWith(target: string): (str: string) => boolean;
+export function endsWith(target: string, iterable: string): boolean;
+export function endsWith(target: string): (iterable: string) => boolean;
+export function endsWith<T>(target: T[], list: T[]): boolean;
+export function endsWith<T>(target: T[]): (list: T[]) => boolean;
 
 /**
  * It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -462,6 +495,8 @@ export function fromPairs<V>(listOfPairs: ([string, V])[]): { [index: string]: V
  */
 export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
 export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
+export function groupBy<T, U>(groupFn: (x: T) => string, list: T[]): U;
+export function groupBy<T, U>(groupFn: (x: T) => string): (list: T[]) => U;
 
 /**
  * It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
@@ -490,8 +525,9 @@ export function hasPath<T>(
 /**
  * It returns the first element of list or string `input`.
  */
-export function head<T>(input: T[]): T | undefined;
 export function head(input: string): string;
+export function head(emptyList: []): undefined;
+export function head<T>(input: T[]): T | undefined;
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -511,16 +547,7 @@ export function identity<T>(input: T): T;
  * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
-export function ifElse<T, U>(
-  condition: (x: T) => boolean, 
-  onTrue: (x: T) => U, 
-  onFalse: (x: T) => U, 
-): (x: T) => U;
-export function ifElse<T, K, U>(
-  condition: (x: T, y: K) => boolean, 
-  onTrue: (x: T, y: K) => U, 
-  onFalse: (x: T, y: K) => U, 
-): (x: T, y: K) => U;
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /**
  * It increments a number.
@@ -580,8 +607,10 @@ export function intersperse<T>(separator: T): (list: T[]) => T[];
 /**
  * It returns `true` if `x` is instance of `targetPrototype`.
  */
-export function is(targetPrototype: any, x: any): boolean;
-export function is(targetPrototype: any): (x: any) => boolean;
+export function is<C extends () => any>(targetPrototype: C, val: any): val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C, val: any): val is InstanceType<C>;
+export function is<C extends () => any>(targetPrototype: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C): (val: any) => val is InstanceType<C>;
 
 /**
  * It returns `true` if `x` is `empty`.
@@ -610,7 +639,7 @@ export function keys<T>(x: T): string[];
  */
 export function last(str: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T;
+export function last<T extends any>(list: T[]): T | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -736,8 +765,8 @@ export function median(list: number[]): number;
 /**
  * It creates a copy of `target` object with overidden `newProps` properties.
  */
-export function merge<Output>(target: object, newProps: object): Output;
-export function merge<Output>(target: object): (newProps: object) => Output;
+export function merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output;
 
 /**
  * It merges all objects of `list` array sequentially and returns the result.
@@ -930,11 +959,61 @@ export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 /**
  * It performs left-to-right function composition.
  */
- export function pipe<
- TFunctions extends AnyFunction[],
- TParameters extends ParametersOfFirstInTuple<TFunctions>,
- TReturn extends ReturnTypeOfLastInTuple<TFunctions>
->(...fns: TFunctions): (...args: TParameters) => TReturn;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...funcs: [
+      f1: (...args: TArgs) => R1,
+      f2: (a: R1) => R2,
+      f3: (a: R2) => R3,
+      f4: (a: R3) => R4,
+      f5: (a: R4) => R5,
+      f6: (a: R5) => R6,
+      f7: (a: R6) => R7,
+      ...func: Array<(a: any) => any>,
+      fnLast: (a: any) => TResult
+  ]
+): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7
+): (...args: TArgs) => R7;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6
+): (...args: TArgs) => R6;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5
+): (...args: TArgs) => R5;
+export function pipe<TArgs extends any[], R1, R2, R3, R4>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4
+): (...args: TArgs) => R4;
+export function pipe<TArgs extends any[], R1, R2, R3>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3
+): (...args: TArgs) => R3;
+export function pipe<TArgs extends any[], R1, R2>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2
+): (...args: TArgs) => R2;
+export function pipe<TArgs extends any[], R1>(
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
@@ -974,11 +1053,17 @@ export function propEq<K extends string | number>(propToFind: K): {
 /**
  * It returns `true` if `property` of `obj` is from `target` type.
  */
-export function propIs(type: any, name: string, obj: any): boolean;
-export function propIs(type: any, name: string): (obj: any) => boolean;
-export function propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+export function propIs<C extends new (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 
 /**
@@ -1047,6 +1132,7 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
  * It returns copy of `list` sorted by `sortFn` function.
  */
 export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
+export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
 /**
@@ -1066,10 +1152,13 @@ export function splitEvery(sliceLength: number): {
 };
 
 /**
- * Curried version of `String.prototype.startsWith`
+ * When iterable is a string, then it behaves as `String.prototype.startsWith`.
+ * When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
  */
 export function startsWith(target: string, str: string): boolean;
 export function startsWith(target: string): (str: string) => boolean;
+export function startsWith<T>(target: T[], list: T[]): boolean;
+export function startsWith<T>(target: T[]): (list: T[]) => boolean;
 
 /**
  * Curried version of `x - y`
@@ -1137,16 +1226,19 @@ export function test(regExpression: RegExp, str: string): boolean;
 export function times<T>(fn: (i: number) => T, howMany: number): T[];
 export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /**
  * It transforms an object to a list.
  */
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): ([string, S])[];
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
-export function toString<T>(x: T): string;
+export function toString(x: unknown): string;
 
 export function transpose<T>(list: (T[])[]): (T[])[];
 
@@ -1207,8 +1299,10 @@ export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) 
  * 
  * In the other case, the final output will be the `input` itself.
  */
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, obj: T): U;
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (obj: T) => U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -1342,3 +1436,24 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
 export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+
+/**
+ * It calls a function `fn` with the list of values of the returned function.
+ * 
+ * `R.unapply` is the opposite of `R.apply` method.
+ */
+export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
+
+/**
+ * It applies function `fn` to the list of arguments.
+ * 
+ * This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
+ */
+export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
+export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
+
+/**
+ * Creates a function that is bound to a context.
+ */
+export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;

@@ -1,7 +1,7 @@
-import { remove } from './remove'
+import {remove} from './remove'
 
 test('happy', () => {
-  const inputs = [ /foo/, /not\shere/, /also/, 'bar' ]
+  const inputs = [/foo/, /not\shere/, /also/, 'bar']
   const text = 'foo bar baz foo'
 
   const result = remove(inputs)(text)
@@ -11,7 +11,7 @@ test('happy', () => {
 })
 
 test('with strings + curry', () => {
-  const inputs = [ 'foo', 'bar' ]
+  const inputs = ['foo', 'bar']
   const text = 'foo bar baz foo'
 
   const result = remove(inputs)(text)
@@ -21,7 +21,7 @@ test('with strings + curry', () => {
 })
 
 test('with strings and regex', () => {
-  const inputs = [ /foo/g, 'bar' ]
+  const inputs = [/foo/g, 'bar']
   const text = 'foo bar baz foo'
 
   const result = remove(inputs, text)
@@ -31,15 +31,17 @@ test('with strings and regex', () => {
 })
 
 test('text is not string', () => {
-  const inputs = [ /foo/g, 'bar' ]
+  const inputs = [/foo/g, 'bar']
   const text = null
 
-  expect(() => remove(inputs, text)).toThrowWithMessage(Error,
-    'R.remove requires string not Null')
+  expect(() => remove(inputs, text)).toThrowWithMessage(
+    Error,
+    'R.remove requires string not Null'
+  )
 })
 
 test('with regexes', () => {
-  const inputs = [ /foo/g, /bar/ ]
+  const inputs = [/foo/g, /bar/]
   const text = 'foo bar baz foo'
 
   const result = remove(inputs, text)

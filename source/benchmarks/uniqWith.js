@@ -1,7 +1,7 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 const {
-  uniqListOfString,
+  uniqListOfStrings,
   uniqListOfBooleans,
   uniqListOfNumbers,
   uniqListOfLists,
@@ -11,33 +11,29 @@ const {
 const limit = 100
 
 const modes = [
-  [uniqListOfString(limit), (x, y) => x.startsWith('o0') && y.length > 2],
-  [uniqListOfBooleans(limit), (x, y) => x !== y],
+  [uniqListOfStrings(limit), (x, y) => x.length === y.length],
+  [uniqListOfBooleans(limit), (x, y) => x === y],
+  [uniqListOfNumbers(limit), (x, y) => x > y],
+  [uniqListOfLists(limit), (x, y) => x.length === y.length],
   [
-    uniqListOfNumbers(limit),
-    (x, y) => (x % 2 === 1 && y % 2 === 1),
+    uniqListOfObjects(limit),
+    x => (x, y) => Object.keys(x).length === Object.keys(y).length,
   ],
-  [uniqListOfLists(limit), (x, y) => x.length !== y.length],
-  [uniqListOfObjects(limit), (x, y) => x.a === y.a],
 ]
 
-const uniqWith = [
+function applyBenchmark(fn, input) {
+  return fn(input[1], input[0])
+}
+
+const tests = [
   {
     label: 'Rambda',
-    fn: () => {
-      modes.forEach(([mode, fn]) => {
-        R.uniqWith(fn, mode)
-      })
-    },
+    fn: R.uniqWith,
   },
   {
     label: 'Ramda',
-    fn: () => {
-      modes.forEach(([mode, fn]) => {
-        Ramda.uniqWith(fn, mode)
-      })
-    },
+    fn: Ramda.uniqWith,
   },
 ]
 
-module.exports = uniqWith
+module.exports = {modes, tests, applyBenchmark}

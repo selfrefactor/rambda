@@ -1,14 +1,8 @@
-import { curry } from './curry'
-import { ok } from './ok'
+import {curry} from './curry'
+import {ok} from './ok'
 
-function replaceAllFn(
-  patterns, replacer, input
-){
-  ok(
-    patterns, replacer, input
-  )(
-    Array, String, String
-  )
+function replaceAllFn(patterns, replacer, input) {
+  ok(patterns, replacer, input)(Array, String, String)
 
   let text = input
   patterns.forEach(singlePattern => {

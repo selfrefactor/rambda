@@ -1,15 +1,16 @@
-import { _isArray } from './_internals/_isArray'
-import { _indexOf } from './indexOf'
+import {_isArray} from './_internals/_isArray'
+import {_indexOf} from './equals'
 
-export function includes(valueToFind, input){
-  if (arguments.length === 1) return _input => includes(valueToFind, _input)
-  if (typeof input === 'string'){
-    return input.includes(valueToFind)
+export function includes(valueToFind, iterable) {
+  if (arguments.length === 1)
+    return _iterable => includes(valueToFind, _iterable)
+  if (typeof iterable === 'string') {
+    return iterable.includes(valueToFind)
   }
-  if (!input){
-    throw new TypeError(`Cannot read property \'indexOf\' of ${ input }`)
+  if (!iterable) {
+    throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
   }
-  if (!_isArray(input)) return false
+  if (!_isArray(iterable)) return false
 
-  return _indexOf(valueToFind, input) > -1
+  return _indexOf(valueToFind, iterable) > -1
 }

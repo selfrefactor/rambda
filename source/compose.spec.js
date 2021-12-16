@@ -1,5 +1,6 @@
 import {add} from './add'
 import {compose} from './compose'
+import {compose as composeRamda} from 'ramda'
 import {filter} from './filter'
 import {last} from './last'
 import {map} from './map'
@@ -30,4 +31,9 @@ test('ramda spec', () => {
   const g = compose(f)
 
   expect(g(1, 2, 3)).toEqual([1, 2, 3])
+})
+
+test('does not return correct length of composed function', () => {
+  expect(compose(map, map, map).length).toBe(0)
+  expect(composeRamda(map, map, map).length).toBe(2)
 })

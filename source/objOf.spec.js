@@ -1,26 +1,26 @@
-import { objOf } from "./objOf";
-import { objOf as objOfRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
+import {objOf} from './objOf'
+import {objOf as objOfRamda} from 'ramda'
+import {compareCombinations} from './_internals/testUtils'
 
-test("happy", function () {
-  expect(objOf("foo", 42)).toEqual({ foo: 42 });
-});
+test('happy', function () {
+  expect(objOf('foo', 42)).toEqual({foo: 42})
+})
 
-test("with bad inputs", function () {
-  expect(objOf(null, undefined)).toEqual({ null: undefined });
-});
+test('with bad inputs', function () {
+  expect(objOf(null, undefined)).toEqual({null: undefined})
+})
 
-test("curried", function () {
-  expect(objOf("foo")(42)).toEqual({ foo: 42 });
-});
+test('curried', function () {
+  expect(objOf('foo')(42)).toEqual({foo: 42})
+})
 
-describe("brute force", () => {
-  const possibleInputs = [0, 1, null, undefined, [], {}];
+describe('brute force', () => {
+  const possibleInputs = [0, 1, null, undefined, [], {}]
 
   compareCombinations({
     firstInput: possibleInputs,
     secondInput: possibleInputs,
-    callback: (errorsCounters) => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -28,11 +28,11 @@ describe("brute force", () => {
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 0,
           "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 36,
         }
-      `);
+      `)
     },
     fn: objOf,
     fnRamda: objOfRamda,
-  });
-});
-
+  })
+})

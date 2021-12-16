@@ -1,7 +1,7 @@
-import { pipe } from './pipe'
+import {pipe} from './pipe'
 
-export function piped(...inputs){
-  const [ input, ...fnList ] = inputs
+export function piped(...inputs) {
+  const [input, ...fnList] = inputs
 
   return pipe(...fnList)(input)
 }

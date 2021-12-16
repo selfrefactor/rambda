@@ -1,8 +1,6 @@
-import { curry } from './curry'
+import {curry} from './curry'
 
-export function minByFn(
-  compareFn, x, y
-){
+export function minByFn(compareFn, x, y) {
   return compareFn(y) < compareFn(x) ? y : x
 }
 

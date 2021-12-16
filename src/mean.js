@@ -1,5 +1,5 @@
-import { sum } from './sum'
+import {sum} from './sum'
 
-export function mean(list){
+export function mean(list) {
   return sum(list) / list.length
 }

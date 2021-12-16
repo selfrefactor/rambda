@@ -1,133 +1,133 @@
-import { _isArray } from './_internals/_isArray'
-import { all } from './all'
-import { any } from './any'
-import { includes } from './includes'
-import { init } from './init'
-import { test } from './test'
-import { toLower } from './toLower'
-import { type } from './type'
+import {_isArray} from './_internals/_isArray'
+import {all} from './all'
+import {any} from './any'
+import {includes} from './includes'
+import {init} from './init'
+import {test} from './test'
+import {toLower} from './toLower'
+import {type} from './type'
 
-export function isPrototype(input){
+export function isPrototype(input) {
   const currentPrototype = input.prototype
-  const list = [ Number, String, Boolean, Promise ]
+  const list = [Number, String, Boolean, Promise]
   let toReturn = false
   let counter = -1
-  while (++counter < list.length && !toReturn){
-    if (currentPrototype === list[ counter ].prototype) toReturn = true
+  while (++counter < list.length && !toReturn) {
+    if (currentPrototype === list[counter].prototype) toReturn = true
   }
 
   return toReturn
 }
 
-export function prototypeToString(input){
+export function prototypeToString(input) {
   const currentPrototype = input.prototype
-  const list = [ Number, String, Boolean, Promise ]
-  const translatedList = [ 'Number', 'String', 'Boolean', 'Promise' ]
+  const list = [Number, String, Boolean, Promise]
+  const translatedList = ['Number', 'String', 'Boolean', 'Promise']
   let found
   let counter = -1
 
-  while (++counter < list.length){
-    if (currentPrototype === list[ counter ].prototype) found = counter
+  while (++counter < list.length) {
+    if (currentPrototype === list[counter].prototype) found = counter
   }
 
-  return translatedList[ found ]
+  return translatedList[found]
 }
 
-const typesWithoutPrototype = [ 'any', 'promise', 'async', 'function' ]
+const typesWithoutPrototype = ['any', 'promise', 'async', 'function']
 
-export function fromPrototypeToString(rule){
+export function fromPrototypeToString(rule) {
   if (
     _isArray(rule) ||
     rule === undefined ||
     rule === null ||
     rule.prototype === undefined ||
     typesWithoutPrototype.includes(rule)
-  ){
+  ) {
     return {
       rule,
-      parsed : false,
+      parsed: false,
     }
   }
-  if (String.prototype === rule.prototype){
+  if (String.prototype === rule.prototype) {
     return {
-      rule   : 'string',
-      parsed : true,
+      rule: 'string',
+      parsed: true,
     }
   }
-  if (Boolean.prototype === rule.prototype){
+  if (Boolean.prototype === rule.prototype) {
     return {
-      rule   : 'boolean',
-      parsed : true,
+      rule: 'boolean',
+      parsed: true,
     }
   }
-  if (Number.prototype === rule.prototype){
+  if (Number.prototype === rule.prototype) {
     return {
-      rule   : 'number',
-      parsed : true,
+      rule: 'number',
+      parsed: true,
     }
   }
 
   return {
-    rule   : type(rule.prototype).toLowerCase(),
-    parsed : true,
+    rule: type(rule.prototype).toLowerCase(),
+    parsed: true,
   }
 }
 
-function getRuleAndType(schema, requirementRaw){
-  const ruleRaw = schema[ requirementRaw ]
+function getRuleAndType(schema, requirementRaw) {
+  const ruleRaw = schema[requirementRaw]
   const typeIs = type(ruleRaw)
-  const { rule, parsed } = fromPrototypeToString(ruleRaw)
+  const {rule, parsed} = fromPrototypeToString(ruleRaw)
 
   return {
-    rule     : rule,
-    ruleType : parsed ? 'String' : typeIs,
+    rule: rule,
+    ruleType: parsed ? 'String' : typeIs,
   }
 }
 
-export function isValid({ input, schema }){
+export function isValid({input, schema}) {
   if (input === undefined || schema === undefined) return false
 
   let flag = true
   const boom = boomFlag => {
-    if (!boomFlag){
+    if (!boomFlag) {
       flag = false
     }
   }
 
-  for (const requirementRaw in schema){
-    if (flag){
+  for (const requirementRaw in schema) {
+    if (flag) {
       const isOptional = requirementRaw.endsWith('?')
       const requirement = isOptional ? init(requirementRaw) : requirementRaw
 
-      const { rule, ruleType } = getRuleAndType(schema, requirementRaw)
-      const inputProp = input[ requirement ]
-      const inputPropType = type(input[ requirement ])
+      const {rule, ruleType} = getRuleAndType(schema, requirementRaw)
+      const inputProp = input[requirement]
+      const inputPropType = type(input[requirement])
 
-      const ok = isOptional && inputProp !== undefined || !isOptional
+      const ok = (isOptional && inputProp !== undefined) || !isOptional
 
-      if (!ok || rule === 'any' && inputProp != null || rule === inputProp)
+      if (!ok || (rule === 'any' && inputProp != null) || rule === inputProp)
         continue
 
-      if (ruleType === 'Object'){
+      if (ruleType === 'Object') {
         /**
          * This rule is standalone schema, so we recursevly call `isValid`
          */
         const isValidResult = isValid({
-          input  : inputProp,
-          schema : rule,
+          input: inputProp,
+          schema: rule,
         })
         boom(isValidResult)
-      } else if (ruleType === 'String'){
+      } else if (ruleType === 'String') {
         /**
          * Rule is actual rule such as 'number', so the two types are compared
          */
         boom(toLower(inputPropType) === rule)
-      } else if (typeof rule === 'function'){
+      } else if (typeof rule === 'function') {
         /**
          * Rule is function so we pass to it the input
          */
         boom(rule(inputProp))
-      } else if (ruleType === 'Array' && inputPropType === 'String'){
+      } else if (ruleType === 'Array' && inputPropType === 'String') {
         /**
          * Enum case | rule is like a: ['foo', 'bar']
          */
@@ -136,46 +136,52 @@ export function isValid({ input, schema }){
         ruleType === 'Array' &&
         rule.length === 1 &&
         inputPropType === 'Array'
-      ){
+      ) {
         /**
          * 1. array of type | rule is like a: ['number']
          * 2. rule is like a: [{foo: 'string', bar: 'number'}]
          */
-        const [ currentRule ] = rule
+        const [currentRule] = rule
         const currentRuleType = type(currentRule)
 
         //Check if rule is invalid
-        boom(currentRuleType === 'String' ||
+        boom(
+          currentRuleType === 'String' ||
             currentRuleType === 'Object' ||
-            isPrototype(currentRule))
+            isPrototype(currentRule)
+        )
 
-        if (currentRuleType === 'Object' && flag){
+        if (currentRuleType === 'Object' && flag) {
           /**
            * 2. rule is like a: [{from: 'string'}]
            */
-          const isValidResult = all(inputPropInstance =>
-            isValid({
-              input  : inputPropInstance,
-              schema : currentRule,
-            }),
-          inputProp)
+          const isValidResult = all(
+            inputPropInstance =>
+              isValid({
+                input: inputPropInstance,
+                schema: currentRule,
+              }),
+            inputProp
+          )
           boom(isValidResult)
-        } else if (flag){
+        } else if (flag) {
           /**
            * 1. array of type
            */
 
           const actualRule =
-            currentRuleType === 'String' ?
-              currentRule :
-              prototypeToString(currentRule)
-          const isInvalidResult = any(inputPropInstance =>
-            type(inputPropInstance).toLowerCase() !==
+            currentRuleType === 'String'
+              ? currentRule
+              : prototypeToString(currentRule)
+          const isInvalidResult = any(
+            inputPropInstance =>
+              type(inputPropInstance).toLowerCase() !==
               actualRule.toLowerCase(),
-          inputProp)
+            inputProp
+          )
           boom(!isInvalidResult)
         }
-      } else if (ruleType === 'RegExp' && inputPropType === 'String'){
+      } else if (ruleType === 'RegExp' && inputPropType === 'String') {
         boom(test(rule, inputProp))
       } else {
         boom(false)

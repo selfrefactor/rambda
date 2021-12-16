@@ -13,7 +13,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -34,7 +34,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -55,7 +55,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -76,7 +76,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -97,7 +97,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -118,7 +118,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -139,7 +139,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -160,7 +160,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -181,7 +181,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -202,7 +202,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -279,7 +279,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -300,7 +300,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -377,7 +377,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -398,7 +398,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of undefined",
+    "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",

@@ -1,4 +1,4 @@
-import { xnor } from './xnor'
+import {xnor} from './xnor'
 
 test('when true', () => {
   expect(xnor(1, 1)).toBeTrue()

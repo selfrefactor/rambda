@@ -1,27 +1,26 @@
-import {dissoc, pipe, identity} from 'rambda'
+import {dissoc} from 'rambda'
 
-const obj = {
-  a: 1,
-  b: 2,
-}
-interface Output {
+interface Input {
   a: string,
+  b: string,
+}
+const obj: Input = {
+  a: 'foo',
+  b: 'bar',
 }
 
 describe('R.dissoc', () => {
   it('happy', () => {
-    const result = dissoc<Output>('b', obj)
+    const result = dissoc('b', obj)
 
-    result // $ExpectType Output
+    result.a // $ExpectType string
+
+    // $ExpectError
+    result.b
   })
   it('curried', () => {
-    const result = dissoc<Output>('b')(obj)
+    const result = dissoc('b')(obj)
 
-    result // $ExpectType Output
-  })
-  it('within R.pipe', () => {
-    const result = pipe<object, object, Output>(identity, dissoc('b'))(obj)
-
-    result // $ExpectType Output
+    result.a // $ExpectType string
   })
 })

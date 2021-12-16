@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brute force Function | Function 1`] = `
+Object {
+  "error": Object {
+    "message": "Function.prototype.toString requires that 'this' be a Function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    [Function],
+    [Function],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Number | Number 1`] = `
+Object {
+  "error": Object {
+    "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    9007199254740991n,
+    9007199254740991n,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object | Object 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Map {
+      "foo" => "bar",
+    },
+    Map {
+      "foo" => "bar",
+    },
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force Object | Object 2`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    ArrayBuffer [],
+    ArrayBuffer [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force Object | Object 3`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    DataView [],
+    DataView [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force Object | Object 4`] = `
+Object {
+  "error": Object {
+    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Int16Array [
+      0,
+      0,
+    ],
+    Int16Array [
+      0,
+      0,
+    ],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Object | Object 5`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakMap {},
+    WeakMap {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force Object | Object 6`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakSet {},
+    WeakSet {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force Symbol | Symbol 1`] = `
+Object {
+  "error": Object {
+    "message": "Symbol.prototype.toString requires that 'this' be a Symbol",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Symbol(foo),
+    Symbol(foo),
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;

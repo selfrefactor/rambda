@@ -63,7 +63,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -141,7 +141,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -162,7 +162,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -183,7 +183,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -276,7 +276,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -297,7 +297,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -368,7 +368,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -446,7 +446,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -517,7 +517,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -595,7 +595,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -666,7 +666,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -744,7 +744,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -815,7 +815,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of null",
+    "message": "Cannot read properties of null (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -893,7 +893,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'dropWhile' of undefined",
+    "message": "Cannot read properties of undefined (reading 'dropWhile')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",

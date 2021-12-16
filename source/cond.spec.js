@@ -1,7 +1,7 @@
-import { always } from './always'
-import { cond } from './cond'
-import { equals } from './equals'
-import { T } from './T'
+import {always} from './always'
+import {cond} from './cond'
+import {equals} from './equals'
+import {T} from './T'
 
 test('returns a function', () => {
   expect(typeof cond([])).toEqual('function')
@@ -9,11 +9,11 @@ test('returns a function', () => {
 
 test('returns a conditional function', () => {
   const fn = cond([
-    [ equals(0), always('water freezes at 0°C') ],
-    [ equals(100), always('water boils at 100°C') ],
+    [equals(0), always('water freezes at 0°C')],
+    [equals(100), always('water boils at 100°C')],
     [
       T,
-      function (temp){
+      function (temp) {
         return 'nothing special happens at ' + temp + '°C'
       },
     ],
@@ -25,17 +25,17 @@ test('returns a conditional function', () => {
 
 test('no winner', () => {
   const fn = cond([
-    [ equals('foo'), always(1) ],
-    [ equals('bar'), always(2) ],
+    [equals('foo'), always(1)],
+    [equals('bar'), always(2)],
   ])
   expect(fn('quux')).toEqual(undefined)
 })
 
 test('predicates are tested in order', () => {
   const fn = cond([
-    [ T, always('foo') ],
-    [ T, always('bar') ],
-    [ T, always('baz') ],
+    [T, always('foo')],
+    [T, always('bar')],
+    [T, always('baz')],
   ])
   expect(fn()).toEqual('foo')
 })

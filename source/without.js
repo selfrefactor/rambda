@@ -1,5 +1,5 @@
 import {reduce} from './reduce'
-import {_indexOf} from './indexOf'
+import {_indexOf} from './equals'
 
 export function without(matchAgainst, source) {
   if (source === undefined) {

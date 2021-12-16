@@ -1,5 +1,5 @@
-import { keys } from './keys'
+import {keys} from './keys'
 
 test('happy', () => {
-  expect(keys({ a : 1 })).toEqual([ 'a' ])
+  expect(keys({a: 1})).toEqual(['a'])
 })

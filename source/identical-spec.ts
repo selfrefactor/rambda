@@ -10,5 +10,17 @@ describe('R.identical', () => {
   it('with object', () => {
     const result = identical({a: 1}, {b: 2})
     result // $ExpectType boolean
+    identical({a: 1}, {b: 2})
+
+    // $ExpectError
+    identical({a: 1})({b: 2})
+  })
+  it('with object - explicit type', () => {
+    interface Foo {
+      a: number,
+    }
+    identical<Foo>({a: 1}, {a: 2})
+    // $ExpectError
+    identical<Foo>({a: 1}, {b: 2})
   })
 })

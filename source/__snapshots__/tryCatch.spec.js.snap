@@ -11,7 +11,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -30,7 +30,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -49,7 +49,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -68,7 +68,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -87,7 +87,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -108,7 +108,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -129,7 +129,7 @@ Object {
   "label": "Rambda should throw",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'apply' of null",
+    "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -151,7 +151,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -173,7 +173,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -195,7 +195,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -217,7 +217,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -239,7 +239,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -261,7 +261,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -285,7 +285,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -309,7 +309,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -333,7 +333,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -355,7 +355,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -377,7 +377,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",
@@ -401,7 +401,7 @@ Object {
   "label": "errors types are different",
   "ok": false,
   "ramdaError": Object {
-    "message": "Cannot read property 'length' of null",
+    "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
   "ramdaResult": "PENDING",

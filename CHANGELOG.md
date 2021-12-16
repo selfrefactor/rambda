@@ -1,3 +1,57 @@
+7.0.0
+
+- Braking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. 
+
+Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
+
+There are several other changes in `@types/ramda` as stated in [this comment](https://github.com/ramda/ramda/issues/2976#issuecomment-990408945). This leads to change of typings for the following methods in **Rambda**:
+
+-- R.unless
+-- R.toString
+-- R.ifElse
+-- R.always
+-- R.complement
+-- R.cond
+-- R.is
+-- R.sortBy
+-- R.dissoc
+-- R.toPairs
+-- R.assoc
+-- R.toLower
+-- R.toUpper
+
+- One more reason for the braking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior. 
+
+- Remove unused typing for `R.chain`.
+
+- `R.map`/`R.filter` no longer accept bad inputs as iterable. This way, Rambda behaves more like Ramda, which also throws.
+
+- Make `R.lastIndexOf` follow the logic of `R.indexOf`.
+
+- Change `R.type` logic to Ramda logic. This way, `R.type` can return `Error` and `Set` as results.
+
+- Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
+
+- Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
+
+- Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
+
+- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606).
+
+- Improve non-curry typings of `R.merge` by using types from [mobily/ts-belt](https://github.com/mobily/ts-belt).
+
+- Improve performance of `R.uniqWith`.
+
+- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
+
+- Make `R.eqProps` safe for falsy inputs - based on [this opened Ramda PR](https://github.com/ramda/ramda/pull/2943).
+
+- Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
+
+- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609) 
+
 6.9.0
 
 - Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
@@ -11,7 +65,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 - R.symmetricDifference
 - R.union
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list. 
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086. 
 
 6.8.3
 

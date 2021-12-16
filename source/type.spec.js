@@ -1,6 +1,5 @@
-import { type as ramdaType } from 'ramda'
-
-import { type } from './type'
+import {type} from './type'
+import {type as typeRamda} from 'ramda'
 
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
@@ -20,6 +19,18 @@ test('with new String', () => {
 
 test('with new Number', () => {
   expect(type(new Number(1))).toBe('Number')
+})
+
+test('with error', () => {
+  expect(type(Error(`foo`))).toBe('Error')
+  expect(typeRamda(Error(`foo`))).toBe('Error')
+})
+
+test('with error - wrong @types/ramda test', () => {
+  // @types/ramda expect the result to be 'Error' but it is not
+  class ExtendedError extends Error {}
+  expect(type(ExtendedError)).toBe('Function')
+  expect(typeRamda(ExtendedError)).toBe('Function')
 })
 
 test('with new promise', () => {
@@ -44,11 +55,11 @@ test('async arrow', () => {
 
 test('function', () => {
   const fn1 = () => {}
-  const fn2 = function (){}
+  const fn2 = function () {}
 
-  function fn3(){}
+  function fn3() {}
 
-  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
+  ;[() => {}, fn1, fn2, fn3].map(val => {
     expect(type(val)).toEqual('Function')
   })
 })
@@ -75,7 +86,7 @@ test('null', () => {
 
 test('array', () => {
   expect(type([])).toEqual('Array')
-  expect(type([ 1, 2, 3 ])).toEqual('Array')
+  expect(type([1, 2, 3])).toEqual('Array')
 })
 
 test('regex', () => {
@@ -90,24 +101,30 @@ test('not a number', () => {
   expect(type(Number('s'))).toBe('NaN')
 })
 
+test('set', () => {
+  const exampleSet = new Set([1, 2, 3])
+  expect(type(exampleSet)).toBe('Set')
+  expect(typeRamda(exampleSet)).toBe('Set')
+})
+
 test('function inside object 1', () => {
   const obj = {
-    f(){
+    f() {
       return 4
     },
   }
 
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })
 
 test('function inside object 2', () => {
   const name = 'f'
   const obj = {
-    [ name ](){
+    [name]() {
       return 4
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(ramdaType(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
 })

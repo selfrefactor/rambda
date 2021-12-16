@@ -1,5 +1,22 @@
-export function endsWith(target, str){
-  if (arguments.length === 1) return _str => endsWith(target, _str)
+import {equals} from './equals.js'
+import {_isArray} from './_internals/_isArray.js'
 
-  return str.endsWith(target)
+export function endsWith(target, iterable) {
+  if (arguments.length === 1) return _iterable => endsWith(target, _iterable)
+
+  if (typeof iterable === 'string') {
+    return iterable.endsWith(target)
+  }
+  if (!_isArray(target)) return false
+
+  const diff = iterable.length - target.length
+  let correct = true
+  const filtered = target.filter((x, index) => {
+    if (!correct) return false
+    const result = equals(x, iterable[index + diff])
+    if (!result) correct = false
+    return result
+  })
+
+  return filtered.length === target.length
 }

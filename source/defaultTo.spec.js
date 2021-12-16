@@ -1,4 +1,4 @@
-import { defaultTo } from './defaultTo'
+import {defaultTo} from './defaultTo'
 
 test('with undefined', () => {
   expect(defaultTo('foo')(undefined)).toEqual('foo')

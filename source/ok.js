@@ -1,16 +1,16 @@
-import { any } from './any'
-import { glue } from './glue'
-import { fromPrototypeToString, isValid } from './isValid'
-import { map } from './map'
-import { type } from './type'
+import {any} from './any'
+import {glue} from './glue'
+import {fromPrototypeToString, isValid} from './isValid'
+import {map} from './map'
+import {type} from './type'
 
-export function schemaToString(schema){
-  if (type(schema) !== 'Object'){
+export function schemaToString(schema) {
+  if (type(schema) !== 'Object') {
     return fromPrototypeToString(schema).rule
   }
 
   return map(x => {
-    const { rule, parsed } = fromPrototypeToString(x)
+    const {rule, parsed} = fromPrototypeToString(x)
     const xType = type(x)
 
     if (xType === 'Function' && !parsed) return 'Function'
@@ -19,42 +19,44 @@ export function schemaToString(schema){
   }, schema)
 }
 
-export function check(singleInput, schema){
+export function check(singleInput, schema) {
   return isValid({
-    input  : { singleInput },
-    schema : { singleInput : schema },
+    input: {singleInput},
+    schema: {singleInput: schema},
   })
 }
 
-export function ok(...inputs){
+export function ok(...inputs) {
   return (...schemas) => {
     let failedSchema
 
     const anyError = any((singleInput, i) => {
-      const schema = schemas[ i ] === undefined ? schemas[ 0 ] : schemas[ i ]
+      const schema = schemas[i] === undefined ? schemas[0] : schemas[i]
 
       const checked = check(singleInput, schema)
-      if (!checked){
+      if (!checked) {
         failedSchema = JSON.stringify({
-          input  : singleInput,
-          schema : schemaToString(schema),
+          input: singleInput,
+          schema: schemaToString(schema),
         })
       }
 
       return !checked
     }, inputs)
 
-    if (anyError){
+    if (anyError) {
       const errorMessage =
-        inputs.length > 1 ?
-          glue(`
+        inputs.length > 1
+          ? glue(
+              `
         Failed R.ok -
-        reason: ${ failedSchema }
-        all inputs: ${ JSON.stringify(inputs) }
-        all schemas: ${ JSON.stringify(schemas.map(schemaToString)) }
+        reason: ${failedSchema}
+        all inputs: ${JSON.stringify(inputs)}
+        all schemas: ${JSON.stringify(schemas.map(schemaToString))}
       `,
-          '\n') :
-          `Failed R.ok - ${ failedSchema }`
+              '\n'
+            )
+          : `Failed R.ok - ${failedSchema}`
 
       throw new Error(errorMessage)
     }

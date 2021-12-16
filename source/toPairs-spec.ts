@@ -10,6 +10,6 @@ describe('R.toPairs', () => {
   it('happy', () => {
     const result = toPairs(obj)
 
-    result // $ExpectType [string, number | number[]][]
+    result // $ExpectType (["b", number] | ["a", number] | ["c", number[]])[]
   })
 })

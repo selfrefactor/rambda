@@ -1,7 +1,7 @@
-import { composeAsync } from './composeAsync'
-import { delay } from './delay'
+import {composeAsync} from './composeAsync'
+import {delay} from './delay'
 
-async function identity(x){
+async function identity(x) {
   await delay(100)
 
   return x
@@ -18,10 +18,12 @@ test('happy', async () => {
 
     return x.map(xx => xx * 2)
   }
-  const result = await composeAsync(fn1,
-    fn2)(await Promise.all([ identity(1), identity(2), identity(3) ]))
+  const result = await composeAsync(
+    fn1,
+    fn2
+  )(await Promise.all([identity(1), identity(2), identity(3)]))
 
-  expect(result).toEqual([ 3, 5, 7 ])
+  expect(result).toEqual([3, 5, 7])
 })
 
 const delayFn = ms =>
@@ -49,7 +51,7 @@ test('throw error', async () => {
   let didThrow = false
   try {
     await composeAsync(fn, x => x + 1)(20)
-  } catch (e){
+  } catch (e) {
     didThrow = true
   }
 

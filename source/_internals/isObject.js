@@ -1,5 +1,5 @@
-import { type } from "../type";
+import {type} from '../type'
 
-export function _isObject (input){
-  return type(input) === "Object"
+export function _isObject(input) {
+  return type(input) === 'Object'
 }

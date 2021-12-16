@@ -1,19 +1,19 @@
-import { composeAsync } from './composeAsync'
-import { delay } from './delay'
-import { mapToObjectAsync } from './mapToObjectAsync'
+import {composeAsync} from './composeAsync'
+import {delay} from './delay'
+import {mapToObjectAsync} from './mapToObjectAsync'
 
-const list = [ 1, 2, 3, 12 ]
+const list = [1, 2, 3, 12]
 const fn = async x => {
   await delay(100)
   if (x > 10) return false
 
-  return x % 2 ? { [ `key${ x }` ] : x + 1 } : { [ `key${ x }` ] : x + 10 }
+  return x % 2 ? {[`key${x}`]: x + 1} : {[`key${x}`]: x + 10}
 }
 
 const expected = {
-  key1 : 2,
-  key2 : 12,
-  key3 : 4,
+  key1: 2,
+  key2: 12,
+  key3: 4,
 }
 
 test('happy', async () => {
@@ -23,10 +23,11 @@ test('happy', async () => {
 
 test('with R.composeAsync', async () => {
   const result = await composeAsync(mapToObjectAsync(fn), x =>
-    x.filter(xx => xx > 1))(list)
+    x.filter(xx => xx > 1)
+  )(list)
 
   expect(result).toEqual({
-    key2 : 12,
-    key3 : 4,
+    key2: 12,
+    key3: 4,
   })
 })

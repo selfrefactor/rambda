@@ -1,14 +1,14 @@
-import { dropWhile as dropWhileRamda } from 'ramda'
+import {dropWhile as dropWhileRamda} from 'ramda'
 
-import { compareCombinations } from './_internals/testUtils'
-import { dropWhile } from './dropWhile'
+import {compareCombinations} from './_internals/testUtils'
+import {dropWhile} from './dropWhile'
 
-const list = [ 1, 2, 3, 4 ]
+const list = [1, 2, 3, 4]
 
 test('happy', () => {
   const predicate = x => x < 3
   const result = dropWhile(predicate, list)
-  expect(result).toEqual([ 3, 4 ])
+  expect(result).toEqual([3, 4])
 })
 
 test('always true', () => {
@@ -48,14 +48,14 @@ const possibleIterables = [
   1,
   '',
   'foobar',
-  [ '' ],
-  [ 1, 2, 3, 4, 5 ],
+  [''],
+  [1, 2, 3, 4, 5],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput : possiblePredicates,
-    callback   : errorsCounters => {
+    firstInput: possiblePredicates,
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 15,
@@ -63,11 +63,12 @@ describe('brute force', () => {
           "RESULTS_MISMATCH": 0,
           "SHOULD_NOT_THROW": 14,
           "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 63,
         }
       `)
     },
-    secondInput : possibleIterables,
-    fn          : dropWhile,
-    fnRamda     : dropWhileRamda,
+    secondInput: possibleIterables,
+    fn: dropWhile,
+    fnRamda: dropWhileRamda,
   })
 })

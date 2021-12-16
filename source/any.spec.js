@@ -1,6 +1,6 @@
-import { any } from './any'
+import {any} from './any'
 
-const list = [ 1, 2, 3 ]
+const list = [1, 2, 3]
 
 test('happy', () => {
   expect(any(x => x < 0, list)).toBeFalse()

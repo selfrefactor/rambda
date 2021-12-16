@@ -1,5 +1,5 @@
-import { debounce } from './debounce'
-import { delay } from './delay'
+import {debounce} from './debounce'
+import {delay} from './delay'
 
 test('happy', async () => {
   let counter = 0
@@ -46,9 +46,7 @@ test('immediate debounce', async () => {
     counter++
   }
 
-  const incWrapped = debounce(
-    inc, 500, true
-  )
+  const incWrapped = debounce(inc, 500, true)
   incWrapped()
   expect(counter).toBe(1)
   await delay(200)

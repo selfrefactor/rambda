@@ -23,7 +23,7 @@ describe('R.omit with array as props input', () => {
     }
     const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
-    result // $ExpectType Pick<Input, "b" | "a" | "c" | "d">
+    result // $ExpectType Omit<Input, "b,c">
 
     result.a // $ExpectType string
     result.d // $ExpectType number
