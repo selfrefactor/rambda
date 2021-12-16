@@ -37,9 +37,9 @@ test('with empty predicates list', () => {
 })
 
 test('works with multiple inputs', () => {
-  var fn = function(w, x, y, z) {
+  var fn = function (w, x, y, z) {
     console.log(w, x, y, z)
-    return w + x === y + z; 
-  };
-  expect(anyPass([fn])(3,3,3,3)).toBeTrue()
+    return w + x === y + z
+  }
+  expect(anyPass([fn])(3, 3, 3, 3)).toBeTrue()
 })

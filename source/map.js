@@ -33,10 +33,10 @@ export const mapObjIndexed = mapObject
 
 export function map(fn, iterable) {
   if (arguments.length === 1) return _iterable => map(fn, _iterable)
-  if (!iterable){
+  if (!iterable) {
     throw new Error('Incorrect iterable input')
-  }  
-  
+  }
+
   if (_isArray(iterable)) return mapArray(fn, iterable)
 
   return mapObject(fn, iterable)

@@ -1,4 +1,4 @@
-import { apply, identity } from 'rambda'
+import {apply, identity} from 'rambda'
 
 describe('R.apply', () => {
   it('happy', () => {

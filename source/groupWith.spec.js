@@ -8,21 +8,10 @@ test('issue is fixed', () => {
 })
 
 test('long list', () => {
-  const result = groupWith(equals, [
-    0,
-    1,
-    1,
-    2,
-    3,
-    5,
-    8,
-    13,
-    21,
-    21,
-    21,
-    1,
-    2,
-  ])
+  const result = groupWith(
+    equals,
+    [0, 1, 1, 2, 3, 5, 8, 13, 21, 21, 21, 1, 2]
+  )
 
   const expected = [
     [0],

@@ -1,5 +1,5 @@
 import {curry} from './curry'
-import { cloneList } from './_internals/cloneList'
+import {cloneList} from './_internals/cloneList'
 
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index

@@ -66,26 +66,26 @@ exports.listOfVariousTypes = listOfVariousTypes
 exports.rangeOfNumbers = rangeOfNumbers
 
 function* generatorFn() {
-  yield 1;
-  yield 2;
-  yield 3;
+  yield 1
+  yield 2
+  yield 3
 }
 
-const setInstance = new Set([1,2,3,4,1])
+const setInstance = new Set([1, 2, 3, 4, 1])
 const weakSetInstance = new WeakSet()
 const weakMapInstance = new WeakMap()
 const mapInstance = new Map()
 
 const target = {
-  message1: "hello",
-  message2: "everyone"
-};
+  message1: 'hello',
+  message2: 'everyone',
+}
 
-const handler = {};
+const handler = {}
 
 const proxyInstance = new Proxy(target, handler)
-weakSetInstance.add({a:1})
-weakMapInstance.set({a:1}, 'bar')
+weakSetInstance.add({a: 1})
+weakMapInstance.set({a: 1}, 'bar')
 mapInstance.set('foo', 'bar')
 
 exports.variousTypes = [

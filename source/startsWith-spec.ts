@@ -1,8 +1,8 @@
 import {startsWith} from 'rambda'
 
 describe('R.startsWith - array as iterable', () => {
-  const target = [{a:1}]
-  const iterable = [{a:1}, {a:2}]
+  const target = [{a: 1}]
+  const iterable = [{a: 1}, {a: 2}]
   it('happy', () => {
     const result = startsWith(target, iterable)
 

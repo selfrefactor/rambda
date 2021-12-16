@@ -18,7 +18,7 @@ export function _lastIndexOf(valueToFind, list) {
       foundIndex = index
     }
   }
-  
+
   return foundIndex
 }
 
@@ -101,7 +101,7 @@ export function equals(a, b) {
   if (arguments.length === 1) return _b => equals(a, _b)
 
   const aType = type(a)
-  
+
   if (aType !== type(b)) return false
   if (aType === 'Function') {
     return a.name === undefined ? false : a.name === b.name

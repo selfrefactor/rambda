@@ -1,11 +1,21 @@
-import {add, subtract, pipe, map, filter, identity, dissoc, inc, negate} from 'rambda'
+import {
+  add,
+  subtract,
+  pipe,
+  map,
+  filter,
+  identity,
+  dissoc,
+  inc,
+  negate,
+} from 'rambda'
 
 interface Input {
   a: string,
   b: string,
 }
-interface Output{
-  c: string
+interface Output {
+  c: string,
 }
 
 describe('R.pipe with explicit types', () => {
@@ -14,17 +24,17 @@ describe('R.pipe with explicit types', () => {
       a: 'foo',
       b: 'bar',
     }
-    interface AfterInput{
-      a: number
+    interface AfterInput {
+      a: number,
     }
-    interface BeforeOutput{
-      b: string
+    interface BeforeOutput {
+      b: string,
     }
- 
-    const result = pipe<Input[], AfterInput, BeforeOutput,Output>(
-      (x) => ({a: x.a.length + x.b.length}),
-      (x) => ({b: x.a + 'foo'}),
-      (x) => ({c: x.b + 'bar'}),
+
+    const result = pipe<Input[], AfterInput, BeforeOutput, Output>(
+      x => ({a: x.a.length + x.b.length}),
+      x => ({b: x.a + 'foo'}),
+      x => ({c: x.b + 'bar'})
     )(obj)
 
     result // $ExpectType Output
@@ -34,10 +44,10 @@ describe('R.pipe with explicit types', () => {
       a: 'foo',
       b: 'bar',
     }
-    
-    const result = pipe<Input[], Output, Output>((input) => {
+
+    const result = pipe<Input[], Output, Output>(input => {
       input // $ExpectType Input
-      return input as unknown as Output
+      return (input as unknown) as Output
     }, identity)(obj)
     result // $ExpectType Output
   })
@@ -58,7 +68,10 @@ describe('R.pipe', () => {
     result // $ExpectType number
   })
   it('happy - more complex', () => {
-    const result = pipe((x: string) => x.length+1, (x: number) => x + 1)('foo')
+    const result = pipe(
+      (x: string) => x.length + 1,
+      (x: number) => x + 1
+    )('foo')
     result // $ExpectType number
   })
 
@@ -94,20 +107,8 @@ describe('R.pipe', () => {
 
 describe('R.pipe - @types/ramda tests', () => {
   test('complex', () => {
-    const fn = pipe(
-      Math.pow,
-      negate,
-      inc,
-      inc,
-      inc,
-      inc,
-      inc,
-      inc,
-      inc,
-      inc,
-    );
-    const result = fn(3, 4);
+    const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc)
+    const result = fn(3, 4)
     result // $ExpectType number
   })
-})  
-
+})

@@ -23,8 +23,5 @@ test('with object as iterable', () => {
 })
 
 test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, 0, null)).toThrowWithMessage(
-    TypeError,
-    ERROR
-  )
+  expect(() => reduce(reducer, 0, null)).toThrowWithMessage(TypeError, ERROR)
 })

@@ -36,12 +36,12 @@ describe('R.sortBy', () => {
     result[0].a // $ExpectType number
   })
   it('with R.pipe', () => {
-    interface Obj { value: number; }
-    const fn = pipe(
-      sortBy<Obj>(x => x.value)
-    );
-  
-    const result = fn([{ value: 1 }, { value: 2 }]);
+    interface Obj {
+      value: number,
+    }
+    const fn = pipe(sortBy<Obj>(x => x.value))
+
+    const result = fn([{value: 1}, {value: 2}])
     result // $ExpectType Obj[]
   })
 })

@@ -16,7 +16,7 @@ describe('R.head', () => {
     result // $ExpectType undefined
   })
   it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
+    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
     const result = head(list)
     result // $ExpectType string | undefined
   })

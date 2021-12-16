@@ -7,7 +7,7 @@ describe(`with array`, () => {
   test('happy', () => {
     expect(map(double, [1, 2, 3])).toEqual([2, 4, 6])
   })
-  
+
   test('curried', () => {
     expect(map(double)([1, 2, 3])).toEqual([2, 4, 6])
   })
@@ -62,4 +62,3 @@ test('bad inputs difference between Ramda and Rambda', () => {
     `Cannot read properties of undefined (reading 'fantasy-land/map')`
   )
 })
-

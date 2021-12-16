@@ -1,11 +1,21 @@
-import {add, subtract, compose, map, filter, identity, inc, negate, dissoc} from 'rambda'
+import {
+  add,
+  subtract,
+  compose,
+  map,
+  filter,
+  identity,
+  inc,
+  negate,
+  dissoc,
+} from 'rambda'
 
 interface Input {
   a: string,
   b: string,
 }
-interface Output{
-  c: string
+interface Output {
+  c: string,
 }
 
 describe('R.compose with explicit types', () => {
@@ -14,17 +24,17 @@ describe('R.compose with explicit types', () => {
       a: 'foo',
       b: 'bar',
     }
-    interface AfterInput{
-      a: number
+    interface AfterInput {
+      a: number,
     }
-    interface BeforeOutput{
-      b: string
+    interface BeforeOutput {
+      b: string,
     }
- 
+
     const result = compose<Input[], AfterInput, BeforeOutput, Output>(
-      (x) => ({c: x.b + 'bar'}),
-      (x) => ({b: x.a + 'foo'}),
-      (x) => ({a: x.a.length + x.b.length}),
+      x => ({c: x.b + 'bar'}),
+      x => ({b: x.a + 'foo'}),
+      x => ({a: x.a.length + x.b.length})
     )(obj)
 
     result // $ExpectType Output
@@ -34,9 +44,9 @@ describe('R.compose with explicit types', () => {
       a: 'foo',
       b: 'bar',
     }
-    const result = compose<Input[], Output, Output>(identity, (input) => {
+    const result = compose<Input[], Output, Output>(identity, input => {
       input // $ExpectType Input
-      return input as unknown as Output
+      return (input as unknown) as Output
     })(obj)
     result // $ExpectType Output
   })
@@ -57,7 +67,10 @@ describe('R.compose', () => {
     result // $ExpectType number
   })
   it('happy - more complex', () => {
-    const result = compose((x: number) => x + 1, (x: string) => x.length+1)('foo')
+    const result = compose(
+      (x: number) => x + 1,
+      (x: string) => x.length + 1
+    )('foo')
     result // $ExpectType number
   })
 
@@ -103,9 +116,9 @@ describe('R.compose - @types/ramda tests', () => {
       inc,
       inc,
       negate,
-      Math.pow,
-    );
-    const result = fn(3, 4);
+      Math.pow
+    )
+    const result = fn(3, 4)
     result // $ExpectType number
   })
-})  
+})

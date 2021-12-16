@@ -1,19 +1,31 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 const _ = require('lodash')
-const {
-  uniqListOfStrings
-} = require('./_utils.js')
+const {uniqListOfStrings} = require('./_utils.js')
 
 const modes = [
   [val => val + 1, val => val.length],
-  [x => x.toUpperCase(), x => x.toLowerCase(),x => `${x}-foo`,x => x+1, x => x.length, x => x.join('---')],
-  {special: true, fns: [x => x.toUpperCase(), x => x.toLowerCase(), (firstName, lastName) =>
-    "The name's " + lastName + ", " + firstName + " " + lastName]}
+  [
+    x => x.toUpperCase(),
+    x => x.toLowerCase(),
+    x => `${x}-foo`,
+    x => x + 1,
+    x => x.length,
+    x => x.join('---'),
+  ],
+  {
+    special: true,
+    fns: [
+      x => x.toUpperCase(),
+      x => x.toLowerCase(),
+      (firstName, lastName) =>
+        "The name's " + lastName + ', ' + firstName + ' ' + lastName,
+    ],
+  },
 ]
 
 const applyBenchmark = (fn, input) => {
-  if(input.special) {
+  if (input.special) {
     return fn(...input.fns)(`foo`, `bar`)
   }
   return fn(...input)(uniqListOfStrings(100))

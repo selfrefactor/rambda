@@ -32,11 +32,12 @@ export function filterArray(predicate, list, indexed = false) {
 }
 
 export function filter(predicate, iterable) {
-  if (arguments.length === 1) return _iterable => filter(predicate, _iterable)
-  if (!iterable){
+  if (arguments.length === 1)
+    return _iterable => filter(predicate, _iterable)
+  if (!iterable) {
     throw new Error('Incorrect iterable input')
-  }  
-  
+  }
+
   if (_isArray(iterable)) return filterArray(predicate, iterable)
 
   return filterObject(predicate, iterable)

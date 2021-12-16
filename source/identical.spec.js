@@ -19,9 +19,9 @@ test('internal objectIs', () => {
 })
 
 test('identical', () => {
-  const a = {a:1}
-  const b = {a:1}
-  const c = {a:1, b:2}
+  const a = {a: 1}
+  const b = {a: 1}
+  const c = {a: 1, b: 2}
 
   expect(identical(100)(100)).toBeTrue()
   expect(identical(100, '100')).toBeFalse()

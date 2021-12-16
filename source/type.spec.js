@@ -102,7 +102,7 @@ test('not a number', () => {
 })
 
 test('set', () => {
-  const exampleSet = new Set([1,2,3]) 
+  const exampleSet = new Set([1, 2, 3])
   expect(type(exampleSet)).toBe('Set')
   expect(typeRamda(exampleSet)).toBe('Set')
 })

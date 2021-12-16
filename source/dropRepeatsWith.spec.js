@@ -15,9 +15,13 @@ test('happy', () => {
 })
 
 test('readme example', () => {
-  const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+  const list = [
+    {a: 1, b: 2},
+    {a: 1, b: 3},
+    {a: 2, b: 4},
+  ]
   const result = dropRepeatsWith(prop('a'), list)
-  expect(result).toEqual([ { a: 1, b: 2 } ])
+  expect(result).toEqual([{a: 1, b: 2}])
 })
 
 test('keeps elements from the left predicate input', () => {

@@ -31,7 +31,10 @@ test('list of arrays uses R.equals', () => {
 })
 
 test('with string as iterable', () => {
-  expect(() => indexOf('a', 'abc')).toThrowWithMessage(Error, `Cannot read property 'indexOf' of abc`)
+  expect(() => indexOf('a', 'abc')).toThrowWithMessage(
+    Error,
+    `Cannot read property 'indexOf' of abc`
+  )
   expect(indexOfRamda('a', 'abc')).toBe(0)
 })
 

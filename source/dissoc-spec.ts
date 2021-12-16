@@ -14,9 +14,9 @@ describe('R.dissoc', () => {
     const result = dissoc('b', obj)
 
     result.a // $ExpectType string
-    
+
     // $ExpectError
-    result.b 
+    result.b
   })
   it('curried', () => {
     const result = dissoc('b')(obj)

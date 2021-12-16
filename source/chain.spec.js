@@ -42,18 +42,18 @@ test('@types/ramda broken test', () => {
   const score = {
     maths: 90,
     physics: 80,
-  };
+  }
 
-  const calculateTotal = (score) => {
-    const { maths, physics } = score;
-    return maths + physics;
-  };
+  const calculateTotal = score => {
+    const {maths, physics} = score
+    return maths + physics
+  }
 
-  const assocTotalToScore = (total, score) => ({ ...score, total });
+  const assocTotalToScore = (total, score) => ({...score, total})
 
   const calculateAndAssocTotalToScore = chainRamda(
     assocTotalToScore,
     calculateTotal
-  );
+  )
   expect(() => calculateAndAssocTotalToScore(score)).toThrow()
 })

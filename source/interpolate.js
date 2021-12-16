@@ -1,6 +1,7 @@
 const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g)
 
-const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '')
+const getOccurrenceProp = occurrence =>
+  occurrence.replace(/{{\s*|\s*}}/g, '')
 
 const replace = ({inputHolder, prop, replacer}) => {
   const regexBase = `{{${prop}}}`
