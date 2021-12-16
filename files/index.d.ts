@@ -9,8 +9,6 @@ type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 export type RamdaPath = (number | string)[];
-type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
-type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any;
 type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 
 type ValueOfRecord<R> =
@@ -4832,8 +4830,8 @@ const result = R.pipe(
   R.tap(log), 
   R.assoc('a', 3)
 )({a: 1}); 
-// => result is `{a: 3}`
-// => logs is `{a: 2}`
+// => result - `{a: 3}`
+// => console log - `{a: 2}`
 ```
 
 Categories: Function

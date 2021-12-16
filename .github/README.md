@@ -284,7 +284,7 @@ method | Rambda | Ramda | Lodash
  *over* | 🚀 Fastest | 56.23% slower | 🔳
  *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
- *pipe* | 7.26% slower | 🚀 Fastest | 🔳
+ *pipe* | 0.87% slower | 🚀 Fastest | 🔳
  *prop* | 🚀 Fastest | 87.95% slower | 🔳
  *propEq* | 🚀 Fastest | 91.92% slower | 🔳
  *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
@@ -526,7 +526,7 @@ adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 ```javascript
 import {curry} from './curry'
-import { cloneList } from './_internals/cloneList'
+import {cloneList} from './_internals/cloneList'
 
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index
@@ -857,10 +857,10 @@ test('when returns false', () => {
 })
 
 test('works with multiple inputs', () => {
-  var fn = function(w, x, y, z) {
-    return w + x === y + z; 
-  };
-  expect(allPass([fn])(3,3,3,3)).toBeTrue()
+  var fn = function (w, x, y, z) {
+    return w + x === y + z
+  }
+  expect(allPass([fn])(3, 3, 3, 3)).toBeTrue()
 })
 ```
 
@@ -1381,11 +1381,11 @@ test('with empty predicates list', () => {
 })
 
 test('works with multiple inputs', () => {
-  var fn = function(w, x, y, z) {
+  var fn = function (w, x, y, z) {
     console.log(w, x, y, z)
-    return w + x === y + z; 
-  };
-  expect(anyPass([fn])(3,3,3,3)).toBeTrue()
+    return w + x === y + z
+  }
+  expect(anyPass([fn])(3, 3, 3, 3)).toBeTrue()
 })
 ```
 
@@ -1480,7 +1480,7 @@ append<T>(x: T): <T>(list: T[]) => T[];
 <summary><strong>R.append</strong> source</summary>
 
 ```javascript
-import { cloneList } from "./_internals/cloneList"
+import {cloneList} from './_internals/cloneList'
 
 export function append(x, input) {
   if (arguments.length === 1) return _input => append(x, _input)
@@ -1611,11 +1611,11 @@ apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 
 ```javascript
 export function apply(fn, args) {
-  if (arguments.length === 1){
-    return (_args) => apply(fn, _args);
+  if (arguments.length === 1) {
+    return _args => apply(fn, _args)
   }
 
-  return fn.apply(this, args);
+  return fn.apply(this, args)
 }
 ```
 
@@ -1628,25 +1628,25 @@ export function apply(fn, args) {
 ```javascript
 import {apply} from './apply'
 import {bind} from './bind'
-import {identity} from './identity';
+import {identity} from './identity'
 
 test('happy', () => {
   expect(apply(identity, [1, 2, 3])).toEqual(1)
 })
 
 test('applies function to argument list', function () {
-  expect(apply(Math.max, [1, 2, 3, -99, 42, 6, 7])).toEqual(42);
-});
+  expect(apply(Math.max, [1, 2, 3, -99, 42, 6, 7])).toEqual(42)
+})
 
 test('provides no way to specify context', function () {
   const obj = {
     method: function () {
-      return this === obj;
-    }
-  };
-  expect(apply(obj.method, [])).toEqual(false);
-  expect(apply(bind(obj.method, obj), [])).toEqual(true);
-});
+      return this === obj
+    },
+  }
+  expect(apply(obj.method, [])).toEqual(false)
+  expect(apply(bind(obj.method, obj), [])).toEqual(true)
+})
 ```
 
 </details>
@@ -1656,7 +1656,7 @@ test('provides no way to specify context', function () {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { apply, identity } from 'rambda'
+import {apply, identity} from 'rambda'
 
 describe('R.apply', () => {
   it('happy', () => {
@@ -2350,7 +2350,7 @@ import {_isArray} from './_internals/_isArray'
 import {_isInteger} from './_internals/_isInteger'
 import {assoc} from './assoc'
 import {curry} from './curry'
-import { cloneList } from './_internals/cloneList'
+import {cloneList} from './_internals/cloneList'
 
 function assocPathFn(path, newValue, input) {
   const pathArrValue =
@@ -2603,11 +2603,11 @@ const result = R.pipe(
   R.tap(log), 
   R.assoc('a', 3)
 )({a: 1}); 
-// => result is `{a: 3}`
-// => logs is `{a: 2}`
+// => result - `{a: 3}`
+// => console log - `{a: 2}`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20log%20%3D%20R.bind(console.log%2C%20console)%0Aconst%20result%20%3D%20R.pipe(%0A%20%20R.assoc('a'%2C%202)%2C%20%0A%20%20R.tap(log)%2C%20%0A%20%20R.assoc('a'%2C%203)%0A)(%7Ba%3A%201%7D)%3B%20%0A%2F%2F%20%3D%3E%20result%20is%20%60%7Ba%3A%203%7D%60%0A%2F%2F%20%3D%3E%20logs%20is%20%60%7Ba%3A%202%7D%60">Try this <strong>R.bind</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20log%20%3D%20R.bind(console.log%2C%20console)%0Aconst%20result%20%3D%20R.pipe(%0A%20%20R.assoc('a'%2C%202)%2C%20%0A%20%20R.tap(log)%2C%20%0A%20%20R.assoc('a'%2C%203)%0A)(%7Ba%3A%201%7D)%3B%20%0A%2F%2F%20%3D%3E%20result%20-%20%60%7Ba%3A%203%7D%60%0A%2F%2F%20%3D%3E%20console%20log%20-%20%60%7Ba%3A%202%7D%60">Try this <strong>R.bind</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2643,85 +2643,93 @@ export function bind(fn, thisObj) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { bind} from './bind'
+import {bind} from './bind'
 
 function Foo(x) {
-  this.x = x;
+  this.x = x
 }
 function add(x) {
-  return this.x + x;
+  return this.x + x
 }
 function Bar(x, y) {
-  this.x = x;
-  this.y = y;
+  this.x = x
+  this.y = y
 }
-Bar.prototype = new Foo();
-Bar.prototype.getX = function() {
-  return 'prototype getX';
-};
+Bar.prototype = new Foo()
+Bar.prototype.getX = function () {
+  return 'prototype getX'
+}
 
-test('returns a function', function() {
-  expect(typeof bind(add)(Foo)).toEqual('function');
-});
+test('returns a function', function () {
+  expect(typeof bind(add)(Foo)).toEqual('function')
+})
 
-test('returns a function bound to the specified context object', function() {
-  const f = new Foo(12);
+test('returns a function bound to the specified context object', function () {
+  const f = new Foo(12)
   function isFoo() {
-    return this instanceof Foo;
+    return this instanceof Foo
   }
-  const isFooBound = bind(isFoo, f);
-  expect(isFoo()).toEqual(false);
-  expect(isFooBound()).toEqual(true);
-});
+  const isFooBound = bind(isFoo, f)
+  expect(isFoo()).toEqual(false)
+  expect(isFooBound()).toEqual(true)
+})
 
-test('works with built-in types', function() {
-  const abc = bind(String.prototype.toLowerCase, 'ABCDEFG');
-  expect(typeof abc).toEqual('function');
-  expect(abc()).toEqual('abcdefg');
-});
+test('works with built-in types', function () {
+  const abc = bind(String.prototype.toLowerCase, 'ABCDEFG')
+  expect(typeof abc).toEqual('function')
+  expect(abc()).toEqual('abcdefg')
+})
 
-test('works with user-defined types', function() {
-  const f = new Foo(12);
+test('works with user-defined types', function () {
+  const f = new Foo(12)
   function getX() {
-    return this.x;
+    return this.x
   }
-  const getXFooBound = bind(getX, f);
-  expect(getXFooBound()).toEqual(12);
-});
+  const getXFooBound = bind(getX, f)
+  expect(getXFooBound()).toEqual(12)
+})
 
-test('works with plain objects', function() {
+test('works with plain objects', function () {
   const pojso = {
-    x: 100
-  };
+    x: 100,
+  }
   function incThis() {
-    return this.x + 1;
+    return this.x + 1
   }
-  const incPojso = bind(incThis, pojso);
-  expect(typeof incPojso).toEqual('function');
-  expect(incPojso()).toEqual(101);
-});
+  const incPojso = bind(incThis, pojso)
+  expect(typeof incPojso).toEqual('function')
+  expect(incPojso()).toEqual(101)
+})
 
-test('does not interfere with existing object methods', function() {
-  const b = new Bar('a', 'b');
+test('does not interfere with existing object methods', function () {
+  const b = new Bar('a', 'b')
   function getX() {
-    return this.x;
+    return this.x
   }
-  const getXBarBound = bind(getX, b);
-  expect(b.getX()).toEqual('prototype getX');
-  expect(getXBarBound()).toEqual('a');
-});
+  const getXBarBound = bind(getX, b)
+  expect(b.getX()).toEqual('prototype getX')
+  expect(getXBarBound()).toEqual('a')
+})
 
-test('preserves arity', function() {
-  const f0 = function() { return 0; };
-  const f1 = function(a) { return a; };
-  const f2 = function(a, b) { return a + b; };
-  const f3 = function(a, b, c) { return a + b + c; };
+test('preserves arity', function () {
+  const f0 = function () {
+    return 0
+  }
+  const f1 = function (a) {
+    return a
+  }
+  const f2 = function (a, b) {
+    return a + b
+  }
+  const f3 = function (a, b, c) {
+    return a + b + c
+  }
 
-  expect(bind(f0, {}).length).toEqual(0);
-  expect(bind(f1, {}).length).toEqual(1);
-  expect(bind(f2, {}).length).toEqual(2);
-  expect(bind(f3, {}).length).toEqual(3);
-});
+  expect(bind(f0, {}).length).toEqual(0)
+  expect(bind(f1, {}).length).toEqual(1)
+  expect(bind(f2, {}).length).toEqual(2)
+  expect(bind(f3, {}).length).toEqual(3)
+})
 ```
 
 </details>
@@ -2731,16 +2739,16 @@ test('preserves arity', function() {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import { bind } from 'rambda'
+import {bind} from 'rambda'
 
 class Foo {}
 function isFoo<T = any>(this: T): boolean {
-  return this instanceof Foo;
+  return this instanceof Foo
 }
 
 describe('R.bind', () => {
   it('happy', () => {
-    const foo = new Foo();
+    const foo = new Foo()
     const result = bind(isFoo, foo)()
 
     result // $ExpectType boolean
@@ -2996,19 +3004,19 @@ test('@types/ramda broken test', () => {
   const score = {
     maths: 90,
     physics: 80,
-  };
+  }
 
-  const calculateTotal = (score) => {
-    const { maths, physics } = score;
-    return maths + physics;
-  };
+  const calculateTotal = score => {
+    const {maths, physics} = score
+    return maths + physics
+  }
 
-  const assocTotalToScore = (total, score) => ({ ...score, total });
+  const assocTotalToScore = (total, score) => ({...score, total})
 
   const calculateAndAssocTotalToScore = chainRamda(
     assocTotalToScore,
     calculateTotal
-  );
+  )
   expect(() => calculateAndAssocTotalToScore(score)).toThrow()
 })
 ```
@@ -4664,8 +4672,8 @@ endsWith<T>(target: T[]): (list: T[]) => boolean;
 <summary><strong>R.endsWith</strong> source</summary>
 
 ```javascript
-import {equals} from './equals.js';
-import { _isArray } from './_internals/_isArray.js';
+import {equals} from './equals.js'
+import {_isArray} from './_internals/_isArray.js'
 
 export function endsWith(target, iterable) {
   if (arguments.length === 1) return _iterable => endsWith(target, _iterable)
@@ -4673,18 +4681,16 @@ export function endsWith(target, iterable) {
   if (typeof iterable === 'string') {
     return iterable.endsWith(target)
   }
-  if(!_isArray(target)) return false
+  if (!_isArray(target)) return false
 
   const diff = iterable.length - target.length
   let correct = true
-  const filtered = target.filter(
-    (x, index) => {
-      if(!correct) return false
-      const result = equals(x, iterable[index + diff])
-      if(!result) correct = false
-      return result
-    } 
-  )  
+  const filtered = target.filter((x, index) => {
+    if (!correct) return false
+    const result = equals(x, iterable[index + diff])
+    if (!result) correct = false
+    return result
+  })
 
   return filtered.length === target.length
 }
@@ -4765,8 +4771,8 @@ describe('brute force', () => {
 import {endsWith} from 'rambda'
 
 describe('R.endsWith - array as iterable', () => {
-  const target = [{a:2}]
-  const iterable = [{a:1}, {a:2}]
+  const target = [{a: 2}]
+  const iterable = [{a: 1}, {a: 2}]
   it('happy', () => {
     const result = endsWith(target, iterable)
 
@@ -4870,7 +4876,7 @@ export function _lastIndexOf(valueToFind, list) {
       foundIndex = index
     }
   }
-  
+
   return foundIndex
 }
 
@@ -4953,7 +4959,7 @@ export function equals(a, b) {
   if (arguments.length === 1) return _b => equals(a, _b)
 
   const aType = type(a)
-  
+
   if (aType !== type(b)) return false
   if (aType === 'Function') {
     return a.name === undefined ? false : a.name === b.name
@@ -5052,87 +5058,87 @@ export function equals(a, b) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { equals } from "./equals";
-import { equals as equalsRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
-import { variousTypes } from "./benchmarks/_utils";
+import {equals} from './equals'
+import {equals as equalsRamda} from 'ramda'
+import {compareCombinations} from './_internals/testUtils'
+import {variousTypes} from './benchmarks/_utils'
 
-test("compare functions", () => {
+test('compare functions', () => {
   function foo() {}
   function bar() {}
-  const baz = () => {};
+  const baz = () => {}
 
-  const expectTrue = equals(foo, foo);
-  const expectFalseFirst = equals(foo, bar);
-  const expectFalseSecond = equals(foo, baz);
+  const expectTrue = equals(foo, foo)
+  const expectFalseFirst = equals(foo, bar)
+  const expectFalseSecond = equals(foo, baz)
 
-  expect(expectTrue).toBeTrue();
-  expect(expectFalseFirst).toBeFalse();
-  expect(expectFalseSecond).toBeFalse();
-});
+  expect(expectTrue).toBeTrue()
+  expect(expectFalseFirst).toBeFalse()
+  expect(expectFalseSecond).toBeFalse()
+})
 
-test("with array of objects", () => {
-  const list1 = [{ a: 1 }, [{ b: 2 }]];
-  const list2 = [{ a: 1 }, [{ b: 2 }]];
-  const list3 = [{ a: 1 }, [{ b: 3 }]];
+test('with array of objects', () => {
+  const list1 = [{a: 1}, [{b: 2}]]
+  const list2 = [{a: 1}, [{b: 2}]]
+  const list3 = [{a: 1}, [{b: 3}]]
 
-  expect(equals(list1, list2)).toBeTrue();
-  expect(equals(list1, list3)).toBeFalse();
-});
+  expect(equals(list1, list2)).toBeTrue()
+  expect(equals(list1, list3)).toBeFalse()
+})
 
-test("with regex", () => {
-  expect(equals(/s/, /s/)).toEqual(true);
-  expect(equals(/s/, /d/)).toEqual(false);
-  expect(equals(/a/gi, /a/gi)).toEqual(true);
-  expect(equals(/a/gim, /a/gim)).toEqual(true);
-  expect(equals(/a/gi, /a/i)).toEqual(false);
-});
+test('with regex', () => {
+  expect(equals(/s/, /s/)).toEqual(true)
+  expect(equals(/s/, /d/)).toEqual(false)
+  expect(equals(/a/gi, /a/gi)).toEqual(true)
+  expect(equals(/a/gim, /a/gim)).toEqual(true)
+  expect(equals(/a/gi, /a/i)).toEqual(false)
+})
 
-test("not a number", () => {
-  expect(equals([NaN], [NaN])).toBeTrue();
-});
+test('not a number', () => {
+  expect(equals([NaN], [NaN])).toBeTrue()
+})
 
-test("new number", () => {
-  expect(equals(new Number(0), new Number(0))).toEqual(true);
-  expect(equals(new Number(0), new Number(1))).toEqual(false);
-  expect(equals(new Number(1), new Number(0))).toEqual(false);
-});
+test('new number', () => {
+  expect(equals(new Number(0), new Number(0))).toEqual(true)
+  expect(equals(new Number(0), new Number(1))).toEqual(false)
+  expect(equals(new Number(1), new Number(0))).toEqual(false)
+})
 
-test("new string", () => {
-  expect(equals(new String(""), new String(""))).toEqual(true);
-  expect(equals(new String(""), new String("x"))).toEqual(false);
-  expect(equals(new String("x"), new String(""))).toEqual(false);
-  expect(equals(new String("foo"), new String("foo"))).toEqual(true);
-  expect(equals(new String("foo"), new String("bar"))).toEqual(false);
-  expect(equals(new String("bar"), new String("foo"))).toEqual(false);
-});
+test('new string', () => {
+  expect(equals(new String(''), new String(''))).toEqual(true)
+  expect(equals(new String(''), new String('x'))).toEqual(false)
+  expect(equals(new String('x'), new String(''))).toEqual(false)
+  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
+  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
+  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
+})
 
-test("new Boolean", () => {
-  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true);
-  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true);
-  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false);
-  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false);
-});
+test('new Boolean', () => {
+  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
+  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
+  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
+  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
+})
 
-test("new Error", () => {
-  expect(equals(new Error("XXX"), {})).toEqual(false);
-  expect(equals(new Error("XXX"), new TypeError("XXX"))).toEqual(false);
-  expect(equals(new Error("XXX"), new Error("YYY"))).toEqual(false);
-  expect(equals(new Error("XXX"), new Error("XXX"))).toEqual(true);
-  expect(equals(new Error("XXX"), new TypeError("YYY"))).toEqual(false);
-});
+test('new Error', () => {
+  expect(equals(new Error('XXX'), {})).toEqual(false)
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
+  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
+})
 
-test("with dates", () => {
-  expect(equals(new Date(0), new Date(0))).toEqual(true);
-  expect(equals(new Date(1), new Date(1))).toEqual(true);
-  expect(equals(new Date(0), new Date(1))).toEqual(false);
-  expect(equals(new Date(1), new Date(0))).toEqual(false);
-  expect(equals(new Date(0), {})).toEqual(false);
-  expect(equals({}, new Date(0))).toEqual(false);
-});
+test('with dates', () => {
+  expect(equals(new Date(0), new Date(0))).toEqual(true)
+  expect(equals(new Date(1), new Date(1))).toEqual(true)
+  expect(equals(new Date(0), new Date(1))).toEqual(false)
+  expect(equals(new Date(1), new Date(0))).toEqual(false)
+  expect(equals(new Date(0), {})).toEqual(false)
+  expect(equals({}, new Date(0))).toEqual(false)
+})
 
-test("ramda spec", () => {
-  expect(equals({}, {})).toEqual(true);
+test('ramda spec', () => {
+  expect(equals({}, {})).toEqual(true)
 
   expect(
     equals(
@@ -5145,7 +5151,7 @@ test("ramda spec", () => {
         b: 2,
       }
     )
-  ).toEqual(true);
+  ).toEqual(true)
 
   expect(
     equals(
@@ -5158,7 +5164,7 @@ test("ramda spec", () => {
         a: 2,
       }
     )
-  ).toEqual(true);
+  ).toEqual(true)
 
   expect(
     equals(
@@ -5171,7 +5177,7 @@ test("ramda spec", () => {
         b: 3,
       }
     )
-  ).toEqual(false);
+  ).toEqual(false)
 
   expect(
     equals(
@@ -5185,76 +5191,76 @@ test("ramda spec", () => {
         b: 3,
       }
     )
-  ).toEqual(false);
-});
+  ).toEqual(false)
+})
 
-test("works with boolean tuple", () => {
-  expect(equals([true, false], [true, false])).toBeTrue();
-  expect(equals([true, false], [true, true])).toBeFalse();
-});
+test('works with boolean tuple', () => {
+  expect(equals([true, false], [true, false])).toBeTrue()
+  expect(equals([true, false], [true, true])).toBeFalse()
+})
 
-test("works with equal objects within array", () => {
+test('works with equal objects within array', () => {
   const objFirst = {
     a: {
       b: 1,
       c: 2,
       d: [1],
     },
-  };
+  }
   const objSecond = {
     a: {
       b: 1,
       c: 2,
       d: [1],
     },
-  };
+  }
 
-  const x = [1, 2, objFirst, null, "", []];
-  const y = [1, 2, objSecond, null, "", []];
-  expect(equals(x, y)).toBeTrue();
-});
+  const x = [1, 2, objFirst, null, '', []]
+  const y = [1, 2, objSecond, null, '', []]
+  expect(equals(x, y)).toBeTrue()
+})
 
-test("works with different objects within array", () => {
-  const objFirst = { a: { b: 1 } };
-  const objSecond = { a: { b: 2 } };
+test('works with different objects within array', () => {
+  const objFirst = {a: {b: 1}}
+  const objSecond = {a: {b: 2}}
 
-  const x = [1, 2, objFirst, null, "", []];
-  const y = [1, 2, objSecond, null, "", []];
-  expect(equals(x, y)).toBeFalse();
-});
+  const x = [1, 2, objFirst, null, '', []]
+  const y = [1, 2, objSecond, null, '', []]
+  expect(equals(x, y)).toBeFalse()
+})
 
-test("works with undefined as second argument", () => {
-  expect(equals(1, undefined)).toBeFalse();
+test('works with undefined as second argument', () => {
+  expect(equals(1, undefined)).toBeFalse()
 
-  expect(equals(undefined, undefined)).toBeTrue();
-});
+  expect(equals(undefined, undefined)).toBeTrue()
+})
 
-test("compare sets", () => {
-  const toCompareDifferent = new Set([{ a: 1 }, { a: 2 }]);
-  const toCompareSame = new Set([{ a: 1 }, { a: 2 }, { a: 1 }]);
-  const testSet = new Set([{ a: 1 }, { a: 2 }, { a: 1 }]);
-  expect(equals(toCompareSame, testSet)).toBeTruthy();
-  expect(equals(toCompareDifferent, testSet)).toBeFalsy();
-  expect(equalsRamda(toCompareSame, testSet)).toBeTruthy();
-  expect(equalsRamda(toCompareDifferent, testSet)).toBeFalsy();
-});
+test('compare sets', () => {
+  const toCompareDifferent = new Set([{a: 1}, {a: 2}])
+  const toCompareSame = new Set([{a: 1}, {a: 2}, {a: 1}])
+  const testSet = new Set([{a: 1}, {a: 2}, {a: 1}])
+  expect(equals(toCompareSame, testSet)).toBeTruthy()
+  expect(equals(toCompareDifferent, testSet)).toBeFalsy()
+  expect(equalsRamda(toCompareSame, testSet)).toBeTruthy()
+  expect(equalsRamda(toCompareDifferent, testSet)).toBeFalsy()
+})
 
-test("compare simple sets", () => {
-  const testSet = new Set(["2", "3", "3", "2", "1"]);
-  expect(equals(new Set(["3", "2", "1"]), testSet)).toBeTruthy();
-  expect(equals(new Set(["3", "2", "0"]), testSet)).toBeFalsy();
-});
+test('compare simple sets', () => {
+  const testSet = new Set(['2', '3', '3', '2', '1'])
+  expect(equals(new Set(['3', '2', '1']), testSet)).toBeTruthy()
+  expect(equals(new Set(['3', '2', '0']), testSet)).toBeFalsy()
+})
 
-test("various examples", () => {
-  expect(equals([1, 2, 3])([1, 2, 3])).toBeTrue();
+test('various examples', () => {
+  expect(equals([1, 2, 3])([1, 2, 3])).toBeTrue()
 
-  expect(equals([1, 2, 3], [1, 2])).toBeFalse();
+  expect(equals([1, 2, 3], [1, 2])).toBeFalse()
 
-  expect(equals(1, 1)).toBeTrue();
+  expect(equals(1, 1)).toBeTrue()
 
-  expect(equals(1, "1")).toBeFalse();
+  expect(equals(1, '1')).toBeFalse()
 
-  expect(equals({}, {})).toBeTrue();
+  expect(equals({}, {})).toBeTrue()
 
   expect(
     equals(
@@ -5267,7 +5273,7 @@ test("various examples", () => {
         a: 1,
       }
     )
-  ).toBeTrue();
+  ).toBeTrue()
 
   expect(
     equals(
@@ -5280,7 +5286,7 @@ test("various examples", () => {
         b: 1,
       }
     )
-  ).toBeFalse();
+  ).toBeFalse()
 
   expect(
     equals(
@@ -5293,7 +5299,7 @@ test("various examples", () => {
         b: 1,
       }
     )
-  ).toBeFalse();
+  ).toBeFalse()
 
   expect(
     equals(
@@ -5307,7 +5313,7 @@ test("various examples", () => {
         c: 3,
       }
     )
-  ).toBeFalse();
+  ).toBeFalse()
 
   expect(
     equals(
@@ -5325,7 +5331,7 @@ test("various examples", () => {
         },
       }
     )
-  ).toBeFalse();
+  ).toBeFalse()
 
   expect(
     equals(
@@ -5338,63 +5344,63 @@ test("various examples", () => {
         a: 1,
       }
     )
-  ).toBeFalse();
+  ).toBeFalse()
 
-  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 1 } } })).toBeTrue();
+  expect(equals({a: {b: {c: 1}}}, {a: {b: {c: 1}}})).toBeTrue()
 
-  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 2 } } })).toBeFalse();
+  expect(equals({a: {b: {c: 1}}}, {a: {b: {c: 2}}})).toBeFalse()
 
-  expect(equals({ a: {} }, { a: {} })).toBeTrue();
+  expect(equals({a: {}}, {a: {}})).toBeTrue()
 
-  expect(equals("", "")).toBeTrue();
+  expect(equals('', '')).toBeTrue()
 
-  expect(equals("foo", "foo")).toBeTrue();
+  expect(equals('foo', 'foo')).toBeTrue()
 
-  expect(equals("foo", "bar")).toBeFalse();
+  expect(equals('foo', 'bar')).toBeFalse()
 
-  expect(equals(0, false)).toBeFalse();
+  expect(equals(0, false)).toBeFalse()
 
-  expect(equals(/\s/g, null)).toBeFalse();
+  expect(equals(/\s/g, null)).toBeFalse()
 
-  expect(equals(null, null)).toBeTrue();
+  expect(equals(null, null)).toBeTrue()
 
-  expect(equals(false)(null)).toBeFalse();
-});
+  expect(equals(false)(null)).toBeFalse()
+})
 
-test("with custom functions", () => {
+test('with custom functions', () => {
   function foo() {
-    return 1;
+    return 1
   }
-  foo.prototype.toString = () => "";
-  const result = equals(foo, foo);
+  foo.prototype.toString = () => ''
+  const result = equals(foo, foo)
 
-  expect(result).toBeTrue();
-});
+  expect(result).toBeTrue()
+})
 
-test("with classes", () => {
+test('with classes', () => {
   class Foo {}
-  const foo = new Foo();
-  const result = equals(foo, foo);
+  const foo = new Foo()
+  const result = equals(foo, foo)
 
-  expect(result).toBeTrue();
-});
+  expect(result).toBeTrue()
+})
 
-test("with negative zero", () => {
-  expect(equals(-0, -0)).toBeTrue();
-  expect(equals(-0, 0)).toBeFalse();
-  expect(equals(0, 0)).toBeTrue();
-  expect(equals(-0, 1)).toBeFalse();
-});
+test('with negative zero', () => {
+  expect(equals(-0, -0)).toBeTrue()
+  expect(equals(-0, 0)).toBeFalse()
+  expect(equals(0, 0)).toBeTrue()
+  expect(equals(-0, 1)).toBeFalse()
+})
 
-const possibleInputs = variousTypes;
+const possibleInputs = variousTypes
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
     fn: equals,
     fnRamda: equalsRamda,
     firstInput: possibleInputs,
     secondInput: possibleInputs,
-    callback: (errorsCounters) => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -5404,10 +5410,10 @@ describe("brute force", () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 289,
         }
-      `);
+      `)
     },
-  });
-});
+  })
+})
 ```
 
 </details>
@@ -5881,11 +5887,12 @@ export function filterArray(predicate, list, indexed = false) {
 }
 
 export function filter(predicate, iterable) {
-  if (arguments.length === 1) return _iterable => filter(predicate, _iterable)
-  if (!iterable){
+  if (arguments.length === 1)
+    return _iterable => filter(predicate, _iterable)
+  if (!iterable) {
     throw new Error('Incorrect iterable input')
-  }  
-  
+  }
+
   if (_isArray(iterable)) return filterArray(predicate, iterable)
 
   return filterObject(predicate, iterable)
@@ -6683,9 +6690,9 @@ test('happy', () => {
 
   expect(flatten([1, [2, [[[3]]]], [4]])).toEqual([1, 2, 3, 4])
 
-  expect(
-    flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
-  ).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+  expect(flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])).toEqual(
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  )
 })
 
 test('readme example', () => {
@@ -7317,7 +7324,7 @@ describe('R.head', () => {
     result // $ExpectType undefined
   })
   it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
+    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
     const result = head(list)
     result // $ExpectType string | undefined
   })
@@ -7715,7 +7722,8 @@ import {_isArray} from './_internals/_isArray'
 import {_indexOf} from './equals'
 
 export function includes(valueToFind, iterable) {
-  if (arguments.length === 1) return _iterable => includes(valueToFind, _iterable)
+  if (arguments.length === 1)
+    return _iterable => includes(valueToFind, _iterable)
   if (typeof iterable === 'string') {
     return iterable.includes(valueToFind)
   }
@@ -8574,7 +8582,7 @@ describe('R.last', () => {
     result // $ExpectType undefined
   })
   it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'));
+    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
     const result = last(list)
     result // $ExpectType string | undefined
   })
@@ -8833,9 +8841,9 @@ length<T>(input: T[]): number;
 import {_isArray} from './_internals/_isArray'
 
 export function length(x) {
-  if(_isArray(x)) return x.length
-  if(typeof x === 'string') return x.length
-  
+  if (_isArray(x)) return x.length
+  if (typeof x === 'string') return x.length
+
   return NaN
 }
 ```
@@ -9558,10 +9566,10 @@ export const mapObjIndexed = mapObject
 
 export function map(fn, iterable) {
   if (arguments.length === 1) return _iterable => map(fn, _iterable)
-  if (!iterable){
+  if (!iterable) {
     throw new Error('Incorrect iterable input')
-  }  
-  
+  }
+
   if (_isArray(iterable)) return mapArray(fn, iterable)
 
   return mapObject(fn, iterable)
@@ -9584,7 +9592,7 @@ describe(`with array`, () => {
   test('happy', () => {
     expect(map(double, [1, 2, 3])).toEqual([2, 4, 6])
   })
-  
+
   test('curried', () => {
     expect(map(double)([1, 2, 3])).toEqual([2, 4, 6])
   })
@@ -9855,7 +9863,10 @@ test('with string', () => {
 test('throwing', () => {
   expect(() => {
     match(/a./g, null)
-  }).toThrowWithMessage(TypeError, `Cannot read properties of null (reading 'match')`)
+  }).toThrowWithMessage(
+    TypeError,
+    `Cannot read properties of null (reading 'match')`
+  )
 })
 ```
 
@@ -14890,10 +14901,7 @@ test('with object as iterable', () => {
 })
 
 test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, 0, null)).toThrowWithMessage(
-    TypeError,
-    ERROR
-  )
+  expect(() => reduce(reducer, 0, null)).toThrowWithMessage(TypeError, ERROR)
 })
 ```
 
@@ -15805,7 +15813,7 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 <summary><strong>R.sort</strong> source</summary>
 
 ```javascript
-import { cloneList } from "./_internals/cloneList"
+import {cloneList} from './_internals/cloneList'
 
 export function sort(sortFn, list) {
   if (arguments.length === 1) return _list => sort(sortFn, _list)
@@ -16051,12 +16059,12 @@ describe('R.sortBy', () => {
     result[0].a // $ExpectType number
   })
   it('with R.pipe', () => {
-    interface Obj { value: number; }
-    const fn = pipe(
-      sortBy<Obj>(x => x.value)
-    );
-  
-    const result = fn([{ value: 1 }, { value: 2 }]);
+    interface Obj {
+      value: number,
+    }
+    const fn = pipe(sortBy<Obj>(x => x.value))
+
+    const result = fn([{value: 1}, {value: 2}])
     result // $ExpectType Obj[]
   })
 })
@@ -16736,26 +16744,25 @@ startsWith<T>(target: T[]): (list: T[]) => boolean;
 <summary><strong>R.startsWith</strong> source</summary>
 
 ```javascript
-import {equals} from './equals.js';
-import { _isArray } from './_internals/_isArray.js';
+import {equals} from './equals.js'
+import {_isArray} from './_internals/_isArray.js'
 
 export function startsWith(target, iterable) {
-  if (arguments.length === 1) return _iterable => startsWith(target, _iterable)
+  if (arguments.length === 1)
+    return _iterable => startsWith(target, _iterable)
 
   if (typeof iterable === 'string') {
     return iterable.startsWith(target)
   }
-  if(!_isArray(target)) return false
+  if (!_isArray(target)) return false
 
   let correct = true
-  const filtered = target.filter(
-    (x, index) => {
-      if(!correct) return false
-      const result = equals(x, iterable[index])
-      if(!result) correct = false
-      return result
-    } 
-  )  
+  const filtered = target.filter((x, index) => {
+    if (!correct) return false
+    const result = equals(x, iterable[index])
+    if (!result) correct = false
+    return result
+  })
 
   return filtered.length === target.length
 }
@@ -16768,32 +16775,32 @@ export function startsWith(target, iterable) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { startsWith } from "./startsWith";
-import { possibleTargets, possibleIterables } from "./endsWith.spec";
-import { startsWith as startsWithRamda } from "ramda";
-import { compareCombinations } from "./_internals/testUtils";
+import {startsWith} from './startsWith'
+import {possibleTargets, possibleIterables} from './endsWith.spec'
+import {startsWith as startsWithRamda} from 'ramda'
+import {compareCombinations} from './_internals/testUtils'
 
-test("with string", () => {
-  expect(startsWith("foo", "foo-bar")).toBeTrue();
-  expect(startsWith("baz")("foo-bar")).toBeFalse();
-});
+test('with string', () => {
+  expect(startsWith('foo', 'foo-bar')).toBeTrue()
+  expect(startsWith('baz')('foo-bar')).toBeFalse()
+})
 
-test("use R.equals with array", () => {
-  const list = [{ a: 1 }, { a: 2 }, { a: 3 }];
-  expect(startsWith({ a: 1 }, list)).toBeFalse();
-  expect(startsWith([{ a: 1 }], list)).toBeTrue();
-  expect(startsWith([{ a: 1 }, { a: 2 }], list)).toBeTrue();
-  expect(startsWith(list, list)).toBeTrue();
-  expect(startsWith([{ a: 2 }], list)).toBeFalse();
-});
+test('use R.equals with array', () => {
+  const list = [{a: 1}, {a: 2}, {a: 3}]
+  expect(startsWith({a: 1}, list)).toBeFalse()
+  expect(startsWith([{a: 1}], list)).toBeTrue()
+  expect(startsWith([{a: 1}, {a: 2}], list)).toBeTrue()
+  expect(startsWith(list, list)).toBeTrue()
+  expect(startsWith([{a: 2}], list)).toBeFalse()
+})
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
     fn: startsWith,
     fnRamda: startsWithRamda,
     firstInput: possibleTargets,
     secondInput: possibleIterables,
-    callback: (errorsCounters) => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -16803,10 +16810,10 @@ describe("brute force", () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 32,
         }
-      `);
+      `)
     },
-  });
-});
+  })
+})
 ```
 
 </details>
@@ -16819,8 +16826,8 @@ describe("brute force", () => {
 import {startsWith} from 'rambda'
 
 describe('R.startsWith - array as iterable', () => {
-  const target = [{a:1}]
-  const iterable = [{a:1}, {a:2}]
+  const target = [{a: 1}]
+  const iterable = [{a: 1}, {a: 2}]
   it('happy', () => {
     const result = startsWith(target, iterable)
 
@@ -18702,10 +18709,10 @@ export function type(input) {
     return 'Null'
   } else if (input === undefined) {
     return 'Undefined'
-  } else if (Number.isNaN(input)){
+  } else if (Number.isNaN(input)) {
     return 'NaN'
   }
-  const typeResult=Object.prototype.toString.call(input).slice(8, -1)
+  const typeResult = Object.prototype.toString.call(input).slice(8, -1)
 
   return typeResult === 'AsyncFunction' ? 'Async' : typeResult
 }
@@ -18822,7 +18829,7 @@ test('not a number', () => {
 })
 
 test('set', () => {
-  const exampleSet = new Set([1,2,3]) 
+  const exampleSet = new Set([1, 2, 3])
   expect(type(exampleSet)).toBe('Set')
   expect(typeRamda(exampleSet)).toBe('Set')
 })
@@ -19052,7 +19059,7 @@ import {join, unapply, sum} from 'rambda'
 describe('R.unapply', () => {
   it('happy', () => {
     const fn = unapply(sum)
-    
+
     fn(1, 2, 3) // $ExpectType number
   })
 
@@ -19621,23 +19628,31 @@ describe('R.unless', () => {
     result // $ExpectType number
   })
   it('with one explicit type', () => {
-    const result = unless(x => {
-      x // $ExpectType number
-      return x > 5
-    }, x => {
-      x // $ExpectType number
-      return x + 1
-    }, 1)
+    const result = unless(
+      x => {
+        x // $ExpectType number
+        return x > 5
+      },
+      x => {
+        x // $ExpectType number
+        return x + 1
+      },
+      1
+    )
     result // $ExpectType number
   })
   it('with two different explicit types', () => {
-    const result = unless(x => {
-      x // $ExpectType number
-      return x > 5
-    }, x => {
-      x // $ExpectType number
-      return `${x}-foo`
-    }, 1)
+    const result = unless(
+      x => {
+        x // $ExpectType number
+        return x > 5
+      },
+      x => {
+        x // $ExpectType number
+        return `${x}-foo`
+      },
+      1
+    )
     result // $ExpectType string | number
   })
 })
@@ -19649,24 +19664,30 @@ describe('R.unless - curried', () => {
     result // $ExpectType number
   })
   it('with one explicit type', () => {
-    const fn = unless<number>(x => {
-      x // $ExpectType number
-      return x > 5
-    }, x => {
-      x // $ExpectType number
-      return x + 1
-    })
+    const fn = unless<number>(
+      x => {
+        x // $ExpectType number
+        return x > 5
+      },
+      x => {
+        x // $ExpectType number
+        return x + 1
+      }
+    )
     const result = fn(1)
     result // $ExpectType number
   })
   it('with two different explicit types', () => {
-    const fn = unless<number, string>(x => {
-      x // $ExpectType number
-      return x > 5
-    }, x => {
-      x // $ExpectType number
-      return `${x}-foo`
-    })
+    const fn = unless<number, string>(
+      x => {
+        x // $ExpectType number
+        return x > 5
+      },
+      x => {
+        x // $ExpectType number
+        return `${x}-foo`
+      }
+    )
     const result = fn(1)
     result // $ExpectType string | number
   })
@@ -20935,10 +20956,9 @@ import {curry} from './curry'
 import {take} from './take'
 
 function zipWithFn(fn, x, y) {
-  return take(
-    x.length > y.length ? y.length : x.length,
-    x
-  ).map((xInstance, i) => fn(xInstance, y[i]))
+  return take(x.length > y.length ? y.length : x.length, x).map(
+    (xInstance, i) => fn(xInstance, y[i])
+  )
 }
 
 export const zipWith = curry(zipWithFn)

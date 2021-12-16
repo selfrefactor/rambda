@@ -2,7 +2,8 @@ import {_isArray} from './_internals/_isArray'
 import {_indexOf} from './equals'
 
 export function includes(valueToFind, iterable) {
-  if (arguments.length === 1) return _iterable => includes(valueToFind, _iterable)
+  if (arguments.length === 1)
+    return _iterable => includes(valueToFind, _iterable)
   if (typeof iterable === 'string') {
     return iterable.includes(valueToFind)
   }

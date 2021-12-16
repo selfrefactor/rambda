@@ -2,7 +2,7 @@ import {_isArray} from './_internals/_isArray'
 import {_isInteger} from './_internals/_isInteger'
 import {assoc} from './assoc'
 import {curry} from './curry'
-import { cloneList } from './_internals/cloneList'
+import {cloneList} from './_internals/cloneList'
 
 function assocPathFn(path, newValue, input) {
   const pathArrValue =
