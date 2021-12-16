@@ -109,6 +109,5 @@
     "utility",
     "lodash"
   ],
-  "homepage": "https://github.com/selfrefactor/rambda#readme",
-  "type": "module"
+  "homepage": "https://github.com/selfrefactor/rambda#readme"
 }
