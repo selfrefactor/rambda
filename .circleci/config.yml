@@ -30,12 +30,7 @@ commands:
           key: v1-dependencies-{{ checksum "package.json" }}
 
 jobs:
-  node-base:
-    docker:
-      - image: node:15
-    steps:
-      - test-nodejs
-  node-middle:
+  node-previous:
     docker:
       - image: node:16
     steps:
@@ -49,6 +44,5 @@ jobs:
 workflows:
   node-multi-build:
     jobs:
-      - node-base
-      - node-middle
+      - node-previous
       - node-latest
