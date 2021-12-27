@@ -6870,6 +6870,34 @@ export function tryCatchAsync<T>(
 export const DELAY: 'RAMBDAX_DELAY';
 
 /*
+Method: findAsync
+
+Explanation: Asynchronous version of `R.find`.
+
+Example:
+
+```
+const predicate = x => {
+  await R.delay(100)
+  return R.type(x.foo) === 'Number'
+}
+
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = await R.findAsync(predicate, list)
+// => {foo: 1}
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>, list: T[]): T | undefined;
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>): (list: T[]) => T | undefined;
+
+/*
 Method: xnor
 
 Explanation: Logical XNOR
