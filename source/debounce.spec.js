@@ -1,38 +1,36 @@
 import {debounce} from './debounce'
 import {delay} from './delay'
-import {inc} from './inc'
 
 test('happy', async () => {
-  let counter = 1
+  let counter = 0
+  let aHolder
 
+  const inc = (a) => {
+    aHolder = a
+    counter++
+  }
   const incWrapped = debounce(inc, 500)
 
-  expect(incWrapped(counter, 2)).toBe(
-    3
-  )
-  
+  incWrapped(1)
+  expect(counter).toBe(0)
+
   await delay(200)
 
-  expect(incWrapped(counter, 2)).toBe(
-    5
-  )
-  
-  await delay(600)
-  expect(incWrapped(counter, 2)).toBe(
-    5
-  )
+  incWrapped(2)
+  expect(counter).toBe(0)
+
+  await delay(700)
+  expect(counter).toBe(1)
+  expect(aHolder).toBe(2)
 })
 
 test('immediate debounce', async () => {
   let counter = 0
-  const incFn = () => {
+  const inc = () => {
     counter++
   }
 
-  const incWrapped = debounce(incFn, 500, true)
-  incWrapped()
-  expect(counter).toBe(1)
-  await delay(200)
+  const incWrapped = debounce(inc, 500, true)
   incWrapped()
   expect(counter).toBe(1)
   await delay(200)
