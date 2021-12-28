@@ -96,7 +96,7 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
+      "import": "./dist/rambda.esm.js",
       "require": "./dist/rambda.js",
       "default": "./dist/rambda.js",
       "types": "./index.d.ts"
