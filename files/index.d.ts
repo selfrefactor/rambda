@@ -2038,9 +2038,11 @@ Example:
 const input = {x: 1, y: 2}
 const xLens = R.lensProp('x')
 
-R.set(xLens, 4, input) // => {x: 4, y: 2}
-R.set(xLens, 8, input) // => {x: 8, y: 2}
-
+const result = [
+  R.set(xLens, 4, input),
+  R.set(xLens, 8, input) 
+]
+// => [{x: 4, y: 2}, {x: 8, y: 2}]
 ```
 
 Categories: Lenses
@@ -2857,7 +2859,7 @@ const obj = {
 
 const result = R.paths([
   'a.b.c',
-  'a.b.c.d',
+  'a.b.d',
   'a.b.c.d.e',
 ], obj)
 // => [1, 2, undefined]
@@ -2893,9 +2895,9 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, obj) 
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj) 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj) 
+  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
@@ -2936,8 +2938,8 @@ const result = [
   R.pick(propsToPickList, obj),
   R.pick('a,bar', obj),
   R.pick('bar', obj),
-  R.pick([0, 3], list),
-  R.pick('0,3', list),
+  R.pick([0, 3, 5], list),
+  R.pick('0,3,5', list),
 ]
 
 const expected = [
@@ -2945,8 +2947,8 @@ const expected = [
   {a:1, foo: 'cherry'},
   {a:1},
   {},
-  [1,4],
-  [1,4]
+  {0: 1, 3: 4},
+  {0: 1, 3: 4},
 ]
 // => `result` is equal to `expected`
 ```
@@ -3094,7 +3096,7 @@ Example:
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-R.pluck(property, list) 
+const result = R.pluck(property, list) 
 // => [1, 2]
 ```
 
@@ -3220,13 +3222,13 @@ Example:
 
 ```
 const obj = {a:1, b: 'foo'}
-const property = 'foo'
 
 const result = [
-  R.propIs(String, property, obj),
-  R.propIs(Number, property, obj)
+  R.propIs(Number, 'a', obj),
+  R.propIs(String, 'b', obj),
+  R.propIs(Number, 'b', obj),
 ]
-// => [true, false]
+// => [true, true, false]
 ```
 
 Categories: Object
@@ -3341,10 +3343,10 @@ const obj = {a: 1, b: 2}
 const predicate = x => x > 1
 
 const result = [
-  R.reject(predicate, list)
+  R.reject(predicate, list),
   R.reject(predicate, obj)
 ]
-// => [[1, 2], {a: 1}]
+// => [[1], {a: 1}]
 ```
 
 Categories: List, Object
@@ -3441,7 +3443,7 @@ const from = 1
 const to = 4
 
 const result = [
-  R.slice(str, to, list),
+  R.slice(from, to, str),
   R.slice(from, to, list)
 ]
 // => ['OO_', [1, 2, 3]]
@@ -3467,7 +3469,7 @@ export function slice(from: number): {
 /*
 Method: sort
 
-Explanation: It returns copy of `list` sorted by `sortFn` function.
+Explanation: It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
 
 Example:
 
@@ -3492,7 +3494,7 @@ const expected = [
 
 Categories: List
 
-Notes: `sortFn` function must return a number.
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3502,7 +3504,7 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 /*
 Method: sortBy
 
-Explanation: It returns copy of `list` sorted by `sortFn` function.
+Explanation: It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
 
 Example:
 
@@ -3525,7 +3527,7 @@ const expected = [
 
 Categories: List
 
-Notes: `sortFn` function must return a value to compare.
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3542,8 +3544,8 @@ Example:
 
 ```
 const str = 'foo|bar|baz'
-const separator = |'
-const result = R.split(separator, str))
+const separator = '|'
+const result = R.split(separator, str)
 // => [ 'foo', 'bar', 'baz' ]
 ```
 
@@ -3630,7 +3632,7 @@ Example:
 const x = 3
 const y = 1
 
-R.subtract(x, y) 
+const result = R.subtract(x, y) 
 // => 2
 ```
 
@@ -3676,7 +3678,7 @@ Example:
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
-const result = symmetricDifference(x, y)
+const result = R.symmetricDifference(x, y)
 // => [ 1, 2, 5, 6 ]
 ```
 
@@ -4466,8 +4468,10 @@ Explanation: It takes list with properties `propsToPick` and returns a list with
 Example:
 
 ```
-const result = [
-  R.props(['a', 'b'], {a:1, c:3})
+const result = R.props(
+  ['a', 'b'], 
+  {a:1, c:3}
+)
 // => [1, undefined]
 ```
 
@@ -4517,7 +4521,7 @@ Example:
 
 ```
 const list = [ 1, 2, 3 ]
-const result = splitAt(2, list)
+const result = R.splitAt(2, list)
 // => [[ 1, 2 ], [ 3 ]]
 ```
 
@@ -5113,9 +5117,9 @@ Notes: Description is taken from `Lodash` docs
 
 */
 // @SINGLE_MARKER
-export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
-export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
-export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
+export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => void;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => void;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => void;
 
 /*
 Method: delay
@@ -5820,7 +5824,7 @@ Example:
 
 ```
 const fn = ({ a, b, c }) => a + b + c
-const curried = partialCurry(fn, { a : 1 })
+const curried = R.partialCurry(fn, { a : 1 })
 const result = curried({
   b : 2,
   c : 3,
@@ -5847,7 +5851,7 @@ Explanation: It is basically `R.pipe`, but instead of passing `input` argument a
 Example:
 
 ```
-const result = piped(
+const result = R.piped(
   [1, 2, 3],
   R.filter(x => x > 1),
   R.map(x => x*10),
@@ -5915,10 +5919,9 @@ Example:
 ```
 const rules = {
   foo: R.pipe(R.add(1), R.add(2)),
-  a: {b: add(3)}
+  a: {b: R.add(3)}
 }
-const input = i
-const result = R.produce(rules, input)
+const result = R.produce(rules, 1)
 
 const expected = {
   foo: 4,
@@ -6018,7 +6021,7 @@ Explanation: It will remove all `toRemove` entries from `text` sequentially.
 Example:
 
 ```
-const result = remove(
+const result = R.remove(
   ['foo','bar'],
   'foo bar baz foo'
 )
@@ -6074,7 +6077,7 @@ const replacer = '|'
 const patterns = [ /foo/g, 'bar' ]
 const input = 'foo bar baz foo bar'
 
-const result = replaceAll(patterns, replacer, input)
+const result = R.replaceAll(patterns, replacer, input)
 // => '| | baz | bar'
 ```
 
@@ -6445,7 +6448,7 @@ const list = [
   {a: {b: 1}},
   {a: {b: 3}}
 ]
-const result = R.sortByPath('a.b', list)
+const result = R.sortByProps(['a.b'], list)
 const expected = [
   {a: {b: 1}},
   {a: {b: 2}},
@@ -6868,6 +6871,34 @@ export function tryCatchAsync<T>(
 ): (input: any) => Promise<T>;
 
 export const DELAY: 'RAMBDAX_DELAY';
+
+/*
+Method: findAsync
+
+Explanation: Asynchronous version of `R.find`.
+
+Example:
+
+```
+const predicate = x => {
+  await R.delay(100)
+  return R.type(x.foo) === 'Number'
+}
+
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = await R.findAsync(predicate, list)
+// => {foo: 1}
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>, list: T[]): T | undefined;
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>): (list: T[]) => T | undefined;
 
 /*
 Method: xnor
