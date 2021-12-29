@@ -1,13 +1,13 @@
 import {propIs} from './propIs'
 
-const obj = {value: 1}
-const property = 'value'
+const obj = {a: 1, b:'foo'}
 
 test('when true', () => {
-  expect(propIs(Number, property, obj)).toBeTrue()
+  expect(propIs(Number, 'a', obj)).toBeTrue()
+  expect(propIs(String, 'b', obj)).toBeTrue()
 })
 
 test('when false', () => {
-  expect(propIs(String, property, obj)).toBeFalse()
-  expect(propIs(String, property, {})).toBeFalse()
+  expect(propIs(String, 'a', obj)).toBeFalse()
+  expect(propIs(Number, 'b', obj)).toBeFalse()
 })
