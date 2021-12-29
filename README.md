@@ -50,7 +50,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -5452,7 +5452,7 @@ export function filter(predicate, iterable) {
     throw new Error('Incorrect iterable input')
   }
 
-  if (_isArray(iterable)) return filterArray(predicate, iterable)
+  if (_isArray(iterable)) return filterArray(predicate, iterable, false)
 
   return filterObject(predicate, iterable)
 }
@@ -12127,6 +12127,13 @@ test('when prop is missing', () => {
   expect(result).toEqual({a: 1})
 })
 
+test('with list indexes as props', () => {
+  const list = [1, 2, 3]
+  const expected = {0: 1, 2: 3}
+  expect(pick([0,2,3], list)).toEqual(expected)
+  expect(pick('0,2,3', list)).toEqual(expected)
+})
+
 test('props to pick is an array', () => {
   expect(
     pick(['a', 'c'])({
@@ -13067,16 +13074,16 @@ export const propIs = curry(propIsFn)
 ```javascript
 import {propIs} from './propIs'
 
-const obj = {value: 1}
-const property = 'value'
+const obj = {a: 1, b:'foo'}
 
 test('when true', () => {
-  expect(propIs(Number, property, obj)).toBeTrue()
+  expect(propIs(Number, 'a', obj)).toBeTrue()
+  expect(propIs(String, 'b', obj)).toBeTrue()
 })
 
 test('when false', () => {
-  expect(propIs(String, property, obj)).toBeFalse()
-  expect(propIs(String, property, {})).toBeFalse()
+  expect(propIs(String, 'a', obj)).toBeFalse()
+  expect(propIs(Number, 'b', obj)).toBeFalse()
 })
 ```
 
@@ -14331,7 +14338,7 @@ describe('R.slice', () => {
 sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[]
 ```
 
-It returns copy of `list` sorted by `sortFn` function.
+It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
 
 <details>
 
@@ -14452,7 +14459,7 @@ const replace = [
 sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[]
 ```
 
-It returns copy of `list` sorted by `sortFn` function.
+It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
 
 <details>
 
@@ -19105,6 +19112,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+7.0.1
+
+- Wrong ESM export configuration in `package.json` - [Issue #614](https://github.com/selfrefactor/rambda/issues/614)
 
 7.0.0
 

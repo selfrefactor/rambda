@@ -1023,7 +1023,7 @@ function filter(predicate, iterable) {
     throw new Error('Incorrect iterable input');
   }
 
-  if (_isArray(iterable)) return filterArray(predicate, iterable);
+  if (_isArray(iterable)) return filterArray(predicate, iterable, false);
   return filterObject(predicate, iterable);
 }
 

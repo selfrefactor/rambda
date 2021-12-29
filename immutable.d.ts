@@ -1123,13 +1123,13 @@ export function slice(from: number): {
 };
 
 /**
- * It returns copy of `list` sorted by `sortFn` function.
+ * It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
  */
 export function sort<T>(sortFn: (a: T, b: T) => number, list: readonly T[]): readonly T[];
 export function sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) => readonly T[];
 
 /**
- * It returns copy of `list` sorted by `sortFn` function.
+ * It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
  */
 export function sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): readonly T[];
 export function sortBy<T>(sortFn: (a: T) => Ord): (list: readonly T[]) => readonly T[];

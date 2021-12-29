@@ -16,7 +16,7 @@
     "build": "yarn build:main && yarn build:web",
     "build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
     "build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
-    "docs": "docsify init ./docs",
+    "docs": "npx docsify-cli init ./docs",
     "new": "cd ../rambda-scripts && yarn new",
     "test": "jest source -u --bail=false",
     "cover:spec": "jest source --coverage --no-cache -w 1",
