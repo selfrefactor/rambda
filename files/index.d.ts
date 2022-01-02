@@ -5096,7 +5096,7 @@ const increment = () => {
 
 const debounced = R.debounce(increment, 1000)
 
-const result = async function(){
+const result = await async function(){
   debounced()
   await R.delay(500)
   debounced()
@@ -5493,7 +5493,7 @@ async function fn(x){
   return x+1
 }
 
-const result = R.mapAsync(fn, [1, 2, 3])
+const result = await R.mapAsync(fn, [1, 2, 3])
 // `result` resolves after 3 seconds to `[2, 3, 4]`
 ```
 
@@ -5522,7 +5522,7 @@ async function fn(x){
   return x+1
 }
 
-const result = R.mapFastAsync(fn, [1, 2, 3])
+const result = await R.mapFastAsync(fn, [1, 2, 3])
 // `result` resolves after 1 second to `[2, 3, 4]`
 ```
 
@@ -5882,7 +5882,7 @@ Explanation: It accepts input as first argument and series of functions as next 
 Example:
 
 ```
-const result = R.pipedAsync(
+const result = await R.pipedAsync(
   100,
   async x => {
     await R.delay(100)
@@ -5894,8 +5894,7 @@ const result = R.pipedAsync(
     return delayed + x
   }
 )
-const expected = 'RAMBDAX_DELAY104'
-// `result` resolves to `expected`
+// `result` resolves to `RAMBDAX_DELAY104`
 ```
 
 Categories: Async
