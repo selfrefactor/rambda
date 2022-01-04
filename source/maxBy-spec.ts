@@ -1,6 +1,6 @@
 import {maxBy} from 'rambda'
 
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
+const compareFn = (x: number) => (x % 2 === 0 ? 1 : -1)
 const first = 1
 const second = 2
 

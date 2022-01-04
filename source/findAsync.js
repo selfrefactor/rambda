@@ -15,7 +15,7 @@ export function findAsyncFn(predicate, list) {
           found = x
         }
       } catch (error) {
-          reject(error)
+        reject(error)
       }
     }
 

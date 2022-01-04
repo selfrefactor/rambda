@@ -24,8 +24,8 @@ describe('R.renameProps', () => {
 
 describe('R.renameProps - explicitly passed output type', () => {
   interface Output {
-    foo: number,
-    bar: number,
+    foo: number
+    bar: number
   }
 
   it('happy', () => {

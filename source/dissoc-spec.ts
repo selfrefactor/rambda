@@ -1,8 +1,8 @@
 import {dissoc} from 'rambda'
 
 interface Input {
-  a: string,
-  b: string,
+  a: string
+  b: string
 }
 const obj: Input = {
   a: 'foo',

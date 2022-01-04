@@ -5,8 +5,8 @@ import {throttle} from './throttle'
 test('with side effect', async () => {
   let counter = 0
 
-  const incFn = (a) => {
-    counter = counter+a
+  const incFn = a => {
+    counter = counter + a
     return counter
   }
   const incWrapped = throttle(incFn, 1000)
@@ -17,7 +17,7 @@ test('with side effect', async () => {
   expect(counter).toBe(2)
 })
 
-test('return result', async() => {
+test('return result', async () => {
   const incWrapped = throttle(inc, 1000)
   const results = []
   results.push(incWrapped(1))
@@ -26,5 +26,5 @@ test('return result', async() => {
   results.push(incWrapped(1))
   await delay(500)
   results.push(incWrapped(1))
-  expect(results).toEqual([2,2,2,2])
+  expect(results).toEqual([2, 2, 2, 2])
 })

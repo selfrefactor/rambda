@@ -17,7 +17,7 @@ describe('R.identical', () => {
   })
   it('with object - explicit type', () => {
     interface Foo {
-      a: number,
+      a: number
     }
     identical<Foo>({a: 1}, {a: 2})
     // $ExpectError

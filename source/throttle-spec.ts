@@ -1,7 +1,7 @@
 import {delay, throttle} from 'rambda'
 
 describe('R.throttle', () => {
-  it('arity of 1', async() => {
+  it('arity of 1', async () => {
     const fn = throttle((x: number) => x + 1, 1000)
     const result1 = fn(1)
     await delay(100)

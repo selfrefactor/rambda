@@ -13,7 +13,7 @@ test('promise', () => {
 })
 
 test('async', () => {
-  async function fn(){}
+  async function fn() {}
 
   expect(isType('Async', fn)).toBeTruthy()
 })

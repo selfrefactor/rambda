@@ -11,11 +11,11 @@ import {
 } from 'rambda'
 
 interface Input {
-  a: string,
-  b: string,
+  a: string
+  b: string
 }
 interface Output {
-  c: string,
+  c: string
 }
 
 describe('R.pipe with explicit types', () => {
@@ -25,10 +25,10 @@ describe('R.pipe with explicit types', () => {
       b: 'bar',
     }
     interface AfterInput {
-      a: number,
+      a: number
     }
     interface BeforeOutput {
-      b: string,
+      b: string
     }
 
     const result = pipe<Input[], AfterInput, BeforeOutput, Output>(

@@ -3,7 +3,7 @@ import {viewOr, lensProp} from 'rambda'
 const lens = lensProp('b')
 const input = {a: 1}
 interface Input {
-  a: number,
+  a: number
 }
 
 describe('R.viewOr', () => {

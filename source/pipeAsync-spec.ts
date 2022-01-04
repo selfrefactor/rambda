@@ -1,7 +1,7 @@
 import {delay, pipeAsync} from 'rambda'
 
 describe('R.pipeAsync', () => {
-  it('happy', async() => {
+  it('happy', async () => {
     const result = await pipeAsync<number>(
       async x => {
         await delay(100)

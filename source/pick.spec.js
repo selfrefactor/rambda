@@ -26,7 +26,7 @@ test('when prop is missing', () => {
 test('with list indexes as props', () => {
   const list = [1, 2, 3]
   const expected = {0: 1, 2: 3}
-  expect(pick([0,2,3], list)).toEqual(expected)
+  expect(pick([0, 2, 3], list)).toEqual(expected)
   expect(pick('0,2,3', list)).toEqual(expected)
 })
 

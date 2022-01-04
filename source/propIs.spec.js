@@ -1,6 +1,6 @@
 import {propIs} from './propIs'
 
-const obj = {a: 1, b:'foo'}
+const obj = {a: 1, b: 'foo'}
 
 test('when true', () => {
   expect(propIs(Number, 'a', obj)).toBeTrue()

@@ -7,8 +7,8 @@ const obj = {
 const changeKeyFn = (prop: string) => `${prop}_foo`
 
 interface Output {
-  a_foo: string,
-  b_foo: string,
+  a_foo: string
+  b_foo: string
 }
 
 describe('R.mapKeys', () => {

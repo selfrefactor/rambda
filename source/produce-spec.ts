@@ -18,8 +18,8 @@ describe('R.produce', () => {
   })
   it('curried require explicit types', () => {
     interface Output {
-      a: number,
-      b: {foo: number},
+      a: number
+      b: {foo: number}
     }
     const result = produce<number, Output>({
       a: pipe(add(2), add(3)),

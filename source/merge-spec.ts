@@ -1,8 +1,8 @@
 import {merge} from 'rambda'
 
 interface Output {
-  foo: number,
-  bar: number,
+  foo: number
+  bar: number
 }
 
 describe('R.merge', () => {

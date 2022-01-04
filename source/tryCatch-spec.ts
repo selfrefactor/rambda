@@ -14,20 +14,20 @@ describe('R.tryCatch', () => {
     result // $ExpectType string
   })
 
-  it('asynchronous', async() => {
-    const fn = async(input: any) => {
+  it('asynchronous', async () => {
+    const fn = async (input: any) => {
       return typeof JSON.parse('{a:')
     }
     const result = await tryCatch<string>(fn, 'fallback')(100)
     result // $ExpectType string
   })
 
-  it('asynchronous + fallback is asynchronous', async() => {
-    const fn = async(input: any) => {
+  it('asynchronous + fallback is asynchronous', async () => {
+    const fn = async (input: any) => {
       await delay(100)
       return JSON.parse(`{a:${input}`)
     }
-    const fallback = async(input: any) => {
+    const fallback = async (input: any) => {
       await delay(100)
       return 'foo'
     }

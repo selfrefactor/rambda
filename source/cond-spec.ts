@@ -7,7 +7,7 @@ describe('R.cond', () => {
       [equals(100), always('water boils at 100°C')],
       [
         () => true,
-        function(temp) {
+        function (temp) {
           temp // $ExpectType number
           return 'nothing special happens at ' + temp + '°C'
         },

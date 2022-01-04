@@ -5,7 +5,7 @@ test('happy', async () => {
   let counter = 0
   let aHolder
 
-  const inc = (a) => {
+  const inc = a => {
     aHolder = a
     counter++
   }

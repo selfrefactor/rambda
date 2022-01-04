@@ -1,7 +1,7 @@
 import {delay, composeAsync} from 'rambda'
 
 describe('R.composeAsync', () => {
-  it('happy', async() => {
+  it('happy', async () => {
     const result = await composeAsync<number>(
       async x => {
         await delay(100)

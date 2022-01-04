@@ -3,9 +3,9 @@ import {partialCurry, delay} from 'rambda'
 describe('R.partialCurry', () => {
   it('happy', () => {
     interface Input {
-      a: number,
-      b: number,
-      c: string,
+      a: number
+      b: number
+      c: string
     }
     const fn = ({a, b, c}: Input) => a + b + c
     const curried = partialCurry(fn, {a: 1})
@@ -15,13 +15,13 @@ describe('R.partialCurry', () => {
     })
     result // $ExpectType string
   })
-  it('asynchronous', async() => {
+  it('asynchronous', async () => {
     interface Input {
-      a: number,
-      b: number,
-      c: string,
+      a: number
+      b: number
+      c: string
     }
-    const fn = async({a, b, c}: Input) => {
+    const fn = async ({a, b, c}: Input) => {
       await delay(100)
       return a + b + c
     }
