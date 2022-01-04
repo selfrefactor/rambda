@@ -20,6 +20,7 @@
     "docs": "npx docsify-cli init ./docs && yarn fix-docsify",
     "new": "cd ../rambda-scripts && yarn new",
     "test": "jest source -u --bail=false",
+    "test:dev": "jest source --watch",
     "cover:spec": "jest source --coverage --no-cache -w 1",
     "cover": "yarn typings && yarn cover:spec",
     "build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
