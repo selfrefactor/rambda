@@ -5,7 +5,7 @@ import {type} from './type'
 export function waitFor(condition, howLong, loops = 10) {
   const typeCondition = type(condition)
 
-  const passPromise = typeCondition === 'Async'
+  const passPromise = typeCondition === 'Promise'
   const passFunction = typeCondition === 'Function'
   const interval = Math.floor(howLong / loops)
 

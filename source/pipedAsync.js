@@ -9,7 +9,7 @@ export async function pipedAsync(...inputs) {
     const fn = fnList.shift()
     const typeFn = type(fn)
 
-    if (typeFn === 'Async') {
+    if (typeFn === 'Promise') {
       argumentsToPass = await fn(argumentsToPass)
     } else {
       argumentsToPass = fn(argumentsToPass)

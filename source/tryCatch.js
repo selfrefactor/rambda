@@ -1,4 +1,6 @@
-import {isFunction} from './isFunction'
+import {type} from './type'
+
+const isFunction = x => ['Promise', 'Function'].includes(type(x))
 
 export function tryCatch(fn, fallback) {
   if (!isFunction(fn)) {

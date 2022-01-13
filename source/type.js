@@ -8,5 +8,5 @@ export function type(input) {
   }
   const typeResult = Object.prototype.toString.call(input).slice(8, -1)
 
-  return typeResult === 'AsyncFunction' ? 'Async' : typeResult
+  return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
 }

@@ -5356,29 +5356,6 @@ export function ifElseAsync<T, K, U>(
 ): (x: T, y: K) => Promise<U>;
 
 /*
-Method: isFunction
-
-Explanation: It returns `true` if **R.type** of `input` is `Async` or `Function`.
-
-Example:
-
-```
-const result = [
-  R.isFunction(R.mapAsync),
-  R.isFunction(R.add),
-]
-// => [true, true]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isFunction(input: any): boolean;
-
-/*
 Method:
 
 Explanation: It returns true if `input` is either asynchronous function or unresolved promise.

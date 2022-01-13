@@ -253,20 +253,9 @@ test('type can be `"function"`', () => {
   ).toBeTruthy()
 })
 
-test('type can be `async`', () => {
-  const input = {a: async () => {}}
-  const schema = {a: 'async'}
-  expect(
-    isValid({
-      input,
-      schema,
-    })
-  ).toBeTruthy()
-})
-
 test('type can be `promise`', () => {
-  const input = {a: delay(1999)}
-  const schema = {a: 'promise'}
+  const input = {a: delay(1999), b: async () => {}}
+  const schema = {a: 'promise', b:'promise'}
   expect(
     isValid({
       input,

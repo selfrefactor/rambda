@@ -45,12 +45,12 @@ test('with new promise', () => {
 })
 
 test('async function', () => {
-  expect(type(async () => {})).toEqual('Async')
+  expect(type(async () => {})).toEqual('Promise')
 })
 
 test('async arrow', () => {
   const asyncArrow = async () => {}
-  expect(type(asyncArrow)).toBe('Async')
+  expect(type(asyncArrow)).toBe('Promise')
 })
 
 test('function', () => {
