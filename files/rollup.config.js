@@ -30,9 +30,5 @@ export default {
       file   : './dist/rambda.esm.js',
       format : 'es',
     },
-    {
-      file   : './dist/rambda.mjs',
-      format : 'esm',
-    },
   ],
 }
