@@ -1667,11 +1667,13 @@ Example:
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 
-const result = intersection(listA, listB)
+const result = R.intersection(listA, listB)
 // => [{ id : 3 }, { id : 4 }]
 ```
 
 Categories: List
+
+Notes: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]". 
 
 */
 // @SINGLE_MARKER
@@ -5065,10 +5067,8 @@ Explanation: It counts how many times `searchFor` is within `list` according to 
 Example:
 
 ```
-const list = [1, {a:1}, 1, 'foo']
-const searchFor = 1
-
-const result = R.count(searchFor, list)
+const list = [{a: 1}, {b:2}, {a:1}]
+const result = R.count({a:1}, list)
 // => 2
 ```
 
@@ -6901,6 +6901,26 @@ Notes:
 // @SINGLE_MARKER
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
+
+/*
+Method: modifyPath
+
+Explanation: It changes a property of object on the base of provided path and transformer function.
+
+Example:
+
+```
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modifyPath<T>(path: string|string[], fn: (x: T) => T, object: Record<string, T>): Record<string, T>;
 
 // RAMBDAX_MARKER_END
 // ============================================

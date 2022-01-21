@@ -1,3 +1,5 @@
+import { createPath } from "./_internals/createPath"
+
 export function path(pathInput, obj) {
   if (arguments.length === 1) return _obj => path(pathInput, _obj)
 
@@ -7,8 +9,7 @@ export function path(pathInput, obj) {
   let willReturn = obj
   let counter = 0
 
-  const pathArrValue =
-    typeof pathInput === 'string' ? pathInput.split('.') : pathInput
+  const pathArrValue = createPath(pathInput)
 
   while (counter < pathArrValue.length) {
     if (willReturn === null || willReturn === undefined) {

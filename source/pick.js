@@ -1,12 +1,12 @@
+import {createPath} from './_internals/createPath'
+
 export function pick(propsToPick, input) {
   if (arguments.length === 1) return _input => pick(propsToPick, _input)
 
   if (input === null || input === undefined) {
     return undefined
   }
-  const keys =
-    typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick
-
+  const keys =createPath(propsToPick, ',')
   const willReturn = {}
   let counter = 0
 

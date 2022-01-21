@@ -1,9 +1,10 @@
 import {assocPath} from './assocPath'
 import {path as pathModule} from './path'
+import {createPath} from './_internals/createPath'
 const ALLOWED_OPERATIONS = ['remove', 'add', 'update']
 
 export function removeAtPath(path, obj) {
-  const p = typeof path === 'string' ? path.split('.') : path
+  const p = createPath(path)
 
   const len = p.length
   if (len === 0) return

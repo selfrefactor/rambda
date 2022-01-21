@@ -1,3 +1,5 @@
+import { createPath } from "./_internals/createPath"
+
 export function omit(propsToOmit, obj) {
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
@@ -5,9 +7,7 @@ export function omit(propsToOmit, obj) {
     return undefined
   }
 
-  const propsToOmitValue =
-    typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit
-
+  const propsToOmitValue = createPath(propsToOmit, ',')
   const willReturn = {}
 
   for (const key in obj) {
