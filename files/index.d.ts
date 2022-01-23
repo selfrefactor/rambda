@@ -3285,6 +3285,30 @@ export function propOr<T>(defaultValue: T): {
 }
 
 /*
+Method: propSatisfies
+
+Explanation: It returns `true` if the object property satisfies a given predicate.
+
+Example:
+
+```
+const obj = {a: {b:1}}
+const property = 'a'
+const predicate = x => x?.b === 1
+
+const result = R.propSatisfies(predicate, property, obj)
+// => true
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+
+/*
 Method: range
 
 Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
@@ -5117,9 +5141,9 @@ Notes: Description is taken from `Lodash` docs
 
 */
 // @SINGLE_MARKER
-export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => void;
-export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => void;
-export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => void;
+export function debounce<T, U>(fn: (input: T) => U, ms: number, immediate?: boolean): (input: T) => void;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number, immediate?: boolean): (input1: T, input2: Q) => void;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number, immediate?: boolean): (input1: T, input2: Q, input3: Z) => void;
 
 /*
 Method: delay
@@ -6920,7 +6944,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T>(path: string|string[], fn: (x: T) => T, object: Record<string, T>): Record<string, T>;
+export function modifyPath<T>(path: Path, fn: (x: T) => T, object: Record<string, T>): Record<string, T>;
+export function modifyPath<T>(path: Path, fn: (x: T) => T): (object: Record<string, T>) => Record<string, T>;
+export function modifyPath<T>(path: Path): (fn: (x: T) => T) => (object: Record<string, T>) => Record<string, T>;
 
 // RAMBDAX_MARKER_END
 // ============================================

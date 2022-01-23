@@ -2,27 +2,20 @@ import { assoc } from "./assoc";
 import { path as pathModule } from "./path";
 import { createPath } from "./_internals/createPath";
 import { _isArray } from "./_internals/_isArray";
-import { _isInteger } from "./_internals/_isInteger";
 
-function _modify(prop, fn, obj) {
-  if (_isInteger(prop) && _isArray(obj)) {
-    var arr = [].concat(obj);
-    arr[prop] = fn(arr[prop]);
-    return arr;
+function modify(prop, fn, obj) {
+  return {
+    ...obj,
+    [prop]: fn(obj[prop])
   }
-
-  var result = {};
-  for (var p in obj) {
-    result[p] = obj[p];
-  }
-  result[prop] = fn(result[prop]);
-  return result
 }  
 
 export function modifyPath(pathInput, fn, object) {
+  if(_isArray(object)) return object
+
   const path = createPath(pathInput)
   if (path.length === 1) {
-    return _modify(path[0], fn, object);
+    return modify(path[0], fn, object);
   }
   if(pathModule(path, object) === undefined) return object
 
