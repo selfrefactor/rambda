@@ -3,19 +3,15 @@ import { path as pathModule } from "./path";
 import { createPath } from "./_internals/createPath";
 import { _isArray } from "./_internals/_isArray";
 
-function modify(prop, fn, obj) {
-  return {
-    ...obj,
-    [prop]: fn(obj[prop])
-  }
-}  
-
 export function modifyPath(pathInput, fn, object) {
   if(_isArray(object)) return object
 
   const path = createPath(pathInput)
   if (path.length === 1) {
-    return modify(path[0], fn, object);
+    return {
+      ...obj,
+      [prop]: fn(obj[prop])
+    }
   }
   if(pathModule(path, object) === undefined) return object
 
