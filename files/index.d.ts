@@ -2572,7 +2572,7 @@ export function not(input: any): boolean;
 /*
 Method: nth
 
-Explanation: Curried version of `list[index]`.
+Explanation: Curried version of `input[index]`.
 
 Example:
 
@@ -2588,14 +2588,18 @@ const result = [
 // => [3, undefined, 'f']
 ```
 
-Categories: List
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: T[]): T | undefined;	
-export function nth(index: number): <T>(list: T[]) => T | undefined;
+export function nth(index: number, input: string): string | undefined;	
+export function nth<T>(index: number, input: T[]): T | undefined;	
+export function nth(n: number): {
+  <T>(input: T[]): T | undefined;
+  (input: string): string | undefined;
+};
 
 /*
 Method: objOf
@@ -6947,6 +6951,26 @@ Notes:
 export function modifyPath<T>(path: Path, fn: (x: T) => T, object: Record<string, T>): Record<string, T>;
 export function modifyPath<T>(path: Path, fn: (x: T) => T): (object: Record<string, T>) => Record<string, T>;
 export function modifyPath<T>(path: Path): (fn: (x: T) => T) => (object: Record<string, T>) => Record<string, T>;
+
+/*
+Method: deletePath
+
+Explanation:
+
+Example:
+
+```
+const result = R.deletePath()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function deletePath<T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================

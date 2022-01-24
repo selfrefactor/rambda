@@ -2,8 +2,9 @@ import { assoc } from "./assoc";
 import { path as pathModule } from "./path";
 import { createPath } from "./_internals/createPath";
 import { _isArray } from "./_internals/_isArray";
+import { curry } from "./curry";
 
-export function modifyPath(pathInput, fn, object) {
+export function modifyPathFn(pathInput, fn, object) {
   if(_isArray(object)) return object
 
   const path = createPath(pathInput)
@@ -22,3 +23,5 @@ export function modifyPath(pathInput, fn, object) {
 
   return assoc(path[0], val, object);
 }
+
+export const modifyPath = curry(modifyPathFn);
