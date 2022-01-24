@@ -20,11 +20,11 @@ describe('R.nth - string', () => {
   it('happy', () => {
     const result = nth(4, str)
 
-    result // $ExpectType string | undefined
+    result // $ExpectType string
   })
   it('curried', () => {
     const result = nth(1)(str)
 
-    result // $ExpectType string | undefined
+    result // $ExpectType string
   })
 })

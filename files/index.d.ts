@@ -2594,11 +2594,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth(index: number, input: string): string | undefined;	
+export function nth(index: number, input: string): string;	
 export function nth<T>(index: number, input: T[]): T | undefined;	
 export function nth(n: number): {
   <T>(input: T[]): T | undefined;
-  (input: string): string | undefined;
+  (input: string): string;
 };
 
 /*
