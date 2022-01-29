@@ -1,4 +1,6 @@
-export function mergeWith(mergeFn, a,b){
+import { curry } from "./curry"
+
+function mergeWithFn(mergeFn, a,b){
   const willReturn = {}
 
   Object.keys(a).forEach(key => {
@@ -21,3 +23,5 @@ export function mergeWith(mergeFn, a,b){
 
   return willReturn
 }
+
+export const mergeWith = curry(mergeWithFn)

@@ -4877,6 +4877,46 @@ Notes: R.bind does not provide the additional argument-binding capabilities of [
 export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
+/*
+Method: mergeWith
+
+Explanation:
+
+Example:
+
+```
+const result = R.mergeWith()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeWith<T>(x: T): T;
+
+/*
+Method: juxt
+
+Explanation:
+
+Example:
+
+```
+const result = R.juxt()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function juxt<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
