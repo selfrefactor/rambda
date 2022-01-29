@@ -6995,7 +6995,7 @@ export function modifyPath<T>(path: Path): (fn: (x: T) => T) => (object: Record<
 /*
 Method: deletePath
 
-Explanation:
+Explanation: TODO
 
 Example:
 
@@ -7011,6 +7011,26 @@ Notes:
 */
 // @SINGLE_MARKER
 export function deletePath<T>(x: T): T;
+
+/*
+Method: mapcat
+
+Explanation:
+
+Example:
+
+```
+const result = R.mapcat()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapcat<T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================
