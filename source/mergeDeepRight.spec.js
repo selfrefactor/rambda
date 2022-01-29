@@ -1,4 +1,3 @@
-// import { mergeDeepRight } from 'ramda'
 import {mergeDeepRight} from './mergeDeepRight'
 
 const slave = {
