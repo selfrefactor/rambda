@@ -22,10 +22,9 @@ describe('R.startsWith - string as iterable', () => {
     const result = startsWith(target, iterable)
 
     result // $ExpectType boolean
-    
+
     if (result) {
-      //@ts-expect-error
-      iterable === 'happy'
+      iterable // $ExpectType "foo bar"
     }
   })
   it('curried', () => {
@@ -34,8 +33,7 @@ describe('R.startsWith - string as iterable', () => {
     result; // $ExpectType boolean
 
     if (result) {
-      //@ts-expect-error
-      iterable === 'happy'
+      iterable // $ExpectType "foo bar"
     }
   })
 })
