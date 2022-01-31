@@ -3616,8 +3616,8 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function startsWith(target: string, str: string): boolean;
-export function startsWith(target: string): (str: string) => boolean;
+export function startsWith<T extends string>(target: T, str: string): str is `${T}${string}`;
+export function startsWith<T extends string>(target: T): (str: string) => str is `${T}${string}`;
 export function startsWith<T>(target: T[], list: T[]): boolean;
 export function startsWith<T>(target: T[]): (list: T[]) => boolean;
 
