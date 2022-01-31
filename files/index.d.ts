@@ -1557,8 +1557,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes(valueToFind: string, input: string[] | string): boolean;
-export function includes(valueToFind: string): (input: string[] | string) => boolean;
+export function includes<T extends string>(valueToFind: T, input: string): input is `${string}${T}${string}`;
+export function includes<T extends string>(valueToFind: T): (input: string) => input is `${string}${T}${string}`;
 export function includes<T>(valueToFind: T, input: T[]): boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
