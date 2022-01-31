@@ -1013,8 +1013,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string, iterable: string): boolean;
-export function endsWith(target: string): (iterable: string) => boolean;
+export function endsWith<T extends string>(target: T, str: string): str is `${string}${T}`;
+export function endsWith<T extends string>(target: T): (str: string) => str is `${string}${T}`;
 export function endsWith<T>(target: T[], list: T[]): boolean;
 export function endsWith<T>(target: T[]): (list: T[]) => boolean;
 
