@@ -4917,6 +4917,26 @@ Notes:
 // @SINGLE_MARKER
 export function juxt<T>(x: T): T;
 
+/*
+Method: countBy
+
+Explanation:
+
+Example:
+
+```
+const result = R.countBy()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function countBy<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
