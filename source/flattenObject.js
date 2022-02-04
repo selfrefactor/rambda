@@ -1,28 +1,31 @@
-import { type } from "./type"
+import {type} from './type'
 
 export function flattenObjectHelper(obj, accumulator = []) {
-      let willReturn = {}
+  let willReturn = {}
   Object.keys(obj).forEach(key => {
     const typeIs = type(obj[key])
     if (typeIs === 'Object') {
-      const [flatResultValue, flatResultPath] = flattenObjectHelper(obj[key], [...accumulator, key])
+      const [flatResultValue, flatResultPath] = flattenObjectHelper(
+        obj[key],
+        [...accumulator, key]
+      )
       willReturn[flatResultPath.join('.')] = flatResultValue
       return
-    }else if(accumulator.length > 0){
+    } else if (accumulator.length > 0) {
       const finalKey = [...accumulator, key].join('.')
       willReturn[finalKey] = obj[key]
       return
     }
     willReturn[key] = obj[key]
   })
-  if(accumulator.length > 0) return [willReturn, accumulator]
+  if (accumulator.length > 0) return [willReturn, accumulator]
   return willReturn
 }
 
-export function transformFlatObject(obj){
-  const willReturn = {};
+export function transformFlatObject(obj) {
+  const willReturn = {}
 
-  const transformFlatObjectFn = (objLocal) => {
+  const transformFlatObjectFn = objLocal => {
     const willReturnLocal = {}
     Object.keys(objLocal).forEach(key => {
       const typeIs = type(objLocal[key])
@@ -33,7 +36,7 @@ export function transformFlatObject(obj){
       willReturnLocal[key] = objLocal[key]
       willReturn[key] = objLocal[key]
     })
-  
+
     return willReturnLocal
   }
 
@@ -56,12 +59,12 @@ export function flattenObject(obj) {
     const typeIs = type(obj[key])
     if (typeIs === 'Object') {
       const flatObject = flattenObjectHelper(obj[key])
-      const transformed  = transformFlatObject(flatObject)
+      const transformed = transformFlatObject(flatObject)
 
       Object.keys(transformed).forEach(keyTransformed => {
         willReturn[`${key}.${keyTransformed}`] = transformed[keyTransformed]
       })
-    }else{
+    } else {
       willReturn[key] = obj[key]
     }
   })
