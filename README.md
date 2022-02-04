@@ -50,7 +50,7 @@ Currently **Rambda** is more tree-shakable than **Ramda** - proven in the follow
 
 The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
 
-The test shows that **Rambda** bundle size is **2.03 MB** less than its **Ramda** counterpart.
+The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
 
 There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
 
@@ -91,7 +91,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 85 Ramda methods not implemented in Rambda 
+  Click to see the full list of 90 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -102,13 +102,12 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - ascend
 - binary
 - call
+- collectBy
 - comparator
-- composeK
-- composeP
 - composeWith
 - construct
 - constructN
-- contains
+- count
 - countBy
 - descend
 - differenceWith
@@ -141,18 +140,21 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - mergeRight
 - mergeWith
 - mergeWithKey
+- modify
+- modifyPath
 - nAry
+- partialObject
 - nthArg
 - o
+- on
 - otherwise
 - pair
 - partialRight
 - pathSatisfies
 - pickBy
-- pipeK
-- pipeP
 - pipeWith
 - project
+- promap
 - propSatisfies
 - reduceBy
 - reduceRight
@@ -162,6 +164,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - scan
 - sequence
 - sortWith
+- splitWhenever
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
@@ -174,8 +177,10 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - uniqBy
 - unnest
 - until
+- unwind
 - useWith
 - valuesIn
+- whereAny
 - xprod
 - thunkify
 - default
@@ -986,102 +991,7 @@ describe('R.always', () => {
 
 ### and
 
-```typescript
-
-and<T, U>(x: T, y: U): T | U
-```
-
 Logical AND
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-and<T, U>(x: T, y: U): T | U;
-and<T>(x: T): <U>(y: U) => T | U;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.and</strong> source</summary>
-
-```javascript
-export function and(a, b) {
-  if (arguments.length === 1) return _b => and(a, _b)
-
-  return a && b
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {and} from './and'
-
-test('happy', () => {
-  expect(and(1, 'foo')).toBe('foo')
-  expect(and(true, true)).toBeTrue()
-  expect(and(true)(true)).toBeTrue()
-  expect(and(true, false)).toBeFalse()
-  expect(and(false, true)).toBeFalse()
-  expect(and(false, false)).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {and} from 'rambda'
-
-describe('R.and', () => {
-  it('happy', () => {
-    const result = and(true, false)
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = and('foo')(1)
-    result // $ExpectType string | 1
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 89.09%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const and = [
-  {
-    label: 'Rambda',
-    fn: () => {
-      R.and(true, true)
-    },
-  },
-  {
-    label: 'Ramda',
-    fn: () => {
-      Ramda.and(true, true)
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#and)
 
@@ -1945,8 +1855,8 @@ describe('applySpec', () => {
   })
   it('ramda 1', () => {
     interface Output {
-      sum: number,
-      multiplied: number,
+      sum: number
+      multiplied: number
     }
     const result = applySpec<Output>({
       sum: add,
@@ -2417,8 +2327,8 @@ test('happy', () => {
 import {assocPath} from 'rambda'
 
 interface Output {
-  a: number,
-  foo: {bar: number},
+  a: number
+  foo: {bar: number}
 }
 
 describe('R.assocPath - user must explicitly set type of output', () => {
@@ -2881,338 +2791,25 @@ describe('R.chain', () => {
 
 ### clamp
 
-```typescript
-
-clamp(min: number, max: number, input: number): number
-```
-
 Restrict a number `input` to be within `min` and `max` limits.
 
 If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-clamp(min: number, max: number, input: number): number;
-clamp(min: number, max: number): (input: number) => number;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.clamp</strong> source</summary>
-
-```javascript
-import {curry} from './curry'
-
-function clampFn(min, max, input) {
-  if (min > max) {
-    throw new Error(
-      'min must not be greater than max in clamp(min, max, value)'
-    )
-  }
-  if (input >= min && input <= max) return input
-
-  if (input > max) return max
-  if (input < min) return min
-}
-
-export const clamp = curry(clampFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {clamp} from './clamp'
-
-test('when min is greater than max', () => {
-  expect(() => clamp(-5, -10, 5)).toThrowWithMessage(
-    Error,
-    'min must not be greater than max in clamp(min, max, value)'
-  )
-})
-
-test('rambda specs', () => {
-  expect(clamp(1, 10, 0)).toEqual(1)
-  expect(clamp(3, 12, 1)).toEqual(3)
-  expect(clamp(-15, 3, -100)).toEqual(-15)
-  expect(clamp(1, 10, 20)).toEqual(10)
-  expect(clamp(3, 12, 23)).toEqual(12)
-  expect(clamp(-15, 3, 16)).toEqual(3)
-  expect(clamp(1, 10, 4)).toEqual(4)
-  expect(clamp(3, 12, 6)).toEqual(6)
-  expect(clamp(-15, 3, 0)).toEqual(0)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {clamp} from 'rambda'
-
-describe('R.clamp', () => {
-  it('happy', () => {
-    const result = clamp(1, 10, 20)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clamp)
 
 ### clone
 
-```typescript
-
-clone<T>(input: T): T
-```
-
 It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-clone<T>(input: T): T;
-clone<T>(input: T[]): T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.clone</strong> source</summary>
-
-```javascript
-import {_isArray} from './_internals/_isArray'
-
-export function clone(input) {
-  const out = _isArray(input) ? Array(input.length) : {}
-  if (input && input.getTime) return new Date(input.getTime())
-
-  for (const key in input) {
-    const v = input[key]
-    out[key] =
-      typeof v === 'object' && v !== null
-        ? v.getTime
-          ? new Date(v.getTime())
-          : clone(v)
-        : v
-  }
-
-  return out
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import assert from 'assert'
-
-import {clone} from './clone'
-import {equals} from './equals'
-
-test('with array', () => {
-  const arr = [
-    {
-      b: 2,
-      c: 'foo',
-      d: [1, 2, 3],
-    },
-    1,
-    new Date(),
-    null,
-  ]
-  expect(clone(arr)).toEqual(arr)
-})
-
-test('with object', () => {
-  const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: [1, 2, 3],
-    e: new Date(),
-  }
-  expect(clone(obj)).toEqual(obj)
-})
-
-test('with date', () => {
-  const date = new Date(2014, 10, 14, 23, 59, 59, 999)
-
-  const cloned = clone(date)
-  assert.notStrictEqual(date, cloned)
-  expect(cloned).toEqual(new Date(2014, 10, 14, 23, 59, 59, 999))
-
-  expect(cloned.getDay()).toEqual(5)
-})
-
-test('with R.equals', () => {
-  const objects = [{a: 1}, {b: 2}]
-
-  const objectsClone = clone(objects)
-
-  const result = [
-    equals(objects, objectsClone),
-    equals(objects[0], objectsClone[0]),
-  ]
-  expect(result).toEqual([true, true])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {clone} from 'rambda'
-
-describe('R.clone', () => {
-  it('happy', () => {
-    const obj = {a: 1, b: 2}
-    const result = clone(obj)
-    result // $ExpectType { a: number; b: number; }
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is fastest. Ramda is 91.86% slower and Lodash is 86.48% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const input = {
-  a: 1,
-  b: 2,
-}
-
-const clone = [
-  {
-    label: 'Rambda',
-    fn: () => {
-      R.clone(input)
-    },
-  },
-  {
-    label: 'Ramda',
-    fn: () => {
-      Ramda.clone(input)
-    },
-  },
-  {
-    label: 'Lodash.cloneDeep',
-    fn: () => {
-      _.cloneDeep(input)
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
 
 ### complement
 
-```typescript
-
-complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean
-```
-
 It returns `inverted` version of `origin` function that accept `input` as argument.
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.complement</strong> source</summary>
-
-```javascript
-export function complement(fn) {
-  return (...input) => !fn(...input)
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {complement} from './complement'
-
-test('happy', () => {
-  const fn = complement(x => x.length === 0)
-
-  expect(fn([1, 2, 3])).toBeTrue()
-})
-
-test('with multiple parameters', () => {
-  const between = function (a, b, c) {
-    return a < b && b < c
-  }
-  const f = complement(between)
-  expect(f(4, 5, 11)).toEqual(false)
-  expect(f(12, 2, 6)).toEqual(true)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {complement, isNil} from 'rambda'
-
-describe('R.complement', () => {
-  it('happy', () => {
-    const fn = complement(isNil)
-    const result = fn(null)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#complement)
 
@@ -3224,100 +2821,11 @@ It performs right-to-left function composition.
 
 ### concat
 
-```typescript
-
-concat<T>(x: T[], y: T[]): T[]
-```
-
 It returns a new string or array, which is the result of merging `x` and `y`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-concat<T>(x: T[], y: T[]): T[];
-concat<T>(x: T[]): (y: T[]) => T[];
-concat(x: string, y: string): string;
-concat(x: string): (y: string) => string;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.concat</strong> source</summary>
-
-```javascript
-export function concat(x, y) {
-  if (arguments.length === 1) return _y => concat(x, _y)
-
-  return typeof x === 'string' ? `${x}${y}` : [...x, ...y]
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {concat} from './concat'
-
-test('happy', () => {
-  const arr1 = ['a', 'b', 'c']
-  const arr2 = ['d', 'e', 'f']
-
-  const a = concat(arr1, arr2)
-  const b = concat(arr1)(arr2)
-  const expectedResult = ['a', 'b', 'c', 'd', 'e', 'f']
-
-  expect(a).toEqual(expectedResult)
-  expect(b).toEqual(expectedResult)
-})
-
-test('with strings', () => {
-  expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {concat} from 'rambda'
-
-const list1 = [1, 2, 3]
-const list2 = [4, 5, 6]
-
-describe('R.concat', () => {
-  it('happy', () => {
-    const result = concat(list1, list2)
-
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = concat(list1)(list2)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#concat)
 
 ### cond
-
-```typescript
-
-cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R
-```
 
 It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
 
@@ -3326,118 +2834,6 @@ This function will start evaluating the `conditions` in order to find the first 
 The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
 
 If no winner is found, then `fn` returns `undefined`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.cond</strong> source</summary>
-
-```javascript
-export function cond(conditions) {
-  return input => {
-    let done = false
-    let toReturn
-    conditions.forEach(([predicate, resultClosure]) => {
-      if (!done && predicate(input)) {
-        done = true
-        toReturn = resultClosure(input)
-      }
-    })
-
-    return toReturn
-  }
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {always} from './always'
-import {cond} from './cond'
-import {equals} from './equals'
-import {T} from './T'
-
-test('returns a function', () => {
-  expect(typeof cond([])).toEqual('function')
-})
-
-test('returns a conditional function', () => {
-  const fn = cond([
-    [equals(0), always('water freezes at 0°C')],
-    [equals(100), always('water boils at 100°C')],
-    [
-      T,
-      function (temp) {
-        return 'nothing special happens at ' + temp + '°C'
-      },
-    ],
-  ])
-  expect(fn(0)).toEqual('water freezes at 0°C')
-  expect(fn(50)).toEqual('nothing special happens at 50°C')
-  expect(fn(100)).toEqual('water boils at 100°C')
-})
-
-test('no winner', () => {
-  const fn = cond([
-    [equals('foo'), always(1)],
-    [equals('bar'), always(2)],
-  ])
-  expect(fn('quux')).toEqual(undefined)
-})
-
-test('predicates are tested in order', () => {
-  const fn = cond([
-    [T, always('foo')],
-    [T, always('bar')],
-    [T, always('baz')],
-  ])
-  expect(fn()).toEqual('foo')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {cond, always, equals} from 'rambda'
-
-describe('R.cond', () => {
-  it('happy', () => {
-    const fn = cond<number[], string>([
-      [equals(0), always('water freezes at 0°C')],
-      [equals(100), always('water boils at 100°C')],
-      [
-        () => true,
-        function(temp) {
-          temp // $ExpectType number
-          return 'nothing special happens at ' + temp + '°C'
-        },
-      ],
-    ])
-
-    const result = fn(0)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#cond)
 
@@ -8159,7 +7555,7 @@ export function lens(getter, setter) {
 import {lens, assoc} from 'rambda'
 
 interface Input {
-  foo: string,
+  foo: string
 }
 
 describe('R.lens', () => {
@@ -8279,7 +7675,7 @@ test('get (set(set s v1) v2) === v2', () => {
 import {view, lensIndex} from 'rambda'
 
 interface Input {
-  a: number,
+  a: number
 }
 const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
 
@@ -8453,11 +7849,11 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensPath, view} from 'rambda'
 
 interface Input {
-  foo: number[],
+  foo: number[]
   bar: {
-    a: string,
-    b: string,
-  },
+    a: string
+    b: string
+  }
 }
 
 const testObject: Input = {
@@ -8627,7 +8023,7 @@ test('get (set(set s v1) v2) === v2', () => {
 import {lensProp, view} from 'rambda'
 
 interface Input {
-  foo: string,
+  foo: string
 }
 
 const testObject: Input = {
@@ -9057,167 +8453,13 @@ const match = [
 
 ### max
 
-```typescript
-
-max<T extends Ord>(x: T, y: T): T
-```
-
 It returns the greater value between `x` and `y`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-max<T extends Ord>(x: T, y: T): T;
-max<T extends Ord>(x: T): (y: T) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.max</strong> source</summary>
-
-```javascript
-export function max(x, y) {
-  if (arguments.length === 1) return _y => max(x, _y)
-
-  return y > x ? y : x
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {max} from './max'
-
-test('with number', () => {
-  expect(max(2, 1)).toBe(2)
-})
-
-test('with string', () => {
-  expect(max('foo')('bar')).toBe('foo')
-  expect(max('bar')('baz')).toBe('baz')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {max} from 'rambda'
-
-const first = 1
-const second = 2
-
-describe('R.max', () => {
-  it('happy', () => {
-    const result = max(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried', () => {
-    const result = max(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried - cann pass type', () => {
-    const result = max<number>(first, second)
-    result // $ExpectType number
-  })
-  it('can pass type', () => {
-    const result = max<number>(first, second)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
 
 ### maxBy
 
-```typescript
-
-maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
-```
-
 It returns the greater value between `x` and `y` according to `compareFn` function.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
-maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-maxBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.maxBy</strong> source</summary>
-
-```javascript
-import {curry} from './curry'
-
-export function maxByFn(compareFn, x, y) {
-  return compareFn(y) > compareFn(x) ? y : x
-}
-
-export const maxBy = curry(maxByFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {maxBy} from './maxBy'
-
-test('happy', () => {
-  expect(maxBy(Math.abs, -5, 2)).toEqual(-5)
-})
-
-test('curried', () => {
-  expect(maxBy(Math.abs)(2, -5)).toEqual(-5)
-  expect(maxBy(Math.abs)(2)(-5)).toEqual(-5)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {maxBy} from 'rambda'
-
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
-const first = 1
-const second = 2
-
-describe('R.maxBy', () => {
-  it('happy', () => {
-    const result = maxBy(compareFn, first, second)
-    result // $ExpectType 1 | 2
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#maxBy)
 
@@ -9461,8 +8703,8 @@ test('when undefined or null instead of object', () => {
 import {merge} from 'rambda'
 
 interface Output {
-  foo: number,
-  bar: number,
+  foo: number
+  bar: number
 }
 
 describe('R.merge', () => {
@@ -9593,8 +8835,8 @@ import {mergeAll} from 'rambda'
 describe('R.mergeAll', () => {
   it('with passing type', () => {
     interface Output {
-      foo: number,
-      bar: number,
+      foo: number
+      bar: number
     }
     const result = mergeAll<Output>([{foo: 1}, {bar: 2}])
     result.foo // $ExpectType number
@@ -9784,8 +9026,8 @@ import {mergeDeepRight} from 'rambda'
 
 interface Output {
   foo: {
-    bar: number,
-  },
+    bar: number
+  }
 }
 
 describe('R.mergeDeepRight', () => {
@@ -9879,8 +9121,8 @@ test('when undefined or null instead of object', () => {
 import {mergeLeft} from 'rambda'
 
 interface Output {
-  foo: number,
-  bar: number,
+  foo: number
+  bar: number
 }
 
 describe('R.mergeLeft', () => {
@@ -9899,163 +9141,13 @@ describe('R.mergeLeft', () => {
 
 ### min
 
-```typescript
-
-min<T extends Ord>(x: T, y: T): T
-```
-
 It returns the lesser value between `x` and `y`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-min<T extends Ord>(x: T, y: T): T;
-min<T extends Ord>(x: T): (y: T) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.min</strong> source</summary>
-
-```javascript
-export function min(x, y) {
-  if (arguments.length === 1) return _y => min(x, _y)
-
-  return y < x ? y : x
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {min} from './min'
-
-test('happy', () => {
-  expect(min(2, 1)).toBe(1)
-  expect(min(1)(2)).toBe(1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {min} from 'rambda'
-
-const first = 1
-const second = 2
-
-describe('R.min', () => {
-  it('happy', () => {
-    const result = min(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried', () => {
-    const result = min(first, second)
-    result // $ExpectType 1 | 2
-  })
-  it('curried - cann pass type', () => {
-    const result = min<number>(first, second)
-    result // $ExpectType number
-  })
-  it('can pass type', () => {
-    const result = min<number>(first, second)
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
-```typescript
-
-minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
-```
-
 It returns the lesser value between `x` and `y` according to `compareFn` function.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
-minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.minBy</strong> source</summary>
-
-```javascript
-import {curry} from './curry'
-
-export function minByFn(compareFn, x, y) {
-  return compareFn(y) < compareFn(x) ? y : x
-}
-
-export const minBy = curry(minByFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {minBy} from './minBy'
-
-test('happy', () => {
-  expect(minBy(Math.abs, -5, 2)).toEqual(2)
-})
-
-test('curried', () => {
-  expect(minBy(Math.abs)(2, -5)).toEqual(2)
-  expect(minBy(Math.abs)(2)(-5)).toEqual(2)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {minBy} from 'rambda'
-
-const compareFn = (x: number) => x % 2 === 0 ? 1 : -1
-const first = 1
-const second = 2
-
-describe('R.minBy', () => {
-  it('happy', () => {
-    const result = minBy(compareFn, first, second)
-    result // $ExpectType 1 | 2
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
 
@@ -10067,114 +9159,7 @@ Curried version of `x%y`.
 
 ### move
 
-```typescript
-
-move<T>(fromIndex: number, toIndex: number, list: T[]): T[]
-```
-
 It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
-move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
-move(fromIndex: number): {
-    <T>(toIndex: number, list: T[]): T[];
-    (toIndex: number): <T>(list: T[]) => T[];
-};
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.move</strong> source</summary>
-
-```javascript
-import {curry} from './curry'
-import {cloneList} from './_internals/cloneList'
-
-function moveFn(fromIndex, toIndex, list) {
-  if (fromIndex < 0 || toIndex < 0) {
-    throw new Error('Rambda.move does not support negative indexes')
-  }
-  if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list
-
-  const clone = cloneList(list)
-  clone[fromIndex] = list[toIndex]
-  clone[toIndex] = list[fromIndex]
-
-  return clone
-}
-
-export const move = curry(moveFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {move} from './move'
-const list = [1, 2, 3, 4]
-
-test('happy', () => {
-  const result = move(0, 1, list)
-
-  expect(result).toEqual([2, 1, 3, 4])
-})
-
-test('with negative index', () => {
-  const errorMessage = 'Rambda.move does not support negative indexes'
-  expect(() => move(0, -1, list)).toThrowWithMessage(Error, errorMessage)
-  expect(() => move(-1, 0, list)).toThrowWithMessage(Error, errorMessage)
-})
-
-test('when indexes are outside the list outbounds', () => {
-  const result1 = move(10, 1, list)
-  const result2 = move(1, 10, list)
-
-  expect(result1).toEqual(list)
-  expect(result2).toEqual(list)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {move} from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.move', () => {
-  it('happy', () => {
-    const result = move(0, 1, list)
-
-    result // $ExpectType number[]
-  })
-  it('curried 1', () => {
-    const result = move(0, 1)(list)
-
-    result // $ExpectType number[]
-  })
-  it('curried 2', () => {
-    const result = move(0)(1)(list)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#move)
 
@@ -10673,10 +9658,10 @@ describe('R.omit with array as props input', () => {
 
   it('declare type of input object', () => {
     interface Input {
-      a: string,
-      b: number,
-      c: number,
-      d: number,
+      a: string
+      b: number
+      c: number
+      d: number
     }
     const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
@@ -10694,8 +9679,8 @@ describe('R.omit with array as props input', () => {
 
 describe('R.omit with string as props input', () => {
   interface Output {
-    b: number,
-    d: number,
+    b: number
+    d: number
   }
 
   it('explicitly declare output', () => {
@@ -10710,10 +9695,10 @@ describe('R.omit with string as props input', () => {
 
   it('explicitly declare input and output', () => {
     interface Input {
-      a: number,
-      b: number,
-      c: number,
-      d: number,
+      a: number
+      b: number
+      c: number
+      d: number
     }
     const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
     result // $ExpectType Output
@@ -10885,75 +9870,7 @@ describe('R.once', () => {
 
 ### or
 
-```typescript
-
-or<T, U>(a: T, b: U): T | U
-```
-
 Logical OR
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-or<T, U>(a: T, b: U): T | U;
-or<T>(a: T): <U>(b: U) => T | U;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.or</strong> source</summary>
-
-```javascript
-export function or(a, b) {
-  if (arguments.length === 1) return _b => or(a, _b)
-
-  return a || b
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {or} from './or'
-
-test('happy', () => {
-  expect(or(0, 'foo')).toBe('foo')
-  expect(or(true, true)).toBeTrue()
-  expect(or(false)(true)).toBeTrue()
-  expect(or(false, false)).toBeFalse()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {or} from 'ramda'
-
-describe('R.or', () => {
-  it('happy', () => {
-    const result = or(true, false)
-    result // $ExpectType boolean
-  })
-  it('curried', () => {
-    const result = or(1)('foo')
-    result // $ExpectType number | "foo"
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#or)
 
@@ -11539,10 +10456,10 @@ test('null is not a valid path', () => {
 import {path} from 'rambda'
 
 interface Input {
-  a: number,
+  a: number
   b: {
-    c: boolean,
-  },
+    c: boolean
+  }
 }
 
 describe('R.path', () => {
@@ -12005,9 +10922,9 @@ test('returns undefined for items not found', () => {
 import {paths} from 'rambda'
 
 interface Input {
-  a: number,
-  b: number,
-  c: number,
+  a: number
+  b: number
+  c: number
 }
 
 const input: Input = {a: 1, b: 2, c: 3}
@@ -12130,7 +11047,7 @@ test('when prop is missing', () => {
 test('with list indexes as props', () => {
   const list = [1, 2, 3]
   const expected = {0: 1, 2: 3}
-  expect(pick([0,2,3], list)).toEqual(expected)
+  expect(pick([0, 2, 3], list)).toEqual(expected)
   expect(pick('0,2,3', list)).toEqual(expected)
 })
 
@@ -12204,14 +11121,14 @@ describe('R.pick with array as props input', () => {
 
 describe('R.pick with string as props input', () => {
   interface Input {
-    a: string,
-    b: number,
-    c: number,
-    d: number,
+    a: string
+    b: number
+    c: number
+    d: number
   }
   interface Output {
-    a: string,
-    c: number,
+    a: string
+    c: number
   }
   it('explicitly declare output', () => {
     const result = pick<Output>('a,c', input)
@@ -12390,14 +11307,14 @@ test('with array as condition', () => {
 import {pickAll} from 'rambda'
 
 interface Input {
-  a: string,
-  b: number,
-  c: number,
-  d: number,
+  a: string
+  b: number
+  c: number
+  d: number
 }
 interface Output {
-  a?: string,
-  c?: number,
+  a?: string
+  c?: number
 }
 const input = {a: 'foo', b: 2, c: 3, d: 4}
 
@@ -12533,8 +11450,8 @@ import {pluck} from 'rambda'
 describe('R.pluck', () => {
   it('with object', () => {
     interface ListMember {
-      a: number,
-      b: string,
+      a: number
+      b: string
     }
     const input: ListMember[] = [
       {a: 1, b: 'foo'},
@@ -12947,7 +11864,7 @@ describe('R.propEq', () => {
 
   it('with optional property', () => {
     interface MyType {
-      optional?: string | number,
+      optional?: string | number
     }
 
     const myObject: MyType = {}
@@ -12961,7 +11878,7 @@ describe('R.propEq', () => {
 
   it('imported from @types/ramda', () => {
     interface A {
-      foo: string | null,
+      foo: string | null
     }
     const obj: A = {
       foo: 'bar',
@@ -13074,7 +11991,7 @@ export const propIs = curry(propIsFn)
 ```javascript
 import {propIs} from './propIs'
 
-const obj = {a: 1, b:'foo'}
+const obj = {a: 1, b: 'foo'}
 
 test('when true', () => {
   expect(propIs(Number, 'a', obj)).toBeTrue()
@@ -14546,7 +13463,7 @@ test('with compose', () => {
 import {sortBy, pipe} from 'rambda'
 
 interface Input {
-  a: number,
+  a: number
 }
 
 describe('R.sortBy', () => {
@@ -14582,7 +13499,7 @@ describe('R.sortBy', () => {
   })
   it('with R.pipe', () => {
     interface Obj {
-      value: number,
+      value: number
     }
     const fn = pipe(sortBy<Obj>(x => x.value))
 
@@ -16912,20 +15829,20 @@ describe('R.tryCatch', () => {
     result // $ExpectType string
   })
 
-  it('asynchronous', async() => {
-    const fn = async(input: any) => {
+  it('asynchronous', async () => {
+    const fn = async (input: any) => {
       return typeof JSON.parse('{a:')
     }
     const result = await tryCatch<string>(fn, 'fallback')(100)
     result // $ExpectType string
   })
 
-  it('asynchronous + fallback is asynchronous', async() => {
-    const fn = async(input: any) => {
+  it('asynchronous + fallback is asynchronous', async () => {
+    const fn = async (input: any) => {
       await delay(100)
       return JSON.parse(`{a:${input}`)
     }
-    const fallback = async(input: any) => {
+    const fallback = async (input: any) => {
       await delay(100)
       return 'foo'
     }
@@ -18186,7 +17103,7 @@ test('happy', () => {
 import {lens, view, assoc} from 'rambda'
 
 interface Input {
-  foo: string,
+  foo: string
 }
 
 const testObject: Input = {
@@ -19112,6 +18029,14 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+WIP 7.1.0
+
+- Replace `Async` with `Promise` as return type of `R.type`. 
+
+7.0.2
+
+Rambda doesn't work with `pnpm` due to wrong export configuration - [Issue #619](https://github.com/selfrefactor/rambda/issues/619)
 
 7.0.1
 

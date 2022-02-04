@@ -27,8 +27,8 @@ export default {
       format : 'cjs',
     },
     {
-      file   : './dist/rambda.esm.js',
-      format : 'es',
+      file   : './dist/rambda.mjs',
+      format : 'esm',
     },
   ],
 }
