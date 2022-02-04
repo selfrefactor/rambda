@@ -487,8 +487,8 @@ export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>
 /**
  * It transforms a `listOfPairs` to an object.
  */
-export function fromPairs<V>(listOfPairs: readonly (readonly [number, V])[]): { readonly [index: number]: V };
-export function fromPairs<V>(listOfPairs: readonly (readonly [string, V])[]): { readonly [index: string]: V };
+export function fromPairs<V>(listOfPairs: readonly ((readonly [number, V]))[]): { readonly [index: number]: V };
+export function fromPairs<V>(listOfPairs: readonly ((readonly [string, V]))[]): { readonly [index: string]: V };
 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
@@ -501,8 +501,8 @@ export function groupBy<T, U>(groupFn: (x: T) => string): (list: readonly T[]) =
 /**
  * It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
  */
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => readonly (readonly T[])[];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): readonly (readonly T[])[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readonly T[]) => readonly ((readonly T[]))[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): readonly ((readonly T[]))[];
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): readonly string[];
 
 /**
@@ -1144,11 +1144,11 @@ export function split(separator: string | RegExp, str: string): readonly string[
 /**
  * It splits `input` into slices of `sliceLength`.
  */
-export function splitEvery<T>(sliceLength: number, input: readonly T[]): readonly (readonly T[])[];
+export function splitEvery<T>(sliceLength: number, input: readonly T[]): readonly ((readonly T[]))[];
 export function splitEvery(sliceLength: number, input: string): readonly string[];
 export function splitEvery(sliceLength: number): {
   (input: string): readonly string[];
-  <T>(input: readonly T[]): readonly (readonly T[])[];
+  <T>(input: readonly T[]): readonly ((readonly T[]))[];
 };
 
 /**
@@ -1240,7 +1240,7 @@ export function toPairs<S>(obj: Record<string | number, S>): ReadonlyArray<reado
 
 export function toString(x: unknown): string;
 
-export function transpose<T>(list: readonly (readonly T[])[]): readonly (readonly T[])[];
+export function transpose<T>(list: readonly ((readonly T[]))[]): readonly ((readonly T[]))[];
 
 export function trim(str: string): string;
 
@@ -1391,8 +1391,8 @@ export function splitAt(index: number): {
  * 
  * The first array contains all members of `list` before `predicate` returns `true`.
  */
-export function splitWhen<T, U>(predicate: Predicate<T>, list: readonly U[]): readonly (readonly U[])[];
-export function splitWhen<T>(predicate: Predicate<T>): <U>(list: readonly U[]) => readonly (readonly U[])[];
+export function splitWhen<T, U>(predicate: Predicate<T>, list: readonly U[]): readonly ((readonly U[]))[];
+export function splitWhen<T>(predicate: Predicate<T>): <U>(list: readonly U[]) => readonly ((readonly U[]))[];
 
 export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
