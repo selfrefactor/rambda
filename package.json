@@ -94,11 +94,11 @@
   "sideEffects": false,
   "main": "./dist/rambda.js",
   "umd": "./dist/rambda.umd.js",
-  "module": "./dist/rambda.esm.js",
+  "module": "./dist/rambda.mjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/rambda.esm.js",
+      "import": "./dist/rambda.mjs",
       "require": "./dist/rambda.js",
       "default": "./dist/rambda.js",
       "types": "./index.d.ts"
