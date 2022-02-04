@@ -7052,6 +7052,26 @@ Notes:
 // @SINGLE_MARKER
 export function mapcat<T>(x: T): T;
 
+/*
+Method: flattenObject
+
+Explanation:
+
+Example:
+
+```
+const result = R.flattenObject()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function flattenObject<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
