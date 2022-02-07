@@ -1,6 +1,42 @@
 import {type} from './type'
 import {type as typeRamda} from 'ramda'
 
+test('with buffer', () => {
+  expect(type(new Buffer.from('foo'))).toBe('Uint8Array')
+})
+
+test('with array buffer', () => {
+  expect(type(new ArrayBuffer(8))).toBe('ArrayBuffer')
+})
+
+test('with big int', () => {
+  expect(type(BigInt(9007199254740991))).toBe('BigInt')
+})
+
+test('with generators', () => {
+  function* generator() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+  
+  const gen = generator();
+  expect(type(generator)).toBe('GeneratorFunction')
+  expect(type(gen)).toBe('Generator')
+})
+
+test('with infinity', () => {
+  expect(type(Infinity)).toBe('Number')
+})
+
+test('with weak map', () => {
+  expect(type(new WeakMap())).toBe('WeakMap')
+})
+
+test('with map', () => {
+  expect(type(new Map())).toBe('Map')
+})
+
 test('with symbol', () => {
   expect(type(Symbol())).toBe('Symbol')
 })
