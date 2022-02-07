@@ -4937,6 +4937,26 @@ Notes:
 // @SINGLE_MARKER
 export function countBy<T>(x: T): T;
 
+/*
+Method: unwind
+
+Explanation:
+
+Example:
+
+```
+const result = R.unwind()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unwind<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
