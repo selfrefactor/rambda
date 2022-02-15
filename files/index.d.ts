@@ -7153,6 +7153,26 @@ Notes:
 // @SINGLE_MARKER
 export function list<T>(x: T): T;
 
+/*
+Method: list
+
+Explanation:
+
+Example:
+
+```
+const result = R.list()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function list<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
