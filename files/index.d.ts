@@ -5204,7 +5204,7 @@ const increment = () => {
 
 const debounced = R.debounce(increment, 1000)
 
-const result = await async function(){
+async function fn(){
   debounced()
   await R.delay(500)
   debounced()
@@ -5216,6 +5216,7 @@ const result = await async function(){
 
   return counter
 }
+const result = await fn()
 // `result` resolves to `1`
 ```
 
@@ -7111,6 +7112,46 @@ Notes:
 */
 // @SINGLE_MARKER
 export function deletePath<T>(x: T): T;
+
+/*
+Method: list
+
+Explanation:
+
+Example:
+
+```
+const result = R.list()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function list<T>(x: T): T;
+
+/*
+Method: list
+
+Explanation:
+
+Example:
+
+```
+const result = R.list()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function list<T>(x: T): T;
 
 // RAMBDAX_MARKER_END
 // ============================================
