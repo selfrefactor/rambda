@@ -7171,7 +7171,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function list<T>(x: T): T;
+type ListI<T> = Omit<Array<T>, 'slice' | 'push'>
+export class List<T> extends ListI<T>{
+  constructor(...items: T[]){}
+  slice(start: string): Array<T>;
+  slice(start: number): Array<T>;
+  slice(start: number, stop: number): Array<T>;
+  push(index: number): T
+}
 
 // RAMBDAX_MARKER_END
 // ============================================

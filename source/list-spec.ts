@@ -1,14 +1,10 @@
-import { list } from 'rambda'
+import { List } from 'rambda'
 
 describe('R.list', () => {
-  it('happy', () => {
-    const result = list()
-    
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = list()
+  const list = new List(1,2,3,4,5)
+  it('slice', () => {
+    const result = list.slice('1:3');
 
-    result // $ExpectType number
+    result // $ExpectType number[]
   })
 })
