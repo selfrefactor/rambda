@@ -12940,7 +12940,7 @@ describe('R.product', () => {
 
 ```typescript
 
-prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
+prop<P extends keyof O, O>(propToFind: P, obj: O): O[P]
 ```
 
 It returns the value of property `propToFind` in `obj`.
@@ -12962,9 +12962,10 @@ const result = [
 <summary>All Typescript definitions</summary>
 
 ```typescript
-prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
-prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
-prop<P extends keyof T, T>(p: P): (propToFind: Record<P, T>) => T;
+prop<P extends keyof O, O>(propToFind: P, obj: O): O[P];
+prop<P extends keyof O, O>(propToFind: P): (obj: O) => O[P];
+prop<P extends string | number>(propToFind: P): <T>(obj: Record<P, T>) => T;
+prop<P extends string | number, T>(propToFind: P): (obj: Record<P, T>) => T;
 ```
 
 </details>
@@ -13008,11 +13009,12 @@ test('prop', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {prop} from 'rambda'
-
-const obj = {a: 1, b: 'foo'}
+import {pipe, prop} from 'rambda'
 
 describe('R.prop', () => {
+  const obj = {a: 1, b: 'foo'}
+  type Something = {a?: number, b?: string}
+
   it('issue #553', () => {
     const result = prop('e', {e: 'test1', d: 'test2'})
     const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
@@ -13027,6 +13029,21 @@ describe('R.prop', () => {
   })
   it('curried', () => {
     const result = prop('b')(obj)
+
+    result // $ExpectType string
+  })
+  it('curried with explicit object type', () => {
+    const result = prop<'a', Something>('a')(obj)
+
+    result // $ExpectType number | undefined
+  })
+  it('curried with implicit object type', () => {
+    const result = pipe((value) => value as Something, prop('b'))(obj)
+
+    result // $ExpectType string | undefined
+  })
+  it('curried with explicit result type', () => {
+    const result = prop<'b', string>('b')(obj)
 
     result // $ExpectType string
   })
