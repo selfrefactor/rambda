@@ -6,9 +6,14 @@ describe('R.init', () => {
 
     result // $ExpectType string
   })
-  it('with list', () => {
+  it('with list - one type', () => {
     const result = init([1, 2, 3])
 
     result // $ExpectType number[]
+  })
+  it('with list - mixed types', () => {
+    const result = init([1, 2, 3, 'foo', 'bar'])
+
+    result // $ExpectType (string | number)[]
   })
 })

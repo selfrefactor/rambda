@@ -1653,7 +1653,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T>(input: T[]): T[];
+export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
 export function init(input: string): string;
 
 /*
@@ -3764,7 +3764,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T>(input: T[]): T[];
+export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
 export function tail(input: string): string;
 
 /*
