@@ -11,3 +11,7 @@ test('when true', () => {
 test('when false curried', () => {
   expect(none(isOdd)(arr)).toBeFalse()
 })
+
+test('bug', () => {
+  expect(none((input) => input > 1, [1, 2, 3])).toBe(false)
+})
