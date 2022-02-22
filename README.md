@@ -7,6 +7,7 @@
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
 ![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
+[![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
 
 ## ❯ Example use
 
@@ -9202,10 +9203,10 @@ export function none(predicate, list) {
   if (arguments.length === 1) return _list => none(predicate, _list)
 
   for (let i = 0; i < list.length; i++) {
-    if (!predicate(list[i])) return true
+    if (predicate(list[i])) return false
   }
 
-  return false
+  return true
 }
 ```
 
@@ -9219,15 +9220,13 @@ export function none(predicate, list) {
 import {none} from './none'
 
 const isEven = n => n % 2 === 0
-const isOdd = n => n % 2 === 1
-const arr = [1, 3, 5, 7, 9, 11]
 
 test('when true', () => {
-  expect(none(isEven, arr)).toBeTrue()
+  expect(none(isEven, [1, 3, 5, 7])).toBeTrue()
 })
 
 test('when false curried', () => {
-  expect(none(isOdd)(arr)).toBeFalse()
+  expect(none(isOdd)([1, 3, 5, 8])).toBeFalse()
 })
 ```
 
@@ -11644,7 +11643,7 @@ describe('R.product', () => {
 
 ```typescript
 
-prop<P extends keyof T, T>(propToFind: P, obj: T): T[P]
+prop<P extends keyof O, O>(propToFind: P, obj: O): O[P]
 ```
 
 It returns the value of property `propToFind` in `obj`.
@@ -11656,9 +11655,10 @@ If there is no such property, it returns `undefined`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
-prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
-prop<P extends keyof T, T>(p: P): (propToFind: Record<P, T>) => T;
+prop<P extends keyof O, O>(propToFind: P, obj: O): O[P];
+prop<P extends keyof O, O>(propToFind: P): (obj: O) => O[P];
+prop<P extends string | number>(propToFind: P): <T>(obj: Record<P, T>) => T;
+prop<P extends string | number, T>(propToFind: P): (obj: Record<P, T>) => T;
 ```
 
 </details>
@@ -11702,11 +11702,12 @@ test('prop', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {prop} from 'rambda'
-
-const obj = {a: 1, b: 'foo'}
+import {pipe, prop} from 'rambda'
 
 describe('R.prop', () => {
+  const obj = {a: 1, b: 'foo'}
+  type Something = {a?: number, b?: string}
+
   it('issue #553', () => {
     const result = prop('e', {e: 'test1', d: 'test2'})
     const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
@@ -11721,6 +11722,21 @@ describe('R.prop', () => {
   })
   it('curried', () => {
     const result = prop('b')(obj)
+
+    result // $ExpectType string
+  })
+  it('curried with explicit object type', () => {
+    const result = prop<'a', Something>('a')(obj)
+
+    result // $ExpectType number | undefined
+  })
+  it('curried with implicit object type', () => {
+    const result = pipe((value) => value as Something, prop('b'))(obj)
+
+    result // $ExpectType string | undefined
+  })
+  it('curried with explicit result type', () => {
+    const result = prop<'b', string>('b')(obj)
 
     result // $ExpectType string
   })
@@ -15620,475 +15636,13 @@ test('trim', () => {
 
 ### tryCatch
 
-```typescript
-
-tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: U
-): (input: T) => U
-```
-
 It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: U
-): (input: T) => U;
-tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: (input: T) => U
-): (input: T) => U;
-tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: T
-): (input: any) => Promise<T>;
-tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: (input: any) => Promise<any>,
-): (input: any) => Promise<T>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.tryCatch</strong> source</summary>
-
-```javascript
-import {isFunction} from './isFunction'
-
-export function tryCatch(fn, fallback) {
-  if (!isFunction(fn)) {
-    throw new Error(`R.tryCatch | fn '${fn}'`)
-  }
-  const passFallback = isFunction(fallback)
-
-  return (...inputs) => {
-    try {
-      return fn(...inputs)
-    } catch (e) {
-      return passFallback ? fallback(e, ...inputs) : fallback
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {tryCatch as tryCatchRamda} from 'ramda'
-
-import {compareCombinations} from './_internals/testUtils'
-import {prop} from './prop'
-import {tryCatch} from './tryCatch'
-
-test('happy', () => {
-  const fn = () => {
-    throw new Error('foo')
-  }
-  const result = tryCatch(fn, () => true)()
-  expect(result).toBeTrue()
-})
-
-test('when fallback is used', () => {
-  const fn = x => x.x
-
-  expect(tryCatch(fn, false)(null)).toBeFalse()
-})
-
-test('with json parse', () => {
-  const good = () => JSON.parse(JSON.stringify({a: 1}))
-  const bad = () => JSON.parse('a{a')
-
-  expect(tryCatch(good, 1)()).toEqual({a: 1})
-  expect(tryCatch(bad, 1)()).toBe(1)
-})
-
-test('when fallback is function', () => {
-  const fn = x => x.x
-
-  expect(tryCatch(fn, () => 1)(null)).toBe(1)
-})
-
-test('when fn is used', () => {
-  const fn = prop('x')
-
-  expect(tryCatch(fn, false)({})).toBe(undefined)
-  expect(tryCatch(fn, false)({x: 1})).toBe(1)
-})
-
-test('fallback receives error object and all initial inputs', () => {
-  function thrower(a, b, c) {
-    void c
-    throw new Error('throwerError')
-  }
-
-  function catchFn(e, a, b, c) {
-    return [e.message, a, b, c].join('|')
-  }
-
-  const willThrow = tryCatch(thrower, catchFn)
-  const result = willThrow('A', 'B', 'C')
-  expect(result).toBe('throwerError|A|B|C')
-})
-
-test('fallback receives error object', () => {
-  function throwFn() {
-    throw new Error(10)
-  }
-
-  function eCatcher(e, a, b) {
-    return e.message
-  }
-
-  const willThrow = tryCatch(throwFn, eCatcher)
-  expect(willThrow([])).toBe('10')
-  expect(willThrow([{}, {}, {}])).toBe('10')
-})
-
-const possibleFns = [
-  null,
-  () => 1,
-  () => 0,
-  () => JSON.parse('{a:1'),
-  () => {
-    const x = {}
-
-    return x.x
-  },
-  x => x.foo,
-  () => {
-    throw new Error('foo')
-  },
-]
-
-const possibleCatchers = [
-  null,
-  e => e.message.length,
-  (e, ...inputs) => `${e.message.length} ${inputs.length}`,
-  () => {
-    throw new Error('bar')
-  },
-]
-
-const possibleInputs = [null, {}, {foo: 1}]
-
-describe('brute force', () => {
-  compareCombinations({
-    returnsFunctionFlag: true,
-    firstInput: possibleFns,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 12,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 7,
-          "TOTAL_TESTS": 84,
-        }
-      `)
-    },
-    secondInput: possibleCatchers,
-    thirdInput: possibleInputs,
-    fn: tryCatch,
-    fnRamda: tryCatchRamda,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {tryCatch, delay} from 'rambda'
-
-describe('R.tryCatch', () => {
-  it('synchronous', () => {
-    const fn = (x: any) => x.x === 1
-
-    const result = tryCatch(fn, false)(null)
-    result // $ExpectType boolean
-  })
-  it('synchronous + fallback is function', () => {
-    const fn = (x: any) => typeof x.x
-    const fallback = (x: any) => typeof x
-    const result = tryCatch<any, string>(fn, fallback)(null)
-    result // $ExpectType string
-  })
-
-  it('asynchronous', async () => {
-    const fn = async (input: any) => {
-      return typeof JSON.parse('{a:')
-    }
-    const result = await tryCatch<string>(fn, 'fallback')(100)
-    result // $ExpectType string
-  })
-
-  it('asynchronous + fallback is asynchronous', async () => {
-    const fn = async (input: any) => {
-      await delay(100)
-      return JSON.parse(`{a:${input}`)
-    }
-    const fallback = async (input: any) => {
-      await delay(100)
-      return 'foo'
-    }
-    const result = await tryCatch<string>(fn, fallback)(100)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tryCatch)
 
 ### type
 
-```typescript
-
-type(x: any): RambdaTypes
-```
-
 It accepts any input and it returns its type.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-type(x: any): RambdaTypes;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.type</strong> source</summary>
-
-```javascript
-export function type(input) {
-  if (input === null) {
-    return 'Null'
-  } else if (input === undefined) {
-    return 'Undefined'
-  } else if (Number.isNaN(input)) {
-    return 'NaN'
-  }
-  const typeResult = Object.prototype.toString.call(input).slice(8, -1)
-
-  return typeResult === 'AsyncFunction' ? 'Async' : typeResult
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import {type} from './type'
-import {type as typeRamda} from 'ramda'
-
-test('with symbol', () => {
-  expect(type(Symbol())).toBe('Symbol')
-})
-
-test('with simple promise', () => {
-  expect(type(Promise.resolve(1))).toBe('Promise')
-})
-
-test('with new Boolean', () => {
-  expect(type(new Boolean(true))).toBe('Boolean')
-})
-
-test('with new String', () => {
-  expect(type(new String('I am a String object'))).toEqual('String')
-})
-
-test('with new Number', () => {
-  expect(type(new Number(1))).toBe('Number')
-})
-
-test('with error', () => {
-  expect(type(Error(`foo`))).toBe('Error')
-  expect(typeRamda(Error(`foo`))).toBe('Error')
-})
-
-test('with error - wrong @types/ramda test', () => {
-  // @types/ramda expect the result to be 'Error' but it is not
-  class ExtendedError extends Error {}
-  expect(type(ExtendedError)).toBe('Function')
-  expect(typeRamda(ExtendedError)).toBe('Function')
-})
-
-test('with new promise', () => {
-  const delay = ms =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(ms + 110)
-      }, ms)
-    })
-
-  expect(type(delay(10))).toEqual('Promise')
-})
-
-test('async function', () => {
-  expect(type(async () => {})).toEqual('Async')
-})
-
-test('async arrow', () => {
-  const asyncArrow = async () => {}
-  expect(type(asyncArrow)).toBe('Async')
-})
-
-test('function', () => {
-  const fn1 = () => {}
-  const fn2 = function () {}
-
-  function fn3() {}
-
-  ;[() => {}, fn1, fn2, fn3].map(val => {
-    expect(type(val)).toEqual('Function')
-  })
-})
-
-test('object', () => {
-  expect(type({})).toEqual('Object')
-})
-
-test('number', () => {
-  expect(type(1)).toEqual('Number')
-})
-
-test('boolean', () => {
-  expect(type(false)).toEqual('Boolean')
-})
-
-test('string', () => {
-  expect(type('foo')).toEqual('String')
-})
-
-test('null', () => {
-  expect(type(null)).toEqual('Null')
-})
-
-test('array', () => {
-  expect(type([])).toEqual('Array')
-  expect(type([1, 2, 3])).toEqual('Array')
-})
-
-test('regex', () => {
-  expect(type(/\s/g)).toEqual('RegExp')
-})
-
-test('undefined', () => {
-  expect(type(undefined)).toEqual('Undefined')
-})
-
-test('not a number', () => {
-  expect(type(Number('s'))).toBe('NaN')
-})
-
-test('set', () => {
-  const exampleSet = new Set([1, 2, 3])
-  expect(type(exampleSet)).toBe('Set')
-  expect(typeRamda(exampleSet)).toBe('Set')
-})
-
-test('function inside object 1', () => {
-  const obj = {
-    f() {
-      return 4
-    },
-  }
-
-  expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
-})
-
-test('function inside object 2', () => {
-  const name = 'f'
-  const obj = {
-    [name]() {
-      return 4
-    },
-  }
-  expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {type} from 'rambda'
-
-describe('R.type', () => {
-  it('happy', () => {
-    const result = type(4)
-
-    result // $ExpectType RambdaTypes
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary>Rambda is faster than Ramda with 48.6%</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const {listOfVariousTypes} = require('./_utils')
-
-const limit = 1000
-
-function applyBenchmark(fn) {
-  listOfVariousTypes.forEach(mode => {
-    Array(limit)
-      .fill(mode)
-      .forEach(x => fn(x))
-  })
-}
-
-const test = [
-  {
-    label: 'Rambda',
-    fn: () => {
-      applyBenchmark(R.type)
-    },
-  },
-  {
-    label: 'Ramda',
-    fn: () => {
-      applyBenchmark(Ramda.type)
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#type)
 
@@ -18032,7 +17586,13 @@ describe('R.zipWith', () => {
 
 WIP 7.1.0
 
-- Replace `Async` with `Promise` as return type of `R.type`. 
+- Replace `Async` with `Promise` as return type of `R.type`.
+
+- Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
+
+7.0.3
+
+Rambda.none has wrong logic - [Issue #625](https://github.com/selfrefactor/rambda/issues/625)
 
 7.0.2
 
