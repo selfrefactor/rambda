@@ -5002,6 +5002,26 @@ export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a
 export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K): (b: K) => U;
 export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T): (a: K, b: K) => U;
 
+/*
+Method: whereAny
+
+Explanation:
+
+Example:
+
+```
+const result = R.whereAny()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function whereAny<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
