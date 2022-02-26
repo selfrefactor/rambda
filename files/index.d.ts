@@ -4939,6 +4939,28 @@ Notes:
 export function countBy<T>(x: T): T;
 
 /*
+Method: count
+
+Explanation: It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
+
+Example:
+
+```
+const list = [{a: 1}, {a:1}, {a:2}]
+const result = R.count(x => x.a !== undefined, list)
+// => 2
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+
+/*
 Method: unwind
 
 Explanation:
@@ -5167,28 +5189,6 @@ export function pipeAsync<Out>(
 export function pipeAsync<Out>(
   ...fns: (Async<any> | Func<any>)[]
 ): (input: any) => Promise<Out>;
-
-/*
-Method: count
-
-Explanation: It counts how many times `searchFor` is within `list` according to `R.equals`.
-
-Example:
-
-```
-const list = [{a: 1}, {b:2}, {a:1}]
-const result = R.count({a:1}, list)
-// => 2
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function count<T>(searchFor: T, list: any[]): number;
-export function count<T>(searchFor: T): (list: any[]) => number;
 
 /*
 Method: debounce
