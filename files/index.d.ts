@@ -7181,6 +7181,27 @@ export class List<T> extends ListI<T>{
   push(index: number): T
 }
 
+/*
+Method: contains
+
+Explanation: It returns `true` if all of `target` object properties are `R.equal` to `compareTo` object.
+
+Example:
+
+```
+const result = R.contains({a:1}, {a:1, b:2})
+// => true
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function contains<T, U>(target: T, compareTo: U): boolean;
+export function contains<T, U>(target: T): (compareTo: U) => boolean;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
