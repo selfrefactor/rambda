@@ -5022,6 +5022,26 @@ Notes:
 // @SINGLE_MARKER
 export function whereAny<T>(x: T): T;
 
+/*
+Method: partialObject
+
+Explanation:
+
+Example:
+
+```
+const result = R.partialObject()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partialObject<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
