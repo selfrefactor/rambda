@@ -4980,6 +4980,28 @@ Notes:
 // @SINGLE_MARKER
 export function unwind<T>(x: T): T;
 
+/*
+Method: on
+
+Explanation: This method is also known as P combinator.
+
+Example:
+
+```
+const result = R.on((a, b) => a === b, R.prop('a'), {b:0, a:1}, {a:1})
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K, b: K): U;
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K): (b: K) => U;
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T): (a: K, b: K) => U;
+
 // RAMBDAX_MARKER_START
 
 /*
