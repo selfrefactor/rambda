@@ -1,18 +1,8 @@
-export function compose(...fns) {
-  if (fns.length === 0) {
-    throw new Error('compose requires at least one argument')
-  }
+import {pipe} from './pipe.js';
 
-  return function (...args) {
-    const list = fns.slice()
-    if (list.length > 0) {
-      const fn = list.pop()
-      let result = fn.apply(this, args)
-      while (list.length > 0) {
-        result = list.pop()(result)
-      }
-
-      return result
-    }
+export function compose() {
+  if (arguments.length === 0) {
+    throw new Error('compose requires at least one argument');
   }
+  return pipe.apply(this,  Array.prototype.slice.call(arguments, 0).reverse());
 }

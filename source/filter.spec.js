@@ -58,10 +58,10 @@ test('bad inputs difference between Ramda and Rambda', () => {
   )
   expect(() => filterRamda(T, null)).toThrowWithMessage(
     TypeError,
-    `Cannot read properties of null (reading 'filter')`
+    `Cannot read properties of null (reading 'fantasy-land/filter')`
   )
   expect(() => filterRamda(T, undefined)).toThrowWithMessage(
     TypeError,
-    `Cannot read properties of undefined (reading 'filter')`
+    `Cannot read properties of undefined (reading 'fantasy-land/filter')`
   )
 })

@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`brute force ArrayBuffer | ArrayBuffer 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    ArrayBuffer [],
+    ArrayBuffer [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force BigInt | BigInt 1`] = `
+Object {
+  "error": Object {
+    "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    9007199254740991n,
+    9007199254740991n,
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force DataView | DataView 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    DataView [],
+    DataView [],
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
 exports[`brute force Function | Function 1`] = `
 Object {
   "error": Object {
@@ -15,6 +63,67 @@ Object {
   "ramdaError": "PENDING",
   "ramdaResult": true,
   "result": "PENDING",
+}
+`;
+
+exports[`brute force GeneratorFunction | GeneratorFunction 1`] = `
+Object {
+  "error": Object {
+    "message": "Function.prototype.toString requires that 'this' be a Function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    [Function],
+    [Function],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Int16Array | Int16Array 1`] = `
+Object {
+  "error": Object {
+    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    Int16Array [
+      0,
+      0,
+    ],
+    Int16Array [
+      0,
+      0,
+    ],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Map | Map 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    Map {
+      "foo" => "bar",
+    },
+    Map {
+      "foo" => "bar",
+    },
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
 }
 `;
 
@@ -154,5 +263,35 @@ Object {
   "ramdaError": "PENDING",
   "ramdaResult": true,
   "result": "PENDING",
+}
+`;
+
+exports[`brute force WeakMap | WeakMap 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakMap {},
+    WeakMap {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force WeakSet | WeakSet 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakSet {},
+    WeakSet {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
 }
 `;

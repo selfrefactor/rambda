@@ -1,7 +1,7 @@
 import {_isArray} from './_internals/_isArray'
 
 // recursively traverse the given spec object to find the highest arity function
-function __findHighestArity(spec, max = 0) {
+export function __findHighestArity(spec, max = 0) {
   for (const key in spec) {
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
 

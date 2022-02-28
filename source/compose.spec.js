@@ -33,7 +33,7 @@ test('ramda spec', () => {
   expect(g(1, 2, 3)).toEqual([1, 2, 3])
 })
 
-test('does not return correct length of composed function', () => {
-  expect(compose(map, map, map).length).toBe(0)
+test('does return correct length of composed function', () => {
+  expect(compose(map, map, map).length).toBe(2)
   expect(composeRamda(map, map, map).length).toBe(2)
 })

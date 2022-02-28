@@ -15,7 +15,7 @@ test('promise', () => {
 test('async', () => {
   async function fn() {}
 
-  expect(isType('Async', fn)).toBeTruthy()
+  expect(isType('Promise', fn)).toBeTruthy()
 })
 
 test('with R.delay', () => {

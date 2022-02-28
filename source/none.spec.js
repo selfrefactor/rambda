@@ -7,9 +7,5 @@ test('when true', () => {
 })
 
 test('when false curried', () => {
-  expect(none(isOdd)([1, 3, 5, 8])).toBeFalse()
-})
-
-test('bug', () => {
-  expect(none((input) => input > 1, [1, 2, 3])).toBe(false)
+  expect(none((input) => input > 1, [1, 2, 3])).toBeFalse()
 })
