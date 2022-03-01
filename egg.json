@@ -1,0 +1,27 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.10/src/schema.json",
+  "name": "rambda",
+  "entry": "./mod.ts",
+  "description": "Lightweight and faster alternative to Ramda with included TS definitions",
+  "homepage": "https://github.com/selfrefactor/rambda",
+  "version": "7.0.4",
+  "releaseType": null,
+  "unstable": false,
+  "unlisted": false,
+  "files": [
+    "rambda.js",
+    "package.json",
+    "index.d.ts",
+    "immutable.d.ts",
+    "src"
+  ],
+  "ignore": [
+    "node_modules",
+    "source",
+    "files"
+  ],
+  "checkFormat": false,
+  "checkTests": false,
+  "checkInstallation": false,
+  "check": false
+}
