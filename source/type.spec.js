@@ -1,5 +1,6 @@
-import {type} from './type'
-import {type as typeRamda} from 'ramda'
+import { type as typeRamda } from 'ramda'
+
+import { type } from './type.js'
 
 test('with buffer', () => {
   expect(type(new Buffer.from('foo'))).toBe('Uint8Array')
@@ -14,13 +15,13 @@ test('with big int', () => {
 })
 
 test('with generators', () => {
-  function* generator() {
-    yield 1;
-    yield 2;
-    yield 3;
+  function* generator(){
+    yield 1
+    yield 2
+    yield 3
   }
-  
-  const gen = generator();
+
+  const gen = generator()
   expect(type(generator)).toBe('GeneratorFunction')
   expect(type(gen)).toBe('Generator')
 })
@@ -58,13 +59,13 @@ test('with new Number', () => {
 })
 
 test('with error', () => {
-  expect(type(Error(`foo`))).toBe('Error')
-  expect(typeRamda(Error(`foo`))).toBe('Error')
+  expect(type(Error('foo'))).toBe('Error')
+  expect(typeRamda(Error('foo'))).toBe('Error')
 })
 
 test('with error - wrong @types/ramda test', () => {
   // @types/ramda expect the result to be 'Error' but it is not
-  class ExtendedError extends Error {}
+  class ExtendedError extends Error{}
   expect(type(ExtendedError)).toBe('Function')
   expect(typeRamda(ExtendedError)).toBe('Function')
 })
@@ -91,11 +92,11 @@ test('async arrow', () => {
 
 test('function', () => {
   const fn1 = () => {}
-  const fn2 = function () {}
+  const fn2 = function (){}
 
-  function fn3() {}
+  function fn3(){}
 
-  ;[() => {}, fn1, fn2, fn3].map(val => {
+  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
     expect(type(val)).toEqual('Function')
   })
 })
@@ -122,7 +123,7 @@ test('null', () => {
 
 test('array', () => {
   expect(type([])).toEqual('Array')
-  expect(type([1, 2, 3])).toEqual('Array')
+  expect(type([ 1, 2, 3 ])).toEqual('Array')
 })
 
 test('regex', () => {
@@ -138,14 +139,14 @@ test('not a number', () => {
 })
 
 test('set', () => {
-  const exampleSet = new Set([1, 2, 3])
+  const exampleSet = new Set([ 1, 2, 3 ])
   expect(type(exampleSet)).toBe('Set')
   expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
   const obj = {
-    f() {
+    f(){
       return 4
     },
   }
@@ -157,7 +158,7 @@ test('function inside object 1', () => {
 test('function inside object 2', () => {
   const name = 'f'
   const obj = {
-    [name]() {
+    [ name ](){
       return 4
     },
   }

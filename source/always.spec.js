@@ -1,5 +1,5 @@
-import {always} from './always'
-import {F} from './F'
+import { always } from './always.js'
+import { F } from './F.js'
 
 test('happy', () => {
   const fn = always(7)

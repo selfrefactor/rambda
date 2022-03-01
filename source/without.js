@@ -1,8 +1,8 @@
-import {reduce} from './reduce'
-import {_indexOf} from './equals'
+import { _indexOf } from './equals.js'
+import { reduce } from './reduce.js'
 
-export function without(matchAgainst, source) {
-  if (source === undefined) {
+export function without(matchAgainst, source){
+  if (source === undefined){
     return _source => without(matchAgainst, _source)
   }
 

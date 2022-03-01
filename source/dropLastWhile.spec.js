@@ -1,14 +1,14 @@
-import {dropLastWhile as dropLastWhileRamda} from 'ramda'
+import { dropLastWhile as dropLastWhileRamda } from 'ramda'
 
-import {compareCombinations} from './_internals/testUtils'
-import {dropLastWhile} from './dropLastWhile'
+import { compareCombinations } from './_internals/testUtils.js'
+import { dropLastWhile } from './dropLastWhile.js'
 
-const list = [1, 2, 3, 4, 5]
+const list = [ 1, 2, 3, 4, 5 ]
 const str = 'foobar'
 
 test('with list', () => {
   const result = dropLastWhile(x => x >= 3, list)
-  expect(result).toEqual([1, 2])
+  expect(result).toEqual([ 1, 2 ])
 })
 
 test('with string', () => {
@@ -28,14 +28,14 @@ const possiblePredicates = [
   x => x > 10,
   '',
   [],
-  [1],
+  [ 1 ],
 ]
 
 const possibleIterables = [
   list,
-  [{}, '1', 2],
+  [ {}, '1', 2 ],
   str,
-  `${str}${str}`,
+  `${ str }${ str }`,
   /foo/g,
   Promise.resolve('foo'),
   2,
@@ -43,11 +43,11 @@ const possibleIterables = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn: dropLastWhile,
-    fnRamda: dropLastWhileRamda,
-    firstInput: possiblePredicates,
-    secondInput: possibleIterables,
-    callback: errorsCounters => {
+    fn          : dropLastWhile,
+    fnRamda     : dropLastWhileRamda,
+    firstInput  : possiblePredicates,
+    secondInput : possibleIterables,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,

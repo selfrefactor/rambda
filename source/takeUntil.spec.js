@@ -1,10 +1,10 @@
-import {takeUntil} from './takeUntil'
+import { takeUntil } from './takeUntil.js'
 
-const list = [1, 2, 3, 4, 5, 6]
+const list = [ 1, 2, 3, 4, 5, 6 ]
 
 test('happy', () => {
   const result = takeUntil(x => x > 3, list)
-  expect(result).toEqual([1, 2, 3])
+  expect(result).toEqual([ 1, 2, 3 ])
 })
 
 test('predicate always returns true', () => {

@@ -1,7 +1,7 @@
-import {findIndex} from './findIndex'
-import {propEq} from './propEq'
+import { findIndex } from './findIndex.js'
+import { propEq } from './propEq.js'
 
-const list = [{a: 1}, {a: 2}, {a: 3}]
+const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
 
 test('happy', () => {
   expect(findIndex(propEq('a', 2), list)).toEqual(1)

@@ -1,8 +1,8 @@
-import {tap} from './tap'
+import { tap } from './tap.js'
 
 test('tap', () => {
   let a = 1
-  const sayX = x => (a = x)
+  const sayX = x => a = x
 
   expect(tap(sayX, 100)).toEqual(100)
   expect(tap(sayX)(100)).toEqual(100)

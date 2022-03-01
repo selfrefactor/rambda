@@ -1,4 +1,4 @@
-import {xor} from './xor'
+import { xor } from './xor.js'
 
 test('compares two values with exclusive or', () => {
   expect(xor(true, true)).toEqual(false)

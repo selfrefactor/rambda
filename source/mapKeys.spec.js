@@ -1,13 +1,13 @@
-import {mapKeys} from './mapKeys'
+import { mapKeys } from './mapKeys.js'
 
 const obj = {
-  a: 1,
-  b: 2,
+  a : 1,
+  b : 2,
 }
-const changeKeyFn = prop => `${prop}_foo`
+const changeKeyFn = prop => `${ prop }_foo`
 const expected = {
-  a_foo: 1,
-  b_foo: 2,
+  a_foo : 1,
+  b_foo : 2,
 }
 
 test('happy', () => {

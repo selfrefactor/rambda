@@ -1,9 +1,9 @@
-import { createPath } from "./_internals/createPath"
+import { createPath } from './_internals/createPath.js'
 
-export function path(pathInput, obj) {
+export function path(pathInput, obj){
   if (arguments.length === 1) return _obj => path(pathInput, _obj)
 
-  if (obj === null || obj === undefined) {
+  if (obj === null || obj === undefined){
     return undefined
   }
   let willReturn = obj
@@ -11,13 +11,13 @@ export function path(pathInput, obj) {
 
   const pathArrValue = createPath(pathInput)
 
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
+  while (counter < pathArrValue.length){
+    if (willReturn === null || willReturn === undefined){
       return undefined
     }
-    if (willReturn[pathArrValue[counter]] === null) return undefined
+    if (willReturn[ pathArrValue[ counter ] ] === null) return undefined
 
-    willReturn = willReturn[pathArrValue[counter]]
+    willReturn = willReturn[ pathArrValue[ counter ] ]
     counter++
   }
 

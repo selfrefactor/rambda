@@ -29,7 +29,7 @@ const ALL_ERROR_LABELS = {
 }
 const MISSING = 'Missing error handle in parseError'
 
-function parseError(err) {
+function parseError(err){
   const typeError = switcher(err)
     .is(x => x instanceof TypeError, 'TypeError')
     .is(x => x instanceof SyntaxError, 'SyntaxError')
@@ -37,25 +37,27 @@ function parseError(err) {
     .is(x => x instanceof Error, 'Error')
     .default(MISSING)
 
-  if (typeError === MISSING) {
+  if (typeError === MISSING){
     throw new Error('typeError === MISSING')
   }
 
   return {
-    message: err.message,
-    type: typeError,
-    ok: true,
+    message : err.message,
+    type    : typeError,
+    ok      : true,
   }
 }
 
-function executeSync(fn, inputs, returnsFunctionFlag) {
+function executeSync(
+  fn, inputs, returnsFunctionFlag
+){
   let result = PENDING
-  let error = {ok: false}
+  let error = { ok : false }
   try {
-    result = returnsFunctionFlag
-      ? fn(...init(inputs))(last(inputs))
-      : fn(...inputs)
-  } catch (e) {
+    result = returnsFunctionFlag ?
+      fn(...init(inputs))(last(inputs)) :
+      fn(...inputs)
+  } catch (e){
     error = parseError(e)
   }
 
@@ -65,14 +67,16 @@ function executeSync(fn, inputs, returnsFunctionFlag) {
   }
 }
 
-async function executeAsync(fn, inputs, returnsFunctionFlag) {
+async function executeAsync(
+  fn, inputs, returnsFunctionFlag
+){
   let result = PENDING
-  let error = {ok: false}
+  let error = { ok : false }
   try {
-    result = returnsFunctionFlag
-      ? await fn(...init(inputs))(last(inputs))
-      : await fn(...inputs)
-  } catch (e) {
+    result = returnsFunctionFlag ?
+      await fn(...init(inputs))(last(inputs)) :
+      await fn(...inputs)
+  } catch (e){
     error = parseError(e)
   }
 
@@ -88,7 +92,7 @@ export function profileMethod({
   thirdInput = undefined,
   returnsFunctionFlag = false,
   fn,
-}) {
+}){
   const combinationsInput = filter(Boolean, {
     firstInput,
     secondInput,
@@ -105,11 +109,13 @@ export function profileMethod({
     ].filter((_, i) => i < inputKeys.length)
 
     test(getTestTitle(...inputs), () => {
-      const {result, error} = executeSync(fn, inputs, returnsFunctionFlag)
+      const { result, error } = executeSync(
+        fn, inputs, returnsFunctionFlag
+      )
 
       expect({
         result,
-        error: error.ok ? omitOk(error) : PENDING,
+        error : error.ok ? omitOk(error) : PENDING,
         inputs,
       }).toMatchSnapshot()
     })
@@ -122,7 +128,7 @@ export function profileMethodAsync({
   thirdInput = undefined,
   returnsFunctionFlag = false,
   fn,
-}) {
+}){
   const combinationsInput = filter(Boolean, {
     firstInput,
     secondInput,
@@ -138,7 +144,7 @@ export function profileMethodAsync({
       combination.thirdInput,
     ].filter((_, i) => i < inputKeys.length)
     test(getTestTitle(...inputs), async () => {
-      const {result, error} = await executeAsync(
+      const { result, error } = await executeAsync(
         fn,
         inputs,
         returnsFunctionFlag
@@ -146,17 +152,21 @@ export function profileMethodAsync({
 
       expect({
         result,
-        error: error.ok ? omitOk(error) : PENDING,
+        error : error.ok ? omitOk(error) : PENDING,
         inputs,
       }).toMatchSnapshot()
     })
   })
 }
 
-export function compareToRamda(fn, fnRamda, returnsFunctionFlag) {
+export function compareToRamda(
+  fn, fnRamda, returnsFunctionFlag
+){
   return (...inputs) => {
-    const {result, error} = executeSync(fn, inputs, returnsFunctionFlag)
-    const {result: ramdaResult, error: ramdaError} = executeSync(
+    const { result, error } = executeSync(
+      fn, inputs, returnsFunctionFlag
+    )
+    const { result: ramdaResult, error: ramdaError } = executeSync(
       fnRamda,
       inputs,
       returnsFunctionFlag
@@ -165,57 +175,57 @@ export function compareToRamda(fn, fnRamda, returnsFunctionFlag) {
     const toReturn = {
       result,
       ramdaResult,
-      ramdaError: ramdaError.ok ? omitOk(ramdaError) : PENDING,
-      error: error.ok ? omitOk(error) : PENDING,
+      ramdaError : ramdaError.ok ? omitOk(ramdaError) : PENDING,
+      error      : error.ok ? omitOk(error) : PENDING,
     }
 
-    if (result !== PENDING) {
-      if (ramdaError.ok) {
+    if (result !== PENDING){
+      if (ramdaError.ok){
         return {
           ...toReturn,
-          ok: false,
-          label: SHOULD_THROW,
+          ok    : false,
+          label : SHOULD_THROW,
         }
       }
 
-      if (equals(result, ramdaResult)) {
+      if (equals(result, ramdaResult)){
         return {
           ...toReturn,
-          ok: true,
-          label: RESULTS_EQUAL,
+          ok    : true,
+          label : RESULTS_EQUAL,
         }
       }
 
       return {
         ...toReturn,
-        ok: false,
-        label: RESULTS_MISMATCH,
+        ok    : false,
+        label : RESULTS_MISMATCH,
       }
     }
 
-    if (equals(error, ramdaError)) {
+    if (equals(error, ramdaError)){
       return {
         ...toReturn,
-        ok: true,
-        label: ERRORS_EQUAL,
+        ok    : true,
+        label : ERRORS_EQUAL,
       }
     }
 
-    if (ramdaError.ok) {
+    if (ramdaError.ok){
       return {
         ...toReturn,
-        ok: false,
-        label:
-          ramdaError.type === error.type
-            ? ERRORS_MESSAGE_MISMATCH
-            : ERRORS_TYPE_MISMATCH,
+        ok    : false,
+        label :
+          ramdaError.type === error.type ?
+            ERRORS_MESSAGE_MISMATCH :
+            ERRORS_TYPE_MISMATCH,
       }
     }
 
     return {
       ...toReturn,
-      ok: false,
-      label: SHOULD_NOT_THROW,
+      ok    : false,
+      label : SHOULD_NOT_THROW,
     }
   }
 }
@@ -233,12 +243,12 @@ export const compareCombinations = ({
   fnRamda,
 }) => {
   const counter = {
-    RESULTS_MISMATCH: 0,
-    SHOULD_THROW: 0,
-    SHOULD_NOT_THROW: 0,
-    ERRORS_TYPE_MISMATCH: 0,
-    ERRORS_MESSAGE_MISMATCH: 0,
-    TOTAL_TESTS: 0,
+    RESULTS_MISMATCH        : 0,
+    SHOULD_THROW            : 0,
+    SHOULD_NOT_THROW        : 0,
+    ERRORS_TYPE_MISMATCH    : 0,
+    ERRORS_MESSAGE_MISMATCH : 0,
+    TOTAL_TESTS             : 0,
   }
 
   const increaseCounter = comparedResult => {
@@ -247,7 +257,7 @@ export const compareCombinations = ({
     forEach((x, prop) => {
       if (x === comparedResult.label) counterProp = prop
     }, ALL_ERROR_LABELS)
-    counter[counterProp]++
+    counter[ counterProp ]++
   }
 
   const combinationsInput = filter(Boolean, {
@@ -257,7 +267,9 @@ export const compareCombinations = ({
   })
   const inputKeys = Object.keys(combinationsInput)
   const combinations = combinate(combinationsInput)
-  const compareOutputs = compareToRamda(fn, fnRamda, returnsFunctionFlag)
+  const compareOutputs = compareToRamda(
+    fn, fnRamda, returnsFunctionFlag
+  )
 
   afterAll(() => callback(counter))
 
@@ -271,7 +283,7 @@ export const compareCombinations = ({
     test(getTestTitle(...inputs), () => {
       const compared = compareOutputs(...inputs)
       setCounter()
-      if (!compared.ok) {
+      if (!compared.ok){
         // if (compared.label === RESULTS_MISMATCH){
         increaseCounter(compared)
         expect({

@@ -1,6 +1,6 @@
-import {add} from './add'
-import {delay} from './delay'
-import {pipedAsync} from './pipedAsync'
+import { add } from './add.js'
+import { delay } from './delay.js'
+import { pipedAsync } from './pipedAsync.js'
 
 const fn1 = async x => {
   await delay(100)
@@ -14,7 +14,9 @@ const fn2 = async x => {
 }
 
 test('happy', async () => {
-  const result = await pipedAsync(1, fn1, add(2), fn2)
+  const result = await pipedAsync(
+    1, fn1, add(2), fn2
+  )
 
   expect(result).toBe(8)
 })

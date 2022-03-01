@@ -1,8 +1,10 @@
-import {curry} from './curry'
-import {equals} from './equals'
-import {prop} from './prop'
+import { curry } from './curry.js'
+import { equals } from './equals.js'
+import { prop } from './prop.js'
 
-function eqPropsFn(property, objA, objB) {
+function eqPropsFn(
+  property, objA, objB
+){
   return equals(prop(property, objA), prop(property, objB))
 }
 

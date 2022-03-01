@@ -1,7 +1,9 @@
-import {anyFalse} from './anyFalse'
+import { anyFalse } from './anyFalse.js'
 
 test('when true', () => {
-  expect(anyFalse(true, true, false)).toBeTruthy()
+  expect(anyFalse(
+    true, true, false
+  )).toBeTruthy()
 })
 
 test('when false', () => {
@@ -9,11 +11,9 @@ test('when false', () => {
 })
 
 test('supports function', () => {
-  expect(
-    anyFalse(
-      true,
-      () => true,
-      () => false
-    )
-  ).toBeTruthy()
+  expect(anyFalse(
+    true,
+    () => true,
+    () => false
+  )).toBeTruthy()
 })

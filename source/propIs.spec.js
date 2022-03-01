@@ -1,13 +1,24 @@
-import {propIs} from './propIs'
+import { propIs } from './propIs.js'
 
-const obj = {a: 1, b: 'foo'}
+const obj = {
+  a : 1,
+  b : 'foo',
+}
 
 test('when true', () => {
-  expect(propIs(Number, 'a', obj)).toBeTrue()
-  expect(propIs(String, 'b', obj)).toBeTrue()
+  expect(propIs(
+    Number, 'a', obj
+  )).toBeTrue()
+  expect(propIs(
+    String, 'b', obj
+  )).toBeTrue()
 })
 
 test('when false', () => {
-  expect(propIs(String, 'a', obj)).toBeFalse()
-  expect(propIs(Number, 'b', obj)).toBeFalse()
+  expect(propIs(
+    String, 'a', obj
+  )).toBeFalse()
+  expect(propIs(
+    Number, 'b', obj
+  )).toBeFalse()
 })

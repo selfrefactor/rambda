@@ -1,4 +1,4 @@
-import {mathMod} from './mathMod'
+import { mathMod } from './mathMod.js'
 
 test('happy', () => {
   expect(mathMod(-17)(5)).toEqual(3)

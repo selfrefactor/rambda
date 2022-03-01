@@ -1,4 +1,4 @@
-import {or} from './or'
+import { or } from './or.js'
 
 test('happy', () => {
   expect(or(0, 'foo')).toBe('foo')

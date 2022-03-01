@@ -1,11 +1,11 @@
-import {nth} from './nth'
+import { nth } from './nth.js'
 
 test('happy', () => {
-  expect(nth(2, [1, 2, 3, 4])).toEqual(3)
+  expect(nth(2, [ 1, 2, 3, 4 ])).toEqual(3)
 })
 
 test('with curry', () => {
-  expect(nth(2)([1, 2, 3, 4])).toEqual(3)
+  expect(nth(2)([ 1, 2, 3, 4 ])).toEqual(3)
 })
 
 test('with string and correct index', () => {
@@ -17,5 +17,5 @@ test('with string and invalid index', () => {
 })
 
 test('with negative index', () => {
-  expect(nth(-3)([1, 2, 3, 4])).toEqual(2)
+  expect(nth(-3)([ 1, 2, 3, 4 ])).toEqual(2)
 })

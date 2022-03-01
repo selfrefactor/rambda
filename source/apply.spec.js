@@ -1,18 +1,18 @@
-import {apply} from './apply'
-import {bind} from './bind'
-import {identity} from './identity'
+import { apply } from './apply.js'
+import { bind } from './bind.js'
+import { identity } from './identity.js'
 
 test('happy', () => {
-  expect(apply(identity, [1, 2, 3])).toEqual(1)
+  expect(apply(identity, [ 1, 2, 3 ])).toEqual(1)
 })
 
-test('applies function to argument list', function () {
-  expect(apply(Math.max, [1, 2, 3, -99, 42, 6, 7])).toEqual(42)
+test('applies function to argument list', () => {
+  expect(apply(Math.max, [ 1, 2, 3, -99, 42, 6, 7 ])).toEqual(42)
 })
 
-test('provides no way to specify context', function () {
+test('provides no way to specify context', () => {
   const obj = {
-    method: function () {
+    method : function (){
       return this === obj
     },
   }

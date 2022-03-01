@@ -10,25 +10,27 @@ const {
 const limit = 100
 
 const modes = [
-  [uniqListOfObjects(limit), x => Object.keys(x).length > 2],
-  [uniqListOfStrings(limit), x => x.length > 0],
-  [uniqListOfLists(limit), x => x.length > 0],
-  [rangeOfNumbers(limit), x => x > -1],
+  [ uniqListOfObjects(limit), x => Object.keys(x).length > 2 ],
+  [ uniqListOfStrings(limit), x => x.length > 0 ],
+  [ uniqListOfLists(limit), x => x.length > 0 ],
+  [ rangeOfNumbers(limit), x => x > -1 ],
 ]
 
-const applyBenchmark = (fn, input) => {
-  return fn(input[1], input[0])
-}
+const applyBenchmark = (fn, input) => fn(input[ 1 ], input[ 0 ])
 
 const tests = [
   {
-    label: 'Rambda',
-    fn: R.all,
+    label : 'Rambda',
+    fn    : R.all,
   },
   {
-    label: 'Ramda',
-    fn: Ramda.all,
+    label : 'Ramda',
+    fn    : Ramda.all,
   },
 ]
 
-module.exports = {tests, applyBenchmark, modes}
+module.exports = {
+  tests,
+  applyBenchmark,
+  modes,
+}

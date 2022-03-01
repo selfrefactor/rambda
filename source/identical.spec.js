@@ -1,9 +1,9 @@
-import {F, T} from '../rambda'
-import {_isInteger} from './_internals/_isInteger'
-import {_objectIs} from './_internals/_objectIs'
-import {identical} from './identical'
+import { F, T } from '../rambda.js'
+import { _isInteger } from './_internals/_isInteger.js'
+import { _objectIs } from './_internals/_objectIs.js'
+import { identical } from './identical.js'
 
-test('R.F and R.T', () => {
+test('r.F and R.T', () => {
   expect(F()).toBeFalse()
   expect(T()).toBeTrue()
 })
@@ -19,9 +19,12 @@ test('internal objectIs', () => {
 })
 
 test('identical', () => {
-  const a = {a: 1}
-  const b = {a: 1}
-  const c = {a: 1, b: 2}
+  const a = { a : 1 }
+  const b = { a : 1 }
+  const c = {
+    a : 1,
+    b : 2,
+  }
 
   expect(identical(100)(100)).toBeTrue()
   expect(identical(100, '100')).toBeFalse()

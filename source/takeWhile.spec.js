@@ -1,13 +1,13 @@
-import {takeWhile as takeWhileRamda} from 'ramda'
+import { takeWhile as takeWhileRamda } from 'ramda'
 
-import {compareCombinations} from './_internals/testUtils'
-import {takeWhile} from './takeWhile'
+import { compareCombinations } from './_internals/testUtils.js'
+import { takeWhile } from './takeWhile.js'
 
-const list = [1, 2, 3, 4, 5]
+const list = [ 1, 2, 3, 4, 5 ]
 
 test('happy', () => {
   const result = takeWhile(x => x < 3, list)
-  expect(result).toEqual([1, 2])
+  expect(result).toEqual([ 1, 2 ])
 })
 
 test('always true', () => {
@@ -44,14 +44,14 @@ const possibleIterables = [
   1,
   '',
   'foobar',
-  [''],
-  [1, 2, 3, 4, 5],
+  [ '' ],
+  [ 1, 2, 3, 4, 5 ],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput: possiblePredicates,
-    callback: errorsCounters => {
+    firstInput : possiblePredicates,
+    callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 15,
@@ -63,8 +63,8 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput: possibleIterables,
-    fn: takeWhile,
-    fnRamda: takeWhileRamda,
+    secondInput : possibleIterables,
+    fn          : takeWhile,
+    fnRamda     : takeWhileRamda,
   })
 })

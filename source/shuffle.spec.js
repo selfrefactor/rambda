@@ -1,6 +1,6 @@
-import {range} from './range'
-import {shuffle} from './shuffle'
-import {uniq} from './uniq'
+import { range } from './range.js'
+import { shuffle } from './shuffle.js'
+import { uniq } from './uniq.js'
 
 test('happy', () => {
   const list = range(0, 7)

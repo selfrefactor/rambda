@@ -1,7 +1,7 @@
-import {_isArray} from './_internals/_isArray'
-import {mapAsync} from './mapAsync'
+import { _isArray } from './_internals/_isArray.js'
+import { mapAsync } from './mapAsync.js'
 
-export function findAsyncFn(predicate, list) {
+export function findAsyncFn(predicate, list){
   return new Promise((resolve, reject) => {
     let canContinue = true
     let found
@@ -10,11 +10,11 @@ export function findAsyncFn(predicate, list) {
       if (!canContinue) return false
       try {
         const result = await predicate(x, i)
-        if (result) {
+        if (result){
           canContinue = false
           found = x
         }
-      } catch (error) {
+      } catch (error){
         reject(error)
       }
     }
@@ -25,12 +25,13 @@ export function findAsyncFn(predicate, list) {
   })
 }
 
-export function findAsync(predicate, list) {
-  if (arguments.length === 1) {
+export function findAsync(predicate, list){
+  if (arguments.length === 1){
     return async _list => findAsync(predicate, _list)
   }
 
   return new Promise((resolve, reject) => {
-    findAsyncFn(predicate, list).then(resolve).catch(reject)
+    findAsyncFn(predicate, list).then(resolve)
+      .catch(reject)
   })
 }

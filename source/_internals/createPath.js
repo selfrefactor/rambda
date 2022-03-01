@@ -1,3 +1,3 @@
 export function createPath(path, delimiter = '.'){
-  return typeof path === 'string' ? path.split(delimiter)  : path
+  return typeof path === 'string' ? path.split(delimiter) : path
 }

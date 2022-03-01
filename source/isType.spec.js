@@ -1,7 +1,7 @@
-import {isType} from './isType'
-import {delay} from './delay'
+import { delay } from './delay.js'
+import { isType } from './isType.js'
 
-const list = [1, 2, 3]
+const list = [ 1, 2, 3 ]
 
 test('array', () => {
   expect(isType('Array', list)).toBeTruthy()
@@ -13,7 +13,7 @@ test('promise', () => {
 })
 
 test('async', () => {
-  async function fn() {}
+  async function fn(){}
 
   expect(isType('Promise', fn)).toBeTruthy()
 })
