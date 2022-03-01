@@ -1,7 +1,7 @@
-import {curryN} from './curryN'
+import { curryN } from './curryN.js'
 
-export function bind(fn, thisObj) {
-  if (arguments.length === 1) {
+export function bind(fn, thisObj){
+  if (arguments.length === 1){
     return _thisObj => bind(fn, _thisObj)
   }
 
