@@ -13,7 +13,8 @@
     "package.json",
     "index.d.ts",
     "immutable.d.ts",
-    "src"
+    "./README.md",
+    "./src/**/*.js"
   ],
   "ignore": [
     "node_modules",
