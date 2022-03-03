@@ -4916,28 +4916,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function juxt<T>(x: T): T;
-
-/*
-Method: countBy
-
-Explanation:
-
-Example:
-
-```
-const result = R.countBy()
-// => 
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
-export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
+export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
+export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+export function juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+export function juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
 /*
 Method: count
@@ -4960,6 +4944,27 @@ Notes:
 // @SINGLE_MARKER
 export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
 export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+
+/*
+Method: countBy
+
+Explanation:
+
+Example:
+
+```
+const result = R.countBy()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
+export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
 
 /*
 Method: unwind
@@ -4999,9 +5004,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K, b: K): U;
-export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K): (b: K) => U;
-export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T): (a: K, b: K) => U;
+export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T, b: T): boolean;
+export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T): (b: T) => boolean;
+export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U): (a: T, b: T) => boolean;
 
 /*
 Method: whereAny
@@ -5021,7 +5026,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereAny<T>(x: T): T;
+export function whereAny<T, U>(conditions: T, input: U): boolean;
+export function whereAny<T>(conditions: T): <U>(input: U) => boolean;
+export function whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 /*
 Method: partialObject

@@ -1318,7 +1318,7 @@ test('when returns false + curry', () => {
 })
 
 test('with empty predicates list', () => {
-  expect(anyPass([])(3)).toEqual(false)
+  expect(anyPass([])(3)).toBeFalse()
 })
 
 test('works with multiple inputs', () => {
@@ -1592,8 +1592,8 @@ test('provides no way to specify context', () => {
       return this === obj
     },
   }
-  expect(apply(obj.method, [])).toEqual(false)
-  expect(apply(bind(obj.method, obj), [])).toEqual(true)
+  expect(apply(obj.method, [])).toBeFalse()
+  expect(apply(bind(obj.method, obj), [])).toBeFalse()
 })
 ```
 
@@ -2717,8 +2717,8 @@ test('returns a function bound to the specified context object', () => {
     return this instanceof Foo
   }
   const isFooBound = bind(isFoo, f)
-  expect(isFoo()).toEqual(false)
-  expect(isFooBound()).toEqual(true)
+  expect(isFoo()).toBeFalse()
+  expect(isFooBound()).toBeFalse()
 })
 
 test('works with built-in types', () => {
@@ -3550,7 +3550,7 @@ test('with empty string', () => {
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toEqual(false)
+  expect(defaultTo('foo', false)).toBeFalse()
 })
 
 test('when inputArgument passes initial check', () => {
@@ -4843,11 +4843,11 @@ test('with array of objects', () => {
 })
 
 test('with regex', () => {
-  expect(equals(/s/, /s/)).toEqual(true)
-  expect(equals(/s/, /d/)).toEqual(false)
-  expect(equals(/a/gi, /a/gi)).toEqual(true)
-  expect(equals(/a/gim, /a/gim)).toEqual(true)
-  expect(equals(/a/gi, /a/i)).toEqual(false)
+  expect(equals(/s/, /s/)).toBeFalse()
+  expect(equals(/s/, /d/)).toBeFalse()
+  expect(equals(/a/gi, /a/gi)).toBeFalse()
+  expect(equals(/a/gim, /a/gim)).toBeFalse()
+  expect(equals(/a/gi, /a/i)).toBeFalse()
 })
 
 test('not a number', () => {
@@ -4855,46 +4855,46 @@ test('not a number', () => {
 })
 
 test('new number', () => {
-  expect(equals(new Number(0), new Number(0))).toEqual(true)
-  expect(equals(new Number(0), new Number(1))).toEqual(false)
-  expect(equals(new Number(1), new Number(0))).toEqual(false)
+  expect(equals(new Number(0), new Number(0))).toBeFalse()
+  expect(equals(new Number(0), new Number(1))).toBeFalse()
+  expect(equals(new Number(1), new Number(0))).toBeFalse()
 })
 
 test('new string', () => {
-  expect(equals(new String(''), new String(''))).toEqual(true)
-  expect(equals(new String(''), new String('x'))).toEqual(false)
-  expect(equals(new String('x'), new String(''))).toEqual(false)
-  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
-  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
-  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
+  expect(equals(new String(''), new String(''))).toBeFalse()
+  expect(equals(new String(''), new String('x'))).toBeFalse()
+  expect(equals(new String('x'), new String(''))).toBeFalse()
+  expect(equals(new String('foo'), new String('foo'))).toBeFalse()
+  expect(equals(new String('foo'), new String('bar'))).toBeFalse()
+  expect(equals(new String('bar'), new String('foo'))).toBeFalse()
 })
 
 test('new Boolean', () => {
-  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
-  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
-  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
-  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
+  expect(equals(new Boolean(true), new Boolean(true))).toBeFalse()
+  expect(equals(new Boolean(false), new Boolean(false))).toBeFalse()
+  expect(equals(new Boolean(true), new Boolean(false))).toBeFalse()
+  expect(equals(new Boolean(false), new Boolean(true))).toBeFalse()
 })
 
 test('new Error', () => {
-  expect(equals(new Error('XXX'), {})).toEqual(false)
-  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
-  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
+  expect(equals(new Error('XXX'), {})).toBeFalse()
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeFalse()
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalse()
 })
 
 test('with dates', () => {
-  expect(equals(new Date(0), new Date(0))).toEqual(true)
-  expect(equals(new Date(1), new Date(1))).toEqual(true)
-  expect(equals(new Date(0), new Date(1))).toEqual(false)
-  expect(equals(new Date(1), new Date(0))).toEqual(false)
-  expect(equals(new Date(0), {})).toEqual(false)
-  expect(equals({}, new Date(0))).toEqual(false)
+  expect(equals(new Date(0), new Date(0))).toBeFalse()
+  expect(equals(new Date(1), new Date(1))).toBeFalse()
+  expect(equals(new Date(0), new Date(1))).toBeFalse()
+  expect(equals(new Date(1), new Date(0))).toBeFalse()
+  expect(equals(new Date(0), {})).toBeFalse()
+  expect(equals({}, new Date(0))).toBeFalse()
 })
 
 test('ramda spec', () => {
-  expect(equals({}, {})).toEqual(true)
+  expect(equals({}, {})).toBeFalse()
 
   expect(equals({
     a : 1,
@@ -4903,7 +4903,7 @@ test('ramda spec', () => {
   {
     a : 1,
     b : 2,
-  })).toEqual(true)
+  })).toBeFalse()
 
   expect(equals({
     a : 2,
@@ -4912,7 +4912,7 @@ test('ramda spec', () => {
   {
     b : 3,
     a : 2,
-  })).toEqual(true)
+  })).toBeFalse()
 
   expect(equals({
     a : 2,
@@ -4921,7 +4921,7 @@ test('ramda spec', () => {
   {
     a : 3,
     b : 3,
-  })).toEqual(false)
+  })).toBeFalse()
 
   expect(equals({
     a : 2,
@@ -4931,7 +4931,7 @@ test('ramda spec', () => {
   {
     a : 2,
     b : 3,
-  })).toEqual(false)
+  })).toBeFalse()
 })
 
 test('works with boolean tuple', () => {
@@ -6803,11 +6803,11 @@ test('happy', () => {
 })
 
 test('with non-object', () => {
-  expect(has('a', undefined)).toEqual(false)
-  expect(has('a', null)).toEqual(false)
-  expect(has('a', true)).toEqual(false)
-  expect(has('a', '')).toEqual(false)
-  expect(has('a', /a/)).toEqual(false)
+  expect(has('a', undefined)).toBeFalse()
+  expect(has('a', null)).toBeFalse()
+  expect(has('a', true)).toBeFalse()
+  expect(has('a', '')).toBeFalse()
+  expect(has('a', /a/)).toBeFalse()
 })
 ```
 
@@ -7122,7 +7122,7 @@ import { identity } from './identity.js'
 
 test('happy', () => {
   expect(identity(7)).toEqual(7)
-  expect(identity(true)).toEqual(true)
+  expect(identity(true)).toBeFalse()
   expect(identity({ a : 1 })).toEqual({ a : 1 })
 })
 ```
@@ -7234,7 +7234,7 @@ test('happy', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ fo : 'bar' })).toBeFalse()
 })
 
 test('ramda spec', () => {
@@ -7262,7 +7262,7 @@ test('pass all arguments', () => {
 test('accept constant as condition', () => {
   const fn = ifElse(true)(always(true))(always(false))
 
-  expect(fn()).toEqual(true)
+  expect(fn()).toBeFalse()
 })
 
 test('accept constant as condition - case 2', () => {
@@ -7270,21 +7270,21 @@ test('accept constant as condition - case 2', () => {
     false, always(true), always(false)
   )
 
-  expect(fn()).toEqual(false)
+  expect(fn()).toBeFalse()
 })
 
 test('curry 1', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ fo : 'bar' })).toBeFalse()
 })
 
 test('curry 2', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toEqual(3)
-  expect(fn({ fo : 'bar' })).toEqual(false)
+  expect(fn({ fo : 'bar' })).toBeFalse()
 })
 
 test('simple arity of 1', () => {
@@ -7916,18 +7916,18 @@ export function isEmpty(input){
 import { isEmpty } from './isEmpty.js'
 
 test('happy', () => {
-  expect(isEmpty(undefined)).toEqual(false)
-  expect(isEmpty('')).toEqual(true)
-  expect(isEmpty(null)).toEqual(false)
-  expect(isEmpty(' ')).toEqual(false)
-  expect(isEmpty(new RegExp(''))).toEqual(false)
-  expect(isEmpty([])).toEqual(true)
-  expect(isEmpty([ [] ])).toEqual(false)
-  expect(isEmpty({})).toEqual(true)
-  expect(isEmpty({ x : 0 })).toEqual(false)
-  expect(isEmpty(0)).toEqual(false)
-  expect(isEmpty(NaN)).toEqual(false)
-  expect(isEmpty([ '' ])).toEqual(false)
+  expect(isEmpty(undefined)).toBeFalse()
+  expect(isEmpty('')).toBeFalse()
+  expect(isEmpty(null)).toBeFalse()
+  expect(isEmpty(' ')).toBeFalse()
+  expect(isEmpty(new RegExp(''))).toBeFalse()
+  expect(isEmpty([])).toBeFalse()
+  expect(isEmpty([ [] ])).toBeFalse()
+  expect(isEmpty({})).toBeFalse()
+  expect(isEmpty({ x : 0 })).toBeFalse()
+  expect(isEmpty(0)).toBeFalse()
+  expect(isEmpty(NaN)).toBeFalse()
+  expect(isEmpty([ '' ])).toBeFalse()
 })
 ```
 
@@ -10863,10 +10863,10 @@ export function not(input){
 import { not } from './not.js'
 
 test('not', () => {
-  expect(not(false)).toEqual(true)
-  expect(not(true)).toEqual(false)
-  expect(not(0)).toEqual(true)
-  expect(not(1)).toEqual(false)
+  expect(not(false)).toBeFalse()
+  expect(not(true)).toBeFalse()
+  expect(not(0)).toBeFalse()
+  expect(not(1)).toBeFalse()
 })
 ```
 
@@ -19733,7 +19733,7 @@ test('when true', () => {
     b : 'bar',
     x : 11,
     y : 19,
-  })).toEqual(true)
+  })).toBeFalse()
 })
 
 test('when false', () => {
@@ -19746,7 +19746,7 @@ test('when false', () => {
     b : 'bar',
     x : 11,
     y : 19,
-  })).toEqual(false)
+  })).toBeFalse()
 })
 ```
 
@@ -20188,47 +20188,47 @@ export function xor(a, b){
 import { xor } from './xor.js'
 
 test('compares two values with exclusive or', () => {
-  expect(xor(true, true)).toEqual(false)
-  expect(xor(true, false)).toEqual(true)
-  expect(xor(false, true)).toEqual(true)
-  expect(xor(false, false)).toEqual(false)
+  expect(xor(true, true)).toBeFalse()
+  expect(xor(true, false)).toBeFalse()
+  expect(xor(false, true)).toBeFalse()
+  expect(xor(false, false)).toBeFalse()
 })
 
 test('when both values are truthy, it should return false', () => {
-  expect(xor(true, 'foo')).toEqual(false)
-  expect(xor(42, true)).toEqual(false)
-  expect(xor('foo', 42)).toEqual(false)
-  expect(xor({}, true)).toEqual(false)
-  expect(xor(true, [])).toEqual(false)
-  expect(xor([], {})).toEqual(false)
-  expect(xor(new Date(), true)).toEqual(false)
-  expect(xor(true, Infinity)).toEqual(false)
-  expect(xor(Infinity, new Date())).toEqual(false)
+  expect(xor(true, 'foo')).toBeFalse()
+  expect(xor(42, true)).toBeFalse()
+  expect(xor('foo', 42)).toBeFalse()
+  expect(xor({}, true)).toBeFalse()
+  expect(xor(true, [])).toBeFalse()
+  expect(xor([], {})).toBeFalse()
+  expect(xor(new Date(), true)).toBeFalse()
+  expect(xor(true, Infinity)).toBeFalse()
+  expect(xor(Infinity, new Date())).toBeFalse()
 })
 
 test('when both values are falsy, it should return false', () => {
-  expect(xor(null, false)).toEqual(false)
-  expect(xor(false, undefined)).toEqual(false)
-  expect(xor(undefined, null)).toEqual(false)
-  expect(xor(0, false)).toEqual(false)
-  expect(xor(false, NaN)).toEqual(false)
-  expect(xor(NaN, 0)).toEqual(false)
-  expect(xor('', false)).toEqual(false)
+  expect(xor(null, false)).toBeFalse()
+  expect(xor(false, undefined)).toBeFalse()
+  expect(xor(undefined, null)).toBeFalse()
+  expect(xor(0, false)).toBeFalse()
+  expect(xor(false, NaN)).toBeFalse()
+  expect(xor(NaN, 0)).toBeFalse()
+  expect(xor('', false)).toBeFalse()
 })
 
 test('when one argument is truthy and the other is falsy, it should return true', () => {
-  expect(xor('foo', null)).toEqual(true)
-  expect(xor(null, 'foo')).toEqual(true)
-  expect(xor(undefined, 42)).toEqual(true)
-  expect(xor(42, undefined)).toEqual(true)
-  expect(xor(Infinity, NaN)).toEqual(true)
-  expect(xor(NaN, Infinity)).toEqual(true)
-  expect(xor({}, '')).toEqual(true)
-  expect(xor('', {})).toEqual(true)
-  expect(xor(new Date(), 0)).toEqual(true)
-  expect(xor(0, new Date())).toEqual(true)
-  expect(xor([], null)).toEqual(true)
-  expect(xor(undefined, [])).toEqual(true)
+  expect(xor('foo', null)).toBeFalse()
+  expect(xor(null, 'foo')).toBeFalse()
+  expect(xor(undefined, 42)).toBeFalse()
+  expect(xor(42, undefined)).toBeFalse()
+  expect(xor(Infinity, NaN)).toBeFalse()
+  expect(xor(NaN, Infinity)).toBeFalse()
+  expect(xor({}, '')).toBeFalse()
+  expect(xor('', {})).toBeFalse()
+  expect(xor(new Date(), 0)).toBeFalse()
+  expect(xor(0, new Date())).toBeFalse()
+  expect(xor([], null)).toBeFalse()
+  expect(xor(undefined, [])).toBeFalse()
 })
 ```
 

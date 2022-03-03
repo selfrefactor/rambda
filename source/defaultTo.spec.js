@@ -1,4 +1,4 @@
-import { defaultTo } from './defaultTo.js'
+import {defaultTo} from './defaultTo.js'
 
 test('with undefined', () => {
   expect(defaultTo('foo')(undefined)).toEqual('foo')
@@ -17,7 +17,7 @@ test('with empty string', () => {
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toEqual(false)
+  expect(defaultTo('foo', false)).toBeFalse()
 })
 
 test('when inputArgument passes initial check', () => {

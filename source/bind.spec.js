@@ -1,17 +1,17 @@
-import { bind } from './bind.js'
+import {bind} from './bind.js'
 
-function Foo(x){
+function Foo(x) {
   this.x = x
 }
-function add(x){
+function add(x) {
   return this.x + x
 }
-function Bar(x, y){
+function Bar(x, y) {
   this.x = x
   this.y = y
 }
 Bar.prototype = new Foo()
-Bar.prototype.getX = function (){
+Bar.prototype.getX = function () {
   return 'prototype getX'
 }
 
@@ -21,12 +21,12 @@ test('returns a function', () => {
 
 test('returns a function bound to the specified context object', () => {
   const f = new Foo(12)
-  function isFoo(){
+  function isFoo() {
     return this instanceof Foo
   }
   const isFooBound = bind(isFoo, f)
-  expect(isFoo()).toEqual(false)
-  expect(isFooBound()).toEqual(true)
+  expect(isFoo()).toBeFalse()
+  expect(isFooBound()).toBeTrue()
 })
 
 test('works with built-in types', () => {
@@ -37,7 +37,7 @@ test('works with built-in types', () => {
 
 test('works with user-defined types', () => {
   const f = new Foo(12)
-  function getX(){
+  function getX() {
     return this.x
   }
   const getXFooBound = bind(getX, f)
@@ -45,8 +45,8 @@ test('works with user-defined types', () => {
 })
 
 test('works with plain objects', () => {
-  const pojso = { x : 100 }
-  function incThis(){
+  const pojso = {x: 100}
+  function incThis() {
     return this.x + 1
   }
   const incPojso = bind(incThis, pojso)
@@ -56,7 +56,7 @@ test('works with plain objects', () => {
 
 test('does not interfere with existing object methods', () => {
   const b = new Bar('a', 'b')
-  function getX(){
+  function getX() {
     return this.x
   }
   const getXBarBound = bind(getX, b)
@@ -65,18 +65,16 @@ test('does not interfere with existing object methods', () => {
 })
 
 test('preserves arity', () => {
-  const f0 = function (){
+  const f0 = function () {
     return 0
   }
-  const f1 = function (a){
+  const f1 = function (a) {
     return a
   }
-  const f2 = function (a, b){
+  const f2 = function (a, b) {
     return a + b
   }
-  const f3 = function (
-    a, b, c
-  ){
+  const f3 = function (a, b, c) {
     return a + b + c
   }
 

@@ -1,14 +1,11 @@
-import { juxt } from 'rambda'
+import { juxt } from 'ramda'
 
 describe('R.juxt', () => {
   it('happy', () => {
-    const result = juxt()
-    
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = juxt()
-
-    result // $ExpectType number
+    const fn = juxt([ Math.min, Math.max ])
+    const result = fn(
+      3, 4, 9, -3
+    )
+    result // $ExpectType number[]
   })
 })

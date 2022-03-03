@@ -1,5 +1,5 @@
-import { delay } from './delay.js'
-import { waitFor } from './waitFor.js'
+import {delay} from './delay.js'
+import {waitFor} from './waitFor.js'
 
 const howLong = 1000
 
@@ -12,7 +12,7 @@ test('true', async () => {
   }
 
   const result = await waitFor(condition, howLong)(6)
-  expect(result).toEqual(true)
+  expect(result).toBeTrue()
 })
 
 test('false', async () => {
@@ -24,7 +24,7 @@ test('false', async () => {
   }
 
   const result = await waitFor(condition, howLong)(12)
-  expect(result).toEqual(false)
+  expect(result).toBeFalse()
 })
 
 test('async condition | true', async () => {
@@ -37,7 +37,7 @@ test('async condition | true', async () => {
   }
 
   const result = await waitFor(condition, howLong)(6)
-  expect(result).toEqual(true)
+  expect(result).toBeTrue()
 })
 
 test('async condition | false', async () => {
@@ -50,7 +50,7 @@ test('async condition | false', async () => {
   }
 
   const result = await waitFor(condition, howLong)(12)
-  expect(result).toEqual(false)
+  expect(result).toBeFalse()
 })
 
 test('throws when fn is not function', () => {
