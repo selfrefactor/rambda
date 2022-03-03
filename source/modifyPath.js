@@ -7,8 +7,6 @@ import { path as pathModule } from './path.js'
 export function modifyPathFn(
   pathInput, fn, object
 ){
-  if (_isArray(object)) return object
-
   const path = createPath(pathInput)
   if (path.length === 1){
     return {

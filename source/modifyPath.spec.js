@@ -8,9 +8,7 @@ test('happy', () => {
 })
 
 test('with array', () => {
-  const list = [ 1, 2, 3 ]
-
-  expect(modifyPath(
-    1, x => x + 1, list
-  )).toEqual(list)
+  const input = {foo: [{ bar: '123' }]}
+  const result = modifyPath('foo.0.bar', x => x + 'foo', input)
+  expect(result).toEqual({ foo: { '0': { bar: '123foo' } } })
 })
