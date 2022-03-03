@@ -2284,9 +2284,9 @@ Notes:
 export function median(list: number[]): number;
 
 /*
-Method: merge
+Method: mergeRight
 
-Explanation: It creates a copy of `target` object with overidden `newProps` properties. 
+Explanation: It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 Example:
 
@@ -2294,7 +2294,7 @@ Example:
 const target = { 'foo': 0, 'bar': 1 }
 const newProps = { 'foo': 7 }
 
-const result = R.merge(target, newProps)
+const result = R.mergeRight(target, newProps)
 // => { 'foo': 7, 'bar': 1 }
 ```
 
@@ -2304,8 +2304,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<A, B>(target: A, newProps: B): A & B
-export function merge<Output>(target: any): (newProps: any) => Output;
+export function mergeRight<A, B>(target: A, newProps: B): A & B
+export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /*
 Method: mergeAll

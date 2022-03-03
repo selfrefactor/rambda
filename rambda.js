@@ -1,3 +1,4 @@
+/// <reference types="./index.d.ts" />
 export * from './src/add.js'
 export * from './src/adjust.js'
 export * from './src/all.js'
