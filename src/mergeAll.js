@@ -1,10 +1,10 @@
 import { map } from './map.js'
-import { merge } from './merge.js'
+import { mergeRight } from './mergeRight.js'
 
 export function mergeAll(arr){
   let willReturn = {}
   map(val => {
-    willReturn = merge(willReturn, val)
+    willReturn = mergeRight(willReturn, val)
   }, arr)
 
   return willReturn

@@ -1,8 +1,18 @@
-WIP 7.1.0
+7.1.0
+
+- Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by alligning Rambda's `pipe/compose` with Ramda logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
 
 - Replace `Async` with `Promise` as return type of `R.type`.
 
 - Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
+
+- Add new methods after `Ramda` version upgrade to `0.28.0`:
+
+-- R.count
+-- R.modifyPath(no arrays support)
+-- R.on
+-- R.whereAny
+-- R.partialObject
 
 7.0.3
 

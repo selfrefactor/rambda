@@ -1,4 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -589,7 +589,7 @@ export function indexOf<T>(valueToFind: T): (list: T[]) => number;
 /**
  * It returns all but the last element of list or string `input`.
  */
-export function init<T>(input: T[]): T[];
+export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
 export function init(input: string): string;
 
 /**
@@ -763,10 +763,10 @@ export function mean(list: number[]): number;
 export function median(list: number[]): number;
 
 /**
- * It creates a copy of `target` object with overidden `newProps` properties.
+ * It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
  */
-export function merge<A, B>(target: A, newProps: B): A & B
-export function merge<Output>(target: any): (newProps: any) => Output;
+export function mergeRight<A, B>(target: A, newProps: B): A & B
+export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /**
  * It merges all objects of `list` array sequentially and returns the result.
@@ -838,10 +838,14 @@ export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 export function not(input: any): boolean;
 
 /**
- * Curried version of `list[index]`.
+ * Curried version of `input[index]`.
  */
-export function nth<T>(index: number, list: T[]): T | undefined;	
-export function nth(index: number): <T>(list: T[]) => T | undefined;
+export function nth(index: number, input: string): string;	
+export function nth<T>(index: number, input: T[]): T | undefined;	
+export function nth(n: number): {
+  <T>(input: T[]): T | undefined;
+  (input: string): string;
+};
 
 /**
  * It creates an object with a single key-value pair.
@@ -1078,6 +1082,11 @@ export function propOr<T>(defaultValue: T): {
 }
 
 /**
+ * It returns `true` if the object property satisfies a given predicate.
+ */
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+
+/**
  * It returns list of numbers between `startInclusive` to `endExclusive` markers.
  */
 export function range(startInclusive: number, endExclusive: number): number[];
@@ -1182,7 +1191,7 @@ export function T(): boolean;
 /**
  * It returns all but the first element of `input`.
  */
-export function tail<T>(input: T[]): T[];
+export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
 export function tail(input: string): string;
 
 /**
@@ -1458,3 +1467,28 @@ export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
  */
 export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+
+export function mergeWith<T>(x: T): T;
+
+export function juxt<T>(x: T): T;
+
+export function countBy<T>(x: T): T;
+
+/**
+ * It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
+ */
+export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+
+export function unwind<T>(x: T): T;
+
+/**
+ * This method is also known as P combinator.
+ */
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K, b: K): U;
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T, a: K): (b: K) => U;
+export function on<T, U, K>(binaryFn: (x: T, b: T) => U, unaryFn: (x: K) => T): (a: K, b: K) => U;
+
+export function whereAny<T>(x: T): T;
+
+export function partialObject<T>(x: T): T;

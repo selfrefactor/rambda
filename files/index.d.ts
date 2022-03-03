@@ -4936,7 +4936,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T>(x: T): T;
+export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
+export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
 
 /*
 Method: count

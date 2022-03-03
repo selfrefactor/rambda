@@ -12,8 +12,8 @@ export function modifyPathFn(
   const path = createPath(pathInput)
   if (path.length === 1){
     return {
-      ...obj,
-      [ prop ] : fn(obj[ prop ]),
+      ...object,
+      [ path[0] ] : fn(object[ path[0] ]),
     }
   }
   if (pathModule(path, object) === undefined) return object

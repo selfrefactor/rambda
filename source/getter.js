@@ -1,4 +1,4 @@
-import { merge } from './merge.js'
+import { mergeRight } from './mergeRight.js'
 import { pick } from './pick.js'
 import { type } from './type.js'
 
@@ -33,7 +33,7 @@ export function setter(maybeKey, maybeValue){
 
   if (typeKey !== 'Object') return
 
-  holder = merge(holder, maybeKey)
+  holder = mergeRight(holder, maybeKey)
 }
 
 export function reset(){
