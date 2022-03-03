@@ -7093,9 +7093,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T>(path: Path, fn: (x: T) => T, object: Record<string, T>): Record<string, T>;
-export function modifyPath<T>(path: Path, fn: (x: T) => T): (object: Record<string, T>) => Record<string, T>;
-export function modifyPath<T>(path: Path): (fn: (x: T) => T) => (object: Record<string, T>) => Record<string, T>;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 /*
 Method: deletePath
