@@ -4871,7 +4871,7 @@ const result = R.pipe(
 
 Categories: Function
 
-Notes: R.bind does not provide the additional argument-binding capabilities of [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+Notes: R.bind does not provide the additional argument-binding capabilities of `Function.prototype.bind`.
 
 */
 // @SINGLE_MARKER
@@ -4886,8 +4886,6 @@ Explanation:
 Example:
 
 ```
-const result = R.mergeWith()
-// => 
 ```
 
 Categories:
@@ -4906,11 +4904,14 @@ Explanation:
 Example:
 
 ```
-const result = R.juxt()
-// => 
+const getRange = juxt([ Math.min, Math.max ])
+const result = getRange(
+  3, 4, 9, -3
+)
+// => [-3, 9]
 ```
 
-Categories:
+Categories: Logic
 
 Notes:
 
@@ -4953,11 +4954,9 @@ Explanation:
 Example:
 
 ```
-const result = R.countBy()
-// => 
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -4974,17 +4973,16 @@ Explanation:
 Example:
 
 ```
-const result = R.unwind()
-// => 
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<T>(x: T): T;
+export function unwind<T, U>(prop: keyof T, obj: T): U[];
+export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
 
 /*
 Method: on
@@ -5011,16 +5009,14 @@ export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U
 /*
 Method: whereAny
 
-Explanation:
+Explanation: Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
 
 Example:
 
 ```
-const result = R.whereAny()
-// => 
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
@@ -5034,22 +5030,32 @@ export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boole
 /*
 Method: partialObject
 
-Explanation:
+Explanation: `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
+
+Initially the function knows only a part from the whole input object and then `R.partialObject` helps in preparing the function for the second part, when it receives the rest of the input.
 
 Example:
 
 ```
-const result = R.partialObject()
-// => 
+const fn = ({ a, b, c }) => a + b + c
+const curried = R.partialObject(fn, { a : 1 })
+const result = curried({
+  b : 2,
+  c : 3,
+})
+// => 6
 ```
 
-Categories:
+Categories: Function, Async
 
-Notes:
+Notes: Function input can be asynchronous
 
 */
 // @SINGLE_MARKER
-export function partialObject<T>(x: T): T;
+export function partialObject<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 // RAMBDAX_MARKER_START
 
@@ -5970,36 +5976,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
-
-/*
-Method: partialCurry
-
-Explanation: `R.partialCurry` is a curry helper designed specifically for functions accepting object as a single argument.
-
-Initially the function knows only a part from the whole input object and then `R.partialCurry` helps in preparing the function for the second part, when it receives the rest of the input.
-
-Example:
-
-```
-const fn = ({ a, b, c }) => a + b + c
-const curried = R.partialCurry(fn, { a : 1 })
-const result = curried({
-  b : 2,
-  c : 3,
-})
-// => 6
-```
-
-Categories: Function, Async
-
-Notes: Curried function can be asynchronous
-
-*/
-// @SINGLE_MARKER
-export function partialCurry<Input, PartialInput, Output>(
-  fn: (input: Input) => Output, 
-  partialInput: PartialInput,
-): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 /*
 Method: piped
@@ -7108,22 +7084,25 @@ export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: 
 /*
 Method: deletePath
 
-Explanation: TODO
+Explanation: It removes property path from an object.
 
 Example:
 
 ```
-const result = R.deletePath()
-// => 
+const input = {a: 1, b:{c:2, d:3}}
+const expected = {a: 1, b:{c:2}}
+const result = R.deletePath('a.d', input)
+// => result === expected
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function deletePath<T>(x: T): T;
+export function deletePath<Output>(path: Path, obj: unknown): Output;
+export function deletePath<Output>(path: Path): (obj: unknown) => Output;
 
 /*
 Method: mapcat
@@ -7163,7 +7142,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flattenObject<T>(x: T): T;
+export function flattenObject(x: any): Record<string, unknown>;
 
 /*
 Method: deletePath
@@ -7173,8 +7152,6 @@ Explanation:
 Example:
 
 ```
-const result = R.deletePath()
-// => 
 ```
 
 Categories:
@@ -7183,7 +7160,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function deletePath<T>(x: T): T;
+export function deletePath<T>(path: string): T;
 
 /*
 Method: contains

@@ -1,14 +1,9 @@
-import { mapcat } from 'rambda'
+import {mapcat} from 'rambda'
 
 describe('R.mapcat', () => {
   it('happy', () => {
-    const result = mapcat()
-    
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = mapcat()
+    const result = mapcat(1)
 
-    result // $ExpectType number
+    result // $ExpectType 1
   })
 })

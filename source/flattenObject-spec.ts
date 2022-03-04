@@ -1,14 +1,9 @@
-import { flattenObject } from 'rambda'
+import {flattenObject} from 'rambda'
 
 describe('R.flattenObject', () => {
   it('happy', () => {
-    const result = flattenObject()
-    
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = flattenObject()
+    const result = flattenObject({a: 1})
 
-    result // $ExpectType number
+    result // $ExpectType Record<string, unknown>
   })
 })
