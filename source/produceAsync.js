@@ -3,7 +3,7 @@ import { type } from './type.js'
 
 function promisify({ condition, input, prop }){
   return new Promise((resolve, reject) => {
-    if (type(condition) !== 'Async'){
+    if (type(condition) !== 'Promise'){
       return resolve({
         type    : prop,
         payload : condition(input),
@@ -26,7 +26,7 @@ function produceFn(conditions, input){
   for (const prop in conditions){
     if (
       asyncConditionsFlag === false &&
-      type(conditions[ prop ]) === 'Async'
+      type(conditions[ prop ]) === 'Promise'
     ){
       asyncConditionsFlag = true
     }

@@ -1,4 +1,4 @@
-import { merge } from './merge.js'
+import { mergeRight } from './mergeRight.js'
 import { omit } from './omit.js'
 
 export function renameProps(conditions, inputObject){
@@ -12,5 +12,5 @@ export function renameProps(conditions, inputObject){
     }
   })
 
-  return merge(renamed, omit(Object.keys(conditions), inputObject))
+  return mergeRight(renamed, omit(Object.keys(conditions), inputObject))
 }
