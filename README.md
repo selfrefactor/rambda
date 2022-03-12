@@ -37,7 +37,7 @@ Typescript definitions are included in the library, in comparison to **Ramda**, 
 
 Still, you need to be aware that functional programming features in `Typescript` are in development, which means that using **R.compose/R.pipe** can be problematic.
 
-Important - Rambda version `7.0.0`(or higher) requires Typescript version `4.2.2`(or higher).
+Important - Rambda version `7.1.0`(or higher) requires Typescript version `4.3.3`(or higher).
 
 #### Immutable TS definitions
 
@@ -261,8 +261,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 2.93% slower | 🚀 Fastest | 🔳
- *allPass* | 🚀 Fastest | 87.17% slower | 🔳
+ *all* | 🚀 Fastest | 3.79% slower | 🔳
+ *allPass* | 🚀 Fastest | 87.3% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -271,7 +271,7 @@ method | Rambda | Ramda | Lodash
  *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
  *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
- *compose* | 5.09% slower | 22.91% slower | 🚀 Fastest
+ *compose* | 1.91% slower | 21.6% slower | 🚀 Fastest
  *converge* | 78.63% slower | 🚀 Fastest | 🔳
  *curry* | 🚀 Fastest | 28.86% slower | 🔳
  *curryN* | 🚀 Fastest | 41.05% slower | 🔳
@@ -284,8 +284,8 @@ method | Rambda | Ramda | Lodash
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
  *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
- *includes* | 🚀 Fastest | 84.38% slower | 🔳
- *indexOf* | 🚀 Fastest | 82.75% slower | 🔳
+ *includes* | 🚀 Fastest | 84.68% slower | 🔳
+ *indexOf* | 🚀 Fastest | 83.07% slower | 🔳
  *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
@@ -301,7 +301,7 @@ method | Rambda | Ramda | Lodash
  *over* | 🚀 Fastest | 56.23% slower | 🔳
  *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
- *pipe* | 1.52% slower | 🚀 Fastest | 🔳
+ *pipe* | 0.41% slower | 🚀 Fastest | 🔳
  *prop* | 🚀 Fastest | 87.95% slower | 🔳
  *propEq* | 🚀 Fastest | 91.92% slower | 🔳
  *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
@@ -317,8 +317,8 @@ method | Rambda | Ramda | Lodash
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
  *type* | 🚀 Fastest | 48.6% slower | 🔳
- *uniq* | 🚀 Fastest | 87.84% slower | 🔳
- *uniqWith* | 12.31% slower | 🚀 Fastest | 🔳
+ *uniq* | 🚀 Fastest | 86.73% slower | 🔳
+ *uniqWith* | 13.67% slower | 🚀 Fastest | 🔳
  *uniqWith* | 14.23% slower | 🚀 Fastest | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
@@ -727,7 +727,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 2.93%</summary>
+<summary>Rambda is faster than Ramda with 3.79%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -887,7 +887,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 87.17%</summary>
+<summary>Rambda is faster than Ramda with 87.3%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -6921,7 +6921,7 @@ describe('R.includes', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 84.38%</summary>
+<summary>Rambda is faster than Ramda with 84.68%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -16855,7 +16855,7 @@ describe('R.uniq', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 87.84%</summary>
+<summary>Rambda is faster than Ramda with 86.73%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -17022,7 +17022,7 @@ describe('R.uniqWith', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 12.31%</summary>
+<summary>Rambda is slower than Ramda with 13.67%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
