@@ -1,5 +1,6 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
+type Obj = Record<string, unknown>
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
@@ -3312,6 +3313,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
 
 /*
 Method: range
@@ -4894,7 +4896,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith<T>(x: T): T;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): any;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => any;
+export function mergeWith(fn: (x: any, z: any) => any): (a: Obj, b: Obj) => any;
 
 /*
 Method: juxt
