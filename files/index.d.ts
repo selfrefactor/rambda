@@ -7082,9 +7082,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Obj>(path: Path, fn: (x: any) => unknown, object: Obj): T;
+export function modifyPath<T extends Obj>(path: Path, fn: (x: any) => unknown): (object: Obj) => T;
+export function modifyPath<T extends Obj>(path: Path): (fn: (x: any) => unknown) => (object: Obj) => T;
 
 /*
 Method: deletePath
@@ -7147,7 +7147,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flattenObject(x: any): Record<string, unknown>;
+export function flattenObject(x: any): Obj;
 
 /*
 Method: deletePath
