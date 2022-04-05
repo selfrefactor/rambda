@@ -1952,6 +1952,12 @@ function propOrFn(defaultValue, property, obj) {
 
 const propOr = curry(propOrFn);
 
+function propSatisfiesFn(predicate, property, obj) {
+  return predicate(prop(property, obj));
+}
+
+const propSatisfies = curry(propSatisfiesFn);
+
 function props(propsToPick, obj) {
   if (arguments.length === 1) {
     return _obj => props(propsToPick, _obj);
@@ -2625,6 +2631,7 @@ exports.prop = prop;
 exports.propEq = propEq;
 exports.propIs = propIs;
 exports.propOr = propOr;
+exports.propSatisfies = propSatisfies;
 exports.props = props;
 exports.range = range;
 exports.reduce = reduce;

@@ -6,6 +6,6 @@ test('when true', () => {
   expect(propSatisfies(x => x > 0, 'a', obj)).toBeTrue()
 })
 
-test('when fakse', () => {
-  expect(propSatisfies(x => x < 0, 'a', obj)).toBeFalse()
+test('when false', () => {
+  expect(propSatisfies(x => x < 0, 'a')(obj)).toBeFalse()
 })

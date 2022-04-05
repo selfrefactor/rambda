@@ -13,13 +13,30 @@ const B = {
   b: true,
   values: [15, 35],
 }
+
 describe('R.mergeWith', () => {
-  test('with explicit types', () => {
+  test('no curry | without explicit types', () => {
     const result = mergeWith(concat, A, B)
-    result // $ExpectType any
+    result // $ExpectType Obj
   })
-  test('without explicit types', () => {
+  test('no curry | with explicit types', () => {
     const result = mergeWith<Output>(concat, A, B)
+    result // $ExpectType Output
+  })
+  test('curry 1 | without explicit types', () => {
+    const result = mergeWith(concat, A)(B)
+    result // $ExpectType Obj
+  })
+  test('curry 1 | with explicit types', () => {
+    const result = mergeWith<Output>(concat, A)(B)
+    result // $ExpectType Output
+  })
+  test('curry 2 | without explicit types', () => {
+    const result = mergeWith(concat)(A, B)
+    result // $ExpectType Obj
+  })
+  test('curry 2 | with explicit types', () => {
+    const result = mergeWith<Output>(concat)(A, B)
     result // $ExpectType Output
   })
 })

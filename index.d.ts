@@ -1,5 +1,6 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
+type Obj = Record<string, unknown>
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
@@ -1085,6 +1086,7 @@ export function propOr<T>(defaultValue: T): {
  * It returns `true` if the object property satisfies a given predicate.
  */
 export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
 
 /**
  * It returns list of numbers between `startInclusive` to `endExclusive` markers.
@@ -1468,7 +1470,15 @@ export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
-export function mergeWith<T>(x: T): T;
+/**
+ * It takes two objects and a function, which will be used when there is an overlap between the keys.
+ */
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 
 export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
 export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];

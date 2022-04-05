@@ -10541,15 +10541,22 @@ describe('R.mergeRight', () => {
 
 ```typescript
 
-mergeWith<T>(x: T): T
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj
 ```
+
+It takes two objects and a function, which will be used when there is an overlap between the keys.
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeWith<T>(x: T): T;
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
+mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 ```
 
 </details>
@@ -10618,6 +10625,57 @@ test('happy', () => {
     b      : true,
   }
   expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {concat, mergeWith} from 'rambda'
+
+interface Output {
+  a: boolean,
+  b: boolean,
+  values: number[],
+}
+const A = {
+  a: true,
+  values: [10, 20],
+}
+const B = {
+  b: true,
+  values: [15, 35],
+}
+
+describe('R.mergeWith', () => {
+  test('no curry | without explicit types', () => {
+    const result = mergeWith(concat, A, B)
+    result // $ExpectType Obj
+  })
+  test('no curry | with explicit types', () => {
+    const result = mergeWith<Output>(concat, A, B)
+    result // $ExpectType Output
+  })
+  test('curry 1 | without explicit types', () => {
+    const result = mergeWith(concat, A)(B)
+    result // $ExpectType Obj
+  })
+  test('curry 1 | with explicit types', () => {
+    const result = mergeWith<Output>(concat, A)(B)
+    result // $ExpectType Output
+  })
+  test('curry 2 | without explicit types', () => {
+    const result = mergeWith(concat)(A,B)
+    result // $ExpectType Obj
+  })
+  test('curry 2 | with explicit types', () => {
+    const result = mergeWith<Output>(concat)(A,B)
+    result // $ExpectType Output
+  })
 })
 ```
 
@@ -14442,6 +14500,71 @@ const result = R.propSatisfies(predicate, property, obj)
 
 ```typescript
 propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.propSatisfies</strong> source</summary>
+
+```javascript
+import { curry } from './curry.js'
+import { prop } from './prop.js'
+
+function propSatisfiesFn(
+  predicate, property, obj
+){
+  return predicate(prop(property, obj))
+}
+
+export const propSatisfies = curry(propSatisfiesFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import {propSatisfies} from './propSatisfies'
+
+const obj = {a: 1}
+
+test('when true', () => {
+  expect(propSatisfies(x => x > 0, 'a', obj)).toBeTrue()
+})
+
+test('when false', () => {
+  expect(propSatisfies(x => x < 0, 'a')(obj)).toBeFalse()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {propSatisfies} from 'rambda'
+
+const obj = {a: 1}
+
+describe('R.propSatisfies', () => {
+  it('happy', () => {
+    const result = propSatisfies(x => x > 0, 'a', obj)
+
+    result // $ExpectType boolean
+  })
+  it('curried requires explicit type', () => {
+    const result = propSatisfies<number>(x => x > 0, 'a')(obj)
+
+    result // $ExpectType boolean
+  })
+})
 ```
 
 </details>

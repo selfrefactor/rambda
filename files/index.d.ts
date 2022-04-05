@@ -4883,23 +4883,25 @@ export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) 
 /*
 Method: mergeWith
 
-Explanation:
+Explanation: It takes two objects and a function, which will be used when there is an overlap between the keys.
 
 Example:
 
 ```
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): any;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
 export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => any;
-export function mergeWith(fn: (x: any, z: any) => any): (a: Obj, b: Obj) => any;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 
 /*
 Method: juxt
