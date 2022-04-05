@@ -1,5 +1,7 @@
 7.1.0
 
+- Rename `R.merge` to `R.mergeRight`(introduced by Ramda's latest release)
+
 - Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by alligning Rambda's `pipe/compose` with Ramda logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
 
 - Replace `Async` with `Promise` as return type of `R.type`.
@@ -7,6 +9,8 @@
 - Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
 
 - Add `R.juxt` method
+
+- Add `R.propSatisfies` method
 
 - Add new methods after `Ramda` version upgrade to `0.28.0`:
 

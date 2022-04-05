@@ -7461,14 +7461,12 @@ export function juxt(listOfFunctions){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { juxt } from './juxt.js'
+import {juxt} from './juxt.js'
 
 test('happy', () => {
-  const getRange = juxt([ Math.min, Math.max ])
-  const result = getRange(
-    3, 4, 9, -3
-  )
-  expect(result).toEqual([ -3, 9 ])
+  const fn = juxt([Math.min, Math.max, Math.min])
+  const result = fn(3, 4, 9, -3)
+  expect(result).toEqual([-3, 9, -3])
 })
 ```
 
@@ -9691,11 +9689,11 @@ describe('R.mergeWith', () => {
     result // $ExpectType Output
   })
   test('curry 2 | without explicit types', () => {
-    const result = mergeWith(concat)(A,B)
+    const result = mergeWith(concat)(A, B)
     result // $ExpectType Obj
   })
   test('curry 2 | with explicit types', () => {
-    const result = mergeWith<Output>(concat)(A,B)
+    const result = mergeWith<Output>(concat)(A, B)
     result // $ExpectType Output
   })
 })
@@ -18599,6 +18597,8 @@ describe('R.zipWith', () => {
 
 7.1.0
 
+- Rename `R.merge` to `R.mergeRight`(introduced by Ramda's latest release)
+
 - Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by alligning Rambda's `pipe/compose` with Ramda logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
 
 - Replace `Async` with `Promise` as return type of `R.type`.
@@ -18606,6 +18606,8 @@ describe('R.zipWith', () => {
 - Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
 
 - Add `R.juxt` method
+
+- Add `R.propSatisfies` method
 
 - Add new methods after `Ramda` version upgrade to `0.28.0`:
 

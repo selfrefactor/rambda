@@ -223,7 +223,7 @@ const predicates = [
 const result = R.allPass(predicates)(input) // => true
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -245,7 +245,7 @@ const result = fn()
 // => 7
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -340,7 +340,7 @@ const result = fn(input)
 // => true
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -387,7 +387,7 @@ const result = fn(2, 4)
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
@@ -468,7 +468,7 @@ const result = [fn(15), fn(30)]
 // => [true, false]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -577,7 +577,7 @@ const result = [
 ] => [ true, false ]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -601,7 +601,7 @@ const result = R.compose(
 // => [6, 8]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -723,7 +723,7 @@ const result = [
 // => ['more than 25', 'more than 15', '10 is nothing special']
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -743,7 +743,7 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 // => 15
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Explanation is taken from `Ramda` documentation
 
@@ -766,7 +766,7 @@ const sum = curried(1,2)
 const result = sum(3) // => 6
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -785,7 +785,7 @@ Example:
 
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -978,7 +978,7 @@ const result = [
 // => [true, true, false]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -1239,7 +1239,7 @@ const result = [
 // => [6, -6]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
 
@@ -1508,7 +1508,7 @@ const result = [ fn(8), fn(18) ]
 // => [80, 36]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -2639,7 +2639,7 @@ addOnce(1)
 // => 1
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -3030,7 +3030,7 @@ const result = R.pipe(
 // => [6, 8]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -3851,7 +3851,7 @@ R.compose(
 // => `2` and `3` will be logged
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4058,7 +4058,7 @@ const result = [
 // => [false, 'bar']
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Please check the tests of `R.tryCatch` to fully understand how this method works.
 
@@ -4226,7 +4226,7 @@ const result = [
 // => [11, 5]
 ```
 
-Categories: Logic, Function
+Categories: Logic
 
 Notes:
 
@@ -4312,7 +4312,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-Categories: Logic, Function
+Categories: Logic
 
 Notes:
 
@@ -4822,7 +4822,7 @@ R.unapply(JSON.stringify)(1, 2, 3)
 //=> '[1,2,3]'
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4844,7 +4844,7 @@ const result = R.apply(Math.max, [42, -Infinity, 1337])
 // => 1337
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4871,7 +4871,7 @@ const result = R.pipe(
 // => console log - `{a: 2}`
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: R.bind does not provide the additional argument-binding capabilities of `Function.prototype.bind`.
 
@@ -4911,11 +4911,11 @@ Explanation:
 Example:
 
 ```
-const getRange = juxt([ Math.min, Math.max ])
+const getRange = juxt([ Math.min, Math.max, Math.min ])
 const result = getRange(
   3, 4, 9, -3
 )
-// => [-3, 9]
+// => [-3, 9, -3]
 ```
 
 Categories: Logic
@@ -5053,7 +5053,7 @@ const result = curried({
 // => 6
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes: Function input can be asynchronous
 
@@ -5224,7 +5224,7 @@ const result = await R.composeAsync(
 // `result` resolves to `3`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
 
@@ -5261,7 +5261,7 @@ const result = await R.pipeAsync(
 // `result` resolves to `4`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
 
@@ -5277,7 +5277,7 @@ export function pipeAsync<Out>(
 /*
 Method: debounce
 
-Explanation: It creates a debounced function that delays invoking `fn` until after wait milliseconds `ms` have elapsed since the last time the debounced function was invoked.
+Explanation: 
 
 Example:
 
@@ -5305,9 +5305,9 @@ const result = await fn()
 // `result` resolves to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
-Notes: Description is taken from `Lodash` docs
+Notes: 
 
 */
 // @SINGLE_MARKER
@@ -5865,7 +5865,7 @@ memoized(1, 2)
 // => `result` is equal to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -6000,9 +6000,9 @@ const result = R.piped(
 // => [20, 30]
 ```
 
-Categories: Function
+Categories: Logic
 
-Notes: Independently, similar method is implemented in `Ramada` library, but there the name of the method is `pipe` - [Remeda.pipe](https://remedajs.com/docs#pipe)
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -6115,7 +6115,7 @@ const expected = {
 // => `result` is equal to `expected`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes:
 
@@ -6329,7 +6329,7 @@ export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
 /*
 Method: throttle
 
-Explanation: It creates a throttled function that invokes `fn` maximum once for a `period` of milliseconds.
+Explanation:
 
 Example:
 
@@ -6351,7 +6351,7 @@ const result = async () => {
 // `result` resolves to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -6995,7 +6995,7 @@ const result = await Promise.all([
 // => [1, false]
 ```
 
-Categories: Async, Function
+Categories: Async, Logic
 
 Notes:
 
