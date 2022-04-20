@@ -462,7 +462,7 @@ Example:
 ```
 const firstCondition = x => x > 10
 const secondCondition = x => x < 20
-const fn = R.both(secondCondition)
+const fn = R.both(firstCondition, secondCondition)
 
 const result = [fn(15), fn(30)]
 // => [true, false]
