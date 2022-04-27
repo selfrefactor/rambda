@@ -2285,6 +2285,25 @@ Notes:
 export function median(list: number[]): number;
 
 /*
+Method: merge
+
+Explanation: Same as `R.mergeRight`.
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output;
+
+/*
 Method: mergeRight
 
 Explanation: It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
@@ -4888,6 +4907,12 @@ Explanation: It takes two objects and a function, which will be used when there 
 Example:
 
 ```
+const result = R.mergeWith(
+  R.concat,
+  {values : [ 10, 20 ]},
+  {values : [ 15, 35 ]}
+)
+// => [ 10, 20, 15, 35 ]
 ```
 
 Categories: Object
@@ -4939,7 +4964,7 @@ Explanation: It counts how many times `predicate` function returns `true`, when 
 Example:
 
 ```
-const list = [{a: 1}, {a:1}, {a:2}]
+const list = [{a: 1}, 1, {a:2}]
 const result = R.count(x => x.a !== undefined, list)
 // => 2
 ```
@@ -4961,6 +4986,11 @@ Explanation:
 Example:
 
 ```
+const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
+
+const result = countBy(x => x.toLowerCase(), list)
+const expected = { a: 2, b: 2, c: 2 }
+// => `result` is equal to `expected`
 ```
 
 Categories: List
