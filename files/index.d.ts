@@ -1,6 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
-type Obj = Record<string, unknown>
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
@@ -436,7 +435,7 @@ const path = 'b.c'
 const newValue = 2
 const obj = { a: 1 }
 
-R.assocPath(path, newValue, obj)
+R.assocPath(path, newValue, Record<string, unknown>)
 // => { a : 1, b : { c : 2 }}
 ```
 
@@ -1365,8 +1364,8 @@ Example:
 const obj = {a: 1}
 
 const result = [
-  R.has('a', obj),
-  R.has('b', obj)
+  R.has('a', Record<string, unknown>),
+  R.has('b', Record<string, unknown>)
 ]
 // => [true, false]
 ```
@@ -1393,9 +1392,9 @@ const pathAsArray = ['a', 'b']
 const obj = {a: {b: []}}
 
 const result = [
-  R.hasPath(path, obj),
-  R.hasPath(pathAsArray, obj),
-  R.hasPath('a.c', obj),
+  R.hasPath(path, Record<string, unknown>),
+  R.hasPath(pathAsArray, Record<string, unknown>),
+  R.hasPath('a.c', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
@@ -2101,7 +2100,7 @@ const obj = {a: 1, b: 2}
 
 const result = [ 
   R.map(fn, list),
-  R.map(fnWhenObject, obj)
+  R.map(fnWhenObject, Record<string, unknown>)
 ]
 // => [ [1, 4], {a: 'a-1', b: 'b-2'}] 
 ```
@@ -2133,7 +2132,7 @@ const fn = (val, prop) => {
 
 const obj = {a: 1, b: 2}
 
-const result = R.map(mapObjIndexed, obj)
+const result = R.map(mapObjIndexed, Record<string, unknown>)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
@@ -2679,8 +2678,8 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj), 
-  R.omit(propsToOmitList, obj) 
+  R.omit(propsToOmit, Record<string, unknown>), 
+  R.omit(propsToOmitList, Record<string, unknown>) 
 ]
 // => [{b: 2}, {b: 2}]
 ```
@@ -2769,7 +2768,7 @@ const predicate = x => x > 2
 
 const result = [
   R.partition(predicate, list),
-  R.partition(predicate, obj)
+  R.partition(predicate, Record<string, unknown>)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -2814,9 +2813,9 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch, Record<string, unknown>),
+  R.path(pathToSearchList, Record<string, unknown>),
+  R.path('a.b.c.d', Record<string, unknown>)
 ]
 // => [1, 1, undefined]
 ```
@@ -2867,7 +2866,7 @@ export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boo
 /*
 Method: paths
 
-Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -2887,7 +2886,7 @@ const result = R.paths([
   'a.b.c',
   'a.b.d',
   'a.b.c.d.e',
-], obj)
+], Record<string, unknown>)
 // => [1, 2, undefined]
 ```
 
@@ -2905,7 +2904,7 @@ export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[]
 /*
 Method: pathOr
 
-Explanation: It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+Explanation: It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
 
 Example:
 
@@ -2921,9 +2920,9 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
+  R.pathOr(DEFAULT_VALUE, pathToSearch, Record<string, unknown>),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, Record<string, unknown>), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', Record<string, unknown>)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
@@ -2960,10 +2959,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, obj),
-  R.pick(propsToPickList, obj),
-  R.pick('a,bar', obj),
-  R.pick('bar', obj),
+  R.pick(propsToPick, Record<string, unknown>),
+  R.pick(propsToPickList, Record<string, unknown>),
+  R.pick('a,bar', Record<string, unknown>),
+  R.pick('bar', Record<string, unknown>),
   R.pick([0, 3, 5], list),
   R.pick('0,3,5', list),
 ]
@@ -3008,10 +3007,10 @@ const propsToPick = 'a,foo,bar'
 const propsToPickList = ['a', 'foo', 'bar']
 
 const result = [
-  R.pickAll(propsToPick, obj),
-  R.pickAll(propsToPickList, obj),
-  R.pickAll('a,bar', obj),
-  R.pickAll('bar', obj),
+  R.pickAll(propsToPick, Record<string, unknown>),
+  R.pickAll(propsToPickList, Record<string, unknown>),
+  R.pickAll('a,bar', Record<string, unknown>),
+  R.pickAll('bar', Record<string, unknown>),
 ]
 const expected = [
   {a:1, foo: 'cherry', bar: undefined},
@@ -3221,8 +3220,8 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, obj),
-  R.propEq(propToFind, valueToMatch, secondObj)
+  R.propEq(propToFind, valueToMatch, Record<string, unknown>),
+  R.propEq(propToFind, valueToMatch, secondRecord<string, unknown>)
 ]
 // => [true, false]
 ```
@@ -3251,9 +3250,9 @@ Example:
 const obj = {a:1, b: 'foo'}
 
 const result = [
-  R.propIs(Number, 'a', obj),
-  R.propIs(String, 'b', obj),
-  R.propIs(Number, 'b', obj),
+  R.propIs(Number, 'a', Record<string, unknown>),
+  R.propIs(String, 'b', Record<string, unknown>),
+  R.propIs(Number, 'b', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
@@ -3290,8 +3289,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, obj),
-  R.propOr(defaultValue, 'foo', obj)
+  R.propOr(defaultValue, property, Record<string, unknown>),
+  R.propOr(defaultValue, 'foo', Record<string, unknown>)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -3321,7 +3320,7 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, obj)
+const result = R.propSatisfies(predicate, property, Record<string, unknown>)
 // => true
 ```
 
@@ -3396,7 +3395,7 @@ const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list),
-  R.reject(predicate, obj)
+  R.reject(predicate, Record<string, unknown>)
 ]
 // => [[1], {a: 1}]
 ```
@@ -4284,14 +4283,14 @@ export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 /*
 Method: values
 
-Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+Explanation: With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
 
 Example:
 
 ```
 const obj = {a:1, b:2}
 
-R.values(obj)
+R.values(Record<string, unknown>)
 // => [1, 2]
 ```
 
@@ -4921,10 +4920,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
 export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
 export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 
@@ -5010,6 +5009,13 @@ Explanation:
 Example:
 
 ```
+const obj = {
+  a: 1,
+  b: [2, 3],
+}
+const result = unwind('b', Record<string, unknown>)
+const expected = [{a:1, b:2}, {a:1, b:3}]
+// => `result` is equal to `expected`
 ```
 
 Categories: Object
@@ -5051,6 +5057,15 @@ Explanation: Same as `R.where`, but it will return `true` if at least one condit
 Example:
 
 ```
+const conditions = {
+  a: a => a > 1,
+  b: b => b > 2,
+}
+const result = [
+  R.whereAny(conditions, {b:3}),
+  R.whereAny(conditions, {c:4})
+]
+// => [true, false]
 ```
 
 Categories: Object
@@ -5824,7 +5839,7 @@ Example:
 ```
 const obj = {a: 1, b: 2}
 const changeKeyFn = prop => `{prop}_foo`
-const result = R.mapKeys(changeKeyFn, obj)
+const result = R.mapKeys(changeKeyFn, Record<string, unknown>)
 // => {a_foo: 1, b_foo: 2}
 ```
 
@@ -6710,7 +6725,7 @@ const rules = [
   ['foo.bar', 20],
   ['q.z', 300],
 ]
-const result = R.updateObject(rules, obj)
+const result = R.updateObject(rules, Record<string, unknown>)
 
 const expected = {
   a: {b: 2},
@@ -6770,7 +6785,7 @@ const rules = [
   {op: 'add', path: 'a.d', value: 4},
   {op: 'update', path: 'a.b', value: 2},
 ]
-const result = R.applyDiff(rules, obj)
+const result = R.applyDiff(rules, Record<string, unknown>)
 const expected = {a: {b: 2, d: 4}}
 
 // => `result` is equal to `expected`
@@ -6865,7 +6880,7 @@ const obj = {a: 1, b: 2}
 
 const result = [
   R.reject((x, index) => x > 1, list)
-  R.reject((x, property) => x > 1, obj)
+  R.reject((x, property) => x > 1, Record<string, unknown>)
 ]
 // => [[1], {a: 1}]
 ```
@@ -7114,9 +7129,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T extends Obj>(path: Path, fn: (x: any) => unknown, object: Obj): T;
-export function modifyPath<T extends Obj>(path: Path, fn: (x: any) => unknown): (object: Obj) => T;
-export function modifyPath<T extends Obj>(path: Path): (fn: (x: any) => unknown) => (object: Obj) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 /*
 Method: deletePath
@@ -7164,22 +7179,21 @@ export function mapcat<T>(x: T): T;
 /*
 Method: flattenObject
 
-Explanation:
+Explanation: It transforms object to object where each value is represented with its path.
 
 Example:
 
 ```
-const result = R.flattenObject()
-// => 
 ```
 
-Categories:
+Categories: Object
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function flattenObject(x: any): Obj;
+export function flattenObject(x: Record<string, unknown>): Record<string, unknown>;
+export function flattenObject<T>(x: Record<string, T>): Record<string, T>;
 
 /*
 Method: deletePath

@@ -4,11 +4,11 @@ import {
   transformFlatObject,
 } from './flattenObject.js'
 
-test('happy', () => {
+test.only('happy', () => {
   const obj = {
     c : 3,
     d : {
-      'd.e' : 5,
+      'd.e' : [ 5, 6, 7 ],
       'd.z' : 4,
       'd.f' : { 'd.f.h' : 6 },
     },
