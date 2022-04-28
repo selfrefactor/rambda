@@ -2590,6 +2590,7 @@ exports.maxBy = maxBy;
 exports.maxByFn = maxByFn;
 exports.mean = mean;
 exports.median = median;
+exports.merge = mergeRight;
 exports.mergeAll = mergeAll;
 exports.mergeDeepRight = mergeDeepRight;
 exports.mergeLeft = mergeLeft;

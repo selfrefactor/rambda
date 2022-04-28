@@ -2338,11 +2338,11 @@ const path = 'b.c'
 const newValue = 2
 const obj = { a: 1 }
 
-R.assocPath(path, newValue, obj)
+R.assocPath(path, newValue, Record<string, unknown>)
 // => { a : 1, b : { c : 2 }}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'b.c'%0Aconst%20newValue%20%3D%202%0Aconst%20obj%20%3D%20%7B%20a%3A%201%20%7D%0A%0Aconst%20result%20%3D%20R.assocPath(path%2C%20newValue%2C%20obj)%0A%2F%2F%20%3D%3E%20%7B%20a%20%3A%201%2C%20b%20%3A%20%7B%20c%20%3A%202%20%7D%7D">Try this <strong>R.assocPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'b.c'%0Aconst%20newValue%20%3D%202%0Aconst%20obj%20%3D%20%7B%20a%3A%201%20%7D%0A%0Aconst%20result%20%3D%20R.assocPath(path%2C%20newValue%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7B%20a%20%3A%201%2C%20b%20%3A%20%7B%20c%20%3A%202%20%7D%7D">Try this <strong>R.assocPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -3231,98 +3231,15 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 
 ### count
 
-```typescript
-
-count<T>(predicate: (x: T) => boolean, list: T[]): number
-```
-
 It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
 
 ```javascript
-const list = [{a: 1}, {a:1}, {a:2}]
+const list = [{a: 1}, 1, {a:2}]
 const result = R.count(x => x.a !== undefined, list)
 // => 2
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D%0Aconst%20result%20%3D%20R.count(x%20%3D%3E%20x.a%20!%3D%3D%20undefined%2C%20list)%0A%2F%2F%20%3D%3E%202">Try this <strong>R.count</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-count<T>(predicate: (x: T) => boolean, list: T[]): number;
-count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.count</strong> source</summary>
-
-```javascript
-import { _isArray } from './_internals/_isArray.js'
-
-export function count(predicate, list){
-  if (arguments.length === 1){
-    return _list => count(predicate, _list)
-  }
-  if (!_isArray(list)) return 0
-
-  return list.filter(x => predicate(x)).length
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { count } from './count.js'
-
-const predicate = x => x.a !== undefined
-
-test('with empty list', () => {
-  expect(count(predicate, [])).toBe(0)
-})
-
-test('happy', () => {
-  const list = [ 1, 2, { a : 1 }, 3, { a : 1 } ]
-
-  expect(count(predicate)(list)).toBe(2)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {count} from 'rambda'
-
-const list = [1, 2, 3]
-const predicate = (x: number) => x> 1
-
-describe('R.count', () => {
-  it('happy', () => {
-    const result = count(predicate, list)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = count(predicate)(list)
-
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%201%2C%20%7Ba%3A2%7D%5D%0Aconst%20result%20%3D%20R.count(x%20%3D%3E%20x.a%20!%3D%3D%20undefined%2C%20list)%0A%2F%2F%20%3D%3E%202">Try this <strong>R.count</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#count)
 
@@ -3332,6 +3249,16 @@ describe('R.count', () => {
 
 countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>
 ```
+
+```javascript
+const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
+
+const result = countBy(x => x.toLowerCase(), list)
+const expected = { a: 2, b: 2, c: 2 }
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20'a'%2C%20'A'%2C%20'b'%2C%20'B'%2C%20'c'%2C%20'C'%20%5D%0A%0Aconst%20result%20%3D%20countBy(x%20%3D%3E%20x.toLowerCase()%2C%20list)%0Aconst%20expected%20%3D%20%7B%20a%3A%202%2C%20b%3A%202%2C%20c%3A%202%20%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.countBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -3385,18 +3312,6 @@ test('happy', () => {
     a : 2,
     b : 2,
     c : 2,
-  })
-})
-
-test('alike python toolz.itertoolz.frequencies', () => {
-  const result = countBy(x => x, list)
-  expect(result).toEqual({
-    a : 1,
-    A : 1,
-    b : 1,
-    B : 1,
-    c : 1,
-    C : 1,
   })
 })
 ```
@@ -6784,13 +6699,13 @@ It returns `true` if `obj` has property `prop`.
 const obj = {a: 1}
 
 const result = [
-  R.has('a', obj),
-  R.has('b', obj)
+  R.has('a', Record<string, unknown>),
+  R.has('b', Record<string, unknown>)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20obj)%2C%0A%20%20R.has('b'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.has</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.has('b'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.has</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6881,14 +6796,14 @@ const pathAsArray = ['a', 'b']
 const obj = {a: {b: []}}
 
 const result = [
-  R.hasPath(path, obj),
-  R.hasPath(pathAsArray, obj),
-  R.hasPath('a.c', obj),
+  R.hasPath(path, Record<string, unknown>),
+  R.hasPath(pathAsArray, Record<string, unknown>),
+  R.hasPath('a.c', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20pathAsArray%20%3D%20%5B'a'%2C%20'b'%5D%0Aconst%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%20%5B%5D%7D%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.hasPath(path%2C%20obj)%2C%0A%20%20R.hasPath(pathAsArray%2C%20obj)%2C%0A%20%20R.hasPath('a.c'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.hasPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20pathAsArray%20%3D%20%5B'a'%2C%20'b'%5D%0Aconst%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%20%5B%5D%7D%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.hasPath(path%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.hasPath(pathAsArray%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.hasPath('a.c'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.hasPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -9378,12 +9293,12 @@ const obj = {a: 1, b: 2}
 
 const result = [ 
   R.map(fn, list),
-  R.map(fnWhenObject, obj)
+  R.map(fnWhenObject, Record<string, unknown>)
 ]
 // => [ [1, 4], {a: 'a-1', b: 'b-2'}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B1%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20list)%2C%0A%20%20R.map(fnWhenObject%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B1%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -9659,11 +9574,11 @@ const fn = (val, prop) => {
 
 const obj = {a: 1, b: 2}
 
-const result = R.map(mapObjIndexed, obj)
+const result = R.map(mapObjIndexed, Record<string, unknown>)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(mapObjIndexed%2C%20obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(mapObjIndexed%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapObjIndexed)
 
@@ -10013,6 +9928,12 @@ describe('R.median', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#median)
+
+### merge
+
+Same as `R.mergeRight`.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
 ### mergeAll
 
@@ -10424,12 +10345,6 @@ describe('R.mergeLeft', () => {
 
 ### mergeRight
 
-```typescript
-
-mergeRight<A, B>(target: A, newProps: B): A & B
-export function mergeRight<Output>(target: any): (newProps: any) => Output
-```
-
 It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 ```javascript
@@ -10442,117 +10357,37 @@ const result = R.mergeRight(target, newProps)
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.mergeRight(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try this <strong>R.mergeRight</strong> example in Rambda REPL</a>
 
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-mergeRight<A, B>(target: A, newProps: B): A & B
-mergeRight<Output>(target: any): (newProps: any) => Output;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.mergeRight</strong> source</summary>
-
-```javascript
-export function mergeRight(target, newProps){
-  if (arguments.length === 1) return _newProps => mergeRight(target, _newProps)
-
-  return Object.assign(
-    {}, target || {}, newProps || {}
-  )
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { mergeRight } from './mergeRight.js'
-
-const obj = {
-  foo : 1,
-  bar : 2,
-}
-
-test('happy', () => {
-  expect(mergeRight(obj, { bar : 20 })).toEqual({
-    foo : 1,
-    bar : 20,
-  })
-})
-
-test('curry', () => {
-  expect(mergeRight(obj)({ baz : 3 })).toEqual({
-    foo : 1,
-    bar : 2,
-    baz : 3,
-  })
-})
-
-/**
- * https://github.com/selfrefactor/rambda/issues/77
- */
-test('when undefined or null instead of object', () => {
-  expect(mergeRight(null, undefined)).toEqual({})
-  expect(mergeRight(obj, null)).toEqual(obj)
-  expect(mergeRight(obj, undefined)).toEqual(obj)
-  expect(mergeRight(undefined, obj)).toEqual(obj)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mergeRight} from 'rambda'
-
-interface Output {
-  foo: number
-  bar: number
-}
-
-describe('R.mergeRight', () => {
-  const result = mergeRight({foo: 1}, {bar: 2})
-  const curriedResult = mergeRight<Output>({foo: 1})({bar: 2})
-
-  result.foo // $ExpectType number
-  result.bar // $ExpectType number
-  curriedResult.bar // $ExpectType number
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeRight)
 
 ### mergeWith
 
 ```typescript
 
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj
 ```
 
 It takes two objects and a function, which will be used when there is an overlap between the keys.
+
+```javascript
+const result = R.mergeWith(
+  R.concat,
+  {values : [ 10, 20 ]},
+  {values : [ 15, 35 ]}
+)
+// => [ 10, 20, 15, 35 ]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeWith(%0A%20%20R.concat%2C%0A%20%20%7Bvalues%20%3A%20%5B%2010%2C%2020%20%5D%7D%2C%0A%20%20%7Bvalues%20%3A%20%5B%2015%2C%2035%20%5D%7D%0A)%0A%2F%2F%20%3D%3E%20%5B%2010%2C%2020%2C%2015%2C%2035%20%5D">Try this <strong>R.mergeWith</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
-mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
 mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
 mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 ```
@@ -11201,13 +11036,13 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj), 
-  R.omit(propsToOmitList, obj) 
+  R.omit(propsToOmit, Record<string, unknown>), 
+  R.omit(propsToOmitList, Record<string, unknown>) 
 ]
 // => [{b: 2}, {b: 2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20obj)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20Record%3Cstring%2C%20unknown%3E)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20Record%3Cstring%2C%20unknown%3E)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12091,7 +11926,7 @@ const predicate = x => x > 2
 
 const result = [
   R.partition(predicate, list),
-  R.partition(predicate, obj)
+  R.partition(predicate, Record<string, unknown>)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -12100,7 +11935,7 @@ const expected = [
 // `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.partition(predicate%2C%20list)%2C%0A%20%20R.partition(predicate%2C%20obj)%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B3%5D%2C%20%5B1%2C%202%5D%5D%2C%0A%20%20%5B%7Bc%3A%203%7D%2C%20%20%7Ba%3A%201%2C%20b%3A%202%7D%5D%2C%0A%5D%0A%2F%2F%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.partition</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.partition(predicate%2C%20list)%2C%0A%20%20R.partition(predicate%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B3%5D%2C%20%5B1%2C%202%5D%5D%2C%0A%20%20%5B%7Bc%3A%203%7D%2C%20%20%7Ba%3A%201%2C%20b%3A%202%7D%5D%2C%0A%5D%0A%2F%2F%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.partition</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12322,14 +12157,14 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch, Record<string, unknown>),
+  R.path(pathToSearchList, Record<string, unknown>),
+  R.path('a.b.c.d', Record<string, unknown>)
 ]
 // => [1, 1, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20obj)%2C%0A%20%20R.path(pathToSearchList%2C%20obj)%2C%0A%20%20R.path('a.b.c.d'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.path(pathToSearchList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.path('a.b.c.d'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12680,7 +12515,7 @@ describe('with ramda specs', () => {
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
-It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
 
 ```javascript
 const defaultValue = 'DEFAULT_VALUE'
@@ -12694,14 +12529,14 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
+  R.pathOr(DEFAULT_VALUE, pathToSearch, Record<string, unknown>),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, Record<string, unknown>), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', Record<string, unknown>)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%201%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearch%2C%20obj)%2C%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearchList%2C%20obj)%2C%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20'a.b.c'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.pathOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%201%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearchList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20'a.b.c'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.pathOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12825,7 +12660,7 @@ describe('R.pathOr', () => {
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
-It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -12843,11 +12678,11 @@ const result = R.paths([
   'a.b.c',
   'a.b.d',
   'a.b.c.d.e',
-], obj)
+], Record<string, unknown>)
 // => [1, 2, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%20%7B%0A%20%20%20%20%20%20c%20%3A%201%2C%0A%20%20%20%20%20%20d%20%3A%202%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20R.paths(%5B%0A%20%20'a.b.c'%2C%0A%20%20'a.b.d'%2C%0A%20%20'a.b.c.d.e'%2C%0A%5D%2C%20obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20undefined%5D">Try this <strong>R.paths</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%20%7B%0A%20%20%20%20%20%20c%20%3A%201%2C%0A%20%20%20%20%20%20d%20%3A%202%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20R.paths(%5B%0A%20%20'a.b.c'%2C%0A%20%20'a.b.d'%2C%0A%20%20'a.b.c.d.e'%2C%0A%5D%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20undefined%5D">Try this <strong>R.paths</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13015,10 +12850,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, obj),
-  R.pick(propsToPickList, obj),
-  R.pick('a,bar', obj),
-  R.pick('bar', obj),
+  R.pick(propsToPick, Record<string, unknown>),
+  R.pick(propsToPickList, Record<string, unknown>),
+  R.pick('a,bar', Record<string, unknown>),
+  R.pick('bar', Record<string, unknown>),
   R.pick([0, 3, 5], list),
   R.pick('0,3,5', list),
 ]
@@ -13034,7 +12869,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20obj)%2C%0A%20%20R.pick(propsToPickList%2C%20obj)%2C%0A%20%20R.pick('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pick('bar'%2C%20obj)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13286,10 +13121,10 @@ const propsToPick = 'a,foo,bar'
 const propsToPickList = ['a', 'foo', 'bar']
 
 const result = [
-  R.pickAll(propsToPick, obj),
-  R.pickAll(propsToPickList, obj),
-  R.pickAll('a,bar', obj),
-  R.pickAll('bar', obj),
+  R.pickAll(propsToPick, Record<string, unknown>),
+  R.pickAll(propsToPickList, Record<string, unknown>),
+  R.pickAll('a,bar', Record<string, unknown>),
+  R.pickAll('bar', Record<string, unknown>),
 ]
 const expected = [
   {a:1, foo: 'cherry', bar: undefined},
@@ -13300,7 +13135,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo%2Cbar'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%2C%20'bar'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pickAll(propsToPick%2C%20obj)%2C%0A%20%20R.pickAll(propsToPickList%2C%20obj)%2C%0A%20%20R.pickAll('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pickAll('bar'%2C%20obj)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Bbar%3A%20undefined%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pickAll</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo%2Cbar'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%2C%20'bar'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pickAll(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Bbar%3A%20undefined%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pickAll</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13950,13 +13785,13 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, obj),
-  R.propEq(propToFind, valueToMatch, secondObj)
+  R.propEq(propToFind, valueToMatch, Record<string, unknown>),
+  R.propEq(propToFind, valueToMatch, secondRecord<string, unknown>)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20obj)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20secondRecord%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14128,14 +13963,14 @@ It returns `true` if `property` of `obj` is from `target` type.
 const obj = {a:1, b: 'foo'}
 
 const result = [
-  R.propIs(Number, 'a', obj),
-  R.propIs(String, 'b', obj),
-  R.propIs(Number, 'b', obj),
+  R.propIs(Number, 'a', Record<string, unknown>),
+  R.propIs(String, 'b', Record<string, unknown>),
+  R.propIs(Number, 'b', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(Number%2C%20'a'%2C%20obj)%2C%0A%20%20R.propIs(String%2C%20'b'%2C%20obj)%2C%0A%20%20R.propIs(Number%2C%20'b'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.propIs</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(Number%2C%20'a'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propIs(String%2C%20'b'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propIs(Number%2C%20'b'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.propIs</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14252,13 +14087,13 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, obj),
-  R.propOr(defaultValue, 'foo', obj)
+  R.propOr(defaultValue, property, Record<string, unknown>),
+  R.propOr(defaultValue, 'foo', Record<string, unknown>)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property%2C%20obj)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14486,11 +14321,11 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, obj)
+const result = R.propSatisfies(predicate, property, Record<string, unknown>)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -14974,12 +14809,12 @@ const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list),
-  R.reject(predicate, obj)
+  R.reject(predicate, Record<string, unknown>)
 ]
 // => [[1], {a: 1}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%2C%0A%20%20R.reject(predicate%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%7Ba%3A%201%7D%5D">Try this <strong>R.reject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%2C%0A%20%20R.reject(predicate%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%7Ba%3A%201%7D%5D">Try this <strong>R.reject</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -19208,6 +19043,18 @@ describe('R.unless - curried', () => {
 
 ### unwind
 
+```javascript
+const obj = {
+  a: 1,
+  b: [2, 3],
+}
+const result = unwind('b', Record<string, unknown>)
+const expected = [{a:1, b:2}, {a:1, b:3}]
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20unwind('b'%2C%20Record%3Cstring%2C%20unknown%3E)%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unwind)
 
 ### update
@@ -19383,16 +19230,16 @@ const update = [
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
-With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
 
 ```javascript
 const obj = {a:1, b:2}
 
-R.values(obj)
+R.values(Record<string, unknown>)
 // => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A2%7D%0A%0Aconst%20result%20%3D%20R.values(obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.values</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A2%7D%0A%0Aconst%20result%20%3D%20R.values(Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.values</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -19828,6 +19675,20 @@ describe('R.where', () => {
 ### whereAny
 
 Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
+
+```javascript
+const conditions = {
+  a: a => a > 1,
+  b: b => b > 2,
+}
+const result = [
+  R.whereAny(conditions, {b:3}),
+  R.whereAny(conditions, {c:4})
+]
+// => [true, false]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20conditions%20%3D%20%7B%0A%20%20a%3A%20a%20%3D%3E%20a%20%3E%201%2C%0A%20%20b%3A%20b%20%3D%3E%20b%20%3E%202%2C%0A%7D%0Aconst%20result%20%3D%20%5B%0A%20%20R.whereAny(conditions%2C%20%7Bb%3A3%7D)%2C%0A%20%20R.whereAny(conditions%2C%20%7Bc%3A4%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.whereAny</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#whereAny)
 

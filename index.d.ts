@@ -1,6 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
-type Obj = Record<string, unknown>
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
@@ -764,6 +763,12 @@ export function mean(list: number[]): number;
 export function median(list: number[]): number;
 
 /**
+ * Same as `R.mergeRight`.
+ */
+export function merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output;
+
+/**
  * It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
  */
 export function mergeRight<A, B>(target: A, newProps: B): A & B
@@ -923,7 +928,7 @@ export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean
 export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 
 /**
- * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+ * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
  * 
  * Because it calls `R.path`, then `singlePath` can be either string or a list.
  */
@@ -933,7 +938,7 @@ export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
 export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 /**
- * It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+ * It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
  */
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
@@ -1323,7 +1328,7 @@ export function update<T>(index: number, newValue: T, list: T[]): T[];
 export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 /**
- * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+ * With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
  */
 export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
@@ -1473,10 +1478,10 @@ export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) 
 /**
  * It takes two objects and a function, which will be used when there is an overlap between the keys.
  */
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
-export function mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
 export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
 export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 

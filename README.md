@@ -2982,90 +2982,7 @@ Accepts a converging function and a list of branching functions and returns a ne
 
 ### count
 
-```typescript
-
-count<T>(predicate: (x: T) => boolean, list: T[]): number
-```
-
 It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-count<T>(predicate: (x: T) => boolean, list: T[]): number;
-count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.count</strong> source</summary>
-
-```javascript
-import { _isArray } from './_internals/_isArray.js'
-
-export function count(predicate, list){
-  if (arguments.length === 1){
-    return _list => count(predicate, _list)
-  }
-  if (!_isArray(list)) return 0
-
-  return list.filter(x => predicate(x)).length
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { count } from './count.js'
-
-const predicate = x => x.a !== undefined
-
-test('with empty list', () => {
-  expect(count(predicate, [])).toBe(0)
-})
-
-test('happy', () => {
-  const list = [ 1, 2, { a : 1 }, 3, { a : 1 } ]
-
-  expect(count(predicate)(list)).toBe(2)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {count} from 'rambda'
-
-const list = [1, 2, 3]
-const predicate = (x: number) => x> 1
-
-describe('R.count', () => {
-  it('happy', () => {
-    const result = count(predicate, list)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = count(predicate)(list)
-
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#count)
 
@@ -3128,18 +3045,6 @@ test('happy', () => {
     a : 2,
     b : 2,
     c : 2,
-  })
-})
-
-test('alike python toolz.itertoolz.frequencies', () => {
-  const result = countBy(x => x, list)
-  expect(result).toEqual({
-    a : 1,
-    A : 1,
-    b : 1,
-    B : 1,
-    c : 1,
-    C : 1,
   })
 })
 ```
@@ -9073,6 +8978,12 @@ describe('R.median', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#median)
 
+### merge
+
+Same as `R.mergeRight`.
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
+
 ### mergeAll
 
 ```typescript
@@ -9456,104 +9367,7 @@ describe('R.mergeLeft', () => {
 
 ### mergeRight
 
-```typescript
-
-mergeRight<A, B>(target: A, newProps: B): A & B
-export function mergeRight<Output>(target: any): (newProps: any) => Output
-```
-
 It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-mergeRight<A, B>(target: A, newProps: B): A & B
-mergeRight<Output>(target: any): (newProps: any) => Output;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.mergeRight</strong> source</summary>
-
-```javascript
-export function mergeRight(target, newProps){
-  if (arguments.length === 1) return _newProps => mergeRight(target, _newProps)
-
-  return Object.assign(
-    {}, target || {}, newProps || {}
-  )
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { mergeRight } from './mergeRight.js'
-
-const obj = {
-  foo : 1,
-  bar : 2,
-}
-
-test('happy', () => {
-  expect(mergeRight(obj, { bar : 20 })).toEqual({
-    foo : 1,
-    bar : 20,
-  })
-})
-
-test('curry', () => {
-  expect(mergeRight(obj)({ baz : 3 })).toEqual({
-    foo : 1,
-    bar : 2,
-    baz : 3,
-  })
-})
-
-/**
- * https://github.com/selfrefactor/rambda/issues/77
- */
-test('when undefined or null instead of object', () => {
-  expect(mergeRight(null, undefined)).toEqual({})
-  expect(mergeRight(obj, null)).toEqual(obj)
-  expect(mergeRight(obj, undefined)).toEqual(obj)
-  expect(mergeRight(undefined, obj)).toEqual(obj)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {mergeRight} from 'rambda'
-
-interface Output {
-  foo: number
-  bar: number
-}
-
-describe('R.mergeRight', () => {
-  const result = mergeRight({foo: 1}, {bar: 2})
-  const curriedResult = mergeRight<Output>({foo: 1})({bar: 2})
-
-  result.foo // $ExpectType number
-  result.bar // $ExpectType number
-  curriedResult.bar // $ExpectType number
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeRight)
 
@@ -9561,7 +9375,7 @@ describe('R.mergeRight', () => {
 
 ```typescript
 
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj
 ```
 
 It takes two objects and a function, which will be used when there is an overlap between the keys.
@@ -9571,10 +9385,10 @@ It takes two objects and a function, which will be used when there is an overlap
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Obj): Obj;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Obj): Output;
-mergeWith(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Obj;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj): (b: Obj) => Output;
+mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
 mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
 mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 ```
@@ -11481,7 +11295,7 @@ describe('with ramda specs', () => {
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
-It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
 
 <details>
 
@@ -11605,7 +11419,7 @@ describe('R.pathOr', () => {
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
-It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -17509,7 +17323,7 @@ const update = [
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
-With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
 
 <details>
 
