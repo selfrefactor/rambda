@@ -1,8 +1,12 @@
-import {ok, schemaToString} from './ok'
+import { ok, schemaToString } from './ok.js'
 
 test('happy', () => {
   expect(() => {
-    ok(1, 'foo', {})('number', 'string', 'object')
+    ok(
+      1, 'foo', {}
+    )(
+      'number', 'string', 'object'
+    )
   }).not.toThrow()
 })
 
@@ -13,8 +17,11 @@ all inputs: [1,"foo",{}]
 all schemas: ["number","string","string"]`
 
   expect(() =>
-    ok(1, 'foo', {})('number', 'string', 'string')
-  ).toThrowWithMessage(Error, errorMessage)
+    ok(
+      1, 'foo', {}
+    )(
+      'number', 'string', 'string'
+    )).toThrowWithMessage(Error, errorMessage)
 })
 
 /*
@@ -24,14 +31,14 @@ all schemas: ["number","string","string"]`
 */
 test('schema in error message', () => {
   const result = schemaToString({
-    _a: [Number],
-    a: Number,
-    b: x => x > 2,
-    c: ['foo', 'bar'],
-    d: [{a: String}],
-    e: 'boolean',
-    f: Array,
-    h: Object,
+    _a : [ Number ],
+    a  : Number,
+    b  : x => x > 2,
+    c  : [ 'foo', 'bar' ],
+    d  : [ { a : String } ],
+    e  : 'boolean',
+    f  : Array,
+    h  : Object,
   })
 
   expect(result).toMatchInlineSnapshot(`
@@ -50,20 +57,28 @@ test('schema in error message', () => {
 
 test('error contains schema', () => {
   try {
-    ok(1, 'foo', {})({a: Number}, String, String)
+    ok(
+      1, 'foo', {}
+    )(
+      { a : Number }, String, String
+    )
     expect(false).toBeTrue()
-  } catch (e) {
+  } catch (e){
     expect(e.message.startsWith('Failed R.ok -')).toBeTruthy()
     expect(e).toBeInstanceOf(Error)
   }
 })
 
 test('when not throws with single schema', () => {
-  expect(() => ok(1, 2, 3)('number')).not.toThrow()
+  expect(() => ok(
+    1, 2, 3
+  )('number')).not.toThrow()
 })
 
 test('when throws with single schema', () => {
-  expect(() => ok(1, 2, '3')('number')).toThrow()
+  expect(() => ok(
+    1, 2, '3'
+  )('number')).toThrow()
 })
 
 test('when throws with single input', () => {

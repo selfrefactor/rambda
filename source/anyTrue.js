@@ -1,16 +1,16 @@
-import {isTruthy} from './_internals/isTruthy'
-import {type} from './type'
+import { isTruthy } from './_internals/isTruthy.js'
+import { type } from './type.js'
 
-export function anyTrue(...inputs) {
+export function anyTrue(...inputs){
   let counter = 0
-  while (counter < inputs.length) {
-    const x = inputs[counter]
+  while (counter < inputs.length){
+    const x = inputs[ counter ]
 
-    if (type(x) === 'Function') {
-      if (isTruthy(x())) {
+    if (type(x) === 'Function'){
+      if (isTruthy(x())){
         return true
       }
-    } else if (isTruthy(x)) {
+    } else if (isTruthy(x)){
       return true
     }
 

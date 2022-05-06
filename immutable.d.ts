@@ -1,4 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -589,7 +589,7 @@ export function indexOf<T>(valueToFind: T): (list: readonly T[]) => number;
 /**
  * It returns all but the last element of list or string `input`.
  */
-export function init<T>(input: readonly T[]): readonly T[];
+export function init<T extends readonly unknown[]>(input: T): T extends readonly [...infer U, any] ? U : readonly [...T];
 export function init(input: string): string;
 
 /**
@@ -763,10 +763,16 @@ export function mean(list: readonly number[]): number;
 export function median(list: readonly number[]): number;
 
 /**
- * It creates a copy of `target` object with overidden `newProps` properties.
+ * Same as `R.mergeRight`.
  */
 export function merge<A, B>(target: A, newProps: B): A & B
 export function merge<Output>(target: any): (newProps: any) => Output;
+
+/**
+ * It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+ */
+export function mergeRight<A, B>(target: A, newProps: B): A & B
+export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /**
  * It merges all objects of `list` array sequentially and returns the result.
@@ -838,10 +844,14 @@ export function none<T>(predicate: (x: T) => boolean): (list: readonly T[]) => b
 export function not(input: any): boolean;
 
 /**
- * Curried version of `list[index]`.
+ * Curried version of `input[index]`.
  */
-export function nth<T>(index: number, list: readonly T[]): T | undefined;	
-export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
+export function nth(index: number, input: string): string;	
+export function nth<T>(index: number, input: readonly T[]): T | undefined;	
+export function nth(n: number): {
+  <T>(input: readonly T[]): T | undefined;
+  (input: string): string;
+};
 
 /**
  * It creates an object with a single key-value pair.
@@ -918,7 +928,7 @@ export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean
 export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 
 /**
- * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+ * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
  * 
  * Because it calls `R.path`, then `singlePath` can be either string or a list.
  */
@@ -928,7 +938,7 @@ export function paths<T>(pathsToSearch: readonly Path[], obj: any): readonly (T 
 export function paths<T>(pathsToSearch: readonly Path[]): (obj: any) => readonly (T | undefined)[];
 
 /**
- * It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+ * It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
  */
 export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
@@ -1078,6 +1088,12 @@ export function propOr<T>(defaultValue: T): {
 }
 
 /**
+ * It returns `true` if the object property satisfies a given predicate.
+ */
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
+
+/**
  * It returns list of numbers between `startInclusive` to `endExclusive` markers.
  */
 export function range(startInclusive: number, endExclusive: number): readonly number[];
@@ -1182,7 +1198,7 @@ export function T(): boolean;
 /**
  * It returns all but the first element of `input`.
  */
-export function tail<T>(input: readonly T[]): readonly T[];
+export function tail<T extends readonly unknown[]>(input: T): T extends readonly [any, ...infer U] ? U : readonly [...T];
 export function tail(input: string): string;
 
 /**
@@ -1312,7 +1328,7 @@ export function update<T>(index: number, newValue: T, list: readonly T[]): reado
 export function update<T>(index: number, newValue: T): (list: readonly T[]) => readonly T[];
 
 /**
- * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+ * With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
  */
 export function values<T extends object, K extends keyof T>(obj: T): readonly T[K][];
 
@@ -1458,3 +1474,68 @@ export function apply<T = any>(fn: (...args: readonly any[]) => T): (args: reado
  */
 export function bind<F extends (...args: readonly any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+
+/**
+ * It takes two objects and a function, which will be used when there is an overlap between the keys.
+ */
+export function mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
+export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
+
+/**
+ * It applies list of function to a list of inputs.
+ */
+export function juxt<A extends readonly any[], R1>(fns: readonly [(...a: A) => R1]): (...a: A) => readonly [R1];
+export function juxt<A extends readonly any[], R1, R2>(fns: readonly [(...a: A) => R1, (...a: A) => R2]): (...a: A) => readonly [R1, R2];
+export function juxt<A extends readonly any[], R1, R2, R3>(fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => readonly [R1, R2, R3];
+export function juxt<A extends readonly any[], R1, R2, R3, R4>(fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => readonly [R1, R2, R3, R4];
+export function juxt<A extends readonly any[], R1, R2, R3, R4, R5>(fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => readonly [R1, R2, R3, R4, R5];
+export function juxt<A extends readonly any[], U>(fns: ReadonlyArray<(...args: A) => U>): (...args: A) => readonly U[];
+
+/**
+ * It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
+ */
+export function count<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
+export function count<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
+
+/**
+ * It counts elements in a list after each instance of the input list is passed through `transformFn` function.
+ */
+export function countBy<T extends unknown>(transformFn: (x: T) => any, list: readonly T[]): Record<string, number>;
+export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: readonly T[]) => Record<string, number>;
+
+export function unwind<T, U>(prop: keyof T, obj: T): readonly U[];
+export function unwind<T, U>(prop: keyof T): (obj: T) => readonly U[];
+
+/**
+ * It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`).
+ * 
+ * This method is also known as P combinator.
+ */
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
+};
+
+/**
+ * Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
+ */
+export function whereAny<T, U>(conditions: T, input: U): boolean;
+export function whereAny<T>(conditions: T): <U>(input: U) => boolean;
+export function whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+
+/**
+ * `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
+ * 
+ * Initially the function knows only a part from the whole input object and then `R.partialObject` helps in preparing the function for the second part, when it receives the rest of the input.
+ */
+export function partialObject<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;

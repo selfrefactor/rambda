@@ -13,7 +13,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -33,7 +33,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -53,7 +53,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -71,7 +71,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -91,7 +91,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -111,7 +111,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -199,7 +199,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -219,7 +219,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -239,7 +239,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -257,7 +257,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -277,7 +277,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -297,7 +297,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -356,7 +356,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -374,7 +374,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -415,7 +415,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -433,7 +433,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -491,7 +491,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -509,7 +509,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -549,7 +549,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -567,7 +567,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -675,7 +675,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -695,7 +695,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -715,7 +715,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -735,7 +735,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -755,7 +755,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -775,7 +775,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -795,7 +795,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -815,7 +815,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -873,7 +873,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -891,7 +891,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -931,7 +931,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -949,7 +949,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;
@@ -1008,7 +1008,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": null,
   "result": "PENDING",
 }
 `;
@@ -1026,7 +1026,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": 42,
   "result": "PENDING",
 }
 `;
@@ -1067,7 +1067,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": "",
   "result": "PENDING",
 }
 `;
@@ -1085,7 +1085,7 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {},
+  "ramdaResult": undefined,
   "result": "PENDING",
 }
 `;

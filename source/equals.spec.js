@@ -1,7 +1,8 @@
-import {equals} from './equals'
 import {equals as equalsRamda} from 'ramda'
-import {compareCombinations} from './_internals/testUtils'
-import {variousTypes} from './benchmarks/_utils'
+
+import {compareCombinations} from './_internals/testUtils.js'
+import {variousTypes} from './benchmarks/_utils.js'
+import {equals} from './equals.js'
 
 test('compare functions', () => {
   function foo() {}
@@ -27,11 +28,11 @@ test('with array of objects', () => {
 })
 
 test('with regex', () => {
-  expect(equals(/s/, /s/)).toEqual(true)
-  expect(equals(/s/, /d/)).toEqual(false)
-  expect(equals(/a/gi, /a/gi)).toEqual(true)
-  expect(equals(/a/gim, /a/gim)).toEqual(true)
-  expect(equals(/a/gi, /a/i)).toEqual(false)
+  expect(equals(/s/, /s/)).toBeTrue()
+  expect(equals(/s/, /d/)).toBeFalse()
+  expect(equals(/a/gi, /a/gi)).toBeTrue()
+  expect(equals(/a/gim, /a/gim)).toBeTrue()
+  expect(equals(/a/gi, /a/i)).toBeFalse()
 })
 
 test('not a number', () => {
@@ -39,46 +40,46 @@ test('not a number', () => {
 })
 
 test('new number', () => {
-  expect(equals(new Number(0), new Number(0))).toEqual(true)
-  expect(equals(new Number(0), new Number(1))).toEqual(false)
-  expect(equals(new Number(1), new Number(0))).toEqual(false)
+  expect(equals(new Number(0), new Number(0))).toBeTrue()
+  expect(equals(new Number(0), new Number(1))).toBeFalse()
+  expect(equals(new Number(1), new Number(0))).toBeFalse()
 })
 
 test('new string', () => {
-  expect(equals(new String(''), new String(''))).toEqual(true)
-  expect(equals(new String(''), new String('x'))).toEqual(false)
-  expect(equals(new String('x'), new String(''))).toEqual(false)
-  expect(equals(new String('foo'), new String('foo'))).toEqual(true)
-  expect(equals(new String('foo'), new String('bar'))).toEqual(false)
-  expect(equals(new String('bar'), new String('foo'))).toEqual(false)
+  expect(equals(new String(''), new String(''))).toBeTrue()
+  expect(equals(new String(''), new String('x'))).toBeFalse()
+  expect(equals(new String('x'), new String(''))).toBeFalse()
+  expect(equals(new String('foo'), new String('foo'))).toBeTrue()
+  expect(equals(new String('foo'), new String('bar'))).toBeFalse()
+  expect(equals(new String('bar'), new String('foo'))).toBeFalse()
 })
 
 test('new Boolean', () => {
-  expect(equals(new Boolean(true), new Boolean(true))).toEqual(true)
-  expect(equals(new Boolean(false), new Boolean(false))).toEqual(true)
-  expect(equals(new Boolean(true), new Boolean(false))).toEqual(false)
-  expect(equals(new Boolean(false), new Boolean(true))).toEqual(false)
+  expect(equals(new Boolean(true), new Boolean(true))).toBeTrue()
+  expect(equals(new Boolean(false), new Boolean(false))).toBeTrue()
+  expect(equals(new Boolean(true), new Boolean(false))).toBeFalse()
+  expect(equals(new Boolean(false), new Boolean(true))).toBeFalse()
 })
 
 test('new Error', () => {
-  expect(equals(new Error('XXX'), {})).toEqual(false)
-  expect(equals(new Error('XXX'), new TypeError('XXX'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('YYY'))).toEqual(false)
-  expect(equals(new Error('XXX'), new Error('XXX'))).toEqual(true)
-  expect(equals(new Error('XXX'), new TypeError('YYY'))).toEqual(false)
+  expect(equals(new Error('XXX'), {})).toBeFalse()
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalse()
 })
 
 test('with dates', () => {
-  expect(equals(new Date(0), new Date(0))).toEqual(true)
-  expect(equals(new Date(1), new Date(1))).toEqual(true)
-  expect(equals(new Date(0), new Date(1))).toEqual(false)
-  expect(equals(new Date(1), new Date(0))).toEqual(false)
-  expect(equals(new Date(0), {})).toEqual(false)
-  expect(equals({}, new Date(0))).toEqual(false)
+  expect(equals(new Date(0), new Date(0))).toBeTrue()
+  expect(equals(new Date(1), new Date(1))).toBeTrue()
+  expect(equals(new Date(0), new Date(1))).toBeFalse()
+  expect(equals(new Date(1), new Date(0))).toBeFalse()
+  expect(equals(new Date(0), {})).toBeFalse()
+  expect(equals({}, new Date(0))).toBeFalse()
 })
 
 test('ramda spec', () => {
-  expect(equals({}, {})).toEqual(true)
+  expect(equals({}, {})).toBeTrue()
 
   expect(
     equals(
@@ -91,7 +92,7 @@ test('ramda spec', () => {
         b: 2,
       }
     )
-  ).toEqual(true)
+  ).toBeTrue()
 
   expect(
     equals(
@@ -104,7 +105,7 @@ test('ramda spec', () => {
         a: 2,
       }
     )
-  ).toEqual(true)
+  ).toBeTrue()
 
   expect(
     equals(
@@ -117,7 +118,7 @@ test('ramda spec', () => {
         b: 3,
       }
     )
-  ).toEqual(false)
+  ).toBeFalse()
 
   expect(
     equals(
@@ -131,7 +132,7 @@ test('ramda spec', () => {
         b: 3,
       }
     )
-  ).toEqual(false)
+  ).toBeFalse()
 })
 
 test('works with boolean tuple', () => {

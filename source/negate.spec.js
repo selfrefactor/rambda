@@ -1,4 +1,4 @@
-import {negate} from './negate'
+import { negate } from './negate.js'
 
 test('negate', () => {
   expect(negate(420)).toEqual(-420)

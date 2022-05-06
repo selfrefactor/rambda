@@ -1,10 +1,10 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
-const {listOfVariousTypes} = require('./_utils')
+const { listOfVariousTypes } = require('./_utils')
 
 const limit = 1000
 
-function applyBenchmark(fn) {
+function applyBenchmark(fn){
   listOfVariousTypes.forEach(mode => {
     Array(limit)
       .fill(mode)
@@ -14,14 +14,14 @@ function applyBenchmark(fn) {
 
 const test = [
   {
-    label: 'Rambda',
-    fn: () => {
+    label : 'Rambda',
+    fn    : () => {
       applyBenchmark(R.type)
     },
   },
   {
-    label: 'Ramda',
-    fn: () => {
+    label : 'Ramda',
+    fn    : () => {
       applyBenchmark(Ramda.type)
     },
   },

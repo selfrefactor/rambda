@@ -1,6 +1,6 @@
-import {inc} from './inc'
-import {isNil} from './isNil'
-import {unless} from './unless'
+import { inc } from './inc.js'
+import { isNil } from './isNil.js'
+import { unless } from './unless.js'
 
 test('happy', () => {
   const safeInc = unless(isNil, inc)

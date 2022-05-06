@@ -1,6 +1,7 @@
-import {endsWith} from './endsWith'
-import {endsWith as endsWithRamda} from 'ramda'
-import {compareCombinations} from './_internals/testUtils'
+import { endsWith as endsWithRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils.js'
+import { endsWith } from './endsWith.js'
 
 test('with string', () => {
   expect(endsWith('bar', 'foo-bar')).toBeTrue()
@@ -8,39 +9,39 @@ test('with string', () => {
 })
 
 test('use R.equals with array', () => {
-  const list = [{a: 1}, {a: 2}, {a: 3}]
-  expect(endsWith({a: 3}, list)).toBeFalse(),
-    expect(endsWith([{a: 3}], list)).toBeTrue()
-  expect(endsWith([{a: 2}, {a: 3}], list)).toBeTrue()
+  const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+  expect(endsWith({ a : 3 }, list)).toBeFalse(),
+  expect(endsWith([ { a : 3 } ], list)).toBeTrue()
+  expect(endsWith([ { a : 2 }, { a : 3 } ], list)).toBeTrue()
   expect(endsWith(list, list)).toBeTrue()
-  expect(endsWith([{a: 1}], list)).toBeFalse()
+  expect(endsWith([ { a : 1 } ], list)).toBeFalse()
 })
 
 export const possibleTargets = [
   NaN,
-  [NaN],
+  [ NaN ],
   /foo/,
-  [/foo/],
+  [ /foo/ ],
   Promise.resolve(1),
-  [Promise.resolve(1)],
+  [ Promise.resolve(1) ],
   Error('foo'),
-  [Error('foo')],
+  [ Error('foo') ],
 ]
 
 export const possibleIterables = [
-  [Promise.resolve(1), Promise.resolve(2)],
-  [/foo/, /bar/],
-  [NaN],
-  [Error('foo'), Error('bar')],
+  [ Promise.resolve(1), Promise.resolve(2) ],
+  [ /foo/, /bar/ ],
+  [ NaN ],
+  [ Error('foo'), Error('bar') ],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    fn: endsWith,
-    fnRamda: endsWithRamda,
-    firstInput: possibleTargets,
-    secondInput: possibleIterables,
-    callback: errorsCounters => {
+    fn          : endsWith,
+    fnRamda     : endsWithRamda,
+    firstInput  : possibleTargets,
+    secondInput : possibleIterables,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,

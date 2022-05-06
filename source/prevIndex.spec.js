@@ -1,6 +1,6 @@
-import {prevIndex} from './prevIndex'
+import { prevIndex } from './prevIndex.js'
 
-const list = [1, 2, 3, 4]
+const list = [ 1, 2, 3, 4 ]
 
 test('happy path 1', () => {
   expect(prevIndex(2, list)).toEqual(1)

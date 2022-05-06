@@ -1,10 +1,10 @@
-import {curry} from './curry'
+import { curry } from './curry.js'
 
-function onceFn(fn, context) {
+function onceFn(fn, context){
   let result
 
-  return function () {
-    if (fn) {
+  return function (){
+    if (fn){
       result = fn.apply(context || this, arguments)
       fn = null
     }
@@ -13,8 +13,8 @@ function onceFn(fn, context) {
   }
 }
 
-export function once(fn, context) {
-  if (arguments.length === 1) {
+export function once(fn, context){
+  if (arguments.length === 1){
     const wrap = onceFn(fn, context)
 
     return curry(wrap)

@@ -1,4 +1,4 @@
-import {anyPass} from './anyPass'
+import {anyPass} from './anyPass.js'
 
 test('happy', () => {
   const rules = [x => typeof x === 'string', x => x > 10]
@@ -33,12 +33,13 @@ test('when returns false + curry', () => {
 })
 
 test('with empty predicates list', () => {
-  expect(anyPass([])(3)).toEqual(false)
+  expect(anyPass([])(3)).toBeFalse()
 })
 
 test('works with multiple inputs', () => {
-  var fn = function (w, x, y, z) {
+  const fn = function (w, x, y, z) {
     console.log(w, x, y, z)
+
     return w + x === y + z
   }
   expect(anyPass([fn])(3, 3, 3, 3)).toBeTrue()

@@ -1,34 +1,36 @@
-import {forEach} from './forEach'
-import {type} from './type'
+import { forEach } from './forEach.js'
+import { type } from './type.js'
 
 test('happy', () => {
   const sideEffect = {}
-  forEach(x => (sideEffect[`foo${x}`] = x + 10))([1, 2])
+  forEach(x => sideEffect[ `foo${ x }` ] = x + 10)([ 1, 2 ])
 
   expect(sideEffect).toEqual({
-    foo1: 11,
-    foo2: 12,
+    foo1 : 11,
+    foo2 : 12,
   })
 })
 
 test('iterate over object', () => {
   const obj = {
-    a: 1,
-    b: [1, 2],
-    c: {d: 7},
-    f: 'foo',
+    a : 1,
+    b : [ 1, 2 ],
+    c : { d : 7 },
+    f : 'foo',
   }
   const result = {}
-  const returned = forEach((val, prop, inputObj) => {
+  const returned = forEach((
+    val, prop, inputObj
+  ) => {
     expect(type(inputObj)).toBe('Object')
-    result[prop] = `${prop}-${type(val)}`
+    result[ prop ] = `${ prop }-${ type(val) }`
   })(obj)
 
   const expected = {
-    a: 'a-Number',
-    b: 'b-Array',
-    c: 'c-Object',
-    f: 'f-String',
+    a : 'a-Number',
+    b : 'b-Array',
+    c : 'c-Object',
+    f : 'f-String',
   }
 
   expect(result).toEqual(expected)
@@ -50,7 +52,7 @@ test('with wrong input', () => {
 })
 
 test('returns the input', () => {
-  const list = [1, 2, 3]
+  const list = [ 1, 2, 3 ]
   const result = forEach(x => x * x)(list)
 
   expect(result).toEqual(list)

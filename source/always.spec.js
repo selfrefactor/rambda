@@ -1,22 +1,14 @@
-import {always} from './always'
-import {applySpec} from './applySpec'
-import {F} from './F'
+import { always } from './always.js'
+import { applySpec } from './applySpec.js'
 
 test('happy', () => {
   const fn = always(7)
 
-  expect(fn()).toEqual(7)
-  expect(fn()).toEqual(7)
-})
-
-test('f', () => {
-  const fn = always(F())
-
-  expect(fn()).toBeFalse()
-  expect(fn()).toBeFalse()
+  expect(fn()).toBe(7)
+  expect(fn()).toBe(7)
 })
 
 test('compatibility with applySpec', () => {
-  const spec = applySpec({ x: always('foo') });
-  expect(spec({})).toEqual({ x: 'foo' });
+  const spec = applySpec({ x : always('foo') })
+  expect(spec({})).toEqual({ x : 'foo' })
 })

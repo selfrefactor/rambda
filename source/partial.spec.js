@@ -1,14 +1,18 @@
-import {partial} from './partial'
-import {type} from './type'
+import { partial } from './partial.js'
+import { type } from './type.js'
 
-const greet = (salutation, title, firstName, lastName) =>
+const greet = (
+  salutation, title, firstName, lastName
+) =>
   salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'
 
 test('happy', () => {
-  const canPassAnyNumberOfArguments = partial(greet, 'Hello', 'Ms.')
+  const canPassAnyNumberOfArguments = partial(
+    greet, 'Hello', 'Ms.'
+  )
   const fn = canPassAnyNumberOfArguments('foo')
-  const sayHello = partial(greet, ['Hello'])
-  const sayHelloRamda = partial(sayHello, ['Ms.'])
+  const sayHello = partial(greet, [ 'Hello' ])
+  const sayHelloRamda = partial(sayHello, [ 'Ms.' ])
 
   expect(type(fn)).toBe('Function')
 
@@ -17,28 +21,36 @@ test('happy', () => {
 })
 
 test('extra arguments are ignored', () => {
-  const canPassAnyNumberOfArguments = partial(greet, 'Hello', 'Ms.')
+  const canPassAnyNumberOfArguments = partial(
+    greet, 'Hello', 'Ms.'
+  )
   const fn = canPassAnyNumberOfArguments('foo')
 
   expect(type(fn)).toBe('Function')
 
-  expect(fn('bar', 1, 2)).toBe('Hello, Ms. foo bar!')
+  expect(fn(
+    'bar', 1, 2
+  )).toBe('Hello, Ms. foo bar!')
 })
 
 test('when array is input', () => {
-  const fooFn = (a, b, c, d) => ({
+  const fooFn = (
+    a, b, c, d
+  ) => ({
     a,
     b,
     c,
     d,
   })
-  const barFn = partial(fooFn, [1, 2], [])
+  const barFn = partial(
+    fooFn, [ 1, 2 ], []
+  )
 
   expect(barFn(1, 2)).toEqual({
-    a: [1, 2],
-    b: [],
-    c: 1,
-    d: 2,
+    a : [ 1, 2 ],
+    b : [],
+    c : 1,
+    d : 2,
   })
 })
 

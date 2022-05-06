@@ -1,4 +1,4 @@
-import {has} from './has'
+import {has} from './has.js'
 
 test('happy', () => {
   expect(has('a')({a: 1})).toBeTrue()
@@ -6,9 +6,9 @@ test('happy', () => {
 })
 
 test('with non-object', () => {
-  expect(has('a', undefined)).toEqual(false)
-  expect(has('a', null)).toEqual(false)
-  expect(has('a', true)).toEqual(false)
-  expect(has('a', '')).toEqual(false)
-  expect(has('a', /a/)).toEqual(false)
+  expect(has('a', undefined)).toBeFalse()
+  expect(has('a', null)).toBeFalse()
+  expect(has('a', true)).toBeFalse()
+  expect(has('a', '')).toBeFalse()
+  expect(has('a', /a/)).toBeFalse()
 })

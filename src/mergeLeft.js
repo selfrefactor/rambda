@@ -1,7 +1,7 @@
-import {merge} from './merge'
+import { mergeRight } from './mergeRight.js'
 
-export function mergeLeft(x, y) {
+export function mergeLeft(x, y){
   if (arguments.length === 1) return _y => mergeLeft(x, _y)
 
-  return merge(y, x)
+  return mergeRight(y, x)
 }

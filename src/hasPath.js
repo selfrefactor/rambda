@@ -1,7 +1,7 @@
-import {path} from './path'
+import { path } from './path.js'
 
-export function hasPath(pathInput, obj) {
-  if (arguments.length === 1) {
+export function hasPath(pathInput, obj){
+  if (arguments.length === 1){
     return objHolder => hasPath(pathInput, objHolder)
   }
 

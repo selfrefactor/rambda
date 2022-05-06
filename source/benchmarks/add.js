@@ -4,20 +4,20 @@ const Ramda = require('ramda')
 
 const add = [
   {
-    label: 'Rambda',
-    fn: () => {
+    label : 'Rambda',
+    fn    : () => {
       R.add(1, 1)
     },
   },
   {
-    label: 'Ramda',
-    fn: () => {
+    label : 'Ramda',
+    fn    : () => {
       Ramda.add(1, 1)
     },
   },
   {
-    label: 'Lodash',
-    fn: () => {
+    label : 'Lodash',
+    fn    : () => {
       _.add(1, 1)
     },
   },

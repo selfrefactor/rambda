@@ -1,4 +1,4 @@
-export function glue(input, glueChar) {
+export function glue(input, glueChar){
   return input
     .split('\n')
     .filter(x => x.trim().length > 0)

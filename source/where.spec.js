@@ -1,5 +1,5 @@
-import {equals} from './equals'
-import {where} from './where'
+import {equals} from './equals.js'
+import {where} from './where.js'
 
 test('when true', () => {
   const predicate = where({
@@ -13,7 +13,7 @@ test('when true', () => {
       x: 11,
       y: 19,
     })
-  ).toEqual(true)
+  ).toBeTrue()
 })
 
 test('when false', () => {
@@ -28,5 +28,5 @@ test('when false', () => {
       x: 11,
       y: 19,
     })
-  ).toEqual(false)
+  ).toBeFalse()
 })

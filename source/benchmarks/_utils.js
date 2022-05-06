@@ -1,6 +1,6 @@
 const fn1 = () => {}
-const fn2 = function () {}
-function fn3() {}
+const fn2 = function (){}
+function fn3(){}
 
 const listOfVariousTypes = [
   new Boolean(true),
@@ -16,7 +16,7 @@ const listOfVariousTypes = [
   null,
   NaN,
   /foo/g,
-  [1, 2, 3],
+  [ 1, 2, 3 ],
 ]
 
 const uniqListOfBooleans = limit =>
@@ -46,16 +46,16 @@ const uniqListOfObjects = limit =>
   Array(limit)
     .fill(null)
     .map(() => ({
-      foo: String(Math.floor(Math.random() * 1000)),
-      bar: NaN,
-      baz: null,
-      qux: [true],
+      foo : String(Math.floor(Math.random() * 1000)),
+      bar : NaN,
+      baz : null,
+      qux : [ true ],
     }))
 
 const uniqListOfLists = limit =>
   Array(limit)
     .fill(null)
-    .map(() => [NaN, null, String(Math.floor(Math.random() * 1000))])
+    .map(() => [ NaN, null, String(Math.floor(Math.random() * 1000)) ])
 
 exports.uniqListOfBooleans = uniqListOfBooleans
 exports.uniqListOfNumbers = uniqListOfNumbers
@@ -65,27 +65,27 @@ exports.uniqListOfLists = uniqListOfLists
 exports.listOfVariousTypes = listOfVariousTypes
 exports.rangeOfNumbers = rangeOfNumbers
 
-function* generatorFn() {
+function* generatorFn(){
   yield 1
   yield 2
   yield 3
 }
 
-const setInstance = new Set([1, 2, 3, 4, 1])
+const setInstance = new Set([ 1, 2, 3, 4, 1 ])
 const weakSetInstance = new WeakSet()
 const weakMapInstance = new WeakMap()
 const mapInstance = new Map()
 
 const target = {
-  message1: 'hello',
-  message2: 'everyone',
+  message1 : 'hello',
+  message2 : 'everyone',
 }
 
 const handler = {}
 
 const proxyInstance = new Proxy(target, handler)
-weakSetInstance.add({a: 1})
-weakMapInstance.set({a: 1}, 'bar')
+weakSetInstance.add({ a : 1 })
+weakMapInstance.set({ a : 1 }, 'bar')
 mapInstance.set('foo', 'bar')
 
 exports.variousTypes = [

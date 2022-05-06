@@ -3,15 +3,15 @@ const Ramda = require('ramda')
 
 const match = [
   {
-    label: 'Rambda',
-    fn: () => {
+    label : 'Rambda',
+    fn    : () => {
       R.match(/a./g)('foo bar baz')
       R.match(/a./g, 'foo bar baz')
     },
   },
   {
-    label: 'Ramda',
-    fn: () => {
+    label : 'Ramda',
+    fn    : () => {
       Ramda.match(/a./g)('foo bar baz')
       Ramda.match(/a./g, 'foo bar baz')
     },

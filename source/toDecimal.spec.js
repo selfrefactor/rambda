@@ -1,4 +1,4 @@
-import {toDecimal} from './toDecimal'
+import { toDecimal } from './toDecimal.js'
 
 test('happy', () => {
   expect(toDecimal(2.2789, 1)).toBe(2.3)

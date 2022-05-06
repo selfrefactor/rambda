@@ -1,3 +1,3 @@
-export function negate(x) {
+export function negate(x){
   return -x
 }

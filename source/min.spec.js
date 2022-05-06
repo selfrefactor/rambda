@@ -1,4 +1,4 @@
-import {min} from './min'
+import { min } from './min.js'
 
 test('happy', () => {
   expect(min(2, 1)).toBe(1)
