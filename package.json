@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "7.0.3",
+	"version": "7.1.0",
 	"scripts": {
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
@@ -35,9 +35,7 @@
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.17.10",
 		"@babel/plugin-proposal-object-rest-spread": "7.17.3",
