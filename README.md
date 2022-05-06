@@ -967,7 +967,7 @@ always<T>(x: T): (...args: unknown[]) => T;
 
 ```javascript
 export function always(x){
-  return () => x
+  return _ => x
 }
 ```
 
@@ -979,20 +979,18 @@ export function always(x){
 
 ```javascript
 import { always } from './always.js'
-import { F } from './F.js'
+import { applySpec } from './applySpec.js'
 
 test('happy', () => {
   const fn = always(7)
 
-  expect(fn()).toEqual(7)
-  expect(fn()).toEqual(7)
+  expect(fn()).toBe(7)
+  expect(fn()).toBe(7)
 })
 
-test('f', () => {
-  const fn = always(F())
-
-  expect(fn()).toBeFalse()
-  expect(fn()).toBeFalse()
+test('compatibility with applySpec', () => {
+  const spec = applySpec({ x : always('foo') })
+  expect(spec({})).toEqual({ x : 'foo' })
 })
 ```
 
@@ -2992,6 +2990,8 @@ It counts how many times `predicate` function returns `true`, when supplied with
 
 countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>
 ```
+
+It counts elements in a list after each instance of the input list is passed through `transformFn` function.
 
 <details>
 
@@ -7334,6 +7334,8 @@ describe('R.join', () => {
 juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1]
 ```
 
+It applies list of function to a list of inputs.
+
 <details>
 
 <summary>All Typescript definitions</summary>
@@ -10157,6 +10159,8 @@ const omit = [
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
 
 ### on
+
+It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`). 
 
 This method is also known as P combinator.
 

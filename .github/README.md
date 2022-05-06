@@ -1018,7 +1018,7 @@ always<T>(x: T): (...args: unknown[]) => T;
 
 ```javascript
 export function always(x){
-  return () => x
+  return _ => x
 }
 ```
 
@@ -1030,20 +1030,18 @@ export function always(x){
 
 ```javascript
 import { always } from './always.js'
-import { F } from './F.js'
+import { applySpec } from './applySpec.js'
 
 test('happy', () => {
   const fn = always(7)
 
-  expect(fn()).toEqual(7)
-  expect(fn()).toEqual(7)
+  expect(fn()).toBe(7)
+  expect(fn()).toBe(7)
 })
 
-test('f', () => {
-  const fn = always(F())
-
-  expect(fn()).toBeFalse()
-  expect(fn()).toBeFalse()
+test('compatibility with applySpec', () => {
+  const spec = applySpec({ x : always('foo') })
+  expect(spec({})).toEqual({ x : 'foo' })
 })
 ```
 
@@ -3250,15 +3248,17 @@ const result = R.count(x => x.a !== undefined, list)
 countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>
 ```
 
+It counts elements in a list after each instance of the input list is passed through `transformFn` function.
+
 ```javascript
 const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
 
-const result = countBy(x => x.toLowerCase(), list)
+const result = countBy(R.toLower, list)
 const expected = { a: 2, b: 2, c: 2 }
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20'a'%2C%20'A'%2C%20'b'%2C%20'B'%2C%20'c'%2C%20'C'%20%5D%0A%0Aconst%20result%20%3D%20countBy(x%20%3D%3E%20x.toLowerCase()%2C%20list)%0Aconst%20expected%20%3D%20%7B%20a%3A%202%2C%20b%3A%202%2C%20c%3A%202%20%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.countBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20'a'%2C%20'A'%2C%20'b'%2C%20'B'%2C%20'c'%2C%20'C'%20%5D%0A%0Aconst%20result%20%3D%20countBy(R.toLower%2C%20list)%0Aconst%20expected%20%3D%20%7B%20a%3A%202%2C%20b%3A%202%2C%20c%3A%202%20%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.countBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8099,6 +8099,8 @@ describe('R.join', () => {
 juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1]
 ```
 
+It applies list of function to a list of inputs.
+
 ```javascript
 const getRange = juxt([ Math.min, Math.max, Math.min ])
 const result = getRange(
@@ -11263,14 +11265,16 @@ const omit = [
 
 ### on
 
+It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`). 
+
 This method is also known as P combinator.
 
 ```javascript
-const result = R.on((a, b) => a === b, R.prop('a'), {b:0, a:1}, {a:1})
-// => true
+const result = R.on((a, b) => a + b, R.prop('a'), {b:0, a:1}, {a:2})
+// => 3
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.on((a%2C%20b)%20%3D%3E%20a%20%3D%3D%3D%20b%2C%20R.prop('a')%2C%20%7Bb%3A0%2C%20a%3A1%7D%2C%20%7Ba%3A1%7D)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.on</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.on((a%2C%20b)%20%3D%3E%20a%20%2B%20b%2C%20R.prop('a')%2C%20%7Bb%3A0%2C%20a%3A1%7D%2C%20%7Ba%3A2%7D)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.on</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#on)
 

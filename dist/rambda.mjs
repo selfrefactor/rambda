@@ -54,7 +54,7 @@ function allPass(predicates) {
 }
 
 function always(x) {
-  return () => x;
+  return _ => x;
 }
 
 function and(a, b) {

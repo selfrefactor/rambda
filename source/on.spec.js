@@ -14,6 +14,12 @@ test('happy', () => {
   )).toBeTrue()
 })
 
+test('return type is not limited to boolean', () => {
+  expect(on(
+    binaryFn, unaryFn, a, b
+  )).toBeTrue()
+})
+
 test('curried - last input', () => {
   expect(on(
     binaryFn, unaryFn, a

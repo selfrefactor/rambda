@@ -4930,7 +4930,7 @@ export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: 
 /*
 Method: juxt
 
-Explanation:
+Explanation: It applies list of function to a list of inputs.
 
 Example:
 
@@ -4980,14 +4980,14 @@ export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 /*
 Method: countBy
 
-Explanation:
+Explanation: It counts elements in a list after each instance of the input list is passed through `transformFn` function.
 
 Example:
 
 ```
 const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
 
-const result = countBy(x => x.toLowerCase(), list)
+const result = countBy(R.toLower, list)
 const expected = { a: 2, b: 2, c: 2 }
 // => `result` is equal to `expected`
 ```
@@ -5030,13 +5030,15 @@ export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
 /*
 Method: on
 
-Explanation: This method is also known as P combinator.
+Explanation: It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`). 
+
+This method is also known as P combinator. 
 
 Example:
 
 ```
-const result = R.on((a, b) => a === b, R.prop('a'), {b:0, a:1}, {a:1})
-// => true
+const result = R.on((a, b) => a + b, R.prop('a'), {b:0, a:1}, {a:2})
+// => 3
 ```
 
 Categories: Logic
@@ -5045,9 +5047,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T, b: T): boolean;
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T): (b: T) => boolean;
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U): (a: T, b: T) => boolean;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
+};
 
 /*
 Method: whereAny
@@ -7233,6 +7238,29 @@ Notes:
 // @SINGLE_MARKER
 export function contains<T, U>(target: T, compareTo: U): boolean;
 export function contains<T, U>(target: T): (compareTo: U) => boolean;
+
+/*
+Method: partialCurry
+
+Explanation: Same as `R.partialObject`. 
+
+When `Ramda` introduced `R.partialObject`, `Rambdax` already had such method, i.e. `R.partialCurry`. So this method is kept for backward compatibility.
+
+Example:
+
+```
+```
+
+Categories: Logic, Async
+
+Notes: Function input can be asynchronous
+
+*/
+// @SINGLE_MARKER
+export function partialCurry<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 // RAMBDAX_MARKER_END
 // ============================================

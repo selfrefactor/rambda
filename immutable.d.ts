@@ -1485,6 +1485,9 @@ export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string,
 export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
 export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 
+/**
+ * It applies list of function to a list of inputs.
+ */
 export function juxt<A extends readonly any[], R1>(fns: readonly [(...a: A) => R1]): (...a: A) => readonly [R1];
 export function juxt<A extends readonly any[], R1, R2>(fns: readonly [(...a: A) => R1, (...a: A) => R2]): (...a: A) => readonly [R1, R2];
 export function juxt<A extends readonly any[], R1, R2, R3>(fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => readonly [R1, R2, R3];
@@ -1498,6 +1501,9 @@ export function juxt<A extends readonly any[], U>(fns: ReadonlyArray<(...args: A
 export function count<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
 export function count<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
+/**
+ * It counts elements in a list after each instance of the input list is passed through `transformFn` function.
+ */
 export function countBy<T extends unknown>(transformFn: (x: T) => any, list: readonly T[]): Record<string, number>;
 export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: readonly T[]) => Record<string, number>;
 
@@ -1505,11 +1511,16 @@ export function unwind<T, U>(prop: keyof T, obj: T): readonly U[];
 export function unwind<T, U>(prop: keyof T): (obj: T) => readonly U[];
 
 /**
+ * It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`).
+ * 
  * This method is also known as P combinator.
  */
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T, b: T): boolean;
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U, a: T): (b: T) => boolean;
-export function on<T, U>(binaryFn: (x: U, b: U) => boolean, unaryFn: (x: T) => U): (a: T, b: T) => boolean;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
+};
 
 /**
  * Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
