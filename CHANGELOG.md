@@ -1,4 +1,4 @@
-7.1.2
+7.1.3
 
 `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
 
