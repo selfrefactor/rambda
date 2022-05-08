@@ -9377,7 +9377,7 @@ It creates a copy of `target` object with overidden `newProps` properties. Previ
 
 ```typescript
 
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj
+mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>
 ```
 
 It takes two objects and a function, which will be used when there is an overlap between the keys.
@@ -9387,11 +9387,11 @@ It takes two objects and a function, which will be used when there is an overlap
 <summary>All Typescript definitions</summary>
 
 ```typescript
-mergeWith(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Obj;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Obj, b: Record<string, unknown>): Output;
+mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
+mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
 mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
 mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
-mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Obj;
+mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
 mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 ```
 
@@ -18413,7 +18413,7 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-7.1.1
+7.1.2
 
 `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
 

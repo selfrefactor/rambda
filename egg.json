@@ -4,8 +4,8 @@
   "entry": "./mod.ts",
   "description": "Lightweight and faster alternative to Ramda with included TS definitions",
   "homepage": "https://github.com/selfrefactor/rambda",
-  "version": "7.1.0",
-  "releaseType": null,
+  "version": "7.1.1",
+  "releaseType": "patch",
   "unstable": false,
   "unlisted": false,
   "files": [
@@ -23,5 +23,6 @@
   "checkFormat": false,
   "checkTests": false,
   "checkInstallation": false,
-  "check": true
+  "check": true,
+  "yes": true
 }
