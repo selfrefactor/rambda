@@ -10388,7 +10388,7 @@ const result = R.mergeWith(
 ```typescript
 mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
 mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
-mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Obj;
+mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
 mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
 mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
 mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
@@ -20441,7 +20441,7 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-7.1.3
+7.1.4
 
 `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
 
