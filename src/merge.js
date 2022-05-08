@@ -1,1 +1,1 @@
-export {mergeRight as merge} from './mergeRight'
+export {mergeRight as merge} from './mergeRight.js'
