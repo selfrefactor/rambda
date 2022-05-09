@@ -1,4 +1,4 @@
-import {none} from './none'
+import {none} from './none.js'
 
 const isEven = n => n % 2 === 0
 
@@ -7,5 +7,5 @@ test('when true', () => {
 })
 
 test('when false curried', () => {
-  expect(none(isOdd)([1, 3, 5, 8])).toBeFalse()
+  expect(none(input => input > 1, [1, 2, 3])).toBeFalse()
 })

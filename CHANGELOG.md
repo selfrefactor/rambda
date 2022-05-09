@@ -1,12 +1,32 @@
-WIP 7.1.0
+7.1.4
+
+`R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
+
+7.1.0
+
+- Add `R.mergeRight` - introduced by Ramda's latest release. While Ramda renames `R.merge`, Rambda will keep `R.merge`.
+
+- Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by using Ramda's `pipe/compose` logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
 
 - Replace `Async` with `Promise` as return type of `R.type`.
 
 - Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
 
+- Add `R.juxt` method
+
+- Add `R.propSatisfies` method
+
+- Add new methods after `Ramda` version upgrade to `0.28.0`:
+
+-- R.count
+-- R.modifyPath
+-- R.on
+-- R.whereAny
+-- R.partialObject
+
 7.0.3
 
-Rambda.none has wrong logic - [Issue #625](https://github.com/selfrefactor/rambda/issues/625)
+Rambda.none has wrong logic introduced in version `7.0.0` - [Issue #625](https://github.com/selfrefactor/rambda/issues/625)
 
 7.0.2
 

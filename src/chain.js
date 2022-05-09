@@ -1,5 +1,5 @@
-export function chain(fn, list) {
-  if (arguments.length === 1) {
+export function chain(fn, list){
+  if (arguments.length === 1){
     return _list => chain(fn, _list)
   }
 

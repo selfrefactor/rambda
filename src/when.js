@@ -1,6 +1,8 @@
-import {curry} from './curry'
+import { curry } from './curry.js'
 
-function whenFn(predicate, whenTrueFn, input) {
+function whenFn(
+  predicate, whenTrueFn, input
+){
   if (!predicate(input)) return input
 
   return whenTrueFn(input)

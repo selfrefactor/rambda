@@ -1,9 +1,9 @@
-import {delay} from './delay'
-import {equals} from './equals'
-import {map} from './map'
-import {pipeAsync} from './pipeAsync'
+import { delay } from './delay.js'
+import { equals } from './equals.js'
+import { map } from './map.js'
+import { pipeAsync } from './pipeAsync.js'
 
-async function identity(x) {
+async function identity(x){
   await delay(100)
 
   return x
@@ -20,12 +20,10 @@ test('happy', async () => {
 
     return x.map(xx => xx * 2)
   }
-  const result = await pipeAsync(
-    fn1,
-    fn2
-  )(await Promise.all([identity(1), identity(2), identity(3)]))
+  const result = await pipeAsync(fn1,
+    fn2)(await Promise.all([ identity(1), identity(2), identity(3) ]))
 
-  expect(result).toEqual([4, 6, 8])
+  expect(result).toEqual([ 4, 6, 8 ])
 })
 
 const delayFn = ms =>
@@ -53,7 +51,7 @@ test('throw error', async () => {
   let didThrow = false
   try {
     await pipeAsync(x => x, fn)(20)
-  } catch (e) {
+  } catch (e){
     didThrow = true
   }
 

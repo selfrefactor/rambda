@@ -1,6 +1,8 @@
-import {curry} from './curry'
+import { curry } from './curry.js'
 
-function replaceFn(pattern, replacer, str) {
+function replaceFn(
+  pattern, replacer, str
+){
   return str.replace(pattern, replacer)
 }
 

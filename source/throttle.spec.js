@@ -1,12 +1,13 @@
-import {delay} from './delay'
-import {inc} from './inc'
-import {throttle} from './throttle'
+import { delay } from './delay.js'
+import { inc } from './inc.js'
+import { throttle } from './throttle.js'
 
 test('with side effect', async () => {
   let counter = 0
 
   const incFn = a => {
-    counter = counter + a
+    counter += a
+
     return counter
   }
   const incWrapped = throttle(incFn, 1000)
@@ -26,5 +27,5 @@ test('return result', async () => {
   results.push(incWrapped(1))
   await delay(500)
   results.push(incWrapped(1))
-  expect(results).toEqual([2, 2, 2, 2])
+  expect(results).toEqual([ 2, 2, 2, 2 ])
 })

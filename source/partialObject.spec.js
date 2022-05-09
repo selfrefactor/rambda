@@ -1,10 +1,10 @@
-import {delay} from './delay'
-import {partialCurry} from './partialCurry'
-import {type} from './type'
+import {delay} from './delay.js'
+import {partialObject} from './partialObject.js'
+import {type} from './type.js'
 
 test('with plain function', () => {
   const fn = ({a, b, c}) => a + b + c
-  const curried = partialCurry(fn, {a: 1})
+  const curried = partialObject(fn, {a: 1})
 
   expect(type(curried)).toEqual('Function')
   expect(
@@ -19,7 +19,7 @@ test('with function that throws an error', () => {
   const fn = ({a, b, c}) => {
     throw new Error('foo')
   }
-  const curried = partialCurry(fn, {a: 1})
+  const curried = partialObject(fn, {a: 1})
 
   expect(type(curried)).toEqual('Function')
   expect(() =>
@@ -37,7 +37,7 @@ test('with async', async () => {
     return a + b + c
   }
 
-  const curried = partialCurry(fn, {a: 1})
+  const curried = partialObject(fn, {a: 1})
 
   const result = await curried({
     b: 2,
@@ -53,7 +53,7 @@ test('async function throwing an error', async () => {
     throw new Error('foo')
   }
 
-  const curried = partialCurry(fn, {a: 1})
+  const curried = partialObject(fn, {a: 1})
 
   try {
     await curried({

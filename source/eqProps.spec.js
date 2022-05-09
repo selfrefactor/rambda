@@ -1,7 +1,7 @@
 import {eqProps as eqPropsRamda} from 'ramda'
 
-import {compareCombinations} from './_internals/testUtils'
-import {eqProps} from './eqProps'
+import {compareCombinations} from './_internals/testUtils.js'
+import {eqProps} from './eqProps.js'
 
 const obj1 = {
   a: 1,
@@ -27,19 +27,19 @@ test('prop does not exist ', () => {
   expect(result).toBeTrue()
 })
 
-test('can handle null or undefined object', function () {
-  expect(eqProps('value', {value: 0}, null)).toEqual(false)
-  expect(eqProps('value', {value: 0}, undefined)).toEqual(false)
-  expect(eqProps('value', null, {value: 0})).toEqual(false)
-  expect(eqProps('value', undefined, {value: 0})).toEqual(false)
-  expect(eqProps('value', undefined, {value: undefined})).toEqual(true)
-  expect(eqProps('value', null, {value: undefined})).toEqual(true)
-  expect(eqProps('value', {value: undefined}, undefined)).toEqual(true)
-  expect(eqProps('value', {value: undefined}, null)).toEqual(true)
-  expect(eqProps('value', {}, null)).toEqual(true)
-  expect(eqProps('value', {}, undefined)).toEqual(true)
-  expect(eqProps('value', null, {})).toEqual(true)
-  expect(eqProps('value', undefined, {})).toEqual(true)
+test('can handle null or undefined object', () => {
+  expect(eqProps('value', {value: 0}, null)).toBeFalse()
+  expect(eqProps('value', {value: 0}, undefined)).toBeFalse()
+  expect(eqProps('value', null, {value: 0})).toBeFalse()
+  expect(eqProps('value', undefined, {value: 0})).toBeFalse()
+  expect(eqProps('value', undefined, {value: undefined})).toBeTrue()
+  expect(eqProps('value', null, {value: undefined})).toBeTrue()
+  expect(eqProps('value', {value: undefined}, undefined)).toBeTrue()
+  expect(eqProps('value', {value: undefined}, null)).toBeTrue()
+  expect(eqProps('value', {}, null)).toBeTrue()
+  expect(eqProps('value', {}, undefined)).toBeTrue()
+  expect(eqProps('value', null, {})).toBeTrue()
+  expect(eqProps('value', undefined, {})).toBeTrue()
 })
 
 const possibleProps = ['a', 'a.b', null, false, 0, 1, {}, []]

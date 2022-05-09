@@ -1,3 +1,3 @@
-export function always(x) {
-  return () => x
+export function always(x){
+  return _ => x
 }

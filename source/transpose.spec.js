@@ -1,21 +1,21 @@
-import {transpose} from './transpose'
+import { transpose } from './transpose.js'
 
 test('happy', () => {
   const input = [
-    ['a', 1],
-    ['b', 2],
-    ['c', 3],
+    [ 'a', 1 ],
+    [ 'b', 2 ],
+    [ 'c', 3 ],
   ]
 
   expect(transpose(input)).toEqual([
-    ['a', 'b', 'c'],
-    [1, 2, 3],
+    [ 'a', 'b', 'c' ],
+    [ 1, 2, 3 ],
   ])
 })
 
 test('when rows are shorter', () => {
-  const actual = transpose([[10, 11], [20], [], [30, 31, 32]])
-  const expected = [[10, 20, 30], [11, 31], [32]]
+  const actual = transpose([ [ 10, 11 ], [ 20 ], [], [ 30, 31, 32 ] ])
+  const expected = [ [ 10, 20, 30 ], [ 11, 31 ], [ 32 ] ]
   expect(actual).toEqual(expected)
 })
 
@@ -25,14 +25,14 @@ test('with empty array', () => {
 
 test('array with falsy values', () => {
   const actual = transpose([
-    [true, false, undefined, null],
-    [null, undefined, false, true],
+    [ true, false, undefined, null ],
+    [ null, undefined, false, true ],
   ])
   const expected = [
-    [true, null],
-    [false, undefined],
-    [undefined, false],
-    [null, true],
+    [ true, null ],
+    [ false, undefined ],
+    [ undefined, false ],
+    [ null, true ],
   ]
   expect(actual).toEqual(expected)
 })

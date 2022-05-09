@@ -1,6 +1,7 @@
-import {add} from './add'
-import {add as addRamda} from 'ramda'
-import {compareCombinations} from './_internals/testUtils'
+import { add as addRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils.js'
+import { add } from './add.js'
 
 test('with number', () => {
   expect(add(2, 3)).toEqual(5)
@@ -33,11 +34,11 @@ const possibleInputs = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn: add,
-    fnRamda: addRamda,
-    firstInput: possibleInputs,
-    secondInput: possibleInputs,
-    callback: errorsCounters => {
+    fn          : add,
+    fnRamda     : addRamda,
+    firstInput  : possibleInputs,
+    secondInput : possibleInputs,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,

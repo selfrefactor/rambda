@@ -1,6 +1,6 @@
-import {_isArray} from './_internals/_isArray'
-import {_keys} from './_internals/_keys'
-import {curry} from './curry'
+import { _isArray } from './_internals/_isArray.js'
+import { _keys } from './_internals/_keys.js'
+import { curry } from './curry.js'
 
 class Reduced {
   constructor(value) {
@@ -8,15 +8,19 @@ class Reduced {
   }
 }
 
-function reduceFn(reducer, acc, list) {
-  if (!_isArray(list)) {
+export function reduceFn(
+  reducer, acc, list
+){
+  if (!_isArray(list)){
     throw new TypeError('reduce: list must be array or iterable')
   }
   let index = 0
   const len = list.length
 
-  while (index < len) {
-    acc = reducer(acc, list[index], index, list)
+  while (index < len){
+    acc = reducer(
+      acc, list[ index ], index, list
+    )
     if (acc instanceof Reduced) {
       return acc.value
     }
@@ -27,5 +31,4 @@ function reduceFn(reducer, acc, list) {
 }
 
 export const reduce = curry(reduceFn)
-
 export const reduced = value => new Reduced(value)

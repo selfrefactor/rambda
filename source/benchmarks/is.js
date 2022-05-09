@@ -3,8 +3,8 @@ const Ramda = require('ramda')
 
 const is = [
   {
-    label: 'Rambda',
-    fn: () => {
+    label : 'Rambda',
+    fn    : () => {
       R.is(Array, undefined)
       R.is(Array)([])
       R.is(Boolean, new Boolean(false))
@@ -17,8 +17,8 @@ const is = [
     },
   },
   {
-    label: 'Ramda',
-    fn: () => {
+    label : 'Ramda',
+    fn    : () => {
       Ramda.is(Array, undefined)
       Ramda.is(Array)([])
       Ramda.is(Boolean, new Boolean(false))

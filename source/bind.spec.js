@@ -1,4 +1,4 @@
-import {bind} from './bind'
+import {bind} from './bind.js'
 
 function Foo(x) {
   this.x = x
@@ -15,27 +15,27 @@ Bar.prototype.getX = function () {
   return 'prototype getX'
 }
 
-test('returns a function', function () {
+test('returns a function', () => {
   expect(typeof bind(add)(Foo)).toEqual('function')
 })
 
-test('returns a function bound to the specified context object', function () {
+test('returns a function bound to the specified context object', () => {
   const f = new Foo(12)
   function isFoo() {
     return this instanceof Foo
   }
   const isFooBound = bind(isFoo, f)
-  expect(isFoo()).toEqual(false)
-  expect(isFooBound()).toEqual(true)
+  expect(isFoo()).toBeFalse()
+  expect(isFooBound()).toBeTrue()
 })
 
-test('works with built-in types', function () {
+test('works with built-in types', () => {
   const abc = bind(String.prototype.toLowerCase, 'ABCDEFG')
   expect(typeof abc).toEqual('function')
   expect(abc()).toEqual('abcdefg')
 })
 
-test('works with user-defined types', function () {
+test('works with user-defined types', () => {
   const f = new Foo(12)
   function getX() {
     return this.x
@@ -44,10 +44,8 @@ test('works with user-defined types', function () {
   expect(getXFooBound()).toEqual(12)
 })
 
-test('works with plain objects', function () {
-  const pojso = {
-    x: 100,
-  }
+test('works with plain objects', () => {
+  const pojso = {x: 100}
   function incThis() {
     return this.x + 1
   }
@@ -56,7 +54,7 @@ test('works with plain objects', function () {
   expect(incPojso()).toEqual(101)
 })
 
-test('does not interfere with existing object methods', function () {
+test('does not interfere with existing object methods', () => {
   const b = new Bar('a', 'b')
   function getX() {
     return this.x
@@ -66,7 +64,7 @@ test('does not interfere with existing object methods', function () {
   expect(getXBarBound()).toEqual('a')
 })
 
-test('preserves arity', function () {
+test('preserves arity', () => {
   const f0 = function () {
     return 0
   }

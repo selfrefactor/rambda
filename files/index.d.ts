@@ -1,4 +1,4 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -222,7 +222,7 @@ const predicates = [
 const result = R.allPass(predicates)(input) // => true
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -244,7 +244,7 @@ const result = fn()
 // => 7
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -339,7 +339,7 @@ const result = fn(input)
 // => true
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -386,7 +386,7 @@ const result = fn(2, 4)
 // => { sum: 6, nested: { mul: 8 } }
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
 
@@ -435,7 +435,7 @@ const path = 'b.c'
 const newValue = 2
 const obj = { a: 1 }
 
-R.assocPath(path, newValue, obj)
+R.assocPath(path, newValue, Record<string, unknown>)
 // => { a : 1, b : { c : 2 }}
 ```
 
@@ -461,13 +461,13 @@ Example:
 ```
 const firstCondition = x => x > 10
 const secondCondition = x => x < 20
-const fn = R.both(secondCondition)
+const fn = R.both(firstCondition, secondCondition)
 
 const result = [fn(15), fn(30)]
 // => [true, false]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -576,7 +576,7 @@ const result = [
 ] => [ true, false ]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -600,7 +600,7 @@ const result = R.compose(
 // => [6, 8]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -722,7 +722,7 @@ const result = [
 // => ['more than 25', 'more than 15', '10 is nothing special']
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -742,7 +742,7 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 // => 15
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Explanation is taken from `Ramda` documentation
 
@@ -765,7 +765,7 @@ const sum = curried(1,2)
 const result = sum(3) // => 6
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -784,7 +784,7 @@ Example:
 
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -977,7 +977,7 @@ const result = [
 // => [true, true, false]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -1238,7 +1238,7 @@ const result = [
 // => [6, -6]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
 
@@ -1364,8 +1364,8 @@ Example:
 const obj = {a: 1}
 
 const result = [
-  R.has('a', obj),
-  R.has('b', obj)
+  R.has('a', Record<string, unknown>),
+  R.has('b', Record<string, unknown>)
 ]
 // => [true, false]
 ```
@@ -1392,9 +1392,9 @@ const pathAsArray = ['a', 'b']
 const obj = {a: {b: []}}
 
 const result = [
-  R.hasPath(path, obj),
-  R.hasPath(pathAsArray, obj),
-  R.hasPath('a.c', obj),
+  R.hasPath(path, Record<string, unknown>),
+  R.hasPath(pathAsArray, Record<string, unknown>),
+  R.hasPath('a.c', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
@@ -1507,7 +1507,7 @@ const result = [ fn(8), fn(18) ]
 // => [80, 36]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -1653,7 +1653,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T>(input: T[]): T[];
+export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
 export function init(input: string): string;
 
 /*
@@ -1667,11 +1667,13 @@ Example:
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 
-const result = intersection(listA, listB)
+const result = R.intersection(listA, listB)
 // => [{ id : 3 }, { id : 4 }]
 ```
 
 Categories: List
+
+Notes: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]". 
 
 */
 // @SINGLE_MARKER
@@ -2098,7 +2100,7 @@ const obj = {a: 1, b: 2}
 
 const result = [ 
   R.map(fn, list),
-  R.map(fnWhenObject, obj)
+  R.map(fnWhenObject, Record<string, unknown>)
 ]
 // => [ [1, 4], {a: 'a-1', b: 'b-2'}] 
 ```
@@ -2130,7 +2132,7 @@ const fn = (val, prop) => {
 
 const obj = {a: 1, b: 2}
 
-const result = R.map(mapObjIndexed, obj)
+const result = R.map(mapObjIndexed, Record<string, unknown>)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
@@ -2284,16 +2286,11 @@ export function median(list: number[]): number;
 /*
 Method: merge
 
-Explanation: It creates a copy of `target` object with overidden `newProps` properties. 
+Explanation: Same as `R.mergeRight`.
 
 Example:
 
 ```
-const target = { 'foo': 0, 'bar': 1 }
-const newProps = { 'foo': 7 }
-
-const result = R.merge(target, newProps)
-// => { 'foo': 7, 'bar': 1 }
 ```
 
 Categories: Object
@@ -2304,6 +2301,30 @@ Notes:
 // @SINGLE_MARKER
 export function merge<A, B>(target: A, newProps: B): A & B
 export function merge<Output>(target: any): (newProps: any) => Output;
+
+/*
+Method: mergeRight
+
+Explanation: It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+
+Example:
+
+```
+const target = { 'foo': 0, 'bar': 1 }
+const newProps = { 'foo': 7 }
+
+const result = R.mergeRight(target, newProps)
+// => { 'foo': 7, 'bar': 1 }
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeRight<A, B>(target: A, newProps: B): A & B
+export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /*
 Method: mergeAll
@@ -2570,7 +2591,7 @@ export function not(input: any): boolean;
 /*
 Method: nth
 
-Explanation: Curried version of `list[index]`.
+Explanation: Curried version of `input[index]`.
 
 Example:
 
@@ -2586,14 +2607,18 @@ const result = [
 // => [3, undefined, 'f']
 ```
 
-Categories: List
+Categories: List, String
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function nth<T>(index: number, list: T[]): T | undefined;	
-export function nth(index: number): <T>(list: T[]) => T | undefined;
+export function nth(index: number, input: string): string;	
+export function nth<T>(index: number, input: T[]): T | undefined;	
+export function nth(n: number): {
+  <T>(input: T[]): T | undefined;
+  (input: string): string;
+};
 
 /*
 Method: objOf
@@ -2632,7 +2657,7 @@ addOnce(1)
 // => 1
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -2653,8 +2678,8 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj), 
-  R.omit(propsToOmitList, obj) 
+  R.omit(propsToOmit, Record<string, unknown>), 
+  R.omit(propsToOmitList, Record<string, unknown>) 
 ]
 // => [{b: 2}, {b: 2}]
 ```
@@ -2743,7 +2768,7 @@ const predicate = x => x > 2
 
 const result = [
   R.partition(predicate, list),
-  R.partition(predicate, obj)
+  R.partition(predicate, Record<string, unknown>)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -2788,9 +2813,9 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch, Record<string, unknown>),
+  R.path(pathToSearchList, Record<string, unknown>),
+  R.path('a.b.c.d', Record<string, unknown>)
 ]
 // => [1, 1, undefined]
 ```
@@ -2841,7 +2866,7 @@ export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boo
 /*
 Method: paths
 
-Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
+Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -2861,7 +2886,7 @@ const result = R.paths([
   'a.b.c',
   'a.b.d',
   'a.b.c.d.e',
-], obj)
+], Record<string, unknown>)
 // => [1, 2, undefined]
 ```
 
@@ -2879,7 +2904,7 @@ export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[]
 /*
 Method: pathOr
 
-Explanation: It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
+Explanation: It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
 
 Example:
 
@@ -2895,9 +2920,9 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
+  R.pathOr(DEFAULT_VALUE, pathToSearch, Record<string, unknown>),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, Record<string, unknown>), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', Record<string, unknown>)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
@@ -2934,10 +2959,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, obj),
-  R.pick(propsToPickList, obj),
-  R.pick('a,bar', obj),
-  R.pick('bar', obj),
+  R.pick(propsToPick, Record<string, unknown>),
+  R.pick(propsToPickList, Record<string, unknown>),
+  R.pick('a,bar', Record<string, unknown>),
+  R.pick('bar', Record<string, unknown>),
   R.pick([0, 3, 5], list),
   R.pick('0,3,5', list),
 ]
@@ -2982,10 +3007,10 @@ const propsToPick = 'a,foo,bar'
 const propsToPickList = ['a', 'foo', 'bar']
 
 const result = [
-  R.pickAll(propsToPick, obj),
-  R.pickAll(propsToPickList, obj),
-  R.pickAll('a,bar', obj),
-  R.pickAll('bar', obj),
+  R.pickAll(propsToPick, Record<string, unknown>),
+  R.pickAll(propsToPickList, Record<string, unknown>),
+  R.pickAll('a,bar', Record<string, unknown>),
+  R.pickAll('bar', Record<string, unknown>),
 ]
 const expected = [
   {a:1, foo: 'cherry', bar: undefined},
@@ -3023,7 +3048,7 @@ const result = R.pipe(
 // => [6, 8]
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -3195,8 +3220,8 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, obj),
-  R.propEq(propToFind, valueToMatch, secondObj)
+  R.propEq(propToFind, valueToMatch, Record<string, unknown>),
+  R.propEq(propToFind, valueToMatch, secondRecord<string, unknown>)
 ]
 // => [true, false]
 ```
@@ -3225,9 +3250,9 @@ Example:
 const obj = {a:1, b: 'foo'}
 
 const result = [
-  R.propIs(Number, 'a', obj),
-  R.propIs(String, 'b', obj),
-  R.propIs(Number, 'b', obj),
+  R.propIs(Number, 'a', Record<string, unknown>),
+  R.propIs(String, 'b', Record<string, unknown>),
+  R.propIs(Number, 'b', Record<string, unknown>),
 ]
 // => [true, true, false]
 ```
@@ -3264,8 +3289,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, obj),
-  R.propOr(defaultValue, 'foo', obj)
+  R.propOr(defaultValue, property, Record<string, unknown>),
+  R.propOr(defaultValue, 'foo', Record<string, unknown>)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -3282,6 +3307,31 @@ export function propOr<T>(defaultValue: T): {
   <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
   <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
 }
+
+/*
+Method: propSatisfies
+
+Explanation: It returns `true` if the object property satisfies a given predicate.
+
+Example:
+
+```
+const obj = {a: {b:1}}
+const property = 'a'
+const predicate = x => x?.b === 1
+
+const result = R.propSatisfies(predicate, property, Record<string, unknown>)
+// => true
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
 
 /*
 Method: range
@@ -3345,7 +3395,7 @@ const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list),
-  R.reject(predicate, obj)
+  R.reject(predicate, Record<string, unknown>)
 ]
 // => [[1], {a: 1}]
 ```
@@ -3735,7 +3785,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T>(input: T[]): T[];
+export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
 export function tail(input: string): string;
 
 /*
@@ -3819,7 +3869,7 @@ R.compose(
 // => `2` and `3` will be logged
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4026,7 +4076,7 @@ const result = [
 // => [false, 'bar']
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes: Please check the tests of `R.tryCatch` to fully understand how this method works.
 
@@ -4194,7 +4244,7 @@ const result = [
 // => [11, 5]
 ```
 
-Categories: Logic, Function
+Categories: Logic
 
 Notes:
 
@@ -4233,14 +4283,14 @@ export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 /*
 Method: values
 
-Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
+Explanation: With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
 
 Example:
 
 ```
 const obj = {a:1, b:2}
 
-R.values(obj)
+R.values(Record<string, unknown>)
 // => [1, 2]
 ```
 
@@ -4280,7 +4330,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-Categories: Logic, Function
+Categories: Logic
 
 Notes:
 
@@ -4790,7 +4840,7 @@ R.unapply(JSON.stringify)(1, 2, 3)
 //=> '[1,2,3]'
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4812,7 +4862,7 @@ const result = R.apply(Math.max, [42, -Infinity, 1337])
 // => 1337
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -4839,14 +4889,230 @@ const result = R.pipe(
 // => console log - `{a: 2}`
 ```
 
-Categories: Function
+Categories: Logic
 
-Notes: R.bind does not provide the additional argument-binding capabilities of [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+Notes: R.bind does not provide the additional argument-binding capabilities of `Function.prototype.bind`.
 
 */
 // @SINGLE_MARKER
 export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+
+/*
+Method: mergeWith
+
+Explanation: It takes two objects and a function, which will be used when there is an overlap between the keys.
+
+Example:
+
+```
+const result = R.mergeWith(
+  R.concat,
+  {values : [ 10, 20 ]},
+  {values : [ 15, 35 ]}
+)
+// => [ 10, 20, 15, 35 ]
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
+
+/*
+Method: juxt
+
+Explanation: It applies list of function to a list of inputs.
+
+Example:
+
+```
+const getRange = juxt([ Math.min, Math.max, Math.min ])
+const result = getRange(
+  3, 4, 9, -3
+)
+// => [-3, 9, -3]
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
+export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+export function juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+export function juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
+
+/*
+Method: count
+
+Explanation: It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
+
+Example:
+
+```
+const list = [{a: 1}, 1, {a:2}]
+const result = R.count(x => x.a !== undefined, list)
+// => 2
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+
+/*
+Method: countBy
+
+Explanation: It counts elements in a list after each instance of the input list is passed through `transformFn` function.
+
+Example:
+
+```
+const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
+
+const result = countBy(R.toLower, list)
+const expected = { a: 2, b: 2, c: 2 }
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
+export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
+
+/*
+Method: unwind
+
+Explanation:
+
+Example:
+
+```
+const obj = {
+  a: 1,
+  b: [2, 3],
+}
+const result = unwind('b', Record<string, unknown>)
+const expected = [{a:1, b:2}, {a:1, b:3}]
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unwind<T, U>(prop: keyof T, obj: T): U[];
+export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
+
+/*
+Method: on
+
+Explanation: It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`). 
+
+This method is also known as P combinator. 
+
+Example:
+
+```
+const result = R.on((a, b) => a + b, R.prop('a'), {b:0, a:1}, {a:2})
+// => 3
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
+};
+
+/*
+Method: whereAny
+
+Explanation: Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
+
+Example:
+
+```
+const conditions = {
+  a: a => a > 1,
+  b: b => b > 2,
+}
+const result = [
+  R.whereAny(conditions, {b:3}),
+  R.whereAny(conditions, {c:4})
+]
+// => [true, false]
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function whereAny<T, U>(conditions: T, input: U): boolean;
+export function whereAny<T>(conditions: T): <U>(input: U) => boolean;
+export function whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+
+/*
+Method: partialObject
+
+Explanation: `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
+
+Initially the function knows only a part from the whole input object and then `R.partialObject` helps in preparing the function for the second part, when it receives the rest of the input.
+
+Example:
+
+```
+const fn = ({ a, b, c }) => a + b + c
+const curried = R.partialObject(fn, { a : 1 })
+const result = curried({
+  b : 2,
+  c : 3,
+})
+// => 6
+```
+
+Categories: Logic, Async
+
+Notes: Function input can be asynchronous
+
+*/
+// @SINGLE_MARKER
+export function partialObject<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 // RAMBDAX_MARKER_START
 
@@ -5008,7 +5274,7 @@ const result = await R.composeAsync(
 // `result` resolves to `3`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
 
@@ -5045,7 +5311,7 @@ const result = await R.pipeAsync(
 // `result` resolves to `4`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes: It doesn't work with promises or function returning promises such as `const foo = input => new Promise(...)`.
 
@@ -5059,33 +5325,9 @@ export function pipeAsync<Out>(
 ): (input: any) => Promise<Out>;
 
 /*
-Method: count
-
-Explanation: It counts how many times `searchFor` is within `list` according to `R.equals`.
-
-Example:
-
-```
-const list = [1, {a:1}, 1, 'foo']
-const searchFor = 1
-
-const result = R.count(searchFor, list)
-// => 2
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function count<T>(searchFor: T, list: any[]): number;
-export function count<T>(searchFor: T): (list: any[]) => number;
-
-/*
 Method: debounce
 
-Explanation: It creates a debounced function that delays invoking `fn` until after wait milliseconds `ms` have elapsed since the last time the debounced function was invoked.
+Explanation: 
 
 Example:
 
@@ -5097,7 +5339,7 @@ const increment = () => {
 
 const debounced = R.debounce(increment, 1000)
 
-const result = await async function(){
+async function fn(){
   debounced()
   await R.delay(500)
   debounced()
@@ -5109,18 +5351,19 @@ const result = await async function(){
 
   return counter
 }
+const result = await fn()
 // `result` resolves to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
-Notes: Description is taken from `Lodash` docs
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function debounce<T, U>(fn: (input: T) => U, ms: number): (input: T) => void;
-export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => void;
-export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => void;
+export function debounce<T, U>(fn: (input: T) => U, ms: number, immediate?: boolean): (input: T) => void;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number, immediate?: boolean): (input1: T, input2: Q) => void;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number, immediate?: boolean): (input1: T, input2: Q, input3: Z) => void;
 
 /*
 Method: delay
@@ -5355,29 +5598,6 @@ export function ifElseAsync<T, K, U>(
   onTrue: (x: T, y: K) => Promise<U>, 
   onFalse: (x: T, y: K) => Promise<U>, 
 ): (x: T, y: K) => Promise<U>;
-
-/*
-Method: isFunction
-
-Explanation: It returns `true` if **R.type** of `input` is `Async` or `Function`.
-
-Example:
-
-```
-const result = [
-  R.isFunction(R.mapAsync),
-  R.isFunction(R.add),
-]
-// => [true, true]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isFunction(input: any): boolean;
 
 /*
 Method:
@@ -5624,7 +5844,7 @@ Example:
 ```
 const obj = {a: 1, b: 2}
 const changeKeyFn = prop => `{prop}_foo`
-const result = R.mapKeys(changeKeyFn, obj)
+const result = R.mapKeys(changeKeyFn, Record<string, unknown>)
 // => {a_foo: 1, b_foo: 2}
 ```
 
@@ -5695,7 +5915,7 @@ memoized(1, 2)
 // => `result` is equal to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -5815,36 +6035,6 @@ Notes:
 export function pass(...inputs: any[]): (...rules: any[]) => boolean;
 
 /*
-Method: partialCurry
-
-Explanation: `R.partialCurry` is a curry helper designed specifically for functions accepting object as a single argument.
-
-Initially the function knows only a part from the whole input object and then `R.partialCurry` helps in preparing the function for the second part, when it receives the rest of the input.
-
-Example:
-
-```
-const fn = ({ a, b, c }) => a + b + c
-const curried = R.partialCurry(fn, { a : 1 })
-const result = curried({
-  b : 2,
-  c : 3,
-})
-// => 6
-```
-
-Categories: Function, Async
-
-Notes: Curried function can be asynchronous
-
-*/
-// @SINGLE_MARKER
-export function partialCurry<Input, PartialInput, Output>(
-  fn: (input: Input) => Output, 
-  partialInput: PartialInput,
-): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
-
-/*
 Method: piped
 
 Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument.
@@ -5860,9 +6050,9 @@ const result = R.piped(
 // => [20, 30]
 ```
 
-Categories: Function
+Categories: Logic
 
-Notes: Independently, similar method is implemented in `Ramada` library, but there the name of the method is `pipe` - [Remeda.pipe](https://remedajs.com/docs#pipe)
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -5975,7 +6165,7 @@ const expected = {
 // => `result` is equal to `expected`
 ```
 
-Categories: Function, Async
+Categories: Logic, Async
 
 Notes:
 
@@ -6189,7 +6379,7 @@ export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
 /*
 Method: throttle
 
-Explanation: It creates a throttled function that invokes `fn` maximum once for a `period` of milliseconds.
+Explanation:
 
 Example:
 
@@ -6211,7 +6401,7 @@ const result = async () => {
 // `result` resolves to `1`
 ```
 
-Categories: Function
+Categories: Logic
 
 Notes:
 
@@ -6540,7 +6730,7 @@ const rules = [
   ['foo.bar', 20],
   ['q.z', 300],
 ]
-const result = R.updateObject(rules, obj)
+const result = R.updateObject(rules, Record<string, unknown>)
 
 const expected = {
   a: {b: 2},
@@ -6600,7 +6790,7 @@ const rules = [
   {op: 'add', path: 'a.d', value: 4},
   {op: 'update', path: 'a.b', value: 2},
 ]
-const result = R.applyDiff(rules, obj)
+const result = R.applyDiff(rules, Record<string, unknown>)
 const expected = {a: {b: 2, d: 4}}
 
 // => `result` is equal to `expected`
@@ -6695,7 +6885,7 @@ const obj = {a: 1, b: 2}
 
 const result = [
   R.reject((x, index) => x > 1, list)
-  R.reject((x, property) => x > 1, obj)
+  R.reject((x, property) => x > 1, Record<string, unknown>)
 ]
 // => [[1], {a: 1}]
 ```
@@ -6855,7 +7045,7 @@ const result = await Promise.all([
 // => [1, false]
 ```
 
-Categories: Async, Function
+Categories: Async, Logic
 
 Notes:
 
@@ -6925,6 +7115,152 @@ Notes:
 // @SINGLE_MARKER
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
+
+/*
+Method: modifyPath
+
+Explanation: It changes a property of object on the base of provided path and transformer function.
+
+Example:
+
+```
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+
+/*
+Method: deletePath
+
+Explanation: It removes property path from an object.
+
+Example:
+
+```
+const input = {a: 1, b:{c:2, d:3}}
+const expected = {a: 1, b:{c:2}}
+const result = R.deletePath('a.d', input)
+// => result === expected
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function deletePath<Output>(path: Path, obj: unknown): Output;
+export function deletePath<Output>(path: Path): (obj: unknown) => Output;
+
+/*
+Method: mapcat
+
+Explanation:
+
+Example:
+
+```
+const result = R.mapcat()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapcat<T>(x: T): T;
+
+/*
+Method: flattenObject
+
+Explanation: It transforms object to object where each value is represented with its path.
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function flattenObject(x: Record<string, unknown>): Record<string, unknown>;
+export function flattenObject<T>(x: Record<string, T>): Record<string, T>;
+
+/*
+Method: deletePath
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function deletePath<T>(path: string): T;
+
+/*
+Method: contains
+
+Explanation: It returns `true` if all of `target` object properties are `R.equal` to `compareTo` object.
+
+Example:
+
+```
+const result = R.contains({a:1}, {a:1, b:2})
+// => true
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function contains<T, U>(target: T, compareTo: U): boolean;
+export function contains<T, U>(target: T): (compareTo: U) => boolean;
+
+/*
+Method: partialCurry
+
+Explanation: Same as `R.partialObject`. 
+
+When `Ramda` introduced `R.partialObject`, `Rambdax` already had such method, i.e. `R.partialCurry`. So this method is kept for backward compatibility.
+
+Example:
+
+```
+```
+
+Categories: Logic, Async
+
+Notes: Function input can be asynchronous
+
+*/
+// @SINGLE_MARKER
+export function partialCurry<Input, PartialInput, Output>(
+  fn: (input: Input) => Output, 
+  partialInput: PartialInput,
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 // RAMBDAX_MARKER_END
 // ============================================

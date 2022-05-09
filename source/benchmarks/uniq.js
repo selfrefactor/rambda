@@ -18,19 +18,23 @@ const modes = [
   uniqListOfObjects(limit),
 ]
 
-function applyBenchmark(fn, input) {
+function applyBenchmark(fn, input){
   fn(input)
 }
 
 const tests = [
   {
-    label: 'Rambda',
-    fn: R.uniq,
+    label : 'Rambda',
+    fn    : R.uniq,
   },
   {
-    label: 'Ramda',
-    fn: Ramda.uniq,
+    label : 'Ramda',
+    fn    : Ramda.uniq,
   },
 ]
 
-module.exports = {tests, modes, applyBenchmark}
+module.exports = {
+  tests,
+  modes,
+  applyBenchmark,
+}

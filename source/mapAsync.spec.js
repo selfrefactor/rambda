@@ -1,7 +1,7 @@
-import {composeAsync} from './composeAsync'
-import {delay} from './delay'
-import {map} from './map'
-import {mapAsync} from './mapAsync'
+import { composeAsync } from './composeAsync.js'
+import { delay } from './delay.js'
+import { map } from './map.js'
+import { mapAsync } from './mapAsync.js'
 
 const rejectDelay = a =>
   new Promise((_, reject) => {
@@ -17,8 +17,8 @@ test('happy', async () => {
 
     return x + 1
   }
-  const result = await mapAsync(fn, [1, 2, 3])
-  expect(result).toEqual([2, 3, 4])
+  const result = await mapAsync(fn, [ 1, 2, 3 ])
+  expect(result).toEqual([ 2, 3, 4 ])
 })
 
 test('with object', async () => {
@@ -28,12 +28,12 @@ test('with object', async () => {
     return x + 1
   }
   const result = await mapAsync(fn, {
-    a: 1,
-    b: 2,
+    a : 1,
+    b : 2,
   })
   expect(result).toEqual({
-    a: 2,
-    b: 3,
+    a : 2,
+    b : 3,
   })
 })
 
@@ -46,14 +46,14 @@ test('with R.composeAsync', async () => {
       return x
     }),
     map(x => x * 10)
-  )([1, 2, 3])
-  expect(result).toEqual([11, 21, 31])
+  )([ 1, 2, 3 ])
+  expect(result).toEqual([ 11, 21, 31 ])
 })
 
 test('error', async () => {
   try {
-    await mapAsync(rejectDelay)([1, 2, 3])
-  } catch (err) {
+    await mapAsync(rejectDelay)([ 1, 2, 3 ])
+  } catch (err){
     expect(err).toBe(21)
   }
 })

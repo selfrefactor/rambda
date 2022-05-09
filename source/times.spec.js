@@ -1,12 +1,12 @@
 import assert from 'assert'
 
-import {identity} from './identity'
-import {times} from './times'
+import { identity } from './identity.js'
+import { times } from './times.js'
 
 test('happy', () => {
   const result = times(identity, 5)
 
-  expect(result).toEqual([0, 1, 2, 3, 4])
+  expect(result).toEqual([ 0, 1, 2, 3, 4 ])
 })
 
 test('with bad input', () => {
@@ -21,5 +21,5 @@ test('with bad input', () => {
 test('curry', () => {
   const result = times(identity)(5)
 
-  expect(result).toEqual([0, 1, 2, 3, 4])
+  expect(result).toEqual([ 0, 1, 2, 3, 4 ])
 })

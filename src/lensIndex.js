@@ -1,7 +1,7 @@
-import {lens} from './lens'
-import {nth} from './nth'
-import {update} from './update'
+import { lens } from './lens.js'
+import { nth } from './nth.js'
+import { update } from './update.js'
 
-export function lensIndex(index) {
+export function lensIndex(index){
   return lens(nth(index), update(index))
 }

@@ -1,4 +1,4 @@
-import {complement} from './complement'
+import {complement} from './complement.js'
 
 test('happy', () => {
   const fn = complement(x => x.length === 0)
@@ -11,6 +11,6 @@ test('with multiple parameters', () => {
     return a < b && b < c
   }
   const f = complement(between)
-  expect(f(4, 5, 11)).toEqual(false)
-  expect(f(12, 2, 6)).toEqual(true)
+  expect(f(4, 5, 11)).toBeFalse()
+  expect(f(12, 2, 6)).toBeTrue()
 })

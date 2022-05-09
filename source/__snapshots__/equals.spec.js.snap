@@ -1,24 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brute force Function | Function 1`] = `
+exports[`brute force ArrayBuffer | ArrayBuffer 1`] = `
 Object {
-  "error": Object {
-    "message": "Function.prototype.toString requires that 'this' be a Function",
-    "type": "TypeError",
-  },
+  "error": "PENDING",
   "inputs": Array [
-    [Function],
-    [Function],
+    ArrayBuffer [],
+    ArrayBuffer [],
   ],
-  "label": "Rambda should not throw",
+  "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": true,
-  "result": "PENDING",
+  "result": false,
 }
 `;
 
-exports[`brute force Number | Number 1`] = `
+exports[`brute force BigInt | BigInt 1`] = `
 Object {
   "error": Object {
     "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
@@ -36,41 +33,7 @@ Object {
 }
 `;
 
-exports[`brute force Object | Object 1`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    Map {
-      "foo" => "bar",
-    },
-    Map {
-      "foo" => "bar",
-    },
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": true,
-  "result": false,
-}
-`;
-
-exports[`brute force Object | Object 2`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    ArrayBuffer [],
-    ArrayBuffer [],
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": true,
-  "result": false,
-}
-`;
-
-exports[`brute force Object | Object 3`] = `
+exports[`brute force DataView | DataView 1`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
@@ -85,7 +48,25 @@ Object {
 }
 `;
 
-exports[`brute force Object | Object 4`] = `
+exports[`brute force GeneratorFunction | GeneratorFunction 1`] = `
+Object {
+  "error": Object {
+    "message": "Function.prototype.toString requires that 'this' be a Function",
+    "type": "TypeError",
+  },
+  "inputs": Array [
+    [Function],
+    [Function],
+  ],
+  "label": "Rambda should not throw",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": "PENDING",
+}
+`;
+
+exports[`brute force Int16Array | Int16Array 1`] = `
 Object {
   "error": Object {
     "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
@@ -109,27 +90,16 @@ Object {
 }
 `;
 
-exports[`brute force Object | Object 5`] = `
+exports[`brute force Map | Map 1`] = `
 Object {
   "error": "PENDING",
   "inputs": Array [
-    WeakMap {},
-    WeakMap {},
-  ],
-  "label": "results are different",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": true,
-  "result": false,
-}
-`;
-
-exports[`brute force Object | Object 6`] = `
-Object {
-  "error": "PENDING",
-  "inputs": Array [
-    WeakSet {},
-    WeakSet {},
+    Map {
+      "foo" => "bar",
+    },
+    Map {
+      "foo" => "bar",
+    },
   ],
   "label": "results are different",
   "ok": false,
@@ -154,5 +124,35 @@ Object {
   "ramdaError": "PENDING",
   "ramdaResult": true,
   "result": "PENDING",
+}
+`;
+
+exports[`brute force WeakMap | WeakMap 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakMap {},
+    WeakMap {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
+}
+`;
+
+exports[`brute force WeakSet | WeakSet 1`] = `
+Object {
+  "error": "PENDING",
+  "inputs": Array [
+    WeakSet {},
+    WeakSet {},
+  ],
+  "label": "results are different",
+  "ok": false,
+  "ramdaError": "PENDING",
+  "ramdaResult": true,
+  "result": false,
 }
 `;

@@ -1,6 +1,6 @@
-import {forEachIndexed} from './forEachIndexed'
+import { forEachIndexed } from './forEachIndexed.js'
 
-const list = [1, 2, 3]
+const list = [ 1, 2, 3 ]
 const iterator = (x, i) => {
   expect(x).toBeNumber()
   expect(i).toBeNumber()

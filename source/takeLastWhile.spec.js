@@ -1,12 +1,12 @@
-import {takeLastWhile} from './takeLastWhile'
+import { takeLastWhile } from './takeLastWhile.js'
 const assert = require('assert')
 
-const list = [1, 2, 3, 4]
+const list = [ 1, 2, 3, 4 ]
 
 test('happy', () => {
   const predicate = x => x > 2
   const result = takeLastWhile(predicate, list)
-  expect(result).toEqual([3, 4])
+  expect(result).toEqual([ 3, 4 ])
 })
 
 test('predicate is always true', () => {

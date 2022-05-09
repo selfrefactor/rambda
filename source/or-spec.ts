@@ -7,6 +7,6 @@ describe('R.or', () => {
   })
   it('curried', () => {
     const result = or(1)('foo')
-    result // $ExpectType number | "foo"
+    result // $ExpectType 1 | "foo"
   })
 })

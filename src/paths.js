@@ -1,7 +1,7 @@
-import {path} from './path'
+import { path } from './path.js'
 
-export function paths(pathsToSearch, obj) {
-  if (arguments.length === 1) {
+export function paths(pathsToSearch, obj){
+  if (arguments.length === 1){
     return _obj => paths(pathsToSearch, _obj)
   }
 

@@ -1,4 +1,4 @@
-import {modulo} from './modulo'
+import { modulo } from './modulo.js'
 
 test('happy', () => {
   expect(modulo(17, 3)).toEqual(2)

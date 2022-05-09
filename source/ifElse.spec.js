@@ -1,8 +1,8 @@
-import {always} from './always'
-import {has} from './has'
-import {identity} from './identity'
-import {ifElse} from './ifElse'
-import {prop} from './prop'
+import {always} from './always.js'
+import {has} from './has.js'
+import {identity} from './identity.js'
+import {ifElse} from './ifElse.js'
+import {prop} from './prop.js'
 
 const condition = has('foo')
 const v = function (a) {
@@ -18,7 +18,7 @@ test('happy', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({foo: 'bar'})).toEqual(3)
-  expect(fn({fo: 'bar'})).toEqual(false)
+  expect(fn({fo: 'bar'})).toBeFalse()
 })
 
 test('ramda spec', () => {
@@ -44,27 +44,27 @@ test('pass all arguments', () => {
 test('accept constant as condition', () => {
   const fn = ifElse(true)(always(true))(always(false))
 
-  expect(fn()).toEqual(true)
+  expect(fn()).toBeTrue()
 })
 
 test('accept constant as condition - case 2', () => {
   const fn = ifElse(false, always(true), always(false))
 
-  expect(fn()).toEqual(false)
+  expect(fn()).toBeFalse()
 })
 
 test('curry 1', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({foo: 'bar'})).toEqual(3)
-  expect(fn({fo: 'bar'})).toEqual(false)
+  expect(fn({fo: 'bar'})).toBeFalse()
 })
 
 test('curry 2', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({foo: 'bar'})).toEqual(3)
-  expect(fn({fo: 'bar'})).toEqual(false)
+  expect(fn({fo: 'bar'})).toBeFalse()
 })
 
 test('simple arity of 1', () => {

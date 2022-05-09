@@ -1,4 +1,4 @@
-import {multiply} from './multiply'
+import { multiply } from './multiply.js'
 
 test('happy', () => {
   expect(multiply(2, 4)).toEqual(8)

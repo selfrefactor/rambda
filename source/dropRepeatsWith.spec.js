@@ -1,60 +1,72 @@
-import {dropRepeatsWith as dropRepeatsWithRamda, eqProps} from 'ramda'
+import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from 'ramda'
 
-import {compareCombinations} from './_internals/testUtils'
-import {dropRepeatsWith} from './dropRepeatsWith'
-import {path} from './path'
-import {prop} from './prop'
+import { compareCombinations } from './_internals/testUtils.js'
+import { dropRepeatsWith } from './dropRepeatsWith.js'
+import { path } from './path.js'
+import { prop } from './prop.js'
 
 const eqI = eqProps('i')
 
 test('happy', () => {
-  const list = [{i: 1}, {i: 2}, {i: 2}, {i: 3}]
-  const expected = [{i: 1}, {i: 2}, {i: 3}]
+  const list = [ { i : 1 }, { i : 2 }, { i : 2 }, { i : 3 } ]
+  const expected = [ { i : 1 }, { i : 2 }, { i : 3 } ]
   const result = dropRepeatsWith(eqI, list)
   expect(result).toEqual(expected)
 })
 
 test('readme example', () => {
   const list = [
-    {a: 1, b: 2},
-    {a: 1, b: 3},
-    {a: 2, b: 4},
+    {
+      a : 1,
+      b : 2,
+    },
+    {
+      a : 1,
+      b : 3,
+    },
+    {
+      a : 2,
+      b : 4,
+    },
   ]
   const result = dropRepeatsWith(prop('a'), list)
-  expect(result).toEqual([{a: 1, b: 2}])
+  expect(result).toEqual([ {
+    a : 1,
+    b : 2,
+  } ])
 })
 
 test('keeps elements from the left predicate input', () => {
   const list = [
     {
-      i: 1,
-      n: 1,
+      i : 1,
+      n : 1,
     },
     {
-      i: 1,
-      n: 2,
+      i : 1,
+      n : 2,
     },
     {
-      i: 1,
-      n: 3,
+      i : 1,
+      n : 3,
     },
     {
-      i: 4,
-      n: 1,
+      i : 4,
+      n : 1,
     },
     {
-      i: 4,
-      n: 2,
+      i : 4,
+      n : 2,
     },
   ]
   const expected = [
     {
-      i: 1,
-      n: 1,
+      i : 1,
+      n : 1,
     },
     {
-      i: 4,
-      n: 1,
+      i : 4,
+      n : 1,
     },
   ]
   const result = dropRepeatsWith(eqI)(list)
@@ -68,22 +80,22 @@ const possiblePredicates = [
   x => true,
   x => false,
   x => '',
-  path(['a', 'b']),
+  path([ 'a', 'b' ]),
 ]
 const possibleLists = [
   null,
   undefined,
   [],
-  [1],
-  [{a: {b: 1}}, {a: {b: 1}}],
-  [/foo/g, /foo/g],
+  [ 1 ],
+  [ { a : { b : 1 } }, { a : { b : 1 } } ],
+  [ /foo/g, /foo/g ],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput: possiblePredicates,
-    secondInput: possibleLists,
-    callback: errorsCounters => {
+    firstInput  : possiblePredicates,
+    secondInput : possibleLists,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 4,
@@ -95,7 +107,7 @@ describe('brute force', () => {
         }
       `)
     },
-    fn: dropRepeatsWith,
-    fnRamda: dropRepeatsWithRamda,
+    fn      : dropRepeatsWith,
+    fnRamda : dropRepeatsWithRamda,
   })
 })

@@ -1,19 +1,19 @@
-import {props} from './props'
+import { props } from './props.js'
 
 const obj = {
-  a: 1,
-  b: 2,
+  a : 1,
+  b : 2,
 }
-const propsToPick = ['a', 'c']
+const propsToPick = [ 'a', 'c' ]
 
 test('happy', () => {
   const result = props(propsToPick, obj)
-  expect(result).toEqual([1, undefined])
+  expect(result).toEqual([ 1, undefined ])
 })
 
 test('curried', () => {
   const result = props(propsToPick)(obj)
-  expect(result).toEqual([1, undefined])
+  expect(result).toEqual([ 1, undefined ])
 })
 
 test('wrong input', () => {

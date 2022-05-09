@@ -11,13 +11,11 @@ function add(a, b) {
   return Number(a) + Number(b);
 }
 
+const cloneList = list => Array.prototype.slice.call(list);
+
 function curry(fn, args = []) {
   return (..._args) => (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
 }
-
-const cloneList = list => {
-  return Array.prototype.slice.call(list);
-};
 
 function adjustFn(index, replaceFn, list) {
   const actualIndex = index < 0 ? list.length + index : index;
@@ -56,7 +54,7 @@ function allPass(predicates) {
 }
 
 function always(x) {
-  return () => x;
+  return _ => x;
 }
 
 function and(a, b) {
@@ -257,11 +255,11 @@ function _curryN(n, cache, fn) {
     }
 
     const remaining = n - args.length;
-    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+    return args.length >= n ? fn.apply(this, args) : _arity$1(remaining, _curryN(n, args, fn));
   };
 }
 
-function _arity(n, fn) {
+function _arity$1(n, fn) {
   switch (n) {
     case 0:
       return function () {
@@ -327,7 +325,7 @@ function curryN(n, fn) {
     throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
   }
 
-  return _arity(n, _curryN(n, [], fn));
+  return _arity$1(n, _curryN(n, [], fn));
 }
 
 function bind(fn, thisObj) {
@@ -379,25 +377,105 @@ function complement(fn) {
   return (...input) => !fn(...input);
 }
 
-function compose(...fns) {
-  if (fns.length === 0) {
+const _keys = Object.keys;
+
+function reduceFn(reducer, acc, list) {
+  if (!_isArray(list)) {
+    throw new TypeError('reduce: list must be array or iterable');
+  }
+
+  let index = 0;
+  const len = list.length;
+
+  while (index < len) {
+    acc = reducer(acc, list[index], index, list);
+    index++;
+  }
+
+  return acc;
+}
+const reduce = curry(reduceFn);
+
+function _arity(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments);
+      };
+
+    case 1:
+      return function (a0) {
+        return fn.apply(this, arguments);
+      };
+
+    case 2:
+      return function (a0, a1) {
+        return fn.apply(this, arguments);
+      };
+
+    case 3:
+      return function (a0, a1, a2) {
+        return fn.apply(this, arguments);
+      };
+
+    case 4:
+      return function (a0, a1, a2, a3) {
+        return fn.apply(this, arguments);
+      };
+
+    case 5:
+      return function (a0, a1, a2, a3, a4) {
+        return fn.apply(this, arguments);
+      };
+
+    case 6:
+      return function (a0, a1, a2, a3, a4, a5) {
+        return fn.apply(this, arguments);
+      };
+
+    case 7:
+      return function (a0, a1, a2, a3, a4, a5, a6) {
+        return fn.apply(this, arguments);
+      };
+
+    case 8:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7) {
+        return fn.apply(this, arguments);
+      };
+
+    case 9:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
+        return fn.apply(this, arguments);
+      };
+
+    case 10:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+        return fn.apply(this, arguments);
+      };
+
+    default:
+      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+}
+function _pipe(f, g) {
+  return function () {
+    return g.call(this, f.apply(this, arguments));
+  };
+}
+function pipe() {
+  if (arguments.length === 0) {
+    throw new Error('pipe requires at least one argument');
+  }
+
+  return _arity(arguments[0].length, reduceFn(_pipe, arguments[0], Array.prototype.slice.call(arguments, 1, Infinity)));
+}
+
+function compose() {
+  if (arguments.length === 0) {
     throw new Error('compose requires at least one argument');
   }
 
-  return function (...args) {
-    const list = fns.slice();
-
-    if (list.length > 0) {
-      const fn = list.pop();
-      let result = fn.apply(this, args);
-
-      while (list.length > 0) {
-        result = list.pop()(result);
-      }
-
-      return result;
-    }
-  };
+  return pipe.apply(this, Array.prototype.slice.call(arguments, 0).reverse());
 }
 
 function concat(x, y) {
@@ -418,8 +496,6 @@ function cond(conditions) {
     return toReturn;
   };
 }
-
-const _keys = Object.keys;
 
 function mapArray(fn, list, isIndexed = false) {
   let index = 0;
@@ -465,30 +541,39 @@ function max(x, y) {
   return y > x ? y : x;
 }
 
-function reduceFn(reducer, acc, list) {
-  if (!_isArray(list)) {
-    throw new TypeError('reduce: list must be array or iterable');
-  }
-
-  let index = 0;
-  const len = list.length;
-
-  while (index < len) {
-    acc = reducer(acc, list[index], index, list);
-    index++;
-  }
-
-  return acc;
-}
-
-const reduce = curry(reduceFn);
-
 function converge(fn, transformers) {
   if (arguments.length === 1) return _transformers => converge(fn, _transformers);
   const highestArity = reduce((a, b) => max(a, b.length), 0, transformers);
   return curryN(highestArity, function () {
     return fn.apply(this, map(g => g.apply(this, arguments), transformers));
   });
+}
+
+function count(predicate, list) {
+  if (arguments.length === 1) {
+    return _list => count(predicate, _list);
+  }
+
+  if (!_isArray(list)) return 0;
+  return list.filter(x => predicate(x)).length;
+}
+
+function countBy(fn, list) {
+  if (arguments.length === 1) {
+    return _list => countBy(fn, _list);
+  }
+
+  const willReturn = {};
+  list.forEach(item => {
+    const key = fn(item);
+
+    if (!willReturn[key]) {
+      willReturn[key] = 1;
+    } else {
+      willReturn[key]++;
+    }
+  });
+  return willReturn;
 }
 
 const dec = x => x - 1;
@@ -515,7 +600,7 @@ function type(input) {
   }
 
   const typeResult = Object.prototype.toString.call(input).slice(8, -1);
-  return typeResult === 'AsyncFunction' ? 'Async' : typeResult;
+  return typeResult === 'AsyncFunction' ? 'Promise' : typeResult;
 }
 
 function _lastIndexOf(valueToFind, list) {
@@ -1109,7 +1194,7 @@ function flipFn(fn) {
       return fn(input[1], input[0], input[2], input[3]);
     }
 
-    throw new Error("R.flip doesn't work with arity > 4");
+    throw new Error('R.flip doesn\'t work with arity > 4');
   };
 }
 
@@ -1212,6 +1297,10 @@ function has(prop, obj) {
   return obj.hasOwnProperty(prop);
 }
 
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string' ? path.split(delimiter) : path;
+}
+
 function path(pathInput, obj) {
   if (arguments.length === 1) return _obj => path(pathInput, _obj);
 
@@ -1221,7 +1310,7 @@ function path(pathInput, obj) {
 
   let willReturn = obj;
   let counter = 0;
-  const pathArrValue = typeof pathInput === 'string' ? pathInput.split('.') : pathInput;
+  const pathArrValue = createPath(pathInput);
 
   while (counter < pathArrValue.length) {
     if (willReturn === null || willReturn === undefined) {
@@ -1400,6 +1489,10 @@ function join(glue, list) {
   return list.join(glue);
 }
 
+function juxt(listOfFunctions) {
+  return (...args) => listOfFunctions.map(fn => fn(...args));
+}
+
 function keys(x) {
   return Object.keys(x);
 }
@@ -1434,10 +1527,10 @@ function lens(getter, setter) {
   };
 }
 
-function nth(index, list) {
-  if (arguments.length === 1) return _list => nth(index, _list);
-  const idx = index < 0 ? list.length + index : index;
-  return Object.prototype.toString.call(list) === '[object String]' ? list.charAt(idx) : list[idx];
+function nth(index, input) {
+  if (arguments.length === 1) return _input => nth(index, _input);
+  const idx = index < 0 ? input.length + index : index;
+  return Object.prototype.toString.call(input) === '[object String]' ? input.charAt(idx) : input[idx];
 }
 
 function updateFn(index, newValue, list) {
@@ -1496,15 +1589,15 @@ function median(list) {
   }).slice(idx, idx + width));
 }
 
-function merge(target, newProps) {
-  if (arguments.length === 1) return _newProps => merge(target, _newProps);
+function mergeRight(target, newProps) {
+  if (arguments.length === 1) return _newProps => mergeRight(target, _newProps);
   return Object.assign({}, target || {}, newProps || {});
 }
 
 function mergeAll(arr) {
   let willReturn = {};
   map(val => {
-    willReturn = merge(willReturn, val);
+    willReturn = mergeRight(willReturn, val);
   }, arr);
   return willReturn;
 }
@@ -1531,8 +1624,31 @@ function mergeDeepRight(target, source) {
 
 function mergeLeft(x, y) {
   if (arguments.length === 1) return _y => mergeLeft(x, _y);
-  return merge(y, x);
+  return mergeRight(y, x);
 }
+
+function mergeWithFn(mergeFn, a, b) {
+  const willReturn = {};
+  Object.keys(a).forEach(key => {
+    if (b[key] === undefined) {
+      willReturn[key] = a[key];
+    } else {
+      willReturn[key] = mergeFn(a[key], b[key]);
+    }
+  });
+  Object.keys(b).forEach(key => {
+    if (willReturn[key] !== undefined) return;
+
+    if (a[key] === undefined) {
+      willReturn[key] = b[key];
+    } else {
+      willReturn[key] = mergeFn(a[key], b[key]);
+    }
+  });
+  return willReturn;
+}
+
+const mergeWith = curry(mergeWithFn);
 
 function min(x, y) {
   if (arguments.length === 1) return _y => min(x, _y);
@@ -1607,7 +1723,7 @@ function omit(propsToOmit, obj) {
     return undefined;
   }
 
-  const propsToOmitValue = typeof propsToOmit === 'string' ? propsToOmit.split(',') : propsToOmit;
+  const propsToOmitValue = createPath(propsToOmit, ',');
   const willReturn = {};
 
   for (const key in obj) {
@@ -1617,6 +1733,18 @@ function omit(propsToOmit, obj) {
   }
 
   return willReturn;
+}
+
+function on(binaryFn, unaryFn, a, b) {
+  if (arguments.length === 3) {
+    return _b => on(binaryFn, unaryFn, a, _b);
+  }
+
+  if (arguments.length === 2) {
+    return (_a, _b) => on(binaryFn, unaryFn, _a, _b);
+  }
+
+  return binaryFn(unaryFn(a), unaryFn(b));
 }
 
 function onceFn(fn, context) {
@@ -1664,6 +1792,18 @@ function partial(fn, ...args) {
     }
 
     return partial(fn, ...[...args, ...rest]);
+  };
+}
+
+function partialObject(fn, input) {
+  return rest => {
+    if (type(fn) === 'Async') {
+      return new Promise((resolve, reject) => {
+        fn(mergeDeepRight(rest, input)).then(resolve).catch(reject);
+      });
+    }
+
+    return fn(mergeDeepRight(rest, input));
   };
 }
 
@@ -1730,7 +1870,7 @@ function pick(propsToPick, input) {
     return undefined;
   }
 
-  const keys = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick;
+  const keys = createPath(propsToPick, ',');
   const willReturn = {};
   let counter = 0;
 
@@ -1752,7 +1892,7 @@ function pickAll(propsToPick, obj) {
     return undefined;
   }
 
-  const keysValue = typeof propsToPick === 'string' ? propsToPick.split(',') : propsToPick;
+  const keysValue = createPath(propsToPick, ',');
   const willReturn = {};
   let counter = 0;
 
@@ -1767,24 +1907,6 @@ function pickAll(propsToPick, obj) {
   }
 
   return willReturn;
-}
-
-function pipe(...fns) {
-  if (fns.length === 0) throw new Error('pipe requires at least one argument');
-  return (...args) => {
-    const list = fns.slice();
-
-    if (list.length > 0) {
-      const fn = list.shift();
-      let result = fn(...args);
-
-      while (list.length > 0) {
-        result = list.shift()(result);
-      }
-
-      return result;
-    }
-  };
 }
 
 function pluck(property, list) {
@@ -1825,6 +1947,12 @@ function propOrFn(defaultValue, property, obj) {
 }
 
 const propOr = curry(propOrFn);
+
+function propSatisfiesFn(predicate, property, obj) {
+  return predicate(prop(property, obj));
+}
+
+const propSatisfies = curry(propSatisfiesFn);
 
 function props(propsToPick, obj) {
   if (arguments.length === 1) {
@@ -2131,9 +2259,7 @@ function trim(str) {
   return str.trim();
 }
 
-function isFunction(fn) {
-  return ['Async', 'Function'].includes(type(fn));
-}
+const isFunction = x => ['Promise', 'Function'].includes(type(x));
 
 function tryCatch(fn, fallback) {
   if (!isFunction(fn)) {
@@ -2204,6 +2330,58 @@ function unless(predicate, whenFalse) {
   return input => predicate(input) ? input : whenFalse(input);
 }
 
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function unwind(property, obj) {
+  if (arguments.length === 1) {
+    return _obj => unwind(property, _obj);
+  }
+
+  if (!_isArray(obj[property])) return [obj];
+  return mapArray(x => _objectSpread2(_objectSpread2({}, obj), {}, {
+    [property]: x
+  }), obj[property]);
+}
+
 function values(obj) {
   if (type(obj) !== 'Object') return [];
   return Object.values(obj);
@@ -2242,6 +2420,20 @@ function where(conditions, input) {
   }
 
   return flag;
+}
+
+function whereAny(conditions, input) {
+  if (input === undefined) {
+    return _input => whereAny(conditions, _input);
+  }
+
+  for (const prop in conditions) {
+    if (conditions[prop](input[prop])) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function whereEq(condition, input) {
@@ -2292,4 +2484,4 @@ function zipWithFn(fn, x, y) {
 
 const zipWith = curry(zipWithFn);
 
-export { F, T, _indexOf, _lastIndexOf, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, merge, mergeAll, mergeDeepRight, mergeLeft, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, once, or, over, partial, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, props, range, reduce, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqWith, unless, update, values, view, when, where, whereEq, without, xor, zip, zipObj, zipWith };
+export { F, T, __findHighestArity, _arity, _indexOf, _lastIndexOf, _pipe, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, count, countBy, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, juxt, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, mergeRight as merge, mergeAll, mergeDeepRight, mergeLeft, mergeRight, mergeWith, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, on, once, or, over, partial, partialObject, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, propSatisfies, props, range, reduce, reduceFn, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqWith, unless, unwind, update, values, view, when, where, whereAny, whereEq, without, xor, zip, zipObj, zipWith };

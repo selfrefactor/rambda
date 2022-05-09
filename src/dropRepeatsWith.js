@@ -1,23 +1,23 @@
-import {_isArray} from './_internals/_isArray'
+import { _isArray } from './_internals/_isArray.js'
 
-export function dropRepeatsWith(predicate, list) {
-  if (arguments.length === 1) {
+export function dropRepeatsWith(predicate, list){
+  if (arguments.length === 1){
     return _iterable => dropRepeatsWith(predicate, _iterable)
   }
 
-  if (!_isArray(list)) {
-    throw new Error(`${list} is not a list`)
+  if (!_isArray(list)){
+    throw new Error(`${ list } is not a list`)
   }
 
   const toReturn = []
 
   list.reduce((prev, current) => {
-    if (prev === undefined) {
+    if (prev === undefined){
       toReturn.push(current)
 
       return current
     }
-    if (!predicate(prev, current)) {
+    if (!predicate(prev, current)){
       toReturn.push(current)
     }
 

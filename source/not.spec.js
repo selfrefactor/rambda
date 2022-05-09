@@ -1,8 +1,8 @@
-import {not} from './not'
+import {not} from './not.js'
 
 test('not', () => {
-  expect(not(false)).toEqual(true)
-  expect(not(true)).toEqual(false)
-  expect(not(0)).toEqual(true)
-  expect(not(1)).toEqual(false)
+  expect(not(false)).toBeTrue()
+  expect(not(true)).toBeFalse()
+  expect(not(0)).toBeTrue()
+  expect(not(1)).toBeFalse()
 })

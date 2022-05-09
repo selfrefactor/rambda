@@ -1,11 +1,11 @@
-import {equals} from './equals.js'
-import {_isArray} from './_internals/_isArray.js'
+import { _isArray } from './_internals/_isArray.js'
+import { equals } from './equals.js'
 
-export function startsWith(target, iterable) {
+export function startsWith(target, iterable){
   if (arguments.length === 1)
     return _iterable => startsWith(target, _iterable)
 
-  if (typeof iterable === 'string') {
+  if (typeof iterable === 'string'){
     return iterable.startsWith(target)
   }
   if (!_isArray(target)) return false
@@ -13,8 +13,9 @@ export function startsWith(target, iterable) {
   let correct = true
   const filtered = target.filter((x, index) => {
     if (!correct) return false
-    const result = equals(x, iterable[index])
+    const result = equals(x, iterable[ index ])
     if (!result) correct = false
+
     return result
   })
 
