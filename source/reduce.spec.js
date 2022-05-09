@@ -32,3 +32,25 @@ test('with undefined as iterable', () => {
     reducer, 0, null
   )).toThrowWithMessage(TypeError, ERROR)
 })
+
+describe('reduced', () => {
+  test('without reduced (baseline)', () => {
+    let maxIndex
+    const reducer = (prev, current, i) => {
+      maxIndex = i
+      return current === 2 ? current : prev
+    }
+    expect(reduce(reducer, initialValue, list)).toEqual(2)
+    expect(maxIndex).toEqual(2) // did not stop early
+  })
+
+  test('with reduced', () => {
+    let maxIndex
+    const reducer = (prev, current, i) => {
+      maxIndex = i
+      return current === 2 ? reduced(current) : prev
+    }
+    expect(reduce(reducer, initialValue, list)).toEqual(2)
+    expect(maxIndex).toEqual(1) // stopped early
+  })
+})
