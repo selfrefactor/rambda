@@ -1,0 +1,21 @@
+---
+name: Bug report
+about: Issue is found
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+---
+name: Bug report
+about: Issue is found
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+**Describe the bug**
+
+**To Reproduce(steps or system information such as Node.js version and OS)**
