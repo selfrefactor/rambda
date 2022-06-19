@@ -72,6 +72,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
 
+type AnyFunction = (...args: any[]) => unknown;
+type AnyConstructor = new (...args: any[]) => unknown;
+
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
