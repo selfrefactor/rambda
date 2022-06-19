@@ -5939,8 +5939,8 @@ const fn = (a,b) =>{
   return a + b
 }
 const memoized = R.memoizeWith(keyGen, fn)
-memoizeWith(1, 2)
-memoizeWith(1, 2)
+memoized(1, 2)
+memoized(1, 2)
 
 // => `result` is equal to `1`
 ```
