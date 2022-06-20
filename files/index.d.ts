@@ -395,12 +395,12 @@ Notes: The currying in this function works best with functions with 4 arguments 
 
 */
 // @SINGLE_MARKER
-export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+export function applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: any[]) => T;
+export function applySpec<T>(spec: any): (...args: unknown[]) => T;
 
 /*
 Method: assoc
@@ -774,7 +774,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry(fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curry(fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: curryN
@@ -793,7 +793,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curryN(length: number, fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: dec
@@ -2666,7 +2666,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once<T extends (...args: any[]) => any>(func: T): T;
+export function once<T extends AnyFunction>(func: T): T;
 
 /*
 Method: omit
@@ -3266,15 +3266,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-export function propIs<C extends new (...args: any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
@@ -4898,8 +4898,8 @@ Notes: R.bind does not provide the additional argument-binding capabilities of `
 
 */
 // @SINGLE_MARKER
-export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
-export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /*
 Method: mergeWith
