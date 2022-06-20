@@ -5927,6 +5927,36 @@ Notes:
 export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
+Method: memoizeWith
+
+Explanation: Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
+
+Example:
+
+```
+const keyGen = (a,b) => a + b
+let result = 0
+const fn = (a,b) =>{
+  result++
+
+  return a + b
+}
+const memoized = R.memoizeWith(keyGen, fn)
+memoized(1, 2)
+memoized(1, 2)
+
+// => `result` is equal to `1`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function memoizeWith<T, K extends any[]>(keyGen: any, fn: (...inputs: K) => T): (...inputs: K) => T;
+
+/*
 Method: nextIndex
 
 Explanation: It returns the next index of the list.
