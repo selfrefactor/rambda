@@ -5130,7 +5130,8 @@ Explanation:
 Example:
 
 ```
-const result = R.uniqBy()
+const result = R.uniqBy(Math.abs, [ -2, -1, 0, 1, 2 ])
+
 // => 
 ```
 
@@ -5140,7 +5141,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqBy<T>(x: T): T;
+export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
+export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
 // RAMBDAX_MARKER_START
 
