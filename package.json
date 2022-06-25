@@ -16,6 +16,7 @@
 		"lint:all": "cd ../rambda-scripts && yarn lint",
 		"lint:staged": "cd ../rambda-scripts && yarn lint:staged",
 		"lint": "yarn git:add && yarn lint:staged && yarn git:add",
+		"d": "yarn lint && run d",
 		"git:add": "git add -A",
 		"build": "yarn build:main && yarn build:web",
 		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
