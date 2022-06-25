@@ -5117,6 +5117,26 @@ export function partialObject<Input, PartialInput, Output>(
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
+/*
+Method: uniqBy
+
+Explanation:
+
+Example:
+
+```
+const result = R.uniqBy()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function uniqBy<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
