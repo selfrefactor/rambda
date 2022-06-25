@@ -19,4 +19,23 @@ describe('R.ifElse', () => {
     const result = fn(3, 'hello')
     result // $ExpectType string
   })
+  test('DefinitelyTyped#59291', () => {
+    const getLengthIfStringElseDouble = ifElse(
+      (a: string | number): a is string => true,
+      a => a.length,
+      a => a * 2
+    )
+
+    getLengthIfStringElseDouble('foo') // $ExpectType number
+    getLengthIfStringElseDouble(3) // $ExpectType number
+    const result = ifElse(
+      (a: {
+        foo?: string,
+        bar: number | string,
+      }): a is {foo: string, bar: string} => true,
+      (a): [string, string] => [a.foo, a.bar],
+      (a): [string | undefined, string | number] => [a.foo, a.bar]
+    )
+    result // $ExpectType (a: { foo?: string | undefined; bar: string | number; }) => [string, string] | [string | undefined, string | number]
+  })
 })
