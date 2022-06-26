@@ -1,4 +1,4 @@
-import {or} from 'ramda'
+import {or} from 'rambda'
 
 describe('R.or', () => {
   it('happy', () => {
@@ -7,10 +7,10 @@ describe('R.or', () => {
   })
   it('with falsy value as first input', () => {
     const result = or('', false)
-    result // $ExpectType boolean
+    result // $ExpectType false | ""
   })
   it('curried', () => {
     const result = or(1)('foo')
-    result // $ExpectType 1 | "foo"
+    result // $ExpectType number | "foo"
   })
 })
