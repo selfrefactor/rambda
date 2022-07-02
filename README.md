@@ -98,8 +98,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 **Rambda** is generally more performant than `Ramda` as the [benchmarks](#-benchmarks) can prove that.
 
-### Deno
-
 ### Support
 
 As the library is smaller than Ramda, issues are much faster resolved.
@@ -112,7 +110,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 80 Ramda methods not implemented in Rambda 
+  Click to see the full list of 78 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -157,7 +155,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - mergeDeepWithKey
 - mergeWithKey
 - modify
-- modifyPath
 - nAry
 - nthArg
 - o
@@ -187,7 +184,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - uncurryN
 - unfold
 - unionWith
-- uniqBy
 - unnest
 - until
 - useWith
@@ -1522,7 +1518,7 @@ describe('R.apply', () => {
 
 ```typescript
 
-applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
@@ -1534,12 +1530,12 @@ applySpec<Spec extends Record<string, (...args: any[]) => any>>(
 <summary>All Typescript definitions</summary>
 
 ```typescript
-applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-applySpec<T>(spec: any): (...args: any[]) => T;
+applySpec<T>(spec: any): (...args: unknown[]) => T;
 ```
 
 </details>
@@ -2494,7 +2490,7 @@ describe('R.assocPath - curried', () => {
 
 ```typescript
 
-bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>
+bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>
 ```
 
 Creates a function that is bound to a context.
@@ -2504,8 +2500,8 @@ Creates a function that is bound to a context.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
-bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 ```
 
 </details>
@@ -6461,7 +6457,11 @@ describe('R.identity', () => {
 
 ```typescript
 
-ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult
+ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+  pred: (a: T) => a is TFiltered,
+  onTrue: (a: TFiltered) => TOnTrueResult,
+  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult
 ```
 
 It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. 
@@ -6473,6 +6473,11 @@ When `fn`` is called with `input` argument, it will return either `onTrue(input)
 <summary>All Typescript definitions</summary>
 
 ```typescript
+ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+  pred: (a: T) => a is TFiltered,
+  onTrue: (a: TFiltered) => TOnTrueResult,
+  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult;
 ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 ```
 
@@ -6623,6 +6628,25 @@ describe('R.ifElse', () => {
     fn // $ExpectType (x: number, y: string) => string
     const result = fn(3, 'hello')
     result // $ExpectType string
+  })
+  test('DefinitelyTyped#59291', () => {
+    const getLengthIfStringElseDouble = ifElse(
+      (a: string | number): a is string => true,
+      a => a.length,
+      a => a * 2
+    )
+
+    getLengthIfStringElseDouble('foo') // $ExpectType number
+    getLengthIfStringElseDouble(3) // $ExpectType number
+    const result = ifElse(
+      (a: {
+        foo?: string,
+        bar: number | string,
+      }): a is {foo: string, bar: string} => true,
+      (a): [string, string] => [a.foo, a.bar],
+      (a): [string | undefined, string | number] => [a.foo, a.bar]
+    )
+    result // $ExpectType (a: { foo?: string | undefined; bar: string | number; }) => [string, string] | [string | undefined, string | number]
   })
 })
 ```
@@ -9241,6 +9265,11 @@ test('ramda compatible test 3', () => {
   }
   expect(result).toEqual(expected)
 })
+
+test('functions are discarded', () => {
+  const obj = { foo : () => {} }
+  expect(mergeDeepRight(obj, {})).toEqual({})
+})
 ```
 
 </details>
@@ -9490,7 +9519,7 @@ const B = {
 describe('R.mergeWith', () => {
   test('no curry | without explicit types', () => {
     const result = mergeWith(concat, A, B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('no curry | with explicit types', () => {
     const result = mergeWith<Output>(concat, A, B)
@@ -9498,7 +9527,7 @@ describe('R.mergeWith', () => {
   })
   test('curry 1 | without explicit types', () => {
     const result = mergeWith(concat, A)(B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('curry 1 | with explicit types', () => {
     const result = mergeWith<Output>(concat, A)(B)
@@ -9506,7 +9535,7 @@ describe('R.mergeWith', () => {
   })
   test('curry 2 | without explicit types', () => {
     const result = mergeWith(concat)(A, B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('curry 2 | with explicit types', () => {
     const result = mergeWith<Output>(concat)(A, B)
@@ -9530,6 +9559,120 @@ It returns the lesser value between `x` and `y`.
 It returns the lesser value between `x` and `y` according to `compareFn` function.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
+
+### modifyPath
+
+```typescript
+
+modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T
+```
+
+It changes a property of object on the base of provided path and transformer function.
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.modifyPath</strong> source</summary>
+
+```javascript
+import { _isArray } from './_internals/_isArray.js'
+import { createPath } from './_internals/createPath.js'
+import { assoc } from './assoc.js'
+import { curry } from './curry.js'
+import { path as pathModule } from './path.js'
+
+export function modifyPathFn(
+  pathInput, fn, object
+){
+  const path = createPath(pathInput)
+  if (path.length === 1){
+    return {
+      ...object,
+      [ path[0] ] : fn(object[ path[0] ]),
+    }
+  }
+  if (pathModule(path, object) === undefined) return object
+
+  const val = modifyPath(
+    Array.prototype.slice.call(path, 1),
+    fn,
+    object[ path[ 0 ] ]
+  )
+  if (val === object[ path[ 0 ] ]){
+    return object
+  }
+
+  return assoc(
+    path[ 0 ], val, object
+  )
+}
+
+export const modifyPath = curry(modifyPathFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { modifyPath } from './modifyPath.js'
+
+test('happy', () => {
+  const result = modifyPath(
+    'a.b.c', x => x + 1, { a : { b : { c : 1 } } }
+  )
+  expect(result).toEqual({ a : { b : { c : 2 } } })
+})
+
+test('with array', () => {
+  const input = {foo: [{ bar: '123' }]}
+  const result = modifyPath('foo.0.bar', x => x + 'foo', input)
+  expect(result).toEqual({ foo: { '0': { bar: '123foo' } } })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {modifyPath} from 'rambda'
+
+const obj = {a:{b: {c:1}}}
+
+describe('R.modifyPath', () => {
+  it('happy', () => {
+    const result = modifyPath('a.b.c', (x: number) => x + 1, obj)
+    result // $ExpectType Record<string, unknown>
+  })
+  it('explicit return type', () => {
+    interface Foo extends Record<string, unknown>{
+      a: 1
+    }
+    const result = modifyPath<Foo>('a.b.c', (x: number) => x + 1, obj)
+    result // $ExpectType Foo
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
 
 ### modulo
 
@@ -10170,7 +10313,7 @@ This method is also known as P combinator.
 
 ```typescript
 
-once<T extends (...args: any[]) => any>(func: T): T
+once<T extends AnyFunction>(func: T): T
 ```
 
 It returns a function, which invokes only once `fn` function.
@@ -10180,7 +10323,7 @@ It returns a function, which invokes only once `fn` function.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-once<T extends (...args: any[]) => any>(func: T): T;
+once<T extends AnyFunction>(func: T): T;
 ```
 
 </details>
@@ -12434,13 +12577,15 @@ propEq<K extends string | number>(propToFind: K): {
 
 ```javascript
 import { curry } from './curry.js'
+import { equals } from './equals.js'
+import { prop } from './prop.js'
 
 function propEqFn(
   propToFind, valueToMatch, obj
 ){
   if (!obj) return false
 
-  return obj[ propToFind ] === valueToMatch
+  return equals(valueToMatch, prop(propToFind, obj))
 }
 
 export const propEq = curry(propEqFn)
@@ -12461,6 +12606,15 @@ test('happy', () => {
   expect(propEq('foo')('bar')({ foo : 'baz' })).toBeFalse()
   expect(propEq(
     'foo', 'bar', null
+  )).toBeFalse()
+})
+
+test('returns false if called with a null or undefined object', () => {
+  expect(propEq(
+    'name', 'Abby', null
+  )).toBeFalse()
+  expect(propEq(
+    'name', 'Abby', undefined
   )).toBeFalse()
 })
 ```
@@ -12574,7 +12728,7 @@ const propEq = [
 
 ```typescript
 
-propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>
+propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>
 ```
 
 It returns `true` if `property` of `obj` is from `target` type.
@@ -12584,15 +12738,15 @@ It returns `true` if `property` of `obj` is from `target` type.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-propIs<C extends (...args: any[]) => any>(type: C): {
+propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-propIs<C extends new (...args: any[]) => any>(type: C): {
+propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
@@ -13111,237 +13265,6 @@ const range = [
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
 
 ### reduce
-
-```typescript
-
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult
-```
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: T[]): TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: T[]) => TResult;
-reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.reduce</strong> source</summary>
-
-```javascript
-import { _isArray } from './_internals/_isArray.js'
-import { _keys } from './_internals/_keys.js'
-import { curry } from './curry.js'
-
-export function reduceFn(
-  reducer, acc, list
-){
-  if (!_isArray(list)){
-    throw new TypeError('reduce: list must be array or iterable')
-  }
-  let index = 0
-  const len = list.length
-
-  while (index < len){
-    acc = reducer(
-      acc, list[ index ], index, list
-    )
-    index++
-  }
-
-  return acc
-}
-
-export const reduce = curry(reduceFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { reduce } from './reduce.js'
-
-const reducer = (
-  prev, current, i
-) => {
-  expect(i).toBeNumber()
-
-  return prev + current
-}
-const initialValue = 1
-const list = [ 1, 2, 3 ]
-const ERROR = 'reduce: list must be array or iterable'
-
-test('happy', () => {
-  expect(reduce(
-    reducer, initialValue, list
-  )).toEqual(7)
-})
-
-test('with object as iterable', () => {
-  expect(() =>
-    reduce(
-      reducer, initialValue, {
-        a : 1,
-        b : 2,
-      }
-    )).toThrowWithMessage(TypeError, ERROR)
-})
-
-test('with undefined as iterable', () => {
-  expect(() => reduce(
-    reducer, 0, null
-  )).toThrowWithMessage(TypeError, ERROR)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {reduce} from 'rambda'
-
-describe('R.reduce', () => {
-  it('happy', () => {
-    const result = reduce<number, number>(
-      (acc, elem) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        return acc + elem
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('with two types', () => {
-    const result = reduce<number, string>(
-      (acc, elem) => {
-        acc // $ExpectType string
-        elem // $ExpectType number
-
-        return `${acc}${elem}`
-      },
-      'foo',
-      [1, 2, 3]
-    )
-
-    result // $ExpectType string
-  })
-
-  it('with index', () => {
-    const result = reduce<number, number>(
-      (acc, elem, i) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        i // $ExpectType number
-        return acc + elem
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback', () => {
-    const result = reduce(
-      (acc, val) => {
-        acc // $ExpectType number
-        return acc + val
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback with index', () => {
-    const result = reduce(
-      (acc, val, i) => {
-        acc // $ExpectType number
-        i // $ExpectType number
-        return acc + val
-      },
-      1,
-      [1, 2, 3]
-    )
-
-    result // $ExpectType number
-  })
-
-  it('fallback with two types', () => {
-    const result = reduce(
-      (acc, val) => {
-        acc // $ExpectType string
-        return acc + val
-      },
-      'foo',
-      [1, 2, 3]
-    )
-
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary>Lodash is fastest. Rambda is 60.48% slower and Ramda is 77.1% slower</summary>
-
-```text
-const R = require('../../dist/rambda.js')
-
-const fn = (acc, value) => acc + value
-const holder = [ 1, 2, 3 ]
-const acc = ''
-
-const reduce = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.reduce(
-        fn, acc, holder
-      )
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.reduce(
-        fn, acc, holder
-      )
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.reduce(
-        holder, fn, acc
-      )
-    },
-  },
-]
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
 
@@ -16742,8 +16665,6 @@ export function uniq(list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { uniq as uniqRamda } from 'ramda'
-
 import { uniq } from './uniq.js'
 
 test('happy', () => {
@@ -16841,6 +16762,10 @@ const tests = [
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniq)
+
+### uniqBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
 ### uniqWith
 
@@ -18413,6 +18338,18 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+7.2.0
+
+Add `R.uniqBy` with implementation coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641) - TODO
+
+Apply the following changes from `@types/rambda`:
+
+- [https://github.com/DefinitelyTyped/DefinitelyTyped/commit/bab47272d52fc7bb81e85da36dbe9c905a04d067](add `AnyFunction` and `AnyConstructor`)
+
+- Improve `R.ifElse` typings - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59291
+
+- Make R.propEq safe for null/undefined arguments - https://github.com/ramda/ramda/pull/2594/files
+
 7.1.4
 
 `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
@@ -19152,6 +19089,8 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - [Interview with Dejan Totef at SurviveJS blog](https://survivejs.com/blog/rambda-interview/)
 
 - [Awesome functional Javascript programming libraries](https://github.com/stoeffel/awesome-fp-js#libraries)
+
+- [Overview of Rambda pros/cons](https://mobily.github.io/ts-belt/docs/#rambda-%EF%B8%8F)
 
 > Links to Rambda
 

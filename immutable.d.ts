@@ -72,6 +72,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
 
+type AnyFunction = (...args: readonly any[]) => unknown;
+type AnyConstructor = new (...args: readonly any[]) => unknown;
+
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
@@ -187,12 +190,12 @@ export function anyPass<T>(predicates: readonly SafePred<T>[]): SafePred<T>;
 export function append<T>(x: T, list: readonly T[]): readonly T[];
 export function append<T>(x: T): <T>(list: readonly T[]) => readonly T[];
 
-export function applySpec<Spec extends Record<string, (...args: readonly any[]) => any>>(
+export function applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { readonly [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: readonly any[]) => T;
+export function applySpec<T>(spec: any): (...args: readonly unknown[]) => T;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -342,12 +345,12 @@ export function converge(after: ((...a: readonly any[]) => any), fns: readonly (
 /**
  * It expects a function as input and returns its curried version.
  */
-export function curry(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function curry(fn: AnyFunction): (...a: readonly any[]) => any;
 
 /**
  * It returns a curried equivalent of the provided function, with the specified arity.
  */
-export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function curryN(length: number, fn: AnyFunction): (...a: readonly any[]) => any;
 
 /**
  * It decrements a number.
@@ -547,6 +550,11 @@ export function identity<T>(input: T): T;
  * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
+export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+  pred: (a: T) => a is TFiltered,
+  onTrue: (a: TFiltered) => TOnTrueResult,
+  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends readonly any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /**
@@ -862,7 +870,7 @@ export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
 /**
  * It returns a function, which invokes only once `fn` function.
  */
-export function once<T extends (...args: readonly any[]) => any>(func: T): T;
+export function once<T extends AnyFunction>(func: T): T;
 
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -1064,15 +1072,15 @@ export function propEq<K extends string | number>(propToFind: K): {
 /**
  * It returns `true` if `property` of `obj` is from `target` type.
  */
-export function propIs<C extends (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: readonly any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: readonly any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-export function propIs<C extends new (...args: readonly any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
@@ -1472,8 +1480,8 @@ export function apply<T = any>(fn: (...args: readonly any[]) => T): (args: reado
 /**
  * Creates a function that is bound to a context.
  */
-export function bind<F extends (...args: readonly any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
-export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
  * It takes two objects and a function, which will be used when there is an overlap between the keys.
@@ -1539,3 +1547,13 @@ export function partialObject<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
+
+export function uniqBy<T, U>(fn: (a: T) => U, list: readonly T[]): readonly T[];
+export function uniqBy<T, U>(fn: (a: T) => U): (list: readonly T[]) => readonly T[];
+
+/**
+ * It changes a property of object on the base of provided path and transformer function.
+ */
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;

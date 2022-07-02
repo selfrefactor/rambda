@@ -7,6 +7,8 @@
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
 		"populatereadme:x": "cd ../rambda-scripts && yarn populate:readme:rambdax",
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
+		"pull": "cd ../rambda-scripts && git pull",
+		"outx": "yarn pull && yarn out",
 		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x",
 		"github": "cd ../rambda-scripts && yarn github",
 		"fix-docsify": "cd ../rambda-scripts && yarn fix-docsify:rambda",

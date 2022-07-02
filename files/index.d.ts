@@ -5144,6 +5144,29 @@ Notes:
 export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
 export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
+
+/*
+Method: modifyPath
+
+Explanation: It changes a property of object on the base of provided path and transformer function.
+
+Example:
+
+```
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -7175,28 +7198,6 @@ Notes:
 // @SINGLE_MARKER
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
-
-/*
-Method: modifyPath
-
-Explanation: It changes a property of object on the base of provided path and transformer function.
-
-Example:
-
-```
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
-// => {a:{b: {c:2}}}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 /*
 Method: deletePath
