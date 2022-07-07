@@ -1,4 +1,4 @@
-import { reduce } from './reduce.js'
+import { reduce, reduceStopper } from './reduce.js'
 
 const reducer = (
   prev, current, i
@@ -14,7 +14,7 @@ const ERROR = 'reduce: list must be array or iterable'
 test('happy', () => {
   expect(reduce(
     reducer, initialValue, list
-  )).toEqual(7)
+  )).toBe(7)
 })
 
 test('with object as iterable', () => {
@@ -33,24 +33,17 @@ test('with undefined as iterable', () => {
   )).toThrowWithMessage(TypeError, ERROR)
 })
 
-describe('reduced', () => {
-  test('without reduced (baseline)', () => {
-    let maxIndex
-    const reducer = (prev, current, i) => {
-      maxIndex = i
-      return current === 2 ? current : prev
-    }
-    expect(reduce(reducer, initialValue, list)).toEqual(2)
-    expect(maxIndex).toEqual(2) // did not stop early
-  })
+test('with reduceStopper', () => {
+  let maxIndex
+  const reducer = (
+    prev, current, i
+  ) => {
+    maxIndex = i
 
-  test('with reduced', () => {
-    let maxIndex
-    const reducer = (prev, current, i) => {
-      maxIndex = i
-      return current === 2 ? reduced(current) : prev
-    }
-    expect(reduce(reducer, initialValue, list)).toEqual(2)
-    expect(maxIndex).toEqual(1) // stopped early
-  })
+    return current === 2 ? reduceStopper(current) : prev
+  }
+  expect(reduce(
+    reducer, initialValue, list
+  )).toBe(2)
+  expect(maxIndex).toBe(1)
 })
