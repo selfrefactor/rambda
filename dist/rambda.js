@@ -383,7 +383,7 @@ function complement(fn) {
 
 const _keys = Object.keys;
 
-class Reduced {
+class ReduceStopper {
   constructor(value) {
     this.value = value;
   }
@@ -401,7 +401,7 @@ function reduceFn(reducer, acc, list) {
   while (index < len) {
     acc = reducer(acc, list[index], index, list);
 
-    if (acc instanceof Reduced) {
+    if (acc instanceof ReduceStopper) {
       return acc.value;
     }
 
@@ -411,7 +411,7 @@ function reduceFn(reducer, acc, list) {
   return acc;
 }
 const reduce = curry(reduceFn);
-const reduced = value => new Reduced(value);
+const reduceStopper = value => new ReduceStopper(value);
 
 function _arity(n, fn) {
   switch (n) {
@@ -526,6 +526,10 @@ function mapArray(fn, list, isIndexed = false) {
   return willReturn;
 }
 function mapObject(fn, obj) {
+  if (arguments.length === 1) {
+    return _obj => mapObject(fn, _obj);
+  }
+
   let index = 0;
 
   const keys = _keys(obj);
@@ -2685,7 +2689,7 @@ exports.props = props;
 exports.range = range;
 exports.reduce = reduce;
 exports.reduceFn = reduceFn;
-exports.reduced = reduced;
+exports.reduceStopper = reduceStopper;
 exports.reject = reject;
 exports.repeat = repeat;
 exports.replace = replace;

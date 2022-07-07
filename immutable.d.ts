@@ -1,5 +1,7 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
+// user in R.reduce to stop the loop
+export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;

@@ -8482,6 +8482,9 @@ export function mapArray(
 }
 
 export function mapObject(fn, obj){
+  if (arguments.length === 1){
+    return _obj => mapObject(fn, _obj)
+  }
   let index = 0
   const keys = _keys(obj)
   const len = keys.length
@@ -18340,7 +18343,9 @@ describe('R.zipWith', () => {
 
 7.2.0
 
-Add `R.uniqBy` with implementation coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641) - TODO
+- `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
+
+- Add `R.uniqBy` with implementation coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641) - TODO
 
 Apply the following changes from `@types/rambda`:
 
@@ -18352,7 +18357,7 @@ Apply the following changes from `@types/rambda`:
 
 7.1.4
 
-`R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
+- `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
 
 7.1.0
 
