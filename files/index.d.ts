@@ -6796,7 +6796,7 @@ Method: updateObject
 
 Explanation: Very similar to `R.assocPath` but it applies list of updates instead of only a single update.
 
-It return a copy of `obj` input with changed properties according to `rules` input.
+It returns a copy of `obj` input with changed properties according to `rules` input.
 
 Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then such object path is created.
 
