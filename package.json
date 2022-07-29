@@ -32,7 +32,7 @@
 		"build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
 		"benchmark:check:apply": "cd ../rambda-scripts && yarn check-benchmark",
 		"benchmark:check": "yarn build:step && METHOD=compose yarn benchmark:check:apply",
-		"benchmark:single": "cd ../rambda-scripts && METHOD=pipe RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
+		"benchmark:single": "cd ../rambda-scripts && METHOD=uniqWith RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
 		"benchmark": "yarn build:step && yarn benchmark:single",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",

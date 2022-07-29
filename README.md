@@ -257,8 +257,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 🚀 Fastest | 3.79% slower | 🔳
- *allPass* | 🚀 Fastest | 87.3% slower | 🔳
+ *all* | 🚀 Fastest | 1.81% slower | 🔳
+ *allPass* | 🚀 Fastest | 91.09% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -267,7 +267,7 @@ method | Rambda | Ramda | Lodash
  *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
  *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
- *compose* | 1.91% slower | 21.6% slower | 🚀 Fastest
+ *compose* | 🚀 Fastest | 32.45% slower | 13.68% slower
  *converge* | 78.63% slower | 🚀 Fastest | 🔳
  *curry* | 🚀 Fastest | 28.86% slower | 🔳
  *curryN* | 🚀 Fastest | 41.05% slower | 🔳
@@ -280,8 +280,8 @@ method | Rambda | Ramda | Lodash
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
  *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
- *includes* | 🚀 Fastest | 84.68% slower | 🔳
- *indexOf* | 🚀 Fastest | 83.07% slower | 🔳
+ *includes* | 🚀 Fastest | 84.63% slower | 🔳
+ *indexOf* | 🚀 Fastest | 76.63% slower | 🔳
  *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
@@ -297,7 +297,7 @@ method | Rambda | Ramda | Lodash
  *over* | 🚀 Fastest | 56.23% slower | 🔳
  *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
- *pipe* | 0.41% slower | 🚀 Fastest | 🔳
+ *pipe* | 0.87% slower | 🚀 Fastest | 🔳
  *prop* | 🚀 Fastest | 87.95% slower | 🔳
  *propEq* | 🚀 Fastest | 91.92% slower | 🔳
  *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
@@ -313,8 +313,8 @@ method | Rambda | Ramda | Lodash
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
  *type* | 🚀 Fastest | 48.6% slower | 🔳
- *uniq* | 🚀 Fastest | 86.73% slower | 🔳
- *uniqWith* | 13.67% slower | 🚀 Fastest | 🔳
+ *uniq* | 🚀 Fastest | 90.24% slower | 🔳
+ *uniqWith* | 18.09% slower | 🚀 Fastest | 🔳
  *uniqWith* | 14.23% slower | 🚀 Fastest | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
@@ -723,7 +723,7 @@ describe('all', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 3.79%</summary>
+<summary>Rambda is faster than Ramda with 1.81%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -883,7 +883,7 @@ describe('allPass', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 87.3%</summary>
+<summary>Rambda is faster than Ramda with 91.09%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -6850,7 +6850,7 @@ describe('R.includes', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 84.68%</summary>
+<summary>Rambda is faster than Ramda with 84.63%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -16718,7 +16718,7 @@ describe('R.uniq', () => {
 
 <details>
 
-<summary>Rambda is faster than Ramda with 86.73%</summary>
+<summary>Rambda is faster than Ramda with 90.24%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -16889,7 +16889,7 @@ describe('R.uniqWith', () => {
 
 <details>
 
-<summary>Rambda is slower than Ramda with 13.67%</summary>
+<summary>Rambda is slower than Ramda with 18.09%</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
@@ -18343,9 +18343,11 @@ describe('R.zipWith', () => {
 
 7.2.0
 
+- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
+
 - `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
 
-- Add `R.uniqBy` with implementation coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641) - TODO
+- Add `R.uniqBy` with implementation coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641)
 
 Apply the following changes from `@types/rambda`:
 
@@ -18395,7 +18397,7 @@ Rambda doesn't work with `pnpm` due to wrong export configuration - [Issue #619]
 
 7.0.0
 
-- Braking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required Typescript version to `4.2.2`. In other words, to use `Rambda` you'll need Typescript version `4.2.2` or newer.
+- Breaking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required Typescript version to `4.2.2`. In other words, to use `Rambda` you'll need Typescript version `4.2.2` or newer.
 
 Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
 
@@ -18427,7 +18429,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the braking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
