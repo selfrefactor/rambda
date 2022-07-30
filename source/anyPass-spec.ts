@@ -19,7 +19,7 @@ describe('anyPass', () => {
     const pred = anyPass([isGreater]);
     const xs = [0, 1, 2, 3];
     
-    const filtered1 = filter(pred)(xs); // $ExpectType unknown[]
+    const filtered1 = filter(pred)(xs); // $ExpectType number[]
     const filtered2 = xs.filter(pred); // $ExpectType number[]
   })
 })

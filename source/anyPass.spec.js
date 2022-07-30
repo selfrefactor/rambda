@@ -11,7 +11,6 @@ test('happy', () => {
   const rules = [x => typeof x === 'string', x => x > 10]
 
   expect(anyPass(rules)(11)).toBeTrue()
-
   expect(anyPass(rules)(undefined)).toBeFalse()
 })
 
