@@ -17,7 +17,7 @@ const B = {
 describe('R.mergeWith', () => {
   test('no curry | without explicit types', () => {
     const result = mergeWith(concat, A, B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('no curry | with explicit types', () => {
     const result = mergeWith<Output>(concat, A, B)
@@ -25,7 +25,7 @@ describe('R.mergeWith', () => {
   })
   test('curry 1 | without explicit types', () => {
     const result = mergeWith(concat, A)(B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('curry 1 | with explicit types', () => {
     const result = mergeWith<Output>(concat, A)(B)
@@ -33,7 +33,7 @@ describe('R.mergeWith', () => {
   })
   test('curry 2 | without explicit types', () => {
     const result = mergeWith(concat)(A, B)
-    result // $ExpectType Obj
+    result // $ExpectType Record<string, unknown>
   })
   test('curry 2 | with explicit types', () => {
     const result = mergeWith<Output>(concat)(A, B)

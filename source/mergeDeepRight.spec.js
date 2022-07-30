@@ -96,3 +96,8 @@ test('ramda compatible test 3', () => {
   }
   expect(result).toEqual(expected)
 })
+
+test('functions are discarded', () => {
+  const obj = { foo : () => {} }
+  expect(mergeDeepRight(obj, {})).toEqual({})
+})

@@ -17,6 +17,9 @@ export function mapArray(
 }
 
 export function mapObject(fn, obj){
+  if (arguments.length === 1){
+    return _obj => mapObject(fn, _obj)
+  }
   let index = 0
   const keys = _keys(obj)
   const len = keys.length

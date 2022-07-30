@@ -1,5 +1,3 @@
-import { uniq as uniqRamda } from 'ramda'
-
 import { uniq } from './uniq.js'
 
 test('happy', () => {

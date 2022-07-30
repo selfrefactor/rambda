@@ -379,6 +379,13 @@ function complement(fn) {
 
 const _keys = Object.keys;
 
+class ReduceStopper {
+  constructor(value) {
+    this.value = value;
+  }
+
+}
+
 function reduceFn(reducer, acc, list) {
   if (!_isArray(list)) {
     throw new TypeError('reduce: list must be array or iterable');
@@ -389,12 +396,18 @@ function reduceFn(reducer, acc, list) {
 
   while (index < len) {
     acc = reducer(acc, list[index], index, list);
+
+    if (acc instanceof ReduceStopper) {
+      return acc.value;
+    }
+
     index++;
   }
 
   return acc;
 }
 const reduce = curry(reduceFn);
+const reduceStopper = value => new ReduceStopper(value);
 
 function _arity(n, fn) {
   switch (n) {
@@ -509,6 +522,10 @@ function mapArray(fn, list, isIndexed = false) {
   return willReturn;
 }
 function mapObject(fn, obj) {
+  if (arguments.length === 1) {
+    return _obj => mapObject(fn, _obj);
+  }
+
   let index = 0;
 
   const keys = _keys(obj);
@@ -1660,6 +1677,67 @@ function minByFn(compareFn, x, y) {
 }
 const minBy = curry(minByFn);
 
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function modifyPathFn(pathInput, fn, object) {
+  const path$1 = createPath(pathInput);
+
+  if (path$1.length === 1) {
+    return _objectSpread2(_objectSpread2({}, object), {}, {
+      [path$1[0]]: fn(object[path$1[0]])
+    });
+  }
+
+  if (path(path$1, object) === undefined) return object;
+  const val = modifyPath(Array.prototype.slice.call(path$1, 1), fn, object[path$1[0]]);
+
+  if (val === object[path$1[0]]) {
+    return object;
+  }
+
+  return assoc(path$1[0], val, object);
+}
+const modifyPath = curry(modifyPathFn);
+
 function modulo(x, y) {
   if (arguments.length === 1) return _y => modulo(x, _y);
   return x % y;
@@ -1930,7 +2008,7 @@ const product = reduce(multiply, 1);
 
 function propEqFn(propToFind, valueToMatch, obj) {
   if (!obj) return false;
-  return obj[propToFind] === valueToMatch;
+  return equals(valueToMatch, prop(propToFind, obj));
 }
 
 const propEq = curry(propEqFn);
@@ -2291,6 +2369,19 @@ function union(x, y) {
   return toReturn;
 }
 
+function uniqBy(fn, list) {
+  if (arguments.length === 1) {
+    return _list => uniqBy(fn, _list);
+  }
+
+  const set = new Set();
+  return list.filter(item => {
+    if (set.has(fn(item))) return false;
+    set.add(fn(item));
+    return true;
+  });
+}
+
 function includesWith(predicate, target, list) {
   let willReturn = false;
   let index = -1;
@@ -2328,47 +2419,6 @@ function unless(predicate, whenFalse) {
   }
 
   return input => predicate(input) ? input : whenFalse(input);
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
-  }
-
-  return target;
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
 }
 
 function unwind(property, obj) {
@@ -2484,4 +2534,4 @@ function zipWithFn(fn, x, y) {
 
 const zipWith = curry(zipWithFn);
 
-export { F, T, __findHighestArity, _arity, _indexOf, _lastIndexOf, _pipe, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, count, countBy, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, juxt, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, mergeRight as merge, mergeAll, mergeDeepRight, mergeLeft, mergeRight, mergeWith, min, minBy, minByFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, on, once, or, over, partial, partialObject, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, propSatisfies, props, range, reduce, reduceFn, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqWith, unless, unwind, update, values, view, when, where, whereAny, whereEq, without, xor, zip, zipObj, zipWith };
+export { F, T, __findHighestArity, _arity, _indexOf, _lastIndexOf, _pipe, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, count, countBy, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, juxt, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, mergeRight as merge, mergeAll, mergeDeepRight, mergeLeft, mergeRight, mergeWith, min, minBy, minByFn, modifyPath, modifyPathFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, on, once, or, over, partial, partialObject, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, propSatisfies, props, range, reduce, reduceFn, reduceStopper, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqBy, uniqWith, unless, unwind, update, values, view, when, where, whereAny, whereEq, without, xor, zip, zipObj, zipWith };

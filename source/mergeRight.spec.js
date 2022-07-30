@@ -29,3 +29,8 @@ test('when undefined or null instead of object', () => {
   expect(mergeRight(obj, undefined)).toEqual(obj)
   expect(mergeRight(undefined, obj)).toEqual(obj)
 })
+
+test('with function inside object', () => {
+  const result = mergeRight({a:1}, {b: () => 1})
+  expect(typeof result.b).toBe('function')
+})

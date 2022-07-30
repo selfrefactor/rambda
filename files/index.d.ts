@@ -1,5 +1,7 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
+// used in R.reduce to stop the loop
+export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
@@ -30,7 +32,6 @@ type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: any[]) => boolean;
-type SafePred<T> = (...x: T[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
@@ -71,6 +72,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
+
+type AnyFunction = (...args: any[]) => unknown;
+type AnyConstructor = new (...args: any[]) => unknown;
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -345,7 +349,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
+export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 /*
 Method: append
@@ -392,12 +396,12 @@ Notes: The currying in this function works best with functions with 4 arguments 
 
 */
 // @SINGLE_MARKER
-export function applySpec<Spec extends Record<string, (...args: any[]) => any>>(
+export function applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: any[]) => T;
+export function applySpec<T>(spec: any): (...args: unknown[]) => T;
 
 /*
 Method: assoc
@@ -771,7 +775,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry(fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curry(fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: curryN
@@ -790,7 +794,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curryN(length: number, fn: (...args: any[]) => any): (...a: any[]) => any;
+export function curryN(length: number, fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: dec
@@ -1513,6 +1517,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+  pred: (a: T) => a is TFiltered,
+  onTrue: (a: TFiltered) => TOnTrueResult,
+  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /*
@@ -2663,7 +2672,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once<T extends (...args: any[]) => any>(func: T): T;
+export function once<T extends AnyFunction>(func: T): T;
 
 /*
 Method: omit
@@ -3263,15 +3272,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends (...args: any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-export function propIs<C extends new (...args: any[]) => any>(type: C): {
+export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
@@ -4895,8 +4904,8 @@ Notes: R.bind does not provide the additional argument-binding capabilities of `
 
 */
 // @SINGLE_MARKER
-export function bind<F extends (...args: any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
-export function bind<F extends (...args: any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /*
 Method: mergeWith
@@ -5113,6 +5122,50 @@ export function partialObject<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
+
+/*
+Method: uniqBy
+
+Explanation:
+
+Example:
+
+```
+const result = R.uniqBy(Math.abs, [ -2, 1, 0, -1, 2 ])
+
+// => [-2, 1, 0]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
+export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
+
+/*
+Method: modifyPath
+
+Explanation: It changes a property of object on the base of provided path and transformer function.
+
+Example:
+
+```
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 // RAMBDAX_MARKER_START
 
@@ -5924,6 +5977,36 @@ Notes:
 export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
+Method: memoizeWith
+
+Explanation: Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
+
+Example:
+
+```
+const keyGen = (a,b) => a + b
+let result = 0
+const fn = (a,b) =>{
+  result++
+
+  return a + b
+}
+const memoized = R.memoizeWith(keyGen, fn)
+memoized(1, 2)
+memoized(1, 2)
+
+// => `result` is equal to `1`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function memoizeWith<T, K extends any[]>(keyGen: any, fn: (...inputs: K) => T): (...inputs: K) => T;
+
+/*
 Method: nextIndex
 
 Explanation: It returns the next index of the list.
@@ -6712,7 +6795,7 @@ Method: updateObject
 
 Explanation: Very similar to `R.assocPath` but it applies list of updates instead of only a single update.
 
-It return a copy of `obj` input with changed properties according to `rules` input.
+It returns a copy of `obj` input with changed properties according to `rules` input.
 
 Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then such object path is created.
 
@@ -7115,28 +7198,6 @@ Notes:
 // @SINGLE_MARKER
 export function xnor(x: boolean, y: boolean): boolean;
 export function xnor(y: boolean): (y: boolean) => boolean;
-
-/*
-Method: modifyPath
-
-Explanation: It changes a property of object on the base of provided path and transformer function.
-
-Example:
-
-```
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
-// => {a:{b: {c:2}}}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 /*
 Method: deletePath
