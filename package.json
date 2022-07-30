@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "7.1.4",
+	"version": "7.2.0",
 	"scripts": {
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
@@ -39,9 +39,7 @@
 		"d": "yarn out && yarn lint && run d && yarn d:rambda-scripts",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.18.9",
 		"@babel/plugin-proposal-object-rest-spread": "7.18.9",
