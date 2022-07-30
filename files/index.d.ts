@@ -1,6 +1,6 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
-// user in R.reduce to stop the loop
+// used in R.reduce to stop the loop
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -32,7 +32,6 @@ type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: any[]) => boolean;
-type SafePred<T> = (...x: T[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
@@ -351,6 +350,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
+export function anyPass<T extends Pred>(predicates: T[]): T;
 
 /*
 Method: append
