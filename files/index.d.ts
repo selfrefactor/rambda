@@ -1,6 +1,6 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
-// user in R.reduce to stop the loop
+// used in R.reduce to stop the loop
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -5133,12 +5133,12 @@ Explanation:
 Example:
 
 ```
-const result = R.uniqBy(Math.abs, [ -2, -1, 0, 1, 2 ])
+const result = R.uniqBy(Math.abs, [ -2, 1, 0, -1, 2 ])
 
-// => 
+// => [-2, 1, 0]
 ```
 
-Categories:
+Categories: List
 
 Notes:
 

@@ -18630,12 +18630,12 @@ const tests = [
 ### uniqBy
 
 ```javascript
-const result = R.uniqBy(Math.abs, [ -2, -1, 0, 1, 2 ])
+const result = R.uniqBy(Math.abs, [ -2, 1, 0, -1, 2 ])
 
-// =>
+// => [-2, 1, 0]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.uniqBy(Math.abs%2C%20%5B%20-2%2C%20-1%2C%200%2C%201%2C%202%20%5D)%0A%0A%2F%2F%20%3D%3E">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.uniqBy(Math.abs%2C%20%5B%20-2%2C%201%2C%200%2C%20-1%2C%202%20%5D)%0A%0A%2F%2F%20%3D%3E%20%5B-2%2C%201%2C%200%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
