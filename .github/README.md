@@ -1246,6 +1246,7 @@ const result = fn(input)
 
 ```typescript
 anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
+anyPass<T extends Pred>(predicates: T[]): T;
 ```
 
 </details>
@@ -1290,7 +1291,6 @@ test('happy', () => {
   const rules = [x => typeof x === 'string', x => x > 10]
 
   expect(anyPass(rules)(11)).toBeTrue()
-
   expect(anyPass(rules)(undefined)).toBeFalse()
 })
 
@@ -1332,7 +1332,7 @@ test('works with multiple inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {anyPass} from 'rambda'
+import {anyPass, filter} from 'rambda'
 
 describe('anyPass', () => {
   it('happy', () => {
@@ -1347,6 +1347,14 @@ describe('anyPass', () => {
     ])(11)
 
     x // $ExpectType boolean
+  })
+  it('issue #642', () => {
+    const isGreater = (num: number) => num > 5;
+    const pred = anyPass([isGreater]);
+    const xs = [0, 1, 2, 3];
+    
+    const filtered1 = filter(pred)(xs); // $ExpectType number[]
+    const filtered2 = xs.filter(pred); // $ExpectType number[]
   })
 })
 ```
@@ -20398,7 +20406,7 @@ describe('R.zipWith', () => {
 
 -- Improve `R.ifElse` typings - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59291
 
--- Make R.propEq safe for null/undefined arguments - https://github.com/ramda/ramda/pull/2594/files
+-- Make `R.propEq` safe for `null/undefined` arguments - https://github.com/ramda/ramda/pull/2594/files
 
 7.1.4
 

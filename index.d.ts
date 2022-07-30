@@ -185,6 +185,7 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
 export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
+export function anyPass<T extends Pred>(predicates: T[]): T;
 
 /**
  * It adds element `x` at the end of `list`.

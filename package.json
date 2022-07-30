@@ -35,6 +35,7 @@
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
 		"benchmark": "yarn build:step && yarn benchmark:single",
 		"typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+		"d": "yarn out && yarn lint && run d",
 		"fix": "mkdir $HOME/.dts/perf -p"
 	},
 	"dependencies": {

@@ -12,7 +12,7 @@
 
 -- Improve `R.ifElse` typings - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59291
 
--- Make R.propEq safe for null/undefined arguments - https://github.com/ramda/ramda/pull/2594/files
+-- Make `R.propEq` safe for `null/undefined` arguments - https://github.com/ramda/ramda/pull/2594/files
 
 7.1.4
 
