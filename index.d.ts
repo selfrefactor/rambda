@@ -32,7 +32,6 @@ type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: any[]) => boolean;
-type SafePred<T> = (...x: T[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
@@ -184,8 +183,7 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 /**
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
-export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
-export function anyPass<T extends Pred>(predicates: T[]): T;
+export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 /**
  * It adds element `x` at the end of `list`.

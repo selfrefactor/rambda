@@ -2,6 +2,8 @@
 
 - Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
 
+- Wrong curried typings in `R.anyPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/642)
+
 - `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
 
 - Add new method `R.uniqBy`. Implementation is coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641)

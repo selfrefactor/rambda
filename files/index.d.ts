@@ -32,7 +32,6 @@ type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: any[]) => boolean;
-type SafePred<T> = (...x: T[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
@@ -350,8 +349,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
-export function anyPass<T extends Pred>(predicates: T[]): T;
+export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 /*
 Method: append

@@ -860,7 +860,7 @@ test('works with multiple inputs', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {allPass} from 'rambda'
+import {allPass, filter} from 'rambda'
 
 describe('allPass', () => {
   it('happy', () => {
@@ -875,6 +875,16 @@ describe('allPass', () => {
     ])(11)
 
     x // $ExpectType boolean
+  })
+  it('issue #642', () => {
+    const isGreater = (num: number) => num > 5;
+    const pred = allPass([isGreater]);
+    const xs = [0, 1, 2, 3];
+    
+    const filtered1 = filter(pred)(xs); 
+    filtered1 // $ExpectType number[]
+    const filtered2 = xs.filter(pred); 
+    filtered2 // $ExpectType number[]
   })
 })
 ```
@@ -1152,7 +1162,7 @@ const any = [
 
 ```typescript
 
-anyPass<T>(predicates: SafePred<T>[]): SafePred<T>
+anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
 
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
@@ -1162,8 +1172,7 @@ It accepts list of `predicates` and returns a function. This function with its `
 <summary>All Typescript definitions</summary>
 
 ```typescript
-anyPass<T>(predicates: SafePred<T>[]): SafePred<T>;
-anyPass<T extends Pred>(predicates: T[]): T;
+anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 ```
 
 </details>
@@ -1270,8 +1279,10 @@ describe('anyPass', () => {
     const pred = anyPass([isGreater]);
     const xs = [0, 1, 2, 3];
     
-    const filtered1 = filter(pred)(xs); // $ExpectType number[]
-    const filtered2 = xs.filter(pred); // $ExpectType number[]
+    const filtered1 = filter(pred)(xs); 
+    filtered1 // $ExpectType number[]
+    const filtered2 = xs.filter(pred); 
+    filtered2 // $ExpectType number[]
   })
 })
 ```
@@ -18352,6 +18363,8 @@ describe('R.zipWith', () => {
 7.2.0
 
 - Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
+
+- Wrong curried typings in `R.anyPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/642)
 
 - `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
 

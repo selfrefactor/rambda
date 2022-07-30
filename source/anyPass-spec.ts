@@ -15,11 +15,13 @@ describe('anyPass', () => {
     x // $ExpectType boolean
   })
   it('issue #642', () => {
-    const isGreater = (num: number) => num > 5;
-    const pred = anyPass([isGreater]);
-    const xs = [0, 1, 2, 3];
-    
-    const filtered1 = filter(pred)(xs); // $ExpectType number[]
-    const filtered2 = xs.filter(pred); // $ExpectType number[]
+    const isGreater = (num: number) => num > 5
+    const pred = anyPass([isGreater])
+    const xs = [0, 1, 2, 3]
+
+    const filtered1 = filter(pred)(xs)
+    filtered1 // $ExpectType number[]
+    const filtered2 = xs.filter(pred)
+    filtered2 // $ExpectType number[]
   })
 })

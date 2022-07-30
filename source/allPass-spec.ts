@@ -1,4 +1,4 @@
-import {allPass} from 'rambda'
+import {allPass, filter} from 'rambda'
 
 describe('allPass', () => {
   it('happy', () => {
@@ -13,5 +13,15 @@ describe('allPass', () => {
     ])(11)
 
     x // $ExpectType boolean
+  })
+  it('issue #642', () => {
+    const isGreater = (num: number) => num > 5
+    const pred = allPass([isGreater])
+    const xs = [0, 1, 2, 3]
+
+    const filtered1 = filter(pred)(xs)
+    filtered1 // $ExpectType number[]
+    const filtered2 = xs.filter(pred)
+    filtered2 // $ExpectType number[]
   })
 })
