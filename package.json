@@ -22,7 +22,7 @@
 		"build": "yarn build:main && yarn build:web",
 		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.js",
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
-		"docs": "npx docsify-cli init ./docs --yes && yarn fix-docsify",
+		"docs": "npx docsify-cli init ./docs && yarn fix-docsify",
 		"new": "cd ../rambda-scripts && yarn new",
 		"test:all": "jest source -u --bail=false",
 		"test": "jest -o --watch",
