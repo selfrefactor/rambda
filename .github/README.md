@@ -919,13 +919,13 @@ describe('allPass', () => {
     x // $ExpectType boolean
   })
   it('issue #642', () => {
-    const isGreater = (num: number) => num > 5;
-    const pred = allPass([isGreater]);
-    const xs = [0, 1, 2, 3];
-    
-    const filtered1 = filter(pred)(xs); 
+    const isGreater = (num: number) => num > 5
+    const pred = allPass([isGreater])
+    const xs = [0, 1, 2, 3]
+
+    const filtered1 = filter(pred)(xs)
     filtered1 // $ExpectType number[]
-    const filtered2 = xs.filter(pred); 
+    const filtered2 = xs.filter(pred)
     filtered2 // $ExpectType number[]
   })
 })
@@ -1358,13 +1358,13 @@ describe('anyPass', () => {
     x // $ExpectType boolean
   })
   it('issue #642', () => {
-    const isGreater = (num: number) => num > 5;
-    const pred = anyPass([isGreater]);
-    const xs = [0, 1, 2, 3];
-    
-    const filtered1 = filter(pred)(xs); 
+    const isGreater = (num: number) => num > 5
+    const pred = anyPass([isGreater])
+    const xs = [0, 1, 2, 3]
+
+    const filtered1 = filter(pred)(xs)
     filtered1 // $ExpectType number[]
-    const filtered2 = xs.filter(pred); 
+    const filtered2 = xs.filter(pred)
     filtered2 // $ExpectType number[]
   })
 })
@@ -14172,10 +14172,6 @@ propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-propIs<C extends AnyFunction>(type: C): {
-    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
-    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-};
 ```
 
 </details>
@@ -20402,6 +20398,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+7.2.1
+
+- Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 
+
+- Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
 
 7.2.0
 

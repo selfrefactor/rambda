@@ -1,3 +1,9 @@
+7.2.1
+
+- Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 
+
+- Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
+
 7.2.0
 
 - Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
