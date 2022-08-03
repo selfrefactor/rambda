@@ -1,3 +1,11 @@
+function F() {
+  return false;
+}
+
+function T() {
+  return true;
+}
+
 function add(a, b) {
   if (arguments.length === 1) return _b => add(a, _b);
   return Number(a) + Number(b);
@@ -1082,10 +1090,6 @@ function evolve(rules, iterable) {
   return evolveArray(rules, iterable);
 }
 
-function F() {
-  return false;
-}
-
 function filterObject(predicate, obj) {
   const willReturn = {};
 
@@ -2022,6 +2026,12 @@ function propOrFn(defaultValue, property, obj) {
 
 const propOr = curry(propOrFn);
 
+function propSatisfiesFn(predicate, property, obj) {
+  return predicate(prop(property, obj));
+}
+
+const propSatisfies = curry(propSatisfiesFn);
+
 function props(propsToPick, obj) {
   if (arguments.length === 1) {
     return _obj => props(propsToPick, _obj);
@@ -2033,12 +2043,6 @@ function props(propsToPick, obj) {
 
   return mapArray(prop => obj[prop], propsToPick);
 }
-
-function propSatisfiesFn(predicate, property, obj) {
-  return predicate(prop(property, obj));
-}
-
-const propSatisfies = curry(propSatisfiesFn);
 
 function range(start, end) {
   if (arguments.length === 1) return _end => range(start, _end);
@@ -2216,10 +2220,6 @@ function symmetricDifference(x, y) {
   }
 
   return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
-}
-
-function T() {
-  return true;
 }
 
 function tail(listOrString) {
