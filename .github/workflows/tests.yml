@@ -16,6 +16,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # - run: yarn install && yarn fix && yarn cover
-    - run: yarn install && yarn fix && yarn consume-typings
-    - run: yarn cover
+    - run: yarn install && yarn fix && yarn cover
+    # - run: yarn install && yarn fix && yarn consume-typings
+    # - run: yarn cover

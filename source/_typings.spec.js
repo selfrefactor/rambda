@@ -1,5 +1,4 @@
 import { spawnSync } from 'child_process'
-import isCI from 'is-ci'
 import { resolve } from 'path'
 
 jest.setTimeout(3 * 60 * 1000)

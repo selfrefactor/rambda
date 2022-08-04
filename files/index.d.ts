@@ -3281,6 +3281,7 @@ export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
 
+
 /*
 Method: propOr
 
