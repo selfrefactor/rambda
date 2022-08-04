@@ -16,4 +16,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn install && npm run fix && npm run cover
+    - run: ls
+    - run: cd .. && ls
+    # - run: yarn install && npm run fix && npm run cover
