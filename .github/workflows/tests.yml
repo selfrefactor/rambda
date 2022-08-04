@@ -18,4 +18,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     # - run: ls
     # - run: cd .. && ls
-    - run: yarn install && npm run fix && npm run cover
+    # - run: yarn install && yarn fix && yarn cover
+    - run: yarn install && yarn fix && yarn consume-typings

@@ -7,8 +7,6 @@ jest.setTimeout(3 * 60 * 1000)
 const DIR = resolve(__dirname, '../')
 
 test('typings are correct', async () => {
-  if (isCI) return
-
   const { status } = spawnSync(
     'yarn', [ 'typings' ], {
       stdio : 'inherit',
