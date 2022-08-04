@@ -19,4 +19,5 @@ jobs:
     # - run: ls
     # - run: cd .. && ls
     # - run: yarn install && yarn fix && yarn cover
-    - run: yarn install && yarn fix && yarn consume-typings
+    - run: yarn install && yarn fix && yarn consume-typings-remote
+    - run: yarn cover

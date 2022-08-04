@@ -2,8 +2,8 @@
 	"name": "rambda",
 	"version": "7.2.1",
 	"scripts": {
-		"consume-typings:clone": "cd .. && git clone --depth 1 https://github.com/selfrefactor/rambda-scripts.git rambda-scripts-clone && ls",
-		"consume-typings:execute": "ls",
+		"consume-typings:clone": "cd .. && git clone --depth 1 https://github.com/selfrefactor/rambda-scripts.git rambda-scripts-clone",
+		"consume-typings:execute": "cd ../rambda-scripts-clone/scripts/consume-typings && yarn start",
 		"consume-typings": "yarn consume-typings:clone && yarn consume-typings:execute",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
