@@ -6,7 +6,7 @@ jest.setTimeout(3 * 60 * 1000)
 const DIR = resolve(__dirname, '../../')
 const RAMBDA_DIR = resolve(__dirname, '../')
 
-test('typings are correct', async () => {
+test('typings can be imported', async () => {
   spawnSync(
     'rm', [ '-rf', 'rambda-scripts-clone' ], {
       stdio : 'inherit',
@@ -14,7 +14,7 @@ test('typings are correct', async () => {
     }
   )
   spawnSync(
-    'yarn', [ 'out' ], {
+    'yarn', [ 'build:main' ], {
       stdio : 'inherit',
       cwd   : RAMBDA_DIR,
     }

@@ -26,7 +26,8 @@
 		"new": "cd ../rambda-scripts && yarn new",
 		"consume-typings:clone": "cd .. && git clone --depth 1 https://github.com/selfrefactor/rambda-scripts.git rambda-scripts-clone",
 		"consume-typings:execute": "cd ../rambda-scripts-clone/scripts/consume-typings && yarn start",
-		"test:consume-typings": "yarn consume-typings:clone && yarn consume-typings:execute",
+		"consume-typings": "yarn consume-typings:clone && yarn consume-typings:execute",
+		"test:consume-typings": "jest source/_consumeTypings.test.js",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test": "jest -o --watch",
@@ -71,7 +72,7 @@
 	},
 	"jest": {
 		"testEnvironment": "node",
-		"testRegex": ".*\\.spec\\.js$",
+		"testRegex": ".*\\.(spec|test)\\.js$",
 		"setupFilesAfterEnv": [
 			"./files/testSetup.js"
 		],
