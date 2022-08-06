@@ -12,11 +12,7 @@ You need to have the code of `selfrefactor/rambda-scripts` repo on the same leve
 
 2. Change `source/foo.js` so the tests are passing.
 
-3. Uncomment `// await runSingleBenchmark('foo')` line in `scripts/all-scripts/all-scripts.spec.js`.
-
-4. Run `yarn out`
-
-5. Restore the state of `scripts/all-scripts/all-scripts.spec.js` and commit
+3. Run `yarn out`
 
 ## Fix a Typescript definition
 
