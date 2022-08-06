@@ -12674,10 +12674,10 @@ describe('R.propEq', () => {
 
     const myObject: MyType = {}
     const valueToFind = '1111'
-    // $ExpectError
+    // @ts-expect-error
     propEq('optional', valueToFind, myObject)
 
-    // $ExpectError
+    // @ts-expect-error
     propEq('optional', valueToFind, myObject)
   })
 
@@ -12692,7 +12692,7 @@ describe('R.propEq', () => {
     const result = propEq('foo', value)(obj)
     result // $ExpectType boolean
 
-    // $ExpectError
+    // @ts-expect-error
     propEq('bar', value)(obj)
   })
 })

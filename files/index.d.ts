@@ -232,7 +232,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+// export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T extends any>(predicates: ((...args: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: always
@@ -5162,6 +5163,26 @@ Notes:
 export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
 export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
 export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+
+/*
+Method: modify
+
+Explanation:
+
+Example:
+
+```
+const result = R.modify()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modify<T>(x: T): T;
 
 // RAMBDAX_MARKER_START
 

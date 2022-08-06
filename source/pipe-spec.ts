@@ -57,7 +57,7 @@ describe('R.pipe with explicit types', () => {
       b: 'bar',
     }
 
-    // $ExpectError
+    // @ts-expect-error
     pipe<string, number, Output>(identity, dissoc('b'))(obj)
   })
 })

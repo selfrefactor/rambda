@@ -9,7 +9,7 @@ describe('R.objOf', () => {
 
     result.foo // $ExpectType number
 
-    // $ExpectError
+    // @ts-expect-error
     result.bar // `bar` is no property of `result`; TODO - use it more often
   })
   it('curried', () => {

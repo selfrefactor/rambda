@@ -14,7 +14,7 @@ describe('R.debounce', () => {
   it('with explicit types', async () => {
     debounce<number, boolean>(x => x > 1, 1000)
 
-    // $ExpectError
+    // @ts-expect-error
     debounce<number, boolean>(x => {
       return x + 1
     }, 1000)

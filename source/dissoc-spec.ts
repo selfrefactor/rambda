@@ -15,7 +15,7 @@ describe('R.dissoc', () => {
 
     result.a // $ExpectType string
 
-    // $ExpectError
+    // @ts-expect-error
     result.b
   })
   it('curried', () => {

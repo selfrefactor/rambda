@@ -56,7 +56,7 @@ describe('R.compose with explicit types', () => {
       b: 'bar',
     }
 
-    // $ExpectError
+    // @ts-expect-error
     compose<string, number, Output>(identity, dissoc('b'))(obj)
   })
 })
