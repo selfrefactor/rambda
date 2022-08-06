@@ -1,7 +1,10 @@
-export function modify(foo, bar) {
-  if (arguments.length === 1){
-    return (_bar) => modify(foo, _bar);
-  }
+import {curry} from './curry.js'
 
-  return
+function modifyFn(property, fn, obj) {
+  return {
+    ...obj,
+    [property]: fn(obj[property])
+  }
 }
+
+export const modify = curry(modifyFn)

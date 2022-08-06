@@ -1,5 +1,5 @@
 import { modify, add } from 'rambda'
-const person = { name: 'James', age: 20, pets: ['dog', 'cat'] };
+const person = { name: 'James', age: 20};
 
 describe('R.modify', () => {
   it('happy', () => {
