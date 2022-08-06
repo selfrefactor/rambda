@@ -2,8 +2,8 @@ import {mergeDeepRight} from 'rambda'
 
 interface Output {
   foo: {
-    bar: number
-  }
+    bar: number,
+  },
 }
 
 describe('R.mergeDeepRight', () => {

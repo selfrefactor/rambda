@@ -15,5 +15,5 @@ test('slice', () => {
   )).toEqual([ 'b', 'c' ])
   expect(slice(
     0, 3, 'ramda'
-  )).toEqual('ram')
+  )).toBe('ram')
 })

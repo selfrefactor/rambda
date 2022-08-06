@@ -5,11 +5,11 @@ import { update } from './update.js'
 test('function with arity of 2', () => {
   const subtractFlipped = flip(subtract)
 
-  expect(subtractFlipped(1)(7)).toEqual(6)
-  expect(subtractFlipped(1, 7)).toEqual(6)
+  expect(subtractFlipped(1)(7)).toBe(6)
+  expect(subtractFlipped(1, 7)).toBe(6)
   expect(subtractFlipped(
     1, 7, 9
-  )).toEqual(6)
+  )).toBe(6)
 })
 
 test('function with arity of 3', () => {
@@ -38,7 +38,7 @@ test('function with arity of 4', () => {
     2, 1, 3, 4
   )
   expect(result).toEqual(flippedResult)
-  expect(result).toEqual('-1==-1')
+  expect(result).toBe('-1==-1')
 })
 
 test('function with arity of 5', () => {

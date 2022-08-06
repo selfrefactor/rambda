@@ -1,10 +1,10 @@
 import {path} from 'rambda'
 
 interface Input {
-  a: number
+  a: number,
   b: {
-    c: boolean
-  }
+    c: boolean,
+  },
 }
 
 describe('R.path', () => {

@@ -39,7 +39,7 @@ test('with date', () => {
     2014, 10, 14, 23, 59, 59, 999
   ))
 
-  expect(cloned.getDay()).toEqual(5)
+  expect(cloned.getDay()).toBe(5)
 })
 
 test('with R.equals', () => {

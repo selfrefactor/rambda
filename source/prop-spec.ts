@@ -2,7 +2,7 @@ import {pipe, prop} from 'rambda'
 
 describe('R.prop', () => {
   const obj = {a: 1, b: 'foo'}
-  type Something = {a?: number, b?: string}
+  interface Something {a?: number, b?: string}
 
   it('issue #553', () => {
     const result = prop('e', {e: 'test1', d: 'test2'})
@@ -27,7 +27,7 @@ describe('R.prop', () => {
     result // $ExpectType number | undefined
   })
   it('curried with implicit object type', () => {
-    const result = pipe((value) => value as Something, prop('b'))(obj)
+    const result = pipe(value => value as Something, prop('b'))(obj)
 
     result // $ExpectType string | undefined
   })

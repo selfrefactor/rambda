@@ -4,7 +4,7 @@ import { equals } from './equals.js'
 import { T } from './T.js'
 
 test('returns a function', () => {
-  expect(typeof cond([])).toEqual('function')
+  expect(typeof cond([])).toBe('function')
 })
 
 test('returns a conditional function', () => {
@@ -18,9 +18,9 @@ test('returns a conditional function', () => {
       },
     ],
   ])
-  expect(fn(0)).toEqual('water freezes at 0°C')
-  expect(fn(50)).toEqual('nothing special happens at 50°C')
-  expect(fn(100)).toEqual('water boils at 100°C')
+  expect(fn(0)).toBe('water freezes at 0°C')
+  expect(fn(50)).toBe('nothing special happens at 50°C')
+  expect(fn(100)).toBe('water boils at 100°C')
 })
 
 test('no winner', () => {
@@ -28,7 +28,7 @@ test('no winner', () => {
     [ equals('foo'), always(1) ],
     [ equals('bar'), always(2) ],
   ])
-  expect(fn('quux')).toEqual(undefined)
+  expect(fn('quux')).toBeUndefined()
 })
 
 test('predicates are tested in order', () => {
@@ -37,5 +37,5 @@ test('predicates are tested in order', () => {
     [ T, always('bar') ],
     [ T, always('baz') ],
   ])
-  expect(fn()).toEqual('foo')
+  expect(fn()).toBe('foo')
 })

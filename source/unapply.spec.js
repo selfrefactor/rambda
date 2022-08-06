@@ -17,25 +17,25 @@ test('returns a function which is always passed one argument', () => {
   const fn = unapply(function (){
     return arguments.length
   })
-  expect(fn('x')).toEqual(1)
-  expect(fn('x', 'y')).toEqual(1)
+  expect(fn('x')).toBe(1)
+  expect(fn('x', 'y')).toBe(1)
   expect(fn(
     'x', 'y', 'z'
-  )).toEqual(1)
+  )).toBe(1)
 })
 
 test('forwards arguments to decorated function as an array', () => {
   const fn = unapply(xs => '[' + xs + ']')
-  expect(fn(2)).toEqual('[2]')
-  expect(fn(2, 4)).toEqual('[2,4]')
+  expect(fn(2)).toBe('[2]')
+  expect(fn(2, 4)).toBe('[2,4]')
   expect(fn(
     2, 4, 6
-  )).toEqual('[2,4,6]')
+  )).toBe('[2,4,6]')
 })
 
 test('returns a function with length 0', () => {
   const fn = unapply(identity)
-  expect(fn.length).toEqual(0)
+  expect(fn).toHaveLength(0)
 })
 
 test('is the inverse of R.apply', () => {

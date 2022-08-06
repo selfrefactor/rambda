@@ -8,7 +8,7 @@ test('happy', () => {
     map(add(1)), map(add(10)), last
   )(list)
 
-  expect(result).toEqual(14)
+  expect(result).toBe(14)
 })
 
 test('issue #627', () => {

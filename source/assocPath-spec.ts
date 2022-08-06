@@ -1,8 +1,8 @@
 import {assocPath} from 'rambda'
 
 interface Output {
-  a: number
-  foo: {bar: number}
+  a: number,
+  foo: {bar: number},
 }
 
 describe('R.assocPath - user must explicitly set type of output', () => {

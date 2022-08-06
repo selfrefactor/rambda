@@ -37,7 +37,7 @@ test('with function returning promise', async () => {
     x => x
   )(1)
 
-  expect(result).toEqual(3)
+  expect(result).toBe(3)
 })
 
 test('throw error', async () => {

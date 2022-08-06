@@ -11,9 +11,9 @@ test('happy', async () => {
       'a', 2, x
     )
   }
-  expect(await findAsync(fn, list)).toEqual({ a : 2 })
-  expect(await findAsync(fn)(list)).toEqual({ a : 2 })
-  expect(await findAsync(fn)([])).toEqual(undefined)
+  await expect(findAsync(fn, list)).resolves.toEqual({ a : 2 })
+  await expect(findAsync(fn)(list)).resolves.toEqual({ a : 2 })
+  await expect(findAsync(fn)([])).resolves.toBeUndefined()
 })
 
 test('with error', async () => {

@@ -23,5 +23,5 @@ test('predicate is always false', () => {
 
 test('with string', () => {
   const result = takeLastWhile(x => x !== 'F', 'FOOBAR')
-  expect(result).toEqual('OOBAR')
+  expect(result).toBe('OOBAR')
 })

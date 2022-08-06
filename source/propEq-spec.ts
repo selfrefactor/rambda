@@ -19,7 +19,7 @@ describe('R.propEq', () => {
 
   it('with optional property', () => {
     interface MyType {
-      optional?: string | number
+      optional?: string | number,
     }
 
     const myObject: MyType = {}
@@ -33,7 +33,7 @@ describe('R.propEq', () => {
 
   it('imported from @types/ramda', () => {
     interface A {
-      foo: string | null
+      foo: string | null,
     }
     const obj: A = {
       foo: 'bar',

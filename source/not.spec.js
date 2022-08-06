@@ -1,4 +1,4 @@
-import {not} from './not.js'
+import { not } from './not.js'
 
 test('not', () => {
   expect(not(false)).toBeTrue()

@@ -15,7 +15,7 @@ test('with string as condition', () => {
 })
 
 test('with null', () => {
-  expect(omit('a,b', null)).toEqual(undefined)
+  expect(omit('a,b', null)).toBeUndefined()
 })
 
 test('doesn\'t work with number as property', () => {

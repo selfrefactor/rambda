@@ -63,23 +63,23 @@ test('async function', async () => {
   }
 
   const memoized = memoize(fn)
-  expect(await memoized(
+  await expect(memoized(
     100, 1, 2
-  )).toBe(3)
-  expect(await memoized(
+  )).resolves.toBe(3)
+  await expect(memoized(
     100, 1, 2
-  )).toBe(3)
-  expect(await memoized(
+  )).resolves.toBe(3)
+  await expect(memoized(
     100, 1, 2
-  )).toBe(3)
+  )).resolves.toBe(3)
   expect(counter).toBe(1)
-  expect(await memoized(
+  await expect(memoized(
     100, 2, 2
-  )).toBe(4)
+  )).resolves.toBe(4)
   expect(counter).toBe(2)
-  expect(await memoized(
+  await expect(memoized(
     100, 1, 2
-  )).toBe(3)
+  )).resolves.toBe(3)
   expect(counter).toBe(2)
 })
 
@@ -95,13 +95,13 @@ test('string as argument', () => {
   tester(foo)
   tester(foo)
 
-  expect(tester(foo)).toEqual('foobar')
+  expect(tester(foo)).toBe('foobar')
 
-  expect(count).toEqual(1)
+  expect(count).toBe(1)
 
   tester('baz')
 
-  expect(tester('baz')).toEqual('bazbar')
+  expect(tester('baz')).toBe('bazbar')
 
-  expect(count).toEqual(2)
+  expect(count).toBe(2)
 })

@@ -9,7 +9,7 @@ test('with undefined', () => {
     .is(x => x === undefined, 'UNDEFINED')
     .default('3')
 
-  expect(result).toEqual('UNDEFINED')
+  expect(result).toBe('UNDEFINED')
 })
 
 test('happy', () => {
@@ -21,7 +21,7 @@ test('happy', () => {
     .is([ true, true ], '2')
     .default('3')
 
-  expect(result).toEqual('3')
+  expect(result).toBe('3')
 })
 
 test('can compare objects', () => {
@@ -30,7 +30,7 @@ test('can compare objects', () => {
     .is('baz', 'it is baz')
     .default('it is default')
 
-  expect(result).toEqual('it is object')
+  expect(result).toBe('it is object')
 })
 
 test('options are mixture of functions and values - input match function', () => {
@@ -38,7 +38,7 @@ test('options are mixture of functions and values - input match function', () =>
     .is('foo', add(1))
     .default(1000)
 
-  expect(fn(2)).toEqual(3)
+  expect(fn(2)).toBe(3)
 })
 
 test('options are mixture of functions and values - input match value', () => {
@@ -54,7 +54,7 @@ test('return function if all options are functions', () => {
     .is('foo', add(1))
     .default(trim)
 
-  expect(fn(2)).toEqual(3)
+  expect(fn(2)).toBe(3)
 })
 
 const switchFn = input =>
@@ -64,13 +64,13 @@ const switchFn = input =>
     .default('it is default')
 
 test('works with function as condition', () => {
-  expect(switchFn([ 0, 1, 2, 3, 4, 5, 6 ])).toEqual('has length of 7')
+  expect(switchFn([ 0, 1, 2, 3, 4, 5, 6 ])).toBe('has length of 7')
 })
 
 test('works with string as condition', () => {
-  expect(switchFn('baz')).toEqual('it is baz')
+  expect(switchFn('baz')).toBe('it is baz')
 })
 
 test('fallback to default input when no matches', () => {
-  expect(switchFn(1)).toEqual('it is default')
+  expect(switchFn(1)).toBe('it is default')
 })

@@ -4,19 +4,19 @@ test('propOr (result)', () => {
   const obj = { a : 1 }
   expect(propOr(
     'default', 'a', obj
-  )).toEqual(1)
+  )).toBe(1)
   expect(propOr(
     'default', 'notExist', obj
-  )).toEqual('default')
+  )).toBe('default')
   expect(propOr(
     'default', 'notExist', null
-  )).toEqual('default')
+  )).toBe('default')
 })
 
 test('propOr (currying)', () => {
   const obj = { a : 1 }
-  expect(propOr('default')('a', obj)).toEqual(1)
-  expect(propOr('default', 'a')(obj)).toEqual(1)
-  expect(propOr('default')('notExist', obj)).toEqual('default')
-  expect(propOr('default', 'notExist')(obj)).toEqual('default')
+  expect(propOr('default')('a', obj)).toBe(1)
+  expect(propOr('default', 'a')(obj)).toBe(1)
+  expect(propOr('default')('notExist', obj)).toBe('default')
+  expect(propOr('default', 'notExist')(obj)).toBe('default')
 })

@@ -2,13 +2,13 @@ import { findLast } from './findLast.js'
 
 test('happy', () => {
   const result = findLast(x => x > 1, [ 1, 1, 1, 2, 3, 4, 1 ])
-  expect(result).toEqual(4)
+  expect(result).toBe(4)
 
-  expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
+  expect(findLast(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toBe(0)
 })
 
 test('with curry', () => {
-  expect(findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(4)
+  expect(findLast(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toBe(4)
 })
 
 const obj1 = { x : 100 }
@@ -28,20 +28,20 @@ const xGt100 = function (o){
 }
 
 test('ramda 1', () => {
-  expect(findLast(even, a)).toEqual(0)
-  expect(findLast(gt100, a)).toEqual(300)
-  expect(findLast(isStr, a)).toEqual('cow')
+  expect(findLast(even, a)).toBe(0)
+  expect(findLast(gt100, a)).toBe(300)
+  expect(findLast(isStr, a)).toBe('cow')
   expect(findLast(xGt100, a)).toEqual(obj2)
 })
 
 test('ramda 2', () => {
-  expect(findLast(even, [ 'zing' ])).toEqual(undefined)
+  expect(findLast(even, [ 'zing' ])).toBeUndefined()
 })
 
 test('ramda 3', () => {
-  expect(findLast(even, [ 2, 3, 5 ])).toEqual(2)
+  expect(findLast(even, [ 2, 3, 5 ])).toBe(2)
 })
 
 test('ramda 4', () => {
-  expect(findLast(even, [])).toEqual(undefined)
+  expect(findLast(even, [])).toBeUndefined()
 })

@@ -1,7 +1,7 @@
 import {sortByPath} from 'rambda'
 
 interface Input {
-  a: {b: number}
+  a: {b: number},
 }
 
 describe('R.sortByPath', () => {

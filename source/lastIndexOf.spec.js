@@ -5,7 +5,7 @@ import { possibleIterables, possibleTargets } from './indexOf.spec.js'
 import { lastIndexOf } from './lastIndexOf.js'
 
 test('with NaN', () => {
-  expect(lastIndexOf(NaN, [ NaN ])).toEqual(0)
+  expect(lastIndexOf(NaN, [ NaN ])).toBe(0)
 })
 
 test('will throw with bad input', () => {
@@ -14,7 +14,7 @@ test('will throw with bad input', () => {
 })
 
 test('without list of objects - no R.equals', () => {
-  expect(lastIndexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
+  expect(lastIndexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
   expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
 })
 

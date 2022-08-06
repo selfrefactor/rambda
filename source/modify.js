@@ -1,9 +1,11 @@
-import {curry} from './curry.js'
+import { curry } from './curry.js'
 
-function modifyFn(property, fn, obj) {
+function modifyFn(
+  property, fn, obj
+){
   return {
     ...obj,
-    [property]: fn(obj[property])
+    [ property ] : fn(obj[ property ]),
   }
 }
 

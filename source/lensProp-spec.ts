@@ -1,7 +1,7 @@
 import {lensProp, view} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 const testObject: Input = {

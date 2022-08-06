@@ -1,19 +1,19 @@
-import {defaultTo} from './defaultTo.js'
+import { defaultTo } from './defaultTo.js'
 
 test('with undefined', () => {
-  expect(defaultTo('foo')(undefined)).toEqual('foo')
+  expect(defaultTo('foo')(undefined)).toBe('foo')
 })
 
 test('with null', () => {
-  expect(defaultTo('foo')(null)).toEqual('foo')
+  expect(defaultTo('foo')(null)).toBe('foo')
 })
 
 test('with NaN', () => {
-  expect(defaultTo('foo')(NaN)).toEqual('foo')
+  expect(defaultTo('foo')(NaN)).toBe('foo')
 })
 
 test('with empty string', () => {
-  expect(defaultTo('foo', '')).toEqual('')
+  expect(defaultTo('foo', '')).toBe('')
 })
 
 test('with false', () => {
@@ -21,5 +21,5 @@ test('with false', () => {
 })
 
 test('when inputArgument passes initial check', () => {
-  expect(defaultTo('foo', 'bar')).toEqual('bar')
+  expect(defaultTo('foo', 'bar')).toBe('bar')
 })

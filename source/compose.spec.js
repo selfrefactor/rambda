@@ -11,7 +11,7 @@ test('happy', () => {
     last, map(add(10)), map(add(1))
   )([ 1, 2, 3 ])
 
-  expect(result).toEqual(14)
+  expect(result).toBe(14)
 })
 
 test('can accepts initially two arguments', () => {
@@ -41,8 +41,8 @@ test('ramda spec', () => {
 test('does return correct length of composed function', () => {
   expect(compose(
     map, map, map
-  ).length).toBe(2)
+  )).toHaveLength(2)
   expect(composeRamda(
     map, map, map
-  ).length).toBe(2)
+  )).toHaveLength(2)
 })

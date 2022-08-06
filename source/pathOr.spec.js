@@ -5,7 +5,7 @@ test('with undefined', () => {
     'foo', 'x.y', { x : { y : 1 } }
   )
 
-  expect(result).toEqual(1)
+  expect(result).toBe(1)
 })
 
 test('with null', () => {
@@ -13,7 +13,7 @@ test('with null', () => {
     'foo', 'x.y', null
   )
 
-  expect(result).toEqual('foo')
+  expect(result).toBe('foo')
 })
 
 test('with NaN', () => {
@@ -21,23 +21,23 @@ test('with NaN', () => {
     'foo', 'x.y', NaN
   )
 
-  expect(result).toEqual('foo')
+  expect(result).toBe('foo')
 })
 
 test('curry case (x)(y)(z)', () => {
   const result = pathOr('foo')('x.y.z')({ x : { y : { a : 1 } } })
 
-  expect(result).toEqual('foo')
+  expect(result).toBe('foo')
 })
 
 test('curry case (x)(y,z)', () => {
   const result = pathOr('foo', 'x.y.z')({ x : { y : { a : 1 } } })
 
-  expect(result).toEqual('foo')
+  expect(result).toBe('foo')
 })
 
 test('curry case (x,y)(z)', () => {
   const result = pathOr('foo')('x.y.z', { x : { y : { a : 1 } } })
 
-  expect(result).toEqual('foo')
+  expect(result).toBe('foo')
 })

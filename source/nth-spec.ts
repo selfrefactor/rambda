@@ -7,7 +7,7 @@ describe('R.nth', () => {
     const result = nth(4, list)
 
     result // $ExpectType number | undefined
-        })
+  })
   it('curried', () => {
     const result = nth(1)(list)
 

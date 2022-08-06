@@ -11,5 +11,6 @@ export function unwind(property, obj){
   return mapArray(x => ({
     ...obj,
     [ property ] : x,
-  }), obj[ property ])
+  }),
+  obj[ property ])
 }

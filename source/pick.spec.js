@@ -49,7 +49,7 @@ test('props to pick is an array', () => {
     c : 'baz',
   })).toEqual({ a : 'foo' })
 
-  expect(pick('a,d,e,f')(null)).toEqual(undefined)
+  expect(pick('a,d,e,f')(null)).toBeUndefined()
 })
 
 test('works with list as input and number as props - props to pick is an array', () => {

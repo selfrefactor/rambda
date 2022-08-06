@@ -13,11 +13,11 @@ const testObj = {
 }
 
 test('focuses object the specified object property', () => {
-  expect(view(lensProp('a'), testObj)).toEqual(1)
+  expect(view(lensProp('a'), testObj)).toBe(1)
 })
 
 test('returns undefined if the specified property does not exist', () => {
-  expect(view(lensProp('X'), testObj)).toEqual(undefined)
+  expect(view(lensProp('X'), testObj)).toBeUndefined()
 })
 
 test('sets the value of the object property specified', () => {
@@ -69,7 +69,7 @@ test('can be composed', () => {
   }
   const composedLens = compose(lensProp('a'), lensProp('b'))
 
-  expect(view(composedLens, nestedObj)).toEqual(1)
+  expect(view(composedLens, nestedObj)).toBe(1)
 })
 
 test('set s (get s) === s', () => {
@@ -81,7 +81,7 @@ test('set s (get s) === s', () => {
 test('get (set s v) === v', () => {
   expect(view(lensProp('a'), set(
     lensProp('a'), 0, testObj
-  ))).toEqual(0)
+  ))).toBe(0)
 })
 
 test('get (set(set s v1) v2) === v2', () => {
@@ -90,5 +90,5 @@ test('get (set(set s v1) v2) === v2', () => {
       lensProp('a'), 11, set(
         lensProp('a'), 10, testObj
       )
-    ))).toEqual(11)
+    ))).toBe(11)
 })

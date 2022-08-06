@@ -51,7 +51,7 @@ test('with new Boolean', () => {
 })
 
 test('with new String', () => {
-  expect(type(new String('I am a String object'))).toEqual('String')
+  expect(type(new String('I am a String object'))).toBe('String')
 })
 
 test('with new Number', () => {
@@ -78,11 +78,11 @@ test('with new promise', () => {
       }, ms)
     })
 
-  expect(type(delay(10))).toEqual('Promise')
+  expect(type(delay(10))).toBe('Promise')
 })
 
 test('async function', () => {
-  expect(type(async () => {})).toEqual('Promise')
+  expect(type(async () => {})).toBe('Promise')
 })
 
 test('async arrow', () => {
@@ -97,41 +97,41 @@ test('function', () => {
   function fn3(){}
 
   ;[ () => {}, fn1, fn2, fn3 ].map(val => {
-    expect(type(val)).toEqual('Function')
+    expect(type(val)).toBe('Function')
   })
 })
 
 test('object', () => {
-  expect(type({})).toEqual('Object')
+  expect(type({})).toBe('Object')
 })
 
 test('number', () => {
-  expect(type(1)).toEqual('Number')
+  expect(type(1)).toBe('Number')
 })
 
 test('boolean', () => {
-  expect(type(false)).toEqual('Boolean')
+  expect(type(false)).toBe('Boolean')
 })
 
 test('string', () => {
-  expect(type('foo')).toEqual('String')
+  expect(type('foo')).toBe('String')
 })
 
 test('null', () => {
-  expect(type(null)).toEqual('Null')
+  expect(type(null)).toBe('Null')
 })
 
 test('array', () => {
-  expect(type([])).toEqual('Array')
-  expect(type([ 1, 2, 3 ])).toEqual('Array')
+  expect(type([])).toBe('Array')
+  expect(type([ 1, 2, 3 ])).toBe('Array')
 })
 
 test('regex', () => {
-  expect(type(/\s/g)).toEqual('RegExp')
+  expect(type(/\s/g)).toBe('RegExp')
 })
 
 test('undefined', () => {
-  expect(type(undefined)).toEqual('Undefined')
+  expect(type(undefined)).toBe('Undefined')
 })
 
 test('not a number', () => {

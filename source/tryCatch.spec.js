@@ -35,7 +35,7 @@ test('when fallback is function', () => {
 test('when fn is used', () => {
   const fn = prop('x')
 
-  expect(tryCatch(fn, false)({})).toBe(undefined)
+  expect(tryCatch(fn, false)({})).toBeUndefined()
   expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
 })
 

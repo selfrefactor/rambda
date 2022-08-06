@@ -4,7 +4,7 @@ import { tapAsync } from './tapAsync.js'
 
 test('happy', async () => {
   const result = await tapAsync(delay, 1)
-  expect(result).toEqual(1)
+  expect(result).toBe(1)
 })
 
 test('complex', async () => {
@@ -21,5 +21,5 @@ test('complex', async () => {
     x => x + 1
   )
   expect(marker).toBeTrue()
-  expect(result).toEqual(3)
+  expect(result).toBe(3)
 })

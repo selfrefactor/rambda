@@ -6,8 +6,8 @@ test('tail', () => {
   expect(tail([ 1 ])).toEqual([])
   expect(tail([])).toEqual([])
 
-  expect(tail('abc')).toEqual('bc')
-  expect(tail('ab')).toEqual('b')
-  expect(tail('a')).toEqual('')
-  expect(tail('')).toEqual('')
+  expect(tail('abc')).toBe('bc')
+  expect(tail('ab')).toBe('b')
+  expect(tail('a')).toBe('')
+  expect(tail('')).toBe('')
 })

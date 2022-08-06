@@ -3,8 +3,8 @@ import {pluck} from 'rambda'
 describe('R.pluck', () => {
   it('with object', () => {
     interface ListMember {
-      a: number
-      b: string
+      a: number,
+      b: string,
     }
     const input: ListMember[] = [
       {a: 1, b: 'foo'},

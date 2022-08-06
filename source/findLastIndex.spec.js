@@ -3,13 +3,13 @@ import { findLastIndex } from './findLastIndex.js'
 test('happy', () => {
   const result = findLastIndex(x => x > 1, [ 1, 1, 1, 2, 3, 4, 1 ])
 
-  expect(result).toEqual(5)
+  expect(result).toBe(5)
 
-  expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toEqual(0)
+  expect(findLastIndex(x => x === 0, [ 0, 1, 1, 2, 3, 4, 1 ])).toBe(0)
 })
 
 test('with curry', () => {
-  expect(findLastIndex(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toEqual(5)
+  expect(findLastIndex(x => x > 1)([ 1, 1, 1, 2, 3, 4, 1 ])).toBe(5)
 })
 
 const obj1 = { x : 100 }
@@ -29,10 +29,10 @@ const xGt100 = function (o){
 }
 
 test('ramda 1', () => {
-  expect(findLastIndex(even, a)).toEqual(15)
-  expect(findLastIndex(gt100, a)).toEqual(9)
-  expect(findLastIndex(isStr, a)).toEqual(3)
-  expect(findLastIndex(xGt100, a)).toEqual(10)
+  expect(findLastIndex(even, a)).toBe(15)
+  expect(findLastIndex(gt100, a)).toBe(9)
+  expect(findLastIndex(isStr, a)).toBe(3)
+  expect(findLastIndex(xGt100, a)).toBe(10)
 })
 
 test('ramda 2', () => {
@@ -40,7 +40,7 @@ test('ramda 2', () => {
 })
 
 test('ramda 3', () => {
-  expect(findLastIndex(even, [ 2, 3, 5 ])).toEqual(0)
+  expect(findLastIndex(even, [ 2, 3, 5 ])).toBe(0)
 })
 
 test('ramda 4', () => {

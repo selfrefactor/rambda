@@ -4,7 +4,7 @@ import { compareCombinations } from './_internals/testUtils.js'
 import { indexOf } from './indexOf.js'
 
 test('with NaN', () => {
-  expect(indexOf(NaN, [ NaN ])).toEqual(0)
+  expect(indexOf(NaN, [ NaN ])).toBe(0)
 })
 
 test('will throw with bad input', () => {
@@ -13,7 +13,7 @@ test('will throw with bad input', () => {
 })
 
 test('without list of objects - no R.equals', () => {
-  expect(indexOf(3, [ 1, 2, 3, 4 ])).toEqual(2)
+  expect(indexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
   expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
 })
 

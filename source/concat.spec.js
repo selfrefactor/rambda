@@ -13,5 +13,5 @@ test('happy', () => {
 })
 
 test('with strings', () => {
-  expect(concat('ABC', 'DEF')).toEqual('ABCDEF')
+  expect(concat('ABC', 'DEF')).toBe('ABCDEF')
 })

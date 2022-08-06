@@ -1,8 +1,8 @@
 import { pickAll } from './pickAll.js'
 
 test('when input is undefined or null', () => {
-  expect(pickAll('a', null)).toBe(undefined)
-  expect(pickAll('a', undefined)).toBe(undefined)
+  expect(pickAll('a', null)).toBeUndefined()
+  expect(pickAll('a', undefined)).toBeUndefined()
 })
 
 test('with string as condition', () => {

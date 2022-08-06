@@ -23,6 +23,6 @@ test('no duplicates in first list', () => {
 })
 
 test('should use R.equals', () => {
-  expect(difference([ 1 ], [ 1 ]).length).toEqual(0)
-  expect(differenceRamda([ NaN ], [ NaN ]).length).toEqual(0)
+  expect(difference([ 1 ], [ 1 ])).toHaveLength(0)
+  expect(differenceRamda([ NaN ], [ NaN ])).toHaveLength(0)
 })

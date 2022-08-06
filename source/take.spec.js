@@ -10,7 +10,7 @@ test('happy', () => {
   expect(take(2)([ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar' ])
   expect(take(3, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
   expect(take(4, [ 'foo', 'bar', 'baz' ])).toEqual([ 'foo', 'bar', 'baz' ])
-  expect(take(3)('rambda')).toEqual('ram')
+  expect(take(3)('rambda')).toBe('ram')
 })
 
 test('with negative index', () => {

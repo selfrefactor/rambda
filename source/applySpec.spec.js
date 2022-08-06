@@ -1,6 +1,16 @@
 import { applySpec as applySpecRamda, nAry } from 'ramda'
 
-import { add, always, compose, dec, inc, map, path, prop, T } from '../rambda.js'
+import {
+  add,
+  always,
+  compose,
+  dec,
+  inc,
+  map,
+  path,
+  prop,
+  T,
+} from '../rambda.js'
 import { applySpec } from './applySpec.js'
 
 test('different than Ramda when bad spec', () => {
@@ -94,8 +104,8 @@ test('cannot retains the highest arity', () => {
     f1 : nAry(2, T),
     f2 : nAry(5, T),
   })
-  expect(f.length).toBe(0)
-  expect(fRamda.length).toBe(5)
+  expect(f).toHaveLength(0)
+  expect(fRamda).toHaveLength(5)
 })
 
 test('returns a curried function', () => {

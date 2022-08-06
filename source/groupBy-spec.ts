@@ -2,13 +2,13 @@ import {groupBy} from 'rambda'
 import {groupBy as groupByRamda, prop} from 'ramda'
 
 interface Thing {
-  name: string
-  position: string
+  name: string,
+  position: string,
 }
 
 interface Output {
-  left: Thing[]
-  right: Thing[]
+  left: Thing[],
+  right: Thing[],
 }
 
 const things = [

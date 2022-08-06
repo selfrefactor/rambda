@@ -2,13 +2,13 @@ import {applyDiff} from 'rambda'
 
 interface Output {
   a: {
-    b: number
-    d: number
-  }
+    b: number,
+    d: number,
+  },
 }
 
 describe('R.applyDiff', () => {
-  it('happy', async () => {
+  it('happy', async() => {
     const obj = {a: {b: 1, c: 2}}
     const rules = [
       {op: 'remove', path: 'a.c'} as const,

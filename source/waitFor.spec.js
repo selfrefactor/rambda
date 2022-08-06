@@ -1,5 +1,5 @@
-import {delay} from './delay.js'
-import {waitFor} from './waitFor.js'
+import { delay } from './delay.js'
+import { waitFor } from './waitFor.js'
 
 const howLong = 1000
 

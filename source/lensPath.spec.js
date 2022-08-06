@@ -13,10 +13,10 @@ const testObj = {
 }
 
 test('view', () => {
-  expect(view(lensPath('d'), testObj)).toEqual(3)
-  expect(view(lensPath('a.0.b'), testObj)).toEqual(1)
+  expect(view(lensPath('d'), testObj)).toBe(3)
+  expect(view(lensPath('a.0.b'), testObj)).toBe(1)
   // this is different to ramda, as ramda will return a clone of the input object
-  expect(view(lensPath(''), testObj)).toEqual(undefined)
+  expect(view(lensPath(''), testObj)).toBeUndefined()
 })
 
 test('set', () => {
@@ -46,7 +46,7 @@ test('set', () => {
   })
   expect(set(
     lensPath([]), 0, testObj
-  )).toEqual(0)
+  )).toBe(0)
 })
 
 test('over', () => {
@@ -85,7 +85,7 @@ test('over', () => {
 
 test('compose', () => {
   const composedLens = compose(lensPath('a'), lensPath('1.b'))
-  expect(view(composedLens, testObj)).toEqual(2)
+  expect(view(composedLens, testObj)).toBe(2)
 })
 
 test('set s (get s) === s', () => {
@@ -102,10 +102,10 @@ test('set s (get s) === s', () => {
 test('get (set s v) === v', () => {
   expect(view(lensPath([ 'd' ]), set(
     lensPath([ 'd' ]), 0, testObj
-  ))).toEqual(0)
+  ))).toBe(0)
   expect(view(lensPath([ 'a', 0, 'b' ]), set(
     lensPath([ 'a', 0, 'b' ]), 0, testObj
-  ))).toEqual(0)
+  ))).toBe(0)
 })
 
 test('get (set(set s v1) v2) === v2', () => {
@@ -115,10 +115,10 @@ test('get (set(set s v1) v2) === v2', () => {
     lensPath(p), 11, set(
       lensPath(p), 10, testObj
     )
-  ))).toEqual(11)
+  ))).toBe(11)
   expect(view(lensPath(q), set(
     lensPath(q), 11, set(
       lensPath(q), 10, testObj
     )
-  ))).toEqual(11)
+  ))).toBe(11)
 })

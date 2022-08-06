@@ -296,10 +296,4 @@ export const compareCombinations = ({
   })
 }
 
-export const FALSY_VALUES = [
-  null,
-  undefined,
-  false,
-  NaN,
-  ''
-]
+export const FALSY_VALUES = [ null, undefined, false, NaN, '' ]

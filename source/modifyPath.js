@@ -11,7 +11,7 @@ export function modifyPathFn(
   if (path.length === 1){
     return {
       ...object,
-      [ path[0] ] : fn(object[ path[0] ]),
+      [ path[ 0 ] ] : fn(object[ path[ 0 ] ]),
     }
   }
   if (pathModule(path, object) === undefined) return object
