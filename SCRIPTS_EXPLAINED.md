@@ -22,3 +22,6 @@ It makes a Github release. It expects user to be logged with Github.
 
 > Part of `rambda-scripts/README.md`'s `## Release steps` section
 
+## run specific Rambda method agains Ramda test
+
+WITH_INITIAL_STEP=ON METHOD=modify yarn run:ramda:test

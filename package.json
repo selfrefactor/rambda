@@ -25,6 +25,7 @@
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.js",
 		"docs": "npx docsify-cli init ./docs && yarn fix-docsify",
 		"new": "cd ../rambda-scripts && yarn new",
+		"run:ramda:test": "cd ../rambda-scripts && yarn run:ramda:test",
 		"consume-typings:clone": "cd .. && git clone --depth 1 https://github.com/selfrefactor/rambda-scripts.git rambda-scripts-clone",
 		"consume-typings:execute": "cd ../rambda-scripts-clone/scripts/consume-typings && yarn start",
 		"consume-typings": "yarn consume-typings:clone && yarn consume-typings:execute",
