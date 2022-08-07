@@ -1,6 +1,8 @@
 # Explanation of scripts
 
-## benchmark:single
+## benchmark
+
+yarn build:step && METHOD=flatten yarn benchmark
 
 > Require build command first, i.e. `yarn build`
 
@@ -24,4 +26,6 @@ It makes a Github release. It expects user to be logged with Github.
 
 ## run specific Rambda method agains Ramda test
 
-WITH_INITIAL_STEP=ON METHOD=modify yarn run:ramda:test
+yarn build:step && WITH_INITIAL_STEP=ON METHOD=modify yarn run:ramda:test
+
+build output and run ramda test agains rambda method

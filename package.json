@@ -35,11 +35,10 @@
 		"test": "jest -o -u --watch",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
-		"benchmark": "yarn build:step && yarn benchmark:single",
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
 		"benchmark:check": "yarn build:step && METHOD=compose yarn benchmark:check:apply",
 		"benchmark:check:apply": "cd ../rambda-scripts && yarn check-benchmark",
-		"benchmark:single": "cd ../rambda-scripts && METHOD=uniqWith RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
+		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"d:rambda-scripts": "cd ../rambda-scripts && run d",
 		"d": "yarn out && yarn lint && run d && yarn d:rambda-scripts"
 	},
