@@ -24,7 +24,7 @@ const tests = [
   },
   {
     label : 'Lodash',
-    fn    : _.flatten,
+    fn    : _.flattenDeep,
   },
 ]
 

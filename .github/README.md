@@ -278,7 +278,7 @@ method | Rambda | Ramda | Lodash
  *filter* | 6.7% slower | 72.03% slower | 🚀 Fastest
  *find* | 🚀 Fastest | 85.14% slower | 42.65% slower
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
- *flatten* | 🚀 Fastest | 95.26% slower | 10.27% slower
+ *flatten* | 6.56% slower | 86.64% slower | 🚀 Fastest
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
  *includes* | 🚀 Fastest | 84.63% slower | 🔳
  *indexOf* | 🚀 Fastest | 76.63% slower | 🔳
@@ -6175,33 +6175,41 @@ describe('flatten', () => {
 
 <details>
 
-<summary>Rambda is fastest. Ramda is 95.26% slower and Lodash is 10.27% slower</summary>
+<summary>Lodash is fastest. Rambda is 6.56% slower and Ramda is 86.64% slower</summary>
 
 ```text
 const R = require('../../dist/rambda.js')
 
-const list = [ 1, [ 2, [ 3, 4, 6 ] ] ]
+const { uniqListOfStrings, applyBenchmarkUnary } = require('./_utils.js')
 
-const flatten = [
+const modes = [
+  [ 1, [ 2, [ 3, 4, 6 ] ] ],
+  uniqListOfStrings,
+  [],
+  [{a:[1,2]}, [], [{a:[1,2]}, []]],
+  Array(1000).fill([ 1, [ 2, [ 3, 4, 6 ] ] ]),
+  Array(1000).fill([[]]),
+]
+
+const tests = [
   {
     label : 'Rambda',
-    fn    : () => {
-      R.flatten(list)
-    },
+    fn    : R.flatten,
   },
   {
     label : 'Ramda',
-    fn    : () => {
-      Ramda.flatten(list)
-    },
+    fn    : Ramda.flatten,
   },
   {
     label : 'Lodash',
-    fn    : () => {
-      _.flatten(list)
-    },
+    fn    : _.flattenDeep,
   },
 ]
+
+  tests,
+  applyBenchmark: applyBenchmarkUnary,
+  modes,
+}
 ```
 
 </details>
