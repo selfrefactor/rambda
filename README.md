@@ -9426,18 +9426,20 @@ modify<K extends string, A, P>(
 <summary><strong>R.modify</strong> source</summary>
 
 ```javascript
+import { _isArray } from './_internals/_isArray.js'
+import { isIterable } from './_internals/isIterable.js'
 import { curry } from './curry.js'
 import { updateFn } from './update.js'
-import { isIterable } from './_internals/isIterable.js'
-import { _isArray } from './_internals/_isArray.js'
 
 function modifyFn(
   property, fn, iterable
 ){
-  if(!isIterable(iterable)) return iterable
-  if(iterable[property] === undefined) return iterable
-  if(_isArray(iterable)){
-    return updateFn(property, fn(iterable[property]), iterable)
+  if (!isIterable(iterable)) return iterable
+  if (iterable[ property ] === undefined) return iterable
+  if (_isArray(iterable)){
+    return updateFn(
+      property, fn(iterable[ property ]), iterable
+    )
   }
 
   return {
@@ -9456,75 +9458,83 @@ export const modify = curry(modifyFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { modify as modifyRamda } from "ramda";
+import { modify as modifyRamda } from 'ramda'
 
-import { compareCombinations, FALSY_VALUES } from "./_internals/testUtils.js";
-import { add } from "./add.js";
-import { compose } from "./compose.js";
-import { modify } from "./modify.js";
+import { compareCombinations, FALSY_VALUES } from './_internals/testUtils.js'
+import { add } from './add.js'
+import { compose } from './compose.js'
+import { modify } from './modify.js'
 
 const person = {
-  name: "foo",
-  age: 20,
-};
+  name : 'foo',
+  age  : 20,
+}
 
-test("happy", () => {
-  expect(modify("age", (x) => x + 1, person)).toEqual({
-    name: "foo",
-    age: 21,
-  });
-});
+test('happy', () => {
+  expect(modify(
+    'age', x => x + 1, person
+  )).toEqual({
+    name : 'foo',
+    age  : 21,
+  })
+})
 
-test("property is missing", () => {
-  expect(modify("foo", (x) => x + 1, person)).toEqual(person);
-});
+test('property is missing', () => {
+  expect(modify(
+    'foo', x => x + 1, person
+  )).toEqual(person)
+})
 
-test("adjust if `array` at the given key with the `transformation` function", function () {
-  expect(modify(1, add(1), [100, 1400])).toEqual([100, 1401]);
-});
+test('adjust if `array` at the given key with the `transformation` function', () => {
+  expect(modify(
+    1, add(1), [ 100, 1400 ]
+  )).toEqual([ 100, 1401 ])
+})
 
-describe("ignores transformations if the input value is not Array and Object", function () {
-  [42, undefined, null, ""].forEach((value) => {
-    test(`${value}`, function () {
-      expect(modify("a", add(1), value)).toEqual(value);
-    });
-  });
-});
+describe('ignores transformations if the input value is not Array and Object', () => {
+  ;[ 42, undefined, null, '' ].forEach(value => {
+    it(`${ value }`, () => {
+      expect(modify(
+        'a', add(1), value
+      )).toEqual(value)
+    })
+  })
+})
 
-const possibleProperties = [...FALSY_VALUES, "foo", 0];
+const possibleProperties = [ ...FALSY_VALUES, 'foo', 0 ]
 const possibleTransformers = [
   ...FALSY_VALUES,
   add(1),
-  add("foo"),
+  add('foo'),
   compose,
   String,
-];
+]
 const possibleObjects = [
   ...FALSY_VALUES,
   {},
-  [1, 2, 3],
+  [ 1, 2, 3 ],
   {
-    a: 1,
-    foo: 2,
+    a   : 1,
+    foo : 2,
   },
   {
-    a: 1,
-    foo: [1],
+    a   : 1,
+    foo : [ 1 ],
   },
   {
-    a: 1,
-    foo: "bar",
+    a   : 1,
+    foo : 'bar',
   },
-];
+]
 
-describe("brute force", () => {
+describe('brute force', () => {
   compareCombinations({
-    fn: modify,
-    fnRamda: modifyRamda,
-    firstInput: possibleProperties,
-    secondInput: possibleTransformers,
-    thirdInput: possibleObjects,
-    callback: (errorsCounters) => {
+    fn          : modify,
+    fnRamda     : modifyRamda,
+    firstInput  : possibleProperties,
+    secondInput : possibleTransformers,
+    thirdInput  : possibleObjects,
+    callback    : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -9534,10 +9544,10 @@ describe("brute force", () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 630,
         }
-      `);
+      `)
     },
-  });
-});
+  })
+})
 ```
 
 </details>
