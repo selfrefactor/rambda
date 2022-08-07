@@ -1,3 +1,7 @@
+7.3.0
+
+- Add `R.modify`
+
 7.2.1
 
 - Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 

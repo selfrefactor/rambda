@@ -41,22 +41,6 @@ function all(predicate, list) {
   return true;
 }
 
-function allPass(predicates) {
-  return (...input) => {
-    let counter = 0;
-
-    while (counter < predicates.length) {
-      if (!predicates[counter](...input)) {
-        return false;
-      }
-
-      counter++;
-    }
-
-    return true;
-  };
-}
-
 function always(x) {
   return _ => x;
 }
@@ -1559,7 +1543,6 @@ function updateFn(index, newValue, list) {
   if (index === -1) return clone.fill(newValue, index);
   return clone.fill(newValue, index, index + 1);
 }
-
 const update = curry(updateFn);
 
 function lensIndex(index) {
@@ -1721,6 +1704,25 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+
+function isIterable(input) {
+  return Array.isArray(input) || type(input) === 'Object';
+}
+
+function modifyFn(property, fn, iterable) {
+  if (!isIterable(iterable)) return iterable;
+  if (iterable[property] === undefined) return iterable;
+
+  if (_isArray(iterable)) {
+    return updateFn(property, fn(iterable[property]), iterable);
+  }
+
+  return _objectSpread2(_objectSpread2({}, iterable), {}, {
+    [property]: fn(iterable[property])
+  });
+}
+
+const modify = curry(modifyFn);
 
 function modifyPathFn(pathInput, fn, object) {
   const path$1 = createPath(pathInput);
@@ -2548,7 +2550,6 @@ exports._pipe = _pipe;
 exports.add = add;
 exports.adjust = adjust;
 exports.all = all;
-exports.allPass = allPass;
 exports.always = always;
 exports.and = and;
 exports.any = any;
@@ -2649,6 +2650,7 @@ exports.mergeWith = mergeWith;
 exports.min = min;
 exports.minBy = minBy;
 exports.minByFn = minByFn;
+exports.modify = modify;
 exports.modifyPath = modifyPath;
 exports.modifyPathFn = modifyPathFn;
 exports.modulo = modulo;
@@ -2730,6 +2732,7 @@ exports.uniqWith = uniqWith;
 exports.unless = unless;
 exports.unwind = unwind;
 exports.update = update;
+exports.updateFn = updateFn;
 exports.values = values;
 exports.view = view;
 exports.when = when;

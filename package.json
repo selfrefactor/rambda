@@ -32,7 +32,7 @@
 		"test:consume-typings": "jest source/_consumeTypings.test.js",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"test:all": "jest source/*.spec.js -u --bail=false",
-		"test": "jest -o --watch",
+		"test": "jest -o -u --watch",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"build:step": "yarn populatedocs && yarn populatereadme && yarn build:main",
 		"benchmark": "yarn build:step && yarn benchmark:single",

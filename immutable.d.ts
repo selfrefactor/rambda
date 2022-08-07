@@ -153,11 +153,6 @@ export function all<T>(predicate: (x: T) => boolean, list: readonly T[]): boolea
 export function all<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
- */
-export function allPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
-
-/**
  * It returns function that always returns `x`.
  */
 export function always<T>(x: T): (...args: readonly unknown[]) => T;
@@ -1081,10 +1076,6 @@ export function propIs<C extends AnyFunction>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-export function propIs<C extends AnyFunction>(type: C): {
-  <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
-  <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-}
 
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
@@ -1558,3 +1549,13 @@ export function uniqBy<T, U>(fn: (a: T) => U): (list: readonly T[]) => readonly 
 export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
 export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
 export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+
+export function modify<T extends object, K extends keyof T, P>(
+  prop: K,
+  fn: (a: T[K]) => P,
+  obj: T,
+): Omit<T, K> & Record<K, P>;
+export function modify<K extends string, A, P>(
+  prop: K,
+  fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;

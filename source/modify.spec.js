@@ -21,10 +21,23 @@ test('happy', () => {
 
 test('property is missing', () => {
   expect(modify(
-    'age', x => x + 1, person
-  )).toEqual({
-    name : 'foo',
-    age  : 21,
+    'foo', x => x + 1, person
+  )).toEqual(person)
+})
+
+test('adjust if `array` at the given key with the `transformation` function', () => {
+  expect(modify(
+    1, add(1), [ 100, 1400 ]
+  )).toEqual([ 100, 1401 ])
+})
+
+describe('ignores transformations if the input value is not Array and Object', () => {
+  ;[ 42, undefined, null, '' ].forEach(value => {
+    it(`${ value }`, () => {
+      expect(modify(
+        'a', add(1), value
+      )).toEqual(value)
+    })
   })
 })
 
@@ -66,8 +79,8 @@ describe('brute force', () => {
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 159,
-          "SHOULD_NOT_THROW": 438,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 630,
         }
