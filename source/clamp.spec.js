@@ -3,8 +3,7 @@ import { clamp } from './clamp.js'
 test('when min is greater than max', () => {
   expect(() => clamp(
     -5, -10, 5
-  )).toThrowWithMessage(Error,
-    'min must not be greater than max in clamp(min, max, value)')
+  )).toThrowErrorMatchingInlineSnapshot('"min must not be greater than max in clamp(min, max, value)"')
 })
 
 test('rambda specs', () => {

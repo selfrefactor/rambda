@@ -2685,68 +2685,72 @@ export function chain(fn, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { chain as chainRamda } from 'ramda'
+import { chain as chainRamda } from "ramda";
 
-import { chain } from './chain.js'
+import { chain } from "./chain.js";
 
-const duplicate = n => [ n, n ]
+const duplicate = (n) => [n, n];
 
-test('happy', () => {
-  const fn = x => [ x * 2 ]
-  const list = [ 1, 2, 3 ]
+test("happy", () => {
+  const fn = (x) => [x * 2];
+  const list = [1, 2, 3];
 
-  const result = chain(fn, list)
+  const result = chain(fn, list);
 
-  expect(result).toEqual([ 2, 4, 6 ])
-})
+  expect(result).toEqual([2, 4, 6]);
+});
 
-test('maps then flattens one level', () => {
-  expect(chain(duplicate, [ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])
-})
+test("maps then flattens one level", () => {
+  expect(chain(duplicate, [1, 2, 3])).toEqual([1, 1, 2, 2, 3, 3]);
+});
 
-test('maps then flattens one level - curry', () => {
-  expect(chain(duplicate)([ 1, 2, 3 ])).toEqual([ 1, 1, 2, 2, 3, 3 ])
-})
+test("maps then flattens one level - curry", () => {
+  expect(chain(duplicate)([1, 2, 3])).toEqual([1, 1, 2, 2, 3, 3]);
+});
 
-test('flattens only one level', () => {
-  const nest = n => [ [ n ] ]
-  expect(chain(nest, [ 1, 2, 3 ])).toEqual([ [ 1 ], [ 2 ], [ 3 ] ])
-})
+test("flattens only one level", () => {
+  const nest = (n) => [[n]];
+  expect(chain(nest, [1, 2, 3])).toEqual([[1], [2], [3]]);
+});
 
-test('can compose', () => {
-  function dec(x){
-    return [ x - 1 ]
+test("can compose", () => {
+  function dec(x) {
+    return [x - 1];
   }
-  function times2(x){
-    return [ x * 2 ]
+  function times2(x) {
+    return [x * 2];
   }
 
-  const mdouble = chain(times2)
-  const mdec = chain(dec)
-  expect(mdec(mdouble([ 10, 20, 30 ]))).toEqual([ 19, 39, 59 ])
-})
+  const mdouble = chain(times2);
+  const mdec = chain(dec);
+  expect(mdec(mdouble([10, 20, 30]))).toEqual([19, 39, 59]);
+});
 
-test('@types/ramda broken test', () => {
+test("@types/ramda broken test", () => {
   const score = {
-    maths   : 90,
-    physics : 80,
-  }
+    maths: 90,
+    physics: 80,
+  };
 
-  const calculateTotal = score => {
-    const { maths, physics } = score
+  const calculateTotal = (score) => {
+    const { maths, physics } = score;
 
-    return maths + physics
-  }
+    return maths + physics;
+  };
 
   const assocTotalToScore = (total, score) => ({
     ...score,
     total,
-  })
+  });
 
-  const calculateAndAssocTotalToScore = chainRamda(assocTotalToScore,
-    calculateTotal)
-  expect(() => calculateAndAssocTotalToScore(score)).toThrow()
-})
+  const calculateAndAssocTotalToScore = chainRamda(
+    assocTotalToScore,
+    calculateTotal
+  );
+  expect(() =>
+    calculateAndAssocTotalToScore(score)
+  ).toThrowErrorMatchingInlineSnapshot(`"fn(...) is not a function"`);
+});
 ```
 
 </details>
@@ -7498,53 +7502,56 @@ export function lastIndexOf(valueToFind, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { lastIndexOf as lastIndexOfRamda } from 'ramda'
+import { lastIndexOf as lastIndexOfRamda } from "ramda";
 
-import { compareCombinations } from './_internals/testUtils.js'
-import { possibleIterables, possibleTargets } from './indexOf.spec.js'
-import { lastIndexOf } from './lastIndexOf.js'
+import { compareCombinations } from "./_internals/testUtils.js";
+import { possibleIterables, possibleTargets } from "./indexOf.spec.js";
+import { lastIndexOf } from "./lastIndexOf.js";
 
-test('with NaN', () => {
-  expect(lastIndexOf(NaN, [ NaN ])).toBe(0)
-})
+test("with NaN", () => {
+  expect(lastIndexOf(NaN, [NaN])).toBe(0);
+});
 
-test('will throw with bad input', () => {
-  expect(lastIndexOfRamda([], true)).toEqual(-1)
-  expect(() => indexOf([], true)).toThrow()
-})
+test("will throw with bad input", () => {
+  expect(lastIndexOfRamda([], true)).toEqual(-1);
+  expect(() => indexOf([], true)).toThrowErrorMatchingInlineSnapshot(
+    `"indexOf is not defined"`
+  );
+});
 
-test('without list of objects - no R.equals', () => {
-  expect(lastIndexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
-  expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
-})
+test("without list of objects - no R.equals", () => {
+  expect(lastIndexOf(3, [1, 2, 3, 4])).toBe(2);
+  expect(lastIndexOf(10)([1, 2, 3, 4])).toEqual(-1);
+});
 
-test('list of objects uses R.equals', () => {
-  const listOfObjects = [ { a : 1 }, { b : 2 }, { c : 3 } ]
-  expect(lastIndexOf({ c : 4 }, listOfObjects)).toBe(-1)
-  expect(lastIndexOf({ c : 3 }, listOfObjects)).toBe(2)
-})
+test("list of objects uses R.equals", () => {
+  const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }];
+  expect(lastIndexOf({ c: 4 }, listOfObjects)).toBe(-1);
+  expect(lastIndexOf({ c: 3 }, listOfObjects)).toBe(2);
+});
 
-test('list of arrays uses R.equals', () => {
-  const listOfLists = [ [ 1 ], [ 2, 3 ], [ 2, 3, 4 ], [ 2, 3 ], [ 1 ], [] ]
-  expect(lastIndexOf([], listOfLists)).toBe(5)
-  expect(lastIndexOf([ 1 ], listOfLists)).toBe(4)
-  expect(lastIndexOf([ 2, 3, 4 ], listOfLists)).toBe(2)
-  expect(lastIndexOf([ 2, 3, 5 ], listOfLists)).toBe(-1)
-})
+test("list of arrays uses R.equals", () => {
+  const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []];
+  expect(lastIndexOf([], listOfLists)).toBe(5);
+  expect(lastIndexOf([1], listOfLists)).toBe(4);
+  expect(lastIndexOf([2, 3, 4], listOfLists)).toBe(2);
+  expect(lastIndexOf([2, 3, 5], listOfLists)).toBe(-1);
+});
 
-test('with string as iterable', () => {
-  expect(() => lastIndexOf('a', 'abc')).toThrowWithMessage(Error,
-    'Cannot read property \'indexOf\' of abc')
-  expect(lastIndexOfRamda('a', 'abc')).toBe(0)
-})
+test("with string as iterable", () => {
+  expect(() => lastIndexOf("a", "abc")).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read property 'indexOf' of abc"`
+  );
+  expect(lastIndexOfRamda("a", "abc")).toBe(0);
+});
 
-describe('brute force', () => {
+describe("brute force", () => {
   compareCombinations({
-    fn          : lastIndexOf,
-    fnRamda     : lastIndexOfRamda,
-    firstInput  : possibleTargets,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    fn: lastIndexOf,
+    fnRamda: lastIndexOfRamda,
+    firstInput: possibleTargets,
+    secondInput: possibleIterables,
+    callback: (errorsCounters) => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         Object {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -7554,10 +7561,10 @@ describe('brute force', () => {
           "SHOULD_THROW": 0,
           "TOTAL_TESTS": 170,
         }
-      `)
+      `);
     },
-  })
-})
+  });
+});
 ```
 
 </details>
@@ -8359,66 +8366,68 @@ export function map(fn, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { map as mapRamda } from 'ramda'
+import { map as mapRamda } from "ramda";
 
-import { map } from './map.js'
+import { map } from "./map.js";
 
-const double = x => x * 2
+const double = (x) => x * 2;
 
-describe('with array', () => {
-  it('happy', () => {
-    expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
-  })
+describe("with array", () => {
+  it("happy", () => {
+    expect(map(double, [1, 2, 3])).toEqual([2, 4, 6]);
+  });
 
-  it('curried', () => {
-    expect(map(double)([ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
-  })
-})
+  it("curried", () => {
+    expect(map(double)([1, 2, 3])).toEqual([2, 4, 6]);
+  });
+});
 
-describe('with object', () => {
+describe("with object", () => {
   const obj = {
-    a : 1,
-    b : 2,
-  }
+    a: 1,
+    b: 2,
+  };
 
-  it('happy', () => {
+  it("happy", () => {
     expect(map(double, obj)).toEqual({
-      a : 2,
-      b : 4,
-    })
-  })
+      a: 2,
+      b: 4,
+    });
+  });
 
-  it('property as second and input object as third argument', () => {
+  it("property as second and input object as third argument", () => {
     const obj = {
-      a : 1,
-      b : 2,
-    }
-    const iterator = (
-      val, prop, inputObject
-    ) => {
-      expect(prop).toBeString()
-      expect(inputObject).toEqual(obj)
+      a: 1,
+      b: 2,
+    };
+    const iterator = (val, prop, inputObject) => {
+      expect(prop).toBeString();
+      expect(inputObject).toEqual(obj);
 
-      return val * 2
-    }
+      return val * 2;
+    };
 
     expect(map(iterator)(obj)).toEqual({
-      a : 2,
-      b : 4,
-    })
-  })
-})
+      a: 2,
+      b: 4,
+    });
+  });
+});
 
-test('bad inputs difference between Ramda and Rambda', () => {
-  expect(() => map(double, null)).toThrowWithMessage(Error,
-    'Incorrect iterable input')
-  expect(() => map(double)(undefined)).toThrowWithMessage(Error,
-    'Incorrect iterable input')
-  expect(() => mapRamda(double, null)).toThrowWithMessage(TypeError,
-    'Cannot read properties of null (reading \'fantasy-land/map\')')
-  expect(() => mapRamda(double, undefined)).toThrowWithMessage(TypeError,
-    'Cannot read properties of undefined (reading \'fantasy-land/map\')')
-})
+test("bad inputs difference between Ramda and Rambda", () => {
+  expect(() => map(double, null)).toThrowErrorMatchingInlineSnapshot(
+    `"Incorrect iterable input"`
+  );
+  expect(() => map(double)(undefined)).toThrowErrorMatchingInlineSnapshot(
+    `"Incorrect iterable input"`
+  );
+  expect(() => mapRamda(double, null)).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read properties of null (reading 'fantasy-land/map')"`
+  );
+  expect(() => mapRamda(double, undefined)).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read properties of undefined (reading 'fantasy-land/map')"`
+  );
+});
 ```
 
 </details>
@@ -8593,28 +8602,29 @@ export function match(pattern, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { equals } from './equals.js'
-import { match } from './match.js'
+import { equals } from "./equals.js";
+import { match } from "./match.js";
 
-test('happy', () => {
-  expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
-})
+test("happy", () => {
+  expect(match(/a./g)("foo bar baz")).toEqual(["ar", "az"]);
+});
 
-test('fallback', () => {
-  expect(match(/a./g)('foo')).toEqual([])
-})
+test("fallback", () => {
+  expect(match(/a./g)("foo")).toEqual([]);
+});
 
-test('with string', () => {
-  expect(match('a', 'foo')).toEqual([])
-  expect(equals(match('o', 'foo'), [ 'o' ])).toBeTrue()
-})
+test("with string", () => {
+  expect(match("a", "foo")).toEqual([]);
+  expect(equals(match("o", "foo"), ["o"])).toBeTrue();
+});
 
-test('throwing', () => {
+test("throwing", () => {
   expect(() => {
-    match(/a./g, null)
-  }).toThrowWithMessage(TypeError,
-    'Cannot read properties of null (reading \'match\')')
-})
+    match(/a./g, null);
+  }).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read properties of null (reading 'match')"`
+  );
+});
 ```
 
 </details>
@@ -10797,70 +10807,73 @@ export function partialObject(fn, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { delay } from './delay.js'
-import { partialObject } from './partialObject.js'
-import { type } from './type.js'
+import { delay } from "./delay.js";
+import { partialObject } from "./partialObject.js";
+import { type } from "./type.js";
 
-test('with plain function', () => {
-  const fn = ({ a, b, c }) => a + b + c
-  const curried = partialObject(fn, { a : 1 })
+test("with plain function", () => {
+  const fn = ({ a, b, c }) => a + b + c;
+  const curried = partialObject(fn, { a: 1 });
 
-  expect(type(curried)).toBe('Function')
-  expect(curried({
-    b : 2,
-    c : 3,
-  })).toBe(6)
-})
+  expect(type(curried)).toBe("Function");
+  expect(
+    curried({
+      b: 2,
+      c: 3,
+    })
+  ).toBe(6);
+});
 
-test('with function that throws an error', () => {
+test("with function that throws an error", () => {
   const fn = ({ a, b, c }) => {
-    throw new Error('foo')
-  }
-  const curried = partialObject(fn, { a : 1 })
+    throw new Error("foo");
+  };
+  const curried = partialObject(fn, { a: 1 });
 
-  expect(type(curried)).toBe('Function')
+  expect(type(curried)).toBe("Function");
   expect(() =>
     curried({
-      b : 2,
-      c : 3,
-    })).toThrowWithMessage(Error, 'foo')
-})
+      b: 2,
+      c: 3,
+    })
+  ).toThrowErrorMatchingInlineSnapshot(`"foo"`);
+});
 
-test('with async', async () => {
+test("with async", async () => {
   const fn = async ({ a, b, c }) => {
-    await delay(100)
+    await delay(100);
 
-    return a + b + c
-  }
+    return a + b + c;
+  };
 
-  const curried = partialObject(fn, { a : 1 })
+  const curried = partialObject(fn, { a: 1 });
 
   const result = await curried({
-    b : 2,
-    c : 3,
-  })
+    b: 2,
+    c: 3,
+  });
 
-  expect(result).toBe(6)
-})
+  expect(result).toBe(6);
+});
 
-test('async function throwing an error', async () => {
+test("async function throwing an error", async () => {
   const fn = async ({ a, b, c }) => {
-    await delay(100)
-    throw new Error('foo')
-  }
+    await delay(100);
+    throw new Error("foo");
+  };
 
-  const curried = partialObject(fn, { a : 1 })
+  const curried = partialObject(fn, { a: 1 });
 
   try {
     await curried({
-      b : 2,
-      c : 3,
-    })
-    expect(true).toBeFalsy()
-  } catch (e){
-    expect(e.message).toBe('foo')
+      b: 2,
+      c: 3,
+    });
+    expect(true).toBeFalsy();
+  } catch (e) {
+    expect(e.message).toBe("foo");
   }
-})
+});
 ```
 
 </details>
@@ -11094,7 +11107,6 @@ describe('R.partition', () => {
   })
 
   /*
-    TODO
     revert to old version of `dtslint` and `R.partition` typing
     as there is diff between VSCode types(correct) and dtslint(incorrect)
     
@@ -13015,27 +13027,29 @@ export function props(propsToPick, obj){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { props } from './props.js'
+import { props } from "./props.js";
 
 const obj = {
-  a : 1,
-  b : 2,
-}
-const propsToPick = [ 'a', 'c' ]
+  a: 1,
+  b: 2,
+};
+const propsToPick = ["a", "c"];
 
-test('happy', () => {
-  const result = props(propsToPick, obj)
-  expect(result).toEqual([ 1, undefined ])
-})
+test("happy", () => {
+  const result = props(propsToPick, obj);
+  expect(result).toEqual([1, undefined]);
+});
 
-test('curried', () => {
-  const result = props(propsToPick)(obj)
-  expect(result).toEqual([ 1, undefined ])
-})
+test("curried", () => {
+  const result = props(propsToPick)(obj);
+  expect(result).toEqual([1, undefined]);
+});
 
-test('wrong input', () => {
-  expect(() => props(null)(obj)).toThrow()
-})
+test("wrong input", () => {
+  expect(() => props(null)(obj)).toThrowErrorMatchingInlineSnapshot(
+    `"propsToPick is not a list"`
+  );
+});
 ```
 
 </details>
@@ -14627,23 +14641,25 @@ export function splitEvery(sliceLength, listOrString){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { splitEvery } from './splitEvery.js'
+import { splitEvery } from "./splitEvery.js";
 
-test('happy', () => {
-  expect(splitEvery(3, [ 1, 2, 3, 4, 5, 6, 7 ])).toEqual([
-    [ 1, 2, 3 ],
-    [ 4, 5, 6 ],
-    [ 7 ],
-  ])
+test("happy", () => {
+  expect(splitEvery(3, [1, 2, 3, 4, 5, 6, 7])).toEqual([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7],
+  ]);
 
-  expect(splitEvery(3)('foobarbaz')).toEqual([ 'foo', 'bar', 'baz' ])
-})
+  expect(splitEvery(3)("foobarbaz")).toEqual(["foo", "bar", "baz"]);
+});
 
-test('with bad input', () => {
+test("with bad input", () => {
   expect(() =>
-    expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrowWithMessage(Error,
-    'First argument to splitEvery must be a positive integer')
-})
+    expect(splitEvery(0)("foo")).toEqual(["f", "o", "o"])
+  ).toThrowErrorMatchingInlineSnapshot(
+    `"First argument to splitEvery must be a positive integer"`
+  );
+});
 ```
 
 </details>
@@ -15811,18 +15827,19 @@ export function test(pattern, str){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { test as testMethod } from './test.js'
+import { test as testMethod } from "./test.js";
 
-test('happy', () => {
-  expect(testMethod(/^x/, 'xyz')).toBeTrue()
+test("happy", () => {
+  expect(testMethod(/^x/, "xyz")).toBeTrue();
 
-  expect(testMethod(/^y/)('xyz')).toBeFalse()
-})
+  expect(testMethod(/^y/)("xyz")).toBeFalse();
+});
 
-test('throws if first argument is not regex', () => {
-  expect(() => testMethod('foo', 'bar')).toThrowWithMessage(TypeError,
-    '‘test’ requires a value of type RegExp as its first argument; received "foo"')
-})
+test("throws if first argument is not regex", () => {
+  expect(() => testMethod("foo", "bar")).toThrowErrorMatchingInlineSnapshot(
+    `"‘test’ requires a value of type RegExp as its first argument; received \\"foo\\""`
+  );
+});
 ```
 
 </details>
@@ -17736,50 +17753,51 @@ export function whereEq(condition, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { whereEq } from './whereEq.js'
+import { whereEq } from "./whereEq.js";
 
-test('when true', () => {
-  const condition = { a : 1 }
+test("when true", () => {
+  const condition = { a: 1 };
   const input = {
-    a : 1,
-    b : 2,
-  }
+    a: 1,
+    b: 2,
+  };
 
-  const result = whereEq(condition, input)
-  const expectedResult = true
+  const result = whereEq(condition, input);
+  const expectedResult = true;
 
-  expect(result).toEqual(expectedResult)
-})
+  expect(result).toEqual(expectedResult);
+});
 
-test('when false', () => {
-  const condition = { a : 1 }
-  const input = { b : 2 }
+test("when false", () => {
+  const condition = { a: 1 };
+  const input = { b: 2 };
 
-  const result = whereEq(condition, input)
-  const expectedResult = false
+  const result = whereEq(condition, input);
+  const expectedResult = false;
 
-  expect(result).toEqual(expectedResult)
-})
+  expect(result).toEqual(expectedResult);
+});
 
-test('with nested object', () => {
-  const condition = { a : { b : 1 } }
+test("with nested object", () => {
+  const condition = { a: { b: 1 } };
   const input = {
-    a : { b : 1 },
-    c : 2,
-  }
+    a: { b: 1 },
+    c: 2,
+  };
 
-  const result = whereEq(condition)(input)
-  const expectedResult = true
+  const result = whereEq(condition)(input);
+  const expectedResult = true;
 
-  expect(result).toEqual(expectedResult)
-})
+  expect(result).toEqual(expectedResult);
+});
 
-test('with wrong input', () => {
-  const condition = { a : { b : 1 } }
+test("with wrong input", () => {
+  const condition = { a: { b: 1 } };
 
-  expect(() => whereEq(condition, null)).toThrowWithMessage(TypeError,
-    'Cannot read properties of null (reading \'a\')')
-})
+  expect(() => whereEq(condition, null)).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read properties of null (reading 'a')"`
+  );
+});
 ```
 
 </details>
@@ -17856,36 +17874,38 @@ export function without(matchAgainst, source){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { without as withoutRamda } from 'ramda'
+import { without as withoutRamda } from "ramda";
 
-import { without } from './without.js'
+import { without } from "./without.js";
 
-test('should return a new list without values in the first argument', () => {
-  const itemsToOmit = [ 'A', 'B', 'C' ]
-  const collection = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+test("should return a new list without values in the first argument", () => {
+  const itemsToOmit = ["A", "B", "C"];
+  const collection = ["A", "B", "C", "D", "E", "F"];
 
-  expect(without(itemsToOmit, collection)).toEqual([ 'D', 'E', 'F' ])
-  expect(without(itemsToOmit)(collection)).toEqual([ 'D', 'E', 'F' ])
-})
+  expect(without(itemsToOmit, collection)).toEqual(["D", "E", "F"]);
+  expect(without(itemsToOmit)(collection)).toEqual(["D", "E", "F"]);
+});
 
-test('with list of objects', () => {
-  const itemsToOmit = [ { a : 1 }, { c : 3 } ]
-  const collection = [ { a : 1 }, { b : 2 }, { c : 3 }, { d : 4 } ]
-  const expected = [ { b : 2 }, { d : 4 } ]
+test("with list of objects", () => {
+  const itemsToOmit = [{ a: 1 }, { c: 3 }];
+  const collection = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }];
+  const expected = [{ b: 2 }, { d: 4 }];
 
-  expect(without(itemsToOmit, collection)).toEqual(expected)
-  expect(withoutRamda(itemsToOmit, collection)).toEqual(expected)
-})
+  expect(without(itemsToOmit, collection)).toEqual(expected);
+  expect(withoutRamda(itemsToOmit, collection)).toEqual(expected);
+});
 
-test('ramda accepts string as target input while rambda throws', () => {
-  expect(withoutRamda('0:1', [ '0', '0:1' ])).toEqual([])
-  expect(() => without('0:1', [ '0', '0:1' ])).toThrow()
-  expect(without([ '0:1' ], [ '0', '0:1' ])).toEqual([ '0' ])
-})
+test("ramda accepts string as target input while rambda throws", () => {
+  expect(withoutRamda("0:1", ["0", "0:1"])).toEqual([]);
+  expect(() => without("0:1", ["0", "0:1"])).toThrowErrorMatchingInlineSnapshot(
+    `"Cannot read property 'indexOf' of 0:1"`
+  );
+  expect(without(["0:1"], ["0", "0:1"])).toEqual(["0"]);
+});
 
-test('ramda test', () => {
-  expect(without([ 1, 2 ])([ 1, 2, 1, 3, 4 ])).toEqual([ 3, 4 ])
-})
+test("ramda test", () => {
+  expect(without([1, 2])([1, 2, 1, 3, 4])).toEqual([3, 4]);
+});
 ```
 
 </details>

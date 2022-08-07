@@ -31,5 +31,6 @@ test('curried - last two inputs', () => {
 })
 
 test('not supported curried case', () => {
-  expect(() => on(binaryFn, unaryFn)(a)(b)).toThrow()
+  expect(() =>
+    on(binaryFn, unaryFn)(a)(b)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of undefined (reading \'a\')"')
 })

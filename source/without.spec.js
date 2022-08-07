@@ -21,7 +21,8 @@ test('with list of objects', () => {
 
 test('ramda accepts string as target input while rambda throws', () => {
   expect(withoutRamda('0:1', [ '0', '0:1' ])).toEqual([])
-  expect(() => without('0:1', [ '0', '0:1' ])).toThrow()
+  expect(() =>
+    without('0:1', [ '0', '0:1' ])).toThrowErrorMatchingInlineSnapshot('"Cannot read property \'indexOf\' of 0:1"')
   expect(without([ '0:1' ], [ '0', '0:1' ])).toEqual([ '0' ])
 })
 

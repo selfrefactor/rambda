@@ -22,7 +22,7 @@ test('can accepts initially two arguments', () => {
 })
 
 test('when no arguments is passed', () => {
-  expect(() => compose()).toThrow('compose requires at least one argument')
+  expect(() => compose()).toThrowErrorMatchingInlineSnapshot('"compose requires at least one argument"')
 })
 
 test('ramda spec', () => {

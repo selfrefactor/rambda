@@ -24,7 +24,7 @@ test('with function that throws an error', () => {
     curried({
       b : 2,
       c : 3,
-    })).toThrowWithMessage(Error, 'foo')
+    })).toThrowErrorMatchingInlineSnapshot('"foo"')
 })
 
 test('with async', async () => {

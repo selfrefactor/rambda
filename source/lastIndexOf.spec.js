@@ -10,7 +10,7 @@ test('with NaN', () => {
 
 test('will throw with bad input', () => {
   expect(lastIndexOfRamda([], true)).toEqual(-1)
-  expect(() => indexOf([], true)).toThrow()
+  expect(() => indexOf([], true)).toThrowErrorMatchingInlineSnapshot('"indexOf is not defined"')
 })
 
 test('without list of objects - no R.equals', () => {
@@ -33,8 +33,7 @@ test('list of arrays uses R.equals', () => {
 })
 
 test('with string as iterable', () => {
-  expect(() => lastIndexOf('a', 'abc')).toThrowWithMessage(Error,
-    'Cannot read property \'indexOf\' of abc')
+  expect(() => lastIndexOf('a', 'abc')).toThrowErrorMatchingInlineSnapshot('"Cannot read property \'indexOf\' of abc"')
   expect(lastIndexOfRamda('a', 'abc')).toBe(0)
 })
 

@@ -49,12 +49,9 @@ describe('with object', () => {
 })
 
 test('bad inputs difference between Ramda and Rambda', () => {
-  expect(() => map(double, null)).toThrowWithMessage(Error,
-    'Incorrect iterable input')
-  expect(() => map(double)(undefined)).toThrowWithMessage(Error,
-    'Incorrect iterable input')
-  expect(() => mapRamda(double, null)).toThrowWithMessage(TypeError,
-    'Cannot read properties of null (reading \'fantasy-land/map\')')
-  expect(() => mapRamda(double, undefined)).toThrowWithMessage(TypeError,
-    'Cannot read properties of undefined (reading \'fantasy-land/map\')')
+  expect(() => map(double, null)).toThrowErrorMatchingInlineSnapshot('"Incorrect iterable input"')
+  expect(() => map(double)(undefined)).toThrowErrorMatchingInlineSnapshot('"Incorrect iterable input"')
+  expect(() => mapRamda(double, null)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'fantasy-land/map\')"')
+  expect(() =>
+    mapRamda(double, undefined)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of undefined (reading \'fantasy-land/map\')"')
 })

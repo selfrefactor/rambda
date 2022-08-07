@@ -34,8 +34,7 @@ test('text is not string', () => {
   const inputs = [ /foo/g, 'bar' ]
   const text = null
 
-  expect(() => remove(inputs, text)).toThrowWithMessage(Error,
-    'R.remove requires string not Null')
+  expect(() => remove(inputs, text)).toThrowErrorMatchingInlineSnapshot('"R.remove requires string not Null"')
 })
 
 test('with regexes', () => {

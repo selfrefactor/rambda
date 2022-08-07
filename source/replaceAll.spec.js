@@ -16,17 +16,35 @@ test('happy', () => {
 test('throws when wrong patterns', () => {
   expect(() => replaceAll(
     {}, replacer, input
-  )).toThrow()
+  ))
+    .toThrowErrorMatchingInlineSnapshot(`
+    "Failed R.ok -
+    reason: {\\"input\\":{},\\"schema\\":\\"array\\"}
+    all inputs: [{},\\"|\\",\\"foo bar baz foo bar\\"]
+    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+  `)
 })
 
 test('throws when wrong input', () => {
   expect(() => replaceAll(
     patterns, replacer, []
-  )).toThrow()
+  ))
+    .toThrowErrorMatchingInlineSnapshot(`
+    "Failed R.ok -
+    reason: {\\"input\\":[],\\"schema\\":\\"string\\"}
+    all inputs: [[{},\\"bar\\"],\\"|\\",[]]
+    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+  `)
 })
 
 test('throws when wrong replacer', () => {
   expect(() => replaceAll(
     patterns, null, input
-  )).toThrow()
+  ))
+    .toThrowErrorMatchingInlineSnapshot(`
+    "Failed R.ok -
+    reason: {\\"input\\":null,\\"schema\\":\\"string\\"}
+    all inputs: [[{},\\"bar\\"],null,\\"foo bar baz foo bar\\"]
+    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+  `)
 })
