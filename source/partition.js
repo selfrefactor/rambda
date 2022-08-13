@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 export function partitionObject(predicate, iterable){
   const yes = {}
@@ -38,7 +38,7 @@ export function partition(predicate, iterable){
   if (arguments.length === 1){
     return listHolder => partition(predicate, listHolder)
   }
-  if (!_isArray(iterable)) return partitionObject(predicate, iterable)
+  if (!isArray(iterable)) return partitionObject(predicate, iterable)
 
   return partitionArray(predicate, iterable)
 }

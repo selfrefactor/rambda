@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { filter } from './filter.js'
 import { mapAsync } from './mapAsync.js'
 
@@ -6,7 +6,7 @@ export function filterAsyncFn(predicate, listOrObject){
   return new Promise((resolve, reject) => {
     mapAsync(predicate, listOrObject)
       .then(predicateResult => {
-        if (_isArray(predicateResult)){
+        if (isArray(predicateResult)){
           const filtered = listOrObject.filter((_, i) => predicateResult[ i ])
 
           return resolve(filtered)

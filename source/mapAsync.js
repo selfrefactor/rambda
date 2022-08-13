@@ -1,7 +1,7 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 async function mapAsyncFn(fn, listOrObject){
-  if (_isArray(listOrObject)){
+  if (isArray(listOrObject)){
     const willReturn = []
     let i = 0
     for (const a of listOrObject){

@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { isIterable } from './_internals/isIterable.js'
 import { curry } from './curry.js'
 import { updateFn } from './update.js'
@@ -8,7 +8,7 @@ function modifyFn(
 ){
   if (!isIterable(iterable)) return iterable
   if (iterable[ property ] === undefined) return iterable
-  if (_isArray(iterable)){
+  if (isArray(iterable)){
     return updateFn(
       property, fn(iterable[ property ]), iterable
     )

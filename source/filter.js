@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 export function filterObject(predicate, obj){
   const willReturn = {}
@@ -42,7 +42,7 @@ export function filter(predicate, iterable){
     throw new Error('Incorrect iterable input')
   }
 
-  if (_isArray(iterable)) return filterArray(
+  if (isArray(iterable)) return filterArray(
     predicate, iterable, false
   )
 

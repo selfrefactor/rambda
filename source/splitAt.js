@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { drop } from './drop.js'
 import { maybe } from './maybe.js'
 import { take } from './take.js'
@@ -9,7 +9,7 @@ export function splitAt(index, input){
   }
   if (!input) throw new TypeError(`Cannot read property 'slice' of ${ input }`)
 
-  if (!_isArray(input) && typeof input !== 'string') return [ [], [] ]
+  if (!isArray(input) && typeof input !== 'string') return [ [], [] ]
 
   const correctIndex = maybe(
     index < 0,

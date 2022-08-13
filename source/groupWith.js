@@ -1,8 +1,8 @@
-import { _isArray } from './_internals/_isArray.js'
 import { cloneList } from './_internals/cloneList.js'
+import { isArray } from './_internals/isArray.js'
 
 export function groupWith(compareFn, list){
-  if (!_isArray(list)) throw new TypeError('list.reduce is not a function')
+  if (!isArray(list)) throw new TypeError('list.reduce is not a function')
 
   const clone = cloneList(list)
 
