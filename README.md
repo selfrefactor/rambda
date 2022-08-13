@@ -329,7 +329,7 @@ method | Rambda | Ramda | Lodash
 
 - [Walmart Canada](https://www.walmart.ca) reported by [w-b-dev](https://github.com/w-b-dev) 
 
-- [VSCode Slack intergration](https://github.com/verydanny/vcslack)
+- [VSCode Slack integration](https://github.com/verydanny/vcslack)
 
 - [Webpack PostCSS](https://github.com/sectsect/webpack-postcss)
 
