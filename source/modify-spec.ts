@@ -7,7 +7,7 @@ describe('R.modify', () => {
     const {age: ageAsString} = modify('age', String, person)
 
     age // $ExpectType number
-    ageAsString // $ExpectType number
+    ageAsString // $ExpectType string
   })
   it('curried', () => {
     const {age} = modify('age', add(1))(person)

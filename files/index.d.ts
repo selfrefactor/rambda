@@ -232,8 +232,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-// export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
-export function allPass<T extends any>(predicates: ((...args: T[]) => boolean)[]): (...inputs: T[]) => boolean;
+export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 
 /*
 Method: always
@@ -5395,108 +5394,12 @@ Notes: It doesn't work with promises or function returning promises such as `con
 
 */
 // @SINGLE_MARKER
-function pipeAsync<A, B, C>(
-  ab: (a: A) => B | Promise<B>,
-): (a: A) => Promise<B>;
-function pipeAsync<A, B, C>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-): (a: A) => Promise<C>;
-function pipeAsync<A, B, C, D>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-): (a: A) => Promise<D>;
-function pipeAsync<A, B, C, D, E>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-): (a: A) => Promise<E>;
-function pipeAsync<A, B, C, D, E, F>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-): (a: A) => Promise<F>;
-function pipeAsync<A, B, C, D, E, F, G>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-): (a: A) => Promise<G>;
-function pipeAsync<A, B, C, D, E, F, G, H>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-): (a: A) => Promise<H>;
-function pipeAsync<A, B, C, D, E, F, G, H, I>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-  hi: (h: H) => I | Promise<I>,
-): (a: A) => Promise<I>;
-function pipeAsync<A, B, C, D, E, F, G, H, I, J>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-  hi: (h: H) => I | Promise<I>,
-  ij: (i: I) => J | Promise<J>,
-): (a: A) => Promise<J>;
-function pipeAsync<A, B, C, D, E, F, G, H, I, J, K>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-  hi: (h: H) => I | Promise<I>,
-  ij: (i: I) => J | Promise<J>,
-  jk: (j: J) => K | Promise<K>,
-): (a: A) => Promise<K>;
-function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, M>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-  hi: (h: H) => I | Promise<I>,
-  ij: (i: I) => J | Promise<J>,
-  jk: (j: J) => K | Promise<K>,
-  km: (k: K) => M | Promise<M>,
-): (a: A) => Promise<M>;
-function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, M, N>(
-  ab: (a: A) => B | Promise<B>,
-  bc: (b: B) => C | Promise<C>,
-  cd: (c: C) => D | Promise<D>,
-  de: (d: D) => E | Promise<E>,
-  ef: (e: E) => F | Promise<F>,
-  fg: (f: F) => G | Promise<G>,
-  gh: (g: G) => H | Promise<H>,
-  hi: (h: H) => I | Promise<I>,
-  ij: (i: I) => J | Promise<J>,
-  jk: (j: J) => K | Promise<K>,
-  km: (k: K) => M | Promise<M>,
-  mn: (m: M) => N | Promise<N>,
-): (a: A) => Promise<N>;
+export function pipeAsync<Out>(
+  ...fns: (Async<any> | Func<any>)[]
+): (input: any) => Promise<Out>;
+export function pipeAsync<Out>(
+  ...fns: (Async<any> | Func<any>)[]
+): (input: any) => Promise<Out>;
 
 /*
 Method: debounce
@@ -5904,9 +5807,10 @@ export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promis
 export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
-Method: mapFastAsync
+Method: mapParallelAsync
 
-Explanation: Parrallel asynchronous mapping with `fn` over members of `list`.
+Explanation: Parallel asynchronous mapping with `fn` over members of `list`.
+It uses `Promise.allSettled`, which means that error in one iteration won't cause the method to throw an error.
 
 Example:
 
@@ -5917,25 +5821,25 @@ async function fn(x){
   return x+1
 }
 
-const result = await R.mapFastAsync(fn, [1, 2, 3])
+const result = await R.mapParallelAsync(fn, [1, 2, 3])
 // `result` resolves after 1 second to `[2, 3, 4]`
 ```
 
 Categories: Async, List
 
-Notes:
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
-Method: mapAsyncLimit
+Method: mapParallelAsyncWithLimit
 
-Explanation: It is similar to `R.mapFastAsync` in that it uses `Promise.all` but not over the whole list, rather than with only slice from `list` with length `limit`.
+Explanation: It is similar to `R.mapParallelAsync` in that it uses `Promise.allSettled` but not over the whole list, rather than with only slice from `list` with length `limit`.
 
 Example:
 
@@ -5949,10 +5853,10 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
 
 /*
 Method: mapToObject
