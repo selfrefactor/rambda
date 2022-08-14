@@ -1,5 +1,5 @@
-import { _isArray } from './_internals/_isArray.js'
-import { _keys } from './_internals/_keys.js'
+import { isArray } from './_internals/isArray.js'
+import { keys } from './_internals/keys.js'
 
 export function forEach(fn, list){
   if (arguments.length === 1) return _list => forEach(fn, _list)
@@ -8,7 +8,7 @@ export function forEach(fn, list){
     return
   }
 
-  if (_isArray(list)){
+  if (isArray(list)){
     let index = 0
     const len = list.length
 
@@ -18,11 +18,11 @@ export function forEach(fn, list){
     }
   } else {
     let index = 0
-    const keys = _keys(list)
-    const len = keys.length
+    const listKeys = keys(list)
+    const len = listKeys.length
 
     while (index < len){
-      const key = keys[ index ]
+      const key = listKeys[ index ]
       fn(
         list[ key ], key, list
       )

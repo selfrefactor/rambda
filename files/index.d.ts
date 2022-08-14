@@ -4113,7 +4113,7 @@ Explanation: It accepts any input and it returns its type.
 Example:
 
 ```
-R.type(() => {}) // => 'Function'
+const result = R.type(() => {}) // => 'Function'
 R.type(async () => {}) // => 'Async'
 R.type([]) // => 'Array'
 R.type({}) // => 'Object'

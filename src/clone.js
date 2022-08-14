@@ -1,7 +1,7 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 export function clone(input){
-  const out = _isArray(input) ? Array(input.length) : {}
+  const out = isArray(input) ? Array(input.length) : {}
   if (input && input.getTime) return new Date(input.getTime())
 
   for (const key in input){

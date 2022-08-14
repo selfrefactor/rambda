@@ -1,5 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
-import { _keys } from './_internals/_keys.js'
+import { isArray } from './_internals/isArray.js'
 import { curry } from './curry.js'
 
 class ReduceStopper{
@@ -11,7 +10,7 @@ class ReduceStopper{
 export function reduceFn(
   reducer, acc, list
 ){
-  if (!_isArray(list)){
+  if (!isArray(list)){
     throw new TypeError('reduce: list must be array or iterable')
   }
   let index = 0

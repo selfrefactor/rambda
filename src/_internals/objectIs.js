@@ -1,4 +1,4 @@
-export function _objectIs(a, b){
+function _objectIs(a, b){
   if (a === b){
     return a !== 0 || 1 / a === 1 / b
   }
@@ -6,4 +6,4 @@ export function _objectIs(a, b){
   return a !== a && b !== b
 }
 
-export default Object.is || _objectIs
+export const objectIs = Object.is || _objectIs

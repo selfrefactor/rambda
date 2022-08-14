@@ -1,3 +1,11 @@
+function F() {
+  return false;
+}
+
+function T() {
+  return true;
+}
+
 function add(a, b) {
   if (arguments.length === 1) return _b => add(a, _b);
   return Number(a) + Number(b);
@@ -85,7 +93,9 @@ function apply(fn, args) {
   return fn.apply(this, args);
 }
 
-const _isArray = Array.isArray;
+const {
+  isArray
+} = Array;
 
 function __findHighestArity(spec, max = 0) {
   for (const key in spec) {
@@ -125,13 +135,13 @@ function __applySpecWithArity(spec, arity, cache) {
   if (remaining === 4) return (x, y, z, a) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, x, y, z, a));
   if (remaining > 4) return (...args) => __applySpecWithArity(spec, arity, __filterUndefined(...cache, ...args));
 
-  if (_isArray(spec)) {
+  if (isArray(spec)) {
     const ret = [];
     let i = 0;
     const l = spec.length;
 
     for (; i < l; i++) {
-      if (typeof spec[i] === 'object' || _isArray(spec[i])) {
+      if (typeof spec[i] === 'object' || isArray(spec[i])) {
         ret[i] = __applySpecWithArity(spec[i], arity, cache);
       }
 
@@ -184,10 +194,11 @@ const assoc = curry(assocFn);
 function _isInteger(n) {
   return n << 0 === n;
 }
-var _isInteger$1 = Number.isInteger || _isInteger;
+
+const isInteger = Number.isInteger || _isInteger;
 
 function assocPathFn(path, newValue, input) {
-  const pathArrValue = typeof path === 'string' ? path.split('.').map(x => _isInteger(Number(x)) ? Number(x) : x) : path;
+  const pathArrValue = typeof path === 'string' ? path.split('.').map(x => isInteger(Number(x)) ? Number(x) : x) : path;
 
   if (pathArrValue.length === 0) {
     return newValue;
@@ -197,11 +208,11 @@ function assocPathFn(path, newValue, input) {
 
   if (pathArrValue.length > 1) {
     const condition = typeof input !== 'object' || input === null || !input.hasOwnProperty(index);
-    const nextinput = condition ? _isInteger(pathArrValue[1]) ? [] : {} : input[index];
-    newValue = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), newValue, nextinput);
+    const nextInput = condition ? isInteger(pathArrValue[1]) ? [] : {} : input[index];
+    newValue = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), newValue, nextInput);
   }
 
-  if (_isInteger(index) && _isArray(input)) {
+  if (isInteger(index) && isArray(input)) {
     const arr = cloneList(input);
     arr[index] = newValue;
     return arr;
@@ -338,7 +349,7 @@ function clampFn(min, max, input) {
 const clamp = curry(clampFn);
 
 function clone(input) {
-  const out = _isArray(input) ? Array(input.length) : {};
+  const out = isArray(input) ? Array(input.length) : {};
   if (input && input.getTime) return new Date(input.getTime());
 
   for (const key in input) {
@@ -353,8 +364,6 @@ function complement(fn) {
   return (...input) => !fn(...input);
 }
 
-const _keys = Object.keys;
-
 class ReduceStopper {
   constructor(value) {
     this.value = value;
@@ -363,7 +372,7 @@ class ReduceStopper {
 }
 
 function reduceFn(reducer, acc, list) {
-  if (!_isArray(list)) {
+  if (!isArray(list)) {
     throw new TypeError('reduce: list must be array or iterable');
   }
 
@@ -486,6 +495,10 @@ function cond(conditions) {
   };
 }
 
+const {
+  keys: keys$1
+} = Object;
+
 function mapArray(fn, list, isIndexed = false) {
   let index = 0;
   const willReturn = Array(list.length);
@@ -503,14 +516,12 @@ function mapObject(fn, obj) {
   }
 
   let index = 0;
-
-  const keys = _keys(obj);
-
-  const len = keys.length;
+  const objKeys = keys$1(obj);
+  const len = objKeys.length;
   const willReturn = {};
 
   while (index < len) {
-    const key = keys[index];
+    const key = objKeys[index];
     willReturn[key] = fn(obj[key], key, obj);
     index++;
   }
@@ -522,10 +533,10 @@ function map(fn, iterable) {
   if (arguments.length === 1) return _iterable => map(fn, _iterable);
 
   if (!iterable) {
-    throw new Error('Incorrect iterable input');
+    throw new Error(INCORRECT_ITERABLE_INPUT);
   }
 
-  if (_isArray(iterable)) return mapArray(fn, iterable);
+  if (isArray(iterable)) return mapArray(fn, iterable);
   return mapObject(fn, iterable);
 }
 
@@ -547,7 +558,7 @@ function count(predicate, list) {
     return _list => count(predicate, _list);
   }
 
-  if (!_isArray(list)) return 0;
+  if (!isArray(list)) return 0;
   return list.filter(x => predicate(x)).length;
 }
 
@@ -597,7 +608,7 @@ function type(input) {
 }
 
 function _lastIndexOf(valueToFind, list) {
-  if (!_isArray(list)) {
+  if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`);
   }
 
@@ -618,7 +629,7 @@ function _lastIndexOf(valueToFind, list) {
   return foundIndex;
 }
 function _indexOf(valueToFind, list) {
-  if (!_isArray(list)) {
+  if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`);
   }
 
@@ -779,7 +790,7 @@ function includes(valueToFind, iterable) {
     throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`);
   }
 
-  if (!_isArray(iterable)) return false;
+  if (!isArray(iterable)) return false;
   return _indexOf(valueToFind, iterable) > -1;
 }
 
@@ -875,14 +886,13 @@ function dropLastWhile(predicate, iterable) {
   }
 
   if (iterable.length === 0) return iterable;
-
-  const isArray = _isArray(iterable);
+  const isArray$1 = isArray(iterable);
 
   if (typeof predicate !== 'function') {
     throw new Error(`'predicate' is from wrong type ${typeof predicate}`);
   }
 
-  if (!isArray && typeof iterable !== 'string') {
+  if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error(`'iterable' is from wrong type ${typeof iterable}`);
   }
 
@@ -901,11 +911,11 @@ function dropLastWhile(predicate, iterable) {
     }
   }
 
-  return isArray ? toReturn.reverse() : toReturn.reverse().join('');
+  return isArray$1 ? toReturn.reverse() : toReturn.reverse().join('');
 }
 
 function dropRepeats(list) {
-  if (!_isArray(list)) {
+  if (!isArray(list)) {
     throw new Error(`${list} is not a list`);
   }
 
@@ -925,7 +935,7 @@ function dropRepeatsWith(predicate, list) {
     return _iterable => dropRepeatsWith(predicate, _iterable);
   }
 
-  if (!_isArray(list)) {
+  if (!isArray(list)) {
     throw new Error(`${list} is not a list`);
   }
 
@@ -950,9 +960,9 @@ function dropWhile(predicate, iterable) {
     return _iterable => dropWhile(predicate, _iterable);
   }
 
-  const isArray = _isArray(iterable);
+  const isArray$1 = isArray(iterable);
 
-  if (!isArray && typeof iterable !== 'string') {
+  if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string');
   }
 
@@ -969,7 +979,7 @@ function dropWhile(predicate, iterable) {
     }
   }
 
-  return isArray ? holder : holder.join('');
+  return isArray$1 ? holder : holder.join('');
 }
 
 function either(firstPredicate, secondPredicate) {
@@ -987,7 +997,7 @@ function endsWith(target, iterable) {
     return iterable.endsWith(target);
   }
 
-  if (!_isArray(target)) return false;
+  if (!isArray(target)) return false;
   const diff = iterable.length - target.length;
   let correct = true;
   const filtered = target.filter((x, index) => {
@@ -1066,10 +1076,6 @@ function evolve(rules, iterable) {
   return evolveArray(rules, iterable);
 }
 
-function F() {
-  return false;
-}
-
 function filterObject(predicate, obj) {
   const willReturn = {};
 
@@ -1105,7 +1111,7 @@ function filter(predicate, iterable) {
     throw new Error('Incorrect iterable input');
   }
 
-  if (_isArray(iterable)) return filterArray(predicate, iterable, false);
+  if (isArray(iterable)) return filterArray(predicate, iterable, false);
   return filterObject(predicate, iterable);
 }
 
@@ -1169,7 +1175,7 @@ function flatten(list, input) {
   const willReturn = input === undefined ? [] : input;
 
   for (let i = 0; i < list.length; i++) {
-    if (_isArray(list[i])) {
+    if (isArray(list[i])) {
       flatten(list[i], willReturn);
     } else {
       willReturn.push(list[i]);
@@ -1206,7 +1212,7 @@ function forEach(fn, list) {
     return;
   }
 
-  if (_isArray(list)) {
+  if (isArray(list)) {
     let index = 0;
     const len = list.length;
 
@@ -1216,13 +1222,11 @@ function forEach(fn, list) {
     }
   } else {
     let index = 0;
-
-    const keys = _keys(list);
-
-    const len = keys.length;
+    const listKeys = keys$1(list);
+    const len = listKeys.length;
 
     while (index < len) {
-      const key = keys[index];
+      const key = listKeys[index];
       fn(list[key], key, list);
       index++;
     }
@@ -1256,7 +1260,7 @@ function groupBy(groupFn, list) {
 }
 
 function groupWith(compareFn, list) {
-  if (!_isArray(list)) throw new TypeError('list.reduce is not a function');
+  if (!isArray(list)) throw new TypeError('list.reduce is not a function');
   const clone = cloneList(list);
   if (list.length === 1) return [clone];
   const toReturn = [];
@@ -1342,11 +1346,12 @@ function _objectIs(a, b) {
 
   return a !== a && b !== b;
 }
-var _objectIs$1 = Object.is || _objectIs;
+
+const objectIs = Object.is || _objectIs;
 
 function identical(a, b) {
   if (arguments.length === 1) return _b => identical(a, _b);
-  return _objectIs$1(a, b);
+  return objectIs(a, b);
 }
 
 function identity(x) {
@@ -1511,7 +1516,7 @@ function lastIndexOf(valueToFind, list) {
 }
 
 function length(x) {
-  if (_isArray(x)) return x.length;
+  if (isArray(x)) return x.length;
   if (typeof x === 'string') return x.length;
   return NaN;
 }
@@ -1557,7 +1562,7 @@ function match(pattern, input) {
 
 function mathMod(x, y) {
   if (arguments.length === 1) return _y => mathMod(x, _y);
-  if (!_isInteger$1(x) || !_isInteger$1(y) || y < 1) return NaN;
+  if (!isInteger(x) || !isInteger(y) || y < 1) return NaN;
   return (x % y + y) % y;
 }
 
@@ -1705,7 +1710,7 @@ function modifyFn(property, fn, iterable) {
   if (!isIterable(iterable)) return iterable;
   if (iterable[property] === undefined) return iterable;
 
-  if (_isArray(iterable)) {
+  if (isArray(iterable)) {
     return updateFn(property, fn(iterable[property]), iterable);
   }
 
@@ -1915,7 +1920,7 @@ function partition(predicate, iterable) {
     return listHolder => partition(predicate, listHolder);
   }
 
-  if (!_isArray(iterable)) return partitionObject(predicate, iterable);
+  if (!isArray(iterable)) return partitionObject(predicate, iterable);
   return partitionArray(predicate, iterable);
 }
 
@@ -2024,23 +2029,23 @@ function propOrFn(defaultValue, property, obj) {
 
 const propOr = curry(propOrFn);
 
-function props(propsToPick, obj) {
-  if (arguments.length === 1) {
-    return _obj => props(propsToPick, _obj);
-  }
-
-  if (!_isArray(propsToPick)) {
-    throw new Error('propsToPick is not a list');
-  }
-
-  return mapArray(prop => obj[prop], propsToPick);
-}
-
 function propSatisfiesFn(predicate, property, obj) {
   return predicate(prop(property, obj));
 }
 
 const propSatisfies = curry(propSatisfiesFn);
+
+function props(propsToPick, obj) {
+  if (arguments.length === 1) {
+    return _obj => props(propsToPick, _obj);
+  }
+
+  if (!isArray(propsToPick)) {
+    throw new Error('propsToPick is not a list');
+  }
+
+  return mapArray(prop => obj[prop], propsToPick);
+}
 
 function range(start, end) {
   if (arguments.length === 1) return _end => range(start, _end);
@@ -2140,7 +2145,7 @@ function splitAt(index, input) {
   }
 
   if (!input) throw new TypeError(`Cannot read property 'slice' of ${input}`);
-  if (!_isArray(input) && typeof input !== 'string') return [[], []];
+  if (!isArray(input) && typeof input !== 'string') return [[], []];
   const correctIndex = maybe(index < 0, input.length + index < 0 ? 0 : input.length + index, index);
   return [take(correctIndex, input), drop(correctIndex, input)];
 }
@@ -2196,7 +2201,7 @@ function startsWith(target, iterable) {
     return iterable.startsWith(target);
   }
 
-  if (!_isArray(target)) return false;
+  if (!isArray(target)) return false;
   let correct = true;
   const filtered = target.filter((x, index) => {
     if (!correct) return false;
@@ -2218,10 +2223,6 @@ function symmetricDifference(x, y) {
   }
 
   return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
-}
-
-function T() {
-  return true;
 }
 
 function tail(listOrString) {
@@ -2258,7 +2259,7 @@ function takeLastWhile(predicate, input) {
     }
   }
 
-  return _isArray(input) ? toReturn.reverse() : toReturn.reverse().join('');
+  return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('');
 }
 
 function takeWhile(predicate, iterable) {
@@ -2266,9 +2267,9 @@ function takeWhile(predicate, iterable) {
     return _iterable => takeWhile(predicate, _iterable);
   }
 
-  const isArray = _isArray(iterable);
+  const isArray$1 = isArray(iterable);
 
-  if (!isArray && typeof iterable !== 'string') {
+  if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string');
   }
 
@@ -2283,7 +2284,7 @@ function takeWhile(predicate, iterable) {
       holder.push(iterable[counter]);
     }
   }
-  return isArray ? holder : holder.join('');
+  return isArray$1 ? holder : holder.join('');
 }
 
 function tap(fn, x) {
@@ -2305,7 +2306,7 @@ function test(pattern, str) {
 function times(fn, howMany) {
   if (arguments.length === 1) return _howMany => times(fn, _howMany);
 
-  if (!Number.isInteger(howMany) || howMany < 0) {
+  if (!isInteger(howMany) || howMany < 0) {
     throw new RangeError('n must be an integer');
   }
 
@@ -2330,7 +2331,7 @@ function toUpper(str) {
 
 function transpose(array) {
   return array.reduce((acc, el) => {
-    el.forEach((nestedEl, i) => _isArray(acc[i]) ? acc[i].push(nestedEl) : acc.push([nestedEl]));
+    el.forEach((nestedEl, i) => isArray(acc[i]) ? acc[i].push(nestedEl) : acc.push([nestedEl]));
     return acc;
   }, []);
 }
@@ -2428,7 +2429,7 @@ function unwind(property, obj) {
     return _obj => unwind(property, _obj);
   }
 
-  if (!_isArray(obj[property])) return [obj];
+  if (!isArray(obj[property])) return [obj];
   return mapArray(x => _objectSpread2(_objectSpread2({}, obj), {}, {
     [property]: x
   }), obj[property]);

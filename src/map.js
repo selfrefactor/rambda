@@ -1,5 +1,5 @@
-import { _isArray } from './_internals/_isArray.js'
-import { _keys } from './_internals/_keys.js'
+import { isArray } from './_internals/isArray.js'
+import { keys } from './_internals/keys.js'
 
 export function mapArray(
   fn, list, isIndexed = false
@@ -21,12 +21,12 @@ export function mapObject(fn, obj){
     return _obj => mapObject(fn, _obj)
   }
   let index = 0
-  const keys = _keys(obj)
-  const len = keys.length
+  const objKeys = keys(obj)
+  const len = objKeys.length
   const willReturn = {}
 
   while (index < len){
-    const key = keys[ index ]
+    const key = objKeys[ index ]
     willReturn[ key ] = fn(
       obj[ key ], key, obj
     )
@@ -41,10 +41,10 @@ export const mapObjIndexed = mapObject
 export function map(fn, iterable){
   if (arguments.length === 1) return _iterable => map(fn, _iterable)
   if (!iterable){
-    throw new Error('Incorrect iterable input')
+    throw new Error(INCORRECT_ITERABLE_INPUT)
   }
 
-  if (_isArray(iterable)) return mapArray(fn, iterable)
+  if (isArray(iterable)) return mapArray(fn, iterable)
 
   return mapObject(fn, iterable)
 }
