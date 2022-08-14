@@ -5810,7 +5810,6 @@ export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) =>
 Method: mapParallelAsync
 
 Explanation: Parallel asynchronous mapping with `fn` over members of `list`.
-It uses `Promise.allSettled`, which means that error in one iteration won't cause the method to throw an error.
 
 Example:
 
@@ -5839,7 +5838,7 @@ export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list:
 /*
 Method: mapParallelAsyncWithLimit
 
-Explanation: It is similar to `R.mapParallelAsync` in that it uses `Promise.allSettled` but not over the whole list, rather than with only slice from `list` with length `limit`.
+Explanation: It is similar to `R.mapParallelAsync` in that it uses `Promise.all`, but not over the whole list, rather than with only slice from `list` with length `limit`.
 
 Example:
 

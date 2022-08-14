@@ -10,9 +10,7 @@ test('happy', async () => {
     return x + 10
   }
   const result = await mapParallelAsync(fn, [ 1, 2, 3 ])
-  const curriedResult = await mapParallelAsync(fn)([ 1, 2, 3 ])
   expect(result).toEqual([ 11, 12, 13 ])
-  expect(curriedResult).toEqual([ 11, 12, 13 ])
 })
 
 test('composeAsync', async () => {
