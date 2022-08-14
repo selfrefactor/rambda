@@ -6,15 +6,10 @@ export function pipeAsync(...inputArguments){
 
     while (inputArguments.length !== 0){
       const fn = inputArguments.shift()
-      const typeFn = type(fn)
 
-      if (typeFn === 'Async'){
-        argumentsToPass = await fn(argumentsToPass)
-      } else {
-        argumentsToPass = fn(argumentsToPass)
-        if (type(argumentsToPass) === 'Promise'){
-          argumentsToPass = await argumentsToPass
-        }
+      argumentsToPass = fn(argumentsToPass)
+      if (type(argumentsToPass) === 'Promise'){
+        argumentsToPass = await argumentsToPass
       }
     }
 
