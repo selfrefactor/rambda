@@ -235,6 +235,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: always
@@ -352,6 +353,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: append
