@@ -7076,7 +7076,7 @@ const init = [
 
 ### intersection
 
-It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
 
