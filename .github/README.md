@@ -345,6 +345,11 @@ method | Rambda | Ramda | Lodash
 
 ### add
 
+```typescript
+
+add(a: number, b: number): number
+```
+
 It adds `a` and `b`.
 
 > :boom: It doesn't work with strings, as the inputs are parsed to numbers before calculation.
@@ -354,6 +359,148 @@ R.add(2, 3) // =>  5
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try this <strong>R.add</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+add(a: number, b: number): number;
+add(a: number): (b: number) => number;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.add</strong> source</summary>
+
+```javascript
+export function add(a, b){
+  if (arguments.length === 1) return _b => add(a, _b)
+
+  return Number(a) + Number(b)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { add as addRamda } from 'ramda'
+
+import { compareCombinations } from './_internals/testUtils.js'
+import { add } from './add.js'
+
+test('with number', () => {
+  expect(add(2, 3)).toBe(5)
+  expect(add(7)(10)).toBe(17)
+})
+
+test('string is bad input', () => {
+  expect(add('foo', 'bar')).toBeNaN()
+})
+
+test('ramda specs', () => {
+  expect(add('1', '2')).toBe(3)
+  expect(add(1, '2')).toBe(3)
+  expect(add(true, false)).toBe(1)
+  expect(add(null, null)).toBe(0)
+  expect(add(undefined, undefined)).toBeNaN()
+  expect(add(new Date(1), new Date(2))).toBe(3)
+})
+
+const possibleInputs = [
+  /foo/,
+  'foo',
+  true,
+  3,
+  NaN,
+  4,
+  [],
+  Promise.resolve(1),
+]
+
+describe('brute force', () => {
+  compareCombinations({
+    fn          : add,
+    fnRamda     : addRamda,
+    firstInput  : possibleInputs,
+    secondInput : possibleInputs,
+    callback    : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+        Object {
+          "ERRORS_MESSAGE_MISMATCH": 0,
+          "ERRORS_TYPE_MISMATCH": 0,
+          "RESULTS_MISMATCH": 0,
+          "SHOULD_NOT_THROW": 0,
+          "SHOULD_THROW": 0,
+          "TOTAL_TESTS": 64,
+        }
+      `)
+    },
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {add} from 'rambda'
+
+describe('R.add', () => {
+  it('happy', () => {
+    const result = add(4, 1)
+
+    result // $ExpectType number
+  })
+  it('curried', () => {
+    const result = add(4)(1)
+
+    result // $ExpectType number
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary>Rambda is fastest. Ramda is 21.52% slower and Lodash is 82.15% slower</summary>
+
+```text
+const R = require('../../dist/rambda.js')
+
+const add = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.add(1, 1)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.add(1, 1)
+    },
+  },
+  {
+    label : 'Lodash',
+    fn    : () => {
+      _.add(1, 1)
+    },
+  },
+]
+```
+
+</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
@@ -9587,7 +9734,70 @@ describe('R.median', () => {
 
 ### merge
 
+```typescript
+
+merge<A, B>(target: A, newProps: B): A & B
+export function merge<Output>(target: any): (newProps: any) => Output
+```
+
 Same as `R.mergeRight`.
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+merge<A, B>(target: A, newProps: B): A & B
+merge<Output>(target: any): (newProps: any) => Output;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.merge</strong> source</summary>
+
+```javascript
+export { mergeRight as merge } from './mergeRight.js'
+```
+
+</details>
+
+<details>
+
+<summary>Rambda is fastest. Ramda is 12.21% slower and Lodash is 55.76% slower</summary>
+
+```text
+const R = require('../../dist/rambda.js')
+
+const obj = { bar : 'yes' }
+const a = {
+  foo : 'bar',
+  bar : 'baz',
+}
+const merge = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      R.merge(a, obj)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      Ramda.merge(a, obj)
+    },
+  },
+  {
+    label : 'Lodash',
+    fn    : () => {
+      _.merge(a, obj)
+    },
+  },
+]
+```
+
+</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
@@ -17950,6 +18160,11 @@ const result = [
 
 ### type
 
+```typescript
+
+type(x: any): RambdaTypes
+```
+
 It accepts any input and it returns its type.
 
 > :boom: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
@@ -17975,6 +18190,268 @@ R.type(delay) // => 'Promise'
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Function'%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Async'%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20'Array'%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20'Object'%0AR.type('foo')%20%2F%2F%20%3D%3E%20'String'%0AR.type(1)%20%2F%2F%20%3D%3E%20'Number'%0AR.type(true)%20%2F%2F%20%3D%3E%20'Boolean'%0AR.type(null)%20%2F%2F%20%3D%3E%20'Null'%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20'RegExp'%0AR.type('foo'*1)%20%2F%2F%20%3D%3E%20'NaN'%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20'Promise'">Try this <strong>R.type</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+type(x: any): RambdaTypes;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.type</strong> source</summary>
+
+```javascript
+export function type(input){
+  if (input === null){
+    return 'Null'
+  } else if (input === undefined){
+    return 'Undefined'
+  } else if (Number.isNaN(input)){
+    return 'NaN'
+  }
+  const typeResult = Object.prototype.toString.call(input).slice(8, -1)
+
+  return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { type as typeRamda } from 'ramda'
+
+import { type } from './type.js'
+
+test('with buffer', () => {
+  expect(type(new Buffer.from('foo'))).toBe('Uint8Array')
+})
+
+test('with array buffer', () => {
+  expect(type(new ArrayBuffer(8))).toBe('ArrayBuffer')
+})
+
+test('with big int', () => {
+  expect(type(BigInt(9007199254740991))).toBe('BigInt')
+})
+
+test('with generators', () => {
+  function* generator(){
+    yield 1
+    yield 2
+    yield 3
+  }
+
+  const gen = generator()
+  expect(type(generator)).toBe('GeneratorFunction')
+  expect(type(gen)).toBe('Generator')
+})
+
+test('with infinity', () => {
+  expect(type(Infinity)).toBe('Number')
+})
+
+test('with weak map', () => {
+  expect(type(new WeakMap())).toBe('WeakMap')
+})
+
+test('with map', () => {
+  expect(type(new Map())).toBe('Map')
+})
+
+test('with symbol', () => {
+  expect(type(Symbol())).toBe('Symbol')
+})
+
+test('with simple promise', () => {
+  expect(type(Promise.resolve(1))).toBe('Promise')
+})
+
+test('with new Boolean', () => {
+  expect(type(new Boolean(true))).toBe('Boolean')
+})
+
+test('with new String', () => {
+  expect(type(new String('I am a String object'))).toBe('String')
+})
+
+test('with new Number', () => {
+  expect(type(new Number(1))).toBe('Number')
+})
+
+test('with error', () => {
+  expect(type(Error('foo'))).toBe('Error')
+  expect(typeRamda(Error('foo'))).toBe('Error')
+})
+
+test('with error - wrong @types/ramda test', () => {
+  // @types/ramda expect the result to be 'Error' but it is not
+  class ExtendedError extends Error{}
+  expect(type(ExtendedError)).toBe('Function')
+  expect(typeRamda(ExtendedError)).toBe('Function')
+})
+
+test('with new promise', () => {
+  const delay = ms =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(ms + 110)
+      }, ms)
+    })
+
+  expect(type(delay(10))).toBe('Promise')
+})
+
+test('async function', () => {
+  expect(type(async () => {})).toBe('Promise')
+})
+
+test('async arrow', () => {
+  const asyncArrow = async () => {}
+  expect(type(asyncArrow)).toBe('Promise')
+})
+
+test('function', () => {
+  const fn1 = () => {}
+  const fn2 = function (){}
+
+  function fn3(){}
+
+  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
+    expect(type(val)).toBe('Function')
+  })
+})
+
+test('object', () => {
+  expect(type({})).toBe('Object')
+})
+
+test('number', () => {
+  expect(type(1)).toBe('Number')
+})
+
+test('boolean', () => {
+  expect(type(false)).toBe('Boolean')
+})
+
+test('string', () => {
+  expect(type('foo')).toBe('String')
+})
+
+test('null', () => {
+  expect(type(null)).toBe('Null')
+})
+
+test('array', () => {
+  expect(type([])).toBe('Array')
+  expect(type([ 1, 2, 3 ])).toBe('Array')
+})
+
+test('regex', () => {
+  expect(type(/\s/g)).toBe('RegExp')
+})
+
+test('undefined', () => {
+  expect(type(undefined)).toBe('Undefined')
+})
+
+test('not a number', () => {
+  expect(type(Number('s'))).toBe('NaN')
+})
+
+test('set', () => {
+  const exampleSet = new Set([ 1, 2, 3 ])
+  expect(type(exampleSet)).toBe('Set')
+  expect(typeRamda(exampleSet)).toBe('Set')
+})
+
+test('function inside object 1', () => {
+  const obj = {
+    f(){
+      return 4
+    },
+  }
+
+  expect(type(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
+})
+
+test('function inside object 2', () => {
+  const name = 'f'
+  const obj = {
+    [ name ](){
+      return 4
+    },
+  }
+  expect(type(obj.f)).toBe('Function')
+  expect(typeRamda(obj.f)).toBe('Function')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {type} from 'rambda'
+
+describe('R.type', () => {
+  it('happy', () => {
+    const result = type(4)
+
+    result // $ExpectType RambdaTypes
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary>Rambda is faster than Ramda with 48.6%</summary>
+
+```text
+const R = require('../../dist/rambda.js')
+
+const { listOfVariousTypes } = require('./_utils')
+
+const limit = 1000
+
+function applyBenchmark(fn){
+  listOfVariousTypes.forEach(mode => {
+    Array(limit)
+      .fill(mode)
+      .forEach(x => fn(x))
+  })
+}
+
+const test = [
+  {
+    label : 'Rambda',
+    fn    : () => {
+      applyBenchmark(R.type)
+    },
+  },
+  {
+    label : 'Ramda',
+    fn    : () => {
+      applyBenchmark(Ramda.type)
+    },
+  },
+]
+```
+
+</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#type)
 
