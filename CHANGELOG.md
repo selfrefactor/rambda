@@ -2,6 +2,8 @@
 
 - Add `R.modify`
 
+- Allow multiple inputs in Typescript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
+
 7.2.1
 
 - Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 

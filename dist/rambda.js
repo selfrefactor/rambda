@@ -41,6 +41,22 @@ function all(predicate, list) {
   return true;
 }
 
+function allPass(predicates) {
+  return (...input) => {
+    let counter = 0;
+
+    while (counter < predicates.length) {
+      if (!predicates[counter](...input)) {
+        return false;
+      }
+
+      counter++;
+    }
+
+    return true;
+  };
+}
+
 function always(x) {
   return _ => x;
 }
@@ -1881,15 +1897,7 @@ function partial(fn, ...args) {
 }
 
 function partialObject(fn, input) {
-  return rest => {
-    if (type(fn) === 'Async') {
-      return new Promise((resolve, reject) => {
-        fn(mergeDeepRight(rest, input)).then(resolve).catch(reject);
-      });
-    }
-
-    return fn(mergeDeepRight(rest, input));
-  };
+  return nextInput => fn(mergeDeepRight(nextInput, input));
 }
 
 function partitionObject(predicate, iterable) {
@@ -2551,6 +2559,7 @@ exports._pipe = _pipe;
 exports.add = add;
 exports.adjust = adjust;
 exports.all = all;
+exports.allPass = allPass;
 exports.always = always;
 exports.and = and;
 exports.any = any;

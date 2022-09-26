@@ -1672,7 +1672,7 @@ export function init(input: string): string;
 /*
 Method: intersection
 
-Explanation: It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+Explanation: It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
 Example:
 

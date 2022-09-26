@@ -133,6 +133,8 @@ type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
+type Resolved<T> = {status: 'fulfilled', value: T} | {status: 'rejected', reason: string|Error}
+
 
 /**
  * It adds `a` and `b`.
@@ -151,6 +153,12 @@ export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) =>
  */
 export function all<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+
+/**
+ * It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
+ */
+export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /**
  * It returns function that always returns `x`.
@@ -179,6 +187,7 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /**
  * It adds element `x` at the end of `list`.
@@ -597,7 +606,7 @@ export function init<T extends unknown[]>(input: T): T extends readonly [...infe
 export function init(input: string): string;
 
 /**
- * It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+ * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
 export function intersection<T>(listA: T[], listB: T[]): T[];
 export function intersection<T>(listA: T[]): (listB: T[]) => T[];

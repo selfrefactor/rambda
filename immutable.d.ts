@@ -133,6 +133,8 @@ type ApplyDiffAdd = {readonly op:'add', readonly path: string, readonly value: a
 type ApplyDiffRemove = {readonly op:'remove', readonly path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
+type Resolved<T> = {readonly status: 'fulfilled', readonly value: T} | {readonly status: 'rejected', readonly reason: string|Error}
+
 
 /**
  * It adds `a` and `b`.
@@ -151,6 +153,12 @@ export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: readonl
  */
 export function all<T>(predicate: (x: T) => boolean, list: readonly T[]): boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
+
+/**
+ * It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
+ */
+export function allPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T>(predicates: readonly ((...inputs: readonly T[]) => boolean)[]): (...inputs: readonly T[]) => boolean;
 
 /**
  * It returns function that always returns `x`.
@@ -179,6 +187,7 @@ export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => bo
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
 export function anyPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
+export function anyPass<T>(predicates: readonly ((...inputs: readonly T[]) => boolean)[]): (...inputs: readonly T[]) => boolean;
 
 /**
  * It adds element `x` at the end of `list`.
@@ -597,7 +606,7 @@ export function init<T extends readonly unknown[]>(input: T): T extends readonly
 export function init(input: string): string;
 
 /**
- * It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+ * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
 export function intersection<T>(listA: readonly T[], listB: readonly T[]): readonly T[];
 export function intersection<T>(listA: readonly T[]): (listB: readonly T[]) => readonly T[];

@@ -111,12 +111,11 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 78 Ramda methods not implemented in Rambda 
+  Click to see the full list of 77 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
 - addIndex
-- allPass
 - ap
 - aperture
 - applyTo
@@ -649,6 +648,210 @@ const tests = [
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#all)
 
+### allPass
+
+```typescript
+
+allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
+```
+
+It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
+
+```javascript
+const input = {
+  a : 1,
+  b : 2,
+}
+const predicates = [
+  x => x.a === 1,
+  x => x.b === 2,
+]
+const result = R.allPass(predicates)(input) // => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%7D%0Aconst%20predicates%20%3D%20%5B%0A%20%20x%20%3D%3E%20x.a%20%3D%3D%3D%201%2C%0A%20%20x%20%3D%3E%20x.b%20%3D%3D%3D%202%2C%0A%5D%0Aconst%20result%20%3D%20R.allPass(predicates)(input)%20%2F%2F%20%3D%3E%20true">Try this <strong>R.allPass</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.allPass</strong> source</summary>
+
+```javascript
+export function allPass(predicates){
+  return (...input) => {
+    let counter = 0
+    while (counter < predicates.length){
+      if (!predicates[ counter ](...input)){
+        return false
+      }
+      counter++
+    }
+
+    return true
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { allPass } from './allPass.js'
+
+test('happy', () => {
+  const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
+
+  expect(allPass(rules)(11)).toBeTrue()
+
+  expect(allPass(rules)(undefined)).toBeFalse()
+})
+
+test('when returns true', () => {
+  const conditionArr = [ val => val.a === 1, val => val.b === 2 ]
+
+  expect(allPass(conditionArr)({
+    a : 1,
+    b : 2,
+  })).toBeTrue()
+})
+
+test('when returns false', () => {
+  const conditionArr = [ val => val.a === 1, val => val.b === 3 ]
+
+  expect(allPass(conditionArr)({
+    a : 1,
+    b : 2,
+  })).toBeFalse()
+})
+
+test('works with multiple inputs', () => {
+  const fn = function (
+    w, x, y, z
+  ){
+    return w + x === y + z
+  }
+  expect(allPass([ fn ])(
+    3, 3, 3, 3
+  )).toBeTrue()
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>Typescript</strong> test</summary>
+
+```typescript
+import {allPass, filter} from 'rambda'
+
+describe('allPass', () => {
+  it('happy', () => {
+    const x = allPass<number>([
+      y => {
+        y // $ExpectType number
+        return typeof y === 'number'
+      },
+      y => {
+        return y > 0
+      },
+    ])(11)
+
+    x // $ExpectType boolean
+  })
+  it('issue #642', () => {
+    const isGreater = (num: number) => num > 5
+    const pred = allPass([isGreater])
+    const xs = [0, 1, 2, 3]
+
+    const filtered1 = filter(pred)(xs)
+    filtered1 // $ExpectType number[]
+    const filtered2 = xs.filter(pred)
+    filtered2 // $ExpectType number[]
+  })
+  it('issue #604', () => {
+    const plusEq = function(w: number, x: number, y: number, z: number) {
+      return w + x === y + z
+    }
+    const result = allPass([plusEq])(3, 3, 3, 3)
+
+    result // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary>Rambda is faster than Ramda with 91.09%</summary>
+
+```text
+const R = require('../../dist/rambda.js')
+
+const { random } = require('rambdax')
+
+const limit = 100
+const min = 10
+const max = 1200
+function createListOfFunctions(fn, fnLimit){
+  return Array(fnLimit)
+    .fill(null)
+    .map(() => fn())
+}
+
+const modes = [
+  [
+    { foo : 1500 },
+    createListOfFunctions(() => x => Number(x.foo) > random(min, max),
+      limit),
+  ],
+  [
+    '1500',
+    createListOfFunctions(() => x => Number(x) > random(min, max), limit),
+  ],
+  [
+    [ 1, 2, 1500 ],
+    createListOfFunctions(() => x => x[ 2 ] > random(min, max), limit),
+  ],
+  [ 1500, createListOfFunctions(() => x => x > random(min, max), limit) ],
+]
+
+const applyBenchmark = (fn, input) => fn(input[ 1 ])(input[ 0 ])
+const tests = [
+  {
+    label : 'Rambda',
+    fn    : R.allPass,
+  },
+  {
+    label : 'Ramda',
+    fn    : Ramda.allPass,
+  },
+]
+
+  tests,
+  modes,
+  applyBenchmark,
+}
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#allPass)
+
 ### always
 
 It returns function that always returns `x`.
@@ -846,6 +1049,7 @@ const result = fn(input)
 
 ```typescript
 anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 ```
 
 </details>
@@ -952,6 +1156,14 @@ describe('anyPass', () => {
     ])(11)
 
     x // $ExpectType boolean
+  })
+  it('issue #604', () => {
+    const plusEq = function(w: number, x: number, y: number, z: number) {
+      return w + x === y + z
+    }
+    const result = anyPass([plusEq])(3, 3, 3, 3)
+
+    result // $ExpectType boolean
   })
   it('issue #642', () => {
     const isGreater = (num: number) => num > 5
@@ -7172,7 +7384,7 @@ const init = [
 
 ### intersection
 
-It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
 > :boom: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]".
 
@@ -8813,71 +9025,74 @@ export function map(fn, iterable){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { map as mapRamda } from 'ramda'
+import { map as mapRamda } from "ramda";
 
-import { map } from './map.js'
+import { map } from "./map.js";
 
-const double = x => x * 2
+const double = (x) => x * 2;
 
-describe('with array', () => {
-  it('happy', () => {
-    expect(map(double, [ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
-  })
+describe("with array", () => {
+  it("happy", () => {
+    expect(map(double, [1, 2, 3])).toEqual([2, 4, 6]);
+  });
 
-  it('curried', () => {
-    expect(map(double)([ 1, 2, 3 ])).toEqual([ 2, 4, 6 ])
-  })
-})
+  it("curried", () => {
+    expect(map(double)([1, 2, 3])).toEqual([2, 4, 6]);
+  });
+});
 
-describe('with object', () => {
+describe("with object", () => {
   const obj = {
-    a : 1,
-    b : 2,
-  }
+    a: 1,
+    b: 2,
+  };
 
-  it('happy', () => {
+  it("happy", () => {
     expect(map(double, obj)).toEqual({
-      a : 2,
-      b : 4,
-    })
-  })
+      a: 2,
+      b: 4,
+    });
+  });
 
-  it('property as second and input object as third argument', () => {
+  it("property as second and input object as third argument", () => {
     const obj = {
-      a : 1,
-      b : 2,
-    }
-    const iterator = (
-      val, prop, inputObject
-    ) => {
-      expect(prop).toBeString()
-      expect(inputObject).toEqual(obj)
+      a: 1,
+      b: 2,
+    };
+    const iterator = (val, prop, inputObject) => {
+      expect(prop).toBeString();
+      expect(inputObject).toEqual(obj);
 
-      return val * 2
-    }
+      return val * 2;
+    };
 
     expect(map(iterator)(obj)).toEqual({
-      a : 2,
-      b : 4,
-    })
-  })
-})
+      a: 2,
+      b: 4,
+    });
+  });
+});
 
-test('bad inputs difference between Ramda and Rambda', () => {
+test("bad inputs difference between Ramda and Rambda", () => {
   expect(() => map(double, null)).toThrowErrorMatchingInlineSnapshot(
     '"Incorrect iterable input"',
-    'undefined',
-    'undefined'
-  )
+    "undefined",
+    "undefined",
+    `undefined`
+  );
   expect(() => map(double)(undefined)).toThrowErrorMatchingInlineSnapshot(
     '"Incorrect iterable input"',
-    'undefined',
-    'undefined'
-  )
-  expect(() => mapRamda(double, null)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'fantasy-land/map\')"')
-  expect(() =>
-    mapRamda(double, undefined)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of undefined (reading \'fantasy-land/map\')"')
-})
+    "undefined",
+    "undefined",
+    `undefined`
+  );
+  expect(() => mapRamda(double, null)).toThrowErrorMatchingInlineSnapshot(
+    "\"Cannot read properties of null (reading 'fantasy-land/map')\""
+  );
+  expect(() => mapRamda(double, undefined)).toThrowErrorMatchingInlineSnapshot(
+    "\"Cannot read properties of undefined (reading 'fantasy-land/map')\""
+  );
+});
 ```
 
 </details>
@@ -10173,7 +10388,7 @@ describe('R.modify', () => {
     const {age: ageAsString} = modify('age', String, person)
 
     age // $ExpectType number
-    ageAsString // $ExpectType number
+    ageAsString // $ExpectType string
   })
   it('curried', () => {
     const {age} = modify('age', add(1))(person)
@@ -11533,19 +11748,9 @@ partialObject<Input, PartialInput, Output>(
 
 ```javascript
 import { mergeDeepRight } from './mergeDeepRight.js'
-import { type } from './type.js'
 
 export function partialObject(fn, input){
-  return rest => {
-    if (type(fn) === 'Async'){
-      return new Promise((resolve, reject) => {
-        fn(mergeDeepRight(rest, input)).then(resolve)
-          .catch(reject)
-      })
-    }
-
-    return fn(mergeDeepRight(rest, input))
-  }
+  return nextInput => fn(mergeDeepRight(nextInput, input))
 }
 ```
 
@@ -19985,6 +20190,8 @@ describe('R.zipWith', () => {
 7.3.0
 
 - Add `R.modify`
+
+- Allow multiple inputs in Typescript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
 
 7.2.1
 

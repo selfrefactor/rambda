@@ -2,6 +2,7 @@
 export * from './src/add.js'
 export * from './src/adjust.js'
 export * from './src/all.js'
+export * from './src/allPass.js'
 export * from './src/always.js'
 export * from './src/and.js'
 export * from './src/any.js'
