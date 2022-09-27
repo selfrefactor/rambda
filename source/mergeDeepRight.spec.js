@@ -1,25 +1,27 @@
+import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
+
 import { mergeDeepRight } from './mergeDeepRight.js'
 
-const slave = {
-  name    : 'evilMe',
+const student = {
+  name    : 'foo',
   age     : 10,
   contact : {
     a     : 1,
     email : 'foo@example.com',
   },
 }
-const master = {
+const teacher = {
   age     : 40,
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
 
 test('happy', () => {
-  const result = mergeDeepRight(slave, master)
-  const curryResult = mergeDeepRight(slave)(master)
+  const result = mergeDeepRight(student, teacher)
+  const curryResult = mergeDeepRight(student)(teacher)
   const expected = {
     age     : 40,
-    name    : 'evilMe',
+    name    : 'foo',
     contact : {
       a     : 1,
       email : 'baz@example.com',
@@ -29,6 +31,13 @@ test('happy', () => {
 
   expect(result).toEqual(expected)
   expect(curryResult).toEqual(expected)
+})
+
+test('issue 650', () => {
+  expect(Object.keys(mergeDeepRight({ a : () => {} }, { b : () => {} }))).toEqual([
+    'a',
+    'b',
+  ])
 })
 
 test('ramda compatible test 1', () => {
