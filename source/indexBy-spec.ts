@@ -19,7 +19,7 @@ describe('indexBy', () => {
 
   it('with interface', () => {
     interface Foo {
-      a: string
+      a: string,
     }
     const interfaceList = [{a: 'foo'}, {a: 'bar'}]
     const result = indexBy<Foo>(x => {

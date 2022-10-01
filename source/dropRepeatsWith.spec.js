@@ -30,10 +30,12 @@ test('readme example', () => {
     },
   ]
   const result = dropRepeatsWith(prop('a'), list)
-  expect(result).toEqual([ {
-    a : 1,
-    b : 2,
-  } ])
+  expect(result).toEqual([
+    {
+      a : 1,
+      b : 2,
+    },
+  ])
 })
 
 test('keeps elements from the left predicate input', () => {

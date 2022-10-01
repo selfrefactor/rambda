@@ -1,7 +1,7 @@
 import {isValidAsync} from 'rambda'
 
 describe('R.isValidAsync', () => {
-  it('happy', async () => {
+  it('happy', async() => {
     const input = {a: ['foo', 'bar']}
     const schema = {a: ['string']}
     const result = await isValidAsync({schema, input})

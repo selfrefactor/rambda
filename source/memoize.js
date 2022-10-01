@@ -17,9 +17,10 @@ const normalizeObject = obj => {
 }
 
 const stringify = a => {
-  if (type(a) === 'String'){
+  const aType = type(a)
+  if (aType === 'String'){
     return a
-  } else if ([ 'Function', 'Async' ].includes(type(a))){
+  } else if ([ 'Function', 'Promise' ].includes(aType)){
     const compacted = replace(
       /\s{1,}/g, ' ', a.toString()
     )
@@ -27,7 +28,7 @@ const stringify = a => {
     return replace(
       /\s/g, '_', take(15, compacted)
     )
-  } else if (type(a) === 'Object'){
+  } else if (aType === 'Object'){
     return JSON.stringify(normalizeObject(a))
   }
 

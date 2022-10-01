@@ -1,7 +1,7 @@
 import { cloneList } from './_internals/cloneList.js'
 import { curry } from './curry.js'
 
-function updateFn(
+export function updateFn(
   index, newValue, list
 ){
   const clone = cloneList(list)

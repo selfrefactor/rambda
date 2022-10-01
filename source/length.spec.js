@@ -3,13 +3,13 @@ import { length as lengthRamda } from 'ramda'
 import { length } from './length.js'
 
 test('happy', () => {
-  expect(length('foo')).toEqual(3)
-  expect(length([ 1, 2, 3 ])).toEqual(3)
-  expect(length([])).toEqual(0)
+  expect(length('foo')).toBe(3)
+  expect(length([ 1, 2, 3 ])).toBe(3)
+  expect(length([])).toBe(0)
 })
 
 test('with empty string', () => {
-  expect(length('')).toEqual(0)
+  expect(length('')).toBe(0)
 })
 
 test('with bad input returns NaN', () => {

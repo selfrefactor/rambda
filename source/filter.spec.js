@@ -30,7 +30,7 @@ test('predicate when input is object', () => {
     val, prop, inputObject
   ) => {
     expect(inputObject).toEqual(obj)
-    expect(typeof prop).toEqual('string')
+    expect(typeof prop).toBe('string')
 
     return val < 2
   }

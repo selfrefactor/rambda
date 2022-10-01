@@ -1,8 +1,8 @@
 import {dissoc} from 'rambda'
 
 interface Input {
-  a: string
-  b: string
+  a: string,
+  b: string,
 }
 const obj: Input = {
   a: 'foo',
@@ -15,7 +15,7 @@ describe('R.dissoc', () => {
 
     result.a // $ExpectType string
 
-    // $ExpectError
+    // @ts-expect-error
     result.b
   })
   it('curried', () => {

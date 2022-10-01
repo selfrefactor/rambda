@@ -2,27 +2,34 @@ const _ = require('lodash')
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 
-const list = [ 1, [ 2, [ 3, 4, 6 ] ] ]
+const { uniqListOfStrings, applyBenchmarkUnary } = require('./_utils.js')
 
-const flatten = [
+const modes = [
+  [ 1, [ 2, [ 3, 4, 6 ] ] ],
+  uniqListOfStrings,
+  [],
+  [{a:[1,2]}, [], [{a:[1,2]}, []]],
+  Array(1000).fill([ 1, [ 2, [ 3, 4, 6 ] ] ]),
+  Array(1000).fill([[]]),
+]
+
+const tests = [
   {
     label : 'Rambda',
-    fn    : () => {
-      R.flatten(list)
-    },
+    fn    : R.flatten,
   },
   {
     label : 'Ramda',
-    fn    : () => {
-      Ramda.flatten(list)
-    },
+    fn    : Ramda.flatten,
   },
   {
     label : 'Lodash',
-    fn    : () => {
-      _.flatten(list)
-    },
+    fn    : _.flattenDeep,
   },
 ]
 
-module.exports = flatten
+module.exports = {
+  tests,
+  applyBenchmark: applyBenchmarkUnary,
+  modes,
+}

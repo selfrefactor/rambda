@@ -1,11 +1,11 @@
 import {lensPath, view} from 'rambda'
 
 interface Input {
-  foo: number[]
+  foo: number[],
   bar: {
-    a: string
-    b: string
-  }
+    a: string,
+    b: string,
+  },
 }
 
 const testObject: Input = {

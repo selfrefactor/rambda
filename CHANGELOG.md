@@ -1,3 +1,15 @@
+7.3.0
+
+- Add `R.modify`
+
+- Allow multiple inputs in Typescript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
+
+- Using wrong clone of object in `R.mergeDeepRight` - [Issue #650](https://github.com/selfrefactor/rambda/issues/650)
+
+- Missing early return in `R.where` - [Issue #648](https://github.com/selfrefactor/rambda/issues/648)
+
+- `R.allPass` doesn't accept more than 1 parameters for function predicates- [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
+
 7.2.1
 
 - Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 

@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { mapArray, mapObject } from './map.js'
 
 export function mapIndexed(fn, iterable){
@@ -6,7 +6,7 @@ export function mapIndexed(fn, iterable){
     return _iterable => mapIndexed(fn, _iterable)
   }
   if (iterable === undefined) return []
-  if (_isArray(iterable)) return mapArray(
+  if (isArray(iterable)) return mapArray(
     fn, iterable, true
   )
 

@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { mapArray, mapObject } from './map.js'
 import { type } from './type.js'
 

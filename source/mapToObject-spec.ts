@@ -1,9 +1,9 @@
 import {mapToObject} from 'rambda'
 
 interface Output {
-  key1: string
-  key2: string
-  key3: string
+  key1: string,
+  key2: string,
+  key3: string,
 }
 
 const list = [1, 2, 3, 12]

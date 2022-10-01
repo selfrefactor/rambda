@@ -1,5 +1,5 @@
-import {delay} from './delay.js'
-import {waitFor} from './waitFor.js'
+import { delay } from './delay.js'
+import { waitFor } from './waitFor.js'
 
 const howLong = 1000
 
@@ -56,5 +56,5 @@ test('async condition | false', async () => {
 test('throws when fn is not function', () => {
   const fn = 'foo'
 
-  expect(() => waitFor(fn, howLong)()).toThrowWithMessage(Error, 'R.waitFor')
+  expect(() => waitFor(fn, howLong)()).toThrowErrorMatchingInlineSnapshot('"R.waitFor"')
 })

@@ -1,8 +1,8 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { type } from './type.js'
 
 export function _lastIndexOf(valueToFind, list){
-  if (!_isArray(list)){
+  if (!isArray(list)){
     throw new Error(`Cannot read property 'indexOf' of ${ list }`)
   }
   const typeOfValue = type(valueToFind)
@@ -23,7 +23,7 @@ export function _lastIndexOf(valueToFind, list){
 }
 
 export function _indexOf(valueToFind, list){
-  if (!_isArray(list)){
+  if (!isArray(list)){
     throw new Error(`Cannot read property 'indexOf' of ${ list }`)
   }
   const typeOfValue = type(valueToFind)

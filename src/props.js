@@ -1,11 +1,11 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { mapArray } from './map.js'
 
 export function props(propsToPick, obj){
   if (arguments.length === 1){
     return _obj => props(propsToPick, _obj)
   }
-  if (!_isArray(propsToPick)){
+  if (!isArray(propsToPick)){
     throw new Error('propsToPick is not a list')
   }
 

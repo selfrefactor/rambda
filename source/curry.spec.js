@@ -8,7 +8,7 @@ test('happy', () => {
   const f = curriedAddFourNumbers(1, 2)
   const g = f(3)
 
-  expect(g(4)).toEqual(10)
+  expect(g(4)).toBe(10)
 })
 
 test('when called with more arguments', () => {
@@ -16,14 +16,14 @@ test('when called with more arguments', () => {
 
   expect(add(
     1, 2, 3
-  )).toEqual(3)
+  )).toBe(3)
 })
 
 test('when called with zero arguments', () => {
   const sub = curry((a, b) => a - b)
   const s0 = sub()
 
-  expect(s0(5, 2)).toEqual(3)
+  expect(s0(5, 2)).toBe(3)
 })
 
 test('when called via multiple curry stages', () => {
@@ -34,5 +34,5 @@ test('when called via multiple curry stages', () => {
   const stage1 = join('A')
   const stage2 = stage1('B', 'C')
 
-  expect(stage2('D')).toEqual('A-B-C-D')
+  expect(stage2('D')).toBe('A-B-C-D')
 })

@@ -21,10 +21,13 @@ const modes = [
   ...additionalModes,
   [ 'zeppelin', uniqListOfStrings(limit) ],
   [ null, uniqListOfBooleans(limit) ],
-  [ {
-    foo : true,
-    bar : true,
-  }, uniqListOfObjects(limit) ],
+  [
+    {
+      foo : true,
+      bar : true,
+    },
+    uniqListOfObjects(limit),
+  ],
   [ 1, uniqListOfLists(limit) ],
   [ [ 1 ], uniqListOfLists(limit) ],
 ]

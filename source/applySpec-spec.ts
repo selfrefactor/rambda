@@ -10,8 +10,8 @@ describe('applySpec', () => {
   })
   it('ramda 1', () => {
     interface Output {
-      sum: number
-      multiplied: number
+      sum: number,
+      multiplied: number,
     }
     const result = applySpec<Output>({
       sum: add,

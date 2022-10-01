@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 export function takeLastWhile(predicate, input){
   if (arguments.length === 1){
@@ -18,5 +18,5 @@ export function takeLastWhile(predicate, input){
     }
   }
 
-  return _isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
+  return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
 }

@@ -8,7 +8,7 @@ test('happy', () => {
     map(add(1)), map(add(10)), last
   )(list)
 
-  expect(result).toEqual(14)
+  expect(result).toBe(14)
 })
 
 test('issue #627', () => {
@@ -16,6 +16,5 @@ test('issue #627', () => {
 })
 
 test('with bad input', () => {
-  expect(() => pipe()).toThrowWithMessage(Error,
-    'pipe requires at least one argument')
+  expect(() => pipe()).toThrowErrorMatchingInlineSnapshot('"pipe requires at least one argument"')
 })

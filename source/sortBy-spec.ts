@@ -1,7 +1,7 @@
 import {sortBy, pipe} from 'rambda'
 
 interface Input {
-  a: number
+  a: number,
 }
 
 describe('R.sortBy', () => {
@@ -37,7 +37,7 @@ describe('R.sortBy', () => {
   })
   it('with R.pipe', () => {
     interface Obj {
-      value: number
+      value: number,
     }
     const fn = pipe(sortBy<Obj>(x => x.value))
 

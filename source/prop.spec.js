@@ -1,9 +1,9 @@
 import { prop } from './prop.js'
 
 test('prop', () => {
-  expect(prop('foo')({ foo : 'baz' })).toEqual('baz')
+  expect(prop('foo')({ foo : 'baz' })).toBe('baz')
 
-  expect(prop('bar')({ foo : 'baz' })).toEqual(undefined)
+  expect(prop('bar')({ foo : 'baz' })).toBeUndefined()
 
-  expect(prop('bar')(null)).toEqual(undefined)
+  expect(prop('bar')(null)).toBeUndefined()
 })

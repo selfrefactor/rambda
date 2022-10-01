@@ -35,8 +35,8 @@ test('readme example', () => {
 })
 
 test('throw with string as input', () => {
-  expect(() => groupWith(equals, 'Mississippi')).toThrowWithMessage(TypeError,
-    'list.reduce is not a function')
+  expect(() =>
+    groupWith(equals, 'Mississippi')).toThrowErrorMatchingInlineSnapshot('"list.reduce is not a function"')
 })
 
 const isConsecutive = function (a, b){

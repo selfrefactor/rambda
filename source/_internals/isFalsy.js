@@ -1,8 +1,8 @@
 import { type } from '../type.js'
-import { _isArray } from './_isArray.js'
+import { isArray } from './isArray.js'
 
 export function isFalsy(x){
-  if (_isArray(x)){
+  if (isArray(x)){
     return x.length === 0
   }
   if (type(x) === 'Object'){

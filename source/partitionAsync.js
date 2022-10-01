@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 async function whenObject(predicate, input){
   const yes = {}
@@ -15,7 +15,7 @@ async function whenObject(predicate, input){
 }
 
 async function partitionAsyncFn(predicate, input){
-  if (!_isArray(input)) return whenObject(predicate, input)
+  if (!isArray(input)) return whenObject(predicate, input)
 
   const yes = []
   const no = []

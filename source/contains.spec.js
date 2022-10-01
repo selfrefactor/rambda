@@ -14,5 +14,6 @@ test('curried', () => {
   expect(contains({
     ...target,
     c : 3,
-  }, compareTo)).toBeFalse()
+  },
+  compareTo)).toBeFalse()
 })

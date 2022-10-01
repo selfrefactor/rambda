@@ -13,9 +13,9 @@ test('with arrays', () => {
 })
 
 test('with strings', () => {
-  expect(takeLast(3, 'rambda')).toEqual('bda')
+  expect(takeLast(3, 'rambda')).toBe('bda')
 
-  expect(takeLast(7, 'rambda')).toEqual('rambda')
+  expect(takeLast(7, 'rambda')).toBe('rambda')
 })
 
 test('with negative index', () => {

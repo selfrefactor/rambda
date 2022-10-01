@@ -13,10 +13,10 @@ test('with negative index', () => {
   const errorMessage = 'Rambda.move does not support negative indexes'
   expect(() => move(
     0, -1, list
-  )).toThrowWithMessage(Error, errorMessage)
+  )).toThrowErrorMatchingInlineSnapshot('"Rambda.move does not support negative indexes"')
   expect(() => move(
     -1, 0, list
-  )).toThrowWithMessage(Error, errorMessage)
+  )).toThrowErrorMatchingInlineSnapshot('"Rambda.move does not support negative indexes"')
 })
 
 test('when indexes are outside the list outbounds', () => {

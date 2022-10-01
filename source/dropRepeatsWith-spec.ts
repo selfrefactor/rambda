@@ -1,7 +1,7 @@
 import {dropRepeatsWith} from 'rambda'
 
 interface Foo {
-  a: number
+  a: number,
 }
 
 describe('R.dropRepeatsWith', () => {

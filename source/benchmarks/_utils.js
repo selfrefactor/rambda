@@ -107,6 +107,18 @@ exports.variousTypes = [
   weakMapInstance,
   weakSetInstance,
 ]
+const applyBenchmarkUnary = (fn, input) => {
+  return fn(input)
+}
+const applyBenchmarkBinary = (fn, input) => {
+  return fn(input[0], input[1])
+}
+const applyBenchmarkThreeInputs = (fn, input) => {
+  return fn(input[0], input[1], input[2])
+}
 
 exports.weakMapInstance = weakMapInstance
 exports.mapInstance = mapInstance
+exports.applyBenchmarkUnary = applyBenchmarkUnary
+exports.applyBenchmarkBinary = applyBenchmarkBinary
+exports.applyBenchmarkThreeInputs = applyBenchmarkThreeInputs

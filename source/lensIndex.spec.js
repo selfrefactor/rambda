@@ -12,7 +12,7 @@ test('focuses list element at the specified index', () => {
 })
 
 test('returns undefined if the specified index does not exist', () => {
-  expect(view(lensIndex(10), testList)).toEqual(undefined)
+  expect(view(lensIndex(10), testList)).toBeUndefined()
 })
 
 test('sets the list value at the specified index', () => {
@@ -31,7 +31,7 @@ test('can be composed', () => {
   const nestedList = [ 0, [ 10, 11, 12 ], 1, 2 ]
   const composedLens = compose(lensIndex(1), lensIndex(0))
 
-  expect(view(composedLens, nestedList)).toEqual(10)
+  expect(view(composedLens, nestedList)).toBe(10)
 })
 
 test('set s (get s) === s', () => {
@@ -43,7 +43,7 @@ test('set s (get s) === s', () => {
 test('get (set s v) === v', () => {
   expect(view(lensIndex(0), set(
     lensIndex(0), 0, testList
-  ))).toEqual(0)
+  ))).toBe(0)
 })
 
 test('get (set(set s v1) v2) === v2', () => {
@@ -52,5 +52,5 @@ test('get (set(set s v1) v2) === v2', () => {
       lensIndex(0), 11, set(
         lensIndex(0), 10, testList
       )
-    ))).toEqual(11)
+    ))).toBe(11)
 })

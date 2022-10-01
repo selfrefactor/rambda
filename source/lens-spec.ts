@@ -1,7 +1,7 @@
 import {lens, assoc} from 'rambda'
 
 interface Input {
-  foo: string
+  foo: string,
 }
 
 describe('R.lens', () => {

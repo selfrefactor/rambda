@@ -1,3 +1,4 @@
+import { clone } from './clone.js'
 import { type } from './type.js'
 
 export function mergeDeepRight(target, source){
@@ -5,7 +6,7 @@ export function mergeDeepRight(target, source){
     return sourceHolder => mergeDeepRight(target, sourceHolder)
   }
 
-  const willReturn = JSON.parse(JSON.stringify(target))
+  const willReturn = clone(target)
 
   Object.keys(source).forEach(key => {
     if (type(source[ key ]) === 'Object'){

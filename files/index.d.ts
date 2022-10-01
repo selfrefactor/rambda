@@ -133,6 +133,8 @@ type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
+type Resolved<T> = {status: 'fulfilled', value: T} | {status: 'rejected', reason: string|Error}
+
 // API_MARKER
 
 /*
@@ -233,6 +235,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: always
@@ -350,6 +353,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: append
@@ -1668,7 +1672,7 @@ export function init(input: string): string;
 /*
 Method: intersection
 
-Explanation: It loops throw `listA` and `listB` and returns the intersection of the two according to `R.equals`.
+Explanation: It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
 Example:
 
@@ -4112,7 +4116,7 @@ Explanation: It accepts any input and it returns its type.
 Example:
 
 ```
-R.type(() => {}) // => 'Function'
+const result = R.type(() => {}) // => 'Function'
 R.type(async () => {}) // => 'Async'
 R.type([]) // => 'Array'
 R.type({}) // => 'Object'
@@ -5163,6 +5167,34 @@ export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x
 export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
 export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
+/*
+Method: modify
+
+Explanation:
+
+Example:
+
+```
+const result = R.modify()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function modify<T extends object, K extends keyof T, P>(
+  prop: K,
+  fn: (a: T[K]) => P,
+  obj: T,
+): Omit<T, K> & Record<K, P>;
+export function modify<K extends string, A, P>(
+  prop: K,
+  fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -5779,9 +5811,9 @@ export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promis
 export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
-Method: mapFastAsync
+Method: mapParallelAsync
 
-Explanation: Parrallel asynchronous mapping with `fn` over members of `list`.
+Explanation: Parallel asynchronous mapping with `fn` over members of `list`.
 
 Example:
 
@@ -5792,25 +5824,25 @@ async function fn(x){
   return x+1
 }
 
-const result = await R.mapFastAsync(fn, [1, 2, 3])
+const result = await R.mapParallelAsync(fn, [1, 2, 3])
 // `result` resolves after 1 second to `[2, 3, 4]`
 ```
 
 Categories: Async, List
 
-Notes:
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
-export function mapFastAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
-Method: mapAsyncLimit
+Method: mapParallelAsyncWithLimit
 
-Explanation: It is similar to `R.mapFastAsync` in that it uses `Promise.all` but not over the whole list, rather than with only slice from `list` with length `limit`.
+Explanation: It is similar to `R.mapParallelAsync` in that it uses `Promise.all`, but not over the whole list, rather than with only slice from `list` with length `limit`.
 
 Example:
 
@@ -5824,10 +5856,10 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
-export function mapAsyncLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
 
 /*
 Method: mapToObject
@@ -7318,6 +7350,27 @@ export function partialCurry<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
+
+/*
+Method: mapAllSettled
+
+Explanation: It asynchronously iterates over a list using `Promise.allSettled`.
+
+Example:
+
+```
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<Resolved<K>[]>;
+export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<Resolved<K>[]>;
+export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
+export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
 
 // RAMBDAX_MARKER_END
 // ============================================

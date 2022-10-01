@@ -147,7 +147,7 @@ test('empty array as path', () => {
       b : 2,
     }
   )
-  expect(result).toEqual(3)
+  expect(result).toBe(3)
 })
 
 test('happy', () => {

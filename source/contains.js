@@ -13,7 +13,6 @@ export function contains(target, toCompare){
       !equals(target[ prop ], toCompare[ prop ])
     ){
       willReturn = false
-
     }
   })
 

@@ -58,5 +58,6 @@ test('@types/ramda broken test', () => {
 
   const calculateAndAssocTotalToScore = chainRamda(assocTotalToScore,
     calculateTotal)
-  expect(() => calculateAndAssocTotalToScore(score)).toThrow()
+  expect(() =>
+    calculateAndAssocTotalToScore(score)).toThrowErrorMatchingInlineSnapshot('"fn(...) is not a function"')
 })

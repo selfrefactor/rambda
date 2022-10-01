@@ -12,14 +12,14 @@ describe('R.pick with array as props input', () => {
 
 describe('R.pick with string as props input', () => {
   interface Input {
-    a: string
-    b: number
-    c: number
-    d: number
+    a: string,
+    b: number,
+    c: number,
+    d: number,
   }
   interface Output {
-    a: string
-    c: number
+    a: string,
+    c: number,
   }
   it('explicitly declare output', () => {
     const result = pick<Output>('a,c', input)

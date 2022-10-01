@@ -9,7 +9,7 @@ test('with array', () => {
 })
 
 test('with string', () => {
-  expect(drop(3, 'rambda')).toEqual('bda')
+  expect(drop(3, 'rambda')).toBe('bda')
 })
 
 test('with non-positive count', () => {

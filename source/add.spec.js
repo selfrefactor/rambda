@@ -4,8 +4,8 @@ import { compareCombinations } from './_internals/testUtils.js'
 import { add } from './add.js'
 
 test('with number', () => {
-  expect(add(2, 3)).toEqual(5)
-  expect(add(7)(10)).toEqual(17)
+  expect(add(2, 3)).toBe(5)
+  expect(add(7)(10)).toBe(17)
 })
 
 test('string is bad input', () => {
@@ -13,12 +13,12 @@ test('string is bad input', () => {
 })
 
 test('ramda specs', () => {
-  expect(add('1', '2')).toEqual(3)
-  expect(add(1, '2')).toEqual(3)
-  expect(add(true, false)).toEqual(1)
-  expect(add(null, null)).toEqual(0)
-  expect(add(undefined, undefined)).toEqual(NaN)
-  expect(add(new Date(1), new Date(2))).toEqual(3)
+  expect(add('1', '2')).toBe(3)
+  expect(add(1, '2')).toBe(3)
+  expect(add(true, false)).toBe(1)
+  expect(add(null, null)).toBe(0)
+  expect(add(undefined, undefined)).toBeNaN()
+  expect(add(new Date(1), new Date(2))).toBe(3)
 })
 
 const possibleInputs = [

@@ -14,6 +14,14 @@ describe('anyPass', () => {
 
     x // $ExpectType boolean
   })
+  it('issue #604', () => {
+    const plusEq = function(w: number, x: number, y: number, z: number) {
+      return w + x === y + z
+    }
+    const result = anyPass([plusEq])(3, 3, 3, 3)
+
+    result // $ExpectType boolean
+  })
   it('issue #642', () => {
     const isGreater = (num: number) => num > 5
     const pred = anyPass([isGreater])

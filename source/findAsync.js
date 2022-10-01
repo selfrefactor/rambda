@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { mapAsync } from './mapAsync.js'
 
 export function findAsyncFn(predicate, list){

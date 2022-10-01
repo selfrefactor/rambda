@@ -1,11 +1,11 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 
 export function dropRepeatsWith(predicate, list){
   if (arguments.length === 1){
     return _iterable => dropRepeatsWith(predicate, _iterable)
   }
 
-  if (!_isArray(list)){
+  if (!isArray(list)){
     throw new Error(`${ list } is not a list`)
   }
 

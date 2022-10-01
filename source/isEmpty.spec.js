@@ -1,4 +1,4 @@
-import {isEmpty} from './isEmpty.js'
+import { isEmpty } from './isEmpty.js'
 
 test('happy', () => {
   expect(isEmpty(undefined)).toBeFalse()
@@ -7,10 +7,10 @@ test('happy', () => {
   expect(isEmpty(' ')).toBeFalse()
   expect(isEmpty(new RegExp(''))).toBeFalse()
   expect(isEmpty([])).toBeTrue()
-  expect(isEmpty([[]])).toBeFalse()
+  expect(isEmpty([ [] ])).toBeFalse()
   expect(isEmpty({})).toBeTrue()
-  expect(isEmpty({x: 0})).toBeFalse()
+  expect(isEmpty({ x : 0 })).toBeFalse()
   expect(isEmpty(0)).toBeFalse()
   expect(isEmpty(NaN)).toBeFalse()
-  expect(isEmpty([''])).toBeFalse()
+  expect(isEmpty([ '' ])).toBeFalse()
 })

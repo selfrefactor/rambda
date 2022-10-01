@@ -1,11 +1,11 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray as isArrayMethod } from './_internals/isArray.js'
 
 export function dropLastWhile(predicate, iterable){
   if (arguments.length === 1){
     return _iterable => dropLastWhile(predicate, _iterable)
   }
   if (iterable.length === 0) return iterable
-  const isArray = _isArray(iterable)
+  const isArray = isArrayMethod(iterable)
 
   if (typeof predicate !== 'function'){
     throw new Error(`'predicate' is from wrong type ${ typeof predicate }`)

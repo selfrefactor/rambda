@@ -12,15 +12,15 @@ describe('R.identical', () => {
     result // $ExpectType boolean
     identical({a: 1}, {b: 2})
 
-    // $ExpectError
+    // @ts-expect-error
     identical({a: 1})({b: 2})
   })
   it('with object - explicit type', () => {
     interface Foo {
-      a: number
+      a: number,
     }
     identical<Foo>({a: 1}, {a: 2})
-    // $ExpectError
+    // @ts-expect-error
     identical<Foo>({a: 1}, {b: 2})
   })
 })

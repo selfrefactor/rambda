@@ -7,5 +7,5 @@ const testObject = { foo : 'Led Zeppelin' }
 const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {
-  expect(view(assocLens, testObject)).toEqual('Led Zeppelin')
+  expect(view(assocLens, testObject)).toBe('Led Zeppelin')
 })

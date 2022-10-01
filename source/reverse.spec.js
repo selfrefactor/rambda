@@ -5,7 +5,7 @@ test('happy', () => {
 })
 
 test('with string', () => {
-  expect(reverse('baz')).toEqual('zab')
+  expect(reverse('baz')).toBe('zab')
 })
 
 test('it doesn\'t mutate', () => {

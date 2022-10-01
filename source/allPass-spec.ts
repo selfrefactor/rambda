@@ -24,4 +24,12 @@ describe('allPass', () => {
     const filtered2 = xs.filter(pred)
     filtered2 // $ExpectType number[]
   })
+  it('issue #604', () => {
+    const plusEq = function(w: number, x: number, y: number, z: number) {
+      return w + x === y + z
+    }
+    const result = allPass([plusEq])(3, 3, 3, 3)
+
+    result // $ExpectType boolean
+  })
 })

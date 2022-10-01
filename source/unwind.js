@@ -1,4 +1,4 @@
-import { _isArray } from './_internals/_isArray.js'
+import { isArray } from './_internals/isArray.js'
 import { mapArray } from './map.js'
 
 export function unwind(property, obj){
@@ -6,10 +6,11 @@ export function unwind(property, obj){
     return _obj => unwind(property, _obj)
   }
 
-  if (!_isArray(obj[ property ])) return [ obj ]
+  if (!isArray(obj[ property ])) return [ obj ]
 
   return mapArray(x => ({
     ...obj,
     [ property ] : x,
-  }), obj[ property ])
+  }),
+  obj[ property ])
 }

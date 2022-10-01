@@ -9,7 +9,7 @@ test('with array', () => {
 })
 
 test('with string', () => {
-  expect(dropLast(3, 'rambda')).toEqual('ram')
+  expect(dropLast(3, 'rambda')).toBe('ram')
 })
 
 test('with non-positive count', () => {

@@ -1,5 +1,5 @@
 import { type } from '../type.js'
 
-export function _isObject(input){
+export function isObject(input){
   return type(input) === 'Object'
 }

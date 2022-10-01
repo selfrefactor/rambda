@@ -3,7 +3,7 @@ import isCI from 'is-ci'
 import { composeAsync } from './composeAsync.js'
 import { delay } from './delay.js'
 import { mapAsync } from './mapAsync.js'
-import { mapAsyncLimit } from './mapAsyncLimit.js'
+import { mapParallelAsyncWithLimit } from './mapParallelAsyncWithLimit.js'
 import { toDecimal } from './toDecimal.js'
 
 jest.setTimeout(30000)
@@ -17,7 +17,7 @@ test('happy', async () => {
 
     return x + 1
   }
-  const result = await mapAsyncLimit(
+  const result = await mapParallelAsyncWithLimit(
     iterable, limit, list
   )
   const endTime = new Date().getTime()
@@ -40,13 +40,13 @@ const fn = async x => {
 }
 
 test('with R.composeAsync', async () => {
-  const result = await composeAsync(mapAsyncLimit(fn, 2), x =>
+  const result = await composeAsync(mapParallelAsyncWithLimit(fn, 2), x =>
     x.map(xx => xx + 1))([ 1, 2, 3, 4, 5, 6 ])
   expect(result).toEqual([ 3, 4, 5, 6, 7, 8 ])
 })
 
 test('fallback to R.mapFastAsync', async () => {
-  const result = await mapAsyncLimit(
+  const result = await mapParallelAsyncWithLimit(
     fn, 4, [ 1, 2, 3 ]
   )
   expect(result).toEqual([ 2, 3, 4 ])

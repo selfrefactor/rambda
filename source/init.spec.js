@@ -10,7 +10,7 @@ test('with array', () => {
 })
 
 test('with string', () => {
-  expect(init('foo')).toEqual('fo')
-  expect(init('f')).toEqual('')
-  expect(init('')).toEqual('')
+  expect(init('foo')).toBe('fo')
+  expect(init('f')).toBe('')
+  expect(init('')).toBe('')
 })

@@ -6,6 +6,6 @@ test('with list', () => {
 })
 
 test('with string', () => {
-  expect(last('abc')).toEqual('c')
-  expect(last('')).toEqual('')
+  expect(last('abc')).toBe('c')
+  expect(last('')).toBe('')
 })

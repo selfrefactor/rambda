@@ -14,7 +14,6 @@ describe('R.partition', () => {
   })
 
   /*
-    TODO
     revert to old version of `dtslint` and `R.partition` typing
     as there is diff between VSCode types(correct) and dtslint(incorrect)
     

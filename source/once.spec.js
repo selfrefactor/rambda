@@ -7,11 +7,11 @@ test('with counter', () => {
 
     return x + 2
   })
-  expect(runOnce(1)).toEqual(3)
+  expect(runOnce(1)).toBe(3)
   runOnce(1)
   runOnce(1)
   runOnce(1)
-  expect(counter).toEqual(1)
+  expect(counter).toBe(1)
 })
 
 test('happy path', () => {
@@ -22,5 +22,5 @@ test('happy path', () => {
   expect(addOneOnce(
     10, 20, 30
   )).toBe(60)
-  expect(addOneOnce(40)).toEqual(60)
+  expect(addOneOnce(40)).toBe(60)
 })

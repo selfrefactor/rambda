@@ -31,6 +31,6 @@ test('when undefined or null instead of object', () => {
 })
 
 test('with function inside object', () => {
-  const result = mergeRight({a:1}, {b: () => 1})
+  const result = mergeRight({ a : 1 }, { b : () => 1 })
   expect(typeof result.b).toBe('function')
 })
