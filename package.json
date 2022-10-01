@@ -2,7 +2,7 @@
 	"name": "rambda",
 	"version": "7.2.1",
 	"scripts": {
-		"publish": "node files/publish",
+		"publishx": "node files/publish",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
