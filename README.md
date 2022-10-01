@@ -9151,6 +9151,7 @@ mergeDeepRight<Output>(target: object): (newProps: object) => Output;
 <summary><strong>R.mergeDeepRight</strong> source</summary>
 
 ```javascript
+import { clone } from './clone.js'
 import { type } from './type.js'
 
 export function mergeDeepRight(target, source){
@@ -9158,7 +9159,7 @@ export function mergeDeepRight(target, source){
     return sourceHolder => mergeDeepRight(target, sourceHolder)
   }
 
-  const willReturn = JSON.parse(JSON.stringify(target))
+  const willReturn = clone(target)
 
   Object.keys(source).forEach(key => {
     if (type(source[ key ]) === 'Object'){
@@ -9183,28 +9184,30 @@ export function mergeDeepRight(target, source){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
+import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
+
 import { mergeDeepRight } from './mergeDeepRight.js'
 
-const slave = {
-  name    : 'evilMe',
+const student = {
+  name    : 'foo',
   age     : 10,
   contact : {
     a     : 1,
     email : 'foo@example.com',
   },
 }
-const master = {
+const teacher = {
   age     : 40,
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
 
 test('happy', () => {
-  const result = mergeDeepRight(slave, master)
-  const curryResult = mergeDeepRight(slave)(master)
+  const result = mergeDeepRight(student, teacher)
+  const curryResult = mergeDeepRight(student)(teacher)
   const expected = {
     age     : 40,
-    name    : 'evilMe',
+    name    : 'foo',
     contact : {
       a     : 1,
       email : 'baz@example.com',
@@ -9214,6 +9217,13 @@ test('happy', () => {
 
   expect(result).toEqual(expected)
   expect(curryResult).toEqual(expected)
+})
+
+test('issue 650', () => {
+  expect(Object.keys(mergeDeepRight({ a : () => {} }, { b : () => {} }))).toEqual([
+    'a',
+    'b',
+  ])
 })
 
 test('ramda compatible test 1', () => {
@@ -18203,6 +18213,7 @@ export function where(conditions, input){
   }
   let flag = true
   for (const prop in conditions){
+    if (!flag) continue
     const result = conditions[ prop ](input[ prop ])
     if (flag && result === false){
       flag = false
@@ -18224,29 +18235,37 @@ import { equals } from './equals.js'
 import { where } from './where.js'
 
 test('when true', () => {
-  const predicate = where({
+  const result = where({
     a : equals('foo'),
     b : equals('bar'),
-  })
-  expect(predicate({
+  },
+  {
     a : 'foo',
     b : 'bar',
     x : 11,
     y : 19,
-  })).toBeTrue()
+  })
+
+  expect(result).toBeTrue()
 })
 
-test('when false', () => {
+test('when false | early exit', () => {
+  let counter = 0
+  const equalsFn = expected => input => {
+    console.log(expected, 'expected')
+    counter++
+
+    return input === expected
+  }
   const predicate = where({
-    a : equals('foo'),
-    b : equals('baz'),
+    a : equalsFn('foo'),
+    b : equalsFn('baz'),
   })
   expect(predicate({
-    a : 'foo',
-    b : 'bar',
-    x : 11,
-    y : 19,
+    a : 'notfoo',
+    b : 'notbar',
   })).toBeFalse()
+  expect(counter).toBe(1)
 })
 ```
 
@@ -18981,6 +19000,10 @@ describe('R.zipWith', () => {
 - Add `R.modify`
 
 - Allow multiple inputs in Typescript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
+
+- Using wrong clone of object in `R.mergeDeepRight` - [Issue #650](https://github.com/selfrefactor/rambda/issues/650)
+
+- Missing early return in `R.where` - [Issue #648](https://github.com/selfrefactor/rambda/issues/648)
 
 7.2.1
 

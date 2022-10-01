@@ -1628,7 +1628,7 @@ function mergeDeepRight(target, source) {
     return sourceHolder => mergeDeepRight(target, sourceHolder);
   }
 
-  const willReturn = JSON.parse(JSON.stringify(target));
+  const willReturn = clone(target);
   Object.keys(source).forEach(key => {
     if (type(source[key]) === 'Object') {
       if (type(target[key]) === 'Object') {
@@ -2477,6 +2477,7 @@ function where(conditions, input) {
   let flag = true;
 
   for (const prop in conditions) {
+    if (!flag) continue;
     const result = conditions[prop](input[prop]);
 
     if (flag && result === false) {
