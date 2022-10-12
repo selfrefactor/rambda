@@ -2582,6 +2582,26 @@ export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
+Method: nop
+
+Explanation: It returns `undefined`.
+
+Example:
+
+```
+const result = R.nop()
+// => undefined
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function nop(): void;
+
+/*
 Method: not
 
 Explanation: It returns a boolean negated version of `input`.
