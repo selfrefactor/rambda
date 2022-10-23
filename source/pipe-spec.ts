@@ -9,6 +9,7 @@ import {
   inc,
   negate,
 } from 'rambda'
+import {createPipe, filter as filterRemeda} from 'remeda'
 
 interface Input {
   a: string,
@@ -111,4 +112,12 @@ describe('R.pipe - @types/ramda tests', () => {
     const result = fn(3, 4)
     result // $ExpectType number
   })
+})
+
+test('remeda test', () => {
+  interface MyTestType{value:string}
+  const list: MyTestType[] = [{ value: 'aaaa' }, { value: 'bbb' }]
+  
+  let result = createPipe<MyTestType[], MyTestType[]>(filterRemeda((x) => x.value.includes('a')))(list)
+  result // $ExpectType MyTestType[]
 })
