@@ -1,4 +1,4 @@
-import { intersection as ramdaIntersection } from 'ramda'
+import { intersection as intersectionRamda } from 'ramda'
 
 import { intersection } from './intersection.js'
 
@@ -19,9 +19,9 @@ test('intersection with objects', () => {
 test('order is the same as in Ramda', () => {
   const list = [ 'a', 'b', 'c', 'd' ]
 
-  expect(ramdaIntersection(list, [ 'b', 'c' ])).toEqual([ 'b', 'c' ])
+  expect(intersectionRamda(list, [ 'b', 'c' ])).toEqual([ 'b', 'c' ])
   expect(intersection(list, [ 'b', 'c' ])).toEqual([ 'b', 'c' ])
 
   expect(intersection(list, [ 'c', 'b' ])).toEqual([ 'c', 'b' ])
-  expect(ramdaIntersection(list, [ 'c', 'b' ])).toEqual([ 'c', 'b' ])
+  expect(intersectionRamda(list, [ 'c', 'b' ])).toEqual([ 'c', 'b' ])
 })

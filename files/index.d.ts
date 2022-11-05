@@ -558,7 +558,7 @@ const result = [
 
 Categories: Object
 
-Notes:
+Notes: It doesn't work with very specific types, such as MongoDB's ObjectId.
 
 */
 // @SINGLE_MARKER

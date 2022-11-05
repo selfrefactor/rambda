@@ -1,4 +1,4 @@
-import {of} from 'ramda'
+import {of} from 'rambda'
 
 const list = [1, 2, 3]
 
