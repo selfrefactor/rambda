@@ -1,5 +1,13 @@
 'use strict';
 
+function F() {
+  return false;
+}
+
+function T() {
+  return true;
+}
+
 function add(a, b) {
   if (arguments.length === 1) return _b => add(a, _b);
   return Number(a) + Number(b);
@@ -420,6 +428,8 @@ function cond(conditions) {
     return toReturn;
   };
 }
+
+const INCORRECT_ITERABLE_INPUT = 'Incorrect iterable input';
 
 const {
   keys: keys$1
@@ -903,10 +913,6 @@ function evolve(rules, iterable) {
     return evolveObject(rules, iterable);
   }
   return evolveArray(rules, iterable);
-}
-
-function F() {
-  return false;
 }
 
 function filterObject(predicate, obj) {
@@ -1529,6 +1535,8 @@ function none(predicate, list) {
   return true;
 }
 
+function nop() {}
+
 function not(input) {
   return !input;
 }
@@ -1739,6 +1747,11 @@ function propOrFn(defaultValue, property, obj) {
 }
 const propOr = curry(propOrFn);
 
+function propSatisfiesFn(predicate, property, obj) {
+  return predicate(prop(property, obj));
+}
+const propSatisfies = curry(propSatisfiesFn);
+
 function props(propsToPick, obj) {
   if (arguments.length === 1) {
     return _obj => props(propsToPick, _obj);
@@ -1748,11 +1761,6 @@ function props(propsToPick, obj) {
   }
   return mapArray(prop => obj[prop], propsToPick);
 }
-
-function propSatisfiesFn(predicate, property, obj) {
-  return predicate(prop(property, obj));
-}
-const propSatisfies = curry(propSatisfiesFn);
 
 function range(start, end) {
   if (arguments.length === 1) return _end => range(start, _end);
@@ -1910,10 +1918,6 @@ function symmetricDifference(x, y) {
     return _y => symmetricDifference(x, _y);
   }
   return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
-}
-
-function T() {
-  return true;
 }
 
 function tail(listOrString) {
@@ -2311,6 +2315,7 @@ exports.move = move;
 exports.multiply = multiply;
 exports.negate = negate;
 exports.none = none;
+exports.nop = nop;
 exports.not = not;
 exports.nth = nth;
 exports.objOf = objOf;

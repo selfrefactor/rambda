@@ -1,1 +1,1 @@
-module.exports = require('./rambda.js')
+module.exports = require('./dist/rambda.js')
