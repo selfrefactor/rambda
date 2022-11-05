@@ -27,9 +27,9 @@ export default {
       format : 'cjs',
     },
     // unused due to tree-shaking issues
-    {
-      file   : './dist/rambda.mjs',
-      format : 'esm',
-    },
+    // {
+    //   file   : './dist/rambda.mjs',
+    //   format : 'esm',
+    // },
   ],
 }

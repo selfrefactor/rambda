@@ -104,12 +104,10 @@
 	"sideEffects": false,
 	"main": "./dist/rambda.js",
 	"umd": "./dist/rambda.umd.js",
-	"module.old": "./dist/rambda.mjs",
 	"module": "./rambda.js",
 	"types": "./index.d.ts",
 	"exports": {
 		".": {
-			"import.old": "./dist/rambda.mjs",
 			"import": "./rambda.js",
 			"require": "./dist/rambda.js",
 			"default": "./dist/rambda.js",
