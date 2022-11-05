@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Array | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     true,
   ],
   "label": "Rambda should not throw",
@@ -19,14 +19,14 @@ Object {
 `;
 
 exports[`brute force Array | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     true,
   ],
@@ -39,17 +39,17 @@ Object {
 `;
 
 exports[`brute force Array | Boolean 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -64,13 +64,13 @@ Object {
 `;
 
 exports[`brute force Array | Boolean 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     true,
   ],
   "label": "Rambda should not throw",
@@ -82,14 +82,14 @@ Object {
 `;
 
 exports[`brute force Array | Boolean 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     true,
   ],
@@ -102,17 +102,17 @@ Object {
 `;
 
 exports[`brute force Array | Boolean 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -127,18 +127,18 @@ Object {
 `;
 
 exports[`brute force Array | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -148,20 +148,20 @@ Object {
 `;
 
 exports[`brute force Array | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -171,17 +171,17 @@ Object {
 `;
 
 exports[`brute force Array | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -189,7 +189,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -199,18 +199,18 @@ Object {
 `;
 
 exports[`brute force Array | Null 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -220,20 +220,20 @@ Object {
 `;
 
 exports[`brute force Array | Null 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -243,17 +243,17 @@ Object {
 `;
 
 exports[`brute force Array | Null 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -261,7 +261,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -271,14 +271,14 @@ Object {
 `;
 
 exports[`brute force Array | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
-    Object {},
+  "inputs": [
+    [],
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -289,16 +289,16 @@ Object {
 `;
 
 exports[`brute force Array | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -309,21 +309,21 @@ Object {
 `;
 
 exports[`brute force Array | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -334,14 +334,14 @@ Object {
 `;
 
 exports[`brute force Array | Object 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
-    Object {},
+  "inputs": [
+    [],
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -352,16 +352,16 @@ Object {
 `;
 
 exports[`brute force Array | Object 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -372,21 +372,21 @@ Object {
 `;
 
 exports[`brute force Array | Object 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -397,13 +397,13 @@ Object {
 `;
 
 exports[`brute force Array | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     "foo",
   ],
   "label": "Rambda should not throw",
@@ -415,14 +415,14 @@ Object {
 `;
 
 exports[`brute force Array | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     "foo",
   ],
@@ -435,17 +435,17 @@ Object {
 `;
 
 exports[`brute force Array | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -460,13 +460,13 @@ Object {
 `;
 
 exports[`brute force Array | String 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     "foo",
   ],
   "label": "Rambda should not throw",
@@ -478,14 +478,14 @@ Object {
 `;
 
 exports[`brute force Array | String 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     "foo",
   ],
@@ -498,17 +498,17 @@ Object {
 `;
 
 exports[`brute force Array | String 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -523,18 +523,18 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -544,20 +544,20 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -567,17 +567,17 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -585,7 +585,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -595,18 +595,18 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -616,20 +616,20 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [],
+  "inputs": [
+    [
+      [],
     ],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -639,17 +639,17 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
-      Array [
+  "inputs": [
+    [
+      [
         1,
       ],
-      Array [
+      [
         2,
       ],
     ],
@@ -657,7 +657,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -667,12 +667,12 @@ Object {
 `;
 
 exports[`brute force Boolean | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     true,
   ],
@@ -685,12 +685,12 @@ Object {
 `;
 
 exports[`brute force Boolean | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     true,
   ],
@@ -703,18 +703,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -724,18 +724,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -745,14 +745,14 @@ Object {
 `;
 
 exports[`brute force Boolean | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -763,14 +763,14 @@ Object {
 `;
 
 exports[`brute force Boolean | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -781,12 +781,12 @@ Object {
 `;
 
 exports[`brute force Boolean | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     "foo",
   ],
@@ -799,12 +799,12 @@ Object {
 `;
 
 exports[`brute force Boolean | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     "foo",
   ],
@@ -817,18 +817,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -838,18 +838,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     true,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -859,12 +859,12 @@ Object {
 `;
 
 exports[`brute force Function | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     true,
   ],
@@ -877,12 +877,12 @@ Object {
 `;
 
 exports[`brute force Function | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     true,
   ],
@@ -895,18 +895,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -916,18 +916,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -937,14 +937,14 @@ Object {
 `;
 
 exports[`brute force Function | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -955,14 +955,14 @@ Object {
 `;
 
 exports[`brute force Function | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -973,12 +973,12 @@ Object {
 `;
 
 exports[`brute force Function | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     "foo",
   ],
@@ -991,12 +991,12 @@ Object {
 `;
 
 exports[`brute force Function | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     "foo",
   ],
@@ -1009,18 +1009,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1030,18 +1030,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1051,12 +1051,12 @@ Object {
 `;
 
 exports[`brute force NaN | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     true,
   ],
@@ -1069,12 +1069,12 @@ Object {
 `;
 
 exports[`brute force NaN | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     true,
   ],
@@ -1087,18 +1087,18 @@ Object {
 `;
 
 exports[`brute force NaN | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1108,18 +1108,18 @@ Object {
 `;
 
 exports[`brute force NaN | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1129,14 +1129,14 @@ Object {
 `;
 
 exports[`brute force NaN | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1147,14 +1147,14 @@ Object {
 `;
 
 exports[`brute force NaN | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1165,12 +1165,12 @@ Object {
 `;
 
 exports[`brute force NaN | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     "foo",
   ],
@@ -1183,12 +1183,12 @@ Object {
 `;
 
 exports[`brute force NaN | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     "foo",
   ],
@@ -1201,18 +1201,18 @@ Object {
 `;
 
 exports[`brute force NaN | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1222,18 +1222,18 @@ Object {
 `;
 
 exports[`brute force NaN | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     NaN,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1243,12 +1243,12 @@ Object {
 `;
 
 exports[`brute force Null | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     true,
   ],
@@ -1261,12 +1261,12 @@ Object {
 `;
 
 exports[`brute force Null | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     true,
   ],
@@ -1279,18 +1279,18 @@ Object {
 `;
 
 exports[`brute force Null | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1300,18 +1300,18 @@ Object {
 `;
 
 exports[`brute force Null | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1321,14 +1321,14 @@ Object {
 `;
 
 exports[`brute force Null | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1339,14 +1339,14 @@ Object {
 `;
 
 exports[`brute force Null | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1357,12 +1357,12 @@ Object {
 `;
 
 exports[`brute force Null | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     "foo",
   ],
@@ -1375,12 +1375,12 @@ Object {
 `;
 
 exports[`brute force Null | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     "foo",
   ],
@@ -1393,18 +1393,18 @@ Object {
 `;
 
 exports[`brute force Null | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1414,18 +1414,18 @@ Object {
 `;
 
 exports[`brute force Null | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1435,12 +1435,12 @@ Object {
 `;
 
 exports[`brute force Number | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     true,
   ],
@@ -1453,12 +1453,12 @@ Object {
 `;
 
 exports[`brute force Number | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     true,
   ],
@@ -1471,12 +1471,12 @@ Object {
 `;
 
 exports[`brute force Number | Boolean 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     true,
   ],
@@ -1489,12 +1489,12 @@ Object {
 `;
 
 exports[`brute force Number | Boolean 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     true,
   ],
@@ -1507,18 +1507,18 @@ Object {
 `;
 
 exports[`brute force Number | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1528,18 +1528,18 @@ Object {
 `;
 
 exports[`brute force Number | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1549,18 +1549,18 @@ Object {
 `;
 
 exports[`brute force Number | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1570,18 +1570,18 @@ Object {
 `;
 
 exports[`brute force Number | Null 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1591,14 +1591,14 @@ Object {
 `;
 
 exports[`brute force Number | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1609,14 +1609,14 @@ Object {
 `;
 
 exports[`brute force Number | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1627,14 +1627,14 @@ Object {
 `;
 
 exports[`brute force Number | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1645,14 +1645,14 @@ Object {
 `;
 
 exports[`brute force Number | Object 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -1663,12 +1663,12 @@ Object {
 `;
 
 exports[`brute force Number | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     "foo",
   ],
@@ -1681,12 +1681,12 @@ Object {
 `;
 
 exports[`brute force Number | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     "foo",
   ],
@@ -1699,12 +1699,12 @@ Object {
 `;
 
 exports[`brute force Number | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     "foo",
   ],
@@ -1717,12 +1717,12 @@ Object {
 `;
 
 exports[`brute force Number | String 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     "foo",
   ],
@@ -1735,18 +1735,18 @@ Object {
 `;
 
 exports[`brute force Number | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1756,18 +1756,18 @@ Object {
 `;
 
 exports[`brute force Number | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1777,18 +1777,18 @@ Object {
 `;
 
 exports[`brute force Number | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     3,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1798,18 +1798,18 @@ Object {
 `;
 
 exports[`brute force Number | Undefined 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     4,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -1819,13 +1819,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     true,
@@ -1839,13 +1839,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     true,
@@ -1859,13 +1859,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     true,
@@ -1879,13 +1879,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     true,
@@ -1899,13 +1899,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     true,
@@ -1919,13 +1919,13 @@ Object {
 `;
 
 exports[`brute force Object | Boolean 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     true,
@@ -1939,20 +1939,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1962,20 +1962,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -1985,20 +1985,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2008,20 +2008,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2031,20 +2031,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2054,20 +2054,20 @@ Object {
 `;
 
 exports[`brute force Object | Null 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2077,16 +2077,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2097,16 +2097,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2117,16 +2117,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2137,16 +2137,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2157,16 +2157,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2177,16 +2177,16 @@ Object {
 `;
 
 exports[`brute force Object | Object 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2197,13 +2197,13 @@ Object {
 `;
 
 exports[`brute force Object | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     "foo",
@@ -2217,13 +2217,13 @@ Object {
 `;
 
 exports[`brute force Object | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     "foo",
@@ -2237,13 +2237,13 @@ Object {
 `;
 
 exports[`brute force Object | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     "foo",
@@ -2257,13 +2257,13 @@ Object {
 `;
 
 exports[`brute force Object | String 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     "foo",
@@ -2277,13 +2277,13 @@ Object {
 `;
 
 exports[`brute force Object | String 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     "foo",
@@ -2297,13 +2297,13 @@ Object {
 `;
 
 exports[`brute force Object | String 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     "foo",
@@ -2317,20 +2317,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2340,20 +2340,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2363,20 +2363,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2386,20 +2386,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2409,20 +2409,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2432,20 +2432,20 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 2,
     },
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2455,12 +2455,12 @@ Object {
 `;
 
 exports[`brute force Promise | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     true,
   ],
@@ -2473,12 +2473,12 @@ Object {
 `;
 
 exports[`brute force Promise | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     true,
   ],
@@ -2491,18 +2491,18 @@ Object {
 `;
 
 exports[`brute force Promise | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2512,18 +2512,18 @@ Object {
 `;
 
 exports[`brute force Promise | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2533,14 +2533,14 @@ Object {
 `;
 
 exports[`brute force Promise | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2551,14 +2551,14 @@ Object {
 `;
 
 exports[`brute force Promise | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2569,12 +2569,12 @@ Object {
 `;
 
 exports[`brute force Promise | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     "foo",
   ],
@@ -2587,12 +2587,12 @@ Object {
 `;
 
 exports[`brute force Promise | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     "foo",
   ],
@@ -2605,18 +2605,18 @@ Object {
 `;
 
 exports[`brute force Promise | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2626,18 +2626,18 @@ Object {
 `;
 
 exports[`brute force Promise | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2647,12 +2647,12 @@ Object {
 `;
 
 exports[`brute force RegExp | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     true,
   ],
@@ -2665,12 +2665,12 @@ Object {
 `;
 
 exports[`brute force RegExp | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     true,
   ],
@@ -2683,12 +2683,12 @@ Object {
 `;
 
 exports[`brute force RegExp | Boolean 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     true,
   ],
@@ -2701,12 +2701,12 @@ Object {
 `;
 
 exports[`brute force RegExp | Boolean 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     true,
   ],
@@ -2719,18 +2719,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2740,18 +2740,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2761,18 +2761,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2782,18 +2782,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Null 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -2803,14 +2803,14 @@ Object {
 `;
 
 exports[`brute force RegExp | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2821,14 +2821,14 @@ Object {
 `;
 
 exports[`brute force RegExp | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2839,14 +2839,14 @@ Object {
 `;
 
 exports[`brute force RegExp | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2857,14 +2857,14 @@ Object {
 `;
 
 exports[`brute force RegExp | Object 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -2875,12 +2875,12 @@ Object {
 `;
 
 exports[`brute force RegExp | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     "foo",
   ],
@@ -2893,12 +2893,12 @@ Object {
 `;
 
 exports[`brute force RegExp | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     "foo",
   ],
@@ -2911,12 +2911,12 @@ Object {
 `;
 
 exports[`brute force RegExp | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     "foo",
   ],
@@ -2929,12 +2929,12 @@ Object {
 `;
 
 exports[`brute force RegExp | String 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     "foo",
   ],
@@ -2947,18 +2947,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2968,18 +2968,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -2989,18 +2989,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -3010,18 +3010,18 @@ Object {
 `;
 
 exports[`brute force RegExp | Undefined 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /bar/g,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -3031,12 +3031,12 @@ Object {
 `;
 
 exports[`brute force String | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     true,
   ],
@@ -3049,12 +3049,12 @@ Object {
 `;
 
 exports[`brute force String | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     true,
   ],
@@ -3067,18 +3067,18 @@ Object {
 `;
 
 exports[`brute force String | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -3088,18 +3088,18 @@ Object {
 `;
 
 exports[`brute force String | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -3109,14 +3109,14 @@ Object {
 `;
 
 exports[`brute force String | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -3127,14 +3127,14 @@ Object {
 `;
 
 exports[`brute force String | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -3145,12 +3145,12 @@ Object {
 `;
 
 exports[`brute force String | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     "foo",
   ],
@@ -3163,12 +3163,12 @@ Object {
 `;
 
 exports[`brute force String | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     "foo",
   ],
@@ -3181,18 +3181,18 @@ Object {
 `;
 
 exports[`brute force String | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -3202,18 +3202,18 @@ Object {
 `;
 
 exports[`brute force String | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "foo",
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -3223,12 +3223,12 @@ Object {
 `;
 
 exports[`brute force Undefined | Boolean 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     true,
   ],
@@ -3241,12 +3241,12 @@ Object {
 `;
 
 exports[`brute force Undefined | Boolean 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of true",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     true,
   ],
@@ -3259,18 +3259,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -3280,18 +3280,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'lastIndexOf')",
     "type": "TypeError",
   },
@@ -3301,14 +3301,14 @@ Object {
 `;
 
 exports[`brute force Undefined | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -3319,14 +3319,14 @@ Object {
 `;
 
 exports[`brute force Undefined | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of [object Object]",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Object {},
+    {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
@@ -3337,12 +3337,12 @@ Object {
 `;
 
 exports[`brute force Undefined | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     "foo",
   ],
@@ -3355,12 +3355,12 @@ Object {
 `;
 
 exports[`brute force Undefined | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of foo",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     "foo",
   ],
@@ -3373,18 +3373,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'indexOf')",
     "type": "TypeError",
   },
@@ -3394,18 +3394,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Cannot read property 'indexOf' of undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'lastIndexOf')",
     "type": "TypeError",
   },

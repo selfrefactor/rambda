@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Array | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
-    Array [
+  "inputs": [
+    [],
+    [
       1,
       2,
       3,
@@ -18,7 +18,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -28,16 +28,16 @@ Object {
 `;
 
 exports[`brute force Array | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
-    Array [
+    [
       1,
       2,
       3,
@@ -47,7 +47,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -57,22 +57,22 @@ Object {
 `;
 
 exports[`brute force Array | Array 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
-    Array [
-      Object {},
+  "inputs": [
+    [],
+    [
+      {},
       "1",
       2,
     ],
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -82,24 +82,24 @@ Object {
 `;
 
 exports[`brute force Array | Array 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
-    Array [
-      Object {},
+    [
+      {},
       "1",
       2,
     ],
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -109,31 +109,31 @@ Object {
 `;
 
 exports[`brute force Array | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | Number 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     2,
@@ -141,37 +141,37 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | Promise 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | Promise 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     Promise {},
@@ -179,37 +179,37 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | RegExp 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | RegExp 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     /foo/g,
@@ -217,24 +217,24 @@ Object {
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Array | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     "foobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -244,20 +244,20 @@ Object {
 `;
 
 exports[`brute force Array | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     "foobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -267,18 +267,18 @@ Object {
 `;
 
 exports[`brute force Array | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     "foobarfoobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -288,20 +288,20 @@ Object {
 `;
 
 exports[`brute force Array | String 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     "foobarfoobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -311,230 +311,230 @@ Object {
 `;
 
 exports[`brute force Function | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type number",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Number 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type number",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Number 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type number",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Number 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type number",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Promise 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Promise 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Promise 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | Promise 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | RegExp 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | RegExp 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | RegExp 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Function | RegExp 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' is from wrong type object",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force String | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
-    Array [
+    [
       1,
       2,
       3,
@@ -544,7 +544,7 @@ Object {
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -554,22 +554,22 @@ Object {
 `;
 
 exports[`brute force String | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
-    Array [
-      Object {},
+    [
+      {},
       "1",
       2,
     ],
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -579,72 +579,72 @@ Object {
 `;
 
 exports[`brute force String | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     2,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force String | Promise 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force String | RegExp 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force String | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     "foobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -654,18 +654,18 @@ Object {
 `;
 
 exports[`brute force String | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'predicate' is from wrong type string",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     "foobarfoobar",
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },

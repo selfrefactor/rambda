@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
       [Function],
       [Function],
@@ -13,30 +13,30 @@ Object {
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     [Function],
     [Function],
     [Function],
   ],
-  "result": Array [
+  "result": [
     [Function],
   ],
 }
 `;
 
 exports[`brute force Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "1 is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     1,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     undefined,
   ],
   "result": "PENDING",
@@ -44,18 +44,18 @@ Object {
 `;
 
 exports[`brute force Promise 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "[object Promise] is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     Promise {},
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     undefined,
   ],
   "result": "PENDING",
@@ -63,18 +63,18 @@ Object {
 `;
 
 exports[`brute force RegExp 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "/foo/g is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     /foo/g,
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     undefined,
   ],
   "result": "PENDING",

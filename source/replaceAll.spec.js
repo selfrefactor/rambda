@@ -19,9 +19,9 @@ test('throws when wrong patterns', () => {
   ))
     .toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":{},\\"schema\\":\\"array\\"}
-    all inputs: [{},\\"|\\",\\"foo bar baz foo bar\\"]
-    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+    reason: {"input":{},"schema":"array"}
+    all inputs: [{},"|","foo bar baz foo bar"]
+    all schemas: ["array","string","string"]"
   `)
 })
 
@@ -31,9 +31,9 @@ test('throws when wrong input', () => {
   ))
     .toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":[],\\"schema\\":\\"string\\"}
-    all inputs: [[{},\\"bar\\"],\\"|\\",[]]
-    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+    reason: {"input":[],"schema":"string"}
+    all inputs: [[{},"bar"],"|",[]]
+    all schemas: ["array","string","string"]"
   `)
 })
 
@@ -43,8 +43,8 @@ test('throws when wrong replacer', () => {
   ))
     .toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":null,\\"schema\\":\\"string\\"}
-    all inputs: [[{},\\"bar\\"],null,\\"foo bar baz foo bar\\"]
-    all schemas: [\\"array\\",\\"string\\",\\"string\\"]"
+    reason: {"input":null,"schema":"string"}
+    all inputs: [[{},"bar"],null,"foo bar baz foo bar"]
+    all schemas: ["array","string","string"]"
   `)
 })

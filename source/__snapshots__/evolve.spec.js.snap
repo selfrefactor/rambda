@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Array | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
   ],
   "label": "Rambda should not throw",
@@ -19,13 +19,13 @@ Object {
 `;
 
 exports[`brute force Array | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     null,
@@ -39,13 +39,13 @@ Object {
 `;
 
 exports[`brute force Array | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
     ],
     null,
@@ -59,13 +59,13 @@ Object {
 `;
 
 exports[`brute force Array | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     42,
   ],
   "label": "Rambda should not throw",
@@ -77,13 +77,13 @@ Object {
 `;
 
 exports[`brute force Array | Number 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     42,
@@ -97,13 +97,13 @@ Object {
 `;
 
 exports[`brute force Array | Number 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
     ],
     42,
@@ -117,21 +117,21 @@ Object {
 `;
 
 exports[`brute force Array | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
-    Object {
+  "inputs": [
+    [],
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {
+  "ramdaResult": {
     "a": 1,
   },
   "result": "PENDING",
@@ -139,23 +139,23 @@ Object {
 `;
 
 exports[`brute force Array | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {
+  "ramdaResult": {
     "a": 1,
   },
   "result": "PENDING",
@@ -163,23 +163,23 @@ Object {
 `;
 
 exports[`brute force Array | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
     ],
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {
+  "ramdaResult": {
     "a": 1,
   },
   "result": "PENDING",
@@ -187,13 +187,13 @@ Object {
 `;
 
 exports[`brute force Array | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     "",
   ],
   "label": "Rambda should not throw",
@@ -205,13 +205,13 @@ Object {
 `;
 
 exports[`brute force Array | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     "",
@@ -225,13 +225,13 @@ Object {
 `;
 
 exports[`brute force Array | String 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
     ],
     "",
@@ -245,13 +245,13 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     undefined,
   ],
   "label": "Rambda should not throw",
@@ -263,13 +263,13 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       1,
     ],
     undefined,
@@ -283,13 +283,13 @@ Object {
 `;
 
 exports[`brute force Array | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Array [
+  "inputs": [
+    [
       [Function],
     ],
     undefined,
@@ -303,38 +303,38 @@ Object {
 `;
 
 exports[`brute force Null | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Null | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Array [
+    [
       1,
     ],
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -344,12 +344,12 @@ Object {
 `;
 
 exports[`brute force Null | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' and 'rules' are from wrong type Null",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
   ],
@@ -362,12 +362,12 @@ Object {
 `;
 
 exports[`brute force Null | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     42,
   ],
@@ -380,20 +380,20 @@ Object {
 `;
 
 exports[`brute force Null | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -403,12 +403,12 @@ Object {
 `;
 
 exports[`brute force Null | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     "",
   ],
@@ -421,12 +421,12 @@ Object {
 `;
 
 exports[`brute force Null | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     undefined,
   ],
@@ -439,39 +439,39 @@ Object {
 `;
 
 exports[`brute force Number | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Number | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
-    Array [
+    [
       1,
     ],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     1,
   ],
   "result": "PENDING",
@@ -479,12 +479,12 @@ Object {
 `;
 
 exports[`brute force Number | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
     null,
   ],
@@ -497,12 +497,12 @@ Object {
 `;
 
 exports[`brute force Number | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' and 'rules' are from wrong type Number",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
     42,
   ],
@@ -515,21 +515,21 @@ Object {
 `;
 
 exports[`brute force Number | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {
+  "ramdaResult": {
     "a": 1,
   },
   "result": "PENDING",
@@ -537,12 +537,12 @@ Object {
 `;
 
 exports[`brute force Number | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
     "",
   ],
@@ -555,12 +555,12 @@ Object {
 `;
 
 exports[`brute force Number | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     42,
     undefined,
   ],
@@ -573,63 +573,63 @@ Object {
 `;
 
 exports[`brute force Object | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Object | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Object | Array 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
-    Array [
+    [
       1,
     ],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     1,
   ],
   "result": "PENDING",
@@ -637,23 +637,23 @@ Object {
 `;
 
 exports[`brute force Object | Array 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
-    Array [
+    [
       1,
     ],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     1,
   ],
   "result": "PENDING",
@@ -661,13 +661,13 @@ Object {
 `;
 
 exports[`brute force Object | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     null,
@@ -681,13 +681,13 @@ Object {
 `;
 
 exports[`brute force Object | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
     null,
@@ -701,13 +701,13 @@ Object {
 `;
 
 exports[`brute force Object | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     42,
@@ -721,13 +721,13 @@ Object {
 `;
 
 exports[`brute force Object | Number 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
     42,
@@ -741,13 +741,13 @@ Object {
 `;
 
 exports[`brute force Object | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     "",
@@ -761,13 +761,13 @@ Object {
 `;
 
 exports[`brute force Object | String 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
     "",
@@ -781,13 +781,13 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": 1,
     },
     undefined,
@@ -801,13 +801,13 @@ Object {
 `;
 
 exports[`brute force Object | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
-    Object {
+  "inputs": [
+    {
       "a": [Function],
     },
     undefined,
@@ -821,39 +821,39 @@ Object {
 `;
 
 exports[`brute force String | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force String | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
-    Array [
+    [
       1,
     ],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [
+  "ramdaResult": [
     1,
   ],
   "result": "PENDING",
@@ -861,12 +861,12 @@ Object {
 `;
 
 exports[`brute force String | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     null,
   ],
@@ -879,12 +879,12 @@ Object {
 `;
 
 exports[`brute force String | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     42,
   ],
@@ -897,21 +897,21 @@ Object {
 `;
 
 exports[`brute force String | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Object {
+  "ramdaResult": {
     "a": 1,
   },
   "result": "PENDING",
@@ -919,12 +919,12 @@ Object {
 `;
 
 exports[`brute force String | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' and 'rules' are from wrong type String",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     "",
   ],
@@ -937,12 +937,12 @@ Object {
 `;
 
 exports[`brute force String | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     "",
     undefined,
   ],
@@ -955,38 +955,38 @@ Object {
 `;
 
 exports[`brute force Undefined | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Array [],
+    [],
   ],
   "label": "Rambda should not throw",
   "ok": false,
   "ramdaError": "PENDING",
-  "ramdaResult": Array [],
+  "ramdaResult": [],
   "result": "PENDING",
 }
 `;
 
 exports[`brute force Undefined | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Array [
+    [
       1,
     ],
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading '0')",
     "type": "TypeError",
   },
@@ -996,12 +996,12 @@ Object {
 `;
 
 exports[`brute force Undefined | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     null,
   ],
@@ -1014,12 +1014,12 @@ Object {
 `;
 
 exports[`brute force Undefined | Number 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     42,
   ],
@@ -1032,20 +1032,20 @@ Object {
 `;
 
 exports[`brute force Undefined | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'a')",
     "type": "TypeError",
   },
@@ -1055,12 +1055,12 @@ Object {
 `;
 
 exports[`brute force Undefined | String 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "iterableType !== rulesType",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     "",
   ],
@@ -1073,12 +1073,12 @@ Object {
 `;
 
 exports[`brute force Undefined | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "'iterable' and 'rules' are from wrong type Undefined",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     undefined,
   ],

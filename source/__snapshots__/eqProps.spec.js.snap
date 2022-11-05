@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Array | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Array [],
+  "inputs": [
+    [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -20,16 +20,16 @@ Object {
 `;
 
 exports[`brute force Array | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -39,16 +39,16 @@ Object {
 `;
 
 exports[`brute force Array | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -58,18 +58,18 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -79,19 +79,19 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -101,16 +101,16 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -120,13 +120,13 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -134,7 +134,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -144,13 +144,13 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -158,7 +158,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -168,20 +168,20 @@ Object {
 `;
 
 exports[`brute force Array | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
+  "inputs": [
+    [],
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -191,18 +191,18 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
+  "inputs": [
+    [],
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -212,11 +212,11 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
+  "inputs": [
+    [],
+    {
       "a": 1,
       "b": 2,
     },
@@ -224,7 +224,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -234,16 +234,16 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {},
+  "inputs": [
+    [],
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -253,12 +253,12 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
-      "a": Object {
+  "inputs": [
+    [],
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -267,7 +267,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -277,12 +277,12 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
-      "a": Object {
+  "inputs": [
+    [],
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -291,7 +291,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -301,12 +301,12 @@ Object {
 `;
 
 exports[`brute force Array | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Array [],
-    Object {
-      "a": Object {
+  "inputs": [
+    [],
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -314,7 +314,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null",
     "type": "TypeError",
   },
@@ -324,16 +324,16 @@ Object {
 `;
 
 exports[`brute force Boolean | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -343,16 +343,16 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -362,16 +362,16 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -381,18 +381,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -402,19 +402,19 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -424,16 +424,16 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -443,13 +443,13 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -457,7 +457,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -467,13 +467,13 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -481,7 +481,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -491,20 +491,20 @@ Object {
 `;
 
 exports[`brute force Boolean | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -514,18 +514,18 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -535,11 +535,11 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -547,7 +547,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -557,16 +557,16 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -576,12 +576,12 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -590,7 +590,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -600,12 +600,12 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -614,7 +614,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -624,12 +624,12 @@ Object {
 `;
 
 exports[`brute force Boolean | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -637,7 +637,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'false')",
     "type": "TypeError",
   },
@@ -647,16 +647,16 @@ Object {
 `;
 
 exports[`brute force Null | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -666,16 +666,16 @@ Object {
 `;
 
 exports[`brute force Null | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -685,16 +685,16 @@ Object {
 `;
 
 exports[`brute force Null | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -704,18 +704,18 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -725,19 +725,19 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -747,16 +747,16 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -766,13 +766,13 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -780,7 +780,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -790,13 +790,13 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -804,7 +804,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -814,20 +814,20 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -837,18 +837,18 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -858,11 +858,11 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -870,7 +870,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -880,16 +880,16 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -899,12 +899,12 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -913,7 +913,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -923,12 +923,12 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -937,7 +937,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -947,12 +947,12 @@ Object {
 `;
 
 exports[`brute force Null | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -960,7 +960,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'null')",
     "type": "TypeError",
   },
@@ -970,16 +970,16 @@ Object {
 `;
 
 exports[`brute force Number | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -989,16 +989,16 @@ Object {
 `;
 
 exports[`brute force Number | Array | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1008,16 +1008,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1027,16 +1027,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Array 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1046,16 +1046,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1065,16 +1065,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1084,18 +1084,18 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1105,18 +1105,18 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1126,19 +1126,19 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1148,19 +1148,19 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1170,16 +1170,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1189,16 +1189,16 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1208,13 +1208,13 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 7`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1222,7 +1222,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1232,13 +1232,13 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 8`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1246,7 +1246,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1256,13 +1256,13 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 9`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1270,7 +1270,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1280,13 +1280,13 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 10`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1294,7 +1294,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1304,20 +1304,20 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 11`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1327,20 +1327,20 @@ Object {
 `;
 
 exports[`brute force Number | Null | Object 12`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1350,18 +1350,18 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1371,18 +1371,18 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1392,11 +1392,11 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -1404,7 +1404,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1414,11 +1414,11 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -1426,7 +1426,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1436,16 +1436,16 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1455,16 +1455,16 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1474,12 +1474,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 7`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1488,7 +1488,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1498,12 +1498,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 8`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1512,7 +1512,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1522,12 +1522,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 9`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1536,7 +1536,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1546,12 +1546,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 10`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1560,7 +1560,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1570,12 +1570,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 11`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     0,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -1583,7 +1583,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '0')",
     "type": "TypeError",
   },
@@ -1593,12 +1593,12 @@ Object {
 `;
 
 exports[`brute force Number | Object | Null 12`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     1,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -1606,7 +1606,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '1')",
     "type": "TypeError",
   },
@@ -1616,16 +1616,16 @@ Object {
 `;
 
 exports[`brute force Object | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Array [],
+  "inputs": [
+    {},
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1635,16 +1635,16 @@ Object {
 `;
 
 exports[`brute force Object | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1654,16 +1654,16 @@ Object {
 `;
 
 exports[`brute force Object | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1673,18 +1673,18 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1694,19 +1694,19 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1716,16 +1716,16 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1735,13 +1735,13 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1749,7 +1749,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1759,13 +1759,13 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1773,7 +1773,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1783,20 +1783,20 @@ Object {
 `;
 
 exports[`brute force Object | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
+  "inputs": [
+    {},
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1806,18 +1806,18 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {
+  "inputs": [
+    {},
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1827,11 +1827,11 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {
+  "inputs": [
+    {},
+    {
       "a": 1,
       "b": 2,
     },
@@ -1839,7 +1839,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1849,16 +1849,16 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {},
+  "inputs": [
+    {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1868,12 +1868,12 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {
-      "a": Object {
+  "inputs": [
+    {},
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -1882,7 +1882,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1892,12 +1892,12 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {
-      "a": Object {
+  "inputs": [
+    {},
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -1906,7 +1906,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1916,12 +1916,12 @@ Object {
 `;
 
 exports[`brute force Object | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
-    Object {},
-    Object {
-      "a": Object {
+  "inputs": [
+    {},
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -1929,7 +1929,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading '#<Object>')",
     "type": "TypeError",
   },
@@ -1939,16 +1939,16 @@ Object {
 `;
 
 exports[`brute force String | Array | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -1958,16 +1958,16 @@ Object {
 `;
 
 exports[`brute force String | Array | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Array [],
+    [],
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -1977,16 +1977,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Array 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -1996,16 +1996,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Array 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Array [],
+    [],
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2015,16 +2015,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2034,16 +2034,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2053,18 +2053,18 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2074,18 +2074,18 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {
+    {
       "a": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2095,19 +2095,19 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2117,19 +2117,19 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2139,16 +2139,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2158,16 +2158,16 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2177,13 +2177,13 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 7`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -2191,7 +2191,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2201,13 +2201,13 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 8`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -2215,7 +2215,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2225,13 +2225,13 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 9`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -2239,7 +2239,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2249,13 +2249,13 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 10`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -2263,7 +2263,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2273,20 +2273,20 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 11`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2296,20 +2296,20 @@ Object {
 `;
 
 exports[`brute force String | Null | Object 12`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
     null,
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2319,18 +2319,18 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2340,18 +2340,18 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {
+    {
       "a": 1,
     },
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2361,11 +2361,11 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -2373,7 +2373,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2383,11 +2383,11 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {
+    {
       "a": 1,
       "b": 2,
     },
@@ -2395,7 +2395,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2405,16 +2405,16 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 5`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2424,16 +2424,16 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 6`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {},
+    {},
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2443,12 +2443,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 7`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -2457,7 +2457,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2467,12 +2467,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 8`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 2,
@@ -2481,7 +2481,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2491,12 +2491,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 9`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -2505,7 +2505,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2515,12 +2515,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 10`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 1,
       },
       "c": 3,
@@ -2529,7 +2529,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },
@@ -2539,12 +2539,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 11`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -2552,7 +2552,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a')",
     "type": "TypeError",
   },
@@ -2562,12 +2562,12 @@ Object {
 `;
 
 exports[`brute force String | Object | Null 12`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "a.b",
-    Object {
-      "a": Object {
+    {
+      "a": {
         "b": 2,
       },
     },
@@ -2575,7 +2575,7 @@ Object {
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'a.b')",
     "type": "TypeError",
   },

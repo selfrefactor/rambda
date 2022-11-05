@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Function | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -22,18 +22,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -43,18 +43,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -64,18 +64,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -85,18 +85,18 @@ Object {
 `;
 
 exports[`brute force Function | Null 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -106,18 +106,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -127,18 +127,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -148,18 +148,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -169,18 +169,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -190,18 +190,18 @@ Object {
 `;
 
 exports[`brute force Function | Undefined 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -211,21 +211,21 @@ Object {
 `;
 
 exports[`brute force Null | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "predicate is not a function",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Array [
-      Object {
-        "a": Object {
+    [
+      {
+        "a": {
           "b": 1,
         },
       },
-      Object {
-        "a": Object {
+      {
+        "a": {
           "b": 1,
         },
       },
@@ -233,7 +233,7 @@ Object {
   ],
   "label": "errors messages are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -243,21 +243,21 @@ Object {
 `;
 
 exports[`brute force Null | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "predicate is not a function",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     null,
-    Array [
+    [
       /foo/g,
       /foo/g,
     ],
   ],
   "label": "errors messages are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -267,18 +267,18 @@ Object {
 `;
 
 exports[`brute force Null | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -288,18 +288,18 @@ Object {
 `;
 
 exports[`brute force Null | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },
@@ -309,21 +309,21 @@ Object {
 `;
 
 exports[`brute force Undefined | Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "predicate is not a function",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Array [
-      Object {
-        "a": Object {
+    [
+      {
+        "a": {
           "b": 1,
         },
       },
-      Object {
-        "a": Object {
+      {
+        "a": {
           "b": 1,
         },
       },
@@ -331,7 +331,7 @@ Object {
   ],
   "label": "errors messages are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -341,21 +341,21 @@ Object {
 `;
 
 exports[`brute force Undefined | Array 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "predicate is not a function",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
-    Array [
+    [
       /foo/g,
       /foo/g,
     ],
   ],
   "label": "errors messages are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "pred is not a function",
     "type": "TypeError",
   },
@@ -365,18 +365,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "null is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -386,18 +386,18 @@ Object {
 `;
 
 exports[`brute force Undefined | Undefined 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "undefined is not a list",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     undefined,
     undefined,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of undefined (reading 'length')",
     "type": "TypeError",
   },

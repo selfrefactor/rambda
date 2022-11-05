@@ -1,65 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force ArrayBuffer 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     ArrayBuffer [],
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": ArrayBuffer [],
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force BigInt 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     9007199254740991n,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": 9007199254740991n,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Boolean 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     false,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": false,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Function 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": [Function],
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Map 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     Map {
       "a" => 1,
       "b" => 2,
@@ -72,146 +72,146 @@ Object {
     "a" => 1,
     "b" => 2,
   },
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force NaN 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     NaN,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": NaN,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     null,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": null,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Number 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     Infinity,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Infinity,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Number 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     -Infinity,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": -Infinity,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force RegExp 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     /ab\\+c/i,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": /ab\\+c/i,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force String 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     "",
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": "",
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Symbol 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     Symbol(foo),
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": Symbol(foo),
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force Undefined 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     undefined,
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": undefined,
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force WeakMap 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     WeakMap {},
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": WeakMap {},
-  "result": Object {},
+  "result": {},
 }
 `;
 
 exports[`brute force WeakSet 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     WeakSet {},
   ],
   "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": WeakSet {},
-  "result": Object {},
+  "result": {},
 }
 `;
