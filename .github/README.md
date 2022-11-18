@@ -15654,7 +15654,7 @@ export function test(pattern, str){
   if (arguments.length === 1) return _str => test(pattern, _str)
 
   if (typeof pattern === 'string'){
-    throw new TypeError(`‘test’ requires a value of type RegExp as its first argument; received "${ pattern }"`)
+    throw new TypeError(`R.test requires a value of type RegExp as its first argument; received "${ pattern }"`)
   }
 
   return str.search(pattern) !== -1
@@ -15677,11 +15677,7 @@ test('happy', () => {
 })
 
 test('throws if first argument is not regex', () => {
-  expect(() => testMethod('foo', 'bar')).toThrowErrorMatchingInlineSnapshot(
-    '"‘test’ requires a value of type RegExp as its first argument; received \\"foo\\""',
-    'undefined',
-    'undefined'
-  )
+  expect(() => testMethod('foo', 'bar')).toThrowErrorMatchingInlineSnapshot('"R.test requires a value of type RegExp as its first argument; received "foo""')
 })
 ```
 
