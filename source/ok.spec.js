@@ -82,9 +82,5 @@ test('when throws with single schema', () => {
 })
 
 test('when throws with single input', () => {
-  expect(() => ok('3')('number')).toThrowErrorMatchingInlineSnapshot(
-    '"Failed R.ok - {\\"input\\":\\"3\\",\\"schema\\":\\"number\\"}"',
-    'undefined',
-    'undefined'
-  )
+  expect(() => ok('3')('number')).toThrowErrorMatchingInlineSnapshot('"Failed R.ok - {"input":"3","schema":"number"}"')
 })
