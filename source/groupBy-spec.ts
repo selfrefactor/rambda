@@ -31,8 +31,6 @@ describe('R.groupBy', () => {
   })
   it('with one explicit types', () => {
     const groupByPosition = groupBy<Thing>(prop('position'))
-
-    // @ts-expect-error
     groupByRamda(prop('position'))
 
     const result = groupByPosition(things)

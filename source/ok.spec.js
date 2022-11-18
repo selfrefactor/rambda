@@ -18,9 +18,9 @@ test('when validation fails', () => {
   ))
     .toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":{},\\"schema\\":\\"string\\"}
-    all inputs: [1,\\"foo\\",{}]
-    all schemas: [\\"number\\",\\"string\\",\\"string\\"]"
+    reason: {"input":{},"schema":"string"}
+    all inputs: [1,"foo",{}]
+    all schemas: ["number","string","string"]"
   `)
 })
 
@@ -37,7 +37,7 @@ test('schema in error message', () => {
   })
 
   expect(result).toMatchInlineSnapshot(`
-    Object {
+    {
       "_a": "Array",
       "a": "number",
       "b": "Function",
@@ -75,12 +75,12 @@ test('when throws with single schema', () => {
     1, 2, '3'
   )('number')).toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":\\"3\\",\\"schema\\":\\"number\\"}
-    all inputs: [1,2,\\"3\\"]
-    all schemas: [\\"number\\"]"
+    reason: {"input":"3","schema":"number"}
+    all inputs: [1,2,"3"]
+    all schemas: ["number"]"
   `)
 })
 
 test('when throws with single input', () => {
-  expect(() => ok('3')('number')).toThrowErrorMatchingInlineSnapshot('"Failed R.ok - {\\"input\\":\\"3\\",\\"schema\\":\\"number\\"}"')
+  expect(() => ok('3')('number')).toThrowErrorMatchingInlineSnapshot('"Failed R.ok - {"input":"3","schema":"number"}"')
 })

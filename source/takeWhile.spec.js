@@ -53,7 +53,7 @@ describe('brute force', () => {
     firstInput : possiblePredicates,
     callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
+        {
           "ERRORS_MESSAGE_MISMATCH": 15,
           "ERRORS_TYPE_MISMATCH": 16,
           "RESULTS_MISMATCH": 0,

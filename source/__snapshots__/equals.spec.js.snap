@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force ArrayBuffer | ArrayBuffer 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     ArrayBuffer [],
     ArrayBuffer [],
   ],
@@ -16,12 +16,12 @@ Object {
 `;
 
 exports[`brute force BigInt | BigInt 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     9007199254740991n,
     9007199254740991n,
   ],
@@ -34,9 +34,9 @@ Object {
 `;
 
 exports[`brute force DataView | DataView 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     DataView [],
     DataView [],
   ],
@@ -49,12 +49,12 @@ Object {
 `;
 
 exports[`brute force GeneratorFunction | GeneratorFunction 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Function.prototype.toString requires that 'this' be a Function",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     [Function],
     [Function],
   ],
@@ -67,12 +67,12 @@ Object {
 `;
 
 exports[`brute force Int16Array | Int16Array 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     Int16Array [
       0,
       0,
@@ -91,9 +91,9 @@ Object {
 `;
 
 exports[`brute force Map | Map 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     Map {
       "foo" => "bar",
     },
@@ -110,12 +110,12 @@ Object {
 `;
 
 exports[`brute force Symbol | Symbol 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "Symbol.prototype.toString requires that 'this' be a Symbol",
     "type": "TypeError",
   },
-  "inputs": Array [
+  "inputs": [
     Symbol(foo),
     Symbol(foo),
   ],
@@ -128,9 +128,9 @@ Object {
 `;
 
 exports[`brute force WeakMap | WeakMap 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     WeakMap {},
     WeakMap {},
   ],
@@ -143,9 +143,9 @@ Object {
 `;
 
 exports[`brute force WeakSet | WeakSet 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     WeakSet {},
     WeakSet {},
   ],

@@ -1,4 +1,4 @@
-import {splitAt} from 'ramda'
+import {splitAt} from 'rambda'
 
 const index = 1
 const str = 'foo'

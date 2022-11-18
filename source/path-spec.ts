@@ -1,58 +1,37 @@
 import {path} from 'rambda'
 
-interface Input {
-  a: number,
-  b: {
-    c: boolean,
-  },
-}
+const input = {a: {b: {c: true}}}
 
-describe('R.path', () => {
-  it('without specified input type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path<boolean>('a.b.c', input)
-    const curriedResult = path<boolean>('a.b.c')(input)
-    result // $ExpectType boolean | undefined
-    curriedResult // $ExpectType boolean | undefined
-  })
-
+describe('R.path with string as path', () => {
   it('without specified output type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path('a.b.c', input)
-    result // $ExpectType unknown
+    // $ExpectType unknown
+    path('a.b.c', input)
+    // $ExpectType unknown
+    path('a.b.c')(input)
   })
-
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>('a.b.c', input)
-    const resultB = path<boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
-  it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>(['a', 'b', 'c'], input)
-    const resultB = path<boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
+  it('with specified output type', () => {
+    // $ExpectType boolean | undefined
+    path<boolean>('a.b.c', input)
+    // $ExpectType boolean | undefined
+    path<boolean>('a.b.c')(input)
   })
 })
 
-describe('path with specified input', () => {
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    // const wrongInput = { a: 1, b: true }
-    // const resultA = path<Input, boolean>('a.b.c', wrongInput)
-    const resultA = path<Input, boolean>('a.b.c', input)
-    const resultB = path<Input, boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
+describe('R.path with list as path', () => {
   it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<Input, boolean>(['a', 'b', 'c'], input)
-    const resultB = path<Input, boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
+    // $ExpectType boolean
+    path(['a', 'b', 'c'], input)
+    // $ExpectType unknown
+    path(['a', 'b', 'c'])(input)
+  })
+  test('shallow property', () => {
+    // $ExpectType number
+    path(['a'], {a: 1})
+    
+    path(['b'], {a: 1}) // $ExpectError
+  })
+  test('deep property', () => {
+    // $ExpectType number
+    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
   })
 })

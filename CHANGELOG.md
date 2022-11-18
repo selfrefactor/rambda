@@ -1,4 +1,14 @@
+7.4.0
+
+- Synchronize with `@types/ramda` - `R.prop`, `R.path`, `R.pickAll`
+
+- Remove `esm` Rollup output due to tree-shaking issues.
+
+- Upgrade all dev dependencies.
+
 7.3.0
+
+- Important - changing import declaration in `package.json` in order to fix tree-shaking issue - [Issue #647](https://github.com/selfrefactor/rambda/issues/647)
 
 - Add `R.modify`
 

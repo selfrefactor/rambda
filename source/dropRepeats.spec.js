@@ -26,7 +26,7 @@ describe('brute force', () => {
     firstInput : possibleLists,
     callback   : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
-        Object {
+        {
           "ERRORS_MESSAGE_MISMATCH": 0,
           "ERRORS_TYPE_MISMATCH": 0,
           "RESULTS_MISMATCH": 1,

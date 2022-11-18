@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brute force Function | Null | Null 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -20,16 +20,16 @@ Object {
 `;
 
 exports[`brute force Function | Null | Null 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -39,16 +39,16 @@ Object {
 `;
 
 exports[`brute force Function | Null | Null 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
     null,
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -58,16 +58,16 @@ Object {
 `;
 
 exports[`brute force Function | Null | Object 1`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -77,16 +77,16 @@ Object {
 `;
 
 exports[`brute force Function | Null | Object 2`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
-    Object {},
+    {},
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -96,18 +96,18 @@ Object {
 `;
 
 exports[`brute force Function | Null | Object 3`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -117,18 +117,18 @@ Object {
 `;
 
 exports[`brute force Function | Null | Object 4`] = `
-Object {
+{
   "error": "PENDING",
-  "inputs": Array [
+  "inputs": [
     [Function],
     null,
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "Rambda should throw",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'apply')",
     "type": "TypeError",
   },
@@ -138,19 +138,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -160,19 +160,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Null 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -182,19 +182,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Null 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -204,19 +204,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {},
+    {},
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -226,19 +226,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {},
+    {},
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -248,19 +248,19 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 3`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {},
+    {},
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -270,21 +270,21 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 4`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -294,21 +294,21 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 5`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -318,21 +318,21 @@ Object {
 `;
 
 exports[`brute force Null | Function | Object 6`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     [Function],
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -342,19 +342,19 @@ Object {
 `;
 
 exports[`brute force Null | Null | Null 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
     null,
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -364,19 +364,19 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 1`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {},
+    {},
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },
@@ -386,21 +386,21 @@ Object {
 `;
 
 exports[`brute force Null | Null | Object 2`] = `
-Object {
-  "error": Object {
+{
+  "error": {
     "message": "R.tryCatch | fn 'null'",
     "type": "Error",
   },
-  "inputs": Array [
+  "inputs": [
     null,
     null,
-    Object {
+    {
       "foo": 1,
     },
   ],
   "label": "errors types are different",
   "ok": false,
-  "ramdaError": Object {
+  "ramdaError": {
     "message": "Cannot read properties of null (reading 'length')",
     "type": "TypeError",
   },

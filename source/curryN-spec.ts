@@ -1,4 +1,4 @@
-import {curryN} from 'ramda'
+import {curryN} from 'rambda'
 
 function source(a: number, b: number, c: number, d: number) {
   void d

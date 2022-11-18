@@ -52,8 +52,8 @@ test('string.fn test', () => {
 test('bad path', () => {
   expect(() => mapToObject(1, null)).toThrowErrorMatchingInlineSnapshot(`
     "Failed R.ok -
-    reason: {\\"input\\":\\"Number\\",\\"schema\\":\\"Function\\"}
-    all inputs: [\\"Number\\",\\"Null\\"]
-    all schemas: [\\"Function\\",\\"Array\\"]"
+    reason: {"input":"Number","schema":"Function"}
+    all inputs: ["Number","Null"]
+    all schemas: ["Function","Array"]"
   `)
 })

@@ -296,4 +296,38 @@ export const compareCombinations = ({
   })
 }
 
+const demoMap = new Map()
+
+demoMap.set('a', 1)
+demoMap.set('b', 2)
+
+const demoWeakMap = new WeakMap()
+
+demoWeakMap.set({ a : 0 }, 1)
+demoWeakMap.set({ b : 0 }, 2)
+
+const demoWeakSet = new WeakSet()
+const foo = { a : 1 }
+const bar = { b : 2 }
+
+demoWeakSet.add(foo)
+demoWeakSet.add(bar)
+
+const demoBigInt = BigInt(9007199254740991)
+
+const demoRegExp = new RegExp('ab+c', 'i')
+const demoSymbol = Symbol('foo')
+
 export const FALSY_VALUES = [ null, undefined, false, NaN, '' ]
+export const EXTRA_BUILD_IN_OBJECTS = [
+  Infinity,
+  -Infinity,
+  Symbol,
+  new ArrayBuffer(8),
+  demoRegExp,
+  demoMap,
+  demoWeakMap,
+  demoWeakSet,
+  demoBigInt,
+  demoSymbol,
+]

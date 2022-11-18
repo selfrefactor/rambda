@@ -7,11 +7,14 @@ export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | (number | string)[];
+type RamdaPath = (number | string)[];
 type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
-export type RamdaPath = (number | string)[];
 type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
+type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
+    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
+    : undefined;
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -558,7 +561,7 @@ const result = [
 
 Categories: Object
 
-Notes:
+Notes: It doesn't work with very specific types, such as MongoDB's ObjectId.
 
 */
 // @SINGLE_MARKER
@@ -2855,14 +2858,45 @@ const result = [
 
 Categories: Object
 
-Notes: String anotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
+Notes: String annotation of `pathToSearch` is one of the differences between `Rambda` and `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
-export function path<T>(pathToSearch: Path, obj: any): T | undefined;
-export function path<T>(pathToSearch: Path): (obj: any) => T | undefined;
-export function path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
+export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
+export function path<T>(pathToSearch: string, obj: any): T | undefined;
+export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 
 /*
 Method: pathEq
@@ -3060,11 +3094,11 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, U>(propsToPick: string[], input: T): U;
-export function pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+export function pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
+export function pickAll<T, U>(propsToPicks: string[], input: T): U;
+export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
-
 /*
 Method: pipe
 
@@ -3233,10 +3267,17 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prop<P extends keyof O, O>(propToFind: P, obj: O): O[P];
-export function prop<P extends keyof O, O>(propToFind: P): (obj: O) => O[P];
-export function prop<P extends string | number>(propToFind: P): <T>(obj: Record<P, T>) => T;
-export function prop<P extends string | number, T>(propToFind: P): (obj: Record<P, T>) => T;
+export function prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
+export function prop<P extends keyof never>(propToFind: P): {
+    <T>(value: Record<P, T>): T;
+    <T>(value: T): Prop<T, P>;
+};
+export function prop<P extends keyof T, T>(propToFind: P): {
+    (value: T): Prop<T, P>;
+};
+export function prop<P extends keyof never, T>(propToFind: P): {
+    (value: Record<P, T>): T;
+};
 
 /*
 Method: propEq
