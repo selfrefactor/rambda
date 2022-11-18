@@ -65,17 +65,7 @@ Ramda.add(1)('foo') // => will not trigger warning in VSCode
 
 The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
 
-### Tree-shaking
-
-Currently **Rambda** is more tree-shakable than **Ramda** - proven in the following [repo](https://github.com/selfrefactor/rambda-tree-shaking).
-
-The repo holds two `Angular9` applications: one with small example code of *Ramda* and the other - same code but with *Rambda* as import library.
-
-The test shows that **Rambda** bundle size is **2 MB** less than its **Ramda** counterpart.
-
-There is also [Webpack/Rollup/Parcel/Esbuild tree-shaking example including several libraries](https://github.com/mischnic/tree-shaking-example) including `Ramda`, `Rambda` and `Rambdax`. 
-
-> actually tree-shaking is the initial reason for creation of `Rambda`
+<!-- ### Tree-shaking -->
 
 ### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
@@ -3548,18 +3538,6 @@ function parseRegex(maybeRegex){
   if (maybeRegex.constructor !== RegExp) return [ false ]
 
   return [ true, maybeRegex.toString() ]
-}
-
-function equalsSets(a, b){
-  if (a.size !== b.size){
-    return false
-  }
-  const aList = _arrayFromIterator(a.values())
-  const bList = _arrayFromIterator(b.values())
-
-  const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
-
-  return filtered.length === 0
 }
 
 export function equals(a, b){
@@ -10303,7 +10281,7 @@ describe('R.partition', () => {
 
 ```typescript
 
-path<Input, T>(pathToSearch: Path, obj: Input): T | undefined
+path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0]
 ```
 
 If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
@@ -10317,10 +10295,41 @@ It will return `undefined`, if such path is not found.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
-path<T>(pathToSearch: Path, obj: any): T | undefined;
-path<T>(pathToSearch: Path): (obj: any) => T | undefined;
-path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
+path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
+path<T>(pathToSearch: string, obj: any): T | undefined;
+path<T>(pathToSearch: string): (obj: any) => T | undefined;
+path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 ```
 
 </details>
@@ -10409,60 +10418,39 @@ test('null is not a valid path', () => {
 ```typescript
 import {path} from 'rambda'
 
-interface Input {
-  a: number,
-  b: {
-    c: boolean,
-  },
-}
+const input = {a: {b: {c: true}}}
 
-describe('R.path', () => {
-  it('without specified input type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path<boolean>('a.b.c', input)
-    const curriedResult = path<boolean>('a.b.c')(input)
-    result // $ExpectType boolean | undefined
-    curriedResult // $ExpectType boolean | undefined
-  })
-
+describe('R.path with string as path', () => {
   it('without specified output type', () => {
-    const input = {a: 1, b: {c: true}}
-    const result = path('a.b.c', input)
-    result // $ExpectType unknown
+    // $ExpectType unknown
+    path('a.b.c', input)
+    // $ExpectType unknown
+    path('a.b.c')(input)
   })
-
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>('a.b.c', input)
-    const resultB = path<boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
-  it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<boolean>(['a', 'b', 'c'], input)
-    const resultB = path<boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
+  it('with specified output type', () => {
+    // $ExpectType boolean | undefined
+    path<boolean>('a.b.c', input)
+    // $ExpectType boolean | undefined
+    path<boolean>('a.b.c')(input)
   })
 })
 
-describe('path with specified input', () => {
-  it('with string as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    // const wrongInput = { a: 1, b: true }
-    // const resultA = path<Input, boolean>('a.b.c', wrongInput)
-    const resultA = path<Input, boolean>('a.b.c', input)
-    const resultB = path<Input, boolean>('a.b.c')(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
-  })
+describe('R.path with list as path', () => {
   it('with array as path', () => {
-    const input: Input = {a: 1, b: {c: true}}
-    const resultA = path<Input, boolean>(['a', 'b', 'c'], input)
-    const resultB = path<Input, boolean>(['a', 'b', 'c'])(input)
-    resultA // $ExpectType boolean | undefined
-    resultB // $ExpectType boolean | undefined
+    // $ExpectType boolean
+    path(['a', 'b', 'c'], input)
+    // $ExpectType unknown
+    path(['a', 'b', 'c'])(input)
+  })
+  test('shallow property', () => {
+    // $ExpectType number
+    path(['a'], {a: 1})
+    
+    path(['b'], {a: 1}) // $ExpectError
+  })
+  test('deep property', () => {
+    // $ExpectType number
+    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
   })
 })
 ```
@@ -11097,7 +11085,7 @@ describe('R.pick with string as props input', () => {
 
 ```typescript
 
-pickAll<T, U>(propsToPick: string[], input: T): U
+pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>
 ```
 
 Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
@@ -11109,8 +11097,9 @@ Same as `R.pick` but it won't skip the missing props, i.e. it will assign them t
 <summary>All Typescript definitions</summary>
 
 ```typescript
-pickAll<T, U>(propsToPick: string[], input: T): U;
-pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
+pickAll<T, U>(propsToPicks: string[], input: T): U;
+pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
 pickAll<T, U>(propsToPick: string, input: T): U;
 pickAll<T, U>(propsToPick: string): (input: T) => U;
 ```
@@ -11215,7 +11204,8 @@ const input = {a: 'foo', b: 2, c: 3, d: 4}
 describe('R.pickAll with array as props input', () => {
   it('without passing type', () => {
     const result = pickAll(['a', 'c'], input)
-    result // $ExpectType unknown
+    result.a // $ExpectType string
+    result.c // $ExpectType number
   })
   it('without passing type + curry', () => {
     const result = pickAll(['a', 'c'])(input)
@@ -11223,11 +11213,6 @@ describe('R.pickAll with array as props input', () => {
   })
   it('explicitly passing types', () => {
     const result = pickAll<Input, Output>(['a', 'c'], input)
-    result.a // $ExpectType string | undefined
-    result.c // $ExpectType number | undefined
-  })
-  it('explicitly passing types + curry', () => {
-    const result = pickAll<Input, Output>(['a', 'c'])(input)
     result.a // $ExpectType string | undefined
     result.c // $ExpectType number | undefined
   })
@@ -11546,7 +11531,7 @@ describe('R.product', () => {
 
 ```typescript
 
-prop<P extends keyof O, O>(propToFind: P, obj: O): O[P]
+prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>
 ```
 
 It returns the value of property `propToFind` in `obj`.
@@ -11560,10 +11545,17 @@ If there is no such property, it returns `undefined`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-prop<P extends keyof O, O>(propToFind: P, obj: O): O[P];
-prop<P extends keyof O, O>(propToFind: P): (obj: O) => O[P];
-prop<P extends string | number>(propToFind: P): <T>(obj: Record<P, T>) => T;
-prop<P extends string | number, T>(propToFind: P): (obj: Record<P, T>) => T;
+prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
+prop<P extends keyof never>(propToFind: P): {
+    <T>(value: Record<P, T>): T;
+    <T>(value: T): Prop<T, P>;
+};
+prop<P extends keyof T, T>(propToFind: P): {
+    (value: T): Prop<T, P>;
+};
+prop<P extends keyof never, T>(propToFind: P): {
+    (value: Record<P, T>): T;
+};
 ```
 
 </details>
@@ -11611,7 +11603,10 @@ import {pipe, prop} from 'rambda'
 
 describe('R.prop', () => {
   const obj = {a: 1, b: 'foo'}
-  interface Something {a?: number, b?: string}
+  interface Something {
+    a?: number,
+    b?: string,
+  }
 
   it('issue #553', () => {
     const result = prop('e', {e: 'test1', d: 'test2'})
@@ -11638,7 +11633,7 @@ describe('R.prop', () => {
   it('curried with implicit object type', () => {
     const result = pipe(value => value as Something, prop('b'))(obj)
 
-    result // $ExpectType string | undefined
+    result // $ExpectType undefined
   })
   it('curried with explicit result type', () => {
     const result = prop<'b', string>('b')(obj)
@@ -17021,6 +17016,8 @@ describe('R.zipWith', () => {
 7.3.0
 
 - Important - changing import declaration in `package.json` in order to fix tree-shaking issue - [Issue #647](https://github.com/selfrefactor/rambda/issues/647)
+
+- Synchronize with `@types/ramda` - `R.prop`, `R.path`, `R.pickAll`
 
 - Add `R.modify`
 

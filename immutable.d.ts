@@ -7,11 +7,14 @@ export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | readonly (number | string)[];
+type RamdaPath = readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
-export type RamdaPath = readonly (number | string)[];
 type CondPair<T extends readonly any[], R> = readonly [(...val: T) => boolean, (...val: T) => R]
+type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
+    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
+    : undefined;
 
 type ValueOfRecord<R> =
   R extends Record<any, infer T>
@@ -1038,10 +1041,41 @@ export function partition<T>(
  * 
  * It will return `undefined`, if such path is not found.
  */
-export function path<Input, T>(pathToSearch: Path, obj: Input): T | undefined;
-export function path<T>(pathToSearch: Path, obj: any): T | undefined;
-export function path<T>(pathToSearch: Path): (obj: any) => T | undefined;
-export function path<Input, T>(pathToSearch: Path): (obj: Input) => T | undefined;
+export function path<S, K0 extends keyof S = keyof S>(path: readonly [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: readonly [K0, K1], obj: S): S[K0][K1];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: readonly [K0, K1, K2], obj: S): S[K0][K1][K2];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: readonly [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: readonly [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: readonly [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
+export function path<T>(pathToSearch: string, obj: any): T | undefined;
+export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 
 /**
  * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
@@ -1086,8 +1120,9 @@ export function pick<T>(propsToPick: string): (input: object) => T;
 /**
  * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
  */
-export function pickAll<T, U>(propsToPick: readonly string[], input: T): U;
-export function pickAll<T, U>(propsToPick: readonly string[]): (input: T) => U;
+export function pickAll<T, K extends keyof T>(propsToPicks: readonly K[], input: T): Pick<T, K>;
+export function pickAll<T, U>(propsToPicks: readonly string[], input: T): U;
+export function pickAll(propsToPicks: readonly string[]): <T, U>(input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
@@ -1171,10 +1206,17 @@ export function product(list: readonly number[]): number;
  * 
  * If there is no such property, it returns `undefined`.
  */
-export function prop<P extends keyof O, O>(propToFind: P, obj: O): O[P];
-export function prop<P extends keyof O, O>(propToFind: P): (obj: O) => O[P];
-export function prop<P extends string | number>(propToFind: P): <T>(obj: Record<P, T>) => T;
-export function prop<P extends string | number, T>(propToFind: P): (obj: Record<P, T>) => T;
+export function prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
+export function prop<P extends keyof never>(propToFind: P): {
+    <T>(value: Record<P, T>): T;
+    <T>(value: T): Prop<T, P>;
+};
+export function prop<P extends keyof T, T>(propToFind: P): {
+    (value: T): Prop<T, P>;
+};
+export function prop<P extends keyof never, T>(propToFind: P): {
+    (value: Record<P, T>): T;
+};
 
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
