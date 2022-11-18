@@ -84,18 +84,6 @@ function parseRegex(maybeRegex){
   return [ true, maybeRegex.toString() ]
 }
 
-function equalsSets(a, b){
-  if (a.size !== b.size){
-    return false
-  }
-  const aList = _arrayFromIterator(a.values())
-  const bList = _arrayFromIterator(b.values())
-
-  const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
-
-  return filtered.length === 0
-}
-
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 

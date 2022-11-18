@@ -3094,11 +3094,11 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, U>(propsToPick: string[], input: T): U;
-export function pickAll<T, U>(propsToPick: string[]): (input: T) => U;
+export function pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
+export function pickAll<T, U>(propsToPicks: string[], input: T): U;
+export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
-
 /*
 Method: pipe
 

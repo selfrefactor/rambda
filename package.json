@@ -30,6 +30,7 @@
 		"consume-typings": "yarn consume-typings:clone && yarn consume-typings:execute",
 		"test:consume-typings": "jest source/_consumeTypings.test.js",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+		"t": "yarn test:typings",
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test": "jest -o -u --watch",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
