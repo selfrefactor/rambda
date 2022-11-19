@@ -7412,27 +7412,6 @@ export function partialCurry<Input, PartialInput, Output>(
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
-/*
-Method: mapAllSettled
-
-Explanation: It asynchronously iterates over a list using `Promise.allSettled`.
-
-Example:
-
-```
-```
-
-Categories: Async, List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
-
 // RAMBDAX_MARKER_END
 // ============================================
 

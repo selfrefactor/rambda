@@ -14,6 +14,7 @@
 		"github": "cd ../rambda-scripts && yarn github",
 		"fix-docsify": "cd ../rambda-scripts && yarn fix-docsify:rambda",
 		"immutable": "cd ../rambda-scripts && yarn immutable:rambda",
+		"immutable:x": "cd ../rambda-scripts && yarn immutable:rambdax",
 		"usedby": "cd ../rambda-scripts && yarn usedby",
 		"lint:all": "cd ../rambda-scripts && yarn lint",
 		"lint:staged": "cd ../rambda-scripts && yarn lint:staged",
@@ -91,7 +92,6 @@
 		"CHANGELOG.md",
 		"index.d.ts",
 		"immutable.d.ts",
-		"rambda.js",
 		"rambda.js",
 		"immutable.js"
 	],
