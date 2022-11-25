@@ -23,6 +23,7 @@
 		"build": "yarn build:main && yarn build:web",
 		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.mjs",
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.mjs",
+		"build:compare-size": "cross-env NODE_ENV=build rollup -c files/rollup.config.ramda.mjs",
 		"docs": "npx docsify-cli init ./docs && yarn fix-docsify",
 		"new": "cd ../rambda-scripts && yarn new",
 		"run:ramda:test": "cd ../rambda-scripts && yarn run:ramda:test",

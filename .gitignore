@@ -4,3 +4,4 @@ coverage
 node_modules
 commit.js
 .vscode/settings.json
+compare-size-output.js
