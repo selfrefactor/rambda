@@ -1,3 +1,7 @@
+7.5.0
+
+- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
 7.4.0
 
 - Synchronize with `@types/ramda` - `R.prop`, `R.path`, `R.pickAll`

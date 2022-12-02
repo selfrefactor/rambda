@@ -1,3 +1,5 @@
+import { uniqBy as uniqByRamda } from 'ramda'
+
 import { uniqBy } from './uniqBy.js'
 
 test('happy', () => {
@@ -10,4 +12,11 @@ test('keeps elements from the left', () => {
 
 test('returns an empty array for an empty array', () => {
   expect(uniqBy(Math.abs, [])).toEqual([])
+})
+
+test('uses R.uniq', () => {
+  const list = [ { a : 1 }, { a : 2 }, { a : 1 } ]
+  const expected = [ { a : 1 }, { a : 2 } ]
+  expect(uniqBy(x => x, list)).toEqual(expected)
+  expect(uniqByRamda(x => x, list)).toEqual(expected)
 })

@@ -5189,17 +5189,22 @@ Method: uniqBy
 
 Explanation:
 
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
-const result = R.uniqBy(Math.abs, [ -2, 1, 0, -1, 2 ])
+const list = [{a:1}, {a:2}, {a:1}]
+const result = R.uniqBy(x => x, list)
 
-// => [-2, 1, 0]
+// => [{a:1}, {a:2}]
 ```
 
 Categories: List
 
-Notes:
+Notes: 
 
 */
 // @SINGLE_MARKER

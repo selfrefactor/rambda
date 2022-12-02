@@ -16665,7 +16665,11 @@ describe('R.uniq', () => {
 
 ### uniqBy
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.uniqBy(Math.abs%2C%20%5B%20-2%2C%201%2C%200%2C%20-1%2C%202%20%5D)%0A%0A%2F%2F%20%3D%3E%20%5B-2%2C%201%2C%200%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
@@ -18289,6 +18293,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+7.5.0
+
+- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
 
 7.4.0
 

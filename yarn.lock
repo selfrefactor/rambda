@@ -3828,11 +3828,6 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
-remeda@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-1.2.0.tgz#e8cb487bd37b36ee9ab478f89ad531c589159ea5"
-  integrity sha512-XRechb9xoJqWok7MBwqhGlFC4PnyTlLU5CWlE3fCiaEGvLa6J73IGkklr1uGd+GBPr/DOPbaLKfJeJgILWUnyA==
-
 request@^2.88.2:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"

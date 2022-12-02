@@ -1511,6 +1511,11 @@ export function union<T>(x: T[]): (y: T[]) => T[];
  */
 export function uniq<T>(list: T[]): T[];
 
+/**
+ * It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+ * 
+ * `R.equals` is used to determine equality.
+ */
 export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
 export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
