@@ -10,13 +10,13 @@ test('happy', () => {
 })
 
 test('predicate is always true', () => {
-  const predicate = x => x > 0
+  const predicate = () => true
   const result = takeLastWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
 test('predicate is always false', () => {
-  const predicate = x => x < 0
+  const predicate = () => false
   const result = takeLastWhile(predicate, list)
   expect(result).toEqual([])
 })
