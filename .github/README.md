@@ -13416,7 +13416,7 @@ describe('R.repeat', () => {
 
 ```typescript
 
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string
 ```
 
 It replaces `strOrRegex` found in `str` with `replacer`.
@@ -13435,9 +13435,9 @@ const result = R.replace(strOrRegex, '|0|', 'foo')
 <summary>All Typescript definitions</summary>
 
 ```typescript
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
-replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
-replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 ```
 
 </details>
