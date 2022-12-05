@@ -20,7 +20,7 @@ You need to have the code of `selfrefactor/rambda-scripts` repo on the same leve
 
 2. Apply your fix to `files/index.d.ts`.
 
-3. Run `yarn typings` to confirm your fix.
+3. Run `yarn test:typings` to confirm your fix.
 
 > It is known that definitions of **R.compose/R.pipe** are far from perfect. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no obvious solution to it.
 
