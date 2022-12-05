@@ -8,19 +8,21 @@ export function dropWhile(predicate, iterable){
   if (!isArray && typeof iterable !== 'string'){
     throw new Error('`iterable` is neither list nor a string')
   }
-  let flag = false
-  const holder = []
-  let counter = -1
 
-  while (counter++ < iterable.length - 1){
-    if (flag){
-      holder.push(iterable[ counter ])
-    } else if (!predicate(iterable[ counter ])){
-      if (!flag) flag = true
+  const toReturn = []
+  let counter = 0
 
-      holder.push(iterable[ counter ])
+  while (counter < iterable.length){
+    const item = iterable[ counter++ ]
+    if (!predicate(item)){
+      toReturn.push(item)
+      break
     }
   }
 
-  return isArray ? holder : holder.join('')
+  while (counter < iterable.length){
+    toReturn.push(iterable[ counter++ ])
+  }
+
+  return isArray ? toReturn : toReturn.join('')
 }
