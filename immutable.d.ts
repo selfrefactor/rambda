@@ -7,7 +7,7 @@ export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | readonly (number | string)[];
-type RamdaPath = readonly (number | string)[];
+export type RamdaPath = readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
@@ -1076,6 +1076,7 @@ export function path<
 export function path<T>(pathToSearch: string, obj: any): T | undefined;
 export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
 export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
 /**
  * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.

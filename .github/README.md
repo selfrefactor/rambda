@@ -11008,6 +11008,7 @@ path<
 path<T>(pathToSearch: string, obj: any): T | undefined;
 path<T>(pathToSearch: string): (obj: any) => T | undefined;
 path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 ```
 
 </details>
