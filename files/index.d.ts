@@ -5262,6 +5262,25 @@ export function modify<K extends string, A, P>(
   fn: (a: A) => P,
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
+/*
+Method: unnest
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unnest(list: unknown[]): unknown[];
+export function unnest<T>(list: unknown[]): T;
+
 // RAMBDAX_MARKER_START
 
 /*
