@@ -2899,7 +2899,6 @@ export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
 export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
-
 /*
 Method: pathEq
 
