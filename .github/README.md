@@ -102,7 +102,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 77 Ramda methods not implemented in Rambda 
+  Click to see the full list of 76 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -175,7 +175,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - uncurryN
 - unfold
 - unionWith
-- unnest
 - until
 - useWith
 - valuesIn
@@ -11124,12 +11123,30 @@ describe('R.path with list as path', () => {
   test('shallow property', () => {
     // $ExpectType number
     path(['a'], {a: 1})
-    
+
     path(['b'], {a: 1}) // $ExpectError
   })
   test('deep property', () => {
+    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
-    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
+    result
+    const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+  })
+  test('issue #668 - path is not correct', () => {
+    const object = {
+      is: {
+        a: 'path',
+      },
+    }
+    const result = path(['is', 'not', 'a'], object)
+    // $ExpectType unknown
+    result
+    const curriedResult = path(['is', 'not', 'a'])(object)
+    // $ExpectType unknown
+    curriedResult
   })
 })
 ```
@@ -16980,6 +16997,10 @@ describe('R.unless - curried', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
 
+### unnest
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unnest)
+
 ### unwind
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20unwind('b'%2C%20Record%3Cstring%2C%20unknown%3E)%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
@@ -18297,7 +18318,11 @@ describe('R.zipWith', () => {
 
 7.5.0
 
+- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
+
 - `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
+- Uncurried types of `R.path(['non','existing','path'], obj)` are breaking with 7.4.0 release - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 7.4.0
 

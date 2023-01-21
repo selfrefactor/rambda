@@ -1,6 +1,10 @@
 7.5.0
 
+- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
+
 - `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
+- Uncurried types of `R.path(['non','existing','path'], obj)` are breaking with 7.4.0 release - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 7.4.0
 

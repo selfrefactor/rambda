@@ -9,3 +9,6 @@ test('remeda test', () => {
   let result = createPipe<MyTestType[], MyTestType[]>(filterRemeda((x) => x.value.includes('a')))(list)
   result // $ExpectType MyTestType[]
 })
+
+===
+still issue with order of rambda.js

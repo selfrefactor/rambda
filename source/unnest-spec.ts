@@ -1,4 +1,4 @@
-import {unnest} from 'rambda'
+import {unnest} from 'ramda'
 
 const list = [1, [2], [[3]]]
 

@@ -1540,6 +1540,9 @@ export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) =
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
+export function unnest(list: unknown[]): unknown[];
+export function unnest<T>(list: unknown[]): T;
+
 export function unwind<T, U>(prop: keyof T, obj: T): U[];
 export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
 
