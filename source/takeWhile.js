@@ -8,18 +8,17 @@ export function takeWhile(predicate, iterable){
   if (!isArray && typeof iterable !== 'string'){
     throw new Error('`iterable` is neither list nor a string')
   }
-  let flag = true
-  const holder = []
-  let counter = -1
 
-  while (counter++ < iterable.length - 1){
-    if (!predicate(iterable[ counter ])){
-      if (flag) flag = false
-    } else if (flag){
-      holder.push(iterable[ counter ])
+  const toReturn = []
+  let counter = 0
+
+  while (counter < iterable.length){
+    const item = iterable[ counter++ ]
+    if (!predicate(item)){
+      break
     }
+    toReturn.push(item)
   }
-  holder
 
-  return isArray ? holder : holder.join('')
+  return isArray ? toReturn : toReturn.join('')
 }

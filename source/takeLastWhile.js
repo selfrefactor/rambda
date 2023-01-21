@@ -5,17 +5,16 @@ export function takeLastWhile(predicate, input){
     return _input => takeLastWhile(predicate, _input)
   }
   if (input.length === 0) return input
-  let found = false
+
   const toReturn = []
   let counter = input.length
 
-  while (!found || counter === 0){
-    counter--
-    if (predicate(input[ counter ]) === false){
-      found = true
-    } else if (!found){
-      toReturn.push(input[ counter ])
+  while (counter){
+    const item = input[ --counter ]
+    if (!predicate(item)){
+      break
     }
+    toReturn.push(item)
   }
 
   return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')

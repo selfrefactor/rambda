@@ -14,18 +14,19 @@ export function dropLastWhile(predicate, iterable){
     throw new Error(`'iterable' is from wrong type ${ typeof iterable }`)
   }
 
-  let found = false
   const toReturn = []
   let counter = iterable.length
 
-  while (counter > 0){
-    counter--
-    if (!found && predicate(iterable[ counter ]) === false){
-      found = true
-      toReturn.push(iterable[ counter ])
-    } else if (found){
-      toReturn.push(iterable[ counter ])
+  while (counter){
+    const item = iterable[ --counter ]
+    if (!predicate(item)){
+      toReturn.push(item)
+      break
     }
+  }
+
+  while (counter){
+    toReturn.push(iterable[ --counter ])
   }
 
   return isArray ? toReturn.reverse() : toReturn.reverse().join('')

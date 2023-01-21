@@ -1942,7 +1942,7 @@ function takeLastWhile(predicate, input) {
   let found = false;
   const toReturn = [];
   let counter = input.length;
-  while (!found || counter === 0) {
+  while (!found && counter) {
     counter--;
     if (predicate(input[counter]) === false) {
       found = true;
