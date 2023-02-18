@@ -1,5 +1,4 @@
 import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
-
 import { mergeDeepRight } from './mergeDeepRight.js'
 
 const student = {
@@ -15,6 +14,10 @@ const teacher = {
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
+
+// TODO
+// what about deep merge when array is involved?
+// compare with ramda
 
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)
