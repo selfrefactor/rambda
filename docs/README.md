@@ -5461,7 +5461,8 @@ describe('R.hasPath', () => {
 
 ```typescript
 
-head(input: string): string
+head(input: string): string;
+head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
 ```
 
 It returns the first element of list or string `input`.
