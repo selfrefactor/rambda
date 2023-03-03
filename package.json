@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "7.3.0",
+	"version": "7.4.0",
 	"scripts": {
 		"publishx": "node files/publish",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
@@ -42,9 +42,7 @@
 		"d:rambda-scripts": "cd ../rambda-scripts && run d",
 		"d": "yarn out && yarn lint && run d && yarn d:rambda-scripts"
 	},
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.20.2",
 		"@babel/plugin-proposal-object-rest-spread": "7.20.2",
