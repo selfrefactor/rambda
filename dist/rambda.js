@@ -1,5 +1,13 @@
 'use strict';
 
+function F() {
+  return false;
+}
+
+function T() {
+  return true;
+}
+
 function add(a, b) {
   if (arguments.length === 1) return _b => add(a, _b);
   return Number(a) + Number(b);
@@ -756,17 +764,17 @@ function dropLastWhile(predicate, iterable) {
   if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error(`'iterable' is from wrong type ${typeof iterable}`);
   }
-  let found = false;
   const toReturn = [];
   let counter = iterable.length;
-  while (counter > 0) {
-    counter--;
-    if (!found && predicate(iterable[counter]) === false) {
-      found = true;
-      toReturn.push(iterable[counter]);
-    } else if (found) {
-      toReturn.push(iterable[counter]);
+  while (counter) {
+    const item = iterable[--counter];
+    if (!predicate(item)) {
+      toReturn.push(item);
+      break;
     }
+  }
+  while (counter) {
+    toReturn.push(iterable[--counter]);
   }
   return isArray$1 ? toReturn.reverse() : toReturn.reverse().join('');
 }
@@ -814,18 +822,19 @@ function dropWhile(predicate, iterable) {
   if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string');
   }
-  let flag = false;
-  const holder = [];
-  let counter = -1;
-  while (counter++ < iterable.length - 1) {
-    if (flag) {
-      holder.push(iterable[counter]);
-    } else if (!predicate(iterable[counter])) {
-      if (!flag) flag = true;
-      holder.push(iterable[counter]);
+  const toReturn = [];
+  let counter = 0;
+  while (counter < iterable.length) {
+    const item = iterable[counter++];
+    if (!predicate(item)) {
+      toReturn.push(item);
+      break;
     }
   }
-  return isArray$1 ? holder : holder.join('');
+  while (counter < iterable.length) {
+    toReturn.push(iterable[counter++]);
+  }
+  return isArray$1 ? toReturn : toReturn.join('');
 }
 
 function either(firstPredicate, secondPredicate) {
@@ -905,10 +914,6 @@ function evolve(rules, iterable) {
     return evolveObject(rules, iterable);
   }
   return evolveArray(rules, iterable);
-}
-
-function F() {
-  return false;
 }
 
 function filterObject(predicate, obj) {
@@ -1743,6 +1748,11 @@ function propOrFn(defaultValue, property, obj) {
 }
 const propOr = curry(propOrFn);
 
+function propSatisfiesFn(predicate, property, obj) {
+  return predicate(prop(property, obj));
+}
+const propSatisfies = curry(propSatisfiesFn);
+
 function props(propsToPick, obj) {
   if (arguments.length === 1) {
     return _obj => props(propsToPick, _obj);
@@ -1752,11 +1762,6 @@ function props(propsToPick, obj) {
   }
   return mapArray(prop => obj[prop], propsToPick);
 }
-
-function propSatisfiesFn(predicate, property, obj) {
-  return predicate(prop(property, obj));
-}
-const propSatisfies = curry(propSatisfiesFn);
 
 function range(start, end) {
   if (arguments.length === 1) return _end => range(start, _end);
@@ -1916,10 +1921,6 @@ function symmetricDifference(x, y) {
   return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
 }
 
-function T() {
-  return true;
-}
-
 function tail(listOrString) {
   return drop(1, listOrString);
 }
@@ -1939,16 +1940,14 @@ function takeLastWhile(predicate, input) {
     return _input => takeLastWhile(predicate, _input);
   }
   if (input.length === 0) return input;
-  let found = false;
   const toReturn = [];
   let counter = input.length;
-  while (!found && counter) {
-    counter--;
-    if (predicate(input[counter]) === false) {
-      found = true;
-    } else if (!found) {
-      toReturn.push(input[counter]);
+  while (counter) {
+    const item = input[--counter];
+    if (!predicate(item)) {
+      break;
     }
+    toReturn.push(item);
   }
   return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('');
 }
@@ -1961,17 +1960,16 @@ function takeWhile(predicate, iterable) {
   if (!isArray$1 && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string');
   }
-  let flag = true;
-  const holder = [];
-  let counter = -1;
-  while (counter++ < iterable.length - 1) {
-    if (!predicate(iterable[counter])) {
-      if (flag) flag = false;
-    } else if (flag) {
-      holder.push(iterable[counter]);
+  const toReturn = [];
+  let counter = 0;
+  while (counter < iterable.length) {
+    const item = iterable[counter++];
+    if (!predicate(item)) {
+      break;
     }
+    toReturn.push(item);
   }
-  return isArray$1 ? holder : holder.join('');
+  return isArray$1 ? toReturn : toReturn.join('');
 }
 
 function tap(fn, x) {

@@ -848,7 +848,7 @@ export function mergeLeft<Output>(newProps: object, target: object): Output;
 export function mergeLeft<Output>(newProps: object): (target: object) => Output;
 
 /**
- * It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+ * It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
  */
 export function mergeRight<A, B>(target: A, newProps: B): A & B
 export function mergeRight<Output>(target: any): (newProps: any) => Output;
@@ -1109,7 +1109,7 @@ export function paths<T>(pathsToSearch: readonly Path[]): (obj: any) => readonly
  * 
  * `input` can be either an object or an array.
  * 
- * String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+ * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
 export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
@@ -1428,7 +1428,7 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => read
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
- * One use case is debuging in the middle of `R.compose`.
+ * One use case is debugging in the middle of `R.compose`.
  */
 export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;

@@ -1,5 +1,7 @@
 7.5.0
 
+- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
+
 - Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
 
 - `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
