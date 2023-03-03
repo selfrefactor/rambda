@@ -419,6 +419,8 @@ function cond(conditions) {
   };
 }
 
+const INCORRECT_ITERABLE_INPUT = 'Incorrect iterable input';
+
 const {
   keys: keys$1
 } = Object;
@@ -1527,6 +1529,8 @@ function none(predicate, list) {
   return true;
 }
 
+function nop() {}
+
 function not(input) {
   return !input;
 }
@@ -1936,7 +1940,7 @@ function takeLastWhile(predicate, input) {
   let found = false;
   const toReturn = [];
   let counter = input.length;
-  while (!found || counter === 0) {
+  while (!found && counter) {
     counter--;
     if (predicate(input[counter]) === false) {
       found = true;
@@ -1977,7 +1981,7 @@ function tap(fn, x) {
 function test(pattern, str) {
   if (arguments.length === 1) return _str => test(pattern, _str);
   if (typeof pattern === 'string') {
-    throw new TypeError(`‘test’ requires a value of type RegExp as its first argument; received "${pattern}"`);
+    throw new TypeError(`R.test requires a value of type RegExp as its first argument; received "${pattern}"`);
   }
   return str.search(pattern) !== -1;
 }
@@ -2051,12 +2055,8 @@ function uniqBy(fn, list) {
   if (arguments.length === 1) {
     return _list => uniqBy(fn, _list);
   }
-  const set = new Set();
-  return list.filter(item => {
-    if (set.has(fn(item))) return false;
-    set.add(fn(item));
-    return true;
-  });
+  const set = new _Set();
+  return list.filter(item => set.checkUniqueness(fn(item)));
 }
 
 function includesWith(predicate, target, list) {
@@ -2088,6 +2088,15 @@ function unless(predicate, whenFalse) {
     return _whenFalse => unless(predicate, _whenFalse);
   }
   return input => predicate(input) ? input : whenFalse(input);
+}
+
+function unnest(list) {
+  return list.reduce((acc, item) => {
+    if (Array.isArray(item)) {
+      return [...acc, ...item];
+    }
+    return [...acc, item];
+  }, []);
 }
 
 function unwind(property, obj) {
@@ -2190,4 +2199,4 @@ function zipWithFn(fn, x, y) {
 }
 const zipWith = curry(zipWithFn);
 
-export { F, T, __findHighestArity, _arity, _indexOf, _lastIndexOf, _pipe, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, count, countBy, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, juxt, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, mergeRight as merge, mergeAll, mergeDeepRight, mergeLeft, mergeRight, mergeWith, min, minBy, minByFn, modify, modifyPath, modifyPathFn, modulo, move, multiply, negate, none, not, nth, objOf, of, omit, on, once, or, over, partial, partialObject, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, propSatisfies, props, range, reduce, reduceFn, reduceStopper, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqBy, uniqWith, unless, unwind, update, updateFn, values, view, when, where, whereAny, whereEq, without, xor, zip, zipObj, zipWith };
+export { F, T, __findHighestArity, _arity, _indexOf, _lastIndexOf, _pipe, add, adjust, all, allPass, always, and, any, anyPass, append, apply, applySpec, assoc, assocPath, bind, both, chain, clamp, clone, complement, compose, concat, cond, converge, count, countBy, curry, curryN, dec, defaultTo, difference, dissoc, divide, drop, dropLast, dropLastWhile, dropRepeats, dropRepeatsWith, dropWhile, either, endsWith, eqProps, equals, evolve, evolveArray, evolveObject, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatten, flip, forEach, fromPairs, groupBy, groupWith, has, hasPath, head, identical, identity, ifElse, inc, includes, indexBy, indexOf, init, intersection, intersperse, is, isEmpty, isNil, join, juxt, keys, last, lastIndexOf, length, lens, lensIndex, lensPath, lensProp, map, mapArray, mapObjIndexed, mapObject, match, mathMod, max, maxBy, maxByFn, mean, median, mergeRight as merge, mergeAll, mergeDeepRight, mergeLeft, mergeRight, mergeWith, min, minBy, minByFn, modify, modifyPath, modifyPathFn, modulo, move, multiply, negate, none, nop, not, nth, objOf, of, omit, on, once, or, over, partial, partialObject, partition, partitionArray, partitionObject, path, pathEq, pathOr, paths, pick, pickAll, pipe, pluck, prepend, product, prop, propEq, propIs, propOr, propSatisfies, props, range, reduce, reduceFn, reduceStopper, reject, repeat, replace, reverse, set, slice, sort, sortBy, split, splitAt, splitEvery, splitWhen, startsWith, subtract, sum, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, times, toLower, toPairs, toString, toUpper, transpose, trim, tryCatch, type, unapply, union, uniq, uniqBy, uniqWith, unless, unnest, unwind, update, updateFn, values, view, when, where, whereAny, whereEq, without, xor, zip, zipObj, zipWith };

@@ -26,10 +26,13 @@ export default {
       file   : './dist/rambda.js',
       format : 'cjs',
     },
-    // unused due to tree-shaking issues
-    // {
-    //   file   : './dist/rambda.mjs',
-    //   format : 'esm',
-    // },
+    {
+      file   : './mjs/index.mjs',
+      format : 'esm',
+    },
+    {
+      file   : './esm/index.mjs',
+      format : 'esm',
+    },
   ],
 }
