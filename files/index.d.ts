@@ -862,7 +862,7 @@ Example:
 const a = [ 1, 2, 3, 4 ]
 const b = [ 3, 4, 5, 6 ]
 
-const result = difference(a, b)
+const result = R.difference(a, b)
 // => [ 1, 2 ]
 ```
 
@@ -2321,7 +2321,7 @@ export function merge<Output>(target: any): (newProps: any) => Output;
 /*
 Method: mergeRight
 
-Explanation: It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+Explanation: It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 Example:
 
@@ -3012,7 +3012,7 @@ Explanation: It returns a partial copy of an `input` containing only `propsToPic
 
 `input` can be either an object or an array.
 
-String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 Example:
 
@@ -3925,7 +3925,7 @@ Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debuging in the middle of `R.compose`.
+One use case is debugging in the middle of `R.compose`.
 
 Example:
 
@@ -5606,7 +5606,7 @@ export function glue(input: string, glueString?: string): string;
 /*
 Method: getter
 
-Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access comminicate indirectly via shared cache object. 
+Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access communicate indirectly via shared cache object. 
 
 Usually these methods show that you might need to refactor to classes. Still, they can be helpful meanwhile.
 
@@ -5678,7 +5678,7 @@ export function reset(): void;
 /*
 Method: interpolate
 
-Explanation: It generages a new string from `inputWithTags` by replacing all `{{x}}` occurances with values provided by `templateArguments`.
+Explanation: It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
 
 Example:
 
@@ -6652,7 +6652,7 @@ export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined
 /*
 Method: waitFor
 
-Explanation: It returns `true`, if `condition` returns `true` within `howLong` milisececonds time period.
+Explanation: It returns `true`, if `condition` returns `true` within `howLong` milliseconds time period.
 
 The method accepts an optional third argument `loops`(default to 10), which is the number of times `waitForTrueCondition` will be evaluated for `howLong` period. Once this function returns a value different from `false`, this value will be the final result. 
 
