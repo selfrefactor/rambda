@@ -28,7 +28,8 @@ describe('R.path with list as path', () => {
     // $ExpectType number
     path(['a'], {a: 1})
 
-    path(['b'], {a: 1}) // $ExpectError
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
     const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}

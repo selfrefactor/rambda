@@ -1,5 +1,5 @@
 import {groupBy} from 'rambda'
-import {groupBy as groupByRamda, prop} from 'ramda'
+import {prop} from 'ramda'
 
 interface Thing {
   name: string,
@@ -31,7 +31,6 @@ describe('R.groupBy', () => {
   })
   it('with one explicit types', () => {
     const groupByPosition = groupBy<Thing>(prop('position'))
-    groupByRamda(prop('position'))
 
     const result = groupByPosition(things)
     result // $ExpectType { [index: string]: Thing[]; }

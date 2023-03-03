@@ -11139,7 +11139,8 @@ describe('R.path with list as path', () => {
     // $ExpectType number
     path(['a'], {a: 1})
 
-    path(['b'], {a: 1}) // $ExpectError
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
     const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
@@ -18338,7 +18339,7 @@ describe('R.zipWith', () => {
 
 - `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
 
-- Uncurried types of `R.path(['non','existing','path'], obj)` are breaking with 7.4.0 release - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
+- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 7.4.0
 
