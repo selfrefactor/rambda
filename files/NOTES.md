@@ -9,3 +9,14 @@ test('remeda test', () => {
   let result = createPipe<MyTestType[], MyTestType[]>(filterRemeda((x) => x.value.includes('a')))(list)
   result // $ExpectType MyTestType[]
 })
+
+===
+this is git diff output:
+
+```
+
+```
+
+Copilot, please generate a commit message in the following format `feat|fix|docs|style|refactor|test|chore: <commit message>`:
+===
+still issue with order of rambda.js

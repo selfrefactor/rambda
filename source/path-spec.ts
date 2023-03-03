@@ -27,11 +27,30 @@ describe('R.path with list as path', () => {
   test('shallow property', () => {
     // $ExpectType number
     path(['a'], {a: 1})
-    
-    path(['b'], {a: 1}) // $ExpectError
+
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
+    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
-    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
+    result
+    const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+  })
+  test('issue #668 - path is not correct', () => {
+    const object = {
+      is: {
+        a: 'path',
+      },
+    }
+    const result = path(['is', 'not', 'a'], object)
+    // $ExpectType unknown
+    result
+    const curriedResult = path(['is', 'not', 'a'])(object)
+    // $ExpectType unknown
+    curriedResult
   })
 })

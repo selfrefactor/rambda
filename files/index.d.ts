@@ -7,7 +7,7 @@ export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | (number | string)[];
-type RamdaPath = (number | string)[];
+export type RamdaPath = (number | string)[];
 type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
@@ -862,7 +862,7 @@ Example:
 const a = [ 1, 2, 3, 4 ]
 const b = [ 3, 4, 5, 6 ]
 
-const result = difference(a, b)
+const result = R.difference(a, b)
 // => [ 1, 2 ]
 ```
 
@@ -2321,7 +2321,7 @@ export function merge<Output>(target: any): (newProps: any) => Output;
 /*
 Method: mergeRight
 
-Explanation: It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+Explanation: It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 Example:
 
@@ -2897,6 +2897,7 @@ export function path<
 export function path<T>(pathToSearch: string, obj: any): T | undefined;
 export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
 export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
 /*
 Method: pathEq
@@ -3011,7 +3012,7 @@ Explanation: It returns a partial copy of an `input` containing only `propsToPic
 
 `input` can be either an object or an array.
 
-String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 Example:
 
@@ -3924,7 +3925,7 @@ Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debuging in the middle of `R.compose`.
+One use case is debugging in the middle of `R.compose`.
 
 Example:
 
@@ -5189,17 +5190,22 @@ Method: uniqBy
 
 Explanation:
 
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
 Example:
 
 ```
-const result = R.uniqBy(Math.abs, [ -2, 1, 0, -1, 2 ])
+const list = [{a:1}, {a:2}, {a:1}]
+const result = R.uniqBy(x => x, list)
 
-// => [-2, 1, 0]
+// => [{a:1}, {a:2}]
 ```
 
 Categories: List
 
-Notes:
+Notes: 
 
 */
 // @SINGLE_MARKER
@@ -5255,6 +5261,25 @@ export function modify<K extends string, A, P>(
   prop: K,
   fn: (a: A) => P,
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+
+/*
+Method: unnest
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unnest(list: unknown[]): unknown[];
+export function unnest<T>(list: unknown[]): T;
 
 // RAMBDAX_MARKER_START
 
@@ -5581,7 +5606,7 @@ export function glue(input: string, glueString?: string): string;
 /*
 Method: getter
 
-Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access comminicate indirectly via shared cache object. 
+Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access communicate indirectly via shared cache object. 
 
 Usually these methods show that you might need to refactor to classes. Still, they can be helpful meanwhile.
 
@@ -5653,7 +5678,7 @@ export function reset(): void;
 /*
 Method: interpolate
 
-Explanation: It generages a new string from `inputWithTags` by replacing all `{{x}}` occurances with values provided by `templateArguments`.
+Explanation: It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
 
 Example:
 
@@ -6627,7 +6652,7 @@ export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined
 /*
 Method: waitFor
 
-Explanation: It returns `true`, if `condition` returns `true` within `howLong` milisececonds time period.
+Explanation: It returns `true`, if `condition` returns `true` within `howLong` milliseconds time period.
 
 The method accepts an optional third argument `loops`(default to 10), which is the number of times `waitForTrueCondition` will be evaluated for `howLong` period. Once this function returns a value different from `false`, this value will be the final result. 
 
@@ -7411,27 +7436,6 @@ export function partialCurry<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
-
-/*
-Method: mapAllSettled
-
-Explanation: It asynchronously iterates over a list using `Promise.allSettled`.
-
-Example:
-
-```
-```
-
-Categories: Async, List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
-export function mapAllSettled<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<Resolved<K>[]>;
 
 // RAMBDAX_MARKER_END
 // ============================================

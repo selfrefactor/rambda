@@ -1,5 +1,3 @@
-import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
-
 import { mergeDeepRight } from './mergeDeepRight.js'
 
 const student = {
@@ -15,6 +13,24 @@ const teacher = {
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
+
+test('when merging object with lists inside them', () => {
+  const a = {
+    a : [ 1, 2, 3 ],
+    b : [ 4, 5, 6 ],
+  }
+  const b = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  expect(result).toEqual(expected)
+})
+
 
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)

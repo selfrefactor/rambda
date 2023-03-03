@@ -7,7 +7,7 @@ export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
 type Path = string | readonly (number | string)[];
-type RamdaPath = readonly (number | string)[];
+export type RamdaPath = readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
@@ -848,7 +848,7 @@ export function mergeLeft<Output>(newProps: object, target: object): Output;
 export function mergeLeft<Output>(newProps: object): (target: object) => Output;
 
 /**
- * It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+ * It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
  */
 export function mergeRight<A, B>(target: A, newProps: B): A & B
 export function mergeRight<Output>(target: any): (newProps: any) => Output;
@@ -1076,6 +1076,7 @@ export function path<
 export function path<T>(pathToSearch: string, obj: any): T | undefined;
 export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
 export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
 /**
  * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
@@ -1108,7 +1109,7 @@ export function paths<T>(pathsToSearch: readonly Path[]): (obj: any) => readonly
  * 
  * `input` can be either an object or an array.
  * 
- * String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+ * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
 export function pick<T, K extends string | number | symbol>(propsToPick: readonly K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 export function pick<K extends string | number | symbol>(propsToPick: readonly K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
@@ -1427,7 +1428,7 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: readonly T[]) => read
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
- * One use case is debuging in the middle of `R.compose`.
+ * One use case is debugging in the middle of `R.compose`.
  */
 export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;
@@ -1511,6 +1512,11 @@ export function union<T>(x: readonly T[]): (y: readonly T[]) => readonly T[];
  */
 export function uniq<T>(list: readonly T[]): readonly T[];
 
+/**
+ * It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+ * 
+ * `R.equals` is used to determine equality.
+ */
 export function uniqBy<T, U>(fn: (a: T) => U, list: readonly T[]): readonly T[];
 export function uniqBy<T, U>(fn: (a: T) => U): (list: readonly T[]) => readonly T[];
 
@@ -1533,6 +1539,9 @@ export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) =
 export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
+
+export function unnest(list: readonly unknown[]): readonly unknown[];
+export function unnest<T>(list: readonly unknown[]): T;
 
 export function unwind<T, U>(prop: keyof T, obj: T): readonly U[];
 export function unwind<T, U>(prop: keyof T): (obj: T) => readonly U[];

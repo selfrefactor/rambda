@@ -102,7 +102,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 77 Ramda methods not implemented in Rambda 
+  Click to see the full list of 76 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -175,7 +175,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - uncurryN
 - unfold
 - unionWith
-- unnest
 - until
 - useWith
 - valuesIn
@@ -2623,7 +2622,7 @@ It returns the uniq set of all elements in the first list `a` not contained in t
 
 `R.equals` is used to determine equality.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8148,8 +8147,6 @@ export function mergeDeepRight(target, source){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
-
 import { mergeDeepRight } from './mergeDeepRight.js'
 
 const student = {
@@ -8165,6 +8162,23 @@ const teacher = {
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
+
+test('when merging object with lists inside them', () => {
+  const a = {
+    a : [ 1, 2, 3 ],
+    b : [ 4, 5, 6 ],
+  }
+  const b = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  expect(result).toEqual(expected)
+})
 
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)
@@ -8390,7 +8404,7 @@ describe('R.mergeLeft', () => {
 
 ### mergeRight
 
-It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.mergeRight(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try this <strong>R.mergeRight</strong> example in Rambda REPL</a>
 
@@ -10330,6 +10344,7 @@ path<
 path<T>(pathToSearch: string, obj: any): T | undefined;
 path<T>(pathToSearch: string): (obj: any) => T | undefined;
 path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 ```
 
 </details>
@@ -10445,12 +10460,31 @@ describe('R.path with list as path', () => {
   test('shallow property', () => {
     // $ExpectType number
     path(['a'], {a: 1})
-    
-    path(['b'], {a: 1}) // $ExpectError
+
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
+    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
-    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
+    result
+    const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+  })
+  test('issue #668 - path is not correct', () => {
+    const object = {
+      is: {
+        a: 'path',
+      },
+    }
+    const result = path(['is', 'not', 'a'], object)
+    // $ExpectType unknown
+    result
+    const curriedResult = path(['is', 'not', 'a'])(object)
+    // $ExpectType unknown
+    curriedResult
   })
 })
 ```
@@ -10885,7 +10919,7 @@ It returns a partial copy of an `input` containing only `propsToPick` properties
 
 `input` can be either an object or an array.
 
-String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 
@@ -14362,17 +14396,16 @@ export function takeLastWhile(predicate, input){
     return _input => takeLastWhile(predicate, _input)
   }
   if (input.length === 0) return input
-  let found = false
+
   const toReturn = []
   let counter = input.length
 
-  while (!found && counter){
-    counter--
-    if (predicate(input[ counter ]) === false){
-      found = true
-    } else if (!found){
-      toReturn.push(input[ counter ])
+  while (counter){
+    const item = input[ --counter ]
+    if (!predicate(item)){
+      break
     }
+    toReturn.push(item)
   }
 
   return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
@@ -14470,7 +14503,7 @@ tap<T>(fn: (x: T) => void, input: T): T
 
 It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debuging in the middle of `R.compose`.
+One use case is debugging in the middle of `R.compose`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0AR.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.tap(console.log)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%0A)(list)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
 
@@ -15516,7 +15549,11 @@ describe('R.uniq', () => {
 
 ### uniqBy
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.uniqBy(Math.abs%2C%20%5B%20-2%2C%201%2C%200%2C%20-1%2C%202%20%5D)%0A%0A%2F%2F%20%3D%3E%20%5B-2%2C%201%2C%200%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
@@ -15791,6 +15828,10 @@ describe('R.unless - curried', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
+
+### unnest
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unnest)
 
 ### unwind
 
@@ -17008,6 +17049,16 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+7.5.0
+
+- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
+
+- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
+
+- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
+- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 7.4.0
 
