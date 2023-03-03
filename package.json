@@ -107,20 +107,6 @@
 	"umd": "./dist/rambda.umd.js",
 	"module": "./rambda.js",
 	"types": "./index.d.ts",
-	"exports": {
-		".": {
-			"import": "./rambda.js",
-			"require": "./dist/rambda.js",
-			"default": "./dist/rambda.js",
-			"types": "./index.d.ts"
-		},
-		"./immutable": {
-			"import": "./immutable.js",
-			"require": "./immutable.js",
-			"default": "./immutable.js",
-			"types": "./immutable.d.ts"
-		}
-	},
 	"keywords": [
 		"ramda",
 		"fp",
