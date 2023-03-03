@@ -11,4 +11,12 @@ test('remeda test', () => {
 })
 
 ===
+this is git diff output:
+
+```
+
+```
+
+Copilot, please generate a commit message in the following format `feat|fix|docs|style|refactor|test|chore: <commit message>`:
+===
 still issue with order of rambda.js
