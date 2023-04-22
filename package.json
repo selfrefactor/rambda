@@ -99,8 +99,6 @@
   "files": [
     "dist",
     "src",
-    "esm",
-    "mjs",
     "README.md",
     "CHANGELOG.md",
     "index.d.ts",
