@@ -1,4 +1,4 @@
-import {pipe, prop} from 'rambda'
+import {pipe, prop, propx} from 'rambda'
 
 describe('R.prop', () => {
   const obj = {a: 1, b: 'foo'}

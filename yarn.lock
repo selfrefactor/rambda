@@ -3746,10 +3746,10 @@ rambdax@8.1.0:
   resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-8.1.0.tgz#1737feb9ae33d184b1db85832dd1972b819e2630"
   integrity sha512-8TQS3jorlSSubddKTyVrsp9mevF2WMBtdEPjp9Bk8ipVijD5/9gVXGgBF4d0JzO6kzegCFYWANrbHLyKLE6YVA==
 
-ramda@0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
-  integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
+ramda@0.29.0:
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.29.0.tgz#fbbb67a740a754c8a4cbb41e2a6e0eb8507f55fb"
+  integrity sha512-BBea6L67bYLtdbOqfp8f58fPMqEwx0doL+pAi8TZyp2YWz8R9G8z9x75CZI8W+ftqhFHCpEX2cRnUUXK130iKA==
 
 react-is@^18.0.0:
   version "18.2.0"
