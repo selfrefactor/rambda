@@ -52,7 +52,7 @@
     "@rollup/plugin-node-resolve": "15.0.1",
     "@rollup/plugin-replace": "5.0.1",
     "@types/jest": "29.2.2",
-    "@types/ramda": "0.28.23",
+    "@types/ramda": "0.29.0",
     "combinate": "1.1.11",
     "cross-env": "7.0.3",
     "dtslint": "4.2.1",
