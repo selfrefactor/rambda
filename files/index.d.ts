@@ -7442,6 +7442,26 @@ export function partialCurry<Input, PartialInput, Output>(
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
+/*
+Method: omitPaths
+
+Explanation:
+
+Example:
+
+```
+const result = R.omitPaths()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function omitPaths<T>(x: T): T;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
