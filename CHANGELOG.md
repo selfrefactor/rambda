@@ -1,3 +1,9 @@
+8.0.0
+
+Synchronize with Ramda `0.29.0` release:
+
+- change order of `R.propEq`
+
 7.5.0
 
 - IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)

@@ -1109,11 +1109,7 @@ function createPath(path, delimiter = '.') {
   return typeof path === 'string' ? path.split(delimiter) : path;
 }
 
-function path(pathInput, obj) {
-  if (arguments.length === 1) return _obj => path(pathInput, _obj);
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
+function pathFn(pathInput, obj) {
   let willReturn = obj;
   let counter = 0;
   const pathArrValue = createPath(pathInput);
@@ -1126,6 +1122,13 @@ function path(pathInput, obj) {
     counter++;
   }
   return willReturn;
+}
+function path(pathInput, obj) {
+  if (arguments.length === 1) return _obj => path(pathInput, _obj);
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  return pathFn(pathInput, obj);
 }
 
 function hasPath(pathInput, obj) {
@@ -2335,6 +2338,7 @@ exports.partitionArray = partitionArray;
 exports.partitionObject = partitionObject;
 exports.path = path;
 exports.pathEq = pathEq;
+exports.pathFn = pathFn;
 exports.pathOr = pathOr;
 exports.paths = paths;
 exports.pick = pick;
