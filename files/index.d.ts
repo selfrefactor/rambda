@@ -1446,6 +1446,8 @@ Notes:
 export function head(input: string): string;
 export function head(emptyList: []): undefined;
 export function head<T>(input: T[]): T;
+// head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
+// function head<T extends any[]>(arr: [...T]): T extends [...infer _, infer Last] ? Last : never
 // export function head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
 
 /*
