@@ -38,7 +38,6 @@
 		"benchmark:check:apply": "cd ../rambda-scripts && yarn check-benchmark",
 		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"d:rambda-scripts": "cd ../rambda-scripts && run d",
-		"de": "yarn out && yarn lint && run d && yarn d:rambda-scripts",
 		"d": "yarn out && yarn lint && yarn d:rambda-scripts"
 	},
 	"dependencies": {
