@@ -1,6 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
 
-// used in R.reduce to stop the loop
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -39,8 +38,7 @@ type Pred = (...x: any[]) => boolean;
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
 
-type Evolvable<E extends Evolver> = {   [P in keyof E]?: Evolved<E[P]>;
-};
+type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
 type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };
@@ -1447,7 +1445,8 @@ Notes:
 // @SINGLE_MARKER
 export function head(input: string): string;
 export function head(emptyList: []): undefined;
-export function head<T>(input: T[]): T | undefined;
+export function head<T>(input: T[]): T;
+// export function head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
 
 /*
 Method: identical
@@ -1852,9 +1851,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last(str: string): string;
+export function last(input: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last<T extends unknown>(list: T[]): T;
+// export function last<T extends unknown[]>(input: T): T extends [...infer _, infer U] ? U : T[0]
+
 
 /*
 Method: lastIndexOf
