@@ -1,17 +1,17 @@
 import { isArray } from './_internals/isArray.js'
 import { equals } from './equals.js'
 
-export function startsWith(target, iterable){
+export function startsWith(question, iterable){
   if (arguments.length === 1)
-    return _iterable => startsWith(target, _iterable)
+    return _iterable => startsWith(question, _iterable)
 
   if (typeof iterable === 'string'){
-    return iterable.startsWith(target)
+    return iterable.startsWith(question)
   }
-  if (!isArray(target)) return false
+  if (!isArray(question)) return false
 
   let correct = true
-  const filtered = target.filter((x, index) => {
+  const filtered = question.filter((x, index) => {
     if (!correct) return false
     const result = equals(x, iterable[ index ])
     if (!result) correct = false
@@ -19,5 +19,5 @@ export function startsWith(target, iterable){
     return result
   })
 
-  return filtered.length === target.length
+  return filtered.length === question.length
 }
