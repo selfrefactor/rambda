@@ -1,3 +1,4 @@
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {last} from 'rambda'
 
 describe('R.last', () => {
@@ -6,12 +7,16 @@ describe('R.last', () => {
     result // $ExpectType string
   })
   it('array', () => {
-    const result = last<number>([1, 2, 3])
-    result // $ExpectType number | undefined
+    const result = last([1, 2, 3])
+    result // $ExpectType number
   })
   it('mixed', () => {
-    const result = last([1, 'foo'])
+    const result = last(mixedList)
     result // $ExpectType string | number
+  })
+  it('mixed const', () => {
+    const result = last(mixedListConst)
+    result // $ExpectType "bar"
   })
   it('empty array - case 1', () => {
     const result = last([])
@@ -23,4 +28,3 @@ describe('R.last', () => {
     result // $ExpectType string
   })
 })
-

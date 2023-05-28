@@ -102,11 +102,12 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 76 Ramda methods not implemented in Rambda 
+  Click to see the full list of 80 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
 - addIndex
+- addIndexRight
 - ap
 - aperture
 - applyTo
@@ -121,6 +122,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
+- dropRepeatsBy
 - empty
 - eqBy
 - forEachObjIndexed
@@ -134,6 +136,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - invert
 - invertObj
 - invoker
+- isNotNil
 - keysIn
 - lift
 - liftN
@@ -166,6 +169,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - splitWhenever
+- swap
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
@@ -17055,6 +17059,13 @@ describe('R.zipWith', () => {
 Synchronize with Ramda `0.29.0` release:
 
 - change order of `R.propEq`
+
+- `R.head`/`R.last` don't return `undefined` for non-empty arrays
+
+- `R.type` supports dates in TS definition.
+> it already did support dates in JS
+
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input.
 
 7.5.0
 

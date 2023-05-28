@@ -1,6 +1,23 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-// used in R.reduce to stop the loop
+
+type LastArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [infer _, ...infer Tail]
+			? LastArrayElement<Tail>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+type FirstArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [...infer Head, infer _]
+			? FirstArrayElement<Head>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -39,8 +56,7 @@ type Pred = (...x: any[]) => boolean;
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
 
-type Evolvable<E extends Evolver> = {   [P in keyof E]?: Evolved<E[P]>;
-};
+type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
 type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };

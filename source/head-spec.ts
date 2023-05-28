@@ -1,3 +1,4 @@
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {head} from 'rambda'
 
 describe('R.head', () => {
@@ -7,11 +8,15 @@ describe('R.head', () => {
   })
   it('array', () => {
     const result = head([1, 2, 3])
-    result // $ExpectType number | undefined
+    result // $ExpectType number
   })
   it('mixed', () => {
-    const result = head([1, 'foo'])
+    const result = head(mixedList)
     result // $ExpectType string | number
+  })
+  it('mixed const', () => {
+    const result = head(mixedListConst)
+    result // $ExpectType 1
   })
   it('empty array - case 1', () => {
     const result = head([])

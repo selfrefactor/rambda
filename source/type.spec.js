@@ -26,6 +26,11 @@ test('with generators', () => {
   expect(type(gen)).toBe('Generator')
 })
 
+test('with Date', () => {
+  const date = new Date('December 17, 1995 03:24:00')
+  expect(type(date)).toBe('Date')
+})
+
 test('with infinity', () => {
   expect(type(Infinity)).toBe('Number')
 })

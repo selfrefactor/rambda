@@ -4,6 +4,13 @@ Synchronize with Ramda `0.29.0` release:
 
 - change order of `R.propEq`
 
+- `R.head`/`R.last` don't return `undefined` for non-empty arrays
+
+- `R.type` supports dates in TS definition.
+> it already did support dates in JS
+
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input.
+
 7.5.0
 
 - IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)

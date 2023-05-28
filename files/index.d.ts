@@ -1,4 +1,22 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
+
+
+type LastArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [infer _, ...infer Tail]
+			? LastArrayElement<Tail>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+type FirstArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [...infer Head, infer _]
+			? FirstArrayElement<Head>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
 
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
@@ -1022,10 +1040,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string, iterable: string): boolean;
-export function endsWith(target: string): (iterable: string) => boolean;
-export function endsWith<T>(target: T[], list: T[]): boolean;
-export function endsWith<T>(target: T[]): (list: T[]) => boolean;
+export function endsWith(target: string, input: string): boolean;
+export function endsWith(target: string): (input: string) => boolean;
+export function endsWith<T>(target: T[], input: T[]): boolean;
+export function endsWith<T>(target: T[]): (input: T[]) => boolean;
 
 /*
 Method: equals
@@ -1445,10 +1463,7 @@ Notes:
 // @SINGLE_MARKER
 export function head(input: string): string;
 export function head(emptyList: []): undefined;
-export function head<T>(input: T[]): T;
-// head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
-// function head<T extends any[]>(arr: [...T]): T extends [...infer _, infer Last] ? Last : never
-// export function head<T extends unknown[]>(input: T): T extends readonly [infer U, ...infer _] ? U : T[0]
+export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /*
 Method: identical
@@ -1855,9 +1870,7 @@ Notes:
 // @SINGLE_MARKER
 export function last(input: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends unknown>(list: T[]): T;
-// export function last<T extends unknown[]>(input: T): T extends [...infer _, infer U] ? U : T[0]
-
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /*
 Method: lastIndexOf
@@ -3746,10 +3759,10 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function startsWith(target: string, str: string): boolean;
-export function startsWith(target: string): (str: string) => boolean;
-export function startsWith<T>(target: T[], list: T[]): boolean;
-export function startsWith<T>(target: T[]): (list: T[]) => boolean;
+export function startsWith(target: string, input: string): boolean;
+export function startsWith(target: string): (input: string) => boolean;
+export function startsWith<T>(target: T[], input: T[]): boolean;
+export function startsWith<T>(target: T[]): (input: T[]) => boolean;
 
 /*
 Method: subtract

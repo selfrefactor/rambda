@@ -40,9 +40,7 @@
 		"d:rambda-scripts": "cd ../rambda-scripts && run d",
 		"d": "yarn out && yarn lint && yarn d:rambda-scripts"
 	},
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.21.8",
 		"@babel/plugin-proposal-object-rest-spread": "7.20.7",
@@ -52,7 +50,6 @@
 		"@rollup/plugin-node-resolve": "15.0.2",
 		"@rollup/plugin-replace": "5.0.2",
 		"@types/jest": "29.5.1",
-		"@types/ramda": "0.29.1",
 		"combinate": "1.1.11",
 		"cross-env": "7.0.3",
 		"dtslint": "4.2.1",
@@ -67,6 +64,7 @@
 		"rollup-plugin-cleanup": "3.2.1",
 		"rollup-plugin-sourcemaps": "0.6.3",
 		"rollup-plugin-uglify": "6.0.4",
+		"types-ramda": "0.29.2",
 		"typescript": "5.0.4"
 	},
 	"jest": {
