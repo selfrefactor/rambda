@@ -22,6 +22,10 @@ describe('R.startsWith - string', () => {
     const result = startsWith(question, iterable)
 
     result // $ExpectType boolean
+
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
   })
   it('curried', () => {
     const result = startsWith(question)(iterable)
@@ -47,6 +51,10 @@ describe('R.startsWith - string as enum', () => {
   it('curried', () => {
     const result = startsWith(question)(iterable)
 
-    result // $ExpectType boolean
+    result; // $ExpectType boolean
+
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
   })
 })

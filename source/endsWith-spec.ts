@@ -21,11 +21,19 @@ describe('R.endsWith - string', () => {
   it('happy', () => {
     const result = endsWith(target, input)
 
-    result // $ExpectType boolean
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
+    
+    result; // $ExpectType boolean
   })
   it('curried', () => {
     const result = endsWith(target)(input)
 
-    result // $ExpectType boolean
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
+
+    result; // $ExpectType boolean
   })
 })
