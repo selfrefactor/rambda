@@ -1024,8 +1024,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith(target: string, iterable: string): boolean;
-export function endsWith(target: string): (iterable: string) => boolean;
+export function endsWith<T extends string>(target: T, str: string): str is `${string}${T}`;
+export function endsWith<T extends string>(target: T): (str: string) => str is `${string}${T}`;
 export function endsWith<T>(target: T[], list: T[]): boolean;
 export function endsWith<T>(target: T[]): (list: T[]) => boolean;
 
@@ -1573,8 +1573,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes(valueToFind: string, input: string[] | string): boolean;
-export function includes(valueToFind: string): (input: string[] | string) => boolean;
+export function includes<T extends string>(valueToFind: T, input: string): input is `${string}${T}${string}`;
+export function includes<T extends string>(valueToFind: T): (input: string) => input is `${string}${T}${string}`;
 export function includes<T>(valueToFind: T, input: T[]): boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
@@ -3738,8 +3738,8 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function startsWith(target: string, str: string): boolean;
-export function startsWith(target: string): (str: string) => boolean;
+export function startsWith<T extends string>(target: T, str: string): str is `${T}${string}`;
+export function startsWith<T extends string>(target: T): (str: string) => str is `${T}${string}`;
 export function startsWith<T>(target: T[], list: T[]): boolean;
 export function startsWith<T>(target: T[]): (list: T[]) => boolean;
 

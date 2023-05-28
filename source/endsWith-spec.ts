@@ -17,15 +17,23 @@ describe('R.endsWith - array as iterable', () => {
 
 describe('R.endsWith - string as iterable', () => {
   const target = 'bar'
-  const iterable = 'foo bar'
+  const iterable = 'foo bar' as 'foo bar' | 'happy' | 'happy-2'
   it('happy', () => {
     const result = endsWith(target, iterable)
 
-    result // $ExpectType boolean
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
+    
+    result; // $ExpectType boolean
   })
   it('curried', () => {
     const result = endsWith(target)(iterable)
 
-    result // $ExpectType boolean
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
+
+    result; // $ExpectType boolean
   })
 })

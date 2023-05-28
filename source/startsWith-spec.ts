@@ -17,15 +17,23 @@ describe('R.startsWith - array as iterable', () => {
 
 describe('R.startsWith - string as iterable', () => {
   const target = 'foo'
-  const iterable = 'foo bar'
+  const iterable = 'foo bar' as 'foo bar' | 'happy' | 'happy-2'
   it('happy', () => {
     const result = startsWith(target, iterable)
 
     result // $ExpectType boolean
+
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
   })
   it('curried', () => {
     const result = startsWith(target)(iterable)
 
-    result // $ExpectType boolean
+    result; // $ExpectType boolean
+
+    if (result) {
+      iterable // $ExpectType "foo bar"
+    }
   })
 })
