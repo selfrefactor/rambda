@@ -1,4 +1,5 @@
 # Explanation of scripts
+![Visualization of the codebase](./diagram.svg)
 
 ## benchmark
 
