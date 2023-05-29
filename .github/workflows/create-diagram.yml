@@ -1,11 +1,9 @@
 name: Repo Visuals
 on:
+  workflow_dispatch: {}
   push:
-    tags:
-      - v*
     branches:
       - master
-  pull_request:
 jobs:
   repo-visuals:
     name: repo-visuals
