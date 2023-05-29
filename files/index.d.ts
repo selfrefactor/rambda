@@ -3341,11 +3341,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
-export function propEq<K extends string | number>(propToFind: K): {
-  (valueToMatch: any, obj: Record<K, any>): boolean;
-  (valueToMatch: any): (obj: Record<K, any>) => boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
+export function propEq(valueToMatch: any): {
+  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
+  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
 };
 
 /*

@@ -8,12 +8,12 @@ const objWithNumberIndex = {[numberProperty]: value}
 
 describe('R.propEq', () => {
   it('happy', () => {
-    const result = propEq(property, value, obj)
+    const result = propEq(value, property, obj)
     result // $ExpectType boolean
   })
 
   it('number is property', () => {
-    const result = propEq(1, value, objWithNumberIndex)
+    const result = propEq(value, 1, objWithNumberIndex)
     result // $ExpectType boolean
   })
 
@@ -25,10 +25,7 @@ describe('R.propEq', () => {
     const myObject: MyType = {}
     const valueToFind = '1111'
     // @ts-expect-error
-    propEq('optional', valueToFind, myObject)
-
-    // @ts-expect-error
-    propEq('optional', valueToFind, myObject)
+    propEq(valueToFind, 'optional', myObject)
   })
 
   it('imported from @types/ramda', () => {
@@ -39,10 +36,10 @@ describe('R.propEq', () => {
       foo: 'bar',
     }
     const value = ''
-    const result = propEq('foo', value)(obj)
+    const result = propEq(value, 'foo')(obj)
     result // $ExpectType boolean
 
     // @ts-expect-error
-    propEq('bar', value)(obj)
+    propEq(value, 'bar')(obj)
   })
 })
