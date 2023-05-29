@@ -95,6 +95,19 @@ interface AssocPartialOne<K extends keyof any> {
 type AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
 
+type RegExpReplacerFn =
+  | ((m: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
+type RegExpReplacer = string | RegExpReplacerFn
+
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
@@ -3544,9 +3557,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
-export function replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
-export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+export function replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 
 /*
 Method: reverse

@@ -12564,7 +12564,7 @@ describe('R.repeat', () => {
 
 ```typescript
 
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string
 ```
 
 It replaces `strOrRegex` found in `str` with `replacer`.
@@ -12576,9 +12576,9 @@ It replaces `strOrRegex` found in `str` with `replacer`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
-replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
-replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 ```
 
 </details>
