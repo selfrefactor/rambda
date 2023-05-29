@@ -15,6 +15,22 @@ test('string can be used as path input', () => {
   expect(result).toEqual(expected)
 })
 
+test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
+  const obj = { a : 'str' }
+  const result = assocPath(
+    [ 'a', 'b' ], 42, obj
+  )
+
+  expect(result).toEqual({
+    a : {
+      0 : 's',
+      1 : 't',
+      2 : 'r',
+      b : 42,
+    },
+  })
+})
+
 test('bug', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
