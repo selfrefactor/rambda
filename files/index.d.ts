@@ -201,7 +201,7 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 Example:
 
 ```
-R.adjust(
+const result = R.adjust(
   0,
   a => a + 1,
   [0, 100]
@@ -5098,7 +5098,7 @@ const obj = {
   a: 1,
   b: [2, 3],
 }
-const result = unwind('b', Record<string, unknown>)
+const result = R.unwind('b', obj)
 const expected = [{a:1, b:2}, {a:1, b:3}]
 // => `result` is equal to `expected`
 ```
