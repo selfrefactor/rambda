@@ -2,14 +2,14 @@
 
 Synchronize with Ramda `0.29.0` release:
 
-- change order of `R.propEq`
+- change order of `R.propEq` - [https://github.com/ramda/ramda/pull/2938/files](https://github.com/ramda/ramda/pull/2938/files)
 
 - `R.head`/`R.last` don't return `undefined` for non-empty arrays
 
 - `R.type` supports dates in TS definition.
 > it already did support dates in JS
 
-- Improve typings of `R.endsWith/startsWith` with regard to `string` input.
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
 
 7.5.0
 

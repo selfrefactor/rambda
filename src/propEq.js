@@ -3,7 +3,7 @@ import { equals } from './equals.js'
 import { prop } from './prop.js'
 
 function propEqFn(
-  propToFind, valueToMatch, obj
+  valueToMatch, propToFind, obj
 ){
   if (!obj) return false
 

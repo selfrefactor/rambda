@@ -1318,9 +1318,9 @@ export function repeat<T>(x: T, timesToRepeat: number): T[];
 /**
  * It replaces `strOrRegex` found in `str` with `replacer`.
  */
-export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
-export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
-export function replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
+export function replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
+export function replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
+export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 
 /**
  * It returns a reversed copy of list or string `input`.

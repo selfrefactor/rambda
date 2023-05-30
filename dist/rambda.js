@@ -1554,8 +1554,6 @@ function none(predicate, list) {
   return true;
 }
 
-function nop() {}
-
 function not(input) {
   return !input;
 }
@@ -1749,7 +1747,7 @@ function prepend(x, input) {
 
 const product = reduce(multiply, 1);
 
-function propEqFn(propToFind, valueToMatch, obj) {
+function propEqFn(valueToMatch, propToFind, obj) {
   if (!obj) return false;
   return equals(valueToMatch, prop(propToFind, obj));
 }
@@ -1911,20 +1909,20 @@ function splitWhen(predicate, input) {
   return [preFound, postFound];
 }
 
-function startsWith(target, iterable) {
-  if (arguments.length === 1) return _iterable => startsWith(target, _iterable);
+function startsWith(question, iterable) {
+  if (arguments.length === 1) return _iterable => startsWith(question, _iterable);
   if (typeof iterable === 'string') {
-    return iterable.startsWith(target);
+    return iterable.startsWith(question);
   }
-  if (!isArray(target)) return false;
+  if (!isArray(question)) return false;
   let correct = true;
-  const filtered = target.filter((x, index) => {
+  const filtered = question.filter((x, index) => {
     if (!correct) return false;
     const result = equals(x, iterable[index]);
     if (!result) correct = false;
     return result;
   });
-  return filtered.length === target.length;
+  return filtered.length === question.length;
 }
 
 function subtract(a, b) {
@@ -2336,7 +2334,6 @@ exports.move = move;
 exports.multiply = multiply;
 exports.negate = negate;
 exports.none = none;
-exports.nop = nop;
 exports.not = not;
 exports.nth = nth;
 exports.objOf = objOf;
