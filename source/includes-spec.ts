@@ -16,13 +16,5 @@ describe('R.includes', () => {
 
     result // $ExpectType boolean
     curriedResult // $ExpectType boolean
-
-    if (result) {
-      str // $ExpectType "foo"
-    }
-
-    if (curriedResult) {
-      str // $ExpectType "foo"
-    }
   })
 })

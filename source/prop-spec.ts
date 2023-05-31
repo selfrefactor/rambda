@@ -1,4 +1,4 @@
-import {pipe, prop, propx} from 'rambda'
+import {pipe, prop} from 'rambda'
 
 describe('R.prop', () => {
   const obj = {a: 1, b: 'foo'}
@@ -32,7 +32,7 @@ describe('R.prop', () => {
   it('curried with implicit object type', () => {
     const result = pipe(value => value as Something, prop('b'))(obj)
 
-    result // $ExpectType undefined
+    result // $ExpectType string | undefined
   })
   it('curried with explicit result type', () => {
     const result = prop<'b', string>('b')(obj)

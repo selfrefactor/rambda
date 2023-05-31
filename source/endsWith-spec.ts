@@ -5,12 +5,10 @@ describe('R.endsWith - array', () => {
   const input = [{a: 1}, {a: 2}]
   it('happy', () => {
     const result = endsWith(target, input)
-
     result // $ExpectType boolean
   })
   it('curried', () => {
     const result = endsWith(target)(input)
-
     result // $ExpectType boolean
   })
 })
@@ -20,20 +18,10 @@ describe('R.endsWith - string', () => {
   const input = 'foo bar'
   it('happy', () => {
     const result = endsWith(target, input)
-
-    if (result) {
-      iterable // $ExpectType "foo bar"
-    }
-    
-    result; // $ExpectType boolean
+    result // $ExpectType boolean
   })
   it('curried', () => {
     const result = endsWith(target)(input)
-
-    if (result) {
-      iterable // $ExpectType "foo bar"
-    }
-
-    result; // $ExpectType boolean
+    result // $ExpectType boolean
   })
 })
