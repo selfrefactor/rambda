@@ -24,7 +24,6 @@
 		"docs": "npx docsify-cli init ./docs && yarn fix-docsify",
 		"new": "cd ../rambda-scripts && yarn new",
 		"run:ramda:test": "cd ../rambda-scripts && yarn run:ramda:test",
-		"test:consume-typings": "jest source/_consumeTypings.test.js",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test": "jest -o -u --watch",
