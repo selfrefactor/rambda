@@ -31,7 +31,6 @@ test('when merging object with lists inside them', () => {
   expect(result).toEqual(expected)
 })
 
-
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)
   const curryResult = mergeDeepRight(student)(teacher)

@@ -36,7 +36,7 @@ test('ramda 1', () => {
 })
 
 test('ramda 2', () => {
-  expect(findLastIndex(even, [ 'zing' ])).toEqual(-1)
+  expect(findLastIndex(even, [ 'zing' ])).toBe(-1)
 })
 
 test('ramda 3', () => {
@@ -44,5 +44,5 @@ test('ramda 3', () => {
 })
 
 test('ramda 4', () => {
-  expect(findLastIndex(even, [])).toEqual(-1)
+  expect(findLastIndex(even, [])).toBe(-1)
 })

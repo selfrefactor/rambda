@@ -9,13 +9,13 @@ test('with NaN', () => {
 })
 
 test('will throw with bad input', () => {
-  expect(lastIndexOfRamda([], true)).toEqual(-1)
+  expect(lastIndexOfRamda([], true)).toBe(-1)
   expect(() => indexOf([], true)).toThrowErrorMatchingInlineSnapshot('"indexOf is not defined"')
 })
 
 test('without list of objects - no R.equals', () => {
   expect(lastIndexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
-  expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
+  expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toBe(-1)
 })
 
 test('list of objects uses R.equals', () => {

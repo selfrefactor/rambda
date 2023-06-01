@@ -56,12 +56,12 @@ test('includes prototype properties', () => {
 
   expect(dissoc('width', rect)).toEqual({
     height : 6,
-    area   : area,
+    area,
   })
 
   expect(dissoc('depth', rect)).toEqual({
     width  : 7,
     height : 6,
-    area   : area,
+    area,
   })
 })
