@@ -10,6 +10,9 @@ class ReduceStopper{
 export function reduceFn(
   reducer, acc, list
 ){
+  if (list == null){
+    return acc
+  }
   if (!isArray(list)){
     throw new TypeError('reduce: list must be array or iterable')
   }

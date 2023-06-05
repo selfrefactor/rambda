@@ -61,12 +61,6 @@ R.add(1)('foo') // => will trigger warning in VSCode
 Ramda.add(1)('foo') // => will not trigger warning in VSCode
 ```
 
-### Smaller size
-
-The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
-
-<!-- ### Tree-shaking -->
-
 ### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
@@ -318,6 +312,8 @@ method | Rambda | Ramda | Lodash
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
 
 ## ❯ Used by
+
+- [ESLint plugin Mocha](https://www.npmjs.com/package/eslint-plugin-mocha)
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
@@ -17058,7 +17054,7 @@ describe('R.zipWith', () => {
 
 Synchronize with Ramda `0.29.0` release:
 
-- change order of `R.propEq` - [https://github.com/ramda/ramda/pull/2938/files](https://github.com/ramda/ramda/pull/2938/files)
+- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
 
 - `R.head`/`R.last` don't return `undefined` for non-empty arrays
 
@@ -17066,6 +17062,8 @@ Synchronize with Ramda `0.29.0` release:
 > it already did support dates in JS
 
 - Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
+
+- Handle list as falsy value in `R.reduce` - [Ramda MR](https://github.com/ramda/ramda/pull/2997/files)
 
 7.5.0
 
