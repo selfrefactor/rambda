@@ -17,3 +17,26 @@ test('case 2', () => {
     baz : 3,
   })
 })
+
+describe('acts as if nil values are simply empty objects', () => {
+  it('if the first object is nil', () => {
+    expect(mergeAll([ null, { foo : 1 }, { foo : 2 }, { bar : 2 } ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+
+  it('if the last object is nil', () => {
+    expect(mergeAll([ { foo : 1 }, { foo : 2 }, { bar : 2 }, undefined ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+
+  it('if an intermediate object is nil', () => {
+    expect(mergeAll([ { foo : 1 }, { foo : 2 }, null, { bar : 2 } ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+})
