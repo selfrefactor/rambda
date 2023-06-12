@@ -2623,7 +2623,7 @@ It returns the uniq set of all elements in the first list `a` not contained in t
 
 `R.equals` is used to determine equality.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D](https://rambda.vercel.app/?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference%28a%2C%20b%29%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D)">Try this <strong>R.difference</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.vercel.app/?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference%28a%2C%20b%29%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D)">Try this <strong>R.difference</strong> example in Rambda REPL</a>
 
 <details>
 
