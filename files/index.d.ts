@@ -5290,6 +5290,35 @@ Notes:
 export function unnest(list: unknown[]): unknown[];
 export function unnest<T>(list: unknown[]): T;
 
+/*
+Method: differenceWith
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+  list2: T2[],
+): T1[];
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+): (list1: T1[], list2: T2[]) => T1[];
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+
 // RAMBDAX_MARKER_START
 
 /*

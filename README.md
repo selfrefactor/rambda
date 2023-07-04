@@ -96,7 +96,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 80 Ramda methods not implemented in Rambda 
+  Click to see the full list of 79 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
@@ -114,7 +114,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - construct
 - constructN
 - descend
-- differenceWith
 - dissocPath
 - dropRepeatsBy
 - empty
@@ -2732,6 +2731,85 @@ describe('R.difference', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#difference)
+
+### differenceWith
+
+```typescript
+
+differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+  list2: T2[],
+): T1[]
+```
+
+<details>
+
+<summary>All Typescript definitions</summary>
+
+```typescript
+differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+  list2: T2[],
+): T1[];
+differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+): (list1: T1[], list2: T2[]) => T1[];
+differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.differenceWith</strong> source</summary>
+
+```javascript
+import { curry } from './curry.js'
+import { _indexOf } from './equals.js'
+
+export function differenceWithFn(fn, a, b) {
+  let willReturn = []
+  let [first, second] = a.length > b.length ? [a, b] : [b, a]
+
+  first.forEach(item => {
+    let hasItem = second.some(secondItem => fn(item, secondItem))
+    if (!hasItem && _indexOf(item, willReturn) === -1) {
+      willReturn.push(item)
+    }
+  })
+
+  return willReturn
+}
+
+export let differenceWith = curry(differenceWithFn)
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { differenceWith } from './differenceWith'
+
+test('happy', () => {
+  var foo = [{a: 1}, {a: 2}, {a: 3}];
+  var bar = [{a: 3}, {a: 4}];
+  var fn = function(r, s) { return r.a === s.a; }
+  const result = differenceWith(fn, foo, bar)
+  expect(result).toEqual([{a: 1}, {a: 2}])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#differenceWith)
 
 ### dissoc
 

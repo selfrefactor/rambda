@@ -434,6 +434,19 @@ export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => 
 export function difference<T>(a: T[], b: T[]): T[];
 export function difference<T>(a: T[]): (b: T[]) => T[];
 
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+  list2: T2[],
+): T1[];
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+): (list1: T1[], list2: T2[]) => T1[];
+export function differenceWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+
 /**
  * It returns a new object that does not contain property `prop`.
  */
