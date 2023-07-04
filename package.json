@@ -4,7 +4,7 @@
 	"scripts": {
 		"publish:experimental": "node files/publish",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
-		"populatedocs:x": "cd ../rambda-scripts && populate:docs:rambdax",
+		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
 		"populatereadme:x": "cd ../rambda-scripts && yarn populate:readme:rambdax",
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
