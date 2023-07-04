@@ -495,10 +495,10 @@ export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
  * When iterable is a string, then it behaves as `String.prototype.endsWith`.
  * When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
  */
-export function endsWith(target: string, iterable: string): boolean;
-export function endsWith(target: string): (iterable: string) => boolean;
-export function endsWith<T>(target: T[], list: T[]): boolean;
-export function endsWith<T>(target: T[]): (list: T[]) => boolean;
+export function endsWith<T extends string>(question: T, str: string): boolean;
+export function endsWith<T extends string>(question: T): (str: string) => boolean;
+export function endsWith<T>(question: T[], list: T[]): boolean;
+export function endsWith<T>(question: T[]): (list: T[]) => boolean;
 
 /**
  * It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
@@ -622,7 +622,7 @@ export function hasPath<T>(
  */
 export function head(input: string): string;
 export function head(emptyList: []): undefined;
-export function head<T>(input: T[]): T | undefined;
+export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -659,8 +659,8 @@ export function inc(x: number): number;
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes(valueToFind: string, input: string[] | string): boolean;
-export function includes(valueToFind: string): (input: string[] | string) => boolean;
+export function includes<T extends string>(valueToFind: T, input: string): boolean;
+export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
 export function includes<T>(valueToFind: T, input: T[]): boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
@@ -747,9 +747,9 @@ export function keys<T>(x: T): string[];
 /**
  * It returns the last element of `input`, as the `input` can be either a string or an array.
  */
-export function last(str: string): string;
+export function last(input: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -951,11 +951,6 @@ export function negate(x: number): number;
  */
 export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
-
-/**
- * It returns `undefined`.
- */
-export function nop(): void;
 
 /**
  * It returns a boolean negated version of `input`.
@@ -1251,11 +1246,11 @@ export function prop<P extends keyof never, T>(propToFind: P): {
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
-export function propEq<K extends string | number>(propToFind: K): {
-  (valueToMatch: any, obj: Record<K, any>): boolean;
-  (valueToMatch: any): (obj: Record<K, any>) => boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
+export function propEq(valueToMatch: any): {
+  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
+  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
 };
 
 /**
@@ -1318,9 +1313,9 @@ export function repeat<T>(x: T, timesToRepeat: number): T[];
 /**
  * It replaces `strOrRegex` found in `str` with `replacer`.
  */
-export function replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
-export function replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
-export function replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+export function replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 
 /**
  * It returns a reversed copy of list or string `input`.
@@ -1397,10 +1392,10 @@ export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[]
  * When iterable is a string, then it behaves as `String.prototype.startsWith`.
  * When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
  */
-export function startsWith(target: string, str: string): boolean;
-export function startsWith(target: string): (str: string) => boolean;
-export function startsWith<T>(target: T[], list: T[]): boolean;
-export function startsWith<T>(target: T[]): (list: T[]) => boolean;
+export function startsWith<T extends string>(question: T, input: string): boolean;
+export function startsWith<T extends string>(question: T): (input: string) => boolean;
+export function startsWith<T>(question: T[], input: T[]): boolean;
+export function startsWith<T>(question: T[]): (input: T[]) => boolean;
 
 /**
  * Curried version of `x - y`

@@ -2,13 +2,13 @@
 	"name": "rambda",
 	"version": "7.5.0",
 	"scripts": {
-		"publishx": "node files/publish",
+		"publish:experimental": "node files/publish",
+		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
+		"populatedocs:x": "cd ../rambda-scripts && populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
 		"populatereadme:x": "cd ../rambda-scripts && yarn populate:readme:rambdax",
-		"out": "yarn populatereadme && yarn immutable && yarn build",
-		"pull": "cd ../rambda-scripts && git pull",
-		"outx": "yarn pull && yarn out",
-		"x": "yarn populatereadme:x && yarn immutable:x",
+		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
+		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x",
 		"github": "cd ../rambda-scripts && yarn github",
 		"fix-docsify": "cd ../rambda-scripts && yarn fix-docsify:rambda",
 		"immutable": "cd ../rambda-scripts && yarn immutable:rambda",
@@ -33,8 +33,7 @@
 		"benchmark:check": "yarn build:step && METHOD=compose yarn benchmark:check:apply",
 		"benchmark:check:apply": "cd ../rambda-scripts && yarn check-benchmark",
 		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
-		"d:rambda-scripts": "cd ../rambda-scripts && run d",
-		"d": "yarn out && yarn lint && yarn d:rambda-scripts && run d"
+		"d": "yarn out && yarn lint && run d"
 	},
 	"dependencies": {},
 	"devDependencies": {
