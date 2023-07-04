@@ -2,18 +2,22 @@ import { replace } from './replace.js'
 
 test('happy', () => {
   expect(replace(
-    'foo', 'yes', 'foo bar baz'
-  )).toBe('yes bar baz')
+    /\s/g, '|', 'foo bar baz'
+  )).toBe('foo|bar|baz')
 })
 
-test('1', () => {
-  expect(replace(/\s/g)('|')('foo bar baz')).toBe('foo|bar|baz')
-})
+test('with function as replacer input', () => {
+  expect(replace(
+    /\s/g,
+    (
+      match, offset, str
+    ) => {
+      expect(match).toBe(' ')
+      expect([ 3, 7 ].includes(offset)).toBeTrue()
+      expect(str).toBe('foo bar baz')
 
-test('2', () => {
-  expect(replace(/\s/g)('|', 'foo bar baz')).toBe('foo|bar|baz')
-})
-
-test('3', () => {
-  expect(replace(/\s/g, '|')('foo bar baz')).toBe('foo|bar|baz')
+      return '|'
+    },
+    'foo bar baz'
+  )).toBe('foo|bar|baz')
 })

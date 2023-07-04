@@ -1,6 +1,23 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer";
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-// used in R.reduce to stop the loop
+
+type LastArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [infer _, ...infer Tail]
+			? LastArrayElement<Tail>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+type FirstArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [...infer Head, infer _]
+			? FirstArrayElement<Head>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -39,8 +56,7 @@ type Pred = (...x: any[]) => boolean;
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
 
-type Evolvable<E extends Evolver> = {   [P in keyof E]?: Evolved<E[P]>;
-};
+type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
 type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };
@@ -185,7 +201,7 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 Example:
 
 ```
-R.adjust(
+const result = R.adjust(
   0,
   a => a + 1,
   [0, 100]
@@ -1037,10 +1053,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith<T extends string>(target: T, str: string): str is `${string}${T}`;
-export function endsWith<T extends string>(target: T): (str: string) => str is `${string}${T}`;
-export function endsWith<T>(target: T[], list: T[]): boolean;
-export function endsWith<T>(target: T[]): (list: T[]) => boolean;
+export function endsWith<T extends string>(question: T, str: string): boolean;
+export function endsWith<T extends string>(question: T): (str: string) => boolean;
+export function endsWith<T>(question: T[], list: T[]): boolean;
+export function endsWith<T>(question: T[]): (list: T[]) => boolean;
 
 /*
 Method: equals
@@ -1460,7 +1476,7 @@ Notes:
 // @SINGLE_MARKER
 export function head(input: string): string;
 export function head(emptyList: []): undefined;
-export function head<T>(input: T[]): T | undefined;
+export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /*
 Method: identical
@@ -1586,8 +1602,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes<T extends string>(valueToFind: T, input: string): input is `${string}${T}${string}`;
-export function includes<T extends string>(valueToFind: T): (input: string) => input is `${string}${T}${string}`;
+export function includes<T extends string>(valueToFind: T, input: string): boolean;
+export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
 export function includes<T>(valueToFind: T, input: T[]): boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
@@ -1865,9 +1881,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last(str: string): string;
+export function last(input: string): string;
 export function last(emptyList: []): undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /*
 Method: lastIndexOf
@@ -2598,26 +2614,6 @@ export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
-Method: nop
-
-Explanation: It returns `undefined`.
-
-Example:
-
-```
-const result = R.nop()
-// => undefined
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function nop(): void;
-
-/*
 Method: not
 
 Explanation: It returns a boolean negated version of `input`.
@@ -3320,11 +3316,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
-export function propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
-export function propEq<K extends string | number>(propToFind: K): {
-  (valueToMatch: any, obj: Record<K, any>): boolean;
-  (valueToMatch: any): (obj: Record<K, any>) => boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
+export function propEq(valueToMatch: any): {
+  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
+  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
 };
 
 /*
@@ -3751,10 +3747,10 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function startsWith<T extends string>(target: T, str: string): str is `${T}${string}`;
-export function startsWith<T extends string>(target: T): (str: string) => str is `${T}${string}`;
-export function startsWith<T>(target: T[], list: T[]): boolean;
-export function startsWith<T>(target: T[]): (list: T[]) => boolean;
+export function startsWith<T extends string>(question: T, input: string): boolean;
+export function startsWith<T extends string>(question: T): (input: string) => boolean;
+export function startsWith<T>(question: T[], input: T[]): boolean;
+export function startsWith<T>(question: T[]): (input: T[]) => boolean;
 
 /*
 Method: subtract
@@ -5097,7 +5093,7 @@ const obj = {
   a: 1,
   b: [2, 3],
 }
-const result = unwind('b', Record<string, unknown>)
+const result = R.unwind('b', obj)
 const expected = [{a:1, b:2}, {a:1, b:3}]
 // => `result` is equal to `expected`
 ```
@@ -7449,6 +7445,24 @@ export function partialCurry<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
+
+/*
+Method: noop
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function noop(): void;
 
 // RAMBDAX_MARKER_END
 // ============================================

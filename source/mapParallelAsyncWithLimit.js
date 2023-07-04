@@ -29,7 +29,8 @@ export function mapParallelAsyncWithLimit(
   return new Promise((resolve, reject) => {
     mapParallelAsyncWithLimitFn(
       iterable, limit, list
-    ).then(resolve)
+    )
+      .then(resolve)
       .catch(reject)
   })
 }

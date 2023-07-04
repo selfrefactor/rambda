@@ -214,7 +214,7 @@ export function compareToRamda(
     if (ramdaError.ok){
       return {
         ...toReturn,
-        ok    : false,
+        ok : false,
         label :
           ramdaError.type === error.type ?
             ERRORS_MESSAGE_MISMATCH :
@@ -331,3 +331,8 @@ export const EXTRA_BUILD_IN_OBJECTS = [
   demoBigInt,
   demoSymbol,
 ]
+
+export const FOO = 'FOO'
+export const BAR = 'BAR'
+export const BAZ = 'BAZ'
+export const FOOBAR = 'FOOBAR'

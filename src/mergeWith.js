@@ -1,8 +1,10 @@
 import { curry } from './curry.js'
 
 function mergeWithFn(
-  mergeFn, a, b
+  mergeFn, aInput, bInput
 ){
+  const a = aInput ?? {}
+  const b = bInput ?? {}
   const willReturn = {}
 
   Object.keys(a).forEach(key => {

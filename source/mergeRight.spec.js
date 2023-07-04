@@ -34,3 +34,27 @@ test('with function inside object', () => {
   const result = mergeRight({ a : 1 }, { b : () => 1 })
   expect(typeof result.b).toBe('function')
 })
+
+describe('acts as if nil values are simply empty objects', () => {
+  const a = {
+    w : 1,
+    x : 2,
+  }
+  const b = {
+    w : 100,
+    y : 3,
+    z : 4,
+  }
+
+  it('if the first object is nil', () => {
+    expect(mergeRight(null, b)).toEqual(b)
+  })
+
+  it('if the second object is nil', () => {
+    expect(mergeRight(a, undefined)).toEqual(a)
+  })
+
+  it('if both objects are nil', () => {
+    expect(mergeRight(null, undefined)).toEqual({})
+  })
+})

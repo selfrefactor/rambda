@@ -61,12 +61,6 @@ R.add(1)('foo') // => will trigger warning in VSCode
 Ramda.add(1)('foo') // => will not trigger warning in VSCode
 ```
 
-### Smaller size
-
-The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
-
-<!-- ### Tree-shaking -->
-
 ### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
@@ -102,11 +96,12 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 76 Ramda methods not implemented in Rambda 
+  Click to see the full list of 80 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
 - addIndex
+- addIndexRight
 - ap
 - aperture
 - applyTo
@@ -121,6 +116,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
+- dropRepeatsBy
 - empty
 - eqBy
 - forEachObjIndexed
@@ -134,6 +130,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - invert
 - invertObj
 - invoker
+- isNotNil
 - keysIn
 - lift
 - liftN
@@ -166,6 +163,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - splitWhenever
+- swap
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
@@ -239,7 +237,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.28.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.0).
 
 </summary>
 
@@ -314,6 +312,8 @@ method | Rambda | Ramda | Lodash
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
 
 ## ❯ Used by
+
+- [ESLint plugin Mocha](https://www.npmjs.com/package/eslint-plugin-mocha)
 
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
@@ -13450,7 +13450,7 @@ describe('R.repeat', () => {
 
 ```typescript
 
-replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string
+replace(strOrRegex: RegExp | string, replacer: string, str: string): string
 ```
 
 It replaces `strOrRegex` found in `str` with `replacer`.
@@ -13469,9 +13469,9 @@ const result = R.replace(strOrRegex, '|0|', 'foo')
 <summary>All Typescript definitions</summary>
 
 ```typescript
-replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
-replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
-replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
+replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
+replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
+replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
 ```
 
 </details>
@@ -18330,6 +18330,26 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.0.0
+
+- handle falsy values in merge methods - https://github.com/ramda/ramda/pull/3222
+
+- `R.head`/`R.last` don't return `undefined` for non-empty arrays
+
+- `R.type` supports dates in TS definition - `Rambda` already did support dates in JS.
+
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
+
+- Handle list as falsy value in `R.reduce` - [Ramda MR](https://github.com/ramda/ramda/pull/2997/files)
+
+- `R.nop` is removed - it will be moved to `Rambdax` as `R.noop`
+
+- `R.includes` is no longer using string literal in Typescript definitions
+
+> Reason for breaking change - synchronize with Ramda `0.29.0` release:
+
+- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
 
 7.5.0
 

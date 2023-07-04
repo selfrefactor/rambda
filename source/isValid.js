@@ -79,7 +79,7 @@ function getRuleAndType(schema, requirementRaw){
   const { rule, parsed } = fromPrototypeToString(ruleRaw)
 
   return {
-    rule     : rule,
+    rule,
     ruleType : parsed ? 'String' : typeIs,
   }
 }

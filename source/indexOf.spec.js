@@ -8,13 +8,13 @@ test('with NaN', () => {
 })
 
 test('will throw with bad input', () => {
-  expect(indexOfRamda([], true)).toEqual(-1)
+  expect(indexOfRamda([], true)).toBe(-1)
   expect(() => indexOf([], true)).toThrow()
 })
 
 test('without list of objects - no R.equals', () => {
   expect(indexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
-  expect(indexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
+  expect(indexOf(10)([ 1, 2, 3, 4 ])).toBe(-1)
 })
 
 test('list of objects uses R.equals', () => {

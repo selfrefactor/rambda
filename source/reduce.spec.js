@@ -1,3 +1,5 @@
+import { add } from './add.js'
+import { concat } from './concat.js'
 import { reduce, reduceStopper } from './reduce.js'
 
 const reducer = (
@@ -29,7 +31,7 @@ test('with object as iterable', () => {
 
 test('with undefined as iterable', () => {
   expect(() => reduce(
-    reducer, 0, null
+    reducer, 0, {}
   )).toThrowWithMessage(TypeError, ERROR)
 })
 
@@ -46,4 +48,22 @@ test('with reduceStopper', () => {
     reducer, initialValue, list
   )).toBe(2)
   expect(maxIndex).toBe(1)
+})
+
+test('returns the accumulator for a null list', () => {
+  expect(reduce(
+    add, 0, null
+  )).toBe(0)
+  expect(reduce(
+    concat, [], null
+  )).toEqual([])
+})
+
+test('returns the accumulator for an undefined list', () => {
+  expect(reduce(
+    add, 0, undefined
+  )).toBe(0)
+  expect(reduce(
+    concat, [], undefined
+  )).toEqual([])
 })

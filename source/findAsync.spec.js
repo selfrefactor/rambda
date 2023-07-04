@@ -8,7 +8,7 @@ test('happy', async () => {
     expect(typeof i).toBe('number')
 
     return propEq(
-      'a', 2, x
+      2, 'a', x
     )
   }
   await expect(findAsync(fn, list)).resolves.toEqual({ a : 2 })
@@ -17,7 +17,7 @@ test('happy', async () => {
 })
 
 test('with error', async () => {
-  const fn = async (x, i) => x.a.b.c === 1
+  const fn = async x => x.a.b.c === 1
 
   try {
     await findAsync(fn, list)

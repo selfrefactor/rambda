@@ -1,39 +1,27 @@
 import {endsWith} from 'rambda'
 
-describe('R.endsWith - array as iterable', () => {
+describe('R.endsWith - array', () => {
   const target = [{a: 2}]
-  const iterable = [{a: 1}, {a: 2}]
+  const input = [{a: 1}, {a: 2}]
   it('happy', () => {
-    const result = endsWith(target, iterable)
-
+    const result = endsWith(target, input)
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = endsWith(target)(iterable)
-
+    const result = endsWith(target)(input)
     result // $ExpectType boolean
   })
 })
 
-describe('R.endsWith - string as iterable', () => {
+describe('R.endsWith - string', () => {
   const target = 'bar'
-  const iterable = 'foo bar' as 'foo bar' | 'happy' | 'happy-2'
+  const input = 'foo bar'
   it('happy', () => {
-    const result = endsWith(target, iterable)
-
-    if (result) {
-      iterable // $ExpectType "foo bar"
-    }
-    
-    result; // $ExpectType boolean
+    const result = endsWith(target, input)
+    result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = endsWith(target)(iterable)
-
-    if (result) {
-      iterable // $ExpectType "foo bar"
-    }
-
-    result; // $ExpectType boolean
+    const result = endsWith(target)(input)
+    result // $ExpectType boolean
   })
 })

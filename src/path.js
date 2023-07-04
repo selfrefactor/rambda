@@ -1,11 +1,6 @@
 import { createPath } from './_internals/createPath.js'
 
-export function path(pathInput, obj){
-  if (arguments.length === 1) return _obj => path(pathInput, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
+export function pathFn(pathInput, obj){
   let willReturn = obj
   let counter = 0
 
@@ -22,4 +17,14 @@ export function path(pathInput, obj){
   }
 
   return willReturn
+}
+
+export function path(pathInput, obj){
+  if (arguments.length === 1) return _obj => path(pathInput, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+
+  return pathFn(pathInput, obj)
 }

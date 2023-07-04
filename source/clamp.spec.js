@@ -15,7 +15,7 @@ test('rambda specs', () => {
   )).toBe(3)
   expect(clamp(
     -15, 3, -100
-  )).toEqual(-15)
+  )).toBe(-15)
   expect(clamp(
     1, 10, 20
   )).toBe(10)

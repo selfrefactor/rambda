@@ -1,11 +1,13 @@
+import { BAR, FOO } from './_internals/testUtils.js'
 import { propEq } from './propEq.js'
 
 test('happy', () => {
-  expect(propEq('foo', 'bar')({ foo : 'bar' })).toBeTrue()
-  expect(propEq('foo', 'bar')({ foo : 'baz' })).toBeFalse()
-  expect(propEq('foo')('bar')({ foo : 'baz' })).toBeFalse()
+  const obj = { [ FOO ] : BAR }
+  expect(propEq(BAR, FOO)(obj)).toBeTrue()
+  expect(propEq(1, FOO)(obj)).toBeFalse()
+  expect(propEq(1)(FOO)(obj)).toBeFalse()
   expect(propEq(
-    'foo', 'bar', null
+    1, 1, null
   )).toBeFalse()
 })
 
