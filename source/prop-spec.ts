@@ -1,43 +1,27 @@
-import {pipe, prop} from 'rambda'
+import {prop} from 'rambda'
 
 describe('R.prop', () => {
-  const obj = {a: 1, b: 'foo'}
-  interface Something {
-    a?: number,
-    b?: string,
+  interface Foo {
+    a: number,
+    b: string,
+    c?: number,
   }
+  const obj: Foo = {a: 1, b: 'foo'}
 
   it('issue #553', () => {
-    const result = prop('e', {e: 'test1', d: 'test2'})
-    const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
+    const result = {
+      a: prop('a', obj),
+      b: prop('b', obj),
+      c: prop('c', obj),
+    }
+    const curriedResult = {
+      a: prop('a')(obj),
+      b: prop('b')(obj),
+      c: prop('c')(obj),
+    }
 
-    result // $ExpectType string
-    curriedResult // $ExpectType string
-  })
-  it('happy', () => {
-    const result = prop('a', obj)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = prop('b')(obj)
-
-    result // $ExpectType string
-  })
-  it('curried with explicit object type', () => {
-    const result = prop<'a', Something>('a')(obj)
-
-    result // $ExpectType number | undefined
-  })
-  it('curried with implicit object type', () => {
-    const result = pipe(value => value as Something, prop('b'))(obj)
-
-    result // $ExpectType string | undefined
-  })
-  it('curried with explicit result type', () => {
-    const result = prop<'b', string>('b')(obj)
-
-    result // $ExpectType string
+    result // $ExpectType { a: number; b: string; c: number | undefined; }
+    curriedResult // $ExpectType { a: number; b: string; c: number | undefined; }
   })
 })
 

@@ -1,17 +1,23 @@
 8.0.0
 
-Synchronize with Ramda `0.29.0` release:
-
-- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
+- handle falsy values in merge methods - https://github.com/ramda/ramda/pull/3222
 
 - `R.head`/`R.last` don't return `undefined` for non-empty arrays
 
-- `R.type` supports dates in TS definition.
-> it already did support dates in JS
+- `R.type` supports dates in TS definition - `Rambda` already did support dates in JS.
 
 - Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
 
 - Handle list as falsy value in `R.reduce` - [Ramda MR](https://github.com/ramda/ramda/pull/2997/files)
+
+- `R.nop` is removed - it will be moved to `Rambdax` as `R.noop`
+
+- `R.includes` is no longer using string literal in Typescript definitions
+
+> Reason for breaking change - synchronize with Ramda `0.29.0` release:
+
+- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
+
 
 7.5.0
 

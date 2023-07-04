@@ -1410,7 +1410,9 @@ function mergeLeft(x, y) {
   return mergeRight(y, x);
 }
 
-function mergeWithFn(mergeFn, a, b) {
+function mergeWithFn(mergeFn, aInput, bInput) {
+  const a = aInput !== null && aInput !== void 0 ? aInput : {};
+  const b = bInput !== null && bInput !== void 0 ? bInput : {};
   const willReturn = {};
   Object.keys(a).forEach(key => {
     if (b[key] === undefined) {
