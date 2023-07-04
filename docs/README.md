@@ -61,12 +61,6 @@ R.add(1)('foo') // => will trigger warning in VSCode
 Ramda.add(1)('foo') // => will not trigger warning in VSCode
 ```
 
-### Smaller size
-
-The size of a library affects not only the build bundle size but also the dev bundle size and build time. This is important advantage, expecially for big projects.
-
-<!-- ### Tree-shaking -->
-
 ### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
 
 Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
@@ -102,11 +96,12 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 77 Ramda methods not implemented in Rambda 
+  Click to see the full list of 80 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
 - addIndex
+- addIndexRight
 - ap
 - aperture
 - applyTo
@@ -121,6 +116,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - descend
 - differenceWith
 - dissocPath
+- dropRepeatsBy
 - empty
 - eqBy
 - forEachObjIndexed
@@ -134,6 +130,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - invert
 - invertObj
 - invoker
+- isNotNil
 - keysIn
 - lift
 - liftN
@@ -166,6 +163,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - splitWhenever
+- swap
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
@@ -175,7 +173,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - uncurryN
 - unfold
 - unionWith
-- unnest
 - until
 - useWith
 - valuesIn
@@ -240,7 +237,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.28.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.0).
 
 </summary>
 
@@ -316,6 +313,8 @@ method | Rambda | Ramda | Lodash
 
 ## ❯ Used by
 
+- [ESLint plugin Mocha](https://www.npmjs.com/package/eslint-plugin-mocha)
+
 - [WatermelonDB](https://github.com/Nozbe/WatermelonDB)
 
 - [Walmart Canada](https://www.walmart.ca) reported by [w-b-dev](https://github.com/w-b-dev) 
@@ -351,7 +350,7 @@ adjust<T>(index: number, replaceFn: (x: T) => T, list: T[]): T[]
 
 It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0Aconst%20result%20%3D%20)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try this <strong>R.adjust</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.adjust(%0A%20%200%2C%0A%20%20a%20%3D%3E%20a%20%2B%201%2C%0A%20%20%5B0%2C%20100%5D%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%20100%5D">Try this <strong>R.adjust</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -1093,7 +1092,7 @@ test('applies function to argument list', () => {
 
 test('provides no way to specify context', () => {
   const obj = {
-    method : function (){
+    method (){
       return this === obj
     },
   }
@@ -1684,6 +1683,22 @@ test('string can be used as path input', () => {
   expect(result).toEqual(expected)
 })
 
+test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
+  const obj = { a : 'str' }
+  const result = assocPath(
+    [ 'a', 'b' ], 42, obj
+  )
+
+  expect(result).toEqual({
+    a : {
+      0 : 's',
+      1 : 't',
+      2 : 'r',
+      b : 42,
+    },
+  })
+})
+
 test('bug', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
@@ -2190,7 +2205,7 @@ chain<T, U>(fn: (n: T) => U[], list: T[]): U[]
 
 The method is also known as `flatMap`.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20duplicate%20%3D%20n%20%3D%3E%20%5B%20n%2C%20n%20%5D%0Aconst%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0A%0Aconst%20result%20%3D%20R.chain%28duplicate%2C%20list%29%0A%2F%2F%20%3D%3E%20%5B%201%2C%201%2C%202%2C%202%2C%203%2C%203%20%5D">Try this <strong>R.chain</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20duplicate%20%3D%20n%20%3D%3E%20%5B%20n%2C%20n%20%5D%0Aconst%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0A%0Aconst%20result%20%3D%20chain(duplicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%201%2C%201%2C%202%2C%202%2C%203%2C%203%20%5D">Try this <strong>R.chain</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2623,7 +2638,7 @@ It returns the uniq set of all elements in the first list `a` not contained in t
 
 `R.equals` is used to determine equality.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.vercel.app/?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference%28a%2C%20b%29%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D)">Try this <strong>R.difference</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -3258,7 +3273,7 @@ describe('R.either', () => {
 
 ```typescript
 
-endsWith(target: string, iterable: string): boolean
+endsWith<T extends string>(question: T, str: string): boolean
 ```
 
 When iterable is a string, then it behaves as `String.prototype.endsWith`.
@@ -3271,10 +3286,10 @@ When iterable is a list, then it uses R.equals to determine if the target list e
 <summary>All Typescript definitions</summary>
 
 ```typescript
-endsWith(target: string, iterable: string): boolean;
-endsWith(target: string): (iterable: string) => boolean;
-endsWith<T>(target: T[], list: T[]): boolean;
-endsWith<T>(target: T[]): (list: T[]) => boolean;
+endsWith<T extends string>(question: T, str: string): boolean;
+endsWith<T extends string>(question: T): (str: string) => boolean;
+endsWith<T>(question: T[], list: T[]): boolean;
+endsWith<T>(question: T[]): (list: T[]) => boolean;
 ```
 
 </details>
@@ -3384,32 +3399,28 @@ describe('brute force', () => {
 ```typescript
 import {endsWith} from 'rambda'
 
-describe('R.endsWith - array as iterable', () => {
+describe('R.endsWith - array', () => {
   const target = [{a: 2}]
-  const iterable = [{a: 1}, {a: 2}]
+  const input = [{a: 1}, {a: 2}]
   it('happy', () => {
-    const result = endsWith(target, iterable)
-
+    const result = endsWith(target, input)
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = endsWith(target)(iterable)
-
+    const result = endsWith(target)(input)
     result // $ExpectType boolean
   })
 })
 
-describe('R.endsWith - string as iterable', () => {
+describe('R.endsWith - string', () => {
   const target = 'bar'
-  const iterable = 'foo bar'
+  const input = 'foo bar'
   it('happy', () => {
-    const result = endsWith(target, iterable)
-
+    const result = endsWith(target, input)
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = endsWith(target)(iterable)
-
+    const result = endsWith(target)(input)
     result // $ExpectType boolean
   })
 })
@@ -3436,7 +3447,7 @@ equals<T>(x: T, y: T): boolean
 
 It deeply compares `x` and `y` and returns `true` if they are equal.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.equals%28%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%0A%29%0Aconst%20result%20%3D%20%20%2F%2F%20%3D%3E%20true">Try this <strong>R.equals</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%0Aconst%20result%20%3D%20)%20%2F%2F%20%3D%3E%20true">Try this <strong>R.equals</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4003,7 +4014,7 @@ evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[]
 
 It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20R.add%281%29%2C%0A%20%20bar%20%3A%20R.add%28-1%29%2C%0A%7D%3B%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%3B%0A%0Aconst%20result%20%3D%20R.evolve%28rules%2C%20input%29%3B%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D%3B%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20add(1)%2C%0A%20%20bar%20%3A%20add(-1)%2C%0A%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%0Aconst%20result%20%3D%20evolve(rules%2C%20input)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4558,12 +4569,12 @@ import { propEq } from './propEq.js'
 const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
 
 test('happy', () => {
-  const fn = propEq('a', 2)
+  const fn = propEq(2, 'a')
   expect(find(fn, list)).toEqual({ a : 2 })
 })
 
 test('with curry', () => {
-  const fn = propEq('a', 4)
+  const fn = propEq(4, 'a')
   expect(find(fn)(list)).toBeUndefined()
 })
 
@@ -4659,11 +4670,9 @@ import { propEq } from './propEq.js'
 const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
 
 test('happy', () => {
-  expect(findIndex(propEq('a', 2), list)).toBe(1)
-
-  expect(findIndex(propEq('a', 1))(list)).toBe(0)
-
-  expect(findIndex(propEq('a', 4))(list)).toEqual(-1)
+  expect(findIndex(propEq(2, 'a'), list)).toBe(1)
+  expect(findIndex(propEq(1, 'a'))(list)).toBe(0)
+  expect(findIndex(propEq(4, 'a'))(list)).toBe(-1)
 })
 ```
 
@@ -4914,7 +4923,7 @@ test('ramda 1', () => {
 })
 
 test('ramda 2', () => {
-  expect(findLastIndex(even, [ 'zing' ])).toEqual(-1)
+  expect(findLastIndex(even, [ 'zing' ])).toBe(-1)
 })
 
 test('ramda 3', () => {
@@ -4922,7 +4931,7 @@ test('ramda 3', () => {
 })
 
 test('ramda 4', () => {
-  expect(findLastIndex(even, [])).toEqual(-1)
+  expect(findLastIndex(even, [])).toBe(-1)
 })
 ```
 
@@ -5475,7 +5484,7 @@ It returns the first element of list or string `input`.
 ```typescript
 head(input: string): string;
 head(emptyList: []): undefined;
-head<T>(input: T[]): T | undefined;
+head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 ```
 
 </details>
@@ -5516,6 +5525,7 @@ test('head', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {head} from 'rambda'
 
 describe('R.head', () => {
@@ -5523,12 +5533,18 @@ describe('R.head', () => {
     const result = head('foo')
     result // $ExpectType string
   })
-
   it('array', () => {
     const result = head([1, 2, 3])
-    result // $ExpectType number | undefined
+    result // $ExpectType number
   })
-
+  it('mixed', () => {
+    const result = head(mixedList)
+    result // $ExpectType string | number
+  })
+  it('mixed const', () => {
+    const result = head(mixedListConst)
+    result // $ExpectType 1
+  })
   it('empty array - case 1', () => {
     const result = head([])
     result // $ExpectType undefined
@@ -5536,7 +5552,7 @@ describe('R.head', () => {
   it('empty array - case 2', () => {
     const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
     const result = head(list)
-    result // $ExpectType string | undefined
+    result // $ExpectType string
   })
 })
 ```
@@ -5847,7 +5863,7 @@ It increments a number.
 
 ```typescript
 
-includes(valueToFind: string, input: string[] | string): boolean
+includes<T extends string>(valueToFind: T, input: string): boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -5861,8 +5877,8 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
 <summary>All Typescript definitions</summary>
 
 ```typescript
-includes(valueToFind: string, input: string[] | string): boolean;
-includes(valueToFind: string): (input: string[] | string) => boolean;
+includes<T extends string>(valueToFind: T, input: string): boolean;
+includes<T extends string>(valueToFind: T): (input: string) => boolean;
 includes<T>(valueToFind: T, input: T[]): boolean;
 includes<T>(valueToFind: T): (input: T[]) => boolean;
 ```
@@ -5970,10 +5986,13 @@ describe('R.includes', () => {
   it('happy', () => {
     const result = includes({a: {b: '1'}}, list)
     result // $ExpectType boolean
+    const result2 = includes('oo', ['f', 'oo'])
+    result2 // $ExpectType boolean
   })
   it('with string', () => {
-    const result = includes('oo', 'foo')
-    const curriedResult = includes('oo')('foo')
+    const str = 'foo' as 'foo' | 'bar'
+    const result = includes('oo', str)
+    const curriedResult = includes('oo')(str)
 
     result // $ExpectType boolean
     curriedResult // $ExpectType boolean
@@ -6497,7 +6516,7 @@ describe('R.keys', () => {
 
 ```typescript
 
-last(str: string): string
+last(input: string): string
 ```
 
 It returns the last element of `input`, as the `input` can be either a string or an array.
@@ -6509,9 +6528,9 @@ It returns the last element of `input`, as the `input` can be either a string or
 <summary>All Typescript definitions</summary>
 
 ```typescript
-last(str: string): string;
+last(input: string): string;
 last(emptyList: []): undefined;
-last<T extends any>(list: T[]): T | undefined;
+last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 ```
 
 </details>
@@ -6557,6 +6576,7 @@ test('with string', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {last} from 'rambda'
 
 describe('R.last', () => {
@@ -6564,12 +6584,18 @@ describe('R.last', () => {
     const result = last('foo')
     result // $ExpectType string
   })
-
   it('array', () => {
     const result = last([1, 2, 3])
-    result // $ExpectType number | undefined
+    result // $ExpectType number
   })
-
+  it('mixed', () => {
+    const result = last(mixedList)
+    result // $ExpectType string | number
+  })
+  it('mixed const', () => {
+    const result = last(mixedListConst)
+    result // $ExpectType "bar"
+  })
   it('empty array - case 1', () => {
     const result = last([])
     result // $ExpectType undefined
@@ -6577,7 +6603,7 @@ describe('R.last', () => {
   it('empty array - case 2', () => {
     const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
     const result = last(list)
-    result // $ExpectType string | undefined
+    result // $ExpectType string
   })
 })
 ```
@@ -6646,13 +6672,13 @@ test('with NaN', () => {
 })
 
 test('will throw with bad input', () => {
-  expect(lastIndexOfRamda([], true)).toEqual(-1)
+  expect(lastIndexOfRamda([], true)).toBe(-1)
   expect(() => indexOf([], true)).toThrowErrorMatchingInlineSnapshot('"indexOf is not defined"')
 })
 
 test('without list of objects - no R.equals', () => {
   expect(lastIndexOf(3, [ 1, 2, 3, 4 ])).toBe(2)
-  expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toEqual(-1)
+  expect(lastIndexOf(10)([ 1, 2, 3, 4 ])).toBe(-1)
 })
 
 test('list of objects uses R.equals', () => {
@@ -7638,7 +7664,7 @@ mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<
 
 It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20%28val%2C%20prop%29%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObjIndexed%28fn%2C%20obj%29%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%27a-1%27%2C%20b%3A%20%27b-2%27%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(mapObjIndexed%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8054,6 +8080,29 @@ test('case 2', () => {
     baz : 3,
   })
 })
+
+describe('acts as if nil values are simply empty objects', () => {
+  it('if the first object is nil', () => {
+    expect(mergeAll([ null, { foo : 1 }, { foo : 2 }, { bar : 2 } ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+
+  it('if the last object is nil', () => {
+    expect(mergeAll([ { foo : 1 }, { foo : 2 }, { bar : 2 }, undefined ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+
+  it('if an intermediate object is nil', () => {
+    expect(mergeAll([ { foo : 1 }, { foo : 2 }, null, { bar : 2 } ])).toEqual({
+      foo : 2,
+      bar : 2,
+    })
+  })
+})
 ```
 
 </details>
@@ -8148,8 +8197,6 @@ export function mergeDeepRight(target, source){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mergeDeepRight as mergeDeepRightRamda } from 'ramda'
-
 import { mergeDeepRight } from './mergeDeepRight.js'
 
 const student = {
@@ -8165,6 +8212,23 @@ const teacher = {
   contact : { email : 'baz@example.com' },
   songs   : { title : 'Remains the same' },
 }
+
+test('when merging object with lists inside them', () => {
+  const a = {
+    a : [ 1, 2, 3 ],
+    b : [ 4, 5, 6 ],
+  }
+  const b = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  expect(result).toEqual(expected)
+})
 
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)
@@ -8390,7 +8454,7 @@ describe('R.mergeLeft', () => {
 
 ### mergeRight
 
-It creates a copy of `target` object with overidden `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
+It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.mergeRight(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try this <strong>R.mergeRight</strong> example in Rambda REPL</a>
 
@@ -8430,8 +8494,10 @@ mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 import { curry } from './curry.js'
 
 function mergeWithFn(
-  mergeFn, a, b
+  mergeFn, aInput, bInput
 ){
+  const a = aInput ?? {}
+  const b = bInput ?? {}
   const willReturn = {}
 
   Object.keys(a).forEach(key => {
@@ -8486,6 +8552,39 @@ test('happy', () => {
     b      : true,
   }
   expect(result).toEqual(expected)
+})
+
+// https://github.com/ramda/ramda/pull/3222/files#diff-d925d9188b478d2f1d4b26012c6dddac374f9e9d7a336604d654b9a113bfc857
+describe('acts as if nil values are simply empty objects', () => {
+  it('if the first object is nil and the second empty', () => {
+    expect(mergeWith(
+      concat, undefined, {}
+    )).toEqual({})
+  })
+
+  it('if the first object is empty and the second nil', () => {
+    expect(mergeWith(
+      concat, {}, null
+    )).toEqual({})
+  })
+
+  it('if both objects are nil', () => {
+    expect(mergeWith(
+      concat, undefined, null
+    )).toEqual({})
+  })
+
+  it('if the first object is not empty and the second is nil', () => {
+    expect(mergeWith(
+      concat, { a : 'a' }, null
+    )).toEqual({ a : 'a' })
+  })
+
+  it('if the first object is nil and the second is not empty', () => {
+    expect(mergeWith(
+      concat, undefined, { a : 'a' }
+    )).toEqual({ a : 'a' })
+  })
 })
 ```
 
@@ -8989,70 +9088,6 @@ describe('R.none', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#none)
-
-### nop
-
-```typescript
-
-nop(): void
-```
-
-It returns `undefined`.
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.nop()%0A%2F%2F%20%3D%3E%20undefined">Try this <strong>R.nop</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All Typescript definitions</summary>
-
-```typescript
-nop(): void;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.nop</strong> source</summary>
-
-```javascript
-export function nop(){}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { nop } from './nop.js'
-
-test('call', () => {
-  expect(nop).not.toThrow()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>Typescript</strong> test</summary>
-
-```typescript
-import {nop} from 'rambda'
-
-describe('R.nop', () => {
-  it('call', () => {
-    const result = nop()
-    result // $ExpectType void
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#nop)
 
 ### not
 
@@ -10330,6 +10365,7 @@ path<
 path<T>(pathToSearch: string, obj: any): T | undefined;
 path<T>(pathToSearch: string): (obj: any) => T | undefined;
 path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 ```
 
 </details>
@@ -10341,12 +10377,7 @@ path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 ```javascript
 import { createPath } from './_internals/createPath.js'
 
-export function path(pathInput, obj){
-  if (arguments.length === 1) return _obj => path(pathInput, _obj)
-
-  if (obj === null || obj === undefined){
-    return undefined
-  }
+export function pathFn(pathInput, obj){
   let willReturn = obj
   let counter = 0
 
@@ -10363,6 +10394,16 @@ export function path(pathInput, obj){
   }
 
   return willReturn
+}
+
+export function path(pathInput, obj){
+  if (arguments.length === 1) return _obj => path(pathInput, _obj)
+
+  if (obj === null || obj === undefined){
+    return undefined
+  }
+
+  return pathFn(pathInput, obj)
 }
 ```
 
@@ -10445,12 +10486,31 @@ describe('R.path with list as path', () => {
   test('shallow property', () => {
     // $ExpectType number
     path(['a'], {a: 1})
-    
-    path(['b'], {a: 1}) // $ExpectError
+
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
+    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
-    path(['a', 'b', 'c', 'd', 'e', 'f'], {a: {b: {c: {d: {e: {f: 1}}}}}})
+    result
+    const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+  })
+  test('issue #668 - path is not correct', () => {
+    const object = {
+      is: {
+        a: 'path',
+      },
+    }
+    const result = path(['is', 'not', 'a'], object)
+    // $ExpectType unknown
+    result
+    const curriedResult = path(['is', 'not', 'a'])(object)
+    // $ExpectType unknown
+    curriedResult
   })
 })
 ```
@@ -10885,9 +10945,9 @@ It returns a partial copy of an `input` containing only `propsToPick` properties
 
 `input` can be either an object or an array.
 
-String anotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20%27cherry%27%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20%27a%2Cfoo%27%0Aconst%20propsToPickList%20%3D%20%5B%27a%27%2C%20%27foo%27%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick%28propsToPick%2C%20obj%29%2C%0A%20%20R.pick%28propsToPickList%2C%20obj%29%2C%0A%20%20R.pick%28%27a%2Cbar%27%2C%20obj%29%2C%0A%20%20R.pick%28%27bar%27%2C%20obj%29%2C%0A%20%20R.pick%28%5B0%2C%203%2C%205%5D%2C%20list%29%2C%0A%20%20R.pick%28%270%2C3%2C5%27%2C%20list%29%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20%27cherry%27%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20%27cherry%27%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D">Try this <strong>R.pick</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11599,46 +11659,30 @@ test('prop', () => {
 <summary><strong>Typescript</strong> test</summary>
 
 ```typescript
-import {pipe, prop} from 'rambda'
+import {prop} from 'rambda'
 
 describe('R.prop', () => {
-  const obj = {a: 1, b: 'foo'}
-  interface Something {
-    a?: number,
-    b?: string,
+  interface Foo {
+    a: number,
+    b: string,
+    c?: number,
   }
+  const obj: Foo = {a: 1, b: 'foo'}
 
   it('issue #553', () => {
-    const result = prop('e', {e: 'test1', d: 'test2'})
-    const curriedResult = prop<string>('e')({e: 'test1', d: 'test2'})
+    const result = {
+      a: prop('a', obj),
+      b: prop('b', obj),
+      c: prop('c', obj),
+    }
+    const curriedResult = {
+      a: prop('a')(obj),
+      b: prop('b')(obj),
+      c: prop('c')(obj),
+    }
 
-    result // $ExpectType string
-    curriedResult // $ExpectType string
-  })
-  it('happy', () => {
-    const result = prop('a', obj)
-
-    result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = prop('b')(obj)
-
-    result // $ExpectType string
-  })
-  it('curried with explicit object type', () => {
-    const result = prop<'a', Something>('a')(obj)
-
-    result // $ExpectType number | undefined
-  })
-  it('curried with implicit object type', () => {
-    const result = pipe(value => value as Something, prop('b'))(obj)
-
-    result // $ExpectType undefined
-  })
-  it('curried with explicit result type', () => {
-    const result = prop<'b', string>('b')(obj)
-
-    result // $ExpectType string
+    result // $ExpectType { a: number; b: string; c: number | undefined; }
+    curriedResult // $ExpectType { a: number; b: string; c: number | undefined; }
   })
 })
 
@@ -11666,7 +11710,7 @@ describe('with number as prop', () => {
 
 ```typescript
 
-propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean
+propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -11678,11 +11722,11 @@ It returns true if `obj` has property `propToFind` and its value is equal to `va
 <summary>All Typescript definitions</summary>
 
 ```typescript
-propEq<K extends string | number>(propToFind: K, valueToMatch: any, obj: Record<K, any>): boolean;
-propEq<K extends string | number>(propToFind: K, valueToMatch: any): (obj: Record<K, any>) => boolean;
-propEq<K extends string | number>(propToFind: K): {
-  (valueToMatch: any, obj: Record<K, any>): boolean;
-  (valueToMatch: any): (obj: Record<K, any>) => boolean;
+propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
+propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
+propEq(valueToMatch: any): {
+  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
+  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
 };
 ```
 
@@ -11698,7 +11742,7 @@ import { equals } from './equals.js'
 import { prop } from './prop.js'
 
 function propEqFn(
-  propToFind, valueToMatch, obj
+  valueToMatch, propToFind, obj
 ){
   if (!obj) return false
 
@@ -11715,14 +11759,16 @@ export const propEq = curry(propEqFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
+import { BAR, FOO } from './_internals/testUtils.js'
 import { propEq } from './propEq.js'
 
 test('happy', () => {
-  expect(propEq('foo', 'bar')({ foo : 'bar' })).toBeTrue()
-  expect(propEq('foo', 'bar')({ foo : 'baz' })).toBeFalse()
-  expect(propEq('foo')('bar')({ foo : 'baz' })).toBeFalse()
+  const obj = { [ FOO ] : BAR }
+  expect(propEq(BAR, FOO)(obj)).toBeTrue()
+  expect(propEq(1, FOO)(obj)).toBeFalse()
+  expect(propEq(1)(FOO)(obj)).toBeFalse()
   expect(propEq(
-    'foo', 'bar', null
+    1, 1, null
   )).toBeFalse()
 })
 
@@ -11753,12 +11799,12 @@ const objWithNumberIndex = {[numberProperty]: value}
 
 describe('R.propEq', () => {
   it('happy', () => {
-    const result = propEq(property, value, obj)
+    const result = propEq(value, property, obj)
     result // $ExpectType boolean
   })
 
   it('number is property', () => {
-    const result = propEq(1, value, objWithNumberIndex)
+    const result = propEq(value, 1, objWithNumberIndex)
     result // $ExpectType boolean
   })
 
@@ -11770,10 +11816,7 @@ describe('R.propEq', () => {
     const myObject: MyType = {}
     const valueToFind = '1111'
     // @ts-expect-error
-    propEq('optional', valueToFind, myObject)
-
-    // @ts-expect-error
-    propEq('optional', valueToFind, myObject)
+    propEq(valueToFind, 'optional', myObject)
   })
 
   it('imported from @types/ramda', () => {
@@ -11784,11 +11827,11 @@ describe('R.propEq', () => {
       foo: 'bar',
     }
     const value = ''
-    const result = propEq('foo', value)(obj)
+    const result = propEq(value, 'foo')(obj)
     result // $ExpectType boolean
 
     // @ts-expect-error
-    propEq('bar', value)(obj)
+    propEq(value, 'bar')(obj)
   })
 })
 ```
@@ -12526,7 +12569,7 @@ describe('R.repeat', () => {
 
 ```typescript
 
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string
 ```
 
 It replaces `strOrRegex` found in `str` with `replacer`.
@@ -12538,9 +12581,9 @@ It replaces `strOrRegex` found in `str` with `replacer`.
 <summary>All Typescript definitions</summary>
 
 ```typescript
-replace(strOrRegex: RegExp | string, replacer: string, str: string): string;
-replace(strOrRegex: RegExp | string, replacer: string): (str: string) => string;
-replace(strOrRegex: RegExp | string): (replacer: string) => (str: string) => string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 ```
 
 </details>
@@ -12572,20 +12615,24 @@ import { replace } from './replace.js'
 
 test('happy', () => {
   expect(replace(
-    'foo', 'yes', 'foo bar baz'
-  )).toBe('yes bar baz')
+    /\s/g, '|', 'foo bar baz'
+  )).toBe('foo|bar|baz')
 })
 
-test('1', () => {
-  expect(replace(/\s/g)('|')('foo bar baz')).toBe('foo|bar|baz')
-})
+test('with function as replacer input', () => {
+  expect(replace(
+    /\s/g,
+    (
+      match, offset, str
+    ) => {
+      expect(match).toBe(' ')
+      expect([ 3, 7 ].includes(offset)).toBeTrue()
+      expect(str).toBe('foo bar baz')
 
-test('2', () => {
-  expect(replace(/\s/g)('|', 'foo bar baz')).toBe('foo|bar|baz')
-})
-
-test('3', () => {
-  expect(replace(/\s/g, '|')('foo bar baz')).toBe('foo|bar|baz')
+      return '|'
+    },
+    'foo bar baz'
+  )).toBe('foo|bar|baz')
 })
 ```
 
@@ -12612,6 +12659,16 @@ describe('R.replace', () => {
 
     result // $ExpectType string
   })
+  it('with function as replacer', () => {
+    const result = replace('f(o)o', (m: string, p1: string, offset: number) => {
+      m // $ExpectType string
+      p1 // $ExpectType string
+      offset // $ExpectType number
+      return p1
+    }, str)
+
+    result // $ExpectType string
+  })
 })
 
 describe('R.replace - curried', () => {
@@ -12622,6 +12679,16 @@ describe('R.replace - curried', () => {
   })
   it('with string as search pattern', () => {
     const result = replace('foo', replacer)(str)
+
+    result // $ExpectType string
+  })
+  it('with function as replacer', () => {
+    const result = replace('f(o)o')((m: string, p1: string, offset: number) => {
+      m // $ExpectType string
+      p1 // $ExpectType string
+      offset // $ExpectType number
+      return p1
+    })(str)
 
     result // $ExpectType string
   })
@@ -12659,10 +12726,9 @@ reverse(input: string): string;
 <summary><strong>R.reverse</strong> source</summary>
 
 ```javascript
-export function reverse(listOrString){
-  if (typeof listOrString === 'string'){
-    return listOrString.split('').reverse()
-      .join('')
+export function reverse(listOrString) {
+  if (typeof listOrString === 'string') {
+    return listOrString.split('').reverse().join('')
   }
 
   const clone = listOrString.slice()
@@ -12678,22 +12744,22 @@ export function reverse(listOrString){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { reverse } from './reverse.js'
+import {reverse} from './reverse.js'
 
 test('happy', () => {
-  expect(reverse([ 1, 2, 3 ])).toEqual([ 3, 2, 1 ])
+  expect(reverse([1, 2, 3])).toEqual([3, 2, 1])
 })
 
 test('with string', () => {
   expect(reverse('baz')).toBe('zab')
 })
 
-test('it doesn\'t mutate', () => {
-  const arr = [ 1, 2, 3 ]
+test("it doesn't mutate", () => {
+  const arr = [1, 2, 3]
 
-  expect(reverse(arr)).toEqual([ 3, 2, 1 ])
+  expect(reverse(arr)).toEqual([3, 2, 1])
 
-  expect(arr).toEqual([ 1, 2, 3 ])
+  expect(arr).toEqual([1, 2, 3])
 })
 ```
 
@@ -12748,16 +12814,12 @@ set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 <summary><strong>R.set</strong> source</summary>
 
 ```javascript
-import { always } from './always.js'
-import { curry } from './curry.js'
-import { over } from './over.js'
+import {always} from './always.js'
+import {curry} from './curry.js'
+import {over} from './over.js'
 
-function setFn(
-  lens, replacer, x
-){
-  return over(
-    lens, always(replacer), x
-  )
+function setFn(lens, replacer, x) {
+  return over(lens, always(replacer), x)
 }
 
 export const set = curry(setFn)
@@ -12770,43 +12832,39 @@ export const set = curry(setFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { assoc } from './assoc.js'
-import { lens } from './lens.js'
-import { lensIndex } from './lensIndex.js'
-import { lensPath } from './lensPath.js'
-import { prop } from './prop.js'
-import { set } from './set.js'
+import {assoc} from './assoc.js'
+import {lens} from './lens.js'
+import {lensIndex} from './lensIndex.js'
+import {lensPath} from './lensPath.js'
+import {prop} from './prop.js'
+import {set} from './set.js'
 
 const testObject = {
-  foo : 'bar',
-  baz : {
-    a : 'x',
-    b : 'y',
+  foo: 'bar',
+  baz: {
+    a: 'x',
+    b: 'y',
   },
 }
 
 test('assoc lens', () => {
   const assocLens = lens(prop('foo'), assoc('foo'))
-  const result = set(
-    assocLens, 'FOO', testObject
-  )
+  const result = set(assocLens, 'FOO', testObject)
   const expected = {
     ...testObject,
-    foo : 'FOO',
+    foo: 'FOO',
   }
   expect(result).toEqual(expected)
 })
 
 test('path lens', () => {
   const pathLens = lensPath('baz.a')
-  const result = set(
-    pathLens, 'z', testObject
-  )
+  const result = set(pathLens, 'z', testObject)
   const expected = {
     ...testObject,
-    baz : {
-      a : 'z',
-      b : 'y',
+    baz: {
+      a: 'z',
+      b: 'y',
     },
   }
   expect(result).toEqual(expected)
@@ -12815,10 +12873,8 @@ test('path lens', () => {
 test('index lens', () => {
   const indexLens = lensIndex(0)
 
-  const result = set(
-    indexLens, 3, [ 1, 2 ]
-  )
-  expect(result).toEqual([ 3, 2 ])
+  const result = set(indexLens, 3, [1, 2])
+  expect(result).toEqual([3, 2])
 })
 ```
 
@@ -13654,7 +13710,7 @@ describe('R.splitWhen', () => {
 
 ```typescript
 
-startsWith(target: string, str: string): boolean
+startsWith<T extends string>(question: T, input: string): boolean
 ```
 
 When iterable is a string, then it behaves as `String.prototype.startsWith`.
@@ -13667,10 +13723,10 @@ When iterable is a list, then it uses R.equals to determine if the target list s
 <summary>All Typescript definitions</summary>
 
 ```typescript
-startsWith(target: string, str: string): boolean;
-startsWith(target: string): (str: string) => boolean;
-startsWith<T>(target: T[], list: T[]): boolean;
-startsWith<T>(target: T[]): (list: T[]) => boolean;
+startsWith<T extends string>(question: T, input: string): boolean;
+startsWith<T extends string>(question: T): (input: string) => boolean;
+startsWith<T>(question: T[], input: T[]): boolean;
+startsWith<T>(question: T[]): (input: T[]) => boolean;
 ```
 
 </details>
@@ -13683,17 +13739,17 @@ startsWith<T>(target: T[]): (list: T[]) => boolean;
 import { isArray } from './_internals/isArray.js'
 import { equals } from './equals.js'
 
-export function startsWith(target, iterable){
+export function startsWith(question, iterable){
   if (arguments.length === 1)
-    return _iterable => startsWith(target, _iterable)
+    return _iterable => startsWith(question, _iterable)
 
   if (typeof iterable === 'string'){
-    return iterable.startsWith(target)
+    return iterable.startsWith(question)
   }
-  if (!isArray(target)) return false
+  if (!isArray(question)) return false
 
   let correct = true
-  const filtered = target.filter((x, index) => {
+  const filtered = question.filter((x, index) => {
     if (!correct) return false
     const result = equals(x, iterable[ index ])
     if (!result) correct = false
@@ -13701,7 +13757,7 @@ export function startsWith(target, iterable){
     return result
   })
 
-  return filtered.length === target.length
+  return filtered.length === question.length
 }
 ```
 
@@ -13763,32 +13819,28 @@ describe('brute force', () => {
 ```typescript
 import {startsWith} from 'rambda'
 
-describe('R.startsWith - array as iterable', () => {
-  const target = [{a: 1}]
+describe('R.startsWith - array', () => {
+  const question = [{a: 1}]
   const iterable = [{a: 1}, {a: 2}]
   it('happy', () => {
-    const result = startsWith(target, iterable)
-
+    const result = startsWith(question, iterable)
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = startsWith(target)(iterable)
-
+    const result = startsWith(question)(iterable)
     result // $ExpectType boolean
   })
 })
 
-describe('R.startsWith - string as iterable', () => {
-  const target = 'foo'
+describe('R.startsWith - string', () => {
+  const question = 'foo'
   const iterable = 'foo bar'
   it('happy', () => {
-    const result = startsWith(target, iterable)
-
+    const result = startsWith(question, iterable)
     result // $ExpectType boolean
   })
   it('curried', () => {
-    const result = startsWith(target)(iterable)
-
+    const result = startsWith(question)(iterable)
     result // $ExpectType boolean
   })
 })
@@ -14362,17 +14414,16 @@ export function takeLastWhile(predicate, input){
     return _input => takeLastWhile(predicate, _input)
   }
   if (input.length === 0) return input
-  let found = false
+
   const toReturn = []
   let counter = input.length
 
-  while (!found || counter === 0){
-    counter--
-    if (predicate(input[ counter ]) === false){
-      found = true
-    } else if (!found){
-      toReturn.push(input[ counter ])
+  while (counter){
+    const item = input[ --counter ]
+    if (!predicate(item)){
+      break
     }
+    toReturn.push(item)
   }
 
   return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
@@ -14398,13 +14449,13 @@ test('happy', () => {
 })
 
 test('predicate is always true', () => {
-  const predicate = x => x > 0
+  const predicate = () => true
   const result = takeLastWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
 test('predicate is always false', () => {
-  const predicate = x => x < 0
+  const predicate = () => false
   const result = takeLastWhile(predicate, list)
   expect(result).toEqual([])
 })
@@ -14470,7 +14521,7 @@ tap<T>(fn: (x: T) => void, input: T): T
 
 It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debuging in the middle of `R.compose`.
+One use case is debugging in the middle of `R.compose`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0AR.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.tap(console.log)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%0A)(list)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
 
@@ -15516,7 +15567,11 @@ describe('R.uniq', () => {
 
 ### uniqBy
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.uniqBy(Math.abs%2C%20%5B%20-2%2C%201%2C%200%2C%20-1%2C%202%20%5D)%0A%0A%2F%2F%20%3D%3E%20%5B-2%2C%201%2C%200%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
@@ -15792,9 +15847,13 @@ describe('R.unless - curried', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
 
+### unnest
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unnest)
+
 ### unwind
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20R.unwind%28%27b%27%2C%20obj%29%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20R.unwind('b'%2C%20obj)%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unwind)
 
@@ -16519,7 +16578,7 @@ test('with list of objects', () => {
 })
 
 test('ramda accepts string as target input while rambda throws', () => {
-  expect(withoutRamda('0:1', [ '0', '0:1' ])).toEqual([])
+  expect(withoutRamda('0:1', [ '0', '0:1' ])).toEqual([ '0:1' ])
   expect(() =>
     without('0:1', [ '0', '0:1' ])).toThrowErrorMatchingInlineSnapshot('"Cannot read property \'indexOf\' of 0:1"')
   expect(without([ '0:1' ], [ '0', '0:1' ])).toEqual([ '0' ])
@@ -17008,6 +17067,36 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.0.0
+
+- handle falsy values in merge methods - https://github.com/ramda/ramda/pull/3222
+
+- `R.head`/`R.last` don't return `undefined` for non-empty arrays
+
+- `R.type` supports dates in TS definition - `Rambda` already did support dates in JS.
+
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
+
+- Handle list as falsy value in `R.reduce` - [Ramda MR](https://github.com/ramda/ramda/pull/2997/files)
+
+- `R.nop` is removed - it will be moved to `Rambdax` as `R.noop`
+
+- `R.includes` is no longer using string literal in Typescript definitions
+
+> Reason for breaking change - synchronize with Ramda `0.29.0` release:
+
+- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
+
+7.5.0
+
+- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
+
+- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
+
+- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
+- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 7.4.0
 
