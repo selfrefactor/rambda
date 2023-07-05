@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "8.0.0",
+	"version": "8.1.0",
 	"scripts": {
 		"publish:experimental": "node files/publish",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
