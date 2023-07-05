@@ -1,3 +1,9 @@
+8.1.0
+
+- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688)
+
+- Add `R.differenceWith` method  - [Issue #91](https://github.com/selfrefactor/rambdax/issues/91)
+
 8.0.0
 
 - handle falsy values in merge methods - https://github.com/ramda/ramda/pull/3222

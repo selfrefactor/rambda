@@ -1,13 +1,15 @@
 import { curry } from './curry.js'
 import { _indexOf } from './equals.js'
 
-export function differenceWithFn(fn, a, b) {
-  let willReturn = []
-  let [first, second] = a.length > b.length ? [a, b] : [b, a]
+export function differenceWithFn(
+  fn, a, b
+){
+  const willReturn = []
+  const [ first, second ] = a.length > b.length ? [ a, b ] : [ b, a ]
 
   first.forEach(item => {
-    let hasItem = second.some(secondItem => fn(item, secondItem))
-    if (!hasItem && _indexOf(item, willReturn) === -1) {
+    const hasItem = second.some(secondItem => fn(item, secondItem))
+    if (!hasItem && _indexOf(item, willReturn) === -1){
       willReturn.push(item)
     }
   })
@@ -15,4 +17,4 @@ export function differenceWithFn(fn, a, b) {
   return willReturn
 }
 
-export let differenceWith = curry(differenceWithFn)
+export const differenceWith = curry(differenceWithFn)

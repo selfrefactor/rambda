@@ -728,17 +728,17 @@ function difference(a, b) {
 }
 
 function differenceWithFn(fn, a, b) {
-  let willReturn = [];
-  let [first, second] = a.length > b.length ? [a, b] : [b, a];
+  const willReturn = [];
+  const [first, second] = a.length > b.length ? [a, b] : [b, a];
   first.forEach(item => {
-    let hasItem = second.some(secondItem => fn(item, secondItem));
+    const hasItem = second.some(secondItem => fn(item, secondItem));
     if (!hasItem && _indexOf(item, willReturn) === -1) {
       willReturn.push(item);
     }
   });
   return willReturn;
 }
-let differenceWith = curry(differenceWithFn);
+const differenceWith = curry(differenceWithFn);
 
 function dissoc(prop, obj) {
   if (arguments.length === 1) return _obj => dissoc(prop, _obj);

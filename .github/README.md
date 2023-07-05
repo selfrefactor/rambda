@@ -2918,13 +2918,15 @@ differenceWith<T1, T2>(
 import { curry } from './curry.js'
 import { _indexOf } from './equals.js'
 
-export function differenceWithFn(fn, a, b) {
-  let willReturn = []
-  let [first, second] = a.length > b.length ? [a, b] : [b, a]
+export function differenceWithFn(
+  fn, a, b
+){
+  const willReturn = []
+  const [ first, second ] = a.length > b.length ? [ a, b ] : [ b, a ]
 
   first.forEach(item => {
-    let hasItem = second.some(secondItem => fn(item, secondItem))
-    if (!hasItem && _indexOf(item, willReturn) === -1) {
+    const hasItem = second.some(secondItem => fn(item, secondItem))
+    if (!hasItem && _indexOf(item, willReturn) === -1){
       willReturn.push(item)
     }
   })
@@ -2932,7 +2934,7 @@ export function differenceWithFn(fn, a, b) {
   return willReturn
 }
 
-export let differenceWith = curry(differenceWithFn)
+export const differenceWith = curry(differenceWithFn)
 ```
 
 </details>
@@ -2942,14 +2944,18 @@ export let differenceWith = curry(differenceWithFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { differenceWith } from './differenceWith'
+import { differenceWith } from './differenceWith.js'
 
 test('happy', () => {
-  var foo = [{a: 1}, {a: 2}, {a: 3}];
-  var bar = [{a: 3}, {a: 4}];
-  var fn = function(r, s) { return r.a === s.a; }
-  const result = differenceWith(fn, foo, bar)
-  expect(result).toEqual([{a: 1}, {a: 2}])
+  const foo = [ { a : 1 }, { a : 2 }, { a : 3 } ]
+  const bar = [ { a : 3 }, { a : 4 } ]
+  const fn = function (r, s){
+    return r.a === s.a
+  }
+  const result = differenceWith(
+    fn, foo, bar
+  )
+  expect(result).toEqual([ { a : 1 }, { a : 2 } ])
 })
 ```
 
@@ -18421,6 +18427,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.1.0
+
+- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688)
+
+- Add `R.differenceWith` method  - [Issue #91](https://github.com/selfrefactor/rambdax/issues/91)
 
 8.0.0
 
