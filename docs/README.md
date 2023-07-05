@@ -97,10 +97,12 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 <details>
 <summary>
   Click to see the full list of 80 Ramda methods not implemented in Rambda 
+  Click to see the full list of 80 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
 - addIndex
+- addIndexRight
 - addIndexRight
 - ap
 - aperture
@@ -117,6 +119,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - differenceWith
 - dissocPath
 - dropRepeatsBy
+- dropRepeatsBy
 - empty
 - eqBy
 - forEachObjIndexed
@@ -130,6 +133,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - invert
 - invertObj
 - invoker
+- isNotNil
 - isNotNil
 - keysIn
 - lift
@@ -163,6 +167,7 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - sequence
 - sortWith
 - splitWhenever
+- swap
 - swap
 - symmetricDifferenceWith
 - andThen
@@ -238,6 +243,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
 The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.0).
 
 </summary>
 
@@ -312,6 +318,8 @@ method | Rambda | Ramda | Lodash
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-benchmarks)
 
 ## ❯ Used by
+
+- [ESLint plugin Mocha](https://www.npmjs.com/package/eslint-plugin-mocha)
 
 - [ESLint plugin Mocha](https://www.npmjs.com/package/eslint-plugin-mocha)
 
@@ -2206,6 +2214,7 @@ chain<T, U>(fn: (n: T) => U[], list: T[]): U[]
 The method is also known as `flatMap`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20duplicate%20%3D%20n%20%3D%3E%20%5B%20n%2C%20n%20%5D%0Aconst%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0A%0Aconst%20result%20%3D%20chain(duplicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%201%2C%201%2C%202%2C%202%2C%203%2C%203%20%5D">Try this <strong>R.chain</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20duplicate%20%3D%20n%20%3D%3E%20%5B%20n%2C%20n%20%5D%0Aconst%20list%20%3D%20%5B%201%2C%202%2C%203%20%5D%0A%0Aconst%20result%20%3D%20chain(duplicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%201%2C%201%2C%202%2C%202%2C%203%2C%203%20%5D">Try this <strong>R.chain</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2638,6 +2647,7 @@ It returns the uniq set of all elements in the first list `a` not contained in t
 
 `R.equals` is used to determine equality.
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20a%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20b%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference(a%2C%20b)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
 
 <details>
@@ -3448,6 +3458,7 @@ equals<T>(x: T, y: T): boolean
 It deeply compares `x` and `y` and returns `true` if they are equal.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%0Aconst%20result%20%3D%20)%20%2F%2F%20%3D%3E%20true">Try this <strong>R.equals</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.equals(%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%2C%0A%20%20%5B1%2C%20%7Ba%3A2%7D%2C%20%5B%7Bb%3A%203%7D%5D%5D%0Aconst%20result%20%3D%20)%20%2F%2F%20%3D%3E%20true">Try this <strong>R.equals</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4014,6 +4025,7 @@ evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[]
 
 It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20add(1)%2C%0A%20%20bar%20%3A%20add(-1)%2C%0A%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%0Aconst%20result%20%3D%20evolve(rules%2C%20input)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20rules%20%3D%20%7B%0A%20%20foo%20%3A%20add(1)%2C%0A%20%20bar%20%3A%20add(-1)%2C%0A%7D%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%202%2C%0A%20%20bar%20%3A%203%2C%0A%7D%0Aconst%20result%20%3D%20evolve(rules%2C%20input)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%20%20%3A%201%2C%0A%20%20foo%20%3A%203%2C%0A%20%20bar%20%3A%202%2C%0A%7D)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
 
 <details>
@@ -7665,6 +7677,7 @@ mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<
 It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(mapObjIndexed%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(mapObjIndexed%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8230,6 +8243,23 @@ test('when merging object with lists inside them', () => {
   expect(result).toEqual(expected)
 })
 
+test('when merging object with lists inside them', () => {
+  const a = {
+    a : [ 1, 2, 3 ],
+    b : [ 4, 5, 6 ],
+  }
+  const b = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  const result = mergeDeepRight(a, b)
+  const expected = {
+    a : [ 7, 8, 9 ],
+    b : [ 10, 11, 12 ],
+  }
+  expect(result).toEqual(expected)
+})
+
 test('happy', () => {
   const result = mergeDeepRight(student, teacher)
   const curryResult = mergeDeepRight(student)(teacher)
@@ -8454,6 +8484,7 @@ describe('R.mergeLeft', () => {
 
 ### mergeRight
 
+It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.mergeRight(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try this <strong>R.mergeRight</strong> example in Rambda REPL</a>
@@ -10366,6 +10397,7 @@ path<T>(pathToSearch: string, obj: any): T | undefined;
 path<T>(pathToSearch: string): (obj: any) => T | undefined;
 path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
 path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
+path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 ```
 
 </details>
@@ -10489,13 +10521,35 @@ describe('R.path with list as path', () => {
 
     // $ExpectType unknown
     path(['b'], {a: 1})
+
+    // $ExpectType unknown
+    path(['b'], {a: 1})
   })
   test('deep property', () => {
+    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
     const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
     result
     const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+    result
+    const curriedResult = path(['a', 'b', 'c', 'd', 'e', 'f'])(testObject)
+    // $ExpectType unknown
+    curriedResult
+  })
+  test('issue #668 - path is not correct', () => {
+    const object = {
+      is: {
+        a: 'path',
+      },
+    }
+    const result = path(['is', 'not', 'a'], object)
+    // $ExpectType unknown
+    result
+    const curriedResult = path(['is', 'not', 'a'])(object)
     // $ExpectType unknown
     curriedResult
   })
@@ -10946,7 +11000,9 @@ It returns a partial copy of an `input` containing only `propsToPick` properties
 `input` can be either an object or an array.
 
 String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
+String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 
 <details>
@@ -14415,6 +14471,7 @@ export function takeLastWhile(predicate, input){
   }
   if (input.length === 0) return input
 
+
   const toReturn = []
   let counter = input.length
 
@@ -14422,7 +14479,12 @@ export function takeLastWhile(predicate, input){
     const item = input[ --counter ]
     if (!predicate(item)){
       break
+  while (counter){
+    const item = input[ --counter ]
+    if (!predicate(item)){
+      break
     }
+    toReturn.push(item)
     toReturn.push(item)
   }
 
@@ -14450,11 +14512,13 @@ test('happy', () => {
 
 test('predicate is always true', () => {
   const predicate = () => true
+  const predicate = () => true
   const result = takeLastWhile(predicate)(list)
   expect(result).toEqual(list)
 })
 
 test('predicate is always false', () => {
+  const predicate = () => false
   const predicate = () => false
   const result = takeLastWhile(predicate, list)
   expect(result).toEqual([])
@@ -14521,6 +14585,7 @@ tap<T>(fn: (x: T) => void, input: T): T
 
 It applies function `fn` to input `x` and returns `x`. 
 
+One use case is debugging in the middle of `R.compose`.
 One use case is debugging in the middle of `R.compose`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0AR.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.tap(console.log)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%0A)(list)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
@@ -15572,6 +15637,11 @@ It applies uniqueness to input list based on function that defines what to be us
 `R.equals` is used to determine equality.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
+
+`R.equals` is used to determine equality.
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
 
@@ -15846,6 +15916,10 @@ describe('R.unless - curried', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unless)
+
+### unnest
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unnest)
 
 ### unnest
 
@@ -17067,6 +17141,36 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.0.0
+
+- handle falsy values in merge methods - https://github.com/ramda/ramda/pull/3222
+
+- `R.head`/`R.last` don't return `undefined` for non-empty arrays
+
+- `R.type` supports dates in TS definition - `Rambda` already did support dates in JS.
+
+- Improve typings of `R.endsWith/startsWith` with regard to `string` input. - [PR #622](https://github.com/selfrefactor/rambda/pull/622)
+
+- Handle list as falsy value in `R.reduce` - [Ramda MR](https://github.com/ramda/ramda/pull/2997/files)
+
+- `R.nop` is removed - it will be moved to `Rambdax` as `R.noop`
+
+- `R.includes` is no longer using string literal in Typescript definitions
+
+> Reason for breaking change - synchronize with Ramda `0.29.0` release:
+
+- change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
+
+7.5.0
+
+- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
+
+- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
+
+- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
+
+- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
 
 8.0.0
 
