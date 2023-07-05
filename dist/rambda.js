@@ -727,6 +727,19 @@ function difference(a, b) {
   return uniq(a).filter(aInstance => !includes(aInstance, b));
 }
 
+function differenceWithFn(fn, a, b) {
+  const willReturn = [];
+  const [first, second] = a.length > b.length ? [a, b] : [b, a];
+  first.forEach(item => {
+    const hasItem = second.some(secondItem => fn(item, secondItem));
+    if (!hasItem && _indexOf(item, willReturn) === -1) {
+      willReturn.push(item);
+    }
+  });
+  return willReturn;
+}
+const differenceWith = curry(differenceWithFn);
+
 function dissoc(prop, obj) {
   if (arguments.length === 1) return _obj => dissoc(prop, _obj);
   if (obj === null || obj === undefined) return {};
@@ -2257,6 +2270,8 @@ exports.curryN = curryN;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
 exports.difference = difference;
+exports.differenceWith = differenceWith;
+exports.differenceWithFn = differenceWithFn;
 exports.dissoc = dissoc;
 exports.divide = divide;
 exports.drop = drop;
