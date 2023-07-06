@@ -18,7 +18,7 @@
 
 - `R.nop` is removed - it will be moved to `Rambdax` as `R.noop`
 
-- `R.includes` is no longer using string literal in Typescript definitions
+- `R.includes` is no longer using string literal in TypeScript definitions
 
 > Reason for breaking change - synchronize with Ramda `0.29.0` release:
 
@@ -49,7 +49,7 @@
 
 - Add `R.modify`
 
-- Allow multiple inputs in Typescript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
+- Allow multiple inputs in TypeScript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
 
 - Using wrong clone of object in `R.mergeDeepRight` - [Issue #650](https://github.com/selfrefactor/rambda/issues/650)
 
@@ -59,7 +59,7 @@
 
 7.2.1
 
-- Remove bad typings of `R.propIs` which caused the library to cannot be build with Typescript. 
+- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript. 
 
 - Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
 
@@ -93,7 +93,7 @@
 
 - Replace `Async` with `Promise` as return type of `R.type`.
 
-- Add new types as Typescript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
+- Add new types as TypeScript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
 
 - Add `R.juxt` method
 
@@ -121,7 +121,7 @@ Rambda doesn't work with `pnpm` due to wrong export configuration - [Issue #619]
 
 7.0.0
 
-- Breaking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required Typescript version to `4.2.2`. In other words, to use `Rambda` you'll need Typescript version `4.2.2` or newer.
+- Breaking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required TypeScript version to `4.2.2`. In other words, to use `Rambda` you'll need TypeScript version `4.2.2` or newer.
 
 Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
 
@@ -153,7 +153,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/TypeScript/announcing-TypeScript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
@@ -204,7 +204,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 
 6.8.3
 
-- Fix Typescript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
+- Fix TypeScript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
 
 - Add `R.objOf` method
 
@@ -224,7 +224,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 
 6.7.0
 
-- Remove `ts-toolbelt` types from Typescript definitions. Most affected are the following methods, which lose one of its curried definitions:
+- Remove `ts-toolbelt` types from TypeScript definitions. Most affected are the following methods, which lose one of its curried definitions:
 
 1. R.maxBy
 2. R.minBy
@@ -279,7 +279,7 @@ Fix wrong versions in changelog
 
 6.4.0
 
-- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to Typescript definitions
+- Close [Issue #560](https://github.com/selfrefactor/rambda/issues/560) - apply immutable lint to TypeScript definitions
 
 - Close [Issue #553](https://github.com/selfrefactor/rambda/issues/553) - fix problem with curried typings of `R.prop`
 
@@ -297,7 +297,7 @@ Fix wrong versions in changelog
 
 6.3.1
 
-- Fix missing `Evolved` declaration in Typescript definition
+- Fix missing `Evolved` declaration in TypeScript definition
 
 6.3.0
 
@@ -327,7 +327,7 @@ Fix wrong versions in changelog
 
 - Add `R.splitWhen`
 
-- Close [Issue #547](https://github.com/selfrefactor/rambda/issues/547) - restore `readonly` declaration in Typescript definitions.
+- Close [Issue #547](https://github.com/selfrefactor/rambda/issues/547) - restore `readonly` declaration in TypeScript definitions.
 
 - `R.append`/`R.prepend` now work only with arrays just like Ramda. Previous behaviour was for them to work with both arrays and strings.
 
@@ -357,7 +357,7 @@ Fix wrong versions in changelog
 
 - Simplify `R.forEach` typings
 
-- Remove `ReadonlyArray<T>` pattern from Typescript definitions - not enough value for the noise  it adds.
+- Remove `ReadonlyArray<T>` pattern from TypeScript definitions - not enough value for the noise  it adds.
 
 5.13.1
 
@@ -432,7 +432,7 @@ Close [Issue #510](https://github.com/selfrefactor/rambda/issues/510) - `R.clamp
 
 - `R.reduce` - drop support for object as iterable. Now it throws the same error as Ramda. Also instead of returning the initial value when iterable is `undefined`, now it throws.
 
-Add index as additional argument to the Typescript definitions of the following methods:
+Add index as additional argument to the TypeScript definitions of the following methods:
 
 - R.all
 - R.find
@@ -524,7 +524,7 @@ Also restore `R.converge`, `R.findLast`, `R.findLastIndex` and `R.curryN` as I h
 
 - 5.2.1
 
-Fix Typescript comment for every method
+Fix TypeScript comment for every method
 
 - 5.2.0
 
@@ -544,7 +544,7 @@ Close [Issue #411](https://github.com/selfrefactor/rambda/issues/411) - change t
 
 Move `R.partialCurry` to Rambdax(reason for major bump).
 
-Use new type of export in Typescript definitions.
+Use new type of export in TypeScript definitions.
 
 Approve [PR #381](https://github.com/selfrefactor/rambda/pull/381) - add `R.applySpec`
 
@@ -668,7 +668,7 @@ Close [issue #287](https://github.com/selfrefactor/rambda/issues/287) - `ts-tool
 
 Close [issue #273](https://github.com/selfrefactor/rambda/issues/273) - ts-toolbelt needs other type of export when `isolatedModules` TypeScript property
 
-Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific Typescript definitions
+Close [issue #245](https://github.com/selfrefactor/rambda/issues/245) - complete typings tests for methods that have more specific TypeScript definitions
 
 - 3.2.1 Fast fix for [issue #273](https://github.com/selfrefactor/rambda/issues/273) - messed up typings
 
@@ -680,7 +680,7 @@ Add `R.partialCurry` typings.
 
 Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.slice` method.
 
-- 3.1.0 This might be breaking change for Typescript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
+- 3.1.0 This might be breaking change for TypeScript users, as very different definitions are introduced. With the previous state of the definitions, it was not possible to pass `dtslint` typings tests.
 
 - `R.either` and `R.both` supports multiple arguments as they should.
 
@@ -696,7 +696,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - 2.14.2 Use `R.curry` with `R.reduce` as manual curry there didn't work as expected.
 
-- 2.14.1 Fix wrong typescript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
+- 2.14.1 Fix wrong TypeScript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
 
 - 2.14.0 Add `R.groupWith` by @selfrefactor | Add `R.propOr`, `R.mathMod`, `R.mean`, `R.median`, `R.negate`, `R.product` by [@ku8ar](https://github.com/ku8ar)
 
@@ -710,9 +710,9 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - 2.11.0 Approve [PR #179](https://github.com/selfrefactor/rambda/pull/179) - `R.adjust` handles negative index; `R.all` doesn't need `R.filter`
 
-- 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing typescript file
+- 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing TypeScript file
 
-- 2.10.0 Approve huge and important [PR #171](https://github.com/selfrefactor/rambda/pull/171) submitted by [@helmuthdu](https://github.com/helmuthdu) - Add comments to each method, improve Typescript support
+- 2.10.0 Approve huge and important [PR #171](https://github.com/selfrefactor/rambda/pull/171) submitted by [@helmuthdu](https://github.com/helmuthdu) - Add comments to each method, improve TypeScript support
 
 - 2.9.0 `R.toPairs` and `R.fromPairs`
 
@@ -740,7 +740,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - 1.2.6 Use `src` folder instead of `modules`
 - 1.2.5 Fix `omit` typing
-- 1.2.4 Add missing Typescript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
+- 1.2.4 Add missing TypeScript definitions - [PR#82](https://github.com/selfrefactor/rambda/pull/82)
 - 1.2.2 Change curry method used across most of library methods
 - 1.2.1 Add `R.assoc` | fix passing `undefined` to `R.map` and `R.merge` [issue #77](https://github.com/selfrefactor/rambda/issues/77)
 - 1.2.0 Add `R.min`, `R.minBy`, `R.max`, `R.maxBy`, `R.nth` and `R.keys`
@@ -762,14 +762,14 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 - 1.0.4 Close [issue #50](https://github.com/selfrefactor/rambda/issues/50) - add `R.pipe` typings
 - 1.0.3 `R.ifElse` accept also boolean as condition argument
 - 1.0.2 Remove `typedDefaultTo` and `typedPathOr` | Add `R.pickAll` and `R.none`
-- 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit Typescript definition
+- 1.0.0 Major change as build is now ES6 not ES5 compatible (Related to [issue #46](https://github.com/selfrefactor/rambda/issues/46))| Making `Rambda` fully tree-shakeable| Edit TypeScript definition
 - 0.9.8 Revert to ES5 compatible build - [issue #46](https://github.com/selfrefactor/rambda/issues/46)
 - 0.9.7 Refactor for `Rollup` tree-shake | Remove `R.padEnd` and `R.padStart`
 - 0.9.6 Close [issue #44](https://github.com/selfrefactor/rambda/issues/44) - `R.reverse` mutates the array
-- 0.9.5 Close [issue #45](https://github.com/selfrefactor/rambda/issues/45) - invalid Typescript typings
+- 0.9.5 Close [issue #45](https://github.com/selfrefactor/rambda/issues/45) - invalid TypeScript typings
 - 0.9.4 Add `R.reject` and `R.without` ([PR#41](https://github.com/selfrefactor/rambda/pull/41) [PR#42](https://github.com/selfrefactor/rambda/pull/42)) | Remove 'browser' field in `package.json` due to Webpack bug [4674](https://github.com/webpack/webpack/issues/4674)
 - 0.9.3 Add `R.forEach` and `R.times`
-- 0.9.2 Add `Typescript` definitions
+- 0.9.2 Add `TypeScript` definitions
 - 0.9.1 Close [issue #36](https://github.com/selfrefactor/rambda/issues/36) - move current behaviour of `defaultTo` to a new method `typedDefaultTo`; make `defaultTo` follow Ramda spec; add `pathOr`; add `typedPathOr`.
 - 0.9.0 Add `R.pipe` [PR#35](https://github.com/selfrefactor/rambda/pull/35)
 - 0.8.9 Add `R.isNil`
