@@ -5319,6 +5319,27 @@ export function differenceWith<T1, T2>(
   list1: T1[],
 ): (list2: T2[]) => T1[];
 
+/*
+Method: addIndex
+
+Explanation:
+
+Example:
+
+```
+const result = R.addIndex()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function addIndex<T, U>(f: any): (fn: Iterator<T, U>, list: T[]) => U[];
+export function addIndex<T, U>(f: any, fn: Iterator<T, U>): (fn: Iterator<T, U>, list: T[]) => U[];
+
 // RAMBDAX_MARKER_START
 
 /*
