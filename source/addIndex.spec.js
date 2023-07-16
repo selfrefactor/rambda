@@ -1,4 +1,4 @@
-import { addIndex } from './addIndex.js'
+import { addIndex, addIndexRight } from './addIndex.js'
 import { map } from './map.js'
 
 test('happy', () => {
@@ -21,6 +21,13 @@ test('happy', () => {
   }
   const result = mapIndexed(fn2, [ 1, 2, 3 ])
   expect(result).toEqual([ 6, 8, 10 ])
+
+  const revmap = (fn, ary) => map(fn, ary)
+  const revmapIndexed = addIndexRight(revmap)
+  //   [ '5-f', '4-o', '3-o', '2-b', '1-a', '0-r' ]
+  const a = revmapIndexed((val, idx) => idx + '-' + val,
+    [ 'f', 'o', 'o', 'b', 'a', 'r' ])
+  console.log(a)
 })
 
 describe('unary functions like `map`', () => {

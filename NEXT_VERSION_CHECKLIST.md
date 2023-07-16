@@ -1,8 +1,7 @@
 - addIndex
+- addIndexRight
 
 ---
-- addIndex
-- addIndexRight
 - ap
 - aperture
 - applyTo

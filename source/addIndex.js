@@ -38,3 +38,19 @@ export function addIndex(originalFunction){
     return originalFunction.apply(this, args)
   })
 }
+export function addIndexRight(originalFunction){
+  return curryN(originalFunction.length, function (){
+    const origFn = arguments[ 0 ]
+    const list = arguments[ arguments.length - 1 ]
+    let idx = list.length - 1
+    const args = Array.prototype.slice.call(arguments, 0)
+    args[ 0 ] = function (){
+      const result = origFn.apply(this, _concat(arguments, [ idx, list ]))
+      idx -= 1
+
+      return result
+    }
+
+    return originalFunction.apply(this, args)
+  })
+}
