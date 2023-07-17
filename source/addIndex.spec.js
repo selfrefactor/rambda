@@ -1,5 +1,12 @@
+import * as R from 'ramda'
+
 import { addIndex } from './addIndex.js'
 import { map } from './map.js'
+
+test('with R.pipe', () => {
+  const result = R.pipe(R.addIndex(R.map)((x, i) => x + i))([ 1, 2, 3 ])
+  expect(result).toEqual([ 1, 3, 5 ])
+})
 
 test('happy', () => {
   function mapFn(fn, list){

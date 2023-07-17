@@ -5327,8 +5327,6 @@ Explanation:
 Example:
 
 ```
-const result = R.addIndex()
-// => 
 ```
 
 Categories:
@@ -5337,8 +5335,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function addIndex<T, U>(f: any): (fn: Iterator<T, U>, list: T[]) => U[];
-export function addIndex<T, U>(f: any, fn: Iterator<T, U>): (fn: Iterator<T, U>, list: T[]) => U[];
+export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
 
 /*
 Method: ap
@@ -5348,8 +5345,6 @@ Explanation:
 Example:
 
 ```
-const result = R.ap()
-// => 
 ```
 
 Categories:
@@ -5361,6 +5356,7 @@ Notes:
 export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
 export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
 export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+
 /*
 Method: addIndexRight
 
@@ -5369,8 +5365,6 @@ Explanation:
 Example:
 
 ```
-const result = R.addIndexRight()
-// => 
 ```
 
 Categories:
@@ -5379,7 +5373,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function addIndexRight<T>(x: T): T;
+export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
 
 // RAMBDAX_MARKER_START
 
