@@ -1,9 +1,9 @@
-- addIndex - missing ts tests - as TS limits us, we can skip using curryN
+- addIndex - 
 - addIndexRight
 - ap
+- aperture
 
 ---
-- aperture
 - applyTo
 - ascend
 - binary

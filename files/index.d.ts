@@ -56,6 +56,9 @@ type Pred = (...x: any[]) => boolean;
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
 
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
+
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
 type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
@@ -5331,7 +5334,7 @@ Example:
 
 Categories:
 
-Notes:
+Notes: TS typings are oversimplified
 
 */
 // @SINGLE_MARKER
@@ -5369,11 +5372,31 @@ Example:
 
 Categories:
 
-Notes:
+Notes: TS typings are oversimplified
 
 */
 // @SINGLE_MARKER
 export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
+
+/*
+Method: aperture
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
+
 
 // RAMBDAX_MARKER_START
 
