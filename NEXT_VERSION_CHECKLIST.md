@@ -2,9 +2,9 @@
 - addIndexRight
 - ap
 - aperture
+- applyTo
 
 ---
-- applyTo
 - ascend
 - binary
 - call

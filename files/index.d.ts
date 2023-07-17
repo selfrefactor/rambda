@@ -5398,6 +5398,25 @@ export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N
 export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
 
 
+/*
+Method: applyTo
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
+export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
 // RAMBDAX_MARKER_START
 
 /*
