@@ -1,8 +1,8 @@
-- addIndex
+- addIndex - missing ts tests - as TS limits us, we can skip using curryN
 - addIndexRight
+- ap
 
 ---
-- ap
 - aperture
 - applyTo
 - ascend

@@ -1,4 +1,4 @@
-import { addIndex, addIndexRight } from './addIndex.js'
+import { addIndex } from './addIndex.js'
 import { map } from './map.js'
 
 test('happy', () => {
@@ -11,23 +11,9 @@ test('happy', () => {
     return willReturn
   }
   const mapIndexed = addIndex(mapFn)
-  const fn2 = (val, idx) => {
-    console.log({
-      val,
-      idx,
-    })
-
-    return val + idx + 5
-  }
+  const fn2 = (val, idx) => val + idx + 5
   const result = mapIndexed(fn2, [ 1, 2, 3 ])
   expect(result).toEqual([ 6, 8, 10 ])
-
-  const revmap = (fn, ary) => map(fn, ary)
-  const revmapIndexed = addIndexRight(revmap)
-  //   [ '5-f', '4-o', '3-o', '2-b', '1-a', '0-r' ]
-  const a = revmapIndexed((val, idx) => idx + '-' + val,
-    [ 'f', 'o', 'o', 'b', 'a', 'r' ])
-  console.log(a)
 })
 
 describe('unary functions like `map`', () => {
@@ -67,57 +53,3 @@ describe('unary functions like `map`', () => {
     ])
   })
 })
-/*
-var R = require('../source/index.js');
-var eq = require('./shared/eq.js');
-
-describe('addIndex', function() {
-
-  describe('binary functions like `reduce`', function() {
-    var reduceIndexed = R.addIndex(R.reduce);
-    var timesIndexed = function(tot, num, idx) {return tot + (num * idx);};
-    var objectify = function(acc, elem, idx) { acc[elem] = idx; return acc;};
-
-    test('passes the index as a third parameter to the predicate', function() {
-      eq(reduceIndexed(timesIndexed, 0, [1, 2, 3, 4, 5]), 40);
-      eq(reduceIndexed(objectify, {}, ['a', 'b', 'c', 'd', 'e']), {a: 0, b: 1, c: 2, d: 3, e: 4});
-    });
-
-    test('passes the entire list as a fourth parameter to the predicate', function() {
-      var list = [1, 2, 3];
-      reduceIndexed(function(acc, x, idx, ls) {
-        eq(ls, list);
-        return acc;
-      }, 0, list);
-    });
-
-  });
-
-  describe('works with functions like `all` that do not typically have index applied', function() {
-    var allIndexed = R.addIndex(R.all);
-    var superDiagonal = allIndexed(R.gt);
-    test('passes the index as a second parameter', function() {
-      eq(superDiagonal([8, 6, 5, 4, 9]), true); // 8 > 0, 6 > 1, 5 > 2, 4 > 3, 9 > 5
-      eq(superDiagonal([8, 6, 1, 3, 9]), false); //  1 !> 2, 3 !> 3
-    });
-
-  });
-
-  describe('works with arbitrary user-defined functions', function() {
-    var mapFilter = function(m, f, list) {
-      return R.filter(R.compose(f, m), list);
-    };
-    var mapFilterIndexed = R.addIndex(mapFilter);
-    test('passes the index as an additional parameter', function() {
-      eq(mapFilterIndexed(
-        R.multiply,
-        R.gt(R.__, 13),
-        [8, 6, 7, 5, 3, 0, 9]
-      ), [7, 5, 9]); // 2 * 7 > 13, 3 * 5 > 13, 6 * 9 > 13
-    });
-
-  });
-
-});
-
-*/

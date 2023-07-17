@@ -5340,6 +5340,47 @@ Notes:
 export function addIndex<T, U>(f: any): (fn: Iterator<T, U>, list: T[]) => U[];
 export function addIndex<T, U>(f: any, fn: Iterator<T, U>): (fn: Iterator<T, U>, list: T[]) => U[];
 
+/*
+Method: ap
+
+Explanation:
+
+Example:
+
+```
+const result = R.ap()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
+export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+/*
+Method: addIndexRight
+
+Explanation:
+
+Example:
+
+```
+const result = R.addIndexRight()
+// => 
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function addIndexRight<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
