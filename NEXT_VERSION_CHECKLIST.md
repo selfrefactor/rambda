@@ -3,9 +3,10 @@
 - ap
 - aperture
 - applyTo
+- ascend
+- descend
 
 ---
-- ascend
 - binary
 - call
 - collectBy
@@ -13,7 +14,6 @@
 - composeWith
 - construct
 - constructN
-- descend
 - dissocPath
 - dropRepeatsBy
 - empty

@@ -23,6 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
+type Ordering = -1 | 0 | 1;
 type Path = string | (number | string)[];
 export type RamdaPath = (number | string)[];
 type Predicate<T> = (x: T) => boolean;
@@ -5416,6 +5417,25 @@ Notes:
 // @SINGLE_MARKER
 export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
 export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
+/*
+Method: ascend
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 // RAMBDAX_MARKER_START
 
