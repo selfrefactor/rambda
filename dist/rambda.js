@@ -13,6 +13,120 @@ function add(a, b) {
   return Number(a) + Number(b);
 }
 
+function _concat(set1, set2) {
+  set1 = set1 || [];
+  set2 = set2 || [];
+  let idx;
+  const len1 = set1.length;
+  const len2 = set2.length;
+  const result = [];
+  idx = 0;
+  while (idx < len1) {
+    result[result.length] = set1[idx];
+    idx += 1;
+  }
+  idx = 0;
+  while (idx < len2) {
+    result[result.length] = set2[idx];
+    idx += 1;
+  }
+  return result;
+}
+
+function _curryN(n, cache, fn) {
+  return function () {
+    let ci = 0;
+    let ai = 0;
+    const cl = cache.length;
+    const al = arguments.length;
+    const args = new Array(cl + al);
+    while (ci < cl) {
+      args[ci] = cache[ci];
+      ci++;
+    }
+    while (ai < al) {
+      args[cl + ai] = arguments[ai];
+      ai++;
+    }
+    const remaining = n - args.length;
+    return args.length >= n ? fn.apply(this, args) : _arity$1(remaining, _curryN(n, args, fn));
+  };
+}
+function _arity$1(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments);
+      };
+    case 1:
+      return function (_1) {
+        return fn.apply(this, arguments);
+      };
+    case 2:
+      return function (_1, _2) {
+        return fn.apply(this, arguments);
+      };
+    case 3:
+      return function (_1, _2, _3) {
+        return fn.apply(this, arguments);
+      };
+    case 4:
+      return function (_1, _2, _3, _4) {
+        return fn.apply(this, arguments);
+      };
+    case 5:
+      return function (_1, _2, _3, _4, _5) {
+        return fn.apply(this, arguments);
+      };
+    case 6:
+      return function (_1, _2, _3, _4, _5, _6) {
+        return fn.apply(this, arguments);
+      };
+    case 7:
+      return function (_1, _2, _3, _4, _5, _6, _7) {
+        return fn.apply(this, arguments);
+      };
+    case 8:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
+        return fn.apply(this, arguments);
+      };
+    case 9:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
+        return fn.apply(this, arguments);
+      };
+    default:
+      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
+        return fn.apply(this, arguments);
+      };
+  }
+}
+function curryN(n, fn) {
+  if (arguments.length === 1) return _fn => curryN(n, _fn);
+  if (n > 10) {
+    throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+  return _arity$1(n, _curryN(n, [], fn));
+}
+
+function addIndex(originalFunction, initialIndexFn = () => 0, loopIndexChange = x => x + 1) {
+  return curryN(originalFunction.length, function () {
+    const origFn = arguments[0];
+    const list = arguments[arguments.length - 1];
+    let idx = initialIndexFn(list.length);
+    const args = Array.prototype.slice.call(arguments, 0);
+    args[0] = function () {
+      const result = origFn.apply(this, _concat(arguments, [idx, list]));
+      idx = loopIndexChange(idx);
+      return result;
+    };
+    return originalFunction.apply(this, args);
+  });
+}
+
+function addIndexRight(originalFunction) {
+  return addIndex(originalFunction, listLength => listLength - 1, x => x - 1);
+}
+
 const cloneList = list => Array.prototype.slice.call(list);
 
 function curry(fn, args = []) {
@@ -81,6 +195,28 @@ function anyPass(predicates) {
     }
     return false;
   };
+}
+
+function ap(functions, input) {
+  if (arguments.length === 1) {
+    return _inputs => ap(functions, _inputs);
+  }
+  return functions.reduce((acc, fn) => [...acc, ...input.map(fn)], []);
+}
+
+function aperture(step, list) {
+  if (arguments.length === 1) {
+    return _list => aperture(step, _list);
+  }
+  if (step > list.length) return [];
+  let idx = 0;
+  const limit = list.length - (step - 1);
+  const acc = new Array(limit);
+  while (idx < limit) {
+    acc[idx] = list.slice(idx, idx + step);
+    idx += 1;
+  }
+  return acc;
 }
 
 function append(x, input) {
@@ -168,6 +304,26 @@ function applySpec(spec, ...args) {
   return toReturn;
 }
 
+function applyTo(input, fn) {
+  if (arguments.length === 1) {
+    return _fn => applyTo(input, _fn);
+  }
+  return fn(input);
+}
+
+function createCompareFunction(a, b, winner, loser) {
+  if (a === b) return 0;
+  return a < b ? winner : loser;
+}
+function ascend(getFunction, a, b) {
+  if (arguments.length === 1) {
+    return (_a, _b) => ascend(getFunction, _a, _b);
+  }
+  const aValue = getFunction(a);
+  const bValue = getFunction(b);
+  return createCompareFunction(aValue, bValue, -1, 1);
+}
+
 function assocFn(prop, newValue, obj) {
   return Object.assign({}, obj, {
     [prop]: newValue
@@ -199,81 +355,6 @@ function assocPathFn(path, newValue, input) {
   return assoc(index, newValue, input);
 }
 const assocPath = curry(assocPathFn);
-
-function _curryN(n, cache, fn) {
-  return function () {
-    let ci = 0;
-    let ai = 0;
-    const cl = cache.length;
-    const al = arguments.length;
-    const args = new Array(cl + al);
-    while (ci < cl) {
-      args[ci] = cache[ci];
-      ci++;
-    }
-    while (ai < al) {
-      args[cl + ai] = arguments[ai];
-      ai++;
-    }
-    const remaining = n - args.length;
-    return args.length >= n ? fn.apply(this, args) : _arity$1(remaining, _curryN(n, args, fn));
-  };
-}
-function _arity$1(n, fn) {
-  switch (n) {
-    case 0:
-      return function () {
-        return fn.apply(this, arguments);
-      };
-    case 1:
-      return function (_1) {
-        return fn.apply(this, arguments);
-      };
-    case 2:
-      return function (_1, _2) {
-        return fn.apply(this, arguments);
-      };
-    case 3:
-      return function (_1, _2, _3) {
-        return fn.apply(this, arguments);
-      };
-    case 4:
-      return function (_1, _2, _3, _4) {
-        return fn.apply(this, arguments);
-      };
-    case 5:
-      return function (_1, _2, _3, _4, _5) {
-        return fn.apply(this, arguments);
-      };
-    case 6:
-      return function (_1, _2, _3, _4, _5, _6) {
-        return fn.apply(this, arguments);
-      };
-    case 7:
-      return function (_1, _2, _3, _4, _5, _6, _7) {
-        return fn.apply(this, arguments);
-      };
-    case 8:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8) {
-        return fn.apply(this, arguments);
-      };
-    case 9:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9) {
-        return fn.apply(this, arguments);
-      };
-    default:
-      return function (_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) {
-        return fn.apply(this, arguments);
-      };
-  }
-}
-function curryN(n, fn) {
-  if (arguments.length === 1) return _fn => curryN(n, _fn);
-  if (n > 10) {
-    throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
-  }
-  return _arity$1(n, _curryN(n, [], fn));
-}
 
 function bind(fn, thisObj) {
   if (arguments.length === 1) {
@@ -519,6 +600,15 @@ function defaultTo(defaultArgument, input) {
     return _input => defaultTo(defaultArgument, _input);
   }
   return isFalsy(input) ? defaultArgument : input;
+}
+
+function descend(getFunction, a, b) {
+  if (arguments.length === 1) {
+    return (_a, _b) => descend(getFunction, _a, _b);
+  }
+  const aValue = getFunction(a);
+  const bValue = getFunction(b);
+  return createCompareFunction(aValue, bValue, 1, -1);
 }
 
 function type(input) {
@@ -2241,6 +2331,8 @@ exports._indexOf = _indexOf;
 exports._lastIndexOf = _lastIndexOf;
 exports._pipe = _pipe;
 exports.add = add;
+exports.addIndex = addIndex;
+exports.addIndexRight = addIndexRight;
 exports.adjust = adjust;
 exports.all = all;
 exports.allPass = allPass;
@@ -2248,9 +2340,13 @@ exports.always = always;
 exports.and = and;
 exports.any = any;
 exports.anyPass = anyPass;
+exports.ap = ap;
+exports.aperture = aperture;
 exports.append = append;
 exports.apply = apply;
 exports.applySpec = applySpec;
+exports.applyTo = applyTo;
+exports.ascend = ascend;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
 exports.bind = bind;
@@ -2265,10 +2361,12 @@ exports.cond = cond;
 exports.converge = converge;
 exports.count = count;
 exports.countBy = countBy;
+exports.createCompareFunction = createCompareFunction;
 exports.curry = curry;
 exports.curryN = curryN;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
+exports.descend = descend;
 exports.difference = difference;
 exports.differenceWith = differenceWith;
 exports.differenceWithFn = differenceWithFn;

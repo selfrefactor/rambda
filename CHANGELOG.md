@@ -1,6 +1,18 @@
+8.2.0
+
+Add the following methods:
+
+- addIndex
+- addIndexRight
+- ap
+- aperture
+- applyTo
+- ascend
+- descend
+
 8.1.0
 
-- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688)
+- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688). The issue was due to 8.0.0 was shipped with TS definitions of `7.5.0` release.
 
 - Add `R.differenceWith` method  - [Issue #91](https://github.com/selfrefactor/rambdax/issues/91)
 
@@ -153,7 +165,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/TypeScript/announcing-TypeScript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
@@ -696,7 +708,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - 2.14.2 Use `R.curry` with `R.reduce` as manual curry there didn't work as expected.
 
-- 2.14.1 Fix wrong TypeScript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
+- 2.14.1 Fix wrong typescript with `R.head` - [PR #228](https://github.com/selfrefactor/rambda/pull/228) pushed by [@tonivj5](https://github.com/tonivj5)
 
 - 2.14.0 Add `R.groupWith` by @selfrefactor | Add `R.propOr`, `R.mathMod`, `R.mean`, `R.median`, `R.negate`, `R.product` by [@ku8ar](https://github.com/ku8ar)
 
@@ -710,7 +722,7 @@ Approve [PR #266](https://github.com/selfrefactor/rambda/pull/266) that adds `R.
 
 - 2.11.0 Approve [PR #179](https://github.com/selfrefactor/rambda/pull/179) - `R.adjust` handles negative index; `R.all` doesn't need `R.filter`
 
-- 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing TypeScript file
+- 2.10.2 Close [issue #175](https://github.com/selfrefactor/rambda/issues/175) - missing typescript file
 
 - 2.10.0 Approve huge and important [PR #171](https://github.com/selfrefactor/rambda/pull/171) submitted by [@helmuthdu](https://github.com/helmuthdu) - Add comments to each method, improve TypeScript support
 

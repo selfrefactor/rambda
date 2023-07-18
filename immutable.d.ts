@@ -23,6 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
+type Ordering = -1 | 0 | 1;
 type Path = string | readonly (number | string)[];
 export type RamdaPath = readonly (number | string)[];
 type Predicate<T> = (x: T) => boolean;
@@ -55,6 +56,9 @@ type Pred = (...x: readonly any[]) => boolean;
 
 export interface Dictionary<T> {readonly [index: string]: T}
 type Partial<T> = { readonly [P in keyof T]?: T[P]};
+
+type _TupleOf<T, N extends number, R extends readonly unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, readonly [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? readonly T[] : _TupleOf<T, N, readonly []>) : never;
 
 type Evolvable<E extends Evolver> = { readonly[P in keyof E]?: Evolved<E[P]>};
 
@@ -178,6 +182,12 @@ export function T(): boolean;
 export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
 
+export function addIndex(originalFn: any): (fn: any) => (list: readonly any[]) => readonly any[];
+export function addIndex(originalFn: any): (fn: any, list: readonly any[]) => readonly any[];
+
+export function addIndexRight(originalFn: any): (fn: any) => (list: readonly any[]) => readonly any[];
+export function addIndexRight(originalFn: any): (fn: any, list: readonly any[]) => readonly any[];
+
 /**
  * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
  */
@@ -219,6 +229,13 @@ export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => bo
 export function anyPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: readonly ((...inputs: readonly T[]) => boolean)[]): (...inputs: readonly T[]) => boolean;
 
+export function ap<T, U>(fns: readonly ReadonlyArray<(a: T) => U>[], vs: readonly T[]): readonly U[];
+export function ap<T, U>(fns: ReadonlyArray<(a: T) => U>): (vs: readonly T[]) => readonly U[];
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+
+export function aperture<N extends number, T>(n: N, list: readonly T[]): ReadonlyArray<Tuple<T, N>> | readonly [];
+export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => ReadonlyArray<Tuple<T, N>> | readonly [];
+
 /**
  * It adds element `x` at the end of `list`.
  */
@@ -239,6 +256,12 @@ export function applySpec<Spec extends Record<string, AnyFunction>>(
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { readonly [Key in keyof Spec]: ReturnType<Spec[Key]> };
 export function applySpec<T>(spec: any): (...args: readonly unknown[]) => T;
+
+export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
+export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -425,6 +448,9 @@ export function dec(x: number): number;
  */
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
 export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
+
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.

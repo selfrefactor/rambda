@@ -23,6 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
+type Ordering = -1 | 0 | 1;
 type Path = string | (number | string)[];
 export type RamdaPath = (number | string)[];
 type Predicate<T> = (x: T) => boolean;
@@ -55,6 +56,9 @@ type Pred = (...x: any[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
+
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
@@ -178,6 +182,12 @@ export function T(): boolean;
 export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
 
+export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
+
+export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
+
 /**
  * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
  */
@@ -219,6 +229,13 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
+export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
+export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+
+export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
+
 /**
  * It adds element `x` at the end of `list`.
  */
@@ -239,6 +256,12 @@ export function applySpec<Spec extends Record<string, AnyFunction>>(
   ...args: Parameters<ValueOfRecord<Spec>>
 ) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
 export function applySpec<T>(spec: any): (...args: unknown[]) => T;
+
+export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
+export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -425,6 +448,9 @@ export function dec(x: number): number;
  */
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
 export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
+
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.

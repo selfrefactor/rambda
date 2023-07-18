@@ -23,6 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
 type Ord = number | string | boolean | Date;
+type Ordering = -1 | 0 | 1;
 type Path = string | (number | string)[];
 export type RamdaPath = (number | string)[];
 type Predicate<T> = (x: T) => boolean;
@@ -55,6 +56,9 @@ type Pred = (...x: any[]) => boolean;
 
 export interface Dictionary<T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
+
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
@@ -5318,6 +5322,141 @@ export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
+
+/*
+Method: addIndex
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes: TS typings are oversimplified
+
+*/
+// @SINGLE_MARKER
+export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
+
+/*
+Method: ap
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
+export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+
+/*
+Method: addIndexRight
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes: TS typings are oversimplified
+
+*/
+// @SINGLE_MARKER
+export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
+
+/*
+Method: aperture
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
+
+
+/*
+Method: applyTo
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
+export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
+
+/*
+Method: ascend
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
+
+/*
+Method: descend
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 // RAMBDAX_MARKER_START
 
