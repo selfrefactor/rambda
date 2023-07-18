@@ -1,11 +1,3 @@
-- addIndex - 
-- addIndexRight
-- ap
-- aperture
-- applyTo
-- ascend
-- descend
-
 ---
 - binary
 - call
@@ -14,6 +6,7 @@
 - composeWith
 - construct
 - constructN
+
 - dissocPath
 - dropRepeatsBy
 - empty
@@ -22,6 +15,7 @@
 - gt
 - gte
 - hasIn
+
 - innerJoin
 - insert
 - insertAll
@@ -30,6 +24,7 @@
 - invertObj
 - invoker
 - isNotNil
+
 - keysIn
 - lift
 - liftN
@@ -42,6 +37,7 @@
 - mergeDeepWith
 - mergeDeepWithKey
 - mergeWithKey
+
 - nAry
 - nthArg
 - o
@@ -53,6 +49,7 @@
 - pipeWith
 - project
 - promap
+
 - reduceBy
 - reduceRight
 - reduceWhile
@@ -64,6 +61,7 @@
 - splitWhenever
 - swap
 - symmetricDifferenceWith
+
 - andThen
 - toPairsIn
 - transduce
