@@ -96,16 +96,10 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 79 Ramda methods not implemented in Rambda 
+  Click to see the full list of 72 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
-- addIndex
-- addIndexRight
-- ap
-- aperture
-- applyTo
-- ascend
 - binary
 - call
 - collectBy
@@ -113,7 +107,6 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 - composeWith
 - construct
 - constructN
-- descend
 - dissocPath
 - dropRepeatsBy
 - empty
@@ -342,9 +335,21 @@ It adds `a` and `b`.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
+### addIndex
+
+> :boom: TS typings are oversimplified
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#addIndex)
+
+### addIndexRight
+
+> :boom: TS typings are oversimplified
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#addIndexRight)
+
 ### adjust
 
-```TypeScript
+```typescript
 
 adjust<T>(index: number, replaceFn: (x: T) => T, list: T[]): T[]
 ```
@@ -365,7 +370,7 @@ const result = R.adjust(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 adjust<T>(index: number, replaceFn: (x: T) => T, list: T[]): T[];
 adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 ```
@@ -452,7 +457,7 @@ test('when index is out of bounds', () => {
 
 ### all
 
-```TypeScript
+```typescript
 
 all<T>(predicate: (x: T) => boolean, list: T[]): boolean
 ```
@@ -473,7 +478,7 @@ const result = R.all(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 all<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 all<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 ```
@@ -526,7 +531,7 @@ test('when false', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {all} from 'rambda'
 
 describe('all', () => {
@@ -556,7 +561,7 @@ describe('all', () => {
 
 ### allPass
 
-```TypeScript
+```typescript
 
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
@@ -581,7 +586,7 @@ const result = R.allPass(predicates)(input) // => true
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 ```
@@ -661,7 +666,7 @@ test('works with multiple inputs', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {allPass, filter} from 'rambda'
 
 describe('allPass', () => {
@@ -721,7 +726,7 @@ Logical AND
 
 ### any
 
-```TypeScript
+```typescript
 
 any<T>(predicate: (x: T) => boolean, list: T[]): boolean
 ```
@@ -741,7 +746,7 @@ R.any(fn, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 ```
@@ -794,7 +799,7 @@ test('with curry', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {any} from 'rambda'
 
 describe('R.any', () => {
@@ -825,7 +830,7 @@ describe('R.any', () => {
 
 ### anyPass
 
-```TypeScript
+```typescript
 
 anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
@@ -851,7 +856,7 @@ const result = fn(input)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 ```
@@ -944,7 +949,7 @@ test('works with multiple inputs', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {anyPass, filter} from 'rambda'
 
 describe('anyPass', () => {
@@ -986,9 +991,143 @@ describe('anyPass', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#anyPass)
 
+### ap
+
+```typescript
+
+ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[]
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
+ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
+ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.ap</strong> source</summary>
+
+```javascript
+export function ap(functions, input){
+  if (arguments.length === 1){
+    return _inputs => ap(functions, _inputs)
+  }
+
+  return functions.reduce((acc, fn) => [ ...acc, ...input.map(fn) ], [])
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { ap } from './ap.js'
+
+function mult2(x){
+  return x * 2
+}
+function plus3(x){
+  return x + 3
+}
+
+test('happy', () => {
+  expect(ap([ mult2, plus3 ], [ 1, 2, 3 ])).toEqual([ 2, 4, 6, 4, 5, 6 ])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ap)
+
+### aperture
+
+```typescript
+
+aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | []
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
+aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.aperture</strong> source</summary>
+
+```javascript
+export function aperture(step, list){
+  if (arguments.length === 1){
+    return _list => aperture(step, _list)
+  }
+  if (step > list.length) return []
+  let idx = 0
+  const limit = list.length - (step - 1)
+  const acc = new Array(limit)
+  while (idx < limit){
+    acc[ idx ] = list.slice(idx, idx + step)
+    idx += 1
+  }
+
+  return acc
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { aperture } from './aperture.js'
+
+const list = [ 1, 2, 3, 4, 5, 6, 7 ]
+
+test('happy', () => {
+  expect(aperture(1, list)).toEqual([ [ 1 ], [ 2 ], [ 3 ], [ 4 ], [ 5 ], [ 6 ], [ 7 ] ])
+  expect(aperture(2, list)).toEqual([
+    [ 1, 2 ],
+    [ 2, 3 ],
+    [ 3, 4 ],
+    [ 4, 5 ],
+    [ 5, 6 ],
+    [ 6, 7 ],
+  ])
+  expect(aperture(3, list)).toEqual([
+    [ 1, 2, 3 ],
+    [ 2, 3, 4 ],
+    [ 3, 4, 5 ],
+    [ 4, 5, 6 ],
+    [ 5, 6, 7 ],
+  ])
+  expect(aperture(8, list)).toEqual([])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#aperture)
+
 ### append
 
-```TypeScript
+```typescript
 
 append<T>(x: T, list: T[]): T[]
 ```
@@ -1008,7 +1147,7 @@ const result = R.append(x, ['bar', 'baz'])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 append<T>(x: T, list: T[]): T[];
 append<T>(x: T): <T>(list: T[]) => T[];
 ```
@@ -1066,7 +1205,7 @@ test('with strings', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {append} from 'rambda'
 
 const list = [1, 2, 3]
@@ -1091,7 +1230,7 @@ describe('R.append', () => {
 
 ### apply
 
-```TypeScript
+```typescript
 
 apply<T = any>(fn: (...args: any[]) => T, args: any[]): T
 ```
@@ -1111,7 +1250,7 @@ const result = R.apply(Math.max, [42, -Infinity, 1337])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
 apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 ```
@@ -1168,7 +1307,7 @@ test('provides no way to specify context', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {apply, identity} from 'rambda'
 
 describe('R.apply', () => {
@@ -1192,7 +1331,7 @@ describe('R.apply', () => {
 
 ### applySpec
 
-```TypeScript
+```typescript
 
 applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
@@ -1218,7 +1357,7 @@ const result = fn(2, 4)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 applySpec<Spec extends Record<string, AnyFunction>>(
   spec: Spec
 ): (
@@ -1613,7 +1752,7 @@ test('restructure json object', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {multiply, applySpec, inc, dec, add} from 'rambda'
 
 describe('applySpec', () => {
@@ -1643,6 +1782,14 @@ describe('applySpec', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applySpec)
 
+### applyTo
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applyTo)
+
+### ascend
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ascend)
+
 ### assoc
 
 It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
@@ -1657,7 +1804,7 @@ reference.
 
 ### assocPath
 
-```TypeScript
+```typescript
 
 assocPath<Output>(path: Path, newValue: any, obj: object): Output
 ```
@@ -1679,7 +1826,7 @@ R.assocPath(path, newValue, Record<string, unknown>)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 assocPath<Output>(path: Path, newValue: any, obj: object): Output;
 assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
 assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
@@ -1934,7 +2081,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {assocPath} from 'rambda'
 
 interface Output {
@@ -1975,7 +2122,7 @@ describe('R.assocPath - curried', () => {
 
 ### bind
 
-```TypeScript
+```typescript
 
 bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>
 ```
@@ -2001,7 +2148,7 @@ const result = R.pipe(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
 bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 ```
@@ -2126,7 +2273,7 @@ test('preserves arity', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {bind} from 'rambda'
 
 class Foo {}
@@ -2150,7 +2297,7 @@ describe('R.bind', () => {
 
 ### both
 
-```TypeScript
+```typescript
 
 both(pred1: Pred, pred2: Pred): Pred
 ```
@@ -2174,7 +2321,7 @@ const result = [fn(15), fn(30)]
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 both(pred1: Pred, pred2: Pred): Pred;
 both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
@@ -2252,7 +2399,7 @@ test('skip evaluation of the second expression', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {both} from 'rambda'
 
 describe('R.both', () => {
@@ -2305,7 +2452,7 @@ describe('R.both', () => {
 
 ### chain
 
-```TypeScript
+```typescript
 
 chain<T, U>(fn: (n: T) => U[], list: T[]): U[]
 ```
@@ -2326,7 +2473,7 @@ const result = chain(duplicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
 chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 ```
@@ -2425,7 +2572,7 @@ test('@types/ramda broken test', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {chain} from 'rambda'
 
 const list = [1, 2, 3]
@@ -2528,7 +2675,7 @@ It counts how many times `predicate` function returns `true`, when supplied with
 
 ### countBy
 
-```TypeScript
+```typescript
 
 countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>
 ```
@@ -2549,7 +2696,7 @@ const expected = { a: 2, b: 2, c: 2 }
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
 countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
 ```
@@ -2607,7 +2754,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {countBy} from 'rambda'
 
 const transformFn = (x: string) => x.toLowerCase()
@@ -2653,7 +2800,7 @@ It decrements a number.
 
 ### defaultTo
 
-```TypeScript
+```typescript
 
 defaultTo<T>(defaultValue: T, input: T | null | undefined): T
 ```
@@ -2678,7 +2825,7 @@ R.defaultTo('foo', '') // => 'foo'
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
 defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
 ```
@@ -2745,7 +2892,7 @@ test('when inputArgument passes initial check', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {defaultTo} from 'rambda'
 
 describe('R.defaultTo with Ramda spec', () => {
@@ -2764,9 +2911,13 @@ describe('R.defaultTo with Ramda spec', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
 
+### descend
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#descend)
+
 ### difference
 
-```TypeScript
+```typescript
 
 difference<T>(a: T[], b: T[]): T[]
 ```
@@ -2789,7 +2940,7 @@ const result = R.difference(a, b)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 difference<T>(a: T[], b: T[]): T[];
 difference<T>(a: T[]): (b: T[]) => T[];
 ```
@@ -2854,7 +3005,7 @@ test('should use R.equals', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {difference} from 'rambda'
 
 const list1 = [1, 2, 3]
@@ -2880,7 +3031,7 @@ describe('R.difference', () => {
 
 ### differenceWith
 
-```TypeScript
+```typescript
 
 differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
@@ -2893,7 +3044,7 @@ differenceWith<T1, T2>(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
@@ -2979,7 +3130,7 @@ It returns a new object that does not contain property `prop`.
 
 ### drop
 
-```TypeScript
+```typescript
 
 drop<T>(howMany: number, input: T[]): T[]
 ```
@@ -2997,7 +3148,7 @@ R.drop(2, 'foobar')  // => 'obar'
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 drop<T>(howMany: number, input: T[]): T[];
 drop(howMany: number, input: string): string;
 drop<T>(howMany: number): {
@@ -3061,7 +3212,7 @@ test('should return copy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {drop} from 'rambda'
 
 const list = [1, 2, 3, 4]
@@ -3097,7 +3248,7 @@ describe('R.drop - string', () => {
 
 ### dropLast
 
-```TypeScript
+```typescript
 
 dropLast<T>(howMany: number, input: T[]): T[]
 ```
@@ -3115,7 +3266,7 @@ R.dropLast(2, 'foobar')  // => 'foob'
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 dropLast<T>(howMany: number, input: T[]): T[];
 dropLast(howMany: number, input: string): string;
 dropLast<T>(howMany: number): {
@@ -3183,7 +3334,7 @@ test('should return copy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {dropLast} from 'rambda'
 
 const list = [1, 2, 3, 4]
@@ -3225,7 +3376,7 @@ describe('R.dropLast - string', () => {
 
 ### dropRepeats
 
-```TypeScript
+```typescript
 
 dropRepeats<T>(list: T[]): T[]
 ```
@@ -3249,7 +3400,7 @@ const result = R.dropRepeats([
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 dropRepeats<T>(list: T[]): T[];
 ```
 
@@ -3339,7 +3490,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {dropRepeats} from 'rambda'
 
 describe('R.dropRepeats', () => {
@@ -3369,7 +3520,7 @@ describe('R.dropRepeats', () => {
 
 ### either
 
-```TypeScript
+```typescript
 
 either(firstPredicate: Pred, secondPredicate: Pred): Pred
 ```
@@ -3397,7 +3548,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 either(firstPredicate: Pred, secondPredicate: Pred): Pred;
 either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
 either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
@@ -3482,7 +3633,7 @@ test('case 2', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {either} from 'rambda'
 
 describe('R.either', () => {
@@ -3535,7 +3686,7 @@ describe('R.either', () => {
 
 ### endsWith
 
-```TypeScript
+```typescript
 
 endsWith<T extends string>(question: T, str: string): boolean
 ```
@@ -3560,7 +3711,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 endsWith<T extends string>(question: T, str: string): boolean;
 endsWith<T extends string>(question: T): (str: string) => boolean;
 endsWith<T>(question: T[], list: T[]): boolean;
@@ -3671,7 +3822,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {endsWith} from 'rambda'
 
 describe('R.endsWith - array', () => {
@@ -3715,7 +3866,7 @@ It returns `true` if property `prop` in `obj1` is equal to property `prop` in `o
 
 ### equals
 
-```TypeScript
+```typescript
 
 equals<T>(x: T, y: T): boolean
 ```
@@ -3737,7 +3888,7 @@ R.equals(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 equals<T>(x: T, y: T): boolean;
 equals<T>(x: T): (y: T) => boolean;
 ```
@@ -4263,7 +4414,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {equals} from 'rambda'
 
 describe('R.equals', () => {
@@ -4291,7 +4442,7 @@ describe('R.equals', () => {
 
 ### evolve
 
-```TypeScript
+```typescript
 
 evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[]
 ```
@@ -4325,7 +4476,7 @@ const expected = {
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[];
 evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
 evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
@@ -4533,7 +4684,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {evolve, add} from 'rambda'
 
 describe('R.evolve', () => {
@@ -4577,7 +4728,7 @@ describe('R.evolve', () => {
 
 ### F
 
-```TypeScript
+```typescript
 
 F(): boolean
 ```
@@ -4592,7 +4743,7 @@ F() // => false
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 F(): boolean;
 ```
 
@@ -4614,7 +4765,7 @@ export function F(){
 
 ### filter
 
-```TypeScript
+```typescript
 
 filter<T>(predicate: Predicate<T>): (input: T[]) => T[]
 ```
@@ -4641,7 +4792,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 filter<T>(predicate: Predicate<T>): (input: T[]) => T[];
 filter<T>(predicate: Predicate<T>, input: T[]): T[];
 filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
@@ -4782,7 +4933,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {filter} from 'rambda'
 
 const list = [1, 2, 3]
@@ -4835,7 +4986,7 @@ describe('R.filter with objects', () => {
 
 ### find
 
-```TypeScript
+```typescript
 
 find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined
 ```
@@ -4858,7 +5009,7 @@ const result = R.find(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
 find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 ```
@@ -4920,7 +5071,7 @@ test('with empty list', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {find} from 'rambda'
 
 const list = [1, 2, 3]
@@ -4945,7 +5096,7 @@ describe('R.find', () => {
 
 ### findIndex
 
-```TypeScript
+```typescript
 
 findIndex<T>(predicate: (x: T) => boolean, list: T[]): number
 ```
@@ -4968,7 +5119,7 @@ const result = R.findIndex(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
 findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 ```
@@ -5021,7 +5172,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {findIndex} from 'rambda'
 
 const list = [1, 2, 3]
@@ -5046,7 +5197,7 @@ describe('R.findIndex', () => {
 
 ### findLast
 
-```TypeScript
+```typescript
 
 findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined
 ```
@@ -5069,7 +5220,7 @@ const result = R.findLast(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
 findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
 ```
@@ -5158,7 +5309,7 @@ test('ramda 4', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {findLast} from 'rambda'
 
 const list = [1, 2, 3]
@@ -5183,7 +5334,7 @@ describe('R.findLast', () => {
 
 ### findLastIndex
 
-```TypeScript
+```typescript
 
 findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number
 ```
@@ -5206,7 +5357,7 @@ const result = R.findLastIndex(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
 findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 ```
@@ -5296,7 +5447,7 @@ test('ramda 4', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {findLastIndex} from 'rambda'
 
 const list = [1, 2, 3]
@@ -5321,7 +5472,7 @@ describe('R.findLastIndex', () => {
 
 ### flatten
 
-```TypeScript
+```typescript
 
 flatten<T>(list: any[]): T[]
 ```
@@ -5344,7 +5495,7 @@ const result = R.flatten([
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 flatten<T>(list: any[]): T[];
 ```
 
@@ -5403,7 +5554,7 @@ test('readme example', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {flatten} from 'rambda'
 
 describe('flatten', () => {
@@ -5430,7 +5581,7 @@ It returns function which calls `fn` with exchanged first and second argument.
 
 ### forEach
 
-```TypeScript
+```typescript
 
 forEach<T>(fn: Iterator<T, void>, list: T[]): T[]
 ```
@@ -5455,7 +5606,7 @@ result // => [1, 2]
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
 forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
 forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
@@ -5579,7 +5730,7 @@ test('returns the input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {forEach} from 'rambda'
 
 const list = [1, 2, 3]
@@ -5658,7 +5809,7 @@ It returns separated version of list or string `input`, where separation is done
 
 ### has
 
-```TypeScript
+```typescript
 
 has<T>(prop: string, obj: T): boolean
 ```
@@ -5681,7 +5832,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 has<T>(prop: string, obj: T): boolean;
 has(prop: string): <T>(obj: T) => boolean;
 ```
@@ -5731,7 +5882,7 @@ test('with non-object', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {has} from 'rambda'
 
 describe('R.has', () => {
@@ -5750,7 +5901,7 @@ describe('R.has', () => {
 
 ### hasPath
 
-```TypeScript
+```typescript
 
 hasPath<T>(
   path: string | string[],
@@ -5779,7 +5930,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 hasPath<T>(
   path: string | string[],
   input: object
@@ -5843,7 +5994,7 @@ test('when false', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {hasPath} from 'rambda'
 
 describe('R.hasPath', () => {
@@ -5870,7 +6021,7 @@ describe('R.hasPath', () => {
 
 ### head
 
-```TypeScript
+```typescript
 
 head(input: string): string
 ```
@@ -5891,7 +6042,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 head(input: string): string;
 head(emptyList: []): undefined;
 head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
@@ -5934,8 +6085,8 @@ test('head', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
-import {mixedList, mixedListConst} from '_internals/TypeScriptTestUtils'
+```typescript
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {head} from 'rambda'
 
 describe('R.head', () => {
@@ -5985,7 +6136,7 @@ Otherwise, it returns `false`.
 
 ### identity
 
-```TypeScript
+```typescript
 
 identity<T>(input: T): T
 ```
@@ -6004,7 +6155,7 @@ R.identity(7) // => 7
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 identity<T>(input: T): T;
 ```
 
@@ -6042,7 +6193,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {identity} from 'rambda'
 
 describe('R.identity', () => {
@@ -6059,7 +6210,7 @@ describe('R.identity', () => {
 
 ### ifElse
 
-```TypeScript
+```typescript
 
 ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
   pred: (a: T) => a is TFiltered,
@@ -6089,7 +6240,7 @@ const result = [ fn(8), fn(18) ]
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
   pred: (a: T) => a is TFiltered,
   onTrue: (a: TFiltered) => TOnTrueResult,
@@ -6232,7 +6383,7 @@ test('simple arity of 2', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {ifElse} from 'rambda'
 
 describe('R.ifElse', () => {
@@ -6290,7 +6441,7 @@ It increments a number.
 
 ### includes
 
-```TypeScript
+```typescript
 
 includes<T extends string>(valueToFind: T, input: string): boolean
 ```
@@ -6313,7 +6464,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 includes<T extends string>(valueToFind: T, input: string): boolean;
 includes<T extends string>(valueToFind: T): (input: string) => boolean;
 includes<T>(valueToFind: T, input: T[]): boolean;
@@ -6414,7 +6565,7 @@ test('throws on wrong input - match ramda behaviour', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {includes} from 'rambda'
 
 const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
@@ -6467,7 +6618,7 @@ If there is no such element, it returns `-1`.
 
 ### init
 
-```TypeScript
+```typescript
 
 init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T]
 ```
@@ -6488,7 +6639,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
 init(input: string): string;
 ```
@@ -6544,7 +6695,7 @@ test('with string', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {init} from 'rambda'
 
 describe('R.init', () => {
@@ -6598,7 +6749,7 @@ It returns `true` if `x` is instance of `targetPrototype`.
 
 ### isEmpty
 
-```TypeScript
+```typescript
 
 isEmpty<T>(x: T): boolean
 ```
@@ -6619,7 +6770,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 isEmpty<T>(x: T): boolean;
 ```
 
@@ -6681,7 +6832,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {isEmpty} from 'rambda'
 
 describe('R.isEmpty', () => {
@@ -6698,7 +6849,7 @@ describe('R.isEmpty', () => {
 
 ### isNil
 
-```TypeScript
+```typescript
 
 isNil(x: any): x is null | undefined
 ```
@@ -6719,7 +6870,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 isNil(x: any): x is null | undefined;
 ```
 
@@ -6759,7 +6910,7 @@ test('happy', () => {
 
 ### join
 
-```TypeScript
+```typescript
 
 join<T>(glue: string, list: T[]): string
 ```
@@ -6776,7 +6927,7 @@ R.join('-', [1, 2, 3])  // => '1-2-3'
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 join<T>(glue: string, list: T[]): string;
 join<T>(glue: string): (list: T[]) => string;
 ```
@@ -6821,7 +6972,7 @@ test('curry', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {join} from 'rambda'
 
 describe('R.join', () => {
@@ -6838,7 +6989,7 @@ describe('R.join', () => {
 
 ### juxt
 
-```TypeScript
+```typescript
 
 juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1]
 ```
@@ -6859,7 +7010,7 @@ const result = getRange(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
 juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
 juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
@@ -6904,7 +7055,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {juxt} from 'rambda'
 
 describe('R.juxt', () => {
@@ -6922,7 +7073,7 @@ describe('R.juxt', () => {
 
 ### keys
 
-```TypeScript
+```typescript
 
 keys<T extends object>(x: T): (keyof T)[]
 ```
@@ -6939,7 +7090,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 keys<T extends object>(x: T): (keyof T)[];
 keys<T>(x: T): string[];
 ```
@@ -6976,7 +7127,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {keys} from 'rambda'
 
 const obj = {a: 1, b: 2}
@@ -6995,7 +7146,7 @@ describe('R.keys', () => {
 
 ### last
 
-```TypeScript
+```typescript
 
 last(input: string): string
 ```
@@ -7016,7 +7167,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 last(input: string): string;
 last(emptyList: []): undefined;
 last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
@@ -7064,8 +7215,8 @@ test('with string', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
-import {mixedList, mixedListConst} from '_internals/TypeScriptTestUtils'
+```typescript
+import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
 import {last} from 'rambda'
 
 describe('R.last', () => {
@@ -7103,7 +7254,7 @@ describe('R.last', () => {
 
 ### lastIndexOf
 
-```TypeScript
+```typescript
 
 lastIndexOf<T>(target: T, list: T[]): number
 ```
@@ -7129,7 +7280,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 lastIndexOf<T>(target: T, list: T[]): number;
 lastIndexOf<T>(target: T): (list: T[]) => number;
 ```
@@ -7226,7 +7377,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {lastIndexOf} from 'rambda'
 
 const list = [1, 2, 3]
@@ -7249,7 +7400,7 @@ describe('R.lastIndexOf', () => {
 
 ### length
 
-```TypeScript
+```typescript
 
 length<T>(input: T[]): number
 ```
@@ -7270,7 +7421,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 length<T>(input: T[]): number;
 ```
 
@@ -7339,7 +7490,7 @@ test('with length as property', () => {
 
 ### lens
 
-```TypeScript
+```typescript
 
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens
 ```
@@ -7364,7 +7515,7 @@ R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 ```
 
@@ -7390,7 +7541,7 @@ export function lens(getter, setter){
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {lens, assoc} from 'rambda'
 
 interface Input {
@@ -7414,7 +7565,7 @@ describe('R.lens', () => {
 
 ### lensIndex
 
-```TypeScript
+```typescript
 
 lensIndex(index: number): Lens
 ```
@@ -7436,7 +7587,7 @@ R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 lensIndex(index: number): Lens;
 ```
 
@@ -7527,7 +7678,7 @@ test('get (set(set s v1) v2) === v2', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {view, lensIndex} from 'rambda'
 
 interface Input {
@@ -7550,7 +7701,7 @@ describe('R.lensIndex', () => {
 
 ### lensPath
 
-```TypeScript
+```typescript
 
 lensPath(path: RamdaPath): Lens
 ```
@@ -7576,7 +7727,7 @@ R.over(xHeadYLens, R.negate, input)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 lensPath(path: RamdaPath): Lens;
 lensPath(path: string): Lens;
 ```
@@ -7736,7 +7887,7 @@ test('get (set(set s v1) v2) === v2', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {lensPath, view} from 'rambda'
 
 interface Input {
@@ -7776,7 +7927,7 @@ describe('R.lensPath', () => {
 
 ### lensProp
 
-```TypeScript
+```typescript
 
 lensProp(prop: string): {
   <T, U>(obj: T): U
@@ -7803,7 +7954,7 @@ R.over(xLens, R.negate, input)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 lensProp(prop: string): {
   <T, U>(obj: T): U;
   set<T, U, V>(val: T, obj: U): V;
@@ -7935,7 +8086,7 @@ test('get (set(set s v1) v2) === v2', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {lensProp, view} from 'rambda'
 
 interface Input {
@@ -7962,7 +8113,7 @@ describe('R.lensProp', () => {
 
 ### map
 
-```TypeScript
+```typescript
 
 map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>
 ```
@@ -7995,7 +8146,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
 map<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
 map<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
@@ -8136,7 +8287,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {map} from 'rambda'
 
 describe('R.map with arrays', () => {
@@ -8224,7 +8375,7 @@ describe('R.map with objects', () => {
 
 ### mapObjIndexed
 
-```TypeScript
+```typescript
 
 mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>
 ```
@@ -8248,7 +8399,7 @@ const result = R.map(mapObjIndexed, Record<string, unknown>)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
 mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
 mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
@@ -8261,7 +8412,7 @@ mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dict
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {mapObjIndexed} from 'rambda'
 
 const obj = {a: 1, b: 2, c: 3}
@@ -8312,7 +8463,7 @@ describe('R.mapObjIndexed', () => {
 
 ### match
 
-```TypeScript
+```typescript
 
 match(regExpression: RegExp, str: string): string[]
 ```
@@ -8333,7 +8484,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 match(regExpression: RegExp, str: string): string[];
 match(regExpression: RegExp): (str: string) => string[];
 ```
@@ -8390,7 +8541,7 @@ test('throwing', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {match} from 'rambda'
 
 const str = 'foo bar'
@@ -8439,7 +8590,7 @@ It returns the greater value between `x` and `y` according to `compareFn` functi
 
 ### mean
 
-```TypeScript
+```typescript
 
 mean(list: number[]): number
 ```
@@ -8457,7 +8608,7 @@ R.mean([ 2, 7 ])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mean(list: number[]): number;
 ```
 
@@ -8499,7 +8650,7 @@ test('with NaN', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {mean} from 'rambda'
 
 describe('R.mean', () => {
@@ -8517,7 +8668,7 @@ describe('R.mean', () => {
 
 ### median
 
-```TypeScript
+```typescript
 
 median(list: number[]): number
 ```
@@ -8534,7 +8685,7 @@ R.median([ 7, 2, 10, 9 ]) // => 8
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 median(list: number[]): number;
 ```
 
@@ -8589,7 +8740,7 @@ test('with empty array', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {median} from 'rambda'
 
 describe('R.median', () => {
@@ -8613,7 +8764,7 @@ Same as `R.mergeRight`.
 
 ### mergeAll
 
-```TypeScript
+```typescript
 
 mergeAll<T>(list: object[]): T
 ```
@@ -8641,7 +8792,7 @@ const expected = {
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mergeAll<T>(list: object[]): T;
 mergeAll(list: object[]): object;
 ```
@@ -8723,7 +8874,7 @@ describe('acts as if nil values are simply empty objects', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {mergeAll} from 'rambda'
 
 describe('R.mergeAll', () => {
@@ -8750,7 +8901,7 @@ describe('R.mergeAll', () => {
 
 ### mergeDeepRight
 
-```TypeScript
+```typescript
 
 mergeDeepRight<Output>(target: object, newProps: object): Output
 ```
@@ -8764,7 +8915,7 @@ Creates a new object with the own properties of the first object merged with the
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mergeDeepRight<Output>(target: object, newProps: object): Output;
 mergeDeepRight<Output>(target: object): (newProps: object) => Output;
 ```
@@ -8944,7 +9095,7 @@ test('functions are not discarded', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {mergeDeepRight} from 'rambda'
 
 interface Output {
@@ -8965,7 +9116,7 @@ describe('R.mergeDeepRight', () => {
 
 ### mergeLeft
 
-```TypeScript
+```typescript
 
 mergeLeft<Output>(newProps: object, target: object): Output
 ```
@@ -8986,7 +9137,7 @@ const result = R.mergeLeft(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mergeLeft<Output>(newProps: object, target: object): Output;
 mergeLeft<Output>(newProps: object): (target: object) => Output;
 ```
@@ -9050,7 +9201,7 @@ test('when undefined or null instead of object', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {mergeLeft} from 'rambda'
 
 interface Output {
@@ -9082,7 +9233,7 @@ It creates a copy of `target` object with overwritten `newProps` properties. Pre
 
 ### mergeWith
 
-```TypeScript
+```typescript
 
 mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>
 ```
@@ -9104,7 +9255,7 @@ const result = R.mergeWith(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
 mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
 mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
@@ -9223,7 +9374,7 @@ describe('acts as if nil values are simply empty objects', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {concat, mergeWith} from 'rambda'
 
 interface Output {
@@ -9290,7 +9441,7 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 
 ### modify
 
-```TypeScript
+```typescript
 
 modify<T extends object, K extends keyof T, P>(
   prop: K,
@@ -9310,7 +9461,7 @@ const result = R.modify()
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 modify<T extends object, K extends keyof T, P>(
   prop: K,
   fn: (a: T[K]) => P,
@@ -9459,7 +9610,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {modify, add} from 'rambda'
 const person = {name: 'James', age: 20}
 
@@ -9485,7 +9636,7 @@ describe('R.modify', () => {
 
 ### modifyPath
 
-```TypeScript
+```typescript
 
 modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T
 ```
@@ -9503,7 +9654,7 @@ const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
 modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
 modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
@@ -9582,7 +9733,7 @@ test('with array', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {modifyPath} from 'rambda'
 
 const obj = {a: {b: {c: 1}}}
@@ -9640,7 +9791,7 @@ Curried version of `x*y`.
 
 ### none
 
-```TypeScript
+```typescript
 
 none<T>(predicate: (x: T) => boolean, list: T[]): boolean
 ```
@@ -9661,7 +9812,7 @@ const result = R.none(predicate, arr)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 ```
@@ -9710,7 +9861,7 @@ test('when false curried', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {none} from 'rambda'
 
 describe('R.none', () => {
@@ -9740,7 +9891,7 @@ describe('R.none', () => {
 
 ### not
 
-```TypeScript
+```typescript
 
 not(input: any): boolean
 ```
@@ -9757,7 +9908,7 @@ R.not(false) // true
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 not(input: any): boolean;
 ```
 
@@ -9796,7 +9947,7 @@ test('not', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {not} from 'rambda'
 
 describe('R.not', () => {
@@ -9814,7 +9965,7 @@ describe('R.not', () => {
 
 ### nth
 
-```TypeScript
+```typescript
 
 nth(index: number, input: string): string
 ```
@@ -9839,7 +9990,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 nth(index: number, input: string): string;	
 nth<T>(index: number, input: T[]): T | undefined;	
 nth(n: number): {
@@ -9902,7 +10053,7 @@ test('with negative index', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {nth} from 'rambda'
 
 const list = [1, 2, 3]
@@ -9949,7 +10100,7 @@ It creates an object with a single key-value pair.
 
 ### of
 
-```TypeScript
+```typescript
 
 of<T>(x: T): T[]
 ```
@@ -9965,7 +10116,7 @@ R.of([42]); // => [[42]]
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 of<T>(x: T): T[];
 ```
 
@@ -10003,7 +10154,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {of} from 'rambda'
 
 const list = [1, 2, 3]
@@ -10028,7 +10179,7 @@ describe('R.of', () => {
 
 ### omit
 
-```TypeScript
+```typescript
 
 omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>
 ```
@@ -10055,7 +10206,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
 omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
 omit<T, U>(propsToOmit: string, obj: T): U;
@@ -10145,11 +10296,11 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {omit} from 'rambda'
 
 describe('R.omit with array as props input', () => {
-  it('allow TypeScript to infer object type', () => {
+  it('allow Typescript to infer object type', () => {
     const input = {a: 'foo', b: 2, c: 3, d: 4}
     const result = omit(['b,c'], input)
 
@@ -10243,7 +10394,7 @@ This method is also known as P combinator.
 
 ### once
 
-```TypeScript
+```typescript
 
 once<T extends AnyFunction>(func: T): T
 ```
@@ -10265,7 +10416,7 @@ addOnce(1)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 once<T extends AnyFunction>(func: T): T;
 ```
 
@@ -10343,7 +10494,7 @@ test('happy path', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {once} from 'rambda'
 
 describe('R.once', () => {
@@ -10372,7 +10523,7 @@ Logical OR
 
 ### over
 
-```TypeScript
+```typescript
 
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T
 ```
@@ -10391,7 +10542,7 @@ R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) // => ['FOO', 'bar', 'baz']
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
 over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
 over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
@@ -10486,7 +10637,7 @@ test('index lens', () => {
 
 ### partial
 
-```TypeScript
+```typescript
 
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T
 ```
@@ -10517,7 +10668,7 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
 partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
@@ -10624,7 +10775,7 @@ test('ramda spec', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {partial} from 'rambda'
 
 describe('R.partial', () => {
@@ -10652,7 +10803,7 @@ describe('R.partial', () => {
 
 ### partialObject
 
-```TypeScript
+```typescript
 
 partialObject<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
@@ -10682,7 +10833,7 @@ const result = curried({
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 partialObject<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
   partialInput: PartialInput,
@@ -10782,7 +10933,7 @@ test('async function throwing an error', async () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {partialObject, delay} from 'rambda'
 
 describe('R.partialObject', () => {
@@ -10826,7 +10977,7 @@ describe('R.partialObject', () => {
 
 ### partition
 
-```TypeScript
+```typescript
 
 partition<T>(
   predicate: Predicate<T>,
@@ -10858,7 +11009,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 partition<T>(
   predicate: Predicate<T>,
   input: T[]
@@ -11008,7 +11159,7 @@ test('readme example', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {partition} from 'rambda'
 
 describe('R.partition', () => {
@@ -11056,7 +11207,7 @@ describe('R.partition', () => {
 
 ### path
 
-```TypeScript
+```typescript
 
 path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0]
 ```
@@ -11086,7 +11237,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
 path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
 path<
@@ -11213,7 +11364,7 @@ test('null is not a valid path', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {path} from 'rambda'
 
 const input = {a: {b: {c: true}}}
@@ -11278,7 +11429,7 @@ describe('R.path with list as path', () => {
 
 ### pathEq
 
-```TypeScript
+```typescript
 
 pathEq(pathToSearch: Path, target: any, input: any): boolean
 ```
@@ -11306,7 +11457,7 @@ const result = R.pathEq(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 pathEq(pathToSearch: Path, target: any, input: any): boolean;
 pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
 pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
@@ -11376,7 +11527,7 @@ test('when wrong path', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {pathEq} from 'rambda'
 
 describe('R.pathEq', () => {
@@ -11427,7 +11578,7 @@ describe('with ramda specs', () => {
 
 ### pathOr
 
-```TypeScript
+```typescript
 
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
@@ -11459,7 +11610,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
@@ -11543,7 +11694,7 @@ test('curry case (x,y)(z)', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {pathOr} from 'rambda'
 
 describe('R.pathOr', () => {
@@ -11572,7 +11723,7 @@ describe('R.pathOr', () => {
 
 ### paths
 
-```TypeScript
+```typescript
 
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
@@ -11605,7 +11756,7 @@ const result = R.paths([
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
 paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
 paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
@@ -11703,7 +11854,7 @@ test('returns undefined for items not found', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {paths} from 'rambda'
 
 interface Input {
@@ -11743,7 +11894,7 @@ describe('R.paths', () => {
 
 ### pick
 
-```TypeScript
+```typescript
 
 pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
 ```
@@ -11792,7 +11943,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 pick<K extends string | number | symbol>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 pick<T, U>(propsToPick: string, input: T): U;
@@ -11924,7 +12075,7 @@ test('with symbol', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {pick} from 'rambda'
 
 const input = {a: 'foo', b: 2, c: 3, d: 4}
@@ -11982,7 +12133,7 @@ describe('R.pick with string as props input', () => {
 
 ### pickAll
 
-```TypeScript
+```typescript
 
 pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>
 ```
@@ -12021,7 +12172,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
 pickAll<T, U>(propsToPicks: string[], input: T): U;
 pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
@@ -12111,7 +12262,7 @@ test('with array as condition', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {pickAll} from 'rambda'
 
 interface Input {
@@ -12179,7 +12330,7 @@ It performs left-to-right function composition.
 
 ### pluck
 
-```TypeScript
+```typescript
 
 pluck<K extends keyof T, T>(property: K, list: T[]): T[K][]
 ```
@@ -12200,7 +12351,7 @@ const result = R.pluck(property, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
 pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
 pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
@@ -12260,7 +12411,7 @@ test('with number', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {pluck} from 'rambda'
 
 describe('R.pluck', () => {
@@ -12299,7 +12450,7 @@ describe('R.pluck', () => {
 
 ### prepend
 
-```TypeScript
+```typescript
 
 prepend<T>(x: T, input: T[]): T[]
 ```
@@ -12317,7 +12468,7 @@ const result = R.prepend('foo', ['bar', 'baz'])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 prepend<T>(x: T, input: T[]): T[];
 prepend<T>(x: T): (input: T[]) => T[];
 ```
@@ -12371,7 +12522,7 @@ test('with string instead of array', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {prepend} from 'rambda'
 
 const list = [1, 2, 3]
@@ -12396,7 +12547,7 @@ describe('R.prepend', () => {
 
 ### product
 
-```TypeScript
+```typescript
 
 product(list: number[]): number
 ```
@@ -12412,7 +12563,7 @@ R.product([ 2, 3, 4 ])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 product(list: number[]): number;
 ```
 
@@ -12454,7 +12605,7 @@ test('bad input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {product} from 'rambda'
 
 describe('R.product', () => {
@@ -12472,7 +12623,7 @@ describe('R.product', () => {
 
 ### prop
 
-```TypeScript
+```typescript
 
 prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>
 ```
@@ -12495,7 +12646,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
 prop<P extends keyof never>(propToFind: P): {
     <T>(value: Record<P, T>): T;
@@ -12549,7 +12700,7 @@ test('prop', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {prop} from 'rambda'
 
 describe('R.prop', () => {
@@ -12599,7 +12750,7 @@ describe('with number as prop', () => {
 
 ### propEq
 
-```TypeScript
+```typescript
 
 propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean
 ```
@@ -12626,7 +12777,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
 propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
 propEq(valueToMatch: any): {
@@ -12693,7 +12844,7 @@ test('returns false if called with a null or undefined object', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {propEq} from 'rambda'
 
 const property = 'foo'
@@ -12747,7 +12898,7 @@ describe('R.propEq', () => {
 
 ### propIs
 
-```TypeScript
+```typescript
 
 propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>
 ```
@@ -12771,7 +12922,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
 propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
 propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
@@ -12840,7 +12991,7 @@ test('when false', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {propIs} from 'rambda'
 
 const property = 'a'
@@ -12865,7 +13016,7 @@ describe('R.propIs', () => {
 
 ### propOr
 
-```TypeScript
+```typescript
 
 propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T
 ```
@@ -12890,7 +13041,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
 propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
 propOr<T>(defaultValue: T): {
@@ -12957,7 +13108,7 @@ test('propOr (currying)', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {propOr} from 'rambda'
 
 const obj = {foo: 'bar'}
@@ -12990,7 +13141,7 @@ describe('R.propOr', () => {
 
 ### props
 
-```TypeScript
+```typescript
 
 props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[]
 ```
@@ -13011,7 +13162,7 @@ const result = R.props(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
 props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
 props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
@@ -13075,7 +13226,7 @@ test('wrong input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {props} from 'rambda'
 
 const obj = {a: 1, b: 2}
@@ -13100,7 +13251,7 @@ describe('R.props', () => {
 
 ### propSatisfies
 
-```TypeScript
+```typescript
 
 propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean
 ```
@@ -13122,7 +13273,7 @@ const result = R.propSatisfies(predicate, property, Record<string, unknown>)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
 propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
 ```
@@ -13174,7 +13325,7 @@ test('when false', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {propSatisfies} from 'rambda'
 
 const obj = {a: 1}
@@ -13199,7 +13350,7 @@ describe('R.propSatisfies', () => {
 
 ### range
 
-```TypeScript
+```typescript
 
 range(startInclusive: number, endExclusive: number): number[]
 ```
@@ -13217,7 +13368,7 @@ R.range(0, 5)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 range(startInclusive: number, endExclusive: number): number[];
 range(startInclusive: number): (endExclusive: number) => number[];
 ```
@@ -13284,7 +13435,7 @@ test('curry', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {range} from 'rambda'
 
 describe('R.range', () => {
@@ -13315,7 +13466,7 @@ describe('R.range', () => {
 
 ### reject
 
-```TypeScript
+```typescript
 
 reject<T>(predicate: Predicate<T>, list: T[]): T[]
 ```
@@ -13340,7 +13491,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 reject<T>(predicate: Predicate<T>, list: T[]): T[];
 reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
 reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
@@ -13398,7 +13549,7 @@ test('with object', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {reject} from 'rambda'
 
 describe('R.reject with array', () => {
@@ -13448,7 +13599,7 @@ describe('R.reject with objects', () => {
 
 ### repeat
 
-```TypeScript
+```typescript
 
 repeat<T>(x: T): (timesToRepeat: number) => T[]
 ```
@@ -13464,7 +13615,7 @@ R.repeat('foo', 3)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 repeat<T>(x: T): (timesToRepeat: number) => T[];
 repeat<T>(x: T, timesToRepeat: number): T[];
 ```
@@ -13513,7 +13664,7 @@ test('repeat', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {repeat} from 'rambda'
 
 describe('R.repeat', () => {
@@ -13536,7 +13687,7 @@ describe('R.repeat', () => {
 
 ### replace
 
-```TypeScript
+```typescript
 
 replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string
 ```
@@ -13556,7 +13707,7 @@ const result = R.replace(strOrRegex, '|0|', 'foo')
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
 replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
 replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
@@ -13618,7 +13769,7 @@ test('with function as replacer input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {replace} from 'rambda'
 
 const str = 'foo bar foo'
@@ -13677,7 +13828,7 @@ describe('R.replace - curried', () => {
 
 ### reverse
 
-```TypeScript
+```typescript
 
 reverse<T>(input: T[]): T[]
 ```
@@ -13698,7 +13849,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 reverse<T>(input: T[]): T[];
 reverse(input: string): string;
 ```
@@ -13753,7 +13904,7 @@ test("it doesn't mutate", () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {reverse} from 'rambda'
 
 const list = [1, 2, 3, 4, 5]
@@ -13772,7 +13923,7 @@ describe('R.reverse', () => {
 
 ### set
 
-```TypeScript
+```typescript
 
 set<T, U>(lens: Lens, replacer: U, obj: T): T
 ```
@@ -13796,7 +13947,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 set<T, U>(lens: Lens, replacer: U, obj: T): T;
 set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
 set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
@@ -13879,7 +14030,7 @@ test('index lens', () => {
 
 ### slice
 
-```TypeScript
+```typescript
 
 slice(from: number, to: number, input: string): string
 ```
@@ -13903,7 +14054,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 slice(from: number, to: number, input: string): string;
 slice<T>(from: number, to: number, input: T[]): T[];
 slice(from: number, to: number): {
@@ -13968,7 +14119,7 @@ test('slice', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {slice} from 'rambda'
 
 const list = [1, 2, 3, 4, 5]
@@ -13991,7 +14142,7 @@ describe('R.slice', () => {
 
 ### sort
 
-```TypeScript
+```typescript
 
 sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[]
 ```
@@ -14023,7 +14174,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
 sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 ```
@@ -14076,7 +14227,7 @@ test('it doesn\'t mutate', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {sort} from 'rambda'
 
 const list = [3, 0, 5, 2, 1]
@@ -14103,7 +14254,7 @@ describe('R.sort', () => {
 
 ### sortBy
 
-```TypeScript
+```typescript
 
 sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[]
 ```
@@ -14133,7 +14284,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
 sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
@@ -14210,7 +14361,7 @@ test('with compose', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {sortBy, pipe} from 'rambda'
 
 interface Input {
@@ -14266,7 +14417,7 @@ describe('R.sortBy', () => {
 
 ### split
 
-```TypeScript
+```typescript
 
 split(separator: string | RegExp): (str: string) => string[]
 ```
@@ -14286,7 +14437,7 @@ const result = R.split(separator, str)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 split(separator: string | RegExp): (str: string) => string[];
 split(separator: string | RegExp, str: string): string[];
 ```
@@ -14333,7 +14484,7 @@ test('curried', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {split} from 'rambda'
 
 const str = 'foo|bar|baz'
@@ -14359,7 +14510,7 @@ describe('R.split', () => {
 
 ### splitAt
 
-```TypeScript
+```typescript
 
 splitAt<T>(index: number, input: T[]): [T[], T[]]
 ```
@@ -14378,7 +14529,7 @@ const result = R.splitAt(2, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 splitAt<T>(index: number, input: T[]): [T[], T[]];
 splitAt(index: number, input: string): [string, string];
 splitAt(index: number): {
@@ -14491,7 +14642,7 @@ test('with bad inputs', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {splitAt} from 'rambda'
 
 const index = 1
@@ -14531,7 +14682,7 @@ describe('R.splitAt with string', () => {
 
 ### splitEvery
 
-```TypeScript
+```typescript
 
 splitEvery<T>(sliceLength: number, input: T[]): (T[])[]
 ```
@@ -14557,7 +14708,7 @@ const expected = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 splitEvery<T>(sliceLength: number, input: T[]): (T[])[];
 splitEvery(sliceLength: number, input: string): string[];
 splitEvery(sliceLength: number): {
@@ -14624,7 +14775,7 @@ test('with bad input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {splitEvery} from 'rambda'
 
 const list = [1, 2, 3, 4, 5, 6, 7]
@@ -14649,7 +14800,7 @@ describe('R.splitEvery', () => {
 
 ### splitWhen
 
-```TypeScript
+```typescript
 
 splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[]
 ```
@@ -14670,7 +14821,7 @@ const result = R.splitWhen(R.equals(2), list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[];
 splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
 ```
@@ -14758,7 +14909,7 @@ test('with bad inputs', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {splitWhen} from 'rambda'
 
 const list = [1, 2, 1, 2]
@@ -14784,7 +14935,7 @@ describe('R.splitWhen', () => {
 
 ### startsWith
 
-```TypeScript
+```typescript
 
 startsWith<T extends string>(question: T, input: string): boolean
 ```
@@ -14811,7 +14962,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 startsWith<T extends string>(question: T, input: string): boolean;
 startsWith<T extends string>(question: T): (input: string) => boolean;
 startsWith<T>(question: T[], input: T[]): boolean;
@@ -14905,7 +15056,7 @@ describe('brute force', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {startsWith} from 'rambda'
 
 describe('R.startsWith - array', () => {
@@ -14949,7 +15100,7 @@ Curried version of `x - y`
 
 ### sum
 
-```TypeScript
+```typescript
 
 sum(list: number[]): number
 ```
@@ -14965,7 +15116,7 @@ R.sum([1, 2, 3, 4, 5])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 sum(list: number[]): number;
 ```
 
@@ -15001,7 +15152,7 @@ test('happy', () => {
 
 ### symmetricDifference
 
-```TypeScript
+```typescript
 
 symmetricDifference<T>(x: T[], y: T[]): T[]
 ```
@@ -15024,7 +15175,7 @@ const result = R.symmetricDifference(x, y)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 symmetricDifference<T>(x: T[], y: T[]): T[];
 symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
 ```
@@ -15085,7 +15236,7 @@ test('symmetricDifference with objects', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {symmetricDifference} from 'rambda'
 
 describe('R.symmetricDifference', () => {
@@ -15113,7 +15264,7 @@ describe('R.symmetricDifference', () => {
 
 ### T
 
-```TypeScript
+```typescript
 
 T(): boolean
 ```
@@ -15129,7 +15280,7 @@ R.T()
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 T(): boolean;
 ```
 
@@ -15151,7 +15302,7 @@ export function T(){
 
 ### tail
 
-```TypeScript
+```typescript
 
 tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T]
 ```
@@ -15172,7 +15323,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
 tail(input: string): string;
 ```
@@ -15219,7 +15370,7 @@ test('tail', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {tail} from 'rambda'
 
 describe('R.tail', () => {
@@ -15247,7 +15398,7 @@ describe('R.tail', () => {
 
 ### take
 
-```TypeScript
+```typescript
 
 take<T>(howMany: number, input: T[]): T[]
 ```
@@ -15270,7 +15421,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 take<T>(howMany: number, input: T[]): T[];
 take(howMany: number, input: string): string;
 take<T>(howMany: number): {
@@ -15338,7 +15489,7 @@ test('with zero index', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {take} from 'rambda'
 
 const list = [1, 2, 3, 4]
@@ -15378,7 +15529,7 @@ describe('R.take - string', () => {
 
 ### takeLast
 
-```TypeScript
+```typescript
 
 takeLast<T>(howMany: number, input: T[]): T[]
 ```
@@ -15401,7 +15552,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 takeLast<T>(howMany: number, input: T[]): T[];
 takeLast(howMany: number, input: string): string;
 takeLast<T>(howMany: number): {
@@ -15477,7 +15628,7 @@ test('with negative index', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {takeLast} from 'rambda'
 
 const list = [1, 2, 3, 4]
@@ -15517,7 +15668,7 @@ describe('R.takeLast - string', () => {
 
 ### takeLastWhile
 
-```TypeScript
+```typescript
 
 takeLastWhile(predicate: (x: string) => boolean, input: string): string
 ```
@@ -15536,7 +15687,7 @@ const result = R.takeLastWhile(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
 takeLastWhile<T>(predicate: (x: T) => boolean, input: T[]): T[];
@@ -15615,7 +15766,7 @@ test('with string', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {takeLastWhile} from 'rambda'
 
 const list = [1, 2, 3]
@@ -15657,7 +15808,7 @@ describe('R.takeLastWhile', () => {
 
 ### tap
 
-```TypeScript
+```typescript
 
 tap<T>(fn: (x: T) => void, input: T): T
 ```
@@ -15683,7 +15834,7 @@ R.compose(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 tap<T>(fn: (x: T) => void, input: T): T;
 tap<T>(fn: (x: T) => void): (input: T) => T;
 ```
@@ -15729,7 +15880,7 @@ test('tap', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {tap, pipe} from 'rambda'
 
 describe('R.tap', () => {
@@ -15750,7 +15901,7 @@ describe('R.tap', () => {
 
 ### test
 
-```TypeScript
+```typescript
 
 test(regExpression: RegExp): (str: string) => boolean
 ```
@@ -15768,7 +15919,7 @@ R.test(/^f/, 'foo')
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 test(regExpression: RegExp): (str: string) => boolean;
 test(regExpression: RegExp, str: string): boolean;
 ```
@@ -15817,7 +15968,7 @@ test('throws if first argument is not regex', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {test} from 'rambda'
 
 const input = 'foo   '
@@ -15843,7 +15994,7 @@ describe('R.test', () => {
 
 ### times
 
-```TypeScript
+```typescript
 
 times<T>(fn: (i: number) => T, howMany: number): T[]
 ```
@@ -15866,7 +16017,7 @@ R.times(fn, howMany)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 times<T>(fn: (i: number) => T, howMany: number): T[];
 times<T>(fn: (i: number) => T): (howMany: number) => T[];
 ```
@@ -15932,7 +16083,7 @@ test('curry', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {times, identity} from 'rambda'
 
 describe('R.times', () => {
@@ -15949,7 +16100,7 @@ describe('R.times', () => {
 
 ### toLower
 
-```TypeScript
+```typescript
 
 toLower<S extends string>(str: S): Lowercase<S>
 ```
@@ -15965,7 +16116,7 @@ R.toLower('FOO')
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 toLower<S extends string>(str: S): Lowercase<S>;
 toLower(str: string): string;
 ```
@@ -16002,7 +16153,7 @@ test('toLower', () => {
 
 ### toPairs
 
-```TypeScript
+```typescript
 
 toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>
 ```
@@ -16027,7 +16178,7 @@ const result = R.toPairs(list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
 toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 ```
@@ -16075,7 +16226,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {toPairs} from 'rambda'
 
 const obj = {
@@ -16099,7 +16250,7 @@ describe('R.toPairs', () => {
 
 ### toString
 
-```TypeScript
+```typescript
 
 toString(x: unknown): string
 ```
@@ -16115,7 +16266,7 @@ R.toString([1, 2])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 toString(x: unknown): string;
 ```
 
@@ -16151,7 +16302,7 @@ test('happy', () => {
 
 ### toUpper
 
-```TypeScript
+```typescript
 
 toUpper<S extends string>(str: S): Uppercase<S>
 ```
@@ -16167,7 +16318,7 @@ R.toUpper('foo')
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 toUpper<S extends string>(str: S): Uppercase<S>;
 toUpper(str: string): string;
 ```
@@ -16204,7 +16355,7 @@ test('toUpper', () => {
 
 ### transpose
 
-```TypeScript
+```typescript
 
 transpose<T>(list: (T[])[]): (T[])[]
 ```
@@ -16223,7 +16374,7 @@ const result = R.transpose(list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 transpose<T>(list: (T[])[]): (T[])[];
 ```
 
@@ -16299,7 +16450,7 @@ test('array with falsy values', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {transpose} from 'rambda'
 
 const input = [
@@ -16323,7 +16474,7 @@ describe('R.transpose', () => {
 
 ### trim
 
-```TypeScript
+```typescript
 
 trim(str: string): string
 ```
@@ -16339,7 +16490,7 @@ R.trim('  foo  ')
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 trim(str: string): string;
 ```
 
@@ -16395,7 +16546,7 @@ It accepts any input and it returns its type.
 
 ### unapply
 
-```TypeScript
+```typescript
 
 unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T
 ```
@@ -16415,7 +16566,7 @@ R.unapply(JSON.stringify)(1, 2, 3)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
 ```
 
@@ -16538,7 +16689,7 @@ test('it works with converge', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {join, unapply, sum} from 'rambda'
 
 describe('R.unapply', () => {
@@ -16562,7 +16713,7 @@ describe('R.unapply', () => {
 
 ### union
 
-```TypeScript
+```typescript
 
 union<T>(x: T[], y: T[]): T[]
 ```
@@ -16582,7 +16733,7 @@ const result = R.union([1,2,3], [3,4,5]);
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 union<T>(x: T[], y: T[]): T[];
 union<T>(x: T[]): (y: T[]) => T[];
 ```
@@ -16636,7 +16787,7 @@ test('with list of objects', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {union} from 'rambda'
 
 describe('R.union', () => {
@@ -16688,7 +16839,7 @@ describe('R.union - curried', () => {
 
 ### uniq
 
-```TypeScript
+```typescript
 
 uniq<T>(list: T[]): T[]
 ```
@@ -16710,7 +16861,7 @@ R.uniq(list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 uniq<T>(list: T[]): T[];
 ```
 
@@ -16778,7 +16929,7 @@ test('can distinct between string and number', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {uniq} from 'rambda'
 
 describe('R.uniq', () => {
@@ -16805,7 +16956,7 @@ It applies uniqueness to input list based on function that defines what to be us
 
 ### uniqWith
 
-```TypeScript
+```typescript
 
 uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[]
 ```
@@ -16841,7 +16992,7 @@ const result = R.uniqWith(predicate, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 ```
@@ -16926,7 +17077,7 @@ test('with list of strings', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {uniqWith} from 'rambda'
 
 describe('R.uniqWith', () => {
@@ -16947,7 +17098,7 @@ describe('R.uniqWith', () => {
 
 ### unless
 
-```TypeScript
+```typescript
 
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U
 ```
@@ -16977,7 +17128,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
 unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
 unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
@@ -17029,7 +17180,7 @@ test('curried', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {unless, inc} from 'rambda'
 
 describe('R.unless', () => {
@@ -17121,7 +17272,7 @@ describe('R.unless - curried', () => {
 
 ### update
 
-```TypeScript
+```typescript
 
 update<T>(index: number, newValue: T, list: T[]): T[]
 ```
@@ -17143,7 +17294,7 @@ const result = R.update(index, newValue, list)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 update<T>(index: number, newValue: T, list: T[]): T[];
 update<T>(index: number, newValue: T): (list: T[]) => T[];
 ```
@@ -17233,7 +17384,7 @@ test('with negative index', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {update} from 'rambda'
 
 describe('R.update', () => {
@@ -17250,7 +17401,7 @@ describe('R.update', () => {
 
 ### values
 
-```TypeScript
+```typescript
 
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
@@ -17270,7 +17421,7 @@ R.values(Record<string, unknown>)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 values<T extends object, K extends keyof T>(obj: T): T[K][];
 ```
 
@@ -17326,7 +17477,7 @@ test('with bad input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {values} from 'rambda'
 
 describe('R.values', () => {
@@ -17347,7 +17498,7 @@ describe('R.values', () => {
 
 ### view
 
-```TypeScript
+```typescript
 
 view<T, U>(lens: Lens): (target: T) => U
 ```
@@ -17367,7 +17518,7 @@ R.view(lens, {x: 4, y: 2}) // => 4
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 view<T, U>(lens: Lens): (target: T) => U;
 view<T, U>(lens: Lens, target: T): U;
 ```
@@ -17417,7 +17568,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {lens, view, assoc} from 'rambda'
 
 interface Input {
@@ -17446,7 +17597,7 @@ describe('R.view', () => {
 
 ### when
 
-```TypeScript
+```typescript
 
 when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U
 ```
@@ -17455,7 +17606,7 @@ when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T |
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
 when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
@@ -17506,7 +17657,7 @@ test('happy', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {when} from 'rambda'
 
 const predicate = (x: number) => x > 2
@@ -17538,7 +17689,7 @@ describe('R.when', () => {
 
 ### where
 
-```TypeScript
+```typescript
 
 where<T, U>(conditions: T, input: U): boolean
 ```
@@ -17566,7 +17717,7 @@ const result = condition(input)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 where<T, U>(conditions: T, input: U): boolean;
 where<T>(conditions: T): <U>(input: U) => boolean;
 where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
@@ -17648,7 +17799,7 @@ test('when false | early exit', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {where, equals} from 'rambda'
 
 describe('R.where', () => {
@@ -17685,7 +17836,7 @@ Same as `R.where`, but it will return `true` if at least one condition check ret
 
 ### whereEq
 
-```TypeScript
+```typescript
 
 whereEq<T, U>(condition: T, input: U): boolean
 ```
@@ -17711,7 +17862,7 @@ const result = whereEq(condition, input)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 whereEq<T, U>(condition: T, input: U): boolean;
 whereEq<T>(condition: T): <U>(input: U) => boolean;
 ```
@@ -17797,7 +17948,7 @@ test('with wrong input', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {whereEq} from 'rambda'
 
 describe('R.whereEq', () => {
@@ -17816,7 +17967,7 @@ describe('R.whereEq', () => {
 
 ### without
 
-```TypeScript
+```typescript
 
 without<T>(matchAgainst: T[], source: T[]): T[]
 ```
@@ -17839,7 +17990,7 @@ const result = R.without(matchAgainst, source)
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 without<T>(matchAgainst: T[], source: T[]): T[];
 without<T>(matchAgainst: T[]): (source: T[]) => T[];
 ```
@@ -17914,7 +18065,7 @@ test('ramda test', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {without} from 'rambda'
 
 const itemsToOmit = ['A', 'B', 'C']
@@ -17940,7 +18091,7 @@ describe('R.without', () => {
 
 ### xor
 
-```TypeScript
+```typescript
 
 xor(x: boolean, y: boolean): boolean
 ```
@@ -17962,7 +18113,7 @@ const result = [
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 xor(x: boolean, y: boolean): boolean;
 xor(y: boolean): (y: boolean) => boolean;
 ```
@@ -18041,7 +18192,7 @@ test('when one argument is truthy and the other is falsy, it should return true'
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {xor} from 'rambda'
 
 describe('R.xor', () => {
@@ -18060,7 +18211,7 @@ describe('R.xor', () => {
 
 ### zip
 
-```TypeScript
+```typescript
 
 zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[]
 ```
@@ -18086,7 +18237,7 @@ R.zip([...x, 3], ['A', 'B'])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
 zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
 ```
@@ -18162,7 +18313,7 @@ test('should truncate result to length of shorted input list', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {zip} from 'rambda'
 
 describe('R.zip', () => {
@@ -18182,7 +18333,7 @@ describe('R.zip', () => {
 
 ### zipObj
 
-```TypeScript
+```typescript
 
 zipObj<T, K extends string>(keys: K[], values: T[]): { [P in K]: T }
 ```
@@ -18206,7 +18357,7 @@ R.zipObj(keys, [1, 2])
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 zipObj<T, K extends string>(keys: K[], values: T[]): { [P in K]: T };
 zipObj<K extends string>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
 zipObj<T, K extends number>(keys: K[], values: T[]): { [P in K]: T };
@@ -18285,7 +18436,7 @@ test('ignore extra keys', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {zipObj} from 'rambda'
 
 describe('R.zipObj', () => {
@@ -18309,7 +18460,7 @@ describe('R.zipObj', () => {
 
 ### zipWith
 
-```TypeScript
+```typescript
 
 zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[]
 ```
@@ -18330,7 +18481,7 @@ const result = R.zipWith(
 
 <summary>All TypeScript definitions</summary>
 
-```TypeScript
+```typescript
 zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
 zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
 zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
@@ -18390,7 +18541,7 @@ test('when second list is longer', () => {
 
 <summary><strong>TypeScript</strong> test</summary>
 
-```TypeScript
+```typescript
 import {zipWith} from 'rambda'
 
 const list1 = [1, 2]
@@ -18428,9 +18579,21 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+8.2.0
+
+Add the following methods:
+
+- addIndex
+- addIndexRight
+- ap
+- aperture
+- applyTo
+- ascend
+- descend
+
 8.1.0
 
-- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688)
+- Fix input order of TS definitions for `R.propEq` method  - [Issue #688](https://github.com/selfrefactor/rambda/issues/688). The issue was due to 8.0.0 was shipped with TS definitions of `7.5.0` release.
 
 - Add `R.differenceWith` method  - [Issue #91](https://github.com/selfrefactor/rambdax/issues/91)
 
@@ -18582,7 +18745,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/TypeScript/announcing-TypeScript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
