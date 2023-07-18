@@ -2,10 +2,8 @@ export function createCompareFunction(
   a, b, winner, loser
 ){
   if (a === b) return 0
-  if (a == null) return winner
-  if (a == null) return loser
 
-  return a > b ? loser : winner
+  return a < b ? winner : loser
 }
 
 export function ascend(

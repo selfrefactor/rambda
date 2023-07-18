@@ -5340,6 +5340,7 @@ Notes: TS typings are oversimplified
 */
 // @SINGLE_MARKER
 export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
 
 /*
 Method: ap
@@ -5378,6 +5379,7 @@ Notes: TS typings are oversimplified
 */
 // @SINGLE_MARKER
 export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
 
 /*
 Method: aperture
@@ -5436,6 +5438,25 @@ Notes:
 // @SINGLE_MARKER
 export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
 export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
+
+/*
+Method: descend
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 // RAMBDAX_MARKER_START
 
