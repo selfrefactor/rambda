@@ -5458,6 +5458,132 @@ Notes:
 export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
+/*
+Method: binary
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function binary<T>(x: T): T;
+
+/*
+Method: call
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function call<T>(x: T): T;
+
+/*
+Method: collectBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function collectBy<T>(x: T): T;
+
+/*
+Method: comparator
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function comparator<T>(x: T): T;
+
+/*
+Method: composeWith
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function composeWith<T>(x: T): T;
+
+/*
+Method: construct
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function construct<T>(x: T): T;
+
+/*
+Method: constructN
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function constructN<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
