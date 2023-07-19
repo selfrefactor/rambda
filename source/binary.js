@@ -1,7 +1,5 @@
-export function binary(foo, bar) {
-  if (arguments.length === 1){
-    return (_bar) => binary(foo, _bar);
-  }
+export function binary(fn){
+  if (fn.length <= 2) return fn
 
-  return
+  return (a, b) => fn(a, b)
 }

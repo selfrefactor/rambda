@@ -5474,7 +5474,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function binary<T>(x: T): T;
+export function binary<T extends (...arg: any[]) => any>(fn: T): (...args: any[]) => ReturnType<T>;
 
 /*
 Method: call
