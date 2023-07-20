@@ -3281,17 +3281,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
-export function prop<P extends keyof never>(propToFind: P): {
-    <T>(value: Record<P, T>): T;
-    <T>(value: T): Prop<T, P>;
-};
-export function prop<P extends keyof T, T>(propToFind: P): {
-    (value: T): Prop<T, P>;
-};
-export function prop<P extends keyof never, T>(propToFind: P): {
-    (value: Record<P, T>): T;
-};
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 /*
 Method: propEq
