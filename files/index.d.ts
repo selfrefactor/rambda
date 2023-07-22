@@ -5485,7 +5485,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function call<T>(x: T): T;
+export function call<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /*
 Method: collectBy

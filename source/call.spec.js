@@ -1,35 +1,32 @@
-import { call } from './call'
-import { call as callRamda } from 'ramda'
+import { bind } from './bind.js'
+import { call } from './call.js'
 
 test('happy', () => {
-  const result = call()
-  console.log(result)
+  expect(call(
+    Math.max, 1, 2, 3, -99, 42, 6, 7
+  )).toBe(42)
 })
 
-/*
-var R = require('../source/index.js');
-var eq = require('./shared/eq.js');
+test('accepts one or more arguments', () => {
+  const fn = function (){
+    return arguments.length
+  }
+  expect(call(fn)).toBe(0)
+  expect(call(fn, 'x')).toBe(1)
+  expect(call(
+    fn, 'x', 'y'
+  )).toBe(2)
+  expect(call(
+    fn, 'x', 'y', 'z'
+  )).toBe(3)
+})
 
-
-describe('call', function() {
-  it('returns the result of calling its first argument with the remaining arguments', function() {
-    eq(R.call(Math.max, 1, 2, 3, -99, 42, 6, 7), 42);
-  });
-
-  it('accepts one or more arguments', function() {
-    var fn = function() { return arguments.length; };
-    eq(R.call(fn), 0);
-    eq(R.call(fn, 'x'), 1);
-    eq(R.call(fn, 'x', 'y'), 2);
-    eq(R.call(fn, 'x', 'y', 'z'), 3);
-  });
-
-  it('provides no way to specify context', function() {
-    var obj = {method: function() { return this === obj; }};
-    eq(R.call(obj.method), false);
-    eq(R.call(R.bind(obj.method, obj)), true);
-  });
-
-});
-
-*/
+test('provides no way to specify context', () => {
+  var obj = {
+    method (){
+      return this === obj
+    },
+  }
+  expect(call(obj.method)).toBe(false)
+  expect(call(bind(obj.method, obj))).toBe(true)
+})
