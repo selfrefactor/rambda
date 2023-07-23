@@ -5522,7 +5522,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function comparator<T>(x: T): T;
+export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /*
 Method: composeWith

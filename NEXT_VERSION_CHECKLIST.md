@@ -4,9 +4,9 @@ release X
 
 - binary
 - call
+- collectBy
 
 ---
-- collectBy
 - comparator
 - composeWith
 - construct
