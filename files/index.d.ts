@@ -5503,7 +5503,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function collectBy<T>(x: T): T;
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: T[]): T[][];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: T[]) => T[][];
 
 /*
 Method: comparator

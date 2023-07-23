@@ -1,58 +1,68 @@
-import { collectBy } from './collectBy'
-import { collectBy as collectByRamda } from 'ramda'
+import fc from 'fast-check'
+import {
+  all,
+  compose,
+  difference,
+  equals,
+  head,
+  identity,
+  is,
+  isEmpty,
+  length,
+  uniq,
+  unnest,
+} from 'rambdax'
 
-test('happy', () => {
-  const result = collectBy()
-  console.log(result)
+import { collectBy } from './collectBy.js'
+
+test('returns a list of lists', () => {
+  fc.assert(fc.property(fc.array(fc.nat()), xs => {
+    const check = all(is(Array))
+    const ys = collectBy(identity)(xs)
+
+    return check(ys)
+  }))
 })
 
-/*
-var {all, compose , difference , equals , head , identity , is , isEmpty , length , uniq , unnest , collectBy} = require('../source/index.js');
-var fc = require('fast-check');
-var {spy} = require('sinon');
+test('groups items but neither adds new ones nor removes any', () => {
+  fc.assert(fc.property(fc.array(fc.nat()), xs => {
+    const check = compose(
+      isEmpty, difference(xs), unnest
+    )
+    const ys = collectBy(identity)(xs)
 
-describe('collectBy', function() {
+    return check(ys)
+  }))
+})
 
-  it('returns a list of lists', function() {
-    fc.assert(fc.property(fc.array(fc.nat()), function(xs) {
-      var check = all(is(Array));
-      var ys = collectBy(identity)(xs);
-      return check(ys);
-    }));
-  });
+test('groups related items together', () => {
+  fc.assert(fc.property(fc.array(fc.boolean()), xs => {
+    const ys = collectBy(identity)(xs)
+    const check = all(compose(
+      equals(1), length, uniq
+    ))
 
-  it('groups items but neither adds new ones nor removes any', function() {
-    fc.assert(fc.property(fc.array(fc.nat()), function(xs) {
-      var check = compose(isEmpty, difference(xs), unnest);
-      var ys = collectBy(identity)(xs);
-      return check(ys);
-    }));
-  });
+    return check(ys)
+  }))
+})
 
-  it('groups related items together', function() {
-    fc.assert(fc.property(fc.array(fc.boolean()), function(xs) {
-      var ys = collectBy(identity)(xs);
-      var check = all(compose(equals(1), length, uniq));
-      return check(ys);
-    }));
-  });
+test('invokes the tag function for each item in the list', () => {
+  fc.assert(fc.property(fc.array(fc.nat()), xs => {
+    const id = jest.fn(x => 42)
+    collectBy(id)(xs)
+    const check = compose(isEmpty, difference(xs))
 
-  it('invokes the tag function for each item in the list', function() {
-    fc.assert(fc.property(fc.array(fc.nat()), function(xs) {
-      var id = spy(x => 42);
-      collectBy(id)(xs);
-      var check = compose(isEmpty, difference(xs));
-      return check(id.getCalls().map(call => call.args[0]));
-    }));
-  });
+    return check(id.mock.calls.map(call => call[ 0 ]))
+  }))
+})
 
-  it('groups items according to the tag value', function() {
-    fc.assert(fc.property(fc.array(fc.nat()), function(xs) {
-      var ys = collectBy(x => 42)(xs);
-      var check = compose(isEmpty, difference(xs), head);
-      return isEmpty(xs) && isEmpty(ys) ? true : check(ys);
-    }));
-  });
-});
+test('groups items according to the tag value', () => {
+  fc.assert(fc.property(fc.array(fc.nat()), xs => {
+    const ys = collectBy(x => 42)(xs)
+    const check = compose(
+      isEmpty, difference(xs), head
+    )
 
-*/
+    return isEmpty(xs) && isEmpty(ys) ? true : check(ys)
+  }))
+})
