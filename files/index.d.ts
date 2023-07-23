@@ -95,6 +95,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
+type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
+    | [(...args: TArgs) => TResult];
 
 type AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
@@ -5540,7 +5543,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function composeWith<T>(x: T): T;
+export function composeWith<TArgs extends any[], TResult>(
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+): (...args: TArgs) => TResult;
+export function composeWith(
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
+): <TArgs extends any[], TResult>(
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+) => (...args: TArgs) => TResult;
 
 /*
 Method: construct

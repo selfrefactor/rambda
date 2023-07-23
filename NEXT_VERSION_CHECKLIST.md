@@ -1,14 +1,15 @@
 fix https://github.com/selfrefactor/rambdax/issues/93
 
+remove ramda imports in tests
 release X
 
 - binary
 - call
 - collectBy
-
----
 - comparator
 - composeWith
+
+---
 - construct
 - constructN
 
