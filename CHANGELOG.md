@@ -1,3 +1,13 @@
+8.3.0
+
+Add the following methods:
+
+- binary
+- call
+- collectBy
+- comparator
+- composeWith
+
 8.2.0
 
 Add the following methods:

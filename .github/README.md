@@ -96,15 +96,10 @@ Closing the issue is usually accompanied by publishing a new patch version of `R
 
 <details>
 <summary>
-  Click to see the full list of 72 Ramda methods not implemented in Rambda 
+  Click to see the full list of 67 Ramda methods not implemented in Rambda 
 </summary>
 
 - __
-- binary
-- call
-- collectBy
-- comparator
-- composeWith
 - construct
 - constructN
 - dissocPath
@@ -2120,6 +2115,10 @@ describe('R.assocPath - curried', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
 
+### binary
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#binary)
+
 ### bind
 
 ```typescript
@@ -2450,6 +2449,10 @@ describe('R.both', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#both)
 
+### call
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#call)
+
 ### chain
 
 ```typescript
@@ -2615,6 +2618,14 @@ It creates a deep copy of the `input`, which may contain (nested) Arrays and Obj
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
 
+### collectBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#collectBy)
+
+### comparator
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#comparator)
+
 ### complement
 
 It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -2632,6 +2643,10 @@ It performs right-to-left function composition.
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try this <strong>R.compose</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#compose)
+
+### composeWith
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#composeWith)
 
 ### concat
 
@@ -12625,7 +12640,7 @@ describe('R.product', () => {
 
 ```typescript
 
-prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>
+prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>
 ```
 
 It returns the value of property `propToFind` in `obj`.
@@ -12647,17 +12662,10 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
-prop<P extends keyof never>(propToFind: P): {
-    <T>(value: Record<P, T>): T;
-    <T>(value: T): Prop<T, P>;
-};
-prop<P extends keyof T, T>(propToFind: P): {
-    (value: T): Prop<T, P>;
-};
-prop<P extends keyof never, T>(propToFind: P): {
-    (value: Record<P, T>): T;
-};
+prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+prop<V>(p: keyof never, value: unknown): V;
+prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+prop<V>(p: keyof never): (value: unknown) => V;
 ```
 
 </details>
@@ -18578,6 +18586,16 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.3.0
+
+Add the following methods:
+
+- binary
+- call
+- collectBy
+- comparator
+- composeWith
 
 8.2.0
 

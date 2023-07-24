@@ -95,6 +95,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
+type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends readonly any[], TResult> =
+    | readonly [(...args: any) => TResult, ...ReadonlyArray<(args: any) => any>, (...args: TArgs) => any]
+    | readonly [(...args: TArgs) => TResult];
 
 type AnyFunction = (...args: readonly any[]) => unknown;
 type AnyConstructor = new (...args: readonly any[]) => unknown;
@@ -277,6 +280,8 @@ export function assocPath<Output>(path: Path, newValue: any, obj: object): Outpu
 export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
 export function assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 
+export function binary<T extends (...arg: readonly any[]) => any>(fn: T): (...args: readonly any[]) => ReturnType<T>;
+
 /**
  * Creates a function that is bound to a context.
  */
@@ -292,6 +297,8 @@ export function both(pred1: Pred, pred2: Pred): Pred;
 export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
 export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
 export function both(pred1: Pred): (pred2: Pred) => Pred;
+
+export function call<T extends (...args: readonly any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /**
  * The method is also known as `flatMap`.
@@ -314,6 +321,11 @@ export function clamp(min: number, max: number): (input: number) => number;
  */
 export function clone<T>(input: T): T;
 export function clone<T>(input: readonly T[]): readonly T[];
+
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: readonly T[]): readonly (readonly T[])[];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: readonly T[]) => readonly (readonly T[])[];
+
+export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -389,6 +401,16 @@ export function compose<TArgs extends readonly any[], R1, R2>(
 export function compose<TArgs extends readonly any[], R1>(
   f1: (...args: TArgs) => R1
 ): (...args: TArgs) => R1;
+
+export function composeWith<TArgs extends readonly any[], TResult>(
+  transformer: (fn: (...args: readonly any[]) => any, intermediatResult: any) => any,
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+): (...args: TArgs) => TResult;
+export function composeWith(
+  transformer: (fn: (...args: readonly any[]) => any, intermediatResult: any) => any,
+): <TArgs extends readonly any[], TResult>(
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+) => (...args: TArgs) => TResult;
 
 /**
  * It returns a new string or array, which is the result of merging `x` and `y`.
@@ -1270,17 +1292,10 @@ export function product(list: readonly number[]): number;
  * 
  * If there is no such property, it returns `undefined`.
  */
-export function prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
-export function prop<P extends keyof never>(propToFind: P): {
-    <T>(value: Record<P, T>): T;
-    <T>(value: T): Prop<T, P>;
-};
-export function prop<P extends keyof T, T>(propToFind: P): {
-    (value: T): Prop<T, P>;
-};
-export function prop<P extends keyof never, T>(propToFind: P): {
-    (value: Record<P, T>): T;
-};
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.

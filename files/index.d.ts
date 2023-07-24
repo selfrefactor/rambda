@@ -95,6 +95,9 @@ interface AssocPartialOne<K extends keyof any> {
   <T>(val: T): <U>(obj: U) => Record<K, T> & U;
   <T, U>(val: T, obj: U): Record<K, T> & U;
 }
+type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
+    | [(...args: TArgs) => TResult];
 
 type AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
@@ -3281,17 +3284,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prop<P extends keyof never, T>(propToFind: P, value: T): Prop<T, P>;
-export function prop<P extends keyof never>(propToFind: P): {
-    <T>(value: Record<P, T>): T;
-    <T>(value: T): Prop<T, P>;
-};
-export function prop<P extends keyof T, T>(propToFind: P): {
-    (value: T): Prop<T, P>;
-};
-export function prop<P extends keyof never, T>(propToFind: P): {
-    (value: Record<P, T>): T;
-};
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 /*
 Method: propEq
@@ -5457,6 +5453,105 @@ Notes:
 // @SINGLE_MARKER
 export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
+
+/*
+Method: binary
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function binary<T extends (...arg: any[]) => any>(fn: T): (...args: any[]) => ReturnType<T>;
+
+/*
+Method: call
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function call<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
+
+/*
+Method: collectBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: T[]): T[][];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: T[]) => T[][];
+
+/*
+Method: comparator
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
+
+/*
+Method: composeWith
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function composeWith<TArgs extends any[], TResult>(
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+): (...args: TArgs) => TResult;
+export function composeWith(
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
+): <TArgs extends any[], TResult>(
+  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+) => (...args: TArgs) => TResult;
 
 // RAMBDAX_MARKER_START
 

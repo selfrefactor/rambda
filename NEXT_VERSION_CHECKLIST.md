@@ -1,10 +1,11 @@
+fix https://github.com/selfrefactor/rambdax/issues/93
+
+remove ramda imports in tests
+release X
+replace missing ramda methods with text that argument is missing
+
 ---
-- binary
-- call
-- collectBy
-- comparator
-- composeWith
-- construct
+- construct - it is class helper and classes are not very functional oriented
 - constructN
 
 - dissocPath
