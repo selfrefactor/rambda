@@ -33,26 +33,7 @@ function _concat(set1, set2) {
   return result;
 }
 
-function _curryN(n, cache, fn) {
-  return function () {
-    let ci = 0;
-    let ai = 0;
-    const cl = cache.length;
-    const al = arguments.length;
-    const args = new Array(cl + al);
-    while (ci < cl) {
-      args[ci] = cache[ci];
-      ci++;
-    }
-    while (ai < al) {
-      args[cl + ai] = arguments[ai];
-      ai++;
-    }
-    const remaining = n - args.length;
-    return args.length >= n ? fn.apply(this, args) : _arity$1(remaining, _curryN(n, args, fn));
-  };
-}
-function _arity$1(n, fn) {
+function _arity(n, fn) {
   switch (n) {
     case 0:
       return function () {
@@ -100,12 +81,32 @@ function _arity$1(n, fn) {
       };
   }
 }
+
+function _curryN(n, cache, fn) {
+  return function () {
+    let ci = 0;
+    let ai = 0;
+    const cl = cache.length;
+    const al = arguments.length;
+    const args = new Array(cl + al);
+    while (ci < cl) {
+      args[ci] = cache[ci];
+      ci++;
+    }
+    while (ai < al) {
+      args[cl + ai] = arguments[ai];
+      ai++;
+    }
+    const remaining = n - args.length;
+    return args.length >= n ? fn.apply(this, args) : _arity(remaining, _curryN(n, args, fn));
+  };
+}
 function curryN(n, fn) {
   if (arguments.length === 1) return _fn => curryN(n, _fn);
   if (n > 10) {
     throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
   }
-  return _arity$1(n, _curryN(n, [], fn));
+  return _arity(n, _curryN(n, [], fn));
 }
 
 function addIndex(originalFunction, initialIndexFn = () => 0, loopIndexChange = x => x + 1) {
@@ -356,6 +357,11 @@ function assocPathFn(path, newValue, input) {
 }
 const assocPath = curry(assocPathFn);
 
+function binary(fn) {
+  if (fn.length <= 2) return fn;
+  return (a, b) => fn(a, b);
+}
+
 function bind(fn, thisObj) {
   if (arguments.length === 1) {
     return _thisObj => bind(fn, _thisObj);
@@ -367,6 +373,8 @@ function both(f, g) {
   if (arguments.length === 1) return _g => both(f, _g);
   return (...input) => f(...input) && g(...input);
 }
+
+const call = (fn, ...inputs) => fn(...inputs);
 
 function chain(fn, list) {
   if (arguments.length === 1) {
@@ -395,10 +403,6 @@ function clone(input) {
   return out;
 }
 
-function complement(fn) {
-  return (...input) => !fn(...input);
-}
-
 class ReduceStopper {
   constructor(value) {
     this.value = value;
@@ -425,56 +429,35 @@ function reduceFn(reducer, acc, list) {
 const reduce = curry(reduceFn);
 const reduceStopper = value => new ReduceStopper(value);
 
-function _arity(n, fn) {
-  switch (n) {
-    case 0:
-      return function () {
-        return fn.apply(this, arguments);
-      };
-    case 1:
-      return function (a0) {
-        return fn.apply(this, arguments);
-      };
-    case 2:
-      return function (a0, a1) {
-        return fn.apply(this, arguments);
-      };
-    case 3:
-      return function (a0, a1, a2) {
-        return fn.apply(this, arguments);
-      };
-    case 4:
-      return function (a0, a1, a2, a3) {
-        return fn.apply(this, arguments);
-      };
-    case 5:
-      return function (a0, a1, a2, a3, a4) {
-        return fn.apply(this, arguments);
-      };
-    case 6:
-      return function (a0, a1, a2, a3, a4, a5) {
-        return fn.apply(this, arguments);
-      };
-    case 7:
-      return function (a0, a1, a2, a3, a4, a5, a6) {
-        return fn.apply(this, arguments);
-      };
-    case 8:
-      return function (a0, a1, a2, a3, a4, a5, a6, a7) {
-        return fn.apply(this, arguments);
-      };
-    case 9:
-      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
-        return fn.apply(this, arguments);
-      };
-    case 10:
-      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
-        return fn.apply(this, arguments);
-      };
-    default:
-      throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+function collectBy(fn, list) {
+  if (arguments.length === 1) {
+    return _list => collectBy(fn, _list);
   }
+  const group = reduce((o, x) => {
+    const tag = fn(x);
+    if (o[tag] === undefined) {
+      o[tag] = [];
+    }
+    o[tag].push(x);
+    return o;
+  }, {}, list);
+  const newList = [];
+  for (const tag in group) {
+    newList.push(group[tag]);
+  }
+  return newList;
 }
+
+function comparator(fn) {
+  return function (a, b) {
+    return fn(a, b) ? -1 : fn(b, a) ? 1 : 0;
+  };
+}
+
+function complement(fn) {
+  return (...input) => !fn(...input);
+}
+
 function _pipe(f, g) {
   return function () {
     return g.call(this, f.apply(this, arguments));
@@ -492,6 +475,49 @@ function compose() {
     throw new Error('compose requires at least one argument');
   }
   return pipe.apply(this, Array.prototype.slice.call(arguments, 0).reverse());
+}
+
+function head(listOrString) {
+  if (typeof listOrString === 'string') return listOrString[0] || '';
+  return listOrString[0];
+}
+
+function identity(x) {
+  return x;
+}
+
+function reverse(listOrString) {
+  if (typeof listOrString === 'string') {
+    return listOrString.split('').reverse().join('');
+  }
+  const clone = listOrString.slice();
+  return clone.reverse();
+}
+
+function drop(howManyToDrop, listOrString) {
+  if (arguments.length === 1) return _list => drop(howManyToDrop, _list);
+  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0);
+}
+
+function tail(listOrString) {
+  return drop(1, listOrString);
+}
+
+function pipeWith(xf, list) {
+  if (list.length <= 0) {
+    return identity;
+  }
+  const headList = head(list);
+  const tailList = tail(list);
+  return _arity(headList.length, function () {
+    return reduce(function (result, f) {
+      return xf.call(this, f, result);
+    }, headList.apply(this, arguments), tailList);
+  });
+}
+function composeWith(xf, list) {
+  if (arguments.length === 1) return _list => composeWith(xf, _list);
+  return pipeWith.apply(this, [xf, reverse(list)]);
 }
 
 function concat(x, y) {
@@ -844,11 +870,6 @@ function dissoc(prop, obj) {
 function divide(a, b) {
   if (arguments.length === 1) return _b => divide(a, _b);
   return a / b;
-}
-
-function drop(howManyToDrop, listOrString) {
-  if (arguments.length === 1) return _list => drop(howManyToDrop, _list);
-  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0);
 }
 
 function dropLast(howManyToDrop, listOrString) {
@@ -1244,11 +1265,6 @@ function hasPath(pathInput, obj) {
   return path(pathInput, obj) !== undefined;
 }
 
-function head(listOrString) {
-  if (typeof listOrString === 'string') return listOrString[0] || '';
-  return listOrString[0];
-}
-
 function _objectIs(a, b) {
   if (a === b) {
     return a !== 0 || 1 / a === 1 / b;
@@ -1260,10 +1276,6 @@ const objectIs = Object.is || _objectIs;
 function identical(a, b) {
   if (arguments.length === 1) return _b => identical(a, _b);
   return objectIs(a, b);
-}
-
-function identity(x) {
-  return x;
 }
 
 function ifElseFn(condition, onTrue, onFalse) {
@@ -1918,14 +1930,6 @@ function replaceFn(pattern, replacer, str) {
 }
 const replace = curry(replaceFn);
 
-function reverse(listOrString) {
-  if (typeof listOrString === 'string') {
-    return listOrString.split('').reverse().join('');
-  }
-  const clone = listOrString.slice();
-  return clone.reverse();
-}
-
 function setFn(lens, replacer, x) {
   return over(lens, always(replacer), x);
 }
@@ -2043,10 +2047,6 @@ function symmetricDifference(x, y) {
     return _y => symmetricDifference(x, _y);
   }
   return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
-}
-
-function tail(listOrString) {
-  return drop(1, listOrString);
 }
 
 function takeLast(howMany, listOrString) {
@@ -2326,7 +2326,6 @@ const zipWith = curry(zipWithFn);
 exports.F = F;
 exports.T = T;
 exports.__findHighestArity = __findHighestArity;
-exports._arity = _arity;
 exports._indexOf = _indexOf;
 exports._lastIndexOf = _lastIndexOf;
 exports._pipe = _pipe;
@@ -2349,13 +2348,18 @@ exports.applyTo = applyTo;
 exports.ascend = ascend;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
+exports.binary = binary;
 exports.bind = bind;
 exports.both = both;
+exports.call = call;
 exports.chain = chain;
 exports.clamp = clamp;
 exports.clone = clone;
+exports.collectBy = collectBy;
+exports.comparator = comparator;
 exports.complement = complement;
 exports.compose = compose;
+exports.composeWith = composeWith;
 exports.concat = concat;
 exports.cond = cond;
 exports.converge = converge;
@@ -2474,6 +2478,7 @@ exports.paths = paths;
 exports.pick = pick;
 exports.pickAll = pickAll;
 exports.pipe = pipe;
+exports.pipeWith = pipeWith;
 exports.pluck = pluck;
 exports.prepend = prepend;
 exports.product = product;

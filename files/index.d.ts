@@ -5553,42 +5553,6 @@ export function composeWith(
   fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
 ) => (...args: TArgs) => TResult;
 
-/*
-Method: construct
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function construct<T>(x: T): T;
-
-/*
-Method: constructN
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function constructN<T>(x: T): T;
-
 // RAMBDAX_MARKER_START
 
 /*
