@@ -21,6 +21,8 @@ It lints and commits. Useful for faster deploy.
 
 ## github
 
+https://github.com/cli/cli#installation
+
 It makes a Github release. It expects user to be logged with Github.
 
 > Part of `rambda-scripts/README.md`'s `## Release steps` section
