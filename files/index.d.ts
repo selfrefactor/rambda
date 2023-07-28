@@ -415,7 +415,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function append<T>(x: T, list: T[]): T[];
-export function append<T>(x: T): <T>(list: T[]) => T[];
+export function append<T>(x: T): (list: T[]) => T[];
 
 /*
 Method: applySpec
