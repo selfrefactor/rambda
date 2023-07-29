@@ -32,4 +32,19 @@ describe('anyPass', () => {
     const filtered2 = xs.filter(pred)
     filtered2 // $ExpectType number[]
   })
+  it('functions as a type guard', () => {
+    const isString = (x: unknown): x is string => typeof x === 'string';
+    const isNumber = (x: unknown): x is number => typeof x === 'number';
+    const isBoolean = (x: unknown): x is boolean => typeof x === 'boolean';
+    
+    const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean]);
+
+    isStringNumberOrBoolean // $ExpectType (input: unknown) => input is string | number | boolean
+
+    const aValue: unknown = 1;
+
+    if (isStringNumberOrBoolean(aValue)) {
+      aValue // $ExpectType string | number | boolean
+    }
+  })
 })
