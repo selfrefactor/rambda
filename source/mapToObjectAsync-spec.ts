@@ -23,8 +23,8 @@ describe('R.mapToObjectAsync', () => {
     result // $ExpectType Output
   })
   it('with R.composeAsync', async() => {
-    const result = await composeAsync<Output>(
-      mapToObjectAsync(fn),
+    const result = await composeAsync(
+      mapToObjectAsync<number, Output>(fn),
       (x: number[]) => x.filter((xx: number) => xx > 2)
     )(list)
 

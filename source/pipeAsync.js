@@ -1,18 +1,7 @@
-import { type } from './type.js'
+import { reduce } from "./reduce";
 
-export function pipeAsync(...inputArguments){
-  return async function (startArgument){
-    let argumentsToPass = startArgument
-
-    while (inputArguments.length !== 0){
-      const fn = inputArguments.shift()
-
-      argumentsToPass = fn(argumentsToPass)
-      if (type(argumentsToPass) === 'Promise'){
-        argumentsToPass = await argumentsToPass
-      }
-    }
-
-    return argumentsToPass
+export function pipeAsync(...fnList){
+  return function (startArgument){
+    return reduce(async (value, fn) => fn(await value), startArgument, fnList)
   }
 }
