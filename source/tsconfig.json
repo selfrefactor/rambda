@@ -4,12 +4,9 @@
     "lib": ["es2015", "dom"],
     "module": "esnext",
     "noEmit": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
+    "strict": true,
     "target": "es2015",
     "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] }
   } 
