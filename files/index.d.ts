@@ -115,6 +115,9 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
+/** `TSuper`, whenever `TSuper` is a supertype of `TSub`; otherwise `never`. */
+type AsSuperType<TSub, TSuper> = (TSub extends TSuper ? TSuper : never);
+
 // RAMBDAX INTERFACES
 // ============================================
 type Func<T> = (input: any) => T;
@@ -415,8 +418,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(x: T, list: T[]): T[];
-export function append<T>(x: T): (list: T[]) => T[];
+export function append<TElement>(x: TElement, input: TElement[]): TElement[];
+export function append<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
 
 /*
 Method: applySpec
@@ -3239,8 +3242,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(x: T, input: T[]): T[];
-export function prepend<T>(x: T): (input: T[]) => T[];
+export function prepend<TElement>(x: TElement, input: TElement[]): TElement[];
+export function prepend<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
 
 /*
 Method: product
