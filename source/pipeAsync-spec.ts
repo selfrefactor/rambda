@@ -2,7 +2,7 @@ import {delay, pipeAsync} from 'rambda'
 
 describe('R.pipeAsync', () => {
   it('happy', async() => {
-    const result = await pipeAsync(
+    const fn = pipeAsync(
       async (x: 4) => {
         x // $ExpectType 4
         await delay(100)
@@ -18,8 +18,12 @@ describe('R.pipeAsync', () => {
         x // $ExpectType string
         return Promise.resolve([x])
       }
-    )(4)
+    )
 
-    result // $ExpectType string[]
+    const result1 = await fn(4)
+    const result2 = await fn(Promise.resolve(4))
+
+    result1 // $ExpectType string[]
+    result2 // $ExpectType string[]
   })
 })

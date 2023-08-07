@@ -5727,9 +5727,9 @@ export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
       f4: (a: Awaited<R3>) => R4,
       f3: (a: Awaited<R2>) => R3,
       f2: (a: Awaited<R1>) => R2,
-      f1: (a: TArg) => R1
+      f1: (a: Awaited<TArg>) => R1
   ]
-): (a: TArg) => TResult; // fallback overload if number of composed functions greater than 7
+): (a: TArg | Promise<TArg>) => TResult; // fallback overload if number of composed functions greater than 7
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: Awaited<R6>) => R7,
   f6: (a: Awaited<R5>) => R6,
@@ -5737,8 +5737,8 @@ export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R7;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f7: (a: Awaited<R6>) => R7,
   f6: (a: Awaited<R5>) => R6,
@@ -5746,41 +5746,41 @@ export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R7;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6>(
   f6: (a: Awaited<R5>) => R6,
   f5: (a: Awaited<R4>) => R5,
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R6;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R6;
 export function composeAsync<TArg, R1, R2, R3, R4, R5>(
   f5: (a: Awaited<R4>) => R5,
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R5;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R5;
 export function composeAsync<TArg, R1, R2, R3, R4>(
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R4;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R4;
 export function composeAsync<TArg, R1, R2, R3>(
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R3;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R3;
 export function composeAsync<TArg, R1, R2>(
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: TArg) => R1
-): (a: TArg) => R2;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R2;
 export function composeAsync<TArg, R1>(
-  f1: (a: TArg) => R1
-): (a: TArg) => R1;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
 
 /*
 Method: pipeAsync
@@ -5812,7 +5812,7 @@ Categories: Logic, Async
 // @SINGLE_MARKER
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   ...funcs: [
-      f1: (a: TArg) => R1,
+      f1: (a: Awaited<TArg>) => R1,
       f2: (a: Awaited<R1>) => R2,
       f3: (a: Awaited<R2>) => R3,
       f4: (a: Awaited<R3>) => R4,
@@ -5822,49 +5822,49 @@ export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
       ...func: Array<(a: any) => any>,
       fnLast: (a: any) => TResult
   ]
-): (a: TArg) => TResult;  // fallback overload if number of piped functions greater than 7
+): (a: TArg | Promise<TArg>) => TResult;  // fallback overload if number of piped functions greater than 7
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4,
   f5: (a: Awaited<R4>) => R5,
   f6: (a: Awaited<R5>) => R6,
   f7: (a: Awaited<R6>) => R7
-): (a: TArg) => R7;
+): (a: TArg | Promise<TArg>) => R7;
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4,
   f5: (a: Awaited<R4>) => R5,
   f6: (a: Awaited<R5>) => R6
-): (a: TArg) => R6;
+): (a: TArg | Promise<TArg>) => R6;
 export function pipeAsync<TArg, R1, R2, R3, R4, R5>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4,
   f5: (a: Awaited<R4>) => R5
-): (a: TArg) => R5;
+): (a: TArg | Promise<TArg>) => R5;
 export function pipeAsync<TArg, R1, R2, R3, R4>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4
-): (a: TArg) => R4;
+): (a: TArg | Promise<TArg>) => R4;
 export function pipeAsync<TArg, R1, R2, R3>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3
-): (a: TArg) => R3;
+): (a: TArg | Promise<TArg>) => R3;
 export function pipeAsync<TArg, R1, R2>(
-  f1: (a: TArg) => R1,
+  f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2
-): (a: TArg) => R2;
+): (a: TArg | Promise<TArg>) => R2;
 export function pipeAsync<TArg, R1>(
-  f1: (a: TArg) => R1
-): (a: TArg) => R1;
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
 
 /*
 Method: debounce
