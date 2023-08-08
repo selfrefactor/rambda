@@ -2798,13 +2798,32 @@ Notes: Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 */
 // @SINGLE_MARKER
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...x: any[]) => T;
+export function partial<
+  Args extends unknown[],
+  ArgsGiven extends [...Partial<Args>],
+  R
+>(
+  fn: (...args: Args) => R,
+  ...args: ArgsGiven
+): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
+  ? ArgsRemaining extends []
+    ? R
+    : (...args: ArgsRemaining) => R
+  : never;
+
+export function partial<
+  Args extends readonly unknown[],
+  ArgsGiven extends [...Partial<Args>],
+  R
+>(
+  fn: (...args: Args) => R,
+  args: ArgsGiven
+): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
+  ? ArgsRemaining extends []
+    ? R
+    : (...args: ArgsRemaining) => R
+  : never;
+
 
 /*
 Method: partition
