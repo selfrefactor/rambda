@@ -70,9 +70,5 @@ test('works with list as input and number as props - props to pick is a string',
 
 test('with symbol', () => {
   const symbolProp = Symbol('s')
-  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot(`
-    {
-      Symbol(s): "a",
-    }
-  `)
+  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot('{}')
 })

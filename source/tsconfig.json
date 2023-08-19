@@ -7,7 +7,9 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2015",
-    "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] }
-  } 
+    "target": "ESNext",
+    "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
+    "allowJs": true
+  },
+  "include": ["./**/*.js", "./**/*.ts"],
 }    

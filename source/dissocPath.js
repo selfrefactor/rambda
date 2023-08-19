@@ -41,8 +41,7 @@ export function dissocPath(pathInput, input){
       [ index ] : intermediateResult,
     }
   }
-  if (isArray(input))
-    return removeIndex(index, input)
+  if (isArray(input)) return removeIndex(index, input)
 
-  return omit(index, input)
+  return omit([ index ], input)
 }
