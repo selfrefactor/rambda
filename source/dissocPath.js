@@ -3,42 +3,46 @@ import { isArray } from './_internals/isArray.js'
 import { isInteger } from './_internals/isInteger.js'
 import { omit } from './omit.js'
 import { path } from './path.js'
+import { removeIndex } from './removeIndex.js'
 import { update } from './update.js'
 
-export function dissocPath(pathInput, inputObject){
+export function dissocPath(pathInput, input){
   if (arguments.length === 1) return _obj => dissocPath(pathInput, _obj)
 
   const pathArrValue = createPath(pathInput)
-  if (pathArrValue.length === 0) return inputObject
+  // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
+  // TODO: add warning
+  if (pathArrValue.length === 0) return input
 
-  const pathResult = path(pathArrValue, inputObject)
-  if (pathResult === undefined) return inputObject
+  const pathResult = path(pathArrValue, input)
+  if (pathResult === undefined) return input
 
   const index = pathArrValue[ 0 ]
   const condition =
-    typeof inputObject !== 'object' ||
-    inputObject === null ||
-    !inputObject.hasOwnProperty(index)
+    typeof input !== 'object' ||
+    input === null ||
+    !input.hasOwnProperty(index)
   if (pathArrValue.length > 1){
     const nextInput = condition ?
       isInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
-      inputObject[ index ]
+      input[ index ]
     const nextPathInput = Array.prototype.slice.call(pathArrValue, 1)
-    const x = dissocPath(
-      nextPathInput, nextInput, inputObject
+    const intermediateResult = dissocPath(
+      nextPathInput, nextInput, input
     )
-    if (isArray(inputObject))
-      return update(
-        index, x, inputObject
-      )
+    if (isArray(input)) return update(
+      index, intermediateResult, input
+    )
 
     return {
-      ...inputObject,
-      [ index ] : x,
+      ...input,
+      [ index ] : intermediateResult,
     }
   }
+  if (isArray(input))
+    return removeIndex(index, input)
 
-  return omit(index, inputObject)
+  return omit(index, input)
 }

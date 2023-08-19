@@ -21,9 +21,9 @@ const ERRORS_TYPE_MISMATCH = 'errors types are different'
 const SHOULD_THROW = 'Rambda should throw'
 const SHOULD_NOT_THROW = 'Rambda should not throw'
 const ALL_ERROR_LABELS = {
-  RESULTS_MISMATCH,
   ERRORS_MESSAGE_MISMATCH,
   ERRORS_TYPE_MISMATCH,
+  RESULTS_MISMATCH,
   SHOULD_NOT_THROW,
   SHOULD_THROW,
 }
@@ -37,14 +37,13 @@ function parseError(err){
     .is(x => x instanceof Error, 'Error')
     .default(MISSING)
 
-  if (typeError === MISSING){
+  if (typeError === MISSING)
     throw new Error('typeError === MISSING')
-  }
 
   return {
     message : err.message,
-    type    : typeError,
     ok      : true,
+    type    : typeError,
   }
 }
 
@@ -62,8 +61,8 @@ function executeSync(
   }
 
   return {
-    result,
     error,
+    result,
   }
 }
 
@@ -81,17 +80,17 @@ async function executeAsync(
   }
 
   return {
-    result,
     error,
+    result,
   }
 }
 
 export function profileMethod({
   firstInput,
+  fn,
+  returnsFunctionFlag = false,
   secondInput = undefined,
   thirdInput = undefined,
-  returnsFunctionFlag = false,
-  fn,
 }){
   const combinationsInput = filter(Boolean, {
     firstInput,
@@ -109,14 +108,14 @@ export function profileMethod({
     ].filter((_, i) => i < inputKeys.length)
 
     test(getTestTitle(...inputs), () => {
-      const { result, error } = executeSync(
+      const { error, result } = executeSync(
         fn, inputs, returnsFunctionFlag
       )
 
       expect({
-        result,
         error : error.ok ? omitOk(error) : PENDING,
         inputs,
+        result,
       }).toMatchSnapshot()
     })
   })
@@ -124,10 +123,10 @@ export function profileMethod({
 
 export function profileMethodAsync({
   firstInput,
+  fn,
+  returnsFunctionFlag = false,
   secondInput = undefined,
   thirdInput = undefined,
-  returnsFunctionFlag = false,
-  fn,
 }){
   const combinationsInput = filter(Boolean, {
     firstInput,
@@ -144,16 +143,16 @@ export function profileMethodAsync({
       combination.thirdInput,
     ].filter((_, i) => i < inputKeys.length)
     test(getTestTitle(...inputs), async () => {
-      const { result, error } = await executeAsync(
+      const { error, result } = await executeAsync(
         fn,
         inputs,
         returnsFunctionFlag
       )
 
       expect({
-        result,
         error : error.ok ? omitOk(error) : PENDING,
         inputs,
+        result,
       }).toMatchSnapshot()
     })
   })
@@ -163,69 +162,65 @@ export function compareToRamda(
   fn, fnRamda, returnsFunctionFlag
 ){
   return (...inputs) => {
-    const { result, error } = executeSync(
+    const { error, result } = executeSync(
       fn, inputs, returnsFunctionFlag
     )
-    const { result: ramdaResult, error: ramdaError } = executeSync(
+    const { error: ramdaError, result: ramdaResult } = executeSync(
       fnRamda,
       inputs,
       returnsFunctionFlag
     )
 
     const toReturn = {
-      result,
-      ramdaResult,
-      ramdaError : ramdaError.ok ? omitOk(ramdaError) : PENDING,
       error      : error.ok ? omitOk(error) : PENDING,
+      ramdaError : ramdaError.ok ? omitOk(ramdaError) : PENDING,
+      ramdaResult,
+      result,
     }
 
     if (result !== PENDING){
-      if (ramdaError.ok){
+      if (ramdaError.ok)
         return {
           ...toReturn,
-          ok    : false,
           label : SHOULD_THROW,
+          ok    : false,
         }
-      }
 
-      if (equals(result, ramdaResult)){
+      if (equals(result, ramdaResult))
         return {
           ...toReturn,
-          ok    : true,
           label : RESULTS_EQUAL,
+          ok    : true,
         }
-      }
 
       return {
         ...toReturn,
-        ok    : false,
         label : RESULTS_MISMATCH,
+        ok    : false,
       }
     }
 
-    if (equals(error, ramdaError)){
+    if (equals(error, ramdaError))
       return {
         ...toReturn,
-        ok    : true,
         label : ERRORS_EQUAL,
+        ok    : true,
       }
-    }
 
-    if (ramdaError.ok){
+    if (ramdaError.ok)
       return {
         ...toReturn,
-        ok : false,
         label :
           ramdaError.type === error.type ?
             ERRORS_MESSAGE_MISMATCH :
             ERRORS_TYPE_MISMATCH,
+        ok : false,
       }
-    }
 
     return {
       ...toReturn,
-      ok    : false,
       label : SHOULD_NOT_THROW,
+      ok    : false,
     }
   }
 }
@@ -233,21 +228,21 @@ export function compareToRamda(
 export const getTestTitle = (...inputs) => inputs.map(type).join(' | ')
 
 export const compareCombinations = ({
-  firstInput,
-  secondInput = undefined,
-  thirdInput = undefined,
-  returnsFunctionFlag = false,
-  setCounter = () => {},
   callback = x => {},
+  firstInput,
   fn,
   fnRamda,
+  returnsFunctionFlag = false,
+  secondInput = undefined,
+  setCounter = () => {},
+  thirdInput = undefined,
 }) => {
   const counter = {
-    RESULTS_MISMATCH        : 0,
-    SHOULD_THROW            : 0,
-    SHOULD_NOT_THROW        : 0,
-    ERRORS_TYPE_MISMATCH    : 0,
     ERRORS_MESSAGE_MISMATCH : 0,
+    ERRORS_TYPE_MISMATCH    : 0,
+    RESULTS_MISMATCH        : 0,
+    SHOULD_NOT_THROW        : 0,
+    SHOULD_THROW            : 0,
     TOTAL_TESTS             : 0,
   }
 
@@ -336,3 +331,7 @@ export const FOO = 'FOO'
 export const BAR = 'BAR'
 export const BAZ = 'BAZ'
 export const FOOBAR = 'FOOBAR'
+
+export function eq(actual, expected){
+  expect(actual).toEqual(expected)
+}
