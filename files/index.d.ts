@@ -5554,6 +5554,24 @@ export function composeWith(
   fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
 ) => (...args: TArgs) => TResult;
 
+/*
+Method: dissocPath
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dissocPath<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*

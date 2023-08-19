@@ -1,3 +1,5 @@
+check again deno as dissocpath doesn't add js extension to imports
+
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
 fix https://github.com/selfrefactor/rambdax/issues/93
@@ -6,13 +8,13 @@ change deno info https://deno.land/x/rambda@v8.3.0/mod.ts
 
 remove ramda imports in tests
 release X
-replace missing ramda methods with text that argument is missing
+
+- dissocPath
 
 ---
 - construct - it is class helper and classes are not very functional oriented
 - constructN
 
-- dissocPath
 - dropRepeatsBy
 - empty
 - eqBy
@@ -89,3 +91,6 @@ differenceWith
 ---
 try omitPath as method instead of multiple paths
 ---
+replace missing ramda methods with text that argument is missing
+---
+add vscode debug
