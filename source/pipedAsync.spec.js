@@ -2,13 +2,13 @@ import { add } from './add.js'
 import { delay } from './delay.js'
 import { pipedAsync } from './pipedAsync.js'
 
-const fn1 = async x => {
-  await delay(100)
-
-  return x + 2
+const fn1 = x => {
+  return new Promise((resolve) => {
+    resolve(x + 2)
+  })
 }
 const fn2 = async x => {
-  await delay(100)
+  await delay(1)
 
   return x + 3
 }
