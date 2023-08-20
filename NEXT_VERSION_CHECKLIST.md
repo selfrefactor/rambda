@@ -1,20 +1,16 @@
 - fix - use number as property to omit - TODO - should be same for pick, etc., i.e. they use same createpath util
 
-
 use todos and clear todos when this file is smaller
+
 check again deno as dissocpath doesn't add js extension to imports
 
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
 fix https://github.com/selfrefactor/rambdax/issues/93
 
-change deno info https://deno.land/x/rambda@v8.3.0/mod.ts
-
-remove ramda imports in tests
 release X
 
 - dissocPath
-
 ---
 - construct - it is class helper and classes are not very functional oriented
 - constructN
