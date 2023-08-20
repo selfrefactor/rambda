@@ -2,14 +2,28 @@ import {delay, pipeAsync} from 'rambda'
 
 describe('R.pipeAsync', () => {
   it('happy', async() => {
-    const result = await pipeAsync<number>(
-      async x => {
+    const fn = pipeAsync(
+      async (x: 4) => {
+        x // $ExpectType 4
         await delay(100)
-        return x + 2
+        return x + 1
       },
-      x => x.length + 10
-    )([1, 2])
+      x => {
+        x // $ExpectType number
+        return new Promise<string>((resolve) => {
+          resolve(x.toString())
+        })
+      },
+      x => {
+        x // $ExpectType string
+        return Promise.resolve([x])
+      }
+    )
 
-    result // $ExpectType number
+    const result1 = await fn(4)
+    const result2 = await fn(Promise.resolve(4))
+
+    result1 // $ExpectType string[]
+    result2 // $ExpectType string[]
   })
 })

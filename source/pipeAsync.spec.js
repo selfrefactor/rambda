@@ -1,6 +1,4 @@
 import { delay } from './delay.js'
-import { equals } from './equals.js'
-import { map } from './map.js'
 import { pipeAsync } from './pipeAsync.js'
 
 async function identity(x){
@@ -31,7 +29,7 @@ const delayFn = ms =>
     resolve(ms + 1)
   })
 
-test('with function returning promise', async () => {
+test.only('with function returning promise', async () => {
   const result = await pipeAsync(
     x => x,
     x => x + 1,
