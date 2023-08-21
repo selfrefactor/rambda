@@ -18,9 +18,8 @@ export function mapArray(
 }
 
 export function mapObject(fn, obj){
-  if (arguments.length === 1){
-    return _obj => mapObject(fn, _obj)
-  }
+  if (arguments.length === 1) return _obj => mapObject(fn, _obj)
+
   let index = 0
   const objKeys = keys(obj)
   const len = objKeys.length
@@ -41,9 +40,7 @@ export const mapObjIndexed = mapObject
 
 export function map(fn, iterable){
   if (arguments.length === 1) return _iterable => map(fn, _iterable)
-  if (!iterable){
-    throw new Error(INCORRECT_ITERABLE_INPUT)
-  }
+  if (!iterable) throw new Error(INCORRECT_ITERABLE_INPUT)
 
   if (isArray(iterable)) return mapArray(fn, iterable)
 

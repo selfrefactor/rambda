@@ -26,9 +26,8 @@ export function findAsyncFn(predicate, list){
 }
 
 export function findAsync(predicate, list){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return async _list => findAsync(predicate, _list)
-  }
 
   return new Promise((resolve, reject) => {
     findAsyncFn(predicate, list).then(resolve)

@@ -7,22 +7,22 @@ const list = [ 1, 2, 3, 4 ]
 
 const findIndex = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.findIndex(fn, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.findIndex(fn, list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.findIndex(list, fn)
     },
+    label : 'Lodash',
   },
 ]
 

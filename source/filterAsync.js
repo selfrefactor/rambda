@@ -21,9 +21,8 @@ export function filterAsyncFn(predicate, listOrObject){
 }
 
 export function filterAsync(predicate, listOrObject){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return async _listOrObject => filterAsyncFn(predicate, _listOrObject)
-  }
 
   return new Promise((resolve, reject) => {
     filterAsyncFn(predicate, listOrObject).then(resolve)

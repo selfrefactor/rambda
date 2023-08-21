@@ -1,22 +1,22 @@
 import { mergeRight } from './mergeRight.js'
 
 const obj = {
-  foo : 1,
   bar : 2,
+  foo : 1,
 }
 
 test('happy', () => {
   expect(mergeRight(obj, { bar : 20 })).toEqual({
-    foo : 1,
     bar : 20,
+    foo : 1,
   })
 })
 
 test('curry', () => {
   expect(mergeRight(obj)({ baz : 3 })).toEqual({
-    foo : 1,
     bar : 2,
     baz : 3,
+    foo : 1,
   })
 })
 

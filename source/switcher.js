@@ -10,9 +10,7 @@ const getMatchingKeyValuePair = (
   for (let index = 0; index < cases.length; index++){
     iterationValue = cases[ index ].test(testValue)
 
-    if (iterationValue !== NO_MATCH_FOUND){
-      return iterationValue
-    }
+    if (iterationValue !== NO_MATCH_FOUND) return iterationValue
   }
 
   return defaultValue

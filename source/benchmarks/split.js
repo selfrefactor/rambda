@@ -7,22 +7,22 @@ const sep = '|'
 
 const split = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.split(sep, str)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.split(sep, str)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.split(str, sep)
     },
+    label : 'Lodash',
   },
 ]
 

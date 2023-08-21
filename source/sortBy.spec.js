@@ -13,16 +13,16 @@ test('happy', () => {
 
 test('with compose', () => {
   const alice = {
-    name : 'ALICE',
     age  : 101,
+    name : 'ALICE',
   }
   const bob = {
-    name : 'Bob',
     age  : -10,
+    name : 'Bob',
   }
   const clara = {
-    name : 'clara',
     age  : 314.159,
+    name : 'clara',
   }
   const people = [ clara, bob, alice ]
   const sortByNameCaseInsensitive = sortBy(compose(toLower, prop('name')))

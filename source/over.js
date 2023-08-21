@@ -1,8 +1,8 @@
 import { curry } from './curry.js'
 
 const Identity = x => ({
-  x,
   map : fn => Identity(fn(x)),
+  x,
 })
 
 function overFn(

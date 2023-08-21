@@ -3,16 +3,16 @@ const Ramda = require('ramda')
 
 const and = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.and(true, true)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.and(true, true)
     },
+    label : 'Ramda',
   },
 ]
 

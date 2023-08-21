@@ -5,20 +5,20 @@ const testObj = { a : 1 }
 
 const last = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.set(
         R.lensProp('a'), 2, testObj
       )
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.set(
         Ramda.lensProp('a'), 2, testObj
       )
     },
+    label : 'Ramda',
   },
 ]
 

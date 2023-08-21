@@ -5,22 +5,22 @@ const start = 12
 const end = 22
 const range = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.range(start, end)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.range(start, end)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.range(start, end)
     },
+    label : 'Lodash',
   },
 ]
 

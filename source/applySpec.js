@@ -5,13 +5,11 @@ export function __findHighestArity(spec, max = 0){
   for (const key in spec){
     if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
 
-    if (typeof spec[ key ] === 'object'){
+    if (typeof spec[ key ] === 'object')
       max = Math.max(max, __findHighestArity(spec[ key ]))
-    }
 
-    if (typeof spec[ key ] === 'function'){
+    if (typeof spec[ key ] === 'function')
       max = Math.max(max, spec[ key ].length)
-    }
   }
 
   return max
@@ -80,15 +78,13 @@ function __applySpecWithArity(
     const l = spec.length
     for (; i < l; i++){
       // handle recursive spec inside array
-      if (typeof spec[ i ] === 'object' || isArray(spec[ i ])){
+      if (typeof spec[ i ] === 'object' || isArray(spec[ i ]))
         ret[ i ] = __applySpecWithArity(
           spec[ i ], arity, cache
         )
-      }
+
       // apply spec to the key
-      if (typeof spec[ i ] === 'function'){
-        ret[ i ] = spec[ i ](...cache)
-      }
+      if (typeof spec[ i ] === 'function') ret[ i ] = spec[ i ](...cache)
     }
 
     return ret
@@ -109,9 +105,7 @@ function __applySpecWithArity(
     }
 
     // apply spec to the key
-    if (typeof spec[ key ] === 'function'){
-      ret[ key ] = spec[ key ](...cache)
-    }
+    if (typeof spec[ key ] === 'function') ret[ key ] = spec[ key ](...cache)
   }
 
   return ret
@@ -121,9 +115,8 @@ export function applySpec(spec, ...args){
   // get the highest arity spec function, cache the result and pass to __applySpecWithArity
   const arity = __findHighestArity(spec)
 
-  if (arity === 0){
-    return () => ({})
-  }
+  if (arity === 0) return () => ({})
+
   const toReturn = __applySpecWithArity(
     spec, arity, args
   )

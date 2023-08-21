@@ -34,11 +34,7 @@ const possibleInputs = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : add,
-    fnRamda     : addRamda,
-    firstInput  : possibleInputs,
-    secondInput : possibleInputs,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -50,5 +46,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleInputs,
+    fn          : add,
+    fnRamda     : addRamda,
+    secondInput : possibleInputs,
   })
 })

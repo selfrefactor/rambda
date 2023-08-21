@@ -7,24 +7,24 @@ const addFourNumbers = (
 
 const curryN = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       const curriedAddFourNumbers = R.curryN(4, addFourNumbers)
       const f = curriedAddFourNumbers(1, 2)
       const g = f(3)
 
       g(4)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       const curriedAddFourNumbers = Ramda.curryN(4, addFourNumbers)
       const f = curriedAddFourNumbers(1, 2)
       const g = f(3)
 
       g(4)
     },
+    label : 'Ramda',
   },
 ]
 

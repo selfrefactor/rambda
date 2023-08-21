@@ -63,10 +63,7 @@ test('with R.equals', () => {
 describe('brute force', () => {
   const possibleInputs = [ ...FALSY_VALUES, ...EXTRA_BUILD_IN_OBJECTS ]
   compareCombinations({
-    fn         : clone,
-    fnRamda    : cloneRamda,
-    firstInput : possibleInputs,
-    callback   : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -78,5 +75,8 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput : possibleInputs,
+    fn         : clone,
+    fnRamda    : cloneRamda,
   })
 })

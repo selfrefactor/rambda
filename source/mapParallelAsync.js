@@ -5,9 +5,8 @@ export async function mapParallelAsyncFn(fn, arr){
 }
 
 export function mapParallelAsync(fn, arr){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return async holder => mapParallelAsyncFn(fn, holder)
-  }
 
   return new Promise((resolve, reject) => {
     mapParallelAsyncFn(fn, arr).then(resolve)

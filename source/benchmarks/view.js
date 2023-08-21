@@ -5,16 +5,16 @@ const testObj = { a : 1 }
 
 const last = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.view(R.lensProp('a'), testObj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.view(Ramda.lensProp('a'), testObj)
     },
+    label : 'Ramda',
   },
 ]
 

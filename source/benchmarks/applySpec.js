@@ -3,8 +3,7 @@ const Ramda = require('ramda')
 
 const curryN = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       const data = {
         a : {
           b : { c : 1 },
@@ -17,10 +16,10 @@ const curryN = [
       }
       R.applySpec(spec, data)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       const data = {
         a : {
           b : { c : 1 },
@@ -33,6 +32,7 @@ const curryN = [
       }
       Ramda.applySpec(spec, data)
     },
+    label : 'Ramda',
   },
 ]
 

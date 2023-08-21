@@ -7,22 +7,22 @@ const num = 2
 
 const take = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.take(num, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.take(num, list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.take(list, num)
     },
+    label : 'Lodash',
   },
 ]
 

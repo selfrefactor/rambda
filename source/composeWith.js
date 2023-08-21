@@ -6,9 +6,7 @@ import { reverse } from './reverse.js'
 import { tail } from './tail.js'
 
 export function pipeWith(xf, list){
-  if (list.length <= 0){
-    return identity
-  }
+  if (list.length <= 0) return identity
 
   const headList = head(list)
   const tailList = tail(list)

@@ -9,15 +9,14 @@ export class _Set{
 
   checkUniqueness(item){
     const type = typeMethod(item)
-    if ([ 'Null', 'Undefined', 'NaN' ].includes(type)){
-      if (type in this.items){
-        return false
-      }
+    if ([ 'NaN', 'Null', 'Undefined' ].includes(type)){
+      if (type in this.items) return false
+
       this.items[ type ] = true
 
       return true
     }
-    if (![ 'Object', 'Array' ].includes(type)){
+    if (![ 'Array', 'Object' ].includes(type)){
       const prevSize = this.set.size
       this.set.add(item)
 

@@ -7,24 +7,24 @@ const replacer = 7
 
 const update = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.update(
         replacer, index, list
       )
       R.update(replacer, index)(list)
       R.update(replacer)(index)(list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.update(
         replacer, index, list
       )
       Ramda.update(replacer, index)(list)
       Ramda.update(replacer)(index)(list)
     },
+    label : 'Ramda',
   },
 ]
 

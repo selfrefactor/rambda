@@ -4,16 +4,16 @@ import { sort } from './sort.js'
 
 const people = [
   {
-    name : 'Emma',
     age  : 70,
+    name : 'Emma',
   },
   {
-    name : 'Peter',
     age  : 78,
+    name : 'Peter',
   },
   {
-    name : 'Mikhail',
     age  : 62,
+    name : 'Mikhail',
   },
 ]
 
@@ -22,16 +22,16 @@ test('ascend', () => {
     people)
   const expected = [
     {
-      name : 'Mikhail',
       age  : 62,
+      name : 'Mikhail',
     },
     {
-      name : 'Emma',
       age  : 70,
+      name : 'Emma',
     },
     {
-      name : 'Peter',
       age  : 78,
+      name : 'Peter',
     },
   ]
   expect(result).toEqual(expected)
@@ -42,16 +42,16 @@ test('descend', () => {
     people)
   const expected = [
     {
-      name : 'Peter',
       age  : 78,
+      name : 'Peter',
     },
     {
-      name : 'Emma',
       age  : 70,
+      name : 'Emma',
     },
     {
-      name : 'Mikhail',
       age  : 62,
+      name : 'Mikhail',
     },
   ]
 

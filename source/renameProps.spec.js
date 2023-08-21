@@ -2,37 +2,37 @@ import { renameProps } from './renameProps.js'
 
 test('renameProps', () => {
   const rules = {
-    f : 'foo',
     b : 'bar',
+    f : 'foo',
     q : 'x',
   }
   const input = {
-    f : 1,
-    b : 2,
     a : 3,
+    b : 2,
+    f : 1,
   }
   const result = renameProps(rules, input)
   const expectedResult = {
-    foo : 1,
-    bar : 2,
     a   : 3,
+    bar : 2,
+    foo : 1,
   }
   expect(result).toEqual(expectedResult)
 })
 
 test('curry', () => {
   const rules = {
-    f : 'foo',
     b : 'bar',
+    f : 'foo',
   }
   const input = {
-    f : 1,
     b : 2,
+    f : 1,
   }
   const result = renameProps(rules)(input)
   const expectedResult = {
-    foo : 1,
     bar : 2,
+    foo : 1,
   }
   expect(result).toEqual(expectedResult)
 })

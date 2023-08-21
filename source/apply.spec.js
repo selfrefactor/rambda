@@ -12,7 +12,7 @@ test('applies function to argument list', () => {
 
 test('provides no way to specify context', () => {
   const obj = {
-    method (){
+    method(){
       return this === obj
     },
   }

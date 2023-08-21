@@ -7,18 +7,18 @@ const arr = [ 1, 3, 5, 7, 9, 11 ]
 
 const none = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.none(isEven, arr)
       R.none(isEven)(arr)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.none(isEven, arr)
       Ramda.none(isEven)(arr)
     },
+    label : 'Ramda',
   },
 ]
 

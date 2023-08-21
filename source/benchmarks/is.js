@@ -3,8 +3,7 @@ const Ramda = require('ramda')
 
 const is = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.is(Array, undefined)
       R.is(Array)([])
       R.is(Boolean, new Boolean(false))
@@ -15,10 +14,10 @@ const is = [
       R.is(RegExp, /(?:)/)
       R.is(String, new String(''))
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.is(Array, undefined)
       Ramda.is(Array)([])
       Ramda.is(Boolean, new Boolean(false))
@@ -29,6 +28,7 @@ const is = [
       Ramda.is(RegExp, /(?:)/)
       Ramda.is(String, new String(''))
     },
+    label : 'Ramda',
   },
 ]
 

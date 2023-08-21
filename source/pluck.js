@@ -6,9 +6,7 @@ export function pluck(property, list){
   const willReturn = []
 
   map(x => {
-    if (x[ property ] !== undefined){
-      willReturn.push(x[ property ])
-    }
+    if (x[ property ] !== undefined) willReturn.push(x[ property ])
   }, list)
 
   return willReturn

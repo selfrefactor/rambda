@@ -7,22 +7,22 @@ const num = 2
 
 const takeLast = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.takeLast(num, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.takeLast(num, list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.takeRight(list, num)
     },
+    label : 'Lodash',
   },
 ]
 

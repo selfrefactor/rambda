@@ -8,11 +8,11 @@ import { view } from './view.js'
 
 test('composed lenses', () => {
   const testObject = {
-    foo : [ 'a', 'b', 'c' ],
     baz : {
       a : 'x',
       b : 'y',
     },
+    foo : [ 'a', 'b', 'c' ],
   }
   const propLens = lensProp('foo')
   const indexLens = lensIndex(2)

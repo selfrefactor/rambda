@@ -67,16 +67,16 @@ test('is recursive', () => {
 
 test('ignores primitive values', () => {
   const rules = {
-    n : 2,
     m : 'foo',
+    n : 2,
   }
   const object = {
-    n : 0,
     m : 1,
+    n : 0,
   }
   const expected = {
-    n : 0,
     m : 1,
+    n : 0,
   }
   const result = evolve(rules, object)
   expect(result).toEqual(expected)
@@ -97,8 +97,7 @@ const possibleRules = [ ...possibleIterables, rulesList, rulesObject ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput : possibleRules,
-    callback   : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -110,8 +109,9 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput : possibleIterables,
+    firstInput  : possibleRules,
     fn          : evolve,
     fnRamda     : evolveRamda,
+    secondInput : possibleIterables,
   })
 })

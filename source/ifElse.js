@@ -7,9 +7,7 @@ function ifElseFn(
     const conditionResult =
       typeof condition === 'boolean' ? condition : condition(...input)
 
-    if (conditionResult === true){
-      return onTrue(...input)
-    }
+    if (conditionResult === true) return onTrue(...input)
 
     return onFalse(...input)
   }

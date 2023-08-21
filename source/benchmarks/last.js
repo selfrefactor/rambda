@@ -6,22 +6,22 @@ const list = [ 1, 2, 3, 4 ]
 
 const last = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.last(list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.last(list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.last(list)
     },
+    label : 'Lodash',
   },
 ]
 

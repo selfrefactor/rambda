@@ -7,9 +7,8 @@ export function pathFn(pathInput, obj){
   const pathArrValue = createPath(pathInput)
 
   while (counter < pathArrValue.length){
-    if (willReturn === null || willReturn === undefined){
-      return undefined
-    }
+    if (willReturn === null || willReturn === undefined) return undefined
+
     if (willReturn[ pathArrValue[ counter ] ] === null) return undefined
 
     willReturn = willReturn[ pathArrValue[ counter ] ]
@@ -22,9 +21,7 @@ export function pathFn(pathInput, obj){
 export function path(pathInput, obj){
   if (arguments.length === 1) return _obj => path(pathInput, _obj)
 
-  if (obj === null || obj === undefined){
-    return undefined
-  }
+  if (obj === null || obj === undefined) return undefined
 
   return pathFn(pathInput, obj)
 }

@@ -590,8 +590,8 @@ test('should allow additional properties', () => {
 
 test('accepts values as schemas', () => {
   const input = {
-    title : 'You shook me',
     genre : 'Blues',
+    title : 'You shook me',
     year  : 1969,
   }
   const schema = {
@@ -606,24 +606,24 @@ test('accepts values as schemas', () => {
 
 test('compatible schemas with nested object', () => {
   const input = {
-    foo : 'bar',
     baz : { a : { b : 'c' } },
+    foo : 'bar',
   }
   const invalidInputFirst = {
-    foo : 'bar',
     baz : { a : { b : 1 } },
+    foo : 'bar',
   }
   const invalidInputSecond = {
-    foo : 'bar',
     baz : { a : { b : [] } },
+    foo : 'bar',
   }
   const invalidInputThird = {
-    foo : 'bar',
     baz : { a : { b : null } },
+    foo : 'bar',
   }
   const schema = {
-    foo : 'string',
     baz : { a : { b : 'string' } },
+    foo : 'string',
   }
 
   expect(isValid({
@@ -661,14 +661,14 @@ test('when schema is undefined', () => {
 
 test('should return false with invalid schema rule', () => {
   const input = {
-    foo : 'bar',
     a   : {},
+    foo : 'bar',
   }
   const inputSecond = { foo : 'bar' }
 
   const schema = {
-    foo : 'string',
     baz : { a : {} },
+    foo : 'string',
   }
 
   expect(isValid({

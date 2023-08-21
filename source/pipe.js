@@ -8,9 +8,8 @@ export function _pipe(f, g){
 }
 
 export function pipe(){
-  if (arguments.length === 0){
+  if (arguments.length === 0)
     throw new Error('pipe requires at least one argument')
-  }
 
   return _arity(arguments[ 0 ].length,
     reduceFn(

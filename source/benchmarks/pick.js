@@ -10,22 +10,22 @@ const obj = {
 const pickInput = [ 'a', 'c' ]
 const pick = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.pick(pickInput, obj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.pick(pickInput, obj)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.pick(obj, pickInput)
     },
+    label : 'Lodash',
   },
 ]
 

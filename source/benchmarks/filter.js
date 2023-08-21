@@ -6,22 +6,22 @@ const arr = [ 1, 2, 3, 4 ]
 const fn = x => x > 2
 const filter = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.filter(fn, arr)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.filter(fn, arr)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.filter(arr, fn)
     },
+    label : 'Lodash',
   },
 ]
 

@@ -43,11 +43,7 @@ const possibleIterables = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : dropLastWhile,
-    fnRamda     : dropLastWhileRamda,
-    firstInput  : possiblePredicates,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -59,5 +55,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possiblePredicates,
+    fn          : dropLastWhile,
+    fnRamda     : dropLastWhileRamda,
+    secondInput : possibleIterables,
   })
 })

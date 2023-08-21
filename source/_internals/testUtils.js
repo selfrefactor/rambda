@@ -37,8 +37,7 @@ function parseError(err){
     .is(x => x instanceof Error, 'Error')
     .default(MISSING)
 
-  if (typeError === MISSING)
-    throw new Error('typeError === MISSING')
+  if (typeError === MISSING) throw new Error('typeError === MISSING')
 
   return {
     message : err.message,

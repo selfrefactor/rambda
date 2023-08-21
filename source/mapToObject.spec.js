@@ -22,27 +22,22 @@ test('string.fn test', () => {
   const list = [ 'auto', 'bar=false', 'foo', 'baz=1.5', 's=more', 'k=2' ]
   const fn = x => {
     const [ key, value ] = x.split('=')
-    if (value === undefined || value === 'true'){
-      return { [ key ] : true }
-    }
-    if (value === 'false'){
-      return { [ key ] : false }
-    }
+    if (value === undefined || value === 'true') return { [ key ] : true }
 
-    if (Number.isNaN(Number(value))){
-      return { [ key ] : value }
-    }
+    if (value === 'false') return { [ key ] : false }
+
+    if (Number.isNaN(Number(value))) return { [ key ] : value }
 
     return { [ key ] : Number(value) }
   }
 
   const expectedResult = {
     auto : true,
-    foo  : true,
     bar  : false,
     baz  : 1.5,
-    s    : 'more',
+    foo  : true,
     k    : 2,
+    s    : 'more',
   }
   const result = mapToObject(fn, list)
 

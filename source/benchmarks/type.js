@@ -14,16 +14,16 @@ function applyBenchmark(fn){
 
 const test = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       applyBenchmark(R.type)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       applyBenchmark(Ramda.type)
     },
+    label : 'Ramda',
   },
 ]
 

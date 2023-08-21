@@ -6,22 +6,22 @@ const pathInput = [ 'a', 'b' ]
 
 const path = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.path(pathInput, obj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.path(pathInput, obj)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.get(obj, pathInput)
     },
+    label : 'Lodash',
   },
 ]
 

@@ -6,22 +6,22 @@ const index = 1
 
 const adjust = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.adjust(
         index, fn, list
       )
       R.adjust(index, fn)(list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.adjust(
         index, fn, list
       )
       Ramda.adjust(index, fn)(list)
     },
+    label : 'Ramda',
   },
 ]
 

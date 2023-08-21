@@ -6,22 +6,22 @@ const list = [ 1, 2, 3, 4 ]
 
 const init = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.init(list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.init(list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.initial(list)
     },
+    label : 'Lodash',
   },
 ]
 

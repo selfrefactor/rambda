@@ -6,22 +6,22 @@ const arr = [ 1, 2, 3, 4 ]
 const fn = x => x * 2
 const map = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.map(fn, arr)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.map(fn, arr)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.map(arr, fn)
     },
+    label : 'Lodash',
   },
 ]
 

@@ -9,9 +9,7 @@ export function differenceWithFn(
 
   first.forEach(item => {
     const hasItem = second.some(secondItem => fn(item, secondItem))
-    if (!hasItem && _indexOf(item, willReturn) === -1){
-      willReturn.push(item)
-    }
+    if (!hasItem && _indexOf(item, willReturn) === -1) willReturn.push(item)
   })
 
   return willReturn

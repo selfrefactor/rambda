@@ -39,11 +39,7 @@ test('with string as iterable', () => {
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : lastIndexOf,
-    fnRamda     : lastIndexOfRamda,
-    firstInput  : possibleTargets,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -55,5 +51,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleTargets,
+    fn          : lastIndexOf,
+    fnRamda     : lastIndexOfRamda,
+    secondInput : possibleIterables,
   })
 })

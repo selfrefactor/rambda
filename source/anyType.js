@@ -5,9 +5,8 @@ export function anyType(targetType){
     let counter = 0
 
     while (counter < inputs.length){
-      if (type(inputs[ counter ]) === targetType){
-        return true
-      }
+      if (type(inputs[ counter ]) === targetType) return true
+
       counter++
     }
 

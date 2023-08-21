@@ -23,7 +23,7 @@ test('accepts one or more arguments', () => {
 
 test('provides no way to specify context', () => {
   var obj = {
-    method (){
+    method(){
       return this === obj
     },
   }

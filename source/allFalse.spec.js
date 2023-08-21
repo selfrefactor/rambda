@@ -9,8 +9,8 @@ const withFunction = { fail : [ ...happy.ok, () => ({ a : 1 }) ] }
 const withBoolean = { fail : [ ...happy.ok, true ] }
 
 const testData = {
-  label : 'R.allFalse',
   data  : [ happy, withArray, withObject, withFunction, withBoolean ],
   fn    : input => allFalse(...input),
+  label : 'R.allFalse',
 }
 runTests(testData)

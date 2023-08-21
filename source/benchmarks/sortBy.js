@@ -7,22 +7,22 @@ const fn = x => x.a
 
 const replace = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.sortBy(fn, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.sortBy(fn, list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.sortBy(list, fn)
     },
+    label : 'Lodash',
   },
 ]
 

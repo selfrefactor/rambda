@@ -18,9 +18,8 @@ const normalizeObject = obj => {
 
 const stringify = a => {
   const aType = type(a)
-  if (aType === 'String'){
-    return a
-  } else if ([ 'Function', 'Promise' ].includes(aType)){
+  if (aType === 'String') return a
+  else if ([ 'Function', 'Promise' ].includes(aType)){
     const compacted = replace(
       /\s{1,}/g, ' ', a.toString()
     )
@@ -28,9 +27,7 @@ const stringify = a => {
     return replace(
       /\s/g, '_', take(15, compacted)
     )
-  } else if (aType === 'Object'){
-    return JSON.stringify(normalizeObject(a))
-  }
+  } else if (aType === 'Object') return JSON.stringify(normalizeObject(a))
 
   return JSON.stringify(a)
 }
@@ -45,21 +42,19 @@ const generateProp = (fn, ...inputArguments) => {
 }
 // with weakmaps
 export function memoize(fn, ...inputArguments){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return (...inputArgumentsHolder) => memoize(fn, ...inputArgumentsHolder)
-  }
 
   const prop = generateProp(fn, ...inputArguments)
   if (prop in cache) return cache[ prop ]
 
-  if (type(fn) === 'Async'){
+  if (type(fn) === 'Async')
     return new Promise(resolve => {
       fn(...inputArguments).then(result => {
         cache[ prop ] = result
         resolve(result)
       })
     })
-  }
 
   const result = fn(...inputArguments)
   cache[ prop ] = result

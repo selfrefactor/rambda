@@ -14,32 +14,30 @@ const modes = [
     x => x.toUpperCase(),
   ],
   {
-    special : true,
-    fns     : [
+    fns : [
       (firstName, lastName) =>
         'The name\'s ' + lastName + ', ' + firstName + ' ' + lastName,
       x => x.toUpperCase(),
       x => x.toLowerCase(),
     ],
+    special : true,
   },
 ]
 
 const applyBenchmark = (fn, input) => {
-  if (input.special){
-    return fn(...input.fns)('foo', 'bar')
-  }
+  if (input.special) return fn(...input.fns)('foo', 'bar')
 
   return fn(...input)(uniqListOfStrings(100))
 }
 
 const tests = [
   {
-    label : 'Rambda',
     fn    : Ramda.pipe,
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
     fn    : Ramda.pipe,
+    label : 'Ramda',
   },
   // {
   //   label: 'Lodash',
@@ -48,7 +46,7 @@ const tests = [
 ]
 
 module.exports = {
-  tests,
   applyBenchmark,
   modes,
+  tests,
 }

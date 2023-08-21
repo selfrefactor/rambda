@@ -3,8 +3,8 @@ import { interpolate } from './interpolate.js'
 test('within bracets', () => {
   const input = 'foo is { {{bar}} } even {{a}} more'
   const templateInput = {
-    bar : 'BAR',
     a   : 1,
+    bar : 'BAR',
   }
 
   const result = interpolate(input, templateInput)
@@ -16,8 +16,8 @@ test('within bracets', () => {
 test('happy', () => {
   const input = 'foo is {{bar}} even {{a}} more'
   const templateInput = {
-    bar : 'BAR',
     a   : 1,
+    bar : 'BAR',
   }
 
   const result = interpolate(input, templateInput)
@@ -39,8 +39,8 @@ test('no interpolation + curry', () => {
 test('with missing template input', () => {
   const input = 'foo is {{bar}} even {{a}} more'
   const templateInput = {
-    baz : 'BAR',
     a   : 1,
+    baz : 'BAR',
   }
 
   const result = interpolate(input, templateInput)

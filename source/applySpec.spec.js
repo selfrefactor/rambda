@@ -28,12 +28,12 @@ test('works with empty spec', () => {
 
 test('works with unary functions', () => {
   const result = applySpec({
-    v : inc,
     u : dec,
+    v : inc,
   })(1)
   const expected = {
-    v : 2,
     u : 0,
+    v : 2,
   }
   expect(result).toEqual(expected)
 })
@@ -45,25 +45,25 @@ test('works with binary functions', () => {
 
 test('works with nested specs', () => {
   const result = applySpec({
-    unnested : always(0),
     nested   : { sum : add },
+    unnested : always(0),
   })(1, 2)
   const expected = {
-    unnested : 0,
     nested   : { sum : 3 },
+    unnested : 0,
   }
   expect(result).toEqual(expected)
 })
 
 test('works with arrays of nested specs', () => {
   const result = applySpec({
-    unnested : always(0),
     nested   : [ { sum : add } ],
+    unnested : always(0),
   })(1, 2)
 
   expect(result).toEqual({
-    unnested : 0,
     nested   : [ { sum : 3 } ],
+    unnested : 0,
   })
 })
 
@@ -117,80 +117,80 @@ test('returns a curried function', () => {
 test('arity', () => {
   const spec = {
     one   : x1 => x1,
-    two   : (x1, x2) => x1 + x2,
     three : (
       x1, x2, x3
     ) => x1 + x2 + x3,
+    two : (x1, x2) => x1 + x2,
   }
   expect(applySpec(
     spec, 1, 2, 3
   )).toEqual({
     one   : 1,
-    two   : 3,
     three : 6,
+    two   : 3,
   })
 })
 
 test('arity over 5 arguments', () => {
   const spec = {
-    one   : x1 => x1,
-    two   : (x1, x2) => x1 + x2,
-    three : (
-      x1, x2, x3
-    ) => x1 + x2 + x3,
-    four : (
-      x1, x2, x3, x4
-    ) => x1 + x2 + x3 + x4,
     five : (
       x1, x2, x3, x4, x5
     ) => x1 + x2 + x3 + x4 + x5,
+    four : (
+      x1, x2, x3, x4
+    ) => x1 + x2 + x3 + x4,
+    one   : x1 => x1,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+    two : (x1, x2) => x1 + x2,
   }
   expect(applySpec(
     spec, 1, 2, 3, 4, 5
   )).toEqual({
-    one   : 1,
-    two   : 3,
-    three : 6,
-    four  : 10,
     five  : 15,
+    four  : 10,
+    one   : 1,
+    three : 6,
+    two   : 3,
   })
 })
 
 test('curried', () => {
   const spec = {
     one   : x1 => x1,
-    two   : (x1, x2) => x1 + x2,
     three : (
       x1, x2, x3
     ) => x1 + x2 + x3,
+    two : (x1, x2) => x1 + x2,
   }
   expect(applySpec(spec)(1)(2)(3)).toEqual({
     one   : 1,
-    two   : 3,
     three : 6,
+    two   : 3,
   })
 })
 
 test('curried over 5 arguments', () => {
   const spec = {
-    one   : x1 => x1,
-    two   : (x1, x2) => x1 + x2,
-    three : (
-      x1, x2, x3
-    ) => x1 + x2 + x3,
-    four : (
-      x1, x2, x3, x4
-    ) => x1 + x2 + x3 + x4,
     five : (
       x1, x2, x3, x4, x5
     ) => x1 + x2 + x3 + x4 + x5,
+    four : (
+      x1, x2, x3, x4
+    ) => x1 + x2 + x3 + x4,
+    one   : x1 => x1,
+    three : (
+      x1, x2, x3
+    ) => x1 + x2 + x3,
+    two : (x1, x2) => x1 + x2,
   }
   expect(applySpec(spec)(1)(2)(3)(4)(5)).toEqual({
-    one   : 1,
-    two   : 3,
-    three : 6,
-    four  : 10,
     five  : 15,
+    four  : 10,
+    one   : 1,
+    three : 6,
+    two   : 3,
   })
 })
 
@@ -201,18 +201,18 @@ test('undefined property', () => {
 
 test('restructure json object', () => {
   const spec = {
+    doesntExist : path('user.profile.doesntExist'),
     id          : path('user.id'),
+    info        : { views : compose(inc, prop('views')) },
     name        : path('user.firstname'),
     profile     : path('user.profile'),
-    doesntExist : path('user.profile.doesntExist'),
-    info        : { views : compose(inc, prop('views')) },
     type        : always('playa'),
   }
 
   const data = {
     user : {
-      id        : 1337,
       firstname : 'john',
+      id        : 1337,
       lastname  : 'shaft',
       profile   : 'shaft69',
     },
@@ -220,11 +220,11 @@ test('restructure json object', () => {
   }
 
   expect(applySpec(spec, data)).toEqual({
+    doesntExist : undefined,
     id          : 1337,
+    info        : { views : 43 },
     name        : 'john',
     profile     : 'shaft69',
-    doesntExist : undefined,
-    info        : { views : 43 },
     type        : 'playa',
   })
 })

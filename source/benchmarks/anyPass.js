@@ -5,16 +5,16 @@ const rules = [ x => typeof x === 'boolean', x => x > 20, x => x * 7 < 100 ]
 
 const anyPass = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.anyPass(rules)(11)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.anyPass(rules)(11)
     },
+    label : 'Ramda',
   },
 ]
 

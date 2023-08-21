@@ -7,22 +7,22 @@ const list = [ 1, 2, 3, 4 ]
 
 const find = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.find(fn, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.find(fn, list)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.find(list, fn)
     },
+    label : 'Lodash',
   },
 ]
 

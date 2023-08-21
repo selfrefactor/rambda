@@ -11,28 +11,28 @@ const value = 3
 
 const assoc = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.assoc(
         key, value, input
       )
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.assoc(
         key, value, input
       )
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash.set',
-    fn    : () => {
+    fn : () => {
       _.set(
         input, key, value
       )
     },
+    label : 'Lodash.set',
   },
 ]
 

@@ -7,11 +7,11 @@ import { prop } from './prop.js'
 import { toUpper } from './toUpper.js'
 
 const testObject = {
-  foo : 'bar',
   baz : {
     a : 'x',
     b : 'y',
   },
+  foo : 'bar',
 }
 
 test('assoc lens', () => {

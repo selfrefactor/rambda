@@ -3,18 +3,18 @@ const Ramda = require('ramda')
 
 const append = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.append(0)([ 1, 2, 3, 4 ])
       R.append('bar')('foo')
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.append(0)([ 1, 2, 3, 4 ])
       Ramda.append('bar')('foo')
     },
+    label : 'Ramda',
   },
 ]
 

@@ -5,13 +5,9 @@ export function intersperse(separator, list){
   const len = list.length
   const willReturn = []
 
-  while (++index < len){
-    if (index === len - 1){
-      willReturn.push(list[ index ])
-    } else {
-      willReturn.push(list[ index ], separator)
-    }
-  }
+  while (++index < len)
+    if (index === len - 1) willReturn.push(list[ index ])
+    else willReturn.push(list[ index ], separator)
 
   return willReturn
 }

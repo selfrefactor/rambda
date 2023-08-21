@@ -1,6 +1,6 @@
 const Const = x => ({
-  x,
   map : fn => Const(x),
+  x,
 })
 
 export function view(lens, target){

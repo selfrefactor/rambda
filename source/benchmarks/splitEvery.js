@@ -6,16 +6,16 @@ const list = [ 1, 2, 3, 4, 5, 6, 7 ]
 
 const splitEvery = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.splitEvery(3, list)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.splitEvery(3, list)
     },
+    label : 'Ramda',
   },
 ]
 

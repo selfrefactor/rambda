@@ -10,12 +10,11 @@ class ReduceStopper{
 export function reduceFn(
   reducer, acc, list
 ){
-  if (list == null){
-    return acc
-  }
-  if (!isArray(list)){
+  if (list == null) return acc
+
+  if (!isArray(list))
     throw new TypeError('reduce: list must be array or iterable')
-  }
+
   let index = 0
   const len = list.length
 
@@ -23,9 +22,8 @@ export function reduceFn(
     acc = reducer(
       acc, list[ index ], index, list
     )
-    if (acc instanceof ReduceStopper){
-      return acc.value
-    }
+    if (acc instanceof ReduceStopper) return acc.value
+
     index++
   }
 

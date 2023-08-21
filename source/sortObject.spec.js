@@ -5,9 +5,9 @@ import { equals } from './equals.js'
 import { sortObject } from './sortObject.js'
 
 const obj = {
-  c : 1,
   a : 2,
   b : 3,
+  c : 1,
 }
 
 const predicateA = (
@@ -43,13 +43,13 @@ const fn = ([ predicate, expectation ]) => {
 }
 
 const testData = {
-  label : 'foo',
-  data  : [
+  data : [
     { ok : [ predicateA, expectationA ] },
     { ok : [ predicateB, expectationB ] },
     { ok : [ predicateC, expectationC ] },
   ],
   fn,
+  label : 'foo',
 }
 
 runTests(testData)

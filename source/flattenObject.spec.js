@@ -9,8 +9,8 @@ test('happy', () => {
     c : 3,
     d : {
       'd.e' : [ 5, 6, 7 ],
-      'd.z' : 4,
       'd.f' : { 'd.f.h' : 6 },
+      'd.z' : 4,
     },
   }
   const result = transformFlatObject(obj)
@@ -30,7 +30,6 @@ test('happy', () => {
       c : 3,
       d : {
         e : 5,
-        z : 4,
         f : {
           h : 6,
           i : 7,
@@ -39,6 +38,7 @@ test('happy', () => {
             l : 9,
           },
         },
+        z : 4,
       },
     },
   })
@@ -64,8 +64,8 @@ test('flattenObjectHelper', () => {
       c : 3,
       d : {
         e : 5,
-        z : 4,
         f : { h : 6 },
+        z : 4,
       },
     },
   })

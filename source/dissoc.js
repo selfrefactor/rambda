@@ -4,9 +4,8 @@ export function dissoc(prop, obj){
   if (obj === null || obj === undefined) return {}
 
   const willReturn = {}
-  for (const p in obj){
-    willReturn[ p ] = obj[ p ]
-  }
+  for (const p in obj) willReturn[ p ] = obj[ p ]
+
   delete willReturn[ prop ]
 
   return willReturn

@@ -1,11 +1,11 @@
 const R = require('../../dist/rambda.js')
 const Ramda = require('ramda')
 const {
-  uniqListOfStrings,
   uniqListOfBooleans,
-  uniqListOfNumbers,
   uniqListOfLists,
+  uniqListOfNumbers,
   uniqListOfObjects,
+  uniqListOfStrings,
 } = require('./_utils.js')
 
 const limit = 100
@@ -27,17 +27,17 @@ function applyBenchmark(fn, input){
 
 const tests = [
   {
-    label : 'Rambda',
     fn    : R.uniqWith,
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
     fn    : Ramda.uniqWith,
+    label : 'Ramda',
   },
 ]
 
 module.exports = {
+  applyBenchmark,
   modes,
   tests,
-  applyBenchmark,
 }

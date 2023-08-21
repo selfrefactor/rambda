@@ -10,22 +10,22 @@ const strings = Array(limit)
 
 const equals = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       strings.forEach(x => R.equals(x, 'ss'))
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       strings.forEach(x => Ramda.equals(x, 'ss'))
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       strings.forEach(x => _.isEqual(x, 'ss'))
     },
+    label : 'Lodash',
   },
 ]
 

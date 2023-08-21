@@ -1,13 +1,10 @@
 import { isArray } from './_internals/isArray.js'
 
 export function dropRepeatsWith(predicate, list){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return _iterable => dropRepeatsWith(predicate, _iterable)
-  }
 
-  if (!isArray(list)){
-    throw new Error(`${ list } is not a list`)
-  }
+  if (!isArray(list)) throw new Error(`${ list } is not a list`)
 
   const toReturn = []
 
@@ -17,9 +14,7 @@ export function dropRepeatsWith(predicate, list){
 
       return current
     }
-    if (!predicate(prev, current)){
-      toReturn.push(current)
-    }
+    if (!predicate(prev, current)) toReturn.push(current)
 
     return current
   }, undefined)

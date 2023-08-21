@@ -105,9 +105,7 @@ const possibleInputs = [ null, {}, { foo : 1 } ]
 
 describe('brute force', () => {
   compareCombinations({
-    returnsFunctionFlag : true,
-    firstInput          : possibleFns,
-    callback            : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -119,9 +117,11 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput : possibleCatchers,
-    thirdInput  : possibleInputs,
-    fn          : tryCatch,
-    fnRamda     : tryCatchRamda,
+    firstInput          : possibleFns,
+    fn                  : tryCatch,
+    fnRamda             : tryCatchRamda,
+    returnsFunctionFlag : true,
+    secondInput         : possibleCatchers,
+    thirdInput          : possibleInputs,
   })
 })

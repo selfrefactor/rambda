@@ -1,11 +1,10 @@
 import { type } from './type.js'
 
-const isFunction = x => [ 'Promise', 'Function' ].includes(type(x))
+const isFunction = x => [ 'Function', 'Promise' ].includes(type(x))
 
 export function tryCatch(fn, fallback){
-  if (!isFunction(fn)){
-    throw new Error(`R.tryCatch | fn '${ fn }'`)
-  }
+  if (!isFunction(fn)) throw new Error(`R.tryCatch | fn '${ fn }'`)
+
   const passFallback = isFunction(fallback)
 
   return (...inputs) => {

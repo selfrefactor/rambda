@@ -13,8 +13,7 @@ const elseFn = () => false
 
 const ifElse = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       const fn = R.ifElse(condition, ifFn)(elseFn)
 
       fn({ foo : 'bar' })
@@ -24,10 +23,10 @@ const ifElse = [
       ifIsNumber(t, R.identity)(15)
       ifIsNumber(t, R.identity)('hello')
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       const fn = Ramda.ifElse(condition, ifFn)(elseFn)
 
       fn({ foo : 'bar' })
@@ -37,6 +36,7 @@ const ifElse = [
       ifIsNumber(t, R.identity)(15)
       ifIsNumber(t, R.identity)('hello')
     },
+    label : 'Ramda',
   },
 ]
 

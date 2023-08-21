@@ -3,13 +3,10 @@ import { isArray } from './_internals/isArray.js'
 export function filterObject(predicate, obj){
   const willReturn = {}
 
-  for (const prop in obj){
+  for (const prop in obj)
     if (predicate(
       obj[ prop ], prop, obj
-    )){
-      willReturn[ prop ] = obj[ prop ]
-    }
-  }
+    )) willReturn[ prop ] = obj[ prop ]
 
   return willReturn
 }
@@ -25,9 +22,7 @@ export function filterArray(
     const predicateResult = indexed ?
       predicate(list[ index ], index) :
       predicate(list[ index ])
-    if (predicateResult){
-      willReturn.push(list[ index ])
-    }
+    if (predicateResult) willReturn.push(list[ index ])
 
     index++
   }
@@ -38,9 +33,7 @@ export function filterArray(
 export function filter(predicate, iterable){
   if (arguments.length === 1)
     return _iterable => filter(predicate, _iterable)
-  if (!iterable){
-    throw new Error('Incorrect iterable input')
-  }
+  if (!iterable) throw new Error('Incorrect iterable input')
 
   if (isArray(iterable)) return filterArray(
     predicate, iterable, false

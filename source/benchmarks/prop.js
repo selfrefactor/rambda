@@ -10,18 +10,18 @@ const propInput = 'b'
 
 const prop = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.prop(propInput, obj)
       R.prop(propInput)(obj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.prop(propInput, obj)
       Ramda.prop(propInput)(obj)
     },
+    label : 'Ramda',
   },
 ]
 

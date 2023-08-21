@@ -67,9 +67,7 @@ export function flattenObject(obj){
       Object.keys(transformed).forEach(keyTransformed => {
         willReturn[ `${ key }.${ keyTransformed }` ] = transformed[ keyTransformed ]
       })
-    } else {
-      willReturn[ key ] = obj[ key ]
-    }
+    } else willReturn[ key ] = obj[ key ]
   })
 
   return willReturn

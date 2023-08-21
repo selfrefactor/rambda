@@ -14,41 +14,39 @@ const modes = [
     x => x.join('---'),
   ],
   {
-    special : true,
-    fns     : [
+    fns : [
       x => x.toUpperCase(),
       x => x.toLowerCase(),
       (firstName, lastName) =>
         'The name\'s ' + lastName + ', ' + firstName + ' ' + lastName,
     ],
+    special : true,
   },
 ]
 
 const applyBenchmark = (fn, input) => {
-  if (input.special){
-    return fn(...input.fns)('foo', 'bar')
-  }
+  if (input.special) return fn(...input.fns)('foo', 'bar')
 
   return fn(...input)(uniqListOfStrings(100))
 }
 
 const tests = [
   {
-    label : 'Rambda',
     fn    : R.compose,
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
     fn    : Ramda.compose,
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
     fn    : _.flowRight,
+    label : 'Lodash',
   },
 ]
 
 module.exports = {
-  tests,
   applyBenchmark,
   modes,
+  tests,
 }

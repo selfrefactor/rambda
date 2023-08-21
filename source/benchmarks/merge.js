@@ -4,27 +4,27 @@ const Ramda = require('ramda')
 
 const obj = { bar : 'yes' }
 const a = {
-  foo : 'bar',
   bar : 'baz',
+  foo : 'bar',
 }
 const merge = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.merge(a, obj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.merge(a, obj)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.merge(a, obj)
     },
+    label : 'Lodash',
   },
 ]
 

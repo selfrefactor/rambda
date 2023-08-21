@@ -7,22 +7,22 @@ const fn = val => val > 2
 
 const any = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.any(fn, input)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.any(fn, input)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash.some',
-    fn    : () => {
+    fn : () => {
       _.some(input, fn)
     },
+    label : 'Lodash.some',
   },
 ]
 

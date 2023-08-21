@@ -15,8 +15,8 @@ test('happy', () => {
   )
   const expected = {
     a      : true,
-    values : [ 10, 20, 15, 35 ],
     b      : true,
+    values : [ 10, 20, 15, 35 ],
   }
   expect(result).toEqual(expected)
 })

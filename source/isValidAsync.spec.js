@@ -12,9 +12,9 @@ const simplePredicate = async x => {
 test('happy', async () => {
   const input = {
     a          : 1,
+    additional : 'foo',
     b          : 7,
     c          : 9,
-    additional : 'foo',
   }
   const invalidInput = {
     a : 1,
@@ -93,12 +93,12 @@ test('readme example', async () => {
   }
   const result = await Promise.all([
     isValidAsync({
-      schema,
       input,
+      schema,
     }),
     isValidAsync({
-      schema,
       input : invalidInput,
+      schema,
     }),
   ])
   expect(result).toEqual([ true, false ])

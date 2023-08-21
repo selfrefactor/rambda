@@ -17,14 +17,14 @@ test('happy', () => {
   const memoized = memoize(fn)
   expect(memoized({
     a : 1,
-    c : 3,
     b : 2,
+    c : 3,
   })).toBe(0)
   expect(counter).toBe(1)
   expect(memoized({
-    c : 3,
     a : 1,
     b : 2,
+    c : 3,
   })).toBe(0)
   expect(counter).toBe(1)
 })

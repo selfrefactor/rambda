@@ -16,8 +16,8 @@ test('docs example', () => {
   setter('foo', 'bar')
   setter('a', 1)
   expect(getter([ 'foo', 'a' ])).toEqual({
-    foo : 'bar',
     a   : 1,
+    foo : 'bar',
   })
 
   setter('a', 2)

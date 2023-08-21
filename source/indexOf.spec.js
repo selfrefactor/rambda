@@ -82,11 +82,7 @@ export const possibleIterables = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : indexOf,
-    fnRamda     : indexOfRamda,
-    firstInput  : possibleTargets,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -98,5 +94,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleTargets,
+    fn          : indexOf,
+    fnRamda     : indexOfRamda,
+    secondInput : possibleIterables,
   })
 })

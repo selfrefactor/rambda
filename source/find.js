@@ -6,9 +6,7 @@ export function find(predicate, list){
 
   while (index < len){
     const x = list[ index ]
-    if (predicate(x)){
-      return x
-    }
+    if (predicate(x)) return x
 
     index++
   }

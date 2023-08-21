@@ -46,9 +46,9 @@ const uniqListOfObjects = limit =>
   Array(limit)
     .fill(null)
     .map(() => ({
-      foo : String(Math.floor(Math.random() * 1000)),
       bar : NaN,
       baz : null,
+      foo : String(Math.floor(Math.random() * 1000)),
       qux : [ true ],
     }))
 
@@ -107,15 +107,12 @@ exports.variousTypes = [
   weakMapInstance,
   weakSetInstance,
 ]
-const applyBenchmarkUnary = (fn, input) => {
-  return fn(input)
-}
-const applyBenchmarkBinary = (fn, input) => {
-  return fn(input[0], input[1])
-}
-const applyBenchmarkThreeInputs = (fn, input) => {
-  return fn(input[0], input[1], input[2])
-}
+const applyBenchmarkUnary = (fn, input) => fn(input)
+const applyBenchmarkBinary = (fn, input) => fn(input[ 0 ], input[ 1 ])
+const applyBenchmarkThreeInputs = (fn, input) =>
+  fn(
+    input[ 0 ], input[ 1 ], input[ 2 ]
+  )
 
 exports.weakMapInstance = weakMapInstance
 exports.mapInstance = mapInstance

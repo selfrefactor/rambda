@@ -4,9 +4,8 @@ import { equals } from './equals.js'
 export function endsWith(target, iterable){
   if (arguments.length === 1) return _iterable => endsWith(target, _iterable)
 
-  if (typeof iterable === 'string'){
-    return iterable.endsWith(target)
-  }
+  if (typeof iterable === 'string') return iterable.endsWith(target)
+
   if (!isArray(target)) return false
 
   const diff = iterable.length - target.length

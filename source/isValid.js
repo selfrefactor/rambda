@@ -12,9 +12,8 @@ export function isPrototype(input){
   const list = [ Number, String, Boolean, Promise ]
   let toReturn = false
   let counter = -1
-  while (++counter < list.length && !toReturn){
+  while (++counter < list.length && !toReturn)
     if (currentPrototype === list[ counter ].prototype) toReturn = true
-  }
 
   return toReturn
 }
@@ -26,9 +25,8 @@ export function prototypeToString(input){
   let found
   let counter = -1
 
-  while (++counter < list.length){
+  while (++counter < list.length)
     if (currentPrototype === list[ counter ].prototype) found = counter
-  }
 
   return translatedList[ found ]
 }
@@ -42,41 +40,40 @@ export function fromPrototypeToString(rule){
     rule === null ||
     rule.prototype === undefined ||
     typesWithoutPrototype.includes(rule)
-  ){
+  )
     return {
-      rule,
       parsed : false,
+      rule,
     }
-  }
-  if (String.prototype === rule.prototype){
+
+  if (String.prototype === rule.prototype)
     return {
+      parsed : true,
       rule   : 'string',
-      parsed : true,
     }
-  }
-  if (Boolean.prototype === rule.prototype){
+
+  if (Boolean.prototype === rule.prototype)
     return {
+      parsed : true,
       rule   : 'boolean',
-      parsed : true,
     }
-  }
-  if (Number.prototype === rule.prototype){
+
+  if (Number.prototype === rule.prototype)
     return {
-      rule   : 'number',
       parsed : true,
+      rule   : 'number',
     }
-  }
 
   return {
-    rule   : type(rule.prototype).toLowerCase(),
     parsed : true,
+    rule   : type(rule.prototype).toLowerCase(),
   }
 }
 
 function getRuleAndType(schema, requirementRaw){
   const ruleRaw = schema[ requirementRaw ]
   const typeIs = type(ruleRaw)
-  const { rule, parsed } = fromPrototypeToString(ruleRaw)
+  const { parsed, rule } = fromPrototypeToString(ruleRaw)
 
   return {
     rule,
@@ -89,12 +86,10 @@ export function isValid({ input, schema }){
 
   let flag = true
   const boom = boomFlag => {
-    if (!boomFlag){
-      flag = false
-    }
+    if (!boomFlag) flag = false
   }
 
-  for (const requirementRaw in schema){
+  for (const requirementRaw in schema)
     if (flag){
       const isOptional = requirementRaw.endsWith('?')
       const requirement = isOptional ? init(requirementRaw) : requirementRaw
@@ -117,22 +112,22 @@ export function isValid({ input, schema }){
           schema : rule,
         })
         boom(isValidResult)
-      } else if (ruleType === 'String'){
+      } else if (ruleType === 'String')
         /**
          * Rule is actual rule such as 'number', so the two types are compared
          */
         boom(toLower(inputPropType) === rule)
-      } else if (typeof rule === 'function'){
+      else if (typeof rule === 'function')
         /**
          * Rule is function so we pass to it the input
          */
         boom(rule(inputProp))
-      } else if (ruleType === 'Array' && inputPropType === 'String'){
+      else if (ruleType === 'Array' && inputPropType === 'String')
         /**
          * Enum case | rule is like a: ['foo', 'bar']
          */
         boom(includes(inputProp, rule))
-      } else if (
+      else if (
         ruleType === 'Array' &&
         rule.length === 1 &&
         inputPropType === 'Array'
@@ -175,13 +170,10 @@ export function isValid({ input, schema }){
           inputProp)
           boom(!isInvalidResult)
         }
-      } else if (ruleType === 'RegExp' && inputPropType === 'String'){
+      } else if (ruleType === 'RegExp' && inputPropType === 'String')
         boom(test(rule, inputProp))
-      } else {
-        boom(false)
-      }
+      else boom(false)
     }
-  }
 
   return flag
 }

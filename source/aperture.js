@@ -1,7 +1,6 @@
 export function aperture(step, list){
-  if (arguments.length === 1){
-    return _list => aperture(step, _list)
-  }
+  if (arguments.length === 1) return _list => aperture(step, _list)
+
   if (step > list.length) return []
   let idx = 0
   const limit = list.length - (step - 1)

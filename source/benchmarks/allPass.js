@@ -31,17 +31,17 @@ const modes = [
 const applyBenchmark = (fn, input) => fn(input[ 1 ])(input[ 0 ])
 const tests = [
   {
-    label : 'Rambda',
     fn    : R.allPass,
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
     fn    : Ramda.allPass,
+    label : 'Ramda',
   },
 ]
 
 module.exports = {
-  tests,
-  modes,
   applyBenchmark,
+  modes,
+  tests,
 }

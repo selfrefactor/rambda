@@ -5,16 +5,16 @@ const input = [ 1, 2, 3, 4 ]
 
 const dropLast = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.dropLast(3, input)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.dropLast(3, input)
     },
+    label : 'Ramda',
   },
 ]
 

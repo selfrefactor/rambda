@@ -3,18 +3,18 @@ const Ramda = require('ramda')
 
 const test = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.test(/\s/g, 'x y z')
       R.test(/\s/g)('x y z')
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.test(/\s/g, 'x y z')
       Ramda.test(/\s/g)('x y z')
     },
+    label : 'Ramda',
   },
 ]
 

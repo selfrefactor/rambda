@@ -7,12 +7,8 @@ export function allFalse(...inputs){
     const x = inputs[ counter ]
 
     if (type(x) === 'Function'){
-      if (isTruthy(x())){
-        return false
-      }
-    } else if (isTruthy(x)){
-      return false
-    }
+      if (isTruthy(x())) return false
+    } else if (isTruthy(x)) return false
 
     counter++
   }

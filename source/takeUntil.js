@@ -3,13 +3,9 @@ export function takeUntil(predicate, list){
   let stopFlag = false
   let counter = -1
 
-  while (stopFlag === false && counter++ < list.length - 1){
-    if (predicate(list[ counter ])){
-      stopFlag = true
-    } else {
-      toReturn.push(list[ counter ])
-    }
-  }
+  while (stopFlag === false && counter++ < list.length - 1)
+    if (predicate(list[ counter ])) stopFlag = true
+    else toReturn.push(list[ counter ])
 
   return toReturn
 }

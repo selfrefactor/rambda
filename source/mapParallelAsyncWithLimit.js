@@ -20,11 +20,10 @@ async function mapParallelAsyncWithLimitFn(
 export function mapParallelAsyncWithLimit(
   iterable, limit, list
 ){
-  if (arguments.length === 2){
+  if (arguments.length === 2)
     return async _list => mapParallelAsyncWithLimitFn(
       iterable, limit, _list
     )
-  }
 
   return new Promise((resolve, reject) => {
     mapParallelAsyncWithLimitFn(

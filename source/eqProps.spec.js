@@ -98,9 +98,7 @@ describe('brute force', () => {
   let totalTestsCounter = 0
 
   compareCombinations({
-    firstInput : possibleProps,
-    setCounter : () => totalTestsCounter++,
-    callback   : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -112,9 +110,11 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput : possibleObjects,
-    thirdInput  : possibleObjects,
+    firstInput  : possibleProps,
     fn          : eqProps,
     fnRamda     : eqPropsRamda,
+    secondInput : possibleObjects,
+    setCounter  : () => totalTestsCounter++,
+    thirdInput  : possibleObjects,
   })
 })

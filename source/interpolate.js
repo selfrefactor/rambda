@@ -11,9 +11,8 @@ const replace = ({ inputHolder, prop, replacer }) => {
 }
 
 export function interpolate(input, templateInput){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return _templateInput => interpolate(input, _templateInput)
-  }
 
   const occurrences = getOccurrences(input)
   if (occurrences === null) return input

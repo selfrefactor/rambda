@@ -7,12 +7,8 @@ export function allTrue(...inputs){
     const x = inputs[ counter ]
 
     if (type(x) === 'Function'){
-      if (isFalsy(x())){
-        return false
-      }
-    } else if (isFalsy(x)){
-      return false
-    }
+      if (isFalsy(x())) return false
+    } else if (isFalsy(x)) return false
 
     counter++
   }

@@ -5,12 +5,10 @@ import { map } from './map.js'
 import { type } from './type.js'
 
 export function schemaToString(schema){
-  if (type(schema) !== 'Object'){
-    return fromPrototypeToString(schema).rule
-  }
+  if (type(schema) !== 'Object') return fromPrototypeToString(schema).rule
 
   return map(x => {
-    const { rule, parsed } = fromPrototypeToString(x)
+    const { parsed, rule } = fromPrototypeToString(x)
     const xType = type(x)
 
     if (xType === 'Function' && !parsed) return 'Function'
@@ -34,12 +32,11 @@ export function ok(...inputs){
       const schema = schemas[ i ] === undefined ? schemas[ 0 ] : schemas[ i ]
 
       const checked = check(singleInput, schema)
-      if (!checked){
+      if (!checked)
         failedSchema = JSON.stringify({
           input  : singleInput,
           schema : schemaToString(schema),
         })
-      }
 
       return !checked
     }, inputs)

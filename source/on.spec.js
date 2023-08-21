@@ -3,8 +3,8 @@ import { on } from './on.js'
 const binaryFn = (a, b) => a === b
 const unaryFn = x => x.a
 const a = {
-  b : 0,
   a : 1,
+  b : 0,
 }
 const b = { a : 1 }
 

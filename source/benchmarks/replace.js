@@ -4,28 +4,28 @@ const Ramda = require('ramda')
 
 const replace = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.replace(
         /\s/g, '|', 'foo bar baz'
       )
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.replace(
         /\s/g, '|', 'foo bar baz'
       )
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.replace(
         'foo bar baz', /\s/g, '|'
       )
     },
+    label : 'Lodash',
   },
 ]
 

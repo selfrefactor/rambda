@@ -24,8 +24,8 @@ test('property doesn\'t exists', () => {
 
 test('works with non-string property', () => {
   expect(dissoc(42, {
-    a  : 1,
     42 : 2,
+    a  : 1,
   })).toEqual({ a : 1 })
 
   expect(dissoc(null, {
@@ -50,18 +50,18 @@ test('includes prototype properties', () => {
   const rect = new Rectangle(7, 6)
 
   expect(dissoc('area', rect)).toEqual({
-    width  : 7,
     height : 6,
+    width  : 7,
   })
 
   expect(dissoc('width', rect)).toEqual({
-    height : 6,
     area,
+    height : 6,
   })
 
   expect(dissoc('depth', rect)).toEqual({
-    width  : 7,
-    height : 6,
     area,
+    height : 6,
+    width  : 7,
   })
 })

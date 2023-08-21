@@ -6,16 +6,16 @@ import { compose } from './compose.js'
 import { modify } from './modify.js'
 
 const person = {
-  name : 'foo',
   age  : 20,
+  name : 'foo',
 }
 
 test('happy', () => {
   expect(modify(
     'age', x => x + 1, person
   )).toEqual({
-    name : 'foo',
     age  : 21,
+    name : 'foo',
   })
 })
 
@@ -69,12 +69,7 @@ const possibleObjects = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : modify,
-    fnRamda     : modifyRamda,
-    firstInput  : possibleProperties,
-    secondInput : possibleTransformers,
-    thirdInput  : possibleObjects,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -86,5 +81,10 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleProperties,
+    fn          : modify,
+    fnRamda     : modifyRamda,
+    secondInput : possibleTransformers,
+    thirdInput  : possibleObjects,
   })
 })

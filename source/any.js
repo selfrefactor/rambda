@@ -3,9 +3,8 @@ export function any(predicate, list){
 
   let counter = 0
   while (counter < list.length){
-    if (predicate(list[ counter ], counter)){
-      return true
-    }
+    if (predicate(list[ counter ], counter)) return true
+
     counter++
   }
 

@@ -4,9 +4,7 @@ export function zip(left, right){
   const result = []
   const length = Math.min(left.length, right.length)
 
-  for (let i = 0; i < length; i++){
-    result[ i ] = [ left[ i ], right[ i ] ]
-  }
+  for (let i = 0; i < length; i++) result[ i ] = [ left[ i ], right[ i ] ]
 
   return result
 }

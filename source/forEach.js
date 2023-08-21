@@ -4,9 +4,7 @@ import { keys } from './_internals/keys.js'
 export function forEach(fn, list){
   if (arguments.length === 1) return _list => forEach(fn, _list)
 
-  if (list === undefined){
-    return
-  }
+  if (list === undefined) return
 
   if (isArray(list)){
     let index = 0

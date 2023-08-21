@@ -3,11 +3,7 @@ export function findLast(predicate, list){
 
   let index = list.length
 
-  while (--index >= 0){
-    if (predicate(list[ index ])){
-      return list[ index ]
-    }
-  }
+  while (--index >= 0) if (predicate(list[ index ])) return list[ index ]
 
   return undefined
 }

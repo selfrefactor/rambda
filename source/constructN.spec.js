@@ -1,5 +1,6 @@
-import { constructN } from './constructN'
 import { constructN as constructNRamda } from 'ramda'
+
+import { constructN } from './constructN.js'
 
 test('happy', () => {
   const result = constructN()
@@ -11,7 +12,6 @@ var assert = require('assert');
 
 var R = require('../source/index.js');
 var eq = require('./shared/eq.js');
-
 
 describe('constructN', function() {
   var Circle = function(r) {

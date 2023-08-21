@@ -5,8 +5,8 @@ test('happy', () => {
   const list = [
     { id : 1 },
     {
-      id : 1,
       a  : 2,
+      id : 1,
     },
     { id : 2 },
     { id : 10 },
@@ -15,11 +15,11 @@ test('happy', () => {
 
   expect(indexBy(prop('id'))(list)).toEqual({
     1 : {
-      id : 1,
       a  : 2,
+      id : 1,
     },
-    2  : { id : 2 },
     10 : { id : 10 },
+    2  : { id : 2 },
     a  : { id : 'a' },
   })
 })

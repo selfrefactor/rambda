@@ -7,12 +7,8 @@ export function anyFalse(...inputs){
     const x = inputs[ counter ]
 
     if (type(x) === 'Function'){
-      if (isFalsy(x())){
-        return true
-      }
-    } else if (isFalsy(x)){
-      return true
-    }
+      if (isFalsy(x())) return true
+    } else if (isFalsy(x)) return true
 
     counter++
   }

@@ -37,11 +37,7 @@ export const possibleIterables = [
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : endsWith,
-    fnRamda     : endsWithRamda,
-    firstInput  : possibleTargets,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -53,5 +49,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleTargets,
+    fn          : endsWith,
+    fnRamda     : endsWithRamda,
+    secondInput : possibleIterables,
   })
 })

@@ -18,9 +18,8 @@ export async function mapToObjectAsyncFn(fn, list){
 }
 
 export function mapToObjectAsync(fn, list){
-  if (arguments.length === 1){
+  if (arguments.length === 1)
     return async _list => mapToObjectAsyncFn(fn, _list)
-  }
 
   return new Promise((resolve, reject) => {
     mapToObjectAsyncFn(fn, list).then(resolve)

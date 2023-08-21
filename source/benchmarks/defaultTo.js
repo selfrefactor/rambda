@@ -5,22 +5,22 @@ const input = [ null, undefined, 5 ]
 
 const defaultTo = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.defaultTo(3, input[ 0 ])
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.defaultTo(3, input[ 0 ])
     },
+    label : 'Ramda',
   },
   {
-    label : 'Rambda with multiple arguments',
-    fn    : () => {
+    fn : () => {
       R.defaultTo(3, ...input)
     },
+    label : 'Rambda with multiple arguments',
   },
 ]
 

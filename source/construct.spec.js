@@ -1,5 +1,6 @@
-import { construct } from './construct'
 import { construct as constructRamda } from 'ramda'
+
+import { construct } from './construct.js'
 
 test('happy', () => {
   const result = construct()
@@ -11,7 +12,6 @@ var assert = require('assert');
 
 var R = require('../source/index.js');
 var eq = require('./shared/eq.js');
-
 
 describe('construct', function() {
   var Rectangle = function(w, h) {this.width = w; this.height = h;};

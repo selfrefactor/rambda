@@ -24,9 +24,8 @@ export function setter(maybeKey, maybeValue){
   const typeValue = type(maybeValue)
 
   if (typeKey === 'String'){
-    if (typeValue === 'Function'){
+    if (typeValue === 'Function')
       return holder[ maybeKey ] = maybeValue(holder[ maybeKey ])
-    }
 
     return holder[ maybeKey ] = maybeValue
   }

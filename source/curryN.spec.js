@@ -3,30 +3,21 @@ import { curryN } from './curryN.js'
 function multiply(
   a, b, c, d, e, f, g, h, i, j, k, l
 ){
-  if (l){
-    return a * b * c * d * e * f * g * h * i * j * k * l
-  }
-  if (k){
-    return a * b * c * d * e * f * g * h * i * j * k
-  }
-  if (j){
-    return a * b * c * d * e * f * g * h * i * j
-  }
-  if (i){
-    return a * b * c * d * e * f * g * h * i
-  }
-  if (h){
-    return a * b * c * d * e * f * g * h
-  }
-  if (g){
-    return a * b * c * d * e * f * g
-  }
-  if (f){
-    return a * b * c * d * e * f
-  }
-  if (e){
-    return a * b * c * d * e
-  }
+  if (l) return a * b * c * d * e * f * g * h * i * j * k * l
+
+  if (k) return a * b * c * d * e * f * g * h * i * j * k
+
+  if (j) return a * b * c * d * e * f * g * h * i * j
+
+  if (i) return a * b * c * d * e * f * g * h * i
+
+  if (h) return a * b * c * d * e * f * g * h
+
+  if (g) return a * b * c * d * e * f * g
+
+  if (f) return a * b * c * d * e * f
+
+  if (e) return a * b * c * d * e
 
   return a * b * c
 }

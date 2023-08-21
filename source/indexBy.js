@@ -11,13 +11,9 @@ function indexByPath(pathInput, list){
 }
 
 export function indexBy(condition, list){
-  if (arguments.length === 1){
-    return _list => indexBy(condition, _list)
-  }
+  if (arguments.length === 1) return _list => indexBy(condition, _list)
 
-  if (typeof condition === 'string'){
-    return indexByPath(condition, list)
-  }
+  if (typeof condition === 'string') return indexByPath(condition, list)
 
   const toReturn = {}
   for (let i = 0; i < list.length; i++){

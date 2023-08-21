@@ -95,8 +95,8 @@ test('ramda spec', () => {
     b : 3,
   },
   {
-    b : 3,
     a : 2,
+    b : 3,
   })).toBeTrue()
 
   expect(equals({
@@ -192,8 +192,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
   })).toBeTrue()
 
   expect(equals({
@@ -219,8 +219,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
     c : 3,
   })).toBeFalse()
 
@@ -232,8 +232,8 @@ test('various examples', () => {
   },
   {
     x : {
-      b : 2,
       a : 1,
+      b : 2,
       c : 3,
     },
   })).toBeFalse()
@@ -243,8 +243,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 3,
     a : 1,
+    b : 3,
   })).toBeFalse()
 
   expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
@@ -297,11 +297,7 @@ const possibleInputs = variousTypes
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : equals,
-    fnRamda     : equalsRamda,
-    firstInput  : possibleInputs,
-    secondInput : possibleInputs,
-    callback    : errorsCounters => {
+    callback : errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -313,5 +309,9 @@ describe('brute force', () => {
         }
       `)
     },
+    firstInput  : possibleInputs,
+    fn          : equals,
+    fnRamda     : equalsRamda,
+    secondInput : possibleInputs,
   })
 })

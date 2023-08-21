@@ -9,22 +9,22 @@ const input = {
 
 const clone = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.clone(input)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.clone(input)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash.cloneDeep',
-    fn    : () => {
+    fn : () => {
       _.cloneDeep(input)
     },
+    label : 'Lodash.cloneDeep',
   },
 ]
 

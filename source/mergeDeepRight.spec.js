@@ -1,12 +1,12 @@
 import { mergeDeepRight } from './mergeDeepRight.js'
 
 const student = {
-  name    : 'foo',
   age     : 10,
   contact : {
     a     : 1,
     email : 'foo@example.com',
   },
+  name : 'foo',
 }
 const teacher = {
   age     : 40,
@@ -36,11 +36,11 @@ test('happy', () => {
   const curryResult = mergeDeepRight(student)(teacher)
   const expected = {
     age     : 40,
-    name    : 'foo',
     contact : {
       a     : 1,
       email : 'baz@example.com',
     },
+    name  : 'foo',
     songs : { title : 'Remains the same' },
   }
 
@@ -68,12 +68,12 @@ test('ramda compatible test 1', () => {
   }
   const result = mergeDeepRight(a, b)
   const expected = {
-    w : 1,
-    x : 2,
-    y : { z : 3 },
     a : 4,
     b : 5,
     c : { d : 6 },
+    w : 1,
+    x : 2,
+    y : { z : 3 },
   }
 
   expect(result).toEqual(expected)

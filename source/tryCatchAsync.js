@@ -6,12 +6,10 @@ export function tryCatchAsync(fn, fallback){
       fn(...inputs)
         .then(resolve)
         .catch(err => {
-          if (type(fallback) !== 'Function'){
-            return resolve(fallback)
-          }
-          if (type(fallback) !== 'Promise'){
+          if (type(fallback) !== 'Function') return resolve(fallback)
+
+          if (type(fallback) !== 'Promise')
             return resolve(fallback(err, ...inputs))
-          }
 
           fallback(err, ...inputs)
             .then(resolve)

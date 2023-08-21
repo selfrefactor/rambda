@@ -6,9 +6,7 @@ export function groupBy(groupFn, list){
     const item = list[ i ]
     const key = groupFn(item)
 
-    if (!result[ key ]){
-      result[ key ] = []
-    }
+    if (!result[ key ]) result[ key ] = []
 
     result[ key ].push(item)
   }

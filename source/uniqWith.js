@@ -7,9 +7,7 @@ function includesWith(
   while (++index < list.length && !willReturn){
     const value = list[ index ]
 
-    if (predicate(target, value)){
-      willReturn = true
-    }
+    if (predicate(target, value)) willReturn = true
   }
 
   return willReturn
@@ -26,9 +24,7 @@ export function uniqWith(predicate, list){
 
     if (!includesWith(
       predicate, value, willReturn
-    )){
-      willReturn.push(value)
-    }
+    )) willReturn.push(value)
   }
 
   return willReturn

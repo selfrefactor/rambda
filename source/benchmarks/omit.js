@@ -10,22 +10,22 @@ const obj = {
 const toOmit = [ 'a', 'c' ]
 const omit = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.omit(toOmit, obj)
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.omit(toOmit, obj)
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.omit(obj, toOmit)
     },
+    label : 'Lodash',
   },
 ]
 

@@ -4,9 +4,7 @@ export function uniq(list){
   const set = new _Set()
   const willReturn = []
   list.forEach(item => {
-    if (set.checkUniqueness(item)){
-      willReturn.push(item)
-    }
+    if (set.checkUniqueness(item)) willReturn.push(item)
   })
 
   return willReturn

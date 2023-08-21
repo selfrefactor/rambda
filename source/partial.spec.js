@@ -3,8 +3,12 @@ import { type } from './type.js'
 
 const greet = (
   salutation, title, firstName, lastName
-) =>
-  [salutation, title, firstName, lastName]
+) => [
+  salutation,
+  title,
+  firstName,
+  lastName,
+]
 
 test('happy', () => {
   const canPassAnyNumberOfArguments = partial(
@@ -16,8 +20,13 @@ test('happy', () => {
 
   expect(type(fn)).toBe('Function')
 
-  expect(fn('bar')).toStrictEqual(['Hello', 'Ms.', 'foo', 'bar'])
-  expect(sayHelloRamda('foo', 'bar')).toStrictEqual(['Hello', 'Ms.', 'foo', 'bar'])
+  expect(fn('bar')).toStrictEqual([ 'Hello', 'Ms.', 'foo', 'bar' ])
+  expect(sayHelloRamda('foo', 'bar')).toStrictEqual([
+    'Hello',
+    'Ms.',
+    'foo',
+    'bar',
+  ])
 })
 
 test('extra arguments are ignored', () => {
@@ -30,7 +39,7 @@ test('extra arguments are ignored', () => {
 
   expect(fn(
     'bar', 1, 2
-  )).toStrictEqual(['Hello', 'Ms.', 'foo', 'bar'])
+  )).toStrictEqual([ 'Hello', 'Ms.', 'foo', 'bar' ])
 })
 
 test('when array is input', () => {
@@ -58,5 +67,10 @@ test('ramda spec', () => {
   const sayHello = partial(greet, 'Hello')
   const sayHelloToMs = partial(sayHello, 'Ms.')
 
-  expect(sayHelloToMs('Jane', 'Jones')).toStrictEqual(['Hello', 'Ms.', 'Jane', 'Jones'])
+  expect(sayHelloToMs('Jane', 'Jones')).toStrictEqual([
+    'Hello',
+    'Ms.',
+    'Jane',
+    'Jones',
+  ])
 })

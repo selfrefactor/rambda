@@ -11,8 +11,7 @@ const expected = { c : 2 }
 
 const propEq = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.propEq('a')(expected)(obj)
 
       R.propEq('a', expected)(obj)
@@ -21,10 +20,10 @@ const propEq = [
         'a', expected, obj
       )
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.propEq('a')(expected)(obj)
 
       Ramda.propEq('a', expected)(obj)
@@ -33,6 +32,7 @@ const propEq = [
         'a', expected, obj
       )
     },
+    label : 'Ramda',
   },
 ]
 

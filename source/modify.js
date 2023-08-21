@@ -8,11 +8,10 @@ function modifyFn(
 ){
   if (!isIterable(iterable)) return iterable
   if (iterable[ property ] === undefined) return iterable
-  if (isArray(iterable)){
+  if (isArray(iterable))
     return updateFn(
       property, fn(iterable[ property ]), iterable
     )
-  }
 
   return {
     ...iterable,

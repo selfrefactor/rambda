@@ -7,28 +7,28 @@ const acc = ''
 
 const reduce = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.reduce(
         fn, acc, holder
       )
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.reduce(
         fn, acc, holder
       )
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.reduce(
         holder, fn, acc
       )
     },
+    label : 'Lodash',
   },
 ]
 

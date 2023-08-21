@@ -5,9 +5,8 @@ export function startsWith(question, iterable){
   if (arguments.length === 1)
     return _iterable => startsWith(question, _iterable)
 
-  if (typeof iterable === 'string'){
-    return iterable.startsWith(question)
-  }
+  if (typeof iterable === 'string') return iterable.startsWith(question)
+
   if (!isArray(question)) return false
 
   let correct = true

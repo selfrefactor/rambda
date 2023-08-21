@@ -4,8 +4,7 @@ const Ramda = require('ramda')
 
 const isEmpty = [
   {
-    label : 'Rambda',
-    fn    : () => {
+    fn : () => {
       R.isEmpty(undefined)
       R.isEmpty('')
       R.isEmpty(null)
@@ -19,10 +18,10 @@ const isEmpty = [
       R.isEmpty(NaN)
       R.isEmpty([ '' ])
     },
+    label : 'Rambda',
   },
   {
-    label : 'Ramda',
-    fn    : () => {
+    fn : () => {
       Ramda.isEmpty(undefined)
       Ramda.isEmpty('')
       Ramda.isEmpty(null)
@@ -36,10 +35,10 @@ const isEmpty = [
       Ramda.isEmpty(NaN)
       Ramda.isEmpty([ '' ])
     },
+    label : 'Ramda',
   },
   {
-    label : 'Lodash',
-    fn    : () => {
+    fn : () => {
       _.isEmpty(undefined)
       _.isEmpty('')
       _.isEmpty(null)
@@ -53,6 +52,7 @@ const isEmpty = [
       _.isEmpty(NaN)
       _.isEmpty([ '' ])
     },
+    label : 'Lodash',
   },
 ]
 
