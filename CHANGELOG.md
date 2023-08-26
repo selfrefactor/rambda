@@ -1,3 +1,25 @@
+8.4.0
+
+- Add `R.dissocPath`
+
+- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
+
+- Change type of `R.head/R.last` to `@types/ramda` because of issues with changes introduced with Rambda v.8.0.0
+
+- Allow `R.omit` to pass numbers as part of properties to omit, i.e. `R.omit(['a', 1], {a: {1: 1, 2: 2}})`
+
+- R.keys always returns strings - [MR #700](https://github.com/selfrefactor/rambda/pull/700)
+
+- Improve `R.prepend/R.append` type interference - [MR #699](https://github.com/selfrefactor/rambda/pull/699)
+
+- Change `R.reduce` TS definitions so index is always received - [MR #696](https://github.com/selfrefactor/rambda/pull/696)
+
+- Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
+
+- Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
+
+- Fix R.append's curried type - [MR #694](https://github.com/selfrefactor/rambda/pull/694)
+
 8.3.0
 
 Add the following methods:

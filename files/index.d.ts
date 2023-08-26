@@ -1,23 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-
-type LastArrayElement<ValueType extends readonly unknown[]> =
-	ValueType extends readonly [infer ElementType]
-		? ElementType
-		: ValueType extends readonly [infer _, ...infer Tail]
-			? LastArrayElement<Tail>
-			: ValueType extends ReadonlyArray<infer ElementType>
-				? ElementType
-				: never;
-type FirstArrayElement<ValueType extends readonly unknown[]> =
-	ValueType extends readonly [infer ElementType]
-		? ElementType
-		: ValueType extends readonly [...infer Head, infer _]
-			? FirstArrayElement<Head>
-			: ValueType extends ReadonlyArray<infer ElementType>
-				? ElementType
-				: never;
-
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -418,8 +400,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<TElement>(x: TElement, input: TElement[]): TElement[];
-export function append<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
+export function append<T>(x: T, input: T[]): T[];
+export function append<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
 
 /*
 Method: applySpec
@@ -1485,9 +1467,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head(input: string): string;
-export function head(emptyList: []): undefined;
-export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
+export function head(str: string): string;
+export function head(list: []): never;
+export function head(list: readonly []): never;
+export function head<T1, TRest>(list: readonly [T1, ...TRest[]]): T1;
+export function head<T1, TRest>(list: [T1, ...TRest[]]): T1;
+export function head<T>(list: readonly T[]): T | undefined;
+export function head<T>(list: T[]): T | undefined;
 
 /*
 Method: identical
@@ -1892,9 +1878,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last(input: string): string;
-export function last(emptyList: []): undefined;
-export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
+export function last(str: string): string;
+export function last(list: readonly []): undefined;
+export function last(list: []): undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
+export function last<T extends any>(list: T[]): T | undefined;
 
 /*
 Method: lastIndexOf
@@ -3261,8 +3249,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<TElement>(x: TElement, input: TElement[]): TElement[];
-export function prepend<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
+export function prepend<T>(x: T, input: T[]): T[];
+export function prepend<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
 
 /*
 Method: product
@@ -5594,6 +5582,28 @@ Notes:
 // @SINGLE_MARKER
 export function dissocPath<T>(x: T): T;
 
+/*
+Method: removeIndex
+
+Explanation: It returns a copy of `list` input with removed `index`. 
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const result = R.removeIndex(1, list)
+// => [1, 3, 4]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function removeIndex<T>(index: number, list: T[]): T[];
+export function removeIndex(index: number): <T>(list: T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -7270,29 +7280,6 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 // @SINGLE_MARKER
 export function sortByProps<T>(sortPaths: string[], list: T[]): T[];
 export function sortByProps(sortPaths: string[]): <T>(list: T[]) => T[];
-
-/*
-Method: removeIndex
-
-Explanation: It returns a copy of `list` input with removed `index`. 
-
-Example:
-
-```
-const list = [1, 2, 3, 4]
-const result = R.removeIndex(1, list)
-// => [1, 3, 4]
-```
-
-Categories: List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function removeIndex<T>(index: number, list: T[]): T[];
-export function removeIndex(index: number): <T>(list: T[]) => T[];
-
 
 /*
 Method: excludes

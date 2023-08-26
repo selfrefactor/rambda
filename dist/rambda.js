@@ -332,16 +332,18 @@ function assocFn(prop, newValue, obj) {
 }
 const assoc = curry(assocFn);
 
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string' ? path.split(delimiter) : path.map(String);
+}
+
 function _isInteger(n) {
   return n << 0 === n;
 }
 const isInteger = Number.isInteger || _isInteger;
 
 function assocPathFn(path, newValue, input) {
-  const pathArrValue = typeof path === 'string' ? path.split('.').map(x => isInteger(Number(x)) ? Number(x) : x) : path;
-  if (pathArrValue.length === 0) {
-    return newValue;
-  }
+  const pathArrValue = createPath(path);
+  if (pathArrValue.length === 0) return newValue;
   const index = pathArrValue[0];
   if (pathArrValue.length > 1) {
     const condition = typeof input !== 'object' || input === null || !input.hasOwnProperty(index);
@@ -867,6 +869,128 @@ function dissoc(prop, obj) {
   return willReturn;
 }
 
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPrimitive(input, hint) {
+  if (typeof input !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (typeof res !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return typeof key === "symbol" ? key : String(key);
+}
+
+function omit(propsToOmit, obj) {
+  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj);
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  const propsToOmitValue = createPath(propsToOmit, ',');
+  const willReturn = {};
+  for (const key in obj) {
+    if (!propsToOmitValue.includes(key)) {
+      willReturn[key] = obj[key];
+    }
+  }
+  return willReturn;
+}
+
+function pathFn(pathInput, obj) {
+  let willReturn = obj;
+  let counter = 0;
+  const pathArrValue = createPath(pathInput);
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
+      return undefined;
+    }
+    if (willReturn[pathArrValue[counter]] === null) return undefined;
+    willReturn = willReturn[pathArrValue[counter]];
+    counter++;
+  }
+  return willReturn;
+}
+function path(pathInput, obj) {
+  if (arguments.length === 1) return _obj => path(pathInput, _obj);
+  if (obj === null || obj === undefined) {
+    return undefined;
+  }
+  return pathFn(pathInput, obj);
+}
+
+function removeIndex(index, list) {
+  if (arguments.length === 1) return _list => removeIndex(index, _list);
+  if (index <= 0) return list.slice(1);
+  if (index >= list.length - 1) return list.slice(0, list.length - 1);
+  return [...list.slice(0, index), ...list.slice(index + 1)];
+}
+
+function updateFn(index, newValue, list) {
+  const clone = cloneList(list);
+  if (index === -1) return clone.fill(newValue, index);
+  return clone.fill(newValue, index, index + 1);
+}
+const update = curry(updateFn);
+
+function dissocPath(pathInput, input) {
+  if (arguments.length === 1) return _obj => dissocPath(pathInput, _obj);
+  const pathArrValue = createPath(pathInput);
+  if (pathArrValue.length === 0) return input;
+  const pathResult = path(pathArrValue, input);
+  if (pathResult === undefined) return input;
+  const index = pathArrValue[0];
+  const condition = typeof input !== 'object' || input === null || !input.hasOwnProperty(index);
+  if (pathArrValue.length > 1) {
+    const nextInput = condition ? isInteger(pathArrValue[1]) ? [] : {} : input[index];
+    const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
+    const intermediateResult = dissocPath(nextPathInput, nextInput, input);
+    if (isArray(input)) return update(index, intermediateResult, input);
+    return _objectSpread2(_objectSpread2({}, input), {}, {
+      [index]: intermediateResult
+    });
+  }
+  if (isArray(input)) return removeIndex(index, input);
+  return omit([index], input);
+}
+
 function divide(a, b) {
   if (arguments.length === 1) return _b => divide(a, _b);
   return a / b;
@@ -1232,32 +1356,6 @@ function has(prop, obj) {
   return obj.hasOwnProperty(prop);
 }
 
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string' ? path.split(delimiter) : path;
-}
-
-function pathFn(pathInput, obj) {
-  let willReturn = obj;
-  let counter = 0;
-  const pathArrValue = createPath(pathInput);
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
-      return undefined;
-    }
-    if (willReturn[pathArrValue[counter]] === null) return undefined;
-    willReturn = willReturn[pathArrValue[counter]];
-    counter++;
-  }
-  return willReturn;
-}
-function path(pathInput, obj) {
-  if (arguments.length === 1) return _obj => path(pathInput, _obj);
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-  return pathFn(pathInput, obj);
-}
-
 function hasPath(pathInput, obj) {
   if (arguments.length === 1) {
     return objHolder => hasPath(pathInput, objHolder);
@@ -1433,13 +1531,6 @@ function nth(index, input) {
   return Object.prototype.toString.call(input) === '[object String]' ? input.charAt(idx) : input[idx];
 }
 
-function updateFn(index, newValue, list) {
-  const clone = cloneList(list);
-  if (index === -1) return clone.fill(newValue, index);
-  return clone.fill(newValue, index, index + 1);
-}
-const update = curry(updateFn);
-
 function lensIndex(index) {
   return lens(nth(index), update(index));
 }
@@ -1558,56 +1649,6 @@ function minByFn(compareFn, x, y) {
 }
 const minBy = curry(minByFn);
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
-  }
-  return target;
-}
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return typeof key === "symbol" ? key : String(key);
-}
-
 function isIterable(input) {
   return Array.isArray(input) || type(input) === 'Object';
 }
@@ -1691,21 +1732,6 @@ function of(value) {
   return [value];
 }
 
-function omit(propsToOmit, obj) {
-  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj);
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
-  const propsToOmitValue = createPath(propsToOmit, ',');
-  const willReturn = {};
-  for (const key in obj) {
-    if (!propsToOmitValue.includes(key)) {
-      willReturn[key] = obj[key];
-    }
-  }
-  return willReturn;
-}
-
 function on(binaryFn, unaryFn, a, b) {
   if (arguments.length === 3) {
     return _b => on(binaryFn, unaryFn, a, _b);
@@ -1750,11 +1776,12 @@ const over = curry(overFn);
 
 function partial(fn, ...args) {
   const len = fn.length;
+  const argList = args.length === 1 && isArray(args[0]) ? args[0] : args;
   return (...rest) => {
-    if (args.length + rest.length >= len) {
-      return fn(...args, ...rest);
+    if (argList.length + rest.length >= len) {
+      return fn(...argList, ...rest);
     }
-    return partial(fn, ...[...args, ...rest]);
+    return partial(fn, ...[...argList, ...rest]);
   };
 }
 
@@ -2375,6 +2402,7 @@ exports.difference = difference;
 exports.differenceWith = differenceWith;
 exports.differenceWithFn = differenceWithFn;
 exports.dissoc = dissoc;
+exports.dissocPath = dissocPath;
 exports.divide = divide;
 exports.drop = drop;
 exports.dropLast = dropLast;
@@ -2493,6 +2521,7 @@ exports.reduce = reduce;
 exports.reduceFn = reduceFn;
 exports.reduceStopper = reduceStopper;
 exports.reject = reject;
+exports.removeIndex = removeIndex;
 exports.repeat = repeat;
 exports.replace = replace;
 exports.reverse = reverse;

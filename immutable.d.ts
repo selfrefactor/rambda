@@ -1,23 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-
-type LastArrayElement<ValueType extends readonly unknown[]> =
-	ValueType extends readonly [infer ElementType]
-		? ElementType
-		: ValueType extends readonly [infer _, ...infer Tail]
-			? LastArrayElement<Tail>
-			: ValueType extends ReadonlyArray<infer ElementType>
-				? ElementType
-				: never;
-type FirstArrayElement<ValueType extends readonly unknown[]> =
-	ValueType extends readonly [infer ElementType]
-		? ElementType
-		: ValueType extends readonly [...infer Head, infer _]
-			? FirstArrayElement<Head>
-			: ValueType extends ReadonlyArray<infer ElementType>
-				? ElementType
-				: never;
-
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -114,6 +96,9 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, offset: number, s: string, groups?: Record<string, string>) => string)
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
+
+/** `TSuper`, whenever `TSuper` is a supertype of `TSub`; otherwise `never`. */
+type AsSuperType<TSub, TSuper> = (TSub extends TSuper ? TSuper : never);
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -229,6 +214,7 @@ export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => bo
 /**
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
+export function anyPass<T, U extends readonly T[]>(predicates: { readonly [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
 export function anyPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: readonly ((...inputs: readonly T[]) => boolean)[]): (...inputs: readonly T[]) => boolean;
 
@@ -242,8 +228,8 @@ export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Rea
 /**
  * It adds element `x` at the end of `list`.
  */
-export function append<T>(x: T, list: readonly T[]): readonly T[];
-export function append<T>(x: T): <T>(list: readonly T[]) => readonly T[];
+export function append<T>(x: T, input: readonly T[]): readonly T[];
+export function append<T>(x: T): <U>(input: readonly AsSuperType<T, U>[]) => readonly U[];
 
 /**
  * It applies function `fn` to the list of arguments.
@@ -501,6 +487,8 @@ export function differenceWith<T1, T2>(
 export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
 export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
+export function dissocPath<T>(x: T): T;
+
 export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
 
@@ -681,9 +669,13 @@ export function hasPath<T>(
 /**
  * It returns the first element of list or string `input`.
  */
-export function head(input: string): string;
-export function head(emptyList: readonly []): undefined;
-export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
+export function head(str: string): string;
+export function head(list: readonly []): never;
+export function head(list: readonly []): never;
+export function head<T1, TRest>(list: readonly [T1, ...readonly TRest[]]): T1;
+export function head<T1, TRest>(list: readonly [T1, ...readonly TRest[]]): T1;
+export function head<T>(list: readonly T[]): T | undefined;
+export function head<T>(list: readonly T[]): T | undefined;
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -802,15 +794,17 @@ export function juxt<A extends readonly any[], U>(fns: ReadonlyArray<(...args: A
 /**
  * It applies `Object.keys` over `x` and returns its keys.
  */
-export function keys<T extends object>(x: T): readonly (keyof T)[];
+export function keys<T extends object>(x: T): readonly (keyof T & string)[];
 export function keys<T>(x: T): readonly string[];
 
 /**
  * It returns the last element of `input`, as the `input` can be either a string or an array.
  */
-export function last(input: string): string;
-export function last(emptyList: readonly []): undefined;
-export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
+export function last(str: string): string;
+export function last(list: readonly []): undefined;
+export function last(list: readonly []): undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
+export function last<T extends any>(list: readonly T[]): T | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -1085,13 +1079,31 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => read
  * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
  * The name comes from the fact that you partially inject the inputs.
  */
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: readonly [V0]): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: readonly [V0, V1]): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: readonly [V0]): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: readonly [V0, V1, V2]): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: readonly [V0, V1]): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: readonly [V0]): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]): (...x: readonly any[]) => T;
+export function partial<
+  Args extends readonly unknown[],
+  ArgsGiven extends readonly [...Partial<Args>],
+  R
+>(
+  fn: (...args: Args) => R,
+  ...args: ArgsGiven
+): Args extends readonly [...{ readonly[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
+  ? ArgsRemaining extends readonly []
+    ? R
+    : (...args: ArgsRemaining) => R
+  : never;
+
+export function partial<
+  Args extends readonly unknown[],
+  ArgsGiven extends readonly [...Partial<Args>],
+  R
+>(
+  fn: (...args: Args) => R,
+  args: ArgsGiven
+): Args extends readonly [...{ readonly[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
+  ? ArgsRemaining extends readonly []
+    ? R
+    : (...args: ArgsRemaining) => R
+  : never;
 
 /**
  * `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
@@ -1283,7 +1295,7 @@ export function pluck(property: number): <T>(list: readonly { readonly [k: numbe
  * It adds element `x` at the beginning of `list`.
  */
 export function prepend<T>(x: T, input: readonly T[]): readonly T[];
-export function prepend<T>(x: T): (input: readonly T[]) => readonly T[];
+export function prepend<T>(x: T): <U>(input: readonly AsSuperType<T, U>[]) => readonly U[];
 
 export function product(list: readonly number[]): number;
 
@@ -1350,8 +1362,8 @@ export function range(startInclusive: number): (endExclusive: number) => readonl
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: readonly T[]): TResult;
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: readonly T[]): TResult;
-export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult): (initialValue: TResult, list: readonly T[]) => TResult;
-export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i?: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult): (initialValue: TResult, list: readonly T[]) => TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
 
 /**
  * It has the opposite effect of `R.filter`.
@@ -1360,6 +1372,12 @@ export function reject<T>(predicate: Predicate<T>, list: readonly T[]): readonly
 export function reject<T>(predicate: Predicate<T>): (list: readonly T[]) => readonly T[];
 export function reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
 export function reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
+
+/**
+ * It returns a copy of `list` input with removed `index`.
+ */
+export function removeIndex<T>(index: number, list: readonly T[]): readonly T[];
+export function removeIndex(index: number): <T>(list: readonly T[]) => readonly T[];
 
 export function repeat<T>(x: T): (timesToRepeat: number) => readonly T[];
 export function repeat<T>(x: T, timesToRepeat: number): readonly T[];
