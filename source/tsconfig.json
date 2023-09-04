@@ -9,7 +9,7 @@
     "strict": true,
     "target": "ESNext",
     "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
-    "allowJs": true
+    "allowJs": false
   },
-  "include": ["./**/*.js", "./**/*.ts"]
+  "include": ["./**/*.ts"]
 }    
