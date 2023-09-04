@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["es2015", "dom"],
-    "module": "esnext",
+    "module": "commonjs",
     "noEmit": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
@@ -11,5 +11,5 @@
     "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
     "allowJs": true
   },
-  "include": ["./**/*.js", "./**/*.ts"],
+  "include": ["./**/*.js", "./**/*.ts"]
 }    

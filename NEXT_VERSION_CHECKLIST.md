@@ -1,3 +1,5 @@
+- head/last handle of empty string
+
 - fix - use number as property to omit - TODO - should be same for pick, etc., i.e. they use same createpath util
 
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
@@ -5,6 +7,10 @@ in js project like niketa theme, go to source lead to readable code, is ramda th
 fix https://github.com/selfrefactor/rambdax/issues/93
 
 release X
+---
+group TS test for similar methods
+
+eventual create additional topic in methods - related methods, so it is easy to find tests as the first one alpabetically is the one containing all TS tests
 ---
 - construct - it is class helper and classes are not very functional oriented
 - constructN

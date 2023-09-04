@@ -1,30 +1,42 @@
-import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
-import {head} from 'rambda'
+import {
+  emptyList,
+  emptyString,
+  mixedList,
+  mixedListConst,
+  numberList,
+  numberListConst,
+  string,
+} from '_internals/typescriptTestUtils'
+import {head, last} from 'rambda'
 
 describe('R.head', () => {
   it('string', () => {
-    const result = head('foo')
-    result // $ExpectType string
+    head(string) // $ExpectType string
+    last(string) // $ExpectType string
+  })
+  it('empty string', () => {
+    head(emptyString) // $ExpectType undefined
+    last(emptyString) // $ExpectType undefined
   })
   it('array', () => {
-    const result = head([1, 2, 3])
-    result // $ExpectType number
+    head(numberList) // $ExpectType number
+    head(numberListConst) // $ExpectType 1
+
+    last(numberList) // $ExpectType number
+    last(numberListConst) // $ExpectType 3
   })
+  it('empty array', () => {
+    const list = [] as const
+    head(emptyList) // $ExpectType undefined
+    head(list) // $ExpectType never
+    last(emptyList) // $ExpectType undefined
+    last(list) // $ExpectType never
+  })
+
   it('mixed', () => {
-    const result = head(mixedList)
-    result // $ExpectType string | number
-  })
-  it('mixed const', () => {
-    const result = head(mixedListConst)
-    result // $ExpectType 1
-  })
-  it('empty array - case 1', () => {
-    const result = head([])
-    result // $ExpectType undefined
-  })
-  it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
-    const result = head(list)
-    result // $ExpectType string
+    head(mixedList) // $ExpectType string | number
+    head(mixedListConst) // $ExpectType 1
+    last(mixedList) // $ExpectType string | number
+    last(mixedListConst) // $ExpectType "bar"
   })
 })
