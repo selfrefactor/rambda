@@ -114,8 +114,8 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
-/** `TSuper`, whenever `TSuper` is a supertype of `TSub`; otherwise `never`. */
-type AsSuperType<TSub, TSuper> = (TSub extends TSuper ? TSuper : never);
+/** `TSuper`, when `TSuper` is a supertype of `T`; otherwise `never`. */
+type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -243,10 +243,12 @@ export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N
 export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
 
 /**
- * It adds element `x` at the end of `list`.
+ * It adds element `x` at the end of `iterable`.
  */
-export function append<T>(x: T, input: T[]): T[];
-export function append<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
+export function append<T>(xToAppend: T, iterable: T[]): T[];
+export function append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function append<T>(xToAppend: T): (iterable: T[]) => T[];
 
 /**
  * It applies function `fn` to the list of arguments.
@@ -1309,8 +1311,10 @@ export function pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
 /**
  * It adds element `x` at the beginning of `list`.
  */
-export function prepend<T>(x: T, input: T[]): T[];
-export function prepend<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
+export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
+export function prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
 export function product(list: number[]): number;
 

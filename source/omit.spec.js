@@ -1,5 +1,3 @@
-import { omitRamda } from 'ramda'
-
 import { omit } from './omit.js'
 
 test('with string as condition', () => {

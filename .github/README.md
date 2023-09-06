@@ -1141,10 +1141,10 @@ test('happy', () => {
 
 ```typescript
 
-append<T>(x: T, input: T[]): T[]
+append<T>(xToAppend: T, iterable: T[]): T[]
 ```
 
-It adds element `x` at the end of `list`.
+It adds element `x` at the end of `iterable`.
 
 ```javascript
 const x = 'foo'
@@ -1160,8 +1160,10 @@ const result = R.append(x, ['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-append<T>(x: T, input: T[]): T[];
-append<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
+append<T>(xToAppend: T, iterable: T[]): T[];
+append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+append<T>(xToAppend: T): (iterable: T[]) => T[];
 ```
 
 </details>
@@ -1192,7 +1194,8 @@ export function append(x, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { append } from './append.js'
+// import { append } from './append.js'
+import { append } from 'ramda'
 
 test('happy', () => {
   expect(append('tests', [ 'write', 'more' ])).toEqual([
@@ -1218,25 +1221,27 @@ test('with strings', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {append} from 'rambda'
+import {append, prepend} from 'rambda'
 
 const listOfNumbers = [1, 2, 3]
 const listOfNumbersAndStrings = [1, "b", 3]
 
-describe('R.append', () => {
+describe('R.append/R.prepend', () => {
   describe('with the same primitive type as the array\'s elements', () => {
     it('uncurried', () => {
       // @ts-expect-error
       append("d", listOfNumbers)
-      const result = append(4, listOfNumbers)
-      result // $ExpectType number[]
+      // @ts-expect-error
+      prepend("d", listOfNumbers)
+      append(4, listOfNumbers) // $ExpectType number[]
+      prepend(4, listOfNumbers) // $ExpectType number[]
     })
 
     it('curried', () => {
       // @ts-expect-error
       append("d")(listOfNumbers)
-      const result = append(4)(listOfNumbers)
-      result // $ExpectType number[]
+      append(4)(listOfNumbers) // $ExpectType number[]
+      prepend(4)(listOfNumbers) // $ExpectType number[]
     })
   });
 
@@ -1244,15 +1249,15 @@ describe('R.append', () => {
     it('uncurried', () => {
       // @ts-expect-error
       append(true, listOfNumbersAndStrings)
-      const result = append(4, listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
+      append(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
+      prepend(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
 
     it('curried', () => {
       // @ts-expect-error
       append(true)(listOfNumbersAndStrings)
-      const result = append(4)(listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
+      append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
+      prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
   });
 
@@ -1260,16 +1265,17 @@ describe('R.append', () => {
     it('uncurried', () => {
       // @ts-expect-error
       append("d", listOfNumbers)
-      const result = append<string | number>("d", listOfNumbers)
-      result // $ExpectType (string | number)[]
+      append<string | number>("d", listOfNumbers) // $ExpectType (string | number)[]
+      prepend<string | number>("d", listOfNumbers) // $ExpectType (string | number)[]
     })
 
     it('curried', () => {
       // @ts-expect-error
       append("d")(listOfNumbers)
       const appendD = append("d");
-      const result = appendD<string | number>(listOfNumbers)
-      result // $ExpectType (string | number)[]
+      appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
+      const prependD = prepend("d");
+      prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
     })
   });
 })
@@ -12542,7 +12548,7 @@ describe('R.pluck', () => {
 
 ```typescript
 
-prepend<T>(x: T, input: T[]): T[]
+prepend<T>(xToPrepend: T, iterable: T[]): T[]
 ```
 
 It adds element `x` at the beginning of `list`.
@@ -12559,8 +12565,10 @@ const result = R.prepend('foo', ['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-prepend<T>(x: T, input: T[]): T[];
-prepend<T>(x: T): <U>(input: AsSuperType<T, U>[]) => U[];
+prepend<T>(xToPrepend: T, iterable: T[]): T[];
+prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 ```
 
 </details>
@@ -12603,70 +12611,6 @@ test('with empty list', () => {
 
 test('with string instead of array', () => {
   expect(prepend('foo')('bar')).toEqual([ 'foo', 'b', 'a', 'r' ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {prepend} from 'rambda'
-
-const listOfNumbers = [1, 2, 3]
-const listOfNumbersAndStrings = [1, "b", 3]
-
-describe('R.prepend', () => {
-  describe('with the same primitive type as the array\'s elements', () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      prepend("d", listOfNumbers)
-      const result = prepend(4, listOfNumbers)
-      result // $ExpectType number[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      prepend("d")(listOfNumbers)
-      const result = prepend(4)(listOfNumbers)
-      result // $ExpectType number[]
-    })
-  });
-
-  describe('with a subtype of the array\'s elements', () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      prepend(true, listOfNumbersAndStrings)
-      const result = prepend(4, listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      prepend(true)(listOfNumbersAndStrings)
-      const result = prepend(4)(listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
-    })
-  });
-
-  describe('expanding the type of the array\'s elements', () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      prepend("d", listOfNumbers)
-      const result = prepend<string | number>("d", listOfNumbers)
-      result // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      prepend("d")(listOfNumbers)
-      const prependD = prepend("d");
-      const result = prependD<string | number>(listOfNumbers)
-      result // $ExpectType (string | number)[]
-    })
-  });
 })
 ```
 
