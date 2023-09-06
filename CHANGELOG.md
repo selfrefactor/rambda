@@ -2,9 +2,9 @@
 
 - Add `R.dissocPath`
 
-- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
+- Fix TS definitions of `R.head/R.last` and add missing handle of empty string
 
-- Change type of `R.head/R.last` to `@types/ramda` because of issues with changes introduced with Rambda v.8.0.0
+- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
 
 - Allow `R.omit` to pass numbers as part of properties to omit, i.e. `R.omit(['a', 1], {a: {1: 1, 2: 2}})`
 

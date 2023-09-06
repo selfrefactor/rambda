@@ -1,5 +1,22 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
+type LastArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [infer _, ...infer Tail]
+			? LastArrayElement<Tail>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+type FirstArrayElement<ValueType extends readonly unknown[]> =
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [...infer Head, infer _]
+			? FirstArrayElement<Head>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
+
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -670,12 +687,10 @@ export function hasPath<T>(
  * It returns the first element of list or string `input`.
  */
 export function head(str: string): string;
-export function head(list: []): never;
-export function head(list: readonly []): never;
-export function head<T1, TRest>(list: readonly [T1, ...TRest[]]): T1;
-export function head<T1, TRest>(list: [T1, ...TRest[]]): T1;
-export function head<T>(list: readonly T[]): T | undefined;
-export function head<T>(list: T[]): T | undefined;
+export function head(str: ''): undefined;
+export function head<T>(list: never[]): undefined;
+export function head<T extends unknown[]>(array: T): FirstArrayElement<T>
+export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
@@ -800,11 +815,11 @@ export function keys<T>(x: T): string[];
 /**
  * It returns the last element of `input`, as the `input` can be either a string or an array.
  */
+export function last(str: ''): undefined;
 export function last(str: string): string;
-export function last(list: readonly []): undefined;
-export function last(list: []): undefined;
-export function last<T extends any>(list: readonly T[]): T | undefined;
-export function last<T extends any>(list: T[]): T | undefined;
+export function last(list: never[]): undefined;
+export function last<T extends unknown[]>(array: T): LastArrayElement<T>
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /**
  * It returns the last index of `target` in `list` array.

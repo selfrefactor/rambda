@@ -6115,12 +6115,10 @@ const result = [
 
 ```typescript
 head(str: string): string;
-head(list: []): never;
-head(list: readonly []): never;
-head<T1, TRest>(list: readonly [T1, ...TRest[]]): T1;
-head<T1, TRest>(list: [T1, ...TRest[]]): T1;
-head<T>(list: readonly T[]): T | undefined;
-head<T>(list: T[]): T | undefined;
+head(str: ''): undefined;
+head<T>(list: never[]): undefined;
+head<T extends unknown[]>(array: T): FirstArrayElement<T>
+head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 ```
 
 </details>
@@ -6161,34 +6159,46 @@ test('head', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
-import {head} from 'rambda'
+import {
+  emptyList,
+  emptyString,
+  mixedList,
+  mixedListConst,
+  numberList,
+  numberListConst,
+  string,
+} from '_internals/typescriptTestUtils'
+import {head, last} from 'rambda'
 
 describe('R.head', () => {
   it('string', () => {
-    const result = head('foo')
-    result // $ExpectType string
+    head(string) // $ExpectType string
+    last(string) // $ExpectType string
+  })
+  it('empty string', () => {
+    head(emptyString) // $ExpectType undefined
+    last(emptyString) // $ExpectType undefined
   })
   it('array', () => {
-    const result = head([1, 2, 3])
-    result // $ExpectType number
+    head(numberList) // $ExpectType number
+    head(numberListConst) // $ExpectType 1
+
+    last(numberList) // $ExpectType number
+    last(numberListConst) // $ExpectType 3
   })
+  it('empty array', () => {
+    const list = [] as const
+    head(emptyList) // $ExpectType undefined
+    head(list) // $ExpectType never
+    last(emptyList) // $ExpectType undefined
+    last(list) // $ExpectType never
+  })
+
   it('mixed', () => {
-    const result = head(mixedList)
-    result // $ExpectType string | number
-  })
-  it('mixed const', () => {
-    const result = head(mixedListConst)
-    result // $ExpectType 1
-  })
-  it('empty array - case 1', () => {
-    const result = head([])
-    result // $ExpectType undefined
-  })
-  it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
-    const result = head(list)
-    result // $ExpectType string
+    head(mixedList) // $ExpectType string | number
+    head(mixedListConst) // $ExpectType 1
+    last(mixedList) // $ExpectType string | number
+    last(mixedListConst) // $ExpectType "bar"
   })
 })
 ```
@@ -7198,41 +7208,13 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {keys} from 'rambda'
-
-const obj = {a: 1, b: 2}
-
-interface Generic {
-  [key: string]: string;
-}
-
-describe('R.keys', () => {
-  it('for a known object type', () => {
-    const result = keys(obj)
-    result // $ExpectType ("b" | "a")[]
-  })
-
-  it('for a generic object type', () => {
-    const result = keys({} as Generic)
-    result // $ExpectType string[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#keys)
 
 ### last
 
 ```typescript
 
-last(str: string): string
+last(str: ''): undefined
 ```
 
 It returns the last element of `input`, as the `input` can be either a string or an array.
@@ -7252,11 +7234,11 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+last(str: ''): undefined;
 last(str: string): string;
-last(list: readonly []): undefined;
-last(list: []): undefined;
-last<T extends any>(list: readonly T[]): T | undefined;
-last<T extends any>(list: T[]): T | undefined;
+last(list: never[]): undefined;
+last<T extends unknown[]>(array: T): LastArrayElement<T>
+last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 ```
 
 </details>
@@ -7292,45 +7274,6 @@ test('with list', () => {
 test('with string', () => {
   expect(last('abc')).toBe('c')
   expect(last('')).toBe('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {mixedList, mixedListConst} from '_internals/typescriptTestUtils'
-import {last} from 'rambda'
-
-describe('R.last', () => {
-  it('string', () => {
-    const result = last('foo')
-    result // $ExpectType string
-  })
-  it('array', () => {
-    const result = last([1, 2, 3])
-    result // $ExpectType number
-  })
-  it('mixed', () => {
-    const result = last(mixedList)
-    result // $ExpectType string | number
-  })
-  it('mixed const', () => {
-    const result = last(mixedListConst)
-    result // $ExpectType "bar"
-  })
-  it('empty array - case 1', () => {
-    const result = last([])
-    result // $ExpectType undefined
-  })
-  it('empty array - case 2', () => {
-    const list = ['foo', 'bar'].filter(x => x.startsWith('a'))
-    const result = last(list)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -16497,30 +16440,6 @@ test('happy', () => {
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {toPairs} from 'rambda'
-
-const obj = {
-  a: 1,
-  b: 2,
-  c: [3, 4],
-}
-
-describe('R.toPairs', () => {
-  it('happy', () => {
-    const result = toPairs(obj)
-
-    result // $ExpectType (["b", number] | ["a", number] | ["c", number[]])[]
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#toPairs)
 
 ### toString
@@ -18718,13 +18637,13 @@ describe('R.zipObj', () => {
   it('happy', () => {
     // this is wrong since 24.10.2020 `@types/ramda` changes
     const result = zipObj(['a', 'b', 'c', 'd'], [1, 2, 3])
-    result // $ExpectType { b: number; d: number; a: number; c: number; }
+    ;[result.a, result.b, result.c, result.d] // $ExpectType number[]
   })
   it('imported from @types/ramda', () => {
     const result = zipObj(['a', 'b', 'c'], [1, 2, 3])
     const curriedResult = zipObj(['a', 'b', 'c'])([1, 2, 3])
-    result // $ExpectType { b: number; a: number; c: number; }
-    curriedResult // $ExpectType { b: number; a: number; c: number; }
+    ;[result.a, result.b, result.c] // $ExpectType number[]
+    ;[curriedResult.a, curriedResult.b, curriedResult.c] // $ExpectType number[]
   })
 })
 ```
@@ -18858,9 +18777,9 @@ describe('R.zipWith', () => {
 
 - Add `R.dissocPath`
 
-- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
+- Fix TS definitions of `R.head/R.last` and add missing handle of empty string
 
-- Change type of `R.head/R.last` to `@types/ramda` because of issues with changes introduced with Rambda v.8.0.0
+- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
 
 - Allow `R.omit` to pass numbers as part of properties to omit, i.e. `R.omit(['a', 1], {a: {1: 1, 2: 2}})`
 

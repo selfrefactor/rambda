@@ -11,7 +11,7 @@ export function dissocPath(pathInput, input){
 
   const pathArrValue = createPath(pathInput)
   // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
-  // TODO: add warning
+  // TODO: add warning that Rambda simply returns input if path is empty
   if (pathArrValue.length === 0) return input
 
   const pathResult = path(pathArrValue, input)

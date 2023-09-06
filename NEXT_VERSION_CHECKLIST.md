@@ -1,4 +1,3 @@
-- head/last handle of empty string
 
 - fix - use number as property to omit - TODO - should be same for pick, etc., i.e. they use same createpath util
 
