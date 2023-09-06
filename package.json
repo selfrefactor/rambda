@@ -22,6 +22,7 @@
     "lint:staged": "cd ../rambda-scripts && yarn lint:staged",
     "new": "cd ../rambda-scripts && yarn new",
     "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
+    "before": "yarn out && yarn docs",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",

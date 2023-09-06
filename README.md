@@ -17505,8 +17505,6 @@ describe('R.zipWith', () => {
 
 - Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
 
-- Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
-
 - Fix R.append's curried type - [MR #694](https://github.com/selfrefactor/rambda/pull/694)
 
 8.3.0

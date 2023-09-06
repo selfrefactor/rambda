@@ -83,6 +83,8 @@ eventual create additional topic in methods - related methods, so it is easy to 
 - thunkify
 - default
 ---
+Double check
+
 it('mixed', () => {
     const result = head(mixedList)
     result // $ExpectType string | number
