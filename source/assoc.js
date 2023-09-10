@@ -1,6 +1,6 @@
 import { curry } from './curry.js'
 
-function assocFn(
+export function assocFn(
   prop, newValue, obj
 ){
   return Object.assign(

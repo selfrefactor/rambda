@@ -6,6 +6,10 @@ in js project like niketa theme, go to source lead to readable code, is ramda th
 fix https://github.com/selfrefactor/rambdax/issues/93
 
 release X
+
+no need to test curried methods such as replace
+
+latest changes might have effect in benchmarks
 ---
 group TS test for similar methods
 

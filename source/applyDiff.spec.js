@@ -34,13 +34,12 @@ test('update operation', () => {
       value : 3,
     },
   ]
-  const result = applyDiff(rules, {
+  expect(applyDiff(rules, {
     a : {
       b : 1,
       c : [ 1, 2 ],
     },
-  })
-  expect(result).toEqual({
+  })).toEqual({
     a : {
       b : 3,
       c : [ 1, 3 ],

@@ -1,6 +1,6 @@
 import { createPath } from '../src/_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
-import { isInteger } from './_internals/isInteger.js'
+import { isIndexInteger } from './_internals/isInteger.js'
 import { omit } from './omit.js'
 import { path } from './path.js'
 import { removeIndex } from './removeIndex.js'
@@ -24,7 +24,7 @@ export function dissocPath(pathInput, input){
     !input.hasOwnProperty(index)
   if (pathArrValue.length > 1){
     const nextInput = condition ?
-      isInteger(pathArrValue[ 1 ]) ?
+      isIndexInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]

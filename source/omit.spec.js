@@ -14,7 +14,7 @@ test('with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('with number as property to omit', () => {
+test.only('with number as property to omit', () => {
   const obj = {
     1 : 1,
     b : 2,

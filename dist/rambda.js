@@ -332,14 +332,15 @@ function assocFn(prop, newValue, obj) {
 }
 const assoc = curry(assocFn);
 
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string' ? path.split(delimiter) : path.map(String);
-}
-
 function _isInteger(n) {
   return n << 0 === n;
 }
 const isInteger = Number.isInteger || _isInteger;
+const isIndexInteger = index => Number.isInteger(Number(index));
+
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string' ? path.split(delimiter).map(x => isInteger(x) ? Number(x) : x) : path;
+}
 
 function assocPathFn(path, newValue, input) {
   const pathArrValue = createPath(path);
@@ -347,15 +348,15 @@ function assocPathFn(path, newValue, input) {
   const index = pathArrValue[0];
   if (pathArrValue.length > 1) {
     const condition = typeof input !== 'object' || input === null || !input.hasOwnProperty(index);
-    const nextInput = condition ? isInteger(pathArrValue[1]) ? [] : {} : input[index];
+    const nextInput = condition ? isIndexInteger(pathArrValue[1]) ? [] : {} : input[index];
     newValue = assocPathFn(Array.prototype.slice.call(pathArrValue, 1), newValue, nextInput);
   }
-  if (isInteger(index) && isArray(input)) {
+  if (isIndexInteger(index) && isArray(input)) {
     const arr = cloneList(input);
     arr[index] = newValue;
     return arr;
   }
-  return assoc(index, newValue, input);
+  return assocFn(index, newValue, input);
 }
 const assocPath = curry(assocPathFn);
 
@@ -786,8 +787,8 @@ function equals(a, b) {
   return false;
 }
 
-function includes(valueToFind, iterable) {
-  if (arguments.length === 1) return _iterable => includes(valueToFind, _iterable);
+function includes$1(valueToFind, iterable) {
+  if (arguments.length === 1) return _iterable => includes$1(valueToFind, _iterable);
   if (typeof iterable === 'string') {
     return iterable.includes(valueToFind);
   }
@@ -842,7 +843,7 @@ function uniq(list) {
 
 function difference(a, b) {
   if (arguments.length === 1) return _b => difference(a, _b);
-  return uniq(a).filter(aInstance => !includes(aInstance, b));
+  return uniq(a).filter(aInstance => !includes$1(aInstance, b));
 }
 
 function differenceWithFn(fn, a, b) {
@@ -919,18 +920,25 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+function compare(a, b) {
+  return String(a) === String(b);
+}
+
+function includes(a, list) {
+  let index = -1;
+  const {
+    length
+  } = list;
+  while (++index < length) if (compare(list[index], a)) return true;
+  return false;
+}
+
 function omit(propsToOmit, obj) {
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj);
-  if (obj === null || obj === undefined) {
-    return undefined;
-  }
+  if (obj === null || obj === undefined) return undefined;
   const propsToOmitValue = createPath(propsToOmit, ',');
   const willReturn = {};
-  for (const key in obj) {
-    if (!propsToOmitValue.includes(key)) {
-      willReturn[key] = obj[key];
-    }
-  }
+  for (const key in obj) if (!includes(key, propsToOmitValue)) willReturn[key] = obj[key];
   return willReturn;
 }
 
@@ -979,7 +987,7 @@ function dissocPath(pathInput, input) {
   const index = pathArrValue[0];
   const condition = typeof input !== 'object' || input === null || !input.hasOwnProperty(index);
   if (pathArrValue.length > 1) {
-    const nextInput = condition ? isInteger(pathArrValue[1]) ? [] : {} : input[index];
+    const nextInput = condition ? isIndexInteger(pathArrValue[1]) ? [] : {} : input[index];
     const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
     const intermediateResult = dissocPath(nextPathInput, nextInput, input);
     if (isArray(input)) return update(index, intermediateResult, input);
@@ -1444,7 +1452,7 @@ function init(listOrString) {
 
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
-  return filter(x => includes(x, listA), listB);
+  return filter(x => includes$1(x, listA), listB);
 }
 
 function intersperse(separator, list) {
@@ -2073,7 +2081,7 @@ function symmetricDifference(x, y) {
   if (arguments.length === 1) {
     return _y => symmetricDifference(x, _y);
   }
-  return concat(filter(value => !includes(value, y), x), filter(value => !includes(value, x), y));
+  return concat(filter(value => !includes$1(value, y), x), filter(value => !includes$1(value, x), y));
 }
 
 function takeLast(howMany, listOrString) {
@@ -2197,7 +2205,7 @@ function union(x, y) {
   if (arguments.length === 1) return _y => union(x, _y);
   const toReturn = cloneList(x);
   y.forEach(yInstance => {
-    if (!includes(yInstance, x)) toReturn.push(yInstance);
+    if (!includes$1(yInstance, x)) toReturn.push(yInstance);
   });
   return toReturn;
 }
@@ -2374,7 +2382,9 @@ exports.applySpec = applySpec;
 exports.applyTo = applyTo;
 exports.ascend = ascend;
 exports.assoc = assoc;
+exports.assocFn = assocFn;
 exports.assocPath = assocPath;
+exports.assocPathFn = assocPathFn;
 exports.binary = binary;
 exports.bind = bind;
 exports.both = both;
@@ -2437,7 +2447,7 @@ exports.identical = identical;
 exports.identity = identity;
 exports.ifElse = ifElse;
 exports.inc = inc;
-exports.includes = includes;
+exports.includes = includes$1;
 exports.indexBy = indexBy;
 exports.indexOf = indexOf;
 exports.init = init;

@@ -1163,28 +1163,28 @@ test('with strings', () => {
 import {append, prepend} from 'rambda'
 
 const listOfNumbers = [1, 2, 3]
-const listOfNumbersAndStrings = [1, "b", 3]
+const listOfNumbersAndStrings = [1, 'b', 3]
 
 describe('R.append/R.prepend', () => {
-  describe('with the same primitive type as the array\'s elements', () => {
+  describe("with the same primitive type as the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
-      append("d", listOfNumbers)
+      append('d', listOfNumbers)
       // @ts-expect-error
-      prepend("d", listOfNumbers)
+      prepend('d', listOfNumbers)
       append(4, listOfNumbers) // $ExpectType number[]
       prepend(4, listOfNumbers) // $ExpectType number[]
     })
 
     it('curried', () => {
       // @ts-expect-error
-      append("d")(listOfNumbers)
+      append('d')(listOfNumbers)
       append(4)(listOfNumbers) // $ExpectType number[]
       prepend(4)(listOfNumbers) // $ExpectType number[]
     })
-  });
+  })
 
-  describe('with a subtype of the array\'s elements', () => {
+  describe("with a subtype of the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
       append(true, listOfNumbersAndStrings)
@@ -1198,25 +1198,25 @@ describe('R.append/R.prepend', () => {
       append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
       prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
-  });
+  })
 
-  describe('expanding the type of the array\'s elements', () => {
+  describe("expanding the type of the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
-      append("d", listOfNumbers)
-      append<string | number>("d", listOfNumbers) // $ExpectType (string | number)[]
-      prepend<string | number>("d", listOfNumbers) // $ExpectType (string | number)[]
+      append('d', listOfNumbers)
+      append<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
+      prepend<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
     })
 
     it('curried', () => {
       // @ts-expect-error
-      append("d")(listOfNumbers)
-      const appendD = append("d");
+      append('d')(listOfNumbers)
+      const appendD = append('d')
       appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
-      const prependD = prepend("d");
+      const prependD = prepend('d')
       prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
     })
-  });
+  })
 })
 ```
 
@@ -1806,14 +1806,14 @@ assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 <summary><strong>R.assocPath</strong> source</summary>
 
 ```javascript
-import { createPath } from '../src/_internals/createPath.js'
 import { cloneList } from './_internals/cloneList.js'
+import { createPath } from './_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
-import { isInteger } from './_internals/isInteger.js'
-import { assoc } from './assoc.js'
+import { isIndexInteger } from './_internals/isInteger.js'
+import { assocFn } from './assoc.js'
 import { curry } from './curry.js'
 
-function assocPathFn(
+export function assocPathFn(
   path, newValue, input
 ){
   const pathArrValue = createPath(path)
@@ -1827,7 +1827,7 @@ function assocPathFn(
       !input.hasOwnProperty(index)
 
     const nextInput = condition ?
-      isInteger(pathArrValue[ 1 ]) ?
+      isIndexInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]
@@ -1839,14 +1839,14 @@ function assocPathFn(
     )
   }
 
-  if (isInteger(index) && isArray(input)){
+  if (isIndexInteger(index) && isArray(input)){
     const arr = cloneList(input)
     arr[ index ] = newValue
 
     return arr
   }
 
-  return assoc(
+  return assocFn(
     index, newValue, input
   )
 }
@@ -1861,21 +1861,45 @@ export const assocPath = curry(assocPathFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { assocPath } from './assocPath.js'
+import { assocPathFn } from './assocPath.js'
+
+test.only('happy', () => {
+  const path = 'a.c.1'
+  const input = {
+    a : {
+      b : 1,
+      c : [ 1, 2 ],
+    },
+  }
+  assocPathFn(
+    path, 3, input
+  )
+  expect(input).toEqual({
+    a : {
+      b : 1,
+      c : [ 1, 2 ],
+    },
+  })
+})
 
 test('string can be used as path input', () => {
   const testObj = {
     a : [ { b : 1 }, { b : 2 } ],
     d : 3,
   }
-  const result = assocPath(
+  const result1 = assocPathFn(
+    [ 'a', 0, 'b' ], 10, testObj
+  )
+  const result2 = assocPathFn(
     'a.0.b', 10, testObj
   )
+
   const expected = {
     a : [ { b : 10 }, { b : 2 } ],
     d : 3,
   }
-  expect(result).toEqual(expected)
+  expect(result1).toEqual(expected)
+  expect(result2).toEqual(expected)
 })
 
 test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
@@ -9654,22 +9678,20 @@ omit<T>(propsToOmit: string): (obj: object) => T;
 
 ```javascript
 import { createPath } from './_internals/createPath.js'
+import { includes } from './_internals/includes.js'
 
 export function omit(propsToOmit, obj){
   if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
 
-  if (obj === null || obj === undefined){
+  if (obj === null || obj === undefined)
     return undefined
-  }
 
   const propsToOmitValue = createPath(propsToOmit, ',')
   const willReturn = {}
 
-  for (const key in obj){
-    if (!propsToOmitValue.includes(key)){
+  for (const key in obj)
+    if (!includes(key, propsToOmitValue))
       willReturn[ key ] = obj[ key ]
-    }
-  }
 
   return willReturn
 }
@@ -9682,8 +9704,6 @@ export function omit(propsToOmit, obj){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { omitRamda } from 'ramda'
-
 import { omit } from './omit.js'
 
 test('with string as condition', () => {
@@ -9700,7 +9720,7 @@ test('with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('with number as property to omit', () => {
+test.only('with number as property to omit', () => {
   const obj = {
     1 : 1,
     b : 2,
@@ -11402,7 +11422,11 @@ test('works with list as input and number as props - props to pick is a string',
 
 test('with symbol', () => {
   const symbolProp = Symbol('s')
-  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot('{}')
+  expect(pick([ symbolProp ], { [ symbolProp ] : 'a' })).toMatchInlineSnapshot(`
+{
+  Symbol(s): "a",
+}
+`)
 })
 ```
 

@@ -10,7 +10,7 @@
         "--verbose", 
         "-i", 
         "--no-cache",
-        "${file}"
+        "${fileBasenameNoExtension}"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
