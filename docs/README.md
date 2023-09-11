@@ -233,8 +233,8 @@ method | Rambda | Ramda | Lodash
 --- |--- | --- | ---
  *add* | 🚀 Fastest | 21.52% slower | 82.15% slower
  *adjust* | 8.48% slower | 🚀 Fastest | 🔳
- *all* | 🚀 Fastest | 1.81% slower | 🔳
- *allPass* | 🚀 Fastest | 91.09% slower | 🔳
+ *all* | 🚀 Fastest | 7.18% slower | 🔳
+ *allPass* | 🚀 Fastest | 88.25% slower | 🔳
  *allPass* | 🚀 Fastest | 98.56% slower | 🔳
  *and* | 🚀 Fastest | 89.09% slower | 🔳
  *any* | 🚀 Fastest | 92.87% slower | 45.82% slower
@@ -243,7 +243,7 @@ method | Rambda | Ramda | Lodash
  *applySpec* | 🚀 Fastest | 80.43% slower | 🔳
  *assoc* | 72.32% slower | 60.08% slower | 🚀 Fastest
  *clone* | 🚀 Fastest | 91.86% slower | 86.48% slower
- *compose* | 🚀 Fastest | 32.45% slower | 13.68% slower
+ *compose* | 6.07% slower | 16.89% slower | 🚀 Fastest
  *converge* | 78.63% slower | 🚀 Fastest | 🔳
  *curry* | 🚀 Fastest | 28.86% slower | 🔳
  *curryN* | 🚀 Fastest | 41.05% slower | 🔳
@@ -254,10 +254,10 @@ method | Rambda | Ramda | Lodash
  *filter* | 6.7% slower | 72.03% slower | 🚀 Fastest
  *find* | 🚀 Fastest | 85.14% slower | 42.65% slower
  *findIndex* | 🚀 Fastest | 86.48% slower | 72.27% slower
- *flatten* | 6.56% slower | 86.64% slower | 🚀 Fastest
+ *flatten* | 🚀 Fastest | 85.68% slower | 3.57% slower
  *ifElse* | 🚀 Fastest | 58.56% slower | 🔳
- *includes* | 🚀 Fastest | 84.63% slower | 🔳
- *indexOf* | 🚀 Fastest | 76.63% slower | 🔳
+ *includes* | 🚀 Fastest | 81.64% slower | 🔳
+ *indexOf* | 🚀 Fastest | 80.17% slower | 🔳
  *indexOf* | 🚀 Fastest | 82.2% slower | 🔳
  *init* | 🚀 Fastest | 92.24% slower | 13.3% slower
  *is* | 🚀 Fastest | 57.69% slower | 🔳
@@ -273,7 +273,7 @@ method | Rambda | Ramda | Lodash
  *over* | 🚀 Fastest | 56.23% slower | 🔳
  *path* | 37.81% slower | 77.81% slower | 🚀 Fastest
  *pick* | 🚀 Fastest | 19.07% slower | 80.2% slower
- *pipe* | 0.87% slower | 🚀 Fastest | 🔳
+ *pipe* | 🚀 Fastest | 0.11% slower | 🔳
  *prop* | 🚀 Fastest | 87.95% slower | 🔳
  *propEq* | 🚀 Fastest | 91.92% slower | 🔳
  *range* | 🚀 Fastest | 61.8% slower | 57.44% slower
@@ -289,8 +289,9 @@ method | Rambda | Ramda | Lodash
  *takeLast* | 🚀 Fastest | 93.39% slower | 19.22% slower
  *test* | 🚀 Fastest | 82.34% slower | 🔳
  *type* | 🚀 Fastest | 48.6% slower | 🔳
- *uniq* | 🚀 Fastest | 90.24% slower | 🔳
- *uniqWith* | 18.09% slower | 🚀 Fastest | 🔳
+ *uniq* | 🚀 Fastest | 84.9% slower | 🔳
+ *uniqBy* | 51.93% slower | 🚀 Fastest | 🔳
+ *uniqWith* | 8.29% slower | 🚀 Fastest | 🔳
  *uniqWith* | 14.23% slower | 🚀 Fastest | 🔳
  *update* | 🚀 Fastest | 52.35% slower | 🔳
  *view* | 🚀 Fastest | 76.15% slower | 🔳
