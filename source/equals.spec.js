@@ -67,6 +67,7 @@ test('new Error', () => {
   expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalse()
   expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
   expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
 })
 
 test('with dates', () => {
@@ -95,8 +96,8 @@ test('ramda spec', () => {
     b : 3,
   },
   {
-    b : 3,
     a : 2,
+    b : 3,
   })).toBeTrue()
 
   expect(equals({
@@ -192,8 +193,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
   })).toBeTrue()
 
   expect(equals({
@@ -219,8 +220,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
     c : 3,
   })).toBeFalse()
 
@@ -232,8 +233,8 @@ test('various examples', () => {
   },
   {
     x : {
-      b : 2,
       a : 1,
+      b : 2,
       c : 3,
     },
   })).toBeFalse()
@@ -243,8 +244,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 3,
     a : 1,
+    b : 3,
   })).toBeFalse()
 
   expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
@@ -293,25 +294,31 @@ test('with negative zero', () => {
   expect(equals(-0, 1)).toBeFalse()
 })
 
-const possibleInputs = variousTypes
+test('with big int', () => {
+  const a = BigInt(9007199254740991)
+  const b = BigInt(9007199254740991)
+  const c = BigInt(7007199254740991)
+  expect(equals(a, b)).toBeTrue()
+  expect(equals(a, c)).toBeFalse()
+})
 
 describe('brute force', () => {
   compareCombinations({
+    callback : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+{
+  "ERRORS_MESSAGE_MISMATCH": 0,
+  "ERRORS_TYPE_MISMATCH": 0,
+  "RESULTS_MISMATCH": 8,
+  "SHOULD_NOT_THROW": 0,
+  "SHOULD_THROW": 0,
+  "TOTAL_TESTS": 289,
+}
+`)
+    },
+    firstInput  : variousTypes,
     fn          : equals,
     fnRamda     : equalsRamda,
-    firstInput  : possibleInputs,
-    secondInput : possibleInputs,
-    callback    : errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 5,
-          "SHOULD_NOT_THROW": 4,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 289,
-        }
-      `)
-    },
+    secondInput : variousTypes,
   })
 })

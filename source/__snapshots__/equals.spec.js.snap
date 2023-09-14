@@ -15,24 +15,6 @@ exports[`brute force ArrayBuffer | ArrayBuffer 1`] = `
 }
 `;
 
-exports[`brute force BigInt | BigInt 1`] = `
-{
-  "error": {
-    "message": "BigInt.prototype.toString requires that 'this' be a BigInt",
-    "type": "TypeError",
-  },
-  "inputs": [
-    9007199254740991n,
-    9007199254740991n,
-  ],
-  "label": "Rambda should not throw",
-  "ok": false,
-  "ramdaError": "PENDING",
-  "ramdaResult": true,
-  "result": "PENDING",
-}
-`;
-
 exports[`brute force DataView | DataView 1`] = `
 {
   "error": "PENDING",
@@ -50,28 +32,22 @@ exports[`brute force DataView | DataView 1`] = `
 
 exports[`brute force GeneratorFunction | GeneratorFunction 1`] = `
 {
-  "error": {
-    "message": "Function.prototype.toString requires that 'this' be a Function",
-    "type": "TypeError",
-  },
+  "error": "PENDING",
   "inputs": [
     [Function],
     [Function],
   ],
-  "label": "Rambda should not throw",
+  "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": true,
-  "result": "PENDING",
+  "result": false,
 }
 `;
 
 exports[`brute force Int16Array | Int16Array 1`] = `
 {
-  "error": {
-    "message": "Method %TypedArray%.prototype.join called on incompatible receiver [object Object]",
-    "type": "TypeError",
-  },
+  "error": "PENDING",
   "inputs": [
     Int16Array [
       0,
@@ -82,11 +58,11 @@ exports[`brute force Int16Array | Int16Array 1`] = `
       0,
     ],
   ],
-  "label": "Rambda should not throw",
+  "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": true,
-  "result": "PENDING",
+  "result": false,
 }
 `;
 
@@ -111,19 +87,16 @@ exports[`brute force Map | Map 1`] = `
 
 exports[`brute force Symbol | Symbol 1`] = `
 {
-  "error": {
-    "message": "Symbol.prototype.toString requires that 'this' be a Symbol",
-    "type": "TypeError",
-  },
+  "error": "PENDING",
   "inputs": [
     Symbol(foo),
     Symbol(foo),
   ],
-  "label": "Rambda should not throw",
+  "label": "results are different",
   "ok": false,
   "ramdaError": "PENDING",
   "ramdaResult": true,
-  "result": "PENDING",
+  "result": false,
 }
 `;
 

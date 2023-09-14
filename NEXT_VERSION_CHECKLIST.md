@@ -1,5 +1,5 @@
 
-- fix - use number as property to omit - TODO - should be same for pick, etc., i.e. they use same createpath util
+new type
 
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
@@ -10,6 +10,10 @@ release X
 no need to test curried methods such as replace
 
 latest changes might have effect in benchmarks
+
+automate deno release
+
+deno is advantage as Ramda last release is 3 years ago
 ---
 group TS test for similar methods
 

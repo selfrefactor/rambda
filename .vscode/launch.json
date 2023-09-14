@@ -9,22 +9,9 @@
       "args": [
         "--verbose", 
         "-i", 
+        "-u",
         "--no-cache",
         "${fileBasenameNoExtension}"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Deprecated - Single method",
-      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": [
-        "--verbose", 
-        "-i", 
-        "--no-cache",
-        "source/evolve.spec.js"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
