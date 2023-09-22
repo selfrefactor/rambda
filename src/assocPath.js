@@ -1,19 +1,15 @@
 import { cloneList } from './_internals/cloneList.js'
+import { createPath } from './_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
-import { isInteger } from './_internals/isInteger.js'
-import { assoc } from './assoc.js'
+import { isIndexInteger } from './_internals/isInteger.js'
+import { assocFn } from './assoc.js'
 import { curry } from './curry.js'
 
-function assocPathFn(
+export function assocPathFn(
   path, newValue, input
 ){
-  const pathArrValue =
-    typeof path === 'string' ?
-      path.split('.').map(x => isInteger(Number(x)) ? Number(x) : x) :
-      path
-  if (pathArrValue.length === 0){
-    return newValue
-  }
+  const pathArrValue = createPath(path)
+  if (pathArrValue.length === 0) return newValue
 
   const index = pathArrValue[ 0 ]
   if (pathArrValue.length > 1){
@@ -23,7 +19,7 @@ function assocPathFn(
       !input.hasOwnProperty(index)
 
     const nextInput = condition ?
-      isInteger(pathArrValue[ 1 ]) ?
+      isIndexInteger(pathArrValue[ 1 ]) ?
         [] :
         {} :
       input[ index ]
@@ -35,14 +31,14 @@ function assocPathFn(
     )
   }
 
-  if (isInteger(index) && isArray(input)){
+  if (isIndexInteger(index) && isArray(input)){
     const arr = cloneList(input)
     arr[ index ] = newValue
 
     return arr
   }
 
-  return assoc(
+  return assocFn(
     index, newValue, input
   )
 }

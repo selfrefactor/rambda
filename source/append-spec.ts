@@ -1,55 +1,58 @@
-import {append} from 'rambda'
+import {append, prepend} from 'rambda'
 
 const listOfNumbers = [1, 2, 3]
-const listOfNumbersAndStrings = [1, "b", 3]
+const listOfNumbersAndStrings = [1, 'b', 3]
 
-describe('R.append', () => {
-  describe('with the same primitive type as the array\'s elements', () => {
+describe('R.append/R.prepend', () => {
+  describe("with the same primitive type as the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
-      append("d", listOfNumbers)
-      const result = append(4, listOfNumbers)
-      result // $ExpectType number[]
+      append('d', listOfNumbers)
+      // @ts-expect-error
+      prepend('d', listOfNumbers)
+      append(4, listOfNumbers) // $ExpectType number[]
+      prepend(4, listOfNumbers) // $ExpectType number[]
     })
 
     it('curried', () => {
       // @ts-expect-error
-      append("d")(listOfNumbers)
-      const result = append(4)(listOfNumbers)
-      result // $ExpectType number[]
+      append('d')(listOfNumbers)
+      append(4)(listOfNumbers) // $ExpectType number[]
+      prepend(4)(listOfNumbers) // $ExpectType number[]
     })
-  });
+  })
 
-  describe('with a subtype of the array\'s elements', () => {
+  describe("with a subtype of the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
       append(true, listOfNumbersAndStrings)
-      const result = append(4, listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
+      append(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
+      prepend(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
 
     it('curried', () => {
       // @ts-expect-error
       append(true)(listOfNumbersAndStrings)
-      const result = append(4)(listOfNumbersAndStrings)
-      result // $ExpectType (string | number)[]
+      append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
+      prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
-  });
+  })
 
-  describe('expanding the type of the array\'s elements', () => {
+  describe("expanding the type of the array's elements", () => {
     it('uncurried', () => {
       // @ts-expect-error
-      append("d", listOfNumbers)
-      const result = append<string | number>("d", listOfNumbers)
-      result // $ExpectType (string | number)[]
+      append('d', listOfNumbers)
+      append<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
+      prepend<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
     })
 
     it('curried', () => {
       // @ts-expect-error
-      append("d")(listOfNumbers)
-      const appendD = append("d");
-      const result = appendD<string | number>(listOfNumbers)
-      result // $ExpectType (string | number)[]
+      append('d')(listOfNumbers)
+      const appendD = append('d')
+      appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
+      const prependD = prepend('d')
+      prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
     })
-  });
+  })
 })

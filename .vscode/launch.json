@@ -4,15 +4,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Single method",
+      "name": "Current Test File",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
         "-i", 
+        "-u",
         "--no-cache",
-        "source/evolve.spec.js"
+        "${fileBasenameNoExtension}"
       ],
-      "disableOptimisticBPs": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }

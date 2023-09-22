@@ -1,6 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-
 type LastArrayElement<ValueType extends readonly unknown[]> =
 	ValueType extends readonly [infer ElementType]
 		? ElementType
@@ -115,8 +114,8 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
-/** `TSuper`, whenever `TSuper` is a supertype of `TSub`; otherwise `never`. */
-type AsSuperType<TSub, TSuper> = (TSub extends TSuper ? TSuper : never);
+/** `TSuper`, when `TSuper` is a supertype of `T`; otherwise `never`. */
+type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -401,7 +400,7 @@ export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inp
 /*
 Method: append
 
-Explanation: It adds element `x` at the end of `list`.
+Explanation: It adds element `x` at the end of `iterable`.
 
 Example:
 
@@ -418,8 +417,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<TElement>(x: TElement, input: TElement[]): TElement[];
-export function append<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
+export function append<T>(xToAppend: T, iterable: T[]): T[];
+export function append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function append<T>(xToAppend: T): (iterable: T[]) => T[];
 
 /*
 Method: applySpec
@@ -1485,8 +1486,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head(input: string): string;
-export function head(emptyList: []): undefined;
+export function head(str: string): string;
+export function head(str: ''): undefined;
+export function head<T>(list: never[]): undefined;
+export function head<T extends unknown[]>(array: T): FirstArrayElement<T>
 export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /*
@@ -1892,8 +1895,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last(input: string): string;
-export function last(emptyList: []): undefined;
+export function last(str: ''): undefined;
+export function last(str: string): string;
+export function last(list: never[]): undefined;
+export function last<T extends unknown[]>(array: T): LastArrayElement<T>
 export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /*
@@ -3261,8 +3266,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<TElement>(x: TElement, input: TElement[]): TElement[];
-export function prepend<TNewElement>(x: TNewElement): <TElement>(input: AsSuperType<TNewElement, TElement>[]) => TElement[];
+export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
+export function prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
+
 
 /*
 Method: product
@@ -5576,6 +5584,46 @@ export function composeWith(
   fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
 ) => (...args: TArgs) => TResult;
 
+/*
+Method: dissocPath
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dissocPath<T>(x: T): T;
+
+/*
+Method: removeIndex
+
+Explanation: It returns a copy of `list` input with removed `index`. 
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const result = R.removeIndex(1, list)
+// => [1, 3, 4]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function removeIndex<T>(index: number, list: T[]): T[];
+export function removeIndex(index: number): <T>(list: T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -7252,29 +7300,6 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 // @SINGLE_MARKER
 export function sortByProps<T>(sortPaths: string[], list: T[]): T[];
 export function sortByProps(sortPaths: string[]): <T>(list: T[]) => T[];
-
-/*
-Method: removeIndex
-
-Explanation: It returns a copy of `list` input with removed `index`. 
-
-Example:
-
-```
-const list = [1, 2, 3, 4]
-const result = R.removeIndex(1, list)
-// => [1, 3, 4]
-```
-
-Categories: List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function removeIndex<T>(index: number, list: T[]): T[];
-export function removeIndex(index: number): <T>(list: T[]) => T[];
-
 
 /*
 Method: excludes

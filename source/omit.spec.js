@@ -14,18 +14,17 @@ test('with string as condition', () => {
   expect(resultCurry).toEqual(expectedResult)
 })
 
-test('with null', () => {
-  expect(omit('a,b', null)).toBeUndefined()
+test.only('with number as property to omit', () => {
+  const obj = {
+    1 : 1,
+    b : 2,
+  }
+  const result = omit([ 1 ], obj)
+  expect(result).toEqual({ b : 2 })
 })
 
-test('doesn\'t work with number as property', () => {
-  expect(omit([ 42 ], {
-    a  : 1,
-    42 : 2,
-  })).toEqual({
-    42 : 2,
-    a  : 1,
-  })
+test('with null', () => {
+  expect(omit('a,b', null)).toBeUndefined()
 })
 
 test('happy', () => {

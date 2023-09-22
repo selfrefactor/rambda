@@ -1,3 +1,27 @@
+8.4.0
+
+- Add `R.dissocPath`
+
+- Fix TS definitions of `R.head/R.last` and add missing handle of empty string
+
+- Add `R.removeIndex` - method was before only in `Rambdax`, but now since `R.dissocPath` is using it, it is added to main library.
+
+- Allow `R.omit` to pass numbers as part of properties to omit, i.e. `R.omit(['a', 1], {a: {1: 1, 2: 2}})`
+
+- R.keys always returns strings - [MR #700](https://github.com/selfrefactor/rambda/pull/700)
+
+- Improve `R.prepend/R.append` type interference - [MR #699](https://github.com/selfrefactor/rambda/pull/699)
+
+- Change `R.reduce` TS definitions so index is always received - [MR #696](https://github.com/selfrefactor/rambda/pull/696)
+
+- Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
+
+- Fix R.append's curried type - [MR #694](https://github.com/selfrefactor/rambda/pull/694)
+
+- Fix cannot compare errors in `Deno` with `R.equals` - [Issue #704](https://github.com/selfrefactor/rambda/issues/704).
+
+- Fix cannot compare `BigInt` with `R.equals` 
+
 8.3.0
 
 Add the following methods:

@@ -1,3 +1,9 @@
+===
+export function append<T>(xToAppend: T): (iterable: T[]) => T[]; is added for consistency and as a fallback just in case as there is no spec to cover this case
+===
+// cannot be tested with `let list = []` because of implicit any
+===
+===
     "moduleResolution":"node",
 
 import {createPipe, filter as filterRemeda} from 'remeda'
@@ -10,13 +16,5 @@ test('remeda test', () => {
   result // $ExpectType MyTestType[]
 })
 
-===
-this is git diff output:
-
-```
-
-```
-
-Copilot, please generate a commit message in the following format `feat|fix|docs|style|refactor|test|chore: <commit message>`:
 ===
 still issue with order of rambda.js

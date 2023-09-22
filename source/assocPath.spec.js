@@ -1,18 +1,42 @@
-import { assocPath } from './assocPath.js'
+import { assocPathFn } from './assocPath.js'
+
+test.only('happy', () => {
+  const path = 'a.c.1'
+  const input = {
+    a : {
+      b : 1,
+      c : [ 1, 2 ],
+    },
+  }
+  assocPathFn(
+    path, 3, input
+  )
+  expect(input).toEqual({
+    a : {
+      b : 1,
+      c : [ 1, 2 ],
+    },
+  })
+})
 
 test('string can be used as path input', () => {
   const testObj = {
     a : [ { b : 1 }, { b : 2 } ],
     d : 3,
   }
-  const result = assocPath(
+  const result1 = assocPathFn(
+    [ 'a', 0, 'b' ], 10, testObj
+  )
+  const result2 = assocPathFn(
     'a.0.b', 10, testObj
   )
+
   const expected = {
     a : [ { b : 10 }, { b : 2 } ],
     d : 3,
   }
-  expect(result).toEqual(expected)
+  expect(result1).toEqual(expected)
+  expect(result2).toEqual(expected)
 })
 
 test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
