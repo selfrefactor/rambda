@@ -18,6 +18,10 @@
 
 - Fix R.append's curried type - [MR #694](https://github.com/selfrefactor/rambda/pull/694)
 
+- Fix cannot compare errors in `Deno` with `R.equals` - [Issue #704](https://github.com/selfrefactor/rambda/issues/704).
+
+- Fix cannot compare `BigInt` with `R.equals` 
+
 8.3.0
 
 Add the following methods:

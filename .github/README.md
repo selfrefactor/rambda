@@ -51,13 +51,15 @@ import {add} from 'rambda/immutable'
 
 ### Deno support
 
-While `Ramda` is available for `Deno` users, `Rambda` provides you with included TS definitions:
+Latest version of **Ramba** available for `Deno` users is 3 years old. This is not the case with **Rambda** as most of recent releases are available for `Deno` users.
+
+Also, `Rambda` provides you with included TS definitions:
 
 ```
 // Deno extension(https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
 // is installed and initialized
 import * as R from "https://deno.land/x/rambda/mod.ts";
-import * as Ramda from "https://x.nest.land/ramda@0.29.0/mod.ts";
+import * as Ramda from "https://x.nest.land/ramda@0.27.2/mod.ts";
 
 R.add(1)('foo') // => will trigger warning in VSCode as it should
 Ramda.add(1)('foo') // => will not trigger warning in VSCode
@@ -99,7 +101,6 @@ One of the main issues with `Ramda` is the slow process of releasing new version
   Click to see the full list of 0 Ramda methods not implemented in Rambda and their status.
 </summary>
 
-- dissocPath
 - dropRepeatsBy
 - empty
 - eqBy
@@ -4006,43 +4007,39 @@ import { isArray } from './_internals/isArray.js'
 import { type } from './type.js'
 
 export function _lastIndexOf(valueToFind, list){
-  if (!isArray(list)){
+  if (!isArray(list))
     throw new Error(`Cannot read property 'indexOf' of ${ list }`)
-  }
+
   const typeOfValue = type(valueToFind)
-  if (![ 'Object', 'Array', 'NaN', 'RegExp' ].includes(typeOfValue))
+  if (![ 'Array', 'NaN', 'Object', 'RegExp' ].includes(typeOfValue))
     return list.lastIndexOf(valueToFind)
 
   const { length } = list
   let index = length
   let foundIndex = -1
 
-  while (--index > -1 && foundIndex === -1){
-    if (equals(list[ index ], valueToFind)){
+  while (--index > -1 && foundIndex === -1)
+    if (equals(list[ index ], valueToFind))
       foundIndex = index
-    }
-  }
 
   return foundIndex
 }
 
 export function _indexOf(valueToFind, list){
-  if (!isArray(list)){
+  if (!isArray(list))
     throw new Error(`Cannot read property 'indexOf' of ${ list }`)
-  }
+
   const typeOfValue = type(valueToFind)
-  if (![ 'Object', 'Array', 'NaN', 'RegExp' ].includes(typeOfValue))
+  if (![ 'Array', 'NaN', 'Object', 'RegExp' ].includes(typeOfValue))
     return list.indexOf(valueToFind)
 
   let index = -1
   let foundIndex = -1
   const { length } = list
 
-  while (++index < length && foundIndex === -1){
-    if (equals(list[ index ], valueToFind)){
+  while (++index < length && foundIndex === -1)
+    if (equals(list[ index ], valueToFind))
       foundIndex = index
-    }
-  }
 
   return foundIndex
 }
@@ -4050,17 +4047,16 @@ export function _indexOf(valueToFind, list){
 function _arrayFromIterator(iter){
   const list = []
   let next
-  while (!(next = iter.next()).done){
+  while (!(next = iter.next()).done)
     list.push(next.value)
-  }
 
   return list
 }
 
-function _equalsSets(a, b){
-  if (a.size !== b.size){
+function _compareSets(a, b){
+  if (a.size !== b.size)
     return false
-  }
+
   const aList = _arrayFromIterator(a.values())
   const bList = _arrayFromIterator(b.values())
 
@@ -4069,11 +4065,11 @@ function _equalsSets(a, b){
   return filtered.length === 0
 }
 
-function parseError(maybeError){
-  const typeofError = maybeError.__proto__.toString()
-  if (![ 'Error', 'TypeError' ].includes(typeofError)) return []
+function compareErrors(a, b){
+  if (a.message !== b.message) return false
+  if (a.toString !== b.toString) return false
 
-  return [ typeofError, maybeError.message ]
+  return a.toString() === b.toString()
 }
 
 function parseDate(maybeDate){
@@ -4094,40 +4090,36 @@ export function equals(a, b){
   const aType = type(a)
 
   if (aType !== type(b)) return false
-  if (aType === 'Function'){
+  if (aType === 'Function')
     return a.name === undefined ? false : a.name === b.name
-  }
 
-  if ([ 'NaN', 'Undefined', 'Null' ].includes(aType)) return true
+  if ([ 'NaN', 'Null', 'Undefined' ].includes(aType)) return true
 
-  if (aType === 'Number'){
+  if ([ 'BigInt', 'Number' ].includes(aType)){
     if (Object.is(-0, a) !== Object.is(-0, b)) return false
 
     return a.toString() === b.toString()
   }
 
-  if ([ 'String', 'Boolean' ].includes(aType)){
+  if ([ 'Boolean', 'String' ].includes(aType))
     return a.toString() === b.toString()
-  }
 
   if (aType === 'Array'){
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()){
+    if (aClone.toString() !== bClone.toString())
       return false
-    }
 
     let loopArrayFlag = true
     aClone.forEach((aCloneInstance, aCloneIndex) => {
-      if (loopArrayFlag){
+      if (loopArrayFlag)
         if (
           aCloneInstance !== bClone[ aCloneIndex ] &&
           !equals(aCloneInstance, bClone[ aCloneIndex ])
-        ){
+        )
           loopArrayFlag = false
-        }
-      }
+
     })
 
     return loopArrayFlag
@@ -4136,34 +4128,31 @@ export function equals(a, b){
   const aRegex = parseRegex(a)
   const bRegex = parseRegex(b)
 
-  if (aRegex[ 0 ]){
+  if (aRegex[ 0 ])
     return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
-  } else if (bRegex[ 0 ]) return false
+  else if (bRegex[ 0 ]) return false
 
   const aDate = parseDate(a)
   const bDate = parseDate(b)
 
-  if (aDate[ 0 ]){
+  if (aDate[ 0 ])
     return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
-  } else if (bDate[ 0 ]) return false
+  else if (bDate[ 0 ]) return false
 
-  const aError = parseError(a)
-  const bError = parseError(b)
+  if (a instanceof Error){
+    if (!(b instanceof Error)) return false
 
-  if (aError[ 0 ]){
-    return bError[ 0 ] ?
-      aError[ 0 ] === bError[ 0 ] && aError[ 1 ] === bError[ 1 ] :
-      false
+    return compareErrors(a, b)
   }
-  if (aType === 'Set'){
-    return _equalsSets(a, b)
-  }
+
+  if (aType === 'Set')
+    return _compareSets(a, b)
+
   if (aType === 'Object'){
     const aKeys = Object.keys(a)
 
-    if (aKeys.length !== Object.keys(b).length){
+    if (aKeys.length !== Object.keys(b).length)
       return false
-    }
 
     let loopObjectFlag = true
     aKeys.forEach(aKeyInstance => {
@@ -4171,9 +4160,9 @@ export function equals(a, b){
         const aValue = a[ aKeyInstance ]
         const bValue = b[ aKeyInstance ]
 
-        if (aValue !== bValue && !equals(aValue, bValue)){
+        if (aValue !== bValue && !equals(aValue, bValue))
           loopObjectFlag = false
-        }
+
       }
     })
 
@@ -4260,6 +4249,7 @@ test('new Error', () => {
   expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalse()
   expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
   expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalse()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
 })
 
 test('with dates', () => {
@@ -4288,8 +4278,8 @@ test('ramda spec', () => {
     b : 3,
   },
   {
-    b : 3,
     a : 2,
+    b : 3,
   })).toBeTrue()
 
   expect(equals({
@@ -4385,8 +4375,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
   })).toBeTrue()
 
   expect(equals({
@@ -4412,8 +4402,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 2,
     a : 1,
+    b : 2,
     c : 3,
   })).toBeFalse()
 
@@ -4425,8 +4415,8 @@ test('various examples', () => {
   },
   {
     x : {
-      b : 2,
       a : 1,
+      b : 2,
       c : 3,
     },
   })).toBeFalse()
@@ -4436,8 +4426,8 @@ test('various examples', () => {
     b : 2,
   },
   {
-    b : 3,
     a : 1,
+    b : 3,
   })).toBeFalse()
 
   expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
@@ -4486,26 +4476,32 @@ test('with negative zero', () => {
   expect(equals(-0, 1)).toBeFalse()
 })
 
-const possibleInputs = variousTypes
+test('with big int', () => {
+  const a = BigInt(9007199254740991)
+  const b = BigInt(9007199254740991)
+  const c = BigInt(7007199254740991)
+  expect(equals(a, b)).toBeTrue()
+  expect(equals(a, c)).toBeFalse()
+})
 
 describe('brute force', () => {
   compareCombinations({
+    callback : errorsCounters => {
+      expect(errorsCounters).toMatchInlineSnapshot(`
+{
+  "ERRORS_MESSAGE_MISMATCH": 0,
+  "ERRORS_TYPE_MISMATCH": 0,
+  "RESULTS_MISMATCH": 8,
+  "SHOULD_NOT_THROW": 0,
+  "SHOULD_THROW": 0,
+  "TOTAL_TESTS": 289,
+}
+`)
+    },
+    firstInput  : variousTypes,
     fn          : equals,
     fnRamda     : equalsRamda,
-    firstInput  : possibleInputs,
-    secondInput : possibleInputs,
-    callback    : errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 5,
-          "SHOULD_NOT_THROW": 4,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 289,
-        }
-      `)
-    },
+    secondInput : variousTypes,
   })
 })
 ```
@@ -18761,6 +18757,10 @@ describe('R.zipWith', () => {
 - Functions as a type guard in `R.anyPass` TS definitions - [MR #695](https://github.com/selfrefactor/rambda/pull/695)
 
 - Fix R.append's curried type - [MR #694](https://github.com/selfrefactor/rambda/pull/694)
+
+- Fix cannot compare errors in `Deno` with `R.equals` - [Issue #704](https://github.com/selfrefactor/rambda/issues/704).
+
+- Fix cannot compare `BigInt` with `R.equals` 
 
 8.3.0
 
