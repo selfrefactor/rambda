@@ -27,7 +27,6 @@
     "populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "populatereadme:x": "cd ../rambda-scripts && yarn populate:readme:rambdax",
-    "releasex": "node files/publish",
     "run:ramda:test": "cd ../rambda-scripts && yarn run:ramda:test",
     "test": "jest -o -u --watch",
     "test:all": "jest source/*.spec.js -u --bail=false",
