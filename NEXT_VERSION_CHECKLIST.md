@@ -109,3 +109,7 @@ check again deno as dissocpath doesn't add js extension to imports
 try omitPath as method instead of multiple paths
 ---
 replace missing ramda methods with text that argument is missing
+===
+publish after march 2024
+
+export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];

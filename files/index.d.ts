@@ -393,7 +393,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
