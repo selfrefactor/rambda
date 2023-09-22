@@ -7,7 +7,7 @@ void (async function publish(){
   }
 
   await execCommand(`run bump ${ publishType }`)
-  await execCommand(`eggs publish --release-type ${ publishType } --yes`)
+  // await execCommand(`eggs publish --release-type ${ publishType } --yes`)
   await execCommand('yarn github')
   await execCommand('run d release')
 })()
