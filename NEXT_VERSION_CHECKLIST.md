@@ -1,6 +1,3 @@
-
-new type
-
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
 fix https://github.com/selfrefactor/rambdax/issues/93
@@ -8,8 +5,6 @@ fix https://github.com/selfrefactor/rambdax/issues/93
 release X
 
 no need to test curried methods such as replace
-
-latest changes might have effect in benchmarks
 
 automate deno release
 
