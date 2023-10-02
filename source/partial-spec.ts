@@ -15,8 +15,6 @@ describe('R.partial', () => {
     partial(fn, 1)
 
     const fn1 = partial(fn, ['a'])
-
-    // @ts-expect-error
     partial(fn1, ['b'])
 
     const fn2 = partial(fn1, [2])
