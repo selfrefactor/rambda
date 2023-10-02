@@ -830,7 +830,7 @@ describe('R.any', () => {
 
 ```typescript
 
-anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]
+anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
 ```
 
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
@@ -855,7 +855,6 @@ const result = fn(input)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
 anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 ```
@@ -984,18 +983,18 @@ describe('anyPass', () => {
     filtered2 // $ExpectType number[]
   })
   it('functions as a type guard', () => {
-    const isString = (x: unknown): x is string => typeof x === 'string';
-    const isNumber = (x: unknown): x is number => typeof x === 'number';
-    const isBoolean = (x: unknown): x is boolean => typeof x === 'boolean';
-    
-    const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean]);
+    const isString = (x: unknown): x is string => typeof x === 'string'
+    const isNumber = (x: unknown): x is number => typeof x === 'number'
+    const isBoolean = (x: unknown): x is boolean => typeof x === 'boolean'
 
-    isStringNumberOrBoolean // $ExpectType (input: unknown) => input is string | number | boolean
+    const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean])
 
-    const aValue: unknown = 1;
+    isStringNumberOrBoolean // $ExpectType (input: unknown) => boolean
+
+    const aValue: unknown = 1
 
     if (isStringNumberOrBoolean(aValue)) {
-      aValue // $ExpectType string | number | boolean
+      aValue // $ExpectType unknown
     }
   })
 })
@@ -3609,6 +3608,10 @@ describe('R.dropRepeats', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeats)
 
+### dropRepeatsBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsBy)
+
 ### dropRepeatsWith
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A1%2Cb%3A3%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D%0Aconst%20result%20%3D%20R.dropRepeatsWith(R.prop('a')%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
@@ -3787,6 +3790,10 @@ describe('R.either', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
 
+### empty
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#empty)
+
 ### endsWith
 
 ```typescript
@@ -3958,6 +3965,10 @@ describe('R.endsWith - string', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#endsWith)
+
+### eqBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#eqBy)
 
 ### eqProps
 
@@ -5721,36 +5732,46 @@ forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<
 import { isArray } from './_internals/isArray.js'
 import { keys } from './_internals/keys.js'
 
-export function forEach(fn, list){
+export function forEachObjIndexedFn(fn, obj){
+  let index = 0
+  const listKeys = keys(obj)
+  const len = listKeys.length
+
+  while (index < len){
+    const key = listKeys[ index ]
+    fn(
+      obj[ key ], key, obj
+    )
+    index++
+  }
+
+  return obj
+}
+
+export function forEachObjIndexed(fn, list){
+  if (arguments.length === 1) return _list => forEachObjIndexed(fn, _list)
+
+  if (list === undefined) return
+
+  return forEachObjIndexedFn(fn, list)
+}
+
+export function forEach(fn, iterable){
   if (arguments.length === 1) return _list => forEach(fn, _list)
 
-  if (list === undefined){
-    return
-  }
+  if (iterable === undefined) return
 
-  if (isArray(list)){
+  if (isArray(iterable)){
     let index = 0
-    const len = list.length
+    const len = iterable.length
 
     while (index < len){
-      fn(list[ index ])
+      fn(iterable[ index ])
       index++
     }
-  } else {
-    let index = 0
-    const listKeys = keys(list)
-    const len = listKeys.length
+  } else return forEachObjIndexedFn(fn, iterable)
 
-    while (index < len){
-      const key = listKeys[ index ]
-      fn(
-        list[ key ], key, list
-      )
-      index++
-    }
-  }
-
-  return list
+  return iterable
 }
 ```
 
@@ -5880,6 +5901,10 @@ describe('R.forEach with objects', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#forEach)
+
+### forEachObjIndexed
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#forEachObjIndexed)
 
 ### fromPairs
 
@@ -9329,7 +9354,7 @@ mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 ```javascript
 import { curry } from './curry.js'
 
-function mergeWithFn(
+export function mergeWithFn(
   mergeFn, aInput, bInput
 ){
   const a = aInput ?? {}
@@ -9337,21 +9362,15 @@ function mergeWithFn(
   const willReturn = {}
 
   Object.keys(a).forEach(key => {
-    if (b[ key ] === undefined){
-      willReturn[ key ] = a[ key ]
-    } else {
-      willReturn[ key ] = mergeFn(a[ key ], b[ key ])
-    }
+    if (b[ key ] === undefined) willReturn[ key ] = a[ key ]
+    else willReturn[ key ] = mergeFn(a[ key ], b[ key ])
   })
 
   Object.keys(b).forEach(key => {
     if (willReturn[ key ] !== undefined) return
 
-    if (a[ key ] === undefined){
-      willReturn[ key ] = b[ key ]
-    } else {
-      willReturn[ key ] = mergeFn(a[ key ], b[ key ])
-    }
+    if (a[ key ] === undefined) willReturn[ key ] = b[ key ]
+    else willReturn[ key ] = mergeFn(a[ key ], b[ key ])
   })
 
   return willReturn
@@ -9368,10 +9387,10 @@ export const mergeWith = curry(mergeWithFn)
 
 ```javascript
 import { concat } from './concat.js'
-import { mergeWith } from './mergeWith.js'
+import { mergeWithFn } from './mergeWith.js'
 
 test('happy', () => {
-  const result = mergeWith(
+  const result = mergeWithFn(
     concat,
     {
       a      : true,
@@ -9384,8 +9403,8 @@ test('happy', () => {
   )
   const expected = {
     a      : true,
-    values : [ 10, 20, 15, 35 ],
     b      : true,
+    values : [ 10, 20, 15, 35 ],
   }
   expect(result).toEqual(expected)
 })
@@ -9393,31 +9412,31 @@ test('happy', () => {
 // https://github.com/ramda/ramda/pull/3222/files#diff-d925d9188b478d2f1d4b26012c6dddac374f9e9d7a336604d654b9a113bfc857
 describe('acts as if nil values are simply empty objects', () => {
   it('if the first object is nil and the second empty', () => {
-    expect(mergeWith(
+    expect(mergeWithFn(
       concat, undefined, {}
     )).toEqual({})
   })
 
   it('if the first object is empty and the second nil', () => {
-    expect(mergeWith(
+    expect(mergeWithFn(
       concat, {}, null
     )).toEqual({})
   })
 
   it('if both objects are nil', () => {
-    expect(mergeWith(
+    expect(mergeWithFn(
       concat, undefined, null
     )).toEqual({})
   })
 
   it('if the first object is not empty and the second is nil', () => {
-    expect(mergeWith(
+    expect(mergeWithFn(
       concat, { a : 'a' }, null
     )).toEqual({ a : 'a' })
   })
 
   it('if the first object is nil and the second is not empty', () => {
-    expect(mergeWith(
+    expect(mergeWithFn(
       concat, undefined, { a : 'a' }
     )).toEqual({ a : 'a' })
   })
@@ -10692,18 +10711,7 @@ test('index lens', () => {
 
 ```typescript
 
-partial<
-  Args extends unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  ...args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never
+partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T
 ```
 
 It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
@@ -10733,31 +10741,22 @@ finalFn('Bar') // =>  'Hello, Foo Bar!'
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-partial<
-  Args extends unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  ...args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
-
-partial<
-  Args extends readonly unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
+partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1, V2],
+): (x2: V3) => T;
+partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1],
+): (x2: V2, x3: V3) => T;
+partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0],
+): (x1: V1, x2: V2, x3: V3) => T;
+partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 ```
 
 </details>
@@ -10874,44 +10873,20 @@ describe('R.partial', () => {
       aBoolean: boolean,
       aNull: null
     ) {
-      return { aString, aNumber, aBoolean, aNull }
+      return {aString, aNumber, aBoolean, aNull}
     }
 
     // @ts-expect-error
-    partial(fn, 1);
-
-    const fn1 = partial(fn, 'a')
-
-    // @ts-expect-error
-    partial(fn1, 'b');
-
-    const fn2 = partial(fn1, 2)
-    const result = fn2(true, null)
-    result // $ExpectType { aString: string; aNumber: number; aBoolean: boolean; aNull: null; }
-  })
-
-  it('ramda', () => {
-    function fn(
-      aString: string,
-      aNumber: number,
-      aBoolean: boolean,
-      aNull: null
-    ) {
-      return { aString, aNumber, aBoolean, aNull }
-    }
-
-    // @ts-expect-error
-    partial(fn, 1);
+    partial(fn, 1)
 
     const fn1 = partial(fn, ['a'])
-
-    // @ts-expect-error
-    partial(fn1, ['b']);
+    partial(fn1, ['b'])
 
     const fn2 = partial(fn1, [2])
     const result = fn2(true, null)
     result // $ExpectType { aString: string; aNumber: number; aBoolean: boolean; aNull: null; }
-  })})
+  })
+})
 ```
 
 </details>
@@ -18737,6 +18712,20 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+8.5.0
+
+- Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
+
+- Wrong `R.partial` TS definition  - [Issue #705](https://github.com/selfrefactor/rambda/issues/705)
+
+- Add `R.dropRepeatsBy`
+
+- Add `R.empty`
+
+- Add `R.eqBy`
+
+- Add `R.forEachObjIndexed`
 
 8.4.0
 
