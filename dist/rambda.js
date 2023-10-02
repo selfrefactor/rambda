@@ -1015,6 +1015,21 @@ function dropRepeats(list) {
   return toReturn;
 }
 
+function dropRepeatsBy(fn, list) {
+  if (arguments.length === 1) return _list => dropRepeatsBy(fn, _list);
+  let lastEvaluated = null;
+  return list.slice().filter(item => {
+    if (lastEvaluated === null) {
+      lastEvaluated = fn(item);
+      return true;
+    }
+    const evaluatedResult = fn(item);
+    if (equals(lastEvaluated, evaluatedResult)) return false;
+    lastEvaluated = evaluatedResult;
+    return true;
+  });
+}
+
 function dropRepeatsWith(predicate, list) {
   if (arguments.length === 1) {
     return _iterable => dropRepeatsWith(predicate, _iterable);
@@ -1066,6 +1081,19 @@ function either(firstPredicate, secondPredicate) {
   return (...input) => Boolean(firstPredicate(...input) || secondPredicate(...input));
 }
 
+function empty(list) {
+  if (typeof list === 'string') return '';
+  if (Array.isArray(list)) {
+    const {
+      name
+    } = list.constructor;
+    if (name === 'Uint8Array') return Uint8Array.from('');
+    if (name === 'Float32Array') return new Float32Array([]);
+    return [];
+  }
+  if (type(list) === 'Object') return {};
+}
+
 function endsWith(target, iterable) {
   if (arguments.length === 1) return _iterable => endsWith(target, _iterable);
   if (typeof iterable === 'string') {
@@ -1082,6 +1110,11 @@ function endsWith(target, iterable) {
   });
   return filtered.length === target.length;
 }
+
+function eqByFn(fn, a, b) {
+  return equals(fn(a), fn(b));
+}
+const eqBy = curry(eqByFn);
 
 function prop(propToFind, obj) {
   if (arguments.length === 1) return _obj => prop(propToFind, _obj);
@@ -1246,29 +1279,34 @@ function flip(fn) {
   return flipFn(fn);
 }
 
-function forEach(fn, list) {
+function forEachObjIndexedFn(fn, obj) {
+  let index = 0;
+  const listKeys = keys$1(obj);
+  const len = listKeys.length;
+  while (index < len) {
+    const key = listKeys[index];
+    fn(obj[key], key, obj);
+    index++;
+  }
+  return obj;
+}
+function forEachObjIndexed(fn, list) {
+  if (arguments.length === 1) return _list => forEachObjIndexed(fn, _list);
+  if (list === undefined) return;
+  return forEachObjIndexedFn(fn, list);
+}
+function forEach(fn, iterable) {
   if (arguments.length === 1) return _list => forEach(fn, _list);
-  if (list === undefined) {
-    return;
-  }
-  if (isArray(list)) {
+  if (iterable === undefined) return;
+  if (isArray(iterable)) {
     let index = 0;
-    const len = list.length;
+    const len = iterable.length;
     while (index < len) {
-      fn(list[index]);
+      fn(iterable[index]);
       index++;
     }
-  } else {
-    let index = 0;
-    const listKeys = keys$1(list);
-    const len = listKeys.length;
-    while (index < len) {
-      const key = listKeys[index];
-      fn(list[key], key, list);
-      index++;
-    }
-  }
-  return list;
+  } else return forEachObjIndexedFn(fn, iterable);
+  return iterable;
 }
 
 function fromPairs(listOfPairs) {
@@ -1592,19 +1630,11 @@ function mergeWithFn(mergeFn, aInput, bInput) {
   const b = bInput !== null && bInput !== void 0 ? bInput : {};
   const willReturn = {};
   Object.keys(a).forEach(key => {
-    if (b[key] === undefined) {
-      willReturn[key] = a[key];
-    } else {
-      willReturn[key] = mergeFn(a[key], b[key]);
-    }
+    if (b[key] === undefined) willReturn[key] = a[key];else willReturn[key] = mergeFn(a[key], b[key]);
   });
   Object.keys(b).forEach(key => {
     if (willReturn[key] !== undefined) return;
-    if (a[key] === undefined) {
-      willReturn[key] = b[key];
-    } else {
-      willReturn[key] = mergeFn(a[key], b[key]);
-    }
+    if (a[key] === undefined) willReturn[key] = b[key];else willReturn[key] = mergeFn(a[key], b[key]);
   });
   return willReturn;
 }
@@ -2381,10 +2411,14 @@ exports.drop = drop;
 exports.dropLast = dropLast;
 exports.dropLastWhile = dropLastWhile;
 exports.dropRepeats = dropRepeats;
+exports.dropRepeatsBy = dropRepeatsBy;
 exports.dropRepeatsWith = dropRepeatsWith;
 exports.dropWhile = dropWhile;
 exports.either = either;
+exports.empty = empty;
 exports.endsWith = endsWith;
+exports.eqBy = eqBy;
+exports.eqByFn = eqByFn;
 exports.eqProps = eqProps;
 exports.equals = equals;
 exports.evolve = evolve;
@@ -2400,6 +2434,8 @@ exports.findLastIndex = findLastIndex;
 exports.flatten = flatten;
 exports.flip = flip;
 exports.forEach = forEach;
+exports.forEachObjIndexed = forEachObjIndexed;
+exports.forEachObjIndexedFn = forEachObjIndexedFn;
 exports.fromPairs = fromPairs;
 exports.groupBy = groupBy;
 exports.groupWith = groupWith;
@@ -2446,6 +2482,7 @@ exports.mergeDeepRight = mergeDeepRight;
 exports.mergeLeft = mergeLeft;
 exports.mergeRight = mergeRight;
 exports.mergeWith = mergeWith;
+exports.mergeWithFn = mergeWithFn;
 exports.min = min;
 exports.minBy = minBy;
 exports.minByFn = minByFn;

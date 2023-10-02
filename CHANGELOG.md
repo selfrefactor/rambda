@@ -1,3 +1,17 @@
+8.5.0
+
+- Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
+
+- Wrong `R.partial` TS definition  - [Issue #705](https://github.com/selfrefactor/rambda/issues/705)
+
+- Add `R.dropRepeatsBy`
+
+- Add `R.empty`
+
+- Add `R.eqBy`
+
+- Add `R.forEachObjIndexed`
+
 8.4.0
 
 - Add `R.dissocPath`

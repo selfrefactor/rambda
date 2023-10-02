@@ -1,3 +1,16 @@
+fix partial
+
+- dropRepeatsBy
+- empty
+- eqBy
+- forEachObjIndexed
+
+forEachObjIndexed should not contain source file nor test file
+---
+
+
+
+
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
 fix https://github.com/selfrefactor/rambdax/issues/93
@@ -10,6 +23,8 @@ automate deno release
 
 deno is advantage as Ramda last release is 3 years ago
 ---
+no testing curry when method is exporting curried function
+---
 group TS test for similar methods
 
 eventual create additional topic in methods - related methods, so it is easy to find tests as the first one alpabetically is the one containing all TS tests
@@ -17,10 +32,6 @@ eventual create additional topic in methods - related methods, so it is easy to 
 - construct - it is class helper and classes are not very functional oriented
 - constructN
 
-- dropRepeatsBy
-- empty
-- eqBy
-- forEachObjIndexed
 - gt
 - gte
 - hasIn
@@ -109,3 +120,7 @@ check again deno as dissocpath doesn't add js extension to imports
 try omitPath as method instead of multiple paths
 ---
 replace missing ramda methods with text that argument is missing
+===
+publish after march 2024
+
+export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];

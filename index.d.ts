@@ -231,7 +231,6 @@ export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 /**
  * It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
  */
-export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
 export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
@@ -541,6 +540,12 @@ export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: T[
  */
 export function dropRepeats<T>(list: T[]): T[];
 
+export function dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[];
+export function dropRepeatsBy<T, U>(
+  fn: (a: T) => U
+): (list: T[]) => T[];
+export function dropRepeatsBy(fn: any): <T>(list: T[]) => T[];
+
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
@@ -559,6 +564,8 @@ export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predica
 export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
 export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
+export function empty<T>(x: T): T;
+
 /**
  * When iterable is a string, then it behaves as `String.prototype.endsWith`.
  * When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
@@ -567,6 +574,13 @@ export function endsWith<T extends string>(question: T, str: string): boolean;
 export function endsWith<T extends string>(question: T): (str: string) => boolean;
 export function endsWith<T>(question: T[], list: T[]): boolean;
 export function endsWith<T>(question: T[]): (list: T[]) => boolean;
+
+export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
+export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
+export function eqBy<T>(fn: (a: T) => unknown): {
+  (a: T, b: T): boolean;
+  (a: T): (b: T) => boolean;
+};
 
 /**
  * It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
@@ -646,6 +660,9 @@ export function forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
 export function forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
 export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
 export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
 
 /**
  * It transforms a `listOfPairs` to an object.
@@ -1096,31 +1113,22 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
  * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
  * The name comes from the fact that you partially inject the inputs.
  */
-export function partial<
-  Args extends unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  ...args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
-
-export function partial<
-  Args extends readonly unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
+export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1, V2],
+): (x2: V3) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1],
+): (x2: V2, x3: V3) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0],
+): (x1: V1, x2: V2, x3: V3) => T;
+export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
 /**
  * `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
