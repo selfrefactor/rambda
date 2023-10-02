@@ -2806,31 +2806,22 @@ Notes: Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 */
 // @SINGLE_MARKER
-export function partial<
-  Args extends unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  ...args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
-
-export function partial<
-  Args extends readonly unknown[],
-  ArgsGiven extends [...Partial<Args>],
-  R
->(
-  fn: (...args: Args) => R,
-  args: ArgsGiven
-): Args extends [...{[K in keyof ArgsGiven]: Args[K]}, ...infer ArgsRemaining]
-  ? ArgsRemaining extends []
-    ? R
-    : (...args: ArgsRemaining) => R
-  : never;
+export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1, V2],
+): (x2: V3) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0, V1],
+): (x2: V2, x3: V3) => T;
+export function partial<V0, V1, V2, V3, T>(
+  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+  args: [V0],
+): (x1: V1, x2: V2, x3: V3) => T;
+export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
 
 /*
@@ -5622,6 +5613,88 @@ Notes:
 // @SINGLE_MARKER
 export function removeIndex<T>(index: number, list: T[]): T[];
 export function removeIndex(index: number): <T>(list: T[]) => T[];
+
+/*
+Method: dropRepeatsBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[];
+export function dropRepeatsBy<T, U>(
+  fn: (a: T) => U
+): (list: T[]) => T[];
+export function dropRepeatsBy(fn: any): <T>(list: T[]) => T[];
+
+/*
+Method: empty
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function empty<T>(x: T): T;
+
+/*
+Method: eqBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
+export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
+export function eqBy<T>(fn: (a: T) => unknown): {
+  (a: T, b: T): boolean;
+  (a: T): (b: T) => boolean;
+};
+
+/*
+Method: forEachObjIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
 
 // RAMBDAX_MARKER_START
 
