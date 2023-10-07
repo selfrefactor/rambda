@@ -5696,6 +5696,25 @@ Notes:
 export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
 export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
 
+/*
+Method: sortWith
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
+export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*
