@@ -19,10 +19,7 @@ describe('Ramda.flip', () => {
     const subtractFlipped = R.flip(R.subtract)
     const result = subtractFlipped(1, 7)
     const curriedResult = subtractFlipped(1)(7)
+    result // $ExpectType number
     curriedResult // $ExpectType number
-
-    // This is wrong
-    // ============================================
-    result // $ExpectType (b: number) => number
   })
 })
