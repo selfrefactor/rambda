@@ -9188,31 +9188,6 @@ export function xnor(x: boolean, y: boolean): boolean
 export function xnor(y: boolean): (y: boolean) => boolean
 
 /*
-Method: deletePath
-
-Explanation: It removes property path from an object.
-
-Example:
-
-```
-const input = {a: 1, b:{c:2, d:3}}
-const expected = {a: 1, b:{c:2}}
-const result = R.deletePath('a.d', input)
-// => result === expected
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function deletePath<Output>(path: Path, obj: unknown): Output
-export function deletePath<Output>(
-  path: Path,
-): (obj: unknown) => Output
-
-/*
 Method: mapcat
 
 Explanation:
@@ -9231,47 +9206,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapcat<T>(x: T): T
-
-/*
-Method: flattenObject
-
-Explanation: It transforms object to object where each value is represented with its path.
-
-Example:
-
-```
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function flattenObject(
-  x: Record<string, unknown>,
-): Record<string, unknown>
-export function flattenObject<T>(
-  x: Record<string, T>,
-): Record<string, T>
-
-/*
-Method: deletePath
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function deletePath<T>(path: string): T
 
 /*
 Method: contains
