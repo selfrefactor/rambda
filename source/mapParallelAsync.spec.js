@@ -1,3 +1,4 @@
+import { willFailAssertion } from './_internals/testUtils.js'
 import { composeAsync } from './composeAsync.js'
 import { delay } from './delay.js'
 import { map } from './map.js'
@@ -32,12 +33,13 @@ test('composeAsync', async () => {
 
 test('error', async () => {
   try {
-    const fn = async x => {
+    const fn = async () => {
       JSON.parse('{:')
     }
-    const result = await mapParallelAsync(fn, [ 1, 2, 3 ])
+    await mapParallelAsync(fn, [ 1, 2, 3 ])
+    willFailAssertion()
   } catch (err){
-    expect(err.message).toBe('Unexpected token : in JSON at position 1')
+    expect(err.message).toBe(`Expected property name or '}' in JSON at position 1`)
   }
 })
 

@@ -335,3 +335,7 @@ export const FOOBAR = 'FOOBAR'
 export function eq(actual, expected){
   expect(actual).toEqual(expected)
 }
+
+export const willFailAssertion = () => {
+  expect(true).toBe(false)
+}
