@@ -59,7 +59,7 @@ Also, `Rambda` provides you with included TS definitions:
 // Deno extension(https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
 // is installed and initialized
 import * as R from "https://deno.land/x/rambda/mod.ts";
-import * as Ramda from "https://x.nest.land/ramda@0.27.2/mod.ts";
+import * as Ramda from "https://deno.land/x/ramda/mod.ts";
 
 R.add(1)('foo') // => will trigger warning in VSCode as it should
 Ramda.add(1)('foo') // => will not trigger warning in VSCode
@@ -101,10 +101,6 @@ One of the main issues with `Ramda` is the slow process of releasing new version
   Click to see the full list of 0 Ramda methods not implemented in Rambda and their status.
 </summary>
 
-- dropRepeatsBy
-- empty
-- eqBy
-- forEachObjIndexed
 - gt
 - gte
 - hasIn
@@ -226,7 +222,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.29.1).
 
 </summary>
 
@@ -17427,6 +17423,14 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+8.6.0
+
+- Wrong typing for `R.dissocPath` - [Issue #709](https://github.com/selfrefactor/rambda/issues/709)
+
+- Add `R.sortWith` - [Issue #7097](https://github.com/selfrefactor/rambda/issues/707)
+
+- Update build dependencies
+
 8.5.0
 
 - Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
@@ -17773,25 +17777,25 @@ Fix wrong versions in changelog
 
 > Most influential contributors(in alphabetical order)
 
-- [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
+- ![farwayer avatar](https://avatars.githubusercontent.com/farwayer) [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
 
-- [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
+- ![thejohnfreeman avatar](https://avatars.githubusercontent.com/thejohnfreeman) [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
 
-- [@peeja](https://github.com/peeja) - add several methods and fix mutiple issues; provides great MR documentation
+- ![peeja avatar](https://avatars.githubusercontent.com/peeja) [@peeja](https://github.com/peeja) - add several methods and fix mutiple issues; provides great MR documentation
 
-- [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
+- ![helmuthdu avatar](https://avatars.githubusercontent.com/helmuthdu) [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
 
-- [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
+- ![jpgorman avatar](https://avatars.githubusercontent.com/jpgorman) [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
 
-- [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
+- ![ku8ar avatar](https://avatars.githubusercontent.com/ku8ar) [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
 
-- [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
+- ![romgrk avatar](https://avatars.githubusercontent.com/romgrk) [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
 
-- [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
+- ![squidfunk avatar](https://avatars.githubusercontent.com/squidfunk) [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
 
-- [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
+- ![synthet1c avatar](https://avatars.githubusercontent.com/synthet1c) [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
 
-- [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
+- ![vlad-zhukov avatar](https://avatars.githubusercontent.com/vlad-zhukov) [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
 
 > Rambda references
 
@@ -17803,19 +17807,15 @@ Fix wrong versions in changelog
 
 > Links to Rambda
 
-- [https://mailchi.mp/webtoolsweekly/web-tools-280](Web Tools Weekly)
-
 - [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
+
+- [ https://mailchi.mp/webtoolsweekly/web-tools-280 ]( Web Tools Weekly #280 )
 
 - [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
 
 > Deprecated from `Used by` section
 
 - [SAP's Cloud SDK](https://github.com/SAP/cloud-sdk) - This repo doesn't uses `Rambda` since *October/2020* [commit that removes Rambda](https://github.com/SAP/cloud-sdk/commit/b29b4f915c4e4e9c2441e7b6b67cf83dac1fdac3)
-
-> Releases
-
-[Rambda's releases](https://github.com/selfrefactor/rambda/releases) before **6.4.0** were used mostly for testing purposes.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-additional-info)
 
