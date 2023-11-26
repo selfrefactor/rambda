@@ -1,3 +1,11 @@
+8.6.0
+
+- Wrong typing for `R.dissocPath` - [Issue #709](https://github.com/selfrefactor/rambda/issues/709)
+
+- Add `R.sortWith` - [Issue #7097](https://github.com/selfrefactor/rambda/issues/707)
+
+- Update build dependencies
+
 8.5.0
 
 - Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.

@@ -1,6 +1,4 @@
 const assert = require('assert')
-import { dissocPath as dissocPathRamda } from 'ramda'
-
 import { eq } from './_internals/testUtils.js'
 import { dissocPath } from './dissocPath.js'
 
@@ -121,21 +119,6 @@ test('leaves an empty array when all indexes are omitted', () => {
     a : 1,
     b : [],
     d : 3,
-  })
-})
-
-test.skip('flattens properties from prototype', () => {
-  const F = function (){}
-  F.prototype.a = 1
-  const obj1 = new F()
-  obj1.b = {
-    c : 2,
-    d : 3,
-  }
-  const obj2 = dissocPath([ 'b', 'c' ], obj1)
-  eq(obj2, {
-    a : 1,
-    b : { d : 3 },
   })
 })
 

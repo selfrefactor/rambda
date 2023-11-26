@@ -505,7 +505,8 @@ export function differenceWith<T1, T2>(
 export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
 export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
-export function dissocPath<T>(x: T): T;
+export function dissocPath<T>(path: Path, obj: any): T;
+export function dissocPath<T>(path: Path): (obj: any) => T;
 
 export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;

@@ -1,4 +1,5 @@
-import { type } from './type.js'
+// It transforms object to object where each value is represented with its path.
+import { type } from '../../source/type.js'
 
 export function flattenObjectHelper(obj, accumulator = []){
   const willReturn = {}

@@ -1,11 +1,8 @@
-fix partial
 
-- dropRepeatsBy
-- empty
-- eqBy
-- forEachObjIndexed
+---
+REFS:
 
-forEachObjIndexed should not contain source file nor test file
+- forEachObjIndexed should not contain source file nor test file
 ---
 
 
@@ -77,7 +74,6 @@ eventual create additional topic in methods - related methods, so it is easy to 
 - remove
 - scan
 - sequence
-- sortWith
 - splitWhenever
 - swap
 - symmetricDifferenceWith
