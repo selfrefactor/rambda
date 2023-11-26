@@ -1,341 +1,180 @@
-export type RambdaTypes =
-  | 'Object'
-  | 'Number'
-  | 'Boolean'
-  | 'String'
-  | 'Null'
-  | 'Array'
-  | 'RegExp'
-  | 'NaN'
-  | 'Function'
-  | 'Undefined'
-  | 'Async'
-  | 'Promise'
-  | 'Symbol'
-  | 'Set'
-  | 'Error'
-  | 'Map'
-  | 'WeakMap'
-  | 'Generator'
-  | 'GeneratorFunction'
-  | 'BigInt'
-  | 'ArrayBuffer'
-  | 'Date'
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
 type LastArrayElement<ValueType extends readonly unknown[]> =
-  ValueType extends readonly [infer ElementType]
-    ? ElementType
-    : ValueType extends readonly [infer _, ...infer Tail]
-    ? LastArrayElement<Tail>
-    : ValueType extends ReadonlyArray<infer ElementType>
-    ? ElementType
-    : never
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [infer _, ...infer Tail]
+			? LastArrayElement<Tail>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
 type FirstArrayElement<ValueType extends readonly unknown[]> =
-  ValueType extends readonly [infer ElementType]
-    ? ElementType
-    : ValueType extends readonly [...infer Head, infer _]
-    ? FirstArrayElement<Head>
-    : ValueType extends ReadonlyArray<infer ElementType>
-    ? ElementType
-    : never
+	ValueType extends readonly [infer ElementType]
+		? ElementType
+		: ValueType extends readonly [...infer Head, infer _]
+			? FirstArrayElement<Head>
+			: ValueType extends ReadonlyArray<infer ElementType>
+				? ElementType
+				: never;
 
-export function reduceStopper<T>(input: T): T
-export type IndexedIterator<T, U> = (x: T, i: number) => U
-export type Iterator<T, U> = (x: T) => U
-export type ObjectIterator<T, U> = (
-  x: T,
-  prop: string,
-  inputObj: Dictionary<T>,
-) => U
-type Ord = number | string | boolean | Date
-type Ordering = -1 | 0 | 1
-type Path = string | (number | string)[]
-export type RamdaPath = (number | string)[]
-type Predicate<T> = (x: T) => boolean
-export type IndexedPredicate<T> = (x: T, i: number) => boolean
-export type ObjectPredicate<T> = (
-  x: T,
-  prop: string,
-  inputObj: Dictionary<T>,
-) => boolean
-type CondPair<T extends any[], R> = [
-  (...val: T) => boolean,
-  (...val: T) => R,
-]
-type Prop<T, P extends keyof never> = P extends keyof Exclude<
-  T,
-  undefined
->
-  ? T extends undefined
-    ? undefined
-    : T[Extract<P, keyof T>]
-  : undefined
+export function reduceStopper<T>(input: T) : T
+export type IndexedIterator<T, U> = (x: T, i: number) => U;
+export type Iterator<T, U> = (x: T) => U;
+export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
+type Ord = number | string | boolean | Date;
+type Ordering = -1 | 0 | 1;
+type Path = string | (number | string)[];
+export type RamdaPath = (number | string)[];
+type Predicate<T> = (x: T) => boolean;
+export type IndexedPredicate<T> = (x: T, i: number) => boolean;
+export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
+type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
+type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
+    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
+    : undefined;
 
-type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never
+type ValueOfRecord<R> =
+  R extends Record<any, infer T>
+  ? T
+  : never;
 
 interface KeyValuePair<K, V> extends Array<K | V> {
-  0: K
-  1: V
+  0: K;
+  1: V;
 }
 
 export interface Lens {
-  <T, U>(obj: T): U
-  set<T, U>(str: string, obj: T): U
+  <T, U>(obj: T): U;
+  set<T, U>(str: string, obj: T): U;
 }
 
-type Arity1Fn = (x: any) => any
-type Arity2Fn = (x: any, y: any) => any
+type Arity1Fn = (x: any) => any;
+type Arity2Fn = (x: any, y: any) => any;
 
-type Pred = (...x: any[]) => boolean
+type Pred = (...x: any[]) => boolean;
 
-export interface Dictionary<T> {
-  [index: string]: T
-}
-type Partial<T> = { [P in keyof T]?: T[P] }
+export interface Dictionary<T> {[index: string]: T}
+type Partial<T> = { [P in keyof T]?: T[P]};
 
-type _TupleOf<
-  T,
-  N extends number,
-  R extends unknown[],
-> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>
-export type Tuple<T, N extends number> = N extends N
-  ? number extends N
-    ? T[]
-    : _TupleOf<T, N, []>
-  : never
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 
-type Evolvable<E extends Evolver> = {
-  [P in keyof E]?: Evolved<E[P]>
-}
+type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
-type Evolver<T extends Evolvable<any> = any> = {
-  [key in keyof Partial<T>]:
-    | ((value: T[key]) => T[key])
-    | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never)
-}
+type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
+};
 
-type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-  [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P]
-}
+type Evolve<O extends Evolvable<E>, E extends Evolver> = {   [P in keyof O]: P extends keyof E
+                  ? EvolveValue<O[P], E[P]>
+                  : O[P];
+};
 
-type Evolved<A> = A extends (value: infer V) => any
-  ? V
-  : A extends Evolver
-  ? Evolvable<A>
-  : never
+type Evolved<A> =
+    A extends (value: infer V) => any
+    ? V
+    : A extends Evolver
+      ? Evolvable<A>
+      : never;
 
-type EvolveNestedValue<O, E extends Evolver> = O extends object
-  ? O extends Evolvable<E>
-    ? Evolve<O, E>
-    : never
-  : never
+type EvolveNestedValue<O, E extends Evolver> =
+    O extends object
+    ? O extends Evolvable<E>
+      ? Evolve<O, E>
+      : never
+    : never;
 
-type EvolveValue<V, E> = E extends (value: V) => any
-  ? ReturnType<E>
-  : E extends Evolver
-  ? EvolveNestedValue<V, E>
-  : never
+type EvolveValue<V, E> =
+    E extends (value: V) => any
+    ? ReturnType<E>
+    : E extends Evolver
+      ? EvolveNestedValue<V, E>
+      : never;
 
 interface AssocPartialOne<K extends keyof any> {
-  <T>(val: T): <U>(obj: U) => Record<K, T> & U
-  <T, U>(val: T, obj: U): Record<K, T> & U
+  <T>(val: T): <U>(obj: U) => Record<K, T> & U;
+  <T, U>(val: T, obj: U): Record<K, T> & U;
 }
-type AtLeastOneFunctionsFlowFromRightToLeft<
-  TArgs extends any[],
-  TResult,
-> =
-  | [
-      (...args: any) => TResult,
-      ...Array<(args: any) => any>,
-      (...args: TArgs) => any,
-    ]
-  | [(...args: TArgs) => TResult]
+type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
+    | [(...args: TArgs) => TResult];
 
-type AnyFunction = (...args: any[]) => unknown
-type AnyConstructor = new (...args: any[]) => unknown
+type AnyFunction = (...args: any[]) => unknown;
+type AnyConstructor = new (...args: any[]) => unknown;
 
 type RegExpReplacerFn =
-  | ((
-      m: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      p5: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      p5: string,
-      p6: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      p5: string,
-      p6: string,
-      p7: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      p5: string,
-      p6: string,
-      p7: string,
-      p8: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
-  | ((
-      m: string,
-      p1: string,
-      p2: string,
-      p3: string,
-      p4: string,
-      p5: string,
-      p6: string,
-      p7: string,
-      p8: string,
-      p9: string,
-      offset: number,
-      s: string,
-      groups?: Record<string, string>,
-    ) => string)
+  | ((m: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, offset: number, s: string, groups?: Record<string, string>) => string)
+  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
 /** `TSuper`, when `TSuper` is a supertype of `T`; otherwise `never`. */
-type IsFirstSubtypeOfSecond<First, Second> = First extends Second
-  ? Second
-  : never
+type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
 // ============================================
-type Func<T> = (input: any) => T
-type VoidInputFunc<T> = () => T
-type Fn<In, Out> = (x: In) => Out
-type SortObjectPredicate<T> = (
-  aProp: string,
-  bProp: string,
-  aValue: T,
-  bValue: T,
-) => number
+type Func<T> = (input: any) => T;
+type VoidInputFunc<T> = () => T;
+type Fn<In, Out> = (x: In) => Out;
+type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
-type IdentityFunction<T> = (x: T) => T
+type IdentityFunction<T> = (x: T) => T;
 
 interface Filter<T> {
-  (list: T[]): T[]
-  (obj: Dictionary<T>): Dictionary<T>
+  (list: T[]): T[];
+  (obj: Dictionary<T>): Dictionary<T>;
 }
 
-type ArgumentTypes<T> = T extends (...args: infer U) => infer R
-  ? U
-  : never
-type isfn<T> = (x: any, y: any) => T
+type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
+type isfn<T> = (x: any, y: any) => T;
 
 interface Switchem<T> {
-  is: isfn<Switchem<T>>
-  default: IdentityFunction<T>
+  is: isfn<Switchem<T>>;
+  default: IdentityFunction<T>;
 }
 
 interface Schema {
-  [key: string]: any
+  [key: string]: any;
 }
 
 interface SchemaAsync {
-  [key: string]: Promise<boolean>
+  [key: string]: Promise<boolean>;
 }
 
 interface IsValid {
-  input: object
-  schema: Schema
+  input: object;
+  schema: Schema;
 }
 
 interface IsValidAsync {
-  input: object
-  schema: Schema | SchemaAsync
+  input: object;
+  schema: Schema | SchemaAsync;
 }
 
-type ProduceRules<Output, K extends keyof Output, Input> = {
-  [P in K]: (input: Input) => Output[P]
-}
-type ProduceAsyncRules<Output, K extends keyof Output, Input> = {
-  [P in K]: (input: Input) => Promise<Output[P]>
-}
-type ProduceAsyncRule<Input> = (input: Input) => Promise<any>
-type Async<T> = (x: any) => Promise<T>
-type AsyncIterable<T, K> = (x: T) => Promise<K>
-type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>
-type AsyncPredicate<T> = (x: T) => Promise<boolean>
-type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>
-type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>
+type ProduceRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Output[P];
+};
+type ProduceAsyncRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Promise<Output[P]>;
+};
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>;
+type Async<T> = (x: any) => Promise<T>;
+type AsyncIterable<T, K> = (x: T) => Promise<K>;
+type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncPredicate<T> = (x: T) => Promise<boolean>;
+type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
+type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
-type ApplyDiffUpdate = { op: 'update'; path: string; value: any }
-type ApplyDiffAdd = { op: 'add'; path: string; value: any }
-type ApplyDiffRemove = { op: 'remove'; path: string }
-type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove
+type ApplyDiffUpdate = {op:'update', path: string, value: any};
+type ApplyDiffAdd = {op:'add', path: string, value: any};
+type ApplyDiffRemove = {op:'remove', path: string};
+type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
-type Resolved<T> =
-  | { status: 'fulfilled'; value: T }
-  | { status: 'rejected'; reason: string | Error }
+type Resolved<T> = {status: 'fulfilled', value: T} | {status: 'rejected', reason: string|Error}
 
 // API_MARKER
 
@@ -358,8 +197,8 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 
 */
 // @SINGLE_MARKER
-export function add(a: number, b: number): number
-export function add(a: number): (b: number) => number
+export function add(a: number, b: number): number;
+export function add(a: number): (b: number) => number;
 
 /*
 Method: adjust
@@ -384,15 +223,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function adjust<T>(
-  index: number,
-  replaceFn: (x: T) => T,
-  list: T[],
-): T[]
-export function adjust<T>(
-  index: number,
-  replaceFn: (x: T) => T,
-): (list: T[]) => T[]
+export function adjust<T>(index: number, replaceFn: (x: T) => T, list: T[]): T[];
+export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 /*
 Method: all
@@ -415,13 +247,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function all<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): boolean
-export function all<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => boolean
+export function all<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function all<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: allPass
@@ -448,12 +275,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function allPass<T>(
-  predicates: ((x: T) => boolean)[],
-): (input: T) => boolean
-export function allPass<T>(
-  predicates: ((...inputs: T[]) => boolean)[],
-): (...inputs: T[]) => boolean
+export function allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: always
@@ -475,7 +298,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function always<T>(x: T): (...args: unknown[]) => T
+export function always<T>(x: T): (...args: unknown[]) => T;
 
 /*
 Method: and
@@ -496,8 +319,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function and<T, U>(x: T, y: U): T | U
-export function and<T>(x: T): <U>(y: U) => T | U
+export function and<T, U>(x: T, y: U): T | U;
+export function and<T>(x: T): <U>(y: U) => T | U;
 
 /*
 Method: or
@@ -518,8 +341,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function or<T, U>(a: T, b: U): T | U
-export function or<T>(a: T): <U>(b: U) => T | U
+export function or<T, U>(a: T, b: U): T | U;
+export function or<T>(a: T): <U>(b: U) => T | U;
 
 /*
 Method: any
@@ -541,13 +364,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function any<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): boolean
-export function any<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => boolean
+export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: anyPass
@@ -575,12 +393,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyPass<T>(
-  predicates: ((x: T) => boolean)[],
-): (input: T) => boolean
-export function anyPass<T>(
-  predicates: ((...inputs: T[]) => boolean)[],
-): (...inputs: T[]) => boolean
+export function anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
+export function anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
 
 /*
 Method: append
@@ -602,15 +416,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(xToAppend: T, iterable: T[]): T[]
-export function append<T, U>(
-  xToAppend: T,
-  iterable: IsFirstSubtypeOfSecond<T, U>[],
-): U[]
-export function append<T>(
-  xToAppend: T,
-): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[]
-export function append<T>(xToAppend: T): (iterable: T[]) => T[]
+export function append<T>(xToAppend: T, iterable: T[]): T[];
+export function append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function append<T>(xToAppend: T): (iterable: T[]) => T[];
 
 /*
 Method: applySpec
@@ -635,11 +444,11 @@ Notes: The currying in this function works best with functions with 4 arguments 
 */
 // @SINGLE_MARKER
 export function applySpec<Spec extends Record<string, AnyFunction>>(
-  spec: Spec,
-): (...args: Parameters<ValueOfRecord<Spec>>) => {
-  [Key in keyof Spec]: ReturnType<Spec[Key]>
-}
-export function applySpec<T>(spec: any): (...args: unknown[]) => T
+  spec: Spec
+): (
+  ...args: Parameters<ValueOfRecord<Spec>>
+) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
+export function applySpec<T>(spec: any): (...args: unknown[]) => T;
 
 /*
 Method: assoc
@@ -661,16 +470,9 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, U, K extends string>(
-  prop: K,
-  val: T,
-  obj: U,
-): Record<K, T> & Omit<U, K>
-export function assoc<T, K extends string>(
-  prop: K,
-  val: T,
-): <U>(obj: U) => Record<K, T> & Omit<U, K>
-export function assoc<K extends string>(prop: K): AssocPartialOne<K>
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
+export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /*
 Method: assocPath
@@ -694,18 +496,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function assocPath<Output>(
-  path: Path,
-  newValue: any,
-  obj: object,
-): Output
-export function assocPath<Output>(
-  path: Path,
-  newValue: any,
-): (obj: object) => Output
-export function assocPath<Output>(
-  path: Path,
-): (newValue: any) => (obj: object) => Output
+export function assocPath<Output>(path: Path, newValue: any, obj: object): Output;
+export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
+export function assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
 
 /*
 Method: both
@@ -731,15 +524,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function both(pred1: Pred, pred2: Pred): Pred
-export function both<T>(
-  pred1: Predicate<T>,
-  pred2: Predicate<T>,
-): Predicate<T>
-export function both<T>(
-  pred1: Predicate<T>,
-): (pred2: Predicate<T>) => Predicate<T>
-export function both(pred1: Pred): (pred2: Pred) => Pred
+export function both(pred1: Pred, pred2: Pred): Pred;
+export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
+export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
+export function both(pred1: Pred): (pred2: Pred) => Pred;
 
 /*
 Method: chain
@@ -762,8 +550,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[]
-export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[]
+export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
+export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
 /*
 Method: clamp
@@ -791,15 +579,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function clamp(
-  min: number,
-  max: number,
-  input: number,
-): number
-export function clamp(
-  min: number,
-  max: number,
-): (input: number) => number
+export function clamp(min: number, max: number, input: number): number;
+export function clamp(min: number, max: number): (input: number) => number;
 
 /*
 Method: clone
@@ -824,8 +605,8 @@ Notes: It doesn't work with very specific types, such as MongoDB's ObjectId.
 
 */
 // @SINGLE_MARKER
-export function clone<T>(input: T): T
-export function clone<T>(input: T[]): T[]
+export function clone<T>(input: T): T;
+export function clone<T>(input: T[]): T[];
 
 /*
 Method: complement
@@ -852,9 +633,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function complement<T extends any[]>(
-  predicate: (...args: T) => unknown,
-): (...args: T) => boolean
+export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 
 /*
 Method: compose
@@ -878,99 +657,70 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function compose<
-  TArgs extends any[],
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
-  TResult,
->(
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   ...func: [
-    fnLast: (a: any) => TResult,
-    ...func: Array<(a: any) => any>,
-    f7: (a: R6) => R7,
-    f6: (a: R5) => R6,
-    f5: (a: R4) => R5,
-    f4: (a: R3) => R4,
-    f3: (a: R2) => R3,
-    f2: (a: R1) => R2,
-    f1: (...args: TArgs) => R1,
+      fnLast: (a: any) => TResult,
+      ...func: Array<(a: any) => any>,
+      f7: (a: R6) => R7,
+      f6: (a: R5) => R6,
+      f5: (a: R4) => R5,
+      f4: (a: R3) => R4,
+      f3: (a: R2) => R3,
+      f2: (a: R1) => R2,
+      f1: (...args: TArgs) => R1
   ]
-): (...args: TArgs) => TResult // fallback overload if number of composed functions greater than 7
-export function compose<
-  TArgs extends any[],
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
-  TResult,
->(
+): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
   f5: (a: R4) => R5,
   f4: (a: R3) => R4,
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R7
-export function compose<
-  TArgs extends any[],
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
->(
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
   f5: (a: R4) => R5,
   f4: (a: R3) => R4,
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R7
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
   f6: (a: R5) => R6,
   f5: (a: R4) => R5,
   f4: (a: R3) => R4,
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R6
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R6;
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(
   f5: (a: R4) => R5,
   f4: (a: R3) => R4,
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R5
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R5;
 export function compose<TArgs extends any[], R1, R2, R3, R4>(
   f4: (a: R3) => R4,
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R4
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R4;
 export function compose<TArgs extends any[], R1, R2, R3>(
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R3
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R3;
 export function compose<TArgs extends any[], R1, R2>(
   f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R2
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R2;
 export function compose<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R1
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /*
 Method: concat
@@ -990,10 +740,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function concat<T>(x: T[], y: T[]): T[]
-export function concat<T>(x: T[]): (y: T[]) => T[]
-export function concat(x: string, y: string): string
-export function concat(x: string): (y: string) => string
+export function concat<T>(x: T[], y: T[]): T[];
+export function concat<T>(x: T[]): (y: T[]) => T[];
+export function concat(x: string, y: string): string;
+export function concat(x: string): (y: string) => string;
 
 /*
 Method: cond
@@ -1029,9 +779,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function cond<T extends any[], R>(
-  conditions: Array<CondPair<T, R>>,
-): (...args: T) => R
+export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
 
 /*
 Method: converge
@@ -1051,10 +799,7 @@ Notes: Explanation is taken from `Ramda` documentation
 
 */
 // @SINGLE_MARKER
-export function converge(
-  after: (...a: any[]) => any,
-  fns: ((...x: any[]) => any)[],
-): (...y: any[]) => any
+export function converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any;
 
 /*
 Method: curry
@@ -1077,7 +822,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curry(fn: AnyFunction): (...a: any[]) => any
+export function curry(fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: curryN
@@ -1096,10 +841,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function curryN(
-  length: number,
-  fn: AnyFunction,
-): (...a: any[]) => any
+export function curryN(length: number, fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: dec
@@ -1118,7 +860,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dec(x: number): number
+export function dec(x: number): number;
 
 /*
 Method: defaultTo
@@ -1144,13 +886,8 @@ Notes: Rambda's **defaultTo** accept indefinite number of arguments when non cur
 
 */
 // @SINGLE_MARKER
-export function defaultTo<T>(
-  defaultValue: T,
-  input: T | null | undefined,
-): T
-export function defaultTo<T>(
-  defaultValue: T,
-): (input: T | null | undefined) => T
+export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
+export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
 
 /*
 Method: difference
@@ -1175,8 +912,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function difference<T>(a: T[], b: T[]): T[]
-export function difference<T>(a: T[]): (b: T[]) => T[]
+export function difference<T>(a: T[], b: T[]): T[];
+export function difference<T>(a: T[]): (b: T[]) => T[];
 
 /*
 Method: dissoc
@@ -1196,13 +933,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dissoc<T extends object, K extends keyof T>(
-  prop: K,
-  obj: T,
-): Omit<T, K>
-export function dissoc<K extends string | number>(
-  prop: K,
-): <T extends object>(obj: T) => Omit<T, K>
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 /*
 Method: divide
@@ -1221,8 +953,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function divide(x: number, y: number): number
-export function divide(x: number): (y: number) => number
+export function divide(x: number, y: number): number;
+export function divide(x: number): (y: number) => number;
 
 /*
 Method: drop
@@ -1242,12 +974,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howMany: number, input: T[]): T[]
-export function drop(howMany: number, input: string): string
+export function drop<T>(howMany: number, input: T[]): T[];
+export function drop(howMany: number, input: string): string;
 export function drop<T>(howMany: number): {
-  <T>(input: T[]): T[]
-  (input: string): string
-}
+  <T>(input: T[]): T[];
+  (input: string): string;
+};
 
 /*
 Method: dropLast
@@ -1267,12 +999,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howMany: number, input: T[]): T[]
-export function dropLast(howMany: number, input: string): string
+export function dropLast<T>(howMany: number, input: T[]): T[];
+export function dropLast(howMany: number, input: string): string;
 export function dropLast<T>(howMany: number): {
-  <T>(input: T[]): T[]
-  (input: string): string
-}
+  <T>(input: T[]): T[];
+  (input: string): string;
+};
 
 /*
 Method: either
@@ -1302,20 +1034,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(
-  firstPredicate: Pred,
-  secondPredicate: Pred,
-): Pred
-export function either<T>(
-  firstPredicate: Predicate<T>,
-  secondPredicate: Predicate<T>,
-): Predicate<T>
-export function either<T>(
-  firstPredicate: Predicate<T>,
-): (secondPredicate: Predicate<T>) => Predicate<T>
-export function either(
-  firstPredicate: Pred,
-): (secondPredicate: Pred) => Pred
+export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
+export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
+export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
+export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
 Method: endsWith
@@ -1342,15 +1064,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith<T extends string>(
-  question: T,
-  str: string,
-): boolean
-export function endsWith<T extends string>(
-  question: T,
-): (str: string) => boolean
-export function endsWith<T>(question: T[], list: T[]): boolean
-export function endsWith<T>(question: T[]): (list: T[]) => boolean
+export function endsWith<T extends string>(question: T, str: string): boolean;
+export function endsWith<T extends string>(question: T): (str: string) => boolean;
+export function endsWith<T>(question: T[], list: T[]): boolean;
+export function endsWith<T>(question: T[]): (list: T[]) => boolean;
 
 /*
 Method: equals
@@ -1372,8 +1089,8 @@ Notes: It doesn't handle cyclical data structures and functions
 
 */
 // @SINGLE_MARKER
-export function equals<T>(x: T, y: T): boolean
-export function equals<T>(x: T): (y: T) => boolean
+export function equals<T>(x: T, y: T): boolean;
+export function equals<T>(x: T): (y: T) => boolean;
 
 /*
 Method: F
@@ -1392,7 +1109,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function F(): boolean
+export function F(): boolean;
 
 /*
 Method: filter
@@ -1421,17 +1138,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filter<T>(
-  predicate: Predicate<T>,
-): (input: T[]) => T[]
-export function filter<T>(predicate: Predicate<T>, input: T[]): T[]
-export function filter<T, U>(
-  predicate: ObjectPredicate<T>,
-): (x: Dictionary<T>) => Dictionary<T>
-export function filter<T>(
-  predicate: ObjectPredicate<T>,
-  x: Dictionary<T>,
-): Dictionary<T>
+export function filter<T>(predicate: Predicate<T>): (input: T[]) => T[];
+export function filter<T>(predicate: Predicate<T>, input: T[]): T[];
+export function filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
 Method: find
@@ -1456,13 +1166,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function find<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): T | undefined
-export function find<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => T | undefined
+export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
+export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
 Method: findIndex
@@ -1487,13 +1192,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): number
-export function findIndex<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => number
+export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
 Method: findLast
@@ -1518,13 +1218,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLast<T>(
-  fn: (x: T) => boolean,
-  list: T[],
-): T | undefined
-export function findLast<T>(
-  fn: (x: T) => boolean,
-): (list: T[]) => T | undefined
+export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
+export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
 Method: findLastIndex
@@ -1549,13 +1244,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLastIndex<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): number
-export function findLastIndex<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => number
+export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
 Method: flatten
@@ -1580,7 +1270,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flatten<T>(list: any[]): T[]
+export function flatten<T>(list: any[]): T[];
 
 /*
 Method: flip
@@ -1605,9 +1295,7 @@ Notes: Rambda's **flip** will throw if the arity of the input function is greate
 
 */
 // @SINGLE_MARKER
-export function flip<T, U, TResult>(
-  fn: (arg0: T, arg1: U) => TResult,
-): (arg1: U, arg0?: T) => TResult
+export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
 /*
 Method: forEach
@@ -1632,15 +1320,10 @@ Notes: It works with objects, unlike `Ramda`.
 
 */
 // @SINGLE_MARKER
-export function forEach<T>(fn: Iterator<T, void>, list: T[]): T[]
-export function forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[]
-export function forEach<T>(
-  fn: ObjectIterator<T, void>,
-  list: Dictionary<T>,
-): Dictionary<T>
-export function forEach<T, U>(
-  fn: ObjectIterator<T, void>,
-): (list: Dictionary<T>) => Dictionary<T>
+export function forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
+export function forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
+export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: fromPairs
@@ -1667,12 +1350,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function fromPairs<V>(listOfPairs: [number, V][]): {
-  [index: number]: V
-}
-export function fromPairs<V>(listOfPairs: [string, V][]): {
-  [index: string]: V
-}
+export function fromPairs<V>(listOfPairs: ([number, V])[]): { [index: number]: V };
+export function fromPairs<V>(listOfPairs: ([string, V])[]): { [index: string]: V };
 
 /*
 Method: groupBy
@@ -1695,20 +1374,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(
-  groupFn: (x: T) => string,
-  list: T[],
-): { [index: string]: T[] }
-export function groupBy<T>(
-  groupFn: (x: T) => string,
-): (list: T[]) => { [index: string]: T[] }
-export function groupBy<T, U>(
-  groupFn: (x: T) => string,
-  list: T[],
-): U
-export function groupBy<T, U>(
-  groupFn: (x: T) => string,
-): (list: T[]) => U
+export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
+export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
+export function groupBy<T, U>(groupFn: (x: T) => string, list: T[]): U;
+export function groupBy<T, U>(groupFn: (x: T) => string): (list: T[]) => U;
 
 /*
 Method: groupWith
@@ -1731,17 +1400,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupWith<T>(
-  compareFn: (x: T, y: T) => boolean,
-): (input: T[]) => T[][]
-export function groupWith<T>(
-  compareFn: (x: T, y: T) => boolean,
-  input: T[],
-): T[][]
-export function groupWith<T>(
-  compareFn: (x: T, y: T) => boolean,
-  input: string,
-): string[]
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: T[]) => (T[])[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: T[]): (T[])[];
+export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
 /*
 Method: has
@@ -1766,8 +1427,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function has<T>(prop: string, obj: T): boolean
-export function has(prop: string): <T>(obj: T) => boolean
+export function has<T>(prop: string, obj: T): boolean;
+export function has(prop: string): <T>(obj: T) => boolean;
 
 /*
 Method: hasPath
@@ -1797,11 +1458,11 @@ Notes:
 // @SINGLE_MARKER
 export function hasPath<T>(
   path: string | string[],
-  input: object,
-): boolean
+  input: object
+): boolean;
 export function hasPath<T>(
-  path: string | string[],
-): (input: object) => boolean
+  path: string | string[]
+): (input: object) => boolean;
 
 /*
 Method: head
@@ -1824,15 +1485,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head(str: string): string
-export function head(str: ''): undefined
-export function head<T>(list: never[]): undefined
-export function head<T extends unknown[]>(
-  array: T,
-): FirstArrayElement<T>
-export function head<T extends readonly unknown[]>(
-  array: T,
-): FirstArrayElement<T>
+export function head(str: string): string;
+export function head(str: ''): undefined;
+export function head<T>(list: never[]): undefined;
+export function head<T extends unknown[]>(array: T): FirstArrayElement<T>
+export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 
 /*
 Method: identical
@@ -1861,8 +1518,8 @@ Notes: Values are identical if they reference the same memory. `NaN` is identica
 
 */
 // @SINGLE_MARKER
-export function identical<T>(x: T, y: T): boolean
-export function identical<T>(x: T): (y: T) => boolean
+export function identical<T>(x: T, y: T): boolean;
+export function identical<T>(x: T): (y: T) => boolean;
 
 /*
 Method: identity
@@ -1881,7 +1538,7 @@ Notes: Logic
 
 */
 // @SINGLE_MARKER
-export function identity<T>(input: T): T
+export function identity<T>(input: T): T;
 
 /*
 Method: ifElse
@@ -1909,25 +1566,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ifElse<
-  T,
-  TFiltered extends T,
-  TOnTrueResult,
-  TOnFalseResult,
->(
+export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
   pred: (a: T) => a is TFiltered,
   onTrue: (a: TFiltered) => TOnTrueResult,
   onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
-): (a: T) => TOnTrueResult | TOnFalseResult
-export function ifElse<
-  TArgs extends any[],
-  TOnTrueResult,
-  TOnFalseResult,
->(
-  fn: (...args: TArgs) => boolean,
-  onTrue: (...args: TArgs) => TOnTrueResult,
-  onFalse: (...args: TArgs) => TOnFalseResult,
-): (...args: TArgs) => TOnTrueResult | TOnFalseResult
+): (a: T) => TOnTrueResult | TOnFalseResult;
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /*
 Method: inc
@@ -1946,7 +1590,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function inc(x: number): number
+export function inc(x: number): number;
 
 /*
 Method: includes
@@ -1971,15 +1615,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes<T extends string>(
-  valueToFind: T,
-  input: string,
-): boolean
-export function includes<T extends string>(
-  valueToFind: T,
-): (input: string) => boolean
-export function includes<T>(valueToFind: T, input: T[]): boolean
-export function includes<T>(valueToFind: T): (input: T[]) => boolean
+export function includes<T extends string>(valueToFind: T, input: string): boolean;
+export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
+export function includes<T>(valueToFind: T, input: T[]): boolean;
+export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /*
 Method: indexBy
@@ -2016,33 +1655,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function indexBy<T, K extends string | number = string>(
-  condition: (key: T) => K,
-  list: T[],
-): { [key in K]: T }
-export function indexBy<
-  T,
-  K extends string | number | undefined = string,
->(
-  condition: (key: T) => K,
-  list: T[],
-): { [key in NonNullable<K>]?: T }
-export function indexBy<T, K extends string | number = string>(
-  condition: (key: T) => K,
-): (list: T[]) => { [key in K]: T }
-export function indexBy<
-  T,
-  K extends string | number | undefined = string,
->(
-  condition: (key: T) => K | undefined,
-): (list: T[]) => { [key in NonNullable<K>]?: T }
-export function indexBy<T>(
-  condition: string,
-  list: T[],
-): { [key: string]: T }
-export function indexBy<T>(
-  condition: string,
-): (list: T[]) => { [key: string]: T }
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K, list: T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(condition: (key: T) => K): (list: T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K | undefined): (list: T[]) => { [key in NonNullable<K>]?: T };
+export function indexBy<T>(condition: string, list: T[]): { [key: string]: T };
+export function indexBy<T>(condition: string): (list: T[]) => { [key: string]: T };
 
 /*
 Method: indexOf
@@ -2069,8 +1687,8 @@ Notes: It uses `R.equals` for list of objects/arrays or native `indexOf` for any
 
 */
 // @SINGLE_MARKER
-export function indexOf<T>(valueToFind: T, list: T[]): number
-export function indexOf<T>(valueToFind: T): (list: T[]) => number
+export function indexOf<T>(valueToFind: T, list: T[]): number;
+export function indexOf<T>(valueToFind: T): (list: T[]) => number;
 
 /*
 Method: init
@@ -2093,10 +1711,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T extends unknown[]>(
-  input: T,
-): T extends readonly [...infer U, any] ? U : [...T]
-export function init(input: string): string
+export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
+export function init(input: string): string;
 
 /*
 Method: intersection
@@ -2119,8 +1735,8 @@ Notes: There is slight difference between Rambda and Ramda implementation. Ramda
 
 */
 // @SINGLE_MARKER
-export function intersection<T>(listA: T[], listB: T[]): T[]
-export function intersection<T>(listA: T[]): (listB: T[]) => T[]
+export function intersection<T>(listA: T[], listB: T[]): T[];
+export function intersection<T>(listA: T[]): (listB: T[]) => T[];
 
 /*
 Method: intersperse
@@ -2142,8 +1758,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersperse<T>(separator: T, list: T[]): T[]
-export function intersperse<T>(separator: T): (list: T[]) => T[]
+export function intersperse<T>(separator: T, list: T[]): T[];
+export function intersperse<T>(separator: T): (list: T[]) => T[];
 
 /*
 Method: is
@@ -2166,20 +1782,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function is<C extends () => any>(
-  targetPrototype: C,
-  val: any,
-): val is ReturnType<C>
-export function is<C extends new () => any>(
-  targetPrototype: C,
-  val: any,
-): val is InstanceType<C>
-export function is<C extends () => any>(
-  targetPrototype: C,
-): (val: any) => val is ReturnType<C>
-export function is<C extends new () => any>(
-  targetPrototype: C,
-): (val: any) => val is InstanceType<C>
+export function is<C extends () => any>(targetPrototype: C, val: any): val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C, val: any): val is InstanceType<C>;
+export function is<C extends () => any>(targetPrototype: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new () => any>(targetPrototype: C): (val: any) => val is InstanceType<C>;
 
 /*
 Method: isEmpty
@@ -2202,7 +1808,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isEmpty<T>(x: T): boolean
+export function isEmpty<T>(x: T): boolean;
 
 /*
 Method: isNil
@@ -2225,7 +1831,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isNil(x: any): x is null | undefined
+export function isNil(x: any): x is null | undefined;
 
 /*
 Method: join
@@ -2244,8 +1850,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function join<T>(glue: string, list: T[]): string
-export function join<T>(glue: string): (list: T[]) => string
+export function join<T>(glue: string, list: T[]): string;
+export function join<T>(glue: string): (list: T[]) => string;
 
 /*
 Method: keys
@@ -2264,8 +1870,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function keys<T extends object>(x: T): (keyof T & string)[]
-export function keys<T>(x: T): string[]
+export function keys<T extends object>(x: T): (keyof T & string)[];
+export function keys<T>(x: T): string[];
 
 /*
 Method: last
@@ -2288,15 +1894,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last(str: ''): undefined
-export function last(str: string): string
-export function last(list: never[]): undefined
-export function last<T extends unknown[]>(
-  array: T,
-): LastArrayElement<T>
-export function last<T extends readonly unknown[]>(
-  array: T,
-): LastArrayElement<T>
+export function last(str: ''): undefined;
+export function last(str: string): string;
+export function last(list: never[]): undefined;
+export function last<T extends unknown[]>(array: T): LastArrayElement<T>
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
 
 /*
 Method: lastIndexOf
@@ -2324,8 +1926,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lastIndexOf<T>(target: T, list: T[]): number
-export function lastIndexOf<T>(target: T): (list: T[]) => number
+export function lastIndexOf<T>(target: T, list: T[]): number;
+export function lastIndexOf<T>(target: T): (list: T[]) => number;
 
 /*
 Method: length
@@ -2348,7 +1950,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function length<T>(input: T[]): number
+export function length<T>(input: T[]): number;
 
 /*
 Method: lens
@@ -2375,10 +1977,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lens<T, U, V>(
-  getter: (s: T) => U,
-  setter: (a: U, s: T) => V,
-): Lens
+export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
 /*
 Method: lensIndex
@@ -2402,7 +2001,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensIndex(index: number): Lens
+export function lensIndex(index: number): Lens;
 
 /*
 Method: lensPath
@@ -2430,8 +2029,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensPath(path: RamdaPath): Lens
-export function lensPath(path: string): Lens
+export function lensPath(path: RamdaPath): Lens;
+export function lensPath(path: string): Lens;
 
 /*
 Method: lensProp
@@ -2460,9 +2059,9 @@ Notes:
 */
 // @SINGLE_MARKER
 export function lensProp(prop: string): {
-  <T, U>(obj: T): U
-  set<T, U, V>(val: T, obj: U): V
-}
+  <T, U>(obj: T): U;
+  set<T, U, V>(val: T, obj: U): V;
+};
 
 /*
 Method: over
@@ -2483,17 +2082,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[]
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T
-export function over(
-  lens: Lens,
-  fn: Arity1Fn,
-): <T>(value: T[]) => T[]
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T
-export function over(
-  lens: Lens,
-): <T>(fn: Arity1Fn, value: T[]) => T[]
+export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+export function over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
+export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+export function over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
+export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+export function over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
 
 /*
 Method: set
@@ -2519,9 +2113,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function set<T, U>(lens: Lens, replacer: U, obj: T): T
-export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T
-export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T
+export function set<T, U>(lens: Lens, replacer: U, obj: T): T;
+export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
+export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
 
 /*
 Method: view
@@ -2543,8 +2137,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function view<T, U>(lens: Lens): (target: T) => U
-export function view<T, U>(lens: Lens, target: T): U
+export function view<T, U>(lens: Lens): (target: T) => U;
+export function view<T, U>(lens: Lens, target: T): U;
 
 /*
 Method: map
@@ -2577,17 +2171,12 @@ Notes: Unlike Ramda's `map`, here property and input object are passed as argume
 
 */
 // @SINGLE_MARKER
-export function map<T, U>(
-  fn: ObjectIterator<T, U>,
-  iterable: Dictionary<T>,
-): Dictionary<U>
-export function map<T, U>(fn: Iterator<T, U>, iterable: T[]): U[]
-export function map<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[]
-export function map<T, U, S>(
-  fn: ObjectIterator<T, U>,
-): (iterable: Dictionary<T>) => Dictionary<U>
-export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[]
-export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[]
+export function map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function map<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
+export function map<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
+export function map<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
+export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
 
 /*
 Method: mapObjIndexed
@@ -2613,20 +2202,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObjIndexed<T>(
-  fn: ObjectIterator<T, T>,
-  iterable: Dictionary<T>,
-): Dictionary<T>
-export function mapObjIndexed<T, U>(
-  fn: ObjectIterator<T, U>,
-  iterable: Dictionary<T>,
-): Dictionary<U>
-export function mapObjIndexed<T>(
-  fn: ObjectIterator<T, T>,
-): (iterable: Dictionary<T>) => Dictionary<T>
-export function mapObjIndexed<T, U>(
-  fn: ObjectIterator<T, U>,
-): (iterable: Dictionary<T>) => Dictionary<U>
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
 
 /*
 Method: match
@@ -2649,10 +2228,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp, str: string): string[]
-export function match(
-  regExpression: RegExp,
-): (str: string) => string[]
+export function match(regExpression: RegExp, str: string): string[];
+export function match(regExpression: RegExp): (str: string) => string[];
 
 /*
 Method: mathMod
@@ -2677,8 +2254,8 @@ Notes: Explanation is taken from `Ramda` documentation site.
 
 */
 // @SINGLE_MARKER
-export function mathMod(x: number, y: number): number
-export function mathMod(x: number): (y: number) => number
+export function mathMod(x: number, y: number): number;
+export function mathMod(x: number): (y: number) => number;
 
 /*
 Method: max
@@ -2701,8 +2278,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function max<T extends Ord>(x: T, y: T): T
-export function max<T extends Ord>(x: T): (y: T) => T
+export function max<T extends Ord>(x: T, y: T): T;
+export function max<T extends Ord>(x: T): (y: T) => T;
 
 /*
 Method: maxBy
@@ -2723,14 +2300,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
-export function maxBy<T>(
-  compareFn: (input: T) => Ord,
-  x: T,
-): (y: T) => T
-export function maxBy<T>(
-  compareFn: (input: T) => Ord,
-): (x: T) => (y: T) => T
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function maxBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 /*
 Method: mean
@@ -2750,7 +2322,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mean(list: number[]): number
+export function mean(list: number[]): number;
 
 /*
 Method: median
@@ -2769,7 +2341,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function median(list: number[]): number
+export function median(list: number[]): number;
 
 /*
 Method: merge
@@ -2788,7 +2360,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function merge<A, B>(target: A, newProps: B): A & B
-export function merge<Output>(target: any): (newProps: any) => Output
+export function merge<Output>(target: any): (newProps: any) => Output;
 
 /*
 Method: mergeRight
@@ -2812,9 +2384,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mergeRight<A, B>(target: A, newProps: B): A & B
-export function mergeRight<Output>(
-  target: any,
-): (newProps: any) => Output
+export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /*
 Method: mergeAll
@@ -2844,8 +2414,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeAll<T>(list: object[]): T
-export function mergeAll(list: object[]): object
+export function mergeAll<T>(list: object[]): T;
+export function mergeAll(list: object[]): object;
 
 /*
 Method: mergeDeepRight
@@ -2872,13 +2442,9 @@ Notes: Explanation and example are taken from `Ramda` documentation.
 
 */
 // @SINGLE_MARKER
-export function mergeDeepRight<Output>(
-  target: object,
-  newProps: object,
-): Output
-export function mergeDeepRight<Output>(
-  target: object,
-): (newProps: object) => Output
+export function mergeDeepRight<Output>(target: object, newProps: object): Output;
+export function mergeDeepRight<Output>(target: object): (newProps: object) => Output;
+
 
 /*
 Method: mergeLeft
@@ -2901,13 +2467,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeLeft<Output>(
-  newProps: object,
-  target: object,
-): Output
-export function mergeLeft<Output>(
-  newProps: object,
-): (target: object) => Output
+export function mergeLeft<Output>(newProps: object, target: object): Output;
+export function mergeLeft<Output>(newProps: object): (target: object) => Output;
 
 /*
 Method: min
@@ -2930,8 +2491,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function min<T extends Ord>(x: T, y: T): T
-export function min<T extends Ord>(x: T): (y: T) => T
+export function min<T extends Ord>(x: T, y: T): T;
+export function min<T extends Ord>(x: T): (y: T) => T;
 
 /*
 Method: minBy
@@ -2952,14 +2513,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T
-export function minBy<T>(
-  compareFn: (input: T) => Ord,
-  x: T,
-): (y: T) => T
-export function minBy<T>(
-  compareFn: (input: T) => Ord,
-): (x: T) => (y: T) => T
+export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
+export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
+export function minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
+
 
 /*
 Method: modulo
@@ -2978,8 +2535,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modulo(x: number, y: number): number
-export function modulo(x: number): (y: number) => number
+export function modulo(x: number, y: number): number;
+export function modulo(x: number): (y: number) => number;
 
 /*
 Method: move
@@ -3000,19 +2557,12 @@ Notes: Rambda.move doesn't support negative indexes - it throws an error.
 
 */
 // @SINGLE_MARKER
-export function move<T>(
-  fromIndex: number,
-  toIndex: number,
-  list: T[],
-): T[]
-export function move(
-  fromIndex: number,
-  toIndex: number,
-): <T>(list: T[]) => T[]
+export function move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
+export function move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
 export function move(fromIndex: number): {
-  <T>(toIndex: number, list: T[]): T[]
-  (toIndex: number): <T>(list: T[]) => T[]
-}
+    <T>(toIndex: number, list: T[]): T[];
+    (toIndex: number): <T>(list: T[]) => T[];
+};
 
 /*
 Method: multiply
@@ -3032,8 +2582,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function multiply(x: number, y: number): number
-export function multiply(x: number): (y: number) => number
+export function multiply(x: number, y: number): number;
+export function multiply(x: number): (y: number) => number;
 
 /*
 Method: negate
@@ -3052,7 +2602,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function negate(x: number): number
+export function negate(x: number): number;
 
 /*
 Method: none
@@ -3075,13 +2625,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): boolean
-export function none<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => boolean
+export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
+export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: not
@@ -3100,7 +2645,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function not(input: any): boolean
+export function not(input: any): boolean;
+
 
 /*
 Method: nth
@@ -3127,12 +2673,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nth(index: number, input: string): string
-export function nth<T>(index: number, input: T[]): T | undefined
+export function nth(index: number, input: string): string;	
+export function nth<T>(index: number, input: T[]): T | undefined;	
 export function nth(n: number): {
-  <T>(input: T[]): T | undefined
-  (input: string): string
-}
+  <T>(input: T[]): T | undefined;
+  (input: string): string;
+};
 
 /*
 Method: objOf
@@ -3152,13 +2698,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function objOf<T, K extends string>(
-  key: K,
-  value: T,
-): Record<K, T>
-export function objOf<K extends string>(
-  key: K,
-): <T>(value: T) => Record<K, T>
+export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
+export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
 
 /*
 Method: once
@@ -3182,7 +2723,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once<T extends AnyFunction>(func: T): T
+export function once<T extends AnyFunction>(func: T): T;
 
 /*
 Method: omit
@@ -3209,17 +2750,12 @@ Notes: When using this method with `TypeScript`, it is much easier to pass `prop
 
 */
 // @SINGLE_MARKER
-export function omit<T, K extends string>(
-  propsToOmit: K[],
-  obj: T,
-): Omit<T, K>
-export function omit<K extends string>(
-  propsToOmit: K[],
-): <T>(obj: T) => Omit<T, K>
-export function omit<T, U>(propsToOmit: string, obj: T): U
-export function omit<T, U>(propsToOmit: string): (obj: T) => U
-export function omit<T>(propsToOmit: string, obj: object): T
-export function omit<T>(propsToOmit: string): (obj: object) => T
+export function omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
+export function omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
+export function omit<T, U>(propsToOmit: string, obj: T): U;
+export function omit<T, U>(propsToOmit: string): (obj: T) => U;
+export function omit<T>(propsToOmit: string, obj: object): T;
+export function omit<T>(propsToOmit: string): (obj: object) => T;
 
 /*
 Method: of
@@ -3239,7 +2775,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function of<T>(x: T): T[]
+export function of<T>(x: T): T[];
 
 /*
 Method: partial
@@ -3270,34 +2806,23 @@ Notes: Rambda's partial doesn't need the input arguments to be wrapped as array.
 
 */
 // @SINGLE_MARKER
-export function partial<V0, V1, T>(
-  fn: (x0: V0, x1: V1) => T,
-  args: [V0],
-): (x1: V1) => T
-export function partial<V0, V1, V2, T>(
-  fn: (x0: V0, x1: V1, x2: V2) => T,
-  args: [V0, V1],
-): (x2: V2) => T
-export function partial<V0, V1, V2, T>(
-  fn: (x0: V0, x1: V1, x2: V2) => T,
-  args: [V0],
-): (x1: V1, x2: V2) => T
+export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
 export function partial<V0, V1, V2, V3, T>(
   fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
   args: [V0, V1, V2],
-): (x2: V3) => T
+): (x2: V3) => T;
 export function partial<V0, V1, V2, V3, T>(
   fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
   args: [V0, V1],
-): (x2: V2, x3: V3) => T
+): (x2: V2, x3: V3) => T;
 export function partial<V0, V1, V2, V3, T>(
   fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
   args: [V0],
-): (x1: V1, x2: V2, x3: V3) => T
-export function partial<T>(
-  fn: (...a: any[]) => T,
-  args: any[],
-): (...a: any[]) => T
+): (x1: V1, x2: V2, x3: V3) => T;
+export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
+
 
 /*
 Method: partition
@@ -3330,20 +2855,18 @@ Notes:
 // @SINGLE_MARKER
 export function partition<T>(
   predicate: Predicate<T>,
-  input: T[],
-): [T[], T[]]
+  input: T[]
+): [T[], T[]];
 export function partition<T>(
-  predicate: Predicate<T>,
-): (input: T[]) => [T[], T[]]
-export function partition<T>(
-  predicate: (x: T, prop?: string) => boolean,
-  input: { [key: string]: T },
-): [{ [key: string]: T }, { [key: string]: T }]
+  predicate: Predicate<T>
+): (input: T[]) => [T[], T[]];
 export function partition<T>(
   predicate: (x: T, prop?: string) => boolean,
-): (input: {
-  [key: string]: T
-}) => [{ [key: string]: T }, { [key: string]: T }]
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partition<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
 
 /*
 Method: path
@@ -3373,59 +2896,42 @@ Notes: String annotation of `pathToSearch` is one of the differences between `Ra
 
 */
 // @SINGLE_MARKER
-export function path<S, K0 extends keyof S = keyof S>(
-  path: [K0],
-  obj: S,
-): S[K0]
+export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
 export function path<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
->(path: [K0, K1], obj: S): S[K0][K1]
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
 export function path<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
->(path: [K0, K1, K2], obj: S): S[K0][K1][K2]
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
 export function path<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
->(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3]
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
 export function path<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4]
-export function path<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5]
-export function path<T>(
-  pathToSearch: string,
-  obj: any,
-): T | undefined
-export function path<T>(
-  pathToSearch: string,
-): (obj: any) => T | undefined
-export function path<T>(
-  pathToSearch: RamdaPath,
-): (obj: any) => T | undefined
-export function path<T>(
-  pathToSearch: RamdaPath,
-  obj: any,
-): T | undefined
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
+export function path<T>(pathToSearch: string, obj: any): T | undefined;
+export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
+export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
 /*
 Method: pathEq
@@ -3455,18 +2961,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pathEq(
-  pathToSearch: Path,
-  target: any,
-  input: any,
-): boolean
-export function pathEq(
-  pathToSearch: Path,
-  target: any,
-): (input: any) => boolean
-export function pathEq(
-  pathToSearch: Path,
-): (target: any) => (input: any) => boolean
+export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
+export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
+export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 
 /*
 Method: paths
@@ -3501,20 +2998,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function paths<Input, T>(
-  pathsToSearch: Path[],
-  obj: Input,
-): (T | undefined)[]
-export function paths<Input, T>(
-  pathsToSearch: Path[],
-): (obj: Input) => (T | undefined)[]
-export function paths<T>(
-  pathsToSearch: Path[],
-  obj: any,
-): (T | undefined)[]
-export function paths<T>(
-  pathsToSearch: Path[],
-): (obj: any) => (T | undefined)[]
+export function paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
+export function paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
+export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
+export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 /*
 Method: pathOr
@@ -3548,18 +3035,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pathOr<T>(
-  defaultValue: T,
-  pathToSearch: Path,
-  obj: any,
-): T
-export function pathOr<T>(
-  defaultValue: T,
-  pathToSearch: Path,
-): (obj: any) => T
-export function pathOr<T>(
-  defaultValue: T,
-): (pathToSearch: Path) => (obj: any) => T
+export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
+export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
+export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 
 /*
 Method: pick
@@ -3607,17 +3085,12 @@ Categories: Object, List
 Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 */
 // @SINGLE_MARKER
-export function pick<T, K extends string | number | symbol>(
-  propsToPick: K[],
-  input: T,
-): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
-export function pick<K extends string | number | symbol>(
-  propsToPick: K[],
-): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>
-export function pick<T, U>(propsToPick: string, input: T): U
-export function pick<T, U>(propsToPick: string): (input: T) => U
-export function pick<T>(propsToPick: string, input: object): T
-export function pick<T>(propsToPick: string): (input: object) => T
+export function pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends string | number | symbol>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<T, U>(propsToPick: string, input: T): U;
+export function pick<T, U>(propsToPick: string): (input: T) => U;
+export function pick<T>(propsToPick: string, input: object): T;
+export function pick<T>(propsToPick: string): (input: object) => T;
 
 /*
 Method: pickAll
@@ -3656,16 +3129,11 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 
 */
 // @SINGLE_MARKER
-export function pickAll<T, K extends keyof T>(
-  propsToPicks: K[],
-  input: T,
-): Pick<T, K>
-export function pickAll<T, U>(propsToPicks: string[], input: T): U
-export function pickAll(
-  propsToPicks: string[],
-): <T, U>(input: T) => U
-export function pickAll<T, U>(propsToPick: string, input: T): U
-export function pickAll<T, U>(propsToPick: string): (input: T) => U
+export function pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
+export function pickAll<T, U>(propsToPicks: string[], input: T): U;
+export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
+export function pickAll<T, U>(propsToPick: string, input: T): U;
+export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 /*
 Method: pipe
 
@@ -3688,80 +3156,61 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pipe<
-  TArgs extends any[],
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
-  TResult,
->(
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   ...funcs: [
-    f1: (...args: TArgs) => R1,
-    f2: (a: R1) => R2,
-    f3: (a: R2) => R3,
-    f4: (a: R3) => R4,
-    f5: (a: R4) => R5,
-    f6: (a: R5) => R6,
-    f7: (a: R6) => R7,
-    ...func: Array<(a: any) => any>,
-    fnLast: (a: any) => TResult,
+      f1: (...args: TArgs) => R1,
+      f2: (a: R1) => R2,
+      f3: (a: R2) => R3,
+      f4: (a: R3) => R4,
+      f5: (a: R4) => R5,
+      f6: (a: R5) => R6,
+      f7: (a: R6) => R7,
+      ...func: Array<(a: any) => any>,
+      fnLast: (a: any) => TResult
   ]
-): (...args: TArgs) => TResult // fallback overload if number of piped functions greater than 7
-export function pipe<
-  TArgs extends any[],
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
->(
+): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
   f3: (a: R2) => R3,
   f4: (a: R3) => R4,
   f5: (a: R4) => R5,
   f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-): (...args: TArgs) => R7
+  f7: (a: R6) => R7
+): (...args: TArgs) => R7;
 export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
   f3: (a: R2) => R3,
   f4: (a: R3) => R4,
   f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-): (...args: TArgs) => R6
+  f6: (a: R5) => R6
+): (...args: TArgs) => R6;
 export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
   f3: (a: R2) => R3,
   f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-): (...args: TArgs) => R5
+  f5: (a: R4) => R5
+): (...args: TArgs) => R5;
 export function pipe<TArgs extends any[], R1, R2, R3, R4>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
   f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-): (...args: TArgs) => R4
+  f4: (a: R3) => R4
+): (...args: TArgs) => R4;
 export function pipe<TArgs extends any[], R1, R2, R3>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-): (...args: TArgs) => R3
+  f3: (a: R2) => R3
+): (...args: TArgs) => R3;
 export function pipe<TArgs extends any[], R1, R2>(
   f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-): (...args: TArgs) => R2
+  f2: (a: R1) => R2
+): (...args: TArgs) => R2;
 export function pipe<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1,
-): (...args: TArgs) => R1
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /*
 Method: pluck
@@ -3784,20 +3233,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pluck<K extends keyof T, T>(
-  property: K,
-  list: T[],
-): T[K][]
-export function pluck<T>(
-  property: number,
-  list: { [k: number]: T }[],
-): T[]
-export function pluck<P extends string>(
-  property: P,
-): <T>(list: Record<P, T>[]) => T[]
-export function pluck(
-  property: number,
-): <T>(list: { [k: number]: T }[]) => T[]
+export function pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
+export function pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
+export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
+export function pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
 
 /*
 Method: prepend
@@ -3817,15 +3256,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(xToPrepend: T, iterable: T[]): T[]
-export function prepend<T, U>(
-  xToPrepend: T,
-  iterable: IsFirstSubtypeOfSecond<T, U>[],
-): U[]
-export function prepend<T>(
-  xToPrepend: T,
-): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[]
-export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[]
+export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
+export function prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
+
 
 /*
 Method: product
@@ -3845,7 +3280,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function product(list: number[]): number
+export function product(list: number[]): number;
 
 /*
 Method: prop
@@ -3870,15 +3305,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prop<_, P extends keyof never, T>(
-  p: P,
-  value: T,
-): Prop<T, P>
-export function prop<V>(p: keyof never, value: unknown): V
-export function prop<_, P extends keyof never>(
-  p: P,
-): <T>(value: T) => Prop<T, P>
-export function prop<V>(p: keyof never): (value: unknown) => V
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 /*
 Method: propEq
@@ -3907,24 +3337,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<K extends string | number>(
-  valueToMatch: any,
-  propToFind: K,
-  obj: Record<K, any>,
-): boolean
-export function propEq<K extends string | number>(
-  valueToMatch: any,
-  propToFind: K,
-): (obj: Record<K, any>) => boolean
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
 export function propEq(valueToMatch: any): {
-  <K extends string | number>(
-    propToFind: K,
-    obj: Record<K, any>,
-  ): boolean
-  <K extends string | number>(propToFind: K): (
-    obj: Record<K, any>,
-  ) => boolean
-}
+  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
+  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
+};
 
 /*
 Method: propIs
@@ -3950,34 +3368,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propIs<C extends AnyFunction, K extends keyof any>(
-  type: C,
-  name: K,
-  obj: any,
-): obj is Record<K, ReturnType<C>>
-export function propIs<
-  C extends AnyConstructor,
-  K extends keyof any,
->(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>
-export function propIs<C extends AnyFunction, K extends keyof any>(
-  type: C,
-  name: K,
-): (obj: any) => obj is Record<K, ReturnType<C>>
-export function propIs<
-  C extends AnyConstructor,
-  K extends keyof any,
->(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>
-export function propIs<C extends AnyFunction>(
-  type: C,
-): {
-  <K extends keyof any>(name: K, obj: any): obj is Record<
-    K,
-    ReturnType<C>
-  >
-  <K extends keyof any>(name: K): (
-    obj: any,
-  ) => obj is Record<K, ReturnType<C>>
-}
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends AnyFunction>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
 
 /*
 Method: propOr
@@ -4004,23 +3402,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, P extends string>(
-  defaultValue: T,
-  property: P,
-  obj: Partial<Record<P, T>> | undefined,
-): T
-export function propOr<T, P extends string>(
-  defaultValue: T,
-  property: P,
-): (obj: Partial<Record<P, T>> | undefined) => T
+export function propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
+export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
 export function propOr<T>(defaultValue: T): {
-  <P extends string>(
-    property: P,
-    obj: Partial<Record<P, T>> | undefined,
-  ): T
-  <P extends string>(property: P): (
-    obj: Partial<Record<P, T>> | undefined,
-  ) => T
+  <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
+  <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
 }
 
 /*
@@ -4045,15 +3431,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propSatisfies<T>(
-  predicate: Predicate<T>,
-  property: string,
-  obj: Record<string, T>,
-): boolean
-export function propSatisfies<T>(
-  predicate: Predicate<T>,
-  property: string,
-): (obj: Record<string, T>) => boolean
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
 
 /*
 Method: range
@@ -4073,13 +3452,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(
-  startInclusive: number,
-  endExclusive: number,
-): number[]
-export function range(
-  startInclusive: number,
-): (endExclusive: number) => number[]
+export function range(startInclusive: number, endExclusive: number): number[];
+export function range(startInclusive: number): (endExclusive: number) => number[];
 
 /*
 Method: reduce
@@ -4103,23 +3477,10 @@ Notes: It passes index of the list as third argument to `reducer` function.
 
 */
 // @SINGLE_MARKER
-export function reduce<T, TResult>(
-  reducer: (prev: TResult, current: T, i: number) => TResult,
-  initialValue: TResult,
-  list: T[],
-): TResult
-export function reduce<T, TResult>(
-  reducer: (prev: TResult, current: T) => TResult,
-  initialValue: TResult,
-  list: T[],
-): TResult
-export function reduce<T, TResult>(
-  reducer: (prev: TResult, current: T, i: number) => TResult,
-): (initialValue: TResult, list: T[]) => TResult
-export function reduce<T, TResult>(
-  reducer: (prev: TResult, current: T, i: number) => TResult,
-  initialValue: TResult,
-): (list: T[]) => TResult
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: T[]): TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult): (initialValue: TResult, list: T[]) => TResult;
+export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
 /*
 Method: reject
@@ -4146,17 +3507,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(predicate: Predicate<T>, list: T[]): T[]
-export function reject<T>(
-  predicate: Predicate<T>,
-): (list: T[]) => T[]
-export function reject<T>(
-  predicate: Predicate<T>,
-  obj: Dictionary<T>,
-): Dictionary<T>
-export function reject<T, U>(
-  predicate: Predicate<T>,
-): (obj: Dictionary<T>) => Dictionary<T>
+export function reject<T>(predicate: Predicate<T>, list: T[]): T[];
+export function reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
+export function reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
+export function reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: repeat
@@ -4176,8 +3530,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function repeat<T>(x: T): (timesToRepeat: number) => T[]
-export function repeat<T>(x: T, timesToRepeat: number): T[]
+export function repeat<T>(x: T): (timesToRepeat: number) => T[];
+export function repeat<T>(x: T, timesToRepeat: number): T[];
 
 /*
 Method: replace
@@ -4199,18 +3553,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replace(
-  strOrRegex: RegExp | string,
-  replacer: RegExpReplacer,
-  str: string,
-): string
-export function replace(
-  strOrRegex: RegExp | string,
-  replacer: RegExpReplacer,
-): (str: string) => string
-export function replace(
-  strOrRegex: RegExp | string,
-): (replacer: RegExpReplacer) => (str: string) => string
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
+export function replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
 
 /*
 Method: reverse
@@ -4233,8 +3578,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reverse<T>(input: T[]): T[]
-export function reverse(input: string): string
+export function reverse<T>(input: T[]): T[];
+export function reverse(input: string): string;
 
 /*
 Method: slice
@@ -4262,23 +3607,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function slice(
-  from: number,
-  to: number,
-  input: string,
-): string
-export function slice<T>(from: number, to: number, input: T[]): T[]
-export function slice(
-  from: number,
-  to: number,
-): {
-  (input: string): string
-  <T>(input: T[]): T[]
-}
+export function slice(from: number, to: number, input: string): string;
+export function slice<T>(from: number, to: number, input: T[]): T[];
+export function slice(from: number, to: number): {
+  (input: string): string;
+  <T>(input: T[]): T[];
+};
 export function slice(from: number): {
-  (to: number, input: string): string
-  <T>(to: number, input: T[]): T[]
-}
+  (to: number, input: string): string;
+  <T>(to: number, input: T[]): T[];
+};
 
 /*
 Method: sort
@@ -4312,13 +3650,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sort<T>(
-  sortFn: (a: T, b: T) => number,
-  list: T[],
-): T[]
-export function sort<T>(
-  sortFn: (a: T, b: T) => number,
-): (list: T[]) => T[]
+export function sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
+export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 
 /*
 Method: sortBy
@@ -4350,11 +3683,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[]
-export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[]
-export function sortBy(
-  sortFn: (a: any) => Ord,
-): <T>(list: T[]) => T[]
+export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
+export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
+export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
 /*
 Method: split
@@ -4376,13 +3707,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function split(
-  separator: string | RegExp,
-): (str: string) => string[]
-export function split(
-  separator: string | RegExp,
-  str: string,
-): string[]
+export function split(separator: string | RegExp): (str: string) => string[];
+export function split(separator: string | RegExp, str: string): string[];
 
 /*
 Method: splitEvery
@@ -4410,15 +3736,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitEvery<T>(sliceLength: number, input: T[]): T[][]
-export function splitEvery(
-  sliceLength: number,
-  input: string,
-): string[]
+export function splitEvery<T>(sliceLength: number, input: T[]): (T[])[];
+export function splitEvery(sliceLength: number, input: string): string[];
 export function splitEvery(sliceLength: number): {
-  (input: string): string[]
-  <T>(input: T[]): T[][]
-}
+  (input: string): string[];
+  <T>(input: T[]): (T[])[];
+};
 
 /*
 Method: startsWith
@@ -4445,15 +3768,10 @@ Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
 
 */
 // @SINGLE_MARKER
-export function startsWith<T extends string>(
-  question: T,
-  input: string,
-): boolean
-export function startsWith<T extends string>(
-  question: T,
-): (input: string) => boolean
-export function startsWith<T>(question: T[], input: T[]): boolean
-export function startsWith<T>(question: T[]): (input: T[]) => boolean
+export function startsWith<T extends string>(question: T, input: string): boolean;
+export function startsWith<T extends string>(question: T): (input: string) => boolean;
+export function startsWith<T>(question: T[], input: T[]): boolean;
+export function startsWith<T>(question: T[]): (input: T[]) => boolean;
 
 /*
 Method: subtract
@@ -4476,8 +3794,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function subtract(x: number, y: number): number
-export function subtract(x: number): (y: number) => number
+export function subtract(x: number, y: number): number;
+export function subtract(x: number): (y: number) => number;
 
 /*
 Method: sum
@@ -4497,7 +3815,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sum(list: number[]): number
+export function sum(list: number[]): number;
 
 /*
 Method: symmetricDifference
@@ -4522,8 +3840,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(x: T[], y: T[]): T[]
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[]
+export function symmetricDifference<T>(x: T[], y: T[]): T[];
+export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
 
 /*
 Method: T
@@ -4545,7 +3863,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function T(): boolean
+export function T(): boolean;
 
 /*
 Method: tail
@@ -4568,10 +3886,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T extends unknown[]>(
-  input: T,
-): T extends [any, ...infer U] ? U : [...T]
-export function tail(input: string): string
+export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
+export function tail(input: string): string;
 
 /*
 Method: take
@@ -4597,12 +3913,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(howMany: number, input: T[]): T[]
-export function take(howMany: number, input: string): string
+export function take<T>(howMany: number, input: T[]): T[];
+export function take(howMany: number, input: string): string;
 export function take<T>(howMany: number): {
-  <T>(input: T[]): T[]
-  (input: string): string
-}
+  <T>(input: T[]): T[];
+  (input: string): string;
+};
 
 /*
 Method: takeLast
@@ -4627,12 +3943,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(howMany: number, input: T[]): T[]
-export function takeLast(howMany: number, input: string): string
+export function takeLast<T>(howMany: number, input: T[]): T[];
+export function takeLast(howMany: number, input: string): string;
 export function takeLast<T>(howMany: number): {
-  <T>(input: T[]): T[]
-  (input: string): string
-}
+  <T>(input: T[]): T[];
+  (input: string): string;
+};
 
 /*
 Method: tap
@@ -4660,8 +3976,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tap<T>(fn: (x: T) => void, input: T): T
-export function tap<T>(fn: (x: T) => void): (input: T) => T
+export function tap<T>(fn: (x: T) => void, input: T): T;
+export function tap<T>(fn: (x: T) => void): (input: T) => T;
 
 /*
 Method: test
@@ -4681,8 +3997,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function test(regExpression: RegExp): (str: string) => boolean
-export function test(regExpression: RegExp, str: string): boolean
+export function test(regExpression: RegExp): (str: string) => boolean;
+export function test(regExpression: RegExp, str: string): boolean;
 
 /*
 Method: times
@@ -4707,10 +4023,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function times<T>(fn: (i: number) => T, howMany: number): T[]
-export function times<T>(
-  fn: (i: number) => T,
-): (howMany: number) => T[]
+export function times<T>(fn: (i: number) => T, howMany: number): T[];
+export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 /*
 Method: toLower
@@ -4730,8 +4044,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toLower<S extends string>(str: S): Lowercase<S>
-export function toLower(str: string): string
+export function toLower<S extends string>(str: S): Lowercase<S>;
+export function toLower(str: string): string;
 
 /*
 Method: toUpper
@@ -4751,8 +4065,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toUpper<S extends string>(str: S): Uppercase<S>
-export function toUpper(str: string): string
+export function toUpper<S extends string>(str: S): Uppercase<S>;
+export function toUpper(str: string): string;
 
 /*
 Method: toPairs
@@ -4780,13 +4094,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toPairs<
-  O extends object,
-  K extends Extract<keyof O, string | number>,
->(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>
-export function toPairs<S>(
-  obj: Record<string | number, S>,
-): Array<[string, S]>
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /*
 Method: toString
@@ -4806,7 +4115,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toString(x: unknown): string
+export function toString(x: unknown): string;
 
 /*
 Method: transpose
@@ -4829,7 +4138,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function transpose<T>(list: T[][]): T[][]
+export function transpose<T>(list: (T[])[]): (T[])[];
 
 /*
 Method: trim
@@ -4849,7 +4158,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function trim(str: string): string
+export function trim(str: string): string;
 
 /*
 Method: tryCatch
@@ -4876,20 +4185,20 @@ Notes: Please check the tests of `R.tryCatch` to fully understand how this metho
 // @SINGLE_MARKER
 export function tryCatch<T, U>(
   fn: (input: T) => U,
-  fallback: U,
-): (input: T) => U
+  fallback: U
+): (input: T) => U;
 export function tryCatch<T, U>(
   fn: (input: T) => U,
-  fallback: (input: T) => U,
-): (input: T) => U
+  fallback: (input: T) => U
+): (input: T) => U;
 export function tryCatch<T>(
   fn: (input: any) => Promise<any>,
-  fallback: T,
-): (input: any) => Promise<T>
+  fallback: T
+): (input: any) => Promise<T>;
 export function tryCatch<T>(
   fn: (input: any) => Promise<any>,
   fallback: (input: any) => Promise<any>,
-): (input: any) => Promise<T>
+): (input: any) => Promise<T>;
 
 /*
 Method: type
@@ -4924,7 +4233,7 @@ Notes: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
 
 */
 // @SINGLE_MARKER
-export function type(x: any): RambdaTypes
+export function type(x: any): RambdaTypes;
 
 /*
 Method: union
@@ -4946,8 +4255,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function union<T>(x: T[], y: T[]): T[]
-export function union<T>(x: T[]): (y: T[]) => T[]
+export function union<T>(x: T[], y: T[]): T[];
+export function union<T>(x: T[]): (y: T[]) => T[];
 
 /*
 Method: uniq
@@ -4971,7 +4280,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniq<T>(list: T[]): T[]
+export function uniq<T>(list: T[]): T[];
 
 /*
 Method: uniqWith
@@ -5009,13 +4318,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(
-  predicate: (x: T, y: T) => boolean,
-  list: T[],
-): T[]
-export function uniqWith<T, U>(
-  predicate: (x: T, y: T) => boolean,
-): (list: T[]) => T[]
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
+export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: unless
@@ -5047,24 +4351,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unless<T, U>(
-  predicate: (x: T) => boolean,
-  whenFalseFn: (x: T) => U,
-  x: T,
-): T | U
-export function unless<T, U>(
-  predicate: (x: T) => boolean,
-  whenFalseFn: (x: T) => U,
-): (x: T) => T | U
-export function unless<T>(
-  predicate: (x: T) => boolean,
-  whenFalseFn: (x: T) => T,
-  x: T,
-): T
-export function unless<T>(
-  predicate: (x: T) => boolean,
-  whenFalseFn: (x: T) => T,
-): (x: T) => T
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /*
 Method: update
@@ -5088,11 +4378,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function update<T>(index: number, newValue: T, list: T[]): T[]
-export function update<T>(
-  index: number,
-  newValue: T,
-): (list: T[]) => T[]
+export function update<T>(index: number, newValue: T, list: T[]): T[];
+export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 /*
 Method: values
@@ -5114,9 +4401,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function values<T extends object, K extends keyof T>(
-  obj: T,
-): T[K][]
+export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 /*
 Method: when
@@ -5152,18 +4437,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function when<T, U>(
-  predicate: (x: T) => boolean,
-  whenTrueFn: (a: T) => U,
-  input: T,
-): T | U
-export function when<T, U>(
-  predicate: (x: T) => boolean,
-  whenTrueFn: (a: T) => U,
-): (input: T) => T | U
-export function when<T, U>(
-  predicate: (x: T) => boolean,
-): (whenTrueFn: (a: T) => U) => (input: T) => T | U
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
+export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
 
 /*
 Method: where
@@ -5193,15 +4469,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function where<T, U>(conditions: T, input: U): boolean
-export function where<T>(conditions: T): <U>(input: U) => boolean
-export function where<ObjFunc2, U>(
-  conditions: ObjFunc2,
-  input: U,
-): boolean
-export function where<ObjFunc2>(
-  conditions: ObjFunc2,
-): <U>(input: U) => boolean
+export function where<T, U>(conditions: T, input: U): boolean;
+export function where<T>(conditions: T): <U>(input: U) => boolean;
+export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 /*
 Method: whereEq
@@ -5229,8 +4500,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereEq<T, U>(condition: T, input: U): boolean
-export function whereEq<T>(condition: T): <U>(input: U) => boolean
+export function whereEq<T, U>(condition: T, input: U): boolean;
+export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 
 /*
 Method: without
@@ -5255,8 +4526,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function without<T>(matchAgainst: T[], source: T[]): T[]
-export function without<T>(matchAgainst: T[]): (source: T[]) => T[]
+export function without<T>(matchAgainst: T[], source: T[]): T[];
+export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
 
 /*
 Method: xor
@@ -5280,8 +4551,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function xor(x: boolean, y: boolean): boolean
-export function xor(y: boolean): (y: boolean) => boolean
+export function xor(x: boolean, y: boolean): boolean;
+export function xor(y: boolean): (y: boolean) => boolean;
 
 /*
 Method: zip
@@ -5309,8 +4580,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[]
-export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[]
+export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
+export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
 
 /*
 Method: zipObj
@@ -5336,20 +4607,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zipObj<T, K extends string>(
-  keys: K[],
-  values: T[],
-): { [P in K]: T }
-export function zipObj<K extends string>(
-  keys: K[],
-): <T>(values: T[]) => { [P in K]: T }
-export function zipObj<T, K extends number>(
-  keys: K[],
-  values: T[],
-): { [P in K]: T }
-export function zipObj<K extends number>(
-  keys: K[],
-): <T>(values: T[]) => { [P in K]: T }
+export function zipObj<T, K extends string>(keys: K[], values: T[]): { [P in K]: T };
+export function zipObj<K extends string>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
+export function zipObj<T, K extends number>(keys: K[], values: T[]): { [P in K]: T };
+export function zipObj<K extends number>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
 
 /*
 Method: props
@@ -5372,16 +4633,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function props<P extends string, T>(
-  propsToPick: P[],
-  obj: Record<P, T>,
-): T[]
-export function props<P extends string>(
-  propsToPick: P[],
-): <T>(obj: Record<P, T>) => T[]
-export function props<P extends string, T>(
-  propsToPick: P[],
-): (obj: Record<P, T>) => T[]
+export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
+export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
+export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 
 /*
 Method: zipWith
@@ -5406,18 +4660,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zipWith<T, U, TResult>(
-  fn: (x: T, y: U) => TResult,
-  list1: T[],
-  list2: U[],
-): TResult[]
-export function zipWith<T, U, TResult>(
-  fn: (x: T, y: U) => TResult,
-  list1: T[],
-): (list2: U[]) => TResult[]
-export function zipWith<T, U, TResult>(
-  fn: (x: T, y: U) => TResult,
-): (list1: T[], list2: U[]) => TResult[]
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
 
 /*
 Method: splitAt
@@ -5438,15 +4683,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitAt<T>(index: number, input: T[]): [T[], T[]]
-export function splitAt(
-  index: number,
-  input: string,
-): [string, string]
+export function splitAt<T>(index: number, input: T[]): [T[], T[]];
+export function splitAt(index: number, input: string): [string, string];
 export function splitAt(index: number): {
-  <T>(input: T[]): [T[], T[]]
-  (input: string): [string, string]
-}
+    <T>(input: T[]): [T[], T[]];
+    (input: string): [string, string];
+};
 
 /*
 Method: splitWhen
@@ -5469,13 +4711,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitWhen<T, U>(
-  predicate: Predicate<T>,
-  list: U[],
-): U[][]
-export function splitWhen<T>(
-  predicate: Predicate<T>,
-): <U>(list: U[]) => U[][]
+export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[];
+export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
 
 /*
 Method: takeLastWhile
@@ -5498,20 +4735,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLastWhile(
-  predicate: (x: string) => boolean,
-  input: string,
-): string
-export function takeLastWhile(
-  predicate: (x: string) => boolean,
-): (input: string) => string
-export function takeLastWhile<T>(
-  predicate: (x: T) => boolean,
-  input: T[],
-): T[]
-export function takeLastWhile<T>(
-  predicate: (x: T) => boolean,
-): <T>(input: T[]) => T[]
+export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
+export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
+export function takeLastWhile<T>(predicate: (x: T) => boolean, input: T[]): T[];
+export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 
 /*
 Method: evolve
@@ -5545,17 +4772,10 @@ Notes: Error handling of this method differs between Ramda and Rambda. Ramda for
 
 */
 // @SINGLE_MARKER
-export function evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[]
-export function evolve<T, U>(
-  rules: ((x: T) => U)[],
-): (list: T[]) => U[]
-export function evolve<E extends Evolver, V extends Evolvable<E>>(
-  rules: E,
-  obj: V,
-): Evolve<V, E>
-export function evolve<E extends Evolver>(
-  rules: E,
-): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>
+export function evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[];
+export function evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
+export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
+export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /*
 Method: dropLastWhile
@@ -5578,20 +4798,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLastWhile(
-  predicate: (x: string) => boolean,
-  iterable: string,
-): string
-export function dropLastWhile(
-  predicate: (x: string) => boolean,
-): (iterable: string) => string
-export function dropLastWhile<T>(
-  predicate: (x: T) => boolean,
-  iterable: T[],
-): T[]
-export function dropLastWhile<T>(
-  predicate: (x: T) => boolean,
-): <T>(iterable: T[]) => T[]
+export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
+export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
+export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: T[]): T[];
+export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: T[]) => T[];
 
 /*
 Method: dropRepeats
@@ -5617,7 +4827,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeats<T>(list: T[]): T[]
+export function dropRepeats<T>(list: T[]): T[];
 
 /*
 Method: dropRepeatsWith
@@ -5639,13 +4849,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeatsWith<T>(
-  predicate: (x: T, y: T) => boolean,
-  list: T[],
-): T[]
-export function dropRepeatsWith<T>(
-  predicate: (x: T, y: T) => boolean,
-): (list: T[]) => T[]
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
+export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: dropWhile
@@ -5667,17 +4872,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile(
-  fn: Predicate<string>,
-  iterable: string,
-): string
-export function dropWhile(
-  fn: Predicate<string>,
-): (iterable: string) => string
-export function dropWhile<T>(fn: Predicate<T>, iterable: T[]): T[]
-export function dropWhile<T>(
-  fn: Predicate<T>,
-): (iterable: T[]) => T[]
+export function dropWhile(fn: Predicate<string>, iterable: string): string;
+export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
+export function dropWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
+export function dropWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /*
 Method: takeWhile
@@ -5700,17 +4898,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile(
-  fn: Predicate<string>,
-  iterable: string,
-): string
-export function takeWhile(
-  fn: Predicate<string>,
-): (iterable: string) => string
-export function takeWhile<T>(fn: Predicate<T>, iterable: T[]): T[]
-export function takeWhile<T>(
-  fn: Predicate<T>,
-): (iterable: T[]) => T[]
+export function takeWhile(fn: Predicate<string>, iterable: string): string;
+export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
+export function takeWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
+export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /*
 Method: eqProps
@@ -5732,18 +4923,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqProps<T, U>(
-  prop: string,
-  obj1: T,
-  obj2: U,
-): boolean
-export function eqProps<P extends string>(
-  prop: P,
-): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean
-export function eqProps<T>(
-  prop: string,
-  obj1: T,
-): <U>(obj2: U) => boolean
+export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
+export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
+export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
 /*
 Method: unapply
@@ -5765,9 +4947,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unapply<T = any>(
-  fn: (args: any[]) => T,
-): (...args: any[]) => T
+export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
 
 /*
 Method: apply
@@ -5789,13 +4969,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function apply<T = any>(
-  fn: (...args: any[]) => T,
-  args: any[],
-): T
-export function apply<T = any>(
-  fn: (...args: any[]) => T,
-): (args: any[]) => T
+export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
+export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 
 /*
 Method: bind
@@ -5821,13 +4996,8 @@ Notes: R.bind does not provide the additional argument-binding capabilities of `
 
 */
 // @SINGLE_MARKER
-export function bind<F extends AnyFunction, T>(
-  fn: F,
-  thisObj: T,
-): (...args: Parameters<F>) => ReturnType<F>
-export function bind<F extends AnyFunction, T>(
-  fn: F,
-): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>
+export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /*
 Method: mergeWith
@@ -5851,30 +5021,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith(
-  fn: (x: any, z: any) => any,
-  a: Record<string, unknown>,
-  b: Record<string, unknown>,
-): Record<string, unknown>
-export function mergeWith<Output>(
-  fn: (x: any, z: any) => any,
-  a: Record<string, unknown>,
-  b: Record<string, unknown>,
-): Output
-export function mergeWith(
-  fn: (x: any, z: any) => any,
-  a: Record<string, unknown>,
-): (b: Record<string, unknown>) => Record<string, unknown>
-export function mergeWith<Output>(
-  fn: (x: any, z: any) => any,
-  a: Record<string, unknown>,
-): (b: Record<string, unknown>) => Output
-export function mergeWith(
-  fn: (x: any, z: any) => any,
-): <U, V>(a: U, b: V) => Record<string, unknown>
-export function mergeWith<Output>(
-  fn: (x: any, z: any) => any,
-): <U, V>(a: U, b: V) => Output
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
+export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
+export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
 
 /*
 Method: juxt
@@ -5897,35 +5049,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function juxt<A extends any[], R1>(
-  fns: [(...a: A) => R1],
-): (...a: A) => [R1]
-export function juxt<A extends any[], R1, R2>(
-  fns: [(...a: A) => R1, (...a: A) => R2],
-): (...a: A) => [R1, R2]
-export function juxt<A extends any[], R1, R2, R3>(
-  fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3],
-): (...a: A) => [R1, R2, R3]
-export function juxt<A extends any[], R1, R2, R3, R4>(
-  fns: [
-    (...a: A) => R1,
-    (...a: A) => R2,
-    (...a: A) => R3,
-    (...a: A) => R4,
-  ],
-): (...a: A) => [R1, R2, R3, R4]
-export function juxt<A extends any[], R1, R2, R3, R4, R5>(
-  fns: [
-    (...a: A) => R1,
-    (...a: A) => R2,
-    (...a: A) => R3,
-    (...a: A) => R4,
-    (...a: A) => R5,
-  ],
-): (...a: A) => [R1, R2, R3, R4, R5]
-export function juxt<A extends any[], U>(
-  fns: Array<(...args: A) => U>,
-): (...args: A) => U[]
+export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
+export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+export function juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+export function juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
 /*
 Method: count
@@ -5946,13 +5075,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function count<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): number
-export function count<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => number
+export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
+export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
 Method: countBy
@@ -5975,13 +5099,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T extends unknown>(
-  transformFn: (x: T) => any,
-  list: T[],
-): Record<string, number>
-export function countBy<T extends unknown>(
-  transformFn: (x: T) => any,
-): (list: T[]) => Record<string, number>
+export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
+export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
 
 /*
 Method: unwind
@@ -6006,8 +5125,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<T, U>(prop: keyof T, obj: T): U[]
-export function unwind<T, U>(prop: keyof T): (obj: T) => U[]
+export function unwind<T, U>(prop: keyof T, obj: T): U[];
+export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
 
 /*
 Method: on
@@ -6029,24 +5148,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function on<T, U, R>(
-  binaryFn: (a: U, b: U) => R,
-  unaryFn: (value: T) => U,
-  a: T,
-  b: T,
-): R
-export function on<T, U, R>(
-  binaryFn: (a: U, b: U) => R,
-  unaryFn: (value: T) => U,
-  a: T,
-): (b: T) => R
-export function on<T, U, R>(
-  binaryFn: (a: U, b: U) => R,
-  unaryFn: (value: T) => U,
-): {
-  (a: T, b: T): R
-  (a: T): (b: T) => R
-}
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
+};
 
 /*
 Method: whereAny
@@ -6073,15 +5180,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereAny<T, U>(conditions: T, input: U): boolean
-export function whereAny<T>(conditions: T): <U>(input: U) => boolean
-export function whereAny<ObjFunc2, U>(
-  conditions: ObjFunc2,
-  input: U,
-): boolean
-export function whereAny<ObjFunc2>(
-  conditions: ObjFunc2,
-): <U>(input: U) => boolean
+export function whereAny<T, U>(conditions: T, input: U): boolean;
+export function whereAny<T>(conditions: T): <U>(input: U) => boolean;
+export function whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
+export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
 
 /*
 Method: partialObject
@@ -6109,11 +5211,9 @@ Notes: Function input can be asynchronous
 */
 // @SINGLE_MARKER
 export function partialObject<Input, PartialInput, Output>(
-  fn: (input: Input) => Output,
+  fn: (input: Input) => Output, 
   partialInput: PartialInput,
-): (
-  input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>,
-) => Output
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 /*
 Method: uniqBy
@@ -6139,8 +5239,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[]
-export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[]
+export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
+export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
 /*
 Method: modifyPath
@@ -6160,20 +5260,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T extends Record<string, unknown>>(
-  path: Path,
-  fn: (x: any) => unknown,
-  object: Record<string, unknown>,
-): T
-export function modifyPath<T extends Record<string, unknown>>(
-  path: Path,
-  fn: (x: any) => unknown,
-): (object: Record<string, unknown>) => T
-export function modifyPath<T extends Record<string, unknown>>(
-  path: Path,
-): (
-  fn: (x: any) => unknown,
-) => (object: Record<string, unknown>) => T
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
+export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
 
 /*
 Method: modify
@@ -6197,11 +5286,11 @@ export function modify<T extends object, K extends keyof T, P>(
   prop: K,
   fn: (a: T[K]) => P,
   obj: T,
-): Omit<T, K> & Record<K, P>
+): Omit<T, K> & Record<K, P>;
 export function modify<K extends string, A, P>(
   prop: K,
   fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
 /*
 Method: unnest
@@ -6219,8 +5308,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unnest(list: unknown[]): unknown[]
-export function unnest<T>(list: unknown[]): T
+export function unnest(list: unknown[]): unknown[];
+export function unnest<T>(list: unknown[]): T;
 
 /*
 Method: differenceWith
@@ -6242,14 +5331,14 @@ export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
   list2: T2[],
-): T1[]
+): T1[];
 export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
-): (list1: T1[], list2: T2[]) => T1[]
+): (list1: T1[], list2: T2[]) => T1[];
 export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
-): (list2: T2[]) => T1[]
+): (list2: T2[]) => T1[];
 
 /*
 Method: addIndex
@@ -6267,12 +5356,8 @@ Notes: TS typings are oversimplified
 
 */
 // @SINGLE_MARKER
-export function addIndex(
-  originalFn: any,
-): (fn: any) => (list: any[]) => any[]
-export function addIndex(
-  originalFn: any,
-): (fn: any, list: any[]) => any[]
+export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
 
 /*
 Method: ap
@@ -6290,12 +5375,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[]
-export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[]
-export function ap<R, A, B>(
-  fn: (r: R, a: A) => B,
-  fn1: (r: R) => A,
-): (r: R) => B
+export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
+export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
 
 /*
 Method: addIndexRight
@@ -6313,12 +5395,8 @@ Notes: TS typings are oversimplified
 
 */
 // @SINGLE_MARKER
-export function addIndexRight(
-  originalFn: any,
-): (fn: any) => (list: any[]) => any[]
-export function addIndexRight(
-  originalFn: any,
-): (fn: any, list: any[]) => any[]
+export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
+export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
 
 /*
 Method: aperture
@@ -6336,13 +5414,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function aperture<N extends number, T>(
-  n: N,
-  list: T[],
-): Array<Tuple<T, N>> | []
-export function aperture<N extends number>(
-  n: N,
-): <T>(list: T[]) => Array<Tuple<T, N>> | []
+export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
+
 
 /*
 Method: applyTo
@@ -6360,8 +5434,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function applyTo<T, U>(el: T, fn: (t: T) => U): U
-export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U
+export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
+export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
 
 /*
 Method: ascend
@@ -6379,10 +5453,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering
-export function ascend<T>(
-  fn: (obj: T) => Ord,
-): (a: T, b: T) => Ordering
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /*
 Method: descend
@@ -6400,10 +5472,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering
-export function descend<T>(
-  fn: (obj: T) => Ord,
-): (a: T, b: T) => Ordering
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /*
 Method: binary
@@ -6421,9 +5491,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function binary<T extends (...arg: any[]) => any>(
-  fn: T,
-): (...args: any[]) => ReturnType<T>
+export function binary<T extends (...arg: any[]) => any>(fn: T): (...args: any[]) => ReturnType<T>;
 
 /*
 Method: call
@@ -6441,10 +5509,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function call<T extends (...args: any[]) => any>(
-  fn: T,
-  ...args: Parameters<T>
-): ReturnType<T>
+export function call<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /*
 Method: collectBy
@@ -6462,13 +5527,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function collectBy<T, K extends PropertyKey>(
-  keyFn: (value: T) => K,
-  list: T[],
-): T[][]
-export function collectBy<T, K extends PropertyKey>(
-  keyFn: (value: T) => K,
-): (list: T[]) => T[][]
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: T[]): T[][];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: T[]) => T[][];
 
 /*
 Method: comparator
@@ -6486,9 +5546,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function comparator<T>(
-  pred: (a: T, b: T) => boolean,
-): (x: T, y: T) => Ordering
+export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /*
 Method: composeWith
@@ -6507,20 +5565,14 @@ Notes:
 */
 // @SINGLE_MARKER
 export function composeWith<TArgs extends any[], TResult>(
-  transformer: (
-    fn: (...args: any[]) => any,
-    intermediatResult: any,
-  ) => any,
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
   fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
-): (...args: TArgs) => TResult
+): (...args: TArgs) => TResult;
 export function composeWith(
-  transformer: (
-    fn: (...args: any[]) => any,
-    intermediatResult: any,
-  ) => any,
+  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
 ): <TArgs extends any[], TResult>(
   fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
-) => (...args: TArgs) => TResult
+) => (...args: TArgs) => TResult;
 
 /*
 Method: dissocPath
@@ -6538,8 +5590,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dissocPath<T>(path: Path, obj: any): T
-export function dissocPath<T>(path: Path): (obj: any) => T
+export function dissocPath<T>(path: Path, obj: any): T;
+export function dissocPath<T>(path: Path): (obj: any) => T;
 
 /*
 Method: removeIndex
@@ -6560,8 +5612,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function removeIndex<T>(index: number, list: T[]): T[]
-export function removeIndex(index: number): <T>(list: T[]) => T[]
+export function removeIndex<T>(index: number, list: T[]): T[];
+export function removeIndex(index: number): <T>(list: T[]) => T[];
 
 /*
 Method: dropRepeatsBy
@@ -6579,11 +5631,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[]
+export function dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[];
 export function dropRepeatsBy<T, U>(
-  fn: (a: T) => U,
-): (list: T[]) => T[]
-export function dropRepeatsBy(fn: any): <T>(list: T[]) => T[]
+  fn: (a: T) => U
+): (list: T[]) => T[];
+export function dropRepeatsBy(fn: any): <T>(list: T[]) => T[];
 
 /*
 Method: empty
@@ -6601,7 +5653,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function empty<T>(x: T): T
+export function empty<T>(x: T): T;
 
 /*
 Method: eqBy
@@ -6619,15 +5671,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean
-export function eqBy<T>(
-  fn: (a: T) => unknown,
-  a: T,
-): (b: T) => boolean
+export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
+export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
 export function eqBy<T>(fn: (a: T) => unknown): {
-  (a: T, b: T): boolean
-  (a: T): (b: T) => boolean
-}
+  (a: T, b: T): boolean;
+  (a: T): (b: T) => boolean;
+};
 
 /*
 Method: forEachObjIndexed
@@ -6645,37 +5694,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function forEachObjIndexed<T>(
-  fn: (value: T[keyof T], key: keyof T, obj: T) => void,
-  obj: T,
-): T
-export function forEachObjIndexed<T>(
-  fn: (value: T[keyof T], key: keyof T, obj: T) => void,
-): (obj: T) => T
-
-/*
-Method: sortWith
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function sortWith<T>(
-  fns: Array<(a: T, b: T) => number>,
-  list: T[],
-): T[]
-export function sortWith<T>(
-  fns: Array<(a: T, b: T) => number>,
-): (list: T[]) => T[]
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
 
 // RAMBDAX_MARKER_START
 
@@ -6701,7 +5721,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function allFalse(...inputs: any[]): boolean
+export function allFalse(...inputs: any[]): boolean;
 
 /*
 Method: anyFalse
@@ -6721,7 +5741,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyFalse(...input: any[]): boolean
+export function anyFalse(...input: any[]): boolean;
 
 /*
 Method: allTrue
@@ -6741,7 +5761,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function allTrue(...input: any[]): boolean
+export function allTrue(...input: any[]): boolean;
 
 /*
 Method: anyTrue
@@ -6761,7 +5781,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function anyTrue(...input: any[]): boolean
+export function anyTrue(...input: any[]): boolean;
 
 /*
 Method: allType
@@ -6785,9 +5805,7 @@ Notes: `targetType` is one of the possible returns of `R.type`
 
 */
 // @SINGLE_MARKER
-export function allType(
-  targetType: RambdaTypes,
-): (...input: any[]) => boolean
+export function allType(targetType: RambdaTypes): (...input: any[]) => boolean;
 
 /*
 Method: anyType
@@ -6813,9 +5831,7 @@ Notes: `targetType` is one of the possible returns of `R.type`
 
 */
 // @SINGLE_MARKER
-export function anyType(
-  targetType: RambdaTypes,
-): (...input: any[]) => boolean
+export function anyType(targetType: RambdaTypes): (...input: any[]) => boolean;
 
 /*
 Method: composeAsync
@@ -6845,48 +5861,28 @@ Categories: Logic, Async
 
 */
 // @SINGLE_MARKER
-export function composeAsync<
-  TArg,
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
-  TResult,
->(
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   ...func: [
-    fnLast: (a: any) => TResult,
-    ...func: Array<(a: any) => any>,
-    f7: (a: Awaited<R6>) => R7,
-    f6: (a: Awaited<R5>) => R6,
-    f5: (a: Awaited<R4>) => R5,
-    f4: (a: Awaited<R3>) => R4,
-    f3: (a: Awaited<R2>) => R3,
-    f2: (a: Awaited<R1>) => R2,
-    f1: (a: Awaited<TArg>) => R1,
+      fnLast: (a: any) => TResult,
+      ...func: Array<(a: any) => any>,
+      f7: (a: Awaited<R6>) => R7,
+      f6: (a: Awaited<R5>) => R6,
+      f5: (a: Awaited<R4>) => R5,
+      f4: (a: Awaited<R3>) => R4,
+      f3: (a: Awaited<R2>) => R3,
+      f2: (a: Awaited<R1>) => R2,
+      f1: (a: Awaited<TArg>) => R1
   ]
-): (a: TArg | Promise<TArg>) => TResult // fallback overload if number of composed functions greater than 7
-export function composeAsync<
-  TArg,
-  R1,
-  R2,
-  R3,
-  R4,
-  R5,
-  R6,
-  R7,
-  TResult,
->(
+): (a: TArg | Promise<TArg>) => TResult; // fallback overload if number of composed functions greater than 7
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: Awaited<R6>) => R7,
   f6: (a: Awaited<R5>) => R6,
   f5: (a: Awaited<R4>) => R5,
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R7
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f7: (a: Awaited<R6>) => R7,
   f6: (a: Awaited<R5>) => R6,
@@ -6894,41 +5890,41 @@ export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R7
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6>(
   f6: (a: Awaited<R5>) => R6,
   f5: (a: Awaited<R4>) => R5,
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R6
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R6;
 export function composeAsync<TArg, R1, R2, R3, R4, R5>(
   f5: (a: Awaited<R4>) => R5,
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R5
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R5;
 export function composeAsync<TArg, R1, R2, R3, R4>(
   f4: (a: Awaited<R3>) => R4,
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R4
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R4;
 export function composeAsync<TArg, R1, R2, R3>(
   f3: (a: Awaited<R2>) => R3,
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R3
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R3;
 export function composeAsync<TArg, R1, R2>(
   f2: (a: Awaited<R1>) => R2,
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R2
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R2;
 export function composeAsync<TArg, R1>(
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R1
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
 
 /*
 Method: pipeAsync
@@ -6960,17 +5956,17 @@ Categories: Logic, Async
 // @SINGLE_MARKER
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   ...funcs: [
-    f1: (a: Awaited<TArg>) => R1,
-    f2: (a: Awaited<R1>) => R2,
-    f3: (a: Awaited<R2>) => R3,
-    f4: (a: Awaited<R3>) => R4,
-    f5: (a: Awaited<R4>) => R5,
-    f6: (a: Awaited<R5>) => R6,
-    f7: (a: Awaited<R6>) => R7,
-    ...func: Array<(a: any) => any>,
-    fnLast: (a: any) => TResult,
+      f1: (a: Awaited<TArg>) => R1,
+      f2: (a: Awaited<R1>) => R2,
+      f3: (a: Awaited<R2>) => R3,
+      f4: (a: Awaited<R3>) => R4,
+      f5: (a: Awaited<R4>) => R5,
+      f6: (a: Awaited<R5>) => R6,
+      f7: (a: Awaited<R6>) => R7,
+      ...func: Array<(a: any) => any>,
+      fnLast: (a: any) => TResult
   ]
-): (a: TArg | Promise<TArg>) => TResult // fallback overload if number of piped functions greater than 7
+): (a: TArg | Promise<TArg>) => TResult;  // fallback overload if number of piped functions greater than 7
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
@@ -6978,41 +5974,41 @@ export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f4: (a: Awaited<R3>) => R4,
   f5: (a: Awaited<R4>) => R5,
   f6: (a: Awaited<R5>) => R6,
-  f7: (a: Awaited<R6>) => R7,
-): (a: TArg | Promise<TArg>) => R7
+  f7: (a: Awaited<R6>) => R7
+): (a: TArg | Promise<TArg>) => R7;
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4,
   f5: (a: Awaited<R4>) => R5,
-  f6: (a: Awaited<R5>) => R6,
-): (a: TArg | Promise<TArg>) => R6
+  f6: (a: Awaited<R5>) => R6
+): (a: TArg | Promise<TArg>) => R6;
 export function pipeAsync<TArg, R1, R2, R3, R4, R5>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
   f4: (a: Awaited<R3>) => R4,
-  f5: (a: Awaited<R4>) => R5,
-): (a: TArg | Promise<TArg>) => R5
+  f5: (a: Awaited<R4>) => R5
+): (a: TArg | Promise<TArg>) => R5;
 export function pipeAsync<TArg, R1, R2, R3, R4>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
   f3: (a: Awaited<R2>) => R3,
-  f4: (a: Awaited<R3>) => R4,
-): (a: TArg | Promise<TArg>) => R4
+  f4: (a: Awaited<R3>) => R4
+): (a: TArg | Promise<TArg>) => R4;
 export function pipeAsync<TArg, R1, R2, R3>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
-  f3: (a: Awaited<R2>) => R3,
-): (a: TArg | Promise<TArg>) => R3
+  f3: (a: Awaited<R2>) => R3
+): (a: TArg | Promise<TArg>) => R3;
 export function pipeAsync<TArg, R1, R2>(
   f1: (a: Awaited<TArg>) => R1,
-  f2: (a: Awaited<R1>) => R2,
-): (a: TArg | Promise<TArg>) => R2
+  f2: (a: Awaited<R1>) => R2
+): (a: TArg | Promise<TArg>) => R2;
 export function pipeAsync<TArg, R1>(
-  f1: (a: Awaited<TArg>) => R1,
-): (a: TArg | Promise<TArg>) => R1
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
 
 /*
 Method: debounce
@@ -7051,21 +6047,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function debounce<T, U>(
-  fn: (input: T) => U,
-  ms: number,
-  immediate?: boolean,
-): (input: T) => void
-export function debounce<T, Q, U>(
-  fn: (input1: T, input2: Q) => U,
-  ms: number,
-  immediate?: boolean,
-): (input1: T, input2: Q) => void
-export function debounce<T, Q, Z, U>(
-  fn: (input1: T, input2: Q, input3: Z) => U,
-  ms: number,
-  immediate?: boolean,
-): (input1: T, input2: Q, input3: Z) => void
+export function debounce<T, U>(fn: (input: T) => U, ms: number, immediate?: boolean): (input: T) => void;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number, immediate?: boolean): (input1: T, input2: Q) => void;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number, immediate?: boolean): (input1: T, input2: Q, input3: Z) => void;
 
 /*
 Method: delay
@@ -7085,7 +6069,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function delay(ms: number): Promise<'RAMBDAX_DELAY'>
+export function delay(ms: number): Promise<'RAMBDAX_DELAY'>;
 
 /*
 Method: filterAsync
@@ -7109,20 +6093,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterAsync<T>(
-  fn: AsyncPredicate<T>,
-  list: T[],
-): Promise<T[]>
-export function filterAsync<T>(
-  fn: AsyncPredicateIndexed<T>,
-  list: T[],
-): Promise<T[]>
-export function filterAsync<T>(
-  fn: AsyncPredicate<T>,
-): (list: T[]) => Promise<T[]>
-export function filterAsync<T>(
-  fn: AsyncPredicateIndexed<T>,
-): (list: T[]) => Promise<T[]>
+export function filterAsync<T>(fn: AsyncPredicate<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: T[]) => Promise<T[]>;
 
 /*
 Method: glue
@@ -7146,7 +6120,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function glue(input: string, glueString?: string): string
+export function glue(input: string, glueString?: string): string;
 
 /*
 Method: getter
@@ -7180,9 +6154,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function getter<T>(
-  keyOrKeys: string | string[] | undefined,
-): T
+export function getter<T>(keyOrKeys: string | string[] | undefined): T;
 
 /*
 Method: setter
@@ -7201,10 +6173,7 @@ Notes: `R.getter` method contains explanations, tests and source information of 
 
 */
 // @SINGLE_MARKER
-export function setter(
-  keyOrObject: string | object,
-  value?: any,
-): void
+export function setter(keyOrObject: string | object, value?: any): void;
 
 /*
 Method: reset
@@ -7223,7 +6192,7 @@ Notes: `R.getter` method contains explanations, tests and source information of 
 
 */
 // @SINGLE_MARKER
-export function reset(): void
+export function reset(): void;
 
 /*
 Method: interpolate
@@ -7247,13 +6216,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function interpolate(
-  inputWithTags: string,
-  templateArguments: object,
-): string
-export function interpolate(
-  inputWithTags: string,
-): (templateArguments: object) => string
+export function interpolate(inputWithTags: string, templateArguments: object): string;
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
 
 /*
 Method: ifElseAsync
@@ -7291,35 +6255,35 @@ Notes:
 */
 // @SINGLE_MARKER
 export function ifElseAsync<T, U>(
-  condition: (x: T) => Promise<boolean>,
-  onTrue: (x: T) => U,
-  onFalse: (x: T) => U,
-): (x: T) => Promise<U>
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+  ): (x: T) => Promise<U>;
 export function ifElseAsync<T, U>(
-  condition: (x: T) => boolean,
-  onTrue: (x: T) => Promise<U>,
-  onFalse: (x: T) => Promise<U>,
-): (x: T) => Promise<U>
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
 export function ifElseAsync<T, U>(
-  condition: (x: T) => Promise<boolean>,
-  onTrue: (x: T) => Promise<U>,
-  onFalse: (x: T) => Promise<U>,
-): (x: T) => Promise<U>
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
 export function ifElseAsync<T, K, U>(
-  condition: (x: T, y: K) => Promise<boolean>,
-  onTrue: (x: T, y: K) => U,
-  onFalse: (x: T, y: K) => U,
-): (x: T, y: K) => Promise<U>
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => Promise<U>;
 export function ifElseAsync<T, K, U>(
-  condition: (x: T, y: K) => boolean,
-  onTrue: (x: T, y: K) => Promise<U>,
-  onFalse: (x: T, y: K) => Promise<U>,
-): (x: T, y: K) => Promise<U>
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
 export function ifElseAsync<T, K, U>(
-  condition: (x: T, y: K) => Promise<boolean>,
-  onTrue: (x: T, y: K) => Promise<U>,
-  onFalse: (x: T, y: K) => Promise<U>,
-): (x: T, y: K) => Promise<U>
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
 
 /*
 Method:
@@ -7339,7 +6303,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isPromise(input: any): boolean
+export function isPromise(input: any): boolean;
 
 /*
 Method: isType
@@ -7359,10 +6323,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isType(targetType: RambdaTypes, input: any): boolean
-export function isType(
-  targetType: RambdaTypes,
-): (input: any) => boolean
+export function isType(targetType: RambdaTypes, input: any): boolean;
+export function isType(targetType: RambdaTypes): (input: any) => boolean;
 
 /*
 Method: isValid
@@ -7392,10 +6354,7 @@ Notes: Independently, somebody else came with very similar idea called [superstr
 
 */
 // @SINGLE_MARKER
-export function isValid({
-  input: object,
-  schema: Schema,
-}: IsValid): boolean
+export function isValid({input: object, schema: Schema}: IsValid): boolean;
 
 /*
 Method: isValidAsync
@@ -7425,7 +6384,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function isValidAsync(x: IsValidAsync): Promise<boolean>
+export function isValidAsync(x: IsValidAsync): Promise<boolean>;
 
 /*
 Method: mapAsync
@@ -7451,20 +6410,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapAsync<T, K>(
-  fn: AsyncIterable<T, K>,
-  list: T[],
-): Promise<K[]>
-export function mapAsync<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-  list: T[],
-): Promise<K[]>
-export function mapAsync<T, K>(
-  fn: AsyncIterable<T, K>,
-): (list: T[]) => Promise<K[]>
-export function mapAsync<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-): (list: T[]) => Promise<K[]>
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapParallelAsync
@@ -7490,20 +6439,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapParallelAsync<T, K>(
-  fn: AsyncIterable<T, K>,
-  list: T[],
-): Promise<K[]>
-export function mapParallelAsync<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-  list: T[],
-): Promise<K[]>
-export function mapParallelAsync<T, K>(
-  fn: AsyncIterable<T, K>,
-): (list: T[]) => Promise<K[]>
-export function mapParallelAsync<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-): (list: T[]) => Promise<K[]>
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
 
 /*
 Method: mapParallelAsyncWithLimit
@@ -7522,24 +6461,10 @@ Notes: For example usage, please check `R.mapAsyncLimit` tests.
 
 */
 // @SINGLE_MARKER
-export function mapParallelAsyncWithLimit<T, K>(
-  fn: AsyncIterable<T, K>,
-  limit: number,
-  list: T[],
-): Promise<K[]>
-export function mapParallelAsyncWithLimit<T, K>(
-  fn: AsyncIterable<T, K>,
-  limit: number,
-): (list: T[]) => Promise<K[]>
-export function mapParallelAsyncWithLimit<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-  limit: number,
-  list: T[],
-): Promise<K[]>
-export function mapParallelAsyncWithLimit<T, K>(
-  fn: AsyncIterableIndexed<T, K>,
-  limit: number,
-): (list: T[]) => Promise<K[]>
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
 
 /*
 Method: mapToObject
@@ -7572,13 +6497,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObject<T, U>(
-  fn: (input: T) => object | false,
-  list: T[],
-): U
-export function mapToObject<T, U>(
-  fn: (input: T) => object | false,
-): (list: T[]) => U
+export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
+export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
 
 /*
 Method: mapToObjectAsync
@@ -7597,13 +6517,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObjectAsync<T, U>(
-  fn: (input: T) => Promise<object | false>,
-  list: T[],
-): Promise<U>
-export function mapToObjectAsync<T, U>(
-  fn: (input: T) => Promise<object | false>,
-): (list: T[]) => Promise<U>
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
+export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>): (list: T[]) => Promise<U>;
 
 /*
 Method: mapKeys
@@ -7625,13 +6540,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapKeys<T, U>(
-  changeKeyFn: (x: string) => string,
-  obj: { [key: string]: T },
-): U
-export function mapKeys<T, U>(
-  changeKeyFn: (x: string) => string,
-): (obj: { [key: string]: T }) => U
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string, obj: { [key: string]: T}): U;
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string): (obj: { [key: string]: T}) => U;
 
 /*
 Method: maybe
@@ -7667,16 +6577,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function maybe<T>(
-  ifRule: boolean,
-  whenIf: T | Func<T>,
-  whenElse: T | Func<T>,
-): T
-export function maybe<T>(
-  ifRule: VoidInputFunc<boolean>,
-  whenIf: T | Func<T>,
-  whenElse: T | Func<T>,
-): T
+export function maybe<T>(ifRule: boolean, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
+export function maybe<T>(ifRule: VoidInputFunc<boolean>, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
 
 /*
 Method: memoize
@@ -7705,9 +6607,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function memoize<T, K extends any[]>(
-  fn: (...inputs: K) => T,
-): (...inputs: K) => T
+export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
 Method: memoizeWith
@@ -7737,10 +6637,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function memoizeWith<T, K extends any[]>(
-  keyGen: any,
-  fn: (...inputs: K) => T,
-): (...inputs: K) => T
+export function memoizeWith<T, K extends any[]>(keyGen: any, fn: (...inputs: K) => T): (...inputs: K) => T;
 
 /*
 Method: nextIndex
@@ -7769,7 +6666,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function nextIndex(index: number, list: any[]): number
+export function nextIndex(index: number, list: any[]): number;
 
 /*
 Method: prevIndex
@@ -7797,7 +6694,7 @@ Notes: Unlike `R.nextIndex`, which safeguards against index out of bounds, this 
 
 */
 // @SINGLE_MARKER
-export function prevIndex(index: number, list: any[]): number
+export function prevIndex(index: number, list: any[]): number;
 
 /*
 Method: ok
@@ -7825,9 +6722,7 @@ Notes: It is same as `R.pass` but instead of returning `false`, it throws an err
 
 */
 // @SINGLE_MARKER
-export function ok(
-  ...inputs: any[]
-): (...schemas: any[]) => void | never
+export function ok(...inputs: any[]): (...schemas: any[]) => void | never;
 
 /*
 Method: pass
@@ -7853,7 +6748,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pass(...inputs: any[]): (...rules: any[]) => boolean
+export function pass(...inputs: any[]): (...rules: any[]) => boolean;
 
 /*
 Method: piped
@@ -7877,63 +6772,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function piped<A, B>(input: A, fn0: (x: A) => B): B
-export function piped<A, B, C>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-): C
-export function piped<A, B, C, D>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-): D
-export function piped<A, B, C, D, E>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-  fn3: (x: D) => E,
-): E
-export function piped<A, B, C, D, E, F>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-  fn3: (x: D) => E,
-  fn4: (x: E) => F,
-): F
-export function piped<A, B, C, D, E, F, G>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-  fn3: (x: D) => E,
-  fn4: (x: E) => F,
-  fn5: (x: F) => G,
-): G
-export function piped<A, B, C, D, E, F, G, H>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-  fn3: (x: D) => E,
-  fn4: (x: E) => F,
-  fn5: (x: F) => G,
-  fn6: (x: G) => H,
-): H
-export function piped<A, B, C, D, E, F, G, H, I>(
-  input: A,
-  fn0: (x: A) => B,
-  fn1: (x: B) => C,
-  fn2: (x: C) => D,
-  fn3: (x: D) => E,
-  fn4: (x: E) => F,
-  fn5: (x: F) => G,
-  fn6: (x: G) => H,
-  fn7: (x: H) => I,
-): I
+export function piped<A, B>(input: A, fn0: (x: A) => B) : B;
+export function piped<A, B, C>(input: A, fn0: (x: A) => B, fn1: (x: B) => C) : C;
+export function piped<A, B, C, D>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D) : D;
+export function piped<A, B, C, D, E>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E) : E;
+export function piped<A, B, C, D, E, F>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F) : F;
+export function piped<A, B, C, D, E, F, G>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G) : G;
+export function piped<A, B, C, D, E, F, G, H>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H) : H;
+export function piped<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I) : I;
 
 /*
 Method: pipedAsync
@@ -7962,66 +6808,14 @@ Categories: Async
 
 */
 // @SINGLE_MARKER
-export function pipedAsync<A, B>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-): B
-export function pipedAsync<A, B, C>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-): C
-export function pipedAsync<A, B, C, D>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-): D
-export function pipedAsync<A, B, C, D, E>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-): E
-export function pipedAsync<A, B, C, D, E, F>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-): F
-export function pipedAsync<A, B, C, D, E, F, G>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-): G
-export function pipedAsync<A, B, C, D, E, F, G, H>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-): H
-export function pipedAsync<A, B, C, D, E, F, G, H, I>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-): I
+export function pipedAsync<A, B>(input: A, fn0: (x: Awaited<A>) => B) : B;
+export function pipedAsync<A, B, C>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C) : C;
+export function pipedAsync<A, B, C, D>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D) : D;
+export function pipedAsync<A, B, C, D, E>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E) : E;
+export function pipedAsync<A, B, C, D, E, F>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F) : F;
+export function pipedAsync<A, B, C, D, E, F, G>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G) : G;
+export function pipedAsync<A, B, C, D, E, F, G, H>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H) : H;
+export function pipedAsync<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H, fn7: (x: Awaited<H>) => I) : I;
 
 /*
 Method: produce
@@ -8052,11 +6846,13 @@ Notes: In Typescript context, `rules` functions can be only 1 level deep. In Jav
 // @SINGLE_MARKER
 export function produce<Input extends any, Output>(
   rules: ProduceRules<Output, keyof Output, Input>,
-  input: Input,
-): Output
+  input: Input
+): Output;
 export function produce<Input extends any, Output>(
-  rules: ProduceRules<Output, keyof Output, Input>,
-): <Input>(input: Input) => Output
+  rules: ProduceRules<Output, keyof Output, Input>
+): <Input>(
+  input: Input
+) => Output;
 
 /*
 Method: produceAsync
@@ -8095,11 +6891,14 @@ Notes:
 // @SINGLE_MARKER
 export function produceAsync<Input extends any, Output>(
   rules: ProduceAsyncRules<Output, keyof Output, Input>,
-  input: Input,
-): Promise<Output>
+  input: Input
+): Promise<Output>;
 export function produceAsync<Input extends any, Output>(
-  rules: ProduceAsyncRules<Output, keyof Output, Input>,
-): <Input>(input: Input) => Promise<Output>
+  rules: ProduceAsyncRules<Output, keyof Output, Input>
+): <Input>(
+  input: Input
+) => Promise<Output>;
+
 
 /*
 Method: random
@@ -8118,10 +6917,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function random(
-  minInclusive: number,
-  maxInclusive: number,
-): number
+export function random(minInclusive: number, maxInclusive: number): number;
 
 /*
 Method: remove
@@ -8148,11 +6944,11 @@ Notes: This is the only case where Rambdax exports clashes with Ramda API, as Ra
 // @SINGLE_MARKER
 export function remove(
   toRemove: string | RegExp | (string | RegExp)[],
-  text: string,
-): string
+  text: string
+): string;
 export function remove(
-  toRemove: string | RegExp | (string | RegExp)[],
-): (text: string) => string
+  toRemove: string | RegExp | (string | RegExp)[]
+): (text: string) => string;
 
 /*
 Method: renameProps
@@ -8171,15 +6967,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function renameProps(rules: object, input: object): object
-export function renameProps(rules: object): (input: object) => object
-export function renameProps<Output>(
-  rules: object,
-  input: object,
-): Output
-export function renameProps<Output>(
-  rules: object,
-): (input: object) => Output
+export function renameProps(rules: object, input: object): object;
+export function renameProps(rules: object): (input: object) => object;
+export function renameProps<Output>(rules: object, input: object): Output;
+export function renameProps<Output>(rules: object): (input: object) => Output;
+
 
 /*
 Method: replaceAll
@@ -8203,18 +6995,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replaceAll(
-  patterns: (RegExp | string)[],
-  replacer: string,
-  input: string,
-): string
-export function replaceAll(
-  patterns: (RegExp | string)[],
-  replacer: string,
-): (input: string) => string
-export function replaceAll(
-  patterns: (RegExp | string)[],
-): (replacer: string) => (input: string) => string
+export function replaceAll(patterns: (RegExp | string)[], replacer: string, input: string): string;
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+export function replaceAll(patterns: (RegExp | string)[]): (replacer: string) => (input: string) => string;
 
 /*
 Method: shuffle
@@ -8233,7 +7016,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function shuffle<T>(list: T[]): T[]
+export function shuffle<T>(list: T[]): T[];
 
 /*
 Method: sortObject
@@ -8255,13 +7038,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortObject<T>(
-  predicate: SortObjectPredicate<T>,
-  input: { [key: string]: T },
-): { [keyOutput: string]: T }
-export function sortObject<T>(
-  predicate: SortObjectPredicate<T>,
-): (input: { [key: string]: T }) => { [keyOutput: string]: T }
+export function sortObject<T>(predicate: SortObjectPredicate<T>, input: { [key: string]: T }): { [keyOutput: string]: T };
+export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key: string]: T }) => { [keyOutput: string]: T };
 
 /*
 Method: switcher
@@ -8294,7 +7072,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function switcher<T>(valueToMatch: any): Switchem<T>
+export function switcher<T>(valueToMatch: any): Switchem<T>;
 
 /*
 Method: tapAsync
@@ -8313,13 +7091,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tapAsync<T>(
-  fn: Func<any> | Promise<any>,
-  input: T,
-): T
-export function tapAsync<T>(
-  fn: Func<any> | Promise<any>,
-): (input: T) => T
+export function tapAsync<T>(fn: Func<any> | Promise<any>, input: T): T;
+export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
 
 /*
 Method: throttle
@@ -8352,18 +7125,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function throttle<T, U>(
-  fn: (input: T) => U,
-  ms: number,
-): (input: T) => U
-export function throttle<T, Q, U>(
-  fn: (input1: T, input2: Q) => U,
-  ms: number,
-): (input1: T, input2: Q) => U
-export function throttle<T, Q, Z, U>(
-  fn: (input1: T, input2: Q, input3: Z) => U,
-  ms: number,
-): (input1: T, input2: Q, input3: Z) => U
+export function throttle<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
+export function throttle<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
+export function throttle<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
 
 /*
 Method: toDecimal
@@ -8382,10 +7146,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toDecimal(
-  num: number,
-  charsAfterDecimalPoint?: number,
-): number
+export function toDecimal(num: number, charsAfterDecimalPoint?: number): number;
 
 /*
 Method: wait
@@ -8406,12 +7167,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function wait<T>(
-  fn: Promise<T>,
-): Promise<[T, Error | undefined]>
-export function wait<T>(
-  fn: (x: any) => Promise<T>,
-): Promise<[T, Error | undefined]>
+export function wait<T>(fn: Promise<T>): Promise<[T, Error|undefined]>;
+export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined]>;
 
 /*
 Method: waitFor
@@ -8447,23 +7204,23 @@ Notes:
 export function waitFor(
   waitForTrueCondition: () => boolean,
   howLong: number,
-  loops?: number,
-): () => Promise<boolean>
+  loops?: number
+): () => Promise<boolean>;
 export function waitFor(
   waitForTrueCondition: () => Promise<boolean>,
   howLong: number,
-  loops?: number,
-): () => Promise<boolean>
+  loops?: number
+): () => Promise<boolean>;
 export function waitFor<T>(
   waitForTrueCondition: (input: T) => Promise<boolean>,
   howLong: number,
-  loops?: number,
-): (input: T) => Promise<boolean>
+  loops?: number
+): (input: T) => Promise<boolean>;
 export function waitFor<T>(
   waitForTrueCondition: (input: T) => boolean,
   howLong: number,
-  loops?: number,
-): (input: T) => Promise<boolean>
+  loops?: number
+): (input: T) => Promise<boolean>;
 
 /*
 Method: lensEq
@@ -8489,20 +7246,10 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
-export function lensEq<T, U>(
-  lens: Lens,
-  target: T,
-  input: U,
-): boolean
-export function lensEq<T, U>(
-  lens: Lens,
-  target: T,
-): (input: U) => boolean
-export function lensEq<T>(lens: Lens, target: T, input: T[]): boolean
-export function lensEq<T>(
-  lens: Lens,
-  target: T,
-): (input: T[]) => boolean
+export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
+export function lensEq<T, U>(lens: Lens, target: T):  (input: U) => boolean;
+export function lensEq<T>(lens: Lens, target: T, input: T[]): boolean;
+export function lensEq<T>(lens: Lens, target: T): (input: T[]) => boolean;
 
 /*
 Method: lensSatisfies
@@ -8526,24 +7273,10 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
-export function lensSatisfies<T, U>(
-  predicate: (x: T) => boolean,
-  lens: Lens,
-  input: U,
-): boolean
-export function lensSatisfies<T, U>(
-  predicate: (x: T) => boolean,
-  lens: Lens,
-): (input: U) => boolean
-export function lensSatisfies<T>(
-  predicate: (x: T) => boolean,
-  lens: Lens,
-  input: T[],
-): boolean
-export function lensSatisfies<T>(
-  predicate: (x: T) => boolean,
-  lens: Lens,
-): (input: T[]) => boolean
+export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
+export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
 
 /*
 Method: viewOr
@@ -8571,18 +7304,9 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function viewOr<Input, Output>(
-  fallback: Output,
-  lens: Lens,
-  input: Input,
-): Output
-export function viewOr<Input, Output>(
-  fallback: Output,
-  lens: Lens,
-): (input: Input) => Output
-export function viewOr<Input, Output>(
-  fallback: Output,
-): (lens: Lens) => (input: Input) => Output
+export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
+export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
 
 /*
 Method: sortByPath
@@ -8614,8 +7338,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function sortByPath<T>(sortPath: Path, list: T[]): T[]
-export function sortByPath(sortPath: Path): <T>(list: T[]) => T[]
+export function sortByPath<T>(sortPath: Path, list: T[]): T[];
+export function sortByPath(sortPath: Path): <T>(list: T[]) => T[];
 
 /*
 Method: sortByProps
@@ -8647,10 +7371,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function sortByProps<T>(sortPaths: string[], list: T[]): T[]
-export function sortByProps(
-  sortPaths: string[],
-): <T>(list: T[]) => T[]
+export function sortByProps<T>(sortPaths: string[], list: T[]): T[];
+export function sortByProps(sortPaths: string[]): <T>(list: T[]) => T[];
 
 /*
 Method: excludes
@@ -8675,15 +7397,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function excludes(
-  valueToFind: string,
-  input: string[] | string,
-): boolean
-export function excludes(
-  valueToFind: string,
-): (input: string[] | string) => boolean
-export function excludes<T>(valueToFind: T, input: T[]): boolean
-export function excludes<T>(valueToFind: T): (input: T[]) => boolean
+export function excludes(valueToFind: string, input: string[] | string): boolean;
+export function excludes(valueToFind: string): (input: string[] | string) => boolean;
+export function excludes<T>(valueToFind: T, input: T[]): boolean;
+export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /*
 Method: updateObject
@@ -8724,13 +7441,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function updateObject<Output>(
-  rules: [string, any][],
-  input: object,
-): Output
-export function updateObject<Output>(
-  rules: [string, any][],
-): (input: object) => Output
+export function updateObject<Output>(rules: ([string, any])[], input: object): Output;
+export function updateObject<Output>(rules: ([string, any])[]): (input: object) => Output;
 
 /*
 Method: takeUntil
@@ -8753,13 +7465,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeUntil<T>(
-  predicate: (x: T) => boolean,
-  list: T[],
-): T[]
-export function takeUntil<T>(
-  predicate: (x: T) => boolean,
-): (list: T[]) => T[]
+export function takeUntil<T>(predicate: (x: T) => boolean, list: T[]): T[];
+export function takeUntil<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: applyDiff
@@ -8790,13 +7497,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function applyDiff<Output>(
-  rules: ApplyDiffRule[],
-  obj: object,
-): Output
-export function applyDiff<Output>(
-  rules: ApplyDiffRule[],
-): (obj: object) => Output
+export function applyDiff<Output>(rules: ApplyDiffRule[], obj: object): Output;
+export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Output;
 
 /*
 Method: mapIndexed
@@ -8814,27 +7516,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapIndexed<T, U>(
-  fn: ObjectIterator<T, U>,
-  iterable: Dictionary<T>,
-): Dictionary<U>
-export function mapIndexed<T, U>(
-  fn: IndexedIterator<T, U>,
-  iterable: T[],
-): U[]
-export function mapIndexed<T, U>(
-  fn: IndexedIterator<T, U>,
-): (iterable: T[]) => U[]
-export function mapIndexed<T, U, S>(
-  fn: ObjectIterator<T, U>,
-): (iterable: Dictionary<T>) => Dictionary<U>
-export function mapIndexed<T>(
-  fn: IndexedIterator<T, T>,
-): (iterable: T[]) => T[]
-export function mapIndexed<T>(
-  fn: IndexedIterator<T, T>,
-  iterable: T[],
-): T[]
+export function mapIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapIndexed<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
+export function mapIndexed<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
+export function mapIndexed<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
+export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
 /*
 Method: mapArray
@@ -8854,17 +7541,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapArray<T>(fn: Iterator<T, T>, iterable: T[]): T[]
-export function mapArray<T, U>(
-  fn: Iterator<T, U>,
-  iterable: T[],
-): U[]
-export function mapArray<T, U>(
-  fn: Iterator<T, U>,
-): (iterable: T[]) => U[]
-export function mapArray<T>(
-  fn: Iterator<T, T>,
-): (iterable: T[]) => T[]
+export function mapArray<T>(fn: Iterator<T, T>, iterable: T[]): T[];
+export function mapArray<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
+export function mapArray<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
+export function mapArray<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
 
 /*
 Method: filterIndexed
@@ -8882,20 +7562,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterIndexed<T>(
-  predicate: IndexedPredicate<T>,
-): (x: T[]) => T[]
-export function filterIndexed<T>(
-  predicate: IndexedPredicate<T>,
-  x: T[],
-): T[]
-export function filterIndexed<T, U>(
-  predicate: ObjectPredicate<T>,
-): (x: Dictionary<T>) => Dictionary<T>
-export function filterIndexed<T>(
-  predicate: ObjectPredicate<T>,
-  x: Dictionary<T>,
-): Dictionary<T>
+export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
 Method: rejectIndexed
@@ -8921,20 +7591,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function rejectIndexed<T>(
-  predicate: IndexedPredicate<T>,
-): (x: T[]) => T[]
-export function rejectIndexed<T>(
-  predicate: IndexedPredicate<T>,
-  x: T[],
-): T[]
-export function rejectIndexed<T, U>(
-  predicate: ObjectPredicate<T>,
-): (x: Dictionary<T>) => Dictionary<T>
-export function rejectIndexed<T>(
-  predicate: ObjectPredicate<T>,
-  x: Dictionary<T>,
-): Dictionary<T>
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+
 
 /*
 Method: partitionIndexed
@@ -8954,20 +7615,18 @@ Notes:
 // @SINGLE_MARKER
 export function partitionIndexed<T>(
   predicate: IndexedPredicate<T>,
-  input: T[],
-): [T[], T[]]
+  input: T[]
+): [T[], T[]];
 export function partitionIndexed<T>(
-  predicate: IndexedPredicate<T>,
-): (input: T[]) => [T[], T[]]
-export function partitionIndexed<T>(
-  predicate: (x: T, prop?: string) => boolean,
-  input: { [key: string]: T },
-): [{ [key: string]: T }, { [key: string]: T }]
+  predicate: IndexedPredicate<T>
+): (input: T[]) => [T[], T[]];
 export function partitionIndexed<T>(
   predicate: (x: T, prop?: string) => boolean,
-): (input: {
-  [key: string]: T
-}) => [{ [key: string]: T }, { [key: string]: T }]
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
 
 /*
 Method: filterObject
@@ -8991,13 +7650,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterObject<T>(
-  predicate: ObjectPredicate<T>,
-): (x: Dictionary<T>) => Dictionary<T>
-export function filterObject<T>(
-  predicate: ObjectPredicate<T>,
-  x: Dictionary<T>,
-): Dictionary<T>
+export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
 
 /*
 Method: filterArray
@@ -9020,13 +7674,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterArray<T>(
-  predicate: Predicate<T>,
-): (input: T[]) => T[]
-export function filterArray<T>(
-  predicate: Predicate<T>,
-  input: T[],
-): T[]
+export function filterArray<T>(predicate: Predicate<T>): (input: T[]) => T[];
+export function filterArray<T>(predicate: Predicate<T>, input: T[]): T[];
 
 /*
 Method: forEachIndexed
@@ -9044,20 +7693,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function forEachIndexed<T>(
-  fn: IndexedIterator<T, void>,
-  list: T[],
-): T[]
-export function forEachIndexed<T>(
-  fn: IndexedIterator<T, void>,
-): (list: T[]) => T[]
-export function forEachIndexed<T>(
-  fn: ObjectIterator<T, void>,
-  list: Dictionary<T>,
-): Dictionary<T>
-export function forEachIndexed<T, U>(
-  fn: ObjectIterator<T, void>,
-): (list: Dictionary<T>) => Dictionary<T>
+export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: T[]): T[];
+export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: T[]) => T[];
+export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
+export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: mapObject
@@ -9077,20 +7716,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObject<T>(
-  fn: ObjectIterator<T, T>,
-  iterable: Dictionary<T>,
-): Dictionary<T>
-export function mapObject<T, U>(
-  fn: ObjectIterator<T, U>,
-  iterable: Dictionary<T>,
-): Dictionary<U>
-export function mapObject<T>(
-  fn: ObjectIterator<T, T>,
-): (iterable: Dictionary<T>) => Dictionary<T>
-export function mapObject<T, U>(
-  fn: ObjectIterator<T, U>,
-): (iterable: Dictionary<T>) => Dictionary<U>
+export function mapObject<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
 
 /*
 Method: tryCatchAsync
@@ -9119,14 +7748,14 @@ Notes:
 // @SINGLE_MARKER
 export function tryCatchAsync<T>(
   fn: (input: any) => Promise<T>,
-  fallback: T,
-): (input: any) => Promise<T>
+  fallback: T
+): (input: any) => Promise<T>;
 export function tryCatchAsync<T>(
   fn: (input: any) => Promise<T>,
   fallback: (input: any) => Promise<T>,
-): (input: any) => Promise<T>
+): (input: any) => Promise<T>;
 
-export const DELAY: 'RAMBDAX_DELAY'
+export const DELAY: 'RAMBDAX_DELAY';
 
 /*
 Method: findAsync
@@ -9153,13 +7782,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findAsync<T>(
-  predicate: (x: T) => Promise<boolean>,
-  list: T[],
-): T | undefined
-export function findAsync<T>(
-  predicate: (x: T) => Promise<boolean>,
-): (list: T[]) => T | undefined
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>, list: T[]): T | undefined;
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>): (list: T[]) => T | undefined;
 
 /*
 Method: xnor
@@ -9184,8 +7808,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function xnor(x: boolean, y: boolean): boolean
-export function xnor(y: boolean): (y: boolean) => boolean
+export function xnor(x: boolean, y: boolean): boolean;
+export function xnor(y: boolean): (y: boolean) => boolean;
 
 /*
 Method: mapcat
@@ -9205,7 +7829,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapcat<T>(x: T): T
+export function mapcat<T>(x: T): T;
 
 /*
 Method: contains
@@ -9225,8 +7849,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function contains<T, U>(target: T, compareTo: U): boolean
-export function contains<T, U>(target: T): (compareTo: U) => boolean
+export function contains<T, U>(target: T, compareTo: U): boolean;
+export function contains<T, U>(target: T): (compareTo: U) => boolean;
 
 /*
 Method: partialCurry
@@ -9247,11 +7871,9 @@ Notes: Function input can be asynchronous
 */
 // @SINGLE_MARKER
 export function partialCurry<Input, PartialInput, Output>(
-  fn: (input: Input) => Output,
+  fn: (input: Input) => Output, 
   partialInput: PartialInput,
-): (
-  input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>,
-) => Output
+): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 /*
 Method: noop
@@ -9269,7 +7891,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function noop(): void
+export function noop(): void;
 
 // RAMBDAX_MARKER_END
 // ============================================
