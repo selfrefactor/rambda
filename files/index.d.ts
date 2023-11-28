@@ -669,7 +669,7 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
       f2: (a: R1) => R2,
       f1: (...args: TArgs) => R1
   ]
-): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+): (...args: TArgs) => TResult;
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
@@ -5873,7 +5873,7 @@ export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
       f2: (a: Awaited<R1>) => R2,
       f1: (a: Awaited<TArg>) => R1
   ]
-): (a: TArg | Promise<TArg>) => TResult; // fallback overload if number of composed functions greater than 7
+): (a: TArg | Promise<TArg>) => TResult;
 export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: Awaited<R6>) => R7,
   f6: (a: Awaited<R5>) => R6,

@@ -353,7 +353,7 @@ export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7
       f2: (a: R1) => R2,
       f1: (...args: TArgs) => R1
   ]
-): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+): (...args: TArgs) => TResult; 
 export function compose<TArgs extends readonly any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
