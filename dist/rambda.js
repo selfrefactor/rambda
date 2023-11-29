@@ -1295,6 +1295,7 @@ function forEachObjIndexed(fn, list) {
   if (list === undefined) return;
   return forEachObjIndexedFn(fn, list);
 }
+
 function forEach(fn, iterable) {
   if (arguments.length === 1) return _list => forEach(fn, _list);
   if (iterable === undefined) return;

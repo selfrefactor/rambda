@@ -98,7 +98,7 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 
 <details>
 <summary>
-  Click to see the full list of 0 Ramda methods not implemented in Rambda and their status.
+  Click to see the full list of 57 Ramda methods not implemented in Rambda and their status.
 </summary>
 
 - gt
@@ -1191,8 +1191,7 @@ export function append(x, input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-// import { append } from './append.js'
-import { append } from 'ramda'
+import { append } from './append.js'
 
 test('happy', () => {
   expect(append('tests', [ 'write', 'more' ])).toEqual([
@@ -5726,35 +5725,10 @@ forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<
 
 ```javascript
 import { isArray } from './_internals/isArray.js'
-import { keys } from './_internals/keys.js'
-
-export function forEachObjIndexedFn(fn, obj){
-  let index = 0
-  const listKeys = keys(obj)
-  const len = listKeys.length
-
-  while (index < len){
-    const key = listKeys[ index ]
-    fn(
-      obj[ key ], key, obj
-    )
-    index++
-  }
-
-  return obj
-}
-
-export function forEachObjIndexed(fn, list){
-  if (arguments.length === 1) return _list => forEachObjIndexed(fn, _list)
-
-  if (list === undefined) return
-
-  return forEachObjIndexedFn(fn, list)
-}
+import { forEachObjIndexedFn } from './forEachObjIndexed.js'
 
 export function forEach(fn, iterable){
   if (arguments.length === 1) return _list => forEach(fn, _list)
-
   if (iterable === undefined) return
 
   if (isArray(iterable)){
