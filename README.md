@@ -10,6 +10,7 @@
 [![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/rambda)
 [![HitCount](https://hits.dwyl.com/selfrefactor/rambda.svg?style=flat-square)](http://hits.dwyl.com/selfrefactor/rambda)
+![Repobeats](https://repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
 
 ## ❯ Example use
 
