@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Current Test File",
+      "name": "Test File(current)",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "args": [
         "--verbose", 
