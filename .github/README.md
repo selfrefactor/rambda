@@ -9,8 +9,6 @@
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 [![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/rambda)
-[![HitCount](https://hits.dwyl.com/selfrefactor/rambda.svg?style=flat-square)](http://hits.dwyl.com/selfrefactor/rambda)
-![Repobeats](https://repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
 
 ## ❯ Example use
 
@@ -12458,6 +12456,10 @@ test('happy', () => {
   expect(pluck('a')([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ 1, 2 ])
 })
 
+test('with undefined', () => {
+  expect(pluck(undefined)([ { a : 1 }, { a : 2 }, { b : 1 } ])).toEqual([ ])
+})
+
 test('with number', () => {
   const input = [
     [ 1, 2 ],
@@ -14543,6 +14545,10 @@ describe('R.sortBy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortBy)
+
+### sortWith
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortWith)
 
 ### split
 
@@ -18684,11 +18690,13 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+8.7.0
+
+- Add `R.sortWith` - [Issue #707](https://github.com/selfrefactor/rambda/issues/707)
+
 8.6.0
 
 - Wrong typing for `R.dissocPath` - [Issue #709](https://github.com/selfrefactor/rambda/issues/709)
-
-- Add `R.sortWith` - [Issue #7097](https://github.com/selfrefactor/rambda/issues/707)
 
 - Update build dependencies
 

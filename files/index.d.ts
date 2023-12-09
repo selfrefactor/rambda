@@ -3688,6 +3688,25 @@ export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
 /*
+Method: sortWith
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
+export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
+
+/*
 Method: split
 
 Explanation: Curried version of `String.prototype.split`

@@ -1454,6 +1454,9 @@ export function sortBy<T>(sortFn: (a: T) => Ord, list: readonly T[]): readonly T
 export function sortBy<T>(sortFn: (a: T) => Ord): (list: readonly T[]) => readonly T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: readonly T[]) => readonly T[];
 
+export function sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>): (list: readonly T[]) => readonly T[];
+export function sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>, list: readonly T[]): readonly T[];
+
 /**
  * Curried version of `String.prototype.split`
  */
