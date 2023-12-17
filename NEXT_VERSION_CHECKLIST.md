@@ -1,3 +1,6 @@
+- gt
+- gte
+---
 git push origin v8.6.0
 
 issue with gh release
@@ -25,8 +28,6 @@ group TS test for similar methods
 - construct - it is class helper and classes are not very functional oriented
 - constructN
 
-- gt
-- gte
 - hasIn
 
 - innerJoin
