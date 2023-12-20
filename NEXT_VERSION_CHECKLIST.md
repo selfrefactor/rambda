@@ -7,6 +7,8 @@ git push origin v8.6.0
 
 issue with gh release
 ---
+throttle should accept 0 arguments, i.e. no need to force unary function
+---
 include standut x methods to rambda
 
 such as

@@ -5726,7 +5726,7 @@ Example:
 ```
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
@@ -5744,7 +5744,7 @@ Example:
 ```
 ```
 
-Categories:
+Categories: Number
 
 Notes:
 
@@ -5762,7 +5762,7 @@ Example:
 ```
 ```
 
-Categories:
+Categories: List
 
 Notes:
 
@@ -7962,6 +7962,14 @@ Notes: Function input can be asynchronous
 // @SINGLE_MARKER
 export function partialCurry<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
+
+
+
+
+
+
+
+  
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
