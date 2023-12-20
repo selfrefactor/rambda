@@ -5752,6 +5752,41 @@ Notes:
 // @SINGLE_MARKER
 export function gte<T>(x: T): T;
 
+/*
+Method: reduceBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+): (a: TResult, b: (elem: T) => string, c: T[]) => { [index: string]: TResult }
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+): (a: (elem: T) => string, b: T[]) => { [index: string]: TResult }
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+  keyFn: (elem: T) => string,
+): (list: T[]) => { [index: string]: TResult };
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+  keyFn: (elem: T) => string,
+  list: T[],
+): { [index: string]: TResult };
+
 // RAMBDAX_MARKER_START
 
 /*

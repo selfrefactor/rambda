@@ -1,9 +1,17 @@
 - gt
 - gte
+
+go to source definition in vscode works better for ramda than for rambda
 ---
 git push origin v8.6.0
 
 issue with gh release
+---
+include standut x methods to rambda
+
+such as
+
+sortObject
 ---
 REFS:
 
