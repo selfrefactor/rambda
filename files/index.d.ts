@@ -5787,6 +5787,43 @@ export function reduceBy<T, TResult>(
   list: T[],
 ): { [index: string]: TResult };
 
+/*
+Method: hasIn
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function hasIn(searchProperty: string): <T>(obj: T) => boolean;
+export function hasIn<T>(searchProperty: string, obj: T): boolean;
+
+/*
+Method: innerJoin
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function innerJoin<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*
@@ -7962,14 +7999,6 @@ Notes: Function input can be asynchronous
 // @SINGLE_MARKER
 export function partialCurry<Input, PartialInput, Output>(
   fn: (input: Input) => Output, 
-
-
-
-
-
-
-
-  
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 

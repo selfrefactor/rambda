@@ -1,14 +1,25 @@
 - gt
 - gte
+- reduceBy
+- hasIn
 
 go to source definition in vscode works better for ramda than for rambda
 ---
-git push origin v8.6.0
+in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
+what about ts react
+---
+add motivation
+
+optimize above the fold
+---
+include new methods to method to skip list
+---
 issue with gh release
 ---
 throttle should accept 0 arguments, i.e. no need to force unary function
 ---
+wont do
 include standut x methods to rambda
 
 such as
@@ -26,7 +37,7 @@ REFS:
 ---
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
-
+what about ts react
 ---
 
 fix https://github.com/selfrefactor/rambdax/issues/93
@@ -38,7 +49,6 @@ group TS test for similar methods
 - construct - it is class helper and classes are not very functional oriented
 - constructN
 
-- hasIn
 
 - innerJoin
 - insert

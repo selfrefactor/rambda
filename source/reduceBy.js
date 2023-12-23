@@ -1,17 +1,29 @@
-import { has } from "./has.js";
-import { curry } from "./curry.js";
-import { reduce } from "./reduce.js";
-import { clone } from "./clone.js";
+import { clone } from './clone.js'
+import { curry } from './curry.js'
+import { has } from './has.js'
+import { reduce } from './reduce.js'
 
-export function reduceByFn(valueFn, valueAcc, keyFn, list){
-  var xf = function(acc, elt) {
-    var key = keyFn(elt);
-    var value = valueFn(has(key, acc) ? acc[key] : clone(valueAcc), elt);
+function reduceByFunction(
+  valueFn, valueAcc, keyFn, acc, elt
+){
+  const key = keyFn(elt)
+  const value = valueFn(has(key, acc) ? acc[ key ] : clone(valueAcc), elt)
 
-    acc[key] = value;
-    return acc;
-  }
-  return reduce(xf, {}, list);
+  acc[ key ] = value
+
+  return acc
+}
+
+export function reduceByFn(
+  valueFn, valueAcc, keyFn, list
+){
+  return reduce(
+    (acc, elt) => reduceByFunction(
+      valueFn, valueAcc, keyFn, acc, elt
+    ),
+    {},
+    list
+  )
 }
 
 export const reduceBy = curry(reduceByFn)
