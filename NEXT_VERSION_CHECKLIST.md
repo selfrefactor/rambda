@@ -1,9 +1,17 @@
+sync lenses types with ramda
+
+- innerJoin
 - gt
 - gte
 - reduceBy
 - hasIn
 
 go to source definition in vscode works better for ramda than for rambda
+
+---
+test for which cases - ts, js
+---
+such types as `SortObjectPredicate` need to be exported
 ---
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
 
@@ -25,6 +33,12 @@ include standut x methods to rambda
 such as
 
 sortObject
+---
+R.findInObject
+---
+restore maptoobject x@2.1.0
+
+why mapObject is not same
 ---
 REFS:
 
@@ -50,7 +64,6 @@ group TS test for similar methods
 - constructN
 
 
-- innerJoin
 - insert
 - insertAll
 - into
@@ -84,7 +97,6 @@ group TS test for similar methods
 - project
 - promap
 
-- reduceBy
 - reduceRight
 - reduceWhile
 - reduced

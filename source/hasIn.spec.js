@@ -1,43 +1,34 @@
-import { hasIn } from './hasIn'
 import { hasIn as hasInRamda } from 'ramda'
 
-test('happy', () => {
-  const result = hasIn()
-  console.log(result)
+import { hasIn } from './hasIn.js'
+
+const fred = {
+  age  : 23,
+  name : 'Fred',
+}
+const anon = { age : 99 }
+
+test('returns a function that checks the appropriate property', () => {
+  const nm = hasIn('name')
+  expect(typeof nm).toBe('function')
+  expect(nm(fred)).toBe(true)
+  expect(nm(anon)).toBe(false)
 })
 
-/*
-var R = require('../source/index.js')
-var eq = require('./shared/eq.js')
+test('checks properties from the prototype chain', () => {
+  function Person(){}
+  Person.prototype.age = function (){}
 
-describe('hasIn', function () {
-  var fred = {name: 'Fred', age: 23}
-  var anon = {age: 99}
-
-  it('returns a function that checks the appropriate property', function () {
-    var nm = R.hasIn('name')
-    eq(typeof nm, 'function')
-    eq(nm(fred), true)
-    eq(nm(anon), false)
-  })
-
-  it('checks properties from the prototype chain', function () {
-    var Person = function () {}
-    Person.prototype.age = function () {}
-
-    var bob = new Person()
-    eq(R.hasIn('age', bob), true)
-  })
-
-  it('works properly when called with two arguments', function () {
-    eq(R.hasIn('name', fred), true)
-    eq(R.hasIn('name', anon), false)
-  })
-
-  it('returns false when non-existent object', function () {
-    eq(R.hasIn('name', null), false)
-    eq(R.hasIn('name', undefined), false)
-  })
+  const bob = new Person()
+  expect(hasIn('age', bob)).toBe(true)
 })
 
-*/
+test('works properly when called with two arguments', () => {
+  expect(hasIn('name', fred)).toBe(true)
+  expect(hasIn('name', anon)).toBe(false)
+})
+
+test('returns false when non-existent object', () => {
+  expect(hasIn('name', null)).toBe(false)
+  expect(hasIn('name', undefined)).toBe(false)
+})

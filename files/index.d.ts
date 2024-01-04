@@ -43,10 +43,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   1: V;
 }
 
-export interface Lens {
-  <T, U>(obj: T): U;
-  set<T, U>(str: string, obj: T): U;
-}
+export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
@@ -147,12 +144,12 @@ interface SchemaAsync {
   [key: string]: Promise<boolean>;
 }
 
-interface IsValid {
+export interface IsValid {
   input: object;
   schema: Schema;
 }
 
-interface IsValidAsync {
+export interface IsValidAsync {
   input: object;
   schema: Schema | SchemaAsync;
 }
@@ -173,8 +170,6 @@ type ApplyDiffUpdate = {op:'update', path: string, value: any};
 type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
-
-type Resolved<T> = {status: 'fulfilled', value: T} | {status: 'rejected', reason: string|Error}
 
 // API_MARKER
 
@@ -1977,7 +1972,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
 
 /*
 Method: lensIndex
@@ -2001,7 +1996,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensIndex(index: number): Lens;
+export function lensIndex<A>(n: number): Lens<A[], A>;
+export function lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 
 /*
 Method: lensPath
@@ -2029,8 +2025,41 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensPath(path: RamdaPath): Lens;
-export function lensPath(path: string): Lens;
+export function lensPath<S, K0 extends keyof S = keyof S>(path: [K0]): Lens<S, S[K0]>;
+export function lensPath<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(
+  path: [K0, K1],
+): Lens<S, S[K0][K1]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2]): Lens<S, S[K0][K1][K2]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2]
+>(path: [K0, K1, K2, K3]): Lens<S, S[K0][K1][K2][K3]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3]
+>(path: [K0, K1, K2, K3, K4]): Lens<S, S[K0][K1][K2][K3][K4]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4]
+>(path: [K0, K1, K2, K3, K4, K5]): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
+export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
 
 /*
 Method: lensProp
@@ -2058,10 +2087,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lensProp(prop: string): {
-  <T, U>(obj: T): U;
-  set<T, U, V>(val: T, obj: U): V;
-};
+export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
 /*
 Method: over
@@ -2137,8 +2163,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function view<T, U>(lens: Lens): (target: T) => U;
-export function view<T, U>(lens: Lens, target: T): U;
+export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
+export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
 /*
 Method: map
@@ -5822,7 +5848,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function innerJoin<T>(x: T): T;
+export function innerJoin<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+): (list1: T1[], list2: T2[]) => T1[];
+export function innerJoin<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
 
 // RAMBDAX_MARKER_START
 

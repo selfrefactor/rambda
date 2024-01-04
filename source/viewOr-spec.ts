@@ -1,10 +1,11 @@
 import {viewOr, lensProp} from 'rambda'
 
-const lens = lensProp('b')
 const input = {a: 1}
 interface Input {
   a: number,
+  b?: number,
 }
+const lens = lensProp<Input, 'b'>('b')
 
 describe('R.viewOr', () => {
   it('require explicit types', () => {
