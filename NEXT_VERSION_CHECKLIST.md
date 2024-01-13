@@ -1,5 +1,3 @@
-sync lenses types with ramda
-
 - innerJoin
 - gt
 - gte
@@ -7,9 +5,12 @@ sync lenses types with ramda
 - hasIn
 
 go to source definition in vscode works better for ramda than for rambda
+---
+https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+---
 
 ---
-test for which cases - ts, js
+
 ---
 such types as `SortObjectPredicate` need to be exported
 ---
@@ -27,6 +28,7 @@ issue with gh release
 ---
 throttle should accept 0 arguments, i.e. no need to force unary function
 ---
+splitWith
 R.pickWith
 R.pickAllWith - maybe
 ---

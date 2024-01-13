@@ -1,5 +1,3 @@
-import { innerJoin as innerJoinRamda } from 'ramda'
-
 import { innerJoin } from './innerJoin.js'
 
 const a = {
