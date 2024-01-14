@@ -14346,6 +14346,227 @@ describe('R.sortBy', () => {
 
 ### sortWith
 
+```typescript
+
+sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[]
+```
+
+```javascript
+const result = R.sortWith([
+    (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
+    (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
+], [
+  {a: 1, b: 2},
+  {a: 2, b: 1},
+  {a: 2, b: 2},
+  {a: 1, b: 1},
+])
+const expected = [
+  {a: 1, b: 1},
+  {a: 1, b: 2},
+  {a: 2, b: 1},
+  {a: 2, b: 2},
+]
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sortWith(%5B%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.a%20%3D%3D%3D%20b.a%20%3F%200%20%3A%20a.a%20%3E%20b.a%20%3F%201%20%3A%20-1%2C%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.b%20%3D%3D%3D%20b.b%20%3F%200%20%3A%20a.b%20%3E%20b.b%20%3F%201%20%3A%20-1%2C%0A%5D%2C%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%5D)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
+sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.sortWith</strong> source</summary>
+
+```javascript
+function sortHelper(
+  a, b, listOfSortingFns
+){
+  let result = 0
+  let i = 0
+  while (result === 0 && i < listOfSortingFns.length){
+    result = listOfSortingFns[ i ](a, b)
+    i += 1
+  }
+
+  return result
+}
+
+export function sortWith(listOfSortingFns, list){
+  if (arguments.length === 1)
+    return _list => sortWith(listOfSortingFns, _list)
+
+  if (Array.isArray(list) === false)
+    return []
+
+  const clone = list.slice()
+  clone.sort((a, b) => sortHelper(
+    a, b, listOfSortingFns
+  ))
+
+  return clone
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { ascend, prop } from '../rambda.js'
+import { sortWith } from './sortWith.js'
+
+const albums = [
+  {
+    artist : 'Rush',
+    genre  : 'Rock',
+    score  : 3,
+    title  : 'A Farewell to Kings',
+  },
+  {
+    artist : 'Dave Brubeck Quartet',
+    genre  : 'Jazz',
+    score  : 3,
+    title  : 'Timeout',
+  },
+  {
+    artist : 'Rush',
+    genre  : 'Rock',
+    score  : 5,
+    title  : 'Fly By Night',
+  },
+  {
+    artist : 'Daniel Barenboim',
+    genre  : 'Baroque',
+    score  : 3,
+    title  : 'Goldberg Variations',
+  },
+  {
+    artist : 'Glenn Gould',
+    genre  : 'Baroque',
+    score  : 3,
+    title  : 'Art of the Fugue',
+  },
+  {
+    artist : 'Leonard Bernstein',
+    genre  : 'Romantic',
+    score  : 4,
+    title  : 'New World Symphony',
+  },
+  {
+    artist : 'Don Byron',
+    genre  : 'Jazz',
+    score  : 5,
+    title  : 'Romance with the Unseen',
+  },
+  {
+    artist : 'Iron Maiden',
+    genre  : 'Metal',
+    score  : 2,
+    title  : 'Somewhere In Time',
+  },
+  {
+    artist : 'Danny Holt',
+    genre  : 'Modern',
+    score  : 1,
+    title  : 'In Times of Desparation',
+  },
+  {
+    artist : 'Various',
+    genre  : 'Broadway',
+    score  : 3,
+    title  : 'Evita',
+  },
+  {
+    artist : 'Nick Drake',
+    genre  : 'Folk',
+    score  : 1,
+    title  : 'Five Leaves Left',
+  },
+  {
+    artist : 'John Eliot Gardiner',
+    genre  : 'Classical',
+    score  : 4,
+    title  : 'The Magic Flute',
+  },
+]
+
+test('sorts by a simple property of the objects', () => {
+  const sortedAlbums = sortWith([ ascend(prop('title')) ], albums)
+  expect(sortedAlbums).toHaveLength(albums.length)
+  expect(sortedAlbums[ 0 ].title).toBe('A Farewell to Kings')
+  expect(sortedAlbums[ 11 ].title).toBe('Timeout')
+})
+
+test('sorts by multiple properties of the objects', () => {
+  const sortedAlbums = sortWith([ ascend(prop('score')), ascend(prop('title')) ],
+    albums)
+  expect(sortedAlbums).toHaveLength(albums.length)
+  expect(sortedAlbums[ 0 ].title).toBe('Five Leaves Left')
+  expect(sortedAlbums[ 1 ].title).toBe('In Times of Desparation')
+  expect(sortedAlbums[ 11 ].title).toBe('Romance with the Unseen')
+})
+
+test('sorts by 3 properties of the objects', () => {
+  const sortedAlbums = sortWith([ ascend(prop('genre')), ascend(prop('score')), ascend(prop('title')) ],
+    albums)
+  expect(sortedAlbums).toHaveLength(albums.length)
+  expect(sortedAlbums[ 0 ].title).toBe('Art of the Fugue')
+  expect(sortedAlbums[ 1 ].title).toBe('Goldberg Variations')
+  expect(sortedAlbums[ 11 ].title).toBe('New World Symphony')
+})
+
+test('sorts by multiple properties using ascend and descend', () => {
+  const sortedAlbums = sortWith([ ascend(prop('score')), ascend(prop('title')) ],
+    albums)
+  expect(sortedAlbums).toHaveLength(albums.length)
+  expect(sortedAlbums[ 0 ].title).toBe('Five Leaves Left')
+  expect(sortedAlbums[ 1 ].title).toBe('In Times of Desparation')
+  expect(sortedAlbums[ 11 ].title).toBe('Romance with the Unseen')
+})
+
+test('sorts only arrays not array-like object', () => {
+  const args = (function (){
+    return arguments
+  })(
+    'c', 'a', 'b'
+  )
+  expect(sortWith([ ascend(prop('value')) ], args)).toEqual([])
+})
+
+test('sorts only arrays not primitives', () => {
+  const result =sortWith([
+    (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
+    (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
+  ], [
+    {a: 1, b: 2},
+    {a: 2, b: 1},
+    {a: 2, b: 2},
+    {a: 1, b: 1},
+  ])
+  const expected = [
+    {a: 1, b: 1},
+    {a: 1, b: 2},
+    {a: 2, b: 1},
+    {a: 2, b: 2},
+  ]
+  expect(result).toEqual(expected)
+})
+```
+
+</details>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortWith)
 
 ### split
