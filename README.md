@@ -105,13 +105,9 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 
 <details>
 <summary>
-  Click to see the full list of 57 Ramda methods not implemented in Rambda and their status.
+  Click to see the full list of 51 Ramda methods not implemented in Rambda and their status.
 </summary>
 
-- gt
-- gte
-- hasIn
-- innerJoin
 - insert
 - insertAll
 - into
@@ -142,14 +138,12 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 - pipeWith
 - project
 - promap
-- reduceBy
 - reduceRight
 - reduceWhile
 - reduced
 - remove
 - scan
 - sequence
-- sortWith
 - splitWhenever
 - swap
 - symmetricDifferenceWith
