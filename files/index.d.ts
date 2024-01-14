@@ -5766,6 +5766,8 @@ Explanation:
 Example:
 
 ```
+const result = [R.gt(2, 1), R.gt(2, 3)]
+// => [true, false]
 ```
 
 Categories: Number
@@ -5784,6 +5786,8 @@ Explanation:
 Example:
 
 ```
+const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
+// => [true, true, false]
 ```
 
 Categories: Number
@@ -5802,6 +5806,13 @@ Explanation:
 Example:
 
 ```
+const result = R.reduceBy(
+  (acc, elem) => acc + elem,
+  0,
+  x => x > 2 ? 'big' : 'small',
+  [1, 2, 3, 4, 5]
+)
+// => { big: 12, small: 3 }
 ```
 
 Categories: List
@@ -5837,6 +5848,8 @@ Explanation:
 Example:
 
 ```
+const result = R.hasIn('a', {a: 1})
+// => true
 ```
 
 Categories: String
@@ -5851,11 +5864,16 @@ export function hasIn<T>(searchProperty: string, obj: T): boolean;
 /*
 Method: innerJoin
 
-Explanation:
+Explanation: It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
 
 Example:
 
 ```
+const list1 = [1, 2, 3, 4, 5]
+const list2 = [4, 5, 6]
+const predicate = (x, y) => x >= y
+const result = R.innerJoin(predicate, list1, list2)
+// => [4, 5]
 ```
 
 Categories:
