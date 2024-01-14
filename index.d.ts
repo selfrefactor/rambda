@@ -43,10 +43,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   1: V;
 }
 
-export interface Lens {
-  <T, U>(obj: T): U;
-  set<T, U>(str: string, obj: T): U;
-}
+export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
@@ -147,12 +144,12 @@ interface SchemaAsync {
   [key: string]: Promise<boolean>;
 }
 
-interface IsValid {
+export interface IsValid {
   input: object;
   schema: Schema;
 }
 
-interface IsValidAsync {
+export interface IsValidAsync {
   input: object;
   schema: Schema | SchemaAsync;
 }
@@ -173,8 +170,6 @@ type ApplyDiffUpdate = {op:'update', path: string, value: any};
 type ApplyDiffAdd = {op:'add', path: string, value: any};
 type ApplyDiffRemove = {op:'remove', path: string};
 type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
-
-type Resolved<T> = {status: 'fulfilled', value: T} | {status: 'rejected', reason: string|Error}
 
 
 export function F(): boolean;
@@ -686,11 +681,18 @@ export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: T[]) =
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: T[]): (T[])[];
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
+export function gt<T>(x: T): T;
+
+export function gte<T>(x: T): T;
+
 /**
  * It returns `true` if `obj` has property `prop`.
  */
 export function has<T>(prop: string, obj: T): boolean;
 export function has(prop: string): <T>(obj: T) => boolean;
+
+export function hasIn(searchProperty: string): <T>(obj: T) => boolean;
+export function hasIn<T>(searchProperty: string, obj: T): boolean;
 
 /**
  * It will return true, if `input` object has truthy `path`(calculated with `R.path`).
@@ -780,6 +782,15 @@ export function indexOf<T>(valueToFind: T): (list: T[]) => number;
 export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
 export function init(input: string): string;
 
+export function innerJoin<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+): (list1: T1[], list2: T2[]) => T1[];
+export function innerJoin<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
+
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
@@ -863,26 +874,57 @@ export function length<T>(input: T[]): number;
  * 
  * The setter should not mutate the data structure.
  */
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
 
 /**
  * It returns a lens that focuses on specified `index`.
  */
-export function lensIndex(index: number): Lens;
+export function lensIndex<A>(n: number): Lens<A[], A>;
+export function lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 
 /**
  * It returns a lens that focuses on specified `path`.
  */
-export function lensPath(path: RamdaPath): Lens;
-export function lensPath(path: string): Lens;
+export function lensPath<S, K0 extends keyof S = keyof S>(path: [K0]): Lens<S, S[K0]>;
+export function lensPath<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(
+  path: [K0, K1],
+): Lens<S, S[K0][K1]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2]): Lens<S, S[K0][K1][K2]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2]
+>(path: [K0, K1, K2, K3]): Lens<S, S[K0][K1][K2][K3]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3]
+>(path: [K0, K1, K2, K3, K4]): Lens<S, S[K0][K1][K2][K3][K4]>;
+export function lensPath<
+  S,
+  K0 extends keyof S = keyof S,
+  K1 extends keyof S[K0] = keyof S[K0],
+  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4]
+>(path: [K0, K1, K2, K3, K4, K5]): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
+export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
 
 /**
  * It returns a lens that focuses on specified property `prop`.
  */
-export function lensProp(prop: string): {
-  <T, U>(obj: T): U;
-  set<T, U, V>(val: T, obj: U): V;
-};
+export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
 /**
  * It returns the result of looping through `iterable` with `fn`.
@@ -1393,6 +1435,25 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResu
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult): (initialValue: TResult, list: T[]) => TResult;
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+): (a: TResult, b: (elem: T) => string, c: T[]) => { [index: string]: TResult }
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+): (a: (elem: T) => string, b: T[]) => { [index: string]: TResult }
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+  keyFn: (elem: T) => string,
+): (list: T[]) => { [index: string]: TResult };
+export function reduceBy<T, TResult>(
+  valueFn: (acc: TResult, elem: T) => TResult,
+  acc: TResult,
+  keyFn: (elem: T) => string,
+  list: T[],
+): { [index: string]: TResult };
+
 /**
  * It has the opposite effect of `R.filter`.
  */
@@ -1687,8 +1748,8 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 /**
  * It returns the value of `lens` focus over `target` object.
  */
-export function view<T, U>(lens: Lens): (target: T) => U;
-export function view<T, U>(lens: Lens, target: T): U;
+export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
+export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;

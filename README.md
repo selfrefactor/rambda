@@ -40,7 +40,15 @@ Still, you need to be aware that functional programming features in `TypeScript`
 
 Important - Rambda version `7.1.0`(or higher) requires TypeScript version `4.3.3`(or higher).
 
-#### Immutable TS definitions
+### Understandable source code due to little usage of internals
+
+`Ramda` uses a lot of internals, which hides a lot of logic. Reading the full source code of a method can be challenging.
+
+### Better VSCode experience
+
+If the project is written in Javascript, then `go to source definition` action will lead you to actual implementation of the method.
+
+### Immutable TS definitions
 
 You can use immutable version of Rambda definitions, which is linted with ESLint `functional/prefer-readonly-type` plugin.
 
@@ -5600,6 +5608,14 @@ It returns separated version of list or string `input`, where separation is done
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
 
+### gt
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#gt)
+
+### gte
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#gte)
+
 ### has
 
 ```typescript
@@ -5681,6 +5697,10 @@ describe('R.has', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#has)
+
+### hasIn
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#hasIn)
 
 ### hasPath
 
@@ -6460,6 +6480,10 @@ describe('R.init', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
 
+### innerJoin
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
+
 ### intersection
 
 It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -7116,7 +7140,7 @@ test('with length as property', () => {
 
 ```typescript
 
-lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens
+lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>
 ```
 
 It returns a `lens` for the given `getter` and `setter` functions. 
@@ -7132,7 +7156,7 @@ The setter should not mutate the data structure.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
 ```
 
 </details>
@@ -7158,19 +7182,56 @@ export function lens(getter, setter){
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {lens, assoc} from 'rambda'
+import {lens, assoc, lensProp, view, lensIndex, lensPath} from 'rambda'
 
 interface Input {
   foo: string,
 }
+const testObject: Input = {
+  foo: 'Jazz',
+}
 
 describe('R.lens', () => {
   it('happy', () => {
-    const fn = lens<Input, string, string>((x: Input) => {
+    const fn = lens<Input, string>((x: Input) => {
       x.foo // $ExpectType string
       return x.foo
     }, assoc('name'))
-    fn // $ExpectType Lens
+    fn // $ExpectType Lens<Input, string>
+  })
+})
+
+describe('R.lensProp', () => {
+  it('happy', () => {
+    const result = view<Input, string>(lensProp('foo'), testObject)
+    result // $ExpectType string
+  })
+})
+
+describe('R.lensIndex', () => {
+  const testList: Input[] = [{foo: 'bar'}, {foo: 'baz'}]
+  it('happy', () => {
+    const result = view<Input[], Input>(lensIndex(0), testList)
+    result // $ExpectType Input
+    result.foo // $ExpectType string
+  })
+})
+
+describe('R.lensPath', () => {
+  const path = lensPath(['bar', 'a'])
+  it('happy', () => {
+    const result = view<Input, string>(path, testObject)
+    result // $ExpectType string
+  })
+})
+
+describe('R.view', () => {
+  const fooLens = lens<Input, string>((x: Input) => {
+    return x.foo
+  }, assoc('foo'))
+  it('happt', () => {
+    const result = view<Input, string>(fooLens, testObject)
+    result // $ExpectType string
   })
 })
 ```
@@ -7183,7 +7244,7 @@ describe('R.lens', () => {
 
 ```typescript
 
-lensIndex(index: number): Lens
+lensIndex<A>(n: number): Lens<A[], A>
 ```
 
 It returns a lens that focuses on specified `index`.
@@ -7195,7 +7256,8 @@ It returns a lens that focuses on specified `index`.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-lensIndex(index: number): Lens;
+lensIndex<A>(n: number): Lens<A[], A>;
+lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 ```
 
 </details>
@@ -7281,241 +7343,13 @@ test('get (set(set s v1) v2) === v2', () => {
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {view, lensIndex} from 'rambda'
-
-interface Input {
-  a: number,
-}
-const testList: Input[] = [{a: 1}, {a: 2}, {a: 3}]
-
-describe('R.lensIndex', () => {
-  it('happy', () => {
-    const result = view<Input[], Input>(lensIndex(0), testList)
-    result // $ExpectType Input
-    result.a // $ExpectType number
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensIndex)
 
 ### lensPath
 
-```typescript
-
-lensPath(path: RamdaPath): Lens
-```
-
 It returns a lens that focuses on specified `path`.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0Aconst%20result%20%3D%20R.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-lensPath(path: RamdaPath): Lens;
-lensPath(path: string): Lens;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.lensPath</strong> source</summary>
-
-```javascript
-import { assocPath } from './assocPath.js'
-import { lens } from './lens.js'
-import { path } from './path.js'
-
-export function lensPath(key){
-  return lens(path(key), assocPath(key))
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compose } from './compose.js'
-import { identity } from './identity.js'
-import { inc } from './inc.js'
-import { lensPath } from './lensPath.js'
-import { lensProp } from './lensProp.js'
-import { over } from './over.js'
-import { set } from './set.js'
-import { view } from './view.js'
-
-const testObj = {
-  a : [ { b : 1 }, { b : 2 } ],
-  d : 3,
-}
-
-test('view', () => {
-  expect(view(lensPath('d'), testObj)).toBe(3)
-  expect(view(lensPath('a.0.b'), testObj)).toBe(1)
-  // this is different to ramda, as ramda will return a clone of the input object
-  expect(view(lensPath(''), testObj)).toBeUndefined()
-})
-
-test('set', () => {
-  expect(set(
-    lensProp('d'), 0, testObj
-  )).toEqual({
-    a : [ { b : 1 }, { b : 2 } ],
-    d : 0,
-  })
-  expect(set(
-    lensPath('a.0.b'), 0, testObj
-  )).toEqual({
-    a : [ { b : 0 }, { b : 2 } ],
-    d : 3,
-  })
-  expect(set(
-    lensPath('a.0.X'), 0, testObj
-  )).toEqual({
-    a : [
-      {
-        b : 1,
-        X : 0,
-      },
-      { b : 2 },
-    ],
-    d : 3,
-  })
-  expect(set(
-    lensPath([]), 0, testObj
-  )).toBe(0)
-})
-
-test('over', () => {
-  expect(over(
-    lensPath('d'), inc, testObj
-  )).toEqual({
-    a : [ { b : 1 }, { b : 2 } ],
-    d : 4,
-  })
-  expect(over(
-    lensPath('a.1.b'), inc, testObj
-  )).toEqual({
-    a : [ { b : 1 }, { b : 3 } ],
-    d : 3,
-  })
-  expect(over(
-    lensProp('X'), identity, testObj
-  )).toEqual({
-    a : [ { b : 1 }, { b : 2 } ],
-    d : 3,
-    X : undefined,
-  })
-  expect(over(
-    lensPath('a.0.X'), identity, testObj
-  )).toEqual({
-    a : [
-      {
-        b : 1,
-        X : undefined,
-      },
-      { b : 2 },
-    ],
-    d : 3,
-  })
-})
-
-test('compose', () => {
-  const composedLens = compose(lensPath('a'), lensPath('1.b'))
-  expect(view(composedLens, testObj)).toBe(2)
-})
-
-test('set s (get s) === s', () => {
-  expect(set(
-    lensPath([ 'd' ]), view(lensPath([ 'd' ]), testObj), testObj
-  )).toEqual(testObj)
-  expect(set(
-    lensPath([ 'a', 0, 'b' ]),
-    view(lensPath([ 'a', 0, 'b' ]), testObj),
-    testObj
-  )).toEqual(testObj)
-})
-
-test('get (set s v) === v', () => {
-  expect(view(lensPath([ 'd' ]), set(
-    lensPath([ 'd' ]), 0, testObj
-  ))).toBe(0)
-  expect(view(lensPath([ 'a', 0, 'b' ]), set(
-    lensPath([ 'a', 0, 'b' ]), 0, testObj
-  ))).toBe(0)
-})
-
-test('get (set(set s v1) v2) === v2', () => {
-  const p = [ 'd' ]
-  const q = [ 'a', 0, 'b' ]
-  expect(view(lensPath(p), set(
-    lensPath(p), 11, set(
-      lensPath(p), 10, testObj
-    )
-  ))).toBe(11)
-  expect(view(lensPath(q), set(
-    lensPath(q), 11, set(
-      lensPath(q), 10, testObj
-    )
-  ))).toBe(11)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {lensPath, view} from 'rambda'
-
-interface Input {
-  foo: number[],
-  bar: {
-    a: string,
-    b: string,
-  },
-}
-
-const testObject: Input = {
-  foo: [1, 2],
-  bar: {
-    a: 'x',
-    b: 'y',
-  },
-}
-
-const path = lensPath(['bar', 'a'])
-const pathAsString = lensPath('bar.a')
-
-describe('R.lensPath', () => {
-  it('happy', () => {
-    const result = view<Input, string>(path, testObject)
-    result // $ExpectType string
-  })
-  it('using string as path input', () => {
-    const result = view<Input, string>(pathAsString, testObject)
-    result // $ExpectType string
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
 
@@ -7523,8 +7357,7 @@ describe('R.lensPath', () => {
 
 ```typescript
 
-lensProp(prop: string): {
-  <T, U>(obj: T): U
+lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
 ```
 
 It returns a lens that focuses on specified property `prop`.
@@ -7536,10 +7369,7 @@ It returns a lens that focuses on specified property `prop`.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-lensProp(prop: string): {
-  <T, U>(obj: T): U;
-  set<T, U, V>(val: T, obj: U): V;
-};
+lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 ```
 
 </details>
@@ -7658,33 +7488,6 @@ test('get (set(set s v1) v2) === v2', () => {
         lensProp('a'), 10, testObj
       )
     ))).toBe(11)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {lensProp, view} from 'rambda'
-
-interface Input {
-  foo: string,
-}
-
-const testObject: Input = {
-  foo: 'Led Zeppelin',
-}
-
-const lens = lensProp('foo')
-
-describe('R.lensProp', () => {
-  it('happy', () => {
-    const result = view<Input, string>(lens, testObject)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -11891,12 +11694,16 @@ prop<V>(p: keyof never): (value: unknown) => V;
 <summary><strong>R.prop</strong> source</summary>
 
 ```javascript
-export function prop(propToFind, obj){
-  if (arguments.length === 1) return _obj => prop(propToFind, _obj)
-
+export function propFn(searchProperty, obj){
   if (!obj) return undefined
 
-  return obj[ propToFind ]
+  return obj[ searchProperty ]
+}
+
+export function prop(searchProperty, obj){
+  if (arguments.length === 1) return _obj => prop(searchProperty, _obj)
+
+  return propFn(searchProperty, obj)
 }
 ```
 
@@ -12626,6 +12433,10 @@ describe('R.range', () => {
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue%2C%20list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
+
+### reduceBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduceBy)
 
 ### reject
 
@@ -16342,8 +16153,6 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 import { type } from './type.js'
 
 export function values(obj){
-  if (type(obj) !== 'Object') return []
-
   return Object.values(obj)
 }
 ```
@@ -16407,7 +16216,7 @@ describe('R.values', () => {
 
 ```typescript
 
-view<T, U>(lens: Lens): (target: T) => U
+view<S, A>(lens: Lens<S, A>): (obj: S) => A
 ```
 
 It returns the value of `lens` focus over `target` object.
@@ -16419,8 +16228,8 @@ It returns the value of `lens` focus over `target` object.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-view<T, U>(lens: Lens): (target: T) => U;
-view<T, U>(lens: Lens, target: T): U;
+view<S, A>(lens: Lens<S, A>): (obj: S) => A;
+view<S, A>(lens: Lens<S, A>, obj: S): A;
 ```
 
 </details>
@@ -16459,35 +16268,6 @@ const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {
   expect(view(assocLens, testObject)).toBe('Led Zeppelin')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {lens, view, assoc} from 'rambda'
-
-interface Input {
-  foo: string,
-}
-
-const testObject: Input = {
-  foo: 'Led Zeppelin',
-}
-
-const fooLens = lens<Input, string, string>((x: Input) => {
-  return x.foo
-}, assoc('foo'))
-
-describe('R.view', () => {
-  it('happt', () => {
-    const result = view<Input, string>(fooLens, testObject)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -17404,9 +17184,13 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-8.7.0
+9.0.0
+
+Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` types.
 
 - Add `R.sortWith` - [Issue #707](https://github.com/selfrefactor/rambda/issues/707)
+
+- Add `R.innerJoin`, `R.gt`, `R.gte`, `R.reduceBy`, `R.hasIn`
 
 8.6.0
 

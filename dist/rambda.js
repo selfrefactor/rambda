@@ -1116,10 +1116,13 @@ function eqByFn(fn, a, b) {
 }
 const eqBy = curry(eqByFn);
 
-function prop(propToFind, obj) {
-  if (arguments.length === 1) return _obj => prop(propToFind, _obj);
+function propFn(searchProperty, obj) {
   if (!obj) return undefined;
-  return obj[propToFind];
+  return obj[searchProperty];
+}
+function prop(searchProperty, obj) {
+  if (arguments.length === 1) return _obj => prop(searchProperty, _obj);
+  return propFn(searchProperty, obj);
 }
 
 function eqPropsFn(property, objA, objB) {
@@ -1360,10 +1363,27 @@ function groupWith(compareFn, list) {
   return toReturn;
 }
 
+function gt(a, b) {
+  if (arguments.length === 1) return _b => gt(a, _b);
+  return a > b;
+}
+
+function gte(a, b) {
+  if (arguments.length === 1) return _b => gte(a, _b);
+  return a >= b;
+}
+
 function has(prop, obj) {
   if (arguments.length === 1) return _obj => has(prop, _obj);
   if (!obj) return false;
   return obj.hasOwnProperty(prop);
+}
+
+function hasIn(searchProperty, obj) {
+  if (arguments.length === 1) {
+    return _obj => hasIn(searchProperty, _obj);
+  }
+  return propFn(searchProperty, obj) !== undefined;
 }
 
 function hasPath(pathInput, obj) {
@@ -1451,6 +1471,30 @@ function init(listOrString) {
   if (typeof listOrString === 'string') return listOrString.slice(0, -1);
   return listOrString.length ? baseSlice(listOrString, 0, -1) : [];
 }
+
+function _includesWith(pred, x, list) {
+  let idx = 0;
+  const len = list.length;
+  while (idx < len) {
+    if (pred(x, list[idx])) return true;
+    idx += 1;
+  }
+  return false;
+}
+function _filter(fn, list) {
+  let idx = 0;
+  const len = list.length;
+  const result = [];
+  while (idx < len) {
+    if (fn(list[idx])) result[result.length] = list[idx];
+    idx += 1;
+  }
+  return result;
+}
+function innerJoinFn(pred, xs, ys) {
+  return _filter(x => _includesWith(pred, x, ys), xs);
+}
+const innerJoin = curry(innerJoinFn);
 
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
@@ -1942,6 +1986,17 @@ function range(start, end) {
   return willReturn;
 }
 
+function reduceByFunction(valueFn, valueAcc, keyFn, acc, elt) {
+  const key = keyFn(elt);
+  const value = valueFn(has(key, acc) ? acc[key] : clone(valueAcc), elt);
+  acc[key] = value;
+  return acc;
+}
+function reduceByFn(valueFn, valueAcc, keyFn, list) {
+  return reduce((acc, elt) => reduceByFunction(valueFn, valueAcc, keyFn, acc, elt), {}, list);
+}
+const reduceBy = curry(reduceByFn);
+
 function reject(predicate, list) {
   if (arguments.length === 1) return _list => reject(predicate, _list);
   return filter(x => !predicate(x), list);
@@ -2280,7 +2335,6 @@ function unwind(property, obj) {
 }
 
 function values(obj) {
-  if (type(obj) !== 'Object') return [];
   return Object.values(obj);
 }
 
@@ -2457,7 +2511,10 @@ exports.forEachObjIndexedFn = forEachObjIndexedFn;
 exports.fromPairs = fromPairs;
 exports.groupBy = groupBy;
 exports.groupWith = groupWith;
+exports.gt = gt;
+exports.gte = gte;
 exports.has = has;
+exports.hasIn = hasIn;
 exports.hasPath = hasPath;
 exports.head = head;
 exports.identical = identical;
@@ -2468,6 +2525,8 @@ exports.includes = includes$1;
 exports.indexBy = indexBy;
 exports.indexOf = indexOf;
 exports.init = init;
+exports.innerJoin = innerJoin;
+exports.innerJoinFn = innerJoinFn;
 exports.intersection = intersection;
 exports.intersperse = intersperse;
 exports.is = is;
@@ -2540,12 +2599,15 @@ exports.prepend = prepend;
 exports.product = product;
 exports.prop = prop;
 exports.propEq = propEq;
+exports.propFn = propFn;
 exports.propIs = propIs;
 exports.propOr = propOr;
 exports.propSatisfies = propSatisfies;
 exports.props = props;
 exports.range = range;
 exports.reduce = reduce;
+exports.reduceBy = reduceBy;
+exports.reduceByFn = reduceByFn;
 exports.reduceFn = reduceFn;
 exports.reduceStopper = reduceStopper;
 exports.reject = reject;

@@ -1,5 +1,3 @@
-import { sortWith as sortWithRamda } from 'ramda'
-
 import { ascend, prop } from '../rambda.js'
 import { sortWith } from './sortWith.js'
 

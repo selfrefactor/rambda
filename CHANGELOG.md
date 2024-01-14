@@ -1,6 +1,10 @@
-8.7.0
+9.0.0
+
+Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` types.
 
 - Add `R.sortWith` - [Issue #707](https://github.com/selfrefactor/rambda/issues/707)
+
+- Add `R.innerJoin`, `R.gt`, `R.gte`, `R.reduceBy`, `R.hasIn`
 
 8.6.0
 
