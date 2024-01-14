@@ -16150,9 +16150,8 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 <summary><strong>R.values</strong> source</summary>
 
 ```javascript
-import { type } from './type.js'
-
 export function values(obj){
+  if(!obj || typeof obj !== 'object') return []
   return Object.values(obj)
 }
 ```
