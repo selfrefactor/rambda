@@ -846,7 +846,7 @@ Explanation: It decrements a number.
 Example:
 
 ```
-
+const result = R.dec(2) // => 1
 ```
 
 Categories: Number
@@ -4468,9 +4468,9 @@ export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 Method: when
 
 Explanation: It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`. 
-
 If the `predicate` returns `false`, then it will simply return `input`.
 
+Example:
 ```
 const predicate = x => typeof x === 'number'
 const whenTrueFn = R.add(11)
@@ -5361,6 +5361,8 @@ Explanation:
 Example:
 
 ```
+const result = R.unnest([1, [2], [[3]]])
+// => [1, 2, [3]]
 ```
 
 Categories: List
@@ -5380,6 +5382,12 @@ Explanation:
 Example:
 
 ```
+const result = R.differenceWith(
+  (a, b) => a.x === b.x,
+  [{x: 1}, {x: 2}],
+  [{x: 1}, {x: 3}]
+)
+// => [{x: 2}]
 ```
 
 Categories:
@@ -5404,16 +5412,18 @@ export function differenceWith<T1, T2>(
 /*
 Method: addIndex
 
-Explanation:
+Explanation: 
 
 Example:
 
 ```
+const result = R.addIndex(R.map)((val, idx) => val + idx + 1, [1, 2, 3])
+// => [2, 4, 6]
 ```
 
 Categories:
 
-Notes: TS typings are oversimplified
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -5423,11 +5433,19 @@ export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
 /*
 Method: ap
 
-Explanation:
+Explanation: It takes a list of functions and a list of values. Then it returns a list of values obtained by applying each function to each value.
 
 Example:
 
 ```
+const result = R.ap(
+  [
+    x => x + 1,
+    x => x + 2,
+  ],
+  [1, 2, 3]
+)
+// => [2, 3, 4, 3, 4, 5]
 ```
 
 Categories:
@@ -5443,7 +5461,7 @@ export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => 
 /*
 Method: addIndexRight
 
-Explanation:
+Explanation: Same as `R.addIndex`, but it will passed indexes are decreasing, instead of increasing.
 
 Example:
 
@@ -5452,7 +5470,7 @@ Example:
 
 Categories:
 
-Notes: TS typings are oversimplified
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -5462,11 +5480,13 @@ export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
 /*
 Method: aperture
 
-Explanation:
+Explanation: It returns a new list, composed of consecutive `n`-tuples from a `list`.
 
 Example:
 
 ```
+const result = R.aperture(2, [1, 2, 3, 4])
+// => [[1, 2], [2, 3], [3, 4]]
 ```
 
 Categories:
@@ -5487,6 +5507,11 @@ Explanation:
 Example:
 
 ```
+const result = R.applyTo(
+  1,
+  x => x + 1
+)
+// => 2
 ```
 
 Categories:
@@ -5506,6 +5531,11 @@ Explanation:
 Example:
 
 ```
+const result = R.sort(
+  R.ascend(x => x),
+  [2, 1]
+)
+// => [1, 2]
 ```
 
 Categories:
@@ -5525,6 +5555,11 @@ Explanation:
 Example:
 
 ```
+R.sort(
+  R.descend(x => x),
+  [1, 2]
+)
+// => [2, 1]
 ```
 
 Categories:
@@ -5544,6 +5579,10 @@ Explanation:
 Example:
 
 ```
+const result = R.binary(
+  (a, b, c) => a + b + c,
+)(1, 2, 3, 4)
+// => 3
 ```
 
 Categories:
@@ -5562,6 +5601,12 @@ Explanation:
 Example:
 
 ```
+const result = R.call(
+  (a, b) => a + b,
+  1,
+  2
+)
+// => 3
 ```
 
 Categories:
@@ -5580,6 +5625,11 @@ Explanation:
 Example:
 
 ```
+const result = R.collectBy(
+  x => x % 2,
+  [1, 2, 3, 4]
+)
+// => [[2, 4], [1, 3]]
 ```
 
 Categories:
@@ -5594,11 +5644,16 @@ export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (li
 /*
 Method: comparator
 
-Explanation:
+Explanation: It returns a comparator function that can be used in `sort` method.
 
 Example:
 
 ```
+const result = R.sort(
+  R.comparator((a, b) => a.x < b.x),
+  [{x: 2}, {x: 1}]
+)
+// => [{x: 1}, {x: 2}]
 ```
 
 Categories:
@@ -5617,9 +5672,17 @@ Explanation:
 Example:
 
 ```
+const result = R.composeWith(
+  (fn, intermediateResult) => fn(intermediateResult),
+  [
+    R.map(x => x + 1),
+    R.map(x => x * 2),
+  ]
+)([1, 2, 3])
+// => [3, 5, 7]
 ```
 
-Categories:
+Categories: Function
 
 Notes:
 
@@ -5643,6 +5706,8 @@ Explanation:
 Example:
 
 ```
+const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
+// => {a: {c: 2}}
 ```
 
 Categories:
@@ -5684,6 +5749,11 @@ Explanation:
 Example:
 
 ```
+const result = R.dropRepeatsBy(
+  Math.abs,
+  [1, -1, 2, 3, -3]
+)
+// => [1, 2, 3]
 ```
 
 Categories:
@@ -5706,6 +5776,8 @@ Explanation:
 Example:
 
 ```
+const result = [R.empty([1,2,3]), R.empty('foo'), R.empty({x: 1, y: 2})]
+// => [[], '', {}]
 ```
 
 Categories:
@@ -5724,6 +5796,8 @@ Explanation:
 Example:
 
 ```
+const result = R.eqBy(Math.abs, 5, -5)
+// => true
 ```
 
 Categories:

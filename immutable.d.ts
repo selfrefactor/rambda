@@ -185,6 +185,9 @@ export function add(a: number): (b: number) => number;
 export function addIndex(originalFn: any): (fn: any) => (list: readonly any[]) => readonly any[];
 export function addIndex(originalFn: any): (fn: any, list: readonly any[]) => readonly any[];
 
+/**
+ * Same as `R.addIndex`, but it will passed indexes are decreasing, instead of increasing.
+ */
 export function addIndexRight(originalFn: any): (fn: any) => (list: readonly any[]) => readonly any[];
 export function addIndexRight(originalFn: any): (fn: any, list: readonly any[]) => readonly any[];
 
@@ -229,10 +232,16 @@ export function any<T>(predicate: (x: T) => boolean): (list: readonly T[]) => bo
 export function anyPass<T>(predicates: readonly ((x: T) => boolean)[]): (input: T) => boolean;
 export function anyPass<T>(predicates: readonly ((...inputs: readonly T[]) => boolean)[]): (...inputs: readonly T[]) => boolean;
 
+/**
+ * It takes a list of functions and a list of values. Then it returns a list of values obtained by applying each function to each value.
+ */
 export function ap<T, U>(fns: readonly ReadonlyArray<(a: T) => U>[], vs: readonly T[]): readonly U[];
 export function ap<T, U>(fns: ReadonlyArray<(a: T) => U>): (vs: readonly T[]) => readonly U[];
 export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
 
+/**
+ * It returns a new list, composed of consecutive `n`-tuples from a `list`.
+ */
 export function aperture<N extends number, T>(n: N, list: readonly T[]): ReadonlyArray<Tuple<T, N>> | readonly [];
 export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => ReadonlyArray<Tuple<T, N>> | readonly [];
 
@@ -324,6 +333,9 @@ export function clone<T>(input: readonly T[]): readonly T[];
 export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: readonly T[]): readonly (readonly T[])[];
 export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: readonly T[]) => readonly (readonly T[])[];
 
+/**
+ * It returns a comparator function that can be used in `sort` method.
+ */
 export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /**
@@ -782,6 +794,9 @@ export function indexOf<T>(valueToFind: T): (list: readonly T[]) => number;
 export function init<T extends readonly unknown[]>(input: T): T extends readonly [...infer U, any] ? U : readonly [...T];
 export function init(input: string): string;
 
+/**
+ * It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
+ */
 export function innerJoin<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
 ): (list1: readonly T1[], list2: readonly T2[]) => readonly T1[];
@@ -1751,6 +1766,10 @@ export function values<T extends object, K extends keyof T>(obj: T): readonly T[
 export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
 export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
+/**
+ * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
+ * If the `predicate` returns `false`, then it will simply return `input`.
+ */
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
 export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
