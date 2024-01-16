@@ -9,6 +9,7 @@
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 [![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/rambda)
+[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/selfrefactor/rambda/pulls)
 
 ## ❯ Example use
 
@@ -7925,6 +7926,19 @@ test('get (set(set s v1) v2) === v2', () => {
 
 It returns a lens that focuses on specified `path`.
 
+```javascript
+const lensPath = R.lensPath(['x', 0, 'y'])
+const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
+
+R.view(lensPath, input) // => 2
+
+R.set(lensPath, 1, input) 
+// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+
+R.over(xHeadYLens, R.negate, input) 
+// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0Aconst%20result%20%3D%20R.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
@@ -10489,7 +10503,8 @@ Logical OR
 
 ```typescript
 
-over<T>(lens: Lens, fn: Arity1Fn, value: T): T
+over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S
 ```
 
 It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
@@ -10507,12 +10522,12 @@ R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) // => ['FOO', 'bar', 'baz']
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
-over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
-over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S;
+  (fn: (a: A) => A, value: S): S;
+};
+over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 ```
 
 </details>
@@ -13999,7 +14014,10 @@ describe('R.reverse', () => {
 
 ```typescript
 
-set<T, U>(lens: Lens, replacer: U, obj: T): T
+set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+}
 ```
 
 It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
@@ -14022,9 +14040,12 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-set<T, U>(lens: Lens, replacer: U, obj: T): T;
-set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
-set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
+set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+};
+set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
 ```
 
 </details>
@@ -18651,6 +18672,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.0.1
+
+- Fix bad TS typings, due to missing declaration - [Issue #716](https://github.com/selfrefactor/rambda/issues/716)
 
 9.0.0
 

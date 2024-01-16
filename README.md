@@ -9,6 +9,7 @@
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 [![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/rambda)
+[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/selfrefactor/rambda/pulls)
 
 ## ❯ Example use
 
@@ -9802,7 +9803,8 @@ Logical OR
 
 ```typescript
 
-over<T>(lens: Lens, fn: Arity1Fn, value: T): T
+over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S
 ```
 
 It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
@@ -9814,12 +9816,12 @@ It returns a copied **Object** or **Array** with modified value received by appl
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
-over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
-over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S;
+  (fn: (a: A) => A, value: S): S;
+};
+over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 ```
 
 </details>
@@ -13005,7 +13007,10 @@ describe('R.reverse', () => {
 
 ```typescript
 
-set<T, U>(lens: Lens, replacer: U, obj: T): T
+set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+}
 ```
 
 It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
@@ -13017,9 +13022,12 @@ It returns a copied **Object** or **Array** with modified `lens` focus set to `r
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-set<T, U>(lens: Lens, replacer: U, obj: T): T;
-set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
-set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
+set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+};
+set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
 ```
 
 </details>
@@ -17241,6 +17249,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.0.1
+
+- Fix bad TS typings, due to missing declaration - [Issue #716](https://github.com/selfrefactor/rambda/issues/716)
 
 9.0.0
 

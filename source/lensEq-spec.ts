@@ -2,12 +2,12 @@ import {lensEq, lensIndex, lensPath} from 'rambda'
 
 describe('R.lensEq', () => {
   it('with list', () => {
-    const list = [1, 2, 3]
+    const list = ['foo', 'bar', 'baz']
     const lens = lensIndex(0)
-    const result = lensEq<number>(lens, 1, list)
+    const result = lensEq(lens, 1, list)
     result // $ExpectType boolean
 
-    const curriedResult = lensEq<number>(lens, 1)(list)
+    const curriedResult = lensEq(lens, 1)(list)
     curriedResult // $ExpectType boolean
   })
   it('with object', () => {

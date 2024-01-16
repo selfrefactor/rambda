@@ -1,3 +1,7 @@
+9.0.1
+
+- Fix bad TS typings, due to missing declaration - [Issue #716](https://github.com/selfrefactor/rambda/issues/716)
+
 9.0.0
 
 Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` types.

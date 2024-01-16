@@ -42,7 +42,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   0: K;
   1: V;
 }
-
+export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 type Arity1Fn = (x: any) => any;
@@ -2108,12 +2108,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
+export function over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S;
+  (fn: (a: A) => A, value: S): S;
+};
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 
 /*
 Method: set
@@ -2139,9 +2139,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function set<T, U>(lens: Lens, replacer: U, obj: T): T;
-export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
-export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
+export function set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+};
+export function set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+export function set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
 
 /*
 Method: view
@@ -7514,10 +7517,9 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
-export function lensEq<T, U>(lens: Lens, target: T, input: U): boolean;
-export function lensEq<T, U>(lens: Lens, target: T):  (input: U) => boolean;
-export function lensEq<T>(lens: Lens, target: T, input: T[]): boolean;
-export function lensEq<T>(lens: Lens, target: T): (input: T[]) => boolean;
+export function lensEq(lens: Function, value: any, data: any): boolean;
+export function lensEq(lens: Function, value: any): (data: any) => boolean;
+export function lensEq(lens: Function): (value: any) => (data: any) => boolean;
 
 /*
 Method: lensSatisfies

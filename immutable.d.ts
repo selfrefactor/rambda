@@ -42,7 +42,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   readonly 0: K;
   readonly 1: V;
 }
-
+export type Functor<A> = { readonly map: <B>(fn: (a: A) => B) => Functor<B>; readonly [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 type Arity1Fn = (x: any) => any;
@@ -1158,12 +1158,12 @@ export function or<T>(a: T): <U>(b: U) => T | U;
 /**
  * It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
  */
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): readonly T[];
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => readonly T[];
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => readonly T[];
+export function over<S, A>(lens: Lens<S, A>): {
+  (fn: (a: A) => A): (value: S) => S;
+  (fn: (a: A) => A, value: S): S;
+};
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 
 /**
  * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
@@ -1502,9 +1502,12 @@ export function reverse(input: string): string;
 /**
  * It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
  */
-export function set<T, U>(lens: Lens, replacer: U, obj: T): T;
-export function set<U>(lens: Lens, replacer: U): <T>(obj: T) => T;
-export function set(lens: Lens): <T, U>(replacer: U, obj: T) => T;
+export function set<S, A>(lens: Lens<S, A>): {
+  (a: A): (obj: S) => S
+  (a: A, obj: S): S
+};
+export function set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+export function set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
 
 export function slice(from: number, to: number, input: string): string;
 export function slice<T>(from: number, to: number, input: readonly T[]): readonly T[];
