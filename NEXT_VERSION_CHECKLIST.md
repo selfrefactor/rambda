@@ -1,4 +1,44 @@
 
+
+---
+https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+---
+
+---
+
+---
+such types as `SortObjectPredicate` need to be exported
+---
+in js project like niketa theme, go to source lead to readable code, is ramda the same?
+
+what about ts react
+---
+add motivation
+
+optimize above the fold
+---
+include new methods to method to skip list
+---
+issue with gh release
+---
+throttle should accept 0 arguments, i.e. no need to force unary function
+---
+splitWith
+R.pickWith
+R.pickAllWith - maybe
+---
+wont do
+include standut x methods to rambda
+
+such as
+
+sortObject
+---
+R.findInObject
+---
+restore maptoobject x@2.1.0
+
+why mapObject is not same
 ---
 REFS:
 
@@ -8,32 +48,22 @@ REFS:
 
 
 
+---
 in js project like niketa theme, go to source lead to readable code, is ramda the same?
+
+what about ts react
+---
 
 fix https://github.com/selfrefactor/rambdax/issues/93
 
-release X
-
-no need to test curried methods such as replace
-
-automate deno release
-
-deno is advantage as Ramda last release is 3 years ago
----
-no testing curry when method is exporting curried function
 ---
 group TS test for similar methods
 
-eventual create additional topic in methods - related methods, so it is easy to find tests as the first one alpabetically is the one containing all TS tests
 ---
 - construct - it is class helper and classes are not very functional oriented
 - constructN
 
-- gt
-- gte
-- hasIn
 
-- innerJoin
 - insert
 - insertAll
 - into
@@ -67,7 +97,6 @@ eventual create additional topic in methods - related methods, so it is easy to 
 - project
 - promap
 
-- reduceBy
 - reduceRight
 - reduceWhile
 - reduced
@@ -120,3 +149,40 @@ replace missing ramda methods with text that argument is missing
 publish after march 2024
 
 export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
+===
+from bookmarks:
+
+https://arethetypeswrong.github.io/?p=ramda%400.29.1
+https://github.com/selfrefactor/rambda/issues/638
+https://github.com/ramda/ramda/pull/3430/files
+https://github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
+https://docs.retool.com/workflows/guides/blocks/javascript
+https://snyk.io/advisor/npm-package/ramda
+https://github.com/rogerfar/curray/blob/master/src/index.ts
+https://radash-docs.vercel.app/docs/typed/is-symbol
+https://radash-docs.vercel.app/docs/async/defer
+https://radash-docs.vercel.app/docs/array/counting
+https://www.matthewtao.com/blog/post/ramda-curry-by-source-code
+
+can wait:
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59219/files
+https://github.com/ramda/ramda/pull/3270
+https://tutorial.docusaurus.io/docs/tutorial-basics/create-a-page
+https://www.reddit.com/r/typescript/comments/10cw9ju/ramda_and_typescript_issues/
+https://ramdajs.com/docs/#ascend
+https://vitepress.dev/
+https://vitepress.dev/guide/getting-started
+https://github.com/unional/type-plus/blob/main/type-plus/ts/functional/compose.spec.ts
+https://github.com/MathisBullinger/froebel/blob/main/pipe.test.ts
+https://github.com/tinylibs/tinybench
+https://github.com/gustavoguichard/string-ts/blob/main/src/primitives.ts
+https://github.com/ramda/ramda/pull/3376/files
+
+frozen:
+
+https://devblogs.microsoft.com/typescript/announcing-typescript-4-7-rc/#package-json-exports-imports-and-self-referencing
+https://github.com/flybondi/ramda-land/blob/master/src/rename-keys.js
+https://ramdajs.com/docs/#collectBy
+https://ramdajs.com/docs/#thunkify
+https://github.com/ts-essentials/ts-essentials/blob/master/lib/any-array/index.ts

@@ -1,5 +1,4 @@
-// import { append } from './append.js'
-import { append } from 'ramda'
+import { append } from './append.js'
 
 test('happy', () => {
   expect(append('tests', [ 'write', 'more' ])).toEqual([

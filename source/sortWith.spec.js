@@ -1,5 +1,3 @@
-import { sortWith as sortWithRamda } from 'ramda'
-
 import { ascend, prop } from '../rambda.js'
 import { sortWith } from './sortWith.js'
 
@@ -119,4 +117,23 @@ test('sorts only arrays not array-like object', () => {
     'c', 'a', 'b'
   )
   expect(sortWith([ ascend(prop('value')) ], args)).toEqual([])
+})
+
+test('sorts only arrays not primitives', () => {
+  const result =sortWith([
+    (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
+    (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
+  ], [
+    {a: 1, b: 2},
+    {a: 2, b: 1},
+    {a: 2, b: 2},
+    {a: 1, b: 1},
+  ])
+  const expected = [
+    {a: 1, b: 1},
+    {a: 1, b: 2},
+    {a: 2, b: 1},
+    {a: 2, b: 2},
+  ]
+  expect(result).toEqual(expected)
 })

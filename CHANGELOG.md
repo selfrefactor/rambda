@@ -1,8 +1,14 @@
+9.0.0
+
+Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` types.
+
+- Add `R.sortWith` - [Issue #707](https://github.com/selfrefactor/rambda/issues/707)
+
+- Add `R.innerJoin`, `R.gt`, `R.gte`, `R.reduceBy`, `R.hasIn`
+
 8.6.0
 
 - Wrong typing for `R.dissocPath` - [Issue #709](https://github.com/selfrefactor/rambda/issues/709)
-
-- Add `R.sortWith` - [Issue #7097](https://github.com/selfrefactor/rambda/issues/707)
 
 - Update build dependencies
 
