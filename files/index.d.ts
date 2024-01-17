@@ -5968,6 +5968,24 @@ export function innerJoin<T1, T2>(
 ): (list2: T2[]) => T1[];
 export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
 
+/*
+Method: insert
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function insert<T>(x: T): T;
+
 // RAMBDAX_MARKER_START
 
 /*

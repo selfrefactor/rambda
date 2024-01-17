@@ -1,11 +1,19 @@
+- insert
+- insertAll
+- into
+- invert
+- invertObj
+- invoker
+- isNotNil
 
+run immutable script
 
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 ---
 
 ---
-
+simplify lint
 ---
 such types as `SortObjectPredicate` need to be exported
 ---
@@ -64,13 +72,7 @@ group TS test for similar methods
 - constructN
 
 
-- insert
-- insertAll
-- into
-- invert
-- invertObj
-- invoker
-- isNotNil
+
 
 - keysIn
 - lift
