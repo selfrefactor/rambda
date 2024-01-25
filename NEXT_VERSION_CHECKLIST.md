@@ -2,7 +2,6 @@
 - insertAll
 
 
-- into
 - invert
 - invertObj
 - invoker
@@ -74,6 +73,7 @@ group TS test for similar methods
 ---
 - construct - it is class helper and classes are not very functional oriented
 - constructN
+- into - no support for transducer as it is overly complex to implement, understand and read.
 
 
 
