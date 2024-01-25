@@ -5856,6 +5856,26 @@ Notes:
 export function gt<T>(x: T): T;
 
 /*
+Method: lt
+
+Explanation:
+
+Example:
+
+```
+const result = [R.lt(2, 1), R.lt(2, 3)]
+// => [false, true]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function lt<T>(x: T): T;
+
+/*
 Method: gte
 
 Explanation:
@@ -5865,6 +5885,26 @@ Example:
 ```
 const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
 // => [true, true, false]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+
+export function lte<T>(x: T): T;
+/*
+Method: lte
+
+Explanation:
+
+Example:
+
+```
+const result = [R.lte(2, 1), R.lte(2, 2), R.lte(2, 3)]
+// => [false, true, true]
 ```
 
 Categories: Number
