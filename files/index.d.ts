@@ -6008,6 +6008,27 @@ export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => 
 export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
 export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
 
+/*
+Method: into
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function into(acc: any): <T>(xf: (...a: any[]) => any, list: T[]) => T[];
+export function into<T>(acc: any, xf: (...a: any[]) => any, list: T[]): T[];
+export function into<T, R>(acc: any, xf: (...a: any[]) => R[], list: T[]): R[];
+export function into(acc: any, xf: (...a: any[]) => any): <T>(list: T[]) => T[];
+
 // RAMBDAX_MARKER_START
 
 /*

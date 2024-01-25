@@ -1,6 +1,7 @@
 - insert
-
 - insertAll
+
+
 - into
 - invert
 - invertObj
