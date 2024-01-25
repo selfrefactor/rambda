@@ -5984,7 +5984,29 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function insert<T>(x: T): T;
+export function insert(index: number): <T>(itemToInsert: T, list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T): (list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T, list: T[]): T[];
+
+/*
+Method: insertAll
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
 
 // RAMBDAX_MARKER_START
 

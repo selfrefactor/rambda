@@ -1,4 +1,5 @@
 - insert
+
 - insertAll
 - into
 - invert
@@ -8,6 +9,8 @@
 
 run immutable script
 
+---
+transform this mocha test to jest(also remove describe block as I dont need it)
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 ---
@@ -151,6 +154,25 @@ replace missing ramda methods with text that argument is missing
 publish after march 2024
 
 export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
+===
+export default function deepqual(foo, bar) {
+	var ctor, len;
+	if (foo === bar) return true;
+	if (foo && bar && (ctor=foo.constructor) === bar.constructor) {
+		if (ctor === Date) return foo.getTime() === bar.getTime();
+		if (ctor === RegExp) return foo.toString() === bar.toString();
+		if (ctor === Array && (len=foo.length) === bar.length) {
+			while (len-- && dequal(foo[len], bar[len]));
+			return len === -1;
+		}
+		if (ctor === Object) {
+			if (Object.keys(foo).length !== Object.keys(bar).length) return false;
+			for (len in foo) if (!(len in bar) || !dequal(foo[len], bar[len])) return false;
+			return true;
+		}
+	}
+	return foo !== foo && bar !== bar;
+}
 ===
 from bookmarks:
 
