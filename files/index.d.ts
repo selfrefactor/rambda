@@ -6048,6 +6048,24 @@ export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => 
 export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
 export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
 
+/*
+Method: isNotNil
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isNotNil<T>(value: T): value is NonNullable<T>;
+
 // RAMBDAX_MARKER_START
 
 /*
