@@ -4,8 +4,8 @@
 - lte
 - isNotNil
 - pickBy
-
 - pathSatisfies
+
 - swap
 - mergeDeepLeft
 

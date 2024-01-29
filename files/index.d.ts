@@ -6087,6 +6087,25 @@ Notes:
 export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
 export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
 
+/*
+Method: pathSatisfies
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
+
 // RAMBDAX_MARKER_START
 
 /*
