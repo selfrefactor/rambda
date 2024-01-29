@@ -6106,6 +6106,25 @@ Notes:
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
 
+/*
+Method: swap
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
+export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
+
 // RAMBDAX_MARKER_START
 
 /*
