@@ -45,6 +45,8 @@ interface KeyValuePair<K, V> extends Array<K | V> {
 export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
+
 type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
@@ -6065,6 +6067,25 @@ Notes:
 */
 // @SINGLE_MARKER
 export function isNotNil<T>(value: T): value is NonNullable<T>;
+
+/*
+Method: pickBy
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
 
 // RAMBDAX_MARKER_START
 
