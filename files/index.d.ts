@@ -6125,6 +6125,25 @@ Notes:
 export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
 export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
 
+/*
+Method: mergeDeepLeft
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeDeepLeft<Output>(newProps: object, target: object): Output;
+export function mergeDeepLeft<Output>(newProps: object): (target: object) => Output;
+
 // RAMBDAX_MARKER_START
 
 /*

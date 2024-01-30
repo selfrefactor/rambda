@@ -5,20 +5,12 @@
 - isNotNil
 - pickBy
 - pathSatisfies
-
 - swap
 - mergeDeepLeft
 
 run immutable script
-
----
-transform this mocha test to jest(also remove describe block as I dont need it)
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
----
-
----
-simplify lint
 ---
 such types as `SortObjectPredicate` need to be exported
 ---
