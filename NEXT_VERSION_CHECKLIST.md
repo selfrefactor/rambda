@@ -1,13 +1,3 @@
-- insert
-- insertAll
-- lt
-- lte
-- isNotNil
-- pickBy
-- pathSatisfies
-- swap
-- mergeDeepLeft
-
 run immutable script
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone

@@ -45,6 +45,8 @@ interface KeyValuePair<K, V> extends Array<K | V> {
 export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
+
 type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
@@ -806,6 +808,14 @@ export function innerJoin<T1, T2>(
 ): (list2: T2[]) => T1[];
 export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
 
+export function insert(index: number): <T>(itemToInsert: T, list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T): (list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T, list: T[]): T[];
+
+export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
+
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
@@ -835,6 +845,8 @@ export function isEmpty<T>(x: T): boolean;
  * It returns `true` if `x` is either `null` or `undefined`.
  */
 export function isNil(x: any): x is null | undefined;
+
+export function isNotNil<T>(value: T): value is NonNullable<T>;
 
 /**
  * It returns a string of all `list` instances joined with a `glue`.
@@ -941,6 +953,8 @@ export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
  */
 export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
+export function lt<T>(x: T): T;
+
 /**
  * It returns the result of looping through `iterable` with `fn`.
  * 
@@ -1007,6 +1021,9 @@ export function merge<Output>(target: any): (newProps: any) => Output;
  */
 export function mergeAll<T>(list: object[]): T;
 export function mergeAll(list: object[]): object;
+
+export function mergeDeepLeft<Output>(newProps: object, target: object): Output;
+export function mergeDeepLeft<Output>(newProps: object): (target: object) => Output;
 
 /**
  * Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
@@ -1274,6 +1291,9 @@ export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
+
 /**
  * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
  * 
@@ -1306,6 +1326,9 @@ export function pickAll<T, U>(propsToPicks: string[], input: T): U;
 export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
+
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
 
 /**
  * It performs left-to-right function composition.
@@ -1586,6 +1609,9 @@ export function subtract(x: number, y: number): number;
 export function subtract(x: number): (y: number) => number;
 
 export function sum(list: number[]): number;
+
+export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
+export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
 
 /**
  * It returns a merged list of `x` and `y` with all equal elements removed.

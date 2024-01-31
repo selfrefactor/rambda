@@ -1496,6 +1496,16 @@ function innerJoinFn(pred, xs, ys) {
 }
 const innerJoin = curry(innerJoinFn);
 
+function insertFn(indexToInsert, valueToInsert, array) {
+  return [...array.slice(0, indexToInsert), valueToInsert, ...array.slice(indexToInsert)];
+}
+const insert = curry(insertFn);
+
+function insertAllFn(index, listToInsert, list) {
+  return [...list.slice(0, index), ...listToInsert, ...list.slice(index)];
+}
+const insertAll = curry(insertAllFn);
+
 function intersection(listA, listB) {
   if (arguments.length === 1) return _list => intersection(listA, _list);
   return filter(x => includes$1(x, listA), listB);
@@ -1536,6 +1546,10 @@ function isEmpty(input) {
 
 function isNil(x) {
   return x === undefined || x === null;
+}
+
+function isNotNil(input) {
+  return input != null;
 }
 
 function join(glue, list) {
@@ -1595,6 +1609,11 @@ function lensPath(key) {
 
 function lensProp(key) {
   return lens(prop(key), assoc(key));
+}
+
+function lt(a, b) {
+  if (arguments.length === 1) return _b => lt(a, _b);
+  return a < b;
 }
 
 function match(pattern, input) {
@@ -1663,6 +1682,10 @@ function mergeDeepRight(target, source) {
     }
   });
   return willReturn;
+}
+
+function mergeDeepLeft(newProps, target) {
+  return mergeDeepRight(target, newProps);
 }
 
 function mergeLeft(x, y) {
@@ -1878,6 +1901,12 @@ function pathOrFn(defaultValue, pathInput, obj) {
 }
 const pathOr = curry(pathOrFn);
 
+function pathSatisfiesFn(fn, pathInput, obj) {
+  if (pathInput.length === 0) throw new Error("R.pathSatisfies received an empty path");
+  return Boolean(fn(path(pathInput, obj)));
+}
+const pathSatisfies = curry(pathSatisfiesFn);
+
 function paths(pathsToSearch, obj) {
   if (arguments.length === 1) {
     return _obj => paths(pathsToSearch, _obj);
@@ -1919,6 +1948,18 @@ function pickAll(propsToPick, obj) {
     counter++;
   }
   return willReturn;
+}
+
+function pickBy(predicate, obj) {
+  if (arguments.length === 1) {
+    return _obj => pickBy(predicate, _obj);
+  }
+  return Object.keys(obj).reduce((accum, key) => {
+    if (predicate(obj[key], key, obj)) {
+      accum[key] = obj[key];
+    }
+    return accum;
+  }, {});
 }
 
 function pluck(property, list) {
@@ -2142,6 +2183,31 @@ function subtract(a, b) {
   if (arguments.length === 1) return _b => subtract(a, _b);
   return a - b;
 }
+
+function swapArrayOrString(indexA, indexB, iterable) {
+  const actualIndexA = indexA < 0 ? iterable.length + indexA : indexA;
+  const actualIndexB = indexB < 0 ? iterable.length + indexB : indexB;
+  if (actualIndexA === actualIndexB || Math.min(actualIndexA, actualIndexB) < 0 || Math.max(actualIndexA, actualIndexB) >= iterable.length) return iterable;
+  if (typeof iterable === 'string') {
+    return iterable.slice(0, actualIndexA) + iterable[actualIndexB] + iterable.slice(actualIndexA + 1, actualIndexB) + iterable[actualIndexA] + iterable.slice(actualIndexB + 1);
+  }
+  const clone = iterable.slice();
+  const temp = clone[actualIndexA];
+  clone[actualIndexA] = clone[actualIndexB];
+  clone[actualIndexB] = temp;
+  return clone;
+}
+function swapFn(indexA, indexB, iterable) {
+  if (isArray(iterable) || typeof iterable === 'string') return swapArrayOrString(indexA, indexB, iterable);
+  const aVal = iterable[indexA];
+  const bVal = iterable[indexB];
+  if (aVal === undefined || bVal === undefined) return iterable;
+  return _objectSpread2(_objectSpread2({}, iterable), {}, {
+    [indexA]: iterable[indexB],
+    [indexB]: iterable[indexA]
+  });
+}
+const swap = curry(swapFn);
 
 function symmetricDifference(x, y) {
   if (arguments.length === 1) {
@@ -2528,11 +2594,16 @@ exports.indexOf = indexOf;
 exports.init = init;
 exports.innerJoin = innerJoin;
 exports.innerJoinFn = innerJoinFn;
+exports.insert = insert;
+exports.insertAll = insertAll;
+exports.insertAllFn = insertAllFn;
+exports.insertFn = insertFn;
 exports.intersection = intersection;
 exports.intersperse = intersperse;
 exports.is = is;
 exports.isEmpty = isEmpty;
 exports.isNil = isNil;
+exports.isNotNil = isNotNil;
 exports.join = join;
 exports.juxt = juxt;
 exports.keys = keys;
@@ -2543,6 +2614,7 @@ exports.lens = lens;
 exports.lensIndex = lensIndex;
 exports.lensPath = lensPath;
 exports.lensProp = lensProp;
+exports.lt = lt;
 exports.map = map;
 exports.mapArray = mapArray;
 exports.mapObjIndexed = mapObjIndexed;
@@ -2556,6 +2628,7 @@ exports.mean = mean;
 exports.median = median;
 exports.merge = mergeRight;
 exports.mergeAll = mergeAll;
+exports.mergeDeepLeft = mergeDeepLeft;
 exports.mergeDeepRight = mergeDeepRight;
 exports.mergeLeft = mergeLeft;
 exports.mergeRight = mergeRight;
@@ -2590,9 +2663,12 @@ exports.path = path;
 exports.pathEq = pathEq;
 exports.pathFn = pathFn;
 exports.pathOr = pathOr;
+exports.pathSatisfies = pathSatisfies;
+exports.pathSatisfiesFn = pathSatisfiesFn;
 exports.paths = paths;
 exports.pick = pick;
 exports.pickAll = pickAll;
+exports.pickBy = pickBy;
 exports.pipe = pipe;
 exports.pipeWith = pipeWith;
 exports.pluck = pluck;
@@ -2628,6 +2704,9 @@ exports.splitWhen = splitWhen;
 exports.startsWith = startsWith;
 exports.subtract = subtract;
 exports.sum = sum;
+exports.swap = swap;
+exports.swapArrayOrString = swapArrayOrString;
+exports.swapFn = swapFn;
 exports.symmetricDifference = symmetricDifference;
 exports.tail = tail;
 exports.take = take;
