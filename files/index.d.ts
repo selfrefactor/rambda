@@ -6018,6 +6018,9 @@ Explanation:
 Example:
 
 ```
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insert(2, 'x', list);
+// => ['a', 'b', 'x', 'c', 'd', 'e']
 ```
 
 Categories:
@@ -6038,6 +6041,9 @@ Explanation:
 Example:
 
 ```
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insertAll(2, ['x', 'y', 'z'], list);
+// => ['a', 'b', 'x', 'y', 'z', 'c', 'd', 'e']
 ```
 
 Categories:
@@ -6058,6 +6064,12 @@ Explanation:
 Example:
 
 ```
+const result = [
+  R.isNotNil(null),
+  R.isNotNil(undefined),
+  R.isNotNil([]),
+]
+// => [false, false, true]
 ```
 
 Categories:
@@ -6076,6 +6088,11 @@ Explanation:
 Example:
 
 ```
+const result = R.pickBy(
+  x => x > 1,
+  {a: 1, b: 2, c: 3}
+)
+// => {b: 2, c: 3}
 ```
 
 Categories:
@@ -6095,6 +6112,12 @@ Explanation:
 Example:
 
 ```
+const result = R.pathSatisfies(
+  x => x > 0,
+  ['a', 'b', 'c'],
+  {a: {b: {c: 1}}}
+)
+// => true
 ```
 
 Categories:
@@ -6114,6 +6137,8 @@ Explanation:
 Example:
 
 ```
+const result = R.swap(1, 2, [1, 2, 3])
+// => [1, 3, 2]
 ```
 
 Categories:
@@ -6133,6 +6158,11 @@ Explanation:
 Example:
 
 ```
+const result = R.mergeDeepLeft(
+  {a: {b: 1}},
+  {a: {b: 2, c: 3}}
+)
+// => {a: {b: 1, c: 3}}
 ```
 
 Categories:
