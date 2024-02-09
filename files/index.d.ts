@@ -45,6 +45,8 @@ interface KeyValuePair<K, V> extends Array<K | V> {
 export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
+
 type Arity1Fn = (x: any) => any;
 type Arity2Fn = (x: any, y: any) => any;
 
@@ -5856,6 +5858,26 @@ Notes:
 export function gt<T>(x: T): T;
 
 /*
+Method: lt
+
+Explanation:
+
+Example:
+
+```
+const result = [R.lt(2, 1), R.lt(2, 3)]
+// => [false, true]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function lt<T>(x: T): T;
+
+/*
 Method: gte
 
 Explanation:
@@ -5865,6 +5887,26 @@ Example:
 ```
 const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
 // => [true, true, false]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+
+export function lte<T>(x: T): T;
+/*
+Method: lte
+
+Explanation:
+
+Example:
+
+```
+const result = [R.lte(2, 1), R.lte(2, 2), R.lte(2, 3)]
+// => [false, true, true]
 ```
 
 Categories: Number
@@ -5976,6 +6018,9 @@ Explanation:
 Example:
 
 ```
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insert(2, 'x', list);
+// => ['a', 'b', 'x', 'c', 'd', 'e']
 ```
 
 Categories:
@@ -5984,7 +6029,150 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function insert<T>(x: T): T;
+export function insert(index: number): <T>(itemToInsert: T, list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T): (list: T[]) => T[];
+export function insert<T>(index: number, itemToInsert: T, list: T[]): T[];
+
+/*
+Method: insertAll
+
+Explanation:
+
+Example:
+
+```
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insertAll(2, ['x', 'y', 'z'], list);
+// => ['a', 'b', 'x', 'y', 'z', 'c', 'd', 'e']
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
+export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
+
+/*
+Method: isNotNil
+
+Explanation:
+
+Example:
+
+```
+const result = [
+  R.isNotNil(null),
+  R.isNotNil(undefined),
+  R.isNotNil([]),
+]
+// => [false, false, true]
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isNotNil<T>(value: T): value is NonNullable<T>;
+
+/*
+Method: pickBy
+
+Explanation:
+
+Example:
+
+```
+const result = R.pickBy(
+  x => x > 1,
+  {a: 1, b: 2, c: 3}
+)
+// => {b: 2, c: 3}
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
+
+/*
+Method: pathSatisfies
+
+Explanation:
+
+Example:
+
+```
+const result = R.pathSatisfies(
+  x => x > 0,
+  ['a', 'b', 'c'],
+  {a: {b: {c: 1}}}
+)
+// => true
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
+export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
+
+/*
+Method: swap
+
+Explanation:
+
+Example:
+
+```
+const result = R.swap(1, 2, [1, 2, 3])
+// => [1, 3, 2]
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
+export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
+
+/*
+Method: mergeDeepLeft
+
+Explanation:
+
+Example:
+
+```
+const result = R.mergeDeepLeft(
+  {a: {b: 1}},
+  {a: {b: 2, c: 3}}
+)
+// => {a: {b: 1, c: 3}}
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeDeepLeft<Output>(newProps: object, target: object): Output;
+export function mergeDeepLeft<Output>(newProps: object): (target: object) => Output;
 
 // RAMBDAX_MARKER_START
 

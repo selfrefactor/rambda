@@ -106,25 +106,19 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 
 <details>
 <summary>
-  Click to see the full list of 51 Ramda methods not implemented in Rambda and their status.
+  Click to see the full list of 43 Ramda methods not implemented in Rambda and their status.
 </summary>
 
-- insert
-- insertAll
 - into
 - invert
 - invertObj
 - invoker
-- isNotNil
 - keysIn
 - lift
 - liftN
-- lt
-- lte
 - mapAccum
 - mapAccumRight
 - memoizeWith
-- mergeDeepLeft
 - mergeDeepWith
 - mergeDeepWithKey
 - mergeWithKey
@@ -135,7 +129,6 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 - pair
 - partialRight
 - pathSatisfies
-- pickBy
 - pipeWith
 - project
 - promap
@@ -146,7 +139,6 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 - scan
 - sequence
 - splitWhenever
-- swap
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
@@ -6985,6 +6977,14 @@ const result = R.innerJoin(predicate, list1, list2)
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
 
+### insert
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insert)
+
+### insertAll
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insertAll)
+
 ### intersection
 
 It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -7171,6 +7171,10 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
+
+### isNotNil
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNotNil)
 
 ### join
 
@@ -8098,6 +8102,12 @@ test('get (set(set s v1) v2) === v2', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensProp)
 
+### lt
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.lt(2%2C%201)%2C%20R.lt(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20true%5D">Try this <strong>R.lt</strong> example in Rambda REPL</a>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lt)
+
 ### map
 
 ```typescript
@@ -8885,6 +8895,10 @@ describe('R.mergeAll', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
+
+### mergeDeepLeft
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepLeft)
 
 ### mergeDeepRight
 
@@ -11891,6 +11905,10 @@ describe('R.paths', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#paths)
 
+### pathSatisfies
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathSatisfies)
+
 ### pick
 
 ```typescript
@@ -12318,6 +12336,10 @@ describe('R.pickAll with string as props input', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
+
+### pickBy
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickBy)
 
 ### pipe
 
@@ -15269,6 +15291,10 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
+
+### swap
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#swap)
 
 ### symmetricDifference
 
@@ -18672,6 +18698,20 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.1.0
+
+Add these methods
+
+- insert
+- insertAll
+- lt
+- lte
+- isNotNil
+- pickBy
+- pathSatisfies
+- swap
+- mergeDeepLeft
 
 9.0.1
 
