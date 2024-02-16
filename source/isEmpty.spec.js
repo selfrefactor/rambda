@@ -13,4 +13,8 @@ test('happy', () => {
   expect(isEmpty(0)).toBeFalse()
   expect(isEmpty(NaN)).toBeFalse()
   expect(isEmpty([ '' ])).toBeFalse()
+  expect(isEmpty({ isEmpty: false})).toBeFalse()
+  expect(isEmpty({ isEmpty: () => false})).toBeFalse()
+  expect(isEmpty({ isEmpty: true})).toBeTrue()
+  expect(isEmpty({ isEmpty: () => true})).toBeTrue()
 })

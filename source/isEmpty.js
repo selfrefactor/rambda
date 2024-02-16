@@ -6,6 +6,13 @@ export function isEmpty(input){
     return false
   if (!input) return true
 
+  if (type(input.isEmpty) === 'Function') {
+	return input.isEmpty();
+  } else if (input.isEmpty) {
+	return !!input.isEmpty;
+  }
+
+
   if (inputType === 'Object'){
     return Object.keys(input).length === 0
   }
