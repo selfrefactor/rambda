@@ -5855,27 +5855,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function gt<T>(x: T): T;
-
-/*
-Method: lt
-
-Explanation:
-
-Example:
-
-```
-const result = [R.lt(2, 1), R.lt(2, 3)]
-// => [false, true]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function lt<T>(x: T): T;
+export function gt<T, U>(x: T, y: U): boolean;
+export function gt<T, U>(x: T): (y: U) => boolean;
 
 /*
 Method: gte
@@ -5895,8 +5876,30 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function gte<T, U>(x: T, y: U): boolean;
+export function gte<T, U>(x: T): (y: U) => boolean;
 
-export function lte<T>(x: T): T;
+/*
+Method: lt
+
+Explanation:
+
+Example:
+
+```
+const result = [R.lt(2, 1), R.lt(2, 3)]
+// => [false, true]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function lt<T, U>(x: T, y: U): boolean;
+export function lt<T, U>(x: T): (y: U) => boolean;
+
 /*
 Method: lte
 
@@ -5915,7 +5918,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function gte<T>(x: T): T;
+
+export function lte<T, U>(x: T, y: U): boolean;
+export function lte<T, U>(x: T): (y: U) => boolean;
 
 /*
 Method: reduceBy

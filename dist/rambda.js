@@ -1538,7 +1538,7 @@ function isEmpty(input) {
   if (type(input.isEmpty) === 'Function') {
     return input.isEmpty();
   } else if (input.isEmpty) {
-    return input.isEmpty;
+    return !!input.isEmpty;
   }
   if (inputType === 'Object') {
     return Object.keys(input).length === 0;
@@ -2710,8 +2710,6 @@ exports.startsWith = startsWith;
 exports.subtract = subtract;
 exports.sum = sum;
 exports.swap = swap;
-exports.swapArrayOrString = swapArrayOrString;
-exports.swapFn = swapFn;
 exports.symmetricDifference = symmetricDifference;
 exports.tail = tail;
 exports.take = take;

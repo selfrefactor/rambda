@@ -2217,13 +2217,6 @@ describe('R.assocPath - curried', () => {
 
 ### binary
 
-```javascript
-const result = R.binary(
-  (a, b, c) => a + b + c,
-)(1, 2, 3, 4)
-// => 3
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.binary(%0A%20%20(a%2C%20b%2C%20c)%20%3D%3E%20a%20%2B%20b%20%2B%20c%2C%0A)(1%2C%202%2C%203%2C%204)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.binary</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#binary)
@@ -2560,15 +2553,6 @@ describe('R.both', () => {
 
 ### call
 
-```javascript
-const result = R.call(
-  (a, b) => a + b,
-  1,
-  2
-)
-// => 3
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.call(%0A%20%20(a%2C%20b)%20%3D%3E%20a%20%2B%20b%2C%0A%20%201%2C%0A%20%202%0A)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.call</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#call)
@@ -2772,17 +2756,6 @@ It performs right-to-left function composition.
 
 ### composeWith
 
-```javascript
-const result = R.composeWith(
-  (fn, intermediateResult) => fn(intermediateResult),
-  [
-    R.map(x => x + 1),
-    R.map(x => x * 2),
-  ]
-)([1, 2, 3])
-// => [3, 5, 7]
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.composeWith(%0A%20%20(fn%2C%20intermediateResult)%20%3D%3E%20fn(intermediateResult)%2C%0A%20%20%5B%0A%20%20%20%20R.map(x%20%3D%3E%20x%20%2B%201)%2C%0A%20%20%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20%5D%0A)(%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%205%2C%207%5D">Try this <strong>R.composeWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#composeWith)
@@ -2949,10 +2922,6 @@ It returns a curried equivalent of the provided function, with the specified ari
 ### dec
 
 It decrements a number.
-
-```javascript
-const result = R.dec(2) // => 1
-```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dec(2)%20%2F%2F%20%3D%3E%201">Try this <strong>R.dec</strong> example in Rambda REPL</a>
 
@@ -3687,14 +3656,6 @@ describe('R.dropRepeats', () => {
 
 ### dropRepeatsBy
 
-```javascript
-const result = R.dropRepeatsBy(
-  Math.abs,
-  [1, -1, 2, 3, -3]
-)
-// => [1, 2, 3]
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeatsBy(%0A%20%20Math.abs%2C%0A%20%20%5B1%2C%20-1%2C%202%2C%203%2C%20-3%5D%0A)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try this <strong>R.dropRepeatsBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsBy)
@@ -3878,11 +3839,6 @@ describe('R.either', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
 
 ### empty
-
-```javascript
-const result = [R.empty([1,2,3]), R.empty('foo'), R.empty({x: 1, y: 2})]
-// => [[], '', {}]
-```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.empty(%5B1%2C2%2C3%5D)%2C%20R.empty('foo')%2C%20R.empty(%7Bx%3A%201%2C%20y%3A%202%7D)%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20''%2C%20%7B%7D%5D">Try this <strong>R.empty</strong> example in Rambda REPL</a>
 
@@ -6003,21 +5959,11 @@ It returns separated version of list or string `input`, where separation is done
 
 ### gt
 
-```javascript
-const result = [R.gt(2, 1), R.gt(2, 3)]
-// => [true, false]
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.gt(2%2C%201)%2C%20R.gt(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.gt</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#gt)
 
 ### gte
-
-```javascript
-const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
-// => [true, true, false]
-```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.gte(2%2C%201)%2C%20R.gte(2%2C%202)%2C%20R.gte(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.gte</strong> example in Rambda REPL</a>
 
@@ -6671,10 +6617,6 @@ describe('R.ifElse', () => {
 
 It increments a number.
 
-```javascript
-R.inc(1) // => 2
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.inc(1)%20%2F%2F%20%3D%3E%202">Try this <strong>R.inc</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#inc)
@@ -6965,23 +6907,19 @@ describe('R.init', () => {
 
 It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
 
-```javascript
-const list1 = [1, 2, 3, 4, 5]
-const list2 = [4, 5, 6]
-const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1, list2)
-// => [4, 5]
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.innerJoin(predicate%2C%20list1%2C%20list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.innerJoin</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
 
 ### insert
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insert(2%2C%20'x'%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insert</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insert)
 
 ### insertAll
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insertAll(2%2C%20%5B'x'%2C%20'y'%2C%20'z'%5D%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'y'%2C%20'z'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insertAll</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insertAll)
 
@@ -7053,6 +6991,12 @@ export function isEmpty(input){
     return false
   if (!input) return true
 
+  if (type(input.isEmpty) === 'Function') {
+	return input.isEmpty();
+  } else if (input.isEmpty) {
+	return !!input.isEmpty;
+  }
+
   if (inputType === 'Object'){
     return Object.keys(input).length === 0
   }
@@ -7087,6 +7031,10 @@ test('happy', () => {
   expect(isEmpty(0)).toBeFalse()
   expect(isEmpty(NaN)).toBeFalse()
   expect(isEmpty([ '' ])).toBeFalse()
+  expect(isEmpty({ isEmpty: false})).toBeFalse()
+  expect(isEmpty({ isEmpty: () => false})).toBeFalse()
+  expect(isEmpty({ isEmpty: true})).toBeTrue()
+  expect(isEmpty({ isEmpty: () => true})).toBeTrue()
 })
 ```
 
@@ -7173,6 +7121,8 @@ test('happy', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
 
 ### isNotNil
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.isNotNil(null)%2C%0A%20%20R.isNotNil(undefined)%2C%0A%20%20R.isNotNil(%5B%5D)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20false%2C%20true%5D">Try this <strong>R.isNotNil</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNotNil)
 
@@ -7929,19 +7879,6 @@ test('get (set(set s v1) v2) === v2', () => {
 ### lensPath
 
 It returns a lens that focuses on specified `path`.
-
-```javascript
-const lensPath = R.lensPath(['x', 0, 'y'])
-const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
-
-R.view(lensPath, input) // => 2
-
-R.set(lensPath, 1, input) 
-// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
-
-R.over(xHeadYLens, R.negate, input) 
-// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0Aconst%20result%20%3D%20R.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
 
@@ -8898,6 +8835,8 @@ describe('R.mergeAll', () => {
 
 ### mergeDeepLeft
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeDeepLeft(%0A%20%20%7Ba%3A%20%7Bb%3A%201%7D%7D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%202%2C%20c%3A%203%7D%7D%0A)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%201%2C%20c%3A%203%7D%7D">Try this <strong>R.mergeDeepLeft</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepLeft)
 
 ### mergeDeepRight
@@ -9631,124 +9570,9 @@ describe('R.modify', () => {
 
 ### modifyPath
 
-```typescript
-
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T
-```
-
 It changes a property of object on the base of provided path and transformer function.
 
-```javascript
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
-// => {a:{b: {c:2}}}
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.modifyPath</strong> source</summary>
-
-```javascript
-import { createPath } from './_internals/createPath.js'
-import { isArray } from './_internals/isArray.js'
-import { assoc } from './assoc.js'
-import { curry } from './curry.js'
-import { path as pathModule } from './path.js'
-
-export function modifyPathFn(
-  pathInput, fn, object
-){
-  const path = createPath(pathInput)
-  if (path.length === 1){
-    return {
-      ...object,
-      [ path[ 0 ] ] : fn(object[ path[ 0 ] ]),
-    }
-  }
-  if (pathModule(path, object) === undefined) return object
-
-  const val = modifyPath(
-    Array.prototype.slice.call(path, 1),
-    fn,
-    object[ path[ 0 ] ]
-  )
-  if (val === object[ path[ 0 ] ]){
-    return object
-  }
-
-  return assoc(
-    path[ 0 ], val, object
-  )
-}
-
-export const modifyPath = curry(modifyPathFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { modifyPath } from './modifyPath.js'
-
-test('happy', () => {
-  const result = modifyPath(
-    'a.b.c', x => x + 1, { a : { b : { c : 1 } } }
-  )
-  expect(result).toEqual({ a : { b : { c : 2 } } })
-})
-
-test('with array', () => {
-  const input = { foo : [ { bar : '123' } ] }
-  const result = modifyPath(
-    'foo.0.bar', x => x + 'foo', input
-  )
-  expect(result).toEqual({ foo : { 0 : { bar : '123foo' } } })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {modifyPath} from 'rambda'
-
-const obj = {a: {b: {c: 1}}}
-
-describe('R.modifyPath', () => {
-  it('happy', () => {
-    const result = modifyPath('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Record<string, unknown>
-  })
-  it('explicit return type', () => {
-    interface Foo extends Record<string, unknown> {
-      a: 1,
-    }
-    const result = modifyPath<Foo>('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Foo
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
 
@@ -11907,6 +11731,8 @@ describe('R.paths', () => {
 
 ### pathSatisfies
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pathSatisfies(%0A%20%20x%20%3D%3E%20x%20%3E%200%2C%0A%20%20%5B'a'%2C%20'b'%2C%20'c'%5D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%20%7Bc%3A%201%7D%7D%7D%0A)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.pathSatisfies</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathSatisfies)
 
 ### pick
@@ -12338,6 +12164,8 @@ describe('R.pickAll with string as props input', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
 
 ### pickBy
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pickBy(%0A%20%20x%20%3D%3E%20x%20%3E%201%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A)%0A%2F%2F%20%3D%3E%20%7Bb%3A%202%2C%20c%3A%203%7D">Try this <strong>R.pickBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickBy)
 
@@ -13465,16 +13293,6 @@ describe('R.range', () => {
 
 ### reduceBy
 
-```javascript
-const result = R.reduceBy(
-  (acc, elem) => acc + elem,
-  0,
-  x => x > 2 ? 'big' : 'small',
-  [1, 2, 3, 4, 5]
-)
-// => { big: 12, small: 3 }
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.reduceBy(%0A%20%20(acc%2C%20elem)%20%3D%3E%20acc%20%2B%20elem%2C%0A%20%200%2C%0A%20%20x%20%3D%3E%20x%20%3E%202%20%3F%20'big'%20%3A%20'small'%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%20big%3A%2012%2C%20small%3A%203%20%7D">Try this <strong>R.reduceBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduceBy)
@@ -14534,25 +14352,6 @@ describe('R.sortBy', () => {
 
 ### sortWith
 
-```javascript
-const result = R.sortWith([
-    (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
-    (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
-], [
-  {a: 1, b: 2},
-  {a: 2, b: 1},
-  {a: 2, b: 2},
-  {a: 1, b: 1},
-])
-const expected = [
-  {a: 1, b: 1},
-  {a: 1, b: 2},
-  {a: 2, b: 1},
-  {a: 2, b: 2},
-]
-// => `result` is equal to `expected`
-```
-
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sortWith(%5B%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.a%20%3D%3D%3D%20b.a%20%3F%200%20%3A%20a.a%20%3E%20b.a%20%3F%201%20%3A%20-1%2C%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.b%20%3D%3D%3D%20b.b%20%3F%200%20%3A%20a.b%20%3E%20b.b%20%3F%201%20%3A%20-1%2C%0A%5D%2C%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%5D)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortWith)
@@ -15293,6 +15092,8 @@ test('happy', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### swap
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.swap(1%2C%202%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%203%2C%202%5D">Try this <strong>R.swap</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#swap)
 
