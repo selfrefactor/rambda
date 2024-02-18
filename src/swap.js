@@ -1,7 +1,7 @@
 import { isArray } from './_internals/isArray.js';
 import { curry } from './curry.js';
 
-export function swapArrayOrString(indexA, indexB, iterable) {
+function swapArrayOrString(indexA, indexB, iterable) {
 	const actualIndexA = indexA < 0 ? iterable.length + indexA : indexA;
 	const actualIndexB = indexB < 0 ? iterable.length + indexB : indexB;
 	if (
@@ -25,7 +25,7 @@ export function swapArrayOrString(indexA, indexB, iterable) {
 	clone[actualIndexB] = temp;
 	return clone;
 }
-export function swapFn(indexA, indexB, iterable) {
+function swapFn(indexA, indexB, iterable) {
 	if (isArray(iterable) || typeof iterable === 'string')
 		return swapArrayOrString(indexA, indexB, iterable);
 

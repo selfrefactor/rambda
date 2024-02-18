@@ -695,9 +695,11 @@ export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: readon
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: readonly T[]): readonly ((readonly T[]))[];
 export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): readonly string[];
 
-export function gt<T>(x: T): T;
+export function gt<T, U>(x: T, y: U): boolean;
+export function gt<T, U>(x: T): (y: U) => boolean;
 
-export function gte<T>(x: T): T;
+export function gte<T, U>(x: T, y: U): boolean;
+export function gte<T, U>(x: T): (y: U) => boolean;
 
 /**
  * It returns `true` if `obj` has property `prop`.
@@ -953,7 +955,8 @@ export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
  */
 export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
-export function lt<T>(x: T): T;
+export function lt<T, U>(x: T, y: U): boolean;
+export function lt<T, U>(x: T): (y: U) => boolean;
 
 /**
  * It returns the result of looping through `iterable` with `fn`.
