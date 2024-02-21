@@ -704,6 +704,7 @@ function parseRegex(maybeRegex) {
 }
 function equals(a, b) {
   if (arguments.length === 1) return _b => equals(a, _b);
+  if (Object.is(a, b)) return true;
   const aType = type(a);
   if (aType !== type(b)) return false;
   if (aType === 'Function') return a.name === undefined ? false : a.name === b.name;
