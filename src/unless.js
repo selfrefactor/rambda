@@ -1,11 +1,7 @@
-import { curry } from './curry.js'
+export function unless(predicate, whenFalse){
+  if (arguments.length === 1){
+    return _whenFalse => unless(predicate, _whenFalse)
+  }
 
-function unlessFn(
-  predicate, whenFalseFn, input
-){
-  if (predicate(input)) return input
-
-  return whenFalseFn(input)
+  return input => predicate(input) ? input : whenFalse(input)
 }
-
-export const unless = curry(unlessFn)
