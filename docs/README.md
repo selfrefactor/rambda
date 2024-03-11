@@ -3925,6 +3925,8 @@ function parseRegex(maybeRegex){
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
+  if (Object.is(a, b)) return true
+
   const aType = type(a)
 
   if (aType !== type(b)) return false
@@ -4329,7 +4331,7 @@ describe('brute force', () => {
 {
   "ERRORS_MESSAGE_MISMATCH": 0,
   "ERRORS_TYPE_MISMATCH": 0,
-  "RESULTS_MISMATCH": 8,
+  "RESULTS_MISMATCH": 0,
   "SHOULD_NOT_THROW": 0,
   "SHOULD_THROW": 0,
   "TOTAL_TESTS": 289,
@@ -6525,9 +6527,13 @@ It returns a new list by applying a `predicate` function to all elements of `lis
 
 ### insert
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insert(2%2C%20'x'%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insert</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insert)
 
 ### insertAll
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insertAll(2%2C%20%5B'x'%2C%20'y'%2C%20'z'%5D%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'y'%2C%20'z'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insertAll</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insertAll)
 
@@ -6589,6 +6595,12 @@ export function isEmpty(input){
     return false
   if (!input) return true
 
+  if (type(input.isEmpty) === 'Function') {
+	return input.isEmpty();
+  } else if (input.isEmpty) {
+	return !!input.isEmpty;
+  }
+
   if (inputType === 'Object'){
     return Object.keys(input).length === 0
   }
@@ -6623,6 +6635,10 @@ test('happy', () => {
   expect(isEmpty(0)).toBeFalse()
   expect(isEmpty(NaN)).toBeFalse()
   expect(isEmpty([ '' ])).toBeFalse()
+  expect(isEmpty({ isEmpty: false})).toBeFalse()
+  expect(isEmpty({ isEmpty: () => false})).toBeFalse()
+  expect(isEmpty({ isEmpty: true})).toBeTrue()
+  expect(isEmpty({ isEmpty: () => true})).toBeTrue()
 })
 ```
 
@@ -6701,6 +6717,8 @@ test('happy', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
 
 ### isNotNil
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.isNotNil(null)%2C%0A%20%20R.isNotNil(undefined)%2C%0A%20%20R.isNotNil(%5B%5D)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20false%2C%20true%5D">Try this <strong>R.isNotNil</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNotNil)
 
@@ -8279,6 +8297,8 @@ describe('R.mergeAll', () => {
 
 ### mergeDeepLeft
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeDeepLeft(%0A%20%20%7Ba%3A%20%7Bb%3A%201%7D%7D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%202%2C%20c%3A%203%7D%7D%0A)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%201%2C%20c%3A%203%7D%7D">Try this <strong>R.mergeDeepLeft</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeepLeft)
 
 ### mergeDeepRight
@@ -8990,119 +9010,9 @@ describe('R.modify', () => {
 
 ### modifyPath
 
-```typescript
-
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T
-```
-
 It changes a property of object on the base of provided path and transformer function.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.modifyPath</strong> source</summary>
-
-```javascript
-import { createPath } from './_internals/createPath.js'
-import { isArray } from './_internals/isArray.js'
-import { assoc } from './assoc.js'
-import { curry } from './curry.js'
-import { path as pathModule } from './path.js'
-
-export function modifyPathFn(
-  pathInput, fn, object
-){
-  const path = createPath(pathInput)
-  if (path.length === 1){
-    return {
-      ...object,
-      [ path[ 0 ] ] : fn(object[ path[ 0 ] ]),
-    }
-  }
-  if (pathModule(path, object) === undefined) return object
-
-  const val = modifyPath(
-    Array.prototype.slice.call(path, 1),
-    fn,
-    object[ path[ 0 ] ]
-  )
-  if (val === object[ path[ 0 ] ]){
-    return object
-  }
-
-  return assoc(
-    path[ 0 ], val, object
-  )
-}
-
-export const modifyPath = curry(modifyPathFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { modifyPath } from './modifyPath.js'
-
-test('happy', () => {
-  const result = modifyPath(
-    'a.b.c', x => x + 1, { a : { b : { c : 1 } } }
-  )
-  expect(result).toEqual({ a : { b : { c : 2 } } })
-})
-
-test('with array', () => {
-  const input = { foo : [ { bar : '123' } ] }
-  const result = modifyPath(
-    'foo.0.bar', x => x + 'foo', input
-  )
-  expect(result).toEqual({ foo : { 0 : { bar : '123foo' } } })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {modifyPath} from 'rambda'
-
-const obj = {a: {b: {c: 1}}}
-
-describe('R.modifyPath', () => {
-  it('happy', () => {
-    const result = modifyPath('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Record<string, unknown>
-  })
-  it('explicit return type', () => {
-    interface Foo extends Record<string, unknown> {
-      a: 1,
-    }
-    const result = modifyPath<Foo>('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Foo
-  })
-})
-```
-
-</details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
 
@@ -11093,6 +11003,8 @@ describe('R.paths', () => {
 
 ### pathSatisfies
 
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pathSatisfies(%0A%20%20x%20%3D%3E%20x%20%3E%200%2C%0A%20%20%5B'a'%2C%20'b'%2C%20'c'%5D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%20%7Bc%3A%201%7D%7D%7D%0A)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.pathSatisfies</strong> example in Rambda REPL</a>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathSatisfies)
 
 ### pick
@@ -11466,6 +11378,8 @@ describe('R.pickAll with string as props input', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickAll)
 
 ### pickBy
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pickBy(%0A%20%20x%20%3D%3E%20x%20%3E%201%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A)%0A%2F%2F%20%3D%3E%20%7Bb%3A%202%2C%20c%3A%203%7D">Try this <strong>R.pickBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickBy)
 
@@ -14157,6 +14071,8 @@ test('happy', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### swap
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.swap(1%2C%202%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%203%2C%202%5D">Try this <strong>R.swap</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#swap)
 
@@ -17275,6 +17191,11 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.1.1
+
+- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
+- Fix R.cond transform is unary - https://github.com/selfrefactor/rambda/issues/720
 
 9.1.0
 

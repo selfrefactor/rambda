@@ -39,3 +39,9 @@ test('predicates are tested in order', () => {
   ])
   expect(fn()).toBe('foo')
 })
+
+test('pass all inputs',() => {
+  cond([ [()=> true, (...x) => {
+    expect(x).toEqual([1,2,3])
+  }] ])(1,2,3)
+})

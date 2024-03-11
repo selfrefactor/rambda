@@ -1,3 +1,8 @@
+9.1.1
+
+- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
+- Fix R.cond transform is unary - https://github.com/selfrefactor/rambda/issues/720
+
 9.1.0
 
 Add these methods
