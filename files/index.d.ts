@@ -6979,8 +6979,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
-export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+export function mapToObject<T, U extends object>(fn: (input: T) => U|false, list: readonly T[]): U;
+export function mapToObject<T, U extends object>(fn: (input: T) => U|false): (list: readonly T[]) => U;
 
 /*
 Method: mapToObjectAsync
@@ -6999,8 +6999,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>, list: T[]): Promise<U>;
-export function mapToObjectAsync<T, U>(fn: (input: T) => Promise<object|false>): (list: T[]) => Promise<U>;
+export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<U|false>, list: readonly T[]): Promise<U>;
+export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<U|false>): (list: readonly T[]) => Promise<U>;
 
 /*
 Method: mapKeys
