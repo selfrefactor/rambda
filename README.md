@@ -3925,6 +3925,8 @@ function parseRegex(maybeRegex){
 export function equals(a, b){
   if (arguments.length === 1) return _b => equals(a, _b)
 
+  if (Object.is(a, b)) return true
+
   const aType = type(a)
 
   if (aType !== type(b)) return false
@@ -4329,7 +4331,7 @@ describe('brute force', () => {
 {
   "ERRORS_MESSAGE_MISMATCH": 0,
   "ERRORS_TYPE_MISMATCH": 0,
-  "RESULTS_MISMATCH": 8,
+  "RESULTS_MISMATCH": 0,
   "SHOULD_NOT_THROW": 0,
   "SHOULD_THROW": 0,
   "TOTAL_TESTS": 289,
