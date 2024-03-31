@@ -12,3 +12,8 @@ test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
   expect(safeIncCurried(null)).toBeNull()
 })
+
+test('with 3 inputs', () => {
+  let result = unless(x => x.startsWith('/'), x=> x.concat('/'), '/api')
+  expect(result).toBe('/api')
+})

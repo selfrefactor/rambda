@@ -1,10 +1,12 @@
-9.2.0
+9.1.2
 
 - `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)
 
-- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
+- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726 
 
 9.1.1
+
+- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
 
 - Fix R.cond transform is unary - https://github.com/selfrefactor/rambda/issues/720
 

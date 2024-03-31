@@ -15895,13 +15895,17 @@ unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 <summary><strong>R.unless</strong> source</summary>
 
 ```javascript
-export function unless(predicate, whenFalse){
-  if (arguments.length === 1){
-    return _whenFalse => unless(predicate, _whenFalse)
-  }
-  
-  return input => predicate(input) ? input : whenFalse(input)
+import { curry } from './curry.js'
+
+function unlessFn(
+  predicate, whenFalseFn, input
+){
+  if (predicate(input)) return input
+
+  return whenFalseFn(input)
 }
+
+export const unless = curry(unlessFn)
 ```
 
 </details>
@@ -15924,6 +15928,11 @@ test('happy', () => {
 test('curried', () => {
   const safeIncCurried = unless(isNil)(inc)
   expect(safeIncCurried(null)).toBeNull()
+})
+
+test('with 3 inputs', () => {
+  let result = unless(x => x.startsWith('/'), x=> x.concat('/'), '/api')
+  expect(result).toBe('/api')
 })
 ```
 
@@ -17211,13 +17220,15 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-9.2.0
+9.1.2
 
 - `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)
 
-- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
+- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726 
 
 9.1.1
+
+- Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
 
 - Fix R.cond transform is unary - https://github.com/selfrefactor/rambda/issues/720
 
