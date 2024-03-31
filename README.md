@@ -9607,7 +9607,7 @@ This method is also known as P combinator.
 
 ```typescript
 
-once<T extends AnyFunction>(func: T): T
+once<T extends AnyFunction, C = unknown>(fn: T, context?: C): T
 ```
 
 It returns a function, which invokes only once `fn` function.
@@ -9619,7 +9619,7 @@ It returns a function, which invokes only once `fn` function.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-once<T extends AnyFunction>(func: T): T;
+once<T extends AnyFunction, C = unknown>(fn: T, context?: C): T;
 ```
 
 </details>
@@ -9688,6 +9688,17 @@ test('happy path', () => {
   )).toBe(60)
   expect(addOneOnce(40)).toBe(60)
 })
+
+test('with context', () => {
+  const context = { name: 'fris' }
+  const getNameOnce = once(function (){
+    return this.name
+  }, context)
+
+  expect(getNameOnce()).toBe('fris')
+  expect(getNameOnce()).toBe('fris')
+  expect(getNameOnce()).toBe('fris')
+})
 ```
 
 </details>
@@ -9706,6 +9717,14 @@ describe('R.once', () => {
     })
 
     const result = runOnce(1)
+    result // $ExpectType number
+  })
+  it('with context', () => {
+    const runOnce = once(function (this: any, x: number) {
+      return x + 2
+    })
+
+    const result = runOnce.call({}, 1)
     result // $ExpectType number
   })
 })
@@ -15880,7 +15899,7 @@ export function unless(predicate, whenFalse){
   if (arguments.length === 1){
     return _whenFalse => unless(predicate, _whenFalse)
   }
-
+  
   return input => predicate(input) ? input : whenFalse(input)
 }
 ```
@@ -17192,9 +17211,14 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-9.1.1
+9.2.0
+
+- `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)
 
 - Faster R.equals with Object.is short circuit - https://github.com/selfrefactor/rambda/pull/725
+
+9.1.1
+
 - Fix R.cond transform is unary - https://github.com/selfrefactor/rambda/issues/720
 
 9.1.0

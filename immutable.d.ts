@@ -1167,7 +1167,7 @@ export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => 
 /**
  * It returns a function, which invokes only once `fn` function.
  */
-export function once<T extends AnyFunction>(func: T): T;
+export function once<T extends AnyFunction, C = unknown>(fn: T, context?: C): T;
 
 /**
  * Logical OR

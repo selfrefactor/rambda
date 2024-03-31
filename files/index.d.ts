@@ -2754,7 +2754,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function once<T extends AnyFunction>(func: T): T;
+export function once<T extends AnyFunction, C = unknown>(fn: T, context?: C): T;
 
 /*
 Method: omit
