@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "scripts": {
     "benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
     "benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
