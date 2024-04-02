@@ -2380,12 +2380,11 @@ function uniqWith(predicate, list) {
   return willReturn;
 }
 
-function unless(predicate, whenFalse) {
-  if (arguments.length === 1) {
-    return _whenFalse => unless(predicate, _whenFalse);
-  }
-  return input => predicate(input) ? input : whenFalse(input);
+function unlessFn(predicate, whenFalseFn, input) {
+  if (predicate(input)) return input;
+  return whenFalseFn(input);
 }
+const unless = curry(unlessFn);
 
 function unnest(list) {
   return list.reduce((acc, item) => {

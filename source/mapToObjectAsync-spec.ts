@@ -13,7 +13,7 @@ const fn = async(x: number) => {
   return x % 2 ? {[`key${x}`]: x + 1} : {[`key${x}`]: x + 10}
 }
 
-describe('R.mapToObjectAsync', () => {
+describe('R.mapToObjectAsync - explicit output types', () => {
   it('happy', async() => {
     const result = await mapToObjectAsync<number, Output>(fn, list)
     result // $ExpectType Output
@@ -29,5 +29,24 @@ describe('R.mapToObjectAsync', () => {
     )(list)
 
     result // $ExpectType Output
+  })
+})
+
+describe('R.mapToObjectAsync - implicit output types', () => {
+  it('happy', async() => {
+    const result = await mapToObjectAsync(fn, list)
+    result // $ExpectType { [x: string]: number; }
+  })
+  it('curried', async() => {
+    const result = await mapToObjectAsync(fn)(list)
+    result // $ExpectType { [x: string]: number; }
+  })
+  it('with R.composeAsync', async() => {
+    const result = await composeAsync(
+      mapToObjectAsync(fn),
+      (x: number[]) => x.filter((xx: number) => xx > 2)
+    )(list)
+
+    result // $ExpectType { [x: string]: number; }
   })
 })

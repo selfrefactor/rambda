@@ -24,3 +24,14 @@ test('happy path', () => {
   )).toBe(60)
   expect(addOneOnce(40)).toBe(60)
 })
+
+test('with context', () => {
+  const context = { name: 'fris' }
+  const getNameOnce = once(function (){
+    return this.name
+  }, context)
+
+  expect(getNameOnce()).toBe('fris')
+  expect(getNameOnce()).toBe('fris')
+  expect(getNameOnce()).toBe('fris')
+})

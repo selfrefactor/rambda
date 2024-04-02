@@ -14,12 +14,20 @@ const fn = (x: number) => {
 }
 
 describe('R.mapToObject', () => {
-  it('happy', () => {
+  it('when passing explicit types', () => {
     const result = mapToObject<number, Output>(fn, list)
     result // $ExpectType Output
   })
-  it('curried', () => {
+  test('when not passing explicit types', () => {
+    const result = mapToObject(fn, list)
+    result // $ExpectType { [x: string]: number; }
+  })
+  it('curried - when passing explicit types', () => {
     const result = mapToObject<number, Output>(fn)(list)
     result // $ExpectType Output
+  })
+  test('curried - when not passing explicit types', () => {
+    const result = mapToObject(fn)(list)
+    result // $ExpectType { [x: string]: number; }
   })
 })
