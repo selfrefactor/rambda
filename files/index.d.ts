@@ -7005,6 +7005,7 @@ export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<
 export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<U|false>): (list: readonly T[]) => Promise<U>;
 export function mapToObjectAsync<T, U>(fn: (input: T) => object|false, list: T[]): U;
 export function mapToObjectAsync<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+
 /*
 Method: mapKeys
 
