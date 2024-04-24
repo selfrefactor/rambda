@@ -7789,9 +7789,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
-export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
-export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>, input: Input): Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>): (input: Input) =>  Output;
 
 /*
 Method: sortByPath

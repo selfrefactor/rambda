@@ -1,3 +1,8 @@
+---
+viewor
+lenssatisfies
+lensor
+---
 run immutable script
 ---
 warning package.json: No license field
