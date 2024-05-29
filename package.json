@@ -47,7 +47,7 @@
 		"@babel/core": "7.24.6",
 		"@babel/plugin-proposal-object-rest-spread": "7.20.7",
 		"@babel/preset-env": "7.24.6",
-    "@definitelytyped/dtslint": "0.0.176",
+    "@definitelytyped/dtslint": "0.0.182",
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-commonjs": "25.0.8",
 		"@rollup/plugin-node-resolve": "15.2.3",
