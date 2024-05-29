@@ -1,4 +1,46 @@
+---
+viewor
+lenssatisfies
+lensor
+---
 run immutable script
+---
+warning package.json: No license field
+$ tsc --lib esnext,dom consume-typings.ts&&node consume-typings.js
+node_modules/rambdax/index.d.ts:1221:73 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+1221 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
+                                                                             ~~~~
+
+node_modules/rambdax/index.d.ts:1222:73 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+1222 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
+                                                                             ~~~~
+
+node_modules/rambdax/index.d.ts:1223:70 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+1223 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
+                                                                          ~~~~
+
+node_modules/rambdax/index.d.ts:1224:70 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+1224 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
+                                                                          ~~~~
+
+node_modules/rambdax/index.d.ts:2461:63 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+2461 export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
+                                                                   ~~~~
+
+node_modules/rambdax/index.d.ts:2462:63 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+2462 export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
+                                                                   ~~~~
+
+node_modules/rambdax/index.d.ts:2463:65 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+
+2463 export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
+                                                                    
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 ---

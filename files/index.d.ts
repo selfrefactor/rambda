@@ -7758,10 +7758,10 @@ Notes: Idea for this method comes from `ramda-adjunct` library
 
 */
 // @SINGLE_MARKER
-export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
-export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
-export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
+export function lensSatisfies<PredicateInput, Input>(predicate: (x: PredicateInput) => boolean, lens: Lens<PredicateInput, Input>, input: Input): boolean;
+export function lensSatisfies<PredicateInput, Input>(predicate: (x: PredicateInput) => boolean, lens: Lens<PredicateInput, Input>): (input: Input) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens<T[], T>, input: T[]): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens<T[], T>): (input: T[]) => boolean;
 
 /*
 Method: viewOr
@@ -7789,9 +7789,8 @@ Notes: Idea for this method comes from `@meltwater/phi` library
 
 */
 // @SINGLE_MARKER
-export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
-export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
-export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>, input: Input): Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>): (input: Input) =>  Output;
 
 /*
 Method: sortByPath

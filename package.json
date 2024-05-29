@@ -2,6 +2,7 @@
 	"name": "rambda",
 	"version": "9.2.0",
 	"scripts": {
+		"before": "yarn out && yarn docs",
 		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
 		"benchmark:check": "yarn build:step && METHOD=compose yarn benchmark:check:apply",
@@ -22,7 +23,6 @@
 		"lint:staged": "cd ../rambda-scripts && yarn lint:staged",
 		"new": "cd ../rambda-scripts && yarn new",
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
-		"before": "yarn out && yarn docs",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
@@ -37,35 +37,38 @@
 		"usedby": "cd ../rambda-scripts && yarn usedby",
 		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x"
 	},
+	"depFn": [
+		"@definitelytyped/dtslint"
+	],
 	"dependencies": {
 		
 	},
 	"devDependencies": {
-		"@babel/core": "7.24.4",
+		"@babel/core": "7.24.6",
 		"@babel/plugin-proposal-object-rest-spread": "7.20.7",
-		"@babel/preset-env": "7.24.4",
-		"@definitelytyped/dtslint": "0.2.19",
+		"@babel/preset-env": "7.24.6",
+    "@definitelytyped/dtslint": "0.0.182",
 		"@rollup/plugin-babel": "6.0.4",
-		"@rollup/plugin-commonjs": "25.0.7",
+		"@rollup/plugin-commonjs": "25.0.8",
 		"@rollup/plugin-node-resolve": "15.2.3",
 		"@rollup/plugin-replace": "5.0.5",
 		"@types/jest": "29.5.12",
 		"combinate": "1.1.11",
 		"cross-env": "7.0.3",
-		"fast-check": "3.17.1",
+		"fast-check": "3.19.0",
 		"helpers-fn": "1.8.1",
 		"is-ci": "3.0.1",
 		"jest": "29.7.0",
 		"jest-extended": "4.0.2",
 		"lodash": "4.17.21",
-		"rambdax": "11.0.0",
-		"ramda": "0.29.1",
-		"rollup": "4.14.0",
+		"rambdax": "11.1.1",
+		"ramda": "0.30.0",
+		"rollup": "4.18.0",
 		"rollup-plugin-cleanup": "3.2.1",
 		"rollup-plugin-sourcemaps": "0.6.3",
 		"rollup-plugin-uglify": "6.0.4",
-		"types-ramda": "0.29.10",
-		"typescript": "5.4.4"
+		"types-ramda": "0.30.0",
+		"typescript": "5.4.5"
 	},
 	"jest": {
 		"testEnvironment": "node",
