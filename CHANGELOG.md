@@ -1,3 +1,7 @@
+9.2.1
+
+- Broken `Deno` build - [Issue #731](https://github.com/selfrefactor/rambda/issues/731)
+
 9.2.0
 
 - `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)

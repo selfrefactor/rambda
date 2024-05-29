@@ -2,6 +2,7 @@
 	"name": "rambda",
 	"version": "9.2.0",
 	"scripts": {
+		"before": "yarn out && yarn docs",
 		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
 		"benchmark:all": "yarn build:step && cd ../rambda-scripts && yarn benchmark:all",
 		"benchmark:check": "yarn build:step && METHOD=compose yarn benchmark:check:apply",
@@ -22,7 +23,6 @@
 		"lint:staged": "cd ../rambda-scripts && yarn lint:staged",
 		"new": "cd ../rambda-scripts && yarn new",
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
-		"before": "yarn out && yarn docs",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
