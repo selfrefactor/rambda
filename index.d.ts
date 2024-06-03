@@ -257,7 +257,7 @@ export function append<T>(xToAppend: T): (iterable: T[]) => T[];
 
 /**
  * It applies function `fn` to the list of arguments.
- *
+ * 
  * This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
  */
 export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
@@ -300,7 +300,7 @@ export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args:
 
 /**
  * It returns a function with `input` argument.
- *
+ * 
  * This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
  */
 export function both(pred1: Pred, pred2: Pred): Pred;
@@ -318,9 +318,9 @@ export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
 /**
  * Restrict a number `input` to be within `min` and `max` limits.
- *
+ * 
  * If `input` is bigger than `max`, then the result is `max`.
- *
+ * 
  * If `input` is smaller than `min`, then the result is `min`.
  */
 export function clamp(min: number, max: number, input: number): number;
@@ -342,7 +342,7 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Or
 
 /**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
- *
+ * 
  * The return value of `inverted` is the negative boolean value of `origin(input)`.
  */
 export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
@@ -435,11 +435,11 @@ export function concat(x: string): (y: string) => string;
 
 /**
  * It takes list with `conditions` and returns a new function `fn` that expects `input` as argument.
- *
+ * 
  * This function will start evaluating the `conditions` in order to find the first winner(order of conditions matter).
- *
+ * 
  * The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
- *
+ * 
  * If no winner is found, then `fn` returns `undefined`.
  */
 export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
@@ -478,7 +478,7 @@ export function dec(x: number): number;
 
 /**
  * It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
- *
+ * 
  * Else, it returns the first truthy `inputArguments` instance(from left to right).
  */
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
@@ -489,7 +489,7 @@ export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function difference<T>(a: T[], b: T[]): T[];
@@ -566,7 +566,7 @@ export function dropWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /**
  * It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
- *
+ * 
  * This `predicate` function will return `true`, if any of the two input predicates return `true`.
  */
 export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
@@ -623,7 +623,7 @@ export function filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dict
 
 /**
  * It returns the first element of `list` that satisfy the `predicate`.
- *
+ * 
  * If there is no such element, it returns `undefined`.
  */
 export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
@@ -631,7 +631,7 @@ export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefi
 
 /**
  * It returns the index of the first element of `list` satisfying the `predicate` function.
- *
+ * 
  * If there is no such element, then `-1` is returned.
  */
 export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
@@ -639,7 +639,7 @@ export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => numbe
 
 /**
  * It returns the last element of `list` satisfying the `predicate` function.
- *
+ * 
  * If there is no such element, then `undefined` is returned.
  */
 export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
@@ -647,7 +647,7 @@ export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined
 
 /**
  * It returns the index of the last element of `list` satisfying the `predicate` function.
- *
+ * 
  * If there is no such element, then `-1` is returned.
  */
 export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
@@ -732,7 +732,7 @@ export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<
 
 /**
  * It returns `true` if its arguments `a` and `b` are identical.
- *
+ * 
  * Otherwise, it returns `false`.
  */
 export function identical<T>(x: T, y: T): boolean;
@@ -745,7 +745,7 @@ export function identity<T>(input: T): T;
 
 /**
  * It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`.
- *
+ * 
  * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
  */
 export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
@@ -762,7 +762,7 @@ export function inc(x: number): number;
 
 /**
  * If `input` is string, then this method work as native `String.includes`.
- *
+ * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
 export function includes<T extends string>(valueToFind: T, input: string): boolean;
@@ -772,9 +772,9 @@ export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /**
  * It generates object with properties provided by `condition` and values provided by `list` array.
- *
+ * 
  * If `condition` is a function, then all list members are passed through it.
- *
+ * 
  * If `condition` is a string, then all list members are passed through `R.path(condition)`.
  */
 export function indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: T[]): { [key in K]: T };
@@ -786,7 +786,7 @@ export function indexBy<T>(condition: string): (list: T[]) => { [key: string]: T
 
 /**
  * It returns the index of the first element of `list` equals to `valueToFind`.
- *
+ * 
  * If there is no such element, it returns `-1`.
  */
 export function indexOf<T>(valueToFind: T, list: T[]): number;
@@ -883,9 +883,9 @@ export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T
 
 /**
  * It returns the last index of `target` in `list` array.
- *
+ * 
  * `R.equals` is used to determine equality between `target` and members of `list`.
- *
+ * 
  * If there is no such index, then `-1` is returned.
  */
 export function lastIndexOf<T>(target: T, list: T[]): number;
@@ -898,9 +898,9 @@ export function length<T>(input: T[]): number;
 
 /**
  * It returns a `lens` for the given `getter` and `setter` functions.
- *
+ * 
  * The `getter` **gets** the value of the focus; the `setter` **sets** the value of the focus.
- *
+ * 
  * The setter should not mutate the data structure.
  */
 export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
@@ -963,7 +963,7 @@ export function lte<T, U>(x: T): (y: U) => boolean;
 
 /**
  * It returns the result of looping through `iterable` with `fn`.
- *
+ * 
  * It works with both array and object.
  */
 export function map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
@@ -1033,7 +1033,7 @@ export function mergeDeepLeft<Output>(newProps: object): (target: object) => Out
 
 /**
  * Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
- *
+ * 
  * - and both values are objects, the two values will be recursively merged
  * - otherwise the value from the second object will be used.
  */
@@ -1130,8 +1130,8 @@ export function not(input: any): boolean;
 /**
  * Curried version of `input[index]`.
  */
-export function nth(index: number, input: string): string;
-export function nth<T>(index: number, input: T[]): T | undefined;
+export function nth(index: number, input: string): string;	
+export function nth<T>(index: number, input: T[]): T | undefined;	
 export function nth(n: number): {
   <T>(input: T[]): T | undefined;
   (input: string): string;
@@ -1157,7 +1157,7 @@ export function omit<T>(propsToOmit: string): (obj: object) => T;
 
 /**
  * It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`).
- *
+ * 
  * This method is also known as P combinator.
  */
 export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
@@ -1190,7 +1190,7 @@ export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 
 /**
  * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
- *
+ * 
  * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
  * The name comes from the fact that you partially inject the inputs.
  */
@@ -1213,11 +1213,11 @@ export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) =
 
 /**
  * `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
- *
+ * 
  * Initially the function knows only a part from the whole input object and then `R.partialObject` helps in preparing the function for the second part, when it receives the rest of the input.
  */
 export function partialObject<Input, PartialInput, Output>(
-  fn: (input: Input) => Output,
+  fn: (input: Input) => Output, 
   partialInput: PartialInput,
 ): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
@@ -1241,7 +1241,7 @@ export function partition<T>(
 
 /**
  * If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
- *
+ * 
  * It will return `undefined`, if such path is not found.
  */
 export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
@@ -1283,7 +1283,7 @@ export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
 
 /**
  * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
- *
+ * 
  * `pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
  */
 export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
@@ -1302,7 +1302,7 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: 
 
 /**
  * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
- *
+ * 
  * Because it calls `R.path`, then `singlePath` can be either string or a list.
  */
 export function paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
@@ -1312,9 +1312,9 @@ export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[]
 
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.
- *
+ * 
  * `input` can be either an object or an array.
- *
+ * 
  * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
 export function pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
@@ -1415,7 +1415,7 @@ export function product(list: number[]): number;
 
 /**
  * It returns the value of property `propToFind` in `obj`.
- *
+ * 
  * If there is no such property, it returns `undefined`.
  */
 export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
@@ -1593,7 +1593,7 @@ export function splitEvery(sliceLength: number): {
 
 /**
  * It splits `list` to two arrays according to a `predicate` function.
- *
+ * 
  * The first array contains all members of `list` before `predicate` returns `true`.
  */
 export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[];
@@ -1621,7 +1621,7 @@ export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
 
 /**
  * It returns a merged list of `x` and `y` with all equal elements removed.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function symmetricDifference<T>(x: T[], y: T[]): T[];
@@ -1665,7 +1665,7 @@ export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /**
  * It applies function `fn` to input `x` and returns `x`.
- *
+ * 
  * One use case is debugging in the middle of `R.compose`.
  */
 export function tap<T>(fn: (x: T) => void, input: T): T;
@@ -1679,7 +1679,7 @@ export function test(regExpression: RegExp, str: string): boolean;
 
 /**
  * It returns the result of applying function `fn` over members of range array.
- *
+ * 
  * The range array includes numbers between `0` and `howMany`(exclusive).
  */
 export function times<T>(fn: (i: number) => T, howMany: number): T[];
@@ -1730,14 +1730,14 @@ export function type(x: any): RambdaTypes;
 
 /**
  * It calls a function `fn` with the list of values of the returned function.
- *
+ * 
  * `R.unapply` is the opposite of `R.apply` method.
  */
 export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
 
 /**
  * It takes two lists and return a new list containing a merger of both list with removed duplicates.
- *
+ * 
  * `R.equals` is used to compare for duplication.
  */
 export function union<T>(x: T[], y: T[]): T[];
@@ -1745,14 +1745,14 @@ export function union<T>(x: T[]): (y: T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element of `list`.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function uniq<T>(list: T[]): T[];
 
 /**
  * It applies uniqueness to input list based on function that defines what to be used for comparison between elements.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
@@ -1760,7 +1760,7 @@ export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element in `list` according to `predicate` function.
- *
+ * 
  * This predicate should return true, if two elements are equal.
  */
 export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
@@ -1768,9 +1768,9 @@ export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) 
 
 /**
  * The method returns function that will be called with argument `input`.
- *
+ * 
  * If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
- *
+ * 
  * In the other case, the final output will be the `input` itself.
  */
 export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
@@ -1827,7 +1827,7 @@ export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boole
 
 /**
  * It will return `true` if all of `input` object fully or partially include `rule` object.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function whereEq<T, U>(condition: T, input: U): boolean;
@@ -1835,7 +1835,7 @@ export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 
 /**
  * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
- *
+ * 
  * `R.equals` is used to determine equality.
  */
 export function without<T>(matchAgainst: T[], source: T[]): T[];
@@ -1849,7 +1849,7 @@ export function xor(y: boolean): (y: boolean) => boolean;
 
 /**
  * It will return a new array containing tuples of equally positions items from both `x` and `y` lists.
- *
+ * 
  * The returned list will be truncated to match the length of the shortest supplied list.
  */
 export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
