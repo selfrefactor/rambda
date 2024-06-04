@@ -958,6 +958,9 @@ export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
 export function lt<T, U>(x: T, y: U): boolean;
 export function lt<T, U>(x: T): (y: U) => boolean;
 
+export function lte<T, U>(x: T, y: U): boolean;
+export function lte<T, U>(x: T): (y: U) => boolean;
+
 /**
  * It returns the result of looping through `iterable` with `fn`.
  * 
