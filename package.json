@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "9.2.0",
+	"version": "9.2.1",
 	"scripts": {
 		"before": "yarn out && yarn docs",
 		"benchmark": "cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark",
@@ -40,14 +40,12 @@
 	"depFn": [
 		"@definitelytyped/dtslint"
 	],
-	"dependencies": {
-		
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "7.24.6",
 		"@babel/plugin-proposal-object-rest-spread": "7.20.7",
 		"@babel/preset-env": "7.24.6",
-    "@definitelytyped/dtslint": "0.0.182",
+		"@definitelytyped/dtslint": "0.0.182",
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-commonjs": "25.0.8",
 		"@rollup/plugin-node-resolve": "15.2.3",
