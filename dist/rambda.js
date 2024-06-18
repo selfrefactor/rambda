@@ -834,6 +834,14 @@ function dissoc(prop, obj) {
   return willReturn;
 }
 
+function _defineProperty(e, r, t) {
+  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
 function ownKeys(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -1620,6 +1628,11 @@ function lensProp(key) {
 function lt(a, b) {
   if (arguments.length === 1) return _b => lt(a, _b);
   return a < b;
+}
+
+function lte(a, b) {
+  if (arguments.length === 1) return _b => lte(a, _b);
+  return a <= b;
 }
 
 function match(pattern, input) {
@@ -2620,6 +2633,7 @@ exports.lensIndex = lensIndex;
 exports.lensPath = lensPath;
 exports.lensProp = lensProp;
 exports.lt = lt;
+exports.lte = lte;
 exports.map = map;
 exports.mapArray = mapArray;
 exports.mapObjIndexed = mapObjIndexed;

@@ -5918,7 +5918,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-
 export function lte<T, U>(x: T, y: U): boolean;
 export function lte<T, U>(x: T): (y: U) => boolean;
 
