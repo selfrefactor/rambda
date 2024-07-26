@@ -25,7 +25,7 @@ type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
 type Path = string | (number | string)[];
 export type RamdaPath = (number | string)[];
-type Predicate<T> = (x: T) => boolean;
+export type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
@@ -89,10 +89,6 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-interface AssocPartialOne<K extends keyof any> {
-  <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-  <T, U>(val: T, obj: U): Record<K, T> & U;
-}
 type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
     | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
     | [(...args: TArgs) => TResult];
@@ -113,7 +109,7 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
-/** `TSuper`, when `TSuper` is a supertype of `T`; otherwise `never`. */
+/** `First`, when `First` is a supertype of `Second`; otherwise `never`. */
 type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
@@ -121,9 +117,9 @@ type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : ne
 type Func<T> = (input: any) => T;
 type VoidInputFunc<T> = () => T;
 type Fn<In, Out> = (x: In) => Out;
-type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
+export type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
-type IdentityFunction<T> = (x: T) => T;
+export type IdentityFunction<T> = (x: T) => T;
 
 interface Filter<T> {
   (list: T[]): T[];
@@ -156,9 +152,9 @@ export interface IsValidAsync {
   schema: Schema | SchemaAsync;
 }
 
-type ProduceRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Output[P];
+export type ProduceRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Output[P];
 };
-type ProduceAsyncRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Promise<Output[P]>;
+export type ProduceAsyncRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Promise<Output[P]>;
 };
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>;
 type Async<T> = (x: any) => Promise<T>;
@@ -168,10 +164,10 @@ type AsyncPredicate<T> = (x: T) => Promise<boolean>;
 type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
-type ApplyDiffUpdate = {op:'update', path: string, value: any};
-type ApplyDiffAdd = {op:'add', path: string, value: any};
-type ApplyDiffRemove = {op:'remove', path: string};
-type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
+export type ApplyDiffUpdate = {op:'update', path: string, value: any};
+export type ApplyDiffAdd = {op:'add', path: string, value: any};
+export type ApplyDiffRemove = {op:'remove', path: string};
+export type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
 // API_MARKER
 
@@ -467,9 +463,11 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
-export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
+export function assoc<K extends PropertyKey>(prop: K): {
+  <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
+  <U extends Record<K, T>, T>(val: T, obj: U): U;
+};
+export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
 
 /*
 Method: assocPath
@@ -930,8 +928,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
-export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
+export function dissoc<U, K extends keyof U>(prop: string extends keyof U ? K : undefined extends U[K] ? K : never, obj: U): U;
 
 /*
 Method: divide
@@ -1464,7 +1461,7 @@ export function hasPath<T>(
 /*
 Method: head
 
-Explanation: It returns the first element of list or string `input`.
+Explanation: It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
 
 Example:
 
@@ -1484,6 +1481,7 @@ Notes:
 // @SINGLE_MARKER
 export function head(str: string): string;
 export function head(str: ''): undefined;
+export function head(list: readonly[]): undefined;
 export function head<T>(list: never[]): undefined;
 export function head<T extends unknown[]>(array: T): FirstArrayElement<T>
 export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
@@ -1873,7 +1871,7 @@ export function keys<T>(x: T): string[];
 /*
 Method: last
 
-Explanation: It returns the last element of `input`, as the `input` can be either a string or an array.
+Explanation: It returns the last element of `input`, as the `input` can be either a string or an array. It returns `undefined` if array has length of 0.
 
 Example:
 
@@ -1893,9 +1891,10 @@ Notes:
 // @SINGLE_MARKER
 export function last(str: ''): undefined;
 export function last(str: string): string;
+export function last(list: readonly[]): undefined;
 export function last(list: never[]): undefined;
-export function last<T extends unknown[]>(array: T): LastArrayElement<T>
-export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
+export function last<T extends unknown[]>(array: T): LastArrayElement<T>;
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
 
 /*
 Method: lastIndexOf
@@ -5348,15 +5347,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modify<T extends object, K extends keyof T, P>(
-  prop: K,
-  fn: (a: T[K]) => P,
-  obj: T,
-): Omit<T, K> & Record<K, P>;
-export function modify<K extends string, A, P>(
-  prop: K,
-  fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+export function modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+export function modify<U, K extends keyof U>(prop: K, fn: (value: U[K]) => U[K], object: U): U;
+export function modify<K extends PropertyKey>(prop: K): {
+  <T>(fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+  <T, U extends Record<K, T>>(fn: (value: T) => T, object: U): U;
+};
 
 /*
 Method: unnest
@@ -7610,6 +7606,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function throttle<T>(fn: () => T, ms: number): () => T;
 export function throttle<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
 export function throttle<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
 export function throttle<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;

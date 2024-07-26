@@ -1,6 +1,12 @@
 import {delay, throttle} from 'rambda'
 
 describe('R.throttle', () => {
+  it('arity of 0', async() => {
+		let x = 0
+    const fn = throttle(() => x + 1, 1000)
+    const result = fn()
+    result // $ExpectType number
+  })
   it('arity of 1', async() => {
     const fn = throttle((x: number) => x + 1, 1000)
     const result1 = fn(1)
