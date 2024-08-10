@@ -467,6 +467,9 @@ export function assoc<K extends PropertyKey>(prop: K): {
   <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
   <U extends Record<K, T>, T>(val: T, obj: U): U;
 };
+export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
+  <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
+};
 export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
 
 /*

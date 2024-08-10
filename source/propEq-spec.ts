@@ -25,7 +25,7 @@ describe('R.propEq', () => {
     const myObject: MyType = {}
     const valueToFind = '1111'
     // @ts-expect-error
-    propEq(valueToFind, 'optional', myObject)
+    let a = propEq(valueToFind, 'optional', myObject)
   })
 
   it('imported from @types/ramda', () => {
