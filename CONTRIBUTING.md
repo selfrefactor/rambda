@@ -1,10 +1,15 @@
 # Contribution guidelines
 
-You need to have the code of `selfrefactor/rambda-scripts` repo on the same level as `selfrefactor/rambda` as that repo contains all of the build logic.
+Before opening PR, you need:
 
-`git clone https://github.com/selfrefactor/rambda-scripts.git`
+- to have the code of `selfrefactor/rambda-scripts` repo on the same level as `selfrefactor/rambda` as that repo contains all of the build logic. `git clone https://github.com/selfrefactor/rambda-scripts.git`
 
-> Final step for any code change is `yarn out` as it generates the output files.
+- to know that the source files are:
+
+-- located in `source` folder
+-- TypeScript source file is located at `files/index.d.ts`
+
+- Final step for any code change is `yarn out` as it generates the output files.
 
 ## Fix a method
 
