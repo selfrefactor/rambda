@@ -1,15 +1,14 @@
 throttle should accept 0 arguments, i.e. no need to force unary function
 
+https://github.com/ramda/types/pull/37/files
 ---
 ABOVE IS DONE
 ---
-https://github.com/ramda/types/pull/37/files
 
-https://github.com/ramda/types/pull/37/files#diff-60589fd0fcb0f4ced0a8957986e06e1fce8b9193dce547b2fee7f9446cb41c48
+https://github.com/ramda/types/pull/127/files
 ---
 ABOVE IS IN PROGRESS
 ---
-https://github.com/ramda/types/pull/127/files
 ---
 ABOVE SHOULD BE DONE
 ---
