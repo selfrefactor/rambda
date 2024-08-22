@@ -1,8 +1,7 @@
 throttle should accept 0 arguments, i.e. no need to force unary function
 
 https://github.com/ramda/types/pull/37/files
-
-https://github.com/ramda/types/pull/127/files
+https://github.com/ramda/types/pull/101
 
 ---
 ABOVE IS DONE
@@ -14,6 +13,7 @@ ABOVE IS IN PROGRESS
 ---
 ABOVE SHOULD BE DONE
 ---
+https://github.com/ramda/types/pull/127/files
 https://publint.dev/rambda@9.2.1
 https://arethetypeswrong.github.io/?p=ramda%400.30.1
 ---
