@@ -1,5 +1,8 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
+export type NonEmptyArray<T> = [T, ...T[]];
+export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
+
 type LastArrayElement<ValueType extends readonly unknown[]> =
 	ValueType extends readonly [infer ElementType]
 		? ElementType
@@ -1898,6 +1901,7 @@ export function last(list: readonly[]): undefined;
 export function last(list: never[]): undefined;
 export function last<T extends unknown[]>(array: T): LastArrayElement<T>;
 export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
+export function last(str: string): string | undefined;
 
 /*
 Method: lastIndexOf
@@ -2679,6 +2683,26 @@ Notes:
 */
 // @SINGLE_MARKER
 export function not(input: any): boolean;
+
+/*
+Method: notEmpty
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>;
+export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
+export function isNotEmpty(value: any): boolean;
 
 
 /*

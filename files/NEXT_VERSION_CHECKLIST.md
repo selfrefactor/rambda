@@ -1,11 +1,13 @@
 throttle should accept 0 arguments, i.e. no need to force unary function
 
 https://github.com/ramda/types/pull/37/files
+
+https://github.com/ramda/types/pull/127/files
+
 ---
 ABOVE IS DONE
 ---
 
-https://github.com/ramda/types/pull/127/files
 ---
 ABOVE IS IN PROGRESS
 ---
@@ -135,6 +137,12 @@ export default function deepqual(foo, bar) {
 REFS:
 
 run immutable script
+===
+https://github.com/ramda/types/pull/101/files
+
+export function last<T>(list: readonly [...any[], T]): T;
+export function last<T>(list: ReadonlyNonEmptyArray<T>): T;
+export function last<T>(list: readonly T[]): T | undefined;
 ===
 from bookmarks:
 

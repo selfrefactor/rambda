@@ -1,4 +1,4 @@
-import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'rambda'
+import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'ramda'
 
 interface Input {
   foo: string,
