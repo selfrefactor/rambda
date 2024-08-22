@@ -1,5 +1,8 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
+export type NonEmptyArray<T> = readonly [T, ...readonly T[]];
+export type ReadonlyNonEmptyArray<T> = readonly [T, ...readonly T[]];
+
 type LastArrayElement<ValueType extends readonly unknown[]> =
 	ValueType extends readonly [infer ElementType]
 		? ElementType
@@ -25,7 +28,7 @@ type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
 type Path = string | readonly (number | string)[];
 export type RamdaPath = readonly (number | string)[];
-type Predicate<T> = (x: T) => boolean;
+export type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
 type CondPair<T extends readonly any[], R> = readonly [(...val: T) => boolean, (...val: T) => R]
@@ -89,10 +92,6 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-interface AssocPartialOne<K extends keyof any> {
-  <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-  <T, U>(val: T, obj: U): Record<K, T> & U;
-}
 type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends readonly any[], TResult> =
     | readonly [(...args: any) => TResult, ...ReadonlyArray<(args: any) => any>, (...args: TArgs) => any]
     | readonly [(...args: TArgs) => TResult];
@@ -113,7 +112,7 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
-/** `TSuper`, when `TSuper` is a supertype of `T`; otherwise `never`. */
+/** `First`, when `First` is a supertype of `Second`; otherwise `never`. */
 type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
@@ -121,9 +120,9 @@ type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : ne
 type Func<T> = (input: any) => T;
 type VoidInputFunc<T> = () => T;
 type Fn<In, Out> = (x: In) => Out;
-type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
+export type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
-type IdentityFunction<T> = (x: T) => T;
+export type IdentityFunction<T> = (x: T) => T;
 
 interface Filter<T> {
   (list: readonly T[]): readonly T[];
@@ -156,9 +155,9 @@ export interface IsValidAsync {
   readonly schema: Schema | SchemaAsync;
 }
 
-type ProduceRules<Output,K extends keyof Output, Input> = { readonly   [P in K]: (input: Input) => Output[P];
+export type ProduceRules<Output,K extends keyof Output, Input> = { readonly   [P in K]: (input: Input) => Output[P];
 };
-type ProduceAsyncRules<Output,K extends keyof Output, Input> = { readonly   [P in K]: (input: Input) => Promise<Output[P]>;
+export type ProduceAsyncRules<Output,K extends keyof Output, Input> = { readonly   [P in K]: (input: Input) => Promise<Output[P]>;
 };
 type ProduceAsyncRule<Input> = (input: Input) => Promise<any>;
 type Async<T> = (x: any) => Promise<T>;
@@ -168,10 +167,10 @@ type AsyncPredicate<T> = (x: T) => Promise<boolean>;
 type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
 type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
 
-type ApplyDiffUpdate = {readonly op:'update', readonly path: string, readonly value: any};
-type ApplyDiffAdd = {readonly op:'add', readonly path: string, readonly value: any};
-type ApplyDiffRemove = {readonly op:'remove', readonly path: string};
-type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
+export type ApplyDiffUpdate = {readonly op:'update', readonly path: string, readonly value: any};
+export type ApplyDiffAdd = {readonly op:'add', readonly path: string, readonly value: any};
+export type ApplyDiffRemove = {readonly op:'remove', readonly path: string};
+export type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
 
 export function F(): boolean;
@@ -279,9 +278,14 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 /**
  * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
  */
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
-export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
+export function assoc<K extends PropertyKey>(prop: K): {
+  <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
+  <U extends Record<K, T>, T>(val: T, obj: U): U;
+};
+export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
+  <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
+};
+export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
 
 /**
  * It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
@@ -511,8 +515,8 @@ export function differenceWith<T1, T2>(
 /**
  * It returns a new object that does not contain property `prop`.
  */
-export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
-export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
+export function dissoc<K extends PropertyKey>(prop: K): <U extends { readonly [P in K]?: any}>(obj: string extends keyof U ? U : undefined extends U[K] ? U : never) => U;
+export function dissoc<U, K extends keyof U>(prop: string extends keyof U ? K : undefined extends U[K] ? K : never, obj: U): U;
 
 export function dissocPath<T>(path: Path, obj: any): T;
 export function dissocPath<T>(path: Path): (obj: any) => T;
@@ -722,10 +726,11 @@ export function hasPath<T>(
 ): (input: object) => boolean;
 
 /**
- * It returns the first element of list or string `input`.
+ * It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
  */
 export function head(str: string): string;
 export function head(str: ''): undefined;
+export function head(list: readonly[]): undefined;
 export function head<T>(list: readonly never[]): undefined;
 export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
 export function head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
@@ -848,6 +853,10 @@ export function isEmpty<T>(x: T): boolean;
  */
 export function isNil(x: any): x is null | undefined;
 
+export function isNotEmpty<T>(value: readonly T[]): value is NonEmptyArray<T>;
+export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
+export function isNotEmpty(value: any): boolean;
+
 export function isNotNil<T>(value: T): value is NonNullable<T>;
 
 /**
@@ -873,13 +882,15 @@ export function keys<T extends object>(x: T): readonly (keyof T & string)[];
 export function keys<T>(x: T): readonly string[];
 
 /**
- * It returns the last element of `input`, as the `input` can be either a string or an array.
+ * It returns the last element of `input`, as the `input` can be either a string or an array. It returns `undefined` if array has length of 0.
  */
 export function last(str: ''): undefined;
 export function last(str: string): string;
+export function last(list: readonly[]): undefined;
 export function last(list: readonly never[]): undefined;
-export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
-export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
+export function last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
+export function last(str: string): string | undefined;
 
 /**
  * It returns the last index of `target` in `list` array.
@@ -1075,15 +1086,12 @@ export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 export function minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
-export function modify<T extends object, K extends keyof T, P>(
-  prop: K,
-  fn: (a: T[K]) => P,
-  obj: T,
-): Omit<T, K> & Record<K, P>;
-export function modify<K extends string, A, P>(
-  prop: K,
-  fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+export function modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+export function modify<U, K extends keyof U>(prop: K, fn: (value: U[K]) => U[K], object: U): U;
+export function modify<K extends PropertyKey>(prop: K): {
+  <T>(fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+  <T, U extends Record<K, T>>(fn: (value: T) => T, object: U): U;
+};
 
 /**
  * It changes a property of object on the base of provided path and transformer function.

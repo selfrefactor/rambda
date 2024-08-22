@@ -1,10 +1,10 @@
 #===========
 # It uses dtslint to check if the typings are correct
 # Typescript index file is located at `source/index.ts`
-yarn test:typings
+# yarn test:typings
 
 # before
-# yarn out && yarn docs
+yarn out && yarn docs && rd build
 #===========
 # benchmark
 # cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark

@@ -1,8 +1,3 @@
-9.2.2
-
-- Remove logic in `R.isEmpty` that looks for object property `isEmpty` as it is hard to be expressed in TypeScript
-<!-- - Broken `Deno` build - [Issue #731](https://github.com/selfrefactor/rambda/issues/731) -->
-
 9.2.1
 
 - Broken `Deno` build - [Issue #731](https://github.com/selfrefactor/rambda/issues/731)
