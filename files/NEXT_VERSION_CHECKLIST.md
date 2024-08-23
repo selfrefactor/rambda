@@ -1,8 +1,3 @@
-throttle should accept 0 arguments, i.e. no need to force unary function
-
-https://github.com/ramda/types/pull/37/files
-https://github.com/ramda/types/pull/101
-
 ---
 ABOVE IS DONE
 ---
@@ -10,6 +5,11 @@ ABOVE IS DONE
 ---
 ABOVE IS IN PROGRESS
 ---
+https://github.com/selfrefactor/rambda/pull/737
+
+https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
+
+release X on deno
 ---
 ABOVE SHOULD BE DONE
 ---
