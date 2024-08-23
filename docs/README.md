@@ -7263,7 +7263,7 @@ export function lens(getter, setter){
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'ramda'
+import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'rambda'
 
 interface Input {
   foo: string,
@@ -17264,6 +17264,14 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+9.3.0
+
+- Breaking change in relation to TS typings of `R.assoc`, `R.dissoc` and `R.modify` - https://github.com/ramda/types/pull/37
+
+- Add `R.isNotEmpty` as it is new method in `Ramda`
+
+- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before 
+
 9.2.1
 
 - Broken `Deno` build - [Issue #731](https://github.com/selfrefactor/rambda/issues/731)
@@ -17688,11 +17696,11 @@ Fix wrong versions in changelog
 
 > Links to Rambda
 
-- [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
+- [awesome-fp-js](https://github.com/stoeffel/awesome-fp-js)
 
-- [ https://mailchi.mp/webtoolsweekly/web-tools-280 ]( Web Tools Weekly #280 )
+- [Web Tools Weekly #280](https://mailchi.mp/webtoolsweekly/web-tools-280)
 
-- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
+- [awesome-docsify](https://github.com/docsifyjs/awesome-docsify)
 
 > Deprecated from `Used by` section
 
