@@ -1,26 +1,31 @@
-import {dissoc} from 'rambda'
+import { dissoc } from 'rambda';
 
-interface Input {
-  a: string,
-  b: string,
-}
-const obj: Input = {
-  a: 'foo',
-  b: 'bar',
-}
+type Obj = {
+	str: string;
+	num: number;
+	opt?: boolean;
+	orUndefined: boolean | undefined;
+	orNull: boolean | null;
+};
+
+const obj: Obj = { str: 'foo', num: 1, orUndefined: true, orNull: true };
 
 describe('R.dissoc', () => {
-  it('happy', () => {
-    const result = dissoc('b', obj)
+	it('ramda tests', () => {
+		// @ts-expect-error
+		dissoc('str', obj);
+		// @ts-expect-error
+		dissoc('num', obj);
+		// @ts-expect-error
+		dissoc('orNull', obj);
 
-    result.a // $ExpectType string
-
-    // @ts-expect-error
-    result.b
-  })
-  it('curried', () => {
-    const result = dissoc('b')(obj)
-
-    result.a // $ExpectType string
-  })
-})
+		const result1 = dissoc('opt', obj);
+		result1; // $ExpectType Obj
+		// @ts-expect-error
+		dissoc('num')(obj);
+		const result2 = dissoc('orUndefined', obj);
+		result2; // $ExpectType Obj
+		const result3 = dissoc('opt')(obj);
+		result3; // $ExpectType Obj
+	});
+});

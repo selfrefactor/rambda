@@ -18,7 +18,6 @@ export function forEachObjIndexedFn(fn, obj){
 
 export function forEachObjIndexed(fn, list){
   if (arguments.length === 1) return _list => forEachObjIndexed(fn, _list)
-
   if (list === undefined) return
 
   return forEachObjIndexedFn(fn, list)

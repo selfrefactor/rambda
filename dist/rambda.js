@@ -877,20 +877,6 @@ function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
   return "symbol" == typeof i ? i : i + "";
 }
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
 
 function compare(a, b) {
   return String(a) === String(b);
@@ -1544,11 +1530,6 @@ function isEmpty(input) {
   const inputType = type(input);
   if (['Undefined', 'NaN', 'Number', 'Null'].includes(inputType)) return false;
   if (!input) return true;
-  if (type(input.isEmpty) === 'Function') {
-    return input.isEmpty();
-  } else if (input.isEmpty) {
-    return !!input.isEmpty;
-  }
   if (inputType === 'Object') {
     return Object.keys(input).length === 0;
   }
@@ -1560,6 +1541,10 @@ function isEmpty(input) {
 
 function isNil(x) {
   return x === undefined || x === null;
+}
+
+function isNotEmpty(input) {
+  return !isEmpty(input);
 }
 
 function isNotNil(input) {
@@ -2621,6 +2606,7 @@ exports.intersperse = intersperse;
 exports.is = is;
 exports.isEmpty = isEmpty;
 exports.isNil = isNil;
+exports.isNotEmpty = isNotEmpty;
 exports.isNotNil = isNotNil;
 exports.join = join;
 exports.juxt = juxt;

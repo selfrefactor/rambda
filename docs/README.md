@@ -106,59 +106,57 @@ One of the main issues with `Ramda` is the slow process of releasing new version
 
 <details>
 <summary>
-  Click to see the full list of 43 Ramda methods not implemented in Rambda and their status.
+  Click to see the full list of 46 Ramda methods not implemented in Rambda and their status.
 </summary>
 
-- into
-- invert
+- construct - Using classes is not very functional programming oriented.
+- constructN - same as above
+- into - no support for transducer as it is overly complex to implement, understand and read.
+- invert - overly complicated and limited use case
 - invertObj
 - invoker
-- keysIn
+- keysIn - we shouldn't encourage extending object with `.prototype` 
 - lift
 - liftN
-- mapAccum
+- mapAccum - `Ramda` example doesn't looks convincing
 - mapAccumRight
-- memoizeWith
-- mergeDeepWith
+- memoizeWith - hard to imagine its usage in context of `R.pipe`/`R.compose`
+- mergeDeepWith - limited use case
 - mergeDeepWithKey
 - mergeWithKey
-- nAry
-- nthArg
-- o
-- otherwise
-- pair
-- partialRight
-- pathSatisfies
+- nAry - hard to argument about and hard to create meaningful TypeScript definitions
+- nthArg - limited use case
+- o - enough TypeScript issues with `R.pipe`/`R.compose` to add more composition methods
+- otherwise - naming is confusing
+- pair - `left-pad` types of debacles happens partially because of such methods that should not be hidden, bur rather part of your code base even if they need to exist.
+- partialRight - I dislike `R.partial`, so I don't want to add more methods that are based on it
 - pipeWith
-- project
+- project - naming is confusing, but also limited use case
 - promap
-- reduceRight
-- reduceWhile
+- reduceRight - I find `right/left` methods confusing so I added them only where it makes sense.
+- reduceWhile - functions with 4 inputs - I think that even 3 is too much
 - reduced
-- remove
-- scan
+- remove - nice name but it is too generic. Also, `Rambdax` has such method and there it works very differently
+- scan - hard to explain
 - sequence
 - splitWhenever
 - symmetricDifferenceWith
 - andThen
 - toPairsIn
-- unary
-- uncurryN
-- unfold
-- unionWith
-- until
-- useWith
-- valuesIn
-- xprod
-- thunkify
-- default
-
-  Most of above methods are in progress to be added to **Rambda**. The following methods are not going to be added:
-- __ - placeholder method allows user to further customize the method call. While, it seems useful initially, the price is too high in terms of complexity for TypeScript definitions. If it is not easy exressable in TypeScript, it is not worth it as **Rambda** is a TypeScript first library.
-- construct - Using classes is not very functional programming oriented.
-- constructN - same as above
 - transduce - currently is out of focus
 - traverse - same as above
+- unary
+- uncurryN
+- unfold - similar to `R.scan` and I find that it doesn't help with readability
+- unionWith - why it has its usage, I want to limit number of methods that accept more than 2 arguments
+- until
+- useWith - hard to explain
+- valuesIn
+- xprod - limited use case
+- thunkify
+- __ - placeholder method allows user to further customize the method call. While, it seems useful initially, the price is too high in terms of complexity for TypeScript definitions. If it is not easy exressable in TypeScript, it is not worth it as **Rambda** is a TypeScript first library.
+
+The following methods are not going to be added(reason for exclusion is provided as a comment):
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-missing-ramda-methods)
@@ -216,7 +214,7 @@ There are methods which are benchmarked only with `Ramda` and `Rambda`(i.e. no `
 
 Note that some of these methods, are called with and without curring. This is done in order to give more detailed performance feedback.
 
-The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.30.0).
+The benchmarks results are produced from latest versions of *Rambda*, *Lodash*(4.17.21) and *Ramda*(0.30.1).
 
 </summary>
 
@@ -5853,7 +5851,7 @@ describe('R.hasPath', () => {
 head(str: string): string
 ```
 
-It returns the first element of list or string `input`.
+It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.head(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.head('foo')%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'f'%5D">Try this <strong>R.head</strong> example in Rambda REPL</a>
 
@@ -5864,6 +5862,7 @@ It returns the first element of list or string `input`.
 ```typescript
 head(str: string): string;
 head(str: ''): undefined;
+head(list: readonly[]): undefined;
 head<T>(list: never[]): undefined;
 head<T extends unknown[]>(array: T): FirstArrayElement<T>
 head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
@@ -5937,9 +5936,9 @@ describe('R.head', () => {
   it('empty array', () => {
     const list = [] as const
     head(emptyList) // $ExpectType undefined
-    head(list) // $ExpectType never
+    head(list) // $ExpectType undefined
     last(emptyList) // $ExpectType undefined
-    last(list) // $ExpectType never
+    last(list) // $ExpectType undefined
   })
 
   it('mixed', () => {
@@ -6595,12 +6594,6 @@ export function isEmpty(input){
     return false
   if (!input) return true
 
-  if (type(input.isEmpty) === 'Function') {
-	return input.isEmpty();
-  } else if (input.isEmpty) {
-	return !!input.isEmpty;
-  }
-
   if (inputType === 'Object'){
     return Object.keys(input).length === 0
   }
@@ -6635,10 +6628,6 @@ test('happy', () => {
   expect(isEmpty(0)).toBeFalse()
   expect(isEmpty(NaN)).toBeFalse()
   expect(isEmpty([ '' ])).toBeFalse()
-  expect(isEmpty({ isEmpty: false})).toBeFalse()
-  expect(isEmpty({ isEmpty: () => false})).toBeFalse()
-  expect(isEmpty({ isEmpty: true})).toBeTrue()
-  expect(isEmpty({ isEmpty: () => true})).toBeTrue()
 })
 ```
 
@@ -6715,6 +6704,27 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNil)
+
+### isNotEmpty
+
+```typescript
+
+isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>;
+isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
+isNotEmpty(value: any): boolean;
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNotEmpty)
 
 ### isNotNil
 
@@ -6930,7 +6940,7 @@ test('happy', () => {
 last(str: ''): undefined
 ```
 
-It returns the last element of `input`, as the `input` can be either a string or an array.
+It returns the last element of `input`, as the `input` can be either a string or an array. It returns `undefined` if array has length of 0.
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.last(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.last('foo')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B3%2C%20'o'%5D">Try this <strong>R.last</strong> example in Rambda REPL</a>
 
@@ -6941,9 +6951,11 @@ It returns the last element of `input`, as the `input` can be either a string or
 ```typescript
 last(str: ''): undefined;
 last(str: string): string;
+last(list: readonly[]): undefined;
 last(list: never[]): undefined;
-last<T extends unknown[]>(array: T): LastArrayElement<T>
-last<T extends readonly unknown[]>(array: T): LastArrayElement<T>
+last<T extends unknown[]>(array: T): LastArrayElement<T>;
+last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
+last(str: string): string | undefined;
 ```
 
 </details>
@@ -7251,7 +7263,7 @@ export function lens(getter, setter){
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {lens, assoc, lensProp, view, lensIndex, lensPath} from 'rambda'
+import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'rambda'
 
 interface Input {
   foo: string,
@@ -7274,6 +7286,10 @@ describe('R.lensProp', () => {
   it('happy', () => {
     const result = view<Input, string>(lensProp('foo'), testObject)
     result // $ExpectType string
+  })
+  it('issue 740', () => {
+    // @ts-expect-error
+    over(lensProp('x'), (n) => String(n), {x: 1})
   })
 })
 
@@ -8828,11 +8844,7 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 
 ```typescript
 
-modify<T extends object, K extends keyof T, P>(
-  prop: K,
-  fn: (a: T[K]) => P,
-  obj: T,
-): Omit<T, K> & Record<K, P>
+modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U
 ```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modify()%0A%2F%2F%20%3D%3E">Try this <strong>R.modify</strong> example in Rambda REPL</a>
@@ -8842,15 +8854,12 @@ modify<T extends object, K extends keyof T, P>(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-modify<T extends object, K extends keyof T, P>(
-  prop: K,
-  fn: (a: T[K]) => P,
-  obj: T,
-): Omit<T, K> & Record<K, P>;
-modify<K extends string, A, P>(
-  prop: K,
-  fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+modify<U, K extends keyof U>(prop: K, fn: (value: U[K]) => U[K], object: U): U;
+modify<K extends PropertyKey>(prop: K): {
+  <T>(fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
+  <T, U extends Record<K, T>>(fn: (value: T) => T, object: U): U;
+};
 ```
 
 </details>
@@ -8991,23 +9000,52 @@ describe('brute force', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {modify, add} from 'rambda'
-const person = {name: 'James', age: 20}
+import { add, identity, map, modify, pipe, toUpper } from 'rambda';
+
+type Obj = {
+	foo: string;
+	bar: number;
+};
 
 describe('R.modify', () => {
-  it('happy', () => {
-    const {age} = modify('age', add(1), person)
-    const {age: ageAsString} = modify('age', String, person)
+	it('ramda tests', () => {
+		const result1 = modify('foo', toUpper, {} as Obj);
+		result1; // $ExpectType Obj
 
-    age // $ExpectType number
-    ageAsString // $ExpectType string
-  })
-  it('curried', () => {
-    const {age} = modify('age', add(1))(person)
+		const result2 = modify('bar', add(1), {} as Obj);
+		result2; // $ExpectType Obj
 
-    age // $ExpectType number
-  })
-})
+		const result3 = modify('foo', toUpper)({} as Obj);
+		result3; // $ExpectType Obj
+
+		const result4 = modify('bar', add(1))({} as Obj);
+		result4; // $ExpectType Obj
+
+		const result5 = modify('foo')(toUpper)({} as Obj);
+		result5; // $ExpectType Obj
+
+		const result6 = modify('bar')(add(1))({} as Obj);
+		result6; // $ExpectType Obj
+
+		const result7 = modify('foo')(toUpper, {} as Obj);
+		result7; // $ExpectType Obj
+
+		const result8 = modify('bar')(add(1), {} as Obj);
+		result8; // $ExpectType Obj
+
+		const result9 = modify('foo', identity, {} as Obj);
+		result9; // $ExpectType Obj
+
+		// @ts-expect-error
+		modify('foo', add(1), {} as Obj);
+		// @ts-expect-error
+		modify('bar', toUpper, {} as Obj);
+
+		const f = pipe(map<Obj, Obj>(modify('foo', toUpper)));
+
+		f([] as Obj[]); // $ExpectType Obj[]
+	});
+});
 ```
 
 </details>
@@ -17226,6 +17264,14 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+9.3.0
+
+- Breaking change in relation to TS typings of `R.assoc`, `R.dissoc` and `R.modify` - https://github.com/ramda/types/pull/37
+
+- Add `R.isNotEmpty` as it is new method in `Ramda`
+
+- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before 
+
 9.2.1
 
 - Broken `Deno` build - [Issue #731](https://github.com/selfrefactor/rambda/issues/731)
@@ -17650,11 +17696,11 @@ Fix wrong versions in changelog
 
 > Links to Rambda
 
-- [https://github.com/stoeffel/awesome-fp-js](awesome-fp-js)
+- [awesome-fp-js](https://github.com/stoeffel/awesome-fp-js)
 
-- [ https://mailchi.mp/webtoolsweekly/web-tools-280 ]( Web Tools Weekly #280 )
+- [Web Tools Weekly #280](https://mailchi.mp/webtoolsweekly/web-tools-280)
 
-- [https://github.com/docsifyjs/awesome-docsify](awesome-docsify)
+- [awesome-docsify](https://github.com/docsifyjs/awesome-docsify)
 
 > Deprecated from `Used by` section
 

@@ -1,147 +1,95 @@
+throttle should accept 0 arguments, i.e. no need to force unary function
+
+https://github.com/ramda/types/pull/37/files
+https://github.com/ramda/types/pull/101
+
 ---
-viewor
-lenssatisfies
-lensor
+ABOVE IS DONE
 ---
-run immutable script
+
 ---
-warning package.json: No license field
-$ tsc --lib esnext,dom consume-typings.ts&&node consume-typings.js
-node_modules/rambdax/index.d.ts:1221:73 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+ABOVE IS IN PROGRESS
+---
+---
+ABOVE SHOULD BE DONE
+---
+https://github.com/ramda/types/pull/127/files
+https://publint.dev/rambda@9.2.1
+https://arethetypeswrong.github.io/?p=ramda%400.30.1
+---
+fix pluck and others where Record is used wrong
+// import { pipe, pluck, prop } from "ramda"
+import { pipe, pluck, prop } from "rambdax"
 
-1221 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens, input: U): boolean;
-                                                                             ~~~~
+export const parseDatabase = pipe( pluck('doc'), pluck('dePart') )
 
-node_modules/rambdax/index.d.ts:1222:73 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+but this works 
+export const parseDatabase: (input: DbOrigin[]) => string[] = pipe( pluck('doc'), pluck('dePart') )
+---
+https://github.com/toss/es-toolkit/issues/91
 
-1222 export function lensSatisfies<T, U>(predicate: (x: T) => boolean, lens: Lens): (input: U) => boolean;
-                                                                             ~~~~
+const pickedObject = pickDeep(object, [
+---
+FP is generally slower
 
-node_modules/rambdax/index.d.ts:1223:70 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+add pipe example with large data set - with FP and declarative
 
-1223 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens, input: T[]): boolean;
-                                                                          ~~~~
+run benchmark in Node, but also in dedicated Playwright browser
+---
+REFS
 
-node_modules/rambdax/index.d.ts:1224:70 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+- prev assoc
 
-1224 export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens): (input: T[]) => boolean;
-                                                                          ~~~~
+interface AssocPartialOne<K extends keyof any> {
+  <T>(val: T): <U>(obj: U) => Record<K, T> & U;
+  <T, U>(val: T, obj: U): Record<K, T> & U;
+}
 
-node_modules/rambdax/index.d.ts:2461:63 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
+export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
-2461 export function viewOr<Input, Output>(fallback: Output, lens: Lens, input: Input): Output;
-                                                                   ~~~~
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
+---
+https://github.com/ramda/ramda/issues/3390
+---
+https://github.com/selfrefactor/rambda/issues/657#issuecomment-2235866164
 
-node_modules/rambdax/index.d.ts:2462:63 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+Hi I know this is a closed issue right now, but just to let you know for a possible solution that also includes the "exports" statement:
 
-2462 export function viewOr<Input, Output>(fallback: Output, lens: Lens): (input: Input) =>  Output;
-                                                                   ~~~~
+According to the documentation:
 
-node_modules/rambdax/index.d.ts:2463:65 - error TS2314: Generic type 'Lens' requires 2 type argument(s).
+    Within the "exports" object, key order is significant. During condition matching, earlier entries have higher priority and take precedence over later entries. The general rule is that conditions should be from most specific to least specific in object order.
 
-2463 export function viewOr<Input, Output>(fallback: Output): (lens: Lens) => (input: Input) =>  Output;
-                                                                    
+So, if you want webpack to pick up a different export than node you should, add a "webpack" condition as the first item the exports map.
+---
+cancel even in debounce
+
+https://github.com/toss/es-toolkit/blob/main/src/function/debounce.ts
+
+check TS output of library to compare 
+---
+/**
+ * Check whether a given key is in an object
+ * @internal
+ */
+function has<T, K extends PropertyKey>(value: T, key: K): value is T & { [Key in K]: unknown } {
+  return typeof value === 'object' && value !== null && key in value;
+}
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 ---
-such types as `SortObjectPredicate` need to be exported
----
-in js project like niketa theme, go to source lead to readable code, is ramda the same?
-
-what about ts react
----
-add motivation
-
-optimize above the fold
----
-include new methods to method to skip list
----
-issue with gh release
----
-throttle should accept 0 arguments, i.e. no need to force unary function
 ---
 splitWith
 R.pickWith
 R.pickAllWith - maybe
 ---
-wont do
-include standut x methods to rambda
-
-such as
-
-sortObject
----
 R.findInObject
 ---
-restore maptoobject x@2.1.0
+restore maptoobject rambdax@2.1.0
 
 why mapObject is not same
----
-REFS:
-
-- forEachObjIndexed should not contain source file nor test file
----
-
-
-
-
----
-in js project like niketa theme, go to source lead to readable code, is ramda the same?
-
-what about ts react
----
-
-fix https://github.com/selfrefactor/rambdax/issues/93
-
----
-group TS test for similar methods
-
----
-- construct - it is class helper and classes are not very functional oriented
-- constructN
-- into - no support for transducer as it is overly complex to implement, understand and read.
-- invert - overly complicated and limited use case
-- invertObj
-- invoker
-- keysIn - we shouldn't encourage extending object with `.prototype` 
-- lift
-- liftN
-- mapAccum - `Ramda` example doesn't looks convincing
-- mapAccumRight
-- memoizeWith - hard to imagine its usage in context of `R.pipe`/`R.compose`
-- mergeDeepWith - limited use case
-- mergeDeepWithKey
-- mergeWithKey
-- nAry - hard to argument about and hard to create meaningful TypeScript definitions
-- nthArg - limited use case
-- o - enough TypeScript issues with `R.pipe`/`R.compose` to add more composition methods
-- otherwise - naming is confusing
-- pair - `left-pad` types of debacles happens partially because of such methods that should not be hidden, bur rather part of your code base even if they need to exist.
-- partialRight - I dislike `R.partial`, so I don't want to add more methods that are based on it
-- pipeWith
-- project - naming is confusing, but also limited use case
-- promap
-- reduceRight - I find `right/left` methods confusing so I added them only where it makes sense.
-- reduceWhile - functions with 4 inputs - I think that even 3 is too much
-- reduced
-- remove - nice name but it is too generic. Also, `Rambdax` has such method and there it works very differently
-- scan - hard to explain
-- sequence
-- splitWhenever
-- symmetricDifferenceWith
-- andThen
-- toPairsIn
-- transduce
-- traverse
-- unary
-- uncurryN
-- unfold - similar to `R.scan` and I find that it doesn't help with readability
-- unionWith - why it has its usage, I want to limit number of methods that accept more than 2 arguments
-- until
-- useWith - hard to explain
-- valuesIn
-- xprod - limited use case
-- thunkify
 ---
 Double check
 
@@ -159,18 +107,14 @@ differenceWith
 ---
 apply to allPass
 https://github.com/selfrefactor/rambda/pull/695/files
----
-use todos and clear todos when this file is smaller
-check again deno as dissocpath doesn't add js extension to imports
+
+
+- Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
+
+in other words, this should be done once there is significant amount of users on `5.2.0` and above
 ---
 try omitPath as method instead of multiple paths
 ---
-replace missing ramda methods with text that argument is missing
-===
-publish after march 2024
-
-export function anyPass<T, U extends T[]>(predicates: { [K in keyof U]: (x: T) => x is U[K]; }): (input: T) => input is U[number];
-===
 export default function deepqual(foo, bar) {
 	var ctor, len;
 	if (foo === bar) return true;
@@ -189,6 +133,16 @@ export default function deepqual(foo, bar) {
 	}
 	return foo !== foo && bar !== bar;
 }
+===
+REFS:
+
+run immutable script
+===
+https://github.com/ramda/types/pull/101/files
+
+export function last<T>(list: readonly [...any[], T]): T;
+export function last<T>(list: ReadonlyNonEmptyArray<T>): T;
+export function last<T>(list: readonly T[]): T | undefined;
 ===
 from bookmarks:
 

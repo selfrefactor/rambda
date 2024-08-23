@@ -18,3 +18,5 @@ test('remeda test', () => {
 
 ===
 still issue with order of rambda.js
+===
+https://emanuelef.github.io/daily-stars-explorer/#/selfrefactor/rambda
