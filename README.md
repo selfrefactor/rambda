@@ -2,14 +2,12 @@
 
 `Rambda` is smaller and faster alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
-[![CircleCI](https://circleci.com/gh/selfrefactor/rambda/tree/master.svg?style=svg)](https://circleci.com/gh/selfrefactor/rambda/tree/master)
 [![codecov](https://codecov.io/gh/selfrefactor/rambda/branch/master/graph/badge.svg)](https://codecov.io/gh/selfrefactor/rambda)
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
-![All contributors](https://img.shields.io/github/contributors/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
 [![install size](https://packagephobia.com/badge?p=rambda)](https://packagephobia.com/result?p=rambda)
-[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/rambda)
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/selfrefactor/rambda/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/selfrefactor/rambda.svg)](https://github.com/selfrefactor/rambda/graphs/contributors)
 
 ## ❯ Example use
 
