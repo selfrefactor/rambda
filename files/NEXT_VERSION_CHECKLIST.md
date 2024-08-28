@@ -1,7 +1,10 @@
 ---
 ABOVE IS DONE
 ---
+rambdax export file should include js extension
 
+https://github.com/ramda/types/pull/127/files
+https://github.com/ramda/types/pull/122/files
 ---
 ABOVE IS IN PROGRESS
 ---
@@ -10,10 +13,14 @@ https://github.com/selfrefactor/rambda/pull/737
 https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
 
 release X on deno
+
 ---
 ABOVE SHOULD BE DONE
 ---
-https://github.com/ramda/types/pull/127/files
+R.middle
+https://github.com/ramda/types/pull/73/files
+https://github.com/ramda/types/pull/72/files
+https://github.com/ramda/types/pull/129/files
 https://publint.dev/rambda@9.2.1
 https://arethetypeswrong.github.io/?p=ramda%400.30.1
 ---
@@ -87,6 +94,14 @@ R.pickAllWith - maybe
 ---
 R.findInObject
 ---
+RA.template: compound strings with tagged template literals
+
+https://github.com/char0n/ramda-adjunct/issues/975
+---
+Fix compact type for objects
+
+https://github.com/char0n/ramda-adjunct/pull/1611/files
+---
 restore maptoobject rambdax@2.1.0
 
 why mapObject is not same
@@ -104,6 +119,8 @@ it('mixed', () => {
 
 differenceWith
 
+---
+https://github.com/smartprocure/futil-js?tab=readme-ov-file#cascadepropkey
 ---
 apply to allPass
 https://github.com/selfrefactor/rambda/pull/695/files

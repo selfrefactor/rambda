@@ -1,5 +1,5 @@
 import { into as intoRamda, map as mapRamda } from 'ramda';
-import { add, always, compose, filter, identity, map, take } from '../rambda';
+import { add, always, compose, filter, identity, map, take } from '../../rambda';
 import { into } from './into';
 
 const isOdd = (b) => b % 2 !== 0;
