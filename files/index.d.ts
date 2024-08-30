@@ -5559,10 +5559,7 @@ Explanation:
 Example:
 
 ```
-const result = R.sort(
-  R.ascend(x => x),
-  [2, 1]
-)
+const result = R.sort(R.descend(x => x), [2, 1])
 // => [1, 2]
 ```
 
@@ -5583,10 +5580,7 @@ Explanation:
 Example:
 
 ```
-R.sort(
-  R.descend(x => x),
-  [1, 2]
-)
+const result = R.sort(R.descend(x => x), [1, 2])
 // => [2, 1]
 ```
 

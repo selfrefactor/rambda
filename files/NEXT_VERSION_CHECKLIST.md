@@ -24,6 +24,19 @@ https://github.com/ramda/types/pull/129/files
 https://publint.dev/rambda@9.2.1
 https://arethetypeswrong.github.io/?p=ramda%400.30.1
 ---
+chech in to read for examples
+  "exports": {
+    ".": {
+      "development": {
+        "require": "./dist/cjs/development/index.cjs",
+        "import": "./dist/esm/development/index.mjs"
+      },
+      "require": "./dist/cjs/production/index.cjs",
+      "import": "./dist/esm/production/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+---
 fix pluck and others where Record is used wrong
 // import { pipe, pluck, prop } from "ramda"
 import { pipe, pluck, prop } from "rambdax"
