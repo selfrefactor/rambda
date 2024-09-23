@@ -37,6 +37,34 @@ chech in to read for examples
     }
   },
 ---
+
+export const getTestData = <K extends keyof TestData>(key: K) => {
+  if (!TEST_DATA) return null
+  const value = TEST_DATA[key]
+  if (!value) return null
+
+  return value
+}
+
+export function findNth <T extends unknown>(
+	predicate: (input: T) => boolean
+	list: T[]
+	nth: number
+): {value: T, index: number} | null {
+	let counter = 0
+	let result: {value: T, index: number} | null = null
+	input.list.forEach((value, index) => {
+		if(result) return
+		if (input.predicate(value)){
+			counter++
+		}
+		if (counter === input.nth){
+			result = {value, index}
+		}
+	})
+	return result
+}
+---
 fix pluck and others where Record is used wrong
 // import { pipe, pluck, prop } from "ramda"
 import { pipe, pluck, prop } from "rambdax"
