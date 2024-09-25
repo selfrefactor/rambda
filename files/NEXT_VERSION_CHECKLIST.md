@@ -14,6 +14,7 @@ https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
 
 release X on deno
 
+deepUpdate
 ---
 ABOVE SHOULD BE DONE
 ---
@@ -102,6 +103,8 @@ export function dissoc<K extends string | number>(prop: K): <T extends object>(o
 ---
 https://github.com/ramda/ramda/issues/3390
 ---
+https://tokens2css.nanools.com/
+---
 https://github.com/selfrefactor/rambda/issues/657#issuecomment-2235866164
 
 Hi I know this is a closed issue right now, but just to let you know for a possible solution that also includes the "exports" statement:
@@ -128,6 +131,44 @@ function has<T, K extends PropertyKey>(value: T, key: K): value is T & { [Key in
 ---
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 ---
+R.partition ts
+
+namespace partition {
+declare function partition(
+list: Item[],
+predicate: (value: Item) => value is Narrowed
+): [Narrowed[], Exclude[]];
+---
+R.maybe
+
+// case for maybe in Ramdba
+const isWord = word => {
+  if(!word) return false
+  if(!word.trim()) return false
+  if(!word.includes('('))return false
+  if(!word.includes(')'))return false
+  if(word.includes('NULL'))return false
+  return !!getCyrillicWord(word)
+}
+---
+R.path with string path
+
+---
+R.cycle
+https://www.pythoncheatsheet.org/modules/itertools-module
+---
+
+R.Flatten
+orama/packages/orama/src/types.ts
+---
+import { invert } from 'lodash'
+---
+R.range(start,end+1) should support desc
+
+but range is one example that this is not FP
+
+to keep it simply - R.rangeDescending
+
 ---
 splitWith
 R.pickWith
@@ -173,6 +214,10 @@ in other words, this should be done once there is significant amount of users on
 ---
 try omitPath as method instead of multiple paths
 ---
+handling errors out of the box:
+
+const [err, result] = R.safePipe
+---
 export default function deepqual(foo, bar) {
 	var ctor, len;
 	if (foo === bar) return true;
@@ -202,6 +247,20 @@ export function last<T>(list: readonly [...any[], T]): T;
 export function last<T>(list: ReadonlyNonEmptyArray<T>): T;
 export function last<T>(list: readonly T[]): T | undefined;
 ===
+export function isFunction(value) {
+return !!(value && {}.toString.call(value) === '[object Function]')
+}
+===
+WONT DO:
+
+R.equalsProps(a,b,properties)
+R.sum - as python
+R.contains({a:1}, {a:1, b:2}) => true
+R.resolve https://github.com/verydanny/vcslack/blob/master/src/api.ts
+deprecate R.renameProps in favour of https://jmlweb.github.io/ramdu/global.html#evolveKeys
+R.renamePropsWith
+https://github.com/Maggi64/moderndash/blob/main/package/src/object/flatKeys.ts
+
 from bookmarks:
 
 https://arethetypeswrong.github.io/?p=ramda%400.29.1
