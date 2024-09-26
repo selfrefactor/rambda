@@ -2886,7 +2886,7 @@ describe('R.defaultTo with Ramda spec', () => {
 
 ### descend
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.sort(%0A%20%20R.descend(x%20%3D%3E%20x)%2C%0A%20%20%5B1%2C%202%5D%0Aconst%20result%20%3D%20)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try this <strong>R.descend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(%0A%20%20R.descend(x%20%3D>%20x)%2C%0A%20%20%5B1%2C%202%5D%0A)%0A%2F%2F%20%3D>%20%5B2%2C%201%5D">Try this <strong>R.descend</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#descend)
 
