@@ -1387,7 +1387,7 @@ Explanation: It returns separated version of list or string `input`, where separ
 Example:
 
 ```
-const compareFn = (x, y) => x === y
+const isConsecutive = (x, y) => x === y
 const list = [1, 2, 2, 1, 1, 2]
 
 const result = R.groupWith(isConsecutive, list)
@@ -2196,10 +2196,10 @@ const iterable = [1, 2]
 const obj = {a: 1, b: 2}
 
 const result = [ 
-  R.map(fn, list),
-  R.map(fnWhenObject, Record<string, unknown>)
+  R.map(fn, iterable),
+  R.map(fnWhenObject, obj)
 ]
-// => [ [1, 4], {a: 'a-1', b: 'b-2'}] 
+// => [ [2, 4], {a: 'a-1', b: 'b-2'}]
 ```
 
 Categories: List, Object
@@ -2229,7 +2229,7 @@ const fn = (val, prop) => {
 
 const obj = {a: 1, b: 2}
 
-const result = R.map(mapObjIndexed, Record<string, unknown>)
+const result = R.mapObjIndexed(fn, obj)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
