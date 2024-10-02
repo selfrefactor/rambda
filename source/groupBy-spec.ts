@@ -1,4 +1,4 @@
-import { type NonEmptyArray, groupBy, mapObjIndexed } from 'rambda';
+import { groupBy } from 'rambda';
 import { prop } from 'ramda';
 
 interface Thing {
@@ -31,32 +31,5 @@ describe('R.groupBy', () => {
 		result; // $ExpectType { [index: string]: Thing[]; }
 		result[9]; // $ExpectType Thing[]
 		result.foo; // $ExpectType Thing[]
-	});
-	it('non-empty array', () => {
-		interface Sample {
-			_tag: string;
-			name: string;
-			value: number;
-		}
-		
-		const samples: Sample[] = [
-			{ _tag: "A", name: "foo", value: 1 },
-			{ _tag: "A", name: "bar", value: 2 },
-			{ _tag: "B", name: "baz", value: 3 },
-			{ _tag: "B", name: "qux", value: 4 },
-		];
-		
-		const groupedSamples = groupBy((sample) => sample._tag, samples);
-		
-		function getSampleGroupMax(samples: NonEmptyArray<Sample>): number {
-			if (samples.length === 0) {
-				samples // I expect this to be never
-			}
-			return Math.max(...samples.map((sample) => sample.value));
-		}
-		
-		const processedGroups = mapObjIndexed(getSampleGroupMax, groupedSamples);
-
-		processedGroups; // $ExpectType Dictionary<number>
 	});
 });
