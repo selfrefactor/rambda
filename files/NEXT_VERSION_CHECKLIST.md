@@ -4,6 +4,9 @@ Change `R.groupBy` typings to match `@types/ramda` typings
 ABOVE IS DONE
 ---
 
+update Rambdax and release to now 
+https://github.com/selfrefactor/rambda/pull/744
+
 rambdax export file should include js extension
 
 https://github.com/ramda/types/pull/127/files
@@ -13,15 +16,18 @@ https://github.com/ramda/types/pull/122/files
 
 ## ABOVE IS IN PROGRESS
 
+npx publint > files/report
+
 https://github.com/selfrefactor/rambda/pull/737
 
 https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
 
 release X on deno
 
-## deepUpdate
 
 ## ABOVE SHOULD BE DONE
+
+## deepUpdate
 
 R.middle
 https://github.com/ramda/types/pull/73/files
