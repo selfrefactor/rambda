@@ -1374,10 +1374,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T>(groupFn: (x: T) => string, list: T[]): { [index: string]: T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: T[]) => { [index: string]: T[] };
-export function groupBy<T, U>(groupFn: (x: T) => string, list: T[]): U;
-export function groupBy<T, U>(groupFn: (x: T) => string): (list: T[]) => U;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: T[]): Partial<Record<K, T[]>>;
 
 /*
 Method: groupWith
