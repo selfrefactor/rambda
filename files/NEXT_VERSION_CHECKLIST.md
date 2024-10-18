@@ -24,6 +24,8 @@ https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
 
 release X on deno
 
+deno can install with package.json
+https://deno.com/blog/v2.0
 
 ## ABOVE SHOULD BE DONE
 
@@ -36,6 +38,14 @@ https://github.com/ramda/types/pull/129/files
 https://publint.dev/rambda@9.2.1
 https://arethetypeswrong.github.io/?p=ramda%400.30.1
 
+https://github.com/denoland/std/blob/main/collections/associate_by_test.ts
+https://github.com/denoland/std/blob/main/collections/reduce_groups_test.ts
+https://github.com/denoland/std/blob/main/collections/permutations_test.ts
+https://github.com/denoland/std/blob/main/collections/partition_entries_test.ts
+https://github.com/denoland/std/blob/main/collections/map_values_test.ts
+https://github.com/denoland/std/blob/main/collections/map_keys_test.ts
+https://github.com/denoland/std/blob/main/collections/join_to_string_test.ts
+https://github.com/denoland/std/blob/main/collections/sum_of_test.ts
 ---
 
 chech in to read for examples
