@@ -11,7 +11,7 @@ rambdax export file should include js extension
 
 https://github.com/ramda/types/pull/127/files
 https://github.com/ramda/types/pull/122/files
-
+release string.fn
 ---
 
 ## ABOVE IS IN PROGRESS
@@ -61,6 +61,10 @@ chech in to read for examples
 }
 },
 
+---
+https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
+---
+bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
 ---
 
 export const getTestData = <K extends keyof TestData>(key: K) => {
