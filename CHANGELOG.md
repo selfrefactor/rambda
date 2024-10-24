@@ -1,3 +1,7 @@
+9.4.0
+
+- Fix `deno` release
+
 9.3.0
 
 - Breaking change in relation to TS typings of `R.assoc`, `R.dissoc` and `R.modify` - https://github.com/ramda/types/pull/37

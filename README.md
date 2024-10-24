@@ -1768,7 +1768,7 @@ describe('applySpec', () => {
 
 ### ascend
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(%0A%20%20R.ascend(x%20%3D%3E%20x)%2C%0A%20%20%5B2%2C%201%5D%0A)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.ascend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(R.descend(x%20%3D%3E%20x)%2C%20%5B2%2C%201%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.ascend</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ascend)
 
@@ -1865,7 +1865,7 @@ export const assocPath = curry(assocPathFn)
 ```javascript
 import { assocPathFn } from './assocPath.js'
 
-test.only('happy', () => {
+test('happy', () => {
   const path = 'a.c.1'
   const input = {
     a : {
@@ -1906,7 +1906,7 @@ test('string can be used as path input', () => {
 
 test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
   const obj = { a : 'str' }
-  const result = assocPath(
+  const result = assocPathFn(
     [ 'a', 'b' ], 42, obj
   )
 
@@ -1920,7 +1920,18 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
   })
 })
 
-test('bug', () => {
+test('bug 748', () => {
+  /*
+    https://github.com/selfrefactor/rambda/issues/748
+  */
+		const obj = {};
+		let result = assocPathFn(['a', '2'], 3, obj) 
+		let result1 = assocPath(['a', '2'], 3, obj) 
+		console.log({result})
+		console.log(result1)
+})
+
+test('bug 524', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
   */
@@ -2884,7 +2895,7 @@ describe('R.defaultTo with Ramda spec', () => {
 
 ### descend
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.sort(%0A%20%20R.descend(x%20%3D%3E%20x)%2C%0A%20%20%5B1%2C%202%5D%0Aconst%20result%20%3D%20)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try this <strong>R.descend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(R.descend(x%20%3D%3E%20x)%2C%20%5B1%2C%202%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try this <strong>R.descend</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#descend)
 
@@ -5631,7 +5642,7 @@ It splits `list` according to a provided `groupFn` function and returns an objec
 
 It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isConsecutive%20%3D%20%28x%2C%20y%29%20%3D%3E%20x%20%3D%3D%3D%20y%0Aconst%20list%20%3D%20%5B1%2C%202%2C%202%2C%201%2C%201%2C%202%5D%0A%0Aconst%20result%20%3D%20R.groupWith%28isConsecutive%2C%20list%29%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C2%5D%2C%20%5B1%2C1%5D%2C%20%5B2%5D%5D">Try this <strong>R.groupWith</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isConsecutive%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%0Aconst%20list%20%3D%20%5B1%2C%202%2C%202%2C%201%2C%201%2C%202%5D%0A%0Aconst%20result%20%3D%20R.groupWith(isConsecutive%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C2%5D%2C%20%5B1%2C1%5D%2C%20%5B2%5D%5D">Try this <strong>R.groupWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
 
@@ -7601,7 +7612,7 @@ It returns the result of looping through `iterable` with `fn`.
 
 It works with both array and object.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh/?const%20fn%20%3D%20x%20%3D%3E%20x%20%2A%202%0Aconst%20fnWhenObject%20%3D%20%28val%2C%20prop%29%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map%28fn%2C%20iterable%29%2C%0A%20%20R.map%28fnWhenObject%2C%20obj%29%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B2%2C%204%5D%2C%20%7Ba%3A%20%27a-1%27%2C%20b%3A%20%27b-2%27%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0Aconst%20fnWhenObject%20%3D%20(val%2C%20prop)%3D%3E%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20%5B%20%0A%20%20R.map(fn%2C%20iterable)%2C%0A%20%20R.map(fnWhenObject%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B2%2C%204%5D%2C%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7843,7 +7854,7 @@ mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<
 
 It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20%28val%2C%20prop%29%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObjIndexed%28fn%2C%20obj%29%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%27a-1%27%2C%20b%3A%20%27b-2%27%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObjIndexed(fn%2C%20obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObjIndexed</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -17261,6 +17272,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.4.0
+
+- Fix `deno` release
 
 9.3.0
 

@@ -687,10 +687,8 @@ export function fromPairs<V>(listOfPairs: readonly ((readonly [string, V]))[]): 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
  */
-export function groupBy<T>(groupFn: (x: T) => string, list: readonly T[]): { readonly [index: string]: readonly T[] };
-export function groupBy<T>(groupFn: (x: T) => string): (list: readonly T[]) => { readonly [index: string]: readonly T[] };
-export function groupBy<T, U>(groupFn: (x: T) => string, list: readonly T[]): U;
-export function groupBy<T, U>(groupFn: (x: T) => string): (list: readonly T[]) => U;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: readonly T[]) => Partial<Record<K, readonly T[]>>;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: readonly T[]): Partial<Record<K, readonly T[]>>;
 
 /**
  * It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.

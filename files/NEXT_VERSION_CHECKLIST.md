@@ -3,6 +3,7 @@ Change `R.groupBy` typings to match `@types/ramda` typings
 ---
 ABOVE IS DONE
 ---
+share about bug with assocpath
 
 update Rambdax and release to now 
 https://github.com/selfrefactor/rambda/pull/744
