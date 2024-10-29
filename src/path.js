@@ -10,7 +10,6 @@ export function pathFn(pathInput, obj){
     if (willReturn === null || willReturn === undefined){
       return undefined
     }
-    if (willReturn[ pathArrValue[ counter ] ] === null) return undefined
 
     willReturn = willReturn[ pathArrValue[ counter ] ]
     counter++
