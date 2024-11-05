@@ -1,5 +1,4 @@
-import { groupBy } from 'rambda';
-import { prop } from 'ramda';
+import { groupBy, prop } from 'rambda';
 
 interface Thing {
 	name: string;
@@ -16,20 +15,20 @@ const things = [
 describe('R.groupBy', () => {
 	it('happy', () => {
 		const groupByFn = (x: string) => String(x.length);
-		const list = ['foo', 'barr'];
+		const list = ['foo', 'bar'];
 
 		const result = groupBy(groupByFn, list);
-		result; // $ExpectType { [index: string]: string[]; }
+		result; // $ExpectType Partial<Record<string, string[]>>
 
 		const curriedResult = groupBy(groupByFn)(list);
-		curriedResult; // $ExpectType { [index: string]: string[]; }
+		curriedResult; // $ExpectType Partial<Record<string, string[]>>
 	});
 	it('with one explicit types', () => {
 		const groupByPosition = groupBy<Thing>(prop('position'));
 
 		const result = groupByPosition(things);
-		result; // $ExpectType { [index: string]: Thing[]; }
-		result[9]; // $ExpectType Thing[]
-		result.foo; // $ExpectType Thing[]
+		result; // $ExpectType Partial<Record<string, Thing[]>>
+		result[9]; // $ExpectType Thing[] | undefined
+		result.foo; // $ExpectType Thing[] | undefined
 	});
 });

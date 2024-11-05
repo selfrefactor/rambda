@@ -25,6 +25,7 @@
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+		"ts": "yarn test:typings",
 		"usedby": "cd ../rambda-scripts && yarn usedby",
 		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x"
 	},
