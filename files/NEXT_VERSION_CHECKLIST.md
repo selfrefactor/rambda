@@ -14,6 +14,23 @@ https://github.com/ramda/types/pull/127/files
 https://github.com/ramda/types/pull/122/files
 release string.fn
 ---
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      },
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.mjs"
+      },
+      "default": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.mjs"
+      }
+    }
+  },
+---
 
 ## ABOVE IS IN PROGRESS
 
@@ -300,6 +317,10 @@ export function isFunction(value) {
 return !!(value && {}.toString.call(value) === '[object Function]')
 }
 ===
+MAJOR bump suggestions
+
+[BUG]assocPath interprets string path element as integer, creating arrays instead of objects.
+
 WONT DO:
 
 R.equalsProps(a,b,properties)

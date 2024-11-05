@@ -3,6 +3,7 @@ import { has } from './has.js'
 import { identity } from './identity.js'
 import { ifElse } from './ifElse.js'
 import { prop } from './prop.js'
+import * as R from 'ramda'
 
 const condition = has('foo')
 const v = function (a){
@@ -89,4 +90,15 @@ test('simple arity of 2', () => {
     condition, onTrue, onFalse
   )(1, 10)
   expect(result).toBe(12)
+})
+
+test('bug 750', () => {
+	const value = 34;
+
+	let result = ifElse(
+	R.identity,
+	R.always('true'),
+	R.always('false')
+	)(value)
+	expect(result).toBe('true')
 })
