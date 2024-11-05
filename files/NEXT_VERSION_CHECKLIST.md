@@ -2,6 +2,10 @@
 ---
 ABOVE IS DONE
 ---
+cneck
+  // expect(withNumber).toEqual(withNumberExpected)
+
+
 share about bug with assocpath
 
 update Rambdax and release to now 
