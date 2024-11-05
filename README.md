@@ -6084,10 +6084,9 @@ function ifElseFn(
   condition, onTrue, onFalse
 ){
   return (...input) => {
-    const conditionResult =
+		const conditionResult =
       typeof condition === 'boolean' ? condition : condition(...input)
-
-    if (conditionResult === true){
+    if (Boolean(conditionResult) ){
       return onTrue(...input)
     }
 
@@ -6110,6 +6109,7 @@ import { has } from './has.js'
 import { identity } from './identity.js'
 import { ifElse } from './ifElse.js'
 import { prop } from './prop.js'
+import * as R from 'ramda'
 
 const condition = has('foo')
 const v = function (a){
@@ -6196,6 +6196,17 @@ test('simple arity of 2', () => {
     condition, onTrue, onFalse
   )(1, 10)
   expect(result).toBe(12)
+})
+
+test('bug 750', () => {
+	const value = 34;
+
+	let result = ifElse(
+	R.identity,
+	R.always('true'),
+	R.always('false')
+	)(value)
+	expect(result).toBe('true')
 })
 ```
 
@@ -17276,6 +17287,10 @@ describe('R.zipWith', () => {
 9.4.0
 
 - Fix `deno` release
+
+- Fix too strict `true` condition in `R.ifElse` - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
+
+- Change `R.groupBy` typings to match `@types/ramda` typings
 
 9.3.0
 

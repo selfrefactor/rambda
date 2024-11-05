@@ -1,4 +1,3 @@
-Change `R.groupBy` typings to match `@types/ramda` typings
 
 ---
 ABOVE IS DONE

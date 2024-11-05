@@ -2,6 +2,10 @@
 
 - Fix `deno` release
 
+- Fix too strict `true` condition in `R.ifElse` - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
+
+- Change `R.groupBy` typings to match `@types/ramda` typings
+
 9.3.0
 
 - Breaking change in relation to TS typings of `R.assoc`, `R.dissoc` and `R.modify` - https://github.com/ramda/types/pull/37
