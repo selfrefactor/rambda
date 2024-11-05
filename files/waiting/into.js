@@ -1,7 +1,7 @@
-import { isArray } from './_internals/isArray';
-import { bind } from './bind.js';
-import { curry } from './curry';
-import { identity } from './identity';
+import { isArray } from '../../source/_internals/isArray.js';
+import { bind } from '../../source/bind.js';
+import { curry } from '../../source/curry.js';
+import { identity } from '../../source/identity.js';
 
 // move inside fn using closure, i.e. call it
 const symIterator =

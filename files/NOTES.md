@@ -1,4 +1,5 @@
 ===
+===
 export function append<T>(xToAppend: T): (iterable: T[]) => T[]; is added for consistency and as a fallback just in case as there is no spec to cover this case
 ===
 // cannot be tested with `let list = []` because of implicit any

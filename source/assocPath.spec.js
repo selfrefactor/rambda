@@ -1,6 +1,6 @@
 import { assocPathFn } from './assocPath.js'
 
-test.only('happy', () => {
+test('happy', () => {
   const path = 'a.c.1'
   const input = {
     a : {
@@ -41,7 +41,7 @@ test('string can be used as path input', () => {
 
 test('difference with ramda - doesn\'t overwrite primitive values with keys in the path', () => {
   const obj = { a : 'str' }
-  const result = assocPath(
+  const result = assocPathFn(
     [ 'a', 'b' ], 42, obj
   )
 
@@ -55,7 +55,7 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
   })
 })
 
-test('bug', () => {
+test('bug 524', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
   */

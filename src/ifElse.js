@@ -4,10 +4,9 @@ function ifElseFn(
   condition, onTrue, onFalse
 ){
   return (...input) => {
-    const conditionResult =
+		const conditionResult =
       typeof condition === 'boolean' ? condition : condition(...input)
-
-    if (conditionResult === true){
+    if (Boolean(conditionResult) ){
       return onTrue(...input)
     }
 
