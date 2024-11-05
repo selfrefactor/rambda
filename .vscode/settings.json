@@ -1,26 +1,3 @@
 {
-	"niketa.PERSIST_LINT_TERMINAL": true,
-	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": false,
-		"**/.hg": false,
-		"**/CVS": false,
-		"**/.DS_Store": false,
-		"**/Thumbs.db": true,
-		".cache": true,
-		"**/.awcache": true,
-		"**/.cache-loader": true,
-		"**/.idea": true,
-		"**/coverage": true,
-		"**/coverage-ts": true,
-		"**/node_modules": true,
-		"**/yarn-error.log": true,
-		"dev_dist": true,
-		"dist": false,
-		"docs": false,
-		"yarn.lock": true,
-		"**/.retool_types/**": true,
-		"**/*tsconfig.json": true,
-		"retool.config.json": true
-	}
+	"niketa.PERSIST_LINT_TERMINAL": true
 }
