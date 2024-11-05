@@ -55,17 +55,6 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
   })
 })
 
-test('bug 748', () => {
-  /*
-    https://github.com/selfrefactor/rambda/issues/748
-  */
-		const obj = {};
-		let result = assocPathFn(['a', '2'], 3, obj) 
-		let result1 = assocPath(['a', '2'], 3, obj) 
-		console.log({result})
-		console.log(result1)
-})
-
 test('bug 524', () => {
   /*
     https://github.com/selfrefactor/rambda/issues/524
