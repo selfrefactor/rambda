@@ -6425,7 +6425,7 @@ export function composeAsync<TArg, R1>(
 /*
 Method: pipeAsync
 
-Explanation: Asynchronous version of `R.pipe`. `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
+Explanation: Asynchronous version of `R.pipe`, but it accepts only one argument as input(instead of multiple as regular `pipe`). It `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
 
 Example:
 
