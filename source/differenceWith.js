@@ -5,7 +5,7 @@ export function differenceWithFn(
   fn, a, b
 ){
   const willReturn = []
-  const [ first, second ] = a.length > b.length ? [ a, b ] : [ b, a ]
+  const [ first, second ] = a.length >= b.length ? [ a, b ] : [ b, a ]
 
   first.forEach(item => {
     const hasItem = second.some(secondItem => fn(item, secondItem))

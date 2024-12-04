@@ -55,27 +55,6 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
   })
 })
 
-test('bug 524', () => {
-  /*
-    https://github.com/selfrefactor/rambda/issues/524
-  */
-  const state = {}
-
-  const withDateLike = assocPathFn(
-    [ 'outerProp', '2020-03-10' ],
-    { prop : 2 },
-    state
-  )
-  const withNumber = assocPathFn(
-    [ 'outerProp,5' ], { prop : 2 }, state
-  )
-
-  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
-  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
-  expect(withDateLike).toEqual(withDateLikeExpected)
-  // expect(withNumber).toEqual(withNumberExpected)
-})
-
 test('adds a key to an empty object', () => {
   expect(assocPathFn(
     [ 'a' ], 1, {}

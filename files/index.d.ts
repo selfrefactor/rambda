@@ -487,7 +487,7 @@ const path = 'b.c'
 const newValue = 2
 const obj = { a: 1 }
 
-R.assocPath(path, newValue, Record<string, unknown>)
+const result = R.assocPath(path, newValue, obj)
 // => { a : 1, b : { c : 2 }}
 ```
 
@@ -2938,9 +2938,9 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, Record<string, unknown>),
-  R.path(pathToSearchList, Record<string, unknown>),
-  R.path('a.b.c.d', Record<string, unknown>)
+  R.path(pathToSearch, obj),
+  R.path(pathToSearchList, obj),
+  R.path('a.b.c.d', obj)
 ]
 // => [1, 1, undefined]
 ```
@@ -6425,7 +6425,7 @@ export function composeAsync<TArg, R1>(
 /*
 Method: pipeAsync
 
-Explanation: Asynchronous version of `R.pipe`. `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
+Explanation: Asynchronous version of `R.pipe`, but it accepts only one argument as input(instead of multiple as regular `pipe`). It `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
 
 Example:
 
