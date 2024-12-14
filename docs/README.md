@@ -81,6 +81,9 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+Please note that since path input is turned into array, i.e. if you want `R.path(['a','1', 'b'], {a: {'1': {b: 2}}})` to return `2`, you will have to pass array path, not string path. If you pass `a.1.b`, it will turn path input to `['a', 1, 'b']`.
+The other side effect is in `R.assocPath` and `R.dissocPath`, where inputs such as `['a', '1', 'b']` will be turned into `['a', 1, 'b']`.
+
 ### Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -1789,7 +1792,7 @@ assocPath<Output>(path: Path, newValue: any, obj: object): Output
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'b.c'%0Aconst%20newValue%20%3D%202%0Aconst%20obj%20%3D%20%7B%20a%3A%201%20%7D%0A%0Aconst%20result%20%3D%20R.assocPath(path%2C%20newValue%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%7B%20a%20%3A%201%2C%20b%20%3A%20%7B%20c%20%3A%202%20%7D%7D">Try this <strong>R.assocPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'b.c'%0Aconst%20newValue%20%3D%202%0Aconst%20obj%20%3D%20%7B%20a%3A%201%20%7D%0A%0Aconst%20result%20%3D%20R.assocPath(path%2C%20newValue%2C%20obj)%0A%2F%2F%20%3D%3E%20%7B%20a%20%3A%201%2C%20b%20%3A%20%7B%20c%20%3A%202%20%7D%7D">Try this <strong>R.assocPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -1918,27 +1921,6 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
       b : 42,
     },
   })
-})
-
-test('bug 524', () => {
-  /*
-    https://github.com/selfrefactor/rambda/issues/524
-  */
-  const state = {}
-
-  const withDateLike = assocPathFn(
-    [ 'outerProp', '2020-03-10' ],
-    { prop : 2 },
-    state
-  )
-  const withNumber = assocPathFn(
-    [ 'outerProp,5' ], { prop : 2 }, state
-  )
-
-  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
-  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
-  expect(withDateLike).toEqual(withDateLikeExpected)
-  // expect(withNumber).toEqual(withNumberExpected)
 })
 
 test('adds a key to an empty object', () => {
@@ -3024,7 +3006,7 @@ export function differenceWithFn(
   fn, a, b
 ){
   const willReturn = []
-  const [ first, second ] = a.length > b.length ? [ a, b ] : [ b, a ]
+  const [ first, second ] = a.length >= b.length ? [ a, b ] : [ b, a ]
 
   first.forEach(item => {
     const hasItem = second.some(secondItem => fn(item, secondItem))
@@ -3046,19 +3028,21 @@ export const differenceWith = curry(differenceWithFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { differenceWith } from './differenceWith.js'
+import { differenceWith } from './differenceWith.js';
 
-test('happy', () => {
-  const foo = [ { a : 1 }, { a : 2 }, { a : 3 } ]
-  const bar = [ { a : 3 }, { a : 4 } ]
-  const fn = function (r, s){
-    return r.a === s.a
-  }
-  const result = differenceWith(
-    fn, foo, bar
-  )
-  expect(result).toEqual([ { a : 1 }, { a : 2 } ])
-})
+const fn = (a, b) => a.x === b.x;
+
+test('same length of list', () => {
+	const result = differenceWith(fn, [{ x: 1 }, { x: 2 }], [{ x: 1 }, { x: 3 }]);
+	expect(result).toEqual([{ x: 2 }]);
+});
+
+test('different length of list', () => {
+	const foo = [{ x: 1 }, { x: 2 }, { x: 3 }];
+	const bar = [{ x: 3 }, { x: 4 }];
+	const result = differenceWith(fn, foo, bar);
+	expect(result).toEqual([{ x: 1 }, { x: 2 }]);
+});
 ```
 
 </details>
@@ -10446,7 +10430,7 @@ If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
 
 It will return `undefined`, if such path is not found.
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.path(pathToSearchList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.path('a.b.c.d'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20obj)%2C%0A%20%20R.path(pathToSearchList%2C%20obj)%2C%0A%20%20R.path('a.b.c.d'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10559,10 +10543,12 @@ test('works with string instead of array', () => {
 
 test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })).toBe('yes')
-
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
-
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
+})
+
+test('with number string in between', () => {
+	expect(path(['a','1','b'], {a: [{b: 1}, {b: 2}]})).toBe(2)
 })
 
 test('null is not a valid path', () => {
@@ -17256,6 +17242,14 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.4.2
+
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+
+9.4.1
+
+- Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 
 9.4.0
 
