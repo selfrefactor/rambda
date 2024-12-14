@@ -20,10 +20,12 @@ test('works with string instead of array', () => {
 
 test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })).toBe('yes')
-
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
-
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
+})
+
+test('with number string in between', () => {
+	expect(path(['a','1','b'], {a: [{b: 1}, {b: 2}]})).toBe(2)
 })
 
 test('null is not a valid path', () => {

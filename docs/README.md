@@ -81,6 +81,9 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
+Please note that since path input is turned into array, i.e. if you want `R.path(['a','1', 'b'], {a: {'1': {b: 2}}})` to return `2`, you will have to pass array path, not string path. If you pass `a.1.b`, it will turn path input to `['a', 1, 'b']`.
+The other side effect is in `R.assocPath` and `R.dissocPath`, where inputs such as `['a', '1', 'b']` will be turned into `['a', 1, 'b']`.
+
 ### Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -1920,27 +1923,6 @@ test('difference with ramda - doesn\'t overwrite primitive values with keys in t
   })
 })
 
-test('bug 524', () => {
-  /*
-    https://github.com/selfrefactor/rambda/issues/524
-  */
-  const state = {}
-
-  const withDateLike = assocPathFn(
-    [ 'outerProp', '2020-03-10' ],
-    { prop : 2 },
-    state
-  )
-  const withNumber = assocPathFn(
-    [ 'outerProp,5' ], { prop : 2 }, state
-  )
-
-  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
-  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
-  expect(withDateLike).toEqual(withDateLikeExpected)
-  // expect(withNumber).toEqual(withNumberExpected)
-})
-
 test('adds a key to an empty object', () => {
   expect(assocPathFn(
     [ 'a' ], 1, {}
@@ -3024,7 +3006,7 @@ export function differenceWithFn(
   fn, a, b
 ){
   const willReturn = []
-  const [ first, second ] = a.length > b.length ? [ a, b ] : [ b, a ]
+  const [ first, second ] = a.length >= b.length ? [ a, b ] : [ b, a ]
 
   first.forEach(item => {
     const hasItem = second.some(secondItem => fn(item, secondItem))
@@ -3046,19 +3028,21 @@ export const differenceWith = curry(differenceWithFn)
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { differenceWith } from './differenceWith.js'
+import { differenceWith } from './differenceWith.js';
 
-test('happy', () => {
-  const foo = [ { a : 1 }, { a : 2 }, { a : 3 } ]
-  const bar = [ { a : 3 }, { a : 4 } ]
-  const fn = function (r, s){
-    return r.a === s.a
-  }
-  const result = differenceWith(
-    fn, foo, bar
-  )
-  expect(result).toEqual([ { a : 1 }, { a : 2 } ])
-})
+const fn = (a, b) => a.x === b.x;
+
+test('same length of list', () => {
+	const result = differenceWith(fn, [{ x: 1 }, { x: 2 }], [{ x: 1 }, { x: 3 }]);
+	expect(result).toEqual([{ x: 2 }]);
+});
+
+test('different length of list', () => {
+	const foo = [{ x: 1 }, { x: 2 }, { x: 3 }];
+	const bar = [{ x: 3 }, { x: 4 }];
+	const result = differenceWith(fn, foo, bar);
+	expect(result).toEqual([{ x: 1 }, { x: 2 }]);
+});
 ```
 
 </details>
@@ -10559,10 +10543,12 @@ test('works with string instead of array', () => {
 
 test('path', () => {
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : { baz : 'yes' } } })).toBe('yes')
-
   expect(path([ 'foo', 'bar', 'baz' ])(null)).toBeUndefined()
-
   expect(path([ 'foo', 'bar', 'baz' ])({ foo : { bar : 'baz' } })).toBeUndefined()
+})
+
+test('with number string in between', () => {
+	expect(path(['a','1','b'], {a: [{b: 1}, {b: 2}]})).toBe(2)
 })
 
 test('null is not a valid path', () => {
@@ -17256,6 +17242,14 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+9.4.2
+
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+
+9.4.1
+
+- Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 
 9.4.0
 
