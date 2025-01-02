@@ -2,8 +2,8 @@
 	"name": "rambda",
 	"version": "9.4.1",
 	"scripts": {
-		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build",
-		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x",
+		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
+		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x && yarn create-docsify:x",
 		"build": "yarn build:main && yarn build:web",
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.mjs",
 		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.mjs",
