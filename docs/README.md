@@ -1,4 +1,4 @@
-# Rambda
+# Rambda1111111
 
 `Rambda` is smaller and faster alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
