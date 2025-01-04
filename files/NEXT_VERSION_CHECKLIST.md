@@ -4,6 +4,9 @@ https://github.com/selfrefactor/rambda/discussions/758
 ---
 ABOVE IS DONE
 ---
+let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
+	let instructions = pluck('Instructions' as any, recipes)
+---
 
 https://github.com/ramda/types/pull/127/files
 
