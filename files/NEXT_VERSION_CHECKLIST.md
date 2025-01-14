@@ -2,6 +2,11 @@
 ---
 ABOVE IS DONE
 ---
+  const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
+instead of
+  const filesContent = await mapAsync(readJson, ALL_WORDS_PATHS.inputs)
+
+  
 cneck
   // expect(withNumber).toEqual(withNumberExpected)
 

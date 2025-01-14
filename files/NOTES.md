@@ -20,4 +20,6 @@ test('remeda test', () => {
 ===
 still issue with order of rambda.js
 ===
+https://typehero.dev/explore/medium - ref
+===
 https://emanuelef.github.io/daily-stars-explorer/#/selfrefactor/rambda
