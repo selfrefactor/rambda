@@ -1,3 +1,11 @@
+9.4.2
+
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+
+9.4.1
+
+- Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
+
 9.4.0
 
 - Fix `deno` release

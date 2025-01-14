@@ -7,11 +7,16 @@ instead of
   const filesContent = await mapAsync(readJson, ALL_WORDS_PATHS.inputs)
 
   
+
+https://github.com/ramda/types/pull/127/files
+
 cneck
   // expect(withNumber).toEqual(withNumberExpected)
 
+https://github.com/ramda/ramda/pull/3441/files
+https://github.com/ramda/types/pull/122/files
 
-share about bug with assocpath
+https://github.com/ramda/types/pull/129/files#diff-d9fac8353ad9864266cabb1f64898d7290f9c71bac877858f72feeaef3c55351
 
 update Rambdax and release to now 
 https://github.com/selfrefactor/rambda/pull/744
@@ -38,6 +43,9 @@ release string.fn
       }
     }
   },
+
+
+	https://github.com/ramda/types/pull/110/files
 ---
 
 ## ABOVE IS IN PROGRESS
@@ -89,6 +97,29 @@ chech in to read for examples
 
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
+---
+test('bug 524', () => {
+  /*
+    https://github.com/selfrefactor/rambda/issues/524
+  */
+  const state = {}
+
+  const withDateLike = assocPathFn(
+    [ 'outerProp', '2020-03-10' ],
+    { prop : 2 },
+    state
+  )
+  const withNumber = assocPathFn(
+    [ 'outerProp,5' ], { prop : 2 }, state
+  )
+
+  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
+  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
+  expect(withDateLike).toEqual(withDateLikeExpected)
+  // expect(withNumber).toEqual(withNumberExpected)
+})
+
+assocpath
 ---
 bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
 ---
@@ -160,6 +191,24 @@ export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Om
 export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 ---
+const nestedObject = {
+ *   a: {
+ *     b: {
+ *       c: 1
+ *     }
+ *   },
+ *   d: [2, 3]
+ * };
+ * 
+ * const flattened = flattenObject(nestedObject);
+ * console.log(flattened); 
+ * // Output:
+ * // {
+ * //   'a.b.c': 1,
+ * //   'd.0': 2,
+ * //   'd.1': 3
+ * // }
+---
 
 ## https://github.com/ramda/ramda/issues/3390
 
@@ -190,6 +239,12 @@ https://github.com/toss/es-toolkit/blob/main/src/function/debounce.ts
   return typeof value === 'object' && value !== null && key in value;
   }
 
+---
+https://codescene.io/projects/61343/jobs/3120520/results/code/hotspots/biomarkers?name=rambda-scripts%2Fsrc%2Fpopulate-readme-data%2Fcreate-method-data.ts
+
+https://github.com/marketplace/actions/todo-to-issue
+
+https://app.deepsource.com/gh/selfrefactor
 ---
 
 ## https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
