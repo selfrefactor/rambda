@@ -81,9 +81,6 @@ In **Rambda** you have the choice to use dot notation(which is arguably more rea
 R.path('a.b', {a: {b: 1} })
 ```
 
-Please note that since path input is turned into array, i.e. if you want `R.path(['a','1', 'b'], {a: {'1': {b: 2}}})` to return `2`, you will have to pass array path, not string path. If you pass `a.1.b`, it will turn path input to `['a', 1, 'b']`.
-The other side effect is in `R.assocPath` and `R.dissocPath`, where inputs such as `['a', '1', 'b']` will be turned into `['a', 1, 'b']`.
-
 ### Comma notation for `R.pick` and `R.omit`
 
 Similar to dot notation, but the separator is comma(`,`) instead of dot(`.`).
@@ -15415,10 +15412,7 @@ const result = [
 ```typescript
 take<T>(howMany: number, input: T[]): T[];
 take(howMany: number, input: string): string;
-take<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+take<T>(howMany: number) : (input: T[]) => T[];
 ```
 
 </details>
@@ -15546,10 +15540,7 @@ const result = [
 ```typescript
 takeLast<T>(howMany: number, input: T[]): T[];
 takeLast(howMany: number, input: string): string;
-takeLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+takeLast<T>(howMany: number) : (input: T[]) => T[];
 ```
 
 </details>
@@ -15620,7 +15611,7 @@ test('with negative index', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {takeLast} from 'rambda'
+import {filter, piped, takeLast} from 'rambda'
 
 const list = [1, 2, 3, 4]
 const str = 'foobar'
@@ -15637,6 +15628,17 @@ describe('R.takeLast - array', () => {
 
     result // $ExpectType number[]
   })
+	it('real case', () => {
+		let data = ['foo']
+		let result = piped(
+			data,
+			filter(
+				x => x.length >= 100
+			),
+			takeLast(5),
+		)
+		result // $ExpectType string[]
+	})
 })
 
 describe('R.takeLast - string', () => {
@@ -18552,14 +18554,6 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
-
-9.4.2
-
-- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
-
-9.4.1
-
-- Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 
 9.4.0
 

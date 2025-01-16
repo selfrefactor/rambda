@@ -1644,20 +1644,14 @@ export function tail(input: string): string;
  */
 export function take<T>(howMany: number, input: readonly T[]): readonly T[];
 export function take(howMany: number, input: string): string;
-export function take<T>(howMany: number): {
-  <T>(input: readonly T[]): readonly T[];
-  (input: string): string;
-};
+export function take<T>(howMany: number) : (input: readonly T[]) => readonly T[];
 
 /**
  * It returns the last `howMany` elements of `input`.
  */
 export function takeLast<T>(howMany: number, input: readonly T[]): readonly T[];
 export function takeLast(howMany: number, input: string): string;
-export function takeLast<T>(howMany: number): {
-  <T>(input: readonly T[]): readonly T[];
-  (input: string): string;
-};
+export function takeLast<T>(howMany: number) : (input: readonly T[]) => readonly T[];
 
 export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
