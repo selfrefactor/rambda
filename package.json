@@ -1,6 +1,6 @@
 {
 	"name": "rambda",
-	"version": "9.4.1",
+	"version": "9.4.2",
 	"scripts": {
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
 		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x && yarn create-docsify:x",
