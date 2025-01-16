@@ -11,7 +11,7 @@ describe('R.take - array', () => {
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = take(howMany)(list)
+    const result = take<number[]>(howMany)(list)
 
     result // $ExpectType number[]
   })
@@ -24,7 +24,7 @@ describe('R.take - string', () => {
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = take(howMany)(str)
+    const result = take<string>(howMany)(str)
 
     result // $ExpectType string
   })

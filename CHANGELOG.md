@@ -1,8 +1,23 @@
-9.4.2
+9.4.2 
 
-- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+- Fix TS issue when `R.take` is used as part of `R.pipe`.
+
+Moving away from `Ramda` types which are problematic in this case:
+
+```typescript
+const data = ['foo', 'bar', 'baz', 'qux']
+const result = piped(
+	data,
+	filter(
+		x => x.length >= 2
+	),
+	takeLast(2),
+)
+```
 
 9.4.1
+
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
 
 - Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 

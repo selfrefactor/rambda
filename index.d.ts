@@ -1642,16 +1642,14 @@ export function tail(input: string): string;
 /**
  * It returns the first `howMany` elements of `input`.
  */
-export function take<T>(howMany: number, input: T[]): T[];
-export function take(howMany: number, input: string): string;
-export function take<T>(howMany: number) : (input: T[]) => T[];
+export function take<T>(howMany: number, input: T): T extends string ? string : T;
+export function take<T>(howMany: number) : (input: T) => T extends string ? string : T;
 
 /**
  * It returns the last `howMany` elements of `input`.
  */
-export function takeLast<T>(howMany: number, input: T[]): T[];
-export function takeLast(howMany: number, input: string): string;
-export function takeLast<T>(howMany: number) : (input: T[]) => T[];
+export function takeLast<T>(howMany: number, input: T): T extends string ? string : T;
+export function takeLast<T>(howMany: number) : (input: T) => T extends string ? string : T;
 
 export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;

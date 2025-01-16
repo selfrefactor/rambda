@@ -11,18 +11,18 @@ describe('R.takeLast - array', () => {
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = takeLast(howMany)(list)
+    const result = takeLast<number[]>(howMany)(list)
 
     result // $ExpectType number[]
   })
 	it('real case', () => {
-		let data = ['foo']
-		let result = piped(
+		const data = ['foo', 'bar', 'baz', 'qux']
+		const result = piped(
 			data,
 			filter(
 				x => x.length >= 100
 			),
-			takeLast(5),
+			takeLast(2),
 		)
 		result // $ExpectType string[]
 	})
@@ -35,7 +35,7 @@ describe('R.takeLast - string', () => {
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = takeLast(howMany)(str)
+    const result = takeLast<string>(howMany)(str)
 
     result // $ExpectType string
   })
