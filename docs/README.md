@@ -1,4 +1,4 @@
-# Rambda1111111
+# Rambda
 
 `Rambda` is smaller and faster alternative to the popular functional programming library **Ramda**. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
@@ -25034,10 +25034,7 @@ const result = [
 ```typescript
 take<T>(howMany: number, input: T[]): T[];
 take(howMany: number, input: string): string;
-take<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+take<T>(howMany: number) : (input: T[]) => T[];
 ```
 
 </details>
@@ -25165,10 +25162,7 @@ const result = [
 ```typescript
 takeLast<T>(howMany: number, input: T[]): T[];
 takeLast(howMany: number, input: string): string;
-takeLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+takeLast<T>(howMany: number) : (input: T[]) => T[];
 ```
 
 </details>
@@ -25239,7 +25233,7 @@ test('with negative index', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {takeLast} from 'rambda'
+import {filter, piped, takeLast} from 'rambda'
 
 const list = [1, 2, 3, 4]
 const str = 'foobar'
@@ -25256,6 +25250,17 @@ describe('R.takeLast - array', () => {
 
     result // $ExpectType number[]
   })
+	it('real case', () => {
+		let data = ['foo']
+		let result = piped(
+			data,
+			filter(
+				x => x.length >= 100
+			),
+			takeLast(5),
+		)
+		result // $ExpectType string[]
+	})
 })
 
 describe('R.takeLast - string', () => {
