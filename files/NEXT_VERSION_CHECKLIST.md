@@ -6,9 +6,17 @@ https://github.com/selfrefactor/rambda/discussions/758
 ---
 ABOVE IS DONE
 ---
+<<<<<<< HEAD
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
 ---
+=======
+  const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
+instead of
+  const filesContent = await mapAsync(readJson, ALL_WORDS_PATHS.inputs)
+
+  
+>>>>>>> 739ccb81d2a6d1db5b7c0bba6a705e291f2a6d45
 
 https://github.com/ramda/types/pull/127/files
 
