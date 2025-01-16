@@ -1,6 +1,20 @@
+takelast
+
+https://github.com/selfrefactor/rambda/discussions/758
+
 
 ---
 ABOVE IS DONE
+---
+Need to install the following packages:
+docsify-cli@4.4.4
+Ok to proceed? (y) 
+---
+let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
+	let instructions = pluck('Instructions' as any, recipes)
+---
+  console.log
+    Size - 0.454681MB
 ---
   const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
 instead of
@@ -122,6 +136,16 @@ test('bug 524', () => {
 assocpath
 ---
 bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
+---
+R.path with string path - check typehero notes
+---
+let result = piped(
+		input,
+		split(`\n`),
+		map(trim),
+		filter(x => Boolean(x)),
+
+why cannot filter(boolean) be used		
 ---
 
 export const getTestData = <K extends keyof TestData>(key: K) => {

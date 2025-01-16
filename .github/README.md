@@ -15391,7 +15391,7 @@ describe('R.tail', () => {
 
 ```typescript
 
-take<T>(howMany: number, input: T[]): T[]
+take<T>(howMany: number, input: T): T extends string ? string : T
 ```
 
 It returns the first `howMany` elements of `input`.
@@ -15413,12 +15413,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-take<T>(howMany: number, input: T[]): T[];
-take(howMany: number, input: string): string;
-take<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+take<T>(howMany: number, input: T): T extends string ? string : T;
+take<T>(howMany: number) : (input: T) => T extends string ? string : T;
 ```
 
 </details>
@@ -15494,7 +15490,7 @@ describe('R.take - array', () => {
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = take(howMany)(list)
+    const result = take<number[]>(howMany)(list)
 
     result // $ExpectType number[]
   })
@@ -15507,7 +15503,7 @@ describe('R.take - string', () => {
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = take(howMany)(str)
+    const result = take<string>(howMany)(str)
 
     result // $ExpectType string
   })
@@ -15522,7 +15518,7 @@ describe('R.take - string', () => {
 
 ```typescript
 
-takeLast<T>(howMany: number, input: T[]): T[]
+takeLast<T>(howMany: number, input: T): T extends string ? string : T
 ```
 
 It returns the last `howMany` elements of `input`.
@@ -15544,12 +15540,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-takeLast<T>(howMany: number, input: T[]): T[];
-takeLast(howMany: number, input: string): string;
-takeLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+takeLast<T>(howMany: number, input: T): T extends string ? string : T;
+takeLast<T>(howMany: number) : (input: T) => T extends string ? string : T;
 ```
 
 </details>
@@ -15620,7 +15612,7 @@ test('with negative index', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {takeLast} from 'rambda'
+import {filter, piped, takeLast} from 'rambda'
 
 const list = [1, 2, 3, 4]
 const str = 'foobar'
@@ -15633,10 +15625,21 @@ describe('R.takeLast - array', () => {
     result // $ExpectType number[]
   })
   it('curried', () => {
-    const result = takeLast(howMany)(list)
+    const result = takeLast<number[]>(howMany)(list)
 
     result // $ExpectType number[]
   })
+	it('real case', () => {
+		const data = ['foo', 'bar', 'baz', 'qux']
+		const result = piped(
+			data,
+			filter(
+				x => x.length >= 100
+			),
+			takeLast(2),
+		)
+		result // $ExpectType string[]
+	})
 })
 
 describe('R.takeLast - string', () => {
@@ -15646,7 +15649,7 @@ describe('R.takeLast - string', () => {
     result // $ExpectType string
   })
   it('curried', () => {
-    const result = takeLast(howMany)(str)
+    const result = takeLast<string>(howMany)(str)
 
     result // $ExpectType string
   })
@@ -18553,11 +18556,26 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-9.4.2
+9.4.2 
 
-- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+- Fix TS issue when `R.take` is used as part of `R.pipe`.
+
+Moving away from `Ramda` types which are problematic in this case:
+
+```typescript
+const data = ['foo', 'bar', 'baz', 'qux']
+const result = piped(
+	data,
+	filter(
+		x => x.length >= 2
+	),
+	takeLast(2),
+)
+```
 
 9.4.1
+
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
 
 - Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 

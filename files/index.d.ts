@@ -4003,12 +4003,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(howMany: number, input: T[]): T[];
-export function take(howMany: number, input: string): string;
-export function take<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+export function take<T>(howMany: number, input: T): T extends string ? string : T;
+export function take<T>(howMany: number) : (input: T) => T extends string ? string : T;
 
 /*
 Method: takeLast
@@ -4033,12 +4029,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(howMany: number, input: T[]): T[];
-export function takeLast(howMany: number, input: string): string;
-export function takeLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
-  (input: string): string;
-};
+export function takeLast<T>(howMany: number, input: T): T extends string ? string : T;
+export function takeLast<T>(howMany: number) : (input: T) => T extends string ? string : T;
 
 /*
 Method: tap
