@@ -6,17 +6,21 @@ https://github.com/selfrefactor/rambda/discussions/758
 ---
 ABOVE IS DONE
 ---
-<<<<<<< HEAD
+Need to install the following packages:
+docsify-cli@4.4.4
+Ok to proceed? (y) 
+---
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
 ---
-=======
+  console.log
+    Size - 0.454681MB
+---
   const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
 instead of
   const filesContent = await mapAsync(readJson, ALL_WORDS_PATHS.inputs)
 
   
->>>>>>> 739ccb81d2a6d1db5b7c0bba6a705e291f2a6d45
 
 https://github.com/ramda/types/pull/127/files
 
