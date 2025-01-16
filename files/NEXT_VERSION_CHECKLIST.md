@@ -1,5 +1,7 @@
+takelast
 
 https://github.com/selfrefactor/rambda/discussions/758
+
 
 ---
 ABOVE IS DONE
@@ -122,6 +124,16 @@ test('bug 524', () => {
 assocpath
 ---
 bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
+---
+R.path with string path - check typehero notes
+---
+let result = piped(
+		input,
+		split(`\n`),
+		map(trim),
+		filter(x => Boolean(x)),
+
+why cannot filter(boolean) be used		
 ---
 
 export const getTestData = <K extends keyof TestData>(key: K) => {
