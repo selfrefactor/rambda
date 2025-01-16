@@ -3,22 +3,18 @@
 	"version": "9.4.2",
 	"scripts": {
 		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
-		"x": "yarn populatedocs:x && yarn populatereadme:x && yarn immutable:x && yarn create-docsify:x",
+		"x": "cd ../rambda-scripts && yarn x",
 		"build": "yarn build:main && yarn build:web",
 		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.mjs",
 		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.mjs",
 		"immutable": "cd ../rambda-scripts && yarn immutable:rambda",
-		"immutable:x": "cd ../rambda-scripts && yarn immutable:rambdax",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
-		"populatedocs:x": "cd ../rambda-scripts && yarn populate:docs:rambdax",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-		"populatereadme:x": "cd ../rambda-scripts && yarn populate:readme:rambdax",
 		"test": "jest -o -u --watch",
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"create-docsify": "cd ../rambda-scripts && yarn create-docsify",
-		"create-docsify:x": "cd ../rambda-scripts && yarn create-docsify:rambdax",
 		"ts": "yarn test:typings"
 	},
 	"depFn": [
