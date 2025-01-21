@@ -1,10 +1,15 @@
-takelast
-
+ABOVE IS DONE
 https://github.com/selfrefactor/rambda/discussions/758
 
-
+export function splitEvery(sliceLength: number): {
+  (input: string): string[];
+  <T>(input: T[]): (T[])[];
+};
 ---
-ABOVE IS DONE
+no example usage
+sortWith
+
+Try this R.sortWith example in Rambda REPL
 ---
 Need to install the following packages:
 docsify-cli@4.4.4
