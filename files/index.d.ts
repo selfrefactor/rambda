@@ -493,7 +493,7 @@ const result = R.assocPath(path, newValue, obj)
 
 Categories: Object
 
-Notes:
+Notes: pipe
 
 */
 // @SINGLE_MARKER
@@ -7278,6 +7278,9 @@ export function piped<A, B, C, D, E, F>(input: A, fn0: (x: A) => B, fn1: (x: B) 
 export function piped<A, B, C, D, E, F, G>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G) : G;
 export function piped<A, B, C, D, E, F, G, H>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H) : H;
 export function piped<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I) : I;
+export function piped<A, B, C, D, E, F, G, H, I, J>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J) : J;
+export function piped<A, B, C, D, E, F, G, H, I, J, K>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K) : K;
+export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L) : L;
 
 /*
 Method: pipedAsync
