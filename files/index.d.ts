@@ -412,10 +412,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(xToAppend: T, iterable: T[]): T[];
-export function append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
-export function append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
-export function append<T>(xToAppend: T): (iterable: T[]) => T[];
+export function append<T>(value: T, iterable: T[]): T[];
+export function append<T, U>(value: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
+export function append<T>(value: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
+export function append<T>(value: T): (iterable: T[]) => T[];
 
 /*
 Method: applySpec
@@ -497,9 +497,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function assocPath<Output>(path: Path, newValue: any, obj: object): Output;
-export function assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
-export function assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
+export function assocPath<T, U>(path: Path, val: unknown): (obj: T) => T & U;
+export function assocPath<U>(path: Path, val: unknown): (obj: unknown) => U;
+export function assocPath<T, U>(path: Path, val: T, obj: U): U;
 
 /*
 Method: both
@@ -525,10 +525,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function both(pred1: Pred, pred2: Pred): Pred;
-export function both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
-export function both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
-export function both(pred1: Pred): (pred2: Pred) => Pred;
+export function both<T, RT1 extends T>(f: (a: T) => a is RT1): <RT2 extends T>(g: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
+export function both<Args extends any[]>(f: (...args: Args) => boolean): (g: (...args: Args) => boolean) => (...args: Args) => boolean;
+// both(f, g) => (x: T) => boolean
+export function both<T, RT1 extends T, RT2 extends T>(f: (a: T) => a is RT1, g: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
+export function both<Args extends any[]>(f: (...args: Args) => boolean, g: (...args: Args) => boolean): (...args: Args) => boolean;
+
+// export function both(firstPredicate: Pred, secondPredicate: Pred): Pred;
+// export function both<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
+// export function both<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
+// export function both(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
 
 /*
 Method: chain
