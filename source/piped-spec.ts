@@ -6,6 +6,14 @@ function assertType<T>(input: Partial<T>): T {
 type IsNotNever<T> = [T] extends [never] ? false : true;
 export type Expect<T extends true> = T
 
+function check<T, U>(predicate: (x: T) => boolean, fallback : T) : (input: T) => T{
+	return input => {
+		if(predicate(input)){
+			return input
+		}
+		return fallback
+	}
+}
 
 
 describe('real use cases', () => {
@@ -40,6 +48,14 @@ describe('real use cases', () => {
 				e: 4
 			}
 		}
+		let baz: AfterAssocPath = {
+			a: 'baz',
+			b: 1,
+			c: 1,
+			d: {
+				e: 1
+			}
+		}
 		const result = piped(
 			input,
 			assoc('c', 3),
@@ -51,10 +67,9 @@ describe('real use cases', () => {
 			defaultTo(
 				foo
 			),
-			// both(x => x.b > 1, x => x.b < 11),
+			check(both(x => x.b > 1, x => x.b < 11),baz),
 			x => ([x]),
 			difference([bar]),
-			// x => x as unknown as AfterAssocPath,
 		)
 		type Foo = Expect<IsNotNever<typeof result>>
 	})

@@ -662,10 +662,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
   ...func: [
       fnLast: (a: any) => TResult,
       ...func: Array<(a: any) => any>,
+      f12: (a: R11) => R12,
+      f11: (a: R10) => R11,
+      f10: (a: R9) => R10,
+      f9: (a: R8) => R9,
+      f8: (a: R7) => R8,
       f7: (a: R6) => R7,
       f6: (a: R5) => R6,
       f5: (a: R4) => R5,
@@ -675,7 +680,12 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
       f1: (...args: TArgs) => R1
   ]
 ): (...args: TArgs) => TResult;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
+  f12: (a: R11) => R12,
+  f11: (a: R10) => R11,
+  f10: (a: R9) => R10,
+  f9: (a: R8) => R9,
+  f8: (a: R7) => R8,
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
   f5: (a: R4) => R5,
@@ -683,7 +693,67 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
   f1: (...args: TArgs) => R1
-): (...args: TArgs) => R7;
+): (...args: TArgs) => R12;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(
+  f12: (a: R11) => R12,
+  f11: (a: R10) => R11,
+  f10: (a: R9) => R10,
+  f9: (a: R8) => R9,
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R12;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11>(
+  f11: (a: R10) => R11,
+  f10: (a: R9) => R10,
+  f9: (a: R8) => R9,
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R11;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
+  f10: (a: R9) => R10,
+  f9: (a: R8) => R9,
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R10;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
+  f9: (a: R8) => R9,
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R9;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R8;
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
@@ -3193,6 +3263,7 @@ export function pickAll<T, U>(propsToPicks: string[], input: T): U;
 export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
 export function pickAll<T, U>(propsToPick: string, input: T): U;
 export function pickAll<T, U>(propsToPick: string): (input: T) => U;
+
 /*
 Method: pipe
 
@@ -3215,7 +3286,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
   ...funcs: [
       f1: (...args: TArgs) => R1,
       f2: (a: R1) => R2,
@@ -3224,10 +3295,75 @@ export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
       f5: (a: R4) => R5,
       f6: (a: R5) => R6,
       f7: (a: R6) => R7,
+      f8: (a: R7) => R8,
+      f9: (a: R8) => R9,
+      f10: (a: R9) => R10,
+      f11: (a: R10) => R11,
+      f12: (a: R11) => R12,
       ...func: Array<(a: any) => any>,
       fnLast: (a: any) => TResult
   ]
-): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+): (...args: TArgs) => TResult;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12
+): (...args: TArgs) => R12;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11
+): (...args: TArgs) => R11;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10
+): (...args: TArgs) => R10;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9
+): (...args: TArgs) => R9;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8
+): (...args: TArgs) => R8;
 export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
@@ -6458,7 +6594,7 @@ export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
       ...func: Array<(a: any) => any>,
       fnLast: (a: any) => TResult
   ]
-): (a: TArg | Promise<TArg>) => TResult;  // fallback overload if number of piped functions greater than 7
+): (a: TArg | Promise<TArg>) => TResult;
 export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
   f1: (a: Awaited<TArg>) => R1,
   f2: (a: Awaited<R1>) => R2,
@@ -7279,6 +7415,7 @@ export function piped<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: A) => B, fn1
 export function piped<A, B, C, D, E, F, G, H, I, J>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J) : J;
 export function piped<A, B, C, D, E, F, G, H, I, J, K>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K) : K;
 export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L) : L;
+export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M) : M;
 
 /*
 Method: pipedAsync
