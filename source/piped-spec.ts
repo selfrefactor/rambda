@@ -1,5 +1,5 @@
-import {applySpec, assoc, assocPath, both, piped, tap} from 'rambda'
-
+import {always, applySpec, assoc, assocPath, both, cond, defaultTo, difference, piped, T, tap} from 'rambda'
+// import {defaultTo} from 'ramda'
 
 describe('real use cases', () => {
 	it('assoc', () => {
@@ -20,17 +20,33 @@ describe('real use cases', () => {
 		const result = piped(
 			input,
 			assoc('c', 3),
-			// tap(x => {
-			// 	x.a // $ExpectType string
-			// 	x.c // $ExpectType number
-			// }),
+			tap(x => {
+				x.a // $ExpectType string
+				x.c // $ExpectType number
+			}),
 			assocPath<AfterAssocPath>('d.e', 4),
-			// tap(x => {
-			// 	x.a // $ExpectType string
-			// 	x.c // $ExpectType number
-			// 	x.d
-			// })
-			both(x => x.b > 1, x => x.b < 11)
+			// x => x,
+			defaultTo(
+				{
+					a: 'bar',
+					b: 2,
+					c: 3,
+					d: {
+						e: 4
+					}
+				}
+			),
+			// x => ([x]),
+			// difference([{
+			// 	// a: 'bar',
+			// 	b: 2,
+			// 	c: 3,
+			// 	d: {
+			// 		e: 4
+			// 	}
+			// }]),
+			// both(x => x.b > 1, x => x.b < 11),
+			// x => x as unknown as AfterAssocPath,
 		)
 	})
 })

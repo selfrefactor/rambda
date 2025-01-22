@@ -172,6 +172,10 @@ export type ApplyDiffAdd = {op:'add', path: string, value: any};
 export type ApplyDiffRemove = {op:'remove', path: string};
 export type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
 
+export type EqualTypes<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false
+
 // API_MARKER
 
 /*
@@ -791,7 +795,7 @@ export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (..
 /*
 Method: converge
 
-Explanation: Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
+Explanation: Combines a converging function with multiple branching functions into a new function. When called, it applies the branching functions to the arguments and uses their results as inputs to the converging function to produce the final result.
 
 Example:
 
@@ -802,7 +806,7 @@ const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
 
 Categories: Logic
 
-Notes: Explanation is taken from `Ramda` documentation
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -889,12 +893,12 @@ R.defaultTo('foo', '') // => 'foo'
 
 Categories: Logic
 
-Notes: Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+Notes: pipe | Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 */
 // @SINGLE_MARKER
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
-export function defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
+export function defaultTo<T extends unknown>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T[] : never
 
 /*
 Method: difference
@@ -920,7 +924,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function difference<T>(a: T[], b: T[]): T[];
-export function difference<T>(a: T[]): (b: T[]) => T[];
+export function difference<T>(a: T[]): <U>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never
 
 /*
 Method: dissoc
