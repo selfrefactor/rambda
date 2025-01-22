@@ -2,6 +2,10 @@ const assert = require('assert')
 import { eq } from './_internals/testUtils.js'
 import { dissocPath } from './dissocPath.js'
 
+test('simple example', () => {
+	expect(dissocPath(['foo', 'bar'],{a: 1, foo: {bar: 2}})).toEqual({a: 1, foo: {}})
+})
+
 const testInput = {
   a : {
     b : 1,
@@ -174,7 +178,6 @@ test('support remove null/undefined value path', () => {
   const obj2 = dissocPath([ 'c', 'd' ], obj1)
 
   eq(obj2, obj1)
-
   // NOTE: commented out on purpose
   // assert.notStrictEqual(obj2, obj1)
 })

@@ -3,6 +3,13 @@ export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | 
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 
+export type DebugType<T> = { [K in keyof T]: T[K] }
+export type MergeType<T> =
+  T extends object
+    ? { [K in keyof T]: MergeTypes<T[K]> }
+    : T
+
+
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
@@ -484,9 +491,8 @@ Notes: pipe
 
 */
 // @SINGLE_MARKER
-export function assocPath<T, U>(path: Path, val: unknown): (obj: T) => T & U;
-export function assocPath<U>(path: Path, val: unknown): (obj: unknown) => U;
-export function assocPath<T, U>(path: Path, val: T, obj: U): U;
+export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
+export function assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 
 /*
 Method: both
@@ -993,6 +999,27 @@ Notes:
 // @SINGLE_MARKER
 export function dissoc<K extends PropertyKey>(prop: K): <U extends { [P in K]?: any}>(obj: string extends keyof U ? U : undefined extends U[K] ? U : never) => U;
 export function dissoc<U, K extends keyof U>(prop: string extends keyof U ? K : undefined extends U[K] ? K : never, obj: U): U;
+
+/*
+Method: dissocPath
+
+Explanation:
+
+Example:
+
+```
+const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
+// => {a: {c: 2}}
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function dissocPath<T>(path: Path): (obj: unknown) => T;
+export function dissocPath<T>(path: Path, obj: unknown): T;
 
 /*
 Method: divide
@@ -5830,27 +5857,6 @@ export function composeWith(
 ) => (...args: TArgs) => TResult;
 
 /*
-Method: dissocPath
-
-Explanation:
-
-Example:
-
-```
-const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
-// => {a: {c: 2}}
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function dissocPath<T>(path: Path, obj: any): T;
-export function dissocPath<T>(path: Path): (obj: any) => T;
-
-/*
 Method: removeIndex
 
 Explanation: It returns a copy of `list` input with removed `index`. 
@@ -7406,27 +7412,6 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T, fn19: (x: T) => U, fn20: (x: U) => V) : V;
 export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T, fn19: (x: T) => U, fn20: (x: U) => V, fn21: (x: V) => W) : W;
 export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T, fn19: (x: T) => U, fn20: (x: U) => V, fn21: (x: V) => W, fn22: (x: W) => X) : X;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (export function piped<A, B>(input: A, fn0: (x: A) => B) : B;
-export function piped<A, B, C>(input: A, fn0: (x: A) => B, fn1: (x: B) => C) : C;
-export function piped<A, B, C, D>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D) : D;
-export function piped<A, B, C, D, E>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E) : E;
-export function piped<A, B, C, D, E, F>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F) : F;
-export function piped<A, B, C, D, E, F, G>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G) : G;
-export function piped<A, B, C, D, E, F, G, H>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H) : H;
-export function piped<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I) : I;
-export function piped<A, B, C, D, E, F, G, H, I, J>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J) : J;
-export function piped<A, B, C, D, E, F, G, H, I, J, K>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K) : K;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L) : L;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M) : M;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N) : N;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O) : O;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P) : P;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q) : Q;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R) : R;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S) : S;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T) : T;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T, fn19: (x: T) => U) : U;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V>(input: A, fn0: (x: A) => B, fn1: (x: B) => C, fn2: (x: C) => D, fn3: (x: D) => E, fn4: (x: E) => F, fn5: (x: F) => G, fn6: (x: G) => H, fn7: (x: H) => I, fn8: (x: I) => J, fn9: (x: J) => K, fn10: (x: K) => L, fn11: (x: L) => M, fn12: (x: M) => N, fn13: (x: N) => O, fn14: (x: O) => P, fn15: (x: P) => Q, fn16: (x: Q) => R, fn17: (x: R) => S, fn18: (x: S) => T, fn19: (x: T) => U, fn20: (x: U) => V) : V;
 
 /*
 Method: pipedAsync

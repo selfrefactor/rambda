@@ -1,5 +1,8 @@
 - Optimize many methods to better work in TS context with R.pipe/R.compose. The focus was passing objects through the pipe/compose chain.
 
+- head/last - empty array as input will return `undefined`, but `never`
+- assocPath - stop supporting curring of type `(x)(y)(z)`.
+
 ABOVE IS DONE
 ===
 
