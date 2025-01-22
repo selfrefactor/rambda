@@ -1,5 +1,12 @@
-import {always, applySpec, assoc, assocPath, both, cond, defaultTo, difference, piped, T, tap} from 'rambda'
+import {always, applySpec, assoc, assocPath, both, cond, defaultTo, difference, EqualTypes, piped, T, tap} from 'rambda'
 // import {defaultTo} from 'ramda'
+function assertType<T>(input: Partial<T>): T {
+  return input as T
+}
+type IsNotNever<T> = [T] extends [never] ? false : true;
+export type Expect<T extends true> = T
+
+
 
 describe('real use cases', () => {
 	it('assoc', () => {
@@ -17,6 +24,22 @@ describe('real use cases', () => {
 				e: number
 			}
 		}
+		let foo: AfterAssocPath = {
+			a: 'foo',
+			b: 2,
+			c: 3,
+			d: {
+				e: 4
+			}
+		}
+		let bar: AfterAssocPath = {
+			a: 'bar',
+			b: 2,
+			c: 3,
+			d: {
+				e: 4
+			}
+		}
 		const result = piped(
 			input,
 			assoc('c', 3),
@@ -25,29 +48,15 @@ describe('real use cases', () => {
 				x.c // $ExpectType number
 			}),
 			assocPath<AfterAssocPath>('d.e', 4),
-			// x => x,
 			defaultTo(
-				{
-					a: 'bar',
-					b: 2,
-					c: 3,
-					d: {
-						e: 4
-					}
-				}
+				foo
 			),
-			// x => ([x]),
-			// difference([{
-			// 	// a: 'bar',
-			// 	b: 2,
-			// 	c: 3,
-			// 	d: {
-			// 		e: 4
-			// 	}
-			// }]),
 			// both(x => x.b > 1, x => x.b < 11),
+			x => ([x]),
+			difference([bar]),
 			// x => x as unknown as AfterAssocPath,
 		)
+		type Foo = Expect<IsNotNever<typeof result>>
 	})
 })
 

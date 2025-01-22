@@ -1,4 +1,13 @@
+- Optimize many methods to better work in TS context with R.pipe/R.compose. The focus was passing objects through the pipe/compose chain.
+
 ABOVE IS DONE
+===
+
+need further check:
+
+- chain
+===
+
 https://github.com/selfrefactor/rambda/discussions/758
 
 export function splitEvery(sliceLength: number): {

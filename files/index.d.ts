@@ -529,16 +529,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function both<T, RT1 extends T>(f: (a: T) => a is RT1): <RT2 extends T>(g: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
-export function both<Args extends any[]>(f: (...args: Args) => boolean): (g: (...args: Args) => boolean) => (...args: Args) => boolean;
-// both(f, g) => (x: T) => boolean
-export function both<T, RT1 extends T, RT2 extends T>(f: (a: T) => a is RT1, g: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
-export function both<Args extends any[]>(f: (...args: Args) => boolean, g: (...args: Args) => boolean): (...args: Args) => boolean;
-
-// export function both(firstPredicate: Pred, secondPredicate: Pred): Pred;
-// export function both<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
-// export function both<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
-// export function both(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+export function both<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
+export function both<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
+export function both<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
+export function both<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
 
 /*
 Method: chain
@@ -898,7 +892,7 @@ Notes: pipe | Rambda's **defaultTo** accept indefinite number of arguments when 
 */
 // @SINGLE_MARKER
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
-export function defaultTo<T extends unknown>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T[] : never
+export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
 
 /*
 Method: difference
@@ -924,7 +918,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function difference<T>(a: T[], b: T[]): T[];
-export function difference<T>(a: T[]): <U>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never
+export function difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never
 
 /*
 Method: dissoc
