@@ -3,6 +3,19 @@ export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | 
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 
+type LastArrayElement<Elements extends readonly unknown[], ElementBeforeTailingSpreadElement = never> =
+Elements extends readonly []
+	? ElementBeforeTailingSpreadElement
+	: Elements extends readonly [...infer U, infer V]
+		? V
+		: Elements extends readonly [infer U, ...infer V]
+			// If we return `V[number] | U` directly, it would be wrong for `[[string, boolean, object, ...number[]]`.
+			// So we need to recurse type `V` and carry over the type of the element before the spread element.
+			? LastArrayElement<V, U>
+			: Elements extends ReadonlyArray<infer U>
+				? U | ElementBeforeTailingSpreadElement
+				: never;
+
 export type DebugType<T> = { [K in keyof T]: T[K] }
 export type MergeType<T> =
   T extends object
@@ -1568,10 +1581,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(listOrString: T):  T extends string
-	? T extends `${infer F}` ? string : undefined 
-	: T extends unknown[] ? T[number]
-	: T extends readonly unknown[] ? T[number] : undefined;
+export function head<T>(listOrString: T): T extends string ? string : T extends []
+? undefined
+: T extends readonly [unknown, ...Array<unknown>]
+	? T[0]
+	: T extends readonly [...infer Pre, infer Last]
+		? Last | Pre[0]
+		: T[0] | undefined;
 
 /*
 Method: identical
@@ -1976,10 +1992,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last<T>(listOrString: T):  T extends string
-	? T extends `${infer F}` ? string : undefined 
-	: T extends unknown[] ? T[number]
-	: T extends readonly unknown[] ? T[number] : undefined;
+export function last<T>(listOrString: T): T extends string ? string : T extends []
+? undefined : T extends readonly [...infer Pre, infer Last]
+		? Last : T extends readonly [infer Last]
+			? Last : T extends [...infer Pre, infer Last] ? Last : T extends [infer Last] ? Last : T extends unknown[] ? T[number] | undefined : never;
 
 /*
 Method: lastIndexOf

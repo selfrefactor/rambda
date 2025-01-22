@@ -15,8 +15,8 @@ describe('R.head', () => {
     last(string) // $ExpectType string
   })
   it('empty string', () => {
-    head(emptyString) // $ExpectType undefined
-    last(emptyString) // $ExpectType undefined
+    head(emptyString) // $ExpectType string
+    last(emptyString) // $ExpectType string
   })
   it('array', () => {
     head(numberList) // $ExpectType number

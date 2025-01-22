@@ -15,7 +15,7 @@
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"create-docsify": "cd ../rambda-scripts && yarn create-docsify",
-		"ts": "yarn test:typings"
+		"ts": "yarn test:typings > ts.log"
 	},
 	"depFn": [
 		"@definitelytyped/dtslint"
