@@ -3357,7 +3357,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, TResult>(
   ...funcs: [
       f1: (...args: TArgs) => R1,
       f2: (a: R1) => R2,
@@ -3371,10 +3371,166 @@ export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R1
       f10: (a: R9) => R10,
       f11: (a: R10) => R11,
       f12: (a: R11) => R12,
+      f13: (a: R12) => R13,
+      f14: (a: R13) => R14,
+      f15: (a: R14) => R15,
+      f16: (a: R15) => R16,
+      f17: (a: R16) => R17,
+      f18: (a: R17) => R18,
+      f19: (a: R18) => R19,
+      f20: (a: R19) => R20,
       ...func: Array<(a: any) => any>,
       fnLast: (a: any) => TResult
   ]
 ): (...args: TArgs) => TResult;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15,
+  f16: (a: R15) => R16,
+  f17: (a: R16) => R17,
+  f18: (a: R17) => R18,
+  f19: (a: R18) => R19,
+  f20: (a: R19) => R20
+): (...args: TArgs) => R20;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15,
+  f16: (a: R15) => R16,
+  f17: (a: R16) => R17,
+  f18: (a: R17) => R18,
+  f19: (a: R18) => R19
+): (...args: TArgs) => R19;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15,
+  f16: (a: R15) => R16,
+  f17: (a: R16) => R17,
+  f18: (a: R17) => R18
+): (...args: TArgs) => R18;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15,
+  f16: (a: R15) => R16,
+  f17: (a: R16) => R17
+): (...args: TArgs) => R17;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15,
+  f16: (a: R15) => R16
+): (...args: TArgs) => R16;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14,
+  f15: (a: R14) => R15
+): (...args: TArgs) => R15;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13,
+  f14: (a: R13) => R14
+): (...args: TArgs) => R14;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10,
+  f11: (a: R10) => R11,
+  f12: (a: R11) => R12,
+  f13: (a: R12) => R13
+): (...args: TArgs) => R13;
 export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,

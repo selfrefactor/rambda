@@ -1,80 +1,179 @@
 import {
-  add,
-  subtract,
-  pipe,
-  map,
-  filter,
-  identity,
-  dissoc,
-  inc,
-  negate,
-} from 'rambda'
+	add,
+	allPass,
+	anyPass,
+	append,
+	assoc,
+	assocPath,
+	both,
+	defaultTo,
+	difference,
+	dissocPath,
+	dropLast,
+	either,
+	filter,
+	head,
+	inc,
+	map,
+	negate,
+	pipe,
+	tap,
+} from 'rambda';
 
-interface Input {
-  a: string,
-  b: string,
+type IsNotNever<T> = [T] extends [never] ? false : true;
+type Expect<T extends true> = T;
+
+interface BaseBook {
+	title: string;
+	year: number;
+	description?: string;
+	userRating?: number;
 }
-interface Output {
-  c: string,
+interface Book extends BaseBook {
+	awards: {
+		number: number;
+		years?: number[];
+	};
+	status?: Status;
+}
+interface MustReadBook extends Book {
+	status: 'must-read';
+}
+interface FamousBook extends Book {
+	status: 'famous';
+}
+interface BookWithBookmarkStatus extends Book {
+	bookmarkFlag: boolean;
+}
+interface BookWithReadStatus extends Book {
+	readFlag: boolean;
+}
+type BookToRead = BookWithBookmarkStatus & BookWithReadStatus;
+interface BookWithDescription extends Book {
+	description: string;
+}
+interface BookWithUserRating extends Book {
+	userRating: number;
+}
+type BookWithDetails = BookWithDescription & BookWithUserRating;
+
+const zaratustra: BaseBook = {
+	title: 'Zaratustra',
+	year: 1956,
+};
+const awardedZaratustra: Book = {
+	...zaratustra,
+	awards: {
+		number: 1,
+		years: [1956],
+	},
+};
+const awardedDostojevski: Book = {
+	title: 'Idiot',
+	year: 1869,
+	awards: {
+		number: 2,
+		years: [1869, 1870],
+	},
+};
+const awardedDostojevskiToRead: BookToRead = {
+	...awardedDostojevski,
+	readFlag: true,
+	bookmarkFlag: true,
+};
+const awardedZaratustraToRead: BookToRead = {
+	...awardedZaratustra,
+	readFlag: true,
+	bookmarkFlag: true,
+};
+const awardedBaseValue: Book = {
+	title: '',
+	year: 0,
+	awards: {
+		number: 0,
+		years: [],
+	},
+};
+
+type Status = 'famous' | 'can be skipped' | 'must-read';
+
+function checkIfMustRead(x: Book): x is MustReadBook {
+	return (x as MustReadBook).status === 'must-read';
+}
+function checkIfFamous(x: Book): x is FamousBook {
+	return (x as FamousBook).status === 'famous';
+}
+function checkReadStatus(x: Book): x is BookWithReadStatus {
+	return (x as BookWithReadStatus).readFlag;
+}
+function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus {
+	return (x as BookWithBookmarkStatus).bookmarkFlag;
+}
+function checkBookToRead(x: Book): x is BookToRead {
+	return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag;
+}
+function checkHasDescription(x: Book): x is BookWithDescription {
+	return (x as BookWithDescription).description !== undefined;
+}
+function checkHasUserRating(x: Book): x is BookWithUserRating {
+	return (x as BookWithUserRating).userRating !== undefined;
 }
 
-describe('R.pipe with explicit types', () => {
-  it('with explicit types - complex', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
-    interface AfterInput {
-      a: number,
-    }
-    interface BeforeOutput {
-      b: string,
-    }
+function assertType<T, U extends T>(fn: (x: T) => x is U) {
+	return (x: T) => {
+		if (fn(x)) {
+			return x;
+		}
+		throw new Error('type assertion failed');
+	};
+}
+function convertToType<T>() {
+	return <U>(x: U) => x as unknown as T;
+}
 
-    const result = pipe<Input[], AfterInput, BeforeOutput, Output>(
-      x => ({a: x.a.length + x.b.length}),
-      x => ({b: x.a + 'foo'}),
-      x => ({c: x.b + 'bar'})
-    )(obj)
+// function mergeType<T>(x: T){
+// 	return x as MergeType<T>
+// }
 
-    result // $ExpectType Output
-  })
-  it('with explicit types - correct', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
+describe('real use cases', () => {
+	it('books', () => {
+		const result = pipe(
+			assoc('status', 'famous' as Status),
+			assocPath<Book>('awards.number', 1),
+			defaultTo(awardedBaseValue),
+			tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
+			tap(
+				both(
+					(x) => x.awards.number > 1,
+					(x) => x.year > 1900,
+				),
+			),
+			assertType(either(checkIfFamous, checkIfMustRead)),
+			assertType(both(checkReadStatus, checkBookmarkStatus)),
+			// //  mergeType,
+			assertType(checkBookToRead),
+			(x) => [x],
+			dropLast(1),
+			difference([awardedDostojevskiToRead]),
+			append(awardedZaratustraToRead),
+			head,
+			assertType(allPass([checkHasDescription, checkHasUserRating])),
+			tap((x) => {
+				x; // $ExpectType BookWithDescription & BookWithUserRating
+			}),
+			assertType(anyPass([checkHasDescription, checkHasUserRating])),
+			convertToType<BookWithDescription>(),
+			dissocPath<Book>('description'),
+		)(
+			zaratustra,
+		)
+		const final: Expect<IsNotNever<typeof result>> = true;
+		final; // $ExpectType true
+	});
+});
 
-    const result = pipe<Input[], Output, Output>(input => {
-      input // $ExpectType Input
-      return input as unknown as Output
-    }, identity)(obj)
-    result // $ExpectType Output
-  })
-  it('with explicit types - wrong', () => {
-    const obj: Input = {
-      a: 'foo',
-      b: 'bar',
-    }
-
-    // @ts-expect-error
-    pipe<string, number, Output>(identity, dissoc('b'))(obj)
-  })
-})
 
 describe('R.pipe', () => {
-  it('happy', () => {
-    const result = pipe(subtract(11), add(1), add(1))(1)
-    result // $ExpectType number
-  })
-  it('happy - more complex', () => {
-    const result = pipe(
-      (x: string) => x.length + 1,
-      (x: number) => x + 1
-    )('foo')
-    result // $ExpectType number
-  })
-
   it('with R.filter', () => {
     const result = pipe(
       filter<number>(x => x > 2),
