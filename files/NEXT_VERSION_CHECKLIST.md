@@ -1,3 +1,5 @@
+Replace Record<string> with Record<PropertyKey> ? - test with symbols in js
+
 - Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
 - head/last - empty array as input will return `undefined`, but `never`
@@ -9,11 +11,16 @@ Require explicit output type(s) as it is very hard to pick up the correct type i
 - dissocPath 
 
 Sync with typing of `@types/ramda`:
+- forEach?
 - either
 - both
 - allPass
 - anyPass
 - drop/dropLast
+- map
+- filter
+
+Regarding using object as input `R.map` and `R.filter` with TypeScript - previously function input had access to property and to the object itself. While this functionality is still there, it is not possible to type it correctly. As this is useful feature, you can use `R.mapObjIndexed`(Rambda)  and `R.filterObjIndexed`([Rambdax](https://github.com/selfrefactor/rambdax)).
 
 Increase number of function inputs for `R.pipe` to 20 and for `R.compose` to 12.
 

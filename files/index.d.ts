@@ -3,7 +3,7 @@ export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | 
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 
-export type DebugType<T> = { [K in keyof T]: T[K] }
+export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 export type MergeType<T> =
   T extends object
     ? { [K in keyof T]: MergeTypes<T[K]> }
@@ -13,7 +13,7 @@ export type MergeType<T> =
 export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type Iterator<T, U> = (x: T) => U;
-export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Dictionary<T>) => U;
+export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
 type Path = string | (number | string)[];
@@ -1280,10 +1280,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filter<T>(predicate: Predicate<T>): (input: T[]) => T[];
-export function filter<T>(predicate: Predicate<T>, input: T[]): T[];
-export function filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+export function filter<T>(fn: (x: T) => boolean): {
+  (list: readonly T[]): T[];
+  (dict: Record<PropertyKey, T>): Record<PropertyKey, T>;
+  // (list: readonly A[]): B[];
+};
+// export function filter<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P[];
+// export function filter<T, P extends T>(pred: (val: T) => val is P, dict: Record<PropertyKey, T>): Record<PropertyKey, P>;
+// export function filter<T, C extends readonly T[] | Record<PropertyKey, T>>(pred: (value: T) => boolean, collection: C): C;
 
 /*
 Method: find
@@ -1464,8 +1468,8 @@ Notes: It works with objects, unlike `Ramda`.
 // @SINGLE_MARKER
 export function forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
 export function forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
-export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
-export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+// export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
+// export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
 
 /*
 Method: fromPairs
@@ -2351,12 +2355,13 @@ Notes: Unlike Ramda's `map`, here property and input object are passed as argume
 
 */
 // @SINGLE_MARKER
-export function map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function map<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
-export function map<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
-export function map<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-export function map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
-export function map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
+export function map<A, B>(fn: (x: A) => B): {
+  (list: readonly A[]): B[];
+  <U extends Record<PropertyKey, A>>(dict: U): Record<keyof U, B>;
+};
+export function map<A, B>(fn: (x: A) => B, list: readonly A[]): B[];
+export function map<U extends object, B>(fn: (x: ValueOfUnion<U>) => B, dict: U): Record<keyof U, B>;
+export function map<A, B>(fn: (x: A) => B, list: readonly A[]): B[];
 
 /*
 Method: mapObjIndexed

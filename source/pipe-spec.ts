@@ -19,7 +19,7 @@ import {
 	pipe,
 	tap,
 } from 'rambda';
-
+import * as R from 'ramda';
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T;
 
@@ -150,7 +150,6 @@ describe('real use cases', () => {
 			),
 			assertType(either(checkIfFamous, checkIfMustRead)),
 			assertType(both(checkReadStatus, checkBookmarkStatus)),
-			// //  mergeType,
 			assertType(checkBookToRead),
 			(x) => [x],
 			dropLast(1),
@@ -164,51 +163,51 @@ describe('real use cases', () => {
 			assertType(anyPass([checkHasDescription, checkHasUserRating])),
 			convertToType<BookWithDescription>(),
 			dissocPath<Book>('description'),
-			filter
-		)(
-			zaratustra,
-		)
+			convertToType<Record<string, string>>(),
+			map((x) => {
+				return x as unknown as number;
+			}),
+			filter((x) => typeof x === 'object'),
+		)(zaratustra);
 		const final: Expect<IsNotNever<typeof result>> = true;
-		final; // $ExpectType true
 	});
 });
 
-
 describe('R.pipe', () => {
-  it('with R.filter', () => {
-    const result = pipe(
-      filter<number>(x => x > 2),
-      map(add(1))
-    )([1, 2, 3])
-    result // $ExpectType number[]
-  })
+	it('with R.filter', () => {
+		const result = pipe(
+			filter<number>((x) => x > 2),
+			map(add(1)),
+		)([1, 2, 3]);
+		result; // $ExpectType number[]
+	});
 
-  it('with native filter', () => {
-    const result = pipe(
-      (list: number[]) => list.filter(x => x > 2),
-      (list: number[]) => {
-        list // $ExpectType number[]
-        return list
-      },
-      map(add(1))
-    )([1, 2, 3])
+	it('with native filter', () => {
+		const result = pipe(
+			(list: number[]) => list.filter((x) => x > 2),
+			(list: number[]) => {
+				list; // $ExpectType number[]
+				return list;
+			},
+			map(add(1)),
+		)([1, 2, 3]);
 
-    result // $ExpectType number[]
-  })
+		result; // $ExpectType number[]
+	});
 
-  it('with void', () => {
-    const result = pipe(
-      () => {},
-      () => {}
-    )()
-    result // $ExpectType void
-  })
-})
+	it('with void', () => {
+		const result = pipe(
+			() => {},
+			() => {},
+		)();
+		result; // $ExpectType void
+	});
+});
 
 describe('R.pipe - @types/ramda tests', () => {
-  test('complex', () => {
-    const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc)
-    const result = fn(3, 4)
-    result // $ExpectType number
-  })
-})
+	test('complex', () => {
+		const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc);
+		const result = fn(3, 4);
+		result; // $ExpectType number
+	});
+});
