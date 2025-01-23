@@ -4,13 +4,8 @@ import { pipe } from './pipe.js';
 
 import * as Rambda from '../rambda.js';
 import * as Ramda from 'ramda';
-const isRunningInGithubActions = process.env.GITHUB_ACTIONS === 'true';
+import { IS_CI } from './_internals/testUtils.js';
 
-if (isRunningInGithubActions) {
-  console.log('Running inside GitHub Actions');
-} else {
-  console.log('Not running inside GitHub Actions');
-}
 const zaratustra = {
 	title: 'Zaratustra',
 	year: 1956,
@@ -113,8 +108,24 @@ describe('real use cases', () => {
 				assertType(R.anyPass([checkHasDescription, checkHasUserRating])),
 				R.dissocPath('description'),
 			)(book)
-		// console.log(applyTest(Rambda,zaratustra));
-		// console.log(applyTest(Ramda,zaratustra));
+			expect(
+  applyTest(Rambda, zaratustra)
+).toMatchInlineSnapshot(`
+{
+  "awards": {
+    "number": 1,
+    "years": [
+      1956,
+    ],
+  },
+  "bookmarkFlag": true,
+  "readFlag": true,
+  "title": "Zaratustra",
+  "userRating": 5,
+  "year": 1956,
+}
+`)
+		if(IS_CI) return;
 		const bench = new Bench({ name: 'simple benchmark', iterations: 10_000 });
 
 		bench

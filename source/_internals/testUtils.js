@@ -340,3 +340,4 @@ export const willFailAssertion = () => {
   expect(true).toBe(false)
 }
 
+export const IS_CI = process.env.GITHUB_ACTIONS === 'true';
