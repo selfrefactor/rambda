@@ -27,9 +27,9 @@ describe('R.head', () => {
   })
   it('empty array', () => {
     const list = [] as const
-    head(emptyList) // $ExpectType undefined
+    head(emptyList) // $ExpectType never
     head(list) // $ExpectType undefined
-    last(emptyList) // $ExpectType undefined
+    last(emptyList) // $ExpectType never
     last(list) // $ExpectType undefined
   })
 

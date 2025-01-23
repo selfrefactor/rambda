@@ -1581,13 +1581,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(listOrString: T): T extends string ? string : T extends []
-? undefined
-: T extends readonly [unknown, ...Array<unknown>]
-	? T[0]
-	: T extends readonly [...infer Pre, infer Last]
-		? Last | Pre[0]
-		: T[0] | undefined;
+export function head<T>(listOrString: T): T extends string ? string : 
+	T extends [] ? undefined: 
+		T extends readonly [infer F, ...infer R] ? F : 
+			T extends readonly [infer F] ? F :
+				T extends [infer F] ? F :
+					T extends [infer F, ...infer R] ? F : 
+						T extends unknown[] ? T[number] : 
+							undefined;
 
 /*
 Method: identical
@@ -1992,10 +1993,14 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last<T>(listOrString: T): T extends string ? string : T extends []
-? undefined : T extends readonly [...infer Pre, infer Last]
-		? Last : T extends readonly [infer Last]
-			? Last : T extends [...infer Pre, infer Last] ? Last : T extends [infer Last] ? Last : T extends unknown[] ? T[number] | undefined : never;
+export function last<T>(listOrString: T): T extends string ? string : 
+  T extends [] ? undefined : 
+    T extends readonly [...infer R, infer L] ? L : 
+      T extends readonly [infer L] ? L :
+        T extends [infer L] ? L :
+          T extends [...infer R, infer L] ? L : 
+            T extends unknown[] ? T[number] : 
+              undefined;
 
 /*
 Method: lastIndexOf

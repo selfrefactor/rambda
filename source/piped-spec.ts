@@ -1,4 +1,4 @@
-import {assoc, assocPath, both, dissoc, defaultTo, difference, piped, tap, head} from 'rambda'
+import {assoc, assocPath, both, defaultTo, difference, piped, tap, head} from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T
 
