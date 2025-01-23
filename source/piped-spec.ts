@@ -54,12 +54,12 @@ interface BookWithUserRating extends Book {
 }
 type BookWithDetails = BookWithDescription & BookWithUserRating;
 
-const zaratusta: BaseBook = {
-	title: 'Zaratusta',
+const zaratustra: BaseBook = {
+	title: 'Zaratustra',
 	year: 1956,
 };
-const awardedZaratusta: Book = {
-	...zaratusta,
+const awardedZaratustra: Book = {
+	...zaratustra,
 	awards: {
 		number: 1,
 		years: [1956],
@@ -78,8 +78,8 @@ const awardedDostojevskiToRead: BookToRead = {
 	readFlag: true,
 	bookmarkFlag: true,
 };
-const awardedZaratustaToRead: BookToRead = {
-	...awardedZaratusta,
+const awardedZaratustraToRead: BookToRead = {
+	...awardedZaratustra,
 	readFlag: true,
 	bookmarkFlag: true,
 };
@@ -135,7 +135,7 @@ function convertToType<T>() {
 describe('real use cases', () => {
 	it('books', () => {
 		const result = piped(
-			zaratusta,
+			zaratustra,
 			assoc('status', 'famous' as Status),
 			assocPath<Book>('award.number', 1),
 			defaultTo(awardedBaseValue),
@@ -153,7 +153,7 @@ describe('real use cases', () => {
 			(x) => [x],
 			dropLast(1),
 			difference([awardedDostojevskiToRead]),
-			append(awardedZaratustaToRead),
+			append(awardedZaratustraToRead),
 			head,
 			assertType(allPass([checkHasDescription, checkHasUserRating])),
 			tap((x) => {
