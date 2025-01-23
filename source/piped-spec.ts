@@ -135,7 +135,7 @@ describe('real use cases', () => {
 		const result = piped(
 			zaratustra,
 			assoc('status', 'famous' as Status),
-			assocPath<Book>('award.number', 1),
+			assocPath<Book>('awards.number', 1),
 			defaultTo(awardedBaseValue),
 			tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
 			tap(

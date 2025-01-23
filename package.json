@@ -15,6 +15,7 @@
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
 		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
 		"create-docsify": "cd ../rambda-scripts && yarn create-docsify",
+		"pipe": "jest source/pipe.spec.js > pipe.log",
 		"ts": "yarn test:typings"
 	},
 	"depFn": [
@@ -44,6 +45,7 @@
 		"rollup-plugin-cleanup": "3.2.1",
 		"rollup-plugin-sourcemaps": "0.6.3",
 		"rollup-plugin-uglify": "6.0.4",
+		"tinybench": "^3.1.0",
 		"types-ramda": "0.30.1",
 		"typescript": "5.7.2",
 		"zod": "3.24.1"
