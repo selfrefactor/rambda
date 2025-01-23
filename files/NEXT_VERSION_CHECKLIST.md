@@ -3,6 +3,10 @@
 - head/last - empty array as input will return `undefined`, but `never`
 - assocPath - stop supporting curring of type `(x)(y)(z)`.
 
+Sync with typing of `@types/ramda`:
+- either
+- both
+
 ABOVE IS DONE
 ===
 

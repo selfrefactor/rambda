@@ -3,19 +3,6 @@ export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | 
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 
-type LastArrayElement<Elements extends readonly unknown[], ElementBeforeTailingSpreadElement = never> =
-Elements extends readonly []
-	? ElementBeforeTailingSpreadElement
-	: Elements extends readonly [...infer U, infer V]
-		? V
-		: Elements extends readonly [infer U, ...infer V]
-			// If we return `V[number] | U` directly, it would be wrong for `[[string, boolean, object, ...number[]]`.
-			// So we need to recurse type `V` and carry over the type of the element before the spread element.
-			? LastArrayElement<V, U>
-			: Elements extends ReadonlyArray<infer U>
-				? U | ElementBeforeTailingSpreadElement
-				: never;
-
 export type DebugType<T> = { [K in keyof T]: T[K] }
 export type MergeType<T> =
   T extends object
@@ -1132,10 +1119,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function either(firstPredicate: Pred, secondPredicate: Pred): Pred;
-export function either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
-export function either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
-export function either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+export function either<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 | RT2;
+export function either<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
+export function either<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 | RT2;
+export function either<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
 
 /*
 Method: endsWith
