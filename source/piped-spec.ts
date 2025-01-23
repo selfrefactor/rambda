@@ -1,5 +1,5 @@
-import {assoc,either, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, MergeType} from 'rambda'
-// import {either } from 'ramda'
+import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, MergeType} from 'rambda'
+// import {allPass } from 'ramda'
 
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T
@@ -13,13 +13,12 @@ function check<T>(predicate: (x: T) => boolean, fallback : T) : (input: T) => T{
 	}
 }
 
-let zaratusta = {
-	title: 'Zaratusta',
-	year: 1956
-}
+
 interface BaseBook{
 	title: string
 	year: number
+	description?: string
+	userRating?: number
 }
 interface Book extends BaseBook{
 	awards: {
@@ -41,6 +40,17 @@ interface BookWithReadStatus extends Book{
 	readFlag: boolean
 }
 type BookToRead = BookWithBookmarkStatus & BookWithReadStatus
+interface BookWithDescription extends Book{
+	description: string
+}
+interface BookWithUserRating extends Book{
+	userRating: number
+}
+
+let zaratusta = {
+	title: 'Zaratusta',
+	year: 1956
+}
 let awardedZaratusta: Book = {
 	...zaratusta,
 	awards: {
@@ -87,6 +97,12 @@ function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus{
 function checkBookToRead(x: Book): x is BookToRead{
 	return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag
 }
+function checkHasDescription(x: Book): x is BookWithDescription{
+	return (x as BookWithDescription).description !== undefined
+}
+function checkHasUserRating(x: Book): x is BookWithUserRating{
+	return (x as BookWithUserRating).userRating !== undefined
+}
 
 function assertType<T, U extends T>(fn: (x: T) => x is U) {
 	return (x: T) => {
@@ -124,7 +140,10 @@ describe('real use cases', () => {
 			),
 			x => ([x]),
 			difference([awardedDostojevskiToRead]),
-			head
+			head,
+			assertType(
+				allPass([checkHasDescription, checkHasUserRating])
+			)
 		)
 		let final: Expect<IsNotNever<typeof result>> = true
 		final // $ExpectType true

@@ -6,6 +6,8 @@
 Sync with typing of `@types/ramda`:
 - either
 - both
+- allPass
+- anyPass?
 
 ABOVE IS DONE
 ===
