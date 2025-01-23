@@ -11,9 +11,7 @@ import {
 	dropLast,
 	either,
 	head,
-	map,
 	piped,
-	range,
 	tap,
 } from 'rambda';
 
