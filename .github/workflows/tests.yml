@@ -4,7 +4,7 @@ on: [pull_request, push]
 
 jobs:
   tests:
-    runs-on: ubuntu
+    runs-on: ubuntu-24
 
     strategy:
       matrix:
