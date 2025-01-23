@@ -1,4 +1,4 @@
-import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, append, complement, dissocPath, drop, dropLast} from 'rambda'
+import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, range, map, dropLast, append, dissocPath} from 'rambda'
 
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T
@@ -37,7 +37,7 @@ interface BookWithUserRating extends Book{
 }
 type BookWithDetails = BookWithDescription & BookWithUserRating
 
-let zaratusta = {
+let zaratusta: BaseBook = {
 	title: 'Zaratusta',
 	year: 1956
 }
@@ -66,8 +66,7 @@ let awardedZaratustaToRead: BookToRead = {
 	readFlag: true,
 	bookmarkFlag: true
 }
-
-let awarderBaseValue: Book = {
+let awardedBaseValue: Book = {
 	title: '',
 	year: 0,
 	awards: {
@@ -118,53 +117,44 @@ function convertToType<T>(){
 
 describe('real use cases', () => {
 	it('books', () => {
-		const result = piped(
-			zaratusta,
-			assoc('status', 'famous' as Status),
-			assocPath<Book>('award.number', 1),
-			defaultTo(
-				awarderBaseValue
-			),
-			tap(anyPass([x => x.awards.number > 1, x => x.year > 1900])),
-			tap(both(x => x.awards.number > 1, x => x.year > 1900)),
-			assertType(
-				either(checkIfFamous, checkIfMustRead)
-			),
-			assertType(
-				both( checkReadStatus, checkBookmarkStatus)
-			 ),
-			assertType(
-				checkBookToRead
-			),
-			x => ([x]),
-			dropLast(1),
-			difference([awardedDostojevskiToRead]),
-			append(awardedZaratustaToRead),
-			head,
-			assertType(
-				anyPass([checkHasDescription, checkHasUserRating])
-			),
-			tap(x => {
-				x // $ExpectType BookWithDescription | BookWithUserRating
-			}),
-			assertType(
-				allPass([checkHasDescription, checkHasUserRating])
-			),
-			convertToType<BookWithDescription>(),
-			dissocPath<Book>('description'),
-			// filter
-			// x => {
-			// 	x // $ExpectType BookWithDescription & BookWithUserRating
-			// 	x.description // $ExpectType string
-			// 	return x as BookWithDetails
-			// },
-			// tap(x => {
-			// 	// @ts-expect-error
-			// 	x.description
-			// }),
-		)
-		// type Foo = Exclude<Book, BookWithUserRating>
-		let final: Expect<IsNotNever<typeof result>> = true
-		final // $ExpectType true
+			const result = piped(
+				zaratusta,
+				assoc('status', 'famous' as Status),
+				assocPath<Book>('award.number', 1),
+				defaultTo(
+					awardedBaseValue
+				),
+				tap(anyPass([x => x.awards.number > 1, x => x.year > 1900])),
+				tap(both(x => x.awards.number > 1, x => x.year > 1900)),
+				assertType(
+					either(checkIfFamous, checkIfMustRead)
+				),
+				assertType(
+					both( checkReadStatus, checkBookmarkStatus)
+				 ),
+				// //  mergeType,
+				assertType(
+					checkBookToRead
+				),
+				x => ([x]),
+				dropLast(1),
+				difference([awardedDostojevskiToRead]),
+				append(awardedZaratustaToRead),
+				head,
+				assertType(
+					allPass([checkHasDescription, checkHasUserRating])
+				),
+				tap(x => {
+					x // $ExpectType BookWithDescription & BookWithUserRating
+				}),
+				assertType(
+					anyPass([checkHasDescription, checkHasUserRating])
+				),
+				convertToType<BookWithDescription>(),
+				dissocPath<Book>('description'),
+			)
+			let final: Expect<IsNotNever<typeof result>> = true
+			final // $ExpectType true
+		}
 	})
 })
