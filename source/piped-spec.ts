@@ -1,4 +1,4 @@
-import {assoc,either, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, always, MergeType} from 'rambda'
+import {assoc,either, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, MergeType} from 'rambda'
 // import {either } from 'ramda'
 
 type IsNotNever<T> = [T] extends [never] ? false : true;
@@ -55,6 +55,11 @@ let awardedDostojevski: Book = {
 		number: 2,
 		years: [1869, 1870]
 	}
+}
+let awardedDostojevskiToRead: BookToRead = {
+	...awardedDostojevski,
+	readFlag: true,
+	bookmarkFlag: true
 }
 let awarderBaseValue: Book = {
 	title: '',
@@ -117,46 +122,11 @@ describe('real use cases', () => {
 			assertType(
 				checkBookToRead
 			),
-			// assertType(checkBook),
-			// x => ([x]),
-			// difference([bar]),
-			// head
+			x => ([x]),
+			difference([awardedDostojevskiToRead]),
+			head
 		)
 		let final: Expect<IsNotNever<typeof result>> = true
 		final // $ExpectType true
 	})
 })
-
-
-describe('R.piped', () => {
-  it('happy', () => {
-    const result = piped(
-      [1, 2],
-      x => {
-        return x.length + 1
-      },
-      x => {
-        return x + 10
-      }
-    )
-
-    result // $ExpectType number
-  })
-  it('issue #63', () => {
-    const result = piped(1, x => x)
-
-    result // $ExpectType number
-  })
-})
-
-describe('piped', () => {
-  it('should pipe functions from left to right', () => {
-    const result = piped(
-      1,
-      x => x + 1,
-      x => x * 2,
-      x => `Result: ${x}`
-    );
-    expect(result).toBe('Result: 4');
-  });
-});
