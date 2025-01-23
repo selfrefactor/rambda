@@ -15,6 +15,8 @@ Sync with typing of `@types/ramda`:
 - anyPass
 - drop/dropLast
 
+Increase number of function inputs for `R.pipe` to 20 and for `R.compose` to 12.
+
 ABOVE IS DONE
 ===
 

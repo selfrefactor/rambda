@@ -164,6 +164,7 @@ describe('real use cases', () => {
 			assertType(anyPass([checkHasDescription, checkHasUserRating])),
 			convertToType<BookWithDescription>(),
 			dissocPath<Book>('description'),
+			filter
 		)(
 			zaratustra,
 		)
