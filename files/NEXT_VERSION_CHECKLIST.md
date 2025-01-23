@@ -99,6 +99,8 @@ release string.fn
 
 	https://github.com/ramda/types/pull/110/files
 ---
+complex pipe test with rameda radashi
+---
 
 ## ABOVE IS IN PROGRESS
 
