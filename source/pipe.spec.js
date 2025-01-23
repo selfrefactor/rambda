@@ -4,7 +4,13 @@ import { pipe } from './pipe.js';
 
 import * as Rambda from '../rambda.js';
 import * as Ramda from 'ramda';
+const isRunningInGithubActions = process.env.GITHUB_ACTIONS === 'true';
 
+if (isRunningInGithubActions) {
+  console.log('Running inside GitHub Actions');
+} else {
+  console.log('Not running inside GitHub Actions');
+}
 const zaratustra = {
 	title: 'Zaratustra',
 	year: 1956,
@@ -109,7 +115,7 @@ describe('real use cases', () => {
 			)(book)
 		// console.log(applyTest(Rambda,zaratustra));
 		// console.log(applyTest(Ramda,zaratustra));
-		const bench = new Bench({ name: 'simple benchmark', iterations: 1_000_000 });
+		const bench = new Bench({ name: 'simple benchmark', iterations: 10_000 });
 
 		bench
 			.add('Rambda', () => {
