@@ -4,16 +4,6 @@ import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, pi
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T
 
-function check<T>(predicate: (x: T) => boolean, fallback : T) : (input: T) => T{
-	return input => {
-		if(predicate(input)){
-			return input
-		}
-		return fallback
-	}
-}
-
-
 interface BaseBook{
 	title: string
 	year: number
@@ -143,6 +133,12 @@ describe('real use cases', () => {
 			head,
 			assertType(
 				allPass([checkHasDescription, checkHasUserRating])
+			),
+			tap(x => {
+				x // $ExpectType BookWithDescription & BookWithUserRating
+			}),
+			assertType(
+				anyPass([checkHasDescription, checkHasUserRating])
 			)
 		)
 		let final: Expect<IsNotNever<typeof result>> = true
