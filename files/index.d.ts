@@ -1116,12 +1116,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howMany: number, input: T[]): T[];
-export function drop(howMany: number, input: string): string;
 export function drop<T>(howMany: number): {
-  <T>(input: T[]): T[];
   (input: string): string;
+  (input: readonly T[]): T[];
 };
+export function drop(howMany: number, input: string): string;
+export function drop<T>(howMany: number, input: readonly T[]): T[];
 
 /*
 Method: dropLast
@@ -1141,12 +1141,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howMany: number, input: T[]): T[];
-export function dropLast(howMany: number, input: string): string;
 export function dropLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
   (input: string): string;
+  (input: readonly T[]): T[];
 };
+export function dropLast(howMany: number, input: string): string;
+export function dropLast<T>(howMany: number, input: readonly T[]): T[];
 
 /*
 Method: either

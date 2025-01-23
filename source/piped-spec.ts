@@ -1,5 +1,4 @@
-import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, MergeType} from 'rambda'
-// import {allPass } from 'ramda'
+import {assoc,either,allPass, assocPath,anyPass, both, defaultTo, difference, piped, tap, head, append, complement, dissocPath, drop, dropLast} from 'rambda'
 
 type IsNotNever<T> = [T] extends [never] ? false : true;
 type Expect<T extends true> = T
@@ -36,6 +35,7 @@ interface BookWithDescription extends Book{
 interface BookWithUserRating extends Book{
 	userRating: number
 }
+type BookWithDetails = BookWithDescription & BookWithUserRating
 
 let zaratusta = {
 	title: 'Zaratusta',
@@ -61,6 +61,12 @@ let awardedDostojevskiToRead: BookToRead = {
 	readFlag: true,
 	bookmarkFlag: true
 }
+let awardedZaratustaToRead: BookToRead = {
+	...awardedZaratusta,
+	readFlag: true,
+	bookmarkFlag: true
+}
+
 let awarderBaseValue: Book = {
 	title: '',
 	year: 0,
@@ -102,10 +108,13 @@ function assertType<T, U extends T>(fn: (x: T) => x is U) {
 		throw new Error('type assertion failed')
 	}
 }
-
-function mergeType<T>(x: T){
-	return x as MergeType<T>
+function convertToType<T>(){
+	return <U>(x: U) => x as unknown as T
 }
+
+// function mergeType<T>(x: T){
+// 	return x as MergeType<T>
+// }
 
 describe('real use cases', () => {
 	it('books', () => {
@@ -124,23 +133,37 @@ describe('real use cases', () => {
 			assertType(
 				both( checkReadStatus, checkBookmarkStatus)
 			 ),
-			//  mergeType,
 			assertType(
 				checkBookToRead
 			),
 			x => ([x]),
+			dropLast(1),
 			difference([awardedDostojevskiToRead]),
+			append(awardedZaratustaToRead),
 			head,
+			assertType(
+				anyPass([checkHasDescription, checkHasUserRating])
+			),
+			tap(x => {
+				x // $ExpectType BookWithDescription | BookWithUserRating
+			}),
 			assertType(
 				allPass([checkHasDescription, checkHasUserRating])
 			),
-			tap(x => {
-				x // $ExpectType BookWithDescription & BookWithUserRating
-			}),
-			assertType(
-				anyPass([checkHasDescription, checkHasUserRating])
-			)
+			convertToType<BookWithDescription>(),
+			dissocPath<Book>('description'),
+			// filter
+			// x => {
+			// 	x // $ExpectType BookWithDescription & BookWithUserRating
+			// 	x.description // $ExpectType string
+			// 	return x as BookWithDetails
+			// },
+			// tap(x => {
+			// 	// @ts-expect-error
+			// 	x.description
+			// }),
 		)
+		// type Foo = Exclude<Book, BookWithUserRating>
 		let final: Expect<IsNotNever<typeof result>> = true
 		final // $ExpectType true
 	})

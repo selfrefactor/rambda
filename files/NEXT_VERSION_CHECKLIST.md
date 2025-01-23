@@ -1,13 +1,19 @@
 - Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
 - head/last - empty array as input will return `undefined`, but `never`
-- assocPath - stop supporting curring of type `(x)(y)(z)`.
+- assocPath - stop supporting curring of type `(x)(y)(z)`
+
+Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+
+- assocPath
+- dissocPath 
 
 Sync with typing of `@types/ramda`:
 - either
 - both
 - allPass
 - anyPass
+- drop/dropLast
 
 ABOVE IS DONE
 ===

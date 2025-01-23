@@ -1,5 +1,3 @@
-import isCI from 'is-ci'
-
 import { composeAsync } from './composeAsync.js'
 import { delay } from './delay.js'
 import { mapAsync } from './mapAsync.js'
@@ -30,7 +28,7 @@ test('happy', async () => {
 
   const methodScale = toDecimal((diffTime2 - diffTime) / 1000, 0)
   expect(result).toEqual([ 2, 3, 4, 5, 6, 7, 8, 9, 10 ])
-  if (!isCI) expect(methodScale).toBe(limit)
+  expect(methodScale).toBe(limit)
 })
 
 const fn = async x => {
