@@ -1,10 +1,10 @@
-import { filter, pipe, piped } from 'rambda';
+import { map, pipe, piped } from 'rambda';
 
 const list = [1, 2, 3];
 
-describe('R.filter with array', () => {
+describe('R.map with array', () => {
 	it('happy', () => {
-		const result = filter((x) => {
+		const result = map((x) => {
 			x; // $ExpectType number
 			return x > 1;
 		}, list);
@@ -14,7 +14,7 @@ describe('R.filter with array', () => {
 		const result = piped(
 			list,
 			(x) => x,
-			filter((x) => {
+			map((x) => {
 				x; // $ExpectType number
 				return x > 1;
 			}),
@@ -24,11 +24,7 @@ describe('R.filter with array', () => {
 	it('within pipe requires explicit type', () => {
 		pipe(
 			(x) => x,
-			filter<number>((x) => {
-				x; // $ExpectType number
-				return x > 1;
-			}),
-			filter((x: number) => {
+			map((x) => {
 				x; // $ExpectType number
 				return x > 1;
 			}),

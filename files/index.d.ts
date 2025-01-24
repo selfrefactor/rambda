@@ -2,8 +2,11 @@ export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | 
 
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
+export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
+export type Mapped<T extends IterableContainer, K> = {
+  -readonly [P in keyof T]: K;
+};
 
-export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 export type MergeType<T> =
   T extends object
     ? { [K in keyof T]: MergeTypes<T[K]> }
@@ -2360,13 +2363,13 @@ Notes: Unlike Ramda's `map`, here property and input object are passed as argume
 
 */
 // @SINGLE_MARKER
-export function map<A, B>(fn: (x: A) => B): {
-  (list: readonly A[]): B[];
-  <U extends Record<PropertyKey, A>>(dict: U): Record<keyof U, B>;
-};
-export function map<A, B>(fn: (x: A) => B, list: readonly A[]): B[];
-export function map<U extends object, B>(fn: (x: ValueOfUnion<U>) => B, dict: U): Record<keyof U, B>;
-export function map<A, B>(fn: (x: A) => B, list: readonly A[]): B[];
+export function map<T extends IterableContainer, U>(
+  fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, U>;
+export function map<T extends IterableContainer, U>(
+  fn: (value: T[number]) => U,
+	data: T
+) : Mapped<T, U>;
 
 /*
 Method: mapObjIndexed
