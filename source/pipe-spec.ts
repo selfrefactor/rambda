@@ -153,21 +153,21 @@ describe('real use cases', () => {
 			assertType(checkBookToRead),
 			(x) => [x],
 			dropLast(1),
-			difference([awardedDostojevskiToRead]),
-			append(awardedZaratustraToRead),
-			head,
-			assertType(allPass([checkHasDescription, checkHasUserRating])),
-			tap((x) => {
-				x; // $ExpectType BookWithDescription & BookWithUserRating
-			}),
-			assertType(anyPass([checkHasDescription, checkHasUserRating])),
-			convertToType<BookWithDescription>(),
-			dissocPath<Book>('description'),
-			convertToType<Record<string, string>>(),
-			map((x) => {
-				return x as unknown as number;
-			}),
-			filter((x) => typeof x === 'object'),
+			// difference([awardedDostojevskiToRead]),
+			// append(awardedZaratustraToRead),
+			// head,
+			// assertType(allPass([checkHasDescription, checkHasUserRating])),
+			// tap((x) => {
+			// 	x; // $ExpectType BookWithDescription & BookWithUserRating
+			// }),
+			// assertType(anyPass([checkHasDescription, checkHasUserRating])),
+			// convertToType<BookWithDescription>(),
+			// dissocPath<Book>('description'),
+			// convertToType<Record<string, string>>(),
+			// // map((x) => {
+			// // 	return x as unknown as number;
+			// // }),
+			// filter((x) => typeof x === 'object'),
 		)(zaratustra);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});

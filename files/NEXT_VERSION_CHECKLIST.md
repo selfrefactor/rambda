@@ -1,6 +1,10 @@
 
 - Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
+- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+
+- Take typings of `R.filter` from `Remeda`.
+
 Regarding using object as input `R.map` and `R.filter` in TypeScript - previously function input had access to property and to the object itself. While this functionality is still there, it is not possible to type it correctly. As this is useful feature, you can use `R.mapObjIndexed`(Rambda)  and `R.filterObjIndexed`([Rambdax](https://github.com/selfrefactor/rambdax)).
 
 Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
@@ -153,7 +157,6 @@ chech in to read for examples
 },
 
 ---
-move essential rambda-scripts back here
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---

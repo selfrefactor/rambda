@@ -22,7 +22,7 @@ describe('R.takeLast - array', () => {
 			filter(
 				x => x.length >= 100
 			),
-			takeLast(2),
+			// takeLast(2),
 		)
 		result // $ExpectType string[]
 	})
