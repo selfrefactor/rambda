@@ -1460,16 +1460,15 @@ sideEffect // => {foo1: 1, foo2: 2}
 result // => [1, 2]
 ```
 
-Categories: List, Object
+Categories: List
 
-Notes: It works with objects, unlike `Ramda`.
+Notes:
 
 */
 // @SINGLE_MARKER
-export function forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
-export function forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
-// export function forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
-// export function forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEach<T>(fn: (x: T) => void): <U extends readonly T[]>(list: U) => U;
+export function forEach<U extends readonly any[]>(fn: (x: U extends readonly (infer T)[] ? T : never) => void, list: U): U;
+export function forEach<T>(fn: (item: T) => void, list: readonly T[]): T[];
 
 /*
 Method: fromPairs

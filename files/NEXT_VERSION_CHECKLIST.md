@@ -1,6 +1,9 @@
-Replace Record<string> with Record<PropertyKey> ? - test with symbols in js
 
 - Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+
+Regarding using object as input `R.map` and `R.filter` in TypeScript - previously function input had access to property and to the object itself. While this functionality is still there, it is not possible to type it correctly. As this is useful feature, you can use `R.mapObjIndexed`(Rambda)  and `R.filterObjIndexed`([Rambdax](https://github.com/selfrefactor/rambdax)).
+
+Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
 
 - head/last - empty array as input will return `undefined`, but `never`
 - assocPath - stop supporting curring of type `(x)(y)(z)`
@@ -11,7 +14,7 @@ Require explicit output type(s) as it is very hard to pick up the correct type i
 - dissocPath 
 
 Sync with typing of `@types/ramda`:
-- forEach?
+- forEach
 - either
 - both
 - allPass
@@ -20,12 +23,12 @@ Sync with typing of `@types/ramda`:
 - map
 - filter
 
-Regarding using object as input `R.map` and `R.filter` with TypeScript - previously function input had access to property and to the object itself. While this functionality is still there, it is not possible to type it correctly. As this is useful feature, you can use `R.mapObjIndexed`(Rambda)  and `R.filterObjIndexed`([Rambdax](https://github.com/selfrefactor/rambdax)).
 
 Increase number of function inputs for `R.pipe` to 20 and for `R.compose` to 12.
 
 ABOVE IS DONE
 ===
+Replace Record<string> with Record<PropertyKey> ? - test with symbols in js
 
 need further check:
 
@@ -149,6 +152,8 @@ chech in to read for examples
 }
 },
 
+---
+move essential rambda-scripts back here
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---
