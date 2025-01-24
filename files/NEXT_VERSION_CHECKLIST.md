@@ -5,7 +5,9 @@
 
 - Take typings of `R.filter` from `Remeda`.
 
-Regarding using object as input `R.map` and `R.filter` in TypeScript - previously function input had access to property and to the object itself. While this functionality is still there, it is not possible to type it correctly. As this is useful feature, you can use `R.mapObjIndexed`(Rambda)  and `R.filterObjIndexed`([Rambdax](https://github.com/selfrefactor/rambdax)).
+_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+
+? indexed  - need to be removed
 
 Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
 
