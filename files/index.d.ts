@@ -1283,11 +1283,10 @@ Notes:
 export function filter<T>(fn: (x: T) => boolean): {
   (list: readonly T[]): T[];
   (dict: Record<PropertyKey, T>): Record<PropertyKey, T>;
-  // (list: readonly A[]): B[];
 };
-// export function filter<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P[];
-// export function filter<T, P extends T>(pred: (val: T) => val is P, dict: Record<PropertyKey, T>): Record<PropertyKey, P>;
-// export function filter<T, C extends readonly T[] | Record<PropertyKey, T>>(pred: (value: T) => boolean, collection: C): C;
+export function filter<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P[];
+export function filter<T, P extends T>(pred: (val: T) => val is P, dict: Record<PropertyKey, T>): Record<PropertyKey, P>;
+export function filter<T, C extends readonly T[] | Record<PropertyKey, T>>(pred: (value: T) => boolean, collection: C): C;
 
 /*
 Method: find

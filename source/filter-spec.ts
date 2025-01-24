@@ -5,7 +5,7 @@ const obj = {a: 1, b: 2}
 
 describe('R.filter with array', () => {
   it('happy', () => {
-    const result = filter<number>(x => {
+    const result = filter(x => {
       x // $ExpectType number
       return x > 1
     }, list)
@@ -22,23 +22,19 @@ describe('R.filter with array', () => {
 
 describe('R.filter with objects', () => {
   it('happy', () => {
-    const result = filter<number>((val, prop, origin) => {
+    const result = filter((val) => {
       val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
 
       return val > 1
     }, obj)
     result // $ExpectType Dictionary<number>
   })
-  it('curried version requires second dummy type', () => {
-    const result = filter<number, any>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
+	it('curried', () => {
+		const result = filter<number>((val) => {
+			val // $ExpectType number
 
-      return val > 1
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
+			return val > 1
+		})(obj)
+		result // $ExpectType Dictionary<number>
+	})
 })
