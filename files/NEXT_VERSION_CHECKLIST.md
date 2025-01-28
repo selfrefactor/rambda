@@ -3,6 +3,8 @@
 
 - Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
 
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
 - Take typings of `R.filter` from `Remeda`.
 
 _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.

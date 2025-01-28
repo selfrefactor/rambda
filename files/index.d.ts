@@ -23,7 +23,7 @@ type Path = string | (number | string)[];
 export type RamdaPath = (number | string)[];
 export type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
-export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Dictionary<T>) => boolean;
+export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => boolean;
 type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
     ? T extends undefined ? undefined : T[Extract<P, keyof T>]
@@ -48,7 +48,7 @@ type Arity2Fn = (x: any, y: any) => any;
 
 type Pred = (...x: any[]) => boolean;
 
-export interface Dictionary<T> {[index: string]: T}
+export interface Record<PropertyKey, T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
 
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
@@ -116,11 +116,6 @@ type Fn<In, Out> = (x: In) => Out;
 export type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
 
 export type IdentityFunction<T> = (x: T) => T;
-
-interface Filter<T> {
-  (list: T[]): T[];
-  (obj: Dictionary<T>): Dictionary<T>;
-}
 
 type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
 type isfn<T> = (x: any, y: any) => T;
@@ -2395,10 +2390,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
-export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
-export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
+export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
 
 /*
 Method: match
@@ -3743,8 +3736,8 @@ Notes:
 // @SINGLE_MARKER
 export function reject<T>(predicate: Predicate<T>, list: T[]): T[];
 export function reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
-export function reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
-export function reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
+export function reject<T>(predicate: Predicate<T>, obj: Record<PropertyKey, T>): Record<PropertyKey, T>;
+export function reject<T, U>(predicate: Predicate<T>): (obj: Record<PropertyKey, T>) => Record<PropertyKey, T>;
 
 /*
 Method: repeat
@@ -8441,10 +8434,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
+export function mapIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
 export function mapIndexed<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
 export function mapIndexed<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
-export function mapIndexed<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function mapIndexed<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
 export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
@@ -8489,8 +8482,8 @@ Notes:
 // @SINGLE_MARKER
 export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
 export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
-export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
 
 /*
 Method: rejectIndexed
@@ -8518,8 +8511,8 @@ Notes:
 // @SINGLE_MARKER
 export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
 export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
-export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
 
 
 /*
@@ -8575,8 +8568,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
-export function filterObject<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
 
 /*
 Method: filterArray
@@ -8620,8 +8613,8 @@ Notes:
 // @SINGLE_MARKER
 export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: T[]): T[];
 export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: T[]) => T[];
-export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
-export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Record<PropertyKey, T>): Record<PropertyKey, T>;
+export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Record<PropertyKey, T>) => Record<PropertyKey, T>;
 
 /*
 Method: mapObject
@@ -8641,10 +8634,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObject<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
-export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
-export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+export function mapObject<T>(fn: ObjectIterator<T, T>, iterable: Record<PropertyKey, T>): Record<PropertyKey, T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
+export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
 
 /*
 Method: tryCatchAsync
