@@ -9,9 +9,12 @@ import {
 	defaultTo,
 	difference,
 	dissocPath,
+	drop,
 	dropLast,
 	either,
+	endsWith,
 	filter,
+	find,
 	head,
 	inc,
 	map,
@@ -136,14 +139,28 @@ function convertToType<T>() {
 	return <U>(x: U) => x as unknown as T;
 }
 
+function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T) => T {
+	return (x) => {
+		const result = transformFn(x);
+		fn(x, result);
+		return x;
+	};
+} 
 
 describe('real use cases - books', () => {
 	it('case 1', () => {
 		const result = piped(
 			[awardedZaratustra, awardedBrothersKaramazov],
 			filter(checkIfFamous),
-			tap((x) => {
-				x; // $ExpectType FamousBook[]
+			drop(1),
+			// endsWith([awardedBrothersKaramazov]),
+			tapFn(endsWith([awardedBrothersKaramazov]),(a, b) => {
+				a; // $ExpectType FamousBook[]
+				b; // $ExpectType boolean
+			}),
+			find(x => {
+				x // $ExpectType FamousBook
+				return x.title === 'Brothers Karamazov';
 			}),
 		);
 		const final: Expect<IsNotNever<typeof result>> = true;

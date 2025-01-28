@@ -1,5 +1,9 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
+export type EqualTypes<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false
+
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
@@ -7,15 +11,7 @@ export type Mapped<T extends IterableContainer, K> = {
   -readonly [P in keyof T]: K;
 };
 
-export type MergeType<T> =
-  T extends object
-    ? { [K in keyof T]: MergeTypes<T[K]> }
-    : T
-
-
-export function reduceStopper<T>(input: T) : T
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
-export type Iterator<T, U> = (x: T) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
@@ -104,9 +100,6 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, offset: number, s: string, groups?: Record<string, string>) => string)
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
-
-/** `First`, when `First` is a supertype of `Second`; otherwise `never`. */
-type IsFirstSubtypeOfSecond<First, Second> = (First extends Second ? Second : never);
 
 // RAMBDAX INTERFACES
 // ============================================
@@ -461,10 +454,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(value: T, iterable: T[]): T[];
-export function append<T, U>(value: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
-export function append<T>(value: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
-export function append<T>(value: T): (iterable: T[]) => T[];
+export function append<T>(el: T): (list: T[]) => T[];
+export function append<T>(el: T): (list: readonly T[]) => T[];
+export function append<T>(el: T, list: T[]): T[];
+export function append<T>(el: T, list: readonly T[]): T[];
 
 /*
 Method: applySpec
@@ -706,88 +699,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
-  ...func: [
-      fnLast: (a: any) => TResult,
-      ...func: Array<(a: any) => any>,
-      f12: (a: R11) => R12,
-      f11: (a: R10) => R11,
-      f10: (a: R9) => R10,
-      f9: (a: R8) => R9,
-      f8: (a: R7) => R8,
-      f7: (a: R6) => R7,
-      f6: (a: R5) => R6,
-      f5: (a: R4) => R5,
-      f4: (a: R3) => R4,
-      f3: (a: R2) => R3,
-      f2: (a: R1) => R2,
-      f1: (...args: TArgs) => R1
-  ]
-): (...args: TArgs) => TResult;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, TResult>(
-  f12: (a: R11) => R12,
-  f11: (a: R10) => R11,
-  f10: (a: R9) => R10,
-  f9: (a: R8) => R9,
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R12;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(
-  f12: (a: R11) => R12,
-  f11: (a: R10) => R11,
-  f10: (a: R9) => R10,
-  f9: (a: R8) => R9,
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R12;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11>(
-  f11: (a: R10) => R11,
-  f10: (a: R9) => R10,
-  f9: (a: R8) => R9,
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R11;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
-  f10: (a: R9) => R10,
-  f9: (a: R8) => R9,
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R10;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
-  f9: (a: R8) => R9,
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R9;
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
   f8: (a: R7) => R8,
   f7: (a: R6) => R7,
@@ -1069,7 +980,7 @@ const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
 
 Categories:
 
-Notes:
+Notes: pipe
 
 */
 // @SINGLE_MARKER
@@ -1116,9 +1027,11 @@ Notes:
 // @SINGLE_MARKER
 export function drop<T>(howMany: number): {
   (input: string): string;
+  (input: T[]): T[];
   (input: readonly T[]): T[];
 };
 export function drop(howMany: number, input: string): string;
+export function drop<T>(howMany: number, input: T[]): T[];
 export function drop<T>(howMany: number, input: readonly T[]): T[];
 
 /*
@@ -1141,9 +1054,11 @@ Notes:
 // @SINGLE_MARKER
 export function dropLast<T>(howMany: number): {
   (input: string): string;
+  (input: T[]): T[];
   (input: readonly T[]): T[];
 };
 export function dropLast(howMany: number, input: string): string;
+export function dropLast<T>(howMany: number, input: T[]): T[];
 export function dropLast<T>(howMany: number, input: readonly T[]): T[];
 
 /*
@@ -8459,10 +8374,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapArray<T>(fn: Iterator<T, T>, iterable: T[]): T[];
-export function mapArray<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
-export function mapArray<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
-export function mapArray<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
+export function mapArray<T, U>(fn: (x: T) => U, iterable: T[]): U[];
+export function mapArray<T, U>(fn: (x: T) => U): (iterable: T[]) => U[];
 
 /*
 Method: filterIndexed

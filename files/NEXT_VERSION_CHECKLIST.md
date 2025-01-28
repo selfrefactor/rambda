@@ -1,3 +1,4 @@
+https://github.com/selfrefactor/rambda/wiki/Optimizing-Rambda-for-pipe-function-with-v10.0.0/_edit
 
 - Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
@@ -5,7 +6,11 @@
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
 
-- Take typings of `R.filter` from `Remeda`.
+- Take typings of `R.filter/R.map` from `Remeda`.
+
+- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
+
+- Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
 _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
 
@@ -26,6 +31,7 @@ Sync with typing of `@types/ramda`:
 - either
 - both
 - allPass
+- append
 - anyPass
 - drop/dropLast
 - map
