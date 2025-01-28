@@ -90,6 +90,11 @@ https://github.com/ramda/types/pull/127/files
 https://github.com/ramda/types/pull/122/files
 release string.fn
 ---
+https://github.com/remeda/remeda/pull/1002/files
+
+https://remedajs.com/docs/#fromKeys
+https://remedajs.com/docs/#omitBy
+---
   "exports": {
     ".": {
       "require": {

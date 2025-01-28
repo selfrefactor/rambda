@@ -62,6 +62,11 @@ const zaratustra: BaseBook = {
 	title: 'Zaratustra',
 	year: 1956,
 };
+let brothersKaramazov = {
+	title: 'Brothers Karamazov',
+	year: 1880,
+}
+
 const awardedZaratustra: Book = {
 	...zaratustra,
 	awards: {
@@ -69,16 +74,15 @@ const awardedZaratustra: Book = {
 		years: [1956],
 	},
 };
-const awardedDostojevski: Book = {
-	title: 'Idiot',
-	year: 1869,
+const awardedBrothersKaramazov: Book = {
+	...brothersKaramazov,
 	awards: {
 		number: 2,
 		years: [1869, 1870],
 	},
 };
-const awardedDostojevskiToRead: BookToRead = {
-	...awardedDostojevski,
+const awardedBrothersKaramazovToRead: BookToRead = {
+	...awardedBrothersKaramazov,
 	readFlag: true,
 	bookmarkFlag: true,
 };
@@ -132,12 +136,19 @@ function convertToType<T>() {
 	return <U>(x: U) => x as unknown as T;
 }
 
-// function mergeType<T>(x: T){
-// 	return x as MergeType<T>
-// }
 
-describe('real use cases', () => {
-	it('books', () => {
+describe('real use cases - books', () => {
+	it('case 1', () => {
+		const result = piped(
+			[awardedZaratustra, awardedBrothersKaramazov],
+			filter(checkIfFamous),
+			tap((x) => {
+				x; // $ExpectType FamousBook[]
+			}),
+		);
+		const final: Expect<IsNotNever<typeof result>> = true;
+	});
+	it('case 2', () => {
 		const result = piped(
 			zaratustra,
 			assoc('status', 'famous' as Status),
@@ -155,7 +166,7 @@ describe('real use cases', () => {
 			assertType(checkBookToRead),
 			(x) => [x],
 			dropLast(1),
-			difference([awardedDostojevskiToRead]),
+			difference([awardedBrothersKaramazovToRead]),
 			append(awardedZaratustraToRead),
 			head,
 			assertType(allPass([checkHasDescription, checkHasUserRating])),
@@ -169,7 +180,6 @@ describe('real use cases', () => {
 			mapObject((x) => {
 				return x as unknown as number;
 			}),
-			// filter((x) => typeof x === 'object'),
 		);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});
