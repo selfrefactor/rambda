@@ -1,5 +1,4 @@
 import {
-	add,
 	allPass,
 	anyPass,
 	append,
@@ -22,6 +21,7 @@ import {
 	negate,
 	piped,
 	tap,
+	union,
 } from 'rambda';
 import * as R from 'ramda';
 type IsNotNever<T> = [T] extends [never] ? false : true;
@@ -146,21 +146,24 @@ function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T)
 		return x;
 	};
 } 
-
 describe('real use cases - books', () => {
 	it('case 1', () => {
 		const result = piped(
 			[awardedZaratustra, awardedBrothersKaramazov],
 			filter(checkIfFamous),
 			drop(1),
-			// endsWith([awardedBrothersKaramazov]),
-			tapFn(endsWith([awardedBrothersKaramazov]),(a, b) => {
+			// without converting to `as FamousBook`, endsWith will pick up `Book` as type
+			tapFn(endsWith([awardedBrothersKaramazov as FamousBook]),(a, b) => {
 				a; // $ExpectType FamousBook[]
 				b; // $ExpectType boolean
 			}),
+			tapFn(union([awardedBrothersKaramazov]),(a, b) => {
+				a; // $ExpectType Book[]
+				b; // $ExpectType boolean
+			}),
 			find(x => {
-				x // $ExpectType FamousBook
-				return x.title === 'Brothers Karamazov';
+				x // $ExpectType Book
+				return x.title === 'Brothers Karamazov'
 			}),
 		);
 		const final: Expect<IsNotNever<typeof result>> = true;

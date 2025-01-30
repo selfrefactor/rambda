@@ -4,6 +4,10 @@ https://github.com/selfrefactor/rambda/wiki/Optimizing-Rambda-for-pipe-function-
 
 - Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
 
+_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - this feature is no longer supported in TypeScript as it prevents using native `Omit` and `Pick` types. JS version still works with strings as path inputs.
+
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
 
 - Take typings of `R.filter/R.map` from `Remeda`.
@@ -12,7 +16,6 @@ https://github.com/selfrefactor/rambda/wiki/Optimizing-Rambda-for-pipe-function-
 
 - Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
-_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
 
 ? indexed  - need to be removed
 
@@ -32,6 +35,10 @@ Sync with typing of `@types/ramda`:
 - both
 - allPass
 - append
+- keys
+- mapObjIndexed
+- mergeAll
+- omit
 - anyPass
 - drop/dropLast
 - map
@@ -42,8 +49,7 @@ Sync with typing of `remeda`:
 - map
 - toPairs
 
-
-Increase number of function inputs for `R.pipe` to 20 and for `R.compose` to 12.
+- Publish to https://jsr.io/@rambda/rambda
 
 ABOVE IS DONE
 ===

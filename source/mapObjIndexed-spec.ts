@@ -13,7 +13,7 @@ describe('R.mapObjIndexed', () => {
     result // $ExpectType Dictionary<number>
   })
   it('without type transform - curried', () => {
-    const result = mapObjIndexed<number>((x, prop, obj) => {
+    const result = mapObjIndexed<number, number, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
       obj // $ExpectType Dictionary<number>
@@ -31,7 +31,7 @@ describe('R.mapObjIndexed', () => {
     result // $ExpectType Dictionary<string>
   })
   it('change of type - curried', () => {
-    const result = mapObjIndexed<number, string>((x, prop, obj) => {
+    const result = mapObjIndexed<number, string, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
       obj // $ExpectType Dictionary<number>

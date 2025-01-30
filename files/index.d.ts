@@ -11,6 +11,7 @@ export type Mapped<T extends IterableContainer, K> = {
   -readonly [P in keyof T]: K;
 };
 
+export type ElementOf<Type extends readonly any[]> = Type[number];
 export type Simplify<T> = {[KeyType in keyof T]: T[KeyType]} & {};
 export type EntryForKey<T, Key extends keyof T> = Key extends number | string
   ? [key: `${Key}`, value: Required<T>[Key]]
@@ -1942,8 +1943,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function keys<T extends object>(x: T): (keyof T & string)[];
-export function keys<T>(x: T): string[];
+export function keys<T extends object>(x: T): Array<keyof T>;
 
 /*
 Method: last
@@ -2312,8 +2312,34 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
-export function mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: Record<TKey, T>,
+): Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: PartialRecord<TKey, T>,
+): PartialRecord<TKey, TResult>;
+export function mapObjIndexed<T, TResult>(
+	fn: (
+		value: T,
+		key: string,
+		obj?: {
+			[key: string]: T;
+		},
+	) => TResult,
+	obj: {
+		[key: string]: T;
+	},
+): {
+	[key: string]: TResult;
+};
 
 /*
 Method: match
@@ -2775,7 +2801,6 @@ export function isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>;
 export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
 export function isNotEmpty(value: any): boolean;
 
-
 /*
 Method: nth
 
@@ -2878,12 +2903,8 @@ Notes: When using this method with `TypeScript`, it is much easier to pass `prop
 
 */
 // @SINGLE_MARKER
-export function omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
-export function omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
-export function omit<T, U>(propsToOmit: string, obj: T): U;
-export function omit<T, U>(propsToOmit: string): (obj: T) => U;
-export function omit<T>(propsToOmit: string, obj: object): T;
-export function omit<T>(propsToOmit: string): (obj: object) => T;
+export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
+export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
 
 /*
 Method: of
