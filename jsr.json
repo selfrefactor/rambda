@@ -2,5 +2,8 @@
   "name": "@rambda/rambda",
   "version": "9.4.2",
   "license": "MIT",
-  "exports": "./mod.ts"
+  "exports": "./mod.ts",
+	"publish": {
+    "include": ["src", "LICENSE.md", "README.md"]
+  }
 }

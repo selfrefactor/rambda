@@ -11,6 +11,13 @@ export type Mapped<T extends IterableContainer, K> = {
   -readonly [P in keyof T]: K;
 };
 
+export type Simplify<T> = {[KeyType in keyof T]: T[KeyType]} & {};
+export type EntryForKey<T, Key extends keyof T> = Key extends number | string
+  ? [key: `${Key}`, value: Required<T>[Key]]
+  : never;
+
+export type Entry<T> = Simplify<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
+
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
@@ -4263,8 +4270,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
-export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
+export function toPairs<T extends {}>(data: T): Array<Entry<T>>;
 
 /*
 Method: toString

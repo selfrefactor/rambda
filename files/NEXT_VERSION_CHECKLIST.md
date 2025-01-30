@@ -37,6 +37,11 @@ Sync with typing of `@types/ramda`:
 - map
 - filter
 
+Sync with typing of `remeda`:
+- filter
+- map
+- toPairs
+
 
 Increase number of function inputs for `R.pipe` to 20 and for `R.compose` to 12.
 
@@ -67,6 +72,10 @@ Ok to proceed? (y)
 ---
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
+---
+https://github.com/remeda/remeda/tree/main/docs docs site
+
+https://github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
 ---
   console.log
     Size - 0.454681MB
