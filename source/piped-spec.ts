@@ -165,6 +165,8 @@ describe('real use cases - books', () => {
 				x // $ExpectType Book
 				return x.title === 'Brothers Karamazov'
 			}),
+			x => ([x!]),
+			filter(Boolean),
 		);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});

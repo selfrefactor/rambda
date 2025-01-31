@@ -1202,18 +1202,21 @@ Notes:
 // @SINGLE_MARKER
 export function filter<T, S extends T>(
 	predicate: (value: T) => value is S,
-  data: ReadonlyArray<T>,
-): Array<S>;
+  data: T[],
+): S[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
-  data: ReadonlyArray<T>,
-): Array<T>;
+  data: T[],
+): T[];
 export function filter<T, S extends T>(
   predicate: (value: T) => value is S,
-): (data: ReadonlyArray<T>) => Array<S>;
+): (data: T[]) => S[];
 export function filter<T>(
-  predicate: (value: T) => boolean,
-): (data: ReadonlyArray<T>) => Array<T>;
+	predicate: BooleanConstructor,
+): (data: T[]) => T[];
+export function filter<T>(
+	predicate: (value: T) => boolean,
+): (data: T[]) => T[];
 
 /*
 Method: find
