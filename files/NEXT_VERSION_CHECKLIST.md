@@ -59,9 +59,11 @@ Sync with typing of `remeda`:
 
 - Publish to https://jsr.io/@rambda/rambda
 
+Replace Record<string> with Record<PropertyKey>
+
 ABOVE IS DONE
+
 ===
-Replace Record<string> with Record<PropertyKey> ? - test with symbols in js
 
 need further check:
 
