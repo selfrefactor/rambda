@@ -23,7 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
-type Path = string | (number | string)[];
+export type Path = Array<number | string>;
 export type RamdaPath = (number | string)[];
 export type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
@@ -547,7 +547,9 @@ Notes: pipe
 
 */
 // @SINGLE_MARKER
+export function assocPath<T>(path: string, val: unknown): (obj: unknown) => T;
 export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
+export function assocPath<T>(path: string, val: unknown, obj: unknown): T;
 export function assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 
 /*
@@ -992,7 +994,9 @@ Notes: pipe
 
 */
 // @SINGLE_MARKER
+export function dissocPath<T>(path: string): (obj: unknown) => T;
 export function dissocPath<T>(path: Path): (obj: unknown) => T;
+export function dissocPath<T>(path: string, obj: unknown): T;
 export function dissocPath<T>(path: Path, obj: unknown): T;
 
 /*
@@ -2905,6 +2909,8 @@ Notes: When using this method with `TypeScript`, it is much easier to pass `prop
 // @SINGLE_MARKER
 export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
 export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
+export function omit<T>(names: string): (obj: unknown) => T;
+export function omit<T>(names: string, obj: unknown): T;
 
 /*
 Method: of
@@ -3002,20 +3008,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function partition<T>(
-  predicate: Predicate<T>,
-  input: T[]
-): [T[], T[]];
-export function partition<T>(
-  predicate: Predicate<T>
-): (input: T[]) => [T[], T[]];
-export function partition<T>(
-  predicate: (x: T, prop?: string) => boolean,
-  input: { [key: string]: T}
-): [{ [key: string]: T}, { [key: string]: T}];
-export function partition<T>(
-  predicate: (x: T, prop?: string) => boolean
-): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+export function partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
+export function partition<T>(fn: (a: T) => boolean): <L extends T = T>(list: L[]) => [L[], L[]];
+
+export function partition<T, U extends T>(fn: (a: T) => a is U, list: T[]): [U[], Exclude<T, U>[]];
+export function partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
 
 /*
 Method: path
@@ -3045,42 +3042,73 @@ Notes: String annotation of `pathToSearch` is one of the differences between `Ra
 
 */
 // @SINGLE_MARKER
-export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
-export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<T = unknown>(path: Path): (obj: any) => T | undefined;
+export function path<S, K0 extends keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
 export function path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1]
 >(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
 export function path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2]
 >(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
 export function path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3]
 >(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
 export function path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-export function path<T>(pathToSearch: string, obj: any): T | undefined;
-export function path<T>(pathToSearch: string): (obj: any) => T | undefined;
-export function path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
-export function path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
+export function path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
+export function path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7];
+export function path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+	K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+export function path<T = unknown>(path: Path, obj: any): T | undefined;
 
 /*
 Method: pathEq

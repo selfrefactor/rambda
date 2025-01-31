@@ -30,19 +30,20 @@ Require explicit output type(s) as it is very hard to pick up the correct type i
 - dissocPath 
 
 Sync with typing of `@types/ramda`:
-- forEach
-- either
-- both
 - allPass
+- anyPass
 - append
+- both
+- drop/dropLast
+- either
+- filter
+- forEach
 - keys
+- map
 - mapObjIndexed
 - mergeAll
 - omit
-- anyPass
-- drop/dropLast
-- map
-- filter
+- partition
 
 Sync with typing of `remeda`:
 - filter
