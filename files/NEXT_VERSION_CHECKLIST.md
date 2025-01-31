@@ -1,10 +1,88 @@
-takelast
+https://github.com/selfrefactor/rambda/wiki/Optimizing-Rambda-for-pipe-function-with-v10.0.0/_edit
+
+- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+
+- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+
+_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
+- Take typings of `R.filter/R.map` from `Remeda`.
+
+- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
+
+- Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
+
+
+? indexed  - need to be removed
+
+Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
+
+- head/last - empty array as input will return `undefined`, but `never`
+- assocPath - stop supporting curring of type `(x)(y)(z)`
+
+Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+
+- assocPath
+- dissocPath 
+
+Sync with typing of `@types/ramda`:
+- allPass
+- anyPass
+- append
+- both
+- countBy
+- drop
+- dropLast
+- dropRepeatsBy
+- either
+- filter
+- forEach
+- keys
+- map
+- mapObjIndexed
+- mergeAll
+- mergeWith
+- modify
+- modifyPath
+- omit
+- partition
+- prepend
+- where
+- whereAny
+
+Sync with typing of `remeda`:
+- filter
+- map
+- toPairs
+
+- Publish to https://jsr.io/@rambda/rambda
+
+Replace Record<string> with Record<PropertyKey>
+
+ABOVE IS DONE
+
+===
+
+need further check:
+
+- chain
+===
 
 https://github.com/selfrefactor/rambda/discussions/758
 
-
+export function splitEvery(sliceLength: number): {
+  (input: string): string[];
+  <T>(input: T[]): (T[])[];
+};
 ---
-ABOVE IS DONE
+no example usage
+sortWith
+
+Try this R.sortWith example in Rambda REPL
 ---
 Need to install the following packages:
 docsify-cli@4.4.4
@@ -12,6 +90,10 @@ Ok to proceed? (y)
 ---
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
+---
+https://github.com/remeda/remeda/tree/main/docs docs site
+
+https://github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
 ---
   console.log
     Size - 0.454681MB
@@ -41,6 +123,11 @@ https://github.com/ramda/types/pull/127/files
 https://github.com/ramda/types/pull/122/files
 release string.fn
 ---
+https://github.com/remeda/remeda/pull/1002/files
+
+https://remedajs.com/docs/#fromKeys
+https://remedajs.com/docs/#omitBy
+---
   "exports": {
     ".": {
       "require": {
@@ -60,6 +147,8 @@ release string.fn
 
 
 	https://github.com/ramda/types/pull/110/files
+---
+complex pipe test with rameda radashi
 ---
 
 ## ABOVE IS IN PROGRESS
@@ -109,6 +198,7 @@ chech in to read for examples
 }
 },
 
+---
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---

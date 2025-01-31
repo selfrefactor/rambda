@@ -1,12 +1,6 @@
 import { isArray } from './_internals/isArray.js'
 import { curry } from './curry.js'
 
-class ReduceStopper{
-  constructor(value){
-    this.value = value
-  }
-}
-
 export function reduceFn(
   reducer, acc, list
 ){
@@ -23,9 +17,6 @@ export function reduceFn(
     acc = reducer(
       acc, list[ index ], index, list
     )
-    if (acc instanceof ReduceStopper){
-      return acc.value
-    }
     index++
   }
 
@@ -33,4 +24,3 @@ export function reduceFn(
 }
 
 export const reduce = curry(reduceFn)
-export const reduceStopper = value => new ReduceStopper(value)

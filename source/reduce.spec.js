@@ -1,6 +1,6 @@
 import { add } from './add.js'
 import { concat } from './concat.js'
-import { reduce, reduceStopper } from './reduce.js'
+import { reduce } from './reduce.js'
 
 const reducer = (
   prev, current, i
@@ -33,21 +33,6 @@ test('with undefined as iterable', () => {
   expect(() => reduce(
     reducer, 0, {}
   )).toThrowWithMessage(TypeError, ERROR)
-})
-
-test('with reduceStopper', () => {
-  let maxIndex
-  const reducer = (
-    prev, current, i
-  ) => {
-    maxIndex = i
-
-    return current === 2 ? reduceStopper(current) : prev
-  }
-  expect(reduce(
-    reducer, initialValue, list
-  )).toBe(2)
-  expect(maxIndex).toBe(1)
 })
 
 test('returns the accumulator for a null list', () => {

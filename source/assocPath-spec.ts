@@ -1,32 +1,32 @@
-import {assocPath} from 'rambda'
+import {assocPath, dissocPath} from 'rambda'
 
-interface Output {
-  a: number,
-  foo: {bar: number},
-}
-
-describe('R.assocPath - user must explicitly set type of output', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2, {a: 1})
-
-    result // $ExpectType Output
-  })
-  it('with string as path input', () => {
+describe('R.assocPath - needs explicit output type', () => {
+	interface Output{
+		a: number,
+		foo: {bar: number},
+	}
+  it('happy', () => {
     const result = assocPath<Output>('foo.bar', 2, {a: 1})
-
     result // $ExpectType Output
   })
-})
-
-describe('R.assocPath - curried', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2)({a: 1})
-
-    result // $ExpectType Output
-  })
-  it('with string as path input', () => {
+  it('curried', () => {
     const result = assocPath<Output>('foo.bar', 2)({a: 1})
-
     result // $ExpectType Output
   })
 })
+
+describe('R.dissocPath - needs explicit output type', () => {
+	interface Output{
+		a: number,
+		foo: {b: number},
+	}
+  it('happy', () => {
+    const result = dissocPath<Output>('foo.bar', {a: 1, foo: {b: 2,bar: 3}})
+    result // $ExpectType Output
+  })
+  it('curried', () => {
+		const result = dissocPath<Output>('foo.bar')({a: 1, foo: {b: 2,bar: 3}})
+    result // $ExpectType Output
+  })
+})
+

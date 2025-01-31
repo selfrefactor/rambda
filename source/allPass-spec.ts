@@ -2,12 +2,11 @@ import {allPass, filter} from 'rambda'
 
 describe('allPass', () => {
   it('happy', () => {
-    const x = allPass<number>([
-      y => {
-        y // $ExpectType number
+    const x = allPass([
+      (y: number) => {
         return typeof y === 'number'
       },
-      y => {
+      (y: number) => {
         return y > 0
       },
     ])(11)

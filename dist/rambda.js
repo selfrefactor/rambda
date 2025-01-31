@@ -837,9 +837,9 @@ function dissoc(prop, obj) {
 function _defineProperty(e, r, t) {
   return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
     value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
+    enumerable: true,
+    configurable: true,
+    writable: true
   }) : e[r] = t, e;
 }
 function ownKeys(e, r) {
@@ -855,7 +855,7 @@ function ownKeys(e, r) {
 function _objectSpread2(e) {
   for (var r = 1; r < arguments.length; r++) {
     var t = null != arguments[r] ? arguments[r] : {};
-    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+    r % 2 ? ownKeys(Object(t), true).forEach(function (r) {
       _defineProperty(e, r, t[r]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
       Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
@@ -866,7 +866,7 @@ function _objectSpread2(e) {
 function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
   var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
+  if (undefined !== e) {
     var i = e.call(t, r || "default");
     if ("object" != typeof i) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
@@ -1698,8 +1698,8 @@ function mergeLeft(x, y) {
 }
 
 function mergeWithFn(mergeFn, aInput, bInput) {
-  const a = aInput !== null && aInput !== void 0 ? aInput : {};
-  const b = bInput !== null && bInput !== void 0 ? bInput : {};
+  const a = aInput !== null && aInput !== undefined ? aInput : {};
+  const b = bInput !== null && bInput !== undefined ? bInput : {};
   const willReturn = {};
   Object.keys(a).forEach(key => {
     if (b[key] === undefined) willReturn[key] = a[key];else willReturn[key] = mergeFn(a[key], b[key]);

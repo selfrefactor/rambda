@@ -318,11 +318,20 @@ It adds `a` and `b`.
 
 > :boom: It doesn't work with strings, as the inputs are parsed to numbers before calculation.
 
+```javascript
+R.add(2, 3) // =>  5
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.add(2%2C%203)%20%2F%2F%20%3D%3E%20%205">Try this <strong>R.add</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#add)
 
 ### addIndex
+
+```javascript
+const result = R.addIndex(R.map)((val, idx) => val + idx + 1, [1, 2, 3])
+// => [2, 4, 6]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.addIndex(R.map)((val%2C%20idx)%20%3D%3E%20val%20%2B%20idx%20%2B%201%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%2C%206%5D">Try this <strong>R.addIndex</strong> example in Rambda REPL</a>
 
@@ -699,6 +708,13 @@ describe('allPass', () => {
 
 It returns function that always returns `x`.
 
+```javascript
+const fn = R.always(7)
+
+const result = fn()
+// => 7
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.always(7)%0A%0Aconst%20result%20%3D%20fn()%0A%2F%2F%20%3D%3E%207">Try this <strong>R.always</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#always)
@@ -706,6 +722,12 @@ It returns function that always returns `x`.
 ### and
 
 Logical AND
+
+```javascript
+R.and(true, true); // => true
+R.and(false, true); // => false
+R.and(true, 'foo'); // => 'foo'
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.and(true%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.and(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20false%0Aconst%20result%20%3D%20R.and(true%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.and</strong> example in Rambda REPL</a>
 
@@ -1854,11 +1876,24 @@ describe('applySpec', () => {
 
 ### applyTo
 
+```javascript
+const result = R.applyTo(
+  1,
+  x => x + 1
+)
+// => 2
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.applyTo(%0A%20%201%2C%0A%20%20x%20%3D%3E%20x%20%2B%201%0A)%0A%2F%2F%20%3D%3E%202">Try this <strong>R.applyTo</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#applyTo)
 
 ### ascend
+
+```javascript
+const result = R.sort(R.descend(x => x), [2, 1])
+// => [1, 2]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(R.descend(x%20%3D%3E%20x)%2C%20%5B2%2C%201%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.ascend</strong> example in Rambda REPL</a>
 
@@ -1871,6 +1906,11 @@ It makes a shallow clone of `obj` with setting or overriding the property `prop`
 > :boom: This copies and flattens prototype properties
 onto the new object as well. All non-primitive properties are copied by
 reference.
+
+```javascript
+R.assoc('c', 3, {a: 1, b: 2})
+// => {a: 1, b: 2, c: 3}
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.assoc('c'%2C%203%2C%20%7Ba%3A%201%2C%20b%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D">Try this <strong>R.assoc</strong> example in Rambda REPL</a>
 
@@ -2178,6 +2218,13 @@ describe('R.assocPath - curried', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assocPath)
 
 ### binary
+
+```javascript
+const result = R.binary(
+  (a, b, c) => a + b + c,
+)(1, 2, 3, 4)
+// => 3
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.binary(%0A%20%20(a%2C%20b%2C%20c)%20%3D%3E%20a%20%2B%20b%20%2B%20c%2C%0A)(1%2C%202%2C%203%2C%204)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.binary</strong> example in Rambda REPL</a>
 
@@ -2515,6 +2562,15 @@ describe('R.both', () => {
 
 ### call
 
+```javascript
+const result = R.call(
+  (a, b) => a + b,
+  1,
+  2
+)
+// => 3
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.call(%0A%20%20(a%2C%20b)%20%3D%3E%20a%20%2B%20b%2C%0A%20%201%2C%0A%20%202%0A)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.call</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#call)
@@ -2670,6 +2726,15 @@ If `input` is bigger than `max`, then the result is `max`.
 
 If `input` is smaller than `min`, then the result is `min`.
 
+```javascript
+const result = [
+  R.clamp(0, 10, 5), 
+  R.clamp(0, 10, -1),
+  R.clamp(0, 10, 11)
+]
+// => [5, 0, 10]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.clamp(0%2C%2010%2C%205)%2C%20%0A%20%20R.clamp(0%2C%2010%2C%20-1)%2C%0A%20%20R.clamp(0%2C%2010%2C%2011)%0A%5D%0A%2F%2F%20%3D%3E%20%5B5%2C%200%2C%2010%5D">Try this <strong>R.clamp</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clamp)
@@ -2680,11 +2745,29 @@ It creates a deep copy of the `input`, which may contain (nested) Arrays and Obj
 
 > :boom: It doesn't work with very specific types, such as MongoDB's ObjectId.
 
+```javascript
+const objects = [{a: 1}, {b: 2}];
+const objectsClone = R.clone(objects);
+
+const result = [
+  R.equals(objects, objectsClone),
+  R.equals(objects[0], objectsClone[0]),
+] // => [ true, true ]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20objects%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Bb%3A%202%7D%5D%3B%0Aconst%20objectsClone%20%3D%20R.clone(objects)%3B%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.equals(objects%2C%20objectsClone)%2C%0A%20%20R.equals(objects%5B0%5D%2C%20objectsClone%5B0%5D)%2C%0A%5D%20%2F%2F%20%3D%3E%20%5B%20true%2C%20true%20%5D">Try this <strong>R.clone</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#clone)
 
 ### collectBy
+
+```javascript
+const result = R.collectBy(
+  x => x % 2,
+  [1, 2, 3, 4]
+)
+// => [[2, 4], [1, 3]]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.collectBy(%0A%20%20x%20%3D%3E%20x%20%25%202%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%0A)%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%204%5D%2C%20%5B1%2C%203%5D%5D">Try this <strong>R.collectBy</strong> example in Rambda REPL</a>
 
@@ -2693,6 +2776,14 @@ It creates a deep copy of the `input`, which may contain (nested) Arrays and Obj
 ### comparator
 
 It returns a comparator function that can be used in `sort` method.
+
+```javascript
+const result = R.sort(
+  R.comparator((a, b) => a.x < b.x),
+  [{x: 2}, {x: 1}]
+)
+// => [{x: 1}, {x: 2}]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(%0A%20%20R.comparator((a%2C%20b)%20%3D%3E%20a.x%20%3C%20b.x)%2C%0A%20%20%5B%7Bx%3A%202%7D%2C%20%7Bx%3A%201%7D%5D%0A)%0A%2F%2F%20%3D%3E%20%5B%7Bx%3A%201%7D%2C%20%7Bx%3A%202%7D%5D">Try this <strong>R.comparator</strong> example in Rambda REPL</a>
 
@@ -2704,6 +2795,16 @@ It returns `inverted` version of `origin` function that accept `input` as argume
 
 The return value of `inverted` is the negative boolean value of `origin(input)`.
 
+```javascript
+const origin = x => x > 5
+const inverted = complement(origin)
+
+const result = [
+  origin(7),
+  inverted(7)
+] => [ true, false ]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20origin%20%3D%20x%20%3D%3E%20x%20%3E%205%0Aconst%20inverted%20%3D%20complement(origin)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20origin(7)%2C%0A%20%20inverted(7)%0A%5D%20%3D%3E%20%5B%20true%2C%20false%20%5D">Try this <strong>R.complement</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#complement)
@@ -2712,11 +2813,31 @@ The return value of `inverted` is the negative boolean value of `origin(input)`.
 
 It performs right-to-left function composition.
 
+```javascript
+const result = R.compose(
+  R.map(x => x * 2),
+  R.filter(x => x > 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try this <strong>R.compose</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#compose)
 
 ### composeWith
+
+```javascript
+const result = R.composeWith(
+  (fn, intermediateResult) => fn(intermediateResult),
+  [
+    R.map(x => x + 1),
+    R.map(x => x * 2),
+  ]
+)([1, 2, 3])
+// => [3, 5, 7]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.composeWith(%0A%20%20(fn%2C%20intermediateResult)%20%3D%3E%20fn(intermediateResult)%2C%0A%20%20%5B%0A%20%20%20%20R.map(x%20%3D%3E%20x%20%2B%201)%2C%0A%20%20%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20%5D%0A)(%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B3%2C%205%2C%207%5D">Try this <strong>R.composeWith</strong> example in Rambda REPL</a>
 
@@ -2725,6 +2846,11 @@ It performs right-to-left function composition.
 ### concat
 
 It returns a new string or array, which is the result of merging `x` and `y`.
+
+```javascript
+R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
+R.concat('foo', 'bar') // => 'foobar'
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.concat(%5B1%2C%202%5D)(%5B3%2C%204%5D)%20%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20result%20%3D%20R.concat('foo'%2C%20'bar')%20%2F%2F%20%3D%3E%20'foobar'">Try this <strong>R.concat</strong> example in Rambda REPL</a>
 
@@ -2740,6 +2866,21 @@ The winner is this condition, which left side returns `true` when `input` is its
 
 If no winner is found, then `fn` returns `undefined`.
 
+```javascript
+const fn = R.cond([
+  [ x => x > 25, R.always('more than 25') ],
+  [ x => x > 15, R.always('more than 15') ],
+  [ R.T, x => `${x} is nothing special` ],
+])
+
+const result = [
+  fn(30),
+  fn(20),
+  fn(10),
+] 
+// => ['more than 25', 'more than 15', '10 is nothing special']
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20R.cond(%5B%0A%20%20%5B%20x%20%3D%3E%20x%20%3E%2025%2C%20R.always('more%20than%2025')%20%5D%2C%0A%20%20%5B%20x%20%3D%3E%20x%20%3E%2015%2C%20R.always('more%20than%2015')%20%5D%2C%0A%20%20%5B%20R.T%2C%20x%20%3D%3E%20%60%24%7Bx%7D%20is%20nothing%20special%60%20%5D%2C%0A%5D)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(30)%2C%0A%20%20fn(20)%2C%0A%20%20fn(10)%2C%0A%5D%20%0A%2F%2F%20%3D%3E%20%5B'more%20than%2025'%2C%20'more%20than%2015'%2C%20'10%20is%20nothing%20special'%5D">Try this <strong>R.cond</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#cond)
@@ -2750,6 +2891,11 @@ Accepts a converging function and a list of branching functions and returns a ne
 
 > :boom: Explanation is taken from `Ramda` documentation
 
+```javascript
+const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
+// => 15
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.converge(R.multiply)(%5B%20R.add(1)%2C%20R.add(3)%20%5D)(2)%0A%2F%2F%20%3D%3E%2015">Try this <strong>R.converge</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#converge)
@@ -2757,6 +2903,12 @@ Accepts a converging function and a list of branching functions and returns a ne
 ### count
 
 It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
+
+```javascript
+const list = [{a: 1}, 1, {a:2}]
+const result = R.count(x => x.a !== undefined, list)
+// => 2
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%201%2C%20%7Ba%3A2%7D%5D%0Aconst%20result%20%3D%20R.count(x%20%3D%3E%20x.a%20!%3D%3D%20undefined%2C%20list)%0A%2F%2F%20%3D%3E%202">Try this <strong>R.count</strong> example in Rambda REPL</a>
 
@@ -2871,6 +3023,14 @@ describe('R.countBy', () => {
 
 It expects a function as input and returns its curried version.
 
+```javascript
+const fn = (a, b, c) => a + b + c
+const curried = R.curry(fn)
+const sum = curried(1,2)
+
+const result = sum(3) // => 6
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(a%2C%20b%2C%20c)%20%3D%3E%20a%20%2B%20b%20%2B%20c%0Aconst%20curried%20%3D%20R.curry(fn)%0Aconst%20sum%20%3D%20curried(1%2C2)%0A%0Aconst%20result%20%3D%20sum(3)%20%2F%2F%20%3D%3E%206">Try this <strong>R.curry</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#curry)
@@ -2884,6 +3044,10 @@ It returns a curried equivalent of the provided function, with the specified ari
 ### dec
 
 It decrements a number.
+
+```javascript
+const result = R.dec(2) // => 1
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dec(2)%20%2F%2F%20%3D%3E%201">Try this <strong>R.dec</strong> example in Rambda REPL</a>
 
@@ -3003,6 +3167,11 @@ describe('R.defaultTo with Ramda spec', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
 
 ### descend
+
+```javascript
+const result = R.sort(R.descend(x => x), [1, 2])
+// => [2, 1]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sort(R.descend(x%20%3D%3E%20x)%2C%20%5B1%2C%202%5D)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%5D">Try this <strong>R.descend</strong> example in Rambda REPL</a>
 
@@ -3224,17 +3393,31 @@ test('different length of list', () => {
 
 It returns a new object that does not contain property `prop`.
 
+```javascript
+R.dissoc('b', {a: 1, b: 2, c: 3})
+// => {a: 1, c: 3}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dissoc('b'%2C%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try this <strong>R.dissoc</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissoc)
 
 ### dissocPath
 
+```javascript
+const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
+// => {a: {c: 2}}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dissocPath(%5B'a'%2C%20'b'%5D%2C%20%7Ba%3A%20%7Bb%3A%201%2C%20c%3A%202%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bc%3A%202%7D%7D">Try this <strong>R.dissocPath</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissocPath)
 
 ### divide
+
+```javascript
+R.divide(71, 100) // => 0.71
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.divide(71%2C%20100)%20%2F%2F%20%3D%3E%200.71">Try this <strong>R.divide</strong> example in Rambda REPL</a>
 
@@ -3482,6 +3665,14 @@ describe('R.dropLast - string', () => {
 
 ### dropLastWhile
 
+```javascript
+const list = [1, 2, 3, 4, 5];
+const predicate = x => x >= 3
+
+const result = dropLastWhile(predicate, list);
+// => [1, 2]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%3B%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%3D%203%0A%0Aconst%20result%20%3D%20dropLastWhile(predicate%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.dropLastWhile</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropLastWhile)
@@ -3620,17 +3811,39 @@ describe('R.dropRepeats', () => {
 
 ### dropRepeatsBy
 
+```javascript
+const result = R.dropRepeatsBy(
+  Math.abs,
+  [1, -1, 2, 3, -3]
+)
+// => [1, 2, 3]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.dropRepeatsBy(%0A%20%20Math.abs%2C%0A%20%20%5B1%2C%20-1%2C%202%2C%203%2C%20-3%5D%0A)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%5D">Try this <strong>R.dropRepeatsBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsBy)
 
 ### dropRepeatsWith
 
+```javascript
+const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
+const result = R.dropRepeatsWith(R.prop('a'), list)
+
+// => [{a:1,b:2}, {a:2, b:4}]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A1%2Cb%3A3%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D%0Aconst%20result%20%3D%20R.dropRepeatsWith(R.prop('a')%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%2Cb%3A2%7D%2C%20%7Ba%3A2%2C%20b%3A4%7D%5D">Try this <strong>R.dropRepeatsWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropRepeatsWith)
 
 ### dropWhile
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = x => x < 3
+const result = R.dropWhile(predicate, list)
+// => [3, 4]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0Aconst%20result%20%3D%20R.dropWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B3%2C%204%5D">Try this <strong>R.dropWhile</strong> example in Rambda REPL</a>
 
@@ -3803,6 +4016,11 @@ describe('R.either', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#either)
 
 ### empty
+
+```javascript
+const result = [R.empty([1,2,3]), R.empty('foo'), R.empty({x: 1, y: 2})]
+// => [[], '', {}]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.empty(%5B1%2C2%2C3%5D)%2C%20R.empty('foo')%2C%20R.empty(%7Bx%3A%201%2C%20y%3A%202%7D)%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20''%2C%20%7B%7D%5D">Try this <strong>R.empty</strong> example in Rambda REPL</a>
 
@@ -3982,6 +4200,11 @@ describe('R.endsWith - string', () => {
 
 ### eqBy
 
+```javascript
+const result = R.eqBy(Math.abs, 5, -5)
+// => true
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.eqBy(Math.abs%2C%205%2C%20-5)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.eqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#eqBy)
@@ -3989,6 +4212,13 @@ describe('R.endsWith - string', () => {
 ### eqProps
 
 It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
+
+```javascript
+const obj1 = {a: 1, b:2}
+const obj2 = {a: 1, b:3}
+const result = R.eqProps('a', obj1, obj2)
+// => true
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj1%20%3D%20%7Ba%3A%201%2C%20b%3A2%7D%0Aconst%20obj2%20%3D%20%7Ba%3A%201%2C%20b%3A3%7D%0Aconst%20result%20%3D%20R.eqProps('a'%2C%20obj1%2C%20obj2)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.eqProps</strong> example in Rambda REPL</a>
 
@@ -5702,6 +5932,16 @@ It returns function which calls `fn` with exchanged first and second argument.
 
 > :boom: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
 
+```javascript
+const subtractFlip = R.flip(R.subtract)
+
+const result = [
+  subtractFlip(1,7),
+  R.subtract(1, 6)
+]  
+// => [6, -6]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20subtractFlip%20%3D%20R.flip(R.subtract)%0A%0Aconst%20result%20%3D%20%5B%0A%20%20subtractFlip(1%2C7)%2C%0A%20%20R.subtract(1%2C%206)%0A%5D%20%20%0A%2F%2F%20%3D%3E%20%5B6%2C%20-6%5D">Try this <strong>R.flip</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flip)
@@ -5903,6 +6143,18 @@ describe('R.forEach with objects', () => {
 
 It transforms a `listOfPairs` to an object.
 
+```javascript
+const listOfPairs = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
+const expected = {
+  a : 1,
+  b : 2,
+  c : [ 3, 4 ],
+}
+
+const result = R.fromPairs(listOfPairs)
+// => `result` is equal to `expected`
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listOfPairs%20%3D%20%5B%20%5B%20'a'%2C%201%20%5D%2C%20%5B%20'b'%2C%202%20%5D%2C%20%5B%20'c'%2C%20%5B%203%2C%204%20%5D%20%5D%20%5D%0Aconst%20expected%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%202%2C%0A%20%20c%20%3A%20%5B%203%2C%204%20%5D%2C%0A%7D%0A%0Aconst%20result%20%3D%20R.fromPairs(listOfPairs)%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.fromPairs</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#fromPairs)
@@ -5910,6 +6162,14 @@ It transforms a `listOfPairs` to an object.
 ### groupBy
 
 It splits `list` according to a provided `groupFn` function and returns an object.
+
+```javascript
+const list = [ 'a', 'b', 'aa', 'bb' ]
+const groupFn = x => x.length
+
+const result = R.groupBy(groupFn, list)
+// => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn%2C%20list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try this <strong>R.groupBy</strong> example in Rambda REPL</a>
 
@@ -5919,17 +6179,35 @@ It splits `list` according to a provided `groupFn` function and returns an objec
 
 It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
 
+```javascript
+const isConsecutive = (x, y) => x === y
+const list = [1, 2, 2, 1, 1, 2]
+
+const result = R.groupWith(isConsecutive, list)
+// => [[1], [2,2], [1,1], [2]]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isConsecutive%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%0Aconst%20list%20%3D%20%5B1%2C%202%2C%202%2C%201%2C%201%2C%202%5D%0A%0Aconst%20result%20%3D%20R.groupWith(isConsecutive%2C%20list)%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%5B2%2C2%5D%2C%20%5B1%2C1%5D%2C%20%5B2%5D%5D">Try this <strong>R.groupWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#groupWith)
 
 ### gt
 
+```javascript
+const result = [R.gt(2, 1), R.gt(2, 3)]
+// => [true, false]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.gt(2%2C%201)%2C%20R.gt(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.gt</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#gt)
 
 ### gte
+
+```javascript
+const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
+// => [true, true, false]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.gte(2%2C%201)%2C%20R.gte(2%2C%202)%2C%20R.gte(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.gte</strong> example in Rambda REPL</a>
 
@@ -6028,6 +6306,11 @@ describe('R.has', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#has)
 
 ### hasIn
+
+```javascript
+const result = R.hasIn('a', {a: 1})
+// => true
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.hasIn('a'%2C%20%7Ba%3A%201%7D)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.hasIn</strong> example in Rambda REPL</a>
 
@@ -6278,6 +6561,18 @@ It returns `true` if its arguments `a` and `b` are identical.
 Otherwise, it returns `false`.
 
 > :boom: Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
+
+```javascript
+const objA = {a: 1};
+const objB = {a: 1};
+R.identical(objA, objA); // => true
+R.identical(objA, objB); // => false
+R.identical(1, 1); // => true
+R.identical(1, '1'); // => false
+R.identical([], []); // => false
+R.identical(0, -0); // => false
+R.identical(NaN, NaN); // => true
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20objA%20%3D%20%7Ba%3A%201%7D%3B%0Aconst%20objB%20%3D%20%7Ba%3A%201%7D%3B%0AR.identical(objA%2C%20objA)%3B%20%2F%2F%20%3D%3E%20true%0AR.identical(objA%2C%20objB)%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(1%2C%201)%3B%20%2F%2F%20%3D%3E%20true%0AR.identical(1%2C%20'1')%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(%5B%5D%2C%20%5B%5D)%3B%20%2F%2F%20%3D%3E%20false%0AR.identical(0%2C%20-0)%3B%20%2F%2F%20%3D%3E%20false%0Aconst%20result%20%3D%20R.identical(NaN%2C%20NaN)%3B%20%2F%2F%20%3D%3E%20true">Try this <strong>R.identical</strong> example in Rambda REPL</a>
 
@@ -6595,6 +6890,10 @@ describe('R.ifElse', () => {
 
 It increments a number.
 
+```javascript
+R.inc(1) // => 2
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.inc(1)%20%2F%2F%20%3D%3E%202">Try this <strong>R.inc</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#inc)
@@ -6760,6 +7059,24 @@ If `condition` is a function, then all list members are passed through it.
 
 If `condition` is a string, then all list members are passed through `R.path(condition)`.
 
+```javascript
+const list = [ {id: 10}, {id: 20} ]
+
+const withFunction = R.indexBy(
+  x => x.id,
+  list
+)
+const withString = R.indexBy(
+  'id',
+  list
+)
+const result = [
+  withFunction, 
+  R.equals(withFunction, withString)
+]
+// => [ { 10: {id: 10}, 20: {id: 20} }, true ]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%20%7Bid%3A%2010%7D%2C%20%7Bid%3A%2020%7D%20%5D%0A%0Aconst%20withFunction%20%3D%20R.indexBy(%0A%20%20x%20%3D%3E%20x.id%2C%0A%20%20list%0A)%0Aconst%20withString%20%3D%20R.indexBy(%0A%20%20'id'%2C%0A%20%20list%0A)%0Aconst%20result%20%3D%20%5B%0A%20%20withFunction%2C%20%0A%20%20R.equals(withFunction%2C%20withString)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%7B%2010%3A%20%7Bid%3A%2010%7D%2C%2020%3A%20%7Bid%3A%2020%7D%20%7D%2C%20true%20%5D">Try this <strong>R.indexBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
@@ -6771,6 +7088,16 @@ It returns the index of the first element of `list` equals to `valueToFind`.
 If there is no such element, it returns `-1`.
 
 > :boom: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
+
+```javascript
+const list = [0, 1, 2, 3]
+
+const result = [
+  R.indexOf(2, list),
+  R.indexOf(0, list)
+]
+// => [2, -1]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B0%2C%201%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.indexOf(2%2C%20list)%2C%0A%20%20R.indexOf(0%2C%20list)%0A%5D%0A%2F%2F%20%3D%3E%20%5B2%2C%20-1%5D">Try this <strong>R.indexOf</strong> example in Rambda REPL</a>
 
@@ -6885,17 +7212,37 @@ describe('R.init', () => {
 
 It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
 
+```javascript
+const list1 = [1, 2, 3, 4, 5]
+const list2 = [4, 5, 6]
+const predicate = (x, y) => x >= y
+const result = R.innerJoin(predicate, list1, list2)
+// => [4, 5]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.innerJoin(predicate%2C%20list1%2C%20list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.innerJoin</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
 
 ### insert
 
+```javascript
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insert(2, 'x', list);
+// => ['a', 'b', 'x', 'c', 'd', 'e']
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insert(2%2C%20'x'%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insert</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#insert)
 
 ### insertAll
+
+```javascript
+const list = ['a', 'b', 'c', 'd', 'e'];
+const result = R.insertAll(2, ['x', 'y', 'z'], list);
+// => ['a', 'b', 'x', 'y', 'z', 'c', 'd', 'e']
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%2C%20'd'%2C%20'e'%5D%3B%0Aconst%20result%20%3D%20R.insertAll(2%2C%20%5B'x'%2C%20'y'%2C%20'z'%5D%2C%20list)%3B%0A%2F%2F%20%3D%3E%20%5B'a'%2C%20'b'%2C%20'x'%2C%20'y'%2C%20'z'%2C%20'c'%2C%20'd'%2C%20'e'%5D">Try this <strong>R.insertAll</strong> example in Rambda REPL</a>
 
@@ -6907,6 +7254,14 @@ It loops through `listA` and `listB` and returns the intersection of the two acc
 
 > :boom: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]".
 
+```javascript
+const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
+const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
+
+const result = R.intersection(listA, listB)
+// => [{ id : 3 }, { id : 4 }]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20listA%20%3D%20%5B%20%7B%20id%20%3A%201%20%7D%2C%20%7B%20id%20%3A%202%20%7D%2C%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%20%5D%0Aconst%20listB%20%3D%20%5B%20%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%2C%20%7B%20id%20%3A%205%20%7D%2C%20%7B%20id%20%3A%206%20%7D%20%5D%0A%0Aconst%20result%20%3D%20R.intersection(listA%2C%20listB)%0A%2F%2F%20%3D%3E%20%5B%7B%20id%20%3A%203%20%7D%2C%20%7B%20id%20%3A%204%20%7D%5D">Try this <strong>R.intersection</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
@@ -6915,6 +7270,13 @@ It loops through `listA` and `listB` and returns the intersection of the two acc
 
 It adds a `separator` between members of `list`.
 
+```javascript
+const list = [ 0, 1, 2, 3 ]
+const separator = '|'
+const result = intersperse(separator, list)
+// => [0, '|', 1, '|', 2, '|', 3]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%200%2C%201%2C%202%2C%203%20%5D%0Aconst%20separator%20%3D%20'%7C'%0Aconst%20result%20%3D%20intersperse(separator%2C%20list)%0A%2F%2F%20%3D%3E%20%5B0%2C%20'%7C'%2C%201%2C%20'%7C'%2C%202%2C%20'%7C'%2C%203%5D">Try this <strong>R.intersperse</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
@@ -6922,6 +7284,14 @@ It adds a `separator` between members of `list`.
 ### is
 
 It returns `true` if `x` is instance of `targetPrototype`.
+
+```javascript
+const result = [
+  R.is(String, 'foo'),  
+  R.is(Array, 1)
+]
+// => [true, false]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.is(String%2C%20'foo')%2C%20%20%0A%20%20R.is(Array%2C%201)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.is</strong> example in Rambda REPL</a>
 
@@ -7110,6 +7480,15 @@ isNotEmpty(value: any): boolean;
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#isNotEmpty)
 
 ### isNotNil
+
+```javascript
+const result = [
+  R.isNotNil(null),
+  R.isNotNil(undefined),
+  R.isNotNil([]),
+]
+// => [false, false, true]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.isNotNil(null)%2C%0A%20%20R.isNotNil(undefined)%2C%0A%20%20R.isNotNil(%5B%5D)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20false%2C%20true%5D">Try this <strong>R.isNotNil</strong> example in Rambda REPL</a>
 
@@ -7875,6 +8254,19 @@ test('get (set(set s v1) v2) === v2', () => {
 
 It returns a lens that focuses on specified `path`.
 
+```javascript
+const lensPath = R.lensPath(['x', 0, 'y'])
+const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
+
+R.view(lensPath, input) // => 2
+
+R.set(lensPath, 1, input) 
+// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
+
+R.over(xHeadYLens, R.negate, input) 
+// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0Aconst%20result%20%3D%20R.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
@@ -8036,11 +8428,21 @@ test('get (set(set s v1) v2) === v2', () => {
 
 ### lt
 
+```javascript
+const result = [R.lt(2, 1), R.lt(2, 3)]
+// => [false, true]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.lt(2%2C%201)%2C%20R.lt(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20true%5D">Try this <strong>R.lt</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lt)
 
 ### lte
+
+```javascript
+const result = [R.lte(2, 1), R.lte(2, 2), R.lte(2, 3)]
+// => [false, true, true]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.lte(2%2C%201)%2C%20R.lte(2%2C%202)%2C%20R.lte(2%2C%203)%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20true%2C%20true%5D">Try this <strong>R.lte</strong> example in Rambda REPL</a>
 
@@ -8503,6 +8905,16 @@ describe('R.match', () => {
 
 > :boom: Explanation is taken from `Ramda` documentation site.
 
+```javascript
+const result = [
+  R.mathMod(-17, 5),
+  R.mathMod(17, 5),
+  R.mathMod(17, -5),  
+  R.mathMod(17, 0)   
+]
+// => [3, 2, NaN, NaN]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.mathMod(-17%2C%205)%2C%0A%20%20R.mathMod(17%2C%205)%2C%0A%20%20R.mathMod(17%2C%20-5)%2C%20%20%0A%20%20R.mathMod(17%2C%200)%20%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B3%2C%202%2C%20NaN%2C%20NaN%5D">Try this <strong>R.mathMod</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mathMod)
@@ -8511,6 +8923,14 @@ describe('R.match', () => {
 
 It returns the greater value between `x` and `y`.
 
+```javascript
+const result = [
+  R.max(5, 7),  
+  R.max('bar', 'foo'),  
+]
+// => [7, 'foo']
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.max(5%2C%207)%2C%20%20%0A%20%20R.max('bar'%2C%20'foo')%2C%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B7%2C%20'foo'%5D">Try this <strong>R.max</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
@@ -8518,6 +8938,12 @@ It returns the greater value between `x` and `y`.
 ### maxBy
 
 It returns the greater value between `x` and `y` according to `compareFn` function.
+
+```javascript
+const compareFn = Math.abs
+
+R.maxBy(compareFn, 5, -7) // => -7
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.maxBy(compareFn%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try this <strong>R.maxBy</strong> example in Rambda REPL</a>
 
@@ -8835,6 +9261,14 @@ describe('R.mergeAll', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
 
 ### mergeDeepLeft
+
+```javascript
+const result = R.mergeDeepLeft(
+  {a: {b: 1}},
+  {a: {b: 2, c: 3}}
+)
+// => {a: {b: 1, c: 3}}
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeDeepLeft(%0A%20%20%7Ba%3A%20%7Bb%3A%201%7D%7D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%202%2C%20c%3A%203%7D%7D%0A)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%201%2C%20c%3A%203%7D%7D">Try this <strong>R.mergeDeepLeft</strong> example in Rambda REPL</a>
 
@@ -9168,6 +9602,14 @@ describe('R.mergeLeft', () => {
 
 It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
 
+```javascript
+const target = { 'foo': 0, 'bar': 1 }
+const newProps = { 'foo': 7 }
+
+const result = R.mergeRight(target, newProps)
+// => { 'foo': 7, 'bar': 1 }
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20target%20%3D%20%7B%20'foo'%3A%200%2C%20'bar'%3A%201%20%7D%0Aconst%20newProps%20%3D%20%7B%20'foo'%3A%207%20%7D%0A%0Aconst%20result%20%3D%20R.mergeRight(target%2C%20newProps)%0A%2F%2F%20%3D%3E%20%7B%20'foo'%3A%207%2C%20'bar'%3A%201%20%7D">Try this <strong>R.mergeRight</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeRight)
@@ -9362,6 +9804,14 @@ describe('R.mergeWith', () => {
 
 It returns the lesser value between `x` and `y`.
 
+```javascript
+const result = [
+  R.min(5, 7),  
+  R.min('bar', 'foo'),  
+]
+// => [5, 'bar']
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.min(5%2C%207)%2C%20%20%0A%20%20R.min('bar'%2C%20'foo')%2C%20%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B5%2C%20'bar'%5D">Try this <strong>R.min</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
@@ -9369,6 +9819,12 @@ It returns the lesser value between `x` and `y`.
 ### minBy
 
 It returns the lesser value between `x` and `y` according to `compareFn` function.
+
+```javascript
+const compareFn = Math.abs
+
+R.minBy(compareFn, -5, 2) // => -5
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.minBy(compareFn%2C%20-5%2C%202)%20%2F%2F%20%3D%3E%20-5">Try this <strong>R.minBy</strong> example in Rambda REPL</a>
 
@@ -9595,6 +10051,11 @@ describe('R.modify', () => {
 
 It changes a property of object on the base of provided path and transformer function.
 
+```javascript
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
@@ -9602,6 +10063,10 @@ It changes a property of object on the base of provided path and transformer fun
 ### modulo
 
 Curried version of `x%y`.
+
+```javascript
+R.modulo(17, 3) // => 2
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modulo(17%2C%203)%20%2F%2F%20%3D%3E%202">Try this <strong>R.modulo</strong> example in Rambda REPL</a>
 
@@ -9613,6 +10078,12 @@ It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
 
 > :boom: Rambda.move doesn't support negative indexes - it throws an error.
 
+```javascript
+const list = [1, 2, 3]
+const result = R.move(0, 1, list)
+// => [2, 1, 3]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20result%20%3D%20R.move(0%2C%201%2C%20list)%0A%2F%2F%20%3D%3E%20%5B2%2C%201%2C%203%5D">Try this <strong>R.move</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#move)
@@ -9621,11 +10092,19 @@ It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
 
 Curried version of `x*y`.
 
+```javascript
+R.multiply(2, 4) // => 8
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.multiply(2%2C%204)%20%2F%2F%20%3D%3E%208">Try this <strong>R.multiply</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#multiply)
 
 ### negate
+
+```javascript
+R.negate(420)// => -420
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.negate(420)%2F%2F%20%3D%3E%20-420">Try this <strong>R.negate</strong> example in Rambda REPL</a>
 
@@ -9936,6 +10415,11 @@ describe('R.nth - string', () => {
 
 It creates an object with a single key-value pair.
 
+```javascript
+const result = R.objOf('foo', 'bar')
+// => {foo: 'bar'}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.objOf('foo'%2C%20'bar')%0A%2F%2F%20%3D%3E%20%7Bfoo%3A%20'bar'%7D">Try this <strong>R.objOf</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#objOf)
@@ -10227,6 +10711,11 @@ It passes the two inputs through `unaryFn` and then the results are passed as in
 
 This method is also known as P combinator.
 
+```javascript
+const result = R.on((a, b) => a + b, R.prop('a'), {b:0, a:1}, {a:2})
+// => 3
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.on((a%2C%20b)%20%3D%3E%20a%20%2B%20b%2C%20R.prop('a')%2C%20%7Bb%3A0%2C%20a%3A1%7D%2C%20%7Ba%3A2%7D)%0A%2F%2F%20%3D%3E%203">Try this <strong>R.on</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#on)
@@ -10374,6 +10863,12 @@ describe('R.once', () => {
 ### or
 
 Logical OR
+
+```javascript
+R.or(false, true); // => true
+R.or(false, false); // => false
+R.or(false, 'foo'); // => 'foo'
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?R.or(false%2C%20true)%3B%20%2F%2F%20%3D%3E%20true%0AR.or(false%2C%20false)%3B%20%2F%2F%20%3D%3E%20false%0Aconst%20result%20%3D%20R.or(false%2C%20'foo')%3B%20%2F%2F%20%3D%3E%20'foo'">Try this <strong>R.or</strong> example in Rambda REPL</a>
 
@@ -11775,6 +12270,15 @@ describe('R.paths', () => {
 
 ### pathSatisfies
 
+```javascript
+const result = R.pathSatisfies(
+  x => x > 0,
+  ['a', 'b', 'c'],
+  {a: {b: {c: 1}}}
+)
+// => true
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pathSatisfies(%0A%20%20x%20%3D%3E%20x%20%3E%200%2C%0A%20%20%5B'a'%2C%20'b'%2C%20'c'%5D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%20%7Bc%3A%201%7D%7D%7D%0A)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.pathSatisfies</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathSatisfies)
@@ -12209,6 +12713,14 @@ describe('R.pickAll with string as props input', () => {
 
 ### pickBy
 
+```javascript
+const result = R.pickBy(
+  x => x > 1,
+  {a: 1, b: 2, c: 3}
+)
+// => {b: 2, c: 3}
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pickBy(%0A%20%20x%20%3D%3E%20x%20%3E%201%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0A)%0A%2F%2F%20%3D%3E%20%7Bb%3A%202%2C%20c%3A%203%7D">Try this <strong>R.pickBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pickBy)
@@ -12216,6 +12728,15 @@ describe('R.pickAll with string as props input', () => {
 ### pipe
 
 It performs left-to-right function composition.
+
+```javascript
+const result = R.pipe(
+  R.filter(val => val > 2),
+  R.map(a => a * 2)
+)([1, 2, 3, 4])
+
+// => [6, 8]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%20%20R.filter(val%20%3D%3E%20val%20%3E%202)%2C%0A%20%20R.map(a%20%3D%3E%20a%20*%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Try this <strong>R.pipe</strong> example in Rambda REPL</a>
 
@@ -13331,11 +13852,30 @@ describe('R.range', () => {
 
 > :boom: It passes index of the list as third argument to `reducer` function.
 
+```javascript
+const list = [1, 2, 3]
+const initialValue = 10
+const reducer = (prev, current) => prev * current
+
+const result = R.reduce(reducer, initialValue, list)
+// => 60
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue%2C%20list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reduce)
 
 ### reduceBy
+
+```javascript
+const result = R.reduceBy(
+  (acc, elem) => acc + elem,
+  0,
+  x => x > 2 ? 'big' : 'small',
+  [1, 2, 3, 4, 5]
+)
+// => { big: 12, small: 3 }
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.reduceBy(%0A%20%20(acc%2C%20elem)%20%3D%3E%20acc%20%2B%20elem%2C%0A%20%200%2C%0A%20%20x%20%3D%3E%20x%20%3E%202%20%3F%20'big'%20%3A%20'small'%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A)%0A%2F%2F%20%3D%3E%20%7B%20big%3A%2012%2C%20small%3A%203%20%7D">Try this <strong>R.reduceBy</strong> example in Rambda REPL</a>
 
@@ -14396,6 +14936,25 @@ describe('R.sortBy', () => {
 
 ### sortWith
 
+```javascript
+const result = R.sortWith([
+    (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
+    (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
+], [
+  {a: 1, b: 2},
+  {a: 2, b: 1},
+  {a: 2, b: 2},
+  {a: 1, b: 1},
+])
+const expected = [
+  {a: 1, b: 1},
+  {a: 1, b: 2},
+  {a: 2, b: 1},
+  {a: 2, b: 2},
+]
+// => `result` is equal to `expected`
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.sortWith(%5B%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.a%20%3D%3D%3D%20b.a%20%3F%200%20%3A%20a.a%20%3E%20b.a%20%3F%201%20%3A%20-1%2C%0A%20%20%20%20(a%2C%20b)%20%3D%3E%20a.b%20%3D%3D%3D%20b.b%20%3F%200%20%3A%20a.b%20%3E%20b.b%20%3F%201%20%3A%20-1%2C%0A%5D%2C%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%5D)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%201%2C%20b%3A%202%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%0A%20%20%7Ba%3A%202%2C%20b%3A%202%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortWith</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sortWith)
@@ -15079,6 +15638,14 @@ describe('R.startsWith - string', () => {
 
 Curried version of `x - y`
 
+```javascript
+const x = 3
+const y = 1
+
+const result = R.subtract(x, y) 
+// => 2
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%203%0Aconst%20y%20%3D%201%0A%0Aconst%20result%20%3D%20R.subtract(x%2C%20y)%20%0A%2F%2F%20%3D%3E%202">Try this <strong>R.subtract</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#subtract)
@@ -15136,6 +15703,11 @@ test('happy', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
 
 ### swap
+
+```javascript
+const result = R.swap(1, 2, [1, 2, 3])
+// => [1, 3, 2]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.swap(1%2C%202%2C%20%5B1%2C%202%2C%203%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%203%2C%202%5D">Try this <strong>R.swap</strong> example in Rambda REPL</a>
 
@@ -15795,6 +16367,14 @@ describe('R.takeLastWhile', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeLastWhile)
 
 ### takeWhile
+
+```javascript
+const list = [1, 2, 3, 4]
+const predicate = x => x < 3
+
+const result = R.takeWhile(predicate, list)
+// => [1, 2]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3C%203%0A%0Aconst%20result%20%3D%20R.takeWhile(predicate%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.takeWhile</strong> example in Rambda REPL</a>
 
@@ -16500,6 +17080,16 @@ It returns function that runs `fn` in `try/catch` block. If there was an error, 
 
 > :boom: Please check the tests of `R.tryCatch` to fully understand how this method works.
 
+```javascript
+const fn = x => x.foo
+
+const result = [
+  R.tryCatch(fn, false)(null),
+  R.tryCatch(fn, false)({foo: 'bar'})
+]
+// => [false, 'bar']
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20x%20%3D%3E%20x.foo%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.tryCatch(fn%2C%20false)(null)%2C%0A%20%20R.tryCatch(fn%2C%20false)(%7Bfoo%3A%20'bar'%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Bfalse%2C%20'bar'%5D">Try this <strong>R.tryCatch</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tryCatch)
@@ -16509,6 +17099,26 @@ It returns function that runs `fn` in `try/catch` block. If there was an error, 
 It accepts any input and it returns its type.
 
 > :boom: `NaN`, `Promise` and `Async` are types specific for **Rambda**.
+
+```javascript
+const result = R.type(() => {}) // => 'Function'
+R.type(async () => {}) // => 'Async'
+R.type([]) // => 'Array'
+R.type({}) // => 'Object'
+R.type('foo') // => 'String'
+R.type(1) // => 'Number'
+R.type(true) // => 'Boolean'
+R.type(null) // => 'Null'
+R.type(/[A-z]/) // => 'RegExp'
+R.type('foo'*1) // => 'NaN'
+
+const delay = ms => new Promise(resolve => {
+  setTimeout(function () {
+    resolve()
+  }, ms)
+})
+R.type(delay) // => 'Promise'
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.type(()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Function'%0AR.type(async%20()%20%3D%3E%20%7B%7D)%20%2F%2F%20%3D%3E%20'Async'%0AR.type(%5B%5D)%20%2F%2F%20%3D%3E%20'Array'%0AR.type(%7B%7D)%20%2F%2F%20%3D%3E%20'Object'%0AR.type('foo')%20%2F%2F%20%3D%3E%20'String'%0AR.type(1)%20%2F%2F%20%3D%3E%20'Number'%0AR.type(true)%20%2F%2F%20%3D%3E%20'Boolean'%0AR.type(null)%20%2F%2F%20%3D%3E%20'Null'%0AR.type(%2F%5BA-z%5D%2F)%20%2F%2F%20%3D%3E%20'RegExp'%0AR.type('foo'*1)%20%2F%2F%20%3D%3E%20'NaN'%0A%0Aconst%20delay%20%3D%20ms%20%3D%3E%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20setTimeout(function%20()%20%7B%0A%20%20%20%20resolve()%0A%20%20%7D%2C%20ms)%0A%7D)%0AR.type(delay)%20%2F%2F%20%3D%3E%20'Promise'">Try this <strong>R.type</strong> example in Rambda REPL</a>
 
@@ -16920,6 +17530,13 @@ It applies uniqueness to input list based on function that defines what to be us
 
 `R.equals` is used to determine equality.
 
+```javascript
+const list = [{a:1}, {a:2}, {a:1}]
+const result = R.uniqBy(x => x, list)
+
+// => [{a:1}, {a:2}]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#uniqBy)
@@ -17241,11 +17858,26 @@ describe('R.unless - curried', () => {
 
 ### unnest
 
+```javascript
+const result = R.unnest([1, [2], [[3]]])
+// => [1, 2, [3]]
+```
+
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.unnest(%5B1%2C%20%5B2%5D%2C%20%5B%5B3%5D%5D%5D)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20%5B3%5D%5D">Try this <strong>R.unnest</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unnest)
 
 ### unwind
+
+```javascript
+const obj = {
+  a: 1,
+  b: [2, 3],
+}
+const result = R.unwind('b', obj)
+const expected = [{a:1, b:2}, {a:1, b:3}]
+// => `result` is equal to `expected`
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20R.unwind('b'%2C%20obj)%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
 
@@ -17806,6 +18438,18 @@ describe('R.where', () => {
 ### whereAny
 
 Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
+
+```javascript
+const conditions = {
+  a: a => a > 1,
+  b: b => b > 2,
+}
+const result = [
+  R.whereAny(conditions, {b:3}),
+  R.whereAny(conditions, {c:4})
+]
+// => [true, false]
+```
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20conditions%20%3D%20%7B%0A%20%20a%3A%20a%20%3D%3E%20a%20%3E%201%2C%0A%20%20b%3A%20b%20%3D%3E%20b%20%3E%202%2C%0A%7D%0Aconst%20result%20%3D%20%5B%0A%20%20R.whereAny(conditions%2C%20%7Bb%3A3%7D)%2C%0A%20%20R.whereAny(conditions%2C%20%7Bc%3A4%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.whereAny</strong> example in Rambda REPL</a>
 
