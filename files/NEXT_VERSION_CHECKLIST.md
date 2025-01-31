@@ -37,6 +37,7 @@ Sync with typing of `@types/ramda`:
 - countBy
 - drop
 - dropLast
+- dropRepeatsBy
 - either
 - filter
 - forEach
@@ -45,10 +46,11 @@ Sync with typing of `@types/ramda`:
 - mapObjIndexed
 - mergeAll
 - mergeWith
+- modify
 - modifyPath
 - omit
-- prepend
 - partition
+- prepend
 - where
 - whereAny
 
