@@ -23,8 +23,7 @@ export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
-export type Path = Array<number | string>;
-export type RamdaPath = (number | string)[];
+export type Path = Array<number | string> | string;
 export type Predicate<T> = (x: T) => boolean;
 export type IndexedPredicate<T> = (x: T, i: number) => boolean;
 export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => boolean;
@@ -489,7 +488,7 @@ Notes: The currying in this function works best with functions with 4 arguments 
 
 */
 // @SINGLE_MARKER
-export function applySpec<Spec extends Record<string, AnyFunction>>(
+export function applySpec<Spec extends Record<PropertyKey, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
@@ -547,9 +546,7 @@ Notes: pipe
 
 */
 // @SINGLE_MARKER
-export function assocPath<T>(path: string, val: unknown): (obj: unknown) => T;
 export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
-export function assocPath<T>(path: string, val: unknown, obj: unknown): T;
 export function assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 
 /*
@@ -994,9 +991,7 @@ Notes: pipe
 
 */
 // @SINGLE_MARKER
-export function dissocPath<T>(path: string): (obj: unknown) => T;
 export function dissocPath<T>(path: Path): (obj: unknown) => T;
-export function dissocPath<T>(path: string, obj: unknown): T;
 export function dissocPath<T>(path: Path, obj: unknown): T;
 
 /*
@@ -1489,8 +1484,8 @@ Example:
 const obj = {a: 1}
 
 const result = [
-  R.has('a', Record<string, unknown>),
-  R.has('b', Record<string, unknown>)
+  R.has('a', obj),
+  R.has('b', obj)
 ]
 // => [true, false]
 ```
@@ -1517,9 +1512,9 @@ const pathAsArray = ['a', 'b']
 const obj = {a: {b: []}}
 
 const result = [
-  R.hasPath(path, Record<string, unknown>),
-  R.hasPath(pathAsArray, Record<string, unknown>),
-  R.hasPath('a.c', Record<string, unknown>),
+  R.hasPath(path, obj),
+  R.hasPath(pathAsArray, obj),
+  R.hasPath('a.c', obj),
 ]
 // => [true, true, false]
 ```
@@ -2895,8 +2890,8 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, Record<string, unknown>), 
-  R.omit(propsToOmitList, Record<string, unknown>) 
+  R.omit(propsToOmit, obj), 
+  R.omit(propsToOmitList, obj) 
 ]
 // => [{b: 2}, {b: 2}]
 ```
@@ -2993,7 +2988,7 @@ const predicate = x => x > 2
 
 const result = [
   R.partition(predicate, list),
-  R.partition(predicate, Record<string, unknown>)
+  R.partition(predicate, obj)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -3145,7 +3140,7 @@ export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boo
 /*
 Method: paths
 
-Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
+Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -3165,7 +3160,7 @@ const result = R.paths([
   'a.b.c',
   'a.b.d',
   'a.b.c.d.e',
-], Record<string, unknown>)
+], obj)
 // => [1, 2, undefined]
 ```
 
@@ -3183,7 +3178,7 @@ export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[]
 /*
 Method: pathOr
 
-Explanation: It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
+Explanation: It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
 
 Example:
 
@@ -3199,9 +3194,9 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, Record<string, unknown>),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, Record<string, unknown>), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', Record<string, unknown>)
+  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
@@ -3238,10 +3233,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, Record<string, unknown>),
-  R.pick(propsToPickList, Record<string, unknown>),
-  R.pick('a,bar', Record<string, unknown>),
-  R.pick('bar', Record<string, unknown>),
+  R.pick(propsToPick, obj),
+  R.pick(propsToPickList, obj),
+  R.pick('a,bar', obj),
+  R.pick('bar', obj),
   R.pick([0, 3, 5], list),
   R.pick('0,3,5', list),
 ]
@@ -3286,10 +3281,10 @@ const propsToPick = 'a,foo,bar'
 const propsToPickList = ['a', 'foo', 'bar']
 
 const result = [
-  R.pickAll(propsToPick, Record<string, unknown>),
-  R.pickAll(propsToPickList, Record<string, unknown>),
-  R.pickAll('a,bar', Record<string, unknown>),
-  R.pickAll('bar', Record<string, unknown>),
+  R.pickAll(propsToPick, obj),
+  R.pickAll(propsToPickList, obj),
+  R.pickAll('a,bar', obj),
+  R.pickAll('bar', obj),
 ]
 const expected = [
   {a:1, foo: 'cherry', bar: undefined},
@@ -3455,8 +3450,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
-export function prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
-export function prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
 export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
 
@@ -3523,8 +3516,8 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, Record<string, unknown>),
-  R.propEq(propToFind, valueToMatch, secondRecord<string, unknown>)
+  R.propEq(propToFind, valueToMatch, obj),
+  R.propEq(propToFind, valueToMatch, secondObj)
 ]
 // => [true, false]
 ```
@@ -3553,9 +3546,9 @@ Example:
 const obj = {a:1, b: 'foo'}
 
 const result = [
-  R.propIs(Number, 'a', Record<string, unknown>),
-  R.propIs(String, 'b', Record<string, unknown>),
-  R.propIs(Number, 'b', Record<string, unknown>),
+  R.propIs(Number, 'a', obj),
+  R.propIs(String, 'b', obj),
+  R.propIs(Number, 'b', obj),
 ]
 // => [true, true, false]
 ```
@@ -3588,8 +3581,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, Record<string, unknown>),
-  R.propOr(defaultValue, 'foo', Record<string, unknown>)
+  R.propOr(defaultValue, property, obj),
+  R.propOr(defaultValue, 'foo', obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -3619,7 +3612,7 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, Record<string, unknown>)
+const result = R.propSatisfies(predicate, property, obj)
 // => true
 ```
 
@@ -3629,8 +3622,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
-export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
+export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /*
 Method: range
@@ -3694,7 +3687,7 @@ const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list),
-  R.reject(predicate, Record<string, unknown>)
+  R.reject(predicate, obj)
 ]
 // => [[1], {a: 1}]
 ```
@@ -4608,14 +4601,14 @@ export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 /*
 Method: values
 
-Explanation: With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
+Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
 
 Example:
 
 ```
 const obj = {a:1, b:2}
 
-R.values(Record<string, unknown>)
+R.values(obj)
 // => [1, 2]
 ```
 
@@ -4693,10 +4686,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function where<T, U>(conditions: T, input: U): boolean;
-export function where<T>(conditions: T): <U>(input: U) => boolean;
-export function where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
-export function where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+export function where<T>(spec: T): <U>(testObj: U) => boolean;
+export function where<T, U>(spec: T, testObj: U): boolean;
 
 /*
 Method: whereEq
@@ -5245,12 +5236,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
-export function mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
-export function mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
-export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
-export function mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
+export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
+export function mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
+export function mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
 
 /*
 Method: juxt
@@ -5323,8 +5311,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
-export function countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
+export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
+export function countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
 
 /*
 Method: unwind
@@ -5404,10 +5392,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereAny<T, U>(conditions: T, input: U): boolean;
-export function whereAny<T>(conditions: T): <U>(input: U) => boolean;
-export function whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
-export function whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+export function whereAny<Spec extends Record<PropertyKey, (value: any) => boolean>>(spec: Spec): <U extends Record<keyof Spec, any>>(testObj: U) => boolean;
+export function whereAny<Spec extends Partial<Record<keyof U, (value: any) => boolean>>, U>(spec: Spec, testObj: U): boolean;
 
 /*
 Method: partialObject
@@ -5484,9 +5470,60 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-export function modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+export function modifyPath<U, T>(path: [], fn: (value: U) => T, obj: U): T;
+export function modifyPath<K0 extends keyof U, U, T>(path: [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<[K0], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  U,
+  T
+>(path: [K0, K1], fn: (value: U[K0][K1]) => T, obj: U): DeepModify<[K0, K1], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  U,
+  T
+>(path: [K0, K1, K2], fn: (value: U[K0][K1][K2]) => T, obj: U): DeepModify<[K0, K1, K2], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  U,
+  T
+>(path: [K0, K1, K2, K3], fn: (value: U[K0][K1][K2][K3]) => T, obj: U): DeepModify<[K0, K1, K2, K3], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4], fn: (value: U[K0][K1][K2][K3][K4]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5], fn: (value: U[K0][K1][K2][K3][K4][K5]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5, K6], fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5, K6], U, T>;
+export function modifyPath<B, A = any>(path: Path, fn: (a: any) => any, obj: A): B;
 
 /*
 Method: modify
@@ -7143,7 +7180,7 @@ Example:
 ```
 const obj = {a: 1, b: 2}
 const changeKeyFn = prop => `{prop}_foo`
-const result = R.mapKeys(changeKeyFn, Record<string, unknown>)
+const result = R.mapKeys(changeKeyFn, obj)
 // => {a_foo: 1, b_foo: 2}
 ```
 
@@ -8234,7 +8271,7 @@ Method: sortByProps
 
 Explanation: It returns sorted copy of `list` of objects.
 
-Sorting is done using a list of strings, each representing a path. Two members `a` and `b` from `list` can be sorted if both return a value for a given path. If the value is equal, then the next member of `sortPaths`(if there is such) will be used in order to find difference between `a` and `b`.
+Sorting is done using a list of strings, each representing a path. Two members `a` and `b` from `list` can be sorted if both return a value for a given path. If the value is equal, then the next member of `sortPaths`(if there is such) will be used in order to find difference between `a` and `b`. This is useful in cases where you have multiple sorting criteria.
 
 Example:
 
@@ -8313,7 +8350,7 @@ const rules = [
   ['foo.bar', 20],
   ['q.z', 300],
 ]
-const result = R.updateObject(rules, Record<string, unknown>)
+const result = R.updateObject(rules, obj)
 
 const expected = {
   a: {b: 2},
@@ -8373,7 +8410,7 @@ const rules = [
   {op: 'add', path: 'a.d', value: 4},
   {op: 'update', path: 'a.b', value: 2},
 ]
-const result = R.applyDiff(rules, Record<string, unknown>)
+const result = R.applyDiff(rules, obj)
 const expected = {a: {b: 2, d: 4}}
 
 // => `result` is equal to `expected`
@@ -8466,7 +8503,7 @@ const obj = {a: 1, b: 2}
 
 const result = [
   R.reject((x, index) => x > 1, list)
-  R.reject((x, property) => x > 1, Record<string, unknown>)
+  R.reject((x, property) => x > 1, obj)
 ]
 // => [[1], {a: 1}]
 ```

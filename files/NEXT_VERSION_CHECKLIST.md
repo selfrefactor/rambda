@@ -6,7 +6,7 @@ https://github.com/selfrefactor/rambda/wiki/Optimizing-Rambda-for-pipe-function-
 
 _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
 
-- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - this feature is no longer supported in TypeScript as it prevents using native `Omit` and `Pick` types. JS version still works with strings as path inputs.
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
 
@@ -34,7 +34,9 @@ Sync with typing of `@types/ramda`:
 - anyPass
 - append
 - both
-- drop/dropLast
+- countBy
+- drop
+- dropLast
 - either
 - filter
 - forEach
@@ -42,8 +44,13 @@ Sync with typing of `@types/ramda`:
 - map
 - mapObjIndexed
 - mergeAll
+- mergeWith
+- modifyPath
 - omit
+- prepend
 - partition
+- where
+- whereAny
 
 Sync with typing of `remeda`:
 - filter
