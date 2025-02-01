@@ -16,6 +16,9 @@ _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is
 
 - Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
+- Remove use of `Record<string, ...>` in favour of `Record<PropertyType, ...>`
+
+- Add TypeScript definition to handle common case of `R.filter(Boolean)` that will turn `Array<T | undefined>` to `Array<T>`.
 
 ? indexed  - need to be removed
 
@@ -71,6 +74,8 @@ need further check:
 
 - chain
 ===
+rename methods as naming is too generic, for example `collectBy`
+===
 
 https://github.com/selfrefactor/rambda/discussions/758
 
@@ -97,6 +102,8 @@ https://github.com/radashi-org/radashi/blob/main/package.json - to look for `exp
 ---
   console.log
     Size - 0.454681MB
+---
+move best methods of rambdax so at the end, it is not that needed
 ---
   const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
 instead of

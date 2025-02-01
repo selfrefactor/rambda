@@ -1202,21 +1202,21 @@ Notes:
 // @SINGLE_MARKER
 export function filter<T, S extends T>(
 	predicate: (value: T) => value is S,
-  data: T[],
+  list: T[],
 ): S[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
-  data: T[],
+  list: T[],
 ): T[];
 export function filter<T, S extends T>(
   predicate: (value: T) => value is S,
-): (data: T[]) => S[];
+): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (data: T[]) => T[];
+): (list: T[]) => NonNullable<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
-): (data: T[]) => T[];
+): (list: T[]) => T[];
 
 /*
 Method: find
